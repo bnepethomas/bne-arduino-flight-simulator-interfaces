@@ -1,1 +1,1 @@
-This is a copy of OverPros Stepper Prject Found on the Eagle Dynamics Forum
+This sktch and hex file are copies of OverPros Stepper Prject Found on the Eagle Dynamics Forum
