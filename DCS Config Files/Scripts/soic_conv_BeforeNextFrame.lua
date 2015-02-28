@@ -256,6 +256,14 @@
 	-- Clock_Digits_Packet = Clock_Digits_Packet .. ":" .. CurrentTime .. ":"  	-- .. MissionStartTime .. ":" ..  ModelTime
 	
 	Clock_Digits_socket.try(Clock_Digits_con:send(Clock_Digits_Packet))	
-	
+	-- Acceleration - G-Force
 	General_Stepper_Packet = "S:" .. math.floor(((soic_conv_mp:get_argument_value(15) * 15) * 520))
+	-- Angle of Attach
+	General_Stepper_Packet = General_Stepper_Packet .. ":" .. (math.floor(soic_conv_mp:get_argument_value(4) * 3100) +110)
+	-- Ox Supply Pressure 280 Zero point
+	General_Stepper_Packet = General_Stepper_Packet .. ":" .. math.floor(570 + (soic_conv_mp:get_argument_value(604) * 2200))
+	-- LOX Liters 230 Zero point
+	General_Stepper_Packet = General_Stepper_Packet .. ":" .. math.floor(230 + soic_conv_mp:get_argument_value(274) * 10 * 436)
+	-- Cabin Pressure 100 zero point
+	General_Stepper_Packet = General_Stepper_Packet .. ":" .. math.floor(230 + soic_conv_mp:get_argument_value(281) * 2900)
 	General_Stepper_socket.try(General_Stepper_con:send(General_Stepper_Packet))	

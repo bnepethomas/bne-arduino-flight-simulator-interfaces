@@ -87,7 +87,7 @@ void setup()
 	udp.begin( localport );
 
 	Serial.begin(115200);  
-        Serial.println("General_Stepper_20150228a");
+        Serial.println("General_Stepper_20150228c");
 
 	for( int i = 22; i <= 42; i++)
 	{
@@ -270,12 +270,12 @@ Maximum Airspeed Pointer
 
 */
 
-double Left_Hyd_Position = 0, Acceleration_Position = 0, Right_Hyd_Position = 0, Right_Fuel_Position = 0,
-	EMI_FFlowRight_Position = 0, EMI_FFlowLeft_Position = 0, EMI_CoreSpdRightPosition = 0, EMI_CoreSpdLeftPosition = 0,
+double Left_Hyd_Position = 0, Acceleration_Position = 0, AOA_Position = 0, Right_Fuel_Position = 0,
+	Cable_Pressure_Position = 0, LOX_Position = 0, Ox_Supply_Pressure_Position = 0, EMI_CoreSpdLeftPosition = 0,
 	EMI_FanSpdRight_Position = 0, EMI_FanSpdLeft_Position = 0, EMI_ITTRight_Position = 0, EMI_ITTLeft_Position = 0;
 
-double target_Left_Hyd_Position, target_Acceleration_Position, target_Right_Hyd_Position, target_Right_Fuel_Position,
-	target_FFlowRight_Position, target_FFlowLeft_Position, target_CoreSpdRight_Position, target_CoreSpdLeft_Position,
+double target_Left_Hyd_Position, target_Acceleration_Position, target_AOA_Position, target_Right_Fuel_Position,
+	target_Cable_Pressure_Position, target_LOX_Position, target_Ox_Supply_Pressure_Position, target_CoreSpdLeft_Position,
 	target_FanSpdRight_Position, target_FanSpdLeft_Position, target_ITTRight_Position, target_ITTLeft_Position;
 void GotoZero()
 {
@@ -578,15 +578,23 @@ void loop()
                                             
 
                         
-			target_Acceleration_Position =  EMINumbers[0];		
-                        // if (target_Acceleration_Position > 2040)  target_Acceleration_Position = 2040;  // Stop over rotating
+			target_Acceleration_Position =  EMINumbers[0];	
+	
                         target_Right_Fuel_Position =  EMINumbers[1];	
-                        if (target_Right_Fuel_Position > 2040)  target_Right_Fuel_Position = 2040;  // Stop over rotating
-                        
-			target_Right_Fuel_Position =  EMINumbers[1];
-                        target_Left_Hyd_Position = EMINumbers[2];		
-                        target_Right_Hyd_Position =  EMINumbers[3];;			
-
+                        target_Left_Hyd_Position = EMINumbers[2];
+                        		
+                        target_AOA_Position =  EMINumbers[1];	
+                        target_Cable_Pressure_Position = EMINumbers[4];
+                        target_LOX_Position = EMINumbers[3];
+                        target_Ox_Supply_Pressure_Position = EMINumbers[2];
+                        Serial.print ("AOA-");
+                        Serial.println(	target_AOA_Position);
+                        Serial.print("Cabin Pressure-");
+                        Serial.println(	target_Cable_Pressure_Position);
+                        Serial.print("LOX Liters-");
+                        Serial.println(target_LOX_Position);
+                        Serial.print("Ox Pressure-");
+                        Serial.println(target_Ox_Supply_Pressure_Position);
 		}
 		
 	}
@@ -615,6 +623,8 @@ void loop()
 		Acceleration_Position--;
 	}
 
+
+        // Second Port needs cleaning up, accidentally dup during search and replace
 	if ( target_Acceleration_Position > Acceleration_Position )
 	{
 
@@ -631,15 +641,15 @@ void loop()
                 ValueHasChanged = true;
 	}
 
-	if ( target_Right_Hyd_Position > Right_Hyd_Position)
+	if ( target_AOA_Position > AOA_Position)
 	{
 		cmdGroup1[1] |= B00001100;
-		Right_Hyd_Position++;
+		AOA_Position++;
 	}
-	else if ( target_Right_Hyd_Position < Right_Hyd_Position)
+	else if ( target_AOA_Position < AOA_Position)
 	{
 		cmdGroup1[1] |= B00000100;
-		Right_Hyd_Position --;
+		AOA_Position --;
 	}
 
 	if ( target_Right_Fuel_Position > Right_Fuel_Position )
@@ -667,37 +677,37 @@ void loop()
 
 	//build cmdGroup2
 	cmdGroup2[1] = B00000000;
-	if ( target_FFlowRight_Position > EMI_FFlowRight_Position )
+	if ( target_Cable_Pressure_Position > Cable_Pressure_Position )
 	{
 		cmdGroup2[1] |= B11000000;
-		EMI_FFlowRight_Position++;
+		Cable_Pressure_Position++;
 	}
-	else if ( target_FFlowRight_Position < EMI_FFlowRight_Position )
+	else if ( target_Cable_Pressure_Position < Cable_Pressure_Position )
 	{
 		cmdGroup2[1] |= B01000000;
-		EMI_FFlowRight_Position--;
+		Cable_Pressure_Position--;
 	}
 
-	if ( target_FFlowLeft_Position > EMI_FFlowLeft_Position )
+	if ( target_LOX_Position > LOX_Position )
 	{
 		cmdGroup2[1] |= B00110000;
-		EMI_FFlowLeft_Position++;
+		LOX_Position++;
 	}
-	else if ( target_FFlowLeft_Position < EMI_FFlowLeft_Position )
+	else if ( target_LOX_Position < LOX_Position )
 	{
 		cmdGroup2[1] |= B00010000;
-		EMI_FFlowLeft_Position--;
+		LOX_Position--;
 	}
 
-	if ( target_CoreSpdRight_Position > EMI_CoreSpdRightPosition )
+	if ( target_Ox_Supply_Pressure_Position > Ox_Supply_Pressure_Position )
 	{
 		cmdGroup2[1] |= B00001100;
-		EMI_CoreSpdRightPosition++;
+		Ox_Supply_Pressure_Position++;
 	}
-	else if ( target_CoreSpdRight_Position < EMI_CoreSpdRightPosition )
+	else if ( target_Ox_Supply_Pressure_Position < Ox_Supply_Pressure_Position )
 	{
 		cmdGroup2[1] |= B00000100;
-		EMI_CoreSpdRightPosition--;
+		Ox_Supply_Pressure_Position--;
 	}
 
 	if ( target_CoreSpdLeft_Position > EMI_CoreSpdLeftPosition )
