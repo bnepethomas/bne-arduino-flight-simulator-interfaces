@@ -85,7 +85,8 @@ void setup()
         Ethernet.begin( mac, ip);
 	udp.begin( localport );
 
-	Serial.begin(115200);    
+	Serial.begin(115200);  
+        Serial.println("Fuel_Stepper_20150228a");
 
 	for( int i = 22; i <= 42; i++)
 	{
