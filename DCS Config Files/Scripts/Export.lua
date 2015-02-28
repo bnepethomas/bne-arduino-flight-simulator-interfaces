@@ -1033,6 +1033,13 @@ function LuaExportStop()
 	-- 20150221c Added shutdown for Compass
 	Compass_Packet = "S0:0"
 	Compass_socket.try(Compass_con:send(Compass_Packet))	
+
+	-- 20150228 Added Shutdown for Clock Digits
+	Clock_Digits_Packet = "S0:0"
+	Clock_Digits_socket.try(Clock_Digits_con:send(Clock_Digits_Packet))
 	
+	-- 20150228 Added Shutdown for general gauges	
+	General_Stepper_Packet = "S3120:0"
+	General_Stepper_socket.try(General_Stepper_con:send(General_Stepper_Packet))		
 	
 end

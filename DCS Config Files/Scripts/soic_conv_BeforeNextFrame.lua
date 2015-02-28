@@ -256,3 +256,6 @@
 	-- Clock_Digits_Packet = Clock_Digits_Packet .. ":" .. CurrentTime .. ":"  	-- .. MissionStartTime .. ":" ..  ModelTime
 	
 	Clock_Digits_socket.try(Clock_Digits_con:send(Clock_Digits_Packet))	
+	
+	General_Stepper_Packet = "S:" .. math.floor(((soic_conv_mp:get_argument_value(15) * 15) * 520))
+	General_Stepper_socket.try(General_Stepper_con:send(General_Stepper_Packet))	

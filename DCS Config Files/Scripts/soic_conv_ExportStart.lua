@@ -38,3 +38,10 @@
 	Clock_Digits_con = socket.try(Clock_Digits_socket.udp())
 	Clock_Digits_socket.try(Clock_Digits_con:settimeout(.001))
 	Clock_Digits_socket.try(Clock_Digits_con:setpeername(Clock_Digits_Host,Clock_Digits_Port))	
+	
+	General_Stepper_Port = 13135
+	General_Stepper_Host = "192.168.1.109"
+	General_Stepper_socket = require("socket")
+	General_Stepper_con = socket.try(General_Stepper_socket.udp())
+	General_Stepper_socket.try(General_Stepper_con:settimeout(.001))
+	General_Stepper_socket.try(General_Stepper_con:setpeername(General_Stepper_Host,General_Stepper_Port))	

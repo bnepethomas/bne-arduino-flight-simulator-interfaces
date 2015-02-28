@@ -71,7 +71,7 @@ char packetBuffer[200]; //buffer to store the incoming data
 const int MaxSteps = 3780;
 const int DelayBetweenSteps = 250;
 
-const int StartUpDelayBetweenSteps = 20;            // Time between different cycles on startup
+const int StartUpDelayBetweenSteps = 1;            // Time between different cycles on startup
 const int MaxFuelPosition = 157;                     // Maximum number of degrees movement for both fuel gauges
 const int StepsPerDegree = 12;                       // Number of steps per degree, normally 12 for Vid29 series of steppers
 
@@ -270,11 +270,11 @@ Maximum Airspeed Pointer
 
 */
 
-double Left_Hyd_Position = 0, Left_Fuel_Position = 0, Right_Hyd_Position = 0, Right_Fuel_Position = 0,
+double Left_Hyd_Position = 0, Acceleration_Position = 0, Right_Hyd_Position = 0, Right_Fuel_Position = 0,
 	EMI_FFlowRight_Position = 0, EMI_FFlowLeft_Position = 0, EMI_CoreSpdRightPosition = 0, EMI_CoreSpdLeftPosition = 0,
 	EMI_FanSpdRight_Position = 0, EMI_FanSpdLeft_Position = 0, EMI_ITTRight_Position = 0, EMI_ITTLeft_Position = 0;
 
-double target_Left_Hyd_Position, target_Left_Fuel_Position, target_Right_Hyd_Position, target_Right_Fuel_Position,
+double target_Left_Hyd_Position, target_Acceleration_Position, target_Right_Hyd_Position, target_Right_Fuel_Position,
 	target_FFlowRight_Position, target_FFlowLeft_Position, target_CoreSpdRight_Position, target_CoreSpdLeft_Position,
 	target_FanSpdRight_Position, target_FanSpdLeft_Position, target_ITTRight_Position, target_ITTLeft_Position;
 void GotoZero()
@@ -578,8 +578,8 @@ void loop()
                                             
 
                         
-			target_Left_Fuel_Position =  EMINumbers[0];		
-                        if (target_Left_Fuel_Position > 2040)  target_Left_Fuel_Position = 2040;  // Stop over rotating
+			target_Acceleration_Position =  EMINumbers[0];		
+                        // if (target_Acceleration_Position > 2040)  target_Acceleration_Position = 2040;  // Stop over rotating
                         target_Right_Fuel_Position =  EMINumbers[1];	
                         if (target_Right_Fuel_Position > 2040)  target_Right_Fuel_Position = 2040;  // Stop over rotating
                         
@@ -604,30 +604,30 @@ void loop()
 	boolean ValueHasChanged = false;
 
 	cmdGroup1[1] = B00000000;
-	if (target_Left_Hyd_Position > Left_Hyd_Position)
+	if (target_Acceleration_Position > Acceleration_Position)
 	{
 		cmdGroup1[1] |= B11000000;
-		Left_Hyd_Position++;
+		Acceleration_Position++;
 	}
-	else if ( target_Left_Hyd_Position < Left_Hyd_Position)
+	else if ( target_Acceleration_Position < Acceleration_Position)
 	{
 		cmdGroup1[1] |= B01000000;
-		Left_Hyd_Position--;
+		Acceleration_Position--;
 	}
 
-	if ( target_Left_Fuel_Position > Left_Fuel_Position )
+	if ( target_Acceleration_Position > Acceleration_Position )
 	{
 
                 cmdGroup1[1] |= B00110000;
-		Left_Fuel_Position ++;
+		Acceleration_Position ++;
                 ValueHasChanged = true;
 
 	}
-	else if ( target_Left_Fuel_Position < Left_Fuel_Position )
+	else if ( target_Acceleration_Position < Acceleration_Position )
 	{
 
                 cmdGroup1[1] |= B00010000;
-		Left_Fuel_Position --;
+		Acceleration_Position --;
                 ValueHasChanged = true;
 	}
 
