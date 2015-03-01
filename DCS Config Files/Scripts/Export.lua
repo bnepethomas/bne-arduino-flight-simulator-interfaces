@@ -1040,7 +1040,7 @@ function LuaExportStop()
 	
 	
 	-- 20150228 Added Shutdown for general gauges	
-	General_Stepper_Packet = "S3120:110:570:230:100"
+	General_Stepper_Packet = "S3120:110:280:230:100"
 	General_Stepper_socket.try(General_Stepper_con:send(General_Stepper_Packet))		
 	
 end

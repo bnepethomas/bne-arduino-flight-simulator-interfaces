@@ -76,6 +76,7 @@ void setup()
 	udp.begin( localport );
 
 Serial.begin(115200); 
+Serial.println("UDP Multi OLED 20150301a");
   
   initialiseOutPutPins();
   
