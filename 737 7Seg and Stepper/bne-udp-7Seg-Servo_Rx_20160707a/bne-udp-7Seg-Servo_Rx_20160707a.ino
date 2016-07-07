@@ -1,6 +1,6 @@
 // Have encoder Tx working, RX UDP packet with no process, and display lit
 // Need to now parse info to get and display value.
-// Update 7 July
+
 
 #define filename "bne-udp-7Seg-Servo-Rx-20160507c"
 
