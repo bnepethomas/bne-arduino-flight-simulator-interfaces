@@ -1,8 +1,10 @@
+#include <LedControl.h>
+
 // Have encoder Tx working, RX UDP packet with no process, and display lit
 // Need to now parse info to get and display value.
 
 
-#define filename "bne-udp-7Seg-Servo-Rx-20160507c"
+#define filename "bne-udp-7Seg-Servo-Rx-20160707a"
 
 #include <SPI.h>
 #include <Ethernet.h>
