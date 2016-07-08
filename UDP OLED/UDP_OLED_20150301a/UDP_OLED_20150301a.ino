@@ -7,7 +7,11 @@
 //***************************************//
 
 #include <Wire.h>          // *** I2C Mode 
-#include <LCDI2C4Bit.h>
+//  Board  I2C / TWI pins
+//  Uno, Ethernet A4 (SDA), A5 (SCL)
+//  Mega2560  20 (SDA), 21 (SCL)
+//  Leonardo  2 (SDA), 3 (SCL)
+//  Due 20 (SDA), 21 (SCL), SDA1, SCL1
 #include <SPI.h>
 #include <Ethernet.h>
 #include <EthernetUdp.h>
@@ -22,13 +26,7 @@ char packetBuffer[200]; //buffer to store the incoming data
 
 
 
-// lcd
-int ADDR = 0xA7;
-byte x = 0;
-byte data = 1;
-byte c;
 
-// lcd
 
 #define OLED_Address 0x3c
 #define OLED_Command_Mode 0x80
