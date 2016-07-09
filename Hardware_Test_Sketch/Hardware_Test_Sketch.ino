@@ -10,14 +10,16 @@
  pin 11 is connected to the CLK 
  pin 10 is connected to LOAD 
  We have only a single MAX72XX.
- LedControl lc=LedControl(6,5,4,1);
+
+ LedControl lc=LedControl(12,11,10,1);
  */
 LedControl lc=LedControl(6,5,4,4);
+LedControl lc_2=LedControl(8,10,9,1);
 
 /* we always wait a bit between updates of the display */
 unsigned long delaytime=250;
 
-
+unsigned long sdelaytime=50;
 
 #define filename "bne-udp-7Seg-Servo-Rx-20160707a"
 
@@ -43,8 +45,8 @@ char receivePacketBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming
 #include <TM1637Display.h>
 
 // Module connection pins (Digital Pins)
-#define CLK 8
-#define DIO 9
+#define CLK 2
+#define DIO 3
 
 
 TM1637Display display(CLK, DIO);
@@ -96,9 +98,7 @@ int FLT_ALT_STORE = 0;
 #define minLinePtr 1
 #define maxLinePtr 2
 
-// Map Output Pins to OLED Displays
-int oled1 = 2;                  // First usable output pin is D2 so all pins are incremented by 2 
-int oled2 = 3;
+
 
 
 char byteIn = 0;
@@ -136,6 +136,12 @@ void setup() {
     lc.setIntensity(3,8);
     /* and clear the display */
     lc.clearDisplay(3);
+
+    lc_2.shutdown(0,false);
+    /* Set the brightness to a medium values */
+    lc_2.setIntensity(0,8);
+    /* and clear the display */
+    lc_2.clearDisplay(0);
 
     digitalWrite(apuPin, HIGH);
     
@@ -193,7 +199,6 @@ void setup() {
     Serial.println("Relay Initialised");
 
 
-initialiseOutPutPins();
   
   Wire.begin();          // Start the I2C bus
   
@@ -341,17 +346,71 @@ void scrollDigits() {
   delay(delaytime);
 }
 
-
-void initialiseOutPutPins() {
-  pinMode(oled1,OUTPUT);
-  pinMode(oled2,OUTPUT);
-
-
-  digitalWrite(oled1, HIGH);
-  digitalWrite(oled2, HIGH);
-
-
+/*
+  This function lights up a some Leds in a row.
+ The pattern will be repeated on every row.
+ The pattern will blink along with the row-number.
+ row number 4 (index==3) will blink 4 times etc.
+ */
+void rows() {
+  for(int row=0;row<8;row++) {
+    delay(sdelaytime);
+    lc_2.setRow(0,row,B10100000);
+    delay(sdelaytime);
+    lc_2.setRow(0,row,(byte)0);
+    for(int i=0;i<row;i++) {
+      delay(sdelaytime);
+      lc_2.setRow(0,row,B10100000);
+      delay(sdelaytime);
+      lc_2.setRow(0,row,(byte)0);
+    }
+  }
 }
+
+/*
+  This function lights up a some Leds in a column.
+ The pattern will be repeated on every column.
+ The pattern will blink along with the column-number.
+ column number 4 (index==3) will blink 4 times etc.
+ */
+void columns() {
+  for(int col=0;col<8;col++) {
+    delay(sdelaytime);
+    lc_2.setColumn(0,col,B10100000);
+    delay(sdelaytime);
+    lc_2.setColumn(0,col,(byte)0);
+    for(int i=0;i<col;i++) {
+      delay(sdelaytime);
+      lc_2.setColumn(0,col,B10100000);
+      delay(sdelaytime);
+      lc_2.setColumn(0,col,(byte)0);
+    }
+  }
+}
+
+/* 
+ This function will light up every Led on the matrix.
+ The led will blink along with the row-number.
+ row number 4 (index==3) will blink 4 times etc.
+ */
+void single() {
+  for(int row=0;row<8;row++) {
+    for(int col=0;col<8;col++) {
+      delay(delaytime);
+      lc_2.setLed(0,row,col,true);
+      delay(delaytime);
+      for(int i=0;i<col;i++) {
+        lc_2.setLed(0,row,col,false);
+        delay(delaytime);
+        lc_2.setLed(0,row,col,true);
+        delay(delaytime);
+      }
+    }
+  }
+}
+
+
+
 
 void sendData(unsigned char data)
 {
@@ -384,6 +443,8 @@ void send_string(const char *String)
 
 void loop() {
 
+
+
   String testString;
   testString  = String(loopcounter);
   testString = testString + " Helloworld";
@@ -391,6 +452,9 @@ void loop() {
   sendCommand(0xC0);
   send_string(packetBuffer);
 
+
+  rows();
+  columns();
 
   for(int k = 0; k < 1000; k += 1) {
     display.showNumberDec(k, 0);
@@ -400,6 +464,9 @@ void loop() {
   
   writeArduinoOn7Segment();
   scrollDigits();
+
+
+  
   loopcounter = loopcounter + 1;
   
 
