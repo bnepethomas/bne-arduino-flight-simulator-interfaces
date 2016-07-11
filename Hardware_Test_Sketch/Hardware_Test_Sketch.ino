@@ -13,7 +13,7 @@
 
  LedControl lc=LedControl(12,11,10,1);
  */
-LedControl lc=LedControl(6,5,4,4);
+LedControl lc=LedControl(4,6,5,4);
 LedControl lc_2=LedControl(8,10,9,1);
 
 /* we always wait a bit between updates of the display */
@@ -61,6 +61,7 @@ Servo starterOneServo;
 Servo starterTwoServo;
 
 #define apuPin 7
+#define spareRelayPin 11
 
 boolean APU_Starting = 0;
 boolean APU_Stopping = 0;
@@ -144,12 +145,13 @@ void setup() {
     lc_2.clearDisplay(0);
 
     digitalWrite(apuPin, HIGH);
+    digitalWrite(spareRelayPin, HIGH);
     
     Serial.begin(115200); 
     Serial.println(filename);
     
     pinMode(apuPin, OUTPUT);
-   
+    pinMode(spareRelayPin, OUTPUT);
   
 
 
@@ -195,6 +197,11 @@ void setup() {
     digitalWrite(apuPin, LOW);
     delay(1000);
     digitalWrite(apuPin, HIGH);
+
+    digitalWrite(spareRelayPin, LOW);
+    delay(1000);
+    digitalWrite(spareRelayPin, HIGH);
+
 
     Serial.println("Relay Initialised");
 
