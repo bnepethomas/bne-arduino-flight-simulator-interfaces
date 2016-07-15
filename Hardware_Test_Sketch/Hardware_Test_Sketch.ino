@@ -403,14 +403,14 @@ void columns() {
 void single() {
   for(int row=0;row<8;row++) {
     for(int col=0;col<8;col++) {
-      delay(delaytime);
+      delay(sdelaytime);
       lc_2.setLed(0,row,col,true);
-      delay(delaytime);
+      delay(sdelaytime);
       for(int i=0;i<col;i++) {
         lc_2.setLed(0,row,col,false);
-        delay(delaytime);
+        delay(sdelaytime);
         lc_2.setLed(0,row,col,true);
-        delay(delaytime);
+        delay(sdelaytime);
       }
     }
   }
@@ -471,6 +471,7 @@ void loop() {
   
   writeArduinoOn7Segment();
   scrollDigits();
+  single();
 
 
   
