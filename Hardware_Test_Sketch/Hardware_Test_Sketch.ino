@@ -21,7 +21,7 @@ unsigned long delaytime=250;
 
 unsigned long sdelaytime=50;
 
-#define filename "bne-udp-7Seg-Servo-Rx-20160707a"
+#define filename "Hardware_Test_Sketch_20160716b"
 
 #include <SPI.h>
 #include <Ethernet.h>
@@ -403,15 +403,17 @@ void columns() {
 void single() {
   for(int row=0;row<8;row++) {
     for(int col=0;col<8;col++) {
+      Serial.println("new Row Col " + String(row) + " " +  String(col) + " Position:" + String( row * 8 +  col));
       delay(sdelaytime);
       lc_2.setLed(0,row,col,true);
       delay(sdelaytime);
-      for(int i=0;i<col;i++) {
+      for(int i=0;i<8;i++) {
         lc_2.setLed(0,row,col,false);
         delay(sdelaytime);
         lc_2.setLed(0,row,col,true);
         delay(sdelaytime);
       }
+      lc_2.setLed(0,row,col,false);
     }
   }
 }
@@ -460,6 +462,7 @@ void loop() {
   send_string(packetBuffer);
 
 
+
   rows();
   columns();
 
@@ -471,6 +474,8 @@ void loop() {
   
   writeArduinoOn7Segment();
   scrollDigits();
+
+  
   single();
 
 
