@@ -162,7 +162,8 @@ namespace ProSimSplitter
         {
 
             Boolean ldebugging = false;
-            
+
+            if (ldebugging) Console.WriteLine("Start ProcessStream");
             if (ldebugging) Console.WriteLine("Processing Stream {0}", StringToBeProcessed);
 
             char[] delimiterChars = { ' ', ',', '.', ':', '\r' };
@@ -185,7 +186,7 @@ namespace ProSimSplitter
                 }
 
                 first = s.IndexOf("LAND_ALT");
-                Console.WriteLine(first);
+                //Console.WriteLine(first);
                 if (first >= 0)
                 {
                     Console.WriteLine("Hey found LAND_ALT");
@@ -193,7 +194,7 @@ namespace ProSimSplitter
                 }
 
                 first = s.IndexOf("STARTER_1_SOLENOID");
-                Console.WriteLine(first);
+                //Console.WriteLine(first);
                 if (first >= 0)
                 {
                     Console.WriteLine("Hey found STARTER_1_SOLENOID");
@@ -201,7 +202,7 @@ namespace ProSimSplitter
                 }
 
                 first = s.IndexOf("STARTER_2_SOLENOID");
-                Console.WriteLine(first);
+                //Console.WriteLine(first);
                 if (first >= 0)
                 {
                     Console.WriteLine("Hey found STARTER_2_SOLENOID");
@@ -210,7 +211,7 @@ namespace ProSimSplitter
 
                 
                 first = s.IndexOf("APU_STARTING");
-                Console.WriteLine(first);
+                //Console.WriteLine(first);
                 if (first >= 0)
                 {
                     Console.WriteLine("Hey found APU_STARTING");
@@ -219,7 +220,7 @@ namespace ProSimSplitter
 
 
                 first = s.IndexOf("APU_STOPPING");
-                Console.WriteLine(first);
+                //Console.WriteLine(first);
                 if (first >= 0)
                 {
                     Console.WriteLine("APU_STOPPING");
@@ -227,7 +228,7 @@ namespace ProSimSplitter
                 }
 
                 first = s.IndexOf("AC_POWER");
-                Console.WriteLine(first);
+                //Console.WriteLine(first);
                 if (first >= 0)
                 {
                     Console.WriteLine("AC_POWER");
@@ -235,21 +236,40 @@ namespace ProSimSplitter
                 }
 
                 first = s.IndexOf("DC_POWER");
-                Console.WriteLine(first);
+                //Console.WriteLine(first);
                 if (first >= 0)
                 {
                     Console.WriteLine("DC_POWER");
                     SendToArduino(s);
                 }
 
+                // Begin IRS Indicators
+
+                first = s.IndexOf("I_OH_IRS_ALIGN_L");
+                //Console.WriteLine(first);
+                if (first >= 0)
+                {
+                    Console.WriteLine("Hey found I_OH_IRS_ALIGN_L");
+                    SendToArduino(s);
+                }
+
+                first = s.IndexOf("I_OH_IRS_ONDC_L");
+                //Console.WriteLine(first);
+                if (first >= 0)
+                {
+                    Console.WriteLine("Hey found I_OH_IRS_ONDC_L");
+                    SendToArduino(s);
+                }
+
 
             }
+            if (ldebugging) Console.WriteLine("End ProcessStream");
         }
 
         static void SendToArduino(String UpdatedDisplayValue)
         {
 
-            Boolean ldebugging = true;
+            Boolean ldebugging = false;
             if (ldebugging) Console.Write("Starting Send :");
             if (ldebugging) Console.WriteLine(UpdatedDisplayValue);
             byte[] send_buffer = Encoding.ASCII.GetBytes(UpdatedDisplayValue);
