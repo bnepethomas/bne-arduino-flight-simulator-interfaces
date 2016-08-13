@@ -1,0 +1,19 @@
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\bin\Debug\EncoderUDPTester.exe
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\bin\Debug\EncoderUDPTester.pdb
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.Form1.resources
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.Properties.Resources.resources
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.csproj.GenerateResource.Cache
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.exe
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.pdb
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\bin\Debug\EncoderUDPTester.exe.manifest
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\bin\Debug\EncoderUDPTester.application
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\bin\Debug\EncoderUDPTester.exe
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\bin\Debug\EncoderUDPTester.pdb
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.csprojResolveAssemblyReference.cache
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.Form1.resources
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.Properties.Resources.resources
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.csproj.GenerateResource.Cache
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.exe.manifest
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.application
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.exe
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.pdb

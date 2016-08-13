@@ -1,0 +1,9 @@
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\ProSimSplitter\ProSimSplitter\bin\Release\ProSimSplitter.exe.config
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\ProSimSplitter\ProSimSplitter\bin\Release\ProSimSplitter.exe.manifest
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\ProSimSplitter\ProSimSplitter\bin\Release\ProSimSplitter.application
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\ProSimSplitter\ProSimSplitter\bin\Release\ProSimSplitter.exe
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\ProSimSplitter\ProSimSplitter\bin\Release\ProSimSplitter.pdb
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.exe.manifest
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.application
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.exe
+C:\Users\SIM15\Documents\Visual Studio 2010\Projects\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.pdb

@@ -1,0 +1,13 @@
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\bin\Release\EncoderUDPTester.exe.manifest
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\bin\Release\EncoderUDPTester.application
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\bin\Release\EncoderUDPTester.exe
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\bin\Release\EncoderUDPTester.pdb
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Release\EncoderUDPTester.Form1.resources
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Release\EncoderUDPTester.Properties.Resources.resources
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Release\EncoderUDPTester.csproj.GenerateResource.Cache
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Release\EncoderUDPTester.exe.manifest
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Release\EncoderUDPTester.application
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Release\EncoderUDPTester.exe
+C:\Users\SIM15\AppData\Local\Temporary Projects\EncoderUDPTester\obj\x86\Release\EncoderUDPTester.pdb
+C:\Users\SIM15\documents\visual studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Release\EncoderUDPTester.exe
+C:\Users\SIM15\documents\visual studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Release\EncoderUDPTester.pdb
