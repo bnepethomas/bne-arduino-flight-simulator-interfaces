@@ -24,6 +24,11 @@ using System.IO;
 //
 //      On initial TCP connection to Prosim all values are sent, after initial connect only deltas are sent.
 //
+//      Three types of values are used:
+//      1:  I - indicator either a 1 or 0
+//      2:  N - Number generally a float that can be positive or negative
+//      3:  B - Binary - used is systems such as overhead backlight
+//
 //      Values of Interest from Prosim
 //      FLT_ALT
 //      LAND_ALT
@@ -31,6 +36,120 @@ using System.IO;
 //      APU_START                       (May map this to a single vlaue APU_SOLENOID)
 //      ENGINE_1_PUSHBACK_SOLENOID     (Should fire at N2 56%) 
 //      ENGINE_2_PUSHBACK_SOLENOID     (Should fire at N2 56%) 
+
+
+//      *******************   Both Overheads ***********************
+
+//     "B_OVERHEAD_BACKLIGHT_MASTER = 0"
+//     "B_AC_POWER = 0"
+//     "B_DC_POWER = 0"
+//     "B_DOME_LIGHT_MASTER = 0" - Not initially used
+//     "B_LIGHT_TEST = 0" - Hopefully not needed as lights should be driven by indicator variable
+
+//      *******************   Aft Overhead ***********************
+
+//      Slats Panel
+//      "I_OH_LEDEVICES_EXT_FLAP1 = 0"
+//      "I_OH_LEDEVICES_EXT_FLAP2 = 0"
+//      "I_OH_LEDEVICES_EXT_FLAP3 = 0"
+//      "I_OH_LEDEVICES_EXT_FLAP4 = 0"
+//      "I_OH_LEDEVICES_TRANS_FLAP1 = 0"
+//      "I_OH_LEDEVICES_TRANS_FLAP2 = 0"
+//      "I_OH_LEDEVICES_TRANS_FLAP3 = 0"
+//      "I_OH_LEDEVICES_TRANS_FLAP4 = 0"
+//      "I_OH_LEDEVICES_EXT_SLAT1 = 0"
+//      "I_OH_LEDEVICES_EXT_SLAT2 = 0"
+//      "I_OH_LEDEVICES_EXT_SLAT3 = 0"
+//      "I_OH_LEDEVICES_EXT_SLAT4 = 0"
+//      "I_OH_LEDEVICES_EXT_SLAT5 = 0"
+//      "I_OH_LEDEVICES_EXT_SLAT6 = 0"
+//      "I_OH_LEDEVICES_EXT_SLAT7 = 0"
+//      "I_OH_LEDEVICES_EXT_SLAT8 = 0"
+//      "I_OH_LEDEVICES_FULLEXT_SLAT1 = 0"
+//      "I_OH_LEDEVICES_FULLEXT_SLAT2 = 0"
+//      "I_OH_LEDEVICES_FULLEXT_SLAT3 = 0"
+//      "I_OH_LEDEVICES_FULLEXT_SLAT4 = 0"
+//      "I_OH_LEDEVICES_FULLEXT_SLAT5 = 0"
+//      "I_OH_LEDEVICES_FULLEXT_SLAT6 = 0"
+//      "I_OH_LEDEVICES_FULLEXT_SLAT7 = 0"
+//      "I_OH_LEDEVICES_FULLEXT_SLAT8 = 0"
+//      "I_OH_LEDEVICES_TRANS_SLAT1 = 0"
+//      "I_OH_LEDEVICES_TRANS_SLAT2 = 0"
+//      "I_OH_LEDEVICES_TRANS_SLAT3 = 0"
+//      "I_OH_LEDEVICES_TRANS_SLAT4 = 0"
+//      "I_OH_LEDEVICES_TRANS_SLAT5 = 0"
+//      "I_OH_LEDEVICES_TRANS_SLAT6 = 0"
+//      "I_OH_LEDEVICES_TRANS_SLAT7 = 0"
+//      "I_OH_LEDEVICES_TRANS_SLAT8 = 0"
+
+//      Lower Aft Overhead Frame
+//      "I_OH_PSEU = 0"
+//      "I_OH_GEAR_LEFT_DOWN = 0"
+//      "I_OH_GEAR_NOSE_DOWN = 0"
+//      "I_OH_GEAR_RIGHT_DOWN = 0"
+
+
+
+//      IRS Display and keypad
+//      "I_OH_IRS_CLR_KEY = 0" - No Leds in the spot
+//      "I_OH_IRS_ENT_KEY = 0" - No Leds in the spot
+//      "I_OH_IRS_DOT1 = 0"
+//      "I_OH_IRS_DOT2 = 0"
+//      "I_OH_IRS_DOT3 = 0"
+//      "I_OH_IRS_DOT4 = 0"
+//      "I_OH_IRS_DOT5 = 0"
+//      "I_OH_IRS_DOT6 = 0"
+//      "N_IRS_DISP_LEFT = 37046"
+//      "N_IRS_DISP_RIGHT = -76225"
+//      "N_IRS_DISP_LEFT = 0"
+//      "N_IRS_DISP_RIGHT = 0"
+
+//      IRS System
+//      "I_OH_IRS_ALIGN_L = 0"
+//      "I_OH_IRS_DCFAIL_L = 0"
+//      "I_OH_IRS_FAULT_L = 0"
+//      "I_OH_IRS_ONDC_L = 0"
+//      "I_OH_IRS_ALIGN_R = 0"
+//      "I_OH_IRS_DCFAIL_R = 0"
+//      "I_OH_IRS_FAULT_R = 0"
+//      "I_OH_IRS_ONDC_R = 0"
+//      "I_OH_GPS = 0"
+
+//      Engine Control
+//      "I_OH_EEC_ALTN1 = 0" - No Leds in the spot
+//      "I_OH_EEC_ALTN2 = 0" - No Leds in the spot
+//      "I_OH_EEC1 = 0" - No Leds in the spot
+//      "I_OH_EEC2 = 0" - No Leds in the spot
+//      "I_OH_ENGINE_CONTROL1 = 0"
+//      "I_OH_ENGINE_CONTROL2 = 0"
+//      "I_OH_REVERSER1 = 0"
+//      "I_OH_REVERSER2 = 0"
+
+
+
+
+//      *******************   Fwd Overhead ***********************
+
+//      Starter 1
+//      Starter 2
+//      Flight Altitude
+//      Landing Altitude
+//      "N_OH_FLIGHT_ALT = 0"
+//      "N_OH_LAND_ALT = 100"
+//      "B_PRESSURISATION_DASHED = 0"
+//      "B_PRESSURISATION_DISPLAY_POWER = 0"
+
+
+//      "B_STARTER_PB_SOLENOID_1 = 0"
+//      "B_STARTER_SOLENOID_1 = 0"
+//      "B_STARTER_PB_SOLENOID_2 = 0"
+//      "B_STARTER_SOLENOID_2 = 0"
+
+//      *********************  MIP  *****************************
+
+//      "B_STICKSHAKER = 0" - not currently used
+//      "B_STICKSHAKER_FO = 0" - not currently used
+//      "I_MIP_GPWS_INOP = 0" - not currently used
 //
 //
 //      Values Received from Arduino - currently not used, just using joystick interface
@@ -283,6 +402,5 @@ namespace ProSimSplitter
 
         }
     }
-
  
 }
