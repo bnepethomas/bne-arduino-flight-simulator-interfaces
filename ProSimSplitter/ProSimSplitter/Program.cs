@@ -22,6 +22,8 @@ using System.IO;
 //      -----------------------------------------------------------------------------------------------
 //
 //
+//      On initial TCP connection to Prosim all values are sent, after initial connect only deltas are sent.
+//
 //      Values of Interest from Prosim
 //      FLT_ALT
 //      LAND_ALT
@@ -31,7 +33,7 @@ using System.IO;
 //      ENGINE_2_PUSHBACK_SOLENOID     (Should fire at N2 56%) 
 //
 //
-//      Values Received from Arduino
+//      Values Received from Arduino - currently not used, just using joystick interface
 //      FLT_ALT_INCREMENT               Sends IN_FLT_ALT=1
 //      FLT_ALT_DECREMENT               Sends IN_FLT_ALT=-1
 //      LAND_ALT_INCREMENT              Send IN_LAND_ALT=1
@@ -117,6 +119,7 @@ namespace ProSimSplitter
             while (true) {
                 responseData = reader.ReadLine();
                 ProcessStream(responseData);
+                
                 Console.WriteLine("Async Read Received \"" + responseData + "\"");
                 
             }
