@@ -301,6 +301,7 @@ void writeArduinoOn7Segment() {
   lc.setRow(0,0,0x1D);
   delay(delaytime);
   lc.clearDisplay(0);
+  lc.clearDisplay(1);
   delay(delaytime);
 } 
 
@@ -369,6 +370,7 @@ void scrollDigits() {
     delay(delaytime);
   }
   lc.clearDisplay(0);
+  lc.clearDisplay(1);
   delay(delaytime);
 }
 
@@ -540,33 +542,42 @@ void loop() {
   sendCommand(0xC0);
   send_string(packetBuffer);
 
-//
-//  Serial.println("rows");
-//  rows();
-//  Serial.println("columns");
-//  columns();
-//
-//  Serial.println("showNumberDec");
-//  for(int k = 0; k < 1000; k += 1) {
-//    display.showNumberDec(k, 0);
-//    delay(TEST_DELAY);
-//  }
-//
-//  Serial.println("writeArduinoOn7Segment");
-//  writeArduinoOn7Segment();
-//
-//  Serial.println("scrollDigits");
-//  scrollDigits();
+
+  Serial.println("rows");
+  rows();
+  Serial.println("columns");
+  columns();
+
+  Serial.println("showNumberDec");
+  for(int k = 0; k < 1000; k += 1) {
+    display.showNumberDec(k, 0);
+    delay(TEST_DELAY);
+  }
+
+  Serial.println("writeArduinoOn7Segment");
+  writeArduinoOn7Segment();
+
+  Serial.println("scrollDigits");
+  scrollDigits();
 
   Serial.println("writeStaticOn7Segment");
   writeStaticOn7Segment();
+  
+  Serial.println("Getting serious with 7 Seg");
 
+  for(int i=0;i<8;i++) {
+    lc.setDigit(0,i,i,false);
+    lc.setDigit(1,i,i,false);
+  }
+  lc.setDigit(0,4,8,false);
+  lc.setDigit(1,4,8,false);
   
   single();
 
 
   
   loopcounter = loopcounter + 1;
-  
+  lc.clearDisplay(0);
+  lc.clearDisplay(1);
 
 }
