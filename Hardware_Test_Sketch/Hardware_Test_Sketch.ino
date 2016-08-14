@@ -13,13 +13,13 @@
 
  LedControl lc=LedControl(12,11,10,1);
  */
-LedControl lc=LedControl(4,6,5,4);
-LedControl lc_2=LedControl(8,10,9,1);
+LedControl lc=LedControl(4,6,5,2);                      // Landing and Flight Displasy
+LedControl lc_2=LedControl(8,10,9,1);                   // Individual Leds and LE Devices
 
 /* we always wait a bit between updates of the display */
 unsigned long delaytime=250;
 
-unsigned long sdelaytime=150;
+unsigned long sdelaytime=20;
 
 #define filename "Hardware_Test_Sketch_20160716b"
 
@@ -304,6 +304,25 @@ void writeArduinoOn7Segment() {
   delay(delaytime);
 } 
 
+void writeStaticOn7Segment() {
+  lc.setChar(0,0,'a',false);
+  delay(delaytime);
+  lc.setRow(0,0,0x05);
+  delay(delaytime);
+  lc.setChar(0,0,'d',false);
+  delay(delaytime);
+  lc.setRow(0,0,0x1c);
+  delay(delaytime);
+  lc.setRow(0,0,B00010000);
+  delay(delaytime);
+  lc.setRow(0,0,0x15);
+  delay(delaytime);
+  lc.setRow(0,0,0x1D);
+  delay(delaytime);
+  lc.clearDisplay(0);
+  delay(delaytime);
+} 
+
 /*
   This method will scroll all the hexa-decimal
  numbers and letters on the display. You will need at least
@@ -514,26 +533,33 @@ void loop() {
 
 
 
-//  String testString;
-//  testString  = String(loopcounter);
-//  testString = testString + " Helloworld";
-//  testString.toCharArray(packetBuffer, 20);
-//  sendCommand(0xC0);
-//  send_string(packetBuffer);
+  String testString;
+  testString  = String(loopcounter);
+  testString = testString + " Helloworld";
+  testString.toCharArray(packetBuffer, 20);
+  sendCommand(0xC0);
+  send_string(packetBuffer);
 
-
-
+//
+//  Serial.println("rows");
 //  rows();
+//  Serial.println("columns");
 //  columns();
-
+//
+//  Serial.println("showNumberDec");
 //  for(int k = 0; k < 1000; k += 1) {
 //    display.showNumberDec(k, 0);
 //    delay(TEST_DELAY);
 //  }
 //
-//  
+//  Serial.println("writeArduinoOn7Segment");
 //  writeArduinoOn7Segment();
+//
+//  Serial.println("scrollDigits");
 //  scrollDigits();
+
+  Serial.println("writeStaticOn7Segment");
+  writeStaticOn7Segment();
 
   
   single();
