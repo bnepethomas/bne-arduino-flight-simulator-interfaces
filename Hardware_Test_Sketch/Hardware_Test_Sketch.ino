@@ -19,7 +19,7 @@ LedControl lc_2=LedControl(8,10,9,1);
 /* we always wait a bit between updates of the display */
 unsigned long delaytime=250;
 
-unsigned long sdelaytime=50;
+unsigned long sdelaytime=150;
 
 #define filename "Hardware_Test_Sketch_20160716b"
 
@@ -404,6 +404,7 @@ void single() {
   for(int row=0;row<8;row++) {
     for(int col=0;col<8;col++) {
       Serial.println("new Row Col " + String(row) + " " +  String(col) + " Position:" + String( row * 8 +  col));
+      PrintMapping(row * 8 +  col);
       delay(sdelaytime);
       lc_2.setLed(0,row,col,true);
       delay(sdelaytime);
@@ -450,30 +451,89 @@ void send_string(const char *String)
 
 }
 
+
+
+void PrintMapping (int ledPos)
+{
+  if (ledPos == 0) Serial.println( "I_OH_LEDEVICES_TRANS_FLAP3");
+  if (ledPos == 1) Serial.println( "I_OH_LEDEVICES_TRANS_FLAP4");
+  if (ledPos == 2) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT5");
+  if (ledPos == 3) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT6");
+  if (ledPos == 4) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT7");
+  if (ledPos == 5) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT8");
+  if (ledPos == 6) Serial.println( "I_OH_IRS_DCFAIL_L");
+  if (ledPos == 7) Serial.println( "I_OH_REVERSER1");
+  if (ledPos == 8) Serial.println( "I_OH_LEDEVICES_EXT_FLAP3");
+  if (ledPos == 9) Serial.println( "I_OH_LEDEVICES_EXT_FLAP4");
+  if (ledPos == 10) Serial.println( "I_OH_LEDEVICES_EXT_SLAT5");
+  if (ledPos == 11) Serial.println( "I_OH_LEDEVICES_EXT_SLAT6");
+  if (ledPos == 12) Serial.println( "I_OH_LEDEVICES_EXT_SLAT7");
+  if (ledPos == 13) Serial.println( "I_OH_LEDEVICES_EXT_SLAT8");
+  if (ledPos == 14) Serial.println( "I_OH_IRS_FAULT_L");
+  if (ledPos == 15) Serial.println( "I_OH_GEAR_NOSE_DOWN");
+  if (ledPos == 16) Serial.println( "I_OH_LEDEVICES_EXT_FLAP3");
+  if (ledPos == 17) Serial.println( "I_OH_LEDEVICES_EXT_FLAP4");
+  if (ledPos == 18) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT5");
+  if (ledPos == 19) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT6");
+  if (ledPos == 20) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT7");
+  if (ledPos == 21) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT8");
+  if (ledPos == 22) Serial.println( "I_OH_IRS_ONDC_R");
+  if (ledPos == 23) Serial.println( "I_OH_ENGINE_CONTROL2");
+  if (ledPos == 24) Serial.println( "I_OH_LEDEVICES_TRANS_FLAP2");
+  if (ledPos == 25) Serial.println( "I_OH_LEDEVICES_TRANS_FLAP1");
+  if (ledPos == 26) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT4");
+  if (ledPos == 27) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT3");
+  if (ledPos == 28) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT2");
+  if (ledPos == 29) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT1");
+  if (ledPos == 30) Serial.println( "I_OH_IRS_ALIGN_R");
+  if (ledPos == 31) Serial.println( "I_OH_ENGINE_CONTROL1");
+  if (ledPos == 32) Serial.println( "I_OH_LEDEVICES_EXT_FLAP2");
+  if (ledPos == 33) Serial.println( "I_OH_LEDEVICES_EXT_FLAP1");
+  if (ledPos == 34) Serial.println( "I_OH_LEDEVICES_EXT_SLAT4");
+  if (ledPos == 35) Serial.println( "I_OH_LEDEVICES_EXT_SLAT3");
+  if (ledPos == 36) Serial.println( "I_OH_LEDEVICES_EXT_SLAT2");
+  if (ledPos == 37) Serial.println( "I_OH_LEDEVICES_EXT_SLAT1");
+  if (ledPos == 38) Serial.println( "I_OH_IRS_ALIGN_L");
+  if (ledPos == 39) Serial.println( "I_OH_GEAR_LEFT_DOWN");
+  if (ledPos == 40) Serial.println( "I_OH_LEDEVICES_EXT_FLAP2");
+  if (ledPos == 41) Serial.println( "I_OH_LEDEVICES_EXT_FLAP1");
+  if (ledPos == 42) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT4");
+  if (ledPos == 43) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT3");
+  if (ledPos == 44) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT2");
+  if (ledPos == 45) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT1");
+  if (ledPos == 46) Serial.println( "I_OH_IRS_DCFAIL_R");
+  if (ledPos == 47) Serial.println( "I_OH_REVERSER2");
+  if (ledPos == 54) Serial.println( "I_OH_IRS_FAULT_R");
+  if (ledPos == 55) Serial.println( "I_OH_GEAR_RIGHT_DOWN");
+  if (ledPos == 61) Serial.println( "I_OH_GPS");
+  if (ledPos == 62) Serial.println( "I_OH_IRS_ONDC_L");
+  if (ledPos == 63) Serial.println( "I_OH_PSEU");
+}
+
 void loop() {
 
 
 
-  String testString;
-  testString  = String(loopcounter);
-  testString = testString + " Helloworld";
-  testString.toCharArray(packetBuffer, 20);
-  sendCommand(0xC0);
-  send_string(packetBuffer);
+//  String testString;
+//  testString  = String(loopcounter);
+//  testString = testString + " Helloworld";
+//  testString.toCharArray(packetBuffer, 20);
+//  sendCommand(0xC0);
+//  send_string(packetBuffer);
 
 
 
-  rows();
-  columns();
+//  rows();
+//  columns();
 
-  for(int k = 0; k < 1000; k += 1) {
-    display.showNumberDec(k, 0);
-    delay(TEST_DELAY);
-  }
-
-  
-  writeArduinoOn7Segment();
-  scrollDigits();
+//  for(int k = 0; k < 1000; k += 1) {
+//    display.showNumberDec(k, 0);
+//    delay(TEST_DELAY);
+//  }
+//
+//  
+//  writeArduinoOn7Segment();
+//  scrollDigits();
 
   
   single();
