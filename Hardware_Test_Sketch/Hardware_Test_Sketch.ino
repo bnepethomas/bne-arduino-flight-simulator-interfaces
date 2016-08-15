@@ -70,6 +70,9 @@ boolean DC_Power = false;
 
 boolean Debug_Display = false;
 
+#define Flight_Altitude_Max7219 0
+#define Landing_Altitude_Max7219 1
+
 int LAND_ALT_STORE = 0;
 int FLT_ALT_STORE = 0;
 
@@ -531,6 +534,70 @@ void PrintMapping (int ledPos)
   if (ledPos == 63) Serial.println( "I_OH_PSEU");
 }
 
+
+void printNumber(long v, int maxArrayNo) {
+    int ones;
+    int tens;
+    int hundreds;
+    int thousands;
+    int tenthousands;
+    boolean negative;  
+
+    Serial.println(v);
+
+    if (maxArrayNo < 0 || maxArrayNo > 1)
+    {
+      Serial.print("Unsupport max7219 no 0-1 supported: ");
+      Serial.print(maxArrayNo);
+      Serial.println(" passed");
+      return;
+      
+    }
+    
+
+    if(v < -99999 || v > 99999) 
+    {
+      Serial.print("Unsupport max7219 no -99999-99999 supported: ");
+      Serial.print(v);
+      Serial.println(" passed");
+      return;
+    }
+    
+    if(v<0) {
+        Serial.println("Negative passed");
+        negative=true;
+        v=v*-1;
+    }
+        else
+    {
+        negative = false;
+    }
+    
+    ones=v%10;
+    v=v/10;
+    tens=v%10;
+    v=v/10;
+    hundreds=v%10;
+    v=v/10;
+    thousands=v%10;
+    v=v/10;
+    tenthousands=v%10;     
+    if(negative) {
+       //print character '-' in the leftmost column 
+       lc.setChar(maxArrayNo,5,'-',false);
+    }
+    else {
+       //print a blank in the sign column
+       lc.setChar(maxArrayNo,5,' ',false);
+    }
+    //Now print the number digit by digit
+    lc.setDigit(maxArrayNo,4,(byte)tenthousands,false);
+    lc.setDigit(maxArrayNo,3,(byte)thousands,false);
+    lc.setDigit(maxArrayNo,2,(byte)hundreds,false);
+    lc.setDigit(maxArrayNo,1,(byte)tens,false);
+    lc.setDigit(maxArrayNo,0,(byte)ones,false);
+}
+
 void loop() {
 
 
@@ -543,35 +610,39 @@ void loop() {
   send_string(packetBuffer);
 
 
-  Serial.println("rows");
-  rows();
-  Serial.println("columns");
-  columns();
+//  Serial.println("rows");
+//  rows();
+//  Serial.println("columns");
+//  columns();
 
-  Serial.println("showNumberDec");
-  for(int k = 0; k < 1000; k += 1) {
-    display.showNumberDec(k, 0);
-    delay(TEST_DELAY);
-  }
-
-  Serial.println("writeArduinoOn7Segment");
-  writeArduinoOn7Segment();
-
-  Serial.println("scrollDigits");
-  scrollDigits();
-
-  Serial.println("writeStaticOn7Segment");
-  writeStaticOn7Segment();
+//  Serial.println("showNumberDec");
+//  for(int k = 0; k < 1000; k += 1) {
+//    display.showNumberDec(k, 0);
+//    delay(TEST_DELAY);
+//  }
+//
+//  Serial.println("writeArduinoOn7Segment");
+//  writeArduinoOn7Segment();
+//
+//  Serial.println("scrollDigits");
+//  scrollDigits();
+//
+//  Serial.println("writeStaticOn7Segment");
+//  writeStaticOn7Segment();
   
   Serial.println("Getting serious with 7 Seg");
+//
+//  for(int i=0;i<8;i++) {
+//    lc.setDigit(0,i,i,false);
+//    lc.setDigit(1,i,i,false);
+//  }
+  // Flight Altitude - Max7219-0 Use Digits 5-1 38000
+  // Landing Altitude - Max7219-1 Use Digits 5-1 10000
 
-  for(int i=0;i<8;i++) {
-    lc.setDigit(0,i,i,false);
-    lc.setDigit(1,i,i,false);
-  }
-  lc.setDigit(0,4,8,false);
-  lc.setDigit(1,4,8,false);
-  
+  lc.clearDisplay(0);
+  printNumber(25980,Flight_Altitude_Max7219 );
+  printNumber(-100,Landing_Altitude_Max7219 );
+   
   single();
 
 
