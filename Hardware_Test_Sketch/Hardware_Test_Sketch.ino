@@ -540,10 +540,12 @@ void printNumber(long v, int maxArrayNo) {
     int tens;
     int hundreds;
     int thousands;
-    int tenthousands;
+    int tenThousands;
     boolean negative;  
-
-    Serial.println(v);
+    int negativePos;
+//
+//    Serial.print(v);
+//    Serial.print("-");
 
     if (maxArrayNo < 0 || maxArrayNo > 1)
     {
@@ -564,7 +566,7 @@ void printNumber(long v, int maxArrayNo) {
     }
     
     if(v<0) {
-        Serial.println("Negative passed");
+        // Serial.println("Negative passed");
         negative=true;
         v=v*-1;
     }
@@ -572,6 +574,15 @@ void printNumber(long v, int maxArrayNo) {
     {
         negative = false;
     }
+
+    //Determine location if -
+    if (v > 9999) { negativePos = 6; }
+    else if ( v > 999) {negativePos=5;}
+    else if (v > 99)  {negativePos=4;}
+    else if (v > 9)  {negativePos=3;} 
+    else {negativePos=2;}
+
+    //Serial.println(negativePos);
     
     ones=v%10;
     v=v/10;
@@ -581,21 +592,39 @@ void printNumber(long v, int maxArrayNo) {
     v=v/10;
     thousands=v%10;
     v=v/10;
-    tenthousands=v%10;     
-    if(negative) {
+    tenThousands=v%10;     
+
+    //Now print the number digit by digit
+    if (negativePos < 6)  { lc.setChar(maxArrayNo,5,' ',false);}
+    else  { lc.setDigit(maxArrayNo,5,(byte)tenThousands,false); }
+
+    if (negativePos < 5)  { 
+      lc.setChar(maxArrayNo,4,' ',false);} 
+    else {
+      lc.setDigit(maxArrayNo,4,(byte)thousands,false);
+    }
+    if (negativePos < 4)  { 
+      lc.setChar(maxArrayNo,3,' ',false);}
+    else {
+      lc.setDigit(maxArrayNo,3,(byte)hundreds,false);
+    }
+    if (negativePos < 3)  { 
+      lc.setChar(maxArrayNo,2,' ',false);}
+    else { 
+      lc.setDigit(maxArrayNo,2,(byte)tens,false);
+    }
+    
+    lc.setDigit(maxArrayNo,1,(byte)ones,false);
+
+    if (negative) {
        //print character '-' in the leftmost column 
-       lc.setChar(maxArrayNo,5,'-',false);
+       lc.setChar(maxArrayNo,negativePos,'-',false);
     }
     else {
        //print a blank in the sign column
-       lc.setChar(maxArrayNo,5,' ',false);
+       lc.setChar(maxArrayNo,negativePos,' ',false);
     }
-    //Now print the number digit by digit
-    lc.setDigit(maxArrayNo,4,(byte)tenthousands,false);
-    lc.setDigit(maxArrayNo,3,(byte)thousands,false);
-    lc.setDigit(maxArrayNo,2,(byte)hundreds,false);
-    lc.setDigit(maxArrayNo,1,(byte)tens,false);
-    lc.setDigit(maxArrayNo,0,(byte)ones,false);
+
 }
 
 void loop() {
@@ -631,10 +660,10 @@ void loop() {
 //  writeStaticOn7Segment();
   
   Serial.println("Getting serious with 7 Seg");
+ lc.clearDisplay(0);
+//  for(long i=-11000;i<100000;i++) {
+//    printNumber(i,Flight_Altitude_Max7219);
 //
-//  for(int i=0;i<8;i++) {
-//    lc.setDigit(0,i,i,false);
-//    lc.setDigit(1,i,i,false);
 //  }
   // Flight Altitude - Max7219-0 Use Digits 5-1 38000
   // Landing Altitude - Max7219-1 Use Digits 5-1 10000
