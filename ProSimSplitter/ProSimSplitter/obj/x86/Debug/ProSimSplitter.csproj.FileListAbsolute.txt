@@ -18,3 +18,13 @@ C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSp
 C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Debug\ProSimSplitter.application
 C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Debug\ProSimSplitter.exe
 C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Debug\ProSimSplitter.pdb
+Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\bin\Debug\ProSimSplitter.exe.config
+Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Debug\ProSimSplitter.exe
+Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Debug\ProSimSplitter.pdb
+Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\bin\Debug\ProSimSplitter.exe.manifest
+Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\bin\Debug\ProSimSplitter.application
+Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\bin\Debug\ProSimSplitter.exe
+Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\bin\Debug\ProSimSplitter.pdb
+Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Debug\ResolveAssemblyReference.cache
+Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Debug\ProSimSplitter.exe.manifest
+Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Debug\ProSimSplitter.application

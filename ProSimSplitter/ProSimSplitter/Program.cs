@@ -160,12 +160,72 @@ using System.IO;
 
 
 
+//  0 I_OH_LEDEVICES_TRANS_FLAP3  
+//  1 I_OH_LEDEVICES_TRANS_FLAP4  
+//  2 I_OH_LEDEVICES_TRANS_SLAT5  
+//  3 I_OH_LEDEVICES_TRANS_SLAT6  
+//  4 I_OH_LEDEVICES_TRANS_SLAT7  
+//  5 I_OH_LEDEVICES_TRANS_SLAT8  
+//  6 I_OH_IRS_DCFAIL_L  
+//  7 I_OH_REVERSER1  
+//  8 I_OH_LEDEVICES_EXT_FLAP3  
+//  9 I_OH_LEDEVICES_EXT_FLAP4  
+//  10 I_OH_LEDEVICES_EXT_SLAT5  
+//  11 I_OH_LEDEVICES_EXT_SLAT6  
+//  12 I_OH_LEDEVICES_EXT_SLAT7  
+//  13 I_OH_LEDEVICES_EXT_SLAT8  
+//  14 I_OH_IRS_FAULT_L  
+//  15 I_OH_GEAR_NOSE_DOWN  
+//  16 I_OH_LEDEVICES_EXT_FLAP3  
+//  17 I_OH_LEDEVICES_EXT_FLAP4  
+//  18 I_OH_LEDEVICES_FULLEXT_SLAT5  
+//  19 I_OH_LEDEVICES_FULLEXT_SLAT6  
+//  20 I_OH_LEDEVICES_FULLEXT_SLAT7  
+//  21 I_OH_LEDEVICES_FULLEXT_SLAT8  
+//  22 I_OH_IRS_ONDC_R  
+//  23 I_OH_ENGINE_CONTROL2  
+//  24 I_OH_LEDEVICES_TRANS_FLAP2  
+//  25 I_OH_LEDEVICES_TRANS_FLAP1  
+//  26 I_OH_LEDEVICES_TRANS_SLAT4  
+//  27 I_OH_LEDEVICES_TRANS_SLAT3  
+//  28 I_OH_LEDEVICES_TRANS_SLAT2  
+//  29 I_OH_LEDEVICES_TRANS_SLAT1  
+//  30 I_OH_IRS_ALIGN_R  
+//  31 I_OH_ENGINE_CONTROL1  
+//  32 I_OH_LEDEVICES_EXT_FLAP2  
+//  33 I_OH_LEDEVICES_EXT_FLAP1  
+//  34 I_OH_LEDEVICES_EXT_SLAT4  
+//  35 I_OH_LEDEVICES_EXT_SLAT3  
+//  36 I_OH_LEDEVICES_EXT_SLAT2  
+//  37 I_OH_LEDEVICES_EXT_SLAT1  
+//  38 I_OH_IRS_ALIGN_L  
+//  39 I_OH_GEAR_LEFT_DOWN  
+//  40 I_OH_LEDEVICES_EXT_FLAP2  
+//  41 I_OH_LEDEVICES_EXT_FLAP1  
+//  42 I_OH_LEDEVICES_FULLEXT_SLAT4  
+//  43 I_OH_LEDEVICES_FULLEXT_SLAT3  
+//  44 I_OH_LEDEVICES_FULLEXT_SLAT2  
+//  45 I_OH_LEDEVICES_FULLEXT_SLAT1  
+//  46 I_OH_IRS_DCFAIL_R  
+//  47 I_OH_REVERSER2  
+//  54 I_OH_IRS_FAULT_R  
+//  55 I_OH_GEAR_RIGHT_DOWN  
+//  61 I_OH_GPS  
+//  62 I_OH_IRS_ONDC_L  
+//  63 I_OH_PSEU  
+
+
 //      20160502       PT - Creation
 
 
 //      Considerations
 //      Handle TCP disconnection timeout and disconnections - on disconnect ensure displays and solenoinds are switched off    
 //      Make simple UDP listener for testing, perhaps command line option for local test
+
+//      Need to determine which of the values writing to Arudino need to be sanity tested, the individual leds should be direct, ones to check:
+//      1: Flight and Landing Altitudes, need to collect value, check value, and then see if dashes are present, and maybe if power is available
+//      2: The INS status display, again check power availablity
+//      3: For the Starter Switches look at timing on the Servo - so after firing the servo then set a flag, and check for millis to reset it
 
 
 namespace ProSimSplitter
@@ -298,14 +358,89 @@ namespace ProSimSplitter
 
             foreach (string s in words)
             {
+
+                // Check entire line is passed, and for indicators validate value to be either 0 or 1
+                // Packet format to Arduino 
+                // Indicators I06=1 - I-Indicator, XX, valid options 1 or 0, 0-63 generic indicators, 
+                // Relays R06-1 - R-Relay, valid options 1 or 0, 80-90
+                // INS Display - O-Oled, "XXXXXXXXXXXXXXX" - fixed length string
+                // Seven Segment displays - S-Seven Segment - valid options - all blank, all dashes, or numeric value
+
+
+                int first = s.IndexOf("I_OH_LEDEVICES_TRANS_FLAP3");
+                //Console.WriteLine(first);
+                if (first >= 0)
+                {
+                    Console.WriteLine("I_OH_LEDEVICES_TRANS_FLAP3");
+                    SendToArduino(s);
+                }
+ 
+                //  1 I_OH_LEDEVICES_TRANS_FLAP4  
+                //  2 I_OH_LEDEVICES_TRANS_SLAT5  
+                //  3 I_OH_LEDEVICES_TRANS_SLAT6  
+                //  4 I_OH_LEDEVICES_TRANS_SLAT7  
+                //  5 I_OH_LEDEVICES_TRANS_SLAT8  
+                //  6 I_OH_IRS_DCFAIL_L  
+                //  7 I_OH_REVERSER1  
+                //  8 I_OH_LEDEVICES_EXT_FLAP3  
+                //  9 I_OH_LEDEVICES_EXT_FLAP4  
+                //  10 I_OH_LEDEVICES_EXT_SLAT5  
+                //  11 I_OH_LEDEVICES_EXT_SLAT6  
+                //  12 I_OH_LEDEVICES_EXT_SLAT7  
+                //  13 I_OH_LEDEVICES_EXT_SLAT8  
+                //  14 I_OH_IRS_FAULT_L  
+                //  15 I_OH_GEAR_NOSE_DOWN  
+                //  16 I_OH_LEDEVICES_EXT_FLAP3  
+                //  17 I_OH_LEDEVICES_EXT_FLAP4  
+                //  18 I_OH_LEDEVICES_FULLEXT_SLAT5  
+                //  19 I_OH_LEDEVICES_FULLEXT_SLAT6  
+                //  20 I_OH_LEDEVICES_FULLEXT_SLAT7  
+                //  21 I_OH_LEDEVICES_FULLEXT_SLAT8  
+                //  22 I_OH_IRS_ONDC_R  
+                //  23 I_OH_ENGINE_CONTROL2  
+                //  24 I_OH_LEDEVICES_TRANS_FLAP2  
+                //  25 I_OH_LEDEVICES_TRANS_FLAP1  
+                //  26 I_OH_LEDEVICES_TRANS_SLAT4  
+                //  27 I_OH_LEDEVICES_TRANS_SLAT3  
+                //  28 I_OH_LEDEVICES_TRANS_SLAT2  
+                //  29 I_OH_LEDEVICES_TRANS_SLAT1  
+                //  30 I_OH_IRS_ALIGN_R  
+                //  31 I_OH_ENGINE_CONTROL1  
+                //  32 I_OH_LEDEVICES_EXT_FLAP2  
+                //  33 I_OH_LEDEVICES_EXT_FLAP1  
+                //  34 I_OH_LEDEVICES_EXT_SLAT4  
+                //  35 I_OH_LEDEVICES_EXT_SLAT3  
+                //  36 I_OH_LEDEVICES_EXT_SLAT2  
+                //  37 I_OH_LEDEVICES_EXT_SLAT1  
+                //  38 I_OH_IRS_ALIGN_L  
+                //  39 I_OH_GEAR_LEFT_DOWN  
+                //  40 I_OH_LEDEVICES_EXT_FLAP2  
+                //  41 I_OH_LEDEVICES_EXT_FLAP1  
+                //  42 I_OH_LEDEVICES_FULLEXT_SLAT4  
+                //  43 I_OH_LEDEVICES_FULLEXT_SLAT3  
+                //  44 I_OH_LEDEVICES_FULLEXT_SLAT2  
+                //  45 I_OH_LEDEVICES_FULLEXT_SLAT1  
+                //  46 I_OH_IRS_DCFAIL_R  
+                //  47 I_OH_REVERSER2  
+                //  54 I_OH_IRS_FAULT_R  
+                //  55 I_OH_GEAR_RIGHT_DOWN  
+                //  61 I_OH_GPS  
+                //  62 I_OH_IRS_ONDC_L  
+                //  63 I_OH_PSEU
+
+
+                
+                
                 if (ldebugging) System.Console.WriteLine(s);
-                int first = s.IndexOf("FLT_ALT");
+                first = s.IndexOf("FLT_ALT");
                 if (ldebugging) Console.WriteLine(first);
                 if (first >= 0)
                 {
                     Console.WriteLine("Hey found FLT_ALT");
                     SendToArduino(s);
                 }
+
+
 
                 first = s.IndexOf("LAND_ALT");
                 //Console.WriteLine(first);
@@ -322,6 +457,12 @@ namespace ProSimSplitter
                     Console.WriteLine("Hey found STARTER_1_SOLENOID");
                     SendToArduino(s);
                 }
+
+
+
+
+              
+
 
                 first = s.IndexOf("STARTER_2_SOLENOID");
                 //Console.WriteLine(first);
