@@ -263,7 +263,7 @@ namespace ProSimSplitter
                 //Creates a UdpClient for reading incoming data.
 
 
-                TestFramework();
+                ProcessStream("hhggh");
 
                 //Creates an IPEndPoint to record the IP Address and port number of the sender. 
                 // The IPEndPoint will allow you to read datagrams sent from any source.
@@ -359,7 +359,12 @@ namespace ProSimSplitter
         static void ProcessStream(String StringToBeProcessed)
         {
 
-            Boolean ldebugging = false;
+
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            StringToBeProcessed = "N_FUEL_FLOW_2 abc";
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            
+            Boolean ldebugging = true;
 
             if (ldebugging) Console.WriteLine("Start ProcessStream");
             if (ldebugging) Console.WriteLine("Processing Stream {0}", StringToBeProcessed);
@@ -372,22 +377,58 @@ namespace ProSimSplitter
             string[] words = StringToBeProcessed.Split(delimiterChars);
             if (ldebugging) System.Console.WriteLine("{0} words in text:", words.Length);
 
+            // There should only be three things in each line
+            // attribute - = - value
+            // If there is more than that ignore
+
+            if (words.Length != 3)
+            {
+                Console.WriteLine("Invalid number of parameters in " + StringToBeProcessed);
+                Console.WriteLine("Should be 3, but " + words.Length + " returned");
+                return;
+            }
+
+            // Check entire line is passed, and for indicators validate value to be either 0 or 1
+            // Packet format to Arduino 
+            // Indicators I06=1 - I-Indicator, XX, valid options 1 or 0, 0-63 generic indicators, 
+            // Relays R06-1 - R-Relay, valid options 1 or 0, 80-90
+            // INS Display - O-Oled, "XXXXXXXXXXXXXXX" - fixed length string
+            // Seven Segment displays - S-Seven Segment - valid options - all blank, all dashes, or numeric value
+
+            switch (words[1])
+            {
+
+
+                case "I_OH_LEDEVICES_TRANS_FLAPS":
+                    {
+                        Console.WriteLine("hit");
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("hit");
+                        break;
+                    }
+
+            }
+
+
+
+
             foreach (string s in words)
             {
 
-                // Check entire line is passed, and for indicators validate value to be either 0 or 1
-                // Packet format to Arduino 
-                // Indicators I06=1 - I-Indicator, XX, valid options 1 or 0, 0-63 generic indicators, 
-                // Relays R06-1 - R-Relay, valid options 1 or 0, 80-90
-                // INS Display - O-Oled, "XXXXXXXXXXXXXXX" - fixed length string
-                // Seven Segment displays - S-Seven Segment - valid options - all blank, all dashes, or numeric value
 
+
+
+                // Grab first and third value, assuming everything has a '=' sign.
 
                 int first = s.IndexOf("I_OH_LEDEVICES_TRANS_FLAP3");
                 //Console.WriteLine(first);
                 if (first >= 0)
                 {
                     Console.WriteLine("I_OH_LEDEVICES_TRANS_FLAP3");
+                    Console.WriteLine(words[2]); // value 3rd position but it is 0 based so 2
                     SendToArduino(s);
                 }
  
