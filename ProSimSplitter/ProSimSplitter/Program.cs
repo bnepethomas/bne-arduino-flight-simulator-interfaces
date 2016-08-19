@@ -252,6 +252,22 @@ namespace ProSimSplitter
         public static IPAddress serverAddr = IPAddress.Parse("192.168.1.205");
         public static IPEndPoint RemoteIpEndPoint = new IPEndPoint(serverAddr, 9920);
 
+
+        // For some devices need to maintain state which will be reset on TCP connection establishment.
+        // So initialise to blank state and if any of the related attributes change then look at collective state then fire off to Arudino
+        // 
+        // These devices include:
+        //  Flight and Altitude displays
+        //  INS Display
+        //  Starter - stil lyet to determine if Arudino should watch millis to flick back
+        //
+        public static double iFlightAltitude;
+        public static bool bFlightAltitudeDisplayState;
+        
+
+
+
+
         public static string returnData;
         
         static void Main(string[] args)
@@ -274,7 +290,7 @@ namespace ProSimSplitter
                 {
                     Console.WriteLine(DateTime.Now);
                     Connect("127.0.0.1", "test");
-                    Thread.Sleep(100);
+                    Thread.Sleep(1000);
                     Console.WriteLine("Awake from Sleep");
                     
                 }
@@ -361,7 +377,7 @@ namespace ProSimSplitter
 
 
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            StringToBeProcessed = "I_OH_ENGINE_CONTROL1 = 22";
+            StringToBeProcessed = "I_OH_ENGINE_CONTROL1 = 1";
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
             
             Boolean ldebugging = true;
@@ -401,14 +417,494 @@ namespace ProSimSplitter
                 //I_OH_ENGINE_CONTROL1              // Port  31
                 case "I_OH_ENGINE_CONTROL1":
                     {
-                        SendToArduinoAVPair("31", words[2], "N");
-                        Console.WriteLine("hit");
+                        SendToArduinoAVPair("I31", words[2], "I");
+                        // Nothing more to do fall out
                         return;
                     }
+
+                //I_OH_ENGINE_CONTROL2  			// Port  23
+                case "I_OH_ENGINE_CONTROL2":
+                    {
+                        SendToArduinoAVPair("I23", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+
+                //I_OH_GEAR_LEFT_DOWN  			    // Port  39
+                case "I_OH_GEAR_LEFT_DOWN":
+                    {
+                        SendToArduinoAVPair("I39", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_GEAR_NOSE_DOWN  			    // Port  15
+                case "I_OH_GEAR_NOSE_DOWN":
+                    {
+                        SendToArduinoAVPair("I15", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+                //I_OH_GEAR_RIGHT_DOWN  			// Port  55
+                case "I_OH_GEAR_RIGHT_DOWN":
+                    {
+                        SendToArduinoAVPair("I55", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_GPS  						// Port  61
+                case "I_OH_GPS":
+                    {
+                        SendToArduinoAVPair("I61", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_IRS_ALIGN_L  				// Port  38
+                case "I_OH_IRS_ALIGN_L":
+                    {
+                        SendToArduinoAVPair("I38", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+                //I_OH_IRS_ALIGN_R  				// Port  30
+                case "I_OH_IRS_ALIGN_R":
+                    {
+                        SendToArduinoAVPair("I30", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+                //I_OH_IRS_DCFAIL_L  				// Port  6 
+                case "I_OH_IRS_DCFAIL_L":
+                    {
+                        SendToArduinoAVPair("I6", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+                //I_OH_IRS_DCFAIL_R  				// Port  46
+                case "I_OH_IRS_DCFAIL_R":
+                    {
+                        SendToArduinoAVPair("I46", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+                //I_OH_IRS_FAULT_L  				// Port  14
+                case "I_OH_IRS_FAULT_L":
+                    {
+                        SendToArduinoAVPair("I14", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+
+                //I_OH_IRS_FAULT_R  				// Port  54
+                case "I_OH_IRS_FAULT_R":
+                    {
+                        SendToArduinoAVPair("I54", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+                //I_OH_IRS_ONDC_L  				    // Port  62
+                case "I_OH_IRS_ONDC_L":
+                    {
+                        SendToArduinoAVPair("I62", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+                //I_OH_IRS_ONDC_R  				    // Port  22
+                case "I_OH_IRS_ONDC_R":
+                    {
+                        SendToArduinoAVPair("I22", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_EXT_FLAP1  		// Port  33 and 41
+                case "I_OH_LEDEVICES_EXT_FLAP1":
+                    {
+                        // Special Case two leds to manage
+                        SendToArduinoAVPair("I33", words[2], "I");
+                        SendToArduinoAVPair("I41", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+
+                //I_OH_LEDEVICES_EXT_FLAP2  		// Port  32 and 40
+                case "I_OH_LEDEVICES_EXT_FLAP2":
+                    {
+                        // Special Case two leds to manage
+                        SendToArduinoAVPair("I32", words[2], "I");
+                        SendToArduinoAVPair("I40", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+
+                //I_OH_LEDEVICES_EXT_FLAP3  		// Port  16 and 8
+                case "I_OH_LEDEVICES_EXT_FLAP3":
+                    {
+                        // Special Case two leds to manage
+                        SendToArduinoAVPair("I16", words[2], "I");
+                        SendToArduinoAVPair("I8", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+
+                //I_OH_LEDEVICES_EXT_FLAP4  		// Port  17 and 9
+                case "I_OH_LEDEVICES_EXT_FLAP4":
+                    {
+                        // Special Case two leds to manage
+                        SendToArduinoAVPair("I17", words[2], "I");
+                        SendToArduinoAVPair("I9", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+
+
+                //I_OH_LEDEVICES_EXT_SLAT1  		// Port  37
+                case "I_OH_LEDEVICES_EXT_SLAT1":
+                    {
+                        SendToArduinoAVPair("I37", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_EXT_SLAT2  		// Port  36
+                case "I_OH_LEDEVICES_EXT_SLAT2":
+                    {
+                        SendToArduinoAVPair("I36", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_EXT_SLAT3  		// Port  35
+                case "I_OH_LEDEVICES_EXT_SLAT3":
+                    {
+                        SendToArduinoAVPair("I35", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+
+                //I_OH_LEDEVICES_EXT_SLAT4  		// Port  34
+                case "I_OH_LEDEVICES_EXT_SLAT4":
+                    {
+                        SendToArduinoAVPair("I34", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_EXT_SLAT5  		// Port  10
+                case "I_OH_LEDEVICES_EXT_SLAT5":
+                    {
+                        SendToArduinoAVPair("I10", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_EXT_SLAT6  		// Port  11
+                case "I_OH_LEDEVICES_EXT_SLAT6":
+                    {
+                        SendToArduinoAVPair("I11", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_EXT_SLAT7  		// Port  12
+                case "I_OH_LEDEVICES_EXT_SLAT7":
+                    {
+                        SendToArduinoAVPair("I12", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_EXT_SLAT8  		// Port  13
+                case "I_OH_LEDEVICES_EXT_SLAT8":
+                    {
+                        SendToArduinoAVPair("I13", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+
+                //I_OH_LEDEVICES_FULLEXT_SLAT1  	// Port  45
+                case "I_OH_LEDEVICES_FULLEXT_SLAT1":
+                    {
+                        SendToArduinoAVPair("I45", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_FULLEXT_SLAT2  	// Port  44
+                case "I_OH_LEDEVICES_FULLEXT_SLAT2":
+                    {
+                        SendToArduinoAVPair("I44", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_FULLEXT_SLAT3  	// Port  43
+                case "I_OH_LEDEVICES_FULLEXT_SLAT3":
+                    {
+                        SendToArduinoAVPair("I43", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_FULLEXT_SLAT4  	// Port  42
+                case "I_OH_LEDEVICES_FULLEXT_SLAT4":
+                    {
+                        SendToArduinoAVPair("I42", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_FULLEXT_SLAT5  	// Port  18
+                case "I_OH_LEDEVICES_FULLEXT_SLAT5":
+                    {
+                        SendToArduinoAVPair("I18", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_FULLEXT_SLAT6  	// Port  19
+                case "I_OH_LEDEVICES_FULLEXT_SLAT6":
+                    {
+                        SendToArduinoAVPair("I19", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_FULLEXT_SLAT7  	// Port  20
+                case "I_OH_LEDEVICES_FULLEXT_SLAT7":
+                    {
+                        SendToArduinoAVPair("I20", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_FULLEXT_SLAT8  	// Port  21
+                case "I_OH_LEDEVICES_FULLEXT_SLAT8":
+                    {
+                        SendToArduinoAVPair("I21", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_FLAP1  	    // Port  25
+                case "I_OH_LEDEVICES_TRANS_FLAP1":
+                    {
+                        SendToArduinoAVPair("I25", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_FLAP2  	    // Port  24
+                case "I_OH_LEDEVICES_TRANS_FLAP2":
+                    {
+                        SendToArduinoAVPair("I24", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_FLAP3  	    // Port  0 
+                case "I_OH_LEDEVICES_TRANS_FLAP3":
+                    {
+                        SendToArduinoAVPair("I0", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_FLAP4  	    // Port  1 
+                case "I_OH_LEDEVICES_TRANS_FLAP4":
+                    {
+                        SendToArduinoAVPair("I1", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_SLAT1    	// Port  29
+                case "I_OH_LEDEVICES_TRANS_SLAT1":
+                    {
+                        SendToArduinoAVPair("I29", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_SLAT2  	    // Port  28
+                case "I_OH_LEDEVICES_TRANS_SLAT2":
+                    {
+                        SendToArduinoAVPair("I28", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_SLAT3  	    // Port  27
+                case "I_OH_LEDEVICES_TRANS_SLAT3":
+                    {
+                        SendToArduinoAVPair("I27", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_SLAT4  	    // Port  26
+                case "I_OH_LEDEVICES_TRANS_SLAT4":
+                    {
+                        SendToArduinoAVPair("I26", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_SLAT5  	    // Port  2 
+                case "I_OH_LEDEVICES_TRANS_SLAT5":
+                    {
+                        SendToArduinoAVPair("I2", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_SLAT6  	    // Port  3 
+                case "I_OH_LEDEVICES_TRANS_SLAT6":
+                    {
+                        SendToArduinoAVPair("I3", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_SLAT7  	    // Port  4 
+                case "I_OH_LEDEVICES_TRANS_SLAT7":
+                    {
+                        SendToArduinoAVPair("I4", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_LEDEVICES_TRANS_SLAT8  	    // Port  5 
+                case "I_OH_LEDEVICES_TRANS_SLAT8":
+                    {
+                        SendToArduinoAVPair("I5", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_PSEU 						// Port  63
+                case "I_OH_PSEU":
+                    {
+                        SendToArduinoAVPair("I63", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_REVERSER1  				    // Port  7 
+                case "I_OH_REVERSER1":
+                    {
+                        SendToArduinoAVPair("I7", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+
+                //I_OH_REVERSER2  				    // Port  47
+                case "I_OH_REVERSER2":
+                    {
+                        SendToArduinoAVPair("I47", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
+                // Remaining values do require some state management - flag value has been updated and then break out of 
+                // switch state (as opposed to return/exit from subroutine
+
+                // "B_OVERHEAD_BACKLIGHT_MASTER = 0"
+                // "B_AC_POWER = 0"
+                // "B_DC_POWER = 0"
+                // "B_DOME_LIGHT_MASTER = 0" - Not initially used
+                // "B_LIGHT_TEST = 0" - Hopefully not needed as lights should be driven by indicator variable
+
+
+                //  IRS Display and keypad
+                //  "I_OH_IRS_CLR_KEY = 0" - No Leds in the spot
+                //  "I_OH_IRS_ENT_KEY = 0" - No Leds in the spot
+                //  "I_OH_IRS_DOT1 = 0"
+                //  "I_OH_IRS_DOT2 = 0"
+                //  "I_OH_IRS_DOT3 = 0"
+                //  "I_OH_IRS_DOT4 = 0"
+                //  "I_OH_IRS_DOT5 = 0"
+                //  "I_OH_IRS_DOT6 = 0"
+                //  "N_IRS_DISP_LEFT = 37046"
+                //  "N_IRS_DISP_RIGHT = -76225"
+                //  "N_IRS_DISP_LEFT = 0"
+                //  "N_IRS_DISP_RIGHT = 0"
+
+
+                //  "N_OH_FLIGHT_ALT = 0"
+                //  "N_OH_LAND_ALT = 100"
+                //  "B_PRESSURISATION_DASHED = 0"
+                //  "B_PRESSURISATION_DISPLAY_POWER = 0"
+                
+                //  "B_STARTER_PB_SOLENOID_1 = 0"
+                //  "B_STARTER_SOLENOID_1 = 0"
+                //  "B_STARTER_PB_SOLENOID_2 = 0"
+                //  "B_STARTER_SOLENOID_2 = 0"              
+
+
+
                 default:
                     {
+                        // Haven't found an attribute of interest - throw it out
                         Console.WriteLine("Not Processing " + words[1]);
-                        break;
+                        return;
                     }
 
             }
@@ -418,76 +914,6 @@ namespace ProSimSplitter
 
             foreach (string s in words)
             {
-
-
-
-
-                // Grab first and third value, assuming everything has a '=' sign.
-
-                int first = s.IndexOf("I_OH_LEDEVICES_TRANS_FLAP3");
-                //Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("I_OH_LEDEVICES_TRANS_FLAP3");
-                    Console.WriteLine(words[2]); // value 3rd position but it is 0 based so 2
-
-                    SendToArduino(s);
-                }
-                
-                //I_OH_ENGINE_CONTROL2  			// Port  23
-                //I_OH_GEAR_LEFT_DOWN  			    // Port  39
-                //I_OH_GEAR_NOSE_DOWN  			    // Port  15
-                //I_OH_GEAR_RIGHT_DOWN  			// Port  55
-                //I_OH_GPS  						// Port  61
-                //I_OH_IRS_ALIGN_L  				// Port  38
-                //I_OH_IRS_ALIGN_R  				// Port  30
-                //I_OH_IRS_DCFAIL_L  				// Port  6 
-                //I_OH_IRS_DCFAIL_R  				// Port  46
-                //I_OH_IRS_FAULT_L  				// Port  14
-                //I_OH_IRS_FAULT_R  				// Port  54
-                //I_OH_IRS_ONDC_L  				    // Port  62
-                //I_OH_IRS_ONDC_R  				    // Port  22
-                //I_OH_LEDEVICES_EXT_FLAP1  		// Port  33
-                //I_OH_LEDEVICES_EXT_FLAP1  		// Port  41
-                //I_OH_LEDEVICES_EXT_FLAP2  		// Port  32
-                //I_OH_LEDEVICES_EXT_FLAP2  		// Port  40
-                //I_OH_LEDEVICES_EXT_FLAP3  		// Port  16
-                //I_OH_LEDEVICES_EXT_FLAP3  		// Port  8 
-                //I_OH_LEDEVICES_EXT_FLAP4  		// Port  17
-                //I_OH_LEDEVICES_EXT_FLAP4  		// Port  9 
-                //I_OH_LEDEVICES_EXT_SLAT1  		// Port  37
-                //I_OH_LEDEVICES_EXT_SLAT2  		// Port  36
-                //I_OH_LEDEVICES_EXT_SLAT3  		// Port  35
-                //I_OH_LEDEVICES_EXT_SLAT4  		// Port  34
-                //I_OH_LEDEVICES_EXT_SLAT5  		// Port  10
-                //I_OH_LEDEVICES_EXT_SLAT6  		// Port  11
-                //I_OH_LEDEVICES_EXT_SLAT7  		// Port  12
-                //I_OH_LEDEVICES_EXT_SLAT8  		// Port  13
-                //I_OH_LEDEVICES_FULLEXT_SLAT1  	// Port  45
-                //I_OH_LEDEVICES_FULLEXT_SLAT2  	// Port  44
-                //I_OH_LEDEVICES_FULLEXT_SLAT3  	// Port  43
-                //I_OH_LEDEVICES_FULLEXT_SLAT4  	// Port  42
-                //I_OH_LEDEVICES_FULLEXT_SLAT5  	// Port  18
-                //I_OH_LEDEVICES_FULLEXT_SLAT6  	// Port  19
-                //I_OH_LEDEVICES_FULLEXT_SLAT7  	// Port  20
-                //I_OH_LEDEVICES_FULLEXT_SLAT8  	// Port  21
-                //I_OH_LEDEVICES_TRANS_FLAP1  	    // Port  25
-                //I_OH_LEDEVICES_TRANS_FLAP2  	    // Port  24
-                //I_OH_LEDEVICES_TRANS_FLAP3  	    // Port  0 
-                //I_OH_LEDEVICES_TRANS_FLAP4  	    // Port  1 
-                //I_OH_LEDEVICES_TRANS_SLAT1    	// Port  29
-                //I_OH_LEDEVICES_TRANS_SLAT2  	    // Port  28
-                //I_OH_LEDEVICES_TRANS_SLAT3  	    // Port  27
-                //I_OH_LEDEVICES_TRANS_SLAT4  	    // Port  26
-                //I_OH_LEDEVICES_TRANS_SLAT5  	    // Port  2 
-                //I_OH_LEDEVICES_TRANS_SLAT6  	    // Port  3 
-                //I_OH_LEDEVICES_TRANS_SLAT7  	    // Port  4 
-                //I_OH_LEDEVICES_TRANS_SLAT8  	    // Port  5 
-                //I_OH_PSEU 						// Port  63	
-                //I_OH_REVERSER1  				    // Port  7 
-                //I_OH_REVERSER2  				    // Port  47
-
-
 
 
                 if (ldebugging) System.Console.WriteLine(s);
@@ -565,23 +991,7 @@ namespace ProSimSplitter
                     SendToArduino(s);
                 }
 
-                // Begin IRS Indicators
 
-                first = s.IndexOf("I_OH_IRS_ALIGN_L");
-                //Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("Hey found I_OH_IRS_ALIGN_L");
-                    SendToArduino(s);
-                }
-
-                first = s.IndexOf("I_OH_IRS_ONDC_L");
-                //Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("Hey found I_OH_IRS_ONDC_L");
-                    SendToArduino(s);
-                }
 
 
             }
