@@ -361,7 +361,7 @@ namespace ProSimSplitter
 
 
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            StringToBeProcessed = "N_FUEL_FLOW_2 abc";
+            StringToBeProcessed = "I_OH_ENGINE_CONTROL1 = 22";
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
             
             Boolean ldebugging = true;
@@ -395,18 +395,19 @@ namespace ProSimSplitter
             // INS Display - O-Oled, "XXXXXXXXXXXXXXX" - fixed length string
             // Seven Segment displays - S-Seven Segment - valid options - all blank, all dashes, or numeric value
 
-            switch (words[1])
+            switch (words[0])
             {
 
-
-                case "I_OH_LEDEVICES_TRANS_FLAPS":
+                //I_OH_ENGINE_CONTROL1              // Port  31
+                case "I_OH_ENGINE_CONTROL1":
                     {
+                        SendToArduinoAVPair("31", words[2], "N");
                         Console.WriteLine("hit");
-                        break;
+                        return;
                     }
                 default:
                     {
-                        Console.WriteLine("hit");
+                        Console.WriteLine("Not Processing " + words[1]);
                         break;
                     }
 
@@ -429,65 +430,66 @@ namespace ProSimSplitter
                 {
                     Console.WriteLine("I_OH_LEDEVICES_TRANS_FLAP3");
                     Console.WriteLine(words[2]); // value 3rd position but it is 0 based so 2
+
                     SendToArduino(s);
                 }
- 
-                //  1 I_OH_LEDEVICES_TRANS_FLAP4  
-                //  2 I_OH_LEDEVICES_TRANS_SLAT5  
-                //  3 I_OH_LEDEVICES_TRANS_SLAT6  
-                //  4 I_OH_LEDEVICES_TRANS_SLAT7  
-                //  5 I_OH_LEDEVICES_TRANS_SLAT8  
-                //  6 I_OH_IRS_DCFAIL_L  
-                //  7 I_OH_REVERSER1  
-                //  8 I_OH_LEDEVICES_EXT_FLAP3  
-                //  9 I_OH_LEDEVICES_EXT_FLAP4  
-                //  10 I_OH_LEDEVICES_EXT_SLAT5  
-                //  11 I_OH_LEDEVICES_EXT_SLAT6  
-                //  12 I_OH_LEDEVICES_EXT_SLAT7  
-                //  13 I_OH_LEDEVICES_EXT_SLAT8  
-                //  14 I_OH_IRS_FAULT_L  
-                //  15 I_OH_GEAR_NOSE_DOWN  
-                //  16 I_OH_LEDEVICES_EXT_FLAP3  
-                //  17 I_OH_LEDEVICES_EXT_FLAP4  
-                //  18 I_OH_LEDEVICES_FULLEXT_SLAT5  
-                //  19 I_OH_LEDEVICES_FULLEXT_SLAT6  
-                //  20 I_OH_LEDEVICES_FULLEXT_SLAT7  
-                //  21 I_OH_LEDEVICES_FULLEXT_SLAT8  
-                //  22 I_OH_IRS_ONDC_R  
-                //  23 I_OH_ENGINE_CONTROL2  
-                //  24 I_OH_LEDEVICES_TRANS_FLAP2  
-                //  25 I_OH_LEDEVICES_TRANS_FLAP1  
-                //  26 I_OH_LEDEVICES_TRANS_SLAT4  
-                //  27 I_OH_LEDEVICES_TRANS_SLAT3  
-                //  28 I_OH_LEDEVICES_TRANS_SLAT2  
-                //  29 I_OH_LEDEVICES_TRANS_SLAT1  
-                //  30 I_OH_IRS_ALIGN_R  
-                //  31 I_OH_ENGINE_CONTROL1  
-                //  32 I_OH_LEDEVICES_EXT_FLAP2  
-                //  33 I_OH_LEDEVICES_EXT_FLAP1  
-                //  34 I_OH_LEDEVICES_EXT_SLAT4  
-                //  35 I_OH_LEDEVICES_EXT_SLAT3  
-                //  36 I_OH_LEDEVICES_EXT_SLAT2  
-                //  37 I_OH_LEDEVICES_EXT_SLAT1  
-                //  38 I_OH_IRS_ALIGN_L  
-                //  39 I_OH_GEAR_LEFT_DOWN  
-                //  40 I_OH_LEDEVICES_EXT_FLAP2  
-                //  41 I_OH_LEDEVICES_EXT_FLAP1  
-                //  42 I_OH_LEDEVICES_FULLEXT_SLAT4  
-                //  43 I_OH_LEDEVICES_FULLEXT_SLAT3  
-                //  44 I_OH_LEDEVICES_FULLEXT_SLAT2  
-                //  45 I_OH_LEDEVICES_FULLEXT_SLAT1  
-                //  46 I_OH_IRS_DCFAIL_R  
-                //  47 I_OH_REVERSER2  
-                //  54 I_OH_IRS_FAULT_R  
-                //  55 I_OH_GEAR_RIGHT_DOWN  
-                //  61 I_OH_GPS  
-                //  62 I_OH_IRS_ONDC_L  
-                //  63 I_OH_PSEU
+                
+                //I_OH_ENGINE_CONTROL2  			// Port  23
+                //I_OH_GEAR_LEFT_DOWN  			    // Port  39
+                //I_OH_GEAR_NOSE_DOWN  			    // Port  15
+                //I_OH_GEAR_RIGHT_DOWN  			// Port  55
+                //I_OH_GPS  						// Port  61
+                //I_OH_IRS_ALIGN_L  				// Port  38
+                //I_OH_IRS_ALIGN_R  				// Port  30
+                //I_OH_IRS_DCFAIL_L  				// Port  6 
+                //I_OH_IRS_DCFAIL_R  				// Port  46
+                //I_OH_IRS_FAULT_L  				// Port  14
+                //I_OH_IRS_FAULT_R  				// Port  54
+                //I_OH_IRS_ONDC_L  				    // Port  62
+                //I_OH_IRS_ONDC_R  				    // Port  22
+                //I_OH_LEDEVICES_EXT_FLAP1  		// Port  33
+                //I_OH_LEDEVICES_EXT_FLAP1  		// Port  41
+                //I_OH_LEDEVICES_EXT_FLAP2  		// Port  32
+                //I_OH_LEDEVICES_EXT_FLAP2  		// Port  40
+                //I_OH_LEDEVICES_EXT_FLAP3  		// Port  16
+                //I_OH_LEDEVICES_EXT_FLAP3  		// Port  8 
+                //I_OH_LEDEVICES_EXT_FLAP4  		// Port  17
+                //I_OH_LEDEVICES_EXT_FLAP4  		// Port  9 
+                //I_OH_LEDEVICES_EXT_SLAT1  		// Port  37
+                //I_OH_LEDEVICES_EXT_SLAT2  		// Port  36
+                //I_OH_LEDEVICES_EXT_SLAT3  		// Port  35
+                //I_OH_LEDEVICES_EXT_SLAT4  		// Port  34
+                //I_OH_LEDEVICES_EXT_SLAT5  		// Port  10
+                //I_OH_LEDEVICES_EXT_SLAT6  		// Port  11
+                //I_OH_LEDEVICES_EXT_SLAT7  		// Port  12
+                //I_OH_LEDEVICES_EXT_SLAT8  		// Port  13
+                //I_OH_LEDEVICES_FULLEXT_SLAT1  	// Port  45
+                //I_OH_LEDEVICES_FULLEXT_SLAT2  	// Port  44
+                //I_OH_LEDEVICES_FULLEXT_SLAT3  	// Port  43
+                //I_OH_LEDEVICES_FULLEXT_SLAT4  	// Port  42
+                //I_OH_LEDEVICES_FULLEXT_SLAT5  	// Port  18
+                //I_OH_LEDEVICES_FULLEXT_SLAT6  	// Port  19
+                //I_OH_LEDEVICES_FULLEXT_SLAT7  	// Port  20
+                //I_OH_LEDEVICES_FULLEXT_SLAT8  	// Port  21
+                //I_OH_LEDEVICES_TRANS_FLAP1  	    // Port  25
+                //I_OH_LEDEVICES_TRANS_FLAP2  	    // Port  24
+                //I_OH_LEDEVICES_TRANS_FLAP3  	    // Port  0 
+                //I_OH_LEDEVICES_TRANS_FLAP4  	    // Port  1 
+                //I_OH_LEDEVICES_TRANS_SLAT1    	// Port  29
+                //I_OH_LEDEVICES_TRANS_SLAT2  	    // Port  28
+                //I_OH_LEDEVICES_TRANS_SLAT3  	    // Port  27
+                //I_OH_LEDEVICES_TRANS_SLAT4  	    // Port  26
+                //I_OH_LEDEVICES_TRANS_SLAT5  	    // Port  2 
+                //I_OH_LEDEVICES_TRANS_SLAT6  	    // Port  3 
+                //I_OH_LEDEVICES_TRANS_SLAT7  	    // Port  4 
+                //I_OH_LEDEVICES_TRANS_SLAT8  	    // Port  5 
+                //I_OH_PSEU 						// Port  63	
+                //I_OH_REVERSER1  				    // Port  7 
+                //I_OH_REVERSER2  				    // Port  47
 
 
-                
-                
+
+
                 if (ldebugging) System.Console.WriteLine(s);
                 first = s.IndexOf("FLT_ALT");
                 if (ldebugging) Console.WriteLine(first);
@@ -597,6 +599,92 @@ namespace ProSimSplitter
             SendingUdpClient.Send(send_buffer, send_buffer.Length, RemoteIpEndPoint);
             if (ldebugging) Console.WriteLine("Send Complete");
             
+
+        }
+
+        static void SendToArduinoAVPair(String attributeName, String value, string valueType)
+        {
+
+            String valueToSend = "";
+            Boolean ldebugging = false;
+            Double testNumber;
+
+            // Check valueType is known
+            //      Three types of values are used:
+            //      1:  I - indicator either a 1 or 0
+            //      2:  N - Number generally a float that can be positive or negative
+            //      3:  B - Binary - used is systems such as overhead backlight
+            //      4:  S - String
+            switch (valueType)
+            {
+
+
+                case "B":
+                    {
+                        // Is an indicator - now check if a 0 or 1
+                        if (value == "0" || value == "1")
+                            break;
+                        else
+                        {
+                            Console.WriteLine("Invalid value passed in " + attributeName + ":" + value + ":" + valueType);
+                            // Leave the routine
+                            return;
+                        }
+                    }
+
+
+                case "I":
+                    {
+                        // Is an indicator - now check if a 0 or 1
+                        if (value == "0" || value == "1")
+                            break;
+                        else
+                        {
+                            Console.WriteLine("Invalid value passed in " + attributeName + ":" + value + ":" + valueType);
+                            // Leave the routine
+                            return;
+                        }                    
+                    }
+
+                case "N":
+                    {
+                        // Is an indicator - now check if a 0 or 1
+                        if (double.TryParse(value, out testNumber))
+                            break;
+                        else
+                        {
+                            Console.WriteLine("Invalid number passed in " + attributeName + ":" + value + ":" + valueType);
+                            // Leave the routine
+                            return;
+                        }
+                    }
+
+                case "S":
+                    {
+                        // Nothing to really check here
+                        break;
+                    }
+
+                default:
+                    {
+                        Console.WriteLine("Invalid valuetype passed in " + attributeName + ":" + value + ":" + valueType);
+                        return;
+                    }
+
+            }
+
+
+            valueToSend = attributeName + "=" + value;
+            Console.WriteLine("Hey got through to send something " + valueToSend);
+            Console.ReadKey();
+
+            if (ldebugging) Console.Write("Starting Send :");
+            if (ldebugging) Console.WriteLine(valueToSend);
+            byte[] send_buffer = Encoding.ASCII.GetBytes(valueToSend);
+
+            SendingUdpClient.Send(send_buffer, send_buffer.Length, RemoteIpEndPoint);
+            if (ldebugging) Console.WriteLine("Send Complete");
+
 
         }
 
