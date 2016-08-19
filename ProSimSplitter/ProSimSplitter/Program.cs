@@ -215,6 +215,20 @@ using System.IO;
 //  63 I_OH_PSEU  
 
 
+// Pressurisation 
+// Start up
+// Async Read Received "B_PRESSURISATION_DASHED = 0"
+// Async Read Received "B_PRESSURISATION_DISPLAY_POWER = 0"
+//
+// Async Read Received "B_PRESSURISATION_DASHED = 1"
+// Async Read Received "B_PRESSURISATION_DISPLAY_POWER = 1"
+//
+// Async Read Received "N_OH_LAND_ALT = 0"
+// Async Read Received "N_OH_FLIGHT_ALT = 0"
+// Async Read Received "N_OH_FLIGHT_ALT = 10000"
+// Async Read Received "N_OH_LAND_ALT = 100"
+
+
 //      20160502       PT - Creation
 
 
@@ -247,7 +261,9 @@ namespace ProSimSplitter
             while (true) 
             {
                 //Creates a UdpClient for reading incoming data.
-               
+
+
+                TestFramework();
 
                 //Creates an IPEndPoint to record the IP Address and port number of the sender. 
                 // The IPEndPoint will allow you to read datagrams sent from any source.
@@ -540,6 +556,35 @@ namespace ProSimSplitter
             SendingUdpClient.Send(send_buffer, send_buffer.Length, RemoteIpEndPoint);
             if (ldebugging) Console.WriteLine("Send Complete");
             
+
+        }
+
+        static void TestFramework()
+        {
+            string StringToBeProcessed = "I_OH_ALPHA_VANE1 = 0";
+
+            Boolean ldebugging = true;
+
+            if (ldebugging) Console.WriteLine("Start ProcessStream");
+            if (ldebugging) Console.WriteLine("Processing Stream {0}", StringToBeProcessed);
+
+            char[] delimiterChars = { ' ', ',', '.', ':', '\r' };
+
+            
+            if (ldebugging) System.Console.WriteLine("Original text: '{0}'", StringToBeProcessed);
+
+            string[] words = StringToBeProcessed.Split(delimiterChars);
+            if (ldebugging) System.Console.WriteLine("{0} words in text:", words.Length);
+
+            foreach (string s in words)
+            {
+                int first = s.IndexOf("I_OH_LEDEVICES_TRANS_FLAP3");
+                Console.WriteLine("s vlaue is " +  s);
+            }
+
+            System.Console.WriteLine("Hit a key");
+            System.Console.ReadLine();
+
 
         }
     }
