@@ -561,14 +561,14 @@ namespace ProSimSplitter
 
         static void TestFramework()
         {
-            string StringToBeProcessed = "I_OH_ALPHA_VANE1 = 0";
+            string StringToBeProcessed = "N_FUEL_FLOW_2 = -76225";
 
             Boolean ldebugging = true;
 
             if (ldebugging) Console.WriteLine("Start ProcessStream");
             if (ldebugging) Console.WriteLine("Processing Stream {0}", StringToBeProcessed);
 
-            char[] delimiterChars = { ' ', ',', '.', ':', '\r' };
+            char[] delimiterChars = { ' ', ',', ':', '\r' };
 
             
             if (ldebugging) System.Console.WriteLine("Original text: '{0}'", StringToBeProcessed);
@@ -579,7 +579,12 @@ namespace ProSimSplitter
             foreach (string s in words)
             {
                 int first = s.IndexOf("I_OH_LEDEVICES_TRANS_FLAP3");
+                Console.WriteLine(StringToBeProcessed);
                 Console.WriteLine("s vlaue is " +  s);
+                Console.WriteLine("Now picking the value of the attribute");
+                Console.WriteLine(words[2]); // value 3rd position but it is 0 based so 2
+
+
             }
 
             System.Console.WriteLine("Hit a key");
