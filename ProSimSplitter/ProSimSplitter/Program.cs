@@ -286,6 +286,11 @@ namespace ProSimSplitter
             //      Make UDP Sender for testing - use forms
             while (true) 
             {
+
+
+                DirectoryWalk();
+                
+                
                 //Creates a UdpClient for reading incoming data.
 
 
@@ -1180,6 +1185,93 @@ namespace ProSimSplitter
 
 
         }
+
+        static void ReadFile()
+        {
+            int counter = 0;
+            string line;
+
+            // Read the file and display it line by line.
+            System.IO.StreamReader file =
+               new System.IO.StreamReader("c:\\test.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                Console.WriteLine(line);
+                counter++;
+            }
+
+            file.Close();
+
+            // Suspend the screen.
+            Console.ReadLine();
+
+        }
+
+        static void DirectoryWalk()
+        {
+
+            try
+            {
+                // Only get files that begin with the letter "c."
+                string[] dirs = Directory.GetFiles(@".", "iam*");
+                Console.WriteLine("The number of files starting with c is {0}.", dirs.Length);
+                foreach (string dir in dirs)
+                {
+                    Console.WriteLine(dir);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The process failed: {0}", e.ToString());
+            }
+
+
+
+            int counter = 0;
+            string line;
+
+            // Read the file and display it line by line.
+            System.IO.StreamReader file =
+               new System.IO.StreamReader(@".\Values_Returned_From_Prosim.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                Console.WriteLine(line);
+                counter++;
+            }
+            Console.WriteLine("file read complete, press the enter key");
+            file.Close();
+
+            // Suspend the screen.
+            Console.ReadLine();
+            
+            
+            try
+            {
+                string dirPath = @"c:\";
+                dirPath = @"..";
+                List<string> dirs = new List<string>(Directory.EnumerateDirectories(dirPath));
+
+                foreach (var dir in dirs)
+                {
+                    Console.WriteLine("{0}", dir.Substring(dir.LastIndexOf("\\") + 1));
+                }
+                Console.WriteLine("{0} directories found.", dirs.Count);
+            }
+            catch (UnauthorizedAccessException UAEx)
+            {
+                Console.WriteLine(UAEx.Message);
+            }
+            catch (PathTooLongException PathEx)
+            {
+                Console.WriteLine(PathEx.Message);
+            }
+
+
+
+
+        }
+
+
     }
  
 }
