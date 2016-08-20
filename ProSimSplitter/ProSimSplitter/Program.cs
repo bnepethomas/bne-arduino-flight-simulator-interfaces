@@ -391,6 +391,7 @@ namespace ProSimSplitter
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
             
             Boolean ldebugging = true;
+            String sWrkstr = "";
 
             // Reset change flags for devices needing state
 
@@ -905,13 +906,13 @@ namespace ProSimSplitter
 
                 case "N_IRS_DISP_LEFT":
                     {
-                        bHandleIRS_DISP = true;
+                        bHandle_IRS_DISP = true;
                         sN_IRS_DISP_LEFT = words[2];
                         break;
                     }
                 case "N_IRS_DISP_RIGHT":
                     {
-                        bHandleIRS_DISP = true;
+                        bHandle_IRS_DISP = true;
                         sN_IRS_DISP_RIGHT = words[2];
                         break;
                     }
@@ -926,21 +927,25 @@ namespace ProSimSplitter
                 case "N_OH_FLIGHT_ALT":
                     {
                         bHandle_PRESSURISATION_DISPLAY = true;
+                        sN_OH_FLIGHT_ALT = words[2];
                         break;
                     }
                 case "N_OH_LAND_ALT":
                     {
                         bHandle_PRESSURISATION_DISPLAY = true;
+                        sN_OH_LAND_ALT = words[2];
                         break;
                     }
                 case "B_PRESSURISATION_DASHED":
                     {
                         bHandle_PRESSURISATION_DISPLAY = true;
+                        sB_PRESSURISATION_DASHED = words[2];
                         break;
                     }
                 case "B_PRESSURISATION_DISPLAY_POWER":
                     {
                         bHandle_PRESSURISATION_DISPLAY = true;
+                        sB_PRESSURISATION_DISPLAY_POWER = words[2];
                         break;
                     }
 
@@ -951,10 +956,18 @@ namespace ProSimSplitter
                 //  "B_STARTER_SOLENOID_2 = 0"  
 
                 case "B_STARTER_SOLENOID_1":
+                    {
+                        bHandle_STARTER = true;
+                        sB_STARTER_SOLENOID_1 = words[2];
+                        SendToArduinoAVPair("S1", sB_STARTER_SOLENOID_1, "I");
+                        return;
+                    }
                 case "B_STARTER_PB_SOLENOID_2":
                     {
                         bHandle_STARTER = true;
-                        break;
+                        sB_STARTER_PB_SOLENOID_2 = words[2];
+                        SendToArduinoAVPair("S2", sB_STARTER_PB_SOLENOID_2, "I");
+                        return;
                     }
 
 
@@ -970,19 +983,67 @@ namespace ProSimSplitter
             // At this point should only be handling the special cases needing state management
 
 
-            if (bHandleIRS_DISP)
+            if (bHandle_IRS_DISP)
             {
                 // Need to worry about AC or DC power to flag display
                 // will handle later
+
+                // IRS Display has two lines of 16 Characters - returns values look like they are 6 Digits
+                // and may be prefix by a negative sign
+                // Update by creating string of 16 characters and then insert values in string
+                // It is possible between receiving updates values are 0 or blank, but this should be 
+                // very brief.
+
+                
 
                 
 
             }
 
 
+            if (bHandle_PRESSURISATION_DISPLAY)
+            {
+                // Value has changed need to send something
+                // Need to consider which display is being updated, so more than just string
+                // Use PD1 as prefix for Flight, and PD2 for Landing altitudes 
+
+                if (sB_PRESSURISATION_DISPLAY_POWER == "0")
+                {
+                    // Power is off send 8 blanks
+                    SendToArduinoAVPair("PD1", "        ", "S");
+                    SendToArduinoAVPair("PD2", "        ", "S");
+                    return;
+                }
+
+                if (sB_PRESSURISATION_DASHED == "1")
+                {
+                    // Power is off send 8 blanks
+                    SendToArduinoAVPair("PD1", "--------", "S");
+                    SendToArduinoAVPair("PD2", "--------", "S");
+                    return;
+                }
+
+                // At this point power is on and displays not dashed, so throw data
+                // PD1 is flight
 
 
-            
+                sWrkstr = sN_OH_FLIGHT_ALT;
+                sWrkstr.PadRight(8);
+                SendToArduinoAVPair("PD1", sWrkstr, "S");
+                // PD2 is landing
+
+                sWrkstr = " " + sN_OH_LAND_ALT;
+                sWrkstr.PadRight(8);
+                SendToArduinoAVPair("PD2", sWrkstr, "S");
+
+
+
+            }
+
+
+
+
+
             if (ldebugging) Console.WriteLine("End ProcessStream");
         }
 
