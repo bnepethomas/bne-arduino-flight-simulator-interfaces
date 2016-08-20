@@ -261,11 +261,21 @@ namespace ProSimSplitter
         //  INS Display
         //  Starter - stil lyet to determine if Arudino should watch millis to flick back
         //
-        public static double iFlightAltitude;
-        public static bool bFlightAltitudeDisplayState;
         
+        public static bool bHandle_IRS_DISP = false;
+        public static bool bHandle_PRESSURISATION_DISPLAY = false;
+        public static bool bHandle_STARTER = false;
 
+        public static string sN_IRS_DISP_LEFT;
+        public static string sN_IRS_DISP_RIGHT;
 
+        public static string sN_OH_FLIGHT_ALT;
+        public static string sN_OH_LAND_ALT;
+        public static string sB_PRESSURISATION_DASHED;
+        public static string sB_PRESSURISATION_DISPLAY_POWER;
+
+        public static string sB_STARTER_SOLENOID_1;
+        public static string sB_STARTER_PB_SOLENOID_2;
 
 
         public static string returnData;
@@ -381,6 +391,12 @@ namespace ProSimSplitter
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
             
             Boolean ldebugging = true;
+
+            // Reset change flags for devices needing state
+
+            bHandle_IRS_DISP = false;
+            bHandle_PRESSURISATION_DISPLAY = false;
+            bHandle_STARTER = false;
 
             if (ldebugging) Console.WriteLine("Start ProcessStream");
             if (ldebugging) Console.WriteLine("Processing Stream {0}", StringToBeProcessed);
@@ -887,17 +903,59 @@ namespace ProSimSplitter
                 //  "N_IRS_DISP_LEFT = 0"
                 //  "N_IRS_DISP_RIGHT = 0"
 
+                case "N_IRS_DISP_LEFT":
+                    {
+                        bHandleIRS_DISP = true;
+                        sN_IRS_DISP_LEFT = words[2];
+                        break;
+                    }
+                case "N_IRS_DISP_RIGHT":
+                    {
+                        bHandleIRS_DISP = true;
+                        sN_IRS_DISP_RIGHT = words[2];
+                        break;
+                    }
+
+
 
                 //  "N_OH_FLIGHT_ALT = 0"
                 //  "N_OH_LAND_ALT = 100"
                 //  "B_PRESSURISATION_DASHED = 0"
                 //  "B_PRESSURISATION_DISPLAY_POWER = 0"
-                
+
+                case "N_OH_FLIGHT_ALT":
+                    {
+                        bHandle_PRESSURISATION_DISPLAY = true;
+                        break;
+                    }
+                case "N_OH_LAND_ALT":
+                    {
+                        bHandle_PRESSURISATION_DISPLAY = true;
+                        break;
+                    }
+                case "B_PRESSURISATION_DASHED":
+                    {
+                        bHandle_PRESSURISATION_DISPLAY = true;
+                        break;
+                    }
+                case "B_PRESSURISATION_DISPLAY_POWER":
+                    {
+                        bHandle_PRESSURISATION_DISPLAY = true;
+                        break;
+                    }
+
+
                 //  "B_STARTER_PB_SOLENOID_1 = 0"
                 //  "B_STARTER_SOLENOID_1 = 0"
                 //  "B_STARTER_PB_SOLENOID_2 = 0"
-                //  "B_STARTER_SOLENOID_2 = 0"              
+                //  "B_STARTER_SOLENOID_2 = 0"  
 
+                case "B_STARTER_SOLENOID_1":
+                case "B_STARTER_PB_SOLENOID_2":
+                    {
+                        bHandle_STARTER = true;
+                        break;
+                    }
 
 
                 default:
@@ -909,92 +967,22 @@ namespace ProSimSplitter
 
             }
 
+            // At this point should only be handling the special cases needing state management
 
 
-
-            foreach (string s in words)
+            if (bHandleIRS_DISP)
             {
-
-
-                if (ldebugging) System.Console.WriteLine(s);
-                first = s.IndexOf("FLT_ALT");
-                if (ldebugging) Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("Hey found FLT_ALT");
-                    SendToArduino(s);
-                }
-
-
-
-                first = s.IndexOf("LAND_ALT");
-                //Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("Hey found LAND_ALT");
-                    SendToArduino(s);
-                }
-
-                first = s.IndexOf("STARTER_1_SOLENOID");
-                //Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("Hey found STARTER_1_SOLENOID");
-                    SendToArduino(s);
-                }
-
-
-
-
-              
-
-
-                first = s.IndexOf("STARTER_2_SOLENOID");
-                //Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("Hey found STARTER_2_SOLENOID");
-                    SendToArduino(s);
-                }
+                // Need to worry about AC or DC power to flag display
+                // will handle later
 
                 
-                first = s.IndexOf("APU_STARTING");
-                //Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("Hey found APU_STARTING");
-                    SendToArduino(s);
-                }
-
-
-                first = s.IndexOf("APU_STOPPING");
-                //Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("APU_STOPPING");
-                    SendToArduino(s);
-                }
-
-                first = s.IndexOf("AC_POWER");
-                //Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("AC_POWER");
-                    SendToArduino(s);
-                }
-
-                first = s.IndexOf("DC_POWER");
-                //Console.WriteLine(first);
-                if (first >= 0)
-                {
-                    Console.WriteLine("DC_POWER");
-                    SendToArduino(s);
-                }
-
-
-
 
             }
+
+
+
+
+            
             if (ldebugging) Console.WriteLine("End ProcessStream");
         }
 
@@ -1086,7 +1074,7 @@ namespace ProSimSplitter
 
             valueToSend = attributeName + "=" + value;
             Console.WriteLine("Hey got through to send something " + valueToSend);
-            Console.ReadKey();
+
 
             if (ldebugging) Console.Write("Starting Send :");
             if (ldebugging) Console.WriteLine(valueToSend);
