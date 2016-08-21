@@ -395,7 +395,7 @@ namespace ProSimSplitter
             // StringToBeProcessed = "I_OH_ENGINE_CONTROL1 = 1";
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
             
-            Boolean ldebugging = true;
+            Boolean ldebugging = false;
             String sWrkstr = "";
 
             // Reset change flags for devices needing state
@@ -407,7 +407,7 @@ namespace ProSimSplitter
             if (ldebugging) Console.WriteLine("Start ProcessStream");
             if (ldebugging) Console.WriteLine("Processing Stream {0}", StringToBeProcessed);
 
-            char[] delimiterChars = { ' ', ',', '.', ':', '\r' };
+            char[] delimiterChars = { ' ', ',', ':', '\r' };
 
             
             if (ldebugging) System.Console.WriteLine("Original text: '{0}'", StringToBeProcessed);
@@ -1000,10 +1000,58 @@ namespace ProSimSplitter
                 // very brief.
 
 
-                sWrkstr = " ";
-                sWrkstr.PadRight(16);
+                sWrkstr = "";
+                string sNorthWrkStr = "";
+                string sEastWkrStr = "";
+                sWrkstr = sWrkstr.PadRight(16);                
 
-                
+                if (sN_IRS_DISP_LEFT != null)
+                {
+                    // As we are working with a fresh string each time, just insert characters
+                    // Don't need to worry about pushing characters next next statement
+                    // stomps over spaces that have been pushed
+
+                    sEastWkrStr = sN_IRS_DISP_LEFT;
+                    // If longer than 3 characters hopefully we have full co-ordinates to 3 decimal places
+                    if (sEastWkrStr.Length > 3)
+                        sEastWkrStr = sEastWkrStr.Insert(sEastWkrStr.Length - 3, ".");
+
+                    // Need to determine if we are East or West
+                    if (sEastWkrStr.StartsWith("-"))
+                        sEastWkrStr = sEastWkrStr.Replace("-", "W");
+                    else
+                        sEastWkrStr = "E" + sEastWkrStr;
+
+                    sWrkstr = sWrkstr.Insert(2, sEastWkrStr);
+
+                    
+                    
+                    
+                }
+
+                if (sN_IRS_DISP_RIGHT != null)
+                {
+
+                    sNorthWrkStr = sN_IRS_DISP_RIGHT;
+                    // If longer than 3 characters hopefully we have full co-ordinates to 3 decimal places
+                    if (sNorthWrkStr.Length > 3)
+                        sNorthWrkStr = sNorthWrkStr.Insert(sNorthWrkStr.Length - 3, ".");
+
+                    // Need to determine if we are north or south
+                    if (sNorthWrkStr.StartsWith("-"))
+                        sNorthWrkStr = sNorthWrkStr.Replace("-", "S");
+                    else
+                        sNorthWrkStr = "N" + sNorthWrkStr;
+
+                    sWrkstr = sWrkstr.Insert(10, sNorthWrkStr);
+
+                }
+
+
+                // Prune excess characters
+                sWrkstr = sWrkstr.Substring(0, 17);
+
+                SendToArduinoAVPair("OL1", sWrkstr, "S");
 
             }
 
@@ -1144,7 +1192,7 @@ namespace ProSimSplitter
 
 
             valueToSend = attributeName + "=" + value;
-            Console.WriteLine("Hey got through to send something " + valueToSend);
+            Console.WriteLine("Sending " + valueToSend);
 
 
             if (ldebugging) Console.Write("Starting Send :");
@@ -1215,20 +1263,20 @@ namespace ProSimSplitter
         static void DirectoryWalk()
         {
 
-            try
-            {
-                // Only get files that begin with the letter "c."
-                string[] dirs = Directory.GetFiles(@".", "iam*");
-                Console.WriteLine("The number of files starting with c is {0}.", dirs.Length);
-                foreach (string dir in dirs)
-                {
-                    Console.WriteLine(dir);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("The process failed: {0}", e.ToString());
-            }
+            //try
+            //{
+            //    // Only get files that begin with the letter "c."
+            //    string[] dirs = Directory.GetFiles(@".", "iam*");
+            //    Console.WriteLine("The number of files starting with c is {0}.", dirs.Length);
+            //    foreach (string dir in dirs)
+            //    {
+            //        Console.WriteLine(dir);
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine("The process failed: {0}", e.ToString());
+            //}
 
 
 
