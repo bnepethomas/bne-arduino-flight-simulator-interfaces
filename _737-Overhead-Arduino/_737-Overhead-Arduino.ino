@@ -21,8 +21,7 @@ unsigned long delaytime=250;
 
 unsigned long sdelaytime=20;
 
-#define filename "_737-Overhead-Arduino-20160822
-"
+#define filename "_737-Overhead-Arduino-20160822"
 
 #include <SPI.h>
 #include <Ethernet.h>
@@ -41,6 +40,8 @@ char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming data
 const unsigned int listenport = 9920;
 EthernetUDP rxUdp;
 char receivePacketBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming data
+char *ParameterNamePtr;
+char *ParameterValuePtr;
 
 //TMS Display
 #include <TM1637Display.h>
@@ -467,6 +468,10 @@ void sendCommand(unsigned char command)
 
 void send_string(const char *String)
 {
+
+
+  
+    
     unsigned char i=0;
     while(String[i])
     {
@@ -628,9 +633,77 @@ void printNumber(long v, int maxArrayNo) {
 
 }
 
+
+
+void ProcessReceivedString()
+{
+
+    // Reading values from packetBuffer which is global
+    // All received values are strings for readability
+
+    String sWrkStr = "";
+
+    const char *delim  = "="; 
+    
+    ParameterNamePtr = strtok(packetBuffer,delim);
+    String ParameterNameString(ParameterNamePtr);    
+    ParameterValuePtr   = strtok(NULL,delim);
+    String ParameterValue(ParameterValuePtr);
+
+    // Handle the following attribute types
+    
+    
+    // Ixx - General indicator - a 0 or 1 
+    if (ParameterNameString[0] == 'I')
+    {
+      // We have a Indicator, the indicator number is always two digits
+      // So grab the 2nd and 3rd characters and convert them
+      sWrkStr = String(ParameterNameString[1]) + String(ParameterNameString[2]);
+
+      Work from here need to cleanup string hand;ng
+      
+      
+      
+      
+    }
+    
+    // PD1 - Flight Altitude
+    // PD2 - Landing Altitude
+    // OL1 - Top Line of INS OLED
+    // S1 - Servo 1 for starter 1
+    // S2 - Servo 2 for starter 2
+
+    
+
+  
+}
+
 void loop() {
 
+  // Check to see if anything has landed in UDP buffer
+  
+  int packetSize = rxUdp.parsePacket();
+  
+  if( packetSize > 0)
+  {
+      rxUdp.read( packetBuffer, packetSize);
+      //terminate the buffer manually
+      packetBuffer[packetSize] = '\0';
+  
+      ProcessReceivedString();  
+  }
 
+
+
+  // Check ot see if 1000 millis have passed since servo pushed starter back
+  //  This is will to be on a per servo basis, need to track both fired flag and delta time
+
+  // Check to see if Analog input has changed, if so then set brightness
+  // on 3 * Max7219 and OLED display
+
+  
+
+  
 
   String testString;
   testString  = String(loopcounter);
@@ -670,6 +743,11 @@ void loop() {
   // Landing Altitude - Max7219-1 Use Digits 5-1 10000
 
   lc.clearDisplay(0);
+
+  // Currently printNumber is handling justification etc, changing to be a dumb mode
+  // i.e. simple display formatted string provided by c# code
+
+  
   printNumber(25980,Flight_Altitude_Max7219 );
   printNumber(-100,Landing_Altitude_Max7219 );
    

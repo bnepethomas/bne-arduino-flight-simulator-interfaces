@@ -508,7 +508,7 @@ namespace ProSimSplitter
                 //I_OH_IRS_DCFAIL_L  				// Port  6 
                 case "I_OH_IRS_DCFAIL_L":
                     {
-                        SendToArduinoAVPair("I6", words[2], "I");
+                        SendToArduinoAVPair("I06", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }
@@ -585,7 +585,7 @@ namespace ProSimSplitter
                     {
                         // Special Case two leds to manage
                         SendToArduinoAVPair("I16", words[2], "I");
-                        SendToArduinoAVPair("I8", words[2], "I");
+                        SendToArduinoAVPair("I08", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }
@@ -597,7 +597,7 @@ namespace ProSimSplitter
                     {
                         // Special Case two leds to manage
                         SendToArduinoAVPair("I17", words[2], "I");
-                        SendToArduinoAVPair("I9", words[2], "I");
+                        SendToArduinoAVPair("I09", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }
@@ -772,7 +772,7 @@ namespace ProSimSplitter
                 //I_OH_LEDEVICES_TRANS_FLAP3  	    // Port  0 
                 case "I_OH_LEDEVICES_TRANS_FLAP3":
                     {
-                        SendToArduinoAVPair("I0", words[2], "I");
+                        SendToArduinoAVPair("I00", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }
@@ -781,7 +781,7 @@ namespace ProSimSplitter
                 //I_OH_LEDEVICES_TRANS_FLAP4  	    // Port  1 
                 case "I_OH_LEDEVICES_TRANS_FLAP4":
                     {
-                        SendToArduinoAVPair("I1", words[2], "I");
+                        SendToArduinoAVPair("I01", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }
@@ -826,7 +826,7 @@ namespace ProSimSplitter
                 //I_OH_LEDEVICES_TRANS_SLAT5  	    // Port  2 
                 case "I_OH_LEDEVICES_TRANS_SLAT5":
                     {
-                        SendToArduinoAVPair("I2", words[2], "I");
+                        SendToArduinoAVPair("I02", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }
@@ -835,7 +835,7 @@ namespace ProSimSplitter
                 //I_OH_LEDEVICES_TRANS_SLAT6  	    // Port  3 
                 case "I_OH_LEDEVICES_TRANS_SLAT6":
                     {
-                        SendToArduinoAVPair("I3", words[2], "I");
+                        SendToArduinoAVPair("I03", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }
@@ -844,7 +844,7 @@ namespace ProSimSplitter
                 //I_OH_LEDEVICES_TRANS_SLAT7  	    // Port  4 
                 case "I_OH_LEDEVICES_TRANS_SLAT7":
                     {
-                        SendToArduinoAVPair("I4", words[2], "I");
+                        SendToArduinoAVPair("I04", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }
@@ -853,7 +853,7 @@ namespace ProSimSplitter
                 //I_OH_LEDEVICES_TRANS_SLAT8  	    // Port  5 
                 case "I_OH_LEDEVICES_TRANS_SLAT8":
                     {
-                        SendToArduinoAVPair("I5", words[2], "I");
+                        SendToArduinoAVPair("I05", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }
@@ -871,7 +871,7 @@ namespace ProSimSplitter
                 //I_OH_REVERSER1  				    // Port  7 
                 case "I_OH_REVERSER1":
                     {
-                        SendToArduinoAVPair("I7", words[2], "I");
+                        SendToArduinoAVPair("I07", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }
@@ -1083,15 +1083,13 @@ namespace ProSimSplitter
 
                 if (sN_OH_FLIGHT_ALT != null)
                 {
-                    sWrkstr = sN_OH_FLIGHT_ALT;
-                    sWrkstr.PadRight(8);
+                    sWrkstr = sN_OH_FLIGHT_ALT.PadLeft(8);
                     SendToArduinoAVPair("PD1", sWrkstr, "S");
                 }
                 // PD2 is landing
                 if (sN_OH_LAND_ALT != null)
                 {
-                    sWrkstr = " " + sN_OH_LAND_ALT;
-                    sWrkstr.PadRight(8);
+                    sWrkstr = " " + sN_OH_LAND_ALT.PadLeft(7);
                     SendToArduinoAVPair("PD2", sWrkstr, "S");
                 }
 
