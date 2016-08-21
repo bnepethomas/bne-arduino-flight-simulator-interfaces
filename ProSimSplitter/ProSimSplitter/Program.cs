@@ -392,7 +392,7 @@ namespace ProSimSplitter
 
 
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            StringToBeProcessed = "I_OH_ENGINE_CONTROL1 = 1";
+            // StringToBeProcessed = "I_OH_ENGINE_CONTROL1 = 1";
             // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
             
             Boolean ldebugging = true;
@@ -999,7 +999,9 @@ namespace ProSimSplitter
                 // It is possible between receiving updates values are 0 or blank, but this should be 
                 // very brief.
 
-                
+
+                sWrkstr = " ";
+                sWrkstr.PadRight(16);
 
                 
 
@@ -1031,16 +1033,19 @@ namespace ProSimSplitter
                 // At this point power is on and displays not dashed, so throw data
                 // PD1 is flight
 
-
-                sWrkstr = sN_OH_FLIGHT_ALT;
-                sWrkstr.PadRight(8);
-                SendToArduinoAVPair("PD1", sWrkstr, "S");
+                if (sN_OH_FLIGHT_ALT != null)
+                {
+                    sWrkstr = sN_OH_FLIGHT_ALT;
+                    sWrkstr.PadRight(8);
+                    SendToArduinoAVPair("PD1", sWrkstr, "S");
+                }
                 // PD2 is landing
-
-                sWrkstr = " " + sN_OH_LAND_ALT;
-                sWrkstr.PadRight(8);
-                SendToArduinoAVPair("PD2", sWrkstr, "S");
-
+                if (sN_OH_LAND_ALT != null)
+                {
+                    sWrkstr = " " + sN_OH_LAND_ALT;
+                    sWrkstr.PadRight(8);
+                    SendToArduinoAVPair("PD2", sWrkstr, "S");
+                }
 
 
             }
@@ -1229,13 +1234,23 @@ namespace ProSimSplitter
 
             int counter = 0;
             string line;
+            string sWrkString;
+
+            int iLeadingCharacters=21;
 
             // Read the file and display it line by line.
             System.IO.StreamReader file =
                new System.IO.StreamReader(@".\Values_Returned_From_Prosim.txt");
             while ((line = file.ReadLine()) != null)
             {
-                Console.WriteLine(line);
+                if (line.IndexOf("Async Read Received ") == 0)
+                {
+                    Console.WriteLine(line);
+                    sWrkString = line.Substring(iLeadingCharacters, (line.Length - (iLeadingCharacters+1)));
+                    Console.WriteLine(sWrkString);
+                    ProcessStream(sWrkString);
+                }
+                
                 counter++;
             }
             Console.WriteLine("file read complete, press the enter key");
