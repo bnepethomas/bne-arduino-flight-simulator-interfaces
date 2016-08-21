@@ -641,14 +641,20 @@ void ProcessReceivedString()
     // Reading values from packetBuffer which is global
     // All received values are strings for readability
 
+    Serial.println("Processing Packet");
+   
+
     String sWrkStr = "";
 
     const char *delim  = "="; 
     
     ParameterNamePtr = strtok(packetBuffer,delim);
-    String ParameterNameString(ParameterNamePtr);    
+    String ParameterNameString(ParameterNamePtr); 
+    Serial.println(ParameterNameString);
+       
     ParameterValuePtr   = strtok(NULL,delim);
     String ParameterValue(ParameterValuePtr);
+    Serial.println(ParameterValuePtr);
 
     // Handle the following attribute types
     
@@ -660,7 +666,7 @@ void ProcessReceivedString()
       // So grab the 2nd and 3rd characters and convert them
       sWrkStr = String(ParameterNameString[1]) + String(ParameterNameString[2]);
 
-      Work from here need to cleanup string hand;ng
+      //Work from here need to cleanup string hand;ng
       
       
       
@@ -705,12 +711,12 @@ void loop() {
 
   
 
-  String testString;
-  testString  = String(loopcounter);
-  testString = testString + " Helloworld";
-  testString.toCharArray(packetBuffer, 20);
-  sendCommand(0xC0);
-  send_string(packetBuffer);
+//  String testString;
+//  testString  = String(loopcounter);
+//  testString = testString + " Helloworld";
+//  testString.toCharArray(packetBuffer, 20);
+//  sendCommand(0xC0);
+//  send_string(packetBuffer);
 
 
 //  Serial.println("rows");
@@ -733,30 +739,30 @@ void loop() {
 //  Serial.println("writeStaticOn7Segment");
 //  writeStaticOn7Segment();
   
-  Serial.println("Getting serious with 7 Seg");
- lc.clearDisplay(0);
+//  Serial.println("Getting serious with 7 Seg");
+// lc.clearDisplay(0);
 //  for(long i=-11000;i<100000;i++) {
 //    printNumber(i,Flight_Altitude_Max7219);
 //
 //  }
   // Flight Altitude - Max7219-0 Use Digits 5-1 38000
   // Landing Altitude - Max7219-1 Use Digits 5-1 10000
-
-  lc.clearDisplay(0);
+//
+//  lc.clearDisplay(0);
 
   // Currently printNumber is handling justification etc, changing to be a dumb mode
   // i.e. simple display formatted string provided by c# code
 
   
-  printNumber(25980,Flight_Altitude_Max7219 );
-  printNumber(-100,Landing_Altitude_Max7219 );
-   
-  single();
-
-
-  
-  loopcounter = loopcounter + 1;
-  lc.clearDisplay(0);
-  lc.clearDisplay(1);
+//  printNumber(25980,Flight_Altitude_Max7219 );
+//  printNumber(-100,Landing_Altitude_Max7219 );
+//   
+//  single();
+//
+//
+//  
+//  loopcounter = loopcounter + 1;
+//  lc.clearDisplay(0);
+//  lc.clearDisplay(1);
 
 }
