@@ -641,7 +641,9 @@ void ProcessReceivedString()
     // Reading values from packetBuffer which is global
     // All received values are strings for readability
 
-    Serial.println("Processing Packet");
+    bool bLocalDebug = false;
+
+    if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
    
 
     String sWrkStr = "";
@@ -650,11 +652,11 @@ void ProcessReceivedString()
     
     ParameterNamePtr = strtok(packetBuffer,delim);
     String ParameterNameString(ParameterNamePtr); 
-    Serial.println(ParameterNameString);
+    if (Debug_Display || bLocalDebug ) Serial.println("Parameter Name " + String(ParameterNameString));
        
     ParameterValuePtr   = strtok(NULL,delim);
     String ParameterValue(ParameterValuePtr);
-    Serial.println(ParameterValuePtr);
+    if (Debug_Display || bLocalDebug ) Serial.println("Parameter Value " + String(ParameterValuePtr));
 
     // Handle the following attribute types
     
@@ -666,7 +668,55 @@ void ProcessReceivedString()
       // So grab the 2nd and 3rd characters and convert them
       sWrkStr = String(ParameterNameString[1]) + String(ParameterNameString[2]);
 
-      //Work from here need to cleanup string hand;ng
+      //Work from here need to cleanup string hand;
+
+      // Check to see if parameter is between 0 and 64 if valid proceed
+      if (isValidNumber(sWrkStr))
+      {
+        if (Debug_Display || bLocalDebug ) Serial.println(sWrkStr + " is a valid number");
+        
+        if (Debug_Display || bLocalDebug ) Serial.println("Buffer Length " + String(sWrkStr.length()));
+        
+        char buf[sWrkStr.length()+1];
+        sWrkStr.toCharArray(buf,sWrkStr.length()+1);
+
+        int iledToChange= atoi(buf); 
+        if (Debug_Display || bLocalDebug ) Serial.println("Converted number is " + String(iledToChange));
+
+        if (Debug_Display || bLocalDebug ) Serial.println("Converting to Row Column");
+
+        int iledRow = 0;
+        int iledColumn = 0;
+
+        iledRow = iledToChange / 8;
+        iledColumn = iledToChange % 8;
+
+        if (Debug_Display || bLocalDebug ) Serial.println("Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+
+
+        if (String(ParameterValuePtr)=="0")
+        {
+          if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+          lc_2.setLed(0,iledRow,iledColumn,false);
+          
+        }
+        else
+        {
+          if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+          lc_2.setLed(0,iledRow,iledColumn,true);
+        }
+
+        // Our work is done      
+        return;
+        
+      }
+      else
+      {
+        if (Debug_Display) Serial.println(sWrkStr + " is not a valid number");
+        return;
+
+      } 
+      
       
       
       
@@ -682,6 +732,18 @@ void ProcessReceivedString()
     
 
   
+}
+
+boolean isValidNumber(String str)
+{
+   boolean isNum=false;
+   if(!(str.charAt(0) == '+' || str.charAt(0) == '-' || isDigit(str.charAt(0)))) return false;
+
+   for(byte i=1;i<str.length();i++)
+   {
+       if(!(isDigit(str.charAt(i)) || str.charAt(i) == '.')) return false;
+   }
+   return true;
 }
 
 void loop() {
