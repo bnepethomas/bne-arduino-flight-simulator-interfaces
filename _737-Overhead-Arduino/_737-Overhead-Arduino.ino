@@ -13,7 +13,7 @@
 
  LedControl lc=LedControl(12,11,10,1);
  */
-LedControl lc=LedControl(4,6,5,2);                      // Landing and Flight Displasy
+LedControl lc=LedControl(4,6,5,2);                      // Landing and Flight Displays
 LedControl lc_2=LedControl(8,10,9,1);                   // Individual Leds and LE Devices
 
 /* we always wait a bit between updates of the display */
@@ -712,20 +712,55 @@ void ProcessReceivedString()
       }
       else
       {
-        if (Debug_Display) Serial.println(sWrkStr + " is not a valid number");
+        if (Debug_Display || bLocalDebug ) Serial.println(sWrkStr + " is not a valid number");
         return;
 
       } 
-      
-      
-      
-      
-      
+          
     }
     
+
     // PD1 - Flight Altitude
+    bLocalDebug = true;
+    if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '1')
+    {
+      if (Debug_Display || bLocalDebug ) Serial.println("Handing Pressure Flight Altitude - PD1 " + String(ParameterValuePtr) );
+      for(int i=8;i>0;i--)
+      {
+        // May need to check for Space and Dash and see what that does.
+        if (Debug_Display || bLocalDebug ) Serial.println("Setting Digit :" + String(i) + " Value :" + String(ParameterValue[i]));
+        lc.setDigit(1,i,ParameterValue[i],false);
+        
+      }
+      
+      return;
+    }
+    
+    
     // PD2 - Landing Altitude
+
+    bLocalDebug = true;
+    if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '2')
+    {
+      if (Debug_Display || bLocalDebug ) Serial.println("Handing Pressure Landing Altitude - PD2 " + String(ParameterValuePtr) );
+      for(int i=8;i>0;i--)
+      {
+        // May need to check for Space and Dash and see what that does.
+        if (Debug_Display || bLocalDebug ) Serial.println("Setting Digit :" + String(i) + " Value :" + String(ParameterValue[i]));
+        lc.setDigit(1,i,ParameterValue[i],false);
+        
+      }
+      
+      return;
+    }
+
+    
     // OL1 - Top Line of INS OLED
+    if (ParameterNameString[0] == 'P')
+    {
+      //Handle OLED
+    }
+    
     // S1 - Servo 1 for starter 1
     // S2 - Servo 2 for starter 2
 
