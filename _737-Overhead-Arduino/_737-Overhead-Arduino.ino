@@ -21,7 +21,7 @@ unsigned long delaytime=250;
 
 unsigned long sdelaytime=20;
 
-#define filename "_737-Overhead-Arduino-20160822"
+#define filename "_737-Overhead-Arduino-20160824"
 
 #include <SPI.h>
 #include <Ethernet.h>
@@ -113,6 +113,12 @@ char currentoled = 0;
 
 int loopcounter = 0;
 
+// Servo related timers
+long lservo_1_Reset_Time = 0;       // The time from millis where the servo should be sent back to the rest position
+long lservo_2_Reset_Time = 0;
+bool lservo_1_Waiting_To_Reset = false;
+bool lservo_2_Waiting_To_Reset = false;
+
 void setup() {
   // put your setup code here, to run once:
     /*
@@ -184,6 +190,8 @@ void setup() {
     starterOneServo.attach(starterOneServoPin);
     starterTwoServo.attach(starterTwoServoPin);
     
+    // 60 is servo reset position
+    // 200 is servo pushing starter switch back to off
     starterOneServo.write(60);
     delay(500);
     starterOneServo.write(200);
@@ -280,7 +288,8 @@ void setup() {
     //Clear the UDP Buffer
     for(int i=0;i<UDP_TX_PACKET_MAX_SIZE;i++) receivePacketBuffer[i] = 0;
 
-
+  lservo_1_Waiting_To_Reset = false;
+  lservo_2_Waiting_To_Reset =false;
   
 }
 
@@ -721,7 +730,7 @@ void ProcessReceivedString()
     
 
     // PD1 - Flight Altitude
-    bLocalDebug = true;
+
     if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '1')
     {
       if (Debug_Display || bLocalDebug ) Serial.println("Handing Pressure Flight Altitude - PD1 " + String(ParameterValuePtr) );
@@ -739,7 +748,7 @@ void ProcessReceivedString()
     
     // PD2 - Landing Altitude
 
-    bLocalDebug = true;
+
     if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '2')
     {
       if (Debug_Display || bLocalDebug ) Serial.println("Handing Pressure Landing Altitude - PD2 " + String(ParameterValuePtr) );
@@ -755,16 +764,72 @@ void ProcessReceivedString()
     }
 
     
+    // *************************  OLED  ************************* 
     // OL1 - Top Line of INS OLED
     if (ParameterNameString[0] == 'P')
     {
-      //Handle OLED
-    }
+      
+        //Handle OLED    }
+        sendCommand(0x80);
+        send_string("                ");
+        sendCommand(0xC0);
+        send_string(ParameterNamePtr);
+    } 
     
+    
+    
+    // *************************  SERVO  ************************* 
     // S1 - Servo 1 for starter 1
+    if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '1')
+    {
+      if (ParameterValue == "1")
+      {
+        // Set the reset time to 500mS in the future
+        lservo_1_Reset_Time = millis() + 500;
+        lservo_1_Waiting_To_Reset = true;
+        return;
+    }
+    }
     // S2 - Servo 2 for starter 2
+    if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '2')
+    {
+      // Check to see if this is a push back event
+      if (ParameterValue == "1")
+      {
+        // Set the reset time to 500mS in the future
+        lservo_2_Reset_Time = millis() + 500;
+        lservo_2_Waiting_To_Reset = true;
+        return;
+      }
+    }
 
-    
+
+
+    // Check to see if servos need reseting - do a very quick check on boolean flag, if true
+    // then check to see if time has expired.
+    if (lservo_1_Waiting_To_Reset) 
+    {
+      if (millis() >= lservo_1_Reset_Time)
+      {
+        // Time to move the servo back
+        lservo_1_Waiting_To_Reset = false;
+        // Send servo back to reseting place
+        starterTwoServo.write(60);
+      }
+
+    }
+    if (lservo_2_Waiting_To_Reset) 
+    {
+      if (millis() > lservo_2_Reset_Time)
+      {
+        // Time to move the servo back
+        lservo_2_Waiting_To_Reset = false;
+        // Send servo back to reseting place
+        starterTwoServo.write(60);
+      }
+
+    }
+      
 
   
 }

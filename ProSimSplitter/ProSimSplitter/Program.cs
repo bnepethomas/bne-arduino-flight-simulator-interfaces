@@ -265,6 +265,7 @@ namespace ProSimSplitter
         public static bool bHandle_IRS_DISP = false;
         public static bool bHandle_PRESSURISATION_DISPLAY = false;
         public static bool bHandle_STARTER = false;
+        public static bool bHandle_OH_Backlight = false;
 
         public static string sN_IRS_DISP_LEFT;
         public static string sN_IRS_DISP_RIGHT;
@@ -403,6 +404,7 @@ namespace ProSimSplitter
             bHandle_IRS_DISP = false;
             bHandle_PRESSURISATION_DISPLAY = false;
             bHandle_STARTER = false;
+            bHandle_OH_Backlight = false;
 
             if (ldebugging) Console.WriteLine("Start ProcessStream");
             if (ldebugging) Console.WriteLine("Processing Stream {0}", StringToBeProcessed);
@@ -429,7 +431,7 @@ namespace ProSimSplitter
             // Check entire line is passed, and for indicators validate value to be either 0 or 1
             // Packet format to Arduino 
             // Indicators I06=1 - I-Indicator, XX, valid options 1 or 0, 0-63 generic indicators, 
-            // Relays R06-1 - R-Relay, valid options 1 or 0, 80-90
+            // Relays R06=1 - R-Relay, valid options 1 or 0, 80-90
             // INS Display - O-Oled, "XXXXXXXXXXXXXXX" - fixed length string
             // Seven Segment displays - S-Seven Segment - valid options - all blank, all dashes, or numeric value
 
@@ -909,6 +911,14 @@ namespace ProSimSplitter
                 //  "N_IRS_DISP_LEFT = 0"
                 //  "N_IRS_DISP_RIGHT = 0"
 
+
+                case "B_OVERHEAD_BACKLIGHT_MASTER":
+                    {
+                        SendToArduinoAVPair("H6", words[2], "I");
+                        // Nothing more to do fall out
+                        return;
+                    }
+
                 case "N_IRS_DISP_LEFT":
                     {
                         bHandle_IRS_DISP = true;
@@ -1053,6 +1063,8 @@ namespace ProSimSplitter
 
                 SendToArduinoAVPair("OL1", sWrkstr, "S");
 
+                return;
+
             }
 
 
@@ -1093,14 +1105,15 @@ namespace ProSimSplitter
                     SendToArduinoAVPair("PD2", sWrkstr, "S");
                 }
 
+                return;
 
-            }
-
+            }       // End Handle Pressurisation
 
 
 
 
             if (ldebugging) Console.WriteLine("End ProcessStream");
+            
         }
 
         static void SendToArduino(String UpdatedDisplayValue)
