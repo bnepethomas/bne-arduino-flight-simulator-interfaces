@@ -62,7 +62,7 @@ TM1637Display display(CLK, DIO);
 Servo starterOneServo;
 Servo starterTwoServo;
 
-#define apuPin 7
+#define backLightPin 7
 #define spareRelayPin 11
 
 boolean APU_Starting = 0;
@@ -155,13 +155,13 @@ void setup() {
     /* and clear the display */
     lc_2.clearDisplay(0);
 
-    digitalWrite(apuPin, HIGH);
+    digitalWrite(backLightPin, HIGH);
     digitalWrite(spareRelayPin, HIGH);
     
     Serial.begin(115200); 
     Serial.println(filename);
     
-    pinMode(apuPin, OUTPUT);
+    pinMode(backLightPin, OUTPUT);
     pinMode(spareRelayPin, OUTPUT);
   
 
@@ -207,9 +207,9 @@ void setup() {
     Serial.println("Servo Initialised");
 
     Serial.println("Start Relay");
-    digitalWrite(apuPin, LOW);
+    digitalWrite(backLightPin, LOW);
     delay(1000);
-    digitalWrite(apuPin, HIGH);
+    digitalWrite(backLightPin, HIGH);
 
     digitalWrite(spareRelayPin, LOW);
     delay(1000);
@@ -788,7 +788,7 @@ void ProcessReceivedString()
         lservo_1_Reset_Time = millis() + 500;
         lservo_1_Waiting_To_Reset = true;
         return;
-    }
+      }
     }
     // S2 - Servo 2 for starter 2
     if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '2')
@@ -802,6 +802,28 @@ void ProcessReceivedString()
         return;
       }
     }
+
+
+    //  H6 - Backlight - noting that it is wired inversly
+    //  ie the backlight is on when power is NOT applied to relay, 
+    //  means lights are on even if Sim is not running
+    if (ParameterNameString[0] == 'R' && ParameterNameString[1] == '6')
+    {
+      // Check to see if this is a push back event
+      if (ParameterValue == "1")
+      {
+        // Set the output state to 0 - remember its inverse!
+        digitalWrite(backLightPin, LOW); 
+      }
+      else
+      {
+        // Set the output state to 1
+        digitalWrite(backLightPin, HIGH);
+      }
+      return;
+    }
+
+
 
 
 
