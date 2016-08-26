@@ -914,7 +914,7 @@ namespace ProSimSplitter
 
                 case "B_OVERHEAD_BACKLIGHT_MASTER":
                     {
-                        SendToArduinoAVPair("H6", words[2], "I");
+                        SendToArduinoAVPair("R06", words[2], "I");
                         // Nothing more to do fall out
                         return;
                     }

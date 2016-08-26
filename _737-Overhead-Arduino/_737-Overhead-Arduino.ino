@@ -3,6 +3,12 @@
 // Max 7219 Library 
 #include "LedControl.h"
 
+// To Test
+// Backlight relay
+// Servo actions
+// Correct number of indicators
+// Correct display of Pressurisation 
+
 /*
  Now we need a LedControl to work with.
  ***** These pin numbers will probably not work with your hardware *****
@@ -804,10 +810,11 @@ void ProcessReceivedString()
     }
 
 
-    //  H6 - Backlight - noting that it is wired inversly
+    //  R06 - Backlight - noting that it is wired inversly
     //  ie the backlight is on when power is NOT applied to relay, 
     //  means lights are on even if Sim is not running
-    if (ParameterNameString[0] == 'R' && ParameterNameString[1] == '6')
+    //  being a little lazy here, should be checking for three values R06 not just RX6
+    if (ParameterNameString[0] == 'R' && ParameterNameString[2] == '6')
     {
       // Check to see if this is a push back event
       if (ParameterValue == "1")
