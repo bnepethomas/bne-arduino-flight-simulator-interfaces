@@ -27,7 +27,7 @@ unsigned long delaytime=250;
 
 unsigned long sdelaytime=20;
 
-#define filename "_737-Overhead-Arduino-20160824"
+#define filename "_737-Overhead-Arduino-20160828"
 
 #include <SPI.h>
 #include <Ethernet.h>
@@ -739,13 +739,13 @@ void ProcessReceivedString()
 
     if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '1')
     {
+      
       if (Debug_Display || bLocalDebug ) Serial.println("Handing Pressure Flight Altitude - PD1 " + String(ParameterValuePtr) );
       for(int i=8;i>0;i--)
       {
         // May need to check for Space and Dash and see what that does.
         if (Debug_Display || bLocalDebug ) Serial.println("Setting Digit :" + String(i) + " Value :" + String(ParameterValue[i]));
-        lc.setDigit(1,i,ParameterValue[i],false);
-        
+        lc.setChar(0,i,ParameterValue[i],false);   
       }
       
       return;
@@ -762,7 +762,7 @@ void ProcessReceivedString()
       {
         // May need to check for Space and Dash and see what that does.
         if (Debug_Display || bLocalDebug ) Serial.println("Setting Digit :" + String(i) + " Value :" + String(ParameterValue[i]));
-        lc.setDigit(1,i,ParameterValue[i],false);
+        lc.setChar(1,i,ParameterValue[i],false);
         
       }
       

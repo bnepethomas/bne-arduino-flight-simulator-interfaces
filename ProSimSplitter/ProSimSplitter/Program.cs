@@ -1213,6 +1213,8 @@ namespace ProSimSplitter
             SendingUdpClient.Send(send_buffer, send_buffer.Length, RemoteIpEndPoint);
             if (ldebugging) Console.WriteLine("Send Complete");
 
+            Thread.Sleep(10);
+
 
         }
 
