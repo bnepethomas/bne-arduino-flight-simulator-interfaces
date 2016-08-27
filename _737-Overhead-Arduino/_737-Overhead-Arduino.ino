@@ -739,13 +739,13 @@ void ProcessReceivedString()
 
     if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '1')
     {
-      
+      bLocalDebug = true;
       if (Debug_Display || bLocalDebug ) Serial.println("Handing Pressure Flight Altitude - PD1 " + String(ParameterValuePtr) );
       for(int i=8;i>0;i--)
       {
         // May need to check for Space and Dash and see what that does.
         if (Debug_Display || bLocalDebug ) Serial.println("Setting Digit :" + String(i) + " Value :" + String(ParameterValue[i]));
-        lc.setChar(0,i,ParameterValue[i],false);   
+        lc.setChar(0,i,ParameterValue[8-i],false);   
       }
       
       return;
@@ -762,7 +762,7 @@ void ProcessReceivedString()
       {
         // May need to check for Space and Dash and see what that does.
         if (Debug_Display || bLocalDebug ) Serial.println("Setting Digit :" + String(i) + " Value :" + String(ParameterValue[i]));
-        lc.setChar(1,i,ParameterValue[i],false);
+        lc.setChar(1,i,ParameterValue[8-i],false);
         
       }
       
@@ -772,21 +772,22 @@ void ProcessReceivedString()
     
     // *************************  OLED  ************************* 
     // OL1 - Top Line of INS OLED
-    if (ParameterNameString[0] == 'P')
+    if (ParameterNameString[0] == 'O')
     {
-      
+        
+        if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED:" + String(ParameterValuePtr) );
         //Handle OLED    }
         sendCommand(0x80);
         send_string("                ");
         sendCommand(0xC0);
-        send_string(ParameterNamePtr);
+        send_string(ParameterValuePtr);
     } 
     
     
     
     // *************************  SERVO  ************************* 
     // S1 - Servo 1 for starter 1
-    if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '1')
+    if (ParameterNameString[0] == 'S' && ParameterNameString[2] == '1')
     {
       if (ParameterValue == "1")
       {
@@ -797,7 +798,7 @@ void ProcessReceivedString()
       }
     }
     // S2 - Servo 2 for starter 2
-    if (ParameterNameString[0] == 'P' && ParameterNameString[2] == '2')
+    if (ParameterNameString[0] == 'S' && ParameterNameString[2] == '2')
     {
       // Check to see if this is a push back event
       if (ParameterValue == "1")

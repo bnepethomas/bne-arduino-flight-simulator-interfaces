@@ -974,14 +974,14 @@ namespace ProSimSplitter
                     {
                         bHandle_STARTER = true;
                         sB_STARTER_SOLENOID_1 = words[2];
-                        SendToArduinoAVPair("S1", sB_STARTER_SOLENOID_1, "I");
+                        SendToArduinoAVPair("S01", sB_STARTER_SOLENOID_1, "I");
                         return;
                     }
                 case "B_STARTER_PB_SOLENOID_2":
                     {
                         bHandle_STARTER = true;
                         sB_STARTER_PB_SOLENOID_2 = words[2];
-                        SendToArduinoAVPair("S2", sB_STARTER_PB_SOLENOID_2, "I");
+                        SendToArduinoAVPair("S02", sB_STARTER_PB_SOLENOID_2, "I");
                         return;
                     }
 
@@ -1032,7 +1032,7 @@ namespace ProSimSplitter
                     else
                         sEastWkrStr = "E" + sEastWkrStr;
 
-                    sWrkstr = sWrkstr.Insert(2, sEastWkrStr);
+                    sWrkstr = sWrkstr.Insert(0, sEastWkrStr);
 
                     
                     
@@ -1053,7 +1053,7 @@ namespace ProSimSplitter
                     else
                         sNorthWrkStr = "N" + sNorthWrkStr;
 
-                    sWrkstr = sWrkstr.Insert(10, sNorthWrkStr);
+                    sWrkstr = sWrkstr.Insert(8, sNorthWrkStr);
 
                 }
 
@@ -1085,8 +1085,8 @@ namespace ProSimSplitter
                 if (sB_PRESSURISATION_DASHED == "1")
                 {
                     // Power is off send 8 blanks
-                    SendToArduinoAVPair("PD1", "--------", "S");
-                    SendToArduinoAVPair("PD2", "--------", "S");
+                    SendToArduinoAVPair("PD1", "   ------", "S");
+                    SendToArduinoAVPair("PD2", "   ------", "S");
                     return;
                 }
 
