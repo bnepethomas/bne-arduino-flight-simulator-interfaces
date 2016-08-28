@@ -820,13 +820,13 @@ void ProcessReceivedString()
       // Check to see if this is a push back event
       if (ParameterValue == "1")
       {
-        // Set the output state to 0 - remember its inverse!
-        digitalWrite(backLightPin, LOW); 
+        // Set the output state to 1 
+        digitalWrite(backLightPin, HIGH); 
       }
       else
       {
         // Set the output state to 1
-        digitalWrite(backLightPin, HIGH);
+        digitalWrite(backLightPin, LOW);
       }
       return;
     }

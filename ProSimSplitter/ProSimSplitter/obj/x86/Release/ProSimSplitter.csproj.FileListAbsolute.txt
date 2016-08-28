@@ -20,3 +20,9 @@ Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\P
 Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.application
 Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.exe
 Z:\FSServer\Development\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.pdb
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\bin\Release\ProSimSplitter.exe.manifest
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\bin\Release\ProSimSplitter.application
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\bin\Release\ProSimSplitter.exe
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\bin\Release\ProSimSplitter.pdb
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.exe.manifest
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.application

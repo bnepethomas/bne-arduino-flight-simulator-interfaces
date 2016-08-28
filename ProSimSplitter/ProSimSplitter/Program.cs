@@ -289,7 +289,8 @@ namespace ProSimSplitter
             {
 
 
-                DirectoryWalk();
+                // Test routine that reads in previously sent datastream
+                //DirectoryWalk();
                 
                 
                 //Creates a UdpClient for reading incoming data.
@@ -1021,18 +1022,23 @@ namespace ProSimSplitter
                     // Don't need to worry about pushing characters next next statement
                     // stomps over spaces that have been pushed
 
-                    sEastWkrStr = sN_IRS_DISP_LEFT;
-                    // If longer than 3 characters hopefully we have full co-ordinates to 3 decimal places
-                    if (sEastWkrStr.Length > 3)
-                        sEastWkrStr = sEastWkrStr.Insert(sEastWkrStr.Length - 3, ".");
+                    sNorthWrkStr = sN_IRS_DISP_LEFT;
+                    if (sNorthWrkStr != "-1")
+                    {
+                        // If longer than 3 characters hopefully we have full co-ordinates to 3 decimal places
+                        if (sNorthWrkStr.Length > 3)
+                            sNorthWrkStr = sNorthWrkStr.Insert(sNorthWrkStr.Length - 3, ".");
 
-                    // Need to determine if we are East or West
-                    if (sEastWkrStr.StartsWith("-"))
-                        sEastWkrStr = sEastWkrStr.Replace("-", "W");
+                        // Need to determine if we are East or West
+                        if (sNorthWrkStr.StartsWith("-"))
+                            sNorthWrkStr = sNorthWrkStr.Replace("-", "S");
+                        else
+                            sNorthWrkStr = "N" + sNorthWrkStr;
+                    }
                     else
-                        sEastWkrStr = "E" + sEastWkrStr;
+                        sNorthWrkStr = "        ";
 
-                    sWrkstr = sWrkstr.Insert(0, sEastWkrStr);
+                    sWrkstr = sWrkstr.Insert(0, sNorthWrkStr);
 
                     
                     
@@ -1042,18 +1048,25 @@ namespace ProSimSplitter
                 if (sN_IRS_DISP_RIGHT != null)
                 {
 
-                    sNorthWrkStr = sN_IRS_DISP_RIGHT;
-                    // If longer than 3 characters hopefully we have full co-ordinates to 3 decimal places
-                    if (sNorthWrkStr.Length > 3)
-                        sNorthWrkStr = sNorthWrkStr.Insert(sNorthWrkStr.Length - 3, ".");
+                    
+                    sEastWkrStr = sN_IRS_DISP_RIGHT;
+                    if (sEastWkrStr != "-1")
+                    {
+                        // If longer than 3 characters hopefully we have full co-ordinates to 3 decimal places
+                        if (sEastWkrStr.Length > 3)
+                            sEastWkrStr = sEastWkrStr.Insert(sEastWkrStr.Length - 3, ".");
 
-                    // Need to determine if we are north or south
-                    if (sNorthWrkStr.StartsWith("-"))
-                        sNorthWrkStr = sNorthWrkStr.Replace("-", "S");
+                        // Need to determine if we are north or south
+                        if (sEastWkrStr.StartsWith("-"))
+                            sEastWkrStr = sEastWkrStr.Replace("-", "W");
+                        else
+                            sEastWkrStr = "E" + sEastWkrStr;
+                    }
                     else
-                        sNorthWrkStr = "N" + sNorthWrkStr;
-
-                    sWrkstr = sWrkstr.Insert(8, sNorthWrkStr);
+                    {
+                        sEastWkrStr = "        ";
+                    }
+                    sWrkstr = sWrkstr.Insert(8, sEastWkrStr);
 
                 }
 
@@ -1085,8 +1098,8 @@ namespace ProSimSplitter
                 if (sB_PRESSURISATION_DASHED == "1")
                 {
                     // Power is off send 8 blanks
-                    SendToArduinoAVPair("PD1", "   ------", "S");
-                    SendToArduinoAVPair("PD2", "   ------", "S");
+                    SendToArduinoAVPair("PD1", "  -------", "S");
+                    SendToArduinoAVPair("PD2", "  -------", "S");
                     return;
                 }
 
@@ -1213,7 +1226,7 @@ namespace ProSimSplitter
             SendingUdpClient.Send(send_buffer, send_buffer.Length, RemoteIpEndPoint);
             if (ldebugging) Console.WriteLine("Send Complete");
 
-            Thread.Sleep(10);
+            Thread.Sleep(5);
 
 
         }
