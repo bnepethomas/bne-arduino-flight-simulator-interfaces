@@ -269,6 +269,8 @@ namespace ProSimSplitter
 
         public static string sN_IRS_DISP_LEFT;
         public static string sN_IRS_DISP_RIGHT;
+        public static string IRS_ENT_LED = "   ";
+        public static string IRS_CLR_LED = "   ";
 
         public static string sN_OH_FLIGHT_ALT;
         public static string sN_OH_LAND_ALT;
@@ -912,6 +914,38 @@ namespace ProSimSplitter
                 //  "N_IRS_DISP_LEFT = 0"
                 //  "N_IRS_DISP_RIGHT = 0"
 
+                case "I_OH_IRS_ENT_KEY":
+                    {
+                        if (words[2] == "0")
+                        {
+                            IRS_ENT_LED = "   ";
+                        }
+                        else
+                        {
+                            IRS_ENT_LED = "ENT";
+                        }
+
+                        SendToArduinoAVPair("OL2", IRS_ENT_LED + "        " + IRS_CLR_LED, "S");
+                        return;
+
+                    }
+
+                case "I_OH_IRS_CLR_KEY":
+                    {
+                        if (words[2] == "0")
+                        {
+                            IRS_CLR_LED = "   ";
+                        }
+                        else
+                        {
+                            IRS_CLR_LED = "CLR";
+                        }
+
+                        SendToArduinoAVPair("OL2", IRS_ENT_LED + "        " + IRS_CLR_LED + "   ", "S");
+                        return;
+                    }
+
+
 
                 case "B_OVERHEAD_BACKLIGHT_MASTER":
                     {
@@ -1011,9 +1045,10 @@ namespace ProSimSplitter
                 // very brief.
 
 
-                sWrkstr = "";
+                sWrkstr = "                 ";
                 string sNorthWrkStr = "";
                 string sEastWkrStr = "";
+
                 sWrkstr = sWrkstr.PadRight(16);                
 
                 if (sN_IRS_DISP_LEFT != null)

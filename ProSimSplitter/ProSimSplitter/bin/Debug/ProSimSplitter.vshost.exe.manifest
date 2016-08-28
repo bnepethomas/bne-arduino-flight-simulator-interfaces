@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProSimSplitter.exe" size="17920">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProSimSplitter.exe" size="18432">
       <assemblyIdentity name="ProSimSplitter" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>mfduUhWGqORs7HPMuvwCXEkyHwo=</dsig:DigestValue>
+        <dsig:DigestValue>vD07iOsbTREkxr8cX81wyuFtMg4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

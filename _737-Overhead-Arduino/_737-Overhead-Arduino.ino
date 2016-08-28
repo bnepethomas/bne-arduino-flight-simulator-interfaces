@@ -772,18 +772,28 @@ void ProcessReceivedString()
     
     // *************************  OLED  ************************* 
     // OL1 - Top Line of INS OLED
-    if (ParameterNameString[0] == 'O')
+    if (ParameterNameString[0] == 'O' && ParameterNameString[2] == '1' )
     {
         
         if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED:" + String(ParameterValuePtr) );
         //Handle OLED    }
         sendCommand(0x80);
-        send_string("                ");
-        sendCommand(0xC0);
+        //send_string("                ");
+        //sendCommand(0xC0);
         send_string(ParameterValuePtr);
     } 
     
-    
+
+    // OL2 - Bottom Line of INS OLED
+    if (ParameterNameString[0] == 'O' && ParameterNameString[2] == '2' )
+    {
+        
+        if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED:" + String(ParameterValuePtr) );
+        //Handle OLED    }
+        sendCommand(0x80);
+        sendCommand(0xC0);
+        send_string(ParameterValuePtr);
+    } 
     
     // *************************  SERVO  ************************* 
     // S1 - Servo 1 for starter 1
