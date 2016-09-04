@@ -916,6 +916,8 @@ namespace ProSimSplitter
 
                 case "I_OH_IRS_ENT_KEY":
                     {
+                        // excluding while isolating Arduino hang
+                        return;
                         if (words[2] == "0")
                         {
                             IRS_ENT_LED = "   ";
@@ -932,6 +934,9 @@ namespace ProSimSplitter
 
                 case "I_OH_IRS_CLR_KEY":
                     {
+
+                        // excluding while isolating Arduino hang
+                        return;
                         if (words[2] == "0")
                         {
                             IRS_CLR_LED = "   ";
@@ -1035,6 +1040,10 @@ namespace ProSimSplitter
 
             if (bHandle_IRS_DISP)
             {
+
+                // excluding while isolating Arduino hang
+                return;
+
                 // Need to worry about AC or DC power to flag display
                 // will handle later
 

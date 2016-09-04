@@ -125,6 +125,11 @@ long lservo_2_Reset_Time = 0;
 bool lservo_1_Waiting_To_Reset = false;
 bool lservo_2_Waiting_To_Reset = false;
 
+// Keepalive reporting
+long lKeepAlive = 0;
+long ltime = 0;
+
+
 void setup() {
   // put your setup code here, to run once:
     /*
@@ -222,7 +227,7 @@ void setup() {
     digitalWrite(spareRelayPin, HIGH);
 
 
-    Serial.println("Relay Initialised");
+     Serial.println("Relay Initialised");
 
 
   
@@ -286,9 +291,9 @@ void setup() {
 
  
   sendCommand(0x80);
-  send_string("                ");
+  send_string(" ENT     CLR    ");
   sendCommand(0xC0);
-  send_string("   00001        ");
+  send_string(" N0000  W0000   ");
     
 
     //Clear the UDP Buffer
@@ -296,6 +301,8 @@ void setup() {
 
   lservo_1_Waiting_To_Reset = false;
   lservo_2_Waiting_To_Reset =false;
+
+  lKeepAlive = 0;
   
 }
 
@@ -772,6 +779,7 @@ void ProcessReceivedString()
     
     // *************************  OLED  ************************* 
     // OL1 - Top Line of INS OLED
+    bLocalDebug = true;
     if (ParameterNameString[0] == 'O' && ParameterNameString[2] == '1' )
     {
         
@@ -889,6 +897,17 @@ boolean isValidNumber(String str)
 void loop() {
 
   // Check to see if anything has landed in UDP buffer
+
+
+  ltime = millis();
+  if ((ltime - lKeepAlive) > 1000)
+  {
+      Serial.print("I am alive: ");
+      Serial.println(ltime);
+      lKeepAlive = millis();
+    
+  }
+
   
   int packetSize = rxUdp.parsePacket();
   
