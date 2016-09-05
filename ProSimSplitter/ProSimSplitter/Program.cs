@@ -916,8 +916,7 @@ namespace ProSimSplitter
 
                 case "I_OH_IRS_ENT_KEY":
                     {
-                        // excluding while isolating Arduino hang
-                        return;
+
                         if (words[2] == "0")
                         {
                             IRS_ENT_LED = "   ";
@@ -927,7 +926,8 @@ namespace ProSimSplitter
                             IRS_ENT_LED = "ENT";
                         }
 
-                        SendToArduinoAVPair("OL2", IRS_ENT_LED + "        " + IRS_CLR_LED, "S");
+                        SendToArduinoAVPair("OL2", IRS_ENT_LED + "        " + IRS_CLR_LED + " ", "S");
+                        //Thread.Sleep(25);
                         return;
 
                     }
@@ -935,8 +935,7 @@ namespace ProSimSplitter
                 case "I_OH_IRS_CLR_KEY":
                     {
 
-                        // excluding while isolating Arduino hang
-                        return;
+
                         if (words[2] == "0")
                         {
                             IRS_CLR_LED = "   ";
@@ -946,7 +945,8 @@ namespace ProSimSplitter
                             IRS_CLR_LED = "CLR";
                         }
 
-                        SendToArduinoAVPair("OL2", IRS_ENT_LED + "        " + IRS_CLR_LED + "   ", "S");
+                        SendToArduinoAVPair("OL2", IRS_ENT_LED + "        " + IRS_CLR_LED + " " , "S");
+                        //Thread.Sleep(25);
                         return;
                     }
 
@@ -1270,7 +1270,7 @@ namespace ProSimSplitter
             SendingUdpClient.Send(send_buffer, send_buffer.Length, RemoteIpEndPoint);
             if (ldebugging) Console.WriteLine("Send Complete");
 
-            Thread.Sleep(5);
+            //Thread.Sleep(5);
 
 
         }

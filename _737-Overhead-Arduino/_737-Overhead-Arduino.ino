@@ -129,6 +129,7 @@ bool lservo_2_Waiting_To_Reset = false;
 long lKeepAlive = 0;
 long ltime = 0;
 
+String s_sendstringwrkstr = "";
 
 void setup() {
   // put your setup code here, to run once:
@@ -488,18 +489,23 @@ void sendCommand(unsigned char command)
     
 }
 
-void send_string(const char *String)
+void send_string(const char *pString)
 {
-
-
-  
-    
+    s_sendstringwrkstr = "";
     unsigned char i=0;
-    while(String[i])
+
+    Wire.beginTransmission(OLED_Address);    // **** Start I2C 
+
+    Wire.write(OLED_Data_Mode);         // **** Set OLED Data mode
+    while(pString[i])
     {
-        sendData(String[i]);      // *** Show String to OLED
+        s_sendstringwrkstr += i;
+        Serial.println("Processing character " + s_sendstringwrkstr + " " +  pString[i]);
+        //sendData(pString[i]);      // *** Show String to OLED
+        Wire.write(pString[i]);
         i++;
     }
+    Wire.endTransmission();   
 
 }
 
@@ -783,12 +789,15 @@ void ProcessReceivedString()
     if (ParameterNameString[0] == 'O' && ParameterNameString[2] == '1' )
     {
         
-        if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED:" + String(ParameterValuePtr) );
+        if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED Line 1:" + String(ParameterValuePtr) );
         //Handle OLED    }
+        delay(25);
         sendCommand(0x80);
+        delay(25);
         //send_string("                ");
         //sendCommand(0xC0);
         send_string(ParameterValuePtr);
+        
     } 
     
 
@@ -796,11 +805,15 @@ void ProcessReceivedString()
     if (ParameterNameString[0] == 'O' && ParameterNameString[2] == '2' )
     {
         
-        if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED:" + String(ParameterValuePtr) );
+        if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED Line 2:" + String(ParameterValuePtr) );
         //Handle OLED    }
+        //delay(25);
         sendCommand(0x80);
+        //delay(25);
         sendCommand(0xC0);
+        //delay(25);
         send_string(ParameterValuePtr);
+        if (Debug_Display || bLocalDebug ) Serial.println("Finished Handling OLED Line 2:" + String(ParameterValuePtr) );
     } 
     
     // *************************  SERVO  ************************* 
