@@ -1,0 +1,2622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <hardware>
+    <system type="[System]" serial="" inputs="1" outputs="0" gauge="false" lcd="false" numerical="false" analog="0" encoders="0" />
+    <FDS type="FDS HIO_128_256" serial="03EA000003AD" inputs="128" outputs="256" gauge="false" lcd="false" numerical="false" analog="0" encoders="0" />
+    <directinput type="BU0836X_3" serial="c68c2810-5bae-11e6-8001-444553540000" inputs="32" outputs="0" gauge="false" lcd="false" numerical="false" analog="3" encoders="0" />
+    <directinput type="BU0836A 3" serial="ad2f95f0-5825-11e6-8001-444553540000" inputs="32" outputs="0" gauge="false" lcd="false" numerical="false" analog="0" encoders="0" />
+    <genericCOMport type="Generic driver" serial="TCP" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
+    <genericCOMport type="Generic COM port " serial="COM1" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
+    <genericCOMport type="Generic COM port " serial="COM3" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
+    <genericCOMport type="Generic COM port " serial="COM5" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
+    <fsuipc type="FSUIPC" serial="8 bit U" inputs="65535" outputs="65535" gauge="true" lcd="false" numerical="true" analog="1" encoders="0" />
+    <fsuipc type="FSUIPC" serial="8 bit S" inputs="65535" outputs="65535" gauge="true" lcd="false" numerical="true" analog="1" encoders="1" />
+    <fsuipc type="FSUIPC" serial="16 bit S" inputs="65535" outputs="65535" gauge="true" lcd="false" numerical="true" analog="1" encoders="1" />
+    <fsuipc type="FSUIPC" serial="16 bit U" inputs="65535" outputs="65535" gauge="true" lcd="false" numerical="true" analog="1" encoders="0" />
+    <fsuipc type="FSUIPC" serial="32 bit S" inputs="65535" outputs="65535" gauge="true" lcd="false" numerical="true" analog="1" encoders="1" />
+    <fsuipc type="FSUIPC" serial="32 bit U" inputs="65535" outputs="65535" gauge="true" lcd="false" numerical="true" analog="1" encoders="0" />
+    <fsuipc type="FSUIPC" serial="Float 32" inputs="0" outputs="65535" gauge="true" lcd="false" numerical="true" analog="1" encoders="0" />
+    <fsuipc type="FSUIPC" serial="Float 64" inputs="0" outputs="65535" gauge="true" lcd="false" numerical="true" analog="1" encoders="0" />
+    <matrixorbital type="MatrixOrbital" serial="0" inputs="0" outputs="0" gauge="false" lcd="true" numerical="false" analog="0" encoders="0" />
+    <genericCOMport type="Generic COM port " serial="COM4" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
+    <genericCOMport type="Generic COM port " serial="COM6" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
+    <directinput type="737YOKE-LE by ACE" serial="d971ab40-6d2d-11e6-8002-444553540000" inputs="32" outputs="0" gauge="false" lcd="false" numerical="false" analog="8" encoders="0" />
+    <genericCOMport type="Generic COM port " serial="COM7" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
+    <flightIllusion type="Flight Illusion" serial="0" inputs="0" outputs="0" gauge="true" lcd="false" numerical="false" analog="0" encoders="0" />
+    <FDS type="FDS HIO_128_256" serial="03EA" inputs="128" outputs="256" gauge="false" lcd="false" numerical="false" analog="0" encoders="0" />
+    <directinput type="BU0836X_2" serial="3d9d7d40-728f-11e6-8002-444553540000" inputs="32" outputs="0" gauge="false" lcd="false" numerical="false" analog="7" encoders="0" />
+    <genericCOMport type="Generic COM port " serial="COM8" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
+    <iocp type="IOCP" serial="0" inputs="9999" outputs="9999" gauge="true" lcd="false" numerical="true" analog="9999" encoders="9999" />
+  </hardware>
+  <mappings>
+    <mapping connection="Ignition select Left">
+      <FDS serial="03EA000003AD" port="120" />
+    </mapping>
+    <mapping connection="Ignition select Right">
+      <FDS serial="03EA000003AD" port="121" />
+    </mapping>
+    <mapping connection="Light Main Fixed L Off">
+      <FDS serial="03EA000003AD" port="52" />
+    </mapping>
+    <mapping connection="Light Main Fixed R Off">
+      <FDS serial="03EA000003AD" port="54" />
+    </mapping>
+    <mapping connection="Light Main Retract L Off">
+      <FDS serial="03EA000003AD" port="49" />
+    </mapping>
+    <mapping connection="Light Main Retract R Off">
+      <FDS serial="03EA000003AD" port="51" />
+    </mapping>
+    <mapping connection="Lights Anti collision On">
+      <FDS serial="03EA000003AD" port="123" />
+    </mapping>
+    <mapping connection="Lights Logo On">
+      <FDS serial="03EA000003AD" port="127" />
+    </mapping>
+    <mapping connection="Lights Position On">
+      <FDS serial="03EA000003AD" port="126" />
+    </mapping>
+    <mapping connection="Lights Runway turnoff L On">
+      <FDS serial="03EA000003AD" port="50" />
+    </mapping>
+    <mapping connection="Lights Runway turnoff R On">
+      <FDS serial="03EA000003AD" port="53" />
+    </mapping>
+    <mapping connection="Lights Strobe On">
+      <FDS serial="03EA000003AD" port="101" />
+    </mapping>
+    <mapping connection="Lights Taxi On">
+      <FDS serial="03EA000003AD" port="122" />
+    </mapping>
+    <mapping connection="Lights Wheel well On">
+      <FDS serial="03EA000003AD" port="109" />
+    </mapping>
+    <mapping connection="Lights Wing On">
+      <FDS serial="03EA000003AD" port="124" />
+    </mapping>
+    <mapping connection="Start 1 Off">
+      <FDS serial="03EA000003AD" port="114" />
+    </mapping>
+    <mapping connection="Start 1 GRD">
+      <FDS serial="03EA000003AD" port="113" />
+    </mapping>
+    <mapping connection="Start 1 CONT">
+      <FDS serial="03EA000003AD" port="115" />
+    </mapping>
+    <mapping connection="Start 1 FLT">
+      <FDS serial="03EA000003AD" port="118" />
+    </mapping>
+    <mapping connection="Start 2 Off">
+      <FDS serial="03EA000003AD" port="119" />
+    </mapping>
+    <mapping connection="Start 2 GRD">
+      <FDS serial="03EA000003AD" port="117" />
+    </mapping>
+    <mapping connection="Start 2 CONT">
+      <FDS serial="03EA000003AD" port="112" />
+    </mapping>
+    <mapping connection="Start 2 FLT">
+      <FDS serial="03EA000003AD" port="116" />
+    </mapping>
+    <mapping connection="Auto slat Fail">
+      <FDS serial="03EA000003AD" port="9" />
+    </mapping>
+    <mapping connection="Bat discharge">
+      <FDS serial="03EA000003AD" port="11" />
+    </mapping>
+    <mapping connection="Yaw damper">
+      <FDS serial="03EA000003AD" port="10" />
+    </mapping>
+    <mapping connection="Alt horn cutout Pushed">
+      <FDS serial="03EA000003AD" port="28" />
+    </mapping>
+    <mapping connection="APU switch Off">
+      <FDS serial="03EA000003AD" port="55" />
+    </mapping>
+    <mapping connection="APU switch Start">
+      <FDS serial="03EA000003AD" port="48" />
+    </mapping>
+    <mapping connection="Attend Pushed">
+      <FDS serial="03EA000003AD" port="26" />
+    </mapping>
+    <mapping connection="Battery switch On">
+      <FDS serial="03EA000003AD" port="94" />
+    </mapping>
+    <mapping connection="Galley On">
+      <FDS serial="03EA000003AD" port="93" />
+    </mapping>
+    <mapping connection="Ground call On">
+      <FDS serial="03EA000003AD" port="27" />
+    </mapping>
+    <mapping connection="Ground Power On">
+      <FDS serial="03EA000003AD" port="24" />
+    </mapping>
+    <mapping connection="Alpha Vane Heat L">
+      <FDS serial="03EA000003AD" port="196" />
+    </mapping>
+    <mapping connection="Alpha Vane Heat R">
+      <FDS serial="03EA000003AD" port="194" />
+    </mapping>
+    <mapping connection="APU FAULT">
+      <FDS serial="03EA000003AD" port="52" />
+    </mapping>
+    <mapping connection="APU GEN OFF BUS">
+      <FDS serial="03EA000003AD" port="22" />
+      <FDS serial="03EA000003AD" port="18" />
+    </mapping>
+    <mapping connection="APU Low oil pressure">
+      <FDS serial="03EA000003AD" port="48" />
+    </mapping>
+    <mapping connection="APU Maint">
+      <FDS serial="03EA000003AD" port="49" />
+    </mapping>
+    <mapping connection="APU Overspeed">
+      <FDS serial="03EA000003AD" port="50" />
+    </mapping>
+    <mapping connection="Attend call">
+      <FDS serial="03EA000003AD" port="21" />
+    </mapping>
+    <mapping connection="auxPitot Heat">
+      <FDS serial="03EA000003AD" port="193" />
+    </mapping>
+    <mapping connection="Bleed trip off 1">
+      <FDS serial="03EA000003AD" port="208" />
+    </mapping>
+    <mapping connection="Bleed trip off 2">
+      <FDS serial="03EA000003AD" port="211" />
+    </mapping>
+    <mapping connection="Capt Pitot Heat">
+      <FDS serial="03EA000003AD" port="192" />
+    </mapping>
+    <mapping connection="Copilot Pitot Heat">
+      <FDS serial="03EA000003AD" port="195" />
+    </mapping>
+    <mapping connection="Cowl Anti-Ice L">
+      <FDS serial="03EA000003AD" port="8" />
+    </mapping>
+    <mapping connection="Cowl Anti-Ice R">
+      <FDS serial="03EA000003AD" port="15" />
+    </mapping>
+    <mapping connection="Cowl valve open L">
+      <FDS serial="03EA000003AD" port="132" />
+    </mapping>
+    <mapping connection="Cowl valve open R">
+      <FDS serial="03EA000003AD" port="134" />
+    </mapping>
+    <mapping connection="Door Aft Cargo">
+      <FDS serial="03EA000003AD" port="156" />
+    </mapping>
+    <mapping connection="Door Aft Entry">
+      <FDS serial="03EA000003AD" port="152" />
+    </mapping>
+    <mapping connection="Door Aft Service">
+      <FDS serial="03EA000003AD" port="153" />
+    </mapping>
+    <mapping connection="Door Equip">
+      <FDS serial="03EA000003AD" port="158" />
+    </mapping>
+    <mapping connection="Door Fwd Cargo">
+      <FDS serial="03EA000003AD" port="159" />
+    </mapping>
+    <mapping connection="Door Fwd entry">
+      <FDS serial="03EA000003AD" port="221" />
+    </mapping>
+    <mapping connection="Door Fwd Service">
+      <FDS serial="03EA000003AD" port="157" />
+    </mapping>
+    <mapping connection="Grd Pwr available">
+      <FDS serial="03EA000003AD" port="70" />
+    </mapping>
+    <mapping connection="Hyd ENG1 LP">
+      <FDS serial="03EA000003AD" port="223" />
+    </mapping>
+    <mapping connection="Hyd ENG2 LP">
+      <FDS serial="03EA000003AD" port="216" />
+    </mapping>
+    <mapping connection="Cowl valve open L bright">
+      <FDS serial="03EA000003AD" port="135" />
+    </mapping>
+    <mapping connection="Cowl valve open R bright">
+      <FDS serial="03EA000003AD" port="128" />
+    </mapping>
+    <mapping connection="Crossfeed indicator">
+      <FDS serial="03EA000003AD" port="33" />
+    </mapping>
+    <mapping connection="Door Left Fwd Overwing">
+      <FDS serial="03EA000003AD" port="217" />
+    </mapping>
+    <mapping connection="Door Right Aft Overwing">
+      <FDS serial="03EA000003AD" port="155" />
+    </mapping>
+    <mapping connection="Door Right Fwd Overwing">
+      <FDS serial="03EA000003AD" port="154" />
+    </mapping>
+    <mapping connection="Drive 1">
+      <FDS serial="03EA000003AD" port="71" />
+    </mapping>
+    <mapping connection="Drive 2">
+      <FDS serial="03EA000003AD" port="66" />
+    </mapping>
+    <mapping connection="Dual bleed">
+      <FDS serial="03EA000003AD" port="137" />
+    </mapping>
+    <mapping connection="ELEC">
+      <FDS serial="03EA000003AD" port="12" />
+    </mapping>
+    <mapping connection="Elev pitot Heat L">
+      <FDS serial="03EA000003AD" port="199" />
+    </mapping>
+    <mapping connection="Elev pitot Heat R">
+      <FDS serial="03EA000003AD" port="197" />
+    </mapping>
+    <mapping connection="Emerg Exit Lights not armed">
+      <FDS serial="03EA000003AD" port="67" />
+    </mapping>
+    <mapping connection="ENG Valve Closed L">
+      <FDS serial="03EA000003AD" port="28" />
+    </mapping>
+    <mapping connection="ENG Valve Closed R">
+      <FDS serial="03EA000003AD" port="26" />
+    </mapping>
+    <mapping connection="Equip cooling exhaust Off">
+      <FDS serial="03EA000003AD" port="64" />
+    </mapping>
+    <mapping connection="Equip cooling supply Off">
+      <FDS serial="03EA000003AD" port="68" />
+    </mapping>
+    <mapping connection="Feel Diff Press">
+      <FDS serial="03EA000003AD" port="4" />
+    </mapping>
+    <mapping connection="Filter Bypass L">
+      <FDS serial="03EA000003AD" port="32" />
+    </mapping>
+    <mapping connection="Filter Bypass R">
+      <FDS serial="03EA000003AD" port="35" />
+    </mapping>
+    <mapping connection="Fuel Center Left LP">
+      <FDS serial="03EA000003AD" port="55" />
+    </mapping>
+    <mapping connection="Fuel Center Right LP">
+      <FDS serial="03EA000003AD" port="53" />
+    </mapping>
+    <mapping connection="Fuel Left Aft LP">
+      <FDS serial="03EA000003AD" port="39" />
+    </mapping>
+    <mapping connection="Fuel Left Fwd LP">
+      <FDS serial="03EA000003AD" port="38" />
+    </mapping>
+    <mapping connection="Fuel Right Aft LP">
+      <FDS serial="03EA000003AD" port="36" />
+    </mapping>
+    <mapping connection="Fuel Right Fwd LP">
+      <FDS serial="03EA000003AD" port="37" />
+    </mapping>
+    <mapping connection="GEN BUS OFF 1">
+      <FDS serial="03EA000003AD" port="54" />
+      <FDS serial="03EA000003AD" port="51" />
+    </mapping>
+    <mapping connection="GEN BUS OFF 2">
+      <FDS serial="03EA000003AD" port="23" />
+      <FDS serial="03EA000003AD" port="19" />
+    </mapping>
+    <mapping connection="Hyd ELEC1 LP">
+      <FDS serial="03EA000003AD" port="220" />
+    </mapping>
+    <mapping connection="Hyd ELEC1 OVHT">
+      <FDS serial="03EA000003AD" port="222" />
+    </mapping>
+    <mapping connection="Hyd ELEC2 LP">
+      <FDS serial="03EA000003AD" port="218" />
+    </mapping>
+    <mapping connection="Hyd ELEC2 OVHT">
+      <FDS serial="03EA000003AD" port="219" />
+    </mapping>
+    <mapping connection="Hyd standby low pressure">
+      <FDS serial="03EA000003AD" port="6" />
+    </mapping>
+    <mapping connection="Hyd standby low quantity">
+      <FDS serial="03EA000003AD" port="7" />
+    </mapping>
+    <mapping connection="Low oil pressure left">
+      <FDS serial="03EA000003AD" port="1" />
+    </mapping>
+    <mapping connection="Low oil pressure right">
+      <FDS serial="03EA000003AD" port="0" />
+    </mapping>
+    <mapping connection="Mach Trim Fail">
+      <FDS serial="03EA000003AD" port="2" />
+    </mapping>
+    <mapping connection="Off sched descent">
+      <FDS serial="03EA000003AD" port="209" />
+    </mapping>
+    <mapping connection="Pack L">
+      <FDS serial="03EA000003AD" port="214" />
+    </mapping>
+    <mapping connection="Pack R">
+      <FDS serial="03EA000003AD" port="210" />
+    </mapping>
+    <mapping connection="Pressurization altn">
+      <FDS serial="03EA000003AD" port="141" />
+    </mapping>
+    <mapping connection="Pressurization auto fail">
+      <FDS serial="03EA000003AD" port="215" />
+    </mapping>
+    <mapping connection="Pressurization manual">
+      <FDS serial="03EA000003AD" port="136" />
+    </mapping>
+    <mapping connection="Ram door full open L">
+      <FDS serial="03EA000003AD" port="140" />
+    </mapping>
+    <mapping connection="Ram door full open R">
+      <FDS serial="03EA000003AD" port="143" />
+    </mapping>
+    <mapping connection="Source OFF 1">
+      <FDS serial="03EA000003AD" port="20" />
+    </mapping>
+    <mapping connection="Source OFF 2">
+      <FDS serial="03EA000003AD" port="17" />
+    </mapping>
+    <mapping connection="SPAR Valve Closed L">
+      <FDS serial="03EA000003AD" port="30" />
+    </mapping>
+    <mapping connection="SPAR Valve Closed R">
+      <FDS serial="03EA000003AD" port="24" />
+    </mapping>
+    <mapping connection="Speed Trim Fail">
+      <FDS serial="03EA000003AD" port="3" />
+    </mapping>
+    <mapping connection="Standby pwr off">
+      <FDS serial="03EA000003AD" port="69" />
+    </mapping>
+    <mapping connection="Stdby Rud On">
+      <FDS serial="03EA000003AD" port="5" />
+    </mapping>
+    <mapping connection="tempProbe Heat">
+      <FDS serial="03EA000003AD" port="198" />
+    </mapping>
+    <mapping connection="TR UNIT">
+      <FDS serial="03EA000003AD" port="13" />
+    </mapping>
+    <mapping connection="Transfer bus OFF 1">
+      <FDS serial="03EA000003AD" port="65" />
+    </mapping>
+    <mapping connection="Transfer bus OFF 2">
+      <FDS serial="03EA000003AD" port="16" />
+    </mapping>
+    <mapping connection="Voice recorder status">
+      <FDS serial="03EA000003AD" port="14" />
+    </mapping>
+    <mapping connection="WAI L Valve Open">
+      <FDS serial="03EA000003AD" port="133" />
+    </mapping>
+    <mapping connection="WAI R Valve Open">
+      <FDS serial="03EA000003AD" port="130" />
+    </mapping>
+    <mapping connection="Window heat FWD L on">
+      <FDS serial="03EA000003AD" port="206" />
+    </mapping>
+    <mapping connection="Window heat FWD L overheat">
+      <FDS serial="03EA000003AD" port="204" />
+    </mapping>
+    <mapping connection="Window heat FWD R on">
+      <FDS serial="03EA000003AD" port="205" />
+    </mapping>
+    <mapping connection="Window heat FWD R overheat">
+      <FDS serial="03EA000003AD" port="200" />
+    </mapping>
+    <mapping connection="Window heat Side L on">
+      <FDS serial="03EA000003AD" port="207" />
+    </mapping>
+    <mapping connection="Window heat Side L overheat">
+      <FDS serial="03EA000003AD" port="203" />
+    </mapping>
+    <mapping connection="Window heat Side R on">
+      <FDS serial="03EA000003AD" port="202" />
+    </mapping>
+    <mapping connection="Window heat Side R overheat">
+      <FDS serial="03EA000003AD" port="201" />
+    </mapping>
+    <mapping connection="Wing-body overheat 1">
+      <FDS serial="03EA000003AD" port="213" />
+    </mapping>
+    <mapping connection="Wing-body overheat 2">
+      <FDS serial="03EA000003AD" port="212" />
+    </mapping>
+    <mapping connection="Zone temp AFT CAB">
+      <FDS serial="03EA000003AD" port="138" />
+    </mapping>
+    <mapping connection="Zone temp CONT CAB">
+      <FDS serial="03EA000003AD" port="142" />
+    </mapping>
+    <mapping connection="Zone temp FWD CAB">
+      <FDS serial="03EA000003AD" port="139" />
+    </mapping>
+    <mapping connection="Crossfeed indicator bright">
+      <FDS serial="03EA000003AD" port="34" />
+    </mapping>
+    <mapping connection="ENG Valve Closed L bright">
+      <FDS serial="03EA000003AD" port="29" />
+    </mapping>
+    <mapping connection="ENG Valve Closed R bright">
+      <FDS serial="03EA000003AD" port="27" />
+    </mapping>
+    <mapping connection="SPAR Valve Closed L bright">
+      <FDS serial="03EA000003AD" port="31" />
+    </mapping>
+    <mapping connection="SPAR Valve Closed R bright">
+      <FDS serial="03EA000003AD" port="25" />
+    </mapping>
+    <mapping connection="WAI L Valve Open bright">
+      <FDS serial="03EA000003AD" port="131" />
+    </mapping>
+    <mapping connection="WAI R Valve Open bright">
+      <FDS serial="03EA000003AD" port="129" />
+    </mapping>
+    <mapping connection="Alternate flaps Arm">
+      <FDS serial="03EA000003AD" port="74" />
+    </mapping>
+    <mapping connection="Alternate flaps ctrl Down">
+      <FDS serial="03EA000003AD" port="77" />
+    </mapping>
+    <mapping connection="APU GEN 1 Off">
+      <FDS serial="03EA000003AD" port="35" />
+    </mapping>
+    <mapping connection="APU GEN 1 On">
+      <FDS serial="03EA000003AD" port="39" />
+    </mapping>
+    <mapping connection="APU GEN 2 Off">
+      <FDS serial="03EA000003AD" port="33" />
+    </mapping>
+    <mapping connection="APU GEN 2 On">
+      <FDS serial="03EA000003AD" port="34" />
+    </mapping>
+    <mapping connection="Bleed 1 On">
+      <FDS serial="03EA000003AD" port="111" />
+    </mapping>
+    <mapping connection="Bleed 2 On">
+      <FDS serial="03EA000003AD" port="104" />
+    </mapping>
+    <mapping connection="Bleed APU On">
+      <FDS serial="03EA000003AD" port="108" />
+    </mapping>
+    <mapping connection="Bus transfer switch Auto">
+      <FDS serial="03EA000003AD" port="25" />
+    </mapping>
+    <mapping connection="Crossfeed On">
+      <FDS serial="03EA000003AD" port="59" />
+    </mapping>
+    <mapping connection="Disconnect 1 Normal">
+      <FDS serial="03EA000003AD" port="90" />
+    </mapping>
+    <mapping connection="Disconnect 2 Normal">
+      <FDS serial="03EA000003AD" port="88" />
+    </mapping>
+    <mapping connection="Display Control Panel Both on 1">
+      <FDS serial="03EA000003AD" port="21" />
+    </mapping>
+    <mapping connection="Display Control Panel Both on 2">
+      <FDS serial="03EA000003AD" port="19" />
+    </mapping>
+    <mapping connection="Display source Auto">
+      <FDS serial="03EA000003AD" port="12" />
+    </mapping>
+    <mapping connection="Display source All on 1">
+      <FDS serial="03EA000003AD" port="11" />
+    </mapping>
+    <mapping connection="Display source All on 2">
+      <FDS serial="03EA000003AD" port="9" />
+    </mapping>
+    <mapping connection="Elec maint Pushed">
+      <FDS serial="03EA000003AD" port="95" />
+    </mapping>
+    <mapping connection="Elec Pnl AC STBY PWR">
+      <FDS serial="03EA000003AD" port="81" />
+    </mapping>
+    <mapping connection="Elec Pnl AC GRD PWR">
+      <FDS serial="03EA000003AD" port="83" />
+    </mapping>
+    <mapping connection="Elec Pnl AC GEN1">
+      <FDS serial="03EA000003AD" port="80" />
+    </mapping>
+    <mapping connection="Elec Pnl AC APU GEN">
+      <FDS serial="03EA000003AD" port="85" />
+    </mapping>
+    <mapping connection="Elec Pnl AC GEN2">
+      <FDS serial="03EA000003AD" port="87" />
+    </mapping>
+    <mapping connection="Elec Pnl AC INV">
+      <FDS serial="03EA000003AD" port="84" />
+    </mapping>
+    <mapping connection="Elec Pnl AC TEST">
+      <FDS serial="03EA000003AD" port="86" />
+    </mapping>
+    <mapping connection="Elec Pnl DC STBY PWR">
+      <FDS serial="03EA000003AD" port="2" />
+    </mapping>
+    <mapping connection="Elec Pnl DC BAT BUS">
+      <FDS serial="03EA000003AD" port="5" />
+    </mapping>
+    <mapping connection="Elec Pnl DC BAT">
+      <FDS serial="03EA000003AD" port="6" />
+    </mapping>
+    <mapping connection="Elec Pnl DC AUX BAT">
+      <FDS serial="03EA000003AD" port="7" />
+    </mapping>
+    <mapping connection="Elec Pnl DC TR1">
+      <FDS serial="03EA000003AD" port="3" />
+    </mapping>
+    <mapping connection="Elec Pnl DC TR2">
+      <FDS serial="03EA000003AD" port="0" />
+    </mapping>
+    <mapping connection="Elec Pnl DC TR3">
+      <FDS serial="03EA000003AD" port="4" />
+    </mapping>
+    <mapping connection="Elec Pnl DC TEST">
+      <FDS serial="03EA000003AD" port="1" />
+    </mapping>
+    <mapping connection="Emer Exit Lights On">
+      <FDS serial="03EA000003AD" port="17" />
+    </mapping>
+    <mapping connection="Eng Anti-Ice 1 On">
+      <FDS serial="03EA000003AD" port="96" />
+    </mapping>
+    <mapping connection="Eng Anti-Ice 2 On">
+      <FDS serial="03EA000003AD" port="102" />
+    </mapping>
+    <mapping connection="Equip cooling exhaust Alternate">
+      <FDS serial="03EA000003AD" port="91" />
+    </mapping>
+    <mapping connection="Equip cooling supply Alternate">
+      <FDS serial="03EA000003AD" port="92" />
+    </mapping>
+    <mapping connection="Flt Ctrl A A On">
+      <FDS serial="03EA000003AD" port="76" />
+    </mapping>
+    <mapping connection="Flt Ctrl B B On">
+      <FDS serial="03EA000003AD" port="75" />
+    </mapping>
+    <mapping connection="FMC Both on L">
+      <FDS serial="03EA000003AD" port="14" />
+    </mapping>
+    <mapping connection="FMC Both on R">
+      <FDS serial="03EA000003AD" port="10" />
+    </mapping>
+    <mapping connection="Fuel Center Left On">
+      <FDS serial="03EA000003AD" port="60" />
+    </mapping>
+    <mapping connection="Fuel Center Right On">
+      <FDS serial="03EA000003AD" port="58" />
+    </mapping>
+    <mapping connection="Fuel Left Aft On">
+      <FDS serial="03EA000003AD" port="62" />
+    </mapping>
+    <mapping connection="Fuel Left Fwd On">
+      <FDS serial="03EA000003AD" port="63" />
+    </mapping>
+    <mapping connection="Fuel Right Aft On">
+      <FDS serial="03EA000003AD" port="61" />
+    </mapping>
+    <mapping connection="Fuel Right Fwd On">
+      <FDS serial="03EA000003AD" port="57" />
+    </mapping>
+    <mapping connection="GEN 1 Off">
+      <FDS serial="03EA000003AD" port="37" />
+    </mapping>
+    <mapping connection="GEN 1 On">
+      <FDS serial="03EA000003AD" port="38" />
+    </mapping>
+    <mapping connection="GEN 2 Off">
+      <FDS serial="03EA000003AD" port="36" />
+    </mapping>
+    <mapping connection="GEN 2 On">
+      <FDS serial="03EA000003AD" port="32" />
+    </mapping>
+    <mapping connection="Hyd ELEC1 On">
+      <FDS serial="03EA000003AD" port="97" />
+    </mapping>
+    <mapping connection="Hyd ELEC2 On">
+      <FDS serial="03EA000003AD" port="100" />
+    </mapping>
+    <mapping connection="Hyd ENG1 On">
+      <FDS serial="03EA000003AD" port="103" />
+    </mapping>
+    <mapping connection="Hyd ENG2 On">
+      <FDS serial="03EA000003AD" port="98" />
+    </mapping>
+    <mapping connection="IRS Both on L">
+      <FDS serial="03EA000003AD" port="13" />
+    </mapping>
+    <mapping connection="IRS Both on R">
+      <FDS serial="03EA000003AD" port="15" />
+    </mapping>
+    <mapping connection="No Smoking Off">
+      <FDS serial="03EA000003AD" port="22" />
+    </mapping>
+    <mapping connection="No Smoking On">
+      <FDS serial="03EA000003AD" port="16" />
+    </mapping>
+    <mapping connection="OVHT test On">
+      <FDS serial="03EA000003AD" port="45" />
+    </mapping>
+    <mapping connection="Pack 1 Off">
+      <FDS serial="03EA000003AD" port="42" />
+    </mapping>
+    <mapping connection="Pack 1 High">
+      <FDS serial="03EA000003AD" port="43" />
+    </mapping>
+    <mapping connection="Pack 2 Off">
+      <FDS serial="03EA000003AD" port="41" />
+    </mapping>
+    <mapping connection="Pack 2 High">
+      <FDS serial="03EA000003AD" port="44" />
+    </mapping>
+    <mapping connection="Pneumatic Isolation switch Close">
+      <FDS serial="03EA000003AD" port="47" />
+    </mapping>
+    <mapping connection="Pneumatic Isolation switch Open">
+      <FDS serial="03EA000003AD" port="40" />
+    </mapping>
+    <mapping connection="Pressurization Auto">
+      <FDS serial="03EA000003AD" port="110" />
+    </mapping>
+    <mapping connection="Pressurization Altn">
+      <FDS serial="03EA000003AD" port="106" />
+    </mapping>
+    <mapping connection="Pressurization Man">
+      <FDS serial="03EA000003AD" port="105" />
+    </mapping>
+    <mapping connection="Probe heat A On">
+      <FDS serial="03EA000003AD" port="69" />
+    </mapping>
+    <mapping connection="Probe heat B On">
+      <FDS serial="03EA000003AD" port="68" />
+    </mapping>
+    <mapping connection="Recirc Fan R Auto">
+      <FDS serial="03EA000003AD" port="99" />
+    </mapping>
+    <mapping connection="Seatbelt Off">
+      <FDS serial="03EA000003AD" port="23" />
+    </mapping>
+    <mapping connection="Seatbelt On">
+      <FDS serial="03EA000003AD" port="20" />
+    </mapping>
+    <mapping connection="Spoiler A On">
+      <FDS serial="03EA000003AD" port="78" />
+    </mapping>
+    <mapping connection="Spoiler B On">
+      <FDS serial="03EA000003AD" port="79" />
+    </mapping>
+    <mapping connection="Standby power switch Auto">
+      <FDS serial="03EA000003AD" port="89" />
+    </mapping>
+    <mapping connection="VHF NAV Both on 1">
+      <FDS serial="03EA000003AD" port="73" />
+    </mapping>
+    <mapping connection="VHF NAV Both on 2">
+      <FDS serial="03EA000003AD" port="72" />
+    </mapping>
+    <mapping connection="Vocie recorder test Pushed">
+      <FDS serial="03EA000003AD" port="31" />
+    </mapping>
+    <mapping connection="Window heat FWD L On">
+      <FDS serial="03EA000003AD" port="65" />
+    </mapping>
+    <mapping connection="Window heat FWD R On">
+      <FDS serial="03EA000003AD" port="67" />
+    </mapping>
+    <mapping connection="Window heat Side L On">
+      <FDS serial="03EA000003AD" port="66" />
+    </mapping>
+    <mapping connection="Window heat Side R On">
+      <FDS serial="03EA000003AD" port="71" />
+    </mapping>
+    <mapping connection="Window heat test OVHT">
+      <FDS serial="03EA000003AD" port="70" />
+    </mapping>
+    <mapping connection="Window heat test PWR TEST">
+      <FDS serial="03EA000003AD" port="64" />
+    </mapping>
+    <mapping connection="Wing Anti-Ice On">
+      <FDS serial="03EA000003AD" port="101" />
+    </mapping>
+    <mapping connection="Yaw damper On">
+      <FDS serial="03EA000003AD" port="8" />
+    </mapping>
+    <mapping connection="Electric Panel">
+      <matrixorbital serial="0" port="4" />
+    </mapping>
+    <mapping connection="FLT Control low pressure A">
+      <FDS serial="03EA000003AD" port="1" />
+    </mapping>
+    <mapping connection="FLT Control low pressure B">
+      <FDS serial="03EA000003AD" port="0" />
+    </mapping>
+    <mapping connection="Air Temp Selector CONT CAB">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="7" />
+    </mapping>
+    <mapping connection="Air Temp Selector DUCT FWD">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="9" />
+    </mapping>
+    <mapping connection="Air Temp Selector DUCT AFT">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="6" />
+    </mapping>
+    <mapping connection="Air Temp Selector CAB FWD">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="5" />
+    </mapping>
+    <mapping connection="Air Temp Selector CAB AFT">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="10" />
+    </mapping>
+    <mapping connection="Air Temp Selector R">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="8" />
+    </mapping>
+    <mapping connection="Air Temp Selector L">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="11" />
+    </mapping>
+    <mapping connection="Outflow valve Open">
+      <FDS serial="03EA000003AD" port="107" />
+    </mapping>
+    <mapping connection="Outflow valve Close">
+      <FDS serial="03EA000003AD" port="107" />
+    </mapping>
+    <mapping connection="Trim air On">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="4" />
+    </mapping>
+    <mapping connection="EEC left latch On">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="23" />
+    </mapping>
+    <mapping connection="EEC right latch On">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="21" />
+    </mapping>
+    <mapping connection="IRS Disp Sel TK/GS">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="22" />
+    </mapping>
+    <mapping connection="IRS Disp Sel Test">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="18" />
+    </mapping>
+    <mapping connection="IRS Disp Sel PPOS">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="24" />
+    </mapping>
+    <mapping connection="IRS Disp Sel Wind">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="17" />
+    </mapping>
+    <mapping connection="IRS Disp Sel HDG/STS">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="20" />
+    </mapping>
+    <mapping connection="IRS Keypad 0 Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="8" />
+    </mapping>
+    <mapping connection="IRS Keypad 1 Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="1" />
+    </mapping>
+    <mapping connection="IRS Keypad 2 Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="2" />
+    </mapping>
+    <mapping connection="IRS Keypad 3 Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="0" />
+    </mapping>
+    <mapping connection="IRS Keypad 4 Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="19" />
+    </mapping>
+    <mapping connection="IRS Keypad 5 Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="20" />
+    </mapping>
+    <mapping connection="IRS Keypad 6 Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="18" />
+    </mapping>
+    <mapping connection="IRS Keypad 7 Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="13" />
+    </mapping>
+    <mapping connection="IRS Keypad 8 Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="14" />
+    </mapping>
+    <mapping connection="IRS Keypad 9 Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="12" />
+    </mapping>
+    <mapping connection="IRS Keypad CLR Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="6" />
+    </mapping>
+    <mapping connection="IRS Keypad ENT Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="7" />
+    </mapping>
+    <mapping connection="IRS left Nav">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="27" />
+    </mapping>
+    <mapping connection="IRS left Off">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="31" />
+    </mapping>
+    <mapping connection="IRS left Align">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="25" />
+    </mapping>
+    <mapping connection="IRS left Att">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="30" />
+    </mapping>
+    <mapping connection="IRS right Nav">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="29" />
+    </mapping>
+    <mapping connection="IRS right Off">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="19" />
+    </mapping>
+    <mapping connection="IRS right Align">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="26" />
+    </mapping>
+    <mapping connection="IRS right Att">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="16" />
+    </mapping>
+    <mapping connection="LE Devices test Pushed">
+      <directinput serial="ad2f95f0-5825-11e6-8001-444553540000" port="28" />
+    </mapping>
+    <mapping connection="IRS SYS DSPL Left">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="15" />
+    </mapping>
+    <mapping connection="IRS SYS DSPL Right">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="28" />
+    </mapping>
+    <mapping connection="IRS Display left number">
+      <genericCOMport serial="TCP" portString="" port="0" />
+    </mapping>
+    <mapping connection="Flight alt in encoder pulse down Off">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="3" />
+    </mapping>
+    <mapping connection="Flight alt in encoder pulse up Off">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="2" />
+    </mapping>
+    <mapping connection="Land alt in encoder pulse down Off">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="1" />
+    </mapping>
+    <mapping connection="Land alt in encoder pulse up Off">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="0" />
+    </mapping>
+    <mapping connection="AFT CAB selector">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="257" />
+    </mapping>
+    <mapping connection="CONT CAB selector">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="256" />
+    </mapping>
+    <mapping connection="FWD CAB selector">
+      <directinput serial="c68c2810-5bae-11e6-8001-444553540000" port="258" />
+    </mapping>
+    <mapping connection="Brake pressure">
+      <iocp serial="0" port="501">
+        <calibrator>
+          <calibration input="0" output="903" margin="0" />
+          <calibration input="1000" output="697" margin="0" />
+          <calibration input="2000" output="435" margin="0" />
+          <calibration input="3000" output="214" margin="0" />
+          <calibration input="4000" output="173" margin="0" />
+        </calibrator>
+      </iocp>
+    </mapping>
+    <mapping connection="Flap">
+      <iocp serial="0" portString="0x0000" port="500">
+        <calibrator>
+          <calibration input="0" output="972" margin="0" />
+          <calibration input="1" output="835" margin="0" />
+          <calibration input="2" output="658" margin="0" />
+          <calibration input="3" output="541" margin="0" />
+          <calibration input="4" output="384" margin="0" />
+          <calibration input="5" output="297" margin="0" />
+          <calibration input="6" output="217" margin="0" />
+          <calibration input="7" output="179" margin="0" />
+          <calibration input="8" output="182" margin="0" />
+        </calibrator>
+      </iocp>
+    </mapping>
+    <mapping connection="Left Inboard Brightness">
+      <directinput serial="d971ab40-6d2d-11e6-8002-444553540000" port="261" />
+    </mapping>
+    <mapping connection="Left Outboard Brightness">
+      <directinput serial="d971ab40-6d2d-11e6-8002-444553540000" port="262" />
+    </mapping>
+    <mapping connection="Lower DU Brightness">
+      <directinput serial="d971ab40-6d2d-11e6-8002-444553540000" port="259" />
+    </mapping>
+    <mapping connection="Right Inboard Brightness">
+      <directinput serial="d971ab40-6d2d-11e6-8002-444553540000" port="256" />
+    </mapping>
+    <mapping connection="Right Outboard Brightness">
+      <directinput serial="d971ab40-6d2d-11e6-8002-444553540000" port="256" />
+    </mapping>
+    <mapping connection="Upper DU Brightness">
+      <directinput serial="d971ab40-6d2d-11e6-8002-444553540000" port="260" />
+    </mapping>
+    <mapping connection="Aileron trim Center" />
+    <mapping connection="Aileron trim Left" />
+    <mapping connection="Aileron trim Right" />
+    <mapping connection="Alt horn cutout Off" />
+    <mapping connection="Alternate flaps Off" />
+    <mapping connection="Alternate flaps ctrl Off" />
+    <mapping connection="Alternate flaps ctrl Up" />
+    <mapping connection="APU GEN 1 Center" />
+    <mapping connection="APU GEN 2 Center" />
+    <mapping connection="APU switch On" />
+    <mapping connection="ASA A/P reset Capt Off" />
+    <mapping connection="ASA A/P reset Capt Pushed" />
+    <mapping connection="ASA A/P reset F/O Off" />
+    <mapping connection="ASA A/P reset F/O Pushed" />
+    <mapping connection="ASA A/T reset Capt Off" />
+    <mapping connection="ASA A/T reset Capt Pushed" />
+    <mapping connection="ASA A/T reset F/O Off" />
+    <mapping connection="ASA A/T reset F/O Pushed" />
+    <mapping connection="ASA FMC reset Capt Off" />
+    <mapping connection="ASA FMC reset Capt Pushed" />
+    <mapping connection="ASA FMC reset F/O Off" />
+    <mapping connection="ASA FMC reset F/O Pushed" />
+    <mapping connection="ASA Test Capt Off" />
+    <mapping connection="ASA Test Capt 1" />
+    <mapping connection="ASA Test Capt 2" />
+    <mapping connection="ASA Test F/O Off" />
+    <mapping connection="ASA Test F/O 1" />
+    <mapping connection="ASA Test F/O 2" />
+    <mapping connection="ASP ADF 1 vol Off" />
+    <mapping connection="ASP ADF 1 vol Pushed" />
+    <mapping connection="ASP ADF 1 vol latch Off" />
+    <mapping connection="ASP ADF 1 vol latch On" />
+    <mapping connection="ASP ADF 2 vol Off" />
+    <mapping connection="ASP ADF 2 vol Pushed" />
+    <mapping connection="ASP ADF 2 vol latch Off" />
+    <mapping connection="ASP ADF 2 vol latch On" />
+    <mapping connection="ASP Alternate Selected Off" />
+    <mapping connection="ASP Alternate Selected On" />
+    <mapping connection="ASP Boom Selected Off" />
+    <mapping connection="ASP Boom Selected On" />
+    <mapping connection="ASP filter mode B" />
+    <mapping connection="ASP filter mode V" />
+    <mapping connection="ASP filter mode R" />
+    <mapping connection="ASP FO ADF 1 vol Off" />
+    <mapping connection="ASP FO ADF 1 vol Pushed" />
+    <mapping connection="ASP FO ADF 1 vol latch Off" />
+    <mapping connection="ASP FO ADF 1 vol latch On" />
+    <mapping connection="ASP FO ADF 2 vol Off" />
+    <mapping connection="ASP FO ADF 2 vol Pushed" />
+    <mapping connection="ASP FO ADF 2 vol latch Off" />
+    <mapping connection="ASP FO ADF 2 vol latch On" />
+    <mapping connection="ASP FO Alternate Selected Off" />
+    <mapping connection="ASP FO Alternate Selected On" />
+    <mapping connection="ASP FO Boom Selected Off" />
+    <mapping connection="ASP FO Boom Selected On" />
+    <mapping connection="ASP FO IC Selected Off" />
+    <mapping connection="ASP FO IC Selected On" />
+    <mapping connection="ASP FO Marker vol Off" />
+    <mapping connection="ASP FO Marker vol Pushed" />
+    <mapping connection="ASP FO Marker vol latch Off" />
+    <mapping connection="ASP FO Marker vol latch On" />
+    <mapping connection="ASP FO Mask Selected Off" />
+    <mapping connection="ASP FO Mask Selected On" />
+    <mapping connection="ASP FO NAV 1 vol Off" />
+    <mapping connection="ASP FO NAV 1 vol Pushed" />
+    <mapping connection="ASP FO NAV 1 vol latch Off" />
+    <mapping connection="ASP FO NAV 1 vol latch On" />
+    <mapping connection="ASP FO NAV 2 vol Off" />
+    <mapping connection="ASP FO NAV 2 vol Pushed" />
+    <mapping connection="ASP FO NAV 2 vol latch Off" />
+    <mapping connection="ASP FO NAV 2 vol latch On" />
+    <mapping connection="ASP FO Normal Selected Off" />
+    <mapping connection="ASP FO Normal Selected On" />
+    <mapping connection="ASP FO PA vol Off" />
+    <mapping connection="ASP FO PA vol Pushed" />
+    <mapping connection="ASP FO PA vol latch Off" />
+    <mapping connection="ASP FO PA vol latch On" />
+    <mapping connection="ASP FO RT Selected Off" />
+    <mapping connection="ASP FO RT Selected On" />
+    <mapping connection="ASP FO Spkr vol Off" />
+    <mapping connection="ASP FO Spkr vol Pushed" />
+    <mapping connection="ASP FO Spkr vol latch Off" />
+    <mapping connection="ASP FO Spkr vol latch On" />
+    <mapping connection="ASP FO VHF 1 mic Off" />
+    <mapping connection="ASP FO VHF 1 mic Pushed" />
+    <mapping connection="ASP FO VHF 1 mic latch Off" />
+    <mapping connection="ASP FO VHF 1 mic latch On" />
+    <mapping connection="ASP FO VHF 1 vol Off" />
+    <mapping connection="ASP FO VHF 1 vol Pushed" />
+    <mapping connection="ASP FO VHF 1 vol latch Off" />
+    <mapping connection="ASP FO VHF 1 vol latch On" />
+    <mapping connection="ASP FO VHF 2 mic Off" />
+    <mapping connection="ASP FO VHF 2 mic Pushed" />
+    <mapping connection="ASP FO VHF 2 mic latch Off" />
+    <mapping connection="ASP FO VHF 2 mic latch On" />
+    <mapping connection="ASP FO VHF 2 vol Off" />
+    <mapping connection="ASP FO VHF 2 vol Pushed" />
+    <mapping connection="ASP FO VHF 2 vol latch Off" />
+    <mapping connection="ASP FO VHF 2 vol latch On" />
+    <mapping connection="ASP IC Selected Off" />
+    <mapping connection="ASP IC Selected On" />
+    <mapping connection="ASP Marker vol Off" />
+    <mapping connection="ASP Marker vol Pushed" />
+    <mapping connection="ASP Marker vol latch Off" />
+    <mapping connection="ASP Marker vol latch On" />
+    <mapping connection="ASP Mask Selected Off" />
+    <mapping connection="ASP Mask Selected On" />
+    <mapping connection="ASP NAV 1 vol Off" />
+    <mapping connection="ASP NAV 1 vol Pushed" />
+    <mapping connection="ASP NAV 1 vol latch Off" />
+    <mapping connection="ASP NAV 1 vol latch On" />
+    <mapping connection="ASP NAV 2 vol Off" />
+    <mapping connection="ASP NAV 2 vol Pushed" />
+    <mapping connection="ASP NAV 2 vol latch Off" />
+    <mapping connection="ASP NAV 2 vol latch On" />
+    <mapping connection="ASP Normal Selected Off" />
+    <mapping connection="ASP Normal Selected On" />
+    <mapping connection="ASP OBS ADF 1 vol Off" />
+    <mapping connection="ASP OBS ADF 1 vol Pushed" />
+    <mapping connection="ASP OBS ADF 1 vol latch Off" />
+    <mapping connection="ASP OBS ADF 1 vol latch On" />
+    <mapping connection="ASP OBS ADF 2 vol Off" />
+    <mapping connection="ASP OBS ADF 2 vol Pushed" />
+    <mapping connection="ASP OBS ADF 2 vol latch Off" />
+    <mapping connection="ASP OBS ADF 2 vol latch On" />
+    <mapping connection="ASP OBS Alternate Selected Off" />
+    <mapping connection="ASP OBS Alternate Selected On" />
+    <mapping connection="ASP OBS Boom Selected Off" />
+    <mapping connection="ASP OBS Boom Selected On" />
+    <mapping connection="ASP OBS IC Selected Off" />
+    <mapping connection="ASP OBS IC Selected On" />
+    <mapping connection="ASP OBS Marker vol Off" />
+    <mapping connection="ASP OBS Marker vol Pushed" />
+    <mapping connection="ASP OBS Marker vol latch Off" />
+    <mapping connection="ASP OBS Marker vol latch On" />
+    <mapping connection="ASP OBS Mask Selected Off" />
+    <mapping connection="ASP OBS Mask Selected On" />
+    <mapping connection="ASP OBS NAV 1 vol Off" />
+    <mapping connection="ASP OBS NAV 1 vol Pushed" />
+    <mapping connection="ASP OBS NAV 1 vol latch Off" />
+    <mapping connection="ASP OBS NAV 1 vol latch On" />
+    <mapping connection="ASP OBS NAV 2 vol Off" />
+    <mapping connection="ASP OBS NAV 2 vol Pushed" />
+    <mapping connection="ASP OBS NAV 2 vol latch Off" />
+    <mapping connection="ASP OBS NAV 2 vol latch On" />
+    <mapping connection="ASP OBS Normal Selected Off" />
+    <mapping connection="ASP OBS Normal Selected On" />
+    <mapping connection="ASP OBS PA vol Off" />
+    <mapping connection="ASP OBS PA vol Pushed" />
+    <mapping connection="ASP OBS PA vol latch Off" />
+    <mapping connection="ASP OBS PA vol latch On" />
+    <mapping connection="ASP OBS RT Selected Off" />
+    <mapping connection="ASP OBS RT Selected On" />
+    <mapping connection="ASP OBS Spkr vol Off" />
+    <mapping connection="ASP OBS Spkr vol Pushed" />
+    <mapping connection="ASP OBS Spkr vol latch Off" />
+    <mapping connection="ASP OBS Spkr vol latch On" />
+    <mapping connection="ASP OBS VHF 1 mic Off" />
+    <mapping connection="ASP OBS VHF 1 mic Pushed" />
+    <mapping connection="ASP OBS VHF 1 mic latch Off" />
+    <mapping connection="ASP OBS VHF 1 mic latch On" />
+    <mapping connection="ASP OBS VHF 1 vol Off" />
+    <mapping connection="ASP OBS VHF 1 vol Pushed" />
+    <mapping connection="ASP OBS VHF 1 vol latch Off" />
+    <mapping connection="ASP OBS VHF 1 vol latch On" />
+    <mapping connection="ASP OBS VHF 2 mic Off" />
+    <mapping connection="ASP OBS VHF 2 mic Pushed" />
+    <mapping connection="ASP OBS VHF 2 mic latch Off" />
+    <mapping connection="ASP OBS VHF 2 mic latch On" />
+    <mapping connection="ASP OBS VHF 2 vol Off" />
+    <mapping connection="ASP OBS VHF 2 vol Pushed" />
+    <mapping connection="ASP OBS VHF 2 vol latch Off" />
+    <mapping connection="ASP OBS VHF 2 vol latch On" />
+    <mapping connection="ASP PA vol Off" />
+    <mapping connection="ASP PA vol Pushed" />
+    <mapping connection="ASP PA vol latch Off" />
+    <mapping connection="ASP PA vol latch On" />
+    <mapping connection="ASP RT Selected Off" />
+    <mapping connection="ASP RT Selected On" />
+    <mapping connection="ASP Spkr vol Off" />
+    <mapping connection="ASP Spkr vol Pushed" />
+    <mapping connection="ASP Spkr vol latch Off" />
+    <mapping connection="ASP Spkr vol latch On" />
+    <mapping connection="ASP VHF 1 mic Off" />
+    <mapping connection="ASP VHF 1 mic Pushed" />
+    <mapping connection="ASP VHF 1 mic latch Off" />
+    <mapping connection="ASP VHF 1 mic latch On" />
+    <mapping connection="ASP VHF 1 vol Off" />
+    <mapping connection="ASP VHF 1 vol Pushed" />
+    <mapping connection="ASP VHF 1 vol latch Off" />
+    <mapping connection="ASP VHF 1 vol latch On" />
+    <mapping connection="ASP VHF 2 mic Off" />
+    <mapping connection="ASP VHF 2 mic Pushed" />
+    <mapping connection="ASP VHF 2 mic latch Off" />
+    <mapping connection="ASP VHF 2 mic latch On" />
+    <mapping connection="ASP VHF 2 vol Off" />
+    <mapping connection="ASP VHF 2 vol Pushed" />
+    <mapping connection="ASP VHF 2 vol latch Off" />
+    <mapping connection="ASP VHF 2 vol latch On" />
+    <mapping connection="ASP2 filter mode B" />
+    <mapping connection="ASP2 filter mode V" />
+    <mapping connection="ASP2 filter mode R" />
+    <mapping connection="ASP3 filter mode B" />
+    <mapping connection="ASP3 filter mode V" />
+    <mapping connection="ASP3 filter mode R" />
+    <mapping connection="Attend Off" />
+    <mapping connection="Autobrake Off" />
+    <mapping connection="Autobrake RTO" />
+    <mapping connection="Autobrake 1" />
+    <mapping connection="Autobrake 2" />
+    <mapping connection="Autobrake 3" />
+    <mapping connection="Autobrake Max" />
+    <mapping connection="Battery switch Off" />
+    <mapping connection="Bell cutout Off" />
+    <mapping connection="Bell cutout Pushed" />
+    <mapping connection="Bleed 1 Off" />
+    <mapping connection="Bleed 2 Off" />
+    <mapping connection="Bleed APU Off" />
+    <mapping connection="Bus transfer switch Off" />
+    <mapping connection="Cargo fire aft selector Norm" />
+    <mapping connection="Cargo fire aft selector A" />
+    <mapping connection="Cargo fire aft selector B" />
+    <mapping connection="Cargo fire arm aft Off" />
+    <mapping connection="Cargo fire arm aft Pushed" />
+    <mapping connection="Cargo fire arm aft latch Off" />
+    <mapping connection="Cargo fire arm aft latch On" />
+    <mapping connection="Cargo fire arm fwd Off" />
+    <mapping connection="Cargo fire arm fwd Pushed" />
+    <mapping connection="Cargo fire arm fwd latch Off" />
+    <mapping connection="Cargo fire arm fwd latch On" />
+    <mapping connection="Cargo fire disch Off" />
+    <mapping connection="Cargo fire disch Pushed" />
+    <mapping connection="Cargo fire fwd selector Norm" />
+    <mapping connection="Cargo fire fwd selector A" />
+    <mapping connection="Cargo fire fwd selector B" />
+    <mapping connection="Cargo fire test Off" />
+    <mapping connection="Cargo fire test Pushed" />
+    <mapping connection="Chrono capt - Normal" />
+    <mapping connection="Chrono capt - Pushed" />
+    <mapping connection="Chrono capt + Normal" />
+    <mapping connection="Chrono capt + Pushed" />
+    <mapping connection="Chrono capt alternate control Run" />
+    <mapping connection="Chrono capt alternate control Hold" />
+    <mapping connection="Chrono capt alternate control Reset" />
+    <mapping connection="Chrono capt CHR Normal" />
+    <mapping connection="Chrono capt CHR Pushed" />
+    <mapping connection="Chrono capt Date/Time Normal" />
+    <mapping connection="Chrono capt Date/Time Pushed" />
+    <mapping connection="Chrono capt ET Normal" />
+    <mapping connection="Chrono capt ET Pushed" />
+    <mapping connection="Chrono capt RESET Normal" />
+    <mapping connection="Chrono capt RESET Pushed" />
+    <mapping connection="Chrono capt SET Normal" />
+    <mapping connection="Chrono capt SET Pushed" />
+    <mapping connection="Chrono f/o - Normal" />
+    <mapping connection="Chrono f/o - Pushed" />
+    <mapping connection="Chrono f/o + Normal" />
+    <mapping connection="Chrono f/o + Pushed" />
+    <mapping connection="Chrono f/o alternate control Run" />
+    <mapping connection="Chrono f/o alternate control Hold" />
+    <mapping connection="Chrono f/o alternate control Reset" />
+    <mapping connection="Chrono f/o CHR Normal" />
+    <mapping connection="Chrono f/o CHR Pushed" />
+    <mapping connection="Chrono f/o Date/Time Normal" />
+    <mapping connection="Chrono f/o Date/Time Pushed" />
+    <mapping connection="Chrono f/o ET Normal" />
+    <mapping connection="Chrono f/o ET Pushed" />
+    <mapping connection="Chrono f/o RESET Normal" />
+    <mapping connection="Chrono f/o RESET Pushed" />
+    <mapping connection="Chrono f/o SET Normal" />
+    <mapping connection="Chrono f/o SET Pushed" />
+    <mapping connection="Clock Captain Normal" />
+    <mapping connection="Clock Captain Pushed" />
+    <mapping connection="Clock F/O Normal" />
+    <mapping connection="Clock F/O Pushed" />
+    <mapping connection="Crossfeed Off" />
+    <mapping connection="Disconnect 1 Off" />
+    <mapping connection="Disconnect 2 Off" />
+    <mapping connection="Display Control Panel Normal" />
+    <mapping connection="Dome light Dim" />
+    <mapping connection="Dome light Off" />
+    <mapping connection="Dome light Bright" />
+    <mapping connection="EEC left Off" />
+    <mapping connection="EEC left Pushed" />
+    <mapping connection="EEC left latch Off" />
+    <mapping connection="EEC right Off" />
+    <mapping connection="EEC right Pushed" />
+    <mapping connection="EEC right latch Off" />
+    <mapping connection="Elec maint Off" />
+    <mapping connection="Elevator trim Center" />
+    <mapping connection="Elevator trim Up" />
+    <mapping connection="Elevator trim Down" />
+    <mapping connection="Elevator trim F/O Center" />
+    <mapping connection="Elevator trim F/O Up" />
+    <mapping connection="Elevator trim F/O Down" />
+    <mapping connection="ELT Armed" />
+    <mapping connection="ELT On" />
+    <mapping connection="Emer Exit Lights Off" />
+    <mapping connection="Emer Exit Lights Armed" />
+    <mapping connection="Eng Anti-Ice 1 Off" />
+    <mapping connection="Eng Anti-Ice 2 Off" />
+    <mapping connection="Equip cooling exhaust Normal" />
+    <mapping connection="Equip cooling supply Normal" />
+    <mapping connection="Fire Ext test Off" />
+    <mapping connection="Fire Ext test 1" />
+    <mapping connection="Fire Ext test 2" />
+    <mapping connection="Fire handle APU Off" />
+    <mapping connection="Fire handle APU Left" />
+    <mapping connection="Fire handle APU Right" />
+    <mapping connection="Fire handle Engine 1 Off" />
+    <mapping connection="Fire handle Engine 1 Left" />
+    <mapping connection="Fire handle Engine 1 Right" />
+    <mapping connection="Fire handle Engine 2 Off" />
+    <mapping connection="Fire handle Engine 2 Left" />
+    <mapping connection="Fire handle Engine 2 Right" />
+    <mapping connection="Fire handle pull APU Normal" />
+    <mapping connection="Fire handle pull APU Pull" />
+    <mapping connection="Fire handle pull Engine 1 Normal" />
+    <mapping connection="Fire handle pull Engine 1 Pull" />
+    <mapping connection="Fire handle pull Engine 2 Normal" />
+    <mapping connection="Fire handle pull Engine 2 Pull" />
+    <mapping connection="Fire warning 1 Off" />
+    <mapping connection="Fire warning 1 Pushed" />
+    <mapping connection="Fire warning 2 Off" />
+    <mapping connection="Fire warning 2 Pushed" />
+    <mapping connection="Flap inhibit Norm" />
+    <mapping connection="Flap inhibit Inhibit" />
+    <mapping connection="Flight freeze Off" />
+    <mapping connection="Flight freeze On" />
+    <mapping connection="Flight freeze toggle Normal" />
+    <mapping connection="Flight freeze toggle Pushed" />
+    <mapping connection="Flight recorder Normal" />
+    <mapping connection="Flight recorder Test" />
+    <mapping connection="Flt Ctrl A Off" />
+    <mapping connection="Flt Ctrl A Stby Rud" />
+    <mapping connection="Flt Ctrl B Off" />
+    <mapping connection="Flt Ctrl B Stby Rud" />
+    <mapping connection="Flt Deck door AUTO" />
+    <mapping connection="Flt Deck door UNLKD" />
+    <mapping connection="Flt Deck door DENY" />
+    <mapping connection="FMC Normal" />
+    <mapping connection="Fuel Center Left Off" />
+    <mapping connection="Fuel Center Right Off" />
+    <mapping connection="Fuel flow Rate" />
+    <mapping connection="Fuel flow Used" />
+    <mapping connection="Fuel flow Reset" />
+    <mapping connection="Fuel Left Aft Off" />
+    <mapping connection="Fuel Left Fwd Off" />
+    <mapping connection="Fuel Right Aft Off" />
+    <mapping connection="Fuel Right Fwd Off" />
+    <mapping connection="Galley Off" />
+    <mapping connection="Gear Off" />
+    <mapping connection="Gear Down" />
+    <mapping connection="Gear Up" />
+    <mapping connection="Gear handle lock override Normal" />
+    <mapping connection="Gear handle lock override Override" />
+    <mapping connection="Gear inhibit Norm" />
+    <mapping connection="Gear inhibit Inhibit" />
+    <mapping connection="GEN 1 Center" />
+    <mapping connection="GEN 2 Center" />
+    <mapping connection="Glideslope push to inhibit Normal" />
+    <mapping connection="Glideslope push to inhibit Pushed" />
+    <mapping connection="Glideslope push to inhibit F/O Normal" />
+    <mapping connection="Glideslope push to inhibit F/O Pushed" />
+    <mapping connection="GPWS Sys test Off" />
+    <mapping connection="GPWS Sys test Pushed" />
+    <mapping connection="Ground call Off" />
+    <mapping connection="Ground Power Off" />
+    <mapping connection="Ground Power Center" />
+    <mapping connection="Hyd ELEC1 Off" />
+    <mapping connection="Hyd ELEC2 Off" />
+    <mapping connection="Hyd ENG1 Off" />
+    <mapping connection="Hyd ENG2 Off" />
+    <mapping connection="Ignition select Both" />
+    <mapping connection="IRS Normal" />
+    <mapping connection="IRS Keypad 0 Off" />
+    <mapping connection="IRS Keypad 1 Off" />
+    <mapping connection="IRS Keypad 2 Off" />
+    <mapping connection="IRS Keypad 3 Off" />
+    <mapping connection="IRS Keypad 4 Off" />
+    <mapping connection="IRS Keypad 5 Off" />
+    <mapping connection="IRS Keypad 6 Off" />
+    <mapping connection="IRS Keypad 7 Off" />
+    <mapping connection="IRS Keypad 8 Off" />
+    <mapping connection="IRS Keypad 9 Off" />
+    <mapping connection="IRS Keypad CLR Off" />
+    <mapping connection="IRS Keypad ENT Off" />
+    <mapping connection="ISFD - Off" />
+    <mapping connection="ISFD - Pushed" />
+    <mapping connection="ISFD + Off" />
+    <mapping connection="ISFD + Pushed" />
+    <mapping connection="ISFD APP Off" />
+    <mapping connection="ISFD APP Pushed" />
+    <mapping connection="ISFD baro STD Off" />
+    <mapping connection="ISFD baro STD Pushed" />
+    <mapping connection="ISFD HP/IN Off" />
+    <mapping connection="ISFD HP/IN Pushed" />
+    <mapping connection="ISFD RST Off" />
+    <mapping connection="ISFD RST Pushed" />
+    <mapping connection="LE Devices test Off" />
+    <mapping connection="Light Main Fixed L On" />
+    <mapping connection="Light Main Fixed R On" />
+    <mapping connection="Light Main Retract L On" />
+    <mapping connection="Light Main Retract R On" />
+    <mapping connection="Light Test Bright" />
+    <mapping connection="Light Test Dim" />
+    <mapping connection="Light Test Test" />
+    <mapping connection="Lights Anti collision Off" />
+    <mapping connection="Lights Logo Off" />
+    <mapping connection="Lights Position Off" />
+    <mapping connection="Lights Runway turnoff L Off" />
+    <mapping connection="Lights Runway turnoff R Off" />
+    <mapping connection="Lights Strobe Off" />
+    <mapping connection="Lights Taxi Off" />
+    <mapping connection="Lights Wheel well Off" />
+    <mapping connection="Lights Wing Off" />
+    <mapping connection="Lower DU Capt Norm" />
+    <mapping connection="Lower DU Capt ND" />
+    <mapping connection="Lower DU Capt Eng Pri" />
+    <mapping connection="Lower DU FO Norm" />
+    <mapping connection="Lower DU FO ND" />
+    <mapping connection="Lower DU FO Eng Pri" />
+    <mapping connection="Mach Airspeed warning test no1 Off" />
+    <mapping connection="Mach Airspeed warning test no1 Pushed" />
+    <mapping connection="Mach Airspeed warning test no2 Off" />
+    <mapping connection="Mach Airspeed warning test no2 Pushed" />
+    <mapping connection="Main Panel DUs Capt Norm" />
+    <mapping connection="Main Panel DUs Capt Outbd PFD" />
+    <mapping connection="Main Panel DUs Capt Eng Pri" />
+    <mapping connection="Main Panel DUs Capt PFD" />
+    <mapping connection="Main Panel DUs Capt MFD" />
+    <mapping connection="Main Panel DUs FO Norm" />
+    <mapping connection="Main Panel DUs FO Outbd PFD" />
+    <mapping connection="Main Panel DUs FO Eng Pri" />
+    <mapping connection="Main Panel DUs FO PFD" />
+    <mapping connection="Main Panel DUs FO MFD" />
+    <mapping connection="Master caution 1 Off" />
+    <mapping connection="Master caution 1 Pushed" />
+    <mapping connection="Master caution 2 Off" />
+    <mapping connection="Master caution 2 Pushed" />
+    <mapping connection="MFD ENG Normal" />
+    <mapping connection="MFD ENG Pushed" />
+    <mapping connection="MFD SYS Normal" />
+    <mapping connection="MFD SYS Pushed" />
+    <mapping connection="N1 SET AUTO" />
+    <mapping connection="N1 SET 1" />
+    <mapping connection="N1 SET 2" />
+    <mapping connection="N1 SET Both" />
+    <mapping connection="No Smoking Auto" />
+    <mapping connection="Nose wheel steering Normal" />
+    <mapping connection="Nose wheel steering Alternate" />
+    <mapping connection="Outflow valve Off" />
+    <mapping connection="Ovht Det left Normal" />
+    <mapping connection="Ovht Det left A" />
+    <mapping connection="Ovht Det left B" />
+    <mapping connection="Ovht Det right Normal" />
+    <mapping connection="Ovht Det right A" />
+    <mapping connection="Ovht Det right B" />
+    <mapping connection="Ovht test Off" />
+    <mapping connection="Ovht test Fault/Inop" />
+    <mapping connection="Ovht test Ovht/Fire" />
+    <mapping connection="OVHT test Off" />
+    <mapping connection="Pack 1 Auto" />
+    <mapping connection="Pack 2 Auto" />
+    <mapping connection="Pass oxygen Normal" />
+    <mapping connection="Pass oxygen On" />
+    <mapping connection="Pause Off" />
+    <mapping connection="Pause On" />
+    <mapping connection="Pause toggle Normal" />
+    <mapping connection="Pause toggle Pushed" />
+    <mapping connection="Pneumatic Isolation switch Auto" />
+    <mapping connection="Probe heat A Off" />
+    <mapping connection="Probe heat B Off" />
+    <mapping connection="Radio TFR ADF1 Normal" />
+    <mapping connection="Radio TFR ADF1 Pushed" />
+    <mapping connection="Radio TFR ADF2 Normal" />
+    <mapping connection="Radio TFR ADF2 Pushed" />
+    <mapping connection="Radio TFR COM1 Normal" />
+    <mapping connection="Radio TFR COM1 Pushed" />
+    <mapping connection="Radio TFR COM2 Normal" />
+    <mapping connection="Radio TFR COM2 Pushed" />
+    <mapping connection="Radio TFR NAV1 Normal" />
+    <mapping connection="Radio TFR NAV1 Pushed" />
+    <mapping connection="Radio TFR NAV2 Normal" />
+    <mapping connection="Radio TFR NAV2 Pushed" />
+    <mapping connection="Recall 1 Off" />
+    <mapping connection="Recall 1 Pushed" />
+    <mapping connection="Recall 2 Off" />
+    <mapping connection="Recall 2 Pushed" />
+    <mapping connection="Recirc Fan L Off" />
+    <mapping connection="Recirc Fan L Auto" />
+    <mapping connection="Recirc Fan R Off" />
+    <mapping connection="Rudder trim Center" />
+    <mapping connection="Rudder trim Left" />
+    <mapping connection="Rudder trim Right" />
+    <mapping connection="Seatbelt Auto" />
+    <mapping connection="SPD REF AUTO" />
+    <mapping connection="SPD REF V1" />
+    <mapping connection="SPD REF VR" />
+    <mapping connection="SPD REF WT" />
+    <mapping connection="SPD REF VREF" />
+    <mapping connection="SPD REF BUG" />
+    <mapping connection="SPD REF SET" />
+    <mapping connection="Spoiler A Off" />
+    <mapping connection="Spoiler B Off" />
+    <mapping connection="Stab trim override Normal" />
+    <mapping connection="Stab trim override Override" />
+    <mapping connection="Stall test 1 Off" />
+    <mapping connection="Stall test 1 Pushed" />
+    <mapping connection="Stall test 2 Off" />
+    <mapping connection="Stall test 2 Pushed" />
+    <mapping connection="Standby Attitude Mode APP" />
+    <mapping connection="Standby Attitude Mode OFF" />
+    <mapping connection="Standby Attitude Mode BCRS" />
+    <mapping connection="Standby power switch Off" />
+    <mapping connection="Standby power switch Bat" />
+    <mapping connection="Standby RMI NAV1 mode VOR" />
+    <mapping connection="Standby RMI NAV1 mode ADF" />
+    <mapping connection="Standby RMI NAV1 mode F/O VOR" />
+    <mapping connection="Standby RMI NAV1 mode F/O ADF" />
+    <mapping connection="Standby RMI NAV2 mode VOR" />
+    <mapping connection="Standby RMI NAV2 mode ADF" />
+    <mapping connection="Standby RMI NAV2 mode F/O VOR" />
+    <mapping connection="Standby RMI NAV2 mode F/O ADF" />
+    <mapping connection="TAT test Off" />
+    <mapping connection="TAT test Pushed" />
+    <mapping connection="TCAS Stdby" />
+    <mapping connection="TCAS Alt rptg off" />
+    <mapping connection="TCAS XPDR" />
+    <mapping connection="TCAS TA" />
+    <mapping connection="TCAS TA/RA" />
+    <mapping connection="TCAS horizontal range Max" />
+    <mapping connection="TCAS horizontal range 5" />
+    <mapping connection="TCAS horizontal range 10" />
+    <mapping connection="TCAS horizontal range 20" />
+    <mapping connection="TCAS vertical range Normal" />
+    <mapping connection="TCAS vertical range Above" />
+    <mapping connection="TCAS vertical range Below" />
+    <mapping connection="Terrain inhibit Norm" />
+    <mapping connection="Terrain inhibit Inhibit" />
+    <mapping connection="Trim air Off" />
+    <mapping connection="Trip reset Off" />
+    <mapping connection="Trip reset On" />
+    <mapping connection="User 1 in Off" />
+    <mapping connection="User 1 in On" />
+    <mapping connection="User 10 in Off" />
+    <mapping connection="User 10 in On" />
+    <mapping connection="User 11 in Off" />
+    <mapping connection="User 11 in On" />
+    <mapping connection="User 12 in Off" />
+    <mapping connection="User 12 in On" />
+    <mapping connection="User 13 in Off" />
+    <mapping connection="User 13 in On" />
+    <mapping connection="User 14 in Off" />
+    <mapping connection="User 14 in On" />
+    <mapping connection="User 15 in Off" />
+    <mapping connection="User 15 in On" />
+    <mapping connection="User 16 in Off" />
+    <mapping connection="User 16 in On" />
+    <mapping connection="User 17 in Off" />
+    <mapping connection="User 17 in On" />
+    <mapping connection="User 18 in Off" />
+    <mapping connection="User 18 in On" />
+    <mapping connection="User 19 in Off" />
+    <mapping connection="User 19 in On" />
+    <mapping connection="User 2 in Off" />
+    <mapping connection="User 2 in On" />
+    <mapping connection="User 20 in Off" />
+    <mapping connection="User 20 in On" />
+    <mapping connection="User 3 in Off" />
+    <mapping connection="User 3 in On" />
+    <mapping connection="User 4 in Off" />
+    <mapping connection="User 4 in On" />
+    <mapping connection="User 5 in Off" />
+    <mapping connection="User 5 in On" />
+    <mapping connection="User 6 in Off" />
+    <mapping connection="User 6 in On" />
+    <mapping connection="User 7 in Off" />
+    <mapping connection="User 7 in On" />
+    <mapping connection="User 8 in Off" />
+    <mapping connection="User 8 in On" />
+    <mapping connection="User 9 in Off" />
+    <mapping connection="User 9 in On" />
+    <mapping connection="VHF NAV Normal" />
+    <mapping connection="Vocie recorder test Off" />
+    <mapping connection="Weather Radar Mode WX+T" />
+    <mapping connection="Weather Radar Mode WX" />
+    <mapping connection="Weather Radar Mode WXR(VAR)" />
+    <mapping connection="Weather Radar Mode MAP" />
+    <mapping connection="Weather Radar Mode TEST" />
+    <mapping connection="Window heat FWD L Off" />
+    <mapping connection="Window heat FWD R Off" />
+    <mapping connection="Window heat Side L Off" />
+    <mapping connection="Window heat Side R Off" />
+    <mapping connection="Window heat test Center" />
+    <mapping connection="Wing Anti-Ice Off" />
+    <mapping connection="XPDR Ident Normal" />
+    <mapping connection="XPDR Ident Pushed" />
+    <mapping connection="XPDR operation Auto" />
+    <mapping connection="XPDR operation Standby" />
+    <mapping connection="XPDR operation On" />
+    <mapping connection="Yaw damper Off" />
+    <mapping connection="AP Disconnect Yoke Capt Normal" />
+    <mapping connection="AP Disconnect Yoke Capt Pushed" />
+    <mapping connection="AP Disconnect Yoke F/O Normal" />
+    <mapping connection="AP Disconnect Yoke F/O Pushed" />
+    <mapping connection="AT Disengage Off" />
+    <mapping connection="AT Disengage Pushed" />
+    <mapping connection="AT Disengage 2nd switch Off" />
+    <mapping connection="AT Disengage 2nd switch Pushed" />
+    <mapping connection="EFIS 1 ARPT Off" />
+    <mapping connection="EFIS 1 ARPT Pushed" />
+    <mapping connection="EFIS 1 Baro mode Inch" />
+    <mapping connection="EFIS 1 Baro mode HPa" />
+    <mapping connection="EFIS 1 Baro STD Off" />
+    <mapping connection="EFIS 1 Baro STD Pushed" />
+    <mapping connection="EFIS 1 CTR Off" />
+    <mapping connection="EFIS 1 CTR Pushed" />
+    <mapping connection="EFIS 1 DATA Off" />
+    <mapping connection="EFIS 1 DATA Pushed" />
+    <mapping connection="EFIS 1 FPV Off" />
+    <mapping connection="EFIS 1 FPV Pushed" />
+    <mapping connection="EFIS 1 Minimums mode Radio" />
+    <mapping connection="EFIS 1 Minimums mode Baro" />
+    <mapping connection="EFIS 1 MINS Reset Off" />
+    <mapping connection="EFIS 1 MINS Reset Pushed" />
+    <mapping connection="EFIS 1 Mode APP" />
+    <mapping connection="EFIS 1 Mode VOR" />
+    <mapping connection="EFIS 1 Mode MAP" />
+    <mapping connection="EFIS 1 Mode PLN" />
+    <mapping connection="EFIS 1 MTRS Off" />
+    <mapping connection="EFIS 1 MTRS Pushed" />
+    <mapping connection="EFIS 1 POS Off" />
+    <mapping connection="EFIS 1 POS Pushed" />
+    <mapping connection="EFIS 1 Range 5" />
+    <mapping connection="EFIS 1 Range 10" />
+    <mapping connection="EFIS 1 Range 20" />
+    <mapping connection="EFIS 1 Range 40" />
+    <mapping connection="EFIS 1 Range 80" />
+    <mapping connection="EFIS 1 Range 160" />
+    <mapping connection="EFIS 1 Range 320" />
+    <mapping connection="EFIS 1 Range 640" />
+    <mapping connection="EFIS 1 Selector 1 OFF" />
+    <mapping connection="EFIS 1 Selector 1 VOR 1" />
+    <mapping connection="EFIS 1 Selector 1 ADF 1" />
+    <mapping connection="EFIS 1 Selector 2 OFF" />
+    <mapping connection="EFIS 1 Selector 2 VOR 2" />
+    <mapping connection="EFIS 1 Selector 2 ADF 2" />
+    <mapping connection="EFIS 1 STA Off" />
+    <mapping connection="EFIS 1 STA Pushed" />
+    <mapping connection="EFIS 1 TERR Off" />
+    <mapping connection="EFIS 1 TERR Pushed" />
+    <mapping connection="EFIS 1 TFC Off" />
+    <mapping connection="EFIS 1 TFC Pushed" />
+    <mapping connection="EFIS 1 WPT Off" />
+    <mapping connection="EFIS 1 WPT Pushed" />
+    <mapping connection="EFIS 1 WXR Off" />
+    <mapping connection="EFIS 1 WXR Pushed" />
+    <mapping connection="EFIS 2 ARPT Off" />
+    <mapping connection="EFIS 2 ARPT Pushed" />
+    <mapping connection="EFIS 2 Baro mode Inch" />
+    <mapping connection="EFIS 2 Baro mode HPa" />
+    <mapping connection="EFIS 2 Baro STD Off" />
+    <mapping connection="EFIS 2 Baro STD Pushed" />
+    <mapping connection="EFIS 2 CTR Off" />
+    <mapping connection="EFIS 2 CTR Pushed" />
+    <mapping connection="EFIS 2 DATA Off" />
+    <mapping connection="EFIS 2 DATA Pushed" />
+    <mapping connection="EFIS 2 FPV Off" />
+    <mapping connection="EFIS 2 FPV Pushed" />
+    <mapping connection="EFIS 2 Minimums mode Radio" />
+    <mapping connection="EFIS 2 Minimums mode Baro" />
+    <mapping connection="EFIS 2 MINS Reset Off" />
+    <mapping connection="EFIS 2 MINS Reset Pushed" />
+    <mapping connection="EFIS 2 Mode APP" />
+    <mapping connection="EFIS 2 Mode VOR" />
+    <mapping connection="EFIS 2 Mode MAP" />
+    <mapping connection="EFIS 2 Mode PLN" />
+    <mapping connection="EFIS 2 MTRS Off" />
+    <mapping connection="EFIS 2 MTRS Pushed" />
+    <mapping connection="EFIS 2 POS Off" />
+    <mapping connection="EFIS 2 POS Pushed" />
+    <mapping connection="EFIS 2 Range 5" />
+    <mapping connection="EFIS 2 Range 10" />
+    <mapping connection="EFIS 2 Range 20" />
+    <mapping connection="EFIS 2 Range 40" />
+    <mapping connection="EFIS 2 Range 80" />
+    <mapping connection="EFIS 2 Range 160" />
+    <mapping connection="EFIS 2 Range 320" />
+    <mapping connection="EFIS 2 Range 640" />
+    <mapping connection="EFIS 2 Selector 1 OFF" />
+    <mapping connection="EFIS 2 Selector 1 VOR 1" />
+    <mapping connection="EFIS 2 Selector 1 ADF 1" />
+    <mapping connection="EFIS 2 Selector 2 OFF" />
+    <mapping connection="EFIS 2 Selector 2 VOR 2" />
+    <mapping connection="EFIS 2 Selector 2 ADF 2" />
+    <mapping connection="EFIS 2 STA Off" />
+    <mapping connection="EFIS 2 STA Pushed" />
+    <mapping connection="EFIS 2 TERR Off" />
+    <mapping connection="EFIS 2 TERR Pushed" />
+    <mapping connection="EFIS 2 TFC Off" />
+    <mapping connection="EFIS 2 TFC Pushed" />
+    <mapping connection="EFIS 2 WPT Off" />
+    <mapping connection="EFIS 2 WPT Pushed" />
+    <mapping connection="EFIS 2 WXR Off" />
+    <mapping connection="EFIS 2 WXR Pushed" />
+    <mapping connection="Flap Up" />
+    <mapping connection="Flap 1" />
+    <mapping connection="Flap 2" />
+    <mapping connection="Flap 5" />
+    <mapping connection="Flap 10" />
+    <mapping connection="Flap 15" />
+    <mapping connection="Flap 25" />
+    <mapping connection="Flap 30" />
+    <mapping connection="Flap 40" />
+    <mapping connection="Fuel cutoff left Idle" />
+    <mapping connection="Fuel cutoff left Cutoff" />
+    <mapping connection="Fuel cutoff right Idle" />
+    <mapping connection="Fuel cutoff right Cutoff" />
+    <mapping connection="Gear horn cutout Off" />
+    <mapping connection="Gear horn cutout Pushed" />
+    <mapping connection="MCP Alt hold Off" />
+    <mapping connection="MCP Alt hold Pushed" />
+    <mapping connection="MCP Alt Int Off" />
+    <mapping connection="MCP Alt Int Pushed" />
+    <mapping connection="MCP AP Disengage Normal" />
+    <mapping connection="MCP AP Disengage Disengage" />
+    <mapping connection="MCP APP Off" />
+    <mapping connection="MCP APP Pushed" />
+    <mapping connection="MCP AT Arm Off" />
+    <mapping connection="MCP AT Arm Arm" />
+    <mapping connection="MCP Bank limit 25" />
+    <mapping connection="MCP Bank limit 30" />
+    <mapping connection="MCP Bank limit 10" />
+    <mapping connection="MCP Bank limit 15" />
+    <mapping connection="MCP Bank limit 20" />
+    <mapping connection="MCP C/O Off" />
+    <mapping connection="MCP C/O Pushed" />
+    <mapping connection="MCP Captain F/D Off" />
+    <mapping connection="MCP Captain F/D On" />
+    <mapping connection="MCP CMD A Off" />
+    <mapping connection="MCP CMD A Pushed" />
+    <mapping connection="MCP CMD B Off" />
+    <mapping connection="MCP CMD B Pushed" />
+    <mapping connection="MCP CWS A Off" />
+    <mapping connection="MCP CWS A Pushed" />
+    <mapping connection="MCP CWS B Off" />
+    <mapping connection="MCP CWS B Pushed" />
+    <mapping connection="MCP F/O F/D Off" />
+    <mapping connection="MCP F/O F/D On" />
+    <mapping connection="MCP Heading + Bank sel Off" />
+    <mapping connection="MCP Heading + Bank sel Pushed" />
+    <mapping connection="MCP Heading sel Off" />
+    <mapping connection="MCP Heading sel Pushed" />
+    <mapping connection="MCP Level change Off" />
+    <mapping connection="MCP Level change Pushed" />
+    <mapping connection="MCP LNAV Off" />
+    <mapping connection="MCP LNAV Pushed" />
+    <mapping connection="MCP N1 Off" />
+    <mapping connection="MCP N1 Pushed" />
+    <mapping connection="MCP Speed hold Off" />
+    <mapping connection="MCP Speed hold Pushed" />
+    <mapping connection="MCP Speed Int Off" />
+    <mapping connection="MCP Speed Int Pushed" />
+    <mapping connection="MCP V/S Off" />
+    <mapping connection="MCP V/S Pushed" />
+    <mapping connection="MCP VNAV Off" />
+    <mapping connection="MCP VNAV Pushed" />
+    <mapping connection="MCP VOR/LOC Off" />
+    <mapping connection="MCP VOR/LOC Pushed" />
+    <mapping connection="Parking brake Off" />
+    <mapping connection="Parking brake On" />
+    <mapping connection="Stab trim main auto pilot Normal" />
+    <mapping connection="Stab trim main auto pilot Cutout" />
+    <mapping connection="Stab trim main elec Normal" />
+    <mapping connection="Stab trim main elec Cutout" />
+    <mapping connection="TOGA Off" />
+    <mapping connection="TOGA Pushed" />
+    <mapping connection="TOGA 2nd switch Off" />
+    <mapping connection="TOGA 2nd switch Pushed" />
+    <mapping connection="Anti skid INOP" />
+    <mapping connection="APU bottle discharged" />
+    <mapping connection="APU bottle indicator" />
+    <mapping connection="APU fire handle light" />
+    <mapping connection="ASA A/P Amber Capt" />
+    <mapping connection="ASA A/P Amber F/O" />
+    <mapping connection="ASA A/P Red Capt" />
+    <mapping connection="ASA A/P Red F/O" />
+    <mapping connection="ASA A/T Amber Capt" />
+    <mapping connection="ASA A/T Amber F/O" />
+    <mapping connection="ASA A/T Red Capt" />
+    <mapping connection="ASA A/T Red F/O" />
+    <mapping connection="ASA FMC Capt" />
+    <mapping connection="ASA FMC F/O" />
+    <mapping connection="ASP ADF 1 vol" />
+    <mapping connection="ASP ADF 2 vol" />
+    <mapping connection="ASP FO ADF 1 vol" />
+    <mapping connection="ASP FO ADF 2 vol" />
+    <mapping connection="ASP FO Marker vol" />
+    <mapping connection="ASP FO NAV 1 vol" />
+    <mapping connection="ASP FO NAV 2 vol" />
+    <mapping connection="ASP FO PA vol" />
+    <mapping connection="ASP FO Spkr vol" />
+    <mapping connection="ASP FO VHF 1 mic" />
+    <mapping connection="ASP FO VHF 1 vol" />
+    <mapping connection="ASP FO VHF 2 mic" />
+    <mapping connection="ASP FO VHF 2 vol" />
+    <mapping connection="ASP Marker vol" />
+    <mapping connection="ASP NAV 1 vol" />
+    <mapping connection="ASP NAV 2 vol" />
+    <mapping connection="ASP OBS ADF 1 vol" />
+    <mapping connection="ASP OBS ADF 2 vol" />
+    <mapping connection="ASP OBS Marker vol" />
+    <mapping connection="ASP OBS NAV 1 vol" />
+    <mapping connection="ASP OBS NAV 2 vol" />
+    <mapping connection="ASP OBS PA vol" />
+    <mapping connection="ASP OBS Spkr vol" />
+    <mapping connection="ASP OBS VHF 1 mic" />
+    <mapping connection="ASP OBS VHF 1 vol" />
+    <mapping connection="ASP OBS VHF 2 mic" />
+    <mapping connection="ASP OBS VHF 2 vol" />
+    <mapping connection="ASP PA vol" />
+    <mapping connection="ASP Spkr vol" />
+    <mapping connection="ASP VHF 1 mic" />
+    <mapping connection="ASP VHF 1 vol" />
+    <mapping connection="ASP VHF 2 mic" />
+    <mapping connection="ASP VHF 2 vol" />
+    <mapping connection="Autobrake disarm" />
+    <mapping connection="Below GS CP" />
+    <mapping connection="Below GS FO" />
+    <mapping connection="Brake Temp" />
+    <mapping connection="Cabin altitude indicator" />
+    <mapping connection="Cargo fire armed aft" />
+    <mapping connection="Cargo fire armed fwd" />
+    <mapping connection="Cargo fire detector fault" />
+    <mapping connection="Cargo fire disch light" />
+    <mapping connection="Cargo fire ext light aft" />
+    <mapping connection="Cargo fire ext light fwd" />
+    <mapping connection="Cargo fire indicator aft" />
+    <mapping connection="Cargo fire indicator fwd" />
+    <mapping connection="CDU CALL light" />
+    <mapping connection="CDU EXEC light" />
+    <mapping connection="CDU FAIL light" />
+    <mapping connection="CDU MSG light" />
+    <mapping connection="CDU2 CALL light" />
+    <mapping connection="CDU2 EXEC light" />
+    <mapping connection="CDU2 FAIL light" />
+    <mapping connection="CDU2 MSG light" />
+    <mapping connection="Door auto unlock" />
+    <mapping connection="Door Left Aft Overwing" />
+    <mapping connection="Door lock fail" />
+    <mapping connection="EEC Altn left" />
+    <mapping connection="EEC Altn right" />
+    <mapping connection="EEC On left" />
+    <mapping connection="EEC On right" />
+    <mapping connection="ELT" />
+    <mapping connection="Engine 1 fire handle light" />
+    <mapping connection="Engine 1 overheat" />
+    <mapping connection="Engine 2 fire handle light" />
+    <mapping connection="Engine 2 overheat" />
+    <mapping connection="Engine control left" />
+    <mapping connection="Engine control right" />
+    <mapping connection="Fire APU Det Inop" />
+    <mapping connection="Fire Fault" />
+    <mapping connection="Fire warning 1" />
+    <mapping connection="Fire warning 2" />
+    <mapping connection="Fire Wheel well" />
+    <mapping connection="Flap load relief" />
+    <mapping connection="Flaps extended 1" />
+    <mapping connection="Flaps extended 2" />
+    <mapping connection="Flaps extended 3" />
+    <mapping connection="Flaps extended 4" />
+    <mapping connection="Flaps transit 1" />
+    <mapping connection="Flaps transit 2" />
+    <mapping connection="Flaps transit 3" />
+    <mapping connection="Flaps transit 4" />
+    <mapping connection="Flight recorder off" />
+    <mapping connection="Gear left" />
+    <mapping connection="Gear left aft oh" />
+    <mapping connection="Gear left transit" />
+    <mapping connection="Gear nose" />
+    <mapping connection="Gear nose aft ovh" />
+    <mapping connection="Gear nose transit" />
+    <mapping connection="Gear right" />
+    <mapping connection="Gear right aft ovh" />
+    <mapping connection="Gear right transit" />
+    <mapping connection="GPS" />
+    <mapping connection="GPWS Inop" />
+    <mapping connection="IRS Keypad CLR cue" />
+    <mapping connection="IRS Keypad ENT cue" />
+    <mapping connection="IRS left align" />
+    <mapping connection="IRS left DC Fail" />
+    <mapping connection="IRS left Fault" />
+    <mapping connection="IRS left On DC" />
+    <mapping connection="IRS Panel dot 1" />
+    <mapping connection="IRS Panel dot 2" />
+    <mapping connection="IRS Panel dot 3" />
+    <mapping connection="IRS Panel dot 4" />
+    <mapping connection="IRS Panel dot 5" />
+    <mapping connection="IRS Panel dot 6" />
+    <mapping connection="IRS right align" />
+    <mapping connection="IRS right DC Fail" />
+    <mapping connection="IRS right Fault" />
+    <mapping connection="IRS right On DC" />
+    <mapping connection="L bottle discharged" />
+    <mapping connection="L bottle indicator" />
+    <mapping connection="Lavatory smoke" />
+    <mapping connection="LE Flap Extend" />
+    <mapping connection="LE Flap Transit" />
+    <mapping connection="Master caution 1" />
+    <mapping connection="Master caution 2" />
+    <mapping connection="Pass oxy on" />
+    <mapping connection="PSEU" />
+    <mapping connection="R bottle discharged" />
+    <mapping connection="R bottle indicator" />
+    <mapping connection="Reverser left" />
+    <mapping connection="Reverser right" />
+    <mapping connection="Slats extended 1" />
+    <mapping connection="Slats extended 2" />
+    <mapping connection="Slats extended 3" />
+    <mapping connection="Slats extended 4" />
+    <mapping connection="Slats extended 5" />
+    <mapping connection="Slats extended 6" />
+    <mapping connection="Slats extended 7" />
+    <mapping connection="Slats extended 8" />
+    <mapping connection="Slats fullExtended 1" />
+    <mapping connection="Slats fullExtended 2" />
+    <mapping connection="Slats fullExtended 3" />
+    <mapping connection="Slats fullExtended 4" />
+    <mapping connection="Slats fullExtended 5" />
+    <mapping connection="Slats fullExtended 6" />
+    <mapping connection="Slats fullExtended 7" />
+    <mapping connection="Slats fullExtended 8" />
+    <mapping connection="Slats transit 1" />
+    <mapping connection="Slats transit 2" />
+    <mapping connection="Slats transit 3" />
+    <mapping connection="Slats transit 4" />
+    <mapping connection="Slats transit 5" />
+    <mapping connection="Slats transit 6" />
+    <mapping connection="Slats transit 7" />
+    <mapping connection="Slats transit 8" />
+    <mapping connection="Speed brake do not arm" />
+    <mapping connection="Spoiler Armed" />
+    <mapping connection="Spoiler Extend" />
+    <mapping connection="Stab out of trim" />
+    <mapping connection="Start valve open left" />
+    <mapping connection="Start valve open right" />
+    <mapping connection="Takeoff config" />
+    <mapping connection="Warn AIR_COND" />
+    <mapping connection="Warn ANTI_ICE" />
+    <mapping connection="Warn APU" />
+    <mapping connection="Warn DOORS" />
+    <mapping connection="Warn ELEC" />
+    <mapping connection="Warn ENG" />
+    <mapping connection="Warn FLT_CONT" />
+    <mapping connection="Warn FUEL" />
+    <mapping connection="Warn HYD" />
+    <mapping connection="Warn IRS" />
+    <mapping connection="Warn OVERHEAD" />
+    <mapping connection="Warn OVHT_DET" />
+    <mapping connection="MCP A/T" />
+    <mapping connection="MCP Alt hold" />
+    <mapping connection="MCP APP" />
+    <mapping connection="MCP CMD A" />
+    <mapping connection="MCP CMD B" />
+    <mapping connection="MCP CWS A" />
+    <mapping connection="MCP CWS B" />
+    <mapping connection="MCP FCC A Master" />
+    <mapping connection="MCP FCC B Master" />
+    <mapping connection="MCP HDG SEL" />
+    <mapping connection="MCP Level Change" />
+    <mapping connection="MCP LNAV" />
+    <mapping connection="MCP N1" />
+    <mapping connection="MCP Speed" />
+    <mapping connection="MCP V/S" />
+    <mapping connection="MCP VNAV" />
+    <mapping connection="MCP VOR/LOC" />
+    <mapping connection="Parking brake" />
+    <mapping connection="Aileron trim gauge" />
+    <mapping connection="APU" />
+    <mapping connection="Cabin altitude" />
+    <mapping connection="Cabin temperature" />
+    <mapping connection="Cabin VSI" />
+    <mapping connection="Elevator trim gauge" />
+    <mapping connection="Elevator trim gauge 2" />
+    <mapping connection="Flap right" />
+    <mapping connection="Fuel Temperature" />
+    <mapping connection="Outflow valve position" />
+    <mapping connection="Oxygen pressure" />
+    <mapping connection="Pressure differential" />
+    <mapping connection="Pressure Left" />
+    <mapping connection="Pressure Right" />
+    <mapping connection="Rudder trim gauge" />
+    <mapping connection="Standby altimeter" />
+    <mapping connection="Standby Attitude bank" />
+    <mapping connection="Standby Attitude pitch" />
+    <mapping connection="Standby barberpole" />
+    <mapping connection="Standby Glideslope" />
+    <mapping connection="Standby Localiser" />
+    <mapping connection="Standby speed" />
+    <mapping connection="Wet compass" />
+    <mapping connection="Yaw damper gauge" />
+    <mapping connection="IRS Display" />
+    <mapping connection="80kts" />
+    <mapping connection="A/T disconnect solenoid" />
+    <mapping connection="A/T hold solenoid" />
+    <mapping connection="Above transition altitude" />
+    <mapping connection="AC Power" />
+    <mapping connection="APU running" />
+    <mapping connection="APU starting" />
+    <mapping connection="APU stopping" />
+    <mapping connection="ASP ASP Alt Out" />
+    <mapping connection="ASP ASP Boom Out" />
+    <mapping connection="ASP ASP IC Out" />
+    <mapping connection="ASP ASP Mask Out" />
+    <mapping connection="ASP ASP Norm Out" />
+    <mapping connection="ASP ASP RT Out" />
+    <mapping connection="ASP FO ASP Alt Out" />
+    <mapping connection="ASP FO ASP Boom Out" />
+    <mapping connection="ASP FO ASP IC Out" />
+    <mapping connection="ASP FO ASP Mask Out" />
+    <mapping connection="ASP FO ASP Norm Out" />
+    <mapping connection="ASP FO ASP RT Out" />
+    <mapping connection="ASP OBS ASP Alt Out" />
+    <mapping connection="ASP OBS ASP Boom Out" />
+    <mapping connection="ASP OBS ASP IC Out" />
+    <mapping connection="ASP OBS ASP Mask Out" />
+    <mapping connection="ASP OBS ASP Norm Out" />
+    <mapping connection="ASP OBS ASP RT Out" />
+    <mapping connection="Attend active" />
+    <mapping connection="Autobrake reset" />
+    <mapping connection="Autopilot pitch CMD" />
+    <mapping connection="Autopilot pitch CWS" />
+    <mapping connection="Autopilot roll CMD" />
+    <mapping connection="Autopilot roll CWS" />
+    <mapping connection="Braking" />
+    <mapping connection="DC Power" />
+    <mapping connection="Domelight master" />
+    <mapping connection="Emergency exit lights" />
+    <mapping connection="Fire handle unlock APU" />
+    <mapping connection="Fire handle unlock Engine 1" />
+    <mapping connection="Fire handle unlock Engine 2" />
+    <mapping connection="Flap gate 1" />
+    <mapping connection="Flap gate 10" />
+    <mapping connection="Flap gate 15" />
+    <mapping connection="Flap gate 2" />
+    <mapping connection="Flap gate 25" />
+    <mapping connection="Flap gate 30" />
+    <mapping connection="Flap gate 40" />
+    <mapping connection="Flap gate 5" />
+    <mapping connection="Flap gate up" />
+    <mapping connection="FMA pitch mode ALT ACQ " />
+    <mapping connection="FMA pitch mode ALT HOLD" />
+    <mapping connection="FMA pitch mode FLARE" />
+    <mapping connection="FMA pitch mode G/P" />
+    <mapping connection="FMA pitch mode G/S" />
+    <mapping connection="FMA pitch mode MCP_SPD" />
+    <mapping connection="FMA pitch mode TOGA" />
+    <mapping connection="FMA pitch mode V/S" />
+    <mapping connection="FMA pitch mode VNAV ALT " />
+    <mapping connection="FMA pitch mode VNAV PATH" />
+    <mapping connection="FMA pitch mode VNAV SPD " />
+    <mapping connection="FMA roll mode HDG BACKCOURSE" />
+    <mapping connection="FMA roll mode HDG FAC" />
+    <mapping connection="FMA roll mode HDG LNAV" />
+    <mapping connection="FMA roll mode HDG SEL" />
+    <mapping connection="FMA roll mode HDG VOR/LOG" />
+    <mapping connection="FMA thrust mode ARM" />
+    <mapping connection="FMA thrust mode FMC_SPD" />
+    <mapping connection="FMA thrust mode GA" />
+    <mapping connection="FMA thrust mode MCP_SPD" />
+    <mapping connection="FMA thrust mode N1" />
+    <mapping connection="FMA thrust mode RETARD" />
+    <mapping connection="FMA thrust mode THR_HLD" />
+    <mapping connection="Gear handle release solenoid" />
+    <mapping connection="Gear wind" />
+    <mapping connection="Ground gate" />
+    <mapping connection="Hydraulics A available" />
+    <mapping connection="Hydraulics available" />
+    <mapping connection="Hydraulics B available" />
+    <mapping connection="Inner marker" />
+    <mapping connection="IRS 1 attitude" />
+    <mapping connection="IRS 1 heading" />
+    <mapping connection="IRS 1 position" />
+    <mapping connection="IRS 2 attitude" />
+    <mapping connection="IRS 2 heading" />
+    <mapping connection="IRS 2 position" />
+    <mapping connection="Light test" />
+    <mapping connection="MCP Speed flashing A" />
+    <mapping connection="MCP Speed flashing B" />
+    <mapping connection="Middle marker" />
+    <mapping connection="No smoking sign" />
+    <mapping connection="Nosewheel rotating" />
+    <mapping connection="Outer marker" />
+    <mapping connection="Overhead backlight master" />
+    <mapping connection="Pack L operating" />
+    <mapping connection="Pack R operating" />
+    <mapping connection="Panel lights captain" />
+    <mapping connection="Panel lights control stand" />
+    <mapping connection="Panel lights F/O" />
+    <mapping connection="Panel lights flood" />
+    <mapping connection="Parking brake hold" />
+    <mapping connection="Parking brake release" />
+    <mapping connection="Pressure loss high" />
+    <mapping connection="Pressure loss low" />
+    <mapping connection="Pressurisation display dashed out" />
+    <mapping connection="Pressurisation display power" />
+    <mapping connection="Ram door full open L bright" />
+    <mapping connection="Ram door full open R bright" />
+    <mapping connection="Recirc Fan L running" />
+    <mapping connection="Recirc Fan R running" />
+    <mapping connection="Seatbelt sign" />
+    <mapping connection="Speedbrake autodeploy" />
+    <mapping connection="Speedbrake autorestow" />
+    <mapping connection="Speedbrake extended" />
+    <mapping connection="Speedbrake extended in air" />
+    <mapping connection="Starter 1 pushback solenoid">
+      <genericCOMport serial="TCP" port="0" />
+    </mapping>
+    <mapping connection="Starter 1 solenoid">
+      <genericCOMport serial="TCP" port="0" />
+    </mapping>
+    <mapping connection="Starter 2 pushback solenoid">
+      <genericCOMport serial="TCP" port="0" />
+    </mapping>
+    <mapping connection="Starter 2 solenoid">
+      <genericCOMport serial="TCP" port="0" />
+    </mapping>
+    <mapping connection="Stick shaker" />
+    <mapping connection="Stick shaker F/O" />
+    <mapping connection="Throttle Servo Power left" />
+    <mapping connection="Throttle Servo Power right" />
+    <mapping connection="Trim motor down" />
+    <mapping connection="Trim motor up" />
+    <mapping connection="User 1 out" />
+    <mapping connection="User 10 out" />
+    <mapping connection="User 11 out" />
+    <mapping connection="User 12 out" />
+    <mapping connection="User 13 out" />
+    <mapping connection="User 14 out" />
+    <mapping connection="User 15 out" />
+    <mapping connection="User 16 out" />
+    <mapping connection="User 17 out" />
+    <mapping connection="User 18 out" />
+    <mapping connection="User 19 out" />
+    <mapping connection="User 2 out" />
+    <mapping connection="User 20 out" />
+    <mapping connection="User 3 out" />
+    <mapping connection="User 4 out" />
+    <mapping connection="User 5 out" />
+    <mapping connection="User 6 out" />
+    <mapping connection="User 7 out" />
+    <mapping connection="User 8 out" />
+    <mapping connection="User 9 out" />
+    <mapping connection="V1" />
+    <mapping connection="V2" />
+    <mapping connection="VRotate" />
+    <mapping connection="Wing Anti-Ice hold actuator" />
+    <mapping connection="Wing Anti-Ice off actuator" />
+    <mapping connection="Yaw damper hold actuator" />
+    <mapping connection="Yaw damper off actuator" />
+    <mapping connection="Aileron trim gauge numerical" />
+    <mapping connection="Ampere ACStandbyBus" />
+    <mapping connection="Ampere Aux Battery" />
+    <mapping connection="Ampere BattBus" />
+    <mapping connection="Ampere DCBus1" />
+    <mapping connection="Ampere DCBus2" />
+    <mapping connection="Ampere DCStandbyBus" />
+    <mapping connection="Ampere GalleyBusLeft" />
+    <mapping connection="Ampere GalleyBusRight" />
+    <mapping connection="Ampere GroundServicesBus" />
+    <mapping connection="Ampere HotBattBus" />
+    <mapping connection="Ampere Inverter" />
+    <mapping connection="Ampere MainBus1" />
+    <mapping connection="Ampere MainBus2" />
+    <mapping connection="Ampere switchedground" />
+    <mapping connection="Ampere SwitchedHotBattBus" />
+    <mapping connection="Ampere TR 1" />
+    <mapping connection="Ampere TR 2" />
+    <mapping connection="Ampere TR 3" />
+    <mapping connection="Ampere TransBus1" />
+    <mapping connection="Ampere TransBus2" />
+    <mapping connection="APU numerical" />
+    <mapping connection="Brake pressure numerical" />
+    <mapping connection="Cabin altitude numerical" />
+    <mapping connection="Cabin temperature numerical" />
+    <mapping connection="Cabin VSI numerical" />
+    <mapping connection="Chrono capt 7seg lower left" />
+    <mapping connection="Chrono capt 7seg lower right" />
+    <mapping connection="Chrono capt 7seg upper left" />
+    <mapping connection="Chrono capt 7seg upper right" />
+    <mapping connection="Chrono f/o 7seg lower left" />
+    <mapping connection="Chrono f/o 7seg lower right" />
+    <mapping connection="Chrono f/o 7seg upper left" />
+    <mapping connection="Chrono f/o 7seg upper right" />
+    <mapping connection="Cruise alt" />
+    <mapping connection="Electric Panel Lower center" />
+    <mapping connection="Electric Panel Lower left" />
+    <mapping connection="Electric Panel Lower right" />
+    <mapping connection="Electric Panel Upper center" />
+    <mapping connection="Electric Panel Upper left" />
+    <mapping connection="Electric Panel Upper right" />
+    <mapping connection="Elevator trim gauge 2 numerical" />
+    <mapping connection="Elevator trim gauge numerical" />
+    <mapping connection="Flap numerical" />
+    <mapping connection="Flap right numerical" />
+    <mapping connection="Fuel Flow left" />
+    <mapping connection="Fuel Flow right" />
+    <mapping connection="Fuel Temperature numerical" />
+    <mapping connection="IRS Display right number" />
+    <mapping connection="Land alt" />
+    <mapping connection="Left Engine Fuel numerical" />
+    <mapping connection="MCP ALT VAL output" />
+    <mapping connection="MCP COURSE 1 VAL output" />
+    <mapping connection="MCP COURSE 2 VAL output" />
+    <mapping connection="MCP HEADING VAL output" />
+    <mapping connection="MCP SPEED VAL output" />
+    <mapping connection="MCP V/S VAL output" />
+    <mapping connection="Outflow valve position numerical" />
+    <mapping connection="Oxygen pressure numerical" />
+    <mapping connection="Pressure differential numerical" />
+    <mapping connection="Pressure Left numerical" />
+    <mapping connection="Pressure Right numerical" />
+    <mapping connection="Radio altitude" />
+    <mapping connection="Radio freq ADF1" />
+    <mapping connection="Radio freq ADF2" />
+    <mapping connection="Radio freq COM1" />
+    <mapping connection="Radio freq COM2" />
+    <mapping connection="Radio freq HF1" />
+    <mapping connection="Radio freq HF2" />
+    <mapping connection="Radio freq NAV1" />
+    <mapping connection="Radio freq NAV2" />
+    <mapping connection="Radio freq XPDR" />
+    <mapping connection="Radio standby freq ADF1" />
+    <mapping connection="Radio standby freq ADF2" />
+    <mapping connection="Radio standby freq COM1" />
+    <mapping connection="Radio standby freq COM2" />
+    <mapping connection="Radio standby freq HF1" />
+    <mapping connection="Radio standby freq HF2" />
+    <mapping connection="Radio standby freq NAV1" />
+    <mapping connection="Radio standby freq NAV2" />
+    <mapping connection="Right Engine Fuel numerical" />
+    <mapping connection="Rudder trim gauge numerical" />
+    <mapping connection="Speedbrake servo numerical" />
+    <mapping connection="Standby altimeter numerical" />
+    <mapping connection="Standby Attitude bank numerical" />
+    <mapping connection="Standby Attitude pitch numerical" />
+    <mapping connection="Standby barberpole numerical" />
+    <mapping connection="Standby Glideslope numerical" />
+    <mapping connection="Standby Localiser numerical" />
+    <mapping connection="Standby speed numerical" />
+    <mapping connection="Throttle Servo left numerical" />
+    <mapping connection="Throttle Servo right numerical" />
+    <mapping connection="Trim motor value" />
+    <mapping connection="Volt ACStandbyBus" />
+    <mapping connection="Volt Aux Battery" />
+    <mapping connection="Volt BattBus" />
+    <mapping connection="Volt DCBus1" />
+    <mapping connection="Volt DCBus2" />
+    <mapping connection="Volt DCStandbyBus" />
+    <mapping connection="Volt GalleyBusLeft" />
+    <mapping connection="Volt GalleyBusRight" />
+    <mapping connection="Volt GroundServicesBus" />
+    <mapping connection="Volt HotBattBus" />
+    <mapping connection="Volt MainBus1" />
+    <mapping connection="Volt MainBus2" />
+    <mapping connection="Volt switchedground" />
+    <mapping connection="Volt SwitchedHotBattBus" />
+    <mapping connection="Volt TransBus1" />
+    <mapping connection="Volt TransBus2" />
+    <mapping connection="Wet compass numerical" />
+    <mapping connection="Yaw damper gauge numerical" />
+    <mapping connection="Altitude alert" />
+    <mapping connection="Approaching Minimums" />
+    <mapping connection="Autopilot Disconnect" />
+    <mapping connection="Bank angle" />
+    <mapping connection="Cabin alt audio" />
+    <mapping connection="Dont sink" />
+    <mapping connection="Fire audio" />
+    <mapping connection="Gear warning" />
+    <mapping connection="Glideslope" />
+    <mapping connection="GPWS 10" />
+    <mapping connection="GPWS 100" />
+    <mapping connection="GPWS 1000" />
+    <mapping connection="GPWS 20" />
+    <mapping connection="GPWS 200" />
+    <mapping connection="GPWS 2500" />
+    <mapping connection="GPWS 30" />
+    <mapping connection="GPWS 300" />
+    <mapping connection="GPWS 40" />
+    <mapping connection="GPWS 400" />
+    <mapping connection="GPWS 50" />
+    <mapping connection="GPWS 500" />
+    <mapping connection="Ground call" />
+    <mapping connection="Minimums" />
+    <mapping connection="No smoking Audio" />
+    <mapping connection="Overspeed" />
+    <mapping connection="Plus 100" />
+    <mapping connection="Pullup" />
+    <mapping connection="Seatbelt Audio" />
+    <mapping connection="Sinkrate" />
+    <mapping connection="Takeoff Config" />
+    <mapping connection="TCAS Clear of conflict" />
+    <mapping connection="TCAS Climb" />
+    <mapping connection="TCAS Crossing Climb" />
+    <mapping connection="TCAS Crossing Descend" />
+    <mapping connection="TCAS Descend" />
+    <mapping connection="TCAS Traffic" />
+    <mapping connection="Too low flap" />
+    <mapping connection="Too low gear" />
+    <mapping connection="Too low terrain" />
+    <mapping connection="Uplink chime" />
+    <mapping connection="Windshear" />
+    <mapping connection="ASP ADF 1 vol volume" />
+    <mapping connection="ASP ADF 2 vol volume" />
+    <mapping connection="ASP FO ADF 1 vol volume" />
+    <mapping connection="ASP FO ADF 2 vol volume" />
+    <mapping connection="ASP FO Marker vol volume" />
+    <mapping connection="ASP FO NAV 1 vol volume" />
+    <mapping connection="ASP FO NAV 2 vol volume" />
+    <mapping connection="ASP FO PA vol volume" />
+    <mapping connection="ASP FO Spkr vol volume" />
+    <mapping connection="ASP FO VHF 1 vol volume" />
+    <mapping connection="ASP FO VHF 2 vol volume" />
+    <mapping connection="ASP Marker vol volume" />
+    <mapping connection="ASP NAV 1 vol volume" />
+    <mapping connection="ASP NAV 2 vol volume" />
+    <mapping connection="ASP OBS ADF 1 vol volume" />
+    <mapping connection="ASP OBS ADF 2 vol volume" />
+    <mapping connection="ASP OBS Marker vol volume" />
+    <mapping connection="ASP OBS NAV 1 vol volume" />
+    <mapping connection="ASP OBS NAV 2 vol volume" />
+    <mapping connection="ASP OBS PA vol volume" />
+    <mapping connection="ASP OBS Spkr vol volume" />
+    <mapping connection="ASP OBS VHF 1 vol volume" />
+    <mapping connection="ASP OBS VHF 2 vol volume" />
+    <mapping connection="ASP PA vol volume" />
+    <mapping connection="ASP Spkr vol volume" />
+    <mapping connection="ASP VHF 1 vol volume" />
+    <mapping connection="ASP VHF 2 vol volume" />
+    <mapping connection="CDU 1 brightness" />
+    <mapping connection="CDU 2 brightness" />
+    <mapping connection="EGT Left modifier" />
+    <mapping connection="EGT Right modifier" />
+    <mapping connection="Flight alt in" />
+    <mapping connection="FuelFlow Left modifier" />
+    <mapping connection="FuelFlow Right modifier" />
+    <mapping connection="Land alt in" />
+    <mapping connection="MCP ALT VAL" />
+    <mapping connection="MCP COURSE 1 VAL" />
+    <mapping connection="MCP COURSE 2 VAL" />
+    <mapping connection="MCP HEADING VAL" />
+    <mapping connection="MCP SPEED VAL" />
+    <mapping connection="MCP V/S VAL" />
+    <mapping connection="N1 Left modifier" />
+    <mapping connection="N1 Right modifier" />
+    <mapping connection="Panel lights" />
+    <mapping connection="Radio freq input ADF1" />
+    <mapping connection="Radio freq input ADF2" />
+    <mapping connection="Radio freq input COM1" />
+    <mapping connection="Radio freq input COM2" />
+    <mapping connection="Radio freq input HF1" />
+    <mapping connection="Radio freq input HF2" />
+    <mapping connection="Radio freq input NAV1" />
+    <mapping connection="Radio freq input NAV2" />
+    <mapping connection="Radio freq input XPDR" />
+    <mapping connection="Radio standby freq input ADF1" />
+    <mapping connection="Radio standby freq input ADF2" />
+    <mapping connection="Radio standby freq input COM1" />
+    <mapping connection="Radio standby freq input COM2" />
+    <mapping connection="Radio standby freq input HF1" />
+    <mapping connection="Radio standby freq input HF2" />
+    <mapping connection="Radio standby freq input NAV1" />
+    <mapping connection="Radio standby freq input NAV2" />
+    <mapping connection="Weather Radar Gain" />
+    <mapping connection="Weather Radar Tilt" />
+    <mapping connection="Chrono capt encoder" />
+    <mapping connection="Chrono capt encoder pulse down Off" />
+    <mapping connection="Chrono capt encoder pulse down On" />
+    <mapping connection="Chrono capt encoder pulse up Off" />
+    <mapping connection="Chrono capt encoder pulse up On" />
+    <mapping connection="Chrono f/o encoder" />
+    <mapping connection="Chrono f/o encoder pulse down Off" />
+    <mapping connection="Chrono f/o encoder pulse down On" />
+    <mapping connection="Chrono f/o encoder pulse up Off" />
+    <mapping connection="Chrono f/o encoder pulse up On" />
+    <mapping connection="EFIS 1 baro" />
+    <mapping connection="EFIS 1 baro momentary Center" />
+    <mapping connection="EFIS 1 baro momentary Up" />
+    <mapping connection="EFIS 1 baro momentary Down" />
+    <mapping connection="EFIS 1 baro momentary Up fast" />
+    <mapping connection="EFIS 1 baro momentary Down fast" />
+    <mapping connection="EFIS 1 baro pulse down Off" />
+    <mapping connection="EFIS 1 baro pulse down On" />
+    <mapping connection="EFIS 1 baro pulse up Off" />
+    <mapping connection="EFIS 1 baro pulse up On" />
+    <mapping connection="EFIS 1 minimums" />
+    <mapping connection="EFIS 1 minimums momentary Center" />
+    <mapping connection="EFIS 1 minimums momentary Up" />
+    <mapping connection="EFIS 1 minimums momentary Down" />
+    <mapping connection="EFIS 1 minimums momentary Up fast" />
+    <mapping connection="EFIS 1 minimums momentary Down fast" />
+    <mapping connection="EFIS 1 minimums pulse down Off" />
+    <mapping connection="EFIS 1 minimums pulse down On" />
+    <mapping connection="EFIS 1 minimums pulse up Off" />
+    <mapping connection="EFIS 1 minimums pulse up On" />
+    <mapping connection="EFIS 1 Mode encoder" />
+    <mapping connection="EFIS 1 Mode encoder pulse down Off" />
+    <mapping connection="EFIS 1 Mode encoder pulse down On" />
+    <mapping connection="EFIS 1 Mode encoder pulse up Off" />
+    <mapping connection="EFIS 1 Mode encoder pulse up On" />
+    <mapping connection="EFIS 1 Range encoder" />
+    <mapping connection="EFIS 1 Range encoder pulse down Off" />
+    <mapping connection="EFIS 1 Range encoder pulse down On" />
+    <mapping connection="EFIS 1 Range encoder pulse up Off" />
+    <mapping connection="EFIS 1 Range encoder pulse up On" />
+    <mapping connection="EFIS 2 baro" />
+    <mapping connection="EFIS 2 baro momentary Center" />
+    <mapping connection="EFIS 2 baro momentary Up" />
+    <mapping connection="EFIS 2 baro momentary Down" />
+    <mapping connection="EFIS 2 baro momentary Up fast" />
+    <mapping connection="EFIS 2 baro momentary Down fast" />
+    <mapping connection="EFIS 2 baro pulse down Off" />
+    <mapping connection="EFIS 2 baro pulse down On" />
+    <mapping connection="EFIS 2 baro pulse up Off" />
+    <mapping connection="EFIS 2 baro pulse up On" />
+    <mapping connection="EFIS 2 minimums" />
+    <mapping connection="EFIS 2 minimums momentary Center" />
+    <mapping connection="EFIS 2 minimums momentary Up" />
+    <mapping connection="EFIS 2 minimums momentary Down" />
+    <mapping connection="EFIS 2 minimums momentary Up fast" />
+    <mapping connection="EFIS 2 minimums momentary Down fast" />
+    <mapping connection="EFIS 2 minimums pulse down Off" />
+    <mapping connection="EFIS 2 minimums pulse down On" />
+    <mapping connection="EFIS 2 minimums pulse up Off" />
+    <mapping connection="EFIS 2 minimums pulse up On" />
+    <mapping connection="EFIS 2 Mode encoder" />
+    <mapping connection="EFIS 2 Mode encoder pulse down Off" />
+    <mapping connection="EFIS 2 Mode encoder pulse down On" />
+    <mapping connection="EFIS 2 Mode encoder pulse up Off" />
+    <mapping connection="EFIS 2 Mode encoder pulse up On" />
+    <mapping connection="EFIS 2 Range encoder" />
+    <mapping connection="EFIS 2 Range encoder pulse down Off" />
+    <mapping connection="EFIS 2 Range encoder pulse down On" />
+    <mapping connection="EFIS 2 Range encoder pulse up Off" />
+    <mapping connection="EFIS 2 Range encoder pulse up On" />
+    <mapping connection="Flight alt in encoder" />
+    <mapping connection="Flight alt in encoder pulse down On" />
+    <mapping connection="Flight alt in encoder pulse up On" />
+    <mapping connection="ISFD baro encoder" />
+    <mapping connection="ISFD baro encoder pulse down Off" />
+    <mapping connection="ISFD baro encoder pulse down On" />
+    <mapping connection="ISFD baro encoder pulse up Off" />
+    <mapping connection="ISFD baro encoder pulse up On" />
+    <mapping connection="Land alt in encoder" />
+    <mapping connection="Land alt in encoder pulse down On" />
+    <mapping connection="Land alt in encoder pulse up On" />
+    <mapping connection="MCP ALT VAL encoder" />
+    <mapping connection="MCP ALT VAL encoder pulse down Off" />
+    <mapping connection="MCP ALT VAL encoder pulse down On" />
+    <mapping connection="MCP ALT VAL encoder pulse up Off" />
+    <mapping connection="MCP ALT VAL encoder pulse up On" />
+    <mapping connection="MCP COURSE 1 VAL encoder" />
+    <mapping connection="MCP COURSE 1 VAL encoder pulse down Off" />
+    <mapping connection="MCP COURSE 1 VAL encoder pulse down On" />
+    <mapping connection="MCP COURSE 1 VAL encoder pulse up Off" />
+    <mapping connection="MCP COURSE 1 VAL encoder pulse up On" />
+    <mapping connection="MCP COURSE 2 VAL encoder" />
+    <mapping connection="MCP COURSE 2 VAL encoder pulse down Off" />
+    <mapping connection="MCP COURSE 2 VAL encoder pulse down On" />
+    <mapping connection="MCP COURSE 2 VAL encoder pulse up Off" />
+    <mapping connection="MCP COURSE 2 VAL encoder pulse up On" />
+    <mapping connection="MCP HEADING VAL encoder" />
+    <mapping connection="MCP HEADING VAL encoder pulse down Off" />
+    <mapping connection="MCP HEADING VAL encoder pulse down On" />
+    <mapping connection="MCP HEADING VAL encoder pulse up Off" />
+    <mapping connection="MCP HEADING VAL encoder pulse up On" />
+    <mapping connection="MCP SPEED VAL encoder" />
+    <mapping connection="MCP SPEED VAL encoder pulse down Off" />
+    <mapping connection="MCP SPEED VAL encoder pulse down On" />
+    <mapping connection="MCP SPEED VAL encoder pulse up Off" />
+    <mapping connection="MCP SPEED VAL encoder pulse up On" />
+    <mapping connection="MCP V/S VAL encoder" />
+    <mapping connection="MCP V/S VAL encoder pulse down Off" />
+    <mapping connection="MCP V/S VAL encoder pulse down On" />
+    <mapping connection="MCP V/S VAL encoder pulse up Off" />
+    <mapping connection="MCP V/S VAL encoder pulse up On" />
+    <mapping connection="N1 SET Rotary" />
+    <mapping connection="N1 SET Rotary momentary Center" />
+    <mapping connection="N1 SET Rotary momentary Up" />
+    <mapping connection="N1 SET Rotary momentary Down" />
+    <mapping connection="N1 SET Rotary momentary Up fast" />
+    <mapping connection="N1 SET Rotary momentary Down fast" />
+    <mapping connection="N1 SET Rotary pulse down Off" />
+    <mapping connection="N1 SET Rotary pulse down On" />
+    <mapping connection="N1 SET Rotary pulse up Off" />
+    <mapping connection="N1 SET Rotary pulse up On" />
+    <mapping connection="Radio ADF1 inner shaft" />
+    <mapping connection="Radio ADF1 inner shaft active" />
+    <mapping connection="Radio ADF1 inner shaft active pulse down Off" />
+    <mapping connection="Radio ADF1 inner shaft active pulse down On" />
+    <mapping connection="Radio ADF1 inner shaft active pulse up Off" />
+    <mapping connection="Radio ADF1 inner shaft active pulse up On" />
+    <mapping connection="Radio ADF1 inner shaft pulse down Off" />
+    <mapping connection="Radio ADF1 inner shaft pulse down On" />
+    <mapping connection="Radio ADF1 inner shaft pulse up Off" />
+    <mapping connection="Radio ADF1 inner shaft pulse up On" />
+    <mapping connection="Radio ADF1 outer shaft" />
+    <mapping connection="Radio ADF1 outer shaft active" />
+    <mapping connection="Radio ADF1 outer shaft active pulse down Off" />
+    <mapping connection="Radio ADF1 outer shaft active pulse down On" />
+    <mapping connection="Radio ADF1 outer shaft active pulse up Off" />
+    <mapping connection="Radio ADF1 outer shaft active pulse up On" />
+    <mapping connection="Radio ADF1 outer shaft pulse down Off" />
+    <mapping connection="Radio ADF1 outer shaft pulse down On" />
+    <mapping connection="Radio ADF1 outer shaft pulse up Off" />
+    <mapping connection="Radio ADF1 outer shaft pulse up On" />
+    <mapping connection="Radio ADF2 inner shaft" />
+    <mapping connection="Radio ADF2 inner shaft active" />
+    <mapping connection="Radio ADF2 inner shaft active pulse down Off" />
+    <mapping connection="Radio ADF2 inner shaft active pulse down On" />
+    <mapping connection="Radio ADF2 inner shaft active pulse up Off" />
+    <mapping connection="Radio ADF2 inner shaft active pulse up On" />
+    <mapping connection="Radio ADF2 inner shaft pulse down Off" />
+    <mapping connection="Radio ADF2 inner shaft pulse down On" />
+    <mapping connection="Radio ADF2 inner shaft pulse up Off" />
+    <mapping connection="Radio ADF2 inner shaft pulse up On" />
+    <mapping connection="Radio ADF2 outer shaft" />
+    <mapping connection="Radio ADF2 outer shaft active" />
+    <mapping connection="Radio ADF2 outer shaft active pulse down Off" />
+    <mapping connection="Radio ADF2 outer shaft active pulse down On" />
+    <mapping connection="Radio ADF2 outer shaft active pulse up Off" />
+    <mapping connection="Radio ADF2 outer shaft active pulse up On" />
+    <mapping connection="Radio ADF2 outer shaft pulse down Off" />
+    <mapping connection="Radio ADF2 outer shaft pulse down On" />
+    <mapping connection="Radio ADF2 outer shaft pulse up Off" />
+    <mapping connection="Radio ADF2 outer shaft pulse up On" />
+    <mapping connection="Radio COM1 inner shaft" />
+    <mapping connection="Radio COM1 inner shaft pulse down Off" />
+    <mapping connection="Radio COM1 inner shaft pulse down On" />
+    <mapping connection="Radio COM1 inner shaft pulse up Off" />
+    <mapping connection="Radio COM1 inner shaft pulse up On" />
+    <mapping connection="Radio COM1 outer shaft" />
+    <mapping connection="Radio COM1 outer shaft pulse down Off" />
+    <mapping connection="Radio COM1 outer shaft pulse down On" />
+    <mapping connection="Radio COM1 outer shaft pulse up Off" />
+    <mapping connection="Radio COM1 outer shaft pulse up On" />
+    <mapping connection="Radio COM2 inner shaft" />
+    <mapping connection="Radio COM2 inner shaft pulse down Off" />
+    <mapping connection="Radio COM2 inner shaft pulse down On" />
+    <mapping connection="Radio COM2 inner shaft pulse up Off" />
+    <mapping connection="Radio COM2 inner shaft pulse up On" />
+    <mapping connection="Radio COM2 outer shaft" />
+    <mapping connection="Radio COM2 outer shaft pulse down Off" />
+    <mapping connection="Radio COM2 outer shaft pulse down On" />
+    <mapping connection="Radio COM2 outer shaft pulse up Off" />
+    <mapping connection="Radio COM2 outer shaft pulse up On" />
+    <mapping connection="Radio NAV1 inner shaft" />
+    <mapping connection="Radio NAV1 inner shaft pulse down Off" />
+    <mapping connection="Radio NAV1 inner shaft pulse down On" />
+    <mapping connection="Radio NAV1 inner shaft pulse up Off" />
+    <mapping connection="Radio NAV1 inner shaft pulse up On" />
+    <mapping connection="Radio NAV1 outer shaft" />
+    <mapping connection="Radio NAV1 outer shaft pulse down Off" />
+    <mapping connection="Radio NAV1 outer shaft pulse down On" />
+    <mapping connection="Radio NAV1 outer shaft pulse up Off" />
+    <mapping connection="Radio NAV1 outer shaft pulse up On" />
+    <mapping connection="Radio NAV2 inner shaft" />
+    <mapping connection="Radio NAV2 inner shaft pulse down Off" />
+    <mapping connection="Radio NAV2 inner shaft pulse down On" />
+    <mapping connection="Radio NAV2 inner shaft pulse up Off" />
+    <mapping connection="Radio NAV2 inner shaft pulse up On" />
+    <mapping connection="Radio NAV2 outer shaft" />
+    <mapping connection="Radio NAV2 outer shaft pulse down Off" />
+    <mapping connection="Radio NAV2 outer shaft pulse down On" />
+    <mapping connection="Radio NAV2 outer shaft pulse up Off" />
+    <mapping connection="Radio NAV2 outer shaft pulse up On" />
+    <mapping connection="Radio XPDR inner shaft left" />
+    <mapping connection="Radio XPDR inner shaft left pulse down Off" />
+    <mapping connection="Radio XPDR inner shaft left pulse down On" />
+    <mapping connection="Radio XPDR inner shaft left pulse up Off" />
+    <mapping connection="Radio XPDR inner shaft left pulse up On" />
+    <mapping connection="Radio XPDR inner shaft right" />
+    <mapping connection="Radio XPDR inner shaft right pulse down Off" />
+    <mapping connection="Radio XPDR inner shaft right pulse down On" />
+    <mapping connection="Radio XPDR inner shaft right pulse up Off" />
+    <mapping connection="Radio XPDR inner shaft right pulse up On" />
+    <mapping connection="Radio XPDR outer shaft left" />
+    <mapping connection="Radio XPDR outer shaft left pulse down Off" />
+    <mapping connection="Radio XPDR outer shaft left pulse down On" />
+    <mapping connection="Radio XPDR outer shaft left pulse up Off" />
+    <mapping connection="Radio XPDR outer shaft left pulse up On" />
+    <mapping connection="Radio XPDR outer shaft right" />
+    <mapping connection="Radio XPDR outer shaft right pulse down Off" />
+    <mapping connection="Radio XPDR outer shaft right pulse down On" />
+    <mapping connection="Radio XPDR outer shaft right pulse up Off" />
+    <mapping connection="Radio XPDR outer shaft right pulse up On" />
+    <mapping connection="SPD REF Rotary" />
+    <mapping connection="SPD REF Rotary momentary Center" />
+    <mapping connection="SPD REF Rotary momentary Up" />
+    <mapping connection="SPD REF Rotary momentary Down" />
+    <mapping connection="SPD REF Rotary momentary Up fast" />
+    <mapping connection="SPD REF Rotary momentary Down fast" />
+    <mapping connection="SPD REF Rotary pulse down Off" />
+    <mapping connection="SPD REF Rotary pulse down On" />
+    <mapping connection="SPD REF Rotary pulse up Off" />
+    <mapping connection="SPD REF Rotary pulse up On" />
+    <mapping connection="Standby altimeter QNH" />
+    <mapping connection="Standby altimeter QNH momentary Center" />
+    <mapping connection="Standby altimeter QNH momentary Up" />
+    <mapping connection="Standby altimeter QNH momentary Down" />
+    <mapping connection="Standby altimeter QNH momentary Up fast" />
+    <mapping connection="Standby altimeter QNH momentary Down fast" />
+    <mapping connection="Standby altimeter QNH pulse down Off" />
+    <mapping connection="Standby altimeter QNH pulse down On" />
+    <mapping connection="Standby altimeter QNH pulse up Off" />
+    <mapping connection="Standby altimeter QNH pulse up On" />
+    <mapping connection="Flap input" />
+    <mapping connection="Speedbrake input" />
+    <mapping connection="Speedbrake servo" />
+    <mapping connection="Throttle input left" />
+    <mapping connection="Throttle Servo left" />
+    <mapping connection="Throttle reverser input left" />
+    <mapping connection="Throttle left reverser switch Off" />
+    <mapping connection="Throttle left reverser switch Reverse" />
+    <mapping connection="Throttle reverser input right" />
+    <mapping connection="Throttle right reverser switch Off" />
+    <mapping connection="Throttle right reverser switch Reverse" />
+    <mapping connection="Throttle input right" />
+    <mapping connection="Throttle Servo right" />
+  </mappings>
+  <leds>
+    <intensity color="YELLOW" high="40" low="80" />
+    <intensity color="BLUE" high="40" low="80" />
+    <intensity color="GREEN" high="40" low="80" />
+    <intensity color="RED" high="40" low="80" />
+    <intensity color="WARNING_RED" high="40" low="80" />
+    <intensity color="WARNING_YELLOW" high="40" low="80" />
+    <intensity color="WHITE" high="40" low="80" />
+  </leds>
+  <showQuickstart value="true" />
+  <startMinimized value="false" />
+  <allowNegativeFreq value="true" />
+  <debugMode value="false" />
+  <situation value="Ready" />
+  <autoFailure amount="0" />
+  <webserver port="8080" />
+  <acars host="acars.prosim-ar.com" profile="Silent" tailNumber="" printMarginLeft="0" printMarginTop="0" />
+  <logLevel level="Normal" />
+  <updates level="1" />
+  <gaugeSmoothing value="50" />
+  <viewpoints>
+    <captain x="0" y="0" z="0" pitch="0" bank="0" heading="0" />
+    <center x="0" y="0" z="0" pitch="0" bank="0" heading="0" />
+    <firstOfficer x="0" y="0" z="0" pitch="0" bank="0" heading="0" />
+  </viewpoints>
+  <speedbrakeServoFree value="false" />
+  <simulator value="MSFS" />
+  <audioAddons />
+  <companyRouteSources />
+  <requiredHardware>
+    <item>BU0836X_3</item>
+    <item>BU0836A 3</item>
+    <item>FDS HIO_128_256 #03EA000003AD</item>
+    <item>FSUIPC input/output</item>
+    <item>MatrixOrbital screen at COM4</item>
+    <item>Simworld SimBox (μ): 1 devices</item>
+  </requiredHardware>
+  <directInputEnabled value="true" />
+  <genericCOMportSupport value="true" baud="115200" stopBits="One" parity="None" dataBits="8" tcpPort="8091" tcpGlobal="true" />
+  <CPFlight value="true" />
+  <CPFlightDirect />
+  <ehid>
+    <brightness>100</brightness>
+  </ehid>
+  <fds value="true" mcpSupport="false">
+    <encoders reverse1="false" reverse2="false" reverse3="false" reverse4="false" reverse5="false" reverse6="false" reverse7="false" reverse8="false" reverse9="false" reverse10="false" />
+  </fds>
+  <flightIllusionPort port="COM7" altSpeedCombined="false" />
+  <fsbusPort />
+  <fsuipcSupport value="true" />
+  <goflightSupport value="false" />
+  <ICS delay="2" inverseCrossfeed="false" />
+  <IOCP server="127.0.0.1" port="8092" />
+  <matrixOrbitalSupport value="true" />
+  <phidgetSupport value="false" voltage="Default" currentLimit="Default" motorSpeed="50" motorSpeed2="50" motorReverse1="false" motorReverse2="false" />
+  <pimOverhead port="[Not installed]" />
+  <pimAlt />
+  <pimIRS />
+  <poldragonet inverseGear="false" inverseMFD="false" />
+  <poldragonetOverhead />
+  <simio value="false" />
+  <simsystems value="false" />
+  <simworld value="true" />
+  <sismoSupport value="false" brightness="15" />
+  <VRInsightOvhdSupport />
+  <pokeysSupport value="false" autoConfig="true" offload="false" fastInterface="true" udp="true">
+    <inhibit></inhibit>
+  </pokeysSupport>
+  <pololu value="false" />
+</config>
