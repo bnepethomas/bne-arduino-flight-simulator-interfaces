@@ -1010,7 +1010,7 @@ namespace ProSimSplitter
                 //  "B_STARTER_PB_SOLENOID_2 = 0"
                 //  "B_STARTER_SOLENOID_2 = 0"  
 
-                case "B_STARTER_SOLENOID_1":
+                case "B_STARTER_PB_SOLENOID_1":
                     {
                         bHandle_STARTER = true;
                         sB_STARTER_SOLENOID_1 = words[2];
@@ -1042,7 +1042,7 @@ namespace ProSimSplitter
             {
 
                 // excluding while isolating Arduino hang
-                return;
+                //return;
 
                 // Need to worry about AC or DC power to flag display
                 // will handle later

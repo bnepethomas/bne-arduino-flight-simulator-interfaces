@@ -122,6 +122,7 @@ int loopcounter = 0;
 // Servo related timers
 long lservo_1_Reset_Time = 0;       // The time from millis where the servo should be sent back to the rest position
 long lservo_2_Reset_Time = 0;
+long lcurrentmillis = 0;
 bool lservo_1_Waiting_To_Reset = false;
 bool lservo_2_Waiting_To_Reset = false;
 
@@ -669,7 +670,7 @@ void ProcessReceivedString()
     // Reading values from packetBuffer which is global
     // All received values are strings for readability
 
-    bool bLocalDebug = false;
+    bool bLocalDebug = true;
 
     if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
    
@@ -820,23 +821,31 @@ void ProcessReceivedString()
     // S1 - Servo 1 for starter 1
     if (ParameterNameString[0] == 'S' && ParameterNameString[2] == '1')
     {
+      if (Debug_Display || bLocalDebug ) Serial.println("Handling Servo One Pushback");
       if (ParameterValue == "1")
       {
         // Set the reset time to 500mS in the future
-        lservo_1_Reset_Time = millis() + 500;
+        lservo_1_Reset_Time = millis();
+        lservo_1_Reset_Time = lservo_1_Reset_Time + 5000;
         lservo_1_Waiting_To_Reset = true;
+        starterOneServo.write(200);
         return;
       }
     }
     // S2 - Servo 2 for starter 2
     if (ParameterNameString[0] == 'S' && ParameterNameString[2] == '2')
     {
+            bLocalDebug = true;
+      if (Debug_Display || bLocalDebug ) Serial.println("Handling Servo Two Pushback");
+
       // Check to see if this is a push back event
       if (ParameterValue == "1")
       {
         // Set the reset time to 500mS in the future
-        lservo_2_Reset_Time = millis() + 500;
+        lservo_2_Reset_Time = millis();
+        lservo_2_Reset_Time = lservo_2_Reset_Time + 5000;
         lservo_2_Waiting_To_Reset = true;
+        starterTwoServo.write(200);
         return;
       }
     }
@@ -849,6 +858,7 @@ void ProcessReceivedString()
     if (ParameterNameString[0] == 'R' && ParameterNameString[2] == '6')
     {
       // Check to see if this is a push back event
+
       if (ParameterValue == "1")
       {
         // Set the output state to 1 
@@ -864,32 +874,6 @@ void ProcessReceivedString()
 
 
 
-
-
-    // Check to see if servos need reseting - do a very quick check on boolean flag, if true
-    // then check to see if time has expired.
-    if (lservo_1_Waiting_To_Reset) 
-    {
-      if (millis() >= lservo_1_Reset_Time)
-      {
-        // Time to move the servo back
-        lservo_1_Waiting_To_Reset = false;
-        // Send servo back to reseting place
-        starterTwoServo.write(60);
-      }
-
-    }
-    if (lservo_2_Waiting_To_Reset) 
-    {
-      if (millis() > lservo_2_Reset_Time)
-      {
-        // Time to move the servo back
-        lservo_2_Waiting_To_Reset = false;
-        // Send servo back to reseting place
-        starterTwoServo.write(60);
-      }
-
-    }
       
 
   
@@ -908,7 +892,7 @@ boolean isValidNumber(String str)
 }
 
 void loop() {
-
+  boolean bLocalDebug = false;
   // Check to see if anything has landed in UDP buffer
 
 
@@ -933,7 +917,45 @@ void loop() {
       ProcessReceivedString();  
   }
 
+    // Check to see if servos need reseting - do a very quick check on boolean flag, if true
+    // then check to see if time has expired.
+    if (lservo_1_Waiting_To_Reset) 
+    {
 
+      lcurrentmillis = millis();
+       bLocalDebug = true;
+      if (Debug_Display || bLocalDebug ) Serial.println("Handling Servo One Return");
+      if (Debug_Display || bLocalDebug ) Serial.print( lcurrentmillis );
+      if (Debug_Display || bLocalDebug ) Serial.print( ":" );
+      if (Debug_Display || bLocalDebug ) Serial.println( lservo_1_Reset_Time);
+      if (lcurrentmillis > lservo_1_Reset_Time)
+      {
+        // Time to move the servo back
+        lservo_1_Waiting_To_Reset = false;
+        // Send servo back to reseting place
+        starterOneServo.write(60);
+      }
+
+    }
+    if (lservo_2_Waiting_To_Reset) 
+    {
+      lcurrentmillis = millis();
+      bLocalDebug = true;
+      if (Debug_Display || bLocalDebug ) Serial.print("Handling Servo Two Return ");
+      if (Debug_Display || bLocalDebug ) Serial.print( lcurrentmillis );
+      if (Debug_Display || bLocalDebug ) Serial.print( ":" );
+      if (Debug_Display || bLocalDebug ) Serial.println( lservo_2_Reset_Time);
+      
+      if (lcurrentmillis > lservo_2_Reset_Time)
+      {
+        if (Debug_Display || bLocalDebug ) Serial.println("Returning Servo 2");
+        // Time to move the servo back
+        lservo_2_Waiting_To_Reset = false;
+        // Send servo back to reseting place
+        starterTwoServo.write(60);
+      }
+
+    }
 
   // Check ot see if 1000 millis have passed since servo pushed starter back
   //  This is will to be on a per servo basis, need to track both fired flag and delta time
