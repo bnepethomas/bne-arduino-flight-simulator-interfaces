@@ -27,7 +27,7 @@ unsigned long delaytime=250;
 
 unsigned long sdelaytime=20;
 
-#define filename "_737-Overhead-Arduino-20160828"
+#define filename "_737-Overhead-Arduino-20161003b"
 
 #include <SPI.h>
 #include <Ethernet.h>
@@ -35,8 +35,8 @@ unsigned long sdelaytime=20;
 
 byte mac[] = { 
   0xA9,0xE7,0x3E,0xCA,0x34,0x1f};
-IPAddress ip(192,168,1,205);
-IPAddress TargetIPAddress(192,168,1,111);
+IPAddress ip(192,168,2,205);
+IPAddress TargetIPAddress(192,168,2,111);
 const unsigned int localport = 13135;
 
 EthernetUDP Udp;
@@ -501,7 +501,7 @@ void send_string(const char *pString)
     while(pString[i])
     {
         s_sendstringwrkstr += i;
-        Serial.println("Processing character " + s_sendstringwrkstr + " " +  pString[i]);
+        //Serial.println("Processing character " + s_sendstringwrkstr + " " +  pString[i]);
         //sendData(pString[i]);      // *** Show String to OLED
         Wire.write(pString[i]);
         i++;
@@ -899,8 +899,8 @@ void loop() {
   ltime = millis();
   if ((ltime - lKeepAlive) > 1000)
   {
-      Serial.print("I am alive: ");
-      Serial.println(ltime);
+      //Serial.print("I am alive: ");
+      //Serial.println(ltime);
       lKeepAlive = millis();
     
   }

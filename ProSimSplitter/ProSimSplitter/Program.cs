@@ -249,7 +249,7 @@ namespace ProSimSplitter
 
         public static UdpClient SendingUdpClient = new UdpClient(9910);
 
-        public static IPAddress serverAddr = IPAddress.Parse("192.168.1.205");
+        public static IPAddress serverAddr = IPAddress.Parse("192.168.2.205");
         public static IPEndPoint RemoteIpEndPoint = new IPEndPoint(serverAddr, 9920);
 
 
