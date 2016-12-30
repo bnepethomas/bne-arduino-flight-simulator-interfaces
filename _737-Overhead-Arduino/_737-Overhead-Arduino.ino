@@ -27,7 +27,9 @@ unsigned long delaytime=250;
 
 unsigned long sdelaytime=20;
 
-#define filename "_737-Overhead-Arduino-20161003b"
+#define filename "_737-Overhead-Arduino-20161231a"
+
+// 20161231a Stopping processing of OLED updates to isolate freeze
 
 #include <SPI.h>
 #include <Ethernet.h>
@@ -206,15 +208,15 @@ void setup() {
     // 60 is servo reset position
     // 200 is servo pushing starter switch back to off
     starterOneServo.write(60);
-    delay(500);
+    delay(1000);
     starterOneServo.write(200);
-    delay(500);
+    delay(1000);
     starterOneServo.write(60);
 
     starterTwoServo.write(60);
-    delay(500);
+    delay(1000);
     starterTwoServo.write(200);
-    delay(500);
+    delay(1000);
     starterTwoServo.write(60);
   
     Serial.println("Servo Initialised");
@@ -784,38 +786,38 @@ void ProcessReceivedString()
     }
 
     
-    // *************************  OLED  ************************* 
-    // OL1 - Top Line of INS OLED
-    bLocalDebug = true;
-    if (ParameterNameString[0] == 'O' && ParameterNameString[2] == '1' )
-    {
-        
-        if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED Line 1:" + String(ParameterValuePtr) );
-        //Handle OLED    }
-        delay(25);
-        sendCommand(0x80);
-        delay(25);
-        //send_string("                ");
-        //sendCommand(0xC0);
-        send_string(ParameterValuePtr);
-        
-    } 
-    
-
-    // OL2 - Bottom Line of INS OLED
-    if (ParameterNameString[0] == 'O' && ParameterNameString[2] == '2' )
-    {
-        
-        if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED Line 2:" + String(ParameterValuePtr) );
-        //Handle OLED    }
-        //delay(25);
-        sendCommand(0x80);
-        //delay(25);
-        sendCommand(0xC0);
-        //delay(25);
-        send_string(ParameterValuePtr);
-        if (Debug_Display || bLocalDebug ) Serial.println("Finished Handling OLED Line 2:" + String(ParameterValuePtr) );
-    } 
+//    // *************************  OLED  ************************* 
+//    // OL1 - Top Line of INS OLED
+//    bLocalDebug = true;
+//    if (ParameterNameString[0] == 'O' && ParameterNameString[2] == '1' )
+//    {
+//        
+//        if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED Line 1:" + String(ParameterValuePtr) );
+//        //Handle OLED    }
+//        delay(25);
+//        sendCommand(0x80);
+//        delay(25);
+//        //send_string("                ");
+//        //sendCommand(0xC0);
+//        send_string(ParameterValuePtr);
+//        
+//    } 
+//    
+//
+//    // OL2 - Bottom Line of INS OLED
+//    if (ParameterNameString[0] == 'O' && ParameterNameString[2] == '2' )
+//    {
+//        
+//        if (Debug_Display || bLocalDebug ) Serial.println("Handling OLED Line 2:" + String(ParameterValuePtr) );
+//        //Handle OLED    }
+//        //delay(25);
+//        sendCommand(0x80);
+//        //delay(25);
+//        sendCommand(0xC0);
+//        //delay(25);
+//        send_string(ParameterValuePtr);
+//        if (Debug_Display || bLocalDebug ) Serial.println("Finished Handling OLED Line 2:" + String(ParameterValuePtr) );
+//    } 
     
     // *************************  SERVO  ************************* 
     // S1 - Servo 1 for starter 1
