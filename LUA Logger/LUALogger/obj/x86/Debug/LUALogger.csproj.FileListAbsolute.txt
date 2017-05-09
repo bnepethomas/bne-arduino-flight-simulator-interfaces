@@ -2,3 +2,7 @@ C:\Users\admin\documents\visual studio 2010\Projects\LUALogger\LUALogger\bin\Deb
 C:\Users\admin\documents\visual studio 2010\Projects\LUALogger\LUALogger\bin\Debug\LUALogger.pdb
 C:\Users\admin\documents\visual studio 2010\Projects\LUALogger\LUALogger\obj\x86\Debug\LUALogger.exe
 C:\Users\admin\documents\visual studio 2010\Projects\LUALogger\LUALogger\obj\x86\Debug\LUALogger.pdb
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\LUA Logger\LUALogger\obj\x86\Debug\LUALogger.exe
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\LUA Logger\LUALogger\bin\Debug\LUALogger.exe
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\LUA Logger\LUALogger\bin\Debug\LUALogger.pdb
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\LUA Logger\LUALogger\obj\x86\Debug\LUALogger.pdb

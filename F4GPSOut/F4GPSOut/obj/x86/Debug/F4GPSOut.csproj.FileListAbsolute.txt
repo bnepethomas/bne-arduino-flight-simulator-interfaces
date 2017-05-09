@@ -1,0 +1,32 @@
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\bin\Debug\F4GPSOut.exe
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\bin\Debug\F4GPSOut.pdb
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.exe
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.pdb
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\bin\Debug\F4GPSOut.exe.config
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.frmManualPosition.resources
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.frmSelectComPort.resources
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.GPSOut_Main.resources
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.Properties.Resources.resources
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\bin\Debug\F4GPSOut.exe.config
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\bin\Debug\F4GPSOut.exe
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\bin\Debug\F4GPSOut.pdb
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.frmManualPosition.resources
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.frmSelectComPort.resources
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.GPSOut_Main.resources
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.Properties.Resources.resources
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.csproj.GenerateResource.Cache
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.exe
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.pdb
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\F4GPSOut\F4GPSOut\bin\Debug\F4GPSOut.exe.config
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.exe
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.pdb
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\F4GPSOut\F4GPSOut\bin\Debug\F4GPSOut.exe
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\F4GPSOut\F4GPSOut\bin\Debug\F4GPSOut.pdb
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.frmManualPosition.resources
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.frmSelectComPort.resources
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.GPSOut_Main.resources
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.Properties.Resources.resources
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\F4GPSOut\F4GPSOut\obj\x86\Debug\F4GPSOut.csproj.GenerateResource.Cache

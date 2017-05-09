@@ -1,0 +1,15 @@
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\bin\Release\F4GPSOut.exe.config
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\bin\Release\F4GPSOut.exe
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\bin\Release\F4GPSOut.pdb
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Release\F4GPSOut.exe
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Release\F4GPSOut.pdb
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Release\F4GPSOut.frmManualPosition.resources
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Release\F4GPSOut.frmSelectComPort.resources
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Release\F4GPSOut.GPSOut_Main.resources
+C:\Documents and Settings\pethomas\my documents\visual studio 2010\Projects\F4GPSOut\F4GPSOut\obj\x86\Release\F4GPSOut.Properties.Resources.resources
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\bin\Release\F4GPSOut.exe.config
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\obj\x86\Release\F4GPSOut.exe
+C:\Users\admin\Desktop\GPS\F4GPSOut\F4GPSOut\obj\x86\Release\F4GPSOut.pdb
