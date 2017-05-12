@@ -46,6 +46,7 @@ namespace DCS_TO_GPS
 
         static DateTime LastUpdateToGPS;
         static int GPSTimeout = 200;
+        static int UDPSocketTimeout = 1000;
 
         static SerialPort serialPort1;
 
@@ -77,7 +78,7 @@ namespace DCS_TO_GPS
 
             // Init Network
             UdpClient receivingUdpClient = new UdpClient(7783);
-            receivingUdpClient.Client.ReceiveTimeout = 100;
+            receivingUdpClient.Client.ReceiveTimeout = UDPSocketTimeout;
             Console.WriteLine("Listening on UDP Port " + receivingUdpClient.Client.LocalEndPoint);
             IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
             Thread.Sleep(1000);
@@ -95,8 +96,6 @@ namespace DCS_TO_GPS
                 Lomac_GPS_Latitude = -27.3873;
                 Lomac_GPS_Longitude = 153.1301;
                 
-                Console.WriteLine("Doing some work");
-                ReadAndConvertSharedMem();
        
 
                 // Blocks until a message returns on this socket from a remote host.
@@ -109,8 +108,16 @@ namespace DCS_TO_GPS
                     Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                     Console.WriteLine(LastUpdateToGPS.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                     if (LastUpdateToGPS.AddMilliseconds(GPSTimeout) < DateTime.Now)
+                    {
                         Console.WriteLine("Its been a while update GPS");
-                   LastUpdateToGPS = DateTime.Now;
+
+
+
+                        ReadAndConvertSharedMem();
+                        LastUpdateToGPS = DateTime.Now;
+                    }
+
+                   
                 }
                 catch (SocketException ex)
                 {
@@ -122,9 +129,11 @@ namespace DCS_TO_GPS
                         throw new Exception("Unexpected Socket error", ex);
 
                     else
-
+                    {
                         Console.WriteLine("No packet received within timeout period");
-
+                        Console.WriteLine("Updating GPS during idle period ");
+                        ReadAndConvertSharedMem();
+                    }
                 }  
 
 
