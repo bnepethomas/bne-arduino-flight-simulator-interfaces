@@ -86,15 +86,18 @@ namespace DCS_TO_GPS
             // Init Time
             LastUpdateToGPS = DateTime.Now;
 
+
+            Lomac_GPS_Altitude = 4000;
+            Lomac_GPS_Heading = 0;
+            Lomac_GPS_Speed = 400;
+            Lomac_GPS_Latitude = -27.3873;
+            Lomac_GPS_Longitude = 153.1301;
+
             DCS_TO_GPSOut_init();
             while (true)
             {
 
-                Lomac_GPS_Altitude = 4000;
-                Lomac_GPS_Heading = 0;
-                Lomac_GPS_Speed = 400;
-                Lomac_GPS_Latitude = -27.3873;
-                Lomac_GPS_Longitude = 153.1301;
+
                 
        
 
@@ -104,9 +107,9 @@ namespace DCS_TO_GPS
                     receiveBytes = receivingUdpClient.Receive(ref RemoteIpEndPoint);
                     string returnData = Encoding.ASCII.GetString(receiveBytes);
 
-                    Console.WriteLine("Pkt Rx " + returnData.ToString());
-                    Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
-                    Console.WriteLine(LastUpdateToGPS.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    //Console.WriteLine("Pkt Rx " + returnData.ToString());
+                    //Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    //Console.WriteLine(LastUpdateToGPS.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                     if (LastUpdateToGPS.AddMilliseconds(GPSTimeout) < DateTime.Now)
                     {
                         Console.WriteLine("Its been a while update GPS");
@@ -251,15 +254,10 @@ namespace DCS_TO_GPS
 
             {
 
-
-                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                // StringToBeProcessed = "I_OH_ENGINE_CONTROL1 = 1";
-                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-                Boolean ldebugging = false;
+                Boolean ldebugging = true;
                 String sWrkstr = "";
-
-                // Reset change flags for devices needing state
+                String[] strvariablename;
+                char[] secondDelimiterChars =  {'='};
 
    
 
@@ -278,49 +276,80 @@ namespace DCS_TO_GPS
                 // attribute - = - value
                 // If there is more than that ignore
 
-                if (words.Length != 3)
+                if (words.Length != 6)
                 {
                     Console.WriteLine("Invalid number of parameters in " + StringToBeProcessed);
-                    Console.WriteLine("Should be 3, but " + words.Length + " returned");
+                    Console.WriteLine("Should be 6, but " + words.Length + " returned");
                     return;
                 }
 
-                // Check entire line is passed, and for indicators validate value to be either 0 or 1
-                // Packet format to Arduino 
-                // Indicators I06=1 - I-Indicator, XX, valid options 1 or 0, 0-63 generic indicators, 
-                // Relays R06=1 - R-Relay, valid options 1 or 0, 80-90
-                // INS Display - O-Oled, "XXXXXXXXXXXXXXX" - fixed length string
-                // Seven Segment displays - S-Seven Segment - valid options - all blank, all dashes, or numeric value
 
-                switch (words[0])
+                for (int i = 0; i < 6; i++)
                 {
+                    Console.WriteLine(words[i]);
 
-                    //I_OH_ENGINE_CONTROL1              // Port  31
-                    case "I_OH_ENGINE_CONTROL1":
-                        {
-                            Console.WriteLine("I31", words[2], "I");
-                            // Nothing more to do fall out
-                            return;
-                        }
+                    
+                    strvariablename = words[i].Split(secondDelimiterChars);
 
+                    switch (strvariablename[0])
+                    {
 
 
-                    //I_OH_IRS_FAULT_R  				// Port  54
-                    case "I_OH_IRS_FAULT_R":
-                        {
-                            Console.WriteLine("I54", words[2], "I");
-                            // Nothing more to do fall out
-                            return;
-                        }
+                        case "Airspeed":
+                            {
+                                Console.WriteLine("Airspeed" +  strvariablename[1]);
+                                float workfloat = float.Parse(strvariablename[1]);
+                                Lomac_GPS_Speed = workfloat;
+                                Console.WriteLine("Airspeed twice " + workfloat);
+                                break;
+                            }
 
-                   default:
-                        {
-                            // Haven't found an attribute of interest - throw it out
-                            Console.WriteLine("Not Processing " + words[1]);
-                            return;
-                        }
+                        case "Altitude":
+                            {
+                                Console.WriteLine("Altitude " + strvariablename[1]);
+                                float workfloat = float.Parse(strvariablename[1]);
+                                Lomac_GPS_Altitude = workfloat;
+                                break;
 
-                }
+                            }
+                        case "Heading":
+                            {
+                                Console.WriteLine("Heading " + strvariablename[1]);
+                                float workfloat = float.Parse(strvariablename[1]);
+                                Lomac_GPS_Heading = workfloat;
+                                break;
+
+                            }
+
+
+                        case "Latitude":
+                            {
+                                Console.WriteLine("Latitude " + strvariablename[1]);
+                                float workfloat = float.Parse(strvariablename[1]);
+                                Lomac_GPS_Latitude = workfloat;
+                                
+                                break;
+                            }
+
+                        case "Longitude":
+                            {
+                                Console.WriteLine("Longitude " + strvariablename[1]);
+                                float workfloat = float.Parse(strvariablename[1]);
+                                Lomac_GPS_Longitude = workfloat;
+                                break;
+                            }
+
+
+
+                        //default:
+                        //     {
+                        //         // Haven't found an attribute of interest - throw it out
+                        //         Console.WriteLine("Not Processing " + words[1]);
+
+                        //     }
+                        }   
+
+                    }
 
                 // At this point should only be handling the special cases needing state management
 
