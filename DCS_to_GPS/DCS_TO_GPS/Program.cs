@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 
 using System.Threading;
+using System.Net.Sockets;
+using System.Net;
 using System.IO.Ports;
 using F4GPSOut.Headers;
 
@@ -40,6 +42,10 @@ namespace DCS_TO_GPS
         static public double Lomac_GPS_Longitude = 153.1301;
         static public double Lomac_GPS_Speed = 333;
 
+        static Byte[] receiveBytes;
+
+        static DateTime LastUpdateToGPS;
+        static int GPSTimeout = 200;
 
         static SerialPort serialPort1;
 
@@ -59,6 +65,26 @@ namespace DCS_TO_GPS
         
         static void Main(string[] args)
         {
+
+            Console.WriteLine("DCS_to_GPS");
+
+             // Setup call back function to clean up network ports on a CTRL-C
+            Console.CancelKeyPress += delegate
+            {
+                cleanUp();
+            };
+
+
+            // Init Network
+            UdpClient receivingUdpClient = new UdpClient(7783);
+            receivingUdpClient.Client.ReceiveTimeout = 100;
+            Console.WriteLine("Listening on UDP Port " + receivingUdpClient.Client.LocalEndPoint);
+            IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
+            Thread.Sleep(1000);
+
+            // Init Time
+            LastUpdateToGPS = DateTime.Now;
+
             DCS_TO_GPSOut_init();
             while (true)
             {
@@ -71,7 +97,36 @@ namespace DCS_TO_GPS
                 
                 Console.WriteLine("Doing some work");
                 ReadAndConvertSharedMem();
-                Thread.Sleep(300);
+       
+
+                // Blocks until a message returns on this socket from a remote host.
+                try
+                {
+                    receiveBytes = receivingUdpClient.Receive(ref RemoteIpEndPoint);
+                    string returnData = Encoding.ASCII.GetString(receiveBytes);
+
+                    Console.WriteLine("Pkt Rx " + returnData.ToString());
+                    Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    Console.WriteLine(LastUpdateToGPS.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    if (LastUpdateToGPS.AddMilliseconds(GPSTimeout) < DateTime.Now)
+                        Console.WriteLine("Its been a while update GPS");
+                   LastUpdateToGPS = DateTime.Now;
+                }
+                catch (SocketException ex)
+                {
+
+                    Console.WriteLine(ex.ErrorCode.ToString());
+
+                    if (ex.SocketErrorCode != SocketError.TimedOut)
+
+                        throw new Exception("Unexpected Socket error", ex);
+
+                    else
+
+                        Console.WriteLine("No packet received within timeout period");
+
+                }  
+
 
 
                 
@@ -168,6 +223,8 @@ namespace DCS_TO_GPS
                     Console.WriteLine("Opened " + GPSComPort + " @ " + serialPort1.BaudRate.ToString() );
                 }
             }
+
+
 
 
         }
@@ -441,6 +498,12 @@ namespace DCS_TO_GPS
             End If
 
             */
+
+        }
+
+        public static void cleanUp()
+        {
+            Console.WriteLine("Closing Connections!");
 
         }
 
