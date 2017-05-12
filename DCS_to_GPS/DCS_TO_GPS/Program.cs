@@ -113,6 +113,13 @@ namespace DCS_TO_GPS
 
 
 
+                        // Time to convert received String
+                        // Latitude=44.084018453225:Longitude=43.087468616326:Altitude=1719.7390136719:Airspeed=271.3784286499:Heading=318.92603060603:
+
+
+                        ProcessReceivedString(returnData);
+
+
                         ReadAndConvertSharedMem();
                         LastUpdateToGPS = DateTime.Now;
                     }
@@ -238,6 +245,90 @@ namespace DCS_TO_GPS
 
         }
 
+
+        static void ProcessReceivedString(string StringToBeProcessed)
+        {
+
+            {
+
+
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // StringToBeProcessed = "I_OH_ENGINE_CONTROL1 = 1";
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                Boolean ldebugging = false;
+                String sWrkstr = "";
+
+                // Reset change flags for devices needing state
+
+   
+
+                if (ldebugging) Console.WriteLine("Start ProcessStream");
+                if (ldebugging) Console.WriteLine("Processing Stream {0}", StringToBeProcessed);
+
+                char[] delimiterChars = { ' ', ',', ':', '\r' };
+
+
+                if (ldebugging) System.Console.WriteLine("Original text: '{0}'", StringToBeProcessed);
+
+                string[] words = StringToBeProcessed.Split(delimiterChars);
+                if (ldebugging) System.Console.WriteLine("{0} words in text:", words.Length);
+
+                // There should only be three things in each line
+                // attribute - = - value
+                // If there is more than that ignore
+
+                if (words.Length != 3)
+                {
+                    Console.WriteLine("Invalid number of parameters in " + StringToBeProcessed);
+                    Console.WriteLine("Should be 3, but " + words.Length + " returned");
+                    return;
+                }
+
+                // Check entire line is passed, and for indicators validate value to be either 0 or 1
+                // Packet format to Arduino 
+                // Indicators I06=1 - I-Indicator, XX, valid options 1 or 0, 0-63 generic indicators, 
+                // Relays R06=1 - R-Relay, valid options 1 or 0, 80-90
+                // INS Display - O-Oled, "XXXXXXXXXXXXXXX" - fixed length string
+                // Seven Segment displays - S-Seven Segment - valid options - all blank, all dashes, or numeric value
+
+                switch (words[0])
+                {
+
+                    //I_OH_ENGINE_CONTROL1              // Port  31
+                    case "I_OH_ENGINE_CONTROL1":
+                        {
+                            Console.WriteLine("I31", words[2], "I");
+                            // Nothing more to do fall out
+                            return;
+                        }
+
+
+
+                    //I_OH_IRS_FAULT_R  				// Port  54
+                    case "I_OH_IRS_FAULT_R":
+                        {
+                            Console.WriteLine("I54", words[2], "I");
+                            // Nothing more to do fall out
+                            return;
+                        }
+
+                   default:
+                        {
+                            // Haven't found an attribute of interest - throw it out
+                            Console.WriteLine("Not Processing " + words[1]);
+                            return;
+                        }
+
+                }
+
+                // At this point should only be handling the special cases needing state management
+
+
+                if (ldebugging) Console.WriteLine("End ProcessStream");
+
+            }
+        }
 
         static void ReadAndConvertSharedMem()
         {

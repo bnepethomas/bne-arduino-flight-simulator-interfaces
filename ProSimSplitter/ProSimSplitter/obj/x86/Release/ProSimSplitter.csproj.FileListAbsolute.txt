@@ -27,3 +27,6 @@ C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSp
 C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.exe.manifest
 C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.application
 C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\bin\Release\ProSimSplitter.exe.config
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.exe
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ProSimSplitter\ProSimSplitter\obj\x86\Release\ProSimSplitter.pdb
