@@ -16,7 +16,9 @@ namespace DCS_TO_GPS
 
     class Program
     {
-        
+
+
+        static Boolean ldebugging = false;
         static public string GPSComPort;
         static public ProgramMode OperationalMode;
         
@@ -29,6 +31,7 @@ namespace DCS_TO_GPS
         static public String outNorS;
         static public String outEorW;
 
+        // Start in Brisbane
         static public string outSpeed = "100";
         static public string outAltitude = "1000";
         static public string outLatitude = "44.89";
@@ -81,7 +84,7 @@ namespace DCS_TO_GPS
             receivingUdpClient.Client.ReceiveTimeout = UDPSocketTimeout;
             Console.WriteLine("Listening on UDP Port " + receivingUdpClient.Client.LocalEndPoint);
             IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
 
             // Init Time
             LastUpdateToGPS = DateTime.Now;
@@ -112,7 +115,7 @@ namespace DCS_TO_GPS
                     //Console.WriteLine(LastUpdateToGPS.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                     if (LastUpdateToGPS.AddMilliseconds(GPSTimeout) < DateTime.Now)
                     {
-                        Console.WriteLine("Its been a while update GPS");
+                        if (ldebugging) Console.WriteLine("Its been a while update GPS");
 
 
 
@@ -132,7 +135,7 @@ namespace DCS_TO_GPS
                 catch (SocketException ex)
                 {
 
-                    Console.WriteLine(ex.ErrorCode.ToString());
+                    if (ldebugging)  Console.WriteLine(ex.ErrorCode.ToString());
 
                     if (ex.SocketErrorCode != SocketError.TimedOut)
 
@@ -156,22 +159,37 @@ namespace DCS_TO_GPS
         {
             foreach (string arg in Environment.GetCommandLineArgs())
             {
-                if (arg.IndexOf("Falcon") != -1)
+                Console.WriteLine("Parameters passed " + arg);
+                if (arg.IndexOf("/?") != -1)
+                {
+                    Console.WriteLine("DCS");
+                    Console.WriteLine("reset - clear config settings");
+                    Console.WriteLine("debug");
+                    Environment.Exit(0);
+                }
+                else if (arg.IndexOf("debug") != -1)
+                {
+                    ldebugging = true;
+                }
+                else if (arg.IndexOf("Falcon") != -1)
                 {
                     OperationalMode = ProgramMode.F4Mode;
-                    break;
+                    
                 }
-                else if (arg.IndexOf("Lomac") != -1)
+                else if (arg.IndexOf("DCS") != -1)
                 {
                     OperationalMode = ProgramMode.LomacMode;
-                    break;
+                    
                 }
+
                 else if (arg.IndexOf("reset") != -1)
                 {
                     Console.WriteLine("Reseting Configuration to default");
                     Console.ReadLine();   
                     Properties.Settings.Default.GPSComPort = "Com0";
                     Properties.Settings.Default.Save();
+                    Environment.Exit(0);
+
                 }
 
                 
@@ -254,7 +272,7 @@ namespace DCS_TO_GPS
 
             {
 
-                Boolean ldebugging = true;
+                
                 String sWrkstr = "";
                 String[] strvariablename;
                 char[] secondDelimiterChars =  {'='};
@@ -286,7 +304,7 @@ namespace DCS_TO_GPS
 
                 for (int i = 0; i < 6; i++)
                 {
-                    Console.WriteLine(words[i]);
+                    if (ldebugging) Console.WriteLine(words[i]);
 
                     
                     strvariablename = words[i].Split(secondDelimiterChars);
@@ -297,24 +315,23 @@ namespace DCS_TO_GPS
 
                         case "Airspeed":
                             {
-                                Console.WriteLine("Airspeed" +  strvariablename[1]);
+                                if (ldebugging) Console.WriteLine("Airspeed" + strvariablename[1]);
                                 float workfloat = float.Parse(strvariablename[1]);
                                 Lomac_GPS_Speed = workfloat;
-                                Console.WriteLine("Airspeed twice " + workfloat);
                                 break;
                             }
 
                         case "Altitude":
                             {
-                                Console.WriteLine("Altitude " + strvariablename[1]);
+                                if (ldebugging) Console.WriteLine("Altitude " + strvariablename[1]);
                                 float workfloat = float.Parse(strvariablename[1]);
                                 Lomac_GPS_Altitude = workfloat;
                                 break;
-
                             }
+
                         case "Heading":
                             {
-                                Console.WriteLine("Heading " + strvariablename[1]);
+                                if (ldebugging) Console.WriteLine("Heading " + strvariablename[1]);
                                 float workfloat = float.Parse(strvariablename[1]);
                                 Lomac_GPS_Heading = workfloat;
                                 break;
@@ -324,7 +341,7 @@ namespace DCS_TO_GPS
 
                         case "Latitude":
                             {
-                                Console.WriteLine("Latitude " + strvariablename[1]);
+                                if (ldebugging) Console.WriteLine("Latitude " + strvariablename[1]);
                                 float workfloat = float.Parse(strvariablename[1]);
                                 Lomac_GPS_Latitude = workfloat;
                                 
@@ -333,7 +350,7 @@ namespace DCS_TO_GPS
 
                         case "Longitude":
                             {
-                                Console.WriteLine("Longitude " + strvariablename[1]);
+                                if (ldebugging) Console.WriteLine("Longitude " + strvariablename[1]);
                                 float workfloat = float.Parse(strvariablename[1]);
                                 Lomac_GPS_Longitude = workfloat;
                                 break;
