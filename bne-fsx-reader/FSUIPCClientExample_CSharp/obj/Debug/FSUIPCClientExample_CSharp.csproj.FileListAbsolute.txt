@@ -1,0 +1,15 @@
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.Form1.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\bin\Debug\FSUIPCClientExample_CSharp.exe.config
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\bin\Debug\FSUIPCClientExample_CSharp.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\bin\Debug\FSUIPCClientExample_CSharp.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\bin\Debug\FSUIPCClient.dll
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\bin\Debug\FSUIPCClient.xml
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\bin\Debug\FSUIPCClientExample_CSharp.exe.manifest
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\bin\Debug\FSUIPCClientExample_CSharp.application
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.exe.manifest
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.application
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.csproj.GenerateResource.Cache

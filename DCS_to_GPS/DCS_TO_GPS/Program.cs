@@ -48,7 +48,7 @@ namespace DCS_TO_GPS
         static Byte[] receiveBytes;
 
         static DateTime LastUpdateToGPS;
-        static int GPSTimeout = 200;
+        static int GPSTimeout = 100;
         static int UDPSocketTimeout = 1000;
 
         static SerialPort serialPort1;
