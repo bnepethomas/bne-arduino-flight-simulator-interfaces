@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="DCS_Command_Sender.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="JoystickGUID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,0,0,0,0</Value>
+    </Setting>
+    <Setting Name="ButtonNo_SAS_YAW_L" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Button_Description" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Button 0,Button 1,Button 2, Button 3, Button 4, Button 5</Value>
+    </Setting>
+    <Setting Name="Button_Up_Command" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,0,0,0,0</Value>
+    </Setting>
+    <Setting Name="Button_Down_Command" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,0,0,0,0</Value>
+    </Setting>
+    <Setting Name="Button_Number" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,0,0,0,0</Value>
+    </Setting>
+    <Setting Name="Button_Hold" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,0,0,0,0</Value>
+    </Setting>
+    <Setting Name="Button_Devices" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,0,0,0,0</Value>
+    </Setting>
+    <Setting Name="Stick_Names" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,0,0,0,0</Value>
+    </Setting>
+    <Setting Name="Stick_GUIDs" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0,0,0,0,0,0</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

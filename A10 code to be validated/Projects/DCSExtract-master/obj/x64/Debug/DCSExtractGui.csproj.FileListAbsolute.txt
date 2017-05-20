@@ -1,0 +1,9 @@
+C:\Downloads\DCSExtract-master\DCSExtract-master\bin\x64\Debug\DCSExtractGui.exe
+C:\Downloads\DCSExtract-master\DCSExtract-master\bin\x64\Debug\DCSExtractGui.pdb
+C:\Downloads\DCSExtract-master\DCSExtract-master\obj\x64\Debug\DCSExtractGui.Form1.resources
+C:\Downloads\DCSExtract-master\DCSExtract-master\obj\x64\Debug\DCSExtractGui.Properties.Resources.resources
+C:\Downloads\DCSExtract-master\DCSExtract-master\obj\x64\Debug\DCSExtractGui.csproj.GenerateResource.Cache
+C:\Downloads\DCSExtract-master\DCSExtract-master\obj\x64\Debug\DCSExtractGui.exe
+C:\Downloads\DCSExtract-master\DCSExtract-master\obj\x64\Debug\DCSExtractGui.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSExtract-master\obj\x64\Debug\DCSExtractGui.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSExtract-master\obj\x64\Debug\DCSExtractGui.pdb

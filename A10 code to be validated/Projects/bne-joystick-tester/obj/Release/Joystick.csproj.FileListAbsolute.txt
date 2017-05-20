@@ -1,0 +1,16 @@
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\Release\Joystick.exe.config
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\Release\Joystick.exe.manifest
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\Release\Joystick.application
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\Release\Joystick.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\Release\Joystick.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\Release\JoystickTest.MainForm.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\Release\JoystickTest.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\Release\Joystick.exe.manifest
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\Release\Joystick.application
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\Release\Joystick.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\Release\Joystick.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\Release\SlimDX.dll
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\Release\SlimDX.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\Release\SlimDX.xml
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\Release\Joystick.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\Release\Joystick.csproj.GenerateResource.Cache

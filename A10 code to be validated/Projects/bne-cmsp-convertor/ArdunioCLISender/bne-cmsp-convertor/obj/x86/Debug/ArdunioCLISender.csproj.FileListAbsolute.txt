@@ -1,0 +1,12 @@
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\bin\Debug\ArdunioCLISender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\bin\Debug\ArdunioCLISender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-cmsp-convertor\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-cmsp-convertor\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-cmsp-convertor\ArdunioCLISender\bne-cmsp-convertor\bin\Debug\b ne-cmsp-convertor.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-cmsp-convertor\ArdunioCLISender\bne-cmsp-convertor\bin\Debug\b ne-cmsp-convertor.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-cmsp-convertor\ArdunioCLISender\bne-cmsp-convertor\obj\x86\Debug\ArdunioCLISender.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-cmsp-convertor\ArdunioCLISender\bne-cmsp-convertor\obj\x86\Debug\b ne-cmsp-convertor.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-cmsp-convertor\ArdunioCLISender\bne-cmsp-convertor\obj\x86\Debug\b ne-cmsp-convertor.pdb

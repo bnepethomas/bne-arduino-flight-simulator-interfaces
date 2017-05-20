@@ -1,0 +1,16 @@
+C:\Users\lmd\Documents\Visual Studio 2013\Projects\DCSExtractGui\DCSExtractGui\bin\x64\Release\DCSExtractGui.exe
+C:\Users\lmd\Documents\Visual Studio 2013\Projects\DCSExtractGui\DCSExtractGui\bin\x64\Release\DCSExtractGui.pdb
+C:\Users\lmd\Documents\Visual Studio 2013\Projects\DCSExtractGui\DCSExtractGui\obj\x64\Release\DCSExtractGui.Form1.resources
+C:\Users\lmd\Documents\Visual Studio 2013\Projects\DCSExtractGui\DCSExtractGui\obj\x64\Release\DCSExtractGui.Properties.Resources.resources
+C:\Users\lmd\Documents\Visual Studio 2013\Projects\DCSExtractGui\DCSExtractGui\obj\x64\Release\DCSExtractGui.csproj.GenerateResource.Cache
+C:\Users\lmd\Documents\Visual Studio 2013\Projects\DCSExtractGui\DCSExtractGui\obj\x64\Release\DCSExtractGui.exe
+C:\Users\lmd\Documents\Visual Studio 2013\Projects\DCSExtractGui\DCSExtractGui\obj\x64\Release\DCSExtractGui.pdb
+C:\Users\lmd\Documents\Visual Studio 2013\Projects\DCSExtractGui\DCSExtractGui\obj\x64\Release\DCSExtractGui.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSExtract-master\obj\x64\Release\DCSExtractGui.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSExtract-master\obj\x64\Release\DCSExtractGui.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSExtract-master\bin\x64\Release\DCSExtractGui.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSExtract-master\bin\x64\Release\DCSExtractGui.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSExtract-master\obj\x64\Release\DCSExtractGui.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSExtract-master\obj\x64\Release\DCSExtractGui.Form1.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSExtract-master\obj\x64\Release\DCSExtractGui.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSExtract-master\obj\x64\Release\DCSExtractGui.csproj.GenerateResource.Cache

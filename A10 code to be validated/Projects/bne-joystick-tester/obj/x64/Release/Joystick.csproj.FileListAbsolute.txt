@@ -1,0 +1,12 @@
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\x64\Release\Joystick.exe.config
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\x64\Release\Joystick.exe.manifest
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\x64\Release\Joystick.application
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\x64\Release\Joystick.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\bin\x64\Release\Joystick.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\x64\Release\JoystickTest.MainForm.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\x64\Release\JoystickTest.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\x64\Release\Joystick.csproj.GenerateResource.Cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\x64\Release\Joystick.exe.manifest
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\x64\Release\Joystick.application
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\x64\Release\Joystick.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-joystick-tester\obj\x64\Release\Joystick.pdb

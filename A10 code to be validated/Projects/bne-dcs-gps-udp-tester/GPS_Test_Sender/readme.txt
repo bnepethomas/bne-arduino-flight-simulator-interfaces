@@ -1,0 +1,1 @@
+Sends UDP frames to the GPS Receiver.  Used to test interface between DCs and GPS

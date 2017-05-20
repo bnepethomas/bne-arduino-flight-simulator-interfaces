@@ -1,0 +1,10 @@
+C:\Users\admin\AppData\Local\Temporary Projects\CDU Sender\bin\Debug\CDU Sender.exe
+C:\Users\admin\AppData\Local\Temporary Projects\CDU Sender\bin\Debug\CDU Sender.pdb
+C:\Users\admin\AppData\Local\Temporary Projects\CDU Sender\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\admin\AppData\Local\Temporary Projects\CDU Sender\obj\x86\Debug\CDU Sender.exe
+C:\Users\admin\AppData\Local\Temporary Projects\CDU Sender\obj\x86\Debug\CDU Sender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\CDU Sender\CDU Sender\bin\Debug\CDU Sender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\CDU Sender\CDU Sender\bin\Debug\CDU Sender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\CDU Sender\CDU Sender\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\CDU Sender\CDU Sender\obj\x86\Debug\CDU Sender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\CDU Sender\CDU Sender\obj\x86\Debug\CDU Sender.pdb

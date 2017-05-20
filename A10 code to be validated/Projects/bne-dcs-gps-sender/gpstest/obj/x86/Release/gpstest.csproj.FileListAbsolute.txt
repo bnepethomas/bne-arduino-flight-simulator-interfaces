@@ -1,0 +1,9 @@
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-gps-sender\gpstest\bin\Release\gpstest.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-gps-sender\gpstest\bin\Release\gpstest.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-gps-sender\gpstest\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-gps-sender\gpstest\obj\x86\Release\WindowsFormsApplication1.Form1.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-gps-sender\gpstest\obj\x86\Release\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-gps-sender\gpstest\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-gps-sender\gpstest\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-gps-sender\gpstest\obj\x86\Release\gpstest.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-gps-sender\gpstest\obj\x86\Release\gpstest.pdb

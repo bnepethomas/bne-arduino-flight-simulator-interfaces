@@ -1,0 +1,10 @@
+C:\Users\admin\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\admin\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\bin\Release\soic_conv_output.exe
+C:\Users\admin\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\bin\Release\soic_conv_output.pdb
+C:\Users\admin\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Release\soic_conv_output.exe
+C:\Users\admin\documents\visual studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Release\soic_conv_output.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Release\soic_conv_output.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ConsoleApplication1\ConsoleApplication1\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ConsoleApplicationOld1\ConsoleApplication1\obj\x86\Release\soic_conv_output.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ConsoleApplicationOld1\ConsoleApplication1\obj\x86\Release\soic_conv_output.pdb

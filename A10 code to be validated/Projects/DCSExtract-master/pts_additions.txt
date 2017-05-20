@@ -1,0 +1,74 @@
+Speakit("A10c searching data");
+Speakit("A10c detected");
+Speakit("Game not detected");
+
+using System.Threading;
+using System.Net.Sockets;
+using System.Net;
+using System.Speech.Synthesis;
+using DCS;
+
+namespace DCSExtractGui
+{
+    public partial class Form1 : Form
+    {
+
+        static SpeechSynthesizer synth = new SpeechSynthesizer();
+        static PromptBuilder builder = new PromptBuilder();
+        static string lastspoken = "";
+		
+		
+		        ForwardToArduinoSender("CMSC=" +
+
+                cmsc_jammer.Text.PadRight(10) +
+                cmsc_chaff.Text.PadRight(6) +               
+                cmsc_mws.Text.PadRight(10) +
+                cmsc_flare.Text.PadRight(6) 
+				);
+		
+		        ForwardToArduinoSender( "CMSP=" + cmsp_up1.Text.PadRight(5) + cmsp_up2.Text.PadRight(5) + 
+                cmsp_up3.Text.PadRight(5) + 
+                cmsp_up4.Text.PadRight(5) + 
+                cmsp_down1.Text.PadRight(5) + 
+                cmsp_down2.Text.PadRight(5) + 
+                cmsp_down3.Text.PadRight(5) + 
+                cmsp_down4.Text.PadRight(5));
+				
+				
+	       public static void ForwardToArduinoSender(string stringtosend)
+        {
+
+            int recv;
+            byte[] data = new byte[1024];
+            byte[] data2 = new byte[1024];
+
+            // Send the button press command to Export.lua
+            data = Encoding.ASCII.GetBytes(stringtosend);
+            newsock.SendTo(data, data.Length, SocketFlags.None, CDURemote);
+
+            Console.WriteLine("Sent to Arduino Sender - " + stringtosend);
+
+        }
+		
+		        public static void Speakit(string toBeSpoken)
+        {
+
+            if (toBeSpoken != lastspoken)
+            {
+                builder.ClearContent();
+                builder.AppendText(toBeSpoken);
+                synth.Speak(builder);
+                lastspoken = toBeSpoken;
+            }
+        }
+		
+		
+		        private void OnLoad(object sender, EventArgs e)
+        {
+            newsock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+
+            IPEndPoint CDUSender = new IPEndPoint(IPAddress.Loopback, 33051);
+            CDURemote = (EndPoint)(CDUSender);
+            
+            ClearKa50();
+            ClearA10c()

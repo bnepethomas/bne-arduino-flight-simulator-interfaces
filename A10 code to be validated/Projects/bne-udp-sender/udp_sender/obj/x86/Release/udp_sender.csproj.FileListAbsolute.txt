@@ -1,0 +1,10 @@
+C:\Users\admin\Documents\Visual Studio 2010\Projects\udp_sender\udp_sender\bin\Release\udp_sender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\udp_sender\udp_sender\bin\Release\udp_sender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\udp_sender\udp_sender\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\udp_sender\udp_sender\obj\x86\Release\udp_sender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\udp_sender\udp_sender\obj\x86\Release\udp_sender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-udp-sender\udp_sender\obj\x86\Release\udp_sender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-udp-sender\udp_sender\obj\x86\Release\udp_sender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-udp-sender\udp_sender\bin\Release\udp_sender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-udp-sender\udp_sender\bin\Release\udp_sender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-udp-sender\udp_sender\obj\x86\Release\ResolveAssemblyReference.cache

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<WORKSPACE bcol="0.0" fps="50" gcol="0.0" height="0" lights="1" rcol="0.0" width="0" xpos="0" ypos="0">
+
+    <!-- <WRPOBJECT class="simmeters.wpr.SMWPCND00" delay="5" description="Condor Soaring Flight Data Wrapper" host="127.0.0.1" listen="6060" port="0"/> -->
+    <WRPOBJECT class="simmeters.wpr.SMWPDCS00" delay="5" description="DCS/FC Flight Data Wrapper" host="127.0.0.1" listen="6061" port="0"/>
+    <!-- <WRPOBJECT class="simmeters.wpr.SMWPFSX00" delay="5" description="FSX Flight Data Wrapper" host="127.0.0.1" listen="0" port="6062"/> -->
+    <!-- <WRPOBJECT class="simmeters.wpr.SMWPIL200" delay="5" description="IL2 Flight Data Wrapper" host="127.0.0.1" listen="0" port="6063"/> -->
+    <!-- <WRPOBJECT class="simmeters.wpr.SMWPSWI00" delay="5" description="Silent Wings Flight Data Wrapper" host="127.0.0.1" listen="6064" port="0"/> -->
+    <!-- <WRPOBJECT class="simmeters.wpr.SMWPXPL09" delay="5" description="X-Plane 09 Flight Data Wrapper" host="127.0.0.1" listen="6065" port="0"/> -->
+    <!-- <WRPOBJECT class="simmeters.wpr.SMWPXPL10" delay="5" description="X-Plane 10 Flight Data Wrapper" host="127.0.0.1" listen="6066" port="0"/> -->
+    
+    <NETOBJECT address="10.0.2.1" class="simmeters.net.SMNETADI00" description="EADI Attitude Indicator" listen="0" port="6060"/>
+    <NETOBJECT address="10.0.1.1" class="simmeters.net.SMNETHSI00" description="EHSI Horizontal Situation Indicator" listen="0" port="6060"/> 
+    <NETOBJECT address="10.0.3.1" class="simmeters.net.SMNETRWR00" description="RWR Warning System Indicator" listen="0" port="6060"/>
+    <!-- <NETOBJECT address="10.0.4.1" class="simmeters.net.SMNETRMU00" description="RMU Radio System Indicator" listen="0" port="6060"/> -->
+    
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLADI00" description="Attitude Indicator GA" height="250" width="250" xpos="100" ypos="461"/> -->
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLALT00" description="Altimeter 20,000ft GA" height="250" width="250" xpos="100" ypos="659"/>  -->
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLASI00" description="Airspeed Indicator GA" height="250" width="250" xpos="134" ypos="462"/> -->
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLHDG00" description="Wet Compass" height="200" width="200" xpos="156" ypos="254"/> -->
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLHDG01" description="Compass Indicator GA" height="250" width="250" xpos="654" ypos="169"/> -->
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLTQE00" description="Left  Engine Torque Indicator" height="220" width="220" xpos="125" ypos="685"/> -->
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLTQE01" description="Right Engine Torque Indicator" height="220" width="220" xpos="355" ypos="685"/> -->
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLEGT00" description="Left  Engine EGT C  Indicator" height="220" width="220" xpos="125" ypos="495"/> -->
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLEGT01" description="Right Engine EGT C  Indicator" height="220" width="220" xpos="355" ypos="495"/> -->
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLRPM00" description="Left  Engine RPM %  Indicator" height="220" width="220" xpos="125" ypos="305"/> -->
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLRPM01" description="Right Engine RPM %  Indicator" height="220" width="220" xpos="355" ypos="305"/> --> 
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLFFW00" description="Left  Engine FF/FU  Indicator" height="220" width="220" xpos="125" ypos="115"/> --> 
+    <!-- <OGLOBJECT class="simmeters.ogl.SMOGLFFW01" description="Right Engine FF/FU  Indicator" height="220" width="220" xpos="355" ypos="115"/> -->
+
+</WORKSPACE>
+
+

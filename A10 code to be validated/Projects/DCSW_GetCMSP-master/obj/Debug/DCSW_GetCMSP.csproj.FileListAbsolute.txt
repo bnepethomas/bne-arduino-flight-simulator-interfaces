@@ -1,0 +1,9 @@
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSW_GetCMSP-master\bin\Debug\DCSW_GetCMSP.exe.config
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSW_GetCMSP-master\bin\Debug\DCSW_GetCMSP.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSW_GetCMSP-master\bin\Debug\DCSW_GetCMSP.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSW_GetCMSP-master\obj\Debug\DCSW_GetCMSP.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSW_GetCMSP-master\obj\Debug\GetCMSPTextNewAlgorithm.Form1.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSW_GetCMSP-master\obj\Debug\GetCMSPTextNewAlgorithm.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSW_GetCMSP-master\obj\Debug\DCSW_GetCMSP.csproj.GenerateResource.Cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSW_GetCMSP-master\obj\Debug\DCSW_GetCMSP.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCSW_GetCMSP-master\obj\Debug\DCSW_GetCMSP.pdb

@@ -1,0 +1,10 @@
+C:\Users\lmd\documents\visual studio 2010\Projects\DCSExtractGui\DCSExtractGui\bin\Debug\DCSExtractGui.exe
+C:\Users\lmd\documents\visual studio 2010\Projects\DCSExtractGui\DCSExtractGui\bin\Debug\DCSExtractGui.pdb
+C:\Users\lmd\documents\visual studio 2010\Projects\DCSExtractGui\DCSExtractGui\obj\x86\Debug\DCSExtractGui.Form1.resources
+C:\Users\lmd\documents\visual studio 2010\Projects\DCSExtractGui\DCSExtractGui\obj\x86\Debug\DCSExtractGui.Properties.Resources.resources
+C:\Users\lmd\documents\visual studio 2010\Projects\DCSExtractGui\DCSExtractGui\obj\x86\Debug\DCSExtractGui.csproj.GenerateResource.Cache
+C:\Users\lmd\documents\visual studio 2010\Projects\DCSExtractGui\DCSExtractGui\obj\x86\Debug\DCSExtractGui.exe
+C:\Users\lmd\documents\visual studio 2010\Projects\DCSExtractGui\DCSExtractGui\obj\x86\Debug\DCSExtractGui.pdb
+C:\Users\lmd\Documents\Visual Studio 2010\Projects\DCSExtractGui\DCSExtractGui\obj\x86\Debug\DCSExtractGui.csprojResolveAssemblyReference.cache
+C:\Users\lmd\Documents\Visual Studio 2013\Projects\DCSExtractGui\DCSExtractGui\obj\x86\Debug\DCSExtractGui.exe
+C:\Users\lmd\Documents\Visual Studio 2013\Projects\DCSExtractGui\DCSExtractGui\obj\x86\Debug\DCSExtractGui.pdb

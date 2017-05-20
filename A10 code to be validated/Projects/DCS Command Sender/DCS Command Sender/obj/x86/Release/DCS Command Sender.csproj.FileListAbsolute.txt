@@ -1,0 +1,22 @@
+C:\Users\admin\documents\visual studio 2010\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Release\DCS_Command_Sender.Form1.resources
+C:\Users\admin\documents\visual studio 2010\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Release\DCS_Command_Sender.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\bin\Release\DCS Command Sender.exe.config
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\bin\Release\DCS Command Sender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\bin\Release\DCS Command Sender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Release\DCS Command Sender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Release\DCS Command Sender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-joystick-to-command\DCS Command Sender\bin\Release\DCS Command Sender.exe.config
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-joystick-to-command\DCS Command Sender\bin\Release\DCS Command Sender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-joystick-to-command\DCS Command Sender\bin\Release\DCS Command Sender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-joystick-to-command\DCS Command Sender\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-joystick-to-command\DCS Command Sender\obj\x86\Release\DCS_Command_Sender.Form1.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-joystick-to-command\DCS Command Sender\obj\x86\Release\DCS_Command_Sender.Properties.Resources.resources
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-joystick-to-command\DCS Command Sender\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-joystick-to-command\DCS Command Sender\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-joystick-to-command\DCS Command Sender\obj\x86\Release\DCS Command Sender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-dcs-joystick-to-command\DCS Command Sender\obj\x86\Release\DCS Command Sender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Release\DCS Command Sender.csproj.GenerateResource.Cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\bin\Release\DCS Command Sender.exe.manifest
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\bin\Release\DCS Command Sender.application
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Release\DCS Command Sender.exe.manifest
+C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Release\DCS Command Sender.application
