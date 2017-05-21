@@ -6,3 +6,4 @@ C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\LUA Logg
 C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\LUA Logger\LUALogger\bin\Debug\LUALogger.exe
 C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\LUA Logger\LUALogger\bin\Debug\LUALogger.pdb
 C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\LUA Logger\LUALogger\obj\x86\Debug\LUALogger.pdb
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\LUA Logger\LUALogger\obj\x86\Debug\LUALogger.csprojResolveAssemblyReference.cache

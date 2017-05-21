@@ -13,3 +13,6 @@ C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClient
 C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.application
 C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.csprojResolveAssemblyReference.cache
 C:\Users\admin\Documents\Visual Studio 2010\Projects\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.csproj.GenerateResource.Cache
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\bne-fsx-reader\FSUIPCClientExample_CSharp\bin\Debug\FSUIPCClientExample_CSharp.exe.config
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.exe
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\bne-fsx-reader\FSUIPCClientExample_CSharp\obj\Debug\FSUIPCClientExample_CSharp.pdb

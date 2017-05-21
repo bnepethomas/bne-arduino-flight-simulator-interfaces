@@ -14,3 +14,5 @@ C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS-SOIC\ConsoleApplication
 C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS-SOIC\ConsoleApplication1\obj\x86\Release\GenerateResource.write.1.tlog
 C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS-SOIC\ConsoleApplication1\obj\x86\Release\soic_conv_output.exe
 C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS-SOIC\ConsoleApplication1\obj\x86\Release\soic_conv_output.pdb
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\A10 code to be validated\Projects\DCS-SOIC\ConsoleApplication1\obj\x86\Release\soic_conv_output.exe
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\A10 code to be validated\Projects\DCS-SOIC\ConsoleApplication1\obj\x86\Release\soic_conv_output.pdb

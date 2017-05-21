@@ -24,7 +24,7 @@ namespace ConsoleApplication1
 
             //UdpClient receivingUdpClient = new UdpClient(13135);
 
-            UdpClient receivingUdpClient = new UdpClient(7783);
+            UdpClient receivingUdpClient = new UdpClient(7777);
             Console.WriteLine("Listening on UDP Port " + receivingUdpClient.Client.LocalEndPoint);
             IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
             Thread.Sleep(1000);
