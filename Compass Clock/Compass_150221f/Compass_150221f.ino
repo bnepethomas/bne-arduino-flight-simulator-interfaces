@@ -24,7 +24,7 @@ boolean ClockZeroed = false;
 double StepperNumbers[4];
 
 const int MaxSteps = 3780;
-const int delaytime = 1;
+const int delaytime = 10;
 const int clockdelay = 23430;            // Should actually be 23.43mS
 const int cClockwise = 1;
 const int cCounterClockwise = -1;
@@ -478,7 +478,7 @@ void loop()
   
   
   
-    // delay(delaytime);
+    delay(delaytime);
    
   
 
