@@ -68,17 +68,21 @@ while True:
           print words
           for current_word in words:
               print(current_word)
-              values = current_word.split("=")
-              print values
-              print values[0] + "-" + values[1]
-              checkandassign( values[0], values[1])
-              for current_value in values:
-                  if current_value == "300":
-                      print "Handling 300"
-                      demo(1, 0)
+              print(len(current_word))
+              if len(current_word) >= 3:
+                  values = current_word.split("=")
+                  print values
+                  print values[0] + "-" + values[1]
+                  checkandassign( values[0], values[1])
+                  for current_value in values:
+                      if current_value == "300":
+                          print "Handling 300"
+                          demo(1, 0)
 
     except socket.timeout:
 	print("timeout")
         continue
 
-
+    #except:
+        #print("random errors")
+        #continue
