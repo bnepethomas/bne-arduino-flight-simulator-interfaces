@@ -61,4 +61,5 @@
       soic_export_packet = soic_export_packet .. ":" .. soic_export_flightData[ltmp]
    end
    soic_export_socket.try(soic_export_con:send(soic_export_packet))
+   Huey_Caution_export_socket.try(Huey_Caution_export_con:send(soic_export_packet))
    -- PT End GPS

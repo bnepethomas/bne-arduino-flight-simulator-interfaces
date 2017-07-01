@@ -17,3 +17,12 @@
 	soic_export_socket.try(soic_export_con:settimeout(.001))
 	soic_export_socket.try(soic_export_con:setpeername(soic_export_host,soic_export_port))
 	-- PT SOIC End
+	
+	-- PT Huey Caution Start
+	Huey_Caution_export_port = 7784
+	Huey_Caution_export_host = "192.168.1.109"
+	Huey_Caution_export_socket = require("socket")
+	Huey_Caution_export_con = socket.try(Huey_Caution_export_socket.udp())
+	Huey_Caution_export_socket.try(Huey_Caution_export_con:settimeout(.001))
+	Huey_Caution_export_socket.try(Huey_Caution_export_con:setpeername(Huey_Caution_export_host,Huey_Caution_export_port))
+	-- PT Huey Caution End
