@@ -15,6 +15,12 @@
 #   4 	    CS 	    Chip Select 24 	GPIO 8 (SPI CE0)
 #   5 	    CLK     Clock 	23 	GPIO 11 (SPI CLK)
 
+# Using pins for input
+# Pin   Name
+# 14    Ground
+# 16    GPIO23
+# 18    GPIO24
+
 # Use interrupts for switch inputs
 # Need recent GPIO library using 6.3
 
@@ -34,11 +40,11 @@
 #11 	GPIO17 	D2 	
 #12 	GPIO18 	D3 	
 #13 	GPIO27 	D5 	
-#14 	GND 	GND 	
+#   14 	GND 	GND 	
 #15 	GPIO22 	D6 	
-#16 	GPIO23 	D7 	
+#   16 	GPIO23 	D7 	
 #17 	3.3V 	3.3V 	
-#18 	GPIO24 	D8 	
+#   18 	GPIO24 	D8 	
 #   19 	GPIO10 	D11 	SPI_MOSI
 #20 	GND 	GND 	
 #21 	GPIO09 	D12 	SPI_MISO
