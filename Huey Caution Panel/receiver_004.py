@@ -1,7 +1,10 @@
 #!/usr/bin/python
 
 # Huey Caution Panel Hardware interface for DCS
+# https://github.com/bnepethomas/bne-arduino-flight-simulator-interfaces
 
+# git commit -a
+# git push
 
 # Need to enable SPI as it is not enabled by default on Pi
 
@@ -15,13 +18,59 @@
 # Use interrupts for switch inputs
 # Need recent GPIO library using 6.3
 
-import socket
+# Pinmap
+# Reference https://www.itead.cc/wiki/RPI_Screws_Prototype_Add-on_V2.0
+#PI Pin N.O. 	Name    Arduino Description
+#1 	3.3V 	3.3V 	
+#2 	5V 	5V 	
+#3 	GPIO02 	A4 	SDA
+#4 	5V 	5V 	
+#5 	GPIO03 	A5 	SCL
+#6 	GND 	GND 	
+#7 	GPIO04 	A0 	
+#8 	GPIO14 	D1 	TXD
+#9 	GND 	GND 	
+#10 	GPIO15 	D0 	RXD
+#11 	GPIO17 	D2 	
+#12 	GPIO18 	D3 	
+#13 	GPIO27 	D5 	
+#14 	GND 	GND 	
+#15 	GPIO22 	D6 	
+#16 	GPIO23 	D7 	
+#17 	3.3V 	3.3V 	
+#18 	GPIO24 	D8 	
+#   19 	GPIO10 	D11 	SPI_MOSI
+#20 	GND 	GND 	
+#21 	GPIO09 	D12 	SPI_MISO
+#22 	GPIO25 	D9 	
+#   23 	GPIO11 	D13 	SPI_SCK
+#   24 	GPIO08 	D10 	SPI_CE0
+#25 	GND 	GND 	
+#26 	GPIO07 	D4 	SPI_CE1
+#27 	ID_SD 		
+#28 	ID_SC 		
+#29 	GPIO05 	A1 	
+#30 	GND 	GND 	
+#31 	GPIO06 	A2 	
+#32 	GPIO12 	A3 	
+#33 	GPIO13 	D14 	
+#34 	GND 	GND 	
+#35 	GPIO19 	D16 	
+#36 	GPIO16 	D15 	
+#37 	GPIO26 	D19 	
+#38 	GPIO20 	D17 	
+#39 	GND 	GND 	
+#40 	GPIO21 	D18
 
-import re
-import time
+# During inital testing noted that Value 134 does not transition when test button is pushed
+
 import argparse
+import RPi.GPIO as GPIO
 import numbers
+import re
+import socket
 import sys
+import time
 
 from random import randint
 
@@ -44,7 +93,16 @@ def checkandassign(attribname, attribvalue):
         print "foundit 301"
     #else:
     #    print "no hit"
-        
+
+def LedStartup():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(26,GPIO.OUT)
+    print "LED on"
+    GPIO.output(26,GPIO.HIGH)
+    time.sleep(1)
+    print "LED off"
+    GPIO.output(26,GPIO.LOW)
 
 def demo(n, block_orientation):
     # create matrix device
@@ -70,7 +128,7 @@ def demo(n, block_orientation):
 
 
 
-
+LedStartup()
 sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 sock.bind((UDP_IP, UDP_PORT))
