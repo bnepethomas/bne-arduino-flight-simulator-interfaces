@@ -6,6 +6,7 @@ import re
 import time
 import argparse
 import numbers
+import sys
 
 from random import randint
 
@@ -16,17 +17,18 @@ from luma.core.virtual import viewport
 from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT
 
-UDP_IP = "192.168.1.109"
+# 0.0.0.0 will listen on all ports, other specify desired source address
+UDP_IP = "0.0.0.0"
 UDP_PORT = 7784
 
 def checkandassign(attribname, attribvalue):
-    print "checking value"
+    #print "checking value"
     if attribname == "300":
         print "found it 300"
     elif attribname == "301":
         print "foundit 301"
-    else:
-        print "no hit"
+    #else:
+    #    print "no hit"
         
 
 def demo(n, block_orientation):
@@ -63,16 +65,18 @@ while True:
        while True:
           sock.settimeout(2)
           data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
-          print "received message:", data
+          #print "received message:", data
           words = data.split(":")
-          print words
+          #print words
           for current_word in words:
               print(current_word)
-              print(len(current_word))
+              #print(len(current_word))
+
+              # Basic sanity check to catch values that are too short
               if len(current_word) >= 3:
                   values = current_word.split("=")
-                  print values
-                  print values[0] + "-" + values[1]
+                  #print values
+                  #print values[0] + "-" + values[1]
                   checkandassign( values[0], values[1])
                   for current_value in values:
                       if current_value == "300":
@@ -83,6 +87,10 @@ while True:
 	print("timeout")
         continue
 
-    #except:
-        #print("random errors")
-        #continue
+    except KeyboardInterrupt:
+        # Catch Ctl-C and quit
+        sys.exit(0)
+
+    except:
+        print("Unexpected error:", sys.exc_info() [0])
+        continue
