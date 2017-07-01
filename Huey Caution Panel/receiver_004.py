@@ -1,5 +1,20 @@
 #!/usr/bin/python
 
+# Huey Caution Panel Hardware interface for DCS
+
+
+# Need to enable SPI as it is not enabled by default on Pi
+
+# Board Pin Name    Remarks 	RPi Pin RPi Function
+#   1 	    VCC     +5V Power 	2 	5V0
+#   2 	    GND     Ground 	6 	GND
+#   3 	    DIN     Data In 	19 	GPIO 10 (MOSI)
+#   4 	    CS 	    Chip Select 24 	GPIO 8 (SPI CE0)
+#   5 	    CLK     Clock 	23 	GPIO 11 (SPI CLK)
+
+# Use interrupts for switch inputs
+# Need recent GPIO library using 6.3
+
 import socket
 
 import re
@@ -59,6 +74,12 @@ def demo(n, block_orientation):
 sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 sock.bind((UDP_IP, UDP_PORT))
+
+# Init Led - All on all off afer 0.5 Sec
+
+# Get Switch state and set global vars
+
+# Act on global var
 
 while True:
     try:
