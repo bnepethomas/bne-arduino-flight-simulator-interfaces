@@ -179,10 +179,9 @@ def Ledalloff():
     print("Finished Leds all off")  
 
 def DensitySweep():
-    for _ in range(1):
-        for intensity in range(16):
-            device.contrast(intensity * 16)
-            time.sleep(0.1)
+    for intensity in range(16):
+        device.contrast(intensity * 16)
+        time.sleep(0.1)
 
 def BrightnessPin_callback(channel):
     print "edge detected on port Brightness"
@@ -190,10 +189,11 @@ def BrightnessPin_callback(channel):
     if ( GPIO.input(BrightnessPin) == False ):
         print "Brightness Input low"
         # Switch in Test Position
+        device.contrast(10)
         
     else:
         print "Brightness Input high"
-    
+        device.contrast(200)
 
 
 def LampTest_callback(channel):
@@ -253,6 +253,19 @@ sock.bind((UDP_IP, UDP_PORT))
 
 # Get Switch state and set global vars
 
+if ( GPIO.input(BrightnessPin) == False ):
+    print "Brightness Input low"
+    # Switch in Test Position
+    device.contrast(10)
+    
+else:
+    print "Brightness Input high"
+    device.contrast(200)
+
+if ( GPIO.input(LampTestPin) == False ):
+    # Switch is in Test Position just turn the leds on
+    Ledallon()
+    
 # Act on global var
 
 while True:
