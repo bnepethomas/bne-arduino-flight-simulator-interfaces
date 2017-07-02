@@ -61,5 +61,37 @@
       soic_export_packet = soic_export_packet .. ":" .. soic_export_flightData[ltmp]
    end
    soic_export_socket.try(soic_export_con:send(soic_export_packet))
-   Huey_Caution_export_socket.try(Huey_Caution_export_con:send(soic_export_packet))
+
+   
+   local Huey_Caution_Panel_export_flightData = {}
+   
+   
+    table.insert(Huey_Caution_Panel_export_flightData,"91=" .. lSOICDevice:get_argument_value(91))        -- lamp_ENGINE_OIL_PRESS 
+	table.insert(Huey_Caution_Panel_export_flightData,"92=" .. lSOICDevice:get_argument_value(92))        -- lamp_ENGINE_ICING 
+    table.insert(Huey_Caution_Panel_export_flightData,"93=" .. lSOICDevice:get_argument_value(93))        -- lamp_ENGINE_ICE_JET
+    table.insert(Huey_Caution_Panel_export_flightData,"94=" .. lSOICDevice:get_argument_value(94))        -- lamp_ENGINE_CHIP_DET
+    table.insert(Huey_Caution_Panel_export_flightData,"95=" .. lSOICDevice:get_argument_value(95))        -- lamp_LEFT_FUEL_BOOST
+    table.insert(Huey_Caution_Panel_export_flightData,"96=" .. lSOICDevice:get_argument_value(96))        -- lamp_RIGHT_FUEL_BOOST
+    table.insert(Huey_Caution_Panel_export_flightData,"97=" .. lSOICDevice:get_argument_value(97))        -- lamp_ENG_FUEL_PUMP
+    table.insert(Huey_Caution_Panel_export_flightData,"98=" .. lSOICDevice:get_argument_value(98))        -- lamp_20_MINUTE
+    table.insert(Huey_Caution_Panel_export_flightData,"99=" .. lSOICDevice:get_argument_value(99))        -- lamp_FUEL_FILTER   
+    table.insert(Huey_Caution_Panel_export_flightData,"100=" .. lSOICDevice:get_argument_value(100))      -- lamp_GOV_EMERG
+    table.insert(Huey_Caution_Panel_export_flightData,"101=" .. lSOICDevice:get_argument_value(101))      -- lamp_AUX_FUEL_LOW    
+    table.insert(Huey_Caution_Panel_export_flightData,"102=" .. lSOICDevice:get_argument_value(102))      -- lamp_XMSN_OIL_PRESS     
+    table.insert(Huey_Caution_Panel_export_flightData,"103=" .. lSOICDevice:get_argument_value(103))      -- lamp_XMSN_OIL_HOT
+    table.insert(Huey_Caution_Panel_export_flightData,"104=" .. lSOICDevice:get_argument_value(104))      -- lamp_HYD_PRESSURE
+    table.insert(Huey_Caution_Panel_export_flightData,"105=" .. lSOICDevice:get_argument_value(105))      -- lamp_ENGINE_INLET_AIR     
+    table.insert(Huey_Caution_Panel_export_flightData,"106=" .. lSOICDevice:get_argument_value(106))      -- lamp_INST_INVERTER
+    table.insert(Huey_Caution_Panel_export_flightData,"107=" .. lSOICDevice:get_argument_value(107))      -- lamp_DC_GENERATOR
+    table.insert(Huey_Caution_Panel_export_flightData,"108=" .. lSOICDevice:get_argument_value(108))      -- lamp_EXTERNAL_POWER     
+    table.insert(Huey_Caution_Panel_export_flightData,"109=" .. lSOICDevice:get_argument_value(109))      -- lamp_CHIP_DETECTOR
+    table.insert(Huey_Caution_Panel_export_flightData,"110=" .. lSOICDevice:get_argument_value(110))      -- lamp_IFF
+  
+   Huey_Caution_Panel_export_packet = ""
+   for lmtmp = 1, 20, 1 do
+      Huey_Caution_Panel_export_packet = Huey_Caution_Panel_export_packet .. ":" .. Huey_Caution_Panel_export_flightData[lmtmp]
+   end  
+   Huey_Caution_export_socket.try(Huey_Caution_export_con:send(Huey_Caution_Panel_export_packet))
+
+   
    -- PT End GPS
