@@ -18,6 +18,8 @@ from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_
 
 
 def demo(n, block_orientation):
+    print "Attribute n:", n
+    print"Block Orientation:", block_orientation
     # create matrix device
     serial = spi(port=0, device=0, gpio=noop())
     device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation)

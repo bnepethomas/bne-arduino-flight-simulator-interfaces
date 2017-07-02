@@ -112,11 +112,10 @@ def LedStartup():
 
 def demo(n, block_orientation):
     # create matrix device
-    serial = spi(port=0, device=0, gpio=noop())
-    device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation)
-    print("Created device")
-
-            
+    # n = 1
+    # Block Orientation = 0
+    #serial = spi(port=0, device=0, gpio=noop())
+    #device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation)     
     print("Drawing on Canvas stage 1")
 
 
@@ -125,16 +124,66 @@ def demo(n, block_orientation):
         with canvas(device) as draw:
             for y in range(8):
                 for x in range(8):
-                    #print("Point " + str(x) + " " + str(y))
                     draw.point((x, y ), randint(0,1))
                 
         time.sleep(0.1)
                 
     print("Finished Drawing on Canvas stage 2")        
 
+def ledallon():
+    print("Leds all on")
 
+    for abc in range(1):
+        with canvas(device) as draw:
+            for y in range(8):
+                for x in range(8):
+                    draw.point((x, y ), 1)
+                
+        time.sleep(0.1)
+                
+    print("Finished Leds all on")   
+
+
+def ledalloff():
+    print("Leds all off")
+
+    for abc in range(1):
+        with canvas(device) as draw:
+            for y in range(8):
+                for x in range(8):
+                    draw.point((x, y ), 0)
+                
+        time.sleep(0.1)
+                
+    print("Finished Leds all off")  
+
+def DensitySweep():
+    for _ in range(4):
+        for intensity in range(16):
+            device.contrast(intensity * 16)
+            time.sleep(0.1)
 
 LedStartup()
+
+
+# Creating Max7219 device
+serial = spi(port=0, device=0, gpio=noop())
+device = max7219(serial, cascaded=1 or 1, block_orientation=0)
+print("Created device")
+
+# Random led pattern
+demo(1,0)
+time.sleep(1)
+# All on
+ledallon()
+time.sleep(1)
+# Density sweep
+DensitySweep()
+# All off
+ledalloff()
+time.sleep(1)
+
+
 sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 sock.bind((UDP_IP, UDP_PORT))
