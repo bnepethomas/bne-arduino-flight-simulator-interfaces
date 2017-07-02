@@ -110,16 +110,9 @@ def LedStartup():
     print "LED off"
     GPIO.output(26,GPIO.LOW)
 
-def demo(n, block_orientation):
-    # create matrix device
-    # n = 1
-    # Block Orientation = 0
-    #serial = spi(port=0, device=0, gpio=noop())
-    #device = max7219(serial, cascaded=n or 1, block_orientation=block_orientation)     
-    print("Drawing on Canvas stage 1")
+def LedRandom():
+    print "Starting Drawing Random" 
 
-
-    #with canvas(device) as draw:
     for abc in range(1):
         with canvas(device) as draw:
             for y in range(8):
@@ -128,9 +121,10 @@ def demo(n, block_orientation):
                 
         time.sleep(0.1)
                 
-    print("Finished Drawing on Canvas stage 2")        
+    print "Finished Drawing Random"       
 
-def ledallon():
+
+def Ledallon():
     print("Leds all on")
 
     for abc in range(1):
@@ -144,7 +138,7 @@ def ledallon():
     print("Finished Leds all on")   
 
 
-def ledalloff():
+def Ledalloff():
     print("Leds all off")
 
     for abc in range(1):
@@ -167,20 +161,22 @@ LedStartup()
 
 
 # Creating Max7219 device
+print "Creating Max7219 Device"
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial, cascaded=1 or 1, block_orientation=0)
-print("Created device")
+print "Created Max7219 Device"
 
+# Excerise Leds
 # Random led pattern
-demo(1,0)
+LedRandom()
 time.sleep(1)
 # All on
-ledallon()
+Ledallon()
 time.sleep(1)
 # Density sweep
 DensitySweep()
 # All off
-ledalloff()
+Ledalloff()
 time.sleep(1)
 
 
@@ -209,10 +205,11 @@ while True:
               # Basic sanity check to catch values that are too short
               if len(current_word) >= 3:
                   values = current_word.split("=")
-                  #print values
+                  print values
                   #print values[0] + "-" + values[1]
                   checkandassign( values[0], values[1])
                   for current_value in values:
+                      
                       if current_value == "300":
                           print "Handling 300"
                           demo(1, 0)
