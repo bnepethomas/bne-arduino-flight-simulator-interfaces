@@ -68,7 +68,30 @@
 #39 	GND 	GND 	
 #40 	GPIO21 	D18
 
-# During inital testing noted that Value 134 does not transition when test button is pushed
+
+# Led Mappings (x,y)
+# 1,7   lamp_ENGINE_OIL_PRESS
+# 1,6   lamp_ENGINE_ICING
+# 1,5   lamp_ENGINE_ICE_DET
+# 1,4   lamp_ENGINE_CHIP_DET
+# 1,3   lamp_LEFT_FUEL_BOOST
+# 1,1   lamp_RIGHT_FUEL_BOOST
+# 1,2   lamp_ENG_FUEL_PUMP
+# 1,0   lamp_20_MINUTE
+# 3,1   lamp_FUEL_FILTER
+# 3,0   lamp_GOV_EMERG
+# 2,7   lamp_AUX_FUEL_LOW
+# 2,6   lamp_XMSN_OIL_PRESS
+# 2,5   lamp_XMSN_OIL_HOT
+# 2,4   lamp_HYD_PRESSURE
+# 2,3   lamp_ENGINE_INLET_AIR
+# 2,2   lamp_INST_INVERTER
+# 2,1   lamp_DC_GENERATOR
+# 2,0   lamp_EXTERNAL_POWER
+# 4,1   lamp_CHIP_DETECTOR
+# 4,0   lamp_IFF
+
+
 
 import argparse
 import RPi.GPIO as GPIO
@@ -109,6 +132,18 @@ def LedStartup():
     time.sleep(1)
     print "LED off"
     GPIO.output(26,GPIO.LOW)
+
+
+# Only used to map output numbers during configuration
+def LedMap():
+    print("Walking Led Array")
+    for y in range(8):
+        for x in range(8):              
+             with canvas(device) as draw:
+                print x, ' ' , y 
+                draw.point((x, y ), 1)
+                raw_input("Press Enter to continue:")
+                    
 
 def LedRandom():
     print "Starting Drawing Random" 
