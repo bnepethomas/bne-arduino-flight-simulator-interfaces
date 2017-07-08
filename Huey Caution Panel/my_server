@@ -15,5 +15,6 @@ export HOME
 echo "Starting My Server"
 cd /home/pi/Documents/Flightsim/Huey\ Caution\ Panel
 sudo /usr/bin/python receiver_004.py  2>&1 &
+#sudo /usr/bin/python remoteshut.py 2>&1 &
 exit 0
 

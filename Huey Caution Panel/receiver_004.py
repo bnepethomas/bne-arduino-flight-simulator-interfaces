@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 # Huey Caution Panel Hardware interface for DCS
+# Includes insecure remote shutdown 
 # https://github.com/bnepethomas/bne-arduino-flight-simulator-interfaces
 
 # git commit -a
@@ -95,6 +96,7 @@
 import argparse
 import RPi.GPIO as GPIO
 import numbers
+import os
 import re
 import socket
 import sys
@@ -415,6 +417,17 @@ while True:
                                     draw.point((3, 0 ), 1)
                                 else:
                                     draw.point((3, 0 ), 0)
+                          if values[0] == '999':
+                                print "Handling SHUTDOWN"
+                                if values[1] == "1":
+                                    draw.point((0, 7 ), 1)
+                                    print "Received a one shutting down"
+                                    GPIO.cleanup()       # clean up GPIO on CTRL+C exit
+                                    os.system("shutdown now -h")
+                                    sys.exit(0)
+                                else:
+                                    print "Received a zero NOT shutting down"
+                                    draw.point((0, 7 ), 0)
 
             
 
