@@ -184,6 +184,7 @@ def DensitySweep():
         time.sleep(0.1)
 
 def BrightnessPin_callback(channel):
+    global Last_Brightness
     print "edge detected on port Brightness"
     time.sleep(0.10)
     if ( GPIO.input(BrightnessPin) == False ):
@@ -197,7 +198,7 @@ def BrightnessPin_callback(channel):
 
 
 def LampTest_callback(channel):
-
+    global Last_Led_Test_Mode
     print "edge detected on port Lamp Test"
     time.sleep(0.10)
     if ( GPIO.input(LampTestPin) == False ):
@@ -257,10 +258,11 @@ if ( GPIO.input(BrightnessPin) == False ):
     print "Brightness Input low"
     # Switch in Test Position
     device.contrast(10)
-    
+    Last_Brightness = "Dim"    
 else:
     print "Brightness Input high"
     device.contrast(200)
+    Last_Brightness = "Bright"
 
 if ( GPIO.input(LampTestPin) == False ):
     # Switch is in Test Position just turn the leds on
