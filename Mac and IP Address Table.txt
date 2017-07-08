@@ -1,3 +1,6 @@
 byte mac[] = { 
   0xA9,0xE7,0x3E,0xCA,0x34,0x1f};
 IPAddress ip(192,168,1,205);
+
+7784 Huey Cuation Receiver
+7785 Remote Shutdown
