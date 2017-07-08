@@ -7,6 +7,13 @@ all attributes and select on the file which is of interest.
 
 Attributes are received as A=V:A1=V1:A2=V2
 
+
+Git Commands
+Watch for untracked files
+$ git add .
+$ git commit .
+$ git push
+ 
 To get the script to autostart
 sudo crontab -e
 
