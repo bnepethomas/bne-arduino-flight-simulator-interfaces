@@ -213,7 +213,16 @@ def LampTest_callback(channel):
         Last_Led_Test_Mode = "Off"
         print "Turning Leds off"
         Ledalloff()
-        
+
+def Reboot():
+    with canvas(device) as draw:
+        draw.point((0, 7 ), 1)
+        print "Received a Halt shutting down"
+        GPIO.cleanup()       # clean up GPIO on CTRL+C exit
+        os.system("shutdown now -h")
+        sys.exit(0)
+
+      
 
 
 # Setup inputs and outputs
@@ -284,6 +293,40 @@ while True:
           if ( GPIO.input(LampTestPin) == False ):
               # Switch is in Test Position just turn the leds on
               Ledallon()
+              with canvas(device) as draw:
+                  for current_word in words:
+                          print(current_word)
+                          #print(len(current_word))
+
+                          # Basic sanity check to catch values that are too short
+                          if len(current_word) >= 3:
+                              values = current_word.split("=")
+                              print values
+                              print values[0] + "-" + values[1]
+
+
+
+                              if values[0] == '999':
+                                    print "Handling SHUTDOWN"
+                                    if values[1] == "Halt":
+                                        draw.point((0, 7 ), 1)
+                                        print "Received a Halt shutting down"
+                                        GPIO.cleanup()       # clean up GPIO on CTRL+C exit
+                                        os.system("shutdown now -h")
+                                        sys.exit(0)
+
+                                    elif values[1] == "Reboot":
+                                        draw.point((0, 7 ), 1)
+                                        print "Received a Reboot - reloading"
+                                        GPIO.cleanup()       # clean up GPIO on CTRL+C exit
+                                        os.system("shutdown now -r")
+                                        sys.exit(0)
+
+                                        
+                                    else:
+                                        print "Received a zero NOT shutting down"
+                                        draw.point((0, 7 ), 0)
+
           else:
               with canvas(device) as draw:
                 for current_word in words:

@@ -3,7 +3,7 @@
 import socket
 
 UDP_IP = "127.0.0.1"
-UDP_PORT = 7785
+UDP_PORT = 7784
 
 MESSAGE = "999=1:301=1:302=1:303=0:304=1"
 
