@@ -214,15 +214,63 @@ def LampTest_callback(channel):
         print "Turning Leds off"
         Ledalloff()
 
-def Reboot():
-    with canvas(device) as draw:
-        draw.point((0, 7 ), 1)
-        print "Received a Halt shutting down"
-        GPIO.cleanup()       # clean up GPIO on CTRL+C exit
-        os.system("shutdown now -h")
-        sys.exit(0)
 
-      
+
+def Reboot():
+    print "Received a Reboot - rebooting"
+    with canvas(device) as draw:
+        Ledallon()
+        time.sleep(1)
+        Ledalloff()
+        draw.point((0, 7 ), 1)
+        draw.point((1, 6 ), 1)
+        draw.point((0, 5 ), 1)
+        draw.point((1, 4 ), 1)
+        draw.point((0, 3 ), 1)
+        draw.point((1, 2 ), 1)
+        draw.point((0, 1 ), 1)
+        draw.point((1, 0 ), 1)
+        draw.point((2, 1 ), 1)
+        draw.point((3, 0 ), 1)
+
+    time.sleep(3)
+    GPIO.cleanup()       # clean up GPIO on CTRL+C exit
+    os.system("shutdown now -r")
+    sys.exit(0)
+
+def ShutdownAndHalt():
+    print "Received a Halt - shutting down"
+    Ledallon()
+    time.sleep(1)
+    with canvas(device) as draw:
+        #print "Handling 101-lamp_AUX_FUEL_LOW"
+        draw.point((1, 7 ), 1)
+        #print "Handling 102-lamp_XMSN_OIL_PRESS"
+        draw.point((1, 6 ), 1)
+        #print "Handling 103-lamp_XMSN_OIL_HOT"
+        draw.point((1, 5 ), 1)
+        #print "Handling 104-lamp_HYD_PRESSURE"
+        draw.point((1, 4 ), 1)
+        #print "Handling 105-lamp_ENGINE_INLET_AIR"
+        draw.point((1, 3 ), 1)
+        #print "Handling 106-lamp_INST_INVERTER"
+        draw.point((1, 2 ), 1)
+        #print "Handling 107-lamp_DC_GENERATOR"
+        draw.point((1, 1 ), 1)
+        #print "Handling 108-lamp_EXTERNAL_POWER"
+        draw.point((1, 0 ), 1)
+        #print "Handling 109-lamp_CHIP_DETECTOR"
+        draw.point((3, 1 ), 1)
+        #print "Handling 110-lamp_IFF"
+        draw.point((3, 0 ), 1)
+
+
+    time.sleep(3)
+    GPIO.cleanup()       # clean up GPIO on CTRL+C exit
+    os.system("shutdown now -h")
+    sys.exit(0)
+    
+
 
 
 # Setup inputs and outputs
@@ -308,24 +356,15 @@ while True:
 
                               if values[0] == '999':
                                     print "Handling SHUTDOWN"
-                                    if values[1] == "Halt":
-                                        draw.point((0, 7 ), 1)
-                                        print "Received a Halt shutting down"
-                                        GPIO.cleanup()       # clean up GPIO on CTRL+C exit
-                                        os.system("shutdown now -h")
-                                        sys.exit(0)
-
+                                    if values[1] == "ShutdownAndHalt":
+                                        ShutdownAndHalt()
                                     elif values[1] == "Reboot":
-                                        draw.point((0, 7 ), 1)
-                                        print "Received a Reboot - reloading"
-                                        GPIO.cleanup()       # clean up GPIO on CTRL+C exit
-                                        os.system("shutdown now -r")
-                                        sys.exit(0)
+                                        Reboot()
 
                                         
                                     else:
-                                        print "Received a zero NOT shutting down"
-                                        draw.point((0, 7 ), 0)
+                                        print "Received a invlaid Shutdown Request"
+
 
           else:
               with canvas(device) as draw:
@@ -340,137 +379,139 @@ while True:
                           print values[0] + "-" + values[1]
 
                           if values[0] == '91':
-                                print "Handling 91-lamp_ENGINE_OIL_PRESS"
+                                #print "Handling 91-lamp_ENGINE_OIL_PRESS"
                                 if values[1] == "1":
                                     draw.point((0, 7 ), 1)
                                 else:
                                     draw.point((0, 7 ), 0)
+
+
                           if values[0] == '92':
-                                print "Handling 92-lamp_ENGINE_ICING"
+                                #print "Handling 92-lamp_ENGINE_ICING"
                                 if values[1] == "1":
-                                    draw.point((0, 6 ), 1)
+                                    draw.point((0, 6), 1)
                                 else:
-                                    draw.point((0, 6 ), 0) 
+                                    draw.point((0, 6), 0)
+
+
                           if values[0] == '93':
-                                print "Handling 93-lamp_ENGINE_ICE_DET"
+                                #print "Handling 93-lamp_ENGINE_ICE_DET"
                                 if values[1] == "1":
                                     draw.point((0, 5 ), 1)
                                 else:
                                     draw.point((0, 5 ), 0)                             
                           if values[0] == '94':
-                                print "Handling 94-lamp_ENGINE_CHIP_DET"
+                                #print "Handling 94-lamp_ENGINE_CHIP_DET"
                                 if values[1] == "1":
                                     draw.point((0, 4 ), 1)
                                 else:
                                     draw.point((0, 4 ), 0)
                           if values[0] == '95':
-                                print "Handling 95-lamp_LEFT_FUEL_BOOST"
+                                #print "Handling 95-lamp_LEFT_FUEL_BOOST"
                                 if values[1] == "1":
                                     draw.point((0, 3 ), 1)
                                 else:
                                     draw.point((0, 3 ), 0)                                
                           if values[0] == '96':
-                                print "Handling 96-lamp_RIGHT_FUEL_BOOST"
+                                #print "Handling 96-lamp_RIGHT_FUEL_BOOST"
                                 if values[1] == "1":
                                     draw.point((0, 1 ), 1)
                                 else:
                                     draw.point((0, 1 ), 0)                                 
 
                           if values[0] == '97':
-                                print "Handling 97-lamp_ENG_FUEL_PUMP"
+                                #print "Handling 97-lamp_ENG_FUEL_PUMP"
                                 if values[1] == "1":
                                     draw.point((0, 2 ), 1)
                                 else:
                                     draw.point((0, 2 ), 0)
                           if values[0] == '98':
-                                print "Handling 98-lamp_20_MINUTE"
+                                #print "Handling 98-lamp_20_MINUTE"
                                 if values[1] == "1":
                                     draw.point((0, 0 ), 1)
                                 else:
                                     draw.point((0, 0 ), 0)
                           if values[0] == '99':
-                                print "Handling 99-lamp_FUEL_FILTER"
+                                #print "Handling 99-lamp_FUEL_FILTER"
                                 if values[1] == "1":
                                     draw.point((2, 1 ), 1)
                                 else:
                                     draw.point((2, 1 ), 0)                                
                           if values[0] == '100':
-                                print "Handling 100-lamp_GOV_EMERG"
+                                #print "Handling 100-lamp_GOV_EMERG"
                                 if values[1] == "1":
                                     draw.point((2, 0 ), 1)
                                 else:
                                     draw.point((2, 0 ), 0)                                
                           if values[0] == '101':
-                                print "Handling 101-lamp_AUX_FUEL_LOW"
+                                #print "Handling 101-lamp_AUX_FUEL_LOW"
                                 if values[1] == "1":
                                     draw.point((1, 7 ), 1)
                                 else:
                                     draw.point((1, 7 ), 0)  
                           if values[0] == '102':
-                                print "Handling 102-lamp_XMSN_OIL_PRESS"
+                                #print "Handling 102-lamp_XMSN_OIL_PRESS"
                                 if values[1] == "1":
                                     draw.point((1, 6 ), 1)
                                 else:
                                     draw.point((1, 6 ), 0)
                           if values[0] == '103':
-                                print "Handling 103-lamp_XMSN_OIL_HOT"
+                                #print "Handling 103-lamp_XMSN_OIL_HOT"
                                 if values[1] == "1":
                                     draw.point((1, 5 ), 1)
                                 else:
                                     draw.point((1, 5 ), 0)
                           if values[0] == '104':
-                                print "Handling 104-lamp_HYD_PRESSURE"
+                                #print "Handling 104-lamp_HYD_PRESSURE"
                                 if values[1] == "1":
                                     draw.point((1, 4 ), 1)
                                 else:
                                     draw.point((1, 4 ), 0)
                           if values[0] == '105':
-                                print "Handling 105-lamp_ENGINE_INLET_AIR"
+                                #print "Handling 105-lamp_ENGINE_INLET_AIR"
                                 if values[1] == "1":
                                     draw.point((1, 3 ), 1)
                                 else:
                                     draw.point((1, 3 ), 0)
                           if values[0] == '106':
-                                print "Handling 106-lamp_INST_INVERTER"
+                                #print "Handling 106-lamp_INST_INVERTER"
                                 if values[1] == "1":
                                     draw.point((1, 2 ), 1)
                                 else:
                                     draw.point((1, 2 ), 0)
                           if values[0] == '107':
-                                print "Handling 107-lamp_DC_GENERATOR"
+                                #print "Handling 107-lamp_DC_GENERATOR"
                                 if values[1] == "1":
                                     draw.point((1, 1 ), 1)
                                 else:
                                     draw.point((1, 1 ), 0)
                           if values[0] == '108':
-                                print "Handling 108-lamp_EXTERNAL_POWER"
+                                #print "Handling 108-lamp_EXTERNAL_POWER"
                                 if values[1] == "1":
                                     draw.point((1, 0 ), 1)
                                 else:
                                     draw.point((1, 0 ), 0)
                           if values[0] == '109':
-                                print "Handling 109-lamp_CHIP_DETECTOR"
+                                #print "Handling 109-lamp_CHIP_DETECTOR"
                                 if values[1] == "1":
                                     draw.point((3, 1 ), 1)
                                 else:
                                     draw.point((3, 1 ), 0)
                           if values[0] == '110':
-                                print "Handling 110-lamp_IFF"
+                                #print "Handling 110-lamp_IFF"
                                 if values[1] == "1":
                                     draw.point((3, 0 ), 1)
                                 else:
                                     draw.point((3, 0 ), 0)
                           if values[0] == '999':
                                 print "Handling SHUTDOWN"
-                                if values[1] == "1":
-                                    draw.point((0, 7 ), 1)
-                                    print "Received a one shutting down"
-                                    GPIO.cleanup()       # clean up GPIO on CTRL+C exit
-                                    os.system("shutdown now -h")
-                                    sys.exit(0)
+                                if values[1] == "ShutdownAndHalt":
+                                    ShutdownAndHalt()
+                                elif values[1] == "Reboot":
+                                    Reboot()                                      
                                 else:
-                                    print "Received a zero NOT shutting down"
-                                    draw.point((0, 7 ), 0)
+                                    print "Received a Invalid Shutdown Request"
+
 
             
 
