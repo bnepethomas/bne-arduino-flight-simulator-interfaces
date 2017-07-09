@@ -225,6 +225,7 @@ def LampTest_callback(channel):
 
 def Reboot():
     print "Received a Reboot - rebooting"
+    device.contrast(200)
     with canvas(device) as draw:
         Ledallon()
         time.sleep(1)
@@ -247,6 +248,7 @@ def Reboot():
 
 def ShutdownAndHalt():
     print "Received a Halt - shutting down"
+    device.contrast(200)
     Ledallon()
     time.sleep(1)
     with canvas(device) as draw:
