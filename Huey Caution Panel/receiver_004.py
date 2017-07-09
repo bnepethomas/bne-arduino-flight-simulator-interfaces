@@ -240,7 +240,7 @@ def Reboot():
         draw.point((2, 1 ), 1)
         draw.point((3, 0 ), 1)
 
-    time.sleep(3)
+    time.sleep(1)
     GPIO.cleanup()       # clean up GPIO on CTRL+C exit
     os.system("shutdown now -r")
     sys.exit(0)
@@ -272,7 +272,7 @@ def ShutdownAndHalt():
         draw.point((3, 0 ), 1)
 
 
-    time.sleep(3)
+    time.sleep(1)
     GPIO.cleanup()       # clean up GPIO on CTRL+C exit
     os.system("shutdown now -h")
     sys.exit(0)
