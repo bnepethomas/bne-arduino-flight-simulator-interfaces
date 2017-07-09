@@ -7,6 +7,13 @@
 # git commit -a
 # git push
 
+
+# Added Shutdown and reboot options
+# Variable '999':
+# values[1] == "ShutdownAndHalt":
+# values[1] == "Reboot":
+
+
 # Need to enable SPI as it is not enabled by default on Pi
 
 # Board Pin Name    Remarks 	RPi Pin RPi Function
@@ -359,9 +366,7 @@ while True:
                                     if values[1] == "ShutdownAndHalt":
                                         ShutdownAndHalt()
                                     elif values[1] == "Reboot":
-                                        Reboot()
-
-                                        
+                                        Reboot()                                      
                                     else:
                                         print "Received a invlaid Shutdown Request"
 
