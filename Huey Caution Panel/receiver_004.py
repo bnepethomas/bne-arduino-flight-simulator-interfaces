@@ -122,6 +122,9 @@ from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_
 UDP_IP = "0.0.0.0"
 UDP_PORT = 7784
 
+Source_IP = 0
+Source_Port = 0
+
 
 global Last_Led_Test_Mode
 
@@ -342,7 +345,7 @@ while True:
     try:
        while True:
           sock.settimeout(2)
-          data, addr = sock.recvfrom(1024) # buffer size is 1024 bytes
+          data, (Source_IP, Source_Port) = sock.recvfrom(1024) # buffer size is 1024 bytes
           #print "received message:", data
           words = data.split(":")
           #print words
@@ -350,27 +353,27 @@ while True:
           if ( GPIO.input(LampTestPin) == False ):
               # Switch is in Test Position just turn the leds on
               Ledallon()
-              with canvas(device) as draw:
-                  for current_word in words:
-                          print(current_word)
-                          #print(len(current_word))
 
-                          # Basic sanity check to catch values that are too short
-                          if len(current_word) >= 3:
-                              values = current_word.split("=")
-                              print values
-                              print values[0] + "-" + values[1]
+              for current_word in words:
+                      print(current_word, Source_IP, Source_Port)
+                      #print(len(current_word))
+
+                      # Basic sanity check to catch values that are too short
+                      if len(current_word) >= 3:
+                          values = current_word.split("=")
+                          print values
+                          print values[0] + "-" + values[1]
 
 
 
-                              if values[0] == '999':
-                                    print "Handling SHUTDOWN"
-                                    if values[1] == "ShutdownAndHalt":
-                                        ShutdownAndHalt()
-                                    elif values[1] == "Reboot":
-                                        Reboot()                                      
-                                    else:
-                                        print "Received a invlaid Shutdown Request"
+                          if values[0] == '999':
+                                print "Handling SHUTDOWN"
+                                if values[1] == "ShutdownAndHalt":
+                                    ShutdownAndHalt()
+                                elif values[1] == "Reboot":
+                                    Reboot()                                      
+                                else:
+                                    print "Received a invlaid Shutdown Request"
 
 
           else:
@@ -383,7 +386,7 @@ while True:
                       if len(current_word) >= 3:
                           values = current_word.split("=")
                           print values
-                          print values[0] + "-" + values[1]
+                          print values[0] + "+" + values[1]
 
                           if values[0] == '91':
                                 #print "Handling 91-lamp_ENGINE_OIL_PRESS"
