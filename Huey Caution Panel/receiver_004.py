@@ -28,6 +28,7 @@
 # 14    Ground
 # 16    GPIO23
 # 18    GPIO24
+# 22    GPIO25
 
 # Use interrupts for switch inputs
 # Need recent GPIO library using 6.3
@@ -56,7 +57,7 @@
 #   19 	GPIO10 	D11 	SPI_MOSI
 #20 	GND 	GND 	
 #21 	GPIO09 	D12 	SPI_MISO
-#22 	GPIO25 	D9 	
+#   22 	GPIO25 	D9 	
 #   23 	GPIO11 	D13 	SPI_SCK
 #   24 	GPIO08 	D10 	SPI_CE0
 #25 	GND 	GND 	
@@ -100,7 +101,14 @@
 
 
 # If Sending Commands to DCS with Ikarus installed
-# Send ot Port UDP_PORT = 26027
+# The values to be sent can be found
+# C:\Program Files\Eagle Dynamics\DCS World\Mods\aircraft\Uh-1H\Input\UH-1H\joystick
+# Structure is
+# C - COmmand
+# 15 - Cockpit Device Id
+# 3003 - Unknown but seen in multiple places
+# Switch Position
+# Send to Port UDP_PORT = 26027
 # MESSAGE = "C15,3003,-1" - Turns Test Switch on - All warning lights
 # MESSAGE = "C15,3003,0" - Turns Test Switch to centre
 # MESSAGE = "C15,3003,1" - Turns Test Switch to Reset - clears caution on front panel
