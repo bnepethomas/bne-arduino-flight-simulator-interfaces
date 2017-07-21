@@ -143,6 +143,7 @@ global Last_Led_Test_Mode
 
 LampTestPin = 24
 BrightnessPin = 23
+LampResetPin = 25
 
 
 def LedStartup():
@@ -257,6 +258,25 @@ def LampTest_callback(channel):
         Send_UDP_Command("C15,3003,0")
 
 
+def LampReset_callback(channel):
+    global Last_Led_Test_Mode
+    print "edge detected on port Lamp Reset"
+    UDP_IP = "192.168.1.124"
+    UDP_PORT = 26027
+
+
+    time.sleep(0.1)
+    if ( GPIO.input(LampTestPin) == False ):
+        Last_Led_Test_Mode = "On"
+        print "Lamp Test low"
+        #Ledallon()    
+        Send_UDP_Command("C15,3003,-1")      
+    else:
+        print "Lamp Test high"
+        Last_Led_Test_Mode = "Off"
+        print "Turning Leds off"
+        #Ledalloff()
+        Send_UDP_Command("C15,3003,0")
 
 def Reboot():
     print "Received a Reboot - rebooting"
@@ -326,8 +346,11 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 GPIO.setup(BrightnessPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(LampTestPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-GPIO.add_event_detect(LampTestPin, GPIO.BOTH, callback=LampTest_callback, bouncetime=200)
-GPIO.add_event_detect(BrightnessPin, GPIO.BOTH, callback=BrightnessPin_callback, bouncetime=200)
+GPIO.setup(LampResetPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.add_event_detect(LampTestPin, GPIO.BOTH, callback=LampTest_callback)
+GPIO.add_event_detect(LampResetPin, GPIO.BOTH, callback=LampReset_callback)
+GPIO.add_event_detect(BrightnessPin, GPIO.BOTH, callback=BrightnessPin_callback)
+
 
 LedStartup()
 
@@ -385,14 +408,14 @@ while True:
 
           with canvas(device) as draw:
             for current_word in words:
-                  print(current_word)
+                  #print(current_word)
                   #print(len(current_word))
 
                   # Basic sanity check to catch values that are too short
                   if len(current_word) >= 3:
                       values = current_word.split("=")
-                      print values
-                      print values[0] + "+" + values[1]
+                      #print values
+                      #print values[0] + "+" + values[1]
 
                       if values[0] == '91':
                             #print "Handling 91-lamp_ENGINE_OIL_PRESS"
