@@ -1,0 +1,4 @@
+C:\Users\admin\AppData\Local\Temporary Projects\ConsoleApplication1\bin\Debug\SendShutdown.exe
+C:\Users\admin\AppData\Local\Temporary Projects\ConsoleApplication1\bin\Debug\SendShutdown.pdb
+C:\Users\admin\AppData\Local\Temporary Projects\ConsoleApplication1\obj\x86\Debug\SendShutdown.exe
+C:\Users\admin\AppData\Local\Temporary Projects\ConsoleApplication1\obj\x86\Debug\SendShutdown.pdb

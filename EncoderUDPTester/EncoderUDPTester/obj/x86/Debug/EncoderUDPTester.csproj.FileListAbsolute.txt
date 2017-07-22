@@ -17,3 +17,5 @@ C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDP
 C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.application
 C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.exe
 C:\Users\SIM15\Documents\Visual Studio 2010\Projects\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.pdb
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.exe
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\EncoderUDPTester\EncoderUDPTester\obj\x86\Debug\EncoderUDPTester.pdb

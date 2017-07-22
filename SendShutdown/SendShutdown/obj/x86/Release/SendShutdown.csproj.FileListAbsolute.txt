@@ -1,0 +1,5 @@
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendShutdown\SendShutdown\bin\Release\SendShutdown.exe
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendShutdown\SendShutdown\bin\Release\SendShutdown.pdb
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendShutdown\SendShutdown\obj\x86\Release\SendShutdown.exe
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendShutdown\SendShutdown\obj\x86\Release\SendShutdown.pdb
+C:\Users\admin\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendShutdown\SendShutdown\obj\x86\Release\SendShutdown.csprojResolveAssemblyReference.cache
