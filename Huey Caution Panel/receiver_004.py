@@ -114,6 +114,13 @@
 # MESSAGE = "C15,3003,1" - Turns Test Switch to Reset - clears caution on front panel
 # Bright/Dim 15,3004
 
+
+# Change History
+#
+# 20170722 Added Caution Reset Pin
+# 20170722 Dynamically sense where to send the Control commands based on last data packet received
+# 20170722 Send switch state when source address changes - which should include first data packet
+
 import argparse
 import RPi.GPIO as GPIO
 import numbers
@@ -138,6 +145,9 @@ UDP_PORT = 7784
 
 Source_IP = 0
 Source_Port = 0
+Last_Source_IP = "127.0.0.1"
+
+Debounce_Delay = 0.04
 
 
 global Last_Led_Test_Mode
@@ -146,6 +156,8 @@ global Last_Led_Reset_Mode
 LampTestPin = 24
 BrightnessPin = 23
 LampResetPin = 25
+
+
 
 
 def LedStartup():
@@ -211,25 +223,13 @@ def DensitySweep():
         device.contrast(intensity * 16)
         time.sleep(0.1)
 
-def BrightnessPin_callback(channel):
-    global Last_Brightness
-    print "edge detected on port Brightness"
-    time.sleep(0.10)
-    if ( GPIO.input(BrightnessPin) == False ):
-        print "Brightness Input low"
-        # Switch in Bright Position
-        Send_UDP_Command("C15,3004,-1") 
-        device.contrast(10)
-        
-    else:
-        print "Brightness Input high"
-        Send_UDP_Command("C15,3004,0") 
-        device.contrast(200)
 
 def Send_UDP_Command(command_to_send):
     # Send Command to IKARUS in DCS
     # The target port is found in config.lua - ExportScript.Config.ListenerPort
-    UDP_IP = "192.168.1.124"
+    #UDP_IP = "192.168.1.124"
+    # We determine where to send the update based on the last data packet we received
+    UDP_IP = Last_Source_IP
     UDP_PORT = 26027   
 
 
@@ -241,11 +241,29 @@ def Send_UDP_Command(command_to_send):
     sock.sendto(command_to_send, (UDP_IP, UDP_PORT))
 
 
+
+def BrightnessPin_callback(channel):
+    global Last_Brightness
+    print "edge detected on port Brightness"
+    time.sleep(Debounce_Delay)
+    if ( GPIO.input(BrightnessPin) == False ):
+        print "Brightness Input low"
+        # Switch in Bright Position
+        Send_UDP_Command("C15,3004,-1") 
+        device.contrast(10)
+        
+    else:
+        print "Brightness Input high"
+        Send_UDP_Command("C15,3004,0") 
+        device.contrast(200)
+
+
+
 def LampTest_callback(channel):
     global Last_Led_Test_Mode
     print "edge detected on port Lamp Test"
 
-    time.sleep(0.1)
+    time.sleep(Debounce_Delay)
     if ( GPIO.input(LampTestPin) == False ):
         Last_Led_Test_Mode = "On"
         print "Lamp Test low"
@@ -263,7 +281,7 @@ def LampReset_callback(channel):
     global Last_Led_Reset_Mode
     print "edge detected on port Lamp Reset"
 
-    time.sleep(0.1)
+    time.sleep(Debounce_Delay)
     if ( GPIO.input(LampResetPin) == False ):
         Last_Led_Reset_Mode = "On"
         print "Lamp Reset low"
@@ -272,6 +290,16 @@ def LampReset_callback(channel):
         print "Lamp Reset high"
         Last_Led_Reset_Mode = "Off"
         Send_UDP_Command("C15,3003,0")
+
+
+def SendAllSwitchStates():
+    print "Sending Switch States"
+    LampTest_callback(0)
+    BrightnessPin_callback(0)
+    LampReset_callback(0)
+    
+    
+
 
 def Reboot():
     print "Received a Reboot - rebooting"
@@ -399,6 +427,11 @@ while True:
        while True:
           sock.settimeout(2)
           data, (Source_IP, Source_Port) = sock.recvfrom(1024) # buffer size is 1024 bytes
+          if (Source_IP != Last_Source_IP):
+            Last_Source_IP = Source_IP  
+            print "New Source Address Found"
+            SendAllSwitchStates()
+          
           #print "received message:", data
           words = data.split(":")
           #print words
