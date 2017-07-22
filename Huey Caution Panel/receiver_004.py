@@ -139,7 +139,7 @@ from luma.core.virtual import viewport
 from luma.core.legacy import text, show_message
 from luma.core.legacy.font import proportional, CP437_FONT, TINY_FONT, SINCLAIR_FONT, LCD_FONT
 
-# 0.0.0.0 will listen on all ports, other specify desired source address
+# 0.0.0.0 will listen on all addresses, other specify desired source address
 UDP_IP = "0.0.0.0"
 UDP_PORT = 7784
 
@@ -576,8 +576,12 @@ while True:
                       if values[0] == '999':
                             print "Handling SHUTDOWN"
                             if values[1] == "ShutdownAndHalt":
+                                # Stop listening on original port
+                                sock.close()
                                 ShutdownAndHalt()
                             elif values[1] == "Reboot":
+                                # Stop listening on original port
+                                sock.close()
                                 Reboot()                                      
                             else:
                                 print "Received a Invalid Shutdown Request"
