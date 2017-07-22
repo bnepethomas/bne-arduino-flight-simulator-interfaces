@@ -17,7 +17,7 @@ namespace SendReboot_Shutdown
 
         public static UdpClient SendingUdpClient = new UdpClient(7784);
 
-        public static IPAddress serverAddr = IPAddress.Parse("192.168.1.117");
+        public static IPAddress serverAddr = IPAddress.Parse("192.168.1.90");
         public static IPEndPoint RemoteIpEndPoint = new IPEndPoint(serverAddr, 7784);
 
         static void Main(string[] args)
