@@ -20,7 +20,7 @@
 	
 	-- PT Huey Caution Start
 	Huey_Caution_export_port = 7784
-	Huey_Caution_export_host = "192.168.1.109"
+	Huey_Caution_export_host = "192.168.1.90"
 	Huey_Caution_export_socket = require("socket")
 	Huey_Caution_export_con = socket.try(Huey_Caution_export_socket.udp())
 	Huey_Caution_export_socket.try(Huey_Caution_export_con:settimeout(.001))
