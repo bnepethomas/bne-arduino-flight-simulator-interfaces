@@ -112,6 +112,7 @@
 # MESSAGE = "C15,3003,-1" - Turns Test Switch on - All warning lights
 # MESSAGE = "C15,3003,0" - Turns Test Switch to centre
 # MESSAGE = "C15,3003,1" - Turns Test Switch to Reset - clears caution on front panel
+# Bright/Dim 15,3004
 
 import argparse
 import RPi.GPIO as GPIO
@@ -140,6 +141,7 @@ Source_Port = 0
 
 
 global Last_Led_Test_Mode
+global Last_Led_Reset_Mode
 
 LampTestPin = 24
 BrightnessPin = 23
@@ -215,11 +217,13 @@ def BrightnessPin_callback(channel):
     time.sleep(0.10)
     if ( GPIO.input(BrightnessPin) == False ):
         print "Brightness Input low"
-        # Switch in Test Position
+        # Switch in Bright Position
+        Send_UDP_Command("C15,3004,-1") 
         device.contrast(10)
         
     else:
         print "Brightness Input high"
+        Send_UDP_Command("C15,3004,0") 
         device.contrast(200)
 
 def Send_UDP_Command(command_to_send):
@@ -240,9 +244,6 @@ def Send_UDP_Command(command_to_send):
 def LampTest_callback(channel):
     global Last_Led_Test_Mode
     print "edge detected on port Lamp Test"
-    UDP_IP = "192.168.1.124"
-    UDP_PORT = 26027
-
 
     time.sleep(0.1)
     if ( GPIO.input(LampTestPin) == False ):
@@ -259,23 +260,17 @@ def LampTest_callback(channel):
 
 
 def LampReset_callback(channel):
-    global Last_Led_Test_Mode
+    global Last_Led_Reset_Mode
     print "edge detected on port Lamp Reset"
-    UDP_IP = "192.168.1.124"
-    UDP_PORT = 26027
-
 
     time.sleep(0.1)
-    if ( GPIO.input(LampTestPin) == False ):
-        Last_Led_Test_Mode = "On"
-        print "Lamp Test low"
-        #Ledallon()    
-        Send_UDP_Command("C15,3003,-1")      
+    if ( GPIO.input(LampResetPin) == False ):
+        Last_Led_Reset_Mode = "On"
+        print "Lamp Reset low"
+        Send_UDP_Command("C15,3003,1")      
     else:
-        print "Lamp Test high"
-        Last_Led_Test_Mode = "Off"
-        print "Turning Leds off"
-        #Ledalloff()
+        print "Lamp Reset high"
+        Last_Led_Reset_Mode = "Off"
         Send_UDP_Command("C15,3003,0")
 
 def Reboot():
@@ -340,6 +335,7 @@ def ShutdownAndHalt():
 # Setup inputs and outputs
 
 Last_Led_Test_Mode = "Off"
+Last_Led_Reset_Mode = "Off"
 Last_Brightness = "Bright"
 
 GPIO.setmode(GPIO.BCM)
@@ -347,6 +343,8 @@ GPIO.setwarnings(False)
 GPIO.setup(BrightnessPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(LampTestPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(LampResetPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+
 GPIO.add_event_detect(LampTestPin, GPIO.BOTH, callback=LampTest_callback)
 GPIO.add_event_detect(LampResetPin, GPIO.BOTH, callback=LampReset_callback)
 GPIO.add_event_detect(BrightnessPin, GPIO.BOTH, callback=BrightnessPin_callback)
