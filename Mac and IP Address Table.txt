@@ -17,4 +17,4 @@ IP Addresses
 192.168.1.106	UDP OLED A10
 192.168.1.107	Compass A10
 192.168.2.205	737-Overhead-Arduino
-192.168.2.206 737-MIP-Stickshaker
+192.168.2.206   737-MIP-Stickshaker
