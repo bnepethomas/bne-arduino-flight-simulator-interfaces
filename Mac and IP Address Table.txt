@@ -6,6 +6,7 @@ IPAddress ip(192,168,1,205);
 Ports 
 7784 		Huey Caution Receiver
 # 7785 		Remote Shutdown - No longer needed as shutdown and reboot integrated in caution receiver
+7786            ProSim_Pi_UDP_Receiver_Stickshaker
 13135		737-Overhead-Arduino
 13135		UDP OLED A10
 13135		Fuel Stepper A10
