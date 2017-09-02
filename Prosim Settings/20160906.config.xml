@@ -18,17 +18,15 @@
     <fsuipc type="FSUIPC" serial="Float 32" inputs="0" outputs="65535" gauge="true" lcd="false" numerical="true" analog="1" encoders="0" />
     <fsuipc type="FSUIPC" serial="Float 64" inputs="0" outputs="65535" gauge="true" lcd="false" numerical="true" analog="1" encoders="0" />
     <matrixorbital type="MatrixOrbital" serial="0" inputs="0" outputs="0" gauge="false" lcd="true" numerical="false" analog="0" encoders="0" />
+    <genericCOMport type="Generic COM port " serial="COM4" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
     <genericCOMport type="Generic COM port " serial="COM6" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
     <directinput type="737YOKE-LE by ACE" serial="d971ab40-6d2d-11e6-8002-444553540000" inputs="32" outputs="0" gauge="false" lcd="false" numerical="false" analog="8" encoders="0" />
     <genericCOMport type="Generic COM port " serial="COM7" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
     <flightIllusion type="Flight Illusion" serial="0" inputs="0" outputs="0" gauge="true" lcd="false" numerical="false" analog="0" encoders="0" />
     <FDS type="FDS HIO_128_256" serial="03EA" inputs="128" outputs="256" gauge="false" lcd="false" numerical="false" analog="0" encoders="0" />
-    <directinput type="BU0836X_2" serial="3d9d7d40-728f-11e6-8002-444553540000" inputs="32" outputs="0" gauge="false" lcd="false" numerical="false" analog="6" encoders="0" />
+    <directinput type="BU0836X_2" serial="3d9d7d40-728f-11e6-8002-444553540000" inputs="32" outputs="0" gauge="false" lcd="false" numerical="false" analog="7" encoders="0" />
     <genericCOMport type="Generic COM port " serial="COM8" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
     <iocp type="IOCP" serial="0" inputs="9999" outputs="9999" gauge="true" lcd="false" numerical="true" analog="9999" encoders="9999" />
-    <genericCOMport type="Generic COM port " serial="COM9" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
-    <genericCOMport type="Generic COM port " serial="COM10" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
-    <genericCOMport type="Generic COM port " serial="COM11" inputs="9999" outputs="9999" gauge="false" lcd="false" numerical="true" analog="9999" encoders="9999" />
   </hardware>
   <mappings>
     <mapping connection="Ignition select Left">
@@ -725,7 +723,7 @@
       <FDS serial="03EA000003AD" port="8" />
     </mapping>
     <mapping connection="Electric Panel">
-      <matrixorbital serial="0" port="6" />
+      <matrixorbital serial="0" port="4" />
     </mapping>
     <mapping connection="FLT Control low pressure A">
       <FDS serial="03EA000003AD" port="1" />
@@ -920,46 +918,6 @@
     </mapping>
     <mapping connection="Upper DU Brightness">
       <directinput serial="d971ab40-6d2d-11e6-8002-444553540000" port="260" />
-    </mapping>
-    <mapping connection="Starter 1 pushback solenoid">
-      <genericCOMport serial="TCP" port="0" />
-    </mapping>
-    <mapping connection="Starter 1 solenoid">
-      <genericCOMport serial="TCP" port="0" />
-    </mapping>
-    <mapping connection="Starter 2 pushback solenoid">
-      <genericCOMport serial="TCP" port="0" />
-    </mapping>
-    <mapping connection="Starter 2 solenoid">
-      <genericCOMport serial="TCP" port="0" />
-    </mapping>
-    <mapping connection="Standby speed">
-      <flightIllusion serial="0" port="356">
-        <calibrator>
-          <calibration input="0" output="3" margin="0" />
-          <calibration input="60" output="12" margin="0" />
-          <calibration input="120" output="306" margin="0" />
-          <calibration input="140" output="408" margin="0" />
-          <calibration input="160" output="504" margin="0" />
-          <calibration input="200" output="595" margin="0" />
-          <calibration input="250" output="694" margin="0" />
-          <calibration input="300" output="789" margin="0" />
-          <calibration input="400" output="985" margin="0" />
-        </calibrator>
-      </flightIllusion>
-    </mapping>
-    <mapping connection="Standby barberpole">
-      <flightIllusion serial="0" port="100">
-        <calibrator>
-          <calibration input="60" output="0" margin="0" />
-          <calibration input="120" output="307" margin="0" />
-          <calibration input="140" output="411" margin="0" />
-          <calibration input="160" output="501" margin="0" />
-          <calibration input="200" output="604" margin="0" />
-          <calibration input="300" output="802" margin="0" />
-          <calibration input="400" output="996" margin="0" />
-        </calibrator>
-      </flightIllusion>
     </mapping>
     <mapping connection="Aileron trim Center" />
     <mapping connection="Aileron trim Left" />
@@ -1957,8 +1915,10 @@
     <mapping connection="Standby altimeter" />
     <mapping connection="Standby Attitude bank" />
     <mapping connection="Standby Attitude pitch" />
+    <mapping connection="Standby barberpole" />
     <mapping connection="Standby Glideslope" />
     <mapping connection="Standby Localiser" />
+    <mapping connection="Standby speed" />
     <mapping connection="Wet compass" />
     <mapping connection="Yaw damper gauge" />
     <mapping connection="IRS Display" />
@@ -2075,9 +2035,19 @@
     <mapping connection="Speedbrake autorestow" />
     <mapping connection="Speedbrake extended" />
     <mapping connection="Speedbrake extended in air" />
-    <mapping connection="Stick shaker">
+    <mapping connection="Starter 1 pushback solenoid">
       <genericCOMport serial="TCP" port="0" />
     </mapping>
+    <mapping connection="Starter 1 solenoid">
+      <genericCOMport serial="TCP" port="0" />
+    </mapping>
+    <mapping connection="Starter 2 pushback solenoid">
+      <genericCOMport serial="TCP" port="0" />
+    </mapping>
+    <mapping connection="Starter 2 solenoid">
+      <genericCOMport serial="TCP" port="0" />
+    </mapping>
+    <mapping connection="Stick shaker" />
     <mapping connection="Stick shaker F/O" />
     <mapping connection="Throttle Servo Power left" />
     <mapping connection="Throttle Servo Power right" />
@@ -2612,12 +2582,9 @@
   <requiredHardware>
     <item>BU0836X_3</item>
     <item>BU0836A 3</item>
-    <item>737YOKE-LE by ACE</item>
     <item>FDS HIO_128_256 #03EA000003AD</item>
-    <item>Flight Illusion instruments at COM7</item>
     <item>FSUIPC input/output</item>
-    <item>IOCP connection</item>
-    <item>MatrixOrbital screen at COM6</item>
+    <item>MatrixOrbital screen at COM4</item>
     <item>Simworld SimBox (μ): 1 devices</item>
   </requiredHardware>
   <directInputEnabled value="true" />
