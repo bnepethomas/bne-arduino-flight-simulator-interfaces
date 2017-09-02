@@ -252,6 +252,9 @@ namespace ProSimSplitter
         public static IPAddress serverAddr = IPAddress.Parse("192.168.2.205");
         public static IPEndPoint RemoteIpEndPoint = new IPEndPoint(serverAddr, 9920);
 
+        public static IPAddress serverAddr2 = IPAddress.Parse("192.168.2.206");
+        public static IPEndPoint RemoteIpEndPoint2 = new IPEndPoint(serverAddr2, 9920);
+
 
         // For some devices need to maintain state which will be reset on TCP connection establishment.
         // So initialise to blank state and if any of the related attributes change then look at collective state then fire off to Arudino
@@ -266,6 +269,7 @@ namespace ProSimSplitter
         public static bool bHandle_PRESSURISATION_DISPLAY = false;
         public static bool bHandle_STARTER = false;
         public static bool bHandle_OH_Backlight = false;
+        public static bool bHandle_StickShaker = false;
 
         public static string sN_IRS_DISP_LEFT;
         public static string sN_IRS_DISP_RIGHT;
@@ -1026,6 +1030,21 @@ namespace ProSimSplitter
                     }
 
 
+                case "B_STICKSHAKER":
+                    {
+                        if (words[2] == "1")
+                        {
+                            bHandle_StickShaker = true;
+                        }
+                        else
+                        {
+                            bHandle_StickShaker = false;
+                        }
+                        SendToPiAVPair("I01", words[2], "I");
+
+                        return;
+                    }
+
                 default:
                     {
                         // Haven't found an attribute of interest - throw it out
@@ -1273,6 +1292,93 @@ namespace ProSimSplitter
             //Thread.Sleep(5);
 
 
+        }
+
+
+        static void SendToPiAVPair(String attributeName, String value, string valueType)
+        {
+
+            String valueToSend = "";
+            Boolean ldebugging = false;
+            Double testNumber;
+
+            // Check valueType is known
+            //      Three types of values are used:
+            //      1:  I - indicator either a 1 or 0
+            //      2:  N - Number generally a float that can be positive or negative
+            //      3:  B - Binary - used is systems such as overhead backlight
+            //      4:  S - String
+            switch (valueType)
+            {
+
+
+                case "B":
+                    {
+                        // Is an indicator - now check if a 0 or 1
+                        if (value == "0" || value == "1")
+                            break;
+                        else
+                        {
+                            Console.WriteLine("Invalid value passed in " + attributeName + ":" + value + ":" + valueType);
+                            // Leave the routine
+                            return;
+                        }
+                    }
+
+
+                case "I":
+                    {
+                        // Is an indicator - now check if a 0 or 1
+                        if (value == "0" || value == "1")
+                            break;
+                        else
+                        {
+                            Console.WriteLine("Invalid value passed in " + attributeName + ":" + value + ":" + valueType);
+                            // Leave the routine
+                            return;
+                        }
+                    }
+
+                case "N":
+                    {
+                        // Is an indicator - now check if a 0 or 1
+                        if (double.TryParse(value, out testNumber))
+                            break;
+                        else
+                        {
+                            Console.WriteLine("Invalid number passed in " + attributeName + ":" + value + ":" + valueType);
+                            // Leave the routine
+                            return;
+                        }
+                    }
+
+                case "S":
+                    {
+                        // Nothing to really check here
+                        break;
+                    }
+
+                default:
+                    {
+                        Console.WriteLine("Invalid valuetype passed in " + attributeName + ":" + value + ":" + valueType);
+                        return;
+                    }
+
+            }
+
+
+            valueToSend = attributeName + "=" + value;
+            Console.WriteLine("Sending to Pi" + valueToSend);
+
+
+            if (ldebugging) Console.Write("Starting Send :");
+            if (ldebugging) Console.WriteLine(valueToSend);
+            byte[] send_buffer = Encoding.ASCII.GetBytes(valueToSend);
+
+            SendingUdpClient.Send(send_buffer, send_buffer.Length, RemoteIpEndPoint2);
+            if (ldebugging) Console.WriteLine("Send Complete");
+
+            //Thread.Sleep(5);
         }
 
         static void TestFramework()
