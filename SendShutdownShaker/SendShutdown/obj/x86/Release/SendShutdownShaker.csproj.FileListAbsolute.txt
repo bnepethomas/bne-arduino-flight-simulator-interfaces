@@ -1,0 +1,4 @@
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendShutdownShaker\SendShutdown\bin\Release\SendShutdownShaker.exe
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendShutdownShaker\SendShutdown\bin\Release\SendShutdownShaker.pdb
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendShutdownShaker\SendShutdown\obj\x86\Release\SendShutdownShaker.exe
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendShutdownShaker\SendShutdown\obj\x86\Release\SendShutdownShaker.pdb

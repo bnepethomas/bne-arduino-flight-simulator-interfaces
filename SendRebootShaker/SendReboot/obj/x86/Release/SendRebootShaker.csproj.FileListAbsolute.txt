@@ -1,0 +1,4 @@
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendRebootShaker\SendReboot\bin\Release\SendRebootShaker.exe
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendRebootShaker\SendReboot\bin\Release\SendRebootShaker.pdb
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendRebootShaker\SendReboot\obj\x86\Release\SendRebootShaker.exe
+C:\Users\SIM15\Documents\GitHub\bne-arduino-flight-simulator-interfaces\SendRebootShaker\SendReboot\obj\x86\Release\SendRebootShaker.pdb

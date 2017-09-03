@@ -14,6 +14,10 @@ $ git add .
 $ git commit .
 $ git push
  
+Instead of trying to start python directly from crontab, use shell script (usuall my_server) to 
+start things
+
+
 To get the script to autostart
 sudo crontab -e
 
