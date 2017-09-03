@@ -128,16 +128,16 @@ SparePin = 17
 
 def ShakerStartup():
    GPIO.setup(StickShakerPin,GPIO.OUT)
-   print "Shaker on"
-   GPIO.output(StickShakerPin,GPIO.LOW)
-   time.sleep(2)
+   #print "Shaker on"
+   #GPIO.output(StickShakerPin,GPIO.LOW)
+   #time.sleep(2)
    print "Shaker off"
    GPIO.output(StickShakerPin,GPIO.HIGH)
    
    GPIO.setup(SparePin,GPIO.OUT)
-   print "Spare on"
-   GPIO.output(SparePin,GPIO.LOW)
-   time.sleep(2)
+   #print "Spare on"
+   #GPIO.output(SparePin,GPIO.LOW)
+   #time.sleep(2)
    print "Spare off"
    GPIO.output(SparePin,GPIO.HIGH)
 
