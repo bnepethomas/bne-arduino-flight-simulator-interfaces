@@ -21,7 +21,7 @@ unsigned long delaytime=250;
 
 unsigned long sdelaytime=20;
 
-#define filename "Hardware_Test_Sketch_20160716b"
+#define filename "Hardware_Test_Sketch_20171028b"
 
 #include <SPI.h>
 #include <Ethernet.h>
