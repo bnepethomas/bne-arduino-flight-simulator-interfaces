@@ -1,0 +1,5 @@
+C:\Users\admin\documents\visual studio 2010\Projects\ptdodoexport\ptdodoexport\obj\x86\Debug\ptdodoexport.csprojResolveAssemblyReference.cache
+C:\Users\admin\documents\visual studio 2010\Projects\ptdodoexport\ptdodoexport\bin\Debug\ptdodoexport.exe
+C:\Users\admin\documents\visual studio 2010\Projects\ptdodoexport\ptdodoexport\bin\Debug\ptdodoexport.pdb
+C:\Users\admin\documents\visual studio 2010\Projects\ptdodoexport\ptdodoexport\obj\x86\Debug\ptdodoexport.exe
+C:\Users\admin\documents\visual studio 2010\Projects\ptdodoexport\ptdodoexport\obj\x86\Debug\ptdodoexport.pdb

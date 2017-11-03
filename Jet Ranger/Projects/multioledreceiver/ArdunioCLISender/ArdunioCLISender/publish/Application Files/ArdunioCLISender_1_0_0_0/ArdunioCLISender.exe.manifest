@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1">
+  <asmv1:assemblyIdentity name="ArdunioCLISender.exe" version="1.0.0.0" publicKeyToken="3e4679455d7668d5" language="neutral" processorArchitecture="x86" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="ArdunioCLISender" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+    <commandLine file="ArdunioCLISender.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArdunioCLISender.exe" size="10240">
+      <assemblyIdentity name="ArdunioCLISender" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>JKYj/uzynCSV3FHtvhT0kil7RjA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+<publisherIdentity name="CN=Sim5\admin" issuerKeyHash="71df1545cd3ec12b0be63a1bead093563c1ed653" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>wlJ/vW02K18j+roEvohkLRGN2xQ=</DigestValue></Reference></SignedInfo><SignatureValue>BhA38SC39vuSB/kKpxn7pDemZ7y1lrq4u2emKcym4/NlJ4fmWkhLa0fwb5T5l44nDZCGYSWfDMD7asb2gcj4Bl9GrCaZXVoNot3bIfZs/agUCDBj5EmbS7nED48mtWhj/Dyyx8Rq1YSqWLtyDZRZ0lqlQRJp10auJQrlTh0adYc=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>tDxkxjJpKDm9wWZeaF4i0evDbRE0LGDVTXxgagKf1I7q9Qk39a0imhvG7thA9rNcwcK8/eti/NpwGf18hGnqdvjBytoVpeQlHkYDxzA4T0WoGPkH6z8+wsYKi5VZFRJYAdrVmJEXsWiE7ywp0D8MZWIFUo7UD1Fh8bqf1/5xO7U=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="14db8d112d6488be04bafa235f2b366dbd7f52c2" Description="" Url=""><as:assemblyIdentity name="ArdunioCLISender.exe" version="1.0.0.0" publicKeyToken="3e4679455d7668d5" language="neutral" processorArchitecture="x86" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=Sim5\admin</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>ZBXRpZ7e1G3bOFVaqRex6bStGdw=</DigestValue></Reference></SignedInfo><SignatureValue>KOgq92SFfamr3MeTyZqFXTXOpHbMd3wPYL53YKM5GiMloYvTRM9g/T11fQxuP9r4mSJ9eyeSy/oyq/qon7+efvpeazaptJ5zPUOV22ZV/iAfrLWSmEGJspphH3jdW3TVEn2AOBwnifiO5ctq0h9Hh5tLWqAwCU4qsGFsc2PpCTk=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>tDxkxjJpKDm9wWZeaF4i0evDbRE0LGDVTXxgagKf1I7q9Qk39a0imhvG7thA9rNcwcK8/eti/NpwGf18hGnqdvjBytoVpeQlHkYDxzA4T0WoGPkH6z8+wsYKi5VZFRJYAdrVmJEXsWiE7ywp0D8MZWIFUo7UD1Fh8bqf1/5xO7U=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBwTCCASqgAwIBAgIQWzjHsA5NvrhLQag6h/8xdDANBgkqhkiG9w0BAQUFADAfMR0wGwYDVQQDHhQAUwBpAG0ANQBcAGEAZABtAGkAbjAeFw0xNDA3MTYwNzM4NDlaFw0xNTA3MTYxMzM4NDlaMB8xHTAbBgNVBAMeFABTAGkAbQA1AFwAYQBkAG0AaQBuMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC0PGTGMmkoOb3BZl5oXiLR68NtETQsYNVNfGBqAp/Ujur1CTf1rSKaG8bu2ED2s1zBwrz962L82nAZ/XyEaep2+MHK2hWl5CUeRgPHMDhPRagY+QfrPz7CxgqLlVkVElgB2tWYkRexaITvLCnQPwxlYgVSjtQPUWHxup/X/nE7tQIDAQABMA0GCSqGSIb3DQEBBQUAA4GBAKYxbrA/ECcInjjE/bn2S/JyoOHTzkyT9I1erPziJw2Ehwglv/BLzT/rV2JekI8BLG5kG0L/ikqVC+ynckUhRpoClXzZWTHTgsNUPO5qvLlSZFOyqkBix1kc0BW14HuDGsZuGf6Khl8Hsfx5wAKsKS6T9I+emo/7dns7JPbzVTL6</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

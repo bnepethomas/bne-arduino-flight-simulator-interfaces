@@ -1,0 +1,11 @@
+C:\Users\admin\documents\visual studio 2010\Projects\ArduinoSender\ArduinoSender\bin\Debug\ArduinoSender.exe
+C:\Users\admin\documents\visual studio 2010\Projects\ArduinoSender\ArduinoSender\bin\Debug\ArduinoSender.pdb
+C:\Users\admin\documents\visual studio 2010\Projects\ArduinoSender\ArduinoSender\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\admin\documents\visual studio 2010\Projects\ArduinoSender\ArduinoSender\obj\x86\Debug\WindowsFormsApplication1.Form1.resources
+C:\Users\admin\documents\visual studio 2010\Projects\ArduinoSender\ArduinoSender\obj\x86\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\admin\documents\visual studio 2010\Projects\ArduinoSender\ArduinoSender\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\admin\documents\visual studio 2010\Projects\ArduinoSender\ArduinoSender\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\admin\documents\visual studio 2010\Projects\ArduinoSender\ArduinoSender\obj\x86\Debug\ArduinoSender.exe
+C:\Users\admin\documents\visual studio 2010\Projects\ArduinoSender\ArduinoSender\obj\x86\Debug\ArduinoSender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArduinoSender\obj\x86\Debug\ArduinoSender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArduinoSender\obj\x86\Debug\ArduinoSender.pdb

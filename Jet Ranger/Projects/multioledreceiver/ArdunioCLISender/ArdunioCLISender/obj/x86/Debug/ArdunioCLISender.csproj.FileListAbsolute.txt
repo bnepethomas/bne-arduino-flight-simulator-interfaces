@@ -1,0 +1,14 @@
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\bin\Debug\ArdunioCLISender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\bin\Debug\ArdunioCLISender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArdunioCLISender\ArdunioCLISender\bin\Debug\ArdunioCLISender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArdunioCLISender\ArdunioCLISender\bin\Debug\ArdunioCLISender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.exe
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.pdb
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArdunioCLISender\ArdunioCLISender\bin\Debug\ArdunioCLISender.exe.manifest
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArdunioCLISender\ArdunioCLISender\bin\Debug\ArdunioCLISender.application
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.exe.manifest
+C:\Users\admin\Documents\Visual Studio 2010\Projects\multioledreceiver\ArdunioCLISender\ArdunioCLISender\obj\x86\Debug\ArdunioCLISender.application
