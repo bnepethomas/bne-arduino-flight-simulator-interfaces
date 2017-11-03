@@ -18,7 +18,7 @@ namespace DCS_TO_GPS
     {
 
 
-        static Boolean ldebugging = false;
+        static Boolean ldebugging = true;
         static public string GPSComPort;
         static public ProgramMode OperationalMode;
         
@@ -111,7 +111,7 @@ namespace DCS_TO_GPS
                     string returnData = Encoding.ASCII.GetString(receiveBytes);
 
                     //Console.WriteLine("Pkt Rx " + returnData.ToString());
-                    //Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+                    Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                     //Console.WriteLine(LastUpdateToGPS.ToString("yyyy-MM-dd HH:mm:ss.fff"));
                     if (LastUpdateToGPS.AddMilliseconds(GPSTimeout) < DateTime.Now)
                     {
@@ -372,6 +372,7 @@ namespace DCS_TO_GPS
 
 
                 if (ldebugging) Console.WriteLine("End ProcessStream");
+                if (ldebugging) Console.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
 
             }
         }
