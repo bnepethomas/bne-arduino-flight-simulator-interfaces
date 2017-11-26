@@ -25,7 +25,8 @@ double StepperNumbers[4];
 
 const int MaxSteps = 3780;
 const int delaytime = 10;
-const int clockdelay = 23430;            // Should actually be 23.43mS
+// const int clockdelay = 23430;            // Should actually be 23.43mS
+const int clockdelay = 2000;            // Should actually be 23.43mS
 const int cClockwise = 1;
 const int cCounterClockwise = -1;
 const int cUnknownPos = 999;
@@ -51,17 +52,35 @@ void setup()
    
 
     // If zero pos read only step a little bit
-      for (int  x = 0; x < 10; x++)
-      {
-        Serial.println("Winding back Compass");
-        StepCounterClockwise();
-        delayMicroseconds(clockdelay);
-      }
+    for ( int zulu = 0; zulu < 5; zulu++)
+    {
+        for (int  x = 0; x < 100; x++)
+        {
+          Serial.println("Winding back Compass");
+          StepCounterClockwise();
+          //delayMicroseconds(clockdelay);
+        }
+  
+        for (int  x = 0; x < 100; x++)
+        {
+          Serial.println("Winding forward Compass");
+          StepClockwise();
+          //delayMicroseconds(clockdelay);
+        }
+    }
     //Step Counterwise 10 steps and see if zero found
         for (int  x = 0; x < 10; x++)
       {
         Serial.println("Winding back Clock");
         ClockStepCounterClockwise();
+        delayMicroseconds(clockdelay);
+      } 
+
+      //Step Counterwise 10 steps and see if zero found
+      for (int  x = 0; x < 10; x++)
+      {
+        Serial.println("Winding forward Clock");
+        ClockStepClockwise();
         delayMicroseconds(clockdelay);
       } 
 

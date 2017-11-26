@@ -12,8 +12,12 @@ Change log
 
 Working sanely with individual pointers moving on dual fuel guage
 added init zero position
-still unsure if issues are electrocial or physical associated with hitting binding point
+still unsure if issues are electrical or physical associated with hitting binding point
 
+Timing 
+
+If Stepper is to agressively timed the needle bounces off the endpoint, this occurs at 
+250 microseconds.  At 500 Microseconds the bouncing does not occur, but the movement is noisy.
     
 command bytes description: 
 one 595 connected to one VID6606, 2 bytes will be send to each 595 to control 4 stepper motor.
@@ -308,11 +312,11 @@ void GotoMinPort0()
 // Port 0 L Hydraulic
 // Turning Counter Clockwise
 {
-  for( int i = 0; i < 320 * StepsPerDegree; i++)
+  for( int i = 0; i < 360 * StepsPerDegree; i++)
   {
     sendCmdTo595_1( B00000000 ); //Working returning to zero
     sendCmdTo595_1( B01000000 );
-    delayMicroseconds(500);
+    delayMicroseconds(350);
   }
        
 }
@@ -321,11 +325,11 @@ void GotoMaxPort0()
 // Port 0 L Hydraulic
 // Turning Clockwise
 {
-  for( int i = 0; i < 100 * StepsPerDegree; i++)
+  for( int i = 0; i < 360 * StepsPerDegree; i++)
   {   
       sendCmdTo595_1( B10101010 );
       sendCmdTo595_1( B11000000 );
-      delayMicroseconds(250);
+      delayMicroseconds(300);
   }
 
 }
