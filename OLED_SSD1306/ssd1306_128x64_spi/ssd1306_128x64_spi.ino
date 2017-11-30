@@ -66,6 +66,7 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
+int thousandscounter = 0;
 void setup()   {                
   Serial.begin(9600);
 
@@ -91,95 +92,21 @@ void setup()   {
   delay(2000);
   display.clearDisplay();
 
-  // draw many lines
-  testdrawline();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
 
-  // draw rectangles
-  testdrawrect();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
 
-  // draw multiple rectangles
-  testfillrect();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw mulitple circles
-  testdrawcircle();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw a white circle, 10 pixel radius
-  display.fillCircle(display.width()/2, display.height()/2, 10, WHITE);
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  testdrawroundrect();
-  delay(2000);
-  display.clearDisplay();
-
-  testfillroundrect();
-  delay(2000);
-  display.clearDisplay();
-
-  testdrawtriangle();
-  delay(2000);
-  display.clearDisplay();
-   
-  testfilltriangle();
-  delay(2000);
-  display.clearDisplay();
-
-  // draw the first ~12 characters in the font
-  testdrawchar();
-  display.display();
-  delay(2000);
-  display.clearDisplay();
 
   // draw scrolling text
-  testscrolltext();
+  testtext();
   delay(2000);
   display.clearDisplay();
 
-  // text display tests
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0,0);
-  display.println("Hello, world!");
-  display.setTextColor(BLACK, WHITE); // 'inverted' text
-  display.println(3.141592);
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.print("0x"); display.println(0xDEADBEEF, HEX);
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-  // miniature bitmap display
-  display.drawBitmap(30, 16,  logo16_glcd_bmp, 16, 16, 1);
-  display.display();
-
-  // invert the display
-  display.invertDisplay(true);
-  delay(1000); 
-  display.invertDisplay(false);
-  delay(1000); 
-  display.clearDisplay();
-
-  // draw a bitmap icon and 'animate' movement
-  testdrawbitmap(logo16_glcd_bmp, LOGO16_GLCD_HEIGHT, LOGO16_GLCD_WIDTH);
+ 
 }
 
 
 void loop() {
-  
+  testtext();
+  thousandscounter++;
 }
 
 
@@ -246,6 +173,16 @@ void testdrawcircle(void) {
 }
 
 void testfillrect(void) {
+  uint8_t color = 1;
+  for (int16_t i=0; i<display.height()/2; i+=3) {
+    // alternate colors
+    display.fillRect(i, i, display.width()-i*2, display.height()-i*2, color%2);
+    display.display();
+    color++;
+  }
+}
+
+void testrect(void) {
   uint8_t color = 1;
   for (int16_t i=0; i<display.height()/2; i+=3) {
     // alternate colors
@@ -346,24 +283,49 @@ void testdrawline() {
 }
 
 void testscrolltext(void) {
-  display.setTextSize(2);
+
+  int mydelay = 1000;
+  display.setTextSize(3);
   display.setTextColor(WHITE);
-  display.setCursor(10,0);
+  display.setCursor(0,0);
   display.clearDisplay();
-  display.println("scroll");
+  display.println("88");
   display.display();
- 
+  display.setCursor(80,50);
+  display.setTextSize(2);
+  display.println("1013");
+  display.display();
+  delay(2000);
+  
   display.startscrollright(0x00, 0x0F);
-  delay(2000);
+  delay(mydelay);
   display.stopscroll();
-  delay(1000);
+  delay(mydelay);
   display.startscrollleft(0x00, 0x0F);
-  delay(2000);
+  delay(mydelay);
   display.stopscroll();
-  delay(1000);    
+  delay(mydelay);    
   display.startscrolldiagright(0x00, 0x07);
-  delay(2000);
+  delay(mydelay);
   display.startscrolldiagleft(0x00, 0x07);
-  delay(2000);
+  delay(mydelay);
   display.stopscroll();
+}
+
+void testtext(void) {
+
+
+  int mydelay = 1000;
+  display.setTextSize(3);
+  display.fillRect(0, 0, 60, 30, BLACK);
+  display.display();
+  display.setTextColor(WHITE);
+  display.setCursor(0,0);
+  display.println(thousandscounter);
+  display.display();
+  display.setCursor(80,50);
+  display.setTextSize(2);
+  display.println("1013");
+  display.display();
+  delay(50);
 }
