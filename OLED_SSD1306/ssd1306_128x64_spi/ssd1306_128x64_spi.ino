@@ -69,11 +69,15 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
+#define cursor_multiplier 2.5
+
 int thousandscounter = 0;
 int pressure = 1013;
+long startmillis = 0;
+long timetaken = 0;
 bool debugging = false;
 void setup()   {                
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC);
@@ -82,12 +86,14 @@ void setup()   {
   // Show image buffer on the display hardware.
   // Since the buffer is intialized with an Adafruit splashscreen
   // internally, this will display the splashscreen.
+  display.setRotation(1);
   display.display();
-  delay(2000);
+  display.setTextSize(3);
+  display.setTextColor(WHITE);
 
   // Clear the buffer.
   display.clearDisplay();
- 
+  startmillis = millis();
 }
 
 
@@ -95,211 +101,16 @@ void loop() {
 
   testtext();
   thousandscounter++;
-  if (thousandscounter > 999) thousandscounter=0;
-}
-
-
-void testdrawbitmap(const uint8_t *bitmap, uint8_t w, uint8_t h) {
-  uint8_t icons[NUMFLAKES][3];
- 
-  // initialize
-  for (uint8_t f=0; f< NUMFLAKES; f++) {
-    icons[f][XPOS] = random(display.width());
-    icons[f][YPOS] = 0;
-    icons[f][DELTAY] = random(5) + 1;
-    
-    Serial.print("x: ");
-    Serial.print(icons[f][XPOS], DEC);
-    Serial.print(" y: ");
-    Serial.print(icons[f][YPOS], DEC);
-    Serial.print(" dy: ");
-    Serial.println(icons[f][DELTAY], DEC);
-  }
-
-  while (1) {
-    // draw each icon
-    for (uint8_t f=0; f< NUMFLAKES; f++) {
-      display.drawBitmap(icons[f][XPOS], icons[f][YPOS], bitmap, w, h, WHITE);
-    }
-    display.display();
-    delay(200);
-    
-    // then erase it + move it
-    for (uint8_t f=0; f< NUMFLAKES; f++) {
-      display.drawBitmap(icons[f][XPOS], icons[f][YPOS], bitmap, w, h, BLACK);
-      // move it
-      icons[f][YPOS] += icons[f][DELTAY];
-      // if its gone, reinit
-      if (icons[f][YPOS] > display.height()) {
-        icons[f][XPOS] = random(display.width());
-        icons[f][YPOS] = 0;
-        icons[f][DELTAY] = random(5) + 1;
-      }
-    }
-   }
-}
-
-
-void testdrawchar(void) {
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0,0);
-
-  for (uint8_t i=0; i < 168; i++) {
-    if (i == '\n') continue;
-    display.write(i);
-    if ((i > 0) && (i % 21 == 0))
-      display.println();
-  }    
-  display.display();
-}
-
-void testdrawcircle(void) {
-  for (int16_t i=0; i<display.height(); i+=2) {
-    display.drawCircle(display.width()/2, display.height()/2, i, WHITE);
-    display.display();
+  if (thousandscounter > 999) {
+    thousandscounter=0;
+    timetaken =  millis() - startmillis;
+    Serial.println(timetaken);
+    startmillis = millis();
   }
 }
 
-void testfillrect(void) {
-  uint8_t color = 1;
-  for (int16_t i=0; i<display.height()/2; i+=3) {
-    // alternate colors
-    display.fillRect(i, i, display.width()-i*2, display.height()-i*2, color%2);
-    display.display();
-    color++;
-  }
-}
 
-void testrect(void) {
-  uint8_t color = 1;
-  for (int16_t i=0; i<display.height()/2; i+=3) {
-    // alternate colors
-    display.fillRect(i, i, display.width()-i*2, display.height()-i*2, color%2);
-    display.display();
-    color++;
-  }
-}
 
-void testdrawtriangle(void) {
-  for (int16_t i=0; i<min(display.width(),display.height())/2; i+=5) {
-    display.drawTriangle(display.width()/2, display.height()/2-i,
-                     display.width()/2-i, display.height()/2+i,
-                     display.width()/2+i, display.height()/2+i, WHITE);
-    display.display();
-  }
-}
-
-void testfilltriangle(void) {
-  uint8_t color = WHITE;
-  for (int16_t i=min(display.width(),display.height())/2; i>0; i-=5) {
-    display.fillTriangle(display.width()/2, display.height()/2-i,
-                     display.width()/2-i, display.height()/2+i,
-                     display.width()/2+i, display.height()/2+i, WHITE);
-    if (color == WHITE) color = BLACK;
-    else color = WHITE;
-    display.display();
-  }
-}
-
-void testdrawroundrect(void) {
-  for (int16_t i=0; i<display.height()/2-2; i+=2) {
-    display.drawRoundRect(i, i, display.width()-2*i, display.height()-2*i, display.height()/4, WHITE);
-    display.display();
-  }
-}
-
-void testfillroundrect(void) {
-  uint8_t color = WHITE;
-  for (int16_t i=0; i<display.height()/2-2; i+=2) {
-    display.fillRoundRect(i, i, display.width()-2*i, display.height()-2*i, display.height()/4, color);
-    if (color == WHITE) color = BLACK;
-    else color = WHITE;
-    display.display();
-  }
-}
-   
-void testdrawrect(void) {
-  for (int16_t i=0; i<display.height()/2; i+=2) {
-    display.drawRect(i, i, display.width()-2*i, display.height()-2*i, WHITE);
-    display.display();
-  }
-}
-
-void testdrawline() {  
-  for (int16_t i=0; i<display.width(); i+=4) {
-    display.drawLine(0, 0, i, display.height()-1, WHITE);
-    display.display();
-  }
-  for (int16_t i=0; i<display.height(); i+=4) {
-    display.drawLine(0, 0, display.width()-1, i, WHITE);
-    display.display();
-  }
-  delay(250);
-  
-  display.clearDisplay();
-  for (int16_t i=0; i<display.width(); i+=4) {
-    display.drawLine(0, display.height()-1, i, 0, WHITE);
-    display.display();
-  }
-  for (int16_t i=display.height()-1; i>=0; i-=4) {
-    display.drawLine(0, display.height()-1, display.width()-1, i, WHITE);
-    display.display();
-  }
-  delay(250);
-  
-  display.clearDisplay();
-  for (int16_t i=display.width()-1; i>=0; i-=4) {
-    display.drawLine(display.width()-1, display.height()-1, i, 0, WHITE);
-    display.display();
-  }
-  for (int16_t i=display.height()-1; i>=0; i-=4) {
-    display.drawLine(display.width()-1, display.height()-1, 0, i, WHITE);
-    display.display();
-  }
-  delay(250);
-
-  display.clearDisplay();
-  for (int16_t i=0; i<display.height(); i+=4) {
-    display.drawLine(display.width()-1, 0, 0, i, WHITE);
-    display.display();
-  }
-  for (int16_t i=0; i<display.width(); i+=4) {
-    display.drawLine(display.width()-1, 0, i, display.height()-1, WHITE); 
-    display.display();
-  }
-  delay(250);
-}
-
-void testscrolltext(void) {
-
-  int mydelay = 1000;
-  display.setTextSize(3);
-  display.setTextColor(WHITE);
-  display.setCursor(0,0);
-  display.clearDisplay();
-  display.println("88");
-  display.display();
-  display.setCursor(80,50);
-  display.setTextSize(2);
-  display.println("1013");
-  display.display();
-  delay(2000);
-  
-  display.startscrollright(0x00, 0x0F);
-  delay(mydelay);
-  display.stopscroll();
-  delay(mydelay);
-  display.startscrollleft(0x00, 0x0F);
-  delay(mydelay);
-  display.stopscroll();
-  delay(mydelay);    
-  display.startscrolldiagright(0x00, 0x07);
-  delay(mydelay);
-  display.startscrolldiagleft(0x00, 0x07);
-  delay(mydelay);
-  display.stopscroll();
-}
 
 void testtext(void) {
 
@@ -315,86 +126,73 @@ void testtext(void) {
   if ((thousandscounter == last_thousands_counter) && (last_pressure == pressure))
     return;
     
-
-
   
   int ones = (thousandscounter%10);
   int tens = ((thousandscounter/10)%10);
   int hundreds = ((thousandscounter/100)%10);
   int thousands = (thousandscounter/1000);
-  int mydelay = 1000;
 
 
-
-  
-  display.setTextSize(3);
-  display.fillRect(0, 0, 79, 64, BLACK);
-  
-  
-
-  display.setTextColor(WHITE);
-
-  
-  display.setCursor(0,21);
-  display.println(thousands);
-  
-  display.setCursor(16,21);
-  display.println(hundreds);
-
-
-  int cursor_multiplier = 2.96;
-  int ones_converted = ones;
-  
-  ones_converted = ones_converted * -1;
-
-  debugging = false;
-  if (debugging == true) {
-    display.fillRect(90, 0, 128, 30, BLACK);
-    display.setCursor(90,0);
-    display.println(ones_converted);
-  }
-
-  if (debugging == true) {
-    display.setTextSize(2);
-    display.fillRect(90, 31, 128, 55, BLACK);
-    display.setCursor(90,31);
-    display.println(thousandscounter);
-  }
-
-
-  display.setTextSize(3);
-  // Off the top of the screnn
-  display.setCursor(35,-29 +  ones_converted * cursor_multiplier);
-  display.println((tens + 8) % 10);
-
+  if (last_thousands != thousands) {
     
-  display.setCursor(35,-5 +  ones_converted * cursor_multiplier);
-  display.println((tens + 9) % 10);
+    last_thousands = thousands;
+    display.fillRect(0, 21, 15, 21, BLACK);
+    display.setCursor(0,21);
+    display.println(thousands);
+  }
 
 
-  // Centre line which aligns with the hundreds and thousands
-  display.setCursor(35,21 +  ones_converted * cursor_multiplier);
-  display.println(tens);
+  if (last_hundreds != hundreds) {
+    last_hundreds = hundreds;
+    display.fillRect(16, 21, 15, 21, BLACK);
+    display.setCursor(16,21);
+    display.println(hundreds);
+  }
 
 
-  // At the bottom of the screen
-  display.setCursor(35,45 +  ones_converted * cursor_multiplier);
-  display.println((tens + 1) % 10);
+  if (last_ones != ones) {  
 
+ 
 
-  // At the bottom below the screen
-  display.setCursor(35,69 +  ones_converted * cursor_multiplier);
-  display.println((tens + 2) % 10);
-  display.display();
+    last_ones = ones;
+    int ones_converted = ones * -1;
+    
+    display.fillRect(35, 0, 15, 65, BLACK);
+    display.setCursor(35,-5 +  ones_converted * cursor_multiplier);
+    display.println((tens + 9) % 10);
+  
+  
+    // Centre line which aligns with the hundreds and thousands
+    display.setCursor(35,21 +  ones_converted * cursor_multiplier);
+    display.println(tens);
+  
+  
+    // At the bottom of the screen
+    display.setCursor(35,45 +  ones_converted * cursor_multiplier);
+    display.println((tens + 1) % 10);
+  
+  
+    // At the bottom below the screen
+    display.setCursor(35,69 +  ones_converted * cursor_multiplier);
+    display.println((tens + 2) % 10);
+  
+    // Remove bottom of last character to remove distation of digit appearing and disappearing
+    display.fillRect(35, 65, 15, 25, BLACK);
+
+  }
 
   
   if (last_pressure != pressure) {
 
     last_pressure = pressure;
-    display.setCursor(80,50);
+    display.setCursor(10,100);
     display.setTextSize(2);
     display.println(pressure);
-    display.display();
+    // Reset display font to large
+    display.setTextSize(3);
+
   }
-  delay(0);
+
+  display.display();  
+
 }
