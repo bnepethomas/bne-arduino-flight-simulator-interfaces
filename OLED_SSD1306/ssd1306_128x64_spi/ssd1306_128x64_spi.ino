@@ -73,6 +73,7 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 
 int thousandscounter = 0;
 int pressure = 1013;
+bool goingup = true; 
 long startmillis = 0;
 long timetaken = 0;
 bool debugging = false;
@@ -100,12 +101,19 @@ void setup()   {
 void loop() {
 
   testtext();
-  thousandscounter++;
-  if (thousandscounter > 999) {
-    thousandscounter=0;
+  if (goingup)
+    thousandscounter++;
+  else
+    thousandscounter--;
+    
+  if ((thousandscounter > 999) || (thousandscounter < 0)) {
+    if (thousandscounter > 999) goingup = false;
+    if (thousandscounter < 0) goingup = true;
+    //thousandscounter=0;
     timetaken =  millis() - startmillis;
     Serial.println(timetaken);
     startmillis = millis();
+    
   }
 }
 
@@ -153,7 +161,6 @@ void testtext(void) {
   if (last_ones != ones) {  
 
  
-
     last_ones = ones;
     int ones_converted = ones * -1;
     
@@ -176,7 +183,7 @@ void testtext(void) {
     display.setCursor(35,69 +  ones_converted * cursor_multiplier);
     display.println((tens + 2) % 10);
   
-    // Remove bottom of last character to remove distation of digit appearing and disappearing
+    // Remove bottom of last character to remove distraction of digit appearing and disappearing
     display.fillRect(35, 65, 15, 25, BLACK);
 
   }
