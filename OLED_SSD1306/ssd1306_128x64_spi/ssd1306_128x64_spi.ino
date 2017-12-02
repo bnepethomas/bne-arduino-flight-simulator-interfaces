@@ -70,6 +70,7 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 #endif
 
 int thousandscounter = 0;
+int pressure = 1013;
 bool debugging = false;
 void setup()   {                
   Serial.begin(9600);
@@ -91,6 +92,7 @@ void setup()   {
 
 
 void loop() {
+
   testtext();
   thousandscounter++;
   if (thousandscounter > 999) thousandscounter=0;
@@ -301,6 +303,19 @@ void testscrolltext(void) {
 
 void testtext(void) {
 
+  static int last_thousands_counter = -1;
+  static int last_thousands = -1;
+  static int last_hundreds = -1;
+  static int last_tens = -1;
+  static int last_ones = -1;
+  static int last_pressure = -1;
+
+  
+  // Nothing has changed since last time - get out of here
+  if ((thousandscounter == last_thousands_counter) && (last_pressure == pressure))
+    return;
+    
+
 
   
   int ones = (thousandscounter%10);
@@ -308,10 +323,18 @@ void testtext(void) {
   int hundreds = ((thousandscounter/100)%10);
   int thousands = (thousandscounter/1000);
   int mydelay = 1000;
+
+
+
+  
   display.setTextSize(3);
   display.fillRect(0, 0, 79, 64, BLACK);
-  display.display();
+  
+  
+
   display.setTextColor(WHITE);
+
+  
   display.setCursor(0,21);
   display.println(thousands);
   
@@ -324,7 +347,7 @@ void testtext(void) {
   
   ones_converted = ones_converted * -1;
 
-  debugging = true;
+  debugging = false;
   if (debugging == true) {
     display.fillRect(90, 0, 128, 30, BLACK);
     display.setCursor(90,0);
@@ -362,11 +385,16 @@ void testtext(void) {
   // At the bottom below the screen
   display.setCursor(35,69 +  ones_converted * cursor_multiplier);
   display.println((tens + 2) % 10);
+  display.display();
+
   
-  display.display();
-  display.setCursor(80,50);
-  display.setTextSize(2);
-  display.println("1013");
-  display.display();
-  delay(500);
+  if (last_pressure != pressure) {
+
+    last_pressure = pressure;
+    display.setCursor(80,50);
+    display.setTextSize(2);
+    display.println(pressure);
+    display.display();
+  }
+  delay(0);
 }
