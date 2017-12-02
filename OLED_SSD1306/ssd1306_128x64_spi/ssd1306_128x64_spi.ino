@@ -17,6 +17,9 @@ BSD license, check license.txt for more information
 All text above, and the splash screen must be included in any redistribution
 *********************************************************************/
 
+// Need to record last thousands, ten etc and only blackout old entry if a value has changed.
+
+
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -82,24 +85,6 @@ void setup()   {
 
   // Clear the buffer.
   display.clearDisplay();
-
-  // draw a single pixel
-  display.drawPixel(10, 10, WHITE);
-  // Show the display buffer on the hardware.
-  // NOTE: You _must_ call display after making any drawing commands
-  // to make them visible on the display hardware!
-  display.display();
-  delay(2000);
-  display.clearDisplay();
-
-
-
-
-  // draw scrolling text
-  testtext();
-  delay(2000);
-  display.clearDisplay();
-
  
 }
 
@@ -107,6 +92,7 @@ void setup()   {
 void loop() {
   testtext();
   thousandscounter++;
+  if (thousandscounter > 999) thousandscounter=0;
 }
 
 
@@ -315,17 +301,50 @@ void testscrolltext(void) {
 void testtext(void) {
 
 
+  
+  int ones = (thousandscounter%10);
+  int tens = ((thousandscounter/10)%10);
+  int hundreds = ((thousandscounter/100)%10);
+  int thousands = (thousandscounter/1000);
   int mydelay = 1000;
   display.setTextSize(3);
-  display.fillRect(0, 0, 60, 30, BLACK);
+  display.fillRect(0, 0, 79, 64, BLACK);
   display.display();
   display.setTextColor(WHITE);
-  display.setCursor(0,0);
-  display.println(thousandscounter);
+  display.setCursor(0,21);
+  display.println(thousands);
+  
+  display.setCursor(16,21);
+  display.println(hundreds);
+
+
+  int cursor_multiplier = 3;
+
+  display.setCursor(35,-29 + ones * cursor_multiplier);
+  if (tens -2 <= 0) 
+    display.println((tens + 8) % 10);
+  else
+    display.println(tens - 2);
+    
+  display.setCursor(35,-5 + ones * cursor_multiplier);
+  if (tens <= 0) 
+    display.println((tens + 9) % 10);
+  else
+    display.println(tens - 1);
+
+  display.setCursor(35,21 + ones * cursor_multiplier);
+  display.println(tens);
+
+  display.setCursor(35,45 + ones * cursor_multiplier);
+  if (tens >= 9)
+    display.println(0);
+  else
+    display.println(tens + 1);
+  
   display.display();
   display.setCursor(80,50);
   display.setTextSize(2);
   display.println("1013");
   display.display();
-  delay(50);
+  delay(30);
 }
