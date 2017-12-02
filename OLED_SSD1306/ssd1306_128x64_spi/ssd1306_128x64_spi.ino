@@ -70,6 +70,7 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 #endif
 
 int thousandscounter = 0;
+bool debugging = false;
 void setup()   {                
   Serial.begin(9600);
 
@@ -318,33 +319,54 @@ void testtext(void) {
   display.println(hundreds);
 
 
-  int cursor_multiplier = 3;
+  int cursor_multiplier = 2.96;
+  int ones_converted = ones;
+  
+  ones_converted = ones_converted * -1;
 
-  display.setCursor(35,-29 + ones * cursor_multiplier);
-  if (tens -2 <= 0) 
-    display.println((tens + 8) % 10);
-  else
-    display.println(tens - 2);
+  debugging = true;
+  if (debugging == true) {
+    display.fillRect(90, 0, 128, 30, BLACK);
+    display.setCursor(90,0);
+    display.println(ones_converted);
+  }
+
+  if (debugging == true) {
+    display.setTextSize(2);
+    display.fillRect(90, 31, 128, 55, BLACK);
+    display.setCursor(90,31);
+    display.println(thousandscounter);
+  }
+
+
+  display.setTextSize(3);
+  // Off the top of the screnn
+  display.setCursor(35,-29 +  ones_converted * cursor_multiplier);
+  display.println((tens + 8) % 10);
+
     
-  display.setCursor(35,-5 + ones * cursor_multiplier);
-  if (tens <= 0) 
-    display.println((tens + 9) % 10);
-  else
-    display.println(tens - 1);
+  display.setCursor(35,-5 +  ones_converted * cursor_multiplier);
+  display.println((tens + 9) % 10);
 
-  display.setCursor(35,21 + ones * cursor_multiplier);
+
+  // Centre line which aligns with the hundreds and thousands
+  display.setCursor(35,21 +  ones_converted * cursor_multiplier);
   display.println(tens);
 
-  display.setCursor(35,45 + ones * cursor_multiplier);
-  if (tens >= 9)
-    display.println(0);
-  else
-    display.println(tens + 1);
+
+  // At the bottom of the screen
+  display.setCursor(35,45 +  ones_converted * cursor_multiplier);
+  display.println((tens + 1) % 10);
+
+
+  // At the bottom below the screen
+  display.setCursor(35,69 +  ones_converted * cursor_multiplier);
+  display.println((tens + 2) % 10);
   
   display.display();
   display.setCursor(80,50);
   display.setTextSize(2);
   display.println("1013");
   display.display();
-  delay(30);
+  delay(500);
 }
