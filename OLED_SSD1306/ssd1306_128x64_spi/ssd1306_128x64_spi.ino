@@ -25,6 +25,7 @@ All text above, and the splash screen must be included in any redistribution
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+
 // If using software SPI (the default case):
 #define OLED_MOSI   9
 #define OLED_CLK   10
@@ -95,6 +96,9 @@ void setup()   {
   // Clear the buffer.
   display.clearDisplay();
   startmillis = millis();
+
+
+
 }
 
 
