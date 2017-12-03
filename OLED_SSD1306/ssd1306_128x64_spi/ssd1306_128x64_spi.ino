@@ -24,7 +24,9 @@ All text above, and the splash screen must be included in any redistribution
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-
+#include <Fonts/FreeMonoBoldOblique12pt7b.h>
+#include <Fonts/FreeMonoBold18pt7b.h>  
+#include <Fonts/FreeMono9pt7b.h>   
 
 // If using software SPI (the default case):
 #define OLED_MOSI   9
@@ -72,6 +74,14 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 
 #define cursor_multiplier 2.5
 
+// Original Font
+//#define ten_Column_Pos 35
+#define ten_Column_Pos 40
+
+#define hundred_Column_Pos 19
+
+#define thousand_Column_Pos 0
+
 int thousandscounter = 0;
 int pressure = 1013;
 bool goingup = true; 
@@ -97,22 +107,33 @@ void setup()   {
   display.clearDisplay();
   startmillis = millis();
 
-
-
+  display.setFont(&FreeMonoBold18pt7b);
+  display.setTextSize(1);
 }
 
 
 void loop() {
 
   testtext();
-  if (goingup)
+
+  if (goingup) {
     thousandscounter++;
-  else
+    thousandscounter++;
+    thousandscounter++;
+    thousandscounter++;
+    thousandscounter++;
+  }
+  else{
     thousandscounter--;
-    
-  if ((thousandscounter > 1999) || (thousandscounter < 0)) {
-    if (thousandscounter > 1999) goingup = false;
-    if (thousandscounter < 0) goingup = true;
+    thousandscounter--;
+    thousandscounter--;
+    thousandscounter--;
+    thousandscounter--;
+
+  }  
+  if ((thousandscounter > 100) || (thousandscounter < 0)) {
+    if (thousandscounter > 9999) goingup = false;
+    if (thousandscounter < -1) goingup = true;
     //thousandscounter=0;
     timetaken =  millis() - startmillis;
     Serial.println(timetaken);
@@ -126,25 +147,25 @@ void DrawHatch(void) {
 
 
 
-  display.fillRect(0, 21, 15, 21, WHITE);
+  display.fillRect(0, 20, 21, 23, WHITE);
 
 
 
 
   for (int i=5; i < 9;  i++ ) {
-    display.drawLine(0,10 + i, 15, i  + 10 + 10, BLACK);
+    display.drawLine(0,10 + i, 21, i  + 10 + 10, BLACK);
   }
 
   for (int i=5; i < 9;  i++ ) {
-    display.drawLine(0,17 + i, 15, i  + 17 + 10, BLACK);
+    display.drawLine(0,17 + i, 21, i  + 17 + 10, BLACK);
   }
 
   for (int i=5; i < 9;  i++ ) {
-    display.drawLine(0,24 + i, 15, i  + 24 + 10, BLACK);
+    display.drawLine(0,24 + i, 21, i  + 24 + 10, BLACK);
   }
 
-    for (int i=5; i < 8;  i++ ) {
-    display.drawLine(0,31 + i, 15, i  + 31 + 10, BLACK);
+    for (int i=5; i < 9;  i++ ) {
+    display.drawLine(0,31 + i, 21, i  + 31 + 10, BLACK);
   }
 }
 
@@ -175,8 +196,15 @@ void testtext(void) {
     last_thousands = thousands;
     if (thousands == 0) DrawHatch();
     else {
-      display.fillRect(0, 21, 15, 21, BLACK);
-      display.setCursor(0,21);
+      // Orginal default font location
+      // display.fillRect(0, 21, 15, 21, BLACK);
+      //display.setCursor(0,21);
+      // New Font location
+      display.fillRect(0, 20, 21, 23, BLACK);
+      // Orignal Font
+      //display.setCursor(0,42);
+      // New Font
+      display.setCursor(thousand_Column_Pos,42);
       display.println(thousands);
     }
   }
@@ -184,51 +212,80 @@ void testtext(void) {
 
   if (last_hundreds != hundreds) {
     last_hundreds = hundreds;
-    display.fillRect(16, 21, 15, 21, BLACK);
-    display.setCursor(16,21);
+
+    // Orginal default font location
+    //display.fillRect(16, 21, 15, 21, BLACK);
+    //display.setCursor(16,21);
+    
+    display.fillRect(hundred_Column_Pos, 20, 21, 23, BLACK);
+    display.setCursor(hundred_Column_Pos,42);
     display.println(hundreds);
   }
 
 
   if (last_ones != ones) {  
 
- 
+    // Catch a possible negative value which would cause font to wrap
+    if (ones < 0) 
+      return;
     last_ones = ones;
     int ones_converted = ones * -1;
+
     
-    display.fillRect(35, 0, 15, 65, BLACK);
-    display.setCursor(35,-5 +  ones_converted * cursor_multiplier);
+
+    // Orginal Font
+    //display.fillRect(35, 0, 15, 65, BLACK);
+    // New Font
+    display.fillRect(ten_Column_Pos, 0, 22, 65, BLACK);
+    // Orginal Font
+    //display.setCursor(35,-5 +  ones_converted * cursor_multiplier);
+    // New Font
+    display.setCursor(ten_Column_Pos,16 +  ones_converted * cursor_multiplier);
     display.println((tens + 9) % 10);
   
   
     // Centre line which aligns with the hundreds and thousands
-    display.setCursor(35,21 +  ones_converted * cursor_multiplier);
+    // Orginal Font
+    //display.setCursor(35,21 +  ones_converted * cursor_multiplier);
+    // New Font
+    display.setCursor(ten_Column_Pos,42 +  ones_converted * cursor_multiplier);
     display.println(tens);
   
   
     // At the bottom of the screen
-    display.setCursor(35,45 +  ones_converted * cursor_multiplier);
+    // Orginal Font
+    //display.setCursor(35,45 +  ones_converted * cursor_multiplier);
+    // New Font
+    display.setCursor(ten_Column_Pos,66 +  ones_converted * cursor_multiplier);
     display.println((tens + 1) % 10);
   
   
     // At the bottom below the screen
-    display.setCursor(35,69 +  ones_converted * cursor_multiplier);
+    // Orginal Font
+    //display.setCursor(35,69 +  ones_converted * cursor_multiplier);
+    // New Font
+    display.setCursor(ten_Column_Pos,90 +  ones_converted * cursor_multiplier);
     display.println((tens + 2) % 10);
   
     // Remove bottom of last character to remove distraction of digit appearing and disappearing
-    display.fillRect(35, 65, 15, 25, BLACK);
-
+    // Orginal Font
+    //display.fillRect(35, 65, 15, 25, BLACK);
+    // New Font
+    display.fillRect(ten_Column_Pos, 65, 20, 27, BLACK);
   }
 
   
   if (last_pressure != pressure) {
 
     last_pressure = pressure;
-    display.setCursor(10,100);
-    display.setTextSize(2);
+    display.setCursor(10,102);
+    display.setFont(&FreeMono9pt7b);
+
+    display.setTextSize(1);
     display.println(pressure);
     // Reset display font to large
-    display.setTextSize(3);
+    display.setTextSize(1);
+    display.setFont(&FreeMonoBold18pt7b);
 
   }
 
