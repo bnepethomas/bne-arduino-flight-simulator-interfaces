@@ -54,17 +54,29 @@ void setup()
     // If zero pos read only step a little bit
     for ( int zulu = 0; zulu < 5; zulu++)
     {
-        for (int  x = 0; x < 100; x++)
+        for (int  x = 0; x < 1200; x++)
         {
           Serial.println("Winding back Compass");
           StepCounterClockwise();
+          val = analogRead(0);       // read analog input pin 0  
+          Serial.println(val); // prints the value read
+          if (val >= 200) {
+            Serial.println('found something');
+            delay(5000);
+          }
           //delayMicroseconds(clockdelay);
         }
   
-        for (int  x = 0; x < 100; x++)
+        for (int  x = 0; x < 1200; x++)
         {
           Serial.println("Winding forward Compass");
           StepClockwise();
+          val = analogRead(0);       // read analog input pin 0  
+          Serial.println(val); // prints the value read
+          if (val >= 300) {
+            Serial.println('found something');
+            delay(5000);
+          }
           //delayMicroseconds(clockdelay);
         }
     }
