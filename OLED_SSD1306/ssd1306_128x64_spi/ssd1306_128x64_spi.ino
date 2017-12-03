@@ -76,11 +76,15 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 
 // Original Font
 //#define ten_Column_Pos 35
-#define ten_Column_Pos 40
 
-#define hundred_Column_Pos 19
+//#define ten_Column_Pos 40
+//#define hundred_Column_Pos 19
+//#define thousand_Column_Pos 0
 
-#define thousand_Column_Pos 0
+//8
+#define ten_Column_Pos 45
+#define hundred_Column_Pos 24
+#define thousand_Column_Pos 5
 
 int thousandscounter = 0;
 int pressure = 1013;
@@ -98,7 +102,7 @@ void setup()   {
   // Show image buffer on the display hardware.
   // Since the buffer is intialized with an Adafruit splashscreen
   // internally, this will display the splashscreen.
-  display.setRotation(1);
+  display.setRotation(3);
   display.display();
   display.setTextSize(3);
   display.setTextColor(WHITE);
@@ -147,25 +151,25 @@ void DrawHatch(void) {
 
 
 
-  display.fillRect(0, 20, 21, 23, WHITE);
+  display.fillRect(thousand_Column_Pos, 20, thousand_Column_Pos + 21, 23, WHITE);
 
 
 
 
   for (int i=5; i < 9;  i++ ) {
-    display.drawLine(0,10 + i, 21, i  + 10 + 10, BLACK);
+    display.drawLine(thousand_Column_Pos,10 + i, thousand_Column_Pos +21, i  + 10 + 10, BLACK);
   }
 
   for (int i=5; i < 9;  i++ ) {
-    display.drawLine(0,17 + i, 21, i  + 17 + 10, BLACK);
+    display.drawLine(thousand_Column_Pos,17 + i, thousand_Column_Pos +21, i  + 17 + 10, BLACK);
   }
 
   for (int i=5; i < 9;  i++ ) {
-    display.drawLine(0,24 + i, 21, i  + 24 + 10, BLACK);
+    display.drawLine(thousand_Column_Pos,24 + i, thousand_Column_Pos +21, i  + 24 + 10, BLACK);
   }
 
     for (int i=5; i < 9;  i++ ) {
-    display.drawLine(0,31 + i, 21, i  + 31 + 10, BLACK);
+    display.drawLine(thousand_Column_Pos,31 + i, thousand_Column_Pos +21, i  + 31 + 10, BLACK);
   }
 }
 
@@ -200,7 +204,7 @@ void testtext(void) {
       // display.fillRect(0, 21, 15, 21, BLACK);
       //display.setCursor(0,21);
       // New Font location
-      display.fillRect(0, 20, 21, 23, BLACK);
+      display.fillRect(thousand_Column_Pos, 20, 21, 23, BLACK);
       // Orignal Font
       //display.setCursor(0,42);
       // New Font
@@ -278,7 +282,7 @@ void testtext(void) {
   if (last_pressure != pressure) {
 
     last_pressure = pressure;
-    display.setCursor(10,102);
+    display.setCursor(10,122);
     display.setFont(&FreeMono9pt7b);
 
     display.setTextSize(1);

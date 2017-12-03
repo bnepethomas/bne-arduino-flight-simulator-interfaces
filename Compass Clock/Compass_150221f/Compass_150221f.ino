@@ -58,6 +58,7 @@ void setup()
         {
           Serial.println("Winding back Compass");
           StepCounterClockwise();
+          
           val = analogRead(0);       // read analog input pin 0  
           Serial.println(val); // prints the value read
           if (val >= 200) {
