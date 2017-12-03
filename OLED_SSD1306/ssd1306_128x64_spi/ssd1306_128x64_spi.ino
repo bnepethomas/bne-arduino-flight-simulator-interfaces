@@ -106,8 +106,8 @@ void loop() {
   else
     thousandscounter--;
     
-  if ((thousandscounter > 999) || (thousandscounter < 0)) {
-    if (thousandscounter > 999) goingup = false;
+  if ((thousandscounter > 1999) || (thousandscounter < 0)) {
+    if (thousandscounter > 1999) goingup = false;
     if (thousandscounter < 0) goingup = true;
     //thousandscounter=0;
     timetaken =  millis() - startmillis;
@@ -118,6 +118,31 @@ void loop() {
 }
 
 
+void DrawHatch(void) {
+
+
+
+  display.fillRect(0, 21, 15, 21, WHITE);
+
+
+
+
+  for (int i=5; i < 9;  i++ ) {
+    display.drawLine(0,10 + i, 15, i  + 10 + 10, BLACK);
+  }
+
+  for (int i=5; i < 9;  i++ ) {
+    display.drawLine(0,17 + i, 15, i  + 17 + 10, BLACK);
+  }
+
+  for (int i=5; i < 9;  i++ ) {
+    display.drawLine(0,24 + i, 15, i  + 24 + 10, BLACK);
+  }
+
+    for (int i=5; i < 8;  i++ ) {
+    display.drawLine(0,31 + i, 15, i  + 31 + 10, BLACK);
+  }
+}
 
 
 void testtext(void) {
@@ -144,9 +169,12 @@ void testtext(void) {
   if (last_thousands != thousands) {
     
     last_thousands = thousands;
-    display.fillRect(0, 21, 15, 21, BLACK);
-    display.setCursor(0,21);
-    display.println(thousands);
+    if (thousands == 0) DrawHatch();
+    else {
+      display.fillRect(0, 21, 15, 21, BLACK);
+      display.setCursor(0,21);
+      display.println(thousands);
+    }
   }
 
 
