@@ -86,6 +86,8 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 #define hundred_Column_Pos 24
 #define thousand_Column_Pos 5
 
+int sensorPin = A1; 
+
 int thousandscounter = 0;
 int pressure = 1013;
 bool goingup = true; 
@@ -120,21 +122,27 @@ void loop() {
 
   testtext();
 
+  int sensorValue = analogRead(sensorPin);
+  // Serial.println(sensorValue);
+  // Sensor Value Ranges 0 to 1023
+  
+
+  if (sensorValue > 500) { 
+    goingup = true;
+    delay(1023 - sensorValue);
+    }
+  else {
+    goingup = false;
+    delay(sensorValue);
+  }
+
   if (goingup) {
-    thousandscounter++;
-    thousandscounter++;
-    thousandscounter++;
-    thousandscounter++;
     thousandscounter++;
   }
   else{
     thousandscounter--;
-    thousandscounter--;
-    thousandscounter--;
-    thousandscounter--;
-    thousandscounter--;
-
   }  
+  
   if ((thousandscounter > 100) || (thousandscounter < 0)) {
     if (thousandscounter > 9999) goingup = false;
     if (thousandscounter < -1) goingup = true;
