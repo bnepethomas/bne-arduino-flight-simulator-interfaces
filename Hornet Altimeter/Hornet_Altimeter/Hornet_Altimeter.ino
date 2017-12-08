@@ -612,6 +612,7 @@ void loop()
     }
     else{
       thousandscounter--;
+      if (thousandscounter <= 0) thousandscounter = 0;
     }  
   }
   
@@ -701,7 +702,7 @@ void loop()
    
   
   
-    delay(delaytime);
+    //delay(delaytime);
    
   
 
