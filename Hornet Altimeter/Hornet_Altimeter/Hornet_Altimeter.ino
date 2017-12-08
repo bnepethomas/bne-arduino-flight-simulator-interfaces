@@ -68,7 +68,7 @@ All text above, and the splash screen must be included in any redistribution
 *********************************************************************/
 
 // Need to record last thousands, ten etc and only blackout old entry if a value has changed.
-
+// Currently if network is enabled the SSD will not display
 
 
 #include <Wire.h>
@@ -178,7 +178,7 @@ void setup()
     
     DrawHatch();  
      
-    thousandscounter = 103;
+    thousandscounter = 0;
     testtext();
     display.display(); 
 
@@ -214,12 +214,12 @@ void setup()
           if (val >= 200) {
             Serial.println("Zero exiting");
             CompassZeroed = true;
-            delay(5000);
+            delay(1000);
             x=5000;
           }
           //delayMicroseconds(clockdelay);
         }
-        for (int  x = 0; x < 29; x++)
+        for (int  x = 0; x < 32; x++)
         {
           Serial.println("Winding to top altimeter");
           StepCounterClockwise();
@@ -393,35 +393,6 @@ void testtext(void) {
 
 
 // *********************************************************
-
-
-
-
-
-
-//pin 22 23 24 - PA0 PA1 PA2
-void sendCmdTo595_1( const byte cmd )
-{
-    byte bitMask = B00000001;
-    for( int i = 0; i < 8; i++)
-    {
-        /*
-        WARNING!!!  don't use digitalWrite here because it's speed is too slow,
-        use avr c style to control the IO pin HIGH / LOW
-        http://arduino.cc/en/Hacking/PinMapping2560
-        http://www.instructables.com/id/Arduino-is-Slow-and-how-to-fix-it/?ALLSTEPS
-        */
-        PORTA = (bitMask & cmd) > 0 ? (PORTA | B00000001) : (PORTA & B11111110);
-        //give a raise pulse to 595 input clock pin
-        PORTA &= B11111101;
-        PORTA |= B00000010;
-
-        bitMask = bitMask << 1;
-    }
-    //send data from shift register to storage register
-    PORTA &= B11111011;
-    PORTA |= B00000100;
-}
 
 
 void StepCounterClockwise()
