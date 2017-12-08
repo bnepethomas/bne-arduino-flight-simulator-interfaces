@@ -144,7 +144,9 @@ bool goingup = true;
 long startmillis = 0;
 long timetaken = 0;
 bool debugging = false;
-
+int AltimeterCurrentPos = 0;
+int AltimeterDesiredPos = 0;
+long NextIncrementDecrementTime = 0;
 
 
 void setup()
@@ -482,66 +484,6 @@ void StepClockwise()
     CurrentDirection = cClockwise;
 }
 
-void ClockStepClockwise()
-{
-
-    //Digital Port 22 Maps to PortA-0
-    //Digital Port 23 Maps to PortA-1
-
-    //Stepping order based on page 2 of VID69 clock datasheet
-    //Delay between steps is 3*7.81mS
-    //Total pulse train 164mS is 7 steps
-
-    //Step 1
-  
-    PORTA &= B00000000;
-    PORTA |= B00000000;
-    delayMicroseconds(clockdelay);
-
-    //Step 2
-  
-    PORTA &= B10000000;
-    PORTA |= B10000000;
-    delayMicroseconds(clockdelay);
-
-    //Step 3
-  
-    PORTA &= B11100000;
-    PORTA |= B11100000;
-    delayMicroseconds(clockdelay);
-
-    //Step 4
-  
-    PORTA &= B01100000;
-    PORTA |= B01100000;
-    delayMicroseconds(clockdelay);
-
-    //Step 5
-  
-    PORTA &= B01110000;
-    PORTA |= B01110000;
-    delayMicroseconds(clockdelay);
-
-    //Step 6
-  
-    PORTA &= B00010000;
-    PORTA |= B00010000;
-    delayMicroseconds(clockdelay);
-
-    //Step 7
-  
-    PORTA &= B10010000;
-    PORTA |= B10010000;
-    delayMicroseconds(clockdelay);
-
-    if (ClockPos != cUnknownPos)
-    {
-      ClockPos = ClockPos + 1;
-    };
-   
-    ClockCurrentDirection = cClockwise;
- 
-}
 
 
 
@@ -609,65 +551,7 @@ void StepCounterClockwise()
 }
 
 
-void ClockStepCounterClockwise()
-{
 
-    //Digital Port 22 Maps to PortA-0
-    //Digital Port 23 Maps to PortA-1
-
-    //Stepping order based on page 2 of VID69 clock datasheet
-    //Delay between steps is 3*7.81mS
-    //Total pulse train 164mS is 7 steps
-
-    //Step 1
-  
-    PORTA &= B10010000;
-    PORTA |= B10010000;
-    delayMicroseconds(clockdelay);
-
-    //Step 2
-  
-    PORTA &= B00010000;
-    PORTA |= B00010000;
-    delayMicroseconds(clockdelay);
-
-    //Step 3
-  
-    PORTA &= B01110000;
-    PORTA |= B01110000;
-    delayMicroseconds(clockdelay);
-
-    //Step 4
-  
-    PORTA &= B01100000;
-    PORTA |= B01100000;
-    delayMicroseconds(clockdelay);
-
-    //Step 5
-  
-    PORTA &= B11100000;
-    PORTA |= B11100000;
-    delayMicroseconds(clockdelay);
-
-    //Step 6
-  
-    PORTA &= B10000000;
-    PORTA |= B10000000;
-    delayMicroseconds(clockdelay);
-
-    //Step 7
-  
-    PORTA &= B10010000;
-    PORTA |= B10010000;
-    delayMicroseconds(clockdelay);
-
-    if (ClockPos != cUnknownPos)
-    {
-      ClockPos = CompassPos - 1;
-    };
-   
-    ClockCurrentDirection = cCounterClockwise;
-}
 
 void loop()
 {
@@ -709,21 +593,27 @@ void loop()
   // Sensor Value Ranges 0 to 1023
   
 
-  if (sensorValue > 500) { 
-    goingup = true;
-    delay(1023 - sensorValue);
-    }
-  else {
-    goingup = false;
-    delay(sensorValue);
-  }
 
-  if (goingup) {
-    thousandscounter++;
+
+  if ( millis() >= NextIncrementDecrementTime) {
+
+     if (sensorValue > 500) { 
+        goingup = true;
+        //delay(1023 - sensorValue);
+        NextIncrementDecrementTime = millis() + (1023 - sensorValue);
+        }
+    else {
+        goingup = false;
+        //delay(sensorValue);
+        NextIncrementDecrementTime = millis() + (sensorValue);
+    }
+    if (goingup) {
+      thousandscounter++;
+    }
+    else{
+      thousandscounter--;
+    }  
   }
-  else{
-    thousandscounter--;
-  }  
   
   if ((thousandscounter > 100) || (thousandscounter < 0)) {
     if (thousandscounter > 9999) goingup = false;
@@ -739,10 +629,16 @@ void loop()
 
    val = analogRead(0);       // read analog input pin 0  
    // Serial.println(val); // prints the value read
-   Clock_val = analogRead(1);   
-   //Serial.println(Clock_val); // prints the value read
 
-   StepperNumbers[0] = ((thousandscounter/10)%10) * 6  + (thousandscounter%10)* 0.6;
+
+  Serial.print("Altitude: ");
+  Serial.println(thousandscounter);
+
+   // Load the desired set point
+   
+   StepperNumbers[0] = int(((thousandscounter/10)%10) * 6  + (thousandscounter%10)* 0.6);
+   Serial.print("Deisred point :");
+   Serial.println( StepperNumbers[0]);
 
    // Process Compass
    if (!CompassZeroed)
@@ -757,29 +653,34 @@ void loop()
    }
    else 
    {
+      Serial.print("Compass Pos: ");
       Serial.println(CompassPos);
+      
+
+      Serial.print("Micros: ");
+      Serial.println(micros());
     
       // Check to see if we have hit the zero point
-      if (val > 250) {
-        if (CurrentDirection == cClockwise)    
-           CompassPos= 0;   
-        else
-           CompassPos = 4;  
-      }
+      //if (val > 250) {
+      //  if (CurrentDirection == cClockwise)    
+      //     CompassPos= 0;   
+      //  else
+      //     CompassPos = 4;  
+      //}
   
       // Dlay when testing to verify we have hit zero point
       //if ((CompassPos == 0) & (LastCompassPos != 0)) {
       //    delay(6000);
       //}
       
-      if (CompassPos == 720) CompassPos = 0;
-      if (CompassPos == -1)  CompassPos = 719;
+      if (CompassPos >= 60) CompassPos = 0;
+      if (CompassPos <= -1)  CompassPos = 59;
      
       LastCompassPos = CompassPos;
       if (CompassPos != StepperNumbers[0]) {
         // Not at desired desired compass position so move it
-        if (((CompassPos - StepperNumbers[0]) < 360) &&
-           ((StepperNumbers[0] - CompassPos) < 360)  ) {
+        if (((CompassPos - StepperNumbers[0]) < 30) &&
+           ((StepperNumbers[0] - CompassPos) < 30)  ) {
           if (CompassPos > StepperNumbers[0]) 
             StepCounterClockwise();
           else 
