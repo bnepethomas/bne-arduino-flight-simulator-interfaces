@@ -424,7 +424,7 @@ void sendCmdTo595_1( const byte cmd )
 }
 
 
-void StepClockwise()
+void StepCounterClockwise()
 {
 
     //Digital Port 22 Maps to PortA-0
@@ -478,10 +478,10 @@ void StepClockwise()
 
     if (CompassPos != cUnknownPos)
     {
-      CompassPos = CompassPos + 1;
+      CompassPos = CompassPos - 1;
     };
    
-    CurrentDirection = cClockwise;
+    CurrentDirection = cCounterClockwise;
 }
 
 
@@ -489,7 +489,7 @@ void StepClockwise()
 
 
 
-void StepCounterClockwise()
+void StepClockwise()
 {
 
     //Digital Port 22 Maps to PortA-0
@@ -543,10 +543,10 @@ void StepCounterClockwise()
 
     if (CompassPos != cUnknownPos)
     {
-      CompassPos = CompassPos - 1;
+      CompassPos = CompassPos + 1;
     };
    
-    CurrentDirection = cCounterClockwise;
+    CurrentDirection = cClockwise;
  
 }
 
