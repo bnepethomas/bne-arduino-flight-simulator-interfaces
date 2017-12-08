@@ -1,14 +1,24 @@
+#include <Dhcp.h>
+#include <Dns.h>
+#include <ethernet_comp.h>
+#include <UIPClient.h>
+#include <UIPEthernet.h>
+#include <UIPServer.h>
+#include <UIPUdp.h>
+
+
+
 // Compass working now working on clock
 
 
-/ 20171205 Merged OLED SSD1306 and Stepper code
+// 20171205 Merged OLED SSD1306 and Stepper code
 // Current traget platform must be Mega
 // need to include new network driver
 
 
 #include <SPI.h>
-#include <Ethernet.h>
-#include <EthernetUdp.h>
+//#include <Ethernet.h>
+//#include <EthernetUdp.h>
 
 byte mac[] = { 
   0xA9,0xE7,0x3E,0xCA,0x34,0x1D};
@@ -60,7 +70,7 @@ All text above, and the splash screen must be included in any redistribution
 // Need to record last thousands, ten etc and only blackout old entry if a value has changed.
 
 
-#include <SPI.h>
+
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
@@ -140,33 +150,39 @@ bool debugging = false;
 void setup()
 {
 
-    Ethernet.begin( mac, ip);
-    udp.begin( localport );
+
   
  
-      Serial.begin(115200);
-
-  // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
-  display.begin(SSD1306_SWITCHCAPVCC);
-  // init done
-  
-  // Show image buffer on the display hardware.
-  // Since the buffer is intialized with an Adafruit splashscreen
-  // internally, this will display the splashscreen.
-  display.setRotation(3);
-  display.display();
-  display.setTextSize(3);
-  display.setTextColor(WHITE);
-
-  // Clear the buffer.
-  display.clearDisplay();
-  startmillis = millis();
-
-  display.setFont(&FreeMonoBold18pt7b);
-  display.setTextSize(1);
+    Serial.begin(115200);
     
+    // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
+    display.begin(SSD1306_SWITCHCAPVCC);
+    // init done
     
+    // Show image buffer on the display hardware.
+    // Since the buffer is intialized with an Adafruit splashscreen
+    // internally, this will display the splashscreen.
+    display.setRotation(3);
+    display.display();
+    display.setTextSize(3);
+    display.setTextColor(WHITE);
     
+    // Clear the buffer.
+    display.clearDisplay();
+    startmillis = millis();
+    
+    display.setFont(&FreeMonoBold18pt7b);
+    display.setTextSize(1);
+    
+    DrawHatch();  
+     
+    thousandscounter = 103;
+    testtext();
+    display.display(); 
+
+    // currently enabling ethernet stops display working - spi clash?
+    //Ethernet.begin( mac, ip);
+    //udp.begin( localport );
     
     int x;
     StepperNumbers[0] = 0;      // Compass
@@ -174,7 +190,7 @@ void setup()
     CompassPos= cUnknownPos;
     CurrentDirection = cCounterClockwise;
     ClockCurrentDirection = cCounterClockwise;
-    Serial.begin(115200);  
+
 
     for( int i = 22; i <= 42; i++)
     {
@@ -184,50 +200,30 @@ void setup()
    
 
     // If zero pos read only step a little bit
-    for ( int zulu = 0; zulu < 5; zulu++)
+    for ( int zulu = 0; zulu < 1; zulu++)
     {
-        for (int  x = 0; x < 1200; x++)
+        for (int  x = 0; x < 3000; x++)
         {
-          Serial.println("Winding back Compass");
+          Serial.println("Winding back altimeter");
           StepCounterClockwise();
           
           val = analogRead(0);       // read analog input pin 0  
           Serial.println(val); // prints the value read
           if (val >= 200) {
-            Serial.println('found something');
+            Serial.println("Zero exiting");
+            CompassZeroed = true;
             delay(5000);
+            x=5000;
           }
           //delayMicroseconds(clockdelay);
         }
-  
-        for (int  x = 0; x < 1200; x++)
+        for (int  x = 0; x < 29; x++)
         {
-          Serial.println("Winding forward Compass");
-          StepClockwise();
-          val = analogRead(0);       // read analog input pin 0  
-          Serial.println(val); // prints the value read
-          if (val >= 300) {
-            Serial.println('found something');
-            delay(5000);
-          }
-          //delayMicroseconds(clockdelay);
+          Serial.println("Winding to top altimeter");
+          StepCounterClockwise();
         }
+ 
     }
-    //Step Counterwise 10 steps and see if zero found
-        for (int  x = 0; x < 10; x++)
-      {
-        Serial.println("Winding back Clock");
-        ClockStepCounterClockwise();
-        delayMicroseconds(clockdelay);
-      } 
-
-      //Step Counterwise 10 steps and see if zero found
-      for (int  x = 0; x < 10; x++)
-      {
-        Serial.println("Winding forward Clock");
-        ClockStepClockwise();
-        delayMicroseconds(clockdelay);
-      } 
 
    
     // If zero not found then step 20 steps clockwise
@@ -746,7 +742,7 @@ void loop()
    Clock_val = analogRead(1);   
    //Serial.println(Clock_val); // prints the value read
 
-   
+   StepperNumbers[0] = ((thousandscounter/10)%10) * 6  + (thousandscounter%10)* 0.6;
 
    // Process Compass
    if (!CompassZeroed)
@@ -761,7 +757,7 @@ void loop()
    }
    else 
    {
-      // Serial.println(CompassPos);
+      Serial.println(CompassPos);
     
       // Check to see if we have hit the zero point
       if (val > 250) {
@@ -801,46 +797,7 @@ void loop()
   
   
   
-     // Process Clock
-   if (!ClockZeroed)
-   {
-    
-     if (Clock_val > 500)  {   
-           ClockPos= 716;
-           ClockZeroed = true;   
-
-      }
-      else
-        ClockStepClockwise();
-   }
-   else 
-   {
-      // Serial.println(CompassPos);
-    
-      // Check to see if we have hit the zero point
-      if (val > 450) {
-        if (ClockCurrentDirection == cClockwise)    
-           ClockPos= 716;   
-        else
-           ClockPos = 716;  
-      }
-  
-      // Dlay when testing to verify we have hit zero point
-      //if ((CompassPos == 0) & (LastCompassPos != 0)) {
-      //    delay(6000);
-      //}
-      
-      if (ClockPos == 720) ClockPos = 0;
-      if (ClockPos == -1)  ClockPos = 719;
-     
-      LastClockPos = ClockPos;
-      if (ClockPos != StepperNumbers[1]) {
-            ClockStepClockwise();
-      }
-
-   }
-  
-  
+   
   
   
     delay(delaytime);
