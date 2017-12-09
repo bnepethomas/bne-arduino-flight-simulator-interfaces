@@ -570,16 +570,17 @@ void loop()
 
      if (sensorValue > 500) { 
         goingup = true;
-        //delay(1023 - sensorValue);
+
         NextIncrementDecrementTime = millis() + (1023 - sensorValue);
         }
     else {
         goingup = false;
-        //delay(sensorValue);
+
         NextIncrementDecrementTime = millis() + (sensorValue);
     }
     if (goingup) {
       thousandscounter++;
+      if (thousandscounter >= 99999) thousandscounter = 99999;
     }
     else{
       thousandscounter--;
@@ -609,8 +610,8 @@ void loop()
    // Load the desired set point
    
    StepperNumbers[0] = int(((thousandscounter/10)%10) * 6  + (thousandscounter%10)* 0.6);
-   Serial.print("Deisred point :");
-   Serial.println( StepperNumbers[0]);
+   // Serial.print("Deisred point :");
+   //Serial.println( StepperNumbers[0]);
 
    // Process Compass
    if (!CompassZeroed)
@@ -629,8 +630,8 @@ void loop()
       Serial.println(CompassPos);
       
 
-      Serial.print("Micros: ");
-      Serial.println(micros());
+      // Serial.print("Micros: ");
+      //erial.println(micros());
     
       // Check to see if we have hit the zero point
       //if (val > 250) {
