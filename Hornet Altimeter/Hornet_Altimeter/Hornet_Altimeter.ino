@@ -270,29 +270,31 @@ void DrawHatch(void) {
 
 
 
-void NewDrawHatch(void) {
+void NewDrawHatch(int startingrow) {
 
+  if (startingrow > 50) startingrow = 50;
 
+  
 
-  display.fillRect(thousand_Column_Pos, 20, thousand_Column_Pos + 21, 23, WHITE);
+  display.fillRect(thousand_Column_Pos, startingrow + 20, thousand_Column_Pos + 21, 23, WHITE);
 
 
 
 
   for (int i=5; i < 9;  i++ ) {
-    display.drawLine(thousand_Column_Pos,10 + i, thousand_Column_Pos +21, i  + 10 + 10, BLACK);
+    display.drawLine(thousand_Column_Pos,startingrow + 10 + i, thousand_Column_Pos +21,  startingrow +i  + 10 + 10, BLACK);
   }
 
   for (int i=5; i < 9;  i++ ) {
-    display.drawLine(thousand_Column_Pos,17 + i, thousand_Column_Pos +21, i  + 17 + 10, BLACK);
+    display.drawLine(thousand_Column_Pos,startingrow + 17 + i, thousand_Column_Pos +21, startingrow +i  + 17 + 10, BLACK);
   }
 
   for (int i=5; i < 9;  i++ ) {
-    display.drawLine(thousand_Column_Pos,24 + i, thousand_Column_Pos +21, i  + 24 + 10, BLACK);
+    display.drawLine(thousand_Column_Pos,startingrow + 24 + i, thousand_Column_Pos +21, startingrow +i  + 24 + 10, BLACK);
   }
 
     for (int i=5; i < 9;  i++ ) {
-    display.drawLine(thousand_Column_Pos,31 + i, thousand_Column_Pos +21, i  + 31 + 10, BLACK);
+    display.drawLine(thousand_Column_Pos,startingrow + 31 + i, thousand_Column_Pos +21, startingrow +i  + 31 + 10, BLACK);
   }
 }
 
@@ -335,23 +337,22 @@ void testtext(void) {
     if (thousands == 0) 
       DrawHatch();
     else {
-      // Orginal default font location
-      // display.fillRect(0, 21, 15, 21, BLACK);
-      //display.setCursor(0,21);
-      // New Font location
-
-// ************
+ 
 
     if ((hundreds == 9) && (tens == 9)) {
 
  
         // **************
+      display.fillRect(thousand_Column_Pos, 20, 21, 23, BLACK);
       display.setCursor(thousand_Column_Pos,16 +  ones_converted * cursor_multiplier);
       display.println((thousands +9) % 10);
       display.setCursor(thousand_Column_Pos,42 +  ones_converted * cursor_multiplier);
       display.println(thousands);
       display.setCursor(thousand_Column_Pos,66 +  ones_converted * cursor_multiplier);
       display.println((thousands + 1) % 10);
+
+
+      
       display.fillRect(thousand_Column_Pos, 0, 21, 19, BLACK);
       display.fillRect(thousand_Column_Pos, 43, 21, 25, BLACK);
     }
