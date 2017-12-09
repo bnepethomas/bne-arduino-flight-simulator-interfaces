@@ -147,6 +147,7 @@ bool debugging = false;
 int AltimeterCurrentPos = 0;
 int AltimeterDesiredPos = 0;
 long NextIncrementDecrementTime = 0;
+int LastAltitude = 0;
 
 
 void setup()
@@ -270,7 +271,9 @@ void DrawHatch(void) {
 
 void testtext(void) {
 
+
   static int last_thousands_counter = -1;
+  static int thousandsdividedbyten = -1;
   static int last_thousands = -1;
   static int last_hundreds = -1;
   static int last_tens = -1;
@@ -281,12 +284,20 @@ void testtext(void) {
   // Nothing has changed since last time - get out of here
   if ((thousandscounter == last_thousands_counter) && (last_pressure == pressure))
     return;
+  else  
+    last_thousands_counter = thousandscounter;
+
     
+    
+
   
-  int ones = (thousandscounter%10);
-  int tens = ((thousandscounter/10)%10);
-  int hundreds = ((thousandscounter/100)%10);
-  int thousands = (thousandscounter/1000);
+
+  thousandsdividedbyten =  thousandscounter / 10;
+  
+  int ones = (thousandsdividedbyten%10);
+  int tens = ((thousandsdividedbyten/10)%10);
+  int hundreds = ((thousandsdividedbyten/100)%10);
+  int thousands = (thousandsdividedbyten/1000);
 
 
   if (last_thousands != thousands) {
@@ -327,6 +338,7 @@ void testtext(void) {
     if (ones < 0) 
       return;
     last_ones = ones;
+
     int ones_converted = ones * -1;
 
     
@@ -458,8 +470,6 @@ void StepCounterClockwise()
 
 
 
-
-
 void StepClockwise()
 {
 
@@ -566,19 +576,28 @@ void loop()
 
 
 
-  if ( millis() >= NextIncrementDecrementTime) {
+  if ( micros() >= NextIncrementDecrementTime) {
 
      if (sensorValue > 500) { 
         goingup = true;
 
-        NextIncrementDecrementTime = millis() + (1023 - sensorValue);
+        NextIncrementDecrementTime = micros() + (1023 - sensorValue);
         }
     else {
         goingup = false;
 
-        NextIncrementDecrementTime = millis() + (sensorValue);
+        NextIncrementDecrementTime = micros() + (sensorValue);
     }
     if (goingup) {
+      thousandscounter++;
+      thousandscounter++;
+      thousandscounter++;
+      thousandscounter++;
+      thousandscounter++;
+      thousandscounter++;
+      thousandscounter++;
+      thousandscounter++;
+      thousandscounter++;
       thousandscounter++;
       if (thousandscounter >= 99999) thousandscounter = 99999;
     }
@@ -588,15 +607,15 @@ void loop()
     }  
   }
   
-  if ((thousandscounter > 100) || (thousandscounter < 0)) {
-    if (thousandscounter > 9999) goingup = false;
-    if (thousandscounter < -1) goingup = true;
-    //thousandscounter=0;
-    timetaken =  millis() - startmillis;
-    Serial.println(timetaken);
-    startmillis = millis();
-    
-  }
+//  if ((thousandscounter > 100) || (thousandscounter < 0)) {
+//    if (thousandscounter > 9999) goingup = false;
+//    if (thousandscounter < -1) goingup = true;
+//    //thousandscounter=0;
+//    timetaken =  millis() - startmillis;
+//    Serial.println(timetaken);
+//    startmillis = millis();
+//    
+//  }
 
 
 
@@ -604,30 +623,36 @@ void loop()
    // Serial.println(val); // prints the value read
 
 
-  Serial.print("Altitude: ");
-  Serial.println(thousandscounter);
+//  Serial.print("Altitude: ");
+//  Serial.print(thousandscounter);
 
    // Load the desired set point
    
-   StepperNumbers[0] = int(((thousandscounter/10)%10) * 6  + (thousandscounter%10)* 0.6);
-   // Serial.print("Deisred point :");
-   //Serial.println( StepperNumbers[0]);
+   //StepperNumbers[0] = int(((thousandscounter/10)%10) * 0.6  + (thousandscounter%10)* 0.06 + (thousandscounter%1)* 0.006);
+   StepperNumbers[0] = int(((thousandscounter/10)%100) * 0.6); 
+//   Serial.print("  Desired point :");
+//   Serial.print(int(((thousandscounter/10)%10) * 0.6  + (thousandscounter%10)* 0.06 + (thousandscounter%1)* 0.006));
+//   Serial.print(" Correct point ");
+//   Serial.print(int(((thousandscounter/10)%100) * 0.6)); 
+   //Serial.print( StepperNumbers[0]);
+
+
 
    // Process Compass
    if (!CompassZeroed)
    {
-    
-     if (val > 250)  {   
-           CompassPos= 0;
-           CompassZeroed = true;     
-      }
-      else
-        StepClockwise();
+//    
+//     if (val > 250)  {   
+//           CompassPos= 0;
+//           CompassZeroed = true;     
+//      }
+//      else
+//        StepClockwise();
    }
    else 
    {
-      Serial.print("Compass Pos: ");
-      Serial.println(CompassPos);
+//      Serial.print(" Compass Pos: ");
+//      Serial.print(CompassPos);
       
 
       // Serial.print("Micros: ");
@@ -648,32 +673,45 @@ void loop()
       
       if (CompassPos >= 60) CompassPos = 0;
       if (CompassPos <= -1)  CompassPos = 59;
-     
+
       LastCompassPos = CompassPos;
+
+        
       if (CompassPos != StepperNumbers[0]) {
         // Not at desired desired compass position so move it
-        if (((CompassPos - StepperNumbers[0]) < 30) &&
-           ((StepperNumbers[0] - CompassPos) < 30)  ) {
-          if (CompassPos > StepperNumbers[0]) 
-            StepCounterClockwise();
-          else 
-            StepClockwise();
-        }
-        else {
-          if (CompassPos > StepperNumbers[0]) 
-            StepClockwise();
-          else 
-            StepCounterClockwise();        
-        }
+        // if we are climbing don't wind altimeter back to try and catch
+//
+        if (LastAltitude > thousandscounter) {
+            //Serial.println("Descending");
+            StepCounterClockwise(); }
+       else if (LastAltitude < thousandscounter) {
+            //Serial.println("Ascending");
+            StepClockwise(); } 
+            
+        
+//        if (((CompassPos - StepperNumbers[0]) < 30) &&
+//           ((StepperNumbers[0] - CompassPos) < 30)  ) {
+//          if (CompassPos > StepperNumbers[0]) 
+//            StepCounterClockwise();
+//          else 
+//            StepClockwise();
+//        }
+//        else {
+//          if (CompassPos > StepperNumbers[0]) 
+//            StepClockwise();
+//          else 
+//            StepCounterClockwise();        
+//        }
       }
-      // StepCounterClockwise();
+
+
    }
   
   
   
-   
+   LastAltitude = thousandscounter;
   
-  
+//   Serial.println("");  
     //delay(delaytime);
    
   
