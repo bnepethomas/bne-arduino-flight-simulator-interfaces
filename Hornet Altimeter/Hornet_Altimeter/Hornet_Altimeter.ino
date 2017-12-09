@@ -269,6 +269,35 @@ void DrawHatch(void) {
 }
 
 
+
+void NewDrawHatch(void) {
+
+
+
+  display.fillRect(thousand_Column_Pos, 20, thousand_Column_Pos + 21, 23, WHITE);
+
+
+
+
+  for (int i=5; i < 9;  i++ ) {
+    display.drawLine(thousand_Column_Pos,10 + i, thousand_Column_Pos +21, i  + 10 + 10, BLACK);
+  }
+
+  for (int i=5; i < 9;  i++ ) {
+    display.drawLine(thousand_Column_Pos,17 + i, thousand_Column_Pos +21, i  + 17 + 10, BLACK);
+  }
+
+  for (int i=5; i < 9;  i++ ) {
+    display.drawLine(thousand_Column_Pos,24 + i, thousand_Column_Pos +21, i  + 24 + 10, BLACK);
+  }
+
+    for (int i=5; i < 9;  i++ ) {
+    display.drawLine(thousand_Column_Pos,31 + i, thousand_Column_Pos +21, i  + 31 + 10, BLACK);
+  }
+}
+
+
+
 void testtext(void) {
 
 
@@ -288,7 +317,7 @@ void testtext(void) {
     last_thousands_counter = thousandscounter;
 
     
-    
+  int ones_converted;
 
   
 
@@ -300,35 +329,95 @@ void testtext(void) {
   int thousands = (thousandsdividedbyten/1000);
 
 
-  if (last_thousands != thousands) {
+  if ((last_thousands != thousands) || ((hundreds == 9) && (tens == 9))) {
     
     last_thousands = thousands;
-    if (thousands == 0) DrawHatch();
+    if (thousands == 0) 
+      DrawHatch();
     else {
       // Orginal default font location
       // display.fillRect(0, 21, 15, 21, BLACK);
       //display.setCursor(0,21);
       // New Font location
+
+// ************
+
+    if ((hundreds == 9) && (tens == 9)) {
+
+ 
+        // **************
+      display.setCursor(thousand_Column_Pos,16 +  ones_converted * cursor_multiplier);
+      display.println((thousands +9) % 10);
+      display.setCursor(thousand_Column_Pos,42 +  ones_converted * cursor_multiplier);
+      display.println(thousands);
+      display.setCursor(thousand_Column_Pos,66 +  ones_converted * cursor_multiplier);
+      display.println((thousands + 1) % 10);
+      display.fillRect(thousand_Column_Pos, 0, 21, 19, BLACK);
+      display.fillRect(thousand_Column_Pos, 43, 21, 25, BLACK);
+    }
+    else
+    {
       display.fillRect(thousand_Column_Pos, 20, 21, 23, BLACK);
       // Orignal Font
       //display.setCursor(0,42);
       // New Font
       display.setCursor(thousand_Column_Pos,42);
       display.println(thousands);
+
+    }
+
+
+
+
+
+
+      
+
+
+
+
+      
     }
   }
 
 
-  if (last_hundreds != hundreds) {
+  if ((last_hundreds != hundreds)  || (tens == 9)) {
+  // need to preemptively roll digit before it changes
+ 
     last_hundreds = hundreds;
 
+    ones_converted = ones * -1;
+    int tens_converted = tens * -1;
     // Orginal default font location
     //display.fillRect(16, 21, 15, 21, BLACK);
     //display.setCursor(16,21);
+    display.fillRect(hundred_Column_Pos, 0, 22, 67, BLACK);
+    //display.fillRect(hundred_Column_Pos, 20, 21, 23, BLACK);
+
+  
+  
+ 
+
+    if ((tens == 9)) {
+
+ 
+        // **************
+      display.setCursor(hundred_Column_Pos,16 +  ones_converted * cursor_multiplier);
+      display.println((hundreds +9) % 10);
+      display.setCursor(hundred_Column_Pos,42 +  ones_converted * cursor_multiplier);
+      display.println(hundreds);
+      display.setCursor(hundred_Column_Pos,66 +  ones_converted * cursor_multiplier);
+      display.println((hundreds + 1) % 10);
+      display.fillRect(hundred_Column_Pos, 0, 21, 19, BLACK);
+      display.fillRect(hundred_Column_Pos, 43, 21, 25, BLACK);
+    }
+    else
+    {
+      display.setCursor(hundred_Column_Pos,42);
+      display.println(hundreds);
+    }
     
-    display.fillRect(hundred_Column_Pos, 20, 21, 23, BLACK);
-    display.setCursor(hundred_Column_Pos,42);
-    display.println(hundreds);
+    
   }
 
 
@@ -339,7 +428,7 @@ void testtext(void) {
       return;
     last_ones = ones;
 
-    int ones_converted = ones * -1;
+    ones_converted = ones * -1;
 
     
 
@@ -597,7 +686,7 @@ void loop()
       thousandscounter++;
       thousandscounter++;
       thousandscounter++;
-      thousandscounter++;
+      thousandscounter++;  
  
       if (thousandscounter >= 99999) thousandscounter = 99999;
     }
