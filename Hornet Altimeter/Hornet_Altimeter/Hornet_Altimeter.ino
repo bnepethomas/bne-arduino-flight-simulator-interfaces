@@ -138,7 +138,7 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 
 int sensorPin = A1; 
 
-int thousandscounter = 0;
+long thousandscounter = 0;
 int pressure = 1013;
 bool goingup = true; 
 long startmillis = 0;
@@ -147,7 +147,7 @@ bool debugging = false;
 int AltimeterCurrentPos = 0;
 int AltimeterDesiredPos = 0;
 long NextIncrementDecrementTime = 0;
-int LastAltitude = 0;
+long LastAltitude = 0;
 
 
 void setup()
@@ -598,7 +598,7 @@ void loop()
       thousandscounter++;
       thousandscounter++;
       thousandscounter++;
-      thousandscounter++;
+ 
       if (thousandscounter >= 99999) thousandscounter = 99999;
     }
     else{
