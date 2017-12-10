@@ -1,10 +1,10 @@
-#include <Dhcp.h>
-#include <Dns.h>
-#include <ethernet_comp.h>
-#include <UIPClient.h>
-#include <UIPEthernet.h>
-#include <UIPServer.h>
-#include <UIPUdp.h>
+//#include <Dhcp.h>
+//#include <Dns.h>
+//#include <ethernet_comp.h>
+//#include <UIPClient.h>
+//#include <UIPEthernet.h>
+//#include <UIPServer.h>
+//#include <UIPUdp.h>
 
 
 
@@ -17,12 +17,12 @@
 
 
 #include <SPI.h>
-//#include <Ethernet.h>
-//#include <EthernetUdp.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
 
 byte mac[] = { 
   0xA9,0xE7,0x3E,0xCA,0x34,0x1D};
-IPAddress ip(192,168,1,107);
+IPAddress ip(192,168,2,107);
 const unsigned int localport = 13135;
 
 EthernetUDP udp;
@@ -84,7 +84,8 @@ All text above, and the splash screen must be included in any redistribution
 //#define OLED_DC    11
 //#define OLED_CS    12
 //#define OLED_RESET 13
-// 201712
+// 20171210 changed pin usage to stop conflich with ethernet card which 
+//          uses pins 10,11,12,13
 #define OLED_MOSI  3
 #define OLED_CLK   4
 #define OLED_DC    5
@@ -129,6 +130,8 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 #endif
 
 #define cursor_multiplier 2.5
+
+#define pinZeroSet 2
 
 // Original Font
 //#define ten_Column_Pos 35
@@ -190,6 +193,7 @@ void setup()
     display.display(); 
 
     // currently enabling ethernet stops display working - spi clash?
+
     Ethernet.begin( mac, ip);
     udp.begin( localport );
     
@@ -201,6 +205,9 @@ void setup()
     ClockCurrentDirection = cCounterClockwise;
 
 
+    // Pin 2 input for zero position set
+    pinMode( pinZeroSet, INPUT_PULLUP );
+    
     for( int i = 22; i <= 42; i++)
     {
         pinMode( i, OUTPUT );
@@ -634,6 +641,15 @@ void loop()
 {
  
 
+    if (digitalRead(pinZeroSet) == LOW)
+    {
+      Serial.print("Zeroing ");
+      Serial.println(millis());
+      CompassPos = 0;
+      // A cheats debounce
+      delay(100);
+      Serial.println("Zeroing Complete");
+    }  
     // Grab UDP Packet
     int packetSize = udp.parsePacket();
     if( packetSize > 0) {
@@ -672,28 +688,21 @@ void loop()
 
 
 
-  if ( micros() >= NextIncrementDecrementTime) {
+  if ( millis() >= NextIncrementDecrementTime) {
 
      if (sensorValue > 500) { 
         goingup = true;
 
-        NextIncrementDecrementTime = micros() + (1023 - sensorValue);
+        NextIncrementDecrementTime = millis() + (1023 - sensorValue);
         }
     else {
         goingup = false;
 
-        NextIncrementDecrementTime = micros() + (sensorValue);
+        NextIncrementDecrementTime = millis() + (sensorValue);
     }
     if (goingup) {
       thousandscounter++;
-      thousandscounter++;
-      thousandscounter++;
-      thousandscounter++;
-      thousandscounter++;
-      thousandscounter++;
-      thousandscounter++;
-      thousandscounter++;
-      thousandscounter++;  
+ 
  
       if (thousandscounter >= 99999) thousandscounter = 99999;
     }
