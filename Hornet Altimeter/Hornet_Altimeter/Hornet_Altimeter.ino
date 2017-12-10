@@ -79,11 +79,17 @@ All text above, and the splash screen must be included in any redistribution
 #include <Fonts/FreeMono9pt7b.h>   
 
 // If using software SPI (the default case):
-#define OLED_MOSI   9
-#define OLED_CLK   10
-#define OLED_DC    11
-#define OLED_CS    12
-#define OLED_RESET 13
+//#define OLED_MOSI   9
+//#define OLED_CLK   10
+//#define OLED_DC    11
+//#define OLED_CS    12
+//#define OLED_RESET 13
+// 201712
+#define OLED_MOSI  3
+#define OLED_CLK   4
+#define OLED_DC    5
+#define OLED_CS    6
+#define OLED_RESET 7
 Adafruit_SSD1306 display(OLED_MOSI, OLED_CLK, OLED_DC, OLED_RESET, OLED_CS);
 
 /* Uncomment this block to use hardware SPI
@@ -184,8 +190,8 @@ void setup()
     display.display(); 
 
     // currently enabling ethernet stops display working - spi clash?
-    //Ethernet.begin( mac, ip);
-    //udp.begin( localport );
+    Ethernet.begin( mac, ip);
+    udp.begin( localport );
     
     int x;
     StepperNumbers[0] = 0;      // Compass
@@ -220,7 +226,7 @@ void setup()
           }
           //delayMicroseconds(clockdelay);
         }
-        for (int  x = 0; x < 32; x++)
+        for (int  x = 0; x < 8 ; x++)
         {
           Serial.println("Winding to top altimeter");
           StepCounterClockwise();
