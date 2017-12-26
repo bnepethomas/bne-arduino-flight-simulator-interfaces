@@ -75,7 +75,23 @@ def DrawThousands(altitude):
     alt_ThousandsValue = (altitude/1000) % 10
     draw.rectangle((thousand_Column_Pos, 0, thousand_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
 
-    draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
+    
+### work area
+    alt_HundredsValue = (altitude/100) % 10
+    alt_TensValue = (altitude/10) % 10
+    alt_OnesValue = altitude % 10   
+    vertical_offset = 21
+    tens_Corrected = ((alt_OnesValue * cursor_Multiplier * -0.1) + (alt_TensValue * cursor_Multiplier * -1)) + vertical_offset
+
+    if ((alt_HundredsValue==9) ):
+        draw.text((thousand_Column_Pos, top_row + tens_Corrected),str((alt_ThousandsValue) % 10),  font=font, fill=colour_white)
+        draw.text((thousand_Column_Pos, middle_row + tens_Corrected),str((alt_ThousandsValue+1) % 10),  font=font, fill=colour_white)
+        draw.rectangle((thousand_Column_Pos, top_row, thousand_Column_Pos + column_Spacing, top_row + hatch_height ), outline=colour_black, fill=colour_black)
+        draw.rectangle((thousand_Column_Pos, bottom_row + 10, thousand_Column_Pos + column_Spacing, bottom_row + hatch_height + 10 ), outline=colour_black, fill=colour_black)
+
+    else:
+        draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
+
 
     #end Draw Thousands
 
@@ -176,7 +192,7 @@ for k in range(2110,1900,-1):
     DrawAltitude(k)
     disp.image(image)
     disp.display()
-    print(k)
+##    print(k)
 
 
 
