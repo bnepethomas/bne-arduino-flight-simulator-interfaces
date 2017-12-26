@@ -77,6 +77,7 @@ def DrawThousands(altitude):
 
     draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
 
+    #end Draw Thousands
 
 
 def DrawHundreds(altitude):
@@ -86,8 +87,8 @@ def DrawHundreds(altitude):
     alt_TensValue = (altitude/10) % 10
     alt_OnesValue = altitude % 10
     
-    vertical_offset = 0
-    tens_Corrected = ((alt_OnesValue * cursor_Multiplier * -0.1) + (alt_TensValue * cursor_Multiplier * -1)) + 23
+    vertical_offset = 21
+    tens_Corrected = ((alt_OnesValue * cursor_Multiplier * -0.1) + (alt_TensValue * cursor_Multiplier * -1)) + vertical_offset
 
     
     # Large Rectangle to cover all three rows
@@ -99,6 +100,15 @@ def DrawHundreds(altitude):
     draw.text((hundred_Column_Pos, bottom_row + tens_Corrected ), str((alt_HundredsValue+2) % 10), font=font, fill=colour_white)
     draw.text((hundred_Column_Pos, bottom_hidden_row + tens_Corrected ), str((alt_HundredsValue+3) % 10), font=font, fill=colour_white)
 
+    # end DrawHundreds
+
+
+def DrawAltitude(altitude):
+    DrawTenThousands(altitude)
+    DrawThousands(altitude)
+    DrawHundreds(altitude)
+
+    #end DrawAltitide
     
 
 # Raspberry Pi pin configuration:
@@ -132,11 +142,6 @@ draw = ImageDraw.Draw(image)
 draw.rectangle((0,0,width,height), outline=0, fill=0)
 
 
-# Draw the Ten Thousands Hatch
-DrawHatch()
-
-
-
 # Load default font.
 font = ImageFont.load_default()
 
@@ -144,86 +149,36 @@ font = ImageFont.load_default()
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
 font = ImageFont.truetype('monofonto.ttf', 26)
 
-# Write two lines of text.
 
 
-draw.text((thousand_Column_Pos, middle_row), '3', font=font, fill=colour_white)
-draw.text((hundred_Column_Pos, top_row ),'6',  font=font, fill=colour_white)
-draw.text((hundred_Column_Pos, middle_row),'7', font=font, fill=colour_white)
-draw.text((hundred_Column_Pos, bottom_row ), '8', font=font, fill=colour_white)
-
+# Draw the Ones and Tens which never change
 draw.text((ten_Column_Pos, middle_row),'0', font=font, fill=colour_white)
 draw.text((one_Column_Pos, middle_row),'0', font=font, fill=colour_white)
 
-# Display image.
+DrawTenThousands(0)
+DrawThousands(0)
+DrawHundreds(0)
+
 disp.image(image)
 disp.display()
 time.sleep(1)
 
-# Draw Ten Thousands
-##draw.rectangle((ten_thousand_Column_Pos, 20, ten_thousand_Column_Pos + column_Spacing, 20 + hatch_height), outline=colour_black, fill=colour_black)
-##
-##draw.text((ten_thousand_Column_Pos, middle_row), '1', font=font, fill=colour_white)
 
-
-
-# Draw Thousands
-draw.rectangle((thousand_Column_Pos, 20, thousand_Column_Pos + column_Spacing, 20 + hatch_height), outline=colour_black, fill=colour_black)
-draw.text((thousand_Column_Pos, middle_row), '3', font=font, fill=colour_white)
-
-
-# Draw hundreds
-# Large Rectangle to cover all three rows
-draw.rectangle((hundred_Column_Pos, 0, hundred_Column_Pos + column_Spacing, 60), outline=colour_black, fill=colour_black)
-
-draw.text((hundred_Column_Pos, top_row ),'5',  font=font, fill=colour_white)
-draw.text((hundred_Column_Pos, middle_row),'6', font=font, fill=colour_white)
-draw.text((hundred_Column_Pos, bottom_row ), '7', font=font, fill=colour_white)
-
-disp.image(image)
-disp.display()
-
-
-
-for k in range(0,2110,1):
-    DrawTenThousands(k)
-    DrawThousands(k)
-    DrawHundreds(k)
+for k in range(1900,2110,1):
+    DrawAltitude(k)
     disp.image(image)
     disp.display()
 ##    print(k)
 ##    time.sleep(0.3)
 
 
-for k in range(2110,0,-1):
-    DrawTenThousands(k)
-    DrawThousands(k)
-    DrawHundreds(k)
+for k in range(2110,1900,-1):
+    DrawAltitude(k)
     disp.image(image)
     disp.display()
     print(k)
-    
-##for h in range(0,1):
-##    for i in range(0,10):
-##        for j in range(0,10):
-##            for k in range(0,10):
-##                DrawTenThousands(h)
-##                DrawThousands(i)
-##                DrawHundreds(j,k)
-##                disp.image(image)
-##                disp.display()
-##                #print(h,i,j,k)
-##
-##for h in range(1,-1, -1):
-##    for i in range(10,0,-1):
-##        for j in range(10,0,-1):
-##            for k in range(10,0,-1):
-##                DrawTenThousands(h)
-##                DrawThousands(i)
-##                DrawHundreds(j,k)
-##                disp.image(image)
-##                disp.display()
-##                #print(h,i,j,k)
+
+
 
 DrawTenThousands(0)
 DrawThousands(0)
