@@ -28,7 +28,7 @@ hatch_height = 20
 
 character_width = 12
 
-cursor_Multiplier = 2.5
+cursor_Multiplier = 2.3
 
 top = 0
 x = 23
@@ -185,27 +185,45 @@ draw.text((hundred_Column_Pos, bottom_row ), '7', font=font, fill=colour_white)
 disp.image(image)
 disp.display()
 
-for h in range(0,1):
-    for i in range(0,10):
-        for j in range(0,10):
-            for k in range(0,10):
-                DrawTenThousands(h)
-                DrawThousands(i)
-                DrawHundreds(j,k)
-                disp.image(image)
-                disp.display()
-                #print(h,i,j,k)
+for k in range(0,2110,1):
+    DrawTenThousands((k/1000) % 10)
+    DrawThousands((k/100) % 10)
+    DrawHundreds(((k/10) % 10),k % 10)
+    disp.image(image)
+    disp.display()
+    print(k)
+    time.sleep(0.3)
 
-for h in range(1,-1, -1):
-    for i in range(10,0,-1):
-        for j in range(10,0,-1):
-            for k in range(10,0,-1):
-                DrawTenThousands(h)
-                DrawThousands(i)
-                DrawHundreds(j,k)
-                disp.image(image)
-                disp.display()
-                #print(h,i,j,k)
+
+for k in range(2110,0,-1):
+    DrawTenThousands((k/1000) % 10)
+    DrawThousands((k/100) % 10)
+    DrawHundreds(((k/10) % 10),k % 10)
+    disp.image(image)
+    disp.display()
+    print(k)
+    
+##for h in range(0,1):
+##    for i in range(0,10):
+##        for j in range(0,10):
+##            for k in range(0,10):
+##                DrawTenThousands(h)
+##                DrawThousands(i)
+##                DrawHundreds(j,k)
+##                disp.image(image)
+##                disp.display()
+##                #print(h,i,j,k)
+##
+##for h in range(1,-1, -1):
+##    for i in range(10,0,-1):
+##        for j in range(10,0,-1):
+##            for k in range(10,0,-1):
+##                DrawTenThousands(h)
+##                DrawThousands(i)
+##                DrawHundreds(j,k)
+##                disp.image(image)
+##                disp.display()
+##                #print(h,i,j,k)
 
 DrawTenThousands(0)
 DrawThousands(0)
