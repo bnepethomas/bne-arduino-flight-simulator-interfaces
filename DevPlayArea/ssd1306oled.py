@@ -58,52 +58,45 @@ def DrawHatch():
 
     # end DrawHatch
 
-def DrawThousands(alt_ThousandsValue):
-    
-    draw.rectangle((thousand_Column_Pos, 20, thousand_Column_Pos + column_Spacing, 20 + hatch_height), outline=colour_black, fill=colour_black)
-    draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
+def DrawThousands(alt_ThousandsValue,alt_HundredsValue,alt_TensValue):
 
 
+##        if ((hundreds == 9) && (tens == 9)) {
+##
+## 
+##        // **************
+##      display.fillRect(thousand_Column_Pos, 20, 21, 23, BLACK);
+##      display.setCursor(thousand_Column_Pos,16 +  ones_converted * cursor_multiplier);
+##      display.println((thousands +9) % 10);
+##      display.setCursor(thousand_Column_Pos,42 +  ones_converted * cursor_multiplier);
+##      display.println(thousands);
+##      display.setCursor(thousand_Column_Pos,66 +  ones_converted * cursor_multiplier);
+##      display.println((thousands + 1) % 10);
+
+    draw.rectangle((thousand_Column_Pos, 0, thousand_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
+    if ((alt_HundredsValue == 9)):
+        #time.sleep(0.1)
+        tens_Corrected = (alt_TensValue * cursor_Multiplier * -1) + 23
+        
+        draw.text((thousand_Column_Pos, top_row + tens_Corrected),str((alt_ThousandsValue+9) % 10),  font=font, fill=colour_white)
+
+        
+        draw.text((thousand_Column_Pos, middle_row + tens_Corrected), str(alt_ThousandsValue), font=font, fill=colour_white)
 
 
+        draw.text((thousand_Column_Pos, bottom_row + tens_Corrected ), str((alt_ThousandsValue+1) % 10), font=font, fill=colour_white)
+        draw.rectangle((thousand_Column_Pos, top_row + 5, thousand_Column_Pos + column_Spacing, top_row + 5 + hatch_height), outline=colour_black, fill=colour_black)
+        draw.rectangle((thousand_Column_Pos, bottom_row + 5, thousand_Column_Pos + column_Spacing, bottom_row + 8 + hatch_height), outline=colour_black, fill=colour_black)
 
+        
+    else:
+        draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
 
 
 
 def DrawHundreds(alt_HundredsValue, alt_TensValue):
 
-    ###
-##    display.setCursor(ten_Column_Pos,16 +  ones_converted * cursor_multiplier);
-##    display.println((tens + 9) % 10);
-##  
-##  
-##
-##    display.setCursor(ten_Column_Pos,42 +  ones_converted * cursor_multiplier);
-##    display.println(tens);
-##  
-##  
-##    // At the bottom of the screen
-##    // Orginal Font
-##    //display.setCursor(35,45 +  ones_converted * cursor_multiplier);
-##    // New Font
-##    display.setCursor(ten_Column_Pos,66 +  ones_converted * cursor_multiplier);
-##    display.println((tens + 1) % 10);
-##  
-##  
-##    // At the bottom below the screen
-##    // Orginal Font
-##    //display.setCursor(35,69 +  ones_converted * cursor_multiplier);
-##    // New Font
-##    display.setCursor(ten_Column_Pos,90 +  ones_converted * cursor_multiplier);
-##    display.println((tens + 2) % 10);
-##  
-##    // Remove bottom of last character to remove distraction of digit appearing and disappearing
-##    // Orginal Font
-##    //display.fillRect(35, 65, 15, 25, BLACK);
-##    // New Font
-##    display.fillRect(ten_Column_Pos, 65, 20, 27, BLACK);
 
-    ####################################
 
     vertical_offset = 0
     tens_Corrected = (alt_TensValue * cursor_Multiplier * -1) + 23
@@ -209,10 +202,13 @@ disp.image(image)
 disp.display()
 
 for i in range(0,10):
-    time.sleep(0.1)
-    DrawThousands(i)
-    disp.image(image)
-    disp.display()
+    for j in range(0,10):
+        for k in range(0,10):
+            #time.sleep(0.1)
+            DrawThousands(i,j,k)
+            DrawHundreds(j,k)
+            disp.image(image)
+            disp.display()
 
 
 for k in range(1,3):    
