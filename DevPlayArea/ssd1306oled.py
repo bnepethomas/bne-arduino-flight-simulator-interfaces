@@ -54,13 +54,32 @@ def DrawThousands(alt_ThousandsValue):
     draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
 
 
+
+
+
+def DrawHundreds(alt_HundredsValue, alt_TensValue):
+    # Large Rectangle to cover all three rows
+    draw.rectangle((hundred_Column_Pos, 0, hundred_Column_Pos + column_Spacing, 60), outline=colour_black, fill=colour_black)
+
+    if (alt_HundredsValue != 0):
+        draw.text((hundred_Column_Pos, top_row ),str(alt_HundredsValue-1),  font=font, fill=colour_white)
+    else:
+        draw.text((hundred_Column_Pos, top_row ),'9',  font=font, fill=colour_white)
+    
+    draw.text((hundred_Column_Pos, middle_row), str(alt_HundredsValue), font=font, fill=colour_white)
+
+    if (alt_HundredsValue != 9):
+        draw.text((hundred_Column_Pos, bottom_row ), str(alt_HundredsValue+1), font=font, fill=colour_white)
+    else:
+        draw.text((hundred_Column_Pos, bottom_row ), '0', font=font, fill=colour_white)
+    
+
 # Raspberry Pi pin configuration:
 RST = 24
 # Note the following are only used with SPI:
 DC = 23
 SPI_PORT = 0
 SPI_DEVICE = 0
-
 
 # 128x64 display with hardware SPI:
 disp = Adafruit_SSD1306.SSD1306_128_64(rst=RST, dc=DC, spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE, max_speed_hz=8000000))
@@ -131,7 +150,7 @@ draw.text((thousand_Column_Pos, middle_row), '3', font=font, fill=colour_white)
 
 # Draw hundreds
 
-# Lrage Rectangle to cover all three rows
+# Large Rectangle to cover all three rows
 draw.rectangle((hundred_Column_Pos, 0, hundred_Column_Pos + column_Spacing, 60), outline=colour_black, fill=colour_black)
 
 draw.text((hundred_Column_Pos, top_row ),'5',  font=font, fill=colour_white)
@@ -141,9 +160,16 @@ draw.text((hundred_Column_Pos, bottom_row ), '7', font=font, fill=colour_white)
 disp.image(image)
 disp.display()
 
-for i in range(0,9):
-    time.sleep(1)
+for i in range(0,10):
+    time.sleep(0.1)
     DrawThousands(i)
     disp.image(image)
     disp.display()
-    
+
+
+for k in range(1,3):    
+    for i in range(0,10):
+        time.sleep(0.1)
+        DrawHundreds(i,0)
+        disp.image(image)
+        disp.display()
