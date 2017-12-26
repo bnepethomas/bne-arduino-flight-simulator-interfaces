@@ -28,7 +28,7 @@ hatch_height = 20
 
 character_width = 12
 
-cursor_Multiplier = 2.3
+cursor_Multiplier = 2.1
 
 top = 0
 x = 23
@@ -58,8 +58,9 @@ def DrawHatch():
 
     # end DrawHatch
 
-def DrawTenThousands(alt_TenThousandsValue):
-
+def DrawTenThousands(altitude):
+    
+    alt_TenThousandsValue = (altitude/10000) % 10
     if (alt_TenThousandsValue == 0):
         DrawHatch()
     else:
@@ -68,36 +69,34 @@ def DrawTenThousands(alt_TenThousandsValue):
     # end DrawTenThousands
 
 
-def DrawThousands(alt_ThousandsValue):
+def DrawThousands(altitude):
 
 
-
+    alt_ThousandsValue = (altitude/1000) % 10
     draw.rectangle((thousand_Column_Pos, 0, thousand_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
 
     draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
 
 
 
-def DrawHundreds(alt_HundredsValue, alt_TensValue):
+def DrawHundreds(altitude):
 
 
-
+    alt_HundredsValue = (altitude/100) % 10
+    alt_TensValue = (altitude/10) % 10
+    alt_OnesValue = altitude % 10
+    
     vertical_offset = 0
-    tens_Corrected = (alt_TensValue * cursor_Multiplier * -1) + 23
+    tens_Corrected = ((alt_OnesValue * cursor_Multiplier * -0.1) + (alt_TensValue * cursor_Multiplier * -1)) + 23
+
     
     # Large Rectangle to cover all three rows
     draw.rectangle((hundred_Column_Pos, 0, hundred_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
 
     draw.text((hundred_Column_Pos, top_hidden_row + tens_Corrected ), str((alt_HundredsValue+9) % 10), font=font, fill=colour_white)
-
     draw.text((hundred_Column_Pos, top_row + tens_Corrected),str((alt_HundredsValue) % 10),  font=font, fill=colour_white)
-
-    
     draw.text((hundred_Column_Pos, middle_row + tens_Corrected), str((alt_HundredsValue+1) % 10), font=font, fill=colour_white)
-
-
     draw.text((hundred_Column_Pos, bottom_row + tens_Corrected ), str((alt_HundredsValue+2) % 10), font=font, fill=colour_white)
-
     draw.text((hundred_Column_Pos, bottom_hidden_row + tens_Corrected ), str((alt_HundredsValue+3) % 10), font=font, fill=colour_white)
 
     
@@ -174,7 +173,6 @@ draw.text((thousand_Column_Pos, middle_row), '3', font=font, fill=colour_white)
 
 
 # Draw hundreds
-
 # Large Rectangle to cover all three rows
 draw.rectangle((hundred_Column_Pos, 0, hundred_Column_Pos + column_Spacing, 60), outline=colour_black, fill=colour_black)
 
@@ -185,20 +183,22 @@ draw.text((hundred_Column_Pos, bottom_row ), '7', font=font, fill=colour_white)
 disp.image(image)
 disp.display()
 
+
+
 for k in range(0,2110,1):
-    DrawTenThousands((k/1000) % 10)
-    DrawThousands((k/100) % 10)
-    DrawHundreds(((k/10) % 10),k % 10)
+    DrawTenThousands(k)
+    DrawThousands(k)
+    DrawHundreds(k)
     disp.image(image)
     disp.display()
-    print(k)
-    time.sleep(0.3)
+##    print(k)
+##    time.sleep(0.3)
 
 
 for k in range(2110,0,-1):
-    DrawTenThousands((k/1000) % 10)
-    DrawThousands((k/100) % 10)
-    DrawHundreds(((k/10) % 10),k % 10)
+    DrawTenThousands(k)
+    DrawThousands(k)
+    DrawHundreds(k)
     disp.image(image)
     disp.display()
     print(k)
@@ -227,7 +227,7 @@ for k in range(2110,0,-1):
 
 DrawTenThousands(0)
 DrawThousands(0)
-DrawHundreds(0,0)
+DrawHundreds(0)
 disp.image(image)
 disp.display()
 print("Finished")
