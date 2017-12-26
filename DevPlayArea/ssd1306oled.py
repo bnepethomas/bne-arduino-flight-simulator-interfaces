@@ -40,7 +40,7 @@ bottom_hidden_row = 57
 
 def DrawHatch():
    
-    # Darw White box
+    # Draw White box
     draw.rectangle((ten_thousand_Column_Pos, 20, ten_thousand_Column_Pos + hatch_width, 20 + hatch_height), outline=colour_white, fill=colour_white)
 
     # Add diagonal black lines to create hatch
@@ -58,39 +58,23 @@ def DrawHatch():
 
     # end DrawHatch
 
-def DrawThousands(alt_ThousandsValue,alt_HundredsValue,alt_TensValue):
+def DrawTenThousands(alt_TenThousandsValue):
+
+    if (alt_TenThousandsValue == 0):
+        DrawHatch()
+    else:
+        draw.rectangle((ten_thousand_Column_Pos, 0, ten_thousand_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
+        draw.text((ten_thousand_Column_Pos, middle_row), str(alt_TenThousandsValue), font=font, fill=colour_white)
+    # end DrawTenThousands
 
 
-##        if ((hundreds == 9) && (tens == 9)) {
-##
-## 
-##        // **************
-##      display.fillRect(thousand_Column_Pos, 20, 21, 23, BLACK);
-##      display.setCursor(thousand_Column_Pos,16 +  ones_converted * cursor_multiplier);
-##      display.println((thousands +9) % 10);
-##      display.setCursor(thousand_Column_Pos,42 +  ones_converted * cursor_multiplier);
-##      display.println(thousands);
-##      display.setCursor(thousand_Column_Pos,66 +  ones_converted * cursor_multiplier);
-##      display.println((thousands + 1) % 10);
+def DrawThousands(alt_ThousandsValue):
+
+
 
     draw.rectangle((thousand_Column_Pos, 0, thousand_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
-    if ((alt_HundredsValue == 9)):
-        #time.sleep(0.1)
-        tens_Corrected = (alt_TensValue * cursor_Multiplier * -1) + 23
-        
-        draw.text((thousand_Column_Pos, top_row + tens_Corrected),str((alt_ThousandsValue+9) % 10),  font=font, fill=colour_white)
 
-        
-        draw.text((thousand_Column_Pos, middle_row + tens_Corrected), str(alt_ThousandsValue), font=font, fill=colour_white)
-
-
-        draw.text((thousand_Column_Pos, bottom_row + tens_Corrected ), str((alt_ThousandsValue+1) % 10), font=font, fill=colour_white)
-        draw.rectangle((thousand_Column_Pos, top_row + 5, thousand_Column_Pos + column_Spacing, top_row + 5 + hatch_height), outline=colour_black, fill=colour_black)
-        draw.rectangle((thousand_Column_Pos, bottom_row + 5, thousand_Column_Pos + column_Spacing, bottom_row + 8 + hatch_height), outline=colour_black, fill=colour_black)
-
-        
-    else:
-        draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
+    draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
 
 
 
@@ -104,17 +88,17 @@ def DrawHundreds(alt_HundredsValue, alt_TensValue):
     # Large Rectangle to cover all three rows
     draw.rectangle((hundred_Column_Pos, 0, hundred_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
 
-    draw.text((hundred_Column_Pos, top_hidden_row + tens_Corrected ), str((alt_HundredsValue+8) % 10), font=font, fill=colour_white)
+    draw.text((hundred_Column_Pos, top_hidden_row + tens_Corrected ), str((alt_HundredsValue+9) % 10), font=font, fill=colour_white)
 
-    draw.text((hundred_Column_Pos, top_row + tens_Corrected),str((alt_HundredsValue+9) % 10),  font=font, fill=colour_white)
+    draw.text((hundred_Column_Pos, top_row + tens_Corrected),str((alt_HundredsValue) % 10),  font=font, fill=colour_white)
 
     
-    draw.text((hundred_Column_Pos, middle_row + tens_Corrected), str(alt_HundredsValue), font=font, fill=colour_white)
+    draw.text((hundred_Column_Pos, middle_row + tens_Corrected), str((alt_HundredsValue+1) % 10), font=font, fill=colour_white)
 
 
-    draw.text((hundred_Column_Pos, bottom_row + tens_Corrected ), str((alt_HundredsValue+1) % 10), font=font, fill=colour_white)
+    draw.text((hundred_Column_Pos, bottom_row + tens_Corrected ), str((alt_HundredsValue+2) % 10), font=font, fill=colour_white)
 
-    draw.text((hundred_Column_Pos, bottom_hidden_row + tens_Corrected ), str((alt_HundredsValue+2) % 10), font=font, fill=colour_white)
+    draw.text((hundred_Column_Pos, bottom_hidden_row + tens_Corrected ), str((alt_HundredsValue+3) % 10), font=font, fill=colour_white)
 
     
 
@@ -178,9 +162,9 @@ disp.display()
 time.sleep(1)
 
 # Draw Ten Thousands
-draw.rectangle((ten_thousand_Column_Pos, 20, ten_thousand_Column_Pos + column_Spacing, 20 + hatch_height), outline=colour_black, fill=colour_black)
-
-draw.text((ten_thousand_Column_Pos, middle_row), '1', font=font, fill=colour_white)
+##draw.rectangle((ten_thousand_Column_Pos, 20, ten_thousand_Column_Pos + column_Spacing, 20 + hatch_height), outline=colour_black, fill=colour_black)
+##
+##draw.text((ten_thousand_Column_Pos, middle_row), '1', font=font, fill=colour_white)
 
 
 
@@ -201,29 +185,33 @@ draw.text((hundred_Column_Pos, bottom_row ), '7', font=font, fill=colour_white)
 disp.image(image)
 disp.display()
 
-for i in range(0,10):
-    for j in range(0,10):
-        for k in range(0,10):
-            #time.sleep(0.1)
-            DrawThousands(i,j,k)
-            DrawHundreds(j,k)
-            disp.image(image)
-            disp.display()
-
-
-for k in range(1,3):    
+for h in range(0,1):
     for i in range(0,10):
         for j in range(0,10):
-            #ime.sleep(0.1)
-            DrawHundreds(i,j)
-            disp.image(image)
-            disp.display()
-            #print(i,j)
+            for k in range(0,10):
+                DrawTenThousands(h)
+                DrawThousands(i)
+                DrawHundreds(j,k)
+                disp.image(image)
+                disp.display()
+                #print(h,i,j,k)
 
-for k in range(1,3):    
-    for i in range(9,0, -1):
-        for j in range(9,0,-1):
-            #time.sleep(0.3)
-            DrawHundreds(i,j)
-            disp.image(image)
-            disp.display()
+for h in range(1,-1, -1):
+    for i in range(10,0,-1):
+        for j in range(10,0,-1):
+            for k in range(10,0,-1):
+                DrawTenThousands(h)
+                DrawThousands(i)
+                DrawHundreds(j,k)
+                disp.image(image)
+                disp.display()
+                #print(h,i,j,k)
+
+DrawTenThousands(0)
+DrawThousands(0)
+DrawHundreds(0,0)
+disp.image(image)
+disp.display()
+print("Finished")
+
+
