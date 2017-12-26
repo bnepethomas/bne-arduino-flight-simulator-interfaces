@@ -48,7 +48,10 @@ def DrawHatch():
 
     # end DrawHatch
 
-
+def DrawThousands(alt_ThousandsValue):
+    
+    draw.rectangle((thousand_Column_Pos, 20, thousand_Column_Pos + column_Spacing, 20 + hatch_height), outline=colour_black, fill=colour_black)
+    draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
 
 
 # Raspberry Pi pin configuration:
@@ -128,7 +131,7 @@ draw.text((thousand_Column_Pos, middle_row), '3', font=font, fill=colour_white)
 
 # Draw hundreds
 
-# Lrge Rectangle to cover all three rows
+# Lrage Rectangle to cover all three rows
 draw.rectangle((hundred_Column_Pos, 0, hundred_Column_Pos + column_Spacing, 60), outline=colour_black, fill=colour_black)
 
 draw.text((hundred_Column_Pos, top_row ),'5',  font=font, fill=colour_white)
@@ -137,3 +140,10 @@ draw.text((hundred_Column_Pos, bottom_row ), '7', font=font, fill=colour_white)
 
 disp.image(image)
 disp.display()
+
+for i in range(0,9):
+    time.sleep(1)
+    DrawThousands(i)
+    disp.image(image)
+    disp.display()
+    
