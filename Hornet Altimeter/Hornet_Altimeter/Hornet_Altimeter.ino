@@ -6,7 +6,7 @@
 byte mac[] = { 
   0xA9,0xE7,0x3E,0xCA,0x34,0x1D};
 IPAddress ip(192,168,3,107);
-IPAddress targetIP (192,168,3,100);
+IPAddress targetIP (192,168,3,101);
 const unsigned int localport = 13139;
 const unsigned int remoteport = 15151;
 
