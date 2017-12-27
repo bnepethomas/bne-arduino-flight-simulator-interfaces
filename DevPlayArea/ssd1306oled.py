@@ -38,34 +38,76 @@ middle_row = 15
 bottom_row = 36
 bottom_hidden_row = 57
 
-def DrawHatch():
+def DrawHatch(altitude):
+
+    alt_TenThousandsValue = (altitude/10000) % 10
+    alt_ThousandsValue = (altitude/1000) % 10
+    alt_HundredsValue = (altitude/100) % 10
+    alt_TensValue = (altitude/10) % 10
+    alt_OnesValue = altitude % 10   
+    vertical_offset = 21
+    tens_Corrected = ((alt_OnesValue * cursor_Multiplier * -0.1) + (alt_TensValue * cursor_Multiplier * -1)) + vertical_offset
+
+
+    if ((alt_HundredsValue==9)& (alt_TenThousandsValue==0) & (alt_ThousandsValue==9)):
+        hatch_Top = 10 - hatch_height + tens_Corrected
+    else:
+        hatch_Top = 10
    
     # Draw White box
-    draw.rectangle((ten_thousand_Column_Pos, 20, ten_thousand_Column_Pos + hatch_width, 20 + hatch_height), outline=colour_white, fill=colour_white)
+    draw.rectangle((ten_thousand_Column_Pos, hatch_Top + 10, ten_thousand_Column_Pos + hatch_width, hatch_Top + 10 + hatch_height), outline=colour_white, fill=colour_white)
 
     # Add diagonal black lines to create hatch
     for i in range(5,9): 
-        draw.line((ten_thousand_Column_Pos, 10 + i, ten_thousand_Column_Pos +hatch_width, i  + 10 + 10), fill=colour_black)
+        draw.line((ten_thousand_Column_Pos, hatch_Top + i, ten_thousand_Column_Pos +hatch_width, i  + hatch_Top + 10), fill=colour_black)
 
     for i in range(5,9):
-        draw.line((ten_thousand_Column_Pos, 17 + i, ten_thousand_Column_Pos + hatch_width, i  + 17 + 10), fill=colour_black)
+        draw.line((ten_thousand_Column_Pos, hatch_Top + 7 + i, ten_thousand_Column_Pos + hatch_width, i + hatch_Top + 7 + 10), fill=colour_black)
         
     for i in range(5,9):
-        draw.line((ten_thousand_Column_Pos, 24 + i, ten_thousand_Column_Pos + hatch_width, i  + 24 + 10), fill=colour_black)       
+        draw.line((ten_thousand_Column_Pos, hatch_Top + 14 + i, ten_thousand_Column_Pos + hatch_width, i + hatch_Top + 14 + 10), fill=colour_black)       
 
     for i in range(5,9):
-        draw.line((ten_thousand_Column_Pos, 31 + i, ten_thousand_Column_Pos + hatch_width, i  + 31 + 10), fill=colour_black)
+        draw.line((ten_thousand_Column_Pos, hatch_Top + 21 + i, ten_thousand_Column_Pos + hatch_width, i + hatch_Top  + 21 + 10), fill=colour_black)
 
     # end DrawHatch
 
+    #As hatch drawing is a little rough - need to clean up for rolling text
+    if ((alt_HundredsValue==9)& (alt_TenThousandsValue==0) & (alt_ThousandsValue==9)):
+        draw.rectangle((ten_thousand_Column_Pos, bottom_row + hatch_Top, ten_thousand_Column_Pos + column_Spacing, bottom_row + hatch_Top + hatch_height ), outline=colour_black, fill=colour_black)
+        draw.text((ten_thousand_Column_Pos, middle_row + tens_Corrected),str((alt_TenThousandsValue+1) % 10),  font=font, fill=colour_white)
+ 
+
+    draw.rectangle((ten_thousand_Column_Pos, top_row, ten_thousand_Column_Pos + column_Spacing, top_row + hatch_height ), outline=colour_black, fill=colour_black)
+    draw.rectangle((ten_thousand_Column_Pos, bottom_row + 10, ten_thousand_Column_Pos + column_Spacing, bottom_row + hatch_height + 10 ), outline=colour_black, fill=colour_black)
+
+
 def DrawTenThousands(altitude):
+
+    draw.rectangle((ten_thousand_Column_Pos, 0, ten_thousand_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
     
     alt_TenThousandsValue = (altitude/10000) % 10
     if (alt_TenThousandsValue == 0):
-        DrawHatch()
+        DrawHatch(altitude)
     else:
-        draw.rectangle((ten_thousand_Column_Pos, 0, ten_thousand_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
-        draw.text((ten_thousand_Column_Pos, middle_row), str(alt_TenThousandsValue), font=font, fill=colour_white)
+### work area
+        alt_ThousandsValue = (altitude/1000) % 10
+        alt_HundredsValue = (altitude/100) % 10
+        alt_TensValue = (altitude/10) % 10
+        alt_OnesValue = altitude % 10   
+        vertical_offset = 21
+        tens_Corrected = ((alt_OnesValue * cursor_Multiplier * -0.1) + (alt_TensValue * cursor_Multiplier * -1)) + vertical_offset
+
+        if ((alt_HundredsValue==9) & (alt_ThousandsValue==9)):
+            draw.text((ten_thousand_Column_Pos, top_row + tens_Corrected),str((alt_TenThousandsValue) % 10),  font=font, fill=colour_white)
+            draw.text((ten_thousand_Column_Pos, middle_row + tens_Corrected),str((alt_TenThousandsValue+1) % 10),  font=font, fill=colour_white)
+        else:
+            draw.text((ten_thousand_Column_Pos, middle_row), str(alt_TenThousandsValue), font=font, fill=colour_white)
+### end working area
+
+ ### working code       
+
+        #draw.text((ten_thousand_Column_Pos, middle_row), str(alt_TenThousandsValue), font=font, fill=colour_white)
     # end DrawTenThousands
 
 
@@ -180,7 +222,7 @@ disp.display()
 time.sleep(1)
 
 
-for k in range(1900,2110,1):
+for k in range(9500,10050,1):
     DrawAltitude(k)
     disp.image(image)
     disp.display()
@@ -188,7 +230,7 @@ for k in range(1900,2110,1):
 ##    time.sleep(0.3)
 
 
-for k in range(2110,1900,-1):
+for k in range(10050,0,-1):
     DrawAltitude(k)
     disp.image(image)
     disp.display()
