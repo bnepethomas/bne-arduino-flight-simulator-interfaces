@@ -40,7 +40,7 @@ const int cUnknownPos = 999;
 
 int sensorPin = A1; 
 
-long thousandscounter = 0;
+unsigned long thousandscounter = 0;
 int pressure = 1013;
 bool goingup = true; 
 long startmillis = 0;
@@ -291,8 +291,8 @@ void loop()
   // Serial.println(sensorValue);
   // Sensor Value Ranges 0 to 1023
 
-  if( (millis() - lastAltimeterOutputPacket) > 1000){
-
+  if( (millis() - lastAltimeterOutputPacket) > 50){
+      // Throw packets out every 20 seconds for so
 
       
       lastAltimeterOutputPacket = millis();
@@ -301,9 +301,10 @@ void loop()
       Serial.println(val);
       Serial.print("Potentiometer Sensor");
       Serial.println(sensorValue);
-
+      Serial.print("Altitude");
+      Serial.println(thousandscounter);
       
-      sprintf((char*)outpacketBuffer,"%u",sensorValue);
+      sprintf((char*)outpacketBuffer,"%u,%lu",sensorValue,thousandscounter);
       udp.beginPacket(targetIP, remoteport);
       udp.write(outpacketBuffer);
       udp.endPacket();
