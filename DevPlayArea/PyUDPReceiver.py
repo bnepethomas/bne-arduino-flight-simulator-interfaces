@@ -11,6 +11,10 @@ while True:
     try:
         data, addr = serverSock.recvfrom(1024)
         print ("Message: ", data)
+        s = data.decode("utf-8") 
+        if (s.isdigit):
+            w = int(s)
+            print(w+1)
                                           
     except socket.timeout:
         a=0

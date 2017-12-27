@@ -304,7 +304,7 @@ void loop()
       Serial.print("Altitude");
       Serial.println(thousandscounter);
       
-      sprintf((char*)outpacketBuffer,"%u,%lu",sensorValue,thousandscounter);
+      sprintf((char*)outpacketBuffer,"%lu",thousandscounter);
       udp.beginPacket(targetIP, remoteport);
       udp.write(outpacketBuffer);
       udp.endPacket();
