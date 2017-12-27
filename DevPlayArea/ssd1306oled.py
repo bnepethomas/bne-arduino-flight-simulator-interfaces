@@ -2,6 +2,15 @@
 # Font used in Arduino build is FreeMonoBold  which is basically Courier
 # This code is based of the SSD1306 code developed by the adafruit team
 
+import socket
+
+UDP_IP_ADDRESS = "192.168.3.101"
+UDP_PORT_NO = 15151
+serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+serverSock.settimeout(0.0001)
+serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
+
+
 import time
 
 import Adafruit_GPIO.SPI as SPI
@@ -43,7 +52,7 @@ cursor_Multiplier = 2.1
 def DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue,vertical_character_offset):
     # Only called if below 10,000 ft
   
-    # Check to see ifready to roll the hatch between 90900 and 10,000 
+    # Check to see if ready to roll the hatch between 90900 and 10,000 
     if ((alt_HundredsValue==9) & (alt_TenThousandsValue==0) & (alt_ThousandsValue==9)):
         hatch_Top = 10 - hatch_height + vertical_character_offset
     else:
@@ -202,16 +211,29 @@ draw.text((one_Column_Pos, middle_row),'0', font=font, fill=colour_white)
 DrawAltitude(0)
 time.sleep(1)
 
+while True:
+    
+    try:
+        data, addr = serverSock.recvfrom(1024)
+        print ("Message: ", data)
+        s = data.decode("utf-8") 
+        if (s.isdigit):
+            w = int(s)
+            DrawAltitude(w)    
+                                          
+    except socket.timeout:
+        a=0
 
-for k in range(0,70050,10):
-    DrawAltitude(k)
 
-for k in range(70050,0,-10):
-    DrawAltitude(k)
-
-
-DrawAltitude(0)
-
-print("Finished")
+##for k in range(0,30050,10):
+##    DrawAltitude(k)
+##
+##for k in range(10050,0,-1):
+##    DrawAltitude(k)
+##
+##
+##DrawAltitude(0)
+##
+##print("Finished")
 
 

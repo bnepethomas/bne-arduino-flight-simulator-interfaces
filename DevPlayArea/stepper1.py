@@ -12,6 +12,8 @@ GPIO.setmode(GPIO.BCM)
 # Physical pins 11,15,16,18
 # GPIO17,GPIO22,GPIO23,GPIO24
 StepPins = [17,22,23,24]
+# Using different pins as 23 and 24 used by sPI interface in SSD1306 project
+StepPins = [17,22,27,18]
  
 # Set all pins as output
 for pin in StepPins:
@@ -33,12 +35,9 @@ StepCount = len(Seq)
 StepDir = 1 # Set to 1 or 2 for clockwise
             # Set to -1 or -2 for anti-clockwise
  
-# Read wait time from command line
-if len(sys.argv)>1:
-  WaitTime = int(sys.argv[1])/float(1000)
-else:
-  WaitTime = 1/float(1000)
 
+WaitTime = 3/float(1000)
+print("Wait time for return is " + str(WaitTime))
 # Return to zero
 StepDir = -1 # Set to 1 or 2 for clockwise
             # Set to -1 or -2 for anti-clockwise
@@ -74,12 +73,11 @@ for x in range(0, 1800):
 
 
 
-# Read wait time from command line
-if len(sys.argv)>1:
-  WaitTime = int(sys.argv[1])/float(1000)
-else:
-  WaitTime = 2/float(1000)
 
+WaitTime = 2.4/float(1000)
+# 2.0, 2.2,2.3 unstable
+# 2.5 stable
+print("Wait time for main cycle is " + str(WaitTime))
 for z in range(1,5):
   print z
   StepDir = 1 # Set to 1 or 2 for clockwise
