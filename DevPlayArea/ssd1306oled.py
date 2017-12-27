@@ -77,11 +77,6 @@ def DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_Te
         draw.rectangle((ten_thousand_Column_Pos, bottom_row + hatch_Top, ten_thousand_Column_Pos + column_Spacing, bottom_row + hatch_Top + hatch_height ), outline=colour_black, fill=colour_black)
         draw.text((ten_thousand_Column_Pos, middle_row + vertical_character_offset),str((alt_TenThousandsValue+1) % 10),  font=font, fill=colour_white)
  
-
-    draw.rectangle((ten_thousand_Column_Pos, top_row, ten_thousand_Column_Pos + column_Spacing, top_row + hatch_height ), outline=colour_black, fill=colour_black)
-    draw.rectangle((ten_thousand_Column_Pos, bottom_row + 10, ten_thousand_Column_Pos + column_Spacing, bottom_row + hatch_height + 10 ), outline=colour_black, fill=colour_black)
-
-
     
     # end DrawHatch
 
@@ -101,6 +96,10 @@ def DrawTenThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue,
             draw.text((ten_thousand_Column_Pos, middle_row + vertical_character_offset),str((alt_TenThousandsValue+1) % 10),  font=font, fill=colour_white)
         else:
             draw.text((ten_thousand_Column_Pos, middle_row), str(alt_TenThousandsValue), font=font, fill=colour_white)
+
+
+    draw.rectangle((ten_thousand_Column_Pos, top_row, ten_thousand_Column_Pos + column_Spacing, top_row + hatch_height ), outline=colour_black, fill=colour_black)
+    draw.rectangle((ten_thousand_Column_Pos, bottom_row + 10, ten_thousand_Column_Pos + column_Spacing, bottom_row + hatch_height + 10 ), outline=colour_black, fill=colour_black)
 
     # end DrawTenThousands
 
