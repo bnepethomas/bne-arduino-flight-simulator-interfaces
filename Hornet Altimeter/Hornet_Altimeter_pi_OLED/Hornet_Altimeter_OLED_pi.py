@@ -1,6 +1,39 @@
+# Altimeter OLED code - used in conjunction with Arduino for driving stepper  
+# https://github.com/bnepethomas/bne-arduino-flight-simulator-interfaces/tree/master/Hornet%20Altimeter
+
+# This code is based of the SSD1306 code developed by the adafruit team
+#   Suggest start with same code form Adafruit team to ensure hardware
+#   is correctly configured. The adafruit library will need to be grabbed from Github
+#   https://learn.adafruit.com/ssd1306-oled-displays-with-raspberry-pi-and-beaglebone-black/overview
+#   Then use this code.
 
 # Font used in Arduino build is FreeMonoBold  which is basically Courier
-# This code is based of the SSD1306 code developed by the adafruit team
+#   As the same font wasn't easily found, used 'monofonto.ttf' from
+#       http://www.dafont.com/bitmap.php
+#   The file needs to be copied to the directory where the python will execute from
+
+# This code assumes used on the SPI interface, which must be enabled in the pi
+#   To validate the SPI interface is active 'ls /dev/*spi*'. This should
+#   return 'spidev0.0  spidev0.1'. 
+
+# Currently only the Altitude is used, received as a string in a UDP packet
+#   In future should
+
+
+# The current build environment uses the 192.168.3.0/24 network with
+#   192.168.3.101 - Wired Port of pi, address statically assigned - see below
+#   192.168.3.107 - Wired interface of Arduino
+
+
+
+# Statically assigning an address to the Rapsberry pi wired port (eth0). Assuming
+#   wireless is used for general access a
+#   edit (nano is easiest) /etc/dhcpcd.conf
+#   uncomment and update the following
+#       interface eth0
+#       static ip_address=192.168.3.101/24
+
+# Once complete the code will need to auto-run - so update rc.local - details to follow
 
 import socket
 
@@ -28,7 +61,7 @@ top = 0
 
 column_Spacing = 17
 
-ten_thousand_Column_Pos = 5
+ten_thousand_Column_Pos = 47
 thousand_Column_Pos = ten_thousand_Column_Pos + column_Spacing
 hundred_Column_Pos = thousand_Column_Pos + column_Spacing
 ten_Column_Pos = hundred_Column_Pos + column_Spacing
@@ -167,7 +200,6 @@ def DrawAltitude(altitude):
 
 # Raspberry Pi pin configuration:
 RST = 24
-# Note the following are only used with SPI:
 DC = 23
 SPI_PORT = 0
 SPI_DEVICE = 0
