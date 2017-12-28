@@ -3,6 +3,7 @@
 #include <Ethernet.h>
 #include <EthernetUdp.h>
 
+// Need to check if this manually assigned Mac has been used elsewhere
 byte mac[] = { 
   0xA9,0xE7,0x3E,0xCA,0x34,0x1D};
 IPAddress ip(192,168,3,107);
@@ -11,36 +12,33 @@ const unsigned int localport = 13139;
 const unsigned int remoteport = 15151;
 
 EthernetUDP udp;
-char packetBuffer[200]; //buffer to store the incoming data
-char outpacketBuffer[200]; //buffer to store the outgoing data
+char packetBuffer[200];     //buffer to store the incoming data
+char outpacketBuffer[200];  //buffer to store the outgoing data
 
 
-int val, Clock_val;
-int CompassPos, ClockPos;
-int LastCompassPos = 0;
-int LastClockPos = 0;
-int CurrentDirection, ClockCurrentDirection;
-boolean CompassZeroed = false;
-boolean ClockZeroed = false;
+int val;
+int Alt_Hundreds_Pointer_Pos;
+int LastAlt_Hundreds_Pointer_Pos = 0;
+int CurrentDirection;
+boolean AltimeterZeroed = false;
 double StepperNumbers[4];
 
 const int MaxSteps = 3780;
 const int delaytime = 10;
-// const int clockdelay = 23430;            // Should actually be 23.43mS
-const int clockdelay = 2000;            // Should actually be 23.43mS
+// const int AltimeterDelay = 23430;            // Should actually be 23.43mS
+const int AltimeterDelay = 2000;            // Should actually be 23.43mS
 const int cClockwise = 1;
 const int cCounterClockwise = -1;
 const int cUnknownPos = 999;
 
 
 
-
 #include <Wire.h>
-#define pinZeroSet 2
+
 
 int sensorPin = A1; 
 
-unsigned long thousandscounter = 0;
+unsigned long Altitude = 0;
 int pressure = 1013;
 bool goingup = true; 
 long startmillis = 0;
@@ -58,21 +56,16 @@ void setup()
 
  
     Serial.begin(115200);
-    
-
     Ethernet.begin( mac, ip);
     udp.begin( localport );
     
     int x;
-    StepperNumbers[0] = 0;      // Compass
-    StepperNumbers[1] = 0;      // Clock
-    CompassPos= cUnknownPos;
+    StepperNumbers[0] = 0;      // Altimeter
+
+    Alt_Hundreds_Pointer_Pos= cUnknownPos;
     CurrentDirection = cCounterClockwise;
-    ClockCurrentDirection = cCounterClockwise;
 
 
-    // Pin 2 input for zero position set
-    pinMode( pinZeroSet, INPUT_PULLUP );
     
     for( int i = 22; i <= 42; i++)
     {
@@ -89,15 +82,15 @@ void setup()
           Serial.println("Winding back altimeter");
           StepCounterClockwise();
           
-          val = analogRead(0);       // read analog input pin 0  
-          Serial.println(val); // prints the value read
+          val = analogRead(0);      // read analog input pin 0  
+          Serial.println(val);      // prints the value read
           if (val >= 200) {
             Serial.println("Zero exiting");
-            CompassZeroed = true;
+            AltimeterZeroed = true;
             delay(1000);
+            // Break Out of loop
             x=5000;
           }
-          //delayMicroseconds(clockdelay);
         }
         for (int  x = 0; x < 8 ; x++)
         {
@@ -106,7 +99,6 @@ void setup()
         }
  
     }
-
    
     // If zero not found then step 20 steps clockwise
 
@@ -126,47 +118,47 @@ void StepCounterClockwise()
   
     PORTA &= B00001001;
     PORTA |= B00001001;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 2
   
     PORTA &= B00000001;
     PORTA |= B00000001;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 3
   
     PORTA &= B00000111;
     PORTA |= B00000111;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 4
   
     PORTA &= B00000110;
     PORTA |= B00000110;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 5
   
     PORTA &= B00001110;
     PORTA |= B00001110;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 6
   
     PORTA &= B00001000;
     PORTA |= B00001000;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 7
   
     PORTA &= B00001001;
     PORTA |= B00001001;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
-    if (CompassPos != cUnknownPos)
+    if (Alt_Hundreds_Pointer_Pos != cUnknownPos)
     {
-      CompassPos = CompassPos - 1;
+      Alt_Hundreds_Pointer_Pos = Alt_Hundreds_Pointer_Pos - 1;
     };
    
     CurrentDirection = cCounterClockwise;
@@ -189,51 +181,50 @@ void StepClockwise()
   
     PORTA &= B00000000;
     PORTA |= B00000000;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 2
   
     PORTA &= B00001000;
     PORTA |= B00001000;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 3
   
     PORTA &= B00001110;
     PORTA |= B00001110;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 4
   
     PORTA &= B00000110;
     PORTA |= B00000110;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 5
   
     PORTA &= B00000111;
     PORTA |= B00000111;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 6
   
     PORTA &= B00000001;
     PORTA |= B00000001;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
     //Step 7
   
     PORTA &= B00001001;
     PORTA |= B00001001;
-    delayMicroseconds(clockdelay);
+    delayMicroseconds(AltimeterDelay);
 
-    if (CompassPos != cUnknownPos)
+    if (Alt_Hundreds_Pointer_Pos != cUnknownPos)
     {
-      CompassPos = CompassPos + 1;
+      Alt_Hundreds_Pointer_Pos = Alt_Hundreds_Pointer_Pos + 1;
     };
    
-    CurrentDirection = cClockwise;
- 
+    CurrentDirection = cClockwise; 
 }
 
 
@@ -241,204 +232,153 @@ void StepClockwise()
 
 void loop()
 {
- 
+  
+  // Grab UDP Packet
+  int packetSize = udp.parsePacket();
 
+  // Anthing in the packet?
+  if( packetSize > 0) {
     
-    
-    
-    if (digitalRead(pinZeroSet) == LOW)
-    {
-      Serial.print("Zeroing ");
-      Serial.println(millis());
-      CompassPos = 0;
-      // A cheats debounce
-      delay(100);
-      Serial.println("Zeroing Complete");
-    }  
-    // Grab UDP Packet
-    int packetSize = udp.parsePacket();
-    if( packetSize > 0) {
-        Serial.println("Packet Received");
-        udp.read( packetBuffer, packetSize);
-     //terminate the buffer manually
-     packetBuffer[packetSize] = '\0';
-        
-        if (packetBuffer[0] == 'S') {    
-          // We have some data
-          Serial.println(packetBuffer);
-            // Split the string up
-           char* endPos;
-           int i = 0;
-           char *p = packetBuffer + 1;
-           char *str;
-           while ((str = strtok_r(p, ":", &p)) != NULL) 
-           {// delimiter is the semicolon
-             Serial.print( i);
-             Serial.print("-");
-             Serial.println(str);
-             StepperNumbers[i] = strtod(str, &endPos);
-             i++;
-             
-          }
-      } 
-    }
+      //Serial.println("Packet Received");
+      udp.read( packetBuffer, packetSize);
+      //terminate the buffer manually
+      packetBuffer[packetSize] = '\0';
+      
+      // Will need to take a look at this - for other projects
+      //  and data and command pieces, here really just receiving data
+      //  should have altitude and perhaps pressure setting
+
+      
+      if (packetBuffer[0] == 'S') {    
+        // We have some data
+        Serial.println(packetBuffer);
+        // Split the string up
+        char* endPos;
+        int i = 0;
+        char *p = packetBuffer + 1;
+        char *str;
+        while ((str = strtok_r(p, ":", &p)) != NULL){
+          
+          // delimiter is the semicolon
+          // Uncomment for troubleshooting
+          //Serial.print( i);
+          //Serial.print("-");
+          //Serial.println(str);
+          StepperNumbers[i] = strtod(str, &endPos);
+          i++;
+          
+        }
+      }     // Have something in the UDP Packet thats has correct header (eg 'S')
+    }       // UDP Packet has a payload
 
 
+    // Do a bounds check on Altitude
+    if (Altitude >= 99999) Altitude = 99999;
+    if (Altitude <= 0) Altitude = 0;
+
+    int inputPotPosition = analogRead(sensorPin);
+    // Serial.println(inputPotPosition);
+    // Sensor Value Ranges 0 to 1023
 
 
-
-  int sensorValue = analogRead(sensorPin);
-  // Serial.println(sensorValue);
-  // Sensor Value Ranges 0 to 1023
-
-  if( (millis() - lastAltimeterOutputPacket) > 50){
-      // Throw packets out every 20 seconds for so
-
+    // Throw packets out every 20 seconds for so
+    // Currently used for testing but may also end up in production
+    // So DCS code only sends data to a single device
+    if( (millis() - lastAltimeterOutputPacket) > 50) {
+      
+      
       
       lastAltimeterOutputPacket = millis();
-      Serial.println("Time to output a packet");
-      Serial.print("Zero Sensor ");
-      Serial.println(val);
+
+      // Uncomment for troubleshooting
+      //Serial.println("Time to output a packet");
+      //Serial.print("Zero Sensor ");
+      //Serial.println(val);
       Serial.print("Potentiometer Sensor");
-      Serial.println(sensorValue);
+      Serial.println(inputPotPosition);
       Serial.print("Altitude");
-      Serial.println(thousandscounter);
+      Serial.println(Altitude);
       
-      sprintf((char*)outpacketBuffer,"%lu",thousandscounter);
+      // take Altitude (Long Unsigned Int), make it a char string 
+      // and thow into a UDP Packet
+      sprintf((char*)outpacketBuffer,"%lu",Altitude);
       udp.beginPacket(targetIP, remoteport);
       udp.write(outpacketBuffer);
       udp.endPacket();
-      
-  }
-
-
+    
+    }
    
 
+    // Test code to adjust Altitude
+    // Based on pot position we wait a period of time
+    // before changing desired Altitude
+    if ( millis() >= NextIncrementDecrementTime) {
 
-  if ( millis() >= NextIncrementDecrementTime) {
-
-     if (sensorValue > 500) { 
-        goingup = true;
-
-        NextIncrementDecrementTime = millis() + (1023 - sensorValue);
+      // If the pot is mid position do nothing
+      if (!(( inputPotPosition > 400) && (inputPotPosition < 600))) {
+        if (inputPotPosition > 600) { 
+          goingup = true;
+          NextIncrementDecrementTime = millis() + (1023 - inputPotPosition); }
+        else {
+          goingup = false;   
+          NextIncrementDecrementTime = millis() + (inputPotPosition);
         }
-    else {
-        goingup = false;
+ 
+        if (goingup) {
+          if (Altitude >= 99999) 
+            Altitude = 99999; 
+          else
+            Altitude++; }
+        else {
+          if (Altitude <= 0) 
+            Altitude = 0;
+          else
+            Altitude--;}
+          
 
-        NextIncrementDecrementTime = millis() + (sensorValue);
+        
+      }  // Pot isn't in mid position
     }
-    if (goingup) {
-      thousandscounter++;
- 
- 
-      if (thousandscounter >= 99999) thousandscounter = 99999;
-    }
-    else{
-      thousandscounter--;
-      if (thousandscounter <= 0) thousandscounter = 0;
-    }  
-  }
   
 
 
+    val = analogRead(0);       // read analog input pin 0  
+    // Serial.println(val); // prints the value read
 
-
-   val = analogRead(0);       // read analog input pin 0  
-   // Serial.println(val); // prints the value read
-
-
-//  Serial.print("Altitude: ");
-//  Serial.print(thousandscounter);
 
    // Load the desired set point
-   
-   //StepperNumbers[0] = int(((thousandscounter/10)%10) * 0.6  + (thousandscounter%10)* 0.06 + (thousandscounter%1)* 0.006);
-   StepperNumbers[0] = int(((thousandscounter/10)%100) * 0.6); 
-//   Serial.print("  Desired point :");
-//   Serial.print(int(((thousandscounter/10)%10) * 0.6  + (thousandscounter%10)* 0.06 + (thousandscounter%1)* 0.006));
-//   Serial.print(" Correct point ");
-//   Serial.print(int(((thousandscounter/10)%100) * 0.6)); 
-   //Serial.print( StepperNumbers[0]);
+   // As we are using a clock mechanism there are 60 steps
+   // so round to the nearest degree (ie 60/100)
+   StepperNumbers[0] = int(((Altitude/10)%100) * 0.6); 
 
 
+   // Process Altimeter
+   // If the altimeter is zerod don't bother doing anything
+   if (AltimeterZeroed) {
 
-   // Process Compass
-   if (!CompassZeroed)
-   {
-//    
-//     if (val > 250)  {   
-//           CompassPos= 0;
-//           CompassZeroed = true;     
-//      }
-//      else
-//        StepClockwise();
-   }
-   else 
-   {
-//      Serial.print(" Compass Pos: ");
-//      Serial.print(CompassPos);
       
+      if (Alt_Hundreds_Pointer_Pos >= 60) Alt_Hundreds_Pointer_Pos = 0;
+      if (Alt_Hundreds_Pointer_Pos <= -1)  Alt_Hundreds_Pointer_Pos = 59;
 
-      // Serial.print("Micros: ");
-      //erial.println(micros());
-    
-      // Check to see if we have hit the zero point
-      //if (val > 250) {
-      //  if (CurrentDirection == cClockwise)    
-      //     CompassPos= 0;   
-      //  else
-      //     CompassPos = 4;  
-      //}
-  
-      // Dlay when testing to verify we have hit zero point
-      //if ((CompassPos == 0) & (LastCompassPos != 0)) {
-      //    delay(6000);
-      //}
-      
-      if (CompassPos >= 60) CompassPos = 0;
-      if (CompassPos <= -1)  CompassPos = 59;
-
-      LastCompassPos = CompassPos;
+      LastAlt_Hundreds_Pointer_Pos = Alt_Hundreds_Pointer_Pos;
 
         
-      if (CompassPos != StepperNumbers[0]) {
+      if (Alt_Hundreds_Pointer_Pos != StepperNumbers[0]) {
         // Not at desired desired compass position so move it
         // if we are climbing don't wind altimeter back to try and catch
-//
-        if (LastAltitude > thousandscounter) {
+
+        if (LastAltitude > Altitude) {
             //Serial.println("Descending");
             StepCounterClockwise(); }
-       else if (LastAltitude < thousandscounter) {
+       else if (LastAltitude < Altitude) {
             //Serial.println("Ascending");
-            StepClockwise(); } 
-            
-        
-//        if (((CompassPos - StepperNumbers[0]) < 30) &&
-//           ((StepperNumbers[0] - CompassPos) < 30)  ) {
-//          if (CompassPos > StepperNumbers[0]) 
-//            StepCounterClockwise();
-//          else 
-//            StepClockwise();
-//        }
-//        else {
-//          if (CompassPos > StepperNumbers[0]) 
-//            StepClockwise();
-//          else 
-//            StepCounterClockwise();        
-//        }
+            StepClockwise(); }      
       }
-
-
-   }
+   } // Altimeter Zeroed
   
   
-  
-   LastAltitude = thousandscounter;
-  
-//   Serial.println("");  
-    //delay(delaytime);
-   
-  
+   LastAltitude = Altitude;
+ 
 
 }
 
