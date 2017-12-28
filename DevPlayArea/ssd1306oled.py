@@ -4,10 +4,12 @@
 
 import socket
 
+# Do not need short timeout for UDP packet as display is refreshed in one hit
+#   (unlike stepper motors which need to move to new position
 UDP_IP_ADDRESS = "192.168.3.101"
 UDP_PORT_NO = 15151
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-serverSock.settimeout(0.0001)
+serverSock.settimeout(1)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
 
@@ -214,13 +216,13 @@ while True:
     
     try:
         data, addr = serverSock.recvfrom(1024)
-        print ("Message: ", data)
         s = data.decode("utf-8") 
         if (s.isdigit):
             w = int(s)
             DrawAltitude(w)    
                                           
     except socket.timeout:
+        
         a=0
 
 
