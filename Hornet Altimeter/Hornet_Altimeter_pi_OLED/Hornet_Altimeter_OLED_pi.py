@@ -35,6 +35,17 @@
 
 # Once complete the code will need to auto-run - so update rc.local - details to follow
 
+# Recommend using git to keep things synchronised across different platforms. On Mac the desktop
+#   client is simple to use.  For the Raspberry pi, the cli commands are available, and require
+#   a little more knowledge, three useful commands to know
+#       git pull            - grab/sync the repository from github
+#       git commit .        - commit local changes
+#       git push            - synch local changes to github. Need a git account (which is free for public projects)
+
+# When working with the pi - I usually use VNC Viewer (after updating the 1280 * 720) with IDLE, and
+#   ssh to the pi for cli work. (default username for the pi is... 'pi')
+
+
 import socket
 
 # Do not need short timeout for UDP packet as display is refreshed in one hit
