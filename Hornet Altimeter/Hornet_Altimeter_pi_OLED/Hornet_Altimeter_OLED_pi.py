@@ -10,6 +10,7 @@
 # Font used in Arduino build is FreeMonoBold  which is basically Courier
 #   As the same font wasn't easily found, used 'monofonto.ttf' from
 #       http://www.dafont.com/bitmap.php
+#   This font is fixed width, and digits are centered which make the dial look more natural
 #   The file needs to be copied to the directory where the python will execute from
 
 # This code assumes used on the SPI interface, which must be enabled in the pi
