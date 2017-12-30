@@ -225,6 +225,11 @@ def DrawAltitude(altitude):
     #end DrawAltitide
     
 
+def DrawPressure():
+    font = ImageFont.truetype('monofonto.ttf', 20)
+    draw.text((80, -5),str("1013"),  font=font, fill=colour_white)
+    
+
 # Raspberry Pi pin configuration:
 RST = 24
 DC = 23
@@ -278,7 +283,9 @@ while True:
         s = data.decode("utf-8") 
         if (s.isdigit):
             w = int(s)
-            DrawAltitude(w)    
+            font = ImageFont.truetype('monofonto.ttf', 45)
+            DrawAltitude(w)
+            DrawPressure()
                                           
     except socket.timeout:
         
