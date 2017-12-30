@@ -71,26 +71,36 @@ colour_black = 0
 colour_white = 255
 top = 0
 
-column_Spacing = 17
+column_Spacing = 23
 
-ten_thousand_Column_Pos = 47
+ten_thousand_Column_Pos = 0
 thousand_Column_Pos = ten_thousand_Column_Pos + column_Spacing
 hundred_Column_Pos = thousand_Column_Pos + column_Spacing
 ten_Column_Pos = hundred_Column_Pos + column_Spacing
 one_Column_Pos = ten_Column_Pos + column_Spacing
+##
+##top_hidden_row = -27
+##top_row = -6
+##middle_row = 15
+##bottom_row = 36
+##bottom_hidden_row = 57
 
-top_hidden_row = -27
-top_row = -6
+#top_hidden_row = -70
+top_hidden_row = -60
+#top_row = -30
+top_row = -22
+
 middle_row = 15
-bottom_row = 36
-bottom_hidden_row = 57
+bottom_row = 76
+bottom_hidden_row = 80
 
-hatch_width = 12
-hatch_height = 20
+hatch_width = 19
+hatch_height = 30
 character_width = 12
 
-vertical_offset = 21
-cursor_Multiplier = 2.1
+#vertical_offset = 21
+vertical_offset = 37
+cursor_Multiplier = 3.6
 
 
 
@@ -101,9 +111,9 @@ def DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_Te
   
     # Check to see if ready to roll the hatch between 90900 and 10,000 
     if ((alt_HundredsValue==9) & (alt_TenThousandsValue==0) & (alt_ThousandsValue==9)):
-        hatch_Top = 10 - hatch_height + vertical_character_offset
+        hatch_Top = 2 - hatch_height + vertical_character_offset
     else:
-        hatch_Top = 10
+        hatch_Top = 16
    
     # Draw White box
     draw.rectangle((ten_thousand_Column_Pos, hatch_Top + 10, ten_thousand_Column_Pos + hatch_width, hatch_Top + 10 + hatch_height), outline=colour_white, fill=colour_white)
@@ -117,6 +127,8 @@ def DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_Te
         draw.line((ten_thousand_Column_Pos, hatch_Top + 14 + i, ten_thousand_Column_Pos + hatch_width, i + hatch_Top + 14 + 10), fill=colour_black)       
     for i in range(5,9):
         draw.line((ten_thousand_Column_Pos, hatch_Top + 21 + i, ten_thousand_Column_Pos + hatch_width, i + hatch_Top  + 21 + 10), fill=colour_black)
+    for i in range(5,9):
+        draw.line((ten_thousand_Column_Pos, hatch_Top + 28 + i, ten_thousand_Column_Pos + hatch_width, i + hatch_Top  + 28 + 10), fill=colour_black)
 
 
     #As hatch drawing is a little rough - need to clean up for rolling text
@@ -144,10 +156,10 @@ def DrawTenThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue,
         else:
             draw.text((ten_thousand_Column_Pos, middle_row), str(alt_TenThousandsValue), font=font, fill=colour_white)
 
-
-    draw.rectangle((ten_thousand_Column_Pos, top_row, ten_thousand_Column_Pos + column_Spacing, top_row + hatch_height ), outline=colour_black, fill=colour_black)
-    draw.rectangle((ten_thousand_Column_Pos, bottom_row + 10, ten_thousand_Column_Pos + column_Spacing, bottom_row + hatch_height + 10 ), outline=colour_black, fill=colour_black)
-
+# WIP
+    draw.rectangle((ten_thousand_Column_Pos, top_row, ten_thousand_Column_Pos + column_Spacing, top_row + hatch_height + 8 ), outline=colour_black, fill=colour_black)
+    draw.rectangle((ten_thousand_Column_Pos, bottom_row + 20, ten_thousand_Column_Pos + column_Spacing, bottom_row + hatch_height + 10 ), outline=colour_black, fill=colour_black)
+# /WIP
     # end DrawTenThousands
 
 
@@ -169,6 +181,8 @@ def DrawThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, al
         draw.text((thousand_Column_Pos, middle_row), str(alt_ThousandsValue), font=font, fill=colour_white)
 
 
+    draw.rectangle((thousand_Column_Pos, top_row, thousand_Column_Pos + column_Spacing, top_row + hatch_height + 8 ), outline=colour_black, fill=colour_black)
+
     #end Draw Thousands
 
 
@@ -181,8 +195,9 @@ def DrawHundreds(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt
     draw.text((hundred_Column_Pos, top_hidden_row + vertical_character_offset ), str((alt_HundredsValue+9) % 10), font=font, fill=colour_white)
     draw.text((hundred_Column_Pos, top_row + vertical_character_offset),str((alt_HundredsValue) % 10),  font=font, fill=colour_white)
     draw.text((hundred_Column_Pos, middle_row + vertical_character_offset), str((alt_HundredsValue+1) % 10), font=font, fill=colour_white)
-    draw.text((hundred_Column_Pos, bottom_row + vertical_character_offset ), str((alt_HundredsValue+2) % 10), font=font, fill=colour_white)
-    draw.text((hundred_Column_Pos, bottom_hidden_row + vertical_character_offset ), str((alt_HundredsValue+3) % 10), font=font, fill=colour_white)
+    # the following rows aren't needed with large 
+    #draw.text((hundred_Column_Pos, bottom_row + vertical_character_offset ), str((alt_HundredsValue+2) % 10), font=font, fill=colour_white)
+    #draw.text((hundred_Column_Pos, bottom_hidden_row + vertical_character_offset ), str((alt_HundredsValue+3) % 10), font=font, fill=colour_white)
 
     # end DrawHundreds
 
@@ -244,7 +259,7 @@ draw.rectangle((0,0,width,height), outline=0, fill=0)
 font = ImageFont.load_default()
 # Alternatively load a TTF font.  Make sure the .ttf font file is in the same directory as the python script!
 # Some other nice fonts to try: http://www.dafont.com/bitmap.php
-font = ImageFont.truetype('monofonto.ttf', 26)
+font = ImageFont.truetype('monofonto.ttf', 45)
 
 
 
