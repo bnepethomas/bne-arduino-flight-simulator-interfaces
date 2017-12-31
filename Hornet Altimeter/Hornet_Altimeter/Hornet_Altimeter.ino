@@ -26,7 +26,8 @@ double StepperNumbers[4];
 const int MaxSteps = 3780;
 const int delaytime = 10;
 // const int AltimeterDelay = 23430;            // Should actually be 23.43mS
-const int AltimeterDelay = 2000;            // Should actually be 23.43mS
+//const int AltimeterDelay = 2000;
+const int AltimeterDelay = 3000;            // Should actually be 23.43mS
 const int cClockwise = 1;
 const int cCounterClockwise = -1;
 const int cUnknownPos = 999;
