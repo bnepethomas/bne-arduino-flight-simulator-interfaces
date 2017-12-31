@@ -278,7 +278,9 @@ void loop()
     if (Altitude <= 0) Altitude = 0;
 
     int inputPotPosition = analogRead(sensorPin);
-    int KollsmanAdjustPosition = analogRead(KollmansAdjustPin);
+    long KollsmanAdjustPosition = analogRead(KollmansAdjustPin);
+    // Adjust Kollamns Position to within range of 870 to 1085
+    KollsmanAdjustPosition = 870 + int(KollsmanAdjustPosition * 215/1024);
     // Serial.println(inputPotPosition);
     // Sensor Value Ranges 0 to 1023
 
@@ -296,12 +298,12 @@ void loop()
       //Serial.println("Time to output a packet");
       //Serial.print("Zero Sensor ");
       //Serial.println(val);
-      Serial.print("Potentiometer Sensor: ");
-      Serial.println(inputPotPosition);
-      Serial.print("Altitude: ");
-      Serial.println(Altitude);
-      Serial.print("Kollsman Adjust ");
-      Serial.println(KollsmanAdjustPosition);
+      //Serial.print("Potentiometer Sensor: ");
+      //Serial.println(inputPotPosition);
+      //Serial.print("Altitude: ");
+      //Serial.println(Altitude);
+      //Serial.print("Kollsman Adjust ");
+      //Serial.println(KollsmanAdjustPosition);
       
       // take Altitude (Long Unsigned Int), make it a char string 
       // and thow into a UDP Packet
