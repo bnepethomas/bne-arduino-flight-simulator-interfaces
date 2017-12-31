@@ -156,10 +156,10 @@ def DrawTenThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue,
         else:
             draw.text((ten_thousand_Column_Pos, middle_row), str(alt_TenThousandsValue), font=font, fill=colour_white)
 
-# WIP
+
     draw.rectangle((ten_thousand_Column_Pos, top_row, ten_thousand_Column_Pos + column_Spacing, top_row + hatch_height + 8 ), outline=colour_black, fill=colour_black)
     draw.rectangle((ten_thousand_Column_Pos, bottom_row + 20, ten_thousand_Column_Pos + column_Spacing, bottom_row + hatch_height + 10 ), outline=colour_black, fill=colour_black)
-# /WIP
+
     # end DrawTenThousands
 
 
@@ -225,9 +225,10 @@ def DrawAltitude(altitude):
     #end DrawAltitide
     
 
-def DrawPressure():
+def DrawPressure(Pressure):
+    draw.rectangle((70, 0, 128, 20 ), outline=colour_black, fill=colour_black)
     font = ImageFont.truetype('monofonto.ttf', 20)
-    draw.text((80, -5),str("1013"),  font=font, fill=colour_white)
+    draw.text((80, -5),str(Pressure),  font=font, fill=colour_white)
     
 
 # Raspberry Pi pin configuration:
@@ -280,12 +281,16 @@ while True:
     
     try:
         data, addr = serverSock.recvfrom(1024)
-        s = data.decode("utf-8") 
-        if (s.isdigit):
-            w = int(s)
+        s = data.decode("utf-8")
+        receivedValues = s.split(",")
+        if (receivedValues[0].isdigit):
+            w = int(receivedValues[0])
+            #print(s, " " , receivedValues[0])
             font = ImageFont.truetype('monofonto.ttf', 45)
             DrawAltitude(w)
-            DrawPressure()
+        if (receivedValues[1].isdigit):
+            w = int(receivedValues[1])            
+            DrawPressure(w)
                                           
     except socket.timeout:
         
