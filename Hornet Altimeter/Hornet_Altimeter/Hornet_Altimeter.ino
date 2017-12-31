@@ -38,7 +38,7 @@ const int cUnknownPos = 999;
 
 
 int sensorPin = A1; 
-
+int KollmansAdjustPin = A2;
 unsigned long Altitude = 0;
 int pressure = 1013;
 bool goingup = true; 
@@ -93,7 +93,7 @@ void setup()
             x=5000;
           }
         }
-        for (int  x = 0; x < 8 ; x++)
+        for (int  x = 0; x < 9 ; x++)
         {
           Serial.println("Winding to top altimeter");
           StepCounterClockwise();
@@ -278,6 +278,7 @@ void loop()
     if (Altitude <= 0) Altitude = 0;
 
     int inputPotPosition = analogRead(sensorPin);
+    int KollsmanAdjustPosition = analogRead(KollmansAdjustPin);
     // Serial.println(inputPotPosition);
     // Sensor Value Ranges 0 to 1023
 
@@ -295,14 +296,16 @@ void loop()
       //Serial.println("Time to output a packet");
       //Serial.print("Zero Sensor ");
       //Serial.println(val);
-      Serial.print("Potentiometer Sensor");
+      Serial.print("Potentiometer Sensor: ");
       Serial.println(inputPotPosition);
-      Serial.print("Altitude");
+      Serial.print("Altitude: ");
       Serial.println(Altitude);
+      Serial.print("Kollsman Adjust ");
+      Serial.println(KollsmanAdjustPosition);
       
       // take Altitude (Long Unsigned Int), make it a char string 
       // and thow into a UDP Packet
-      sprintf((char*)outpacketBuffer,"%lu",Altitude);
+      sprintf((char*)outpacketBuffer,"%lu,%i",Altitude,KollsmanAdjustPosition);
       udp.beginPacket(targetIP, remoteport);
       udp.write(outpacketBuffer);
       udp.endPacket();
