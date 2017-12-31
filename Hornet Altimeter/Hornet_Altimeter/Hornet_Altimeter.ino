@@ -305,7 +305,7 @@ void loop()
       
       // take Altitude (Long Unsigned Int), make it a char string 
       // and thow into a UDP Packet
-      sprintf((char*)outpacketBuffer,"%lu",Altitude);
+      sprintf((char*)outpacketBuffer,"%lu,%i",Altitude,KollsmanAdjustPosition);
       udp.beginPacket(targetIP, remoteport);
       udp.write(outpacketBuffer);
       udp.endPacket();
