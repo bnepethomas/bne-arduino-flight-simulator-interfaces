@@ -78,16 +78,10 @@ thousand_Column_Pos = ten_thousand_Column_Pos + column_Spacing
 hundred_Column_Pos = thousand_Column_Pos + column_Spacing
 ten_Column_Pos = hundred_Column_Pos + column_Spacing
 one_Column_Pos = ten_Column_Pos + column_Spacing
-##
-##top_hidden_row = -27
-##top_row = -6
-##middle_row = 15
-##bottom_row = 36
-##bottom_hidden_row = 57
 
-#top_hidden_row = -70
+
 top_hidden_row = -60
-#top_row = -30
+
 top_row = -22
 
 middle_row = 15
@@ -98,12 +92,12 @@ hatch_width = 19
 hatch_height = 30
 character_width = 12
 
-#vertical_offset = 21
+
 vertical_offset = 37
 cursor_Multiplier = 3.6
 
-
-
+Altitude_List_Entry = 0
+Kollsman_List_Entry = 1
 
 
 def DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue,vertical_character_offset):
@@ -283,17 +277,18 @@ while True:
         data, addr = serverSock.recvfrom(1024)
         s = data.decode("utf-8")
         receivedValues = s.split(",")
-        if (receivedValues[0].isdigit):
-            w = int(receivedValues[0])
-            #print(s, " " , receivedValues[0])
+
+        if (receivedValues[Altitude_List_Entry ].isdigit):
+            w = int(receivedValues[Altitude_List_Entry])
             font = ImageFont.truetype('monofonto.ttf', 45)
             DrawAltitude(w)
-        if (receivedValues[1].isdigit):
-            w = int(receivedValues[1])            
+
+        if (receivedValues[Kollsman_List_Entry].isdigit):
+            w = int(receivedValues[Kollsman_List_Entry])            
             DrawPressure(w)
                                           
     except socket.timeout:
-        
+        # Don't panic that packet hasn't arrived
         a=0
 
 
