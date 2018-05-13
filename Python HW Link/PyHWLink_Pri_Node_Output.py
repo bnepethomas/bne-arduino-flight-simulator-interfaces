@@ -108,10 +108,11 @@ sock.bind((UDP_IP, UDP_PORT))
 while True:
     try:
        while True:
+          print(time.asctime()) 
           Send_UDP_Command("C15,3004,-1")
           
-          sock.settimeout(0.000002)
-          data, (Source_IP, Source_Port) = sock.recvfrom(1024) # buffer size is 1024 bytes
+          sock.settimeout(1)
+          data, (Source_IP, Source_Port) = sock.recvfrom(1500) # buffer size is 1024 bytes
           if (Source_IP != Last_Source_IP):
             Last_Source_IP = Source_IP  
             print ("New Source Address Found")
