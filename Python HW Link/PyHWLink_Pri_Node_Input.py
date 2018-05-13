@@ -104,7 +104,7 @@
 # The values to be sent can be found
 # C:\Program Files\Eagle Dynamics\DCS World\Mods\aircraft\Uh-1H\Input\UH-1H\joystick
 # Structure is
-# C - COmmand
+# C - Command
 # 15 - Cockpit Device Id
 # 3003 - Unknown but seen in multiple places
 # Switch Position
