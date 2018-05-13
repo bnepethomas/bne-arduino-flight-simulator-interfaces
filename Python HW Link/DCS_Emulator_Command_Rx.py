@@ -6,6 +6,8 @@ serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
+#sanity
+
 a=0
 while True:
     
