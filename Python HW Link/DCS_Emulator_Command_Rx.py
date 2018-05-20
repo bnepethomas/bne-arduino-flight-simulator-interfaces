@@ -8,6 +8,40 @@ import os
 import sys
 import time
 import json
+import sys
+
+# See if input configuration file exists
+# Parameters are either specified in this file or passed via command line
+# 
+if not (os.path.isfile('input_config.py')):
+    
+    print('Unable to find ' + input_file)
+    
+else:
+    try:
+        from input_config import *
+        
+        print('Learning Mode: ' + str(learning))
+        print('Aircraft is: ' + AircraftType)
+            
+    except:
+        print('Unable to open input_config.py')
+        print('Or variable assignment incorrect - forgot quotes for string?')
+        print('Defaults used')
+    
+
+
+
+
+# See if value is assigned.  First we checked config file and then
+#   command line arguments
+
+try:
+    test = AircraftType
+except:
+    print('AircraftType not assigned - using defaults')
+    AircraftType = 'default'
+
 
 UDP_IP_ADDRESS = "127.0.0.1"
 UDP_PORT_NO = 26027
@@ -62,7 +96,11 @@ deviceToFind = ''  # Lets load everything that we can
 # Empty dictionary
 myDict = {}
 
-if os.path.isfile(input_file):
+if not (os.path.isfile(input_file)):
+    
+    print('Unable to find ' + input_file)
+    
+else:
     file_object = open(input_file, 'r')
     count = 0
     myline = file_object.readline() 
@@ -156,12 +194,46 @@ if os.path.isfile(input_file):
         
         print(myDict[itemOfInterest][fieldOfInterest])
 
+        S = json.dumps(myDict)
+        json.dump(myDict, fp=open('testjson.txt','w'),indent=4)
+        print('File Exported')
+        
+
     except:
         print('Unable to read record of interest')
         print('Record name is: "' + itemOfInterest + '", Field is: "' + fieldOfInterest + '"')
-else:
-    print('Unable to find ' + input_file)
-    
+
+        
+
+    print('Developing I/O Blocks')
+
+    print('Build out input blocks 1,2,3')
+    # Here we receive packets containing switch transitions
+    # Maximum inputs per module is 256
+    # Unless explicitly asked via a command request, the sending unit only sends deltas
+    # The format is AV pairs indicating new switch status, eg a switch moving to the off position will reflect as switch_no:0
+    # Packets from input nodes will have the format of DX:A=V:A1=V1, where X is the input node number.
+    # The Node number is only indicated in the front of the packet, not at the individual AV pair.
+
+    # If an AV pair is not known it will be silently discarded unless the Primary node is in learning mode.
+    # If in learning mode it will ask the operator what task should be assigned to the unknown AV pair. Switch description will
+    #   also be validated.
+
+    # There will be a generic input file, and aircraft specific files.Still to be determined how aircraft type is selected, ideally
+    #   this would be dynamic - which may mean receiving a trigger, most likely from the output driver as it is receiving packets
+    #   from the simulator.  An approach may be to allow the output code to sense aircraft change and if aircraft type does change
+    #   then kill existing input process and launch new input process with command line parameters.
+
+    # Dict should contain
+    #   1: UniqueSwitchID (Key) (NodeNumber:SwitchID)
+    #   2: SwitchDescription
+    #   3: OnSwitchAction
+    #   4: OffSwitchAction
     
 
+    print('Build out output block')
+    # Map values from LUA eg GearLightLeft to ip adress, device number, value
+    # Led bocks of Max7219 , State 0/1, 3 off?
+    # Guage blocks analog values
+    # Text blocks with sanity checkings
 

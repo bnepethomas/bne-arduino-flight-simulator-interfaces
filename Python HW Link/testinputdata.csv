@@ -89,7 +89,7 @@ keyCommands = {
 {down = iCommandPlaneCircuitBreaker_15, name = "CB Engines ingnitor L/R-2", category = "Circuit breaker panel"},
 {down = iCommandPlaneCircuitBreaker_21, name = "CB Ext stores jettison 1", category = "Circuit breaker panel"},
 {down = iCommandPlaneCircuitBreaker_22, name = "CB Ext stores jettison 2", category = "Circuit breaker panel"},
-{down = iCommandPlaneCircuitBreaker_29, name = "CB Generator CONT Left", category = "Circuit breaker panel"},
+{down = iCommandPlaneCircuitBreaker_29, name = "CB Generator CONT Left", category = "Circuit breaker panel", ip address = 192.168.77.88},
 {down = iCommandPlaneCircuitBreaker_30, name = "CB Generator CONT Right", category = "Circuit breaker panel"},
 {down = iCommandPlaneCircuitBreaker_26, name = "CB IFF", category = "Circuit breaker panel"},
 {down = iCommandPlaneCircuitBreaker_28, name = "CB INTER COMM", category = "Circuit breaker panel"},
