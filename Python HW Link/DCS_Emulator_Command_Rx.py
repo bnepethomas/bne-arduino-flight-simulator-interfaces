@@ -3,15 +3,21 @@
 # Test script loading LUA file (which contains joystick commands) into an Dictionary (actually a dicutionary of dictionaries)
 # Only loads entries which have a name tag and are on a single line enclosed by { and } 
 
-import socket
+import json
 import os
+import socket
 import sys
 import time
-import json
-import sys
+
+from optparse import OptionParser
+
+
+
+debugging = False
 
 # See if input configuration file exists
 # Parameters are either specified in this file or passed via command line
+# Command line parameters override any settings in the config file
 # 
 if not (os.path.isfile('input_config.py')):
     
@@ -36,6 +42,29 @@ else:
 # See if value is assigned.  First we checked config file and then
 #   command line arguments
 
+if debugging: print("Checking Command Line parameters")
+
+
+parser = OptionParser()
+parser.add_option("-f", "--file", dest="filename",
+                  help="write report to FILE",metavar="FILE")
+parser.add_option("-d","--debug", dest="debug",
+                  help="enable debug",metavar="DEBUGLEVEL")
+(options, args) = parser.parse_args()
+print("options:", str(options))
+print("arguments:", args)
+
+
+
+if len(sys.argv) > 1:
+    print('Parameters have been passed via command line')
+    print(sys.argv[1:])
+    
+    
+
+
+
+
 try:
     test = AircraftType
 except:
@@ -50,7 +79,7 @@ serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
 
-debugging = False
+
 
 
 #sanity
