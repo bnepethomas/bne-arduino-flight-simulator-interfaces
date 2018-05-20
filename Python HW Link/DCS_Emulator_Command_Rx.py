@@ -15,6 +15,10 @@ serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
+
+debugging = False
+
+
 #sanity
 def test():
     a=0
@@ -33,22 +37,27 @@ def test():
                 print("Long Receive Timeout - ", time.asctime())
                 a=0
             continue
-print("hello world")
-print(os.name)
-print(os.getcwd())
-print(sys.platform)
 
 def RemoveUnwantedCharacters(stringToBeCleaned):
     stringToBeCleaned= stringToBeCleaned.replace('"', '')
     stringToBeCleaned = stringToBeCleaned.strip(' ')
     return(stringToBeCleaned)
 
-debugging = False
-x = os.listdir(os.curdir)
-print(x)
-input_file = 'testinputdata.csv'
-deviceToFind = 'breaker'
 
+if debugging:        
+    print("hello world")
+    print(os.name)
+    print(os.getcwd())
+    print(sys.platform)
+    x = os.listdir(os.curdir)
+    print(x)
+
+
+input_file = 'testinputdata.csv'
+
+
+#deviceToFind = 'breaker'
+deviceToFind = ''  # Lets load everything that we can
 
 # Empty dictionary
 myDict = {}
@@ -95,7 +104,7 @@ if os.path.isfile(input_file):
 
                     mylist.append([s,t])
 
-                    if s == 'name':
+                    if debugging and s == 'name':
                         print("Found a name: " + t )
 
 
@@ -141,7 +150,7 @@ if os.path.isfile(input_file):
         fieldOfInterest = 'down'
 
         
-        print('Complete Record for :' + itemOfInterest)
+        print('Complete Record for: ' + itemOfInterest)
         print(myDict[itemOfInterest])
         print('Specific Field (' + fieldOfInterest + ')' )
         
