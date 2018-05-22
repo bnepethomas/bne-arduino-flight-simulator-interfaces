@@ -46,24 +46,28 @@ if debugging: print("Checking Command Line parameters")
 
 
 parser = OptionParser()
-parser.add_option("-f", "--file", dest="filename",
-                  help="write report to FILE",metavar="FILE")
-parser.add_option("-d","--debug", dest="debug",
+parser.add_option("-d","--debug", dest="optiondebug",action="store_true",
+                  default=False,
                   help="enable debug",metavar="DEBUGLEVEL")
+parser.add_option("-l","--learning", dest="optionLearning",action="store_true",
+                  default=False,
+                  help="learning mode, assign actions to switch movements")
 (options, args) = parser.parse_args()
+
 print("options:", str(options))
 print("arguments:", args)
 
+# Override Learning mode if passed via command line
+if options.optionLearning == True:
+    learning = True
+    print('Learning Mode enabled through command line')
+# Override Debug mode if passed via command line    
+if options.optiondebug == True:
+    debugging = True
+    print('Debugging Mode enabled through command line')    
 
-
-if len(sys.argv) > 1:
-    print('Parameters have been passed via command line')
-    print(sys.argv[1:])
     
     
-
-
-
 
 try:
     test = AircraftType
@@ -258,6 +262,44 @@ else:
     #   2: SwitchDescription
     #   3: OnSwitchAction
     #   4: OffSwitchAction
+
+
+    # Empty dictionary
+    dictInputAssignments = {}
+
+    input_assignments_file = 'input_assignments.json'
+    
+    if not (os.path.isfile(input_assignments_file)):
+        
+        print('Unable to find "' + input_assignments_file + '"')
+        print('Creating default Input Assignments in: ' + input_assignments_file)
+        
+        dictOuter = {}
+        dictInner = {}
+        outercounter = 0
+        while outercounter < 3:
+            counter = 0
+            while counter < 256:
+                dictInner = {}
+                dictInner['Description'] = 'Who knows'
+                dictInner['Open'] = 'C' + str(counter) + ':1:2'
+                dictInner['Close'] = 'C' + str(counter) + ':1:3'
+
+                dictOuter[str(outercounter) + ":" + str(counter)] = dictInner
+                counter = counter + 1
+
+                
+            outercounter = outercounter + 1
+
+        json.dump(dictOuter, fp=open(input_assignments_file,'w'),indent=4)
+ 
+        print('Created Input Assignments file: "' + input_assignments_file + '"')
+
+        
+        
+    else:
+        print('Loading Input Assignments from: "' + input_assignments_file +'"')              
+        file_object = open(input_assignments_file, 'r')
     
 
     print('Build out output block')
@@ -266,3 +308,4 @@ else:
     # Guage blocks analog values
     # Text blocks with sanity checkings
 
+serverSock.close()

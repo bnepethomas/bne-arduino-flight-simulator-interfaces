@@ -1,0 +1,3842 @@
+{
+    "2:203": {
+        "Close": "C203:1:3", 
+        "Open": "C203:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:202": {
+        "Close": "C202:1:3", 
+        "Open": "C202:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:201": {
+        "Close": "C201:1:3", 
+        "Open": "C201:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:63": {
+        "Close": "C63:1:3", 
+        "Open": "C63:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:62": {
+        "Close": "C62:1:3", 
+        "Open": "C62:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:61": {
+        "Close": "C61:1:3", 
+        "Open": "C61:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:60": {
+        "Close": "C60:1:3", 
+        "Open": "C60:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:67": {
+        "Close": "C67:1:3", 
+        "Open": "C67:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:66": {
+        "Close": "C66:1:3", 
+        "Open": "C66:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:65": {
+        "Close": "C65:1:3", 
+        "Open": "C65:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:64": {
+        "Close": "C64:1:3", 
+        "Open": "C64:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:207": {
+        "Close": "C207:1:3", 
+        "Open": "C207:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:69": {
+        "Close": "C69:1:3", 
+        "Open": "C69:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:68": {
+        "Close": "C68:1:3", 
+        "Open": "C68:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:206": {
+        "Close": "C206:1:3", 
+        "Open": "C206:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:205": {
+        "Close": "C205:1:3", 
+        "Open": "C205:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:204": {
+        "Close": "C204:1:3", 
+        "Open": "C204:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:117": {
+        "Close": "C117:1:3", 
+        "Open": "C117:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:200": {
+        "Close": "C200:1:3", 
+        "Open": "C200:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:178": {
+        "Close": "C178:1:3", 
+        "Open": "C178:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:179": {
+        "Close": "C179:1:3", 
+        "Open": "C179:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:176": {
+        "Close": "C176:1:3", 
+        "Open": "C176:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:177": {
+        "Close": "C177:1:3", 
+        "Open": "C177:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:174": {
+        "Close": "C174:1:3", 
+        "Open": "C174:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:175": {
+        "Close": "C175:1:3", 
+        "Open": "C175:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:172": {
+        "Close": "C172:1:3", 
+        "Open": "C172:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:173": {
+        "Close": "C173:1:3", 
+        "Open": "C173:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:170": {
+        "Close": "C170:1:3", 
+        "Open": "C170:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:171": {
+        "Close": "C171:1:3", 
+        "Open": "C171:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:131": {
+        "Close": "C131:1:3", 
+        "Open": "C131:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:130": {
+        "Close": "C130:1:3", 
+        "Open": "C130:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:133": {
+        "Close": "C133:1:3", 
+        "Open": "C133:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:132": {
+        "Close": "C132:1:3", 
+        "Open": "C132:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:135": {
+        "Close": "C135:1:3", 
+        "Open": "C135:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:134": {
+        "Close": "C134:1:3", 
+        "Open": "C134:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:137": {
+        "Close": "C137:1:3", 
+        "Open": "C137:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:136": {
+        "Close": "C136:1:3", 
+        "Open": "C136:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:139": {
+        "Close": "C139:1:3", 
+        "Open": "C139:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:138": {
+        "Close": "C138:1:3", 
+        "Open": "C138:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:199": {
+        "Close": "C199:1:3", 
+        "Open": "C199:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:198": {
+        "Close": "C198:1:3", 
+        "Open": "C198:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:191": {
+        "Close": "C191:1:3", 
+        "Open": "C191:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:190": {
+        "Close": "C190:1:3", 
+        "Open": "C190:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:193": {
+        "Close": "C193:1:3", 
+        "Open": "C193:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:192": {
+        "Close": "C192:1:3", 
+        "Open": "C192:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:195": {
+        "Close": "C195:1:3", 
+        "Open": "C195:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:194": {
+        "Close": "C194:1:3", 
+        "Open": "C194:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:197": {
+        "Close": "C197:1:3", 
+        "Open": "C197:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:196": {
+        "Close": "C196:1:3", 
+        "Open": "C196:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:164": {
+        "Close": "C164:1:3", 
+        "Open": "C164:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:165": {
+        "Close": "C165:1:3", 
+        "Open": "C165:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:166": {
+        "Close": "C166:1:3", 
+        "Open": "C166:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:167": {
+        "Close": "C167:1:3", 
+        "Open": "C167:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:160": {
+        "Close": "C160:1:3", 
+        "Open": "C160:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:161": {
+        "Close": "C161:1:3", 
+        "Open": "C161:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:162": {
+        "Close": "C162:1:3", 
+        "Open": "C162:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:163": {
+        "Close": "C163:1:3", 
+        "Open": "C163:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:168": {
+        "Close": "C168:1:3", 
+        "Open": "C168:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:169": {
+        "Close": "C169:1:3", 
+        "Open": "C169:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:31": {
+        "Close": "C31:1:3", 
+        "Open": "C31:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:30": {
+        "Close": "C30:1:3", 
+        "Open": "C30:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:33": {
+        "Close": "C33:1:3", 
+        "Open": "C33:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:32": {
+        "Close": "C32:1:3", 
+        "Open": "C32:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:35": {
+        "Close": "C35:1:3", 
+        "Open": "C35:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:34": {
+        "Close": "C34:1:3", 
+        "Open": "C34:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:37": {
+        "Close": "C37:1:3", 
+        "Open": "C37:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:36": {
+        "Close": "C36:1:3", 
+        "Open": "C36:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:39": {
+        "Close": "C39:1:3", 
+        "Open": "C39:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:38": {
+        "Close": "C38:1:3", 
+        "Open": "C38:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:138": {
+        "Close": "C138:1:3", 
+        "Open": "C138:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:219": {
+        "Close": "C219:1:3", 
+        "Open": "C219:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:45": {
+        "Close": "C45:1:3", 
+        "Open": "C45:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:46": {
+        "Close": "C46:1:3", 
+        "Open": "C46:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:47": {
+        "Close": "C47:1:3", 
+        "Open": "C47:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:40": {
+        "Close": "C40:1:3", 
+        "Open": "C40:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:228": {
+        "Close": "C228:1:3", 
+        "Open": "C228:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:79": {
+        "Close": "C79:1:3", 
+        "Open": "C79:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:78": {
+        "Close": "C78:1:3", 
+        "Open": "C78:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:77": {
+        "Close": "C77:1:3", 
+        "Open": "C77:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:76": {
+        "Close": "C76:1:3", 
+        "Open": "C76:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:75": {
+        "Close": "C75:1:3", 
+        "Open": "C75:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:74": {
+        "Close": "C74:1:3", 
+        "Open": "C74:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:73": {
+        "Close": "C73:1:3", 
+        "Open": "C73:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:72": {
+        "Close": "C72:1:3", 
+        "Open": "C72:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:71": {
+        "Close": "C71:1:3", 
+        "Open": "C71:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:70": {
+        "Close": "C70:1:3", 
+        "Open": "C70:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:227": {
+        "Close": "C227:1:3", 
+        "Open": "C227:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:226": {
+        "Close": "C226:1:3", 
+        "Open": "C226:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:225": {
+        "Close": "C225:1:3", 
+        "Open": "C225:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:224": {
+        "Close": "C224:1:3", 
+        "Open": "C224:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:223": {
+        "Close": "C223:1:3", 
+        "Open": "C223:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:222": {
+        "Close": "C222:1:3", 
+        "Open": "C222:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:221": {
+        "Close": "C221:1:3", 
+        "Open": "C221:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:220": {
+        "Close": "C220:1:3", 
+        "Open": "C220:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:139": {
+        "Close": "C139:1:3", 
+        "Open": "C139:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:229": {
+        "Close": "C229:1:3", 
+        "Open": "C229:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:228": {
+        "Close": "C228:1:3", 
+        "Open": "C228:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:168": {
+        "Close": "C168:1:3", 
+        "Open": "C168:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:169": {
+        "Close": "C169:1:3", 
+        "Open": "C169:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:166": {
+        "Close": "C166:1:3", 
+        "Open": "C166:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:167": {
+        "Close": "C167:1:3", 
+        "Open": "C167:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:164": {
+        "Close": "C164:1:3", 
+        "Open": "C164:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:165": {
+        "Close": "C165:1:3", 
+        "Open": "C165:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:162": {
+        "Close": "C162:1:3", 
+        "Open": "C162:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:163": {
+        "Close": "C163:1:3", 
+        "Open": "C163:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:160": {
+        "Close": "C160:1:3", 
+        "Open": "C160:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:161": {
+        "Close": "C161:1:3", 
+        "Open": "C161:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:27": {
+        "Close": "C27:1:3", 
+        "Open": "C27:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:220": {
+        "Close": "C220:1:3", 
+        "Open": "C220:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:92": {
+        "Close": "C92:1:3", 
+        "Open": "C92:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:221": {
+        "Close": "C221:1:3", 
+        "Open": "C221:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:18": {
+        "Close": "C18:1:3", 
+        "Open": "C18:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:19": {
+        "Close": "C19:1:3", 
+        "Open": "C19:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:12": {
+        "Close": "C12:1:3", 
+        "Open": "C12:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:13": {
+        "Close": "C13:1:3", 
+        "Open": "C13:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:10": {
+        "Close": "C10:1:3", 
+        "Open": "C10:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:11": {
+        "Close": "C11:1:3", 
+        "Open": "C11:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:16": {
+        "Close": "C16:1:3", 
+        "Open": "C16:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:17": {
+        "Close": "C17:1:3", 
+        "Open": "C17:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:14": {
+        "Close": "C14:1:3", 
+        "Open": "C14:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:15": {
+        "Close": "C15:1:3", 
+        "Open": "C15:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:255": {
+        "Close": "C255:1:3", 
+        "Open": "C255:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:187": {
+        "Close": "C187:1:3", 
+        "Open": "C187:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:186": {
+        "Close": "C186:1:3", 
+        "Open": "C186:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:185": {
+        "Close": "C185:1:3", 
+        "Open": "C185:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:184": {
+        "Close": "C184:1:3", 
+        "Open": "C184:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:183": {
+        "Close": "C183:1:3", 
+        "Open": "C183:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:182": {
+        "Close": "C182:1:3", 
+        "Open": "C182:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:181": {
+        "Close": "C181:1:3", 
+        "Open": "C181:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:180": {
+        "Close": "C180:1:3", 
+        "Open": "C180:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:226": {
+        "Close": "C226:1:3", 
+        "Open": "C226:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:227": {
+        "Close": "C227:1:3", 
+        "Open": "C227:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:224": {
+        "Close": "C224:1:3", 
+        "Open": "C224:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:225": {
+        "Close": "C225:1:3", 
+        "Open": "C225:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:222": {
+        "Close": "C222:1:3", 
+        "Open": "C222:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:223": {
+        "Close": "C223:1:3", 
+        "Open": "C223:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:189": {
+        "Close": "C189:1:3", 
+        "Open": "C189:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:188": {
+        "Close": "C188:1:3", 
+        "Open": "C188:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:6": {
+        "Close": "C6:1:3", 
+        "Open": "C6:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:128": {
+        "Close": "C128:1:3", 
+        "Open": "C128:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:129": {
+        "Close": "C129:1:3", 
+        "Open": "C129:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:120": {
+        "Close": "C120:1:3", 
+        "Open": "C120:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:121": {
+        "Close": "C121:1:3", 
+        "Open": "C121:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:122": {
+        "Close": "C122:1:3", 
+        "Open": "C122:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:123": {
+        "Close": "C123:1:3", 
+        "Open": "C123:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:124": {
+        "Close": "C124:1:3", 
+        "Open": "C124:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:125": {
+        "Close": "C125:1:3", 
+        "Open": "C125:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:126": {
+        "Close": "C126:1:3", 
+        "Open": "C126:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:127": {
+        "Close": "C127:1:3", 
+        "Open": "C127:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:132": {
+        "Close": "C132:1:3", 
+        "Open": "C132:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:201": {
+        "Close": "C201:1:3", 
+        "Open": "C201:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:130": {
+        "Close": "C130:1:3", 
+        "Open": "C130:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:131": {
+        "Close": "C131:1:3", 
+        "Open": "C131:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:89": {
+        "Close": "C89:1:3", 
+        "Open": "C89:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:88": {
+        "Close": "C88:1:3", 
+        "Open": "C88:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:134": {
+        "Close": "C134:1:3", 
+        "Open": "C134:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:200": {
+        "Close": "C200:1:3", 
+        "Open": "C200:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:85": {
+        "Close": "C85:1:3", 
+        "Open": "C85:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:84": {
+        "Close": "C84:1:3", 
+        "Open": "C84:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:87": {
+        "Close": "C87:1:3", 
+        "Open": "C87:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:86": {
+        "Close": "C86:1:3", 
+        "Open": "C86:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:81": {
+        "Close": "C81:1:3", 
+        "Open": "C81:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:80": {
+        "Close": "C80:1:3", 
+        "Open": "C80:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:83": {
+        "Close": "C83:1:3", 
+        "Open": "C83:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:82": {
+        "Close": "C82:1:3", 
+        "Open": "C82:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:236": {
+        "Close": "C236:1:3", 
+        "Open": "C236:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:237": {
+        "Close": "C237:1:3", 
+        "Open": "C237:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:234": {
+        "Close": "C234:1:3", 
+        "Open": "C234:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:202": {
+        "Close": "C202:1:3", 
+        "Open": "C202:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:232": {
+        "Close": "C232:1:3", 
+        "Open": "C232:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:233": {
+        "Close": "C233:1:3", 
+        "Open": "C233:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:230": {
+        "Close": "C230:1:3", 
+        "Open": "C230:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:231": {
+        "Close": "C231:1:3", 
+        "Open": "C231:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:205": {
+        "Close": "C205:1:3", 
+        "Open": "C205:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:238": {
+        "Close": "C238:1:3", 
+        "Open": "C238:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:204": {
+        "Close": "C204:1:3", 
+        "Open": "C204:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:207": {
+        "Close": "C207:1:3", 
+        "Open": "C207:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:206": {
+        "Close": "C206:1:3", 
+        "Open": "C206:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:248": {
+        "Close": "C248:1:3", 
+        "Open": "C248:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:3": {
+        "Close": "C3:1:3", 
+        "Open": "C3:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:159": {
+        "Close": "C159:1:3", 
+        "Open": "C159:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:158": {
+        "Close": "C158:1:3", 
+        "Open": "C158:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:155": {
+        "Close": "C155:1:3", 
+        "Open": "C155:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:154": {
+        "Close": "C154:1:3", 
+        "Open": "C154:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:157": {
+        "Close": "C157:1:3", 
+        "Open": "C157:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:156": {
+        "Close": "C156:1:3", 
+        "Open": "C156:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:151": {
+        "Close": "C151:1:3", 
+        "Open": "C151:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:150": {
+        "Close": "C150:1:3", 
+        "Open": "C150:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:153": {
+        "Close": "C153:1:3", 
+        "Open": "C153:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:152": {
+        "Close": "C152:1:3", 
+        "Open": "C152:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:2": {
+        "Close": "C2:1:3", 
+        "Open": "C2:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:33": {
+        "Close": "C33:1:3", 
+        "Open": "C33:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:32": {
+        "Close": "C32:1:3", 
+        "Open": "C32:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:31": {
+        "Close": "C31:1:3", 
+        "Open": "C31:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:30": {
+        "Close": "C30:1:3", 
+        "Open": "C30:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:37": {
+        "Close": "C37:1:3", 
+        "Open": "C37:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:36": {
+        "Close": "C36:1:3", 
+        "Open": "C36:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:35": {
+        "Close": "C35:1:3", 
+        "Open": "C35:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:34": {
+        "Close": "C34:1:3", 
+        "Open": "C34:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:39": {
+        "Close": "C39:1:3", 
+        "Open": "C39:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:38": {
+        "Close": "C38:1:3", 
+        "Open": "C38:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:7": {
+        "Close": "C7:1:3", 
+        "Open": "C7:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:133": {
+        "Close": "C133:1:3", 
+        "Open": "C133:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:5": {
+        "Close": "C5:1:3", 
+        "Open": "C5:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:4": {
+        "Close": "C4:1:3", 
+        "Open": "C4:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:174": {
+        "Close": "C174:1:3", 
+        "Open": "C174:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:136": {
+        "Close": "C136:1:3", 
+        "Open": "C136:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:137": {
+        "Close": "C137:1:3", 
+        "Open": "C137:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:0": {
+        "Close": "C0:1:3", 
+        "Open": "C0:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:135": {
+        "Close": "C135:1:3", 
+        "Open": "C135:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:58": {
+        "Close": "C58:1:3", 
+        "Open": "C58:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:59": {
+        "Close": "C59:1:3", 
+        "Open": "C59:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:56": {
+        "Close": "C56:1:3", 
+        "Open": "C56:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:57": {
+        "Close": "C57:1:3", 
+        "Open": "C57:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:54": {
+        "Close": "C54:1:3", 
+        "Open": "C54:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:55": {
+        "Close": "C55:1:3", 
+        "Open": "C55:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:52": {
+        "Close": "C52:1:3", 
+        "Open": "C52:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:53": {
+        "Close": "C53:1:3", 
+        "Open": "C53:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:50": {
+        "Close": "C50:1:3", 
+        "Open": "C50:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:51": {
+        "Close": "C51:1:3", 
+        "Open": "C51:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:86": {
+        "Close": "C86:1:3", 
+        "Open": "C86:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:87": {
+        "Close": "C87:1:3", 
+        "Open": "C87:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:84": {
+        "Close": "C84:1:3", 
+        "Open": "C84:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:85": {
+        "Close": "C85:1:3", 
+        "Open": "C85:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:82": {
+        "Close": "C82:1:3", 
+        "Open": "C82:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:83": {
+        "Close": "C83:1:3", 
+        "Open": "C83:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:80": {
+        "Close": "C80:1:3", 
+        "Open": "C80:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:81": {
+        "Close": "C81:1:3", 
+        "Open": "C81:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:88": {
+        "Close": "C88:1:3", 
+        "Open": "C88:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:89": {
+        "Close": "C89:1:3", 
+        "Open": "C89:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:9": {
+        "Close": "C9:1:3", 
+        "Open": "C9:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:8": {
+        "Close": "C8:1:3", 
+        "Open": "C8:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:11": {
+        "Close": "C11:1:3", 
+        "Open": "C11:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:120": {
+        "Close": "C120:1:3", 
+        "Open": "C120:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:172": {
+        "Close": "C172:1:3", 
+        "Open": "C172:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:196": {
+        "Close": "C196:1:3", 
+        "Open": "C196:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:149": {
+        "Close": "C149:1:3", 
+        "Open": "C149:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:148": {
+        "Close": "C148:1:3", 
+        "Open": "C148:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:193": {
+        "Close": "C193:1:3", 
+        "Open": "C193:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:192": {
+        "Close": "C192:1:3", 
+        "Open": "C192:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:191": {
+        "Close": "C191:1:3", 
+        "Open": "C191:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:190": {
+        "Close": "C190:1:3", 
+        "Open": "C190:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:143": {
+        "Close": "C143:1:3", 
+        "Open": "C143:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:142": {
+        "Close": "C142:1:3", 
+        "Open": "C142:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:141": {
+        "Close": "C141:1:3", 
+        "Open": "C141:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:140": {
+        "Close": "C140:1:3", 
+        "Open": "C140:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:147": {
+        "Close": "C147:1:3", 
+        "Open": "C147:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:146": {
+        "Close": "C146:1:3", 
+        "Open": "C146:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:145": {
+        "Close": "C145:1:3", 
+        "Open": "C145:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:144": {
+        "Close": "C144:1:3", 
+        "Open": "C144:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:235": {
+        "Close": "C235:1:3", 
+        "Open": "C235:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:122": {
+        "Close": "C122:1:3", 
+        "Open": "C122:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:123": {
+        "Close": "C123:1:3", 
+        "Open": "C123:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:120": {
+        "Close": "C120:1:3", 
+        "Open": "C120:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:121": {
+        "Close": "C121:1:3", 
+        "Open": "C121:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:126": {
+        "Close": "C126:1:3", 
+        "Open": "C126:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:127": {
+        "Close": "C127:1:3", 
+        "Open": "C127:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:124": {
+        "Close": "C124:1:3", 
+        "Open": "C124:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:125": {
+        "Close": "C125:1:3", 
+        "Open": "C125:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:128": {
+        "Close": "C128:1:3", 
+        "Open": "C128:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:129": {
+        "Close": "C129:1:3", 
+        "Open": "C129:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:188": {
+        "Close": "C188:1:3", 
+        "Open": "C188:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:189": {
+        "Close": "C189:1:3", 
+        "Open": "C189:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:182": {
+        "Close": "C182:1:3", 
+        "Open": "C182:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:183": {
+        "Close": "C183:1:3", 
+        "Open": "C183:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:180": {
+        "Close": "C180:1:3", 
+        "Open": "C180:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:181": {
+        "Close": "C181:1:3", 
+        "Open": "C181:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:186": {
+        "Close": "C186:1:3", 
+        "Open": "C186:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:187": {
+        "Close": "C187:1:3", 
+        "Open": "C187:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:184": {
+        "Close": "C184:1:3", 
+        "Open": "C184:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:185": {
+        "Close": "C185:1:3", 
+        "Open": "C185:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:239": {
+        "Close": "C239:1:3", 
+        "Open": "C239:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:111": {
+        "Close": "C111:1:3", 
+        "Open": "C111:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:110": {
+        "Close": "C110:1:3", 
+        "Open": "C110:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:113": {
+        "Close": "C113:1:3", 
+        "Open": "C113:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:112": {
+        "Close": "C112:1:3", 
+        "Open": "C112:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:115": {
+        "Close": "C115:1:3", 
+        "Open": "C115:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:114": {
+        "Close": "C114:1:3", 
+        "Open": "C114:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:117": {
+        "Close": "C117:1:3", 
+        "Open": "C117:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:116": {
+        "Close": "C116:1:3", 
+        "Open": "C116:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:119": {
+        "Close": "C119:1:3", 
+        "Open": "C119:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:118": {
+        "Close": "C118:1:3", 
+        "Open": "C118:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:185": {
+        "Close": "C185:1:3", 
+        "Open": "C185:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:245": {
+        "Close": "C245:1:3", 
+        "Open": "C245:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:244": {
+        "Close": "C244:1:3", 
+        "Open": "C244:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:247": {
+        "Close": "C247:1:3", 
+        "Open": "C247:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:246": {
+        "Close": "C246:1:3", 
+        "Open": "C246:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:241": {
+        "Close": "C241:1:3", 
+        "Open": "C241:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:240": {
+        "Close": "C240:1:3", 
+        "Open": "C240:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:243": {
+        "Close": "C243:1:3", 
+        "Open": "C243:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:242": {
+        "Close": "C242:1:3", 
+        "Open": "C242:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:249": {
+        "Close": "C249:1:3", 
+        "Open": "C249:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:248": {
+        "Close": "C248:1:3", 
+        "Open": "C248:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:57": {
+        "Close": "C57:1:3", 
+        "Open": "C57:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:56": {
+        "Close": "C56:1:3", 
+        "Open": "C56:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:48": {
+        "Close": "C48:1:3", 
+        "Open": "C48:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:49": {
+        "Close": "C49:1:3", 
+        "Open": "C49:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:53": {
+        "Close": "C53:1:3", 
+        "Open": "C53:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:52": {
+        "Close": "C52:1:3", 
+        "Open": "C52:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:51": {
+        "Close": "C51:1:3", 
+        "Open": "C51:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:50": {
+        "Close": "C50:1:3", 
+        "Open": "C50:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:42": {
+        "Close": "C42:1:3", 
+        "Open": "C42:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:43": {
+        "Close": "C43:1:3", 
+        "Open": "C43:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:40": {
+        "Close": "C40:1:3", 
+        "Open": "C40:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:41": {
+        "Close": "C41:1:3", 
+        "Open": "C41:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:46": {
+        "Close": "C46:1:3", 
+        "Open": "C46:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:47": {
+        "Close": "C47:1:3", 
+        "Open": "C47:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:44": {
+        "Close": "C44:1:3", 
+        "Open": "C44:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:45": {
+        "Close": "C45:1:3", 
+        "Open": "C45:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:230": {
+        "Close": "C230:1:3", 
+        "Open": "C230:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:231": {
+        "Close": "C231:1:3", 
+        "Open": "C231:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:232": {
+        "Close": "C232:1:3", 
+        "Open": "C232:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:233": {
+        "Close": "C233:1:3", 
+        "Open": "C233:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:234": {
+        "Close": "C234:1:3", 
+        "Open": "C234:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:235": {
+        "Close": "C235:1:3", 
+        "Open": "C235:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:236": {
+        "Close": "C236:1:3", 
+        "Open": "C236:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:237": {
+        "Close": "C237:1:3", 
+        "Open": "C237:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:238": {
+        "Close": "C238:1:3", 
+        "Open": "C238:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:239": {
+        "Close": "C239:1:3", 
+        "Open": "C239:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:159": {
+        "Close": "C159:1:3", 
+        "Open": "C159:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:158": {
+        "Close": "C158:1:3", 
+        "Open": "C158:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:153": {
+        "Close": "C153:1:3", 
+        "Open": "C153:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:152": {
+        "Close": "C152:1:3", 
+        "Open": "C152:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:151": {
+        "Close": "C151:1:3", 
+        "Open": "C151:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:150": {
+        "Close": "C150:1:3", 
+        "Open": "C150:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:157": {
+        "Close": "C157:1:3", 
+        "Open": "C157:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:156": {
+        "Close": "C156:1:3", 
+        "Open": "C156:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:155": {
+        "Close": "C155:1:3", 
+        "Open": "C155:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:154": {
+        "Close": "C154:1:3", 
+        "Open": "C154:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:190": {
+        "Close": "C190:1:3", 
+        "Open": "C190:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:191": {
+        "Close": "C191:1:3", 
+        "Open": "C191:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:192": {
+        "Close": "C192:1:3", 
+        "Open": "C192:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:193": {
+        "Close": "C193:1:3", 
+        "Open": "C193:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:194": {
+        "Close": "C194:1:3", 
+        "Open": "C194:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:195": {
+        "Close": "C195:1:3", 
+        "Open": "C195:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:196": {
+        "Close": "C196:1:3", 
+        "Open": "C196:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:197": {
+        "Close": "C197:1:3", 
+        "Open": "C197:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:198": {
+        "Close": "C198:1:3", 
+        "Open": "C198:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:199": {
+        "Close": "C199:1:3", 
+        "Open": "C199:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:211": {
+        "Close": "C211:1:3", 
+        "Open": "C211:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:210": {
+        "Close": "C210:1:3", 
+        "Open": "C210:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:217": {
+        "Close": "C217:1:3", 
+        "Open": "C217:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:216": {
+        "Close": "C216:1:3", 
+        "Open": "C216:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:215": {
+        "Close": "C215:1:3", 
+        "Open": "C215:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:214": {
+        "Close": "C214:1:3", 
+        "Open": "C214:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:58": {
+        "Close": "C58:1:3", 
+        "Open": "C58:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:252": {
+        "Close": "C252:1:3", 
+        "Open": "C252:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:109": {
+        "Close": "C109:1:3", 
+        "Open": "C109:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:108": {
+        "Close": "C108:1:3", 
+        "Open": "C108:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:107": {
+        "Close": "C107:1:3", 
+        "Open": "C107:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:106": {
+        "Close": "C106:1:3", 
+        "Open": "C106:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:105": {
+        "Close": "C105:1:3", 
+        "Open": "C105:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:104": {
+        "Close": "C104:1:3", 
+        "Open": "C104:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:103": {
+        "Close": "C103:1:3", 
+        "Open": "C103:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:102": {
+        "Close": "C102:1:3", 
+        "Open": "C102:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:101": {
+        "Close": "C101:1:3", 
+        "Open": "C101:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:100": {
+        "Close": "C100:1:3", 
+        "Open": "C100:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:80": {
+        "Close": "C80:1:3", 
+        "Open": "C80:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:81": {
+        "Close": "C81:1:3", 
+        "Open": "C81:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:82": {
+        "Close": "C82:1:3", 
+        "Open": "C82:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:83": {
+        "Close": "C83:1:3", 
+        "Open": "C83:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:84": {
+        "Close": "C84:1:3", 
+        "Open": "C84:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:85": {
+        "Close": "C85:1:3", 
+        "Open": "C85:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:86": {
+        "Close": "C86:1:3", 
+        "Open": "C86:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:87": {
+        "Close": "C87:1:3", 
+        "Open": "C87:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:88": {
+        "Close": "C88:1:3", 
+        "Open": "C88:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:89": {
+        "Close": "C89:1:3", 
+        "Open": "C89:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:209": {
+        "Close": "C209:1:3", 
+        "Open": "C209:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:208": {
+        "Close": "C208:1:3", 
+        "Open": "C208:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:229": {
+        "Close": "C229:1:3", 
+        "Open": "C229:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:148": {
+        "Close": "C148:1:3", 
+        "Open": "C148:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:149": {
+        "Close": "C149:1:3", 
+        "Open": "C149:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:146": {
+        "Close": "C146:1:3", 
+        "Open": "C146:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:147": {
+        "Close": "C147:1:3", 
+        "Open": "C147:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:144": {
+        "Close": "C144:1:3", 
+        "Open": "C144:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:145": {
+        "Close": "C145:1:3", 
+        "Open": "C145:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:142": {
+        "Close": "C142:1:3", 
+        "Open": "C142:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:143": {
+        "Close": "C143:1:3", 
+        "Open": "C143:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:140": {
+        "Close": "C140:1:3", 
+        "Open": "C140:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:141": {
+        "Close": "C141:1:3", 
+        "Open": "C141:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:209": {
+        "Close": "C209:1:3", 
+        "Open": "C209:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:208": {
+        "Close": "C208:1:3", 
+        "Open": "C208:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:9": {
+        "Close": "C9:1:3", 
+        "Open": "C9:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:8": {
+        "Close": "C8:1:3", 
+        "Open": "C8:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:5": {
+        "Close": "C5:1:3", 
+        "Open": "C5:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:4": {
+        "Close": "C4:1:3", 
+        "Open": "C4:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:7": {
+        "Close": "C7:1:3", 
+        "Open": "C7:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:6": {
+        "Close": "C6:1:3", 
+        "Open": "C6:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:1": {
+        "Close": "C1:1:3", 
+        "Open": "C1:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:0": {
+        "Close": "C0:1:3", 
+        "Open": "C0:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:3": {
+        "Close": "C3:1:3", 
+        "Open": "C3:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:2": {
+        "Close": "C2:1:3", 
+        "Open": "C2:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:54": {
+        "Close": "C54:1:3", 
+        "Open": "C54:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:19": {
+        "Close": "C19:1:3", 
+        "Open": "C19:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:18": {
+        "Close": "C18:1:3", 
+        "Open": "C18:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:13": {
+        "Close": "C13:1:3", 
+        "Open": "C13:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:12": {
+        "Close": "C12:1:3", 
+        "Open": "C12:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:249": {
+        "Close": "C249:1:3", 
+        "Open": "C249:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:10": {
+        "Close": "C10:1:3", 
+        "Open": "C10:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:17": {
+        "Close": "C17:1:3", 
+        "Open": "C17:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:16": {
+        "Close": "C16:1:3", 
+        "Open": "C16:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:15": {
+        "Close": "C15:1:3", 
+        "Open": "C15:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:14": {
+        "Close": "C14:1:3", 
+        "Open": "C14:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:25": {
+        "Close": "C25:1:3", 
+        "Open": "C25:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:49": {
+        "Close": "C49:1:3", 
+        "Open": "C49:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:48": {
+        "Close": "C48:1:3", 
+        "Open": "C48:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:59": {
+        "Close": "C59:1:3", 
+        "Open": "C59:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:41": {
+        "Close": "C41:1:3", 
+        "Open": "C41:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:40": {
+        "Close": "C40:1:3", 
+        "Open": "C40:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:43": {
+        "Close": "C43:1:3", 
+        "Open": "C43:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:42": {
+        "Close": "C42:1:3", 
+        "Open": "C42:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:45": {
+        "Close": "C45:1:3", 
+        "Open": "C45:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:44": {
+        "Close": "C44:1:3", 
+        "Open": "C44:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:47": {
+        "Close": "C47:1:3", 
+        "Open": "C47:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:46": {
+        "Close": "C46:1:3", 
+        "Open": "C46:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:91": {
+        "Close": "C91:1:3", 
+        "Open": "C91:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:90": {
+        "Close": "C90:1:3", 
+        "Open": "C90:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:93": {
+        "Close": "C93:1:3", 
+        "Open": "C93:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:92": {
+        "Close": "C92:1:3", 
+        "Open": "C92:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:95": {
+        "Close": "C95:1:3", 
+        "Open": "C95:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:94": {
+        "Close": "C94:1:3", 
+        "Open": "C94:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:97": {
+        "Close": "C97:1:3", 
+        "Open": "C97:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:96": {
+        "Close": "C96:1:3", 
+        "Open": "C96:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:99": {
+        "Close": "C99:1:3", 
+        "Open": "C99:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:98": {
+        "Close": "C98:1:3", 
+        "Open": "C98:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:123": {
+        "Close": "C123:1:3", 
+        "Open": "C123:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:122": {
+        "Close": "C122:1:3", 
+        "Open": "C122:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:144": {
+        "Close": "C144:1:3", 
+        "Open": "C144:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:125": {
+        "Close": "C125:1:3", 
+        "Open": "C125:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:124": {
+        "Close": "C124:1:3", 
+        "Open": "C124:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:180": {
+        "Close": "C180:1:3", 
+        "Open": "C180:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:181": {
+        "Close": "C181:1:3", 
+        "Open": "C181:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:182": {
+        "Close": "C182:1:3", 
+        "Open": "C182:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:183": {
+        "Close": "C183:1:3", 
+        "Open": "C183:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:184": {
+        "Close": "C184:1:3", 
+        "Open": "C184:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:127": {
+        "Close": "C127:1:3", 
+        "Open": "C127:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:186": {
+        "Close": "C186:1:3", 
+        "Open": "C186:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:187": {
+        "Close": "C187:1:3", 
+        "Open": "C187:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:188": {
+        "Close": "C188:1:3", 
+        "Open": "C188:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:189": {
+        "Close": "C189:1:3", 
+        "Open": "C189:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:126": {
+        "Close": "C126:1:3", 
+        "Open": "C126:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:240": {
+        "Close": "C240:1:3", 
+        "Open": "C240:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:241": {
+        "Close": "C241:1:3", 
+        "Open": "C241:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:242": {
+        "Close": "C242:1:3", 
+        "Open": "C242:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:243": {
+        "Close": "C243:1:3", 
+        "Open": "C243:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:38": {
+        "Close": "C38:1:3", 
+        "Open": "C38:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:39": {
+        "Close": "C39:1:3", 
+        "Open": "C39:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:34": {
+        "Close": "C34:1:3", 
+        "Open": "C34:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:35": {
+        "Close": "C35:1:3", 
+        "Open": "C35:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:36": {
+        "Close": "C36:1:3", 
+        "Open": "C36:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:37": {
+        "Close": "C37:1:3", 
+        "Open": "C37:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:30": {
+        "Close": "C30:1:3", 
+        "Open": "C30:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:31": {
+        "Close": "C31:1:3", 
+        "Open": "C31:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:32": {
+        "Close": "C32:1:3", 
+        "Open": "C32:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:33": {
+        "Close": "C33:1:3", 
+        "Open": "C33:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:119": {
+        "Close": "C119:1:3", 
+        "Open": "C119:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:118": {
+        "Close": "C118:1:3", 
+        "Open": "C118:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:55": {
+        "Close": "C55:1:3", 
+        "Open": "C55:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:116": {
+        "Close": "C116:1:3", 
+        "Open": "C116:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:115": {
+        "Close": "C115:1:3", 
+        "Open": "C115:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:114": {
+        "Close": "C114:1:3", 
+        "Open": "C114:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:113": {
+        "Close": "C113:1:3", 
+        "Open": "C113:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:112": {
+        "Close": "C112:1:3", 
+        "Open": "C112:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:111": {
+        "Close": "C111:1:3", 
+        "Open": "C111:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:110": {
+        "Close": "C110:1:3", 
+        "Open": "C110:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:208": {
+        "Close": "C208:1:3", 
+        "Open": "C208:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:209": {
+        "Close": "C209:1:3", 
+        "Open": "C209:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:102": {
+        "Close": "C102:1:3", 
+        "Open": "C102:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:103": {
+        "Close": "C103:1:3", 
+        "Open": "C103:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:100": {
+        "Close": "C100:1:3", 
+        "Open": "C100:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:101": {
+        "Close": "C101:1:3", 
+        "Open": "C101:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:106": {
+        "Close": "C106:1:3", 
+        "Open": "C106:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:107": {
+        "Close": "C107:1:3", 
+        "Open": "C107:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:104": {
+        "Close": "C104:1:3", 
+        "Open": "C104:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:105": {
+        "Close": "C105:1:3", 
+        "Open": "C105:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:108": {
+        "Close": "C108:1:3", 
+        "Open": "C108:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:109": {
+        "Close": "C109:1:3", 
+        "Open": "C109:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:154": {
+        "Close": "C154:1:3", 
+        "Open": "C154:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:155": {
+        "Close": "C155:1:3", 
+        "Open": "C155:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:156": {
+        "Close": "C156:1:3", 
+        "Open": "C156:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:157": {
+        "Close": "C157:1:3", 
+        "Open": "C157:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:150": {
+        "Close": "C150:1:3", 
+        "Open": "C150:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:151": {
+        "Close": "C151:1:3", 
+        "Open": "C151:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:152": {
+        "Close": "C152:1:3", 
+        "Open": "C152:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:153": {
+        "Close": "C153:1:3", 
+        "Open": "C153:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:255": {
+        "Close": "C255:1:3", 
+        "Open": "C255:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:254": {
+        "Close": "C254:1:3", 
+        "Open": "C254:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:158": {
+        "Close": "C158:1:3", 
+        "Open": "C158:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:159": {
+        "Close": "C159:1:3", 
+        "Open": "C159:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:251": {
+        "Close": "C251:1:3", 
+        "Open": "C251:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:250": {
+        "Close": "C250:1:3", 
+        "Open": "C250:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:42": {
+        "Close": "C42:1:3", 
+        "Open": "C42:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:43": {
+        "Close": "C43:1:3", 
+        "Open": "C43:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:148": {
+        "Close": "C148:1:3", 
+        "Open": "C148:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:149": {
+        "Close": "C149:1:3", 
+        "Open": "C149:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:247": {
+        "Close": "C247:1:3", 
+        "Open": "C247:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:246": {
+        "Close": "C246:1:3", 
+        "Open": "C246:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:245": {
+        "Close": "C245:1:3", 
+        "Open": "C245:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:244": {
+        "Close": "C244:1:3", 
+        "Open": "C244:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:243": {
+        "Close": "C243:1:3", 
+        "Open": "C243:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:242": {
+        "Close": "C242:1:3", 
+        "Open": "C242:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:241": {
+        "Close": "C241:1:3", 
+        "Open": "C241:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:240": {
+        "Close": "C240:1:3", 
+        "Open": "C240:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:249": {
+        "Close": "C249:1:3", 
+        "Open": "C249:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:248": {
+        "Close": "C248:1:3", 
+        "Open": "C248:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:93": {
+        "Close": "C93:1:3", 
+        "Open": "C93:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:254": {
+        "Close": "C254:1:3", 
+        "Open": "C254:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:255": {
+        "Close": "C255:1:3", 
+        "Open": "C255:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:252": {
+        "Close": "C252:1:3", 
+        "Open": "C252:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:253": {
+        "Close": "C253:1:3", 
+        "Open": "C253:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:250": {
+        "Close": "C250:1:3", 
+        "Open": "C250:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:251": {
+        "Close": "C251:1:3", 
+        "Open": "C251:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:55": {
+        "Close": "C55:1:3", 
+        "Open": "C55:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:54": {
+        "Close": "C54:1:3", 
+        "Open": "C54:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:57": {
+        "Close": "C57:1:3", 
+        "Open": "C57:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:56": {
+        "Close": "C56:1:3", 
+        "Open": "C56:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:51": {
+        "Close": "C51:1:3", 
+        "Open": "C51:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:50": {
+        "Close": "C50:1:3", 
+        "Open": "C50:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:53": {
+        "Close": "C53:1:3", 
+        "Open": "C53:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:52": {
+        "Close": "C52:1:3", 
+        "Open": "C52:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:218": {
+        "Close": "C218:1:3", 
+        "Open": "C218:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:59": {
+        "Close": "C59:1:3", 
+        "Open": "C59:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:58": {
+        "Close": "C58:1:3", 
+        "Open": "C58:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:219": {
+        "Close": "C219:1:3", 
+        "Open": "C219:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:62": {
+        "Close": "C62:1:3", 
+        "Open": "C62:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:63": {
+        "Close": "C63:1:3", 
+        "Open": "C63:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:60": {
+        "Close": "C60:1:3", 
+        "Open": "C60:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:61": {
+        "Close": "C61:1:3", 
+        "Open": "C61:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:66": {
+        "Close": "C66:1:3", 
+        "Open": "C66:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:67": {
+        "Close": "C67:1:3", 
+        "Open": "C67:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:64": {
+        "Close": "C64:1:3", 
+        "Open": "C64:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:65": {
+        "Close": "C65:1:3", 
+        "Open": "C65:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:68": {
+        "Close": "C68:1:3", 
+        "Open": "C68:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:69": {
+        "Close": "C69:1:3", 
+        "Open": "C69:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:214": {
+        "Close": "C214:1:3", 
+        "Open": "C214:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:253": {
+        "Close": "C253:1:3", 
+        "Open": "C253:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:99": {
+        "Close": "C99:1:3", 
+        "Open": "C99:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:98": {
+        "Close": "C98:1:3", 
+        "Open": "C98:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:210": {
+        "Close": "C210:1:3", 
+        "Open": "C210:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:211": {
+        "Close": "C211:1:3", 
+        "Open": "C211:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:70": {
+        "Close": "C70:1:3", 
+        "Open": "C70:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:71": {
+        "Close": "C71:1:3", 
+        "Open": "C71:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:72": {
+        "Close": "C72:1:3", 
+        "Open": "C72:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:73": {
+        "Close": "C73:1:3", 
+        "Open": "C73:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:74": {
+        "Close": "C74:1:3", 
+        "Open": "C74:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:75": {
+        "Close": "C75:1:3", 
+        "Open": "C75:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:76": {
+        "Close": "C76:1:3", 
+        "Open": "C76:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:77": {
+        "Close": "C77:1:3", 
+        "Open": "C77:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:78": {
+        "Close": "C78:1:3", 
+        "Open": "C78:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:79": {
+        "Close": "C79:1:3", 
+        "Open": "C79:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:213": {
+        "Close": "C213:1:3", 
+        "Open": "C213:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:169": {
+        "Close": "C169:1:3", 
+        "Open": "C169:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:168": {
+        "Close": "C168:1:3", 
+        "Open": "C168:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:165": {
+        "Close": "C165:1:3", 
+        "Open": "C165:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:164": {
+        "Close": "C164:1:3", 
+        "Open": "C164:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:167": {
+        "Close": "C167:1:3", 
+        "Open": "C167:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:166": {
+        "Close": "C166:1:3", 
+        "Open": "C166:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:161": {
+        "Close": "C161:1:3", 
+        "Open": "C161:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:160": {
+        "Close": "C160:1:3", 
+        "Open": "C160:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:163": {
+        "Close": "C163:1:3", 
+        "Open": "C163:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:162": {
+        "Close": "C162:1:3", 
+        "Open": "C162:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:118": {
+        "Close": "C118:1:3", 
+        "Open": "C118:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:119": {
+        "Close": "C119:1:3", 
+        "Open": "C119:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:146": {
+        "Close": "C146:1:3", 
+        "Open": "C146:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:147": {
+        "Close": "C147:1:3", 
+        "Open": "C147:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:140": {
+        "Close": "C140:1:3", 
+        "Open": "C140:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:141": {
+        "Close": "C141:1:3", 
+        "Open": "C141:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:142": {
+        "Close": "C142:1:3", 
+        "Open": "C142:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:143": {
+        "Close": "C143:1:3", 
+        "Open": "C143:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:110": {
+        "Close": "C110:1:3", 
+        "Open": "C110:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:111": {
+        "Close": "C111:1:3", 
+        "Open": "C111:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:112": {
+        "Close": "C112:1:3", 
+        "Open": "C112:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:113": {
+        "Close": "C113:1:3", 
+        "Open": "C113:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:114": {
+        "Close": "C114:1:3", 
+        "Open": "C114:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:115": {
+        "Close": "C115:1:3", 
+        "Open": "C115:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:116": {
+        "Close": "C116:1:3", 
+        "Open": "C116:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:117": {
+        "Close": "C117:1:3", 
+        "Open": "C117:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:8": {
+        "Close": "C8:1:3", 
+        "Open": "C8:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:9": {
+        "Close": "C9:1:3", 
+        "Open": "C9:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:91": {
+        "Close": "C91:1:3", 
+        "Open": "C91:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:90": {
+        "Close": "C90:1:3", 
+        "Open": "C90:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:97": {
+        "Close": "C97:1:3", 
+        "Open": "C97:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:96": {
+        "Close": "C96:1:3", 
+        "Open": "C96:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:95": {
+        "Close": "C95:1:3", 
+        "Open": "C95:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:94": {
+        "Close": "C94:1:3", 
+        "Open": "C94:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:0": {
+        "Close": "C0:1:3", 
+        "Open": "C0:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:1": {
+        "Close": "C1:1:3", 
+        "Open": "C1:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:2": {
+        "Close": "C2:1:3", 
+        "Open": "C2:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:3": {
+        "Close": "C3:1:3", 
+        "Open": "C3:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:4": {
+        "Close": "C4:1:3", 
+        "Open": "C4:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:5": {
+        "Close": "C5:1:3", 
+        "Open": "C5:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:6": {
+        "Close": "C6:1:3", 
+        "Open": "C6:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:7": {
+        "Close": "C7:1:3", 
+        "Open": "C7:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:204": {
+        "Close": "C204:1:3", 
+        "Open": "C204:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:205": {
+        "Close": "C205:1:3", 
+        "Open": "C205:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:179": {
+        "Close": "C179:1:3", 
+        "Open": "C179:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:178": {
+        "Close": "C178:1:3", 
+        "Open": "C178:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:200": {
+        "Close": "C200:1:3", 
+        "Open": "C200:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:201": {
+        "Close": "C201:1:3", 
+        "Open": "C201:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:202": {
+        "Close": "C202:1:3", 
+        "Open": "C202:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:203": {
+        "Close": "C203:1:3", 
+        "Open": "C203:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:173": {
+        "Close": "C173:1:3", 
+        "Open": "C173:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:172": {
+        "Close": "C172:1:3", 
+        "Open": "C172:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:171": {
+        "Close": "C171:1:3", 
+        "Open": "C171:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:170": {
+        "Close": "C170:1:3", 
+        "Open": "C170:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:177": {
+        "Close": "C177:1:3", 
+        "Open": "C177:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:176": {
+        "Close": "C176:1:3", 
+        "Open": "C176:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:175": {
+        "Close": "C175:1:3", 
+        "Open": "C175:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:174": {
+        "Close": "C174:1:3", 
+        "Open": "C174:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:218": {
+        "Close": "C218:1:3", 
+        "Open": "C218:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:219": {
+        "Close": "C219:1:3", 
+        "Open": "C219:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:215": {
+        "Close": "C215:1:3", 
+        "Open": "C215:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:212": {
+        "Close": "C212:1:3", 
+        "Open": "C212:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:213": {
+        "Close": "C213:1:3", 
+        "Open": "C213:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:210": {
+        "Close": "C210:1:3", 
+        "Open": "C210:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:211": {
+        "Close": "C211:1:3", 
+        "Open": "C211:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:216": {
+        "Close": "C216:1:3", 
+        "Open": "C216:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:217": {
+        "Close": "C217:1:3", 
+        "Open": "C217:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:214": {
+        "Close": "C214:1:3", 
+        "Open": "C214:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:215": {
+        "Close": "C215:1:3", 
+        "Open": "C215:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:19": {
+        "Close": "C19:1:3", 
+        "Open": "C19:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:18": {
+        "Close": "C18:1:3", 
+        "Open": "C18:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:24": {
+        "Close": "C24:1:3", 
+        "Open": "C24:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:218": {
+        "Close": "C218:1:3", 
+        "Open": "C218:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:22": {
+        "Close": "C22:1:3", 
+        "Open": "C22:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:23": {
+        "Close": "C23:1:3", 
+        "Open": "C23:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:20": {
+        "Close": "C20:1:3", 
+        "Open": "C20:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:21": {
+        "Close": "C21:1:3", 
+        "Open": "C21:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:11": {
+        "Close": "C11:1:3", 
+        "Open": "C11:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:10": {
+        "Close": "C10:1:3", 
+        "Open": "C10:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:13": {
+        "Close": "C13:1:3", 
+        "Open": "C13:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:12": {
+        "Close": "C12:1:3", 
+        "Open": "C12:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:15": {
+        "Close": "C15:1:3", 
+        "Open": "C15:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:14": {
+        "Close": "C14:1:3", 
+        "Open": "C14:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:17": {
+        "Close": "C17:1:3", 
+        "Open": "C17:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:16": {
+        "Close": "C16:1:3", 
+        "Open": "C16:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:216": {
+        "Close": "C216:1:3", 
+        "Open": "C216:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:206": {
+        "Close": "C206:1:3", 
+        "Open": "C206:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:213": {
+        "Close": "C213:1:3", 
+        "Open": "C213:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:207": {
+        "Close": "C207:1:3", 
+        "Open": "C207:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:145": {
+        "Close": "C145:1:3", 
+        "Open": "C145:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:212": {
+        "Close": "C212:1:3", 
+        "Open": "C212:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:1": {
+        "Close": "C1:1:3", 
+        "Open": "C1:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:44": {
+        "Close": "C44:1:3", 
+        "Open": "C44:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:217": {
+        "Close": "C217:1:3", 
+        "Open": "C217:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:41": {
+        "Close": "C41:1:3", 
+        "Open": "C41:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:68": {
+        "Close": "C68:1:3", 
+        "Open": "C68:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:69": {
+        "Close": "C69:1:3", 
+        "Open": "C69:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:64": {
+        "Close": "C64:1:3", 
+        "Open": "C64:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:65": {
+        "Close": "C65:1:3", 
+        "Open": "C65:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:66": {
+        "Close": "C66:1:3", 
+        "Open": "C66:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:67": {
+        "Close": "C67:1:3", 
+        "Open": "C67:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:60": {
+        "Close": "C60:1:3", 
+        "Open": "C60:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:61": {
+        "Close": "C61:1:3", 
+        "Open": "C61:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:62": {
+        "Close": "C62:1:3", 
+        "Open": "C62:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:63": {
+        "Close": "C63:1:3", 
+        "Open": "C63:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:197": {
+        "Close": "C197:1:3", 
+        "Open": "C197:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:179": {
+        "Close": "C179:1:3", 
+        "Open": "C179:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:178": {
+        "Close": "C178:1:3", 
+        "Open": "C178:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:175": {
+        "Close": "C175:1:3", 
+        "Open": "C175:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:48": {
+        "Close": "C48:1:3", 
+        "Open": "C48:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:177": {
+        "Close": "C177:1:3", 
+        "Open": "C177:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:176": {
+        "Close": "C176:1:3", 
+        "Open": "C176:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:171": {
+        "Close": "C171:1:3", 
+        "Open": "C171:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:170": {
+        "Close": "C170:1:3", 
+        "Open": "C170:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:173": {
+        "Close": "C173:1:3", 
+        "Open": "C173:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:49": {
+        "Close": "C49:1:3", 
+        "Open": "C49:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:194": {
+        "Close": "C194:1:3", 
+        "Open": "C194:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:203": {
+        "Close": "C203:1:3", 
+        "Open": "C203:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:212": {
+        "Close": "C212:1:3", 
+        "Open": "C212:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:29": {
+        "Close": "C29:1:3", 
+        "Open": "C29:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:28": {
+        "Close": "C28:1:3", 
+        "Open": "C28:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:27": {
+        "Close": "C27:1:3", 
+        "Open": "C27:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:26": {
+        "Close": "C26:1:3", 
+        "Open": "C26:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:25": {
+        "Close": "C25:1:3", 
+        "Open": "C25:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:24": {
+        "Close": "C24:1:3", 
+        "Open": "C24:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:23": {
+        "Close": "C23:1:3", 
+        "Open": "C23:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:22": {
+        "Close": "C22:1:3", 
+        "Open": "C22:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:21": {
+        "Close": "C21:1:3", 
+        "Open": "C21:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:20": {
+        "Close": "C20:1:3", 
+        "Open": "C20:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:108": {
+        "Close": "C108:1:3", 
+        "Open": "C108:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:109": {
+        "Close": "C109:1:3", 
+        "Open": "C109:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:100": {
+        "Close": "C100:1:3", 
+        "Open": "C100:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:101": {
+        "Close": "C101:1:3", 
+        "Open": "C101:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:102": {
+        "Close": "C102:1:3", 
+        "Open": "C102:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:103": {
+        "Close": "C103:1:3", 
+        "Open": "C103:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:104": {
+        "Close": "C104:1:3", 
+        "Open": "C104:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:105": {
+        "Close": "C105:1:3", 
+        "Open": "C105:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:106": {
+        "Close": "C106:1:3", 
+        "Open": "C106:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:107": {
+        "Close": "C107:1:3", 
+        "Open": "C107:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:239": {
+        "Close": "C239:1:3", 
+        "Open": "C239:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:238": {
+        "Close": "C238:1:3", 
+        "Open": "C238:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:235": {
+        "Close": "C235:1:3", 
+        "Open": "C235:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:234": {
+        "Close": "C234:1:3", 
+        "Open": "C234:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:237": {
+        "Close": "C237:1:3", 
+        "Open": "C237:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:236": {
+        "Close": "C236:1:3", 
+        "Open": "C236:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:231": {
+        "Close": "C231:1:3", 
+        "Open": "C231:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:230": {
+        "Close": "C230:1:3", 
+        "Open": "C230:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:233": {
+        "Close": "C233:1:3", 
+        "Open": "C233:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:232": {
+        "Close": "C232:1:3", 
+        "Open": "C232:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:199": {
+        "Close": "C199:1:3", 
+        "Open": "C199:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:198": {
+        "Close": "C198:1:3", 
+        "Open": "C198:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:26": {
+        "Close": "C26:1:3", 
+        "Open": "C26:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:139": {
+        "Close": "C139:1:3", 
+        "Open": "C139:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:138": {
+        "Close": "C138:1:3", 
+        "Open": "C138:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:137": {
+        "Close": "C137:1:3", 
+        "Open": "C137:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:136": {
+        "Close": "C136:1:3", 
+        "Open": "C136:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:135": {
+        "Close": "C135:1:3", 
+        "Open": "C135:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:134": {
+        "Close": "C134:1:3", 
+        "Open": "C134:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:133": {
+        "Close": "C133:1:3", 
+        "Open": "C133:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:132": {
+        "Close": "C132:1:3", 
+        "Open": "C132:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:131": {
+        "Close": "C131:1:3", 
+        "Open": "C131:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:130": {
+        "Close": "C130:1:3", 
+        "Open": "C130:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:92": {
+        "Close": "C92:1:3", 
+        "Open": "C92:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:93": {
+        "Close": "C93:1:3", 
+        "Open": "C93:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:90": {
+        "Close": "C90:1:3", 
+        "Open": "C90:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:91": {
+        "Close": "C91:1:3", 
+        "Open": "C91:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:96": {
+        "Close": "C96:1:3", 
+        "Open": "C96:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:97": {
+        "Close": "C97:1:3", 
+        "Open": "C97:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:94": {
+        "Close": "C94:1:3", 
+        "Open": "C94:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:95": {
+        "Close": "C95:1:3", 
+        "Open": "C95:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:129": {
+        "Close": "C129:1:3", 
+        "Open": "C129:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:128": {
+        "Close": "C128:1:3", 
+        "Open": "C128:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:98": {
+        "Close": "C98:1:3", 
+        "Open": "C98:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:99": {
+        "Close": "C99:1:3", 
+        "Open": "C99:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:244": {
+        "Close": "C244:1:3", 
+        "Open": "C244:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:245": {
+        "Close": "C245:1:3", 
+        "Open": "C245:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:246": {
+        "Close": "C246:1:3", 
+        "Open": "C246:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:247": {
+        "Close": "C247:1:3", 
+        "Open": "C247:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:225": {
+        "Close": "C225:1:3", 
+        "Open": "C225:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:224": {
+        "Close": "C224:1:3", 
+        "Open": "C224:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:227": {
+        "Close": "C227:1:3", 
+        "Open": "C227:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:226": {
+        "Close": "C226:1:3", 
+        "Open": "C226:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:221": {
+        "Close": "C221:1:3", 
+        "Open": "C221:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:220": {
+        "Close": "C220:1:3", 
+        "Open": "C220:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:223": {
+        "Close": "C223:1:3", 
+        "Open": "C223:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:222": {
+        "Close": "C222:1:3", 
+        "Open": "C222:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:229": {
+        "Close": "C229:1:3", 
+        "Open": "C229:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:228": {
+        "Close": "C228:1:3", 
+        "Open": "C228:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:250": {
+        "Close": "C250:1:3", 
+        "Open": "C250:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:251": {
+        "Close": "C251:1:3", 
+        "Open": "C251:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:252": {
+        "Close": "C252:1:3", 
+        "Open": "C252:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:253": {
+        "Close": "C253:1:3", 
+        "Open": "C253:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:254": {
+        "Close": "C254:1:3", 
+        "Open": "C254:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:28": {
+        "Close": "C28:1:3", 
+        "Open": "C28:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:29": {
+        "Close": "C29:1:3", 
+        "Open": "C29:1:2", 
+        "Description": "Who knows"
+    }, 
+    "1:121": {
+        "Close": "C121:1:3", 
+        "Open": "C121:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:195": {
+        "Close": "C195:1:3", 
+        "Open": "C195:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:20": {
+        "Close": "C20:1:3", 
+        "Open": "C20:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:21": {
+        "Close": "C21:1:3", 
+        "Open": "C21:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:22": {
+        "Close": "C22:1:3", 
+        "Open": "C22:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:23": {
+        "Close": "C23:1:3", 
+        "Open": "C23:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:24": {
+        "Close": "C24:1:3", 
+        "Open": "C24:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:25": {
+        "Close": "C25:1:3", 
+        "Open": "C25:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:26": {
+        "Close": "C26:1:3", 
+        "Open": "C26:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:27": {
+        "Close": "C27:1:3", 
+        "Open": "C27:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:28": {
+        "Close": "C28:1:3", 
+        "Open": "C28:1:2", 
+        "Description": "Who knows"
+    }, 
+    "0:29": {
+        "Close": "C29:1:3", 
+        "Open": "C29:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:79": {
+        "Close": "C79:1:3", 
+        "Open": "C79:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:78": {
+        "Close": "C78:1:3", 
+        "Open": "C78:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:75": {
+        "Close": "C75:1:3", 
+        "Open": "C75:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:74": {
+        "Close": "C74:1:3", 
+        "Open": "C74:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:77": {
+        "Close": "C77:1:3", 
+        "Open": "C77:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:76": {
+        "Close": "C76:1:3", 
+        "Open": "C76:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:71": {
+        "Close": "C71:1:3", 
+        "Open": "C71:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:70": {
+        "Close": "C70:1:3", 
+        "Open": "C70:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:73": {
+        "Close": "C73:1:3", 
+        "Open": "C73:1:2", 
+        "Description": "Who knows"
+    }, 
+    "2:72": {
+        "Close": "C72:1:3", 
+        "Open": "C72:1:2", 
+        "Description": "Who knows"
+    }
+}
