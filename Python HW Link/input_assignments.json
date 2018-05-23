@@ -3830,9 +3830,9 @@
         "Description": null
     }, 
     "2:73": {
-        "Close": null, 
-        "Open": null, 
-        "Description": null
+        "Close": "Closed", 
+        "Open": "Opened", 
+        "Description": "myDesc"
     }, 
     "2:72": {
         "Close": null, 

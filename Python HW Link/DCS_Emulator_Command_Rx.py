@@ -84,15 +84,19 @@ serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
+input_assignments = None
 
+def ReceivePacket():
 
-def test():
     a=0
     while True:
         
         try:
             data, addr = serverSock.recvfrom(1500)
+            
             print ("Message: ", data)
+            ReceivedPacket = data
+            ProcessReceivedString(str(ReceivedPacket))
             print(a)
             a=0
 
@@ -104,26 +108,40 @@ def test():
                 a=0
             continue
 
+        except:
+            print('Error in ReceivePacket. Error is: ' + sys.exc_info() [0])
+
+
+
+def ProcessReceivedString(ReceivedUDPString):
+    global input_assignments
+    print('Processing UDP String')
+    try:
+        if len(ReceivedUDPString) > 0:
+            print('Processing: ' + str(ReceivedUDPString))
+
+
+    except:
+        print('Error in ProcessReceivedString. Error is: ' + sys.exc_info() [0])
+
 def RemoveUnwantedCharacters(stringToBeCleaned):
     stringToBeCleaned= stringToBeCleaned.replace('"', '')
     stringToBeCleaned = stringToBeCleaned.strip(' ')
     return(stringToBeCleaned)
 
 
-if debugging:        
-    print("hello world")
-    print(os.name)
-    print(os.getcwd())
-    print(sys.platform)
-    x = os.listdir(os.curdir)
-    print(x)
-
 def LoadDCSParameterFile():
+    # reads in a json like file from DCS which holds commands
+    # this is a pre DCS 1.5 format
 
+    
     input_file = 'testinputdata.csv'
 
 
+    # Only load a small number of devices
     #deviceToFind = 'breaker'
+    
+    # Load all possible devices
     deviceToFind = ''  # Lets load everything that we can
 
     # Empty dictionary
@@ -301,7 +319,33 @@ if not (os.path.isfile(input_assignments_file)):
 
 #        
 print('Loading Input Assignments from: "' + input_assignments_file +'"')              
-file_object = open(input_assignments_file, 'r')
+
+try:
+    input_assignments = json.load(open(input_assignments_file))
+                             
+except:
+    print(time.asctime(), "Unexpected error while reading file:", sys.exc_info() [0])
+    serverSock.close()
+    sys.exit(0)
+
+
+try:
+
+    itemOfInterest = '2:73'
+    fieldOfInterest = 'Close'
+
+    
+    print('Complete Record for: ' + itemOfInterest)
+    print(input_assignments[itemOfInterest])
+    print('Specific Field (' + fieldOfInterest + ')' )
+    
+    print(input_assignments[itemOfInterest][fieldOfInterest])
+    
+except:
+    print('Unable to read record of interest')
+    print('Record name is: "' + itemOfInterest + '", Field is: "' + fieldOfInterest + '"')
+
+            
 
 
 print('Build out output block')
@@ -314,7 +358,7 @@ print('Build out output block')
 
 try:
     print('Waiting for packet')
-    test()
+    ReceivePacket()
 
 except KeyboardInterrupt:
     # Catch Ctl-C and quit
