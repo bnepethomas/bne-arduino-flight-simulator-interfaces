@@ -115,10 +115,37 @@ def ReceivePacket():
 
 def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
+    
     print('Processing UDP String')
+    
     try:
         if len(ReceivedUDPString) > 0:
-            print('Processing: ' + str(ReceivedUDPString))
+            
+            print('Stage 1 Processing: ' + str(ReceivedUDPString))
+            ReceivedUDPString = str(ReceivedUDPString)
+            print('Checking for correct format :')
+
+            workingSets =''
+            workingSets = ReceivedUDPString.split(',')
+            print('There are ' + str(len(workingSets)) + ' records')
+            counter = 0
+            for workingRecords in workingSets:
+                print('Record workingRecord number ' + str(counter) + ' ' +
+                      workingRecords)
+                counter = counter + 1
+                
+
+                workingFields = ''
+                workingFields = workingRecords.split(':')
+
+                
+                if len(workingFields) != 3:
+                    print('There are an incorrect number of fields in: ' + str(workingFields))
+                else:
+                    print('Stage 2 Processing: ' + str(workingFields))
+                
+            print('Continuing on')
+            
 
 
     except:

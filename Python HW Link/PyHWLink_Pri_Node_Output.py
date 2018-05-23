@@ -74,7 +74,7 @@ def Send_UDP_Command(command_to_send):
     # imported from credentials 
     print (whatami)               
     #sock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
-    txsock.sendto("C15:23:1", (UDP_IP, TX_UDP_PORT))
+    txsock.sendto("C15:23:1,2:3:1", (UDP_IP, TX_UDP_PORT))
     
 
 
