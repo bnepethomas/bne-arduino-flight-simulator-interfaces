@@ -297,7 +297,7 @@
     "2:31": {
         "Close": null, 
         "Open": null, 
-        "Description": null
+        "Description": "my desc"
     }, 
     "2:30": {
         "Close": null, 
@@ -895,9 +895,9 @@
         "Description": null
     }, 
     "2:3": {
-        "Close": null, 
-        "Open": null, 
-        "Description": null
+        "Close": "tis closed", 
+        "Open": "tis opened", 
+        "Description": "first 2:3"
     }, 
     "0:159": {
         "Close": null, 

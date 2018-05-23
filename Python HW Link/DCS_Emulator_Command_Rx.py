@@ -94,16 +94,17 @@ def ReceivePacket():
         try:
             data, addr = serverSock.recvfrom(1500)
             
-            print ("Message: ", data)
+            if debugging: print ("Message: ", data)
             ReceivedPacket = data
             ProcessReceivedString(str(ReceivedPacket))
-            print(a)
+            
+            if debugging: print(a)
             a=0
 
                                               
         except socket.timeout:
             a=a+1
-            if (a > 1000):
+            if (a > 100000):
                 print("Long Receive Timeout - ", time.asctime())
                 a=0
             continue
@@ -116,21 +117,21 @@ def ReceivePacket():
 def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
     
-    print('Processing UDP String')
+    if debugging: print('Processing UDP String')
     
     try:
         if len(ReceivedUDPString) > 0:
             
-            print('Stage 1 Processing: ' + str(ReceivedUDPString))
+            if debugging: print('Stage 1 Processing: ' + str(ReceivedUDPString))
             ReceivedUDPString = str(ReceivedUDPString)
-            print('Checking for correct format :')
+            if debugging: print('Checking for correct format :')
 
             workingSets =''
             workingSets = ReceivedUDPString.split(',')
-            print('There are ' + str(len(workingSets)) + ' records')
+            if debugging: print('There are ' + str(len(workingSets)) + ' records')
             counter = 0
             for workingRecords in workingSets:
-                print('Record workingRecord number ' + str(counter) + ' ' +
+                if debugging: print('Record workingRecord number ' + str(counter) + ' ' +
                       workingRecords)
                 counter = counter + 1
                 
@@ -140,11 +141,42 @@ def ProcessReceivedString(ReceivedUDPString):
 
                 
                 if len(workingFields) != 3:
-                    print('There are an incorrect number of fields in: ' + str(workingFields))
+                    print('')
+                    print('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
+                    print('')
+                elif str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
+                    print('')
+                    print('WARNING - Invlaid 3rd parameter: ' + str(workingFields[2]))
+                    print('')                   
                 else:
-                    print('Stage 2 Processing: ' + str(workingFields))
+                    if debugging: print('Stage 2 Processing: ' + str(workingFields))
+
+                    try:
+                        workingkey = workingFields[0] + ':' + workingFields[1]
+                        if debugging: print('Working key is: ' + workingkey)
+                        
+                        if debugging: print('Working Fields for working key are: ' +
+                              str(input_assignments[workingkey]))
+
+                        if debugging: print('The value is: ' +
+                              str(input_assignments[workingkey]['Description']))
+
+                        if str(workingFields[2]) == '0':
+                            print('Value for Close is :' +
+                                  str (input_assignments[workingkey]['Close']))
+
+                        if str(workingFields[2]) == '1':
+                            print('Value for Open is :' +
+                                  str (input_assignments[workingkey]['Open']))
+                        
+    
+                    except:
+                        print('')
+                        print('WARNING - Unable to read record of interest')
+                        print('WARNING - Record name is: "' + workingkey + '"')
+                        print('')
                 
-            print('Continuing on')
+            if debugging: print('Continuing on')
             
 
 
