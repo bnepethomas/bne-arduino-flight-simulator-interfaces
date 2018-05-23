@@ -57,7 +57,7 @@ parser.add_option("-l","--learning", dest="optionLearning",action="store_true",
 (options, args) = parser.parse_args()
 
 if debugging: print("options:", str(options))
-if debugging:print("arguments:", args)
+if debugging: print("arguments:", args)
 
 # Override Learning mode if passed via command line
 if options.optionLearning == True:
@@ -85,6 +85,7 @@ serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
 input_assignments = None
+send_string = None
 
 def ReceivePacket():
 
@@ -113,11 +114,51 @@ def ReceivePacket():
             print('Error in ReceivePacket. Error is: ' + sys.exc_info() [0])
 
 
+def save_and_reload_assignments():
+    # Save out to a temporary file and reload to ensure it is in shape
+    global input_assignments
+    try:
+        temp_input_assignments_file = 'temp_input_assignments.json'
+
+        json.dump(input_assignments, fp=open(temp_input_assignments_file,'w'),indent=4)
+
+        input_assignments = None
+
+        input_assignments = json.load(open(temp_input_assignments_file))
+    except:
+        print('Error in save_and_reload_assignments' + sys.exc_info() [0])   
+    
+    
+
+def updateDescription(workingkey):
+    global input_assignments
+
+    
+    print('In learning mode - time to update the description')
+
+    try:
+        wrkstring = raw_input('Please provide a description for: ' + str(workingkey))
+
+        input_assignments[workingkey]['Description'] = wrkstring
+
+        save_and_reload_assignments()
+            
+
+    except:
+        print('Error in updateDescription' + sys.exc_info() [0])
+
+
+
+    
 
 def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
+    global send_string
+    global learning
     
     if debugging: print('Processing UDP String')
+
+    send_string = ""
     
     try:
         if len(ReceivedUDPString) > 0:
@@ -161,8 +202,18 @@ def ProcessReceivedString(ReceivedUDPString):
                         if debugging: print('The value is: ' +
                               str(input_assignments[workingkey]['Description']))
 
+
+                        if learning:
+                            print('')
+                            print('learning 0 ')
+                            print('learning: ' + str(input_assignments[workingkey]['Description']) )
+
+                            if input_assignments[workingkey]['Description'] == None:
+                                updateDescription(workingkey)
+
+
                         if str(workingFields[2]) == '0':
-                            print('Value for Close is :' +
+                                print('Value for Close is :' +
                                   str (input_assignments[workingkey]['Close']))
 
                         if str(workingFields[2]) == '1':
