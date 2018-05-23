@@ -134,22 +134,78 @@ def updateDescription(workingkey):
     global input_assignments
 
     
-    print('In learning mode - time to update the description')
+    print('In learning mode - time to update the description for: '  + str(workingkey))
+    updaterecord = raw_input('Update Description? [y/n]: ')
+    if updaterecord.upper() == 'Y':
 
-    try:
-        wrkstring = raw_input('Please provide a description for: ' + str(workingkey))
+        try:
+            wrkstring = raw_input('Please provide a description for: "' + str(workingkey) +  '" ')
+            if wrkstring != '':
 
-        input_assignments[workingkey]['Description'] = wrkstring
+                input_assignments[workingkey]['Description'] = wrkstring
 
-        save_and_reload_assignments()
-            
+                save_and_reload_assignments()
+                
 
-    except:
-        print('Error in updateDescription' + sys.exc_info() [0])
+        except:
+            print('Error in updateDescription' + sys.exc_info() [0])
 
 
+def updateOpenAction(workingkey):
+    global input_assignments
 
     
+    print('In learning mode - time to update the Open Action for: ' + str(workingkey))
+    updaterecord = raw_input('Update Action? [y/n]: ')
+    if updaterecord.upper() == 'Y':
+
+        try:
+            wrkstring = raw_input('Please provide a Open Action for: "' + str(workingkey) +  '" ')
+
+            input_assignments[workingkey]['Open'] = wrkstring
+
+            save_and_reload_assignments()
+                
+
+        except:
+            print('Error in updateOpenAction' + sys.exc_info() [0])
+
+
+
+def updateCloseAction(workingkey):
+    global input_assignments
+
+    
+    print('In learning mode - time to update the Close Action for: ' + str(workingkey))
+    updaterecord = raw_input('Update Action? [y/n]: ')
+    if updaterecord.upper() == 'Y':
+        
+        try:
+            wrkstring = raw_input('Please provide a Close Action for: "' + str(workingkey) +  '" ')
+
+            input_assignments[workingkey]['Close'] = wrkstring
+
+            save_and_reload_assignments()
+                
+
+        except:
+            print('Error in updateOpenAction' + sys.exc_info() [0])
+
+def addValueToSend(valueToAdd):
+
+    global send_string
+              
+
+    try:
+        print('Send String is ' + str(len(send_string)) + ' characters long')
+             
+        if len(send_string) > 1300:
+            print('Send String Now !!!!!')
+
+        send_string = send_string + ',' + valueToAdd
+
+    except:
+        print('Error in updateOpenAction' + sys.exc_info() [0])
 
 def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
@@ -203,27 +259,32 @@ def ProcessReceivedString(ReceivedUDPString):
                               str(input_assignments[workingkey]['Description']))
 
 
-                        if learning:
-                            print('')
-                            print('learning 0 ')
-                            print('learning: ' + str(input_assignments[workingkey]['Description']) )
-
-                            if input_assignments[workingkey]['Description'] == None:
+                        if learning and input_assignments[workingkey]['Description'] == None:
                                 updateDescription(workingkey)
-
+                        print('Value for Description is : ' +
+                              str (input_assignments[workingkey]['Description']))
 
                         if str(workingFields[2]) == '0':
-                                print('Value for Close is :' +
-                                  str (input_assignments[workingkey]['Close']))
+                            if learning and input_assignments[workingkey]['Close'] == None:
+                                updateCloseAction(workingkey)
+                            print('Value for Close is : ' +
+                              str (input_assignments[workingkey]['Close']))
+                            if input_assignments[workingkey]['Close'] != None:
+                                addValueToSend(str (input_assignments[workingkey]['Close']))
 
                         if str(workingFields[2]) == '1':
-                            print('Value for Open is :' +
+                            if learning and input_assignments[workingkey]['Open'] == None:
+                                updateOpenAction(workingkey)
+                            print('Value for Open is : ' +
                                   str (input_assignments[workingkey]['Open']))
+                            if input_assignments[workingkey]['Open'] != None:
+                                addValueToSend(str (input_assignments[workingkey]['Open']))
+                            
                         
     
                     except:
                         print('')
-                        print('WARNING - Unable to read record of interest')
+                        print('WARNING - Unable to read record of interest in ProcessReceivedString')
                         print('WARNING - Record name is: "' + workingkey + '"')
                         print('')
                 
