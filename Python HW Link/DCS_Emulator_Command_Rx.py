@@ -1,5 +1,10 @@
 #!/usr/local/bin/python3
 
+a = raw_input("need to insert leading zeros so sort is correct")
+##>>> '%.4d' % (pop)
+##'0001'
+##>>> print pop
+
 # Test script loading LUA file (which contains joystick commands) into an Dictionary (actually a dicutionary of dictionaries)
 # Only loads entries which have a name tag and are on a single line enclosed by { and } 
 
@@ -118,10 +123,12 @@ def ReceivePacket():
 def save_and_reload_assignments():
     # Save out to a temporary file and reload to ensure it is in shape
     global input_assignments
+
+    
     try:
         temp_input_assignments_file = 'temp_input_assignments.json'
 
-        json.dump(input_assignments, fp=open(temp_input_assignments_file,'w'),indent=4)
+        json.dump(input_assignments, fp=open(temp_input_assignments_file,'w'),indent=4,sort_keys=True)
 
         input_assignments = None
 
@@ -265,6 +272,7 @@ def ProcessReceivedString(ReceivedUDPString):
                         print('Value for Description is : ' +
                               str (input_assignments[workingkey]['Description']))
 
+                        # Switch is Open
                         if str(workingFields[2]) == '0':
                             if learning and input_assignments[workingkey]['Close'] == None:
                                 updateCloseAction(workingkey)
@@ -273,6 +281,7 @@ def ProcessReceivedString(ReceivedUDPString):
                             if input_assignments[workingkey]['Close'] != None:
                                 addValueToSend(str (input_assignments[workingkey]['Close']))
 
+                        # Switch is Closed
                         if str(workingFields[2]) == '1':
                             if learning and input_assignments[workingkey]['Open'] == None:
                                 updateOpenAction(workingkey)
@@ -478,7 +487,8 @@ if not (os.path.isfile(input_assignments_file)):
             dictInner['Open'] = None
             dictInner['Close'] = None
 
-            dictOuter[str(outercounter) + ":" + str(counter)] = dictInner
+            #dictOuter[str(outercounter) + ":" + str(counter)] = dictInner
+            dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner
             counter = counter + 1
 
             
