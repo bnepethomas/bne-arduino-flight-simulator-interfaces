@@ -3,6 +3,7 @@
 # Test script loading LUA file (which contains joystick commands) into an Dictionary (actually a dicutionary of dictionaries)
 # Only loads entries which have a name tag and are on a single line enclosed by { and } 
 
+from collections import OrderedDict
 import json
 import os
 import socket
