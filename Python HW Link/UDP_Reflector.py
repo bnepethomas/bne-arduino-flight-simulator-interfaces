@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python
 
 # UDP Reflector
 #
@@ -17,9 +17,7 @@
 
 
 #a = raw_input("need to insert leading zeros so sort is correct enter value and press enter to continue: ")
-##>>> '%.4d' % (pop)
-##'0001'
-##>>> print pop
+
 
 
 
@@ -103,8 +101,7 @@ serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_Address, UDP_Port))
 
 
-wireshark_Sock = socket.socket(socket.AF_INET, # Internet
-         socket.SOCK_DGRAM) # UDP
+
 
 
 
@@ -127,9 +124,9 @@ def ReceivePacket():
             ReceivedPacket = str(ReceivedPacket)
             
             if debugging: print ("From: " + Source_IP + " " + Source_Port)
-            if debugging: print ("Message: ", data)
+            if debugging: print ("Message: ", ReceivedPacket)
 
-            ProcessReceivedString( ReceivedPacket, Source_IP , str(Source_Port))
+            ProcessReceivedString( str(ReceivedPacket), Source_IP , str(Source_Port))
             
             if debugging: print(a)
             a=0
@@ -153,6 +150,7 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
 
     if debugging: print('Processing UDP String')
 
+    global wireshark_Sock, wireshark_IP_Address, wireshark_Port
 
     
     try:
@@ -161,14 +159,20 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             ReceivedUDPString = str(ReceivedUDPString)
             if debugging: print ("From: " + Source_IP + " " + Source_Port)
             if debugging: print('Stage 1 Processing: ' + ReceivedUDPString)
-            Send_string = Source_IP +':' + Source_Port + "---" + ReceivedUDPString
+            Send_string = Source_IP + ':' + Source_Port + '---' + ReceivedUDPString
             
 
-            
-
-
-            wireshark_Sock.sendto(Send_string, (wireshark_IP_Address, wireshark_Port))
-
+            wireshark_Sock = socket.socket(socket.AF_INET, # Internet
+                 socket.SOCK_DGRAM) # UDP
+            wireshark_Sock.bind(('127.0.0.1', 23456 ))
+            print('hi')
+            try:
+ #               wireshark_Sock.sendto(Send_string, (wireshark_IP_Address, wireshark_Port))
+                wireshark_Sock.sendto("pop", ("127.0.0.1", 27005))
+            except:
+                print('oopps Error in ProcessReceivedString. Error is: ')
+                print('doh')
+            print('bye')
           
             
     except:
