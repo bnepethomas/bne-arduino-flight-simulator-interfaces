@@ -45,10 +45,11 @@ def CleanUpAndExit():
 # Global Variables
 debugging = False
 config_file = 'UDP_Reflector_config.py'
-filterstring = ''
+filterString = ''
 
 # Initialise keepalive indicator
 last_time_display = time.time()
+packets_processed = 0
 
 # Address and Port to listen on
 UDP_IP_Address = ""
@@ -113,7 +114,7 @@ try:
                       help="Wireshark Target Port",metavar="opt_W_Port") 
     (options, args) = parser.parse_args()
 
-    print("options:" + str(options))
+
     
     if debugging: print("options:" + str(options))
     if debugging: print("arguments:" +  str(args))
@@ -154,6 +155,7 @@ def ReceivePacket():
 
     
     global last_time_display
+    global packets_processed
     iterations_Since_Last_Packet = 0
 
 
@@ -164,7 +166,7 @@ def ReceivePacket():
             data, (Source_IP, Source_Port)  = serverSock.recvfrom(1500)
 
             ReceivedPacket = data
-
+            packets_processed = packets_processed + 1
 
             Source_IP = str(Source_IP)
             Source_Port = str(Source_Port)
@@ -182,12 +184,16 @@ def ReceivePacket():
                                               
         except socket.timeout:
             iterations_Since_Last_Packet = iterations_Since_Last_Packet +  1
-            if (iterations_Since_Last_Packet > 10000):
+            if debugging == True and (iterations_Since_Last_Packet > 10000):
                 print("[i] Mid Receive Timeout - " + time.asctime())
                 iterations_Since_Last_Packet=0
+                
             if time.time() - last_time_display > 5:
-                print('Keepalive check ' + time.asctime())
+                print('Keepalive check ' + time.asctime() + ' ' +
+                      str(packets_processed) + ' Packets Processed')
+                
                 last_time_display = time.time()
+                packets_processed = 0
             continue
 
         except Exception as other:
