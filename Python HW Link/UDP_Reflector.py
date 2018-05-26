@@ -32,8 +32,9 @@ from optparse import OptionParser
 
 
 # Global Variables
-debugging = True
+debugging = False
 config_file = 'UDP_Reflector_config.py'
+last_time_display = time.time()
 
 # Address and Port to listen on
 UDP_IP_Address = ""
@@ -100,13 +101,16 @@ serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_Address, UDP_Port))
 
-
+wireshark_Sock = socket.socket(socket.AF_INET, # Internet
+     socket.SOCK_DGRAM) # UDP
 
 
 
 
 def ReceivePacket():
 
+
+    global last_time_display
     # 'a' keeps track of how long it has been since packet was received
     a=0
 
@@ -116,6 +120,9 @@ def ReceivePacket():
         try:
 
             data, (Source_IP, Source_Port)  = serverSock.recvfrom(1500)
+
+
+
             ReceivedPacket = data
 
 
@@ -124,7 +131,7 @@ def ReceivePacket():
             ReceivedPacket = str(ReceivedPacket)
             
             if debugging: print ("From: " + Source_IP + " " + Source_Port)
-            if debugging: print ("Message: ", ReceivedPacket)
+            if debugging: print ("Message: " + ReceivedPacket)
 
             ProcessReceivedString( str(ReceivedPacket), Source_IP , str(Source_Port))
             
@@ -137,12 +144,17 @@ def ReceivePacket():
             if (a > 10000):
                 print("Mid Receive Timeout - ", time.asctime())
                 a=0
+            if time.time() - last_time_display > 5:
+                print('Keepalive check ' + time.asctime())
+                last_time_display = time.time()
             continue
 
         except:
             print('Error in ReceivePacket. Error is: ' + sys.exc_info() [0])
 
-
+        if time.time() - last_time_display > 5:
+            print('Keepalive check ' + time.asctime())
+            last_time_display = time.time()
 
 
 
@@ -161,18 +173,8 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             if debugging: print('Stage 1 Processing: ' + ReceivedUDPString)
             Send_string = Source_IP + ':' + Source_Port + '---' + ReceivedUDPString
             
+            wireshark_Sock.sendto(Send_string, (wireshark_IP_Address, wireshark_Port))
 
-            wireshark_Sock = socket.socket(socket.AF_INET, # Internet
-                 socket.SOCK_DGRAM) # UDP
-            wireshark_Sock.bind(('127.0.0.1', 23456 ))
-            print('hi')
-            try:
- #               wireshark_Sock.sendto(Send_string, (wireshark_IP_Address, wireshark_Port))
-                wireshark_Sock.sendto("pop", ("127.0.0.1", 27005))
-            except:
-                print('oopps Error in ProcessReceivedString. Error is: ')
-                print('doh')
-            print('bye')
           
             
     except:
