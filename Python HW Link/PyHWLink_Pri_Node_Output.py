@@ -49,10 +49,13 @@ from random import randint
 # 0.0.0.0 will listen on all addresses, other specify desired source address
 UDP_IP = "0.0.0.0"
 UDP_PORT = 7784
+UDP_Reflector_IP = "127.0.0.1"
+UDP_Reflector_Port = 27000
 
 Source_IP = 0
 Source_Port = 0
 Last_Source_IP = "127.0.0.1"
+
 
 
 
@@ -62,7 +65,9 @@ def Send_UDP_Command(command_to_send):
     # The target port is found in config.lua - ExportScript.Config.ListenerPort
     # We determine where to send the update based on the last data packet we received
     UDP_IP = "127.0.0.1"
-    TX_UDP_PORT = 26027   
+    TX_UDP_PORT = 26027
+
+    global UDP_Reflector_IP, UDP_Reflector_Port
 
 
     print ("UDP target IP:", UDP_IP)
@@ -70,12 +75,17 @@ def Send_UDP_Command(command_to_send):
 
     txsock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
-    print ("step") 
+
+    reflector_sock = socket.socket(socket.AF_INET, # Internet
+                     socket.SOCK_DGRAM) # UDP
+
+    
+    print ("step2") 
     # imported from credentials 
     print (whatami)               
     #sock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
     txsock.sendto("00:098:1,02:003:0", (UDP_IP, TX_UDP_PORT))
-    
+    reflector_sock.sendto("00:098:1,02:003:0", (UDP_Reflector_IP, UDP_Reflector_Port))
 
 
 

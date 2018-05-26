@@ -1,9 +1,5 @@
 #!/usr/local/bin/python3
 
-a = raw_input("need to insert leading zeros so sort is correct")
-##>>> '%.4d' % (pop)
-##'0001'
-##>>> print pop
 
 # Test script loading LUA file (which contains joystick commands) into an Dictionary (actually a dicutionary of dictionaries)
 # Only loads entries which have a name tag and are on a single line enclosed by { and } 
