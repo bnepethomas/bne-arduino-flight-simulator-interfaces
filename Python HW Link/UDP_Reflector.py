@@ -77,6 +77,7 @@ try:
             print('Or variable assignment incorrect - forgot quotes for string?')
             print('Defaults used')
 
+
     # The timeout is aggressive
     serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     serverSock.settimeout(0.0001)
@@ -106,11 +107,28 @@ try:
                       default=False,
                       help="enable debug",metavar="DEBUGLEVEL")
     
-
+    parser.add_option("-w","--wh", dest="opt_W_Host",
+                      help="Wireshark Target IP Address",metavar="opt_W_Host")    
+    parser.add_option("-u","--wp", dest="opt_W_Port",
+                      help="Wireshark Target Port",metavar="opt_W_Port") 
     (options, args) = parser.parse_args()
 
+    print("options:" + str(options))
+    
     if debugging: print("options:" + str(options))
     if debugging: print("arguments:" +  str(args))
+
+
+    if options.opt_W_Host != None:
+        wireshark_IP_Address = str(options.opt_W_Host)
+
+    if options.opt_W_Port != None:
+        wireshark_Port = str(options.opt_W_Port)
+
+
+    print ("[i] Wireshark UDP port is : " + str(wireshark_Port))
+    print ("[i] Wireshark host is : " + wireshark_IP_Address)
+
 
     if len(args) != 0:
         filterString = args[0]
@@ -165,7 +183,7 @@ def ReceivePacket():
         except socket.timeout:
             iterations_Since_Last_Packet = iterations_Since_Last_Packet +  1
             if (iterations_Since_Last_Packet > 10000):
-                print("[i] Mid Receive Timeout - ", time.asctime())
+                print("[i] Mid Receive Timeout - " + time.asctime())
                 iterations_Since_Last_Packet=0
             if time.time() - last_time_display > 5:
                 print('Keepalive check ' + time.asctime())
@@ -196,7 +214,7 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             if debugging: print('Payload: ' + ReceivedUDPString)
             Send_String = Source_IP + ':' + Source_Port + '---' + ReceivedUDPString
             
-            wireshark_Sock.sendto(Send_String, (wireshark_IP_Address, wireshark_Port))
+            wireshark_Sock.sendto(Send_String, (wireshark_IP_Address, int(wireshark_Port)))
             if filterString !="":
                 if filterString in Send_String:
                     print(Send_String)
