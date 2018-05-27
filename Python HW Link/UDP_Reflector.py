@@ -4,12 +4,13 @@
 #
 # Displays and optionally forwards packets to a wireshark receiver
 # Listens on a well known port 27000 (ie fixed)
-# By default displays all packets but will filter using wireshark filter (ie ip.addr==X.X.X.X)
+# By default displays all packets but will filter using simple character matching (no wild carding)
 #
 #
 # Command line options
 #
 # filterstring - display packets containing this string
+# IP Address and Port to send to wireshark
 
 
 
@@ -87,13 +88,6 @@ try:
 
     wireshark_Sock = socket.socket(socket.AF_INET, # Internet
         socket.SOCK_DGRAM) # UDP
-
-
-
-    # See if input configuration file exists
-    # Parameters are either specified in this file or passed via command line
-    # Command line parameters override any settings in the config file
-    #
 
 
 
@@ -211,6 +205,7 @@ def ReceivePacket():
 
         except Exception as other:
             print(time.asctime() + "[e] Error in ReceivePacket: " + str(other))
+            
 
         if time.time() - last_time_display > 5:
             print('Keepalive ' + time.asctime())
@@ -233,8 +228,13 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             if debugging: print('Payload: ' + ReceivedUDPString)
             Send_String = Source_IP + ':' + Source_Port + '---' + ReceivedUDPString
             
+            # Is Wireshark target address set - if so throw a copy of the packet in its direction
             if wireshark_IP_Address != None:
                 wireshark_Sock.sendto(Send_String, (wireshark_IP_Address, int(wireshark_Port)))
+
+                
+            # If we have passed a filter string via the command line - then display
+            #   packets that contain the string (this includes the IP address of the sender)
             if filterString !="":
                 if filterString in Send_String:
                     print(Send_String)

@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/python
 
 
 # Test script loading LUA file (which contains joystick commands) into an Dictionary (actually a dicutionary of dictionaries)
