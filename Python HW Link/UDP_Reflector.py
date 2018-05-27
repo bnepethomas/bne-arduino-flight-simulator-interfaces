@@ -46,6 +46,7 @@ def CleanUpAndExit():
 debugging = False
 config_file = 'UDP_Reflector_config.py'
 filterString = ''
+secondsBetweenKeepAlives = 5
 
 # Initialise keepalive indicator
 last_time_display = time.time()
@@ -56,7 +57,7 @@ UDP_IP_Address = ""
 UDP_Port = 27000
 
 # Wireshark target address and Port
-wireshark_IP_Address = "127.0.0.1"
+wireshark_IP_Address = None
 wireshark_Port = 27001
 
 try:
@@ -111,7 +112,8 @@ try:
     parser.add_option("-w","--wh", dest="opt_W_Host",
                       help="Wireshark Target IP Address",metavar="opt_W_Host")    
     parser.add_option("-u","--wp", dest="opt_W_Port",
-                      help="Wireshark Target Port",metavar="opt_W_Port") 
+                      help="Wireshark Target Port. 27001 is used if not explicity specified",
+                      metavar="opt_W_Port") 
     (options, args) = parser.parse_args()
 
 
@@ -127,9 +129,10 @@ try:
         wireshark_Port = str(options.opt_W_Port)
 
 
-    print ("[i] Wireshark UDP port is : " + str(wireshark_Port))
-    print ("[i] Wireshark host is : " + wireshark_IP_Address)
-
+    
+    if wireshark_IP_Address != None:
+        print ("[i] Wireshark host is : " + wireshark_IP_Address)
+        print ("[i] Wireshark UDP port is : " + str(wireshark_Port))
 
     if len(args) != 0:
         filterString = args[0]
@@ -188,9 +191,19 @@ def ReceivePacket():
                 print("[i] Mid Receive Timeout - " + time.asctime())
                 iterations_Since_Last_Packet=0
                 
-            if time.time() - last_time_display > 5:
+            # Throw something on console to show we haven't died
+            if time.time() - last_time_display > secondsBetweenKeepAlives:
+                
+                #Calculate Packets per Second
+                if packets_processed != 0:
+                    packets_per_Second = packets_processed / secondsBetweenKeepAlives
+                else:
+                    packets_per_Second = 0
+                
+                pps_string = ". " + str(packets_per_Second) + " packets per second."
+                
                 print('Keepalive check ' + time.asctime() + ' ' +
-                      str(packets_processed) + ' Packets Processed')
+                      str(packets_processed) + ' Packets Processed' + pps_string)
                 
                 last_time_display = time.time()
                 packets_processed = 0
@@ -220,7 +233,8 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             if debugging: print('Payload: ' + ReceivedUDPString)
             Send_String = Source_IP + ':' + Source_Port + '---' + ReceivedUDPString
             
-            wireshark_Sock.sendto(Send_String, (wireshark_IP_Address, int(wireshark_Port)))
+            if wireshark_IP_Address != None:
+                wireshark_Sock.sendto(Send_String, (wireshark_IP_Address, int(wireshark_Port)))
             if filterString !="":
                 if filterString in Send_String:
                     print(Send_String)

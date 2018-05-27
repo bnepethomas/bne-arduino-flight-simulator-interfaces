@@ -126,7 +126,7 @@ while True:
           print(time.asctime()) 
           Send_UDP_Command("C15,3004,-1")
           
-          sock.settimeout(1)
+          sock.settimeout(0.25)
           data, (Source_IP, Source_Port) = sock.recvfrom(1500) # buffer size is 1024 bytes
           if (Source_IP != Last_Source_IP):
             Last_Source_IP = Source_IP  
