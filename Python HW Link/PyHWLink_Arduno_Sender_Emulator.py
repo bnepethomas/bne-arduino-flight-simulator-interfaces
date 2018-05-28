@@ -78,16 +78,19 @@ def Send_UDP_Command(command_to_send):
     if debugging: print ("UDP target IP:" + UDP_IP)
     if debugging: print ("UDP target port:" + str(TX_UDP_PORT))
 
+
+    # should reduce this to a single socket setup as only listening on a single port
     txsock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 
     reflector_sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 
-    
-
-    txsock.sendto("00:098:1,02:003:0", (UDP_IP, TX_UDP_PORT))
-    reflector_sock.sendto("00:098:1,02:003:0", (UDP_Reflector_IP, UDP_Reflector_Port))
+    txsock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
+    reflector_sock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))   
+##
+##    txsock.sendto("00:098:1,02:003:0", (UDP_IP, TX_UDP_PORT))
+##    reflector_sock.sendto("00:098:1,02:003:0", (UDP_Reflector_IP, UDP_Reflector_Port))
 
 
 
@@ -109,7 +112,7 @@ while True:
     try:
        while True:
           print(time.asctime()) 
-          Send_UDP_Command("C15,3004,-1")
+
 
           counter = 0
           while counter < total_entries:           
@@ -119,7 +122,7 @@ while True:
                     switch_array[counter] = 1
                 else:
                     switch_array[counter] = 0
-                Send_UDP_Command(str(Input_Module_Numer) + ':' + %2d %counter + ':' + str(switch_array[counter]))
+                Send_UDP_Command('D' + '%.2d' % (Input_Module_Numer) + ':' + '%.3d' % (counter) + ':' + str(switch_array[counter]))
             counter = counter + 1
           print(switch_array)
 
