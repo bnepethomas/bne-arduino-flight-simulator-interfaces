@@ -79,23 +79,17 @@ def Send_UDP_Command(command_to_send):
     if debugging: print ("UDP target port:" + str(TX_UDP_PORT))
 
 
-    # should reduce this to a single socket setup as only listening on a single port
     txsock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 
-    reflector_sock = socket.socket(socket.AF_INET, # Internet
-                     socket.SOCK_DGRAM) # UDP
 
     txsock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
-    reflector_sock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))   
-##
-##    txsock.sendto("00:098:1,02:003:0", (UDP_IP, TX_UDP_PORT))
-##    reflector_sock.sendto("00:098:1,02:003:0", (UDP_Reflector_IP, UDP_Reflector_Port))
-
+    txsock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))   
 
 
 def SendAllSwitchStates():
     print ("Sending Switch States")
+    a = raw_input('Press Enter to Continue')
 
 
 
@@ -129,47 +123,13 @@ while True:
           
           sock.settimeout(0.25)
           data, (Source_IP, Source_Port) = sock.recvfrom(1500) # buffer size is 1024 bytes
-          if (Source_IP != Last_Source_IP):
-            Last_Source_IP = Source_IP  
-            print ("New Source Address Found")
-            SendAllSwitchStates()
+
+                    
           
-          
-          
-          #print "received message:", data
-          words = data.split(":")
-          #print words
-
-
-
-          for current_word in words:
-                #print(current_word)
-                #print(len(current_word))
-
-                # Basic sanity check to catch values that are too short
-                if len(current_word) >= 3:
-                    values = current_word.split("=")
-                    #print values
-                    #print values[0] + "+" + values[1]
-
-                    if values[0] == '91':
-                        print ("Handling 91-lamp_ENGINE_OIL_PRESS")
-
-
-                    if values[0] == '999':
-                        print ("Handling SHUTDOWN")
-                        if values[1] == "ShutdownAndHalt":
-                            # Stop listening on original port
-                            sock.close()
-                            ShutdownAndHalt()
-                        elif values[1] == "Reboot":
-                            # Stop listening on original port
-                            sock.close()
-                            Reboot()                                      
-                        else:
-                            print ("Received a Invalid Shutdown Request")
-
-
+          print "received message:", data
+          if data == 'CQ':
+              SendAllSwitchStates()
+              
     
 
 
