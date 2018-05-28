@@ -34,9 +34,16 @@ import random
 # Global Variables
 Input_Module_Numer = 0
 debugging = False
-total_entries = 10
-likelihood_of_change = 0.505
+total_entries = 256
+
+max_packet_size = 150
+
+likelihood_of_change = 0.5005
+#likelihood_of_change = 0
 # 0.0.0.0 will listen on all addresses, other specify desired source address
+
+command_string = ''
+
 UDP_IP = "0.0.0.0"
 UDP_PORT = 7788
 UDP_Reflector_IP = "127.0.0.1"
@@ -53,7 +60,7 @@ while counter < total_entries:
     switch_array.append(0)
     counter = counter + 1
 print('There are ' + str(len(switch_array)) + ' switches')
-print(switch_array)
+if debugging: print(switch_array)
 
 
 # Randonmise initial values
@@ -65,7 +72,7 @@ while counter < total_entries:
     else:
         switch_array[counter] = 0
     counter = counter + 1
-print(switch_array)
+if debugging: print(switch_array)
 
 
 def Send_UDP_Command(command_to_send):
@@ -74,8 +81,6 @@ def Send_UDP_Command(command_to_send):
 
     global UDP_Reflector_IP, UDP_Reflector_Port
 
-
-    if debugging: print ("UDP target IP:" + UDP_IP)
     if debugging: print ("UDP target port:" + str(TX_UDP_PORT))
 
 
@@ -84,13 +89,48 @@ def Send_UDP_Command(command_to_send):
 
 
     txsock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
-    txsock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))   
+    txsock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))
+
+# When doing a bulk send - group commands into packets with an approx size of 1000 bytes
+def Add_UDP_Command(command_to_add):
+
+    global command_string
+
+    if command_string == '':
+        command_string = command_to_add
+    else:
+        command_string = command_string + ',' + command_to_add
+
+    if len(command_string) > max_packet_size:
+        Send_UDP_Command('D' + command_string)
+        command_string = ''
+        
+
+
+def Send_Remaining_Commands():
+    
+    global command_string
+
+    if command_string != '':
+        Send_UDP_Command('D' + command_string)
+    
 
 
 def SendAllSwitchStates():
-    print ("Sending Switch States")
-    a = raw_input('Press Enter to Continue')
 
+    global command_string
+    
+    print ("Sending Switch States")
+
+    command_string = ''
+    counter = 0
+    while counter < total_entries:                         
+        Add_UDP_Command('%.2d' % (Input_Module_Numer) + ':' + '%.3d' % (counter) + ':' + str(switch_array[counter]))
+
+        counter = counter + 1
+
+    # Send out buffered commands    
+    Send_Remaining_Commands()
 
 
 # Setup inputs and outputs
@@ -105,7 +145,7 @@ sock.bind((UDP_IP, UDP_PORT))
 while True:
     try:
        while True:
-          print(time.asctime()) 
+          if debugging: print(time.asctime()) 
 
 
           counter = 0
@@ -118,7 +158,7 @@ while True:
                     switch_array[counter] = 0
                 Send_UDP_Command('D' + '%.2d' % (Input_Module_Numer) + ':' + '%.3d' % (counter) + ':' + str(switch_array[counter]))
             counter = counter + 1
-          print(switch_array)
+          if debugging:  print(switch_array)
 
           
           sock.settimeout(0.25)
@@ -134,7 +174,7 @@ while True:
 
 
     except socket.timeout:
-        print(time.asctime() + " timeout")       
+        if debugging: print(time.asctime() + " timeout")       
         continue
         
 
