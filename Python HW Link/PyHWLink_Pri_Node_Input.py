@@ -282,8 +282,8 @@ def ProcessReceivedString(ReceivedUDPString):
                         print('Value for Description is : ' +
                               str (input_assignments[workingkey]['Description']))
 
-                        # Switch is Open
-                        if str(workingFields[2]) == '0':
+                        # Switch is Closed
+                        if str(workingFields[2]) == '1':
                             if learning and input_assignments[workingkey]['Close'] == None:
                                 updateCloseAction(workingkey)
                             print('Value for Close is : ' +
@@ -291,8 +291,8 @@ def ProcessReceivedString(ReceivedUDPString):
                             if input_assignments[workingkey]['Close'] != None:
                                 addValueToSend(str (input_assignments[workingkey]['Close']))
 
-                        # Switch is Closed
-                        if str(workingFields[2]) == '1':
+                        # Switch is Opened
+                        if str(workingFields[2]) == '0':
                             if learning and input_assignments[workingkey]['Open'] == None:
                                 updateOpenAction(workingkey)
                             print('Value for Open is : ' +
