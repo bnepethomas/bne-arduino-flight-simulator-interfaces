@@ -83,9 +83,20 @@ except:
 
 UDP_IP_ADDRESS = "127.0.0.1"
 UDP_PORT_NO = 26027
+DCS_IP_ADDRESS = "127.0.0.1"
+DCS_PORT_NO = 26026
+
+UDP_Reflector_IP = "127.0.0.1"
+UDP_Reflector_Port = 27000
+
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
+
+
+txsock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
+
+
 
 input_assignments = None
 send_string = None
@@ -160,12 +171,14 @@ def updateOpenAction(workingkey):
     global input_assignments
 
     
-    print('In learning mode - time to update the Open Action for: ' + str(workingkey))
+    print('In learning mode - time to update the Open Action for: ' + str(workingkey) + ' / '
+          + input_assignments[workingkey]['Description'] + ' ' )
     updaterecord = raw_input('Update Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
 
         try:
-            wrkstring = raw_input('Please provide a Open Action for: "' + str(workingkey) +  '" ')
+            wrkstring = raw_input('Please provide a Open Action for: "' + str(workingkey) +  '" "'
+                                  + input_assignments[workingkey]['Description'] + '" :')
 
             input_assignments[workingkey]['Open'] = wrkstring
 
@@ -181,12 +194,14 @@ def updateCloseAction(workingkey):
     global input_assignments
 
     
-    print('In learning mode - time to update the Close Action for: ' + str(workingkey))
+    print('In learning mode - time to update the Close Action for: ' + str(workingkey) + ' '
+          + input_assignments[workingkey]['Description'])
     updaterecord = raw_input('Update Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
         
         try:
-            wrkstring = raw_input('Please provide a Close Action for: "' + str(workingkey) +  '" ')
+            wrkstring = raw_input('Please provide a Close Action for: "' + str(workingkey) +  '" "'
+                                  + input_assignments[workingkey]['Description'] + '" :')
 
             input_assignments[workingkey]['Close'] = wrkstring
 
@@ -196,14 +211,36 @@ def updateCloseAction(workingkey):
         except:
             print('Error in updateOpenAction' + sys.exc_info() [0])
 
+
+def Send_Value():
+
+    global send_string
+    global txsock
+
+
+    try:
+
+        if True: print ("UDP target port:" + str(DCS_PORT_NO))
+        if debugging: print ("UDP target port:" + str(DCS_PORT_NO))
+
+        txsock.sendto(send_string, (DCS_IP_ADDRESS, DCS_PORT_NO))
+        txsock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
+
+        send_string = ""
+
+    except Exception as other:
+        print(time.asctime() + "[e] Error in Main: " + str(other))
+        
+              
+
 def addValueToSend(valueToAdd):
 
     global send_string
               
 
     try:
-        print('Send String is ' + str(len(send_string)) + ' characters long')
-        print('Before ' + send_string)
+        if debugging: print('Send String is ' + str(len(send_string)) + ' characters long')
+        if debugging: print('Before ' + send_string)
 
 
         if len(send_string) == 0:
@@ -212,15 +249,27 @@ def addValueToSend(valueToAdd):
             send_string = send_string + ',' + valueToAdd
              
         if len(send_string) > 40:
-            print('Send String Now !!!!!')
             
+            if debugging: print('Send String Now !!!!!')
+            Send_Value()
             
-
         
-        print('After ' + send_string)
+        if debugging: print('After ' + send_string)
 
     except:
         print('Error in updateOpenAction' + sys.exc_info() [0])
+
+
+
+def Send_Remaining_Commands():
+    
+    global send_string
+
+    if send_string != '':
+         Send_Value()       
+    send_string = ''
+    
+
 
 def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
@@ -302,19 +351,24 @@ def ProcessReceivedString(ReceivedUDPString):
                             
                         
     
-                    except:
+                    except Exception as other:
                         print('')
                         print('WARNING - Unable to read record of interest in ProcessReceivedString')
                         print('WARNING - Record name is: "' + workingkey + '"')
                         print('')
+                        print(time.asctime() + "[e] Error in ProcessReceivedString: " + str(other))
                 
+
+            Send_Remaining_Commands()
             if debugging: print('Continuing on')
             
 
 
-    except:
-        print('Error in ProcessReceivedString. Error is: ' + sys.exc_info() [0])
+    except Exception as other:
+        print(time.asctime() + "[e] Error in ProcessReceivedString: " + str(other))
 
+
+  
 def RemoveUnwantedCharacters(stringToBeCleaned):
     stringToBeCleaned= stringToBeCleaned.replace('"', '')
     stringToBeCleaned = stringToBeCleaned.strip(' ')

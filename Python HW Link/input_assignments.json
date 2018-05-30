@@ -1,12 +1,12 @@
 {
     "00:000": {
-        "Close": "Port 0 Close", 
+        "Close": null, 
         "Description": "Port 0", 
         "Open": "Port 0 Open"
     }, 
     "00:001": {
-        "Close": "Port 0 Close", 
-        "Description": "Port 0", 
+        "Close": "Port 1 Close", 
+        "Description": "Port 1", 
         "Open": "Port 1 Open"
     }, 
     "00:002": {
