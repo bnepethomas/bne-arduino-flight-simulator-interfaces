@@ -1,53 +1,53 @@
 {
     "00:000": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Port 0 Close", 
+        "Description": "Port 0", 
+        "Open": "Port 0 Open"
     }, 
     "00:001": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Port 0 Close", 
+        "Description": "Port 0", 
+        "Open": "Port 1 Open"
     }, 
     "00:002": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Port 2 Close", 
+        "Description": "Port 2", 
+        "Open": "Port 2 Open"
     }, 
     "00:003": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Port 3 Close", 
+        "Description": "Port 3", 
+        "Open": "Port 3 Open"
     }, 
     "00:004": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Port 4 Close", 
+        "Description": "Port 4", 
+        "Open": "Port 4 Open"
     }, 
     "00:005": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Port 5 Close", 
+        "Description": "Port 5", 
+        "Open": "Port 5 Open"
     }, 
     "00:006": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Port 6 Close", 
+        "Description": "Port 6", 
+        "Open": "Port 6 Open"
     }, 
     "00:007": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Port 7 Close", 
+        "Description": "Port 7", 
+        "Open": "Port 7 Open"
     }, 
     "00:008": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Port 8 Close", 
+        "Description": "Port 8", 
+        "Open": "Port 8 Open"
     }, 
     "00:009": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Port 9 Close", 
+        "Description": "Port 9", 
+        "Open": "Port 9 Open"
     }, 
     "00:010": {
         "Close": null, 
@@ -491,8 +491,8 @@
     }, 
     "00:098": {
         "Close": null, 
-        "Description": "987987", 
-        "Open": "hhh"
+        "Description": null, 
+        "Open": null
     }, 
     "00:099": {
         "Close": null, 
@@ -2575,8 +2575,8 @@
         "Open": null
     }, 
     "02:003": {
-        "Close": "09090", 
-        "Description": "klk;lk", 
+        "Close": null, 
+        "Description": null, 
         "Open": null
     }, 
     "02:004": {

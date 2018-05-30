@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+# PyHWLink_Pri_Node_Input.py
 
 # Test script loading LUA file (which contains joystick commands) into an Dictionary (actually a dicutionary of dictionaries)
 # Only loads entries which have a name tag and are on a single line enclosed by { and } 
@@ -202,11 +203,21 @@ def addValueToSend(valueToAdd):
 
     try:
         print('Send String is ' + str(len(send_string)) + ' characters long')
-             
-        if len(send_string) > 1300:
-            print('Send String Now !!!!!')
+        print('Before ' + send_string)
 
-        send_string = send_string + ',' + valueToAdd
+
+        if len(send_string) == 0:
+            send_string = valueToAdd
+        else:
+            send_string = send_string + ',' + valueToAdd
+             
+        if len(send_string) > 40:
+            print('Send String Now !!!!!')
+            
+            
+
+        
+        print('After ' + send_string)
 
     except:
         print('Error in updateOpenAction' + sys.exc_info() [0])
@@ -221,11 +232,14 @@ def ProcessReceivedString(ReceivedUDPString):
     send_string = ""
     
     try:
-        if len(ReceivedUDPString) > 0:
+        if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
             
             if debugging: print('Stage 1 Processing: ' + str(ReceivedUDPString))
-            ReceivedUDPString = str(ReceivedUDPString)
+            # Remove leading D
+            ReceivedUDPString = str(ReceivedUDPString[1:])
             if debugging: print('Checking for correct format :')
+
+            
 
             workingSets =''
             workingSets = ReceivedUDPString.split(',')

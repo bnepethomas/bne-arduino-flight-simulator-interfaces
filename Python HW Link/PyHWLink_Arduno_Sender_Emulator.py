@@ -34,7 +34,7 @@ import random
 # Global Variables
 Input_Module_Numer = 0
 debugging = False
-total_entries = 256
+total_entries = 10
 
 max_packet_size = 150
 
@@ -113,6 +113,7 @@ def Send_Remaining_Commands():
 
     if command_string != '':
         Send_UDP_Command('D' + command_string)
+    command_string = ''
     
 
 
@@ -156,8 +157,10 @@ while True:
                     switch_array[counter] = 1
                 else:
                     switch_array[counter] = 0
-                Send_UDP_Command('D' + '%.2d' % (Input_Module_Numer) + ':' + '%.3d' % (counter) + ':' + str(switch_array[counter]))
+                Add_UDP_Command('%.2d' % (Input_Module_Numer) + ':' + '%.3d' % (counter) + ':' + str(switch_array[counter]))
             counter = counter + 1
+          Send_Remaining_Commands()
+        
           if debugging:  print(switch_array)
 
           
