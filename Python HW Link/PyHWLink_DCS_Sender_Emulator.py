@@ -148,7 +148,7 @@ while True:
 ##                Add_UDP_Command('%.2d' % (Input_Module_Numer) + ':' + '%.3d' % (counter) + ':' + str(switch_array[counter]))
 ##            counter = counter + 1
 
-          command_string = "VS:100,ALT:10500,15:1,Airspeed:351"  
+          command_string = "VS:100,ALT:10500,15:1,Airspeed:351,Nose Gear:15"  
           Send_Remaining_Commands()
         
           if debugging:  print(switch_array)

@@ -287,8 +287,9 @@ def Send_Remaining_Commands():
 def FindTarget(targetIP, stringToAdd):
 
     global send_string, target
-    print('')
-    print('Hunting for :' + targetIP)
+    if debugging: print('')
+    if debugging: print('Hunting for :' + targetIP)
+
 
 
 
@@ -301,15 +302,16 @@ def FindTarget(targetIP, stringToAdd):
             targetinner['IP'] = targetIP           
             target[targetIP] = targetinner
         else:
-            print ('Found Matching target record :' + targetIP)          
-            target[targetIP]['Outputstring'] = target[targetIP]['Outputstring'] + stringToAdd
-            print ('Added target record :' + targetIP) 
+            print ('Appending target record :' + targetIP)          
+            target[targetIP]['Outputstring'] = target[targetIP]['Outputstring'] + ' , ' + stringToAdd
+            if debugging: print ('Added target record :' + targetIP) 
 
 
-        for toys in target:
-            print(target[toys]['Outputstring'])
+        if debugging:
+            for toys in target:
+                print(toys + ':' + target[toys]['Outputstring'])
 
-        print('')
+        if debugging: print('')
 
 
 
@@ -322,8 +324,7 @@ def ProcessReceivedString(ReceivedUDPString):
     global send_string, target
     global learning
 
-    debugging = True
-
+    #debugging = True
     
     if debugging: print('Processing UDP String')
 
@@ -364,45 +365,65 @@ def ProcessReceivedString(ReceivedUDPString):
                     try:
                         workingkey = workingFields[0]
                         if debugging: print('Working key is: ' + workingkey)
-                        
-                        if debugging: print('Working Fields for working key are: ' +
-                              str(output_assignments[workingkey]))
 
-                        if debugging: print('The value is: ' +
-                              str(output_assignments[workingkey]['Description']))
+                        if not workingkey in output_assignments:
 
+                            print( '' )
+                            print( 'WARNING NO MAPPING FOR '+ workingkey)
+                            print( '' )
 
-                        if learning and output_assignments[workingkey]['Description'] == None:
-                                updateDescription(workingkey)
-                        print('Value for Description is : ' +
-                              str (output_assignments[workingkey]['Description']))
+                        else:
 
-                        if len (output_assignments[workingkey]['IP']) != 0:
-                            print('Value for IP is : ' +
-                                  str (output_assignments[workingkey]['IP']))
-                            FindTarget(str (output_assignments[workingkey]['IP']), '42:43')
+                            if debugging: print('Working Fields for working key are: ' +
+                                  str(output_assignments[workingkey]))
+
+                            if debugging: print('The value is: ' +
+                                  str(output_assignments[workingkey]['Description']))
 
 
+                            if learning and output_assignments[workingkey]['Description'] == None:
+                                    updateDescription(workingkey)
+                            if debugging: print('Value for Description is : ' +
+                                  str (output_assignments[workingkey]['Description']))
 
-                        # Switch is Closed
 
-                        
-                        if str(workingFields[1]) == '1':
-                            if learning and output_assignments[workingkey]['Close'] == None:
-                                updateCloseAction(workingkey)
-                            print('Value for Close is : ' +
-                              str (output_assignments[workingkey]['Close']))
-                            if output_assignments[workingkey]['Close'] != None:
-                                addValueToSend(str (output_assignments[workingkey]['Close']))
+                            # Perform basic sanity check only if datatype is described
+                            if 'Datatype' in output_assignments[workingkey]:
+                                print('Value for Datatype is : ' +
+                                      str (output_assignments[workingkey]['Datatype']))
+                                print('Value of payload is: ' + workingFields[1])
+                                
 
-                        # Switch is Opened
-                        if str(workingFields[1]) == '0':
-                            if learning and output_assignments[workingkey]['Open'] == None:
-                                updateOpenAction(workingkey)
-                            print('Value for Open is : ' +
-                                  str (output_assignments[workingkey]['Open']))
-                            if output_assignments[workingkey]['Open'] != None:
-                                addValueToSend(str (output_assignments[workingkey]['Open']))
+
+                            # Only generate a payload for AVs that have a target IP Address
+                            if 'IP' in output_assignments[workingkey]:
+                                if debugging: print('Value for IP is : ' +
+                                      str (output_assignments[workingkey]['IP']))
+                                
+                                FindTarget(str (output_assignments[workingkey]['IP']), '42:43')
+
+
+
+
+                            # Switch is Closed
+
+                            
+                            if str(workingFields[1]) == '1':
+                                if learning and output_assignments[workingkey]['Close'] == None:
+                                    updateCloseAction(workingkey)
+                                print('Value for Close is : ' +
+                                  str (output_assignments[workingkey]['Close']))
+                                if output_assignments[workingkey]['Close'] != None:
+                                    addValueToSend(str (output_assignments[workingkey]['Close']))
+
+                            # Switch is Opened
+                            if str(workingFields[1]) == '0':
+                                if learning and output_assignments[workingkey]['Open'] == None:
+                                    updateOpenAction(workingkey)
+                                print('Value for Open is : ' +
+                                      str (output_assignments[workingkey]['Open']))
+                                if output_assignments[workingkey]['Open'] != None:
+                                    addValueToSend(str (output_assignments[workingkey]['Open']))
                             
                         
     
