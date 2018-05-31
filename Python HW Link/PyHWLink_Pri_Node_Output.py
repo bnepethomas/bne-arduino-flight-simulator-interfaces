@@ -282,6 +282,69 @@ def Send_Remaining_Commands():
     if send_string != '':
          Send_Value()       
     send_string = ''
+
+
+def ValidateDataType(ExpectedDataType, ValuePassed):
+
+
+    debugging = True
+
+    ValidationComplete = False
+
+
+    
+    try:
+        if debugging: print('ValidateDataType')
+        if debugging: print('Expected Data Type :' + ExpectedDataType)
+        if debugging: print('Value Passed : ' + str(ValuePassed))
+        if debugging: print('Value is of Type :' + str(type(ValuePassed)))
+
+        if ExpectedDataType == 'int':
+            try:
+                a = int(ValuePassed)
+                
+                if a == ValuePassed:
+                    ValidationComplete = True
+                    if debugging: print('int Validated')
+            except:
+                if debugging: print('int Validation Failed')
+        elif ExpectedDataType == 'float':
+            if debugging: print('Validating if float')
+            try:
+                a = float(ValuePassed)
+                ValidationComplete = True
+                if debugging: print('float Validated')
+                
+            except:
+                if debugging: print('float Validation Failed')
+        elif ExpectedDataType == 'bool':
+            if debugging: print('Validating if bool')
+            try:
+                ValuePassed = int(ValuePassed)
+                if ValuePassed == True or ValuePassed == False:
+                    ValidationComplete = True
+                    if debugging: print('bool Validated')               
+            except:
+                if debugging: print('bool Validation Failed')
+        elif ExpectedDataType == 'str':
+            #For the moment just accept all is good
+            ValidationComplete = True
+
+                
+        if ValidationComplete:
+            print('Validation Completed Succesfully')
+            return True
+        else:
+            print('Validation Failed')
+            return False
+                
+                
+
+        if debugging: print('')
+
+    except Exception as other:
+        print(time.asctime() + "[e] Error in ValidateDataType: " + str(other))
+        return False
     
 
 def FindTarget(targetIP, stringToAdd):
@@ -392,6 +455,8 @@ def ProcessReceivedString(ReceivedUDPString):
                                 print('Value for Datatype is : ' +
                                       str (output_assignments[workingkey]['Datatype']))
                                 print('Value of payload is: ' + workingFields[1])
+                                if ValidateDataType(output_assignments[workingkey]['Datatype'], workingFields[1]):
+                                    print('YYYYYYYYYYYYYAAAAAAAAAYYYYYYYYYY')
                                 
 
 

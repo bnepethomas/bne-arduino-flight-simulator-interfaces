@@ -3845,7 +3845,7 @@
     }, 
     "VS": {
         "IP": "172.16.100.4:2003",
-	"Datatype": "String",
+	"Datatype": "str",
         "Close": null, 
         "Description": "Vertical Speed", 
         "Open": null
