@@ -79,17 +79,13 @@ def Send_UDP_Command(command_to_send):
     UDP_IP = "127.0.0.1"
     TX_UDP_PORT = 26027
 
-    global UDP_Reflector_IP, UDP_Reflector_Port
+    global UDP_Reflector_IP, UDP_Reflector_Port, SOCK
 
     if debugging: print ("UDP target port:" + str(TX_UDP_PORT))
 
 
-    txsock = socket.socket(socket.AF_INET, # Internet
-                     socket.SOCK_DGRAM) # UDP
-
-
-    txsock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
-    txsock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))
+    sock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
+    sock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))
 
 # When doing a bulk send - group commands into packets with an approx size of 1000 bytes
 def Add_UDP_Command(command_to_add):

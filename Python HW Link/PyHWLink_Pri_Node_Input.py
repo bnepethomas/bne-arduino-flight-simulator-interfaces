@@ -215,7 +215,7 @@ def updateCloseAction(workingkey):
 def Send_Value():
 
     global send_string
-    global txsock
+    global txsock, serverSock
 
 
     try:
@@ -223,8 +223,8 @@ def Send_Value():
         if True: print ("UDP target port:" + str(DCS_PORT_NO))
         if debugging: print ("UDP target port:" + str(DCS_PORT_NO))
 
-        txsock.sendto(send_string, (DCS_IP_ADDRESS, DCS_PORT_NO))
-        txsock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
+        serverSock.sendto(send_string, (DCS_IP_ADDRESS, DCS_PORT_NO))
+        serverSock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
 
         send_string = ""
 

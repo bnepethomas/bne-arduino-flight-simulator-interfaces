@@ -18,12 +18,13 @@ import time
 debugging = False
 
 UDP_IP = "127.0.0.1"
+UDP_PORT = 7787
 TX_UDP_PORT = 7788
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
 
-
-txsock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
+txsock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM) # UDP
+txsock.bind((UDP_IP, UDP_PORT))
 
 
 def Send_UDP_Command(command_to_send):

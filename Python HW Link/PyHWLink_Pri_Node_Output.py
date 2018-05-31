@@ -7,6 +7,14 @@
 # eg Data Type, Min Max
 # Operates in headless mode (where errors are skipped and not reported)
 #   or in interactive mode where errors are flagged
+
+
+#  Dict Structure
+#
+#   Record eg Altitude
+#       Data Type eg Integer
+#       Target IP eg 172.17.1.10
+#       Target Device Number
 import json
 import os
 import socket
@@ -85,7 +93,7 @@ except:
 
 
 UDP_IP_ADDRESS = "127.0.0.1"
-UDP_PORT_NO = 26027
+UDP_PORT_NO = 26028
 DCS_IP_ADDRESS = "127.0.0.1"
 DCS_PORT_NO = 26026
 
@@ -281,17 +289,18 @@ def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
     global send_string
     global learning
+
+    debugging = True
+
     
     if debugging: print('Processing UDP String')
 
     send_string = ""
     
     try:
-        if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
+        if len(ReceivedUDPString) > 0:
             
             if debugging: print('Stage 1 Processing: ' + str(ReceivedUDPString))
-            # Remove leading D
-            ReceivedUDPString = str(ReceivedUDPString[1:])
             if debugging: print('Checking for correct format :')
 
             
@@ -310,19 +319,16 @@ def ProcessReceivedString(ReceivedUDPString):
                 workingFields = workingRecords.split(':')
 
                 
-                if len(workingFields) != 3:
+                if len(workingFields) != 2:
                     print('')
                     print('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
                     print('')
-                elif str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
-                    print('')
-                    print('WARNING - Invlaid 3rd parameter: ' + str(workingFields[2]))
-                    print('')                   
+                  
                 else:
                     if debugging: print('Stage 2 Processing: ' + str(workingFields))
 
                     try:
-                        workingkey = workingFields[0] + ':' + workingFields[1]
+                        workingkey = workingFields[0]
                         if debugging: print('Working key is: ' + workingkey)
                         
                         if debugging: print('Working Fields for working key are: ' +
@@ -337,8 +343,11 @@ def ProcessReceivedString(ReceivedUDPString):
                         print('Value for Description is : ' +
                               str (input_assignments[workingkey]['Description']))
 
+
+
+
                         # Switch is Closed
-                        if str(workingFields[2]) == '1':
+                        if str(workingFields[1]) == '1':
                             if learning and input_assignments[workingkey]['Close'] == None:
                                 updateCloseAction(workingkey)
                             print('Value for Close is : ' +
@@ -347,7 +356,7 @@ def ProcessReceivedString(ReceivedUDPString):
                                 addValueToSend(str (input_assignments[workingkey]['Close']))
 
                         # Switch is Opened
-                        if str(workingFields[2]) == '0':
+                        if str(workingFields[1]) == '0':
                             if learning and input_assignments[workingkey]['Open'] == None:
                                 updateOpenAction(workingkey)
                             print('Value for Open is : ' +

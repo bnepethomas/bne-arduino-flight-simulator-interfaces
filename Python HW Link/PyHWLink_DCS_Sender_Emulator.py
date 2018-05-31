@@ -67,17 +67,14 @@ def Send_UDP_Command(command_to_send):
     UDP_IP = "127.0.0.1"
     TX_UDP_PORT = 26028
 
-    global UDP_Reflector_IP, UDP_Reflector_Port
+    global UDP_Reflector_IP, UDP_Reflector_Port, sock
 
     if debugging: print ("UDP target port:" + str(TX_UDP_PORT))
 
 
-    txsock = socket.socket(socket.AF_INET, # Internet
-                     socket.SOCK_DGRAM) # UDP
 
-
-    txsock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
-    txsock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))
+    sock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
+    sock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))
 
 # When doing a bulk send - group commands into packets with an approx size of 1000 bytes
 def Add_UDP_Command(command_to_add):
@@ -96,11 +93,14 @@ def Add_UDP_Command(command_to_add):
 
 
 def Send_Remaining_Commands():
-    
+
+    # Don't expect a D to prefix packets from DCS
+    # This is different to all other inter module packets which are prefixed
     global command_string
 
+    print (time.asctime() + " Sending Remaining Commands")
     if command_string != '':
-        Send_UDP_Command('D' + command_string)
+        Send_UDP_Command(command_string)
     command_string = ''
     
 
@@ -109,7 +109,7 @@ def SendAllSwitchStates():
 
     global command_string
     
-    print ("Sending Switch States")
+    print (" Sending Switch States")
 
     command_string = ''
     counter = 0
@@ -154,7 +154,8 @@ while True:
           if debugging:  print(switch_array)
 
           
-          sock.settimeout(1)
+
+          sock.settimeout(10)
           data, (Source_IP, Source_Port) = sock.recvfrom(1500) # buffer size is 1024 bytes
 
                     
