@@ -22,11 +22,9 @@ import random
 # Global Variables
 Input_Module_Numer = 0
 debugging = False
-total_entries = 10
-
 max_packet_size = 150
 
-likelihood_of_change = 0.5005
+
 #likelihood_of_change = 0
 # 0.0.0.0 will listen on all addresses, other specify desired source address
 
@@ -41,26 +39,10 @@ Source_IP = 0
 Source_Port = 0
 Last_Source_IP = "127.0.0.1"
 
-# Initialise array to 0 
-switch_array = []
-counter = 0
-while counter < total_entries:
-    switch_array.append(0)
-    counter = counter + 1
-print('There are ' + str(len(switch_array)) + ' switches')
-if debugging: print(switch_array)
 
 
-# Randonmise initial values
-counter = 0
-while counter < total_entries:
-    
-    if random.random() > 0.5:
-        switch_array[counter] = 1
-    else:
-        switch_array[counter] = 0
-    counter = counter + 1
-if debugging: print(switch_array)
+
+
 
 
 def Send_UDP_Command(command_to_send):
@@ -98,28 +80,13 @@ def Send_Remaining_Commands():
     # This is different to all other inter module packets which are prefixed
     global command_string
 
-    print (time.asctime() + " Sending Remaining Commands")
+    print (time.asctime() + ' Sending DCS Codes')
     if command_string != '':
         Send_UDP_Command(command_string)
     command_string = ''
     
 
 
-def SendAllSwitchStates():
-
-    global command_string
-    
-    print (" Sending Switch States")
-
-    command_string = ''
-    counter = 0
-    while counter < total_entries:                         
-        Add_UDP_Command('%.2d' % (Input_Module_Numer) + ':' + '%.3d' % (counter) + ':' + str(switch_array[counter]))
-
-        counter = counter + 1
-
-    # Send out buffered commands    
-    Send_Remaining_Commands()
 
 
 # Setup inputs and outputs
@@ -136,17 +103,6 @@ while True:
        while True:
           if debugging: print(time.asctime()) 
 
-
-##          counter = 0
-##          while counter < total_entries:           
-##            if (random.random() * likelihood_of_change) > 0.5:
-##                print('Changing Switch '  + str(counter))
-##                if switch_array[counter] == 0:
-##                    switch_array[counter] = 1
-##                else:
-##                    switch_array[counter] = 0
-##                Add_UDP_Command('%.2d' % (Input_Module_Numer) + ':' + '%.3d' % (counter) + ':' + str(switch_array[counter]))
-##            counter = counter + 1
 
           command_string = "VS:100,ALT:10500,15:1,Airspeed:351,Nose Gear:15"  
           Send_Remaining_Commands()

@@ -287,10 +287,8 @@ def Send_Remaining_Commands():
 def ValidateDataType(ExpectedDataType, ValuePassed):
 
 
-    debugging = True
-
+    #debugging = True
     ValidationComplete = False
-
 
     
     try:
@@ -302,12 +300,12 @@ def ValidateDataType(ExpectedDataType, ValuePassed):
         if ExpectedDataType == 'int':
             try:
                 a = int(ValuePassed)
-                
-                if a == ValuePassed:
-                    ValidationComplete = True
-                    if debugging: print('int Validated')
+                ValidationComplete = True
+                if debugging: print('int Validated')
             except:
                 if debugging: print('int Validation Failed')
+
+                
         elif ExpectedDataType == 'float':
             if debugging: print('Validating if float')
             try:
@@ -317,6 +315,8 @@ def ValidateDataType(ExpectedDataType, ValuePassed):
                 
             except:
                 if debugging: print('float Validation Failed')
+
+                
         elif ExpectedDataType == 'bool':
             if debugging: print('Validating if bool')
             try:
@@ -326,16 +326,18 @@ def ValidateDataType(ExpectedDataType, ValuePassed):
                     if debugging: print('bool Validated')               
             except:
                 if debugging: print('bool Validation Failed')
+
+                
         elif ExpectedDataType == 'str':
             #For the moment just accept all is good
             ValidationComplete = True
 
                 
         if ValidationComplete:
-            print('Validation Completed Succesfully')
+            if debugging: print('Validation Completed Succesfully')
             return True
         else:
-            print('Validation Failed')
+            if debugging: print('Validation Failed')
             return False
                 
                 
@@ -361,7 +363,7 @@ def FindTarget(targetIP, stringToAdd):
         if not targetIP in target:
             print ('Adding target record :' + targetIP)
             targetinner = {}
-            targetinner['Outputstring'] = 'hi'
+            targetinner['Outputstring'] = stringToAdd
             targetinner['IP'] = targetIP           
             target[targetIP] = targetinner
         else:
@@ -387,16 +389,19 @@ def ProcessReceivedString(ReceivedUDPString):
     global send_string, target
     global learning
 
-    #debugging = True
+    debugging = False
     
     if debugging: print('Processing UDP String')
 
     send_string = ""
     target = {}
+    payloadOk = True
     
     
     try:
         if len(ReceivedUDPString) > 0:
+
+            debugging = False
             
             if debugging: print('Stage 1 Processing: ' + str(ReceivedUDPString))
             if debugging: print('Checking for correct format :')
@@ -408,6 +413,10 @@ def ProcessReceivedString(ReceivedUDPString):
             if debugging: print('There are ' + str(len(workingSets)) + ' records')
             counter = 0
             for workingRecords in workingSets:
+
+
+                debugging = False
+                
                 if debugging: print('Record workingRecord number ' + str(counter) + ' ' +
                       workingRecords)
                 counter = counter + 1
@@ -451,44 +460,55 @@ def ProcessReceivedString(ReceivedUDPString):
 
 
                             # Perform basic sanity check only if datatype is described
+                            # If not ok the set flag (payloadOk) to stop further processing
                             if 'Datatype' in output_assignments[workingkey]:
-                                print('Value for Datatype is : ' +
+                                if debugging: print('Value for Datatype is : ' +
                                       str (output_assignments[workingkey]['Datatype']))
-                                print('Value of payload is: ' + workingFields[1])
-                                if ValidateDataType(output_assignments[workingkey]['Datatype'], workingFields[1]):
-                                    print('YYYYYYYYYYYYYAAAAAAAAAYYYYYYYYYY')
+                                if debugging: print('Value of payload is: ' + workingFields[1])
+
+                                # Validation Failed
+                                if not ValidateDataType(output_assignments[workingkey]['Datatype'], workingFields[1]):
+                                    print('Warning Validation Failed for ' + str(output_assignments[workingkey]['Datatype'])
+                                          + ' ' + str(workingFields[1]))
+                                    
+                                    payloadOk = False
                                 
 
 
-                            # Only generate a payload for AVs that have a target IP Address
-                            if 'IP' in output_assignments[workingkey]:
+                            # Only generate a payload for AVs that have a target IP Address and a valid field
+                            if 'IP' in output_assignments[workingkey] and 'Field' in output_assignments[workingkey] and payloadOk:
+                                debugging = True
                                 if debugging: print('Value for IP is : ' +
                                       str (output_assignments[workingkey]['IP']))
-                                
-                                FindTarget(str (output_assignments[workingkey]['IP']), '42:43')
+                                if debugging: print('Value for Field is : ' +
+                                      str (output_assignments[workingkey]['Field']))
+                                if output_assignments[workingkey]['IP'] != None and output_assignments[workingkey]['Field'] != None:
+                                    FindTarget(str (output_assignments[workingkey]['IP']),
+                                               str (output_assignments[workingkey]['Field']) + ':' +
+                                               workingFields[1])
 
 
 
 
                             # Switch is Closed
-
-                            
-                            if str(workingFields[1]) == '1':
-                                if learning and output_assignments[workingkey]['Close'] == None:
-                                    updateCloseAction(workingkey)
-                                print('Value for Close is : ' +
-                                  str (output_assignments[workingkey]['Close']))
-                                if output_assignments[workingkey]['Close'] != None:
-                                    addValueToSend(str (output_assignments[workingkey]['Close']))
-
-                            # Switch is Opened
-                            if str(workingFields[1]) == '0':
-                                if learning and output_assignments[workingkey]['Open'] == None:
-                                    updateOpenAction(workingkey)
-                                print('Value for Open is : ' +
-                                      str (output_assignments[workingkey]['Open']))
-                                if output_assignments[workingkey]['Open'] != None:
-                                    addValueToSend(str (output_assignments[workingkey]['Open']))
+##
+##                            
+##                            if str(workingFields[1]) == '1':
+##                                if learning and output_assignments[workingkey]['Close'] == None:
+##                                    updateCloseAction(workingkey)
+##                                print('Value for Close is : ' +
+##                                  str (output_assignments[workingkey]['Close']))
+##                                if output_assignments[workingkey]['Close'] != None:
+##                                    addValueToSend(str (output_assignments[workingkey]['Close']))
+##
+##                            # Switch is Opened
+##                            if str(workingFields[1]) == '0':
+##                                if learning and output_assignments[workingkey]['Open'] == None:
+##                                    updateOpenAction(workingkey)
+##                                print('Value for Open is : ' +
+##                                      str (output_assignments[workingkey]['Open']))
+##                                if output_assignments[workingkey]['Open'] != None:
+##                                    addValueToSend(str (output_assignments[workingkey]['Open']))
                             
                         
     
