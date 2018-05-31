@@ -29,6 +29,9 @@ from optparse import OptionParser
 
 debugging = False
 
+target = {}
+
+
 # See if input configuration file exists
 # Parameters are either specified in this file or passed via command line
 # Command line parameters override any settings in the config file
@@ -105,11 +108,8 @@ serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
 
-txsock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
 
-
-
-input_assignments = None
+output_assignments = None
 send_string = None
 
 def ReceivePacket():
@@ -143,17 +143,17 @@ def ReceivePacket():
 
 def save_and_reload_assignments():
     # Save out to a temporary file and reload to ensure it is in shape
-    global input_assignments
+    global output_assignments
 
     
     try:
-        temp_input_assignments_file = 'temp_output_assignments.json'
+        temp_output_assignments_file = 'temp_output_assignments.json'
 
-        json.dump(input_assignments, fp=open(temp_input_assignments_file,'w'),indent=4,sort_keys=True)
+        json.dump(output_assignments, fp=open(temp_output_assignments_file,'w'),indent=4,sort_keys=True)
 
-        input_assignments = None
+        output_assignments = None
 
-        input_assignments = json.load(open(temp_input_assignments_file))
+        output_assignments = json.load(open(temp_output_assignments_file))
 
 
     except Exception as other:
@@ -163,7 +163,7 @@ def save_and_reload_assignments():
     
 
 def updateDescription(workingkey):
-    global input_assignments
+    global output_assignments
 
     
     print('In learning mode - time to update the description for: '  + str(workingkey))
@@ -174,7 +174,7 @@ def updateDescription(workingkey):
             wrkstring = raw_input('Please provide a description for: "' + str(workingkey) +  '" ')
             if wrkstring != '':
 
-                input_assignments[workingkey]['Description'] = wrkstring
+                output_assignments[workingkey]['Description'] = wrkstring
 
                 save_and_reload_assignments()
                 
@@ -184,19 +184,19 @@ def updateDescription(workingkey):
 
 
 def updateOpenAction(workingkey):
-    global input_assignments
+    global output_assignments
 
     
     print('In learning mode - time to update the Open Action for: ' + str(workingkey) + ' / '
-          + input_assignments[workingkey]['Description'] + ' ' )
+          + output_assignments[workingkey]['Description'] + ' ' )
     updaterecord = raw_input('Update Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
 
         try:
             wrkstring = raw_input('Please provide a Open Action for: "' + str(workingkey) +  '" "'
-                                  + input_assignments[workingkey]['Description'] + '" :')
+                                  + output_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['Open'] = wrkstring
+            output_assignments[workingkey]['Open'] = wrkstring
 
             save_and_reload_assignments()
 
@@ -205,19 +205,19 @@ def updateOpenAction(workingkey):
 
 
 def updateCloseAction(workingkey):
-    global input_assignments
+    global output_assignments
 
     
     print('In learning mode - time to update the Close Action for: ' + str(workingkey) + ' '
-          + input_assignments[workingkey]['Description'])
+          + output_assignments[workingkey]['Description'])
     updaterecord = raw_input('Update Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
         
         try:
             wrkstring = raw_input('Please provide a Close Action for: "' + str(workingkey) +  '" "'
-                                  + input_assignments[workingkey]['Description'] + '" :')
+                                  + output_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['Close'] = wrkstring
+            output_assignments[workingkey]['Close'] = wrkstring
 
             save_and_reload_assignments()
                 
@@ -228,7 +228,7 @@ def updateCloseAction(workingkey):
 def Send_Value():
 
     global send_string
-    global txsock
+    global serverSock
 
 
     try:
@@ -236,8 +236,8 @@ def Send_Value():
         if True: print ("UDP target port:" + str(DCS_PORT_NO))
         if debugging: print ("UDP target port:" + str(DCS_PORT_NO))
 
-        txsock.sendto(send_string, (DCS_IP_ADDRESS, DCS_PORT_NO))
-        txsock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
+        serverSock.sendto(send_string, (DCS_IP_ADDRESS, DCS_PORT_NO))
+        serverSock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
 
         send_string = ""
 
@@ -284,10 +284,42 @@ def Send_Remaining_Commands():
     send_string = ''
     
 
+def FindTarget(targetIP, stringToAdd):
 
+    global send_string, target
+    print('')
+    print('Hunting for :' + targetIP)
+
+
+
+    try:
+        # find matching key
+        if not targetIP in target:
+            print ('Adding target record :' + targetIP)
+            targetinner = {}
+            targetinner['Outputstring'] = 'hi'
+            targetinner['IP'] = targetIP           
+            target[targetIP] = targetinner
+        else:
+            print ('Found Matching target record :' + targetIP)          
+            target[targetIP]['Outputstring'] = target[targetIP]['Outputstring'] + stringToAdd
+            print ('Added target record :' + targetIP) 
+
+
+        for toys in target:
+            print(target[toys]['Outputstring'])
+
+        print('')
+
+
+
+    except Exception as other:
+        print(time.asctime() + "[e] Error in FindTarget: " + str(other))
+        
+        
 def ProcessReceivedString(ReceivedUDPString):
-    global input_assignments
-    global send_string
+    global output_assignments
+    global send_string, target
     global learning
 
     debugging = True
@@ -296,6 +328,8 @@ def ProcessReceivedString(ReceivedUDPString):
     if debugging: print('Processing UDP String')
 
     send_string = ""
+    target = {}
+    
     
     try:
         if len(ReceivedUDPString) > 0:
@@ -332,37 +366,43 @@ def ProcessReceivedString(ReceivedUDPString):
                         if debugging: print('Working key is: ' + workingkey)
                         
                         if debugging: print('Working Fields for working key are: ' +
-                              str(input_assignments[workingkey]))
+                              str(output_assignments[workingkey]))
 
                         if debugging: print('The value is: ' +
-                              str(input_assignments[workingkey]['Description']))
+                              str(output_assignments[workingkey]['Description']))
 
 
-                        if learning and input_assignments[workingkey]['Description'] == None:
+                        if learning and output_assignments[workingkey]['Description'] == None:
                                 updateDescription(workingkey)
                         print('Value for Description is : ' +
-                              str (input_assignments[workingkey]['Description']))
+                              str (output_assignments[workingkey]['Description']))
 
+                        if len (output_assignments[workingkey]['IP']) != 0:
+                            print('Value for IP is : ' +
+                                  str (output_assignments[workingkey]['IP']))
+                            FindTarget(str (output_assignments[workingkey]['IP']), '42:43')
 
 
 
                         # Switch is Closed
+
+                        
                         if str(workingFields[1]) == '1':
-                            if learning and input_assignments[workingkey]['Close'] == None:
+                            if learning and output_assignments[workingkey]['Close'] == None:
                                 updateCloseAction(workingkey)
                             print('Value for Close is : ' +
-                              str (input_assignments[workingkey]['Close']))
-                            if input_assignments[workingkey]['Close'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Close']))
+                              str (output_assignments[workingkey]['Close']))
+                            if output_assignments[workingkey]['Close'] != None:
+                                addValueToSend(str (output_assignments[workingkey]['Close']))
 
                         # Switch is Opened
                         if str(workingFields[1]) == '0':
-                            if learning and input_assignments[workingkey]['Open'] == None:
+                            if learning and output_assignments[workingkey]['Open'] == None:
                                 updateOpenAction(workingkey)
                             print('Value for Open is : ' +
-                                  str (input_assignments[workingkey]['Open']))
-                            if input_assignments[workingkey]['Open'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Open']))
+                                  str (output_assignments[workingkey]['Open']))
+                            if output_assignments[workingkey]['Open'] != None:
+                                addValueToSend(str (output_assignments[workingkey]['Open']))
                             
                         
     
@@ -390,135 +430,6 @@ def RemoveUnwantedCharacters(stringToBeCleaned):
     return(stringToBeCleaned)
 
 
-def LoadDCSParameterFile():
-    # reads in a json like file from DCS which holds commands
-    # this is a pre DCS 1.5 format
-
-    
-    input_file = 'testinputdata.csv'
-
-
-    # Only load a small number of devices
-    #deviceToFind = 'breaker'
-    
-    # Load all possible devices
-    deviceToFind = ''  # Lets load everything that we can
-
-    # Empty dictionary
-    myDict = {}
-
-    if not (os.path.isfile(input_file)):
-        
-        print('Unable to find ' + input_file)
-        
-    else:
-        file_object = open(input_file, 'r')
-        count = 0
-        myline = file_object.readline() 
-        while myline != "":
-            count = count + 1
-            if myline.find(deviceToFind) >= 0 and myline.find("{") >= 0 and myline.find('}') >= 0:
-
-
-                if debugging: print("Processing " +  myline)
-
-                # Initialise list
-                mylist = []
-                
-                
-                # Strip out leading and trailing '#'
-                myline = myline[ myline.find("{") + 1:]
-                myline = myline[: myline.find("}")]
-                
-                if debugging: print("Removed # " + myline[:])
-
-                # Split into attrib var pairs
-                mysplit = myline.split(',')
-                
-                if debugging: print(mysplit)
-
-                
-                for i in mysplit:
-
-                    if debugging: print("Cleaning up " + i)
-                    mysplit1 = i.split('=')
-                    if debugging: print (mysplit1)
-
-                    if len(mysplit1) == 2:
-                        if debugging:  print('Have correct number of attributes')
-
-                        # Remove unwanted characters
-                        s = RemoveUnwantedCharacters(mysplit1[0])
-                        t = RemoveUnwantedCharacters(mysplit1[1])
-
-                        mylist.append([s,t])
-
-                        if debugging and s == 'name':
-                            print("Found a name: " + t )
-
-
-                # Now have AV pairs in a list - time to see if one of them is name
-
-                innerDict = {}
-                for s in mylist:
-                    innerDict[s[0]] = s[1]
-                if debugging: print('The end result is ')
-                if debugging: print(mylist)
-
-                
-                for s in mylist:
-                    if s[0] == 'name':
-                        if debugging: print('We have a valid name - time to add a item to the dictionary')
-
-                        for t in mylist:
-                            if t[0] == 'down':
-                        
-                                #myDict[s[1]] = t[1]
-                                #myDict[s[1]] = mylist
-                                myDict[s[1]] = innerDict
-                                
-                                if debugging: print('myDict is now ' + str(len(myDict)))
-                                #print('Dictionary is :' +  myDict['name'])
-                                                                       
-                    
-                    
-                
-            myline = file_object.readline()
-
-            
-        print('Have read ' + str(count) + ' lines')
-        print('Have loaded ' + str(len(myDict)) + ' entries')
-        
-        file_object.close()
-
-        if debugging: print(myDict)
-
-        try:
-
-            itemOfInterest = 'CB Generator CONT Left'
-            fieldOfInterest = 'down'
-
-            
-            print('Complete Record for: ' + itemOfInterest)
-            print(myDict[itemOfInterest])
-            print('Specific Field (' + fieldOfInterest + ')' )
-            
-            print(myDict[itemOfInterest][fieldOfInterest])
-
-            S = json.dumps(myDict)
-            json.dump(myDict, fp=open('testjson.txt','w'),indent=4)
-            print('File Exported')
-            
-
-        except Exception as other:
-            print(time.asctime() + "[e] Error in ProcessReceivedString: " + str(other))
-
-            print('Unable to read record of interest')
-            print('Record name is: "' + itemOfInterest + '", Field is: "' + fieldOfInterest + '"')
-
-            
-
-    
 print('Developing I/O Blocks')
 
 print('Build out input blocks 1,2,3')
@@ -601,10 +512,10 @@ try:
 
     
     print('Complete Record for: ' + itemOfInterest)
-    print(input_assignments[itemOfInterest])
+    print(output_assignments[itemOfInterest])
     print('Specific Field (' + fieldOfInterest + ')' )
     
-    print(input_assignments[itemOfInterest][fieldOfInterest])
+    print(output_assignments[itemOfInterest][fieldOfInterest])
     
 except:
     print('Unable to read record of interest')

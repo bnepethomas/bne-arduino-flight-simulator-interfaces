@@ -3820,31 +3820,21 @@
         "Open": null
     }, 
     "15": {
-        "IP": "172.16.100.1:2000",
-        "Close": "close it", 
-        "Description": "Bulb 15", 
-        "Open": null
-    }, 
-    "16": {
-        "IP": "172.16.100.1:2000",
         "Close": "close it", 
         "Description": "Bulb 15", 
         "Open": null
     }, 
     "ALT": {
-        "IP": "172.16.100.3:2003",
         "Close": null, 
         "Description": "Altimeter", 
         "Open": null
     }, 
     "Airspeed": {
-        "IP": "172.16.100.4:2003",
         "Close": null, 
         "Description": "Airspeed", 
         "Open": null
     }, 
     "VS": {
-        "IP": "172.16.100.4:2003",
         "Close": null, 
         "Description": "Vertical Speed", 
         "Open": null
