@@ -1,31 +1,31 @@
 { 
     
     "15": {
-        "IP": "172.16.100.1:2000",
+        "IP": "127.0.0.1:2000",
         "Field": "25", 
         "Description": "Bulb 15" 
         
     }, 
     "16": {
-        "IP": "172.16.100.1:2000",
+        "IP": "127.0.0.1:2000",
         "Field": "25", 
         "Description": "Bulb 16" 
         
     }, 
     "ALT": {
-        "IP": "172.16.100.3:2003",
+        "IP": "127.0.0.1:2003",
         "Field": "2", 
         "Description": "Altimeter" 
         
     }, 
     "Airspeed": {
-        "IP": "172.16.100.4:2003",
+        "IP": "127.0.0.1:2004",
         "Field": "1", 
         "Description": "Airspeed" 
         
     }, 
     "VS": {
-        "IP": "172.16.100.4:2003",
+        "IP": "127.0.0.1:2006",
 	"Datatype": "str",
         "Field": "1", 
         "Description": "Vertical Speed" 

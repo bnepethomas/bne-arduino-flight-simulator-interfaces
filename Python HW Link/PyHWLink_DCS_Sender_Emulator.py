@@ -104,7 +104,7 @@ while True:
           if debugging: print(time.asctime()) 
 
 
-          command_string = "VS:100,ALT:10500,15:1,Airspeed:351,Nose Gear:15"  
+          command_string = "VS:100,ALT:10500,15:1,16:0,Airspeed:351,Nose Gear:15"  
           Send_Remaining_Commands()
         
           if debugging:  print(switch_array)

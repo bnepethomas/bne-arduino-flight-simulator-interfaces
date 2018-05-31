@@ -127,6 +127,35 @@ def ReceivePacket():
             if debugging: print(a)
             a=0
 
+            # We now have processed the entire packet - time to spool it out to the different targets
+
+            print('Sending to targets')
+            for device in target:
+                print(device + ' : ' + target[device]['IP'])
+
+
+                workingFields = ''
+                workingFields = target[device]['IP'].split(':')
+
+                
+                if len(workingFields) != 2:
+                    print('')
+                    print('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
+                    print('')
+                  
+
+                TARGET_IP_ADDRESS = workingFields[0]
+                TARGET_PORT_NO = int(workingFields[1])
+
+
+                send_string = target[device]['Outputstring']
+                serverSock.sendto(send_string, (TARGET_IP_ADDRESS, TARGET_PORT_NO))
+                
+                serverSock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
+            
+
+            
+
                                               
         except socket.timeout:
             a=a+1
