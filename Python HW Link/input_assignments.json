@@ -1,6 +1,6 @@
 {
     "00:000": {
-        "Close": null, 
+        "Close": "Port 0 Close", 
         "Description": "Port 0", 
         "Open": "Port 0 Open"
     }, 
