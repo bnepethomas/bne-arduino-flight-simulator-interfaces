@@ -129,7 +129,7 @@ def ReceivePacket():
 
             # We now have processed the entire packet - time to spool it out to the different targets
 
-            print('Sending to targets')
+            print(time.asctime() + ' Sending to targets')
             for device in target:
                 print(device + ' : ' + target[device]['IP'])
 
