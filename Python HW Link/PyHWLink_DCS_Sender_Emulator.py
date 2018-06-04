@@ -4,17 +4,18 @@
 # https://github.com/bnepethomas/bne-arduino-flight-simulator-interfaces
 
 
-# Emulates DCS sending telemetry over UDP
-
+# Emulates DCS sending telemetry over UDP - largely used to test PyHWLink_Pri_Node_Output.py
 
 import os
 import re
 import socket
 import sys
 import time
+from datetime import datetime
+
+from pyHWLink_Tools import *
 
 
-import random
 
 
 # Global Variables
@@ -23,7 +24,7 @@ debugging = False
 
 
 # The string to send - emulating DCS Packets
-command_string = "VS:100,ALT:10500,15:1,16:0,Airspeed:351,Nose Gear:15"
+command_string = "VS:100,ALT:10500,15:1,16:0,17:1,Airspeed:351,Nose Gear:15"
 
 
 
@@ -33,6 +34,9 @@ UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
 
 
+# Date Time String used for logging to screen
+def now_mS():
+    return str(datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ':')
 
 def Send_UDP_Command(command_to_send):
     UDP_IP = "127.0.0.1"
@@ -86,7 +90,7 @@ def main():
 
             # Delay between sending packets
             print('')
-            print(time.asctime() + ': Sleeping ' + str(delay_between_packets) + ' seconds')
+            print(log_mS() + ' Sleeping ' + str(delay_between_packets) + ' seconds')
             print('')
             Snooze(delay_between_packets)
                 

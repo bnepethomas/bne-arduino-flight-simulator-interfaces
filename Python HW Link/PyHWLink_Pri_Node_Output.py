@@ -15,6 +15,7 @@
 #       Data Type eg Integer
 #       Target IP eg 172.17.1.10
 #       Target Device Number
+
 import json
 import os
 import socket
@@ -25,6 +26,7 @@ import time
 
 from optparse import OptionParser
 
+from pyHWLink_Tools import *
 
 
 debugging = False
@@ -49,7 +51,7 @@ else:
         print('Aircraft is: ' + AircraftType)
 
     except Exception as other:
-        print(time.asctime() + "[e] Error while opening configuration file :" + str(other))         
+        print(log_mS() + "[e] Error while opening configuration file :" + str(other))         
         print('Unable to open ' + output_file)
         print('Or variable assignment incorrect - forgot quotes for string?')
         print('Defaults used')
@@ -129,18 +131,20 @@ def ReceivePacket():
 
             # We now have processed the entire packet - time to spool it out to the different targets
 
-            print(time.asctime() + ' Sending to targets')
+            print(log_mS() + ' Sending to targets')
             for device in target:
-                print(device + ' : ' + target[device]['IP'])
+                if debugging: print(device + ' : ' + target[device]['IP'])
 
+  
 
+                # Extract the target IP Address and Port
                 workingFields = ''
                 workingFields = target[device]['IP'].split(':')
 
                 
                 if len(workingFields) != 2:
                     print('')
-                    print('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
+                    print(log_mS() + ' WARNING - While attemtp to extract Target IP and Port - incorrect number of fields in: ' + str(workingFields))
                     print('')
                   
 
@@ -149,6 +153,9 @@ def ReceivePacket():
 
 
                 send_string = target[device]['Outputstring']
+                print('Sending - ' + target[device]['IP']) + ' ' + target[device]['Outputstring']
+
+                
                 serverSock.sendto(send_string, (TARGET_IP_ADDRESS, TARGET_PORT_NO))
                 
                 serverSock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
@@ -160,12 +167,12 @@ def ReceivePacket():
         except socket.timeout:
             a=a+1
             if (a > 100000):
-                print("Long Receive Timeout - ", time.asctime())
+                print( log_mS() + " Long Receive Timeout")
                 a=0
             continue
 
         except Exception as other:
-            print(time.asctime() + "[e] Error in ReceivePacket: " + str(other))                
+            print(log_mS() + "[e] Error in ReceivePacket: " + str(other))                
 
 
 
@@ -184,9 +191,12 @@ def save_and_reload_assignments():
 
         output_assignments = json.load(open(temp_output_assignments_file))
 
+        print('Setting have been saved to "' + temp_output_assignments_file +
+              '". Copy this file to "' + output_assignments_file + '" to permanently activate')
+
 
     except Exception as other:
-        print(time.asctime() + "[e] Error in save_and_reload_assignments: " + str(other))                
+        print(log_mS() + "[e] Error in save_and_reload_assignments: " + str(other))                
 
 
     
@@ -209,7 +219,7 @@ def updateDescription(workingkey):
                 
 
         except Exception as other:
-            print(time.asctime() + "[e] Error in updateDescription: " + str(other))                
+            print(log_mS() + "[e] Error in updateDescription: " + str(other))                
 
 
 def updateOpenAction(workingkey):
@@ -230,7 +240,7 @@ def updateOpenAction(workingkey):
             save_and_reload_assignments()
 
         except Exception as other:
-            print(time.asctime() + "[e] Error in updateOpenAction: " + str(other))                
+            print(log_mS() + "[e] Error in updateOpenAction: " + str(other))                
 
 
 def updateCloseAction(workingkey):
@@ -251,7 +261,7 @@ def updateCloseAction(workingkey):
             save_and_reload_assignments()
                 
         except Exception as other:
-            print(time.asctime() + "[e] Error in updateCloseAction: " + str(other))
+            print(log_mS() + "[e] Error in updateCloseAction: " + str(other))
 
  
 def Send_Value():
@@ -271,7 +281,7 @@ def Send_Value():
         send_string = ""
 
     except Exception as other:
-        print(time.asctime() + "[e] Error in Send_Value: " + str(other))
+        print(log_mS() + "[e] Error in Send_Value: " + str(other))
 
         
               
@@ -300,7 +310,7 @@ def addValueToSend(valueToAdd):
         if debugging: print('After ' + send_string)
 
     except Exception as other:
-        print(time.asctime() + "[e] Error in addValueToSend: " + str(other))
+        print(log_mS() + "[e] Error in addValueToSend: " + str(other))
 
 
 
@@ -374,7 +384,7 @@ def ValidateDataType(ExpectedDataType, ValuePassed):
         if debugging: print('')
 
     except Exception as other:
-        print(time.asctime() + "[e] Error in ValidateDataType: " + str(other))
+        print(log_mS() + "[e] Error in ValidateDataType: " + str(other))
         return False
     
 
@@ -388,15 +398,22 @@ def FindTarget(targetIP, stringToAdd):
 
 
     try:
-        # find matching key
+        # find matching key 
         if not targetIP in target:
-            print ('Adding target record :' + targetIP)
+
+            # Don't yet have have a record for this target for this iteration - create one
+            # Assign action to 'Outputstring' field
+            
+            if debugging: print ('Adding target record :' + targetIP)
             targetinner = {}
             targetinner['Outputstring'] = stringToAdd
             targetinner['IP'] = targetIP           
             target[targetIP] = targetinner
         else:
-            print ('Appending target record :' + targetIP)          
+
+            # Already have a record for the target - just append action to 'Outputstring' field
+            
+            if debugging: print ('Appending target record :' + targetIP)          
             target[targetIP]['Outputstring'] = target[targetIP]['Outputstring'] + ' , ' + stringToAdd
             if debugging: print ('Added target record :' + targetIP) 
 
@@ -410,7 +427,7 @@ def FindTarget(targetIP, stringToAdd):
 
 
     except Exception as other:
-        print(time.asctime() + "[e] Error in FindTarget: " + str(other))
+        print(log_mS() + "[e] Error in FindTarget: " + str(other))
         
         
 def ProcessReceivedString(ReceivedUDPString):
@@ -506,7 +523,7 @@ def ProcessReceivedString(ReceivedUDPString):
 
                             # Only generate a payload for AVs that have a target IP Address and a valid field
                             if 'IP' in output_assignments[workingkey] and 'Field' in output_assignments[workingkey] and payloadOk:
-                                debugging = True
+
                                 if debugging: print('Value for IP is : ' +
                                       str (output_assignments[workingkey]['IP']))
                                 if debugging: print('Value for Field is : ' +
@@ -517,28 +534,7 @@ def ProcessReceivedString(ReceivedUDPString):
                                                workingFields[1])
 
 
-
-
-                            # Switch is Closed
-##
-##                            
-##                            if str(workingFields[1]) == '1':
-##                                if learning and output_assignments[workingkey]['Close'] == None:
-##                                    updateCloseAction(workingkey)
-##                                print('Value for Close is : ' +
-##                                  str (output_assignments[workingkey]['Close']))
-##                                if output_assignments[workingkey]['Close'] != None:
-##                                    addValueToSend(str (output_assignments[workingkey]['Close']))
-##
-##                            # Switch is Opened
-##                            if str(workingFields[1]) == '0':
-##                                if learning and output_assignments[workingkey]['Open'] == None:
-##                                    updateOpenAction(workingkey)
-##                                print('Value for Open is : ' +
-##                                      str (output_assignments[workingkey]['Open']))
-##                                if output_assignments[workingkey]['Open'] != None:
-##                                    addValueToSend(str (output_assignments[workingkey]['Open']))
-                            
+                           
                         
     
                     except Exception as other:
@@ -546,16 +542,17 @@ def ProcessReceivedString(ReceivedUDPString):
                         print('WARNING - Unable to read record of interest in ProcessReceivedString')
                         print('WARNING - Record name is: "' + workingkey + '"')
                         print('')
-                        print(time.asctime() + "[e] Error in ProcessReceivedString: " + str(other))
+                        print(log_mS() + "[e] Error in ProcessReceivedString: " + str(other))
                 
 
+            # Send out the packet
             Send_Remaining_Commands()
             if debugging: print('Continuing on')
             
 
 
     except Exception as other:
-        print(time.asctime() + "[e] Error in ProcessReceivedString: " + str(other))
+        print(log_mS() + "[e] Error in ProcessReceivedString: " + str(other))
 
 
   
@@ -565,30 +562,6 @@ def RemoveUnwantedCharacters(stringToBeCleaned):
     return(stringToBeCleaned)
 
 
-print('Developing I/O Blocks')
-
-print('Build out input blocks 1,2,3')
-# Here we receive packets containing switch transitions
-# Maximum inputs per module is 256
-# Unless explicitly asked via a command request, the sending unit only sends deltas
-# The format is AV pairs indicating new switch status, eg a switch moving to the off position will reflect as switch_no:0
-# Packets from input nodes will have the format of DX:A=V:A1=V1, where X is the input node number.
-# The Node number is only indicated in the front of the packet, not at the individual AV pair.
-
-# If an AV pair is not known it will be silently discarded unless the Primary node is in learning mode.
-# If in learning mode it will ask the operator what task should be assigned to the unknown AV pair. Switch description will
-#   also be validated.
-
-# There will be a generic input file, and aircraft specific files.Still to be determined how aircraft type is selected, ideally
-#   this would be dynamic - which may mean receiving a trigger, most likely from the output driver as it is receiving packets
-#   from the simulator.  An approach may be to allow the output code to sense aircraft change and if aircraft type does change
-#   then kill existing input process and launch new input process with command line parameters.
-
-# Dict should contain
-#   1: UniqueSwitchID (Key) (NodeNumber:SwitchID)
-#   2: SwitchDescription
-#   3: OnSwitchAction
-#   4: OffSwitchAction
 
 
 # Empty dictionary
@@ -635,35 +608,10 @@ try:
 
 
 except Exception as other:
-    print(time.asctime() + "Unexpected error while reading file: " + str(other))                             
+    print(log_mS() + "Unexpected error while reading file: '" + output_assignments_file + "'" + str(other))                             
     serverSock.close()
     sys.exit(0)
 
-
-try:
-
-    itemOfInterest = '2:73'
-    fieldOfInterest = 'Close'
-
-    
-    print('Complete Record for: ' + itemOfInterest)
-    print(output_assignments[itemOfInterest])
-    print('Specific Field (' + fieldOfInterest + ')' )
-    
-    print(output_assignments[itemOfInterest][fieldOfInterest])
-    
-except:
-    print('Unable to read record of interest')
-    print('Record name is: "' + itemOfInterest + '", Field is: "' + fieldOfInterest + '"')
-
-            
-
-
-print('Build out output block')
-# Map values from LUA eg GearLightLeft to ip adress, device number, value
-# Led bocks of Max7219 , State 0/1, 3 off?
-# Guage blocks analog values
-# Text blocks with sanity checkings
 
 
 
@@ -679,7 +627,7 @@ except KeyboardInterrupt:
 
 
 except Exception as other:
-    print(time.asctime() + "Unhandled error:" + str(other))
+    print(log_mS() + "Unhandled error:" + str(other))
     
 
 
