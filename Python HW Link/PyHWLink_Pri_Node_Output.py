@@ -32,6 +32,7 @@ from pyHWLink_Tools import *
 debugging = False
 
 target = {}
+output_assignments_file = 'output_assignments.json'
 
 
 # See if input configuration file exists
@@ -144,7 +145,7 @@ def ReceivePacket():
                 
                 if len(workingFields) != 2:
                     print('')
-                    print(log_mS() + ' WARNING - While attemtp to extract Target IP and Port - incorrect number of fields in: ' + str(workingFields))
+                    print(log_mS() + ' WARNING - While attempt to extract Target IP and Port - incorrect number of fields in: ' + str(workingFields))
                     print('')
                   
 
@@ -201,6 +202,7 @@ def save_and_reload_assignments():
 
     
 
+# Currently not being used - unsure if needed for outputs
 def updateDescription(workingkey):
     global output_assignments
 
@@ -222,111 +224,15 @@ def updateDescription(workingkey):
             print(log_mS() + "[e] Error in updateDescription: " + str(other))                
 
 
-def updateOpenAction(workingkey):
-    global output_assignments
-
-    
-    print('In learning mode - time to update the Open Action for: ' + str(workingkey) + ' / '
-          + output_assignments[workingkey]['Description'] + ' ' )
-    updaterecord = raw_input('Update Action? [y/n]: ')
-    if updaterecord.upper() == 'Y':
-
-        try:
-            wrkstring = raw_input('Please provide a Open Action for: "' + str(workingkey) +  '" "'
-                                  + output_assignments[workingkey]['Description'] + '" :')
-
-            output_assignments[workingkey]['Open'] = wrkstring
-
-            save_and_reload_assignments()
-
-        except Exception as other:
-            print(log_mS() + "[e] Error in updateOpenAction: " + str(other))                
-
-
-def updateCloseAction(workingkey):
-    global output_assignments
-
-    
-    print('In learning mode - time to update the Close Action for: ' + str(workingkey) + ' '
-          + output_assignments[workingkey]['Description'])
-    updaterecord = raw_input('Update Action? [y/n]: ')
-    if updaterecord.upper() == 'Y':
+               
         
-        try:
-            wrkstring = raw_input('Please provide a Close Action for: "' + str(workingkey) +  '" "'
-                                  + output_assignments[workingkey]['Description'] + '" :')
 
-            output_assignments[workingkey]['Close'] = wrkstring
-
-            save_and_reload_assignments()
-                
-        except Exception as other:
-            print(log_mS() + "[e] Error in updateCloseAction: " + str(other))
-
- 
-def Send_Value():
-
-    global send_string
-    global serverSock
-
-
-    try:
-
-        if True: print ("UDP target port:" + str(DCS_PORT_NO))
-        if debugging: print ("UDP target port:" + str(DCS_PORT_NO))
-
-        serverSock.sendto(send_string, (DCS_IP_ADDRESS, DCS_PORT_NO))
-        serverSock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
-
-        send_string = ""
-
-    except Exception as other:
-        print(log_mS() + "[e] Error in Send_Value: " + str(other))
-
-        
-              
-
-def addValueToSend(valueToAdd):
-
-    global send_string
-              
-
-    try:
-        if debugging: print('Send String is ' + str(len(send_string)) + ' characters long')
-        if debugging: print('Before ' + send_string)
-
-
-        if len(send_string) == 0:
-            send_string = valueToAdd
-        else:
-            send_string = send_string + ',' + valueToAdd
-             
-        if len(send_string) > 40:
-            
-            if debugging: print('Send String Now !!!!!')
-            Send_Value()
-            
-        
-        if debugging: print('After ' + send_string)
-
-    except Exception as other:
-        print(log_mS() + "[e] Error in addValueToSend: " + str(other))
-
-
-
-def Send_Remaining_Commands():
-    
-    global send_string
-
-    if send_string != '':
-         Send_Value()       
-    send_string = ''
 
 
 def ValidateDataType(ExpectedDataType, ValuePassed):
 
 
-    #debugging = True
+
     ValidationComplete = False
 
     
@@ -388,12 +294,18 @@ def ValidateDataType(ExpectedDataType, ValuePassed):
         return False
     
 
+
+# Is passed the IPAddress:Port pair of the target device and the action to add
+# If a record doesn't exist - create the record and create field for action
+# otherwise find record and append action to add
+#
 def FindTarget(targetIP, stringToAdd):
 
+
+    debugging = False 
     global send_string, target
     if debugging: print('')
     if debugging: print('Hunting for :' + targetIP)
-
 
 
 
@@ -418,9 +330,11 @@ def FindTarget(targetIP, stringToAdd):
             if debugging: print ('Added target record :' + targetIP) 
 
 
+
         if debugging:
-            for toys in target:
-                print(toys + ':' + target[toys]['Outputstring'])
+            print(log_mS() + 'Data Structures thus far')
+            for IP_Port_Pair in target:
+                print(IP_Port_Pair + '-' + target[IP_Port_Pair]['Outputstring'])
 
         if debugging: print('')
 
@@ -545,8 +459,7 @@ def ProcessReceivedString(ReceivedUDPString):
                         print(log_mS() + "[e] Error in ProcessReceivedString: " + str(other))
                 
 
-            # Send out the packet
-            Send_Remaining_Commands()
+
             if debugging: print('Continuing on')
             
 
@@ -563,74 +476,118 @@ def RemoveUnwantedCharacters(stringToBeCleaned):
 
 
 
+# Sample File
+##{ 
+##    
+##    "15": {
+##        "IP": "127.0.0.1:2000",
+##        "Field": "25", 
+##        "Description": "Bulb 15" 
+##        
+##    }, 
+##    "16": {
+##        "IP": "127.0.0.1:2000",
+##        "Field": "25", 
+##        "Description": "Bulb 16" 
+##    },
+##    "17": {   
+##	"Description": ""       
+##    }, 
+##
+##    "ALT": {
+##        "IP": "127.0.0.1:2003",
+##        "Field": "2", 
+##        "Description": "Altimeter" 
+##        
+##    }, 
+##    "Airspeed": {
+##        "IP": "127.0.0.1:2004",
+##        "Field": "1", 
+##        "Description": "Airspeed" 
+##        
+##    }, 
+##    "VS": {
+##        "IP": "127.0.0.1:2006",
+##	  "Datatype": "str",
+##        "Field": "1", 
+##        "Description": "Vertical Speed" 
+##        
+##    }
+##}
+def CheckifAssignmentFileExists():
+    try:
+        if not (os.path.isfile(output_assignments_file)):
 
-# Empty dictionary
-dictInputAssignments = {}
+            print('Unable to find "' + output_assignments_file + '"')
+            print('Creating default Ouput Assignments in: ' + output_assignments_file)
 
-
-
-# Check to see if input assignment files exists - if not create it
-output_assignments_file = 'output_assignments.json'
-if not (os.path.isfile(output_assignments_file)):
-    
-    print('Unable to find "' + output_assignments_file + '"')
-    print('Creating default Input Assignments in: ' + output_assignments_file)
-    
-    dictOuter = {}
-    dictInner = {}
-    outercounter = 0
-    while outercounter < 3:
-        counter = 0
-        while counter < 256:
+            dictOuter = {}
             dictInner = {}
-            dictInner['Description'] = None
-            dictInner['Open'] = None
-            dictInner['Close'] = None
+            outercounter = 0
+            while outercounter < 3:
+                counter = 0
+                while counter < 1:
+                    dictInner = {}
+                    dictInner['IP'] = None
+                    dictInner['Description'] = None
+                    dictInner['Field'] = None
+                    dictInner['Datatype'] = None
 
-            #dictOuter[str(outercounter) + ":" + str(counter)] = dictInner
-            dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner
-            counter = counter + 1
+                    dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner
+                    counter = counter + 1
 
-            
-        outercounter = outercounter + 1
+                    
+                outercounter = outercounter + 1
 
-    json.dump(dictOuter, fp=open(output_assignments_file,'w'),indent=4)
+            json.dump(dictOuter, fp=open(output_assignments_file,'w'),indent=4)
 
-    print('Created Output Assignments file: "' + output_assignments_file + '"')
-
-
-#        
-print('Loading Output Assignments from: "' + output_assignments_file +'"')              
-
-try:
-    output_assignments = json.load(open(output_assignments_file))
+            print('Created Output Assignments file: "' + output_assignments_file + '"')
+        
+    except Exception as other:
+        print(log_mS() + "[e] Error in CheckifAssignmentFileExists: " + str(other))
 
 
-
-except Exception as other:
-    print(log_mS() + "Unexpected error while reading file: '" + output_assignments_file + "'" + str(other))                             
-    serverSock.close()
-    sys.exit(0)
+def main():
 
 
 
-
-try:
-    print('Waiting for packet')
-    ReceivePacket()
-
-except KeyboardInterrupt:
-    # Catch Ctl-C and quit
-    print('Exiting')
-    serverSock.close()
-    sys.exit(0)
+    global output_assignments, serverSock
+    
+    dictInputAssignments = {}
 
 
-except Exception as other:
-    print(log_mS() + "Unhandled error:" + str(other))
+    CheckifAssignmentFileExists()
+
+
+    # If unable to successfully load assignments we've hit a fatal error - so exit           
+    print('Loading Output Assignments from: "' + output_assignments_file +'"')              
+    try:
+        output_assignments = json.load(open(output_assignments_file))
+
+    except Exception as other:
+        print(log_mS() + "Unexpected error while reading file: '" + output_assignments_file + "'" + str(other))                             
+        serverSock.close()
+        sys.exit(0)
+
+
+
+
+    try:
+        print('Waiting for packet')
+        ReceivePacket()
+
+    except KeyboardInterrupt:
+        # Catch Ctl-C and quit
+        print('Exiting')
+        serverSock.close()
+        sys.exit(0)
+
+
+    except Exception as other:
+        print(log_mS() + "Unhandled error:" + str(other))
     
 
+main()
 
 
 
-serverSock.close()
