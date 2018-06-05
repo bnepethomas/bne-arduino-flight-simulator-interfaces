@@ -62,8 +62,8 @@ else:
 # See if value is assigned.  First we checked config file and then
 #   command line arguments
 
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
  
 logging.debug("Checking Command Line parameters")
@@ -157,7 +157,7 @@ def ReceivePacket():
 
 
                 send_string = target[device]['Outputstring']
-                print('Sending - ' + target[device]['IP']) + ' ' + target[device]['Outputstring']
+                logging.info('Sending - ' + str(target[device]['IP']) + ' ' + str(target[device]['Outputstring']))
 
                 
                 serverSock.sendto(send_string, (TARGET_IP_ADDRESS, TARGET_PORT_NO))
