@@ -21,12 +21,10 @@ import os
 import socket
 import sys
 import time
-
+import logging
 
 
 from optparse import OptionParser
-
-from pyHWLink_Tools import *
 
 
 debugging = False
@@ -52,7 +50,7 @@ else:
         print('Aircraft is: ' + AircraftType)
 
     except Exception as other:
-        print(log_mS() + "[e] Error while opening configuration file :" + str(other))         
+        logging.critical("Error while opening configuration file :" + str(other))         
         print('Unable to open ' + output_file)
         print('Or variable assignment incorrect - forgot quotes for string?')
         print('Defaults used')
@@ -64,7 +62,11 @@ else:
 # See if value is assigned.  First we checked config file and then
 #   command line arguments
 
-if debugging: print("Checking Command Line parameters")
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+ 
+logging.debug("Checking Command Line parameters")
 
 
 parser = OptionParser()
@@ -76,8 +78,8 @@ parser.add_option("-l","--learning", dest="optionLearning",action="store_true",
                   help="learning mode, assign actions to switch movements")
 (options, args) = parser.parse_args()
 
-if debugging: print("options:", str(options))
-if debugging: print("arguments:", args)
+logging.debug("options:" + str(options))
+logging.debug("arguments:" + str(args))
 
 # Override Learning mode if passed via command line
 if options.optionLearning == True:
@@ -88,7 +90,8 @@ if options.optiondebug == True:
     debugging = True
     print('Debugging Mode enabled through command line')    
 
-    
+
+   
     
 
 try:
@@ -123,18 +126,18 @@ def ReceivePacket():
         try:
             data, addr = serverSock.recvfrom(1500)
             
-            if debugging: print ("Message: ", data)
+            logging.debug ("Message: " + data)
             ReceivedPacket = data
             ProcessReceivedString(str(ReceivedPacket))
             
-            if debugging: print(a)
+            logging.debug(a)
             a=0
 
             # We now have processed the entire packet - time to spool it out to the different targets
 
-            print(log_mS() + ' Sending to targets')
+            logging.info(' Sending to targets')
             for device in target:
-                if debugging: print(device + ' : ' + target[device]['IP'])
+                logging.debug(device + ' : ' + target[device]['IP'])
 
   
 
@@ -145,7 +148,7 @@ def ReceivePacket():
                 
                 if len(workingFields) != 2:
                     print('')
-                    print(log_mS() + ' WARNING - While attempt to extract Target IP and Port - incorrect number of fields in: ' + str(workingFields))
+                    logging.warning('While attempt to extract Target IP and Port - incorrect number of fields in: ' + str(workingFields))
                     print('')
                   
 
@@ -168,12 +171,12 @@ def ReceivePacket():
         except socket.timeout:
             a=a+1
             if (a > 100000):
-                print( log_mS() + " Long Receive Timeout")
+                logging.info("Long Receive Timeout")
                 a=0
             continue
 
         except Exception as other:
-            print(log_mS() + "[e] Error in ReceivePacket: " + str(other))                
+            logging.critical("Error in ReceivePacket: " + str(other))                
 
 
 
@@ -197,7 +200,7 @@ def save_and_reload_assignments():
 
 
     except Exception as other:
-        print(log_mS() + "[e] Error in save_and_reload_assignments: " + str(other))                
+        logging.critical('Error in save_and_reload_assignments: ' + str(other))                
 
 
     
@@ -221,7 +224,7 @@ def updateDescription(workingkey):
                 
 
         except Exception as other:
-            print(log_mS() + "[e] Error in updateDescription: " + str(other))                
+            logging.critical('Error in updateDescription: ' + str(other))                
 
 
                
@@ -237,40 +240,40 @@ def ValidateDataType(ExpectedDataType, ValuePassed):
 
     
     try:
-        if debugging: print('ValidateDataType')
-        if debugging: print('Expected Data Type :' + ExpectedDataType)
-        if debugging: print('Value Passed : ' + str(ValuePassed))
-        if debugging: print('Value is of Type :' + str(type(ValuePassed)))
+        logging.debug('ValidateDataType')
+        logging.debug('Expected Data Type :' + ExpectedDataType)
+        logging.debug('Value Passed : ' + str(ValuePassed))
+        logging.debug('Value is of Type :' + str(type(ValuePassed)))
 
         if ExpectedDataType == 'int':
             try:
                 a = int(ValuePassed)
                 ValidationComplete = True
-                if debugging: print('int Validated')
+                logging.debug('int Validated')
             except:
-                if debugging: print('int Validation Failed')
+                logging.warning('int Validation Failed')
 
                 
         elif ExpectedDataType == 'float':
-            if debugging: print('Validating if float')
+            logging.debug('Validating if float')
             try:
                 a = float(ValuePassed)
                 ValidationComplete = True
-                if debugging: print('float Validated')
+                logging.debug('float Validated')
                 
             except:
-                if debugging: print('float Validation Failed')
+                logging.warning('float Validation Failed')
 
                 
         elif ExpectedDataType == 'bool':
-            if debugging: print('Validating if bool')
+            logging.debug('Validating if bool')
             try:
                 ValuePassed = int(ValuePassed)
                 if ValuePassed == True or ValuePassed == False:
                     ValidationComplete = True
-                    if debugging: print('bool Validated')               
+                    logging.debug('bool Validated')               
             except:
-                if debugging: print('bool Validation Failed')
+                logging.warning('bool Validation Failed')
 
                 
         elif ExpectedDataType == 'str':
@@ -279,18 +282,18 @@ def ValidateDataType(ExpectedDataType, ValuePassed):
 
                 
         if ValidationComplete:
-            if debugging: print('Validation Completed Succesfully')
+            logging.debug('Validation Completed Succesfully')
             return True
         else:
-            if debugging: print('Validation Failed')
+            logging.warning('Validation Failed')
             return False
                 
                 
 
-        if debugging: print('')
+        logging.debug('')
 
     except Exception as other:
-        print(log_mS() + "[e] Error in ValidateDataType: " + str(other))
+        logging.critical('Error in ValidateDataType: ' + str(other))
         return False
     
 
@@ -304,8 +307,8 @@ def FindTarget(targetIP, stringToAdd):
 
     debugging = False 
     global send_string, target
-    if debugging: print('')
-    if debugging: print('Hunting for :' + targetIP)
+    logging.debug('')
+    logging.debug('Hunting for :' + targetIP)
 
 
 
@@ -325,23 +328,23 @@ def FindTarget(targetIP, stringToAdd):
 
             # Already have a record for the target - just append action to 'Outputstring' field
             
-            if debugging: print ('Appending target record :' + targetIP)          
+            logging.debug('Appending target record :' + targetIP)          
             target[targetIP]['Outputstring'] = target[targetIP]['Outputstring'] + ' , ' + stringToAdd
-            if debugging: print ('Added target record :' + targetIP) 
+            logging.debug('Added target record :' + targetIP) 
 
 
 
         if debugging:
-            print(log_mS() + 'Data Structures thus far')
+            logging.debug('Data Structures thus far')
             for IP_Port_Pair in target:
-                print(IP_Port_Pair + '-' + target[IP_Port_Pair]['Outputstring'])
+                logging.debug(IP_Port_Pair + '-' + target[IP_Port_Pair]['Outputstring'])
 
-        if debugging: print('')
+        logging.debug('')
 
 
 
     except Exception as other:
-        print(log_mS() + "[e] Error in FindTarget: " + str(other))
+        logging.critical('Error in FindTarget: ' + str(other))
         
         
 def ProcessReceivedString(ReceivedUDPString):
@@ -351,7 +354,7 @@ def ProcessReceivedString(ReceivedUDPString):
 
     debugging = False
     
-    if debugging: print('Processing UDP String')
+    logging.debug('Processing UDP String')
 
     send_string = ""
     target = {}
@@ -363,21 +366,21 @@ def ProcessReceivedString(ReceivedUDPString):
 
             debugging = False
             
-            if debugging: print('Stage 1 Processing: ' + str(ReceivedUDPString))
-            if debugging: print('Checking for correct format :')
+            logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
+            logging.debug('Checking for correct format :')
 
             
 
             workingSets =''
             workingSets = ReceivedUDPString.split(',')
-            if debugging: print('There are ' + str(len(workingSets)) + ' records')
+            logging.debug('There are ' + str(len(workingSets)) + ' records')
             counter = 0
             for workingRecords in workingSets:
 
 
                 debugging = False
                 
-                if debugging: print('Record workingRecord number ' + str(counter) + ' ' +
+                logging.debug('Record workingRecord number ' + str(counter) + ' ' +
                       workingRecords)
                 counter = counter + 1
                 
@@ -392,39 +395,39 @@ def ProcessReceivedString(ReceivedUDPString):
                     print('')
                   
                 else:
-                    if debugging: print('Stage 2 Processing: ' + str(workingFields))
+                    logging.debug('Stage 2 Processing: ' + str(workingFields))
 
                     try:
                         workingkey = workingFields[0]
-                        if debugging: print('Working key is: ' + workingkey)
+                        logging.debug('Working key is: ' + workingkey)
 
                         if not workingkey in output_assignments:
 
-                            print( '' )
-                            print( 'WARNING NO MAPPING FOR '+ workingkey)
-                            print( '' )
+                            logging.warn( '' )
+                            logging.warn( 'WARNING NO MAPPING FOR '+ workingkey)
+                            logging.warn( '' )
 
                         else:
 
-                            if debugging: print('Working Fields for working key are: ' +
+                            logging.debug('Working Fields for working key are: ' +
                                   str(output_assignments[workingkey]))
 
-                            if debugging: print('The value is: ' +
+                            logging.debug('The value is: ' +
                                   str(output_assignments[workingkey]['Description']))
 
 
                             if learning and output_assignments[workingkey]['Description'] == None:
                                     updateDescription(workingkey)
-                            if debugging: print('Value for Description is : ' +
+                            logging.debug('Value for Description is : ' +
                                   str (output_assignments[workingkey]['Description']))
 
 
                             # Perform basic sanity check only if datatype is described
                             # If not ok the set flag (payloadOk) to stop further processing
                             if 'Datatype' in output_assignments[workingkey]:
-                                if debugging: print('Value for Datatype is : ' +
+                                logging.debug('Value for Datatype is : ' +
                                       str (output_assignments[workingkey]['Datatype']))
-                                if debugging: print('Value of payload is: ' + workingFields[1])
+                                logging.debug('Value of payload is: ' + workingFields[1])
 
                                 # Validation Failed
                                 if not ValidateDataType(output_assignments[workingkey]['Datatype'], workingFields[1]):
@@ -438,9 +441,9 @@ def ProcessReceivedString(ReceivedUDPString):
                             # Only generate a payload for AVs that have a target IP Address and a valid field
                             if 'IP' in output_assignments[workingkey] and 'Field' in output_assignments[workingkey] and payloadOk:
 
-                                if debugging: print('Value for IP is : ' +
+                                logging.debug('Value for IP is : ' +
                                       str (output_assignments[workingkey]['IP']))
-                                if debugging: print('Value for Field is : ' +
+                                logging.debug('Value for Field is : ' +
                                       str (output_assignments[workingkey]['Field']))
                                 if output_assignments[workingkey]['IP'] != None and output_assignments[workingkey]['Field'] != None:
                                     FindTarget(str (output_assignments[workingkey]['IP']),
@@ -456,16 +459,16 @@ def ProcessReceivedString(ReceivedUDPString):
                         print('WARNING - Unable to read record of interest in ProcessReceivedString')
                         print('WARNING - Record name is: "' + workingkey + '"')
                         print('')
-                        print(log_mS() + "[e] Error in ProcessReceivedString: " + str(other))
+                        logging.critical("Error in ProcessReceivedString: " + str(other))
                 
 
 
-            if debugging: print('Continuing on')
+            logging.debug('Continuing on')
             
 
 
     except Exception as other:
-        print(log_mS() + "[e] Error in ProcessReceivedString: " + str(other))
+        logging.critical("Error in ProcessReceivedString: " + str(other))
 
 
   
@@ -544,7 +547,7 @@ def CheckifAssignmentFileExists():
             print('Created Output Assignments file: "' + output_assignments_file + '"')
         
     except Exception as other:
-        print(log_mS() + "[e] Error in CheckifAssignmentFileExists: " + str(other))
+        logging.critical("Error in CheckifAssignmentFileExists: " + str(other))
 
 
 def main():
@@ -565,7 +568,7 @@ def main():
         output_assignments = json.load(open(output_assignments_file))
 
     except Exception as other:
-        print(log_mS() + "Unexpected error while reading file: '" + output_assignments_file + "'" + str(other))                             
+        logging.critical("Unexpected error while reading file: '" + output_assignments_file + "'" + str(other))                             
         serverSock.close()
         sys.exit(0)
 
@@ -584,7 +587,7 @@ def main():
 
 
     except Exception as other:
-        print(log_mS() + "Unhandled error:" + str(other))
+        logging.critical("Unhandled error:" + str(other))
     
 
 main()

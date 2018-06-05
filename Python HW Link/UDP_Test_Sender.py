@@ -4,7 +4,7 @@
 # https://github.com/bnepethomas/bne-arduino-flight-simulator-interfaces
 
 
-
+import logging
 import os
 import socket
 import sys
@@ -14,8 +14,9 @@ import time
 import random
 
 
-# Global Variables
 
+
+# Global Variables
 debugging = True
 command_string = ''
 prefix_with_D = ''
@@ -33,11 +34,14 @@ Source_Port = 0
 Last_Source_IP = "127.0.0.1"
 
 
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+
+
+
 sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 sock.bind((UDP_IP, UDP_PORT))
-
-
 
 
 
@@ -50,14 +54,13 @@ def Send_UDP_Command(command_to_send):
 
     global sock
 
- 
-    debugging = True
+
 
     try:
 
-        if debugging: print ('UDP target IP: ' + str(target_IP)
+        logging.debug('UDP target IP: ' + str(target_IP)
                              + '  UDP target port: ' + str(target_Port))
-        if debugging: print ('Sending: "' + command_to_send + '"')
+        logging.debug('Sending: "' + command_to_send + '"')
         
         sock.sendto(command_to_send,
                     (target_IP , target_Port))
@@ -67,7 +70,7 @@ def Send_UDP_Command(command_to_send):
     
 
     except Exception as other:
-        print(time.asctime() + '[e] Error in Send_UDP_Command: ' + str(other))
+        logging.critical('Error in Send_UDP_Command: ' + str(other))
 
 
 
@@ -107,7 +110,7 @@ def main():
             prefix_with_D = False
 
 
-        if debugging: print ('UDP target IP: ' + str(target_IP)
+        logging.debug('UDP target IP: ' + str(target_IP)
                              + '  UDP target Port: ' + str(target_Port))       
         
 
@@ -132,7 +135,7 @@ def main():
         sys.exit(0)
         
     except Exception as other:
-        print(time.asctime() + '[e] Error in Main: ' + str(other))
+        logging.critical('[e] Error in Main: ' + str(other))
 
 
 
