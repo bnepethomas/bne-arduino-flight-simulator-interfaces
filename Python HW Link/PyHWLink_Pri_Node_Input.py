@@ -2,7 +2,7 @@
 
 # PyHWLink_Pri_Node_Input.py
 
-# Test script loading LUA file (which contains joystick commands) into an Dictionary (actually a dicutionary of dictionaries)
+# Test script loading LUA file (which contains joystick commands) into an Dictionary (actually a dictionary of dictionaries)
 # Only loads entries which have a name tag and are on a single line enclosed by { and } 
 
 from collections import OrderedDict
@@ -16,6 +16,7 @@ import time
 
 from optparse import OptionParser
 
+from pyHWLink_Tools import *
 
 
 debugging = False
@@ -34,8 +35,10 @@ else:
         
         print('Learning Mode: ' + str(learning))
         print('Aircraft is: ' + AircraftType)
-            
-    except:
+
+
+    except Exception as other:
+        print(log_mS() + "Unexpected error " + str(other))             
         print('Unable to open input_config.py')
         print('Or variable assignment incorrect - forgot quotes for string?')
         print('Defaults used')
@@ -94,9 +97,6 @@ serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
 
-txsock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
-
-
 
 input_assignments = None
 send_string = None
@@ -120,13 +120,15 @@ def ReceivePacket():
         except socket.timeout:
             a=a+1
             if (a > 100000):
-                print("Long Receive Timeout - ", time.asctime())
+                print(log_mS() + " Long Receive Timeout")
                 a=0
             continue
 
-        except:
-            print('Error in ReceivePacket. Error is: ' + sys.exc_info() [0])
+        
+        except Exception as other:
+            print(log_mS() + "[e] Error in RecevePacket: " + str(other)) 
 
+ 
 
 def save_and_reload_assignments():
     # Save out to a temporary file and reload to ensure it is in shape
@@ -141,8 +143,12 @@ def save_and_reload_assignments():
         input_assignments = None
 
         input_assignments = json.load(open(temp_input_assignments_file))
-    except:
-        print('Error in save_and_reload_assignments' + sys.exc_info() [0])   
+
+    except Exception as other:
+        print(log_mS() + "[e] Error in save_and_reload_assignments': " + str(other))
+
+        
+  
     
     
 
@@ -162,9 +168,10 @@ def updateDescription(workingkey):
 
                 save_and_reload_assignments()
                 
+        except Exception as other:
+            print(log_mS() + "[e] Error in updateDescription': " + str(other))
 
-        except:
-            print('Error in updateDescription' + sys.exc_info() [0])
+
 
 
 def updateOpenAction(workingkey):
@@ -184,9 +191,8 @@ def updateOpenAction(workingkey):
 
             save_and_reload_assignments()
                 
-
-        except:
-            print('Error in updateOpenAction' + sys.exc_info() [0])
+        except Exception as other:
+            print(log_mS() + "[e] Error in updateOpenAction: " + str(other))
 
 
 
@@ -207,15 +213,16 @@ def updateCloseAction(workingkey):
 
             save_and_reload_assignments()
                 
+        except Exception as other:
+            print(log_mS() + "[e] Error in updateCloseAction: " + str(other))
+                
 
-        except:
-            print('Error in updateOpenAction' + sys.exc_info() [0])
-
+ 
 
 def Send_Value():
 
     global send_string
-    global txsock, serverSock
+    global serverSock
 
 
     try:
@@ -229,7 +236,7 @@ def Send_Value():
         send_string = ""
 
     except Exception as other:
-        print(time.asctime() + "[e] Error in Main: " + str(other))
+        print(log_mS + "[e] Error in Send_Value: " + str(other))
         
               
 
@@ -256,9 +263,8 @@ def addValueToSend(valueToAdd):
         
         if debugging: print('After ' + send_string)
 
-    except:
-        print('Error in updateOpenAction' + sys.exc_info() [0])
-
+    except Exception as other:
+        print(log_mS + "[e] Error in addValueToSend: " + str(other))
 
 
 def Send_Remaining_Commands():
@@ -356,7 +362,7 @@ def ProcessReceivedString(ReceivedUDPString):
                         print('WARNING - Unable to read record of interest in ProcessReceivedString')
                         print('WARNING - Record name is: "' + workingkey + '"')
                         print('')
-                        print(time.asctime() + "[e] Error in ProcessReceivedString: " + str(other))
+                        print(log_mS + "[e] Error in ProcessReceivedString: " + str(other))
                 
 
             Send_Remaining_Commands()
@@ -365,7 +371,7 @@ def ProcessReceivedString(ReceivedUDPString):
 
 
     except Exception as other:
-        print(time.asctime() + "[e] Error in ProcessReceivedString: " + str(other))
+        print(log_mS + "[e] Error in ProcessReceivedString: " + str(other))
 
 
   
@@ -494,17 +500,15 @@ def LoadDCSParameterFile():
             json.dump(myDict, fp=open('testjson.txt','w'),indent=4)
             print('File Exported')
             
-
-        except:
+        except Exception as other:
+            print(log_mS() + "[e] Error in LoadDCSParameterFile" + str(other))         
             print('Unable to read record of interest')
             print('Record name is: "' + itemOfInterest + '", Field is: "' + fieldOfInterest + '"')
 
             
 
     
-print('Developing I/O Blocks')
 
-print('Build out input blocks 1,2,3')
 # Here we receive packets containing switch transitions
 # Maximum inputs per module is 256
 # Unless explicitly asked via a command request, the sending unit only sends deltas
@@ -569,36 +573,11 @@ print('Loading Input Assignments from: "' + input_assignments_file +'"')
 try:
     input_assignments = json.load(open(input_assignments_file))
                              
-except:
-    print(time.asctime(), "Unexpected error while reading file:", sys.exc_info() [0])
+except Exception as other:
+    print(log_mS() + "Unexpected error while reading file:" + str(other))         
+
     serverSock.close()
     sys.exit(0)
-
-
-try:
-
-    itemOfInterest = '2:73'
-    fieldOfInterest = 'Close'
-
-    
-    print('Complete Record for: ' + itemOfInterest)
-    print(input_assignments[itemOfInterest])
-    print('Specific Field (' + fieldOfInterest + ')' )
-    
-    print(input_assignments[itemOfInterest][fieldOfInterest])
-    
-except:
-    print('Unable to read record of interest')
-    print('Record name is: "' + itemOfInterest + '", Field is: "' + fieldOfInterest + '"')
-
-            
-
-
-print('Build out output block')
-# Map values from LUA eg GearLightLeft to ip adress, device number, value
-# Led bocks of Max7219 , State 0/1, 3 off?
-# Guage blocks analog values
-# Text blocks with sanity checkings
 
 
 
@@ -612,10 +591,10 @@ except KeyboardInterrupt:
     serverSock.close()
     sys.exit(0)
 
-except:
-    print(time.asctime(), "Unexpected error:", sys.exc_info() [0])
+except Exception as other:
+    print(log_mS() + "[e] Error in main:" + str(other))         
 
-
+ 
 
 
 serverSock.close()
