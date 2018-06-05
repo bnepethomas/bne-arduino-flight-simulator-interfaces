@@ -7,6 +7,7 @@
 
 from collections import OrderedDict
 import json
+import logging
 import os
 import socket
 import sys
@@ -16,7 +17,11 @@ import time
 
 from optparse import OptionParser
 
-from pyHWLink_Tools import *
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+
+
 
 
 debugging = False
@@ -38,7 +43,7 @@ else:
 
 
     except Exception as other:
-        print(log_mS() + "Unexpected error " + str(other))             
+        logging.critical("Unexpected error " + str(other))             
         print('Unable to open input_config.py')
         print('Or variable assignment incorrect - forgot quotes for string?')
         print('Defaults used')
@@ -50,7 +55,7 @@ else:
 # See if value is assigned.  First we checked config file and then
 #   command line arguments
 
-if debugging: print("Checking Command Line parameters")
+logging.debug("Checking Command Line parameters")
 
 
 parser = OptionParser()
@@ -62,8 +67,8 @@ parser.add_option("-l","--learning", dest="optionLearning",action="store_true",
                   help="learning mode, assign actions to switch movements")
 (options, args) = parser.parse_args()
 
-if debugging: print("options:", str(options))
-if debugging: print("arguments:", args)
+logging.debug("options:" + str(options))
+logging.debug("arguments:" +  str(args))
 
 # Override Learning mode if passed via command line
 if options.optionLearning == True:
@@ -109,24 +114,24 @@ def ReceivePacket():
         try:
             data, addr = serverSock.recvfrom(1500)
             
-            if debugging: print ("Message: ", data)
+            logging.debug("Message: " + str(data))
             ReceivedPacket = data
             ProcessReceivedString(str(ReceivedPacket))
             
-            if debugging: print(a)
+            logging.debug(a)
             a=0
 
                                               
         except socket.timeout:
             a=a+1
             if (a > 100000):
-                print(log_mS() + " Long Receive Timeout")
+                logging.info("Long Receive Timeout")
                 a=0
             continue
 
         
         except Exception as other:
-            print(log_mS() + "[e] Error in RecevePacket: " + str(other)) 
+            logging.critical("Error in RecevePacket: " + str(other)) 
 
  
 
@@ -145,7 +150,7 @@ def save_and_reload_assignments():
         input_assignments = json.load(open(temp_input_assignments_file))
 
     except Exception as other:
-        print(log_mS() + "[e] Error in save_and_reload_assignments': " + str(other))
+        logging.critical("Error in save_and_reload_assignments': " + str(other))
 
         
   
@@ -169,7 +174,7 @@ def updateDescription(workingkey):
                 save_and_reload_assignments()
                 
         except Exception as other:
-            print(log_mS() + "[e] Error in updateDescription': " + str(other))
+            logging.critical("Error in updateDescription': " + str(other))
 
 
 
@@ -192,7 +197,7 @@ def updateOpenAction(workingkey):
             save_and_reload_assignments()
                 
         except Exception as other:
-            print(log_mS() + "[e] Error in updateOpenAction: " + str(other))
+            logging.critical("Error in updateOpenAction: " + str(other))
 
 
 
@@ -214,7 +219,7 @@ def updateCloseAction(workingkey):
             save_and_reload_assignments()
                 
         except Exception as other:
-            print(log_mS() + "[e] Error in updateCloseAction: " + str(other))
+            logging.critical("Error in updateCloseAction: " + str(other))
                 
 
  
@@ -227,8 +232,7 @@ def Send_Value():
 
     try:
 
-        if True: print ("UDP target port:" + str(DCS_PORT_NO))
-        if debugging: print ("UDP target port:" + str(DCS_PORT_NO))
+        logging.debug("UDP target port:" + str(DCS_PORT_NO))
 
         serverSock.sendto(send_string, (DCS_IP_ADDRESS, DCS_PORT_NO))
         serverSock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
@@ -236,7 +240,7 @@ def Send_Value():
         send_string = ""
 
     except Exception as other:
-        print(log_mS + "[e] Error in Send_Value: " + str(other))
+        logging.critical("Error in Send_Value: " + str(other))
         
               
 
@@ -246,8 +250,8 @@ def addValueToSend(valueToAdd):
               
 
     try:
-        if debugging: print('Send String is ' + str(len(send_string)) + ' characters long')
-        if debugging: print('Before ' + send_string)
+        logging.debug('Send String is ' + str(len(send_string)) + ' characters long')
+        logging.debug('Before ' + send_string)
 
 
         if len(send_string) == 0:
@@ -257,14 +261,14 @@ def addValueToSend(valueToAdd):
              
         if len(send_string) > 40:
             
-            if debugging: print('Send String Now !!!!!')
+            logging.debug('Send String Now !!!!!')
             Send_Value()
             
         
-        if debugging: print('After ' + send_string)
+        logging.debug('After ' + send_string)
 
     except Exception as other:
-        print(log_mS + "[e] Error in addValueToSend: " + str(other))
+        logging.critical("Error in addValueToSend: " + str(other))
 
 
 def Send_Remaining_Commands():
@@ -282,26 +286,26 @@ def ProcessReceivedString(ReceivedUDPString):
     global send_string
     global learning
     
-    if debugging: print('Processing UDP String')
+    logging.debug('Processing UDP String')
 
     send_string = ""
     
     try:
         if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
             
-            if debugging: print('Stage 1 Processing: ' + str(ReceivedUDPString))
+            logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
             # Remove leading D
             ReceivedUDPString = str(ReceivedUDPString[1:])
-            if debugging: print('Checking for correct format :')
+            logging.debug('Checking for correct format :')
 
             
 
             workingSets =''
             workingSets = ReceivedUDPString.split(',')
-            if debugging: print('There are ' + str(len(workingSets)) + ' records')
+            logging.debug('There are ' + str(len(workingSets)) + ' records')
             counter = 0
             for workingRecords in workingSets:
-                if debugging: print('Record workingRecord number ' + str(counter) + ' ' +
+                logging.debug('Record workingRecord number ' + str(counter) + ' ' +
                       workingRecords)
                 counter = counter + 1
                 
@@ -311,24 +315,24 @@ def ProcessReceivedString(ReceivedUDPString):
 
                 
                 if len(workingFields) != 3:
-                    print('')
-                    print('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
-                    print('')
+                    logging.warn('')
+                    logging.warn('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
+                    logging.warn('')
                 elif str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
-                    print('')
-                    print('WARNING - Invlaid 3rd parameter: ' + str(workingFields[2]))
-                    print('')                   
+                    logging.warn('')
+                    logging.warn('WARNING - Invlaid 3rd parameter: ' + str(workingFields[2]))
+                    logging.warn('')                   
                 else:
-                    if debugging: print('Stage 2 Processing: ' + str(workingFields))
+                    logging.debug('Stage 2 Processing: ' + str(workingFields))
 
                     try:
                         workingkey = workingFields[0] + ':' + workingFields[1]
-                        if debugging: print('Working key is: ' + workingkey)
+                        logging.debug('Working key is: ' + workingkey)
                         
-                        if debugging: print('Working Fields for working key are: ' +
+                        logging.debug('Working Fields for working key are: ' +
                               str(input_assignments[workingkey]))
 
-                        if debugging: print('The value is: ' +
+                        logging.debug('The value is: ' +
                               str(input_assignments[workingkey]['Description']))
 
 
@@ -358,20 +362,20 @@ def ProcessReceivedString(ReceivedUDPString):
                         
     
                     except Exception as other:
-                        print('')
-                        print('WARNING - Unable to read record of interest in ProcessReceivedString')
-                        print('WARNING - Record name is: "' + workingkey + '"')
-                        print('')
-                        print(log_mS + "[e] Error in ProcessReceivedString: " + str(other))
+                        logging.critical('')
+                        logging.critical('WARNING - Unable to read record of interest in ProcessReceivedString')
+                        logging.critical('WARNING - Record name is: "' + workingkey + '"')
+                        logging.critical('')
+                        logging.critical("Error in ProcessReceivedString: " + str(other))
                 
 
             Send_Remaining_Commands()
-            if debugging: print('Continuing on')
+            logging.debug('Continuing on')
             
 
 
     except Exception as other:
-        print(log_mS + "[e] Error in ProcessReceivedString: " + str(other))
+        logging.critical("Error in ProcessReceivedString: " + str(other))
 
 
   
@@ -411,7 +415,7 @@ def LoadDCSParameterFile():
             if myline.find(deviceToFind) >= 0 and myline.find("{") >= 0 and myline.find('}') >= 0:
 
 
-                if debugging: print("Processing " +  myline)
+                logging.debug("Processing " +  myline)
 
                 # Initialise list
                 mylist = []
@@ -421,19 +425,19 @@ def LoadDCSParameterFile():
                 myline = myline[ myline.find("{") + 1:]
                 myline = myline[: myline.find("}")]
                 
-                if debugging: print("Removed # " + myline[:])
+                logging.debug("Removed # " + myline[:])
 
                 # Split into attrib var pairs
                 mysplit = myline.split(',')
                 
-                if debugging: print(mysplit)
+                logging.debug(mysplit)
 
                 
                 for i in mysplit:
 
-                    if debugging: print("Cleaning up " + i)
+                    logging.debug("Cleaning up " + i)
                     mysplit1 = i.split('=')
-                    if debugging: print (mysplit1)
+                    logging.debug(mysplit1)
 
                     if len(mysplit1) == 2:
                         if debugging:  print('Have correct number of attributes')
@@ -453,13 +457,13 @@ def LoadDCSParameterFile():
                 innerDict = {}
                 for s in mylist:
                     innerDict[s[0]] = s[1]
-                if debugging: print('The end result is ')
-                if debugging: print(mylist)
+                logging.debug('The end result is ')
+                logging.debug(mylist)
 
                 
                 for s in mylist:
                     if s[0] == 'name':
-                        if debugging: print('We have a valid name - time to add a item to the dictionary')
+                        logging.debug('We have a valid name - time to add a item to the dictionary')
 
                         for t in mylist:
                             if t[0] == 'down':
@@ -468,7 +472,7 @@ def LoadDCSParameterFile():
                                 #myDict[s[1]] = mylist
                                 myDict[s[1]] = innerDict
                                 
-                                if debugging: print('myDict is now ' + str(len(myDict)))
+                                logging.debug('myDict is now ' + str(len(myDict)))
                                 #print('Dictionary is :' +  myDict['name'])
                                                                        
                     
@@ -482,7 +486,7 @@ def LoadDCSParameterFile():
         
         file_object.close()
 
-        if debugging: print(myDict)
+        logging.debug(myDict)
 
         try:
 
@@ -501,9 +505,9 @@ def LoadDCSParameterFile():
             print('File Exported')
             
         except Exception as other:
-            print(log_mS() + "[e] Error in LoadDCSParameterFile" + str(other))         
-            print('Unable to read record of interest')
-            print('Record name is: "' + itemOfInterest + '", Field is: "' + fieldOfInterest + '"')
+            logging.critical("Error in LoadDCSParameterFile" + str(other))         
+            logging.critical('Unable to read record of interest')
+            logging.critical('Record name is: "' + itemOfInterest + '", Field is: "' + fieldOfInterest + '"')
 
             
 
@@ -541,8 +545,8 @@ dictInputAssignments = {}
 input_assignments_file = 'input_assignments.json'
 if not (os.path.isfile(input_assignments_file)):
     
-    print('Unable to find "' + input_assignments_file + '"')
-    print('Creating default Input Assignments in: ' + input_assignments_file)
+    logging.critical('Unable to find "' + input_assignments_file + '"')
+    logging.info('Creating default Input Assignments in: ' + input_assignments_file)
     
     dictOuter = {}
     dictInner = {}
@@ -564,7 +568,7 @@ if not (os.path.isfile(input_assignments_file)):
 
     json.dump(dictOuter, fp=open(input_assignments_file,'w'),indent=4)
 
-    print('Created Input Assignments file: "' + input_assignments_file + '"')
+    logging.info('Created Input Assignments file: "' + input_assignments_file + '"')
 
 
 #        
@@ -574,7 +578,7 @@ try:
     input_assignments = json.load(open(input_assignments_file))
                              
 except Exception as other:
-    print(log_mS() + "Unexpected error while reading file:" + str(other))         
+    logging.critical("Unexpected error while reading file:" + str(other))         
 
     serverSock.close()
     sys.exit(0)
@@ -592,7 +596,7 @@ except KeyboardInterrupt:
     sys.exit(0)
 
 except Exception as other:
-    print(log_mS() + "[e] Error in main:" + str(other))         
+    logging.critical("Error in main:" + str(other))         
 
  
 
