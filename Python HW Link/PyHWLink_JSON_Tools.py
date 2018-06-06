@@ -1,8 +1,10 @@
 #!/usr/bin/python
 
-# PyHWLink_Pri_Node_Input.py
+# PyHWLink_JSON_Tools.py
 
-# Receives AV pairs from input devices and translates to AV pairs for the sim
+# Tools for working with JSON files, always saves modifications in separate file
+# 1: Validates Mandatory Fields are in all records
+# 2: Adds/Removes field from all records
 
 
 from collections import OrderedDict
@@ -26,112 +28,144 @@ logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging
 
 debugging = False
 
-# See if input configuration file exists
-# Parameters are either specified in this file or passed via command line
-# Command line parameters override any settings in the config file
-# 
-if not (os.path.isfile('input_config.py')):
-    
-    print('Unable to find ' + input_file)
-    
-else:
-    try:
-        from input_config import *
-        
-        print('Learning Mode: ' + str(learning))
-        print('Aircraft is: ' + AircraftType)
+
+input_assignments_file = 'a_input_assignments.json'
+temp_input_assignments_file = 'a_temp_input_assignments.json'
 
 
-    except Exception as other:
-        logging.critical("Unexpected error " + str(other))             
-        print('Unable to open input_config.py')
-        print('Or variable assignment incorrect - forgot quotes for string?')
-        print('Defaults used')
-    
-
-
-
-
-# See if value is assigned.  First we checked config file and then
-#   command line arguments
-
-logging.debug("Checking Command Line parameters")
-
-
-parser = OptionParser()
-parser.add_option("-l","--learning", dest="optionLearning",action="store_true",
-                  default=False,
-                  help="learning mode, assign actions to switch movements")
-(options, args) = parser.parse_args()
-
-logging.debug("options:" + str(options))
-logging.debug("arguments:" +  str(args))
-
-# Override Learning mode if passed via command line
-if options.optionLearning == True:
-    learning = True
-    print('Learning Mode enabled through command line')
-   
-
-    
-    
-
-try:
-    test = AircraftType
-except:
-    print('AircraftType not assigned - using defaults')
-    AircraftType = 'default'
-
-
-UDP_IP_ADDRESS = "127.0.0.1"
-UDP_PORT_NO = 26027
-DCS_IP_ADDRESS = "127.0.0.1"
-DCS_PORT_NO = 26026
-
-UDP_Reflector_IP = "127.0.0.1"
-UDP_Reflector_Port = 27000
-
-serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-serverSock.settimeout(0.0001)
-serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
-
-input_assignments_file = 'input_assignments.json'
-temp_input_assignments_file = 'temp_input_assignments.json'
-
-
-input_assignments = None
+input_assignments = {}
 send_string = None
 
-def ReceivePacket():
+def playtime():
 
-    # a is used to track the number of timeouts between packets
-    # throws a keepalive message to indicate we are still alive
-    a=0
-    while True:
+    print('playtime')
+    try:
+
+        ks = list(input_assignments.keys())
+        ks.sort()
+        print('len =' + str(len(ks)))
+        for plaything in ks:
+
+           logging.debug(str( plaything))
+           if input_assignments[plaything]['Description'] != None:
+                print(str(input_assignments[plaything]['Description']))
+               
+
+
+##        json.dump(input_assignments, fp=open(str('b' + input_assignments_file),'w'),indent=4,sort_keys=True)
+##        logging.info('Created Input Assignments file: "' + str('b' + input_assignments_file) + '"')
+
+    except Exception as other:
+        logging.critical("Error in playtime': " + str(other))
+
+    print('playtime over')
+
+def addfield(field_to_add):
+    try:
+        print('Adding Field: ' + str(field_to_add))
+
+        ks = list(input_assignments.keys())
+        ks.sort()
         
-        try:
-            data, addr = serverSock.recvfrom(1500)
-            
-            logging.debug("Message: " + str(data))
-            ReceivedPacket = data
-            ProcessReceivedString(str(ReceivedPacket))
-            
+        for plaything in ks:
+            try:
+                input_assignments[plaything][field_to_add] = None
+                if input_assignments[plaything]['Description'] != None:
+                    print( input_assignments[plaything]['Description'] )
 
-            a=0
+            except:
+                print('Unable to Add ' + field_to_add + ' to ' + str(plaything))
 
-                                              
-        except socket.timeout:
-            a=a+1
-            if (a > 100000):
-                logging.info("Long Receive Timeout")
-                a=0
-            continue
+                   
+
+
+        json.dump(input_assignments, fp=open(str('b' + input_assignments_file),'w'),indent=4,sort_keys=True)
+
+        logging.info('Created new file in addfield: "' + str('b' + input_assignments_file) + '"')
+
+    except Exception as other:
+        logging.critical("Error in addfield': " + str(other))       
+        
+
+
+def deletefield(field_to_delete):
+    try:
+        print('Deleting Field: ' + str(field_to_delete))
+
+
+        ks = list(input_assignments.keys())
+        ks.sort()
+        
+        for plaything in ks:
+            try:
+                input_assignments[plaything].pop(field_to_delete) 
+                if input_assignments[plaything]['Description'] != None:
+                    print( input_assignments[plaything]['Description'] )
+
+            except:
+                print('Unable to Add ' + field_to_delete + ' to ' + str(plaything))
+
+                   
+
+
+        json.dump(input_assignments, fp=open(str('b' + input_assignments_file),'w'),indent=4,sort_keys=True)
+
+        logging.info('Created new file in deletefield: "' + str('b' + input_assignments_file) + '"')
+
+    except Exception as other:
+        logging.critical("Error in deletefield': " + str(other))       
+       
+
+
+def CreateEmptyAssignmentsFile():
+    # Check to see if input assignment files exists - if not create it
+
+    if not (os.path.isfile(input_assignments_file)):
+        
+        logging.critical('Unable to find "' + input_assignments_file + '"')
+        logging.info('Creating default Input Assignments in: ' + input_assignments_file)
+        
+        dictOuter = {}
+        dictInner = {}
+        outercounter = 0
+        while outercounter < 1:
+            counter = 0
+            while counter < 20:
+                dictInner = {}
+                dictInner['Description'] = None
+                dictInner['Open'] = None
+                dictInner['Close'] = None
+
+
+                dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner
+                counter = counter + 1
+
+                
+            outercounter = outercounter + 1
+
+        json.dump(dictOuter, fp=open(input_assignments_file,'w'),indent=4,sort_keys=True)
+
+        logging.info('Created Input Assignments file: "' + input_assignments_file + '"')
+
+
+def load_assignments():
+
+    global input_assignments
+    try:
+        input_assignments = None
+
+        input_assignments = json.load(open(temp_input_assignments_file))
+        print('input_assignments loaded from: "' + str(temp_input_assignments_file) + '"')
+        print('')
 
         
-        except Exception as other:
-            logging.critical("Error in RecevePacket: " + str(other)) 
+    except Exception as other:
+        logging.critical("Error in load_assignments': " + str(other))
 
- 
+        
+      
+
+
 
 def save_and_reload_assignments():
     # Save out to a temporary file and reload to ensure it is in shape
@@ -222,65 +256,7 @@ def updateCloseAction(workingkey):
                 
         except Exception as other:
             logging.critical("Error in updateCloseAction: " + str(other))
-                
 
- 
-
-def Send_Value():
-
-    global send_string
-    global serverSock
-
-
-    try:
-
-        logging.debug("UDP target port:" + str(DCS_PORT_NO))
-
-        serverSock.sendto(send_string, (DCS_IP_ADDRESS, DCS_PORT_NO))
-        serverSock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
-
-        send_string = ""
-
-    except Exception as other:
-        logging.critical("Error in Send_Value: " + str(other))
-        
-              
-
-def addValueToSend(valueToAdd):
-
-    global send_string
-              
-
-    try:
-        logging.debug('Send String is ' + str(len(send_string)) + ' characters long')
-        logging.debug('Before ' + send_string)
-
-
-        if len(send_string) == 0:
-            send_string = valueToAdd
-        else:
-            send_string = send_string + ',' + valueToAdd
-             
-        if len(send_string) > 40:
-            
-            logging.debug('Send String Now !!!!!')
-            Send_Value()
-            
-        
-        logging.debug('After ' + send_string)
-
-    except Exception as other:
-        logging.critical("Error in addValueToSend: " + str(other))
-
-
-def Send_Remaining_Commands():
-    
-    global send_string
-
-    if send_string != '':
-         Send_Value()       
-    send_string = ''
-    
 
 
 def ProcessReceivedString(ReceivedUDPString):
@@ -380,11 +356,6 @@ def ProcessReceivedString(ReceivedUDPString):
         logging.critical("Error in ProcessReceivedString: " + str(other))
 
 
-  
-def RemoveUnwantedCharacters(stringToBeCleaned):
-    stringToBeCleaned= stringToBeCleaned.replace('"', '')
-    stringToBeCleaned = stringToBeCleaned.strip(' ')
-    return(stringToBeCleaned)
 
 
 def LoadDCSParameterFile():
@@ -399,8 +370,6 @@ def LoadDCSParameterFile():
     input_file = 'testinputdata.csv'
 
 
-    # Only load a small number of devices
-    #deviceToFind = 'breaker'
     
     # Load all possible devices
     deviceToFind = ''  # Lets load everything that we can
@@ -514,96 +483,31 @@ def LoadDCSParameterFile():
             logging.critical('Unable to read record of interest')
             logging.critical('Record name is: "' + itemOfInterest + '", Field is: "' + fieldOfInterest + '"')
 
-            
-
-    
-
-# Here we receive packets containing switch transitions
-# Maximum inputs per module is 256
-# Unless explicitly asked via a command request, the sending unit only sends deltas
-# The format is AV pairs indicating new switch status, eg a switch moving to the off position will reflect as switch_no:0
-# Packets from input nodes will have the format of DX:A=V:A1=V1, where X is the input node number.
-# The Node number is only indicated in the front of the packet, not at the individual AV pair.
-
-# If an AV pair is not known it will be silently discarded unless the Primary node is in learning mode.
-# If in learning mode it will ask the operator what task should be assigned to the unknown AV pair. Switch description will
-#   also be validated.
-
-# There will be a generic input file, and aircraft specific files.Still to be determined how aircraft type is selected, ideally
-#   this would be dynamic - which may mean receiving a trigger, most likely from the output driver as it is receiving packets
-#   from the simulator.  An approach may be to allow the output code to sense aircraft change and if aircraft type does change
-#   then kill existing input process and launch new input process with command line parameters.
-
-# Dict should contain
-#   1: UniqueSwitchID (Key) (NodeNumber:SwitchID)
-#   2: SwitchDescription
-#   3: OnSwitchAction
-#   4: OffSwitchAction
 
 
-# Empty dictionary
+
 dictInputAssignments = {}
 
 
+def main():
+    try:
+        print('Starting Tools')
+        load_assignments()
+        playtime()
+        
+        deletefield('Open')
+        
+        print('Exiting Tools')
+ #       sys.exit(0)
 
-# Check to see if input assignment files exists - if not create it
+    except KeyboardInterrupt:
+        # Catch Ctl-C and quit
+        print('Exiting Tools')
+        sys.exit(0)
 
-if not (os.path.isfile(input_assignments_file)):
-    
-    logging.critical('Unable to find "' + input_assignments_file + '"')
-    logging.info('Creating default Input Assignments in: ' + input_assignments_file)
-    
-    dictOuter = {}
-    dictInner = {}
-    outercounter = 0
-    while outercounter < 3:
-        counter = 0
-        while counter < 256:
-            dictInner = {}
-            dictInner['Description'] = None
-            dictInner['Open'] = None
-            dictInner['Close'] = None
-
-            #dictOuter[str(outercounter) + ":" + str(counter)] = dictInner
-            dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner
-            counter = counter + 1
-
-            
-        outercounter = outercounter + 1
-
-    json.dump(dictOuter, fp=open(input_assignments_file,'w'),indent=4)
-
-    logging.info('Created Input Assignments file: "' + input_assignments_file + '"')
-
-
-#        
-print('Loading Input Assignments from: "' + input_assignments_file +'"')              
-
-try:
-    input_assignments = json.load(open(input_assignments_file))
-                             
-except Exception as other:
-    logging.critical("Unexpected error while reading file:" + str(other))         
-
-    serverSock.close()
-    sys.exit(0)
-
-
-
-try:
-    print('Waiting for packet')
-    ReceivePacket()
-
-except KeyboardInterrupt:
-    # Catch Ctl-C and quit
-    print('Exiting')
-    serverSock.close()
-    sys.exit(0)
-
-except Exception as other:
-    logging.critical("Error in main:" + str(other))         
+    except Exception as other:
+        logging.critical("Error in main:" + str(other))         
 
  
 
-
-serverSock.close()
+main()

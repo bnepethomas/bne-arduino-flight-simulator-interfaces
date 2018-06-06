@@ -1,51 +1,53 @@
 {
     "00:000": {
-        "Close": "Port 0 Close", 
-        "Description": "Port 0", 
-        "Open": "Port 0 Open"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "00:001": {
-        "Close": "Port 1 Close", 
-        "Description": "Port 1", 
-        "Open": "Port 1 Open"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "00:002": {
-        "Close": "Port 2 Close", 
-        "Description": "Port 2", 
-        "Open": "Port 2 Open"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "00:003": {
-        "Close": "Port 3 Close", 
-        "Description": "Port 3", 
-        "Open": "Port 3 Open"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "00:004": {
-        "Close": "Port 4 Close", 
-        "Description": "Port 4", 
-        "Open": "Port 4 Open"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "00:005": {
-        "Close": "Port 5 Close", 
-        "Description": "Port 5", 
-        "Open": "Port 5 Open"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "00:006": {
-	"Description": ""
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "00:007": {
-        "Close": "Port 7 Close", 
-        "Description": "Port 7", 
-        "Open": "Port 7 Open"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "00:008": {
-        "Close": "Port 8 Close", 
-        "Description": "Port 8", 
-        "Open": "Port 8 Open"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "00:009": {
-        "Close": "Port 9 Close", 
-        "Description": "Port 9", 
-        "Open": "Port 9 Open"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "00:010": {
         "Close": null, 
