@@ -21,14 +21,22 @@
 
 import argparse
 import numbers
+import logging
 import os
+import random
 import re
 import socket
 import sys
 import time
 
 
-import random
+
+
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+
+
 
 
 # Global Variables
@@ -61,7 +69,7 @@ while counter < total_entries:
     switch_array.append(0)
     counter = counter + 1
 print('There are ' + str(len(switch_array)) + ' switches')
-if debugging: print(switch_array)
+logging.debug(switch_array)
 
 
 # Randonmise initial values
@@ -73,7 +81,7 @@ while counter < total_entries:
     else:
         switch_array[counter] = 0
     counter = counter + 1
-if debugging: print(switch_array)
+logging.debug(switch_array)
 
 
 def Send_UDP_Command(command_to_send):
@@ -82,7 +90,8 @@ def Send_UDP_Command(command_to_send):
 
     global UDP_Reflector_IP, UDP_Reflector_Port, SOCK
 
-    if debugging: print ("UDP target port:" + str(TX_UDP_PORT))
+    logging.debug ("IP target address:" + str(TX_UDP_PORT))
+    logging.debug ("UDP target port:" + str(TX_UDP_PORT))
 
 
     sock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
@@ -138,52 +147,61 @@ sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 sock.bind((UDP_IP, UDP_PORT))
 
-# Act on global var
+
 
 while True:
     try:
-       while True:
-          if debugging: print(time.asctime()) 
+        while True:
+            logging.debug ('') 
 
 
-          counter = 0
-          while counter < total_entries:           
-            if (random.random() * likelihood_of_change) > 0.5:
-                print('Changing Switch '  + str(counter))
-                if switch_array[counter] == 0:
-                    switch_array[counter] = 1
-                else:
-                    switch_array[counter] = 0
-                Add_UDP_Command('%.2d' % (Input_Module_Numer) + ':' + '%.3d' % (counter) + ':' + str(switch_array[counter]))
-            counter = counter + 1
-          Send_Remaining_Commands()
-        
-          if debugging:  print(switch_array)
+            counter = 0
+            while counter < total_entries:           
+                if (random.random() * likelihood_of_change) > 0.5:
+                    print('Changing Switch '  + str(counter))
+                    if switch_array[counter] == 0:
+                        switch_array[counter] = 1
+                    else:
+                        switch_array[counter] = 0
+                    Add_UDP_Command('%.2d' % (Input_Module_Numer) + ':' + '%.3d' % (counter) + ':' + str(switch_array[counter]))
+                counter = counter + 1
+            Send_Remaining_Commands()
 
-          
-          sock.settimeout(0.25)
-          data, (Source_IP, Source_Port) = sock.recvfrom(1500) # buffer size is 1024 bytes
+            logging.debug (switch_array)
 
-                    
-          
-          print "received message:", data
-          if data == 'CQ':
-              SendAllSwitchStates()
+
+            try:
+                sock.settimeout(0.25)
+                data, (Source_IP, Source_Port) = sock.recvfrom(1500) # buffer size is 1024 bytes
+
+                        
+
+                print "received message:", data
+                if data == 'CQ':
+                   SendAllSwitchStates()
               
-    
+            except KeyboardInterrupt:
+                # Catch Ctl-C and quit
+                print('')
+                print('Exiting')
+                print('')
+                sock.close()
+                sys.exit(0)   
 
 
     except socket.timeout:
-        if debugging: print(time.asctime() + " timeout")       
+        logging.debug ('Timeout')       
         continue
         
 
     except KeyboardInterrupt:
         # Catch Ctl-C and quit
+        print('')
         print('Exiting')
+        print('')
         sock.close()
         sys.exit(0)
         
     except Exception as other:
-        print(time.asctime() + "[e] Error in Main: " + str(other))
+        logging.critical('Error in Main: ' + str(other))
         continue

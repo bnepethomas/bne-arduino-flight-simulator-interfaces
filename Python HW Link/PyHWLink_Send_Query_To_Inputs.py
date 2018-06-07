@@ -7,10 +7,15 @@
 # Sends a query to Arduino Input modules to trigger the sending of all switch states
 #  The trigger packet is a simple 'CQ'
 
-
+import logging
 import socket
 import sys
 import time
+
+
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 
@@ -30,8 +35,8 @@ txsock.bind((UDP_IP, UDP_PORT))
 def Send_UDP_Command(command_to_send):
 
 
-    if debugging: print ("UDP target IP:" + UDP_IP)
-    if debugging: print ("UDP target port:" + str(TX_UDP_PORT))
+    logging.debug("UDP target IP:" + UDP_IP)
+    logging.debug("UDP target port:" + str(TX_UDP_PORT))
 
     
 
@@ -47,6 +52,9 @@ def Send_UDP_Command(command_to_send):
 
 # Act on global var
 def main():
+    print("Sends a query to Arduino Input modules to trigger the sending of all switch states")
+    print("The trigger packet is a simple 'CQ'")
+    print("")
     while True:
         try:
            while True:
@@ -59,7 +67,7 @@ def main():
             sys.exit(0)
             
         except Exception as other:
-            print(time.asctime() + "[e] Error in Main: " + str(other))
+            logging.critical('Error in Main: ' + str(other))
             continue
 
 main()

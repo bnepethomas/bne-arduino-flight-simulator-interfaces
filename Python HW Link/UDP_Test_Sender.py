@@ -34,8 +34,8 @@ Source_Port = 0
 Last_Source_IP = "127.0.0.1"
 
 
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 

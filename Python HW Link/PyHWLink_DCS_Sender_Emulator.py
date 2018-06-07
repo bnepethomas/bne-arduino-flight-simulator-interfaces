@@ -6,6 +6,7 @@
 
 # Emulates DCS sending telemetry over UDP - largely used to test PyHWLink_Pri_Node_Output.py
 
+import logging
 import os
 import re
 import socket
@@ -13,7 +14,11 @@ import sys
 import time
 from datetime import datetime
 
-from pyHWLink_Tools import *
+
+
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 
@@ -34,9 +39,7 @@ UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
 
 
-# Date Time String used for logging to screen
-def now_mS():
-    return str(datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ':')
+
 
 def Send_UDP_Command(command_to_send):
     UDP_IP = "127.0.0.1"
@@ -44,7 +47,7 @@ def Send_UDP_Command(command_to_send):
 
     global UDP_Reflector_IP, UDP_Reflector_Port, sock
 
-    if debugging: print ("UDP target port:" + str(TX_UDP_PORT))
+    logging.debug('UDP target port:' + str(TX_UDP_PORT))
     print('Target:  ' + UDP_IP + ':' + str(TX_UDP_PORT))
     print('Sending: "' + command_to_send + '"')
 
@@ -60,13 +63,21 @@ def Send_UDP_Command(command_to_send):
 # Being lazy here - want to be able to exit code with ctl-C without waiting full delay
 # could use interrupts, but this is nice and simple
 def Snooze(Length_Of_Snooze):
-    counter = 0
-    # The two multiplier is due to sleeping for only 0.5 of a second
-    while counter <= (Length_Of_Snooze * 2):
-        time.sleep(0.5)
+    try:
+        counter = 0
+        # The two multiplier is due to sleeping for only 0.5 of a second
+        while counter <= (Length_Of_Snooze * 2):
+            time.sleep(0.5)
 
-        counter =  counter + 1
-
+            counter =  counter + 1
+            
+    except KeyboardInterrupt:
+        # Catch Ctl-C and quit
+        print('')
+        print('exiting')
+        print('')
+        sock.close()
+        sys.exit(0)
 
 def main():
 
@@ -81,7 +92,7 @@ def main():
         sock.bind((Listen_On_All_IPs, UDP_PORT))
 
         while True:
-            if debugging: print(time.asctime()) 
+            logging.debug('') 
 
 
             
@@ -89,9 +100,9 @@ def main():
 
 
             # Delay between sending packets
-            print('')
-            print(log_mS() + ' Sleeping ' + str(delay_between_packets) + ' seconds')
-            print('')
+            logging.info('')
+            logging.info('Sleeping ' + str(delay_between_packets) + ' seconds')
+            logging.info('')
             Snooze(delay_between_packets)
                 
 
@@ -99,13 +110,14 @@ def main():
 
     except KeyboardInterrupt:
         # Catch Ctl-C and quit
+        print('')
         print('exiting')
         print('')
         sock.close()
         sys.exit(0)
         
     except Exception as other:
-        print(time.asctime() + "[e] Error in Main: " + str(other))
+        logging.critical('Error in Main: ' + str(other))
 
 
 main()
