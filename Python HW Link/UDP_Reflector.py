@@ -13,12 +13,14 @@
 # IP Address and Port to send to wireshark
 
 
-
+import logging
 import os
 import socket
 import sys
 import time
 import threading
+
+
 
 
 # Used for command line parsing
@@ -29,16 +31,16 @@ def CleanUpAndExit():
     try:
         # Catch Ctl-C and quit
         print('')
-        print('')
         print('Exiting')
+        print('')
         try:
             serverSock.close()
         except:
-            print('[i] Unable to close server socket')
+            logging.critical('Unable to close server socket')
         sys.exit(0)
 
     except Exception as other:
-        print(time.asctime() + "[e] Error in CleanUpAndExit: " + str(other))
+        logging.critical('Error in CleanUpAndExit: ' + str(other))
         sys.exit(0)
 
 
@@ -95,13 +97,11 @@ try:
     # See if value is assigned.  First we checked config file and then
     #   command line arguments
 
-    if debugging: print("Checking Command Line parameters")
+    logging.debug("Checking Command Line parameters")
 
 
     parser = OptionParser()
-    parser.add_option("-d","--debug", dest="optiondebug",action="store_true",
-                      default=False,
-                      help="enable debug",metavar="DEBUGLEVEL")
+
     
     parser.add_option("-w","--wh", dest="opt_W_Host",
                       help="Wireshark Target IP Address",metavar="opt_W_Host")    
@@ -112,8 +112,8 @@ try:
 
 
     
-    if debugging: print("options:" + str(options))
-    if debugging: print("arguments:" +  str(args))
+    logging.debug("options:" + str(options))
+    logging.debug("arguments:" +  str(args))
 
 
     if options.opt_W_Host != None:
@@ -133,17 +133,13 @@ try:
         print("[i] Display Filter is :" + str(args[0]))            
 
 
-
-    # Override Debug mode if passed via command line    
-    if options.optiondebug == True:
-        debugging = True
-        print('Debugging Mode enabled through command line')    
+   
 
 except KeyboardInterrupt:
     CleanUpAndExit()
 
 except Exception as other:
-    print(time.asctime() + "[e] Error in Setup: " + str(other))
+    logging.critical('Error in Setup: ' + str(other))
 
 
 
@@ -169,12 +165,12 @@ def ReceivePacket():
             Source_Port = str(Source_Port)
             ReceivedPacket = str(ReceivedPacket)
             
-            if debugging: print ("From: " + Source_IP + " " + Source_Port)
-            if debugging: print ("Message: " + ReceivedPacket)
+            logging.debug("From: " + Source_IP + " " + Source_Port)
+            logging.debug("Message: " + ReceivedPacket)
 
             ProcessReceivedString( str(ReceivedPacket), Source_IP , str(Source_Port) )
             
-            if debugging: print("Iterations since last packet " + str(iterations_Since_Last_Packet))
+            logging.debug("Iterations since last packet " + str(iterations_Since_Last_Packet))
             
             iterations_Since_Last_Packet=0
 
@@ -196,7 +192,7 @@ def ReceivePacket():
                 
                 pps_string = ". " + str(packets_per_Second) + " packets per second."
                 
-                print('Keepalive check ' + time.asctime() + ' ' +
+                logging.info('Keepalive check ' + time.asctime() + ' ' +
                       str(packets_processed) + ' Packets Processed' + pps_string)
                 
                 last_time_display = time.time()
@@ -204,7 +200,7 @@ def ReceivePacket():
             continue
 
         except Exception as other:
-            print(time.asctime() + "[e] Error in ReceivePacket: " + str(other))
+            logging.critical('Error in ReceivePacket: ' + str(other))
             
 
         if time.time() - last_time_display > 5:
@@ -215,7 +211,7 @@ def ReceivePacket():
 
 def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
 
-    if debugging: print('Processing UDP String')
+    logging.debug('Processing UDP String')
 
     global wireshark_Sock, wireshark_IP_Address, wireshark_Port
 
@@ -224,8 +220,8 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
         if len(ReceivedUDPString) > 0:
             
             ReceivedUDPString = str(ReceivedUDPString)
-            if debugging: print ("From: " + Source_IP + " " + Source_Port)
-            if debugging: print('Payload: ' + ReceivedUDPString)
+            logging.debug("From: " + Source_IP + " " + Source_Port)
+            logging.debug('Payload: ' + ReceivedUDPString)
             Send_String = Source_IP + ':' + Source_Port + '---' + ReceivedUDPString
             
             # Is Wireshark target address set - if so throw a copy of the packet in its direction
@@ -240,7 +236,7 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
                     print(Send_String)
 
     except Exception as other:
-        print(time.asctime() + "Error in ProcessReceivedString. Error is: " + str(other))          
+        logging.critical('Error in ProcessReceivedString. Error is: ' + str(other))          
              
 
 
@@ -259,7 +255,7 @@ def Main():
         CleanUpAndExit()
         
     except Exception as other:
-        print(time.asctime() + "[e] Error in Main: " + str(other))
+        logging.critical('Error in Main: ' + str(other))
 
 
 
