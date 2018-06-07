@@ -20,7 +20,10 @@ import sys
 import time
 import threading
 
-
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+ 
 
 
 # Used for command line parsing
@@ -67,7 +70,7 @@ try:
 
     if not (os.path.isfile(config_file)):
         
-        print('[i] Unable to find ' + config_file)
+        logging.info('Unable to find ' + config_file)
 
         
     else:
@@ -76,7 +79,7 @@ try:
             
                 
         except Exception as other:
-            print(time.asctime() + "[e] Error in Initialisation: " + str(other))
+            logging.critical("Error in Initialisation: " + str(other))
 
             print('Unable to open "' + config_file + '"' )
             print('Or variable assignment incorrect - forgot quotes for string?')
@@ -125,12 +128,12 @@ try:
 
     
     if wireshark_IP_Address != None:
-        print ("[i] Wireshark host is : " + wireshark_IP_Address)
-        print ("[i] Wireshark UDP port is : " + str(wireshark_Port))
+        logging.info("Wireshark host is : " + wireshark_IP_Address)
+        logging.info("Wireshark UDP port is : " + str(wireshark_Port))
 
     if len(args) != 0:
         filterString = args[0]
-        print("[i] Display Filter is :" + str(args[0]))            
+        logging.info("Display Filter is :" + str(args[0]))            
 
 
    
@@ -192,8 +195,8 @@ def ReceivePacket():
                 
                 pps_string = ". " + str(packets_per_Second) + " packets per second."
                 
-                logging.info('Keepalive check ' + time.asctime() + ' ' +
-                      str(packets_processed) + ' Packets Processed' + pps_string)
+                logging.info('Keepalive check ' + str(packets_processed)
+                             + ' Packets Processed' + pps_string)
                 
                 last_time_display = time.time()
                 packets_processed = 0
