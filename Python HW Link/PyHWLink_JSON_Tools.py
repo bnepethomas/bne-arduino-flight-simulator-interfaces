@@ -259,103 +259,6 @@ def updateCloseAction(workingkey):
 
 
 
-def ProcessReceivedString(ReceivedUDPString):
-    global input_assignments
-    global send_string
-    global learning
-    
-    logging.debug('Processing UDP String')
-
-    send_string = ""
-    
-    try:
-        if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
-            
-            logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
-            # Remove leading D
-            ReceivedUDPString = str(ReceivedUDPString[1:])
-            logging.debug('Checking for correct format :')
-
-            
-
-            workingSets =''
-            workingSets = ReceivedUDPString.split(',')
-            logging.debug('There are ' + str(len(workingSets)) + ' records')
-            counter = 0
-            for workingRecords in workingSets:
-                logging.debug('Record workingRecord number ' + str(counter) + ' ' +
-                      workingRecords)
-                counter = counter + 1
-                
-
-                workingFields = ''
-                workingFields = workingRecords.split(':')
-
-                
-                if len(workingFields) != 3:
-                    logging.warn('')
-                    logging.warn('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
-                    logging.warn('')
-                elif str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
-                    logging.warn('')
-                    logging.warn('WARNING - Invlaid 3rd parameter: ' + str(workingFields[2]))
-                    logging.warn('')                   
-                else:
-                    logging.debug('Stage 2 Processing: ' + str(workingFields))
-
-                    try:
-                        workingkey = workingFields[0] + ':' + workingFields[1]
-                        logging.debug('Working key is: ' + workingkey)
-                        
-                        logging.debug('Working Fields for working key are: ' +
-                              str(input_assignments[workingkey]))
-
-                        logging.debug('The value is: ' +
-                              str(input_assignments[workingkey]['Description']))
-
-
-                        if learning and input_assignments[workingkey]['Description'] == None:
-                                updateDescription(workingkey)
-                        print('Value for Description is : ' +
-                              str (input_assignments[workingkey]['Description']))
-
-                        # Switch is Closed
-                        if str(workingFields[2]) == '1':
-                            if learning and input_assignments[workingkey]['Close'] == None:
-                                updateCloseAction(workingkey)
-                            print('Value for Close is : ' +
-                              str (input_assignments[workingkey]['Close']))
-                            if input_assignments[workingkey]['Close'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Close']))
-
-                        # Switch is Opened
-                        if str(workingFields[2]) == '0':
-                            if learning and input_assignments[workingkey]['Open'] == None:
-                                updateOpenAction(workingkey)
-                            print('Value for Open is : ' +
-                                  str (input_assignments[workingkey]['Open']))
-                            if input_assignments[workingkey]['Open'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Open']))
-                            
-                        
-    
-                    except Exception as other:
-                        logging.critical('')
-                        logging.critical('WARNING - Unable to read record of interest in ProcessReceivedString')
-                        logging.critical('WARNING - Record name is: "' + workingkey + '"')
-                        logging.critical('')
-                        logging.critical("Error in ProcessReceivedString: " + str(other))
-                
-
-            Send_Remaining_Commands()
-            logging.debug('Continuing on')
-            
-
-
-    except Exception as other:
-        logging.critical("Error in ProcessReceivedString: " + str(other))
-
-
 
 
 def LoadDCSParameterFile():
@@ -493,12 +396,13 @@ def main():
     try:
         print('Starting Tools')
         load_assignments()
-        playtime()
         
+        playtime()
+       
         deletefield('Open')
         
         print('Exiting Tools')
- #       sys.exit(0)
+        sys.exit(0)
 
     except KeyboardInterrupt:
         # Catch Ctl-C and quit
