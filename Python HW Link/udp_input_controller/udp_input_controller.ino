@@ -14,10 +14,16 @@ note: this application will make the On-off-on toggle switch generate a button p
 but  this is not implemented yet
 for normal on- on toggle switch or if you don't need this feature then just plug the switch to push button area
 row 6~15 will be used to support push button or normal on-on toggle switch
+
+If using 5100 series Ethernet Shield may need to remove C3 as per 
+https://forum.arduino.cc/index.php?topic=99880.15
+
 */
 
 #define NUM_BUTTONS 256
 #define NUM_AXES  8        // 8 axes, X, Y, Z, etc
+#define STATUS_LED_PORT 7
+#define FLASH_TIME 100
 
 // 
 typedef struct joyReport_t {
@@ -72,10 +78,19 @@ const byte CWCCWCompareMask = B00001111;
 //store the rotary encoder's last pulse time, this will be used to remove the drift effect
 unsigned long prevEncoderMillis[ENCODER_COUNT];
 
+unsigned long prevLEDTransition = millis();
+
+
 //unsigned long loopTime;
 
 void setup() 
 {
+  
+  // Output Port for Status Monitoring
+  pinMode(STATUS_LED_PORT, OUTPUT);
+  digitalWrite(STATUS_LED_PORT, LOW);
+  
+  
   for( int portId = 22; portId < 38; portId ++ )
   {
     pinMode( portId, OUTPUT );
@@ -107,6 +122,8 @@ void setup()
   }
   /*---------------------------------------*/
 
+  
+
 }
 
 // Send an HID report to the USB interface
@@ -118,9 +135,24 @@ void sendJoyReport(struct joyReport_t *report)
   //{
     if (memcmp( report, &prevjoyReport, sizeof( joyReport_t ) ) != 0)
     {
-      Serial.write((uint8_t *)report, sizeof(joyReport_t));
+      //Serial.write((uint8_t *)report, sizeof(joyReport_t));
       memcpy ( &prevjoyReport, report, sizeof( joyReport_t ) );
     }
+
+
+    for ( int buttonid = 0; buttonid < 4; buttonid ++ )
+    {
+      Serial.print(buttonid);
+      if (joyReport.button[buttonid] == 1)
+        Serial.println("-1 ");
+      else
+        Serial.println("-0 ");    
+    }
+          
+    Serial.print("Timecheck ");
+    Serial.println(millis());
+
+    delay(300);
 
 //  Serial.println( millis() - prevMillis );
   //  prevMillis = millis();
@@ -382,6 +414,15 @@ void loop()
     //joyReport.axis[ind] = map(analogRead(54+ind), 0, 1023, -32768,32767 );
   }
   sendJoyReport(&joyReport);
+
+  // Flash Led 
+  if ( (millis() - prevLEDTransition) >=  FLASH_TIME)
+    {
+      digitalWrite(STATUS_LED_PORT, !digitalRead(STATUS_LED_PORT)); 
+      prevLEDTransition = millis();
+
+    }
+  
 //  delay(20);
 }
 
