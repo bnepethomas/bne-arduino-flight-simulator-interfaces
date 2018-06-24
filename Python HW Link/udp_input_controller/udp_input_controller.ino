@@ -1,4 +1,9 @@
 /* 
+Heavily based on 
+https://github.com/calltherain/ArduinoUSBJoystick
+
+Instead of sending to USB - sends over UDP
+
 Mega2560 R3, digitalPin 22~ 37 used as row0 ~ row 15, 
 digital pin 38~53 used as column 0 ~ 15,
 it's a 16 * 16  matrix, 
@@ -14,6 +19,7 @@ row 6~15 will be used to support push button or normal on-on toggle switch
 #define NUM_BUTTONS 256
 #define NUM_AXES  8        // 8 axes, X, Y, Z, etc
 
+// 
 typedef struct joyReport_t {
   int16_t axis[NUM_AXES];
   uint8_t button[(NUM_BUTTONS+7)/8]; // 8 buttons per byte
@@ -180,8 +186,11 @@ void loop()
     for ( int colid = 0; colid < 16; colid += 2 )
     {
       byte encoderValue = colResult[colid] << 1 | colResult[colid + 1];
+      
       //byte encoderValue = digitalRead(colid+38) << 1 | digitalRead(colid + 39);
+      
       byte encoderId = rowid * 8 + colid / 2;
+      
       //int encoderState = encoderTable[ prevEncoderValue[ encoderId ] << 2 | encoderValue ];
 
       int direction = 0;
