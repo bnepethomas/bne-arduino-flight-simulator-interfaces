@@ -288,7 +288,7 @@ void loop()
     // Throw packets out every 20 seconds for so
     // Currently used for testing but may also end up in production
     // So DCS code only sends data to a single device
-    if( (millis() - lastAltimeterOutputPacket) > 50) {
+    if( (millis() - lastAltimeterOutputPacket) > 100) {
       
       
       
