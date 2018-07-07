@@ -84,10 +84,10 @@ void loop()
 {
 
 
-  Serial.println("Main Loop"); 
-  for (unsigned int ind=0; ind < NUM_BUTTONS ; ind++) {
-    joyReport.button[ind] = 0;
-  }
+//  Serial.println("Main Loop"); 
+//  for (unsigned int ind=0; ind < NUM_BUTTONS ; ind++) {
+//    joyReport.button[ind] = 0;
+//  }
 
   
   //turn off all rows first
@@ -95,21 +95,20 @@ void loop()
   {
     //turn on the current row
     // why differentiate? rows
-    
+
+
+    if (rowid == 0) 
+      PORTC =  0xFF;
+    if (rowid == 8)
+      PORTA = 0xFF;
+      
     if (rowid < 8)
     {
-      // Shift 1c right 
+      // Shift 1 right  - this is actually pulling port down
       PORTA = ~(0x1 << rowid);
-      PORTC =  0xFF;
     }
     else
     {
-      // Port A high? Shift 1 right
-      Serial.print(".");
-      Serial.print(rowid);
-      Serial.print("-");
-      PORTA = 0xFF;
-      Serial.println(15 - rowid);
       PORTC = ~(0x1 << (15 - rowid) );
     }
 
@@ -162,11 +161,11 @@ void loop()
     {
       if ( colResult[ colid ] == 1 )
       {
-        joyReport.button[ rowid * 8 + colid ] =  1;
+        joyReport.button[ (rowid * 16) + colid ] =  1;
       }
       else
       {
-        joyReport.button[ rowid * 8 + colid ] =  0;
+        joyReport.button[ (rowid * 16) + colid ] =  0;
       }
     }
   }
@@ -177,14 +176,14 @@ void loop()
 
 
 
-  for ( unsigned int buttonid = 0; buttonid < NUM_BUTTONS; buttonid ++ )
+  for ( int buttonid = 0; buttonid < NUM_BUTTONS; buttonid ++ )
   {
 
-//    if ((buttonid % 16) == 0)
-//      Serial.println();
-//      
-//    sprintf(cButtonID, "%3d", buttonid);    
-//    Serial.print(cButtonID);
+    if ((buttonid % 16) == 0)
+      Serial.println();
+      
+    //sprintf(cButtonID, "%3d", buttonid);    
+//    Serial.print(buttonid);
 //    Serial.print("-");
 //    Serial.print(joyReport.button[buttonid]);
 //    
@@ -192,32 +191,32 @@ void loop()
     
     if (joyReport.button[buttonid] != 0)
     {
-      //Serial.print(cButtonID);
+      Serial.print(buttonid);
       Serial.print("-");
       Serial.print("1 ");
     }
-    else
-    {
+//    else
+//    {
 //      Serial.print(cButtonID);
 //      Serial.print("-");
 //      Serial.print("0 "); 
-    }
+//    }
   }
 
-  Serial.println(""); 
+//  Serial.println(""); 
+//  delay(1);
+
+
+  
+
+//  // Flash Led 
+//  if ( (millis() - prevLEDTransition) >=  FLASH_TIME)
+//    {
+//      digitalWrite(STATUS_LED_PORT, !digitalRead(STATUS_LED_PORT)); 
+//      prevLEDTransition = millis();
+//
+//    }
+  
   delay(1000);
-
-
-  
-
-  // Flash Led 
-  if ( (millis() - prevLEDTransition) >=  FLASH_TIME)
-    {
-      digitalWrite(STATUS_LED_PORT, !digitalRead(STATUS_LED_PORT)); 
-      prevLEDTransition = millis();
-
-    }
-  
-//  delay(20);
 }
 
