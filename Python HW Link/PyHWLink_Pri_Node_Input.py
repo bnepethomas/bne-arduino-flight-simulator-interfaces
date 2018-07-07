@@ -83,7 +83,8 @@ except:
     AircraftType = 'default'
 
 
-UDP_IP_ADDRESS = "127.0.0.1"
+# UDP_IP_ADDRESS = "127.0.0.1"
+UDP_IP_ADDRESS = "0"
 UDP_PORT_NO = 26027
 DCS_IP_ADDRESS = "127.0.0.1"
 DCS_PORT_NO = 26026
@@ -322,7 +323,7 @@ def ProcessReceivedString(ReceivedUDPString):
                     logging.warn('')
                 elif str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
                     logging.warn('')
-                    logging.warn('WARNING - Invlaid 3rd parameter: ' + str(workingFields[2]))
+                    logging.warn('WARNING - Invalid 3rd parameter: ' + str(workingFields[2]))
                     logging.warn('')                   
                 else:
                     logging.debug('Stage 2 Processing: ' + str(workingFields))

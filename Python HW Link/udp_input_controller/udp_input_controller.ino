@@ -23,24 +23,49 @@ https://forum.arduino.cc/index.php?topic=99880.15
 
 // 
 struct joyReport_t {
-  unsigned int button[NUM_BUTTONS]; // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
+   int button[NUM_BUTTONS]; // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
 };
 
-const unsigned int ScanDelay = 40;
+const  int ScanDelay = 40;
 
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
 
-unsigned long prevLEDTransition = millis();
+long prevLEDTransition = millis();
 int cButtonID[16];
 bool bFirstTime = false;
+
+
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+
+// Need to check if this manually assigned Mac has been used elsewhere
+byte mac[] = { 
+  0xA9,0xE7,0x3E,0xCA,0x35,0x01};
+IPAddress ip(192,168,3,101);
+
+IPAddress targetIP (192,168,3,100);
+const unsigned int localport = 7788;
+const unsigned int remoteport = 26027;
+const unsigned int reflectorport = 27000;
+
+EthernetUDP udp;
+char packetBuffer[1000];     //buffer to store the incoming data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
+
 
 
 //unsigned long loopTime;
 
 void setup() 
 {
-  
+
+  Serial.begin(115200);
+  Serial.println("UDP Input Connector Setup");
+
+
+  Serial.println("Initialising I/O Pins");
   // Output Port for Status Monitoring
   pinMode(STATUS_LED_PORT, OUTPUT);
   digitalWrite(STATUS_LED_PORT, LOW);
@@ -52,21 +77,28 @@ void setup()
   }
   for( int portId = 38; portId < 54; portId ++ )
   {
+    // Even though we've already got 10K external pullups
     pinMode( portId, INPUT_PULLUP);
   }
-
-
-  Serial.begin(115200);
-  Serial.println("Setup");
-  delay(200);
 
 
 
   for (int ind=0; ind < NUM_BUTTONS ; ind++) {
     joyReport.button[ind] = 0;
+    prevjoyReport.button[ind] = 0;
   }
   
 
+  Serial.println("Starting IP Stack");
+  Ethernet.begin( mac, ip);
+  udp.begin( localport );
+
+
+  udp.beginPacket(targetIP, reflectorport);
+  udp.println("Init UDP");
+  udp.endPacket();
+
+  Serial.println("System Initialisation Complete");
 }
 
 
@@ -241,6 +273,14 @@ void loop()
     {
       digitalWrite(STATUS_LED_PORT, !digitalRead(STATUS_LED_PORT)); 
       prevLEDTransition = millis();
+
+      udp.beginPacket(targetIP, reflectorport);
+      udp.println("Init UDP");
+      udp.endPacket();
+
+      udp.beginPacket(targetIP, remoteport);
+      udp.println("D01:100:0");
+      udp.endPacket();
 
     }
 
