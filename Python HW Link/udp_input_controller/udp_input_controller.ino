@@ -7,16 +7,9 @@ Instead of sending to USB - sends over UDP
 Mega2560 R3, 
 digitalPin 22~ 37 used as row0 ~ row 15, 
 digital pin 38~53 used as column 0 ~ 15,
-it's a 16 * 16  matrix, 
+When an Ethernet shield is connected Columns 13 and 14 are pulled up to 1.5V - so do not use
 
-
-
-row 0, 1, 2 ,3 will be used to support 32 rotary encoder
-row 4, 5 will be used to support 16 On - off - On toggle switches, 
-note: this application will make the On-off-on toggle switch generate a button push signal when toggle from On to off, 
-but  this is not implemented yet
-for normal on- on toggle switch or if you don't need this feature then just plug the switch to push button area
-row 6~15 will be used to support push button or normal on-on toggle switch
+it's a 16 * 14  matrix (due to loss of two columns) 
 
 If using 5100 series Ethernet Shield may need to remove C3 as per 
 https://forum.arduino.cc/index.php?topic=99880.15
@@ -26,7 +19,7 @@ https://forum.arduino.cc/index.php?topic=99880.15
 #define NUM_BUTTONS 256
 #define NUM_AXES  8        // 8 axes, X, Y, Z, etc
 #define STATUS_LED_PORT 7
-#define FLASH_TIME 100
+#define FLASH_TIME 200
 
 // 
 struct joyReport_t {
@@ -38,10 +31,10 @@ const unsigned int ScanDelay = 40;
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
 
-
-
 unsigned long prevLEDTransition = millis();
 int cButtonID[16];
+bool bFirstTime = false;
+
 
 //unsigned long loopTime;
 
@@ -69,7 +62,7 @@ void setup()
 
 
 
-  for (unsigned int ind=0; ind < NUM_BUTTONS ; ind++) {
+  for (int ind=0; ind < NUM_BUTTONS ; ind++) {
     joyReport.button[ind] = 0;
   }
   
@@ -78,6 +71,35 @@ void setup()
 
 
 
+
+void FindInputChanges()
+{
+
+  for (int ind=0; ind < NUM_BUTTONS; ind++)
+    if (bFirstTime) {
+
+      bFirstTime = false;
+      // Just Copy Array and perform no actions - this may change in the future
+      prevjoyReport.button[ind] = joyReport.button[ind];    
+    }
+    else {
+      // Not the first time - see if there is a difference from last time
+      // If there is perform action and update prev array 
+      if ( prevjoyReport.button[ind] != joyReport.button[ind] ){
+
+        Serial.print("Input Change. Input ");
+        Serial.print(ind);
+        Serial.print(" changed to ");
+        if (prevjoyReport.button[ind] == 0)
+          Serial.println("0");
+        else
+          Serial.println("1");
+        
+        prevjoyReport.button[ind] = joyReport.button[ind]; 
+      }
+      
+    }
+}
 
 
 void loop() 
@@ -151,9 +173,14 @@ void loop()
     //pin 50, PB3
     colResult[12] =(PINB & B00001000) == 0 ? 1 : 0;
     //pin 51, PB2
-    colResult[13] =(PINB & B00000100) == 0 ? 1 : 0;
+    
+    
+    //colResult[13] =(PINB & B00000100) == 0 ? 1 : 0;
+    colResult[13] = 0;
     //pin 52, PB1
-    colResult[14] =(PINB & B00000010) == 0 ? 1 : 0;
+    //colResult[14] =(PINB & B00000010) == 0 ? 1 : 0;
+    colResult[14] = 0;
+    
     //pin 53, PB0
     colResult[15] =(PINB & B00000001) == 0 ? 1 : 0;
 
@@ -176,11 +203,11 @@ void loop()
 
 
 
-  for ( int buttonid = 0; buttonid < NUM_BUTTONS; buttonid ++ )
-  {
+//  for ( int buttonid = 0; buttonid < NUM_BUTTONS; buttonid ++ )
+//  {
 
-    if ((buttonid % 16) == 0)
-      Serial.println();
+//    if ((buttonid % 16) == 0)
+//      Serial.println();
       
     //sprintf(cButtonID, "%3d", buttonid);    
 //    Serial.print(buttonid);
@@ -189,19 +216,19 @@ void loop()
 //    
 //    Serial.print(" ");
     
-    if (joyReport.button[buttonid] != 0)
-    {
-      Serial.print(buttonid);
-      Serial.print("-");
-      Serial.print("1 ");
-    }
+//    if (joyReport.button[buttonid] != 0)
+//    {
+//      Serial.print(buttonid);
+//      Serial.print("-");
+//      Serial.print("1 ");
+//    }
 //    else
 //    {
 //      Serial.print(cButtonID);
 //      Serial.print("-");
 //      Serial.print("0 "); 
 //    }
-  }
+//  }
 
 //  Serial.println(""); 
 //  delay(1);
@@ -209,14 +236,15 @@ void loop()
 
   
 
-//  // Flash Led 
-//  if ( (millis() - prevLEDTransition) >=  FLASH_TIME)
-//    {
-//      digitalWrite(STATUS_LED_PORT, !digitalRead(STATUS_LED_PORT)); 
-//      prevLEDTransition = millis();
-//
-//    }
-  
-  delay(1000);
+  // Flash Led 
+  if ( (millis() - prevLEDTransition) >=  FLASH_TIME)
+    {
+      digitalWrite(STATUS_LED_PORT, !digitalRead(STATUS_LED_PORT)); 
+      prevLEDTransition = millis();
+
+    }
+
+  FindInputChanges();
+  //delay(10);
 }
 
