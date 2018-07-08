@@ -30,9 +30,7 @@
         "Open": "Port 5 Open"
     }, 
     "00:006": {
-        "Close": "Port 6 Close", 
-        "Description": "Port 6", 
-        "Open": "Port 6 Open"
+        "Description": ""
     }, 
     "00:007": {
         "Close": "Port 7 Close", 
@@ -1780,8 +1778,8 @@
         "Open": null
     }, 
     "01:100": {
-        "Close": null, 
-        "Description": null, 
+        "Close": "test", 
+        "Description": "test", 
         "Open": null
     }, 
     "01:101": {

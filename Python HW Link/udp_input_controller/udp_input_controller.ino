@@ -50,11 +50,14 @@ const unsigned int localport = 7788;
 const unsigned int remoteport = 26027;
 const unsigned int reflectorport = 27000;
 
+const int deviceID = 1;
+
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
-
+char outData[100];
+String outString;
 
 //unsigned long loopTime;
 
@@ -122,10 +125,33 @@ void FindInputChanges()
         Serial.print("Input Change. Input ");
         Serial.print(ind);
         Serial.print(" changed to ");
-        if (prevjoyReport.button[ind] == 0)
+
+        //sprintf(cButtonID, "%3d", buttonid);
+        //sprintf(cind, "%3d", ind);
+
+        outString = "D1";
+        outString = outString + deviceID + ":" + ind + ":"; 
+        
+        if (prevjoyReport.button[ind] == 0) {
           Serial.println("0");
-        else
-          Serial.println("1");
+          outString = outString +  "0"; 
+
+        }  
+        else {
+          Serial.println("1");      
+          outString = outString + "1"; 
+        }
+
+        Serial.println(outString);
+        //outData = "D01:100:1";
+        udp.beginPacket(targetIP, reflectorport);
+        udp.print(outString);
+        udp.endPacket();
+        
+        
+        udp.beginPacket(targetIP, remoteport);
+        udp.print(outString);
+        udp.endPacket();
         
         prevjoyReport.button[ind] = joyReport.button[ind]; 
       }
@@ -274,13 +300,14 @@ void loop()
       digitalWrite(STATUS_LED_PORT, !digitalRead(STATUS_LED_PORT)); 
       prevLEDTransition = millis();
 
-      udp.beginPacket(targetIP, reflectorport);
-      udp.println("Init UDP");
-      udp.endPacket();
-
-      udp.beginPacket(targetIP, remoteport);
-      udp.println("D01:100:0");
-      udp.endPacket();
+//      udp.beginPacket(targetIP, reflectorport);
+//      udp.print("D01:100:0");
+//      udp.endPacket();
+//
+//
+//      udp.beginPacket(targetIP, remoteport);
+//      udp.print("D01:100:0");
+//      udp.endPacket();
 
     }
 
