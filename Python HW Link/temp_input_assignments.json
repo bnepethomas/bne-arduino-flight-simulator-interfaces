@@ -1278,34 +1278,34 @@
         "Open": null
     }, 
     "01:000": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "fkfkf", 
+        "Description": "ddd", 
+        "Open": "dd"
     }, 
     "01:001": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "test", 
+        "Description": "test", 
+        "Open": "test"
     }, 
     "01:002": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "test", 
+        "Description": "test2", 
+        "Open": "testee"
     }, 
     "01:003": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "dddd", 
+        "Description": "ldkfj", 
+        "Open": "dd"
     }, 
     "01:004": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "y", 
+        "Description": "dkjfsal'kjdf", 
+        "Open": "ff"
     }, 
     "01:005": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "dkf", 
+        "Description": "ff;lkdf", 
+        "Open": "dlkd"
     }, 
     "01:006": {
         "Close": null, 
@@ -1313,9 +1313,9 @@
         "Open": null
     }, 
     "01:007": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "sl;dkfs;lkf", 
+        "Description": "ds;lfk", 
+        "Open": "dd"
     }, 
     "01:008": {
         "Close": null, 
@@ -1778,8 +1778,8 @@
         "Open": null
     }, 
     "01:100": {
-        "Close": "test", 
-        "Description": "test", 
+        "Close": null, 
+        "Description": null, 
         "Open": null
     }, 
     "01:101": {

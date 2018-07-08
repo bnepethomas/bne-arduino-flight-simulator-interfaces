@@ -50,13 +50,14 @@ const unsigned int localport = 7788;
 const unsigned int remoteport = 26027;
 const unsigned int reflectorport = 27000;
 
-const int deviceID = 1;
+const String deviceID = "01";
 
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 char outData[100];
+char stringind[5];
 String outString;
 
 //unsigned long loopTime;
@@ -122,27 +123,34 @@ void FindInputChanges()
       // If there is perform action and update prev array 
       if ( prevjoyReport.button[ind] != joyReport.button[ind] ){
 
-        Serial.print("Input Change. Input ");
-        Serial.print(ind);
-        Serial.print(" changed to ");
+//        Serial.print("Input Change. Input ");
+//        Serial.print(ind);
+//        Serial.print(" changed to ");
 
-        //sprintf(cButtonID, "%3d", buttonid);
-        //sprintf(cind, "%3d", ind);
+        
+        sprintf(stringind, "%03d", ind);
+ 
 
-        outString = "D1";
-        outString = outString + deviceID + ":" + ind + ":"; 
+
+//        Serial.println(stringind);
+
+        outString = "D";
+        outString = outString + deviceID + ":" + String(stringind) + ":"; 
+
+//        Serial.println(outString);
         
         if (prevjoyReport.button[ind] == 0) {
-          Serial.println("0");
+//          Serial.println("0");
           outString = outString +  "0"; 
 
         }  
         else {
-          Serial.println("1");      
+//          Serial.println("1");      
           outString = outString + "1"; 
         }
 
-        Serial.println(outString);
+//y
+y
         //outData = "D01:100:1";
         udp.beginPacket(targetIP, reflectorport);
         udp.print(outString);
