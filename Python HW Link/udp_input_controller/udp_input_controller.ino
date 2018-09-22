@@ -149,8 +149,7 @@ void FindInputChanges()
           outString = outString + "1"; 
         }
 
-//y
-y
+//
         //outData = "D01:100:1";
         udp.beginPacket(targetIP, reflectorport);
         udp.print(outString);
@@ -322,4 +321,3 @@ void loop()
   FindInputChanges();
   //delay(10);
 }
-
