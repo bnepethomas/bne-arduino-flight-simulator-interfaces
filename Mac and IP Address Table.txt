@@ -24,8 +24,11 @@ IP Addresses
 192.168.1.105	Fuel Stepper A10
 192.168.1.106	UDP OLED A10
 192.168.1.107	Compass A10
+192.168.1.144	Pi Eth0
+192.168.1.145 	Pi Wlan0
 192.168.2.205	737-Overhead-Arduino
 192.168.2.206   737-MIP-Stickshaker
+192.168.3.100	PI HW Interface
 192.168.3.101	Input 1
-192.168.3.107  Altimeter
+192.168.3.107   Altimeter
 
