@@ -37,7 +37,57 @@ def CalcChecksum(strToCalc):
     return(mychecksum)
     #ser.write(str.encode('$GPRMC,160533.00,A,1002.3552,N,01045.51552,E,400,0,010413,0,E*73\r\n'))
 
+def Send_GPRMC():
 
+    outStartOfString = 'GPRMC'
+    outStatus = 'A'
+
+    outSpeed = '299'
+    outTrackMadeGood = '30'
+    outMagVar = '0'
+    outMagEorW = 'E'
+    outEndOfString = '*'
+
+    # Assemble string
+    outcompletestring = outStartOfString + "," + outUTC + ","
+    outcompletestring = outcompletestring + outStatus + ","
+    outcompletestring = outcompletestring + xoutputstr + "," + outNorS + ","
+    outcompletestring = outcompletestring + youtputstr + "," + outEorW + ","
+    outcompletestring = outcompletestring + outSpeed + ","
+    outcompletestring = outcompletestring + outTrackMadeGood + ","
+    outcompletestring = outcompletestring + outDate + ","
+    outcompletestring = outcompletestring + outMagVar + "," + outMagEorW 
+
+    outputstring = '$' + outcompletestring + '*' + CalcChecksum(outcompletestring) + '\r\n'
+    print(outputstring)
+    ser.write(str.encode(outputstring))
+
+def Send_GPGGA():
+    outStartOfString = "GPGGA"
+    outGPSFix = "2";
+    outNoofSatellites = "05"
+    outPrecision = "0.0"
+    outEndOfString = "*"
+
+    outcompletestring = outStartOfString + "," + outUTC + ","
+    outcompletestring = outcompletestring + xoutputstr + "," + outNorS + ","
+    outcompletestring = outcompletestring + youtputstr + "," + outEorW + ","
+    outcompletestring = outcompletestring + outGPSFix + ","
+    outcompletestring = outcompletestring + outNoofSatellites + ","
+    outcompletestring = outcompletestring + outPrecision + ","
+    outcompletestring = outcompletestring + '6999' + ".0,M,,,,"
+    outcompletestring = outcompletestring 
+
+
+    outputstring = '$' + outcompletestring + '*' + CalcChecksum(outcompletestring) + '\r\n'
+    print(outputstring)
+
+
+def Send_GPGAS():
+    #  Out Satellite status
+    outputstring = "GPGSA,A,3,01,02,03,,,,,,,,,,3.0,3.0,3.0,*"
+    outputstring = '$' + outputstring + '*' +  CalcChecksum(outputstring) + '\r\n'
+    ser.write(str.encode(outputstring))
 
 
 # Reference - teststring
@@ -59,57 +109,10 @@ outEorW = 'E'
 ## Sucessfully calculated check sum by stripping leading $ and all characters post *
 # To output will need to prepend $, append * - the ASCII chars of the hex checksum and then CRLF
 
-#### From c#
-outStartOfString = 'GPRMC'
-outStatus = 'A'
+Send_GPRMC()
+Send_GPGGA()
+Send_GPGAS()
 
-outSpeed = '299'
-outTrackMadeGood = '30'
-outMagVar = '0'
-outMagEorW = 'E'
-outEndOfString = '*'
-
-# Assemble string
-outcompletestring = outStartOfString + "," + outUTC + ","
-outcompletestring = outcompletestring + outStatus + ","
-outcompletestring = outcompletestring + xoutputstr + "," + outNorS + ","
-outcompletestring = outcompletestring + youtputstr + "," + outEorW + ","
-outcompletestring = outcompletestring + outSpeed + ","
-outcompletestring = outcompletestring + outTrackMadeGood + ","
-outcompletestring = outcompletestring + outDate + ","
-outcompletestring = outcompletestring + outMagVar + "," + outMagEorW 
-
-outputstring = '$' + outcompletestring + '*' + CalcChecksum(outcompletestring) + '\r\n'
-print(outputstring)
-ser.write(str.encode(outputstring))
-
-
-
-outStartOfString = "GPGGA"
-outGPSFix = "2";
-outNoofSatellites = "05"
-outPrecision = "0.0"
-outEndOfString = "*"
-
-outcompletestring = outStartOfString + "," + outUTC + ","
-outcompletestring = outcompletestring + xoutputstr + "," + outNorS + ","
-outcompletestring = outcompletestring + youtputstr + "," + outEorW + ","
-outcompletestring = outcompletestring + outGPSFix + ","
-outcompletestring = outcompletestring + outNoofSatellites + ","
-outcompletestring = outcompletestring + outPrecision + ","
-outcompletestring = outcompletestring + '6999' + ".0,M,,,,"
-outcompletestring = outcompletestring 
-
-
-outputstring = '$' + outcompletestring + '*' + CalcChecksum(outcompletestring) + '\r\n'
-print(outputstring)
-
-
-
-#  Out Satellite status
-outputstring = "GPGSA,A,3,01,02,03,,,,,,,,,,3.0,3.0,3.0,*"
-outputstring = '$' + outputstring + '*' +  CalcChecksum(outputstring) + '\r\n'
-ser.write(str.encode(outputstring))
 
 
 
