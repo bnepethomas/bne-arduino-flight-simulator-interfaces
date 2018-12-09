@@ -141,25 +141,25 @@ longSeconds = 72900
 
 while ( j < 4600):
     
-    youtputstr = str(longDegrees).zfill(2) + str(longMinutes).zfill(2) + '.' + str(latSeconds)
+    youtputstr = str(longDegrees).zfill(2) + str(longMinutes).zfill(2) + '.' + str(longSeconds)
     
-    time.sleep(0.01)
+    time.sleep(0.1)
     longMinutes = longMinutes + 1
+    longDegrees = longDegrees + 1
     if (longMinutes > 59):
         longMinutes = 0
         longDegrees = longDegrees + 1
-        if (longDegrees > 179):
-            longDegrees = 0
+    if (longDegrees > 179):
+        longDegrees = 0
             
     Send_GPRMC()
     Send_GPGGA()
     Send_GPGSA()
         
-    time.sleep(0.01)
 
     j = j + 1
     i = 0
-    while (i < 4600):
+    while (i < 100):
         xoutputval = xoutputval + 1
         xoutputstr = str(latDegrees).zfill(2) + str(latMinutes).zfill(2) + '.' + str(latSeconds)
         
@@ -168,13 +168,14 @@ while ( j < 4600):
         Send_GPGGA()
         Send_GPGSA()
         
-        time.sleep(0.01)
+        time.sleep(0.1)
         latMinutes = latMinutes + 1
+        latDegrees = latDegrees + 1
         if (latMinutes > 59):
             latMinutes = 0
             latDegrees = latDegrees + 1
-            if (latDegrees > 74):
-                latDegrees = 0
+        if (latDegrees > 74):
+            latDegrees = 0
                 
         i = i + 1
         print('Count is ' + str(i) + ' ' + xoutputstr)
