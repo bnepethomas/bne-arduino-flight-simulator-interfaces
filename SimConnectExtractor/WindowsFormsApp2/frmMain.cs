@@ -13,13 +13,31 @@ using LockheedMartin.Prepar3D.SimConnect;
 using System.Runtime.InteropServices;
 
 //      Based on C# in SDK - which is also found here
+//
+//
+//      Useful URLS
+//          https://www.prepar3d.com/SDKv4/sdk/simconnect_api/managed_simconnect_projects.html
+//  
+//          Variables
+//              https://www.prepar3d.com/SDKv4/sdk/references/variables/simulation_variables.html
+//          
+
+
+//      Things slightly different to previous projects
+//          Should specify target CPU architecture (x64) versus any.
+//          When doing final build change from debug to release
+//          Unsure what happens  if running on a remote computer or if SDK isn't already installed
+//
 //      Need to add Sockets interface to throw data to Pi
+// Currently not using the most efficent way to get data - can simply create a subscription
+//          http://www.prepar3d.com/SDKv4/LearningCenter.php
+//          http://www.prepar3d.com/SDKv4/sdk/simconnect_api/references/simobject_functions.html
 
 namespace WindowsFormsApp2
 {
 
 
-        public partial class frmMain : Form
+    public partial class frmMain : Form
     {
 
         // User-defined win32 event 
