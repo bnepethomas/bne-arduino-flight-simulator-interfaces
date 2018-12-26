@@ -17,6 +17,7 @@ Ports
 13135		737-Overhead-Arduino
 13135		UDP OLED A10
 13135		Fuel Stepper A10
+13136		GPS_UDP_Serial_Convertor
 
 IP Addresses
 
@@ -31,4 +32,5 @@ IP Addresses
 192.168.3.100	PI HW Interface
 192.168.3.101	Input 1
 192.168.3.107   Altimeter
+192.168.3.108	GPS_UDP_Serial_Convertor
 
