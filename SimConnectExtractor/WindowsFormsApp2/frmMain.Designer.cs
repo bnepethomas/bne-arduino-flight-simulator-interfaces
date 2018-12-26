@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp2
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -46,7 +46,7 @@
             this.buttonConnect.TabIndex = 0;
             this.buttonConnect.Text = "Connect";
             this.buttonConnect.UseVisualStyleBackColor = true;
-            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click_1);
+            this.buttonConnect.Click += new System.EventHandler(this.buttonConnect_Click);
             // 
             // buttonDisconnect
             // 
@@ -56,7 +56,7 @@
             this.buttonDisconnect.TabIndex = 1;
             this.buttonDisconnect.Text = "Disconnect";
             this.buttonDisconnect.UseVisualStyleBackColor = true;
-            this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click_1);
+            this.buttonDisconnect.Click += new System.EventHandler(this.buttonDisconnect_Click);
             // 
             // buttonRequestData
             // 
@@ -66,7 +66,7 @@
             this.buttonRequestData.TabIndex = 2;
             this.buttonRequestData.Text = "Request Data";
             this.buttonRequestData.UseVisualStyleBackColor = true;
-            this.buttonRequestData.Click += new System.EventHandler(this.buttonRequestData_Click_1);
+            this.buttonRequestData.Click += new System.EventHandler(this.buttonRequestData_Click);
             // 
             // richResponse
             // 
@@ -100,7 +100,7 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // Form1
+            // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -111,7 +111,7 @@
             this.Controls.Add(this.buttonRequestData);
             this.Controls.Add(this.buttonDisconnect);
             this.Controls.Add(this.buttonConnect);
-            this.Name = "Form1";
+            this.Name = "frmMain";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

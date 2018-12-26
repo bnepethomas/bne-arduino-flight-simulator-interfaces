@@ -12,11 +12,14 @@ using System.Windows.Forms;
 using LockheedMartin.Prepar3D.SimConnect;
 using System.Runtime.InteropServices;
 
+//      Based on C# in SDK - which is also found here
+//      Need to add Sockets interface to throw data to Pi
+
 namespace WindowsFormsApp2
 {
 
 
-        public partial class Form1 : Form
+        public partial class frmMain : Form
     {
 
         // User-defined win32 event 
@@ -49,7 +52,7 @@ namespace WindowsFormsApp2
         };
 
 
-        public Form1()
+        public frmMain()
         {
             InitializeComponent();
 
@@ -236,54 +239,23 @@ namespace WindowsFormsApp2
 
         }
 
-        private void buttonConnect_Click_1(object sender, EventArgs e)
-        {
-            if (simconnect == null)
-            {
-                try
-                {
-                    // the constructor is similar to SimConnect_Open in the native API 
-                    simconnect = new SimConnect("Managed Data Request", this.Handle, WM_USER_SIMCONNECT, null, 0);
 
-                    setButtons(false, true, true);
 
-                    initDataRequest();
 
-                }
-                catch (COMException ex)
-                {
-                    displayText("Unable to connect to Prepar3D:\n\n" + ex.Message);
-                }
-            }
-            else
-            {
-                displayText("Error - try again");
-                closeConnection();
 
-                setButtons(true, false, false);
-            }
-        }
 
-        private void buttonDisconnect_Click_1(object sender, EventArgs e)
-        {
-
-            closeConnection();
-            setButtons(true, false, false);
-
-        }
-
-        private void buttonRequestData_Click_1(object sender, EventArgs e)
-        {
-            // The following call returns identical information to: 
-            // simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.ONCE); 
-
-            simconnect.RequestDataOnSimObjectType(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, 0, SIMCONNECT_SIMOBJECT_TYPE.USER);
-            displayText("Request sent...");
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            simconnect.RequestDataOnSimObjectType(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, 0, SIMCONNECT_SIMOBJECT_TYPE.USER);
+            try
+            {
+                simconnect.RequestDataOnSimObjectType(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, 0, SIMCONNECT_SIMOBJECT_TYPE.USER);
+            }
+            catch
+            {
+                // Just fail silently for the moment
+                displayText("Unable to get data from SimConnect...");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

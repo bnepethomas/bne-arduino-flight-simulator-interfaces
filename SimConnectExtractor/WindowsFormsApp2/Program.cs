@@ -9,7 +9,7 @@ using System.Drawing;
 using System.Text;
 
 
-// Add these two statements to all SimConnect clients 
+
 using WindowsFormsApp2;
 
 namespace Managed_Data_Request
@@ -24,7 +24,7 @@ namespace Managed_Data_Request
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new frmMain());
         }
     }
 }
