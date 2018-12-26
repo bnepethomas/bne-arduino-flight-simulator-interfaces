@@ -6,6 +6,16 @@
 #     GLL, RMC, RMB, GGA, GSA, GSV, APB
 # Currently Exporting- RMC, GGA and GSA
 
+#   $GPGGA - Global Positioning System Fix Data
+#   $GPGSA - GPS DOP and active satellites 
+#   $GPRMC - Recommended minimum specific GPS/Transit data
+
+#   $GPRMB - Recommended minimum navigation info
+#   $GPGSV - GPS Satellites in view
+#   $GPAPB - Auto Pilot
+
+
+
 import binascii
 import time
 import codecs
@@ -49,6 +59,8 @@ def CalcChecksum(strToCalc):
 
 def Send_GPRMC():
 
+    localDebugging = False
+
     outStartOfString = 'GPRMC'
     outStatus = 'A'
     outEndOfString = '*'
@@ -69,9 +81,10 @@ def Send_GPRMC():
     ser.write(str.encode(outputstring))
 
 def Send_GPGGA():
+    localDebugging = False
     outStartOfString = "GPGGA"
-    outGPSFix = "2";
-    outNoofSatellites = "05"
+    outGPSFix = "6";
+    outNoofSatellites = "03"
     outPrecision = "0.0"
     outEndOfString = "*"
 
@@ -81,19 +94,22 @@ def Send_GPGGA():
     outcompletestring = outcompletestring + outGPSFix + ","
     outcompletestring = outcompletestring + outNoofSatellites + ","
     outcompletestring = outcompletestring + outPrecision + ","
-    outcompletestring = outcompletestring + '699' + ".0,M,,,,"
+    outcompletestring = outcompletestring + str(outAltitude) + ".0,M,,,,"
     outcompletestring = outcompletestring 
 
 
     outputstring = '$' + outcompletestring + '*' + CalcChecksum(outcompletestring) + '\r\n'
+    
+  
     if localDebugging:
         print(outputstring)
     ser.write(str.encode(outputstring))
 
 def Send_GPGSA():
     #  Out Satellite status
-    outputstring = "GPGSA,A,3,01,02,03,,,,,,,,,,3.0,3.0,3.0,*"
+    outputstring = "GPGSA,A,3,01,02,03,,,,,,,,,,3.0,3.0,3.0"
     outputstring = '$' + outputstring + '*' +  CalcChecksum(outputstring) + '\r\n'
+
     if localDebugging:
         print (outputstring)
     ser.write(str.encode(outputstring))
@@ -108,7 +124,7 @@ if False:
     ser.write(str.encode(outputstring))
 
 outUTC = '160533.00'
-outDate = "010413"
+outDate = "010418"
 xoutputstr = '2723.4120'
 outNorS = 'S'
 youtputstr = '15307.72900'
@@ -117,6 +133,7 @@ outSpeed = '299'
 outTrackMadeGood = '0'
 outMagVar = '0'
 outMagEorW = 'E'
+outAltitude = 1
 
 
 ## Sucessfully calculated check sum by stripping leading $ and all characters post *
@@ -143,8 +160,8 @@ while ( j < 4600):
     
     youtputstr = str(longDegrees).zfill(2) + str(longMinutes).zfill(2) + '.' + str(longSeconds)
     
-    time.sleep(0.1)
-    longMinutes = longMinutes + 1
+    time.sleep(1)
+    #longMinutes = longMinutes + 1
     longDegrees = longDegrees + 1
     if (longMinutes > 59):
         longMinutes = 0
@@ -168,17 +185,23 @@ while ( j < 4600):
         Send_GPGGA()
         Send_GPGSA()
         
-        time.sleep(0.1)
+        time.sleep(2)
         latMinutes = latMinutes + 1
-        latDegrees = latDegrees + 1
+        #latDegrees = latDegrees + 1
         if (latMinutes > 59):
             latMinutes = 0
             latDegrees = latDegrees + 1
         if (latDegrees > 74):
             latDegrees = 0
-                
+         
+         
+         
         i = i + 1
         print('Count is ' + str(i) + ' ' + xoutputstr)
+        
+        outAltitude = outAltitude + 10
+        if (outAltitude > 15000):
+            outAltitude = 1
 
 print('Finished')
 
