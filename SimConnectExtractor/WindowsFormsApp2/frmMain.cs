@@ -7,10 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
+using System.Net.Sockets;
 
-// Add these two statements to all SimConnect clients 
+// SimConnect Services
 using LockheedMartin.Prepar3D.SimConnect;
 using System.Runtime.InteropServices;
+
+
 
 //      Based on C# in SDK - which is also found here
 //
@@ -56,6 +60,10 @@ namespace WindowsFormsApp2
             REQUEST_1,
         };
 
+        string UDP_Playload;
+        UdpClient udpClient = new UdpClient();
+        
+
         // this is how you declare a data structure so that 
         // simconnect knows how to fill it/read it. 
         // When Adding variables to receive need to add them to this datastructure as well as the request itself ininitDataRequest
@@ -72,7 +80,7 @@ namespace WindowsFormsApp2
             public double elapsedsimtime;
             public double zulu_time;
             public Int32 time_zone_offset;
-            public double absoulte_time;
+            public double absolute_time;
             public double plane_heading_degrees_true;
             public double plane_heading_degrees_magnetic;
         };
@@ -93,6 +101,7 @@ namespace WindowsFormsApp2
 
 
             setButtons(true, false, false);
+            udpClient.Connect("192.168.1.134", 13136);
 
         }
         // Simconnect client will send a win32 message when there is 
@@ -221,9 +230,20 @@ namespace WindowsFormsApp2
                     displayText("Sim Time           " + s1.elapsedsimtime);
                     displayText("Zulu Time          " + s1.zulu_time);
                     displayText("Time Zone Offset   " + s1.time_zone_offset);
-                    displayText("Absolute Time      " + s1.absoulte_time);
-                    displayText("Plane Heading True " + s1.plane_heading_degrees_true);
-                    displayText("Plane Heading Mag  " + s1.plane_heading_degrees_magnetic);
+                    displayText("Absolute Time      " + s1.absolute_time);
+                    displayText("Heading True " + s1.plane_heading_degrees_true);
+                    displayText("Heading Mag  " + s1.plane_heading_degrees_magnetic);
+
+                    UDP_Playload = "latitude:" + s1.latitude;
+                    UDP_Playload = UDP_Playload + ",longitude:" + s1.longitude.ToString();
+                    UDP_Playload = UDP_Playload + ",altitude:" + s1.altitude.ToString();
+                    UDP_Playload = UDP_Playload + ",airspeed:" + s1.airspeed.ToString();
+                    UDP_Playload = UDP_Playload + ",zulutime:" + s1.zulu_time.ToString();
+                    UDP_Playload = UDP_Playload + ",timezoneoffset:" + s1.time_zone_offset.ToString();
+                    UDP_Playload = UDP_Playload + ",trueheading:" + s1.plane_heading_degrees_true.ToString();
+                    UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
+
+
 
                     break;
 
@@ -244,7 +264,7 @@ namespace WindowsFormsApp2
                 case DATA_REQUESTS.REQUEST_1:
                     Struct1 s1 = (Struct1)data.dwData[0];
 
-                    displayText("title:             " + s1.title);
+                    displayText("titles:             " + s1.title);
                     displayText("Lat:               " + s1.latitude);
                     displayText("Lon:               " + s1.longitude);
                     displayText("Alt:               " + s1.altitude);
@@ -252,9 +272,21 @@ namespace WindowsFormsApp2
                     displayText("Sim Time           " + s1.elapsedsimtime);
                     displayText("Zulu Time          " + s1.zulu_time);
                     displayText("Time Zone Offset   " + s1.time_zone_offset);
-                    displayText("Absolute Time      " + s1.absoulte_time);
+                    displayText("Absolute Time      " + s1.absolute_time);
                     displayText("Plane Heading True " + s1.plane_heading_degrees_true);
                     displayText("Plane Heading Mag  " + s1.plane_heading_degrees_magnetic);
+
+                    UDP_Playload = "latitude:" + s1.latitude;
+                    UDP_Playload = UDP_Playload + ",longitude:" + s1.longitude.ToString();
+                    UDP_Playload = UDP_Playload + ",altitude:" + s1.altitude.ToString();
+                    UDP_Playload = UDP_Playload + ",airspeed:" + s1.airspeed.ToString();
+                    UDP_Playload = UDP_Playload + ",zulutime:" + s1.zulu_time.ToString();
+                    UDP_Playload = UDP_Playload + ",timezoneoffset:" + s1.time_zone_offset.ToString();
+                    UDP_Playload = UDP_Playload + ",trueheading:" + s1.plane_heading_degrees_true.ToString();
+                    UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
+
+                    Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
+                    udpClient.Send(senddata, senddata.Length);
 
                     break;
 
@@ -380,6 +412,15 @@ namespace WindowsFormsApp2
                 displayText("Unhandled error in data plead ...");
             }
             
+
+        }
+
+        private void btn_SendUDP_Click(object sender, EventArgs e)
+        {
+
+
+
+
 
         }
     }
