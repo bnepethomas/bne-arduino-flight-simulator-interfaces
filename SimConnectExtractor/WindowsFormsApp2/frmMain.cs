@@ -237,7 +237,34 @@ namespace WindowsFormsApp2
         void simconnect_OnRecvSimobjectData(SimConnect sender, SIMCONNECT_RECV_SIMOBJECT_DATA data)
         {
 
-            displayText("Received something don't know what to do with it");
+            displayText("Received something don't know what to do with it but trying");
+
+            switch ((DATA_REQUESTS)data.dwRequestID)
+            {
+                case DATA_REQUESTS.REQUEST_1:
+                    Struct1 s1 = (Struct1)data.dwData[0];
+
+                    displayText("title:             " + s1.title);
+                    displayText("Lat:               " + s1.latitude);
+                    displayText("Lon:               " + s1.longitude);
+                    displayText("Alt:               " + s1.altitude);
+                    displayText("Airspeed           " + s1.airspeed);
+                    displayText("Sim Time           " + s1.elapsedsimtime);
+                    displayText("Zulu Time          " + s1.zulu_time);
+                    displayText("Time Zone Offset   " + s1.time_zone_offset);
+                    displayText("Absolute Time      " + s1.absoulte_time);
+                    displayText("Plane Heading True " + s1.plane_heading_degrees_true);
+                    displayText("Plane Heading Mag  " + s1.plane_heading_degrees_magnetic);
+
+                    break;
+
+                default:
+                    displayText("Unknown request ID: " + data.dwRequestID);
+                    break;
+            }
+
+
+
         }
 
 
