@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
+using System.Timers;
 
 // SimConnect Services
 using LockheedMartin.Prepar3D.SimConnect;
@@ -62,7 +63,10 @@ namespace WindowsFormsApp2
 
         string UDP_Playload;
         UdpClient udpClient = new UdpClient();
-        
+        DateTime TimeLastPacketSent;
+        TimeSpan span;
+        int mS;
+
 
         // this is how you declare a data structure so that 
         // simconnect knows how to fill it/read it. 
@@ -102,6 +106,8 @@ namespace WindowsFormsApp2
 
             setButtons(true, false, false);
             udpClient.Connect("192.168.1.134", 13136);
+            TimeLastPacketSent = DateTime.Now;
+
 
         }
         // Simconnect client will send a win32 message when there is 
@@ -125,8 +131,8 @@ namespace WindowsFormsApp2
 
         int response = 1;
 
-        // Output text - display a maximum of 10 lines 
-        string output = "\n\n\n\n\n\n\n\n\n\n";
+        // Output text - display a maximum of X lines 
+        string output = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
         private void setButtons(bool bConnect, bool bGet, bool bDisconnect)
         {
@@ -285,9 +291,19 @@ namespace WindowsFormsApp2
                     UDP_Playload = UDP_Playload + ",trueheading:" + s1.plane_heading_degrees_true.ToString();
                     UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
 
-                    Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
-                    udpClient.Send(senddata, senddata.Length);
 
+
+                    span = DateTime.Now - TimeLastPacketSent;
+                    mS = (int)span.TotalMilliseconds;
+                    displayText("Its been this many mS since sending last packet: " + mS.ToString());
+
+                    if (mS >= 50)
+                    { 
+                        Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
+                        udpClient.Send(senddata, senddata.Length);
+
+                        TimeLastPacketSent = DateTime.Now;
+                    }   
                     break;
 
                 default:
@@ -405,7 +421,12 @@ namespace WindowsFormsApp2
                 // working for a once off
                 //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.ONCE, 0, 0, 0, 0);
 
-                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 50, 0);
+                //  The second to last parameter is the number of frames iterated before a data packet is sent. There isn't a parameter
+                //  which maps to events per second so this will variable with frame rate of sim which could range from 15fpc to north of 100fps.
+                // To assist in reducing range of pps set upper limit of Sim FPS tp 50 under Graphic Target FPS
+                // Interestingly - with a target FPS of 50, seeing 100pps 
+
+                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 2, 0);
             }
             catch
             {
