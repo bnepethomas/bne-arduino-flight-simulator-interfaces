@@ -69,7 +69,22 @@ namespace WindowsFormsApp2
             public double longitude;
             public double altitude;
             public double airspeed;
+            public double elapsedsimtime;
+            public double zulu_time;
+            public Int32 time_zone_offset;
+            public double absoulte_time;
+            public double plane_heading_degrees_true;
+            public double plane_heading_degrees_magnetic;
         };
+
+
+    //{ "ABSOLUTE TIME",              "Seconds",              SIMCONNECT_DATATYPE_FLOAT64},
+   
+    //{ "ZULU DAY OF YEAR",           "Number",               SIMCONNECT_DATATYPE_INT32       },
+    //{ "ZULU YEAR",                  "Number",               SIMCONNECT_DATATYPE_INT32       },
+    //{ "ZULU MONTH OF YEAR",         "Number",               SIMCONNECT_DATATYPE_INT32       },
+    //{ "ZULU DAY OF MONTH",          "Number",               SIMCONNECT_DATATYPE_INT32       },
+    //{ "ZULU DAY OF WEEK",           "Number",               SIMCONNECT_DATATYPE_INT32       },
 
 
         public frmMain()
@@ -142,6 +157,14 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Longitude", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Altitude", "feet", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Airspeed True", "knots", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Sim Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Zulu Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Time Zone Offset", "hours", SIMCONNECT_DATATYPE.INT32, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Absolute Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Heading Degrees True", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Heading Degrees Magnetic", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+
+
 
 
                 // IMPORTANT: register it with the simconnect managed wrapper marshaller 
@@ -150,6 +173,8 @@ namespace WindowsFormsApp2
 
                 // catch a simobject data request 
                 simconnect.OnRecvSimobjectDataBytype += new SimConnect.RecvSimobjectDataBytypeEventHandler(simconnect_OnRecvSimobjectDataBytype);
+
+                simconnect.OnRecvSimobjectData += new SimConnect.RecvSimobjectDataEventHandler(simconnect_OnRecvSimobjectData);
             }
             catch (COMException ex)
             {
@@ -188,11 +213,18 @@ namespace WindowsFormsApp2
                 case DATA_REQUESTS.REQUEST_1:
                     Struct1 s1 = (Struct1)data.dwData[0];
 
-                    displayText("title:   " + s1.title);
-                    displayText("Lat:     " + s1.latitude);
-                    displayText("Lon:     " + s1.longitude);
-                    displayText("Alt:     " + s1.altitude);
-                    displayText("Airspeed " + s1.airspeed);
+                    displayText("title:             " + s1.title);
+                    displayText("Lat:               " + s1.latitude);
+                    displayText("Lon:               " + s1.longitude);
+                    displayText("Alt:               " + s1.altitude);
+                    displayText("Airspeed           " + s1.airspeed);
+                    displayText("Sim Time           " + s1.elapsedsimtime);
+                    displayText("Zulu Time          " + s1.zulu_time);
+                    displayText("Time Zone Offset   " + s1.time_zone_offset);
+                    displayText("Absolute Time      " + s1.absoulte_time);
+                    displayText("Plane Heading True " + s1.plane_heading_degrees_true);
+                    displayText("Plane Heading Mag  " + s1.plane_heading_degrees_magnetic);
+
                     break;
 
                 default:
@@ -200,6 +232,14 @@ namespace WindowsFormsApp2
                     break;
             }
         }
+
+
+        void simconnect_OnRecvSimobjectData(SimConnect sender, SIMCONNECT_RECV_SIMOBJECT_DATA data)
+        {
+
+            displayText("Received something don't know what to do with it");
+        }
+
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
@@ -241,6 +281,9 @@ namespace WindowsFormsApp2
             // simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.ONCE); 
 
             simconnect.RequestDataOnSimObjectType(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, 0, SIMCONNECT_SIMOBJECT_TYPE.USER);
+           // simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 0, 0);
+
+
             displayText("Request sent...");
         }
 
@@ -260,11 +303,8 @@ namespace WindowsFormsApp2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Response number 
-
+            
         }
-
-
 
 
 
@@ -278,7 +318,7 @@ namespace WindowsFormsApp2
             }
             catch
             {
-                // Just fail silently for the moment
+
                 displayText("Unable to get data from SimConnect...");
             }
         }
@@ -291,6 +331,29 @@ namespace WindowsFormsApp2
         private void button2_Click(object sender, EventArgs e)
         {
             this.timer1.Enabled = false;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+            displayText("Pleading for data...");
+            //m_scConnection.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.PERIODIQUE, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 0, 0);
+            //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 1, 0);
+
+            //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 0, 0);
+            try
+            {
+                // working for a once off
+                //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.ONCE, 0, 0, 0, 0);
+
+                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 50, 0);
+            }
+            catch
+            {
+                displayText("Unhandled error in data plead ...");
+            }
+            
+
         }
     }
 
