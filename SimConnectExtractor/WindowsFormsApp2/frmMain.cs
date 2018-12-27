@@ -58,6 +58,7 @@ namespace WindowsFormsApp2
 
         // this is how you declare a data structure so that 
         // simconnect knows how to fill it/read it. 
+        // When Adding variables to receive need to add them to this datastructure as well as the request itself ininitDataRequest
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
         struct Struct1
         {
@@ -67,6 +68,7 @@ namespace WindowsFormsApp2
             public double latitude;
             public double longitude;
             public double altitude;
+            public double airspeed;
         };
 
 
@@ -133,10 +135,14 @@ namespace WindowsFormsApp2
                 simconnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(simconnect_OnRecvException);
 
                 // define a data structure 
+                // Variable Reference https://www.prepar3d.com/SDKv4/sdk/references/variables/simulation_variables.html
+                // Unless the Units column in the following table identifies the units as a structure or a string, the data will be returned by default in a signed 64 bit floating point value
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "title", null, SIMCONNECT_DATATYPE.STRING256, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Latitude", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Longitude", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Altitude", "feet", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Airspeed True", "knots", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+
 
                 // IMPORTANT: register it with the simconnect managed wrapper marshaller 
                 // if you skip this step, you will only receive a uint in the .dwData field. 
@@ -182,10 +188,11 @@ namespace WindowsFormsApp2
                 case DATA_REQUESTS.REQUEST_1:
                     Struct1 s1 = (Struct1)data.dwData[0];
 
-                    displayText("title: " + s1.title);
-                    displayText("Lat:   " + s1.latitude);
-                    displayText("Lon:   " + s1.longitude);
-                    displayText("Alt:   " + s1.altitude);
+                    displayText("title:   " + s1.title);
+                    displayText("Lat:     " + s1.latitude);
+                    displayText("Lon:     " + s1.longitude);
+                    displayText("Alt:     " + s1.altitude);
+                    displayText("Airspeed " + s1.airspeed);
                     break;
 
                 default:
