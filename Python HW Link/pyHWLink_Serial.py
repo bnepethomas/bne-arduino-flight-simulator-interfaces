@@ -180,9 +180,9 @@ def ReceivePacket():
                 # Timeout in dara from Flight Sim - locate GPS in Brisbane
                 outUTC = '160533.00'
                 outDate = "010418"
-                xoutputstr = '2723.4120'
+                xoutputstr = '2724.2'
                 outNorS = 'S'
-                youtputstr = '15307.72900'
+                youtputstr = '15307.100'
                 outEorW = 'E'
                 outSpeed = '299'
                 outTrackMadeGood = '0'
@@ -364,7 +364,7 @@ def ParsePayload(Payload):
                             wrkfloat = wrkfloat * 100
                             #print( wrkfloat)
                             latSeconds = int((wrkfloat - int(wrkfloat)) * 6000)
-                            print( latSeconds)
+                            #print( latSeconds)
                             xoutputstr= str(latDegrees) +  "{:02}".format(latMinutes) + '.' + "{:04}".format(latSeconds)
                             #print(xoutputstr)
                             
@@ -382,19 +382,36 @@ def ParsePayload(Payload):
                             #print (latDegrees)
                             
     
-  
-  
-                            longDegrees = abs(int(wrkfloat))
-                            #print (longDegrees)
-                            wrkfloat = wrkfloat - longDegrees
-                            longMinutes = int(wrkfloat * 60)
+#  
+#                            wrkfloat = abs(wrkfloat)
+#                            longDegrees = int(wrkfloat)
+#
+#                            #print (longDegrees)
+#                            wrkfloat = wrkfloat - longDegrees
+#                            longMinutes = int(wrkfloat * 60)
+#                            
+#                            print( wrkfloat)
+#                            wrkfloat = wrkfloat * 100
+#                            print( wrkfloat)
+#                            longSeconds = int((wrkfloat - int(wrkfloat)) * 6000)
+#                            print( longSeconds)
                             
-                            print( wrkfloat)
-                            wrkfloat = wrkfloat * 100
-                            print( wrkfloat)
-                            longSeconds = int((wrkfloat - int(wrkfloat)) * 6000)
-                            print( longSeconds)
-                            youtputstr= str(longDegrees) +  "{:02}".format(longMinutes) + '.' + "{:04}".format(longSeconds)
+ 
+                            wrkfloat = abs(wrkfloat)
+                            
+                            longDecDegrees = wrkfloat
+                            longDegrees = int(longDecDegrees)
+                            longMinutes = (longDecDegrees - longDegrees) * 60
+                            print ("long minutes is - " + str(longMinutes))
+                            longSeconds = float((longMinutes - int(longMinutes)) * 100 / 60 )
+                            print ("lon seconds is - " + str(longSeconds))
+                            longMinutes = int(longMinutes)
+                            
+                            print( longMinutes)
+                            print( longSeconds)                            
+                            
+                            
+                            youtputstr= str(longDegrees) +  "{:02}".format(longMinutes) + '.' + "{:04.0}".format(longSeconds)
                             print("Here" + youtputstr)
           
                          
