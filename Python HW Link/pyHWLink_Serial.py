@@ -341,7 +341,6 @@ def ParsePayload(Payload):
                         if (workingkey=='airspeed'):
                             # Note if Ground speed is 0 then GPS will display a Northery heading as not display altitude alterts
                             wrkfloat = float(workingFields[1])
-                            print(wrkfloat)
                             outSpeed = "{:.1f}".format(wrkfloat)
                             
                         if (workingkey=='latitude'):
@@ -352,42 +351,53 @@ def ParsePayload(Payload):
                             else:
                                 outNorS = 'S'
                              
-                             
-                            latDegrees = abs(int(wrkfloat))
-                            print (latDegrees)
-                            xoutputstr= str(latDegrees) + '00.0000'
+                            
+                            # As Sim returns negative values for Southern Hemisphere - remove negative
+                            wrkfloat = abs(wrkfloat)
+                            latDegrees = int(wrkfloat)
+                            #print (latDegrees)
+                            
+                            wrkfloat = wrkfloat - latDegrees
+                            latMinutes = int(wrkfloat * 60)
+                            
+                            #print( wrkfloat)
+                            wrkfloat = wrkfloat * 100
+                            #print( wrkfloat)
+                            latSeconds = int((wrkfloat - int(wrkfloat)) * 6000)
+                            print( latSeconds)
+                            xoutputstr= str(latDegrees) +  "{:02}".format(latMinutes) + '.' + "{:04}".format(latSeconds)
+                            #print(xoutputstr)
+                            
                                 
                             
                         if (workingkey=='longitude'):
-                            print( workingFields[1])
+                            
                             wrkfloat = float(workingFields[1])
                             if (wrkfloat>0):
                                 outEorW = 'E'
                             else:
                                 outEorW = 'W'
                                 
-                            libgDegrees = abs(int(wrkfloat))
-                            print (longDegrees)
-                            youtputstr= str(longDegrees) + '00.0000'
+                            
+                            #print (latDegrees)
+                            
+    
+  
+  
+                            longDegrees = abs(int(wrkfloat))
+                            #print (longDegrees)
+                            wrkfloat = wrkfloat - longDegrees
+                            longMinutes = int(wrkfloat * 60)
+                            
+                            print( wrkfloat)
+                            wrkfloat = wrkfloat * 100
+                            print( wrkfloat)
+                            longSeconds = int((wrkfloat - int(wrkfloat)) * 6000)
+                            print( longSeconds)
+                            youtputstr= str(longDegrees) +  "{:02}".format(longMinutes) + '.' + "{:04}".format(longSeconds)
+                            print("Here" + youtputstr)
           
-
-
-                        
-                        
-#                        if (workingkey=='latitude'):
-#                            xoutputstr = str(latDegrees).zfill(2) + str(latMinutes).zfill(2) + '.' + str(latSeconds)
-#                        
-#                        
-#                         xoutputstr='3049.90'
-#                        youtputstr='86.511'
-#                        outNorS = 'N'
-#                        outEorW = 'W'
-
-
-
-
-
-                           
+                         
                         
     
                     except Exception as other:
