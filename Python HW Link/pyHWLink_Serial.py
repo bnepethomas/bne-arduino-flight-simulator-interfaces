@@ -28,8 +28,8 @@ import sys
 import time
 import threading
 
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 
@@ -188,8 +188,7 @@ def ReceivePacket():
                 outTrackMadeGood = '0'
                 outMagVar = '0'
                 outMagEorW = 'E'
-                outAltitude = 1
-                                        
+                outAltitude = '10'                                        
                 Send_GPRMC()
                 Send_GPGGA()
                 Send_GPGSA()
@@ -257,15 +256,25 @@ def ParsePayload(Payload):
     global outAltitude
  #   global outUTC 
  #   global outDate 
- #   global xoutputstr 
- #   global outNorS 
+    global xoutputstr 
+    global outNorS 
  
- #global youtputstr 
- #   global outEorW 
- #   global outSpeed 
+    global youtputstr 
+    global outEorW 
+    global outSpeed 
     global outTrackMadeGood
  #   global outMagVar
- #   global outMagEorW 
+ #   global outMagEorW
+ 
+ 
+ 
+    global latDegrees
+    global latMinutes 
+    global latSeconds 
+
+    global longDegrees
+    global longMinutes 
+    global longSeconds
 
 
     logging.info('Payload: ' + Payload)
@@ -325,8 +334,55 @@ def ParsePayload(Payload):
                             # As NEMA works in Meters ensure data request from P3d is in Meters not feet
                             outAltitude = workingFields[1]
                             
-                        if (workingkey=='magheading'):                            
-                            outTrackMadeGood = workingFields[1]
+                        if (workingkey=='magheading'):
+                            wrkfloat = float(workingFields[1])
+                            outTrackMadeGood = "{:.2f}".format(wrkfloat)
+                            
+                        if (workingkey=='airspeed'):
+                            # Note if Ground speed is 0 then GPS will display a Northery heading as not display altitude alterts
+                            wrkfloat = float(workingFields[1])
+                            print(wrkfloat)
+                            outSpeed = "{:.1f}".format(wrkfloat)
+                            
+                        if (workingkey=='latitude'):
+                            print( workingFields[1])
+                            wrkfloat = float(workingFields[1])
+                            if (wrkfloat>0):
+                                outNorS = 'N'
+                            else:
+                                outNorS = 'S'
+                             
+                             
+                            latDegrees = abs(int(wrkfloat))
+                            print (latDegrees)
+                            xoutputstr= str(latDegrees) + '00.0000'
+                                
+                            
+                        if (workingkey=='longitude'):
+                            print( workingFields[1])
+                            wrkfloat = float(workingFields[1])
+                            if (wrkfloat>0):
+                                outEorW = 'E'
+                            else:
+                                outEorW = 'W'
+                                
+                            libgDegrees = abs(int(wrkfloat))
+                            print (longDegrees)
+                            youtputstr= str(longDegrees) + '00.0000'
+          
+
+
+                        
+                        
+#                        if (workingkey=='latitude'):
+#                            xoutputstr = str(latDegrees).zfill(2) + str(latMinutes).zfill(2) + '.' + str(latSeconds)
+#                        
+#                        
+#                         xoutputstr='3049.90'
+#                        youtputstr='86.511'
+#                        outNorS = 'N'
+#                        outEorW = 'W'
+
 
 
 
@@ -336,8 +392,9 @@ def ParsePayload(Payload):
     
                     except Exception as other:
                         print('')
-                        print('WARNING - Unable to read record of interest in ProcessPayload')
+                        print('WARNING - Unable to process record of interest in ProcessPayload')
                         print('WARNING - Record name is: "' + workingkey + '"')
+                        print('WARNING - Error is: "' + str(other) + '"')    
                         print('')
                         logging.critical("Error in ProcessPayload: " + str(other))
                 
@@ -390,7 +447,7 @@ def CalcChecksum(strToCalc):
 
 def Send_GPRMC():
 
-    localDebugging = False
+    localDebugging = True
 
     outStartOfString = 'GPRMC'
     outStatus = 'A'
@@ -425,7 +482,7 @@ def Send_GPGGA():
     outcompletestring = outcompletestring + outGPSFix + ","
     outcompletestring = outcompletestring + outNoofSatellites + ","
     outcompletestring = outcompletestring + outPrecision + ","
-    outcompletestring = outcompletestring + str(outAltitude) + ".0,M,,,,"
+    outcompletestring = outcompletestring + outAltitude + ",M,,,,"
     outcompletestring = outcompletestring 
 
 
@@ -531,8 +588,7 @@ outSpeed = '299'
 outTrackMadeGood = '0'
 outMagVar = '0'
 outMagEorW = 'E'
-outAltitude = 1
-
+outAltitude = '1'
 
 ## Sucessfully calculated check sum by stripping leading $ and all characters post *
 # To output will need to prepend $, append * - the ASCII chars of the hex checksum and then CRLF
