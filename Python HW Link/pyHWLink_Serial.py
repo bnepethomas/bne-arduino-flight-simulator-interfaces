@@ -14,6 +14,12 @@
 #   $GPGSV - GPS Satellites in view
 #   $GPAPB - Auto Pilot
 
+# After been driven nuts trying to understand why the Lowrance GPS seemed to be displaying
+    # incorrect data went to the Digital Data screen - it also mismatched the data I was sending to it.
+    # discovered previous owen on has DM enabled, not DMS and Datum selection was set yo NA 1983
+    # set Datum to WGS 84 and coordinate system using DMS, and now things align
+# Also worthy of note is Seconds should be sent as Decmial value and the GPS will convert to Degrees
+    # ie 50 beings 30
 
 
 import binascii
@@ -174,15 +180,15 @@ def ReceivePacket():
                                               
         except socket.timeout:
             iterations_Since_Last_Packet = iterations_Since_Last_Packet +  1
-            if debugging == True and (iterations_Since_Last_Packet > 3000):
+            if debugging == True and (iterations_Since_Last_Packet > 9000):
                 print("[i] Mid Receive Timeout - " + time.asctime())
                                 
                 # Timeout in dara from Flight Sim - locate GPS in Brisbane
                 outUTC = '160533.00'
                 outDate = "010418"
-                xoutputstr = '2724.2'
+                xoutputstr = '2724.00'
                 outNorS = 'S'
-                youtputstr = '15307.100'
+                youtputstr = '15307.000'
                 outEorW = 'E'
                 outSpeed = '299'
                 outTrackMadeGood = '0'
@@ -355,17 +361,26 @@ def ParsePayload(Payload):
                             # As Sim returns negative values for Southern Hemisphere - remove negative
                             wrkfloat = abs(wrkfloat)
                             latDegrees = int(wrkfloat)
-                            #print (latDegrees)
-                            
                             wrkfloat = wrkfloat - latDegrees
                             latMinutes = int(wrkfloat * 60)
                             
-                            #print( wrkfloat)
-                            wrkfloat = wrkfloat * 100
-                            #print( wrkfloat)
-                            latSeconds = int((wrkfloat - int(wrkfloat)) * 6000)
-                            #print( latSeconds)
-                            xoutputstr= str(latDegrees) +  "{:02}".format(latMinutes) + '.' + "{:04}".format(latSeconds)
+                            
+                            print( "workfloat : " + str(wrkfloat))
+                            
+                            # Dealing with the Seconds issue
+                            #      On P3d display is reports S27 deg 23.98
+                            #      It is passed through SimConnect as as decimal -27.39960
+                            #      But GPS whats it as slightly different decimal ie 2723.98 (which maps to 27.23.58.8
+                            #      the decimal peice looks like 0.01627, which needs to map to 98
+                            #      50 maps to 30.0"
+                            
+                            latSeconds = (wrkfloat - (latMinutes/60)) 
+                            print( "lat seconds: " + str(latSeconds))
+                            latSeconds = int(latSeconds * 6000)
+                            print( "lat seconds processed: " + str(latSeconds))
+                            #latSeconds = 99
+                            
+                            xoutputstr= str(latDegrees) +  "{:02}".format(latMinutes)  + "." +  "{:02}".format(latSeconds)
                             #print(xoutputstr)
                             
                                 
@@ -376,43 +391,22 @@ def ParsePayload(Payload):
                             if (wrkfloat>0):
                                 outEorW = 'E'
                             else:
-                                outEorW = 'W'
-                                
-                            
-                            #print (latDegrees)
-                            
-    
-#  
-#                            wrkfloat = abs(wrkfloat)
-#                            longDegrees = int(wrkfloat)
-#
-#                            #print (longDegrees)
-#                            wrkfloat = wrkfloat - longDegrees
-#                            longMinutes = int(wrkfloat * 60)
-#                            
-#                            print( wrkfloat)
-#                            wrkfloat = wrkfloat * 100
-#                            print( wrkfloat)
-#                            longSeconds = int((wrkfloat - int(wrkfloat)) * 6000)
-#                            print( longSeconds)
-                            
+                                outEorW = 'W'                         
  
-                            wrkfloat = abs(wrkfloat)
+                            wrkfloat = abs(wrkfloat)                         
+                            longDegrees = int(wrkfloat)
+                            wrkfloat = wrkfloat - longDegrees
+                            longMinutes = int(wrkfloat * 60)
+
+                            longSeconds = (wrkfloat - (longMinutes/60)) 
+                            print( "long seconds: " + str(longSeconds))
+                            longSeconds = int(longSeconds * 6000)
+                            print( "long seconds processed: " + str(longSeconds))
                             
-                            longDecDegrees = wrkfloat
-                            longDegrees = int(longDecDegrees)
-                            longMinutes = (longDecDegrees - longDegrees) * 60
-                            print ("long minutes is - " + str(longMinutes))
-                            longSeconds = float((longMinutes - int(longMinutes)) * 100 / 60 )
-                            print ("lon seconds is - " + str(longSeconds))
-                            longMinutes = int(longMinutes)
+                                              
                             
-                            print( longMinutes)
-                            print( longSeconds)                            
-                            
-                            
-                            youtputstr= str(longDegrees) +  "{:02}".format(longMinutes) + '.' + "{:04.0}".format(longSeconds)
-                            print("Here" + youtputstr)
+                            youtputstr= str(longDegrees) +  "{:02}".format(longMinutes) + '.' + "{:02}".format(longSeconds)
+                            #print("Here" + youtputstr)
           
                          
                         
@@ -500,7 +494,7 @@ def Send_GPGGA():
     outStartOfString = "GPGGA"
     outGPSFix = "6";
     outNoofSatellites = "03"
-    outPrecision = "0.0"
+    outPrecision = "0.00"
     outEndOfString = "*"
 
     outcompletestring = outStartOfString + "," + outUTC + ","
