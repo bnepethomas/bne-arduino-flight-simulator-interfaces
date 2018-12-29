@@ -194,8 +194,7 @@ def ReceivePacket():
             logging.debug("From: " + Source_IP + " " + Source_Port)
             logging.debug("Message: " + str(ReceivedPacket))
 
-            if (SendingSim == 'SimConnect'):
-                
+            if (SendingSim == 'SimConnect'):             
                 ProcessReceivedString( str(ReceivedPacket), Source_IP , str(Source_Port) )
             elif (SendingSim == 'XPlane'):
                 ProcessXPlaneString(ReceivedPacket)
@@ -276,11 +275,23 @@ def ProcessXPlaneString(ReceivedUDPBytes):
     
     # Speeds - If shown in cockpit has Vindicated (knots as first value eg 216.61
     
+    
+    global outAltitude
+ #   global outUTC 
+ #   global outDate 
+    global xoutputstr 
+    global outNorS 
+ 
+    global youtputstr 
+    global outEorW 
+    global outSpeed 
+    global outTrackMadeGood
+    
     # Expecting a packet length of 77 bytes
     UDP_Header_Length = 5      # 'DATA + 1 reserved byte
     Record_Length = 36         # Record_Header of 4 bytes + 8 records of 4 bytes
     
-    Number_of_Records = 2
+    Number_of_Records = 3
     Expected_Packet_Length = UDP_Header_Length + (Record_Length * Number_of_Records)
     
     try:
@@ -304,15 +315,98 @@ def ProcessXPlaneString(ReceivedUDPBytes):
         #print(unpack('i8fi8f',NewReceivedUDPBytes))
 
         
-        XPlaneRecord = namedtuple('XPlaneRecord','Ind1 Rec1 Rec2 Rec3 Rec4 Rec5 Rec6 Rec7 Rec8 Ind2 RecA RecB ReC RecD RedE RecF RecG RecH')
+        XPlaneRecord = namedtuple('XPlaneRecord','Idx1 kias Rec2 Rec3 Rec4 Rec5 Rec6 Rec7 Rec8 \
+                                  Idx2 RecA RecB heading RecD RedE RecF RecG RecH \
+                                  Idx3 lat long alt Rec14 Rec15 Rec16 Rec17 Rec18')
         
         logging.debug('Starting unpack to values')
-        Thisone = XPlaneRecord._make(unpack('i8fi8f',NewReceivedUDPBytes))
-        print(str(Thisone.Ind1))
-        if (Thisone.Ind1 == 3):
+        XPlaneStatus = XPlaneRecord._make(unpack('i8fi8fi8f',NewReceivedUDPBytes))
+        
+     
+        if (XPlaneStatus.Idx1 == 3):
             # Have Correct Index, so assign AirSpeed
-            print('Xplane Airspeed is : ' + str(Thisone.Rec1))
+            # print('Xplane Airspeed is : ' + str(XPlaneStatus.kias))
+            outSpeed = "{:.1f}".format(XPlaneStatus.kias)
+            
+        if (XPlaneStatus.Idx2 == 17):
+            # print('XPlane Heading is : ' + str(XPlaneStatus.heading))
+            outTrackMadeGood = "{:.2f}".format(XPlaneStatus.heading)            
+            
+        if (XPlaneStatus.Idx3 == 20):
+            # Have Correct Index, so assign Altitude - but it is returned in feet so convert to meters
+            # print('Xplane Altitude is : ' + str(XPlaneStatus.alt))
+            wrkfloat = float(XPlaneStatus.alt) * 0.3048
+            outAltitude = "{:.1f}".format(wrkfloat)
+            print('XPlane Lat is : ' + str(XPlaneStatus.lat))
+            print('XPlane Long is : ' + str(XPlaneStatus.long))
+
+
+            if (XPlaneStatus.lat>0):
+                outNorS = 'N'
+            else:
+                outNorS = 'S'
+                
+            if (XPlaneStatus.long>0):
+                outEorW = 'E'
+            else:
+                outEorW = 'W'     
+
+            # As Sim returns negative values for Southern Hemisphere - remove negative
+            wrkfloat = abs(XPlaneStatus.lat)
+            latDegrees = int(wrkfloat)
+            wrkfloat = wrkfloat - latDegrees
+            latMinutes = int(wrkfloat * 60)
+            
+            
+            print( "workfloat : " + str(wrkfloat))
+            
+            # Dealing with the Seconds issue
+            #      On P3d display is reports S27 deg 23.98
+            #      It is passed through SimConnect as as decimal -27.39960
+            #      But GPS whats it as slightly different decimal ie 2723.98 (which maps to 27.23.58.8
+            #      the decimal peice looks like 0.01627, which needs to map to 98
+            #      50 maps to 30.0"
+            
+            latSeconds = (wrkfloat - (latMinutes/60)) 
+            print( "lat seconds: " + str(latSeconds))
+            latSeconds = int(latSeconds * 6000)
+            print( "lat seconds processed: " + str(latSeconds))
+            #latSeconds = 99
+            
+            xoutputstr= str(latDegrees) +  "{:02}".format(latMinutes)  + "." +  "{:02}".format(latSeconds)
+
+
+                      
+
+            wrkfloat = abs(XPlaneStatus.long)                         
+            longDegrees = int(wrkfloat)
+            wrkfloat = wrkfloat - longDegrees
+            longMinutes = int(wrkfloat * 60)
+
+            longSeconds = (wrkfloat - (longMinutes/60)) 
+            print( "long seconds: " + str(longSeconds))
+            longSeconds = int(longSeconds * 6000)
+            print( "long seconds processed: " + str(longSeconds))
+            
+                              
+            
+            youtputstr= str(longDegrees) +  "{:02}".format(longMinutes) + '.' + "{:02}".format(longSeconds)
     
+        # Timeout in dara from Flight Sim - locate GPS in Brisbane
+        outUTC = '160533.00'
+        outDate = "010418"
+        #xoutputstr = '2724.00'
+        #outNorS = 'S'
+        #youtputstr = '15307.000'
+        #outEorW = 'E'
+        #outSpeed = '299'
+        #outTrackMadeGood = '0'
+        outMagVar = '0'
+        #outMagEorW = 'E'
+        #outAltitude = '10'                                        
+        Send_GPRMC()
+        Send_GPGGA()
+        Send_GPGSA()
     
     except Exception as other:
         logging.critical('Error in ProcessReceivedString. Error is: ' + str(other))   
