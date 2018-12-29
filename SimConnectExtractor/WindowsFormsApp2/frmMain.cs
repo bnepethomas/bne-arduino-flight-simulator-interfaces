@@ -297,7 +297,7 @@ namespace WindowsFormsApp2
                     mS = (int)span.TotalMilliseconds;
                     displayText("Its been this many mS since sending last packet: " + mS.ToString());
 
-                    if (mS >= 1000)
+                    if (mS >= 500)
                     { 
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);

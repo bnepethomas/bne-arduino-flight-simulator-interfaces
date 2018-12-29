@@ -10,3 +10,10 @@ C:\Users\admin\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\bin
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\obj\x86\Debug\DCS_TO_GPS.csprojResolveAssemblyReference.cache
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\obj\x86\Debug\DCS_TO_GPS.exe
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\obj\x86\Debug\DCS_TO_GPS.pdb
+D:\Development\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\bin\Debug\DCS_TO_GPS.exe.config
+D:\Development\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\bin\Debug\DCS_TO_GPS.exe
+D:\Development\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\bin\Debug\DCS_TO_GPS.pdb
+D:\Development\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\obj\x86\Debug\DCS_TO_GPS.csprojAssemblyReference.cache
+D:\Development\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\obj\x86\Debug\DCS_TO_GPS.csproj.CoreCompileInputs.cache
+D:\Development\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\obj\x86\Debug\DCS_TO_GPS.exe
+D:\Development\bne-arduino-flight-simulator-interfaces\DCS_to_GPS\DCS_TO_GPS\obj\x86\Debug\DCS_TO_GPS.pdb
