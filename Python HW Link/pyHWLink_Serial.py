@@ -42,8 +42,9 @@ import socket
 import sys
 import time
 import threading
-# Needs to pip install construct
+
 from struct import *
+from collections import namedtuple
 
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
@@ -274,18 +275,47 @@ def ProcessXPlaneString(ReceivedUDPBytes):
     # Now what do the individual datsets maps to
     
     # Speeds - If shown in cockpit has Vindicated (knots as first value eg 216.61
-    print("hello xplane - " + str(len(ReceivedUDPBytes)))
-    print(ReceivedUDPBytes)
-    dh = codecs.encode(ReceivedUDPBytes, 'hex')
-    print(dh)
-    NewReceivedUDPBytes = ReceivedUDPBytes[5:]
-    print("hello xplane short- " + str(len(NewReceivedUDPBytes)))
-    dh = codecs.encode(NewReceivedUDPBytes, 'hex')
-    print(dh)
     
-    # First value is vind
-    print(unpack('i8fi8f',NewReceivedUDPBytes))
-    print (str(calcsize('h')))
+    # Expecting a packet length of 77 bytes
+    UDP_Header_Length = 5      # 'DATA + 1 reserved byte
+    Record_Length = 36         # Record_Header of 4 bytes + 8 records of 4 bytes
+    
+    Number_of_Records = 2
+    Expected_Packet_Length = UDP_Header_Length + (Record_Length * Number_of_Records)
+    
+    try:
+    
+        if (len(ReceivedUDPBytes) != Expected_Packet_Length):
+            logging.critical("Received Packet Length of " + str(len(ReceivedUDPBytes)) + "  - expected " + str(Expected_Packet_Length))
+            
+#        print("hello xplane - " + str(len(ReceivedUDPBytes)))
+#        print(ReceivedUDPBytes)
+#        dh = codecs.encode(ReceivedUDPBytes, 'hex')
+#        print(dh)
+        
+        # Remove the 5 Byte UDP Header
+        NewReceivedUDPBytes = ReceivedUDPBytes[5:]
+        
+#        print("hello xplane short- " + str(len(NewReceivedUDPBytes)))
+#        dh = codecs.encode(NewReceivedUDPBytes, 'hex')
+#        print(dh)
+        
+        # First value is vind
+        #print(unpack('i8fi8f',NewReceivedUDPBytes))
+
+        
+        XPlaneRecord = namedtuple('XPlaneRecord','Ind1 Rec1 Rec2 Rec3 Rec4 Rec5 Rec6 Rec7 Rec8 Ind2 RecA RecB ReC RecD RedE RecF RecG RecH')
+        
+        logging.debug('Starting unpack to values')
+        Thisone = XPlaneRecord._make(unpack('i8fi8f',NewReceivedUDPBytes))
+        print(str(Thisone.Ind1))
+        if (Thisone.Ind1 == 3):
+            # Have Correct Index, so assign AirSpeed
+            print('Xplane Airspeed is : ' + str(Thisone.Rec1))
+    
+    
+    except Exception as other:
+        logging.critical('Error in ProcessReceivedString. Error is: ' + str(other))   
 
 def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
 
