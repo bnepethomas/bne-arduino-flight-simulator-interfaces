@@ -373,7 +373,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
             print( "lat seconds processed: " + str(latSeconds))
             #latSeconds = 99
             
-            xoutputstr= str(latDegrees) +  "{:02}".format(latMinutes)  + "." +  "{:02}".format(latSeconds)
+            xoutputstr= "{:02}".format(latDegrees) +  "{:02}".format(latMinutes)  + "." +  "{:02}".format(latSeconds)
 
 
                       
@@ -390,7 +390,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
             
                               
             
-            youtputstr= str(longDegrees) +  "{:02}".format(longMinutes) + '.' + "{:02}".format(longSeconds)
+            youtputstr= "{:03}".format(longDegrees) +  "{:02}".format(longMinutes) + '.' + "{:02}".format(longSeconds)
     
         # Timeout in dara from Flight Sim - locate GPS in Brisbane
         outUTC = '160533.00'
@@ -425,8 +425,23 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             logging.debug("From: " + Source_IP + " " + Source_Port)         
             logging.critical('Payload: ' + ReceivedUDPString)
             
-
+            print('parsing')
+            
             ParsePayload(ReceivedUDPString)
+            
+            print ('back from parsing')
+            
+#            outUTC = '160533.00'
+#            outDate = "010418"
+#            xoutputstr = '2724.00'
+#            outNorS = 'S'
+#            youtputstr = '15307.000'
+#            outEorW = 'E'
+#            outSpeed = '298'
+#            outTrackMadeGood = '0'
+#            outMagVar = '0'
+#            outMagEorW = 'E'
+#            outAltitude = '10.0'   
             
             Send_GPRMC()
             Send_GPGGA()
@@ -519,7 +534,8 @@ def ParsePayload(Payload):
                          
                         if (workingkey=='altitude'):
                             # As NEMA works in Meters ensure data request from P3d is in Meters not feet
-                            outAltitude = workingFields[1]
+                            wrkfloat = float(workingFields[1])
+                            outAltitude = "{:.0f}".format(wrkfloat)
                             
                         if (workingkey=='magheading'):
                             wrkfloat = float(workingFields[1])
@@ -556,12 +572,12 @@ def ParsePayload(Payload):
                             #      50 maps to 30.0"
                             
                             latSeconds = (wrkfloat - (latMinutes/60)) 
-                            print( "lat seconds: " + str(latSeconds))
+                            #print( "lat seconds: " + str(latSeconds))
                             latSeconds = int(latSeconds * 6000)
-                            print( "lat seconds processed: " + str(latSeconds))
+                            #print( "lat seconds processed: " + str(latSeconds))
                             #latSeconds = 99
                             
-                            xoutputstr= str(latDegrees) +  "{:02}".format(latMinutes)  + "." +  "{:02}".format(latSeconds)
+                            xoutputstr=  "{:02}".format(latDegrees) +  "{:02}".format(latMinutes)  + "." +  "{:02}".format(latSeconds)
                             #print(xoutputstr)
                             
                                 
@@ -586,8 +602,8 @@ def ParsePayload(Payload):
                             
                                               
                             
-                            youtputstr= str(longDegrees) +  "{:02}".format(longMinutes) + '.' + "{:02}".format(longSeconds)
-                            #print("Here" + youtputstr)
+                            youtputstr= "{:03}".format(longDegrees) +  "{:02}".format(longMinutes) + '.' + "{:02}".format(longSeconds)
+                            print("Here" + youtputstr)
           
                          
                         
@@ -603,10 +619,11 @@ def ParsePayload(Payload):
 
 
             logging.debug('Continuing on')
-            
+            print('finihsed parsing')
 
 
     except Exception as other:
+        
         logging.critical("Error in ProcessPayload: " + str(other))
 
 
@@ -671,7 +688,7 @@ def Send_GPRMC():
     ser.write(str.encode(outputstring))
 
 def Send_GPGGA():
-    localDebugging = False
+    localDebugging = True
     outStartOfString = "GPGGA"
     outGPSFix = "6";
     outNoofSatellites = "03"
