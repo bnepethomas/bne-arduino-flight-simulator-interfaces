@@ -21,6 +21,15 @@
 # Also worthy of note is Seconds should be sent as Decmial value and the GPS will convert to Degrees
     # ie 50 beings 30
 
+# For P3d, SimConnect is used to subscribe to a dataflow - whcih means that code must either be installed
+#  on the PC running P3d or on a second PC with SimConnect installed and configured to point to primary PC
+#  As the code is ligthweight the plan is to run on Primary PC
+
+# For Xplane - it has a native UDP exporter.  In Version 11 - goto Settings,
+#  Select the Values of Interest,  (eg Speeds, Lat,Long, Altitude)
+#  A warning will be presented that the Network Data Output hasn't been configured
+#  Enter IP Address and target port (as of 20181229 using common port 13136 - but this is likely to change)
+
 
 import binascii
 import time
@@ -33,6 +42,8 @@ import socket
 import sys
 import time
 import threading
+# Needs to pip install construct
+from struct import *
 
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
@@ -153,25 +164,43 @@ def ReceivePacket():
     global outAltitude 
     iterations_Since_Last_Packet = 0
 
-
+    SendingSim = 'SimConnect'
     while True:
         
         try:
 
             data, (Source_IP, Source_Port)  = serverSock.recvfrom(1500)
+            
+            logging.debug("Packet Received " + str(Source_Port))
 
             # Need to decode the payload to convert from bytes object to a string
-            ReceivedPacket = data.decode()
+            # Don't do this is the packet is from XPlane Sourced from 49001
+            if (Source_Port != 49001):
+                # SimConnect P3d
+                SendingSim = 'SimConnect'
+                ReceivedPacket = data.decode()
+                ReceivedPacket = str(ReceivedPacket)
+            else:
+                SendingSim = 'XPlane'
+                ReceivedPacket = data
+                
             packets_processed = packets_processed + 1
 
             Source_IP = str(Source_IP)
             Source_Port = str(Source_Port)
-            ReceivedPacket = str(ReceivedPacket)
+            #ReceivedPacket = str(ReceivedPacket)
             
             logging.debug("From: " + Source_IP + " " + Source_Port)
-            logging.debug("Message: " + ReceivedPacket)
+            logging.debug("Message: " + str(ReceivedPacket))
 
-            ProcessReceivedString( str(ReceivedPacket), Source_IP , str(Source_Port) )
+            if (SendingSim == 'SimConnect'):
+                
+                ProcessReceivedString( str(ReceivedPacket), Source_IP , str(Source_Port) )
+            elif (SendingSim == 'XPlane'):
+                ProcessXPlaneString(ReceivedPacket)
+            else:
+                logging.critical("Unknown Sim")
+                
             
             logging.debug("Iterations since last packet " + str(iterations_Since_Last_Packet))
             
@@ -228,7 +257,35 @@ def ReceivePacket():
             print('Keepalive ' + time.asctime())
             last_time_display = time.time()
 
-
+def ProcessXPlaneString(ReceivedUDPBytes):
+    # Reference http://www.nuclearprojects.com/xplane/
+    # The first 5 bytes are header - whcih includes DATA and then an internal use only byte
+    # Following that is the message - 36 bytes - the first 4 bytes indicate the index number of the data element
+    #    the last 32 bytes is the data, with up to 8 single precision floating point numbers
+    #    which maps to 4 bytes per value
+    
+    # Index 03 (x03) - Speeds
+    # Index 20 (x14) - Lat Long Altitude
+    #
+    # For this setup the data length is 77 bytes (206-282 in UDP packet inclusive)
+    # Observed - single dataset 41 bytes, two data sets 77 bytes, three datasets 113
+    # So payload is 36 bytes per datset, with a 5 byte header (Xplane 11)
+    
+    # Now what do the individual datsets maps to
+    
+    # Speeds - If shown in cockpit has Vindicated (knots as first value eg 216.61
+    print("hello xplane - " + str(len(ReceivedUDPBytes)))
+    print(ReceivedUDPBytes)
+    dh = codecs.encode(ReceivedUDPBytes, 'hex')
+    print(dh)
+    NewReceivedUDPBytes = ReceivedUDPBytes[5:]
+    print("hello xplane short- " + str(len(NewReceivedUDPBytes)))
+    dh = codecs.encode(NewReceivedUDPBytes, 'hex')
+    print(dh)
+    
+    # First value is vind
+    print(unpack('i8fi8f',NewReceivedUDPBytes))
+    print (str(calcsize('h')))
 
 def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
 
@@ -242,7 +299,7 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             
 
             logging.debug("From: " + Source_IP + " " + Source_Port)         
-            logging.debug('Payload: ' + ReceivedUDPString)
+            logging.critical('Payload: ' + ReceivedUDPString)
             
 
             ParsePayload(ReceivedUDPString)
