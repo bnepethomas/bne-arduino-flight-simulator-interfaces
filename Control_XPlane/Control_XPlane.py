@@ -20,7 +20,7 @@ import sys
 import time
 import threading
 
-from struct import *
+import struct 
 from collections import namedtuple
 
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
@@ -120,7 +120,46 @@ except Exception as other:
     logging.critical('Error in Setup: ' + str(other))
 
 
+def SendTestPacket():
+    # XPlane expects the 5 byte header ('DATA' + Reserved Char (which can be 0)
+    # Then is 4 byes for the Index number eg Decimal 11 for flight controls
+    # And then 32 bytes which the series of eight 4 byte numbers
+    # If you want to see what values are associated with a given index go to
+    #    Settings -> Data Output -> General Data Output, and Select Show in Cockpit for the Index of Interest
+    
+    # For Values you don't want to change set them to -999 which maps to 192, 121, 196, 0 (this isn't an IP Address!)
+    
+    # From sample c# code @ http://www.nuclearprojects.com/xplane/senddata.shtml
+    # --- 11: Flight Controls ---
+    # Pitch: 0.20
+    # byte[] XFData = { 68, 65, 84, 65, 0, 11, 0, 0, 0, 205, 204, 76, 62, 0, 192, 121, 196, 0, 192, 121, 196, 0, 192, 121, 196, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+    # Pitch: 0.00
+    # byte[] XFData = { 68, 65, 84, 65, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 192, 121, 196, 0, 192, 121, 196, 0, 192, 121, 196, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
+
+    try:
+        #values = ('DATA*', 0, 2.7)
+        #packer = struct.Struct('4s B f')
+        # Currently XPlane is receiving the data but not acting on it
+        # Of interest if the byte after data is 
+        #   1 - reported at a Multiplayer machine flying Boeing 737-800
+        #   * - reported as an X-Planre machine sending us its data output
+        
+        values = ('DATA*'.encode('utf-8'), 14, 1, -999, -999, -999, -999, -999, -999, -999)
+        packer = struct.Struct('5s B 8f')
+        packed_data = packer.pack(*values)
+
+        
+        print('UDP target IP:', UDP_IP_Address)
+        print('UDP target port:', UDP_Port)
+        print('sending "%s"' % binascii.hexlify(packed_data), values)
+
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+        sock.sendto((packed_data), (UDP_IP_Address, UDP_Port))
+    
+    except Exception as other:
+        logging.critical('Error in SendTestPacket: ' + str(other))
+   
 
  
 
@@ -283,7 +322,7 @@ def Main():
 
     print('Sending to ' + UDP_IP_Address + ' onport ' + str(UDP_Port))
     try:
-
+        SendTestPacket()
         print('Hello World')
 
     except KeyboardInterrupt:
