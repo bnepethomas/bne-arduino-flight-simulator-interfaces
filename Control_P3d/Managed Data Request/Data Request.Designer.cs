@@ -40,6 +40,10 @@ namespace Managed_Data_Request
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.btn_Gear_Up = new System.Windows.Forms.Button();
+            this.btn_Gear_Down = new System.Windows.Forms.Button();
+            this.btn_UnPause = new System.Windows.Forms.Button();
+            this.btn_Toggle_Gear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -120,11 +124,55 @@ namespace Managed_Data_Request
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // btn_Gear_Up
+            // 
+            this.btn_Gear_Up.Location = new System.Drawing.Point(167, 210);
+            this.btn_Gear_Up.Name = "btn_Gear_Up";
+            this.btn_Gear_Up.Size = new System.Drawing.Size(105, 40);
+            this.btn_Gear_Up.TabIndex = 8;
+            this.btn_Gear_Up.Text = "Gear UP";
+            this.btn_Gear_Up.UseVisualStyleBackColor = true;
+            this.btn_Gear_Up.Click += new System.EventHandler(this.btn_Gear_Up_Click);
+            // 
+            // btn_Gear_Down
+            // 
+            this.btn_Gear_Down.Location = new System.Drawing.Point(167, 271);
+            this.btn_Gear_Down.Name = "btn_Gear_Down";
+            this.btn_Gear_Down.Size = new System.Drawing.Size(105, 45);
+            this.btn_Gear_Down.TabIndex = 9;
+            this.btn_Gear_Down.Text = "Gear Down";
+            this.btn_Gear_Down.UseVisualStyleBackColor = true;
+            this.btn_Gear_Down.Click += new System.EventHandler(this.btn_Gear_Down_Click);
+            // 
+            // btn_UnPause
+            // 
+            this.btn_UnPause.Location = new System.Drawing.Point(24, 380);
+            this.btn_UnPause.Name = "btn_UnPause";
+            this.btn_UnPause.Size = new System.Drawing.Size(94, 36);
+            this.btn_UnPause.TabIndex = 10;
+            this.btn_UnPause.Text = "UnPause";
+            this.btn_UnPause.UseVisualStyleBackColor = true;
+            this.btn_UnPause.Click += new System.EventHandler(this.btn_UnPause_Click);
+            // 
+            // btn_Toggle_Gear
+            // 
+            this.btn_Toggle_Gear.Location = new System.Drawing.Point(167, 331);
+            this.btn_Toggle_Gear.Name = "btn_Toggle_Gear";
+            this.btn_Toggle_Gear.Size = new System.Drawing.Size(105, 42);
+            this.btn_Toggle_Gear.TabIndex = 11;
+            this.btn_Toggle_Gear.Text = "Toggle Gear";
+            this.btn_Toggle_Gear.UseVisualStyleBackColor = true;
+            this.btn_Toggle_Gear.Click += new System.EventHandler(this.btn_Toggle_Gear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(479, 450);
+            this.Controls.Add(this.btn_Toggle_Gear);
+            this.Controls.Add(this.btn_UnPause);
+            this.Controls.Add(this.btn_Gear_Down);
+            this.Controls.Add(this.btn_Gear_Up);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -153,6 +201,10 @@ namespace Managed_Data_Request
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btn_Gear_Up;
+        private System.Windows.Forms.Button btn_Gear_Down;
+        private System.Windows.Forms.Button btn_UnPause;
+        private System.Windows.Forms.Button btn_Toggle_Gear;
     }
 }
 

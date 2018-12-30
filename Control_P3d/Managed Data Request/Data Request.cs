@@ -53,6 +53,8 @@ namespace Managed_Data_Request
             KEY_AUTOPILOT_ON,
             KEY_REF_ALT_FEET,
             AP_MASTER,
+            GEAR_UP,
+            GEAR_DOWN,
         };
 
         enum AutoP
@@ -71,8 +73,10 @@ namespace Managed_Data_Request
             PAUSE = 0,
             UNPAUSE,
             SET_ALT,
-            KEY_AUTOPILOT_ON,
-
+            AUTOPILOT_ON,
+            GEAR_UP,
+            GEAR_DOWN,
+            TOGGLE_GEAR,
         };
 
         //Dictionary<string, EVENTS> phrases = new Dictionary<string, EVENTS>()
@@ -239,9 +243,11 @@ namespace Managed_Data_Request
                     simconnect = new SimConnect("Managed Data Request", this.Handle, WM_USER_SIMCONNECT, null, 0);
                     simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.PAUSE, "PAUSE_ON");
                     simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.UNPAUSE, "PAUSE_OFF");
-                    simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.KEY_AUTOPILOT_ON, "GEAR_TOGGLE");
+                    simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.AUTOPILOT_ON, "AUTOPILOT_ON");
                     simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.SET_ALT, "AP_ALT_VAR_SET_METRIC");
-                    
+                    simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.GEAR_UP, "GEAR_UP");
+                    simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.GEAR_DOWN, "GEAR_DOWN");
+                    simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_GEAR, "GEAR_TOGGLE");
 
                     setButtons(false, true, true);
 
@@ -348,9 +354,33 @@ namespace Managed_Data_Request
 
         private void button3_Click(object sender, EventArgs e)
         {
-            simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.PAUSE, 0, GROUPID.FLAG, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+ 
             simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.SET_ALT, 5000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-            simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.KEY_AUTOPILOT_ON, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+            simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.AUTOPILOT_ON, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+        }
+
+        private void btn_Gear_Up_Click(object sender, EventArgs e)
+        {
+            //simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.PAUSE, 0, GROUPID.FLAG, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+            simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.GEAR_UP, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+        }
+
+        private void btn_Gear_Down_Click(object sender, EventArgs e)
+        {
+            simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.GEAR_DOWN, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+        }
+
+        private void btn_UnPause_Click(object sender, EventArgs e)
+        {
+            simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.UNPAUSE, 0, GROUPID.FLAG, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+        }
+
+        private void btn_Toggle_Gear_Click(object sender, EventArgs e)
+        {
+           
+             simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_GEAR, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+
+           
         }
     }
 }
