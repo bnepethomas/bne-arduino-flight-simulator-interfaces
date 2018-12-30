@@ -11,7 +11,6 @@
 import binascii
 import time
 import codecs
-import serial
 import string
 import logging
 import os
@@ -138,15 +137,15 @@ def SendTestPacket():
 
 
     try:
-        #values = ('DATA*', 0, 2.7)
-        #packer = struct.Struct('4s B f')
+
         # Currently XPlane is receiving the data but not acting on it
         # Of interest if the byte after data is 
         #   1 - reported at a Multiplayer machine flying Boeing 737-800
-        #   * - reported as an X-Planre machine sending us its data output
+        #   * - reported as an X-Plane machine sending us its data output
         
-        values = ('DATA*'.encode('utf-8'), 14, 1, -999, -999, -999, -999, -999, -999, -999)
-        packer = struct.Struct('5s B 8f')
+        values = ('DATA'.encode('utf-8'), 0, 11, -0.20, -999, -999, -999, -999, -999, -999, -999)
+        packer = struct.Struct('5s B B 8f')
+
         packed_data = packer.pack(*values)
 
         
