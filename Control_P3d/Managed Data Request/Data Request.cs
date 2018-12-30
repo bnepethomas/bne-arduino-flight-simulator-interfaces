@@ -43,25 +43,6 @@ namespace Managed_Data_Request
             REQUEST_1,
         };
 
-        enum DEFINITIONS2
-        {
-            HDGINFO,
-        };
-
-        enum EVENTS
-        {
-            KEY_AUTOPILOT_ON,
-            KEY_REF_ALT_FEET,
-            AP_MASTER,
-            GEAR_UP,
-            GEAR_DOWN,
-        };
-
-        enum AutoP
-        {
-            AP_MASTER,
-            AP_MASTER_ON,
-        };
 
         enum GROUP
         {
@@ -77,19 +58,13 @@ namespace Managed_Data_Request
             GEAR_UP,
             GEAR_DOWN,
             TOGGLE_GEAR,
+            THROTTLE_SET,
         };
-
-        //Dictionary<string, EVENTS> phrases = new Dictionary<string, EVENTS>()
-        //{
-        //    { "pause prepared", PAUSE_EVENTS.PAUSE },
-        //    { "unpause prepared", PAUSE_EVENTS.UNPAUSE }
-        //};
 
         enum GROUPID
         {
             FLAG = 2000000000,
         };
-
 
 
 
@@ -248,7 +223,7 @@ namespace Managed_Data_Request
                     simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.GEAR_UP, "GEAR_UP");
                     simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.GEAR_DOWN, "GEAR_DOWN");
                     simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_GEAR, "GEAR_TOGGLE");
-
+                    simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.THROTTLE_SET, "THROTTLE_SET");
                     setButtons(false, true, true);
 
                     initDataRequest();
@@ -301,33 +276,7 @@ namespace Managed_Data_Request
             richResponse.Text = output;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
 
-    //The key to what you want to do is the SetDataOnSimObject function in the SDK.
-    //In order to use it you will need to create a structure to hold the value you want to set and an enum that defines the id of that structure.For example:
-    // define the data 
-
-
-
-    // tell it which var you want to set
-    // (the var names are in a different document in the sdk)
-            simconnect.AddToDataDefinition(DEFINITIONS2.HDGINFO, "Plane Heading Degrees True", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-            // register the var you want to set with SimConnect
-            simconnect.RegisterDataDefineStruct<SetHdg>(DEFINITIONS2.HDGINFO);
-
-            SetHdg
-            // create a struct so that you can set the varSetHdg 
-
-            hdgdata = new SetHdg();
-
-            // set the var to the value you want it to be
-            hdgdata.hdg = 270;
-            // and finally, tell SimConnect to set the variable
-            //simconnect.SetDataOnSimObject(DEFINITIONS2.HDGINFO, SIMCONNECT_SIMOBJECT_TYPE.USER, SIMCONNECT_DATA_SET_FLAG.DEFAULT, hdgdata);
-            simconnect.SetDataOnSimObject(DEFINITIONS2.HDGINFO, 1, SIMCONNECT_DATA_SET_FLAG.DEFAULT, hdgdata);
-
-        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -344,24 +293,19 @@ namespace Managed_Data_Request
                     8 SIMCONNECT_EXCEPTION_TOO_MANY_EVENT_NAMES,
                     9 SIMCONNECT_EXCEPTION_EVENT_ID_DUPLICATE,
             */
+            simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.THROTTLE_SET, 8000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
 
-            simconnect.MapClientEventToSimEvent(AutoP.AP_MASTER, "AP_MASTER");
-            //SIMCONNECTAPI SimConnect_MapClientEventToSimEvent(HANDLE hSimConnect, SIMCONNECT_CLIENT_EVENT_ID EventID, const char* EventName = "");
-            //simconnect.AddClientEventToNotificationGroup(NGROUP.AP_GROUP, EVENTS.AP_MASTER, false);
-            //simconnect.MapClientEventToSimEvent(EVENTS.KEY_AUTOPILOT_ON, "autopilot_on");
-            //simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, EVENTS.KEY_REF_ALT_FEET, 5000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+
         }
 
         private void button3_Click(object sender, EventArgs e)
-        {
- 
+        { 
             simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.SET_ALT, 5000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
             simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.AUTOPILOT_ON, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
         }
 
         private void btn_Gear_Up_Click(object sender, EventArgs e)
         {
-            //simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.PAUSE, 0, GROUPID.FLAG, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
             simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.GEAR_UP, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
         }
 
@@ -381,6 +325,11 @@ namespace Managed_Data_Request
              simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_GEAR, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
 
            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
