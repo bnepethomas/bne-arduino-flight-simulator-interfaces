@@ -142,19 +142,57 @@ def SendTestPacket():
         # Of interest if the byte after data is 
         #   1 - reported at a Multiplayer machine flying Boeing 737-800
         #   * - reported as an X-Plane machine sending us its data output
+
+        # Noted it is working when reporting a multilayer machine flying Boeing 737
         
-        values = ('DATA'.encode('utf-8'), 0, 11, -0.20, -999, -999, -999, -999, -999, -999, -999)
-        packer = struct.Struct('5s B B 8f')
+
+        # Okay couldn't get UDP interface running properly - but found this
+        # http://blog.shahada.abubakar.net/post/linux-udp-network-client-library-for-x-plane-10-and-11
+        
+
+
+        #values = ('DATA'.encode('utf-8'), 0, 14, 0, -999, -999, -999, -999, -999, -999, -999)
+        #packer = struct.Struct('4s B B 8f')
+
+        values = ('CMND'.encode('utf-8'), 0, 'sim/flight_controls/flaps_down'.encode('utf-8'))
+        packer = struct.Struct('4s B 32s')
 
         packed_data = packer.pack(*values)
 
-        
-        print('UDP target IP:', UDP_IP_Address)
-        print('UDP target port:', UDP_Port)
-        print('sending "%s"' % binascii.hexlify(packed_data), values)
+        i = 0
+        while (i < 4):
+            print('UDP target IP:', UDP_IP_Address)
+            print('UDP target port:', UDP_Port)
+            print('sending "%s"' % binascii.hexlify(packed_data), values)
+            
 
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
-        sock.sendto((packed_data), (UDP_IP_Address, UDP_Port))
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+            sock.sendto((packed_data), (UDP_IP_Address, UDP_Port))
+            time.sleep(0.1)
+            i +=1
+
+        timetosleep = 5
+        print("Sleeping for " + str(timetosleep))
+        time.sleep(timetosleep)
+
+
+        values = ('CMND'.encode('utf-8'), 0, 'sim/flight_controls/flaps_up'.encode('utf-8'))
+        packer = struct.Struct('4s B 30s')
+        packed_data = packer.pack(*values)
+
+        
+        i = 0
+        while (i < 4):
+            print('UDP target IP:', UDP_IP_Address)
+            print('UDP target port:', UDP_Port)
+            print('sending "%s"' % binascii.hexlify(packed_data), values)
+            
+
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+            sock.sendto((packed_data), (UDP_IP_Address, UDP_Port))
+            time.sleep(0.1)
+            i +=1
+        
     
     except Exception as other:
         logging.critical('Error in SendTestPacket: ' + str(other))

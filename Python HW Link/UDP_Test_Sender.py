@@ -3,6 +3,7 @@
 # UDP_Test_Sender - Interactive sender of UDP Test Data
 # https://github.com/bnepethomas/bne-arduino-flight-simulator-interfaces
 
+# Samrs
 
 import logging
 import os
@@ -62,9 +63,9 @@ def Send_UDP_Command(command_to_send):
                              + '  UDP target port: ' + str(target_Port))
         logging.debug('Sending: "' + command_to_send + '"')
         
-        sock.sendto(command_to_send,
+        sock.sendto(command_to_send.encode('utf-8'),
                     (target_IP , target_Port))
-        sock.sendto(command_to_send,
+        sock.sendto(command_to_send.encode('utf-8'),
                     (UDP_Reflector_IP, UDP_Reflector_Port))
 
     
@@ -84,17 +85,17 @@ def main():
     try:
         print('UDP_Test_Sender - ctl-c at anytime to exit')
         print('')
-        target_IP = raw_input('Enter Target IP Address [127.0.0.1]: ')
+        target_IP = input('Enter Target IP Address [192.168.138]: ')
         if len(target_IP) == 0:
-            target_IP = '127.0.0.1'
+            target_IP = '192.168.1.138'
 
 
 
         target_Port = ''
         while not isinstance(target_Port, int):
-            target_Port = raw_input('Enter Target Port [27000]: ')
+            target_Port = input('Enter Target Port [7778]: ')
             if len(target_Port) == 0:
-                target_Port = 27000
+                target_Port = 7778
             try:
                 target_Port = int(target_Port)
                 
@@ -102,12 +103,12 @@ def main():
                 target_Port = ''
                 print('Target Port needs to be an integer between 1 and 65535')
 
-        prefix_with_D = raw_input(
-            'Would you like all commands to be prefex with a D [Y]: ')
-        if prefix_with_D.upper() != 'N':
-            prefix_with_D = True
-        else:
+        prefix_with_D = input(
+            'Would you like all commands to be prefex with a D [N]: ')
+        if prefix_with_D.upper() != 'Y':
             prefix_with_D = False
+        else:
+            prefix_with_D = True
 
 
         logging.debug('UDP target IP: ' + str(target_IP)
@@ -118,11 +119,13 @@ def main():
         while True:
 
 
-            command_string = raw_input('Enter Command String to Send: ')
+            command_string = input('Enter Command String to Send: ')
 
             if prefix_with_D:
                 command_string = 'D' + command_string
 
+
+            command_string = command_string + chr(10) 
             Send_UDP_Command(command_string)
 
             
