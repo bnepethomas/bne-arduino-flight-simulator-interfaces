@@ -45,7 +45,7 @@ ub = usb.core.find(idVendor=0x1dd2, idProduct=0x1001)
 
 # checking if the UB0836 was found
 if ub is None:
-    raise ValueError("BU0836 not connected")
+    raise ValueError("Neither BU0836 or BU0836X are connected")
 try:
     # existing kernel drivers must be detached for this to work
     print('Detaching Kernel')
@@ -61,11 +61,51 @@ try:
     # the endPointAdress and maxPacketSize values are required for this
     start = time.time()
     i = 0
-    while (i < 10000):
+    while (i < 10):
         ubdata = ub.read(0x81, 0x0020, timeout=0)
 
         print(ubdata[0] + 256 * ubdata[1])
         print(ubdata)
+        
+        # With no buttons pressed
+        # array('B', [0, 0, 0, 0, 15])
+        # Button 1
+        # array('B', [1, 0, 0, 0, 15])
+        # Button 2
+        # array('B', [2, 0, 0, 0, 15])
+        # Button 3
+        # array('B', [4, 0, 0, 0, 15])
+        # Button 4
+        # 8,0,0,0
+        # Button 5
+        # 16,0,0,0
+        # Button 6
+        # 32,0,0,0
+        # Button 7
+        # 64,0,0,0
+        # Button 8
+        # 128,0,0,0
+        # Button 9
+        # 0,1,0,0
+        # button 10
+        # 0,2,0,0
+        # Button 20
+        # 0,0,8,0
+        # Button 32
+        # 0,0,0,128
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+        
+        
         time.sleep(0.01)
         i = i + 1
     end = time.time()
