@@ -28,7 +28,7 @@
 # Bus 001 Device 019: ID 1dd2:1001
 # The Device Number increments for each connect event
 
-
+# needed to do this on mac sudo python3 -mpip install pyusb
 
 
 
