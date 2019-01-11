@@ -81,17 +81,6 @@ try:
         
         if (ubdata != lastubdata):
             lastubdata = ubdata
-            if (first_loop == False):            
-                print('Change Detected')
-            
-            
-            
-            print( 'First Byte ' + str(ubdata[0]))
-        
-            localint = ubdata[0]
-            offset = 0
-            mask = 1 << offset
-            print( 'First button ' + str(localint & mask))
             
             # Remember this array is zero based
             button_ptr = 0
@@ -110,8 +99,17 @@ try:
                 localint = ubdata[byte_pos]
                 bit_offset = bit_pos
                 mask = 1 << bit_offset
-                if (button_array[button_ptr] != (localint & mask)):
-                    print( 'Button [' + str(button_ptr) + '] ' + str(localint & mask))
+                # print ('mask ' + str(mask))
+                if (localint & mask != 0):
+                    if (button_array[button_ptr] == 0):
+                        print ('Button Pressed ' + str(button_ptr))
+                        button_array[button_ptr] = 1
+                    
+                else:
+                    if (button_array[button_ptr] == 1):
+                        print ('Button Released ' + str(button_ptr))
+                        button_array[button_ptr] = 0
+
         
         # With no buttons pressed
         # array('B', [0, 0, 0, 0, 15])
