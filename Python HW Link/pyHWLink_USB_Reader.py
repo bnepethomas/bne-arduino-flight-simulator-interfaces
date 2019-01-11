@@ -52,6 +52,18 @@ try:
     ub.detach_kernel_driver(0)
 except:
     print('unable to Detach Kernel Driver')
+    
+lastubdata = 0
+first_loop = True
+
+# Initialise Button Array = noting this is a Base 1 not base 0!
+
+button_array = [0] * 33
+i = 1
+while( i < 32):
+    button_array[i] = 0
+    i = i + 1
+    
 try:
 
     # setting configuration
@@ -61,11 +73,45 @@ try:
     # the endPointAdress and maxPacketSize values are required for this
     start = time.time()
     i = 0
-    while (i < 10):
+    while (True):
         ubdata = ub.read(0x81, 0x0020, timeout=0)
 
-        print(ubdata[0] + 256 * ubdata[1])
-        print(ubdata)
+        # print(ubdata[0] + 256 * ubdata[1])
+        # print(ubdata)
+        
+        if (ubdata != lastubdata):
+            lastubdata = ubdata
+            if (first_loop == False):            
+                print('Change Detected')
+            
+            
+            
+            print( 'First Byte ' + str(ubdata[0]))
+        
+            localint = ubdata[0]
+            offset = 0
+            mask = 1 << offset
+            print( 'First button ' + str(localint & mask))
+            
+            # Remember this array is zero based
+            button_ptr = 0
+            while (button_ptr < 32):
+                
+                bit_pos  = button_ptr % 8
+                # print('Bit Pos: ' + str(bit_pos))
+                
+                byte_pos = int(button_ptr / 8)
+                # print('Byte Pos: ' + str(byte_pos))
+                button_ptr = button_ptr + 1
+                
+                
+                # print( 'Byte Pos ' + str(byte_pos) + ' Byte Value' + str(ubdata[byte_pos]) + ' Bit Pos' + str(bit_pos))
+        
+                localint = ubdata[byte_pos]
+                bit_offset = bit_pos
+                mask = 1 << bit_offset
+                if (button_array[button_ptr] != (localint & mask)):
+                    print( 'Button [' + str(button_ptr) + '] ' + str(localint & mask))
         
         # With no buttons pressed
         # array('B', [0, 0, 0, 0, 15])
@@ -95,17 +141,7 @@ try:
         # 0,0,0,128
         
         
-        
-        
-        
-        
-
-
-
-
-
-        
-        
+        first_loop = False
         time.sleep(0.01)
         i = i + 1
     end = time.time()
