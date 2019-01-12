@@ -109,7 +109,7 @@ try:
     parser.add_option("-w","--wh", dest="opt_W_Host",
                       help="Wireshark Target IP Address",metavar="opt_W_Host")    
     parser.add_option("-u","--wp", dest="opt_W_Port",
-                      help="Wireshark Target Port. 27001 is used if not explicity specified",
+                      help="Wireshark Target Port. 27001 is used if not explicitly specified",
                       metavar="opt_W_Port") 
     (options, args) = parser.parse_args()
 
