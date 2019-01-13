@@ -94,8 +94,8 @@ def Send_UDP_Command(command_to_send):
     logging.debug ("UDP target port:" + str(TX_UDP_PORT))
 
 
-    sock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
-    sock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))
+    sock.sendto(command_to_send.encode('utf-8'), (UDP_IP, TX_UDP_PORT))
+    sock.sendto(command_to_send.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
 
 # When doing a bulk send - group commands into packets with an approx size of 1000 bytes
 def Add_UDP_Command(command_to_add):
