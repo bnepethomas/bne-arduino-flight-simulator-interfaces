@@ -176,7 +176,7 @@ while True:
 
                         
 
-                print "received message:", data
+                print('received message:'), data
                 if data == 'CQ':
                    SendAllSwitchStates()
               

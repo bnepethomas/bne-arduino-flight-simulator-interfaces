@@ -83,8 +83,9 @@ except:
     AircraftType = 'default'
 
 
-# UDP_IP_ADDRESS = "127.0.0.1"
-UDP_IP_ADDRESS = "0"
+UDP_IP_ADDRESS = "127.0.0.1"
+# Windows was unable tobind to 0 - checking firewall
+#UDP_IP_ADDRESS = "0"
 UDP_PORT_NO = 26027
 DCS_IP_ADDRESS = "127.0.0.1"
 DCS_PORT_NO = 26026
