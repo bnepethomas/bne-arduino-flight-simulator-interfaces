@@ -22,7 +22,7 @@ logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 
-
+print('Running Python ' + sys.version)
 
 debugging = False
 
