@@ -145,7 +145,7 @@ def ReceivePacket():
                                               
         except socket.timeout:
             a=a+1
-            if (a > 100000):
+            if (a > 1000):
                 logging.info("Long Receive Timeout")
                 a=0
             continue
