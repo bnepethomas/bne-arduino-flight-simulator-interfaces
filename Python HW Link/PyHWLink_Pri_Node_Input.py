@@ -135,7 +135,6 @@ def ReceivePacket():
         try:
             data, addr = serverSock.recvfrom(1500)
             
-            logging.debug("Message: " + str(data))
             ReceivedPacket = data.decode('utf-8')
             logging.debug("Message: " + ReceivedPacket)
             ProcessReceivedString(str(ReceivedPacket))
@@ -153,7 +152,7 @@ def ReceivePacket():
 
         
         except Exception as other:
-            logging.critical("Error in RecevePacket: " + str(other)) 
+            logging.critical("Error in ReceivePacket: " + str(other)) 
 
  
 
