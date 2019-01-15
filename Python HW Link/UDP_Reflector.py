@@ -24,7 +24,25 @@ logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
  
+MIN_VERSION_PY3 = 5    # min. 3.x version
+if (sys.version_info[0] < 3):
+        Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3) 
+        print('')
+        logging.critical(Warning_Message)
+        print('')
+        print('Invalid Version of Python running')
+        print('Running Python earlier than Python 3.0! ' + sys.version)
+        sys.exit(Warning_Message)
 
+elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
+        Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3)           
+        print('')
+        logging.critical(Warning_Message)  
+        print('')
+        print('Invalid Version of Python running')
+        print('Running Python ' + sys.version)
+        sys.exit(Warning_Message)
+        
 
 # Used for command line parsing
 from optparse import OptionParser
