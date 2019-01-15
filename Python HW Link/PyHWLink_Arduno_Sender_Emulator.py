@@ -53,8 +53,10 @@ likelihood_of_change = 0.8
 
 command_string = ''
 
-UDP_IP = "0.0.0.0"
+
 UDP_PORT = 7788
+UDP_IP = "127.0.0.1"
+TX_UDP_PORT = 26027
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
 
@@ -85,12 +87,14 @@ logging.debug(switch_array)
 
 
 def Send_UDP_Command(command_to_send):
-    UDP_IP = "127.0.0.1"
-    TX_UDP_PORT = 26027
+    
+    global UDP_IP
+    global TX_UDP_PORT
+	
 
     global UDP_Reflector_IP, UDP_Reflector_Port, SOCK
 
-    logging.debug ("IP target address:" + str(TX_UDP_PORT))
+    logging.debug ("IP target address:" + str(UDP_IP))
     logging.debug ("UDP target port:" + str(TX_UDP_PORT))
 
 

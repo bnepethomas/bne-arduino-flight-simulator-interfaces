@@ -136,7 +136,8 @@ def ReceivePacket():
             data, addr = serverSock.recvfrom(1500)
             
             logging.debug("Message: " + str(data))
-            ReceivedPacket = data
+            ReceivedPacket = data.decode('utf-8')
+            logging.debug("Message: " + ReceivedPacket)
             ProcessReceivedString(str(ReceivedPacket))
             
 
@@ -259,8 +260,8 @@ def Send_Value():
 
         logging.debug("UDP target port:" + str(DCS_PORT_NO))
 
-        serverSock.sendto(send_string, (DCS_IP_ADDRESS, DCS_PORT_NO))
-        serverSock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
+        serverSock.sendto(send_string.encode('utf-8'), (DCS_IP_ADDRESS, DCS_PORT_NO))
+        serverSock.sendto(send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
 
         send_string = ""
 
