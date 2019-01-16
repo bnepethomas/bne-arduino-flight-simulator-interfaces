@@ -63,8 +63,8 @@ total_entries = 10
 
 max_packet_size = 150
 
-#likelihood_of_change = 0.5005
-likelihood_of_change = 0.8
+likelihood_of_change = 0.5005
+#likelihood_of_change = 0.8
 #likelihood_of_change = 0
 # 0.0.0.0 will listen on all addresses, other specify desired source address
 
