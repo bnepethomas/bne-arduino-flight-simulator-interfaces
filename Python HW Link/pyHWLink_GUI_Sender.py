@@ -1,34 +1,56 @@
 import tkinter as tk
 
-class App(tk.Frame):
-    def __init__(self, master=None):
-        super().__init__(master)
-        self.pack()
-        self.create_widgets()
+root = tk.Tk()
 
-    def create_widgets(self):
-        self.hi_there = tk.Button(self)
-        self.hi_there["text"] = "Hello World\n(click me)"
-        self.hi_there["command"] = self.say_hi
-        self.hi_there.pack(side="top")
+v = tk.IntVar()
+v.set(1)  # initializing the choice, i.e. Python
 
-        self.quit = tk.Button(self, text="QUIT", fg="red",
-                              command=self.master.destroy)
-        self.quit.pack(side="bottom")
+p = tk.IntVar()
+p.set(1)  # initializing the choice, i.e. Python
 
-    def say_hi(self):
-        print("hi there, everyone!")
-        
+languages = [
+    ("Python",1),
+    ("Perl",2),
+    ("Java",3),
+    ("C++",4),
+    ("C",5)
+]
 
-# create the application
-myapp = App()
+planes = [
+    ("A10",1),
+    ("737",2),
+    ("JetRanger",3),
+]
 
-#
-# here are method calls to the window manager class
-#
-myapp.master.title("My Do-Nothing Application")
-myapp.master.maxsize(1000, 400)
-myapp.master.minsize(800,300)
+def ShowChoice():
+    print(v.get())
 
-# start the program
-myapp.mainloop()
+def ShowPlane():
+    print(p.get())
+
+tk.Label(root, 
+         text="""Choose your favourite 
+programming language:""",
+         justify = tk.LEFT,
+         padx = 20).pack()
+
+for val, language in enumerate(languages):
+     tk.Radiobutton(root, 
+                  text=language,
+                  indicatoron = 0,
+                  width = 20,
+                  padx = 20, 
+                  variable=v, 
+                  command=ShowChoice,
+                  value=val).pack(anchor=tk.W)
+
+for pval, language in enumerate(planes):
+     tk.Radiobutton(root, 
+                  text=language,
+                  indicatoron = 0,
+                  width = 20,
+                  padx = 20, 
+                  variable=p, 
+                  command=ShowPlane,
+                  value=pval).pack(anchor=tk.W)
+root.mainloop()
