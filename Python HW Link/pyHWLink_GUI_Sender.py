@@ -10,18 +10,13 @@ button_width = 90
 
 
 tk.Label(root, 
-         text="Send Commands to Sim",
-         justify = tk.LEFT,
-         padx = 20).place(x = 5, y = 5, width=150, height=button_height)
+     text="Send Commands to Sim",
+     justify = tk.LEFT,
+     padx = 20).place(x = 5, y = 5, width=150, height=button_height)
 
 # DO NOT REPLACE 'X' HERE!!!!!!!
 
 # Begin Set Needed to add Radio Button
-
-#########################
-# Start SwitchX         #
-#########################
-
 #   Copy and Paste to add
 #   Then select new text and replace X (case sentitive with new button number be careful to only replace in the new text
 #   Then search and replace '# Update' with nothing
@@ -35,19 +30,21 @@ tk.Label(root,
 #   SwitchX_xpos
 #   SwitchX_ypos
 
+
+#########################
+# Start SwitchX         #
+#########################
+
+
+
 # Need to also reposition buttons
-# Update - note the base buttons here are hiiden as it has a negative x_pos value - need to make positive
+# Note the base buttons here are hiiden as it has a negative x_pos value - need to make positive
 SwitchX_xpos = -100
-# Update
 SwitchX_ypos = 10
 
-
-# Update
 SwitchXNum = tk.IntVar()
-# Update
 SwitchXNum.set(0)
 
-# Update
 SwitchXs = [
     ("1",1),
     ("2",2),
@@ -56,37 +53,72 @@ SwitchXs = [
     ("5",5)
 ]
 
-# Update
+
 def ShowSwitchX():
     print(SwitchXNum.get())
 
-# Update
-for SwitchXval, SwitchXChoices in enumerate(SwitchXs):
-     tk.Radiobutton(root, 
-                  text=SwitchXChoices[0],
-                  indicatoron = 0,
-                  width = 20,
-                  padx = 20,
-                  # Update  
-                  variable=SwitchXNum,
-                  # Update  
-                  command=ShowSwitchX,
-                  value=SwitchXval).place(x = SwitchX_xpos, y = SwitchX_ypos + SwitchXval*30, width=button_width, height=button_height)
 
-# End Set Needed to add Radio Button   
+for SwitchXval, SwitchXChoices in enumerate(SwitchXs):
+    tk.Radiobutton(root, 
+        text=SwitchXChoices[0],
+        indicatoron = 0,
+        width = 20,
+        padx = 20,
+        variable=SwitchXNum,
+        command=ShowSwitchX,
+        value=SwitchXval).place(x = SwitchX_xpos, y = SwitchX_ypos + SwitchXval*30, width=button_width, height=button_height)
+
+
 #########################
 # End SwitchX           #
 #########################
 
 
+##############################
+# Start Select Module Number #
+##############################
 
-languages = [
-    ("Python",1),
-    ("Perl",2),
-    ("Java",3),
-    ("C++",4),
-    ("C",5)
+# Selects which input module it currently being emulated
+Switch00_xpos = 150
+Switch00_ypos = 10
+
+
+Switch00Num = tk.IntVar()
+Switch00Num.set(0)
+
+
+Switch00s = [
+    ("1",1),
+    ("2",2),
+    ("3",3),
+    ("4",4),
+    ("5",5)
 ]
+
+
+def ShowSwitch00():
+    print(Switch00Num.get() + 1)
+
+
+for Switch00val, Switch00Choices in enumerate(Switch00s):
+    tk.Radiobutton(root, 
+        text=Switch00Choices[0],
+        indicatoron = 0,
+        width = 20,
+        padx = 20,
+        variable=Switch00Num,
+        command=ShowSwitch00,
+        value=Switch00val).place(x = Switch00_xpos + Switch00val * 15, y = Switch00_ypos, width=10, height=15)
+
+
+############################
+# End Select Module Number #
+############################
+
+
+
+
+
 
 #########################
 # Start Switch01        #
@@ -127,13 +159,44 @@ for Switch01val, Switch01Choices in enumerate(Switch01s):
 # End Switch01          #
 #########################
 
+#########################
+# Start Switch02         #
+#########################
 
-planes = [
-    ("A10",1),
-    ("737",2),
-    ("JetRanger",3),
+
+
+# Need to also reposition buttons
+# Note the base buttons here are hiiden as it has a negative x_pos value - need to make positive
+Switch02_xpos = 120
+Switch02_ypos = 40
+
+Switch02Num = tk.IntVar()
+Switch02Num.set(0)
+
+Switch02s = [
+    ("Flaps_Up",1),
+    ("Flaps_Down",2),
 ]
 
+
+def ShowSwitch02():
+    print(Switch02Num.get())
+
+
+for Switch02val, Switch02Choices in enumerate(Switch02s):
+    tk.Radiobutton(root, 
+        text=Switch02Choices[0],
+        indicatoron = 0,
+        width = 20,
+        padx = 20,
+        variable=Switch02Num,
+        command=ShowSwitch02,
+        value=Switch02val).place(x = Switch02_xpos, y = Switch02_ypos + Switch02val*30, width=button_width, height=button_height)
+
+
+#########################
+# End Switch02           #
+#########################
 
 
 
