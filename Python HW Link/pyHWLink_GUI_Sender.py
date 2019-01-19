@@ -139,7 +139,12 @@ SwitchXs = [
 
 
 def ShowSwitchX():
-    print(SwitchXNum.get())
+    if (SwitchXNum.get() == 0):
+        logging.debug ("Switch X On")    
+        Send_Button_Down("X")
+    else:
+        logging.debug ("Switch X Off")
+        Send_Button_Up("X")
 
 
 for SwitchXval, SwitchXChoices in enumerate(SwitchXs):
@@ -216,24 +221,30 @@ Switch01Num.set(0)
 
 
 Switch01s = [
-    ("Gear Up",1),
-    ("Gar Down",2),
+        ("Gear Up",1),
+        ("Gar Down",2),
 ]
 
 
 def ShowSwitch01():
-    print(Switch01Num.get())
+    if (Switch01Num.get() == 1):
+        logging.debug ("Gear Down")    
+        Send_Button_Down("001")
+    else:
+        Send_Button_Up("001")
+        logging.debug ("Gear Up") 
+            
 
 
 for Switch01val, Switch01Choices in enumerate(Switch01s):
      tk.Radiobutton(root, 
-                  text=Switch01Choices[0],
-                  indicatoron = 0,
-                  width = 20,
-                  padx = 20,                 
-                  variable=Switch01Num,                   
-                  command=ShowSwitch01,
-                  value=Switch01val).place(x = Switch01_xpos, y = Switch01_ypos + Switch01val*30, width=button_width, height=button_height)
+          text=Switch01Choices[0],
+          indicatoron = 0,
+          width = 20,
+          padx = 20,                 
+          variable=Switch01Num,                   
+          command=ShowSwitch01,
+          value=Switch01val).place(x = Switch01_xpos, y = Switch01_ypos + Switch01val*30, width=button_width, height=button_height)
 
 
 ####################################################################################################
@@ -260,7 +271,13 @@ Switch02s = [
 
 
 def ShowSwitch02():
-    print(Switch02Num.get())
+    if (Switch02Num.get() == 0):
+        logging.debug ("Landing Lights On")    
+        Send_Button_Down("002")
+    else:
+        logging.debug ("Landing Lights Off")
+        Send_Button_Up("002")
+
 
 for Switch02val, Switch02Choices in enumerate(Switch02s):
     tk.Radiobutton(root, 
@@ -282,42 +299,33 @@ for Switch02val, Switch02Choices in enumerate(Switch02s):
 # Start Incremental Flaps
 ####################################################################################################
 
-
+# Uses Switch postions 3 & 7
 Switch03_xpos = 210
 Switch03_ypos = 40
 
 
-Switch03s = [
-    ("Flaps_Inc_Up",1),
-    ("Flaps_Inc_Down",2),
-]
-
-
-def ShowSwitch03_1():
+def ShowSwitch03():
     print("Flaps_Inc_Up")
-    print("Button Down")
-    time.sleep(0.1)
-    print("Button Up")
+    Send_Button_Up_Down("003")
 
-def ShowSwitch03_2():
+
+def ShowSwitch07():
     print("Flaps_Inc_Down")
-    print("Button Down")
-    time.sleep(0.1)
-    print("Button Up")
+    Send_Button_Up_Down("007")
 
 
 tk.Button(root, 
     text="Flaps_Inc_Up",
     width = 20,
     padx = 20,
-    command=ShowSwitch03_1,
+    command=ShowSwitch03,
     ).place(x = Switch03_xpos, y = Switch03_ypos + 0 *30, width=button_width, height=button_height)
 
 tk.Button(root, 
     text="Flaps_Inc_Down",
     width = 20,
     padx = 20,
-    command=ShowSwitch03_2,
+    command=ShowSwitch07,
     ).place(x = Switch03_xpos, y = Switch03_ypos + 1 *30, width=button_width, height=button_height)
 
 ####################################################################################################
@@ -383,7 +391,12 @@ Switch06s = [
 
 
 def ShowSwitch06():
-    print(Switch06Num.get())
+    if (Switch06Num.get() == 0):
+        logging.debug ("Wheels Brakes On")    
+        Send_Button_Down("006")
+    else:
+        logging.debug ("Wheels Brakes Off")
+        Send_Button_Up("006")
 
 
 for Switch06val, Switch06Choices in enumerate(Switch06s):
