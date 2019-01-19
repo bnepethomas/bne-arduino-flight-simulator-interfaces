@@ -58,23 +58,31 @@ def Send_UDP_Command(command_to_send):
     logging.debug ("IP target address:" + str(TX_UDP_IP))
     logging.debug ("UDP target port:" + str(TX_UDP_PORT))
 
-    print ("IP target address:" + str(TX_UDP_IP))
-    print ("UDP target port:" + str(TX_UDP_PORT))
-
     serverSock.sendto(command_to_send.encode('utf-8'), (TX_UDP_IP, TX_UDP_PORT))
     serverSock.sendto(command_to_send.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
 
-    print('done')
+
 
 def Send_Button_Up_Down(button_Number):
-    # b'D00:001:0
-    print("Button Down")
+    logging.debug ("Button Down/Up " + str(button_Number))
     strModuleNum = '%.2d' % (Switch00Num.get() + 1)
-
-    Send_UDP_Command('D' + strModuleNum + ':' + str(button_Number) + ':1' )
+    Send_Button_Down(button_Number)
     time.sleep(0.1)
-    print("Button Up")
-    Send_UDP_Command(str('D' + strModuleNum) + ':' + str(button_Number) + ':0' )
+    Send_Button_Up(button_Number)
+
+
+    
+
+def Send_Button_Down(button_Number):
+    logging.debug ("Button Down " + str(button_Number))
+    strModuleNum = '%.2d' % (Switch00Num.get() + 1)
+    Send_UDP_Command('D' + strModuleNum + ':' + str(button_Number) + ':1' )
+
+
+def Send_Button_Up(button_Number):
+    logging.debug ("Button Up " + str(button_Number))
+    strModuleNum = '%.2d' % (Switch00Num.get() + 1)
+    Send_UDP_Command('D' + strModuleNum + ':' + str(button_Number) + ':0' )
     
 
 root = tk.Tk()
@@ -352,6 +360,45 @@ tk.Button(root,
 
 ####################################################################################################
 # End Pause Exit
+####################################################################################################
+
+
+####################################################################################################
+# Start Wheel Brakes                                                                                    #
+####################################################################################################
+
+
+# Need to also reposition buttons
+# Note the base buttons here are hiiden as it has a negative x_pos value - need to make positive
+Switch06_xpos = 410
+Switch06_ypos = 40
+
+Switch06Num = tk.IntVar()
+Switch06Num.set(0)
+
+Switch06s = [
+    ("Wheel_Brks_On",1),
+    ("Wheel_Brks_Off",2),
+]
+
+
+def ShowSwitch06():
+    print(Switch06Num.get())
+
+
+for Switch06val, Switch06Choices in enumerate(Switch06s):
+    tk.Radiobutton(root, 
+        text=Switch06Choices[0],
+        indicatoron = 0,
+        width = 20,
+        padx = 20,
+        variable=Switch06Num,
+        command=ShowSwitch06,
+        value=Switch06val).place(x = Switch06_xpos, y = Switch06_ypos + Switch06val*30, width=button_width, height=button_height)
+
+
+####################################################################################################
+# End Wheel Brakes                                                                                     #
 ####################################################################################################
 
 
