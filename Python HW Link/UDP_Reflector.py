@@ -20,8 +20,8 @@ import sys
 import time
 import threading
 
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
  
 MIN_VERSION_PY3 = 5    # min. 3.x version

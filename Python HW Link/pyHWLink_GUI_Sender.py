@@ -1,5 +1,81 @@
 import tkinter as tk
+import argparse
+import numbers
+import logging
+import os
+import random
+import re
+import socket
+import sys
 import time
+
+
+
+
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+
+MIN_VERSION_PY3 = 5    # min. 3.x version
+if (sys.version_info[0] < 3):
+        Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3) 
+        print('')
+        logging.critical(Warning_Message)
+        print('')
+        print('Invalid Version of Python running')
+        print('Running Python earlier than Python 3.0! ' + sys.version)
+        sys.exit(Warning_Message)
+
+elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
+        Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3)           
+        print('')
+        logging.critical(Warning_Message)  
+        print('')
+        print('Invalid Version of Python running')
+        print('Running Python ' + sys.version)
+        sys.exit(Warning_Message)
+
+
+UDP_IP_ADDRESS = "127.0.0.1"
+UDP_PORT_NO = 7789
+TX_UDP_IP = "127.0.0.1"
+TX_UDP_PORT = 26027
+UDP_Reflector_IP = "127.0.0.1"
+UDP_Reflector_Port = 27000
+
+serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+serverSock.settimeout(0.0001)
+serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
+
+
+
+def Send_UDP_Command(command_to_send):
+    
+    global TX_UDP_IP
+    global TX_UDP_PORT
+    global UDP_Reflector_IP, UDP_Reflector_Port, SOCK
+
+    logging.debug ("IP target address:" + str(TX_UDP_IP))
+    logging.debug ("UDP target port:" + str(TX_UDP_PORT))
+
+    print ("IP target address:" + str(TX_UDP_IP))
+    print ("UDP target port:" + str(TX_UDP_PORT))
+
+    serverSock.sendto(command_to_send.encode('utf-8'), (TX_UDP_IP, TX_UDP_PORT))
+    serverSock.sendto(command_to_send.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
+
+    print('done')
+
+def Send_Button_Up_Down(button_Number):
+    # b'D00:001:0
+    print("Button Down")
+    strModuleNum = '%.2d' % (Switch00Num.get() + 1)
+
+    Send_UDP_Command('D' + strModuleNum + ':' + str(button_Number) + ':1' )
+    time.sleep(0.1)
+    print("Button Up")
+    Send_UDP_Command(str('D' + strModuleNum) + ':' + str(button_Number) + ':0' )
+    
 
 root = tk.Tk()
 # width x height + x_offset + y_offset:
@@ -46,11 +122,11 @@ SwitchXNum = tk.IntVar()
 SwitchXNum.set(0)
 
 SwitchXs = [
-    ("1",1),
-    ("2",2),
-    ("3",3),
-    ("4",4),
-    ("5",5)
+    ("001",1),
+    ("002",2),
+    ("003",3),
+    ("004",4),
+    ("005",5)
 ]
 
 
@@ -245,36 +321,33 @@ tk.Button(root,
 # Start Pause Exit
 ####################################################################################################
 
-
+# Consumes both 4 & 5
 Switch04_xpos = 310
 Switch04_ypos = 40
 
 
-def ShowSwitch04_1():
+def ShowSwitch04():
     print("Pause")
-    print("Button Down")
-    time.sleep(0.1)
-    print("Button Up")
+    Send_Button_Up_Down("004")
 
-def ShowSwitch04_2():
+def ShowSwitch05():
     print("Exit")
-    print("Button Down")
-    time.sleep(0.1)
-    print("Button Up")
+    Send_Button_Up_Down("005")
+
 
 
 tk.Button(root, 
     text="Pause",
     width = 20,
     padx = 20,
-    command=ShowSwitch04_1,
+    command=ShowSwitch04,
     ).place(x = Switch04_xpos, y = Switch04_ypos + 0 *30, width=button_width, height=button_height)
 
 tk.Button(root, 
     text="Exit",
     width = 20,
     padx = 20,
-    command=ShowSwitch04_2,
+    command=ShowSwitch05,
     ).place(x = Switch04_xpos, y = Switch04_ypos + 1 *30, width=button_width, height=button_height)
 
 ####################################################################################################
