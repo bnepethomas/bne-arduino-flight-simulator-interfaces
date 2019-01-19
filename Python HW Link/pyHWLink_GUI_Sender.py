@@ -1,4 +1,6 @@
 import tkinter as tk
+import tkinter.ttk as ttk
+import time
 
 root = tk.Tk()
 # width x height + x_offset + y_offset:
@@ -31,10 +33,9 @@ tk.Label(root,
 #   SwitchX_ypos
 
 
-#########################
-# Start SwitchX         #
-#########################
-
+####################################################################################################
+# Start SwitchX                                                                                    #
+####################################################################################################
 
 
 # Need to also reposition buttons
@@ -69,14 +70,15 @@ for SwitchXval, SwitchXChoices in enumerate(SwitchXs):
         value=SwitchXval).place(x = SwitchX_xpos, y = SwitchX_ypos + SwitchXval*30, width=button_width, height=button_height)
 
 
-#########################
-# End SwitchX           #
-#########################
+####################################################################################################
+# End SwitchX                                                                                      #
+####################################################################################################
 
 
-##############################
-# Start Select Module Number #
-##############################
+####################################################################################################
+# Start Select Module Number                                                                       #
+####################################################################################################
+
 
 # Selects which input module it currently being emulated
 Switch00_xpos = 150
@@ -97,7 +99,7 @@ Switch00s = [
 
 
 def ShowSwitch00():
-    print(Switch00Num.get() + 1)
+    print("Module " + str(Switch00Num.get() + 1))
 
 
 for Switch00val, Switch00Choices in enumerate(Switch00s):
@@ -111,25 +113,21 @@ for Switch00val, Switch00Choices in enumerate(Switch00s):
         value=Switch00val).place(x = Switch00_xpos + Switch00val * 15, y = Switch00_ypos, width=10, height=15)
 
 
-############################
-# End Select Module Number #
-############################
+####################################################################################################
+# End Select Module Number                                                                         #
+####################################################################################################
 
 
 
 
+####################################################################################################
+# Start Switch01                                                                                   #
+####################################################################################################
 
-
-#########################
-# Start Switch01        #
-#########################
 
 
 Switch01_xpos = 10
 Switch01_ypos = 40
-
-
-
 Switch01Num = tk.IntVar()
 Switch01Num.set(0)
 
@@ -155,33 +153,31 @@ for Switch01val, Switch01Choices in enumerate(Switch01s):
                   value=Switch01val).place(x = Switch01_xpos, y = Switch01_ypos + Switch01val*30, width=button_width, height=button_height)
 
 
-#########################
-# End Switch01          #
-#########################
-
-#########################
-# Start Switch02         #
-#########################
+####################################################################################################
+# End Switch01          
+####################################################################################################
 
 
+####################################################################################################
+# Start Landing Lights
+####################################################################################################
 
-# Need to also reposition buttons
-# Note the base buttons here are hiiden as it has a negative x_pos value - need to make positive
-Switch02_xpos = 120
+
+
+Switch02_xpos = 110
 Switch02_ypos = 40
 
 Switch02Num = tk.IntVar()
 Switch02Num.set(0)
 
 Switch02s = [
-    ("Flaps_Up",1),
-    ("Flaps_Down",2),
+    ("Land_Lghts_On",1),
+    ("Land_Lghts_Off",2),
 ]
 
 
 def ShowSwitch02():
     print(Switch02Num.get())
-
 
 for Switch02val, Switch02Choices in enumerate(Switch02s):
     tk.Radiobutton(root, 
@@ -194,10 +190,59 @@ for Switch02val, Switch02Choices in enumerate(Switch02s):
         value=Switch02val).place(x = Switch02_xpos, y = Switch02_ypos + Switch02val*30, width=button_width, height=button_height)
 
 
-#########################
-# End Switch02           #
-#########################
+####################################################################################################
+# End Flaps
+####################################################################################################
 
+
+####################################################################################################
+# Start Incremental Flaps
+####################################################################################################
+
+
+Switch03_xpos = 210
+Switch03_ypos = 40
+
+
+Switch03s = [
+    ("Flaps_Inc_Up",1),
+    ("Flaps_Inc_Down",2),
+]
+
+
+def ShowSwitch03_1():
+    print("Flaps_Inc_Up")
+    print("Button Down")
+    time.sleep(0.1)
+    print("Button Up")
+
+def ShowSwitch03_2():
+    print("Flaps_Inc_Down")
+    print("Button Down")
+    time.sleep(0.1)
+    print("Button Up")
+
+s = ttk.Style() 
+s.configure('Wild.TRadiobutton',    # First argument is the name of style. Needs to end with: .TRadiobutton
+        background='green',         # Setting background to our specified color above
+        foreground='black') 
+
+ttk.Button(root, 
+    text="Flaps_Inc_Up",
+    width = 20,
+    command=ShowSwitch03_1,
+    ).place(x = Switch03_xpos, y = Switch03_ypos + 0 *30, width=button_width, height=button_height) # style = 'Wild.TRadiobutton')
+
+tk.Button(root, 
+    text="Flaps_Inc_Down",
+    width = 20,
+    padx = 20,
+    command=ShowSwitch03_2,
+    ).place(x = Switch03_xpos, y = Switch03_ypos + 1 *30, width=button_width, height=button_height)
+
+####################################################################################################
+# End Flaps
+####################################################################################################
 
 
 
