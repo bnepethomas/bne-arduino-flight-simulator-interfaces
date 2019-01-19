@@ -1,5 +1,4 @@
 import tkinter as tk
-import tkinter.ttk as ttk
 import time
 
 root = tk.Tk()
@@ -222,16 +221,13 @@ def ShowSwitch03_2():
     time.sleep(0.1)
     print("Button Up")
 
-s = ttk.Style() 
-s.configure('Wild.TRadiobutton',    # First argument is the name of style. Needs to end with: .TRadiobutton
-        background='green',         # Setting background to our specified color above
-        foreground='black') 
 
-ttk.Button(root, 
+tk.Button(root, 
     text="Flaps_Inc_Up",
     width = 20,
+    padx = 20,
     command=ShowSwitch03_1,
-    ).place(x = Switch03_xpos, y = Switch03_ypos + 0 *30, width=button_width, height=button_height) # style = 'Wild.TRadiobutton')
+    ).place(x = Switch03_xpos, y = Switch03_ypos + 0 *30, width=button_width, height=button_height)
 
 tk.Button(root, 
     text="Flaps_Inc_Down",
@@ -241,9 +237,49 @@ tk.Button(root,
     ).place(x = Switch03_xpos, y = Switch03_ypos + 1 *30, width=button_width, height=button_height)
 
 ####################################################################################################
-# End Flaps
+# End Incremental Flaps
 ####################################################################################################
 
+
+####################################################################################################
+# Start Pause Exit
+####################################################################################################
+
+
+Switch04_xpos = 310
+Switch04_ypos = 40
+
+
+def ShowSwitch04_1():
+    print("Pause")
+    print("Button Down")
+    time.sleep(0.1)
+    print("Button Up")
+
+def ShowSwitch04_2():
+    print("Exit")
+    print("Button Down")
+    time.sleep(0.1)
+    print("Button Up")
+
+
+tk.Button(root, 
+    text="Pause",
+    width = 20,
+    padx = 20,
+    command=ShowSwitch04_1,
+    ).place(x = Switch04_xpos, y = Switch04_ypos + 0 *30, width=button_width, height=button_height)
+
+tk.Button(root, 
+    text="Exit",
+    width = 20,
+    padx = 20,
+    command=ShowSwitch04_2,
+    ).place(x = Switch04_xpos, y = Switch04_ypos + 1 *30, width=button_width, height=button_height)
+
+####################################################################################################
+# End Pause Exit
+####################################################################################################
 
 
 
