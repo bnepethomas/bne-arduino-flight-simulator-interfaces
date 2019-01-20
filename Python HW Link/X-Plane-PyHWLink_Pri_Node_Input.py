@@ -112,8 +112,9 @@ UDP_IP_ADDRESS = "127.0.0.1"
 # Windows was unable tobind to 0 - checking firewall
 #UDP_IP_ADDRESS = "0"
 UDP_PORT_NO = 26027
-DCS_IP_ADDRESS = "127.0.0.1"
-DCS_PORT_NO = 26026
+#XPlane_IP_ADDRESS = "127.0.0.1"
+XPlane_IP_ADDRESS = "192.168.1.138"
+XPlane_PORT_NO = 49000
 
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
@@ -263,10 +264,19 @@ def Send_Value():
 
     try:
 
-        logging.debug("UDP target port:" + str(DCS_PORT_NO))
+        logging.debug("UDP target port:" + str(XPlane_PORT_NO))
+        
+        # X-Plane Specific
+        values = ('CMND'.encode('utf-8'), 0, send_string.encode('utf-8'))
+        packer = struct.Struct('4s B 32s')
+        packed_data = packer.pack(*values)      
+  
 
-        serverSock.sendto(send_string.encode('utf-8'), (DCS_IP_ADDRESS, DCS_PORT_NO))
-        serverSock.sendto(send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
+
+        serverSock.sendto((packed_data), (XPlane_IP_ADDRESS, XPlane_PORT_NO))
+        serverSock.sendto((packed_data), (UDP_Reflector_IP, UDP_Reflector_Port))
+
+        # X-Plane Specific
 
         send_string = ""
 
