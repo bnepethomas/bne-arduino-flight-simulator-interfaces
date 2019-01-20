@@ -16,7 +16,7 @@ import os
 import socket
 import sys
 import time
-
+import struct
 
 
 from optparse import OptionParser
@@ -264,16 +264,23 @@ def Send_Value():
 
     try:
 
+ 
+
         logging.debug("UDP target port:" + str(XPlane_PORT_NO))
+        logging.debug('send_string is ' + send_string)
+        logging.debug('Length of Send String is ' + str(len(send_string)))
         
         # X-Plane Specific
+        
         values = ('CMND'.encode('utf-8'), 0, send_string.encode('utf-8'))
-        packer = struct.Struct('4s B 32s')
+        packer = struct.Struct('4s B ' + str(len(send_string)) + 's')
         packed_data = packer.pack(*values)      
-  
 
 
-        serverSock.sendto((packed_data), (XPlane_IP_ADDRESS, XPlane_PORT_NO))
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+        sock.sendto((packed_data), (XPlane_IP_ADDRESS, XPlane_PORT_NO))
+
+
         serverSock.sendto((packed_data), (UDP_Reflector_IP, UDP_Reflector_Port))
 
         # X-Plane Specific

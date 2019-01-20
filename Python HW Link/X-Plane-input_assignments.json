@@ -1288,9 +1288,9 @@
         "Open": "sim/flight_controls/landing_gear_up"
     },
     "01:002": {
-        "Close": "sim/flight_controls/landing_lights_on",
+        "Close": "sim/lights/landing_lights_on",
         "Description": "Landing Lights",
-        "Open": "sim/flight_controls/landing_lights_off"
+        "Open": "sim/lights/landing_lights_off"
     },
     "01:003": {
         "Close": "sim/flight_controls/flaps_up",
@@ -1308,9 +1308,9 @@
         "Open": null
     },
     "01:006": {
-        "Close": "sim/flight_controls/brakes_max",
+        "Close": "sim/flight_controls/right_brake",
         "Description": "Wheels Brakes",
-        "Open": "sim/flight_controls/brakes_toggle_max"
+        "Open": "sim/flight_controls/brakes_toggle_regular"
     },
     "01:007": {
         "Close": "sim/flight_controls/flaps_down",
