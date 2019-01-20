@@ -85,7 +85,7 @@ def main():
     try:
         print('UDP_Test_Sender - ctl-c at anytime to exit')
         print('')
-        target_IP = input('Enter Target IP Address [192.168.138]: ')
+        target_IP = input('Enter Target IP Address [192.168.1.138]: ')
         if len(target_IP) == 0:
             target_IP = '192.168.1.138'
 
@@ -93,9 +93,9 @@ def main():
 
         target_Port = ''
         while not isinstance(target_Port, int):
-            target_Port = input('Enter Target Port [7778]: ')
+            target_Port = input('Enter Target Port [7790]: ')
             if len(target_Port) == 0:
-                target_Port = 7778
+                target_Port = 7790
             try:
                 target_Port = int(target_Port)
                 
