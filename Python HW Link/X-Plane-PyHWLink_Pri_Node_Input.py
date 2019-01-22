@@ -224,7 +224,7 @@ def updateOpenAction(workingkey):
             wrkstring = input('Please provide a Open Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['Open'] = wrkstring
+            input_assignments[workingkey]['UDPOpen'] = wrkstring
 
             save_and_reload_assignments()
                 
@@ -246,7 +246,7 @@ def updateCloseAction(workingkey):
             wrkstring = input('Please provide a Close Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['Close'] = wrkstring
+            input_assignments[workingkey]['UDPClose'] = wrkstring
 
             save_and_reload_assignments()
                 
@@ -391,23 +391,40 @@ def ProcessReceivedString(ReceivedUDPString):
 
                         # Switch is Closed
                         if str(workingFields[2]) == '1':
-                            if learning and input_assignments[workingkey]['Close'] == None:
+                            if learning and input_assignments[workingkey]['UDPClose'] == None:
                                 updateCloseAction(workingkey)
-                            print('Value for Close is : ' +
-                              str (input_assignments[workingkey]['Close']))
-                            if input_assignments[workingkey]['Close'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Close']))
+
+                            # Check both UDP and Keyboard Fields    
+                            print('Value for UDPClose is : ' +
+                              str (input_assignments[workingkey]['UDPClose']))
+                            if input_assignments[workingkey]['UDPClose'] != None:
+                                addValueToSend(str (input_assignments[workingkey]['UDPClose']))
+                                
+                            print('Value for KeyboardClose is : ' +
+                              str (input_assignments[workingkey]['KeyboardClose']))
+                            if input_assignments[workingkey]['KeyboardClose'] != None:
+                                print('*********************')
+                                print('Add keyboard close send code here!')
+                                #addValueToSend(str (input_assignments[workingkey]['UDPClose']))
+                                
 
                         # Switch is Opened
                         if str(workingFields[2]) == '0':
-                            if learning and input_assignments[workingkey]['Open'] == None:
+                            if learning and input_assignments[workingkey]['UDPOpen'] == None:
                                 updateOpenAction(workingkey)
-                            print('Value for Open is : ' +
-                                  str (input_assignments[workingkey]['Open']))
-                            if input_assignments[workingkey]['Open'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Open']))
+                            print('Value for UDPOpen is : ' +
+                                  str (input_assignments[workingkey]['UDPOpen']))
+                            if input_assignments[workingkey]['UDPOpen'] != None:
+                                addValueToSend(str (input_assignments[workingkey]['UDPOpen']))
                             
-                        
+                            print('Value for KeyboardOpen is : ' +
+                                str (input_assignments[workingkey]['KeyboardOpen']))
+                            if input_assignments[workingkey]['KeyboardOpen'] != None:
+                                print('*********************')
+                                print('Add keyboard open send code here!')
+                                #addValueToSend(str (input_assignments[workingkey]['UDPClose']))
+
+                                
     
                     except Exception as other:
                         logging.critical('')
@@ -607,9 +624,11 @@ if not (os.path.isfile(input_assignments_file)):
         while counter < 256:
             dictInner = {}
             dictInner['Description'] = None
-            dictInner['Open'] = None
-            dictInner['Close'] = None
-
+            dictInner['UDPOpen'] = None
+            dictInner['UDPClose'] = None
+            dictInner['KeyboardOpen'] = None
+            dictInner['KeyboardClose'] = None
+            
             #dictOuter[str(outercounter) + ":" + str(counter)] = dictInner
             dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner
             counter = counter + 1
@@ -635,6 +654,18 @@ except Exception as other:
     sys.exit(0)
 
 
+try:
+    print('Adding new fields')
+    for key, value in input_assignments.items():
+        print(key, value)
+##        value['KeyboardClose'] = None
+##        value['KeyboardOpen'] = None
+##        print(key, value)
+##
+##    save_and_reload_assignments()
+                             
+except Exception as other:
+    logging.critical("Unexpected error while adding new fields to file:" + str(other))    
 
 try:
     print('Waiting for packet')
