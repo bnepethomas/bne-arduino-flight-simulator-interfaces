@@ -1805,8 +1805,8 @@
     },
     "01:002": {
         "Description": "Landing Lights",
-        "KeyboardClose": "sim/lights/landing_lights_on",
-        "KeyboardOpen": "sim/lights/landing_lights_off",
+        "KeyboardClose": "L",
+        "KeyboardOpen": "L",
         "UDPClose": "sim/lights/landing_lights_on",
         "UDPOpen": "sim/lights/landing_lights_off"
     },

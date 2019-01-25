@@ -114,7 +114,8 @@ UDP_IP_ADDRESS = "127.0.0.1"
 UDP_PORT_NO = 26027
 #XPlane_IP_ADDRESS = "127.0.0.1"
 XPlane_IP_ADDRESS = "192.168.1.138"
-XPlane_PORT_NO = 49000
+XPlane_Port_No = 49000
+KeyStroke_Sender_Port_No = 7790
 
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
@@ -266,7 +267,7 @@ def Send_Value():
 
  
 
-        logging.debug("UDP target port:" + str(XPlane_PORT_NO))
+        logging.debug("UDP target port:" + str(XPlane_Port_No))
         logging.debug('send_string is ' + send_string)
         logging.debug('Length of Send String is ' + str(len(send_string)))
         
@@ -278,7 +279,7 @@ def Send_Value():
 
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
-        sock.sendto((packed_data), (XPlane_IP_ADDRESS, XPlane_PORT_NO))
+        sock.sendto((packed_data), (XPlane_IP_ADDRESS, XPlane_Port_No))
 
 
         serverSock.sendto((packed_data), (UDP_Reflector_IP, UDP_Reflector_Port))
@@ -290,7 +291,38 @@ def Send_Value():
     except Exception as other:
         logging.critical("Error in Send_Value: " + str(other))
         
-              
+
+def SendKeyStroke(KeyStrokes_To_Send):
+
+    try:
+
+ 
+
+        logging.debug("UDP target port:" + str(KeyStroke_Sender_Port_No))
+        logging.debug('send_string is ' + KeyStrokes_To_Send)
+        logging.debug('Length of Send String is ' + str(len(KeyStrokes_To_Send)))
+        
+
+        
+        values = (KeyStrokes_To_Send.encode('utf-8'))
+    
+
+
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+        sock.sendto((values), (XPlane_IP_ADDRESS, KeyStroke_Sender_Port_No))
+
+
+        serverSock.sendto((values), (UDP_Reflector_IP, UDP_Reflector_Port))
+
+
+
+
+
+    except Exception as other:
+        logging.critical("Error in SendKeyStroke: " + str(other))
+  
+  
+  
 
 def addValueToSend(valueToAdd):
 
@@ -383,11 +415,13 @@ def ProcessReceivedString(ReceivedUDPString):
                         logging.debug('The value is: ' +
                               str(input_assignments[workingkey]['Description']))
 
+                        # Check to see if learning and description is blank
 
                         if learning and input_assignments[workingkey]['Description'] == None:
                                 updateDescription(workingkey)
                         print('Value for Description is : ' +
                               str (input_assignments[workingkey]['Description']))
+
 
                         # Switch is Closed
                         if str(workingFields[2]) == '1':
@@ -405,7 +439,8 @@ def ProcessReceivedString(ReceivedUDPString):
                             if input_assignments[workingkey]['KeyboardClose'] != None:
                                 print('*********************')
                                 print('Add keyboard close send code here!')
-                                #addValueToSend(str (input_assignments[workingkey]['UDPClose']))
+                                SendKeyStroke(input_assignments[workingkey]['KeyboardClose'])
+                                
                                 
 
                         # Switch is Opened
@@ -422,7 +457,8 @@ def ProcessReceivedString(ReceivedUDPString):
                             if input_assignments[workingkey]['KeyboardOpen'] != None:
                                 print('*********************')
                                 print('Add keyboard open send code here!')
-                                #addValueToSend(str (input_assignments[workingkey]['UDPClose']))
+                                SendKeyStroke(input_assignments[workingkey]['KeyboardOpen'])
+                                
 
                                 
     
