@@ -158,6 +158,14 @@ def AltTab():
 #    AltTab()
 
 
+KeyStrokeDict = { 'A': [42],
+      'B': [43]}
+
+
+
+
+
+
 def OriginalCode():
     print('wait a sec')
     time.sleep(5)
@@ -221,6 +229,21 @@ def ProcessReceivedString(ReceivedUDPString):
         if len(ReceivedUDPString) > 0 :
           
             logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
+            PressKey(0x47)
+            time.sleep(0.3)
+            ReleaseKey(0x47)
+
+            # Expecting a set of strings that are space delimited
+            # If unhandled character arrives log as critical
+            # If string contains reserved modifiers ALT CTL SHFT provide special treatement
+            # These are held down first and released last
+
+            # Split String
+            result = set()
+            for item in ReceivedUDPString:
+                result.update(item.split(' '))
+            print (result)
+                    
 
  
     except Exception as other:
