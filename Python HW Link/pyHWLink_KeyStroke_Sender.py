@@ -206,7 +206,7 @@ def ReceivePacket():
                                               
         except socket.timeout:
             a=a+1
-            if (a > 1000):
+            if (a > 10000):
                 logging.info("Long Receive Timeout")
                 a=0
             continue
@@ -239,10 +239,23 @@ def ProcessReceivedString(ReceivedUDPString):
             # These are held down first and released last
 
             # Split String
-            result = set()
-            for item in ReceivedUDPString:
-                result.update(item.split(' '))
-            print (result)
+          
+            CommandsToProcess = ReceivedUDPString.split()
+            print( CommandsToProcess)
+
+            ModifierSet = []
+
+            # Check for reserved modifiers - add to new array
+            # and remove from original array
+            print ( str(CommandsToProcess.index('Alt')))
+            if 'Alt' in CommandsToProcess:
+                print('Found an Alt')
+                # Remove it from the set and add to ModifierSet
+                CommandsToProcess.remove('Alt')
+                ModifierSet.insert(0,'Alt')
+                    
+            print( CommandsToProcess)
+            
                     
 
  
