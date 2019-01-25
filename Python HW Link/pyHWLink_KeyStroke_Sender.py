@@ -308,6 +308,9 @@ def ProcessReceivedString(ReceivedUDPString):
                     PressKey( int(KeyStrokeDict.get(CommandToSend.upper())[0]))
                     time.sleep(0.02)
                     ReleaseKey(int(KeyStrokeDict.get(CommandToSend.upper())[0]))
+                else:
+                    logging.critical('Unable to find :' + CommandToSend  +
+                         ' in KeyStrokeDict in module ProcessReceivedString')
  
     except Exception as other:
         logging.critical("Error in ProcessReceivedString: " + str(other))
