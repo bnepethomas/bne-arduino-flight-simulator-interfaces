@@ -1805,7 +1805,7 @@
     },
     "01:002": {
         "Description": "Landing Lights",
-        "KeyboardClose": "Ctl Land 12 3 Alt",
+        "KeyboardClose": "Ctl L a n d 1 2 3 Alt TestError",
         "KeyboardOpen": "L",
         "UDPClose": "sim/lights/landing_lights_on",
         "UDPOpen": "sim/lights/landing_lights_off"
