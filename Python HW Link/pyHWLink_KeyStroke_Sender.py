@@ -243,16 +243,27 @@ def ProcessReceivedString(ReceivedUDPString):
             CommandsToProcess = ReceivedUDPString.split()
             print( CommandsToProcess)
 
+            # Ensure list is empty    
             ModifierSet = []
 
             # Check for reserved modifiers - add to new array
             # and remove from original array
             print ( str(CommandsToProcess.index('Alt')))
-            if 'Alt' in CommandsToProcess:
-                print('Found an Alt')
-                # Remove it from the set and add to ModifierSet
-                CommandsToProcess.remove('Alt')
-                ModifierSet.insert(0,'Alt')
+
+            ModifiersOfInterest = ['Alt', 'Ctl', 'Shft']
+            for ModifierToCheck in ModifiersOfInterest:
+                if ModifierToCheck in CommandsToProcess:
+                    print('Found an ' + ModifierToCheck)
+                    # Remove it from the set and add to ModifierSet
+                    CommandsToProcess.remove(ModifierToCheck)
+                    ModifierSet.insert(0,ModifierToCheck)
+
+
+##                if 'Alt' in CommandsToProcess:
+##                    print('Found an Alt')
+##                    # Remove it from the set and add to ModifierSet
+##                    CommandsToProcess.remove('Alt')
+##                    ModifierSet.insert(0,'Alt')
                     
             print( CommandsToProcess)
             
