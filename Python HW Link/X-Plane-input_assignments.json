@@ -1805,7 +1805,7 @@
     },
     "01:002": {
         "Description": "Landing Lights",
-        "KeyboardClose": "Ctl L a n d 1 2 3 Alt TestError",
+        "KeyboardClose": "SPACE CAPSLOCK TAB ESC BACKSPACE FORWARDSLASH QUOTE ENTER NUMPLUS NUMMINUS NUMDECIMAL NUMDIVIDE NUMLOCK NUM* NUM0 NUM1 NUM2 NUM3 NUM4 NUM5 NUM6 NUM7 NUM8 NUM9 LEFTARROW RIGHTARROW DOWNARROW UPARROW PGUP PGDOWN PrntScrn ScrollLock Pause Insert Delete Home End   \\ , . \/ = [ ] a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11 F12 ` - +  ;",
         "KeyboardOpen": "L",
         "UDPClose": "sim/lights/landing_lights_on",
         "UDPOpen": "sim/lights/landing_lights_off"

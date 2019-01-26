@@ -690,18 +690,18 @@ except Exception as other:
     sys.exit(0)
 
 
-try:
-    print('Adding new fields')
-    for key, value in input_assignments.items():
-        print(key, value)
+##try:
+##    print('Adding new fields')
+##    for key, value in input_assignments.items():
+##        print(key, value)
 ##        value['KeyboardClose'] = None
 ##        value['KeyboardOpen'] = None
 ##        print(key, value)
 ##
 ##    save_and_reload_assignments()
                              
-except Exception as other:
-    logging.critical("Unexpected error while adding new fields to file:" + str(other))    
+##except Exception as other:
+##    logging.critical("Unexpected error while adding new fields to file:" + str(other))    
 
 try:
     print('Waiting for packet')
