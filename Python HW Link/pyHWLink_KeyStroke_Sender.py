@@ -196,8 +196,60 @@ KeyStrokeDict = { 'A': [0x41],
         '8': [0x38],
         '9': [0x39],
 
+        'F1': [0x70],
+        'F2': [0x71],
+        'F3': [0x72],
+        'F4': [0x73],
+        'F5': [0x74],
+        'F6': [0x75],
+        'F7': [0x76],
+        'F8': [0x77],
+        'F9': [0x78],
+        'F10': [0x79],
+        'F11': [0x7A],
+        'F12': [0x7B],
+
+        '-': [0xBD],
+        '+': [0xBB],
+        '`': [0xC0],                  
+        ';': [0xBA],
+        '[': [0xDB],                  
+        ']': [0xDD],
+        '\\': [0xDC],                  
+        '=': [0xDD],
+        ',': [0xBC],                  
+        '.': [0xBE],                
+        '\/': [0xBF],
+
+        'PRNTSCRN': [0x2C],
+        'SCROLLLOCK': [0x91],                  
+        'PAUSE': [0x13],                
+        'INSERT': [0x2D],
+        'DELETE': [0x2E],
+        'HOME': [0x24],                  
+        'END': [0x23],                
+        'PGUP': [0x21],                
+        'PGDOWN': [0x22],
+        'LEFTARROW': [0x25],                
+        'RIGHTARROW': [0x27],
+        'UPARROW': [0x26],                
+        'DOWNARROW': [0x28],
+        'xx': [0x0],                
+        'xx': [0x0],
+        'xx': [0x0],                
+        'xx': [0x0],
+        'xx': [0x0],                
+        'xx': [0x0],
+        'xx': [0x0],                
+        'xx': [0x0],
+        'xx': [0x0],                
+        'xx': [0x0],
+                  
+
+                  
         'Alt': [0x12],
         'Ctl': [0x11]
+                  
                   }
 
 
@@ -268,9 +320,6 @@ def ProcessReceivedString(ReceivedUDPString):
         if len(ReceivedUDPString) > 0 :
           
             logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
-            PressKey(0x47)
-            time.sleep(0.3)
-            ReleaseKey(0x47)
 
             # Expecting a set of strings that are space delimited
             # If unhandled character arrives log as critical
@@ -287,7 +336,6 @@ def ProcessReceivedString(ReceivedUDPString):
 
             # Check for reserved modifiers - add to new array
             # and remove from original array
-            print ( str(CommandsToProcess.index('Alt')))
 
             ModifiersOfInterest = ['Alt', 'Ctl', 'Shft']
             for ModifierToCheck in ModifiersOfInterest:
@@ -295,7 +343,6 @@ def ProcessReceivedString(ReceivedUDPString):
                     print('Found an ' + ModifierToCheck)
                     # Remove it from the set and add to ModifierSet
                     CommandsToProcess.remove(ModifierToCheck)
-
                     ModifierSet.insert(0,ModifierToCheck)
 
 
