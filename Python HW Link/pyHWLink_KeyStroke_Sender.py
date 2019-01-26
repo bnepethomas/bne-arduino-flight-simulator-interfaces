@@ -194,7 +194,11 @@ KeyStrokeDict = { 'A': [0x41],
         '6': [0x36],
         '7': [0x37],
         '8': [0x38],
-        '9': [0x39] }
+        '9': [0x39],
+
+        'Alt': [0x12],
+        'Ctl': [0x11]
+                  }
 
 
 
@@ -291,26 +295,67 @@ def ProcessReceivedString(ReceivedUDPString):
                     print('Found an ' + ModifierToCheck)
                     # Remove it from the set and add to ModifierSet
                     CommandsToProcess.remove(ModifierToCheck)
+
                     ModifierSet.insert(0,ModifierToCheck)
 
-            # Now have twos sets, one contains strings to send and the other modifers
-            
+
+
+            # Now have twos sets, one contains strings to send and the other modifers           
             # In test mode so don't send modifers just yet
             
             print( CommandsToProcess)
 
             # Originally was supporting a text string without spaces
             # But that makes it difficult to deal with F1 ESC etc
-            
-            for CommandToSend in CommandsToProcess:
-                print( KeyStrokeDict.get(CommandToSend.upper()))
-                if KeyStrokeDict.get(CommandToSend.upper()) != None:
-                    PressKey( int(KeyStrokeDict.get(CommandToSend.upper())[0]))
+
+
+            print('Modifier Down')
+            for ModifierToPress in ModifierSet:
+                print( KeyStrokeDict.get(ModifierToPress))
+                if KeyStrokeDict.get(ModifierToPress) != None:
+                    PressKey( int(KeyStrokeDict.get(ModifierToPress)[0]))
                     time.sleep(0.02)
-                    ReleaseKey(int(KeyStrokeDict.get(CommandToSend.upper())[0]))
                 else:
-                    logging.critical('Unable to find :' + CommandToSend  +
+                    logging.critical('Unable to find :' + ModifierToPress  +
                          ' in KeyStrokeDict in module ProcessReceivedString')
+
+
+            # Inner exception Management is to ensure that modifers are released
+            try:
+                    
+                print('Command To Sender')
+                for CommandToSend in CommandsToProcess:
+                    print('Entering loop')
+                    print('Command To Send is: ' + CommandToSend)
+                    
+                    if KeyStrokeDict.get(CommandToSend.upper()) != None:
+                        print( KeyStrokeDict.get(CommandToSend.upper()[0]))
+                        print('Pressing Key')    
+                        PressKey( int(KeyStrokeDict.get(CommandToSend.upper())[0]))
+                        time.sleep(0.02)
+                        print('Releasing Key')
+                        ReleaseKey(int(KeyStrokeDict.get(CommandToSend.upper())[0]))
+                        print('Key Released')
+                    else:
+                        logging.critical('Unable to find :' + CommandToSend  +
+                         ' in KeyStrokeDict in module ProcessReceivedString')
+            except Exception as other:
+                logging.critical("Error in inner ProcessReceivedString: " + str(other))
+
+
+
+
+            print('Modifier Up')
+            for ModifierToRelease in ModifierSet:
+                print( KeyStrokeDict.get(ModifierToRelease))
+                if KeyStrokeDict.get(ModifierToRelease) != None:
+                    time.sleep(0.02)
+                    ReleaseKey(int(KeyStrokeDict.get(ModifierToRelease)[0]))
+                else:
+                    logging.critical('Unable to find :' + ModifierToPress  +
+                         ' in KeyStrokeDict in module ProcessReceivedString')
+
+
  
     except Exception as other:
         logging.critical("Error in ProcessReceivedString: " + str(other))
