@@ -37,7 +37,8 @@ Source_Port = 0
 Last_Source_IP = "127.0.0.1"
 
 
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 
@@ -83,7 +84,6 @@ def main():
 
     try:
 
-
         logging.debug('UDP target IP: ' + str(target_IP)
                              + '  UDP target Port: ' + str(target_Port))          
 
@@ -101,8 +101,8 @@ def main():
 
             
             Send_UDP_Command(commandstring)
-            print('Sleeping')
-            time.sleep(3)
+
+            time.sleep(0.01)
 
             
 

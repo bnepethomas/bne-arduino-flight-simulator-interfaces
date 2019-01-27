@@ -20,12 +20,13 @@ import re
 import socket
 import sys
 import time
+import datetime
 
 
 
 
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 MIN_VERSION_PY3 = 5    # min. 3.x version
@@ -54,7 +55,7 @@ UDP_PORT_NO = 7791
 ValuesChanged = False
 
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-serverSock.settimeout(0.1)
+serverSock.settimeout(0.3)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
 
@@ -74,7 +75,7 @@ root.wm_title("pyHWLink Lamp Output Emulator")
 canvas = Canvas(root, width=420, height=260)
 canvas.pack()
     
-timer = 5
+timer = 0
 
 def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
@@ -90,7 +91,9 @@ def ProcessReceivedString(ReceivedUDPString):
     
     try:
         if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
-            
+
+            timer = 0
+ 
             logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
             # Remove leading D,
             ReceivedUDPString = str(ReceivedUDPString[1:])
@@ -113,9 +116,9 @@ def ProcessReceivedString(ReceivedUDPString):
 
                 
                 if len(workingFields) != 2:
-                    logging.warn('')
-                    logging.warn('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
-                    logging.warn('')
+                    logging.debug('')
+                    logging.debug('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
+                    logging.debug('')
                 elif str(workingFields[1]) != '0' and str(workingFields[1]) != '1':
                     logging.warn('')
                     logging.warn('WARNING - Invalid 2nd parameter: ' + str(workingFields[1]))
@@ -138,9 +141,10 @@ def ProcessReceivedString(ReceivedUDPString):
                 
 
  
-            logging.debug('Continuing on')
+
             if (ValuesChanged == True):
-                print('Updating Canvas')
+                logging.debug('Updating Canvas')
+                
                 canvas.delete(ALL)
                 for OutputPtr in range(0,64):
                     x = OutputPtr % 8
@@ -149,6 +153,8 @@ def ProcessReceivedString(ReceivedUDPString):
                         canvas.create_rectangle(50 * x, 30 + y * 30, 52 + 50 * x, 62 + y * 30, fill='red')
                     else:
                         canvas.create_rectangle(50 * x, 30 + y * 30, 52 + 50 * x, 62 + y * 30, fill='black')
+
+                
                     
                     
             
@@ -166,25 +172,19 @@ def tick():
 
     # Count down timer - probably not needed to final code
     global timer
-    timer -= 1
+    timer += 1
 
     # display timer value    
     canvas.create_text(10, 10, text=timer)
 
-    print(timer)
-
     try:
         data, addr = serverSock.recvfrom(1500)
-        print('Received Something')
         ReceivedPacket = data.decode('utf-8')
         logging.debug("Message: " + ReceivedPacket)
-        print('Packet Received')
         ProcessReceivedString(ReceivedPacket)
-        time.sleep(1)
 
 
     except socket.timeout:
-        x=0
         print('timeout')
 
     except Exception as other:
@@ -196,7 +196,7 @@ def tick():
         root.destroy()
         root.quit()    
     else:
-        canvas.after(100, tick)
+        canvas.after(1, tick)
         
 canvas.after(1, tick)   
 
