@@ -259,10 +259,11 @@ KeyStrokeDict = { 'A': [0x41],
         'NUMDIVIDE': [0x6F],
         'NUMLOCK': [0x90],                
         'xx': [0x0],
-        'xx': [0x0],                
-        'xx': [0x0],
-        'xx': [0x0],                
-        'xx': [0x0],
+
+        'MEDIAPLAYPAUSE': [0xB3],                
+        'MUTE': [0xAD],
+        'VOLUP': [0xAF],                
+        'VOLDOWN': [0xAE],
         'xx': [0x0],                
         'xx': [0x0],
         'xx': [0x0],                
@@ -284,8 +285,10 @@ KeyStrokeDict = { 'A': [0x41],
                   
 
                   
-        'Alt': [0x12],
-        'Ctl': [0x11]
+        'ALT': [0x12],
+        'SHIFT': [0x10],
+        'CTRL': [0x11]
+                  
                   
                   }
 
@@ -374,7 +377,7 @@ def ProcessReceivedString(ReceivedUDPString):
             # Check for reserved modifiers - add to new array
             # and remove from original array
 
-            ModifiersOfInterest = ['Alt', 'Ctl', 'Shft']
+            ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT']
             for ModifierToCheck in ModifiersOfInterest:
                 if ModifierToCheck in CommandsToProcess:
                     print('Found an ' + ModifierToCheck)
