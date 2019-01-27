@@ -16,7 +16,6 @@ import random
 
 
 
-
 # Global Variables
 debugging = True
 command_string = ''
@@ -26,7 +25,7 @@ target_Port = ''
 
 
 UDP_IP = "0.0.0.0"
-UDP_PORT = 26029
+UDP_PORT = 7791
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
 
@@ -95,7 +94,7 @@ def main():
         while not isinstance(target_Port, int):
             target_Port = input('Enter Target Port [7790]: ')
             if len(target_Port) == 0:
-                target_Port = 7790
+                target_Port = 7791
             try:
                 target_Port = int(target_Port)
                 
