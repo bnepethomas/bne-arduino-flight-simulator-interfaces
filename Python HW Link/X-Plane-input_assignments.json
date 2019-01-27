@@ -1812,7 +1812,7 @@
     },
     "01:003": {
         "Description": "Flaps",
-        "KeyboardClose": null,
+        "KeyboardClose": "ALT F4",
         "KeyboardOpen": null,
         "UDPClose": "sim/flight_controls/flaps_up",
         "UDPOpen": null
