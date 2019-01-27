@@ -48,12 +48,13 @@ elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
         sys.exit(Warning_Message)
 
 
-UDP_IP_ADDRESS = "127.0.0.1"
+UDP_IP_ADDRESS = "192.168.1.138"
 UDP_PORT_NO = 7791
 
+ValuesChanged = False
 
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-serverSock.settimeout(0.0001)
+serverSock.settimeout(0.1)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
 
@@ -79,16 +80,19 @@ def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
     global send_string
     global learning
+    global ValuesChanged
     
     logging.debug('Processing UDP String')
 
     send_string = ""
+    # If a value has changed then update the screen other move on
+    ValuesChanged = False
     
     try:
         if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
             
             logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
-            # Remove leading D
+            # Remove leading D,
             ReceivedUDPString = str(ReceivedUDPString[1:])
             logging.debug('Checking for correct format :')
 
@@ -108,48 +112,45 @@ def ProcessReceivedString(ReceivedUDPString):
                 workingFields = workingRecords.split(':')
 
                 
-                if len(workingFields) != 3:
+                if len(workingFields) != 2:
                     logging.warn('')
                     logging.warn('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
                     logging.warn('')
-                elif str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
+                elif str(workingFields[1]) != '0' and str(workingFields[1]) != '1':
                     logging.warn('')
-                    logging.warn('WARNING - Invalid 3rd parameter: ' + str(workingFields[2]))
+                    logging.warn('WARNING - Invalid 2nd parameter: ' + str(workingFields[1]))
                     logging.warn('')                   
                 else:
                     logging.debug('Stage 2 Processing: ' + str(workingFields))
 
                     try:
-                        workingkey = workingFields[0] + ':' + workingFields[1]
-                        logging.debug('Working key is: ' + workingkey)
+                        workingKey = workingFields[0]
+                        logging.debug('Working key is: ' + workingKey)
                         
-                        logging.debug('Working Fields for working key are: ' +
-                              str(input_assignments[workingkey]))
 
-                        logging.debug('The value is: ' +
-                              str(input_assignments[workingkey]['Description']))
-
-
-                        # Lamp is On
-                        if str(workingFields[2]) == '1':
-
-                                                          
-
-                        # Lamp is Off
-                        if str(workingFields[2]) == '0':
-
+                        if OutputState[int(workingKey)] != int(workingFields[1]):
+                            ValuesChanged = True
+                            OutputState[int(workingKey)] = int(workingFields[1]  )  
                                 
     
                     except Exception as other:
-                        logging.critical('')
-                        logging.critical('WARNING - Unable to read record of interest in ProcessReceivedString')
-                        logging.critical('WARNING - Record name is: "' + workingkey + '"')
-                        logging.critical('')
                         logging.critical("Error in ProcessReceivedString: " + str(other))
                 
 
-            Send_Remaining_Commands()
+ 
             logging.debug('Continuing on')
+            if (ValuesChanged == True):
+                print('Updating Canvas')
+                canvas.delete(ALL)
+                for OutputPtr in range(0,64):
+                    x = OutputPtr % 8
+                    y = OutputPtr // 8
+                    if (OutputState[OutputPtr+1] == 1):
+                        canvas.create_rectangle(50 * x, 30 + y * 30, 52 + 50 * x, 62 + y * 30, fill='red')
+                    else:
+                        canvas.create_rectangle(50 * x, 30 + y * 30, 52 + 50 * x, 62 + y * 30, fill='black')
+                    
+                    
             
 
 
@@ -161,7 +162,7 @@ def ProcessReceivedString(ReceivedUDPString):
 
 def tick():
 
-    canvas.delete(ALL)
+    
 
     # Count down timer - probably not needed to final code
     global timer
@@ -178,7 +179,8 @@ def tick():
         ReceivedPacket = data.decode('utf-8')
         logging.debug("Message: " + ReceivedPacket)
         print('Packet Received')
-        time.sleep(5)
+        ProcessReceivedString(ReceivedPacket)
+        time.sleep(1)
 
 
     except socket.timeout:
@@ -188,12 +190,7 @@ def tick():
     except Exception as other:
         logging.critical("Error in tick: " + str(other))   
 
-    for x in range(0,8):
-        for y in range(0,8):
-            if (random.randint(0,1) == 1):   
-                canvas.create_rectangle(50 * x, 30 + y * 30, 52 + 50 * x, 62 + y * 30, fill='red')
-            else:
-                canvas.create_rectangle(50 * x, 30 + y * 30, 52 + 50 * x, 62 + y * 30, fill='black')
+
     if time == 0:
         canvas.destroy()
         root.destroy()

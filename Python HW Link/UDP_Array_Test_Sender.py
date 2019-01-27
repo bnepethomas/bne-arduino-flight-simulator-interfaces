@@ -91,7 +91,7 @@ def main():
 
             commandstring = 'D'
 
-            for OutputPtr in range(0,65):
+            for OutputPtr in range(1,65):
                 appendstring = ',' + str(OutputPtr) + ':'
                 if (random.randint(0,1) == 1):
                     appendstring = appendstring + '1'
