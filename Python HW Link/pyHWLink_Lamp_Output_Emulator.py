@@ -5,6 +5,9 @@
 # Simple framework which provides a GUI to emulate an output module
 # Given the Max7219 supports 64 Leds, the program will support 64 outputs
 
+# Uses same protocol as most of the pyHWLink family,
+#    Data payload is preceeded by a D
+
 
 
 from tkinter import *
@@ -54,6 +57,13 @@ serverSock.settimeout(0.0001)
 serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
 
+OutputState = []
+# Initialise output array over dimensioning it a little
+for OutputPtr in range(0,65):
+    OutputState.append(0)
+
+  
+
 
 root = Tk()
 # width x height + x_offset + y_offset:
@@ -62,22 +72,102 @@ root.wm_title("pyHWLink Lamp Output Emulator")
 
 canvas = Canvas(root, width=420, height=260)
 canvas.pack()
-
     
-timer = 1000
+timer = 5
+
+def ProcessReceivedString(ReceivedUDPString):
+    global input_assignments
+    global send_string
+    global learning
+    
+    logging.debug('Processing UDP String')
+
+    send_string = ""
+    
+    try:
+        if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
+            
+            logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
+            # Remove leading D
+            ReceivedUDPString = str(ReceivedUDPString[1:])
+            logging.debug('Checking for correct format :')
+
+            
+
+            workingSets =''
+            workingSets = ReceivedUDPString.split(',')
+            logging.debug('There are ' + str(len(workingSets)) + ' records')
+            counter = 0
+            for workingRecords in workingSets:
+                logging.debug('Record workingRecord number ' + str(counter) + ' ' +
+                      workingRecords)
+                counter = counter + 1
+                
+
+                workingFields = ''
+                workingFields = workingRecords.split(':')
+
+                
+                if len(workingFields) != 3:
+                    logging.warn('')
+                    logging.warn('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
+                    logging.warn('')
+                elif str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
+                    logging.warn('')
+                    logging.warn('WARNING - Invalid 3rd parameter: ' + str(workingFields[2]))
+                    logging.warn('')                   
+                else:
+                    logging.debug('Stage 2 Processing: ' + str(workingFields))
+
+                    try:
+                        workingkey = workingFields[0] + ':' + workingFields[1]
+                        logging.debug('Working key is: ' + workingkey)
+                        
+                        logging.debug('Working Fields for working key are: ' +
+                              str(input_assignments[workingkey]))
+
+                        logging.debug('The value is: ' +
+                              str(input_assignments[workingkey]['Description']))
+
+
+                        # Lamp is On
+                        if str(workingFields[2]) == '1':
+
+                                                          
+
+                        # Lamp is Off
+                        if str(workingFields[2]) == '0':
+
+                                
+    
+                    except Exception as other:
+                        logging.critical('')
+                        logging.critical('WARNING - Unable to read record of interest in ProcessReceivedString')
+                        logging.critical('WARNING - Record name is: "' + workingkey + '"')
+                        logging.critical('')
+                        logging.critical("Error in ProcessReceivedString: " + str(other))
+                
+
+            Send_Remaining_Commands()
+            logging.debug('Continuing on')
+            
+
+
+    except Exception as other:
+        logging.critical("Error in ProcessReceivedString: " + str(other))
+
+
+
+
 def tick():
-    # You have to clear the canvas each time the clock updates 
-    # (otherwise it writes on top of the old time).  Since the
-    # time is the only thing in the canvas, delete(ALL) works
-    # perfectly (if it wasn't however, you can delete the id
-    # that goes with the clock).
+
     canvas.delete(ALL)
-    # I have to declare time as a global because I'm not using
-    # a class (otherwise, I could do something like self.time -= 1)
+
+    # Count down timer - probably not needed to final code
     global timer
     timer -= 1
-    # You can place the time wherever in the canvas
-    # (I chose 10,10 for the example)
+
+    # display timer value    
     canvas.create_text(10, 10, text=timer)
 
     print(timer)
