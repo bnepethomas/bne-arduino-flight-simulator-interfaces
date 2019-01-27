@@ -45,7 +45,7 @@ elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
         sys.exit(Warning_Message)
 
 
-UDP_IP_ADDRESS = "192.168.1.138"
+UDP_IP_ADDRESS = "127.0.0.1"
 UDP_PORT_NO = 7791
 
 
