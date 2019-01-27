@@ -1,3 +1,15 @@
+#!/usr/bin/python
+
+# pyHWLink_GUI_Sender.py
+
+# Simple framework which provides a GUI to emulate button presses
+# It sends the button transitions using the same packet format as joystick interfaces
+
+# The operation can select which one of 5 input modules it is emaulating.
+# The labels on the buttons don't change which the module numbers change
+
+
+
 import tkinter as tk
 import argparse
 import numbers
