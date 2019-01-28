@@ -38,6 +38,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.btn_SendUDP = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -122,11 +123,22 @@
             this.btn_SendUDP.UseVisualStyleBackColor = true;
             this.btn_SendUDP.Click += new System.EventHandler(this.btn_SendUDP_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(434, 123);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(142, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Connect and then Subscribe";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 311);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_SendUDP);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -139,6 +151,7 @@
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -153,6 +166,7 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btn_SendUDP;
+        private System.Windows.Forms.Label label1;
     }
 }
 

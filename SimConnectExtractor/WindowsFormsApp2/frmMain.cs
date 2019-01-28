@@ -105,7 +105,7 @@ namespace WindowsFormsApp2
 
 
             setButtons(true, false, false);
-            udpClient.Connect("192.168.1.134", 13136);
+            udpClient.Connect("192.168.1.135", 13136);
             TimeLastPacketSent = DateTime.Now;
 
 
@@ -442,6 +442,11 @@ namespace WindowsFormsApp2
 
 
 
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
 
         }
     }
