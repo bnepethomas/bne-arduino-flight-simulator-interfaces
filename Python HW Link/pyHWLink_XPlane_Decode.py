@@ -265,7 +265,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
     UDP_Header_Length = 5      # 'DATA + 1 reserved byte
     Record_Length = 36         # Record_Header of 4 bytes + 8 records of 4 bytes
     
-    Number_of_Records = 5
+    Number_of_Records = 6
     Expected_Packet_Length = UDP_Header_Length + (Record_Length * Number_of_Records)
     
     try:
@@ -287,12 +287,13 @@ def ProcessXPlaneString(ReceivedUDPBytes):
         
 
 
-        
-        XPlaneRecord = namedtuple('XPlaneRecord','Idx1 kias Rec2 Rec3 Rec4 Rec5 Rec6 Rec7 Rec8 \
-                                  Idx2 RecA RecB heading RecD RedE RecF RecG RecH \
-                                  Idx3 lat long alt Rec14 Rec15 Rec16 Rec17 Rec18 \
-                                  Idx4 COM1_Active COM1_Standby Rec19 COM2_Active COM2_Standby  Rec20 Rec21 Rec22 \
-                                  Idx5 NAV1_Active NAV1_Standby Rec23 Rec24 NAV2_Active NAV2_Standby Rec25 Rec26')
+        # When adding new records - ensure they are added in order for this record
+        XPlaneRecord = namedtuple('XPlaneRecord','IdxSpeed kias Rec2 Rec3 Rec4 Rec5 Rec6 Rec7 Rec8 \
+                                  IdxTrimFlaps TrimPosition Rec10 Rec11 FlapsDesiredPos FlapsActualPos Rec13a Rec13b Rec13d \
+                                  IdxHeading RecA RecB heading RecD RedE RecF RecG RecH \
+                                  IdxLatLong lat long alt Rec14 Rec15 Rec16 Rec17 Rec18 \
+                                  IdxCOM COM1_Active COM1_Standby Rec19 COM2_Active COM2_Standby  Rec20 Rec21 Rec22 \
+                                  IdxNAV NAV1_Active NAV1_Standby Rec23 Rec24 NAV2_Active NAV2_Standby Rec25 Rec26')
         
         logging.debug('Starting unpack to values')
 
@@ -314,29 +315,41 @@ def ProcessXPlaneString(ReceivedUDPBytes):
         # Currently testing with X-Plane 9.  Note Index 17 definitely changed between versions
 
         SpeedIndex = 3
+        TrimFlapsIndex = 13
         HeadingIndex = 17
         LatLongIndex = 20
         COM1COM2Index = 96
         NAV1NAV2Index = 97
 
         # Speeds, Vertical Speed
-        if (XPlaneStatus.Idx1 == SpeedIndex):
+        if (XPlaneStatus.IdxSpeed == SpeedIndex):
             # Have Correct Index, so assign AirSpeed
             #print('Xplane Airspeed is : ' + str(XPlaneStatus.kias))
             outSpeed = "{:.1f}".format(XPlaneStatus.kias)
         else:
-            logging.critical('Error in ProcessReceivedString. Speeds Idx1 != ' + str(SpeedIndex) + '. Value is: ' + str(XPlaneStatus.Idx1))                            
+            logging.critical('Error in ProcessReceivedString. Speeds IdxSpeed != ' + str(SpeedIndex) + '. Value is: ' + str(XPlaneStatus.IdxSpeed))                            
+
+
+        # Trim Flaps
+        if (XPlaneStatus.IdxTrimFlaps == TrimFlapsIndex):
+            print(XPlaneStatus.Rec10, XPlaneStatus.Rec11, XPlaneStatus.Rec13a, XPlaneStatus.Rec13b, XPlaneStatus.Rec13d)
+            # Trim -0.5 to 0.5
+            print("Trim Position " + str(XPlaneStatus.TrimPosition))           
+            print("Flaps Desired Position " + str(XPlaneStatus.FlapsDesiredPos))
+            print("Flaps Actual Position " + str(XPlaneStatus.FlapsActualPos))
+        else:
+            logging.critical('Error in ProcessReceivedString. Trim IdxTrimFlaps != ' + str(TrimFlapsIndex) + '. Value is: ' + str(XPlaneStatus.IdxTrimFlaps)) 
             
         # Angular Velocity in X-Plane 9 - perhaps Pitch, Roll Heading in XPlane 11. Magnetic Compas was added
-        if (XPlaneStatus.Idx2 == HeadingIndex):
+        if (XPlaneStatus.IdxHeading == HeadingIndex):
             # print('XPlane Heading is : ' + str(XPlaneStatus.heading))
             outTrackMadeGood = "{:.2f}".format(XPlaneStatus.heading)
         else:
-            logging.critical('Error in ProcessReceivedString. Heading Idx2 != ' + str(HeadingIndex) + '. Value is: ' + str(XPlaneStatus.Idx2))                            
+            logging.critical('Error in ProcessReceivedString. Heading IdxHeading != ' + str(HeadingIndex) + '. Value is: ' + str(XPlaneStatus.IdxHeading))                            
    
             
         # Latitiude Longitude Altitude
-        if (XPlaneStatus.Idx3 == LatLongIndex):
+        if (XPlaneStatus.IdxLatLong == LatLongIndex):
             # Have Correct Index, so assign Altitude - but it is returned in feet so convert to meters
             # print('Xplane Altitude is : ' + str(XPlaneStatus.alt))
             wrkfloat = float(XPlaneStatus.alt) * 0.3048
@@ -344,25 +357,25 @@ def ProcessXPlaneString(ReceivedUDPBytes):
             #print('XPlane Lat is : ' + str(XPlaneStatus.lat))
             #print('XPlane Long is : ' + str(XPlaneStatus.long))
         else:
-            logging.critical('Error in ProcessReceivedString. Latitude, Longitude Idx3 != ' + str(LatLongIndex) + '. Value is: ' + str(XPlaneStatus.Idx3))
+            logging.critical('Error in ProcessReceivedString. Latitude, Longitude IdxLatLong != ' + str(LatLongIndex) + '. Value is: ' + str(XPlaneStatus.IdxLatLong))
 
             
         # COM 1/2 Frequency
-        if (XPlaneStatus.Idx4 == COM1COM2Index):
+        if (XPlaneStatus.IdxCOM == COM1COM2Index):
             # Note Frequencies are stored as integer ie 128.15 is 12815
             x=0
-            print('COM1 Active: ' + str(int(XPlaneStatus.COM1_Active)))
-            print('COM1 Standby: ' + str(int(XPlaneStatus.COM1_Standby)))
+            #print('COM1 Active: ' + str(int(XPlaneStatus.COM1_Active)))
+            #print('COM1 Standby: ' + str(int(XPlaneStatus.COM1_Standby)))
             #print('COM2 Active: ' + str(int(XPlaneStatus.COM2_Active)))
             #print('COM2 Standby: ' + str(int(XPlaneStatus.COM2_Standby)))
             
         else:
-            logging.critical('Error in ProcessReceivedString. COM 1/2 Frequency Idx4 != ' + str(COM1COM2Index) + '. Value is: ' + str(XPlaneStatus.Idx4))
+            logging.critical('Error in ProcessReceivedString. COM 1/2 Frequency IdxCOM != ' + str(COM1COM2Index) + '. Value is: ' + str(XPlaneStatus.IdxCOM))
 
 
 
         # NAV 1/2 Frequency
-        if (XPlaneStatus.Idx5 == NAV1NAV2Index):
+        if (XPlaneStatus.IdxNAV == NAV1NAV2Index):
             # Note Frequencies are stored as integer ie 128.15 is 12815
             x=0
             #print('NAV1 Active: ' + str(int(XPlaneStatus.NAV1_Active)))
@@ -371,7 +384,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
             #print('NAV2 Standby: ' + str(int(XPlaneStatus.NAV2_Standby)))
            
         else:
-            logging.critical('Error in ProcessReceivedString. NAV 1/2 Frequency Idx4 != ' + str(NAV1NAV2Index) + '. Value is: ' + str(XPlaneStatus.Idx5))
+            logging.critical('Error in ProcessReceivedString. NAV 1/2 Frequency Idx4 != ' + str(NAV1NAV2Index) + '. Value is: ' + str(XPlaneStatus.IdxNAV))
        
 
     except Exception as other:
