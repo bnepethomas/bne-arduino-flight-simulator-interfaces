@@ -265,7 +265,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
     UDP_Header_Length = 5      # 'DATA + 1 reserved byte
     Record_Length = 36         # Record_Header of 4 bytes + 8 records of 4 bytes
     
-    Number_of_Records = 6
+    Number_of_Records = 7
     Expected_Packet_Length = UDP_Header_Length + (Record_Length * Number_of_Records)
     
     try:
@@ -287,8 +287,11 @@ def ProcessXPlaneString(ReceivedUDPBytes):
         
 
 
+        # VSI AutoPilot Gear
         # When adding new records - ensure they are added in order for this record
-        XPlaneRecord = namedtuple('XPlaneRecord','IdxSpeed kias Rec2 Rec3 Rec4 Rec5 Rec6 Rec7 Rec8 \
+        XPlaneRecord = namedtuple('XPlaneRecord', 
+                                  'IdxSpeed kias Rec2 Rec3 Rec4 Rec5 Rec6 Rec7 Rec8 \
+                                  IdxMachGLoad Mach Rec2a GLoad Rec4a Rec5a Rec6a Rec7a Rec8a \
                                   IdxTrimFlaps TrimPosition Rec10 Rec11 FlapsDesiredPos FlapsActualPos Rec13a Rec13b Rec13d \
                                   IdxHeading RecA RecB heading RecD RedE RecF RecG RecH \
                                   IdxLatLong lat long alt Rec14 Rec15 Rec16 Rec17 Rec18 \
@@ -315,6 +318,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
         # Currently testing with X-Plane 9.  Note Index 17 definitely changed between versions
 
         SpeedIndex = 3
+        MachGLoadIndex = 4
         TrimFlapsIndex = 13
         HeadingIndex = 17
         LatLongIndex = 20
@@ -330,17 +334,27 @@ def ProcessXPlaneString(ReceivedUDPBytes):
             logging.critical('Error in ProcessReceivedString. Speeds IdxSpeed != ' + str(SpeedIndex) + '. Value is: ' + str(XPlaneStatus.IdxSpeed))                            
 
 
+        # Mach G-Load
+        if (XPlaneStatus.IdxMachGLoad == MachGLoadIndex):
+            print( XPlaneStatus.Rec2a, XPlaneStatus.Rec4a, XPlaneStatus.Rec5a, XPlaneStatus.Rec6a, XPlaneStatus.Rec7a, XPlaneStatus.Rec8a)
+            print("Mach :" + str( XPlaneStatus.Mach))
+            print("G Load :" + str( XPlaneStatus.GLoad))
+            x = 0
+        else:
+            logging.critical('Error in ProcessReceivedString. Mach G-Load IdxMachGLoad != ' + str(MachGLoadIndex) + '. Value is: ' + str(XPlaneStatus.IdxMachGLoad))   
+
         # Trim Flaps
         if (XPlaneStatus.IdxTrimFlaps == TrimFlapsIndex):
-            print(XPlaneStatus.Rec10, XPlaneStatus.Rec11, XPlaneStatus.Rec13a, XPlaneStatus.Rec13b, XPlaneStatus.Rec13d)
+            x = 0
+            # print(XPlaneStatus.Rec10, XPlaneStatus.Rec11, XPlaneStatus.Rec13a, XPlaneStatus.Rec13b, XPlaneStatus.Rec13d)
             # Trim -0.5 to 0.5
-            print("Trim Position " + str(XPlaneStatus.TrimPosition))           
-            print("Flaps Desired Position " + str(XPlaneStatus.FlapsDesiredPos))
-            print("Flaps Actual Position " + str(XPlaneStatus.FlapsActualPos))
+            # print("Trim Position " + str(XPlaneStatus.TrimPosition))           
+            # print("Flaps Desired Position " + str(XPlaneStatus.FlapsDesiredPos))
+            # print("Flaps Actual Position " + str(XPlaneStatus.FlapsActualPos))
         else:
             logging.critical('Error in ProcessReceivedString. Trim IdxTrimFlaps != ' + str(TrimFlapsIndex) + '. Value is: ' + str(XPlaneStatus.IdxTrimFlaps)) 
             
-        # Angular Velocity in X-Plane 9 - perhaps Pitch, Roll Heading in XPlane 11. Magnetic Compas was added
+        # Angular Velocity in X-Plane 9 - perhaps Pitch, Roll Heading in XPlane 11. Magnetic Compass was added
         if (XPlaneStatus.IdxHeading == HeadingIndex):
             # print('XPlane Heading is : ' + str(XPlaneStatus.heading))
             outTrackMadeGood = "{:.2f}".format(XPlaneStatus.heading)
