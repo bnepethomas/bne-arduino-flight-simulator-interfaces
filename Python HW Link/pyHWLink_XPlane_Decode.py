@@ -8,6 +8,8 @@
 #  A warning will be presented that the Network Data Output hasn't been configured
 #  Enter IP Address and target port (as of 20190203 using port 7793)
 
+# Description of fields https://www.x-plane.com/kb/data-set-output-table/
+# Also stored locally X-Plane_Export_Table.odt
 
 # In Xplane 9 - go to inet 3 page to set target port and disable/enable sending of trafic
 

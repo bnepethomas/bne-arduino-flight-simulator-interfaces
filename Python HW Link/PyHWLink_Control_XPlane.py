@@ -5,6 +5,7 @@
 # XPlane by default  listens on 49000
 
 # Very useful reference http://www.nuclearprojects.com/xplane/
+# X-Plne Export Data set https://www.x-plane.com/kb/data-set-output-table/
 
 
 
