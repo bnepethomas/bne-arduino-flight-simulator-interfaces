@@ -27,9 +27,18 @@ class SimpleApp(object):
             
             tkimage = ImageTk.PhotoImage(image.rotate(angle))
             tkimage2 = ImageTk.PhotoImage(image2)
-            canvas_obj = self.canvas.create_image(500, 500, image=tkimage)
+            canvas_obj = self.canvas.create_image(500, 526, image=tkimage)
             canvas_obj = self.canvas.create_image(500,500, image=tkimage2)
-            canvas_obj = self.canvas.create_oval(500,500,550,550,fill='yellow')
+
+            circlediameter = 20
+            xcentreline = 490
+            x=xcentreline - (circlediameter/2)
+            xwidth = circlediameter
+            
+            ycentreline = 525
+            y=ycentreline - (circlediameter/2)
+            yheight=circlediameter
+            canvas_obj = self.canvas.create_oval(x,y,x+xwidth,y+yheight,fill='yellow')
           
             # canvas_obj = self.canvas.create_oval(100,100,400,400,fill='green')
 
@@ -38,9 +47,9 @@ class SimpleApp(object):
             yield
 
             self.canvas.delete(canvas_obj)
-            angle += 5
+            angle += 1
             angle %= 360
 
 root = tk.Tk()
-app = SimpleApp(root, 'HSI copy 1.png')
+app = SimpleApp(root, 'HSI copy 2.png')
 root.mainloop()
