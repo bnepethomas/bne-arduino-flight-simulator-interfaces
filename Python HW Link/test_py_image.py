@@ -26,6 +26,8 @@ class SimpleApp(object):
             tkimage = ImageTk.PhotoImage(image.rotate(angle))
             canvas_obj = self.canvas.create_image(500, 500, image=tkimage)
 
+            canvas_obj = self.canvas.create_oval(100,100,400,400)
+
             self.master.after_idle(self.update)
             
             yield
