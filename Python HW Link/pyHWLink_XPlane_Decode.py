@@ -353,13 +353,13 @@ def ProcessXPlaneString(ReceivedUDPBytes):
             # print( XPlaneStatus.Rec2a, XPlaneStatus.Rec4a, XPlaneStatus.Rec5a, XPlaneStatus.Rec6a, XPlaneStatus.Rec7a, XPlaneStatus.Rec8a)
             #print("Mach :" + str( XPlaneStatus.Mach))
             #print("G Load :" + str( XPlaneStatus.GLoad))
-            x = 0
+            pass
         else:
             logging.critical('Error in ProcessReceivedString. Mach G-Load IdxMachGLoad != ' + str(MachGLoadIndex) + '. Value is: ' + str(XPlaneStatus.IdxMachGLoad))   
 
         # Trim Flaps
         if (XPlaneStatus.IdxTrimFlaps == TrimFlapsIndex):
-            x = 0
+            pass
             # print(XPlaneStatus.Rec10, XPlaneStatus.Rec11, XPlaneStatus.Rec13a, XPlaneStatus.Rec13b, XPlaneStatus.Rec13d)
             # Trim -0.5 to 0.5
             # print("Trim Position " + str(XPlaneStatus.TrimPosition))           
@@ -374,7 +374,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
             #print("Gear Values",  XPlaneStatus.Rec3b, XPlaneStatus.Rec4b, XPlaneStatus.Rec5b, XPlaneStatus.Rec6b, XPlaneStatus.Rec7b, XPlaneStatus.Rec8b)
             #print("Gear :" + str( XPlaneStatus.Gear))
             #print("Wheel Brakes :" + str( XPlaneStatus.WheelBrakes))
-            x = 0
+            pass
         else:
             logging.critical('Error in ProcessReceivedString. Gear Brakes IdxGearBrakes != ' + str(GearBrakesIndex) + '. Value is: ' + str(XPlaneStatus.IdxGearBrakes))  
             
@@ -406,7 +406,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
             #print( "Engine N1 ",  XPlaneStatus.Rec3j, XPlaneStatus.Rec4j, XPlaneStatus.Rec5j, XPlaneStatus.Rec6j, XPlaneStatus.Rec7j, XPlaneStatus.Rec8j )
             #print("Engine 1 N1: " + str( XPlaneStatus.Engine1N1 ))
             #print("Engine 2 N1: " + str( XPlaneStatus.Engine2N1))
-            x = 0
+            pass
         else:
             logging.critical('Error in ProcessReceivedString. Engine N1 IdxEngineN1 != ' + str(EngineN1Index) + '. Value is: ' + str(XPlaneStatus.IdxEngineN1))      
 
@@ -428,7 +428,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
         # NAV 1/2 Frequency
         if (XPlaneStatus.IdxNAV == NAV1NAV2Index):
             # Note Frequencies are stored as integer ie 128.15 is 12815
-            x=0
+            pass
             #print('NAV1 Active: ' + str(int(XPlaneStatus.NAV1_Active)))
             #print('NAV1 Standby: ' + str(int(XPlaneStatus.NAV1_Standby)))
             #print('NAV2 Active: ' + str(int(XPlaneStatus.NAV2_Active)))
@@ -445,7 +445,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
             #print("Middle Marker :" + str( XPlaneStatus.MiddleMarker))
             #print("Inner Marker :" + str( XPlaneStatus.InnerMarker))
             #print("G Load :" + str( XPlaneStatus.GLoad))
-            x = 0
+            pass
         else:
             logging.critical('Error in ProcessReceivedString. Marker IdxMarker != ' + str(MarkerIndex) + '. Value is: ' + str(XPlaneStatus.IdxMarker))   
 
@@ -457,7 +457,7 @@ def ProcessXPlaneString(ReceivedUDPBytes):
             #print("Autopilot Altitude :" + str( XPlaneStatus.APAltitude))
             #print("Autopilot Heading :" + str( XPlaneStatus.APHeading))
             #print("Autopilot V/S  :" + str( XPlaneStatus.APVS))
-            x = 0
+            pass
         else:
             logging.critical('Error in ProcessReceivedString. Autopilot Values IdxAPValues != ' + str(APValuesIndex) + '. Value is: ' + str(XPlaneStatus.IdxAPValues))      
 
