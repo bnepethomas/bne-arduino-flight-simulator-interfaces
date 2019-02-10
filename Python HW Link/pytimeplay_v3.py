@@ -8,9 +8,11 @@ def update_image():
         global angle
         
         #self.canvas.delete(all)
-        
+
+        # Tkinter BitmapImage and PhotoImage 
         tkimg1 = ImageTk.PhotoImage(image.rotate(angle))
 
+        
 ##        image = Image.open("HSI copy 2.png")
 ##        image2 = Image.open("HSI Outline.png")
 ##        tkimage2 = ImageTk.PhotoImage(image2)
@@ -35,6 +37,7 @@ tkimg1 = ImageTk.PhotoImage(im)
 
 image = Image.open("HSI copy 2.png")
 image2 = Image.open("HSI Outline.png")
+image2.paste(image)
 tkimage2 = ImageTk.PhotoImage(image2)
 print ("Loaded")
 
