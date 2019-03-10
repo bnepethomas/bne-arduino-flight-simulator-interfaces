@@ -77,6 +77,7 @@ elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
 
 UDP_PORT = 7795
 UDP_IP = "127.0.0.1"
+# Sends to Radio_Control
 TX_UDP_PORT = 7794
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
