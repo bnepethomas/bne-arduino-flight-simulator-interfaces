@@ -38,14 +38,23 @@
 import usb.core
 import time
 
+# Currently geared for a single Leo Bodnar card. Just try in series
+# Later code is liekly to specify which card is of interest
 # creating the object representing the BU0836
-#ub = usb.core.find(idVendor=0x16c0, idProduct=0x05b5)
+ub = usb.core.find(idVendor=0x16c0, idProduct=0x05b5)
+
 # creating the object representing the BU0836X
-ub = usb.core.find(idVendor=0x1dd2, idProduct=0x1001)
+if ub is None:
+    # Try the BU0836X
+    ub = usb.core.find(idVendor=0x1dd2, idProduct=0x1001)
+
+if ub is None:
+    # Try the BBI-32
+    ub = usb.core.find(idVendor=0x1dd2, idProduct=0x1150)
 
 # checking if the UB0836 was found
 if ub is None:
-    raise ValueError("Neither BU0836 or BU0836X are connected")
+    raise ValueError("Neither BU0836, BU0836X, or BBI-32 are connected")
 try:
     # existing kernel drivers must be detached for this to work
     print('Detaching Kernel')
@@ -57,10 +66,11 @@ lastubdata = 0
 first_loop = True
 
 # Initialise Button Array = noting this is a Base 1 not base 0!
-
-button_array = [0] * 33
+# Initially using 32 buttons = but the BBI-32 supports rotary swiches when enables up to 132 inputs
+Max_Buttons = 132
+button_array = [0] * (Max_Buttons + 1)
 i = 1
-while( i < 32):
+while( i < Max_Buttons):
     button_array[i] = 0
     i = i + 1
     
@@ -84,7 +94,7 @@ try:
             
             # Remember this array is zero based
             button_ptr = 0
-            while (button_ptr < 32):
+            while (button_ptr < Max_Buttons):
                 
                 bit_pos  = button_ptr % 8
                 # print('Bit Pos: ' + str(bit_pos))
