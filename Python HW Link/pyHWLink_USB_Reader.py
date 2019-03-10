@@ -38,6 +38,78 @@
 import usb.core
 import time
 
+import argparse
+import numbers
+import logging
+import os
+import random
+import re
+import socket
+import sys
+import time
+
+
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+
+MIN_VERSION_PY3 = 5    # min. 3.x version
+if (sys.version_info[0] < 3):
+    Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3) 
+    print('')
+    logging.critical(Warning_Message)
+    print('')
+    print('Invalid Version of Python running')
+    print('Running Python earlier than Python 3.0! ' + sys.version)
+    sys.exit(Warning_Message)
+
+elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
+    Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3)           
+    print('')
+    logging.critical(Warning_Message)  
+    print('')
+    print('Invalid Version of Python running')
+    print('Running Python ' + sys.version)
+    sys.exit(Warning_Message)
+
+
+
+
+UDP_PORT = 7795
+UDP_IP = "127.0.0.1"
+TX_UDP_PORT = 7794
+UDP_Reflector_IP = "127.0.0.1"
+UDP_Reflector_Port = 27000
+
+Source_IP = 0
+Source_Port = 0
+Last_Source_IP = "127.0.0.1"
+
+
+def Send_UDP_Command(command_to_send):
+    
+    global UDP_IP
+    global TX_UDP_PORT
+	
+
+    global UDP_Reflector_IP, UDP_Reflector_Port, SOCK
+
+    logging.debug ("IP target address:" + str(UDP_IP))
+    logging.debug ("UDP target port:" + str(TX_UDP_PORT))
+
+
+    sock.sendto(command_to_send.encode('utf-8'), (UDP_IP, TX_UDP_PORT))
+    sock.sendto(command_to_send.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
+
+
+# Initialise the network
+
+print ('Initialising Network')                                                  
+sock = socket.socket(socket.AF_INET, # Internet
+                     socket.SOCK_DGRAM) # UDP
+sock.bind((UDP_IP, UDP_PORT))
+
+
 # Currently geared for a single Leo Bodnar card. Just try in series
 # Later code is liekly to specify which card is of interest
 # creating the object representing the BU0836
@@ -113,11 +185,13 @@ try:
                 if (localint & mask != 0):
                     if (button_array[button_ptr] == 0):
                         print ('Button Pressed ' + str(button_ptr))
+                        Send_UDP_Command('Button Pressed ' + str(button_ptr))
                         button_array[button_ptr] = 1
                     
                 else:
                     if (button_array[button_ptr] == 1):
                         print ('Button Released ' + str(button_ptr))
+                        Send_UDP_Command('Button Released ' + str(button_ptr))
                         button_array[button_ptr] = 0
 
         
@@ -158,4 +232,7 @@ try:
     
 except Exception as other:
     print('Error in USB Reader: ' + str(other))
+    if (str(other) == '[Errno 13] Access denied (insufficient permissions)'):
+        print('Execute the following: sudo python3 pyHWLink_USB_Reader.py')
+        
     
