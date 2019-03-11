@@ -14,7 +14,8 @@ class SimpleApp(object):
         self.canvas.pack()
 
         self.update = self.draw().__next__
-        master.after(300, self.update)
+        
+        master.after(200, self.update)
 
     def draw(self):
 
@@ -35,7 +36,7 @@ class SimpleApp(object):
         angle = 0
         while True:
             #canvas_obj = self.canvas.create_rectangle(0,0,20,20,fill='red')
-            
+            start_time = time.time()
             image = Image.open(self.filename)
             image2 = Image.open("HSI Outline.png")
             tkimage2 = ImageTk.PhotoImage(image2)
@@ -60,6 +61,8 @@ class SimpleApp(object):
             self.canvas.delete(canvas_obj)
             angle += 1
             angle %= 360
+            elapsed_time = time.time() - start_time
+            print("Time taken :" + str(elapsed_time))
 
 root = tk.Tk()
 
