@@ -7,6 +7,10 @@
 #   https://learn.adafruit.com/ssd1306-oled-displays-with-raspberry-pi-and-beaglebone-black/overview
 #   Then use this code.
 
+
+
+
+
 # Font used in Arduino build is FreeMonoBold  which is basically Courier
 #   As the same font wasn't easily found, used 'monofonto.ttf' from
 #       http://www.dafont.com/bitmap.php
@@ -15,7 +19,14 @@
 
 # This code assumes used on the SPI interface, which must be enabled in the pi
 #   To validate the SPI interface is active 'ls /dev/*spi*'. This should
-#   return 'spidev0.0  spidev0.1'. 
+#   return 'spidev0.0  spidev0.1'.
+# On Pi3B+ despite SI enabled in UI, unable to see any SPI devices. Unsure why - enabled through raspi-config
+# Reloaded and ultimately it started 
+
+# pip install Adafruit_GPIO
+# pip3 install Adafruit_SSD1306
+
+
 
 # Currently only the Altitude is used, received as a string in a UDP packet
 #   In future should
@@ -52,6 +63,9 @@ import socket
 # Do not need short timeout for UDP packet as display is refreshed in one hit
 #   (unlike stepper motors which need to move to new position
 UDP_IP_ADDRESS = "192.168.3.101"
+
+# Using local addresses while testing
+UDP_IP_ADDRESS = "192.168.1.107"
 UDP_PORT_NO = 15151
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.settimeout(1)
@@ -224,7 +238,7 @@ def DrawPressure(Pressure):
     font = ImageFont.truetype('monofonto.ttf', 20)
     draw.text((80, -5),str(Pressure),  font=font, fill=colour_white)
     
-
+print("init")
 # Raspberry Pi pin configuration:
 RST = 24
 DC = 23
@@ -269,9 +283,24 @@ draw.text((one_Column_Pos, middle_row),'0', font=font, fill=colour_white)
 
 # Start with a zero display for a second
 DrawAltitude(0)
-time.sleep(1)
 
+time.sleep(1)
+print("init done")
 while True:
+
+
+##    for k in range(0,30050,10):
+##        DrawAltitude(k)
+##        time.sleep(0.5)
+##
+##    for k in range(10050,0,-1):
+##        DrawAltitude(k)
+##
+##
+##    DrawAltitude(0)
+
+    print("Finished")
+
     
     try:
         data, addr = serverSock.recvfrom(1024)
@@ -292,15 +321,5 @@ while True:
         a=0
 
 
-##for k in range(0,30050,10):
-##    DrawAltitude(k)
-##
-##for k in range(10050,0,-1):
-##    DrawAltitude(k)
-##
-##
-##DrawAltitude(0)
-##
-##print("Finished")
 
 
