@@ -117,7 +117,7 @@ Kollsman_List_Entry = 1
 def DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue,vertical_character_offset):
     # Only called if below 10,000 ft
   
-    # Check to see if ready to roll the hatch between 90900 and 10,000 
+    # Check to see if ready to roll the hatch between 9900 and 10,000 
     if ((alt_HundredsValue==9) & (alt_TenThousandsValue==0) & (alt_ThousandsValue==9)):
         hatch_Top = 2 - hatch_height + vertical_character_offset
     else:
