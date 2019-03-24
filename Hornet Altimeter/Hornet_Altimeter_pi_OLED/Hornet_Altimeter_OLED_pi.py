@@ -1,3 +1,6 @@
+# Currently cleaning up transition with hatches leaving trails
+
+
 # Altimeter OLED code - used in conjunction with Arduino for driving stepper  
 # https://github.com/bnepethomas/bne-arduino-flight-simulator-interfaces/tree/master/Hornet%20Altimeter
 
@@ -224,12 +227,12 @@ def DrawAltitude(altitude):
     vertical_character_offset = ((alt_OnesValue * cursor_Multiplier * -0.1) + (alt_TensValue * cursor_Multiplier * -1)) + vertical_offset
 
 
-    DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset )
+    #DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset )
 
-##    if (alt_TenThousandsValue == 0):
-##        DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset )
-##    else:
-##        DrawTenThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset )
+    if (alt_TenThousandsValue == 0):
+        DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset )
+    else:
+        DrawTenThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset )
 
     DrawThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset)
     DrawHundreds(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset)
@@ -285,10 +288,10 @@ font = ImageFont.load_default()
 font = ImageFont.truetype('monofonto.ttf', 45)
 
 
-##
-### Draw the Ones and Tens which never change
-##draw.text((ten_Column_Pos, middle_row),'0', font=font, fill=colour_white)
-##draw.text((one_Column_Pos, middle_row),'0', font=font, fill=colour_white)
+
+# Draw the Ones and Tens which never change
+draw.text((ten_Column_Pos, middle_row),'0', font=font, fill=colour_white)
+draw.text((one_Column_Pos, middle_row),'0', font=font, fill=colour_white)
 
 # Start with a zero display for a second
 #DrawAltitude(0)
@@ -298,13 +301,16 @@ print("init done")
 while True:
 
 
-    for k in range(0,30050,10):
+    for k in range(9800, 10100,10):
+        
         
         DrawAltitude(k)
-        time.sleep(0.5)
+        time.sleep(1)
 
-    for k in range(10050,0,-1):
+
+    for k in range(10100,9800,-10):
         DrawAltitude(k)
+        time.sleep(1)
 
 
 
@@ -312,23 +318,23 @@ while True:
     print("Finished")
 
     
-    try:
-        data, addr = serverSock.recvfrom(1024)
-        s = data.decode("utf-8")
-        receivedValues = s.split(",")
-
-##        if (receivedValues[Altitude_List_Entry ].isdigit):
-##            w = int(receivedValues[Altitude_List_Entry])
-##            font = ImageFont.truetype('monofonto.ttf', 45)
-##            DrawAltitude(w)
+##    try:
+##        data, addr = serverSock.recvfrom(1024)
+##        s = data.decode("utf-8")
+##        receivedValues = s.split(",")
 ##
-##        if (receivedValues[Kollsman_List_Entry].isdigit):
-##            w = int(receivedValues[Kollsman_List_Entry])            
-##            DrawPressure(w)
-                                          
-    except socket.timeout:
-        # Don't panic that packet hasn't arrived
-        a=0
+####        if (receivedValues[Altitude_List_Entry ].isdigit):
+####            w = int(receivedValues[Altitude_List_Entry])
+####            font = ImageFont.truetype('monofonto.ttf', 45)
+####            DrawAltitude(w)
+####
+####        if (receivedValues[Kollsman_List_Entry].isdigit):
+####            w = int(receivedValues[Kollsman_List_Entry])            
+####            DrawPressure(w)
+##                                          
+##    except socket.timeout:
+##        # Don't panic that packet hasn't arrived
+##        a=0
 
 
 
