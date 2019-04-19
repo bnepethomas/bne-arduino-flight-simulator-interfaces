@@ -10,6 +10,14 @@ IPAddress ip(192,168,3,107);
 Input Mega 1
   0xA9,0xE7,0x3E,0xCA,0x35,0x01
 
+Small Platform
+Front Input Arduino 172.16.1.11
+0xA9,0xE7,0x3E,0xCA,0x35,0x02
+Front Led Arduino 172.16.1.21
+0xA9,0xE7,0x3E,0xCA,0x35,0x03
+
+
+
 Ports 
 7784 		Huey Caution Receiver
 # 7785 		Remote Shutdown - No longer needed as shutdown and reboot integrated in caution receiver
