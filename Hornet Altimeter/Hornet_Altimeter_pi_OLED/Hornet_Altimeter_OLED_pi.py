@@ -68,7 +68,7 @@ import socket
 UDP_IP_ADDRESS = "192.168.3.101"
 
 # Using local addresses while testing
-UDP_IP_ADDRESS = "192.168.1.107"
+UDP_IP_ADDRESS = "172.16.1.2"
 UDP_PORT_NO = 15151
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.settimeout(1)
