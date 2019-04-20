@@ -41,16 +41,20 @@ bool bFirstTime = false;
 #include <EthernetUdp.h>
 
 // Need to check if this manually assigned Mac has been used elsewhere
-byte mac[] = { 
-  0xA9,0xE7,0x3E,0xCA,0x35,0x01};
-IPAddress ip(192,168,3,101);
 
-IPAddress targetIP (192,168,3,100);
+
+// General Platform Front Input Controller
+byte mac[] = {0xA9,0xE7,0x3E,0xCA,0x35,0x02};
+IPAddress ip(172,16,1,11);
+// Raspberry Pi is Target
+IPAddress targetIP(172,16,1,2);
+const String deviceID = "01";
+
+
 const unsigned int localport = 7788;
 const unsigned int remoteport = 26027;
 const unsigned int reflectorport = 27000;
 
-const String deviceID = "01";
 
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
