@@ -40,17 +40,22 @@ bool bFirstTime = false;
 #include <Ethernet.h>
 #include <EthernetUdp.h>
 
-// Need to check if this manually assigned Mac has been used elsewhere
 
+// Unique Setting area for each input controller
 
 // General Platform Front Input Controller
-byte mac[] = {0xA9,0xE7,0x3E,0xCA,0x35,0x02};
-IPAddress ip(172,16,1,11);
+//byte mac[] = {0xA9,0xE7,0x3E,0xCA,0x35,0x02};
+//IPAddress ip(172,16,1,11);
+//const String deviceID = "01";
+
+// General Platform Right Input Controller
+byte mac[] = {0xA9,0xE7,0x3E,0xCA,0x35,0x04};
+IPAddress ip(172,16,1,12);
+const String deviceID = "02";
+
+
 // Raspberry Pi is Target
 IPAddress targetIP(172,16,1,2);
-const String deviceID = "01";
-
-
 const unsigned int localport = 7788;
 const unsigned int remoteport = 26027;
 const unsigned int reflectorport = 27000;
