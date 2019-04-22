@@ -50,18 +50,15 @@ bool bFirstTime = false;
 //const String deviceID = "01";
 
 // General Platform Right Input Controller
-//byte mac[] = {0xA9,0xE7,0x3E,0xCA,0x35,0x04};
-byte mac[] = {0x00,0xD0,0x3E,0xCA,0x35,0x04};
-//IPAddress ip(172,16,1,12);
-// temp fpr testing
-IPAddress ip(192,168,1,12);
+byte mac[] = {0xA9,0xE7,0x3E,0xCA,0x35,0x04};
+IPAddress ip(172,16,1,12);
+
 const String deviceID = "02";
 
 
 // Raspberry Pi is Target
-//IPAddress targetIP(172,16,1,2);
-//Temp Mini
-IPAddress targetIP(192,168,1,127);
+IPAddress targetIP(172,16,1,2);
+
 const unsigned int localport = 7788;
 const unsigned int remoteport = 26027;
 const unsigned int reflectorport = 27000;
