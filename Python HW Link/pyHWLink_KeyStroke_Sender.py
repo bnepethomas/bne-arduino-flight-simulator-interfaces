@@ -47,7 +47,7 @@ elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
 
 # Setup networking
 try:
-    UDP_IP_ADDRESS = "192.168.1.138"
+    UDP_IP_ADDRESS = "172.16.1.3"
     # Windows was unable tobind to 0 - checking firewall
     #UDP_IP_ADDRESS = "0"
     UDP_PORT_NO = 7790
