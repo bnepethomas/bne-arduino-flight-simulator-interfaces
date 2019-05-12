@@ -108,8 +108,8 @@ except:
 #  When running Pi use address of 0 - as it listens to traffic from everything
 UDP_IP_ADDRESS = "0"
 UDP_PORT_NO = 26027
-DCS_IP_ADDRESS = "127.0.0.1"
-DCS_PORT_NO = 26026
+DCS_IP_ADDRESS = "172.16.1.3"
+DCS_PORT_NO = 7790
 
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
