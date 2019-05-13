@@ -108,8 +108,10 @@ except:
 #  When running Pi use address of 0 - as it listens to traffic from everything
 UDP_IP_ADDRESS = "0"
 UDP_PORT_NO = 26027
-DCS_IP_ADDRESS = "172.16.1.3"
-DCS_PORT_NO = 7790
+SIM_API_IP_ADDRESS = "172.16.1.3"
+SIM_API_PORT_NO = 7791
+SIM_KB_IP_ADDRESS = "172.16.1.3"
+SIM_KB_PORT_NO = 7790
 
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
@@ -204,7 +206,7 @@ def updateDescription(workingkey):
 
 
 
-def updateOpenAction(workingkey):
+def updateAPIOpenAction(workingkey):
     global input_assignments
 
     
@@ -217,7 +219,7 @@ def updateOpenAction(workingkey):
             wrkstring = raw_input('Please provide a Open Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['Open'] = wrkstring
+            input_assignments[workingkey]['API_Open'] = wrkstring
 
             save_and_reload_assignments()
                 
@@ -226,7 +228,7 @@ def updateOpenAction(workingkey):
 
 
 
-def updateCloseAction(workingkey):
+def updateAPICloseAction(workingkey):
     global input_assignments
 
     
@@ -239,7 +241,7 @@ def updateCloseAction(workingkey):
             wrkstring = raw_input('Please provide a Close Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['Close'] = wrkstring
+            input_assignments[workingkey]['API_Close'] = wrkstring
 
             save_and_reload_assignments()
                 
@@ -257,9 +259,9 @@ def Send_Value():
 
     try:
 
-        logging.debug("UDP target port:" + str(DCS_PORT_NO))
+        logging.debug("UDP target port:" + str(SIM_API_PORT_NO))
 
-        serverSock.sendto(send_string.encode('utf-8'), (DCS_IP_ADDRESS, DCS_PORT_NO))
+        serverSock.sendto(send_string.encode('utf-8'), (SIM_API_IP_ADDRESS, SIM_API_PORT_NO))
         serverSock.sendto(send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
 
         send_string = ""
@@ -368,21 +370,21 @@ def ProcessReceivedString(ReceivedUDPString):
 
                         # Switch is Closed
                         if str(workingFields[2]) == '1':
-                            if learning and input_assignments[workingkey]['Close'] == None:
-                                updateCloseAction(workingkey)
+                            if learning and input_assignments[workingkey]['API_Close'] == None:
+                                updateAPICloseAction(workingkey)
                             print('Value for Close is : ' +
-                              str (input_assignments[workingkey]['Close']))
-                            if input_assignments[workingkey]['Close'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Close']))
+                              str (input_assignments[workingkey]['API_Close']))
+                            if input_assignments[workingkey]['API_Close'] != None:
+                                addValueToSend(str (input_assignments[workingkey]['API_Close']))
 
                         # Switch is Opened
                         if str(workingFields[2]) == '0':
-                            if learning and input_assignments[workingkey]['Open'] == None:
-                                updateOpenAction(workingkey)
+                            if learning and input_assignments[workingkey]['API_Open'] == None:
+                                updateAPIOpenAction(workingkey)
                             print('Value for Open is : ' +
-                                  str (input_assignments[workingkey]['Open']))
-                            if input_assignments[workingkey]['Open'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Open']))
+                                  str (input_assignments[workingkey]['API_Open']))
+                            if input_assignments[workingkey]['API_Open'] != None:
+                                addValueToSend(str (input_assignments[workingkey]['API_Open']))
                             
                         
     
@@ -562,6 +564,8 @@ def LoadDCSParameterFile():
 #   2: SwitchDescription
 #   3: OnSwitchAction
 #   4: OffSwitchAction
+#   5: OnKeyboardAction
+#   6: OffKeyboardAction
 
 
 # Empty dictionary
@@ -584,8 +588,10 @@ if not (os.path.isfile(input_assignments_file)):
         while counter < 256:
             dictInner = {}
             dictInner['Description'] = None
-            dictInner['Open'] = None
-            dictInner['Close'] = None
+            dictInner['API_Open'] = None
+            dictInner['API_Close'] = None
+            dictInner['Keyboard_Open'] = None
+            dictInner['Keyboard_Close'] = None
 
             #dictOuter[str(outercounter) + ":" + str(counter)] = dictInner
             dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner
