@@ -361,6 +361,8 @@ def ProcessReceivedString(ReceivedUDPString):
     
     logging.debug('Processing UDP String')
 
+    ReceivedUDPString = ReceivedUDPString.upper()
+
     send_string = ""
     
     try:

@@ -241,7 +241,7 @@ def updateKBOpenAction(workingkey):
                                   + input_assignments[workingkey]['Description'] + '" :')
 
             # Upper case the input as Send Keystrokes modifers as in upper
-            input_assignments[workingkey]['Keyboard_Open'] = upper(wrkstring)
+            input_assignments[workingkey]['Keyboard_Open'] = wrkstring.upper()
 
             save_and_reload_assignments()
                 
@@ -283,7 +283,7 @@ def updateKBCloseAction(workingkey):
                                   + input_assignments[workingkey]['Description'] + '" :')
 
             # Upper case the input as Send Keystrokes modifers as in upper
-            input_assignments[workingkey]['Keyboard_Close'] = upper(wrkstring)
+            input_assignments[workingkey]['Keyboard_Close'] = wrkstring.upper()
 
             save_and_reload_assignments()
                 
