@@ -6,6 +6,8 @@
 # Largely intended for DCS default aircraft that don't have a LUA interface - although should see what DCS BIOS uses
 # Website to test https://www.keyboardtester.com/tester.html
 
+# 20190518 DCS differentiates between Left and Right Alt, Ctrl and Shift keys - added keyboards - note Alt may also appear as menu
+
 import logging
 import os
 import socket
@@ -58,7 +60,7 @@ try:
     serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
           
 except Exception as other:
-    logging.critical("Error in Netowrk Setup: " + str(other)) 
+    logging.critical("Error in Network Setup: " + str(other)) 
 
 
 user32 = ctypes.WinDLL('user32', use_last_error=True)
@@ -285,12 +287,17 @@ KeyStrokeDict = { 'A': [0x41],
                   
 
                   
-        'ALT': [0x12],
-        'SHIFT': [0x10],
-        'CTRL': [0x11]
-                  
-                  
-                  }
+        'ALT':          [0x12],
+        'SHIFT':        [0x10],
+        'CTRL':         [0x11],
+        'LSHIFT':       [0xA0],
+        'RSHIFT':       [0xA1],
+        'LCTRL':        [0xA2],
+        'RCTRL':        [0xA3],
+        'LALT':         [0xA4],
+        'RALT':         [0xA5]
+                               
+}
 
 
 
@@ -376,8 +383,7 @@ def ProcessReceivedString(ReceivedUDPString):
 
             # Check for reserved modifiers - add to new array
             # and remove from original array
-
-            ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT']
+            ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT', 'LSHIFT', 'RSHIFT', 'LCTRL', 'RCTRL', 'LALT', 'RALT' ]
             for ModifierToCheck in ModifiersOfInterest:
                 if ModifierToCheck in CommandsToProcess:
                     print('Found an ' + ModifierToCheck)
