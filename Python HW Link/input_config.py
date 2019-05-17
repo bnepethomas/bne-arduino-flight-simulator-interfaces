@@ -1,2 +1,2 @@
-learning = True
+learning = False
 AircraftType = 'A10C'

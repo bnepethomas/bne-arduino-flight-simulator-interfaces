@@ -1914,8 +1914,8 @@
         "API_Close": null,
         "API_Open": null,
         "Description": "Landing Gear",
-        "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Close": "CTRL u",
+        "Keyboard_Open": "CTRL l"
     },
     "01:018": {
         "API_Close": null,
@@ -3966,8 +3966,8 @@
         "API_Open": null,
         "Description": "Navigation Light",
         "KB_Open": "a",
-        "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Close": "g h",
+        "Keyboard_Open": "e r"
     },
     "02:055": {
         "API_Close": null,
