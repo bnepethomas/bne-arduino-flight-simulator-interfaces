@@ -190,11 +190,11 @@ def updateDescription(workingkey):
 
     
     print('In learning mode - time to update the description for: '  + str(workingkey))
-    updaterecord = raw_input('Update Description? [y/n]: ')
+    updaterecord = input('Update Description? [y/n]: ')
     if updaterecord.upper() == 'Y':
 
         try:
-            wrkstring = raw_input('Please provide a description for: "' + str(workingkey) +  '" ')
+            wrkstring = input('Please provide a description for: "' + str(workingkey) +  '" ')
             if wrkstring != '':
 
                 input_assignments[workingkey]['Description'] = wrkstring
@@ -213,11 +213,11 @@ def updateAPIOpenAction(workingkey):
     
     print('In learning mode - time to update the API Open Action for: ' + str(workingkey) + ' / '
           + input_assignments[workingkey]['Description'] + ' ' )
-    updaterecord = raw_input('Update API Action? [y/n]: ')
+    updaterecord = input('Update API Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
 
         try:
-            wrkstring = raw_input('Please provide an API Open Action for: "' + str(workingkey) +  '" "'
+            wrkstring = input('Please provide an API Open Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
             input_assignments[workingkey]['API_Open'] = wrkstring
@@ -231,16 +231,16 @@ def updateKBOpenAction(workingkey):
     global input_assignments
 
     
-    print('In learning mode - time to update the KB Open Action for: ' + str(workingkey) + ' / '
+    print('In learning mode - time to update the Keyboard Open Action for: ' + str(workingkey) + ' / '
           + input_assignments[workingkey]['Description'] + ' ' )
-    updaterecord = raw_input('Update KB Action? [y/n]: ')
+    updaterecord = input('Update KB Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
 
         try:
-            wrkstring = raw_input('Please provide an KB Open Action for: "' + str(workingkey) +  '" "'
+            wrkstring = input('Please provide an Keyboard Open Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['KB_Open'] = wrkstring
+            input_assignments[workingkey]['Keyboard_Open'] = wrkstring
 
             save_and_reload_assignments()
                 
@@ -253,11 +253,11 @@ def updateAPICloseAction(workingkey):
     
     print('In learning mode - time to update the API Close Action for: ' + str(workingkey) + ' '
           + input_assignments[workingkey]['Description'])
-    updaterecord = raw_input('Update API Action? [y/n]: ')
+    updaterecord = input('Update API Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
         
         try:
-            wrkstring = raw_input('Please provide an API Close Action for: "' + str(workingkey) +  '" "'
+            wrkstring = input('Please provide an API Close Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
             input_assignments[workingkey]['API_Close'] = wrkstring
@@ -272,16 +272,16 @@ def updateKBCloseAction(workingkey):
     global input_assignments
 
     
-    print('In learning mode - time to update the KB Close Action for: ' + str(workingkey) + ' '
+    print('In learning mode - time to update the Keyboard Close Action for: ' + str(workingkey) + ' '
           + input_assignments[workingkey]['Description'])
-    updaterecord = raw_input('Update KB Action? [y/n]: ')
+    updaterecord = input('Update KB Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
         
         try:
-            wrkstring = raw_input('Please provide an KB Close Action for: "' + str(workingkey) +  '" "'
+            wrkstring = input('Please provide an Keyboard Close Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['KB_Close'] = wrkstring
+            input_assignments[workingkey]['Keyboard_Close'] = wrkstring
 
             save_and_reload_assignments()
                 
@@ -510,7 +510,8 @@ def ProcessReceivedString(ReceivedUDPString):
                         logging.critical("Error in ProcessReceivedString: " + str(other))
                 
 
-            Send_Remaining_Commands()
+            Send_Remaining_API_Commands()
+            Send_Remaining_KB_Commands()
             logging.debug('Continuing on')
             
 
