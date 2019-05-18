@@ -440,7 +440,7 @@ def ProcessReceivedString(ReceivedUDPString):
                         print( KeyStrokeDict.get(CommandToSend.upper()[0]))
                         print('Pressing Key')    
                         PressKey( int(KeyStrokeDict.get(CommandToSend.upper())[0]))
-                        time.sleep(0.5)
+                        time.sleep(0.02)
                         print('Releasing Key')
                         ReleaseKey(int(KeyStrokeDict.get(CommandToSend.upper())[0]))
                         print('Key Released')

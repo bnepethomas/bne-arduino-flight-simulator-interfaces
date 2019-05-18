@@ -1803,7 +1803,7 @@
         "API_Open": null,
         "Description": "Spoiler Up",
         "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Open": "LCTRL B"
     },
     "01:002": {
         "API_Close": null,
@@ -1914,8 +1914,8 @@
         "API_Close": null,
         "API_Open": null,
         "Description": "Landing Gear",
-        "Keyboard_Close": "CTRL u",
-        "Keyboard_Open": "CTRL l"
+        "Keyboard_Close": "LSHIFT G",
+        "Keyboard_Open": "LCTRL G"
     },
     "01:018": {
         "API_Close": null,
@@ -2139,7 +2139,7 @@
         "API_Open": null,
         "Description": "Spoiler Down",
         "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Open": "LSHIFT B"
     },
     "01:050": {
         "API_Close": null,
@@ -2251,7 +2251,7 @@
         "API_Open": null,
         "Description": "Flaps Down",
         "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Open": "LSHIFT F"
     },
     "01:066": {
         "API_Close": null,
@@ -2363,7 +2363,7 @@
         "API_Open": null,
         "Description": "Flaps Up",
         "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Open": "LCTRL F"
     },
     "01:082": {
         "API_Close": null,
@@ -3860,8 +3860,8 @@
         "API_Close": null,
         "API_Open": null,
         "Description": "Canopy",
-        "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Close": "LCTRL C",
+        "Keyboard_Open": "LCTRL C"
     },
     "02:040": {
         "API_Close": null,
@@ -3966,8 +3966,8 @@
         "API_Open": null,
         "Description": "Navigation Light",
         "KB_Open": "a",
-        "Keyboard_Close": "g h",
-        "Keyboard_Open": "e r"
+        "Keyboard_Close": "RCTRL L",
+        "Keyboard_Open": "RCTRL L"
     },
     "02:055": {
         "API_Close": null,
@@ -4317,7 +4317,7 @@
         "API_Open": null,
         "Description": "Gnd Brake",
         "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Open": "W"
     },
     "02:105": {
         "API_Close": null,
@@ -4547,7 +4547,7 @@
         "API_Close": null,
         "API_Open": null,
         "Description": "Eject",
-        "Keyboard_Close": null,
+        "Keyboard_Close": "LCTRL E",
         "Keyboard_Open": null
     },
     "02:138": {
