@@ -4323,7 +4323,7 @@
         "API_Close": null,
         "API_Open": null,
         "Description": "Chaff",
-        "Keyboard_Close": null,
+        "Keyboard_Close": "INSERT",
         "Keyboard_Open": null
     },
     "02:106": {
@@ -4547,7 +4547,7 @@
         "API_Close": null,
         "API_Open": null,
         "Description": "Eject",
-        "Keyboard_Close": "LCTRL E",
+        "Keyboard_Close": "LCTRL E E E",
         "Keyboard_Open": null
     },
     "02:138": {
