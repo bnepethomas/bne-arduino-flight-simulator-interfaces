@@ -112,12 +112,11 @@ class KEYBDINPUT(ctypes.Structure):
 
     def __init__(self, *args, **kwds):
         super(KEYBDINPUT, self).__init__(*args, **kwds)
-        # some programs use the scan code even if KEYEVENTF_SCANCODE
-        # isn't set in dwFflags, so attempt to map the correct code.
         if not self.dwFlags & KEYEVENTF_UNICODE:
             self.wScan = user32.MapVirtualKeyExW(self.wVk,
-                                                 MAPVK_VK_TO_VSC, 0)
 
+
+                                                 MAPVK_VK_TO_VSC, 0)
 class HARDWAREINPUT(ctypes.Structure):
     _fields_ = (("uMsg",    wintypes.DWORD),
                 ("wParamL", wintypes.WORD),
@@ -147,6 +146,7 @@ user32.SendInput.argtypes = (wintypes.UINT, # nInputs
 # Functions
 
 def PressKey(hexKeyCode):
+    print("Value passed to PressKey is " + hex(hexKeyCode))       
     x = INPUT(type=INPUT_KEYBOARD,
               ki=KEYBDINPUT(wVk=hexKeyCode))
     user32.SendInput(1, ctypes.byref(x), ctypes.sizeof(x))
@@ -170,16 +170,14 @@ def AltTab():
 #if __name__ == "__main__":
 #    AltTab()
 
-#        'G': [0x47],
+
 KeyStrokeDict = { 'A': [0x41],
         'B': [0x42],
         'C': [0x43],
         'D': [0x44],
         'E': [0x45],
         'F': [0x46],
-        'G': [0x47],          
-
-                  
+        'G': [0x47],                        
         'H': [0x48],
         'I': [0x49],
         'J': [0x4A],
@@ -245,7 +243,8 @@ KeyStrokeDict = { 'A': [0x41],
         'PRNTSCRN': [0x2C],
         'SCROLLLOCK': [0x91],                  
         'PAUSE': [0x13],                
-        'INSERT': [0x2D],
+ #       'INSERT': [0x2D],
+        'INSERT': [0x34],
         'DELETE': [0x2E],
         'HOME': [0x24],                  
         'END': [0x23],                
@@ -431,13 +430,21 @@ def ProcessReceivedString(ReceivedUDPString):
             # Inner exception Management is to ensure that modifers are released
             try:
                     
-                print('Command To Sender')
+                print('Command To Send')
                 for CommandToSend in CommandsToProcess:
                     print('Entering loop')
                     print('Command To Send is: ' + CommandToSend)
                     
                     if KeyStrokeDict.get(CommandToSend.upper()) != None:
-                        print( KeyStrokeDict.get(CommandToSend.upper()[0]))
+
+
+                        
+                        print('GOING IN')
+
+                        print(KeyStrokeDict.get(CommandToSend.upper()))
+                        print( "Partial" + str(KeyStrokeDict.get(CommandToSend.upper()[0])))
+                        
+                        print("coming out")
                         print('Pressing Key')    
                         PressKey( int(KeyStrokeDict.get(CommandToSend.upper())[0]))
                         time.sleep(0.02)
