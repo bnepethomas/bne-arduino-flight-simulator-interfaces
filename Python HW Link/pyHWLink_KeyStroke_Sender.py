@@ -8,6 +8,12 @@
 
 # 20190518 DCS differentiates between Left and Right Alt, Ctrl and Shift keys - added keyboards - note Alt may also appear as menu
 
+# DCS and P3d not seeing even a siomple G - due to change in security in windows
+# Ref https://www.tenforums.com/software-apps/49635-sendkeys-not-working-windows-10-a-3.html
+#SendKeys are locked in Win 10 and 8.1 by the UAC.
+#If you need to use Sendkeys you may want to try Disabling it in the Registry :
+#HKLM>Software>Microsoft>Windows>CurrentVersion>Policies>System>EnableLUA=0.
+
 import logging
 import os
 import socket
@@ -46,6 +52,10 @@ elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
         print('Running Python ' + sys.version)
         sys.exit(Warning_Message)
 
+print("IF THIS ISN'T WORKING NOTE THE FOLLOWING!!!")
+print('SendKeys are locked in Win 10 and 8.1 by the UAC.')
+print('If you need to use Sendkeys you may want to try Disabling it in the Registry :')
+print('HKLM>Software>Microsoft>Windows>CurrentVersion>Policies>System>EnableLUA=0.')
 
 # Setup networking
 try:
@@ -160,14 +170,16 @@ def AltTab():
 #if __name__ == "__main__":
 #    AltTab()
 
-
+#        'G': [0x47],
 KeyStrokeDict = { 'A': [0x41],
         'B': [0x42],
         'C': [0x43],
         'D': [0x44],
         'E': [0x45],
         'F': [0x46],
-        'G': [0x47],
+        'G': [0x47],          
+
+                  
         'H': [0x48],
         'I': [0x49],
         'J': [0x4A],
@@ -406,6 +418,7 @@ def ProcessReceivedString(ReceivedUDPString):
 
             print('Modifier Down')
             for ModifierToPress in ModifierSet:
+                print('Modifier Down')
                 print( KeyStrokeDict.get(ModifierToPress))
                 if KeyStrokeDict.get(ModifierToPress) != None:
                     PressKey( int(KeyStrokeDict.get(ModifierToPress)[0]))
@@ -427,7 +440,7 @@ def ProcessReceivedString(ReceivedUDPString):
                         print( KeyStrokeDict.get(CommandToSend.upper()[0]))
                         print('Pressing Key')    
                         PressKey( int(KeyStrokeDict.get(CommandToSend.upper())[0]))
-                        time.sleep(0.02)
+                        time.sleep(0.5)
                         print('Releasing Key')
                         ReleaseKey(int(KeyStrokeDict.get(CommandToSend.upper())[0]))
                         print('Key Released')
