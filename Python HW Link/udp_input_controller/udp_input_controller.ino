@@ -50,14 +50,20 @@ bool bFirstTime = false;
 //const String deviceID = "01";
 
 // General Platform Right Input Controller
-byte mac[] = {0xA9,0xE7,0x3E,0xCA,0x35,0x04};
-IPAddress ip(172,16,1,12);
+//byte mac[] = {0xA9,0xE7,0x3E,0xCA,0x35,0x04};
+// May need to start using this prefix as A9:E7 is being stopped
+byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x04};
+//IPAddress ip(172,16,1,12);
+IPAddress ip(192,168,1,35);
 
 const String deviceID = "02";
 
 
 // Raspberry Pi is Target
 IPAddress targetIP(172,16,1,2);
+//Test
+//IPAddress targetIP(192,168,1,127);
+
 
 const unsigned int localport = 7788;
 const unsigned int remoteport = 26027;
