@@ -1911,11 +1911,11 @@
         "Keyboard_Open": null
     },
     "01:017": {
-        "API_Close": null,
-        "API_Open": null,
-        "Description": "Landing Gear",
-        "Keyboard_Close": "LSHIFT G",
-        "Keyboard_Open": "LCTRL G"
+        "API_Close": "sim/flight_controls/landing_gear_down",
+        "API_Open": "sim/flight_controls/landing_gear_up",
+        "Description": "Landing Gear. Handle Up is Open",
+        "Keyboard_Close": null ,
+        "Keyboard_Open": null
     },
     "01:018": {
         "API_Close": null,

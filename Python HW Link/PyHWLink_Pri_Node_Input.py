@@ -6,12 +6,15 @@
 
 
 from collections import OrderedDict
+import binascii
 import json
 import logging
 import os
 import socket
+import struct
 import sys
 import time
+
 
 
 
@@ -61,6 +64,7 @@ else:
         
         print('Learning Mode: ' + str(learning))
         print('Aircraft is: ' + AircraftType)
+        print('Simulator is: ' + FlightSim)
 
 
     except Exception as other:
@@ -103,13 +107,22 @@ except:
     print('AircraftType not assigned - using defaults')
     AircraftType = 'default'
 
+try:
+    test = FlightSim
+except:
+    print('FlightSim not assigned - using defaults')
+    FlightSim = 'default'
+
+
 # Windows was unable tobind to 0 - checking firewall
 #UDP_IP_ADDRESS = "127.0.0.1"
 #  When running Pi use address of 0 - as it listens to traffic from everything
 UDP_IP_ADDRESS = "0"
 UDP_PORT_NO = 26027
 SIM_API_IP_ADDRESS = "172.16.1.3"
-SIM_API_PORT_NO = 7791
+# Given X Plane 11 uses a standard API port - will use it for all Sims
+# as other Sims use external interface
+SIM_API_PORT_NO = 49000
 SIM_KB_IP_ADDRESS = "172.16.1.3"
 SIM_KB_PORT_NO = 7790
 
@@ -296,17 +309,49 @@ def API_Send_Value():
     global serverSock
 
 
-    try:
+    logging.debug("UDP target port:" + str(SIM_API_PORT_NO))
+    if (FlightSim.upper() != 'XPLANE'):
+        try:
 
-        logging.debug("UDP target port:" + str(SIM_API_PORT_NO))
+            
 
-        serverSock.sendto(API_send_string.encode('utf-8'), (SIM_API_IP_ADDRESS, SIM_API_PORT_NO))
-        serverSock.sendto(API_send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
+            serverSock.sendto(API_send_string.encode('utf-8'), (SIM_API_IP_ADDRESS, SIM_API_PORT_NO))
+            serverSock.sendto(API_send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
 
-        API_send_string = ""
+            API_send_string = ""
 
-    except Exception as other:
-        logging.critical("Error in API_Send_Value: " + str(other))
+        except Exception as other:
+                logging.critical("Error in API_Send_Value - non-XPlane: " + str(other))
+
+    else:       # XPlane - needs special treatment
+
+        try:
+
+            values = ('CMND'.encode('utf-8'), 0, API_send_string.encode('utf-8'))
+            packerstring = '4s B ' + str(len(API_send_string) + 2) + 's'
+            print('Packer String is ' + packerstring)
+            
+
+            packer = struct.Struct(packerstring)
+            packed_data = packer.pack(*values)
+
+
+            print('UDP Daata to be sent: ' + API_send_string)
+            print('UDP target IP:', SIM_API_IP_ADDRESS)
+            print('UDP target port:', SIM_API_PORT_NO)
+            print('sending "%s"' % binascii.hexlify(packed_data), values)
+            
+
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+            sock.sendto((packed_data), (SIM_API_IP_ADDRESS, SIM_API_PORT_NO))
+
+            serverSock.sendto(API_send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
+
+            API_send_string = ""
+
+        except Exception as other:
+                logging.critical("Error in API_Send_Value - Xplane: " + str(other))
+
         
 
 def KB_Send_Value():
