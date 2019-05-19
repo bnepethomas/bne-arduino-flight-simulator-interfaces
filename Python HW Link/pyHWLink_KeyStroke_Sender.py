@@ -146,7 +146,7 @@ def AltTab():
 
 
 # Classic Dictionary Ref
-KeyStrokeDict = { 'A': [0x41],
+Classic_KeyStrokeDict = { 'A': [0x41],
         'B': [0x42],
         'C': [0x43],
         'D': [0x44],
@@ -282,7 +282,9 @@ KeyStrokeDict = { 'A': [0x41],
 # DX Dictionary Reference - note this works for DirectX - not classic
 # May need to provide an option to select dictionarys
 
-KeyStrokeDict = { 'A': [0x1E],
+KeyStrokeDict = {
+        'ESC': [0x01],
+        'A': [0x1E],
         'B': [0x30],
         'C': [0x2E],
         'D': [0x20],
@@ -333,27 +335,42 @@ KeyStrokeDict = { 'A': [0x1E],
         'F11': [0x57],
         'F12': [0x58],
 
-        '-': [0xBD],
-        '+': [0xBB],
-        '`': [0xC0],                  
-        ';': [0xBA],
-        '[': [0xDB],                  
-        ']': [0xDD],
-        '\\': [0xDC],                  
-        '=': [0xDD],
-        ',': [0x33],                  
-        '.': [0x34],                
-        'FORWARDSLASH': [0x35],
-        'QUOTE': [0xDE],
-        'ESC': [0x01],
-        'TAB': [0x09],
-        'CAPSLOCK': [0x14],
+        '-': [0x0C],
+        '=': [0x0D],
+        'BACKSPACE': [0x0E],
+        'TAB': [0x0F],
+        '[': [0x1A],                  
+        ']': [0x1B],
+        '\\': [0x2B],
+        'CAPSLOCK': [0x3A],
+        ';': [0x27],
+        'QUOTE': [0x28], # Used Quote instead of ' to remove need for escaping
+        'ENTER' : [0X1C],
+        ',': [0x33],
+        '.': [0x34],
+        '/': [0x35],
+        
+        'SPACE': [0x39],
 
-        'SPACE': [0x20],
-        'BACKSPACE': [0x08],          
-        'PRNTSCRN': [0x2C],
-        'SCROLLLOCK': [0x91],                  
-        'PAUSE': [0xC5],                
+
+
+##        DIK_LMENU = 0x38,
+##        DIK_AT = 0x91,
+##        DIK_COLON = 0x92,
+##        DIK_UNDERLINE = 0x93,
+##        DIK_AX = 0x96,
+##        DIK_RMENU = 0xB8,
+
+
+
+        '+': [0xBB],
+        '`': [0x29],                  
+                    
+
+        'PRNTSCRN': [0xB7],
+        'SCROLLLOCK': [0x46],                  
+        'PAUSE': [0x95], # To be validated DIK_STOP
+        
         'INSERT': [0xD2],
         'DELETE': [0xD3],
         'HOME': [0xC7],                  
@@ -364,24 +381,28 @@ KeyStrokeDict = { 'A': [0x1E],
         'RIGHTARROW': [0xCD],
         'UPARROW': [0xC8],                
         'DOWNARROW': [0xD0],
-        'NUM0': [0x60],                
-        'NUM1': [0x61],
-        'NUM2': [0x62],                
-        'NUM3': [0x63],
-        'NUM4': [0x64],                
-        'NUM5': [0x65],
-        'NUM6': [0x66],                
-        'NUM7': [0x67],
-        'NUM8': [0x68],                
-        'NUM9': [0x69],
-        'NUMPLUS': [0x6B],                
-        'NUMMINUS': [0x6D],
-        'NUM*': [0x6A],                
-        'ENTER': [0x0D],
-        'NUMDECIMAL': [0x6E],                
-        'NUMDIVIDE': [0x6F],
-        'NUMLOCK': [0x90],                
-        'xx': [0x0],
+
+      
+        'NUM0': [0x52],                
+        'NUM1': [0x4F],
+        'NUM2': [0x50],                
+        'NUM3': [0x51],
+        'NUM4': [0x4B],                
+        'NUM5': [0x4C],
+        'NUM6': [0x4D],                
+        'NUM7': [0x47],
+        'NUM8': [0x48],                
+        'NUM9': [0x49],
+        
+        'NUMPLUS': [0x4E],                
+        'NUMMINUS': [0x4A],
+        'NUMDECIMAL': [0x53],
+        'NUMENTER': [0x9C],      
+        'NUMLOCK' : [0x45],        
+        'NUMMULTIPLY': [0x37],                
+        'NUMDIVIDE': [0xB5],
+
+
 
         'MEDIAPLAYPAUSE': [0xB3],                
         'MUTE': [0xAD],
@@ -401,40 +422,21 @@ KeyStrokeDict = { 'A': [0x1E],
         'COMP' : [0xEB],
         'MAIL' : [0xEC],
         'MEDIASELECT' : [0xED],
-        
-        
-        'xx': [0x0],                
-        'xx': [0x0],
-        'xx': [0x0],                
-        'xx': [0x0],
-        'xx': [0x0],                
-        'xx': [0x0],
-        'xx': [0x0],                
-        'xx': [0x0],
-        'xx': [0x0],                
-        'xx': [0x0],
-        'xx': [0x0],                
-        'xx': [0x0],
-        'xx': [0x0],                
-        'xx': [0x0],
-        'xx': [0x0],                
-        'xx': [0x0],
-        'xx': [0x0],                
-        'xx': [0x0],
-                  
 
-                  
+##        DIK_LCONTROL = 0x1D,
+##        DIK_RCONTROL = 0x9D,
+                          
         'ALT':          [0x12],
         'SHIFT':        [0x10],
         'CTRL':         [0x11],
         'LSHIFT':       [0x2A],
         'RSHIFT':       [0x36],
-        'LCTRL':        [0xA2],
+        'LCTRL':        [0x1D],
         'RCTRL':        [0xA3],
-        'LALT':         [0xA4],
+        'LALT':         [0x38],
         'RALT':         [0xA5],
         'LWIN':         [0xDB],
-        'LWIN':         [0xDC]
+        'RWIN':         [0xDC]
                                
 }
 
@@ -605,6 +607,7 @@ def ProcessReceivedString(ReceivedUDPString):
 
 
 def CycleThroughKeycodes():
+# Test Harness to check what DirectX applications considers a keycode to be        
     for x in range (0x0,0xFF):
 
         input("Press a key")
@@ -622,7 +625,6 @@ def CycleThroughKeycodes():
 
 
 try:
-    CycleThroughKeycodes()
     print('Waiting for packet')
     ReceivePacket()
 
