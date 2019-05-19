@@ -2248,10 +2248,10 @@
     },
     "01:065": {
         "API_Close": null,
-        "API_Open": null,
+        "API_Open": "sim/flight_controls/flaps_down",
         "Description": "Flaps Down",
         "Keyboard_Close": null,
-        "Keyboard_Open": "LSHIFT F"
+        "Keyboard_Open": null
     },
     "01:066": {
         "API_Close": null,
@@ -2360,10 +2360,10 @@
     },
     "01:081": {
         "API_Close": null,
-        "API_Open": null,
+        "API_Open": "sim/flight_controls/flaps_up",
         "Description": "Flaps Up",
         "Keyboard_Close": null,
-        "Keyboard_Open": "LCTRL F"
+        "Keyboard_Open": null
     },
     "01:082": {
         "API_Close": null,
@@ -3970,8 +3970,8 @@
         "Keyboard_Open": "RCTRL L"
     },
     "02:055": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "sim/flight_controls/brakes_toggle_max",
+        "API_Open": "sim/flight_controls/brakes_toggle_max",
         "Description": "Park Brake",
         "Keyboard_Close": null,
         "Keyboard_Open": null
