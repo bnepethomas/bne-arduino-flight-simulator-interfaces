@@ -4429,7 +4429,7 @@
         "API_Open": null,
         "Description": "Flare",
         "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Open": "DELETE"
     },
     "02:121": {
         "API_Close": null,
@@ -4541,14 +4541,14 @@
         "API_Open": null,
         "Description": "Jettison",
         "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Open": "LCTRL W"
     },
     "02:137": {
         "API_Close": null,
         "API_Open": null,
         "Description": "Eject",
-        "Keyboard_Close": "LCTRL E E E",
-        "Keyboard_Open": null
+        "Keyboard_Close": null,
+        "Keyboard_Open": "LCTRL E E E"
     },
     "02:138": {
         "API_Close": null,
