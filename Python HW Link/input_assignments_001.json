@@ -30,7 +30,7 @@
         "Open": "Port 5 Open"
     }, 
     "00:006": {
-        "Description": ""
+	"Description": ""
     }, 
     "00:007": {
         "Close": "Port 7 Close", 
@@ -1278,34 +1278,34 @@
         "Open": null
     }, 
     "01:000": {
-        "Close": "fkfkf", 
-        "Description": "ddd", 
-        "Open": "dd"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "01:001": {
-        "Close": "test", 
-        "Description": "test", 
-        "Open": "test"
+        "Close": "Spoiler Mid", 
+        "Description": "Spoiler", 
+        "Open": "Spoiler Up"
     }, 
     "01:002": {
-        "Close": "test", 
-        "Description": "test2", 
-        "Open": "testee"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "01:003": {
-        "Close": "dddd", 
-        "Description": "ldkfj", 
-        "Open": "dd"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "01:004": {
-        "Close": "y", 
-        "Description": "dkjfsal'kjdf", 
-        "Open": "ff"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "01:005": {
-        "Close": "dkf", 
-        "Description": "ff;lkdf", 
-        "Open": "dlkd"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "01:006": {
         "Close": null, 
@@ -1313,9 +1313,9 @@
         "Open": null
     }, 
     "01:007": {
-        "Close": "sl;dkfs;lkf", 
-        "Description": "ds;lfk", 
-        "Open": "dd"
+        "Close": null, 
+        "Description": null, 
+        "Open": null
     }, 
     "01:008": {
         "Close": null, 
@@ -1333,9 +1333,9 @@
         "Open": null
     }, 
     "01:011": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Spoiler Mid", 
+        "Description": "Spoiler", 
+        "Open": "Spoiler Up"
     }, 
     "01:012": {
         "Close": null, 
@@ -1523,9 +1523,9 @@
         "Open": null
     }, 
     "01:049": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Spoiler Mid", 
+        "Description": "Spoiler", 
+        "Open": "Spoiler Down"
     }, 
     "01:050": {
         "Close": null, 
@@ -2833,9 +2833,9 @@
         "Open": null
     }, 
     "02:055": {
-        "Close": null, 
-        "Description": null, 
-        "Open": null
+        "Close": "Park Brake Off", 
+        "Description": "Park Brake", 
+        "Open": "Park Brake On"
     }, 
     "02:056": {
         "Close": null, 

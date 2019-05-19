@@ -6,12 +6,15 @@
 
 
 from collections import OrderedDict
+import binascii
 import json
 import logging
 import os
 import socket
+import struct
 import sys
 import time
+
 
 
 
@@ -61,6 +64,7 @@ else:
         
         print('Learning Mode: ' + str(learning))
         print('Aircraft is: ' + AircraftType)
+        print('Simulator is: ' + FlightSim)
 
 
     except Exception as other:
@@ -103,13 +107,24 @@ except:
     print('AircraftType not assigned - using defaults')
     AircraftType = 'default'
 
+try:
+    test = FlightSim
+except:
+    print('FlightSim not assigned - using defaults')
+    FlightSim = 'default'
 
-UDP_IP_ADDRESS = "127.0.0.1"
+
 # Windows was unable tobind to 0 - checking firewall
-#UDP_IP_ADDRESS = "0"
+#UDP_IP_ADDRESS = "127.0.0.1"
+#  When running Pi use address of 0 - as it listens to traffic from everything
+UDP_IP_ADDRESS = "0"
 UDP_PORT_NO = 26027
-DCS_IP_ADDRESS = "127.0.0.1"
-DCS_PORT_NO = 26026
+SIM_API_IP_ADDRESS = "172.16.1.3"
+# Given X Plane 11 uses a standard API port - will use it for all Sims
+# as other Sims use external interface
+SIM_API_PORT_NO = 49000
+SIM_KB_IP_ADDRESS = "172.16.1.3"
+SIM_KB_PORT_NO = 7790
 
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
@@ -123,7 +138,8 @@ temp_input_assignments_file = 'temp_input_assignments.json'
 
 
 input_assignments = None
-send_string = None
+API_send_string = None
+KB_send_string = None
 
 def ReceivePacket():
 
@@ -187,11 +203,11 @@ def updateDescription(workingkey):
 
     
     print('In learning mode - time to update the description for: '  + str(workingkey))
-    updaterecord = raw_input('Update Description? [y/n]: ')
+    updaterecord = input('Update Description? [y/n]: ')
     if updaterecord.upper() == 'Y':
 
         try:
-            wrkstring = raw_input('Please provide a description for: "' + str(workingkey) +  '" ')
+            wrkstring = input('Please provide a description for: "' + str(workingkey) +  '" ')
             if wrkstring != '':
 
                 input_assignments[workingkey]['Description'] = wrkstring
@@ -204,116 +220,245 @@ def updateDescription(workingkey):
 
 
 
-def updateOpenAction(workingkey):
+def updateAPIOpenAction(workingkey):
     global input_assignments
 
     
-    print('In learning mode - time to update the Open Action for: ' + str(workingkey) + ' / '
+    print('In learning mode - time to update the API Open Action for: ' + str(workingkey) + ' / '
           + input_assignments[workingkey]['Description'] + ' ' )
-    updaterecord = raw_input('Update Action? [y/n]: ')
+    updaterecord = input('Update API Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
 
         try:
-            wrkstring = raw_input('Please provide a Open Action for: "' + str(workingkey) +  '" "'
+            wrkstring = input('Please provide an API Open Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['Open'] = wrkstring
+            input_assignments[workingkey]['API_Open'] = wrkstring
 
             save_and_reload_assignments()
                 
         except Exception as other:
-            logging.critical("Error in updateOpenAction: " + str(other))
+            logging.critical("Error in updateAPIOpenAction: " + str(other))
 
-
-
-def updateCloseAction(workingkey):
+def updateKBOpenAction(workingkey):
     global input_assignments
 
     
-    print('In learning mode - time to update the Close Action for: ' + str(workingkey) + ' '
+    print('In learning mode - time to update the Keyboard Open Action for: ' + str(workingkey) + ' / '
+          + input_assignments[workingkey]['Description'] + ' ' )
+    updaterecord = input('Update KB Action? [y/n]: ')
+    if updaterecord.upper() == 'Y':
+
+        try:
+            wrkstring = input('Please provide an Keyboard Open Action for: "' + str(workingkey) +  '" "'
+                                  + input_assignments[workingkey]['Description'] + '" :')
+
+            # Upper case the input as Send Keystrokes modifers as in upper
+            input_assignments[workingkey]['Keyboard_Open'] = wrkstring.upper()
+
+            save_and_reload_assignments()
+                
+        except Exception as other:
+            logging.critical("Error in updateKBOpenAction: " + str(other))
+
+def updateAPICloseAction(workingkey):
+    global input_assignments
+
+    
+    print('In learning mode - time to update the API Close Action for: ' + str(workingkey) + ' '
           + input_assignments[workingkey]['Description'])
-    updaterecord = raw_input('Update Action? [y/n]: ')
+    updaterecord = input('Update API Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
         
         try:
-            wrkstring = raw_input('Please provide a Close Action for: "' + str(workingkey) +  '" "'
+            wrkstring = input('Please provide an API Close Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['Close'] = wrkstring
+            input_assignments[workingkey]['API_Close'] = wrkstring
 
             save_and_reload_assignments()
                 
         except Exception as other:
-            logging.critical("Error in updateCloseAction: " + str(other))
+            logging.critical("Error in updateAPICloseAction: " + str(other))
                 
 
- 
+def updateKBCloseAction(workingkey):
+    global input_assignments
 
-def Send_Value():
+    
+    print('In learning mode - time to update the Keyboard Close Action for: ' + str(workingkey) + ' '
+          + input_assignments[workingkey]['Description'])
+    updaterecord = input('Update KB Action? [y/n]: ')
+    if updaterecord.upper() == 'Y':
+        
+        try:
+            wrkstring = input('Please provide an Keyboard Close Action for: "' + str(workingkey) +  '" "'
+                                  + input_assignments[workingkey]['Description'] + '" :')
 
-    global send_string
+            # Upper case the input as Send Keystrokes modifers as in upper
+            input_assignments[workingkey]['Keyboard_Close'] = wrkstring.upper()
+
+            save_and_reload_assignments()
+                
+        except Exception as other:
+            logging.critical("Error in updateKBCloseAction: " + str(other)) 
+
+def API_Send_Value():
+
+    global API_send_string
+    global serverSock
+
+
+    logging.debug("UDP target port:" + str(SIM_API_PORT_NO))
+    if (FlightSim.upper() != 'XPLANE'):
+        try:
+
+            
+
+            serverSock.sendto(API_send_string.encode('utf-8'), (SIM_API_IP_ADDRESS, SIM_API_PORT_NO))
+            serverSock.sendto(API_send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
+
+            API_send_string = ""
+
+        except Exception as other:
+                logging.critical("Error in API_Send_Value - non-XPlane: " + str(other))
+
+    else:       # XPlane - needs special treatment
+
+        try:
+
+            values = ('CMND'.encode('utf-8'), 0, API_send_string.encode('utf-8'))
+            packerstring = '4s B ' + str(len(API_send_string) + 2) + 's'
+            print('Packer String is ' + packerstring)
+            
+
+            packer = struct.Struct(packerstring)
+            packed_data = packer.pack(*values)
+
+
+            print('UDP Daata to be sent: ' + API_send_string)
+            print('UDP target IP:', SIM_API_IP_ADDRESS)
+            print('UDP target port:', SIM_API_PORT_NO)
+            print('sending "%s"' % binascii.hexlify(packed_data), values)
+            
+
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+            sock.sendto((packed_data), (SIM_API_IP_ADDRESS, SIM_API_PORT_NO))
+
+            serverSock.sendto(API_send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
+
+            API_send_string = ""
+
+        except Exception as other:
+                logging.critical("Error in API_Send_Value - Xplane: " + str(other))
+
+        
+
+def KB_Send_Value():
+
+    global KB_send_string
     global serverSock
 
 
     try:
 
-        logging.debug("UDP target port:" + str(DCS_PORT_NO))
+        logging.debug("UDP target port:" + str(SIM_KB_PORT_NO))
 
-        serverSock.sendto(send_string.encode('utf-8'), (DCS_IP_ADDRESS, DCS_PORT_NO))
-        serverSock.sendto(send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
+        serverSock.sendto(KB_send_string.encode('utf-8'), (SIM_KB_IP_ADDRESS, SIM_KB_PORT_NO))
+        serverSock.sendto(KB_send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
 
-        send_string = ""
+        KB_send_string = ""
 
     except Exception as other:
-        logging.critical("Error in Send_Value: " + str(other))
-        
+        logging.critical("Error in KB_Send_Value: " + str(other))
               
 
-def addValueToSend(valueToAdd):
+def addAPIValueToSend(valueToAdd):
 
-    global send_string
+# Currently allowing building out of longer string
+# This may be introducing latency will monitor and may use direct send
+
+    global API_send_string
               
 
     try:
-        logging.debug('Send String is ' + str(len(send_string)) + ' characters long')
-        logging.debug('Before ' + send_string)
+        logging.debug('Send String is ' + str(len(API_send_string)) + ' characters long')
+        logging.debug('Before ' + API_send_string)
 
 
-        if len(send_string) == 0:
-            send_string = valueToAdd
+        if len(API_send_string) == 0:
+            API_send_string = valueToAdd
         else:
-            send_string = send_string + ',' + valueToAdd
+            API_send_string = API_send_string + ',' + valueToAdd
              
-        if len(send_string) > 40:
+        if len(API_send_string) > 40:
             
             logging.debug('Send String Now !!!!!')
-            Send_Value()
+            API_Send_Value()
             
         
-        logging.debug('After ' + send_string)
+        logging.debug('After ' + API_send_string)
 
     except Exception as other:
-        logging.critical("Error in addValueToSend: " + str(other))
+        logging.critical("Error in addAPIValueToSend: " + str(other))
 
 
-def Send_Remaining_Commands():
+def addKBValueToSend(valueToAdd):
+
+# Currently allowing building out of longer string
+# This may be introducing latency will monitor and may use direct send
+
+    global KB_send_string
+              
+
+    try:
+        logging.debug('Send String is ' + str(len(KB_send_string)) + ' characters long')
+        logging.debug('Before ' + KB_send_string)
+
+
+        if len(KB_send_string) == 0:
+            KB_send_string = valueToAdd
+        else:
+            KB_send_string = KB_send_string + ',' + valueToAdd
+             
+        if len(KB_send_string) > 40:
+            
+            logging.debug('Send String Now !!!!!')
+            KB_Send_Value()
+            
+        
+        logging.debug('After ' + KB_send_string)
+
+    except Exception as other:
+        logging.critical("Error in addKBValueToSend: " + str(other))
+
+
+def Send_Remaining_API_Commands():
     
-    global send_string
+    global API_send_string
 
-    if send_string != '':
-         Send_Value()       
-    send_string = ''
+    if API_send_string != '':
+         API_Send_Value()       
+    API_send_string = ''
     
+def Send_Remaining_KB_Commands():
+    
+    global KB_send_string
 
+    if KB_send_string != '':
+         KB_Send_Value()       
+    KB_send_string = ''
 
 def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
-    global send_string
+    global API_send_string
+    global KB_send_string
     global learning
     
     logging.debug('Processing UDP String')
 
-    send_string = ""
+    API_send_string = ""
+    KB_send_string = ""
     
     try:
         if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
@@ -368,22 +513,40 @@ def ProcessReceivedString(ReceivedUDPString):
 
                         # Switch is Closed
                         if str(workingFields[2]) == '1':
-                            if learning and input_assignments[workingkey]['Close'] == None:
-                                updateCloseAction(workingkey)
-                            print('Value for Close is : ' +
-                              str (input_assignments[workingkey]['Close']))
-                            if input_assignments[workingkey]['Close'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Close']))
+                            # API Action    
+                            if learning and input_assignments[workingkey]['API_Close'] == None:
+                                updateAPICloseAction(workingkey)
+                            print('Value for API Close is : ' +
+                              str (input_assignments[workingkey]['API_Close']))
+                            if input_assignments[workingkey]['API_Close'] != None:
+                                addAPIValueToSend(str (input_assignments[workingkey]['API_Close']))
+
+                            # Keyboard action 
+                            if learning and input_assignments[workingkey]['Keyboard_Close'] == None:
+                                updateKBCloseAction(workingkey)
+                            print('Value for Keyboard Close is : ' +
+                              str (input_assignments[workingkey]['Keyboard_Close']))
+                            if input_assignments[workingkey]['Keyboard_Close'] != None:
+                                addKBValueToSend(str (input_assignments[workingkey]['Keyboard_Close']))
+
 
                         # Switch is Opened
                         if str(workingFields[2]) == '0':
-                            if learning and input_assignments[workingkey]['Open'] == None:
-                                updateOpenAction(workingkey)
-                            print('Value for Open is : ' +
-                                  str (input_assignments[workingkey]['Open']))
-                            if input_assignments[workingkey]['Open'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Open']))
-                            
+                            # API Action
+                            if learning and input_assignments[workingkey]['API_Open'] == None:
+                                updateAPIOpenAction(workingkey)
+                            print('Value for API Open is : ' +
+                                  str (input_assignments[workingkey]['API_Open']))
+                            if input_assignments[workingkey]['API_Open'] != None:
+                                addAPIValueToSend(str (input_assignments[workingkey]['API_Open']))
+
+                            # Keyboard action  
+                            if learning and input_assignments[workingkey]['Keyboard_Open'] == None:
+                                updateKBOpenAction(workingkey)
+                            print('Value for Keyboard Open is : ' +
+                                  str (input_assignments[workingkey]['Keyboard_Open']))
+                            if input_assignments[workingkey]['Keyboard_Open'] != None:
+                                addKBValueToSend(str (input_assignments[workingkey]['Keyboard_Open']))                           
                         
     
                     except Exception as other:
@@ -394,7 +557,8 @@ def ProcessReceivedString(ReceivedUDPString):
                         logging.critical("Error in ProcessReceivedString: " + str(other))
                 
 
-            Send_Remaining_Commands()
+            Send_Remaining_API_Commands()
+            Send_Remaining_KB_Commands()
             logging.debug('Continuing on')
             
 
@@ -562,6 +726,8 @@ def LoadDCSParameterFile():
 #   2: SwitchDescription
 #   3: OnSwitchAction
 #   4: OffSwitchAction
+#   5: OnKeyboardAction
+#   6: OffKeyboardAction
 
 
 # Empty dictionary
@@ -584,8 +750,10 @@ if not (os.path.isfile(input_assignments_file)):
         while counter < 256:
             dictInner = {}
             dictInner['Description'] = None
-            dictInner['Open'] = None
-            dictInner['Close'] = None
+            dictInner['API_Open'] = None
+            dictInner['API_Close'] = None
+            dictInner['Keyboard_Open'] = None
+            dictInner['Keyboard_Close'] = None
 
             #dictOuter[str(outercounter) + ":" + str(counter)] = dictInner
             dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner

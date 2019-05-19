@@ -61,7 +61,7 @@ last_time_display = time.time()
 packets_processed = 0
 
 # Address and Port to send traffic to
-UDP_IP_Address = "192.168.1.138"
+UDP_IP_Address = "172.16.1.3"
 UDP_Port = 49000
 
 
