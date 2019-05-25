@@ -21,3 +21,10 @@ C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Comm
 C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\bin\Debug\DCS Command Sender.application
 C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Debug\DCS Command Sender.exe.manifest
 C:\Users\admin\Documents\Visual Studio 2010\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Debug\DCS Command Sender.application
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\A10 code to be validated\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Debug\DCS Command Sender.csprojAssemblyReference.cache
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\A10 code to be validated\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Debug\DCS_Command_Sender.Form1.resources
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\A10 code to be validated\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Debug\DCS_Command_Sender.Properties.Resources.resources
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\A10 code to be validated\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Debug\DCS Command Sender.csproj.GenerateResource.cache
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\A10 code to be validated\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Debug\DCS Command Sender.csproj.CoreCompileInputs.cache
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\A10 code to be validated\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Debug\DCS Command Sender.exe
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\A10 code to be validated\Projects\DCS Command Sender\DCS Command Sender\obj\x86\Debug\DCS Command Sender.pdb
