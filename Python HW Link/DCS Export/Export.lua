@@ -90,10 +90,11 @@ function LuaExportStart()
 												version.ProductVersion[4])) -- build number   (Continuously growth)	
 	end
 
-	cdu_receive_port = 7780
+	-- Using Same Receive port as XPlane 
+	cdu_receive_port = 49000
 	c_socket = require("socket")
 	cdu_socket = c_socket.udp()
-	cdu_socket:setsockname("*",7780)
+	cdu_socket:setsockname("*",49000)
 	cdu_socket:setoption('broadcast',true)
 	cdu_socket:settimeout(.001) -- set timeout for reading socket
 	
