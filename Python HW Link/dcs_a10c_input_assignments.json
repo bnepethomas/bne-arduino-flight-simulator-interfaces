@@ -3584,8 +3584,8 @@
         "Keyboard_Open": null
     },
     "02:000": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C1,3006,0.0",
+        "API_Open": "C1,3006,1.0",
         "Description": "Battery",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -3598,16 +3598,16 @@
         "Keyboard_Open": null
     },
     "02:002": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C1,3005,0.0",
+        "API_Open": "C1,3005,1.0",
         "Description": "Right Gen",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:003": {
-        "API_Close": null,
-        "API_Open": null,
-        "Description": null,
+        "API_Close": "C36,3006,0.0",
+        "API_Open": "C36,3006,1.0",
+        "Description": "Right Fuel Pump",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
@@ -3696,8 +3696,8 @@
         "Keyboard_Open": null
     },
     "02:016": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C1,3002,0.0",
+        "API_Open": "C1,3002,1.0",
         "Description": "Avionics",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -3710,16 +3710,16 @@
         "Keyboard_Open": null
     },
     "02:018": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C1,3004,0.0",
+        "API_Open": "C1,3004,1.0",
         "Description": "Left Gen",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:019": {
-        "API_Close": null,
-        "API_Open": null,
-        "Description": "Left Fuel",
+        "API_Close": "C36,3005,0.0",
+        "API_Open": "C36,3005,1.0",
+        "Description": "Left Fuel Pump",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
@@ -3836,22 +3836,22 @@
         "Keyboard_Open": null
     },
     "02:036": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C49,3007,0.0",
+        "API_Open": "C49,3007,1.0",
         "Description": "Cabin Light",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:037": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C49,3014,0.5",
+        "API_Open": "C49,3014,0.0",
         "Description": "Taxi Light",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:038": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C49,3010,0.0",
+        "API_Open": "C49,3010,1.0",
         "Description": "Strobe Light",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -3955,15 +3955,15 @@
         "Keyboard_Open": null
     },
     "02:053": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C49,3014,0.0",
+        "API_Open": "C49,3014,1.0",
         "Description": "Landing Light",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:054": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C49,3008,0.0",
+        "API_Open": "C49,3008,-1.0",
         "Description": "Navigation Light",
         "KB_Open": "a",
         "Keyboard_Close": "RCTRL L",
@@ -4313,15 +4313,15 @@
         "Keyboard_Open": null
     },
     "02:104": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "P75",
+        "API_Open": "P74",
         "Description": "Gnd Brake",
         "Keyboard_Close": null,
-        "Keyboard_Open": "W"
+        "Keyboard_Open": ""
     },
     "02:105": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "P560",
+        "API_Open": "P556",
         "Description": "Chaff",
         "Keyboard_Close": "INSERT",
         "Keyboard_Open": null
@@ -4332,7 +4332,7 @@
         "Description": null,
         "Keyboard_Close": null,
         "Keyboard_Open": null
-    },
+    }, 
     "02:107": {
         "API_Close": null,
         "API_Open": null,
@@ -4425,8 +4425,8 @@
         "Keyboard_Open": null
     },
     "02:120": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "P560",
+        "API_Open": "P556",
         "Description": "Flare",
         "Keyboard_Close": null,
         "Keyboard_Open": "DELETE"
@@ -4635,8 +4635,8 @@
         "Keyboard_Open": null
     },
     "02:150": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C7,3001,0.1",
+        "API_Open": "C7,3001,0.2",
         "Description": "Master Arm",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -4740,8 +4740,8 @@
         "Keyboard_Open": null
     },
     "02:165": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "P97",
+        "API_Open": "P95",
         "Description": "Trim Down",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -4852,8 +4852,8 @@
         "Keyboard_Open": null
     },
     "02:181": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "P97",
+        "API_Open": "P96",
         "Description": "Trim Up",
         "Keyboard_Close": null,
         "Keyboard_Open": null
