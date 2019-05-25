@@ -21,6 +21,10 @@ require 'Vector'
 -- See the Scripts\Vector.lua file for Vector class details, please.
 --]]
 
+
+
+default_output_file = nil
+
 function StrSplit(str, delim, maxNb)
 
     -- Called from Process Input from CDU
@@ -111,7 +115,7 @@ function LuaExportStart()
 	gps_export_socket.try(gps_export_con:settimeout(.001))
 	gps_export_socket.try(gps_export_con:setpeername(gps_export_host,gps_export_port))
 	
-	default_output_file:write("Got here: "..version.ProductName..'\n')
+	
 
 end
 
@@ -121,8 +125,9 @@ function LuaExportStop()
 -- Close files and/or connections here.
 -- 1) File
    if default_output_file then
-	  default_output_file:close()
-	  default_output_file = nil
+		default_output_file:write("Closing: "..'\n')
+		default_output_file:close()
+		default_output_file = nil
    end
 -- 2) Socket
 --	socket.try(c:send("quit")) -- to close the listener socket
@@ -142,15 +147,20 @@ function LuaExportBeforeNextFrame()
 	local lInput = cdu_socket:receive()
 	local lCommand, lCommandArgs, lDevice, lArgument, lLastValue
 
+-- Definitions from commands_def - hopefully reasonally generic	
+
+
 	if lInput then
+	
 		lCommand = string.sub(lInput,1,1)
 			
-	if lCommand == "R" then
-			ResetChangeValues()
+		if lCommand == "R" then
+				ResetChangeValues()
 		end
-		
+			
 		if (lCommand == "C") then
 
+			-- Using Panel Specific commands from clickabledata.lua
 			lCommandArgs = StrSplit(string.sub(lInput,2),",")
 			lDevice = GetDevice(lCommandArgs[1])
 			lLastValue = tostring(lDevice)
@@ -158,6 +168,23 @@ function LuaExportBeforeNextFrame()
 				lDevice:performClickableAction(lCommandArgs[2],lCommandArgs[3])
 			end
 		end
+		
+		-- If there is not a specific panel to use (eg HOTAS then use commands from command_defs.lua)
+		if (lCommand == "P") then
+
+
+			-- Plane_HOTAS_SpeedBrakeSwitchForward = 577,
+			-- Plane_HOTAS_SpeedBrakeSwitchAft = 578,
+			-- Plane_HOTAS_SpeedBrakeSwitchCenter = 579,
+
+			--default_output_file:write("Got to P start: "..'\n')
+			-- data is PXXX where XXX is command integer from command_defs
+			lCommandArgs = StrSplit(string.sub(lInput,2),",")
+			LoSetCommand(lCommandArgs[1])
+			--default_output_file:write("Got to P end: "..'\n')
+			
+		end
+		
 	end
 end
 
