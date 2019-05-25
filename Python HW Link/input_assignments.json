@@ -1800,8 +1800,8 @@
     },
     "01:001": {
         "API_Close": null,
-        "API_Open": null,
-        "Description": "Spoiler",
+        "API_Open": "P577",
+        "Description": "Spoiler Up",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
@@ -2136,10 +2136,10 @@
     },
     "01:049": {
         "API_Close": null,
-        "API_Open": null,
+        "API_Open": "P578",
         "Description": "Spoiler Down",
         "Keyboard_Close": null,
-        "Keyboard_Open": "LSHIFT B"
+        "Keyboard_Open": null
     },
     "01:050": {
         "API_Close": null,
@@ -3970,8 +3970,8 @@
         "Keyboard_Open": "RCTRL L"
     },
     "02:055": {
-        "API_Close": "sim/flight_controls/brakes_toggle_max",
-        "API_Open": "sim/flight_controls/brakes_toggle_max",
+        "API_Close": null,
+        "API_Open": null,
         "Description": "Park Brake",
         "Keyboard_Close": null,
         "Keyboard_Open": null
