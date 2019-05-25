@@ -1,3 +1,3 @@
 learning = False
 AircraftType = 'A10C'
-FlightSim = 'XPlane'
+FlightSim = 'DCS'

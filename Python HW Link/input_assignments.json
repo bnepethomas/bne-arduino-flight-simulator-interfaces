@@ -1801,9 +1801,9 @@
     "01:001": {
         "API_Close": null,
         "API_Open": null,
-        "Description": "Spoiler Up",
+        "Description": "Spoiler",
         "Keyboard_Close": null,
-        "Keyboard_Open": "LCTRL B"
+        "Keyboard_Open": null
     },
     "01:002": {
         "API_Close": null,
@@ -1911,9 +1911,9 @@
         "Keyboard_Open": null
     },
     "01:017": {
-        "API_Close": "sim/flight_controls/landing_gear_down",
-        "API_Open": "sim/flight_controls/landing_gear_up",
-        "Description": "Landing Gear. Handle Up is Open",
+        "API_Close": "C39,3001,1.0",
+        "API_Open": "C39,3001,0.0",
+        "Description": "Landing Gear",
         "Keyboard_Close": null ,
         "Keyboard_Open": null
     },
@@ -2023,8 +2023,8 @@
         "Keyboard_Open": null
     },
     "01:033": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C24,3001,0.0",
+        "API_Open": "C24,3001,1.0",
         "Description": "Master Caution",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -2248,7 +2248,7 @@
     },
     "01:065": {
         "API_Close": null,
-        "API_Open": "sim/flight_controls/flaps_down",
+        "API_Open": "C39,3002,1.0",
         "Description": "Flaps Down",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -2360,7 +2360,7 @@
     },
     "01:081": {
         "API_Close": null,
-        "API_Open": "sim/flight_controls/flaps_up",
+        "API_Open": "C39, 3002,-1.0",
         "Description": "Flaps Up",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -4537,11 +4537,11 @@
         "Keyboard_Open": null
     },
     "02:136": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C12,3001,0.0",
+        "API_Open": "C12,3001,1.0",
         "Description": "Jettison",
         "Keyboard_Close": null,
-        "Keyboard_Open": "LCTRL W"
+        "Keyboard_Open": null
     },
     "02:137": {
         "API_Close": null,
