@@ -6,3 +6,4 @@ D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP
 D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Debug\ConsoleP3dSender.csproj.CopyComplete
 D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Debug\ConsoleP3dSender.exe
 D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Debug\ConsoleP3dSender.pdb
+D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Debug\ConsoleP3dSender.csprojAssemblyReference.cache

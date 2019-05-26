@@ -110,11 +110,22 @@ namespace ManagedChangeVehicle
                     {
                         Console.WriteLine("Unable to connect to Prepar3D");
                     }
+
+                    Console.WriteLine("Starting control test");
+                    try
+                    {
+                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_GEAR, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+
+                    }
+                    catch (COMException ex)
+                    {
+                        Console.WriteLine("Unable to execute control test");
+                    }
+                    Console.WriteLine("Ended control test");
                 }
                 else
                 {
                     Console.WriteLine("Error - try again");
-
 
                 }
 
