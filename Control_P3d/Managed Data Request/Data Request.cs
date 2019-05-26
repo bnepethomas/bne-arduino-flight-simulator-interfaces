@@ -17,6 +17,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Net;
+using System.Net.Sockets;
 
 // Add these two statements to all SimConnect clients
 using LockheedMartin.Prepar3D.SimConnect;
@@ -24,6 +26,11 @@ using System.Runtime.InteropServices;
 
 namespace Managed_Data_Request
 {
+
+
+
+
+
     public partial class Form1 : Form
     {
 
@@ -90,7 +97,12 @@ namespace Managed_Data_Request
             public double hdg;
         };
 
-    public Form1()
+
+
+
+
+
+        public Form1()
         {
             InitializeComponent();
 
@@ -331,7 +343,18 @@ namespace Managed_Data_Request
         {
 
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
+
 }
 // End of sample
                 

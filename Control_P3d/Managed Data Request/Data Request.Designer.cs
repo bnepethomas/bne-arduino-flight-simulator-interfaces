@@ -43,6 +43,7 @@ namespace Managed_Data_Request
             this.btn_Gear_Down = new System.Windows.Forms.Button();
             this.btn_UnPause = new System.Windows.Forms.Button();
             this.btn_Toggle_Gear = new System.Windows.Forms.Button();
+            this.btnSocketTest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -153,11 +154,22 @@ namespace Managed_Data_Request
             this.btn_Toggle_Gear.UseVisualStyleBackColor = true;
             this.btn_Toggle_Gear.Click += new System.EventHandler(this.btn_Toggle_Gear_Click);
             // 
+            // btnSocketTest
+            // 
+            this.btnSocketTest.Location = new System.Drawing.Point(335, 252);
+            this.btnSocketTest.Name = "btnSocketTest";
+            this.btnSocketTest.Size = new System.Drawing.Size(96, 47);
+            this.btnSocketTest.TabIndex = 12;
+            this.btnSocketTest.Text = "SocketTest";
+            this.btnSocketTest.UseVisualStyleBackColor = true;
+            this.btnSocketTest.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(479, 450);
+            this.Controls.Add(this.btnSocketTest);
             this.Controls.Add(this.btn_Toggle_Gear);
             this.Controls.Add(this.btn_UnPause);
             this.Controls.Add(this.btn_Gear_Down);
@@ -174,6 +186,7 @@ namespace Managed_Data_Request
             this.Name = "Form1";
             this.Text = "  SimConnect Managed Data Request";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -192,6 +205,7 @@ namespace Managed_Data_Request
         private System.Windows.Forms.Button btn_Gear_Down;
         private System.Windows.Forms.Button btn_UnPause;
         private System.Windows.Forms.Button btn_Toggle_Gear;
+        private System.Windows.Forms.Button btnSocketTest;
     }
 }
 

@@ -1,5 +1,4 @@
 D:\Development\bne-arduino-flight-simulator-interfaces\Control_P3d\Managed Data Request\obj\x64\Debug\Managed Data Request.csprojAssemblyReference.cache
-D:\Development\bne-arduino-flight-simulator-interfaces\Control_P3d\Managed Data Request\obj\x64\Debug\Managed_Data_Request.Form1.resources
 D:\Development\bne-arduino-flight-simulator-interfaces\Control_P3d\Managed Data Request\obj\x64\Debug\Managed_Data_Request.Properties.Resources.resources
 D:\Development\bne-arduino-flight-simulator-interfaces\Control_P3d\Managed Data Request\obj\x64\Debug\Managed Data Request.csproj.GenerateResource.cache
 D:\Development\bne-arduino-flight-simulator-interfaces\Control_P3d\Managed Data Request\obj\x64\Debug\Managed Data Request.csproj.CoreCompileInputs.cache
@@ -9,3 +8,4 @@ D:\Development\bne-arduino-flight-simulator-interfaces\Control_P3d\Managed Data 
 D:\Development\bne-arduino-flight-simulator-interfaces\Control_P3d\Managed Data Request\obj\x64\Debug\Managed Data Request.csproj.CopyComplete
 D:\Development\bne-arduino-flight-simulator-interfaces\Control_P3d\Managed Data Request\obj\x64\Debug\Managed Data Request.exe
 D:\Development\bne-arduino-flight-simulator-interfaces\Control_P3d\Managed Data Request\obj\x64\Debug\Managed Data Request.pdb
+D:\Development\bne-arduino-flight-simulator-interfaces\Control_P3d\Managed Data Request\obj\x64\Debug\Managed_Data_Request.Form1.resources
