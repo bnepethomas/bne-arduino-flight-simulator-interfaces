@@ -41,6 +41,7 @@ namespace ManagedChangeVehicle
             GEAR_DOWN,
             TOGGLE_GEAR,
             THROTTLE_SET,
+            NAV1_RADIO_SET,
         };
 
 
@@ -89,6 +90,7 @@ namespace ManagedChangeVehicle
                 if (simconnect == null)
                 {
 
+
                     Console.WriteLine("Connecting to P3d a second time");
                     try
                     {
@@ -103,6 +105,7 @@ namespace ManagedChangeVehicle
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.GEAR_DOWN, "GEAR_DOWN");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_GEAR, "GEAR_TOGGLE");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.THROTTLE_SET, "THROTTLE_SET");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.NAV1_RADIO_SET, "NAV1_RADIO_SET");
 
 
                     }
@@ -114,8 +117,9 @@ namespace ManagedChangeVehicle
                     Console.WriteLine("Starting control test");
                     try
                     {
-                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_GEAR, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-
+                        //simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_GEAR, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.NAV1_RADIO_SET, 0x11130, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.THROTTLE_SET, 16000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                     }
                     catch (COMException ex)
                     {
@@ -130,7 +134,7 @@ namespace ManagedChangeVehicle
                 }
 
                 // Sending the title of the Vehicle 
-                simulation_connection.ChangeVehicle("Mooney Bravo Retro");
+                //simulation_connection.ChangeVehicle("Mooney Bravo Retro");
 
                 simulation_connection.Dispose();
                 simulation_connection = null;
