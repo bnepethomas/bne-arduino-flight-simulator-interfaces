@@ -42,6 +42,7 @@ namespace ManagedChangeVehicle
             TOGGLE_GEAR,
             THROTTLE_SET,
             NAV1_RADIO_SET,
+            COM1_RADIO_HZ_SET,
         };
 
 
@@ -106,6 +107,7 @@ namespace ManagedChangeVehicle
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_GEAR, "GEAR_TOGGLE");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.THROTTLE_SET, "THROTTLE_SET");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.NAV1_RADIO_SET, "NAV1_RADIO_SET");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.COM1_RADIO_HZ_SET, "COM1_RADIO_HZ_SET");
 
 
                     }
@@ -118,8 +120,10 @@ namespace ManagedChangeVehicle
                     try
                     {
                         //simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_GEAR, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.NAV1_RADIO_SET, 0x11130, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.THROTTLE_SET, 16000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.NAV1_RADIO_SET, 0x11230, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.COM1_RADIO_HZ_SET, 121600000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+          
+                        //simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.THROTTLE_SET, 16000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                     }
                     catch (COMException ex)
                     {
