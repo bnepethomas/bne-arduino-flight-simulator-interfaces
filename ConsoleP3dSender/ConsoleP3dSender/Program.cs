@@ -7,6 +7,9 @@ using System.Text;
 
 using System.Threading;
 
+using System.Net;
+using System.Net.Sockets;
+
 using LockheedMartin.Prepar3D.SimConnect;
 using System.Runtime.InteropServices;
 
@@ -75,6 +78,12 @@ namespace ManagedChangeVehicle
             public double hdg;
         };
 
+
+        public static UdpClient receivingUdpClient = new UdpClient(9902);
+        public static IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
+        public static string returnData;
+
+
         static void Main(string[] args)
         {
             // SimConnect object
@@ -82,6 +91,7 @@ namespace ManagedChangeVehicle
             SimConnect simulation_connection = new SimConnect("Managed Change Vehicle", IntPtr.Zero, 0,
                                                    null, 0);
 
+            string myString;
 
             try
             {
@@ -97,6 +107,7 @@ namespace ManagedChangeVehicle
                     {
                         // the constructor is similar to SimConnect_Open in the native API
                         // Event References http://www.prepar3d.com/SDKv3/LearningCenter/utilities/variables/event_ids.html
+                        // Use the second column String_Name as parameter
                         simconnect = new SimConnect("Managed Data Request", IntPtr.Zero, 0, null, 0);
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.PAUSE, "PAUSE_ON");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.UNPAUSE, "PAUSE_OFF");
@@ -122,8 +133,37 @@ namespace ManagedChangeVehicle
                         //simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_GEAR, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                         simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.NAV1_RADIO_SET, 0x11230, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                         simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.COM1_RADIO_HZ_SET, 121600000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-          
+
                         //simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.THROTTLE_SET, 16000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+
+
+                        while (true)
+                        {
+                            //Creates a UdpClient for reading incoming data.
+
+
+                            //Creates an IPEndPoint to record the IP Address and port number of the sender. 
+                            // The IPEndPoint will allow you to read datagrams sent from any source.
+
+
+                            Console.WriteLine("Waiting for new UdpClient Data");
+                            myString = Receive();
+                            if (myString != null)
+                            {
+                                myString = myString.Trim();
+                                Console.WriteLine("Main code return is " + myString);
+                                if (myString == "Full")
+                                {
+                                    Console.WriteLine("Going to Full Throttle");
+                                    simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.THROTTLE_SET, 16000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                }
+
+                            }
+
+
+                            Console.WriteLine("receive parameters from receive code");
+
+                        }
                     }
                     catch (COMException ex)
                     {
@@ -167,12 +207,65 @@ namespace ManagedChangeVehicle
                 simconnect.Dispose();
                 simconnect = null;
             }
-            
 
+            while (true)
+            {
+                //Creates a UdpClient for reading incoming data.
+
+
+                //Creates an IPEndPoint to record the IP Address and port number of the sender. 
+                // The IPEndPoint will allow you to read datagrams sent from any source.
+
+
+                Console.WriteLine("Waiting for UdpClient Data");
+                myString = Receive();
+                if (myString != null)
+                {
+                    Console.WriteLine("Main code return is " + myString);
+                }
+
+
+                Console.WriteLine("receive parameters from receive code");
+
+            }
 
             Console.WriteLine("Exiting - Press a key to continue");
             Console.ReadKey();
 
+        }
+
+        static string Receive()
+        {
+
+
+            try
+            {
+
+                // Blocks until a message returns on this socket from a remote host.
+                Byte[] receiveBytes = receivingUdpClient.Receive(ref RemoteIpEndPoint);
+
+                returnData = Encoding.ASCII.GetString(receiveBytes);
+                Console.WriteLine(DateTime.Now);
+                Console.WriteLine("This is the message you received " +
+                                            returnData.ToString());
+                Console.WriteLine("This message was sent from " +
+                                            RemoteIpEndPoint.Address.ToString() +
+                                            " on their port number " +
+                                            RemoteIpEndPoint.Port.ToString());
+
+                Console.WriteLine("Trim off leading and trailing spaces");
+                Console.WriteLine("Break into segments, comma separated");
+                Console.WriteLine("Do a look up for first paramter");
+                Console.WriteLine("If second paraetmer doesn't exist or isn't a number, set it to 1");
+                Console.WriteLine("Pass these parameters to P3d");
+                return (returnData.ToString());
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return (null);
+            }
         }
     }
 }
