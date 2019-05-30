@@ -43,7 +43,6 @@ namespace ManagedChangeVehicle
             GEAR_UP,
             GEAR_DOWN,
             TOGGLE_GEAR,
-            THROTTLE_SET,
             NAV1_RADIO_SET,
             COM1_RADIO_HZ_SET,
             SPOILERS_ON,
@@ -69,6 +68,7 @@ namespace ManagedChangeVehicle
             STROBES_TOGGLE,
             TOGGLE_NAV_LIGHTS, 
             TOGGLE_AIRCRAFT_EXIT,
+            THROTTLE_SET,
         };
 
 
@@ -102,7 +102,7 @@ namespace ManagedChangeVehicle
         };
 
 
-        public static UdpClient receivingUdpClient = new UdpClient(9902);
+        public static UdpClient receivingUdpClient = new UdpClient(49001);
         public static IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
         public static string returnData;
 
@@ -210,10 +210,13 @@ namespace ManagedChangeVehicle
                                     simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.THROTTLE_SET, 16000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                                 }
 
+
+                                // NOTE NOT ALL ACRAFT RESPOND TO ALL COMMANDS. Eg the default F22 doesn't do brakes - Mooney is well behaved
                                 switch (myString)
                                 {
                                     case ("PARKING_BRAKES"):
-                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.PARKING_BRAKES, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        Console.WriteLine("PARKING_BRAKES");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.PARKING_BRAKES, 0, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                                         break;
                                     default:
                                         Console.WriteLine("Unable to find matching command in data " + myString);
@@ -276,7 +279,7 @@ namespace ManagedChangeVehicle
                 }
 
                 // Sending the title of the Vehicle 
-                //simulation_connection.ChangeVehicle("Mooney Bravo Retro");
+                simulation_connection.ChangeVehicle("Mooney Bravo Retro");
 
                 simulation_connection.Dispose();
                 simulation_connection = null;
