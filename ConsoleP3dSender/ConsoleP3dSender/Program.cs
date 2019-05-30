@@ -46,6 +46,29 @@ namespace ManagedChangeVehicle
             THROTTLE_SET,
             NAV1_RADIO_SET,
             COM1_RADIO_HZ_SET,
+            SPOILERS_ON,
+            SPOILERS_OFF,
+            FLAPS_INCR, 
+            FLAPS_DECR,
+            BRAKES,
+            PARKING_BRAKES, 
+            ELEV_TRIM_DN,
+            ELEV_TRIM_UP,
+            AVIONICS_MASTER_SET,
+            TOGGLE_MASTER_BATTERY,
+            GENALT_BUS1_CONTACT_SET, 
+            GENALT_BUS2_CONTACT_SET, 
+            TOGGLE_STARTER1, 
+            TOGGLE_STARTER2, 
+            TOGGLE_FUEL_VALVE_ENG1, 
+            TOGGLE_FUEL_VALVE_ENG2, 
+            LANDING_LIGHTS_ON, 
+            LANDING_LIGHTS_OFF, 
+            TOGGLE_CABIN_LIGHTS,
+            TOGGLE_TAXI_LIGHTS,
+            STROBES_TOGGLE,
+            TOGGLE_NAV_LIGHTS, 
+            TOGGLE_AIRCRAFT_EXIT,
         };
 
 
@@ -121,6 +144,35 @@ namespace ManagedChangeVehicle
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.COM1_RADIO_HZ_SET, "COM1_RADIO_HZ_SET");
 
 
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.SPOILERS_ON, "SPOILERS_ON");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.SPOILERS_OFF, "SPOILERS_OFF");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.FLAPS_INCR, "FLAPS_INCR");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.FLAPS_DECR, "FLAPS_DECR");
+                        // BRAKES emujlates a spring loaded brake and decays over time
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.BRAKES, "BRAKES");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.PARKING_BRAKES, "PARKING_BRAKES");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.ELEV_TRIM_DN, "ELEV_TRIM_DN");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.ELEV_TRIM_UP, "ELEV_TRIM_UP");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.AVIONICS_MASTER_SET, "AVIONICS_MASTER_SET");
+                        // TOGGLE_MASTER_BATTERY doesn't seem to have a set value
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_MASTER_BATTERY, "TOGGLE_MASTER_BATTERY");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.GENALT_BUS1_CONTACT_SET, "GENALT_BUS1_CONTACT_SET");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.GENALT_BUS2_CONTACT_SET, "GENALT_BUS2_CONTACT_SET");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_STARTER1, "TOGGLE_STARTER1");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_STARTER2, "TOGGLE_STARTER2");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_FUEL_VALVE_ENG1, "TOGGLE_FUEL_VALVE_ENG1");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_FUEL_VALVE_ENG2, "TOGGLE_FUEL_VALVE_ENG2");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.LANDING_LIGHTS_ON, "LANDING_LIGHTS_ON");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.LANDING_LIGHTS_OFF, "LANDING_LIGHTS_OFF");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_TAXI_LIGHTS, "TOGGLE_TAXI_LIGHTS");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_CABIN_LIGHTS, "TOGGLE_CABIN_LIGHTS");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.STROBES_TOGGLE, "STROBES_TOGGLE");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_NAV_LIGHTS, "TOGGLE_NAV_LIGHTS");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_AIRCRAFT_EXIT, "TOGGLE_AIRCRAFT_EXIT");
+
+
+
+
                     }
                     catch (COMException ex)
                     {
@@ -158,6 +210,52 @@ namespace ManagedChangeVehicle
                                     simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.THROTTLE_SET, 16000, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                                 }
 
+                                switch (myString)
+                                {
+                                    case ("PARKING_BRAKES"):
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.PARKING_BRAKES, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    default:
+                                        Console.WriteLine("Unable to find matching command in data " + myString);
+                                        break;
+                                }
+
+
+/*
+                                PAUSE = 0,
+                                UNPAUSE,
+                                SET_ALT,
+                                AUTOPILOT_ON,
+                                GEAR_UP,
+                                GEAR_DOWN,
+                                TOGGLE_GEAR,
+                                THROTTLE_SET,
+                                NAV1_RADIO_SET,
+                                COM1_RADIO_HZ_SET,
+                                SPOILERS_ON,
+                                SPOILERS_OFF,
+                                FLAPS_INCR, 
+                                FLAPS_DECR,
+                                BRAKES,
+                                PARKING_BRAKES, 
+                                ELEV_TRIM_DN,
+                                ELEV_TRIM_UP,
+                                AVIONICS_MASTER_SET,
+                                TOGGLE_MASTER_BATTERY,
+                                GENALT_BUS1_CONTACT_SET, 
+                                GENALT_BUS2_CONTACT_SET, 
+                                TOGGLE_STARTER1, 
+                                TOGGLE_STARTER2, 
+                                TOGGLE_FUEL_VALVE_ENG1, 
+                                TOGGLE_FUEL_VALVE_ENG2, 
+                                LANDING_LIGHTS_ON, 
+                                LANDING_LIGHTS_OFF, 
+                                TOGGLE_CABIN_LIGHTS,
+                                TOGGLE_TAXI_LIGHTS,
+                                STROBES_TOGGLE,
+                                TOGGLE_NAV_LIGHTS, 
+                                TOGGLE_AIRCRAFT_EXIT,
+*/
                             }
 
 
