@@ -102,7 +102,7 @@ namespace ManagedChangeVehicle
         };
 
 
-        public static UdpClient receivingUdpClient = new UdpClient(49001);
+        public static UdpClient receivingUdpClient = new UdpClient(49000);
         public static IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
         public static string returnData;
 
@@ -124,6 +124,11 @@ namespace ManagedChangeVehicle
                 if (simconnect == null)
                 {
 
+
+                    //Console.WriteLine("Trying to grab a value");
+
+                    //hr = SimConnect_AddToDataDefinition(hSimConnect, DEFINITION_1, "GENERAL ENG STARTER:1", "degrees");
+                    //hr += SimConnect_AddToDataDefinition(hSimConnect, CSimConnectDefinitions: DataRemoteAircraftParts, "LIGHT NAV", "Bool");
 
                     Console.WriteLine("Connecting to P3d a second time");
                     try
@@ -216,7 +221,7 @@ namespace ManagedChangeVehicle
                                 {
                                     case ("PARKING_BRAKES"):
                                         Console.WriteLine("PARKING_BRAKES");
-                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.PARKING_BRAKES, 0, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.PARKING_BRAKES, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                                         break;
                                     default:
                                         Console.WriteLine("Unable to find matching command in data " + myString);

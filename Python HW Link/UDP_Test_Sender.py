@@ -92,9 +92,9 @@ def main():
 
         target_Port = ''
         while not isinstance(target_Port, int):
-            target_Port = input('Enter Target Port [49001]: ')
+            target_Port = input('Enter Target Port [49000]: ')
             if len(target_Port) == 0:
-                target_Port = 49001
+                target_Port = 49000
             try:
                 target_Port = int(target_Port)
                 
