@@ -3598,8 +3598,8 @@
         "Keyboard_Open": null
     },
     "02:002": {
-        "API_Close": "GENALT_BUS2_CONTACT_SET",
-        "API_Open": "GENALT_BUS2_CONTACT_SET",
+        "API_Close": "GENALT_BUS2_CONTACT_SET,0",
+        "API_Open": "GENALT_BUS2_CONTACT_SET,1",
         "Description": "Right Gen - Open is Gen On",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -3696,8 +3696,8 @@
         "Keyboard_Open": null
     },
     "02:016": {
-        "API_Close": "AVIONICS_MASTER_SET",
-        "API_Open": "AVIONICS_MASTER_SET",
+        "API_Close": "AVIONICS_MASTER_SET,0",
+        "API_Open": "AVIONICS_MASTER_SET,1",
         "Description": "Avionics - Open is Avionics On",
         "Keyboard_Close": null,
         "Keyboard_Open": null
