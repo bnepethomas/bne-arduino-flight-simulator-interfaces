@@ -203,7 +203,7 @@ namespace ManagedChangeVehicle
                             // The IPEndPoint will allow you to read datagrams sent from any source.
 
 
-                            Console.WriteLine("Waiting for new UdpClient Data");
+                            Console.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + " Waiting for new UdpClient Data" );
                             myString = Receive();
                             if (myString != null)
                             {
@@ -219,12 +219,114 @@ namespace ManagedChangeVehicle
                                 // NOTE NOT ALL ACRAFT RESPOND TO ALL COMMANDS. Eg the default F22 doesn't do brakes - Mooney is well behaved
                                 switch (myString)
                                 {
+
+                                    case ("GEAR_UP"):
+                                        logmsg("GEAR_UP");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.GEAR_UP, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("GEAR_DOWN"):
+                                        logmsg("GEAR_DOWN");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.GEAR_DOWN, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("SPOILERS_ON"):
+                                        logmsg("SPOILERS_ON");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.SPOILERS_ON, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("SPOILERS_OFF"):
+                                        logmsg("SPOILERS_OFF");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.SPOILERS_OFF, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("FLAPS_INCR"):
+                                        logmsg("FLAPS_INCR");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.FLAPS_INCR, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("FLAPS_DECR"):
+                                        logmsg("FLAPS_DECR");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.FLAPS_DECR, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("BRAKES"):
+                                        logmsg("BRAKES");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.BRAKES, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
                                     case ("PARKING_BRAKES"):
-                                        Console.WriteLine("PARKING_BRAKES");
+                                        logmsg("PARKING_BRAKES");
                                         simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.PARKING_BRAKES, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                                         break;
+                                    case ("ELEV_TRIM_DN"):
+                                        logmsg("ELEV_TRIM_DN");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.ELEV_TRIM_DN, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("ELEV_TRIM_UP"):
+                                        logmsg("ELEV_TRIM_UP");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.ELEV_TRIM_UP, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("AVIONICS_MASTER_SET"):
+                                        logmsg("AVIONICS_MASTER_SET");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.AVIONICS_MASTER_SET, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("TOGGLE_MASTER_BATTERY"):
+                                        logmsg("TOGGLE_MASTER_BATTERY");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_MASTER_BATTERY, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("GENALT_BUS1_CONTACT_SET"):
+                                        logmsg("GENALT_BUS1_CONTACT_SET");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.GENALT_BUS1_CONTACT_SET, 0, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("GENALT_BUS2_CONTACT_SET"):
+                                        logmsg("GENALT_BUS2_CONTACT_SET");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.GENALT_BUS2_CONTACT_SET, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("TOGGLE_STARTER1"):
+                                        logmsg("TOGGLE_STARTER1");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_STARTER1, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("TOGGLE_STARTER2"):
+                                        logmsg("TOGGLE_STARTER2");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_STARTER2, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("TOGGLE_FUEL_VALVE_ENG1"):
+                                        logmsg("TOGGLE_FUEL_VALVE_ENG1");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_FUEL_VALVE_ENG1, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("TOGGLE_FUEL_VALVE_ENG2"):
+                                        logmsg("TOGGLE_FUEL_VALVE_ENG2");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_FUEL_VALVE_ENG2, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("LANDING_LIGHTS_ON"):
+                                        logmsg("LANDING_LIGHTS_ON");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.LANDING_LIGHTS_ON, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("LANDING_LIGHTS_OFF"):
+                                        logmsg("LANDING_LIGHTS_OFF");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.LANDING_LIGHTS_OFF, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("TOGGLE_CABIN_LIGHTS"):
+                                        logmsg("TOGGLE_CABIN_LIGHTS");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_CABIN_LIGHTS, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("TOGGLE_TAXI_LIGHTS"):
+                                        logmsg("TOGGLE_TAXI_LIGHTS");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_TAXI_LIGHTS, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("STROBES_TOGGLE"):
+                                        logmsg("STROBES_TOGGLE");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.STROBES_TOGGLE, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("TOGGLE_NAV_LIGHTS"):
+                                        logmsg("TOGGLE_NAV_LIGHTS");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_NAV_LIGHTS, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("TOGGLE_AIRCRAFT_EXIT"):
+                                        logmsg("TOGGLE_AIRCRAFT_EXIT");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_AIRCRAFT_EXIT, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+
+
+
                                     default:
+                                        Console.WriteLine("   ******************************** ");
                                         Console.WriteLine("Unable to find matching command in data " + myString);
+                                        Console.WriteLine("   ******************************** ");
                                         break;
                                 }
 
@@ -338,6 +440,12 @@ namespace ManagedChangeVehicle
             Console.WriteLine("Exiting - Press a key to continue");
             Console.ReadKey();
 
+        }
+
+
+        static void logmsg(string msgToLog)
+        {
+            Console.WriteLine(DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss") + msgToLog);
         }
 
         static string Receive()
