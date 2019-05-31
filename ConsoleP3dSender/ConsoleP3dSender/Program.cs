@@ -55,6 +55,7 @@ namespace ManagedChangeVehicle
             ELEV_TRIM_UP,
             AVIONICS_MASTER_SET,
             TOGGLE_MASTER_BATTERY,
+            TOGGLE_MASTER_ALTERNATOR,
             GENALT_BUS1_CONTACT_SET, 
             GENALT_BUS2_CONTACT_SET, 
             TOGGLE_STARTER1, 
@@ -162,6 +163,7 @@ namespace ManagedChangeVehicle
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.AVIONICS_MASTER_SET, "AVIONICS_MASTER_SET");
                         // TOGGLE_MASTER_BATTERY doesn't seem to have a set value
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_MASTER_BATTERY, "TOGGLE_MASTER_BATTERY");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_MASTER_ALTERNATOR, "TOGGLE_MASTER_ALTERNATOR");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.GENALT_BUS1_CONTACT_SET, "GENALT_BUS1_CONTACT_SET");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.GENALT_BUS2_CONTACT_SET, "GENALT_BUS2_CONTACT_SET");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.TOGGLE_STARTER1, "TOGGLE_STARTER1");
@@ -290,6 +292,10 @@ namespace ManagedChangeVehicle
                                     case ("TOGGLE_MASTER_BATTERY"):
                                         logmsg("TOGGLE_MASTER_BATTERY");
                                         simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_MASTER_BATTERY, passedParameter, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("TOGGLE_MASTER_ALTERNATOR"):
+                                        logmsg("TOGGLE_MASTER_ALTERNATOR");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.TOGGLE_MASTER_ALTERNATOR, passedParameter, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                                         break;
                                     case ("GENALT_BUS1_CONTACT_SET"):
                                         logmsg("GENALT_BUS1_CONTACT_SET");
