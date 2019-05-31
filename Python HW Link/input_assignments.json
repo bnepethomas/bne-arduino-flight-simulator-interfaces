@@ -4312,8 +4312,8 @@
         "Keyboard_Open": null
     },
     "02:104": {
-        "API_Close": null,
-        "API_Open": "BRAKES",
+        "API_Close": "CUSTOMBRAKE,0",
+        "API_Open": "CUSTOMBRAKE,16000",
         "Description": "Gnd Brake - Open is switch pressed",
         "Keyboard_Close": null,
         "Keyboard_Open": null

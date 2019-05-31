@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Normally ujust using Events from P3d, have one exception CustomBrakes which fires two events
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -50,6 +52,8 @@ namespace ManagedChangeVehicle
             FLAPS_INCR, 
             FLAPS_DECR,
             BRAKES,
+            AXIS_LEFT_BRAKE_SET,
+            AXIS_RIGHT_BRAKE_SET,
             PARKING_BRAKES, 
             ELEV_TRIM_DN,
             ELEV_TRIM_UP,
@@ -157,6 +161,8 @@ namespace ManagedChangeVehicle
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.FLAPS_DECR, "FLAPS_DECR");
                         // BRAKES emujlates a spring loaded brake and decays over time
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.BRAKES, "BRAKES");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.AXIS_LEFT_BRAKE_SET, "AXIS_LEFT_BRAKE_SET");
+                        simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.AXIS_RIGHT_BRAKE_SET, "AXIS_RIGHT_BRAKE_SET");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.PARKING_BRAKES, "PARKING_BRAKES");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.ELEV_TRIM_DN, "ELEV_TRIM_DN");
                         simconnect.MapClientEventToSimEvent(PAUSE_EVENTS.ELEV_TRIM_UP, "ELEV_TRIM_UP");
@@ -212,6 +218,7 @@ namespace ManagedChangeVehicle
                             {
                                 logmsg("Raw string received: " + myString);
                                 myString = myString.Trim();
+                                myString = myString.ToUpper();
                               
                                 // Normally passing a 1 to TransmitClientEvent, look for parameter passed if a ',' exists
                                 passedParameter = 1;
@@ -272,6 +279,11 @@ namespace ManagedChangeVehicle
                                     case ("BRAKES"):
                                         logmsg("BRAKES");
                                         simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.BRAKES, passedParameter, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        break;
+                                    case ("CUSTOMBRAKES"):
+                                        logmsg("CUSTOMBRAKES");
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.AXIS_LEFT_BRAKE_SET, passedParameter, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.AXIS_RIGHT_BRAKE_SET, passedParameter, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                                         break;
                                     case ("PARKING_BRAKES"):
                                         logmsg("PARKING_BRAKES");
