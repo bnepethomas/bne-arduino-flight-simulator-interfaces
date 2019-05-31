@@ -1800,8 +1800,8 @@
     },
     "01:001": {
         "API_Close": null,
-        "API_Open": "P577",
-        "Description": "Spoiler Up",
+        "API_Open": "SPOILERS_OFF",
+        "Description": "Spoiler Up - Open is switch push up",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
@@ -1911,9 +1911,9 @@
         "Keyboard_Open": null
     },
     "01:017": {
-        "API_Close": "C39,3001,1.0",
-        "API_Open": "C39,3001,0.0",
-        "Description": "Landing Gear",
+        "API_Close": "GEAR_DOWN",
+        "API_Open": "GEAR_UP",
+        "Description": "Landing Gear - Close is Gear Down",
         "Keyboard_Close": null ,
         "Keyboard_Open": null
     },
@@ -2023,9 +2023,9 @@
         "Keyboard_Open": null
     },
     "01:033": {
-        "API_Close": "C24,3001,0.0",
-        "API_Open": "C24,3001,1.0",
-        "Description": "Master Caution",
+        "API_Close": "Master Caution",
+        "API_Open": "Master Caution",
+        "Description": "Master Caution - Open is button Pressed",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
@@ -2136,7 +2136,7 @@
     },
     "01:049": {
         "API_Close": null,
-        "API_Open": "P578",
+        "API_Open": "SPOILERS_ON",
         "Description": "Spoiler Down",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -2248,8 +2248,8 @@
     },
     "01:065": {
         "API_Close": null,
-        "API_Open": "C39,3002,1.0",
-        "Description": "Flaps Down",
+        "API_Open": "FLAPS_INCR",
+        "Description": "Flaps Down - Open is switch down",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
@@ -2360,7 +2360,7 @@
     },
     "01:081": {
         "API_Close": null,
-        "API_Open": "C39, 3002,-1.0",
+        "API_Open": "FLAPS_DECR",
         "Description": "Flaps Up",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -3584,30 +3584,30 @@
         "Keyboard_Open": null
     },
     "02:000": {
-        "API_Close": "C1,3006,0.0",
-        "API_Open": "C1,3006,1.0",
-        "Description": "Battery",
+        "API_Close": "TOGGLE_MASTER_BATTERY",
+        "API_Open": "TOGGLE_MASTER_BATTERY",
+        "Description": "Battery - Openis Battery On",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:001": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "TOGGLE_STARTER2",
+        "API_Open": "TOGGLE_STARTER2",
         "Description": "Right Starter",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:002": {
-        "API_Close": "C1,3005,0.0",
-        "API_Open": "C1,3005,1.0",
-        "Description": "Right Gen",
+        "API_Close": "GENALT_BUS2_CONTACT_SET",
+        "API_Open": "GENALT_BUS2_CONTACT_SET",
+        "Description": "Right Gen - Open is Gen On",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:003": {
-        "API_Close": "C36,3006,0.0",
-        "API_Open": "C36,3006,1.0",
-        "Description": "Right Fuel Pump",
+        "API_Close": "TOGGLE_FUEL_VALVE_ENG2",
+        "API_Open": "TOGGLE_FUEL_VALVE_ENG2",
+        "Description": "Right Fuel Pump - Open is Gen On",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
@@ -3696,30 +3696,30 @@
         "Keyboard_Open": null
     },
     "02:016": {
-        "API_Close": "C1,3002,0.0",
-        "API_Open": "C1,3002,1.0",
-        "Description": "Avionics",
+        "API_Close": "AVIONICS_MASTER_SET",
+        "API_Open": "AVIONICS_MASTER_SET",
+        "Description": "Avionics - Open is Avionics On",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:017": {
-        "API_Close": null,
-        "API_Open": null,
-        "Description": "Left Starter",
+        "API_Close": "TOGGLE_STARTER1",
+        "API_Open": "TOGGLE_STARTER1",
+        "Description": "Left Starter - Open is Starter On",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:018": {
-        "API_Close": "C1,3004,0.0",
-        "API_Open": "C1,3004,1.0",
-        "Description": "Left Gen",
+        "API_Close": "GENALT_BUS1_CONTACT_SET",
+        "API_Open": "GENALT_BUS1_CONTACT_SET",
+        "Description": "Left Gen - Open is Left Gen On",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:019": {
-        "API_Close": "C36,3005,0.0",
-        "API_Open": "C36,3005,1.0",
-        "Description": "Left Fuel Pump",
+        "API_Close": "TOGGLE_FUEL_VALVE_ENG1",
+        "API_Open": "TOGGLE_FUEL_VALVE_ENG1",
+        "Description": "Left Fuel Pump - Open is left pump on",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
@@ -3836,32 +3836,32 @@
         "Keyboard_Open": null
     },
     "02:036": {
-        "API_Close": "C49,3007,0.0",
-        "API_Open": "C49,3007,1.0",
-        "Description": "Cabin Light",
+        "API_Close": "TOGGLE_CABIN_LIGHTS",
+        "API_Open": "TOGGLE_CABIN_LIGHTS",
+        "Description": "Cabin Light - Open is Cabin Lights On",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:037": {
-        "API_Close": "C49,3014,0.5",
-        "API_Open": "C49,3014,0.0",
-        "Description": "Taxi Light",
+        "API_Close": "TOGGLE_TAXI_LIGHTS",
+        "API_Open": "TOGGLE_TAXI_LIGHTS",
+        "Description": "Taxi Light - Open is Taxi Light on - close is off - three position switch",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:038": {
-        "API_Close": "C49,3010,0.0",
-        "API_Open": "C49,3010,1.0",
-        "Description": "Strobe Light",
+        "API_Close": "STROBES_TOGGLE",
+        "API_Open": "STROBES_TOGGLE",
+        "Description": "Strobe Light - Open is Strobe Light On",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:039": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "TOGGLE_AIRCRAFT_EXIT",
+        "API_Open": "TOGGLE_AIRCRAFT_EXIT",
         "Description": "Canopy",
-        "Keyboard_Close": "LCTRL C",
-        "Keyboard_Open": "LCTRL C"
+        "Keyboard_Close": null,
+        "Keyboard_Open": null
     },
     "02:040": {
         "API_Close": null,
@@ -3955,23 +3955,22 @@
         "Keyboard_Open": null
     },
     "02:053": {
-        "API_Close": "C49,3014,0.0",
-        "API_Open": "C49,3014,1.0",
-        "Description": "Landing Light",
+        "API_Close": "LANDING_LIGHTS_OFF",
+        "API_Open": "LANDING_LIGHTS_ON",
+        "Description": "Landing Light - Open is Landing Light On - 3 Position switch",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:054": {
-        "API_Close": "C49,3008,0.0",
-        "API_Open": "C49,3008,-1.0",
-        "Description": "Navigation Light",
-        "KB_Open": "a",
-        "Keyboard_Close": "RCTRL L",
-        "Keyboard_Open": "RCTRL L"
+        "API_Close": "TOGGLE_NAV_LIGHTS",
+        "API_Open": "TOGGLE_NAV_LIGHTS",
+        "Description": "Navigation Light - Open is Navigation Lights on",
+        "Keyboard_Close": null,
+        "Keyboard_Open": null
     },
     "02:055": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "PARKING_BRAKES",
+        "API_Open": "PARKING_BRAKES",
         "Description": "Park Brake",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -4313,17 +4312,17 @@
         "Keyboard_Open": null
     },
     "02:104": {
-        "API_Close": "P75",
-        "API_Open": "P74",
-        "Description": "Gnd Brake",
+        "API_Close": null,
+        "API_Open": "BRAKES",
+        "Description": "Gnd Brake - Open is switch pressed",
         "Keyboard_Close": null,
-        "Keyboard_Open": ""
+        "Keyboard_Open": null
     },
     "02:105": {
-        "API_Close": "P560",
-        "API_Open": "P556",
+        "API_Close": null,
+        "API_Open": null,
         "Description": "Chaff",
-        "Keyboard_Close": "INSERT",
+        "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "02:106": {
@@ -4425,11 +4424,11 @@
         "Keyboard_Open": null
     },
     "02:120": {
-        "API_Close": "P560",
-        "API_Open": "P556",
+        "API_Close": null,
+        "API_Open": null,
         "Description": "Flare",
         "Keyboard_Close": null,
-        "Keyboard_Open": "DELETE"
+        "Keyboard_Open": null
     },
     "02:121": {
         "API_Close": null,
@@ -4537,8 +4536,8 @@
         "Keyboard_Open": null
     },
     "02:136": {
-        "API_Close": "C12,3001,0.0",
-        "API_Open": "C12,3001,1.0",
+        "API_Close": null,
+        "API_Open": null,
         "Description": "Jettison",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -4548,7 +4547,7 @@
         "API_Open": null,
         "Description": "Eject",
         "Keyboard_Close": null,
-        "Keyboard_Open": "LCTRL E E E"
+        "Keyboard_Open": null
     },
     "02:138": {
         "API_Close": null,
@@ -4635,8 +4634,8 @@
         "Keyboard_Open": null
     },
     "02:150": {
-        "API_Close": "C7,3001,0.1",
-        "API_Open": "C7,3001,0.2",
+        "API_Close": null,
+        "API_Open": null,
         "Description": "Master Arm",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -4740,8 +4739,8 @@
         "Keyboard_Open": null
     },
     "02:165": {
-        "API_Close": "P97",
-        "API_Open": "P95",
+        "API_Close": null,
+        "API_Open": "ELEV_TRIM_DN",
         "Description": "Trim Down",
         "Keyboard_Close": null,
         "Keyboard_Open": null
@@ -4852,8 +4851,8 @@
         "Keyboard_Open": null
     },
     "02:181": {
-        "API_Close": "P97",
-        "API_Open": "P96",
+        "API_Close": null,
+        "API_Open": "ELEV_TRIM_UP",
         "Description": "Trim Up",
         "Keyboard_Close": null,
         "Keyboard_Open": null
