@@ -3710,8 +3710,8 @@
         "Keyboard_Open": null
     },
     "02:018": {
-        "API_Close": "GENALT_BUS1_CONTACT_SET",
-        "API_Open": "GENALT_BUS1_CONTACT_SET",
+        "API_Close": "GENALT_BUS1_CONTACT_SET,0",
+        "API_Open": "GENALT_BUS1_CONTACT_SET,1",
         "Description": "Left Gen - Open is Left Gen On",
         "Keyboard_Close": null,
         "Keyboard_Open": null

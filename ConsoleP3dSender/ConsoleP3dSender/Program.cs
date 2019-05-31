@@ -270,7 +270,7 @@ namespace ManagedChangeVehicle
                                         break;
                                     case ("GENALT_BUS1_CONTACT_SET"):
                                         logmsg("GENALT_BUS1_CONTACT_SET");
-                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.GENALT_BUS1_CONTACT_SET, 0, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.GENALT_BUS1_CONTACT_SET, 1, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                                         break;
                                     case ("GENALT_BUS2_CONTACT_SET"):
                                         logmsg("GENALT_BUS2_CONTACT_SET");
