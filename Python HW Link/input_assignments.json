@@ -4312,7 +4312,7 @@
         "Keyboard_Open": null
     },
     "02:104": {
-        "API_Close": "CUSTOMBRAKES,-16000",
+        "API_Close": "BRAKES",
         "API_Open": "CUSTOMBRAKES,16000",
         "Description": "Gnd Brake - Open is switch pressed",
         "Keyboard_Close": null,
