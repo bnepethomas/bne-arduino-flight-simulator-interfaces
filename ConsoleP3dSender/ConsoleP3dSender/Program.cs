@@ -238,15 +238,17 @@ namespace ManagedChangeVehicle
                                         if (myString == "CUSTOMBRAKES")
                                         {
                                             // Need to do some silly stuff to cast things correctly as the parameter is a unit which doesn't support negative values
-                                            if( !System.Int32.TryParse(receivedValues[1].Trim(), out negativepassedparameter))
+                                            if( System.Int32.TryParse(receivedValues[1].Trim(), out negativepassedparameter))
                                             {
                                                 passedParameter = (uint) (4294967295 + negativepassedparameter);
                                                 logmsg(receivedValues[1].ToString() + " " + negativepassedparameter.ToString() + " " + passedParameter.ToString());
                                                 //passedParameter = 4294967295 - 16383;
                                             }
+                                            else
+                                                logmsg("Warning unable to parse parameter for negative check");
 
 
-                                                
+
 
                                         }
                                         else 
