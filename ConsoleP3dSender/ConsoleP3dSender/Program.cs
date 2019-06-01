@@ -121,6 +121,7 @@ namespace ManagedChangeVehicle
 
             string myString;
             uint passedParameter;
+            int negativepassedparameter;
 
             try
             {
@@ -233,8 +234,31 @@ namespace ManagedChangeVehicle
                                     myString = receivedValues[0].Trim();
                                     if(!System.UInt32.TryParse(receivedValues[1].Trim(), out passedParameter))
                                     {
-                                        logmsg("Warning unable to parse parameter");
+                                        // do args special check for paramters that support -negative values
+                                        if (myString == "CUSTOMBRAKES")
+                                        {
+                                            // Need to do some silly stuff to cast things correctly as the parameter is a unit which doesn't support negative values
+                                            if( !System.Int32.TryParse(receivedValues[1].Trim(), out negativepassedparameter))
+                                            {
+                                                passedParameter = (uint) (4294967295 + negativepassedparameter);
+                                                logmsg(receivedValues[1].ToString() + " " + negativepassedparameter.ToString() + " " + passedParameter.ToString());
+                                                //passedParameter = 4294967295 - 16383;
+                                            }
+
+
+                                                
+
+                                        }
+                                        else 
+                                            logmsg("Warning unable to parse parameter");
+
+                                        
                                     }
+                                    
+
+
+                                        
+
                                 }
 
 
@@ -282,8 +306,10 @@ namespace ManagedChangeVehicle
                                         break;
                                     case ("CUSTOMBRAKES"):
                                         logmsg("CUSTOMBRAKES");
-                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.AXIS_LEFT_BRAKE_SET, 0, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
-                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.AXIS_RIGHT_BRAKE_SET, 0, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        // Need to do some silly stuff to cast things correctly as the parameter is a unit which doesn't support negative values
+                                        //passedParameter = 4294967295 - 16383;
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.AXIS_LEFT_BRAKE_SET, passedParameter, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
+                                        simconnect.TransmitClientEvent(SimConnect.SIMCONNECT_OBJECT_ID_USER, PAUSE_EVENTS.AXIS_RIGHT_BRAKE_SET, passedParameter, GROUP.ID_PRIORITY_STANDARD, SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY);
                                         break;
                                     case ("PARKING_BRAKES"):
                                         logmsg("PARKING_BRAKES");
