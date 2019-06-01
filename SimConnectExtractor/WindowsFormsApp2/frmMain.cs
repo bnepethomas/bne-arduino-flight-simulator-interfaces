@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 //          When doing final build change from debug to release
 //          Unsure what happens  if running on a remote computer or if SDK isn't already installed
 //
-//      Need to add Sockets interface to throw data to Pi
+// 
 // Currently not using the most efficent way to get data - can simply create a subscription
 //          http://www.prepar3d.com/SDKv4/LearningCenter.php
 //          http://www.prepar3d.com/SDKv4/sdk/simconnect_api/references/simobject_functions.html
@@ -87,6 +87,13 @@ namespace WindowsFormsApp2
             public double absolute_time;
             public double plane_heading_degrees_true;
             public double plane_heading_degrees_magnetic;
+            
+            public bool GENERAL_ENG_MASTER_ALTERNATOR_0;
+            //public double GENERAL_ENG_MASTER_ALTERNATOR_1;
+            public double TRAILING_EDGE_FLAPS_LEFT_ANGLE;
+            public double TRAILING_EDGE_FLAPS_LEFT_PERCENT;
+
+            public double zulu_time_2; // Used to validate we have all data
         };
 
 
@@ -105,7 +112,7 @@ namespace WindowsFormsApp2
 
 
             setButtons(true, false, false);
-            udpClient.Connect("192.168.1.135", 13136);
+            udpClient.Connect("172.16.1.2", 13136);
             TimeLastPacketSent = DateTime.Now;
 
 
@@ -179,6 +186,11 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Heading Degrees True", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Heading Degrees Magnetic", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG MASTER ALTERNATOR:0", "Bool", SIMCONNECT_DATATYPE.INT32, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "TRAILING EDGE FLAPS LEFT ANGLE", "Radians", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "TRAILING EDGE FLAPS LEFT PERCENT", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Zulu Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
 
 
@@ -228,6 +240,8 @@ namespace WindowsFormsApp2
                 case DATA_REQUESTS.REQUEST_1:
                     Struct1 s1 = (Struct1)data.dwData[0];
 
+                    richResponse.Clear();
+
                     displayText("title:             " + s1.title);
                     displayText("Lat:               " + s1.latitude);
                     displayText("Lon:               " + s1.longitude);
@@ -239,6 +253,7 @@ namespace WindowsFormsApp2
                     displayText("Absolute Time      " + s1.absolute_time);
                     displayText("Heading True " + s1.plane_heading_degrees_true);
                     displayText("Heading Mag  " + s1.plane_heading_degrees_magnetic);
+                    
 
                     UDP_Playload = "latitude:" + s1.latitude;
                     UDP_Playload = UDP_Playload + ",longitude:" + s1.longitude.ToString();
@@ -260,10 +275,11 @@ namespace WindowsFormsApp2
         }
 
 
+        // This is the one receiving streaming data
         void simconnect_OnRecvSimobjectData(SimConnect sender, SIMCONNECT_RECV_SIMOBJECT_DATA data)
         {
 
-            displayText("Received something don't know what to do with it but trying");
+            
 
             switch ((DATA_REQUESTS)data.dwRequestID)
             {
@@ -281,6 +297,10 @@ namespace WindowsFormsApp2
                     displayText("Absolute Time      " + s1.absolute_time);
                     displayText("Plane Heading True " + s1.plane_heading_degrees_true);
                     displayText("Plane Heading Mag  " + s1.plane_heading_degrees_magnetic);
+                    displayText("GENERAL ENG MASTER ALTERNATOR:0  " + s1.GENERAL_ENG_MASTER_ALTERNATOR_0);
+                    displayText("TRAILING EDGE FLAPS LEFT ANGLE  " + s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE);
+                    displayText("TRAILING EDGE FLAPS LEFT PERCENT  " + s1.TRAILING_EDGE_FLAPS_LEFT_PERCENT);
+                    displayText("Zulu Time 2        " + s1.zulu_time);
 
                     UDP_Playload = "latitude:" + s1.latitude;
                     UDP_Playload = UDP_Playload + ",longitude:" + s1.longitude.ToString();
