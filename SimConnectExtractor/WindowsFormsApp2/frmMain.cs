@@ -116,6 +116,12 @@ namespace WindowsFormsApp2
             public double ELECTRICAL_MASTER_BATTERY;
             public double LIGHT_CABIN;
             public double LIGHT_STROBE;
+            public double LIGHT_NAV;
+            public double LIGHT_TAXI;
+            public double INNER_MARKER;
+            public double MIDDLE_MARKER;
+            public double OUTER_MARKER;
+
 
             public double zulu_time_2; // Used to validate we have all data
         };
@@ -163,7 +169,7 @@ namespace WindowsFormsApp2
         int response = 1;
 
         // Output text - display a maximum of X lines 
-        string output = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+        string output = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
         private void setButtons(bool bConnect, bool bGet, bool bDisconnect)
         {
@@ -231,9 +237,11 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "LIGHT CABIN", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "LIGHT STROBE", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-
-                
-
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "LIGHT NAV", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "LIGHT TAXI", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "INNER MARKER", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "MIDDLE MARKER", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "OUTER MARKER", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
 
 
@@ -363,7 +371,12 @@ namespace WindowsFormsApp2
                     displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY);
                     displayText("LIGHT CABIN                 " + s1.LIGHT_CABIN);
                     displayText("LIGHT STROBE                " + s1.LIGHT_STROBE);
+                    displayText("LIGHT NAV                   " + s1.LIGHT_NAV);
+                    displayText("LIGHT TAXI                  " + s1.LIGHT_TAXI);
 
+                    displayText("INNER MARKER                " + s1.INNER_MARKER);
+                    displayText("MIDDLE MARKER               " + s1.MIDDLE_MARKER);
+                    displayText("OUTER MARKER                " + s1.OUTER_MARKER);
 
 
                     displayText("Zulu Time 2        " + s1.zulu_time);
