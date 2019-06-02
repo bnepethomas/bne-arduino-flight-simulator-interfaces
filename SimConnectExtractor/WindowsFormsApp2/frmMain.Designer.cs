@@ -75,7 +75,7 @@
             // 
             this.richResponse.Location = new System.Drawing.Point(53, 66);
             this.richResponse.Name = "richResponse";
-            this.richResponse.Size = new System.Drawing.Size(369, 399);
+            this.richResponse.Size = new System.Drawing.Size(369, 537);
             this.richResponse.TabIndex = 3;
             this.richResponse.Text = "";
             // 
@@ -137,7 +137,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(594, 524);
+            this.ClientSize = new System.Drawing.Size(594, 625);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_SendUDP);
             this.Controls.Add(this.button3);
