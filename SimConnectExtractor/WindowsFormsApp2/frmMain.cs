@@ -43,7 +43,8 @@ using System.Runtime.InteropServices;
 //          Need to note unit od measure eg radians, percent, bool.
 //          Generally using Left value if there isn't a glbal value for things such as Falps and SPooiler
 
-//          Need to fix genetor and fuel pump status - ier handing values with multiple offsets
+//          Generator and fuel pump indexes are 1's based
+
 
 
 namespace WindowsFormsApp2
@@ -96,14 +97,14 @@ namespace WindowsFormsApp2
             public double plane_heading_degrees_true;
             public double plane_heading_degrees_magnetic;
             
-            public double GENERAL_ENG_MASTER_ALTERNATOR_0;
+            public double GENERAL_ENG_MASTER_ALTERNATOR_1;
             //public double GENERAL_ENG_MASTER_ALTERNATOR_1;
             public double TRAILING_EDGE_FLAPS_LEFT_ANGLE;
             public double TRAILING_EDGE_FLAPS_LEFT_PERCENT;
             public double SPOILERS_LEFT_POSITION;
             public double ELEVATOR_TRIM_PCT;
             public double BRAKE_PARKING_INDICATOR;
-            public bool GENERAL_ENG_FUEL_PUMP_ON_1;
+            public double GENERAL_ENG_FUEL_VALVE_1;
 
             public double zulu_time_2; // Used to validate we have all data
         };
@@ -198,13 +199,13 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Heading Degrees True", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Heading Degrees Magnetic", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
-                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG MASTER ALTERNATOR", "Bool", SIMCONNECT_DATATYPE.INT32, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG MASTER ALTERNATOR:1", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "TRAILING EDGE FLAPS LEFT ANGLE", "Radians", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "TRAILING EDGE FLAPS LEFT PERCENT", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "SPOILERS LEFT POSITION", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELEVATOR TRIM PCT", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "BRAKE PARKING INDICATOR", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG FUEL PUMP ON:1", "Bool", SIMCONNECT_DATATYPE.INT32, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG FUEL VALVE:1", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
                 
                     
@@ -318,13 +319,13 @@ namespace WindowsFormsApp2
                     displayText("Absolute Time      " + s1.absolute_time);
                     displayText("Plane Heading True " + s1.plane_heading_degrees_true);
                     displayText("Plane Heading Mag  " + s1.plane_heading_degrees_magnetic);
-                    displayText("GENERAL ENG MASTER ALTERNATOR:0  " + s1.GENERAL_ENG_MASTER_ALTERNATOR_0);
+                    displayText("GENERAL ENG MASTER ALTERNATOR:1  " + s1.GENERAL_ENG_MASTER_ALTERNATOR_1);
                     displayText("TRAILING EDGE FLAPS LEFT ANGLE  " + s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE);
                     displayText("TRAILING EDGE FLAPS LEFT PERCENT  " + s1.TRAILING_EDGE_FLAPS_LEFT_PERCENT);
                     displayText("SPOILERS LEFT POSITION  " + s1.SPOILERS_LEFT_POSITION);
                     displayText("ELEVATOR TRIM PCT       " + s1.ELEVATOR_TRIM_PCT);
                     displayText("BRAKE PARKING INDICATOR " + s1.BRAKE_PARKING_INDICATOR);
-                    displayText("GENERAL ENG FUEL PUMP ON:1 " + s1.GENERAL_ENG_FUEL_PUMP_ON_1);
+                    displayText("GENERAL ENG FUEL VALVE::1 " + s1.GENERAL_ENG_FUEL_VALVE_1);
                     displayText("Zulu Time 2        " + s1.zulu_time);
 
                     UDP_Playload = "latitude:" + s1.latitude;
