@@ -1,23 +1,20 @@
+// Todos
+//
+// 1: Allocate and document IP address and Port
+// 2: Handle a command packet to adjust brightness
+// 3: Document Protocol
+// 4: Develop Test Harness
+
 
 // Max 7219 Library 
 #include "LedControl.h"
 
-/*
- Now we need a LedControl to work with.
- ***** These pin numbers will probably not work with your hardware *****
- pin 12 is connected to the DataIn 
- pin 11 is connected to the CLK 
- pin 10 is connected to LOAD 
- We have only a single MAX72XX.
 
- LedControl lc=LedControl(12,11,10,1);
- */
-LedControl lc=LedControl(4,6,5,2);                      // Landing and Flight Displays
-LedControl lc_2=LedControl(9,8,7,1);                   // Individual Leds and LE Devices
+// Pins 7,8,9 as the ones used for Hornet, so will standardise on that
+LedControl lc_2=LedControl(9,8,7,1);  
 
 /* we always wait a bit between updates of the display */
 unsigned long delaytime=250;
-
 unsigned long sdelaytime=20;
 
 #define filename "General_Sim_7219"
@@ -52,46 +49,15 @@ char *ParameterValuePtr;
 
 
 
-// The amount of time (in milliseconds) between tests
-#define TEST_DELAY   1
-
-
-#define backLightPin 7
-#define spareRelayPin 11
-
-boolean APU_Starting = 0;
-boolean APU_Stopping = 0;
-boolean AC_Power = false;
-boolean DC_Power = false;
-
 boolean Debug_Display = false;
 
-#define Flight_Altitude_Max7219 0
-#define Landing_Altitude_Max7219 1
 
-int LAND_ALT_STORE = 0;
-int FLT_ALT_STORE = 0;
 
-#include <Wire.h>          // *** I2C Mode 
-//  Board  I2C / TWI pins
-//  Uno, Ethernet A4 (SDA), A5 (SCL)
-//  Mega2560  20 (SDA), 21 (SCL)
-//  Leonardo  2 (SDA), 3 (SCL)
-//  Due 20 (SDA), 21 (SCL), SDA1, SCL1
-
-#define cmd_CLS 0x01
-
-#define STX 0x02
-#define ETX 0x03
 
 char byteIn = 0;
-
-
 int loopcounter = 0;
 
-// Servo related timers
 
-long lcurrentmillis = 0;
 
 
 // Keepalive reporting
@@ -106,29 +72,6 @@ void setup() {
      The MAX72XX is in power-saving mode on startup,
       we have to do a wakeup call
     */
-    lc.shutdown(0,false);
-    /* Set the brightness to a medium values */
-    lc.setIntensity(0,8);
-    /* and clear the display */
-    lc.clearDisplay(0);
-    
-    lc.shutdown(1,false);
-    /* Set the brightness to a medium values */
-    lc.setIntensity(1,8);
-    /* and clear the display */
-    lc.clearDisplay(1);
-    
-    lc.shutdown(2,false);
-    /* Set the brightness to a medium values */
-    lc.setIntensity(2,8);
-    /* and clear the display */
-    lc.clearDisplay(2);
-    
-    lc.shutdown(3,false);
-    /* Set the brightness to a medium values */
-    lc.setIntensity(3,8);
-    /* and clear the display */
-    lc.clearDisplay(3);
 
     lc_2.shutdown(0,false);
     /* Set the brightness to a medium values */
@@ -246,59 +189,59 @@ void single() {
 
 void PrintMapping (int ledPos)
 {
-  if (ledPos == 0) Serial.println( "I_OH_LEDEVICES_TRANS_FLAP3");
-  if (ledPos == 1) Serial.println( "I_OH_LEDEVICES_TRANS_FLAP4");
-  if (ledPos == 2) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT5");
-  if (ledPos == 3) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT6");
-  if (ledPos == 4) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT7");
-  if (ledPos == 5) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT8");
-  if (ledPos == 6) Serial.println( "I_OH_IRS_DCFAIL_L");
-  if (ledPos == 7) Serial.println( "I_OH_REVERSER1");
-  if (ledPos == 8) Serial.println( "I_OH_LEDEVICES_EXT_FLAP3");
-  if (ledPos == 9) Serial.println( "I_OH_LEDEVICES_EXT_FLAP4");
-  if (ledPos == 10) Serial.println( "I_OH_LEDEVICES_EXT_SLAT5");
-  if (ledPos == 11) Serial.println( "I_OH_LEDEVICES_EXT_SLAT6");
-  if (ledPos == 12) Serial.println( "I_OH_LEDEVICES_EXT_SLAT7");
-  if (ledPos == 13) Serial.println( "I_OH_LEDEVICES_EXT_SLAT8");
-  if (ledPos == 14) Serial.println( "I_OH_IRS_FAULT_L");
-  if (ledPos == 15) Serial.println( "I_OH_GEAR_NOSE_DOWN");
-  if (ledPos == 16) Serial.println( "I_OH_LEDEVICES_EXT_FLAP3");
-  if (ledPos == 17) Serial.println( "I_OH_LEDEVICES_EXT_FLAP4");
-  if (ledPos == 18) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT5");
-  if (ledPos == 19) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT6");
-  if (ledPos == 20) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT7");
-  if (ledPos == 21) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT8");
-  if (ledPos == 22) Serial.println( "I_OH_IRS_ONDC_R");
-  if (ledPos == 23) Serial.println( "I_OH_ENGINE_CONTROL2");
-  if (ledPos == 24) Serial.println( "I_OH_LEDEVICES_TRANS_FLAP2");
-  if (ledPos == 25) Serial.println( "I_OH_LEDEVICES_TRANS_FLAP1");
-  if (ledPos == 26) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT4");
-  if (ledPos == 27) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT3");
-  if (ledPos == 28) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT2");
-  if (ledPos == 29) Serial.println( "I_OH_LEDEVICES_TRANS_SLAT1");
-  if (ledPos == 30) Serial.println( "I_OH_IRS_ALIGN_R");
-  if (ledPos == 31) Serial.println( "I_OH_ENGINE_CONTROL1");
-  if (ledPos == 32) Serial.println( "I_OH_LEDEVICES_EXT_FLAP2");
-  if (ledPos == 33) Serial.println( "I_OH_LEDEVICES_EXT_FLAP1");
-  if (ledPos == 34) Serial.println( "I_OH_LEDEVICES_EXT_SLAT4");
-  if (ledPos == 35) Serial.println( "I_OH_LEDEVICES_EXT_SLAT3");
-  if (ledPos == 36) Serial.println( "I_OH_LEDEVICES_EXT_SLAT2");
-  if (ledPos == 37) Serial.println( "I_OH_LEDEVICES_EXT_SLAT1");
-  if (ledPos == 38) Serial.println( "I_OH_IRS_ALIGN_L");
-  if (ledPos == 39) Serial.println( "I_OH_GEAR_LEFT_DOWN");
-  if (ledPos == 40) Serial.println( "I_OH_LEDEVICES_EXT_FLAP2");
-  if (ledPos == 41) Serial.println( "I_OH_LEDEVICES_EXT_FLAP1");
-  if (ledPos == 42) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT4");
-  if (ledPos == 43) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT3");
-  if (ledPos == 44) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT2");
-  if (ledPos == 45) Serial.println( "I_OH_LEDEVICES_FULLEXT_SLAT1");
-  if (ledPos == 46) Serial.println( "I_OH_IRS_DCFAIL_R");
-  if (ledPos == 47) Serial.println( "I_OH_REVERSER2");
-  if (ledPos == 54) Serial.println( "I_OH_IRS_FAULT_R");
-  if (ledPos == 55) Serial.println( "I_OH_GEAR_RIGHT_DOWN");
-  if (ledPos == 61) Serial.println( "I_OH_GPS");
-  if (ledPos == 62) Serial.println( "I_OH_IRS_ONDC_L");
-  if (ledPos == 63) Serial.println( "I_OH_PSEU");
+  if (ledPos == 0) Serial.println( "TBA");
+  if (ledPos == 1) Serial.println( "TBA");
+  if (ledPos == 2) Serial.println( "TBA");
+  if (ledPos == 3) Serial.println( "TBA");
+  if (ledPos == 4) Serial.println( "TBA");
+  if (ledPos == 5) Serial.println( "TBA");
+  if (ledPos == 6) Serial.println( "TBA");
+  if (ledPos == 7) Serial.println( "TBA");
+  if (ledPos == 8) Serial.println( "TBA");
+  if (ledPos == 9) Serial.println( "TBA");
+  if (ledPos == 10) Serial.println( "TBA");
+  if (ledPos == 11) Serial.println( "TBA");
+  if (ledPos == 12) Serial.println( "TBA");
+  if (ledPos == 13) Serial.println( "TBA");
+  if (ledPos == 14) Serial.println( "TBA");
+  if (ledPos == 15) Serial.println( "TBA");
+  if (ledPos == 16) Serial.println( "TBA");
+  if (ledPos == 17) Serial.println( "TBA");
+  if (ledPos == 18) Serial.println( "TBA");
+  if (ledPos == 19) Serial.println( "TBA");
+  if (ledPos == 20) Serial.println( "TBA");
+  if (ledPos == 21) Serial.println( "TBA");
+  if (ledPos == 22) Serial.println( "TBA");
+  if (ledPos == 23) Serial.println( "TBA");
+  if (ledPos == 24) Serial.println( "TBA");
+  if (ledPos == 25) Serial.println( "TBA");
+  if (ledPos == 26) Serial.println( "TBA");
+  if (ledPos == 27) Serial.println( "TBA");
+  if (ledPos == 28) Serial.println( "TBA");
+  if (ledPos == 29) Serial.println( "TBA");
+  if (ledPos == 30) Serial.println( "TBA");
+  if (ledPos == 31) Serial.println( "TBA");
+  if (ledPos == 32) Serial.println( "TBA");
+  if (ledPos == 33) Serial.println( "TBA");
+  if (ledPos == 34) Serial.println( "TBA");
+  if (ledPos == 35) Serial.println( "TBA");
+  if (ledPos == 36) Serial.println( "TBA");
+  if (ledPos == 37) Serial.println( "TBA");
+  if (ledPos == 38) Serial.println( "TBA");
+  if (ledPos == 39) Serial.println( "TBA");
+  if (ledPos == 40) Serial.println( "TBA");
+  if (ledPos == 41) Serial.println( "TBA");
+  if (ledPos == 42) Serial.println( "TBA");
+  if (ledPos == 43) Serial.println( "TBA");
+  if (ledPos == 44) Serial.println( "TBA");
+  if (ledPos == 45) Serial.println( "TBA");
+  if (ledPos == 46) Serial.println( "TBA");
+  if (ledPos == 47) Serial.println( "TBA");
+  if (ledPos == 54) Serial.println( "TBA");
+  if (ledPos == 55) Serial.println( "TBA");
+  if (ledPos == 61) Serial.println( "TBA");
+  if (ledPos == 62) Serial.println( "TBA");
+  if (ledPos == 63) Serial.println( "TBA");
 }
 
 
@@ -413,8 +356,7 @@ void loop() {
   ltime = millis();
   if ((ltime - lKeepAlive) > 1000)
   {
-      //Serial.print("I am alive: ");
-      //Serial.println(ltime);
+
       lKeepAlive = millis();
     
   }
