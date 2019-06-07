@@ -359,6 +359,45 @@ void ProcessReceivedString()
 
     // Print all of the values received as a outer loop
     // and then split inner values   
+    /* get the first token */
+
+    /* walk through other tokens */
+
+    if (ParameterNamePtr != NULL) Serial.println("First Value is: " + String(ParameterNamePtr));
+    if (ParameterNameString[0] == 'D')
+    {
+      //Handling a Data Packet
+      Serial.println("Handling a Data Packet");
+      ParameterNamePtr = strtok(NULL, delim);
+
+      while( ParameterNamePtr != NULL ) {
+        Serial.println( "Processing " + String(ParameterNamePtr) );
+        
+        HandleOutputValuePair(String(ParameterNamePtr));
+      
+        ParameterNamePtr = strtok(NULL, delim);
+      }  
+          
+      return;
+      // End Handling a Data Packet
+    }
+    else if (ParameterNameString[0] == 'C')
+    {
+      // Handling a Control Packet
+      Serial.println("Handling a Control Packet");
+      return;
+      
+      // Handling a Control Packet
+    }
+    else
+    {
+      // Unknown Packet Type
+      Serial.println("Unknown Packet Type - ignoring packet");
+      return;
+      
+      // Unknown Packet Type
+    }
+   
 
 
     // Handle the following attribute types
@@ -439,6 +478,80 @@ void ProcessReceivedString()
 }
 
 
+void HandleOutputValuePair( String str)
+{
+  Serial.println("Handling " + str);
+
+  int delimeterlocation = 0;
+  String lednumber = "";
+  String ledvalue = "";
+
+  bool bLocalDebug = true;
+
+  
+
+  delimeterlocation = str.indexOf(':');
+
+  if (delimeterlocation == 0) Serial.println("**** WARNING no delimiter passed ****** Looking for :");
+  else
+  {
+    Serial.println("Delimiter is located a position " + String(delimeterlocation));
+    lednumber = getValue(str, ':', 0);
+    Serial.println("lednumber is :" + lednumber);
+    ledvalue = getValue(str, ':', 1);
+    Serial.println("ledvalue is :" + ledvalue);
+
+
+    int llednumber = lednumber.toInt(); 
+    int lledvalue = ledvalue.toInt(); 
+
+
+    
+    int iledRow = 0;
+    int iledColumn = 0;
+
+    iledRow = llednumber / 8;
+    iledColumn = llednumber % 8;
+
+    if (Debug_Display || bLocalDebug ) Serial.println("Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+
+
+    if (lledvalue==0)
+    {
+      if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+      lc_2.setLed(0,iledRow,iledColumn,false);
+      
+    }
+    else
+    {
+      if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+      lc_2.setLed(0,iledRow,iledColumn,true);
+    }
+
+    
+
+  }
+  
+  return;
+  
+}
+
+
+String getValue(String data, char separator, int index)
+{
+    int found = 0;
+    int strIndex[] = { 0, -1 };
+    int maxIndex = data.length() - 1;
+
+    for (int i = 0; i <= maxIndex && found <= index; i++) {
+        if (data.charAt(i) == separator || i == maxIndex) {
+            found++;
+            strIndex[0] = strIndex[1] + 1;
+            strIndex[1] = (i == maxIndex) ? i+1 : i;
+        }
+    }
+    return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
+}
 
 boolean isValidNumber(String str)
 {
