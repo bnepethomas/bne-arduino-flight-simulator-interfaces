@@ -1,9 +1,9 @@
 // Todos
 //
-// 1: Allocate and document IP address and Port
-// 2: Handle a command packet to adjust brightness
-// 3: Document Protocol
-// 4: Develop Test Harness
+
+//  Handle a command packet to adjust brightness
+//  Document Protocol
+//  Develop Test Harness
 
 
 // Max 7219 Library 
@@ -15,11 +15,10 @@ LedControl lc_2=LedControl(9,8,7,1);
 
 /* we always wait a bit between updates of the display */
 unsigned long delaytime=250;
-unsigned long sdelaytime=20;
+unsigned long sdelaytime=1;
 
 #define filename "General_Sim_7219"
 
-// 20161231a Stopping processing of OLED updates to isolate freeze
 
 #include <SPI.h>
 #include <Ethernet.h>
@@ -27,15 +26,14 @@ unsigned long sdelaytime=20;
 
 byte mac[] = { 
   0xA9,0xE7,0x3E,0xCA,0x34,0x1f};
-IPAddress ip(192,168,2,205);
-IPAddress TargetIPAddress(192,168,2,111);
+IPAddress ip(172,16,1,21);
 const unsigned int localport = 13135;
 
 EthernetUDP Udp;
 char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming data
 
 
-const unsigned int listenport = 9920;
+const unsigned int listenport = 13135;
 EthernetUDP rxUdp;
 char receivePacketBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming data
 char *ParameterNamePtr;
@@ -49,16 +47,9 @@ char *ParameterValuePtr;
 
 
 
-boolean Debug_Display = false;
-
-
-
-
+boolean Debug_Display = true;
 char byteIn = 0;
 int loopcounter = 0;
-
-
-
 
 // Keepalive reporting
 long lKeepAlive = 0;
@@ -67,7 +58,7 @@ long ltime = 0;
 String s_sendstringwrkstr = "";
 
 void setup() {
-  // put your setup code here, to run once:
+
     /*
      The MAX72XX is in power-saving mode on startup,
       we have to do a wakeup call
@@ -107,7 +98,7 @@ void setup() {
     for(int i=0;i<UDP_TX_PACKET_MAX_SIZE;i++) receivePacketBuffer[i] = 0;
 
 
-  lKeepAlive = 0;
+    lKeepAlive = 0;
   
 }
 
@@ -248,11 +239,14 @@ void PrintMapping (int ledPos)
 
 
 
-void ProcessReceivedString()
+void OriginalProcessReceivedString()
 {
 
     // Reading values from packetBuffer which is global
     // All received values are strings for readability
+    //  handleS a single attribute/value pair at a time eg I01=1
+
+    //  !!!!!!   DO NOT MODIFY THIS ROUTINE!!!!!
 
     bool bLocalDebug = true;
 
@@ -330,11 +324,121 @@ void ProcessReceivedString()
 
       } 
           
-    }
-   
-     
+    }   
   
 }
+
+
+void ProcessReceivedString()
+{
+
+    // Reading values from packetBuffer which is global
+    // All received values are strings for readability
+
+    // Old versions handled a single attribute/value pair at a time eg I01=1
+    // New Version Handles multiple attribute Values in a single packet
+    //    D,1:0,2:1,3:1,4:1,5:0,6:0,7:0,8:0,9:1,10:1
+    
+
+    bool bLocalDebug = true;
+
+    if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
+   
+
+    String sWrkStr = "";
+
+    // const char *delim  = "="; 
+    const char *delim  = ",";
+    
+    // Break the received packet into a series of tokens
+    // If there is no match the pointer will be null, other points to first parameter
+    ParameterNamePtr = strtok(packetBuffer,delim);
+    
+    String ParameterNameString(ParameterNamePtr); 
+    if (Debug_Display || bLocalDebug ) Serial.println("Parameter Name " + String(ParameterNameString));
+
+    // Print all of the values received as a outer loop
+    // and then split inner values   
+
+
+    // Handle the following attribute types
+    
+    
+    // If first parameter is a D we have a general data payload as opposed 
+    //    to a C which is used to set brightness
+    if (ParameterNameString[0] == 'D')
+    {
+      
+      ParameterValuePtr   = strtok(NULL,delim);
+      String ParameterValue(ParameterValuePtr);
+      if (Debug_Display || bLocalDebug ) Serial.println("Parameter Value " + String(ParameterValuePtr));
+      
+      // We have a Indicator, the indicator number is always two digits
+      // So grab the 2nd and 3rd characters and convert them
+      sWrkStr = String(ParameterNameString[1]) + String(ParameterNameString[2]);
+
+      //Work from here need to cleanup string
+
+      // Check to see if parameter is between 0 and 64 if valid proceed
+      if (isValidNumber(sWrkStr))
+      {
+        if (Debug_Display || bLocalDebug ) Serial.println(sWrkStr + " is a valid number");
+        
+        if (Debug_Display || bLocalDebug ) Serial.println("Buffer Length " + String(sWrkStr.length()));
+        
+        char buf[sWrkStr.length()+1];
+        sWrkStr.toCharArray(buf,sWrkStr.length()+1);
+
+        int iledToChange= atoi(buf); 
+        if (Debug_Display || bLocalDebug ) Serial.println("Converted number is " + String(iledToChange));
+
+        if (Debug_Display || bLocalDebug ) Serial.println("Converting to Row Column");
+
+        int iledRow = 0;
+        int iledColumn = 0;
+
+        iledRow = iledToChange / 8;
+        iledColumn = iledToChange % 8;
+
+        if (Debug_Display || bLocalDebug ) Serial.println("Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+
+
+        if (String(ParameterValuePtr)=="0")
+        {
+          if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+          lc_2.setLed(0,iledRow,iledColumn,false);
+          
+        }
+        else
+        {
+          if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+          lc_2.setLed(0,iledRow,iledColumn,true);
+        }
+
+        // Our work is done  
+        if (Debug_Display || bLocalDebug ) Serial.println("Returning from Processing Data");    
+        return;
+        
+      }
+
+      else
+      {
+        if (Debug_Display || bLocalDebug ) Serial.println(sWrkStr + " is not a valid number");
+        return;
+
+      } 
+          
+    } 
+
+    
+    else if (ParameterNameString[0] == 'C')
+    {
+      Serial.println(sWrkStr + "Processing a command");
+    }  
+  
+}
+
+
 
 boolean isValidNumber(String str)
 {
