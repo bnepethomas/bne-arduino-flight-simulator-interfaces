@@ -1,10 +1,10 @@
 // Todos
 //
 
-//  Handle a command packet to adjust brightness
 //  Document Protocol
-//  Develop Test Harness
-
+//    D,1:0,2:1,3:1,4:1,5:0,6:0,7:0,8:0,9:1,10:1,11:0
+//    C,B:15
+//  Handle more than 64 leds is second unit daisy chained - including brightness
 
 // Max 7219 Library 
 #include "LedControl.h"
@@ -15,7 +15,7 @@ LedControl lc_2=LedControl(9,8,7,1);
 
 /* we always wait a bit between updates of the display */
 unsigned long delaytime=250;
-unsigned long sdelaytime=1;
+unsigned long sdelaytime=1000;
 
 #define filename "General_Sim_7219"
 
@@ -25,7 +25,7 @@ unsigned long sdelaytime=1;
 #include <EthernetUdp.h>
 
 byte mac[] = { 
-  0xA9,0xE7,0x3E,0xCA,0x34,0x1f};
+  0xA9,0xE7,0x3E,0xCA,0x35,0x03};
 IPAddress ip(172,16,1,21);
 const unsigned int localport = 13135;
 
@@ -66,7 +66,7 @@ void setup() {
 
     lc_2.shutdown(0,false);
     /* Set the brightness to a medium values */
-    lc_2.setIntensity(0,8);
+    lc_2.setIntensity(0,15);
     /* and clear the display */
     lc_2.clearDisplay(0);
 
@@ -89,7 +89,9 @@ void setup() {
     Serial.println("Network Initialised");
 
     Serial.println("Start LED Display");
-    single();
+    AllOn();
+    delay(sdelaytime);
+    AllOff();
     Serial.println("Display Initialised");
 
 
@@ -174,8 +176,21 @@ void single() {
 }
 
 
+void AllOn() {
+  for(int row=0;row<8;row++) {
+    for(int col=0;col<8;col++) {
+      lc_2.setLed(0,row,col,true);
+    }
+  }
+}
 
-
+void AllOff() {
+  for(int row=0;row<8;row++) {
+    for(int col=0;col<8;col++) {
+      lc_2.setLed(0,row,col,false);
+    }
+  }
+}
 
 
 void PrintMapping (int ledPos)
@@ -385,6 +400,18 @@ void ProcessReceivedString()
     {
       // Handling a Control Packet
       Serial.println("Handling a Control Packet");
+      
+      ParameterNamePtr = strtok(NULL, delim);
+
+      while( ParameterNamePtr != NULL ) {
+        Serial.println( "Processing " + String(ParameterNamePtr) );
+        
+        HandleControlString(String(ParameterNamePtr));
+      
+        ParameterNamePtr = strtok(NULL, delim);
+      }  
+
+
       return;
       
       // Handling a Control Packet
@@ -394,86 +421,7 @@ void ProcessReceivedString()
       // Unknown Packet Type
       Serial.println("Unknown Packet Type - ignoring packet");
       return;
-      
-      // Unknown Packet Type
     }
-   
-
-
-    // Handle the following attribute types
-    
-    
-    // If first parameter is a D we have a general data payload as opposed 
-    //    to a C which is used to set brightness
-    if (ParameterNameString[0] == 'D')
-    {
-      
-      ParameterValuePtr   = strtok(NULL,delim);
-      String ParameterValue(ParameterValuePtr);
-      if (Debug_Display || bLocalDebug ) Serial.println("Parameter Value " + String(ParameterValuePtr));
-      
-      // We have a Indicator, the indicator number is always two digits
-      // So grab the 2nd and 3rd characters and convert them
-      sWrkStr = String(ParameterNameString[1]) + String(ParameterNameString[2]);
-
-      //Work from here need to cleanup string
-
-      // Check to see if parameter is between 0 and 64 if valid proceed
-      if (isValidNumber(sWrkStr))
-      {
-        if (Debug_Display || bLocalDebug ) Serial.println(sWrkStr + " is a valid number");
-        
-        if (Debug_Display || bLocalDebug ) Serial.println("Buffer Length " + String(sWrkStr.length()));
-        
-        char buf[sWrkStr.length()+1];
-        sWrkStr.toCharArray(buf,sWrkStr.length()+1);
-
-        int iledToChange= atoi(buf); 
-        if (Debug_Display || bLocalDebug ) Serial.println("Converted number is " + String(iledToChange));
-
-        if (Debug_Display || bLocalDebug ) Serial.println("Converting to Row Column");
-
-        int iledRow = 0;
-        int iledColumn = 0;
-
-        iledRow = iledToChange / 8;
-        iledColumn = iledToChange % 8;
-
-        if (Debug_Display || bLocalDebug ) Serial.println("Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-
-
-        if (String(ParameterValuePtr)=="0")
-        {
-          if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-          lc_2.setLed(0,iledRow,iledColumn,false);
-          
-        }
-        else
-        {
-          if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-          lc_2.setLed(0,iledRow,iledColumn,true);
-        }
-
-        // Our work is done  
-        if (Debug_Display || bLocalDebug ) Serial.println("Returning from Processing Data");    
-        return;
-        
-      }
-
-      else
-      {
-        if (Debug_Display || bLocalDebug ) Serial.println(sWrkStr + " is not a valid number");
-        return;
-
-      } 
-          
-    } 
-
-    
-    else if (ParameterNameString[0] == 'C')
-    {
-      Serial.println(sWrkStr + "Processing a command");
-    }  
   
 }
 
@@ -537,6 +485,44 @@ void HandleOutputValuePair( String str)
 }
 
 
+void HandleControlString( String str)
+{
+  Serial.println("Handling Control String :" + str);
+
+  // Currnetly just handling Brightness - eg C,B:3
+
+  int delimeterlocation = 0;
+  String command = "";
+  String setting = "";
+
+  bool bLocalDebug = true;
+
+
+
+  delimeterlocation = str.indexOf(':');
+
+  if (delimeterlocation == 0) Serial.println("**** WARNING no delimiter passed ****** Looking for :");
+  else
+  {
+    Serial.println("Delimiter is located a position " + String(delimeterlocation));
+    command = getValue(str, ':', 0);
+    Serial.println("command is :" + command);
+    setting = getValue(str, ':', 1);
+    Serial.println("setting is :" + setting);
+
+    int isetting = setting.toInt(); 
+    
+    if (command == "B")
+      if (isetting >= 0 && isetting <= 15)
+        lc_2.setIntensity(0,isetting);
+      else
+        Serial.println("Invalid Brightness value passoed. Value is :" + String(setting));
+  }
+  
+  return;
+  
+}
+
 String getValue(String data, char separator, int index)
 {
     int found = 0;
@@ -583,6 +569,7 @@ void loop() {
   
   if( packetSize > 0)
   {
+      Serial.println("Processing Packet");
       rxUdp.read( packetBuffer, packetSize);
       //terminate the buffer manually
       packetBuffer[packetSize] = '\0';
