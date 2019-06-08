@@ -402,7 +402,7 @@ namespace WindowsFormsApp2
                     UDP_Playload = UDP_Playload + ",trueheading:" + s1.plane_heading_degrees_true.ToString();
                     UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
 
-                    Output_Payload = "TRAILING_EDGE_FLAPS_LEFT_ANGLE:" + s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE; 
+                    Output_Payload = "TRAILING_EDGE_FLAPS_LEFT_ANGLE:" + Math.Floor(s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE * 100); 
 
                     span = DateTime.Now - TimeLastPacketSent;
                     mS = (int)span.TotalMilliseconds;
