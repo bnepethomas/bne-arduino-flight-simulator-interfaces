@@ -47,7 +47,7 @@ char *ParameterValuePtr;
 
 
 
-boolean Debug_Display = true;
+boolean Debug_Display = false;
 char byteIn = 0;
 int loopcounter = 0;
 
@@ -71,28 +71,28 @@ void setup() {
     lc_2.clearDisplay(0);
 
 
-    
-    Serial.begin(115200); 
-    Serial.println(filename);
+    //
+   //Serial.begin(115200); 
+    //Serial.println(filename);
     
   
 
 
     // Sending Infrastructure
-    Serial.println("Starting Network");
+    //Serial.println("Starting Network");
     Ethernet.begin( mac, ip);
 
   
     //Receiving Infrastructure
 
     rxUdp.begin( listenport );
-    Serial.println("Network Initialised");
+    //Serial.println("Network Initialised");
 
-    Serial.println("Start LED Display");
+    //Serial.println("Start LED Display");
     AllOn();
     delay(sdelaytime);
     AllOff();
-    Serial.println("Display Initialised");
+    //Serial.println("Display Initialised");
 
 
 
@@ -195,59 +195,63 @@ void AllOff() {
 
 void PrintMapping (int ledPos)
 {
-  if (ledPos == 0) Serial.println( "TBA");
-  if (ledPos == 1) Serial.println( "TBA");
-  if (ledPos == 2) Serial.println( "TBA");
-  if (ledPos == 3) Serial.println( "TBA");
-  if (ledPos == 4) Serial.println( "TBA");
-  if (ledPos == 5) Serial.println( "TBA");
-  if (ledPos == 6) Serial.println( "TBA");
-  if (ledPos == 7) Serial.println( "TBA");
-  if (ledPos == 8) Serial.println( "TBA");
-  if (ledPos == 9) Serial.println( "TBA");
-  if (ledPos == 10) Serial.println( "TBA");
-  if (ledPos == 11) Serial.println( "TBA");
-  if (ledPos == 12) Serial.println( "TBA");
-  if (ledPos == 13) Serial.println( "TBA");
-  if (ledPos == 14) Serial.println( "TBA");
-  if (ledPos == 15) Serial.println( "TBA");
-  if (ledPos == 16) Serial.println( "TBA");
-  if (ledPos == 17) Serial.println( "TBA");
-  if (ledPos == 18) Serial.println( "TBA");
-  if (ledPos == 19) Serial.println( "TBA");
-  if (ledPos == 20) Serial.println( "TBA");
-  if (ledPos == 21) Serial.println( "TBA");
-  if (ledPos == 22) Serial.println( "TBA");
-  if (ledPos == 23) Serial.println( "TBA");
-  if (ledPos == 24) Serial.println( "TBA");
-  if (ledPos == 25) Serial.println( "TBA");
-  if (ledPos == 26) Serial.println( "TBA");
-  if (ledPos == 27) Serial.println( "TBA");
-  if (ledPos == 28) Serial.println( "TBA");
-  if (ledPos == 29) Serial.println( "TBA");
-  if (ledPos == 30) Serial.println( "TBA");
-  if (ledPos == 31) Serial.println( "TBA");
-  if (ledPos == 32) Serial.println( "TBA");
-  if (ledPos == 33) Serial.println( "TBA");
-  if (ledPos == 34) Serial.println( "TBA");
-  if (ledPos == 35) Serial.println( "TBA");
-  if (ledPos == 36) Serial.println( "TBA");
-  if (ledPos == 37) Serial.println( "TBA");
-  if (ledPos == 38) Serial.println( "TBA");
-  if (ledPos == 39) Serial.println( "TBA");
-  if (ledPos == 40) Serial.println( "TBA");
-  if (ledPos == 41) Serial.println( "TBA");
-  if (ledPos == 42) Serial.println( "TBA");
-  if (ledPos == 43) Serial.println( "TBA");
-  if (ledPos == 44) Serial.println( "TBA");
-  if (ledPos == 45) Serial.println( "TBA");
-  if (ledPos == 46) Serial.println( "TBA");
-  if (ledPos == 47) Serial.println( "TBA");
-  if (ledPos == 54) Serial.println( "TBA");
-  if (ledPos == 55) Serial.println( "TBA");
-  if (ledPos == 61) Serial.println( "TBA");
-  if (ledPos == 62) Serial.println( "TBA");
-  if (ledPos == 63) Serial.println( "TBA");
+  bool bLocalDebug = false;
+  if (Debug_Display || bLocalDebug ) 
+  {
+    if (ledPos == 0) Serial.println( "TBA");
+    if (ledPos == 1) Serial.println( "TBA");
+    if (ledPos == 2) Serial.println( "TBA");
+    if (ledPos == 3) Serial.println( "TBA");
+    if (ledPos == 4) Serial.println( "TBA");
+    if (ledPos == 5) Serial.println( "TBA");
+    if (ledPos == 6) Serial.println( "TBA");
+    if (ledPos == 7) Serial.println( "TBA");
+    if (ledPos == 8) Serial.println( "TBA");
+    if (ledPos == 9) Serial.println( "TBA");
+    if (ledPos == 10) Serial.println( "TBA");
+    if (ledPos == 11) Serial.println( "TBA");
+    if (ledPos == 12) Serial.println( "TBA");
+    if (ledPos == 13) Serial.println( "TBA");
+    if (ledPos == 14) Serial.println( "TBA");
+    if (ledPos == 15) Serial.println( "TBA");
+    if (ledPos == 16) Serial.println( "TBA");
+    if (ledPos == 17) Serial.println( "TBA");
+    if (ledPos == 18) Serial.println( "TBA");
+    if (ledPos == 19) Serial.println( "TBA");
+    if (ledPos == 20) Serial.println( "TBA");
+    if (ledPos == 21) Serial.println( "TBA");
+    if (ledPos == 22) Serial.println( "TBA");
+    if (ledPos == 23) Serial.println( "TBA");
+    if (ledPos == 24) Serial.println( "TBA");
+    if (ledPos == 25) Serial.println( "TBA");
+    if (ledPos == 26) Serial.println( "TBA");
+    if (ledPos == 27) Serial.println( "TBA");
+    if (ledPos == 28) Serial.println( "TBA");
+    if (ledPos == 29) Serial.println( "TBA");
+    if (ledPos == 30) Serial.println( "TBA");
+    if (ledPos == 31) Serial.println( "TBA");
+    if (ledPos == 32) Serial.println( "TBA");
+    if (ledPos == 33) Serial.println( "TBA");
+    if (ledPos == 34) Serial.println( "TBA");
+    if (ledPos == 35) Serial.println( "TBA");
+    if (ledPos == 36) Serial.println( "TBA");
+    if (ledPos == 37) Serial.println( "TBA");
+    if (ledPos == 38) Serial.println( "TBA");
+    if (ledPos == 39) Serial.println( "TBA");
+    if (ledPos == 40) Serial.println( "TBA");
+    if (ledPos == 41) Serial.println( "TBA");
+    if (ledPos == 42) Serial.println( "TBA");
+    if (ledPos == 43) Serial.println( "TBA");
+    if (ledPos == 44) Serial.println( "TBA");
+    if (ledPos == 45) Serial.println( "TBA");
+    if (ledPos == 46) Serial.println( "TBA");
+    if (ledPos == 47) Serial.println( "TBA");
+    if (ledPos == 54) Serial.println( "TBA");
+    if (ledPos == 55) Serial.println( "TBA");
+    if (ledPos == 61) Serial.println( "TBA");
+    if (ledPos == 62) Serial.println( "TBA");
+    if (ledPos == 63) Serial.println( "TBA");
+  }
 }
 
 
@@ -382,11 +386,11 @@ void ProcessReceivedString()
     if (ParameterNameString[0] == 'D')
     {
       //Handling a Data Packet
-      Serial.println("Handling a Data Packet");
+      if (Debug_Display || bLocalDebug ) Serial.println("Handling a Data Packet");
       ParameterNamePtr = strtok(NULL, delim);
 
       while( ParameterNamePtr != NULL ) {
-        Serial.println( "Processing " + String(ParameterNamePtr) );
+        if (Debug_Display || bLocalDebug ) Serial.println( "Processing " + String(ParameterNamePtr) );
         
         HandleOutputValuePair(String(ParameterNamePtr));
       
@@ -399,12 +403,12 @@ void ProcessReceivedString()
     else if (ParameterNameString[0] == 'C')
     {
       // Handling a Control Packet
-      Serial.println("Handling a Control Packet");
+      if (Debug_Display || bLocalDebug ) Serial.println("Handling a Control Packet");
       
       ParameterNamePtr = strtok(NULL, delim);
 
       while( ParameterNamePtr != NULL ) {
-        Serial.println( "Processing " + String(ParameterNamePtr) );
+        if (Debug_Display || bLocalDebug )Serial.println( "Processing " + String(ParameterNamePtr) );
         
         HandleControlString(String(ParameterNamePtr));
       
@@ -419,7 +423,7 @@ void ProcessReceivedString()
     else
     {
       // Unknown Packet Type
-      Serial.println("Unknown Packet Type - ignoring packet");
+      if (Debug_Display || bLocalDebug ) Serial.println("Unknown Packet Type - ignoring packet");
       return;
     }
   
@@ -428,26 +432,29 @@ void ProcessReceivedString()
 
 void HandleOutputValuePair( String str)
 {
-  Serial.println("Handling " + str);
+  bool bLocalDebug = false;
+  if (Debug_Display || bLocalDebug ) Serial.println("Handling " + str);
 
   int delimeterlocation = 0;
   String lednumber = "";
   String ledvalue = "";
 
-  bool bLocalDebug = true;
 
   
 
   delimeterlocation = str.indexOf(':');
 
-  if (delimeterlocation == 0) Serial.println("**** WARNING no delimiter passed ****** Looking for :");
+  if (delimeterlocation == 0) 
+  {
+    if (Debug_Display || bLocalDebug ) Serial.println("**** WARNING no delimiter passed ****** Looking for :");
+  }
   else
   {
-    Serial.println("Delimiter is located a position " + String(delimeterlocation));
+    if (Debug_Display || bLocalDebug ) Serial.println("Delimiter is located a position " + String(delimeterlocation));
     lednumber = getValue(str, ':', 0);
-    Serial.println("lednumber is :" + lednumber);
+    if (Debug_Display || bLocalDebug ) Serial.println("lednumber is :" + lednumber);
     ledvalue = getValue(str, ':', 1);
-    Serial.println("ledvalue is :" + ledvalue);
+    if (Debug_Display || bLocalDebug ) Serial.println("ledvalue is :" + ledvalue);
 
 
     int llednumber = lednumber.toInt(); 
@@ -487,7 +494,8 @@ void HandleOutputValuePair( String str)
 
 void HandleControlString( String str)
 {
-  Serial.println("Handling Control String :" + str);
+  bool bLocalDebug = false;
+  if (Debug_Display || bLocalDebug ) Serial.println("Handling Control String :" + str);
 
   // Currnetly just handling Brightness - eg C,B:3
 
@@ -495,20 +503,23 @@ void HandleControlString( String str)
   String command = "";
   String setting = "";
 
-  bool bLocalDebug = true;
+
 
 
 
   delimeterlocation = str.indexOf(':');
 
-  if (delimeterlocation == 0) Serial.println("**** WARNING no delimiter passed ****** Looking for :");
+  if (delimeterlocation == 0)
+  {
+    if (Debug_Display || bLocalDebug ) Serial.println("**** WARNING no delimiter passed ****** Looking for :");
+  }
   else
   {
-    Serial.println("Delimiter is located a position " + String(delimeterlocation));
+    if (Debug_Display || bLocalDebug ) Serial.println("Delimiter is located a position " + String(delimeterlocation));
     command = getValue(str, ':', 0);
-    Serial.println("command is :" + command);
+    if (Debug_Display || bLocalDebug ) Serial.println("command is :" + command);
     setting = getValue(str, ':', 1);
-    Serial.println("setting is :" + setting);
+    if (Debug_Display || bLocalDebug ) Serial.println("setting is :" + setting);
 
     int isetting = setting.toInt(); 
     
@@ -516,7 +527,7 @@ void HandleControlString( String str)
       if (isetting >= 0 && isetting <= 15)
         lc_2.setIntensity(0,isetting);
       else
-        Serial.println("Invalid Brightness value passoed. Value is :" + String(setting));
+        if (Debug_Display || bLocalDebug ) Serial.println("Invalid Brightness value passoed. Value is :" + String(setting));
   }
   
   return;
@@ -569,7 +580,7 @@ void loop() {
   
   if( packetSize > 0)
   {
-      Serial.println("Processing Packet");
+      if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
       rxUdp.read( packetBuffer, packetSize);
       //terminate the buffer manually
       packetBuffer[packetSize] = '\0';
