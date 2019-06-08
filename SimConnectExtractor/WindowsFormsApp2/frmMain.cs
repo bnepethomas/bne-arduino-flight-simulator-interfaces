@@ -121,6 +121,9 @@ namespace WindowsFormsApp2
             public double INNER_MARKER;
             public double MIDDLE_MARKER;
             public double OUTER_MARKER;
+            public double GEAR_CENTER_POSITION;
+            public double GEAR_LEFT_POSITION;
+            public double GEAR_RIGHT_POSITION;
 
 
             public double zulu_time_2; // Used to validate we have all data
@@ -242,6 +245,9 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "INNER MARKER", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "MIDDLE MARKER", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "OUTER MARKER", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GEAR CENTER POSITION", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GEAR LEFT POSITION", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GEAR RIGHT POSITION", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
 
 
@@ -377,7 +383,9 @@ namespace WindowsFormsApp2
                     displayText("INNER MARKER                " + s1.INNER_MARKER);
                     displayText("MIDDLE MARKER               " + s1.MIDDLE_MARKER);
                     displayText("OUTER MARKER                " + s1.OUTER_MARKER);
-
+                    displayText("GEAR CENTRE POSITION        " + s1.GEAR_CENTER_POSITION);
+                    displayText("GEAR LEFT POSITION          " + s1.GEAR_LEFT_POSITION);
+                    displayText("GEAR RIGHT POSITION         " + s1.GEAR_RIGHT_POSITION);
 
                     displayText("Zulu Time 2        " + s1.zulu_time);
 
