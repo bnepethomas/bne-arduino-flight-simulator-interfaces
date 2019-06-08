@@ -71,7 +71,9 @@ namespace WindowsFormsApp2
         };
 
         string UDP_Playload;
+        string Output_Payload;
         UdpClient udpClient = new UdpClient();
+        UdpClient OutputClient = new UdpClient();
         DateTime TimeLastPacketSent;
         TimeSpan span;
         int mS;
@@ -146,6 +148,7 @@ namespace WindowsFormsApp2
 
             setButtons(true, false, false);
             udpClient.Connect("172.16.1.2", 13136);
+            OutputClient.Connect("172.16.1.2", 26028);
             TimeLastPacketSent = DateTime.Now;
 
 
@@ -325,6 +328,7 @@ namespace WindowsFormsApp2
                     UDP_Playload = UDP_Playload + ",trueheading:" + s1.plane_heading_degrees_true.ToString();
                     UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
 
+ 
 
 
                     break;
@@ -398,7 +402,7 @@ namespace WindowsFormsApp2
                     UDP_Playload = UDP_Playload + ",trueheading:" + s1.plane_heading_degrees_true.ToString();
                     UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
 
-
+                    Output_Payload = "TRAILING_EDGE_FLAPS_LEFT_ANGLE:" + s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE; 
 
                     span = DateTime.Now - TimeLastPacketSent;
                     mS = (int)span.TotalMilliseconds;
@@ -408,6 +412,9 @@ namespace WindowsFormsApp2
                     { 
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
+
+                        senddata = Encoding.ASCII.GetBytes(Output_Payload);
+                        OutputClient.Send(senddata, senddata.Length);
 
                         TimeLastPacketSent = DateTime.Now;
                     }   
@@ -553,6 +560,11 @@ namespace WindowsFormsApp2
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richResponse_TextChanged(object sender, EventArgs e)
         {
 
         }

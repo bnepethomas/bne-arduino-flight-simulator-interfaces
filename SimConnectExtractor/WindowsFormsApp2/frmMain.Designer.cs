@@ -78,6 +78,7 @@
             this.richResponse.Size = new System.Drawing.Size(369, 537);
             this.richResponse.TabIndex = 3;
             this.richResponse.Text = "";
+            this.richResponse.TextChanged += new System.EventHandler(this.richResponse_TextChanged);
             // 
             // timer1
             // 
