@@ -38,7 +38,30 @@
         "IP": "172.16.1.21:13135",
 	"Datatype": "str",
         "Field": "D,0", 
-        "Description": "Flaps Percentage" 
-        
+        "Description": "Flaps Percentage"       
+    },
+    "GEAR_CENTER_POSITION": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "9", 
+        "Description": "Centre Gear Position"       
+    },
+    "GEAR_LEFT_POSITION": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "10", 
+        "Description": "Left Gear Position"       
+    },
+    "GEAR_RIGHT_POSITION": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "11", 
+        "Description": "Right Gear Positoin"       
+    },
+    "BRAKE_PARKING_INDICATOR": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "2", 
+        "Description": "Parking Brake"       
     }
 }
