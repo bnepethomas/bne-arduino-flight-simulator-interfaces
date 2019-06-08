@@ -11,9 +11,6 @@
         "Field": "25", 
         "Description": "Bulb 16" 
     },
-    "17": {   
-	"Description": ""       
-    }, 
 
     "ALT": {
         "IP": "127.0.0.1:2003",
@@ -56,12 +53,157 @@
         "IP": "172.16.1.21:13135",
 	"Datatype": "str",
         "Field": "11", 
-        "Description": "Right Gear Positoin"       
+        "Description": "Right Gear Positon"       
     },
     "BRAKE_PARKING_INDICATOR": {
         "IP": "172.16.1.21:13135",
 	"Datatype": "str",
         "Field": "2", 
         "Description": "Parking Brake"       
+    },
+    "GENERAL_ENG_MASTER_ALTERNATOR_1": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "GENERAL_ENG_MASTER_ALTERNATOR_2": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "TRAILING_EDGE_FLAPS_LEFT_ANGLE": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "TRAILING_EDGE_FLAPS_LEFT_PERCENT": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "SPOILERS_LEFT_POSITION": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "ELEVATOR_TRIM_PCT": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "BRAKE_PARKING_INDICATOR": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "GENERAL_ENG_FUEL_VALVE_1": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "GENERAL_ENG_FUEL_VALVE_2": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "GENERAL_ENG_STARTER_1": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "GENERAL_ENG_STARTER_2": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "GENERAL_ENG_OIL_PRESSURE_1": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "GENERAL_ENG_OIL_PRESSURE_2": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "ENG_ON_FIRE_1": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "ENG_ON_FIRE_2": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "STALL_WARNING": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "ELECTRICAL_MASTER_BATTERY": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "LIGHT_CABIN": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "LIGHT_STROBE": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "LIGHT_NAV": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "LIGHT_TAXI": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "INNER_MARKER": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "MIDDLE_MARKER": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
+    },
+    "OUTER_MARKER": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "64", 
+        "Description": ""       
     }
-}
+}    
+    

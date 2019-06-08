@@ -4,10 +4,22 @@
 # PyHWLink_Pri_Node_Output.py
 
 # Receives updates from DCS and distributes to output nodes
+
+# On receive a packet, it builds out an array of AV pairs per destination
+# and then throws the assembled array at the target once the packet is parsed
+
+# By default it simple appends the received value from the sim, ie no range
+#  checking or anything like that which can work find for binary indicators
+#  but doesn't work so value for analog ranges or where special tasks need to
+#  be carried out such as a bar display for flaps or spoiler position where
+#  multiple outputs need to be coordinated. This sort of can be forced, but
+#  now to add a value in the JSO?N file to inform code the parameter should
+#  not be passed/
 # Should perform basic sanity checks on values
 # eg Data Type, Min Max
 # Operates in headless mode (where errors are skipped and not reported)
 #   or in interactive mode where errors are flagged
+
 
 
 #  Dict Structure
@@ -16,6 +28,10 @@
 #       Data Type eg Integer
 #       Target IP eg 172.17.1.10
 #       Target Device Number
+
+# Todos
+# 20190609  Add field to JSON file to tell code not to append passed value from Sim
+
 
 import json
 import os
@@ -593,8 +609,19 @@ def main():
         sys.exit(0)
 
 
-
-
+    try:
+        for i in output_assignments:
+            print(output_assignments[i]['IP'])
+##    "GEAR_CENTER_POSITION": {
+##        "IP": "172.16.1.21:13135",
+##	"Datatype": "str",
+##        "Field": "9", 
+##        "Description": "Centre Gear Position"  
+    except:
+        logging.critical("Unexpected error while walking dictinary: '" + output_assignments_file + "'" + str(other))                             
+        serverSock.close()
+        sys.exit(0)
+        
     try:
         print('Waiting for packet')
         ReceivePacket()
