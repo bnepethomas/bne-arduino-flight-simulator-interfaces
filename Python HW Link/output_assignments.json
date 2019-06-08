@@ -33,5 +33,12 @@
         "Field": "1", 
         "Description": "Vertical Speed" 
         
+    },
+    "TRAILING_EDGE_FLAPS_LEFT_ANGLE": {
+        "IP": "172.16.1.21:13135",
+	"Datatype": "str",
+        "Field": "D,0", 
+        "Description": "Flaps Percentage" 
+        
     }
 }
