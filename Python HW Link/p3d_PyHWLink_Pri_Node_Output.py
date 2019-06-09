@@ -13,7 +13,7 @@
 #  but doesn't work so value for analog ranges or where special tasks need to
 #  be carried out such as a bar display for flaps or spoiler position where
 #  multiple outputs need to be coordinated. This sort of can be forced, but
-#  now to add a value in the JSO?N file to inform code the parameter should
+#  now to add a value in the JSON file to inform code the parameter should
 #  not be passed/
 # Should perform basic sanity checks on values
 # eg Data Type, Min Max
@@ -608,15 +608,26 @@ def main():
         serverSock.close()
         sys.exit(0)
 
-
+### Play area begin
     try:
         for i in output_assignments:
             print(output_assignments[i]['IP'])
+            try:
+                if output_assignments[i]['Datatype'] == None:
+                    print("No datatype assigned")
+            except KeyError:
+                print("Adding field datatype to record :" + i)
+                output_assignments[i]['Datatype'] = "str"
+                
+            output_assignments[i]['ManuallyCalcValue'] = "False"
+        json.dump(output_assignments, fp=open('201606091700.json','w'),indent=4)
 ##    "GEAR_CENTER_POSITION": {
 ##        "IP": "172.16.1.21:13135",
 ##	"Datatype": "str",
 ##        "Field": "9", 
 ##        "Description": "Centre Gear Position"  
+
+        
     except:
         logging.critical("Unexpected error while walking dictinary: '" + output_assignments_file + "'" + str(other))                             
         serverSock.close()
@@ -625,6 +636,9 @@ def main():
     try:
         print('Waiting for packet')
         ReceivePacket()
+
+### Play area end
+
 
     except KeyboardInterrupt:
         # Catch Ctl-C and quit

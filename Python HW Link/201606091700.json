@@ -1,0 +1,226 @@
+{
+    "15": {
+        "IP": "127.0.0.1:2000",
+        "Field": "25",
+        "Datatype": "str",
+        "Description": "Bulb 15",
+        "ManuallyCalcValue": "False"
+    },
+    "16": {
+        "IP": "127.0.0.1:2000",
+        "Field": "25",
+        "Description": "Bulb 16",
+        "Datatype": "str",
+        "ManuallyCalcValue": "False"
+    },
+    "ALT": {
+        "IP": "127.0.0.1:2003",
+        "Field": "2",
+        "Description": "Altimeter",
+        "Datatype": "str",
+        "ManuallyCalcValue": "False"
+    },
+    "Airspeed": {
+        "IP": "127.0.0.1:2004",
+        "Field": "1",
+        "Description": "Airspeed",
+        "Datatype": "str",
+        "ManuallyCalcValue": "False"
+    },
+    "VS": {
+        "IP": "127.0.0.1:2006",
+        "Datatype": "str",
+        "Field": "1",
+        "Description": "Vertical Speed",
+        "ManuallyCalcValue": "False"
+    },
+    "TRAILING_EDGE_FLAPS_LEFT_ANGLE": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "GEAR_CENTER_POSITION": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "9",
+        "Description": "Centre Gear Position",
+        "ManuallyCalcValue": "False"
+    },
+    "GEAR_LEFT_POSITION": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "10",
+        "Description": "Left Gear Position",
+        "ManuallyCalcValue": "False"
+    },
+    "GEAR_RIGHT_POSITION": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "11",
+        "Description": "Right Gear Positon",
+        "ManuallyCalcValue": "False"
+    },
+    "BRAKE_PARKING_INDICATOR": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "GENERAL_ENG_MASTER_ALTERNATOR_1": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "GENERAL_ENG_MASTER_ALTERNATOR_2": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "TRAILING_EDGE_FLAPS_LEFT_PERCENT": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "SPOILERS_LEFT_POSITION": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "ELEVATOR_TRIM_PCT": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "GENERAL_ENG_FUEL_VALVE_1": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "GENERAL_ENG_FUEL_VALVE_2": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "GENERAL_ENG_STARTER_1": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "GENERAL_ENG_STARTER_2": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "GENERAL_ENG_OIL_PRESSURE_1": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "GENERAL_ENG_OIL_PRESSURE_2": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "ENG_ON_FIRE_1": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "ENG_ON_FIRE_2": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "STALL_WARNING": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "ELECTRICAL_MASTER_BATTERY": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "LIGHT_CABIN": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "LIGHT_STROBE": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "LIGHT_NAV": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "LIGHT_TAXI": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "INNER_MARKER": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "MIDDLE_MARKER": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    },
+    "OUTER_MARKER": {
+        "IP": "172.16.1.21:13135",
+        "Datatype": "str",
+        "Field": "64",
+        "Description": "",
+        "ManuallyCalcValue": "False"
+    }
+}

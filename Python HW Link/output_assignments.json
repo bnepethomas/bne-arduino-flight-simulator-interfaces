@@ -3,6 +3,7 @@
     "15": {
         "IP": "127.0.0.1:2000",
         "Field": "25", 
+	"Datatype": "str",
         "Description": "Bulb 15" 
         
     }, 
