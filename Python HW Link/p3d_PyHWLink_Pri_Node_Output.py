@@ -179,6 +179,10 @@ def ReceivePacket():
                 TARGET_PORT_NO = int(workingFields[1])
 
 
+                # 20190615 manually adding prefix - should do this moe elegantly!
+                target[device]['Outputstring'] = 'D, ' + target[device]['Outputstring']
+
+
                 send_string = target[device]['Outputstring']
                 logging.info('Sending - ' + str(target[device]['IP']) + ' ' + str(target[device]['Outputstring']))
 
@@ -470,14 +474,14 @@ def ProcessReceivedString(ReceivedUDPString):
                                       str (output_assignments[workingkey]['Field']))
 
 
-
-                                if (workingkey == "TRAILING_EDGE_FLAPS_LEFT_ANGLE"):
-                                    print( "******************special treatment ******************")
-                                    print('workingFields1 is: ' + str(workingFields[1]))
-                                    if (int(workingFields[1]) > 0):
-                                        workingFields[1] = '1'
-                                    else:
-                                        workingFields[1] = '0'
+##
+##                                if (workingkey == "TRAILING_EDGE_FLAPS_LEFT_ANGLE"):
+##                                    print( "******************special treatment ******************")
+##                                    print('workingFields1 is: ' + str(workingFields[1]))
+##                                    if (int(workingFields[1]) > 0):
+##                                        workingFields[1] = '1'
+##                                    else:
+##                                        workingFields[1] = '0'
                                     
                                     
                                 
