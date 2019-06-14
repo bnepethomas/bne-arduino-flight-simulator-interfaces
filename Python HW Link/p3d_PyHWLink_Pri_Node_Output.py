@@ -179,7 +179,7 @@ def ReceivePacket():
                 TARGET_PORT_NO = int(workingFields[1])
 
 
-                # 20190615 manually adding prefix - should do this moe elegantly!
+                # 20190615 manually adding prefix - should do this more elegantly! 
                 target[device]['Outputstring'] = 'D, ' + target[device]['Outputstring']
 
 
