@@ -179,7 +179,8 @@ def ReceivePacket():
                 TARGET_PORT_NO = int(workingFields[1])
 
 
-                # 20190615 manually adding prefix - should do this more elegantly! 
+                # 20190615 manually adding prefix - possibly should do this more elegantly, but then everything coming from this should
+                #    be a Data packet
                 target[device]['Outputstring'] = 'D, ' + target[device]['Outputstring']
 
 
@@ -611,37 +612,59 @@ def main():
         logging.critical("Unexpected error while reading file: '" + output_assignments_file + "'" + str(other))                             
         serverSock.close()
         sys.exit(0)
-
-### Play area begin
+    
+    ### Check Configuration file for basic health
+    ### If not in shape correct records in memory and export a copy
+    ### Not automaitcally overwriting current version just in case something silly occurs    
     try:
+        CorrectionMade = False
+        logging.debug("Checking output assignments file " + output_assignments_file + " for correctness ")
         for i in output_assignments:
-            print(output_assignments[i]['IP'])
+            logging.debug("Checking entry " + i)
+
+            
             try:
                 if output_assignments[i]['Datatype'] == None:
-                    print("No datatype assigned")
+                    ManuallyCalcValue("No datatype assigned for :" + i)
             except KeyError:
-                print("Adding field datatype to record :" + i)
+                logging.critical("Adding field datatype to record :" + i)
                 output_assignments[i]['Datatype'] = "str"
-                
-            output_assignments[i]['ManuallyCalcValue'] = "False"
-        json.dump(output_assignments, fp=open('201606091700.json','w'),indent=4)
-##    "GEAR_CENTER_POSITION": {
-##        "IP": "172.16.1.21:13135",
-##	"Datatype": "str",
-##        "Field": "9", 
-##        "Description": "Centre Gear Position"  
+                CorrectionMade = True
+
+
+            try:
+                if output_assignments[i]['ManuallyCalcValue'] == None:
+                    logging.critical("No Manual Calc value assigned for :" + i)
+            except KeyError:
+                logging.critical("Adding field ManuallyCalcValue to  :" + i)             
+                output_assignments[i]['ManuallyCalcValue'] = "False"
+                CorrectionMade = True
+
+
+            
+
+        if (CorrectionMade == True):
+            CopyOfAssignmentsFile = "copyof_output_assignments"
+            logging.critical("Making a copy of the output file to " + CopyOfAssignmentsFile)  
+            json.dump(output_assignments, fp=open( CopyOfAssignmentsFile + '.json','w'),indent=4)
+
 
         
     except:
         logging.critical("Unexpected error while walking dictinary: '" + output_assignments_file + "'" + str(other))                             
         serverSock.close()
         sys.exit(0)
+
+    logging.debug("Completed checking output assignments file ")
+
+### Play area end
+
         
     try:
         print('Waiting for packet')
         ReceivePacket()
 
-### Play area end
+
 
 
     except KeyboardInterrupt:
