@@ -403,6 +403,7 @@ namespace WindowsFormsApp2
                     UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
 
                     Output_Payload = "TRAILING_EDGE_FLAPS_LEFT_ANGLE:" + Math.Floor(s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE * 100);
+                    Output_Payload = "SPOILERS LEFT POSITION:" + Math.Floor(s1.SPOILERS_LEFT_POSITION * 100);
                     Output_Payload = Output_Payload + ",GEAR_CENTER_POSITION:" + Math.Floor(s1.GEAR_CENTER_POSITION/100);
                     Output_Payload = Output_Payload + ",GEAR_LEFT_POSITION:" + Math.Floor(s1.GEAR_LEFT_POSITION/100);
                     Output_Payload = Output_Payload + ",GEAR_RIGHT_POSITION:" + Math.Floor(s1.GEAR_RIGHT_POSITION/100);
