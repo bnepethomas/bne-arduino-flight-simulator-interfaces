@@ -481,27 +481,17 @@ def ProcessReceivedString(ReceivedUDPString):
                                     print('workingFields1 is: ' + str(workingFields[1]))
 
                                     # Allocating Leds
-                                    FlapLed1 = 20
-                                    FlapLed2 = 21
-                                    FlapLed3 = 22
-                                    FlapLed4 = 23
-                                    FlapLed5 = 24
-                                    FlapLed6 = 25
-                                    FlapLed7 = 26
-                                    FlapLed8 = 27
-                                    FlapLed9 = 28
-                                    FlapLed10 = 29
-
-                                    FlapLed1 = 10
-                                    FlapLed2 = 10
-                                    FlapLed3 = 10
-                                    FlapLed4 =10
-                                    FlapLed5 = 10
-                                    FlapLed6 = 10
-                                    FlapLed7 = 10
-                                    FlapLed8 = 10
-                                    FlapLed9 = 10
-                                    FlapLed10 = 10                                  
+                                    FlapLed1 = 24
+                                    FlapLed2 = 25
+                                    FlapLed3 = 26
+                                    FlapLed4 = 27
+                                    FlapLed5 = 28
+                                    FlapLed6 = 29
+                                    FlapLed7 = 30
+                                    FlapLed8 = 31
+                                    FlapLed9 = 32
+                                    FlapLed10 = 32
+                               
                                     
                                     if (int(workingFields[1]) > 0 and int(workingFields[1]) < 10):
                                         workingFields[1] = '1,' + \
