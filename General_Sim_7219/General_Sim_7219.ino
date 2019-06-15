@@ -30,8 +30,9 @@ IPAddress ip(172,16,1,21);
 const unsigned int localport = 13135;
 
 EthernetUDP Udp;
-char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming data
-
+// https://stackoverflow.com/questions/54232090/unintentional-strange-characters-added-to-packets-during-udp-communication-in-ar
+//char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming data
+char packetBuffer[1500]; //buffer to store the incoming data
 
 const unsigned int listenport = 13135;
 EthernetUDP rxUdp;
