@@ -11,7 +11,7 @@
 # By default it simple appends the received value from the sim, ie no range
 #  checking or anything like that which can work find for binary indicators
 #  but doesn't work so value for analog ranges or where special tasks need to
-#  be carried out such as a bar display for flaps or spoiler position where
+#  be carried out such as a bar display for Spoilers or spoiler position where
 #  multiple outputs need to be coordinated. This sort of can be forced, but
 #  now to add a value in the JSON file to inform code the parameter should
 #  not be passed/
@@ -44,7 +44,7 @@ import logging
 from optparse import OptionParser
 
 
-debugging = False
+debugging = True
 
 target = {}
 output_assignments_file = 'output_assignments.json'
@@ -477,8 +477,8 @@ def ProcessReceivedString(ReceivedUDPString):
 
 
                                 if (workingkey == "TRAILING_EDGE_FLAPS_LEFT_ANGLE"):
-                                    print( "******************special treatment ******************")
-                                    print('workingFields1 is: ' + str(workingFields[1]))
+                                    print( "******************flaps treatment ******************")
+                                    print('flaps is: ' + str(workingFields[1]))
 
                                     # Allocating Leds
                                     FlapLed1 = 24
@@ -625,8 +625,160 @@ def ProcessReceivedString(ReceivedUDPString):
                                         str(FlapLed7) + ':0,' + \
                                         str(FlapLed8) + ':0,' + \
                                         str(FlapLed9) + ':0,' + \
-                                        str(FlapLed10) + ':0'                                       
+                                        str(FlapLed10) + ':0'
+
+                                        
+
+                                elif (workingkey == "SPOILERS_LEFT_POSITION"):
+                                    print( "******************spoiler treatment ******************")
+                                    print('spoiler position is: ' + str(workingFields[1]))
+
+                                    # Allocating Leds
+                                    SpoilerLed1 = 24
+                                    SpoilerLed2 = 25
+                                    SpoilerLed3 = 26
+                                    SpoilerLed4 = 27
+                                    SpoilerLed5 = 28
+                                    SpoilerLed6 = 29
+                                    SpoilerLed7 = 30
+                                    SpoilerLed8 = 31
+                                    SpoilerLed9 = 32
+                                    SpoilerLed10 = 32
+                               
                                     
+                                    if (int(workingFields[1]) > 0 and int(workingFields[1]) < 10):
+                                        workingFields[1] = '1,' + \
+                                        str(SpoilerLed1) + ':1,' + \
+                                        str(SpoilerLed2) + ':0,' + \
+                                        str(SpoilerLed3) + ':0,' + \
+                                        str(SpoilerLed4) + ':0,' + \
+                                        str(SpoilerLed5) + ':0,' + \
+                                        str(SpoilerLed6) + ':0,' + \
+                                        str(SpoilerLed7) + ':0,' + \
+                                        str(SpoilerLed8) + ':0,' + \
+                                        str(SpoilerLed9) + ':0,' + \
+                                        str(SpoilerLed10) + ':0' 
+
+                                    elif (int(workingFields[1]) >= 10 and int(workingFields[1]) < 20):
+                                        workingFields[1] = '1,' + \
+                                        str(SpoilerLed1) + ':1,' + \
+                                        str(SpoilerLed2) + ':1,' + \
+                                        str(SpoilerLed3) + ':0,' + \
+                                        str(SpoilerLed4) + ':0,' + \
+                                        str(SpoilerLed5) + ':0,' + \
+                                        str(SpoilerLed6) + ':0,' + \
+                                        str(SpoilerLed7) + ':0,' + \
+                                        str(SpoilerLed8) + ':0,' + \
+                                        str(SpoilerLed9) + ':0,' + \
+                                        str(SpoilerLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 20 and int(workingFields[1]) < 30):
+                                        workingFields[1] = '1,' + \
+                                        str(SpoilerLed1) + ':1,' + \
+                                        str(SpoilerLed2) + ':1,' + \
+                                        str(SpoilerLed3) + ':1,' + \
+                                        str(SpoilerLed4) + ':0,' + \
+                                        str(SpoilerLed5) + ':0,' + \
+                                        str(SpoilerLed6) + ':0,' + \
+                                        str(SpoilerLed7) + ':0,' + \
+                                        str(SpoilerLed8) + ':0,' + \
+                                        str(SpoilerLed9) + ':0,' + \
+                                        str(SpoilerLed10) + ':0' 
+                                    elif (int(workingFields[1]) >= 30 and int(workingFields[1]) < 40):
+                                        workingFields[1] = '1,' + \
+                                        str(SpoilerLed1) + ':1,' + \
+                                        str(SpoilerLed2) + ':1,' + \
+                                        str(SpoilerLed3) + ':1,' + \
+                                        str(SpoilerLed4) + ':1,' + \
+                                        str(SpoilerLed5) + ':0,' + \
+                                        str(SpoilerLed6) + ':0,' + \
+                                        str(SpoilerLed7) + ':0,' + \
+                                        str(SpoilerLed8) + ':0,' + \
+                                        str(SpoilerLed9) + ':0,' + \
+                                        str(SpoilerLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 40 and int(workingFields[1]) < 50):
+                                        workingFields[1] = '1,' + \
+                                        str(SpoilerLed1) + ':1,' + \
+                                        str(SpoilerLed2) + ':1,' + \
+                                        str(SpoilerLed3) + ':1,' + \
+                                        str(SpoilerLed4) + ':1,' + \
+                                        str(SpoilerLed5) + ':1,' + \
+                                        str(SpoilerLed6) + ':0,' + \
+                                        str(SpoilerLed7) + ':0,' + \
+                                        str(SpoilerLed8) + ':0,' + \
+                                        str(SpoilerLed9) + ':0,' + \
+                                        str(SpoilerLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 50 and int(workingFields[1]) < 60):
+                                        workingFields[1] = '1,' + \
+                                        str(SpoilerLed1) + ':1,' + \
+                                        str(SpoilerLed2) + ':1,' + \
+                                        str(SpoilerLed3) + ':1,' + \
+                                        str(SpoilerLed4) + ':1,' + \
+                                        str(SpoilerLed5) + ':1,' + \
+                                        str(SpoilerLed6) + ':1,' + \
+                                        str(SpoilerLed7) + ':0,' + \
+                                        str(SpoilerLed8) + ':0,' + \
+                                        str(SpoilerLed9) + ':0,' + \
+                                        str(SpoilerLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 60 and int(workingFields[1]) < 70):
+                                        workingFields[1] = '1,' + \
+                                        str(SpoilerLed1) + ':1,' + \
+                                        str(SpoilerLed2) + ':1,' + \
+                                        str(SpoilerLed3) + ':1,' + \
+                                        str(SpoilerLed4) + ':1,' + \
+                                        str(SpoilerLed5) + ':1,' + \
+                                        str(SpoilerLed6) + ':1,' + \
+                                        str(SpoilerLed7) + ':1,' + \
+                                        str(SpoilerLed8) + ':0,' + \
+                                        str(SpoilerLed9) + ':0,' + \
+                                        str(SpoilerLed10) + ':0' 
+                                    elif (int(workingFields[1]) >= 70 and int(workingFields[1]) < 80):
+                                        workingFields[1] = '1, ' + \
+                                        str(SpoilerLed1) + ':1,' + \
+                                        str(SpoilerLed2) + ':1,' + \
+                                        str(SpoilerLed3) + ':1,' + \
+                                        str(SpoilerLed4) + ':1,' + \
+                                        str(SpoilerLed5) + ':1,' + \
+                                        str(SpoilerLed6) + ':1,' + \
+                                        str(SpoilerLed7) + ':1,' + \
+                                        str(SpoilerLed8) + ':1,' + \
+                                        str(SpoilerLed9) + ':0,' + \
+                                        str(SpoilerLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 80 and int(workingFields[1]) < 90):
+                                        workingFields[1] = '1,' + \
+                                        str(SpoilerLed1) + ':1,' + \
+                                        str(SpoilerLed2) + ':1,' + \
+                                        str(SpoilerLed3) + ':1,' + \
+                                        str(SpoilerLed4) + ':1,' + \
+                                        str(SpoilerLed5) + ':1,' + \
+                                        str(SpoilerLed6) + ':1,' + \
+                                        str(SpoilerLed7) + ':1,' + \
+                                        str(SpoilerLed8) + ':1,' + \
+                                        str(SpoilerLed9) + ':1,' + \
+                                        str(SpoilerLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 90):
+                                        workingFields[1] = '1, ' + \
+                                        str(SpoilerLed1) + ':1,' + \
+                                        str(SpoilerLed2) + ':1,' + \
+                                        str(SpoilerLed3) + ':1,' + \
+                                        str(SpoilerLed4) + ':1,' + \
+                                        str(SpoilerLed5) + ':1,' + \
+                                        str(SpoilerLed6) + ':1,' + \
+                                        str(SpoilerLed7) + ':1,' + \
+                                        str(SpoilerLed8) + ':1,' + \
+                                        str(SpoilerLed9) + ':1,' + \
+                                        str(SpoilerLed10) + ':1'
+                                    else:
+                                        workingFields[1] = '0,' + \
+                                        str(SpoilerLed1) + ':0,' + \
+                                        str(SpoilerLed2) + ':0,' + \
+                                        str(SpoilerLed3) + ':0,' + \
+                                        str(SpoilerLed4) + ':0,' + \
+                                        str(SpoilerLed5) + ':0,' + \
+                                        str(SpoilerLed6) + ':0,' + \
+                                        str(SpoilerLed7) + ':0,' + \
+                                        str(SpoilerLed8) + ':0,' + \
+                                        str(SpoilerLed9) + ':0,' + \
+                                        str(SpoilerLed10) + ':0'     
                                     
                                     
                                 
