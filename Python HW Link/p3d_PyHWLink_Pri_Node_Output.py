@@ -155,7 +155,7 @@ def ReceivePacket():
 
             # We now have processed the entire packet - time to spool it out to the different targets
 
-            logging.info(' Sending to targets')
+            logging.debug(' Sending to targets')
 
             
             
@@ -181,11 +181,11 @@ def ReceivePacket():
 
                 # 20190615 manually adding prefix - possibly should do this more elegantly, but then everything coming from this should
                 #    be a Data packet
-                target[device]['Outputstring'] = 'D, ' + target[device]['Outputstring']
+                target[device]['Outputstring'] = 'D,' + target[device]['Outputstring']
 
 
                 send_string = target[device]['Outputstring']
-                logging.info('Sending - ' + str(target[device]['IP']) + ' ' + str(target[device]['Outputstring']))
+                logging.debug('Sending - ' + str(target[device]['IP']) + ' ' + str(target[device]['Outputstring']))
 
                 
                 serverSock.sendto(send_string.encode(), (TARGET_IP_ADDRESS, TARGET_PORT_NO))
@@ -357,7 +357,7 @@ def FindTarget(targetIP, stringToAdd):
             # Already have a record for the target - just append action to 'Outputstring' field
             
             logging.debug('Appending target record :' + targetIP)          
-            target[targetIP]['Outputstring'] = target[targetIP]['Outputstring'] + ' , ' + stringToAdd
+            target[targetIP]['Outputstring'] = target[targetIP]['Outputstring'] + ',' + stringToAdd
             logging.debug('Added target record :' + targetIP) 
 
 
@@ -475,14 +475,168 @@ def ProcessReceivedString(ReceivedUDPString):
                                       str (output_assignments[workingkey]['Field']))
 
 
-##
-##                                if (workingkey == "TRAILING_EDGE_FLAPS_LEFT_ANGLE"):
-##                                    print( "******************special treatment ******************")
-##                                    print('workingFields1 is: ' + str(workingFields[1]))
-##                                    if (int(workingFields[1]) > 0):
-##                                        workingFields[1] = '1'
-##                                    else:
-##                                        workingFields[1] = '0'
+
+                                if (workingkey == "TRAILING_EDGE_FLAPS_LEFT_ANGLE"):
+                                    print( "******************special treatment ******************")
+                                    print('workingFields1 is: ' + str(workingFields[1]))
+
+                                    # Allocating Leds
+                                    FlapLed1 = 20
+                                    FlapLed2 = 21
+                                    FlapLed3 = 22
+                                    FlapLed4 = 23
+                                    FlapLed5 = 24
+                                    FlapLed6 = 25
+                                    FlapLed7 = 26
+                                    FlapLed8 = 27
+                                    FlapLed9 = 28
+                                    FlapLed10 = 29
+
+                                    FlapLed1 =40
+                                    FlapLed2 = 41
+                                    FlapLed3 = 42
+                                    FlapLed4 = 43
+                                    FlapLed5 = 44
+                                    FlapLed6 = 45
+                                    FlapLed7 = 46
+                                    FlapLed8 = 47
+                                    FlapLed9 = 48
+                                    FlapLed10 = 49                                  
+                                    
+                                    if (int(workingFields[1]) > 0 and int(workingFields[1]) < 10):
+                                        workingFields[1] = '1,' + \
+                                        str(FlapLed1) + ':1,' + \
+                                        str(FlapLed2) + ':0,' + \
+                                        str(FlapLed3) + ':0,' + \
+                                        str(FlapLed4) + ':0,' + \
+                                        str(FlapLed5) + ':0,' + \
+                                        str(FlapLed6) + ':0,' + \
+                                        str(FlapLed7) + ':0,' + \
+                                        str(FlapLed8) + ':0,' + \
+                                        str(FlapLed9) + ':0,' + \
+                                        str(FlapLed10) + ':0' 
+
+                                    elif (int(workingFields[1]) >= 10 and int(workingFields[1]) < 20):
+                                        workingFields[1] = '1,' + \
+                                        str(FlapLed1) + ':1,' + \
+                                        str(FlapLed2) + ':1,' + \
+                                        str(FlapLed3) + ':0,' + \
+                                        str(FlapLed4) + ':0,' + \
+                                        str(FlapLed5) + ':0,' + \
+                                        str(FlapLed6) + ':0,' + \
+                                        str(FlapLed7) + ':0,' + \
+                                        str(FlapLed8) + ':0,' + \
+                                        str(FlapLed9) + ':0,' + \
+                                        str(FlapLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 20 and int(workingFields[1]) < 30):
+                                        workingFields[1] = '1,' + \
+                                        str(FlapLed1) + ':1,' + \
+                                        str(FlapLed2) + ':1,' + \
+                                        str(FlapLed3) + ':1,' + \
+                                        str(FlapLed4) + ':0,' + \
+                                        str(FlapLed5) + ':0,' + \
+                                        str(FlapLed6) + ':0,' + \
+                                        str(FlapLed7) + ':0,' + \
+                                        str(FlapLed8) + ':0,' + \
+                                        str(FlapLed9) + ':0,' + \
+                                        str(FlapLed10) + ':0,' 
+                                    elif (int(workingFields[1]) >= 30 and int(workingFields[1]) < 40):
+                                        workingFields[1] = '1,' + \
+                                        str(FlapLed1) + ':1,' + \
+                                        str(FlapLed2) + ':1,' + \
+                                        str(FlapLed3) + ':1,' + \
+                                        str(FlapLed4) + ':1,' + \
+                                        str(FlapLed5) + ':0,' + \
+                                        str(FlapLed6) + ':0,' + \
+                                        str(FlapLed7) + ':0,' + \
+                                        str(FlapLed8) + ':0,' + \
+                                        str(FlapLed9) + ':0,' + \
+                                        str(FlapLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 40 and int(workingFields[1]) < 50):
+                                        workingFields[1] = '1,' + \
+                                        str(FlapLed1) + ':1,' + \
+                                        str(FlapLed2) + ':1,' + \
+                                        str(FlapLed3) + ':1,' + \
+                                        str(FlapLed4) + ':1,' + \
+                                        str(FlapLed5) + ':1,' + \
+                                        str(FlapLed6) + ':0,' + \
+                                        str(FlapLed7) + ':0,' + \
+                                        str(FlapLed8) + ':0,' + \
+                                        str(FlapLed9) + ':0,' + \
+                                        str(FlapLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 50 and int(workingFields[1]) < 60):
+                                        workingFields[1] = '1,' + \
+                                        str(FlapLed1) + ':1,' + \
+                                        str(FlapLed2) + ':1,' + \
+                                        str(FlapLed3) + ':1,' + \
+                                        str(FlapLed4) + ':1,' + \
+                                        str(FlapLed5) + ':1,' + \
+                                        str(FlapLed6) + ':1,' + \
+                                        str(FlapLed7) + ':0,' + \
+                                        str(FlapLed8) + ':0,' + \
+                                        str(FlapLed9) + ':0,' + \
+                                        str(FlapLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 60 and int(workingFields[1]) < 70):
+                                        workingFields[1] = '1,' + \
+                                        str(FlapLed1) + ':1,' + \
+                                        str(FlapLed2) + ':1,' + \
+                                        str(FlapLed3) + ':1,' + \
+                                        str(FlapLed4) + ':1,' + \
+                                        str(FlapLed5) + ':1,' + \
+                                        str(FlapLed6) + ':1,' + \
+                                        str(FlapLed7) + ':1,' + \
+                                        str(FlapLed8) + ':0,' + \
+                                        str(FlapLed9) + ':0,' + \
+                                        str(FlapLed10) + ':0' 
+                                    elif (int(workingFields[1]) >= 70 and int(workingFields[1]) < 80):
+                                        workingFields[1] = '1, ' + \
+                                        str(FlapLed1) + ':1,' + \
+                                        str(FlapLed2) + ':1,' + \
+                                        str(FlapLed3) + ':1,' + \
+                                        str(FlapLed4) + ':1,' + \
+                                        str(FlapLed5) + ':1,' + \
+                                        str(FlapLed6) + ':1,' + \
+                                        str(FlapLed7) + ':1,' + \
+                                        str(FlapLed8) + ':1,' + \
+                                        str(FlapLed9) + ':0,' + \
+                                        str(FlapLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 80 and int(workingFields[1]) < 90):
+                                        workingFields[1] = '1,' + \
+                                        str(FlapLed1) + ':1,' + \
+                                        str(FlapLed2) + ':1,' + \
+                                        str(FlapLed3) + ':1,' + \
+                                        str(FlapLed4) + ':1,' + \
+                                        str(FlapLed5) + ':1,' + \
+                                        str(FlapLed6) + ':1,' + \
+                                        str(FlapLed7) + ':1,' + \
+                                        str(FlapLed8) + ':1,' + \
+                                        str(FlapLed9) + ':1,' + \
+                                        str(FlapLed10) + ':0'
+                                    elif (int(workingFields[1]) >= 90):
+                                        workingFields[1] = '1, ' + \
+                                        str(FlapLed1) + ':1,' + \
+                                        str(FlapLed2) + ':1,' + \
+                                        str(FlapLed3) + ':1,' + \
+                                        str(FlapLed4) + ':1,' + \
+                                        str(FlapLed5) + ':1,' + \
+                                        str(FlapLed6) + ':1,' + \
+                                        str(FlapLed7) + ':1,' + \
+                                        str(FlapLed8) + ':1,' + \
+                                        str(FlapLed9) + ':1,' + \
+                                        str(FlapLed10) + ':1'
+                                    else:
+                                        workingFields[1] = '0,' + \
+                                        str(FlapLed1) + ':0,' + \
+                                        str(FlapLed2) + ':0,' + \
+                                        str(FlapLed3) + ':0,' + \
+                                        str(FlapLed4) + ':0,' + \
+                                        str(FlapLed5) + ':0,' + \
+                                        str(FlapLed6) + ':0,' + \
+                                        str(FlapLed7) + ':0,' + \
+                                        str(FlapLed8) + ':0,' + \
+                                        str(FlapLed9) + ':0,' + \
+                                        str(FlapLed10) + ':0'                                       
+                                    
                                     
                                     
                                 
@@ -575,7 +729,8 @@ def CheckifAssignmentFileExists():
                     dictInner['IP'] = None
                     dictInner['Description'] = None
                     dictInner['Field'] = None
-                    dictInner['Datatype'] = None
+                    dictInner['Datatype'] = 'str'
+                    dictInnter['ManuallyCalcValue'] = 'False'
 
                     dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner
                     counter = counter + 1
@@ -612,6 +767,8 @@ def main():
         logging.critical("Unexpected error while reading file: '" + output_assignments_file + "'" + str(other))                             
         serverSock.close()
         sys.exit(0)
+
+
     
     ### Check Configuration file for basic health
     ### If not in shape correct records in memory and export a copy
@@ -657,7 +814,7 @@ def main():
 
     logging.debug("Completed checking output assignments file ")
 
-### Play area end
+    ### End Check Configuration file for basic health
 
         
     try:
