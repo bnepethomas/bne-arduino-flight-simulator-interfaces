@@ -477,8 +477,8 @@ def ProcessReceivedString(ReceivedUDPString):
 
 
                                 if (workingkey == "TRAILING_EDGE_FLAPS_LEFT_ANGLE"):
-                                    print( "******************flaps treatment ******************")
-                                    print('flaps is: ' + str(workingFields[1]))
+                                    # print( "******************flaps treatment ******************")
+                                    # print('flaps is: ' + str(workingFields[1]))
 
                                     # Allocating Leds
                                     FlapLed1 = 24
@@ -630,20 +630,20 @@ def ProcessReceivedString(ReceivedUDPString):
                                         
 
                                 elif (workingkey == "SPOILERS_LEFT_POSITION"):
-                                    print( "******************spoiler treatment ******************")
-                                    print('spoiler position is: ' + str(workingFields[1]))
+                                    # print( "******************spoiler treatment ******************")
+                                    # print('spoiler position is: ' + str(workingFields[1]))
 
                                     # Allocating Leds
-                                    SpoilerLed1 = 24
-                                    SpoilerLed2 = 25
-                                    SpoilerLed3 = 26
-                                    SpoilerLed4 = 27
-                                    SpoilerLed5 = 28
-                                    SpoilerLed6 = 29
-                                    SpoilerLed7 = 30
-                                    SpoilerLed8 = 31
-                                    SpoilerLed9 = 32
-                                    SpoilerLed10 = 32
+                                    SpoilerLed1 = 40
+                                    SpoilerLed2 = 41
+                                    SpoilerLed3 = 42
+                                    SpoilerLed4 = 43
+                                    SpoilerLed5 = 44
+                                    SpoilerLed6 = 45
+                                    SpoilerLed7 = 46
+                                    SpoilerLed8 = 47
+                                    SpoilerLed9 = 48
+                                    SpoilerLed10 = 49
                                
                                     
                                     if (int(workingFields[1]) > 0 and int(workingFields[1]) < 10):
