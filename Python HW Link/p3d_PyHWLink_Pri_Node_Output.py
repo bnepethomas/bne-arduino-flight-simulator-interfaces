@@ -492,16 +492,16 @@ def ProcessReceivedString(ReceivedUDPString):
                                     FlapLed9 = 28
                                     FlapLed10 = 29
 
-                                    FlapLed1 =40
-                                    FlapLed2 = 41
-                                    FlapLed3 = 42
-                                    FlapLed4 = 43
-                                    FlapLed5 = 44
-                                    FlapLed6 = 45
-                                    FlapLed7 = 46
-                                    FlapLed8 = 47
-                                    FlapLed9 = 48
-                                    FlapLed10 = 49                                  
+                                    FlapLed1 = 10
+                                    FlapLed2 = 10
+                                    FlapLed3 = 10
+                                    FlapLed4 =10
+                                    FlapLed5 = 10
+                                    FlapLed6 = 10
+                                    FlapLed7 = 10
+                                    FlapLed8 = 10
+                                    FlapLed9 = 10
+                                    FlapLed10 = 10                                  
                                     
                                     if (int(workingFields[1]) > 0 and int(workingFields[1]) < 10):
                                         workingFields[1] = '1,' + \
@@ -539,7 +539,7 @@ def ProcessReceivedString(ReceivedUDPString):
                                         str(FlapLed7) + ':0,' + \
                                         str(FlapLed8) + ':0,' + \
                                         str(FlapLed9) + ':0,' + \
-                                        str(FlapLed10) + ':0,' 
+                                        str(FlapLed10) + ':0' 
                                     elif (int(workingFields[1]) >= 30 and int(workingFields[1]) < 40):
                                         workingFields[1] = '1,' + \
                                         str(FlapLed1) + ':1,' + \
