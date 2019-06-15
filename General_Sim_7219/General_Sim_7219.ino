@@ -30,8 +30,9 @@ IPAddress ip(172,16,1,21);
 const unsigned int localport = 13135;
 
 EthernetUDP Udp;
-char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming data
-
+// https://stackoverflow.com/questions/54232090/unintentional-strange-characters-added-to-packets-during-udp-communication-in-ar
+//char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming data
+char packetBuffer[1500]; //buffer to store the incoming data
 
 const unsigned int listenport = 13135;
 EthernetUDP rxUdp;
@@ -72,14 +73,14 @@ void setup() {
 
 
     //
-   //Serial.begin(115200); 
-    //Serial.println(filename);
+   Serial.begin(115200); 
+   Serial.println(filename);
     
   
 
 
     // Sending Infrastructure
-    //Serial.println("Starting Network");
+    Serial.println("Starting Network " + String(millis()));
     Ethernet.begin( mac, ip);
 
   
@@ -267,7 +268,7 @@ void OriginalProcessReceivedString()
 
     //  !!!!!!   DO NOT MODIFY THIS ROUTINE!!!!!
 
-    bool bLocalDebug = true;
+    bool bLocalDebug = false;
 
     if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
    
@@ -361,9 +362,10 @@ void ProcessReceivedString()
 
     bool bLocalDebug = true;
 
-    if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
+    if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet :" + String(millis()));
    
-
+    bLocalDebug = false;
+    
     String sWrkStr = "";
 
     // const char *delim  = "="; 
@@ -372,6 +374,8 @@ void ProcessReceivedString()
     // Break the received packet into a series of tokens
     // If there is no match the pointer will be null, other points to first parameter
     ParameterNamePtr = strtok(packetBuffer,delim);
+
+
     
     String ParameterNameString(ParameterNamePtr); 
     if (Debug_Display || bLocalDebug ) Serial.println("Parameter Name " + String(ParameterNameString));
@@ -382,7 +386,10 @@ void ProcessReceivedString()
 
     /* walk through other tokens */
 
-    if (ParameterNamePtr != NULL) Serial.println("First Value is: " + String(ParameterNamePtr));
+    String wrkstring = "";
+
+    if (Debug_Display || bLocalDebug ) 
+      if (ParameterNamePtr != NULL) Serial.println("First Value is: " + String(ParameterNamePtr));
     if (ParameterNameString[0] == 'D')
     {
       //Handling a Data Packet
@@ -392,7 +399,10 @@ void ProcessReceivedString()
       while( ParameterNamePtr != NULL ) {
         if (Debug_Display || bLocalDebug ) Serial.println( "Processing " + String(ParameterNamePtr) );
         
-        HandleOutputValuePair(String(ParameterNamePtr));
+        wrkstring = String(ParameterNamePtr);
+        HandleOutputValuePair(wrkstring);
+
+ 
       
         ParameterNamePtr = strtok(NULL, delim);
       }  
@@ -410,7 +420,8 @@ void ProcessReceivedString()
       while( ParameterNamePtr != NULL ) {
         if (Debug_Display || bLocalDebug )Serial.println( "Processing " + String(ParameterNamePtr) );
         
-        HandleControlString(String(ParameterNamePtr));
+        wrkstring = String(ParameterNamePtr);
+        HandleControlString(wrkstring);
       
         ParameterNamePtr = strtok(NULL, delim);
       }  
@@ -563,7 +574,7 @@ boolean isValidNumber(String str)
 }
 
 void loop() {
-  boolean bLocalDebug = false;
+  boolean bLocalDebug = true;
   // Check to see if anything has landed in UDP buffer
 
 
@@ -580,6 +591,7 @@ void loop() {
   
   if( packetSize > 0)
   {
+      
       if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
       rxUdp.read( packetBuffer, packetSize);
       //terminate the buffer manually
