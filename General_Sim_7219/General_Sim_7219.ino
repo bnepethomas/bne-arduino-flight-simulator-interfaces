@@ -24,6 +24,9 @@ unsigned long sdelaytime=1000;
 #include <Ethernet.h>
 #include <EthernetUdp.h>
 
+#include <Servo.h>
+
+
 byte mac[] = { 
   0x00,0xC7,0x3E,0xCA,0x35,0x03};
 IPAddress ip(172,16,1,21);
@@ -34,13 +37,13 @@ EthernetUDP Udp;
 
 // Do not use UDP_TX_PACKET_MAX_SIZE for character buffer as it is only small
 // https://stackoverflow.com/questions/54232090/unintentional-strange-characters-added-to-packets-during-udp-communication-in-ar
-//char packetBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming data
+
 char packetBuffer[1500]; //buffer to store the incoming data
 
 
 const unsigned int listenport = 13135;
 EthernetUDP rxUdp;
-char receivePacketBuffer[UDP_TX_PACKET_MAX_SIZE]; //buffer to store the incoming data
+char receivePacketBuffer[1500]; //buffer to store the incoming data
 char *ParameterNamePtr;
 char *ParameterValuePtr;
 
@@ -59,6 +62,30 @@ int loopcounter = 0;
 // Keepalive reporting
 long lKeepAlive = 0;
 long ltime = 0;
+long llastServoMillis = 0;
+int  iServoDirection = 1;
+int  iServoPos = 0;
+
+Servo myservo_1;
+Servo myservo_2;
+Servo myservo_3;
+Servo myservo_4;
+Servo myservo_5;
+Servo myservo_6;
+Servo myservo_7;
+Servo myservo_8;
+Servo myservo_9;
+Servo myservo_10;
+Servo myservo_11;
+Servo myservo_12;
+Servo myservo_13;
+Servo myservo_14;
+Servo myservo_15;
+Servo myservo_16;
+Servo myservo_17;
+Servo myservo_18;
+
+
 
 String s_sendstringwrkstr = "";
 
@@ -106,7 +133,30 @@ void setup() {
 
 
     lKeepAlive = 0;
-  
+
+    // Initialise pins 40 to 52 as output port
+    for (int portNo = 40; portNo <= 48; portNo += 1) { 
+      pinMode(portNo, OUTPUT);
+    }
+    
+    myservo_1.attach(22);
+    myservo_2.attach(23);
+    myservo_3.attach(24);
+    myservo_4.attach(25);
+    myservo_5.attach(26);
+    myservo_6.attach(27);
+    myservo_7.attach(28);
+    myservo_8.attach(29);
+    myservo_9.attach(30);
+    myservo_10.attach(31);
+    myservo_11.attach(32);
+    myservo_12.attach(33);
+    myservo_13.attach(34);
+    myservo_14.attach(35);
+    myservo_15.attach(36);
+    myservo_16.attach(37);
+    myservo_17.attach(38);
+    myservo_18.attach(39);
 }
 
 
@@ -603,5 +653,53 @@ void loop() {
   
       ProcessReceivedString();  
   }
+
+
+
+  // Update Servo Position
+  if (millis() - llastServoMillis >= 50) {
+
+    llastServoMillis = millis();
+    if (iServoPos >= 180) {
+      iServoDirection = -1;
+      for (int portNo = 40; portNo <= 48; portNo += 1) { 
+         digitalWrite(portNo, HIGH);
+      }  
+    }   
+
+
+    else if (iServoPos < 0)
+    {
+      iServoDirection = 1;
+      for (int portNo = 40; portNo <= 48; portNo += 1) { 
+         digitalWrite(portNo, LOW);
+      }  
+    }
+    Serial.println("Servo Pos :" + String(iServoPos));
+    iServoPos = iServoPos + iServoDirection;
+    
+      
+    myservo_1.write(iServoPos);
+    myservo_2.write(iServoPos);
+    myservo_3.write(iServoPos);
+    myservo_4.write(iServoPos);
+    myservo_5.write(iServoPos);
+    myservo_6.write(iServoPos);
+    myservo_7.write(iServoPos);
+    myservo_8.write(iServoPos);
+    myservo_9.write(iServoPos);
+    myservo_10.write(iServoPos);
+    myservo_11.write(iServoPos);
+    myservo_12.write(iServoPos);
+    myservo_13.write(iServoPos);
+    myservo_14.write(iServoPos);
+    myservo_15.write(iServoPos);
+    myservo_16.write(iServoPos);
+    myservo_17.write(iServoPos);
+    myservo_18.write(iServoPos);
+
+  }
+  // End Update Servo Position
+  
 
 }
