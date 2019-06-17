@@ -65,6 +65,14 @@ long ltime = 0;
 long llastServoMillis = 0;
 int  iServoDirection = 1;
 int  iServoPos = 0;
+const int NoOfServos = 18;
+const int ServoMinValue = 0;
+const int ServoMaxValue = 180;
+// Allow for zero start;
+int  iServoDesiredPos[NoOfServos + 1];
+int  iServoCurrentPos[NoOfServos + 1];
+
+
 
 Servo myservo_1;
 Servo myservo_2;
@@ -91,6 +99,9 @@ String s_sendstringwrkstr = "";
 
 void setup() {
 
+
+   Serial.begin(115200); 
+   Serial.println(filename);
     /*
      The MAX72XX is in power-saving mode on startup,
       we have to do a wakeup call
@@ -103,11 +114,12 @@ void setup() {
     lc_2.clearDisplay(0);
 
 
-    //
-   Serial.begin(115200); 
-   Serial.println(filename);
-    
-  
+    // Zero Servo related Data
+
+    for (int iServoPtr = 1; iServoPtr <= 18; iServoPtr += 1) {
+      iServoDesiredPos[iServoPtr] = 0;
+      iServoCurrentPos[iServoPtr] = 0;
+    }  
 
 
     // Sending Infrastructure
@@ -657,7 +669,7 @@ void loop() {
 
 
   // Update Servo Position
-  if (millis() - llastServoMillis >= 5) {
+  if (millis() - llastServoMillis >= 10) {
 
 
     // Set Digital Ports
@@ -681,26 +693,50 @@ void loop() {
     }
     Serial.println("Servo Pos :" + String(iServoPos));
     iServoPos = iServoPos + iServoDirection;
+
+    for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr += 1) {
+      iServoDesiredPos[iServoPtr] = iServoPos;
+    }
+
+   
+   // Check Desired Pos is within limits of 0 to 180
+   
+   
+   // Move needles 1 step per cycle to target   
+   for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr += 1) {
     
+      // Check Desired Pos is within limits of 0 to 180
+      if (iServoDesiredPos[iServoPtr] > ServoMaxValue)
+        iServoDesiredPos[iServoPtr] = ServoMaxValue;
+      else if (iServoDesiredPos[iServoPtr] < ServoMinValue)
+        iServoDesiredPos[iServoPtr] = ServoMinValue;
+
+      if (iServoDesiredPos[iServoPtr] >= iServoCurrentPos[iServoPtr])
+        iServoCurrentPos[iServoPtr] = iServoCurrentPos[iServoPtr] + 1;
+      else if (iServoDesiredPos[iServoPtr] <= iServoCurrentPos[1])
+        iServoCurrentPos[iServoPtr] = iServoCurrentPos[iServoPtr] - 1;   
+
+    }
+
       
-    myservo_1.write(iServoPos);
-    myservo_2.write(iServoPos);
-    myservo_3.write(iServoPos);
-    myservo_4.write(iServoPos);
-    myservo_5.write(iServoPos);
-    myservo_6.write(iServoPos);
-    myservo_7.write(iServoPos);
-    myservo_8.write(iServoPos);
-    myservo_9.write(iServoPos);
-    myservo_10.write(iServoPos);
-    myservo_11.write(iServoPos);
-    myservo_12.write(iServoPos);
-    myservo_13.write(iServoPos);
-    myservo_14.write(iServoPos);
-    myservo_15.write(iServoPos);
-    myservo_16.write(iServoPos);
-    myservo_17.write(iServoPos);
-    myservo_18.write(iServoPos);
+    myservo_1.write(iServoCurrentPos[1]);
+    myservo_2.write(iServoCurrentPos[2]);
+    myservo_3.write(iServoCurrentPos[3]);
+    myservo_4.write(iServoCurrentPos[4]);
+    myservo_5.write(iServoCurrentPos[5]);
+    myservo_6.write(iServoCurrentPos[6]);
+    myservo_7.write(iServoCurrentPos[7]);
+    myservo_8.write(iServoCurrentPos[8]);
+    myservo_9.write(iServoCurrentPos[9]);
+    myservo_10.write(iServoCurrentPos[1]);
+    myservo_11.write(iServoCurrentPos[11]);
+    myservo_12.write(iServoCurrentPos[12]);
+    myservo_13.write(iServoCurrentPos[13]);
+    myservo_14.write(iServoCurrentPos[14]);
+    myservo_15.write(iServoCurrentPos[15]);
+    myservo_16.write(iServoCurrentPos[16]);
+    myservo_17.write(iServoCurrentPos[17]);
+    myservo_18.write(iServoCurrentPos[18]);
 
   }
 
