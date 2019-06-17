@@ -139,13 +139,13 @@ void setup() {
     //Receiving Infrastructure
 
     rxUdp.begin( listenport );
-    //Serial.println("Network Initialised");
+    Serial.println("Network Initialised");
 
-    //Serial.println("Start LED Display");
+    Serial.println("Start LED Display");
     AllOn();
     delay(sdelaytime);
     AllOff();
-    //Serial.println("Display Initialised");
+    Serial.println("Display Initialised");
 
 
 
@@ -590,8 +590,10 @@ void loop() {
   
   if( packetSize > 0)
   {
-      
-      if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
+
+      bLocalDebug = true;
+      Serial.println("Processing Packet");
+      bLocalDebug = false;
       rxUdp.read( packetBuffer, packetSize);
       //terminate the buffer manually
       packetBuffer[packetSize] = '\0';
@@ -604,8 +606,9 @@ void loop() {
   
 
   // Update Servo and outputs Position
-  if (millis() - llastServoMillis >= 10) {
+  if (millis() - llastServoMillis >= 1000) {
 
+    Serial.println("Updating Outputs");
     llastServoMillis = millis();
     
     // Set Digital Ports
@@ -627,7 +630,7 @@ void loop() {
     {
       iServoDirection = 1; 
     }
-    Serial.println("Servo Pos :" + String(iServoPos));
+    // Serial.println("Servo Pos :" + String(iServoPos));
     iServoPos = iServoPos + iServoDirection;
 
     for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr += 1) {
