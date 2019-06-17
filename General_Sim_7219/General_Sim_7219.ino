@@ -72,7 +72,9 @@ const int ServoMaxValue = 180;
 int  iServoDesiredPos[NoOfServos + 1];
 int  iServoCurrentPos[NoOfServos + 1];
 
-
+const int NoOfOutputs = 8;
+const int BaseOutputPort = 40;
+int  iDesiredOutput[NoOfOutputs + 1];
 
 Servo myservo_1;
 Servo myservo_2;
@@ -116,10 +118,17 @@ void setup() {
 
     // Zero Servo related Data
 
-    for (int iServoPtr = 1; iServoPtr <= 18; iServoPtr += 1) {
+    for (int iServoPtr = 1; iServoPtr <= NoOfServos; iServoPtr += 1) {
       iServoDesiredPos[iServoPtr] = 0;
       iServoCurrentPos[iServoPtr] = 0;
     }  
+
+    // Zero Outputs
+   for (int iOutputPtr = 1; iOutputPtr <= NoOfOutputs; iOutputPtr += 1) {
+      iDesiredOutput[iOutputPtr] = 0;
+
+    }  
+
 
 
     // Sending Infrastructure
@@ -325,94 +334,7 @@ void PrintMapping (int ledPos)
 
 
 
-void OriginalProcessReceivedString()
-{
 
-    // Reading values from packetBuffer which is global
-    // All received values are strings for readability
-    //  handleS a single attribute/value pair at a time eg I01=1
-
-    //  !!!!!!   DO NOT MODIFY THIS ROUTINE!!!!!
-
-    bool bLocalDebug = false;
-
-    if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
-   
-
-    String sWrkStr = "";
-
-    const char *delim  = "="; 
-    
-    ParameterNamePtr = strtok(packetBuffer,delim);
-    String ParameterNameString(ParameterNamePtr); 
-    if (Debug_Display || bLocalDebug ) Serial.println("Parameter Name " + String(ParameterNameString));
-       
-    ParameterValuePtr   = strtok(NULL,delim);
-    String ParameterValue(ParameterValuePtr);
-    if (Debug_Display || bLocalDebug ) Serial.println("Parameter Value " + String(ParameterValuePtr));
-
-    // Handle the following attribute types
-    
-    
-    // Ixx - General indicator - a 0 or 1 
-    if (ParameterNameString[0] == 'I')
-    {
-      // We have a Indicator, the indicator number is always two digits
-      // So grab the 2nd and 3rd characters and convert them
-      sWrkStr = String(ParameterNameString[1]) + String(ParameterNameString[2]);
-
-      //Work from here need to cleanup string hand;
-
-      // Check to see if parameter is between 0 and 64 if valid proceed
-      if (isValidNumber(sWrkStr))
-      {
-        if (Debug_Display || bLocalDebug ) Serial.println(sWrkStr + " is a valid number");
-        
-        if (Debug_Display || bLocalDebug ) Serial.println("Buffer Length " + String(sWrkStr.length()));
-        
-        char buf[sWrkStr.length()+1];
-        sWrkStr.toCharArray(buf,sWrkStr.length()+1);
-
-        int iledToChange= atoi(buf); 
-        if (Debug_Display || bLocalDebug ) Serial.println("Converted number is " + String(iledToChange));
-
-        if (Debug_Display || bLocalDebug ) Serial.println("Converting to Row Column");
-
-        int iledRow = 0;
-        int iledColumn = 0;
-
-        iledRow = iledToChange / 8;
-        iledColumn = iledToChange % 8;
-
-        if (Debug_Display || bLocalDebug ) Serial.println("Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-
-
-        if (String(ParameterValuePtr)=="0")
-        {
-          if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-          lc_2.setLed(0,iledRow,iledColumn,false);
-          
-        }
-        else
-        {
-          if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-          lc_2.setLed(0,iledRow,iledColumn,true);
-        }
-
-        // Our work is done      
-        return;
-        
-      }
-      else
-      {
-        if (Debug_Display || bLocalDebug ) Serial.println(sWrkStr + " is not a valid number");
-        return;
-
-      } 
-          
-    }   
-  
-}
 
 
 void ProcessReceivedString()
@@ -468,8 +390,7 @@ void ProcessReceivedString()
         wrkstring = String(ParameterNamePtr);
         HandleOutputValuePair(wrkstring);
 
- 
-      
+   
         ParameterNamePtr = strtok(NULL, delim);
       }  
           
@@ -538,32 +459,44 @@ void HandleOutputValuePair( String str)
     int lledvalue = ledvalue.toInt(); 
 
 
-    
-    int iledRow = 0;
-    int iledColumn = 0;
-
-    iledRow = llednumber / 8;
-    iledColumn = llednumber % 8;
-
-    if (Debug_Display || bLocalDebug ) Serial.println("Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-
-
-    if (lledvalue==0)
+    if (llednumber >= 0 && llednumber <= 128) {
+      int iledRow = 0;
+      int iledColumn = 0;
+  
+      iledRow = llednumber / 8;
+      iledColumn = llednumber % 8;
+  
+      if (Debug_Display || bLocalDebug ) Serial.println("Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+  
+  
+      if (lledvalue==0)
+      {
+        if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+        lc_2.setLed(0,iledRow,iledColumn,false);
+        
+      }
+      else
+      {
+        if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+        lc_2.setLed(0,iledRow,iledColumn,true);
+      }
+    }
+    else if (llednumber >= 151 && llednumber <= (151 + NoOfServos  -1)) 
     {
-      if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-      lc_2.setLed(0,iledRow,iledColumn,false);
+      // Handle Servos
+ 
+      iServoDesiredPos[llednumber - 151] = lledvalue;
+
       
     }
-    else
+    // Eight Output Pins for Relays
+    else if (llednumber >= 201 && llednumber <= (201 + NoOfOutputs - 1)) 
     {
-      if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-      lc_2.setLed(0,iledRow,iledColumn,true);
+      // Handle Digital Outputput - Pins 40 to 48
+      iDesiredOutput[llednumber - 201] = lledvalue;
     }
 
-    
-
   }
-  
   return;
   
 }
@@ -640,7 +573,7 @@ boolean isValidNumber(String str)
 }
 
 void loop() {
-  boolean bLocalDebug = true;
+  boolean bLocalDebug = false;
   // Check to see if anything has landed in UDP buffer
 
 
@@ -668,28 +601,31 @@ void loop() {
 
 
 
-  // Update Servo Position
+  
+
+  // Update Servo and outputs Position
   if (millis() - llastServoMillis >= 10) {
 
-
+    llastServoMillis = millis();
+    
     // Set Digital Ports
     // Unable to use ports 49 to 52 when Ethernet Shield is attached.
+    for (int outputportNo = 1; outputportNo <= 8; outputportNo += 1) { 
+      if (iDesiredOutput != 0)
+        digitalWrite(BaseOutputPort + outputportNo , LOW);
+      else
+        digitalWrite(BaseOutputPort + outputportNo , HIGH);
+    }
     
-    llastServoMillis = millis();
+    
+
+    
     if (iServoPos >= 180) {
-      iServoDirection = -1;
-      for (int portNo = 40; portNo <= 48; portNo += 1) { 
-         digitalWrite(portNo, HIGH);
-      }  
+      iServoDirection = -1; 
     }   
-
-
     else if (iServoPos < 0)
     {
-      iServoDirection = 1;
-      for (int portNo = 40; portNo <= 48; portNo += 1) { 
-         digitalWrite(portNo, LOW);
-      }  
+      iServoDirection = 1; 
     }
     Serial.println("Servo Pos :" + String(iServoPos));
     iServoPos = iServoPos + iServoDirection;
@@ -741,7 +677,7 @@ void loop() {
   }
 
   // End update Servo Position
-  // End Update Servo Position
+
   
 
 }
