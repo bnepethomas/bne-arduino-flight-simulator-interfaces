@@ -657,8 +657,12 @@ void loop() {
 
 
   // Update Servo Position
-  if (millis() - llastServoMillis >= 50) {
+  if (millis() - llastServoMillis >= 5) {
 
+
+    // Set Digital Ports
+    // Unable to use ports 49 to 52 when Ethernet Shield is attached.
+    
     llastServoMillis = millis();
     if (iServoPos >= 180) {
       iServoDirection = -1;
@@ -699,6 +703,8 @@ void loop() {
     myservo_18.write(iServoPos);
 
   }
+
+  // End update Servo Position
   // End Update Servo Position
   
 
