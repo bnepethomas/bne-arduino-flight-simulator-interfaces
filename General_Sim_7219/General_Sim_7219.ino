@@ -68,6 +68,7 @@ int  iServoPos = 0;
 const int NoOfServos = 18;
 const int ServoMinValue = 0;
 const int ServoMaxValue = 180;
+const int ServoBasePort = 21;
 // Allow for zero start;
 int  iServoDesiredPos[NoOfServos + 1];
 int  iServoCurrentPos[NoOfServos + 1];
@@ -612,8 +613,13 @@ void loop() {
     Serial.println("Updating Outputs");
     llastServoMillis = millis();
 
-    for (int i= 1; i <= NoOfOutputs; i+=1) {
-      Serial.println("Outout " + String(i) + " " + iDesiredOutput[i]);
+    for (int i= 1; i <= NoOfServos; i++) {
+      Serial.println("Servo " + String(i) + " Port " + String(i + ServoBasePort) + ". Current :" + String(iServoCurrentPos[i])
+        + "- target :" + String(iServoDesiredPos[i]) );
+    }
+
+    for (int i= 1; i <= NoOfOutputs; i++) {
+      Serial.println("Digital Outout " + String(i) + " Port " + String(i + BaseOutputPort) + " :" + iDesiredOutput[i]);
     }
 
     
