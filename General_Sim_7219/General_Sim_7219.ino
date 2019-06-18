@@ -72,8 +72,8 @@ const int ServoMaxValue = 180;
 int  iServoDesiredPos[NoOfServos + 1];
 int  iServoCurrentPos[NoOfServos + 1];
 
-const int NoOfOutputs = 8;
-const int BaseOutputPort = 40;
+const int NoOfOutputs = 9;
+const int BaseOutputPort = 39;
 int  iDesiredOutput[NoOfOutputs + 1];
 
 Servo myservo_1;
@@ -490,10 +490,11 @@ void HandleOutputValuePair( String str)
       
     }
     // Eight Output Pins for Relays
-    else if (llednumber >= 201 && llednumber <= (201 + NoOfOutputs - 1)) 
+    else if (llednumber >= 200 && llednumber <= (200 + NoOfOutputs - 1)) 
     {
       // Handle Digital Outputput - Pins 40 to 48
-      iDesiredOutput[llednumber - 201] = lledvalue;
+      Serial.println("Setting Digital Output. Port Number is :" + String(llednumber) + " Value is " + String(lledvalue));
+      iDesiredOutput[llednumber - 199] = lledvalue;
     }
 
   }
@@ -610,14 +611,21 @@ void loop() {
 
     Serial.println("Updating Outputs");
     llastServoMillis = millis();
+
+    for (int i= 1; i <= NoOfOutputs; i+=1) {
+      Serial.println("Outout " + String(i) + " " + iDesiredOutput[i]);
+    }
+
+    
     
     // Set Digital Ports
     // Unable to use ports 49 to 52 when Ethernet Shield is attached.
-    for (int outputportNo = 1; outputportNo <= 8; outputportNo += 1) { 
-      if (iDesiredOutput != 0)
-        digitalWrite(BaseOutputPort + outputportNo , LOW);
+    // 200 = Pin 40, 201 = 41, 208 = 48
+    for (int outputportNo = 1; outputportNo <= NoOfOutputs; outputportNo += 1) { 
+      if (iDesiredOutput[outputportNo] != 0)
+        digitalWrite((BaseOutputPort + outputportNo) , LOW);
       else
-        digitalWrite(BaseOutputPort + outputportNo , HIGH);
+        digitalWrite((BaseOutputPort + outputportNo) , HIGH);
     }
     
     
