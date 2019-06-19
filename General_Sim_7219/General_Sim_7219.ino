@@ -63,12 +63,16 @@ int loopcounter = 0;
 long lKeepAlive = 0;
 long ltime = 0;
 long llastServoMillis = 0;
+long llastDisplayUpdateMillis = 0;
 int  iServoDirection = 1;
 int  iServoPos = 0;
 const int NoOfServos = 18;
 const int ServoMinValue = 0;
 const int ServoMaxValue = 180;
 const int ServoBasePort = 21;
+
+const int ServoStartUDPPort = 150;
+const int OutputStartUDPPort = 200;
 // Allow for zero start;
 int  iServoDesiredPos[NoOfServos + 1];
 int  iServoCurrentPos[NoOfServos + 1];
@@ -482,20 +486,20 @@ void HandleOutputValuePair( String str)
         lc_2.setLed(0,iledRow,iledColumn,true);
       }
     }
-    else if (llednumber >= 151 && llednumber <= (151 + NoOfServos  -1)) 
+    else if (llednumber >= ServoStartUDPPort && llednumber <= (ServoStartUDPPort + NoOfServos  -1)) 
     {
       // Handle Servos
  
-      iServoDesiredPos[llednumber - 151] = lledvalue;
+      iServoDesiredPos[llednumber - (ServoStartUDPPort -1)] = lledvalue;
 
-      
+   
     }
     // Eight Output Pins for Relays
-    else if (llednumber >= 200 && llednumber <= (200 + NoOfOutputs - 1)) 
+    else if (llednumber >= OutputStartUDPPort && llednumber <= (OutputStartUDPPort + NoOfOutputs - 1)) 
     {
       // Handle Digital Outputput - Pins 40 to 48
       Serial.println("Setting Digital Output. Port Number is :" + String(llednumber) + " Value is " + String(lledvalue));
-      iDesiredOutput[llednumber - 199] = lledvalue;
+      iDesiredOutput[llednumber - (OutputStartUDPPort - 1)] = lledvalue;
     }
 
   }
@@ -605,22 +609,37 @@ void loop() {
 
 
 
-  
-
   // Update Servo and outputs Position
-  if (millis() - llastServoMillis >= 1000) {
+  if (millis() - llastDisplayUpdateMillis >= 3000) {
 
     Serial.println("Updating Outputs");
-    llastServoMillis = millis();
+    llastDisplayUpdateMillis = millis();
 
-    for (int i= 1; i <= NoOfServos; i++) {
-      Serial.println("Servo " + String(i) + " Port " + String(i + ServoBasePort) + ". Current :" + String(iServoCurrentPos[i])
-        + "- target :" + String(iServoDesiredPos[i]) );
-    }
+    
+     for (int i= 1; i <= NoOfServos; i++) {
+      Serial.println("Servo " + String(i) + " Port " + String((i + ServoBasePort)) + ". Current :" + String(iServoCurrentPos[i])
+          + " - target :" + String(iServoDesiredPos[i]) );
+      }
+  
+      for (int i= 1; i <= NoOfOutputs; i++) {
+        Serial.println("Digital Outout " + String(i) + " Port " + String(i + BaseOutputPort) + " :" + iDesiredOutput[i]);
+      }
+  }  
 
-    for (int i= 1; i <= NoOfOutputs; i++) {
-      Serial.println("Digital Outout " + String(i) + " Port " + String(i + BaseOutputPort) + " :" + iDesiredOutput[i]);
-    }
+  // Update Servo and outputs Position
+  if (millis() - llastServoMillis >= 10) {
+
+//    Serial.println("Updating Outputs");
+//    llastServoMillis = millis();
+//
+//    for (int i= 1; i <= NoOfServos; i++) {
+//      Serial.println("Servo " + String(i) + " Port " + String(i + ServoBasePort) + ". Current :" + String(iServoCurrentPos[i])
+//        + "- target :" + String(iServoDesiredPos[i]) );
+//    }
+//
+//    for (int i= 1; i <= NoOfOutputs; i++) {
+//      Serial.println("Digital Outout " + String(i) + " Port " + String(i + BaseOutputPort) + " :" + iDesiredOutput[i]);
+//    }
 
     
     
@@ -637,19 +656,19 @@ void loop() {
     
 
     
-    if (iServoPos >= 180) {
-      iServoDirection = -1; 
-    }   
-    else if (iServoPos < 0)
-    {
-      iServoDirection = 1; 
-    }
-    // Serial.println("Servo Pos :" + String(iServoPos));
-    iServoPos = iServoPos + iServoDirection;
-
-    for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr += 1) {
-      iServoDesiredPos[iServoPtr] = iServoPos;
-    }
+//    if (iServoPos >= 180) {
+//      iServoDirection = -1; 
+//    }   
+//    else if (iServoPos < 0)
+//    {
+//      iServoDirection = 1; 
+//    }
+//    // Serial.println("Servo Pos :" + String(iServoPos));
+//    iServoPos = iServoPos + iServoDirection;
+//
+//    for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr += 1) {
+//      iServoDesiredPos[iServoPtr] = iServoPos;
+//    }
 
    
    // Check Desired Pos is within limits of 0 to 180
