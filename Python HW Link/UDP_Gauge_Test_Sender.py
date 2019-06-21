@@ -45,7 +45,19 @@ sock.bind((UDP_IP, UDP_PORT))
 
 
 
+def Translate_Value(value_to_process):
 
+    
+    logging.critical('value_to_process at start of translate is :' + value_to_process)
+    
+    if (value_to_process == '0'):
+        value_to_process = '180'
+    elif (value_to_process == '260'):
+        value_to_process = '0'
+
+   
+    logging.critical('value_to_process at end of translate is :' + value_to_process)
+    return(value_to_process)
 
 
 
@@ -112,8 +124,11 @@ def main():
         while True:
 
 
-            command_string = input('Enter Vlaue String to Send: ')
+            command_string = input('Enter Value String to Send: ')
 
+            
+            command_string = Translate_Value(command_string)
+            
             command_string = 'D,150:' + command_string
 
 
