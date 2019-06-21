@@ -73,7 +73,14 @@ const int ServoBasePort = 21;
 
 const int ServoStartUDPPort = 150;
 const int OutputStartUDPPort = 200;
-// Allow for zero start;
+
+// Deal with guages such as VSI
+int iServoStartPos[NoOfServos + 1];
+
+// Safety limits such as needles  on VOR
+int iServoMinPos[NoOfServos + 1];
+int iServoMaxPos[NoOfServos + 1];
+
 int  iServoDesiredPos[NoOfServos + 1];
 int  iServoCurrentPos[NoOfServos + 1];
 
@@ -106,7 +113,8 @@ String s_sendstringwrkstr = "";
 
 void setup() {
 
-
+   int iServoSetupPtr = 0;
+   
    Serial.begin(115200); 
    Serial.println(filename);
     /*
@@ -126,6 +134,12 @@ void setup() {
     for (int iServoPtr = 1; iServoPtr <= NoOfServos; iServoPtr += 1) {
       iServoDesiredPos[iServoPtr] = 0;
       iServoCurrentPos[iServoPtr] = 0;
+
+      // The values in this block should be explicity set later - but just in case
+      // they are missed - set a sane value
+      iServoStartPos[iServoPtr] = 90;
+      iServoMinPos[iServoPtr]  = 0;
+      iServoMaxPos[iServoPtr] = 180;
     }  
 
     // Zero Outputs
@@ -137,7 +151,7 @@ void setup() {
 
 
     // Sending Infrastructure
-    Serial.println("Starting Network " + String(millis()));
+    Serial.println("Starting Network ");
     Ethernet.begin( mac, ip);
 
   
@@ -164,25 +178,152 @@ void setup() {
     for (int portNo = 40; portNo <= 48; portNo += 1) { 
       pinMode(portNo, OUTPUT);
     }
+
+    // Gauge Description here
+    iServoSetupPtr = 1;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
     
+    // Gauge Description here
+    iServoSetupPtr = 2;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 3;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 4;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 5;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 6;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 7;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 8;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 9;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+     // Gauge Description here
+    iServoSetupPtr = 10;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 11;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+    
+    // Gauge Description here
+    iServoSetupPtr = 12;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 13;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 14;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 15;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 16;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 17;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+
+    // Gauge Description here
+    iServoSetupPtr = 18;
+    iServoStartPos[iServoSetupPtr] = 90;
+    iServoMinPos[iServoSetupPtr]  = 0;
+    iServoMaxPos[iServoSetupPtr] = 180;
+       
+    // Immediately set start pos of enable servo to prevent servo bending a needle    
     myservo_1.attach(22);
+    myservo_1.write(iServoStartPos[1]);
     myservo_2.attach(23);
+    myservo_2.write(iServoStartPos[2]);
     myservo_3.attach(24);
+    myservo_3.write(iServoStartPos[3]);
     myservo_4.attach(25);
+    myservo_4.write(iServoStartPos[4]);
     myservo_5.attach(26);
+    myservo_5.write(iServoStartPos[5]);
     myservo_6.attach(27);
+    myservo_6.write(iServoStartPos[6]);
     myservo_7.attach(28);
+    myservo_7.write(iServoStartPos[7]);
     myservo_8.attach(29);
+    myservo_8.write(iServoStartPos[8]);
     myservo_9.attach(30);
+    myservo_9.write(iServoStartPos[9]);
     myservo_10.attach(31);
+    myservo_10.write(iServoStartPos[10]);
     myservo_11.attach(32);
+    myservo_11.write(iServoStartPos[11]);
     myservo_12.attach(33);
+    myservo_12.write(iServoStartPos[12]);
     myservo_13.attach(34);
+    myservo_13.write(iServoStartPos[13]);
     myservo_14.attach(35);
+    myservo_14.write(iServoStartPos[14]);
     myservo_15.attach(36);
+    myservo_15.write(iServoStartPos[15]);
     myservo_16.attach(37);
+    myservo_16.write(iServoStartPos[16]);
     myservo_17.attach(38);
+    myservo_17.write(iServoStartPos[17]);
     myservo_18.attach(39);
+    myservo_18.write(iServoStartPos[18]);
 }
 
 
