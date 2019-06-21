@@ -138,8 +138,8 @@ void setup() {
       // The values in this block should be explicity set later - but just in case
       // they are missed - set a sane value
       iServoStartPos[iServoPtr] = 90;
-      iServoMinPos[iServoPtr]  = 0;
-      iServoMaxPos[iServoPtr] = 180;
+      iServoMinPos[iServoPtr]  = ServoMinValue;
+      iServoMaxPos[iServoPtr] = ServoMaxValue;
     }  
 
     // Zero Outputs
@@ -182,110 +182,110 @@ void setup() {
     // Gauge Description here
     iServoSetupPtr = 1;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
     
     // Gauge Description here
     iServoSetupPtr = 2;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 3;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 4;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 5;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 6;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 7;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 8;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 9;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
      // Gauge Description here
     iServoSetupPtr = 10;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 11;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
     
     // Gauge Description here
     iServoSetupPtr = 12;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 13;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 14;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 15;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 16;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 17;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
 
     // Gauge Description here
     iServoSetupPtr = 18;
     iServoStartPos[iServoSetupPtr] = 90;
-    iServoMinPos[iServoSetupPtr]  = 0;
-    iServoMaxPos[iServoSetupPtr] = 180;
+    iServoMinPos[iServoSetupPtr]  = ServoMinValue;
+    iServoMaxPos[iServoSetupPtr] = ServoMaxValue;
        
     // Immediately set start pos of enable servo to prevent servo bending a needle    
     myservo_1.attach(22);
@@ -812,21 +812,21 @@ void loop() {
 //    }
 
    
-   // Check Desired Pos is within limits of 0 to 180
-   
+
    
    // Move needles 1 step per cycle to target   
    for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr += 1) {
     
-      // Check Desired Pos is within limits of 0 to 180
-      if (iServoDesiredPos[iServoPtr] > ServoMaxValue)
-        iServoDesiredPos[iServoPtr] = ServoMaxValue;
-      else if (iServoDesiredPos[iServoPtr] < ServoMinValue)
-        iServoDesiredPos[iServoPtr] = ServoMinValue;
+      // Check Desired Pos is within limits of of the target servo
+      if (iServoDesiredPos[iServoPtr] > iServoMaxPos[iServoPtr])
+        iServoDesiredPos[iServoPtr] = iServoMaxPos[iServoPtr];
+      else if (iServoDesiredPos[iServoPtr] < iServoMinPos[iServoPtr])
+        iServoDesiredPos[iServoPtr] = iServoMinPos[iServoPtr];
 
-      if (iServoDesiredPos[iServoPtr] >= iServoCurrentPos[iServoPtr])
+      // Now move the servo if needed
+      if (iServoDesiredPos[iServoPtr] > iServoCurrentPos[iServoPtr])
         iServoCurrentPos[iServoPtr] = iServoCurrentPos[iServoPtr] + 1;
-      else if (iServoDesiredPos[iServoPtr] <= iServoCurrentPos[1])
+      else if (iServoDesiredPos[iServoPtr] < iServoCurrentPos[1])
         iServoCurrentPos[iServoPtr] = iServoCurrentPos[iServoPtr] - 1;   
 
     }
