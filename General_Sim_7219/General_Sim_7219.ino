@@ -62,15 +62,18 @@ int loopcounter = 0;
 // Keepalive reporting
 long lKeepAlive = 0;
 long ltime = 0;
-long llastServoMillis = 0;
+
 long llastDisplayUpdateMillis = 0;
+long llastServoMillis = 0;
+
 int  iServoDirection = 1;
 int  iServoPos = 0;
 const int NoOfServos = 18;
 const int ServoMinValue = 0;
 const int ServoMaxValue = 180;
 const int ServoBasePort = 21;
-const int iServoUpdatePeriod = 10000;
+// Number of mS between repositioning the servo
+const int iServoUpdatePeriod = 10;
 
 const int ServoStartUDPPort = 150;
 const int OutputStartUDPPort = 200;
@@ -749,6 +752,7 @@ void loop() {
       ProcessReceivedString();  
   }
 
+    
 
 
   // Update Servo and outputs Position
@@ -768,53 +772,21 @@ void loop() {
       }
   }  
 
+
+  // Set Digital Ports
+  // Unable to use ports 49 to 52 when Ethernet Shield is attached.
+  // 200 = Pin 40, 201 = 41, 208 = 48
+  for (int outputportNo = 1; outputportNo <= NoOfOutputs; outputportNo += 1) { 
+    if (iDesiredOutput[outputportNo] != 0)
+      digitalWrite((BaseOutputPort + outputportNo) , LOW);
+    else
+      digitalWrite((BaseOutputPort + outputportNo) , HIGH);
+  }
+
   // Update Servo and outputs Position
   if (millis() - llastServoMillis >= iServoUpdatePeriod) {
 
-//    Serial.println("Updating Outputs");
-//    llastServoMillis = millis();
-//
-//    for (int i= 1; i <= NoOfServos; i++) {
-//      Serial.println("Servo " + String(i) + " Port " + String(i + ServoBasePort) + ". Current :" + String(iServoCurrentPos[i])
-//        + "- target :" + String(iServoDesiredPos[i]) );
-//    }
-//
-//    for (int i= 1; i <= NoOfOutputs; i++) {
-//      Serial.println("Digital Outout " + String(i) + " Port " + String(i + BaseOutputPort) + " :" + iDesiredOutput[i]);
-//    }
-
-    
-    
-    // Set Digital Ports
-    // Unable to use ports 49 to 52 when Ethernet Shield is attached.
-    // 200 = Pin 40, 201 = 41, 208 = 48
-    for (int outputportNo = 1; outputportNo <= NoOfOutputs; outputportNo += 1) { 
-      if (iDesiredOutput[outputportNo] != 0)
-        digitalWrite((BaseOutputPort + outputportNo) , LOW);
-      else
-        digitalWrite((BaseOutputPort + outputportNo) , HIGH);
-    }
-    
-    
-
-    
-//    if (iServoPos >= 180) {
-//      iServoDirection = -1; 
-//    }   
-//    else if (iServoPos < 0)
-//    {
-//      iServoDirection = 1; 
-//    }
-//    // Serial.println("Servo Pos :" + String(iServoPos));
-//    iServoPos = iServoPos + iServoDirection;
-//
-//    for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr += 1) {
-//      iServoDesiredPos[iServoPtr] = iServoPos;
-//    }
-
-   
-
-   
+   llastServoMillis = millis();
    // Move needles 1 step per cycle to target   
    for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr += 1) {
     
