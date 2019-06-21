@@ -70,6 +70,7 @@ const int NoOfServos = 18;
 const int ServoMinValue = 0;
 const int ServoMaxValue = 180;
 const int ServoBasePort = 21;
+const int iServoUpdatePeriod = 10000;
 
 const int ServoStartUDPPort = 150;
 const int OutputStartUDPPort = 200;
@@ -768,7 +769,7 @@ void loop() {
   }  
 
   // Update Servo and outputs Position
-  if (millis() - llastServoMillis >= 10) {
+  if (millis() - llastServoMillis >= iServoUpdatePeriod) {
 
 //    Serial.println("Updating Outputs");
 //    llastServoMillis = millis();
