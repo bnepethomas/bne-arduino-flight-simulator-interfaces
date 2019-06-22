@@ -112,12 +112,12 @@ def Translate_Value(value_to_process):
                     # Note values in array must start at max and decrement to 0
                     # Determine if incremental calculation is needed
                     if (local_value != speeds[i]):
-                        input_difference = (local_value - speeds[i]) * 100/(speeds[i-1] - speeds[i])
+                        input_difference_percent = (local_value - speeds[i]) * 100/(speeds[i-1] - speeds[i])
                         output_difference = pos[i] - pos[i-1]
 
-                        positional_change = int(input_difference / output_difference)
+                        positional_change = int((input_difference_percent/100) * output_difference)
                         
-                        print ("Input Difference is " + str(input_difference))
+                        print ("Input Difference is " + str(input_difference_percent))
                         print ("Output Difference is " + str(output_difference))                        
                         print("Positional change is " + str(positional_change))
 
@@ -125,7 +125,7 @@ def Translate_Value(value_to_process):
                     break
         except Exception as other:
             logging.critical('[e] Error in Translate_Value: ' + str(other))
-            return('180')
+            
 
 
 
