@@ -34,8 +34,8 @@ Source_Port = 0
 Last_Source_IP = "127.0.0.1"
 
 
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 
@@ -104,7 +104,7 @@ def Translate_Value(value_to_process):
     else:
         try:
             for i in range( len(speeds)):
-                #print(str(i) + " " + str(speeds[i]) + " " + str(pos[i]))
+                logging.debug(str(i) + " " + str(speeds[i]) + " " + str(pos[i]))
                 if (local_value >= speeds[i]):
                     value_to_process = pos[i]
 
@@ -117,9 +117,9 @@ def Translate_Value(value_to_process):
 
                         positional_change = int((input_difference_percent/100) * output_difference)
                         
-                        print ("Input Difference is " + str(input_difference_percent))
-                        print ("Output Difference is " + str(output_difference))                        
-                        print("Positional change is " + str(positional_change))
+                        logging.debug("Input Difference is " + str(input_difference_percent))
+                        logging.debug("Output Difference is " + str(output_difference))                        
+                        logging.debug("Positional change is " + str(positional_change))
 
                         value_to_process = value_to_process - positional_change
                     break
@@ -201,9 +201,9 @@ def main():
 
             command_string = input('Enter Value String to Send: ')
 
-            
+
             command_string = Translate_Value(command_string)
-            
+        
             command_string = 'D,150:' + command_string
 
 
