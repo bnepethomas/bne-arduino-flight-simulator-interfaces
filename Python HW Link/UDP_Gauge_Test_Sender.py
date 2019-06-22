@@ -47,6 +47,12 @@ sock.bind((UDP_IP, UDP_PORT))
 
 def Translate_Value(value_to_process):
 
+    # This basically provides a lookup table to translate an input
+    # value to something that is calibrated on a servo
+    #
+    # May initially just replicate this module
+    # for each guage or should do something like pass the arrays
+
     local_value = 0
     
     logging.info('value_to_process at start of translate is :' + value_to_process)

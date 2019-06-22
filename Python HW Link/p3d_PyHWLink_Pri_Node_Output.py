@@ -807,6 +807,97 @@ def ProcessReceivedString(ReceivedUDPString):
     except Exception as other:
         logging.critical("Error in ProcessReceivedString: " + str(other))
 
+def Translate_Value(value_to_process):
+
+    local_value = 0
+    
+    logging.info('value_to_process at start of translate is :' + value_to_process)
+
+    # Convert to int for airspeed
+    try:
+        local_value = int(value_to_process)
+    except ValueError:
+        logging.critical("None numeric value passed to Translate Value. Value is :" + value_to_process)
+        #Center pointer - hopefully lowest risk
+        return('180')
+    
+    # Have integer - no do range check
+
+# 260 29
+#250 35
+#240 40
+#230 45
+#220 50
+#210 55
+#200 60
+#190 67
+#180 72
+#170 78 
+#160 86
+#150 95
+#140 102
+#130 109
+#120 118
+#110 125
+#100 131
+#90 143
+#80 150
+#70 157
+#60 161
+#50 171
+#40 173
+#30 180
+#20 180
+
+    speeds = [260,250,240,230,220,210,200,190,180,170,160,150,140,130,120,110,100,90 ,80 ,70 ,60 ,50 ,40 ,30 ,0]
+    pos    = [29 ,35 ,40 ,45 ,50 ,55 ,60 ,67 ,72 ,78 ,86 ,95 ,102,109,118,125,131,143,150,157,161,171,173,180,180]
+
+
+    
+    if (len(speeds) != len(pos)):
+        logging.critical("Lookup arrays have different lengths. speed has " + str(len(speeds)) + \
+                   " pos has " + str(len(pos)))
+        
+
+
+    if (local_value > speeds[0]):
+        # Nice easy one already at max, so just return that
+        value_to_process = pos[0]
+    else:
+        try:
+            for i in range( len(speeds)):
+                logging.debug(str(i) + " " + str(speeds[i]) + " " + str(pos[i]))
+                if (local_value >= speeds[i]):
+                    value_to_process = pos[i]
+
+                    # Calc difference between and last step
+                    # Note values in array must start at max and decrement to 0
+                    # Determine if incremental calculation is needed
+                    if (local_value != speeds[i]):
+                        input_difference_percent = (local_value - speeds[i]) * 100/(speeds[i-1] - speeds[i])
+                        output_difference = pos[i] - pos[i-1]
+
+                        positional_change = int((input_difference_percent/100) * output_difference)
+                        
+                        logging.debug("Input Difference is " + str(input_difference_percent))
+                        logging.debug("Output Difference is " + str(output_difference))                        
+                        logging.debug("Positional change is " + str(positional_change))
+
+                        value_to_process = value_to_process - positional_change
+                    break
+        except Exception as other:
+            logging.critical('[e] Error in Translate_Value: ' + str(other))
+            
+
+
+
+
+
+    logging.info('value_to_process at end of translate is :' + str(value_to_process))
+    return(str(value_to_process))
+
+
+
 
   
 def RemoveUnwantedCharacters(stringToBeCleaned):
