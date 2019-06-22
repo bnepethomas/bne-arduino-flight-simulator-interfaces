@@ -60,6 +60,18 @@ def Translate_Value(value_to_process):
         return('180')
     
     # Have integer - no do range check
+
+    speeds = [260,250,240,230,220,210,200,190,180,170,160,150,140,130,120,110,100,90 ,80 ,70 ,60 ,50 ,40 ,30 ,0]
+    pos    = [29 ,35 ,40 ,45 ,50 ,55 ,60 ,67 ,72 ,78 ,86 ,95 ,102,109,118,125,131,143,150,157,161,171,173,180,180]
+
+
+    
+    if (len(speeds) != len(pos)):
+        logging.critical("Lookup arrays have different lengths. speed has " + str(len(speeds)) + \
+                   " pos has " + str(len(pos)))
+
+    for i in range( len(speeds)):
+        print(str(i) + " " + str(speeds[i]) + " " + str(pos[i]))
     
     if (local_value >= 260):
         value_to_process = 29
