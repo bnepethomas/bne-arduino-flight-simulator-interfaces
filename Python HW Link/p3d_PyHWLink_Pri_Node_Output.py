@@ -33,6 +33,10 @@
 # 20190609  Add field to JSON file to tell code not to append passed value from Sim
 
 
+# Used for Gauge translation
+airspeeds_input_array = [260,250,240,230,220,210,200,190,180,170,160,150,140,130,120,110,100,90 ,80 ,70 ,60 ,50 ,40 ,30 ,0]
+airspeeds_calibrated_array  = [29 ,35 ,40 ,45 ,50 ,55 ,60 ,67 ,72 ,78 ,86 ,95 ,102,109,118,125,131,143,150,157,161,171,173,180,180]
+
 import json
 import os
 import socket
@@ -807,7 +811,20 @@ def ProcessReceivedString(ReceivedUDPString):
     except Exception as other:
         logging.critical("Error in ProcessReceivedString: " + str(other))
 
-def Translate_Value(value_to_process):
+
+def Translate_Value(value_to_process, input_array, calibration_array):
+
+    # This basically provides a lookup table to translate an input
+    # value to something that is calibrated on a servo
+    #
+    # May initially just replicate this module
+    # for each guage or should do something like pass the arrays
+
+    # Sample arrys which will be passeod from calling module
+    # speeds = [260,250,240,230,220,210,200,190,180,170,160,150,140,130,120,110,100,90 ,80 ,70 ,60 ,50 ,40 ,30 ,0]
+    # pos    = [29 ,35 ,40 ,45 ,50 ,55 ,60 ,67 ,72 ,78 ,86 ,95 ,102,109,118,125,131,143,150,157,161,171,173,180,180]
+
+
 
     local_value = 0
     
@@ -822,60 +839,29 @@ def Translate_Value(value_to_process):
         return('180')
     
     # Have integer - no do range check
-
-# 260 29
-#250 35
-#240 40
-#230 45
-#220 50
-#210 55
-#200 60
-#190 67
-#180 72
-#170 78 
-#160 86
-#150 95
-#140 102
-#130 109
-#120 118
-#110 125
-#100 131
-#90 143
-#80 150
-#70 157
-#60 161
-#50 171
-#40 173
-#30 180
-#20 180
-
-    speeds = [260,250,240,230,220,210,200,190,180,170,160,150,140,130,120,110,100,90 ,80 ,70 ,60 ,50 ,40 ,30 ,0]
-    pos    = [29 ,35 ,40 ,45 ,50 ,55 ,60 ,67 ,72 ,78 ,86 ,95 ,102,109,118,125,131,143,150,157,161,171,173,180,180]
-
-
     
-    if (len(speeds) != len(pos)):
-        logging.critical("Lookup arrays have different lengths. speed has " + str(len(speeds)) + \
-                   " pos has " + str(len(pos)))
+    if (len(input_array) != len(calibration_array)):
+        logging.critical("Lookup arrays have different lengths. input has " + str(len(input_array)) + \
+                   " calibration has " + str(len(calibration_array)))
         
 
 
-    if (local_value > speeds[0]):
+    if (local_value > input_array[0]):
         # Nice easy one already at max, so just return that
-        value_to_process = pos[0]
+        value_to_process = calibration_array[0]
     else:
         try:
-            for i in range( len(speeds)):
-                logging.debug(str(i) + " " + str(speeds[i]) + " " + str(pos[i]))
-                if (local_value >= speeds[i]):
-                    value_to_process = pos[i]
+            for i in range( len(input_array)):
+                logging.debug(str(i) + " " + str(input_array[i]) + " " + str(calibration_array[i]))
+                if (local_value >= input_array[i]):
+                    value_to_process = calibration_array[i]
 
                     # Calc difference between and last step
                     # Note values in array must start at max and decrement to 0
                     # Determine if incremental calculation is needed
-                    if (local_value != speeds[i]):
-                        input_difference_percent = (local_value - speeds[i]) * 100/(speeds[i-1] - speeds[i])
-                        output_difference = pos[i] - pos[i-1]
+                    if (local_value != input_array[i]):
+                        input_difference_percent = (local_value - input_array[i]) * 100/(input_array[i-1] - input_array[i])
+                        output_difference = calibration_array[i] - calibration_array[i-1]
 
                         positional_change = int((input_difference_percent/100) * output_difference)
                         
@@ -895,6 +881,7 @@ def Translate_Value(value_to_process):
 
     logging.info('value_to_process at end of translate is :' + str(value_to_process))
     return(str(value_to_process))
+
 
 
 
