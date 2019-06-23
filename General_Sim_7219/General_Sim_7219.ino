@@ -764,7 +764,7 @@ void loop() {
     
      for (int i= 1; i <= NoOfServos; i++) {
       Serial.println("Servo " + String(i) + " Port " + String((i + ServoBasePort)) + ". Current :" + String(iServoCurrentPos[i])
-          + " - target :" + String(iServoDesiredPos[i]) );
+          + " - target :" + String(iServoDesiredPos[i]) + " min value :" + String(iServoMinPos[i]) + " max value :" + String(iServoMaxPos[i]));
       }
   
       for (int i= 1; i <= NoOfOutputs; i++) {
@@ -788,8 +788,9 @@ void loop() {
 
    llastServoMillis = millis();
    // Move needles 1 step per cycle to target   
-   for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr += 1) {
+   for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr++) {
     
+      // Serial.println("there are :" + String(NoOfServos) + " processing :" + String(iServoPtr));
       // Check Desired Pos is within limits of of the target servo
       if (iServoDesiredPos[iServoPtr] > iServoMaxPos[iServoPtr])
         iServoDesiredPos[iServoPtr] = iServoMaxPos[iServoPtr];
@@ -814,7 +815,7 @@ void loop() {
     myservo_7.write(iServoCurrentPos[7]);
     myservo_8.write(iServoCurrentPos[8]);
     myservo_9.write(iServoCurrentPos[9]);
-    myservo_10.write(iServoCurrentPos[1]);
+    myservo_10.write(iServoCurrentPos[10]);
     myservo_11.write(iServoCurrentPos[11]);
     myservo_12.write(iServoCurrentPos[12]);
     myservo_13.write(iServoCurrentPos[13]);
