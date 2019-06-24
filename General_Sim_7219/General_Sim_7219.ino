@@ -788,9 +788,10 @@ void loop() {
 
    llastServoMillis = millis();
    // Move needles 1 step per cycle to target   
-   for (int iServoPtr = 1; iServoPtr <= (NoOfServos -1); iServoPtr++) {
+   for (int iServoPtr = 1; iServoPtr <= NoOfServos; iServoPtr++) {
     
-      // Serial.println("there are :" + String(NoOfServos) + " processing :" + String(iServoPtr));
+//      Serial.println("there are :" + String(NoOfServos) + " processing :" + String(iServoPtr));
+//      delay(100);
       // Check Desired Pos is within limits of of the target servo
       if (iServoDesiredPos[iServoPtr] > iServoMaxPos[iServoPtr])
         iServoDesiredPos[iServoPtr] = iServoMaxPos[iServoPtr];
@@ -800,7 +801,7 @@ void loop() {
       // Now move the servo if needed
       if (iServoDesiredPos[iServoPtr] > iServoCurrentPos[iServoPtr])
         iServoCurrentPos[iServoPtr] = iServoCurrentPos[iServoPtr] + 1;
-      else if (iServoDesiredPos[iServoPtr] < iServoCurrentPos[1])
+      else if (iServoDesiredPos[iServoPtr] < iServoCurrentPos[iServoPtr])
         iServoCurrentPos[iServoPtr] = iServoCurrentPos[iServoPtr] - 1;   
 
     }
