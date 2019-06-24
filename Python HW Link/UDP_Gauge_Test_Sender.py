@@ -259,7 +259,7 @@ def main():
 
             command_string = New_Translate_Value(command_string, speeds, pos )
         
-            command_string = 'D,159:' + command_string
+            command_string = 'D,150:' + command_string
 
 
             command_string = command_string + chr(10) 

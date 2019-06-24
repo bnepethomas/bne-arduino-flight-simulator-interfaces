@@ -136,8 +136,8 @@ void setup() {
     // Zero Servo related Data
 
     for (int iServoPtr = 1; iServoPtr <= NoOfServos; iServoPtr += 1) {
-      iServoDesiredPos[iServoPtr] = 0;
-      iServoCurrentPos[iServoPtr] = 0;
+      iServoDesiredPos[iServoPtr] = 90;
+      iServoCurrentPos[iServoPtr] = 90;
 
       // The values in this block should be explicity set later - but just in case
       // they are missed - set a sane value
@@ -148,7 +148,7 @@ void setup() {
 
     // Zero Outputs
    for (int iOutputPtr = 1; iOutputPtr <= NoOfOutputs; iOutputPtr += 1) {
-      iDesiredOutput[iOutputPtr] = 0;
+      iDesiredOutput[iOutputPtr] = 90;
 
     }  
 
@@ -756,21 +756,21 @@ void loop() {
 
 
   // Update Servo and outputs Position
-  if (millis() - llastDisplayUpdateMillis >= 3000) {
-
-    Serial.println("Updating Outputs");
-    llastDisplayUpdateMillis = millis();
-
-    
-     for (int i= 1; i <= NoOfServos; i++) {
-      Serial.println("Servo " + String(i) + " Port " + String((i + ServoBasePort)) + ". Current :" + String(iServoCurrentPos[i])
-          + " - target :" + String(iServoDesiredPos[i]) + " min value :" + String(iServoMinPos[i]) + " max value :" + String(iServoMaxPos[i]));
-      }
-  
-      for (int i= 1; i <= NoOfOutputs; i++) {
-        Serial.println("Digital Outout " + String(i) + " Port " + String(i + BaseOutputPort) + " :" + iDesiredOutput[i]);
-      }
-  }  
+//  if (millis() - llastDisplayUpdateMillis >= 3000) {
+//
+//    Serial.println("Updating Outputs");
+//    llastDisplayUpdateMillis = millis();
+//
+//    
+//     for (int i= 1; i <= NoOfServos; i++) {
+//      Serial.println("Servo " + String(i) + " Port " + String((i + ServoBasePort)) + ". Current :" + String(iServoCurrentPos[i])
+//          + " - target :" + String(iServoDesiredPos[i]) + " min value :" + String(iServoMinPos[i]) + " max value :" + String(iServoMaxPos[i]));
+//      }
+//  
+//      for (int i= 1; i <= NoOfOutputs; i++) {
+//        Serial.println("Digital Outout " + String(i) + " Port " + String(i + BaseOutputPort) + " :" + iDesiredOutput[i]);
+//      }
+//  }  
 
 
   // Set Digital Ports
