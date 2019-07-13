@@ -121,7 +121,7 @@ def main():
             command_string = input('Enter Command String to Send: ')
 
             if prefix_with_D:
-                command_string = 'D' + command_string
+                command_string = 'D,' + command_string
 
 
             command_string = command_string + chr(10) 
