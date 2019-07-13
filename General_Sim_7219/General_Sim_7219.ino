@@ -88,9 +88,15 @@ int iServoMaxPos[NoOfServos + 1];
 int  iServoDesiredPos[NoOfServos + 1];
 int  iServoCurrentPos[NoOfServos + 1];
 
-const int NoOfOutputs = 9;
+const int NoOfOutputs = 14;
+// Initially was just using left over ports on dual row digital out
 const int BaseOutputPort = 39;
-int  iDesiredOutput[NoOfOutputs + 1];
+// Gained some additional ports on side connector
+const int SecondBasePort = 14;
+// Either ponts to first BaseOutputPort or SecondBasePort
+int relativeOutputBasePort = 0;
+int PortOffset = 0;
+int iDesiredOutput[NoOfOutputs + 1];
 
 Servo myservo_1;
 Servo myservo_2;
@@ -133,8 +139,9 @@ void setup() {
     lc_2.clearDisplay(0);
 
 
-    // Zero Servo related Data
+    // Initialise Arrays holding desired output state
 
+    // Zero Servo related Data
     for (int iServoPtr = 1; iServoPtr <= NoOfServos; iServoPtr += 1) {
       iServoDesiredPos[iServoPtr] = 90;
       iServoCurrentPos[iServoPtr] = 90;
@@ -148,7 +155,7 @@ void setup() {
 
     // Zero Outputs
    for (int iOutputPtr = 1; iOutputPtr <= NoOfOutputs; iOutputPtr += 1) {
-      iDesiredOutput[iOutputPtr] = 90;
+      iDesiredOutput[iOutputPtr] = 0;
 
     }  
 
@@ -177,6 +184,12 @@ void setup() {
 
 
     lKeepAlive = 0;
+
+
+    // Initialise pins 14 to 21 as output port
+    for (int portNo = 14; portNo <= 21; portNo += 1) { 
+      pinMode(portNo, OUTPUT);
+    }
 
     // Initialise pins 40 to 52 as output port
     for (int portNo = 40; portNo <= 48; portNo += 1) { 
@@ -640,10 +653,13 @@ void HandleOutputValuePair( String str)
    
     }
     // Eight Output Pins for Relays
+    // UDP Ports start at 200
     else if (llednumber >= OutputStartUDPPort && llednumber <= (OutputStartUDPPort + NoOfOutputs - 1)) 
     {
-      // Handle Digital Outputput - Pins 40 to 48
+      // Handle Digital Outputput - Pins 40 to 48 and 14 to 21
+      // First 9 Ports on Digital Output Bank
       Serial.println("Setting Digital Output. Port Number is :" + String(llednumber) + " Value is " + String(lledvalue));
+      
       iDesiredOutput[llednumber - (OutputStartUDPPort - 1)] = lledvalue;
     }
 
@@ -775,13 +791,29 @@ void loop() {
 
   // Set Digital Ports
   // Unable to use ports 49 to 52 when Ethernet Shield is attached.
-  // 200 = Pin 40, 201 = 41, 208 = 48
+  // 200 = Pin 40, 201 = 41, 208 = 48, 209 = 14, 210 = 15, 213 = 18
+  // As we have a second block of Ports need to subtract a base otherwise incorrect port set
+  
+  
   for (int outputportNo = 1; outputportNo <= NoOfOutputs; outputportNo += 1) { 
+    if (outputportNo <= 9) {
+      relativeOutputBasePort = BaseOutputPort;
+      PortOffset = 0;
+    }
+    else {
+      relativeOutputBasePort = SecondBasePort;
+      PortOffset = 10;
+      
+    }
+    
     if (iDesiredOutput[outputportNo] != 0)
-      digitalWrite((BaseOutputPort + outputportNo) , LOW);
+      digitalWrite((relativeOutputBasePort + outputportNo - PortOffset ) , LOW);
     else
-      digitalWrite((BaseOutputPort + outputportNo) , HIGH);
+      digitalWrite((relativeOutputBasePort + outputportNo - PortOffset) , HIGH);
   }
+
+
+
 
   // Update Servo and outputs Position
   if (millis() - llastServoMillis >= iServoUpdatePeriod) {
