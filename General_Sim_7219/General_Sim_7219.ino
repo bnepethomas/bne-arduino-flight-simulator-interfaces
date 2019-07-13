@@ -793,6 +793,7 @@ void loop() {
   // Unable to use ports 49 to 52 when Ethernet Shield is attached.
   // 200 = Pin 40, 201 = 41, 208 = 48, 209 = 14, 210 = 15, 213 = 18
   // As we have a second block of Ports need to subtract a base otherwise incorrect port set
+  // Port offset provides an adjust to the pin being set for the set of lower order pins
   
   
   for (int outputportNo = 1; outputportNo <= NoOfOutputs; outputportNo += 1) { 
