@@ -161,15 +161,9 @@ void setup() {
 
 
 
-    // Sending Infrastructure
-    Serial.println("Starting Network ");
-    Ethernet.begin( mac, ip);
-
   
     //Receiving Infrastructure
 
-    rxUdp.begin( listenport );
-    Serial.println("Network Initialised");
 
     Serial.println("Start LED Display");
     AllOn();
@@ -341,6 +335,12 @@ void setup() {
     myservo_17.write(iServoStartPos[17]);
     myservo_18.attach(39);
     myservo_18.write(iServoStartPos[18]);
+
+
+    Serial.println("Starting Network");
+    Ethernet.begin( mac, ip);  
+    rxUdp.begin( listenport );
+    Serial.println("Network Initialised");
 }
 
 
@@ -511,7 +511,7 @@ void ProcessReceivedString()
     //    D,1:0,2:1,3:1,4:1,5:0,6:0,7:0,8:0,9:1,10:1
     
 
-    bool bLocalDebug = true;
+    bool bLocalDebug = false;
 
     if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet :" + String(millis()));
    
@@ -758,7 +758,7 @@ void loop() {
   if( packetSize > 0)
   {
 
-      bLocalDebug = true;
+      bLocalDebug = false;
       Serial.println("Processing Packet");
       bLocalDebug = false;
       rxUdp.read( packetBuffer, packetSize);
