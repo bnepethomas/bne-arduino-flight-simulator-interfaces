@@ -127,6 +127,21 @@ void setup() {
    
    Serial.begin(115200); 
    Serial.println(filename);
+
+    // Initialise pins 14 to 21 as output port
+    for (int portNo = 14; portNo <= 21; portNo += 1) { 
+      pinMode(portNo, OUTPUT);
+    }
+
+    
+    // Initialise pins 40 to 52 as output port
+    // These ports get special treat as normally driving Darlington Pair
+    // So outputs are inversed
+    for (int portNo = 40; portNo <= 48; portNo += 1) { 
+      pinMode(portNo, OUTPUT);
+      digitalWrite(portNo, LOW);
+    }
+
     /*
      The MAX72XX is in power-saving mode on startup,
       we have to do a wakeup call
@@ -180,15 +195,6 @@ void setup() {
     lKeepAlive = 0;
 
 
-    // Initialise pins 14 to 21 as output port
-    for (int portNo = 14; portNo <= 21; portNo += 1) { 
-      pinMode(portNo, OUTPUT);
-    }
-
-    // Initialise pins 40 to 52 as output port
-    for (int portNo = 40; portNo <= 48; portNo += 1) { 
-      pinMode(portNo, OUTPUT);
-    }
 
     // Gauge Description here
     iServoSetupPtr = 1;
@@ -808,9 +814,9 @@ void loop() {
     }
     
     if (iDesiredOutput[outputportNo] != 0)
-      digitalWrite((relativeOutputBasePort + outputportNo - PortOffset ) , LOW);
+      digitalWrite((relativeOutputBasePort + outputportNo - PortOffset ) , HIGH);
     else
-      digitalWrite((relativeOutputBasePort + outputportNo - PortOffset) , HIGH);
+      digitalWrite((relativeOutputBasePort + outputportNo - PortOffset) , LOW);
   }
 
 
