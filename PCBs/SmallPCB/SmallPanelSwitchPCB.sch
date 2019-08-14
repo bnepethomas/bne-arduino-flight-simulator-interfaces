@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:PanelSwitchPCB-cache
 EELAYER 29 0
 EELAYER END
 $Descr A4 11693 8268
@@ -2702,4 +2701,6 @@ Text Label 9100 4800 0    50   ~ 0
 Spare6
 Text Label 9100 4900 0    50   ~ 0
 Spare7
+Text Notes 2300 7500 0    50   ~ 0
+Need to swap Anode Cathode of diodes
 $EndSCHEMATC
