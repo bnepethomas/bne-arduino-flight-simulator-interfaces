@@ -84,17 +84,17 @@ def main():
     try:
         print('UDP_Test_Sender - ctl-c at anytime to exit')
         print('')
-        target_IP = input('Enter Target IP Address [127.0.0.1]: ')
+        target_IP = input('Enter Target IP Address [172.16.1.21]: ')
         if len(target_IP) == 0:
-            target_IP = '127.0.0.1'
+            target_IP = '172.16.1.21'
 
 
 
         target_Port = ''
         while not isinstance(target_Port, int):
-            target_Port = input('Enter Target Port [49000]: ')
+            target_Port = input('Enter Target Port [13135]: ')
             if len(target_Port) == 0:
-                target_Port = 49000
+                target_Port = 13135
             try:
                 target_Port = int(target_Port)
                 
@@ -102,12 +102,21 @@ def main():
                 target_Port = ''
                 print('Target Port needs to be an integer between 1 and 65535')
 
-        prefix_with_D = input(
-            'Would you like all commands to be prefex with a D [N]: ')
-        if prefix_with_D.upper() != 'Y':
-            prefix_with_D = False
+        run_complete_tests = input(
+            'Would you like Run LED Test [N]: ')
+        if run_complete_tests.upper() != 'Y':
+            run_complete_tests = False
         else:
-            prefix_with_D = True
+            run_complete_tests = True    
+        
+
+        if run_complete_tests == False:
+            prefix_with_D = input(
+                'Would you like all commands to be prefex with a D [N]: ')
+            if prefix_with_D.upper() != 'Y':
+                prefix_with_D = False
+            else:
+                prefix_with_D = True
 
 
         logging.debug('UDP target IP: ' + str(target_IP)
@@ -117,15 +126,40 @@ def main():
 
         while True:
 
+            if run_complete_tests == True:
 
-            command_string = input('Enter Command String to Send: ')
+                no_of_leds = 64
+                print('All LEDs on')
+                command_string = "D,"
+                for x in range(no_of_leds):
+                    if x != (no_of_leds - 1):
+                        command_string = command_string + str(x) + ":1,"
+                    else:
+                        command_string = command_string + str(x) + ":1"
+                    
+                command_string = command_string + chr(10) 
+                Send_UDP_Command(command_string)
 
-            if prefix_with_D:
-                command_string = 'D,' + command_string
+                input("Press Enter to continue...")
+                
+                print('All LEDs off')
+                command_string = "D,"
+                for x in range(no_of_leds):
+                    command_string = command_string + str(x) + ":0,"
+                command_string = command_string + chr(10) 
+                Send_UDP_Command(command_string)
 
+                input("Press Enter to continue...")
+                
+            else:
+                # Running Interactive tests
+                command_string = input('Enter Command String to Send: ')
 
-            command_string = command_string + chr(10) 
-            Send_UDP_Command(command_string)
+                if prefix_with_D:
+                    command_string = 'D,' + command_string            
+
+                command_string = command_string + chr(10) 
+                Send_UDP_Command(command_string)
 
             
 
