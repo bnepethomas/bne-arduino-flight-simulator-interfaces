@@ -102,21 +102,42 @@ def main():
                 target_Port = ''
                 print('Target Port needs to be an integer between 1 and 65535')
 
-        run_complete_tests = input(
-            'Would you like Run LED Test [N]: ')
-        if run_complete_tests.upper() != 'Y':
-            run_complete_tests = False
+        run_LED_tests = input(
+            'Would you like Run LEDs Test [N]: ')
+        if run_LED_tests.upper() != 'Y':
+            run_LED_tests = False
         else:
-            run_complete_tests = True    
+            run_LED_tests = True    
         
 
-        if run_complete_tests == False:
+        run_DigitalOutput_tests = input(
+            'Would you like Run Digital Outputs Test [N]: ')
+        if run_DigitalOutput_tests.upper() != 'Y':
+            run_DigitalOutput_tests = False
+        else:
+            run_DigitalOutput_tests = True
+
+
+        run_Servo_tests = input(
+            'Would you like Run Servos Test [N]: ')
+        if run_Servo_tests.upper() != 'Y':
+            run_Servo_tests = False
+        else:
+            run_Servo_tests = True
+            
+
+        if (run_LED_tests == False) and (run_DigitalOutput_tests == False) and (run_Servo_tests == False) :
             prefix_with_D = input(
-                'Would you like all commands to be prefex with a D [N]: ')
-            if prefix_with_D.upper() != 'Y':
-                prefix_with_D = False
-            else:
+                'Would you like all commands to be prefex with a D [Y]: ')
+            if prefix_with_D.upper() != 'N':
                 prefix_with_D = True
+            else:
+                prefix_with_D = False
+
+
+
+
+                
 
 
         logging.debug('UDP target IP: ' + str(target_IP)
@@ -126,11 +147,11 @@ def main():
 
         while True:
 
-            if run_complete_tests == True:
+            if run_LED_tests == True:
 
                 no_of_leds = 64
 
-                
+                print('LED Ports run from 0 to 63')
                 print('All LEDs on')
                 command_string = "D,"
                 for x in range(no_of_leds):
@@ -170,12 +191,80 @@ def main():
                 input('Starting Again - Press Enter to continue...')
                     
 
+            if run_DigitalOutput_tests == True:
+
+                no_of_digitaloutputs = 7
+                digitialOutput_Base_Port = 202
+
                 
+                print('Starting at the 3rd Digital Output which maps to port ' + str(digitialOutput_Base_Port))
+                print('Testing ' + str(no_of_digitaloutputs) + ' Digital Outputs')
+                print('All Digital Outputs on')
+                command_string = "D,"
+                for x in range(no_of_digitaloutputs):
+                    if x != (no_of_digitaloutputs - 1):
+                        command_string = command_string + str(x + digitialOutput_Base_Port) + ":1,"
+                    else:
+                        command_string = command_string + str(x + digitialOutput_Base_Port) + ":1"
+                    
+                command_string = command_string + chr(10) 
+                Send_UDP_Command(command_string)
+                
+
+                input('All Digital Outputs off - Press Enter to continue...')
+                command_string = "D,"
+                for x in range(no_of_digitaloutputs):
+                    if x != (no_of_digitaloutputs - 1):
+                        command_string = command_string + str(x + digitialOutput_Base_Port) + ":0,"
+                    else:
+                        command_string = command_string + str(x + digitialOutput_Base_Port) + ":0"
+                command_string = command_string + chr(10) 
+                Send_UDP_Command(command_string)
+                
+
+                input('Walk Digital Outputs - Press Enter to continue...')
+                for x in range(no_of_digitaloutputs):
+                    print('Digital Output: ' + str(x + digitialOutput_Base_Port))
+                    command_string = "D,"
+                    command_string = command_string + str(x + digitialOutput_Base_Port) + ":1," 
+                    if x != 0:
+                        command_string = command_string + str(x - 1 +  digitialOutput_Base_Port) + ":0" + chr(10)                       
+                    Send_UDP_Command(command_string)
+                    input('Next Digital Output - Press Enter to continue...')
+                    if x == (no_of_digitaloutputs - 1):
+                        command_string = "D,"
+                        command_string = command_string + str(x + digitialOutput_Base_Port) + ":0" + chr(10)  
+                        Send_UDP_Command(command_string)
+                input('Starting Again - Press Enter to continue...')                
+
+
+                
+            if run_Servo_tests == True:
+                no_of_Servos_per_port = 9
+
+                first_base_port = 150
+
+                for servo_no in range(no_of_Servos_per_port):
+                    input('Setting to Servo Lower ' + str(servo_no))
+                    command_string = "D," + str(servo_no + first_base_port) + ":40" + chr(10)
+                    Send_UDP_Command(command_string)
+                    input('Mid - Press Enter to continue...')
+                    command_string = "D," + str(servo_no + first_base_port) + ":100" + chr(10)
+                    Send_UDP_Command(command_string)
+                    input('Upper - Press Enter to continue...')                    
+                    command_string = "D," + str(servo_no + first_base_port) + ":160" + chr(10)
+                    Send_UDP_Command(command_string)
+                    input('Setting to Servo Lower ' + str(servo_no))
+                    command_string = "D," + str(servo_no + first_base_port) + ":40" + chr(10)
+                    Send_UDP_Command(command_string)
+                    
+                    
+
+
 
                 
                 
-                
-            else:
+            if (run_LED_tests == False) and (run_DigitalOutput_tests == False) and (run_Servo_tests == False) :
                 # Running Interactive tests
                 command_string = input('Enter Command String to Send: ')
 

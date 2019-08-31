@@ -6,6 +6,10 @@
 //    C,B:15
 //  Handle more than 64 leds is second unit daisy chained - including brightness
 
+// Leds Ports map from 0 to 127
+// Servo Ports from 150
+// Digital Ports from 200 to 
+
 // Max 7219 Library 
 #include "LedControl.h"
 
