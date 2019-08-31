@@ -129,6 +129,8 @@ def main():
             if run_complete_tests == True:
 
                 no_of_leds = 64
+
+                
                 print('All LEDs on')
                 command_string = "D,"
                 for x in range(no_of_leds):
@@ -139,17 +141,39 @@ def main():
                     
                 command_string = command_string + chr(10) 
                 Send_UDP_Command(command_string)
-
-                input("Press Enter to continue...")
                 
-                print('All LEDs off')
+
+                input('All LEDs off - Press Enter to continue...')
                 command_string = "D,"
                 for x in range(no_of_leds):
-                    command_string = command_string + str(x) + ":0,"
+                    if x != (no_of_leds - 1):
+                        command_string = command_string + str(x) + ":0,"
+                    else:
+                        command_string = command_string + str(x) + ":0"
                 command_string = command_string + chr(10) 
                 Send_UDP_Command(command_string)
+                
 
-                input("Press Enter to continue...")
+                input('Walk LEDS - Press Enter to continue...')
+                for x in range(no_of_leds):
+                    print('LED: ' + str(x))
+                    command_string = "D,"
+                    command_string = command_string + str(x) + ":1," 
+                    if x != 0:
+                        command_string = command_string + str(x-1) + ":0" + chr(10)                       
+                    Send_UDP_Command(command_string)
+                    input('Next LED - Press Enter to continue...')
+                    if x == (no_of_leds - 1):
+                        command_string = "D,"
+                        command_string = command_string + str(x) + ":0" + chr(10)  
+                        Send_UDP_Command(command_string)
+                input('Starting Again - Press Enter to continue...')
+                    
+
+                
+
+                
+                
                 
             else:
                 # Running Interactive tests
