@@ -128,7 +128,7 @@ def main():
 
         if (run_LED_tests == False) and (run_DigitalOutput_tests == False) and (run_Servo_tests == False) :
             prefix_with_D = input(
-                'Would you like all commands to be prefex with a D [Y]: ')
+                'Would you like all commands to be prefix with a D [Y]: ')
             if prefix_with_D.upper() != 'N':
                 prefix_with_D = True
             else:
