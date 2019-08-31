@@ -241,22 +241,52 @@ def main():
                 
             if run_Servo_tests == True:
                 no_of_Servos_per_port = 9
-
                 first_base_port = 150
+                second_base_port = 159
+
+                first_or_second_servo_connector = input('Testing first or second connector? [1] or [2] defaults to [1]: ')
+                if first_or_second_servo_connector == '2':
+                   servo_base_port =  second_base_port
+                else:
+                    servo_base_port =  first_base_port    
+                
+
+                
 
                 for servo_no in range(no_of_Servos_per_port):
-                    input('Setting to Servo Lower ' + str(servo_no))
-                    command_string = "D," + str(servo_no + first_base_port) + ":40" + chr(10)
+                    if servo_no == 0:
+                        Connector_No = " J16 "
+                    elif servo_no == 1:
+                        Connector_No = " J18 "
+                    elif servo_no == 2:
+                        Connector_No = " J20 "
+                    elif servo_no == 3:
+                        Connector_No = " J22 "
+                    elif servo_no == 4:
+                        Connector_No = " J24 "
+                    elif servo_no == 5:
+                        Connector_No = " J17 "
+                    elif servo_no == 6:
+                        Connector_No = " J19 "
+                    elif servo_no == 7:
+                        Connector_No = " J21 "
+                    elif servo_no == 8:
+                        Connector_No = " J23 "
+
+                    
+                    input('Lower Port ' + str(servo_no) + Connector_No + '- Press Enter to continue...')
+                    command_string = "D," + str(servo_no + servo_base_port) +  ":40" + chr(10)
                     Send_UDP_Command(command_string)
-                    input('Mid - Press Enter to continue...')
-                    command_string = "D," + str(servo_no + first_base_port) + ":100" + chr(10)
+                    input('Mid Port ' + str(servo_no) + Connector_No +  '- Press Enter to continue...')
+                    command_string = "D," + str(servo_no + servo_base_port) + ":100" + chr(10)
                     Send_UDP_Command(command_string)
-                    input('Upper - Press Enter to continue...')                    
-                    command_string = "D," + str(servo_no + first_base_port) + ":160" + chr(10)
+                    input('Upper Port ' + str(servo_no) + Connector_No +  '- Press Enter to continue...')                    
+                    command_string = "D," + str(servo_no + servo_base_port) + ":160" + chr(10)
                     Send_UDP_Command(command_string)
-                    input('Setting to Servo Lower ' + str(servo_no))
-                    command_string = "D," + str(servo_no + first_base_port) + ":40" + chr(10)
+                    input('Lower Port ' + str(servo_no) + Connector_No +  '- Press Enter to continue...')
+                    command_string = "D," + str(servo_no + servo_base_port) + ":40" + chr(10)
                     Send_UDP_Command(command_string)
+                    input('Moving to Next Servo')
                     
                     
 
