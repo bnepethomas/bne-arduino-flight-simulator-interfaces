@@ -134,6 +134,9 @@ void setup() {
   Serial.print("IP = ");
   rxUdp.begin( listenport );
   Serial.println(Ethernet.localIP());
+  Serial.print("Port=");
+  Serial.println(listenport);
+  
   Serial.println("Network Initialised");
   
   // Initialise pins 14 to 21 as output port
@@ -773,7 +776,7 @@ void loop() {
   {
 
       bLocalDebug = false;
-      Serial.println("Processing Packet");
+      // Serial.println("Processing Packet");
       bLocalDebug = false;
       rxUdp.read( packetBuffer, packetSize);
       //terminate the buffer manually
