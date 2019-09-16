@@ -8,6 +8,8 @@
 # Uses same protocol as most of the pyHWLink family,
 #    Data payload is preceeded by a D
 
+# 20190916 Added check to catch CR on single value updates - was reporting error. Added Text to Canvas
+
 
 
 from tkinter import *
@@ -50,7 +52,8 @@ elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
 
 
 UDP_IP_ADDRESS = "192.168.1.138"
-UDP_PORT_NO = 7791
+UDP_IP_ADDRESS = "192.168.1.102"
+UDP_PORT_NO = 7792
 
 ValuesChanged = False
 
@@ -72,7 +75,7 @@ root = Tk()
 #root.geometry("700x200+30+30")
 root.wm_title("pyHWLink Lamp Output Emulator")
 
-canvas = Canvas(root, width=420, height=260)
+canvas = Canvas(root, width=400, height=270)
 canvas.pack()
     
 timer = 0
@@ -114,7 +117,10 @@ def ProcessReceivedString(ReceivedUDPString):
                 workingFields = ''
                 workingFields = workingRecords.split(':')
 
-                
+                # Try and cleanup trailing CRLF
+                if len(workingFields) == 2:
+                    workingFields[1] = workingFields[1][0]
+                        
                 if len(workingFields) != 2:
                     logging.debug('')
                     logging.debug('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
@@ -151,9 +157,11 @@ def ProcessReceivedString(ReceivedUDPString):
                     y = OutputPtr // 8
                     if (OutputState[OutputPtr+1] == 1):
                         canvas.create_rectangle(50 * x, 30 + y * 30, 52 + 50 * x, 62 + y * 30, fill='red')
+                        canvas.create_text(26 + 50 * x, 45 + y * 30, text=OutputPtr + 1)
+                        
                     else:
                         canvas.create_rectangle(50 * x, 30 + y * 30, 52 + 50 * x, 62 + y * 30, fill='black')
-
+                        canvas.create_text(26 + 50 * x, 45 + y * 30, text=OutputPtr + 1,fill="yellow")
                 
                     
                     
@@ -174,8 +182,9 @@ def tick():
     global timer
     timer += 1
 
-    # display timer value    
-    canvas.create_text(10, 10, text=timer)
+    # display timer value
+    canvas.create_rectangle(1, 1, 40, 18, fill='white',outline='white')
+    canvas.create_text(20, 10, text=timer)
 
     try:
         data, addr = serverSock.recvfrom(1500)
