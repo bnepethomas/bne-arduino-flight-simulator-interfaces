@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+# NEED to CHECK IF Arduino Switch and led stack start from 0 !!!!
+
 # pyHWLink_Lamp_Output_Emulator.py
 
 # Simple framework which provides a GUI to emulate an output module
@@ -117,7 +119,7 @@ def ProcessReceivedString(ReceivedUDPString):
                 workingFields = ''
                 workingFields = workingRecords.split(':')
 
-                # Try and cleanup trailing CRLF
+                # Try and cleanup trailing CRLF by only extracting 1 character and ignoring rest
                 if len(workingFields) == 2:
                     workingFields[1] = workingFields[1][0]
                         
@@ -183,8 +185,8 @@ def tick():
     timer += 1
 
     # display timer value
-    canvas.create_rectangle(1, 1, 40, 18, fill='white',outline='white')
-    canvas.create_text(20, 10, text=timer)
+    canvas.create_rectangle(1, 1, 380, 18, fill='white',outline='white')
+    canvas.create_text(120, 10, text=datetime.datetime.now().strftime("%H:%M:%S") + " " + UDP_IP_ADDRESS + ":" + str(UDP_PORT_NO) )
 
     try:
         data, addr = serverSock.recvfrom(1500)
