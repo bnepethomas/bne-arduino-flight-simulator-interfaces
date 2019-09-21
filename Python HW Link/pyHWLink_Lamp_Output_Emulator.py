@@ -69,21 +69,21 @@ serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
 
 OutputState = []
+OutputState1 = []
 OutputState2 = []
-OutputState3 = []
 PreviouslyHighOutputState = []
+PreviouslyHighOutputState1 = []
 PreviouslyHighOutputState2 = []
-PreviouslyHighOutputState3 = []
 # Initialise output array over dimensioning it a little
 
 ArraySize = 177
 for OutputPtr in range(0,ArraySize):
     OutputState.append(0)
+    OutputState1.append(0)
     OutputState2.append(0)
-    OutputState3.append(0)
     PreviouslyHighOutputState.append(0)
+    PreviouslyHighOutputState1.append(0)
     PreviouslyHighOutputState2.append(0)
-    PreviouslyHighOutputState3.append(0)
 
   
 
@@ -165,6 +165,8 @@ def ProcessReceivedString(ReceivedUDPString):
 
                         except Exception as other:
                             logging.critical("Error in ProcessReceivedString: " + str(other))
+
+                # Work on outputs from Input Devices which pass three values
                 elif len(workingFields) == 3:
                     logging.debug('Processing Input from Input Modules 3 Variable')
                     logging.debug('Stage 2 Processing: ' + str(workingFields))
@@ -172,16 +174,38 @@ def ProcessReceivedString(ReceivedUDPString):
                     try:
                         workingKey = workingFields[1]
                         logging.debug('Working key is: ' + workingKey)
-                        
 
-                        if OutputState[int(workingKey)] != int(workingFields[2]):
-                            ValuesChanged = True
-                            OutputState[int(workingKey)] = int(workingFields[2])
+                        majorarraypointer = int(workingFields[0])
 
-                            # Store spots where location has been high
-                            if OutputState[int(workingKey)] == 1:
-                                logging.debug('Saving High Value')
-                                PreviouslyHighOutputState[int(workingKey)] = 1
+
+                        if majorarraypointer == 0:
+                            if OutputState[int(workingKey)] != int(workingFields[2]):
+                                ValuesChanged = True
+                                OutputState[int(workingKey)] = int(workingFields[2])
+
+                                # Store spots where location has been high
+                                if OutputState[int(workingKey)] == 1:
+                                    PreviouslyHighOutputState[int(workingKey)] = 1
+
+
+                        if majorarraypointer == 1:
+                            if OutputState1[int(workingKey)] != int(workingFields[2]):
+                                ValuesChanged = True
+                                OutputState1[int(workingKey)] = int(workingFields[2])
+
+                                # Store spots where location has been high
+                                if OutputState1[int(workingKey)] == 1:
+                                    PreviouslyHighOutputState1[int(workingKey)] = 1
+
+
+                        if majorarraypointer == 2:
+                            if OutputState2[int(workingKey)] != int(workingFields[2]):
+                                ValuesChanged = True
+                                OutputState2[int(workingKey)] = int(workingFields[2])
+
+                                # Store spots where location has been high
+                                if OutputState2[int(workingKey)] == 1:
+                                    PreviouslyHighOutputState2[int(workingKey)] = 1
                                 
 
                     except Exception as other:
@@ -206,7 +230,7 @@ def ProcessReceivedString(ReceivedUDPString):
                     y = OutputPtr // 11
                     if (OutputState[OutputPtr+1] == 1):
                         canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='red')
-                        canvas.create_text(xoffset + 26 + 50 * x, xoffset + 45 + y * 30, text=OutputPtr + 1)
+                        canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1,fill="black")
                         
                     elif (PreviouslyHighOutputState[OutputPtr+1] == 1):
                         canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='orange')
@@ -220,11 +244,11 @@ def ProcessReceivedString(ReceivedUDPString):
                 for OutputPtr in range(0,ArraySize - 1):
                     x = OutputPtr % 11
                     y = OutputPtr // 11
-                    if (OutputState[OutputPtr+1] == 1):
+                    if (OutputState1[OutputPtr+1] == 1):
                         canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='red')
-                        canvas.create_text(xoffset + 26 + 50 * x, xoffset + 45 + y * 30, text=OutputPtr + 1)
+                        canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1,fill="black")
                         
-                    elif (PreviouslyHighOutputState[OutputPtr+1] == 1):
+                    elif (PreviouslyHighOutputState1[OutputPtr+1] == 1):
                         canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='orange')
                         canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1)
                     else:
@@ -236,11 +260,11 @@ def ProcessReceivedString(ReceivedUDPString):
                 for OutputPtr in range(0,ArraySize - 1):
                     x = OutputPtr % 11
                     y = OutputPtr // 11
-                    if (OutputState[OutputPtr+1] == 1):
+                    if (OutputState2[OutputPtr+1] == 1):
                         canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='red')
-                        canvas.create_text(xoffset + 26 + 50 * x, xoffset + 45 + y * 30, text=OutputPtr + 1)
+                        canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1,fill="black")
                         
-                    elif (PreviouslyHighOutputState[OutputPtr+1] == 1):
+                    elif (PreviouslyHighOutputState2[OutputPtr+1] == 1):
                         canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='orange')
                         canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1)
                     else:
