@@ -232,45 +232,45 @@ void loop()
     int colResult[16];
     // Reading upper pins
     //pin 38, PD7
-    colResult[0] = (PIND & B10000000)== 0 ? 1 : 0;
+    colResult[0] = (PIND & B10000000)== 0 ? 0 : 1;
     //pin 39, PG2
-    colResult[1] = (PING & B00000100)== 0 ? 1 : 0;
+    colResult[1] = (PING & B00000100)== 0 ? 0 : 1;
     //pin 40, PG1
-    colResult[2] = (PING & B00000010)== 0 ? 1 : 0;
+    colResult[2] = (PING & B00000010)== 0 ? 0 : 1;
     //pin 41, PG0
-    colResult[3] = (PING & B00000001)== 0 ? 1 : 0;
+    colResult[3] = (PING & B00000001)== 0 ? 0 : 1;
 
     //pin 42, PL7
-    colResult[4] = (PINL & B10000000)== 0 ? 1 : 0;
+    colResult[4] = (PINL & B10000000)== 0 ? 0 : 1;
     //pin 43, PL6
-    colResult[5] = (PINL & B01000000)== 0 ? 1 : 0;
+    colResult[5] = (PINL & B01000000)== 0 ? 0 : 1;
     //pin 44, PL5
-    colResult[6] = (PINL & B00100000)== 0 ? 1 : 0;
+    colResult[6] = (PINL & B00100000)== 0 ? 0 : 1;
     //pin 45, PL4
-    colResult[7] = (PINL & B00010000)== 0 ? 1 : 0;
+    colResult[7] = (PINL & B00010000)== 0 ? 0 : 1;
 
     //pin 46, PL3
-    colResult[8] = (PINL & B00001000)== 0 ? 1 : 0;
+    colResult[8] = (PINL & B00001000)== 0 ? 0 : 1;
     //pin 47, PL2
-    colResult[9] = (PINL & B00000100)== 0 ? 1 : 0;
+    colResult[9] = (PINL & B00000100)== 0 ? 0 : 1;
     //pin 48, PL1
-    colResult[10] =(PINL & B00000010) == 0 ? 1 : 0;
+    colResult[10] =(PINL & B00000010) == 0 ? 0 : 1;
     //pin 49, PL0
-    colResult[11] =(PINL & B00000001) == 0 ? 1 : 0;
+    colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
 
     //pin 50, PB3
-    colResult[12] =(PINB & B00001000) == 0 ? 1 : 0;
+    colResult[12] =(PINB & B00001000) == 0 ? 0 : 1;
     //pin 51, PB2
     
     
-    //colResult[13] =(PINB & B00000100) == 0 ? 1 : 0;
+    //colResult[13] =(PINB & B00000100) == 0 ? 0 : 0;
     colResult[13] = 0;
     //pin 52, PB1
-    //colResult[14] =(PINB & B00000010) == 0 ? 1 : 0;
+    //colResult[14] =(PINB & B00000010) == 0 ? 0 : 0;
     colResult[14] = 0;
     
     //pin 53, PB0
-    colResult[15] =(PINB & B00000001) == 0 ? 1 : 0;
+    colResult[15] =(PINB & B00000001) == 0 ? 0 : 1;
 
     for ( int colid = 0; colid < 16; colid ++ )
     {
