@@ -29,8 +29,8 @@ import datetime
 
 
 
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 MIN_VERSION_PY3 = 5    # min. 3.x version
@@ -55,7 +55,11 @@ elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
 
 UDP_IP_ADDRESS = "192.168.1.138"
 UDP_IP_ADDRESS = "192.168.1.102"
+UDP_IP_ADDRESS = "172.16.1.2"
 UDP_PORT_NO = 7792
+# Input Test
+UDP_IP_ADDRESS = "172.16.1.2"
+UDP_PORT_NO = 26027
 
 ValuesChanged = False
 
@@ -104,6 +108,10 @@ def ProcessReceivedString(ReceivedUDPString):
             ReceivedUDPString = str(ReceivedUDPString[1:])
             logging.debug('Checking for correct format :')
 
+            # If last character is a CR - trim it out
+            if (ord( ReceivedUDPString[len(ReceivedUDPString) -1]) == 10):
+                 logging.debug("Trimming off trailing CR")
+                 ReceivedUDPString = ReceivedUDPString[:-1]   
             
 
             workingSets =''
@@ -119,33 +127,54 @@ def ProcessReceivedString(ReceivedUDPString):
                 workingFields = ''
                 workingFields = workingRecords.split(':')
 
-                # Try and cleanup trailing CRLF by only extracting 1 character and ignoring rest
-                if len(workingFields) == 2:
-                    workingFields[1] = workingFields[1][0]
+                # For a lamp output we are looking for two values eg 02:1
+                # For a switch output we are looking for three values 02:000:1
+
+
                         
-                if len(workingFields) != 2:
-                    logging.debug('')
-                    logging.debug('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
-                    logging.debug('')
-                elif str(workingFields[1]) != '0' and str(workingFields[1]) != '1':
-                    logging.warn('')
-                    logging.warn('WARNING - Invalid 2nd parameter: ' + str(workingFields[1]))
-                    logging.warn('')                   
-                else:
+                if len(workingFields) == 2:
+
+                    if str(workingFields[1]) != '0' and str(workingFields[1]) != '1':
+                        logging.warn('')
+                        logging.warn('WARNING - Invalid 2nd parameter: ' + str(workingFields[1]))
+                        logging.warn('')                   
+                    else:
+                        logging.debug('Stage 2 Processing: ' + str(workingFields))
+
+                        try:
+                            workingKey = workingFields[0]
+                            logging.debug('Working key is: ' + workingKey)
+                            
+
+                            if OutputState[int(workingKey)] != int(workingFields[1]):
+                                ValuesChanged = True
+                                OutputState[int(workingKey)] = int(workingFields[1]  )  
+                                    
+
+                        except Exception as other:
+                            logging.critical("Error in ProcessReceivedString: " + str(other))
+                elif len(workingFields) == 3:
+                    logging.debug('Processing Input from Input Modules')
                     logging.debug('Stage 2 Processing: ' + str(workingFields))
 
                     try:
-                        workingKey = workingFields[0]
+                        workingKey = workingFields[1]
                         logging.debug('Working key is: ' + workingKey)
                         
 
-                        if OutputState[int(workingKey)] != int(workingFields[1]):
+                        if OutputState[int(workingKey)] != int(workingFields[2]):
                             ValuesChanged = True
-                            OutputState[int(workingKey)] = int(workingFields[1]  )  
+                            OutputState[int(workingKey)] = int(workingFields[2]  )  
                                 
-    
+
                     except Exception as other:
                         logging.critical("Error in ProcessReceivedString: " + str(other))
+                    
+                else:
+                    logging.debug('')
+                    logging.debug('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
+                    logging.debug('')
+                
                 
 
  
