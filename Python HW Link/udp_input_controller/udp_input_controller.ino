@@ -147,7 +147,8 @@ void FindInputChanges()
 //        Serial.print(" changed to ");
 
         
-        sprintf(stringind, "%03d", ind);
+        // Whilst internal array is zero based - sending data 1 based.
+        sprintf(stringind, "%03d", ind + 1);
  
 
 
@@ -272,15 +273,17 @@ void loop()
     //pin 53, PB0
     colResult[15] =(PINB & B00000001) == 0 ? 0 : 1;
 
+    
+    // There are 11 Columns per row - gives a total of 176 possible inputs
     for ( int colid = 0; colid < 16; colid ++ )
     {
       if ( colResult[ colid ] == 1 )
       {
-        joyReport.button[ (rowid * 16) + colid ] =  1;
+        joyReport.button[ (rowid * 11) + colid ] =  1;
       }
       else
       {
-        joyReport.button[ (rowid * 16) + colid ] =  0;
+        joyReport.button[ (rowid * 11) + colid ] =  0;
       }
     }
   }

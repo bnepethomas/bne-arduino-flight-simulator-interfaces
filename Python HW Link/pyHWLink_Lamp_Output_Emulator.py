@@ -29,8 +29,8 @@ import datetime
 
 
 
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 MIN_VERSION_PY3 = 5    # min. 3.x version
@@ -69,9 +69,21 @@ serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 
 
 OutputState = []
+OutputState2 = []
+OutputState3 = []
+PreviouslyHighOutputState = []
+PreviouslyHighOutputState2 = []
+PreviouslyHighOutputState3 = []
 # Initialise output array over dimensioning it a little
-for OutputPtr in range(0,65):
+
+ArraySize = 177
+for OutputPtr in range(0,ArraySize):
     OutputState.append(0)
+    OutputState2.append(0)
+    OutputState3.append(0)
+    PreviouslyHighOutputState.append(0)
+    PreviouslyHighOutputState2.append(0)
+    PreviouslyHighOutputState3.append(0)
 
   
 
@@ -81,7 +93,7 @@ root = Tk()
 #root.geometry("700x200+30+30")
 root.wm_title("pyHWLink Lamp Output Emulator")
 
-canvas = Canvas(root, width=400, height=270)
+canvas = Canvas(root, width=1800, height=520)
 canvas.pack()
     
 timer = 0
@@ -154,7 +166,7 @@ def ProcessReceivedString(ReceivedUDPString):
                         except Exception as other:
                             logging.critical("Error in ProcessReceivedString: " + str(other))
                 elif len(workingFields) == 3:
-                    logging.debug('Processing Input from Input Modules')
+                    logging.debug('Processing Input from Input Modules 3 Variable')
                     logging.debug('Stage 2 Processing: ' + str(workingFields))
 
                     try:
@@ -164,7 +176,12 @@ def ProcessReceivedString(ReceivedUDPString):
 
                         if OutputState[int(workingKey)] != int(workingFields[2]):
                             ValuesChanged = True
-                            OutputState[int(workingKey)] = int(workingFields[2]  )  
+                            OutputState[int(workingKey)] = int(workingFields[2])
+
+                            # Store spots where location has been high
+                            if OutputState[int(workingKey)] == 1:
+                                logging.debug('Saving High Value')
+                                PreviouslyHighOutputState[int(workingKey)] = 1
                                 
 
                     except Exception as other:
@@ -183,20 +200,52 @@ def ProcessReceivedString(ReceivedUDPString):
                 logging.debug('Updating Canvas')
                 
                 canvas.delete(ALL)
-                for OutputPtr in range(0,64):
-                    x = OutputPtr % 8
-                    y = OutputPtr // 8
+                xoffset = 0
+                for OutputPtr in range(0,ArraySize - 1):
+                    x = OutputPtr % 11
+                    y = OutputPtr // 11
                     if (OutputState[OutputPtr+1] == 1):
-                        canvas.create_rectangle(50 * x, 30 + y * 30, 52 + 50 * x, 62 + y * 30, fill='red')
-                        canvas.create_text(26 + 50 * x, 45 + y * 30, text=OutputPtr + 1)
+                        canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='red')
+                        canvas.create_text(xoffset + 26 + 50 * x, xoffset + 45 + y * 30, text=OutputPtr + 1)
                         
+                    elif (PreviouslyHighOutputState[OutputPtr+1] == 1):
+                        canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='orange')
+                        canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1)
                     else:
-                        canvas.create_rectangle(50 * x, 30 + y * 30, 52 + 50 * x, 62 + y * 30, fill='black')
-                        canvas.create_text(26 + 50 * x, 45 + y * 30, text=OutputPtr + 1,fill="yellow")
+                        canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='black')
+                        canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1,fill="yellow")
                 
-                    
-                    
-            
+
+                xoffset = 600
+                for OutputPtr in range(0,ArraySize - 1):
+                    x = OutputPtr % 11
+                    y = OutputPtr // 11
+                    if (OutputState[OutputPtr+1] == 1):
+                        canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='red')
+                        canvas.create_text(xoffset + 26 + 50 * x, xoffset + 45 + y * 30, text=OutputPtr + 1)
+                        
+                    elif (PreviouslyHighOutputState[OutputPtr+1] == 1):
+                        canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='orange')
+                        canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1)
+                    else:
+                        canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='black')
+                        canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1,fill="yellow")         
+
+
+                xoffset = 1200
+                for OutputPtr in range(0,ArraySize - 1):
+                    x = OutputPtr % 11
+                    y = OutputPtr // 11
+                    if (OutputState[OutputPtr+1] == 1):
+                        canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='red')
+                        canvas.create_text(xoffset + 26 + 50 * x, xoffset + 45 + y * 30, text=OutputPtr + 1)
+                        
+                    elif (PreviouslyHighOutputState[OutputPtr+1] == 1):
+                        canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='orange')
+                        canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1)
+                    else:
+                        canvas.create_rectangle(xoffset + 50 * x, 30 + y * 30, xoffset + 52 + 50 * x, 62 + y * 30, fill='black')
+                        canvas.create_text(xoffset + 26 + 50 * x, 45 + y * 30, text=OutputPtr + 1,fill="yellow")         
 
 
     except Exception as other:
