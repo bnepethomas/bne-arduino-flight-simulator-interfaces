@@ -115,9 +115,11 @@ except:
 
 
 # Windows was unable tobind to 0 - checking firewall
+# Windows had to turn firewall off
 #UDP_IP_ADDRESS = "127.0.0.1"
+UDP_IP_ADDRESS = "172.16.1.2"
 #  When running Pi use address of 0 - as it listens to traffic from everything
-UDP_IP_ADDRESS = "0"
+# UDP_IP_ADDRESS = "0"
 UDP_PORT_NO = 26027
 SIM_API_IP_ADDRESS = "172.16.1.3"
 # Given X Plane 11 uses a standard API port - will use it for all Sims

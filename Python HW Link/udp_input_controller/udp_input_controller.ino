@@ -113,6 +113,7 @@ void setup()
   
 
   Serial.println("Starting IP Stack");
+  Serial.println(ip);
   Ethernet.begin( mac, ip);
   udp.begin( localport );
 
