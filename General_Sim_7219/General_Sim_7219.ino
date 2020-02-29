@@ -37,6 +37,11 @@ byte mac[] = {
 IPAddress ip(172,16,1,21);
 const unsigned int localport = 13135;
 
+
+IPAddress targetIP(172,16,1,2);
+const unsigned int reflectorport = 27000;
+
+
 EthernetUDP Udp;
 
 
@@ -47,6 +52,9 @@ char packetBuffer[1500]; //buffer to store the incoming data
 
 const unsigned int listenport = 13135;
 EthernetUDP rxUdp;
+const unsigned int txport = 7788;
+EthernetUDP txUDP;
+
 char receivePacketBuffer[1500]; //buffer to store the incoming data
 char *ParameterNamePtr;
 char *ParameterValuePtr;
@@ -132,7 +140,8 @@ void setup() {
   Serial.begin(115200);
   Serial.println(""); 
   Serial.println(filename);
-    
+
+ 
   Serial.println("Starting Network");
   Ethernet.begin( mac, ip); 
   Serial.print("IP = ");
@@ -140,8 +149,16 @@ void setup() {
   Serial.println(Ethernet.localIP());
   Serial.print("Port=");
   Serial.println(listenport);
+
+  // 
+  txUDP.begin( txport );
+  txUDP.beginPacket(targetIP, reflectorport);
+  txUDP.println("Init General_Sim_7219 UDP");
+  txUDP.endPacket();
+
   
   Serial.println("Network Initialised");
+
   
   // Initialise pins 14 to 21 as output port
   for (int portNo = 14; portNo <= 21; portNo += 1) { 
