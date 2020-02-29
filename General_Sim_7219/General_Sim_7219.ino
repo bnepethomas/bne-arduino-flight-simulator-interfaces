@@ -32,7 +32,8 @@ unsigned long sdelaytime=1000;
 
 
 byte mac[] = { 
-  0x00,0xC7,0x3E,0xCA,0x35,0x03};
+  0x03,0xC7,0x3E,0xCA,0x35,0x03};
+
 IPAddress ip(172,16,1,21);
 const unsigned int localport = 13135;
 
@@ -43,7 +44,6 @@ EthernetUDP Udp;
 // https://stackoverflow.com/questions/54232090/unintentional-strange-characters-added-to-packets-during-udp-communication-in-ar
 
 char packetBuffer[1500]; //buffer to store the incoming data
-
 
 const unsigned int listenport = 13135;
 EthernetUDP rxUdp;
