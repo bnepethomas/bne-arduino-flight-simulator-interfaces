@@ -47,17 +47,21 @@ bool bFirstTime = false;
 
 // Unique Setting area for each input controller
 
-// General Platform Front Input Controller
-//byte mac[] = {0xA9,0xE7,0x3E,0xCA,0x35,0x02};
-//IPAddress ip(172,16,1,11);
-//const String deviceID = "01";
 
-// General Platform Right Input Controller
-//byte mac[] = {0xA9,0xE7,0x3E,0xCA,0x35,0x04};
-// May need to start using this prefix as A9:E7 is being stopped
-byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x04};
-IPAddress ip(172,16,1,12);
+// Uncomment for Left Board
+byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x02};
+IPAddress ip(172,16,1,10);
 const String deviceID = "01";
+
+// Uncomment for Front Board
+//byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x03};
+//IPAddress ip(172,16,1,11);
+//const String deviceID = "02";
+
+// Uncomment for Right Board
+//byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x04};
+//IPAddress ip(172,16,1,12);
+//const String deviceID = "03";
 
 
 // Raspberry Pi is Target
@@ -113,11 +117,16 @@ void setup()
   
 
   Serial.println("Starting IP Stack");
+  Serial.print("IP = ");
   Serial.println(ip);
   Ethernet.begin( mac, ip);
-  udp.begin( localport );
+
+  Serial.println("Waiting 5 seconds for link to negotiate");
+  delay(5000);
+  Serial.println("Completed Arbitary wait");
 
   
+  udp.begin( localport );
   udp.beginPacket(targetIP, reflectorport);
   udp.println("Init UDP");
   udp.endPacket();

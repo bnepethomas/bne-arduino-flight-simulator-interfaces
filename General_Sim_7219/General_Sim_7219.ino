@@ -21,7 +21,7 @@ LedControl lc_2=LedControl(9,8,7,1);
 unsigned long delaytime=250;
 unsigned long sdelaytime=1000;
 
-#define filename "General_Sim_7219 20190831a"
+#define filename "General_Sim_7219 2020302a"
 
 
 #include <SPI.h>
@@ -31,10 +31,18 @@ unsigned long sdelaytime=1000;
 #include <Servo.h>
 
 
-byte mac[] = { 
-  0x03,0xC7,0x3E,0xCA,0x35,0x03};
+// Uncomment for Left Board
+byte mac[] = {0x03,0xC7,0x3E,0xCA,0x35,0x02};
+IPAddress ip(172,16,1,20);
 
-IPAddress ip(172,16,1,21);
+// Uncomment for Front Board
+//byte mac[] = {0x03,0xC7,0x3E,0xCA,0x35,0x03};
+//IPAddress ip(172,16,1,21);
+
+// Uncomment for Right Board
+//byte mac[] = {0x03,0xC7,0x3E,0xCA,0x35,0x04};
+//IPAddress ip(172,16,1,22);
+
 const unsigned int localport = 13135;
 
 
@@ -149,6 +157,10 @@ void setup() {
   Serial.println(Ethernet.localIP());
   Serial.print("Port=");
   Serial.println(listenport);
+  Serial.println("");
+  Serial.println("Waiting 5 seconds for link to negotiate");
+  delay(5000);
+  Serial.println("Completed Arbitary wait");
 
   // 
   txUDP.begin( txport );
