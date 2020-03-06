@@ -1,0 +1,94 @@
+
+(session Arduino_NW_Template.ses
+  (base_design Arduino_NW_Template.dsn)
+  (placement
+    (resolution um 10)
+    (component Module:Arduino_UNO_R3_PT
+      (place A1 1092200 -952500 front 0)
+    )
+    (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal
+      (place R2 1111900 -1217300 front 0)
+    )
+    (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
+      (place R1 1358900 -1079500 front 0)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version "(5.1.2-1)-1")
+    )
+    (library_out 
+      (padstack "Via[0-1]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net "Net-(A1-Pad9)"
+        (wire
+          (path F.Cu 2500
+            1320800 -1079500
+            1249700 -1079500
+            1111900 -1217300
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1358900 -1079500
+            1320800 -1079500
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1320800 -1079500
+            1320800 -952500
+          )
+        )
+      )
+      (net "Net-(A1-Pad2)"
+        (wire
+          (path B.Cu 2500
+            1195011 -1200136
+            1117600 -1122726
+            1117600 -952500
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1374047 -1079500
+            1253410 -1200137
+            1195011 -1200137
+            1195011 -1200136
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1188100 -1207047
+            1195011 -1200136
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1188100 -1217300
+            1188100 -1207047
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1384300 -1079500
+            1374047 -1079500
+          )
+        )
+      )
+    )
+  )
+)

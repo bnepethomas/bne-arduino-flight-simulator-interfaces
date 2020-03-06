@@ -1,0 +1,77 @@
+EESchema Schematic File Version 4
+EELAYER 29 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:R R2
+U 1 1 5E5E27BB
+P 5850 1900
+F 0 "R2" H 5920 1946 50  0000 L CNN
+F 1 "R" H 5920 1855 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal" V 5780 1900 50  0001 C CNN
+F 3 "~" H 5850 1900 50  0001 C CNN
+	1    5850 1900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 1600 5050 1600
+Wire Wire Line
+	5850 1600 5850 1750
+Wire Wire Line
+	5850 2050 4400 2050
+Wire Wire Line
+	4400 2050 4400 2500
+Wire Wire Line
+	4400 2500 4100 2500
+$Comp
+L Device:R R1
+U 1 1 5E5E532A
+P 3850 2050
+F 0 "R1" H 3920 2096 50  0000 L CNN
+F 1 "R" H 3920 2005 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 3780 2050 50  0001 C CNN
+F 3 "~" H 3850 2050 50  0001 C CNN
+	1    3850 2050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 1600 3850 1900
+Wire Wire Line
+	3850 2500 3850 2200
+$Comp
+L MCU_Module:Arduino_UNO_R2 A1
+U 1 1 5E5E5E18
+P 3000 3250
+F 0 "A1" H 3000 4431 50  0000 C CNN
+F 1 "Arduino_UNO_R2" H 3000 4340 50  0000 C CNN
+F 2 "Module:Arduino_UNO_R3_PT" H 3150 2200 50  0001 L CNN
+F 3 "https://www.arduino.cc/en/Main/arduinoBoardUno" H 2800 4300 50  0001 C CNN
+	1    3000 3250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4100 2500 4100 2850
+Wire Wire Line
+	4100 2850 3500 2850
+Connection ~ 4100 2500
+Wire Wire Line
+	4100 2500 3850 2500
+Wire Wire Line
+	5050 1600 5050 3250
+Wire Wire Line
+	5050 3250 3500 3250
+Connection ~ 5050 1600
+Wire Wire Line
+	5050 1600 5850 1600
+$EndSCHEMATC
