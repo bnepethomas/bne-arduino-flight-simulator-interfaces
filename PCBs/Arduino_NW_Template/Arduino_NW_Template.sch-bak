@@ -13,8 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Notes 4900 1050 0    50   ~ 0
-Connector_PinHeader_2.54mm:PinHeader_1x10_P2.54mm_Vertical
 $Comp
 L Arduino_NW_Template-rescue:PT_Conn_01x06 J2
 U 1 1 5E66B8DF
@@ -27,12 +25,12 @@ F 3 "~" H 4150 5750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R1
 U 1 1 5E675100
 P 3300 6150
-F 0 "R?" H 3370 6196 50  0000 L CNN
+F 0 "R1" H 3370 6196 50  0000 L CNN
 F 1 "R" H 3370 6105 50  0000 L CNN
-F 2 "" V 3230 6150 50  0001 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Vertical" V 3230 6150 50  0001 C CNN
 F 3 "~" H 3300 6150 50  0001 C CNN
 	1    3300 6150
 	1    0    0    -1  
@@ -47,4 +45,94 @@ Wire Wire Line
 	3950 5950 3300 5950
 Wire Wire Line
 	3300 5950 3300 6000
+$Comp
+L Arduino_NW_Template-rescue:PT_Ethernet_Shield U1
+U 1 1 5E63623F
+P 5700 2450
+F 0 "U1" H 5700 2531 50  0000 C CNN
+F 1 "PT_Ethernet_Shield" H 5700 2440 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Ethernet_Shield_v001" H 5700 2450 50  0001 C CNN
+F 3 "" H 5700 2450 50  0001 C CNN
+	1    5700 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5850 4600 5850 4800
+Wire Wire Line
+	5850 4800 5750 4800
+Wire Wire Line
+	5650 4800 5650 4600
+Wire Wire Line
+	5750 4600 5750 4800
+Connection ~ 5750 4800
+Wire Wire Line
+	5750 4800 5650 4800
+$Comp
+L power:GND #PWR0101
+U 1 1 5E6376AA
+P 5750 5050
+F 0 "#PWR0101" H 5750 4800 50  0001 C CNN
+F 1 "GND" H 5755 4877 50  0000 C CNN
+F 2 "" H 5750 5050 50  0001 C CNN
+F 3 "" H 5750 5050 50  0001 C CNN
+	1    5750 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 5050 5750 4800
+$Comp
+L Device:R R2
+U 1 1 5E637E5E
+P 6550 2850
+F 0 "R2" V 6343 2850 50  0000 C CNN
+F 1 "R" V 6434 2850 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal" V 6480 2850 50  0001 C CNN
+F 3 "~" H 6550 2850 50  0001 C CNN
+	1    6550 2850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6400 2850 6200 2850
+$Comp
+L Device:CP1 C1
+U 1 1 5E639090
+P 6900 3000
+F 0 "C1" H 7015 3046 50  0000 L CNN
+F 1 "CP1" H 7015 2955 50  0000 L CNN
+F 2 "Capacitor_THT:CP_Axial_L11.0mm_D5.0mm_P18.00mm_Horizontal" H 6900 3000 50  0001 C CNN
+F 3 "~" H 6900 3000 50  0001 C CNN
+	1    6900 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 5E639A2C
+P 6900 3200
+F 0 "#PWR0102" H 6900 2950 50  0001 C CNN
+F 1 "GND" H 6905 3027 50  0000 C CNN
+F 2 "" H 6900 3200 50  0001 C CNN
+F 3 "" H 6900 3200 50  0001 C CNN
+	1    6900 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6700 2850 6900 2850
+Wire Wire Line
+	6900 3150 6900 3200
+Wire Wire Line
+	5200 3300 3950 3300
+Wire Wire Line
+	3950 3300 3950 5550
+Wire Wire Line
+	5200 3400 3850 3400
+Wire Wire Line
+	3850 3400 3850 5650
+Wire Wire Line
+	3850 5650 3950 5650
+Wire Wire Line
+	5200 3500 3750 3500
+Wire Wire Line
+	3750 3500 3750 5750
+Wire Wire Line
+	3750 5750 3950 5750
 $EndSCHEMATC
