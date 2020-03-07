@@ -1,0 +1,18 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    </head>
+    <body>
+    <h1>/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/Max7219/Max7219.sch</h1>
+    <p>Saturday, 07 March 2020 at 08:59:06 am</p>
+    <p>Eeschema (5.1.5-0-10_14)</p>
+    <p><b>Component Count:</b>37</p>
+    <table>
+    <tr><th style='width:640px'>Ref</th><th>Qnty</th><th>Value</th><th>Part</th><th>Datasheet</th><th>Description</th><th>Vendor</th></tr><tr><td>C1</td><td>1</td><td>0.1uF</td><td>Device:C</td><td>~</td><td>Unpolarized capacitor</td><td></td></tr><tr><td>C2</td><td>1</td><td>100uF</td><td>Device:CP</td><td>~</td><td>Polarized capacitor</td><td></td></tr><tr><td>J1, J2</td><td>2</td><td></td><td>Connector_Generic:Conn_01x06</td><td>~</td><td>Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</td><td></td></tr><tr><td>J3, J4, J5, J6, J7, J8, J9, J10, J11, J12, J13, J14, J25, J27, J29, J30, J31, J32</td><td>18</td><td></td><td>Connector:Conn_01x08_Female</td><td>~</td><td>Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)</td><td></td></tr><tr><td>J15</td><td>1</td><td></td><td>Connector_Generic:Conn_01x10</td><td>~</td><td>Generic connector, single row, 01x10, script generated (kicad-library-utils/schlib/autogen/connector/)</td><td></td></tr><tr><td>J16, J17, J18, J19, J20, J21, J22, J23, J24</td><td>9</td><td></td><td>Connector_Generic:Conn_01x03</td><td>~</td><td>Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)</td><td></td></tr><tr><td>J26, J28</td><td>2</td><td></td><td>Connector:Conn_01x02_Male</td><td>~</td><td>Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</td><td></td></tr><tr><td>R1</td><td>1</td><td>10K</td><td>Device:R_Small</td><td>~</td><td>Resistor, small symbol</td><td></td></tr><tr><td>U1</td><td>1</td><td>MAX7219ENG</td><td>Max7219-rescue:MAX7219ENG-MAX7219ENG</td><td>PDIP-24 Maxim</td><td></td><td></td></tr><tr><td>U2</td><td>1</td><td>ULN2003A</td><td>Transistor_Array:ULN2003A</td><td>http://www.ti.com/lit/ds/symlink/uln2003a.pdf</td><td>High Voltage, High Current Darlington Transistor Arrays, SOIC16/SOIC16W/DIP16/TSSOP16</td><td></td></tr><!--TABLEROW-->
+    </table>
+    </body>
+</html>
+    

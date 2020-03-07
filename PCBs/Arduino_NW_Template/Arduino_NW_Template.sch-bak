@@ -27,12 +27,12 @@ F 3 "~" H 4150 5750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R1
+L Device:R R?
 U 1 1 5E675100
 P 3300 6150
-F 0 "R1" H 3370 6196 50  0000 L CNN
+F 0 "R?" H 3370 6196 50  0000 L CNN
 F 1 "R" H 3370 6105 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Vertical" V 3230 6150 50  0001 C CNN
+F 2 "" V 3230 6150 50  0001 C CNN
 F 3 "~" H 3300 6150 50  0001 C CNN
 	1    3300 6150
 	1    0    0    -1  
