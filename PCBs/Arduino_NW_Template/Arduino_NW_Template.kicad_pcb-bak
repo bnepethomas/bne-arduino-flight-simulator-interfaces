@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 4)
+    (drawings 9)
     (tracks 0)
     (zones 0)
     (modules 5)
@@ -608,9 +608,14 @@
       (net 9 "Net-(R2-Pad2)"))
   )
 
-  (gr_line (start 118.11 78.74) (end 118.11 73.66) (layer Eco1.User) (width 0.15) (tstamp 5E63C5FC))
-  (gr_line (start 142.24 78.74) (end 118.11 78.74) (layer Eco1.User) (width 0.15))
-  (gr_line (start 142.24 73.66) (end 142.24 78.74) (layer Eco1.User) (width 0.15))
-  (gr_line (start 118.11 73.66) (end 142.24 73.66) (layer Eco1.User) (width 0.15))
+  (gr_line (start 141.58976 78.486) (end 141.58976 73.406) (layer Edge.Cuts) (width 0.1) (tstamp 5E63CF5E))
+  (gr_line (start 118.72976 78.486) (end 141.58976 78.486) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 118.72976 73.406) (end 118.72976 78.486) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 141.58976 73.406) (end 118.72976 73.406) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 98.40976 116.586) (end 98.40976 63.246) (layer Edge.Cuts) (width 0.1) (tstamp 5E63CC62))
+  (gr_line (start 149.20976 116.586) (end 98.40976 116.586) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 149.20976 63.246) (end 149.20976 116.586) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 98.40976 63.246) (end 149.20976 63.246) (layer Edge.Cuts) (width 0.1))
+  (gr_line (start 98.40976 63.246) (end 149.20976 63.246) (layer Eco2.User) (width 0.15))
 
 )
