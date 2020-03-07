@@ -11,18 +11,18 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 20)
+    (start_pass_no 501)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.4)
+      (against_preferred_direction_trace_costs 2.3)
     )
     (layer_rule B.Cu
       (active on)
       (preferred_direction vertical)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 1.7)
+      (against_preferred_direction_trace_costs 1.8)
     )
   )
   (rule
@@ -63,10 +63,14 @@
     )
   )
   (class "kicad_default"
-    "Net-(A1-Pad16)" "Net-(A1-Pad15)" "Net-(A1-Pad30)" "Net-(A1-Pad14)" "Net-(A1-Pad29)" "Net-(A1-Pad13)" "Net-(A1-Pad28)" "Net-(A1-Pad12)"
-    "Net-(A1-Pad27)" "Net-(A1-Pad11)" "Net-(A1-Pad26)" "Net-(A1-Pad10)" "Net-(A1-Pad25)" "Net-(A1-Pad9)" "Net-(A1-Pad24)" "Net-(A1-Pad8)"
-    "Net-(A1-Pad23)" "Net-(A1-Pad7)" "Net-(A1-Pad22)" "Net-(A1-Pad6)" "Net-(A1-Pad21)" "Net-(A1-Pad5)" "Net-(A1-Pad20)" "Net-(A1-Pad4)"
-    "Net-(A1-Pad19)" "Net-(A1-Pad3)" "Net-(A1-Pad18)" "Net-(A1-Pad2)" "Net-(A1-Pad17)" "Net-(A1-Pad1)"
+    GND "Net-(C1-Pad1)" "Net-(R2-Pad2)" "Net-(U1-Pad28)" "Net-(U1-Pad14)" "Net-(U1-Pad13)" "Net-(U1-Pad6)" "Net-(U1-Pad2)"
+    +5V "Net-(C2-Pad1)" "Net-(C3-Pad1)" "Net-(C4-Pad1)" "Net-(C5-Pad1)" "Net-(C6-Pad1)" "Net-(C7-Pad1)" "Net-(C8-Pad1)"
+    "Net-(C9-Pad1)" "Net-(C10-Pad1)" "Net-(C11-Pad1)" "Net-(C12-Pad1)" "Net-(C13-Pad1)" "Net-(C14-Pad1)" "Net-(C15-Pad1)" "Net-(D1-Pad2)"
+    "Net-(D2-Pad2)" "Net-(J1-Pad2)" "Net-(J2-Pad2)" "Net-(J3-Pad2)" "Net-(J4-Pad3)" "Net-(J4-Pad4)" "Net-(J4-Pad5)" "Net-(J4-Pad6)"
+    "Net-(J5-Pad3)" "Net-(J5-Pad4)" "Net-(J5-Pad5)" "Net-(J5-Pad6)" "Net-(J6-Pad8)" "Net-(J6-Pad7)" "Net-(J6-Pad6)" "Net-(J6-Pad5)"
+    "Net-(J6-Pad4)" "Net-(J6-Pad3)" "Net-(J6-Pad2)" "Net-(J6-Pad1)" "Net-(J7-Pad8)" "Net-(J7-Pad7)" "Net-(J7-Pad6)" "Net-(J7-Pad5)"
+    "Net-(J7-Pad4)" "Net-(J7-Pad3)" "Net-(J7-Pad2)" "Net-(J7-Pad1)" "Net-(J8-Pad8)" "Net-(J8-Pad7)" "Net-(J8-Pad6)" "Net-(J8-Pad5)"
+    "Net-(J8-Pad4)" "Net-(J8-Pad3)" "Net-(J8-Pad2)" "Net-(J8-Pad1)" "Net-(R1-Pad2)" "Net-(R3-Pad2)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
