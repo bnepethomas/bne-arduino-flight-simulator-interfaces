@@ -1,0 +1,301 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L PT:PT_Ethernet_Shield U1
+U 1 1 5E6482B8
+P 4450 2150
+F 0 "U1" H 4450 2231 50  0000 C CNN
+F 1 "PT_Ethernet_Shield" H 4450 2140 50  0000 C CNN
+F 2 "PT:PT_Ethernet_Shield_v001" H 4450 2150 50  0001 C CNN
+F 3 "" H 4450 2150 50  0001 C CNN
+	1    4450 2150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x01_Female J1
+U 1 1 5E657F0E
+P 5300 2350
+F 0 "J1" V 5238 2398 50  0000 L CNN
+F 1 "Conn_01x01_Female" V 5147 2398 50  0000 L CNN
+F 2 "PT:PT_One_Hole" H 5300 2350 50  0001 C CNN
+F 3 "~" H 5300 2350 50  0001 C CNN
+	1    5300 2350
+	0    1    -1   0   
+$EndComp
+$Comp
+L 4xxx:4011 U2
+U 1 1 5E659783
+P 8250 1950
+F 0 "U2" H 8250 2275 50  0000 C CNN
+F 1 "4011" H 8250 2184 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 8250 1950 50  0001 C CNN
+F 3 "http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf" H 8250 1950 50  0001 C CNN
+	1    8250 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L 4xxx:4011 U2
+U 2 1 5E65CFB6
+P 8250 3350
+F 0 "U2" H 8250 3675 50  0000 C CNN
+F 1 "4011" H 8250 3584 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 8250 3350 50  0001 C CNN
+F 3 "http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf" H 8250 3350 50  0001 C CNN
+	2    8250 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L 4xxx:4011 U2
+U 3 1 5E65DD25
+P 8300 4650
+F 0 "U2" H 8300 4975 50  0000 C CNN
+F 1 "4011" H 8300 4884 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 8300 4650 50  0001 C CNN
+F 3 "http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf" H 8300 4650 50  0001 C CNN
+	3    8300 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L 4xxx:4011 U2
+U 4 1 5E65F834
+P 8300 5900
+F 0 "U2" H 8300 6225 50  0000 C CNN
+F 1 "4011" H 8300 6134 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 8300 5900 50  0001 C CNN
+F 3 "http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf" H 8300 5900 50  0001 C CNN
+	4    8300 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L 4xxx:4011 U2
+U 5 1 5E661606
+P 2600 6550
+F 0 "U2" H 2830 6596 50  0000 L CNN
+F 1 "4011" H 2830 6505 50  0000 L CNN
+F 2 "Package_DIP:DIP-14_W7.62mm" H 2600 6550 50  0001 C CNN
+F 3 "http://www.intersil.com/content/dam/Intersil/documents/cd40/cd4011bms-12bms-23bms.pdf" H 2600 6550 50  0001 C CNN
+	5    2600 6550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5E665B01
+P 7950 5350
+F 0 "R1" V 7743 5350 50  0000 C CNN
+F 1 "1K" V 7834 5350 50  0000 C CNN
+F 2 "PT:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 7880 5350 50  0001 C CNN
+F 3 "~" H 7950 5350 50  0001 C CNN
+	1    7950 5350
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR0101
+U 1 1 5E6669C3
+P 8200 5100
+F 0 "#PWR0101" H 8200 4950 50  0001 C CNN
+F 1 "+5V" H 8215 5273 50  0000 C CNN
+F 2 "" H 8200 5100 50  0001 C CNN
+F 3 "" H 8200 5100 50  0001 C CNN
+	1    8200 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR0102
+U 1 1 5E666D70
+P 2850 5900
+F 0 "#PWR0102" H 2850 5750 50  0001 C CNN
+F 1 "+5V" H 2865 6073 50  0000 C CNN
+F 2 "" H 2850 5900 50  0001 C CNN
+F 3 "" H 2850 5900 50  0001 C CNN
+	1    2850 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D1
+U 1 1 5E667E6E
+P 7800 5600
+F 0 "D1" V 7839 5483 50  0000 R CNN
+F 1 "LED" V 7748 5483 50  0000 R CNN
+F 2 "LED_THT:LED_D5.0mm" H 7800 5600 50  0001 C CNN
+F 3 "~" H 7800 5600 50  0001 C CNN
+	1    7800 5600
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8050 5500 8050 5600
+Wire Wire Line
+	7800 5350 7800 5450
+Wire Wire Line
+	2850 5900 2600 5900
+Wire Wire Line
+	2600 5900 2600 6050
+$Comp
+L power:GND #PWR0103
+U 1 1 5E66B8F3
+P 2600 7250
+F 0 "#PWR0103" H 2600 7000 50  0001 C CNN
+F 1 "GND" H 2605 7077 50  0000 C CNN
+F 2 "" H 2600 7250 50  0001 C CNN
+F 3 "" H 2600 7250 50  0001 C CNN
+	1    2600 7250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2600 7050 2600 7250
+Wire Wire Line
+	7800 5750 7800 5800
+Wire Wire Line
+	7800 5800 8000 5800
+$Comp
+L Device:R R?
+U 1 1 5E674E5B
+P 7900 1400
+F 0 "R?" V 7693 1400 50  0000 C CNN
+F 1 "1K" V 7784 1400 50  0000 C CNN
+F 2 "PT:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 7830 1400 50  0001 C CNN
+F 3 "~" H 7900 1400 50  0001 C CNN
+	1    7900 1400
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E674E65
+P 8150 1150
+F 0 "#PWR?" H 8150 1000 50  0001 C CNN
+F 1 "+5V" H 8165 1323 50  0000 C CNN
+F 2 "" H 8150 1150 50  0001 C CNN
+F 3 "" H 8150 1150 50  0001 C CNN
+	1    8150 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D?
+U 1 1 5E674E6F
+P 7750 1650
+F 0 "D?" V 7789 1533 50  0000 R CNN
+F 1 "LED" V 7698 1533 50  0000 R CNN
+F 2 "LED_THT:LED_D5.0mm" H 7750 1650 50  0001 C CNN
+F 3 "~" H 7750 1650 50  0001 C CNN
+	1    7750 1650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8000 1550 8000 1650
+Wire Wire Line
+	8050 1400 8150 1400
+Wire Wire Line
+	7750 1400 7750 1500
+Wire Wire Line
+	7750 1800 7750 1850
+Wire Wire Line
+	7750 1850 7950 1850
+$Comp
+L Device:R R?
+U 1 1 5E6814DC
+P 7900 2800
+F 0 "R?" V 7693 2800 50  0000 C CNN
+F 1 "1K" V 7784 2800 50  0000 C CNN
+F 2 "PT:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 7830 2800 50  0001 C CNN
+F 3 "~" H 7900 2800 50  0001 C CNN
+	1    7900 2800
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E6814E6
+P 8150 2550
+F 0 "#PWR?" H 8150 2400 50  0001 C CNN
+F 1 "+5V" H 8165 2723 50  0000 C CNN
+F 2 "" H 8150 2550 50  0001 C CNN
+F 3 "" H 8150 2550 50  0001 C CNN
+	1    8150 2550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D?
+U 1 1 5E6814F0
+P 7750 3050
+F 0 "D?" V 7789 2933 50  0000 R CNN
+F 1 "LED" V 7698 2933 50  0000 R CNN
+F 2 "LED_THT:LED_D5.0mm" H 7750 3050 50  0001 C CNN
+F 3 "~" H 7750 3050 50  0001 C CNN
+	1    7750 3050
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	7750 2800 7750 2900
+Wire Wire Line
+	7750 3200 7750 3250
+Wire Wire Line
+	7750 3250 7950 3250
+$Comp
+L Device:R R?
+U 1 1 5E690873
+P 7950 4100
+F 0 "R?" V 7743 4100 50  0000 C CNN
+F 1 "1K" V 7834 4100 50  0000 C CNN
+F 2 "PT:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 7880 4100 50  0001 C CNN
+F 3 "~" H 7950 4100 50  0001 C CNN
+	1    7950 4100
+	0    1    1    0   
+$EndComp
+$Comp
+L power:+5V #PWR?
+U 1 1 5E69087D
+P 8200 3850
+F 0 "#PWR?" H 8200 3700 50  0001 C CNN
+F 1 "+5V" H 8215 4023 50  0000 C CNN
+F 2 "" H 8200 3850 50  0001 C CNN
+F 3 "" H 8200 3850 50  0001 C CNN
+	1    8200 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D?
+U 1 1 5E690887
+P 7800 4350
+F 0 "D?" V 7839 4233 50  0000 R CNN
+F 1 "LED" V 7748 4233 50  0000 R CNN
+F 2 "LED_THT:LED_D5.0mm" H 7800 4350 50  0001 C CNN
+F 3 "~" H 7800 4350 50  0001 C CNN
+	1    7800 4350
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8050 4250 8050 4350
+Wire Wire Line
+	7800 4100 7800 4200
+Wire Wire Line
+	7800 4500 7800 4550
+Wire Wire Line
+	7800 4550 8000 4550
+Wire Wire Line
+	8150 1400 8150 1150
+Wire Wire Line
+	8100 5350 8200 5350
+Wire Wire Line
+	8200 5350 8200 5100
+Wire Wire Line
+	8050 2800 8150 2800
+Wire Wire Line
+	8150 2800 8150 2550
+Wire Wire Line
+	8200 3850 8200 4100
+Wire Wire Line
+	8200 4100 8100 4100
+Wire Bus Line
+	7150 700  7150 6250
+$EndSCHEMATC
