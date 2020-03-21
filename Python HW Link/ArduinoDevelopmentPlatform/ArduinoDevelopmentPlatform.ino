@@ -81,6 +81,8 @@ void setup() {
   
   Serial.begin(115000);
   Serial.println("Ethernet Framework");
+  Serial.println("TODO - Analog inputs");
+  Serial.println("TODO - Debounce array");
   pinMode(AddressBit0,INPUT_PULLUP);
   pinMode(AddressBit1,INPUT_PULLUP);
   pinMode(AddressBit2,INPUT_PULLUP);
@@ -186,6 +188,8 @@ void setup() {
 
   // Flash the address led to show the boards Device ID
   int NumberofFlashes = NodeAddress + 1;
+  digitalWrite(StatusLED, false);
+  digitalWrite(AddressLED, false);
   delay(500);
   while (NumberofFlashes > 0) {
     Serial.println("Flashing Address LED " + String(NumberofFlashes) +  " of " + String(NodeAddress + 1));
@@ -195,6 +199,7 @@ void setup() {
     delay(500);
     --NumberofFlashes;
   }
+  digitalWrite(StatusLED, StatusLEDState);
 
   // Convert IP Addresses to String to simplify log messages later
   strTargetIP = String(targetIP[0]) + "." + String(targetIP[1]) + "." + String(targetIP[2]) + "." + String(targetIP[3]); 
