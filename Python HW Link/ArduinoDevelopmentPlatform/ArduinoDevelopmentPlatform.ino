@@ -17,7 +17,16 @@ int AddrBit1 = 0;
 int AddrBit2 = 0;
 int NodeAddress = 0;
 
-String deviceID = "01";
+String deviceID = "00";
+
+
+// Analog inouts
+
+// V1 of the Ethernet interface PCB supports a total of 14 analog inputs
+// 6 from A0 to A5, 4  from A8 to A11, and 4 from A12 to A15)
+// The ports from A8 to A15 need to be jumpered to the PCB
+
+// 
 
 
 const long interval = 1000;             // interval at which to blink (milliseconds)
@@ -28,24 +37,31 @@ unsigned long previousMillis = 0;
 unsigned long analogPreviousMillis = 0;
 unsigned long analogDisplayPreviousMillis = 0;
 
-int maxanalog = 0;
-int minanalog = 1023;
-int lastSentAnalog = 0;
+
 
 const int numReadings = 10;
-int readings[numReadings];      // the readings from the analog input
-int readIndex = 0;              // the index of the current reading
-int total = 0;                  // the running total
-int average = 0;                // the average
+const int numAnalogInputs = 14;
+
+// Given that inputs 6 and 7 are sitting underneath the Ethernet Shieldand can't be easily accessed
+// we can't simply want interfaces from A0 to A15. So create an array to walk for input ports
+const int analogInputMapping[numAnalogInputs] = { 0,1,2,3,4,5,8,9,10,11,12,13,14,15};
+int analogInputIndex = 0;
+
+int readings[numAnalogInputs][numReadings];       // the readings from the analog input
+int readIndex = 0;                                // the index of the current reading
+int total[numAnalogInputs];                                    // the running total
+int average[numAnalogInputs];                                  // the average
 const int minDifferenceToUpdate = 1;  // Minimum change allow to stop jitter
 
-
+int maxanalog[numAnalogInputs];
+int minanalog[numAnalogInputs];
+int lastSentAnalog[numAnalogInputs];
 
 int ledState = LOW; 
 
 // These local Mac and IP Address will be reassigned early in startup based on 
 // the device ID as set by address pins
-byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x02};
+byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x00};
 IPAddress ip(172,16,1,10);
 String strMyIP = "X.X.X.X";
 
@@ -133,58 +149,58 @@ void setup() {
   switch (NodeAddress) {
   case 0:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x02};
-      ip = IPAddress(172,16,1,11);
-      deviceID = "01";
+      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x00};
+      ip = IPAddress(172,16,1,10);
+      deviceID = "00";
       break;
     }
   case 1:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x03};
-      ip = IPAddress(172,16,1,12);
-      deviceID = "02";
+      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x01};
+      ip = IPAddress(172,16,1,11);
+      deviceID = "01";
       break;
     }
   case 2:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x04};
-      ip = IPAddress(172,16,1,13);
-      deviceID = "03";
+      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x02};
+      ip = IPAddress(172,16,1,12);
+      deviceID = "02";
       break;
     }
   case 3:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x04};
-      ip = IPAddress(172,16,1,14);
-      deviceID = "04";
+      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x03};
+      ip = IPAddress(172,16,1,13);
+      deviceID = "03";
       break;
     }
   case 4:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x05};
-      ip = IPAddress(172,16,1,15);
-      deviceID = "05";
+      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x04};
+      ip = IPAddress(172,16,1,14);
+      deviceID = "04";
       break;
     }
   case 5:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x06};
-      ip = IPAddress(172,16,1,16);
-      deviceID = "06";
+      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x05};
+      ip = IPAddress(172,16,1,15);
+      deviceID = "05";
       break;
     }
   case 6:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x07};
-      ip = IPAddress(172,16,1,17);
-      deviceID = "07";
+      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x06};
+      ip = IPAddress(172,16,1,16);
+      deviceID = "06";
       break;
     }
   case 7:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x08};
-      ip = IPAddress(172,16,1,18);
-      deviceID = "08";
+      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x07};
+      ip = IPAddress(172,16,1,17);
+      deviceID = "07";
       break;
     }
   default:
@@ -192,9 +208,9 @@ void setup() {
     Serial.println("Warning hit default in Address Selection");
     Serial.println("Using device ID of 01");
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x02};
-      ip = IPAddress(172,16,1,11);
-      deviceID = "01";
+      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x00};
+      ip = IPAddress(172,16,1,10);
+      deviceID = "00";
       break;
     }
 
@@ -204,7 +220,7 @@ void setup() {
 
 
   // Flash the address led to show the boards Device ID
-  int NumberofFlashes = NodeAddress + 1;
+  int NumberofFlashes = NodeAddress;
   digitalWrite(StatusLED, false);
   digitalWrite(AddressLED, false);
   delay(500);
@@ -229,8 +245,9 @@ void setup() {
   Serial.println("Starting IP Stack");
   Serial.println("My IP = " + strMyIP);
 
-  Ethernet.begin( mac, ip);
+  // Initialise the network interface
 
+  Ethernet.begin( mac, ip);
   NW_State = NW_WaitingForLinkUp;
   
   udp.begin( localport );
@@ -261,13 +278,29 @@ void setup() {
   }
   
 
+
+
+
   StatusLEDState = false;
   digitalWrite(StatusLED, StatusLEDState); 
   
 
-  for (int thisReading = 0; thisReading < numReadings; thisReading++) {
-    readings[thisReading] = 0;
+  // Initialise arrays
+  for (int thisAnalogInput = 0; thisAnalogInput < numAnalogInputs; thisAnalogInput++) {
+    
+    for (int thisReading = 0; thisReading < numReadings; thisReading++) {
+      readings[thisAnalogInput][thisReading] = 0;
+    }
+
+    maxanalog[thisAnalogInput] = 0;
+    minanalog[thisAnalogInput] = 1023;
+    total[thisAnalogInput] = 0;                                   
+    average[thisAnalogInput] = 0; 
+    lastSentAnalog[numAnalogInputs] = 0;
   }
+
+
+  
 }
 
 void loop() {
@@ -275,40 +308,89 @@ void loop() {
 
   currentMillis = millis();
   if (currentMillis - analogPreviousMillis >= analogInterval) {
-    analogPreviousMillis = currentMillis;
-    int val = analogRead(0);  // read the input pin
-    if (val > maxanalog) maxanalog = val;
-    if (val < minanalog) minanalog = val;
 
-
-    // subtract the last reading:
-    total = total - readings[readIndex];
-    // read from the sensor:
-    readings[readIndex] = val;
-    // add the reading to the total:
-    total = total + readings[readIndex];
-    // advance to the next position in the array:
-    readIndex = readIndex + 1;
+    for (int thisAnalogInput = 0; thisAnalogInput < numAnalogInputs; thisAnalogInput++) {
     
-    // if we're at the end of the array...
-    if (readIndex >= numReadings) {
-      // ...wrap around to the beginning:
-      readIndex = 0;
-    }
-    
-    // calculate the average:
-    average = total / numReadings;
-    // send it to the computer as ASCII digits
+      analogPreviousMillis = currentMillis;
+  
 
-    currentMillis = millis();
-    if (currentMillis - analogDisplayPreviousMillis >= analogDisplayInterval) {
+      // read the input pin - remebering we have to use mapping as not all inputs can be used
       
-      if (average - minDifferenceToUpdate > lastSentAnalog || average + minDifferenceToUpdate < lastSentAnalog ) {
-        lastSentAnalog = average;
-        Serial.println("Analog Value is " + String(val)  + " Average" + String(average) +  "  min:" + String(minanalog) + " max:" + String(maxanalog));
+      int val = analogRead(analogInputMapping[thisAnalogInput]);  
+      if (val > maxanalog[thisAnalogInput]) maxanalog[thisAnalogInput] = val;
+      if (val < minanalog[thisAnalogInput]) minanalog[thisAnalogInput] = val;
+  
+    
+  
+      // subtract the last reading:
+      total[thisAnalogInput] = total[thisAnalogInput] - readings[thisAnalogInput][readIndex];
+      // read from the sensor:
+      readings[thisAnalogInput][readIndex] = val;
+      // add the reading to the total:
+      total[thisAnalogInput] = total[thisAnalogInput] + readings[thisAnalogInput][readIndex];
+      // advance to the next position in the array:
+
+      
+      // calculate the average:
+      average[thisAnalogInput] = total[thisAnalogInput] / numReadings;
+      // send it to the computer as ASCII digits
+  
+      currentMillis = millis();
+      if (currentMillis - analogDisplayPreviousMillis >= analogDisplayInterval) {
+        
+        // Only do something if there has been a change larger than minDifferenceToUpdate
+        // The reported average is currently weird - it is consistently half what it should be
+        // which is what it sends
+        // the array is only populated with every other entry
+//        Port 15 Analog Value is 755 Average 375  min:496 max:755
+//        377
+//        0
+//        756
+//        0
+//        754
+//        0
+//        755
+//        0
+//        755
+//        0
+//        751
+//        Port 15 Analog Value is 755 Average 377  min:496 max:756
+
+        
+        if (average[thisAnalogInput] - minDifferenceToUpdate > lastSentAnalog[thisAnalogInput] || average[thisAnalogInput] + minDifferenceToUpdate < lastSentAnalog[thisAnalogInput] ) {
+          lastSentAnalog[thisAnalogInput] = average[thisAnalogInput];
+          
+          Serial.println(String(lastSentAnalog[thisAnalogInput]));
+
+          Serial.println("Port 0");
+          for (int i = 0; i < numReadings; i++ ) {
+            Serial.println(String(readings[0][i]));
+          }
+          
+
+          Serial.println("Current port");
+          for (int i = 0; i < numReadings; i++ ) {
+            Serial.println(String(readings[thisAnalogInput][i]));
+          }
+          
+          Serial.println("Port " + String(analogInputMapping[thisAnalogInput]) + " Analog Value is " + String(val)  + " Average " + String(average[thisAnalogInput]) +  "  min:" + String(minanalog[thisAnalogInput]) + " max:" + String(maxanalog[thisAnalogInput]));
+        }
+   
       }
- 
-    }
+
+      Serial.println(String(readIndex));
+      delay(500);
+      readIndex = readIndex + 1;
+      
+      // if we're at the end of the array...
+      if (readIndex >= numReadings) {
+        // ...wrap around to the beginning:
+        readIndex = 0;
+      }
+
+    }     // Loop through inputs
+
+    
   }
 
 
