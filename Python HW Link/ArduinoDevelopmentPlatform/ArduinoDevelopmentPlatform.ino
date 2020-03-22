@@ -10,7 +10,7 @@ const int AddressBit2 = 14;
 const int AddressLED = 5;
 const int StatusLED = 6;
 
-const long interval = 1000;           // interval at which to blink (milliseconds)
+
 
 int AddrBit0 = 0;
 int AddrBit1 = 0;
@@ -19,8 +19,15 @@ int NodeAddress = 0;
 
 String deviceID = "01";
 
-unsigned long currentMillis;
+
+const long interval = 1000;           // interval at which to blink (milliseconds)
+const long analogInterval = 100;      // Interval to read analog values
+unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
+unsigned long analogPreviousMillis = 0;
+
+int maxanalog = 0;
+int mi
 
 
 
@@ -252,6 +259,13 @@ void setup() {
 }
 
 void loop() {
+
+
+  currentMillis = millis();
+  if (currentMillis - analogPreviousMillis >= analogInterval) {
+    int val = analogRead(0);  // read the input pin
+    Serial.println("Analog Value is " + String(val) );    
+  }
 
 
   currentMillis = millis();
