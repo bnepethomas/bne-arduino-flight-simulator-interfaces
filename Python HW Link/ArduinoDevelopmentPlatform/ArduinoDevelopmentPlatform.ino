@@ -20,14 +20,24 @@ int NodeAddress = 0;
 String deviceID = "01";
 
 
-const long interval = 1000;           // interval at which to blink (milliseconds)
-const long analogInterval = 100;      // Interval to read analog values
+const long interval = 1000;             // interval at which to blink (milliseconds)
+const long analogInterval = 10;         // Interval to read analog values
+const long analogDisplayInterval = 100; // Interval to display and send updated values
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
 unsigned long analogPreviousMillis = 0;
+unsigned long analogDisplayPreviousMillis = 0;
 
 int maxanalog = 0;
-int mi
+int minanalog = 1023;
+int lastSentAnalog = 0;
+
+const int numReadings = 10;
+int readings[numReadings];      // the readings from the analog input
+int readIndex = 0;              // the index of the current reading
+int total = 0;                  // the running total
+int average = 0;                // the average
+const int minDifferenceToUpdate = 1;  // Minimum change allow to stop jitter
 
 
 
@@ -255,7 +265,9 @@ void setup() {
   digitalWrite(StatusLED, StatusLEDState); 
   
 
-  
+  for (int thisReading = 0; thisReading < numReadings; thisReading++) {
+    readings[thisReading] = 0;
+  }
 }
 
 void loop() {
@@ -263,8 +275,40 @@ void loop() {
 
   currentMillis = millis();
   if (currentMillis - analogPreviousMillis >= analogInterval) {
+    analogPreviousMillis = currentMillis;
     int val = analogRead(0);  // read the input pin
-    Serial.println("Analog Value is " + String(val) );    
+    if (val > maxanalog) maxanalog = val;
+    if (val < minanalog) minanalog = val;
+
+
+    // subtract the last reading:
+    total = total - readings[readIndex];
+    // read from the sensor:
+    readings[readIndex] = val;
+    // add the reading to the total:
+    total = total + readings[readIndex];
+    // advance to the next position in the array:
+    readIndex = readIndex + 1;
+    
+    // if we're at the end of the array...
+    if (readIndex >= numReadings) {
+      // ...wrap around to the beginning:
+      readIndex = 0;
+    }
+    
+    // calculate the average:
+    average = total / numReadings;
+    // send it to the computer as ASCII digits
+
+    currentMillis = millis();
+    if (currentMillis - analogDisplayPreviousMillis >= analogDisplayInterval) {
+      
+      if (average - minDifferenceToUpdate > lastSentAnalog || average + minDifferenceToUpdate < lastSentAnalog ) {
+        lastSentAnalog = average;
+        Serial.println("Analog Value is " + String(val)  + " Average" + String(average) +  "  min:" + String(minanalog) + " max:" + String(maxanalog));
+      }
+ 
+    }
   }
 
 
