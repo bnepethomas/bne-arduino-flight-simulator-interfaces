@@ -339,57 +339,26 @@ void loop() {
       if (currentMillis - analogDisplayPreviousMillis >= analogDisplayInterval) {
         
         // Only do something if there has been a change larger than minDifferenceToUpdate
-        // The reported average is currently weird - it is consistently half what it should be
-        // which is what it sends
-        // the array is only populated with every other entry
-//        Port 15 Analog Value is 755 Average 375  min:496 max:755
-//        377
-//        0
-//        756
-//        0
-//        754
-//        0
-//        755
-//        0
-//        755
-//        0
-//        751
-//        Port 15 Analog Value is 755 Average 377  min:496 max:756
-
         
         if (average[thisAnalogInput] - minDifferenceToUpdate > lastSentAnalog[thisAnalogInput] || average[thisAnalogInput] + minDifferenceToUpdate < lastSentAnalog[thisAnalogInput] ) {
           lastSentAnalog[thisAnalogInput] = average[thisAnalogInput];
           
-          Serial.println(String(lastSentAnalog[thisAnalogInput]));
-
-          Serial.println("Port 0");
-          for (int i = 0; i < numReadings; i++ ) {
-            Serial.println(String(readings[0][i]));
-          }
-          
-
-          Serial.println("Current port");
-          for (int i = 0; i < numReadings; i++ ) {
-            Serial.println(String(readings[thisAnalogInput][i]));
-          }
-          
+          Serial.println(String(lastSentAnalog[thisAnalogInput]));        
           Serial.println("Port " + String(analogInputMapping[thisAnalogInput]) + " Analog Value is " + String(val)  + " Average " + String(average[thisAnalogInput]) +  "  min:" + String(minanalog[thisAnalogInput]) + " max:" + String(maxanalog[thisAnalogInput]));
         }
    
       }
 
-      Serial.println(String(readIndex));
-      delay(500);
-      readIndex = readIndex + 1;
-      
-      // if we're at the end of the array...
-      if (readIndex >= numReadings) {
-        // ...wrap around to the beginning:
-        readIndex = 0;
-      }
-
     }     // Loop through inputs
 
+
+    readIndex = readIndex + 1;
+    
+    // if we're at the end of the array...
+    if (readIndex >= numReadings) {
+      // ...wrap around to the beginning:
+      readIndex = 0;
+    }
     
   }
 
