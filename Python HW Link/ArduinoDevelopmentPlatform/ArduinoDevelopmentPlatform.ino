@@ -114,7 +114,7 @@ void setup() {
   
   Serial.begin(115000);
   Serial.println("Ethernet Framework");
-  Serial.println("TODO - Analog inputs");
+  Serial.println("TODO - Analog inputs - only send data after averages have been determined otherwise ramp up is sent");
   Serial.println("TODO - Debounce array");
   pinMode(AddressBit0,INPUT_PULLUP);
   pinMode(AddressBit1,INPUT_PULLUP);
