@@ -1,7 +1,7 @@
 (export (version D)
   (design
-    (source /Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/Arduino_NW_Template/Arduino_NW_Template.sch)
-    (date "Tuesday, 24 March 2020 at 07:37:48 am")
+    (source /Users/pethomas/Documents/FSServer/Development/bne-arduino-flight-simulator-interfaces/PCBs/Arduino_NW_Template/Arduino_NW_Template.sch)
+    (date "Tuesday, 24 March 2020 at 07:47:43 am")
     (tool "Eeschema (5.1.5-0-10_14)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -390,7 +390,7 @@
         (pin (num 2) (name ~) (type passive)))))
   (libraries
     (library (logical Arduino_NW_Template-rescue)
-      (uri /Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/Arduino_NW_Template/Arduino_NW_Template-rescue.lib))
+      (uri /Users/pethomas/Documents/FSServer/Development/bne-arduino-flight-simulator-interfaces/PCBs/Arduino_NW_Template/Arduino_NW_Template-rescue.lib))
     (library (logical Connector)
       (uri "/Library/Application Support/kicad/library/Connector.lib"))
     (library (logical Device)
