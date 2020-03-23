@@ -6,7 +6,7 @@ encoding utf-8
 Sheet 1 1
 Title ""
 Date ""
-Rev ""
+Rev "2"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -742,12 +742,6 @@ Wire Wire Line
 	4650 3200 4650 2500
 Wire Wire Line
 	4650 2500 4100 2500
-Wire Wire Line
-	5200 3300 4600 3300
-Wire Wire Line
-	4600 3300 4600 2800
-Wire Wire Line
-	4600 2800 4100 2800
 Text Notes 3650 1750 0    50   ~ 0
 Address Select (0-7)
 $Comp
@@ -777,12 +771,6 @@ Wire Wire Line
 	5000 4000 5000 4550
 Wire Wire Line
 	5000 4550 4400 4550
-Wire Wire Line
-	5200 3900 4900 3900
-Wire Wire Line
-	4900 3900 4900 4450
-Wire Wire Line
-	4900 4450 4400 4450
 $Comp
 L power:GND #PWR06
 U 1 1 5E7817B9
@@ -926,4 +914,6 @@ F 3 "~" H 6650 5900 50  0001 C CNN
 	1    6650 5900
 	1    0    0    -1  
 $EndComp
+Text Notes 4850 1750 0    50   ~ 0
+Cannot use D4 and D10 as they are used by the Ethernet shield
 $EndSCHEMATC

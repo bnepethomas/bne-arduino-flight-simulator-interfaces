@@ -84,7 +84,7 @@ unsigned long analogDisplayPreviousMillis = 0;
 const int numReadings = 10;
 const int numAnalogInputs = 14;
 
-// Given that inputs 6 and 7 are sitting underneath the Ethernet Shieldand can't be easily accessed
+// Given that inputs 6 and 7 are sitting underneath the Ethernet Shield and can't be easily accessed
 // we can't simply want interfaces from A0 to A15. So create an array to walk for input ports
 const int analogInputMapping[numAnalogInputs] = { 0,1,2,3,4,5,8,9,10,11,12,13,14,15};
 int analogInputIndex = 0;
@@ -438,6 +438,7 @@ void FindInputChanges()
 
 
         // Do a little debounce
+        // Will change this to debounce array with millis() + debounce delay on a per switch basis
         delay(DebounceDelay);
       }
       
@@ -506,22 +507,26 @@ void loop() {
     //pin 49, PL0
     colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
 
+    // Unable to use pins 50-53 per the following
+    //This is on digital pins 10, 11, 12, and 13 on the Uno and pins 50, 51, and 52 on the Mega. 
+    //On both boards, pin 10 is used to select the W5500 and pin 4 for the SD card. These pins cannot be used for general I/O. 
+    //On the Mega, the hardware SS pin, 53, is not used to select either the W5500 or the SD card, 
     //pin 50, PB3
-    colResult[12] =(PINB & B00001000) == 0 ? 0 : 1;
+    //colResult[12] =(PINB & B00001000) == 0 ? 0 : 1;
+    colResult[12] = 0
     //pin 51, PB2
-    
-    
     //colResult[13] =(PINB & B00000100) == 0 ? 0 : 0;
     colResult[13] = 0;
     //pin 52, PB1
     //colResult[14] =(PINB & B00000010) == 0 ? 0 : 0;
     colResult[14] = 0;
-    
     //pin 53, PB0
-    colResult[15] =(PINB & B00000001) == 0 ? 0 : 1;
+    //colResult[15] =(PINB & B00000001) == 0 ? 0 : 1;
+    colResult[15] = 0;    
 
     
     // There are 11 Columns per row - gives a total of 176 possible inputs
+    // Have left the arrays dimensioned as per original code - if CPU or Memory becomes scarce reduce array
     for ( int colid = 0; colid < 16; colid ++ )
     {
       if ( colResult[ colid ] == 1 )
