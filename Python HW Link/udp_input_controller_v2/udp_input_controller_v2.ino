@@ -513,7 +513,7 @@ void loop() {
     //On the Mega, the hardware SS pin, 53, is not used to select either the W5500 or the SD card, 
     //pin 50, PB3
     //colResult[12] =(PINB & B00001000) == 0 ? 0 : 1;
-    colResult[12] = 0
+    colResult[12] = 0;
     //pin 51, PB2
     //colResult[13] =(PINB & B00000100) == 0 ? 0 : 0;
     colResult[13] = 0;
@@ -583,6 +583,16 @@ void loop() {
           
           Serial.println(String(lastSentAnalog[thisAnalogInput]));        
           Serial.println("Port " + String(analogInputMapping[thisAnalogInput]) + " Analog Value is " + String(val)  + " Average " + String(average[thisAnalogInput]) +  "  min:" + String(minanalog[thisAnalogInput]) + " max:" + String(maxanalog[thisAnalogInput]));
+
+          outString = "A" + String(analogInputMapping[thisAnalogInput]) + ":" + String(average[thisAnalogInput]);
+          udp.beginPacket(targetIP, reflectorport);
+          udp.print(outString);
+          udp.endPacket();
+          
+          
+          udp.beginPacket(targetIP, remoteport);
+          udp.print(outString);
+          udp.endPacket();
         }
    
       }
