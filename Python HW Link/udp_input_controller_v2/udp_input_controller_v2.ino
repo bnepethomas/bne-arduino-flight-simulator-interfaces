@@ -17,6 +17,8 @@ it's a 16 * 14  matrix (due to loss of two columns)
 If using 5100 series Ethernet Shield may need to remove C3 as per 
 https://forum.arduino.cc/index.php?topic=99880.15
 
+There is no point is sending out switch sate on power up as it is unlikely the Sim is ready to receive - hence the CQ function
+
 */
 
 #define NUM_BUTTONS 256
@@ -34,6 +36,9 @@ const int DebounceDelay = 20;
 
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
+
+
+unsigned long joyEndDebounce[NUM_BUTTONS];  // Holds the time we'll look at any more changes in a given input
 
 long prevLEDTransition = millis();
 int cButtonID[16];
@@ -161,7 +166,7 @@ void setup() {
 
   
   Serial.println("TODO - Analog inputs - only send data after averages have been determined otherwise ramp up is sent");
-  Serial.println("TODO - Debounce array");
+  Serial.println("TODO - Listen and respond to CQ - remembering to stage it out - possibly in blocks of 500 bytes - check similar code");
   pinMode(AddressBit0,INPUT_PULLUP);
   pinMode(AddressBit1,INPUT_PULLUP);
   pinMode(AddressBit2,INPUT_PULLUP);
@@ -177,25 +182,31 @@ void setup() {
   digitalWrite(AddressLED, false);
 
 
+  // Set the output ports to output
   for( int portId = 22; portId < 38; portId ++ )
   {
     pinMode( portId, OUTPUT );
   }
 
 
-  // Should probably remove the ports that are used by the shield
-  // These translate to port 50 to 53
-  Serial.println("Clean up ports that can't be used");
-  for( int portId = 38; portId < 54; portId ++ )
+  // Set the input ports to input - port 50-53 used by Ethernet Shield
+  for( int portId = 38; portId < 50; portId ++ )
   {
     // Even though we've already got 10K external pullups
     pinMode( portId, INPUT_PULLUP);
   }
 
 
+
+  // Initialise all arrays
   for (int ind=0; ind < NUM_BUTTONS ; ind++) {
+
+    // Clear current and last values to 0 for button inputs
     joyReport.button[ind] = 0;
     prevjoyReport.button[ind] = 0;
+
+    // Set the end 
+    joyEndDebounce[ind] = 0;
   }
 
 
@@ -393,8 +404,11 @@ void FindInputChanges()
     }
     else {
       // Not the first time - see if there is a difference from last time
-      // If there is perform action and update prev array 
-      if ( prevjoyReport.button[ind] != joyReport.button[ind] ){
+      // If there is perform action and update prev array BUT only if we past the end of the debounce period
+      if ( prevjoyReport.button[ind] != joyReport.button[ind] && millis() > joyEndDebounce[ind] ){
+
+        // First things first - set a new debounce period
+        joyEndDebounce[ind] = millis() + DebounceDelay;        
 
 //        Serial.print("Input Change. Input ");
 //        Serial.print(ind);
@@ -437,9 +451,6 @@ void FindInputChanges()
         prevjoyReport.button[ind] = joyReport.button[ind]; 
 
 
-        // Do a little debounce
-        // Will change this to debounce array with millis() + debounce delay on a per switch basis
-        delay(DebounceDelay);
       }
       
     }
