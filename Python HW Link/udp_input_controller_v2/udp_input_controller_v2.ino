@@ -417,7 +417,8 @@ void FindInputChanges()
 //        Serial.print(" changed to ");
 
         
-        // Whilst internal array is zero based - sending data 1 based.
+        // As internal array is zero based will use 0 based
+        // changed from 1 based 20200325.
         sprintf(stringind, "%03d", ind + 1);
  
 
@@ -660,6 +661,80 @@ void loop() {
 
       if (CommandString.substring(0,2) == "CQ") {
         Serial.println("We've got work to do");
+        
+        
+        // Start with the header which includes deviceID
+        outString = "D"  + deviceID;
+
+
+        for (int CQInd = 0; CQInd < NUM_BUTTONS; CQInd++) {
+
+          //A single entry looks like outData = "D01:100:1";
+          printf(stringind, ":%03d", CQInd);
+          outString = outString + ":";
+
+        
+          if (prevjoyReport.button[CQInd] == 0) {
+            outString = outString +  "0"; 
+          }  
+          else {     
+            outString = outString + "1"; 
+          }
+
+          // We are close to max length of a packet so check string length at 500
+          if (outString.length() > 500) {
+
+            // Send the packet out and then reset the string back to a header only
+            udp.beginPacket(targetIP, reflectorport);
+            udp.print(outString);
+            udp.endPacket();
+            
+            
+            udp.beginPacket(targetIP, remoteport);
+            udp.print(outString);
+            udp.endPacket();
+
+            
+            // Start with the heeader which includes deviceID
+            outString = "D"  + deviceID;
+
+          }
+          
+        }   
+
+        //Check to see if we have any unsent values by comparying header of header againt length of outString
+        if (outString.length() != 3) {
+          udp.beginPacket(targetIP, reflectorport);
+          udp.print(outString);
+          udp.endPacket();
+          
+          
+          udp.beginPacket(targetIP, remoteport);
+          udp.print(outString);
+          udp.endPacket();
+        }
+
+
+        // Now send Analog Values
+        outString = "D"  + deviceID;
+        for (int thisAnalogInput = 0; thisAnalogInput < numAnalogInputs; thisAnalogInput++) {
+
+          //A single entry looks like outData = "D01:100:1";
+          printf(stringind, ":%03d", thisAnalogInput);
+          outString = outString + "A" + String(analogInputMapping[thisAnalogInput]) + ":" + String(average[thisAnalogInput]);
+          outString = outString + ":";
+        }
+
+        // Send out Analog values
+        udp.beginPacket(targetIP, reflectorport);
+        udp.print(outString);
+        udp.endPacket();
+        
+        
+        udp.beginPacket(targetIP, remoteport);
+        udp.print(outString);
+        udp.endPacket();
+        
       }
       
       
