@@ -316,6 +316,8 @@ void setup() {
   }
   digitalWrite(StatusLED, StatusLEDState);
 
+  
+
   // Convert IP Addresses to String to simplify log messages later
   strTargetIP = String(targetIP[0]) + "." + String(targetIP[1]) + "." + String(targetIP[2]) + "." + String(targetIP[3]); 
   strMyIP = String(ip[0]) + "." + String(ip[1]) + "." + String(ip[2]) + "." + String(ip[3]);
@@ -639,5 +641,29 @@ void loop() {
     // set the LED with the ledState of the variable:
     digitalWrite(AddressLED, ledState);
   }
+
+
+  // Check to see if there is a CQ request (ie send the state of all possible switchport and analog ports
+  // Don't hang around waiting
+  int packetSize = udp.parsePacket();
+  
+  if( packetSize > 0)
+  {
+
+      Serial.println("Processing Packet");
+      udp.read( packetBuffer, packetSize);
+      //terminate the buffer manually
+      packetBuffer[packetSize] = '\0';
+      String CommandString = "";
+      CommandString = packetBuffer;
+      Serial.println(CommandString);
+
+      if (CommandString.substring(0,2) == "CQ") {
+        Serial.println("We've got work to do");
+      }
+      
+      
+  }
+  
 
 }
