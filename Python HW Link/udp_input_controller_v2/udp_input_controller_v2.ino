@@ -170,11 +170,9 @@ String outString;
 void setup() {
   
   Serial.begin(115000);
-  Serial.println("UDP Input Connector Setup");
+  Serial.println("UDP Input Connector Setup v 2");
 
-  
-  Serial.println("TODO - Analog inputs - only send data after averages have been determined otherwise ramp up is sent");
-  Serial.println("TODO - Listen and respond to CQ - remembering to stage it out - possibly in blocks of 500 bytes - check similar code");
+ 
   pinMode(AddressBit0,INPUT_PULLUP);
   pinMode(AddressBit1,INPUT_PULLUP);
   pinMode(AddressBit2,INPUT_PULLUP);
