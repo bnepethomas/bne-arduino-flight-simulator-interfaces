@@ -328,6 +328,7 @@ void setup() {
 
   Serial.println("Starting IP Stack");
   Serial.println("My IP = " + strMyIP);
+  Serial.println("Receive Port = " + String(localport));
 
   // Initialise the network interface
   // Check to see if packet was sent (as opposed to acually delivered)
@@ -419,7 +420,7 @@ void FindInputChanges()
         
         // As internal array is zero based will use 0 based
         // changed from 1 based 20200325.
-        sprintf(stringind, "%03d", ind + 1);
+        sprintf(stringind, "%03d", ind);
  
 
 
@@ -670,8 +671,9 @@ void loop() {
         for (int CQInd = 0; CQInd < NUM_BUTTONS; CQInd++) {
 
           //A single entry looks like outData = "D01:100:1";
-          printf(stringind, ":%03d", CQInd);
-          outString = outString + ":";
+
+          sprintf(stringind, "%03d", CQInd);
+          outString = outString + ":" + String(stringind) + ":";
 
         
           if (prevjoyReport.button[CQInd] == 0) {
@@ -716,12 +718,13 @@ void loop() {
 
 
         // Now send Analog Values
-        outString = "D"  + deviceID;
+        
+        outString = "D"  + deviceID + ":";
         for (int thisAnalogInput = 0; thisAnalogInput < numAnalogInputs; thisAnalogInput++) {
 
           //A single entry looks like outData = "D01:100:1";
-          printf(stringind, ":%03d", thisAnalogInput);
-          outString = outString + "A" + String(analogInputMapping[thisAnalogInput]) + ":" + String(average[thisAnalogInput]);
+          sprintf(stringind, "%03d", analogInputMapping[thisAnalogInput]);
+          outString = outString + "A" + String(stringind) + ":" + String(average[thisAnalogInput]);
           outString = outString + ":";
         }
 
