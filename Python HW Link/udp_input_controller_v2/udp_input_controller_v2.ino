@@ -31,7 +31,15 @@ struct joyReport_t {
    int button[NUM_BUTTONS]; // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
 };
 
-const  int ScanDelay = 80;
+
+
+// Go through the man loop a number of times before sending data to the Sim
+// This allows analog averages to be established and the DigitalButton array to be populated
+int LoopsBeforeSendingAllowed = 15; 
+bool SendingAllowed = false;
+
+
+const int ScanDelay = 80;
 const int DebounceDelay = 20;
 
 joyReport_t joyReport;
@@ -443,15 +451,16 @@ void FindInputChanges()
 
 //
         //outData = "D01:100:1";
-        udp.beginPacket(targetIP, reflectorport);
-        udp.print(outString);
-        udp.endPacket();
-        
-        
-        udp.beginPacket(targetIP, remoteport);
-        udp.print(outString);
-        udp.endPacket();
-        
+        if (SendingAllowed) {
+          udp.beginPacket(targetIP, reflectorport);
+          udp.print(outString);
+          udp.endPacket();
+          
+          
+          udp.beginPacket(targetIP, remoteport);
+          udp.print(outString);
+          udp.endPacket();
+        }
         prevjoyReport.button[ind] = joyReport.button[ind]; 
 
 
@@ -544,7 +553,7 @@ void loop() {
     // Have left the arrays dimensioned as per original code - if CPU or Memory becomes scarce reduce array
     for ( int colid = 0; colid < 16; colid ++ )
     {
-      if ( colResult[ colid ] == 1 )
+      if ( colResult[ colid ] == 0 )
       {
         joyReport.button[ (rowid * 11) + colid ] =  1;
       }
@@ -596,18 +605,21 @@ void loop() {
         if (average[thisAnalogInput] - minDifferenceToUpdate > lastSentAnalog[thisAnalogInput] || average[thisAnalogInput] + minDifferenceToUpdate < lastSentAnalog[thisAnalogInput] ) {
           lastSentAnalog[thisAnalogInput] = average[thisAnalogInput];
           
-          Serial.println(String(lastSentAnalog[thisAnalogInput]));        
-          Serial.println("Port " + String(analogInputMapping[thisAnalogInput]) + " Analog Value is " + String(val)  + " Average " + String(average[thisAnalogInput]) +  "  min:" + String(minanalog[thisAnalogInput]) + " max:" + String(maxanalog[thisAnalogInput]));
+          //Serial.println(String(lastSentAnalog[thisAnalogInput]));        
+          //Serial.println("Port " + String(analogInputMapping[thisAnalogInput]) + " Analog Value is " + String(val)  + " Average " + String(average[thisAnalogInput]) +  "  min:" + String(minanalog[thisAnalogInput]) + " max:" + String(maxanalog[thisAnalogInput]));
 
           outString = "A" + String(analogInputMapping[thisAnalogInput]) + ":" + String(average[thisAnalogInput]);
-          udp.beginPacket(targetIP, reflectorport);
-          udp.print(outString);
-          udp.endPacket();
-          
-          
-          udp.beginPacket(targetIP, remoteport);
-          udp.print(outString);
-          udp.endPacket();
+
+          if (SendingAllowed) {
+            udp.beginPacket(targetIP, reflectorport);
+            udp.print(outString);
+            udp.endPacket();
+            
+            
+            udp.beginPacket(targetIP, remoteport);
+            udp.print(outString);
+            udp.endPacket();
+          }
         }
    
       }
@@ -687,15 +699,16 @@ void loop() {
           if (outString.length() > 500) {
 
             // Send the packet out and then reset the string back to a header only
-            udp.beginPacket(targetIP, reflectorport);
-            udp.print(outString);
-            udp.endPacket();
-            
-            
-            udp.beginPacket(targetIP, remoteport);
-            udp.print(outString);
-            udp.endPacket();
-
+            if (SendingAllowed) {
+              udp.beginPacket(targetIP, reflectorport);
+              udp.print(outString);
+              udp.endPacket();
+              
+              
+              udp.beginPacket(targetIP, remoteport);
+              udp.print(outString);
+              udp.endPacket();
+            }
             
             // Start with the heeader which includes deviceID
             outString = "D"  + deviceID;
@@ -706,14 +719,16 @@ void loop() {
 
         //Check to see if we have any unsent values by comparying header of header againt length of outString
         if (outString.length() != 3) {
-          udp.beginPacket(targetIP, reflectorport);
-          udp.print(outString);
-          udp.endPacket();
-          
-          
-          udp.beginPacket(targetIP, remoteport);
-          udp.print(outString);
-          udp.endPacket();
+          if (SendingAllowed) {
+            udp.beginPacket(targetIP, reflectorport);
+            udp.print(outString);
+            udp.endPacket();
+            
+            
+            udp.beginPacket(targetIP, remoteport);
+            udp.print(outString);
+            udp.endPacket();
+          }
         }
 
 
@@ -729,19 +744,29 @@ void loop() {
         }
 
         // Send out Analog values
-        udp.beginPacket(targetIP, reflectorport);
-        udp.print(outString);
-        udp.endPacket();
-        
-        
-        udp.beginPacket(targetIP, remoteport);
-        udp.print(outString);
-        udp.endPacket();
+        if (SendingAllowed) {
+          udp.beginPacket(targetIP, reflectorport);
+          udp.print(outString);
+          udp.endPacket();
+          
+          
+          udp.beginPacket(targetIP, remoteport);
+          udp.print(outString);
+          udp.endPacket();
+        }
         
       }
       
       
   }
-  
+
+
+  if (!SendingAllowed) {
+    if (LoopsBeforeSendingAllowed > 0){
+      LoopsBeforeSendingAllowed--;
+    }
+    else 
+      SendingAllowed= true;
+  }
 
 }
