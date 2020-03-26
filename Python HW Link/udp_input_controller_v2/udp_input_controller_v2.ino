@@ -664,16 +664,15 @@ void loop() {
   if( packetSize > 0)
   {
 
-      Serial.println("Processing Packet");
+      //Serial.println("Processing Packet");
       udp.read( packetBuffer, packetSize);
       //terminate the buffer manually
       packetBuffer[packetSize] = '\0';
       String CommandString = "";
       CommandString = packetBuffer;
-      Serial.println(CommandString);
+      //Serial.println(CommandString);
 
       if (CommandString.substring(0,2) == "CQ") {
-        Serial.println("We've got work to do");
         
         
         // Start with the header which includes deviceID
