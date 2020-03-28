@@ -2,10 +2,19 @@
 
 
 TO DO - when repsonding to CQ - first send 0 values and then one values to address issue with 3 position toggle switch
+
+
 Heavily based on 
 https://github.com/calltherain/ArduinoUSBJoystick
 
 Instead of sending to USB - sends over UDP
+Every packet is prefix by a D followed by a two digit number.  All values are comma separated.
+Digital Values are always prefixed by a 3 digit number, analog values are always prefixed by an A followed by a two digit number.
+
+Analog and digital state is not sent during initialisation, to prevent unwanted disaruption of the Sim, and also the Sim (well Pi)
+may not yet be operational.
+
+All inputs (digital and analog) are sent in repsonse to a CQ
 
 Mega2560 R3, 
 digitalPin 22~ 37 used as row0 ~ row 15, 
@@ -35,7 +44,9 @@ struct joyReport_t {
 
 // Go through the man loop a number of times before sending data to the Sim
 // This allows analog averages to be established and the DigitalButton array to be populated
-int LoopsBeforeSendingAllowed = 15; 
+// This has to more than simply the number of elements in the array as the array values are initialised
+// to 0, so it actually takes more than 30 interations before the average it fully established
+int LoopsBeforeSendingAllowed = 40; 
 bool SendingAllowed = false;
 
 
@@ -349,7 +360,7 @@ void setup() {
   
   udp.begin( localport );
   udp.beginPacket(targetIP, reflectorport);
-  udp.println("Init UDP - " + strMyIP + String(millis()));
+  udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
   if(!udp.endPacket()) {
     // Failed to send packet
     NW_WaitingForLinkUp;
@@ -433,7 +444,7 @@ void FindInputChanges()
 //        Serial.println(stringind);
 
         outString = "D";
-        outString = outString + deviceID + ":" + String(stringind) + ":"; 
+        outString = outString + deviceID + "," + String(stringind) + ":"; 
 
 //        Serial.println(outString);
         
@@ -606,7 +617,9 @@ void loop() {
           //Serial.println(String(lastSentAnalog[thisAnalogInput]));        
           //Serial.println("Port " + String(analogInputMapping[thisAnalogInput]) + " Analog Value is " + String(val)  + " Average " + String(average[thisAnalogInput]) +  "  min:" + String(minanalog[thisAnalogInput]) + " max:" + String(maxanalog[thisAnalogInput]));
 
-          outString = "A" + String(analogInputMapping[thisAnalogInput]) + ":" + String(average[thisAnalogInput]);
+
+          outString = "D"  + deviceID + ",";
+          outString = outString + "A" + String(analogInputMapping[thisAnalogInput]) + ":" + String(average[thisAnalogInput]);
 
           if (SendingAllowed) {
             udp.beginPacket(targetIP, reflectorport);
@@ -682,7 +695,7 @@ void loop() {
           //A single entry looks like outData = "D01:100:1";
 
           sprintf(stringind, "%03d", CQInd);
-          outString = outString + ":" + String(stringind) + ":";
+          outString = outString + "," + String(stringind) + ":";
 
         
           if (prevjoyReport.button[CQInd] == 0) {
@@ -731,13 +744,13 @@ void loop() {
 
         // Now send Analog Values
         
-        outString = "D"  + deviceID + ":";
+        outString = "D"  + deviceID + ",";
         for (int thisAnalogInput = 0; thisAnalogInput < numAnalogInputs; thisAnalogInput++) {
 
           //A single entry looks like outData = "D01:100:1";
           sprintf(stringind, "%03d", analogInputMapping[thisAnalogInput]);
           outString = outString + "A" + String(stringind) + ":" + String(average[thisAnalogInput]);
-          outString = outString + ":";
+          outString = outString + ",";
         }
 
         // Send out Analog values
