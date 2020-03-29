@@ -1,7 +1,7 @@
 /* 
 
 
-TO DO - when repsonding to CQ - first send 0 values and then one values to address issue with 3 position toggle switch
+
 
 
 Heavily based on 
@@ -97,12 +97,12 @@ String deviceID = "00";
 
 
 const long interval = 1000;             // interval at which to blink (milliseconds)
-const long analogInterval = 10;         // Interval to read analog values
+const long analogSampleInterval = 10;   // Interval to sample analog values
 const long analogDisplayInterval = 100; // Interval to display and send updated values
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
-unsigned long analogPreviousMillis = 0;
-unsigned long analogDisplayPreviousMillis = 0;
+unsigned long analogPreviousSampleMillis = 0;
+
 
 
 
@@ -122,6 +122,7 @@ const int minDifferenceToUpdate = 1;              // Minimum change allow to sto
 
 int maxanalog[numAnalogInputs];
 int minanalog[numAnalogInputs];
+unsigned long analogPreviousDisplayMillis[numAnalogInputs];
 int lastSentAnalog[numAnalogInputs];
 
 
@@ -406,7 +407,8 @@ void setup() {
     minanalog[thisAnalogInput] = 1023;
     total[thisAnalogInput] = 0;                                   
     average[thisAnalogInput] = 0; 
-    lastSentAnalog[numAnalogInputs] = 0;
+    analogPreviousDisplayMillis[thisAnalogInput] = 0;
+    lastSentAnalog[thisAnalogInput] = 0;
 
   }
 
@@ -581,11 +583,15 @@ void loop() {
 
 
   currentMillis = millis();
-  if (currentMillis - analogPreviousMillis >= analogInterval) {
+  if (currentMillis - analogPreviousSampleMillis >= analogSampleInterval) {
+
+    analogPreviousSampleMillis = currentMillis;
+
+    // Serial.println("Doing Analog Sample");
 
     for (int thisAnalogInput = 0; thisAnalogInput < numAnalogInputs; thisAnalogInput++) {
     
-      analogPreviousMillis = currentMillis;
+      
   
 
       // read the input pin - remebering we have to use mapping as not all inputs can be used
@@ -610,21 +616,31 @@ void loop() {
       // send it to the computer as ASCII digits
   
       currentMillis = millis();
-      if (currentMillis - analogDisplayPreviousMillis >= analogDisplayInterval) {
+      if ((currentMillis - analogPreviousDisplayMillis[thisAnalogInput]) >= analogDisplayInterval) {
+
+        // Serial.println("Doing Analog Display " + String(currentMillis));
+        
+        analogPreviousDisplayMillis[thisAnalogInput] = currentMillis;
         
         // Only do something if there has been a change larger than minDifferenceToUpdate
         
-        if (average[thisAnalogInput] - minDifferenceToUpdate > lastSentAnalog[thisAnalogInput] || average[thisAnalogInput] + minDifferenceToUpdate < lastSentAnalog[thisAnalogInput] ) {
-          lastSentAnalog[thisAnalogInput] = average[thisAnalogInput];
-          
-          //Serial.println(String(lastSentAnalog[thisAnalogInput]));        
-          //Serial.println("Port " + String(analogInputMapping[thisAnalogInput]) + " Analog Value is " + String(val)  + " Average " + String(average[thisAnalogInput]) +  "  min:" + String(minanalog[thisAnalogInput]) + " max:" + String(maxanalog[thisAnalogInput]));
+        if ((average[thisAnalogInput] - minDifferenceToUpdate) > lastSentAnalog[thisAnalogInput] || (average[thisAnalogInput] + minDifferenceToUpdate) < lastSentAnalog[thisAnalogInput] ) {
 
-
-          outString = "D"  + deviceID + ",";
-          outString = outString +  deviceID + ":A" + String(analogInputMapping[thisAnalogInput]) + ":" + String(average[thisAnalogInput]);
-
+          // Don't send anything until analog inputs have anveraged out
+          // A single packet will be sent on initalisation if the pot is at a non-zero value
+          // This could be tuned out
           if (SendingAllowed) {
+            
+            lastSentAnalog[thisAnalogInput] = average[thisAnalogInput];
+            
+            // Serial.println(String(lastSentAnalog[thisAnalogInput]));        
+            // Serial.println("Port " + String(analogInputMapping[thisAnalogInput]) + " Analog Value is " + String(val)  + " Average " + String(average[thisAnalogInput]) +  "  min:" + String(minanalog[thisAnalogInput]) + " max:" + String(maxanalog[thisAnalogInput]));
+  
+  
+            outString = "D"  + deviceID + ",";
+            outString = outString +  deviceID + ":A" + String(analogInputMapping[thisAnalogInput]) + ":" + String(average[thisAnalogInput]);
+
+
             udp.beginPacket(targetIP, reflectorport);
             udp.print(outString);
             udp.endPacket();
