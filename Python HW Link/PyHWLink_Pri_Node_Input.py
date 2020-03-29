@@ -5,7 +5,18 @@
 # Receives AV pairs from input devices and translates to AV pairs for the sim
 
 # TODO Normalise analog input for where it isn't a full 0 to 1023
-# 
+# TODO Add optional element to input json which lists partner switch.
+#  If this is present whilst dealing with a CQ repsonse. Know we are delaing
+#  with a CQ repsonse as we've receive one from the Sim and then set a timer
+#  say 5 seconds
+#  - add a member
+#  to a temporary array - after first checking that it isn't already there
+#  if it is there compare the results if both are open then we know the
+#  switch is in a center position.  Note we only create the entry if the
+#  first member is open - it is closed we already know the switch
+#  position.  One it is determined then remove member from array
+#  remove all entries for a given device once we hit the last array member
+
 
 
 from collections import OrderedDict
@@ -525,6 +536,9 @@ def ProcessReceivedString(ReceivedUDPString):
 
                         # Switch is Closed and not an Analog value
                         if str(workingFields[2]) == '1' and str(workingFields[1]).find('A') == -1:
+
+
+                                
                             # API Action    
                             if learning and input_assignments[workingkey]['API_Close'] == None:
                                 updateAPICloseAction(workingkey)
@@ -545,6 +559,20 @@ def ProcessReceivedString(ReceivedUDPString):
                         # Switch is Opened and not an Analog value
                         if str(workingFields[2]) == '0' and str(workingFields[1]).find('A') == -1:
                             # API Action
+
+                            print('START DEVELOPMENT')
+
+                            try:
+                                if input_assignments[workingkey]['ToggleNeighbour'] == None:
+                                    print('Nothing Assigned for ' + str(workingkey))
+                                else:
+                                    print('Neighbour is ' + str(input_assignments[workingkey]['ToggleNeighbour']))
+                                    
+                            except Exception as other:
+                                print("Exception caught in Dev")
+
+                            print('END DEVELOPMENT')
+                            
                             if learning and input_assignments[workingkey]['API_Open'] == None:
                                 updateAPIOpenAction(workingkey)
                             print('Value for API Open is : ' +
