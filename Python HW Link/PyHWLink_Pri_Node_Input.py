@@ -4,6 +4,9 @@
 
 # Receives AV pairs from input devices and translates to AV pairs for the sim
 
+# TODO Normalise analog input for where it isn't a full 0 to 1023
+# 
+
 
 from collections import OrderedDict
 import binascii
@@ -466,8 +469,9 @@ def ProcessReceivedString(ReceivedUDPString):
         if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
             
             logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
-            # Remove leading D
-            ReceivedUDPString = str(ReceivedUDPString[1:])
+            # Remove leading DXX,
+            # eg from Input board ID 6 we should receive 'D06,' and then the data        
+            ReceivedUDPString = str(ReceivedUDPString[4:])
             logging.debug('Checking for correct format :')
 
             
@@ -490,10 +494,16 @@ def ProcessReceivedString(ReceivedUDPString):
                     logging.warn('')
                     logging.warn('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
                     logging.warn('')
-                elif str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
+                    # Do not check for only a 1/0 if it is a analog input
+                elif str(workingFields[1]).find('A') == -1 and str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
                     logging.warn('')
-                    logging.warn('WARNING - Invalid 3rd parameter: ' + str(workingFields[2]))
-                    logging.warn('')                   
+                    logging.warn('WARNING - Invalid Digital 3rd parameter: ' + str(workingFields[2]))
+                    logging.warn('')
+                    # For Analog inputs 
+                elif str(workingFields[1]).find('A') != -1 and (int(workingFields[2]) < 0 or int(workingFields[2]) > 100):    
+                    logging.warn('')
+                    logging.warn('WARNING - Invalid Analog 3rd parameter: ' + str(workingFields[2]))
+                    logging.warn('')
                 else:
                     logging.debug('Stage 2 Processing: ' + str(workingFields))
 
@@ -711,8 +721,9 @@ def LoadDCSParameterFile():
 # Maximum inputs per module is 256
 # Unless explicitly asked via a command request, the sending unit only sends deltas
 # The format is AV pairs indicating new switch status, eg a switch moving to the off position will reflect as switch_no:0
-# Packets from input nodes will have the format of DX:A=V:A1=V1, where X is the input node number.
-# The Node number is only indicated in the front of the packet, not at the individual AV pair.
+# Packets from input nodes will have the format of DXX,A=V:A1=V1, where X is the input node number.
+# The Node number is only on all AV pairs - a little redundant D01,01:134:1
+# For analog packets D01,01:A15:452
 
 # If an AV pair is not known it will be silently discarded unless the Primary node is in learning mode.
 # If in learning mode it will ask the operator what task should be assigned to the unknown AV pair. Switch description will

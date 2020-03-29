@@ -9,7 +9,8 @@ https://github.com/calltherain/ArduinoUSBJoystick
 
 Instead of sending to USB - sends over UDP
 Every packet is prefix by a D followed by a two digit number.  All values are comma separated.
-Digital Values are always prefixed by a 3 digit number, analog values are always prefixed by an A followed by a two digit number.
+Digital Values are always prefixed by the Device Id and then a 3 digit number, analog values are always prefixed by the 
+Device Id and then an A followed by a two digit number.
 
 Analog and digital state is not sent during initialisation, to prevent unwanted disaruption of the Sim, and also the Sim (well Pi)
 may not yet be operational.
@@ -115,13 +116,14 @@ int analogInputIndex = 0;
 
 int readings[numAnalogInputs][numReadings];       // the readings from the analog input
 int readIndex = 0;                                // the index of the current reading
-int total[numAnalogInputs];                                    // the running total
-int average[numAnalogInputs];                                  // the average
-const int minDifferenceToUpdate = 1;  // Minimum change allow to stop jitter
+int total[numAnalogInputs];                       // the running total
+int average[numAnalogInputs];                     // the average
+const int minDifferenceToUpdate = 1;              // Minimum change allow to stop jitter
 
 int maxanalog[numAnalogInputs];
 int minanalog[numAnalogInputs];
 int lastSentAnalog[numAnalogInputs];
+
 
 int ledState = LOW; 
 
@@ -405,6 +407,7 @@ void setup() {
     total[thisAnalogInput] = 0;                                   
     average[thisAnalogInput] = 0; 
     lastSentAnalog[numAnalogInputs] = 0;
+
   }
 
   Serial.println("System Initialisation Complete");
@@ -444,7 +447,7 @@ void FindInputChanges()
 //        Serial.println(stringind);
 
         outString = "D";
-        outString = outString + deviceID + "," + String(stringind) + ":"; 
+        outString = outString + deviceID + "," + deviceID + ":" + String(stringind) + ":"; 
 
 //        Serial.println(outString);
         
@@ -459,7 +462,7 @@ void FindInputChanges()
         }
 
 //
-        //outData = "D01:100:1";
+        //outData = "D01,01:100:1";
         if (SendingAllowed) {
           udp.beginPacket(targetIP, reflectorport);
           udp.print(outString);
@@ -619,7 +622,7 @@ void loop() {
 
 
           outString = "D"  + deviceID + ",";
-          outString = outString + "A" + String(analogInputMapping[thisAnalogInput]) + ":" + String(average[thisAnalogInput]);
+          outString = outString +  deviceID + ":A" + String(analogInputMapping[thisAnalogInput]) + ":" + String(average[thisAnalogInput]);
 
           if (SendingAllowed) {
             udp.beginPacket(targetIP, reflectorport);
@@ -695,7 +698,7 @@ void loop() {
           //A single entry looks like outData = "D01:100:1";
 
           sprintf(stringind, "%03d", CQInd);
-          outString = outString + "," + String(stringind) + ":";
+          outString = outString + "," + deviceID + ":" + String(stringind) + ":";
 
         
           if (prevjoyReport.button[CQInd] == 0) {
@@ -749,7 +752,7 @@ void loop() {
 
           //A single entry looks like outData = "D01:100:1";
           sprintf(stringind, "%03d", analogInputMapping[thisAnalogInput]);
-          outString = outString + "A" + String(stringind) + ":" + String(average[thisAnalogInput]);
+          outString = outString + deviceID + ":A" + String(stringind) + ":" + String(average[thisAnalogInput]);
           outString = outString + ",";
         }
 
