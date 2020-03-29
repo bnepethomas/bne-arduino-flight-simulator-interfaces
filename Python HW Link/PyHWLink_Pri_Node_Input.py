@@ -597,7 +597,7 @@ def ProcessReceivedString(ReceivedUDPString):
                                     potValueToSend = -1
                                 print( potValueToSend)
                                 print ('%.3f'%potValueToSend) 
-                                addAPIValueToSend(str (input_assignments[workingkey]['API_Close']))
+                                addAPIValueToSend(str (input_assignments[workingkey]['API_Close'] + str(potValueToSend)))
                             elif input_assignments[workingkey]['API_Open'] == "01":
                                 print('Working with normal pot 0 1')
                             else:
