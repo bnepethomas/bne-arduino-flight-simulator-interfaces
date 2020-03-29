@@ -1946,16 +1946,16 @@
         "Keyboard_Open": null
     },
     "01:022": {
-        "API_Close": "Hello",
+        "API_Close": null,
         "API_Open": null,
-        "Description": "Eng Crank Left Centre",
+        "Description": null,
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "01:023": {
         "API_Close": null,
         "API_Open": null,
-        "Description": "Eng Crank Left Close",
+        "Description": null,
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
@@ -5372,13 +5372,6 @@
         "API_Close": null,
         "API_Open": null,
         "Description": null,
-        "Keyboard_Close": null,
-        "Keyboard_Open": null
-    },
-    "01:A15": {
-        "API_Close": "C38,3013,",
-        "API_Open": "-101",
-        "Description": "VHF Volume",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     }

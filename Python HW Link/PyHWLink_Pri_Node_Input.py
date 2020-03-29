@@ -494,13 +494,13 @@ def ProcessReceivedString(ReceivedUDPString):
                     logging.warn('')
                     logging.warn('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
                     logging.warn('')
-                    # Do not check for only a 1/0 if it is a analog input
+                    # For Digital Inputs should either be a 1 or a 0
                 elif str(workingFields[1]).find('A') == -1 and str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
                     logging.warn('')
                     logging.warn('WARNING - Invalid Digital 3rd parameter: ' + str(workingFields[2]))
                     logging.warn('')
-                    # For Analog inputs 
-                elif str(workingFields[1]).find('A') != -1 and (int(workingFields[2]) < 0 or int(workingFields[2]) > 100):    
+                    # For Analog inputs expected range 0 to 1023
+                elif str(workingFields[1]).find('A') != -1 and (int(workingFields[2]) < 0 or int(workingFields[2]) > 1023):    
                     logging.warn('')
                     logging.warn('WARNING - Invalid Analog 3rd parameter: ' + str(workingFields[2]))
                     logging.warn('')
@@ -523,8 +523,8 @@ def ProcessReceivedString(ReceivedUDPString):
                         print('Value for Description is : ' +
                               str (input_assignments[workingkey]['Description']))
 
-                        # Switch is Closed
-                        if str(workingFields[2]) == '1':
+                        # Switch is Closed and not an Analog value
+                        if str(workingFields[2]) == '1' and str(workingFields[1]).find('A') == -1:
                             # API Action    
                             if learning and input_assignments[workingkey]['API_Close'] == None:
                                 updateAPICloseAction(workingkey)
@@ -542,8 +542,8 @@ def ProcessReceivedString(ReceivedUDPString):
                                 addKBValueToSend(str (input_assignments[workingkey]['Keyboard_Close']))
 
 
-                        # Switch is Opened
-                        if str(workingFields[2]) == '0':
+                        # Switch is Opened and not an Analog value
+                        if str(workingFields[2]) == '0' and str(workingFields[1]).find('A') == -1:
                             # API Action
                             if learning and input_assignments[workingkey]['API_Open'] == None:
                                 updateAPIOpenAction(workingkey)
@@ -558,8 +558,52 @@ def ProcessReceivedString(ReceivedUDPString):
                             print('Value for Keyboard Open is : ' +
                                   str (input_assignments[workingkey]['Keyboard_Open']))
                             if input_assignments[workingkey]['Keyboard_Open'] != None:
-                                addKBValueToSend(str (input_assignments[workingkey]['Keyboard_Open']))                           
-                        
+                                addKBValueToSend(str (input_assignments[workingkey]['Keyboard_Open']))
+
+                            print('Control to Send is :' +  input_assignments[workingkey]['API_Close'])   
+
+                        # Processing an analog value
+                        # For the momment using API_Close and API_Open attributes
+                        # "API_Close": "C38,3013,",
+                        # "API_Open": "-101"
+                        # Currently analog needs minimal preposting - that will change it non-full-rotation is needed
+                        #    eg for Throttle, Joysticks or Rudders
+                        if str(workingFields[1]).find('A') != -1:
+
+                            print('Analog Control to Send is :' +  input_assignments[workingkey]['API_Close'])
+                            print('Analog Type is :' +  input_assignments[workingkey]['API_Open'])
+                            print('Analog Value Received is :' + workingFields[2])
+                                
+                            # First lets clean up the analog value a little to ensure we get both min and max eg 0 and 1023
+                            # Which may be stopped by dejitter code on Arduino
+                            if int(workingFields[2]) < 3:
+                                workingFields[2] = 0
+                            elif int(workingFields[2]) > 1021:
+                                workingFields[2] = 1023
+
+                            # Now deal with different types of Potentometers = some a zero centred so -1 to 0 to 1
+                            # others are simply 0 to 1.
+                            # DCS appears to be happy to take a precision of five so divide by a 1000
+                            
+                            # Need to r
+
+                            if input_assignments[workingkey]['API_Open'] == "-101":
+                                print('Working with Centred Pot -1 0 1')
+                                
+                                potValueToSend = ((int(workingFields[2]) - 511) / 511)
+                                if potValueToSend > 1:
+                                    potValueToSend = 1
+                                elif potValueToSend < -1:
+                                    potValueToSend = -1
+                                print( potValueToSend)
+                                print ('%.3f'%potValueToSend) 
+                                addAPIValueToSend(str (input_assignments[workingkey]['API_Close']))
+                            elif input_assignments[workingkey]['API_Open'] == "01":
+                                print('Working with normal pot 0 1')
+                            else:
+                                print('Unable opt type found in working assignments. Type returned is :' + input_assignments[workingkey]['API_Open'])
+                            
+                            
     
                     except Exception as other:
                         logging.critical('')
