@@ -561,16 +561,33 @@ def ProcessReceivedString(ReceivedUDPString):
                             # API Action
 
                             print('START DEVELOPMENT')
-
+                            print('Need to develop a CQ state machine as this code only souhl fire when dealing with CQ repsonse')
                             try:
-                                if input_assignments[workingkey]['ToggleNeighbour'] == None:
-                                    print('Nothing Assigned for ' + str(workingkey))
-                                else:
-                                    print('Neighbour is ' + str(input_assignments[workingkey]['ToggleNeighbour']))
-                                    
-                            except Exception as other:
-                                print("Exception caught in Dev")
+                                ToggleNeighbour = input_assignments[workingkey].get('ToggleNeighbour',"")
+                                if ToggleNeighbour != "":
+                                    # We have a ToggleNeighbour now see if a entry has been
+                                    # already created.  One should exist if the neigh
+                                    print('Neighbour is : ' + ToggleNeighbour)
 
+                                    print('If neighbour is less then this value we should have an existing entry')
+                                    print('working key : ' + str(int(workingFields[1])))
+                                    if (int(ToggleNeighbour) > int(workingFields[1])):
+                                        print('Looking for exitances of previous entry')
+                                        print('If nothing is found - then the neighbour must have been close send nothing')
+                                        print('inclusion of following code needer in this')
+                                        print('If entry does exist then we send the open code as switch position must be in the middle')
+                                    else:
+                                        print('Creating an Entry')
+                                    
+                            except KeyError:
+                                print("There is no ToogleNeighbour for :" + workingkey)
+                            except:
+                                e = sys.exc_info()[0]
+                                print( "Error in Neighbour Check: %s" % e )
+
+                            
+
+                            print('After CQ has ended should empty the array')
                             print('END DEVELOPMENT')
                             
                             if learning and input_assignments[workingkey]['API_Open'] == None:
