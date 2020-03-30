@@ -28,6 +28,8 @@ import socket
 import struct
 import sys
 import time
+from datetime import datetime
+from datetime import timedelta
 
 
 
@@ -142,8 +144,13 @@ SIM_API_PORT_NO = 49000
 SIM_KB_IP_ADDRESS = "172.16.1.3"
 SIM_KB_PORT_NO = 7790
 
+# Arudino listen port to CQ to 
+ARDUINO_PORT_NO = 7788
+
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
+
+
 
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.settimeout(0.0001)
@@ -152,12 +159,24 @@ serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 input_assignments_file = 'input_assignments.json'
 temp_input_assignments_file = 'temp_input_assignments.json'
 
+input_devices_IP_Addresses_file = 'input_IP_Addresses.json'
+
 
 input_assignments = None
 API_send_string = None
 KB_send_string = None
 
+
+# We haven't yet received a CQ so end time is now/passed
+CQ_End_Time = datetime.now()
+# Assume that we will have received all CQ responses within 10 seconds
+CQ_Seconds_To_Process = 10
+# Flag to indicate we are processing CQ response
+CQ_Processing = False
+
 def ReceivePacket():
+
+    global CQ_Processing    
 
     # a is used to track the number of timeouts between packets
     # throws a keepalive message to indicate we are still alive
@@ -169,6 +188,12 @@ def ReceivePacket():
             
             ReceivedPacket = data.decode('utf-8')
             logging.debug("Message: " + ReceivedPacket)
+
+            # Clear CQ_Processing Flag is time has been exceeded
+            if CQ_Processing == True and datetime.now() > CQ_End_Time:
+                logging.debug('Clearing CQ_Processing Flag')
+                CQ_Processing = False
+                
             ProcessReceivedString(str(ReceivedPacket))
             
 
@@ -470,6 +495,7 @@ def ProcessReceivedString(ReceivedUDPString):
     global API_send_string
     global KB_send_string
     global learning
+    global CQ_Processing
     
     logging.debug('Processing UDP String')
 
@@ -477,6 +503,21 @@ def ProcessReceivedString(ReceivedUDPString):
     KB_send_string = ""
     
     try:
+
+        # Have received a CQ request pass on to all input nodes
+        if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'C':
+            print('Sending CQ request to all configured input devices')
+            CQ_End_Time = datetime.now() + timedelta(seconds=CQ_Seconds_To_Process)
+            CQ_Processing = True
+            print('Initialise Array of Open Switches')
+            print('Walk through array of IP Addresses of input devices')
+            print('This should be done at Start')
+            
+            serverSock.sendto("CQ".encode('utf-8'), ("172.16.1.11", ARDUINO_PORT_NO))
+            
+            
+
+        # Normal packet process of info from Arduinos            
         if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
             
             logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
@@ -880,6 +921,48 @@ except Exception as other:
 
     serverSock.close()
     sys.exit(0)
+
+
+
+# Load IP Addresses
+dict_input_devices_IP_Addresses = {}
+input_devices_IP_Addresses_file = 'input_IP_Addresses.json'
+
+
+if not (os.path.isfile(input_devices_IP_Addresses_file)):
+    
+    logging.critical('Unable to find "' + input_devices_IP_Addresses_file + '"')
+    logging.info('Creating default Input Device IPAddresses in: ' + input_devices_IP_Addresses_file)
+
+    # Create three entries by default for left, front, and right input devices    
+    dictOuter = {}
+    dictInner = {}
+    outercounter = 0
+    while outercounter < 3:
+
+        dictInner = {}
+        dictInner['IP_Address'] = "172.16.1.1" + str(outercounter)     
+        dictOuter[ '%.2d' % (outercounter) ] = dictInner           
+        outercounter = outercounter + 1
+
+    json.dump(dictOuter, fp=open(input_devices_IP_Addresses_file,'w'),indent=4)
+
+    logging.info('Created Input Assignments file: "' + input_devices_IP_Addresses_file + '"')
+
+print('Loading Input Device Addrresses from: "' + input_devices_IP_Addresses_file +'"')              
+
+try:
+    input_devices_IP_Addresses = json.load(open(input_devices_IP_Addresses_file))
+                             
+except Exception as other:
+    logging.critical("Unexpected error while reading file:" + str(other))         
+
+    serverSock.close()
+    sys.exit(0)
+
+input("Check we have IP Addresses loaded correctly")
+
+# End Load IP Addresses
 
 
 
