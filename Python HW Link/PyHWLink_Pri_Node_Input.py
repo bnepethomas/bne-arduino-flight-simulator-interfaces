@@ -169,14 +169,15 @@ KB_send_string = None
 
 # We haven't yet received a CQ so end time is now/passed
 CQ_End_Time = datetime.now()
-# Assume that we will have received all CQ responses within 10 seconds
-CQ_Seconds_To_Process = 10
+# Assume that we will have received all CQ responses within 3 seconds
+CQ_Seconds_To_Process = 3
 # Flag to indicate we are processing CQ response
 CQ_Processing = False
 
 def ReceivePacket():
 
-    global CQ_Processing    
+    global CQ_Processing
+    global CQ_End_Time
 
     # a is used to track the number of timeouts between packets
     # throws a keepalive message to indicate we are still alive
@@ -497,6 +498,7 @@ def ProcessReceivedString(ReceivedUDPString):
     global KB_send_string
     global learning
     global CQ_Processing
+    global CQ_End_Time
     
     logging.debug('Processing UDP String')
 
@@ -509,6 +511,7 @@ def ProcessReceivedString(ReceivedUDPString):
         if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'C':
             print('Sending CQ request to all configured input devices')
             CQ_End_Time = datetime.now() + timedelta(seconds=CQ_Seconds_To_Process)
+            
             CQ_Processing = True
             print('Initialise Array of Open Switches')
             print('Walk through array of IP Addresses of input devices')
@@ -603,36 +606,36 @@ def ProcessReceivedString(ReceivedUDPString):
                         # Switch is Opened and not an Analog value
                         if str(workingFields[2]) == '0' and str(workingFields[1]).find('A') == -1:
                             # API Action
+                            if CQ_Processing:
+                                print('START DEVELOPMENT')
 
-                            print('START DEVELOPMENT')
-                            print('Need to develop a CQ state machine as this code only souhl fire when dealing with CQ repsonse')
-                            try:
-                                ToggleNeighbour = input_assignments[workingkey].get('ToggleNeighbour',"")
-                                if ToggleNeighbour != "":
-                                    # We have a ToggleNeighbour now see if a entry has been
-                                    # already created.  One should exist if the neigh
-                                    print('Neighbour is : ' + ToggleNeighbour)
+                                try:
+                                    ToggleNeighbour = input_assignments[workingkey].get('ToggleNeighbour',"")
+                                    if ToggleNeighbour != "":
+                                        # We have a ToggleNeighbour now see if a entry has been
+                                        # already created.  One should exist if the neigh
+                                        print('Neighbour is : ' + ToggleNeighbour)
 
-                                    print('If neighbour is less then this value we should have an existing entry')
-                                    print('working key : ' + str(int(workingFields[1])))
-                                    if (int(ToggleNeighbour) > int(workingFields[1])):
-                                        print('Looking for exitances of previous entry')
-                                        print('If nothing is found - then the neighbour must have been close send nothing')
-                                        print('inclusion of following code needer in this')
-                                        print('If entry does exist then we send the open code as switch position must be in the middle')
-                                    else:
-                                        print('Creating an Entry')
+                                        print('If neighbour is less then this value we should have an existing entry')
+                                        print('working key : ' + str(int(workingFields[1])))
+                                        if (int(ToggleNeighbour) > int(workingFields[1])):
+                                            print('Looking for exitances of previous entry')
+                                            print('If nothing is found - then the neighbour must have been close send nothing')
+                                            print('inclusion of following code needer in this')
+                                            print('If entry does exist then we send the open code as switch position must be in the middle')
+                                        else:
+                                            print('Creating an Entry')
                                     
-                            except KeyError:
-                                print("There is no ToogleNeighbour for :" + workingkey)
-                            except:
-                                e = sys.exc_info()[0]
-                                print( "Error in Neighbour Check: %s" % e )
+                                except KeyError:
+                                    print("There is no ToogleNeighbour for :" + workingkey)
+                                except:
+                                    e = sys.exc_info()[0]
+                                    print( "Error in Neighbour Check: %s" % e )
 
                             
 
-                            print('After CQ has ended should empty the array')
-                            print('END DEVELOPMENT')
+                                print('After CQ has ended should empty the array')
+                                print('END DEVELOPMENT')
                             
                             if learning and input_assignments[workingkey]['API_Open'] == None:
                                 updateAPIOpenAction(workingkey)
@@ -651,16 +654,23 @@ def ProcessReceivedString(ReceivedUDPString):
 
                             print('Control to Send is :' +  input_assignments[workingkey]['API_Close'])   
 
+
+
+
                         # Processing an analog value
-                        # For the momment using API_Close and API_Open attributes
-                        # "API_Close": "C38,3013,",
-                        # "API_Open": "-101"
+                        # The item that is associated wih the analog control - basically panel device number with a trailing comma
+                        # "Analog_Control": "C38,3013,",
+                        #
+                        # Is it a zero centred pot like trim or a normal pot like volume "01"
+                        # "Analog_Style": "-101"
+
                         # Currently analog needs minimal preposting - that will change it non-full-rotation is needed
                         #    eg for Throttle, Joysticks or Rudders
                         if str(workingFields[1]).find('A') != -1:
 
-                            print('Analog Control to Send is :' +  input_assignments[workingkey]['API_Close'])
-                            print('Analog Type is :' +  input_assignments[workingkey]['API_Open'])
+
+                            print('Analog Control to Send is :' +  input_assignments[workingkey]['Analog_Control'])
+                            print('Analog Type is :' +  input_assignments[workingkey]['Analog_Style'])
                             print('Analog Value Received is :' + workingFields[2])
                                 
                             # First lets clean up the analog value a little to ensure we get both min and max eg 0 and 1023
@@ -676,7 +686,7 @@ def ProcessReceivedString(ReceivedUDPString):
                             
                             # Need to r
 
-                            if input_assignments[workingkey]['API_Open'] == "-101":
+                            if input_assignments[workingkey]['Analog_Style'] == "-101":
                                 print('Working with Centred Pot -1 0 1')
                                 
                                 potValueToSend = ((int(workingFields[2]) - 511) / 511)
@@ -686,11 +696,11 @@ def ProcessReceivedString(ReceivedUDPString):
                                     potValueToSend = -1
                                 print( potValueToSend)
                                 print ('%.3f'%potValueToSend) 
-                                addAPIValueToSend(str (input_assignments[workingkey]['API_Close'] + str(potValueToSend)))
+                                addAPIValueToSend(str (input_assignments[workingkey]['Analog_Control'] + str(potValueToSend)))
                             elif input_assignments[workingkey]['API_Open'] == "01":
                                 print('Working with normal pot 0 1')
                             else:
-                                print('Unable opt type found in working assignments. Type returned is :' + input_assignments[workingkey]['API_Open'])
+                                print('Unable opt type found in working assignments. Type returned is :' + input_assignments[workingkey]['Analog_Control'])
                             
                             
     
@@ -900,6 +910,9 @@ if not (os.path.isfile(input_assignments_file)):
             dictInner['API_Close'] = None
             dictInner['Keyboard_Open'] = None
             dictInner['Keyboard_Close'] = None
+            dictInner['Analog_Control'] = None
+            dictInner['Analog_Style'] = None
+
 
             #dictOuter[str(outercounter) + ":" + str(counter)] = dictInner
             dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner

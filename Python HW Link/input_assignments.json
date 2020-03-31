@@ -5377,10 +5377,12 @@
         "Keyboard_Open": null
     },
     "01:A15": {
-        "API_Close": "C38,3013,",
-        "API_Open": "-101",
+        "API_Close": null,
+        "API_Open": null,
         "Description": "VHF Volume",
         "Keyboard_Close": null,
-        "Keyboard_Open": null
+        "Keyboard_Open": null,
+	"Analog_Control" : "C38,3013,",
+	"Analog_Style" : "-101"
     }
 }
