@@ -492,6 +492,7 @@ def Send_Remaining_KB_Commands():
 
 def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
+    global dict_input_devices_IP_Addresses
     global API_send_string
     global KB_send_string
     global learning
@@ -512,8 +513,10 @@ def ProcessReceivedString(ReceivedUDPString):
             print('Initialise Array of Open Switches')
             print('Walk through array of IP Addresses of input devices')
             print('This should be done at Start')
-            
-            serverSock.sendto("CQ".encode('utf-8'), ("172.16.1.11", ARDUINO_PORT_NO))
+            for indexPtr in dict_input_devices_IP_Addresses:
+                CQ_Target_IP = dict_input_devices_IP_Addresses[indexPtr]['IP_Address']    
+                print('Sending CQ to :' + CQ_Target_IP)
+                serverSock.sendto("CQ".encode('utf-8'), (CQ_Target_IP, ARDUINO_PORT_NO))
             
             
 
@@ -942,7 +945,7 @@ if not (os.path.isfile(input_devices_IP_Addresses_file)):
 
         dictInner = {}
         dictInner['IP_Address'] = "172.16.1.1" + str(outercounter)     
-        dictOuter[ '%.2d' % (outercounter) ] = dictInner           
+        dictOuter[ outercounter ] = dictInner           
         outercounter = outercounter + 1
 
     json.dump(dictOuter, fp=open(input_devices_IP_Addresses_file,'w'),indent=4)
@@ -952,7 +955,7 @@ if not (os.path.isfile(input_devices_IP_Addresses_file)):
 print('Loading Input Device Addrresses from: "' + input_devices_IP_Addresses_file +'"')              
 
 try:
-    input_devices_IP_Addresses = json.load(open(input_devices_IP_Addresses_file))
+    dict_input_devices_IP_Addresses = json.load(open(input_devices_IP_Addresses_file))
                              
 except Exception as other:
     logging.critical("Unexpected error while reading file:" + str(other))         
@@ -960,7 +963,11 @@ except Exception as other:
     serverSock.close()
     sys.exit(0)
 
-input("Check we have IP Addresses loaded correctly")
+
+print('Will send CQ to the following Addresses:')
+for indexPtr in dict_input_devices_IP_Addresses:
+    print(dict_input_devices_IP_Addresses[indexPtr]['IP_Address'])
+    
 
 # End Load IP Addresses
 
