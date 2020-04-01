@@ -455,12 +455,12 @@ void FindInputChanges()
         
         if (prevjoyReport.button[ind] == 0) {
 //          Serial.println("0");
-          outString = outString +  "0"; 
+          outString = outString +  "1"; 
 
         }  
         else {
 //          Serial.println("1");      
-          outString = outString + "1"; 
+          outString = outString + "0"; 
         }
 
 //

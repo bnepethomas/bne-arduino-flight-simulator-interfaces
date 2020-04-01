@@ -173,6 +173,9 @@ CQ_End_Time = datetime.now()
 CQ_Seconds_To_Process = 3
 # Flag to indicate we are processing CQ response
 CQ_Processing = False
+# Holds Toggle Entrties that are awaiting a neighbour, using a list as only single value
+CQ_Awaiting_Toggle_Neighbour = []
+
 
 def ReceivePacket():
 
@@ -499,6 +502,7 @@ def ProcessReceivedString(ReceivedUDPString):
     global learning
     global CQ_Processing
     global CQ_End_Time
+    global CQ_Awaiting_Toggle_Neighbour
     
     logging.debug('Processing UDP String')
 
@@ -513,6 +517,7 @@ def ProcessReceivedString(ReceivedUDPString):
             CQ_End_Time = datetime.now() + timedelta(seconds=CQ_Seconds_To_Process)
             
             CQ_Processing = True
+            CQ_Awaiting_Toggle_Neighbour = []
             print('Initialise Array of Open Switches')
             print('Walk through array of IP Addresses of input devices')
             print('This should be done at Start')
@@ -608,6 +613,9 @@ def ProcessReceivedString(ReceivedUDPString):
                             # API Action
                             if CQ_Processing:
                                 print('START DEVELOPMENT')
+                                print('CQ Processing')
+                                print('Working Key :' + str(workingkey))
+                                print(input_assignments[workingkey])
 
                                 try:
                                     ToggleNeighbour = input_assignments[workingkey].get('ToggleNeighbour',"")
@@ -616,15 +624,21 @@ def ProcessReceivedString(ReceivedUDPString):
                                         # already created.  One should exist if the neigh
                                         print('Neighbour is : ' + ToggleNeighbour)
 
+                                        
+
                                         print('If neighbour is less then this value we should have an existing entry')
+                                        a = input('take a breath 1')
                                         print('working key : ' + str(int(workingFields[1])))
                                         if (int(ToggleNeighbour) > int(workingFields[1])):
+                                                
                                             print('Looking for exitances of previous entry')
                                             print('If nothing is found - then the neighbour must have been close send nothing')
                                             print('inclusion of following code needer in this')
                                             print('If entry does exist then we send the open code as switch position must be in the middle')
                                         else:
                                             print('Creating an Entry')
+                                            CQ_Awaiting_Toggle_Neighbour.insert[ToggleNeighbour]
+                                        a = input('take a breath 2')
                                     
                                 except KeyError:
                                     print("There is no ToogleNeighbour for :" + workingkey)

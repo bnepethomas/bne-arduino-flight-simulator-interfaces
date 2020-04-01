@@ -1869,16 +1869,17 @@
         "Keyboard_Open": null
     },
     "01:011": {
-        "API_Close": null,
-        "API_Open": null,
-        "Description": null,
+        "API_Close": "C38,100,0",
+        "API_Open": "C39:100,1",
+        "Description": "Engine Crank Right Close",
+	"ToggleNeighbour" : "01:023",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "01:012": {
-        "API_Close": null,
-        "API_Open": null,
-        "Description": null,
+        "API_Close": "C38,100,1",
+        "API_Open": "C38,100,-1",
+        "Description": "Engine Crank Left Open",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
@@ -1947,16 +1948,17 @@
     },
     "01:022": {
         "API_Close": "Hello",
-        "API_Open": null,
-	"ToggleNeighbour": "42",
-        "Description": "Eng Crank Left Centre",
+        "API_Open": "Goodbye",
+	"ToggleNeighbour": "",
+        "Description": "Eng Crank Left Open",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
     "01:023": {
-        "API_Close": null,
-        "API_Open": null,
+        "API_Close": "C38,100,2",
+        "API_Open": "C38,100,-1",
         "Description": "Eng Crank Left Close",
+	"ToggleNeighbour" : "01:011",
         "Keyboard_Close": null,
         "Keyboard_Open": null
     },
