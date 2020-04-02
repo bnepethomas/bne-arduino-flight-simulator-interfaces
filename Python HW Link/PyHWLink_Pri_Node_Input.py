@@ -628,9 +628,15 @@ def ProcessReceivedString(ReceivedUDPString):
                                         # already created.  One should exist if the neigh
                                         print('Neighbour is : ' + ToggleNeighbour)
                                         print('Working Key is: ' + workingkey)
-                                        print('Count is : ' + len(CQ_Awaiting_Toggle_Neighbour))
-                                        print('Position is : ' + str(CQ_Awaiting_Toggle_Neighbour.index(str(ToggleNeighbour))))
+                                        print('Count is : ' + str(len(CQ_Awaiting_Toggle_Neighbour)))
+                                        try:
+                                            print('Position is : ' + str(CQ_Awaiting_Toggle_Neighbour.index(ToggleNeighbour)))
+                                        except ValueError:
+                                            print('Neighbour not found add entry as it could be found later')    
                                         print('Made it to here')
+                                        print('Adding Awaiting Neighbour Key')
+                                        CQ_Awaiting_Toggle_Neighbour.append(str(workingkey))
+                                        print('Neighbour Key Added')
 
                                         #if CQ_Awaiting_Toggle_Neighbour.index(str(ToggleNeighbour)) == -1:
                                         #    print("INSERTING a nei")
