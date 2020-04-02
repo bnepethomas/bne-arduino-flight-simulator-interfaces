@@ -763,13 +763,13 @@ void loop() {
 
         // Now send Analog Values
         
-        outString = "D"  + deviceID + ",";
+        outString = "D"  + deviceID;
         for (int thisAnalogInput = 0; thisAnalogInput < numAnalogInputs; thisAnalogInput++) {
 
           //A single entry looks like outData = "D01:100:1";
           sprintf(stringind, "%03d", analogInputMapping[thisAnalogInput]);
-          outString = outString + deviceID + ":A" + String(stringind) + ":" + String(average[thisAnalogInput]);
-          outString = outString + ",";
+          outString = outString + "," + deviceID + ":A" + String(stringind) + ":" + String(average[thisAnalogInput]);
+
         }
 
         // Send out Analog values

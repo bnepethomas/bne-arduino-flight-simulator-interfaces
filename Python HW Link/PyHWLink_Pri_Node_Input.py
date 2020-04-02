@@ -17,7 +17,7 @@
 #  position.  One it is determined then remove member from array
 #  remove all entries for a given device once we hit the last array member
 
-
+input('Currently starting stage 2 processing for Analog response from CQ but not getting past working key')
 
 from collections import OrderedDict
 import binascii
@@ -37,8 +37,8 @@ from datetime import timedelta
 from optparse import OptionParser
 
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 
@@ -615,6 +615,13 @@ def ProcessReceivedString(ReceivedUDPString):
                         # Switch is Opened and not an Analog value
                         if str(workingFields[2]) == '0' and str(workingFields[1]).find('A') == -1:
                             # API Action
+
+                            # the ok_To_Send flag is used to determine later if open action
+                            # can be sent while CQ Processing. It gets set to false as soon
+                            # as we see there control has a neighbour.  But if we've already
+                            # processed the neighbour and it was open then set to True so
+                            # we'll send the open action (which should be the same for both neighbours)
+                            ok_To_Send = True
                             if CQ_Processing:
                                 #print('START DEVELOPMENT')
                                 #print('CQ Processing')
@@ -624,40 +631,37 @@ def ProcessReceivedString(ReceivedUDPString):
                                 try:
                                     ToggleNeighbour = input_assignments[workingkey].get('ToggleNeighbour',"")
                                     if ToggleNeighbour != "":
+
+                                        # Hold sending anything and check to see if we've seen the neighbour
+                                        ok_ToSend = False
+                                        
                                         # We have a ToggleNeighbour now see if a entry has been
-                                        # already created.  One should exist if the neigh
+                                        # already created.  One will exist if neighbour is in open position
                                         print('Neighbour is : ' + ToggleNeighbour)
                                         print('Working Key is: ' + workingkey)
                                         print('Count is : ' + str(len(CQ_Awaiting_Toggle_Neighbour)))
-                                        try:
-                                            print('Position is : ' + str(CQ_Awaiting_Toggle_Neighbour.index(ToggleNeighbour)))
-                                        except ValueError:
-                                            print('Neighbour not found add entry as it could be found later')    
-                                        print('Made it to here')
+
+                                        # Add the key to the open Neighbour table
+                                        # This may seem a little wasteful - but in reality there are
+                                        # only a small number of switches with neighbours
+                                        # And we erase the list everything we start CQ processing
                                         print('Adding Awaiting Neighbour Key')
                                         CQ_Awaiting_Toggle_Neighbour.append(str(workingkey))
                                         print('Neighbour Key Added')
-
-                                        #if CQ_Awaiting_Toggle_Neighbour.index(str(ToggleNeighbour)) == -1:
-                                        #    print("INSERTING a nei")
-                                        #    CQ_Awaiting_Toggle_Neighbour.append(workingKey)
                                         
+                                        # As the index function on a list returns a value error if the
+                                        # Target it not foud - need to catch it.
+                                        # Probably move to Dict and use get as it has a nicer way of dealing with this
+                                        try:
+                                            ToggleNeighbourIndex = CQ_Awaiting_Toggle_Neighbour.index(ToggleNeighbour)    
+                                            print('Position is : ' + str(ToggleNeighbourIndex))
+                                            ok_To_Send = True
+                                            print('Found a neighbour - therefor do the open action')
+ 
+                                        except ValueError:
+                                            print('Neighbour not found add entry as it could be found later')    
+                                        print('Made it to here')
 
-                                        
-
-                                        print('If neighbour is less then this value we should have an existing entry')
-                                        # a = input('take a breath 1')
-                                        print('working key : ' + str(int(workingFields[1])))
-                                        if (int(ToggleNeighbour) > int(workingFields[1])):
-                                                
-                                            print('Looking for exitances of previous entry')
-                                            print('If nothing is found - then the neighbour must have been close send nothing')
-                                            print('inclusion of following code needer in this')
-                                            print('If entry does exist then we send the open code as switch position must be in the middle')
-                                        else:
-                                            print('Creating an Entry')
-                                            CQ_Awaiting_Toggle_Neighbour.insert[ToggleNeighbour]
-                                        # a = input('take a breath 2')
                                     
                                 except KeyError:
                                     print("There is no ToogleNeighbour for :" + workingkey)
@@ -669,22 +673,26 @@ def ProcessReceivedString(ReceivedUDPString):
 
                                 
                                 # print('END DEVELOPMENT')
-                            
-                            if learning and input_assignments[workingkey]['API_Open'] == None:
+                            # End CQ Processing
+                            if ok_To_Send and learning and input_assignments[workingkey]['API_Open'] == None:
                                 updateAPIOpenAction(workingkey)
+
+                            # Reduce GUI Noise by only displaying the action when not doing a CQ    
                             if not CQ_Processing:
                                 print('Value for API Open is : ' +
                                   str (input_assignments[workingkey]['API_Open']))
-                            if input_assignments[workingkey]['API_Open'] != None:
+
+                                
+                            if ok_To_Send and input_assignments[workingkey]['API_Open'] != None:
                                 addAPIValueToSend(str (input_assignments[workingkey]['API_Open']))
 
                             # Keyboard action  
-                            if learning and input_assignments[workingkey]['Keyboard_Open'] == None:
+                            if ok_To_Send and learning and input_assignments[workingkey]['Keyboard_Open'] == None:
                                 updateKBOpenAction(workingkey)
                             if not CQ_Processing:
                                 print('Value for Keyboard Open is : ' +
                                   str (input_assignments[workingkey]['Keyboard_Open']))
-                            if input_assignments[workingkey]['Keyboard_Open'] != None:
+                            if ok_To_Send and input_assignments[workingkey]['Keyboard_Open'] != None:
                                 addKBValueToSend(str (input_assignments[workingkey]['Keyboard_Open']))
 
                             print('Control to Send is :' +  input_assignments[workingkey]['API_Close'])   
@@ -701,6 +709,8 @@ def ProcessReceivedString(ReceivedUDPString):
 
                         # Currently analog needs minimal preposting - that will change it non-full-rotation is needed
                         #    eg for Throttle, Joysticks or Rudders
+
+                        print('CQ Processing what about analog')
                         if str(workingFields[1]).find('A') != -1:
 
 
