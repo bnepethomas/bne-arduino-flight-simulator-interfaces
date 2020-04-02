@@ -37,8 +37,8 @@ from datetime import timedelta
 from optparse import OptionParser
 
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
 
 
@@ -518,6 +518,7 @@ def ProcessReceivedString(ReceivedUDPString):
             
             CQ_Processing = True
             CQ_Awaiting_Toggle_Neighbour = []
+            CQ_Awaiting_Toggle_Neighbour.append("XX")
             print('Initialise Array of Open Switches')
             print('Walk through array of IP Addresses of input devices')
             print('This should be done at Start')
@@ -583,7 +584,8 @@ def ProcessReceivedString(ReceivedUDPString):
 
                         if learning and input_assignments[workingkey]['Description'] == None:
                                 updateDescription(workingkey)
-                        print('Value for Description is : ' +
+                        if not CQ_Processing:        
+                            print('Value for Description is : ' +
                               str (input_assignments[workingkey]['Description']))
 
                         # Switch is Closed and not an Analog value
@@ -594,16 +596,18 @@ def ProcessReceivedString(ReceivedUDPString):
                             # API Action    
                             if learning and input_assignments[workingkey]['API_Close'] == None:
                                 updateAPICloseAction(workingkey)
-                            print('Value for API Close is : ' +
-                              str (input_assignments[workingkey]['API_Close']))
+                            if not CQ_Processing:
+                                print('Value for API Close is : ' +
+                                    str (input_assignments[workingkey]['API_Close']))
                             if input_assignments[workingkey]['API_Close'] != None:
                                 addAPIValueToSend(str (input_assignments[workingkey]['API_Close']))
 
                             # Keyboard action 
                             if learning and input_assignments[workingkey]['Keyboard_Close'] == None:
                                 updateKBCloseAction(workingkey)
-                            print('Value for Keyboard Close is : ' +
-                              str (input_assignments[workingkey]['Keyboard_Close']))
+                            if not CQ_Processing:
+                                print('Value for Keyboard Close is : ' +
+                                    str (input_assignments[workingkey]['Keyboard_Close']))
                             if input_assignments[workingkey]['Keyboard_Close'] != None:
                                 addKBValueToSend(str (input_assignments[workingkey]['Keyboard_Close']))
 
@@ -612,10 +616,10 @@ def ProcessReceivedString(ReceivedUDPString):
                         if str(workingFields[2]) == '0' and str(workingFields[1]).find('A') == -1:
                             # API Action
                             if CQ_Processing:
-                                print('START DEVELOPMENT')
-                                print('CQ Processing')
-                                print('Working Key :' + str(workingkey))
-                                print(input_assignments[workingkey])
+                                #print('START DEVELOPMENT')
+                                #print('CQ Processing')
+                                #print('Working Key :' + str(workingkey))
+                                #print(input_assignments[workingkey])
 
                                 try:
                                     ToggleNeighbour = input_assignments[workingkey].get('ToggleNeighbour',"")
@@ -623,11 +627,20 @@ def ProcessReceivedString(ReceivedUDPString):
                                         # We have a ToggleNeighbour now see if a entry has been
                                         # already created.  One should exist if the neigh
                                         print('Neighbour is : ' + ToggleNeighbour)
+                                        print('Working Key is: ' + workingkey)
+                                        print('Count is : ' + len(CQ_Awaiting_Toggle_Neighbour))
+                                        print('Position is : ' + str(CQ_Awaiting_Toggle_Neighbour.index(str(ToggleNeighbour))))
+                                        print('Made it to here')
+
+                                        #if CQ_Awaiting_Toggle_Neighbour.index(str(ToggleNeighbour)) == -1:
+                                        #    print("INSERTING a nei")
+                                        #    CQ_Awaiting_Toggle_Neighbour.append(workingKey)
+                                        
 
                                         
 
                                         print('If neighbour is less then this value we should have an existing entry')
-                                        a = input('take a breath 1')
+                                        # a = input('take a breath 1')
                                         print('working key : ' + str(int(workingFields[1])))
                                         if (int(ToggleNeighbour) > int(workingFields[1])):
                                                 
@@ -638,7 +651,7 @@ def ProcessReceivedString(ReceivedUDPString):
                                         else:
                                             print('Creating an Entry')
                                             CQ_Awaiting_Toggle_Neighbour.insert[ToggleNeighbour]
-                                        a = input('take a breath 2')
+                                        # a = input('take a breath 2')
                                     
                                 except KeyError:
                                     print("There is no ToogleNeighbour for :" + workingkey)
@@ -648,12 +661,13 @@ def ProcessReceivedString(ReceivedUDPString):
 
                             
 
-                                print('After CQ has ended should empty the array')
-                                print('END DEVELOPMENT')
+                                
+                                # print('END DEVELOPMENT')
                             
                             if learning and input_assignments[workingkey]['API_Open'] == None:
                                 updateAPIOpenAction(workingkey)
-                            print('Value for API Open is : ' +
+                            if not CQ_Processing:
+                                print('Value for API Open is : ' +
                                   str (input_assignments[workingkey]['API_Open']))
                             if input_assignments[workingkey]['API_Open'] != None:
                                 addAPIValueToSend(str (input_assignments[workingkey]['API_Open']))
@@ -661,7 +675,8 @@ def ProcessReceivedString(ReceivedUDPString):
                             # Keyboard action  
                             if learning and input_assignments[workingkey]['Keyboard_Open'] == None:
                                 updateKBOpenAction(workingkey)
-                            print('Value for Keyboard Open is : ' +
+                            if not CQ_Processing:
+                                print('Value for Keyboard Open is : ' +
                                   str (input_assignments[workingkey]['Keyboard_Open']))
                             if input_assignments[workingkey]['Keyboard_Open'] != None:
                                 addKBValueToSend(str (input_assignments[workingkey]['Keyboard_Open']))
@@ -719,12 +734,14 @@ def ProcessReceivedString(ReceivedUDPString):
                             
     
                     except Exception as other:
-                        logging.critical('')
-                        logging.critical('WARNING - Unable to read record of interest in ProcessReceivedString')
-                        logging.critical('WARNING - Record name is: "' + workingkey + '"')
-                        logging.critical('')
-                        logging.critical("Error in ProcessReceivedString: " + str(other))
-                
+                        # Reduce noise form unmapped Switches when repsonding to CQ
+                        if not CQ_Processing:    
+                            logging.critical('')
+                            logging.critical('WARNING - Unable to read record of interest in ProcessReceivedString')
+                            logging.critical('WARNING - Record name is: "' + workingkey + '"')
+                            logging.critical('')
+                            logging.critical("Error in ProcessReceivedString: " + str(other))
+                        
 
             Send_Remaining_API_Commands()
             Send_Remaining_KB_Commands()

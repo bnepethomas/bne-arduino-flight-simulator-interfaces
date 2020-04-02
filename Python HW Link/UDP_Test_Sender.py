@@ -84,17 +84,17 @@ def main():
     try:
         print('UDP_Test_Sender - ctl-c at anytime to exit')
         print('')
-        target_IP = input('Enter Target IP Address [172.16.1.21]: ')
+        target_IP = input('Enter Target IP Address [172.16.1.2]: ')
         if len(target_IP) == 0:
-            target_IP = '172.16.1.21'
+            target_IP = '172.16.1.2'
 
 
 
         target_Port = ''
         while not isinstance(target_Port, int):
-            target_Port = input('Enter Target Port [13135]: ')
+            target_Port = input('Enter Target Port [26027]: ')
             if len(target_Port) == 0:
-                target_Port = 13135
+                target_Port = 26027
             try:
                 target_Port = int(target_Port)
                 
@@ -129,10 +129,10 @@ def main():
         if (run_LED_tests == False) and (run_DigitalOutput_tests == False) and (run_Servo_tests == False) :
             prefix_with_D = input(
                 'Would you like all commands to be prefix with a D [Y]: ')
-            if prefix_with_D.upper() != 'N':
-                prefix_with_D = True
-            else:
+            if prefix_with_D.upper() != 'Y':
                 prefix_with_D = False
+            else:
+                prefix_with_D = True
 
 
 
