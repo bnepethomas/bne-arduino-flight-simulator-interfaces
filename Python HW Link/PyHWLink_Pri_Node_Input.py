@@ -17,7 +17,7 @@
 #  position.  One it is determined then remove member from array
 #  remove all entries for a given device once we hit the last array member
 
-input('Currently starting stage 2 processing for Analog response from CQ but not getting past working key')
+
 
 from collections import OrderedDict
 import binascii
@@ -574,6 +574,7 @@ def ProcessReceivedString(ReceivedUDPString):
                     try:
                         workingkey = workingFields[0] + ':' + workingFields[1]
                         logging.debug('Working key is: ' + workingkey)
+
                         
                         logging.debug('Working Fields for working key are: ' +
                               str(input_assignments[workingkey]))

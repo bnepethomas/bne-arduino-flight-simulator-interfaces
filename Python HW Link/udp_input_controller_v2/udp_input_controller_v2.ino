@@ -767,7 +767,7 @@ void loop() {
         for (int thisAnalogInput = 0; thisAnalogInput < numAnalogInputs; thisAnalogInput++) {
 
           //A single entry looks like outData = "D01:100:1";
-          sprintf(stringind, "%03d", analogInputMapping[thisAnalogInput]);
+          sprintf(stringind, "%02d", analogInputMapping[thisAnalogInput]);
           outString = outString + "," + deviceID + ":A" + String(stringind) + ":" + String(average[thisAnalogInput]);
 
         }
