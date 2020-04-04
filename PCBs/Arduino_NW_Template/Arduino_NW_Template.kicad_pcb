@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 29)
+    (drawings 31)
     (tracks 264)
     (zones 0)
     (modules 34)
@@ -1928,6 +1928,12 @@
       (net 62 "Net-(R3-Pad2)"))
   )
 
+  (gr_text System (at 109.83976 69.596) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text Network (at 113.64976 84.836) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
   (gr_text Max7219 (at 165.71976 78.486 90) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
@@ -1943,7 +1949,7 @@
   (gr_text "To Panel\nA0-A7" (at 109.83976 96.266) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)) (justify left))
   )
-  (gr_text "Ethernet Shield Adaptor V002" (at 125.07976 106.426) (layer F.SilkS)
+  (gr_text "Ethernet Shield Adaptor V003" (at 125.07976 106.426) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
   (gr_text "Addr Sel\nMSB - LSB" (at 147.93976 72.136) (layer F.SilkS)
