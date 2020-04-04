@@ -284,65 +284,65 @@ void setup() {
   
 
   NodeAddress = AddrBit2 * 4 + AddrBit1 * 2 + AddrBit0;
-  //Serial.println(AddrBit0);
-  //Serial.println(AddrBit1);
-  //Serial.println(AddrBit2);
-  //Serial.println(NodeAddress);
+  Serial.println(AddrBit0);
+  Serial.println(AddrBit1);
+  Serial.println(AddrBit2);
+  Serial.println(NodeAddress);
 
 
   switch (NodeAddress) {
   case 0:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x00};
+      mac[5] = {0x00};
       ip = IPAddress(172,16,1,10);
       deviceID = "00";
       break;
     }
   case 1:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x01};
+      mac[5] = {0x01};
       ip = IPAddress(172,16,1,11);
       deviceID = "01";
       break;
     }
   case 2:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x02};
+      mac[5] = {0x02};
       ip = IPAddress(172,16,1,12);
       deviceID = "02";
       break;
     }
   case 3:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x03};
+      mac[5] = {0x03};
       ip = IPAddress(172,16,1,13);
       deviceID = "03";
       break;
     }
   case 4:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x04};
+      mac[5] = {0x04};
       ip = IPAddress(172,16,1,14);
       deviceID = "04";
       break;
     }
   case 5:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x05};
+      mac[5] = {0x05};
       ip = IPAddress(172,16,1,15);
       deviceID = "05";
       break;
     }
   case 6:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x06};
+      mac[5] = {0x06};
       ip = IPAddress(172,16,1,16);
       deviceID = "06";
       break;
     }
   case 7:
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x07};
+      mac[5] = {0x07};
       ip = IPAddress(172,16,1,17);
       deviceID = "07";
       break;
@@ -352,7 +352,7 @@ void setup() {
     Serial.println("Warning hit default in Address Selection");
     Serial.println("Using device ID of 01");
     {
-      byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x00};
+      mac[5] = {0x00};
       ip = IPAddress(172,16,1,10);
       deviceID = "00";
       break;
