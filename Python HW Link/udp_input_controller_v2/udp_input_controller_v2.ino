@@ -1,13 +1,34 @@
 /* 
 
 
-
+This Superceedes udp_input_controller
 
 
 Heavily based on 
 https://github.com/calltherain/ArduinoUSBJoystick
 
 Instead of sending to USB - sends over UDP
+
+On initialisation the code reads the address using the 3 address bits, giving a range of 
+8 possible Devices IDs/Mac Addresses/IP Addresses.  If nothing is connected the code assumes
+an identity of device 0
+
+Once the addres has been determined the status led flashes to represent the Device ID - ie 7 times for DeviceId of 7 and nothing for 
+a device ID of 0.
+
+A UDP packet will then attempt to be sent to the Master Controller @ 172.16.1.2.  This address is locked - as all communications to 
+the Simulator go through the controller which normalises the inputs to either API or Keyboard values understood by the sim.
+
+The acutal check is it see if the packet was sent - which is determined by a return value from udp.endPacket(). Whilst
+UDP is a unreliable delivery mechanism - we get a delivery/sent indication based on whether the W5100 was able to resolve the 
+ARP request for 172.16.1.2 - which in turn prevents the packet from being sent from the card.  The ARP resolution timeout is
+approxiamtely 1.8 seconds.  One the packet has been sent the Ethernet Status Led is turned off.
+
+The general status led flashes once a second.
+
+On startup no digital values are sent as the master controller isn't ready to decode three position toggles, that
+requires the Master Controller to be in CQ mode (ie it is expecting all values to be returned)
+
 Every packet is prefix by a D followed by a two digit number.  All values are comma separated.
 Digital Values are always prefixed by the Device Id and then a 3 digit number, analog values are always prefixed by the 
 Device Id and then an A followed by a two digit number.
@@ -15,23 +36,44 @@ Device Id and then an A followed by a two digit number.
 Analog and digital state is not sent during initialisation, to prevent unwanted disaruption of the Sim, and also the Sim (well Pi)
 may not yet be operational.
 
-All inputs (digital and analog) are sent in repsonse to a CQ
+All inputs (digital and analog) are sent in response to a CQ.  A total of 10 packets are sent (with current limit of 500 byte payload), 
+over a period of 250mS, first response sent at 80mS, 6mS for Reflector, 70mS for next, 70mS for 
+74mS  - 000 - 055
+80ms  - 000 - 055 Reflector
+150mS - 056 - 111
+156mS - 056 - 111 Reflector
+226mS - 112 - 167
+233mS - 112 - 167 Relector
+238mS - 168 - 175
+239mS - 168 - 175 Reflector
+248mS - A00 - A15
+248mS - A00 - A15 Relfector
 
 Mega2560 R3, 
-digitalPin 22~ 37 used as row0 ~ row 15, 
-digital pin 38~53 used as column 0 ~ 15,
-When an Ethernet shield is connected Columns 13 and 14 are pulled up to 1.5V - so do not use
+digital Pin 22~37 used as rows. 0-15, 16 Rows
+digital pin 38~48 used as columns. 0-10, 11 Columns
 
-it's a 16 * 14  matrix (due to loss of two columns) 
+it's a 16 * 11  matrix, due to the loss of pins/Columns used by the Ethernet and SD Card Shield, Digital I/O 50 through 53 are not available.
+Pin 49 is available but isn't used. This gives a total number of usable Inputs as 176 (remember numbering starts at 0 - so 0-175)
 
-If using 5100 series Ethernet Shield may need to remove C3 as per 
+The code pulls down a row and reads values from the Columns.
+Row 0 - Col 0 = Digit 0
+Row 0 - Col 10 = Digit 10
+Row 15 - Col 0 = Digit 165
+Row 15 = Col 10 = Digit 175
+
+So - Digit = Row * 11 + Col
+
+
+If using 5100 series Ethernet Shield may need to remove C3 as per to allow for programming when the shield is connected.
 https://forum.arduino.cc/index.php?topic=99880.15
 
-There is no point is sending out switch sate on power up as it is unlikely the Sim is ready to receive - hence the CQ function
+
 
 */
 
 #define NUM_BUTTONS 256
+#define BUTTONS_USED_ON_PCB 176
 #define NUM_AXES  8        // 8 axes, X, Y, Z, etc
 #define STATUS_LED_PORT 7
 #define FLASH_TIME 200
@@ -110,7 +152,7 @@ const int numReadings = 10;
 const int numAnalogInputs = 14;
 
 // Given that inputs 6 and 7 are sitting underneath the Ethernet Shield and can't be easily accessed
-// we can't simply want interfaces from A0 to A15. So create an array to walk for input ports
+// we can't simply walk interfaces from A0 to A15. So create an array to walk for input ports
 const int analogInputMapping[numAnalogInputs] = { 0,1,2,3,4,5,8,9,10,11,12,13,14,15};
 int analogInputIndex = 0;
 
@@ -352,7 +394,7 @@ void setup() {
 
   // Initialise the network interface
   // Check to see if packet was sent (as opposed to acually delivered)
-  // What appears to actually happen is the W5100 tries to ARP and waits aroun 1.8 seconds
+  // What appears to actually happen is the W5100 tries to ARP and waits around 1.8 seconds
   //    before given up, so no delay is needed in the retry loop
   // A point of interest is the W5100 itself repsonds to pings without bothering
   //    the Arduino itself, response times is typically sub 02.mS, and means
@@ -543,7 +585,9 @@ void loop() {
     //pin 48, PL1
     colResult[10] =(PINL & B00000010) == 0 ? 0 : 1;
     //pin 49, PL0
-    colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
+    //pin 49 is not used on the PCB design - more a mistake than anything else as it is available for us
+    //colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
+    colResult[11] = 1;
 
     // Unable to use pins 50-53 per the following
     //This is on digital pins 10, 11, 12, and 13 on the Uno and pins 50, 51, and 52 on the Mega. 
@@ -551,16 +595,16 @@ void loop() {
     //On the Mega, the hardware SS pin, 53, is not used to select either the W5500 or the SD card, 
     //pin 50, PB3
     //colResult[12] =(PINB & B00001000) == 0 ? 0 : 1;
-    colResult[12] = 0;
+    colResult[12] = 1;
     //pin 51, PB2
     //colResult[13] =(PINB & B00000100) == 0 ? 0 : 0;
-    colResult[13] = 0;
+    colResult[13] = 1;
     //pin 52, PB1
     //colResult[14] =(PINB & B00000010) == 0 ? 0 : 0;
-    colResult[14] = 0;
+    colResult[14] = 1;
     //pin 53, PB0
     //colResult[15] =(PINB & B00000001) == 0 ? 0 : 1;
-    colResult[15] = 0;    
+    colResult[15] = 1;    
 
     
     // There are 11 Columns per row - gives a total of 176 possible inputs
@@ -709,7 +753,11 @@ void loop() {
         outString = "D"  + deviceID;
 
 
-        for (int CQInd = 0; CQInd < NUM_BUTTONS; CQInd++) {
+        // As we are repsonding to a CQ send the entire input array
+        // without looking for differences.
+        // As the PCB doesn't use all possible pins only send up to 
+        // the last input used not the entire array of 256 
+        for (int CQInd = 0; CQInd < BUTTONS_USED_ON_PCB; CQInd++) {
 
           //A single entry looks like outData = "D01:100:1";
 

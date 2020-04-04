@@ -1,5 +1,6 @@
 /* 
 
+Superceeded by UDP_INPUT_CONTROLLER_V2 March 2020
 
 TO DO - when repsonding to CQ - first send 0 values and then one values to address issue with 3 position toggle switch
 Heavily based on 
