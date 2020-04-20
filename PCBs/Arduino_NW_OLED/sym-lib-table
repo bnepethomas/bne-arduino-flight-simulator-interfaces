@@ -1,3 +1,4 @@
 (sym_lib_table
   (lib (name PT)(type Legacy)(uri /Users/pethomas/Documents/FSServer/Development/bne-arduino-flight-simulator-interfaces/PCBs/Arduino_NW_Template/Arduino_NW_Template-rescue.lib)(options "")(descr ""))
+  (lib (name Arduino_NW_OLED-rescue)(type Legacy)(uri ${KIPRJMOD}/Arduino_NW_OLED-rescue.lib)(options "")(descr ""))
 )

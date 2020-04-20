@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L PT:PT_Ethernet_Shield U1
+L Arduino_NW_OLED-rescue:PT_Ethernet_Shield-PT U1
 U 1 1 5E6482B8
 P 4450 2150
 F 0 "U1" H 4450 2231 50  0000 C CNN

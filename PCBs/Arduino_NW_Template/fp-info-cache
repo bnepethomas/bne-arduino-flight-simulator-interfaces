@@ -1,4 +1,4 @@
-16933432738887500
+16935020122444500
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -53171,6 +53171,13 @@ Resistor Axial_DIN0204 series Axial Vertical pin pitch 2.54mm 0.167W length 3.6m
 0
 2
 2
+PT_Library_v001
+PT_Small_Tactile_Switch_With_LED
+
+
+0
+6
+6
 PT_Library_v001
 PT_Tactile_Switch_With_LED
 
