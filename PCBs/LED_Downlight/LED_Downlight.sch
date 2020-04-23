@@ -116,4 +116,105 @@ Wire Wire Line
 Connection ~ 5100 3500
 Wire Wire Line
 	5100 3500 4800 3500
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW1
+U 1 1 5EA31725
+P 4250 5100
+F 0 "SW1" H 4175 5733 50  0000 C CNN
+F 1 "PT_Tactile_Switch_Led" H 4250 5100 50  0001 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 4250 5100 50  0001 C CNN
+F 3 "" H 4250 5100 50  0001 C CNN
+	1    4250 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW2
+U 1 1 5EA31BAB
+P 5550 5100
+F 0 "SW2" H 5475 5733 50  0000 C CNN
+F 1 "PT_Tactile_Switch_Led" H 5550 5100 50  0001 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 5550 5100 50  0001 C CNN
+F 3 "" H 5550 5100 50  0001 C CNN
+	1    5550 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Conn_01x06 J3
+U 1 1 5EA32BCD
+P 2500 4450
+F 0 "J3" H 2580 4442 50  0000 L CNN
+F 1 "PT_Conn_01x06" H 2580 4351 50  0000 L CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 2500 4450 50  0001 C CNN
+F 3 "~" H 2500 4450 50  0001 C CNN
+	1    2500 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5300 4600 5250 4600
+Connection ~ 5250 4600
+Wire Wire Line
+	5250 4600 4350 4600
+Wire Wire Line
+	4000 4600 3950 4600
+Wire Wire Line
+	3400 4600 3400 3950
+Wire Wire Line
+	3400 3950 2300 3950
+Wire Wire Line
+	2300 3950 2300 4250
+Connection ~ 3950 4600
+Wire Wire Line
+	3950 4600 3400 4600
+Wire Wire Line
+	4000 5000 3950 5000
+Wire Wire Line
+	3450 5000 3450 3800
+Wire Wire Line
+	3450 3800 2150 3800
+Wire Wire Line
+	2150 3800 2150 4350
+Wire Wire Line
+	2150 4350 2300 4350
+Connection ~ 3950 5000
+Wire Wire Line
+	3950 5000 3450 5000
+$Comp
+L Device:R_US R2
+U 1 1 5EA356F0
+P 2700 5200
+F 0 "R2" V 2495 5200 50  0000 C CNN
+F 1 "R_US" V 2586 5200 50  0000 C CNN
+F 2 "PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 2740 5190 50  0001 C CNN
+F 3 "~" H 2700 5200 50  0001 C CNN
+	1    2700 5200
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	4000 5250 2850 5250
+Wire Wire Line
+	2850 5250 2850 5200
+Wire Wire Line
+	2300 4750 2300 5200
+Wire Wire Line
+	2300 5200 2550 5200
+Wire Wire Line
+	5300 5250 4400 5250
+Wire Wire Line
+	5700 5250 5700 5450
+Wire Wire Line
+	5700 5450 2200 5450
+Wire Wire Line
+	2200 5450 2200 4650
+Wire Wire Line
+	2200 4650 2300 4650
+Wire Wire Line
+	5250 5000 4550 5000
+Wire Wire Line
+	4550 5000 4550 3750
+Wire Wire Line
+	4550 3750 2050 3750
+Wire Wire Line
+	2050 3750 2050 4450
+Wire Wire Line
+	2050 4450 2300 4450
 $EndSCHEMATC
