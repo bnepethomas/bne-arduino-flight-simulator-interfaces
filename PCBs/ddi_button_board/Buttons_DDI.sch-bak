@@ -1,0 +1,331 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW1
+U 1 1 5BC6FAB4
+P 2150 2000
+F 0 "SW1" H 2150 2285 50  0000 C CNN
+F 1 "1" H 2150 2194 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2150 2200 50  0001 C CNN
+F 3 "" H 2150 2200 50  0001 C CNN
+	1    2150 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW2
+U 1 1 5BC6FB42
+P 2150 3100
+F 0 "SW2" H 2150 3385 50  0000 C CNN
+F 1 "1" H 2150 3294 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2150 3300 50  0001 C CNN
+F 3 "" H 2150 3300 50  0001 C CNN
+	1    2150 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW3
+U 1 1 5BC6FBBD
+P 2200 4100
+F 0 "SW3" H 2200 4385 50  0000 C CNN
+F 1 "1" H 2200 4294 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2200 4300 50  0001 C CNN
+F 3 "" H 2200 4300 50  0001 C CNN
+	1    2200 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW4
+U 1 1 5BC6FC0F
+P 2250 5100
+F 0 "SW4" H 2250 5385 50  0000 C CNN
+F 1 "1" H 2250 5294 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 5300 50  0001 C CNN
+F 3 "" H 2250 5300 50  0001 C CNN
+	1    2250 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW5
+U 1 1 5BC6FD2C
+P 2300 6150
+F 0 "SW5" H 2300 6435 50  0000 C CNN
+F 1 "1" H 2300 6344 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2300 6350 50  0001 C CNN
+F 3 "" H 2300 6350 50  0001 C CNN
+	1    2300 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW11
+U 1 1 5BC7FE77
+P 4900 2050
+F 0 "SW11" H 4900 2335 50  0000 C CNN
+F 1 "1" H 4900 2244 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 4900 2250 50  0001 C CNN
+F 3 "" H 4900 2250 50  0001 C CNN
+	1    4900 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW12
+U 1 1 5BC7FE7D
+P 4900 3100
+F 0 "SW12" H 4900 3385 50  0000 C CNN
+F 1 "1" H 4900 3294 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 4900 3300 50  0001 C CNN
+F 3 "" H 4900 3300 50  0001 C CNN
+	1    4900 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW13
+U 1 1 5BC7FE83
+P 4950 4150
+F 0 "SW13" H 4950 4435 50  0000 C CNN
+F 1 "1" H 4950 4344 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 4950 4350 50  0001 C CNN
+F 3 "" H 4950 4350 50  0001 C CNN
+	1    4950 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW7
+U 1 1 5BC8227E
+P 3800 3100
+F 0 "SW7" H 3800 3385 50  0000 C CNN
+F 1 "1" H 3800 3294 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 3800 3300 50  0001 C CNN
+F 3 "" H 3800 3300 50  0001 C CNN
+	1    3800 3100
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW8
+U 1 1 5BC82284
+P 3750 4150
+F 0 "SW8" H 3750 4435 50  0000 C CNN
+F 1 "1" H 3750 4344 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 3750 4350 50  0001 C CNN
+F 3 "" H 3750 4350 50  0001 C CNN
+	1    3750 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW9
+U 1 1 5BC8228A
+P 3750 5100
+F 0 "SW9" H 3750 5385 50  0000 C CNN
+F 1 "1" H 3750 5294 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 3750 5300 50  0001 C CNN
+F 3 "" H 3750 5300 50  0001 C CNN
+	1    3750 5100
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW16
+U 1 1 5BC822E5
+P 6150 2050
+F 0 "SW16" H 6150 2335 50  0000 C CNN
+F 1 "1" H 6150 2244 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 6150 2250 50  0001 C CNN
+F 3 "" H 6150 2250 50  0001 C CNN
+	1    6150 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW17
+U 1 1 5BC822EB
+P 6200 3150
+F 0 "SW17" H 6200 3435 50  0000 C CNN
+F 1 "1" H 6200 3344 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 6200 3350 50  0001 C CNN
+F 3 "" H 6200 3350 50  0001 C CNN
+	1    6200 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW18
+U 1 1 5BC822F1
+P 6200 4250
+F 0 "SW18" H 6200 4535 50  0000 C CNN
+F 1 "1" H 6200 4444 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 6200 4450 50  0001 C CNN
+F 3 "" H 6200 4450 50  0001 C CNN
+	1    6200 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW19
+U 1 1 5BC822F7
+P 6200 5250
+F 0 "SW19" H 6200 5535 50  0000 C CNN
+F 1 "1" H 6200 5444 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 6200 5450 50  0001 C CNN
+F 3 "" H 6200 5450 50  0001 C CNN
+	1    6200 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW20
+U 1 1 5BC822FD
+P 6150 6150
+F 0 "SW20" H 6150 6435 50  0000 C CNN
+F 1 "1" H 6150 6344 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 6150 6350 50  0001 C CNN
+F 3 "" H 6150 6350 50  0001 C CNN
+	1    6150 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW10
+U 1 1 5BC82290
+P 3750 6150
+F 0 "SW10" H 3750 6435 50  0000 C CNN
+F 1 "1" H 3750 6344 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 3750 6350 50  0001 C CNN
+F 3 "" H 3750 6350 50  0001 C CNN
+	1    3750 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW6
+U 1 1 5BC82278
+P 3750 2050
+F 0 "SW6" H 3750 2335 50  0000 C CNN
+F 1 "1" H 3750 2244 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 3750 2250 50  0001 C CNN
+F 3 "" H 3750 2250 50  0001 C CNN
+	1    3750 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW15
+U 1 1 5BC7FE8F
+P 4950 6150
+F 0 "SW15" H 4950 6435 50  0000 C CNN
+F 1 "1" H 4950 6344 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 4950 6350 50  0001 C CNN
+F 3 "" H 4950 6350 50  0001 C CNN
+	1    4950 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW14
+U 1 1 5BC7FE89
+P 4950 5150
+F 0 "SW14" H 4950 5435 50  0000 C CNN
+F 1 "1" H 4950 5344 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 4950 5350 50  0001 C CNN
+F 3 "" H 4950 5350 50  0001 C CNN
+	1    4950 5150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5EB60827
+P 1550 2150
+F 0 "R1" V 1343 2150 50  0000 C CNN
+F 1 "R" V 1434 2150 50  0000 C CNN
+F 2 "Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm" V 1480 2150 50  0001 C CNN
+F 3 "~" H 1550 2150 50  0001 C CNN
+	1    1550 2150
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R2
+U 1 1 5EB616C4
+P 1600 5250
+F 0 "R2" V 1393 5250 50  0000 C CNN
+F 1 "R" V 1484 5250 50  0000 C CNN
+F 2 "Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm" V 1530 5250 50  0001 C CNN
+F 3 "~" H 1600 5250 50  0001 C CNN
+	1    1600 5250
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1700 2150 1900 2150
+Wire Wire Line
+	2300 2150 2300 2350
+Wire Wire Line
+	2300 2350 1750 2350
+Wire Wire Line
+	1750 2350 1750 3250
+Wire Wire Line
+	1750 3250 1900 3250
+Wire Wire Line
+	2300 3250 2300 3450
+Wire Wire Line
+	2300 3450 1750 3450
+Wire Wire Line
+	1750 3450 1750 4250
+Wire Wire Line
+	1750 4250 1950 4250
+Wire Bus Line
+	2850 1200 2850 6800
+Wire Bus Line
+	5400 6800 5400 1200
+Wire Bus Line
+	2850 6800 4250 6800
+Wire Bus Line
+	4250 6800 4250 1200
+Connection ~ 4250 6800
+Wire Bus Line
+	4250 6800 5400 6800
+Wire Bus Line
+	2850 6800 1300 6800
+Connection ~ 2850 6800
+Entry Wire Line
+	1300 2050 1400 2150
+Text Label 1100 950  0    50   ~ 0
+Matrix_And_Backlight
+Wire Wire Line
+	1750 5250 2000 5250
+Wire Wire Line
+	2400 5250 2450 5250
+Wire Wire Line
+	2450 5250 2450 5450
+Wire Wire Line
+	2450 5450 1800 5450
+Wire Wire Line
+	1800 5450 1800 6300
+Wire Wire Line
+	1800 6300 2050 6300
+$Comp
+L power:GND #PWR0101
+U 1 1 5EB6B966
+P 2450 4250
+F 0 "#PWR0101" H 2450 4000 50  0001 C CNN
+F 1 "GND" H 2455 4077 50  0000 C CNN
+F 2 "" H 2450 4250 50  0001 C CNN
+F 3 "" H 2450 4250 50  0001 C CNN
+	1    2450 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2350 4250 2450 4250
+Text Label 1350 2100 0    50   ~ 0
+Backlight+
+Entry Wire Line
+	1300 5100 1400 5200
+Wire Wire Line
+	1400 5200 1400 5250
+Wire Wire Line
+	1400 5250 1450 5250
+Wire Bus Line
+	1300 1200 1300 6800
+Text Label 1350 5150 0    50   ~ 0
+Backlight+
+$EndSCHEMATC
