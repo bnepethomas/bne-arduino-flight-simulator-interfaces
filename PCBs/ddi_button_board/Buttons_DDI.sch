@@ -58,17 +58,6 @@ F 3 "" H 2250 5300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW5
-U 1 1 5BC6FD2C
-P 2300 6150
-F 0 "SW5" H 2300 6435 50  0000 C CNN
-F 1 "1" H 2300 6344 50  0000 C CNN
-F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2300 6350 50  0001 C CNN
-F 3 "" H 2300 6350 50  0001 C CNN
-	1    2300 6150
-	1    0    0    -1  
-$EndComp
-$Comp
 L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW11
 U 1 1 5BC7FE77
 P 5000 2050
@@ -257,22 +246,6 @@ F 3 "~" H 1600 5250 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1700 2150 1900 2150
-Wire Wire Line
-	2300 2150 2300 2350
-Wire Wire Line
-	2300 2350 1750 2350
-Wire Wire Line
-	1750 2350 1750 3250
-Wire Wire Line
-	1750 3250 1900 3250
-Wire Wire Line
-	2300 3250 2300 3450
-Wire Wire Line
-	2300 3450 1750 3450
-Wire Wire Line
-	1750 3450 1750 4250
-Wire Wire Line
-	1750 4250 1950 4250
 Connection ~ 2850 6800
 Entry Wire Line
 	1300 2050 1400 2150
@@ -280,16 +253,6 @@ Text Label 1100 950  0    50   ~ 0
 Matrix_And_Backlight
 Wire Wire Line
 	1750 5250 2000 5250
-Wire Wire Line
-	2400 5250 2450 5250
-Wire Wire Line
-	2450 5250 2450 5450
-Wire Wire Line
-	2450 5450 1800 5450
-Wire Wire Line
-	1800 5450 1800 6300
-Wire Wire Line
-	1800 6300 2050 6300
 $Comp
 L power:GND #PWR01
 U 1 1 5EB6B966
@@ -316,7 +279,7 @@ Backlight+
 Entry Wire Line
 	2500 6800 2600 6700
 Wire Wire Line
-	2450 6300 2600 6300
+	2400 6300 2600 6300
 Wire Wire Line
 	2600 6300 2600 6700
 Entry Wire Line
@@ -665,12 +628,6 @@ Wire Wire Line
 Wire Wire Line
 	2250 1950 2250 1900
 Wire Wire Line
-	2250 1500 2250 1400
-Wire Wire Line
-	2250 1400 1850 1400
-Wire Wire Line
-	1850 1400 1850 1500
-Wire Wire Line
 	3450 1550 3450 1450
 Wire Wire Line
 	3450 1450 3850 1450
@@ -713,17 +670,17 @@ Wire Wire Line
 Wire Wire Line
 	2250 2500 2250 2600
 Wire Wire Line
-	2000 6050 2000 6150
+	1950 6050 1950 6150
 Wire Wire Line
-	2000 6150 2400 6150
+	1950 6150 2350 6150
 Wire Wire Line
-	2400 6150 2400 6050
+	2350 6150 2350 6050
 Wire Wire Line
-	2400 5650 2400 5550
+	2350 5650 2350 5550
 Wire Wire Line
-	2400 5550 2000 5550
+	2350 5550 1950 5550
 Wire Wire Line
-	2000 5550 2000 5650
+	1950 5550 1950 5650
 Wire Wire Line
 	3450 5650 3450 5550
 Wire Wire Line
@@ -898,16 +855,357 @@ Wire Wire Line
 	3850 2500 3450 2500
 Wire Wire Line
 	3450 2500 3450 2600
+Entry Wire Line
+	1300 1800 1400 1900
+Wire Wire Line
+	1400 1900 1850 1900
+Connection ~ 1850 1900
+Text Label 1350 1850 0    50   ~ 0
+Col_0
+Entry Wire Line
+	1300 1400 1400 1500
+$Comp
+L Device:D D?
+U 1 1 5EB42564
+P 1650 1500
+F 0 "D?" H 1650 1716 50  0000 C CNN
+F 1 "D" H 1650 1625 50  0000 C CNN
+F 2 "" H 1650 1500 50  0001 C CNN
+F 3 "~" H 1650 1500 50  0001 C CNN
+	1    1650 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB50A49
+P 1600 5650
+F 0 "D?" H 1600 5866 50  0000 C CNN
+F 1 "D" H 1600 5775 50  0000 C CNN
+F 2 "" H 1600 5650 50  0001 C CNN
+F 3 "~" H 1600 5650 50  0001 C CNN
+	1    1600 5650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB5129F
+P 1600 4600
+F 0 "D?" H 1600 4816 50  0000 C CNN
+F 1 "D" H 1600 4725 50  0000 C CNN
+F 2 "" H 1600 4600 50  0001 C CNN
+F 3 "~" H 1600 4600 50  0001 C CNN
+	1    1600 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB51C9A
+P 1600 3600
+F 0 "D?" H 1600 3816 50  0000 C CNN
+F 1 "D" H 1600 3725 50  0000 C CNN
+F 2 "" H 1600 3600 50  0001 C CNN
+F 3 "~" H 1600 3600 50  0001 C CNN
+	1    1600 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB52326
+P 1600 2600
+F 0 "D?" H 1600 2816 50  0000 C CNN
+F 1 "D" H 1600 2725 50  0000 C CNN
+F 2 "" H 1600 2600 50  0001 C CNN
+F 3 "~" H 1600 2600 50  0001 C CNN
+	1    1600 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB5388B
+P 3200 650
+F 0 "D?" H 3200 866 50  0000 C CNN
+F 1 "D" H 3200 775 50  0000 C CNN
+F 2 "" H 3200 650 50  0001 C CNN
+F 3 "~" H 3200 650 50  0001 C CNN
+	1    3200 650 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB53895
+P 3200 800
+F 0 "D?" H 3200 1016 50  0000 C CNN
+F 1 "D" H 3200 925 50  0000 C CNN
+F 2 "" H 3200 800 50  0001 C CNN
+F 3 "~" H 3200 800 50  0001 C CNN
+	1    3200 800 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB5389F
+P 3200 950
+F 0 "D?" H 3200 1166 50  0000 C CNN
+F 1 "D" H 3200 1075 50  0000 C CNN
+F 2 "" H 3200 950 50  0001 C CNN
+F 3 "~" H 3200 950 50  0001 C CNN
+	1    3200 950 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB538A9
+P 3200 1100
+F 0 "D?" H 3200 1316 50  0000 C CNN
+F 1 "D" H 3200 1225 50  0000 C CNN
+F 2 "" H 3200 1100 50  0001 C CNN
+F 3 "~" H 3200 1100 50  0001 C CNN
+	1    3200 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB538B3
+P 3200 1250
+F 0 "D?" H 3200 1466 50  0000 C CNN
+F 1 "D" H 3200 1375 50  0000 C CNN
+F 2 "" H 3200 1250 50  0001 C CNN
+F 3 "~" H 3200 1250 50  0001 C CNN
+	1    3200 1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB6417F
+P 4550 600
+F 0 "D?" H 4550 816 50  0000 C CNN
+F 1 "D" H 4550 725 50  0000 C CNN
+F 2 "" H 4550 600 50  0001 C CNN
+F 3 "~" H 4550 600 50  0001 C CNN
+	1    4550 600 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB64189
+P 4550 750
+F 0 "D?" H 4550 966 50  0000 C CNN
+F 1 "D" H 4550 875 50  0000 C CNN
+F 2 "" H 4550 750 50  0001 C CNN
+F 3 "~" H 4550 750 50  0001 C CNN
+	1    4550 750 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB64193
+P 4550 900
+F 0 "D?" H 4550 1116 50  0000 C CNN
+F 1 "D" H 4550 1025 50  0000 C CNN
+F 2 "" H 4550 900 50  0001 C CNN
+F 3 "~" H 4550 900 50  0001 C CNN
+	1    4550 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB6419D
+P 4550 1050
+F 0 "D?" H 4550 1266 50  0000 C CNN
+F 1 "D" H 4550 1175 50  0000 C CNN
+F 2 "" H 4550 1050 50  0001 C CNN
+F 3 "~" H 4550 1050 50  0001 C CNN
+	1    4550 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB641A7
+P 4550 1200
+F 0 "D?" H 4550 1416 50  0000 C CNN
+F 1 "D" H 4550 1325 50  0000 C CNN
+F 2 "" H 4550 1200 50  0001 C CNN
+F 3 "~" H 4550 1200 50  0001 C CNN
+	1    4550 1200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB72EA7
+P 5800 600
+F 0 "D?" H 5800 816 50  0000 C CNN
+F 1 "D" H 5800 725 50  0000 C CNN
+F 2 "" H 5800 600 50  0001 C CNN
+F 3 "~" H 5800 600 50  0001 C CNN
+	1    5800 600 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB72EB1
+P 5800 750
+F 0 "D?" H 5800 966 50  0000 C CNN
+F 1 "D" H 5800 875 50  0000 C CNN
+F 2 "" H 5800 750 50  0001 C CNN
+F 3 "~" H 5800 750 50  0001 C CNN
+	1    5800 750 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB72EBB
+P 5800 900
+F 0 "D?" H 5800 1116 50  0000 C CNN
+F 1 "D" H 5800 1025 50  0000 C CNN
+F 2 "" H 5800 900 50  0001 C CNN
+F 3 "~" H 5800 900 50  0001 C CNN
+	1    5800 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB72EC5
+P 5800 1050
+F 0 "D?" H 5800 1266 50  0000 C CNN
+F 1 "D" H 5800 1175 50  0000 C CNN
+F 2 "" H 5800 1050 50  0001 C CNN
+F 3 "~" H 5800 1050 50  0001 C CNN
+	1    5800 1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5EB72ECF
+P 5800 1200
+F 0 "D?" H 5800 1416 50  0000 C CNN
+F 1 "D" H 5800 1325 50  0000 C CNN
+F 2 "" H 5800 1200 50  0001 C CNN
+F 3 "~" H 5800 1200 50  0001 C CNN
+	1    5800 1200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1400 1500 1500 1500
+Wire Wire Line
+	1800 1500 1850 1500
+Wire Wire Line
+	2300 2150 2600 2150
+Wire Wire Line
+	2600 2150 2600 3150
+Wire Wire Line
+	2600 3150 1900 3150
+Wire Wire Line
+	1900 3150 1900 3250
+Wire Wire Line
+	2300 3250 2600 3250
+Wire Wire Line
+	2600 3250 2600 4150
+Wire Wire Line
+	2600 4150 1950 4150
+Wire Wire Line
+	1950 4150 1950 4250
+Wire Wire Line
+	2250 1500 2250 1400
+Wire Wire Line
+	2250 1400 1850 1400
+Wire Wire Line
+	1850 1400 1850 1500
+Connection ~ 1850 1500
+Text Label 1350 1450 0    50   ~ 0
+Row_0
+Entry Wire Line
+	1300 2500 1400 2600
+Wire Wire Line
+	1400 2600 1450 2600
+Wire Wire Line
+	1750 2600 1850 2600
+Connection ~ 1850 2600
+Entry Wire Line
+	1300 3500 1400 3600
+Wire Wire Line
+	1400 3600 1450 3600
+Wire Wire Line
+	1750 3600 1900 3600
+Connection ~ 1900 3600
+$Comp
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW5
+U 1 1 5BC6FD2C
+P 2250 6150
+F 0 "SW5" H 2250 6435 50  0000 C CNN
+F 1 "1" H 2250 6344 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 6350 50  0001 C CNN
+F 3 "" H 2250 6350 50  0001 C CNN
+	1    2250 6150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2550 5250 2550 6200
+Wire Wire Line
+	2550 6200 2000 6200
+Wire Wire Line
+	2000 6200 2000 6300
+Wire Wire Line
+	2400 5250 2550 5250
+Entry Wire Line
+	1300 4500 1400 4600
+Wire Wire Line
+	1400 4600 1450 4600
+Wire Wire Line
+	1750 4600 1950 4600
+Connection ~ 1950 4600
+Wire Wire Line
+	1750 5650 1950 5650
+Connection ~ 1950 5650
+Entry Wire Line
+	1300 5550 1400 5650
+Wire Wire Line
+	1400 5650 1450 5650
+Entry Wire Line
+	1300 2900 1400 3000
+Wire Wire Line
+	1400 3000 1850 3000
+Connection ~ 1850 3000
+Entry Wire Line
+	1300 3900 1400 4000
+Entry Wire Line
+	1300 4900 1400 5000
+Entry Wire Line
+	1300 5950 1400 6050
+Wire Wire Line
+	1400 6050 1950 6050
+Connection ~ 1950 6050
+Wire Wire Line
+	1400 5000 1950 5000
+Connection ~ 1950 5000
+Wire Wire Line
+	1400 4000 1900 4000
+Connection ~ 1900 4000
+Text Label 1350 2950 0    50   ~ 0
+Col_0
+Text Label 1350 3950 0    50   ~ 0
+Col_0
+Text Label 1350 4950 0    50   ~ 0
+Col_0
+Text Label 1350 6000 0    50   ~ 0
+Col_0
 Wire Bus Line
 	2850 6800 4250 6800
 Wire Bus Line
 	1300 6800 2850 6800
-Wire Bus Line
-	1300 1200 1300 6800
 Wire Bus Line
 	4250 1200 4250 6800
 Wire Bus Line
 	5500 1200 5500 6800
 Wire Bus Line
 	2850 1200 2850 6800
+Wire Bus Line
+	1300 1200 1300 6800
+Text Label 1350 2550 0    50   ~ 0
+Row_1
+Text Label 1350 3550 0    50   ~ 0
+Row_2
+Text Label 1350 4550 0    50   ~ 0
+Row_3
+Text Label 1350 5600 0    50   ~ 0
+Row_4
 $EndSCHEMATC
