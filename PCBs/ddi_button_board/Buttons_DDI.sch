@@ -456,37 +456,37 @@ Backlight+
 Text Label 5650 5250 0    50   ~ 0
 Backlight+
 $Comp
-L Connector:Conn_01x03_Male J1
+L Connector:Conn_01x03_Female J1
 U 1 1 5EAF5C97
 P 9450 1650
 F 0 "J1" H 9558 1931 50  0000 C CNN
-F 1 "Conn_01x03_Male" H 9558 1840 50  0000 C CNN
+F 1 "Conn_01x03_Female" H 9558 1840 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 9450 1650 50  0001 C CNN
 F 3 "~" H 9450 1650 50  0001 C CNN
 	1    9450 1650
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Male J2
+L Connector:Conn_01x03_Female J2
 U 1 1 5EAF6809
 P 9500 2400
 F 0 "J2" H 9608 2681 50  0000 C CNN
-F 1 "Conn_01x03_Male" H 9608 2590 50  0000 C CNN
+F 1 "Conn_01x03_Female" H 9608 2590 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 9500 2400 50  0001 C CNN
 F 3 "~" H 9500 2400 50  0001 C CNN
 	1    9500 2400
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x04_Male J3
+L Connector:Conn_01x04_Female J3
 U 1 1 5EAF7950
 P 9550 3200
 F 0 "J3" H 9658 3481 50  0000 C CNN
-F 1 "Conn_01x04_Male" H 9658 3390 50  0000 C CNN
+F 1 "Conn_01x04_Female" H 9658 3390 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 9550 3200 50  0001 C CNN
 F 3 "~" H 9550 3200 50  0001 C CNN
 	1    9550 3200
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 Wire Wire Line
 	9650 1550 10450 1550
@@ -1409,14 +1409,14 @@ Row_3
 Entry Wire Line
 	7500 2650 7600 2750
 $Comp
-L Connector:Conn_01x04_Female J4
+L Connector:Conn_01x05_Female J4
 U 1 1 5F1E192D
-P 8150 1850
-F 0 "J4" H 8178 1826 50  0000 L CNN
-F 1 "Conn_01x04_Female" H 8178 1735 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 8150 1850 50  0001 C CNN
-F 3 "~" H 8150 1850 50  0001 C CNN
-	1    8150 1850
+P 8150 1950
+F 0 "J4" H 8178 1926 50  0000 L CNN
+F 1 "Conn_01x05_Female" H 8178 1835 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical" H 8150 1950 50  0001 C CNN
+F 3 "~" H 8150 1950 50  0001 C CNN
+	1    8150 1950
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1529,12 +1529,94 @@ Text Label 4400 5650 0    50   ~ 0
 Col_2
 Text Label 2950 3250 0    50   ~ 0
 Backlight+
+Entry Wire Line
+	7500 2050 7600 2150
+Wire Wire Line
+	7600 2150 7950 2150
+Text Label 7650 2150 0    50   ~ 0
+Col_4
+Entry Wire Line
+	7500 3450 7600 3550
+Entry Wire Line
+	7500 3550 7600 3650
+Entry Wire Line
+	7500 3650 7600 3750
+Entry Wire Line
+	7500 3750 7600 3850
+$Comp
+L Device:D D21
+U 1 1 5EB791B5
+P 7900 3550
+F 0 "D21" H 7900 3766 50  0000 C CNN
+F 1 "D" H 7900 3675 50  0000 C CNN
+F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 7900 3550 50  0001 C CNN
+F 3 "~" H 7900 3550 50  0001 C CNN
+	1    7900 3550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J7
+U 1 1 5EB7A875
+P 8400 3650
+F 0 "J7" H 8428 3626 50  0000 L CNN
+F 1 "Conn_01x04_Female" H 8428 3535 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 8400 3650 50  0001 C CNN
+F 3 "~" H 8400 3650 50  0001 C CNN
+	1    8400 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7600 3550 7750 3550
+Wire Wire Line
+	8050 3550 8200 3550
+Wire Wire Line
+	7600 3650 8200 3650
+Wire Wire Line
+	7600 3750 8200 3750
+Wire Wire Line
+	7600 3850 8200 3850
+Text Label 7650 3550 0    50   ~ 0
+Col_4
+Text Label 7650 3650 0    50   ~ 0
+Row_0
+Text Label 7650 3750 0    50   ~ 0
+Row_1
+Text Label 7650 3850 0    50   ~ 0
+Row_2
+$Comp
+L Connector:Conn_01x02_Female J8
+U 1 1 5EBEDC5B
+P 8200 4050
+F 0 "J8" H 8228 4026 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 8228 3935 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 8200 4050 50  0001 C CNN
+F 3 "~" H 8200 4050 50  0001 C CNN
+	1    8200 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR08
+U 1 1 5EBEDC65
+P 7900 4150
+F 0 "#PWR08" H 7900 3900 50  0001 C CNN
+F 1 "GND" H 7905 3977 50  0000 C CNN
+F 2 "" H 7900 4150 50  0001 C CNN
+F 3 "" H 7900 4150 50  0001 C CNN
+	1    7900 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7900 4150 8000 4150
+Text Label 7700 4050 0    50   ~ 0
+Backlight+
+Entry Wire Line
+	7500 3950 7600 4050
+Wire Wire Line
+	7600 4050 8000 4050
 Wire Bus Line
 	2850 6800 4250 6800
 Wire Bus Line
 	1300 6800 2850 6800
-Wire Bus Line
-	7500 1200 7500 3550
 Wire Bus Line
 	1300 1200 1300 6800
 Wire Bus Line
@@ -1543,4 +1625,6 @@ Wire Bus Line
 	5500 1200 5500 6800
 Wire Bus Line
 	4250 1200 4250 6800
+Wire Bus Line
+	7500 1200 7500 5350
 $EndSCHEMATC
