@@ -823,7 +823,7 @@ U 1 1 5EB52326
 P 1600 2600
 F 0 "D1" H 1600 2816 50  0000 C CNN
 F 1 "D" H 1600 2725 50  0000 C CNN
-F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 1600 2600 50  0001 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 1600 2600 50  0001 C CNN
 F 3 "~" H 1600 2600 50  0001 C CNN
 	1    1600 2600
 	-1   0    0    -1  
@@ -1613,6 +1613,68 @@ Entry Wire Line
 	7500 3950 7600 4050
 Wire Wire Line
 	7600 4050 8000 4050
+Text Notes 8500 3650 0    50   ~ 0
+Selector Rotary at Top
+Text Notes 8450 3000 0    50   ~ 0
+Backlighting in
+Text Notes 8400 4050 0    50   ~ 0
+Backlight for rotary switvh
+Entry Wire Line
+	7500 4700 7600 4800
+$Comp
+L Device:LED D23
+U 1 1 5EBF3868
+P 8650 4800
+F 0 "D23" H 8643 5016 50  0000 C CNN
+F 1 "LED" H 8643 4925 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 8650 4800 50  0001 C CNN
+F 3 "~" H 8650 4800 50  0001 C CNN
+	1    8650 4800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:LED D22
+U 1 1 5EBF3FEB
+P 7950 4800
+F 0 "D22" H 7943 5016 50  0000 C CNN
+F 1 "LED" H 7943 4925 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 7950 4800 50  0001 C CNN
+F 3 "~" H 7950 4800 50  0001 C CNN
+	1    7950 4800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R8
+U 1 1 5EC23C7E
+P 9150 4800
+F 0 "R8" V 8943 4800 50  0000 C CNN
+F 1 "R" V 9034 4800 50  0000 C CNN
+F 2 "Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm" V 9080 4800 50  0001 C CNN
+F 3 "~" H 9150 4800 50  0001 C CNN
+	1    9150 4800
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR09
+U 1 1 5EC25575
+P 9500 4900
+F 0 "#PWR09" H 9500 4650 50  0001 C CNN
+F 1 "GND" H 9505 4727 50  0000 C CNN
+F 2 "" H 9500 4900 50  0001 C CNN
+F 3 "" H 9500 4900 50  0001 C CNN
+	1    9500 4900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8100 4800 8500 4800
+Wire Wire Line
+	8800 4800 9000 4800
+Wire Wire Line
+	9300 4800 9500 4800
+Wire Wire Line
+	9500 4800 9500 4900
+Wire Wire Line
+	7800 4800 7600 4800
 Wire Bus Line
 	2850 6800 4250 6800
 Wire Bus Line
@@ -1627,4 +1689,6 @@ Wire Bus Line
 	4250 1200 4250 6800
 Wire Bus Line
 	7500 1200 7500 5350
+Text Label 7650 4800 0    50   ~ 0
+Backlight+
 $EndSCHEMATC

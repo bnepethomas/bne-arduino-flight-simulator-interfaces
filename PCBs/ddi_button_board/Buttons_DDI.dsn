@@ -246,6 +246,20 @@
     )
   )
   (placement
+    (component Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm
+      (place R8 134992 -174460 front 0 (PN R))
+      (place R3 148082 -171450 front 0 (PN R))
+      (place R7 68072 -22860 front 0 (PN R))
+      (place R5 163322 -95250 front 0 (PN R))
+      (place R4 41952 -173550 front 0 (PN R))
+      (place R2 23622 -133350 front 0 (PN R))
+      (place R1 23622 -54610 front 0 (PN R))
+    )
+    (component LED_THT:LED_D3.0mm
+      (place D23 147462 -166510 front 0 (PN LED))
+      (place D22 45542 -167030 front 0 (PN LED))
+      (place D1 22352 -91440 front 0 (PN D))
+    )
     (component Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical
       (place J8 78232 -20320 front 0 (PN Conn_01x02_Female))
       (place J6 62992 -20320 front 0 (PN Conn_01x02_Female))
@@ -279,19 +293,10 @@
       (place D4 22352 -137160 front 0 (PN D))
       (place D3 19812 -120650 front 270 (PN D))
       (place D2 22352 -96520 front 0 (PN D))
-      (place D1 22352 -91440 front 0 (PN D))
     )
     (component Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical
       (place J2 22352 -154940 front 90 (PN Conn_01x03_Female))
       (place J1 164592 -153670 front 90 (PN Conn_01x03_Female))
-    )
-    (component Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm
-      (place R3 148082 -171450 front 0 (PN R))
-      (place R7 68072 -22860 front 0 (PN R))
-      (place R5 163322 -95250 front 0 (PN R))
-      (place R4 38862 -166370 front 0 (PN R))
-      (place R2 23622 -133350 front 0 (PN R))
-      (place R1 23622 -54610 front 0 (PN R))
     )
     (component Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm::1
       (place R6 129032 -22860 front 0 (PN R))
@@ -320,6 +325,38 @@
     )
   )
   (library
+    (image Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm
+      (outline (path signal 50  6980 1520  -1910 1520))
+      (outline (path signal 50  6980 -1520  6980 1520))
+      (outline (path signal 50  -1910 -1520  6980 -1520))
+      (outline (path signal 50  -1910 1520  -1910 -1520))
+      (outline (path signal 120  6850 1390  6850 -1390))
+      (outline (path signal 120  -1770 1390  -1770 -1390))
+      (outline (path signal 120  -1770 -1390  6850 -1390))
+      (outline (path signal 120  -1770 1390  6850 1390))
+      (outline (path signal 100  6730 1270  -1650 1270))
+      (outline (path signal 100  6730 -1270  6730 1270))
+      (outline (path signal 100  -1650 -1270  6730 -1270))
+      (outline (path signal 100  -1650 1270  -1650 -1270))
+      (pin Round[A]Pad_1600_um 2 5080 0)
+      (pin Round[A]Pad_1600_um 1 0 0)
+    )
+    (image LED_THT:LED_D3.0mm
+      (outline (path signal 50  3700 2250  -1150 2250))
+      (outline (path signal 50  3700 -2250  3700 2250))
+      (outline (path signal 50  -1150 -2250  3700 -2250))
+      (outline (path signal 50  -1150 2250  -1150 -2250))
+      (outline (path signal 120  -290 -1080  -290 -1236))
+      (outline (path signal 120  -290 1236  -290 1080))
+      (outline (path signal 100  -230 1166.19  -230 -1166.19))
+      (outline (path signal 100  2770 0  2688.73 -487.049  2453.71 -921.319  2090.42 -1255.75
+            1638.23 -1454.1  1146.13 -1494.88  667.457 -1373.66  254.078 -1103.59
+            -49.211 -713.921  -209.542 -246.892  -209.542 246.892  -49.211 713.921
+            254.078 1103.59  667.457 1373.66  1146.13 1494.88  1638.23 1454.1
+            2090.42 1255.75  2453.71 921.319  2688.73 487.049  2770 0))
+      (pin Round[A]Pad_1800_um 2 2540 0)
+      (pin Rect[A]Pad_1800x1800_um 1 0 0)
+    )
     (image Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical
       (outline (path signal 50  1800 1800  -1800 1800))
       (outline (path signal 50  1800 -4350  1800 1800))
@@ -428,22 +465,6 @@
       (pin Oval[A]Pad_1700x1700_um 2 0 -2540)
       (pin Rect[A]Pad_1700x1700_um 1 0 0)
     )
-    (image Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm
-      (outline (path signal 50  6980 1520  -1910 1520))
-      (outline (path signal 50  6980 -1520  6980 1520))
-      (outline (path signal 50  -1910 -1520  6980 -1520))
-      (outline (path signal 50  -1910 1520  -1910 -1520))
-      (outline (path signal 120  6850 1390  6850 -1390))
-      (outline (path signal 120  -1770 1390  -1770 -1390))
-      (outline (path signal 120  -1770 -1390  6850 -1390))
-      (outline (path signal 120  -1770 1390  6850 1390))
-      (outline (path signal 100  6730 1270  -1650 1270))
-      (outline (path signal 100  6730 -1270  6730 1270))
-      (outline (path signal 100  -1650 -1270  6730 -1270))
-      (outline (path signal 100  -1650 1270  -1650 -1270))
-      (pin Round[A]Pad_1600_um 2 5080 0)
-      (pin Round[A]Pad_1600_um 1 0 0)
-    )
     (image Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm::1
       (outline (path signal 100  -1650 1270  -1650 -1270))
       (outline (path signal 100  -1650 -1270  6730 -1270))
@@ -506,6 +527,11 @@
       (shape (circle B.Cu 1600))
       (attach off)
     )
+    (padstack Round[A]Pad_1800_um
+      (shape (circle F.Cu 1800))
+      (shape (circle B.Cu 1800))
+      (attach off)
+    )
     (padstack Oval[A]Pad_1700x1700_um
       (shape (path F.Cu 1700  0 0  0 0))
       (shape (path B.Cu 1700  0 0  0 0))
@@ -534,7 +560,7 @@
   )
   (network
     (net GND
-      (pins J8-2 J6-2 SW18-6 SW15-6 SW12-6 SW9-6 SW6-6 SW3-6 SW20-6)
+      (pins R8-1 J8-2 J6-2 SW18-6 SW15-6 SW12-6 SW9-6 SW6-6 SW3-6 SW20-6)
     )
     (net "Net-(SW1-Pad6)"
       (pins SW2-5 SW1-6)
@@ -669,7 +695,7 @@
       (pins SW11-5 SW10-6)
     )
     (net /Col_0
-      (pins J4-1 D5-2 D4-2 D3-2 D2-2 D1-2)
+      (pins D1-2 J4-1 D5-2 D4-2 D3-2 D2-2)
     )
     (net /Col_3
       (pins J4-4 D20-2 D19-2 D18-2 D17-2 D16-2)
@@ -696,7 +722,7 @@
       (pins J7-2 J5-1 SW16-4 SW16-3 SW11-4 SW11-3 SW6-4 SW6-3 SW1-4 SW1-3)
     )
     (net /Backlight+
-      (pins J8-1 J6-1 R3-2 R7-2 R6-2 R5-2 R4-2 R2-2 R1-2)
+      (pins D22-2 J8-1 J6-1 R3-2 R7-2 R6-2 R5-2 R4-2 R2-2 R1-2)
     )
     (net /Col_4
       (pins J4-5 D21-2)
@@ -704,18 +730,24 @@
     (net "Net-(D21-Pad1)"
       (pins J7-1 D21-1)
     )
+    (net "Net-(D22-Pad1)"
+      (pins D23-2 D22-1)
+    )
+    (net "Net-(D23-Pad1)"
+      (pins R8-2 D23-1)
+    )
     (class kicad_default "" /Ana_Bright /Ana_Contrast /Analog+5V /Analog_GND
       /Backlight+ /Col_0 /Col_1 /Col_2 /Col_3 /Col_4 "/Led10-11" /Led5Led6
       /Row_0 /Row_1 /Row_2 /Row_3 /Row_4 GND "Net-(D1-Pad1)" "Net-(D10-Pad1)"
       "Net-(D11-Pad1)" "Net-(D12-Pad1)" "Net-(D13-Pad1)" "Net-(D14-Pad1)"
       "Net-(D15-Pad1)" "Net-(D16-Pad1)" "Net-(D17-Pad1)" "Net-(D18-Pad1)"
-      "Net-(D19-Pad1)" "Net-(D2-Pad1)" "Net-(D20-Pad1)" "Net-(D21-Pad1)" "Net-(D3-Pad1)"
-      "Net-(D4-Pad1)" "Net-(D5-Pad1)" "Net-(D6-Pad1)" "Net-(D7-Pad1)" "Net-(D8-Pad1)"
-      "Net-(D9-Pad1)" "Net-(R1-Pad1)" "Net-(R2-Pad1)" "Net-(R3-Pad1)" "Net-(R4-Pad1)"
-      "Net-(R5-Pad1)" "Net-(R6-Pad1)" "Net-(R7-Pad1)" "Net-(SW1-Pad6)" "Net-(SW11-Pad6)"
-      "Net-(SW13-Pad6)" "Net-(SW14-Pad6)" "Net-(SW16-Pad6)" "Net-(SW17-Pad6)"
-      "Net-(SW19-Pad6)" "Net-(SW2-Pad6)" "Net-(SW4-Pad6)" "Net-(SW7-Pad6)"
-      "Net-(SW8-Pad6)"
+      "Net-(D19-Pad1)" "Net-(D2-Pad1)" "Net-(D20-Pad1)" "Net-(D21-Pad1)" "Net-(D22-Pad1)"
+      "Net-(D23-Pad1)" "Net-(D3-Pad1)" "Net-(D4-Pad1)" "Net-(D5-Pad1)" "Net-(D6-Pad1)"
+      "Net-(D7-Pad1)" "Net-(D8-Pad1)" "Net-(D9-Pad1)" "Net-(R1-Pad1)" "Net-(R2-Pad1)"
+      "Net-(R3-Pad1)" "Net-(R4-Pad1)" "Net-(R5-Pad1)" "Net-(R6-Pad1)" "Net-(R7-Pad1)"
+      "Net-(SW1-Pad6)" "Net-(SW11-Pad6)" "Net-(SW13-Pad6)" "Net-(SW14-Pad6)"
+      "Net-(SW16-Pad6)" "Net-(SW17-Pad6)" "Net-(SW19-Pad6)" "Net-(SW2-Pad6)"
+      "Net-(SW4-Pad6)" "Net-(SW7-Pad6)" "Net-(SW8-Pad6)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
