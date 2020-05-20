@@ -277,11 +277,11 @@
       (place R4 41952 -173550 front 0 (PN R))
       (place R3 143172 -174320 front 0 (PN R))
       (place R2 19482 -131660 front 270 (PN R))
-      (place R1 20152 -54690 front 270 (PN R))
+      (place R1 19782 -54710 front 270 (PN R))
     )
     (component LED_THT:LED_D3.0mm
-      (place D23 147462 -166510 front 0 (PN LED))
-      (place D22 45542 -167030 front 0 (PN LED))
+      (place D23 155182 -163690 front 0 (PN LED))
+      (place D22 36422 -164630 front 0 (PN LED))
     )
     (component Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical
       (place J8 78232 -20320 front 0 (PN Conn_01x02_Female))
