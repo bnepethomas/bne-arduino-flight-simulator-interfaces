@@ -19,7 +19,7 @@
 // Can validate wha addresses are on the bus by using I2C scanner
 
 // The following OLEDs where sourced from ebay
-// OLEd for top  2.2" 128 * 32 SSD1305 (not 1306)
+// OLED for top  2.2" 128 * 32 SSD1305 (not 1306)
 
 // OLED for 5 Right hand side digits 0.91" 128*32 SSD1306
 // https://www.ebay.com/itm/0-91-Inch-128x32-IIC-I2c-White-Blue-OLED-LCD-Display-Module-3-3-5v-For-Arduino/392552169768?ssPageName=STRK%3AMEBIDX%3AIT&var=661536491479&_trksid=p2057872.m2749.l2649
@@ -46,32 +46,6 @@
 // Unsure what this does - hopefully not a pin on the mega
 #define OLED_RESET 4
 Adafruit_SSD1306 display(OLED_RESET);
-
-#define NUMFLAKES 10
-#define XPOS 0
-#define YPOS 1
-#define DELTAY 2
-
-
-#define LOGO16_GLCD_HEIGHT 16 
-#define LOGO16_GLCD_WIDTH  16 
-static const unsigned char PROGMEM logo16_glcd_bmp[] =
-{ B00000000, B11000000,
-  B00000001, B11000000,
-  B00000001, B11000000,
-  B00000011, B11100000,
-  B11110011, B11100000,
-  B11111110, B11111000,
-  B01111110, B11111111,
-  B00110011, B10011111,
-  B00011111, B11111100,
-  B00001101, B01110000,
-  B00011011, B10100000,
-  B00111111, B11100000,
-  B00111111, B11110000,
-  B01111100, B11110000,
-  B01110000, B01110000,
-  B00000000, B00110000 };
 
 #if (SSD1306_LCDHEIGHT != 32)
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
@@ -115,23 +89,8 @@ void setup() {
   }
   Serial.println("\nI2C scan complete"); 
 
-}
 
-
-
-
-void loop() {
-
-  if (CurrentDisplay == 2) {
-    CurrentDisplay = 3;
-  } else
-  {
-    CurrentDisplay = 2;
-  }
-
-  tcaselect(CurrentDisplay);
-
-
+  tcaselect(2);
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
   // init done
@@ -142,6 +101,48 @@ void loop() {
   display.display();
   delay(0);
 
+  tcaselect(3);
+  // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
+  // init done
+  
+  // Show image buffer on the display hardware.
+  // Since the buffer is intialized with an Adafruit splashscreen
+  // internally, this will display the splashscreen.
+  display.display();
+  delay(0);
+
+  tcaselect(4);
+  // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
+  // init done
+  
+  // Show image buffer on the display hardware.
+  // Since the buffer is intialized with an Adafruit splashscreen
+  // internally, this will display the splashscreen.
+  display.display();
+  delay(0);
+
+
+}
+
+
+
+
+void loop() {
+
+  if (CurrentDisplay == 2) {
+    CurrentDisplay = 3;
+  }else if (CurrentDisplay == 3)
+  {
+    CurrentDisplay = 4;
+  }else
+  {
+    CurrentDisplay = 2;
+  }
+
+  tcaselect(CurrentDisplay);
+
   // Clear the buffer.
   display.clearDisplay();
 
@@ -149,15 +150,16 @@ void loop() {
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0,0);
-  display.println("Hello, world!");
+  display.println(CurrentDisplay);
   display.setTextColor(BLACK, WHITE); // 'inverted' text
-  display.println(3.141592);
+  display.println(millis());
   display.setTextSize(2);
   display.setTextColor(WHITE);
-  display.print("0x"); display.println(0xDEADBEEF, HEX);
+  display.println(millis());
+
   display.display();
-  delay(2000);
-  display.clearDisplay();
+  //delay(100);
+  //display.clearDisplay();
 
   
 
