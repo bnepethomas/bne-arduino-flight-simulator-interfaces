@@ -70,7 +70,7 @@ extern "C" {
 
 uint8_t oled_buf[WIDTH * HEIGHT / 8];
 int CurrentDisplay = 0;
-
+char buffer[20]; //plenty of space for the value of millis() plus a zero terminator
  
 void tcaselect(uint8_t i) {
   if (i > 7) return;
@@ -101,6 +101,8 @@ void setup() {
   }
   Serial.println("\nI2C scan complete"); 
 
+  tcaselect(0);
+  er_oled_begin();
 
   for (uint8_t t=1; t<8; t++) {
     tcaselect(t);
@@ -124,17 +126,9 @@ void loop() {
   tcaselect(CurrentDisplay);
   if (CurrentDisplay == 0)
   {
-    er_oled_begin();
     er_oled_clear(oled_buf);
-    er_oled_string(10, 2, "www.buydisplay.com", 12, 1, oled_buf);  
-    er_oled_char(4, 16, '1' ,16, 1, oled_buf);
-    er_oled_char(20, 16, '2', 16, 1, oled_buf);
-    er_oled_char(36, 16, ':', 16, 1, oled_buf);
-    er_oled_char(52, 16, '4', 16, 1, oled_buf);
-    er_oled_char(68, 16, '2', 16, 1, oled_buf);
-    er_oled_char(84, 16, ':', 16, 1, oled_buf);
-    er_oled_char(100, 16, '1', 16, 1, oled_buf);
-    er_oled_char(116, 16, '8', 16, 1, oled_buf);
+    sprintf(buffer, "%d", millis());  //convert millis() to a char array in buffer and terminate it with a zero
+    er_oled_string(40, 7, buffer, 16, 1, oled_buf);  
     er_oled_display(oled_buf);
   } else
   {
