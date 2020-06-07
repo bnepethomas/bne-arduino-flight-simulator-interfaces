@@ -52,6 +52,9 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <Fonts/FreeMonoBoldOblique12pt7b.h>
+#include <Fonts/FreeMonoBold18pt7b.h>  
+#include <Fonts/FreeMono9pt7b.h>   
 #include "er_oled.h"
 
 // Unsure what this does - hopefully not a pin on the mega
@@ -134,28 +137,21 @@ void loop() {
   {
     // Clear the buffer.
     display.clearDisplay();
-  
+    //display.setFont(&FreeMonoBold18pt7b); 
+    display.setFont(&FreeMono9pt7b);
     // text display tests
     display.setTextSize(1);
     display.setTextColor(WHITE);
-    display.setCursor(0,0);
+    display.setCursor(0,10);
   
     display.println(CurrentDisplay);
-  //  display.setTextColor(BLACK, WHITE); // 'inverted' text
-  //  display.println(millis());
-  
-  
-  
-    if (CurrentDisplay != 8)
-    {
-      display.setTextSize(2);
-      display.setTextColor(WHITE);
-      display.println(millis());
-    }
-  
+
+    display.setFont(&FreeMonoBold18pt7b);
+    display.setCursor(10,30);
+    display.println(millis());
+    
     display.display();
-    //delay(100);
-    //display.clearDisplay();
+
   }
   
 
