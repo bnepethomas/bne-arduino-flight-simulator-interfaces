@@ -20,6 +20,16 @@
 
 // The following OLEDs where sourced from ebay
 // OLED for top  2.2" 128 * 32 SSD1305 (not 1306)
+// This OLED does require resistors to be set (R3 & R5 Short)(the others open)
+// Pin 16 tied to Arduino Reset
+// It does support 3.3V, but works ok on 5V
+// 1 Gnd
+// 2 +5V
+// 4 Gnd
+// 7 SCL
+// 8 & 9 SDA
+// 16 Reset
+
 
 // OLED for 5 Right hand side digits 0.91" 128*32 SSD1306
 // https://www.ebay.com/itm/0-91-Inch-128x32-IIC-I2c-White-Blue-OLED-LCD-Display-Module-3-3-5v-For-Arduino/392552169768?ssPageName=STRK%3AMEBIDX%3AIT&var=661536491479&_trksid=p2057872.m2749.l2649
@@ -42,6 +52,7 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include "er_oled.h"
 
 // Unsure what this does - hopefully not a pin on the mega
 #define OLED_RESET 4
@@ -57,7 +68,8 @@ extern "C" {
 
 #define TCAADDR 0x70
 
-int CurrentDisplay = 3;
+uint8_t oled_buf[WIDTH * HEIGHT / 8];
+int CurrentDisplay = 0;
 
  
 void tcaselect(uint8_t i) {
@@ -90,39 +102,11 @@ void setup() {
   Serial.println("\nI2C scan complete"); 
 
 
-  tcaselect(2);
-  // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
-  // init done
-  
-  // Show image buffer on the display hardware.
-  // Since the buffer is intialized with an Adafruit splashscreen
-  // internally, this will display the splashscreen.
-  display.display();
-  delay(0);
-
-  tcaselect(3);
-  // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
-  // init done
-  
-  // Show image buffer on the display hardware.
-  // Since the buffer is intialized with an Adafruit splashscreen
-  // internally, this will display the splashscreen.
-  display.display();
-  delay(0);
-
-  tcaselect(4);
-  // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
-  // init done
-  
-  // Show image buffer on the display hardware.
-  // Since the buffer is intialized with an Adafruit splashscreen
-  // internally, this will display the splashscreen.
-  display.display();
-  delay(0);
-
+  for (uint8_t t=1; t<8; t++) {
+    tcaselect(t);
+    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
+    display.display();
+  }
 
 }
 
@@ -131,36 +115,54 @@ void setup() {
 
 void loop() {
 
-  if (CurrentDisplay == 2) {
-    CurrentDisplay = 3;
-  }else if (CurrentDisplay == 3)
-  {
-    CurrentDisplay = 4;
-  }else
-  {
-    CurrentDisplay = 2;
-  }
+
+  CurrentDisplay ++;
+  if (CurrentDisplay >7) 
+    CurrentDisplay = 0;
+
 
   tcaselect(CurrentDisplay);
-
-  // Clear the buffer.
-  display.clearDisplay();
-
+  if (CurrentDisplay == 0)
+  {
+    er_oled_begin();
+    er_oled_clear(oled_buf);
+    er_oled_string(10, 2, "www.buydisplay.com", 12, 1, oled_buf);  
+    er_oled_char(4, 16, '1' ,16, 1, oled_buf);
+    er_oled_char(20, 16, '2', 16, 1, oled_buf);
+    er_oled_char(36, 16, ':', 16, 1, oled_buf);
+    er_oled_char(52, 16, '4', 16, 1, oled_buf);
+    er_oled_char(68, 16, '2', 16, 1, oled_buf);
+    er_oled_char(84, 16, ':', 16, 1, oled_buf);
+    er_oled_char(100, 16, '1', 16, 1, oled_buf);
+    er_oled_char(116, 16, '8', 16, 1, oled_buf);
+    er_oled_display(oled_buf);
+  } else
+  {
+    // Clear the buffer.
+    display.clearDisplay();
+  
     // text display tests
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0,0);
-  display.println(CurrentDisplay);
-  display.setTextColor(BLACK, WHITE); // 'inverted' text
-  display.println(millis());
-  display.setTextSize(2);
-  display.setTextColor(WHITE);
-  display.println(millis());
-
-  display.display();
-  //delay(100);
-  //display.clearDisplay();
-
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(0,0);
+  
+    display.println(CurrentDisplay);
+  //  display.setTextColor(BLACK, WHITE); // 'inverted' text
+  //  display.println(millis());
+  
+  
+  
+    if (CurrentDisplay != 8)
+    {
+      display.setTextSize(2);
+      display.setTextColor(WHITE);
+      display.println(millis());
+    }
+  
+    display.display();
+    //delay(100);
+    //display.clearDisplay();
+  }
   
 
 }
