@@ -1,0 +1,358 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev "2"
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Arduino_NW_Template-rescue:PT_Conn_01x06 J4
+U 1 1 5E66B8DF
+P 4150 5750
+F 0 "J4" H 4100 6150 50  0000 L CNN
+F 1 "PT_Conn_01x06" H 4230 5651 50  0001 L CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 4150 5750 50  0001 C CNN
+F 3 "~" H 4150 5750 50  0001 C CNN
+	1    4150 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Arduino_NW_Template-rescue:PT_Ethernet_Shield U1
+U 1 1 5E63623F
+P 5700 2450
+F 0 "U1" H 5700 2531 50  0000 C CNN
+F 1 "PT_Ethernet_Shield" H 5700 2440 50  0001 C CNN
+F 2 "PT_Library_v001:PT_Ethernet_Shield_v001" H 5700 2450 50  0001 C CNN
+F 3 "" H 5700 2450 50  0001 C CNN
+	1    5700 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5850 4600 5850 4800
+Wire Wire Line
+	5850 4800 5750 4800
+Wire Wire Line
+	5650 4800 5650 4600
+Wire Wire Line
+	5750 4600 5750 4800
+Connection ~ 5750 4800
+Wire Wire Line
+	5750 4800 5650 4800
+$Comp
+L power:GND #PWR07
+U 1 1 5E6376AA
+P 5750 5050
+F 0 "#PWR07" H 5750 4800 50  0001 C CNN
+F 1 "GND" H 5755 4877 50  0000 C CNN
+F 2 "" H 5750 5050 50  0001 C CNN
+F 3 "" H 5750 5050 50  0001 C CNN
+	1    5750 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5750 5050 5750 4800
+$Comp
+L Device:R R3
+U 1 1 5E637E5E
+P 6550 2850
+F 0 "R3" V 6343 2850 50  0000 C CNN
+F 1 "500" V 6434 2850 50  0000 C CNN
+F 2 "PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 6480 2850 50  0001 C CNN
+F 3 "~" H 6550 2850 50  0001 C CNN
+	1    6550 2850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6400 2850 6200 2850
+$Comp
+L Device:CP1 C1
+U 1 1 5E639090
+P 6900 3000
+F 0 "C1" H 7015 3046 50  0000 L CNN
+F 1 "47uF" H 7015 2955 50  0000 L CNN
+F 2 "PT_Library_v001:PT_CP_Radial_D8.0mm_P2.50mm" H 6900 3000 50  0001 C CNN
+F 3 "~" H 6900 3000 50  0001 C CNN
+	1    6900 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR09
+U 1 1 5E639A2C
+P 6900 3200
+F 0 "#PWR09" H 6900 2950 50  0001 C CNN
+F 1 "GND" H 6905 3027 50  0000 C CNN
+F 2 "" H 6900 3200 50  0001 C CNN
+F 3 "" H 6900 3200 50  0001 C CNN
+	1    6900 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6700 2850 6900 2850
+Wire Wire Line
+	6900 3150 6900 3200
+Wire Wire Line
+	3850 5650 3950 5650
+$Comp
+L power:+5V #PWR08
+U 1 1 5E634A45
+P 5900 2450
+F 0 "#PWR08" H 5900 2300 50  0001 C CNN
+F 1 "+5V" H 5915 2623 50  0000 C CNN
+F 2 "" H 5900 2450 50  0001 C CNN
+F 3 "" H 5900 2450 50  0001 C CNN
+	1    5900 2450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5900 2450 5900 2550
+$Comp
+L power:+5V #PWR03
+U 1 1 5E6357FF
+P 3950 5450
+F 0 "#PWR03" H 3950 5300 50  0001 C CNN
+F 1 "+5V" H 3965 5623 50  0000 C CNN
+F 2 "" H 3950 5450 50  0001 C CNN
+F 3 "" H 3950 5450 50  0001 C CNN
+	1    3950 5450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3950 5550 3950 5450
+$Comp
+L power:GND #PWR02
+U 1 1 5E63635F
+P 3750 5550
+F 0 "#PWR02" H 3750 5300 50  0001 C CNN
+F 1 "GND" H 3755 5377 50  0000 C CNN
+F 2 "" H 3750 5550 50  0001 C CNN
+F 3 "" H 3750 5550 50  0001 C CNN
+	1    3750 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3850 5650 3850 5450
+Wire Wire Line
+	3850 5450 3750 5450
+Wire Wire Line
+	3750 5450 3750 5550
+Wire Wire Line
+	5200 3800 3650 3800
+Wire Wire Line
+	3650 3800 3650 5750
+Wire Wire Line
+	3650 5750 3950 5750
+Wire Wire Line
+	5200 3600 3450 3600
+Wire Wire Line
+	5200 3700 3550 3700
+Wire Wire Line
+	3550 3700 3550 5950
+Wire Wire Line
+	3550 5950 3950 5950
+Wire Wire Line
+	3950 5850 3450 5850
+Wire Wire Line
+	3450 5850 3450 3600
+Wire Wire Line
+	6200 3150 6650 3150
+Wire Wire Line
+	6200 3250 6600 3250
+Wire Wire Line
+	6200 3350 6550 3350
+$Comp
+L Arduino_NW_Template-rescue:PT_Conn_01x06 J5
+U 1 1 5E76203C
+P 4200 4450
+F 0 "J5" H 4118 4867 50  0000 C CNN
+F 1 "PT_Conn_01x06" H 4118 4776 50  0001 C CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 4200 4450 50  0001 C CNN
+F 3 "~" H 4200 4450 50  0001 C CNN
+	1    4200 4450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5200 4200 5200 4750
+Wire Wire Line
+	5200 4750 4400 4750
+Wire Wire Line
+	5200 4100 5100 4100
+Wire Wire Line
+	5100 4100 5100 4650
+Wire Wire Line
+	5100 4650 4400 4650
+Wire Wire Line
+	5200 4000 5000 4000
+Wire Wire Line
+	5000 4000 5000 4550
+Wire Wire Line
+	5000 4550 4400 4550
+$Comp
+L power:GND #PWR06
+U 1 1 5E7817B9
+P 4750 4200
+F 0 "#PWR06" H 4750 3950 50  0001 C CNN
+F 1 "GND" H 4755 4027 50  0000 C CNN
+F 2 "" H 4750 4200 50  0001 C CNN
+F 3 "" H 4750 4200 50  0001 C CNN
+	1    4750 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR05
+U 1 1 5E78236E
+P 4500 4050
+F 0 "#PWR05" H 4500 3900 50  0001 C CNN
+F 1 "+5V" H 4515 4223 50  0000 C CNN
+F 2 "" H 4500 4050 50  0001 C CNN
+F 3 "" H 4500 4050 50  0001 C CNN
+	1    4500 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4500 4050 4500 4250
+Wire Wire Line
+	4500 4250 4400 4250
+Wire Wire Line
+	4750 4200 4750 4100
+Wire Wire Line
+	4750 4100 4650 4100
+Wire Wire Line
+	4650 4100 4650 4350
+Wire Wire Line
+	4650 4350 4400 4350
+$Comp
+L Device:R R2
+U 1 1 5E7905FE
+P 4750 3400
+F 0 "R2" V 4850 3400 50  0000 C CNN
+F 1 "330" V 4850 3250 50  0000 C CNN
+F 2 "PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 4680 3400 50  0001 C CNN
+F 3 "~" H 4750 3400 50  0001 C CNN
+	1    4750 3400
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5E791245
+P 4350 3500
+F 0 "R1" V 4500 3550 50  0000 C CNN
+F 1 "330" V 4500 3400 50  0000 C CNN
+F 2 "PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 4280 3500 50  0001 C CNN
+F 3 "~" H 4350 3500 50  0001 C CNN
+	1    4350 3500
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5200 3400 4900 3400
+Wire Wire Line
+	5200 3500 4500 3500
+$Comp
+L Device:LED D2
+U 1 1 5E7A041C
+P 3100 3650
+F 0 "D2" V 3139 3533 50  0000 R CNN
+F 1 "Red" V 3048 3533 50  0000 R CNN
+F 2 "LED_THT:LED_D5.0mm" H 3100 3650 50  0001 C CNN
+F 3 "~" H 3100 3650 50  0001 C CNN
+	1    3100 3650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED D1
+U 1 1 5E7A19F6
+P 2750 3650
+F 0 "D1" V 2789 3533 50  0000 R CNN
+F 1 "Green" V 2698 3533 50  0000 R CNN
+F 2 "LED_THT:LED_D5.0mm" H 2750 3650 50  0001 C CNN
+F 3 "~" H 2750 3650 50  0001 C CNN
+	1    2750 3650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	3100 3500 4200 3500
+Wire Wire Line
+	4600 3400 2750 3400
+Wire Wire Line
+	2750 3400 2750 3500
+Wire Wire Line
+	3100 3800 3100 3900
+Wire Wire Line
+	3100 3900 2950 3900
+Wire Wire Line
+	2750 3900 2750 3800
+$Comp
+L power:GND #PWR01
+U 1 1 5E7C0073
+P 2950 4000
+F 0 "#PWR01" H 2950 3750 50  0001 C CNN
+F 1 "GND" H 2955 3827 50  0000 C CNN
+F 2 "" H 2950 4000 50  0001 C CNN
+F 3 "" H 2950 4000 50  0001 C CNN
+	1    2950 4000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 4000 2950 3900
+Connection ~ 2950 3900
+Wire Wire Line
+	2950 3900 2750 3900
+$Comp
+L Connector:Conn_01x08_Female J6
+U 1 1 5E7C8A00
+P 6350 5700
+F 0 "J6" H 6200 6150 50  0000 L CNN
+F 1 "Conn_01x08_Female" H 6378 5585 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 6350 5700 50  0001 C CNN
+F 3 "~" H 6350 5700 50  0001 C CNN
+	1    6350 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x08_Female J7
+U 1 1 5E7C9A36
+P 6800 5700
+F 0 "J7" H 6650 6150 50  0000 L CNN
+F 1 "Conn_01x08_Female" H 6828 5585 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 6800 5700 50  0001 C CNN
+F 3 "~" H 6800 5700 50  0001 C CNN
+	1    6800 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x08_Female J8
+U 1 1 5E7CA9FF
+P 7250 5700
+F 0 "J8" H 7100 6150 50  0000 L CNN
+F 1 "Conn_01x08_Female" H 7278 5585 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 7250 5700 50  0001 C CNN
+F 3 "~" H 7250 5700 50  0001 C CNN
+	1    7250 5700
+	1    0    0    -1  
+$EndComp
+Text Notes 5200 2100 0    50   ~ 0
+Cannot use D4 and D10 as they are used by the Ethernet shield
+Text Notes 6550 5150 0    50   ~ 0
+Spares
+Text Notes 2700 3350 0    50   ~ 0
+Green Led  - Flashes once per second
+Text Notes 2700 4600 0    50   ~ 0
+Red LED - solid\non until packet \nis successfully\nsent to controller
+Text Notes 4350 5500 0    50   ~ 0
+Output to Max7219\nLed Driver
+Text Notes 4050 5200 0    50   ~ 0
+LedControl lc_2=LedControl(9,8,7,1); \n9 - DATA IN\n8 - CLK\n7 - LOAD/CS
+Text Notes 4300 5800 0    50   ~ 0
+Data In - Orange
+Text Notes 4300 5900 0    50   ~ 0
+Load/CS - Yellow
+Text Notes 4300 6000 0    50   ~ 0
+Clock - Green
+$EndSCHEMATC
