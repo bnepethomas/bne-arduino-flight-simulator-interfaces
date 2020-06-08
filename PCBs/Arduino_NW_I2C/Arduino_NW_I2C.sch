@@ -71,7 +71,7 @@ F 3 "~" H 6550 2850 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	6400 2850 6200 2850
+	6400 2850 6300 2850
 $Comp
 L Device:CP1 C1
 U 1 1 5E639090
@@ -355,4 +355,114 @@ Text Notes 4300 5900 0    50   ~ 0
 Load/CS - Yellow
 Text Notes 4300 6000 0    50   ~ 0
 Clock - Green
+$Comp
+L PT_Symbol_Library_v001:MUX U2
+U 1 1 5EDEBE76
+P 8650 3150
+F 0 "U2" H 9369 2761 50  0000 L CNN
+F 1 "MUX" H 9369 2670 50  0000 L CNN
+F 2 "PT_Library_v001:Adafruit_TCA9548A" H 8650 3150 50  0001 C CNN
+F 3 "" H 8650 3150 50  0001 C CNN
+	1    8650 3150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6300 2850 6300 2450
+Wire Wire Line
+	6300 2450 7300 2450
+Wire Wire Line
+	7300 2450 7300 3150
+Wire Wire Line
+	7300 3150 8100 3150
+Connection ~ 6300 2850
+Wire Wire Line
+	6300 2850 6200 2850
+$Comp
+L Arduino_NW_Template-rescue:PT_Conn_01x06 J3
+U 1 1 5EDF7319
+P 10400 2000
+F 0 "J3" H 10318 2417 50  0000 C CNN
+F 1 "PT_Conn_01x06" H 10318 2326 50  0001 C CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 10400 2000 50  0001 C CNN
+F 3 "~" H 10400 2000 50  0001 C CNN
+	1    10400 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Arduino_NW_Template-rescue:PT_Conn_01x06 J9
+U 1 1 5EDF9E7F
+P 10400 2700
+F 0 "J9" H 10318 3117 50  0000 C CNN
+F 1 "PT_Conn_01x06" H 10318 3026 50  0001 C CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 10400 2700 50  0001 C CNN
+F 3 "~" H 10400 2700 50  0001 C CNN
+	1    10400 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Arduino_NW_Template-rescue:PT_Conn_01x06 J10
+U 1 1 5EDFACEC
+P 10400 3450
+F 0 "J10" H 10318 3867 50  0000 C CNN
+F 1 "PT_Conn_01x06" H 10318 3776 50  0001 C CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 10400 3450 50  0001 C CNN
+F 3 "~" H 10400 3450 50  0001 C CNN
+	1    10400 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Arduino_NW_Template-rescue:PT_Conn_01x06 J11
+U 1 1 5EDFBEDB
+P 10400 4200
+F 0 "J11" H 10318 4617 50  0000 C CNN
+F 1 "PT_Conn_01x06" H 10318 4526 50  0001 C CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 10400 4200 50  0001 C CNN
+F 3 "~" H 10400 4200 50  0001 C CNN
+	1    10400 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Arduino_NW_Template-rescue:PT_Conn_01x06 J12
+U 1 1 5EDFCB54
+P 10400 4950
+F 0 "J12" H 10318 5367 50  0000 C CNN
+F 1 "PT_Conn_01x06" H 10318 5276 50  0001 C CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 10400 4950 50  0001 C CNN
+F 3 "~" H 10400 4950 50  0001 C CNN
+	1    10400 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Arduino_NW_Template-rescue:PT_Conn_01x06 J13
+U 1 1 5EDFD911
+P 10400 5700
+F 0 "J13" H 10318 6117 50  0000 C CNN
+F 1 "PT_Conn_01x06" H 10318 6026 50  0001 C CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 10400 5700 50  0001 C CNN
+F 3 "~" H 10400 5700 50  0001 C CNN
+	1    10400 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Arduino_NW_Template-rescue:PT_Conn_01x06 J2
+U 1 1 5EDFE6CA
+P 10400 1200
+F 0 "J2" H 10318 1617 50  0000 C CNN
+F 1 "PT_Conn_01x06" H 10318 1526 50  0001 C CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 10400 1200 50  0001 C CNN
+F 3 "~" H 10400 1200 50  0001 C CNN
+	1    10400 1200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Arduino_NW_Template-rescue:PT_Conn_01x06 J1
+U 1 1 5EDFF575
+P 9150 5700
+F 0 "J1" H 9068 6117 50  0000 C CNN
+F 1 "PT_Conn_01x06" H 9068 6026 50  0001 C CNN
+F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 9150 5700 50  0001 C CNN
+F 3 "~" H 9150 5700 50  0001 C CNN
+	1    9150 5700
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
