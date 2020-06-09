@@ -465,4 +465,264 @@ F 3 "~" H 9150 5700 50  0001 C CNN
 	1    9150 5700
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:Conn_01x02_Female J14
+U 1 1 5EDF0391
+P 8150 1600
+F 0 "J14" H 8178 1576 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 8178 1485 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 8150 1600 50  0001 C CNN
+F 3 "~" H 8150 1600 50  0001 C CNN
+	1    8150 1600
+	1    0    0    -1  
+$EndComp
+Text Notes 7600 1450 0    50   ~ 0
+External jumper to Mega I2C \n20 SDA Orange\n21 SCL Yellow
+Wire Wire Line
+	7950 1600 7700 1600
+Wire Wire Line
+	7700 1600 7700 2900
+Wire Wire Line
+	7700 2900 8100 2900
+Wire Wire Line
+	7950 1700 7750 1700
+Wire Wire Line
+	7750 1700 7750 3000
+Wire Wire Line
+	7750 3000 8100 3000
+Text Notes 4550 1500 0    50   ~ 0
+Colour coding for OLED displays\n1: Red +5V\n2: Black GND\n3: Yellow SCL\n4: Orange SDA\n5: Green Reset (Optional)
+Wire Bus Line
+	9900 6300 8650 6300
+Entry Wire Line
+	9900 2600 10000 2700
+Entry Wire Line
+	9900 2500 10000 2600
+Entry Wire Line
+	9900 2400 10000 2500
+Entry Wire Line
+	9900 2700 10000 2800
+Entry Wire Line
+	9900 900  10000 1000
+Entry Wire Line
+	9900 1000 10000 1100
+Entry Wire Line
+	9900 1100 10000 1200
+Entry Wire Line
+	9900 1200 10000 1300
+Entry Wire Line
+	9900 1300 10000 1400
+Entry Wire Line
+	9900 1700 10000 1800
+Entry Wire Line
+	9900 1800 10000 1900
+Entry Wire Line
+	9900 1900 10000 2000
+Entry Wire Line
+	9900 2000 10000 2100
+Entry Wire Line
+	9900 2100 10000 2200
+Entry Wire Line
+	9900 3150 10000 3250
+Entry Wire Line
+	9900 3250 10000 3350
+Entry Wire Line
+	9900 3350 10000 3450
+Entry Wire Line
+	9900 3450 10000 3550
+Entry Wire Line
+	9900 3900 10000 4000
+Entry Wire Line
+	9900 4000 10000 4100
+Entry Wire Line
+	9900 4100 10000 4200
+Entry Wire Line
+	9900 4200 10000 4300
+Entry Wire Line
+	9900 4750 10000 4850
+Entry Wire Line
+	9900 4850 10000 4950
+Entry Wire Line
+	9900 4950 10000 5050
+Entry Wire Line
+	9900 4650 10000 4750
+Entry Wire Line
+	9900 5400 10000 5500
+Entry Wire Line
+	9900 5500 10000 5600
+Entry Wire Line
+	9900 5600 10000 5700
+Entry Wire Line
+	9900 5700 10000 5800
+Entry Wire Line
+	8650 5400 8750 5500
+Entry Wire Line
+	8650 5500 8750 5600
+Entry Wire Line
+	8650 5600 8750 5700
+Entry Wire Line
+	8650 5700 8750 5800
+Entry Wire Line
+	9250 2650 9350 2750
+Entry Wire Line
+	9250 2750 9350 2850
+Entry Wire Line
+	9250 2950 9350 3050
+Entry Wire Line
+	9250 3050 9350 3150
+Entry Wire Line
+	9250 3200 9350 3300
+Entry Wire Line
+	9250 3300 9350 3400
+Entry Wire Line
+	9250 3450 9350 3550
+Entry Wire Line
+	9250 3550 9350 3650
+Entry Wire Line
+	9250 3700 9350 3800
+Entry Wire Line
+	9250 3800 9350 3900
+Entry Wire Line
+	9250 3950 9350 4050
+Entry Wire Line
+	9250 4050 9350 4150
+Entry Wire Line
+	9250 4200 9350 4300
+Entry Wire Line
+	9250 4300 9350 4400
+Entry Wire Line
+	9250 4450 9350 4550
+Entry Wire Line
+	9250 4550 9350 4650
+Wire Bus Line
+	9350 4700 9900 4700
+Wire Wire Line
+	9050 2650 9250 2650
+Wire Wire Line
+	9050 2750 9250 2750
+Wire Wire Line
+	8750 5700 8950 5700
+Wire Wire Line
+	8750 5800 8950 5800
+Text Label 9100 2650 0    50   ~ 0
+SD7
+Text Label 9100 2750 0    50   ~ 0
+SC7
+Text Label 8800 5800 0    50   ~ 0
+SD7
+Text Label 8800 5700 0    50   ~ 0
+SC7
+Wire Wire Line
+	9050 2950 9250 2950
+Wire Wire Line
+	9050 3050 9250 3050
+Wire Wire Line
+	9050 3200 9250 3200
+Wire Wire Line
+	9050 3300 9250 3300
+Wire Wire Line
+	9050 3450 9250 3450
+Wire Wire Line
+	9050 3550 9250 3550
+Wire Wire Line
+	9050 3700 9250 3700
+Wire Wire Line
+	9050 3800 9250 3800
+Wire Wire Line
+	9050 3950 9250 3950
+Wire Wire Line
+	9050 4050 9250 4050
+Wire Wire Line
+	9050 4200 9250 4200
+Wire Wire Line
+	9050 4300 9250 4300
+Wire Wire Line
+	9050 4450 9250 4450
+Wire Wire Line
+	9050 4550 9250 4550
+Wire Wire Line
+	10000 4000 10200 4000
+Wire Wire Line
+	10000 4100 10200 4100
+Wire Wire Line
+	10000 4200 10200 4200
+Wire Wire Line
+	10000 4300 10200 4300
+Wire Wire Line
+	10000 1000 10200 1000
+Wire Wire Line
+	10000 1100 10200 1100
+Wire Wire Line
+	10200 1200 10000 1200
+Wire Wire Line
+	10200 1300 10000 1300
+Wire Wire Line
+	10200 1400 10000 1400
+Wire Wire Line
+	10000 1800 10200 1800
+Wire Wire Line
+	10000 1900 10200 1900
+Wire Wire Line
+	10000 2000 10200 2000
+Wire Wire Line
+	10200 2100 10000 2100
+Wire Wire Line
+	10200 2200 10000 2200
+Connection ~ 9900 4700
+Wire Wire Line
+	10200 2500 10000 2500
+Wire Wire Line
+	10200 2600 10000 2600
+Wire Wire Line
+	10200 2700 10000 2700
+Wire Wire Line
+	10200 2800 10000 2800
+Wire Wire Line
+	10200 3250 10000 3250
+Wire Wire Line
+	10200 3350 10000 3350
+Wire Wire Line
+	10200 3450 10000 3450
+Wire Wire Line
+	10200 3550 10000 3550
+Wire Wire Line
+	10200 4750 10000 4750
+Wire Wire Line
+	10200 4850 10000 4850
+Wire Wire Line
+	10200 4950 10000 4950
+Wire Wire Line
+	10200 5050 10000 5050
+Wire Wire Line
+	10200 5500 10000 5500
+Wire Wire Line
+	10200 5600 10000 5600
+Wire Wire Line
+	10200 5700 10000 5700
+Wire Wire Line
+	10200 5800 10000 5800
+Wire Wire Line
+	8950 5500 8750 5500
+Wire Wire Line
+	8750 5600 8950 5600
+Wire Bus Line
+	8650 5250 8650 6300
+Wire Bus Line
+	9900 4700 9900 6300
+Wire Bus Line
+	9350 2750 9350 4700
+Wire Bus Line
+	9900 800  9900 4700
+Text Label 8800 5500 0    50   ~ 0
++5V
+Text Label 8800 5600 0    50   ~ 0
+GND
+Text Label 10050 5500 0    50   ~ 0
++5V
+Text Label 10050 5600 0    50   ~ 0
+GND
+Text Label 10050 5700 0    50   ~ 0
+SC6
+Text Label 10050 5800 0    50   ~ 0
+SD6
 $EndSCHEMATC
