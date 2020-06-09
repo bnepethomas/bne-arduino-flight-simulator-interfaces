@@ -1,4 +1,4 @@
-16936612810294500
+16938207887920500
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -53157,6 +53157,13 @@ PT_One_Hole
 0
 1
 1
+PT_Library_v001
+PT_PinHeader_1x04_P2.54mm_Vertical
+Through hole straight pin header, 1x06, 2.54mm pitch, single row
+Through hole pin header THT 1x06 2.54mm single row
+0
+4
+4
 PT_Library_v001
 PT_PinHeader_1x06_P2.54mm_Vertical
 Through hole straight pin header, 1x06, 2.54mm pitch, single row

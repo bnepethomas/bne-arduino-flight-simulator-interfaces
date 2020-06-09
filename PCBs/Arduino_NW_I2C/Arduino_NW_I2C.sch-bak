@@ -724,5 +724,5 @@ GND
 Text Label 10050 5700 0    50   ~ 0
 SC6
 Text Label 10050 5800 0    50   ~ 0
-SD5
+SD6
 $EndSCHEMATC
