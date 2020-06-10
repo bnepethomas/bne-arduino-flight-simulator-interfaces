@@ -717,6 +717,60 @@ Text Label 10050 5700 0    50   ~ 0
 SC6
 Text Label 10050 5800 0    50   ~ 0
 SD6
+Text Label 10050 5050 0    50   ~ 0
+SD5
+Text Label 10050 4950 0    50   ~ 0
+SC5
+Text Label 10050 4850 0    50   ~ 0
+GND
+Text Label 10050 4750 0    50   ~ 0
++5V
+Text Label 10050 4000 0    50   ~ 0
++5V
+Text Label 10050 3250 0    50   ~ 0
++5V
+Text Label 10050 2500 0    50   ~ 0
++5V
+Text Label 10050 1800 0    50   ~ 0
++5V
+Text Label 10050 1000 0    50   ~ 0
++5V
+Text Label 10050 1100 0    50   ~ 0
+GND
+Text Label 10050 1900 0    50   ~ 0
+GND
+Text Label 10050 2600 0    50   ~ 0
+GND
+Text Label 10050 3350 0    50   ~ 0
+GND
+Text Label 10050 4100 0    50   ~ 0
+GND
+Text Label 10050 4200 0    50   ~ 0
+SC4
+Text Label 10050 4300 0    50   ~ 0
+SD4
+Text Label 10050 3550 0    50   ~ 0
+SD3
+Text Label 10050 3450 0    50   ~ 0
+SC3
+Text Label 10050 2800 0    50   ~ 0
+SD2
+Text Label 10050 2700 0    50   ~ 0
+SC2
+Text Label 10050 2100 0    50   ~ 0
+SD1
+Text Label 10050 2000 0    50   ~ 0
+SC1
+Text Label 10050 1300 0    50   ~ 0
+SD0
+Text Label 10050 1200 0    50   ~ 0
+SC0
+Text Label 10050 1400 0    50   ~ 0
+RST
+Text Label 10050 2200 0    50   ~ 0
+RST
+Text Label 7500 3150 0    50   ~ 0
+RST
 Wire Bus Line
 	8650 5250 8650 6300
 Wire Bus Line
@@ -725,4 +779,32 @@ Wire Bus Line
 	9350 2750 9350 4700
 Wire Bus Line
 	9900 800  9900 4700
+Text Label 9100 2950 0    50   ~ 0
+SD6
+Text Label 9100 3050 0    50   ~ 0
+SC6
+Text Label 9100 3200 0    50   ~ 0
+SD5
+Text Label 9100 3300 0    50   ~ 0
+SC5
+Text Label 9100 3450 0    50   ~ 0
+SD4
+Text Label 9100 3550 0    50   ~ 0
+SC4
+Text Label 9100 3700 0    50   ~ 0
+SD3
+Text Label 9100 3800 0    50   ~ 0
+SC3
+Text Label 9100 3950 0    50   ~ 0
+SD2
+Text Label 9100 4050 0    50   ~ 0
+SC2
+Text Label 9100 4200 0    50   ~ 0
+SD1
+Text Label 9100 4300 0    50   ~ 0
+SC1
+Text Label 9100 4450 0    50   ~ 0
+SD0
+Text Label 9100 4550 0    50   ~ 0
+SC0
 $EndSCHEMATC
