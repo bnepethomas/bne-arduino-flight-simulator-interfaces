@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 303)
+    (start_pass_no 468)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -114,10 +114,9 @@
     )
   )
   (class "kicad_default"
-    GND "Net-(J2-Pad1)" "Net-(J2-Pad3)" /Dig0 /SegDP /Dig1 /Dig2 /Dig3
-    /Dig4 /Dig5 /SegA /SegB /SegC /SegD /SegE /SegF
-    /SegG /7 /8 +3V3 "Net-(J2-Pad6)" "Net-(J2-Pad5)" "Net-(J2-Pad4)" "Net-(J2-Pad2)"
-    "Net-(SW1-Pad2)"
+    /Dig0 /SegDP /Dig1 /Dig2 /Dig3 /Dig4 /Dig5 /SegA
+    /SegB /SegC /SegD /SegE /SegF /SegG /7 "Net-(D31-Pad2)"
+    "Net-(D32-Pad2)" "Net-(D32-Pad1)" "Net-(J1-Pad2)" "Net-(J1-Pad1)" "Net-(J5-Pad2)" "Net-(J5-Pad1)" "Net-(R1-Pad2)" "Net-(SW1-Pad6)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
@@ -138,7 +137,6 @@
     )
   )
   (class pwr12v
-    +12V
     (clearance_class pwr12v)
     (via_rule pwr12v)
     (rule
@@ -159,7 +157,6 @@
     )
   )
   (class pwr5v
-    +5V
     (clearance_class pwr5v)
     (via_rule pwr5v)
     (rule
