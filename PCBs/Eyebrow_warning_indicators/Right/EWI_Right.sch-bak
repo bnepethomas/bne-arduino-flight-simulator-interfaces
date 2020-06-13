@@ -14,68 +14,6 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Connector:Conn_01x04_Male J1
-U 1 1 5A446184
-P 8350 5300
-F 0 "J1" V 8300 5400 50  0000 C CNN
-F 1 "PWR" V 8300 5150 50  0000 C CNN
-F 2 "Connectors_Molex:Molex_KK-6410-04_04x2.54mm_Straight" H 8350 5300 50  0001 C CNN
-F 3 "" H 8350 5300 50  0001 C CNN
-F 4 "22-29-2041" H 8350 5300 60  0001 C CNN "PN"
-	1    8350 5300
-	0    -1   1    0   
-$EndComp
-$Comp
-L power:+12V #PWR04
-U 1 1 5A446189
-P 8650 5750
-F 0 "#PWR04" H 8650 5600 50  0001 C CNN
-F 1 "+12V" H 8650 5890 40  0000 C CNN
-F 2 "" H 8650 5750 50  0001 C CNN
-F 3 "" H 8650 5750 50  0001 C CNN
-	1    8650 5750
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR05
-U 1 1 5A44618A
-P 8000 5350
-F 0 "#PWR05" H 8000 5100 50  0001 C CNN
-F 1 "GND" H 8000 5200 50  0000 C CNN
-F 2 "" H 8000 5350 50  0001 C CNN
-F 3 "" H 8000 5350 50  0001 C CNN
-	1    8000 5350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+3.3V #PWR06
-U 1 1 5A44618B
-P 8100 5750
-F 0 "#PWR06" H 8100 5600 50  0001 C CNN
-F 1 "+3.3V" H 8100 5890 40  0000 C CNN
-F 2 "" H 8100 5750 50  0001 C CNN
-F 3 "" H 8100 5750 50  0001 C CNN
-	1    8100 5750
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR07
-U 1 1 5A44618C
-P 8300 5750
-F 0 "#PWR07" H 8300 5600 50  0001 C CNN
-F 1 "+5V" H 8300 5890 40  0000 C CNN
-F 2 "" H 8300 5750 50  0001 C CNN
-F 3 "" H 8300 5750 50  0001 C CNN
-	1    8300 5750
-	1    0    0    -1  
-$EndComp
-Text Notes 700  1250 0    60   ~ 0
-1) INSTALL 120 OHM RESISTOR ACROSS A AND B OF MAX487 ONLY \nFOR BUS TERMINATION.\n\n2) INSTALL JUMPER BETWEEN PIN 1 AND 2 OF PGM SEL FOR RS487 BUS \nENABLE. REMOVE JUMPER FOR PROGRAMMING ARDUINO NANO.
-Text Notes 600  700  0    100  ~ 0
-NOTES: (UNLESS OTHERWISE SPECIFIED)
-Text Notes 7850 5100 0    80   ~ 0
-PWR IN
-$Comp
 L Mechanical:MountingHole MK1
 U 1 1 5A4461A1
 P 9400 5400
@@ -498,62 +436,32 @@ Text Label 7100 3250 0    40   ~ 0
 SegF
 Text Label 7500 3250 0    40   ~ 0
 SegG
-Text Notes 4000 3100 0    80   ~ 0
+Text Notes 3400 3100 0    80   ~ 0
 LED MATRIX
 $Comp
-L Switch:SW_SPST SW1
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW1
 U 1 1 5A4585C5
-P 4550 2200
-F 0 "SW1" H 4550 2325 50  0000 C CNN
-F 1 "IN SWTCH" H 4550 2100 50  0000 C CNN
-F 2 "KiCAD Libraries:SWITCH_SNAP_DOME_6.3mm_DIA_SINGLE_SIDE_PCB" H 4550 2200 50  0001 C CNN
-F 3 "" H 4550 2200 50  0001 C CNN
-F 4 "GX06400" H 4550 2200 60  0001 C CNN "PN"
-	1    4550 2200
+P 2300 2350
+F 0 "SW1" H 2300 2475 50  0000 C CNN
+F 1 "IN SWTCH" H 2600 2500 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2300 2350 50  0001 C CNN
+F 3 "" H 2300 2350 50  0001 C CNN
+F 4 "GX06400" H 2300 2350 60  0001 C CNN "PN"
+	1    2300 2350
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPST SW2
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW2
 U 1 1 5A4586CB
-P 4550 2550
-F 0 "SW2" H 4550 2675 50  0000 C CNN
-F 1 "OUT SWTCH" H 4550 2450 50  0000 C CNN
-F 2 "KiCAD Libraries:SWITCH_SNAP_DOME_6.3mm_DIA_SINGLE_SIDE_PCB" H 4550 2550 50  0001 C CNN
-F 3 "" H 4550 2550 50  0001 C CNN
-F 4 "GX06400" H 4550 2550 60  0001 C CNN "PN"
-	1    4550 2550
+P 3750 2000
+F 0 "SW2" H 3750 2125 50  0000 C CNN
+F 1 "OUT SWTCH" H 4100 2000 50  0000 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 3750 2000 50  0001 C CNN
+F 3 "" H 3750 2000 50  0001 C CNN
+F 4 "GX06400" H 3750 2000 60  0001 C CNN "PN"
+	1    3750 2000
 	1    0    0    -1  
 $EndComp
-Wire Notes Line
-	7800 4950 9000 4950
-Wire Notes Line
-	9000 4950 9000 5800
-Wire Notes Line
-	9000 5800 7800 5800
-Wire Notes Line
-	7800 5800 7800 4950
-Wire Wire Line
-	8250 5500 8150 5500
-Wire Wire Line
-	8450 5500 8450 5750
-Wire Wire Line
-	8450 5750 8300 5750
-Wire Wire Line
-	8350 5500 8350 5550
-Wire Wire Line
-	8350 5550 8200 5550
-Wire Wire Line
-	8200 5550 8200 5750
-Wire Wire Line
-	8200 5750 8100 5750
-Wire Wire Line
-	8150 5500 8150 5350
-Wire Wire Line
-	8150 5350 8000 5350
-Wire Wire Line
-	8550 5500 8550 5750
-Wire Wire Line
-	8550 5750 8650 5750
 Wire Notes Line
 	9050 4950 9050 5800
 Wire Notes Line
@@ -673,34 +581,11 @@ Wire Wire Line
 	4600 5650 4600 5500
 Connection ~ 4200 5650
 Wire Notes Line
-	3900 2950 3900 5700
-Wire Notes Line
 	3900 5700 7700 5700
 Wire Notes Line
 	7700 5700 7700 2950
-Wire Notes Line
-	7700 2950 3900 2950
-Wire Wire Line
-	4750 2200 4900 2200
-Wire Wire Line
-	4900 2200 4900 2550
-Wire Wire Line
-	4900 2550 4750 2550
-Connection ~ 4900 2550
-Text Label 4250 2200 0    60   ~ 0
+Text Label 2000 2350 0    60   ~ 0
 7
-Text Label 4250 2550 0    60   ~ 0
-8
-Wire Wire Line
-	4250 2550 4350 2550
-Wire Wire Line
-	4250 2200 4350 2200
-Text Notes 4250 2000 0    80   ~ 0
-SWITCHES
-Wire Notes Line
-	4200 1850 4200 2850
-Wire Notes Line
-	4200 2850 5000 2850
 Wire Notes Line
 	5800 3750 5800 4650
 Wire Notes Line
@@ -727,10 +612,6 @@ Wire Notes Line
 	5600 5750 4000 5750
 Text Notes 3150 5800 0    60   ~ 0
 to border of PCB
-Text Notes 700  1650 0    60   ~ 0
-3) SW1 needs to be placed  towards the border of the PCB (see diagram)\n\n4) SW2 needs to be placed towarsd the center of the PCB (see diagram)
-Text Notes 700  2000 0    60   ~ 0
-IMPORTANT: net needs to be exported into EWI_Left and EWI right projects,\nthose projects do not have schematic!!!
 Wire Wire Line
 	4500 3500 4500 3900
 Wire Wire Line
@@ -823,10 +704,8 @@ Wire Wire Line
 	5000 5250 5400 5250
 Wire Wire Line
 	4200 5650 4600 5650
-Wire Wire Line
-	4900 2550 4900 2600
 $Comp
-L Connector:Conn_01x06_Male J2
+L Connector:Conn_01x06_Female J2
 U 1 1 5EE3F87E
 P 2800 4450
 F 0 "J2" H 2908 4831 50  0000 C CNN
@@ -834,18 +713,18 @@ F 1 "Conn_01x06_Male" H 2908 4740 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 2800 4450 50  0001 C CNN
 F 3 "~" H 2800 4450 50  0001 C CNN
 	1    2800 4450
-	1    0    0    -1  
+	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x08_Male J3
+L Connector:Conn_01x08_Female J3
 U 1 1 5EE409F3
-P 6450 1900
-F 0 "J3" V 6285 1828 50  0000 C CNN
-F 1 "Conn_01x08_Male" V 6376 1828 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 6450 1900 50  0001 C CNN
-F 3 "~" H 6450 1900 50  0001 C CNN
-	1    6450 1900
-	0    1    1    0   
+P 6350 1900
+F 0 "J3" V 6185 1828 50  0000 C CNN
+F 1 "Conn_01x08_Male" V 6276 1828 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 6350 1900 50  0001 C CNN
+F 3 "~" H 6350 1900 50  0001 C CNN
+	1    6350 1900
+	0    -1   -1   0   
 $EndComp
 Wire Wire Line
 	6750 2100 6750 2250
@@ -853,8 +732,6 @@ Wire Wire Line
 	6750 2250 7500 2250
 Wire Wire Line
 	7500 2250 7500 3900
-Wire Wire Line
-	6650 2100 6650 2300
 Wire Wire Line
 	6650 2300 7100 2300
 Wire Wire Line
@@ -890,39 +767,190 @@ Wire Wire Line
 Wire Wire Line
 	6050 2100 6050 2800
 Wire Wire Line
-	6050 2800 4500 2800
-Wire Wire Line
 	4500 2800 4500 3500
 Wire Wire Line
-	3000 4250 3150 4250
+	3150 3650 3150 4250
 Wire Wire Line
-	3150 4250 3150 3650
+	3150 4250 3000 4250
 Wire Wire Line
-	3150 3650 4200 3650
+	3000 4350 3200 4350
 Wire Wire Line
-	3000 4350 3250 4350
+	3200 4350 3200 4050
 Wire Wire Line
-	3250 4350 3250 4050
-Wire Wire Line
-	3250 4050 4200 4050
+	3200 4050 4200 4050
 Wire Wire Line
 	3000 4450 4200 4450
 Wire Wire Line
-	3000 4750 3150 4750
+	3800 4850 3800 4550
 Wire Wire Line
-	3150 4750 3150 5650
+	3800 4550 3000 4550
 Wire Wire Line
-	3150 5650 4200 5650
+	3800 4850 4200 4850
 Wire Wire Line
-	3000 4650 3250 4650
+	3000 4650 3650 4650
 Wire Wire Line
-	3250 4650 3250 5250
+	3650 4650 3650 5250
 Wire Wire Line
-	3250 5250 4200 5250
+	3650 5250 4200 5250
 Wire Wire Line
-	3000 4550 3350 4550
+	3500 5650 3500 4700
 Wire Wire Line
-	3350 4550 3350 4850
+	3500 4700 3000 4700
 Wire Wire Line
-	3350 4850 4200 4850
+	3000 4700 3000 4750
+Wire Wire Line
+	3500 5650 4200 5650
+$Comp
+L Device:D D31
+U 1 1 5EE6136F
+P 1500 2150
+F 0 "D31" H 1500 2366 50  0000 C CNN
+F 1 "D" H 1500 2275 50  0000 C CNN
+F 2 "Diode_THT:D_A-405_P7.62mm_Horizontal" H 1500 2150 50  0001 C CNN
+F 3 "~" H 1500 2150 50  0001 C CNN
+	1    1500 2150
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1650 2350 2100 2350
+$Comp
+L Device:D D32
+U 1 1 5EE66971
+P 2950 2000
+F 0 "D32" H 2950 2216 50  0000 C CNN
+F 1 "D" H 2950 2125 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 2950 2000 50  0001 C CNN
+F 3 "~" H 2950 2000 50  0001 C CNN
+	1    2950 2000
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3100 2000 3250 2000
+Wire Wire Line
+	2100 2350 2100 2250
+Wire Wire Line
+	2100 2250 2000 2250
+Wire Wire Line
+	2400 2250 2400 2350
+Wire Wire Line
+	2400 2350 2100 2350
+Connection ~ 2100 2350
+Wire Wire Line
+	2000 1800 2000 1850
+Wire Wire Line
+	2400 1800 2400 1850
+Wire Wire Line
+	2000 1800 2200 1800
+Wire Wire Line
+	3450 1400 3850 1400
+Wire Wire Line
+	3850 1400 3850 1500
+Wire Wire Line
+	3450 1900 3250 1900
+Wire Wire Line
+	3250 1900 3250 2000
+Wire Wire Line
+	3450 1900 3850 1900
+$Comp
+L Connector:Conn_01x02_Female J5
+U 1 1 5EF1C0FA
+P 1800 850
+F 0 "J5" H 1692 1035 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 1692 944 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 1800 850 50  0001 C CNN
+F 3 "~" H 1800 850 50  0001 C CNN
+	1    1800 850 
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J4
+U 1 1 5EF1C571
+P 1600 1600
+F 0 "J4" H 1492 1785 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 1492 1694 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 1600 1600 50  0001 C CNN
+F 3 "~" H 1600 1600 50  0001 C CNN
+	1    1600 1600
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J1
+U 1 1 5EF1D237
+P 1100 2500
+F 0 "J1" H 992 2685 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 992 2594 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 1100 2500 50  0001 C CNN
+F 3 "~" H 1100 2500 50  0001 C CNN
+	1    1100 2500
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R1
+U 1 1 5EF1E77B
+P 1700 2500
+F 0 "R1" V 1907 2500 50  0000 C CNN
+F 1 "R" V 1816 2500 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1630 2500 50  0001 C CNN
+F 3 "~" H 1700 2500 50  0001 C CNN
+	1    1700 2500
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	1850 2500 2050 2500
+Wire Wire Line
+	2450 2500 2950 2500
+Wire Wire Line
+	2950 2500 2950 2150
+Wire Wire Line
+	2950 2150 3500 2150
+Wire Wire Line
+	1300 2500 1550 2500
+Wire Wire Line
+	2200 1800 2200 1450
+Wire Wire Line
+	2200 1450 2350 1450
+Connection ~ 2200 1800
+Wire Wire Line
+	2200 1800 2400 1800
+Wire Wire Line
+	6050 2800 4500 2800
+Wire Wire Line
+	3900 2150 3900 2400
+Wire Wire Line
+	3900 2400 3250 2400
+Wire Wire Line
+	3250 2400 3250 2750
+Wire Wire Line
+	3250 2750 1300 2750
+Wire Wire Line
+	1300 2750 1300 2600
+Wire Wire Line
+	3450 1400 3450 1450
+Connection ~ 3450 1450
+Wire Wire Line
+	3450 1450 3450 1500
+Connection ~ 3450 1900
+Wire Wire Line
+	1650 2350 1650 2150
+Wire Wire Line
+	1800 1700 1800 1950
+Wire Wire Line
+	1800 1950 1350 1950
+Wire Wire Line
+	1350 1950 1350 2150
+Wire Wire Line
+	1800 1600 2800 1600
+Wire Wire Line
+	2800 1600 2800 2000
+Wire Wire Line
+	2000 850  2350 850 
+Wire Wire Line
+	2350 850  2350 1450
+Connection ~ 2350 1450
+Wire Wire Line
+	2350 1450 3450 1450
+Wire Wire Line
+	6650 2100 6650 2300
+Wire Wire Line
+	3150 3650 4200 3650
 $EndSCHEMATC

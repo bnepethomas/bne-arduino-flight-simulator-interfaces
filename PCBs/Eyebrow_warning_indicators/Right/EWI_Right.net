@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/Eyebrow_warning_indicators/Right/EWI_Right.sch)
-    (date "Saturday, 13 June 2020 at 09:07:06 am")
+    (date "Saturday, 13 June 2020 at 09:57:55 am")
     (tool "Eeschema (5.1.5-0-10_14)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -316,7 +316,7 @@
       (tstamp 5EE6136F))
     (comp (ref D32)
       (value D)
-      (footprint Diode_THT:D_A-405_P7.62mm_Horizontal)
+      (footprint Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal)
       (datasheet ~)
       (libsource (lib Device) (part D) (description Diode))
       (sheetpath (names /) (tstamps /))
