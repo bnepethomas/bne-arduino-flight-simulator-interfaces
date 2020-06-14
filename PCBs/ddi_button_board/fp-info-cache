@@ -1,4 +1,4 @@
-16935021161393837
+16966829020195863
 Battery
 BatteryHolder_Bulgin_BX0036_1xC
 Bulgin Battery Holder, BX0036, Battery Type C (https://www.bulgin.com/products/pub/media/bulgin/data/Battery_holders.pdf)
@@ -52212,6 +52212,83 @@ net tie
 0
 4
 4
+OpenHornet
+BLANK_SYMBOL_NOT_FOR_ROUTING
+
+
+0
+0
+0
+OpenHornet
+CC-BY-NC-SA-Small
+
+
+0
+0
+0
+OpenHornet
+CC-BY-NC-SA_LOGO
+
+
+0
+0
+0
+OpenHornet
+LTP-305G
+https://media.digikey.com/pdf/Data%20Sheets/Lite-On%20PDFs/LTP-305G.pdf
+5 X 7 LED Matrix LTP-305G Green
+0
+14
+14
+OpenHornet
+MAX6953
+https://datasheets.maximintegrated.com/en/ds/MAX6953.pdf
+2-Wire Interfaced, 2.7V to 5.5V, 4-Digit 5 ✕ 7 Matrix LED Display Driver
+0
+36
+36
+OpenHornet
+MAX7219CWG&plus_
+
+
+0
+72
+24
+OpenHornet
+OH_LOGO_37.7mm_5.9mm
+
+
+0
+0
+0
+OpenHornet
+OH_LOGO_75.4mm_11.9mm
+
+
+0
+0
+0
+OpenHornet
+SSOP-36
+
+
+0
+36
+36
+OpenHornet
+SWITCH_SNAP_DOME_6.3mm_DIA_SINGLE_SIDE_PCB
+
+
+0
+11
+2
+OpenHornet
+TL3315NF250Q
+
+
+0
+4
+4
 OptoDevice
 ADNS-9800
 Laser Gaming Sensor ADNS-9800
@@ -53130,6 +53207,62 @@ DIL DIP PDIP 2.54mm 7.62mm 300mil
 4
 4
 PT_Library_v001
+Adafruit_TCA9548A
+
+
+0
+24
+24
+PT_Library_v001
+D_Signal_P7.62mm_Horizontal
+Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
+Diode DO-35_SOD27 series Axial Horizontal pin pitch 7.62mm  length 4mm diameter 2mm
+0
+2
+2
+PT_Library_v001
+Molex_1x02_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-02A example for new part number: 22-27-2021, 2 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+2
+2
+PT_Library_v001
+Molex_1x03_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-03A example for new part number: 22-27-2031, 3 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+3
+3
+PT_Library_v001
+Molex_1x04_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-04A example for new part number: 22-27-2041, 4 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+4
+4
+PT_Library_v001
+Molex_1x06_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-06A example for new part number: 22-27-2061, 6 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+6
+6
+PT_Library_v001
+Molex_1x08_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-08A example for new part number: 22-27-2081, 8 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+8
+8
+PT_Library_v001
+Molex_1x10_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-10A example for new part number: 22-27-2101, 10 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+10
+10
+PT_Library_v001
 PT_CP_Radial_D8.0mm_P2.50mm
 CP, Radial series, Radial, pin pitch=2.50mm, , diameter=8mm, Electrolytic Capacitor
 CP Radial series Radial pin pitch 2.50mm  diameter 8mm Electrolytic Capacitor
@@ -53150,6 +53283,13 @@ PT_One_Hole
 0
 1
 1
+PT_Library_v001
+PT_PinHeader_1x04_P2.54mm_Vertical
+Through hole straight pin header, 1x06, 2.54mm pitch, single row
+Through hole pin header THT 1x06 2.54mm single row
+0
+4
+4
 PT_Library_v001
 PT_PinHeader_1x06_P2.54mm_Vertical
 Through hole straight pin header, 1x06, 2.54mm pitch, single row
@@ -53179,12 +53319,12 @@ PT_Small_Tactile_Switch_With_LED
 6
 6
 PT_Library_v001
-PT_Tactile_Switch_With_LED
-
-
+R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=7.62mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf
+Resistor Axial_DIN0207 series Axial Horizontal pin pitch 7.62mm 0.25W = 1/4W length 6.3mm diameter 2.5mm
 0
-6
-6
+2
+2
 Package_BGA
 Analog_BGA-28_4.0x6.25mm_Layout4x7_P0.8mm_Ball0.45mm_Pad0.4
 Analog BGA-28 4.0mm x 6.25mm package, pitch 0.4mm pad, based on https://www.analog.com/media/en/technical-documentation/data-sheets/8063fa.pdf

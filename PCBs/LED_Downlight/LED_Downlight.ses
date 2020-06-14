@@ -1,0 +1,233 @@
+
+(session LED_Downlight.ses
+  (base_design LED_Downlight.dsn)
+  (placement
+    (resolution um 10)
+    (component MountingHole:MountingHole_3.2mm_M3
+      (place H5 1939100 -597800 front 0)
+      (place H4 2142600 -701200 back 180)
+      (place H3 1703900 -701200 front 0)
+      (place H2 2142600 -495300 front 0)
+      (place H1 1706900 -489300 front 0)
+    )
+    (component PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+      (place R2 1789500 -578400 back 180)
+      (place R1 1793300 -616300 back 180)
+    )
+    (component Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Horizontal
+      (place J2 2103200 -637500 back 180)
+      (place J1 1765600 -557800 back 0)
+    )
+    (component LED_THT:LED_D8.0mm
+      (place D6 2041800 -522900 front 90)
+      (place D5 1934800 -522900 front 90)
+      (place D4 1827800 -522900 front 90)
+      (place D3 2046900 -699600 front 90)
+      (place D2 1938600 -699600 front 90)
+      (place D1 1831700 -698900 front 90)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version "(5.1.5-0-10_14)")
+    )
+    (library_out 
+      (padstack "Via[0-1]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net "Net-(D1-Pad1)"
+        (wire
+          (path F.Cu 2500
+            1831700 -698900
+            1843953 -698900
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1843953 -698900
+            1868653 -674200
+            1938600 -674200
+          )
+        )
+      )
+      (net "Net-(D1-Pad2)"
+        (wire
+          (path B.Cu 2500
+            1831700 -673500
+            1869500 -635700
+            1869500 -616300
+          )
+        )
+      )
+      (net "Net-(D2-Pad1)"
+        (wire
+          (path F.Cu 2500
+            1938600 -699600
+            1950853 -699600
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1950853 -699600
+            1976253 -674200
+            2046900 -674200
+          )
+        )
+      )
+      (net "Net-(D4-Pad2)"
+        (wire
+          (path B.Cu 2500
+            1827800 -497500
+            1865700 -535400
+            1865700 -578400
+          )
+        )
+      )
+      (net "Net-(D4-Pad1)"
+        (wire
+          (path F.Cu 2500
+            1827800 -522900
+            1840053 -522900
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1840053 -522900
+            1865453 -497500
+            1934800 -497500
+          )
+        )
+      )
+      (net "Net-(D5-Pad1)"
+        (wire
+          (path F.Cu 2500
+            1934800 -522900
+            1947053 -522900
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1947053 -522900
+            1972453 -497500
+            2041800 -497500
+          )
+        )
+      )
+      (net /GNDGreen
+        (wire
+          (path F.Cu 5000
+            2103200 -612100
+            2090197 -612100
+          )
+        )
+        (wire
+          (path F.Cu 5000
+            2090197 -612100
+            2083732 -618565
+            1912741 -618565
+            1889772 -595596
+            1777996 -595596
+            1765600 -583200
+          )
+        )
+        (wire
+          (path B.Cu 5000
+            2046900 -699600
+            2079500 -667000
+            2079500 -635800
+            2103200 -612100
+          )
+        )
+      )
+      (net /GNDWhite
+        (wire
+          (path B.Cu 5000
+            2041800 -522900
+            2028297 -522900
+          )
+        )
+        (wire
+          (path B.Cu 5000
+            1765600 -634000
+            1827784 -634000
+            1925381 -536403
+            2014794 -536403
+            2028297 -522900
+          )
+        )
+        (wire
+          (path B.Cu 5000
+            2041800 -522900
+            2055303 -522900
+          )
+        )
+        (wire
+          (path B.Cu 5000
+            2103200 -561300
+            2090197 -561300
+          )
+        )
+        (wire
+          (path B.Cu 5000
+            2055303 -522900
+            2055303 -526406
+            2090197 -561300
+          )
+        )
+      )
+      (net /+12VWhite
+        (wire
+          (path F.Cu 5000
+            2103200 -586700
+            2090197 -586700
+          )
+        )
+        (wire
+          (path F.Cu 5000
+            2090197 -586700
+            2069147 -565650
+            1802250 -565650
+            1789500 -578400
+          )
+        )
+        (wire
+          (path B.Cu 5000
+            1765600 -608600
+            1789500 -584700
+            1789500 -578400
+          )
+        )
+      )
+      (net /+12VGreen
+        (wire
+          (path B.Cu 5000
+            1765600 -557800
+            1787317 -557800
+            1802030 -572513
+            1802030 -607570
+            1793300 -616300
+          )
+        )
+        (wire
+          (path F.Cu 5000
+            2103200 -637500
+            1814500 -637500
+            1793300 -616300
+          )
+        )
+      )
+    )
+  )
+)
