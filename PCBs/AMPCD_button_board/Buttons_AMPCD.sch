@@ -321,4 +321,780 @@ F 3 "" H 1850 4500 50  0001 C CNN
 	1    1850 4300
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	1100 1000 1000 1000
+Wire Wire Line
+	1500 1000 1500 1200
+Wire Wire Line
+	1400 1000 1500 1000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF34482
+P 1250 1000
+F 0 "D?" H 1250 784 50  0000 C CNN
+F 1 "1N4148" H 1250 875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 1250 825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 1250 1000 50  0001 C CNN
+	1    1250 1000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1100 1500 1000 1500
+Wire Wire Line
+	1500 1500 1500 1700
+Wire Wire Line
+	1400 1500 1500 1500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF3AD81
+P 1250 1500
+F 0 "D?" H 1250 1284 50  0000 C CNN
+F 1 "1N4148" H 1250 1375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 1250 1325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 1250 1500 50  0001 C CNN
+	1    1250 1500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1100 2000 1000 2000
+Wire Wire Line
+	1500 2000 1500 2200
+Wire Wire Line
+	1400 2000 1500 2000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF3D840
+P 1250 2000
+F 0 "D?" H 1250 1784 50  0000 C CNN
+F 1 "1N4148" H 1250 1875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 1250 1825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 1250 2000 50  0001 C CNN
+	1    1250 2000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1100 2500 1000 2500
+Wire Wire Line
+	1500 2500 1500 2700
+Wire Wire Line
+	1400 2500 1500 2500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF3D84D
+P 1250 2500
+F 0 "D?" H 1250 2284 50  0000 C CNN
+F 1 "1N4148" H 1250 2375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 1250 2325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 1250 2500 50  0001 C CNN
+	1    1250 2500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1100 3000 1000 3000
+Wire Wire Line
+	1500 3000 1500 3200
+Wire Wire Line
+	1400 3000 1500 3000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF40862
+P 1250 3000
+F 0 "D?" H 1250 2784 50  0000 C CNN
+F 1 "1N4148" H 1250 2875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 1250 2825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 1250 3000 50  0001 C CNN
+	1    1250 3000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1100 3500 1000 3500
+Wire Wire Line
+	1500 3500 1500 3700
+Wire Wire Line
+	1400 3500 1500 3500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF4086F
+P 1250 3500
+F 0 "D?" H 1250 3284 50  0000 C CNN
+F 1 "1N4148" H 1250 3375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 1250 3325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 1250 3500 50  0001 C CNN
+	1    1250 3500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1100 4000 1000 4000
+Wire Wire Line
+	1400 4000 1500 4000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF4087C
+P 1250 4000
+F 0 "D?" H 1250 3784 50  0000 C CNN
+F 1 "1N4148" H 1250 3875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 1250 3825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 1250 4000 50  0001 C CNN
+	1    1250 4000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1500 4000 1500 4200
+Wire Wire Line
+	2050 1000 2050 1200
+Wire Wire Line
+	2200 1000 2050 1000
+Wire Wire Line
+	2050 1500 2050 1700
+Wire Wire Line
+	2200 1500 2050 1500
+Wire Wire Line
+	2050 2000 2050 2200
+Wire Wire Line
+	2200 2000 2050 2000
+Wire Wire Line
+	2050 2500 2050 2700
+Wire Wire Line
+	2200 2500 2050 2500
+Wire Wire Line
+	2050 3000 2050 3200
+Wire Wire Line
+	2200 3000 2050 3000
+Wire Wire Line
+	2050 3500 2050 3700
+Wire Wire Line
+	2200 3500 2050 3500
+Wire Wire Line
+	2050 4000 2050 4200
+Wire Wire Line
+	2200 4000 2050 4000
+Wire Wire Line
+	4050 1000 4050 1200
+Wire Wire Line
+	4200 1000 4050 1000
+Wire Wire Line
+	4050 1500 4050 1700
+Wire Wire Line
+	4200 1500 4050 1500
+Wire Wire Line
+	4050 2000 4050 2200
+Wire Wire Line
+	4200 2000 4050 2000
+Wire Wire Line
+	4050 2500 4050 2700
+Wire Wire Line
+	4200 2500 4050 2500
+Wire Wire Line
+	4050 3000 4050 3200
+Wire Wire Line
+	4200 3000 4050 3000
+Wire Wire Line
+	4050 3500 4050 3700
+Wire Wire Line
+	4200 3500 4050 3500
+Wire Wire Line
+	4050 4000 4050 4200
+Wire Wire Line
+	4200 4000 4050 4000
+Connection ~ 4050 1000
+Connection ~ 4050 1500
+Connection ~ 4050 2000
+Connection ~ 4050 2500
+Connection ~ 4050 3000
+Connection ~ 4050 3500
+Connection ~ 4050 4000
+Wire Wire Line
+	6050 1000 6050 1200
+Wire Wire Line
+	6200 1000 6050 1000
+Wire Wire Line
+	6050 1500 6050 1700
+Wire Wire Line
+	6200 1500 6050 1500
+Wire Wire Line
+	6050 2000 6050 2200
+Wire Wire Line
+	6200 2000 6050 2000
+Wire Wire Line
+	6050 2500 6050 2700
+Wire Wire Line
+	6200 2500 6050 2500
+Wire Wire Line
+	6050 3000 6050 3200
+Wire Wire Line
+	6200 3000 6050 3000
+Wire Wire Line
+	6050 3500 6050 3700
+Wire Wire Line
+	6200 3500 6050 3500
+Wire Wire Line
+	6050 4000 6050 4200
+Wire Wire Line
+	6200 4000 6050 4000
+Connection ~ 6050 1000
+Connection ~ 6050 1500
+Connection ~ 6050 2000
+Connection ~ 6050 2500
+Connection ~ 6050 3000
+Connection ~ 6050 3500
+Connection ~ 6050 4000
+Wire Wire Line
+	8050 1000 8050 1200
+Wire Wire Line
+	8200 1000 8050 1000
+Wire Wire Line
+	8050 1500 8050 1700
+Wire Wire Line
+	8200 1500 8050 1500
+Wire Wire Line
+	8050 2000 8050 2200
+Wire Wire Line
+	8200 2000 8050 2000
+Wire Wire Line
+	8050 2500 8050 2700
+Wire Wire Line
+	8200 2500 8050 2500
+Wire Wire Line
+	8050 3000 8050 3200
+Wire Wire Line
+	8200 3000 8050 3000
+Wire Wire Line
+	8050 3500 8050 3700
+Wire Wire Line
+	8200 3500 8050 3500
+Wire Wire Line
+	8050 4000 8050 4200
+Wire Wire Line
+	8200 4000 8050 4000
+Connection ~ 8050 1000
+Connection ~ 8050 1500
+Connection ~ 8050 2000
+Connection ~ 8050 2500
+Connection ~ 8050 3000
+Connection ~ 8050 3500
+Connection ~ 8050 4000
+Connection ~ 2050 1000
+Connection ~ 2050 1500
+Connection ~ 2050 2000
+Connection ~ 2050 2500
+Connection ~ 2050 3000
+Connection ~ 2050 3500
+Connection ~ 2050 4000
+Wire Wire Line
+	3100 1000 3000 1000
+Wire Wire Line
+	3500 1000 3500 1200
+Wire Wire Line
+	3400 1000 3500 1000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF61466
+P 3250 1000
+F 0 "D?" H 3250 784 50  0000 C CNN
+F 1 "1N4148" H 3250 875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3250 825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3250 1000 50  0001 C CNN
+	1    3250 1000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3100 1500 3000 1500
+Wire Wire Line
+	3500 1500 3500 1700
+Wire Wire Line
+	3400 1500 3500 1500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF61473
+P 3250 1500
+F 0 "D?" H 3250 1284 50  0000 C CNN
+F 1 "1N4148" H 3250 1375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3250 1325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3250 1500 50  0001 C CNN
+	1    3250 1500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3100 2000 3000 2000
+Wire Wire Line
+	3500 2000 3500 2200
+Wire Wire Line
+	3400 2000 3500 2000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF61480
+P 3250 2000
+F 0 "D?" H 3250 1784 50  0000 C CNN
+F 1 "1N4148" H 3250 1875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3250 1825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3250 2000 50  0001 C CNN
+	1    3250 2000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3100 2500 3000 2500
+Wire Wire Line
+	3500 2500 3500 2700
+Wire Wire Line
+	3400 2500 3500 2500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF6148D
+P 3250 2500
+F 0 "D?" H 3250 2284 50  0000 C CNN
+F 1 "1N4148" H 3250 2375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3250 2325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3250 2500 50  0001 C CNN
+	1    3250 2500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3100 3000 3000 3000
+Wire Wire Line
+	3500 3000 3500 3200
+Wire Wire Line
+	3400 3000 3500 3000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF6149A
+P 3250 3000
+F 0 "D?" H 3250 2784 50  0000 C CNN
+F 1 "1N4148" H 3250 2875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3250 2825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3250 3000 50  0001 C CNN
+	1    3250 3000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3100 3500 3000 3500
+Wire Wire Line
+	3500 3500 3500 3700
+Wire Wire Line
+	3400 3500 3500 3500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF614A7
+P 3250 3500
+F 0 "D?" H 3250 3284 50  0000 C CNN
+F 1 "1N4148" H 3250 3375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3250 3325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3250 3500 50  0001 C CNN
+	1    3250 3500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3100 4000 3000 4000
+Wire Wire Line
+	3400 4000 3500 4000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF614B3
+P 3250 4000
+F 0 "D?" H 3250 3784 50  0000 C CNN
+F 1 "1N4148" H 3250 3875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3250 3825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3250 4000 50  0001 C CNN
+	1    3250 4000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3500 4000 3500 4200
+Connection ~ 3500 1000
+Connection ~ 3500 1500
+Connection ~ 3500 2000
+Connection ~ 3500 2500
+Connection ~ 3500 3000
+Connection ~ 3500 3500
+Connection ~ 3500 4000
+Wire Wire Line
+	5100 1000 5000 1000
+Wire Wire Line
+	5500 1000 5500 1200
+Wire Wire Line
+	5400 1000 5500 1000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF6C255
+P 5250 1000
+F 0 "D?" H 5250 784 50  0000 C CNN
+F 1 "1N4148" H 5250 875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5250 825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 5250 1000 50  0001 C CNN
+	1    5250 1000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5100 1500 5000 1500
+Wire Wire Line
+	5500 1500 5500 1700
+Wire Wire Line
+	5400 1500 5500 1500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF6C262
+P 5250 1500
+F 0 "D?" H 5250 1284 50  0000 C CNN
+F 1 "1N4148" H 5250 1375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5250 1325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 5250 1500 50  0001 C CNN
+	1    5250 1500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5100 2000 5000 2000
+Wire Wire Line
+	5500 2000 5500 2200
+Wire Wire Line
+	5400 2000 5500 2000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF6C26F
+P 5250 2000
+F 0 "D?" H 5250 1784 50  0000 C CNN
+F 1 "1N4148" H 5250 1875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5250 1825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 5250 2000 50  0001 C CNN
+	1    5250 2000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5100 2500 5000 2500
+Wire Wire Line
+	5500 2500 5500 2700
+Wire Wire Line
+	5400 2500 5500 2500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF6C27C
+P 5250 2500
+F 0 "D?" H 5250 2284 50  0000 C CNN
+F 1 "1N4148" H 5250 2375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5250 2325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 5250 2500 50  0001 C CNN
+	1    5250 2500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5100 3000 5000 3000
+Wire Wire Line
+	5500 3000 5500 3200
+Wire Wire Line
+	5400 3000 5500 3000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF6C289
+P 5250 3000
+F 0 "D?" H 5250 2784 50  0000 C CNN
+F 1 "1N4148" H 5250 2875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5250 2825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 5250 3000 50  0001 C CNN
+	1    5250 3000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5100 3500 5000 3500
+Wire Wire Line
+	5500 3500 5500 3700
+Wire Wire Line
+	5400 3500 5500 3500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF6C296
+P 5250 3500
+F 0 "D?" H 5250 3284 50  0000 C CNN
+F 1 "1N4148" H 5250 3375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5250 3325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 5250 3500 50  0001 C CNN
+	1    5250 3500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5100 4000 5000 4000
+Wire Wire Line
+	5400 4000 5500 4000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF6C2A2
+P 5250 4000
+F 0 "D?" H 5250 3784 50  0000 C CNN
+F 1 "1N4148" H 5250 3875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5250 3825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 5250 4000 50  0001 C CNN
+	1    5250 4000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5500 4000 5500 4200
+Connection ~ 5500 1000
+Connection ~ 5500 1500
+Connection ~ 5500 2000
+Connection ~ 5500 2500
+Connection ~ 5500 3000
+Connection ~ 5500 3500
+Connection ~ 5500 4000
+Wire Wire Line
+	7100 1000 7000 1000
+Wire Wire Line
+	7500 1000 7500 1200
+Wire Wire Line
+	7400 1000 7500 1000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF7A4A1
+P 7250 1000
+F 0 "D?" H 7250 784 50  0000 C CNN
+F 1 "1N4148" H 7250 875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 7250 825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 7250 1000 50  0001 C CNN
+	1    7250 1000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7100 1500 7000 1500
+Wire Wire Line
+	7500 1500 7500 1700
+Wire Wire Line
+	7400 1500 7500 1500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF7A4AE
+P 7250 1500
+F 0 "D?" H 7250 1284 50  0000 C CNN
+F 1 "1N4148" H 7250 1375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 7250 1325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 7250 1500 50  0001 C CNN
+	1    7250 1500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7100 2000 7000 2000
+Wire Wire Line
+	7500 2000 7500 2200
+Wire Wire Line
+	7400 2000 7500 2000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF7A4BB
+P 7250 2000
+F 0 "D?" H 7250 1784 50  0000 C CNN
+F 1 "1N4148" H 7250 1875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 7250 1825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 7250 2000 50  0001 C CNN
+	1    7250 2000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7100 2500 7000 2500
+Wire Wire Line
+	7500 2500 7500 2700
+Wire Wire Line
+	7400 2500 7500 2500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF7A4C8
+P 7250 2500
+F 0 "D?" H 7250 2284 50  0000 C CNN
+F 1 "1N4148" H 7250 2375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 7250 2325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 7250 2500 50  0001 C CNN
+	1    7250 2500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7100 3000 7000 3000
+Wire Wire Line
+	7500 3000 7500 3200
+Wire Wire Line
+	7400 3000 7500 3000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF7A4D5
+P 7250 3000
+F 0 "D?" H 7250 2784 50  0000 C CNN
+F 1 "1N4148" H 7250 2875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 7250 2825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 7250 3000 50  0001 C CNN
+	1    7250 3000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7100 3500 7000 3500
+Wire Wire Line
+	7500 3500 7500 3700
+Wire Wire Line
+	7400 3500 7500 3500
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF7A4E2
+P 7250 3500
+F 0 "D?" H 7250 3284 50  0000 C CNN
+F 1 "1N4148" H 7250 3375 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 7250 3325 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 7250 3500 50  0001 C CNN
+	1    7250 3500
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7100 4000 7000 4000
+Wire Wire Line
+	7400 4000 7500 4000
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF7A4EE
+P 7250 4000
+F 0 "D?" H 7250 3784 50  0000 C CNN
+F 1 "1N4148" H 7250 3875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 7250 3825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 7250 4000 50  0001 C CNN
+	1    7250 4000
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7500 4000 7500 4200
+Connection ~ 7500 1000
+Connection ~ 7500 1500
+Connection ~ 7500 2000
+Connection ~ 7500 2500
+Connection ~ 7500 3000
+Connection ~ 7500 3500
+Connection ~ 7500 4000
+Connection ~ 1500 1000
+Connection ~ 1500 1500
+Connection ~ 1500 2000
+Connection ~ 1500 2500
+Connection ~ 1500 3000
+Connection ~ 1500 3500
+Connection ~ 1500 4000
+Wire Wire Line
+	1000 1000 1000 1500
+Connection ~ 1000 1500
+Wire Wire Line
+	1000 1500 1000 2000
+Connection ~ 1000 2000
+Wire Wire Line
+	1000 2000 1000 2500
+Connection ~ 1000 2500
+Wire Wire Line
+	1000 2500 1000 3000
+Connection ~ 1000 3000
+Wire Wire Line
+	1000 3000 1000 3500
+Connection ~ 1000 3500
+Wire Wire Line
+	1000 3500 1000 4000
+Text Label 1000 1200 0    50   ~ 0
+Col0
+Wire Wire Line
+	3000 1000 3000 1500
+Connection ~ 3000 1500
+Wire Wire Line
+	3000 1500 3000 2000
+Connection ~ 3000 2000
+Wire Wire Line
+	3000 2000 3000 2500
+Connection ~ 3000 2500
+Wire Wire Line
+	3000 2500 3000 3000
+Connection ~ 3000 3000
+Wire Wire Line
+	3000 3000 3000 3500
+Connection ~ 3000 3500
+Wire Wire Line
+	3000 3500 3000 4000
+Text Label 3000 1250 0    50   ~ 0
+Col1
+Wire Wire Line
+	5000 1000 5000 1500
+Connection ~ 5000 1500
+Wire Wire Line
+	5000 1500 5000 2000
+Connection ~ 5000 2000
+Wire Wire Line
+	5000 2000 5000 2500
+Connection ~ 5000 2500
+Wire Wire Line
+	5000 2500 5000 3000
+Connection ~ 5000 3000
+Wire Wire Line
+	5000 3000 5000 3500
+Connection ~ 5000 3500
+Wire Wire Line
+	5000 3500 5000 4000
+Wire Wire Line
+	7000 1000 7000 1500
+Connection ~ 7000 1500
+Wire Wire Line
+	7000 1500 7000 2000
+Connection ~ 7000 2000
+Wire Wire Line
+	7000 2000 7000 2500
+Connection ~ 7000 2500
+Wire Wire Line
+	7000 2500 7000 3000
+Connection ~ 7000 3000
+Wire Wire Line
+	7000 3000 7000 3500
+Connection ~ 7000 3500
+Wire Wire Line
+	7000 3500 7000 4000
+Text Label 5000 1250 0    50   ~ 0
+Col2
+Text Label 7000 1250 0    50   ~ 0
+Col3
+Text Label 2150 1000 0    50   ~ 0
+Row0
+Text Label 4150 1000 0    50   ~ 0
+Row0
+Text Label 6150 1000 0    50   ~ 0
+Row0
+Text Label 8150 1000 0    50   ~ 0
+Row0
+Text Label 2150 1500 0    50   ~ 0
+Row1
+Text Label 4150 1500 0    50   ~ 0
+Row1
+Text Label 6150 1500 0    50   ~ 0
+Row1
+Text Label 8150 1500 0    50   ~ 0
+Row1
+Text Label 2150 2000 0    50   ~ 0
+Row2
+Text Label 4150 2000 0    50   ~ 0
+Row2
+Text Label 6150 2000 0    50   ~ 0
+Row2
+Text Label 8150 2000 0    50   ~ 0
+Row2
+Text Label 2150 2500 0    50   ~ 0
+Row3
+Text Label 4150 2500 0    50   ~ 0
+Row3
+Text Label 6150 2500 0    50   ~ 0
+Row3
+Text Label 8150 2500 0    50   ~ 0
+Row3
+Text Label 2150 3000 0    50   ~ 0
+Row4
+Text Label 4150 3000 0    50   ~ 0
+Row4
+Text Label 6150 3000 0    50   ~ 0
+Row4
+Text Label 8150 3000 0    50   ~ 0
+Row4
+Text Label 2150 3500 0    50   ~ 0
+Row5
+Text Label 4150 3500 0    50   ~ 0
+Row5
+Text Label 6150 3500 0    50   ~ 0
+Row5
+Text Label 8150 3500 0    50   ~ 0
+Row5
+Text Label 2150 4000 0    50   ~ 0
+Row6
+Text Label 4150 4000 0    50   ~ 0
+Row6
+Text Label 6150 4000 0    50   ~ 0
+Row6
+Text Label 8150 4000 0    50   ~ 0
+Row6
 $EndSCHEMATC
