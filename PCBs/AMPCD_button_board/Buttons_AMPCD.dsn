@@ -70,42 +70,42 @@
     )
     (component PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
       (place R10 24087 -43057 front 0 (PN R))
-      (place R9 93377 -34477 front 0 (PN R))
-      (place R8 141127 -37047 front 0 (PN R))
-      (place R7 177017 -70577 front 180 (PN R))
-      (place R6 177017 -131777 front 180 (PN R))
-      (place R5 169247 -166917 front 0 (PN R))
+      (place R9 92957 -45047 front 0 (PN R))
+      (place R8 142847 -43057 front 0 (PN R))
+      (place R7 176177 -63637 front 270 (PN R))
+      (place R6 176047 -123967 front 270 (PN R))
+      (place R5 177157 -170057 front 180 (PN R))
       (place R4 110357 -191237 front 180 (PN R))
       (place R3 16827 -182087 front 0 (PN R))
       (place R2 16907 -143957 front 0 (PN R))
       (place R1 16907 -82987 front 0 (PN R))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place J3 105397 -35007 front 0 (PN Conn_01x02_Female))
+      (place J3 125397 -36707 front 0 (PN Conn_01x02_Female))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place J2 122617 -34767 front 0 (PN Conn_01x04_Female))
+      (place J2 124907 -45657 front 0 (PN Conn_01x04_Female))
     )
     (component PT_Library_v001:Molex_1x08_P2.54mm_Vertical
-      (place J1 71107 -34607 front 0 (PN Conn_01x08_Female))
+      (place J1 69377 -45057 front 0 (PN Conn_01x08_Female))
     )
     (component "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-      (place D28 41937 -35037 front 0 (PN 1N4148))
-      (place D27 44747 -24387 front 0 (PN 1N4148))
-      (place D26 64047 -42327 front 90 (PN 1N4148))
-      (place D25 73987 -44737 front 0 (PN 1N4148))
+      (place D28 42157 -42437 front 0 (PN 1N4148))
+      (place D27 42527 -38547 front 0 (PN 1N4148))
+      (place D26 54297 -44957 front 0 (PN 1N4148))
+      (place D25 42157 -46197 front 0 (PN 1N4148))
       (place D24 103077 -42017 front 0 (PN 1N4148))
       (place D23 112757 -44817 front 0 (PN 1N4148))
-      (place D22 141177 -40257 front 0 (PN 1N4148))
+      (place D22 142847 -46197 front 0 (PN 1N4148))
       (place D21 161687 -42777 front 0 (PN 1N4148))
-      (place D20 135247 -32367 front 0 (PN 1N4148))
-      (place D19 169377 -67377 front 0 (PN 1N4148))
-      (place D18 168107 -91327 front 0 (PN 1N4148))
-      (place D17 169377 -111787 front 0 (PN 1N4148))
-      (place D16 169247 -143837 front 0 (PN 1N4148))
-      (place D15 169157 -152337 front 0 (PN 1N4148))
+      (place D20 142717 -39927 front 0 (PN 1N4148))
+      (place D19 176177 -60877 front 90 (PN 1N4148))
+      (place D18 176297 -83297 front 270 (PN 1N4148))
+      (place D17 175677 -103497 front 270 (PN 1N4148))
+      (place D16 175797 -144287 front 270 (PN 1N4148))
+      (place D15 172037 -144157 front 270 (PN 1N4148))
       (place D14 169247 -182167 front 0 (PN 1N4148))
-      (place D13 169247 -169937 front 0 (PN 1N4148))
+      (place D13 169447 -166987 front 0 (PN 1N4148))
       (place D12 141127 -186377 front 0 (PN 1N4148))
       (place D11 121977 -186397 front 0 (PN 1N4148))
       (place D10 102507 -186197 front 0 (PN 1N4148))
@@ -535,7 +535,7 @@
       (pins D20-1 DL_rocker5-2 DL_rocker5-1)
     )
     (net "Net-(D21-Pad1)"
-      (pins D21-1 DL_rocker6-2 DL_rocker6-1)
+      (pins D21-1 DL_rocker6-2)
     )
     (net /Col3
       (pins J2-4 D28-2 D27-2 D26-2 D25-2 D24-2 D23-2 D22-2)
@@ -550,34 +550,34 @@
       (pins D24-1 SW18-2 SW18-1)
     )
     (net "Net-(D25-Pad1)"
-      (pins D25-1 SW19-2 SW19-1)
+      (pins D25-1 SW19-2)
     )
     (net "Net-(D26-Pad1)"
-      (pins D26-1 SW20-2 SW20-1)
+      (pins D26-1 SW20-2)
     )
     (net "Net-(D27-Pad1)"
-      (pins D27-1 DL_rocker7-2 DL_rocker7-1)
+      (pins D27-1 DL_rocker7-2)
     )
     (net "Net-(D28-Pad1)"
-      (pins D28-1 DL_rocker8-2 DL_rocker8-1)
+      (pins D28-1 DL_rocker8-1)
     )
     (net GND
       (pins J3-2 SW18-6 SW14-6 SW11-6 SW10-6 SW7-6 SW3-6 DL_rocker8-6 DL_rocker7-6
         DL_rocker6-6 DL_rocker1-6)
     )
     (net /Row5
-      (pins J1-6 DL_rocker7-4 DL_rocker7-3 DL_rocker5-4 DL_rocker5-3 DL_rocker3-4
-        DL_rocker3-3 DL_rocker1-4 DL_rocker1-3)
+      (pins J1-6 DL_rocker7-4 DL_rocker5-4 DL_rocker5-3 DL_rocker3-4 DL_rocker3-3
+        DL_rocker1-4 DL_rocker1-3)
     )
     (net /Row6
-      (pins J1-7 DL_rocker8-4 DL_rocker8-3 DL_rocker6-4 DL_rocker6-3 DL_rocker4-4
-        DL_rocker4-3 DL_rocker2-4 DL_rocker2-3)
+      (pins J1-7 DL_rocker8-3 DL_rocker6-4 DL_rocker4-4 DL_rocker4-3 DL_rocker2-4
+        DL_rocker2-3)
     )
     (net "Net-(J1-Pad8)"
       (pins J1-8)
     )
     (net /Row4
-      (pins SW5-4 SW5-3 J1-5 SW20-4 SW20-3 SW15-4 SW15-3 SW10-4 SW10-3)
+      (pins SW5-4 SW5-3 J1-5 SW20-4 SW15-4 SW15-3 SW10-4 SW10-3)
     )
     (net /Row3
       (pins J1-4 SW19-4 SW19-3 SW14-4 SW14-3 SW9-4 SW9-3 SW4-4 SW4-3)
@@ -615,6 +615,33 @@
     (net "Net-(R9-Pad2)"
       (pins R9-2 SW19-5)
     )
+    (net "Net-(DL_rocker6-Pad3)"
+      (pins DL_rocker6-3)
+    )
+    (net "Net-(DL_rocker6-Pad1)"
+      (pins DL_rocker6-1)
+    )
+    (net "Net-(DL_rocker7-Pad3)"
+      (pins DL_rocker7-3)
+    )
+    (net "Net-(DL_rocker7-Pad1)"
+      (pins DL_rocker7-1)
+    )
+    (net "Net-(SW19-Pad1)"
+      (pins SW19-1)
+    )
+    (net "Net-(SW20-Pad3)"
+      (pins SW20-3)
+    )
+    (net "Net-(SW20-Pad1)"
+      (pins SW20-1)
+    )
+    (net "Net-(DL_rocker8-Pad4)"
+      (pins DL_rocker8-4)
+    )
+    (net "Net-(DL_rocker8-Pad2)"
+      (pins DL_rocker8-2)
+    )
     (class kicad_default "" /Backlight+12V /Col0 /Col1 /Col2 /Col3 /Row0 /Row1
       /Row2 /Row3 /Row4 /Row5 /Row6 GND "Net-(D1-Pad1)" "Net-(D10-Pad1)" "Net-(D11-Pad1)"
       "Net-(D12-Pad1)" "Net-(D13-Pad1)" "Net-(D14-Pad1)" "Net-(D15-Pad1)"
@@ -625,12 +652,15 @@
       "Net-(D7-Pad1)" "Net-(D8-Pad1)" "Net-(D9-Pad1)" "Net-(DL_rocker1-Pad5)"
       "Net-(DL_rocker2-Pad5)" "Net-(DL_rocker2-Pad6)" "Net-(DL_rocker3-Pad5)"
       "Net-(DL_rocker3-Pad6)" "Net-(DL_rocker4-Pad6)" "Net-(DL_rocker5-Pad5)"
-      "Net-(DL_rocker5-Pad6)" "Net-(DL_rocker7-Pad5)" "Net-(DL_rocker8-Pad5)"
-      "Net-(J1-Pad8)" "Net-(R1-Pad2)" "Net-(R2-Pad2)" "Net-(R4-Pad2)" "Net-(R6-Pad2)"
-      "Net-(R7-Pad2)" "Net-(R8-Pad2)" "Net-(R9-Pad2)" "Net-(SW1-Pad6)" "Net-(SW10-Pad5)"
-      "Net-(SW12-Pad6)" "Net-(SW13-Pad6)" "Net-(SW16-Pad6)" "Net-(SW17-Pad6)"
-      "Net-(SW19-Pad6)" "Net-(SW2-Pad6)" "Net-(SW4-Pad6)" "Net-(SW6-Pad6)"
-      "Net-(SW8-Pad6)"
+      "Net-(DL_rocker5-Pad6)" "Net-(DL_rocker6-Pad1)" "Net-(DL_rocker6-Pad3)"
+      "Net-(DL_rocker7-Pad1)" "Net-(DL_rocker7-Pad3)" "Net-(DL_rocker7-Pad5)"
+      "Net-(DL_rocker8-Pad1)" "Net-(DL_rocker8-Pad2)" "Net-(DL_rocker8-Pad3)"
+      "Net-(DL_rocker8-Pad4)" "Net-(DL_rocker8-Pad5)" "Net-(J1-Pad8)" "Net-(R1-Pad2)"
+      "Net-(R2-Pad2)" "Net-(R4-Pad2)" "Net-(R6-Pad2)" "Net-(R7-Pad2)" "Net-(R8-Pad2)"
+      "Net-(R9-Pad2)" "Net-(SW1-Pad6)" "Net-(SW10-Pad5)" "Net-(SW12-Pad6)"
+      "Net-(SW13-Pad6)" "Net-(SW16-Pad6)" "Net-(SW17-Pad6)" "Net-(SW19-Pad1)"
+      "Net-(SW19-Pad3)" "Net-(SW19-Pad6)" "Net-(SW2-Pad6)" "Net-(SW20-Pad1)"
+      "Net-(SW20-Pad3)" "Net-(SW4-Pad6)" "Net-(SW6-Pad6)" "Net-(SW8-Pad6)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
