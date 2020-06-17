@@ -691,8 +691,8 @@
       (net 105 "Net-(SW15-Pad1)"))
   )
 
-  (module PT_Library_v001:PT_Small_Tactile_Switch_With_LED (layer F.Cu) (tedit 5EE4152B) (tstamp 5EE9AA53)
-    (at -108.86 -92.99)
+  (module PT_Library_v001:PT_Small_Tactile_Switch_With_LED (layer F.Cu) (tedit 5EE4152B) (tstamp 5EE9B3BB)
+    (at 204.68 58.03)
     (path /5A2F938C)
     (fp_text reference SW14 (at 2.54 8.374) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
