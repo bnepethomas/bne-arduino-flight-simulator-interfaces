@@ -21,10 +21,9 @@
       )
     )
     (boundary
-      (path pcb 0  168670 -48100  168700 -148200  68640 -148110  68640 -111610
-            79970 -111650  79900 -98550  68660 -98540  68600 -85670  79950 -85660
-            79930 -78730  73590 -72430  68680 -72430  68650 -50530  79940 -50490
-            79980 -70800  149010 -70810  148970 -48060  168670 -48100)
+      (path pcb 0  168670 -48100  168700 -148200  79930 -148130  79930 -78730
+            73590 -72430  68680 -72430  68650 -50530  79940 -50490  79980 -70800
+            149010 -70810  148970 -48060  168670 -48100)
     )
     (via "Via[0-1]_600:400_um")
     (rule
@@ -44,9 +43,9 @@
     )
     (component MountingHole:MountingHole_3.2mm_M3
       (place H5 143660 -123490 front 0 (PN MountingHole))
-      (place H4 143280 -85110 front 0 (PN MountingHole))
+      (place H4 143660 -85110 front 0 (PN MountingHole))
       (place H3 104970 -122730 front 0 (PN MountingHole))
-      (place H2 105270 -84210 front 0 (PN MountingHole))
+      (place H2 104970 -84210 front 0 (PN MountingHole))
       (place H1 152870 -61300 front 0 (PN MountingHole))
     )
     (component MountingHole:MountingHole_3mm
@@ -65,7 +64,7 @@
       (place R5 81440 -95060 back 180 (PN R))
       (place R4 140180 -73430 back 180 (PN R))
       (place R3 81440 -91150 back 180 (PN R))
-      (place R2 81890 -124800 back 180 (PN R))
+      (place R2 92130 -124690 back 180 (PN R))
       (place R1 101570 -72980 back 180 (PN R))
     )
     (component "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
@@ -95,7 +94,7 @@
       (place SW17 154210 -114427 front 180 (PN OPT4))
       (place SW16 154210 -94107 front 180 (PN OPT3))
       (place SW15 154210 -73787 front 180 (PN OPT2))
-      (place SW14 154320 -85290 front 0 (PN EMCON))
+      (place SW14 154320 -85290 back 180 (PN EMCON))
       (place SW13 133636 -132080 front 270 (PN ENT))
       (place SW12 133636 -113284 front 270 (PN 9))
       (place SW11 133636 -94488 front 270 (PN 6))
@@ -111,16 +110,16 @@
       (place SW1 96044 -75692 front 270 (PN 1))
     )
     (component LED_THT:LED_D3.0mm
-      (place D10 166500 -130280 front 270 (PN WP914GDT))
-      (place D9 166460 -109850 front 270 (PN WP914GDT))
-      (place D8 166600 -97100 front 270 (PN WP914GDT))
-      (place D7 166600 -76800 front 270 (PN WP914GDT))
-      (place D6 166500 -56400 front 270 (PN WP914GDT))
-      (place D5 166500 -135130 front 270 (PN WP914GDT))
-      (place D4 166340 -114740 front 270 (PN WP914GDT))
-      (place D3 166567 -91100 front 270 (PN WP914GDT))
-      (place D2 166600 -70800 front 270 (PN WP914GDT))
-      (place D1 166500 -50400 front 270 (PN WP914GDT))
+      (place D10 166500 -131260 front 270 (PN WP914GDT))
+      (place D9 166500 -110830 front 270 (PN WP914GDT))
+      (place D8 166500 -95540 front 270 (PN WP914GDT))
+      (place D7 166500 -74980 front 270 (PN WP914GDT))
+      (place D6 166500 -54770 front 270 (PN WP914GDT))
+      (place D5 166500 -136110 front 270 (PN WP914GDT))
+      (place D4 166500 -115720 front 270 (PN WP914GDT))
+      (place D3 166500 -90640 front 270 (PN WP914GDT))
+      (place D2 166490 -70080 front 270 (PN WP914GDT))
+      (place D1 166500 -49870 front 270 (PN WP914GDT))
     )
   )
   (library
@@ -662,18 +661,18 @@
     (net "Net-(J2-Pad6)"
       (pins J2-6)
     )
-    (class kicad_default "" "/2(**)" "/3(**)" "/4(**)" "/5(**)" /Bcklt+12V
-      /BckltGND /Col1 /Col2 /Col3 /Col4 /LedCathode1 /LedCathode2 /LedCathode3
-      /Row1 /Row2 /Row3 /Row4 /Row5 "Net-(D11-Pad1)" "Net-(D12-Pad1)" "Net-(D13-Pad1)"
-      "Net-(D14-Pad1)" "Net-(D15-Pad1)" "Net-(D16-Pad1)" "Net-(D17-Pad1)"
-      "Net-(D18-Pad1)" "Net-(D19-Pad1)" "Net-(D20-Pad1)" "Net-(D21-Pad1)"
-      "Net-(D22-Pad1)" "Net-(D23-Pad1)" "Net-(D24-Pad1)" "Net-(D25-Pad1)"
-      "Net-(D26-Pad1)" "Net-(D27-Pad1)" "Net-(D28-Pad1)" "Net-(D29-Pad1)"
-      "Net-(J2-Pad6)" "Net-(R1-Pad1)" "Net-(R2-Pad1)" "Net-(R3-Pad1)" "Net-(R4-Pad1)"
-      "Net-(R5-Pad1)" "Net-(R6-Pad1)" "Net-(R7-Pad1)" "Net-(SW1-Pad6)" "Net-(SW10-Pad6)"
-      "Net-(SW11-Pad6)" "Net-(SW13-Pad6)" "Net-(SW15-Pad5)" "Net-(SW16-Pad6)"
-      "Net-(SW17-Pad6)" "Net-(SW2-Pad6)" "Net-(SW4-Pad6)" "Net-(SW5-Pad6)"
-      "Net-(SW7-Pad6)" "Net-(SW8-Pad6)"
+    (class kicad_default "" "/2(**)" "/3(**)" "/4(**)" "/5(**)" /Col1 /Col2
+      /Col3 /Col4 /LedCathode1 /LedCathode2 /LedCathode3 /Row1 /Row2 /Row3
+      /Row4 /Row5 "Net-(D11-Pad1)" "Net-(D12-Pad1)" "Net-(D13-Pad1)" "Net-(D14-Pad1)"
+      "Net-(D15-Pad1)" "Net-(D16-Pad1)" "Net-(D17-Pad1)" "Net-(D18-Pad1)"
+      "Net-(D19-Pad1)" "Net-(D20-Pad1)" "Net-(D21-Pad1)" "Net-(D22-Pad1)"
+      "Net-(D23-Pad1)" "Net-(D24-Pad1)" "Net-(D25-Pad1)" "Net-(D26-Pad1)"
+      "Net-(D27-Pad1)" "Net-(D28-Pad1)" "Net-(D29-Pad1)" "Net-(J2-Pad6)" "Net-(R1-Pad1)"
+      "Net-(R2-Pad1)" "Net-(R3-Pad1)" "Net-(R4-Pad1)" "Net-(R5-Pad1)" "Net-(R6-Pad1)"
+      "Net-(R7-Pad1)" "Net-(SW1-Pad6)" "Net-(SW10-Pad6)" "Net-(SW11-Pad6)"
+      "Net-(SW13-Pad6)" "Net-(SW15-Pad5)" "Net-(SW16-Pad6)" "Net-(SW17-Pad6)"
+      "Net-(SW2-Pad6)" "Net-(SW4-Pad6)" "Net-(SW5-Pad6)" "Net-(SW7-Pad6)"
+      "Net-(SW8-Pad6)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )
@@ -700,7 +699,7 @@
         (clearance 177.9)
       )
     )
-    (class pwr5v
+    (class pwr5v /Bcklt+12V /BckltGND
       (circuit
         (use_via Via[0-1]_600:400_um)
       )

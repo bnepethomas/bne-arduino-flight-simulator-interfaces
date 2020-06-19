@@ -1,0 +1,154 @@
+
+(rules PCB UFC
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 1830)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+  )
+  (rule
+    (width 228.6)
+    (clear 178.0)
+    (clear 114.3 (type smd_to_turn_gap))
+    (clear 203.4 (type default_pwr5v))
+    (clear 44.6 (type smd_smd))
+    (clear 203.4 (type smd_pwr5v))
+    (clear 203.4 (type "kicad_default"_pwr5v))
+    (clear 203.4 (type control_pwr5v))
+    (clear 203.4 (type pwr3.3v_pwr5v))
+    (clear 203.4 (type pwr5v_pwr5v))
+    (clear 203.4 (type pwr5v_signal))
+  )
+  (padstack "Via[0-1]_600:400_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_600:400_um" "Via[0-1]_600:400_um" default
+  )
+  (via 
+    "Via[0-1]_600:400_um-kicad_default" "Via[0-1]_600:400_um" "kicad_default"
+  )
+  (via 
+    "Via[0-1]_600:400_um-control" "Via[0-1]_600:400_um" control
+  )
+  (via 
+    "Via[0-1]_600:400_um-pwr3.3v" "Via[0-1]_600:400_um" pwr3.3v
+  )
+  (via 
+    "Via[0-1]_600:400_um-pwr5v" "Via[0-1]_600:400_um" pwr5v
+  )
+  (via 
+    "Via[0-1]_600:400_um-signal" "Via[0-1]_600:400_um" signal
+  )
+  (via_rule
+    default "Via[0-1]_600:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_600:400_um-kicad_default"
+  )
+  (via_rule
+    control "Via[0-1]_600:400_um-control"
+  )
+  (via_rule
+    pwr3.3v "Via[0-1]_600:400_um-pwr3.3v"
+  )
+  (via_rule
+    pwr5v "Via[0-1]_600:400_um-pwr5v"
+  )
+  (via_rule
+    signal "Via[0-1]_600:400_um-signal"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 228.6)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    "/5(**)" "/4(**)" "/3(**)" "/2(**)" "Net-(SW1-Pad6)" "Net-(SW2-Pad6)" "Net-(SW4-Pad6)" "Net-(SW5-Pad6)"
+    "Net-(SW7-Pad6)" "Net-(SW8-Pad6)" "Net-(SW10-Pad6)" "Net-(SW11-Pad6)" "Net-(SW13-Pad6)" "Net-(SW15-Pad5)" "Net-(SW16-Pad6)" "Net-(SW17-Pad6)"
+    "Net-(D11-Pad1)" "Net-(D12-Pad1)" "Net-(D13-Pad1)" "Net-(D14-Pad1)" "Net-(D15-Pad1)" "Net-(D16-Pad1)" "Net-(D17-Pad1)" "Net-(D18-Pad1)"
+    "Net-(D19-Pad1)" "Net-(D20-Pad1)" "Net-(D21-Pad1)" "Net-(D22-Pad1)" "Net-(D23-Pad1)" "Net-(D24-Pad1)" "Net-(D25-Pad1)" "Net-(D26-Pad1)"
+    "Net-(D27-Pad1)" "Net-(D28-Pad1)" "Net-(D29-Pad1)" "Net-(R1-Pad1)" "Net-(R2-Pad1)" "Net-(R3-Pad1)" "Net-(R4-Pad1)" "Net-(R5-Pad1)"
+    "Net-(R6-Pad1)" "Net-(R7-Pad1)" /LedCathode2 /LedCathode3 /LedCathode1 /Col1 /Col2 /Col3
+    /Col4 /Row1 /Row2 /Row3 /Row4 /Row5 "Net-(J2-Pad6)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 228.6)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class control
+    (clearance_class control)
+    (via_rule control)
+    (rule
+      (width 228.6)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class pwr3.3v
+    (clearance_class pwr3.3v)
+    (via_rule pwr3.3v)
+    (rule
+      (width 381.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class pwr5v
+    /Bcklt+12V /BckltGND
+    (clearance_class pwr5v)
+    (via_rule pwr5v)
+    (rule
+      (width 228.6)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class signal
+    (clearance_class signal)
+    (via_rule signal)
+    (rule
+      (width 177.8)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)
