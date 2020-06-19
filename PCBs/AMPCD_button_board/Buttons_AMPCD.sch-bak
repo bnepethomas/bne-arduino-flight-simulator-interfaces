@@ -525,8 +525,6 @@ Wire Wire Line
 	7200 4100 7200 4300
 Wire Wire Line
 	7350 4100 7200 4100
-Wire Wire Line
-	7350 4800 7200 4800
 Connection ~ 7200 1600
 Connection ~ 7200 2100
 Connection ~ 7200 2600
@@ -550,8 +548,6 @@ Wire Wire Line
 	9350 3600 9200 3600
 Wire Wire Line
 	9350 4100 9200 4100
-Wire Wire Line
-	9350 4600 9200 4600
 Connection ~ 9200 1600
 Connection ~ 9200 2100
 Connection ~ 9200 2600
@@ -902,8 +898,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 8400 
 $EndComp
 Wire Wire Line
 	8250 4600 8150 4600
-Wire Wire Line
-	8550 4600 8650 4600
 $Comp
 L Diode:1N4148 D28
 U 1 1 5EF7A4EE
@@ -1050,10 +1044,6 @@ Row5
 Text Label 3300 4600 0    50   ~ 0
 Row6
 Text Label 5300 4600 0    50   ~ 0
-Row6
-Text Label 7300 4800 0    50   ~ 0
-Row6
-Text Label 9300 4600 0    50   ~ 0
 Row6
 $Comp
 L Connector:Conn_01x08_Female J1
@@ -1560,7 +1550,20 @@ Wire Wire Line
 Text Label 8050 4600 2    50   ~ 0
 Backlight+12V
 Wire Wire Line
-	6550 4600 6550 4800
+	6550 4600 6650 4600
+Text Label 7300 4600 0    50   ~ 0
+Row6
 Wire Wire Line
-	6550 4800 6650 4800
+	7350 4600 7200 4600
+Connection ~ 9200 3100
+Wire Wire Line
+	9200 3100 9200 3300
+Text Label 9300 4800 0    50   ~ 0
+Row6
+Wire Wire Line
+	9350 4800 9200 4800
+Wire Wire Line
+	8550 4600 8550 4800
+Wire Wire Line
+	8550 4800 8650 4800
 $EndSCHEMATC

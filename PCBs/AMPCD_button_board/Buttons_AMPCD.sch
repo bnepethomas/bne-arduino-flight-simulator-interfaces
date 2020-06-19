@@ -1566,4 +1566,154 @@ Wire Wire Line
 	8550 4600 8550 4800
 Wire Wire Line
 	8550 4800 8650 4800
+Text Label 3050 6200 0    50   ~ 0
+Row7
+$Comp
+L Connector:Conn_01x02_Female J4
+U 1 1 5EEE7D09
+P 7600 5600
+F 0 "J4" H 7628 5576 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 7628 5485 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7600 5600 50  0001 C CNN
+F 3 "~" H 7600 5600 50  0001 C CNN
+	1    7600 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J6
+U 1 1 5EEEA202
+P 9350 5700
+F 0 "J6" H 9378 5726 50  0000 L CNN
+F 1 "Conn_01x03_Female" H 9378 5635 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 9350 5700 50  0001 C CNN
+F 3 "~" H 9350 5700 50  0001 C CNN
+	1    9350 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J5
+U 1 1 5EEEA5DB
+P 8850 5700
+F 0 "J5" H 8742 5985 50  0000 C CNN
+F 1 "Conn_01x03_Female" H 8742 5894 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 8850 5700 50  0001 C CNN
+F 3 "~" H 8850 5700 50  0001 C CNN
+	1    8850 5700
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	9150 5600 9050 5600
+Wire Wire Line
+	9150 5700 9050 5700
+Wire Wire Line
+	9150 5800 9050 5800
+Text Label 6850 5600 2    50   ~ 0
+Col0
+Text Label 7400 5700 2    50   ~ 0
+Row7
+$Comp
+L Diode:1N4148 D29
+U 1 1 5EF318AC
+P 7000 5600
+F 0 "D29" H 7000 5384 50  0000 C CNN
+F 1 "1N4148" H 7000 5475 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 7000 5425 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 7000 5600 50  0001 C CNN
+	1    7000 5600
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7400 5600 7150 5600
+Text Notes 7050 5900 0    50   ~ 0
+Power Off
+Text Notes 8900 5950 0    50   ~ 0
+Brightness
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 5EF917B7
+P 1500 6600
+F 0 "H1" H 1600 6646 50  0000 L CNN
+F 1 "MountingHole" H 1600 6555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 1500 6600 50  0001 C CNN
+F 3 "~" H 1500 6600 50  0001 C CNN
+	1    1500 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 5EF9355C
+P 1500 6800
+F 0 "H2" H 1600 6846 50  0000 L CNN
+F 1 "MountingHole" H 1600 6755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 1500 6800 50  0001 C CNN
+F 3 "~" H 1500 6800 50  0001 C CNN
+	1    1500 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 5EF9469F
+P 1500 7000
+F 0 "H3" H 1600 7046 50  0000 L CNN
+F 1 "MountingHole" H 1600 6955 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 1500 7000 50  0001 C CNN
+F 3 "~" H 1500 7000 50  0001 C CNN
+	1    1500 7000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 5EF946A9
+P 1500 7200
+F 0 "H4" H 1600 7246 50  0000 L CNN
+F 1 "MountingHole" H 1600 7155 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 1500 7200 50  0001 C CNN
+F 3 "~" H 1500 7200 50  0001 C CNN
+	1    1500 7200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H5
+U 1 1 5EFA630C
+P 2300 6600
+F 0 "H5" H 2400 6646 50  0000 L CNN
+F 1 "MountingHole" H 2400 6555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 2300 6600 50  0001 C CNN
+F 3 "~" H 2300 6600 50  0001 C CNN
+	1    2300 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H6
+U 1 1 5EFA6316
+P 2300 6800
+F 0 "H6" H 2400 6846 50  0000 L CNN
+F 1 "MountingHole" H 2400 6755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 2300 6800 50  0001 C CNN
+F 3 "~" H 2300 6800 50  0001 C CNN
+	1    2300 6800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H7
+U 1 1 5EFA6320
+P 2300 7000
+F 0 "H7" H 2400 7046 50  0000 L CNN
+F 1 "MountingHole" H 2400 6955 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 2300 7000 50  0001 C CNN
+F 3 "~" H 2300 7000 50  0001 C CNN
+	1    2300 7000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H8
+U 1 1 5EFA632A
+P 2300 7200
+F 0 "H8" H 2400 7246 50  0000 L CNN
+F 1 "MountingHole" H 2400 7155 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.5mm" H 2300 7200 50  0001 C CNN
+F 3 "~" H 2300 7200 50  0001 C CNN
+	1    2300 7200
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
