@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 51)
+    (drawings 53)
     (tracks 949)
     (zones 0)
     (modules 81)
@@ -11,8 +11,8 @@
 
   (page A4)
   (layers
-    (0 F.Cu signal hide)
-    (31 B.Cu signal hide)
+    (0 F.Cu signal)
+    (31 B.Cu signal)
     (32 B.Adhes user)
     (33 F.Adhes user)
     (34 B.Paste user)
@@ -4348,6 +4348,12 @@
       (net 28 "Net-(D6-Pad1)"))
   )
 
+  (gr_text V001 (at 83.185 46.609) (layer B.SilkS) (tstamp 5EED83DD)
+    (effects (font (size 1.5 1.5) (thickness 0.3)) (justify mirror))
+  )
+  (gr_text V001 (at 83.439 46.609) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
   (gr_text "INPUT\nCOLUMNS" (at 127.635 40.513) (layer B.SilkS) (tstamp 5EEDB6F1)
     (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
   )
