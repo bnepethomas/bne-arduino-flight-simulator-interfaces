@@ -21,8 +21,8 @@
       )
     )
     (boundary
-      (path pcb 0  175320 -110110  99381.2 -110110  99381.2 -52279.8  175320 -52279.8
-            175320 -110110)
+      (path pcb 0  171958 -106934  101092 -106934  101092 -55372  171704 -55372
+            171958 -106934)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -33,53 +33,61 @@
     )
   )
   (placement
+    (component PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+      (place R2 110744 -104648 front 90 (PN 330))
+      (place R1 110998 -65786 front 90 (PN 1K))
+    )
+    (component LED_THT:LED_D3.0mm
+      (place D2 111506 -83566 front 180 (PN LED))
+      (place D1 111506 -78740 front 180 (PN LED))
+    )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place J39 159840 -101410 front 0 (PN Conn_01x02_Female))
-      (place J38 138060 -89930 front 90 (PN Conn_01x02_Female))
-      (place J37 140960 -74480 front 90 (PN Conn_01x02_Female))
-      (place J36 153290 -101200 front 0 (PN Conn_01x02_Female))
-      (place J35 138270 -96480 front 90 (PN Conn_01x02_Female))
-      (place J34 140960 -67720 front 90 (PN Conn_01x02_Female))
-      (place J33 153290 -93900 front 0 (PN Conn_01x02_Female))
-      (place J32 138380 -103390 front 90 (PN Conn_01x02_Female))
-      (place J31 133340 -74640 front 90 (PN Conn_01x02_Female))
-      (place J30 159840 -93900 front 0 (PN Conn_01x02_Female))
-      (place J29 130660 -103500 front 90 (PN Conn_01x02_Female))
-      (place J28 140950 -61330 front 90 (PN Conn_01x02_Female))
-      (place J27 166280 -93950 front 0 (PN Conn_01x02_Female))
-      (place J26 130440 -89980 front 90 (PN Conn_01x02_Female))
-      (place J25 133340 -67660 front 90 (PN Conn_01x02_Female))
-      (place J24 166380 -86010 front 0 (PN Conn_01x02_Female))
-      (place J23 123040 -103600 front 90 (PN Conn_01x02_Female))
-      (place J22 133230 -61220 front 90 (PN Conn_01x02_Female))
-      (place J21 160380 -86070 front 0 (PN Conn_01x02_Female))
-      (place J20 130330 -96520 front 90 (PN Conn_01x02_Female))
-      (place J19 124430 -74740 front 90 (PN Conn_01x02_Female))
-      (place J18 166380 -78290 front 0 (PN Conn_01x02_Female))
-      (place J17 123040 -96740 front 90 (PN Conn_01x02_Female))
-      (place J16 124320 -67980 front 90 (PN Conn_01x02_Female))
-      (place J15 166170 -69920 front 0 (PN Conn_01x02_Female))
-      (place J14 123040 -90090 front 90 (PN Conn_01x02_Female))
-      (place J13 124430 -61440 front 90 (PN Conn_01x02_Female))
-      (place J12 153830 -86120 front 0 (PN Conn_01x02_Female))
-      (place J11 114990 -90090 front 90 (PN Conn_01x02_Female))
-      (place J10 115310 -74850 front 90 (PN Conn_01x02_Female))
-      (place J8 114880 -103710 front 90 (PN Conn_01x02_Female))
-      (place J7 115310 -61440 front 90 (PN Conn_01x02_Female))
-      (place J5 114880 -96850 front 90 (PN Conn_01x02_Female))
-      (place J4 115200 -68200 front 90 (PN Conn_01x02_Female))
+      (place J39 160094 -101200 front 0 (PN Conn_01x02_Female))
+      (place J38 141966 -90344 front 90 (PN Conn_01x02_Female))
+      (place J37 141966 -74850 front 90 (PN Conn_01x02_Female))
+      (place J36 153400 -101200 front 0 (PN Conn_01x02_Female))
+      (place J35 141966 -97154 front 90 (PN Conn_01x02_Female))
+      (place J34 141966 -68090 front 90 (PN Conn_01x02_Female))
+      (place J33 153400 -93056 front 0 (PN Conn_01x02_Female))
+      (place J32 141966 -103964 front 90 (PN Conn_01x02_Female))
+      (place J31 133419 -74850 front 90 (PN Conn_01x02_Female))
+      (place J30 160094 -93056 front 0 (PN Conn_01x02_Female))
+      (place J29 133419 -103964 front 90 (PN Conn_01x02_Female))
+      (place J28 141966 -61330 front 90 (PN Conn_01x02_Female))
+      (place J27 166788 -93056 front 0 (PN Conn_01x02_Female))
+      (place J26 133419 -90344 front 90 (PN Conn_01x02_Female))
+      (place J25 133419 -68090 front 90 (PN Conn_01x02_Female))
+      (place J24 166788 -84912 front 0 (PN Conn_01x02_Female))
+      (place J23 124873 -103964 front 90 (PN Conn_01x02_Female))
+      (place J22 133419 -61330 front 90 (PN Conn_01x02_Female))
+      (place J21 160094 -84912 front 0 (PN Conn_01x02_Female))
+      (place J20 133419 -97154 front 90 (PN Conn_01x02_Female))
+      (place J19 124873 -74850 front 90 (PN Conn_01x02_Female))
+      (place J18 166788 -76768 front 0 (PN Conn_01x02_Female))
+      (place J17 124873 -97154 front 90 (PN Conn_01x02_Female))
+      (place J16 124873 -68090 front 90 (PN Conn_01x02_Female))
+      (place J15 166788 -68624 front 0 (PN Conn_01x02_Female))
+      (place J14 124873 -90344 front 90 (PN Conn_01x02_Female))
+      (place J13 124873 -61330 front 90 (PN Conn_01x02_Female))
+      (place J12 153400 -84912 front 0 (PN Conn_01x02_Female))
+      (place J11 116326 -90344 front 90 (PN Conn_01x02_Female))
+      (place J10 116326 -74850 front 90 (PN Conn_01x02_Female))
+      (place J8 116326 -103964 front 90 (PN Conn_01x02_Female))
+      (place J7 116326 -61330 front 90 (PN Conn_01x02_Female))
+      (place J5 116326 -97154 front 90 (PN Conn_01x02_Female))
+      (place J4 116326 -68090 front 90 (PN Conn_01x02_Female))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place J9 153400 -78610 front 0 (PN Conn_01x04_Female))
+      (place J9 153400 -76768 front 0 (PN Conn_01x04_Female))
       (place J6 153400 -60480 front 0 (PN Conn_01x04_Female))
-      (place J3 153290 -70030 front 0 (PN Conn_01x04_Female))
+      (place J3 153400 -68624 front 0 (PN Conn_01x04_Female))
     )
     (component PT_Library_v001:PT_General_PCB_Outline
       (place SPCB1 137006 -80558.1 front 0 (PN PT_SmallPCB))
     )
     (component "TerminalBlock:TerminalBlock_bornier-2_P5.08mm"
-      (place J2 105760 -96530 front 90 (PN Conn_01x02_Female))
-      (place J1 106090 -71740 front 90 (PN Conn_01x02_Female))
+      (place J2 104648 -90170 front 0 (PN Conn_01x02_Female))
+      (place J1 109474 -72390 front 180 (PN Conn_01x02_Female))
     )
     (component MountingHole:MountingHole_3.2mm_M3
       (place H4 168470 -103720 front 0 (PN MountingHole))
@@ -89,6 +97,42 @@
     )
   )
   (library
+    (image PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+      (outline (path signal 50  8670 1500  -1050 1500))
+      (outline (path signal 50  8670 -1500  8670 1500))
+      (outline (path signal 50  -1050 -1500  8670 -1500))
+      (outline (path signal 50  -1050 1500  -1050 -1500))
+      (outline (path signal 120  7080 -1370  7080 -1040))
+      (outline (path signal 120  540 -1370  7080 -1370))
+      (outline (path signal 120  540 -1040  540 -1370))
+      (outline (path signal 120  7080 1370  7080 1040))
+      (outline (path signal 120  540 1370  7080 1370))
+      (outline (path signal 120  540 1040  540 1370))
+      (outline (path signal 100  7620 0  6960 0))
+      (outline (path signal 100  0 0  660 0))
+      (outline (path signal 100  6960 1250  660 1250))
+      (outline (path signal 100  6960 -1250  6960 1250))
+      (outline (path signal 100  660 -1250  6960 -1250))
+      (outline (path signal 100  660 1250  660 -1250))
+      (pin Oval[A]Pad_1600x1600_um 2 7620 0)
+      (pin Round[A]Pad_1600_um 1 0 0)
+    )
+    (image LED_THT:LED_D3.0mm
+      (outline (path signal 50  3700 2250  -1150 2250))
+      (outline (path signal 50  3700 -2250  3700 2250))
+      (outline (path signal 50  -1150 -2250  3700 -2250))
+      (outline (path signal 50  -1150 2250  -1150 -2250))
+      (outline (path signal 120  -290 -1080  -290 -1236))
+      (outline (path signal 120  -290 1236  -290 1080))
+      (outline (path signal 100  -230 1166.19  -230 -1166.19))
+      (outline (path signal 100  2770 0  2688.73 -487.049  2453.71 -921.319  2090.42 -1255.75
+            1638.23 -1454.1  1146.13 -1494.88  667.457 -1373.66  254.078 -1103.59
+            -49.211 -713.921  -209.542 -246.892  -209.542 246.892  -49.211 713.921
+            254.078 1103.59  667.457 1373.66  1146.13 1494.88  1638.23 1454.1
+            2090.42 1255.75  2453.71 921.319  2688.73 487.049  2770 0))
+      (pin Round[A]Pad_1800_um 2 2540 0)
+      (pin Rect[A]Pad_1800x1800_um 1 0 0)
+    )
     (image PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (outline (path signal 50  4310 3420  -1770 3420))
       (outline (path signal 50  4310 -3380  4310 3420))
@@ -235,9 +279,24 @@
       (keepout "" (circle F.Cu 3200))
       (keepout "" (circle B.Cu 3200))
     )
+    (padstack Round[A]Pad_1600_um
+      (shape (circle F.Cu 1600))
+      (shape (circle B.Cu 1600))
+      (attach off)
+    )
+    (padstack Round[A]Pad_1800_um
+      (shape (circle F.Cu 1800))
+      (shape (circle B.Cu 1800))
+      (attach off)
+    )
     (padstack Round[A]Pad_3000_um
       (shape (circle F.Cu 3000))
       (shape (circle B.Cu 3000))
+      (attach off)
+    )
+    (padstack Oval[A]Pad_1600x1600_um
+      (shape (path F.Cu 1600  0 0  0 0))
+      (shape (path B.Cu 1600  0 0  0 0))
       (attach off)
     )
     (padstack Oval[A]Pad_1740x2200_um
@@ -275,6 +334,11 @@
       (shape (rect B.Cu -1500 -1500 1500 1500))
       (attach off)
     )
+    (padstack Rect[A]Pad_1800x1800_um
+      (shape (rect F.Cu -900 -900 900 900))
+      (shape (rect B.Cu -900 -900 900 900))
+      (attach off)
+    )
     (padstack "Via[0-1]_800:400_um"
       (shape (circle F.Cu 800))
       (shape (circle B.Cu 800))
@@ -283,20 +347,20 @@
   )
   (network
     (net /12VGND
-      (pins J37-2 J34-2 J31-2 J28-2 J25-2 J22-2 J19-2 J16-2 J13-2 J10-2 J7-2 J4-2
-        J1-2)
+      (pins D1-1 J37-2 J34-2 J31-2 J28-2 J25-2 J22-2 J19-2 J16-2 J13-2 J10-2 J7-2
+        J4-2 J1-2)
     )
     (net /+12V
-      (pins J37-1 J34-1 J31-1 J28-1 J25-1 J22-1 J19-1 J16-1 J13-1 J10-1 J7-1 J4-1
-        J1-1)
+      (pins R1-1 J37-1 J34-1 J31-1 J28-1 J25-1 J22-1 J19-1 J16-1 J13-1 J10-1 J7-1
+        J4-1 J1-1)
     )
     (net /5VGND
-      (pins J38-2 J35-2 J32-2 J29-2 J26-2 J23-2 J20-2 J17-2 J14-2 J11-2 J8-2 J5-2
-        J2-2)
+      (pins D2-1 J38-2 J35-2 J32-2 J29-2 J26-2 J23-2 J20-2 J17-2 J14-2 J11-2 J8-2
+        J5-2 J2-2)
     )
     (net /+5V
-      (pins J38-1 J35-1 J32-1 J29-1 J26-1 J23-1 J20-1 J17-1 J14-1 J11-1 J8-1 J5-1
-        J2-1)
+      (pins R2-1 J38-1 J35-1 J32-1 J29-1 J26-1 J23-1 J20-1 J17-1 J14-1 J11-1 J8-1
+        J5-1 J2-1)
     )
     (net /WhiteGND
       (pins J9-4 J6-4 J3-4)
@@ -312,8 +376,14 @@
       (pins J39-1 J36-1 J33-1 J30-1 J27-1 J24-1 J21-1 J18-1 J15-1 J12-1 J9-1 J6-1
         J3-1)
     )
+    (net "Net-(D1-Pad2)"
+      (pins R1-2 D1-2)
+    )
+    (net "Net-(D2-Pad2)"
+      (pins R2-2 D2-2)
+    )
     (class kicad_default "" /+12V /+5V /12VGND /5VGND /Green12V+ /GreenGND
-      /White+12V /WhiteGND
+      /White+12V /WhiteGND "Net-(D1-Pad2)" "Net-(D2-Pad2)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
