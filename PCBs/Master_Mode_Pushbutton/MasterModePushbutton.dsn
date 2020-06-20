@@ -34,23 +34,19 @@
     )
   )
   (placement
-    (component Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical
-      (place J4 140466 -86257.5 back 180 (PN Conn_01x02_Female))
-      (place J3 140606 -98547.5 back 180 (PN Conn_01x02_Female))
-      (place J2 135436 -94897.5 back 90 (PN Conn_01x02_Female))
-      (place J1 130026 -94887.5 back 90 (PN Conn_01x02_Female))
+    (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
+      (place J4 140682 -87443.5 back 180 (PN Conn_01x02_Female))
+      (place J3 140682 -103445 back 180 (PN Conn_01x02_Female))
+      (place J2 129760 -89729.5 back 0 (PN Conn_01x02_Female))
+      (place J1 140682 -95317.5 back 180 (PN Conn_01x02_Female))
     )
     (component PT_Library_v001:PT_Small_Tactile_Switch_With_LED
       (place SW2 135216 -100397 front 90 (PN push))
       (place SW1 135216 -89287.5 front 90 (PN push))
     )
     (component "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-      (place D2 127326 -97827.5 front 270 (PN 1N4148))
-      (place D1 127466 -84417.5 front 270 (PN 1N4148))
-    )
-    (component Mouting_Hole_1.85mm
-      (place H4 127156 -94837.5 front 180 (PN Mouting_Hole_1.85mm))
-      (place H3 143286 -94837.5 front 180 (PN Mouting_Hole_1.85mm))
+      (place D2 127326 -94809.5 front 270 (PN 1N4148))
+      (place D1 130014 -94809.5 front 270 (PN 1N4148))
     )
     (component Mounting_Holes:MountingHole_2.7mm_M2.5_ISO14580
       (place H1 146646 -84837.5 front 180 (PN Mouting_Hole_2.71mm))
@@ -58,24 +54,38 @@
     )
   )
   (library
-    (image Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical
-      (outline (path signal 50  1800 1800  -1800 1800))
-      (outline (path signal 50  1800 -4350  1800 1800))
-      (outline (path signal 50  -1800 -4350  1800 -4350))
-      (outline (path signal 50  -1800 1800  -1800 -4350))
-      (outline (path signal 120  -1330 1330  0 1330))
-      (outline (path signal 120  -1330 0  -1330 1330))
-      (outline (path signal 120  -1330 -1270  1330 -1270))
-      (outline (path signal 120  1330 -1270  1330 -3870))
-      (outline (path signal 120  -1330 -1270  -1330 -3870))
-      (outline (path signal 120  -1330 -3870  1330 -3870))
-      (outline (path signal 100  -1270 635  -635 1270))
-      (outline (path signal 100  -1270 -3810  -1270 635))
-      (outline (path signal 100  1270 -3810  -1270 -3810))
-      (outline (path signal 100  1270 1270  1270 -3810))
-      (outline (path signal 100  -635 1270  1270 1270))
-      (pin Oval[A]Pad_1700x1700_um 2 0 -2540)
-      (pin Rect[A]Pad_1700x1700_um 1 0 0)
+    (image PT_Library_v001:Molex_1x02_P2.54mm_Vertical
+      (outline (path signal 50  4310 3420  -1770 3420))
+      (outline (path signal 50  4310 -3380  4310 3420))
+      (outline (path signal 50  -1770 -3380  4310 -3380))
+      (outline (path signal 50  -1770 3420  -1770 -3380))
+      (outline (path signal 120  3340 2430  3340 3030))
+      (outline (path signal 120  1740 2430  3340 2430))
+      (outline (path signal 120  1740 3030  1740 2430))
+      (outline (path signal 120  800 2430  800 3030))
+      (outline (path signal 120  -800 2430  800 2430))
+      (outline (path signal 120  -800 3030  -800 2430))
+      (outline (path signal 120  2290 -2990  2290 -1990))
+      (outline (path signal 120  250 -2990  250 -1990))
+      (outline (path signal 120  2290 -1460  2540 -1990))
+      (outline (path signal 120  250 -1460  2290 -1460))
+      (outline (path signal 120  0 -1990  250 -1460))
+      (outline (path signal 120  2540 -1990  2540 -2990))
+      (outline (path signal 120  0 -1990  2540 -1990))
+      (outline (path signal 120  0 -2990  0 -1990))
+      (outline (path signal 100  -562.893 0  -1270 -500))
+      (outline (path signal 100  -1270 500  -562.893 0))
+      (outline (path signal 120  -1670 2000  -1670 -2000))
+      (outline (path signal 120  3920 3030  -1380 3030))
+      (outline (path signal 120  3920 -2990  3920 3030))
+      (outline (path signal 120  -1380 -2990  3920 -2990))
+      (outline (path signal 120  -1380 3030  -1380 -2990))
+      (outline (path signal 100  3810 2920  -1270 2920))
+      (outline (path signal 100  3810 -2880  3810 2920))
+      (outline (path signal 100  -1270 -2880  3810 -2880))
+      (outline (path signal 100  -1270 2920  -1270 -2880))
+      (pin Oval[A]Pad_1740x2200_um 2 2540 0)
+      (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
     )
     (image PT_Library_v001:PT_Small_Tactile_Switch_With_LED
       (outline (path signal 120  -4318 3810  -3048 3810))
@@ -139,10 +149,6 @@
       (pin Oval[A]Pad_1600x1600_um 2 7620 0)
       (pin Rect[A]Pad_1600x1600_um 1 0 0)
     )
-    (image Mouting_Hole_1.85mm
-      (keepout "" (circle F.Cu 1850))
-      (keepout "" (circle B.Cu 1850))
-    )
     (image Mounting_Holes:MountingHole_2.7mm_M2.5_ISO14580
       (outline (path signal 150  2250 0  2173.33 -582.343  1948.56 -1125  1590.99 -1590.99
             1125 -1948.56  582.343 -2173.33  0 -2250  -582.343 -2173.33
@@ -175,19 +181,39 @@
       (shape (path B.Cu 1600  0 0  0 0))
       (attach off)
     )
-    (padstack Oval[A]Pad_1700x1700_um
-      (shape (path F.Cu 1700  0 0  0 0))
-      (shape (path B.Cu 1700  0 0  0 0))
+    (padstack Oval[A]Pad_1740x2200_um
+      (shape (path F.Cu 1740  0 -230  0 230))
+      (shape (path B.Cu 1740  0 -230  0 230))
+      (attach off)
+    )
+    (padstack RoundRect[A]Pad_1740x2200_250.95_um
+      (shape (polygon F.Cu 0  663.578 1097.14  705.831 1085.82  745.476 1067.33  781.309 1042.24
+            812.24 1011.31  837.33 975.476  855.817 935.831  867.139 893.578
+            870.951 850.001  870.951 -850.001  867.139 -893.578  855.817 -935.831
+            837.33 -975.476  812.24 -1011.31  781.309 -1042.24  745.476 -1067.33
+            705.831 -1085.82  663.578 -1097.14  620.001 -1100.95  -620.001 -1100.95
+            -663.578 -1097.14  -705.831 -1085.82  -745.476 -1067.33  -781.309 -1042.24
+            -812.24 -1011.31  -837.33 -975.476  -855.817 -935.831  -867.139 -893.578
+            -870.951 -850.001  -870.951 850.001  -867.139 893.578  -855.817 935.831
+            -837.33 975.476  -812.24 1011.31  -781.309 1042.24  -745.476 1067.33
+            -705.831 1085.82  -663.578 1097.14  -620.001 1100.95  620.001 1100.95
+            663.578 1097.14))
+      (shape (polygon B.Cu 0  663.578 1097.14  705.831 1085.82  745.476 1067.33  781.309 1042.24
+            812.24 1011.31  837.33 975.476  855.817 935.831  867.139 893.578
+            870.951 850.001  870.951 -850.001  867.139 -893.578  855.817 -935.831
+            837.33 -975.476  812.24 -1011.31  781.309 -1042.24  745.476 -1067.33
+            705.831 -1085.82  663.578 -1097.14  620.001 -1100.95  -620.001 -1100.95
+            -663.578 -1097.14  -705.831 -1085.82  -745.476 -1067.33  -781.309 -1042.24
+            -812.24 -1011.31  -837.33 -975.476  -855.817 -935.831  -867.139 -893.578
+            -870.951 -850.001  -870.951 850.001  -867.139 893.578  -855.817 935.831
+            -837.33 975.476  -812.24 1011.31  -781.309 1042.24  -745.476 1067.33
+            -705.831 1085.82  -663.578 1097.14  -620.001 1100.95  620.001 1100.95
+            663.578 1097.14))
       (attach off)
     )
     (padstack Rect[A]Pad_1600x1600_um
       (shape (rect F.Cu -800 -800 800 800))
       (shape (rect B.Cu -800 -800 800 800))
-      (attach off)
-    )
-    (padstack Rect[A]Pad_1700x1700_um
-      (shape (rect F.Cu -850 -850 850 850))
-      (shape (rect B.Cu -850 -850 850 850))
       (attach off)
     )
     (padstack "Via[0-1]_600:400_um"
@@ -227,9 +253,9 @@
     (net "Net-(J4-Pad1)"
       (pins J4-1 SW2-6 SW1-6)
     )
-    (class kicad_default "" /switch1 /switch2 GND "Net-(D1-Pad1)" "Net-(D1-Pad2)"
-      "Net-(D2-Pad1)" "Net-(D2-Pad2)" "Net-(D3-Pad1)" "Net-(J2-Pad1)" "Net-(J2-Pad2)"
-      "Net-(J3-Pad1)" "Net-(J3-Pad2)" "Net-(J4-Pad1)" "Net-(J4-Pad2)"
+    (class kicad_default "" "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad1)"
+      "Net-(D2-Pad2)" "Net-(J2-Pad1)" "Net-(J2-Pad2)" "Net-(J3-Pad1)" "Net-(J3-Pad2)"
+      "Net-(J4-Pad1)" "Net-(J4-Pad2)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )
@@ -238,7 +264,7 @@
         (clearance 177.9)
       )
     )
-    (class power /backlight_1 /backlight_2
+    (class power
       (circuit
         (use_via Via[0-1]_600:400_um)
       )

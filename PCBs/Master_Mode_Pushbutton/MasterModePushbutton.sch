@@ -85,7 +85,7 @@ U 1 1 5EE61859
 P 3950 3500
 F 0 "J1" H 3842 3685 50  0000 C CNN
 F 1 "Conn_01x02_Female" H 3842 3594 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3950 3500 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 3500 50  0001 C CNN
 F 3 "~" H 3950 3500 50  0001 C CNN
 	1    3950 3500
 	-1   0    0    -1  
@@ -96,7 +96,7 @@ U 1 1 5EE6287D
 P 3950 3750
 F 0 "J2" H 3842 3935 50  0000 C CNN
 F 1 "Conn_01x02_Female" H 3842 3844 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3950 3750 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 3750 50  0001 C CNN
 F 3 "~" H 3950 3750 50  0001 C CNN
 	1    3950 3750
 	-1   0    0    -1  
@@ -107,7 +107,7 @@ U 1 1 5EE6322E
 P 3950 4150
 F 0 "J3" H 3842 4335 50  0000 C CNN
 F 1 "Conn_01x02_Female" H 3842 4244 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3950 4150 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 4150 50  0001 C CNN
 F 3 "~" H 3950 4150 50  0001 C CNN
 	1    3950 4150
 	-1   0    0    -1  
@@ -118,7 +118,7 @@ U 1 1 5EE63788
 P 3950 4350
 F 0 "J4" H 3842 4535 50  0000 C CNN
 F 1 "Conn_01x02_Female" H 3842 4444 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3950 4350 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 4350 50  0001 C CNN
 F 3 "~" H 3950 4350 50  0001 C CNN
 	1    3950 4350
 	-1   0    0    -1  

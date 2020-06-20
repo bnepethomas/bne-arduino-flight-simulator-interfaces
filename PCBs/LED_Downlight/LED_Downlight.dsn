@@ -21,12 +21,12 @@
       )
     )
     (boundary
-      (path pcb 0  222375 -75212.5  164505 -75212.5  164505 -43972.5  222375 -43972.5
-            222375 -75212.5)
+      (path pcb 0  218694 -73914  166370 -73914  166370 -45212  218694 -45212
+            218694 -73914)
     )
     (via "Via[0-1]_800:400_um")
     (rule
-      (width 250)
+      (width 500)
       (clearance 200.1)
       (clearance 200.1 (type default_smd))
       (clearance 50 (type smd_smd))
@@ -35,25 +35,25 @@
   (placement
     (component MountingHole:MountingHole_3.2mm_M3
       (place H5 193910 -59780 front 0 (PN MountingHole))
-      (place H4 214260 -70120 back 180 (PN MountingHole))
+      (place H4 214260 -70120 front 0 (PN MountingHole))
       (place H3 170390 -70120 front 0 (PN MountingHole))
       (place H2 214260 -49530 front 0 (PN MountingHole))
-      (place H1 170690 -48930 front 0 (PN MountingHole))
+      (place H1 170690 -49530 front 0 (PN MountingHole))
     )
     (component PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
       (place R2 178950 -57840 back 180 (PN R_US))
       (place R1 179330 -61630 back 180 (PN R_US))
     )
     (component Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Horizontal
-      (place J2 210320 -63750 back 180 (PN Conn_01x04_Female))
-      (place J1 176560 -55780 back 0 (PN Conn_01x04_Female))
+      (place J2 210820 -63500 back 180 (PN Conn_01x04_Female))
+      (place J1 176022 -55780 back 0 (PN Conn_01x04_Female))
     )
     (component LED_THT:LED_D8.0mm
       (place D6 204180 -52290 front 90 (PN LED))
-      (place D5 193480 -52290 front 90 (PN LED))
-      (place D4 182780 -52290 front 90 (PN LED))
-      (place D3 204690 -69960 front 90 (PN LED))
-      (place D2 193860 -69960 front 90 (PN LED))
+      (place D5 193675 -52290 front 90 (PN LED))
+      (place D4 183170 -52290 front 90 (PN LED))
+      (place D3 204180 -69890 front 90 (PN LED))
+      (place D2 193675 -69890 front 90 (PN LED))
       (place D1 183170 -69890 front 90 (PN LED))
     )
   )
@@ -264,14 +264,13 @@
     (net /+12VGreen
       (pins R1-1 J2-1 J1-1)
     )
-    (class kicad_default "" /Power "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad1)"
-      "Net-(D3-Pad1)" "Net-(D4-Pad1)" "Net-(D4-Pad2)" "Net-(D5-Pad1)" "Net-(D6-Pad1)"
-      "Net-(J1-Pad1)" "Net-(J1-Pad3)"
+    (class kicad_default "" "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad1)"
+      "Net-(D4-Pad1)" "Net-(D4-Pad2)" "Net-(D5-Pad1)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
       (rule
-        (width 250)
+        (width 500)
         (clearance 200.1)
       )
     )

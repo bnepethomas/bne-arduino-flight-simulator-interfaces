@@ -115,7 +115,7 @@ bool bFirstTime = false;
 
 const int AddressBit0 = 2;
 const int AddressBit1 = 3;
-const int AddressBit2 = 14;
+const int AddressBit2 = 13;  // Previously was 14 - required external cable
 const int AddressLED = 5;
 const int StatusLED = 6;
 

@@ -35,9 +35,9 @@
   )
   (placement
     (component Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
-      (place R3 152590 -95670 front 270 (PN R))
-      (place R2 97540 -95380 front 270 (PN R))
-      (place R1 118750 -95570 front 270 (PN R))
+      (place R3 152590 -95670 front 270 (PN 150))
+      (place R2 97540 -95380 front 270 (PN 150))
+      (place R1 118750 -95570 front 270 (PN 470))
     )
     (component Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical
       (place J1 165410 -100970 front 0 (PN Conn_01x02_Female))
@@ -107,9 +107,9 @@
     )
     (image PT_Library_v001:PT_Small_Tactile_Switch_With_LED
       (outline (path signal 120  -4318 3810  -3048 3810))
-      (outline (path signal 120  -4318 -4318  -4318 3810))
-      (outline (path signal 120  4064 -4318  -4318 -4318))
-      (outline (path signal 120  4064 3810  4064 -4318))
+      (outline (path signal 120  -4320 -3810  -4318 3810))
+      (outline (path signal 120  4070 -3810  -4312 -3810))
+      (outline (path signal 120  4064 3810  4050 -3810))
       (outline (path signal 120  -4064 3810  4064 3810))
       (outline (path signal 120  3810 0  3302 0))
       (outline (path signal 120  2794 1016  2794 254))
@@ -134,7 +134,7 @@
       (outline (path signal 120  762 508  0 -254))
       (outline (path signal 120  0 508  762 508))
       (outline (path signal 120  0 1270  0 508))
-      (pin Round[A]Pad_1524_um 6 0 -3429)
+      (pin Round[A]Pad_1524_um 6 40 -2870)
       (pin Round[A]Pad_1524_um 5 0 2921)
       (pin Round[A]Pad_1700_um 4 3175 -2159)
       (pin Round[A]Pad_1700_um 3 -3175 -2159)
@@ -235,81 +235,79 @@
     )
   )
   (network
-    (net "Net-(D1-Pad2)"
-      (pins J2-3 D7-2 D1-2)
-    )
     (net "Net-(D1-Pad1)"
-      (pins SW3-3 SW3-1 D1-1)
-    )
-    (net "Net-(D2-Pad2)"
-      (pins J2-1 D5-2 D2-2)
+      (pins SW3-2 SW3-1 D1-1)
     )
     (net "Net-(D2-Pad1)"
-      (pins SW1-3 SW1-1 D2-1)
-    )
-    (net "Net-(D3-Pad2)"
-      (pins J2-2 D6-2 D3-2)
+      (pins SW1-2 SW1-1 D2-1)
     )
     (net "Net-(D3-Pad1)"
-      (pins SW2-3 SW2-1 D3-1)
-    )
-    (net "Net-(D4-Pad2)"
-      (pins J2-4 D4-2)
+      (pins SW2-2 SW2-1 D3-1)
     )
     (net "Net-(D4-Pad1)"
-      (pins SW4-3 SW4-1 D4-1)
+      (pins SW4-2 SW4-1 D4-1)
     )
     (net "Net-(D5-Pad1)"
-      (pins SW7-3 SW7-1 D5-1)
+      (pins SW7-2 SW7-1 D5-1)
     )
     (net "Net-(D6-Pad1)"
-      (pins SW6-3 SW6-1 D6-1)
+      (pins SW6-2 SW6-1 D6-1)
     )
     (net "Net-(D7-Pad1)"
-      (pins SW5-3 SW5-1 D7-1)
-    )
-    (net "Net-(J3-Pad2)"
-      (pins SW4-4 SW4-2 SW3-4 SW3-2 SW2-4 SW2-2 SW1-4 SW1-2 J3-2)
-    )
-    (net "Net-(J3-Pad1)"
-      (pins SW7-4 SW7-2 SW6-4 SW6-2 SW5-4 SW5-2 J3-1)
-    )
-    (net "Net-(J1-Pad2)"
-      (pins J1-2 SW7-6 SW1-6)
-    )
-    (net "Net-(J1-Pad1)"
-      (pins R3-2 R2-2 R1-2 J1-1)
+      (pins SW5-2 SW5-1 D7-1)
     )
     (net "Net-(R1-Pad1)"
       (pins R1-1 SW1-5)
     )
     (net "Net-(R2-Pad1)"
-      (pins R2-1 SW4-5)
+      (pins R2-1 SW2-5)
     )
     (net "Net-(R3-Pad1)"
-      (pins R3-1 SW5-5)
+      (pins R3-1 SW7-5)
     )
     (net "Net-(SW2-Pad6)"
-      (pins SW2-6)
+      (pins SW3-5 SW2-6)
     )
-    (net "Net-(SW2-Pad5)"
-      (pins SW3-6 SW2-5)
+    (net /COL2
+      (pins J2-3 D7-2 D1-2)
     )
-    (net "Net-(SW3-Pad5)"
-      (pins SW4-6 SW3-5)
+    (net /COL0
+      (pins J2-1 D5-2 D2-2)
     )
-    (net "Net-(SW5-Pad6)"
-      (pins SW6-5 SW5-6)
+    (net /COL1
+      (pins J2-2 D6-2 D3-2)
     )
-    (net "Net-(SW6-Pad6)"
-      (pins SW7-5 SW6-6)
+    (net /COL3
+      (pins J2-4 D4-2)
     )
-    (class kicad_default "" "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad1)"
-      "Net-(D2-Pad2)" "Net-(D3-Pad1)" "Net-(D3-Pad2)" "Net-(D4-Pad1)" "Net-(D4-Pad2)"
-      "Net-(D5-Pad1)" "Net-(D6-Pad1)" "Net-(D7-Pad1)" "Net-(J1-Pad1)" "Net-(J1-Pad2)"
-      "Net-(J3-Pad1)" "Net-(J3-Pad2)" "Net-(R1-Pad1)" "Net-(R2-Pad1)" "Net-(R3-Pad1)"
-      "Net-(SW2-Pad5)" "Net-(SW2-Pad6)" "Net-(SW3-Pad5)" "Net-(SW5-Pad6)"
-      "Net-(SW6-Pad6)"
+    (net /+BCKLGT
+      (pins R3-2 R2-2 R1-2 J1-1)
+    )
+    (net /ROW1
+      (pins SW4-4 SW4-3 SW3-4 SW3-3 SW2-4 SW2-3 SW1-4 SW1-3 J3-2)
+    )
+    (net /ROW0
+      (pins SW7-4 SW7-3 SW6-4 SW6-3 SW5-4 SW5-3 J3-1)
+    )
+    (net "/-BCKLGT"
+      (pins J1-2 SW5-6 SW4-6 SW1-6)
+    )
+    (net "Net-(SW3-Pad6)"
+      (pins SW4-5 SW3-6)
+    )
+    (net "Net-(SW5-Pad5)"
+      (pins SW6-6 SW5-5)
+    )
+    (net "Net-(SW6-Pad5)"
+      (pins SW7-6 SW6-5)
+    )
+    (class kicad_default "" /+BCKLGT "/-BCKLGT" /COL0 /COL1 /COL2 /COL3 /ROW0
+      /ROW1 "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad1)" "Net-(D2-Pad2)"
+      "Net-(D3-Pad1)" "Net-(D3-Pad2)" "Net-(D4-Pad1)" "Net-(D4-Pad2)" "Net-(D5-Pad1)"
+      "Net-(D6-Pad1)" "Net-(D7-Pad1)" "Net-(J1-Pad1)" "Net-(J1-Pad2)" "Net-(J3-Pad1)"
+      "Net-(J3-Pad2)" "Net-(R1-Pad1)" "Net-(R2-Pad1)" "Net-(R3-Pad1)" "Net-(SW2-Pad5)"
+      "Net-(SW2-Pad6)" "Net-(SW3-Pad5)" "Net-(SW3-Pad6)" "Net-(SW5-Pad5)"
+      "Net-(SW5-Pad6)" "Net-(SW6-Pad5)" "Net-(SW6-Pad6)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )
