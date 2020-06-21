@@ -34,14 +34,23 @@
     )
   )
   (placement
+    (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
+      (place D7 169650 -95570 front 270 (PN D))
+      (place D6 182570 -95570 front 270 (PN D))
+      (place D5 186810 -95760 front 270 (PN D))
+      (place D4 135810 -95570 front 270 (PN D))
+      (place D3 114700 -95470 front 270 (PN D))
+      (place D2 101690 -95470 front 270 (PN D))
+      (place D1 148340 -95760 front 270 (PN D))
+    )
     (component Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
       (place R3 152590 -95670 front 270 (PN 150))
       (place R2 97540 -95380 front 270 (PN 150))
       (place R1 118750 -95570 front 270 (PN 470))
     )
     (component Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical
-      (place J1 165410 -100970 front 0 (PN Conn_01x02_Female))
-      (place J3 165600 -94800 front 0 (PN Conn_01x02_Female))
+      (place J1 165410 -100970 back 0 (PN Conn_01x02_Female))
+      (place J3 165600 -94800 back 0 (PN Conn_01x02_Female))
     )
     (component PT_Library_v001:PT_Small_Tactile_Switch_With_LED
       (place SW7 193170 -99565 front 270 (PN SW_SPST))
@@ -53,19 +62,36 @@
       (place SW1 91570 -99565 front 270 (PN SW_SPST))
     )
     (component Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical
-      (place J2 131570 -95380 front 0 (PN Conn_01x04_Female))
-    )
-    (component "Diode_THT:D_A-405_P7.62mm_Horizontal"
-      (place D7 169650 -95570 front 270 (PN D))
-      (place D6 182570 -95570 front 270 (PN D))
-      (place D5 186810 -95760 front 270 (PN D))
-      (place D4 135810 -95570 front 270 (PN D))
-      (place D3 114700 -95470 front 270 (PN D))
-      (place D2 101690 -95470 front 270 (PN D))
-      (place D1 148340 -95760 front 270 (PN D))
+      (place J2 131570 -95380 back 0 (PN Conn_01x04_Female))
     )
   )
   (library
+    (image PT_Library_v001:D_Signal_P7.62mm_Horizontal
+      (outline (path signal 50  8670 1250  -1050 1250))
+      (outline (path signal 50  8670 -1250  8670 1250))
+      (outline (path signal 50  -1050 -1250  8670 -1250))
+      (outline (path signal 50  -1050 1250  -1050 -1250))
+      (outline (path signal 120  2290 1120  2290 -1120))
+      (outline (path signal 120  2530 1120  2530 -1120))
+      (outline (path signal 120  2410 1120  2410 -1120))
+      (outline (path signal 120  6580 0  5930 0))
+      (outline (path signal 120  1040 0  1690 0))
+      (outline (path signal 120  5930 1120  1690 1120))
+      (outline (path signal 120  5930 -1120  5930 1120))
+      (outline (path signal 120  1690 -1120  5930 -1120))
+      (outline (path signal 120  1690 1120  1690 -1120))
+      (outline (path signal 100  2310 1000  2310 -1000))
+      (outline (path signal 100  2510 1000  2510 -1000))
+      (outline (path signal 100  2410 1000  2410 -1000))
+      (outline (path signal 100  7620 0  5810 0))
+      (outline (path signal 100  0 0  1810 0))
+      (outline (path signal 100  5810 1000  1810 1000))
+      (outline (path signal 100  5810 -1000  5810 1000))
+      (outline (path signal 100  1810 -1000  5810 -1000))
+      (outline (path signal 100  1810 1000  1810 -1000))
+      (pin Oval[A]Pad_1600x1600_um 2 7620 0)
+      (pin Rect[A]Pad_1600x1600_um 1 0 0)
+    )
     (image Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
       (outline (path signal 50  8670 1500  -1050 1500))
       (outline (path signal 50  8670 -1500  8670 1500))
@@ -162,32 +188,6 @@
       (pin Oval[A]Pad_1700x1700_um 2 0 -2540)
       (pin Rect[A]Pad_1700x1700_um 1 0 0)
     )
-    (image "Diode_THT:D_A-405_P7.62mm_Horizontal"
-      (outline (path signal 50  8770 1600  -1150 1600))
-      (outline (path signal 50  8770 -1600  8770 1600))
-      (outline (path signal 50  -1150 -1600  8770 -1600))
-      (outline (path signal 50  -1150 1600  -1150 -1600))
-      (outline (path signal 120  1870 1470  1870 -1470))
-      (outline (path signal 120  2110 1470  2110 -1470))
-      (outline (path signal 120  1990 1470  1990 -1470))
-      (outline (path signal 120  6530 -1470  6530 -1140))
-      (outline (path signal 120  1090 -1470  6530 -1470))
-      (outline (path signal 120  1090 -1140  1090 -1470))
-      (outline (path signal 120  6530 1470  6530 1140))
-      (outline (path signal 120  1090 1470  6530 1470))
-      (outline (path signal 120  1090 1140  1090 1470))
-      (outline (path signal 100  1890 1350  1890 -1350))
-      (outline (path signal 100  2090 1350  2090 -1350))
-      (outline (path signal 100  1990 1350  1990 -1350))
-      (outline (path signal 100  7620 0  6410 0))
-      (outline (path signal 100  0 0  1210 0))
-      (outline (path signal 100  6410 1350  1210 1350))
-      (outline (path signal 100  6410 -1350  6410 1350))
-      (outline (path signal 100  1210 -1350  6410 -1350))
-      (outline (path signal 100  1210 1350  1210 -1350))
-      (pin Oval[A]Pad_1800x1800_um 2 7620 0)
-      (pin Rect[A]Pad_1800x1800_um 1 0 0)
-    )
     (padstack Round[A]Pad_1524_um
       (shape (circle F.Cu 1524))
       (shape (circle B.Cu 1524))
@@ -213,19 +213,14 @@
       (shape (path B.Cu 1700  0 0  0 0))
       (attach off)
     )
-    (padstack Oval[A]Pad_1800x1800_um
-      (shape (path F.Cu 1800  0 0  0 0))
-      (shape (path B.Cu 1800  0 0  0 0))
+    (padstack Rect[A]Pad_1600x1600_um
+      (shape (rect F.Cu -800 -800 800 800))
+      (shape (rect B.Cu -800 -800 800 800))
       (attach off)
     )
     (padstack Rect[A]Pad_1700x1700_um
       (shape (rect F.Cu -850 -850 850 850))
       (shape (rect B.Cu -850 -850 850 850))
-      (attach off)
-    )
-    (padstack Rect[A]Pad_1800x1800_um
-      (shape (rect F.Cu -900 -900 900 900))
-      (shape (rect B.Cu -900 -900 900 900))
       (attach off)
     )
     (padstack "Via[0-1]_600:400_um"
@@ -236,25 +231,25 @@
   )
   (network
     (net "Net-(D1-Pad1)"
-      (pins SW3-2 SW3-1 D1-1)
+      (pins D1-1 SW3-2 SW3-1)
     )
     (net "Net-(D2-Pad1)"
-      (pins SW1-2 SW1-1 D2-1)
+      (pins D2-1 SW1-2 SW1-1)
     )
     (net "Net-(D3-Pad1)"
-      (pins SW2-2 SW2-1 D3-1)
+      (pins D3-1 SW2-2 SW2-1)
     )
     (net "Net-(D4-Pad1)"
-      (pins SW4-2 SW4-1 D4-1)
+      (pins D4-1 SW4-2 SW4-1)
     )
     (net "Net-(D5-Pad1)"
-      (pins SW7-2 SW7-1 D5-1)
+      (pins D5-1 SW7-2 SW7-1)
     )
     (net "Net-(D6-Pad1)"
-      (pins SW6-2 SW6-1 D6-1)
+      (pins D6-1 SW6-2 SW6-1)
     )
     (net "Net-(D7-Pad1)"
-      (pins SW5-2 SW5-1 D7-1)
+      (pins D7-1 SW5-2 SW5-1)
     )
     (net "Net-(R1-Pad1)"
       (pins R1-1 SW1-5)
@@ -269,16 +264,16 @@
       (pins SW3-5 SW2-6)
     )
     (net /COL2
-      (pins J2-3 D7-2 D1-2)
+      (pins D7-2 D1-2 J2-3)
     )
     (net /COL0
-      (pins J2-1 D5-2 D2-2)
+      (pins D5-2 D2-2 J2-1)
     )
     (net /COL1
-      (pins J2-2 D6-2 D3-2)
+      (pins D6-2 D3-2 J2-2)
     )
     (net /COL3
-      (pins J2-4 D4-2)
+      (pins D4-2 J2-4)
     )
     (net /+BCKLGT
       (pins R3-2 R2-2 R1-2 J1-1)
@@ -302,12 +297,9 @@
       (pins SW7-6 SW6-5)
     )
     (class kicad_default "" /+BCKLGT "/-BCKLGT" /COL0 /COL1 /COL2 /COL3 /ROW0
-      /ROW1 "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad1)" "Net-(D2-Pad2)"
-      "Net-(D3-Pad1)" "Net-(D3-Pad2)" "Net-(D4-Pad1)" "Net-(D4-Pad2)" "Net-(D5-Pad1)"
-      "Net-(D6-Pad1)" "Net-(D7-Pad1)" "Net-(J1-Pad1)" "Net-(J1-Pad2)" "Net-(J3-Pad1)"
-      "Net-(J3-Pad2)" "Net-(R1-Pad1)" "Net-(R2-Pad1)" "Net-(R3-Pad1)" "Net-(SW2-Pad5)"
-      "Net-(SW2-Pad6)" "Net-(SW3-Pad5)" "Net-(SW3-Pad6)" "Net-(SW5-Pad5)"
-      "Net-(SW5-Pad6)" "Net-(SW6-Pad5)" "Net-(SW6-Pad6)"
+      /ROW1 "Net-(D1-Pad1)" "Net-(D2-Pad1)" "Net-(D3-Pad1)" "Net-(D4-Pad1)"
+      "Net-(D5-Pad1)" "Net-(D6-Pad1)" "Net-(D7-Pad1)" "Net-(R1-Pad1)" "Net-(R2-Pad1)"
+      "Net-(R3-Pad1)" "Net-(SW2-Pad6)" "Net-(SW3-Pad6)" "Net-(SW5-Pad5)" "Net-(SW6-Pad5)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )

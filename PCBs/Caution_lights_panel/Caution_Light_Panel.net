@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/Caution_lights_panel/Caution_Light_Panel.sch)
-    (date "Thursday, 11 June 2020 at 07:05:29 am")
+    (date "Sunday, 21 June 2020 at 06:28:20 am")
     (tool "Eeschema (5.1.5-0-10_14)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -16,8 +16,8 @@
         (comment (number 4) (value "")))))
   (components
     (comp (ref J1)
-      (value PWR)
-      (footprint Connector:FanPinHeader_1x04_P2.54mm_Vertical)
+      (value LedCathode)
+      (footprint PT_Library_v001:Molex_1x04_P2.54mm_Vertical)
       (fields
         (field (name PN) 22-29-2041))
       (libsource (lib Connector) (part Conn_01x04_Male) (description "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"))
@@ -244,8 +244,8 @@
       (sheetpath (names /) (tstamps /))
       (tstamp 5A8C39AB))
     (comp (ref J2)
-      (value PWR)
-      (footprint Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical)
+      (value LEDAnnode)
+      (footprint PT_Library_v001:Molex_1x06_P2.54mm_Vertical)
       (fields
         (field (name PN) 22-29-2041))
       (libsource (lib Connector) (part Conn_01x06_Male) (description "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"))

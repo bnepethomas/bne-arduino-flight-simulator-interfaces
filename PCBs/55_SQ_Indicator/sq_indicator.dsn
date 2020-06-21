@@ -34,19 +34,22 @@
     )
   )
   (placement
+    (component "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+      (place D5 168216 -84587 front 0 (PN 1N4148))
+    )
     (component PT_Library_v001:PT_Small_Tactile_Switch_With_LED
       (place SW1 167570 -92378.5 front 270 (PN push))
     )
     (component Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical
-      (place J4 163176 -85145 back 90 (PN Conn_01x02_Female))
-      (place J3 169546 -85145 back 90 (PN Conn_01x02_Female))
-      (place J2 169456 -98805 back 90 (PN Conn_01x02_Female))
-      (place J1 163226 -98805 back 90 (PN Conn_01x02_Female))
+      (place J4 162628 -85095 back 90 (PN SwitchRow))
+      (place J3 169994 -99065 back 90 (PN SwitchCol))
+      (place J2 166184 -98557 back 0 (PN LedCathode))
+      (place J1 162374 -98557 back 0 (PN LedAnode))
     )
     (component LED_THT:LED_D3.0mm
-      (place D4 173276 -93205 front 270 (PN LED))
-      (place D3 161996 -95585 front 90 (PN LED))
-      (place D2 173186 -88415 front 270 (PN LED))
+      (place D4 173276 -93035 front 270 (PN LED))
+      (place D3 161996 -93035 front 270 (PN LED))
+      (place D2 173186 -88155 front 270 (PN LED))
       (place D1 161946 -88155 front 270 (PN LED))
     )
     (component Mouting_Hole_2.71mm
@@ -59,6 +62,32 @@
     )
   )
   (library
+    (image "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+      (outline (path signal 50  8670 1250  -1050 1250))
+      (outline (path signal 50  8670 -1250  8670 1250))
+      (outline (path signal 50  -1050 -1250  8670 -1250))
+      (outline (path signal 50  -1050 1250  -1050 -1250))
+      (outline (path signal 120  2290 1120  2290 -1120))
+      (outline (path signal 120  2530 1120  2530 -1120))
+      (outline (path signal 120  2410 1120  2410 -1120))
+      (outline (path signal 120  6580 0  5930 0))
+      (outline (path signal 120  1040 0  1690 0))
+      (outline (path signal 120  5930 1120  1690 1120))
+      (outline (path signal 120  5930 -1120  5930 1120))
+      (outline (path signal 120  1690 -1120  5930 -1120))
+      (outline (path signal 120  1690 1120  1690 -1120))
+      (outline (path signal 100  2310 1000  2310 -1000))
+      (outline (path signal 100  2510 1000  2510 -1000))
+      (outline (path signal 100  2410 1000  2410 -1000))
+      (outline (path signal 100  7620 0  5810 0))
+      (outline (path signal 100  0 0  1810 0))
+      (outline (path signal 100  5810 1000  1810 1000))
+      (outline (path signal 100  5810 -1000  5810 1000))
+      (outline (path signal 100  1810 -1000  5810 -1000))
+      (outline (path signal 100  1810 1000  1810 -1000))
+      (pin Oval[A]Pad_1600x1600_um 2 7620 0)
+      (pin Rect[A]Pad_1600x1600_um 1 0 0)
+    )
     (image PT_Library_v001:PT_Small_Tactile_Switch_With_LED
       (outline (path signal 120  -4318 3810  -3048 3810))
       (outline (path signal 120  -4320 -3810  -4318 3810))
@@ -157,9 +186,19 @@
       (shape (circle B.Cu 3000))
       (attach off)
     )
+    (padstack Oval[A]Pad_1600x1600_um
+      (shape (path F.Cu 1600  0 0  0 0))
+      (shape (path B.Cu 1600  0 0  0 0))
+      (attach off)
+    )
     (padstack Oval[A]Pad_1700x1700_um
       (shape (path F.Cu 1700  0 0  0 0))
       (shape (path B.Cu 1700  0 0  0 0))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_1600x1600_um
+      (shape (rect F.Cu -800 -800 800 800))
+      (shape (rect B.Cu -800 -800 800 800))
       (attach off)
     )
     (padstack Rect[A]Pad_1700x1700_um
@@ -194,9 +233,6 @@
     (net "Net-(J3-Pad2)"
       (pins J3-2)
     )
-    (net "Net-(J3-Pad1)"
-      (pins SW1-2 SW1-1 J3-1)
-    )
     (net "Net-(J4-Pad2)"
       (pins J4-2)
     )
@@ -209,9 +245,15 @@
     (net "Net-(SW1-Pad5)"
       (pins SW1-5)
     )
-    (class kicad_default "" /backlight_1 /backlight_2 /button GND "Net-(D1-Pad1)"
-      "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(D3-Pad1)" "Net-(J3-Pad1)" "Net-(J3-Pad2)"
-      "Net-(J4-Pad1)" "Net-(J4-Pad2)" "Net-(SW1-Pad5)" "Net-(SW1-Pad6)"
+    (net "Net-(D5-Pad2)"
+      (pins D5-2 J3-1)
+    )
+    (net "Net-(D5-Pad1)"
+      (pins D5-1 SW1-2 SW1-1)
+    )
+    (class kicad_default "" "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad2)"
+      "Net-(D3-Pad1)" "Net-(D5-Pad1)" "Net-(D5-Pad2)" "Net-(J3-Pad2)" "Net-(J4-Pad1)"
+      "Net-(J4-Pad2)" "Net-(SW1-Pad5)" "Net-(SW1-Pad6)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )

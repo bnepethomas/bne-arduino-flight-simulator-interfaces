@@ -78,7 +78,7 @@ L Connector:Conn_01x02_Female J3
 U 1 1 5EE5A9D9
 P 5050 1300
 F 0 "J3" H 4942 1485 50  0000 C CNN
-F 1 "Conn_01x02_Female" H 4942 1394 50  0000 C CNN
+F 1 "SwitchCol" H 4942 1394 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 5050 1300 50  0001 C CNN
 F 3 "~" H 5050 1300 50  0001 C CNN
 	1    5050 1300
@@ -89,7 +89,7 @@ L Connector:Conn_01x02_Female J4
 U 1 1 5EE5B359
 P 5050 1750
 F 0 "J4" H 4942 1935 50  0000 C CNN
-F 1 "Conn_01x02_Female" H 4942 1844 50  0000 C CNN
+F 1 "SwitchRow" H 4942 1844 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 5050 1750 50  0001 C CNN
 F 3 "~" H 5050 1750 50  0001 C CNN
 	1    5050 1750
@@ -100,7 +100,7 @@ L Connector:Conn_01x02_Female J2
 U 1 1 5EE5BA11
 P 2850 3450
 F 0 "J2" H 2742 3635 50  0000 C CNN
-F 1 "Conn_01x02_Female" H 2742 3544 50  0000 C CNN
+F 1 "LedCathode" H 2742 3544 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 2850 3450 50  0001 C CNN
 F 3 "~" H 2850 3450 50  0001 C CNN
 	1    2850 3450
@@ -111,19 +111,14 @@ L Connector:Conn_01x02_Female J1
 U 1 1 5EE5C1EE
 P 2850 2600
 F 0 "J1" H 2742 2785 50  0000 C CNN
-F 1 "Conn_01x02_Female" H 2742 2694 50  0000 C CNN
+F 1 "LedAnode" H 2742 2694 50  0000 C CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 2850 2600 50  0001 C CNN
 F 3 "~" H 2850 2600 50  0001 C CNN
 	1    2850 2600
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	5250 1300 5850 1300
-Wire Wire Line
-	5850 1300 5850 1350
-Wire Wire Line
-	5850 1350 5850 1550
-Connection ~ 5850 1350
+	5850 1350 5850 1450
 Wire Wire Line
 	6400 1550 6400 1400
 Wire Wire Line
@@ -187,4 +182,22 @@ Wire Wire Line
 Connection ~ 3550 2700
 Wire Wire Line
 	3550 2700 3050 2700
+$Comp
+L Diode:1N4148 D5
+U 1 1 5EEF607D
+P 5400 1300
+F 0 "D5" H 5400 1084 50  0000 C CNN
+F 1 "1N4148" H 5400 1175 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5400 1125 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 5400 1300 50  0001 C CNN
+	1    5400 1300
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5550 1300 5550 1450
+Wire Wire Line
+	5550 1450 5850 1450
+Connection ~ 5850 1450
+Wire Wire Line
+	5850 1450 5850 1550
 $EndSCHEMATC
