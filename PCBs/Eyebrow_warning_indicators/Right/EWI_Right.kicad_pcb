@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.2)
-    (drawings 95)
+    (drawings 96)
     (tracks 274)
     (zones 0)
     (modules 43)
@@ -1899,6 +1899,9 @@
     (pad 1 np_thru_hole circle (at 0 0 180) (size 2.7 2.7) (drill 2.7) (layers *.Cu *.Mask))
   )
 
+  (gr_text "Right Eyebrow\nv001" (at 144.272 92.964) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
   (gr_text Green (at 165.1 36.83) (layer F.SilkS) (tstamp 5EEECD10)
     (effects (font (size 1 1) (thickness 0.15)))
   )

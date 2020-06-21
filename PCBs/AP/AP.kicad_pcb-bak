@@ -1170,7 +1170,7 @@
   (gr_text BCKLIGHT (at 171.704 104.902) (layer B.SilkS) (tstamp 5EEEB6A7)
     (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
   )
-  (gr_text BCKLIGHT (at 171.958 104.902) (layer F.SilkS) (tstamp 5EEEB6A3)
+  (gr_text BCKLIGHT (at 169.926 104.902) (layer F.SilkS) (tstamp 5EEEB6A3)
     (effects (font (size 1 1) (thickness 0.15)))
   )
   (gr_text "Switch Row" (at 172.466 93.726) (layer B.SilkS) (tstamp 5EEEB352)

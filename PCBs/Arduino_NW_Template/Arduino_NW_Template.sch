@@ -745,32 +745,22 @@ Wire Wire Line
 Text Notes 3300 1900 0    50   ~ 0
 Address Select (0-7)
 $Comp
-L Arduino_NW_Template-rescue:PT_Conn_01x06 J5
+L Connector:Conn_01x04_Female J5
 U 1 1 5E76203C
-P 4200 4450
-F 0 "J5" H 4118 4867 50  0000 C CNN
-F 1 "PT_Conn_01x06" H 4118 4776 50  0001 C CNN
-F 2 "PT_Library_v001:PT_PinHeader_1x06_P2.54mm_Vertical" H 4200 4450 50  0001 C CNN
-F 3 "~" H 4200 4450 50  0001 C CNN
-	1    4200 4450
+P 4200 4350
+F 0 "J5" H 4118 4767 50  0000 C CNN
+F 1 "PT_Conn_01x06" H 4118 4676 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 4200 4350 50  0001 C CNN
+F 3 "~" H 4200 4350 50  0001 C CNN
+	1    4200 4350
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	5200 4200 5200 4750
-Wire Wire Line
-	5200 4750 4400 4750
-Wire Wire Line
 	5200 4100 5100 4100
 Wire Wire Line
-	5100 4100 5100 4650
+	5100 4100 5100 4550
 Wire Wire Line
-	5100 4650 4400 4650
-Wire Wire Line
-	5200 4000 5000 4000
-Wire Wire Line
-	5000 4000 5000 4550
-Wire Wire Line
-	5000 4550 4400 4550
+	5100 4550 4400 4550
 $Comp
 L power:GND #PWR06
 U 1 1 5E7817B9
@@ -980,4 +970,51 @@ Text Notes 4300 5900 0    50   ~ 0
 Load/CS - Yellow
 Text Notes 4300 6000 0    50   ~ 0
 Clock - Green
+Wire Wire Line
+	5200 4200 4900 4200
+Wire Wire Line
+	4900 4200 4900 3400
+Wire Wire Line
+	4900 2800 4100 2800
+Connection ~ 4900 3400
+Wire Wire Line
+	4900 3400 4900 2800
+Wire Wire Line
+	5200 4000 5000 4000
+Wire Wire Line
+	5000 4000 5000 4450
+Wire Wire Line
+	5000 4450 4400 4450
+Text Label 5900 2500 0    50   ~ 0
++5V
+Text Label 4500 4100 0    50   ~ 0
++5V
+Text Label 8050 3450 0    50   ~ 0
++5V
+Text Label 3950 5450 0    50   ~ 0
++5V
+Text Label 10150 5050 0    50   ~ 0
++5V
+Text Label 9700 2000 0    50   ~ 0
++5V
+Text Label 5850 4750 0    50   ~ 0
+GND
+Text Label 10100 5150 0    50   ~ 0
+GND
+Text Label 9650 2100 0    50   ~ 0
+GND
+Text Label 2950 3950 0    50   ~ 0
+GND
+Text Label 7450 4900 0    50   ~ 0
+GND
+Text Label 3850 5600 0    50   ~ 0
+GND
+Text Label 9550 6200 0    50   ~ 0
+GND
+Text Label 9100 3150 0    50   ~ 0
+GND
+Text Label 4750 4150 0    50   ~ 0
+GND
+Text Label 6900 3150 0    50   ~ 0
+GND
 $EndSCHEMATC

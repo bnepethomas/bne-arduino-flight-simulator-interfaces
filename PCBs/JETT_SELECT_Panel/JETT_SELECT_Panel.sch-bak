@@ -148,18 +148,6 @@ F 4 "16-219A/T2D-AR2T1QY/3T" H 6200 4100 60  0001 C CNN "PN"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:LED D6
-U 1 1 5E14BB75
-P 5650 5300
-F 0 "D6" H 5650 5400 50  0000 C CNN
-F 1 "5,0" H 5650 5200 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm_Clear" H 5650 5300 50  0001 C CNN
-F 3 "http://www.everlight.com/file/ProductFile/16-219A-T2D-AR2T1QY-3T.pdf" H 5650 5300 50  0001 C CNN
-F 4 "16-219A/T2D-AR2T1QY/3T" H 5650 5300 60  0001 C CNN "PN"
-	1    5650 5300
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:LED D13
 U 1 1 5E14BB80
 P 6200 5300
@@ -198,25 +186,25 @@ $EndComp
 $Comp
 L Device:LED D7
 U 1 1 5E157E8D
-P 5650 5700
-F 0 "D7" H 5650 5800 50  0000 C CNN
-F 1 "6,0" H 5650 5600 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm_Clear" H 5650 5700 50  0001 C CNN
-F 3 "http://www.everlight.com/file/ProductFile/16-219A-T2D-AR2T1QY-3T.pdf" H 5650 5700 50  0001 C CNN
-F 4 "16-219A/T2D-AR2T1QY/3T" H 5650 5700 60  0001 C CNN "PN"
-	1    5650 5700
+P 6750 4500
+F 0 "D7" H 6750 4600 50  0000 C CNN
+F 1 "6,0" H 6750 4400 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm_Clear" H 6750 4500 50  0001 C CNN
+F 3 "http://www.everlight.com/file/ProductFile/16-219A-T2D-AR2T1QY-3T.pdf" H 6750 4500 50  0001 C CNN
+F 4 "16-219A/T2D-AR2T1QY/3T" H 6750 4500 60  0001 C CNN "PN"
+	1    6750 4500
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:LED D14
 U 1 1 5E157E98
-P 6200 5700
-F 0 "D14" H 6200 5800 50  0000 C CNN
-F 1 "6,1" H 6200 5600 50  0000 C CNN
-F 2 "LED_THT:LED_D3.0mm_Clear" H 6200 5700 50  0001 C CNN
-F 3 "http://www.everlight.com/file/ProductFile/16-219A-T2D-AR2T1QY-3T.pdf" H 6200 5700 50  0001 C CNN
-F 4 "16-219A/T2D-AR2T1QY/3T" H 6200 5700 60  0001 C CNN "PN"
-	1    6200 5700
+P 6750 4900
+F 0 "D14" H 6750 5000 50  0000 C CNN
+F 1 "6,1" H 6750 4800 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm_Clear" H 6750 4900 50  0001 C CNN
+F 3 "http://www.everlight.com/file/ProductFile/16-219A-T2D-AR2T1QY-3T.pdf" H 6750 4900 50  0001 C CNN
+F 4 "16-219A/T2D-AR2T1QY/3T" H 6750 4900 60  0001 C CNN "PN"
+	1    6750 4900
 	1    0    0    -1  
 $EndComp
 Text Label 5350 3500 2    50   ~ 0
@@ -231,8 +219,6 @@ Text Label 5350 5100 2    50   ~ 0
 Dig4
 Text Label 5350 5500 2    50   ~ 0
 Dig5
-Text Label 5350 5900 2    50   ~ 0
-Dig6
 Text Label 5800 3150 0    50   ~ 0
 SegDP
 Text Label 6350 3150 0    50   ~ 0
@@ -253,18 +239,12 @@ Wire Wire Line
 Connection ~ 5800 4900
 Wire Wire Line
 	5800 4900 5800 5300
-Connection ~ 5800 5300
-Wire Wire Line
-	5800 5300 5800 5700
 Connection ~ 6350 4500
 Wire Wire Line
 	6350 4500 6350 4900
 Connection ~ 6350 4900
 Wire Wire Line
 	6350 4900 6350 5300
-Connection ~ 6350 5300
-Wire Wire Line
-	6350 5300 6350 5700
 Wire Wire Line
 	5500 3300 5500 3500
 Wire Wire Line
@@ -294,20 +274,11 @@ Wire Wire Line
 Connection ~ 5500 5500
 Wire Wire Line
 	5500 5500 6050 5500
-Wire Wire Line
-	6050 5900 6050 5700
-Wire Wire Line
-	5500 5700 5500 5900
-Connection ~ 5500 5900
-Wire Wire Line
-	5500 5900 6050 5900
 Connection ~ 5800 3300
 Wire Wire Line
 	6900 3150 6900 3200
 Text Notes 5200 3050 0    80   ~ 0
 LED MATRIX
-Wire Notes Line
-	5150 5950 7700 5950
 Wire Notes Line
 	5400 3550 6450 3550
 Wire Notes Line
@@ -322,10 +293,6 @@ Wire Notes Line
 	5400 4750 6450 4750
 Wire Notes Line
 	5400 5600 6450 5600
-Wire Notes Line
-	5400 3150 5400 5950
-Wire Notes Line
-	6450 3150 6450 5950
 Wire Notes Line
 	6500 3550 7550 3550
 Wire Notes Line
@@ -525,14 +492,14 @@ Wire Wire Line
 	5800 2750 5800 3300
 Connection ~ 6900 3200
 $Comp
-L Connector:Conn_01x08_Female J4
+L Connector:Conn_01x06_Female J4
 U 1 1 5EF51B0D
-P 4450 4750
-F 0 "J4" H 4342 5235 50  0000 C CNN
-F 1 "Conn_01x08_Female" H 4342 5144 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 4450 4750 50  0001 C CNN
-F 3 "~" H 4450 4750 50  0001 C CNN
-	1    4450 4750
+P 4450 4650
+F 0 "J4" H 4342 5135 50  0000 C CNN
+F 1 "Conn_01x08_Female" H 4342 5044 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 4450 4650 50  0001 C CNN
+F 3 "~" H 4450 4650 50  0001 C CNN
+	1    4450 4650
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
@@ -569,12 +536,6 @@ Wire Wire Line
 	5100 4950 4650 4950
 Wire Wire Line
 	5100 5500 5500 5500
-Wire Wire Line
-	5000 5900 5000 5050
-Wire Wire Line
-	5000 5050 4650 5050
-Wire Wire Line
-	5000 5900 5500 5900
 $Comp
 L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW4
 U 1 1 5C452790
@@ -817,4 +778,32 @@ Wire Wire Line
 Wire Wire Line
 	6600 3900 6050 3900
 Connection ~ 6050 3900
+$Comp
+L Device:LED D6
+U 1 1 5E14BB75
+P 5650 5300
+F 0 "D6" H 5650 5400 50  0000 C CNN
+F 1 "5,0" H 5650 5200 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm_Clear" H 5650 5300 50  0001 C CNN
+F 3 "http://www.everlight.com/file/ProductFile/16-219A-T2D-AR2T1QY-3T.pdf" H 5650 5300 50  0001 C CNN
+F 4 "16-219A/T2D-AR2T1QY/3T" H 5650 5300 60  0001 C CNN "PN"
+	1    5650 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6900 4100 6900 4500
+Connection ~ 6900 4100
+Wire Wire Line
+	6900 4500 6900 4900
+Connection ~ 6900 4500
+Wire Wire Line
+	6600 4500 6600 4700
+Wire Wire Line
+	6600 4700 6050 4700
+Connection ~ 6050 4700
+Wire Wire Line
+	6600 4900 6600 5100
+Wire Wire Line
+	6600 5100 6050 5100
+Connection ~ 6050 5100
 $EndSCHEMATC

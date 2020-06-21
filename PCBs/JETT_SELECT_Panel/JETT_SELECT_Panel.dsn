@@ -56,11 +56,11 @@
   )
   (placement
     (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
-      (place J4 102970 -103333 back 270 (PN Conn_01x08_Female))
+      (place J4 102970 -103333 back 270 (PN LedCathode))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place J5 102950 -73402.8 back 270 (PN Conn_01x04_Female))
-      (place J2 103060 -82542.8 back 270 (PN Conn_01x03_Female))
+      (place J5 102950 -73402.8 back 270 (PN LedAnode))
+      (place J2 103060 -82542.8 back 270 (PN SwithCol))
     )
     (component PT_Library_v001:PT_Small_Tactile_Switch_With_LED
       (place SW5 111240 -91692.8 front 180 (PN SW_Push))
@@ -70,12 +70,12 @@
       (place SW1 102510 -56772.8 front 180 (PN SW_Push))
     )
     (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal
-      (place R2 87399.8 -95152.8 front 270 (PN R))
-      (place R1 95909.8 -53952.8 front 270 (PN R))
+      (place R2 87399.8 -95152.8 front 270 (PN 330))
+      (place R1 95909.8 -53952.8 front 270 (PN 150))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place J3 115200 -114203 back 270 (PN Conn_01x02_Female))
-      (place J1 92369.8 -113663 back 270 (PN Conn_01x02_Male))
+      (place J3 115200 -114203 back 270 (PN SwitchRow))
+      (place J1 91217.8 -113697 back 270 (PN BackLight))
     )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
       (place D27 87399.8 -83802.8 front 270 (PN D))
@@ -85,20 +85,20 @@
       (place D23 87719.8 -71012.8 front 270 (PN D))
     )
     (component LED_THT:LED_D3.0mm_Clear
-      (place D22 115870 -129633 front 0 (PN 5,3))
-      (place D21 115870 -118843 front 0 (PN 4,3))
-      (place D18 106610 -129633 front 0 (PN 5,2))
-      (place D17 106610 -118843 front 0 (PN 4,2))
+      (place D22 113824 -129633 front 0 (PN 5,3))
+      (place D21 113824 -118843 front 0 (PN 4,3))
+      (place D18 105442 -129633 front 0 (PN 5,2))
+      (place D17 105086 -118843 front 0 (PN 4,2))
       (place D16 110020 -97742.8 front 0 (PN 2,2))
       (place D15 110050 -80272.8 front 0 (PN 1,2))
-      (place D14 107140 -140433 front 0 (PN 6,1))
-      (place D13 98409.8 -129633 front 0 (PN 5,1))
-      (place D12 98409.8 -118843 front 0 (PN 4,1))
-      (place D11 107140 -108043 front 0 (PN 3,1))
-      (place D7 97879.8 -140433 front 0 (PN 6,0))
-      (place D6 89149.8 -129633 front 0 (PN 5,0))
-      (place D5 89149.8 -118843 front 0 (PN 4,0))
-      (place D4 97879.8 -108043 front 0 (PN 3,0))
+      (place D14 104934 -140367 front 0 (PN 6,1))
+      (place D13 96297.8 -129633 front 0 (PN 5,1))
+      (place D12 96297.8 -118843 front 0 (PN 4,1))
+      (place D11 105188 -108043 front 0 (PN 3,1))
+      (place D7 96805.8 -140367 front 0 (PN 6,0))
+      (place D6 88169.8 -129633 front 0 (PN 5,0))
+      (place D5 88169.8 -118843 front 0 (PN 4,0))
+      (place D4 96805.8 -108043 front 0 (PN 3,0))
       (place D3 92349.8 -97712.8 front 0 (PN 2,0))
       (place D2 92459.8 -80312.8 front 0 (PN 1,0))
       (place D1 101270 -62822.8 front 0 (PN 0,0))
@@ -499,11 +499,11 @@
     (net "Net-(SW4-Pad6)"
       (pins SW5-5 SW4-6)
     )
-    (class kicad_default "" /Dig0 /Dig1 /Dig2 /Dig3 /Dig4 /Dig5 /Dig6 /SegA
-      /SegB /SegDP "Net-(D23-Pad1)" "Net-(D23-Pad2)" "Net-(D24-Pad1)" "Net-(D24-Pad2)"
+    (class kicad_default "" /Dig0 /Dig1 /Dig2 /Dig3 /Dig4 /Dig5 /SegA /SegB
+      /SegDP "Net-(D23-Pad1)" "Net-(D23-Pad2)" "Net-(D24-Pad1)" "Net-(D24-Pad2)"
       "Net-(D25-Pad1)" "Net-(D26-Pad1)" "Net-(D26-Pad2)" "Net-(D27-Pad1)"
-      "Net-(J1-Pad1)" "Net-(J1-Pad2)" "Net-(J3-Pad1)" "Net-(J3-Pad2)" "Net-(J4-Pad8)"
-      "Net-(R1-Pad2)" "Net-(R2-Pad2)" "Net-(SW1-Pad6)" "Net-(SW2-Pad6)" "Net-(SW4-Pad6)"
+      "Net-(J1-Pad1)" "Net-(J1-Pad2)" "Net-(J3-Pad1)" "Net-(J3-Pad2)" "Net-(R1-Pad2)"
+      "Net-(R2-Pad2)" "Net-(SW1-Pad6)" "Net-(SW2-Pad6)" "Net-(SW4-Pad6)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )

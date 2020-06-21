@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.2)
-    (drawings 93)
+    (drawings 94)
     (tracks 267)
     (zones 0)
     (modules 43)
@@ -1900,6 +1900,9 @@
     (pad 1 np_thru_hole circle (at 0 0) (size 2.7 2.7) (drill 2.7) (layers *.Cu *.Mask))
   )
 
+  (gr_text "Left Eyebrow\nv001\n" (at 128.17 91.386) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
   (gr_text Backlight (at 101.754 66.748) (layer B.SilkS) (tstamp 5EEED9F1)
     (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
   )

@@ -200,4 +200,48 @@ Wire Wire Line
 Connection ~ 5850 1450
 Wire Wire Line
 	5850 1450 5850 1550
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 5EEECC41
+P 8050 3550
+F 0 "H1" H 8150 3596 50  0000 L CNN
+F 1 "MountingHole" H 8150 3505 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2" H 8050 3550 50  0001 C CNN
+F 3 "~" H 8050 3550 50  0001 C CNN
+	1    8050 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 5EEED081
+P 8050 3800
+F 0 "H2" H 8150 3846 50  0000 L CNN
+F 1 "MountingHole" H 8150 3755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_2.2mm_M2" H 8050 3800 50  0001 C CNN
+F 3 "~" H 8050 3800 50  0001 C CNN
+	1    8050 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 5EEED377
+P 8050 4050
+F 0 "H3" H 8150 4096 50  0000 L CNN
+F 1 "MountingHole" H 8150 4005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 8050 4050 50  0001 C CNN
+F 3 "~" H 8050 4050 50  0001 C CNN
+	1    8050 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 5EEED746
+P 8050 4350
+F 0 "H4" H 8150 4396 50  0000 L CNN
+F 1 "MountingHole" H 8150 4305 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 8050 4350 50  0001 C CNN
+F 3 "~" H 8050 4350 50  0001 C CNN
+	1    8050 4350
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

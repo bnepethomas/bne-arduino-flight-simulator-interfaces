@@ -612,7 +612,7 @@
         U2-GND D2-1 D1-1 C1-2 U1-27 U1-5 U1-4)
     )
     (net "Net-(C1-Pad1)"
-      (pins R3-1 U2-RST C1-1 U1-1)
+      (pins R3-1 C1-1)
     )
     (net "Net-(R2-Pad2)"
       (pins R2-2 U1-18)
@@ -633,8 +633,7 @@
       (pins U1-2)
     )
     (net +5V
-      (pins R3-2 J17-1 J16-1 J15-1 J14-1 J13-1 J4-1 J12-1 J11-1 J10-1 J5-1 U2-+5V
-        U1-3)
+      (pins J17-1 J16-1 J15-1 J14-1 J13-1 J4-1 J12-1 J11-1 J10-1 J5-1 U2-+5V U1-3)
     )
     (net "Net-(D1-Pad2)"
       (pins R2-1 D1-2)
@@ -840,22 +839,23 @@
     (net "Net-(J12-Pad6)"
       (pins J12-6)
     )
+    (net "Net-(R3-Pad2)"
+      (pins R3-2 U2-RST U1-1)
+    )
     (class kicad_default "" /RST /SC0 /SC1 /SC2 /SC3 /SC4 /SC5 /SC6 /SC7 /SD0
       /SD1 /SD2 /SD3 /SD4 /SD5 /SD6 /SD7 "Net-(C1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad2)"
-      "Net-(J1-Pad1)" "Net-(J11-Pad6)" "Net-(J12-Pad6)" "Net-(J14-Pad1)" "Net-(J14-Pad2)"
-      "Net-(J15-Pad1)" "Net-(J16-Pad1)" "Net-(J17-Pad1)" "Net-(J2-Pad1)" "Net-(J2-Pad6)"
-      "Net-(J3-Pad1)" "Net-(J3-Pad6)" "Net-(J4-Pad3)" "Net-(J4-Pad4)" "Net-(J4-Pad5)"
-      "Net-(J4-Pad6)" "Net-(J5-Pad3)" "Net-(J5-Pad4)" "Net-(J5-Pad5)" "Net-(J5-Pad6)"
-      "Net-(J6-Pad1)" "Net-(J6-Pad2)" "Net-(J6-Pad3)" "Net-(J6-Pad4)" "Net-(J6-Pad5)"
-      "Net-(J6-Pad6)" "Net-(J6-Pad7)" "Net-(J6-Pad8)" "Net-(J7-Pad1)" "Net-(J7-Pad2)"
-      "Net-(J7-Pad3)" "Net-(J7-Pad4)" "Net-(J7-Pad5)" "Net-(J7-Pad6)" "Net-(J7-Pad7)"
-      "Net-(J7-Pad8)" "Net-(J8-Pad1)" "Net-(J8-Pad2)" "Net-(J8-Pad3)" "Net-(J8-Pad4)"
-      "Net-(J8-Pad5)" "Net-(J8-Pad6)" "Net-(J8-Pad7)" "Net-(J8-Pad8)" "Net-(J9-Pad1)"
-      "Net-(J9-Pad2)" "Net-(R1-Pad2)" "Net-(R2-Pad2)" "Net-(U1-Pad10)" "Net-(U1-Pad11)"
-      "Net-(U1-Pad12)" "Net-(U1-Pad13)" "Net-(U1-Pad14)" "Net-(U1-Pad15)"
-      "Net-(U1-Pad16)" "Net-(U1-Pad17)" "Net-(U1-Pad2)" "Net-(U1-Pad23)" "Net-(U1-Pad28)"
-      "Net-(U1-Pad6)" "Net-(U1-Pad7)" "Net-(U1-Pad8)" "Net-(U1-Pad9)" "Net-(U2-Pad+5V)"
-      "Net-(U2-PadA0)" "Net-(U2-PadA1)" "Net-(U2-PadA2)" "Net-(U2-PadGND)"
+      "Net-(J1-Pad1)" "Net-(J11-Pad6)" "Net-(J12-Pad6)" "Net-(J2-Pad1)" "Net-(J3-Pad1)"
+      "Net-(J4-Pad3)" "Net-(J4-Pad4)" "Net-(J4-Pad5)" "Net-(J4-Pad6)" "Net-(J5-Pad3)"
+      "Net-(J5-Pad4)" "Net-(J6-Pad1)" "Net-(J6-Pad2)" "Net-(J6-Pad3)" "Net-(J6-Pad4)"
+      "Net-(J6-Pad5)" "Net-(J6-Pad6)" "Net-(J6-Pad7)" "Net-(J6-Pad8)" "Net-(J7-Pad1)"
+      "Net-(J7-Pad2)" "Net-(J7-Pad3)" "Net-(J7-Pad4)" "Net-(J7-Pad5)" "Net-(J7-Pad6)"
+      "Net-(J7-Pad7)" "Net-(J7-Pad8)" "Net-(J8-Pad1)" "Net-(J8-Pad2)" "Net-(J8-Pad3)"
+      "Net-(J8-Pad4)" "Net-(J8-Pad5)" "Net-(J8-Pad6)" "Net-(J8-Pad7)" "Net-(J8-Pad8)"
+      "Net-(J9-Pad1)" "Net-(J9-Pad2)" "Net-(R1-Pad2)" "Net-(R2-Pad2)" "Net-(R3-Pad2)"
+      "Net-(U1-Pad10)" "Net-(U1-Pad11)" "Net-(U1-Pad12)" "Net-(U1-Pad13)"
+      "Net-(U1-Pad14)" "Net-(U1-Pad15)" "Net-(U1-Pad2)" "Net-(U1-Pad23)" "Net-(U1-Pad28)"
+      "Net-(U1-Pad6)" "Net-(U1-Pad7)" "Net-(U1-Pad8)" "Net-(U1-Pad9)" "Net-(U2-PadA0)"
+      "Net-(U2-PadA1)" "Net-(U2-PadA2)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
