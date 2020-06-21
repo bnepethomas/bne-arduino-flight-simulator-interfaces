@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.2)
-    (drawings 92)
+    (drawings 93)
     (tracks 0)
     (zones 0)
     (modules 43)
@@ -1900,6 +1900,9 @@
     (pad 1 np_thru_hole circle (at 0 0) (size 2.7 2.7) (drill 2.7) (layers *.Cu *.Mask))
   )
 
+  (gr_text Backlight (at 101.754 66.748) (layer B.SilkS) (tstamp 5EEED9F1)
+    (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
+  )
   (gr_text + (at 87.784 48.46) (layer F.SilkS) (tstamp 5EEED635)
     (effects (font (size 1 1) (thickness 0.15)))
   )
@@ -2104,7 +2107,7 @@
   (gr_text "Switch Col" (at 98.198 46.682) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
-  (gr_text Backlight (at 102.008 66.748) (layer F.SilkS)
+  (gr_text Backlight (at 101.5 66.748) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
   (gr_text "LED Cathode" (at 121.312 61.668) (layer B.SilkS) (tstamp 5EEEC629)
