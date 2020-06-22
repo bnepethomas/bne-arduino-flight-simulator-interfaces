@@ -1,0 +1,146 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EEFED0C
+P 3500 2000
+F 0 "D?" H 3500 1784 50  0000 C CNN
+F 1 "1N4148" H 3500 1875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3500 1825 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3500 2000 50  0001 C CNN
+	1    3500 2000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EEFF5AA
+P 3500 2300
+F 0 "D?" H 3500 2084 50  0000 C CNN
+F 1 "1N4148" H 3500 2175 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3500 2125 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3500 2300 50  0001 C CNN
+	1    3500 2300
+	-1   0    0    1   
+$EndComp
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF01EF3
+P 3500 2600
+F 0 "D?" H 3500 2384 50  0000 C CNN
+F 1 "1N4148" H 3500 2475 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3500 2425 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3500 2600 50  0001 C CNN
+	1    3500 2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L Diode:1N4148 D?
+U 1 1 5EF033E0
+P 3500 2900
+F 0 "D?" H 3500 2684 50  0000 C CNN
+F 1 "1N4148" H 3500 2775 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 3500 2725 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 3500 2900 50  0001 C CNN
+	1    3500 2900
+	-1   0    0    1   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 5EF05497
+P 4250 2000
+F 0 "J?" H 4278 1976 50  0000 L CNN
+F 1 "SwitchRow" H 4278 1885 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4250 2000 50  0001 C CNN
+F 3 "~" H 4250 2000 50  0001 C CNN
+	1    4250 2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 5EF08C7F
+P 3150 3500
+F 0 "J?" H 3178 3476 50  0000 L CNN
+F 1 "BackLight" H 3178 3385 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3150 3500 50  0001 C CNN
+F 3 "~" H 3150 3500 50  0001 C CNN
+	1    3150 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 5EF0A654
+P 2350 3500
+F 0 "J?" H 2242 3685 50  0000 C CNN
+F 1 "BackLight" H 2242 3594 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2350 3500 50  0001 C CNN
+F 3 "~" H 2350 3500 50  0001 C CNN
+	1    2350 3500
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	2950 3500 2550 3500
+Wire Wire Line
+	2950 3600 2550 3600
+Wire Wire Line
+	4050 2000 3750 2000
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 5EF0B9E6
+P 2400 2000
+F 0 "J?" H 2292 2185 50  0000 C CNN
+F 1 "SwitchCol" H 2292 2094 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2400 2000 50  0001 C CNN
+F 3 "~" H 2400 2000 50  0001 C CNN
+	1    2400 2000
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3350 2000 2950 2000
+Wire Wire Line
+	2600 2100 2800 2100
+Wire Wire Line
+	3150 2100 3150 2300
+Wire Wire Line
+	3150 2300 3350 2300
+Wire Wire Line
+	3750 2000 3750 2300
+Wire Wire Line
+	3750 2300 3650 2300
+Connection ~ 3750 2000
+Wire Wire Line
+	3750 2000 3650 2000
+Wire Wire Line
+	4050 2100 4050 2600
+Wire Wire Line
+	4050 2600 3650 2600
+Wire Wire Line
+	3650 2600 3650 2900
+Connection ~ 3650 2600
+Wire Wire Line
+	2950 2000 2950 2600
+Wire Wire Line
+	2950 2600 3350 2600
+Connection ~ 2950 2000
+Wire Wire Line
+	2950 2000 2600 2000
+Wire Wire Line
+	2800 2100 2800 2900
+Wire Wire Line
+	2800 2900 3350 2900
+Connection ~ 2800 2100
+Wire Wire Line
+	2800 2100 3150 2100
+$EndSCHEMATC
