@@ -44,6 +44,11 @@
 // or may this one 0.66" 64*48 SSD1036
 // I2C 0x3C - validate by running scanner
 
+// When using U8G2 library use this constructor for 64x48 display (assuming pinn is used for reset which will need to 
+// change with NW shield is attached
+// U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ 4); 
+//
+//
 
 // Basic logic
 // Initialise I2C Bus (wire)
