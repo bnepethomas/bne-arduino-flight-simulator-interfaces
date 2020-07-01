@@ -3,6 +3,7 @@
 #include <U8g2lib.h>
 //#include "hornet_font.c"
 #include "hornet_font.h"
+#include "dseg14_v3.h"
 //#include "u8g2_font.c"
 //#include "u8g2_fonts.c"
 
@@ -11,6 +12,24 @@
 // first thing in the morning the output was a 
 // mess
 // after a few minutes it settled down which is really weird
+// Increasingly this looks like either a temperature related H/W issue or some
+// like a precharge isn't bring something to the level it needs to be
+// Oir more likely need Pull up resistors as behaviour changed when I touched the I2C cable
+
+//The data format of U8G2 fonts is based on the BDF font format. Its glyph bitmaps are compressed with a 
+//run-length-encoding algorithm and its header data are designed with variable bit field width to 
+//minimize flash memory footprint.
+
+//http://oleddisplay.squix.ch/#/home
+//<3.0.0 is Thiele with packed bitmaps (and special gotcha)
+//>=3.0.0 has a Jump table with aligned bitmaps (and really special gotcha)
+//Adafruit_GFX has missing bitmap and glyph entry for 0x7E (tilde)
+
+// https://rop.nl/truetype2gfx/
+
+// FontForge
+// https://learn.adafruit.com/custom-fonts-for-pyportal-circuitpython-display/conversion
+
 //
 //      tcaselect(2);
 //      OLED_3.setFont(u8g2_DcsFont_tf);
@@ -45,13 +64,15 @@ void setup(void) {
 /* draw something on the display with the `firstPage()`/`nextPage()` loop*/
 void loop(void) {
   int xpos = 35;
-  int xpos2 = 9;
+  int xpos2 = 6;
   int ypos1 = 47;
   for (int i=0; i<= 13; i++){
     u8g2.firstPage();
     do {
       //u8g2.setFont(u8g2_font_fub35_tr);
-      u8g2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+      //u8g2.setFont(DSEG14_Classic_Regular_16);
+      //u8g2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+      u8g2.setFont(u8g2_font_7Segments_26x42_mn);
       //u8g2_DcsFontHornet3_BIOS_09_tf
       //u8g2_DcsFontHornet4_BIOS_09_tf
       //u8g2.setFont(u8g2_font_fub35_tr);
@@ -66,19 +87,19 @@ void loop(void) {
 //      u8g2.setCursor(0,14);
 //      u8g2.print(millis());
     } while ( u8g2.nextPage() );
-    delay(100);
+    delay(50);
     
   }
   u8g2.firstPage();
   do {
     u8g2.clearBuffer();
-    u8g2.setFont(u8g2_font_ncenB12_tr);
+    u8g2.setFont(u8g2_font_7Segments_26x42_mn);
     //u8g2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
     u8g2.setCursor(xpos2,ypos1);
     u8g2.print("C");
 
     
   } while ( u8g2.nextPage() );
-  delay(40);
+  delay(400);
 
 }
