@@ -107,7 +107,7 @@ void setup() {
     Serial.print("TCA Port #"); Serial.println(t);
 
     for (uint8_t addr = 0; addr<=127; addr++) {
-      if (addr == TCAADDR) continue;
+      //if (addr == TCAADDR) continue;
     
       uint8_t data;
       if (! twi_writeTo(addr, &data, 0, 1, 1)) {
