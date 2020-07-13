@@ -10,12 +10,18 @@
  We have only a single MAX72XX.
  */
 
-LedControl lc=LedControl(9,8,7,1);  
+// Single Max7219
+//LedControl lc=LedControl(9,8,7,1);  
+
+//Two Max7219
+LedControl lc=LedControl(9,8,7,2); 
 
 char receivedChar;
 boolean newData = false;
 /* we always wait a bit between updates of the display */
 unsigned long delaytime=100;
+
+int devices = 1;
 
 void setup() {
   Serial.begin(115200);
@@ -24,11 +30,17 @@ void setup() {
    The MAX72XX is in power-saving mode on startup,
    we have to do a wakeup call
    */
-  lc.shutdown(0,false);
-  /* Set the brightness to a medium values */
-  lc.setIntensity(0,8);
-  /* and clear the display */
-  lc.clearDisplay(0);
+
+  devices=lc.getDeviceCount();
+  
+  for(int address=0;address<devices;address++) {
+    /*The MAX72XX is in power-saving mode on startup*/
+    lc.shutdown(address,false);
+    /* Set the brightness to a medium values */
+    lc.setIntensity(address,8);
+    /* and clear the display */
+    lc.clearDisplay(address);
+  }
 }
 
 
@@ -49,47 +61,59 @@ void showNewData() {
 
 
 void single() {
-
-  for(int row=0;row<8;row++) {
-    for(int col=0;col<8;col++) {
-      delay(delaytime);
-      Serial.println("Press Enter to Continue");
-
-      newData = false;
-      while (newData == false) {
-        recvOneChar();
-        delay(10);  
+  for(int address=0;address<devices;address++) {
+    for(int row=0;row<8;row++) {
+      for(int col=0;col<8;col++) {
+        delay(delaytime);
+        Serial.println("Press Enter to Continue");
+  
+        newData = false;
+        while (newData == false) {
+          recvOneChar();
+          delay(10);  
+        }
+        
+  
+        lc.clearDisplay(address);
+        Serial.println("Device:" + String(address));
+        Serial.println("Row   :" + String(row));
+        Serial.println("Col   :" + String(col));
+        lc.setLed(address,row,col,true);
+  //      delay(delaytime);
+  //      for(int i=0;i<col;i++) {
+  //        lc.setLed(0,row,col,false);
+  //        delay(delaytime);
+  //        lc.setLed(0,row,col,true);
+  //        delay(delaytime);
+  //      }
       }
-      
-
-      lc.clearDisplay(0);
-      Serial.println("Row :" + String(row));
-      Serial.println("Col :" + String(col));
-      lc.setLed(0,row,col,true);
-//      delay(delaytime);
-//      for(int i=0;i<col;i++) {
-//        lc.setLed(0,row,col,false);
-//        delay(delaytime);
-//        lc.setLed(0,row,col,true);
-//        delay(delaytime);
-//      }
     }
   }
 }
 
 void AllOn() {
-  
-  for(int row=0;row<8;row++) {
-    for(int col=0;col<8;col++) {
-      lc.setLed(0,row,col,true);
-    } 
+  for(int address=0;address<devices;address++) {  
+    for(int row=0;row<8;row++) {
+      for(int col=0;col<8;col++) {
+        lc.setLed(address,row,col,true);
+      } 
+    }
+  }
+}
+
+void AllOff() {
+  for(int address=0;address<devices;address++) {  
+    for(int row=0;row<8;row++) {
+      for(int col=0;col<8;col++) {
+        lc.setLed(address,row,col,false);
+      } 
+    }
   }
 }
 
 
-
-
 void loop() { 
+  Serial.println("There are " + String(devices) + " devices");
   Serial.println("All Leds on");
   AllOn();
   Serial.println("Press Enter to Continue");
@@ -99,6 +123,6 @@ void loop() {
     recvOneChar();
     delay(100);  
   }
-  lc.clearDisplay(0);      
+  AllOff();     
   single();
 }
