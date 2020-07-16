@@ -14,7 +14,7 @@
 //LedControl lc=LedControl(9,8,7,1);  
 
 //Two Max7219
-LedControl lc=LedControl(9,8,7,2); 
+LedControl lc=LedControl(9,8,7,3); 
 
 char receivedChar;
 boolean newData = false;
