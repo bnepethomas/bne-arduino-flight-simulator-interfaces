@@ -1,6 +1,6 @@
 // Test Harness for Max7219 
 #include "LedControl.h"
-
+// NEED TO SWAP COLS and ROWs to match PCB
 /*
  Now we need a LedControl to work with.
  ***** These pin numbers will probably not work with your hardware *****
@@ -14,7 +14,7 @@
 //LedControl lc=LedControl(9,8,7,1);  
 
 //Two Max7219
-LedControl lc=LedControl(9,8,7,3); 
+LedControl lc=LedControl(9,8,7,4); 
 
 char receivedChar;
 boolean newData = false;
