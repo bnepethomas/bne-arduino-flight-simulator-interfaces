@@ -242,10 +242,12 @@ F 3 "~" H 8200 3850 50  0001 C CNN
 	1    8200 3850
 	1    0    0    -1  
 $EndComp
-Text Label 3650 3350 0    50   ~ 0
-Power
-Text Label 5650 3150 0    50   ~ 0
-Power
-Text Label 5850 3250 0    50   ~ 0
-Power
+Text Label 2900 3350 0    50   ~ 0
++12VWhite
+Text Label 5100 3450 0    50   ~ 0
+GNDWhite
+Text Label 3400 3150 0    50   ~ 0
++12VGreen
+Text Label 5350 3250 0    50   ~ 0
+GNDGreen
 $EndSCHEMATC

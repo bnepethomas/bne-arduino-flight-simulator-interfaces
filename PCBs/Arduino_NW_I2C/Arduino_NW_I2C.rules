@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1315)
+    (start_pass_no 1318)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -70,15 +70,15 @@
   )
   (class "kicad_default"
     "Net-(C1-Pad1)" "Net-(R2-Pad2)" "Net-(U1-Pad28)" "Net-(U1-Pad14)" "Net-(U1-Pad13)" "Net-(U1-Pad6)" "Net-(U1-Pad2)" "Net-(D1-Pad2)"
-    "Net-(D2-Pad2)" "Net-(J4-Pad3)" "Net-(J4-Pad4)" "Net-(J4-Pad5)" "Net-(J4-Pad6)" "Net-(J5-Pad3)" "Net-(J5-Pad4)" "Net-(J6-Pad8)"
-    "Net-(J6-Pad7)" "Net-(J6-Pad6)" "Net-(J6-Pad5)" "Net-(J6-Pad4)" "Net-(J6-Pad3)" "Net-(J6-Pad2)" "Net-(J6-Pad1)" "Net-(J7-Pad8)"
-    "Net-(J7-Pad7)" "Net-(J7-Pad6)" "Net-(J7-Pad5)" "Net-(J7-Pad4)" "Net-(J7-Pad3)" "Net-(J7-Pad2)" "Net-(J7-Pad1)" "Net-(J8-Pad8)"
-    "Net-(J8-Pad7)" "Net-(J8-Pad6)" "Net-(J8-Pad5)" "Net-(J8-Pad4)" "Net-(J8-Pad3)" "Net-(J8-Pad2)" "Net-(J8-Pad1)" "Net-(R1-Pad2)"
-    "Net-(U1-Pad23)" "Net-(U1-Pad15)" "Net-(U1-Pad12)" "Net-(U1-Pad11)" "Net-(U1-Pad10)" "Net-(U1-Pad9)" "Net-(U1-Pad8)" "Net-(U1-Pad7)"
-    "Net-(U2-PadA1)" "Net-(U2-PadA0)" "Net-(U2-PadA2)" /SC7 /SD7 /SC6 /SD6 /SC0
-    /SD0 /RST /SC1 /SD1 /SC2 /SD2 /SC3 /SD3
-    /SC4 /SD4 /SC5 /SD5 "Net-(J1-Pad1)" "Net-(J2-Pad1)" "Net-(J3-Pad1)" "Net-(J9-Pad2)"
-    "Net-(J9-Pad1)" "Net-(J11-Pad6)" "Net-(J12-Pad6)" "Net-(R3-Pad2)"
+    "Net-(D2-Pad2)" "Net-(J4-Pad3)" "Net-(J4-Pad4)" "Net-(J4-Pad5)" "Net-(J4-Pad6)" "Net-(J6-Pad8)" "Net-(J6-Pad7)" "Net-(J6-Pad6)"
+    "Net-(J6-Pad5)" "Net-(J6-Pad4)" "Net-(J6-Pad3)" "Net-(J6-Pad2)" "Net-(J6-Pad1)" "Net-(J7-Pad8)" "Net-(J7-Pad7)" "Net-(J7-Pad6)"
+    "Net-(J7-Pad5)" "Net-(J7-Pad4)" "Net-(J7-Pad3)" "Net-(J7-Pad2)" "Net-(J7-Pad1)" "Net-(J8-Pad8)" "Net-(J8-Pad7)" "Net-(J8-Pad6)"
+    "Net-(J8-Pad5)" "Net-(J8-Pad4)" "Net-(J8-Pad3)" "Net-(J8-Pad2)" "Net-(J8-Pad1)" "Net-(R1-Pad2)" "Net-(U1-Pad23)" "Net-(U1-Pad12)"
+    "Net-(U1-Pad11)" "Net-(U1-Pad10)" "Net-(U1-Pad9)" "Net-(U1-Pad8)" "Net-(U1-Pad7)" "Net-(U2-PadA1)" "Net-(U2-PadA0)" "Net-(U2-PadA2)"
+    /SC7 /SD7 /SC6 /SD6 /SC0 /SD0 /SC1 /SD1
+    /SC2 /SD2 /SC3 /SD3 /SC4 /SD4 /SC5 /SD5
+    "Net-(J1-Pad1)" "Net-(J2-Pad1)" "Net-(J3-Pad1)" "Net-(J9-Pad2)" "Net-(J9-Pad1)" "Net-(J11-Pad6)" "Net-(J12-Pad6)" "Net-(R3-Pad2)"
+    "/RST_1" "/RST_2" "/RST_3" "Net-(J13-Pad6)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

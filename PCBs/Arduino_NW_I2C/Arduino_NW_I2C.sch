@@ -158,51 +158,6 @@ Wire Wire Line
 Wire Wire Line
 	3450 5850 3450 3600
 $Comp
-L Connector:Conn_01x04_Female J5
-U 1 1 5E76203C
-P 4200 4350
-F 0 "J5" H 4118 4767 50  0000 C CNN
-F 1 "PT_Conn_01x06" H 4118 4676 50  0001 C CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 4200 4350 50  0001 C CNN
-F 3 "~" H 4200 4350 50  0001 C CNN
-	1    4200 4350
-	-1   0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR05
-U 1 1 5E7817B9
-P 4750 4200
-F 0 "#PWR05" H 4750 3950 50  0001 C CNN
-F 1 "GND" H 4755 4027 50  0000 C CNN
-F 2 "" H 4750 4200 50  0001 C CNN
-F 3 "" H 4750 4200 50  0001 C CNN
-	1    4750 4200
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR04
-U 1 1 5E78236E
-P 4500 4050
-F 0 "#PWR04" H 4500 3900 50  0001 C CNN
-F 1 "+5V" H 4515 4223 50  0000 C CNN
-F 2 "" H 4500 4050 50  0001 C CNN
-F 3 "" H 4500 4050 50  0001 C CNN
-	1    4500 4050
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4500 4050 4500 4250
-Wire Wire Line
-	4500 4250 4400 4250
-Wire Wire Line
-	4750 4200 4750 4100
-Wire Wire Line
-	4750 4100 4650 4100
-Wire Wire Line
-	4650 4100 4650 4350
-Wire Wire Line
-	4650 4350 4400 4350
-$Comp
 L Device:R R2
 U 1 1 5E7905FE
 P 4750 3400
@@ -311,7 +266,7 @@ F 3 "~" H 7250 5700 50  0001 C CNN
 	1    7250 5700
 	1    0    0    -1  
 $EndComp
-Text Notes 5200 2100 0    50   ~ 0
+Text Notes 4950 1900 0    50   ~ 0
 Cannot use D4 and D10 as they are used by the Ethernet shield
 Text Notes 6550 5150 0    50   ~ 0
 Spares
@@ -352,12 +307,12 @@ F 3 "~" H 10400 2000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Conn_01x04 J13
+L PT_Symbol_Library_v001:PT_Conn_01x06 J13
 U 1 1 5EDF9E7F
 P 10400 2700
 F 0 "J13" H 10318 3117 50  0000 C CNN
 F 1 "PT_Conn_01x04" H 10318 3026 50  0001 C CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 10400 2700 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 10400 2700 50  0001 C CNN
 F 3 "~" H 10400 2700 50  0001 C CNN
 	1    10400 2700
 	1    0    0    -1  
@@ -474,8 +429,6 @@ Entry Wire Line
 Entry Wire Line
 	9900 1200 10000 1300
 Entry Wire Line
-	9900 1300 10000 1400
-Entry Wire Line
 	9900 1700 10000 1800
 Entry Wire Line
 	9900 1800 10000 1900
@@ -483,8 +436,6 @@ Entry Wire Line
 	9900 1900 10000 2000
 Entry Wire Line
 	9900 2000 10000 2100
-Entry Wire Line
-	9900 2100 10000 2200
 Entry Wire Line
 	9900 3150 10000 3250
 Entry Wire Line
@@ -729,9 +680,9 @@ SD0
 Text Label 10050 1200 0    50   ~ 0
 SC0
 Text Label 10050 1400 0    50   ~ 0
-RST
+RST_1
 Text Label 10050 2200 0    50   ~ 0
-RST
+RST_2
 Text Label 9100 2950 0    50   ~ 0
 SD6
 Text Label 9100 3050 0    50   ~ 0
@@ -766,75 +717,8 @@ Wire Wire Line
 	7150 3150 7150 2850
 Wire Wire Line
 	6800 3200 6800 3300
-$Comp
-L Connector:Conn_01x02_Female J1
-U 1 1 5EF0A7A0
-P 4000 2150
-F 0 "J1" H 3892 2335 50  0000 C CNN
-F 1 "A0" H 3892 2244 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4000 2150 50  0001 C CNN
-F 3 "~" H 4000 2150 50  0001 C CNN
-	1    4000 2150
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J2
-U 1 1 5EF0B0E0
-P 4000 2450
-F 0 "J2" H 3892 2635 50  0000 C CNN
-F 1 "A1" H 3892 2544 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4000 2450 50  0001 C CNN
-F 3 "~" H 4000 2450 50  0001 C CNN
-	1    4000 2450
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J3
-U 1 1 5EF0BC27
-P 4000 2700
-F 0 "J3" H 3892 2885 50  0000 C CNN
-F 1 "A2" H 3892 2794 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4000 2700 50  0001 C CNN
-F 3 "~" H 4000 2700 50  0001 C CNN
-	1    4000 2700
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	5200 4200 5050 4200
-Wire Wire Line
-	5050 4200 5050 2700
-Wire Wire Line
-	5050 2700 4200 2700
-Wire Wire Line
-	5200 3200 4950 3200
-Wire Wire Line
-	4950 3200 4950 2150
-Wire Wire Line
-	4950 2150 4200 2150
-Wire Wire Line
-	5200 3300 5000 3300
-Wire Wire Line
-	5000 3300 5000 2450
-Wire Wire Line
-	5000 2450 4200 2450
-Text Label 4200 2250 0    50   ~ 0
-GND
-Text Label 4200 2550 0    50   ~ 0
-GND
-Text Label 4200 2800 0    50   ~ 0
-GND
 Wire Wire Line
 	5200 4000 4900 4000
-Wire Wire Line
-	4900 4000 4900 4450
-Wire Wire Line
-	4900 4450 4400 4450
-Wire Wire Line
-	5200 4100 5000 4100
-Wire Wire Line
-	5000 4100 5000 4550
-Wire Wire Line
-	5000 4550 4400 4550
 Text Label 5750 4800 0    50   ~ 0
 GND
 Text Label 8100 2650 2    50   ~ 0
@@ -849,6 +733,82 @@ Wire Wire Line
 	7150 2850 6800 2850
 Wire Wire Line
 	6800 2850 6800 2900
+Connection ~ 6800 2850
+Wire Wire Line
+	6800 2850 6200 2850
+Text Label 3750 5550 0    50   ~ 0
+GND
+Text Label 2950 4000 0    50   ~ 0
+GND
+Wire Wire Line
+	10200 2900 10000 2900
+Text Label 10050 2900 0    50   ~ 0
+RST_3
+Wire Wire Line
+	5200 3200 4950 3200
+Wire Wire Line
+	5200 4200 5050 4200
+Wire Wire Line
+	5050 4200 5050 2700
+Wire Wire Line
+	5200 3300 5000 3300
+Wire Wire Line
+	5000 3300 5000 2450
+Wire Wire Line
+	4950 3200 4950 2150
+Text Label 4200 2800 0    50   ~ 0
+GND
+Text Label 4200 2550 0    50   ~ 0
+GND
+Text Label 4200 2250 0    50   ~ 0
+GND
+Wire Wire Line
+	5000 2450 4200 2450
+Wire Wire Line
+	4950 2150 4200 2150
+Wire Wire Line
+	5050 2700 4200 2700
+$Comp
+L Connector:Conn_01x02_Female J3
+U 1 1 5EF0BC27
+P 4000 2700
+F 0 "J3" H 3892 2885 50  0000 C CNN
+F 1 "A2" H 3892 2794 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4000 2700 50  0001 C CNN
+F 3 "~" H 4000 2700 50  0001 C CNN
+	1    4000 2700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J2
+U 1 1 5EF0B0E0
+P 4000 2450
+F 0 "J2" H 3892 2635 50  0000 C CNN
+F 1 "A1" H 3892 2544 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4000 2450 50  0001 C CNN
+F 3 "~" H 4000 2450 50  0001 C CNN
+	1    4000 2450
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J1
+U 1 1 5EF0A7A0
+P 4000 2150
+F 0 "J1" H 3892 2335 50  0000 C CNN
+F 1 "A0" H 3892 2244 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4000 2150 50  0001 C CNN
+F 3 "~" H 4000 2150 50  0001 C CNN
+	1    4000 2150
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5200 3100 5100 3100
+Text Label 5100 3100 2    50   ~ 0
+RST_1
+Text Label 4900 4000 2    50   ~ 0
+RST_2
+Wire Wire Line
+	4900 4100 5200 4100
 Wire Bus Line
 	8650 5250 8650 6300
 Wire Bus Line
@@ -857,15 +817,6 @@ Wire Bus Line
 	9350 2750 9350 4700
 Wire Bus Line
 	9900 800  9900 4700
-Connection ~ 6800 2850
-Wire Wire Line
-	6800 2850 6200 2850
-Text Label 3750 5550 0    50   ~ 0
-GND
-Text Label 4500 4050 0    50   ~ 0
-+5V
-Text Label 4750 4200 0    50   ~ 0
-GND
-Text Label 2950 4000 0    50   ~ 0
-GND
+Text Label 4950 4100 2    50   ~ 0
+RST_3
 $EndSCHEMATC
