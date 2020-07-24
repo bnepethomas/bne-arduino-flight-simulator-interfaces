@@ -18,13 +18,16 @@ LedControl lc=LedControl(9,8,7,1);
 
 /* paste code snippets from the reference documentation here */
 DcsBios::LED sjCtrLt(0x742e, 0x4000, 13);
-DcsBios::Switch2Pos sjCtr("SJ_CTR", 8);
+
 
 
 // The callback doesn't seem to be working - interesting John had calls anohter routine from it
 void onRhAdvAaaChange(unsigned int newValue) {
   /////lc.setLed(0,2,2,1);    /* your code here */
-  digitalWrite(STATUS_LED_PORT, 0);
+  if (newValue == true) {
+     lc.setLed(0,2,2,1); }
+  else {
+     digitalWrite(STATUS_LED_PORT, 0); }
 }
 DcsBios::IntegerBuffer rhAdvAaaBuffer(0x740a, 0x0800, 11, onRhAdvAaaChange);
 
@@ -37,7 +40,16 @@ void setup() {
   digitalWrite(STATUS_LED_PORT, 1);
   delay(300);
   digitalWrite(STATUS_LED_PORT, 0);
+  delay(300); 
+  digitalWrite(STATUS_LED_PORT, 1);
+  delay(300); 
+  digitalWrite(STATUS_LED_PORT, 0);
+  delay(300);
+  digitalWrite(STATUS_LED_PORT, 1);
+  delay(300);
+  digitalWrite(STATUS_LED_PORT, 0);
   delay(300);  
+
   
   devices=lc.getDeviceCount();
   
