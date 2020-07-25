@@ -78,7 +78,7 @@ void single() {
         Serial.println("Device:" + String(address));
         Serial.println("Row   :" + String(row));
         Serial.println("Col   :" + String(col));
-        lc.setLed(address,row,col,true);
+        lc.setLed(address,col,row,true);
   //      delay(delaytime);
   //      for(int i=0;i<col;i++) {
   //        lc.setLed(0,row,col,false);
@@ -95,7 +95,7 @@ void AllOn() {
   for(int address=0;address<devices;address++) {  
     for(int row=0;row<8;row++) {
       for(int col=0;col<8;col++) {
-        lc.setLed(address,row,col,true);
+        lc.setLed(address,col,row,true);
       } 
     }
   }
@@ -105,7 +105,7 @@ void AllOff() {
   for(int address=0;address<devices;address++) {  
     for(int row=0;row<8;row++) {
       for(int col=0;col<8;col++) {
-        lc.setLed(address,row,col,false);
+        lc.setLed(address,col,row,false);
       } 
     }
   }
