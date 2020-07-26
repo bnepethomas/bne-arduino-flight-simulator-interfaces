@@ -140,37 +140,36 @@
 #define SPARE_4_B_ROW 3
 #define SPARE_4_B_COL 2
 
-UP TO HERE
 
-// REC - RIGHT EWI - ORANGE
-#define REC_A_ROW 0
-#define REC_A_COL 3
-#define REC_B_ROW 1
-#define REC_B_COL 3
+// SPARE 5 - RIGHT EWI - GREEN
+#define SPARE_5_A_ROW 0
+#define SPARE_5_A_COL 3
+#define SPARE_5_B_ROW 1
+#define SPARE_5_B_COL 3
 
-// LAUNCH BAR RED - RIGHT EWI - RED
-#define L_BAR_RED_A_ROW 2
-#define L_BAR_RED_A_COL 3
-#define L_BAR_RED_B_ROW 3
-#define L_BAR_RED_B_COL 3
+// SAM - RIGHT EWI - RED
+#define SAM_A_ROW 2
+#define SAM_A_COL 3
+#define SAM_B_ROW 3
+#define SAM_B_COL 3
 
-// XMIT - RIGHT EWI - GREEN
-#define XMIT_A_ROW 0
-#define XMIT_A_COL 4
-#define XMIT_B_ROW 1
-#define XMIT_B_COL 4
+// AI - RIGHT EWI - RED
+#define AI_A_ROW 0
+#define AI_A_COL 4
+#define AI_B_ROW 1
+#define AI_B_COL 4
 
-// LAUNCH BAR GREEN - RIGHT EWI - GREEN
-#define L_BAR_GREEN_A_ROW 2
-#define L_BAR_GREEN_A_COL 4
-#define L_BAR_GREEN_B_ROW 3
-#define L_BAR_GREEN_B_COL 4
+// AAA - RIGHT EWI - RED
+#define AAA_A_ROW 2
+#define AAA_A_COL 4
+#define AAA_B_ROW 3
+#define AAA_B_COL 4
 
-// ASPJ OH - RIGHT EWI - ORANGE
-#define ASPJ_OH_A_ROW 0
-#define ASPJ_OH_A_COL 5
-#define ASPJ_OH_B_ROW 1
-#define ASPJ_OH_B_COL 5
+// CW - RIGHT EWI - RED
+#define CW_A_ROW 0
+#define CW_A_COL 5
+#define CW_B_ROW 1
+#define CW_B_COL 5
 
 // APU FIRE - RIGHT EWI - RED
 #define APU_FIRE_A_ROW 4
@@ -192,73 +191,28 @@ UP TO HERE
 #define RIGHT_FIRE_D_ROW 7
 #define RIGHT_FIRE_D_COL 2
 
-
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
-#define 
+ 
 
 
 #define STATUS_LED_PORT 6
-int devices = 1;
+int devices = 2;
 
-LedControl lc=LedControl(9,8,7,1); 
+LedControl lc=LedControl(9,8,7,devices); 
 
 /* paste code snippets from the reference documentation here */
 DcsBios::LED sjCtrLt(0x742e, 0x4000, 13);
 
 
 
-// The callback doesn't seem to be working - interesting John had calls anohter routine from it
 void onRhAdvAaaChange(unsigned int newValue) {
-  /////lc.setLed(0,2,2,1);    /* your code here */
+
   if (newValue == true) {
-     lc.setLed(0,2,2,1); }
+     lc.setLed(RIGHT_EWI,AAA_A_ROW,AAA_A_COL,1);
+     lc.setLed(RIGHT_EWI,AAA_B_ROW,AAA_B_COL,1); }
   else {
-     digitalWrite(STATUS_LED_PORT, 0); }
+     lc.setLed(RIGHT_EWI,AAA_A_ROW,AAA_A_COL,0);
+     lc.setLed(RIGHT_EWI,AAA_B_ROW,AAA_B_COL,0); }    
+
 }
 DcsBios::IntegerBuffer rhAdvAaaBuffer(0x740a, 0x0800, 11, onRhAdvAaaChange);
 
