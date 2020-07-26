@@ -10,8 +10,8 @@
 #include "LedControl.h"
 #include "DcsBios.h"
 
-#define LEFT_EWI 1
-#define RIGHT_EWI 2
+#define LEFT_EWI 0
+#define RIGHT_EWI 1
 
 // NO GO  - LEFT EWI - ORANGE
 #define NO_GO_A_ROW 0
@@ -20,10 +20,10 @@
 #define NO_GO_B_COL 0
 
 // GO  - LEFT EWI - GREEN
-#define NO_GO_A_ROW 2
-#define NO_GO_A_COL 0
-#define NO_GO_B_ROW 3
-#define NO_GO_B_COL 0
+#define GO_A_ROW 2
+#define GO_A_COL 0
+#define GO_B_ROW 3
+#define GO_B_COL 0
 
 // RIGHT BLEED - LEFT EWI - RED
 #define R_BLEED_A_ROW 0
@@ -204,36 +204,55 @@ DcsBios::LED sjCtrLt(0x742e, 0x4000, 13);
 
 
 
-void onRhAdvAaaChange(unsigned int newValue) {
-
+void onRhAdvAiChange(unsigned int newValue) {
   if (newValue == true) {
-     lc.setLed(RIGHT_EWI,AAA_A_ROW,AAA_A_COL,1);
-     lc.setLed(RIGHT_EWI,AAA_B_ROW,AAA_B_COL,1); }
+     lc.setLed(RIGHT_EWI,AI_A_COL,AI_A_ROW,1);
+     lc.setLed(RIGHT_EWI,AI_B_COL,AI_B_ROW,1);}
   else {
-     lc.setLed(RIGHT_EWI,AAA_A_ROW,AAA_A_COL,0);
-     lc.setLed(RIGHT_EWI,AAA_B_ROW,AAA_B_COL,0); }    
+     lc.setLed(RIGHT_EWI,AI_A_COL,AI_A_ROW,0);
+     lc.setLed(RIGHT_EWI,AI_B_COL,AI_B_ROW,0);} 
+}
+DcsBios::IntegerBuffer rhAdvAiBuffer(0x740a, 0x0400, 10, onRhAdvAiChange);
 
+
+void onRhAdvAaaChange(unsigned int newValue) {
+  if (newValue == true) {
+     lc.setLed(RIGHT_EWI,AAA_A_COL,AAA_A_ROW,1);
+     lc.setLed(RIGHT_EWI,AAA_B_COL,AAA_B_ROW,1);}
+  else {
+     lc.setLed(RIGHT_EWI,AAA_A_COL,AAA_A_ROW,0);
+     lc.setLed(RIGHT_EWI,AAA_B_COL,AAA_B_ROW,0);}    
 }
 DcsBios::IntegerBuffer rhAdvAaaBuffer(0x740a, 0x0800, 11, onRhAdvAaaChange);
 
 
+void onRhAdvCwChange(unsigned int newValue) {
+  if (newValue == true) {
+     lc.setLed(RIGHT_EWI,CW_A_COL,CW_A_ROW,1);
+     lc.setLed(RIGHT_EWI,CW_B_COL,CW_B_ROW,1);}
+  else {
+     lc.setLed(RIGHT_EWI,CW_A_COL,CW_A_ROW,0);
+     lc.setLed(RIGHT_EWI,CW_B_COL,CW_B_ROW,0);}
+}
+DcsBios::IntegerBuffer rhAdvCwBuffer(0x740a, 0x1000, 12, onRhAdvCwChange);
+
 void setup() {
 
-  pinMode(STATUS_LED_PORT, OUTPUT);
-  digitalWrite(STATUS_LED_PORT, 0);
-  delay(300);
-  digitalWrite(STATUS_LED_PORT, 1);
-  delay(300);
-  digitalWrite(STATUS_LED_PORT, 0);
-  delay(300); 
-  digitalWrite(STATUS_LED_PORT, 1);
-  delay(300); 
-  digitalWrite(STATUS_LED_PORT, 0);
-  delay(300);
-  digitalWrite(STATUS_LED_PORT, 1);
-  delay(300);
-  digitalWrite(STATUS_LED_PORT, 0);
-  delay(300);  
+//  pinMode(STATUS_LED_PORT, OUTPUT);
+//  digitalWrite(STATUS_LED_PORT, 0);
+//  delay(300);
+//  digitalWrite(STATUS_LED_PORT, 1);
+//  delay(300);
+//  digitalWrite(STATUS_LED_PORT, 0);
+//  delay(300); 
+//  digitalWrite(STATUS_LED_PORT, 1);
+//  delay(300); 
+//  digitalWrite(STATUS_LED_PORT, 0);
+//  delay(300);
+//  digitalWrite(STATUS_LED_PORT, 1);
+//  delay(300);
+//  digitalWrite(STATUS_LED_PORT, 0);
+//  delay(300);  
 
   
   devices=lc.getDeviceCount();
