@@ -202,51 +202,37 @@ LedControl lc=LedControl(9,8,7,devices);
 /* paste code snippets from the reference documentation here */
 DcsBios::LED sjCtrLt(0x742e, 0x4000, 13);
 
-// SPARE 5 - RIGHT EWI - GREEN
-#define SPARE_5_A_ROW 0
-#define SPARE_5_A_COL 3
-#define SPARE_5_B_ROW 1
-#define SPARE_5_B_COL 3
+void onRhAdvSamChange(unsigned int newValue) {
+  lc.setLed(RIGHT_EWI,SAM_A_COL,SAM_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,SAM_B_COL,SAM_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer rhAdvSamBuffer(0x740a, 0x0200, 9, onRhAdvSamChange);
+
+
 
 void onRhAdvSpareRh5Change(unsigned int newValue) {
-  if (newValue == true) {
-     lc.setLed(RIGHT_EWI,SPARE_5_A_COL,SPARE_5_A_ROW,1);
-     lc.setLed(RIGHT_EWI,SPARE_5_B_COL,SPARE_5_B_ROW,1);}
-  else {
-     lc.setLed(RIGHT_EWI,SPARE_5_A_COL,SPARE_5_A_ROW,0);
-     lc.setLed(RIGHT_EWI,SPARE_5_B_COL,SPARE_5_B_ROW,0);}   
+  lc.setLed(RIGHT_EWI,SPARE_5_A_COL,SPARE_5_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,SPARE_5_B_COL,SPARE_5_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer rhAdvSpareRh5Buffer(0x740c, 0x0002, 1, onRhAdvSpareRh5Change);
 
 void onRhAdvAiChange(unsigned int newValue) {
-  if (newValue == true) {
-     lc.setLed(RIGHT_EWI,AI_A_COL,AI_A_ROW,1);
-     lc.setLed(RIGHT_EWI,AI_B_COL,AI_B_ROW,1);}
-  else {
-     lc.setLed(RIGHT_EWI,AI_A_COL,AI_A_ROW,0);
-     lc.setLed(RIGHT_EWI,AI_B_COL,AI_B_ROW,0);} 
+  lc.setLed(RIGHT_EWI,AI_A_COL,AI_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,AI_B_COL,AI_B_ROW,newValue); 
 }
 DcsBios::IntegerBuffer rhAdvAiBuffer(0x740a, 0x0400, 10, onRhAdvAiChange);
 
 
 void onRhAdvAaaChange(unsigned int newValue) {
-  if (newValue == true) {
-     lc.setLed(RIGHT_EWI,AAA_A_COL,AAA_A_ROW,1);
-     lc.setLed(RIGHT_EWI,AAA_B_COL,AAA_B_ROW,1);}
-  else {
-     lc.setLed(RIGHT_EWI,AAA_A_COL,AAA_A_ROW,0);
-     lc.setLed(RIGHT_EWI,AAA_B_COL,AAA_B_ROW,0);}    
+  lc.setLed(RIGHT_EWI,AAA_A_COL,AAA_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,AAA_B_COL,AAA_B_ROW,newValue);   
 }
 DcsBios::IntegerBuffer rhAdvAaaBuffer(0x740a, 0x0800, 11, onRhAdvAaaChange);
 
 
 void onRhAdvCwChange(unsigned int newValue) {
-  if (newValue == true) {
-     lc.setLed(RIGHT_EWI,CW_A_COL,CW_A_ROW,1);
-     lc.setLed(RIGHT_EWI,CW_B_COL,CW_B_ROW,1);}
-  else {
-     lc.setLed(RIGHT_EWI,CW_A_COL,CW_A_ROW,0);
-     lc.setLed(RIGHT_EWI,CW_B_COL,CW_B_ROW,0);}
+  lc.setLed(RIGHT_EWI,CW_A_COL,CW_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,CW_B_COL,CW_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer rhAdvCwBuffer(0x740a, 0x1000, 12, onRhAdvCwChange);
 
