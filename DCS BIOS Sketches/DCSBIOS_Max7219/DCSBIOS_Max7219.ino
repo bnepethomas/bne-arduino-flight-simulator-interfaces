@@ -202,7 +202,21 @@ LedControl lc=LedControl(9,8,7,devices);
 /* paste code snippets from the reference documentation here */
 DcsBios::LED sjCtrLt(0x742e, 0x4000, 13);
 
+// SPARE 5 - RIGHT EWI - GREEN
+#define SPARE_5_A_ROW 0
+#define SPARE_5_A_COL 3
+#define SPARE_5_B_ROW 1
+#define SPARE_5_B_COL 3
 
+void onRhAdvSpareRh5Change(unsigned int newValue) {
+  if (newValue == true) {
+     lc.setLed(RIGHT_EWI,SPARE_5_A_COL,SPARE_5_A_ROW,1);
+     lc.setLed(RIGHT_EWI,SPARE_5_B_COL,SPARE_5_B_ROW,1);}
+  else {
+     lc.setLed(RIGHT_EWI,SPARE_5_A_COL,SPARE_5_A_ROW,0);
+     lc.setLed(RIGHT_EWI,SPARE_5_B_COL,SPARE_5_B_ROW,0);}   
+}
+DcsBios::IntegerBuffer rhAdvSpareRh5Buffer(0x740c, 0x0002, 1, onRhAdvSpareRh5Change);
 
 void onRhAdvAiChange(unsigned int newValue) {
   if (newValue == true) {
