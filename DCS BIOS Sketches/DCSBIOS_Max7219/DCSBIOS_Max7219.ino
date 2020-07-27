@@ -134,7 +134,7 @@
 #define SPARE_3_B_ROW 1
 #define SPARE_3_B_COL 2
 
-// SPD BRK - RIGHT EWI - GREEN
+// SPARE 4 - RIGHT EWI - GREEN
 #define SPARE_4_A_ROW 2
 #define SPARE_4_A_COL 2
 #define SPARE_4_B_ROW 3
@@ -202,13 +202,138 @@ LedControl lc=LedControl(9,8,7,devices);
 /* paste code snippets from the reference documentation here */
 DcsBios::LED sjCtrLt(0x742e, 0x4000, 13);
 
+
+
+void onFireLeftLtChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,LEFT_FIRE_A_COL,LEFT_FIRE_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,LEFT_FIRE_B_COL,LEFT_FIRE_B_ROW,newValue);
+  lc.setLed(LEFT_EWI,LEFT_FIRE_C_COL,LEFT_FIRE_C_ROW,newValue);
+  lc.setLed(LEFT_EWI,LEFT_FIRE_D_COL,LEFT_FIRE_D_ROW,newValue);
+}
+DcsBios::IntegerBuffer fireLeftLtBuffer(0x7408, 0x0040, 6, onFireLeftLtChange);
+
+void onMasterCautionLtChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,MSTR_CAUT_A_COL,MSTR_CAUT_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,MSTR_CAUT_B_COL,MSTR_CAUT_B_ROW,newValue);
+  lc.setLed(LEFT_EWI,MSTR_CAUT_C_COL,MSTR_CAUT_C_ROW,newValue);
+  lc.setLed(LEFT_EWI,MSTR_CAUT_D_COL,MSTR_CAUT_D_ROW,newValue);
+}
+DcsBios::IntegerBuffer masterCautionLtBuffer(0x7408, 0x0200, 9, onMasterCautionLtChange);
+
+void onLhAdvGoChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,GO_A_COL,GO_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,GO_B_COL,GO_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvGoBuffer(0x740a, 0x0010, 4, onLhAdvGoChange);
+
+
+void onLhAdvNoGoChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,NO_GO_A_COL,NO_GO_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,NO_GO_B_COL,NO_GO_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvNoGoBuffer(0x740a, 0x0020, 5, onLhAdvNoGoChange);
+
+
+void onLhAdvLBleedChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,L_BLEED_A_COL,L_BLEED_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,L_BLEED_B_COL,L_BLEED_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvLBleedBuffer(0x7408, 0x0800, 11, onLhAdvLBleedChange);
+
+void onLhAdvRBleedChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,R_BLEED_A_COL,R_BLEED_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,R_BLEED_B_COL,R_BLEED_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvRBleedBuffer(0x7408, 0x1000, 12, onLhAdvRBleedChange);
+
+void onLhAdvSpdBrkChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,SPD_BRK_A_COL,SPD_BRK_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,SPD_BRK_B_COL,SPD_BRK_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvSpdBrkBuffer(0x7408, 0x2000, 13, onLhAdvSpdBrkChange);
+
+void onLhAdvStbyChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,STBY_A_COL,STBY_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,STBY_B_COL,STBY_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvStbyBuffer(0x7408, 0x4000, 14, onLhAdvStbyChange);
+
+
+void onLhAdvLBarRedChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,L_BAR_RED_A_COL,L_BAR_RED_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,L_BAR_RED_B_COL,L_BAR_RED_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvLBarRedBuffer(0x7408, 0x8000, 15, onLhAdvLBarRedChange);
+
+
+void onLhAdvRecChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,REC_A_COL,REC_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,REC_B_COL,REC_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvRecBuffer(0x740a, 0x0001, 0, onLhAdvRecChange);
+
+void onLhAdvLBarGreenChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,L_BAR_GREEN_A_COL,L_BAR_GREEN_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,L_BAR_GREEN_B_COL,L_BAR_GREEN_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvLBarGreenBuffer(0x740a, 0x0002, 1, onLhAdvLBarGreenChange);
+
+void onLhAdvXmitChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,XMIT_A_COL,XMIT_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,XMIT_B_COL,XMIT_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvXmitBuffer(0x740a, 0x0004, 2, onLhAdvXmitChange);
+
+void onLhAdvAspjOhChange(unsigned int newValue) {
+  lc.setLed(LEFT_EWI,ASPJ_OH_A_COL,ASPJ_OH_A_ROW,newValue);
+  lc.setLed(LEFT_EWI,ASPJ_OH_B_COL,ASPJ_OH_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer lhAdvAspjOhBuffer(0x740a, 0x0008, 3, onLhAdvAspjOhChange);
+
+
+void onRhAdvDispChange(unsigned int newValue) {
+  lc.setLed(RIGHT_EWI,DISP_A_COL,DISP_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,DISP_B_COL,DISP_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer rhAdvDispBuffer(0x740a, 0x0100, 8, onRhAdvDispChange);
+
+void onRhAdvRcdrOnChange(unsigned int newValue) {
+  lc.setLed(RIGHT_EWI,RCDR_ON_A_COL,RCDR_ON_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,RCDR_ON_B_COL,RCDR_ON_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer rhAdvRcdrOnBuffer(0x740a, 0x0080, 7, onRhAdvRcdrOnChange);
+
+
+void onRhAdvSpareRh1Change(unsigned int newValue) {
+  lc.setLed(RIGHT_EWI,SPARE_1_A_COL,SPARE_1_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,SPARE_1_B_COL,SPARE_1_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer rhAdvSpareRh1Buffer(0x740a, 0x2000, 13, onRhAdvSpareRh1Change);
+
+void onRhAdvSpareRh2Change(unsigned int newValue) {
+  lc.setLed(RIGHT_EWI,SPARE_2_A_COL,SPARE_2_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,SPARE_2_B_COL,SPARE_2_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer rhAdvSpareRh2Buffer(0x740a, 0x4000, 14, onRhAdvSpareRh2Change);
+
+void onRhAdvSpareRh3Change(unsigned int newValue) {
+  lc.setLed(RIGHT_EWI,SPARE_3_A_COL,SPARE_3_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,SPARE_3_B_COL,SPARE_3_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer rhAdvSpareRh3Buffer(0x740a, 0x8000, 15, onRhAdvSpareRh3Change);
+
+void onRhAdvSpareRh4Change(unsigned int newValue) {
+  lc.setLed(RIGHT_EWI,SPARE_4_A_COL,SPARE_4_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,SPARE_4_B_COL,SPARE_4_B_ROW,newValue);
+}
+DcsBios::IntegerBuffer rhAdvSpareRh4Buffer(0x740c, 0x0001, 0, onRhAdvSpareRh4Change);
+
+
 void onRhAdvSamChange(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,SAM_A_COL,SAM_A_ROW,newValue);
   lc.setLed(RIGHT_EWI,SAM_B_COL,SAM_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer rhAdvSamBuffer(0x740a, 0x0200, 9, onRhAdvSamChange);
-
-
 
 void onRhAdvSpareRh5Change(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,SPARE_5_A_COL,SPARE_5_A_ROW,newValue);
@@ -235,6 +360,26 @@ void onRhAdvCwChange(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,CW_B_COL,CW_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer rhAdvCwBuffer(0x740a, 0x1000, 12, onRhAdvCwChange);
+
+
+void onFireApuLtChange(unsigned int newValue) {
+  lc.setLed(RIGHT_EWI,APU_FIRE_A_COL,APU_FIRE_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,APU_FIRE_B_COL,APU_FIRE_B_ROW,newValue);
+  lc.setLed(RIGHT_EWI,APU_FIRE_C_COL,APU_FIRE_C_ROW,newValue);
+  lc.setLed(RIGHT_EWI,APU_FIRE_D_COL,APU_FIRE_D_ROW,newValue);
+}
+DcsBios::IntegerBuffer fireApuLtBuffer(0x740c, 0x0004, 2, onFireApuLtChange);
+
+
+
+void onFireRightLtChange(unsigned int newValue) {
+  lc.setLed(RIGHT_EWI,RIGHT_FIRE_A_COL,RIGHT_FIRE_A_ROW,newValue);
+  lc.setLed(RIGHT_EWI,RIGHT_FIRE_B_COL,RIGHT_FIRE_B_ROW,newValue);
+  lc.setLed(RIGHT_EWI,RIGHT_FIRE_C_COL,RIGHT_FIRE_C_ROW,newValue);
+  lc.setLed(RIGHT_EWI,RIGHT_FIRE_D_COL,RIGHT_FIRE_D_ROW,newValue);
+}
+DcsBios::IntegerBuffer fireRightLtBuffer(0x740c, 0x0010, 4, onFireRightLtChange);
+
 
 void setup() {
 
