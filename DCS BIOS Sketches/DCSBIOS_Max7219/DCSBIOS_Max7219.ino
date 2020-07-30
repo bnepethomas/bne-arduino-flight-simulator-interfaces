@@ -10,8 +10,9 @@
 #include "LedControl.h"
 #include "DcsBios.h"
 
-#define LEFT_EWI 0
-#define RIGHT_EWI 1
+#define LEFT_EWI 2
+#define RIGHT_EWI 3
+#define CAUTION_PANEL 0
 
 // NO GO  - LEFT EWI - ORANGE
 #define NO_GO_A_ROW 0
@@ -191,17 +192,147 @@
 #define RIGHT_FIRE_D_ROW 7
 #define RIGHT_FIRE_D_COL 2
 
- 
+#define CK_SEAT_COL_A 0
+#define CK_SEAT_ROW_A 0
+#define CK_SEAT_COL_B 0
+#define CK_SEAT_ROW_B 1
 
+#define FCS_HOT_COL_A 1
+#define FCS_HOT_ROW_A 0
+#define FCS_HOT_COL_B 1
+#define FCS_HOT_ROW_B 1
+
+#define FUEL_LO_COL_A 2
+#define FUEL_LO_ROW_A 0
+#define FUEL_LO_COL_B 2
+#define FUEL_LO_ROW_B 1
+
+#define L_GEN_COL_A 3
+#define L_GEN_ROW_A 0
+#define L_GEN_COL_B 3
+#define L_GEN_ROW_B 3
+
+#define APU_ACC_COL_A 0
+#define APU_ACC_ROW_A 2
+#define APU_ACC_COL_B 0
+#define APU_ACC_ROW_B 3
+
+
+#define GEN_TIE_COL_A 1
+#define GEN_TIE_ROW_A 2
+#define GEN_TIE_COL_B 1
+#define GEN_TIE_ROW_B 3
+
+
+#define FCES_COL_A 2
+#define FCES_ROW_A 2
+#define FCES_COL_B 2
+#define FCES_ROW_B 3
+
+
+#define R_GEN_COL_A 3
+#define R_GEN_ROW_A 2
+#define R_GEN_COL_B 3
+#define R_GEN_ROW_B 3
+
+
+#define BATT_SW_COL_A 0
+#define BATT_SW_ROW_A 4
+#define BATT_SW_COL_B 0
+#define BATT_SW_ROW_B 5
+
+#define C_SPARE_1_COL_A 1
+#define C_SPARE_1_ROW_A 4
+#define C_SPARE_1_COL_B 1
+#define C_SPARE_1_ROW_B 5
+
+#define C_SPARE_2_COL_A 2
+#define C_SPARE_2_ROW_A 4
+#define C_SPARE_2_COL_B 2
+#define C_SPARE_2_ROW_B 5
+
+#define C_SPARE_3_COL_A 3
+#define C_SPARE_3_ROW_A 4
+#define C_SPARE_3_COL_B 3
+#define C_SPARE_3_ROW_B 5
 
 #define STATUS_LED_PORT 6
 int devices = 2;
 
 LedControl lc=LedControl(9,8,7,devices); 
 
+
+
+
 /* paste code snippets from the reference documentation here */
 DcsBios::LED sjCtrLt(0x742e, 0x4000, 13);
 
+//  lc.setLed(CAUTION_PANEL,col,row,newValue);
+//  lc.setLed(CAUTION_PANEL,,,newValue);
+
+
+void onClipApuAccLtChange(unsigned int newValue) {
+}
+DcsBios::IntegerBuffer clipApuAccLtBuffer(0x74a2, 0x8000, 15, onClipApuAccLtChange);
+
+void onClipBattSwLtChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer clipBattSwLtBuffer(0x74a6, 0x0100, 8, onClipBattSwLtChange);
+
+void onClipCkSeatLtChange(unsigned int newValue) {
+  lc.setLed(CAUTION_PANEL,CK_SEAT_COL_A,CK_SEAT_ROW_A,newValue);
+  lc.setLed(CAUTION_PANEL,CK_SEAT_COL_B,CK_SEAT_ROW_B,newValue);
+}
+DcsBios::IntegerBuffer clipCkSeatLtBuffer(0x74a2, 0x4000, 14, onClipCkSeatLtChange);
+
+
+void onClipFcesLtChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer clipFcesLtBuffer(0x74a6, 0x2000, 13, onClipFcesLtChange);
+
+void onClipFcsHotLtChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer clipFcsHotLtBuffer(0x74a6, 0x0200, 9, onClipFcsHotLtChange);
+
+void onClipFuelLoLtChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer clipFuelLoLtBuffer(0x74a6, 0x1000, 12, onClipFuelLoLtChange);
+
+void onClipGenTieLtChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer clipGenTieLtBuffer(0x74a6, 0x0400, 10, onClipGenTieLtChange);
+
+void onClipLGenLtChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer clipLGenLtBuffer(0x74a6, 0x8000, 15, onClipLGenLtChange);
+
+void onClipRGenLtChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer clipRGenLtBuffer(0x74ae, 0x0100, 8, onClipRGenLtChange);
+
+
+void onClipSpareCtn1LtChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer clipSpareCtn1LtBuffer(0x74a6, 0x0800, 11, onClipSpareCtn1LtChange);
+
+void onClipSpareCtn2LtChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer clipSpareCtn2LtBuffer(0x74a6, 0x4000, 14, onClipSpareCtn2LtChange);
+
+
+void onClipSpareCtn3LtChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer clipSpareCtn3LtBuffer(0x74ae, 0x0200, 9, onClipSpareCtn3LtChange);
 
 
 void onFireLeftLtChange(unsigned int newValue) {
