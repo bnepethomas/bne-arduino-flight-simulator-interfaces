@@ -247,6 +247,30 @@
 #define C_SPARE_3_COL_B 3
 #define C_SPARE_3_ROW_B 5
 
+#define UFC_OPT1_COL_A 4
+#define UFC_OPT1_ROW_A 4
+#define UFC_OPT1_COL_B 3
+#define UFC_OPT1_ROW_B 4
+
+#define UFC_OPT2_COL_A 4
+#define UFC_OPT2_ROW_A 5
+#define UFC_OPT2_COL_B 3
+#define UFC_OPT2_ROW_B 5
+
+#define UFC_OPT3_COL_A 4
+#define UFC_OPT3_ROW_A 6
+#define UFC_OPT3_COL_B 3
+#define UFC_OPT3_ROW_B 6
+
+#define UFC_OPT4_COL_A 3
+#define UFC_OPT4_ROW_A 7
+#define UFC_OPT4_COL_B 4
+#define UFC_OPT4_ROW_B 7
+
+#define UFC_OPT5_COL_A 3
+#define UFC_OPT5_ROW_A 4
+
+
 #define STATUS_LED_PORT 6
 int devices = 2;
 

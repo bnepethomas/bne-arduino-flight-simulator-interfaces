@@ -76,8 +76,9 @@ void single() {
   
         lc.clearDisplay(address);
         Serial.println("Device:" + String(address));
-        Serial.println("Row   :" + String(row));
         Serial.println("Col   :" + String(col));
+        Serial.println("Row   :" + String(row));
+
         lc.setLed(address,col,row,true);
   //      delay(delaytime);
   //      for(int i=0;i<col;i++) {
