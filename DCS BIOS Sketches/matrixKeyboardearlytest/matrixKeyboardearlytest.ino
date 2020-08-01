@@ -9,13 +9,13 @@
 
 #include <Wire.h>
 #include <IoAbstraction.h>
-#include "KeyboardManager.h"
+#include "DCSKeyboardManager.h"
 
 //
 // We need to make a keyboard layout that the manager can use. choose one of the below.
 // The parameter in brackets is the variable name.
 //
-MAKE_KEYBOARD_LAYOUT_5X5(keyLayout)
+MAKE_KEYBOARD_LAYOUT_6X6(keyLayout)
 //MAKE_KEYBOARD_LAYOUT_4X4(keyLayout)
 
 //
@@ -36,7 +36,7 @@ public:
     void keyPressed(char key, bool held) override {
       
         Serial.print("Key ");
-        Serial.print(key);
+        Serial.print(key, HEX);
         Serial.print(" is pressed, held = ");
         Serial.println(held);
     }

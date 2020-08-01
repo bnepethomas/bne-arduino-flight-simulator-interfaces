@@ -129,8 +129,11 @@ private:
 
 #define MAKE_KEYBOARD_LAYOUT_3X4(varName) const char KEYBOARD_STD_3X4_KEYS[] PROGMEM = "123456789*0#"; KeyboardLayout varName(4, 3, KEYBOARD_STD_3X4_KEYS);
 #define MAKE_KEYBOARD_LAYOUT_4X4(varName) const char KEYBOARD_STD_4X4_KEYS[] PROGMEM = "123A456B789C*0#D"; KeyboardLayout varName(4, 4, KEYBOARD_STD_4X4_KEYS);
-#define MAKE_KEYBOARD_LAYOUT_5X5(varName) const char KEYBOARD_STD_5X5_KEYS[] PROGMEM = "0123A456B789abcdefghijklmno"; KeyboardLayout varName(5, 5, KEYBOARD_STD_5X5_KEYS);
+// #define MAKE_KEYBOARD_LAYOUT_6X6(varName) const char KEYBOARD_STD_6X6_KEYS[] PROGMEM = "123456789abcdefghijklmnopqrstuv"; KeyboardLayout varName(6, 6, KEYBOARD_STD_6X6_KEYS);
 
+#define MAKE_KEYBOARD_LAYOUT_6X6(varName) const char KEYBOARD_STD_6X6_KEYS[] PROGMEM = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,\
+0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B, 0x1C, 0x1D, 0x1E, 0x1F,\
+}; KeyboardLayout varName(6, 6, KEYBOARD_STD_6X6_KEYS);
 
 
 #endif // _KEYBOARD_MANGER_H_
