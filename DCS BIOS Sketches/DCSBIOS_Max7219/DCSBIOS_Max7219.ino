@@ -10,9 +10,11 @@
 #include "LedControl.h"
 #include "DcsBios.h"
 
-#define LEFT_EWI 2
-#define RIGHT_EWI 3
-#define CAUTION_PANEL 0
+#define LEFT_EWI 1
+#define UFC_PANEL 1       // Currently should equal LEFT_EWI
+#define RIGHT_EWI 2
+#define CAUTION_PANEL 3
+#define SELECT_JET_PANEL 0
 
 // NO GO  - LEFT EWI - ORANGE
 #define NO_GO_A_ROW 0
@@ -267,8 +269,54 @@
 #define UFC_OPT4_COL_B 4
 #define UFC_OPT4_ROW_B 7
 
-#define UFC_OPT5_COL_A 3
+#define UFC_OPT5_COL_A 5
 #define UFC_OPT5_ROW_A 4
+
+
+#define SEL_CENTER_COL_A 0
+#define SEL_CENTER_ROW_A 0
+
+#define SEL_LEFT_INNER_COL_A 1
+#define SEL_LEFT_INNER_ROW_A 0
+
+#define SEL_LEFT_OUTER_COL_A 2
+#define SEL_LEFT_OUTER_ROW_A 0
+
+#define SEL_RIGHT_INNER_COL_A 0
+#define SEL_RIGHT_INNER_ROW_A 1
+
+#define SEL_RIGHT_OUTER_COL_A 1
+#define SEL_RIGHT_OUTER_ROW_A 1
+
+#define NOSE_GEAR_COL_A 3
+#define NOSE_GEAR_ROW_A 0
+#define NOSE_GEAR_COL_B 3
+#define NOSE_GEAR_ROW_B 1
+
+#define LEFT_GEAR_COL_A 4
+#define LEFT_GEAR_ROW_A 0
+#define LEFT_GEAR_COL_B 4
+#define LEFT_GEAR_ROW_B 1
+
+#define RIGHT_GEAR_COL_A 2
+#define RIGHT_GEAR_ROW_A 1
+#define RIGHT_GEAR_COL_B 1
+#define RIGHT_GEAR_ROW_B 2
+
+#define HALF_FLAPS_COL_A 5
+#define HALF_FLAPS_ROW_A 0
+#define HALF_FLAPS_COL_B 5
+#define HALF_FLAPS_ROW_B 1
+
+#define FULL_FLAPS_COL_A 0
+#define FULL_FLAPS_ROW_A 2
+#define FULL_FLAPS_COL_B 2
+#define FULL_FLAPS_ROW_B 2
+
+#define AMBER_FLAPS_COL_A 3
+#define AMBER_FLAPS_ROW_A 2
+#define AMBER_FLAPS_COL_B 4
+#define AMBER_FLAPS_ROW_B 2
 
 
 #define STATUS_LED_PORT 6
@@ -277,21 +325,132 @@ int devices = 2;
 LedControl lc=LedControl(9,8,7,devices); 
 
 
-
-
 /* paste code snippets from the reference documentation here */
 DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", 22);
 DcsBios::LED sjCtrLt(0x742e, 0x4000, 13);
 
-//  lc.setLed(CAUTION_PANEL,col,row,newValue);
-//  lc.setLed(CAUTION_PANEL,,,newValue);
 
+void onFlpLgRightGearLtChange(unsigned int newValue) {
+  lc.setLed(SELECT_JET_PANEL,RIGHT_GEAR_COL_A,RIGHT_GEAR_ROW_A,newValue);
+  lc.setLed(SELECT_JET_PANEL,RIGHT_GEAR_COL_B,RIGHT_GEAR_ROW_B,newValue);  
+}
+DcsBios::IntegerBuffer flpLgRightGearLtBuffer(0x7430, 0x2000, 13, onFlpLgRightGearLtChange);
+
+void onFlpLgNoseGearLtChange(unsigned int newValue) {
+  lc.setLed(SELECT_JET_PANEL,NOSE_GEAR_COL_A,NOSE_GEAR_ROW_A,newValue);
+  lc.setLed(SELECT_JET_PANEL,NOSE_GEAR_COL_B,NOSE_GEAR_ROW_B,newValue);
+}
+DcsBios::IntegerBuffer flpLgNoseGearLtBuffer(0x7430, 0x0800, 11, onFlpLgNoseGearLtChange);
+
+void onFlpLgLeftGearLtChange(unsigned int newValue) {
+  lc.setLed(SELECT_JET_PANEL,LEFT_GEAR_COL_A,LEFT_GEAR_ROW_A,newValue);
+  lc.setLed(SELECT_JET_PANEL,LEFT_GEAR_COL_B,LEFT_GEAR_ROW_B,newValue); 
+}
+DcsBios::IntegerBuffer flpLgLeftGearLtBuffer(0x7430, 0x1000, 12, onFlpLgLeftGearLtChange);
+
+void onFlpLgHalfFlapsLtChange(unsigned int newValue) {
+  lc.setLed(SELECT_JET_PANEL,HALF_FLAPS_COL_A,HALF_FLAPS_ROW_A,newValue);
+  lc.setLed(SELECT_JET_PANEL,HALF_FLAPS_COL_B,HALF_FLAPS_ROW_B,newValue); 
+}
+DcsBios::IntegerBuffer flpLgHalfFlapsLtBuffer(0x7430, 0x4000, 14, onFlpLgHalfFlapsLtChange);
+
+
+void onFlpLgFullFlapsLtChange(unsigned int newValue) {
+  lc.setLed(SELECT_JET_PANEL,FULL_FLAPS_COL_A,FULL_FLAPS_ROW_A,newValue);
+  lc.setLed(SELECT_JET_PANEL,FULL_FLAPS_COL_B,FULL_FLAPS_ROW_B,newValue);  
+}
+DcsBios::IntegerBuffer flpLgFullFlapsLtBuffer(0x7430, 0x8000, 15, onFlpLgFullFlapsLtChange);
+
+void onFlpLgFlapsLtChange(unsigned int newValue) {
+  lc.setLed(SELECT_JET_PANEL,AMBER_FLAPS_COL_A,AMBER_FLAPS_ROW_A,newValue);
+  lc.setLed(SELECT_JET_PANEL,AMBER_FLAPS_COL_B,AMBER_FLAPS_ROW_B,newValue); 
+}
+DcsBios::IntegerBuffer flpLgFlapsLtBuffer(0x7460, 0x0001, 0, onFlpLgFlapsLtChange);
+
+void onSjRoLtChange(unsigned int newValue) {
+lc.setLed(SELECT_JET_PANEL,SEL_RIGHT_OUTER_COL_A,SEL_RIGHT_OUTER_ROW_A,newValue);
+}
+DcsBios::IntegerBuffer sjRoLtBuffer(0x7430, 0x0400, 10, onSjRoLtChange);
+
+void onSjRiLtChange(unsigned int newValue) {
+  lc.setLed(SELECT_JET_PANEL,SEL_RIGHT_INNER_COL_A,SEL_RIGHT_INNER_ROW_A,newValue); 
+}
+DcsBios::IntegerBuffer sjRiLtBuffer(0x7430, 0x0200, 9, onSjRiLtChange);
+
+void onSjLoLtChange(unsigned int newValue) {
+  lc.setLed(SELECT_JET_PANEL,SEL_LEFT_OUTER_COL_A,SEL_LEFT_OUTER_ROW_A,newValue);
+}
+DcsBios::IntegerBuffer sjLoLtBuffer(0x7430, 0x0100, 8, onSjLoLtChange);
+
+
+void onSjLiLtChange(unsigned int newValue) {
+  lc.setLed(SELECT_JET_PANEL,SEL_LEFT_INNER_COL_A,SEL_LEFT_INNER_ROW_A,newValue);
+}
+DcsBios::IntegerBuffer sjLiLtBuffer(0x742e, 0x8000, 15, onSjLiLtChange);
+
+void onSjCtrLtChange(unsigned int newValue) {
+  lc.setLed(SELECT_JET_PANEL,SEL_CENTER_COL_A,SEL_CENTER_ROW_A,newValue);
+}
+DcsBios::IntegerBuffer sjCtrLtBuffer(0x742e, 0x4000, 14, onSjCtrLtChange);
+
+
+void onUfcOptionCueing1Change(char* newValue) {
+  if (newValue[0] == ':') {
+    lc.setLed(UFC_PANEL,UFC_OPT1_COL_A,UFC_OPT1_ROW_A,1);
+    lc.setLed(UFC_PANEL,UFC_OPT1_COL_B,UFC_OPT1_ROW_B,1); }
+  else {
+    lc.setLed(UFC_PANEL,UFC_OPT1_COL_A,UFC_OPT1_ROW_A,0);
+    lc.setLed(UFC_PANEL,UFC_OPT1_COL_B,UFC_OPT1_ROW_B,0); }   
+}
+DcsBios::StringBuffer<1> ufcOptionCueing1Buffer(0x7428, onUfcOptionCueing1Change);
+
+void onUfcOptionCueing2Change(char* newValue) {
+  if (newValue[0] == ':') {
+    lc.setLed(UFC_PANEL,UFC_OPT2_COL_A,UFC_OPT2_ROW_A,1);
+    lc.setLed(UFC_PANEL,UFC_OPT2_COL_B,UFC_OPT2_ROW_B,1); }
+  else {
+    lc.setLed(UFC_PANEL,UFC_OPT2_COL_A,UFC_OPT2_ROW_A,0);
+    lc.setLed(UFC_PANEL,UFC_OPT2_COL_B,UFC_OPT2_ROW_B,0); }   
+}
+DcsBios::StringBuffer<1> ufcOptionCueing2Buffer(0x742a, onUfcOptionCueing2Change);
+
+void onUfcOptionCueing3Change(char* newValue) {
+  if (newValue[0] == ':') {
+    lc.setLed(UFC_PANEL,UFC_OPT3_COL_A,UFC_OPT3_ROW_A,1);
+    lc.setLed(UFC_PANEL,UFC_OPT3_COL_B,UFC_OPT3_ROW_B,1); }
+  else {
+    lc.setLed(UFC_PANEL,UFC_OPT3_COL_A,UFC_OPT3_ROW_A,0);
+    lc.setLed(UFC_PANEL,UFC_OPT3_COL_B,UFC_OPT3_ROW_B,0); }     
+}
+DcsBios::StringBuffer<1> ufcOptionCueing3Buffer(0x742c, onUfcOptionCueing3Change);
+
+void onUfcOptionCueing4Change(char* newValue) {
+  if (newValue[0] == ':') {
+    lc.setLed(UFC_PANEL,UFC_OPT4_COL_A,UFC_OPT4_ROW_A,1);
+    lc.setLed(UFC_PANEL,UFC_OPT4_COL_B,UFC_OPT4_ROW_B,1); }
+  else {
+    lc.setLed(UFC_PANEL,UFC_OPT4_COL_A,UFC_OPT4_ROW_A,0);
+    lc.setLed(UFC_PANEL,UFC_OPT4_COL_B,UFC_OPT4_ROW_B,0); } 
+}
+DcsBios::StringBuffer<1> ufcOptionCueing4Buffer(0x742e, onUfcOptionCueing4Change);
+
+
+void onUfcOptionCueing5Change(char* newValue) {
+  if (newValue[0] == ':') {
+    lc.setLed(UFC_PANEL,UFC_OPT5_COL_A,UFC_OPT5_ROW_A,1); }
+  else {
+    lc.setLed(UFC_PANEL,UFC_OPT5_COL_A,UFC_OPT5_ROW_A,0); } 
+}
+DcsBios::StringBuffer<1> ufcOptionCueing5Buffer(0x7430, onUfcOptionCueing5Change);
 
 void onClipApuAccLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,APU_ACC_COL_A,APU_ACC_ROW_A,newValue);
   lc.setLed(CAUTION_PANEL,APU_ACC_COL_B,APU_ACC_ROW_B,newValue);
 }
 DcsBios::IntegerBuffer clipApuAccLtBuffer(0x74a2, 0x8000, 15, onClipApuAccLtChange);
+
+
+
 
 void onClipBattSwLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,BATT_SW_COL_A,BATT_SW_ROW_A,newValue);
