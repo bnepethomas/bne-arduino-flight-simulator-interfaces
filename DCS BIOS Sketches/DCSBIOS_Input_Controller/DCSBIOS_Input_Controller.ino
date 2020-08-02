@@ -163,19 +163,28 @@ void FindInputChanges()
 void SendDCSBIOSMessage(int ind, int state) {
 
   
-  
-  if (ind == 0) { 
-    if (state == 0) {
-      sendDcsBiosMessage("LEFT_DDI_PB_05", "0");}
-    else {
-      sendDcsBiosMessage("LEFT_DDI_PB_05", "1");}
-  }
-  else {
-    if (state == 0) 
-      sendDcsBiosMessage("LIGHTS_TEST_SW", "0");
-    else 
-      sendDcsBiosMessage("LIGHTS_TEST_SW", "1");
-  }
+  switch (state) {
+    case 0:
+      switch (ind) {
+        case 0:
+          sendDcsBiosMessage("LEFT_DDI_PB_05", "0");
+          break;
+        default:
+          sendDcsBiosMessage("LIGHTS_TEST_SW", "0"); 
+          break; 
+      } 
+      break;
+    case 1:
+      switch (ind) {
+        case 0:
+          sendDcsBiosMessage("LEFT_DDI_PB_05", "1");
+          break;
+        default:
+          sendDcsBiosMessage("LIGHTS_TEST_SW", "1");
+          break; 
+      break; 
+     }
+  }  
 }
 
 void loop() {
