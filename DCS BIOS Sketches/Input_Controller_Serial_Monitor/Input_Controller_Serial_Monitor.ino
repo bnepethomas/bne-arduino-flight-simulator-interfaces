@@ -26,8 +26,6 @@ So - Digit = Row * 11 + Col
 
 */
 
-#define DCSBIOS_IRQ_SERIAL
-#include "DcsBios.h"
 
 
 #define NUM_BUTTONS 256
@@ -85,7 +83,7 @@ String outString;
 
 void setup() {
 
-
+  Serial.begin(250000);
 
   // Set the output ports to output
   for( int portId = 22; portId < 38; portId ++ )
@@ -114,8 +112,6 @@ void setup() {
     joyEndDebounce[ind] = 0;
   }
 
-  
-  DcsBios::setup();
 }
 
 
@@ -141,14 +137,14 @@ void FindInputChanges()
  
         
         if (prevjoyReport.button[ind] == 0) {
-          outString = outString +  "1"; 
-          SendDCSBIOSMessage(ind, 1);
+          Serial.print("Pressed ");
+
         }  
         else {   
-          outString = outString + "0"; 
-          SendDCSBIOSMessage(ind, 0);
+          Serial.print("Released ");
         }
-
+        
+        Serial.println(stringind);
 
         prevjoyReport.button[ind] = joyReport.button[ind]; 
 
@@ -160,27 +156,11 @@ void FindInputChanges()
 }
 
 
-void SendDCSBIOSMessage(int ind, int state) {
 
-  
-  
-  if (ind == 0) { 
-    if (state == 0) {
-      sendDcsBiosMessage("LEFT_DDI_PB_05", "0");}
-    else {
-      sendDcsBiosMessage("LEFT_DDI_PB_05", "1");}
-  }
-  else {
-    if (state == 0) 
-      sendDcsBiosMessage("LIGHTS_TEST_SW", "0");
-    else 
-      sendDcsBiosMessage("LIGHTS_TEST_SW", "1");
-  }
-}
 
 void loop() {
 
-  DcsBios::loop();
+
 
   //turn off all rows first
   for ( int rowid = 0; rowid < 16; rowid ++ )
