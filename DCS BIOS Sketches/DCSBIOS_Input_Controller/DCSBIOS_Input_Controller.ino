@@ -169,6 +169,63 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 0:
           sendDcsBiosMessage("LEFT_DDI_PB_05", "0");
           break;
+        case 1:
+          sendDcsBiosMessage("LEFT_DDI_PB_20", "0");
+          break;
+        case 2:
+          sendDcsBiosMessage("LEFT_DDI_PB_15", "0");
+          break;             
+        case 3:
+          sendDcsBiosMessage("LEFT_DDI_PB_10", "0");
+          break; 
+        case 11:
+          sendDcsBiosMessage("LEFT_DDI_PB_04", "0");
+          break;             
+        case 12:
+          sendDcsBiosMessage("LEFT_DDI_PB_19", "0");
+          break; 
+        case 13:
+          sendDcsBiosMessage("LEFT_DDI_PB_14", "0");
+          break;             
+        case 14:
+          sendDcsBiosMessage("LEFT_DDI_PB_09", "0");
+          break; 
+        case 22:
+          sendDcsBiosMessage("LEFT_DDI_PB_03", "0");
+          break;
+        case 23:
+          sendDcsBiosMessage("LEFT_DDI_PB_18", "0");
+          break;             
+        case 24:
+          sendDcsBiosMessage("LEFT_DDI_PB_13", "0");
+          break; 
+        case 25:
+          sendDcsBiosMessage("LEFT_DDI_PB_08", "0");
+          break;             
+        case 33:
+          sendDcsBiosMessage("LEFT_DDI_PB_02", "0");
+          break; 
+        case 34:
+          sendDcsBiosMessage("LEFT_DDI_PB_17", "0");
+          break;             
+        case 35:
+          sendDcsBiosMessage("LEFT_DDI_PB_12", "0");
+          break; 
+        case 36:
+          sendDcsBiosMessage("LEFT_DDI_PB_07", "0");
+          break;             
+        case 44:
+          sendDcsBiosMessage("LEFT_DDI_PB_01", "0");
+          break;          
+        case 45:
+          sendDcsBiosMessage("LEFT_DDI_PB_16", "0");
+          break; 
+        case 46:
+          sendDcsBiosMessage("LEFT_DDI_PB_11", "0");
+          break; 
+        case 47:
+          sendDcsBiosMessage("LEFT_DDI_PB_06", "0");
+          break; 
         default:
           sendDcsBiosMessage("LIGHTS_TEST_SW", "0"); 
           break; 
@@ -178,6 +235,63 @@ void SendDCSBIOSMessage(int ind, int state) {
       switch (ind) {
         case 0:
           sendDcsBiosMessage("LEFT_DDI_PB_05", "1");
+          break;
+        case 1:
+          sendDcsBiosMessage("LEFT_DDI_PB_20", "1");
+          break;
+        case 2:
+          sendDcsBiosMessage("LEFT_DDI_PB_15", "1");
+          break;             
+        case 3:
+          sendDcsBiosMessage("LEFT_DDI_PB_10", "1");
+          break; 
+        case 11:
+          sendDcsBiosMessage("LEFT_DDI_PB_04", "1");
+          break;             
+        case 12:
+          sendDcsBiosMessage("LEFT_DDI_PB_19", "1");
+          break; 
+        case 13:
+          sendDcsBiosMessage("LEFT_DDI_PB_14", "1");
+          break;             
+        case 14:
+          sendDcsBiosMessage("LEFT_DDI_PB_09", "1");
+          break; 
+        case 22:
+          sendDcsBiosMessage("LEFT_DDI_PB_03", "1");
+          break;
+        case 23:
+          sendDcsBiosMessage("LEFT_DDI_PB_18", "1");
+          break;             
+        case 24:
+          sendDcsBiosMessage("LEFT_DDI_PB_13", "1");
+          break; 
+        case 25:
+          sendDcsBiosMessage("LEFT_DDI_PB_08", "1");
+          break;             
+        case 33:
+          sendDcsBiosMessage("LEFT_DDI_PB_02", "1");
+          break; 
+        case 34:
+          sendDcsBiosMessage("LEFT_DDI_PB_17", "1");
+          break;             
+        case 35:
+          sendDcsBiosMessage("LEFT_DDI_PB_12", "1");
+          break; 
+        case 36:
+          sendDcsBiosMessage("LEFT_DDI_PB_07", "1");
+          break;             
+        case 44:
+          sendDcsBiosMessage("LEFT_DDI_PB_01", "1");
+          break;          
+        case 45:
+          sendDcsBiosMessage("LEFT_DDI_PB_16", "1");
+          break; 
+        case 46:
+          sendDcsBiosMessage("LEFT_DDI_PB_11", "1");
+          break; 
+        case 47:
+          sendDcsBiosMessage("LEFT_DDI_PB_06", "1");
           break;
         default:
           sendDcsBiosMessage("LIGHTS_TEST_SW", "1");
