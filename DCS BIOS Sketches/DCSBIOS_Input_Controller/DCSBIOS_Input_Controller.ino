@@ -26,8 +26,40 @@ So - Digit = Row * 11 + Col
 
 */
 
+#define Ethernet_In_Use 0
+#define DCSBIOS_In_Use 1
+
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
+
+
+// Ethernet Related
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+
+// These local Mac and IP Address will be reassigned early in startup based on 
+// the device ID as set by address pins
+byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x99};
+IPAddress ip(172,16,1,100);
+String strMyIP = "X.X.X.X";
+
+// Raspberry Pi is Target
+IPAddress targetIP(172,16,1,2);
+String strTargetIP = "X.X.X.X"; 
+
+const unsigned int localport = 7788;
+const unsigned int remoteport = 26027;
+const unsigned int reflectorport = 27000;
+
+EthernetUDP udp;
+char packetBuffer[1000];     //buffer to store the incoming data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+
+
+
+
 
 
 #define NUM_BUTTONS 256
@@ -115,7 +147,15 @@ void setup() {
   }
 
   
-  DcsBios::setup();
+  if (DCSBIOS_In_Use == 1) DcsBios::setup();
+
+  if (Ethernet_In_Use == 1) {
+    Ethernet.begin( mac, ip);
+    
+    udp.begin( localport );
+    udp.beginPacket(targetIP, reflectorport);
+    udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+  }
 }
 
 
@@ -142,11 +182,13 @@ void FindInputChanges()
         
         if (prevjoyReport.button[ind] == 0) {
           outString = outString +  "1"; 
-          SendDCSBIOSMessage(ind, 1);
+          if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 1);
+          if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
         }  
         else {   
           outString = outString + "0"; 
-          SendDCSBIOSMessage(ind, 0);
+          if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 0);
+          if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
         }
 
 
@@ -159,6 +201,20 @@ void FindInputChanges()
 
 }
 
+void SendIPMessage(int ind, int state) {
+
+  String outString;
+  outString = String(ind) + ":" + String(state); 
+  
+  udp.beginPacket(targetIP, reflectorport);
+  udp.print(outString);
+  udp.endPacket();
+  
+  
+  udp.beginPacket(targetIP, remoteport);
+  udp.print(outString);
+  udp.endPacket();
+}
 
 void SendDCSBIOSMessage(int ind, int state) {
 
@@ -303,7 +359,7 @@ void SendDCSBIOSMessage(int ind, int state) {
 
 void loop() {
 
-  DcsBios::loop();
+  if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first
   for ( int rowid = 0; rowid < 16; rowid ++ )
