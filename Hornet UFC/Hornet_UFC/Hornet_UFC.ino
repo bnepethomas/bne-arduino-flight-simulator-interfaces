@@ -184,12 +184,12 @@ void loop() {
     display.setCursor(10,32);
     display.println(millis());
 
-    randomSeed(analogRead(0));
-    Brightness = random(254);
-    if (Brightness > 120)
-      setContrast(411); 
-    else
-      setContrast(1); 
+//    randomSeed(analogRead(0));
+//    Brightness = random(254);
+//    if (Brightness > 120)
+//      setContrast(411); 
+//    else
+//      setContrast(1); 
     display.display();
 
     
