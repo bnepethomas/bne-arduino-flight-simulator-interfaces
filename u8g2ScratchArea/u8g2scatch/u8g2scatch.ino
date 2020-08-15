@@ -63,8 +63,8 @@ void setup(void) {
 
 /* draw something on the display with the `firstPage()`/`nextPage()` loop*/
 void loop(void) {
-  int xpos = 35;
-  int xpos2 = 6;
+  int xpos = 29;
+  int xpos2 = xpos - 29;
   int ypos1 = 47;
   for (int i=0; i<= 13; i++){
     u8g2.firstPage();
