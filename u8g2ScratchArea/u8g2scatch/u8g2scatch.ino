@@ -63,7 +63,7 @@ void setup(void) {
 
 /* draw something on the display with the `firstPage()`/`nextPage()` loop*/
 void loop(void) {
-  int xpos = 29;
+  int xpos = 15;
   int xpos2 = xpos - 29;
   int ypos1 = 47;
   for (int i=0; i<= 13; i++){
