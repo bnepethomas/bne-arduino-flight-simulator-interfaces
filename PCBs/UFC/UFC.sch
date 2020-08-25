@@ -349,18 +349,6 @@ F 4 "GX06400" H 7350 8250 60  0001 C CNN "PN"
 	1    7350 8250
 	1    0    0    -1  
 $EndComp
-$Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW14
-U 1 1 5A2F938C
-P 10100 8250
-F 0 "SW14" H 10150 8350 50  0000 L CNN
-F 1 "EMCON" H 10100 8190 50  0000 C CNN
-F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 10100 8450 50  0001 C CNN
-F 3 "" H 10100 8450 50  0001 C CNN
-F 4 "GX06400" H 10100 8250 60  0001 C CNN "PN"
-	1    10100 8250
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	13450 4950 13500 4950
 Wire Wire Line
@@ -683,8 +671,6 @@ F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 9400 
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	10300 8150 10300 8050
-Wire Wire Line
 	9750 7950 9750 8150
 Wire Wire Line
 	8850 7950 8850 8050
@@ -741,7 +727,6 @@ Wire Wire Line
 Connection ~ 8300 7950
 Wire Wire Line
 	9750 7950 9550 7950
-Connection ~ 9750 7950
 Wire Wire Line
 	9750 7100 9550 7100
 Connection ~ 9750 7100
@@ -943,16 +928,9 @@ Wire Wire Line
 	7650 8050 7650 8500
 Wire Wire Line
 	7650 8500 9000 8500
-Wire Wire Line
-	10450 8500 10450 8050
-Wire Wire Line
-	10450 8050 10300 8050
 Connection ~ 7550 8050
 Wire Wire Line
 	7550 8050 7550 8150
-Connection ~ 10300 8050
-Wire Wire Line
-	10300 8050 10300 7950
 Wire Wire Line
 	8850 8050 9000 8050
 Wire Wire Line
@@ -961,8 +939,6 @@ Connection ~ 8850 8050
 Wire Wire Line
 	8850 8050 8850 8150
 Connection ~ 9000 8500
-Wire Wire Line
-	9000 8500 10450 8500
 $Comp
 L Device:R R1
 U 1 1 5EFD8DA4
@@ -1032,12 +1008,12 @@ $EndComp
 $Comp
 L Device:R R7
 U 1 1 5EFE1EC4
-P 9550 8250
-F 0 "R7" V 9343 8250 50  0000 C CNN
-F 1 "470" V 9434 8250 50  0000 C CNN
-F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 9480 8250 50  0001 C CNN
-F 3 "~" H 9550 8250 50  0001 C CNN
-	1    9550 8250
+P 11050 8350
+F 0 "R7" V 10843 8350 50  0000 C CNN
+F 1 "470" V 10934 8350 50  0000 C CNN
+F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 10980 8350 50  0001 C CNN
+F 3 "~" H 11050 8350 50  0001 C CNN
+	1    11050 8350
 	0    1    1    0   
 $EndComp
 Wire Wire Line
@@ -1053,9 +1029,7 @@ Wire Wire Line
 	8300 7400 8250 7400
 Wire Wire Line
 	9750 5750 9700 5750
-Wire Wire Line
-	9750 8250 9700 8250
-Text Label 9400 8250 2    50   ~ 0
+Text Label 10900 8350 2    50   ~ 0
 Bcklt+12V
 Text Label 6600 6600 2    50   ~ 0
 Bcklt+12V
@@ -1331,7 +1305,7 @@ Text Label 10450 6600 0    50   ~ 0
 Row3
 Text Label 10450 7600 0    50   ~ 0
 Row4
-Text Label 10450 8300 0    50   ~ 0
+Text Label 9950 8500 0    50   ~ 0
 Row5
 $Comp
 L Connector:Conn_01x04_Female J1
@@ -1421,4 +1395,167 @@ F 3 "~" H 8700 11250 50  0001 C CNN
 	1    8700 11250
 	1    0    0    -1  
 $EndComp
+Text Label 5650 9850 2    50   ~ 0
+Row6
+$Comp
+L PT_Symbol_Library_v001:PT_Conn_01x04 J6
+U 1 1 5F46A636
+P 11700 8350
+F 0 "J6" H 11780 8442 50  0000 L CNN
+F 1 "EM Con" H 11780 8351 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 11700 8350 50  0001 C CNN
+F 3 "~" H 11700 8350 50  0001 C CNN
+	1    11700 8350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	11500 8250 10600 8250
+Wire Wire Line
+	10600 8250 10600 8500
+Text Label 11500 8450 2    50   ~ 0
+BckltGND
+Wire Wire Line
+	11500 8350 11200 8350
+Text Notes 12000 8050 2    50   ~ 0
+EM CON
+Wire Wire Line
+	9000 8500 10600 8500
+Wire Wire Line
+	11500 8150 9750 8150
+$Comp
+L Connector_Generic:Conn_01x03 J7
+U 1 1 5F4EA2FE
+P 5000 8300
+F 0 "J7" H 4918 8617 50  0000 C CNN
+F 1 "ADF Switch" H 4918 8526 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5000 8300 50  0001 C CNN
+F 3 "~" H 5000 8300 50  0001 C CNN
+	1    5000 8300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4148 D30
+U 1 1 5F4FB3B7
+P 5100 7750
+F 0 "D30" H 5100 7966 50  0000 C CNN
+F 1 "1N4148" H 5100 7875 50  0000 C CNN
+F 2 "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal" H 5100 7575 50  0001 C CNN
+F 3 "https://assets.nexperia.com/documents/data-sheet/1N4148_1N4448.pdf" H 5100 7750 50  0001 C CNN
+	1    5100 7750
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4950 7100 4950 7750
+Connection ~ 4950 7100
+Wire Wire Line
+	5250 7750 5350 7750
+Wire Wire Line
+	5350 7750 5350 8200
+Wire Wire Line
+	5350 8200 5200 8200
+Wire Wire Line
+	7650 8500 6500 8500
+Wire Wire Line
+	6500 8500 6500 8300
+Wire Wire Line
+	6500 8300 5200 8300
+Connection ~ 7650 8500
+Text Label 5200 8400 0    50   ~ 0
+Row6
+$Comp
+L Connector_Generic:Conn_01x03 J8
+U 1 1 5F52E2B2
+P 8250 9100
+F 0 "J8" H 8168 9417 50  0000 C CNN
+F 1 "Brightness" H 8168 9326 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 8250 9100 50  0001 C CNN
+F 3 "~" H 8250 9100 50  0001 C CNN
+	1    8250 9100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x03 J9
+U 1 1 5F52F2DE
+P 8250 9650
+F 0 "J9" H 8168 9967 50  0000 C CNN
+F 1 "Com1 Vol" H 8168 9876 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 8250 9650 50  0001 C CNN
+F 3 "~" H 8250 9650 50  0001 C CNN
+	1    8250 9650
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x03 J10
+U 1 1 5F530778
+P 8250 10100
+F 0 "J10" H 8168 10417 50  0000 C CNN
+F 1 "Com2 Vol" H 8168 10326 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 8250 10100 50  0001 C CNN
+F 3 "~" H 8250 10100 50  0001 C CNN
+	1    8250 10100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x06 J11
+U 1 1 5F532574
+P 9700 9450
+F 0 "J11" H 9780 9442 50  0000 L CNN
+F 1 "Analog Out" H 9780 9351 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 9700 9450 50  0001 C CNN
+F 3 "~" H 9700 9450 50  0001 C CNN
+	1    9700 9450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8450 9000 8600 9000
+Wire Wire Line
+	9500 9000 9500 9250
+Wire Wire Line
+	9500 9350 8850 9350
+Wire Wire Line
+	8850 9350 8850 9200
+Wire Wire Line
+	8850 9200 8700 9200
+Wire Wire Line
+	9500 9450 9400 9450
+Wire Wire Line
+	9400 9450 9400 9100
+Wire Wire Line
+	9400 9100 8450 9100
+Wire Wire Line
+	9500 9550 8800 9550
+Wire Wire Line
+	8800 9550 8800 9650
+Wire Wire Line
+	8800 9650 8450 9650
+Wire Wire Line
+	9500 9650 8900 9650
+Wire Wire Line
+	8900 9650 8900 10100
+Wire Wire Line
+	8900 10100 8450 10100
+Wire Wire Line
+	8700 9200 8700 9750
+Wire Wire Line
+	8700 10200 8450 10200
+Connection ~ 8700 9200
+Wire Wire Line
+	8700 9200 8450 9200
+Wire Wire Line
+	8450 9750 8700 9750
+Connection ~ 8700 9750
+Wire Wire Line
+	8700 9750 8700 10200
+Wire Wire Line
+	8600 9000 8600 9550
+Wire Wire Line
+	8600 10000 8450 10000
+Connection ~ 8600 9000
+Wire Wire Line
+	8600 9000 9500 9000
+Wire Wire Line
+	8450 9550 8600 9550
+Connection ~ 8600 9550
+Wire Wire Line
+	8600 9550 8600 10000
 $EndSCHEMATC
