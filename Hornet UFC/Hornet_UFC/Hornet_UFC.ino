@@ -57,11 +57,17 @@
 // Wait for UDP updates
 // during timeout grab and smooth analo 0 and get brightness for all displays
 
+#define Ethernet_In_Use 1
+#define DCSBIOS_In_Use 1
 
+#define DCSBIOS_IRQ_SERIAL
+#include "DcsBios.h"
 
 
 #include <SPI.h>
 #include <Wire.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Fonts/FreeMonoBoldOblique24pt7b.h>
@@ -71,8 +77,26 @@
 #include "PTFont.h"
 #include "er_oled.h"
 
-#define DCSBIOS_IRQ_SERIAL
-#include "DcsBios.h"
+
+// These local Mac and IP Address will be reassigned early in startup based on 
+// the device ID as set by address pins
+byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x99};
+IPAddress ip(172,16,1,100);
+String strMyIP = "X.X.X.X";
+
+// Raspberry Pi is Target
+IPAddress targetIP(172,16,1,2);
+String strTargetIP = "X.X.X.X"; 
+
+const unsigned int localport = 7788;
+const unsigned int remoteport = 26027;
+const unsigned int reflectorport = 27000;
+
+EthernetUDP udp;
+char packetBuffer[1000];     //buffer to store the incoming data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+
 
 // Unsure what this does - hopefully not a pin on the mega
 #define OLED_RESET 4
@@ -102,25 +126,30 @@ void tcaselect(uint8_t i) {
 }
 
 void setup() {
-  Serial.begin(115200);
+  //Serial.begin(115200);
   Wire.begin();
 
-  Serial.println("\nScanning I2C Bus");
+
+  // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
+  //Serial.println("\nScanning I2C Bus");
   
   for (uint8_t t=0; t<8; t++) {
     tcaselect(t);
-    Serial.print("TCA Port #"); Serial.println(t);
+    // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
+    //Serial.print("TCA Port #"); Serial.println(t);
 
     for (uint8_t addr = 0; addr<=127; addr++) {
       //if (addr == TCAADDR) continue;
     
       uint8_t data;
       if (! twi_writeTo(addr, &data, 0, 1, 1)) {
-         Serial.print("Found I2C 0x");  Serial.println(addr,HEX);
+        // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
+         //Serial.print("Found I2C 0x");  Serial.println(addr,HEX);
       }
     }
   }
-  Serial.println("\nI2C scan complete"); 
+  // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
+  //Serial.println("\nI2C scan complete"); 
 
   tcaselect(0);
   er_oled_begin();
@@ -130,6 +159,17 @@ void setup() {
     display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
     display.display();
     setContrast(411);
+  }
+
+  if (DCSBIOS_In_Use == 1) DcsBios::setup();
+
+  if (Ethernet_In_Use == 1) {
+    Ethernet.begin( mac, ip);
+    
+    udp.begin( localport );
+    udp.beginPacket(targetIP, reflectorport);
+    udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+
   }
 
 }
@@ -153,13 +193,67 @@ void setContrast(int contr){
     display.ssd1306_command(brigh);                           
 }
 
+void SendIPMessage(int ind, int state) {
+
+  String outString;
+  outString = String(ind) + ":" + String(state); 
+  
+  udp.beginPacket(targetIP, reflectorport);
+  udp.print(outString);
+  udp.endPacket();
+  
+  
+  udp.beginPacket(targetIP, remoteport);
+  udp.print(outString);
+  udp.endPacket();
+}
+
+void SendIPString(String state) {
+
+  String outString;
+  outString = String(state); 
+  
+  udp.beginPacket(targetIP, reflectorport);
+  udp.print(outString);
+  udp.endPacket();
+  
+  
+  udp.beginPacket(targetIP, remoteport);
+  udp.print(outString);
+  udp.endPacket();
+}
+void onUfcOptionDisplay1Change(char* newValue) {
+    SendIPMessage(1,1);
+    SendIPString(newValue);
+    SendIPMessage(9,9);
+
+    tcaselect(7);
+    // Clear the buffer.
+    display.clearDisplay();
+    //display.setFont(&FreeMonoBold18pt7b); 
+    display.setFont(&FreeMono9pt7b);
+    // text display tests
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(0,10);
+  
+    display.println(CurrentDisplay);
+    //display.setFont(&FreeMonoBoldOblique24pt7b);
+    display.setFont(&DSEG14_Classic_Regular_33);
+    //display.setFont(&FreeMonoBold18pt7b);
+    display.setCursor(10,32);
+    display.println(newValue);
+    display.display();
+}
+DcsBios::StringBuffer<4> ufcOptionDisplay1Buffer(0x7432, onUfcOptionDisplay1Change);
+
 
 void loop() {
 
-
+  if (DCSBIOS_In_Use == 1) DcsBios::loop();
     
   CurrentDisplay ++;
-  if (CurrentDisplay >7) 
+  if (CurrentDisplay >6) 
     CurrentDisplay = 0;
 
 
