@@ -248,12 +248,103 @@ void onUfcOptionDisplay1Change(char* newValue) {
 DcsBios::StringBuffer<4> ufcOptionDisplay1Buffer(0x7432, onUfcOptionDisplay1Change);
 
 
+void onUfcOptionDisplay2Change(char* newValue) {
+    SendIPMessage(1,1);
+    SendIPString(newValue);
+    SendIPMessage(9,9);
+
+
+    tcaselect(6);
+    // Clear the buffer.
+    display.clearDisplay();
+    //display.setFont(&FreeMonoBold18pt7b); 
+    display.setFont(&FreeMono9pt7b);
+    // text display tests
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(0,10);
+  
+    display.println(CurrentDisplay);
+    //display.setFont(&FreeMonoBoldOblique24pt7b);
+    display.setFont(&DSEG14_Classic_Regular_33);
+    //display.setFont(&FreeMonoBold18pt7b);
+    display.setCursor(10,32);
+    display.println(newValue);
+    display.display();
+}
+DcsBios::StringBuffer<4> ufcOptionDisplay2Buffer(0x7436, onUfcOptionDisplay2Change);
+
+
+void onUfcOptionDisplay3Change(char* newValue) {
+    tcaselect(2);
+    // Clear the buffer.
+    display.clearDisplay();
+    //display.setFont(&FreeMonoBold18pt7b); 
+    display.setFont(&FreeMono9pt7b);
+    // text display tests
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(0,10);
+  
+    display.println(CurrentDisplay);
+    //display.setFont(&FreeMonoBoldOblique24pt7b);
+    display.setFont(&DSEG14_Classic_Regular_33);
+    //display.setFont(&FreeMonoBold18pt7b);
+    display.setCursor(10,32);
+    display.println(newValue);
+    display.display();
+}
+DcsBios::StringBuffer<4> ufcOptionDisplay3Buffer(0x743a, onUfcOptionDisplay3Change);
+
+void onUfcOptionDisplay4Change(char* newValue) {
+    tcaselect(5);
+    // Clear the buffer.
+    display.clearDisplay();
+    //display.setFont(&FreeMonoBold18pt7b); 
+    display.setFont(&FreeMono9pt7b);
+    // text display tests
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(0,10);
+  
+    display.println(CurrentDisplay);
+    //display.setFont(&FreeMonoBoldOblique24pt7b);
+    display.setFont(&DSEG14_Classic_Regular_33);
+    //display.setFont(&FreeMonoBold18pt7b);
+    display.setCursor(10,32);
+    display.println(newValue);
+    display.display();
+}
+DcsBios::StringBuffer<4> ufcOptionDisplay4Buffer(0x743e, onUfcOptionDisplay4Change);
+
+
+void onUfcOptionDisplay5Change(char* newValue) {
+    tcaselect(4);
+    // Clear the buffer.
+    display.clearDisplay();
+    //display.setFont(&FreeMonoBold18pt7b); 
+    display.setFont(&FreeMono9pt7b);
+    // text display tests
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(0,10);
+  
+    display.println(CurrentDisplay);
+    //display.setFont(&FreeMonoBoldOblique24pt7b);
+    display.setFont(&DSEG14_Classic_Regular_33);
+    //display.setFont(&FreeMonoBold18pt7b);
+    display.setCursor(10,32);
+    display.println(newValue);
+    display.display();
+}
+DcsBios::StringBuffer<4> ufcOptionDisplay5Buffer(0x7442, onUfcOptionDisplay5Change);
+
 void loop() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
     
   CurrentDisplay ++;
-  if (CurrentDisplay >6) 
+  if (CurrentDisplay >5) 
     CurrentDisplay = 0;
 
 
@@ -266,7 +357,7 @@ void loop() {
     er_oled_string(40, 7, buffer, 16, 1, oled_buf);  
     
     er_oled_display(oled_buf);
-  } else
+  } else if (CurrentDisplay == 1)
   {
     // Clear the buffer.
     display.clearDisplay();
