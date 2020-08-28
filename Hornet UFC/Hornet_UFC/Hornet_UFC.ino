@@ -8,7 +8,7 @@
 // The UFC has a large display on the top left hand corner, five mid sized display on the right hand side, and then two smaller 
 // displays at the bottom left and bottom right hand side.
 //
-// As a number of the smae OLEDs are used, which the same target I2C addresses an I2C multiplexor is used, TCA9548A.
+// As a number of the same OLEDs are used, which the same target I2C addresses an I2C multiplexor is used, TCA9548A.
 // The TCA9548A is an 8 Channel I2C switch.  It is possible for different devices to share a common host I2C bus.
 // https://e2e.ti.com/blogs_/b/analogwire/archive/2015/10/15/how-to-simplify-i2c-tree-when-connecting-multiple-slaves-to-an-i2c-master
 //
@@ -58,6 +58,8 @@
 // during timeout grab and smooth analo 0 and get brightness for all displays
 
 
+
+
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -68,6 +70,9 @@
 #include <Fonts/FreeMono9pt7b.h>   
 #include "PTFont.h"
 #include "er_oled.h"
+
+#define DCSBIOS_IRQ_SERIAL
+#include "DcsBios.h"
 
 // Unsure what this does - hopefully not a pin on the mega
 #define OLED_RESET 4
@@ -124,6 +129,7 @@ void setup() {
     tcaselect(t);
     display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
     display.display();
+    setContrast(411);
   }
 
 }
