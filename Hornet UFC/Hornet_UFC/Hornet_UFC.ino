@@ -49,6 +49,20 @@
 // U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ 4); 
 //
 //
+//The data format of U8G2 fonts is based on the BDF font format. Its glyph bitmaps are compressed with a 
+//run-length-encoding algorithm and its header data are designed with variable bit field width to 
+//minimize flash memory footprint.
+
+//http://oleddisplay.squix.ch/#/home
+//<3.0.0 is Thiele with packed bitmaps (and special gotcha)
+//>=3.0.0 has a Jump table with aligned bitmaps (and really special gotcha)
+//Adafruit_GFX has missing bitmap and glyph entry for 0x7E (tilde)
+
+// https://rop.nl/truetype2gfx/
+
+// FontForge
+// https://learn.adafruit.com/custom-fonts-for-pyportal-circuitpython-display/conversion
+
 
 // Basic logic
 // Initialise I2C Bus (wire)
@@ -59,6 +73,15 @@
 
 #define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
+
+// Port 3 is used for either a channel or Scratchpad display
+#define Opt_OLED_Port_1 6
+#define Opt_OLED_Port_2 4
+#define Opt_OLED_Port_3 5
+#define Opt_OLED_Port_4 2
+#define Opt_OLED_Port_5 7
+
+
 
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
@@ -110,6 +133,11 @@ Adafruit_SSD1306 display(OLED_RESET);
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
+
+/* Constructor */
+//U8G2_SSD1306_128X32_UNIVISION_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE); 
+U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ 2); 
+
 extern "C" { 
 #include "utility/twi.h"  // from Wire library, so we can do bus scanning
 }
@@ -158,6 +186,13 @@ void setup() {
   tcaselect(0);
   er_oled_begin();
 
+  tcaselect(0); 
+  u8g2.begin();
+
+
+  // text display tests
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
   for (uint8_t t=1; t<8; t++) {
     tcaselect(t);
     display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
@@ -186,6 +221,17 @@ void setContrast(int contr){
     // for Adafruit_SSD1306.h library
     // contr values from 1 to 411
     // for i2c and 3.3V VCC works fine
+
+    // Sample calling code
+    
+    //    randomSeed(analogRead(0));
+    //    Brightness = random(254);
+    //    if (Brightness > 120)
+    //      setContrast(411); 
+    //    else
+    //      setContrast(1); 
+
+
     int prech;
     int brigh; 
     switch (contr){
@@ -233,7 +279,7 @@ void onUfcOptionDisplay1Change(char* newValue) {
     SendIPString(newValue);
     SendIPMessage(9,9);
 
-    tcaselect(7);
+    tcaselect(Opt_OLED_Port_1);
     // Clear the buffer.
     display.clearDisplay();
     //display.setFont(&FreeMonoBoldOblique24pt7b);
@@ -252,7 +298,7 @@ void onUfcOptionDisplay2Change(char* newValue) {
     SendIPMessage(9,9);
 
 
-    tcaselect(6);
+    tcaselect(Opt_OLED_Port_2);
     // Clear the buffer.
     display.clearDisplay();
 
@@ -267,7 +313,7 @@ DcsBios::StringBuffer<4> ufcOptionDisplay2Buffer(0x7436, onUfcOptionDisplay2Chan
 
 
 void onUfcOptionDisplay3Change(char* newValue) {
-    tcaselect(2);
+    tcaselect(Opt_OLED_Port_3);
     // Clear the buffer.
     display.clearDisplay();
 
@@ -281,7 +327,7 @@ void onUfcOptionDisplay3Change(char* newValue) {
 DcsBios::StringBuffer<4> ufcOptionDisplay3Buffer(0x743a, onUfcOptionDisplay3Change);
 
 void onUfcOptionDisplay4Change(char* newValue) {
-    tcaselect(5);
+    tcaselect(Opt_OLED_Port_4);
     // Clear the buffer.
     display.clearDisplay();
 
@@ -296,7 +342,7 @@ DcsBios::StringBuffer<4> ufcOptionDisplay4Buffer(0x743e, onUfcOptionDisplay4Chan
 
 
 void onUfcOptionDisplay5Change(char* newValue) {
-    tcaselect(4);
+    tcaselect(Opt_OLED_Port_5);
     // Clear the buffer.
     display.clearDisplay();
 
@@ -308,6 +354,38 @@ void onUfcOptionDisplay5Change(char* newValue) {
     display.display();
 }
 DcsBios::StringBuffer<4> ufcOptionDisplay5Buffer(0x7442, onUfcOptionDisplay5Change);
+
+
+void onUfcComm1DisplayChange(char* newValue) {
+  tcaselect(0);
+  int xpos = 15;
+  int xpos2 = xpos - 29;
+  int ypos1 = 47;
+    int i = 1;
+
+    u8g2.firstPage();
+    do {
+      //u8g2.setFont(u8g2_font_fub35_tr);
+      //u8g2.setFont(DSEG14_Classic_Regular_16);
+      //u8g2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+      u8g2.setFont(u8g2_font_7Segments_26x42_mn);
+      //u8g2_DcsFontHornet3_BIOS_09_tf
+      //u8g2_DcsFontHornet4_BIOS_09_tf
+      //u8g2.setFont(u8g2_font_fub35_tr);
+      
+      if (i<= 9)
+        u8g2.setCursor(xpos,ypos1);
+      else 
+        u8g2.setCursor(xpos2,ypos1);
+      u8g2.print(newValue);
+      
+//      u8g2.setFont(u8g2_font_ncenB12_tr);
+//  
+//      u8g2.setCursor(0,14);
+//      u8g2.print(millis());
+    } while ( u8g2.nextPage() );    /* your code here */
+}
+DcsBios::StringBuffer<2> ufcComm1DisplayBuffer(0x7424, onUfcComm1DisplayChange);
 
 void loop() {
 
@@ -321,44 +399,31 @@ void loop() {
   tcaselect(CurrentDisplay);
   if (CurrentDisplay == 0)
   {
-    er_oled_clear(oled_buf);
-    sprintf(buffer, "%d", millis());  //convert millis() to a char array in buffer and terminate it with a zero
-    
-    er_oled_string(40, 7, buffer, 16, 1, oled_buf);  
-    
-    er_oled_display(oled_buf);
+//    er_oled_clear(oled_buf);
+//    sprintf(buffer, "%d", millis());  //convert millis() to a char array in buffer and terminate it with a zero
+//    
+//    er_oled_string(40, 7, buffer, 16, 1, oled_buf);  
+//    
+//    er_oled_display(oled_buf);
   } else if (CurrentDisplay == 1)
   {
-    // Clear the buffer.
-    display.clearDisplay();
-    //display.setFont(&FreeMonoBold18pt7b); 
-    display.setFont(&FreeMono9pt7b);
-    // text display tests
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0,10);
+//    // Clear the buffer.
+//    display.clearDisplay();
+//    //display.setFont(&FreeMonoBold18pt7b); 
+//    display.setFont(&FreeMono9pt7b);
+//    // text display tests
+//    display.setTextSize(1);
+//    display.setTextColor(WHITE);
+//    display.setCursor(0,10);
   
-    display.println(CurrentDisplay);
-    //display.setFont(&FreeMonoBoldOblique24pt7b);
-    display.setFont(&DSEG14_Classic_Regular_33);
-    //display.setFont(&FreeMonoBold18pt7b);
-    display.setCursor(10,32);
-    display.println(millis());
+//    display.println(CurrentDisplay);
+//    //display.setFont(&FreeMonoBoldOblique24pt7b);
+//    display.setFont(&DSEG14_Classic_Regular_33);
+//    //display.setFont(&FreeMonoBold18pt7b);
+//    display.setCursor(10,32);
+//    display.println(millis());
 
-//    randomSeed(analogRead(0));
-//    Brightness = random(254);
-//    if (Brightness > 120)
-//      setContrast(411); 
-//    else
-//      setContrast(1); 
-    display.display();
-
-    
-
-
-
-    
-    
+//    display.display();  
 
   }
   
