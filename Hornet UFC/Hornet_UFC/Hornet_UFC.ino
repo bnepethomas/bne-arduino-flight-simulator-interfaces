@@ -63,6 +63,10 @@
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
 
+#include <Arduino.h>
+#include <U8g2lib.h>
+#include "hornet_font.h"
+#include "dseg14_v3.h"
 
 #include <SPI.h>
 #include <Wire.h>
@@ -159,6 +163,8 @@ void setup() {
     display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
     display.display();
     setContrast(411);
+    display.clearDisplay();
+    display.display();
   }
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
@@ -230,14 +236,6 @@ void onUfcOptionDisplay1Change(char* newValue) {
     tcaselect(7);
     // Clear the buffer.
     display.clearDisplay();
-    //display.setFont(&FreeMonoBold18pt7b); 
-    display.setFont(&FreeMono9pt7b);
-    // text display tests
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0,10);
-  
-    display.println(CurrentDisplay);
     //display.setFont(&FreeMonoBoldOblique24pt7b);
     display.setFont(&DSEG14_Classic_Regular_33);
     //display.setFont(&FreeMonoBold18pt7b);
@@ -257,14 +255,7 @@ void onUfcOptionDisplay2Change(char* newValue) {
     tcaselect(6);
     // Clear the buffer.
     display.clearDisplay();
-    //display.setFont(&FreeMonoBold18pt7b); 
-    display.setFont(&FreeMono9pt7b);
-    // text display tests
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0,10);
-  
-    display.println(CurrentDisplay);
+
     //display.setFont(&FreeMonoBoldOblique24pt7b);
     display.setFont(&DSEG14_Classic_Regular_33);
     //display.setFont(&FreeMonoBold18pt7b);
@@ -279,14 +270,7 @@ void onUfcOptionDisplay3Change(char* newValue) {
     tcaselect(2);
     // Clear the buffer.
     display.clearDisplay();
-    //display.setFont(&FreeMonoBold18pt7b); 
-    display.setFont(&FreeMono9pt7b);
-    // text display tests
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0,10);
-  
-    display.println(CurrentDisplay);
+
     //display.setFont(&FreeMonoBoldOblique24pt7b);
     display.setFont(&DSEG14_Classic_Regular_33);
     //display.setFont(&FreeMonoBold18pt7b);
@@ -300,14 +284,7 @@ void onUfcOptionDisplay4Change(char* newValue) {
     tcaselect(5);
     // Clear the buffer.
     display.clearDisplay();
-    //display.setFont(&FreeMonoBold18pt7b); 
-    display.setFont(&FreeMono9pt7b);
-    // text display tests
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0,10);
-  
-    display.println(CurrentDisplay);
+
     //display.setFont(&FreeMonoBoldOblique24pt7b);
     display.setFont(&DSEG14_Classic_Regular_33);
     //display.setFont(&FreeMonoBold18pt7b);
@@ -322,14 +299,7 @@ void onUfcOptionDisplay5Change(char* newValue) {
     tcaselect(4);
     // Clear the buffer.
     display.clearDisplay();
-    //display.setFont(&FreeMonoBold18pt7b); 
-    display.setFont(&FreeMono9pt7b);
-    // text display tests
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0,10);
-  
-    display.println(CurrentDisplay);
+
     //display.setFont(&FreeMonoBoldOblique24pt7b);
     display.setFont(&DSEG14_Classic_Regular_33);
     //display.setFont(&FreeMonoBold18pt7b);
