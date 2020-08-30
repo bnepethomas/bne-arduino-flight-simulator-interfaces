@@ -92,22 +92,16 @@
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
 
-#include <Arduino.h>
+//#include <Arduino.h>
 #include <U8g2lib.h>
 #include "hornet_font.h"
-#include "dseg14_v3.h"
+//#include "dseg14_v3.h"
 
 #include <SPI.h>
 #include <Wire.h>
 #include <Ethernet.h>
 #include <EthernetUdp.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include <Fonts/FreeMonoBoldOblique24pt7b.h>
-#include <Fonts/FreeMonoBoldOblique12pt7b.h>
-#include <Fonts/FreeMonoBold18pt7b.h>  
-#include <Fonts/FreeMono9pt7b.h>   
-#include "PTFont.h"
+
 
 
 
@@ -130,30 +124,28 @@ char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 
-
-// Unsure what this does - hopefully not a pin on the mega
-#define OLED_RESET 4
-Adafruit_SSD1306 display(OLED_RESET);
-
-#if (SSD1306_LCDHEIGHT != 32)
-#error("Height incorrect, please fix Adafruit_SSD1306.h!");
-#endif
-
+// Op OLEDs
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT1(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT3(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT4(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT5(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 // Com1 and Com2 OLEDs
-
 U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2_COM1(U8G2_R0, /* reset=*/ 2); 
 U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2_COM2(U8G2_R0, /* reset=*/ 11); 
 
 // Scratch Pad OLED
 U8G2_SSD1305_128X32_ADAFRUIT_F_HW_I2C u8g2_Scratch_Pad(U8G2_R2,12);
+
+
 extern "C" { 
 #include "utility/twi.h"  // from Wire library, so we can do bus scanning
 }
 
 #define TCAADDR 0x70
 
-//uint8_t oled_buf[WIDTH * HEIGHT / 8];
+
 int CurrentDisplay = 0;
 int Brightness = 0;
 char buffer[20]; //plenty of space for the value of millis() plus a zero terminator
@@ -195,31 +187,55 @@ void setup() {
 
   tcaselect(COM1_OLED_PORT); 
   u8g2_COM1.begin();
+  u8g2_COM1.clearBuffer();
   u8g2_COM1.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  u8g2_COM1.sendBuffer();
+  
   tcaselect(COM2_OLED_PORT); 
   u8g2_COM2.begin();
+  u8g2_COM2.clearBuffer();
   u8g2_COM2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  u8g2_COM2.sendBuffer();
 
   tcaselect(ScratchPad_OLED_PORT); 
   u8g2_Scratch_Pad.begin();
-  u8g2_Scratch_Pad.clearBuffer();          // clear the internal memory
-  u8g2_Scratch_Pad.setFont(u8g2_DcsFontHornet4_BIOS_09_tf); // choose a suitable font
-  u8g2_Scratch_Pad.sendBuffer();          // transfer internal memory to the display
+  u8g2_Scratch_Pad.clearBuffer();          
+  u8g2_Scratch_Pad.setFont(u8g2_DcsFontHornet4_BIOS_09_tf); 
+  u8g2_Scratch_Pad.sendBuffer();          
 
-  // text display tests
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  // Walk the ports initialising them - skip over Scratchpad OLED has t is for the scratch pad OLED
-  for (uint8_t t=2; t<8; t++) {
-    if (t != ScratchPad_OLED_PORT) {
-      tcaselect(t);
-      display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
-      display.display();
-      setContrast(411);
-      display.clearDisplay();
-      display.display();
-    }
-  }
+
+  tcaselect(Opt_OLED_Port_1); 
+  u8g2_OPT1.begin();    
+  u8g2_OPT1.clearBuffer();      
+  u8g2_OPT1.setFont(u8g2_DcsFontHornet4_BIOS_09_tf); 
+  u8g2_OPT1.sendBuffer();          
+
+  tcaselect(Opt_OLED_Port_2); 
+  u8g2_OPT2.begin();      
+  u8g2_OPT2.clearBuffer(); 
+  u8g2_OPT2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf); 
+  u8g2_OPT2.sendBuffer();
+
+  tcaselect(Opt_OLED_Port_3); 
+  u8g2_OPT3.begin(); 
+  u8g2_OPT3.clearBuffer();      
+  u8g2_OPT3.setFont(u8g2_DcsFontHornet4_BIOS_09_tf); 
+  u8g2_OPT3.sendBuffer();
+
+  tcaselect(Opt_OLED_Port_4); 
+  u8g2_OPT4.begin();
+  u8g2_OPT4.clearBuffer();      
+  u8g2_OPT4.setFont(u8g2_DcsFontHornet4_BIOS_09_tf); 
+  u8g2_OPT4.sendBuffer();
+
+  tcaselect(Opt_OLED_Port_5); 
+  u8g2_OPT5.begin();
+  u8g2_OPT5.clearBuffer();          
+  u8g2_OPT5.setFont(u8g2_DcsFontHornet4_BIOS_09_tf); 
+  u8g2_OPT5.sendBuffer();
+
+
+
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
@@ -258,10 +274,10 @@ void setContrast(int contr){
       case 256 ... 411: prech=16; brigh= contr-156; break;
       default: prech= 16; brigh= 255; break;}
       
-    display.ssd1306_command(SSD1306_SETPRECHARGE);      
-    display.ssd1306_command(prech);                            
-    display.ssd1306_command(SSD1306_SETCONTRAST);         
-    display.ssd1306_command(brigh);                           
+//    display.ssd1306_command(SSD1306_SETPRECHARGE);      
+//    display.ssd1306_command(prech);                            
+//    display.ssd1306_command(SSD1306_SETCONTRAST);         
+//    display.ssd1306_command(brigh);                           
 }
 
 void SendIPMessage(int ind, int state) {
@@ -272,8 +288,7 @@ void SendIPMessage(int ind, int state) {
   udp.beginPacket(targetIP, reflectorport);
   udp.print(outString);
   udp.endPacket();
-  
-  
+    
   udp.beginPacket(targetIP, remoteport);
   udp.print(outString);
   udp.endPacket();
@@ -293,84 +308,62 @@ void SendIPString(String state) {
   udp.print(outString);
   udp.endPacket();
 }
-void onUfcOptionDisplay1Change(char* newValue) {
-    SendIPMessage(1,1);
-    SendIPString(newValue);
-    SendIPMessage(9,9);
 
-    tcaselect(Opt_OLED_Port_1);
-    // Clear the buffer.
-    display.clearDisplay();
-    //display.setFont(&FreeMonoBoldOblique24pt7b);
-    display.setFont(&DSEG14_Classic_Regular_33);
-    //display.setFont(&FreeMonoBold18pt7b);
-    display.setCursor(10,32);
-    display.println(newValue);
-    display.display();
+void onUfcOptionDisplay1Change(char* newValue) {
+  tcaselect(Opt_OLED_Port_1);
+  u8g2_OPT1.setFontMode(0);
+  u8g2_OPT1.setDrawColor(0);
+  u8g2_OPT1.drawBox(0,0,128 ,32);
+  u8g2_OPT1.setDrawColor(1);
+  u8g2_OPT1.drawStr(5,32,newValue); 
+  u8g2_OPT1.sendBuffer(); 
 }
 DcsBios::StringBuffer<4> ufcOptionDisplay1Buffer(0x7432, onUfcOptionDisplay1Change);
 
 
 void onUfcOptionDisplay2Change(char* newValue) {
-    SendIPMessage(1,1);
-    SendIPString(newValue);
-    SendIPMessage(9,9);
-
-
-    tcaselect(Opt_OLED_Port_2);
-    // Clear the buffer.
-    display.clearDisplay();
-
-    //display.setFont(&FreeMonoBoldOblique24pt7b);
-    display.setFont(&DSEG14_Classic_Regular_33);
-    //display.setFont(&FreeMonoBold18pt7b);
-    display.setCursor(10,32);
-    display.println(newValue);
-    display.display();
+  tcaselect(Opt_OLED_Port_2);
+  u8g2_OPT2.setFontMode(0);
+  u8g2_OPT2.setDrawColor(0);
+  u8g2_OPT2.drawBox(0,0,128 ,32);
+  u8g2_OPT2.setDrawColor(1);
+  u8g2_OPT2.drawStr(5,32,newValue); 
+  u8g2_OPT2.sendBuffer(); 
 }
 DcsBios::StringBuffer<4> ufcOptionDisplay2Buffer(0x7436, onUfcOptionDisplay2Change);
 
 
 void onUfcOptionDisplay3Change(char* newValue) {
-    tcaselect(Opt_OLED_Port_3);
-    // Clear the buffer.
-    display.clearDisplay();
-
-    //display.setFont(&FreeMonoBoldOblique24pt7b);
-    display.setFont(&DSEG14_Classic_Regular_33);
-    //display.setFont(&FreeMonoBold18pt7b);
-    display.setCursor(10,32);
-    display.println(newValue);
-    display.display();
+  tcaselect(Opt_OLED_Port_3);
+  u8g2_OPT3.setFontMode(0);
+  u8g2_OPT3.setDrawColor(0);
+  u8g2_OPT3.drawBox(0,0,128 ,32);
+  u8g2_OPT3.setDrawColor(1);
+  u8g2_OPT3.drawStr(5,32,newValue); 
+  u8g2_OPT3.sendBuffer(); 
 }
 DcsBios::StringBuffer<4> ufcOptionDisplay3Buffer(0x743a, onUfcOptionDisplay3Change);
 
 void onUfcOptionDisplay4Change(char* newValue) {
-    tcaselect(Opt_OLED_Port_4);
-    // Clear the buffer.
-    display.clearDisplay();
-
-    //display.setFont(&FreeMonoBoldOblique24pt7b);
-    display.setFont(&DSEG14_Classic_Regular_33);
-    //display.setFont(&FreeMonoBold18pt7b);
-    display.setCursor(10,32);
-    display.println(newValue);
-    display.display();
+  tcaselect(Opt_OLED_Port_4);
+  u8g2_OPT4.setFontMode(0);
+  u8g2_OPT4.setDrawColor(0);
+  u8g2_OPT4.drawBox(0,0,128 ,32);
+  u8g2_OPT4.setDrawColor(1);
+  u8g2_OPT4.drawStr(5,32,newValue); 
+  u8g2_OPT4.sendBuffer(); 
 }
 DcsBios::StringBuffer<4> ufcOptionDisplay4Buffer(0x743e, onUfcOptionDisplay4Change);
 
 
 void onUfcOptionDisplay5Change(char* newValue) {
-    tcaselect(Opt_OLED_Port_5);
-    // Clear the buffer.
-    display.clearDisplay();
-
-    //display.setFont(&FreeMonoBoldOblique24pt7b);
-    display.setFont(&DSEG14_Classic_Regular_33);
-    //display.setFont(&FreeMonoBold18pt7b);
-    display.setCursor(10,32);
-    display.println(newValue);
-    display.display();
+  tcaselect(Opt_OLED_Port_5);
+  u8g2_OPT5.setFontMode(0);
+  u8g2_OPT5.setDrawColor(0);
+  u8g2_OPT5.drawBox(0,0,128 ,32);
+  u8g2_OPT5.setDrawColor(1);
+  u8g2_OPT5.drawStr(5,32,newValue); 
+  u8g2_OPT5.sendBuffer(); 
 }
 DcsBios::StringBuffer<4> ufcOptionDisplay5Buffer(0x7442, onUfcOptionDisplay5Change);
 
@@ -378,7 +371,6 @@ DcsBios::StringBuffer<4> ufcOptionDisplay5Buffer(0x7442, onUfcOptionDisplay5Chan
 void onUfcComm1DisplayChange(char* newValue) {
   tcaselect(COM1_OLED_PORT);
   int ypos1 = 47;
-
 
     u8g2_COM1.firstPage();
     do {
