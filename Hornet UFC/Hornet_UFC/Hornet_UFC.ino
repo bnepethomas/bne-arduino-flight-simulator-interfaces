@@ -84,6 +84,11 @@
 #define COM2_OLED_PORT 1
 #define ScratchPad_OLED_PORT 3
 
+#define ScratchPad_Vertical_Pos 30
+#define ScratchPad_String1_Pos 0
+#define ScratchPad_String2_Pos 35
+#define ScratchPad_Number_Pos 45
+
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
 
@@ -135,13 +140,12 @@ Adafruit_SSD1306 display(OLED_RESET);
 #endif
 
 
-/* Constructor */
-//U8G2_SSD1306_128X32_UNIVISION_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE); 
+// Com1 and Com2 OLEDs
+
 U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2_COM1(U8G2_R0, /* reset=*/ 2); 
 U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2_COM2(U8G2_R0, /* reset=*/ 11); 
-//U8G2_SSD1305_128X32_ADAFRUIT_F_SW_I2C u8g2_Scratch_Pad(U8G2_R0, /* reset=*/ 12);
 
-//U8G2_SSD1305_128X32_ADAFRUIT_F_SW_I2C u8g2_Scratch_Pad(U8G2_R2, SCL, SDA,4);
+// Scratch Pad OLED
 U8G2_SSD1305_128X32_ADAFRUIT_F_HW_I2C u8g2_Scratch_Pad(U8G2_R2,12);
 extern "C" { 
 #include "utility/twi.h"  // from Wire library, so we can do bus scanning
@@ -191,14 +195,14 @@ void setup() {
 
   tcaselect(COM1_OLED_PORT); 
   u8g2_COM1.begin();
+  u8g2_COM1.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
   tcaselect(COM2_OLED_PORT); 
   u8g2_COM2.begin();
+  u8g2_COM2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
 
   tcaselect(ScratchPad_OLED_PORT); 
   u8g2_Scratch_Pad.begin();
   u8g2_Scratch_Pad.clearBuffer();          // clear the internal memory
-  u8g2_Scratch_Pad.setFont(u8g2_font_ncenB08_tr); // choose a suitable font
-  // u8g2_DcsFontHornet4_BIOS_09_tf
   u8g2_Scratch_Pad.setFont(u8g2_DcsFontHornet4_BIOS_09_tf); // choose a suitable font
   u8g2_Scratch_Pad.sendBuffer();          // transfer internal memory to the display
 
@@ -373,56 +377,37 @@ DcsBios::StringBuffer<4> ufcOptionDisplay5Buffer(0x7442, onUfcOptionDisplay5Chan
 
 void onUfcComm1DisplayChange(char* newValue) {
   tcaselect(COM1_OLED_PORT);
-  int xpos = 15;
-  int xpos2 = xpos - 29;
   int ypos1 = 47;
 
 
     u8g2_COM1.firstPage();
     do {
-      //u8g2.setFont(u8g2_font_fub35_tr);
-      //u8g2.setFont(DSEG14_Classic_Regular_16);
-      //u8g2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-      u8g2_COM1.setFont(u8g2_font_7Segments_26x42_mn);
-      //u8g2_DcsFontHornet3_BIOS_09_tf
-      //u8g2_DcsFontHornet4_BIOS_09_tf
-      //u8g2.setFont(u8g2_font_fub35_tr);
-      u8g2_COM1.setCursor(xpos2,ypos1);
-      u8g2_COM1.print(newValue);
-      
-
+      u8g2_COM1.setCursor(0,ypos1);
+      u8g2_COM1.print(newValue);  
     } while ( u8g2_COM1.nextPage() );  
 }
 DcsBios::StringBuffer<2> ufcComm1DisplayBuffer(0x7424, onUfcComm1DisplayChange);
 
 void onUfcComm2DisplayChange(char* newValue) {
   tcaselect(COM2_OLED_PORT);
-  int xpos = 15;
-  int xpos2 = xpos - 29;
   int ypos1 = 47;
 
-
-    u8g2_COM2.firstPage();
-    do {
-      //u8g2.setFont(u8g2_font_fub35_tr);
-      //u8g2.setFont(DSEG14_Classic_Regular_16);
-      //u8g2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-      u8g2_COM2.setFont(u8g2_font_7Segments_26x42_mn);
-      //u8g2_DcsFontHornet3_BIOS_09_tf
-      //u8g2_DcsFontHornet4_BIOS_09_tf
-      //u8g2.setFont(u8g2_font_fub35_tr);
-      u8g2_COM2.setCursor(xpos2,ypos1);
-      u8g2_COM2.print(newValue);
-      
-
-    } while ( u8g2_COM2.nextPage() );   
+  u8g2_COM2.firstPage();
+  do {
+    u8g2_COM2.setCursor(0,ypos1);
+    u8g2_COM2.print(newValue);
+  } while ( u8g2_COM2.nextPage() );   
 }
 DcsBios::StringBuffer<2> ufcComm2DisplayBuffer(0x7426, onUfcComm2DisplayChange);
 
 
 void onUfcScratchpadString1DisplayChange(char* newValue) {
   tcaselect(ScratchPad_OLED_PORT);
-  u8g2_Scratch_Pad.drawStr(10,20,newValue);  // write something to the internal memory
+  u8g2_Scratch_Pad.setFontMode(0);
+  u8g2_Scratch_Pad.setDrawColor(0);
+  u8g2_Scratch_Pad.drawBox(ScratchPad_String1_Pos,0,ScratchPad_String2_Pos ,32);
+  u8g2_Scratch_Pad.setDrawColor(1);
+  u8g2_Scratch_Pad.drawStr(ScratchPad_String1_Pos,ScratchPad_Vertical_Pos,newValue);  // write something to the internal memory
   u8g2_Scratch_Pad.sendBuffer();          // transfer internal memory to the display    /* your code here */
 }
 DcsBios::StringBuffer<2> ufcScratchpadString1DisplayBuffer(0x744e, onUfcScratchpadString1DisplayChange);
@@ -430,7 +415,11 @@ DcsBios::StringBuffer<2> ufcScratchpadString1DisplayBuffer(0x744e, onUfcScratchp
 
 void onUfcScratchpadString2DisplayChange(char* newValue) {
   tcaselect(ScratchPad_OLED_PORT);
-  u8g2_Scratch_Pad.drawStr(30,20,newValue);  // write something to the internal memory
+  u8g2_Scratch_Pad.setFontMode(0);
+  u8g2_Scratch_Pad.setDrawColor(0);
+  u8g2_Scratch_Pad.drawBox(ScratchPad_String2_Pos,0,ScratchPad_Number_Pos - ScratchPad_String2_Pos ,32);
+  u8g2_Scratch_Pad.setDrawColor(1);
+  u8g2_Scratch_Pad.drawStr(ScratchPad_String2_Pos,ScratchPad_Vertical_Pos,newValue);  // write something to the internal memory
   u8g2_Scratch_Pad.sendBuffer();          // transfer internal memory to the display    /* your code here */    /* your code here */
 }
 DcsBios::StringBuffer<2> ufcScratchpadString2DisplayBuffer(0x7450, onUfcScratchpadString2DisplayChange);
@@ -438,8 +427,12 @@ DcsBios::StringBuffer<2> ufcScratchpadString2DisplayBuffer(0x7450, onUfcScratchp
 
 void onUfcScratchpadNumberDisplayChange(char* newValue) {
   tcaselect(ScratchPad_OLED_PORT);
-  u8g2_Scratch_Pad.drawStr(40,30,newValue);  // write something to the internal memory
-  u8g2_Scratch_Pad.sendBuffer();          // transfer internal memory to the display    /* your code here */
+  u8g2_Scratch_Pad.setFontMode(0);
+  u8g2_Scratch_Pad.setDrawColor(0);
+  u8g2_Scratch_Pad.drawBox(ScratchPad_Number_Pos,0,128 - ScratchPad_Number_Pos ,32);
+  u8g2_Scratch_Pad.setDrawColor(1);
+  u8g2_Scratch_Pad.drawStr(ScratchPad_Number_Pos,ScratchPad_Vertical_Pos,newValue); 
+  u8g2_Scratch_Pad.sendBuffer();           
 }
 DcsBios::StringBuffer<8> ufcScratchpadNumberDisplayBuffer(0x7446, onUfcScratchpadNumberDisplayChange);
 
