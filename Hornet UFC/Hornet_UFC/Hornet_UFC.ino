@@ -24,7 +24,7 @@
 // The following OLEDs where sourced from ebay
 // OLED for top  2.2" 128 * 32 SSD1305 (not 1306)
 // This OLED does require resistors to be set (R3 & R5 Short)(the others open)
-// Pin 16 tied to Arduino Reset
+// Pin 16 tied to specific reset for module (ie not general Arduino reset
 // It does support 3.3V, but works ok on 5V
 // 1 Gnd
 // 2 +5V
@@ -44,7 +44,7 @@
 // or may this one 0.66" 64*48 SSD1036
 // I2C 0x3C - validate by running scanner
 
-// When using U8G2 library use this constructor for 64x48 display (assuming pinn is used for reset which will need to 
+// When using U8G2 library use this constructor for 64x48 display (assuming pin is used for reset which will need to 
 // change with NW shield is attached
 // U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ 4); 
 //
@@ -103,7 +103,7 @@
 #include <Fonts/FreeMonoBold18pt7b.h>  
 #include <Fonts/FreeMono9pt7b.h>   
 #include "PTFont.h"
-// #include "er_oled.h"
+
 
 
 // These local Mac and IP Address will be reassigned early in startup based on 
@@ -139,10 +139,10 @@ Adafruit_SSD1306 display(OLED_RESET);
 //U8G2_SSD1306_128X32_UNIVISION_1_SW_I2C u8g2(U8G2_R0, /* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE); 
 U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2_COM1(U8G2_R0, /* reset=*/ 2); 
 U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2_COM2(U8G2_R0, /* reset=*/ 11); 
-U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2_Scratch_Pad(U8G2_R0, /* reset=*/ 12);
+//U8G2_SSD1305_128X32_ADAFRUIT_F_SW_I2C u8g2_Scratch_Pad(U8G2_R0, /* reset=*/ 12);
 
-
-
+//U8G2_SSD1305_128X32_ADAFRUIT_F_SW_I2C u8g2_Scratch_Pad(U8G2_R2, SCL, SDA,4);
+U8G2_SSD1305_128X32_ADAFRUIT_F_HW_I2C u8g2_Scratch_Pad(U8G2_R2,12);
 extern "C" { 
 #include "utility/twi.h"  // from Wire library, so we can do bus scanning
 }
@@ -188,8 +188,6 @@ void setup() {
   // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
   //Serial.println("\nI2C scan complete"); 
 
-//  tcaselect(0);
-//  er_oled_begin();
 
   tcaselect(COM1_OLED_PORT); 
   u8g2_COM1.begin();
@@ -198,6 +196,11 @@ void setup() {
 
   tcaselect(ScratchPad_OLED_PORT); 
   u8g2_Scratch_Pad.begin();
+  u8g2_Scratch_Pad.clearBuffer();          // clear the internal memory
+  u8g2_Scratch_Pad.setFont(u8g2_font_ncenB08_tr); // choose a suitable font
+  // u8g2_DcsFontHornet4_BIOS_09_tf
+  u8g2_Scratch_Pad.setFont(u8g2_DcsFontHornet4_BIOS_09_tf); // choose a suitable font
+  u8g2_Scratch_Pad.sendBuffer();          // transfer internal memory to the display
 
   // text display tests
   display.setTextSize(1);
@@ -388,7 +391,7 @@ void onUfcComm1DisplayChange(char* newValue) {
       u8g2_COM1.print(newValue);
       
 
-    } while ( u8g2_COM1.nextPage() );    /* your code here */
+    } while ( u8g2_COM1.nextPage() );  
 }
 DcsBios::StringBuffer<2> ufcComm1DisplayBuffer(0x7424, onUfcComm1DisplayChange);
 
@@ -412,41 +415,36 @@ void onUfcComm2DisplayChange(char* newValue) {
       u8g2_COM2.print(newValue);
       
 
-    } while ( u8g2_COM2.nextPage() );    /* your code here */    /* your code here */
+    } while ( u8g2_COM2.nextPage() );   
 }
 DcsBios::StringBuffer<2> ufcComm2DisplayBuffer(0x7426, onUfcComm2DisplayChange);
 
 
 void onUfcScratchpadString1DisplayChange(char* newValue) {
-    /* your code here */
+  tcaselect(ScratchPad_OLED_PORT);
+  u8g2_Scratch_Pad.drawStr(10,20,newValue);  // write something to the internal memory
+  u8g2_Scratch_Pad.sendBuffer();          // transfer internal memory to the display    /* your code here */
 }
 DcsBios::StringBuffer<2> ufcScratchpadString1DisplayBuffer(0x744e, onUfcScratchpadString1DisplayChange);
 
 
 void onUfcScratchpadString2DisplayChange(char* newValue) {
-    /* your code here */
+  tcaselect(ScratchPad_OLED_PORT);
+  u8g2_Scratch_Pad.drawStr(30,20,newValue);  // write something to the internal memory
+  u8g2_Scratch_Pad.sendBuffer();          // transfer internal memory to the display    /* your code here */    /* your code here */
 }
 DcsBios::StringBuffer<2> ufcScratchpadString2DisplayBuffer(0x7450, onUfcScratchpadString2DisplayChange);
 
 
 void onUfcScratchpadNumberDisplayChange(char* newValue) {
-    /* your code here */
+  tcaselect(ScratchPad_OLED_PORT);
+  u8g2_Scratch_Pad.drawStr(40,30,newValue);  // write something to the internal memory
+  u8g2_Scratch_Pad.sendBuffer();          // transfer internal memory to the display    /* your code here */
 }
 DcsBios::StringBuffer<8> ufcScratchpadNumberDisplayBuffer(0x7446, onUfcScratchpadNumberDisplayChange);
 
 void loop() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
-
-//  if (CurrentDisplay == 0)
-//  {
-////    er_oled_clear(oled_buf);
-////    sprintf(buffer, "%d", millis());  //convert millis() to a char array in buffer and terminate it with a zero
-////    
-////    er_oled_string(40, 7, buffer, 16, 1, oled_buf);  
-////    
-////    er_oled_display(oled_buf);
-
-  
 
 }
