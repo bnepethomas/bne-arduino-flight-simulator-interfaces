@@ -10,11 +10,20 @@
 #include "LedControl.h"
 #include "DcsBios.h"
 
-#define LEFT_EWI 1
-#define UFC_PANEL 1       // Currently should equal LEFT_EWI
+// Master
+//#define LEFT_EWI 1
+//#define UFC_PANEL 1       // Currently should equal LEFT_EWI
+//#define RIGHT_EWI 2
+//#define CAUTION_PANEL 3
+//#define SELECT_JET_PANEL 0
+
+
+// Play area
+#define LEFT_EWI 0
+#define UFC_PANEL 0       // Currently should equal LEFT_EWI
 #define RIGHT_EWI 2
 #define CAUTION_PANEL 3
-#define SELECT_JET_PANEL 0
+#define SELECT_JET_PANEL 1
 
 // NO GO  - LEFT EWI - ORANGE
 #define NO_GO_A_ROW 0
