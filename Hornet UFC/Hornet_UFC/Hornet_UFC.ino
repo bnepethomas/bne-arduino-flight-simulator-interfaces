@@ -75,11 +75,17 @@
 #define DCSBIOS_In_Use 1
 
 // Port 3 is used for either a channel or Scratchpad display
-#define Opt_OLED_Port_1 6
+//#define Opt_OLED_Port_1 6
+//#define Opt_OLED_Port_2 4
+//#define Opt_OLED_Port_3 5
+//#define Opt_OLED_Port_4 2
+//#define Opt_OLED_Port_5 7
+
+#define Opt_OLED_Port_1 2
 #define Opt_OLED_Port_2 4
-#define Opt_OLED_Port_3 5
-#define Opt_OLED_Port_4 2
-#define Opt_OLED_Port_5 7
+#define Opt_OLED_Port_3 7
+#define Opt_OLED_Port_4 6
+#define Opt_OLED_Port_5 5
 #define COM1_OLED_PORT 0
 #define COM2_OLED_PORT 1
 #define ScratchPad_OLED_PORT 3
