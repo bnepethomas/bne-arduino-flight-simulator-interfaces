@@ -95,6 +95,12 @@
 #define ScratchPad_String2_Pos 35
 #define ScratchPad_Number_Pos 45
 
+#define COM1_XPOS 20
+#define COM1_YPOS 33
+#define COM2_XPOS 20
+#define COM2_YPOS 33
+
+
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
 
@@ -376,11 +382,11 @@ DcsBios::StringBuffer<4> ufcOptionDisplay5Buffer(0x7442, onUfcOptionDisplay5Chan
 
 void onUfcComm1DisplayChange(char* newValue) {
   tcaselect(COM1_OLED_PORT);
-  int ypos1 = 47;
+
 
     u8g2_COM1.firstPage();
     do {
-      u8g2_COM1.setCursor(0,ypos1);
+      u8g2_COM1.setCursor(COM1_XPOS,COM1_YPOS);
       u8g2_COM1.print(newValue);  
     } while ( u8g2_COM1.nextPage() );  
 }
@@ -388,11 +394,11 @@ DcsBios::StringBuffer<2> ufcComm1DisplayBuffer(0x7424, onUfcComm1DisplayChange);
 
 void onUfcComm2DisplayChange(char* newValue) {
   tcaselect(COM2_OLED_PORT);
-  int ypos1 = 47;
+
 
   u8g2_COM2.firstPage();
   do {
-    u8g2_COM2.setCursor(0,ypos1);
+    u8g2_COM2.setCursor(COM2_XPOS,COM2_YPOS);
     u8g2_COM2.print(newValue);
   } while ( u8g2_COM2.nextPage() );   
 }
