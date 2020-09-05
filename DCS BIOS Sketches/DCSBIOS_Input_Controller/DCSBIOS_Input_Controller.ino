@@ -1040,6 +1040,13 @@ void SendDCSBIOSMessage(int ind, int state) {
   }  
 }
 
+
+
+DcsBios::PotentiometerEWMA<5, 128, 5> ufcComm1Vol("UFC_COMM1_VOL", 8);
+DcsBios::PotentiometerEWMA<5, 128, 5> ufcComm2Vol("UFC_COMM2_VOL", 9);
+DcsBios::PotentiometerEWMA<5, 128, 5> ufcBrt("UFC_BRT", 10);
+
+
 void loop() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
