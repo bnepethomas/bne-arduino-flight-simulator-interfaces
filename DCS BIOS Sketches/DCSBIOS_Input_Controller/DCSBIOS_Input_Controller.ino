@@ -413,10 +413,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 80:
           break;
         case 81:
+          sendDcsBiosMessage("UFC_7", "0");
           break;
         case 82:
+          sendDcsBiosMessage("UFC_8", "0");
           break;
         case 83:
+          sendDcsBiosMessage("UFC_9", "0");
           break;
         case 84:
           sendDcsBiosMessage("UFC_OS4", "0");
@@ -436,10 +439,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 91:
           break;
         case 92:
+          sendDcsBiosMessage("UFC_CLR", "0");
           break;
         case 93:
+          sendDcsBiosMessage("UFC_0", "0");
           break;
         case 94:
+          sendDcsBiosMessage("UFC_ENT", "0");
           break;
         case 95:
           sendDcsBiosMessage("UFC_OS5", "0");
@@ -815,10 +821,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 80:
           break;
         case 81:
+          sendDcsBiosMessage("UFC_7", "1");
           break;
         case 82:
+          sendDcsBiosMessage("UFC_8", "1");
           break;
         case 83:
+          sendDcsBiosMessage("UFC_9", "1");
           break;
         case 84:
           sendDcsBiosMessage("UFC_OS4", "1");
@@ -838,10 +847,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 91:
           break;
         case 92:
+          sendDcsBiosMessage("UFC_CLR", "1");
           break;
         case 93:
+          sendDcsBiosMessage("UFC_0", "1");
           break;
         case 94:
+          sendDcsBiosMessage("UFC_ENT", "1");
           break;
         case 95:
           sendDcsBiosMessage("UFC_OS5", "2");
