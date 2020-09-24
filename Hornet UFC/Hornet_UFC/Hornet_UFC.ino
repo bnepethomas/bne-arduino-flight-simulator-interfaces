@@ -81,14 +81,14 @@
 //#define Opt_OLED_Port_4 2
 //#define Opt_OLED_Port_5 7
 
-#define Opt_OLED_Port_1 2
+#define Opt_OLED_Port_1 3
 #define Opt_OLED_Port_2 4
-#define Opt_OLED_Port_3 7
+#define Opt_OLED_Port_3 5
 #define Opt_OLED_Port_4 6
-#define Opt_OLED_Port_5 5
+#define Opt_OLED_Port_5 7
 #define COM1_OLED_PORT 0
 #define COM2_OLED_PORT 1
-#define ScratchPad_OLED_PORT 3
+#define ScratchPad_OLED_PORT 2
 
 #define ScratchPad_Vertical_Pos 30
 #define ScratchPad_String1_Pos 0
