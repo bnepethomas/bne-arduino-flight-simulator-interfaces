@@ -71,7 +71,7 @@
 // Wait for UDP updates
 // during timeout grab and smooth analo 0 and get brightness for all displays
 
-#define Ethernet_In_Use 1
+#define Ethernet_In_Use 0
 #define DCSBIOS_In_Use 1
 
 // Port 3 is used for either a channel or Scratchpad display
@@ -322,32 +322,36 @@ void setContrast(int contr){
 }
 
 void SendIPMessage(int ind, int state) {
-
-  String outString;
-  outString = String(ind) + ":" + String(state); 
-  
-  udp.beginPacket(targetIP, reflectorport);
-  udp.print(outString);
-  udp.endPacket();
+  if (Ethernet_In_Use == 1) {
+    String outString;
+    outString = String(ind) + ":" + String(state); 
     
-  udp.beginPacket(targetIP, remoteport);
-  udp.print(outString);
-  udp.endPacket();
+    udp.beginPacket(targetIP, reflectorport);
+    udp.print(outString);
+    udp.endPacket();
+      
+    udp.beginPacket(targetIP, remoteport);
+    udp.print(outString);
+    udp.endPacket();
+  }
 }
 
 void SendIPString(String state) {
 
   String outString;
-  outString = String(state); 
-  
-  udp.beginPacket(targetIP, reflectorport);
-  udp.print(outString);
-  udp.endPacket();
-  
-  
-  udp.beginPacket(targetIP, remoteport);
-  udp.print(outString);
-  udp.endPacket();
+
+  if (Ethernet_In_Use == 1) {
+    outString = String(state); 
+    
+    udp.beginPacket(targetIP, reflectorport);
+    udp.print(outString);
+    udp.endPacket();
+    
+    
+    udp.beginPacket(targetIP, remoteport);
+    udp.print(outString);
+    udp.endPacket();
+  }
 }
 
 void updateOpt1(String strnewValue) {
