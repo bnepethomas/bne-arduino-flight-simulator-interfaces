@@ -174,6 +174,7 @@ String strComm2 = "";
 String strScratchString1 = "";
 String strScratchString2 = "";
 String strScratchNumber = "";
+String CombinedScratchString = ""; 
 
 String LaststrOpt1 = "";
 String LaststrOpt2 = "";
@@ -185,7 +186,7 @@ String LaststrComm2 = "";
 String LaststrScratchString1 = "";
 String LaststrScratchString2 = "";
 String LaststrScratchNumber = ""; 
-
+String LastCombinedScratchString = ""; 
 
 char* ptrtopass;
 
@@ -542,6 +543,28 @@ void onUfcScratchpadNumberDisplayChange(char* newValue) {
 }
 DcsBios::StringBuffer<8> ufcScratchpadNumberDisplayBuffer(0x7446, onUfcScratchpadNumberDisplayChange);
 
+
+void updateAllOfScratchpad(String ScratchString1, String ScratchString2, String ScratchNumber)
+{
+
+  tcaselect(ScratchPad_OLED_PORT); 
+  String CombinedString = ScratchString1 + ScratchString2 + ScratchNumber;
+  
+  const char* newValue = CombinedString.c_str();
+
+
+  u8g2_Scratch_Pad.setFontMode(0);
+  u8g2_Scratch_Pad.setDrawColor(0);
+  u8g2_Scratch_Pad.drawBox(0,0,128,32);
+  u8g2_Scratch_Pad.setDrawColor(1);
+    
+  u8g2_Scratch_Pad.drawStr(ScratchPad_String1_Pos,ScratchPad_Vertical_Pos,newValue);  
+  u8g2_Scratch_Pad.sendBuffer();          
+
+  
+}
+
+
 void loop() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
@@ -581,27 +604,34 @@ void loop() {
     updateComm2(strComm2);
     LaststrComm2 = strComm2;  
   }
+
+  CombinedScratchString = strScratchString1 + strScratchString2 + strScratchNumber;
   
-  if (strScratchString1 != LaststrScratchString1) {  
-    updateScratchpadString1(strScratchString1);
-    LaststrScratchString1 = strScratchString1;  
-  }
-
-  if (strScratchString2 != LaststrScratchString2) {  
-    
-    updateScratchpadNumber(strScratchNumber);
-    updateScratchpadString2(strScratchString2);
-    LaststrScratchString2 = strScratchString2;  
-  }
-
-
-  if (strScratchNumber != LaststrScratchNumber) {  
-    updateScratchpadNumber(strScratchNumber);
-    LaststrScratchNumber = strScratchNumber;
-
-    updateScratchpadString2(strScratchString2);
-    
-  }
+  if (CombinedScratchString != LastCombinedScratchString) {
+    updateAllOfScratchpad( strScratchString1,  strScratchString2,  strScratchNumber);
+    LastCombinedScratchString = CombinedScratchString; 
+  } 
+  
+//  if (strScratchString1 != LaststrScratchString1) {  
+//    updateScratchpadString1(strScratchString1);
+//    LaststrScratchString1 = strScratchString1;  
+//  }
+//
+//  if (strScratchString2 != LaststrScratchString2) {  
+//    
+//    updateScratchpadNumber(strScratchNumber);
+//    updateScratchpadString2(strScratchString2);
+//    LaststrScratchString2 = strScratchString2;  
+//  }
+//
+//
+//  if (strScratchNumber != LaststrScratchNumber) {  
+//    updateScratchpadNumber(strScratchNumber);
+//    LaststrScratchNumber = strScratchNumber;
+//
+//    updateScratchpadString2(strScratchString2);
+//    
+//  }
 
 
 
