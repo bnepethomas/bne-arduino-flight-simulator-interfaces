@@ -550,15 +550,17 @@ void updateAllOfScratchpad(String ScratchString1, String ScratchString2, String 
   tcaselect(ScratchPad_OLED_PORT); 
   String CombinedString = ScratchString1 + ScratchString2 + ScratchNumber;
   
-  const char* newValue = CombinedString.c_str();
-
+  const char* ptr_ScratchString1 = ScratchString1.c_str();
+  const char* ptr_ScratchString2 = ScratchString2.c_str();
+  const char* ptr_ScratchNumber = ScratchNumber.c_str();
 
   u8g2_Scratch_Pad.setFontMode(0);
   u8g2_Scratch_Pad.setDrawColor(0);
   u8g2_Scratch_Pad.drawBox(0,0,128,32);
   u8g2_Scratch_Pad.setDrawColor(1);
-    
-  u8g2_Scratch_Pad.drawStr(ScratchPad_String1_Pos,ScratchPad_Vertical_Pos,newValue);  
+  u8g2_Scratch_Pad.drawStr(ScratchPad_String1_Pos,ScratchPad_Vertical_Pos,ptr_ScratchString1);  
+  u8g2_Scratch_Pad.drawStr(ScratchPad_String2_Pos,ScratchPad_Vertical_Pos,ptr_ScratchString2);
+  u8g2_Scratch_Pad.drawStr(ScratchPad_Number_Pos,ScratchPad_Vertical_Pos,ptr_ScratchNumber); 
   u8g2_Scratch_Pad.sendBuffer();          
 
   
