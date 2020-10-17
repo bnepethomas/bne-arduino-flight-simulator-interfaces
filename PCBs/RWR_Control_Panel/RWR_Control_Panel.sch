@@ -68,56 +68,56 @@ Holes
 $Comp
 L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW?
 U 1 1 5F88CBEF
-P 1700 2050
-F 0 "SW?" H 1625 2483 50  0000 C CNN
-F 1 "PT_Tactile_Switch_Led" H 1650 1900 50  0001 C CNN
-F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 1600 1975 50  0001 C CNN
-F 3 "" H 1675 2050 50  0001 C CNN
-	1    1700 2050
+P 2350 1700
+F 0 "SW?" H 2275 2133 50  0000 C CNN
+F 1 "PT_Tactile_Switch_Led" H 2300 1550 50  0001 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 1625 50  0001 C CNN
+F 3 "" H 2325 1700 50  0001 C CNN
+	1    2350 1700
 	1    0    0    -1  
 $EndComp
 $Comp
 L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW?
 U 1 1 5F88E3AB
-P 2850 2100
-F 0 "SW?" H 2775 2533 50  0000 C CNN
-F 1 "PT_Tactile_Switch_Led" H 2800 1950 50  0001 C CNN
-F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2750 2025 50  0001 C CNN
-F 3 "" H 2825 2100 50  0001 C CNN
-	1    2850 2100
+P 2350 2300
+F 0 "SW?" H 2275 2733 50  0000 C CNN
+F 1 "PT_Tactile_Switch_Led" H 2300 2150 50  0001 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 2225 50  0001 C CNN
+F 3 "" H 2325 2300 50  0001 C CNN
+	1    2350 2300
 	1    0    0    -1  
 $EndComp
 $Comp
 L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW?
 U 1 1 5F88F068
-P 4000 2100
-F 0 "SW?" H 3925 2533 50  0000 C CNN
-F 1 "PT_Tactile_Switch_Led" H 3950 1950 50  0001 C CNN
-F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 3900 2025 50  0001 C CNN
-F 3 "" H 3975 2100 50  0001 C CNN
-	1    4000 2100
+P 2350 2900
+F 0 "SW?" H 2275 3333 50  0000 C CNN
+F 1 "PT_Tactile_Switch_Led" H 2300 2750 50  0001 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 2825 50  0001 C CNN
+F 3 "" H 2325 2900 50  0001 C CNN
+	1    2350 2900
 	1    0    0    -1  
 $EndComp
 $Comp
 L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW?
 U 1 1 5F88FB69
-P 5450 2100
-F 0 "SW?" H 5375 2533 50  0000 C CNN
-F 1 "PT_Tactile_Switch_Led" H 5400 1950 50  0001 C CNN
-F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 5350 2025 50  0001 C CNN
-F 3 "" H 5425 2100 50  0001 C CNN
-	1    5450 2100
+P 2350 3500
+F 0 "SW?" H 2275 3933 50  0000 C CNN
+F 1 "PT_Tactile_Switch_Led" H 2300 3350 50  0001 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 3425 50  0001 C CNN
+F 3 "" H 2325 3500 50  0001 C CNN
+	1    2350 3500
 	1    0    0    -1  
 $EndComp
 $Comp
 L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW?
 U 1 1 5F89081E
-P 6650 2100
-F 0 "SW?" H 6575 2533 50  0000 C CNN
-F 1 "PT_Tactile_Switch_Led" H 6600 1950 50  0001 C CNN
-F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 6550 2025 50  0001 C CNN
-F 3 "" H 6625 2100 50  0001 C CNN
-	1    6650 2100
+P 2350 4100
+F 0 "SW?" H 2275 4533 50  0000 C CNN
+F 1 "PT_Tactile_Switch_Led" H 2300 3950 50  0001 C CNN
+F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 4025 50  0001 C CNN
+F 3 "" H 2325 4100 50  0001 C CNN
+	1    2350 4100
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -178,12 +178,12 @@ $EndComp
 $Comp
 L Device:D D?
 U 1 1 5F89CD39
-P 3750 3250
-F 0 "D?" H 3750 3034 50  0000 C CNN
-F 1 "D" H 3750 3125 50  0000 C CNN
-F 2 "" H 3750 3250 50  0001 C CNN
-F 3 "~" H 3750 3250 50  0001 C CNN
-	1    3750 3250
+P 1450 1400
+F 0 "D?" H 1450 1184 50  0000 C CNN
+F 1 "D" H 1450 1275 50  0000 C CNN
+F 2 "" H 1450 1400 50  0001 C CNN
+F 3 "~" H 1450 1400 50  0001 C CNN
+	1    1450 1400
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -200,23 +200,23 @@ $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J?
 U 1 1 5F954C66
-P 5300 4200
-F 0 "J?" H 5380 4242 50  0000 L CNN
-F 1 "Conn_01x03" H 5380 4151 50  0000 L CNN
-F 2 "" H 5300 4200 50  0001 C CNN
-F 3 "~" H 5300 4200 50  0001 C CNN
-	1    5300 4200
+P 5300 4250
+F 0 "J?" H 5380 4292 50  0000 L CNN
+F 1 "Conn_01x03" H 5380 4201 50  0000 L CNN
+F 2 "" H 5300 4250 50  0001 C CNN
+F 3 "~" H 5300 4250 50  0001 C CNN
+	1    5300 4250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x03 J?
 U 1 1 5F9552AF
-P 6300 4200
-F 0 "J?" H 6380 4242 50  0000 L CNN
-F 1 "Conn_01x03" H 6380 4151 50  0000 L CNN
-F 2 "" H 6300 4200 50  0001 C CNN
-F 3 "~" H 6300 4200 50  0001 C CNN
-	1    6300 4200
+P 6600 4250
+F 0 "J?" H 6680 4292 50  0000 L CNN
+F 1 "Conn_01x03" H 6680 4201 50  0000 L CNN
+F 2 "" H 6600 4250 50  0001 C CNN
+F 3 "~" H 6600 4250 50  0001 C CNN
+	1    6600 4250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -246,12 +246,12 @@ $EndComp
 $Comp
 L Connector_Generic:Conn_01x02 J?
 U 1 1 5F962C07
-P 1550 2950
-F 0 "J?" H 1468 3167 50  0000 C CNN
-F 1 "Conn_01x02" H 1468 3076 50  0000 C CNN
-F 2 "" H 1550 2950 50  0001 C CNN
-F 3 "~" H 1550 2950 50  0001 C CNN
-	1    1550 2950
+P 4000 6800
+F 0 "J?" H 3918 7017 50  0000 C CNN
+F 1 "Conn_01x02" H 3918 6926 50  0000 C CNN
+F 2 "" H 4000 6800 50  0001 C CNN
+F 3 "~" H 4000 6800 50  0001 C CNN
+	1    4000 6800
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -269,7 +269,7 @@ Text Notes 1700 5250 0    50   ~ 0
 Digital Inputs
 Text Notes 5100 4900 0    50   ~ 0
 Analog Input
-Text Notes 1350 2550 0    50   ~ 0
+Text Notes 3800 6400 0    50   ~ 0
 Backlighting
 Text Notes 8950 1800 0    50   ~ 0
 Led Outputs
@@ -278,23 +278,263 @@ For Analog inputs - \n3 Pin connectors \n1: +5V\n2: Input for pot\n3: GND\n\nFor
 $Comp
 L Device:R R?
 U 1 1 5F96D7EC
-P 1100 2050
-F 0 "R?" V 893 2050 50  0000 C CNN
-F 1 "R" V 984 2050 50  0000 C CNN
-F 2 "" V 1030 2050 50  0001 C CNN
-F 3 "~" H 1100 2050 50  0001 C CNN
-	1    1100 2050
+P 1700 1700
+F 0 "R?" V 1493 1700 50  0000 C CNN
+F 1 "150" V 1584 1700 50  0000 C CNN
+F 2 "" V 1630 1700 50  0001 C CNN
+F 3 "~" H 1700 1700 50  0001 C CNN
+	1    1700 1700
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R?
 U 1 1 5F96E623
-P 4750 2100
-F 0 "R?" V 4543 2100 50  0000 C CNN
-F 1 "R" V 4634 2100 50  0000 C CNN
-F 2 "" V 4680 2100 50  0001 C CNN
-F 3 "~" H 4750 2100 50  0001 C CNN
-	1    4750 2100
+P 1700 3500
+F 0 "R?" V 1493 3500 50  0000 C CNN
+F 1 "330" V 1584 3500 50  0000 C CNN
+F 2 "" V 1630 3500 50  0001 C CNN
+F 3 "~" H 1700 3500 50  0001 C CNN
+	1    1700 3500
 	0    1    1    0   
 $EndComp
+Text Notes 1750 5400 0    50   ~ 0
+2 Columns
+Text Label 1550 1700 2    50   ~ 0
+Bcklt+12V
+Text Label 1550 3500 2    50   ~ 0
+Bcklt+12V
+Text Label 4200 6800 0    50   ~ 0
+Bcklt+12V
+Text Label 4200 6900 0    50   ~ 0
+BckltGND
+Text Label 2550 4100 0    50   ~ 0
+BckltGND
+Text Label 2550 2900 0    50   ~ 0
+BckltGND
+Wire Wire Line
+	1850 1700 2000 1700
+Wire Wire Line
+	2550 1700 2550 1750
+Wire Wire Line
+	2550 1750 1850 1750
+Wire Wire Line
+	1850 1750 1850 2300
+Wire Wire Line
+	1850 2300 2000 2300
+Wire Wire Line
+	2550 2300 2550 2350
+Wire Wire Line
+	2550 2350 1850 2350
+Wire Wire Line
+	1850 2350 1850 2900
+Wire Wire Line
+	1850 2900 2000 2900
+Wire Wire Line
+	2000 2600 2000 2800
+Wire Wire Line
+	2000 2000 2000 2200
+Wire Wire Line
+	2550 2000 2550 2100
+Wire Wire Line
+	2550 2600 2550 2700
+Wire Wire Line
+	2550 3200 2550 3300
+Wire Wire Line
+	2000 3200 2000 3400
+Wire Wire Line
+	1850 3500 2000 3500
+Wire Wire Line
+	2550 3500 2550 3550
+Wire Wire Line
+	2550 3550 1850 3550
+Wire Wire Line
+	1850 3550 1850 4100
+Wire Wire Line
+	1850 4100 2000 4100
+Wire Wire Line
+	2000 1400 2000 1600
+Wire Wire Line
+	2550 1400 2550 1500
+Wire Wire Line
+	2000 1400 1600 1400
+Connection ~ 2000 1400
+Wire Wire Line
+	2000 2000 1600 2000
+Connection ~ 2000 2000
+Wire Wire Line
+	2000 2600 1600 2600
+Connection ~ 2000 2600
+Wire Wire Line
+	2000 3200 1600 3200
+Connection ~ 2000 3200
+Wire Wire Line
+	2000 3800 2000 4000
+Wire Wire Line
+	2550 3800 2550 3900
+Wire Wire Line
+	2000 3800 1600 3800
+Connection ~ 2000 3800
+$Comp
+L Device:D D?
+U 1 1 5F8EF077
+P 1450 2000
+F 0 "D?" H 1450 1784 50  0000 C CNN
+F 1 "D" H 1450 1875 50  0000 C CNN
+F 2 "" H 1450 2000 50  0001 C CNN
+F 3 "~" H 1450 2000 50  0001 C CNN
+	1    1450 2000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5F8EF7D8
+P 1450 2600
+F 0 "D?" H 1450 2384 50  0000 C CNN
+F 1 "D" H 1450 2475 50  0000 C CNN
+F 2 "" H 1450 2600 50  0001 C CNN
+F 3 "~" H 1450 2600 50  0001 C CNN
+	1    1450 2600
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5F8EFFFD
+P 1450 3200
+F 0 "D?" H 1450 2984 50  0000 C CNN
+F 1 "D" H 1450 3075 50  0000 C CNN
+F 2 "" H 1450 3200 50  0001 C CNN
+F 3 "~" H 1450 3200 50  0001 C CNN
+	1    1450 3200
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5F8F0913
+P 1450 3800
+F 0 "D?" H 1450 3584 50  0000 C CNN
+F 1 "D" H 1450 3675 50  0000 C CNN
+F 2 "" H 1450 3800 50  0001 C CNN
+F 3 "~" H 1450 3800 50  0001 C CNN
+	1    1450 3800
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	1300 1400 1000 1400
+Wire Wire Line
+	1000 1400 1000 2000
+Wire Wire Line
+	1000 3800 1300 3800
+Wire Wire Line
+	1300 3200 1000 3200
+Connection ~ 1000 3200
+Wire Wire Line
+	1000 3200 1000 3800
+Wire Wire Line
+	1300 2600 1000 2600
+Connection ~ 1000 2600
+Wire Wire Line
+	1000 2600 1000 3200
+Wire Wire Line
+	1300 2000 1000 2000
+Connection ~ 1000 2000
+Wire Wire Line
+	1000 2000 1000 2600
+Text Label 1000 1400 2    50   ~ 0
+Col1
+Wire Wire Line
+	2550 1500 2700 1500
+Connection ~ 2550 1500
+Wire Wire Line
+	2550 1500 2550 1600
+Wire Wire Line
+	2550 2100 2700 2100
+Connection ~ 2550 2100
+Wire Wire Line
+	2550 2100 2550 2200
+Wire Wire Line
+	2550 2700 2700 2700
+Connection ~ 2550 2700
+Wire Wire Line
+	2550 2700 2550 2800
+Wire Wire Line
+	2550 3300 2700 3300
+Connection ~ 2550 3300
+Wire Wire Line
+	2550 3300 2550 3400
+Wire Wire Line
+	2550 3900 2700 3900
+Connection ~ 2550 3900
+Wire Wire Line
+	2550 3900 2550 4000
+Text Label 2700 1500 0    50   ~ 0
+Row1
+Text Label 2700 2100 0    50   ~ 0
+Row2
+Text Label 2700 2700 0    50   ~ 0
+Row3
+Text Label 2700 3300 0    50   ~ 0
+Row4
+Text Label 2700 3900 0    50   ~ 0
+Row5
+Text Label 1750 5550 2    50   ~ 0
+Col1
+Text Label 1750 6100 2    50   ~ 0
+Row1
+Text Label 1750 6200 2    50   ~ 0
+Row2
+Text Label 1750 6300 2    50   ~ 0
+Row3
+Text Label 1750 6400 2    50   ~ 0
+Row4
+Text Label 1750 6500 2    50   ~ 0
+Row5
+Text Label 1750 5650 2    50   ~ 0
+Col2
+Text Label 5100 4150 2    50   ~ 0
+Analog5V
+Text Label 6400 4150 2    50   ~ 0
+Analog5V
+Text Label 5100 5150 2    50   ~ 0
+Analog5V
+Text Label 5100 4350 2    50   ~ 0
+AnalogGND
+Text Label 6400 4350 2    50   ~ 0
+AnalogGND
+Text Label 5100 5250 2    50   ~ 0
+AnalogGND
+Text Label 6400 4250 2    50   ~ 0
+AnalogDimmer
+Text Label 5100 4250 2    50   ~ 0
+AnalogAudio
+Text Label 5100 5350 2    50   ~ 0
+AnalogAudio
+Text Label 5100 5450 2    50   ~ 0
+AnalogDimmer
+Text Label 8550 4250 2    50   ~ 0
+Col2
+$Comp
+L Device:D D?
+U 1 1 5F8FD226
+P 8750 4250
+F 0 "D?" H 8750 4034 50  0000 C CNN
+F 1 "D" H 8750 4125 50  0000 C CNN
+F 2 "" H 8750 4250 50  0001 C CNN
+F 3 "~" H 8750 4250 50  0001 C CNN
+	1    8750 4250
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	9050 4250 8900 4250
+Wire Wire Line
+	8600 4250 8550 4250
+Text Label 9050 4350 2    50   ~ 0
+Row1
+Text Label 9050 4450 2    50   ~ 0
+Row2
+Text Label 9050 4550 2    50   ~ 0
+Row3
+Text Label 9050 4650 2    50   ~ 0
+Row4
+Text Label 9050 4750 2    50   ~ 0
+Row5
 $EndSCHEMATC
