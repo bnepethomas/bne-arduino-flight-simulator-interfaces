@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/UFC/UFC.sch)
-    (date "Tuesday, 25 August 2020 at 03:50:30 pm")
+    (date "Saturday, 17 October 2020 at 03:27:36 pm")
     (tool "Eeschema (5.1.5-0-10_14)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
