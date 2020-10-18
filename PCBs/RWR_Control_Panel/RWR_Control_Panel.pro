@@ -1,4 +1,4 @@
-update=11/10/19 00:52:00
+update=Sunday, 18 October 2020 at 11:21:18 am
 version=1
 last_client=kicad
 [cvpcb]
@@ -8,16 +8,6 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-[schematic_editor]
-version=1
-PageLayoutDescrFile=E:/GRABCAD/FA18/CAD/ECAD/templates/Open_hornet_frame.kicad_wks
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceAjustPassiveValues=0
-LabSize=50
-ERC_TestSimilarLabels=1
 [pcbnew]
 version=1
 PageLayoutDescrFile=
@@ -300,3 +290,13 @@ uViaDrill=0.1
 dPairWidth=0.2
 dPairGap=0.25
 dPairViaGap=0.25
+[schematic_editor]
+version=1
+PageLayoutDescrFile=E:/GRABCAD/FA18/CAD/ECAD/templates/Open_hornet_frame.kicad_wks
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=Pcbnew
+SpiceAjustPassiveValues=0
+LabSize=50
+ERC_TestSimilarLabels=1

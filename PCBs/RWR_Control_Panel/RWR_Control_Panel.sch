@@ -15,61 +15,11 @@ Comment4 ""
 $EndDescr
 Text Notes 8400 3900 0    50   ~ 0
 ROTARY SWITCH CONNECTIONs
-Wire Notes Line
-	9950 1050 9950 500 
-Wire Notes Line
-	10500 1050 9950 1050
 $Comp
-L Mechanical:MountingHole P6
-U 1 1 56D73DD9
-P 10400 650
-F 0 "P6" V 10500 650 50  0000 C CNN
-F 1 "CONN_01X01" V 10500 650 50  0001 C CNN
-F 2 "Mounting_Holes:MountingHole_4.3mm_M4" H 10400 650 50  0001 C CNN
-F 3 "" H 10400 650 50  0000 C CNN
-	1    10400 650 
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Mechanical:MountingHole P5
-U 1 1 56D73DAE
-P 10300 650
-F 0 "P5" V 10400 650 50  0000 C CNN
-F 1 "CONN_01X01" V 10400 650 50  0001 C CNN
-F 2 "Mounting_Holes:MountingHole_4.3mm_M4" H 10300 650 50  0001 C CNN
-F 3 "" H 10300 650 50  0000 C CNN
-	1    10300 650 
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Mechanical:MountingHole P4
-U 1 1 56D73D86
-P 10200 650
-F 0 "P4" V 10300 650 50  0000 C CNN
-F 1 "CONN_01X01" V 10300 650 50  0001 C CNN
-F 2 "Mounting_Holes:MountingHole_4.3mm_M4" H 10200 650 50  0001 C CNN
-F 3 "" H 10200 650 50  0000 C CNN
-	1    10200 650 
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Mechanical:MountingHole P3
-U 1 1 56D73ADD
-P 10100 650
-F 0 "P3" V 10200 650 50  0000 C CNN
-F 1 "CONN_01X01" V 10200 650 50  0001 C CNN
-F 2 "Mounting_Holes:MountingHole_4.3mm_M4" H 10100 650 50  0001 C CNN
-F 3 "" H 10100 650 50  0000 C CNN
-	1    10100 650 
-	0    -1   -1   0   
-$EndComp
-Text Notes 10100 1000 0    60   ~ 0
-Holes
-$Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW?
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW1
 U 1 1 5F88CBEF
 P 2350 1700
-F 0 "SW?" H 2275 2133 50  0000 C CNN
+F 0 "SW1" H 2275 2133 50  0000 C CNN
 F 1 "PT_Tactile_Switch_Led" H 2300 1550 50  0001 C CNN
 F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 1625 50  0001 C CNN
 F 3 "" H 2325 1700 50  0001 C CNN
@@ -77,10 +27,10 @@ F 3 "" H 2325 1700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW?
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW2
 U 1 1 5F88E3AB
 P 2350 2300
-F 0 "SW?" H 2275 2733 50  0000 C CNN
+F 0 "SW2" H 2275 2733 50  0000 C CNN
 F 1 "PT_Tactile_Switch_Led" H 2300 2150 50  0001 C CNN
 F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 2225 50  0001 C CNN
 F 3 "" H 2325 2300 50  0001 C CNN
@@ -88,10 +38,10 @@ F 3 "" H 2325 2300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW?
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW3
 U 1 1 5F88F068
 P 2350 2900
-F 0 "SW?" H 2275 3333 50  0000 C CNN
+F 0 "SW3" H 2275 3333 50  0000 C CNN
 F 1 "PT_Tactile_Switch_Led" H 2300 2750 50  0001 C CNN
 F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 2825 50  0001 C CNN
 F 3 "" H 2325 2900 50  0001 C CNN
@@ -99,10 +49,10 @@ F 3 "" H 2325 2900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW?
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW4
 U 1 1 5F88FB69
 P 2350 3500
-F 0 "SW?" H 2275 3933 50  0000 C CNN
+F 0 "SW4" H 2275 3933 50  0000 C CNN
 F 1 "PT_Tactile_Switch_Led" H 2300 3350 50  0001 C CNN
 F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 3425 50  0001 C CNN
 F 3 "" H 2325 3500 50  0001 C CNN
@@ -110,10 +60,10 @@ F 3 "" H 2325 3500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW?
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW5
 U 1 1 5F89081E
 P 2350 4100
-F 0 "SW?" H 2275 4533 50  0000 C CNN
+F 0 "SW5" H 2275 4533 50  0000 C CNN
 F 1 "PT_Tactile_Switch_Led" H 2300 3950 50  0001 C CNN
 F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 2250 4025 50  0001 C CNN
 F 3 "" H 2325 4100 50  0001 C CNN
@@ -121,111 +71,78 @@ F 3 "" H 2325 4100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:LED D?
+L Device:LED D8
 U 1 1 5F892A3D
-P 7750 2350
-F 0 "D?" H 7743 2095 50  0000 C CNN
-F 1 "LED" H 7743 2186 50  0000 C CNN
-F 2 "" H 7750 2350 50  0001 C CNN
-F 3 "~" H 7750 2350 50  0001 C CNN
-	1    7750 2350
+P 4000 2000
+F 0 "D8" H 3993 1745 50  0000 C CNN
+F 1 "LED" H 3993 1836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 4000 2000 50  0001 C CNN
+F 3 "~" H 4000 2000 50  0001 C CNN
+	1    4000 2000
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:LED D?
-U 1 1 5F894F21
-P 8850 2350
-F 0 "D?" H 8843 2095 50  0000 C CNN
-F 1 "LED" H 8843 2186 50  0000 C CNN
-F 2 "" H 8850 2350 50  0001 C CNN
-F 3 "~" H 8850 2350 50  0001 C CNN
-	1    8850 2350
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D?
-U 1 1 5F895DE2
-P 10100 2350
-F 0 "D?" H 10093 2095 50  0000 C CNN
-F 1 "LED" H 10093 2186 50  0000 C CNN
-F 2 "" H 10100 2350 50  0001 C CNN
-F 3 "~" H 10100 2350 50  0001 C CNN
-	1    10100 2350
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D?
+L Device:LED D9
 U 1 1 5F896786
-P 8750 2900
-F 0 "D?" H 8743 2645 50  0000 C CNN
-F 1 "LED" H 8743 2736 50  0000 C CNN
-F 2 "" H 8750 2900 50  0001 C CNN
-F 3 "~" H 8750 2900 50  0001 C CNN
-	1    8750 2900
+P 4000 2500
+F 0 "D9" H 3993 2245 50  0000 C CNN
+F 1 "LED" H 3993 2336 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 4000 2500 50  0001 C CNN
+F 3 "~" H 4000 2500 50  0001 C CNN
+	1    4000 2500
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:LED D?
-U 1 1 5F897126
-P 10050 2900
-F 0 "D?" H 10043 2645 50  0000 C CNN
-F 1 "LED" H 10043 2736 50  0000 C CNN
-F 2 "" H 10050 2900 50  0001 C CNN
-F 3 "~" H 10050 2900 50  0001 C CNN
-	1    10050 2900
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:D D?
+L Device:D D1
 U 1 1 5F89CD39
 P 1450 1400
-F 0 "D?" H 1450 1184 50  0000 C CNN
+F 0 "D1" H 1450 1184 50  0000 C CNN
 F 1 "D" H 1450 1275 50  0000 C CNN
-F 2 "" H 1450 1400 50  0001 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1450 1400 50  0001 C CNN
 F 3 "~" H 1450 1400 50  0001 C CNN
 	1    1450 1400
 	-1   0    0    1   
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Conn_01x06 J?
+L PT_Symbol_Library_v001:PT_Conn_01x06 J7
 U 1 1 5F95307A
 P 9250 4450
-F 0 "J?" H 9330 4442 50  0000 L CNN
+F 0 "J7" H 9330 4442 50  0000 L CNN
 F 1 "PT_Conn_01x06" H 9330 4351 50  0000 L CNN
-F 2 "" H 9250 4450 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 9250 4450 50  0001 C CNN
 F 3 "~" H 9250 4450 50  0001 C CNN
 	1    9250 4450
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x03 J?
+L Connector_Generic:Conn_01x03 J4
 U 1 1 5F954C66
 P 5300 4250
-F 0 "J?" H 5380 4292 50  0000 L CNN
+F 0 "J4" H 5380 4292 50  0000 L CNN
 F 1 "Conn_01x03" H 5380 4201 50  0000 L CNN
-F 2 "" H 5300 4250 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5300 4250 50  0001 C CNN
 F 3 "~" H 5300 4250 50  0001 C CNN
 	1    5300 4250
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x03 J?
+L Connector_Generic:Conn_01x03 J6
 U 1 1 5F9552AF
 P 6600 4250
-F 0 "J?" H 6680 4292 50  0000 L CNN
+F 0 "J6" H 6680 4292 50  0000 L CNN
 F 1 "Conn_01x03" H 6680 4201 50  0000 L CNN
-F 2 "" H 6600 4250 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 6600 4250 50  0001 C CNN
 F 3 "~" H 6600 4250 50  0001 C CNN
 	1    6600 4250
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x04 J?
+L Connector_Generic:Conn_01x04 J5
 U 1 1 5F955FCD
 P 5300 5250
-F 0 "J?" H 5380 5242 50  0000 L CNN
+F 0 "J5" H 5380 5242 50  0000 L CNN
 F 1 "Conn_01x04" H 5380 5151 50  0000 L CNN
-F 2 "" H 5300 5250 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 5300 5250 50  0001 C CNN
 F 3 "~" H 5300 5250 50  0001 C CNN
 	1    5300 5250
 	1    0    0    -1  
@@ -233,34 +150,34 @@ $EndComp
 Text Notes 5300 3800 0    50   ~ 0
 ROTARY POT CONNECTIONS
 $Comp
-L PT_Symbol_Library_v001:PT_Conn_01x06 J?
+L PT_Symbol_Library_v001:PT_Conn_01x06 J2
 U 1 1 5F959C2D
 P 1950 6300
-F 0 "J?" H 2030 6292 50  0000 L CNN
+F 0 "J2" H 2030 6292 50  0000 L CNN
 F 1 "PT_Conn_01x06" H 2030 6201 50  0000 L CNN
-F 2 "" H 1950 6300 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 1950 6300 50  0001 C CNN
 F 3 "~" H 1950 6300 50  0001 C CNN
 	1    1950 6300
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x02 J?
+L Connector_Generic:Conn_01x02 J3
 U 1 1 5F962C07
 P 4000 6800
-F 0 "J?" H 3918 7017 50  0000 C CNN
+F 0 "J3" H 3918 7017 50  0000 C CNN
 F 1 "Conn_01x02" H 3918 6926 50  0000 C CNN
-F 2 "" H 4000 6800 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4000 6800 50  0001 C CNN
 F 3 "~" H 4000 6800 50  0001 C CNN
 	1    4000 6800
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector_Generic:Conn_01x02 J?
+L Connector_Generic:Conn_01x02 J1
 U 1 1 5F96AF99
 P 1950 5550
-F 0 "J?" H 2030 5542 50  0000 L CNN
+F 0 "J1" H 2030 5542 50  0000 L CNN
 F 1 "Conn_01x02" H 2030 5451 50  0000 L CNN
-F 2 "" H 1950 5550 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1950 5550 50  0001 C CNN
 F 3 "~" H 1950 5550 50  0001 C CNN
 	1    1950 5550
 	1    0    0    -1  
@@ -276,23 +193,23 @@ Led Outputs
 Text Notes 6300 5550 0    50   ~ 0
 For Analog inputs - \n3 Pin connectors \n1: +5V\n2: Input for pot\n3: GND\n\nFor aggregation connector\n1: +5V\n2: GND\n3: Input 1 \n4: Input 2 \n5: etc
 $Comp
-L Device:R R?
+L Device:R R1
 U 1 1 5F96D7EC
 P 1700 1700
-F 0 "R?" V 1493 1700 50  0000 C CNN
+F 0 "R1" V 1493 1700 50  0000 C CNN
 F 1 "150" V 1584 1700 50  0000 C CNN
-F 2 "" V 1630 1700 50  0001 C CNN
+F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1630 1700 50  0001 C CNN
 F 3 "~" H 1700 1700 50  0001 C CNN
 	1    1700 1700
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:R R?
+L Device:R R2
 U 1 1 5F96E623
 P 1700 3500
-F 0 "R?" V 1493 3500 50  0000 C CNN
+F 0 "R2" V 1493 3500 50  0000 C CNN
 F 1 "330" V 1584 3500 50  0000 C CNN
-F 2 "" V 1630 3500 50  0001 C CNN
+F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1630 3500 50  0001 C CNN
 F 3 "~" H 1700 3500 50  0001 C CNN
 	1    1700 3500
 	0    1    1    0   
@@ -375,45 +292,45 @@ Wire Wire Line
 	2000 3800 1600 3800
 Connection ~ 2000 3800
 $Comp
-L Device:D D?
+L Device:D D2
 U 1 1 5F8EF077
 P 1450 2000
-F 0 "D?" H 1450 1784 50  0000 C CNN
+F 0 "D2" H 1450 1784 50  0000 C CNN
 F 1 "D" H 1450 1875 50  0000 C CNN
-F 2 "" H 1450 2000 50  0001 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1450 2000 50  0001 C CNN
 F 3 "~" H 1450 2000 50  0001 C CNN
 	1    1450 2000
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:D D?
+L Device:D D3
 U 1 1 5F8EF7D8
 P 1450 2600
-F 0 "D?" H 1450 2384 50  0000 C CNN
+F 0 "D3" H 1450 2384 50  0000 C CNN
 F 1 "D" H 1450 2475 50  0000 C CNN
-F 2 "" H 1450 2600 50  0001 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1450 2600 50  0001 C CNN
 F 3 "~" H 1450 2600 50  0001 C CNN
 	1    1450 2600
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:D D?
+L Device:D D4
 U 1 1 5F8EFFFD
 P 1450 3200
-F 0 "D?" H 1450 2984 50  0000 C CNN
+F 0 "D4" H 1450 2984 50  0000 C CNN
 F 1 "D" H 1450 3075 50  0000 C CNN
-F 2 "" H 1450 3200 50  0001 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1450 3200 50  0001 C CNN
 F 3 "~" H 1450 3200 50  0001 C CNN
 	1    1450 3200
 	-1   0    0    1   
 $EndComp
 $Comp
-L Device:D D?
+L Device:D D5
 U 1 1 5F8F0913
 P 1450 3800
-F 0 "D?" H 1450 3584 50  0000 C CNN
+F 0 "D5" H 1450 3584 50  0000 C CNN
 F 1 "D" H 1450 3675 50  0000 C CNN
-F 2 "" H 1450 3800 50  0001 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1450 3800 50  0001 C CNN
 F 3 "~" H 1450 3800 50  0001 C CNN
 	1    1450 3800
 	-1   0    0    1   
@@ -513,12 +430,12 @@ AnalogDimmer
 Text Label 8550 4250 2    50   ~ 0
 Col2
 $Comp
-L Device:D D?
+L Device:D D26
 U 1 1 5F8FD226
 P 8750 4250
-F 0 "D?" H 8750 4034 50  0000 C CNN
+F 0 "D26" H 8750 4034 50  0000 C CNN
 F 1 "D" H 8750 4125 50  0000 C CNN
-F 2 "" H 8750 4250 50  0001 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 8750 4250 50  0001 C CNN
 F 3 "~" H 8750 4250 50  0001 C CNN
 	1    8750 4250
 	-1   0    0    1   
@@ -537,4 +454,404 @@ Text Label 9050 4650 2    50   ~ 0
 Row4
 Text Label 9050 4750 2    50   ~ 0
 Row5
+$Comp
+L Device:LED D6
+U 1 1 5F905BEC
+P 4000 1000
+F 0 "D6" H 3993 745 50  0000 C CNN
+F 1 "LED" H 3993 836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 4000 1000 50  0001 C CNN
+F 3 "~" H 4000 1000 50  0001 C CNN
+	1    4000 1000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D10
+U 1 1 5F905C00
+P 4000 3000
+F 0 "D10" H 3993 2745 50  0000 C CNN
+F 1 "LED" H 3993 2836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 4000 3000 50  0001 C CNN
+F 3 "~" H 4000 3000 50  0001 C CNN
+	1    4000 3000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D7
+U 1 1 5F905C0A
+P 4000 1500
+F 0 "D7" H 3993 1245 50  0000 C CNN
+F 1 "LED" H 3993 1336 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 4000 1500 50  0001 C CNN
+F 3 "~" H 4000 1500 50  0001 C CNN
+	1    4000 1500
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D13
+U 1 1 5F92022F
+P 5150 2000
+F 0 "D13" H 5143 1745 50  0000 C CNN
+F 1 "LED" H 5143 1836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 5150 2000 50  0001 C CNN
+F 3 "~" H 5150 2000 50  0001 C CNN
+	1    5150 2000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D14
+U 1 1 5F920239
+P 5150 2500
+F 0 "D14" H 5143 2245 50  0000 C CNN
+F 1 "LED" H 5143 2336 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 5150 2500 50  0001 C CNN
+F 3 "~" H 5150 2500 50  0001 C CNN
+	1    5150 2500
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D11
+U 1 1 5F920243
+P 5150 1000
+F 0 "D11" H 5143 745 50  0000 C CNN
+F 1 "LED" H 5143 836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 5150 1000 50  0001 C CNN
+F 3 "~" H 5150 1000 50  0001 C CNN
+	1    5150 1000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D15
+U 1 1 5F92024D
+P 5150 3000
+F 0 "D15" H 5143 2745 50  0000 C CNN
+F 1 "LED" H 5143 2836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 5150 3000 50  0001 C CNN
+F 3 "~" H 5150 3000 50  0001 C CNN
+	1    5150 3000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D12
+U 1 1 5F920257
+P 5150 1500
+F 0 "D12" H 5143 1245 50  0000 C CNN
+F 1 "LED" H 5143 1336 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 5150 1500 50  0001 C CNN
+F 3 "~" H 5150 1500 50  0001 C CNN
+	1    5150 1500
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D18
+U 1 1 5F92D776
+P 6650 2000
+F 0 "D18" H 6643 1745 50  0000 C CNN
+F 1 "LED" H 6643 1836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 6650 2000 50  0001 C CNN
+F 3 "~" H 6650 2000 50  0001 C CNN
+	1    6650 2000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D19
+U 1 1 5F92D780
+P 6650 2500
+F 0 "D19" H 6643 2245 50  0000 C CNN
+F 1 "LED" H 6643 2336 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 6650 2500 50  0001 C CNN
+F 3 "~" H 6650 2500 50  0001 C CNN
+	1    6650 2500
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D16
+U 1 1 5F92D78A
+P 6650 1000
+F 0 "D16" H 6643 745 50  0000 C CNN
+F 1 "LED" H 6643 836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 6650 1000 50  0001 C CNN
+F 3 "~" H 6650 1000 50  0001 C CNN
+	1    6650 1000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D20
+U 1 1 5F92D794
+P 6650 3000
+F 0 "D20" H 6643 2745 50  0000 C CNN
+F 1 "LED" H 6643 2836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 6650 3000 50  0001 C CNN
+F 3 "~" H 6650 3000 50  0001 C CNN
+	1    6650 3000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D17
+U 1 1 5F92D79E
+P 6650 1500
+F 0 "D17" H 6643 1245 50  0000 C CNN
+F 1 "LED" H 6643 1336 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 6650 1500 50  0001 C CNN
+F 3 "~" H 6650 1500 50  0001 C CNN
+	1    6650 1500
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D23
+U 1 1 5F92D7A8
+P 8000 2000
+F 0 "D23" H 7993 1745 50  0000 C CNN
+F 1 "LED" H 7993 1836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 8000 2000 50  0001 C CNN
+F 3 "~" H 8000 2000 50  0001 C CNN
+	1    8000 2000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D24
+U 1 1 5F92D7B2
+P 8000 2500
+F 0 "D24" H 7993 2245 50  0000 C CNN
+F 1 "LED" H 7993 2336 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 8000 2500 50  0001 C CNN
+F 3 "~" H 8000 2500 50  0001 C CNN
+	1    8000 2500
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D21
+U 1 1 5F92D7BC
+P 8000 1000
+F 0 "D21" H 7993 745 50  0000 C CNN
+F 1 "LED" H 7993 836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 8000 1000 50  0001 C CNN
+F 3 "~" H 8000 1000 50  0001 C CNN
+	1    8000 1000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D25
+U 1 1 5F92D7C6
+P 8050 3000
+F 0 "D25" H 8043 2745 50  0000 C CNN
+F 1 "LED" H 8043 2836 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 8050 3000 50  0001 C CNN
+F 3 "~" H 8050 3000 50  0001 C CNN
+	1    8050 3000
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D22
+U 1 1 5F92D7D0
+P 8000 1500
+F 0 "D22" H 7993 1245 50  0000 C CNN
+F 1 "LED" H 7993 1336 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 8000 1500 50  0001 C CNN
+F 3 "~" H 8000 1500 50  0001 C CNN
+	1    8000 1500
+	-1   0    0    1   
+$EndComp
+Text Notes 4550 850  2    50   ~ 0
+FAIL
+Text Notes 4500 1300 2    50   ~ 0
+BIT
+Text Notes 4600 2350 2    50   ~ 0
+OFFSET
+Text Notes 4800 1800 2    50   ~ 0
+OFFSET ENABLE
+Text Notes 4800 2850 2    50   ~ 0
+SPECIAL ENABLE
+Text Notes 7550 900  2    50   ~ 0
+SPECIAL
+Text Notes 7500 1450 2    50   ~ 0
+LMT
+Text Notes 7600 1850 2    50   ~ 0
+DISPLAY
+Text Notes 7450 2350 2    50   ~ 0
+ON
+Text Notes 7550 2900 2    50   ~ 0
+ALR-67\nPOWER
+Wire Wire Line
+	3850 1000 3700 1000
+Wire Wire Line
+	3700 1000 3700 1500
+Wire Wire Line
+	6350 3000 6500 3000
+Wire Wire Line
+	3850 3000 3700 3000
+Wire Wire Line
+	3850 2500 3700 2500
+Connection ~ 3700 2500
+Wire Wire Line
+	3700 2500 3700 3000
+Wire Wire Line
+	3850 2000 3700 2000
+Connection ~ 3700 2000
+Wire Wire Line
+	3700 2000 3700 2500
+Wire Wire Line
+	3850 1500 3700 1500
+Connection ~ 3700 1500
+Wire Wire Line
+	3700 1500 3700 2000
+Wire Wire Line
+	5000 1000 4850 1000
+Wire Wire Line
+	4850 1000 4850 1500
+Wire Wire Line
+	5000 3000 4850 3000
+Wire Wire Line
+	5000 2500 4850 2500
+Connection ~ 4850 2500
+Wire Wire Line
+	4850 2500 4850 3000
+Wire Wire Line
+	5000 2000 4850 2000
+Connection ~ 4850 2000
+Wire Wire Line
+	4850 2000 4850 2500
+Wire Wire Line
+	5000 1500 4850 1500
+Connection ~ 4850 1500
+Wire Wire Line
+	4850 1500 4850 2000
+Text Label 3700 1000 2    50   ~ 0
+LedCol1
+Text Label 4850 1000 2    50   ~ 0
+LedCol2
+Wire Wire Line
+	6500 1000 6350 1000
+Wire Wire Line
+	6350 1000 6350 1500
+Wire Wire Line
+	6350 2500 6500 2500
+Wire Wire Line
+	6500 2000 6350 2000
+Connection ~ 6350 2000
+Wire Wire Line
+	6350 2000 6350 2500
+Wire Wire Line
+	6500 1500 6350 1500
+Connection ~ 6350 1500
+Wire Wire Line
+	6350 1500 6350 2000
+Wire Wire Line
+	7850 1000 7700 1000
+Wire Wire Line
+	7700 1000 7700 1500
+Wire Wire Line
+	7700 2500 7850 2500
+Wire Wire Line
+	7850 2000 7700 2000
+Connection ~ 7700 2000
+Wire Wire Line
+	7700 2000 7700 2500
+Wire Wire Line
+	7850 1500 7700 1500
+Connection ~ 7700 1500
+Wire Wire Line
+	7700 1500 7700 2000
+Text Label 6350 1000 2    50   ~ 0
+LedCol3
+Text Label 7700 1000 2    50   ~ 0
+LedCol4
+Text Label 4150 1000 0    50   ~ 0
+LedRow1
+Text Label 5300 1000 0    50   ~ 0
+LedRow1
+Text Label 6800 1000 0    50   ~ 0
+LedRow1
+Text Label 8150 1000 0    50   ~ 0
+LedRow1
+Text Label 4150 1500 0    50   ~ 0
+LedRow2
+Text Label 5300 1500 0    50   ~ 0
+LedRow2
+Text Label 6800 1500 0    50   ~ 0
+LedRow2
+Text Label 8150 1500 0    50   ~ 0
+LedRow2
+Text Label 4150 2000 0    50   ~ 0
+LedRow3
+Text Label 5300 2000 0    50   ~ 0
+LedRow3
+Text Label 6800 2000 0    50   ~ 0
+LedRow3
+Text Label 8150 2000 0    50   ~ 0
+LedRow3
+Text Label 4150 2500 0    50   ~ 0
+LedRow4
+Text Label 5300 2500 0    50   ~ 0
+LedRow4
+Text Label 6800 2500 0    50   ~ 0
+LedRow4
+Text Label 8150 2500 0    50   ~ 0
+LedRow4
+Text Label 4150 3000 0    50   ~ 0
+LedRow5
+Text Label 5300 3000 0    50   ~ 0
+LedRow5
+Wire Wire Line
+	6350 2500 6350 3000
+Connection ~ 6350 2500
+Wire Wire Line
+	7700 2500 7700 3000
+Wire Wire Line
+	7700 3000 7900 3000
+Connection ~ 7700 2500
+Text Label 6800 3000 0    50   ~ 0
+LedRow5
+Text Label 8200 3000 0    50   ~ 0
+LedRow5
+$Comp
+L PT_Symbol_Library_v001:PT_Conn_01x06 J8
+U 1 1 5F98D9DB
+P 10250 1800
+F 0 "J8" H 10330 1792 50  0000 L CNN
+F 1 "PT_Conn_01x06" H 10330 1701 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 10250 1800 50  0001 C CNN
+F 3 "~" H 10250 1800 50  0001 C CNN
+	1    10250 1800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x04 J9
+U 1 1 5F98FB17
+P 10250 2550
+F 0 "J9" H 10330 2542 50  0000 L CNN
+F 1 "Conn_01x04" H 10330 2451 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 10250 2550 50  0001 C CNN
+F 3 "~" H 10250 2550 50  0001 C CNN
+	1    10250 2550
+	1    0    0    -1  
+$EndComp
+Text Label 10050 2450 2    50   ~ 0
+LedCol1
+Text Label 10050 2550 2    50   ~ 0
+LedCol2
+Text Label 10050 2650 2    50   ~ 0
+LedCol3
+Text Label 10050 2750 2    50   ~ 0
+LedCol4
+Text Label 10050 1600 2    50   ~ 0
+LedRow1
+Text Label 10050 1700 2    50   ~ 0
+LedRow2
+Text Label 10050 1800 2    50   ~ 0
+LedRow3
+Text Label 10050 1900 2    50   ~ 0
+LedRow4
+Text Label 10050 2000 2    50   ~ 0
+LedRow5
+Text Notes 2750 1300 2    50   ~ 0
+BIT
+Text Notes 2850 1900 2    50   ~ 0
+OFFSET
+Text Notes 2850 2500 2    50   ~ 0
+SPECIAL
+Text Notes 2750 3100 2    50   ~ 0
+LIMIT
+Text Notes 2800 3700 2    50   ~ 0
+POWER
 $EndSCHEMATC
