@@ -27,25 +27,28 @@
 // Pin for driving the Led Chain
 #define DATA_PIN 7
 
+const int BrightnessIn = A15;
 const int buttonPin = 2;            // the number of the pushbutton pin
 
 int i = 0;
 unsigned long Timelastchange = 0;
-
+int reading;
 int buttonState;                    // the current reading from the input pin
 int lastButtonState = HIGH;         // the previous reading from the input pin
 
 
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
+unsigned long debounceDelay = 5;    // the debounce time; increase if the output flickers
 
-const unsigned long delaywhilewaitingforinput = 1000;
+const unsigned long delaywhilewaitingforinput = 300;
 
 
 bool ButtonPressed = false;
 CRGB leds[NUM_LEDS];
 int LedColourInt = 0;
-
+int sensorValue = 0;
+int outputValue = 0;
+int lastoutputvalue = 0;
 
 void setup() {
   
@@ -60,24 +63,57 @@ void setup() {
 
 void loop() {
 
+  sensorValue = analogRead(BrightnessIn);
+  outputValue = map(sensorValue, 0, 1023, 0, 256);
 
-  int reading = digitalRead(buttonPin);
-  if (reading != lastButtonState) {
-    lastDebounceTime = millis();
+  if (ButtonPressed == true && lastoutputvalue != outputValue){
+    if (LedColourInt == 0) {
+      for (i=0; i<= NUM_LEDS-1; i++) {
+        leds[i] = CRGB(255,0,0);
+        leds[i] %= outputValue;
+      }
+      FastLED.show();          
+    }
+    else if (LedColourInt == 1) {
+      for (i=0; i<= NUM_LEDS-1; i++) {
+        leds[i] = CRGB(0,255,0);
+        leds[i] %= outputValue;
+      }
+      FastLED.show();          
+    }
+    else if (LedColourInt == 2) {
+      for (i=0; i<= NUM_LEDS-1; i++) {
+        leds[i] = CRGB(0,0,255);
+        leds[i] %= outputValue;
+      }
+      FastLED.show();          
+    }
+    else if (LedColourInt == 3) {
+      for (i=0; i<= NUM_LEDS-1; i++) {
+        leds[i] = CRGB(255,255,255);
+        leds[i] %= outputValue;
+      }
+      FastLED.show();          
+    }
+    lastoutputvalue = outputValue;  
   }
   
   if ((millis() - lastDebounceTime) > debounceDelay) {
 
-  
+    reading = digitalRead(buttonPin);
+    if (reading != lastButtonState) {
+      lastDebounceTime = millis();
+    } 
 
     if (reading != buttonState) {
       buttonState = reading;
 
-      ButtonPressed = true;
+      
   
-      // only toggle the LED if the new button state is HIGH
+
       if (buttonState == LOW) {
 
+        ButtonPressed = true;
         LedColourInt++; 
         if (LedColourInt > 3){
           LedColourInt = 0;       
@@ -86,24 +122,28 @@ void loop() {
         if (LedColourInt == 0) {
           for (i=0; i<= NUM_LEDS-1; i++) {
             leds[i] = CRGB(255,0,0);
+            leds[i] %= outputValue;
           }
           FastLED.show();          
         }
         else if (LedColourInt == 1) {
           for (i=0; i<= NUM_LEDS-1; i++) {
             leds[i] = CRGB(0,255,0);
+            leds[i] %= outputValue;
           }
           FastLED.show();          
         }
         else if (LedColourInt == 2) {
           for (i=0; i<= NUM_LEDS-1; i++) {
             leds[i] = CRGB(0,0,255);
+            leds[i] %= outputValue;
           }
           FastLED.show();          
         }
         else if (LedColourInt == 3) {
           for (i=0; i<= NUM_LEDS-1; i++) {
-            leds[i] = CRGB(0,0,255);
+            leds[i] = CRGB(255,255,255);
+            leds[i] %= outputValue;
           }
           FastLED.show();          
         }
@@ -124,24 +164,28 @@ void loop() {
       if (LedColourInt == 0) {
         for (i=0; i<= NUM_LEDS-1; i++) {
           leds[i] = CRGB(255,0,0);
+          leds[i] %= outputValue;
         }
         FastLED.show();          
       }
       else if (LedColourInt == 1) {
         for (i=0; i<= NUM_LEDS-1; i++) {
           leds[i] = CRGB(0,255,0);
+          leds[i] %= outputValue;
         }
         FastLED.show();          
       }
       else if (LedColourInt == 2) {
         for (i=0; i<= NUM_LEDS-1; i++) {
           leds[i] = CRGB(0,0,255);
+          leds[i] %= outputValue;
         }
         FastLED.show();          
       }
       else if (LedColourInt == 3) {
         for (i=0; i<= NUM_LEDS-1; i++) {
-          leds[i] = CRGB(0,0,255);
+          leds[i] = CRGB(255,255,255);
+          leds[i] %= outputValue;
         }
         FastLED.show();          
       }
@@ -149,5 +193,5 @@ void loop() {
     }
     
   }
-  lastButtonState = reading;
+  if (ButtonPressed) lastButtonState = reading;
 }
