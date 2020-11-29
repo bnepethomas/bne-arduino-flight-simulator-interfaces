@@ -8,19 +8,24 @@ NeoEngress_FA-18C_Full_Layout_-_4220x5200
 
 Start from front and work to the back 
 
+
 -- 1. Fire Test Panel
--- Will just connect this to a misc back panel for panels with very low device counts. The misc back panel will then connect
-	to the general matrix input 
+-- Will just connect this to Ground Power Panel as they are neighbouring
 defineRockerSwitch("FIRE_TEST_SW", 12, 3006, 3006, 3007, 3007, 331, "Fire Test Panel", "Fire and Bleed Air Test Switch, (RMB) TEST A/(LMB) TEST B")
 
 -- 2. Ground Power Panel
-
 defineRockerSwitch("EXT_PWR_SW", 3, 3005, 3005, 3004, 3004, 336, "Ground Power Panel", "External Power Switch, RESET/NORM/OFF")
 defineRockerSwitch("GND_PWR_1_SW", 3, 3008, 3008, 3009, 3009, 332, "Ground Power Panel", "Ground Power Switch 1, A ON/AUTO/B ON")
 defineRockerSwitch("GND_PWR_2_SW", 3, 3010, 3010, 3011, 3011, 333, "Ground Power Panel", "Ground Power Switch 2, A ON/AUTO/B ON")
 defineRockerSwitch("GND_PWR_3_SW", 3, 3012, 3012, 3013, 3013, 334, "Ground Power Panel", "Ground Power Switch 3, A ON/AUTO/B ON")
 defineRockerSwitch("GND_PWR_4_SW", 3, 3014, 3014, 3015, 3015, 335, "Ground Power Panel", "Ground Power Switch 4, A ON/AUTO/B ON")
 
+
+-- 4. Exterior Lights Panel
+definePotentiometer("POSITION_DIMMER", 8, 3001, 338, {0, 1}, "Exterior Lights Panel", "Position Lights Dimmer")
+definePotentiometer("FORMATION_DIMMER", 8, 3002, 337, {0, 1}, "Exterior Lights Panel", "Formation Lights Dimmer")
+define3PosTumb("STROBE_SW", 8, 3003, 339, "Exterior Lights Panel", "Strobe Lights Switch")
+defineToggleSwitch("INT_WNG_TANK_SW", 6, 3001, 340, "Exterior Lights Panel", "Internal Wing Tank Fuel Control Switch, INHIBIT/NORM")
 
 
 function defineEmergencyParkingBrake(msg, device_id, emergency_command, park_command, arg_number, category, description)
