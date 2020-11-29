@@ -1,0 +1,278 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text Notes 900  1650 0    50   ~ 0
+-- 1. Fire Test Panel\n-- Connects to Groud Power PCB . \ndefineRockerSwitch("FIRE_TEST_SW", 12, 3006, 3006, 3007, 3007, 331, "Fire Test Panel", "Fire and Bleed Air Test Switch, (RMB) TEST A/(LMB) TEST B")\n\n\n— 2. Ground Power Panel\n\ndefineRockerSwitch(“EXT_PWR_SW”, 3, 3005, 3005, 3004, 3004, 336, “Ground Power Panel”, “External Power Switch, RESET/NORM/OFF”)\ndefineRockerSwitch(“GND_PWR_1_SW”, 3, 3008, 3008, 3009, 3009, 332, “Ground Power Panel”, “Ground Power Switch 1, A ON/AUTO/B ON”)\ndefineRockerSwitch("GND_PWR_2_SW", 3, 3010, 3010, 3011, 3011, 333, "Ground Power Panel", "Ground Power Switch 2, A ON/AUTO/B ON")\ndefineRockerSwitch("GND_PWR_3_SW", 3, 3012, 3012, 3013, 3013, 334, "Ground Power Panel", "Ground Power Switch 3, A ON/AUTO/B ON")\ndefineRockerSwitch("GND_PWR_4_SW", 3, 3014, 3014, 3015, 3015, 335, "Ground Power Panel", "Ground Power Switch 4, A ON/AUTO/B ON")\n
+$Comp
+L Switch:SW_SPDT_MSM SW1
+U 1 1 5FC1E955
+P 3700 2400
+F 0 "SW1" H 3700 2685 50  0000 C CNN
+F 1 "EXT_PWR_SW" H 3700 2594 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3700 2400 50  0001 C CNN
+F 3 "~" H 3700 2400 50  0001 C CNN
+	1    3700 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPDT_MSM SW2
+U 1 1 5FC1F2B4
+P 3700 3250
+F 0 "SW2" H 3700 3535 50  0000 C CNN
+F 1 "GND_PWR_1_SW" H 3700 3444 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3700 3250 50  0001 C CNN
+F 3 "~" H 3700 3250 50  0001 C CNN
+	1    3700 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPDT_MSM SW3
+U 1 1 5FC1F8C5
+P 3700 4050
+F 0 "SW3" H 3700 4335 50  0000 C CNN
+F 1 "GND_PWR_2_SW" H 3700 4244 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3700 4050 50  0001 C CNN
+F 3 "~" H 3700 4050 50  0001 C CNN
+	1    3700 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPDT_MSM SW4
+U 1 1 5FC1FDBB
+P 3700 4700
+F 0 "SW4" H 3700 4985 50  0000 C CNN
+F 1 "GND_PWR_3_SW" H 3700 4894 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3700 4700 50  0001 C CNN
+F 3 "~" H 3700 4700 50  0001 C CNN
+	1    3700 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPDT_MSM SW5
+U 1 1 5FC2026F
+P 3700 5500
+F 0 "SW5" H 3700 5785 50  0000 C CNN
+F 1 "GND_PWR_4_SW" H 3700 5694 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3700 5500 50  0001 C CNN
+F 3 "~" H 3700 5500 50  0001 C CNN
+	1    3700 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D1
+U 1 1 5FC2589C
+P 3150 2400
+F 0 "D1" H 3150 2616 50  0000 C CNN
+F 1 "D" H 3150 2525 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3150 2400 50  0001 C CNN
+F 3 "~" H 3150 2400 50  0001 C CNN
+	1    3150 2400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D2
+U 1 1 5FC25D74
+P 3150 3250
+F 0 "D2" H 3150 3466 50  0000 C CNN
+F 1 "D" H 3150 3375 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3150 3250 50  0001 C CNN
+F 3 "~" H 3150 3250 50  0001 C CNN
+	1    3150 3250
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D3
+U 1 1 5FC26D6E
+P 3200 4050
+F 0 "D3" H 3200 4266 50  0000 C CNN
+F 1 "D" H 3200 4175 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3200 4050 50  0001 C CNN
+F 3 "~" H 3200 4050 50  0001 C CNN
+	1    3200 4050
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D4
+U 1 1 5FC277F0
+P 3200 4700
+F 0 "D4" H 3200 4916 50  0000 C CNN
+F 1 "D" H 3200 4825 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3200 4700 50  0001 C CNN
+F 3 "~" H 3200 4700 50  0001 C CNN
+	1    3200 4700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D5
+U 1 1 5FC28087
+P 3200 5500
+F 0 "D5" H 3200 5716 50  0000 C CNN
+F 1 "D" H 3200 5625 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3200 5500 50  0001 C CNN
+F 3 "~" H 3200 5500 50  0001 C CNN
+	1    3200 5500
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 2300 4400 2300
+Wire Wire Line
+	4400 2300 4400 2950
+Wire Wire Line
+	4400 5400 3900 5400
+Wire Wire Line
+	3900 3150 4400 3150
+Connection ~ 4400 3150
+Wire Wire Line
+	4400 3150 4400 3950
+Wire Wire Line
+	3900 3950 4400 3950
+Connection ~ 4400 3950
+Wire Wire Line
+	4400 3950 4400 4600
+Wire Wire Line
+	3900 4600 4400 4600
+Connection ~ 4400 4600
+Wire Wire Line
+	4400 4600 4400 5400
+Wire Wire Line
+	4750 2500 4750 3050
+Wire Wire Line
+	4750 5600 3900 5600
+Wire Wire Line
+	3900 2500 4750 2500
+Wire Wire Line
+	3900 3350 4750 3350
+Connection ~ 4750 3350
+Wire Wire Line
+	4750 3350 4750 4150
+Wire Wire Line
+	3900 4150 4750 4150
+Connection ~ 4750 4150
+Wire Wire Line
+	4750 4150 4750 4800
+Wire Wire Line
+	3900 4800 4750 4800
+Connection ~ 4750 4800
+Wire Wire Line
+	4750 4800 4750 5600
+Wire Wire Line
+	3300 2400 3500 2400
+Wire Wire Line
+	3300 3250 3500 3250
+Wire Wire Line
+	3350 4050 3500 4050
+Wire Wire Line
+	3350 4700 3500 4700
+Wire Wire Line
+	3350 5500 3500 5500
+$Comp
+L Connector:Conn_01x02_Female J2
+U 1 1 5FC37DA5
+P 5850 2950
+F 0 "J2" H 5878 2926 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 5878 2835 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5850 2950 50  0001 C CNN
+F 3 "~" H 5850 2950 50  0001 C CNN
+	1    5850 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J1
+U 1 1 5FC383D5
+P 1850 3900
+F 0 "J1" H 1742 4285 50  0000 C CNN
+F 1 "Conn_01x06_Female" H 1742 4194 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 1850 3900 50  0001 C CNN
+F 3 "~" H 1850 3900 50  0001 C CNN
+	1    1850 3900
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5650 2950 4400 2950
+Connection ~ 4400 2950
+Wire Wire Line
+	4400 2950 4400 3150
+Wire Wire Line
+	5650 3050 4750 3050
+Connection ~ 4750 3050
+Wire Wire Line
+	4750 3050 4750 3350
+Wire Wire Line
+	2050 3700 2400 3700
+Wire Wire Line
+	2400 3700 2400 2400
+Wire Wire Line
+	2400 2400 3000 2400
+Wire Wire Line
+	2050 4100 2400 4100
+Wire Wire Line
+	2400 4100 2400 5500
+Wire Wire Line
+	2400 5500 3050 5500
+Wire Wire Line
+	2050 4000 2500 4000
+Wire Wire Line
+	2500 4000 2500 4700
+Wire Wire Line
+	2500 4700 3050 4700
+Wire Wire Line
+	2050 3800 2500 3800
+Wire Wire Line
+	2500 3800 2500 3250
+Wire Wire Line
+	2500 3250 3000 3250
+Wire Wire Line
+	2050 3900 3050 3900
+Wire Wire Line
+	3050 3900 3050 4050
+$Comp
+L Device:D D6
+U 1 1 5FC41734
+P 3200 6250
+F 0 "D6" H 3200 6466 50  0000 C CNN
+F 1 "D" H 3200 6375 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3200 6250 50  0001 C CNN
+F 3 "~" H 3200 6250 50  0001 C CNN
+	1    3200 6250
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	2050 4200 2050 6250
+Wire Wire Line
+	2050 6250 3050 6250
+Wire Wire Line
+	3350 6250 3500 6250
+$Comp
+L Switch:SW_SPDT_MSM SW6
+U 1 1 5FC45498
+P 3700 6250
+F 0 "SW6" H 3700 6535 50  0000 C CNN
+F 1 "FIRE_TEST_SW" H 3700 6444 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3700 6250 50  0001 C CNN
+F 3 "~" H 3700 6250 50  0001 C CNN
+	1    3700 6250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4400 5400 4400 6150
+Wire Wire Line
+	4400 6150 3900 6150
+Connection ~ 4400 5400
+Wire Wire Line
+	4750 5600 4750 6350
+Wire Wire Line
+	4750 6350 3900 6350
+Connection ~ 4750 5600
+$EndSCHEMATC
