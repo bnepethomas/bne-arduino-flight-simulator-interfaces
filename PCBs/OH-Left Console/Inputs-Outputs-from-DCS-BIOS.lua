@@ -33,6 +33,38 @@ defineToggleSwitchToggleOnly2("FUEL_DUMP_SW", 6, 3003, 344, "Fuel Panel", "Fuel 
 define3PosTumb("EXT_CNT_TANK_SW", 6, 3004, 343, "Fuel Panel", "External Centerline Tank Fuel Control Switch, STOP/NORM/ORIDE")
 define3PosTumb("EXT_WNG_TANK_SW", 6, 3005, 342, "Fuel Panel", "External Wing Tanks Fuel Control Switch, STOP/NORM/ORIDE")
 
+-- 6. Flight Control System Panel
+definePotentiometer("RUD_TRIM", 2, 3001, 345, {-1, 1}, "Flight Control System Panel", "RUD TRIM Control")
+defineToggleSwitch("TO_TRIM_BTN", 2, 3002, 346, "Flight Control System Panel", "T/O TRIM Button")
+defineToggleSwitch("FCS_RESET_BTN", 2, 3003, 349, "Flight Control System Panel", "FCS RESET Button")
+defineToggleSwitch("GAIN_SWITCH_COVER", 2, 3005, 348, "Flight Control System Panel", "GAIN Switch Cover")
+defineToggleSwitch("GAIN_SWITCH", 2, 3006, 347, "Flight Control System Panel", "GAIN Switch")
+
+
+-- 7. Communication Panel
+definePotentiometer("COM_VOX", 40, 3002, 357, {0, 1}, "Communication Panel", "VOX Volume Control Knob")
+definePotentiometer("COM_ICS", 40, 3003, 358, {0, 1}, "Communication Panel", "ICS Volume Control Knob")
+definePotentiometer("COM_RWR", 40, 3004, 359, {0, 1}, "Communication Panel", "RWR Volume Control Knob")
+definePotentiometer("COM_WPN", 40, 3005, 360, {0, 1}, "Communication Panel", "WPN Volume Control Knob")
+definePotentiometer("COM_MIDS_A", 40, 3006, 362, {0, 1}, "Communication Panel", "MIDS A Volume Control Knob")
+definePotentiometer("COM_MIDS_B", 40, 3007, 361, {0, 1}, "Communication Panel", "MIDS B Volume Control Knob")
+definePotentiometer("COM_TACAN", 40, 3008, 363, {0, 1}, "Communication Panel", "TACAN Volume Control Knob")
+definePotentiometer("COM_AUX", 40, 3009, 364, {0, 1}, "Communication Panel", "AUX Volume Control Knob")
+define3PosTumb("COM_COMM_RELAY_SW", 40, 3010, 350, "Communication Panel", "Comm Relay Switch, CIPHER/OFF/PLAIN")
+define3PosTumb("COM_COMM_G_XMT_SW", 40, 3011, 351, "Communication Panel", "COMM G XMT Switch, COMM 1/OFF/COMM 2")
+defineToggleSwitch("COM_IFF_MASTER_SW", 40, 3012, 356, "Communication Panel", "IFF Master Switch, EMER/NORM")
+define3PosTumb("COM_IFF_MODE4_SW", 40, 3013, 355, "Communication Panel", "IFF Mode 4 Switch, DIS/AUD /DIS/OFF")
+defineRockerSwitch("COM_CRYPTO_SW", 40, 3015, 3015, 3014, 3014, 354, "Communication Panel", "CRYPTO Switch, HOLD/NORM/ZERO")
+defineToggleSwitch("COM_ILS_UFC_MAN_SW", 40, 3016, 353, "Communication Panel", "ILS UFC/MAN Switch, UFC/MAN")
+defineTumb("COM_ILS_CHANNEL_SW", 40, 3017, 352, 0.05, {0.0, 0.95}, nil, false, "Communication Panel", "ILS Channel Selector Switch")
+
+
+
+-- 8. LOX Indicator
+defineToggleSwitch("OBOGS_SW", 10, 3001, 365, "LOX Indicator", "OBOGS Control Switch, ON/OFF")
+definePotentiometer("OXY_FLOW", 10, 3002, 366, {0, 1}, "LOX Indicator", "OXY Flow Knob")
+
+
 function defineEmergencyParkingBrake(msg, device_id, emergency_command, park_command, arg_number, category, description)
 	local alloc = moduleBeingDefined.memoryMap:allocateInt{ maxValue = 1 }
 	moduleBeingDefined.exportHooks[#moduleBeingDefined.exportHooks+1] = function(dev0)
