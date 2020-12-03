@@ -18,94 +18,35 @@ Text Notes 900  1650 0    50   ~ 0
 $Comp
 L Switch:SW_SPDT_MSM SW1
 U 1 1 5FC1E955
-P 7200 4550
-F 0 "SW1" H 7200 4835 50  0000 C CNN
-F 1 "EXT_PWR_SW" H 7200 4744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 7200 4550 50  0001 C CNN
-F 3 "~" H 7200 4550 50  0001 C CNN
-	1    7200 4550
+P 3200 2550
+F 0 "SW1" H 3200 2835 50  0000 C CNN
+F 1 "ECS_MODE_SW" H 3200 2744 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3200 2550 50  0001 C CNN
+F 3 "~" H 3200 2550 50  0001 C CNN
+	1    3200 2550
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:D D1
 U 1 1 5FC2589C
-P 7250 5300
-F 0 "D1" H 7250 5516 50  0000 C CNN
-F 1 "D" H 7250 5425 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 7250 5300 50  0001 C CNN
-F 3 "~" H 7250 5300 50  0001 C CNN
-	1    7250 5300
+P 2650 2550
+F 0 "D1" H 2650 2766 50  0000 C CNN
+F 1 "D" H 2650 2675 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2650 2550 50  0001 C CNN
+F 3 "~" H 2650 2550 50  0001 C CNN
+	1    2650 2550
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J2
-U 1 1 5FC37DA5
-P 7300 3700
-F 0 "J2" H 7328 3676 50  0000 L CNN
-F 1 "Input Rows" H 7328 3585 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7300 3700 50  0001 C CNN
-F 3 "~" H 7300 3700 50  0001 C CNN
-	1    7300 3700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x06_Female J1
-U 1 1 5FC383D5
-P 7150 2900
-F 0 "J1" H 7042 3285 50  0000 C CNN
-F 1 "Input Columns" H 7042 3194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 7150 2900 50  0001 C CNN
-F 3 "~" H 7150 2900 50  0001 C CNN
-	1    7150 2900
-	-1   0    0    -1  
-$EndComp
-Text Notes 900  6300 0    118  ~ 0
-Instructions
-Text Notes 900  6900 0    63   ~ 0
-1: Copy section from Inputs-Outputs-from-DCS-BIOS in Templates directory to top of Input-Output-from DCS-BIOS, and panel into top left hand corner\n\n2: Grab section of image from NeoEngress_FA-18C_Full_Layout_-_4220x5200 and paste \n\n3: Don’t forget outputs such as gauges, lights and Mag Switches\n\n4: After editing diagram reset numbering during Net generation\n
-$Comp
-L Switch:SW_SPST SW?
-U 1 1 5FC61E34
-P 6350 5300
-F 0 "SW?" H 6350 5535 50  0000 C CNN
-F 1 "SW_SPST" H 6350 5444 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6350 5300 50  0001 C CNN
-F 3 "~" H 6350 5300 50  0001 C CNN
-	1    6350 5300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_Push SW?
-U 1 1 5FC6A958
-P 8200 4550
-F 0 "SW?" H 8200 4835 50  0000 C CNN
-F 1 "SW_Push" H 8200 4744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8200 4750 50  0001 C CNN
-F 3 "~" H 8200 4750 50  0001 C CNN
-	1    8200 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_POT_US RV?
+L Device:R_POT_US RV1
 U 1 1 5FC6ABA0
-P 8150 5100
-F 0 "RV?" H 8083 5146 50  0000 R CNN
-F 1 "R_POT_US" H 8083 5055 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 8150 5100 50  0001 C CNN
-F 3 "~" H 8150 5100 50  0001 C CNN
-	1    8150 5100
-	1    0    0    -1  
-$EndComp
-$Comp
-L OpenHornet2:SW_Rotary6 SW?
-U 1 1 5FC6C2A3
-P 10000 5500
-F 0 "SW?" H 9900 6281 50  0000 C CNN
-F 1 "SW_Rotary6" H 9900 6190 50  0000 C CNN
-F 2 "" H 9800 6200 50  0001 C CNN
-F 3 "" H 9800 6200 50  0001 C CNN
-	1    10000 5500
-	1    0    0    -1  
+P 7850 4150
+F 0 "RV1" H 7783 4196 50  0000 R CNN
+F 1 "CABIN_TEMP" H 7783 4105 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 7850 4150 50  0001 C CNN
+F 3 "~" H 7850 4150 50  0001 C CNN
+	1    7850 4150
+	-1   0    0    -1  
 $EndComp
 $Bitmap
 Pos 9250 1700
@@ -7007,4 +6948,308 @@ A1 42 A1 B0 B7 B7 47 92 24 CD 10 20 62 00 A8 15 62 C5 59 53 80 1B 04 34 C0 18 86
 44 AE 42 60 82 
 EndData
 $EndBitmap
+$Comp
+L Device:R_POT_US RV2
+U 1 1 5FCDFF8C
+P 7850 4750
+F 0 "RV2" H 7783 4796 50  0000 R CNN
+F 1 "SUIT_TEMP" H 7783 4705 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 7850 4750 50  0001 C CNN
+F 3 "~" H 7850 4750 50  0001 C CNN
+	1    7850 4750
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPDT_MSM SW2
+U 1 1 5FCE046B
+P 3200 3350
+F 0 "SW2" H 3200 3635 50  0000 C CNN
+F 1 "CABIN_PRESS_SW" H 3200 3544 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3200 3350 50  0001 C CNN
+F 3 "~" H 3200 3350 50  0001 C CNN
+	1    3200 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:SW_Rotary4 SW6
+U 1 1 5FCE7F67
+P 3550 6000
+F 0 "SW6" H 3450 6781 50  0000 C CNN
+F 1 "BLEED_AIR_KNOB" H 3450 6690 50  0000 C CNN
+F 2 "" H 3350 6700 50  0001 C CNN
+F 3 "" H 3350 6700 50  0001 C CNN
+	1    3550 6000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPDT_MSM SW4
+U 1 1 5FCE96B5
+P 3200 4800
+F 0 "SW4" H 3200 5085 50  0000 C CNN
+F 1 "ENG_ANTIICE_SW" H 3200 4994 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3200 4800 50  0001 C CNN
+F 3 "~" H 3200 4800 50  0001 C CNN
+	1    3200 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D2
+U 1 1 5FCEBB54
+P 2650 3350
+F 0 "D2" H 2650 3566 50  0000 C CNN
+F 1 "D" H 2650 3475 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2650 3350 50  0001 C CNN
+F 3 "~" H 2650 3350 50  0001 C CNN
+	1    2650 3350
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D3
+U 1 1 5FCEC03C
+P 2650 4100
+F 0 "D3" H 2650 4316 50  0000 C CNN
+F 1 "D" H 2650 4225 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2650 4100 50  0001 C CNN
+F 3 "~" H 2650 4100 50  0001 C CNN
+	1    2650 4100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D4
+U 1 1 5FCECBC0
+P 2700 4800
+F 0 "D4" H 2700 5016 50  0000 C CNN
+F 1 "D" H 2700 4925 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2700 4800 50  0001 C CNN
+F 3 "~" H 2700 4800 50  0001 C CNN
+	1    2700 4800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D5
+U 1 1 5FCED343
+P 2700 6000
+F 0 "D5" H 2700 6216 50  0000 C CNN
+F 1 "D" H 2700 6125 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2700 6000 50  0001 C CNN
+F 3 "~" H 2700 6000 50  0001 C CNN
+	1    2700 6000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D6
+U 1 1 5FCED9E1
+P 2700 6650
+F 0 "D6" H 2700 6866 50  0000 C CNN
+F 1 "D" H 2700 6775 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2700 6650 50  0001 C CNN
+F 3 "~" H 2700 6650 50  0001 C CNN
+	1    2700 6650
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3000 2550 2800 2550
+Wire Wire Line
+	3000 3350 2800 3350
+Wire Wire Line
+	3000 4100 2800 4100
+Wire Wire Line
+	3000 4800 2850 4800
+Wire Wire Line
+	2950 6000 2850 6000
+Wire Wire Line
+	3000 6650 2850 6650
+$Comp
+L Switch:SW_Push SW5
+U 1 1 5FCF0D4C
+P 3200 6650
+F 0 "SW5" H 3200 6935 50  0000 C CNN
+F 1 "BLEED_AIR_PULL" H 3200 6844 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3200 6850 50  0001 C CNN
+F 3 "~" H 3200 6850 50  0001 C CNN
+	1    3200 6650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J1
+U 1 1 5FD008B1
+P 1250 4400
+F 0 "J1" H 1142 4685 50  0000 C CNN
+F 1 "Columns In" H 1142 4594 50  0000 C CNN
+F 2 "" H 1250 4400 50  0001 C CNN
+F 3 "~" H 1250 4400 50  0001 C CNN
+	1    1250 4400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J2
+U 1 1 5FD01C6E
+P 4900 4450
+F 0 "J2" H 4928 4426 50  0000 L CNN
+F 1 "Rows In" H 4928 4335 50  0000 L CNN
+F 2 "" H 4900 4450 50  0001 C CNN
+F 3 "~" H 4900 4450 50  0001 C CNN
+	1    4900 4450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2500 2550 1850 2550
+Wire Wire Line
+	1850 4300 1450 4300
+Wire Wire Line
+	1450 4400 2050 4400
+Wire Wire Line
+	2050 4400 2050 3350
+Wire Wire Line
+	2050 3350 2500 3350
+Wire Wire Line
+	1450 4500 2050 4500
+Wire Wire Line
+	2250 4500 2250 4100
+Wire Wire Line
+	2250 4100 2500 4100
+Wire Wire Line
+	3400 2450 4450 2450
+Wire Wire Line
+	4450 2450 4450 3250
+Wire Wire Line
+	4450 4350 4700 4350
+Wire Wire Line
+	3400 2650 4350 2650
+Wire Wire Line
+	4350 4450 4700 4450
+Wire Wire Line
+	3400 3250 4450 3250
+Connection ~ 4450 3250
+Wire Wire Line
+	3400 3450 4350 3450
+Wire Wire Line
+	4350 2650 4350 3450
+Connection ~ 4350 3450
+Wire Wire Line
+	4450 4350 4450 5400
+Wire Wire Line
+	4450 5400 3950 5400
+Connection ~ 4450 4350
+Wire Wire Line
+	2550 6000 1800 6000
+Wire Wire Line
+	1800 6000 1800 4600
+Wire Wire Line
+	1800 4600 1450 4600
+Wire Wire Line
+	1850 2550 1850 4300
+Wire Wire Line
+	1850 4300 1900 4300
+Wire Wire Line
+	1900 4300 1900 4800
+Wire Wire Line
+	1900 4800 2550 4800
+Connection ~ 1850 4300
+Wire Wire Line
+	3400 4700 3750 4700
+Wire Wire Line
+	3750 4700 3750 4550
+Wire Wire Line
+	3750 4550 4200 4550
+Wire Wire Line
+	3400 4900 4050 4900
+Wire Wire Line
+	4050 4900 4050 4650
+Wire Wire Line
+	4050 4650 4700 4650
+Wire Wire Line
+	2050 4500 2050 6650
+Wire Wire Line
+	2050 6650 2550 6650
+Connection ~ 2050 4500
+Wire Wire Line
+	2050 4500 2250 4500
+Wire Wire Line
+	4350 4450 4350 5500
+Wire Wire Line
+	4350 5500 3950 5500
+Connection ~ 4350 4450
+Wire Wire Line
+	4200 4550 4200 5600
+Wire Wire Line
+	4200 5600 3950 5600
+Connection ~ 4200 4550
+Wire Wire Line
+	4200 4550 4700 4550
+Wire Wire Line
+	4050 4900 4050 5700
+Wire Wire Line
+	4050 5700 3950 5700
+Connection ~ 4050 4900
+Wire Wire Line
+	4200 5600 4200 6650
+Wire Wire Line
+	4200 6650 3400 6650
+Connection ~ 4200 5600
+$Comp
+L Switch:SW_SPST SW3
+U 1 1 5FD0D946
+P 3200 4100
+F 0 "SW3" H 3200 4335 50  0000 C CNN
+F 1 "PITOT_HEAT_SW" H 3200 4244 50  0000 C CNN
+F 2 "" H 3200 4100 50  0001 C CNN
+F 3 "~" H 3200 4100 50  0001 C CNN
+	1    3200 4100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4350 3450 4350 4450
+Wire Wire Line
+	4450 3250 4450 4100
+Wire Wire Line
+	3400 4100 4450 4100
+Connection ~ 4450 4100
+Wire Wire Line
+	4450 4100 4450 4350
+$Comp
+L Connector:Conn_01x04_Female J3
+U 1 1 5FD15862
+P 6600 4500
+F 0 "J3" H 6492 4785 50  0000 C CNN
+F 1 "Environment_Analog" H 6492 4694 50  0000 C CNN
+F 2 "" H 6600 4500 50  0001 C CNN
+F 3 "~" H 6600 4500 50  0001 C CNN
+	1    6600 4500
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	7850 4000 7850 3900
+Wire Wire Line
+	7850 3900 7150 3900
+Wire Wire Line
+	7150 3900 7150 4400
+Wire Wire Line
+	7150 4400 6800 4400
+Wire Wire Line
+	7850 4600 7850 4400
+Wire Wire Line
+	7850 4400 7150 4400
+Connection ~ 7150 4400
+Wire Wire Line
+	7850 4300 7500 4300
+Wire Wire Line
+	7500 4300 7500 4500
+Wire Wire Line
+	7500 4500 6800 4500
+Wire Wire Line
+	7850 4900 7500 4900
+Wire Wire Line
+	7500 4900 7500 4500
+Connection ~ 7500 4500
+Wire Wire Line
+	7700 4150 7300 4150
+Wire Wire Line
+	7300 4150 7300 4600
+Wire Wire Line
+	7300 4600 6800 4600
+Wire Wire Line
+	7700 4750 6800 4750
+Wire Wire Line
+	6800 4750 6800 4700
 $EndSCHEMATC

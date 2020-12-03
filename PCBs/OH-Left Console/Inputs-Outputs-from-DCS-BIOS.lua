@@ -27,6 +27,11 @@ definePotentiometer("FORMATION_DIMMER", 8, 3002, 337, {0, 1}, "Exterior Lights P
 define3PosTumb("STROBE_SW", 8, 3003, 339, "Exterior Lights Panel", "Strobe Lights Switch")
 defineToggleSwitch("INT_WNG_TANK_SW", 6, 3001, 340, "Exterior Lights Panel", "Internal Wing Tank Fuel Control Switch, INHIBIT/NORM")
 
+
+-- 15. Generator Tie Control Switch
+defineToggleSwitch("GEN_TIE_COVER", 3, 3007, 379, "Generator Tie Control Switch", "Generator TIE Control Switch Cover, OPEN/CLOSE")
+defineToggleSwitch("GEN_TIE_SW", 3, 3006, 378, "Generator Tie Control Switch", "Generator TIE Control Switch, NORM/RESET")
+
 -- 5. Fuel Panel
 define3PosTumb("PROBE_SW", 6, 3002, 341, "Fuel Panel", "Probe Control Switch, EXTEND/RETRACT/EMERG EXTD")
 defineToggleSwitchToggleOnly2("FUEL_DUMP_SW", 6, 3003, 344, "Fuel Panel", "Fuel Dump Switch, ON/OFF")
@@ -59,11 +64,73 @@ defineToggleSwitch("COM_ILS_UFC_MAN_SW", 40, 3016, 353, "Communication Panel", "
 defineTumb("COM_ILS_CHANNEL_SW", 40, 3017, 352, 0.05, {0.0, 0.95}, nil, false, "Communication Panel", "ILS Channel Selector Switch")
 
 
-
 -- 8. LOX Indicator
 defineToggleSwitch("OBOGS_SW", 10, 3001, 365, "LOX Indicator", "OBOGS Control Switch, ON/OFF")
 definePotentiometer("OXY_FLOW", 10, 3002, 366, {0, 1}, "LOX Indicator", "OXY Flow Knob")
 
+-- 9 through 11 not used
+
+-- 12. Mission Computer and Hydraulic Isolate Panel
+defineMissionComputerSwitch("MC_SW", 3, 3025, 3026, 368, "Mission Computer and Hydraulic Isolate Panel", "MC Switch, 1 OFF/NORM/2 OFF")
+defineToggleSwitch("HYD_ISOLATE_OVERRIDE_SW", 4, 3001, 369, "Mission Computer and Hydraulic Isolate Panel", "Hydraulic Isolate Override Switch, NORM/ORIDE")
+
+-- 13. Antenna Select Panel
+define3PosTumb("COMM1_ANT_SELECT_SW", 50, 3001, 373, "Antenna Select Panel", "COMM 1 Antenna Selector Switch, UPPER/AUTO/LOWER")
+define3PosTumb("IFF_ANT_SELECT_SW", 50, 3002, 374, "Antenna Select Panel", "IFF Antenna Selector Switch, UPPER/BOTH/LOWER")
+
+
+-- 14. Auxiliary Power Unit Panel
+defineToggleSwitchToggleOnly2("APU_CONTROL_SW", 12, 3001, 375, "Auxiliary Power Unit Panel", "APU Control Switch, ON/OFF")
+defineRockerSwitch("ENGINE_CRANK_SW", 12, 3003, 3003, 3002, 3002, 377, "Auxiliary Power Unit Panel", "Engine Crank Switch, LEFT/OFF/RIGHT")
+defineIndicatorLight("APU_READY_LT", 376, "Auxiliary Power Unit Panel", "APU Ready Light")
+
+
+-- Need to add to disitribution panel or Circuit Breakers
+-- 16. ECM Dispenser Button
+definePushButton("CMSD_DISPENSE_BTN", 54, 3002, 380, "ECM Dispenser Button", "Dispense Button - Push to dispense flares and chaff")
+
+-- 18. Left Essential Circuit Breakers
+definePushButton("CB_FCS_CHAN1", 3, 3017, 381, "Left Essential Circuit Breakers", "CB FCS CHAN 1, ON/OFF")
+definePushButton("CB_FCS_CHAN2", 3, 3018, 382, "Left Essential Circuit Breakers", "CB FCS CHAN 2, ON/OFF")
+definePushButton("CB_SPD_BRK", 3, 3019, 383, "Left Essential Circuit Breakers", "CB SPD BRK, ON/OFF")
+definePushButton("CB_LAUNCH_BAR", 3, 3020, 384, "Left Essential Circuit Breakers", "CB LAUNCH BAR, ON/OFF")
+
+
+-- 1. Electrical Power Panel
+define3PosTumb("BATTERY_SW", 3, 3001, 404, "Electrical Power Panel", "Battery Switch, ON/OFF/ORIDE")
+defineToggleSwitch("L_GEN_SW", 3, 3002, 402, "Electrical Power Panel", "Left Generator Control Switch, NORM/OFF")
+defineToggleSwitch("R_GEN_SW", 3, 3003, 403, "Electrical Power Panel", "Right Generator Control Switch, NORM/OFF")
+defineFloat("VOLT_U", 400, {0, 1}, "Electrical Power Panel", "Battery U Volts")
+defineFloat("VOLT_E", 401, {0, 1}, "Electrical Power Panel", "Battery E Volts")
+
+-- 2. Environment Control System Panel
+defineTumb("BLEED_AIR_KNOB", 11, 3001, 411, 0.1, {0.0, 0.3}, nil, false, "Environment Control System Panel", "Bleed Air Knob, R OFF/NORM/L OFF/OFF")
+defineToggleSwitch("BLEED_AIR_PULL", 11, 3002, 412, "Environment Control System Panel", "Bleed Air Knob, AUG PULL")
+define3PosTumb("ECS_MODE_SW", 11, 3003, 405, "Environment Control System Panel", "ECS Mode Switch, AUTO/MAN/ OFF/RAM")
+define3PosTumb("CABIN_PRESS_SW", 11, 3004, 408, "Environment Control System Panel", "Cabin Pressure Switch, NORM/DUMP/ RAM/DUMP")
+definePotentiometer("CABIN_TEMP", 11, 3006, 407, {0, 1}, "Environment Control System Panel", "Cabin Temperature Knob")
+definePotentiometer("SUIT_TEMP", 11, 3007, 406, {0, 1}, "Environment Control System Panel", "Suit Temperature Knob")
+define3PosTumb("ENG_ANTIICE_SW", 12, 3014, 410, "Environment Control System Panel", "Engine Anti-Ice Switch, ON/OFF/TEST")
+defineToggleSwitchToggleOnly2("PITOT_HEAT_SW", 3, 3016, 409, "Environment Control System Panel", "Pitot Heater Switch, ON/AUTO")
+
+-- 3. Interior Lights Panel
+definePotentiometer("CONSOLES_DIMMER", 9, 3001, 413, {0, 1}, "Interior Lights Panel", "CONSOLES Lights Dimmer")
+definePotentiometer("INST_PNL_DIMMER", 9, 3002, 414, {0, 1}, "Interior Lights Panel", "INST PNL Dimmer")
+definePotentiometer("FLOOD_DIMMER", 9, 3003, 415, {0, 1}, "Interior Lights Panel", "FLOOD Light Dimmer")
+define3PosTumb("COCKKPIT_LIGHT_MODE_SW", 9, 3004, 419, "Interior Lights Panel", "MODE Switch, NVG/NITE/DAY")
+definePotentiometer("CHART_DIMMER", 9, 3005, 418, {0, 1}, "Interior Lights Panel", "CHART Light Dimmer")
+definePotentiometer("WARN_CAUTION_DIMMER", 9, 3006, 417, {0, 1}, "Interior Lights Panel", "WARN/CAUTION Light Dimmer")
+defineToggleSwitch("LIGHTS_TEST_SW", 9, 3007, 416, "Interior Lights Panel", "Lights Test Switch, TEST/OFF")
+
+
+-- 5. Sensor Panel
+define3PosTumb("FLIR_SW", 62, 3001, 439, "Sensor Panel", "FLIR Switch, ON/STBY/OFF")
+define3PosTumb("LTD_R_SW", 62, 3002, 441, "Sensor Panel", "LTD/R Switch, ---/SAFE/AFT") -- ARM position is handled by another parameter
+defineToggleSwitch("LST_NFLR_SW", 62, 3004, 442, "Sensor Panel", "LST/NFLR Switch, ON/OFF")
+defineToggleSwitch("LTD_R_ARM", 62, 3003, 441, "Sensor Panel", "LTD/R Switch, ARM/SAFE")
+defineTumb("RADAR_SW", 42, 3001, 440, 0.1, {0.0, 0.3}, nil, false, "Sensor Panel", "RADAR Switch Change ,OFF/STBY/OPR/EMERG(PULL)")
+definePushButton("RADAR_SW_PULL", 42, 3002, 440, "Sensor Panel", "RADAR Switch Pull (MW to pull), OFF/STBY/OPR/EMERG(PULL)")
+defineTumb("INS_SW", 44, 3001, 443, 0.1, {0.0, 0.7}, nil, false, "Sensor Panel", "INS Switch, OFF/CV/GND/NAV/IFA/GYRO/GB/TEST")
 
 function defineEmergencyParkingBrake(msg, device_id, emergency_command, park_command, arg_number, category, description)
 	local alloc = moduleBeingDefined.memoryMap:allocateInt{ maxValue = 1 }
