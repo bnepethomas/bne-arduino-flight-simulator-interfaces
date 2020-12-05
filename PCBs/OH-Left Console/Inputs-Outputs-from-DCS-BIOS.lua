@@ -122,6 +122,11 @@ definePotentiometer("CHART_DIMMER", 9, 3005, 418, {0, 1}, "Interior Lights Panel
 definePotentiometer("WARN_CAUTION_DIMMER", 9, 3006, 417, {0, 1}, "Interior Lights Panel", "WARN/CAUTION Light Dimmer")
 defineToggleSwitch("LIGHTS_TEST_SW", 9, 3007, 416, "Interior Lights Panel", "Lights Test Switch, TEST/OFF")
 
+-- 11. Defog Panel - Hangs off Interior Lights Panel
+definePotentiometer("DEFOG_HANDLE", 11, 3005, 451, {0, 1}, "Defog Panel", "Defog Handle")
+define3PosTumb("WSHIELD_ANTI_ICE_SW", 11, 3009, 452, "Defog Panel", "Windshield Anti-Ice/Rain Switch, ANTI ICE/OFF/RAIN")
+
+
 
 -- 5. Sensor Panel
 define3PosTumb("FLIR_SW", 62, 3001, 439, "Sensor Panel", "FLIR Switch, ON/STBY/OFF")
@@ -131,6 +136,66 @@ defineToggleSwitch("LTD_R_ARM", 62, 3003, 441, "Sensor Panel", "LTD/R Switch, AR
 defineTumb("RADAR_SW", 42, 3001, 440, 0.1, {0.0, 0.3}, nil, false, "Sensor Panel", "RADAR Switch Change ,OFF/STBY/OPR/EMERG(PULL)")
 definePushButton("RADAR_SW_PULL", 42, 3002, 440, "Sensor Panel", "RADAR Switch Pull (MW to pull), OFF/STBY/OPR/EMERG(PULL)")
 defineTumb("INS_SW", 44, 3001, 443, 0.1, {0.0, 0.7}, nil, false, "Sensor Panel", "INS Switch, OFF/CV/GND/NAV/IFA/GYRO/GB/TEST")
+
+
+-- 6. KY-58 Control
+defineTumb("KY58_MODE_SELECT", 41, 3001, 444, 0.1, {0.0, 0.3}, nil, false, "KY-58 Control", "KY-58 Mode Select Knob, P/C/LD/RV")
+definePotentiometer("KY58_VOLUME", 41, 3005, 445, {0, 1}, "KY-58 Control", "KY-58 Volume Control Knob")
+defineTumb("KY58_FILL_SELECT", 41, 3002, 446, 0.1, {0.0, 0.7}, nil, false, "KY-58 Control", "KY-58 Fill Select Knob, Z 1-5/1/2/3/4/5/6/Z ALL")
+defineTumb("KY58_POWER_SELECT", 41, 3004, 447, 0.1, {0.0, 0.2}, nil, false, "KY-58 Control", "KY-58 Power Select Knob, OFF/ON/TD")
+
+
+-- 12. Internal Canopy Switch
+defineRockerSwitch("CANOPY_SW", 7, 3001, 3001, 3002, 3002, 453, "Internal Canopy Switch", "Canopy Control Switch, OPEN/HOLD/CLOSE")
+
+-- 13. Right Essential Circuit Breakers
+definePushButton("CB_FCS_CHAN3", 3, 3021, 454, "Right Essential Circuit Breakers", "CB FCS CHAN 3, ON/OFF")
+definePushButton("CB_FCS_CHAN4", 3, 3022, 455, "Right Essential Circuit Breakers", "CB FCS CHAN 4, ON/OFF")
+definePushButton("CB_HOOOK", 3, 3023, 456, "Right Essential Circuit Breakers", "CB HOOK, ON/OFF")
+definePushButton("CB_LG", 3, 3024, 457, "Right Essential Circuit Breakers", "CB LG, ON/OFF")
+defineToggleSwitch("FCS_BIT_SW", 2, 3004, 470, "Right Essential Circuit Breakers", "FCS BIT Switch")
+
+
+
+
+-- INSTRUMENT PANEL
+
+
+
+-- 1. Lock/Shoot Lights
+defineIndicatorLight("LS_LOCK", 1, "Lock Shoot Lights", "LOCK")
+defineIndicatorLight("LS_SHOOT", 2, "Lock Shoot Lights", "SHOOT")
+defineIndicatorLight("LS_SHOOT_STROBE", 3, "Lock Shoot Lights", "SHOOT STROBE")
+
+-- 2. Head Up Display
+
+-- 3. Angle of Attack Indexer Lights
+defineIndicatorLight("AOA_INDEXER_HIGH", 4, "Angle of Attack Indexer Lights", "AOA Indexer High")
+defineIndicatorLight("AOA_INDEXER_NORMAL", 5, "Angle of Attack Indexer Lights", "AOA Indexer Normal")
+defineIndicatorLight("AOA_INDEXER_LOW", 6, "Angle of Attack Indexer Lights", "AOA Indexer Low")
+
+-- 4. Left Engine Fire Warning / Extinguisher Light
+defineIndicatorLight("FIRE_LEFT_LT", 10, "Left Engine Fire Warning Extinguisher Light", "FIRE LEFT")
+definePushButton("LEFT_FIRE_BTN", 12, 3010, 11, "Left Engine Fire Warning Extinguisher Light", "Left Engine/AMAD Fire Warning/Extinguisher Light")
+defineToggleSwitch("LEFT_FIRE_BTN_COVER", 12, 3012, 12, "Left Engine Fire Warning Extinguisher Light", "Left Engine/AMAD Fire Warning Cover")
+
+-- 5. Master Caution Light
+defineIndicatorLight("MASTER_CAUTION_LT", 13, "Master Caution Light", "MASTER CAUTION")
+defineToggleSwitch("MASTER_CAUTION_RESET_SW", 9, 3008, 14, "Master Caution Light", "MASTER CAUTION Reset Button - Press to reset")
+
+-- 6. LH Advisory and Threat Warning Indicator Panel
+defineIndicatorLight("LH_ADV_L_BLEED", 17, "LH Advisory Panel", "L BLEED")
+defineIndicatorLight("LH_ADV_R_BLEED", 18, "LH Advisory Panel", "R BLEED")
+defineIndicatorLight("LH_ADV_SPD_BRK", 19, "LH Advisory Panel", "SPD BRK")
+defineIndicatorLight("LH_ADV_STBY", 20, "LH Advisory Panel", "STBY")
+defineIndicatorLight("LH_ADV_L_BAR_RED", 21, "LH Advisory Panel", "L BAR RED")
+defineIndicatorLight("LH_ADV_REC", 22, "LH Advisory Panel", "REC")
+defineIndicatorLight("LH_ADV_L_BAR_GREEN", 23, "LH Advisory Panel", "L BAR GREEN")
+defineIndicatorLight("LH_ADV_XMIT", 24, "LH Advisory Panel", "XMIT")
+defineIndicatorLight("LH_ADV_ASPJ_OH", 25, "LH Advisory Panel", "ASPJ OH")
+defineIndicatorLight("LH_ADV_GO", 15, "LH Advisory Panel", "GO")
+defineIndicatorLight("LH_ADV_NO_GO", 16, "LH Advisory Panel", "NO GO")
+
 
 function defineEmergencyParkingBrake(msg, device_id, emergency_command, park_command, arg_number, category, description)
 	local alloc = moduleBeingDefined.memoryMap:allocateInt{ maxValue = 1 }
