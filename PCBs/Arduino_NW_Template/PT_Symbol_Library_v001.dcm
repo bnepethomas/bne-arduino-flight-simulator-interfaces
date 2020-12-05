@@ -12,6 +12,11 @@ K connector
 F ~
 $ENDCMP
 #
+$CMP SW_Rotary3
+D rotary switch with 6 positions
+K rotary switch
+$ENDCMP
+#
 $CMP SW_Rotary4
 D rotary switch with 6 positions
 K rotary switch
