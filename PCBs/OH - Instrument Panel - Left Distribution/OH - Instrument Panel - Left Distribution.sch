@@ -75,12 +75,12 @@ $EndComp
 $Comp
 L Switch:SW_Push SW?
 U 1 1 5FC6A958
-P 8200 4550
-F 0 "SW?" H 8200 4835 50  0000 C CNN
-F 1 "SW_Push" H 8200 4744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8200 4750 50  0001 C CNN
-F 3 "~" H 8200 4750 50  0001 C CNN
-	1    8200 4550
+P 1450 2900
+F 0 "SW?" H 1450 3185 50  0000 C CNN
+F 1 "SW_Push" H 1450 3094 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1450 3100 50  0001 C CNN
+F 3 "~" H 1450 3100 50  0001 C CNN
+	1    1450 2900
 	1    0    0    -1  
 $EndComp
 $Comp
