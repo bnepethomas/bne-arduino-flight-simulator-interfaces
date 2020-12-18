@@ -138,6 +138,9 @@ definePushButton("RADAR_SW_PULL", 42, 3002, 440, "Sensor Panel", "RADAR Switch P
 defineTumb("INS_SW", 44, 3001, 443, 0.1, {0.0, 0.7}, nil, false, "Sensor Panel", "INS Switch, OFF/CV/GND/NAV/IFA/GYRO/GB/TEST")
 
 
+-- A Sim Control Panel 
+
+
 -- 6. KY-58 Control
 defineTumb("KY58_MODE_SELECT", 41, 3001, 444, 0.1, {0.0, 0.3}, nil, false, "KY-58 Control", "KY-58 Mode Select Knob, P/C/LD/RV")
 definePotentiometer("KY58_VOLUME", 41, 3005, 445, {0, 1}, "KY-58 Control", "KY-58 Volume Control Knob")
@@ -156,6 +159,41 @@ definePushButton("CB_LG", 3, 3024, 457, "Right Essential Circuit Breakers", "CB 
 defineToggleSwitch("FCS_BIT_SW", 2, 3004, 470, "Right Essential Circuit Breakers", "FCS BIT Switch")
 
 
+
+FRONT LEFT CONSOLE
+
+
+
+
+
+-- 3. Angle of Attack Indexer Lights
+defineIndicatorLight("AOA_INDEXER_HIGH", 4, "Angle of Attack Indexer Lights", "AOA Indexer High")
+defineIndicatorLight("AOA_INDEXER_NORMAL", 5, "Angle of Attack Indexer Lights", "AOA Indexer Normal")
+defineIndicatorLight("AOA_INDEXER_LOW", 6, "Angle of Attack Indexer Lights", "AOA Indexer Low")
+
+-- 17. Emergency Jettison Button
+definePushButton("EMER_JETT_BTN", 23, 3004, 50, "Emergency Jettison Button", "Emergency Jettison Button")
+
+FRONT RIGHT CONSOLE 
+
+-- 1. Lock/Shoot Lights
+defineIndicatorLight("LS_LOCK", 1, "Lock Shoot Lights", "LOCK")
+defineIndicatorLight("LS_SHOOT", 2, "Lock Shoot Lights", "SHOOT")
+defineIndicatorLight("LS_SHOOT_STROBE", 3, "Lock Shoot Lights", "SHOOT STROBE")
+
+-- 7. HUD Video Bit Panel
+definePushButton("HUD_VIDEO_BIT", 0, 3107, 7, "HUD Video Bit Panel", "HUD Video BIT Initiate Pushbutton - Push to initiate BIT")
+
+-- 16. Map Gain/Spin Recovery Panel
+defineIndicatorLight("SPIN_LT", 137, "Map Gain/Spin Recovery Panel", "Spin Light")
+defineToggleSwitch("SPIN_RECOVERY_COVER", 2, 3008, 139, "Map Gain/Spin Recovery Panel", "Spin Recovery Switch Cover, OPEN/CLOSE")
+defineToggleSwitch("SPIN_RECOVERY_SW", 2, 3009, 138, "Map Gain/Spin Recovery Panel", "Spin Recovery Switch, RCVY/NORM")
+definePotentiometer("HMD_OFF_BRT", 58, 3001, 136, {0, 0.75}, "Map Gain/Spin Recovery Panel", "HMD OFF/BRT Knob") -- From TODO, will change
+defineTumb("IR_COOL_SW", 23, 3013, 135, 0.1, {0.0, 0.2}, nil, false, "Map Gain/Spin Recovery Panel", "IR Cooling Switch, ORIDE/NORM/OFF")
+
+
+END COMPLETED PANELS
+***************************************************************************************************************
 
 
 -- INSTRUMENT PANEL
