@@ -16,118 +16,48 @@ $EndDescr
 Text Notes 1050 2350 0    50   ~ 0
 -- 36. RWR Control Indicator\ndefinePushButton("RWR_POWER_BTN", 53, 3001, 277, "RWR Control Indicator", "ALR-67 POWER Pushbutton")\ndefinePushButton("RWR_DISPLAY_BTN", 53, 3002, 275, "RWR Control Indicator", "ALR-67 DISPLAY Pushbutton")\ndefinePushButton("RWR_SPECIAL_BTN", 53, 3003, 272, "RWR Control Indicator", "ALR-67 SPECIAL Pushbutton")\ndefinePushButton("RWR_OFFSET_BTN", 53, 3004, 269, "RWR Control Indicator", "ALR-67 OFFSET Pushbutton")\ndefinePushButton("RWR_BIT_BTN", 53, 3005, 266, "RWR Control Indicator", "ALR-67 BIT Pushbutton")\ndefinePotentiometer("RWR_DMR_CTRL", 53, 3006, 263, {0, 1}, "RWR Control Indicator", "ALR-67 DMR Control Knob")\ndefineTumb("RWR_DIS_TYPE_SW", 53, 3007, 261, 0.1, {0.0, 0.4}, nil, false, "RWR Control Indicator", "ALR-67 DIS TYPE Switch, N/I/A/U/F")\ndefinePotentiometer("RWR_RWR_INTESITY", 53, 3008, 216, {0, 1}, "RWR Control Indicator", "RWR Intensity Knob")\ndefineIndicatorLight("RWR_LOWER_LT", 276, "RWR Control Indicator", "ALR-67 LOWER Light (green)")\ndefineIndicatorLight("RWR_LIMIT_LT", 273, "RWR Control Indicator", "ALR-67 LIMIT Light (green)")\ndefineIndicatorLight("RWR_DISPLAY_LT", 274, "RWR Control Indicator", "ALR-67 DISPLAY Light (green)")\ndefineIndicatorLight("RWR_SPECIAL_EN_LT", 270, "RWR Control Indicator", "ALR-67 SPECIAL ENABLE Light (green)")\ndefineIndicatorLight("RWR_SPECIAL_LT", 271, "RWR Control Indicator", "ALR-67 SPECIAL Light (green)")\ndefineIndicatorLight("RWR_ENABLE_LT", 267, "RWR Control Indicator", "ALR-67 ENABLE Light (green)")\ndefineIndicatorLight("RWR_OFFSET_LT", 268, "RWR Control Indicator", "ALR-67 OFFSET Light (green)")\ndefineIndicatorLight("RWR_FAIL_LT", 264, "RWR Control Indicator", "ALR-67 FAIL Light (red)")\ndefineIndicatorLight("RWR_BIT_LT", 265, "RWR Control Indicator", "ALR-67 BIT Light (green)")
 $Comp
-L Switch:SW_SPDT_MSM SW1
-U 1 1 5FC1E955
-P 7200 4550
-F 0 "SW1" H 7200 4835 50  0000 C CNN
-F 1 "EXT_PWR_SW" H 7200 4744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 7200 4550 50  0001 C CNN
-F 3 "~" H 7200 4550 50  0001 C CNN
-	1    7200 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:D D1
-U 1 1 5FC2589C
-P 7250 5300
-F 0 "D1" H 7250 5516 50  0000 C CNN
-F 1 "D" H 7250 5425 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 7250 5300 50  0001 C CNN
-F 3 "~" H 7250 5300 50  0001 C CNN
-	1    7250 5300
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Connector:Conn_01x02_Female J2
 U 1 1 5FC37DA5
-P 7300 3700
-F 0 "J2" H 7328 3676 50  0000 L CNN
-F 1 "Input Rows" H 7328 3585 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7300 3700 50  0001 C CNN
-F 3 "~" H 7300 3700 50  0001 C CNN
-	1    7300 3700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x06_Female J1
-U 1 1 5FC383D5
-P 7150 2900
-F 0 "J1" H 7042 3285 50  0000 C CNN
-F 1 "Input Columns" H 7042 3194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 7150 2900 50  0001 C CNN
-F 3 "~" H 7150 2900 50  0001 C CNN
-	1    7150 2900
+P 2750 3850
+F 0 "J2" H 2778 3826 50  0000 L CNN
+F 1 "Input Columns" H 2778 3735 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2750 3850 50  0001 C CNN
+F 3 "~" H 2750 3850 50  0001 C CNN
+	1    2750 3850
 	-1   0    0    -1  
 $EndComp
-Text Notes 900  6300 0    118  ~ 0
-Instructions
-Text Notes 900  6900 0    63   ~ 0
-1: Copy section from Inputs-Outputs-from-DCS-BIOS in Templates directory to top of Input-Output-from DCS-BIOS, and panel into top left hand corner\n\n2: Grab section of image from NeoEngress_FA-18C_Full_Layout_-_4220x5200 and paste \n\n3: Don’t forget outputs such as gauges, lights and Mag Switches\n\n4: After editing diagram reset numbering during Net generation\n
 $Comp
-L Switch:SW_SPST SW?
-U 1 1 5FC61E34
-P 6350 5300
-F 0 "SW?" H 6350 5535 50  0000 C CNN
-F 1 "SW_SPST" H 6350 5444 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6350 5300 50  0001 C CNN
-F 3 "~" H 6350 5300 50  0001 C CNN
-	1    6350 5300
+L Connector:Conn_01x06_Female J4
+U 1 1 5FC383D5
+P 7150 3250
+F 0 "J4" H 7042 3635 50  0000 C CNN
+F 1 "Input Rows" H 7042 3544 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 7150 3250 50  0001 C CNN
+F 3 "~" H 7150 3250 50  0001 C CNN
+	1    7150 3250
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_Push SW?
+L Switch:SW_Push SW1
 U 1 1 5FC6A958
-P 8200 4550
-F 0 "SW?" H 8200 4835 50  0000 C CNN
-F 1 "SW_Push" H 8200 4744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8200 4750 50  0001 C CNN
-F 3 "~" H 8200 4750 50  0001 C CNN
-	1    8200 4550
+P 4150 3050
+F 0 "SW1" H 4150 3335 50  0000 C CNN
+F 1 "RWR_POWER_BTN" H 4150 3244 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4150 3250 50  0001 C CNN
+F 3 "~" H 4150 3250 50  0001 C CNN
+	1    4150 3050
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_POT_US RV?
+L Device:R_POT_US RV1
 U 1 1 5FC6ABA0
-P 8150 5100
-F 0 "RV?" H 8083 5146 50  0000 R CNN
-F 1 "R_POT_US" H 8083 5055 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 8150 5100 50  0001 C CNN
-F 3 "~" H 8150 5100 50  0001 C CNN
-	1    8150 5100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Rotary_Encoder_Switch SW?
-U 1 1 5FC6B4EB
-P 9200 4300
-F 0 "SW?" H 9200 4667 50  0000 C CNN
-F 1 "Rotary_Encoder_Switch" H 9200 4576 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 9050 4460 50  0001 C CNN
-F 3 "~" H 9200 4560 50  0001 C CNN
-	1    9200 4300
-	1    0    0    -1  
-$EndComp
-$Comp
-L OpenHornet2:SW_Rotary6 SW?
-U 1 1 5FC6C2A3
-P 10000 5500
-F 0 "SW?" H 9900 6281 50  0000 C CNN
-F 1 "SW_Rotary6" H 9900 6190 50  0000 C CNN
-F 2 "" H 9800 6200 50  0001 C CNN
-F 3 "" H 9800 6200 50  0001 C CNN
-	1    10000 5500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_Rotary3x4 SW?
-U 1 1 5FC6DE46
-P 10150 3350
-F 0 "SW?" H 10200 4240 50  0000 C CNN
-F 1 "SW_Rotary3x4" H 10200 4149 50  0000 C CNN
-F 2 "" H 10050 4150 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 10050 4150 50  0001 C CNN
-	1    10150 3350
-	1    0    0    -1  
+P 2100 2900
+F 0 "RV1" H 2033 2946 50  0000 R CNN
+F 1 "RWR_DMR_CTRL" H 2033 2855 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2100 2900 50  0001 C CNN
+F 3 "~" H 2100 2900 50  0001 C CNN
+	1    2100 2900
+	-1   0    0    -1  
 $EndComp
 $Bitmap
 Pos 8900 1500
@@ -3236,4 +3166,543 @@ C9 60 75 DE B4 6B 9C 45 28 E2 31 48 81 E1 95 87 E3 C0 D3 86 02 21 D0 8C D7 D1 8D
 44 AE 42 60 82 
 EndData
 $EndBitmap
+$Comp
+L Device:R_POT_US RV2
+U 1 1 5FDD8D51
+P 2100 3400
+F 0 "RV2" H 2033 3446 50  0000 R CNN
+F 1 "RWR_RWR_INTESITY" H 2033 3355 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2100 3400 50  0001 C CNN
+F 3 "~" H 2100 3400 50  0001 C CNN
+	1    2100 3400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J1
+U 1 1 5FDD9603
+P 850 3050
+F 0 "J1" H 742 3335 50  0000 C CNN
+F 1 "Analog In" H 742 3244 50  0000 C CNN
+F 2 "" H 850 3050 50  0001 C CNN
+F 3 "~" H 850 3050 50  0001 C CNN
+	1    850  3050
+	-1   0    0    -1  
+$EndComp
+Text Label 1050 2950 0    50   ~ 0
+Analog5V
+Text Label 1050 3050 0    50   ~ 0
+AnalogGND
+Text Label 1050 3150 0    50   ~ 0
+Audio
+Text Label 1050 3250 0    50   ~ 0
+DMR
+Text Label 2200 2700 0    50   ~ 0
+Analog5V
+Text Label 2200 3200 0    50   ~ 0
+Analog5V
+Text Label 2200 3100 0    50   ~ 0
+AnalogGND
+Text Label 2200 3650 0    50   ~ 0
+AnalogGND
+Text Label 1950 2900 2    50   ~ 0
+Audio
+Text Label 1950 3400 2    50   ~ 0
+DMR
+$Comp
+L Switch:SW_Push SW2
+U 1 1 5FDDEE73
+P 4150 3500
+F 0 "SW2" H 4150 3785 50  0000 C CNN
+F 1 "RWR_DISPLAY_BTN" H 4150 3694 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4150 3700 50  0001 C CNN
+F 3 "~" H 4150 3700 50  0001 C CNN
+	1    4150 3500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW3
+U 1 1 5FDDF70B
+P 4150 4000
+F 0 "SW3" H 4150 4285 50  0000 C CNN
+F 1 "RWR_SPECIAL_BTN" H 4150 4194 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4150 4200 50  0001 C CNN
+F 3 "~" H 4150 4200 50  0001 C CNN
+	1    4150 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW4
+U 1 1 5FDDFCE1
+P 4150 4400
+F 0 "SW4" H 4150 4685 50  0000 C CNN
+F 1 "RWR_OFFSET_BTN" H 4150 4594 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4150 4600 50  0001 C CNN
+F 3 "~" H 4150 4600 50  0001 C CNN
+	1    4150 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW5
+U 1 1 5FDE05C2
+P 4150 4800
+F 0 "SW5" H 4150 5085 50  0000 C CNN
+F 1 "RWR_BIT_BTN" H 4150 4994 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4150 5000 50  0001 C CNN
+F 3 "~" H 4150 5000 50  0001 C CNN
+	1    4150 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:SW_Rotary5 SW6
+U 1 1 5FDE0EB1
+P 6050 3650
+F 0 "SW6" H 5950 4431 50  0000 C CNN
+F 1 "SW_Rotary5" H 5950 4340 50  0000 C CNN
+F 2 "" H 5850 4350 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 5850 4350 50  0001 C CNN
+	1    6050 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D7
+U 1 1 5FDE83D2
+P 5300 3650
+F 0 "D7" H 5300 3866 50  0000 C CNN
+F 1 "D" H 5300 3775 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 5300 3650 50  0001 C CNN
+F 3 "~" H 5300 3650 50  0001 C CNN
+	1    5300 3650
+	-1   0    0    -1  
+$EndComp
+Text Label 5150 3650 2    50   ~ 0
+Col2
+Text Label 2950 3950 0    50   ~ 0
+Col2
+Wire Wire Line
+	6950 3050 6450 3050
+Wire Wire Line
+	6950 3150 6450 3150
+Wire Wire Line
+	6950 3250 6450 3250
+Wire Wire Line
+	6950 3350 6450 3350
+Wire Wire Line
+	6950 3450 6450 3450
+Text Label 6600 3050 0    50   ~ 0
+Row1
+Text Label 6600 3150 0    50   ~ 0
+Row2
+Text Label 6600 3250 0    50   ~ 0
+Row3
+Text Label 6600 3350 0    50   ~ 0
+Row4
+Text Label 6600 3450 0    50   ~ 0
+Row5
+Text Label 4350 3050 0    50   ~ 0
+Row1
+Text Label 4350 3500 0    50   ~ 0
+Row2
+Text Label 4350 4000 0    50   ~ 0
+Row3
+Text Label 4350 4400 0    50   ~ 0
+Row4
+Text Label 4350 4800 0    50   ~ 0
+Row5
+$Comp
+L Device:LED D13
+U 1 1 5FDEF506
+P 7950 4200
+F 0 "D13" H 7943 3945 50  0000 C CNN
+F 1 "RWR_LIMIT_LT" H 7943 4036 50  0000 C CNN
+F 2 "" H 7950 4200 50  0001 C CNN
+F 3 "~" H 7950 4200 50  0001 C CNN
+	1    7950 4200
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D14
+U 1 1 5FDEFF9A
+P 7950 4600
+F 0 "D14" H 7943 4345 50  0000 C CNN
+F 1 "RWR_SPECIAL_LT" H 7943 4436 50  0000 C CNN
+F 2 "" H 7950 4600 50  0001 C CNN
+F 3 "~" H 7950 4600 50  0001 C CNN
+	1    7950 4600
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D15
+U 1 1 5FDF09F3
+P 7950 5050
+F 0 "D15" H 7943 4795 50  0000 C CNN
+F 1 "RWR_FAIL_LT" H 7943 4886 50  0000 C CNN
+F 2 "" H 7950 5050 50  0001 C CNN
+F 3 "~" H 7950 5050 50  0001 C CNN
+	1    7950 5050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D10
+U 1 1 5FDF0BE6
+P 7200 4200
+F 0 "D10" H 7193 3945 50  0000 C CNN
+F 1 "RWR_LOWER_LT" H 7193 4036 50  0000 C CNN
+F 2 "" H 7200 4200 50  0001 C CNN
+F 3 "~" H 7200 4200 50  0001 C CNN
+	1    7200 4200
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D11
+U 1 1 5FDF129B
+P 7200 4600
+F 0 "D11" H 7193 4345 50  0000 C CNN
+F 1 "RWR_SPECIAL_EN_LT" H 7193 4436 50  0000 C CNN
+F 2 "" H 7200 4600 50  0001 C CNN
+F 3 "~" H 7200 4600 50  0001 C CNN
+	1    7200 4600
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D12
+U 1 1 5FDF15B0
+P 7200 5050
+F 0 "D12" H 7193 4795 50  0000 C CNN
+F 1 "RWR_OFFSET_LT" H 7193 4886 50  0000 C CNN
+F 2 "" H 7200 5050 50  0001 C CNN
+F 3 "~" H 7200 5050 50  0001 C CNN
+	1    7200 5050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D16
+U 1 1 5FDF1D0E
+P 8650 4200
+F 0 "D16" H 8643 3945 50  0000 C CNN
+F 1 "RWR_DISPLAY_LT" H 8643 4036 50  0000 C CNN
+F 2 "" H 8650 4200 50  0001 C CNN
+F 3 "~" H 8650 4200 50  0001 C CNN
+	1    8650 4200
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D17
+U 1 1 5FDF1D18
+P 8650 4600
+F 0 "D17" H 8643 4345 50  0000 C CNN
+F 1 "RWR_ENABLE_LT" H 8643 4436 50  0000 C CNN
+F 2 "" H 8650 4600 50  0001 C CNN
+F 3 "~" H 8650 4600 50  0001 C CNN
+	1    8650 4600
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D18
+U 1 1 5FDF1D22
+P 8650 5050
+F 0 "D18" H 8643 4795 50  0000 C CNN
+F 1 "RWR_BIT_LT" H 8643 4886 50  0000 C CNN
+F 2 "" H 8650 5050 50  0001 C CNN
+F 3 "~" H 8650 5050 50  0001 C CNN
+	1    8650 5050
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:D D5
+U 1 1 5FDE59EF
+P 3700 4800
+F 0 "D5" H 3700 5016 50  0000 C CNN
+F 1 "D" H 3700 4925 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3700 4800 50  0001 C CNN
+F 3 "~" H 3700 4800 50  0001 C CNN
+	1    3700 4800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D4
+U 1 1 5FDE5266
+P 3700 4400
+F 0 "D4" H 3700 4616 50  0000 C CNN
+F 1 "D" H 3700 4525 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3700 4400 50  0001 C CNN
+F 3 "~" H 3700 4400 50  0001 C CNN
+	1    3700 4400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D3
+U 1 1 5FDE4930
+P 3700 4000
+F 0 "D3" H 3700 4216 50  0000 C CNN
+F 1 "D" H 3700 4125 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3700 4000 50  0001 C CNN
+F 3 "~" H 3700 4000 50  0001 C CNN
+	1    3700 4000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D2
+U 1 1 5FDE42FD
+P 3700 3500
+F 0 "D2" H 3700 3716 50  0000 C CNN
+F 1 "D" H 3700 3625 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3700 3500 50  0001 C CNN
+F 3 "~" H 3700 3500 50  0001 C CNN
+	1    3700 3500
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D1
+U 1 1 5FC2589C
+P 3700 3050
+F 0 "D1" H 3700 3266 50  0000 C CNN
+F 1 "D" H 3700 3175 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3700 3050 50  0001 C CNN
+F 3 "~" H 3700 3050 50  0001 C CNN
+	1    3700 3050
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3950 3050 3850 3050
+Wire Wire Line
+	3950 3500 3850 3500
+Wire Wire Line
+	3950 4000 3850 4000
+Wire Wire Line
+	3850 4400 3950 4400
+Wire Wire Line
+	3950 4800 3850 4800
+Wire Wire Line
+	3550 3050 3350 3050
+Wire Wire Line
+	3350 3050 3350 3500
+Wire Wire Line
+	3350 4800 3550 4800
+Wire Wire Line
+	3550 4400 3350 4400
+Connection ~ 3350 4400
+Wire Wire Line
+	3350 4400 3350 4800
+Wire Wire Line
+	3550 4000 3350 4000
+Connection ~ 3350 4000
+Wire Wire Line
+	3350 4000 3350 4400
+Wire Wire Line
+	3550 3500 3350 3500
+Connection ~ 3350 3500
+Wire Wire Line
+	3350 3500 3350 3850
+Wire Wire Line
+	2950 3850 3350 3850
+Connection ~ 3350 3850
+Wire Wire Line
+	3350 3850 3350 4000
+Wire Wire Line
+	2100 3050 2100 3100
+Wire Wire Line
+	2100 3100 2200 3100
+Wire Wire Line
+	2100 3550 2100 3650
+Wire Wire Line
+	2100 3650 2200 3650
+Wire Wire Line
+	2200 2700 2100 2700
+Wire Wire Line
+	2100 2700 2100 2750
+Wire Wire Line
+	2200 3200 2100 3200
+Wire Wire Line
+	2100 3200 2100 3250
+$Comp
+L Connector:Conn_01x03_Female J5
+U 1 1 5FDDFAB3
+P 9950 4900
+F 0 "J5" H 9978 4926 50  0000 L CNN
+F 1 "Led Annode" H 9978 4835 50  0000 L CNN
+F 2 "" H 9950 4900 50  0001 C CNN
+F 3 "~" H 9950 4900 50  0001 C CNN
+	1    9950 4900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J6
+U 1 1 5FDE5408
+P 10000 5600
+F 0 "J6" H 10028 5626 50  0000 L CNN
+F 1 "Led Cathode" H 10028 5535 50  0000 L CNN
+F 2 "" H 10000 5600 50  0001 C CNN
+F 3 "~" H 10000 5600 50  0001 C CNN
+	1    10000 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D6
+U 1 1 5FDE64A2
+P 5250 5450
+F 0 "D6" H 5243 5195 50  0000 C CNN
+F 1 "Backlight_LED" H 5243 5286 50  0000 C CNN
+F 2 "" H 5250 5450 50  0001 C CNN
+F 3 "~" H 5250 5450 50  0001 C CNN
+	1    5250 5450
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D8
+U 1 1 5FDE6C32
+P 5850 5450
+F 0 "D8" H 5843 5195 50  0000 C CNN
+F 1 "Backlight_LED" H 5843 5286 50  0000 C CNN
+F 2 "" H 5850 5450 50  0001 C CNN
+F 3 "~" H 5850 5450 50  0001 C CNN
+	1    5850 5450
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:LED D9
+U 1 1 5FDE751E
+P 6400 5450
+F 0 "D9" H 6393 5195 50  0000 C CNN
+F 1 "Backlight_LED" H 6393 5286 50  0000 C CNN
+F 2 "" H 6400 5450 50  0001 C CNN
+F 3 "~" H 6400 5450 50  0001 C CNN
+	1    6400 5450
+	-1   0    0    1   
+$EndComp
+$Comp
+L Device:R_US R1
+U 1 1 5FDE81EA
+P 4500 5450
+F 0 "R1" V 4705 5450 50  0000 C CNN
+F 1 "R_US" V 4614 5450 50  0000 C CNN
+F 2 "" V 4540 5440 50  0001 C CNN
+F 3 "~" H 4500 5450 50  0001 C CNN
+	1    4500 5450
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J3
+U 1 1 5FDE9114
+P 3700 5450
+F 0 "J3" H 3592 5635 50  0000 C CNN
+F 1 "Backlighting12V" H 3592 5544 50  0000 C CNN
+F 2 "" H 3700 5450 50  0001 C CNN
+F 3 "~" H 3700 5450 50  0001 C CNN
+	1    3700 5450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 5450 4350 5450
+Wire Wire Line
+	5700 5450 5400 5450
+Wire Wire Line
+	6250 5450 6000 5450
+Wire Wire Line
+	6550 5450 6650 5450
+Wire Wire Line
+	6650 5450 6650 5600
+Wire Wire Line
+	6650 5600 4050 5600
+Wire Wire Line
+	4050 5600 4050 5550
+Wire Wire Line
+	4050 5550 3900 5550
+Wire Wire Line
+	4650 5450 5100 5450
+Wire Wire Line
+	8500 4200 8350 4200
+Wire Wire Line
+	8350 4200 8350 4600
+Wire Wire Line
+	8350 5050 8500 5050
+Wire Wire Line
+	8500 4600 8350 4600
+Connection ~ 8350 4600
+Wire Wire Line
+	8350 4600 8350 5050
+Wire Wire Line
+	7800 4200 7600 4200
+Wire Wire Line
+	7600 4200 7600 4600
+Wire Wire Line
+	7600 5050 7800 5050
+Wire Wire Line
+	7800 4600 7600 4600
+Connection ~ 7600 4600
+Wire Wire Line
+	7600 4600 7600 5050
+Wire Wire Line
+	7050 4200 6800 4200
+Wire Wire Line
+	6800 4200 6800 4600
+Wire Wire Line
+	6800 5050 7050 5050
+Wire Wire Line
+	7050 4600 6800 4600
+Connection ~ 6800 4600
+Wire Wire Line
+	6800 4600 6800 5050
+Wire Wire Line
+	7350 4200 7350 4300
+Wire Wire Line
+	7350 4300 8100 4300
+Wire Wire Line
+	8800 4300 8800 4250
+Wire Wire Line
+	8100 4200 8100 4300
+Connection ~ 8100 4300
+Wire Wire Line
+	8100 4300 8800 4300
+Wire Wire Line
+	7350 4600 7350 4700
+Wire Wire Line
+	7350 4700 8100 4700
+Wire Wire Line
+	8800 4700 8800 4650
+Wire Wire Line
+	8100 4600 8100 4700
+Connection ~ 8100 4700
+Wire Wire Line
+	8100 4700 8800 4700
+Wire Wire Line
+	7350 5050 7350 5200
+Wire Wire Line
+	7350 5200 8800 5200
+Wire Wire Line
+	8800 5200 8800 5050
+Wire Wire Line
+	9800 5700 8800 5700
+Wire Wire Line
+	8800 5700 8800 5200
+Connection ~ 8800 5200
+Wire Wire Line
+	8800 4650 9050 4650
+Wire Wire Line
+	9050 4650 9050 5600
+Wire Wire Line
+	9050 5600 9800 5600
+Connection ~ 8800 4650
+Wire Wire Line
+	8800 4650 8800 4600
+Wire Wire Line
+	8800 4250 9150 4250
+Wire Wire Line
+	9150 4250 9150 5500
+Wire Wire Line
+	9150 5500 9800 5500
+Connection ~ 8800 4250
+Wire Wire Line
+	8800 4250 8800 4200
+Text Label 6800 4750 0    50   ~ 0
+Annode1
+Text Label 9750 4800 2    50   ~ 0
+Annode1
+Text Label 9750 4900 2    50   ~ 0
+Annode2
+Text Label 7600 4800 0    50   ~ 0
+Annode2
+Text Label 9750 5000 2    50   ~ 0
+Annode3
+Text Label 8350 5000 0    50   ~ 0
+Annode3
 $EndSCHEMATC
