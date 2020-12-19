@@ -16,116 +16,6 @@ $EndDescr
 Text Notes 900  600  0    50   ~ 0
 \n
 $Comp
-L Switch:SW_SPDT_MSM SW1
-U 1 1 5FC1E955
-P 7200 4550
-F 0 "SW1" H 7200 4835 50  0000 C CNN
-F 1 "EXT_PWR_SW" H 7200 4744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 7200 4550 50  0001 C CNN
-F 3 "~" H 7200 4550 50  0001 C CNN
-	1    7200 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:D D1
-U 1 1 5FC2589C
-P 7250 5300
-F 0 "D1" H 7250 5516 50  0000 C CNN
-F 1 "D" H 7250 5425 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 7250 5300 50  0001 C CNN
-F 3 "~" H 7250 5300 50  0001 C CNN
-	1    7250 5300
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J2
-U 1 1 5FC37DA5
-P 7300 3700
-F 0 "J2" H 7328 3676 50  0000 L CNN
-F 1 "Input Rows" H 7328 3585 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7300 3700 50  0001 C CNN
-F 3 "~" H 7300 3700 50  0001 C CNN
-	1    7300 3700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x06_Female J1
-U 1 1 5FC383D5
-P 7150 2900
-F 0 "J1" H 7042 3285 50  0000 C CNN
-F 1 "Input Columns" H 7042 3194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 7150 2900 50  0001 C CNN
-F 3 "~" H 7150 2900 50  0001 C CNN
-	1    7150 2900
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_SPST SW?
-U 1 1 5FC61E34
-P 6350 5300
-F 0 "SW?" H 6350 5535 50  0000 C CNN
-F 1 "SW_SPST" H 6350 5444 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6350 5300 50  0001 C CNN
-F 3 "~" H 6350 5300 50  0001 C CNN
-	1    6350 5300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_Push SW?
-U 1 1 5FC6A958
-P 8200 4550
-F 0 "SW?" H 8200 4835 50  0000 C CNN
-F 1 "SW_Push" H 8200 4744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8200 4750 50  0001 C CNN
-F 3 "~" H 8200 4750 50  0001 C CNN
-	1    8200 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_POT_US RV?
-U 1 1 5FC6ABA0
-P 8150 5100
-F 0 "RV?" H 8083 5146 50  0000 R CNN
-F 1 "R_POT_US" H 8083 5055 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 8150 5100 50  0001 C CNN
-F 3 "~" H 8150 5100 50  0001 C CNN
-	1    8150 5100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Rotary_Encoder_Switch SW?
-U 1 1 5FC6B4EB
-P 9200 4300
-F 0 "SW?" H 9200 4667 50  0000 C CNN
-F 1 "Rotary_Encoder_Switch" H 9200 4576 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 9050 4460 50  0001 C CNN
-F 3 "~" H 9200 4560 50  0001 C CNN
-	1    9200 4300
-	1    0    0    -1  
-$EndComp
-$Comp
-L OpenHornet2:SW_Rotary6 SW?
-U 1 1 5FC6C2A3
-P 10000 5500
-F 0 "SW?" H 9900 6281 50  0000 C CNN
-F 1 "SW_Rotary6" H 9900 6190 50  0000 C CNN
-F 2 "" H 9800 6200 50  0001 C CNN
-F 3 "" H 9800 6200 50  0001 C CNN
-	1    10000 5500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_Rotary3x4 SW?
-U 1 1 5FC6DE46
-P 10150 3350
-F 0 "SW?" H 10200 4240 50  0000 C CNN
-F 1 "SW_Rotary3x4" H 10200 4149 50  0000 C CNN
-F 2 "" H 10050 4150 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 10050 4150 50  0001 C CNN
-	1    10150 3350
-	1    0    0    -1  
-$EndComp
-$Comp
 L Connector:Conn_01x06_Female J?
 U 1 1 5FE0AB8F
 P 1300 1350
@@ -161,8 +51,8 @@ $Comp
 L Connector:Conn_01x04_Female J?
 U 1 1 5FE1082E
 P 1100 2750
-F 0 "J?" H 992 3035 50  0000 C CNN
-F 1 "4. EXT_LIGHTS_ANALOG" H 992 2944 50  0000 C CNN
+F 0 "J?" H 1000 3100 50  0000 C CNN
+F 1 "4. EXT_LIGHTS_ANALOG" H 1000 3000 50  0000 C CNN
 F 2 "" H 1100 2750 50  0001 C CNN
 F 3 "~" H 1100 2750 50  0001 C CNN
 	1    1100 2750
@@ -257,4 +147,67 @@ Wire Notes Line
 	2200 5500 2200 4000
 Wire Notes Line
 	2200 4000 600  4000
+$Comp
+L Connector:Conn_01x10_Female J?
+U 1 1 5FDEA1B4
+P 2600 1600
+F 0 "J?" H 2500 2250 50  0000 C CNN
+F 1 "Conn_01x10_Female" H 2450 2150 50  0000 C CNN
+F 2 "" H 2600 1600 50  0001 C CNN
+F 3 "~" H 2600 1600 50  0001 C CNN
+	1    2600 1600
+	-1   0    0    -1  
+$EndComp
+Text Label 2800 1200 0    50   ~ 0
+ANALOG_5V
+Text Label 2800 1300 0    50   ~ 0
+ANALOG_GND
+Text Label 2800 1400 0    50   ~ 0
+COM_VOX
+Text Label 2800 1500 0    50   ~ 0
+COM_ICS
+Text Label 2800 1600 0    50   ~ 0
+COM_RWR
+Text Label 2800 1700 0    50   ~ 0
+COM_MIDS_A
+Text Label 2800 1800 0    50   ~ 0
+COM_MIDS_B
+Text Label 2800 1900 0    50   ~ 0
+COM_TACAN
+Text Label 2800 2000 0    50   ~ 0
+COM_AUX
+Text Label 2800 2100 0    50   ~ 0
+COM_WPN
+$Comp
+L Connector:Conn_01x10_Female J?
+U 1 1 5FDF1152
+P 2600 3350
+F 0 "J?" H 2492 3935 50  0000 C CNN
+F 1 "COM_ROWS" H 2492 3844 50  0000 C CNN
+F 2 "" H 2600 3350 50  0001 C CNN
+F 3 "~" H 2600 3350 50  0001 C CNN
+	1    2600 3350
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 5FDF3E63
+P 2600 2500
+F 0 "J?" H 2492 2785 50  0000 C CNN
+F 1 "COM_COLUMNS" H 2492 2694 50  0000 C CNN
+F 2 "" H 2600 2500 50  0001 C CNN
+F 3 "~" H 2600 2500 50  0001 C CNN
+	1    2600 2500
+	-1   0    0    -1  
+$EndComp
+Text Notes 2600 900  0    50   ~ 0
+COM
+Wire Notes Line
+	2300 800  2300 3950
+Wire Notes Line
+	2300 3950 3300 3950
+Wire Notes Line
+	3300 3950 3300 800 
+Wire Notes Line
+	3300 800  2300 800 
 $EndSCHEMATC

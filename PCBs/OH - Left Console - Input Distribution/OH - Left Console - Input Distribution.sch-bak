@@ -155,7 +155,7 @@ Wire Notes Line
 	1900 2150 1900 800 
 Wire Notes Line
 	1900 800  800  800 
-Text Notes 1200 700  0    50   ~ 0
+Text Notes 1150 900  0    50   ~ 0
 GND POWER
 $Comp
 L Connector:Conn_01x04_Female J?
@@ -208,4 +208,53 @@ Wire Notes Line
 	2100 3800 2100 2250
 Wire Notes Line
 	2100 2250 700  2250
+Text Notes 1000 4150 0    50   ~ 0
+FLIGHT CONTROL SYSTEMS
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 5FE1638F
+P 1300 4950
+F 0 "J?" H 1192 5135 50  0000 C CNN
+F 1 "6. FLIGHT_CONTROL_SYSTEMS_COLUMNS" H 1200 5050 50  0000 C CNN
+F 2 "" H 1300 4950 50  0001 C CNN
+F 3 "~" H 1300 4950 50  0001 C CNN
+	1    1300 4950
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 5FE16399
+P 1300 5300
+F 0 "J?" H 1192 5485 50  0000 C CNN
+F 1 "6. FLIGHT CONTROL SYSTEMS ROWS" H 1192 5394 50  0000 C CNN
+F 2 "" H 1300 5300 50  0001 C CNN
+F 3 "~" H 1300 5300 50  0001 C CNN
+	1    1300 5300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 5FE18797
+P 1300 4600
+F 0 "J?" H 1250 4950 50  0000 C CNN
+F 1 "6. FLIGHT CONTROL SYSTEMS ANALOG" H 1200 4850 50  0000 C CNN
+F 2 "" H 1300 4600 50  0001 C CNN
+F 3 "~" H 1300 4600 50  0001 C CNN
+	1    1300 4600
+	-1   0    0    -1  
+$EndComp
+Text Label 1500 4500 0    50   ~ 0
+ANALOG_5V
+Text Label 1500 4600 0    50   ~ 0
+ANALOG_GND
+Text Label 1500 4700 0    50   ~ 0
+RUD_TRIM
+Wire Notes Line
+	600  4000 600  5500
+Wire Notes Line
+	600  5500 2200 5500
+Wire Notes Line
+	2200 5500 2200 4000
+Wire Notes Line
+	2200 4000 600  4000
 $EndSCHEMATC
