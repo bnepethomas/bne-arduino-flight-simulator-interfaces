@@ -192,6 +192,24 @@ definePotentiometer("HMD_OFF_BRT", 58, 3001, 136, {0, 0.75}, "Map Gain/Spin Reco
 defineTumb("IR_COOL_SW", 23, 3013, 135, 0.1, {0.0, 0.2}, nil, false, "Map Gain/Spin Recovery Panel", "IR Cooling Switch, ORIDE/NORM/OFF")
 
 
+-- 18. HUD Control Panel
+defineTumb("HUD_SYM_REJ_SW", 34, 3001, 140, 0.1, {0.0, 0.2}, nil, false, "HUD Control Panel", "HUD Symbology Reject Switch, NORM/REJ 1/REJ 2")
+definePotentiometer("HUD_SYM_BRT", 34, 3002, 141, {0, 1}, "HUD Control Panel", "HUD Symbology Brightness Control Knob")
+defineToggleSwitch("HUD_SYM_BRT_SELECT", 34, 3003, 142, "HUD Control Panel", "HUD Symbology Brightness Selector Knob, DAY/NIGHT")
+definePotentiometer("HUD_BLACK_LVL", 34, 3004, 143, {0, 1}, "HUD Control Panel", "Black Level Control Knob")
+defineTumb("HUD_VIDEO_CONTROL_SW", 34, 3005, 144, 0.1, {0.0, 0.2}, nil, false, "HUD Control Panel", "HUD Video Control Switch, W/B /VID/OFF")
+definePotentiometer("HUD_BALANCE", 34, 3006, 145, {0, 1}, "HUD Control Panel", "Balance Control Knob")
+definePotentiometer("HUD_AOA_INDEXER", 34, 3007, 146, {0, 1}, "HUD Control Panel", "AOA Indexer Control Knob")
+defineToggleSwitch("HUD_ALT_SW", 34, 3008, 147, "HUD Control Panel", "Altitude Switch, BARO/RDR")
+define3PosTumb("HUD_ATT_SW", 34, 3009, 148, "HUD Control Panel", "Attitude Selector Switch, INS/AUTO/STBY")
+
+-- UFC Comm Rotaries
+
+defineRotary("UFC_COMM1_CHANNEL_SELECT", 25, 3033, 124, "Up Front Controller (UFC)", "COMM 1 Channel Select Knob")
+defineRotary("UFC_COMM2_CHANNEL_SELECT", 25, 3034, 126, "Up Front Controller (UFC)", "COMM 2 Channel Select Knob")
+BIOS.util.defineFixedStepInput("UFC_COMM1_CHANNEL_SELECT", 25, 3033, {-0.03, 0.03}, "Up Front Controller (UFC)", "COMM 1 Channel Select Knob")
+BIOS.util.defineFixedStepInput("UFC_COMM2_CHANNEL_SELECT", 25, 3034, {-0.03, 0.03}, "Up Front Controller (UFC)", "COMM 2 Channel Select Knob")
+
 END COMPLETED PANELS
 ***************************************************************************************************************
 
