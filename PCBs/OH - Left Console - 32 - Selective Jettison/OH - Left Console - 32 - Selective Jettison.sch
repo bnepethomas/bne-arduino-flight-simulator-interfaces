@@ -16,118 +16,26 @@ $EndDescr
 Text Notes 900  1650 0    50   ~ 0
 — 32. Select Jettison Button\ndefinePushButton(“SEL_JETT_BTN”, 23, 3010, 235, “Select Jettison Button”, “Selective Jettison Pushbutton”)\ndefineTumb(“SEL_JETT_KNOB”, 23, 3011, 236, 0.1, {-0.1, 0.3}, nil, false, “Select Jettison Button”, “Selective Jettison Knob, L FUS MSL/SAFE/R FUS MSL/ RACK/LCHR /STORES”)\ndefineToggleSwitch(“ANTI_SKID_SW”, 5, 3004, 238, “Select Jettison Button”, “Anti Skid”)\ndefineToggleSwitchToggleOnly2(“LAUNCH_BAR_SW”, 5, 3008, 233, “Select Jettison Button”, “Launch Bar”)\ndefineToggleSwitchToggleOnly2(“HOOK_BYPASS_SW”, 9, 3009, 239, “Select Jettison Button”, “HOOK BYPASS Switch, FIELD/CARRIER”)\ndefine3PosTumb(“FLAP_SW”, 2, 3007, 234, “Select Jettison Button”, “FLAP Switch, AUTO/HALF/FULL”)\ndefineToggleSwitch(“LDG_TAXI_SW”, 8, 3004, 237, “Select Jettison Button”, “LDG/TAXI LIGHT Switch”)\ndefineFloat(“HYD_IND_BRAKE”, 242, {0, 1}, “Select Jettison Button”, “HYD Indicator Brake”)\n\n-- 34. Emergency and Parking Brake Handle\ndefineToggleSwitch("EMERGENCY_PARKING_BRAKE_PULL", 5, 3005, 240, "Emergency and Parking Brake Handle", "Emergency/Parking Brake Pull")\ndefineEmergencyParkingBrake("EMERGENCY_PARKING_BRAKE_ROTATE", 5, 3007, 3006, 241, "Emergency and Parking Brake Handle", "Emergency/Parking Brake Rotate")
 $Comp
-L Switch:SW_SPDT_MSM SW1
-U 1 1 5FC1E955
-P 7200 4550
-F 0 "SW1" H 7200 4835 50  0000 C CNN
-F 1 "EXT_PWR_SW" H 7200 4744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 7200 4550 50  0001 C CNN
-F 3 "~" H 7200 4550 50  0001 C CNN
-	1    7200 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:D D1
+L Device:D D8
 U 1 1 5FC2589C
-P 7250 5300
-F 0 "D1" H 7250 5516 50  0000 C CNN
-F 1 "D" H 7250 5425 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 7250 5300 50  0001 C CNN
-F 3 "~" H 7250 5300 50  0001 C CNN
-	1    7250 5300
+P 4800 3150
+F 0 "D8" H 4800 3366 50  0000 C CNN
+F 1 "D" H 4800 3275 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4800 3150 50  0001 C CNN
+F 3 "~" H 4800 3150 50  0001 C CNN
+	1    4800 3150
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J2
-U 1 1 5FC37DA5
-P 7300 3700
-F 0 "J2" H 7328 3676 50  0000 L CNN
-F 1 "Input Rows" H 7328 3585 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7300 3700 50  0001 C CNN
-F 3 "~" H 7300 3700 50  0001 C CNN
-	1    7300 3700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x06_Female J1
+L Connector:Conn_01x06_Female J4
 U 1 1 5FC383D5
-P 7150 2900
-F 0 "J1" H 7042 3285 50  0000 C CNN
-F 1 "Input Columns" H 7042 3194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 7150 2900 50  0001 C CNN
-F 3 "~" H 7150 2900 50  0001 C CNN
-	1    7150 2900
+P 6000 4550
+F 0 "J4" H 5892 4935 50  0000 C CNN
+F 1 "INPUT ROWS" H 5892 4844 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 6000 4550 50  0001 C CNN
+F 3 "~" H 6000 4550 50  0001 C CNN
+	1    6000 4550
 	-1   0    0    -1  
-$EndComp
-Text Notes 900  6300 0    118  ~ 0
-Instructions
-Text Notes 900  6900 0    63   ~ 0
-1: Copy section from Inputs-Outputs-from-DCS-BIOS in Templates directory to top of Input-Output-from DCS-BIOS, and panel into top left hand corner\n\n2: Grab section of image from NeoEngress_FA-18C_Full_Layout_-_4220x5200 and paste \n\n3: Don’t forget outputs such as gauges, lights and Mag Switches\n\n4: After editing diagram reset numbering during Net generation\n
-$Comp
-L Switch:SW_SPST SW?
-U 1 1 5FC61E34
-P 6350 5300
-F 0 "SW?" H 6350 5535 50  0000 C CNN
-F 1 "SW_SPST" H 6350 5444 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6350 5300 50  0001 C CNN
-F 3 "~" H 6350 5300 50  0001 C CNN
-	1    6350 5300
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_Push SW?
-U 1 1 5FC6A958
-P 8200 4550
-F 0 "SW?" H 8200 4835 50  0000 C CNN
-F 1 "SW_Push" H 8200 4744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8200 4750 50  0001 C CNN
-F 3 "~" H 8200 4750 50  0001 C CNN
-	1    8200 4550
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_POT_US RV?
-U 1 1 5FC6ABA0
-P 8150 5100
-F 0 "RV?" H 8083 5146 50  0000 R CNN
-F 1 "R_POT_US" H 8083 5055 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 8150 5100 50  0001 C CNN
-F 3 "~" H 8150 5100 50  0001 C CNN
-	1    8150 5100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:Rotary_Encoder_Switch SW?
-U 1 1 5FC6B4EB
-P 9200 4300
-F 0 "SW?" H 9200 4667 50  0000 C CNN
-F 1 "Rotary_Encoder_Switch" H 9200 4576 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 9050 4460 50  0001 C CNN
-F 3 "~" H 9200 4560 50  0001 C CNN
-	1    9200 4300
-	1    0    0    -1  
-$EndComp
-$Comp
-L OpenHornet2:SW_Rotary6 SW?
-U 1 1 5FC6C2A3
-P 10000 5500
-F 0 "SW?" H 9900 6281 50  0000 C CNN
-F 1 "SW_Rotary6" H 9900 6190 50  0000 C CNN
-F 2 "" H 9800 6200 50  0001 C CNN
-F 3 "" H 9800 6200 50  0001 C CNN
-	1    10000 5500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_Rotary3x4 SW?
-U 1 1 5FC6DE46
-P 10150 3350
-F 0 "SW?" H 10200 4240 50  0000 C CNN
-F 1 "SW_Rotary3x4" H 10200 4149 50  0000 C CNN
-F 2 "" H 10050 4150 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 10050 4150 50  0001 C CNN
-	1    10150 3350
-	1    0    0    -1  
 $EndComp
 $Bitmap
 Pos 9550 1650
@@ -13010,10 +12918,10 @@ CC E9 D3 A7 39 A3 F9 C6 C6 C6 E6 E6 E6 DD 77 DF 0D 8A 1E 40 8D 1C A4 BB 1E 79 B8
 EndData
 $EndBitmap
 $Comp
-L Switch:SW_Push SW?
+L Switch:SW_Push SW1
 U 1 1 5FDF1777
 P 1900 2500
-F 0 "SW?" H 1900 2785 50  0000 C CNN
+F 0 "SW1" H 1900 2785 50  0000 C CNN
 F 1 "SEL_JETT_BTN" H 1900 2694 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1900 2700 50  0001 C CNN
 F 3 "~" H 1900 2700 50  0001 C CNN
@@ -13021,112 +12929,295 @@ F 3 "~" H 1900 2700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:SW_Rotary5 SW?
+L PT_Symbol_Library_v001:SW_Rotary5 SW8
 U 1 1 5FDF250B
-P 3300 3050
-F 0 "SW?" H 3200 3831 50  0000 C CNN
-F 1 "SEL_JETT_KNOB" H 3200 3740 50  0000 C CNN
-F 2 "" H 3100 3750 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 3100 3750 50  0001 C CNN
-	1    3300 3050
+P 5600 3150
+F 0 "SW8" H 5500 3931 50  0000 C CNN
+F 1 "SEL_JETT_KNOB" H 5500 3840 50  0000 C CNN
+F 2 "" H 5400 3850 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 5400 3850 50  0001 C CNN
+	1    5600 3150
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPST SW?
+L Switch:SW_SPST SW4
 U 1 1 5FDF3975
+P 3750 4000
+F 0 "SW4" H 3750 4235 50  0000 C CNN
+F 1 "ANTI_SKID_SW" H 3750 4144 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3750 4000 50  0001 C CNN
+F 3 "~" H 3750 4000 50  0001 C CNN
+	1    3750 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPDT_MSM SW2
+U 1 1 5FDF457E
 P 1900 3000
-F 0 "SW?" H 1900 3235 50  0000 C CNN
-F 1 "ANTI_SKID_SW" H 1900 3144 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1900 3000 50  0001 C CNN
+F 0 "SW2" H 1900 3285 50  0000 C CNN
+F 1 "LAUNCH_BAR_SW" H 1900 3194 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 3000 50  0001 C CNN
 F 3 "~" H 1900 3000 50  0001 C CNN
 	1    1900 3000
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPDT_MSM SW?
-U 1 1 5FDF457E
-P 1900 3700
-F 0 "SW?" H 1900 3985 50  0000 C CNN
-F 1 "LAUNCH_BAR_SW" H 1900 3894 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 3700 50  0001 C CNN
-F 3 "~" H 1900 3700 50  0001 C CNN
-	1    1900 3700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_SPDT_MSM SW?
+L Switch:SW_SPDT_MSM SW7
 U 1 1 5FDF50BD
-P 1850 4350
-F 0 "SW?" H 1850 4635 50  0000 C CNN
-F 1 "HOOK_BYPASS_SW" H 1850 4544 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1850 4350 50  0001 C CNN
-F 3 "~" H 1850 4350 50  0001 C CNN
-	1    1850 4350
+P 3800 3450
+F 0 "SW7" H 3800 3735 50  0000 C CNN
+F 1 "HOOK_BYPASS_SW" H 3800 3644 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3800 3450 50  0001 C CNN
+F 3 "~" H 3800 3450 50  0001 C CNN
+	1    3800 3450
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPDT_MSM SW?
+L Switch:SW_SPDT_MSM SW3
 U 1 1 5FDF5858
-P 1850 4950
-F 0 "SW?" H 1850 5235 50  0000 C CNN
-F 1 "FLAP_SW" H 1850 5144 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1850 4950 50  0001 C CNN
-F 3 "~" H 1850 4950 50  0001 C CNN
-	1    1850 4950
+P 1900 3500
+F 0 "SW3" H 1900 3785 50  0000 C CNN
+F 1 "FLAP_SW" H 1900 3694 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 3500 50  0001 C CNN
+F 3 "~" H 1900 3500 50  0001 C CNN
+	1    1900 3500
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPST SW?
+L Switch:SW_SPST SW5
 U 1 1 5FDF604E
-P 3300 4050
-F 0 "SW?" H 3300 4285 50  0000 C CNN
-F 1 "LDG_TAXI_SW" H 3300 4194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3300 4050 50  0001 C CNN
-F 3 "~" H 3300 4050 50  0001 C CNN
-	1    3300 4050
+P 3800 2400
+F 0 "SW5" H 3800 2635 50  0000 C CNN
+F 1 "LDG_TAXI_SW" H 3800 2544 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3800 2400 50  0001 C CNN
+F 3 "~" H 3800 2400 50  0001 C CNN
+	1    3800 2400
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x04_Female J?
+L Connector:Conn_01x04_Female J2
 U 1 1 5FDF881C
-P 4350 5250
-F 0 "J?" H 4378 5226 50  0000 L CNN
-F 1 "HYD_IND_BRAKE_IN" H 4378 5135 50  0000 L CNN
-F 2 "" H 4350 5250 50  0001 C CNN
-F 3 "~" H 4350 5250 50  0001 C CNN
-	1    4350 5250
+P 2750 4850
+F 0 "J2" H 2778 4826 50  0000 L CNN
+F 1 "HYD_IND_BRAKE_IN" H 2778 4735 50  0000 L CNN
+F 2 "" H 2750 4850 50  0001 C CNN
+F 3 "~" H 2750 4850 50  0001 C CNN
+	1    2750 4850
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x04_Female J?
+L Connector:Conn_01x04_Female J1
 U 1 1 5FDF9318
-P 3550 5250
-F 0 "J?" H 3442 5535 50  0000 C CNN
-F 1 "HYD_IND_BRAKE_OUT" H 3442 5444 50  0000 C CNN
-F 2 "" H 3550 5250 50  0001 C CNN
-F 3 "~" H 3550 5250 50  0001 C CNN
-	1    3550 5250
+P 1950 4850
+F 0 "J1" H 1842 5135 50  0000 C CNN
+F 1 "HYD_IND_BRAKE_OUT" H 1842 5044 50  0000 C CNN
+F 2 "" H 1950 4850 50  0001 C CNN
+F 3 "~" H 1950 4850 50  0001 C CNN
+	1    1950 4850
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	4150 5150 3750 5150
+	2550 4750 2150 4750
 Wire Wire Line
-	4150 5250 3750 5250
+	2550 4850 2150 4850
 Wire Wire Line
-	4150 5350 3750 5350
+	2550 4950 2150 4950
 Wire Wire Line
-	4150 5450 3750 5450
+	2550 5050 2150 5050
 $Comp
-L Switch:SW_SPST SW?
+L Switch:SW_SPST SW6
 U 1 1 5FDFB578
-P 3300 4600
-F 0 "SW?" H 3300 4835 50  0000 C CNN
-F 1 "EMERGENCY_PARKING_BRAKE_ROTATE" H 3300 4744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3300 4600 50  0001 C CNN
-F 3 "~" H 3300 4600 50  0001 C CNN
-	1    3300 4600
+P 3800 2950
+F 0 "SW6" H 3800 3185 50  0000 C CNN
+F 1 "EMERGENCY_PARKING_BRAKE_ROTATE" H 3800 3094 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3800 2950 50  0001 C CNN
+F 3 "~" H 3800 2950 50  0001 C CNN
+	1    3800 2950
 	1    0    0    -1  
 $EndComp
-Text Notes 3200 5750 0    50   ~ 0
+Text Notes 1600 5350 0    50   ~ 0
 Currently assigning 4 pins for guages \nGives Flexiblity for Servo or Stepper
+Text Label 6000 2550 0    50   ~ 0
+ROW1
+Text Label 6000 2650 0    50   ~ 0
+ROW2
+Text Label 6000 2750 0    50   ~ 0
+ROW3
+Text Label 6000 2850 0    50   ~ 0
+ROW4
+Text Label 6000 2950 0    50   ~ 0
+ROW5
+$Comp
+L Device:D D4
+U 1 1 5FE00470
+P 3050 2400
+F 0 "D4" H 3050 2616 50  0000 C CNN
+F 1 "D" H 3050 2525 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3050 2400 50  0001 C CNN
+F 3 "~" H 3050 2400 50  0001 C CNN
+	1    3050 2400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D5
+U 1 1 5FE00B1F
+P 3050 2950
+F 0 "D5" H 3050 3166 50  0000 C CNN
+F 1 "D" H 3050 3075 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3050 2950 50  0001 C CNN
+F 3 "~" H 3050 2950 50  0001 C CNN
+	1    3050 2950
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D6
+U 1 1 5FE00EFD
+P 3050 3450
+F 0 "D6" H 3050 3666 50  0000 C CNN
+F 1 "D" H 3050 3575 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3050 3450 50  0001 C CNN
+F 3 "~" H 3050 3450 50  0001 C CNN
+	1    3050 3450
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D3
+U 1 1 5FE012B9
+P 1500 3500
+F 0 "D3" H 1500 3716 50  0000 C CNN
+F 1 "D" H 1500 3625 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1500 3500 50  0001 C CNN
+F 3 "~" H 1500 3500 50  0001 C CNN
+	1    1500 3500
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D1
+U 1 1 5FE0194A
+P 1500 2500
+F 0 "D1" H 1500 2716 50  0000 C CNN
+F 1 "D" H 1500 2625 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1500 2500 50  0001 C CNN
+F 3 "~" H 1500 2500 50  0001 C CNN
+	1    1500 2500
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D7
+U 1 1 5FE020A3
+P 3050 4000
+F 0 "D7" H 3050 4216 50  0000 C CNN
+F 1 "D" H 3050 4125 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3050 4000 50  0001 C CNN
+F 3 "~" H 3050 4000 50  0001 C CNN
+	1    3050 4000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D2
+U 1 1 5FE0258B
+P 1500 3000
+F 0 "D2" H 1500 3216 50  0000 C CNN
+F 1 "D" H 1500 3125 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1500 3000 50  0001 C CNN
+F 3 "~" H 1500 3000 50  0001 C CNN
+	1    1500 3000
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5000 3150 4950 3150
+Wire Wire Line
+	3600 2400 3200 2400
+Wire Wire Line
+	3600 2950 3200 2950
+Wire Wire Line
+	3600 3450 3200 3450
+Wire Wire Line
+	1700 3500 1650 3500
+Wire Wire Line
+	1700 2500 1650 2500
+Wire Wire Line
+	3550 4000 3200 4000
+Wire Wire Line
+	1700 3000 1650 3000
+Text Label 4000 2400 0    50   ~ 0
+ROW1
+Text Label 4000 2950 0    50   ~ 0
+ROW2
+Text Label 4000 3350 0    50   ~ 0
+ROW3
+Text Label 4000 3550 0    50   ~ 0
+ROW4
+Text Label 3950 4000 0    50   ~ 0
+ROW5
+Text Label 2100 2500 0    50   ~ 0
+ROW1
+Text Label 2100 2900 0    50   ~ 0
+ROW2
+Text Label 2100 3100 0    50   ~ 0
+ROW3
+Text Label 2100 3400 0    50   ~ 0
+ROW4
+Text Label 2100 3600 0    50   ~ 0
+ROW5
+Wire Wire Line
+	2900 2400 2800 2400
+Wire Wire Line
+	2800 2400 2800 2950
+Wire Wire Line
+	2800 4000 2900 4000
+Wire Wire Line
+	2900 3450 2800 3450
+Connection ~ 2800 3450
+Wire Wire Line
+	2800 3450 2800 4000
+Wire Wire Line
+	2900 2950 2800 2950
+Connection ~ 2800 2950
+Wire Wire Line
+	2800 2950 2800 3450
+Wire Wire Line
+	1350 2500 1200 2500
+Wire Wire Line
+	1200 2500 1200 3000
+Wire Wire Line
+	1200 3500 1350 3500
+Wire Wire Line
+	1350 3000 1200 3000
+Connection ~ 1200 3000
+Wire Wire Line
+	1200 3000 1200 3500
+Text Label 4650 3150 2    50   ~ 0
+COL3
+Text Label 2800 3150 2    50   ~ 0
+COL2
+Text Label 1200 2900 2    50   ~ 0
+COL1
+$Comp
+L Connector:Conn_01x03_Female J3
+U 1 1 5FE13169
+P 6000 3850
+F 0 "J3" H 5892 4135 50  0000 C CNN
+F 1 "INPUT COLUMNS" H 5892 4044 50  0000 C CNN
+F 2 "" H 6000 3850 50  0001 C CNN
+F 3 "~" H 6000 3850 50  0001 C CNN
+	1    6000 3850
+	-1   0    0    -1  
+$EndComp
+Text Label 6200 3750 0    50   ~ 0
+COL1
+Text Label 6200 3850 0    50   ~ 0
+COL2
+Text Label 6200 3950 0    50   ~ 0
+COL3
+Text Label 6200 4350 0    50   ~ 0
+ROW1
+Text Label 6200 4450 0    50   ~ 0
+ROW2
+Text Label 6200 4550 0    50   ~ 0
+ROW3
+Text Label 6200 4650 0    50   ~ 0
+ROW4
+Text Label 6200 4750 0    50   ~ 0
+ROW5
 $EndSCHEMATC

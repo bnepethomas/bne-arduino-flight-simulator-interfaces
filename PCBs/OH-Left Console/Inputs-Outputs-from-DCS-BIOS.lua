@@ -96,6 +96,27 @@ definePushButton("CB_SPD_BRK", 3, 3019, 383, "Left Essential Circuit Breakers", 
 definePushButton("CB_LAUNCH_BAR", 3, 3020, 384, "Left Essential Circuit Breakers", "CB LAUNCH BAR, ON/OFF")
 
 
+EJECTION SEAT - CURRENT PLAN IS USE LEFT CONSOLE DISTRIBUTION PANEL
+-- 1. Ejection Seat
+
+defineEjectionHandleSwitch("EJECTION_HANDLE_SW", 7, 3008, 510, "Ejection Seat", "Ejection Control Handle")
+defineToggleSwitch("EJECTION_SEAT_ARMED", 7, 3006, 511, "Ejection Seat", "Ejection Seat SAFE/ARMED Handle, SAFE/ARMED")
+defineToggleSwitch("EJECTION_SEAT_MNL_OVRD", 7, 3007, 512, "Ejection Seat", "Ejection Seat Manual Override Handle, PULL/PUSH")
+defineToggleSwitch("SHLDR_HARNESS_SW", 7, 3009, 513, "Ejection Seat", "Shoulder Harness Control Handle, LOCK/UNLOCK")
+defineRockerSwitch("SEAT_HEIGHT_SW", 7, 3011, 3011, 3010, 3010, 514, "Ejection Seat", "Seat Height Adjustment Switch, UP/HOLD/DOWN")
+defineToggleSwitch("HIDE_STICK_TOGGLE", 7, 3013, 575, "Ejection Seat", "Hide Stick toggle")
+
+
+- 31. Landing Gear Handle and Warning Tone Silence
+defineIndicatorLight("LANDING_GEAR_HANDLE_LT", 227, "Landing Gear Handle and Warning Tone Silence", "Landing Gear Handle Light")
+defineToggleSwitch("GEAR_LEVER", 5, 3001, 226, "Landing Gear Handle and Warning Tone Silence", "Gear Lever")
+defineToggleSwitch("EMERGENCY_GEAR_ROTATE", 5, 3002, 228, "Landing Gear Handle and Warning Tone Silence", "Emergency Gear Rotate")
+definePushButton("GEAR_DOWNLOCK_OVERRIDE_BTN", 5, 3003, 229, "Landing Gear Handle and Warning Tone Silence", "Landing Gear Override")
+definePushButton("GEAR_SILENCE_BTN", 40, 3018, 230, "Landing Gear Handle and Warning Tone Silence", "Warning Tone Silence Button - Push to silence")
+
+RIGHT CONSOLE
+
+
 -- 1. Electrical Power Panel
 define3PosTumb("BATTERY_SW", 3, 3001, 404, "Electrical Power Panel", "Battery Switch, ON/OFF/ORIDE")
 defineToggleSwitch("L_GEN_SW", 3, 3002, 402, "Electrical Power Panel", "Left Generator Control Switch, NORM/OFF")
@@ -164,8 +185,6 @@ FRONT LEFT CONSOLE
 
 
 
-
-
 -- 3. Angle of Attack Indexer Lights
 defineIndicatorLight("AOA_INDEXER_HIGH", 4, "Angle of Attack Indexer Lights", "AOA Indexer High")
 defineIndicatorLight("AOA_INDEXER_NORMAL", 5, "Angle of Attack Indexer Lights", "AOA Indexer Normal")
@@ -173,6 +192,15 @@ defineIndicatorLight("AOA_INDEXER_LOW", 6, "Angle of Attack Indexer Lights", "AO
 
 -- 17. Emergency Jettison Button
 definePushButton("EMER_JETT_BTN", 23, 3004, 50, "Emergency Jettison Button", "Emergency Jettison Button")
+
+-- 23. HUD Video Record Panel
+definePotentiometer("IFEI", 33, 3007, 174, {0, 1}, "HUD Video Record Panel", "Brightness Control Knob")
+define3PosTumb("SELECT_HMD_LDDI_RDDI", 0, 3104, 175, "HUD Video Record Panel", "Selector Switch, HMD/LDDI/RDDI") -- From TODO, will change
+define3PosTumb("SELECT_HUD_LDDI_RDDI", 0, 3105, 176, "HUD Video Record Panel", "Selector Switch, HUD/LDIR/RDDI") -- From TODO, will change
+define3PosTumb("MODE_SELECTOR_SW", 0, 3106, 176, "HUD Video Record Panel", "Mode Selector Switch, MAN/OFF/AUTO") -- From TODO, will change
+
+
+-
 
 FRONT RIGHT CONSOLE 
 
@@ -203,6 +231,11 @@ define3PosTumb("WING_FOLD_ROTATE", 2, 3011, 295, "Wing Fold Switch", "Wing Fold 
 -- 45. Flight Computer Cool Switch
 defineToggleSwitch("AV_COOL_SW", 11, 3008, 297, "Flight Computer Cool Switch", "AV COOL Switch, NORM/EMERG")
 
+-- 48. Heading and Course Set Switches
+defineRockerSwitch("LEFT_DDI_HDG_SW", 35, 3004, 3004, 3005, 3005, 312, "Heading and Course Set Switches", "Heading Set Switch")
+defineRockerSwitch("LEFT_DDI_CRS_SW", 35, 3006, 3006, 3007, 3007, 313, "Heading and Course Set Switches", "Course Set Switch")
+
+
 
 -- 18. HUD Control Panel
 defineTumb("HUD_SYM_REJ_SW", 34, 3001, 140, 0.1, {0.0, 0.2}, nil, false, "HUD Control Panel", "HUD Symbology Reject Switch, NORM/REJ 1/REJ 2")
@@ -221,6 +254,17 @@ defineRotary("UFC_COMM1_CHANNEL_SELECT", 25, 3033, 124, "Up Front Controller (UF
 defineRotary("UFC_COMM2_CHANNEL_SELECT", 25, 3034, 126, "Up Front Controller (UFC)", "COMM 2 Channel Select Knob")
 BIOS.util.defineFixedStepInput("UFC_COMM1_CHANNEL_SELECT", 25, 3033, {-0.03, 0.03}, "Up Front Controller (UFC)", "COMM 1 Channel Select Knob")
 BIOS.util.defineFixedStepInput("UFC_COMM2_CHANNEL_SELECT", 25, 3034, {-0.03, 0.03}, "Up Front Controller (UFC)", "COMM 2 Channel Select Knob")
+
+
+-- 32. Select Jettison Button
+definePushButton("SEL_JETT_BTN", 23, 3010, 235, "Select Jettison Button", "Selective Jettison Pushbutton")
+defineTumb("SEL_JETT_KNOB", 23, 3011, 236, 0.1, {-0.1, 0.3}, nil, false, "Select Jettison Button", "Selective Jettison Knob, L FUS MSL/SAFE/R FUS MSL/ RACK/LCHR /STORES")
+defineToggleSwitch("ANTI_SKID_SW", 5, 3004, 238, "Select Jettison Button", "Anti Skid")
+defineToggleSwitchToggleOnly2("LAUNCH_BAR_SW", 5, 3008, 233, "Select Jettison Button", "Launch Bar")
+defineToggleSwitchToggleOnly2("HOOK_BYPASS_SW", 9, 3009, 239, "Select Jettison Button", "HOOK BYPASS Switch, FIELD/CARRIER")
+define3PosTumb("FLAP_SW", 2, 3007, 234, "Select Jettison Button", "FLAP Switch, AUTO/HALF/FULL")
+defineToggleSwitch("LDG_TAXI_SW", 8, 3004, 237, "Select Jettison Button", "LDG/TAXI LIGHT Switch")
+defineFloat("HYD_IND_BRAKE", 242, {0, 1}, "Select Jettison Button", "HYD Indicator Brake")
 
 
 -- 35. Dispenser/EMC Panel
