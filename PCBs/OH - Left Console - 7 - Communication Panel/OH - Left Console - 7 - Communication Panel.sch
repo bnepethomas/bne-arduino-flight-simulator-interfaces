@@ -18,83 +18,46 @@ Text Notes 850  2000 0    50   ~ 0
 $Comp
 L Switch:SW_SPDT_MSM SW1
 U 1 1 5FC1E955
-P 2100 3850
-F 0 "SW1" H 2100 4135 50  0000 C CNN
-F 1 "COM_CRYPTO_SW" H 2100 4044 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2100 3850 50  0001 C CNN
-F 3 "~" H 2100 3850 50  0001 C CNN
-	1    2100 3850
+P 2500 3700
+F 0 "SW1" H 2500 3985 50  0000 C CNN
+F 1 "COM_CRYPTO_SW" H 2500 3894 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2500 3700 50  0001 C CNN
+F 3 "~" H 2500 3700 50  0001 C CNN
+	1    2500 3700
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:D D1
 U 1 1 5FC2589C
-P 7250 5300
-F 0 "D1" H 7250 5516 50  0000 C CNN
-F 1 "D" H 7250 5425 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 7250 5300 50  0001 C CNN
-F 3 "~" H 7250 5300 50  0001 C CNN
-	1    7250 5300
+P 5250 3550
+F 0 "D1" H 5250 3766 50  0000 C CNN
+F 1 "D" H 5250 3675 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 5250 3550 50  0001 C CNN
+F 3 "~" H 5250 3550 50  0001 C CNN
+	1    5250 3550
 	-1   0    0    -1  
 $EndComp
-$Comp
-L Connector:Conn_01x02_Female J2
-U 1 1 5FC37DA5
-P 7300 3700
-F 0 "J2" H 7328 3676 50  0000 L CNN
-F 1 "Input Rows" H 7328 3585 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7300 3700 50  0001 C CNN
-F 3 "~" H 7300 3700 50  0001 C CNN
-	1    7300 3700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x06_Female J1
-U 1 1 5FC383D5
-P 7150 2900
-F 0 "J1" H 7042 3285 50  0000 C CNN
-F 1 "Input Columns" H 7042 3194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 7150 2900 50  0001 C CNN
-F 3 "~" H 7150 2900 50  0001 C CNN
-	1    7150 2900
-	-1   0    0    -1  
-$EndComp
-Text Notes 900  6300 0    118  ~ 0
-Instructions
-Text Notes 900  6900 0    63   ~ 0
-1: Copy section from Inputs-Outputs-from-DCS-BIOS in Templates directory to top of Input-Output-from DCS-BIOS, and panel into top left hand corner\n\n2: Grab section of image from NeoEngress_FA-18C_Full_Layout_-_4220x5200 and paste \n\n3: After editing diagram reset numbering during Net generation\n
 $Comp
 L Switch:SW_SPST SW?
 U 1 1 5FC61E34
-P 5000 4700
-F 0 "SW?" H 5000 4935 50  0000 C CNN
-F 1 "COM_ILS_UFC_MAN_SW" H 5000 4844 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5000 4700 50  0001 C CNN
-F 3 "~" H 5000 4700 50  0001 C CNN
-	1    5000 4700
+P 3950 4100
+F 0 "SW?" H 3950 4335 50  0000 C CNN
+F 1 "COM_ILS_UFC_MAN_SW" H 3950 4244 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 4100 50  0001 C CNN
+F 3 "~" H 3950 4100 50  0001 C CNN
+	1    3950 4100
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_US RV?
 U 1 1 5FC6ABA0
-P 1650 5050
-F 0 "RV?" H 1583 5096 50  0000 R CNN
-F 1 "COM_VOX" H 1583 5005 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1650 5050 50  0001 C CNN
-F 3 "~" H 1650 5050 50  0001 C CNN
-	1    1650 5050
+P 1700 6000
+F 0 "RV?" H 1633 6046 50  0000 R CNN
+F 1 "COM_VOX" H 1633 5955 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1700 6000 50  0001 C CNN
+F 3 "~" H 1700 6000 50  0001 C CNN
+	1    1700 6000
 	-1   0    0    -1  
-$EndComp
-$Comp
-L OpenHornet2:SW_Rotary6 SW?
-U 1 1 5FC6C2A3
-P 5000 4250
-F 0 "SW?" H 4900 5031 50  0000 C CNN
-F 1 "SW_Rotary6" H 4900 4940 50  0000 C CNN
-F 2 "" H 4800 4950 50  0001 C CNN
-F 3 "" H 4800 4950 50  0001 C CNN
-	1    5000 4250
-	1    0    0    -1  
 $EndComp
 $Bitmap
 Pos 8750 2000
@@ -10104,202 +10067,494 @@ $EndBitmap
 $Comp
 L Switch:SW_SPST SW?
 U 1 1 5FC7837D
-P 4350 3000
-F 0 "SW?" H 4350 3235 50  0000 C CNN
-F 1 "COM_IFF_MASTER_SW" H 4350 3144 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4350 3000 50  0001 C CNN
-F 3 "~" H 4350 3000 50  0001 C CNN
-	1    4350 3000
+P 3950 3150
+F 0 "SW?" H 3950 3385 50  0000 C CNN
+F 1 "COM_IFF_MASTER_SW" H 3950 3294 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 3150 50  0001 C CNN
+F 3 "~" H 3950 3150 50  0001 C CNN
+	1    3950 3150
 	1    0    0    -1  
 $EndComp
 $Comp
 L Switch:SW_SPDT_MSM SW?
 U 1 1 5FC787B8
-P 2200 3000
-F 0 "SW?" H 2200 3285 50  0000 C CNN
-F 1 "COM_COMM_RELAY_SW" H 2200 3194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2200 3000 50  0001 C CNN
-F 3 "~" H 2200 3000 50  0001 C CNN
-	1    2200 3000
+P 2500 3150
+F 0 "SW?" H 2500 3435 50  0000 C CNN
+F 1 "COM_COMM_RELAY_SW" H 2500 3344 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2500 3150 50  0001 C CNN
+F 3 "~" H 2500 3150 50  0001 C CNN
+	1    2500 3150
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_US RV?
 U 1 1 5FC7A12E
-P 2500 5050
-F 0 "RV?" H 2433 5096 50  0000 R CNN
-F 1 "COM_ICS" H 2433 5005 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2500 5050 50  0001 C CNN
-F 3 "~" H 2500 5050 50  0001 C CNN
-	1    2500 5050
+P 2550 6000
+F 0 "RV?" H 2483 6046 50  0000 R CNN
+F 1 "COM_ICS" H 2483 5955 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2550 6000 50  0001 C CNN
+F 3 "~" H 2550 6000 50  0001 C CNN
+	1    2550 6000
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_US RV?
 U 1 1 5FC7ABDE
-P 3250 5050
-F 0 "RV?" H 3183 5096 50  0000 R CNN
-F 1 "COM_RWR" H 3183 5005 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3250 5050 50  0001 C CNN
-F 3 "~" H 3250 5050 50  0001 C CNN
-	1    3250 5050
+P 3300 6000
+F 0 "RV?" H 3233 6046 50  0000 R CNN
+F 1 "COM_RWR" H 3233 5955 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3300 6000 50  0001 C CNN
+F 3 "~" H 3300 6000 50  0001 C CNN
+	1    3300 6000
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_US RV?
 U 1 1 5FC7B3F5
-P 4300 5050
-F 0 "RV?" H 4233 5096 50  0000 R CNN
-F 1 "COM_MIDS_A" H 4233 5005 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4300 5050 50  0001 C CNN
-F 3 "~" H 4300 5050 50  0001 C CNN
-	1    4300 5050
+P 4350 6000
+F 0 "RV?" H 4283 6046 50  0000 R CNN
+F 1 "COM_MIDS_A" H 4283 5955 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4350 6000 50  0001 C CNN
+F 3 "~" H 4350 6000 50  0001 C CNN
+	1    4350 6000
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_US RV?
 U 1 1 5FC7BC52
-P 4350 5850
-F 0 "RV?" H 4283 5896 50  0000 R CNN
-F 1 "COM_WPN" H 4283 5805 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4350 5850 50  0001 C CNN
-F 3 "~" H 4350 5850 50  0001 C CNN
-	1    4350 5850
+P 4400 6800
+F 0 "RV?" H 4333 6846 50  0000 R CNN
+F 1 "COM_WPN" H 4333 6755 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4400 6800 50  0001 C CNN
+F 3 "~" H 4400 6800 50  0001 C CNN
+	1    4400 6800
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_US RV?
 U 1 1 5FC7C2B2
-P 3450 5850
-F 0 "RV?" H 3383 5896 50  0000 R CNN
-F 1 "COM_AUX" H 3383 5805 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3450 5850 50  0001 C CNN
-F 3 "~" H 3450 5850 50  0001 C CNN
-	1    3450 5850
+P 3500 6800
+F 0 "RV?" H 3433 6846 50  0000 R CNN
+F 1 "COM_AUX" H 3433 6755 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3500 6800 50  0001 C CNN
+F 3 "~" H 3500 6800 50  0001 C CNN
+	1    3500 6800
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_US RV?
 U 1 1 5FC7CA4E
-P 2500 5850
-F 0 "RV?" H 2433 5896 50  0000 R CNN
-F 1 "COM_TACAN" H 2433 5805 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2500 5850 50  0001 C CNN
-F 3 "~" H 2500 5850 50  0001 C CNN
-	1    2500 5850
+P 2550 6800
+F 0 "RV?" H 2483 6846 50  0000 R CNN
+F 1 "COM_TACAN" H 2483 6755 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2550 6800 50  0001 C CNN
+F 3 "~" H 2550 6800 50  0001 C CNN
+	1    2550 6800
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_US RV?
 U 1 1 5FC7D182
-P 1650 5850
-F 0 "RV?" H 1583 5896 50  0000 R CNN
-F 1 "COM_MIDS_B" H 1583 5805 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1650 5850 50  0001 C CNN
-F 3 "~" H 1650 5850 50  0001 C CNN
-	1    1650 5850
+P 1700 6800
+F 0 "RV?" H 1633 6846 50  0000 R CNN
+F 1 "COM_MIDS_B" H 1633 6755 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1700 6800 50  0001 C CNN
+F 3 "~" H 1700 6800 50  0001 C CNN
+	1    1700 6800
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Switch:SW_SPDT_MSM SW?
 U 1 1 5FC815F3
-P 3200 3000
-F 0 "SW?" H 3200 3285 50  0000 C CNN
-F 1 "COM_COMM_G_XMT_SW" H 3200 3194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3200 3000 50  0001 C CNN
-F 3 "~" H 3200 3000 50  0001 C CNN
-	1    3200 3000
+P 2500 4250
+F 0 "SW?" H 2500 4535 50  0000 C CNN
+F 1 "COM_COMM_G_XMT_SW" H 2500 4444 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2500 4250 50  0001 C CNN
+F 3 "~" H 2500 4250 50  0001 C CNN
+	1    2500 4250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Switch:SW_SPST SW?
 U 1 1 5FC8304F
-P 3300 3950
-F 0 "SW?" H 3300 4185 50  0000 C CNN
-F 1 "COM_IFF_MODE4_SW" H 3300 4094 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3300 3950 50  0001 C CNN
-F 3 "~" H 3300 3950 50  0001 C CNN
-	1    3300 3950
+P 3950 3650
+F 0 "SW?" H 3950 3885 50  0000 C CNN
+F 1 "COM_IFF_MODE4_SW" H 3950 3794 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 3650 50  0001 C CNN
+F 3 "~" H 3950 3650 50  0001 C CNN
+	1    3950 3650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	1650 4750 1650 4900
+	1700 5700 1700 5850
 Wire Wire Line
-	2500 4900 2500 4750
-Connection ~ 2500 4750
+	2550 5850 2550 5700
+Connection ~ 2550 5700
 Wire Wire Line
-	2500 4750 1650 4750
+	2550 5700 1700 5700
 Wire Wire Line
-	3250 4900 3250 4750
+	3300 5850 3300 5700
 Wire Wire Line
-	3250 4750 2500 4750
+	3300 5700 2550 5700
 Wire Wire Line
-	4350 5700 4350 5600
+	4400 6650 4400 6550
 Wire Wire Line
-	4350 5600 3450 5600
+	4400 6550 3500 6550
 Wire Wire Line
-	1650 5600 1650 5700
+	1700 6550 1700 6650
 Wire Wire Line
-	2500 5700 2500 5600
-Connection ~ 2500 5600
+	2550 6650 2550 6550
+Connection ~ 2550 6550
 Wire Wire Line
-	2500 5600 1650 5600
+	2550 6550 1700 6550
 Wire Wire Line
-	3450 5700 3450 5600
-Connection ~ 3450 5600
+	3500 6650 3500 6550
+Connection ~ 3500 6550
 Wire Wire Line
-	3450 5600 2500 5600
+	3500 6550 2550 6550
 Wire Wire Line
-	4350 6100 4350 6000
+	4400 7050 4400 6950
 Wire Wire Line
-	1650 6100 1650 6000
+	1700 7050 1700 6950
 Wire Wire Line
-	1650 6100 2500 6100
+	1700 7050 2550 7050
 Wire Wire Line
-	2500 6000 2500 6100
-Connection ~ 2500 6100
+	2550 6950 2550 7050
+Connection ~ 2550 7050
 Wire Wire Line
-	2500 6100 3450 6100
+	2550 7050 3500 7050
 Wire Wire Line
-	3450 6000 3450 6100
-Connection ~ 3450 6100
+	3500 6950 3500 7050
+Connection ~ 3500 7050
 Wire Wire Line
-	3450 6100 4350 6100
+	3500 7050 4400 7050
 Wire Wire Line
-	1650 5300 1650 5200
+	1700 6250 1700 6150
 Wire Wire Line
-	2500 5200 2500 5300
-Connection ~ 2500 5300
+	2550 6150 2550 6250
+Connection ~ 2550 6250
 Wire Wire Line
-	2500 5300 1650 5300
+	2550 6250 1700 6250
 Wire Wire Line
-	3250 5200 3250 5300
+	3300 6150 3300 6250
 Wire Wire Line
-	3250 5300 2500 5300
-Text Label 3300 5850 2    50   ~ 0
+	3300 6250 2550 6250
+Text Label 3350 6800 2    50   ~ 0
 COM_AUX
-Text Label 1500 5850 2    50   ~ 0
+Text Label 1550 6800 2    50   ~ 0
 COM_MIDS_B
-Text Label 2350 5850 2    50   ~ 0
+Text Label 2400 6800 2    50   ~ 0
 COM_TACAN
-Text Label 4200 5850 2    50   ~ 0
+Text Label 4250 6800 2    50   ~ 0
 COM_WPN
-Text Label 4150 5050 2    50   ~ 0
+Text Label 4200 6000 2    50   ~ 0
 COM_MIDS_A
-Text Label 3100 5050 2    50   ~ 0
+Text Label 3150 6000 2    50   ~ 0
 COM_RWR
-Text Label 2350 5050 2    50   ~ 0
+Text Label 2400 6000 2    50   ~ 0
 COM_ICS
 Wire Wire Line
-	3250 4750 4300 4750
+	3300 5700 4350 5700
 Wire Wire Line
-	4300 4750 4300 4900
-Connection ~ 3250 4750
+	4350 5700 4350 5850
+Connection ~ 3300 5700
 Wire Wire Line
-	4300 5200 4300 5300
+	4350 6150 4350 6250
 Wire Wire Line
-	4300 5300 3250 5300
-Connection ~ 3250 5300
-Text Label 1500 5050 2    50   ~ 0
+	4350 6250 3300 6250
+Connection ~ 3300 6250
+Text Label 1550 6000 2    50   ~ 0
 COM_VOX
+Text Notes 5350 5500 0    50   ~ 0
+The 20 position ILS Channel switch has two separate sets of connectors so can use 2 lots of connections
+$Comp
+L PT_Symbol_Library_v001:SW_Rotary10 SW?
+U 1 1 5FDEA541
+P 6100 3550
+F 0 "SW?" H 6000 4331 50  0000 C CNN
+F 1 "SW_Rotary10" H 6000 4240 50  0000 C CNN
+F 2 "" H 5900 4250 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 5900 4250 50  0001 C CNN
+	1    6100 3550
+	1    0    0    -1  
+$EndComp
+Text Label 3700 6550 0    50   ~ 0
+ANALOG_5V
+Text Label 3050 5700 0    50   ~ 0
+ANALOG_5V
+Text Label 2900 6250 0    50   ~ 0
+ANALOG_GND
+Text Label 2850 7050 0    50   ~ 0
+ANALOG_GND
+$Comp
+L Connector:Conn_01x10_Female J?
+U 1 1 5FDF17BC
+P 5850 6400
+F 0 "J?" H 5878 6376 50  0000 L CNN
+F 1 "COMM_ANALOG_IN" H 5878 6285 50  0000 L CNN
+F 2 "" H 5850 6400 50  0001 C CNN
+F 3 "~" H 5850 6400 50  0001 C CNN
+	1    5850 6400
+	1    0    0    -1  
+$EndComp
+Text Label 5650 6000 2    50   ~ 0
+ANALOG_5V
+Text Label 5650 6100 2    50   ~ 0
+ANALOG_GND
+Text Label 5650 6200 2    50   ~ 0
+COM_VOX
+Text Label 5650 6300 2    50   ~ 0
+COM_ICS
+Text Label 5650 6400 2    50   ~ 0
+COM_RWR
+Text Label 5650 6500 2    50   ~ 0
+COM_MIDS_A
+Text Label 5650 6600 2    50   ~ 0
+COM_MIDS_B
+Text Label 5650 6700 2    50   ~ 0
+COM_TACAN
+Text Label 5650 6800 2    50   ~ 0
+COM_AUX
+Text Label 5650 6900 2    50   ~ 0
+COM_WPN
+Text Label 6500 2950 0    50   ~ 0
+ROW1
+Text Label 6500 3050 0    50   ~ 0
+ROW2
+Text Label 6500 3150 0    50   ~ 0
+ROW3
+Text Label 6500 3250 0    50   ~ 0
+ROW4
+Text Label 6500 3350 0    50   ~ 0
+ROW5
+Text Label 6500 3450 0    50   ~ 0
+ROW6
+Text Label 6500 3650 0    50   ~ 0
+ROW7
+Text Label 6500 3750 0    50   ~ 0
+ROW8
+Text Label 6500 3850 0    50   ~ 0
+ROW9
+Text Label 6500 3950 0    50   ~ 0
+ROW10
+Wire Wire Line
+	5500 3550 5400 3550
+$Comp
+L Device:D D?
+U 1 1 5FDFEEA3
+P 5300 4950
+F 0 "D?" H 5300 5166 50  0000 C CNN
+F 1 "D" H 5300 5075 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 5300 4950 50  0001 C CNN
+F 3 "~" H 5300 4950 50  0001 C CNN
+	1    5300 4950
+	-1   0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:SW_Rotary10 SW?
+U 1 1 5FDFEEAD
+P 6150 4950
+F 0 "SW?" H 6050 5731 50  0000 C CNN
+F 1 "SW_Rotary10" H 6050 5640 50  0000 C CNN
+F 2 "" H 5950 5650 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 5950 5650 50  0001 C CNN
+	1    6150 4950
+	1    0    0    -1  
+$EndComp
+Text Label 6550 4350 0    50   ~ 0
+ROW1
+Text Label 6550 4450 0    50   ~ 0
+ROW2
+Text Label 6550 4550 0    50   ~ 0
+ROW3
+Text Label 6550 4650 0    50   ~ 0
+ROW4
+Text Label 6550 4750 0    50   ~ 0
+ROW5
+Text Label 6550 4850 0    50   ~ 0
+ROW6
+Text Label 6550 5050 0    50   ~ 0
+ROW7
+Text Label 6550 5150 0    50   ~ 0
+ROW8
+Text Label 6550 5250 0    50   ~ 0
+ROW9
+Text Label 6550 5350 0    50   ~ 0
+ROW10
+Wire Wire Line
+	5550 4950 5450 4950
+Text Label 5100 3550 2    50   ~ 0
+COL1
+Text Label 5150 4950 2    50   ~ 0
+COL2
+Text Label 2700 3050 0    50   ~ 0
+ROW1
+Text Label 2700 3250 0    50   ~ 0
+ROW2
+Text Label 2700 3600 0    50   ~ 0
+ROW3
+Text Label 2700 3800 0    50   ~ 0
+ROW4
+Text Label 2700 4150 0    50   ~ 0
+ROW5
+Text Label 2700 4350 0    50   ~ 0
+ROW6
+Text Label 4150 3150 0    50   ~ 0
+ROW7
+Text Label 4150 3650 0    50   ~ 0
+ROW8
+Text Label 4150 4100 0    50   ~ 0
+ROW9
+$Comp
+L Device:D D?
+U 1 1 5FE0C509
+P 3450 3150
+F 0 "D?" H 3450 3366 50  0000 C CNN
+F 1 "D" H 3450 3275 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3450 3150 50  0001 C CNN
+F 3 "~" H 3450 3150 50  0001 C CNN
+	1    3450 3150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5FE0D02C
+P 3450 3650
+F 0 "D?" H 3450 3866 50  0000 C CNN
+F 1 "D" H 3450 3775 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3450 3650 50  0001 C CNN
+F 3 "~" H 3450 3650 50  0001 C CNN
+	1    3450 3650
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5FE0D3E8
+P 3450 4100
+F 0 "D?" H 3450 4316 50  0000 C CNN
+F 1 "D" H 3450 4225 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3450 4100 50  0001 C CNN
+F 3 "~" H 3450 4100 50  0001 C CNN
+	1    3450 4100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5FE0D8E9
+P 2000 3150
+F 0 "D?" H 2000 3366 50  0000 C CNN
+F 1 "D" H 2000 3275 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2000 3150 50  0001 C CNN
+F 3 "~" H 2000 3150 50  0001 C CNN
+	1    2000 3150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5FE0E2B3
+P 2000 3700
+F 0 "D?" H 2000 3916 50  0000 C CNN
+F 1 "D" H 2000 3825 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2000 3700 50  0001 C CNN
+F 3 "~" H 2000 3700 50  0001 C CNN
+	1    2000 3700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D?
+U 1 1 5FE0E9DA
+P 2000 4250
+F 0 "D?" H 2000 4466 50  0000 C CNN
+F 1 "D" H 2000 4375 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2000 4250 50  0001 C CNN
+F 3 "~" H 2000 4250 50  0001 C CNN
+	1    2000 4250
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3750 3150 3600 3150
+Wire Wire Line
+	3750 3650 3600 3650
+Wire Wire Line
+	3750 4100 3600 4100
+Wire Wire Line
+	2300 3150 2150 3150
+Wire Wire Line
+	2300 3700 2150 3700
+Wire Wire Line
+	2300 4250 2150 4250
+Wire Wire Line
+	3300 3150 3200 3150
+Wire Wire Line
+	3200 3150 3200 3650
+Wire Wire Line
+	3200 4100 3300 4100
+Wire Wire Line
+	3300 3650 3200 3650
+Connection ~ 3200 3650
+Wire Wire Line
+	3200 3650 3200 4100
+Wire Wire Line
+	1850 3150 1750 3150
+Wire Wire Line
+	1750 3150 1750 3700
+Wire Wire Line
+	1750 4250 1850 4250
+Wire Wire Line
+	1850 3700 1750 3700
+Connection ~ 1750 3700
+Wire Wire Line
+	1750 3700 1750 4250
+Text Label 3200 3400 0    50   ~ 0
+COL3
+Text Label 1750 3400 0    50   ~ 0
+COL3
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 5FE155B6
+P 950 3700
+F 0 "J?" H 842 3985 50  0000 C CNN
+F 1 "INPUT_COLUMNS" H 842 3894 50  0000 C CNN
+F 2 "" H 950 3700 50  0001 C CNN
+F 3 "~" H 950 3700 50  0001 C CNN
+	1    950  3700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x10_Female J?
+U 1 1 5FE1564C
+P 7900 4050
+F 0 "J?" H 7928 4026 50  0000 L CNN
+F 1 "INPUT_ROWS" H 7928 3935 50  0000 L CNN
+F 2 "" H 7900 4050 50  0001 C CNN
+F 3 "~" H 7900 4050 50  0001 C CNN
+	1    7900 4050
+	1    0    0    -1  
+$EndComp
+Text Label 1150 3600 0    50   ~ 0
+COL1
+Text Label 1150 3700 0    50   ~ 0
+COL2
+Text Label 1150 3800 0    50   ~ 0
+COL3
+Text Label 7700 3650 2    50   ~ 0
+ROW1
+Text Label 7700 3750 2    50   ~ 0
+ROW2
+Text Label 7700 3850 2    50   ~ 0
+ROW3
+Text Label 7700 3950 2    50   ~ 0
+ROW4
+Text Label 7700 4050 2    50   ~ 0
+ROW5
+Text Label 7700 4150 2    50   ~ 0
+ROW6
+Text Label 7700 4250 2    50   ~ 0
+ROW7
+Text Label 7700 4350 2    50   ~ 0
+ROW8
+Text Label 7700 4450 2    50   ~ 0
+ROW9
+Text Label 7700 4550 2    50   ~ 0
+ROW10
 $EndSCHEMATC
