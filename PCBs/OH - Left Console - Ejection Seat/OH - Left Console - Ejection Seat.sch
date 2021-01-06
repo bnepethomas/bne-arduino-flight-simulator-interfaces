@@ -213,4 +213,6 @@ Text Label 2900 3800 0    50   ~ 0
 Row3
 Wire Wire Line
 	1350 2750 1800 2750
+Text Notes 4900 3900 0    50   ~ 0
+add hide stick toggle
 $EndSCHEMATC
