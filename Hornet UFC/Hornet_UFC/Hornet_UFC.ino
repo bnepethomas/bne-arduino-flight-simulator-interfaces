@@ -39,9 +39,8 @@
 // https://www.ebay.com/itm/0-91-Inch-128x32-IIC-I2c-White-Blue-OLED-LCD-Display-Module-3-3-5v-For-Arduino/392552169768?ssPageName=STRK%3AMEBIDX%3AIT&var=661536491479&_trksid=p2057872.m2749.l2649
 
 
-//  OLED for Small Digits 0.96" SSD1306
-// https://www.ebay.com/itm/0-96-White-Yellow-Blue-128X64-OLED-I2C-IIC-Serial-LCD-LED-SSD-Display-AU/302435912549?ssPageName=STRK%3AMEBIDX%3AIT&var=601268570499&_trksid=p2060353.m1438.l2649
-// or may this one 0.66" 64*48 SSD1036
+//  OLED for Small Digits 0.66" SSD1306 64 * 48
+// https://www.ebay.com/itm/0-66-inch-White-64x48-OLED-Display-Module-SPI-I2C-3-3-5V-for-Arduino-AVR-STM32/192332990775?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649
 // I2C 0x3C - validate by running scanner
 
 // When using U8G2 library use this constructor for 64x48 display (assuming pin is used for reset which will need to 
