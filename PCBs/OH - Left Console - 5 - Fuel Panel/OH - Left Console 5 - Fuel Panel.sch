@@ -49,10 +49,10 @@ F 3 "~" H 4950 3850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPST SW?
+L Switch:SW_SPST SW2
 U 1 1 5FC61E34
 P 3700 5050
-F 0 "SW?" H 3700 5285 50  0000 C CNN
+F 0 "SW2" H 3700 5285 50  0000 C CNN
 F 1 "Dump" H 3700 5194 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3700 5050 50  0001 C CNN
 F 3 "~" H 3700 5050 50  0001 C CNN
@@ -3819,10 +3819,10 @@ DA 29 25 88 40 DB 24 F5 63 C0 20 1F 85 52 04 DC 08 F1 56 28 85 94 A1 FC 92 BF 0F
 EndData
 $EndBitmap
 $Comp
-L Switch:SW_SPDT_MSM SW?
+L Switch:SW_SPDT_MSM SW3
 U 1 1 5FC57023
 P 3750 3550
-F 0 "SW?" H 3750 3835 50  0000 C CNN
+F 0 "SW3" H 3750 3835 50  0000 C CNN
 F 1 "Wing" H 3750 3744 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3750 3550 50  0001 C CNN
 F 3 "~" H 3750 3550 50  0001 C CNN
@@ -3830,10 +3830,10 @@ F 3 "~" H 3750 3550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPDT_MSM SW?
+L Switch:SW_SPDT_MSM SW4
 U 1 1 5FC57701
 P 3750 4300
-F 0 "SW?" H 3750 4585 50  0000 C CNN
+F 0 "SW4" H 3750 4585 50  0000 C CNN
 F 1 "CTR" H 3750 4494 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3750 4300 50  0001 C CNN
 F 3 "~" H 3750 4300 50  0001 C CNN
@@ -3841,10 +3841,10 @@ F 3 "~" H 3750 4300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:D D?
+L Device:D D2
 U 1 1 5FC58F51
 P 3150 3550
-F 0 "D?" H 3150 3766 50  0000 C CNN
+F 0 "D2" H 3150 3766 50  0000 C CNN
 F 1 "D" H 3150 3675 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3150 3550 50  0001 C CNN
 F 3 "~" H 3150 3550 50  0001 C CNN
@@ -3852,10 +3852,10 @@ F 3 "~" H 3150 3550 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D?
+L Device:D D3
 U 1 1 5FC594C9
 P 3150 4300
-F 0 "D?" H 3150 4516 50  0000 C CNN
+F 0 "D3" H 3150 4516 50  0000 C CNN
 F 1 "D" H 3150 4425 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3150 4300 50  0001 C CNN
 F 3 "~" H 3150 4300 50  0001 C CNN
@@ -3863,10 +3863,10 @@ F 3 "~" H 3150 4300 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D?
+L Device:D D4
 U 1 1 5FC59BFF
 P 3150 5050
-F 0 "D?" H 3150 5266 50  0000 C CNN
+F 0 "D4" H 3150 5266 50  0000 C CNN
 F 1 "D" H 3150 5175 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3150 5050 50  0001 C CNN
 F 3 "~" H 3150 5050 50  0001 C CNN
@@ -3902,12 +3902,12 @@ Wire Wire Line
 Wire Wire Line
 	2700 5050 3000 5050
 $Comp
-L Connector:Conn_01x04_Female J?
+L Connector:Conn_01x04_Female J1
 U 1 1 5FC5BDDC
 P 1850 3350
-F 0 "J?" H 1742 3635 50  0000 C CNN
+F 0 "J1" H 1742 3635 50  0000 C CNN
 F 1 "Input Columns" H 1742 3544 50  0000 C CNN
-F 2 "" H 1850 3350 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1850 3350 50  0001 C CNN
 F 3 "~" H 1850 3350 50  0001 C CNN
 	1    1850 3350
 	-1   0    0    -1  
@@ -3953,4 +3953,127 @@ Wire Wire Line
 Connection ~ 4150 3950
 Wire Wire Line
 	4150 3950 4150 4400
+Text Notes 7850 2950 0    50   ~ 0
+PCB Holes are 40mm width on centres and 50 height on centres\n
+$Comp
+L Connector:Conn_01x02_Female J4
+U 1 1 601E1DA9
+P 4350 5700
+F 0 "J4" H 4378 5676 50  0000 L CNN
+F 1 "Backlight Out" H 4378 5585 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4350 5700 50  0001 C CNN
+F 3 "~" H 4350 5700 50  0001 C CNN
+	1    4350 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J3
+U 1 1 601E242D
+P 3600 5700
+F 0 "J3" H 3628 5676 50  0000 L CNN
+F 1 "Backlight In" H 3628 5585 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3600 5700 50  0001 C CNN
+F 3 "~" H 3600 5700 50  0001 C CNN
+	1    3600 5700
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4150 5700 3800 5700
+Wire Wire Line
+	4150 5800 3800 5800
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 601E443F
+P 7100 3700
+F 0 "H1" H 7200 3746 50  0000 L CNN
+F 1 "MountingHole" H 7200 3655 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7100 3700 50  0001 C CNN
+F 3 "~" H 7100 3700 50  0001 C CNN
+	1    7100 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 601E4874
+P 7100 3900
+F 0 "H2" H 7200 3946 50  0000 L CNN
+F 1 "MountingHole" H 7200 3855 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7100 3900 50  0001 C CNN
+F 3 "~" H 7100 3900 50  0001 C CNN
+	1    7100 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 601E5197
+P 7100 4100
+F 0 "H3" H 7200 4146 50  0000 L CNN
+F 1 "MountingHole" H 7200 4055 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7100 4100 50  0001 C CNN
+F 3 "~" H 7100 4100 50  0001 C CNN
+	1    7100 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 601E51A1
+P 7100 4300
+F 0 "H4" H 7200 4346 50  0000 L CNN
+F 1 "MountingHole" H 7200 4255 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7100 4300 50  0001 C CNN
+F 3 "~" H 7100 4300 50  0001 C CNN
+	1    7100 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J6
+U 1 1 601EDE98
+P 4350 6100
+F 0 "J6" H 4378 6076 50  0000 L CNN
+F 1 "Mag Coil Out" H 4378 5985 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4350 6100 50  0001 C CNN
+F 3 "~" H 4350 6100 50  0001 C CNN
+	1    4350 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J5
+U 1 1 601EDEA2
+P 3600 6100
+F 0 "J5" H 3628 6076 50  0000 L CNN
+F 1 "Mag Coil In" H 3628 5985 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3600 6100 50  0001 C CNN
+F 3 "~" H 3600 6100 50  0001 C CNN
+	1    3600 6100
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4150 6100 3950 6100
+Wire Wire Line
+	4150 6200 4100 6200
+$Comp
+L Device:D D5
+U 1 1 601EEC7C
+P 3950 6550
+F 0 "D5" H 3950 6766 50  0000 C CNN
+F 1 "D" H 3950 6675 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3950 6550 50  0001 C CNN
+F 3 "~" H 3950 6550 50  0001 C CNN
+	1    3950 6550
+	0    -1   1    0   
+$EndComp
+Wire Wire Line
+	3950 6400 3950 6100
+Connection ~ 3950 6100
+Wire Wire Line
+	3950 6100 3800 6100
+Wire Wire Line
+	4100 6200 4100 6700
+Wire Wire Line
+	4100 6700 3950 6700
+Connection ~ 4100 6200
+Wire Wire Line
+	4100 6200 3800 6200
+Text Notes 4150 6550 0    50   ~ 0
+Flywheel Diode
 $EndSCHEMATC
