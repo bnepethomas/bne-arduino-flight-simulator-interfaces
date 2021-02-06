@@ -2,10 +2,10 @@
 
   (general
     (thickness 1.6)
-    (drawings 18)
+    (drawings 20)
     (tracks 83)
     (zones 0)
-    (modules 17)
+    (modules 16)
     (nets 14)
   )
 
@@ -515,26 +515,6 @@
     )
   )
 
-  (module MountingHole:MountingHole_3.2mm_M3 locked (layer F.Cu) (tedit 56D1B4CB) (tstamp 601E198C)
-    (at 145 100)
-    (descr "Mounting Hole 3.2mm, no annular, M3")
-    (tags "mounting hole 3.2mm no annular m3")
-    (path /601E4C34)
-    (attr virtual)
-    (fp_text reference H4 (at 0 -4.2) (layer F.SilkS) hide
-      (effects (font (size 1 1) (thickness 0.15)))
-    )
-    (fp_text value MountingHole (at 0 4.2) (layer F.Fab) hide
-      (effects (font (size 1 1) (thickness 0.15)))
-    )
-    (fp_circle (center 0 0) (end 3.45 0) (layer F.CrtYd) (width 0.05))
-    (fp_circle (center 0 0) (end 3.2 0) (layer Cmts.User) (width 0.15))
-    (fp_text user %R (at 0.3 0) (layer F.Fab)
-      (effects (font (size 1 1) (thickness 0.15)))
-    )
-    (pad 1 np_thru_hole circle (at 0 0) (size 3.2 3.2) (drill 3.2) (layers *.Cu *.Mask))
-  )
-
   (module MountingHole:MountingHole_3.2mm_M3 locked (layer F.Cu) (tedit 56D1B4CB) (tstamp 601E1984)
     (at 145 145)
     (descr "Mounting Hole 3.2mm, no annular, M3")
@@ -931,13 +911,15 @@
     )
   )
 
+  (gr_line (start 143.002 129) (end 148 129) (layer Edge.Cuts) (width 0.05) (tstamp 601F0089))
+  (gr_line (start 143 97) (end 143.002 129) (layer Edge.Cuts) (width 0.05))
   (gr_text - (at 141.859 130.937) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
   (gr_line (start 97 148) (end 97 97) (layer Edge.Cuts) (width 0.05) (tstamp 601E3A50))
-  (gr_line (start 148 97) (end 148 148) (layer Edge.Cuts) (width 0.05) (tstamp 601E3A4F))
+  (gr_line (start 148 129) (end 148 148) (layer Edge.Cuts) (width 0.05) (tstamp 601E3A4F))
   (gr_line (start 97 148) (end 148 148) (layer Edge.Cuts) (width 0.12) (tstamp 601E3A1F))
-  (gr_line (start 97 97) (end 148 97) (layer Edge.Cuts) (width 0.12))
+  (gr_line (start 97 97) (end 143 97) (layer Edge.Cuts) (width 0.12))
   (gr_text "Pos\n" (at 108.712 129.286 90) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )

@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source "/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/OH - Left Console - 4 - Exterior Lights Panel/OH - Left Console - 4 - Exterior Lights Panel.sch")
-    (date "Saturday, 06 February 2021 at 01:49:07 pm")
+    (date "Sunday, 07 February 2021 at 05:59:06 am")
     (tool "Eeschema (5.1.5-0-10_14)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -126,14 +126,7 @@
       (datasheet ~)
       (libsource (lib Mechanical) (part MountingHole) (description "Mounting Hole without connection"))
       (sheetpath (names /) (tstamps /))
-      (tstamp 601E4C2A))
-    (comp (ref H4)
-      (value MountingHole)
-      (footprint MountingHole:MountingHole_3.2mm_M3)
-      (datasheet ~)
-      (libsource (lib Mechanical) (part MountingHole) (description "Mounting Hole without connection"))
-      (sheetpath (names /) (tstamps /))
-      (tstamp 601E4C34)))
+      (tstamp 601E4C2A)))
   (libparts
     (libpart (lib Connector) (part Conn_01x02_Female)
       (description "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)")
