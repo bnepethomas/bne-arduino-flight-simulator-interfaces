@@ -1,5 +1,5 @@
 
-(rules PCB OH - Left Console 5 - Fuel Panel
+(rules PCB OH - Left Console - 4 - Exterior Lights Panel
   (snap_angle 
     fortyfive_degree
   )
@@ -11,18 +11,18 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 199)
+    (start_pass_no 114)
     (layer_rule F.Cu
-      (active on)
-      (preferred_direction vertical)
-      (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.1)
-    )
-    (layer_rule B.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 1.9)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
     )
   )
   (rule
@@ -63,8 +63,8 @@
     )
   )
   (class "kicad_default"
-    "Net-(D1-Pad2)" "Net-(D1-Pad1)" "Net-(D2-Pad2)" "Net-(D2-Pad1)" "Net-(D3-Pad2)" "Net-(D3-Pad1)" "Net-(D4-Pad2)" "Net-(D4-Pad1)"
-    "Net-(J2-Pad2)" "Net-(J2-Pad1)" "Net-(J3-Pad2)" "Net-(J3-Pad1)" "Net-(D5-Pad2)" "Net-(D5-Pad1)"
+    "Net-(J5-Pad2)" "Net-(J5-Pad3)" "Net-(J5-Pad1)" "Net-(J5-Pad4)" "Net-(J4-Pad2)" "Net-(D2-Pad1)" "Net-(J4-Pad1)" "Net-(D1-Pad2)"
+    "Net-(D1-Pad1)" "Net-(D2-Pad2)" "Net-(D3-Pad1)" "Net-(J2-Pad2)" "Net-(J2-Pad1)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
