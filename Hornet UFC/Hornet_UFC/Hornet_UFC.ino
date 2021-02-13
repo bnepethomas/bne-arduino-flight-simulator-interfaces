@@ -33,6 +33,9 @@
 // 8 & 9 SDA
 // 16 Reset
 
+// NBeed to ground unused pins otherwise random stuff happens - see the following
+// https://www.buydisplay.com/arduino/Interfacing_ER-OLEDM023-1_to_Arduino.pdf
+
 // Useful reference for troubleshooting OLEDs
 
 // OLED for 5 Right hand side digits 0.91" 128*32 SSD1306
