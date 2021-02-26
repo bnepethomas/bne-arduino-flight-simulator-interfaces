@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW1
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW1
 U 1 1 5BC6FAB4
 P 2150 2000
 F 0 "SW1" H 2150 2285 50  0000 C CNN
@@ -25,7 +25,7 @@ F 3 "" H 2150 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW2
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW2
 U 1 1 5BC6FB42
 P 2150 3100
 F 0 "SW2" H 2150 3385 50  0000 C CNN
@@ -36,7 +36,7 @@ F 3 "" H 2150 3300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW3
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW3
 U 1 1 5BC6FBBD
 P 2200 4100
 F 0 "SW3" H 2200 4385 50  0000 C CNN
@@ -47,7 +47,7 @@ F 3 "" H 2200 4300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW4
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW4
 U 1 1 5BC6FC0F
 P 2250 5100
 F 0 "SW4" H 2250 5385 50  0000 C CNN
@@ -58,7 +58,7 @@ F 3 "" H 2250 5300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW11
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW11
 U 1 1 5BC7FE77
 P 5000 2000
 F 0 "SW11" H 5000 2285 50  0000 C CNN
@@ -69,7 +69,7 @@ F 3 "" H 5000 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW12
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW12
 U 1 1 5BC7FE7D
 P 5000 3100
 F 0 "SW12" H 5000 3385 50  0000 C CNN
@@ -80,7 +80,7 @@ F 3 "" H 5000 3300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW13
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW13
 U 1 1 5BC7FE83
 P 5050 4100
 F 0 "SW13" H 5050 4385 50  0000 C CNN
@@ -91,7 +91,7 @@ F 3 "" H 5050 4300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW7
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW7
 U 1 1 5BC8227E
 P 3750 3100
 F 0 "SW7" H 3750 3385 50  0000 C CNN
@@ -102,7 +102,7 @@ F 3 "" H 3750 3300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW8
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW8
 U 1 1 5BC82284
 P 3750 4100
 F 0 "SW8" H 3750 4385 50  0000 C CNN
@@ -113,7 +113,7 @@ F 3 "" H 3750 4300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW9
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW9
 U 1 1 5BC8228A
 P 3750 5100
 F 0 "SW9" H 3750 5385 50  0000 C CNN
@@ -124,7 +124,7 @@ F 3 "" H 3750 5300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW16
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW16
 U 1 1 5BC822E5
 P 6250 2000
 F 0 "SW16" H 6250 2285 50  0000 C CNN
@@ -135,7 +135,7 @@ F 3 "" H 6250 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW18
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW18
 U 1 1 5BC822F1
 P 6300 4100
 F 0 "SW18" H 6300 4385 50  0000 C CNN
@@ -146,7 +146,7 @@ F 3 "" H 6300 4300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW19
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW19
 U 1 1 5BC822F7
 P 6350 5100
 F 0 "SW19" H 6350 5385 50  0000 C CNN
@@ -157,7 +157,7 @@ F 3 "" H 6350 5300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW20
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW20
 U 1 1 5BC822FD
 P 6350 6150
 F 0 "SW20" H 6350 6435 50  0000 C CNN
@@ -168,7 +168,7 @@ F 3 "" H 6350 6350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW10
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW10
 U 1 1 5BC82290
 P 3750 6150
 F 0 "SW10" H 3750 6435 50  0000 C CNN
@@ -179,7 +179,7 @@ F 3 "" H 3750 6350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW6
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW6
 U 1 1 5BC82278
 P 3750 2000
 F 0 "SW6" H 3750 2285 50  0000 C CNN
@@ -190,7 +190,7 @@ F 3 "" H 3750 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW15
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW15
 U 1 1 5BC7FE8F
 P 5050 6150
 F 0 "SW15" H 5050 6435 50  0000 C CNN
@@ -201,7 +201,7 @@ F 3 "" H 5050 6350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW14
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW14
 U 1 1 5BC7FE89
 P 5050 5100
 F 0 "SW14" H 5050 5385 50  0000 C CNN
@@ -883,7 +883,7 @@ Wire Wire Line
 	1750 3600 1900 3600
 Connection ~ 1900 3600
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW5
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW5
 U 1 1 5BC6FD2C
 P 2250 6150
 F 0 "SW5" H 2250 6435 50  0000 C CNN
@@ -1291,7 +1291,7 @@ Wire Wire Line
 Wire Wire Line
 	6000 3000 6000 3100
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW17
+L Buttons_DDI-rescue:PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW17
 U 1 1 5BC822EB
 P 6300 3100
 F 0 "SW17" H 6300 3385 50  0000 C CNN

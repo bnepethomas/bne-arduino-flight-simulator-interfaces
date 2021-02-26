@@ -1,6 +1,33 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# Buttons_DDI-rescue_PT_Tactile_Switch_Led-PT_Symbol_Library_v001
+#
+DEF Buttons_DDI-rescue_PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW 0 40 Y Y 1 F N
+F0 "SW" 0 0 50 H V C CNN
+F1 "Buttons_DDI-rescue_PT_Tactile_Switch_Led-PT_Symbol_Library_v001" 0 0 50 H I C CNN
+F2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" 0 0 50 H I C CNN
+F3 "" 0 0 50 H I C CNN
+DRAW
+P 2 0 1 0 -150 -150 -150 -250 N
+P 2 0 1 0 -100 250 -100 100 N
+P 2 0 1 0 -100 500 -100 350 N
+P 2 0 1 0 -50 350 -50 200 N
+P 2 0 1 0 0 100 -200 100 N
+P 2 0 1 0 50 -150 50 -250 N
+P 3 0 1 0 0 500 -100 500 -200 500 N
+P 5 0 1 0 -50 300 0 300 0 250 -50 250 -50 300 N
+P 5 0 1 0 50 -250 0 -250 -50 -250 -50 -200 -50 -300 N
+P 6 0 1 0 -150 -250 -100 -250 -100 -200 -100 -300 -50 -250 -100 -200 N
+X ~ 1 -300 500 100 R 50 50 1 1 I
+X ~ 2 100 500 100 L 50 50 1 1 I
+X ~ 3 -300 100 100 R 50 50 1 1 I
+X ~ 4 100 100 100 L 50 50 1 1 I
+X + 5 -250 -150 100 R 50 50 1 1 I
+X - 6 150 -150 100 L 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
 # Connector_Conn_01x02_Female
 #
 DEF Connector_Conn_01x02_Female J 0 40 Y N 1 F N
@@ -158,33 +185,6 @@ DRAW
 S -40 -100 40 100 0 1 10 N
 X ~ 1 0 150 50 D 50 50 1 1 P
 X ~ 2 0 -150 50 U 50 50 1 1 P
-ENDDRAW
-ENDDEF
-#
-# PT_Symbol_Library_v001_PT_Tactile_Switch_Led
-#
-DEF PT_Symbol_Library_v001_PT_Tactile_Switch_Led SW 0 40 Y Y 1 F N
-F0 "SW" 0 0 50 H V C CNN
-F1 "PT_Symbol_Library_v001_PT_Tactile_Switch_Led" 0 0 50 H I C CNN
-F2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" 0 0 50 H I C CNN
-F3 "" 0 0 50 H I C CNN
-DRAW
-P 2 0 1 0 -150 -150 -150 -250 N
-P 2 0 1 0 -100 250 -100 100 N
-P 2 0 1 0 -100 500 -100 350 N
-P 2 0 1 0 -50 350 -50 200 N
-P 2 0 1 0 0 100 -200 100 N
-P 2 0 1 0 50 -150 50 -250 N
-P 3 0 1 0 0 500 -100 500 -200 500 N
-P 5 0 1 0 -50 300 0 300 0 250 -50 250 -50 300 N
-P 5 0 1 0 50 -250 0 -250 -50 -250 -50 -200 -50 -300 N
-P 6 0 1 0 -150 -250 -100 -250 -100 -200 -100 -300 -50 -250 -100 -200 N
-X ~ 1 -300 500 100 R 50 50 1 1 I
-X ~ 2 100 500 100 L 50 50 1 1 I
-X ~ 3 -300 100 100 R 50 50 1 1 I
-X ~ 4 100 100 100 L 50 50 1 1 I
-X + 5 -250 -150 100 R 50 50 1 1 I
-X - 6 150 -150 100 L 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
