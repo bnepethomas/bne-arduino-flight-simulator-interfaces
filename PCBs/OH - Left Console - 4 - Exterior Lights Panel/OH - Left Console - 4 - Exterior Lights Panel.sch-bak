@@ -3458,28 +3458,6 @@ $EndComp
 Text Notes 3450 4300 0    50   ~ 0
 This switch is on the Adjacent panel next to the side wall
 $Comp
-L Connector:Conn_01x02_Female J4
-U 1 1 5FD253EB
-P 4100 3450
-F 0 "J4" H 4128 3426 50  0000 L CNN
-F 1 "Rows In" H 4128 3335 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4100 3450 50  0001 C CNN
-F 3 "~" H 4100 3450 50  0001 C CNN
-	1    4100 3450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J1
-U 1 1 5FD25933
-P 1400 3500
-F 0 "J1" H 1292 3685 50  0000 C CNN
-F 1 "Columns In" H 1292 3594 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1400 3500 50  0001 C CNN
-F 3 "~" H 1400 3500 50  0001 C CNN
-	1    1400 3500
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Device:D D1
 U 1 1 5FD26519
 P 2200 2800
@@ -3521,12 +3499,6 @@ Wire Wire Line
 Wire Wire Line
 	3100 3450 3350 3450
 Wire Wire Line
-	3900 3550 3750 3550
-Wire Wire Line
-	3750 3550 3750 3650
-Wire Wire Line
-	3750 3650 3350 3650
-Wire Wire Line
 	1600 3600 1750 3600
 Wire Wire Line
 	1750 3600 1750 4300
@@ -3545,21 +3517,17 @@ Wire Wire Line
 	3100 4300 3350 4300
 Wire Wire Line
 	3350 4300 3350 3650
-Connection ~ 3350 3650
 Wire Wire Line
 	3350 3650 3100 3650
 Wire Wire Line
 	3100 2800 3350 2800
 Wire Wire Line
 	3350 2800 3350 3450
-Connection ~ 3350 3450
-Wire Wire Line
-	3350 3450 3900 3450
 $Comp
-L Connector:Conn_01x04_Female J5
+L Connector:Conn_01x04_Female J4
 U 1 1 5FD28A32
 P 4300 2750
-F 0 "J5" H 4192 3035 50  0000 C CNN
+F 0 "J4" H 4192 3035 50  0000 C CNN
 F 1 "Analog In" H 4192 2944 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 4300 2750 50  0001 C CNN
 F 3 "~" H 4300 2750 50  0001 C CNN
@@ -3665,15 +3633,31 @@ F 3 "~" H 5350 6850 50  0001 C CNN
 	1    5350 6850
 	1    0    0    -1  
 $EndComp
+Text Label 3350 3350 0    50   ~ 0
+Row1
+Text Label 3350 3850 0    50   ~ 0
+Row2
+Text Label 1850 3500 0    50   ~ 0
+Col1
+Text Label 1750 3800 0    50   ~ 0
+Col2
 $Comp
-L Mechanical:MountingHole H4
-U 1 1 601E4C34
-P 5350 7050
-F 0 "H4" H 5450 7096 50  0000 L CNN
-F 1 "MountingHole" H 5450 7005 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 5350 7050 50  0001 C CNN
-F 3 "~" H 5350 7050 50  0001 C CNN
-	1    5350 7050
-	1    0    0    -1  
+L Connector:Conn_01x04_Female J1
+U 1 1 60453D36
+P 900 2950
+F 0 "J1" H 792 3235 50  0000 C CNN
+F 1 "Switch_Inputs" H 792 3144 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 900 2950 50  0001 C CNN
+F 3 "~" H 900 2950 50  0001 C CNN
+	1    900  2950
+	-1   0    0    -1  
 $EndComp
+Text Label 1100 2850 0    50   ~ 0
+Col1
+Text Label 1100 2950 0    50   ~ 0
+Col2
+Text Label 1100 3050 0    50   ~ 0
+Row1
+Text Label 1100 3150 0    50   ~ 0
+Row2
 $EndSCHEMATC
