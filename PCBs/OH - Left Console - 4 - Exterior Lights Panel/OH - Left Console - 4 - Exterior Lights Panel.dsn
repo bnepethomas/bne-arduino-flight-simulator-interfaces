@@ -21,8 +21,8 @@
       )
     )
     (boundary
-      (path pcb 0  143002 -129000  148000 -129000  148000 -148000  97000 -148000
-            97000 -97000  143000 -97000  143002 -129000)
+      (path pcb 0  143002 -112268  137414 -112268  137414 -132969  147955 -132969
+            148000 -148000  97000 -148000  97000 -97000  143000 -97000  143002 -112268)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -35,11 +35,11 @@
   (placement
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
       (place J1 108585 -105664 front 0 (PN Switch_Inputs))
-      (place J4 103505 -134620 front 0 (PN "Analog In"))
+      (place J4 102997 -137414 front 0 (PN "Analog In"))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place SW1 134874 -122174 front 0 (PN INT_WNG_TANK_SW))
-      (place SW3 105029 -122174 front 0 (PN GEN_TIE_SW))
+      (place SW1 128651 -122174 front 0 (PN INT_WNG_TANK_SW))
+      (place SW3 102489 -122174 front 0 (PN GEN_TIE_SW))
       (place J3 135128 -105410 front 0 (PN "Backlight Out"))
       (place J2 125349 -105410 front 0 (PN "Backlight In"))
     )
@@ -49,14 +49,14 @@
       (place H1 100000 -145000 front 0 (PN MountingHole))
     )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
-      (place D3 118237 -115570 front 0 (PN D))
-      (place D2 104267 -115443 front 0 (PN D))
-      (place D1 131318 -115697 front 0 (PN D))
+      (place D3 114046 -114173 front 0 (PN D))
+      (place D2 100076 -114046 front 0 (PN D))
+      (place D1 127127 -114300 front 0 (PN D))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place SW2 120523 -122174 front 0 (PN STROBE_SW))
-      (place RV2 121412 -135001 front 0 (PN FORMATION_DIMMER))
-      (place RV1 136779 -135001 front 0 (PN POSITION_DIMMER))
+      (place SW2 114808 -122174 front 0 (PN STROBE_SW))
+      (place RV2 120904 -137795 front 0 (PN FORMATION_DIMMER))
+      (place RV1 136271 -137795 front 0 (PN POSITION_DIMMER))
     )
   )
   (library
@@ -302,10 +302,9 @@
     (net "Net-(J4-Pad3)"
       (pins J4-3 RV1-2)
     )
-    (class kicad_default "" /Col1 /Col2 /Row1 /Row2 "Net-(D1-Pad1)" "Net-(D1-Pad2)"
-      "Net-(D2-Pad1)" "Net-(D2-Pad2)" "Net-(D3-Pad1)" "Net-(J2-Pad1)" "Net-(J2-Pad2)"
-      "Net-(J4-Pad1)" "Net-(J4-Pad2)" "Net-(J4-Pad3)" "Net-(J4-Pad4)" "Net-(J5-Pad1)"
-      "Net-(J5-Pad2)" "Net-(J5-Pad3)" "Net-(J5-Pad4)"
+    (class kicad_default "" /Col1 /Col2 /Row1 /Row2 "Net-(D1-Pad1)" "Net-(D2-Pad1)"
+      "Net-(D3-Pad1)" "Net-(J2-Pad1)" "Net-(J2-Pad2)" "Net-(J4-Pad1)" "Net-(J4-Pad2)"
+      "Net-(J4-Pad3)" "Net-(J4-Pad4)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
