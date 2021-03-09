@@ -16,17 +16,6 @@ $EndDescr
 Text Notes 900  1650 0    50   ~ 0
 -- 6. Flight Control System Panel\ndefinePotentiometer("RUD_TRIM", 2, 3001, 345, {-1, 1}, "Flight Control System Panel", "RUD TRIM Control")\ndefineToggleSwitch("TO_TRIM_BTN", 2, 3002, 346, "Flight Control System Panel", "T/O TRIM Button")\ndefineToggleSwitch("FCS_RESET_BTN", 2, 3003, 349, "Flight Control System Panel", "FCS RESET Button")\ndefineToggleSwitch("GAIN_SWITCH_COVER", 2, 3005, 348, "Flight Control System Panel", "GAIN Switch Cover")\ndefineToggleSwitch("GAIN_SWITCH", 2, 3006, 347, "Flight Control System Panel", "GAIN Switch")
 $Comp
-L Connector:Conn_01x02_Female J3
-U 1 1 5FC37DA5
-P 4400 3150
-F 0 "J3" H 4428 3126 50  0000 L CNN
-F 1 "Input Rows" H 4428 3035 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4400 3150 50  0001 C CNN
-F 3 "~" H 4400 3150 50  0001 C CNN
-	1    4400 3150
-	1    0    0    -1  
-$EndComp
-$Comp
 L Switch:SW_SPST SW3
 U 1 1 5FC61E34
 P 3450 3750
@@ -1995,17 +1984,6 @@ F 3 "~" H 3450 3500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J1
-U 1 1 5FC71887
-P 2200 3200
-F 0 "J1" H 2228 3176 50  0000 L CNN
-F 1 "Input Columns" H 2228 3085 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2200 3200 50  0001 C CNN
-F 3 "~" H 2200 3200 50  0001 C CNN
-	1    2200 3200
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Device:D D1
 U 1 1 5FC72FA2
 P 2800 2850
@@ -2039,22 +2017,13 @@ F 3 "~" H 2800 3750 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	2400 3200 2400 3100
-Wire Wire Line
 	2400 2850 2650 2850
 Wire Wire Line
-	2400 3300 2650 3300
+	2000 3300 2650 3300
 Wire Wire Line
 	3650 2850 3900 2850
 Wire Wire Line
-	3900 2850 3900 3150
-Wire Wire Line
 	3900 3300 3650 3300
-Wire Wire Line
-	4200 3150 3900 3150
-Connection ~ 3900 3150
-Wire Wire Line
-	3900 3150 3900 3300
 Wire Wire Line
 	2400 3100 2550 3100
 Wire Wire Line
@@ -2064,12 +2033,6 @@ Wire Wire Line
 Connection ~ 2400 3100
 Wire Wire Line
 	2400 3100 2400 2850
-Wire Wire Line
-	3650 3750 4050 3750
-Wire Wire Line
-	4050 3750 4050 3250
-Wire Wire Line
-	4050 3250 4200 3250
 Wire Wire Line
 	2950 2850 3250 2850
 Wire Wire Line
@@ -2099,4 +2062,107 @@ Wire Wire Line
 	3850 4900 2950 4900
 Wire Wire Line
 	2950 4900 2950 4850
+$Comp
+L Connector:Conn_01x04_Female J1
+U 1 1 6047CEDE
+P 1800 3300
+F 0 "J1" H 1692 3585 50  0000 C CNN
+F 1 "Switch Inputs" H 2050 3500 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1800 3300 50  0001 C CNN
+F 3 "~" H 1800 3300 50  0001 C CNN
+	1    1800 3300
+	-1   0    0    -1  
+$EndComp
+Text Label 2400 2950 0    50   ~ 0
+Col1
+Text Label 2350 3300 2    50   ~ 0
+Col2
+Text Label 3900 3000 0    50   ~ 0
+Row1
+Wire Wire Line
+	2400 3100 2400 3200
+Wire Wire Line
+	2400 3200 2000 3200
+Text Label 2000 3400 0    50   ~ 0
+Row1
+Text Label 2000 3500 0    50   ~ 0
+Row2
+Wire Wire Line
+	3900 2850 3900 3300
+Text Label 3650 3750 0    50   ~ 0
+Row2
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 604839CB
+P 7400 3700
+F 0 "H1" H 7500 3746 50  0000 L CNN
+F 1 "MountingHole" H 7500 3655 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7400 3700 50  0001 C CNN
+F 3 "~" H 7400 3700 50  0001 C CNN
+	1    7400 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 60483D94
+P 7400 3950
+F 0 "H2" H 7500 3996 50  0000 L CNN
+F 1 "MountingHole" H 7500 3905 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7400 3950 50  0001 C CNN
+F 3 "~" H 7400 3950 50  0001 C CNN
+	1    7400 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 6048448C
+P 7400 4250
+F 0 "H3" H 7500 4296 50  0000 L CNN
+F 1 "MountingHole" H 7500 4205 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7400 4250 50  0001 C CNN
+F 3 "~" H 7400 4250 50  0001 C CNN
+	1    7400 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 6048476A
+P 7400 4500
+F 0 "H4" H 7500 4546 50  0000 L CNN
+F 1 "MountingHole" H 7500 4455 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7400 4500 50  0001 C CNN
+F 3 "~" H 7400 4500 50  0001 C CNN
+	1    7400 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J4
+U 1 1 6048911B
+P 4200 5750
+F 0 "J4" H 4228 5726 50  0000 L CNN
+F 1 "Backlighting Out" H 4228 5635 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4200 5750 50  0001 C CNN
+F 3 "~" H 4200 5750 50  0001 C CNN
+	1    4200 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J3
+U 1 1 6048966B
+P 3200 5750
+F 0 "J3" H 3092 5935 50  0000 C CNN
+F 1 "Backlighting In" H 3092 5844 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3200 5750 50  0001 C CNN
+F 3 "~" H 3200 5750 50  0001 C CNN
+	1    3200 5750
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 5750 3400 5750
+Wire Wire Line
+	4000 5850 3400 5850
+Text Label 3600 5750 0    50   ~ 0
+Backlight+
+Text Label 3600 5850 0    50   ~ 0
+Backlight-
 $EndSCHEMATC
