@@ -16,10 +16,10 @@ $EndDescr
 Text Notes 900  1250 0    50   ~ 0
 -- 5. Fuel Panel\ndefine3PosTumb("PROBE_SW", 6, 3002, 341, "Fuel Panel", "Probe Control Switch, EXTEND/RETRACT/EMERG EXTD")\ndefineToggleSwitchToggleOnly2("FUEL_DUMP_SW", 6, 3003, 344, "Fuel Panel", "Fuel Dump Switch, ON/OFF")\ndefine3PosTumb("EXT_CNT_TANK_SW", 6, 3004, 343, "Fuel Panel", "External Centerline Tank Fuel Control Switch, STOP/NORM/ORIDE")\ndefine3PosTumb("EXT_WNG_TANK_SW", 6, 3005, 342, "Fuel Panel", "External Wing Tanks Fuel Control Switch, STOP/NORM/ORIDE")
 $Comp
-L Switch:SW_SPDT_MSM SW1
+L Switch:SW_SPDT_MSM SW4
 U 1 1 5FC1E955
 P 3800 2950
-F 0 "SW1" H 3800 3235 50  0000 C CNN
+F 0 "SW4" H 3800 3235 50  0000 C CNN
 F 1 "Probe" H 3800 3144 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3800 2950 50  0001 C CNN
 F 3 "~" H 3800 2950 50  0001 C CNN
@@ -38,21 +38,10 @@ F 3 "~" H 3150 2950 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J2
-U 1 1 5FC37DA5
-P 4950 3850
-F 0 "J2" H 4978 3826 50  0000 L CNN
-F 1 "Input Rows" H 4978 3735 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4950 3850 50  0001 C CNN
-F 3 "~" H 4950 3850 50  0001 C CNN
-	1    4950 3850
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_SPST SW2
+L Switch:SW_SPST SW1
 U 1 1 5FC61E34
 P 3700 5050
-F 0 "SW2" H 3700 5285 50  0000 C CNN
+F 0 "SW1" H 3700 5285 50  0000 C CNN
 F 1 "Dump" H 3700 5194 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3700 5050 50  0001 C CNN
 F 3 "~" H 3700 5050 50  0001 C CNN
@@ -3819,10 +3808,10 @@ DA 29 25 88 40 DB 24 F5 63 C0 20 1F 85 52 04 DC 08 F1 56 28 85 94 A1 FC 92 BF 0F
 EndData
 $EndBitmap
 $Comp
-L Switch:SW_SPDT_MSM SW3
+L Switch:SW_SPDT_MSM SW2
 U 1 1 5FC57023
 P 3750 3550
-F 0 "SW3" H 3750 3835 50  0000 C CNN
+F 0 "SW2" H 3750 3835 50  0000 C CNN
 F 1 "Wing" H 3750 3744 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3750 3550 50  0001 C CNN
 F 3 "~" H 3750 3550 50  0001 C CNN
@@ -3830,10 +3819,10 @@ F 3 "~" H 3750 3550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPDT_MSM SW4
+L Switch:SW_SPDT_MSM SW3
 U 1 1 5FC57701
 P 3750 4300
-F 0 "SW4" H 3750 4585 50  0000 C CNN
+F 0 "SW3" H 3750 4585 50  0000 C CNN
 F 1 "CTR" H 3750 4494 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3750 4300 50  0001 C CNN
 F 3 "~" H 3750 4300 50  0001 C CNN
@@ -3901,17 +3890,6 @@ Wire Wire Line
 	2700 3550 2700 5050
 Wire Wire Line
 	2700 5050 3000 5050
-$Comp
-L Connector:Conn_01x04_Female J1
-U 1 1 5FC5BDDC
-P 1850 3350
-F 0 "J1" H 1742 3635 50  0000 C CNN
-F 1 "Input Columns" H 1742 3544 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1850 3350 50  0001 C CNN
-F 3 "~" H 1850 3350 50  0001 C CNN
-	1    1850 3350
-	-1   0    0    -1  
-$EndComp
 Wire Wire Line
 	3300 4300 3550 4300
 Wire Wire Line
@@ -3931,8 +3909,6 @@ Wire Wire Line
 	3950 3450 4350 3450
 Connection ~ 4350 3450
 Wire Wire Line
-	4350 3450 4350 3850
-Wire Wire Line
 	4000 3050 4150 3050
 Wire Wire Line
 	4150 3050 4150 3650
@@ -3941,18 +3917,6 @@ Wire Wire Line
 Wire Wire Line
 	3950 3650 4150 3650
 Connection ~ 4150 3650
-Wire Wire Line
-	4150 3650 4150 3950
-Wire Wire Line
-	4350 3850 4750 3850
-Connection ~ 4350 3850
-Wire Wire Line
-	4350 3850 4350 4200
-Wire Wire Line
-	4150 3950 4750 3950
-Connection ~ 4150 3950
-Wire Wire Line
-	4150 3950 4150 4400
 Text Notes 7850 2950 0    50   ~ 0
 PCB Holes are 40mm width on centres and 50 height on centres\n
 $Comp
@@ -3967,10 +3931,10 @@ F 3 "~" H 4350 5700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J3
+L Connector:Conn_01x02_Female J2
 U 1 1 601E242D
 P 3600 5700
-F 0 "J3" H 3628 5676 50  0000 L CNN
+F 0 "J2" H 3628 5676 50  0000 L CNN
 F 1 "Backlight In" H 3628 5585 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3600 5700 50  0001 C CNN
 F 3 "~" H 3600 5700 50  0001 C CNN
@@ -4026,10 +3990,10 @@ F 3 "~" H 7100 4300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J6
+L Connector:Conn_01x02_Female J5
 U 1 1 601EDE98
 P 4350 6100
-F 0 "J6" H 4378 6076 50  0000 L CNN
+F 0 "J5" H 4378 6076 50  0000 L CNN
 F 1 "Mag Coil Out" H 4378 5985 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4350 6100 50  0001 C CNN
 F 3 "~" H 4350 6100 50  0001 C CNN
@@ -4037,10 +4001,10 @@ F 3 "~" H 4350 6100 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J5
+L Connector:Conn_01x02_Female J3
 U 1 1 601EDEA2
 P 3600 6100
-F 0 "J5" H 3628 6076 50  0000 L CNN
+F 0 "J3" H 3628 6076 50  0000 L CNN
 F 1 "Mag Coil In" H 3628 5985 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3600 6100 50  0001 C CNN
 F 3 "~" H 3600 6100 50  0001 C CNN
@@ -4076,4 +4040,35 @@ Wire Wire Line
 	4100 6200 3800 6200
 Text Notes 4150 6550 0    50   ~ 0
 Flywheel Diode
+$Comp
+L Connector:Conn_01x06_Female J1
+U 1 1 60472241
+P 1850 3450
+F 0 "J1" H 1742 3835 50  0000 C CNN
+F 1 "Switch Inputs" H 1742 3744 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 1850 3450 50  0001 C CNN
+F 3 "~" H 1850 3450 50  0001 C CNN
+	1    1850 3450
+	-1   0    0    -1  
+$EndComp
+Text Label 2600 2950 0    50   ~ 0
+Col1
+Text Label 2600 3350 0    50   ~ 0
+Col2
+Text Label 2800 3750 0    50   ~ 0
+Col3
+Text Label 2700 4650 0    50   ~ 0
+Col4
+Text Label 4350 3150 0    50   ~ 0
+Row1
+Text Label 4150 3750 0    50   ~ 0
+Row2
+Wire Wire Line
+	4350 3450 4350 4200
+Wire Wire Line
+	4150 3650 4150 4400
+Text Label 2050 3650 0    50   ~ 0
+Row1
+Text Label 2050 3750 0    50   ~ 0
+Row2
 $EndSCHEMATC
