@@ -20,7 +20,7 @@ L Switch:SW_SPDT_MSM SW1
 U 1 1 5FC1E955
 P 5000 3450
 F 0 "SW1" H 5000 3735 50  0000 C CNN
-F 1 "EXT_PWR_SW" H 5000 3644 50  0000 C CNN
+F 1 "ENG CRANK" H 5000 3644 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5000 3450 50  0001 C CNN
 F 3 "~" H 5000 3450 50  0001 C CNN
 	1    5000 3450
@@ -38,22 +38,11 @@ F 3 "~" H 4400 3450 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J5
-U 1 1 5FC37DA5
-P 6250 3700
-F 0 "J5" H 6278 3676 50  0000 L CNN
-F 1 "Input Rows" H 6278 3585 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6250 3700 50  0001 C CNN
-F 3 "~" H 6250 3700 50  0001 C CNN
-	1    6250 3700
-	1    0    0    -1  
-$EndComp
-$Comp
 L Switch:SW_SPST SW2
 U 1 1 5FC61E34
 P 5000 4200
 F 0 "SW2" H 5000 4435 50  0000 C CNN
-F 1 "SW_SPST" H 5000 4344 50  0000 C CNN
+F 1 "APU" H 5000 4344 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5000 4200 50  0001 C CNN
 F 3 "~" H 5000 4200 50  0001 C CNN
 	1    5000 4200
@@ -2277,14 +2266,14 @@ F 3 "~" H 4400 4200 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J3
+L Connector:Conn_01x04_Female J3
 U 1 1 5FC98150
-P 3500 3750
-F 0 "J3" H 3528 3726 50  0000 L CNN
-F 1 "Input Columns" H 3528 3635 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3500 3750 50  0001 C CNN
-F 3 "~" H 3500 3750 50  0001 C CNN
-	1    3500 3750
+P 3500 3850
+F 0 "J3" H 3528 3826 50  0000 L CNN
+F 1 "Input Columns" H 3528 3735 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3500 3850 50  0001 C CNN
+F 3 "~" H 3500 3850 50  0001 C CNN
+	1    3500 3850
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -2292,8 +2281,8 @@ L Device:LED D4
 U 1 1 5FC99376
 P 4650 4950
 F 0 "D4" V 4689 5028 50  0000 L CNN
-F 1 "LED" V 4598 5028 50  0000 L CNN
-F 2 "" H 4650 4950 50  0001 C CNN
+F 1 "Ready LED Out" V 4598 5028 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4650 4950 50  0001 C CNN
 F 3 "~" H 4650 4950 50  0001 C CNN
 	1    4650 4950
 	0    1    -1   0   
@@ -2303,7 +2292,7 @@ L Connector:Conn_01x02_Female J2
 U 1 1 5FC9A137
 P 3450 4900
 F 0 "J2" H 3478 4876 50  0000 L CNN
-F 1 "Ready LED" H 3478 4785 50  0000 L CNN
+F 1 "Ready LED In" H 3478 4785 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3450 4900 50  0001 C CNN
 F 3 "~" H 3450 4900 50  0001 C CNN
 	1    3450 4900
@@ -2328,20 +2317,7 @@ Wire Wire Line
 Wire Wire Line
 	5200 3350 5800 3350
 Wire Wire Line
-	5800 3350 5800 3700
-Wire Wire Line
-	5800 3700 6050 3700
-Wire Wire Line
-	5200 3550 5500 3550
-Wire Wire Line
-	5500 3550 5500 3800
-Wire Wire Line
-	5500 3800 6050 3800
-Wire Wire Line
 	5200 4200 5800 4200
-Wire Wire Line
-	5800 4200 5800 3700
-Connection ~ 5800 3700
 Wire Wire Line
 	3650 4900 3950 4900
 Wire Wire Line
@@ -2357,23 +2333,12 @@ Wire Wire Line
 Wire Wire Line
 	3950 5000 3650 5000
 $Comp
-L Connector:Conn_01x02_Female J4
-U 1 1 5FC9D626
-P 5650 2650
-F 0 "J4" H 5678 2626 50  0000 L CNN
-F 1 "Optional Coil" H 5678 2535 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5650 2650 50  0001 C CNN
-F 3 "~" H 5650 2650 50  0001 C CNN
-	1    5650 2650
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Device:L L2
 U 1 1 5FCA743C
 P 6850 2700
 F 0 "L2" H 6903 2746 50  0000 L CNN
-F 1 "L" H 6903 2655 50  0000 L CNN
-F 2 "" H 6850 2700 50  0001 C CNN
+F 1 "APU Coil" H 6903 2655 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6850 2700 50  0001 C CNN
 F 3 "~" H 6850 2700 50  0001 C CNN
 	1    6850 2700
 	1    0    0    -1  
@@ -2391,13 +2356,7 @@ F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 6500 2700 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6850 2550 6500 2550
-Wire Wire Line
-	6500 2550 5850 2550
-Wire Wire Line
-	5850 2550 5850 2650
 Connection ~ 6500 2550
-Wire Wire Line
-	5850 2750 5900 2750
 Wire Wire Line
 	5900 2750 5900 2850
 Wire Wire Line
@@ -2406,58 +2365,117 @@ Wire Wire Line
 	6850 2850 6500 2850
 Connection ~ 6500 2850
 Text Notes 7000 2700 0    50   ~ 0
-Coil for Magentic Switch
-$Comp
-L Connector:Conn_01x02_Female J1
-U 1 1 5FCAC0EF
-P 2600 2700
-F 0 "J1" H 2628 2676 50  0000 L CNN
-F 1 "Coil 1" H 2628 2585 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2600 2700 50  0001 C CNN
-F 3 "~" H 2600 2700 50  0001 C CNN
-	1    2600 2700
-	-1   0    0    -1  
-$EndComp
+Coil for APU\nMagentic Switch
 $Comp
 L Device:L L1
 U 1 1 5FCAC0F9
-P 3800 2750
-F 0 "L1" H 3853 2796 50  0000 L CNN
-F 1 "L" H 3853 2705 50  0000 L CNN
-F 2 "" H 3800 2750 50  0001 C CNN
-F 3 "~" H 3800 2750 50  0001 C CNN
-	1    3800 2750
+P 6850 2150
+F 0 "L1" H 6903 2196 50  0000 L CNN
+F 1 "Crank Coil" H 6903 2105 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6850 2150 50  0001 C CNN
+F 3 "~" H 6850 2150 50  0001 C CNN
+	1    6850 2150
 	1    0    0    -1  
 $EndComp
 $Comp
 L Diode:1N4001 D1
 U 1 1 5FCAC103
-P 3450 2750
-F 0 "D1" V 3404 2671 50  0000 R CNN
-F 1 "D" V 3495 2671 50  0000 R CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 3450 2750 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 3450 2750 50  0001 C CNN
-	1    3450 2750
+P 6500 2150
+F 0 "D1" V 6454 2071 50  0000 R CNN
+F 1 "D" V 6545 2071 50  0000 R CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 6500 2150 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 6500 2150 50  0001 C CNN
+	1    6500 2150
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
-	3800 2600 3450 2600
+	6850 2000 6500 2000
 Wire Wire Line
-	3450 2600 2800 2600
+	6500 2000 5850 2000
 Wire Wire Line
-	2800 2600 2800 2700
-Connection ~ 3450 2600
+	5850 2000 5850 2100
+Connection ~ 6500 2000
 Wire Wire Line
-	2800 2800 2850 2800
+	5900 2200 5900 2300
 Wire Wire Line
-	2850 2800 2850 2900
+	5900 2300 6500 2300
 Wire Wire Line
-	2850 2900 3450 2900
+	6850 2300 6500 2300
+Connection ~ 6500 2300
+Text Notes 7000 2150 0    50   ~ 0
+Coil for Engine Crank\nMagentic Switch
+Text Label 5800 3400 0    50   ~ 0
+Row1
+Text Label 5200 3550 0    50   ~ 0
+Row2
+Text Label 4050 3450 0    50   ~ 0
+Col1
+Text Label 4150 4200 0    50   ~ 0
+Col2
+Text Label 3700 3950 0    50   ~ 0
+Row1
+Text Label 3700 4050 0    50   ~ 0
+Row2
 Wire Wire Line
-	3800 2900 3450 2900
-Connection ~ 3450 2900
-Text Notes 3950 2750 0    50   ~ 0
-Coil for Magentic Switch
-Text Notes 5350 3000 0    50   ~ 0
-Second Coil for Magentic Switch optional - not needed for a real Honeywell Switch
+	5800 3350 5800 4200
+$Comp
+L Connector:Conn_01x04_Female J1
+U 1 1 6049B816
+P 4900 2200
+F 0 "J1" H 4928 2176 50  0000 L CNN
+F 1 "Coil Inputs" H 4928 2085 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 4900 2200 50  0001 C CNN
+F 3 "~" H 4900 2200 50  0001 C CNN
+	1    4900 2200
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5850 2100 5100 2100
+Wire Wire Line
+	5100 2200 5900 2200
+Wire Wire Line
+	5650 2550 5650 2300
+Wire Wire Line
+	5650 2300 5100 2300
+Wire Wire Line
+	5100 2400 5600 2400
+Wire Wire Line
+	5600 2400 5600 2750
+Wire Wire Line
+	5600 2750 5900 2750
+Wire Wire Line
+	5650 2550 6500 2550
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 604A2B2F
+P 7700 4000
+F 0 "H1" H 7800 4046 50  0000 L CNN
+F 1 "MountingHole" H 7800 3955 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7700 4000 50  0001 C CNN
+F 3 "~" H 7700 4000 50  0001 C CNN
+	1    7700 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 604A2ED8
+P 7700 4350
+F 0 "H2" H 7800 4396 50  0000 L CNN
+F 1 "MountingHole" H 7800 4305 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7700 4350 50  0001 C CNN
+F 3 "~" H 7700 4350 50  0001 C CNN
+	1    7700 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 604A317B
+P 7700 4700
+F 0 "H3" H 7800 4746 50  0000 L CNN
+F 1 "MountingHole" H 7800 4655 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7700 4700 50  0001 C CNN
+F 3 "~" H 7700 4700 50  0001 C CNN
+	1    7700 4700
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
