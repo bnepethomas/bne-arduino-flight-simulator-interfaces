@@ -36,9 +36,9 @@
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (place J4 104775 -126619 front 0 (PN "Backlighting Out"))
       (place J3 104902 -118999 front 0 (PN "Backlighting In"))
-      (place SW3 73279 -125730 front 0 (PN GAIN_SWITCH))
-      (place SW2 82931 -121920 front 0 (PN TO_TRIM_BTN))
-      (place SW1 92075 -126746 front 0 (PN FCS_RESET_BTN))
+      (place SW3 73279 -126365 front 0 (PN GAIN_SWITCH))
+      (place SW2 83312 -126365 front 0 (PN TO_TRIM_BTN))
+      (place SW1 94107 -126365 front 0 (PN FCS_RESET_BTN))
     )
     (component MountingHole:MountingHole_4.3mm_M4
       (place H4 72009 -148844 front 0 (PN MountingHole))
@@ -51,7 +51,7 @@
       (place J2 71755 -136017 front 0 (PN FCS_Analog))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place J1 79629 -111633 front 0 (PN "Switch Inputs"))
+      (place J1 79502 -116332 front 0 (PN "Switch Inputs"))
     )
     (component "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
       (place D3 93218 -116840 front 0 (PN D))
