@@ -2270,7 +2270,7 @@ L Connector:Conn_01x04_Female J3
 U 1 1 5FC98150
 P 3500 3850
 F 0 "J3" H 3528 3826 50  0000 L CNN
-F 1 "Input Columns" H 3528 3735 50  0000 L CNN
+F 1 "Switch Inputs" H 3528 3735 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3500 3850 50  0001 C CNN
 F 3 "~" H 3500 3850 50  0001 C CNN
 	1    3500 3850
@@ -2335,74 +2335,66 @@ Wire Wire Line
 $Comp
 L Device:L L2
 U 1 1 5FCA743C
-P 6850 2700
-F 0 "L2" H 6903 2746 50  0000 L CNN
-F 1 "APU Coil" H 6903 2655 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6850 2700 50  0001 C CNN
-F 3 "~" H 6850 2700 50  0001 C CNN
-	1    6850 2700
+P 7050 2150
+F 0 "L2" H 7103 2196 50  0000 L CNN
+F 1 "APU Coil" H 7103 2105 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7050 2150 50  0001 C CNN
+F 3 "~" H 7050 2150 50  0001 C CNN
+	1    7050 2150
 	1    0    0    -1  
 $EndComp
 $Comp
 L Diode:1N4001 D5
 U 1 1 5FCA8CD7
-P 6500 2700
-F 0 "D5" V 6454 2621 50  0000 R CNN
-F 1 "D" V 6545 2621 50  0000 R CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 6500 2700 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 6500 2700 50  0001 C CNN
-	1    6500 2700
+P 6700 2150
+F 0 "D5" V 6654 2071 50  0000 R CNN
+F 1 "D" V 6745 2071 50  0000 R CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 6700 2150 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 6700 2150 50  0001 C CNN
+	1    6700 2150
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
-	6850 2550 6500 2550
-Connection ~ 6500 2550
+	7050 2000 6700 2000
+Connection ~ 6700 2000
 Wire Wire Line
-	5900 2750 5900 2850
-Wire Wire Line
-	5900 2850 6500 2850
-Wire Wire Line
-	6850 2850 6500 2850
-Connection ~ 6500 2850
-Text Notes 7000 2700 0    50   ~ 0
+	7050 2300 6700 2300
+Connection ~ 6700 2300
+Text Notes 7200 2150 0    50   ~ 0
 Coil for APU\nMagentic Switch
 $Comp
 L Device:L L1
 U 1 1 5FCAC0F9
-P 6850 2150
-F 0 "L1" H 6903 2196 50  0000 L CNN
-F 1 "Crank Coil" H 6903 2105 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6850 2150 50  0001 C CNN
-F 3 "~" H 6850 2150 50  0001 C CNN
-	1    6850 2150
+P 7050 2750
+F 0 "L1" H 7103 2796 50  0000 L CNN
+F 1 "Crank Coil" H 7103 2705 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7050 2750 50  0001 C CNN
+F 3 "~" H 7050 2750 50  0001 C CNN
+	1    7050 2750
 	1    0    0    -1  
 $EndComp
 $Comp
 L Diode:1N4001 D1
 U 1 1 5FCAC103
-P 6500 2150
-F 0 "D1" V 6454 2071 50  0000 R CNN
-F 1 "D" V 6545 2071 50  0000 R CNN
-F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 6500 2150 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 6500 2150 50  0001 C CNN
-	1    6500 2150
+P 6700 2750
+F 0 "D1" V 6654 2671 50  0000 R CNN
+F 1 "D" V 6745 2671 50  0000 R CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 6700 2750 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 6700 2750 50  0001 C CNN
+	1    6700 2750
 	0    -1   1    0   
 $EndComp
 Wire Wire Line
-	6850 2000 6500 2000
-Wire Wire Line
-	6500 2000 5850 2000
+	7050 2600 6700 2600
 Wire Wire Line
 	5850 2000 5850 2100
-Connection ~ 6500 2000
+Connection ~ 6700 2600
 Wire Wire Line
 	5900 2200 5900 2300
 Wire Wire Line
-	5900 2300 6500 2300
-Wire Wire Line
-	6850 2300 6500 2300
-Connection ~ 6500 2300
-Text Notes 7000 2150 0    50   ~ 0
+	7050 2900 6700 2900
+Connection ~ 6700 2900
+Text Notes 7200 2750 0    50   ~ 0
 Coil for Engine Crank\nMagentic Switch
 Text Label 5800 3400 0    50   ~ 0
 Row1
@@ -2434,8 +2426,6 @@ Wire Wire Line
 Wire Wire Line
 	5100 2200 5900 2200
 Wire Wire Line
-	5650 2550 5650 2300
-Wire Wire Line
 	5650 2300 5100 2300
 Wire Wire Line
 	5100 2400 5600 2400
@@ -2444,7 +2434,7 @@ Wire Wire Line
 Wire Wire Line
 	5600 2750 5900 2750
 Wire Wire Line
-	5650 2550 6500 2550
+	5850 2000 6700 2000
 $Comp
 L Mechanical:MountingHole H1
 U 1 1 604A2B2F
@@ -2478,4 +2468,14 @@ F 3 "~" H 7700 4700 50  0001 C CNN
 	1    7700 4700
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	5900 2300 6700 2300
+Wire Wire Line
+	5650 2600 6700 2600
+Wire Wire Line
+	5650 2300 5650 2600
+Wire Wire Line
+	5900 2750 5900 2900
+Wire Wire Line
+	5900 2900 6700 2900
 $EndSCHEMATC
