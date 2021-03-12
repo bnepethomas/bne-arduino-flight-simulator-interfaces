@@ -13,7 +13,7 @@ F ~
 $ENDCMP
 #
 $CMP SW_Rotary10
-D rotary switch with 12 positions
+D rotary switch with 10 positions
 K rotary switch
 F http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf
 $ENDCMP
@@ -41,7 +41,7 @@ F http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf
 $ENDCMP
 #
 $CMP SW_Rotary6
-D rotary switch with 8 positions
+D rotary switch with 6 positions
 K rotary switch
 F http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf
 $ENDCMP
