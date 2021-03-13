@@ -213,37 +213,37 @@ Wire Notes Line
 $Comp
 L Connector:Conn_01x03_Female J14
 U 1 1 5FDE7EBB
-P 2700 4650
-F 0 "J14" H 2600 5000 50  0000 C CNN
-F 1 "8. LOX ANALOG" H 2600 4900 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2700 4650 50  0001 C CNN
-F 3 "~" H 2700 4650 50  0001 C CNN
-	1    2700 4650
+P 2700 4550
+F 0 "J14" H 2800 4550 50  0000 C CNN
+F 1 "8. LOX ANALOG" H 2600 4800 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2700 4550 50  0001 C CNN
+F 3 "~" H 2700 4550 50  0001 C CNN
+	1    2700 4550
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J15
+L Connector:Conn_01x03_Female J15
 U 1 1 5FDE8E05
-P 2700 5200
-F 0 "J15" H 2550 5450 50  0000 C CNN
-F 1 "8. LOX COMBINED ROWCOL" H 2550 5350 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2700 5200 50  0001 C CNN
-F 3 "~" H 2700 5200 50  0001 C CNN
-	1    2700 5200
+P 2700 5100
+F 0 "J15" H 2800 5100 50  0000 C CNN
+F 1 "8. LOX " H 2550 5350 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2700 5100 50  0001 C CNN
+F 3 "~" H 2700 5100 50  0001 C CNN
+	1    2700 5100
 	-1   0    0    -1  
 $EndComp
-Text Label 2900 4550 0    50   ~ 0
+Text Label 2900 4450 0    50   ~ 0
 ANALOG_5V
 Text Label 2900 4650 0    50   ~ 0
 ANALOG_GND
-Text Label 2900 4750 0    50   ~ 0
+Text Label 2900 4550 0    50   ~ 0
 OXY_FLOW
-Text Label 2900 5200 0    50   ~ 0
+Text Label 2900 5000 0    50   ~ 0
 COL10
-Text Label 2900 5300 0    50   ~ 0
+Text Label 2900 5100 0    50   ~ 0
 ROW4
-Text Notes 2550 4250 0    50   ~ 0
-LOX\nNOTE SINGLE CONN\nFOR COL AND ROW
+Text Notes 2700 4200 0    50   ~ 0
+LOX
 Wire Notes Line
 	2350 4000 2350 5500
 Wire Notes Line
@@ -253,25 +253,14 @@ Wire Notes Line
 Wire Notes Line
 	3400 4000 2350 4000
 $Comp
-L Connector:Conn_01x02_Female J9
+L Connector:Conn_01x04_Female J9
 U 1 1 5FDEB4FC
-P 1300 6200
-F 0 "J9" H 1192 6385 50  0000 C CNN
-F 1 "12. MISSION COMPUTER COLUMNS" H 1200 6300 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1300 6200 50  0001 C CNN
-F 3 "~" H 1300 6200 50  0001 C CNN
-	1    1300 6200
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J10
-U 1 1 5FDEB506
-P 1300 6550
-F 0 "J10" H 1192 6735 50  0000 C CNN
-F 1 "12. MISSION COMPUTER ROWS" H 1192 6644 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1300 6550 50  0001 C CNN
-F 3 "~" H 1300 6550 50  0001 C CNN
-	1    1300 6550
+P 1300 6300
+F 0 "J9" H 1400 6300 50  0000 C CNN
+F 1 "12. MISSION COMPUTER COLUMNS" H 1200 6600 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1300 6300 50  0001 C CNN
+F 3 "~" H 1300 6300 50  0001 C CNN
+	1    1300 6300
 	-1   0    0    -1  
 $EndComp
 Text Notes 1050 5900 0    50   ~ 0
@@ -288,7 +277,7 @@ $Comp
 L Connector:Conn_01x04_Female J16
 U 1 1 5FDED7E7
 P 3050 6300
-F 0 "J16" H 2942 6485 50  0000 C CNN
+F 0 "J16" H 3150 6300 50  0000 C CNN
 F 1 "13. ANTENNA SEL COLUMNS" H 2950 6600 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3050 6300 50  0001 C CNN
 F 3 "~" H 3050 6300 50  0001 C CNN
@@ -633,9 +622,9 @@ Text Label 1500 6200 0    50   ~ 0
 COL8
 Text Label 1500 6300 0    50   ~ 0
 COL9
-Text Label 1500 6550 0    50   ~ 0
+Text Label 1500 6400 0    50   ~ 0
 ROW4
-Text Label 1500 6650 0    50   ~ 0
+Text Label 1500 6500 0    50   ~ 0
 ROW5
 $Comp
 L Connector:Conn_01x08_Female J31
@@ -992,4 +981,8 @@ Text Label 8350 3600 2    50   ~ 0
 COL9
 Text Label 8350 3700 2    50   ~ 0
 COL10
+Text Label 2900 5200 0    50   ~ 0
+ROW5
+Text Notes 2700 7600 0    118  ~ 0
+For 3 Pin Analog analog input is in centre, \notherwise order is +5V, GND, Analog Inputs\n
 $EndSCHEMATC
