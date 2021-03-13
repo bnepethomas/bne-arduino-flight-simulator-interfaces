@@ -11,18 +11,18 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 20)
+    (start_pass_no 30)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.9)
+      (against_preferred_direction_trace_costs 3.3)
     )
     (layer_rule B.Cu
       (active on)
       (preferred_direction vertical)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 1.5)
+      (against_preferred_direction_trace_costs 1.4)
     )
   )
   (rule
@@ -63,7 +63,7 @@
     )
   )
   (class "kicad_default"
-    /Col1 "Net-(D1-Pad1)" /Col2 "Net-(D2-Pad1)" /Row2
+    /Col1 "Net-(D1-Pad1)" /Col2 "Net-(D2-Pad1)" /Row2 /Row1
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

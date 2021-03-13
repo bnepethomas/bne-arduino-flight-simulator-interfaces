@@ -21,8 +21,8 @@
       )
     )
     (boundary
-      (path pcb 0  145475 -95360.5  93951.2 -95360.5  93951.2 -68110.5  145475 -68110.5
-            145475 -95360.5)
+      (path pcb 0  142113 -91567  96012 -91567  96012 -71374  142113 -71374
+            142113 -91567)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -34,10 +34,10 @@
   )
   (placement
     (component MountingHole:MountingHole_4.3mm_M4
-      (place H4 99050 -74168 front 0 (PN MountingHole))
+      (place H4 99050 -75168 front 0 (PN MountingHole))
       (place H3 99050 -89168 front 0 (PN MountingHole))
-      (place H2 139050 -89168 front 0 (PN MountingHole))
-      (place H1 139050 -74168 front 0 (PN MountingHole))
+      (place H2 139050 -87668 front 0 (PN MountingHole))
+      (place H1 139050 -75168 front 0 (PN MountingHole))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
       (place SW2 125603 -76708 front 0 (PN IFF))
@@ -232,7 +232,7 @@
       (pins SW1-2 D1-1)
     )
     (net /Col2
-      (pins SW2-1 SW1-1 J1-3 J1-2 D2-2)
+      (pins J1-2 D2-2)
     )
     (net "Net-(D2-Pad1)"
       (pins SW2-2 D2-1)
@@ -240,7 +240,10 @@
     (net /Row2
       (pins SW2-3 SW1-3 J1-4)
     )
-    (class kicad_default "" /Col1 /Col2 /Row2 "Net-(D1-Pad1)" "Net-(D2-Pad1)"
+    (net /Row1
+      (pins SW2-1 SW1-1 J1-3)
+    )
+    (class kicad_default "" /Col1 /Col2 /Row1 /Row2 "Net-(D1-Pad1)" "Net-(D2-Pad1)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

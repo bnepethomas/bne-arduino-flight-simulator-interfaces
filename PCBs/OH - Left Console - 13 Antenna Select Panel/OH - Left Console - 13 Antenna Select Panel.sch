@@ -2820,28 +2820,14 @@ Wire Wire Line
 	3750 4350 3550 4350
 Text Label 2450 3600 0    50   ~ 0
 Col1
-Text Label 2350 3850 0    50   ~ 0
+Text Label 2350 3750 0    50   ~ 0
 Col2
 Text Label 3750 3250 0    50   ~ 0
 Row1
 Text Label 3750 3550 0    50   ~ 0
 Row2
 Wire Wire Line
-	2350 3750 2350 3850
-Wire Wire Line
-	3900 3250 3900 3850
-Wire Wire Line
 	3750 3450 3750 3950
-Wire Wire Line
-	2150 3850 2350 3850
-Connection ~ 3900 3850
-Wire Wire Line
-	3900 3850 3900 4150
-Connection ~ 2350 3850
-Wire Wire Line
-	2350 3850 2350 4250
-Wire Wire Line
-	2350 3850 3900 3850
 Wire Wire Line
 	2150 3950 3750 3950
 Connection ~ 3750 3950
@@ -2891,4 +2877,13 @@ F 3 "~" H 6100 4350 50  0001 C CNN
 	1    6100 4350
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	3900 3250 3900 3850
+Wire Wire Line
+	2350 3750 2350 4250
+Wire Wire Line
+	2150 3850 3900 3850
+Connection ~ 3900 3850
+Wire Wire Line
+	3900 3850 3900 4150
 $EndSCHEMATC

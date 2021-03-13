@@ -2847,4 +2847,48 @@ Wire Wire Line
 Connection ~ 3750 3950
 Wire Wire Line
 	3750 3950 3750 4350
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 604B39F1
+P 6100 3550
+F 0 "H1" H 6200 3596 50  0000 L CNN
+F 1 "MountingHole" H 6200 3505 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 6100 3550 50  0001 C CNN
+F 3 "~" H 6100 3550 50  0001 C CNN
+	1    6100 3550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 604B3D60
+P 6100 3800
+F 0 "H2" H 6200 3846 50  0000 L CNN
+F 1 "MountingHole" H 6200 3755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 6100 3800 50  0001 C CNN
+F 3 "~" H 6100 3800 50  0001 C CNN
+	1    6100 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 604B41E2
+P 6100 4100
+F 0 "H3" H 6200 4146 50  0000 L CNN
+F 1 "MountingHole" H 6200 4055 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 6100 4100 50  0001 C CNN
+F 3 "~" H 6100 4100 50  0001 C CNN
+	1    6100 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 604B47C5
+P 6100 4350
+F 0 "H4" H 6200 4396 50  0000 L CNN
+F 1 "MountingHole" H 6200 4305 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 6100 4350 50  0001 C CNN
+F 3 "~" H 6100 4350 50  0001 C CNN
+	1    6100 4350
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

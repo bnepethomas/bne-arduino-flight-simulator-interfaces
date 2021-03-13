@@ -285,25 +285,14 @@ Wire Notes Line
 Wire Notes Line
 	650  5700 650  6800
 $Comp
-L Connector:Conn_01x02_Female J16
+L Connector:Conn_01x04_Female J16
 U 1 1 5FDED7E7
-P 3050 6200
-F 0 "J16" H 2942 6385 50  0000 C CNN
-F 1 "13. ANTENNA SEL COLUMNS" H 2950 6300 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3050 6200 50  0001 C CNN
-F 3 "~" H 3050 6200 50  0001 C CNN
-	1    3050 6200
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J17
-U 1 1 5FDED7F1
-P 3050 6550
-F 0 "J17" H 2942 6735 50  0000 C CNN
-F 1 "13. ANTENNA SEL ROWS" H 2942 6644 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3050 6550 50  0001 C CNN
-F 3 "~" H 3050 6550 50  0001 C CNN
-	1    3050 6550
+P 3050 6300
+F 0 "J16" H 2942 6485 50  0000 C CNN
+F 1 "13. ANTENNA SEL COLUMNS" H 2950 6600 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3050 6300 50  0001 C CNN
+F 3 "~" H 3050 6300 50  0001 C CNN
+	1    3050 6300
 	-1   0    0    -1  
 $EndComp
 Text Notes 2800 5900 0    50   ~ 0
@@ -610,9 +599,9 @@ Text Label 3250 6200 0    50   ~ 0
 COL0
 Text Label 3250 6300 0    50   ~ 0
 COL1
-Text Label 3250 6550 0    50   ~ 0
+Text Label 3250 6400 0    50   ~ 0
 ROW12
-Text Label 3250 6650 0    50   ~ 0
+Text Label 3250 6500 0    50   ~ 0
 ROW13
 Text Label 4100 2450 0    50   ~ 0
 COL6
