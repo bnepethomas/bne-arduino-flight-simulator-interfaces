@@ -83,7 +83,7 @@ L Connector:Conn_01x04_Female J7
 U 1 1 5FE1638F
 P 1300 5050
 F 0 "J7" H 1400 5050 50  0000 C CNN
-F 1 "6. FLIGHT_CONTROL_SYSTEMS" H 1200 5300 50  0000 C CNN
+F 1 "FCS" H 1200 5300 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1300 5050 50  0001 C CNN
 F 3 "~" H 1300 5050 50  0001 C CNN
 	1    1300 5050
@@ -94,7 +94,7 @@ L Connector:Conn_01x03_Female J6
 U 1 1 5FE18797
 P 1300 4600
 F 0 "J6" H 1400 4600 50  0000 C CNN
-F 1 "6. FLIGHT CONTROL SYSTEMS ANALOG" H 1200 4850 50  0000 C CNN
+F 1 "6. FCS ANALOG" H 1200 4850 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1300 4600 50  0001 C CNN
 F 3 "~" H 1300 4600 50  0001 C CNN
 	1    1300 4600
@@ -264,25 +264,14 @@ Wire Notes Line
 Text Notes 3850 950  0    50   ~ 0
 APU
 $Comp
-L Connector:Conn_01x02_Female J18
+L Connector:Conn_01x04_Female J18
 U 1 1 5FDEF5D2
-P 3800 1300
-F 0 "J18" H 3692 1485 50  0000 C CNN
-F 1 "14. APU COLUMNS" H 3692 1394 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3800 1300 50  0001 C CNN
-F 3 "~" H 3800 1300 50  0001 C CNN
-	1    3800 1300
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J19
-U 1 1 5FDEFBBD
-P 3800 1700
-F 0 "J19" H 3692 1885 50  0000 C CNN
-F 1 "14. APU ROWS" H 3692 1794 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3800 1700 50  0001 C CNN
-F 3 "~" H 3800 1700 50  0001 C CNN
-	1    3800 1700
+P 3800 1400
+F 0 "J18" H 3950 1300 50  0000 C CNN
+F 1 "14. APU" H 3700 1600 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3800 1400 50  0001 C CNN
+F 3 "~" H 3800 1400 50  0001 C CNN
+	1    3800 1400
 	-1   0    0    -1  
 $EndComp
 Wire Notes Line
@@ -317,25 +306,14 @@ Wire Notes Line
 Text Notes 3850 3600 0    50   ~ 0
 EJECTION SEAT
 $Comp
-L Connector:Conn_01x02_Female J22
+L Connector:Conn_01x06_Female J22
 U 1 1 5FDF65F7
-P 3950 3900
-F 0 "J22" H 3842 4085 50  0000 C CNN
-F 1 "EJECTION SEAT COLUMNS" H 3842 3994 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 3900 50  0001 C CNN
-F 3 "~" H 3950 3900 50  0001 C CNN
-	1    3950 3900
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x03_Female J23
-U 1 1 5FDF6D7F
-P 4000 4400
-F 0 "J23" H 3892 4685 50  0000 C CNN
-F 1 "EJECTION SEAT ROWS" H 3892 4594 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4000 4400 50  0001 C CNN
-F 3 "~" H 4000 4400 50  0001 C CNN
-	1    4000 4400
+P 3950 4100
+F 0 "J22" H 4050 4050 50  0000 C CNN
+F 1 "EJECTION SEAT" H 3850 4400 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 3950 4100 50  0001 C CNN
+F 3 "~" H 3950 4100 50  0001 C CNN
+	1    3950 4100
 	-1   0    0    -1  
 $EndComp
 Wire Notes Line
@@ -479,11 +457,11 @@ Text Label 4150 3900 0    50   ~ 0
 COL3
 Text Label 4150 4000 0    50   ~ 0
 COL4
-Text Label 4200 4300 0    50   ~ 0
+Text Label 4150 4100 0    50   ~ 0
 ROW7
-Text Label 4200 4400 0    50   ~ 0
+Text Label 4150 4200 0    50   ~ 0
 ROW8
-Text Label 4200 4500 0    50   ~ 0
+Text Label 4150 4300 0    50   ~ 0
 ROW9
 Text Label 4600 5300 0    50   ~ 0
 COL0
@@ -531,9 +509,9 @@ Text Label 4000 1300 0    50   ~ 0
 COL6
 Text Label 4000 1400 0    50   ~ 0
 COL7
-Text Label 4000 1700 0    50   ~ 0
+Text Label 4000 1500 0    50   ~ 0
 ROW4
-Text Label 4000 1800 0    50   ~ 0
+Text Label 4000 1600 0    50   ~ 0
 ROW5
 Text Label 1500 6200 0    50   ~ 0
 COL8
@@ -908,42 +886,122 @@ ROW11
 $Comp
 L Device:D D1
 U 1 1 60592261
-P 6350 5400
-F 0 "D1" H 6350 5616 50  0000 C CNN
-F 1 "D" H 6350 5525 50  0000 C CNN
-F 2 "" H 6350 5400 50  0001 C CNN
-F 3 "~" H 6350 5400 50  0001 C CNN
-	1    6350 5400
-	1    0    0    -1  
+P 6100 5200
+F 0 "D1" H 6100 5416 50  0000 C CNN
+F 1 "D" H 6100 5325 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 6100 5200 50  0001 C CNN
+F 3 "~" H 6100 5200 50  0001 C CNN
+	1    6100 5200
+	-1   0    0    -1  
 $EndComp
 Text Notes 5750 4850 0    50   ~ 0
 Fire Test
 $Comp
 L Connector:Conn_01x03_Female J5
 U 1 1 60593DBA
-P 5700 5500
-F 0 "J5" H 5592 5785 50  0000 C CNN
-F 1 "FIRETEST" H 5592 5694 50  0000 C CNN
-F 2 "" H 5700 5500 50  0001 C CNN
-F 3 "~" H 5700 5500 50  0001 C CNN
-	1    5700 5500
+P 5450 5300
+F 0 "J5" H 5342 5585 50  0000 C CNN
+F 1 "FIRETEST" H 5342 5494 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5450 5300 50  0001 C CNN
+F 3 "~" H 5450 5300 50  0001 C CNN
+	1    5450 5300
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	6200 5400 5900 5400
-Text Notes 5550 5950 0    50   ~ 0
-MAKE A 4 WAY PASS THROUGH \nPCB FOR SMALL LOCATIONS
+	5950 5200 5650 5200
 $Comp
 L Device:D D2
 U 1 1 60598EEA
-P 6350 5600
-F 0 "D2" H 6350 5816 50  0000 C CNN
-F 1 "D" H 6350 5725 50  0000 C CNN
-F 2 "" H 6350 5600 50  0001 C CNN
-F 3 "~" H 6350 5600 50  0001 C CNN
-	1    6350 5600
-	1    0    0    -1  
+P 6100 5400
+F 0 "D2" H 6100 5200 50  0000 C CNN
+F 1 "D" H 6100 5300 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 6100 5400 50  0001 C CNN
+F 3 "~" H 6100 5400 50  0001 C CNN
+	1    6100 5400
+	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	6200 5600 5900 5600
+	5950 5400 5650 5400
+NoConn ~ 4150 4400
+NoConn ~ 4100 2850
+Text Label 5650 5300 0    50   ~ 0
+COL5
+Text Label 6250 5200 0    50   ~ 0
+ROW7
+Text Label 6250 5400 0    50   ~ 0
+ROW8
+Wire Notes Line
+	5300 4750 5300 5850
+Wire Notes Line
+	5300 5850 6550 5850
+Wire Notes Line
+	6550 5850 6550 4750
+Wire Notes Line
+	5300 4750 6550 4750
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 604EB466
+P 9600 4550
+F 0 "H1" H 9700 4596 50  0000 L CNN
+F 1 "MountingHole" H 9700 4505 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9600 4550 50  0001 C CNN
+F 3 "~" H 9600 4550 50  0001 C CNN
+	1    9600 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 604EB842
+P 9600 4800
+F 0 "H2" H 9700 4846 50  0000 L CNN
+F 1 "MountingHole" H 9700 4755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9600 4800 50  0001 C CNN
+F 3 "~" H 9600 4800 50  0001 C CNN
+	1    9600 4800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 604EC2BE
+P 9600 5050
+F 0 "H3" H 9700 5096 50  0000 L CNN
+F 1 "MountingHole" H 9700 5005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9600 5050 50  0001 C CNN
+F 3 "~" H 9600 5050 50  0001 C CNN
+	1    9600 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 604ECD46
+P 9600 5350
+F 0 "H4" H 9700 5396 50  0000 L CNN
+F 1 "MountingHole" H 9700 5305 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9600 5350 50  0001 C CNN
+F 3 "~" H 9600 5350 50  0001 C CNN
+	1    9600 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H5
+U 1 1 604ECD50
+P 9600 5600
+F 0 "H5" H 9700 5646 50  0000 L CNN
+F 1 "MountingHole" H 9700 5555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9600 5600 50  0001 C CNN
+F 3 "~" H 9600 5600 50  0001 C CNN
+	1    9600 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H6
+U 1 1 604ECD5A
+P 9600 5850
+F 0 "H6" H 9700 5896 50  0000 L CNN
+F 1 "MountingHole" H 9700 5805 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9600 5850 50  0001 C CNN
+F 3 "~" H 9600 5850 50  0001 C CNN
+	1    9600 5850
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
