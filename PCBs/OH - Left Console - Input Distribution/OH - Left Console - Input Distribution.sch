@@ -101,32 +101,21 @@ Wire Notes Line
 Text Notes 1000 4150 0    50   ~ 0
 FLIGHT CONTROL SYSTEMS
 $Comp
-L Connector:Conn_01x02_Female J7
+L Connector:Conn_01x04_Female J7
 U 1 1 5FE1638F
-P 1300 4950
-F 0 "J7" H 1192 5135 50  0000 C CNN
-F 1 "6. FLIGHT_CONTROL_SYSTEMS_COLUMNS" H 1200 5050 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1300 4950 50  0001 C CNN
-F 3 "~" H 1300 4950 50  0001 C CNN
-	1    1300 4950
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J8
-U 1 1 5FE16399
-P 1300 5300
-F 0 "J8" H 1192 5485 50  0000 C CNN
-F 1 "6. FLIGHT CONTROL SYSTEMS ROWS" H 1192 5394 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1300 5300 50  0001 C CNN
-F 3 "~" H 1300 5300 50  0001 C CNN
-	1    1300 5300
+P 1300 5050
+F 0 "J7" H 1400 5050 50  0000 C CNN
+F 1 "6. FLIGHT_CONTROL_SYSTEMS_COLUMNS" H 1200 5300 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1300 5050 50  0001 C CNN
+F 3 "~" H 1300 5050 50  0001 C CNN
+	1    1300 5050
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Connector:Conn_01x03_Female J6
 U 1 1 5FE18797
 P 1300 4600
-F 0 "J6" H 1250 4950 50  0000 C CNN
+F 0 "J6" H 1400 4600 50  0000 C CNN
 F 1 "6. FLIGHT CONTROL SYSTEMS ANALOG" H 1200 4850 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1300 4600 50  0001 C CNN
 F 3 "~" H 1300 4600 50  0001 C CNN
@@ -327,25 +316,14 @@ Wire Notes Line
 Wire Notes Line
 	4350 800  3450 800 
 $Comp
-L Connector:Conn_01x03_Female J20
+L Connector:Conn_01x06_Female J20
 U 1 1 5FDF3E24
 P 3900 2550
-F 0 "J20" H 3792 2835 50  0000 C CNN
-F 1 "18. ESS BREAKER COLUMNS" H 3792 2744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3900 2550 50  0001 C CNN
+F 0 "J20" H 4000 2550 50  0000 C CNN
+F 1 "18. ESS BREAKER" H 3800 2900 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 3900 2550 50  0001 C CNN
 F 3 "~" H 3900 2550 50  0001 C CNN
 	1    3900 2550
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J21
-U 1 1 5FDF4659
-P 3900 3050
-F 0 "J21" H 3792 3235 50  0000 C CNN
-F 1 "18. ESS BREAKERS ROWS" H 3792 3144 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3900 3050 50  0001 C CNN
-F 3 "~" H 3900 3050 50  0001 C CNN
-	1    3900 3050
 	-1   0    0    -1  
 $EndComp
 Text Notes 3650 2150 0    50   ~ 0
@@ -592,23 +570,23 @@ Text Label 3250 6400 0    50   ~ 0
 ROW12
 Text Label 3250 6500 0    50   ~ 0
 ROW13
-Text Label 4100 2450 0    50   ~ 0
+Text Label 4100 2350 0    50   ~ 0
 COL6
-Text Label 4100 2550 0    50   ~ 0
+Text Label 4100 2450 0    50   ~ 0
 COL7
-Text Label 4100 2650 0    50   ~ 0
+Text Label 4100 2550 0    50   ~ 0
 COL8
-Text Label 4100 3050 0    50   ~ 0
+Text Label 4100 2650 0    50   ~ 0
 ROW2
-Text Label 4100 3150 0    50   ~ 0
+Text Label 4100 2750 0    50   ~ 0
 ROW3
 Text Label 1500 4950 0    50   ~ 0
 COL9
 Text Label 1500 5050 0    50   ~ 0
 COL10
-Text Label 1500 5300 0    50   ~ 0
+Text Label 1500 5150 0    50   ~ 0
 ROW2
-Text Label 1500 5400 0    50   ~ 0
+Text Label 1500 5250 0    50   ~ 0
 ROW3
 Text Label 4000 1300 0    50   ~ 0
 COL6

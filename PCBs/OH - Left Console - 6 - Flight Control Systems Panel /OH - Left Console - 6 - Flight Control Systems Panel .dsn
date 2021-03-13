@@ -54,9 +54,9 @@
       (place J1 79502 -116332 front 0 (PN "Switch Inputs"))
     )
     (component "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
-      (place D3 93218 -116840 front 0 (PN D))
-      (place D2 93218 -113665 front 0 (PN D))
-      (place D1 93218 -110363 front 0 (PN D))
+      (place D3 92456 -116840 front 0 (PN D))
+      (place D2 92456 -113665 front 0 (PN D))
+      (place D1 92456 -110363 front 0 (PN D))
     )
   )
   (library

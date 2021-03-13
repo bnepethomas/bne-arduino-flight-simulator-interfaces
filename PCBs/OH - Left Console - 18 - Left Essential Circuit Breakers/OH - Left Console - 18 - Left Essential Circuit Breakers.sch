@@ -177,8 +177,6 @@ Wire Wire Line
 Wire Wire Line
 	3450 3950 4000 3950
 Wire Wire Line
-	3500 2600 4000 2600
-Wire Wire Line
 	3450 5100 4000 5100
 Wire Wire Line
 	4000 5100 4000 3950
@@ -249,4 +247,7 @@ F 3 "~" H 4900 4750 50  0001 C CNN
 	1    4900 4750
 	1    0    0    -1  
 $EndComp
+NoConn ~ 1450 3850
+Wire Wire Line
+	3450 2600 4000 2600
 $EndSCHEMATC

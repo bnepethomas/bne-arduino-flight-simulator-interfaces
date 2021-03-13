@@ -2165,4 +2165,10 @@ Text Label 3600 5750 0    50   ~ 0
 Backlight+
 Text Label 3600 5850 0    50   ~ 0
 Backlight-
+Text Label 3400 4600 0    50   ~ 0
+Analog+5V
+Text Label 3250 4900 0    50   ~ 0
+Analog_Gnd
+Text Label 3250 4750 0    50   ~ 0
+Rud_Trim
 $EndSCHEMATC

@@ -3,7 +3,7 @@
   (general
     (thickness 1.6)
     (drawings 9)
-    (tracks 60)
+    (tracks 63)
     (zones 0)
     (modules 15)
     (nets 11)
@@ -380,7 +380,8 @@
     (fp_line (start 3.81 2.88) (end 3.81 -2.92) (layer F.Fab) (width 0.1))
     (fp_line (start -1.27 2.88) (end 3.81 2.88) (layer F.Fab) (width 0.1))
     (fp_line (start -1.27 -2.92) (end -1.27 2.88) (layer F.Fab) (width 0.1))
-    (pad 2 thru_hole oval (at 2.54 0) (size 1.74 2.2) (drill 1.2) (layers *.Cu *.Mask))
+    (pad 2 thru_hole oval (at 2.54 0) (size 1.74 2.2) (drill 1.2) (layers *.Cu *.Mask)
+      (net 10 /Row1))
     (pad 1 thru_hole roundrect (at 0 0) (size 1.74 2.2) (drill 1.2) (layers *.Cu *.Mask) (roundrect_rratio 0.143678)
       (net 2 "Net-(D1-Pad1)"))
     (model ${KISYS3DMOD}/Connector_Molex.3dshapes/Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical.wrl
@@ -884,6 +885,9 @@
   (segment (start 136.4937 108.4146) (end 159.3715 108.4146) (width 0.25) (layer F.Cu) (net 10))
   (segment (start 159.3715 108.4146) (end 159.8407 108.8838) (width 0.25) (layer F.Cu) (net 10))
   (segment (start 159.8407 108.8838) (end 159.8407 109.855) (width 0.25) (layer F.Cu) (net 10))
+  (segment (start 157.734 92.837) (end 158.9293 92.837) (width 0.25) (layer B.Cu) (net 10))
+  (segment (start 158.9293 92.837) (end 161.036 94.9437) (width 0.25) (layer B.Cu) (net 10))
+  (segment (start 161.036 94.9437) (end 161.036 109.855) (width 0.25) (layer B.Cu) (net 10))
   (segment (start 129.159 96.393) (end 130.3543 96.393) (width 0.25) (layer B.Cu) (net 10))
   (segment (start 130.3543 96.393) (end 130.3543 97.5883) (width 0.25) (layer B.Cu) (net 10))
   (segment (start 130.3543 97.5883) (end 133.858 101.092) (width 0.25) (layer B.Cu) (net 10))

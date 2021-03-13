@@ -260,11 +260,10 @@
       (pins SW4-2 SW2-2 J1-5)
     )
     (net /Row1
-      (pins SW5-2 SW3-2 J1-4)
+      (pins SW5-2 SW3-2 SW1-2 J1-4)
     )
     (class kicad_default "" /Col1 /Col2 /Col3 /Row1 /Row2 "Net-(D1-Pad1)"
       "Net-(D2-Pad1)" "Net-(D3-Pad1)" "Net-(D4-Pad1)" "Net-(D5-Pad1)" "Net-(J1-Pad6)"
-      "Net-(SW1-Pad2)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
