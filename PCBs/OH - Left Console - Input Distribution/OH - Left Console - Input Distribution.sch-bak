@@ -16,25 +16,14 @@ $EndDescr
 Text Notes 900  600  0    50   ~ 0
 \n
 $Comp
-L Connector:Conn_01x06_Female J1
+L Connector:Conn_01x08_Female J1
 U 1 1 5FE0AB8F
-P 1100 1350
-F 0 "J1" H 992 1735 50  0000 C CNN
-F 1 "2. GND POWER COLUMNS" H 992 1644 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 1100 1350 50  0001 C CNN
-F 3 "~" H 1100 1350 50  0001 C CNN
-	1    1100 1350
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J2
-U 1 1 5FE0B5B5
-P 1100 1950
-F 0 "J2" H 1128 1926 50  0000 L CNN
-F 1 "2. Gnd Power Rows" H 750 2100 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1100 1950 50  0001 C CNN
-F 3 "~" H 1100 1950 50  0001 C CNN
-	1    1100 1950
+P 1100 1450
+F 0 "J1" H 1300 1400 50  0000 C CNN
+F 1 "2. GND POWER " H 1050 1850 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 1100 1450 50  0001 C CNN
+F 3 "~" H 1100 1450 50  0001 C CNN
+	1    1100 1450
 	-1   0    0    -1  
 $EndComp
 Wire Notes Line
@@ -402,25 +391,14 @@ Wire Notes Line
 Text Notes 5200 3000 0    50   ~ 0
 Landing Gear
 $Comp
-L Connector:Conn_01x02_Female J28
+L Connector:Conn_01x04_Female J28
 U 1 1 5FDF7415
-P 5350 3350
-F 0 "J28" H 5242 3535 50  0000 C CNN
-F 1 "31. LANDING GEAR COLUMNS" H 5242 3444 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5350 3350 50  0001 C CNN
-F 3 "~" H 5350 3350 50  0001 C CNN
-	1    5350 3350
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J29
-U 1 1 5FDF8365
-P 5350 3850
-F 0 "J29" H 5242 4035 50  0000 C CNN
-F 1 "31. LAND GEAR ROWS" H 5242 3944 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5350 3850 50  0001 C CNN
-F 3 "~" H 5350 3850 50  0001 C CNN
-	1    5350 3850
+P 5350 3450
+F 0 "J28" H 5500 3350 50  0000 C CNN
+F 1 "31. LANDING GEAR" H 5250 3700 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 5350 3450 50  0001 C CNN
+F 3 "~" H 5350 3450 50  0001 C CNN
+	1    5350 3450
 	-1   0    0    -1  
 $EndComp
 Wire Notes Line
@@ -469,9 +447,9 @@ Text Label 1300 1550 0    50   ~ 0
 COL7
 Text Label 1300 1650 0    50   ~ 0
 COL8
-Text Label 1300 1950 0    50   ~ 0
+Text Label 1300 1750 0    50   ~ 0
 ROW0
-Text Label 1300 2050 0    50   ~ 0
+Text Label 1300 1850 0    50   ~ 0
 ROW1
 Text Label 1300 3250 0    50   ~ 0
 COL9
@@ -519,9 +497,9 @@ Text Label 5550 3350 0    50   ~ 0
 COL4
 Text Label 5550 3450 0    50   ~ 0
 COL5
-Text Label 5550 3850 0    50   ~ 0
+Text Label 5550 3550 0    50   ~ 0
 ROW10
-Text Label 5550 3950 0    50   ~ 0
+Text Label 5550 3650 0    50   ~ 0
 ROW11
 Text Label 3250 6200 0    50   ~ 0
 COL0

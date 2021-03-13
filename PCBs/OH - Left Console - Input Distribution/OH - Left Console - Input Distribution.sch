@@ -16,25 +16,14 @@ $EndDescr
 Text Notes 900  600  0    50   ~ 0
 \n
 $Comp
-L Connector:Conn_01x06_Female J1
+L Connector:Conn_01x08_Female J1
 U 1 1 5FE0AB8F
-P 1100 1350
-F 0 "J1" H 992 1735 50  0000 C CNN
-F 1 "2. GND POWER COLUMNS" H 992 1644 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 1100 1350 50  0001 C CNN
-F 3 "~" H 1100 1350 50  0001 C CNN
-	1    1100 1350
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J2
-U 1 1 5FE0B5B5
-P 1100 1950
-F 0 "J2" H 1128 1926 50  0000 L CNN
-F 1 "2. Gnd Power Rows" H 750 2100 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1100 1950 50  0001 C CNN
-F 3 "~" H 1100 1950 50  0001 C CNN
-	1    1100 1950
+P 1100 1450
+F 0 "J1" H 1300 1400 50  0000 C CNN
+F 1 "2. GND POWER " H 1050 1850 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 1100 1450 50  0001 C CNN
+F 3 "~" H 1100 1450 50  0001 C CNN
+	1    1100 1450
 	-1   0    0    -1  
 $EndComp
 Wire Notes Line
@@ -275,25 +264,14 @@ Wire Notes Line
 Text Notes 3850 950  0    50   ~ 0
 APU
 $Comp
-L Connector:Conn_01x02_Female J18
+L Connector:Conn_01x04_Female J18
 U 1 1 5FDEF5D2
-P 3800 1300
-F 0 "J18" H 3692 1485 50  0000 C CNN
-F 1 "14. APU COLUMNS" H 3692 1394 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3800 1300 50  0001 C CNN
-F 3 "~" H 3800 1300 50  0001 C CNN
-	1    3800 1300
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J19
-U 1 1 5FDEFBBD
-P 3800 1700
-F 0 "J19" H 3692 1885 50  0000 C CNN
-F 1 "14. APU ROWS" H 3692 1794 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3800 1700 50  0001 C CNN
-F 3 "~" H 3800 1700 50  0001 C CNN
-	1    3800 1700
+P 3800 1400
+F 0 "J18" H 3950 1300 50  0000 C CNN
+F 1 "14. APU COLUMNS" H 3700 1600 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3800 1400 50  0001 C CNN
+F 3 "~" H 3800 1400 50  0001 C CNN
+	1    3800 1400
 	-1   0    0    -1  
 $EndComp
 Wire Notes Line
@@ -458,9 +436,9 @@ Text Label 1300 1550 0    50   ~ 0
 COL7
 Text Label 1300 1650 0    50   ~ 0
 COL8
-Text Label 1300 1950 0    50   ~ 0
+Text Label 1300 1750 0    50   ~ 0
 ROW0
-Text Label 1300 2050 0    50   ~ 0
+Text Label 1300 1850 0    50   ~ 0
 ROW1
 Text Label 1300 3250 0    50   ~ 0
 COL9
@@ -542,9 +520,9 @@ Text Label 4000 1300 0    50   ~ 0
 COL6
 Text Label 4000 1400 0    50   ~ 0
 COL7
-Text Label 4000 1700 0    50   ~ 0
+Text Label 4000 1500 0    50   ~ 0
 ROW4
-Text Label 4000 1800 0    50   ~ 0
+Text Label 4000 1600 0    50   ~ 0
 ROW5
 Text Label 1500 6200 0    50   ~ 0
 COL8
