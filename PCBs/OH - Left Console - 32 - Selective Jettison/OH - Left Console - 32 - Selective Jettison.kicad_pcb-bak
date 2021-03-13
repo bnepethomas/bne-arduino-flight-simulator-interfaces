@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 28)
+    (drawings 26)
     (tracks 196)
     (zones 0)
     (modules 28)
@@ -1595,12 +1595,6 @@
     )
   )
 
-  (gr_text v001 (at 70.993 114.3) (layer F.SilkS)
-    (effects (font (size 1 1) (thickness 0.15)))
-  )
-  (gr_text "Sel Jet" (at 72.009 111.76) (layer F.SilkS)
-    (effects (font (size 1.5 1.5) (thickness 0.3)))
-  )
   (gr_text - (at 113.157 101.346) (layer F.SilkS) (tstamp 604C5CED)
     (effects (font (size 1 1) (thickness 0.15)))
   )

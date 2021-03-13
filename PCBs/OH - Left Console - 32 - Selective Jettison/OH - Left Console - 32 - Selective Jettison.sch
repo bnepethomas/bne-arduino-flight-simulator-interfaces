@@ -27,14 +27,14 @@ F 3 "~" H 4800 3150 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x06_Female J4
+L Connector:Conn_01x08_Female J4
 U 1 1 5FC383D5
-P 6000 4550
-F 0 "J4" H 5892 4935 50  0000 C CNN
-F 1 "INPUT ROWS" H 5892 4844 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 6000 4550 50  0001 C CNN
-F 3 "~" H 6000 4550 50  0001 C CNN
-	1    6000 4550
+P 5850 4600
+F 0 "J4" H 5742 4985 50  0000 C CNN
+F 1 "SWITCH INPUTS" H 6200 4600 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 5850 4600 50  0001 C CNN
+F 3 "~" H 5850 4600 50  0001 C CNN
+	1    5850 4600
 	-1   0    0    -1  
 $EndComp
 $Bitmap
@@ -12934,7 +12934,7 @@ U 1 1 5FDF250B
 P 5600 3150
 F 0 "SW8" H 5500 3931 50  0000 C CNN
 F 1 "SEL_JETT_KNOB" H 5500 3840 50  0000 C CNN
-F 2 "" H 5400 3850 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 5400 3850 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 5400 3850 50  0001 C CNN
 	1    5600 3150
 	1    0    0    -1  
@@ -13000,7 +13000,7 @@ U 1 1 5FDF881C
 P 2750 4850
 F 0 "J2" H 2778 4826 50  0000 L CNN
 F 1 "HYD_IND_BRAKE_IN" H 2778 4735 50  0000 L CNN
-F 2 "" H 2750 4850 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 2750 4850 50  0001 C CNN
 F 3 "~" H 2750 4850 50  0001 C CNN
 	1    2750 4850
 	1    0    0    -1  
@@ -13011,7 +13011,7 @@ U 1 1 5FDF9318
 P 1950 4850
 F 0 "J1" H 1842 5135 50  0000 C CNN
 F 1 "HYD_IND_BRAKE_OUT" H 1842 5044 50  0000 C CNN
-F 2 "" H 1950 4850 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1950 4850 50  0001 C CNN
 F 3 "~" H 1950 4850 50  0001 C CNN
 	1    1950 4850
 	-1   0    0    -1  
@@ -13029,7 +13029,7 @@ L Switch:SW_SPST SW6
 U 1 1 5FDFB578
 P 3800 2950
 F 0 "SW6" H 3800 3185 50  0000 C CNN
-F 1 "EMERGENCY_PARKING_BRAKE_ROTATE" H 3800 3094 50  0000 C CNN
+F 1 "EMER_BRAKE" H 3800 3094 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3800 2950 50  0001 C CNN
 F 3 "~" H 3800 2950 50  0001 C CNN
 	1    3800 2950
@@ -13193,31 +13193,163 @@ Text Label 2800 3150 2    50   ~ 0
 COL2
 Text Label 1200 2900 2    50   ~ 0
 COL1
+Text Label 6050 4300 0    50   ~ 0
+COL1
+Text Label 6050 4400 0    50   ~ 0
+COL2
+Text Label 6050 4500 0    50   ~ 0
+COL3
+Text Label 6050 4600 0    50   ~ 0
+ROW1
+Text Label 6050 4700 0    50   ~ 0
+ROW2
+Text Label 6050 4800 0    50   ~ 0
+ROW3
+Text Label 6050 4900 0    50   ~ 0
+ROW4
+Text Label 6050 5000 0    50   ~ 0
+ROW5
 $Comp
-L Connector:Conn_01x03_Female J3
-U 1 1 5FE13169
-P 6000 3850
-F 0 "J3" H 5892 4135 50  0000 C CNN
-F 1 "INPUT COLUMNS" H 5892 4044 50  0000 C CNN
-F 2 "" H 6000 3850 50  0001 C CNN
-F 3 "~" H 6000 3850 50  0001 C CNN
-	1    6000 3850
+L Device:L L1
+U 1 1 604D8AF6
+P 4900 5850
+F 0 "L1" H 4952 5896 50  0000 L CNN
+F 1 "Mag Launch Bar" H 4952 5805 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4900 5850 50  0001 C CNN
+F 3 "~" H 4900 5850 50  0001 C CNN
+	1    4900 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L L2
+U 1 1 604D8F36
+P 4900 6350
+F 0 "L2" H 4953 6396 50  0000 L CNN
+F 1 "Mag Hook Bypass" H 4953 6305 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4900 6350 50  0001 C CNN
+F 3 "~" H 4900 6350 50  0001 C CNN
+	1    4900 6350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D9
+U 1 1 604D9867
+P 4450 5850
+F 0 "D9" V 4404 5771 50  0000 R CNN
+F 1 "D" V 4495 5771 50  0000 R CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4450 5850 50  0001 C CNN
+F 3 "~" H 4450 5850 50  0001 C CNN
+	1    4450 5850
+	0    -1   1    0   
+$EndComp
+$Comp
+L Device:D D10
+U 1 1 604DABA9
+P 4450 6350
+F 0 "D10" V 4404 6271 50  0000 R CNN
+F 1 "D" V 4495 6271 50  0000 R CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4450 6350 50  0001 C CNN
+F 3 "~" H 4450 6350 50  0001 C CNN
+	1    4450 6350
+	0    -1   1    0   
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J3
+U 1 1 604E54C8
+P 3400 5950
+F 0 "J3" H 3292 6235 50  0000 C CNN
+F 1 "MAG COILS" H 3292 6144 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3400 5950 50  0001 C CNN
+F 3 "~" H 3400 5950 50  0001 C CNN
+	1    3400 5950
 	-1   0    0    -1  
 $EndComp
-Text Label 6200 3750 0    50   ~ 0
-COL1
-Text Label 6200 3850 0    50   ~ 0
-COL2
-Text Label 6200 3950 0    50   ~ 0
-COL3
-Text Label 6200 4350 0    50   ~ 0
-ROW1
-Text Label 6200 4450 0    50   ~ 0
-ROW2
-Text Label 6200 4550 0    50   ~ 0
-ROW3
-Text Label 6200 4650 0    50   ~ 0
-ROW4
-Text Label 6200 4750 0    50   ~ 0
-ROW5
+Wire Wire Line
+	4900 5700 4450 5700
+Wire Wire Line
+	4050 5700 4450 5700
+Connection ~ 4450 5700
+Wire Wire Line
+	4050 5700 4050 5850
+Wire Wire Line
+	4050 5850 3600 5850
+Wire Wire Line
+	3600 5950 4250 5950
+Wire Wire Line
+	4250 5950 4250 6000
+Wire Wire Line
+	4250 6000 4450 6000
+Wire Wire Line
+	4450 6000 4900 6000
+Connection ~ 4450 6000
+Wire Wire Line
+	3600 6050 4200 6050
+Wire Wire Line
+	4200 6050 4200 6200
+Wire Wire Line
+	4200 6200 4450 6200
+Connection ~ 4450 6200
+Wire Wire Line
+	4450 6200 4900 6200
+Wire Wire Line
+	4900 6500 4450 6500
+Wire Wire Line
+	4450 6500 3900 6500
+Wire Wire Line
+	3900 6500 3900 6150
+Wire Wire Line
+	3900 6150 3600 6150
+Connection ~ 4450 6500
+Text Label 3650 5850 0    50   ~ 0
+MAG_1_+
+Text Label 3700 5950 0    50   ~ 0
+MAG_1_-
+Text Label 3700 6050 0    50   ~ 0
+MAG_2_+
+Text Label 3700 6150 0    50   ~ 0
+MAG_2_-
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 604EF3DD
+P 7900 3700
+F 0 "H1" H 8000 3746 50  0000 L CNN
+F 1 "MountingHole" H 8000 3655 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7900 3700 50  0001 C CNN
+F 3 "~" H 7900 3700 50  0001 C CNN
+	1    7900 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 604EF777
+P 7900 3950
+F 0 "H2" H 8000 3996 50  0000 L CNN
+F 1 "MountingHole" H 8000 3905 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7900 3950 50  0001 C CNN
+F 3 "~" H 7900 3950 50  0001 C CNN
+	1    7900 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 604EFB92
+P 7900 4300
+F 0 "H3" H 8000 4346 50  0000 L CNN
+F 1 "MountingHole" H 8000 4255 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7900 4300 50  0001 C CNN
+F 3 "~" H 7900 4300 50  0001 C CNN
+	1    7900 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 604EFFDC
+P 7900 4600
+F 0 "H4" H 8000 4646 50  0000 L CNN
+F 1 "MountingHole" H 8000 4555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7900 4600 50  0001 C CNN
+F 3 "~" H 7900 4600 50  0001 C CNN
+	1    7900 4600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

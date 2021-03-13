@@ -18,12 +18,12 @@ Text Notes 1150 1350 0    50   ~ 0
 $Comp
 L Device:D D1
 U 1 1 5FC2589C
-P 2950 2200
-F 0 "D1" H 2950 2416 50  0000 C CNN
-F 1 "D" H 2950 2325 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2950 2200 50  0001 C CNN
-F 3 "~" H 2950 2200 50  0001 C CNN
-	1    2950 2200
+P 3100 2200
+F 0 "D1" H 3100 2416 50  0000 C CNN
+F 1 "D" H 3100 2325 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3100 2200 50  0001 C CNN
+F 3 "~" H 3100 2200 50  0001 C CNN
+	1    3100 2200
 	-1   0    0    -1  
 $EndComp
 Text Notes 900  6300 0    118  ~ 0
@@ -33,34 +33,34 @@ Text Notes 900  6900 0    63   ~ 0
 $Comp
 L Switch:SW_SPST SW1
 U 1 1 5FC61E34
-P 3600 2200
-F 0 "SW1" H 3600 2435 50  0000 C CNN
-F 1 "SW_SPST" H 3600 2344 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3600 2200 50  0001 C CNN
-F 3 "~" H 3600 2200 50  0001 C CNN
-	1    3600 2200
+P 3750 2200
+F 0 "SW1" H 3750 2435 50  0000 C CNN
+F 1 "OBOGS_SW" H 3750 2344 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3750 2200 50  0001 C CNN
+F 3 "~" H 3750 2200 50  0001 C CNN
+	1    3750 2200
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R_POT_US RV1
 U 1 1 5FC6ABA0
-P 3800 2900
-F 0 "RV1" H 3733 2946 50  0000 R CNN
-F 1 "OXY_FLOW" H 3733 2855 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3800 2900 50  0001 C CNN
-F 3 "~" H 3800 2900 50  0001 C CNN
-	1    3800 2900
+P 3700 3650
+F 0 "RV1" H 3633 3696 50  0000 R CNN
+F 1 "OXY_FLOW" H 3633 3605 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3700 3650 50  0001 C CNN
+F 3 "~" H 3700 3650 50  0001 C CNN
+	1    3700 3650
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Connector:Conn_01x03_Female J2
 U 1 1 5FC8AEA1
-P 2450 2950
-F 0 "J2" H 2342 3235 50  0000 C CNN
-F 1 "LOX Analog" H 2342 3144 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2450 2950 50  0001 C CNN
-F 3 "~" H 2450 2950 50  0001 C CNN
-	1    2450 2950
+P 2350 3700
+F 0 "J2" H 2242 3985 50  0000 C CNN
+F 1 "LOX Analog" H 2242 3894 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2350 3700 50  0001 C CNN
+F 3 "~" H 2350 3700 50  0001 C CNN
+	1    2350 3700
 	-1   0    0    -1  
 $EndComp
 $Bitmap
@@ -2421,38 +2421,137 @@ D6 87 6D B2 AE 81 14 75 49 41 E4 EA 50 B5 7A FE DA 00 9B 16 E7 E7 25 CA 14 7D 98
 EndData
 $EndBitmap
 $Comp
-L Connector:Conn_01x02_Female J1
+L Connector:Conn_01x03_Female J1
 U 1 1 5FC37DA5
-P 2300 2200
-F 0 "J1" H 2328 2176 50  0000 L CNN
-F 1 "Inputs (Combined Col Row)" H 2328 2085 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2300 2200 50  0001 C CNN
-F 3 "~" H 2300 2200 50  0001 C CNN
-	1    2300 2200
+P 2300 2300
+F 0 "J1" H 2328 2276 50  0000 L CNN
+F 1 "Switch_Inputs" H 2328 2185 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2300 2300 50  0001 C CNN
+F 3 "~" H 2300 2300 50  0001 C CNN
+	1    2300 2300
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	2500 2200 2800 2200
+	2500 2200 2600 2200
 Wire Wire Line
-	3100 2200 3400 2200
+	3250 2200 3550 2200
 Wire Wire Line
-	3800 2200 3800 2300
-Wire Wire Line
-	3800 2300 2500 2300
+	3950 2200 3950 2300
 Text Notes 2150 2000 0    50   ~ 0
 Pin 1 Col\nPin 2 Row
 Wire Wire Line
-	3650 2900 2650 2900
+	3550 3650 2550 3650
 Wire Wire Line
-	2650 2900 2650 2950
+	2550 3650 2550 3700
 Wire Wire Line
-	2650 2850 3500 2850
+	2550 3600 3400 3600
 Wire Wire Line
-	3500 2850 3500 2600
+	3400 3600 3400 3350
 Wire Wire Line
-	3500 2600 3800 2600
+	3400 3350 3700 3350
 Wire Wire Line
-	3800 2600 3800 2750
+	3700 3350 3700 3500
 Wire Wire Line
-	3800 3050 2650 3050
+	3700 3800 2550 3800
+$Comp
+L Device:D D2
+U 1 1 604C0325
+P 3100 2700
+F 0 "D2" H 3100 2916 50  0000 C CNN
+F 1 "D" H 3100 2825 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3100 2700 50  0001 C CNN
+F 3 "~" H 3100 2700 50  0001 C CNN
+	1    3100 2700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPST SW2
+U 1 1 604C032F
+P 3750 2700
+F 0 "SW2" H 3750 2935 50  0000 C CNN
+F 1 "OBOGS_FLOW" H 3750 2844 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3750 2700 50  0001 C CNN
+F 3 "~" H 3750 2700 50  0001 C CNN
+	1    3750 2700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2500 2700 2600 2700
+Wire Wire Line
+	3250 2700 3550 2700
+Wire Wire Line
+	3950 2700 3950 2800
+Wire Wire Line
+	3950 2800 2850 2800
+Text Label 2600 2200 0    50   ~ 0
+Col1
+Text Label 2750 2300 0    50   ~ 0
+Row1
+Wire Wire Line
+	2500 2300 3950 2300
+Wire Wire Line
+	2600 2200 2600 2700
+Connection ~ 2600 2200
+Wire Wire Line
+	2600 2200 2950 2200
+Connection ~ 2600 2700
+Wire Wire Line
+	2600 2700 2950 2700
+Wire Wire Line
+	2500 2400 2850 2400
+Wire Wire Line
+	2850 2400 2850 2800
+Connection ~ 2850 2800
+Wire Wire Line
+	2850 2800 2500 2800
+Text Label 2750 2400 0    50   ~ 0
+Row2
+Text Label 2800 3600 0    50   ~ 0
++5V
+Text Label 2800 3800 0    50   ~ 0
+GND
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 604C4F6F
+P 5850 2700
+F 0 "H1" H 5950 2746 50  0000 L CNN
+F 1 "MountingHole" H 5950 2655 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 5850 2700 50  0001 C CNN
+F 3 "~" H 5850 2700 50  0001 C CNN
+	1    5850 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 604C50C0
+P 5850 2950
+F 0 "H2" H 5950 2996 50  0000 L CNN
+F 1 "MountingHole" H 5950 2905 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 5850 2950 50  0001 C CNN
+F 3 "~" H 5850 2950 50  0001 C CNN
+	1    5850 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 604C536E
+P 5850 3200
+F 0 "H3" H 5950 3246 50  0000 L CNN
+F 1 "MountingHole" H 5950 3155 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 5850 3200 50  0001 C CNN
+F 3 "~" H 5850 3200 50  0001 C CNN
+	1    5850 3200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 604C56A0
+P 5850 3450
+F 0 "H4" H 5950 3496 50  0000 L CNN
+F 1 "MountingHole" H 5950 3405 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 5850 3450 50  0001 C CNN
+F 3 "~" H 5850 3450 50  0001 C CNN
+	1    5850 3450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

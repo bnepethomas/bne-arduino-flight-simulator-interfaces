@@ -31,10 +31,10 @@ Instructions
 Text Notes 900  6900 0    63   ~ 0
 1: Copy section from Inputs-Outputs-from-DCS-BIOS in Templates directory to top of Input-Output-from DCS-BIOS, and panel into top left hand corner\n\n2: Grab section of image from NeoEngress_FA-18C_Full_Layout_-_4220x5200 and paste \n\n3: After editing diagram reset numbering during Net generation\n
 $Comp
-L Switch:SW_SPST SW?
+L Switch:SW_SPST SW1
 U 1 1 5FC61E34
 P 3600 2200
-F 0 "SW?" H 3600 2435 50  0000 C CNN
+F 0 "SW1" H 3600 2435 50  0000 C CNN
 F 1 "SW_SPST" H 3600 2344 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3600 2200 50  0001 C CNN
 F 3 "~" H 3600 2200 50  0001 C CNN
@@ -42,10 +42,10 @@ F 3 "~" H 3600 2200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_POT_US RV?
+L Device:R_POT_US RV1
 U 1 1 5FC6ABA0
 P 3800 2900
-F 0 "RV?" H 3733 2946 50  0000 R CNN
+F 0 "RV1" H 3733 2946 50  0000 R CNN
 F 1 "OXY_FLOW" H 3733 2855 50  0000 R CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3800 2900 50  0001 C CNN
 F 3 "~" H 3800 2900 50  0001 C CNN
@@ -53,12 +53,12 @@ F 3 "~" H 3800 2900 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Female J?
+L Connector:Conn_01x03_Female J2
 U 1 1 5FC8AEA1
 P 2450 2950
-F 0 "J?" H 2342 3235 50  0000 C CNN
-F 1 "Conn_01x03_Female" H 2342 3144 50  0000 C CNN
-F 2 "" H 2450 2950 50  0001 C CNN
+F 0 "J2" H 2342 3235 50  0000 C CNN
+F 1 "LOX Analog" H 2342 3144 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2450 2950 50  0001 C CNN
 F 3 "~" H 2450 2950 50  0001 C CNN
 	1    2450 2950
 	-1   0    0    -1  
@@ -2421,10 +2421,10 @@ D6 87 6D B2 AE 81 14 75 49 41 E4 EA 50 B5 7A FE DA 00 9B 16 E7 E7 25 CA 14 7D 98
 EndData
 $EndBitmap
 $Comp
-L Connector:Conn_01x02_Female J2
+L Connector:Conn_01x02_Female J1
 U 1 1 5FC37DA5
 P 2300 2200
-F 0 "J2" H 2328 2176 50  0000 L CNN
+F 0 "J1" H 2328 2176 50  0000 L CNN
 F 1 "Inputs (Combined Col Row)" H 2328 2085 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2300 2200 50  0001 C CNN
 F 3 "~" H 2300 2200 50  0001 C CNN
