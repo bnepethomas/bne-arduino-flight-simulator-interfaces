@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 19)
+    (drawings 21)
     (tracks 61)
     (zones 0)
     (modules 48)
@@ -85,9 +85,9 @@
       (subtractmaskfromsilk false)
       (outputformat 1)
       (mirror false)
-      (drillshape 1)
+      (drillshape 0)
       (scaleselection 1)
-      (outputdirectory ""))
+      (outputdirectory "manufacturing"))
   )
 
   (net 0 "")
@@ -2021,6 +2021,12 @@
     (pad 1 np_thru_hole circle (at 0 0) (size 3.2 3.2) (drill 3.2) (layers *.Cu *.Mask))
   )
 
+  (gr_text v001 (at 75.311 76.835) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
+  (gr_text "General Purpose Small" (at 74.549 73.025) (layer F.SilkS)
+    (effects (font (size 1.5 1.5) (thickness 0.3)))
+  )
   (gr_line (start 113.03 43.561) (end 113.03 62.611) (layer F.SilkS) (width 0.12))
   (gr_line (start 134.493 65.659) (end 121.666 65.659) (layer F.SilkS) (width 0.12))
   (gr_line (start 134.493 70.993) (end 122.428 70.993) (layer F.SilkS) (width 0.12))
