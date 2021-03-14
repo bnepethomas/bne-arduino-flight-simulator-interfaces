@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 18)
+    (drawings 19)
     (tracks 0)
     (zones 0)
     (modules 15)
@@ -854,6 +854,7 @@
     )
   )
 
+  (gr_arc (start 176.149 48.514) (end 177.545999 53.212999) (angle -67.6) (layer Edge.Cuts) (width 0.12))
   (gr_text "Row 2" (at 165.481 73.914 90) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
@@ -890,8 +891,8 @@
   (gr_text + (at 154.559 46.736) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )
-  (gr_line (start 181.102 53.213) (end 181.102 44.069) (layer Edge.Cuts) (width 0.12) (tstamp 60495EE5))
-  (gr_line (start 168.275 53.213) (end 181.102 53.213) (layer Edge.Cuts) (width 0.12))
+  (gr_line (start 181.025682 49.014173) (end 181.102 44.069) (layer Edge.Cuts) (width 0.12) (tstamp 60495EE5))
+  (gr_line (start 168.275 53.213) (end 177.546 53.213) (layer Edge.Cuts) (width 0.12))
   (gr_line (start 168.275 84.836) (end 168.275 53.213) (layer Edge.Cuts) (width 0.12))
   (gr_line (start 138.176 84.836) (end 168.275 84.836) (layer Edge.Cuts) (width 0.12))
   (gr_line (start 138.176 44.069) (end 138.176 84.836) (layer Edge.Cuts) (width 0.12))
