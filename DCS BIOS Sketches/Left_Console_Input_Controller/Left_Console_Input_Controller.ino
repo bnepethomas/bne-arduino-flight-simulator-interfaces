@@ -115,7 +115,7 @@ char stringind[5];
 String outString;
 
 
-bool FollowupTask = false;
+bool FCSGainFollowupTask = false;
 long timeFCSGainOn = 0;
 const int ToggleSwitchCoverMoveTime = 500;
 
@@ -477,12 +477,16 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 109:
           break;
         case 110:
+          sendDcsBiosMessage("PROBE_SW", "1");
           break;
         case 111:
+          sendDcsBiosMessage("EXT_WNG_TANK_SW", "1");
           break;
         case 112:
+          sendDcsBiosMessage("EXT_CNT_TANK_SW", "1");
           break;
         case 113:
+          sendDcsBiosMessage("FUEL_DUMP_SW", "0");
           break;
         case 114:
           break;
@@ -499,10 +503,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 120:
           break;
         case 121:
+          sendDcsBiosMessage("PROBE_SW", "1");
           break;
         case 122:
+          sendDcsBiosMessage("EXT_WNG_TANK_SW", "1");
           break;
         case 123:
+          sendDcsBiosMessage("EXT_CNT_TANK_SW", "1");
           break;
         case 124:
           break;
@@ -719,7 +726,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 42:
           // Press is shifting toggle to Override Position      
           sendDcsBiosMessage("GAIN_SWITCH_COVER", "1");
-          FollowupTask = true;
+          FCSGainFollowupTask = true;
           timeFCSGainOn = millis() + ToggleSwitchCoverMoveTime;
           
           break;             
@@ -868,12 +875,16 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 109:
           break;
         case 110:
+          sendDcsBiosMessage("PROBE_SW", "0");
           break;
         case 111:
+          sendDcsBiosMessage("EXT_WNG_TANK_SW", "2");
           break;
         case 112:
+          sendDcsBiosMessage("EXT_CNT_TANK_SW", "2");
           break;
         case 113:
+          sendDcsBiosMessage("FUEL_DUMP_SW", "1");
           break;
         case 114:
           break;
@@ -890,10 +901,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 120:
           break;
         case 121:
+          sendDcsBiosMessage("PROBE_SW", "2");
           break;
         case 122:
+          sendDcsBiosMessage("EXT_WNG_TANK_SW", "0");
           break;
         case 123:
+          sendDcsBiosMessage("EXT_CNT_TANK_SW", "0");
           break;
         case 124:
           break;
@@ -1134,10 +1148,10 @@ void loop() {
 
 
   // Handle Switches with Safety covers
-  if (FollowupTask == true) {
+  if (FCSGainFollowupTask == true) {
     if (millis() >= timeFCSGainOn) {
       sendDcsBiosMessage("GAIN_SWITCH", "1");
-      FollowupTask = false;   
+      FCSGainFollowupTask = false;   
     }
   }
          
