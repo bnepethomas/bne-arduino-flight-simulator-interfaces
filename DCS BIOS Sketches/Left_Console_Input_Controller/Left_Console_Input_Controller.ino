@@ -220,6 +220,8 @@ void SendDCSBIOSMessage(int ind, int state) {
 
   
   switch (state) {
+
+    // RELEASE
     case 0:
       switch (ind) {
         case 0:
@@ -228,6 +230,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 1:
           break;
         case 2:
+          sendDcsBiosMessage("COM_COMM_RELAY_SW", "1"); 
           break;             
         case 3:
           break; 
@@ -250,6 +253,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 12:
           break; 
         case 13:
+          sendDcsBiosMessage("COM_COMM_RELAY_SW", "1"); 
           break;             
         case 14:
           break; 
@@ -271,8 +275,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         case 23:
           break;             
-        case 24:
-          
+        case 24:       
           break; 
         case 25:
           break;             
@@ -317,6 +320,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 45:
           break; 
         case 46:
+          sendDcsBiosMessage("COM_COMM_G_XMT_SW", "1"); 
           break; 
         case 47:
           break;             
@@ -329,16 +333,19 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 51:
           break;
         case 52:
+          sendDcsBiosMessage("MC_SW", "1"); 
           break;             
         case 53:
           break;
         case 54:
+          sendDcsBiosMessage("OXY_FLOW", "0");
           break;
         case 55:
           break;
         case 56:
           break;
         case 57:
+          sendDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
           break;             
         case 58:
           break;
@@ -351,10 +358,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 62:
           break;
         case 63:
+          sendDcsBiosMessage("MC_SW", "1");  
           break;
         case 64:
+          sendDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "0"); 
           break;
         case 65:
+          sendDcsBiosMessage("OBOGS_SW", "0");
           break;
         case 66:
           break;
@@ -588,13 +598,19 @@ void SendDCSBIOSMessage(int ind, int state) {
           break; 
       } 
       break;
+
+
+      
     case 1:
+
+      // PRESS - CLOSE
       switch (ind) {
         case 0:
           break;
         case 1:
           break;
         case 2:
+          sendDcsBiosMessage("COM_COMM_RELAY_SW", "2"); 
           break;             
         case 3:
           break; 
@@ -617,6 +633,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 12:
           break; 
         case 13:
+          sendDcsBiosMessage("COM_COMM_RELAY_SW", "0"); 
           break;             
         case 14:
           break; 
@@ -683,6 +700,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 45:
           break; 
         case 46:
+          sendDcsBiosMessage("COM_COMM_G_XMT_SW", "2");
           break; 
         case 47:
           break;             
@@ -695,16 +713,19 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 51:
           break;
         case 52:
+          sendDcsBiosMessage("MC_SW", "2"); 
           break;             
         case 53:
           break;
-        case 54:
+        case 54:        
+          sendDcsBiosMessage("OXY_FLOW", "65535");
           break;
         case 55:
           break;
         case 56:
           break;
         case 57:
+          sendDcsBiosMessage("COM_COMM_G_XMT_SW", "0");
           break;             
         case 58:
           break;
@@ -717,10 +738,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 62:
           break;
         case 63:
+          sendDcsBiosMessage("MC_SW", "0"); 
           break;
         case 64:
+         sendDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "1"); 
           break;
         case 65:
+          sendDcsBiosMessage("OBOGS_SW", "1");
           break;
         case 66:
           break;
