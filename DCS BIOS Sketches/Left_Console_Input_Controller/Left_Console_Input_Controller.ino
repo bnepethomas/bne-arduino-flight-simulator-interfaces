@@ -119,6 +119,10 @@ bool FCSGainFollowupTask = false;
 long timeFCSGainOn = 0;
 const int ToggleSwitchCoverMoveTime = 500;
 
+bool GenTieFollowupTask = false;
+long timeGenTieOn = 0;
+
+
 
 void setup() {
 
@@ -249,9 +253,11 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;             
         case 8:
           break;
-        case 9:
+        case 9: 
+          sendDcsBiosMessage("STROBE_SW", "1"); 
           break;
         case 10:
+          sendDcsBiosMessage("INT_WNG_TANK_SW", "1"); 
           break;
         case 11:
           break;             
@@ -273,8 +279,12 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 19:
           break;
         case 20:
+          sendDcsBiosMessage("STROBE_SW", "1"); 
           break;
         case 21:
+          // Gen Tie 
+          sendDcsBiosMessage("GEN_TIE_SW", "0");
+          sendDcsBiosMessage("GEN_TIE_COVER", "0");
           break;
         case 22:
           break;
@@ -284,8 +294,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_CRYPTO_SW", "1");       
           break; 
         case 25:
+          sendDcsBiosMessage("LDG_TAXI_SW", "1");
           break;             
         case 26:
+          sendDcsBiosMessage("LAUNCH_BAR_SW", "1");
           break;
         case 27:
           break;             
@@ -310,6 +322,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 36:
           break;             
         case 37:
+          sendDcsBiosMessage("ANTI_SKID_SW", "1");
           break;             
         case 38:
           break;
@@ -369,6 +382,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
           break;             
         case 58:
+          sendDcsBiosMessage("FLAP_SW", "1");
           break;
         case 59:
           break;  
@@ -396,8 +410,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_IFF_MASTER_SW", "1");
           break;
         case 69:
+          sendDcsBiosMessage("FLAP_SW", "1");
           break;
         case 70:
+          sendDcsBiosMessage("HOOK_BYPASS_SW", "1");
           break;
         case 71:
           break;
@@ -423,6 +439,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 81:
           break;
         case 82:
+          sendDcsBiosMessage("FIRE_TEST_SW", "1");
           break;
         case 83:
           break;
@@ -446,6 +463,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 92:
           break;
         case 93:
+          sendDcsBiosMessage("FIRE_TEST_SW", "1");
           break;
         case 94:
           break;
@@ -657,8 +675,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 8:
           break;
         case 9:
+          sendDcsBiosMessage("STROBE_SW", "2"); 
           break;
         case 10:
+          sendDcsBiosMessage("INT_WNG_TANK_SW", "0"); 
           break;
         case 11:
           break;             
@@ -680,8 +700,15 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 19:
           break;
         case 20:
+          sendDcsBiosMessage("STROBE_SW", "0"); 
           break;
         case 21:
+          // Gen Tie
+          sendDcsBiosMessage("GEN_TIE_COVER", "1");
+          GenTieFollowupTask = true;
+          timeGenTieOn = millis() + ToggleSwitchCoverMoveTime;
+
+
           break;
         case 22:
           break;
@@ -691,8 +718,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_CRYPTO_SW", "0");
           break; 
         case 25:
+          sendDcsBiosMessage("LDG_TAXI_SW", "0");
           break;             
         case 26:
+          sendDcsBiosMessage("LAUNCH_BAR_SW", "0");
           break;
         case 27:
           break;             
@@ -717,6 +746,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 36:
           break;             
         case 37:
+          sendDcsBiosMessage("ANTI_SKID_SW", "0");
           break;             
         case 38:
           break;
@@ -770,6 +800,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_COMM_G_XMT_SW", "0");
           break;             
         case 58:
+          sendDcsBiosMessage("FLAP_SW", "0");
           break;
         case 59:
           break;  
@@ -797,8 +828,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_IFF_MASTER_SW", "0");
           break;
         case 69:
+          sendDcsBiosMessage("FLAP_SW", "2");
           break;
         case 70:
+          sendDcsBiosMessage("HOOK_BYPASS_SW", "0");
           break;
         case 71:
           break;
@@ -824,6 +857,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 81:
           break;
         case 82:
+          sendDcsBiosMessage("FIRE_TEST_SW", "2");
           break;
         case 83:
           break;
@@ -847,6 +881,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 92:
           break;
         case 93:
+          sendDcsBiosMessage("FIRE_TEST_SW", "0");
           break;
         case 94:
           break;
@@ -1160,6 +1195,15 @@ void loop() {
       FCSGainFollowupTask = false;   
     }
   }
+
+  if (GenTieFollowupTask == true) {
+    if (millis() >= timeGenTieOn) {
+      sendDcsBiosMessage("GEN_TIE_SW", "1");
+      GenTieFollowupTask = false;
+    }
+  }
+            
+
          
 
   currentMillis = millis();
