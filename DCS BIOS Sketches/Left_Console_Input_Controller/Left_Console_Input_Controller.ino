@@ -348,8 +348,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 49:
           break;
         case 50:
+          sendDcsBiosMessage("ENGINE_CRANK_SW", "1"); 
           break;
         case 51:
+          sendDcsBiosMessage("APU_CONTROL_SW", "0"); 
           break;
         case 52:
           sendDcsBiosMessage("MC_SW", "1"); 
@@ -373,6 +375,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 60:
           break;
         case 61:
+          sendDcsBiosMessage("ENGINE_CRANK_SW", "1"); 
           break;
         case 62:
           break;
@@ -746,8 +749,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 49:
           break;
         case 50:
+          sendDcsBiosMessage("ENGINE_CRANK_SW", "0"); 
           break;
         case 51:
+          sendDcsBiosMessage("APU_CONTROL_SW", "1"); 
           break;
         case 52:
           sendDcsBiosMessage("MC_SW", "2"); 
@@ -771,6 +776,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 60:
           break;
         case 61:
+          sendDcsBiosMessage("ENGINE_CRANK_SW", "2"); 
           break;
         case 62:
           break;
