@@ -83,7 +83,8 @@ int LoopsBeforeSendingAllowed = 40;
 bool SendingAllowed = false;
 
 
-const int ScanDelay = 80;
+// Debounce delay was 80mS - but encountered longer bounces with Circuit Breakers 20210329
+const int ScanDelay = 400;
 const int DebounceDelay = 20;
 
 joyReport_t joyReport;
@@ -302,10 +303,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 27:
           break;             
         case 28:
+          sendDcsBiosMessage("CMSD_DISPENSE_BTN", "0");
           break;
         case 29:
+          sendDcsBiosMessage("CB_FCS_CHAN2", "1");
           break;
         case 30:
+          sendDcsBiosMessage("CB_LAUNCH_BAR", "1");
           break;
         case 31:
           sendDcsBiosMessage("FCS_RESET_BTN", "0");
@@ -327,8 +331,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 38:
           break;
         case 39:
+          sendDcsBiosMessage("CB_FCS_CHAN1", "1");
           break;
         case 40:
+          sendDcsBiosMessage("CB_SPD_BRK", "1");
           break;
         case 41:
           break;
@@ -340,10 +346,6 @@ void SendDCSBIOSMessage(int ind, int state) {
           // 1 Gain in Switch Override position
           sendDcsBiosMessage("GAIN_SWITCH", "0"); 
           sendDcsBiosMessage("GAIN_SWITCH_COVER", "0");
-
-
-          
-
           break;             
         case 43:
           break;
@@ -726,10 +728,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 27:
           break;             
         case 28:
+          sendDcsBiosMessage("CMSD_DISPENSE_BTN", "1");
           break;
         case 29:
+          sendDcsBiosMessage("CB_FCS_CHAN2", "0");
           break;
         case 30:
+          sendDcsBiosMessage("CB_LAUNCH_BAR", "0");
           break;
         case 31:
           sendDcsBiosMessage("FCS_RESET_BTN", "1");
@@ -751,8 +756,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 38:
           break;
         case 39:
+          sendDcsBiosMessage("CB_FCS_CHAN1", "0");
           break;
         case 40:
+          sendDcsBiosMessage("CB_SPD_BRK", "0");
           break;
         case 41:
           break;
