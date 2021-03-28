@@ -960,10 +960,19 @@ void SendDCSBIOSMessage(int ind, int state) {
 }
 
 
+// Comm Pots
+DcsBios::PotentiometerEWMA<5, 128, 5> comVox("COM_VOX", 0);
+DcsBios::PotentiometerEWMA<5, 128, 5> comIcs("COM_ICS", 1);
+DcsBios::PotentiometerEWMA<5, 128, 5> comRwr("COM_RWR", 2);
+DcsBios::PotentiometerEWMA<5, 128, 5> comMidsA("COM_MIDS_A", 3);
+DcsBios::PotentiometerEWMA<5, 128, 5> comMidsB("COM_MIDS_B", 4);
+DcsBios::PotentiometerEWMA<5, 128, 5> comTacan("COM_TACAN", 5);
+DcsBios::PotentiometerEWMA<5, 128, 5> comAux("COM_AUX", 12);
+DcsBios::PotentiometerEWMA<5, 128, 5> comWpn("COM_WPN", 13);
+DcsBios::PotentiometerEWMA<5, 128, 5> positionDimmer("POSITION_DIMMER", 15);
 
-DcsBios::PotentiometerEWMA<5, 128, 5> ufcComm1Vol("UFC_COMM1_VOL", 8);
-DcsBios::PotentiometerEWMA<5, 128, 5> ufcComm2Vol("UFC_COMM2_VOL", 9);
-DcsBios::PotentiometerEWMA<5, 128, 5> ufcBrt("UFC_BRT", 10);
+// Ext Lights Pots
+DcsBios::PotentiometerEWMA<5, 128, 5> formationDimmer("FORMATION_DIMMER", 8);
 
 
 void loop() {
