@@ -115,6 +115,11 @@ char stringind[5];
 String outString;
 
 
+bool FollowupTask = false;
+long timeFCSGainOn = 0;
+const int ToggleSwitchCoverMoveTime = 500;
+
+
 void setup() {
 
 
@@ -275,7 +280,8 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         case 23:
           break;             
-        case 24:       
+        case 24:
+          sendDcsBiosMessage("COM_CRYPTO_SW", "1");       
           break; 
         case 25:
           break;             
@@ -290,6 +296,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 30:
           break;
         case 31:
+          sendDcsBiosMessage("FCS_RESET_BTN", "0");
           break;
         case 32:
           break;
@@ -298,6 +305,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 34:
           break;             
         case 35:
+          sendDcsBiosMessage("COM_CRYPTO_SW", "1");
           break; 
         case 36:
           break;             
@@ -312,6 +320,17 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 41:
           break;
         case 42:
+          // Release is shifting toggle to Norm Position
+          // Cover Up = 1
+          // Cover Down = 0
+          // 0 Gain Switch in Normal Position
+          // 1 Gain in Switch Override position
+          sendDcsBiosMessage("GAIN_SWITCH", "0"); 
+          sendDcsBiosMessage("GAIN_SWITCH_COVER", "0");
+
+
+          
+
           break;             
         case 43:
           break;
@@ -371,6 +390,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 67:
           break;
         case 68:
+          sendDcsBiosMessage("COM_IFF_MASTER_SW", "1");
           break;
         case 69:
           break;
@@ -393,6 +413,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 78:
           break;
         case 79:
+          sendDcsBiosMessage("COM_IFF_MODE4_SW", "0");
           break;
         case 80:
           break;
@@ -415,6 +436,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 89:
           break;
         case 90:
+          sendDcsBiosMessage("COM_ILS_UFC_MAN_SW", "0");
           break;
         case 91:
           break;
@@ -610,7 +632,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 1:
           break;
         case 2:
-          sendDcsBiosMessage("COM_COMM_RELAY_SW", "2"); 
+          sendDcsBiosMessage("COM_COMM_RELAY_SW", "0"); 
           break;             
         case 3:
           break; 
@@ -633,7 +655,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 12:
           break; 
         case 13:
-          sendDcsBiosMessage("COM_COMM_RELAY_SW", "0"); 
+          sendDcsBiosMessage("COM_COMM_RELAY_SW", "2"); 
           break;             
         case 14:
           break; 
@@ -656,6 +678,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 23:
           break;             
         case 24:
+          sendDcsBiosMessage("COM_CRYPTO_SW", "0");
           break; 
         case 25:
           break;             
@@ -670,6 +693,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 30:
           break;
         case 31:
+          sendDcsBiosMessage("FCS_RESET_BTN", "1");
           break;
         case 32:
           break;
@@ -678,6 +702,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 34:
           break;             
         case 35:
+          sendDcsBiosMessage("COM_CRYPTO_SW", "2");
           break; 
         case 36:
           break;             
@@ -692,6 +717,11 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 41:
           break;
         case 42:
+          // Press is shifting toggle to Override Position      
+          sendDcsBiosMessage("GAIN_SWITCH_COVER", "1");
+          FollowupTask = true;
+          timeFCSGainOn = millis() + ToggleSwitchCoverMoveTime;
+          
           break;             
         case 43:
           break;
@@ -751,6 +781,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 67:
           break;
         case 68:
+          sendDcsBiosMessage("COM_IFF_MASTER_SW", "0");
           break;
         case 69:
           break;
@@ -773,6 +804,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 78:
           break;
         case 79:
+          sendDcsBiosMessage("COM_IFF_MODE4_SW", "2");
           break;
         case 80:
           break;
@@ -795,6 +827,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 89:
           break;
         case 90:
+          sendDcsBiosMessage("COM_ILS_UFC_MAN_SW", "1");
           break;
         case 91:
           break;
@@ -1099,6 +1132,15 @@ void loop() {
 
   FindInputChanges();
 
+
+  // Handle Switches with Safety covers
+  if (FollowupTask == true) {
+    if (millis() >= timeFCSGainOn) {
+      sendDcsBiosMessage("GAIN_SWITCH", "1");
+      FollowupTask = false;   
+    }
+  }
+         
 
   currentMillis = millis();
 
