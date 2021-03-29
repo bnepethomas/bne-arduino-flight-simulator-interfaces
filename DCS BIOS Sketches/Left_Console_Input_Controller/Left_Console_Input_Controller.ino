@@ -84,8 +84,8 @@ bool SendingAllowed = false;
 
 
 // Debounce delay was 80mS - but encountered longer bounces with Circuit Breakers 20210329
-const int ScanDelay = 400;
-const int DebounceDelay = 20;
+const int ScanDelay = 80;
+const int DebounceDelay =60;
 
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
@@ -551,8 +551,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 131:
           break;
         case 132:
+          sendDcsBiosMessage("COMM1_ANT_SELECT_SW", "1");
           break;
         case 133:
+          sendDcsBiosMessage("IFF_ANT_SELECT_SW", "1");
           break;
         case 134:
           break;
@@ -573,8 +575,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 142:
           break;
         case 143:
+          sendDcsBiosMessage("COMM1_ANT_SELECT_SW", "1");
           break;
         case 144:
+          sendDcsBiosMessage("IFF_ANT_SELECT_SW", "1");
           break;
         case 145:
           break;
@@ -974,8 +978,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 131:
           break;
         case 132:
+          sendDcsBiosMessage("COMM1_ANT_SELECT_SW", "2");
           break;
         case 133:
+          sendDcsBiosMessage("IFF_ANT_SELECT_SW", "2");
           break;
         case 134:
           break;
@@ -996,8 +1002,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 142:
           break;
         case 143:
+          sendDcsBiosMessage("COMM1_ANT_SELECT_SW", "0");
           break;
         case 144:
+          sendDcsBiosMessage("IFF_ANT_SELECT_SW", "0");
           break;
         case 145:
           break;
