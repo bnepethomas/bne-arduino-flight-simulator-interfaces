@@ -83,9 +83,9 @@ int LoopsBeforeSendingAllowed = 40;
 bool SendingAllowed = false;
 
 
-// Debounce delay was 80mS - but encountered longer bounces with Circuit Breakers 20210329
-const int ScanDelay = 80;
-const int DebounceDelay =60;
+// Debounce delay was 20mS - but encountered longer bounces with Circuit Breakers, increased to 60mS 20210329
+const int ScanDelay = 80;       // This is in microseconds
+const int DebounceDelay =60;    // In milliseconds
 
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
