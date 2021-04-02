@@ -20,7 +20,7 @@ L Switch:SW_SPDT_MSM SW1
 U 1 1 5FC1E955
 P 3100 3050
 F 0 "SW1" H 3100 3335 50  0000 C CNN
-F 1 "EXT_PWR_SW" H 3100 3244 50  0000 C CNN
+F 1 "EXT PWR" H 3100 3244 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3100 3050 50  0001 C CNN
 F 3 "~" H 3100 3050 50  0001 C CNN
 	1    3100 3050
@@ -38,22 +38,11 @@ F 3 "~" H 2500 2300 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J6
-U 1 1 5FC37DA5
-P 4300 2900
-F 0 "J6" H 4328 2876 50  0000 L CNN
-F 1 "Input Rows" H 4328 2785 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4300 2900 50  0001 C CNN
-F 3 "~" H 4300 2900 50  0001 C CNN
-	1    4300 2900
-	1    0    0    -1  
-$EndComp
-$Comp
 L Switch:SW_SPST SW3
 U 1 1 5FC61E34
 P 3150 2300
 F 0 "SW3" H 3150 2535 50  0000 C CNN
-F 1 "SW_SPST" H 3150 2444 50  0000 C CNN
+F 1 "L GEN" H 3150 2444 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3150 2300 50  0001 C CNN
 F 3 "~" H 3150 2300 50  0001 C CNN
 	1    3150 2300
@@ -64,7 +53,7 @@ L Switch:SW_SPST SW2
 U 1 1 5FCCF1B0
 P 3100 3800
 F 0 "SW2" H 3100 4035 50  0000 C CNN
-F 1 "SW_SPST" H 3100 3944 50  0000 C CNN
+F 1 "R GEN" H 3100 3944 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3100 3800 50  0001 C CNN
 F 3 "~" H 3100 3800 50  0001 C CNN
 	1    3100 3800
@@ -93,14 +82,14 @@ F 3 "~" H 2500 3800 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J1
+L Connector:Conn_01x04_Female J1
 U 1 1 5FCD1600
-P 1650 2850
-F 0 "J1" H 1678 2826 50  0000 L CNN
-F 1 "Input Columns" H 1678 2735 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1650 2850 50  0001 C CNN
-F 3 "~" H 1650 2850 50  0001 C CNN
-	1    1650 2850
+P 1650 2950
+F 0 "J1" H 1678 2926 50  0000 L CNN
+F 1 "Switch Inputs" H 1678 2835 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1650 2950 50  0001 C CNN
+F 3 "~" H 1650 2950 50  0001 C CNN
+	1    1650 2950
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
@@ -119,25 +108,17 @@ Wire Wire Line
 Wire Wire Line
 	3650 2300 3650 2900
 Wire Wire Line
-	3650 2900 4100 2900
-Wire Wire Line
 	3650 2900 3500 2900
 Wire Wire Line
 	3500 2900 3500 2950
 Wire Wire Line
 	3500 2950 3300 2950
-Connection ~ 3650 2900
 Wire Wire Line
 	3300 3150 3650 3150
-Wire Wire Line
-	3650 3150 3650 3000
-Wire Wire Line
-	3650 3000 4100 3000
 Wire Wire Line
 	3300 3800 3650 3800
 Wire Wire Line
 	3650 3800 3650 3150
-Connection ~ 3650 3150
 Wire Wire Line
 	1850 2950 2050 2950
 Wire Wire Line
@@ -156,7 +137,7 @@ U 1 1 5FCD4553
 P 3500 4500
 F 0 "J4" H 3528 4476 50  0000 L CNN
 F 1 "Batt U Volts Out" H 3528 4385 50  0000 L CNN
-F 2 "" H 3500 4500 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3500 4500 50  0001 C CNN
 F 3 "~" H 3500 4500 50  0001 C CNN
 	1    3500 4500
 	1    0    0    -1  
@@ -167,7 +148,7 @@ U 1 1 5FCD49BD
 P 2600 4500
 F 0 "J2" H 2492 4785 50  0000 C CNN
 F 1 "Batt U Volts In" H 2492 4694 50  0000 C CNN
-F 2 "" H 2600 4500 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 2600 4500 50  0001 C CNN
 F 3 "~" H 2600 4500 50  0001 C CNN
 	1    2600 4500
 	-1   0    0    -1  
@@ -186,7 +167,7 @@ U 1 1 5FCD6F96
 P 3500 5200
 F 0 "J5" H 3528 5176 50  0000 L CNN
 F 1 "Batt U Volts Out" H 3528 5085 50  0000 L CNN
-F 2 "" H 3500 5200 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3500 5200 50  0001 C CNN
 F 3 "~" H 3500 5200 50  0001 C CNN
 	1    3500 5200
 	1    0    0    -1  
@@ -197,7 +178,7 @@ U 1 1 5FCD6FA0
 P 2600 5200
 F 0 "J3" H 2492 5485 50  0000 C CNN
 F 1 "Batt E Volts In" H 2492 5394 50  0000 C CNN
-F 2 "" H 2600 5200 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 2600 5200 50  0001 C CNN
 F 3 "~" H 2600 5200 50  0001 C CNN
 	1    2600 5200
 	-1   0    0    -1  
@@ -4750,4 +4731,56 @@ B1 A3 0E 54 15 78 8C 2B 83 50 29 FB 61 8C 35 D7 0D 19 38 10 C5 2E 90 D2 00 0E 51
 9A 68 6B 14 CD 94 24 6E 00 00 00 00 49 45 4E 44 AE 42 60 82 
 EndData
 $EndBitmap
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 6066B9D4
+P 7600 3600
+F 0 "H1" H 7700 3646 50  0000 L CNN
+F 1 "MountingHole" H 7700 3555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7600 3600 50  0001 C CNN
+F 3 "~" H 7600 3600 50  0001 C CNN
+	1    7600 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 6066BE1C
+P 7600 3800
+F 0 "H2" H 7700 3846 50  0000 L CNN
+F 1 "MountingHole" H 7700 3755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7600 3800 50  0001 C CNN
+F 3 "~" H 7600 3800 50  0001 C CNN
+	1    7600 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 6066C1B0
+P 7600 4000
+F 0 "H3" H 7700 4046 50  0000 L CNN
+F 1 "MountingHole" H 7700 3955 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7600 4000 50  0001 C CNN
+F 3 "~" H 7600 4000 50  0001 C CNN
+	1    7600 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 6066C6C9
+P 7600 4200
+F 0 "H4" H 7700 4246 50  0000 L CNN
+F 1 "MountingHole" H 7700 4155 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 7600 4200 50  0001 C CNN
+F 3 "~" H 7600 4200 50  0001 C CNN
+	1    7600 4200
+	1    0    0    -1  
+$EndComp
+Text Label 3600 2300 0    50   ~ 0
+Row1
+Text Label 3400 3800 0    50   ~ 0
+Row2
+Text Label 1850 3050 0    50   ~ 0
+Row1
+Text Label 1850 3150 0    50   ~ 0
+Row2
 $EndSCHEMATC
