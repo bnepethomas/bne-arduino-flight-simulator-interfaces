@@ -20,7 +20,7 @@ L Switch:SW_SPDT_MSM SW1
 U 1 1 5FC1E955
 P 3200 2550
 F 0 "SW1" H 3200 2835 50  0000 C CNN
-F 1 "ECS_MODE_SW" H 3200 2744 50  0000 C CNN
+F 1 "ECS MODE" H 3200 2744 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3200 2550 50  0001 C CNN
 F 3 "~" H 3200 2550 50  0001 C CNN
 	1    3200 2550
@@ -6964,7 +6964,7 @@ L Switch:SW_SPDT_MSM SW2
 U 1 1 5FCE046B
 P 3200 3350
 F 0 "SW2" H 3200 3635 50  0000 C CNN
-F 1 "CABIN_PRESS_SW" H 3200 3544 50  0000 C CNN
+F 1 "CABIN PRESS" H 3200 3544 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3200 3350 50  0001 C CNN
 F 3 "~" H 3200 3350 50  0001 C CNN
 	1    3200 3350
@@ -6975,8 +6975,8 @@ L PT_Symbol_Library_v001:SW_Rotary4 SW6
 U 1 1 5FCE7F67
 P 3550 6000
 F 0 "SW6" H 3450 6781 50  0000 C CNN
-F 1 "BLEED_AIR_KNOB" H 3450 6690 50  0000 C CNN
-F 2 "" H 3350 6700 50  0001 C CNN
+F 1 "BLEED AIR KNOB" H 3450 6690 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 3350 6700 50  0001 C CNN
 F 3 "" H 3350 6700 50  0001 C CNN
 	1    3550 6000
 	1    0    0    -1  
@@ -6986,7 +6986,7 @@ L Switch:SW_SPDT_MSM SW4
 U 1 1 5FCE96B5
 P 3200 4800
 F 0 "SW4" H 3200 5085 50  0000 C CNN
-F 1 "ENG_ANTIICE_SW" H 3200 4994 50  0000 C CNN
+F 1 "ENG ANTIICE" H 3200 4994 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3200 4800 50  0001 C CNN
 F 3 "~" H 3200 4800 50  0001 C CNN
 	1    3200 4800
@@ -7064,32 +7064,10 @@ L Switch:SW_Push SW5
 U 1 1 5FCF0D4C
 P 3200 6650
 F 0 "SW5" H 3200 6935 50  0000 C CNN
-F 1 "BLEED_AIR_PULL" H 3200 6844 50  0000 C CNN
+F 1 "BLEED AIR PULL" H 3200 6844 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3200 6850 50  0001 C CNN
 F 3 "~" H 3200 6850 50  0001 C CNN
 	1    3200 6650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x04_Female J1
-U 1 1 5FD008B1
-P 1250 4400
-F 0 "J1" H 1142 4685 50  0000 C CNN
-F 1 "Columns In" H 1142 4594 50  0000 C CNN
-F 2 "" H 1250 4400 50  0001 C CNN
-F 3 "~" H 1250 4400 50  0001 C CNN
-	1    1250 4400
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x04_Female J2
-U 1 1 5FD01C6E
-P 4900 4450
-F 0 "J2" H 4928 4426 50  0000 L CNN
-F 1 "Rows In" H 4928 4335 50  0000 L CNN
-F 2 "" H 4900 4450 50  0001 C CNN
-F 3 "~" H 4900 4450 50  0001 C CNN
-	1    4900 4450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -7113,11 +7091,7 @@ Wire Wire Line
 Wire Wire Line
 	4450 2450 4450 3250
 Wire Wire Line
-	4450 4350 4700 4350
-Wire Wire Line
 	3400 2650 4350 2650
-Wire Wire Line
-	4350 4450 4700 4450
 Wire Wire Line
 	3400 3250 4450 3250
 Connection ~ 4450 3250
@@ -7127,10 +7101,7 @@ Wire Wire Line
 	4350 2650 4350 3450
 Connection ~ 4350 3450
 Wire Wire Line
-	4450 4350 4450 5400
-Wire Wire Line
 	4450 5400 3950 5400
-Connection ~ 4450 4350
 Wire Wire Line
 	2550 6000 1800 6000
 Wire Wire Line
@@ -7155,10 +7126,6 @@ Wire Wire Line
 Wire Wire Line
 	3400 4900 4050 4900
 Wire Wire Line
-	4050 4900 4050 4650
-Wire Wire Line
-	4050 4650 4700 4650
-Wire Wire Line
 	2050 4500 2050 6650
 Wire Wire Line
 	2050 6650 2550 6650
@@ -7166,22 +7133,15 @@ Connection ~ 2050 4500
 Wire Wire Line
 	2050 4500 2250 4500
 Wire Wire Line
-	4350 4450 4350 5500
-Wire Wire Line
 	4350 5500 3950 5500
-Connection ~ 4350 4450
 Wire Wire Line
 	4200 4550 4200 5600
 Wire Wire Line
 	4200 5600 3950 5600
-Connection ~ 4200 4550
-Wire Wire Line
-	4200 4550 4700 4550
 Wire Wire Line
 	4050 4900 4050 5700
 Wire Wire Line
 	4050 5700 3950 5700
-Connection ~ 4050 4900
 Wire Wire Line
 	4200 5600 4200 6650
 Wire Wire Line
@@ -7192,28 +7152,24 @@ L Switch:SW_SPST SW3
 U 1 1 5FD0D946
 P 3200 4100
 F 0 "SW3" H 3200 4335 50  0000 C CNN
-F 1 "PITOT_HEAT_SW" H 3200 4244 50  0000 C CNN
-F 2 "" H 3200 4100 50  0001 C CNN
+F 1 "PITOT HEAT" H 3200 4244 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3200 4100 50  0001 C CNN
 F 3 "~" H 3200 4100 50  0001 C CNN
 	1    3200 4100
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	4350 3450 4350 4450
-Wire Wire Line
 	4450 3250 4450 4100
 Wire Wire Line
 	3400 4100 4450 4100
 Connection ~ 4450 4100
-Wire Wire Line
-	4450 4100 4450 4350
 $Comp
 L Connector:Conn_01x04_Female J3
 U 1 1 5FD15862
 P 6600 4500
 F 0 "J3" H 6492 4785 50  0000 C CNN
-F 1 "Environment_Analog" H 6492 4694 50  0000 C CNN
-F 2 "" H 6600 4500 50  0001 C CNN
+F 1 "Environment Analog" H 6492 4694 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 6600 4500 50  0001 C CNN
 F 3 "~" H 6600 4500 50  0001 C CNN
 	1    6600 4500
 	-1   0    0    -1  
@@ -7252,4 +7208,150 @@ Wire Wire Line
 	7700 4750 6800 4750
 Wire Wire Line
 	6800 4750 6800 4700
+$Comp
+L OpenHornet:Solenoid SOL1
+U 1 1 6067CC08
+P 6150 5600
+F 0 "SOL1" V 6104 5728 50  0000 L CNN
+F 1 "Solenoid" V 6195 5728 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6250 5500 197 0001 C CNN
+F 3 "" H 6250 5500 197 0001 C CNN
+	1    6150 5600
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J2
+U 1 1 6067E2FA
+P 4950 5650
+F 0 "J2" H 4842 5835 50  0000 C CNN
+F 1 "Bleed Air Solenoid" H 4842 5744 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4950 5650 50  0001 C CNN
+F 3 "~" H 4950 5650 50  0001 C CNN
+	1    4950 5650
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Diode:1N4001 D7
+U 1 1 60680177
+P 5700 5650
+F 0 "D7" V 5654 5729 50  0000 L CNN
+F 1 "1N4001" V 5745 5729 50  0000 L CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 5700 5475 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 5700 5650 50  0001 C CNN
+	1    5700 5650
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:Conn_01x08_Female J1
+U 1 1 606817E2
+P 1250 4600
+F 0 "J1" H 1142 5085 50  0000 C CNN
+F 1 "Switch Inputs" H 1142 4994 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 1250 4600 50  0001 C CNN
+F 3 "~" H 1250 4600 50  0001 C CNN
+	1    1250 4600
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	6150 5350 5700 5350
+Wire Wire Line
+	5550 5350 5550 5650
+Wire Wire Line
+	5550 5650 5150 5650
+Wire Wire Line
+	5150 5750 5550 5750
+Wire Wire Line
+	5550 5750 5550 5850
+Wire Wire Line
+	5550 5850 5700 5850
+Wire Wire Line
+	5700 5500 5700 5350
+Connection ~ 5700 5350
+Wire Wire Line
+	5700 5350 5550 5350
+Wire Wire Line
+	5700 5800 5700 5850
+Connection ~ 5700 5850
+Wire Wire Line
+	5700 5850 6150 5850
+Text Label 1550 4300 0    50   ~ 0
+Col1
+Text Label 1550 4400 0    50   ~ 0
+Col2
+Text Label 1550 4500 0    50   ~ 0
+Col3
+Text Label 1550 4600 0    50   ~ 0
+Col4
+Text Label 3900 2450 0    50   ~ 0
+Row1
+Text Label 3900 2650 0    50   ~ 0
+Row2
+Text Label 3800 4550 0    50   ~ 0
+Row3
+Text Label 3800 4900 0    50   ~ 0
+Row4
+Text Label 1450 4700 0    50   ~ 0
+Row1
+Text Label 1450 4800 0    50   ~ 0
+Row2
+Text Label 1450 4900 0    50   ~ 0
+Row3
+Text Label 1450 5000 0    50   ~ 0
+Row4
+Wire Wire Line
+	4450 4100 4450 5400
+Wire Wire Line
+	4350 3450 4350 5500
+Text Label 7300 3900 0    50   ~ 0
+Analog+5V
+Text Label 6850 4500 0    50   ~ 0
+Analog_Gnd
+Text Label 6850 4600 0    50   ~ 0
+AnaCabinTemp
+Text Label 6900 4750 0    50   ~ 0
+AnaSuitTemp
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 6069093C
+P 9250 3950
+F 0 "H1" H 9350 3996 50  0000 L CNN
+F 1 "MountingHole" H 9350 3905 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9250 3950 50  0001 C CNN
+F 3 "~" H 9250 3950 50  0001 C CNN
+	1    9250 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 606909DE
+P 9250 4150
+F 0 "H2" H 9350 4196 50  0000 L CNN
+F 1 "MountingHole" H 9350 4105 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9250 4150 50  0001 C CNN
+F 3 "~" H 9250 4150 50  0001 C CNN
+	1    9250 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 60690EBE
+P 9250 4400
+F 0 "H3" H 9350 4446 50  0000 L CNN
+F 1 "MountingHole" H 9350 4355 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9250 4400 50  0001 C CNN
+F 3 "~" H 9250 4400 50  0001 C CNN
+	1    9250 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 60691268
+P 9250 4600
+F 0 "H4" H 9350 4646 50  0000 L CNN
+F 1 "MountingHole" H 9350 4555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9250 4600 50  0001 C CNN
+F 3 "~" H 9250 4600 50  0001 C CNN
+	1    9250 4600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
