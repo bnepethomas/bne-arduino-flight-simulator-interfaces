@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 213)
+    (start_pass_no 440)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -64,8 +64,8 @@
   )
   (class "kicad_default"
     /Col1 "Net-(D1-Pad1)" /Col2 "Net-(D2-Pad1)" /Col3 "Net-(D3-Pad1)" "Net-(D4-Pad1)" /Col4
-    "Net-(D5-Pad1)" "Net-(D6-Pad1)" "Net-(D7-Pad2)" "Net-(D7-Pad1)" /Row4 /Row3 /Row2 /Row1
-    /AnaSuitTemp /AnaCabinTemp "/Analog_Gnd" /Analog+5V
+    "Net-(D5-Pad1)" "Net-(D6-Pad1)" /Row4 /Row3 /Row2 /Row1 /AnaSuitTemp /AnaCabinTemp
+    "/Analog_Gnd" /Analog+5V "/Bleed_Air_Sol-" "/Bleed_Air_Sol+" "/Pitot_Mag-" "/Pitot_Mag+"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
