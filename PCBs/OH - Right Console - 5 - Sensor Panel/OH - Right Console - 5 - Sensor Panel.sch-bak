@@ -20,17 +20,17 @@ L Switch:SW_SPDT_MSM SW1
 U 1 1 5FC1E955
 P 2950 2550
 F 0 "SW1" H 2950 2835 50  0000 C CNN
-F 1 "FLIR_SW" H 2950 2744 50  0000 C CNN
+F 1 "FLIR" H 2950 2744 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2950 2550 50  0001 C CNN
 F 3 "~" H 2950 2550 50  0001 C CNN
 	1    2950 2550
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:D D7
+L Device:D D6
 U 1 1 5FC2589C
 P 4100 5000
-F 0 "D7" H 4100 5216 50  0000 C CNN
+F 0 "D6" H 4100 5216 50  0000 C CNN
 F 1 "D" H 4100 5125 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4100 5000 50  0001 C CNN
 F 3 "~" H 4100 5000 50  0001 C CNN
@@ -42,21 +42,21 @@ L Switch:SW_SPST SW3
 U 1 1 5FC61E34
 P 2950 3800
 F 0 "SW3" H 2950 4035 50  0000 C CNN
-F 1 "LST_NFLR_SW" H 2950 3944 50  0000 C CNN
+F 1 "LST/NFLR" H 2950 3944 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2950 3800 50  0001 C CNN
 F 3 "~" H 2950 3800 50  0001 C CNN
 	1    2950 3800
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_Push SW5
+L Switch:SW_Push SW4
 U 1 1 5FC6A958
-P 3000 5150
-F 0 "SW5" H 3000 5435 50  0000 C CNN
-F 1 "RADAR_SW_PULL" H 3000 5344 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3000 5350 50  0001 C CNN
-F 3 "~" H 3000 5350 50  0001 C CNN
-	1    3000 5150
+P 3000 4400
+F 0 "SW4" H 3000 4685 50  0000 C CNN
+F 1 "RADAR_SW_PULL" H 3000 4594 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3000 4600 50  0001 C CNN
+F 3 "~" H 3000 4600 50  0001 C CNN
+	1    3000 4400
 	1    0    0    -1  
 $EndComp
 $Bitmap
@@ -5071,45 +5071,23 @@ F4 85 A6 A7 55 44 A3 68 D8 2B 0C 1E 90 B9 92 3C 64 AA 70 8A 22 37 17 FE 45 C4 03
 EndData
 $EndBitmap
 $Comp
-L Switch:SW_SPDT_MSM SW2
-U 1 1 5FD2D380
+L Switch:SW_SPST SW2
+U 1 1 5FD2E318
 P 2950 3150
-F 0 "SW2" H 2950 3435 50  0000 C CNN
-F 1 "LTD_R_SW" H 2950 3344 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2950 3150 50  0001 C CNN
+F 0 "SW2" H 2950 3385 50  0000 C CNN
+F 1 "LTD/R" H 2950 3294 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2950 3150 50  0001 C CNN
 F 3 "~" H 2950 3150 50  0001 C CNN
 	1    2950 3150
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPST SW4
-U 1 1 5FD2E318
-P 2950 4400
-F 0 "SW4" H 2950 4635 50  0000 C CNN
-F 1 "LTD_R_ARM" H 2950 4544 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2950 4400 50  0001 C CNN
-F 3 "~" H 2950 4400 50  0001 C CNN
-	1    2950 4400
-	1    0    0    -1  
-$EndComp
-$Comp
-L PT_Symbol_Library_v001:SW_Rotary4 SW6
-U 1 1 5FD2F97E
-P 4950 3650
-F 0 "SW6" H 4850 4431 50  0000 C CNN
-F 1 "SW_Rotary4" H 4850 4340 50  0000 C CNN
-F 2 "" H 4750 4350 50  0001 C CNN
-F 3 "" H 4750 4350 50  0001 C CNN
-	1    4950 3650
-	1    0    0    -1  
-$EndComp
-$Comp
-L PT_Symbol_Library_v001:SW_Rotary8 SW7
+L PT_Symbol_Library_v001:SW_Rotary8 SW6
 U 1 1 5FD325D9
 P 5000 5000
-F 0 "SW7" H 4900 5781 50  0000 C CNN
+F 0 "SW6" H 4900 5781 50  0000 C CNN
 F 1 "SW_Rotary8" H 4900 5690 50  0000 C CNN
-F 2 "" H 4800 5700 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x10_P2.54mm_Vertical" H 4800 5700 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 4800 5700 50  0001 C CNN
 	1    5000 5000
 	1    0    0    -1  
@@ -5120,16 +5098,16 @@ U 1 1 5FD352E6
 P 6400 4700
 F 0 "J2" H 6428 4676 50  0000 L CNN
 F 1 "Input Rows" H 6428 4585 50  0000 L CNN
-F 2 "" H 6400 4700 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 6400 4700 50  0001 C CNN
 F 3 "~" H 6400 4700 50  0001 C CNN
 	1    6400 4700
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:D D6
+L Device:D D5
 U 1 1 5FD3680E
 P 4100 3650
-F 0 "D6" H 4100 3866 50  0000 C CNN
+F 0 "D5" H 4100 3866 50  0000 C CNN
 F 1 "D" H 4100 3775 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4100 3650 50  0001 C CNN
 F 3 "~" H 4100 3650 50  0001 C CNN
@@ -5148,17 +5126,6 @@ F 3 "~" H 2300 2550 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D2
-U 1 1 5FD3772E
-P 2300 3150
-F 0 "D2" H 2300 3366 50  0000 C CNN
-F 1 "D" H 2300 3275 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2300 3150 50  0001 C CNN
-F 3 "~" H 2300 3150 50  0001 C CNN
-	1    2300 3150
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Device:D D3
 U 1 1 5FD37AD0
 P 2300 3800
@@ -5170,8 +5137,19 @@ F 3 "~" H 2300 3800 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D4
+L Device:D D2
 U 1 1 5FD37F81
+P 2300 3150
+F 0 "D2" H 2300 3366 50  0000 C CNN
+F 1 "D" H 2300 3275 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2300 3150 50  0001 C CNN
+F 3 "~" H 2300 3150 50  0001 C CNN
+	1    2300 3150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D4
+U 1 1 5FD38861
 P 2300 4400
 F 0 "D4" H 2300 4616 50  0000 C CNN
 F 1 "D" H 2300 4525 50  0000 C CNN
@@ -5180,25 +5158,12 @@ F 3 "~" H 2300 4400 50  0001 C CNN
 	1    2300 4400
 	-1   0    0    -1  
 $EndComp
-$Comp
-L Device:D D5
-U 1 1 5FD38861
-P 2300 5150
-F 0 "D5" H 2300 5366 50  0000 C CNN
-F 1 "D" H 2300 5275 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2300 5150 50  0001 C CNN
-F 3 "~" H 2300 5150 50  0001 C CNN
-	1    2300 5150
-	-1   0    0    -1  
-$EndComp
 Wire Wire Line
-	2800 5150 2450 5150
-Wire Wire Line
-	2750 4400 2450 4400
-Wire Wire Line
-	2750 3800 2450 3800
+	2800 4400 2450 4400
 Wire Wire Line
 	2750 3150 2450 3150
+Wire Wire Line
+	2750 3800 2450 3800
 Wire Wire Line
 	2750 2550 2450 2550
 Wire Wire Line
@@ -5235,7 +5200,7 @@ U 1 1 5FD3E549
 P 1100 3650
 F 0 "J1" H 992 3935 50  0000 C CNN
 F 1 "Input Coulmns" H 992 3844 50  0000 C CNN
-F 2 "" H 1100 3650 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1100 3650 50  0001 C CNN
 F 3 "~" H 1100 3650 50  0001 C CNN
 	1    1100 3650
 	-1   0    0    -1  
@@ -5260,16 +5225,12 @@ Text Label 3150 2450 0    50   ~ 0
 Row1
 Text Label 3150 2650 0    50   ~ 0
 Row2
-Text Label 3150 3050 0    50   ~ 0
-Row3
-Text Label 3150 3250 0    50   ~ 0
-Row4
 Text Label 3150 3800 0    50   ~ 0
+Row4
+Text Label 3150 3150 0    50   ~ 0
+Row3
+Text Label 3200 4400 0    50   ~ 0
 Row5
-Text Label 3150 4400 0    50   ~ 0
-Row6
-Text Label 3200 5150 0    50   ~ 0
-Row7
 Text Label 5350 3050 0    50   ~ 0
 Row1
 Text Label 5350 3150 0    50   ~ 0
@@ -5287,29 +5248,79 @@ Col2
 Text Label 3950 5000 2    50   ~ 0
 Col3
 Wire Wire Line
-	2000 2550 2000 3150
-Wire Wire Line
-	2000 5150 2150 5150
+	2000 4400 2150 4400
 Wire Wire Line
 	2000 2550 2150 2550
 Wire Wire Line
-	2150 4400 2000 4400
-Connection ~ 2000 4400
-Wire Wire Line
-	2000 4400 2000 5150
+	2150 3150 2000 3150
 Wire Wire Line
 	2150 3800 2000 3800
 Connection ~ 2000 3800
-Wire Wire Line
-	2000 3800 2000 4400
-Wire Wire Line
-	2150 3150 2000 3150
-Connection ~ 2000 3150
-Wire Wire Line
-	2000 3150 2000 3550
 Wire Wire Line
 	1300 3550 2000 3550
 Connection ~ 2000 3550
 Wire Wire Line
 	2000 3550 2000 3800
+$Comp
+L PT_Symbol_Library_v001:SW_Rotary4 SW5
+U 1 1 60681E61
+P 4950 3650
+F 0 "SW5" H 4850 4431 50  0000 C CNN
+F 1 "SW_Rotary4" H 4850 4340 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 4750 4350 50  0001 C CNN
+F 3 "" H 4750 4350 50  0001 C CNN
+	1    4950 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2000 3800 2000 4400
+Connection ~ 2000 3150
+Wire Wire Line
+	2000 3150 2000 3550
+Wire Wire Line
+	2000 2550 2000 3150
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 6068A7ED
+P 8000 3800
+F 0 "H?" H 8100 3846 50  0000 L CNN
+F 1 "MountingHole" H 8100 3755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 8000 3800 50  0001 C CNN
+F 3 "~" H 8000 3800 50  0001 C CNN
+	1    8000 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 6068AAFF
+P 8000 4050
+F 0 "H?" H 8100 4096 50  0000 L CNN
+F 1 "MountingHole" H 8100 4005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 8000 4050 50  0001 C CNN
+F 3 "~" H 8000 4050 50  0001 C CNN
+	1    8000 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 6068AE2B
+P 8000 4350
+F 0 "H?" H 8100 4396 50  0000 L CNN
+F 1 "MountingHole" H 8100 4305 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 8000 4350 50  0001 C CNN
+F 3 "~" H 8000 4350 50  0001 C CNN
+	1    8000 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H?
+U 1 1 6068B1A8
+P 8000 4600
+F 0 "H?" H 8100 4646 50  0000 L CNN
+F 1 "MountingHole" H 8100 4555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 8000 4600 50  0001 C CNN
+F 3 "~" H 8000 4600 50  0001 C CNN
+	1    8000 4600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

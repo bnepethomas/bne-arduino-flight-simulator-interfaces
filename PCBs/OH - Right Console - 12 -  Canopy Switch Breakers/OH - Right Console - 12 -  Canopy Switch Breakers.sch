@@ -53,7 +53,7 @@ L Switch:SW_Push SW5
 U 1 1 5FC6A958
 P 4000 2750
 F 0 "SW5" H 4000 3035 50  0000 C CNN
-F 1 "CB_FCS_CHAN3" H 4000 2944 50  0000 C CNN
+F 1 "CB FCS CHAN3" H 4000 2944 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4000 2950 50  0001 C CNN
 F 3 "~" H 4000 2950 50  0001 C CNN
 	1    4000 2750
@@ -1147,7 +1147,7 @@ L Switch:SW_Push SW6
 U 1 1 5FCC2F30
 P 4000 3350
 F 0 "SW6" H 4000 3635 50  0000 C CNN
-F 1 "CB_FCS_CHAN4" H 4000 3544 50  0000 C CNN
+F 1 "CB FCS CHAN4" H 4000 3544 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4000 3550 50  0001 C CNN
 F 3 "~" H 4000 3550 50  0001 C CNN
 	1    4000 3350
@@ -1158,7 +1158,7 @@ L Switch:SW_Push SW3
 U 1 1 5FCC3700
 P 3950 3950
 F 0 "SW3" H 3950 4235 50  0000 C CNN
-F 1 "CB_HOOOK" H 3950 4144 50  0000 C CNN
+F 1 "CB HOOK" H 3950 4144 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 4150 50  0001 C CNN
 F 3 "~" H 3950 4150 50  0001 C CNN
 	1    3950 3950
@@ -1169,24 +1169,11 @@ L Switch:SW_Push SW4
 U 1 1 5FCC3BBC
 P 3950 4600
 F 0 "SW4" H 3950 4885 50  0000 C CNN
-F 1 "CB_LG" H 3950 4794 50  0000 C CNN
+F 1 "CB  LG" H 3950 4794 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 4800 50  0001 C CNN
 F 3 "~" H 3950 4800 50  0001 C CNN
 	1    3950 4600
 	1    0    0    -1  
-$EndComp
-Text Notes 4200 3650 0    50   ~ 0
-1 too many ‘O’s in hook - this is a direct paste from the LUA file
-$Comp
-L Connector:Conn_01x03_Female J1
-U 1 1 5FCC4878
-P 1100 3300
-F 0 "J1" H 992 3585 50  0000 C CNN
-F 1 "INPUT_COLUMNS" H 992 3494 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1100 3300 50  0001 C CNN
-F 3 "~" H 1100 3300 50  0001 C CNN
-	1    1100 3300
-	-1   0    0    -1  
 $EndComp
 $Comp
 L Device:D D1
@@ -1244,19 +1231,13 @@ F 3 "~" H 3450 4600 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	1300 3200 1600 3200
-Wire Wire Line
 	1600 3200 1600 2850
 Wire Wire Line
 	1600 2850 1850 2850
 Wire Wire Line
-	1300 3300 3050 3300
-Wire Wire Line
 	3050 3300 3050 3350
 Wire Wire Line
 	3050 3350 3200 3350
-Wire Wire Line
-	1300 3400 1550 3400
 Wire Wire Line
 	1550 3400 1550 3950
 Wire Wire Line
@@ -1304,29 +1285,10 @@ ROW3
 Text Label 4150 4600 0    50   ~ 0
 ROW4
 $Comp
-L Connector:Conn_01x04_Female J4
-U 1 1 5FCCD4E1
-P 5600 4250
-F 0 "J4" H 5628 4226 50  0000 L CNN
-F 1 "INPUT ROWS" H 5628 4135 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5600 4250 50  0001 C CNN
-F 3 "~" H 5600 4250 50  0001 C CNN
-	1    5600 4250
-	1    0    0    -1  
-$EndComp
-Text Label 5400 4150 2    50   ~ 0
-ROW1
-Text Label 5400 4250 2    50   ~ 0
-ROW2
-Text Label 5400 4350 2    50   ~ 0
-ROW3
-Text Label 5400 4450 2    50   ~ 0
-ROW4
-$Comp
-L Connector:Conn_01x02_Female J3
+L Connector:Conn_01x02_Female J4
 U 1 1 5FCCF872
 P 4350 5350
-F 0 "J3" H 4378 5326 50  0000 L CNN
+F 0 "J4" H 4378 5326 50  0000 L CNN
 F 1 "12V BACKLIGHT OUT" H 4378 5235 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4350 5350 50  0001 C CNN
 F 3 "~" H 4350 5350 50  0001 C CNN
@@ -1334,10 +1296,10 @@ F 3 "~" H 4350 5350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J2
+L Connector:Conn_01x02_Female J3
 U 1 1 5FCCFB41
 P 3700 5350
-F 0 "J2" H 3592 5535 50  0000 C CNN
+F 0 "J3" H 3592 5535 50  0000 C CNN
 F 1 "12V BACKLIGHT IN" H 3592 5444 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3700 5350 50  0001 C CNN
 F 3 "~" H 3700 5350 50  0001 C CNN
@@ -1348,4 +1310,91 @@ Wire Wire Line
 	4150 5350 3900 5350
 Wire Wire Line
 	3900 5450 4150 5450
+$Comp
+L pspice:INDUCTOR L1
+U 1 1 606BCD7B
+P 4200 6100
+F 0 "L1" V 4154 6178 50  0000 L CNN
+F 1 "INDUCTOR" V 4245 6178 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4200 6100 50  0001 C CNN
+F 3 "~" H 4200 6100 50  0001 C CNN
+	1    4200 6100
+	0    1    1    0   
+$EndComp
+$Comp
+L Diode:1N4001 D7
+U 1 1 606BDBD7
+P 3700 6100
+F 0 "D7" V 3654 6179 50  0000 L CNN
+F 1 "1N4001" V 3745 6179 50  0000 L CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 3700 5925 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 3700 6100 50  0001 C CNN
+	1    3700 6100
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J2
+U 1 1 606BF0B4
+P 2800 6050
+F 0 "J2" H 2692 6235 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 2692 6144 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2800 6050 50  0001 C CNN
+F 3 "~" H 2800 6050 50  0001 C CNN
+	1    2800 6050
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4200 5850 3700 5850
+Wire Wire Line
+	3450 5850 3450 6050
+Wire Wire Line
+	3450 6050 3000 6050
+Wire Wire Line
+	3700 5850 3700 5950
+Connection ~ 3700 5850
+Wire Wire Line
+	3700 5850 3450 5850
+Wire Wire Line
+	3700 6350 3700 6250
+Wire Wire Line
+	3000 6150 3450 6150
+Wire Wire Line
+	3450 6150 3450 6350
+Wire Wire Line
+	3450 6350 3700 6350
+Connection ~ 3700 6350
+Wire Wire Line
+	3700 6350 4200 6350
+$Comp
+L Connector:Conn_01x08_Female J1
+U 1 1 606C2D12
+P 1000 3500
+F 0 "J1" H 892 3985 50  0000 C CNN
+F 1 "Switch Inputs" H 892 3894 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 1000 3500 50  0001 C CNN
+F 3 "~" H 1000 3500 50  0001 C CNN
+	1    1000 3500
+	-1   0    0    -1  
+$EndComp
+Text Label 1300 3200 0    50   ~ 0
+Col1
+Text Label 1300 3300 0    50   ~ 0
+Col2
+Text Label 1300 3400 0    50   ~ 0
+Col3
+Text Label 1200 3500 0    50   ~ 0
+ROW1
+Text Label 1200 3600 0    50   ~ 0
+ROW2
+Text Label 1200 3700 0    50   ~ 0
+ROW3
+Text Label 1200 3800 0    50   ~ 0
+ROW4
+NoConn ~ 1200 3900
+Wire Wire Line
+	1200 3200 1600 3200
+Wire Wire Line
+	1200 3300 3050 3300
+Wire Wire Line
+	1200 3400 1550 3400
 $EndSCHEMATC

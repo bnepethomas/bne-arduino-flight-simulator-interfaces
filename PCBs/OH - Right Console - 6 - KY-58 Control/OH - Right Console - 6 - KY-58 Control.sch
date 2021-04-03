@@ -38,11 +38,11 @@ F 3 "~" H 3700 2550 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:SW_Rotary4 SW1
+L OH---Right-Console---6---KY-58-Control-rescue:SW_Rotary4-PT_Symbol_Library_v001 SW1
 U 1 1 5FCC3D8C
 P 3200 3950
 F 0 "SW1" H 3100 4731 50  0000 C CNN
-F 1 "SW_Rotary4" H 3100 4640 50  0000 C CNN
+F 1 "MODE" H 3100 4640 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 3000 4650 50  0001 C CNN
 F 3 "" H 3000 4650 50  0001 C CNN
 	1    3200 3950
@@ -53,7 +53,7 @@ L PT_Symbol_Library_v001:SW_Rotary3 SW2
 U 1 1 5FCC4E8B
 P 3200 5000
 F 0 "SW2" H 3100 5781 50  0000 C CNN
-F 1 "SW_Rotary3" H 3100 5690 50  0000 C CNN
+F 1 "TD" H 3100 5690 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3000 5700 50  0001 C CNN
 F 3 "" H 3000 5700 50  0001 C CNN
 	1    3200 5000
@@ -3722,11 +3722,11 @@ Row7
 Text Label 3650 6400 0    50   ~ 0
 Row8
 $Comp
-L PT_Symbol_Library_v001:SW_Rotary8 SW3
+L OH---Right-Console---6---KY-58-Control-rescue:SW_Rotary8-PT_Symbol_Library_v001 SW3
 U 1 1 5FCC2DD5
 P 3250 6200
 F 0 "SW3" H 3150 6981 50  0000 C CNN
-F 1 "SW_Rotary10" H 3150 6890 50  0000 C CNN
+F 1 "TOP RIGHT" H 3150 6890 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x10_P2.54mm_Vertical" H 3050 6900 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 3050 6900 50  0001 C CNN
 	1    3250 6200

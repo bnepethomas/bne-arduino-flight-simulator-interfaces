@@ -25,10 +25,10 @@ F 3 "~" H 3050 2250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:D D6
+L Device:D D7
 U 1 1 5FC2589C
 P 4400 4000
-F 0 "D6" H 4400 4216 50  0000 C CNN
+F 0 "D7" H 4400 4216 50  0000 C CNN
 F 1 "D" H 4400 4125 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4400 4000 50  0001 C CNN
 F 3 "~" H 4400 4000 50  0001 C CNN
@@ -6378,21 +6378,10 @@ L Switch:SW_SPDT_MSM SW4
 U 1 1 5FDD3713
 P 3050 4500
 F 0 "SW4" H 3050 4785 50  0000 C CNN
-F 1 "TOGGLE" H 3050 4694 50  0000 C CNN
+F 1 "TOGGLE VIEW" H 3050 4694 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3050 4500 50  0001 C CNN
 F 3 "~" H 3050 4500 50  0001 C CNN
 	1    3050 4500
-	1    0    0    -1  
-$EndComp
-$Comp
-L PT_Symbol_Library_v001:SW_Rotary8 SW6
-U 1 1 5FDD5B98
-P 5250 4000
-F 0 "SW6" H 5150 4781 50  0000 C CNN
-F 1 "SW_Rotary8" H 5150 4690 50  0000 C CNN
-F 2 "" H 5050 4700 50  0001 C CNN
-F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 5050 4700 50  0001 C CNN
-	1    5250 4000
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -6401,7 +6390,7 @@ U 1 1 5FDD91F0
 P 7200 3900
 F 0 "J2" H 7228 3876 50  0000 L CNN
 F 1 "Input Rows" H 7228 3785 50  0000 L CNN
-F 2 "" H 7200 3900 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 7200 3900 50  0001 C CNN
 F 3 "~" H 7200 3900 50  0001 C CNN
 	1    7200 3900
 	1    0    0    -1  
@@ -6456,17 +6445,6 @@ Text Label 3250 4600 0    50   ~ 0
 Row8
 Text Label 3250 5150 0    50   ~ 0
 Row1
-$Comp
-L Connector:Conn_01x03_Female J1
-U 1 1 5FDDCFB1
-P 1300 3250
-F 0 "J1" H 1192 3535 50  0000 C CNN
-F 1 "Input Columns" H 1192 3444 50  0000 C CNN
-F 2 "" H 1300 3250 50  0001 C CNN
-F 3 "~" H 1300 3250 50  0001 C CNN
-	1    1300 3250
-	-1   0    0    -1  
-$EndComp
 Text Label 1500 3150 0    50   ~ 0
 Col1
 Text Label 1500 3350 0    50   ~ 0
@@ -6569,4 +6547,114 @@ Wire Wire Line
 	1950 3350 1950 5150
 Wire Wire Line
 	1950 5150 2450 5150
+$Comp
+L PT_Symbol_Library_v001:SW_Rotary8 SW7
+U 1 1 6069D417
+P 5250 4000
+F 0 "SW7" H 5150 4781 50  0000 C CNN
+F 1 "VIEW" H 5150 4690 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x10_P2.54mm_Vertical" H 5050 4700 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 5050 4700 50  0001 C CNN
+	1    5250 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D6
+U 1 1 606A1A0E
+P 4250 5400
+F 0 "D6" H 4250 5616 50  0000 C CNN
+F 1 "D" H 4250 5525 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4250 5400 50  0001 C CNN
+F 3 "~" H 4250 5400 50  0001 C CNN
+	1    4250 5400
+	-1   0    0    -1  
+$EndComp
+Text Label 5500 4800 0    50   ~ 0
+Row1
+Text Label 5500 4900 0    50   ~ 0
+Row2
+Text Label 5500 5000 0    50   ~ 0
+Row3
+Text Label 5500 5100 0    50   ~ 0
+Row4
+Text Label 5500 5200 0    50   ~ 0
+Row5
+Text Label 5500 5300 0    50   ~ 0
+Row6
+Text Label 5500 5500 0    50   ~ 0
+Row7
+Text Label 5500 5600 0    50   ~ 0
+Row8
+Wire Wire Line
+	4400 5400 4500 5400
+Text Label 4100 5400 2    50   ~ 0
+Col4
+$Comp
+L PT_Symbol_Library_v001:SW_Rotary8 SW6
+U 1 1 606A1A22
+P 5100 5400
+F 0 "SW6" H 5000 6181 50  0000 C CNN
+F 1 "SPARE" H 5000 6090 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x10_P2.54mm_Vertical" H 4900 6100 50  0001 C CNN
+F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 4900 6100 50  0001 C CNN
+	1    5100 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J1
+U 1 1 606A44B6
+P 1300 3250
+F 0 "J1" H 1192 3535 50  0000 C CNN
+F 1 "Input Columns" H 1192 3444 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1300 3250 50  0001 C CNN
+F 3 "~" H 1300 3250 50  0001 C CNN
+	1    1300 3250
+	-1   0    0    -1  
+$EndComp
+Text Label 1500 3450 0    50   ~ 0
+Col4
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 606A8424
+P 7100 4850
+F 0 "H1" H 7200 4896 50  0000 L CNN
+F 1 "MountingHole" H 7200 4805 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7100 4850 50  0001 C CNN
+F 3 "~" H 7100 4850 50  0001 C CNN
+	1    7100 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 606A85E4
+P 7100 5050
+F 0 "H2" H 7200 5096 50  0000 L CNN
+F 1 "MountingHole" H 7200 5005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7100 5050 50  0001 C CNN
+F 3 "~" H 7100 5050 50  0001 C CNN
+	1    7100 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 606A8B17
+P 7100 5250
+F 0 "H3" H 7200 5296 50  0000 L CNN
+F 1 "MountingHole" H 7200 5205 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7100 5250 50  0001 C CNN
+F 3 "~" H 7100 5250 50  0001 C CNN
+	1    7100 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 606A8F8B
+P 7100 5450
+F 0 "H4" H 7200 5496 50  0000 L CNN
+F 1 "MountingHole" H 7200 5405 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7100 5450 50  0001 C CNN
+F 3 "~" H 7100 5450 50  0001 C CNN
+	1    7100 5450
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
