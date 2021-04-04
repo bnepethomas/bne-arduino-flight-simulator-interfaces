@@ -1,5 +1,5 @@
 
-(rules PCB OH - Left Console - Input Distribution
+(rules PCB OH - Right Console - Input Distribution
   (snap_angle 
     fortyfive_degree
   )
@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 3053)
+    (start_pass_no 1848)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,14 +63,14 @@
     )
   )
   (class "kicad_default"
-    "/FORMATION_DIMMER" "/POSITION_DIMMER" "/ANALOG_GND" "/ANALOG_5V" /COL10 /COL9 /ROW1 /ROW0
-    /COL8 /COL7 /COL6 /COL5 /COL4 /COL3 "/RUD_TRIM" /ROW3
-    /ROW2 /ROW5 /ROW4 "/COM_WPN" "/COM_AUX" "/COM_TACAN" "/COM_MIDS_B" "/COM_MIDS_A"
-    "/COM_RWR" "/COM_ICS" "/COM_VOX" /COL2 /COL1 /COL0 /ROW9 /ROW8
-    /ROW7 /ROW6 "/OXY_FLOW" /ROW13 /ROW12 /ROW11 /ROW10 /ROW15
-    /ROW14 "Net-(D1-Pad2)" "Net-(D2-Pad2)" /A10 /A9 /A8 /A7 /A6
-    /A5 /A4 /A3 /A2 /A1 /B10 /B9 /B8
-    /B7 /B6 /B5 /B4 /B3 /B2 /B1
+    "/ANALOG_GND" "/ANALOG_5V" /COL10 /COL9 /ROW1 /ROW0 /COL8 /COL7
+    /COL6 /COL5 /COL4 /COL3 /ROW3 /ROW2 /ROW5 /ROW4
+    /COL2 /COL1 /COL0 /ROW9 /ROW8 /ROW7 /ROW6 /ROW13
+    /ROW12 /ROW11 /ROW10 /ROW15 /ROW14 /A10 /A9 /A8
+    /A7 /A6 /A5 /A4 /A3 /A2 /A1 /B10
+    /B9 /B8 /B7 /B6 /B5 /B4 /B3 /B2
+    /B1 "/LGHT_DEFOG" "/LGHT_WARN_CAUTION" "/LGHT_CHART" "/LGHT_FLOOD" "/LGHT_INST_PNL" "/LGHT_CONSOLES" "/KY58_VOL"
+    "/ECS_SUIT" "/ECS_CABIN"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
