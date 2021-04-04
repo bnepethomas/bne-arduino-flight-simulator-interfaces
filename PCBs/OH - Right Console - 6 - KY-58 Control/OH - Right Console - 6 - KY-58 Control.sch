@@ -38,17 +38,6 @@ F 3 "~" H 3700 2550 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L OH---Right-Console---6---KY-58-Control-rescue:SW_Rotary4-PT_Symbol_Library_v001 SW1
-U 1 1 5FCC3D8C
-P 3200 3950
-F 0 "SW1" H 3100 4731 50  0000 C CNN
-F 1 "MODE" H 3100 4640 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 3000 4650 50  0001 C CNN
-F 3 "" H 3000 4650 50  0001 C CNN
-	1    3200 3950
-	1    0    0    -1  
-$EndComp
-$Comp
 L PT_Symbol_Library_v001:SW_Rotary3 SW2
 U 1 1 5FCC4E8B
 P 3200 5000
@@ -3722,14 +3711,69 @@ Row7
 Text Label 3650 6400 0    50   ~ 0
 Row8
 $Comp
-L OH---Right-Console---6---KY-58-Control-rescue:SW_Rotary8-PT_Symbol_Library_v001 SW3
-U 1 1 5FCC2DD5
+L Mechanical:MountingHole H1
+U 1 1 606B8BEC
+P 7400 4000
+F 0 "H1" H 7500 4046 50  0000 L CNN
+F 1 "MountingHole" H 7500 3955 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7400 4000 50  0001 C CNN
+F 3 "~" H 7400 4000 50  0001 C CNN
+	1    7400 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 606B8DD9
+P 7400 4200
+F 0 "H2" H 7500 4246 50  0000 L CNN
+F 1 "MountingHole" H 7500 4155 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7400 4200 50  0001 C CNN
+F 3 "~" H 7400 4200 50  0001 C CNN
+	1    7400 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 606B91F5
+P 7400 4400
+F 0 "H3" H 7500 4446 50  0000 L CNN
+F 1 "MountingHole" H 7500 4355 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7400 4400 50  0001 C CNN
+F 3 "~" H 7400 4400 50  0001 C CNN
+	1    7400 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 606B9662
+P 7400 4600
+F 0 "H4" H 7500 4646 50  0000 L CNN
+F 1 "MountingHole" H 7500 4555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 7400 4600 50  0001 C CNN
+F 3 "~" H 7400 4600 50  0001 C CNN
+	1    7400 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:SW_Rotary8 SW3
+U 1 1 606BA22B
 P 3250 6200
 F 0 "SW3" H 3150 6981 50  0000 C CNN
 F 1 "TOP RIGHT" H 3150 6890 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x10_P2.54mm_Vertical" H 3050 6900 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 3050 6900 50  0001 C CNN
 	1    3250 6200
+	1    0    0    -1  
+$EndComp
+$Comp
+L PT_Symbol_Library_v001:SW_Rotary4 SW1
+U 1 1 606BF5AE
+P 3200 3950
+F 0 "SW1" H 3100 4731 50  0000 C CNN
+F 1 "MODE" H 3100 4640 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 3000 4650 50  0001 C CNN
+F 3 "" H 3000 4650 50  0001 C CNN
+	1    3200 3950
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
