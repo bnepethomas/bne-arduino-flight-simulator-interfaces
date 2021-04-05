@@ -53,7 +53,7 @@ L Switch:SW_Push SW4
 U 1 1 5FC6A958
 P 3000 4400
 F 0 "SW4" H 3000 4685 50  0000 C CNN
-F 1 "RADAR_SW_PULL" H 3000 4594 50  0000 C CNN
+F 1 "RADAR PULL" H 3000 4594 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3000 4600 50  0001 C CNN
 F 3 "~" H 3000 4600 50  0001 C CNN
 	1    3000 4400
@@ -5086,17 +5086,17 @@ L PT_Symbol_Library_v001:SW_Rotary8 SW6
 U 1 1 5FD325D9
 P 5000 5000
 F 0 "SW6" H 4900 5781 50  0000 C CNN
-F 1 "SW_Rotary8" H 4900 5690 50  0000 C CNN
+F 1 "INS" H 4900 5690 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x10_P2.54mm_Vertical" H 4800 5700 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 4800 5700 50  0001 C CNN
 	1    5000 5000
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x08_Female J2
+L Connector:Conn_01x08_Female J3
 U 1 1 5FD352E6
 P 6400 4700
-F 0 "J2" H 6428 4676 50  0000 L CNN
+F 0 "J3" H 6428 4676 50  0000 L CNN
 F 1 "Input Rows" H 6428 4585 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 6400 4700 50  0001 C CNN
 F 3 "~" H 6400 4700 50  0001 C CNN
@@ -5266,7 +5266,7 @@ L PT_Symbol_Library_v001:SW_Rotary4 SW5
 U 1 1 60681E61
 P 4950 3650
 F 0 "SW5" H 4850 4431 50  0000 C CNN
-F 1 "SW_Rotary4" H 4850 4340 50  0000 C CNN
+F 1 "RADAR" H 4850 4340 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 4750 4350 50  0001 C CNN
 F 3 "" H 4750 4350 50  0001 C CNN
 	1    4950 3650
@@ -5280,10 +5280,10 @@ Wire Wire Line
 Wire Wire Line
 	2000 2550 2000 3150
 $Comp
-L Mechanical:MountingHole H?
+L Mechanical:MountingHole H1
 U 1 1 6068A7ED
 P 8000 3800
-F 0 "H?" H 8100 3846 50  0000 L CNN
+F 0 "H1" H 8100 3846 50  0000 L CNN
 F 1 "MountingHole" H 8100 3755 50  0000 L CNN
 F 2 "MountingHole:MountingHole_3.2mm_M3" H 8000 3800 50  0001 C CNN
 F 3 "~" H 8000 3800 50  0001 C CNN
@@ -5291,10 +5291,10 @@ F 3 "~" H 8000 3800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole H?
+L Mechanical:MountingHole H2
 U 1 1 6068AAFF
 P 8000 4050
-F 0 "H?" H 8100 4096 50  0000 L CNN
+F 0 "H2" H 8100 4096 50  0000 L CNN
 F 1 "MountingHole" H 8100 4005 50  0000 L CNN
 F 2 "MountingHole:MountingHole_3.2mm_M3" H 8000 4050 50  0001 C CNN
 F 3 "~" H 8000 4050 50  0001 C CNN
@@ -5302,10 +5302,10 @@ F 3 "~" H 8000 4050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole H?
+L Mechanical:MountingHole H3
 U 1 1 6068AE2B
 P 8000 4350
-F 0 "H?" H 8100 4396 50  0000 L CNN
+F 0 "H3" H 8100 4396 50  0000 L CNN
 F 1 "MountingHole" H 8100 4305 50  0000 L CNN
 F 2 "MountingHole:MountingHole_3.2mm_M3" H 8000 4350 50  0001 C CNN
 F 3 "~" H 8000 4350 50  0001 C CNN
@@ -5313,14 +5313,69 @@ F 3 "~" H 8000 4350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mechanical:MountingHole H?
+L Mechanical:MountingHole H4
 U 1 1 6068B1A8
 P 8000 4600
-F 0 "H?" H 8100 4646 50  0000 L CNN
+F 0 "H4" H 8100 4646 50  0000 L CNN
 F 1 "MountingHole" H 8100 4555 50  0000 L CNN
 F 2 "MountingHole:MountingHole_3.2mm_M3" H 8000 4600 50  0001 C CNN
 F 3 "~" H 8000 4600 50  0001 C CNN
 	1    8000 4600
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:Conn_01x02_Female J2
+U 1 1 606A8C4C
+P 4100 6300
+F 0 "J2" H 3992 6485 50  0000 C CNN
+F 1 "Mag Switch" H 3992 6394 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4100 6300 50  0001 C CNN
+F 3 "~" H 4100 6300 50  0001 C CNN
+	1    4100 6300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L OpenHornet:Solenoid SOL1
+U 1 1 606AA8A0
+P 5100 6350
+F 0 "SOL1" V 5054 6478 50  0000 L CNN
+F 1 "Solenoid" V 5145 6478 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5200 6250 197 0001 C CNN
+F 3 "" H 5200 6250 197 0001 C CNN
+	1    5100 6350
+	0    1    1    0   
+$EndComp
+$Comp
+L Diode:1N4001 D7
+U 1 1 606AB890
+P 4650 6350
+F 0 "D7" V 4604 6429 50  0000 L CNN
+F 1 "1N4001" V 4695 6429 50  0000 L CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 4650 6175 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 4650 6350 50  0001 C CNN
+	1    4650 6350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5100 6100 4650 6100
+Wire Wire Line
+	4450 6100 4450 6300
+Wire Wire Line
+	4450 6300 4300 6300
+Wire Wire Line
+	4300 6400 4450 6400
+Wire Wire Line
+	4450 6400 4450 6600
+Wire Wire Line
+	4450 6600 4650 6600
+Wire Wire Line
+	4650 6100 4650 6200
+Connection ~ 4650 6100
+Wire Wire Line
+	4650 6100 4450 6100
+Wire Wire Line
+	4650 6500 4650 6600
+Connection ~ 4650 6600
+Wire Wire Line
+	4650 6600 5100 6600
 $EndSCHEMATC

@@ -5093,10 +5093,10 @@ F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 4800
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x08_Female J2
+L Connector:Conn_01x08_Female J3
 U 1 1 5FD352E6
 P 6400 4700
-F 0 "J2" H 6428 4676 50  0000 L CNN
+F 0 "J3" H 6428 4676 50  0000 L CNN
 F 1 "Input Rows" H 6428 4585 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 6400 4700 50  0001 C CNN
 F 3 "~" H 6400 4700 50  0001 C CNN
@@ -5323,4 +5323,59 @@ F 3 "~" H 8000 4600 50  0001 C CNN
 	1    8000 4600
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:Conn_01x02_Female J2
+U 1 1 606A8C4C
+P 4100 6300
+F 0 "J2" H 3992 6485 50  0000 C CNN
+F 1 "Laser Mag" H 3992 6394 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4100 6300 50  0001 C CNN
+F 3 "~" H 4100 6300 50  0001 C CNN
+	1    4100 6300
+	-1   0    0    -1  
+$EndComp
+$Comp
+L OpenHornet:Solenoid SOL1
+U 1 1 606AA8A0
+P 5100 6350
+F 0 "SOL1" V 5054 6478 50  0000 L CNN
+F 1 "Laser Mag" V 5145 6478 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5200 6250 197 0001 C CNN
+F 3 "" H 5200 6250 197 0001 C CNN
+	1    5100 6350
+	0    1    1    0   
+$EndComp
+$Comp
+L Diode:1N4001 D7
+U 1 1 606AB890
+P 4650 6350
+F 0 "D7" V 4604 6429 50  0000 L CNN
+F 1 "1N4001" V 4695 6429 50  0000 L CNN
+F 2 "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal" H 4650 6175 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88503/1n4001.pdf" H 4650 6350 50  0001 C CNN
+	1    4650 6350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	5100 6100 4650 6100
+Wire Wire Line
+	4450 6100 4450 6300
+Wire Wire Line
+	4450 6300 4300 6300
+Wire Wire Line
+	4300 6400 4450 6400
+Wire Wire Line
+	4450 6400 4450 6600
+Wire Wire Line
+	4450 6600 4650 6600
+Wire Wire Line
+	4650 6100 4650 6200
+Connection ~ 4650 6100
+Wire Wire Line
+	4650 6100 4450 6100
+Wire Wire Line
+	4650 6500 4650 6600
+Connection ~ 4650 6600
+Wire Wire Line
+	4650 6600 5100 6600
 $EndSCHEMATC
