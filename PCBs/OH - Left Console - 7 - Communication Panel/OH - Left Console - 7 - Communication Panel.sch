@@ -16,10 +16,10 @@ $EndDescr
 Text Notes 850  2000 0    50   ~ 0
 -- 7. Communication Panel\ndefinePotentiometer("COM_VOX", 40, 3002, 357, {0, 1}, "Communication Panel", "VOX Volume Control Knob")\ndefinePotentiometer("COM_ICS", 40, 3003, 358, {0, 1}, "Communication Panel", "ICS Volume Control Knob")\ndefinePotentiometer("COM_RWR", 40, 3004, 359, {0, 1}, "Communication Panel", "RWR Volume Control Knob")\ndefinePotentiometer("COM_WPN", 40, 3005, 360, {0, 1}, "Communication Panel", "WPN Volume Control Knob")\ndefinePotentiometer("COM_MIDS_A", 40, 3006, 362, {0, 1}, "Communication Panel", "MIDS A Volume Control Knob")\ndefinePotentiometer("COM_MIDS_B", 40, 3007, 361, {0, 1}, "Communication Panel", "MIDS B Volume Control Knob")\ndefinePotentiometer("COM_TACAN", 40, 3008, 363, {0, 1}, "Communication Panel", "TACAN Volume Control Knob")\ndefinePotentiometer("COM_AUX", 40, 3009, 364, {0, 1}, "Communication Panel", "AUX Volume Control Knob")\ndefine3PosTumb("COM_COMM_RELAY_SW", 40, 3010, 350, "Communication Panel", "Comm Relay Switch, CIPHER/OFF/PLAIN")\ndefine3PosTumb("COM_COMM_G_XMT_SW", 40, 3011, 351, "Communication Panel", "COMM G XMT Switch, COMM 1/OFF/COMM 2")\ndefineToggleSwitch("COM_IFF_MASTER_SW", 40, 3012, 356, "Communication Panel", "IFF Master Switch, EMER/NORM")\ndefine3PosTumb("COM_IFF_MODE4_SW", 40, 3013, 355, "Communication Panel", "IFF Mode 4 Switch, DIS/AUD /DIS/OFF")\ndefineRockerSwitch("COM_CRYPTO_SW", 40, 3015, 3015, 3014, 3014, 354, "Communication Panel", "CRYPTO Switch, HOLD/NORM/ZERO")\ndefineToggleSwitch("COM_ILS_UFC_MAN_SW", 40, 3016, 353, "Communication Panel", "ILS UFC/MAN Switch, UFC/MAN")\ndefineTumb("COM_ILS_CHANNEL_SW", 40, 3017, 352, 0.05, {0.0, 0.95}, nil, false, "Communication Panel", "ILS Channel Selector Switch")
 $Comp
-L Switch:SW_SPDT_MSM SW1
+L Switch:SW_SPDT_MSM SW2
 U 1 1 5FC1E955
 P 2500 3700
-F 0 "SW1" H 2500 3985 50  0000 C CNN
+F 0 "SW2" H 2500 3985 50  0000 C CNN
 F 1 "COM_CRYPTO_SW" H 2500 3894 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2500 3700 50  0001 C CNN
 F 3 "~" H 2500 3700 50  0001 C CNN
@@ -27,10 +27,10 @@ F 3 "~" H 2500 3700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:D D1
+L Device:D D7
 U 1 1 5FC2589C
 P 5250 3550
-F 0 "D1" H 5250 3766 50  0000 C CNN
+F 0 "D7" H 5250 3766 50  0000 C CNN
 F 1 "D" H 5250 3675 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 5250 3550 50  0001 C CNN
 F 3 "~" H 5250 3550 50  0001 C CNN
@@ -40,12 +40,12 @@ $EndComp
 $Comp
 L Switch:SW_SPST SW6
 U 1 1 5FC61E34
-P 3950 4100
-F 0 "SW6" H 3950 4335 50  0000 C CNN
-F 1 "COM_ILS_UFC_MAN_SW" H 3950 4244 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 4100 50  0001 C CNN
-F 3 "~" H 3950 4100 50  0001 C CNN
-	1    3950 4100
+P 3950 4300
+F 0 "SW6" H 3950 4535 50  0000 C CNN
+F 1 "COM_ILS_UFC_MAN_SW" H 3950 4444 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 4300 50  0001 C CNN
+F 3 "~" H 3950 4300 50  0001 C CNN
+	1    3950 4300
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -10076,10 +10076,10 @@ F 3 "~" H 3950 3150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPDT_MSM SW2
+L Switch:SW_SPDT_MSM SW1
 U 1 1 5FC787B8
 P 2500 3150
-F 0 "SW2" H 2500 3435 50  0000 C CNN
+F 0 "SW1" H 2500 3435 50  0000 C CNN
 F 1 "COM_COMM_RELAY_SW" H 2500 3344 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2500 3150 50  0001 C CNN
 F 3 "~" H 2500 3150 50  0001 C CNN
@@ -10172,17 +10172,6 @@ F 1 "COM_COMM_G_XMT_SW" H 2500 4444 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2500 4250 50  0001 C CNN
 F 3 "~" H 2500 4250 50  0001 C CNN
 	1    2500 4250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_SPST SW5
-U 1 1 5FC8304F
-P 3950 3650
-F 0 "SW5" H 3950 3885 50  0000 C CNN
-F 1 "COM_IFF_MODE4_SW" H 3950 3794 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 3650 50  0001 C CNN
-F 3 "~" H 3950 3650 50  0001 C CNN
-	1    3950 3650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
@@ -10401,15 +10390,15 @@ Text Label 2700 4350 0    50   ~ 0
 ROW6
 Text Label 4150 3150 0    50   ~ 0
 ROW7
-Text Label 4150 3650 0    50   ~ 0
+Text Label 4150 3550 0    50   ~ 0
 ROW8
-Text Label 4150 4100 0    50   ~ 0
+Text Label 4150 4300 0    50   ~ 0
 ROW9
 $Comp
-L Device:D D5
+L Device:D D4
 U 1 1 5FE0C509
 P 3450 3150
-F 0 "D5" H 3450 3366 50  0000 C CNN
+F 0 "D4" H 3450 3366 50  0000 C CNN
 F 1 "D" H 3450 3275 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3450 3150 50  0001 C CNN
 F 3 "~" H 3450 3150 50  0001 C CNN
@@ -10417,10 +10406,10 @@ F 3 "~" H 3450 3150 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D6
+L Device:D D5
 U 1 1 5FE0D02C
 P 3450 3650
-F 0 "D6" H 3450 3866 50  0000 C CNN
+F 0 "D5" H 3450 3866 50  0000 C CNN
 F 1 "D" H 3450 3775 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3450 3650 50  0001 C CNN
 F 3 "~" H 3450 3650 50  0001 C CNN
@@ -10428,21 +10417,10 @@ F 3 "~" H 3450 3650 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D7
-U 1 1 5FE0D3E8
-P 3450 4100
-F 0 "D7" H 3450 4316 50  0000 C CNN
-F 1 "D" H 3450 4225 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3450 4100 50  0001 C CNN
-F 3 "~" H 3450 4100 50  0001 C CNN
-	1    3450 4100
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:D D2
+L Device:D D1
 U 1 1 5FE0D8E9
 P 2000 3150
-F 0 "D2" H 2000 3366 50  0000 C CNN
+F 0 "D1" H 2000 3366 50  0000 C CNN
 F 1 "D" H 2000 3275 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2000 3150 50  0001 C CNN
 F 3 "~" H 2000 3150 50  0001 C CNN
@@ -10450,10 +10428,10 @@ F 3 "~" H 2000 3150 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D3
+L Device:D D2
 U 1 1 5FE0E2B3
 P 2000 3700
-F 0 "D3" H 2000 3916 50  0000 C CNN
+F 0 "D2" H 2000 3916 50  0000 C CNN
 F 1 "D" H 2000 3825 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2000 3700 50  0001 C CNN
 F 3 "~" H 2000 3700 50  0001 C CNN
@@ -10461,10 +10439,10 @@ F 3 "~" H 2000 3700 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D4
+L Device:D D3
 U 1 1 5FE0E9DA
 P 2000 4250
-F 0 "D4" H 2000 4466 50  0000 C CNN
+F 0 "D3" H 2000 4466 50  0000 C CNN
 F 1 "D" H 2000 4375 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 2000 4250 50  0001 C CNN
 F 3 "~" H 2000 4250 50  0001 C CNN
@@ -10476,7 +10454,7 @@ Wire Wire Line
 Wire Wire Line
 	3750 3650 3600 3650
 Wire Wire Line
-	3750 4100 3600 4100
+	3750 4300 3600 4300
 Wire Wire Line
 	2300 3150 2150 3150
 Wire Wire Line
@@ -10488,12 +10466,8 @@ Wire Wire Line
 Wire Wire Line
 	3200 3150 3200 3650
 Wire Wire Line
-	3200 4100 3300 4100
-Wire Wire Line
 	3300 3650 3200 3650
 Connection ~ 3200 3650
-Wire Wire Line
-	3200 3650 3200 4100
 Wire Wire Line
 	1850 3150 1750 3150
 Wire Wire Line
@@ -10601,4 +10575,32 @@ F 3 "~" H 9800 4450 50  0001 C CNN
 	1    9800 4450
 	1    0    0    -1  
 $EndComp
+$Comp
+L Switch:SW_SPDT_MSM SW5
+U 1 1 606A74DA
+P 3950 3650
+F 0 "SW5" H 3950 3935 50  0000 C CNN
+F 1 "COM_IFF_MODE4_SW" H 3950 3844 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3950 3650 50  0001 C CNN
+F 3 "~" H 3950 3650 50  0001 C CNN
+	1    3950 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3200 3650 3200 4300
+$Comp
+L Device:D D6
+U 1 1 5FE0D3E8
+P 3450 4300
+F 0 "D6" H 3450 4516 50  0000 C CNN
+F 1 "D" H 3450 4425 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3450 4300 50  0001 C CNN
+F 3 "~" H 3450 4300 50  0001 C CNN
+	1    3450 4300
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3300 4300 3200 4300
+Text Label 4150 3750 0    50   ~ 0
+ROW10
 $EndSCHEMATC
