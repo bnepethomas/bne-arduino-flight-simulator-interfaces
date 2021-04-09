@@ -3,12 +3,11 @@
   (base_design "OH - Left Console - 6 - Flight Control Systems Panel .dsn")
   (placement
     (resolution um 10)
-    (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place J4 1047750 -1266190 front 0)
-      (place J3 1049020 -1189990 front 0)
-      (place SW3 732790 -1263650 front 0)
-      (place SW2 833120 -1263650 front 0)
-      (place SW1 941070 -1263650 front 0)
+    (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
+      (place J4 1035050 -1189990 front 0)
+      (place J3 1033780 -1273810 front 0)
+      (place RV1 840740 -1363980 front 0)
+      (place J2 717550 -1360170 front 0)
     )
     (component MountingHole:MountingHole_4.3mm_M4
       (place H4 720090 -1488440 front 0)
@@ -16,9 +15,10 @@
       (place H2 721360 -1103630 front 0)
       (place H1 1061720 -1104900 front 0)
     )
-    (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place RV1 840740 -1363980 front 0)
-      (place J2 717550 -1360170 front 0)
+    (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
+      (place SW3 732790 -1263650 front 0)
+      (place SW2 833120 -1263650 front 0)
+      (place SW1 941070 -1263650 front 0)
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
       (place J1 795020 -1163320 front 0)
@@ -220,7 +220,7 @@
           )
         )
       )
-      (net "Net-(J2-Pad3)"
+      (net /Analog_Gnd
         (wire
           (path B.Cu 2500
             891540 -1363980
@@ -243,7 +243,7 @@
           )
         )
       )
-      (net "Net-(J2-Pad2)"
+      (net /Rud_Trim
         (wire
           (path F.Cu 2500
             866140 -1363980
@@ -267,7 +267,7 @@
           )
         )
       )
-      (net "Net-(J2-Pad1)"
+      (net /Analog+5V
         (wire
           (path F.Cu 2500
             717550 -1360170
@@ -277,27 +277,42 @@
           )
         )
       )
-      (net "/Backlight-"
+      (net "Net-(J3-Pad3)"
         (wire
           (path F.Cu 2500
-            1074420 -1189990
-            1074420 -1204243
+            1084580 -1273810
+            1084580 -1259557
           )
         )
         (wire
           (path F.Cu 2500
-            1074420 -1204243
-            1073150 -1205513
-            1073150 -1266190
+            1084580 -1259557
+            1085850 -1258287
+            1085850 -1189990
           )
         )
       )
-      (net /Backlight+
+      (net "Net-(J3-Pad2)"
         (wire
           (path F.Cu 2500
-            1049020 -1189990
-            1047750 -1191260
-            1047750 -1266190
+            1059180 -1273810
+            1059180 -1259557
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1059180 -1259557
+            1060450 -1258287
+            1060450 -1189990
+          )
+        )
+      )
+      (net "Net-(J3-Pad1)"
+        (wire
+          (path F.Cu 2500
+            1033780 -1273810
+            1035050 -1272540
+            1035050 -1189990
           )
         )
       )
