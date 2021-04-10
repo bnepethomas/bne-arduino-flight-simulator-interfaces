@@ -21,8 +21,8 @@
       )
     )
     (boundary
-      (path pcb 0  140843 -127127  80899 -127127  80899 -93853  140843 -93853
-            140843 -127127)
+      (path pcb 0  176006 -86487  164719 -104013  80645 -104013  80645 -96139
+            100076 -96139  100076 -77804  176006 -77804  176006 -86487)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -34,29 +34,29 @@
   )
   (placement
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place J1 118999 -99822 front 0 (PN "Switch Inputs"))
-      (place J5 94742 -110871 front 0 (PN "Batt U Volts Out"))
-      (place J4 108712 -110998 front 0 (PN "Batt U Volts Out"))
-      (place J3 94742 -121285 front 0 (PN "Batt E Volts In"))
-      (place J2 108712 -121285 front 0 (PN "Batt U Volts In"))
+      (place J1 103886 -82042 front 0 (PN "Switch Inputs"))
+      (place J5 133223 -82042 front 0 (PN "Batt U Volts Out"))
+      (place J4 146812 -82042 front 0 (PN "Batt U Volts Out"))
+      (place J3 133223 -90805 front 0 (PN "Batt E Volts In"))
+      (place J2 146812 -91059 front 0 (PN "Batt U Volts In"))
     )
     (component MountingHole:MountingHole_4.3mm_M4
-      (place H4 136271 -122555 front 0 (PN MountingHole))
-      (place H3 136271 -98425 front 0 (PN MountingHole))
-      (place H2 85344 -122555 front 0 (PN MountingHole))
-      (place H1 85344 -98425 front 0 (PN MountingHole))
+      (place H4 172085 -85471 front 0 (PN MountingHole))
+      (place H3 126746 -82804 front 0 (PN MountingHole))
+      (place H2 84201 -99695 front 0 (PN MountingHole))
+      (place H1 138938 -99314 front 0 (PN MountingHole))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place SW3 125222 -121285 front 0 (PN "L GEN"))
-      (place SW2 94234 -99822 front 0 (PN "R GEN"))
+      (place SW3 160274 -93345 front 0 (PN "L GEN"))
+      (place SW2 92964 -100203 front 0 (PN "R GEN"))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place SW1 105346 -99822 front 0 (PN "EXT PWR"))
+      (place SW1 116205 -93345 front 0 (PN "EXT PWR"))
     )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
-      (place D3 129540 -106553 front 0 (PN D))
-      (place D2 129540 -110808 front 0 (PN D))
-      (place D1 129540 -115062 front 0 (PN D))
+      (place D3 102743 -88392 front 270 (PN D))
+      (place D2 116205 -79672 front 270 (PN D))
+      (place D1 120650 -79672 front 270 (PN D))
     )
   )
   (library
@@ -314,7 +314,6 @@
     (class kicad_default "" /Row1 /Row2 "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad1)"
       "Net-(D3-Pad1)" "Net-(D3-Pad2)" "Net-(J2-Pad1)" "Net-(J2-Pad2)" "Net-(J2-Pad3)"
       "Net-(J2-Pad4)" "Net-(J3-Pad1)" "Net-(J3-Pad2)" "Net-(J3-Pad3)" "Net-(J3-Pad4)"
-      "Net-(J6-Pad1)" "Net-(J6-Pad2)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
