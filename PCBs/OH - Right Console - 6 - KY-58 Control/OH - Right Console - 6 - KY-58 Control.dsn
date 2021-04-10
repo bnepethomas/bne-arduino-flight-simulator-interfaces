@@ -21,8 +21,8 @@
       )
     )
     (boundary
-      (path pcb 0  152019 -141478  82677 -141478  82677 -93980  151892 -93980
-            152019 -141478)
+      (path pcb 0  152019 -127000  82677 -127000  82677 -93980  151892 -93980
+            152019 -127000)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -34,32 +34,32 @@
   )
   (placement
     (component PT_Library_v001:Molex_1x10_P2.54mm_Vertical
-      (place SW3 96774 -103886 front 0 (PN "TOP RIGHT"))
-      (place J3 96774 -118237 front 0 (PN "Input Rows"))
+      (place SW3 96393 -99060 front 0 (PN "TOP RIGHT"))
+      (place J3 97536 -108839 front 0 (PN "Input Rows"))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place SW2 96774 -132334 front 0 (PN TD))
+      (place SW2 97536 -120396 front 0 (PN TD))
     )
     (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
-      (place SW1 124968 -104013 front 0 (PN MODE))
+      (place SW1 124587 -99187 front 0 (PN MODE))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place RV1 132588 -132334 front 0 (PN Volume))
-      (place J2 111506 -132334 front 0 (PN KY58_Analog))
+      (place RV1 133096 -120396 front 0 (PN Volume))
+      (place J2 111633 -120396 front 0 (PN KY58_Analog))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place J1 135128 -118237 front 0 (PN "Input Columns"))
+      (place J1 140081 -108966 front 0 (PN "Input Columns"))
     )
     (component MountingHole:MountingHole_3.2mm_M3
       (place H4 86741 -97663 front 0 (PN MountingHole))
-      (place H3 146741 -97663 front 0 (PN MountingHole))
-      (place H2 86741 -137663 front 0 (PN MountingHole))
-      (place H1 146741 -137663 front 0 (PN MountingHole))
+      (place H3 86741 -122663 front 0 (PN MountingHole))
+      (place H2 146741 -97663 front 0 (PN MountingHole))
+      (place H1 146741 -122663 front 0 (PN MountingHole))
     )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
-      (place D3 112395 -111506 front 0 (PN D))
-      (place D2 98171 -124841 front 0 (PN D))
-      (place D1 126746 -111506 front 0 (PN D))
+      (place D3 128270 -106045 front 270 (PN D))
+      (place D2 89662 -107442 front 270 (PN D))
+      (place D1 132842 -105918 front 270 (PN D))
     )
   )
   (library

@@ -7386,4 +7386,15 @@ Text Label 4950 6000 0    50   ~ 0
 Pitot_Mag+
 Text Label 4950 6100 0    50   ~ 0
 Pitot_Mag-
+$Comp
+L Mechanical:MountingHole H5
+U 1 1 607122C1
+P 9250 4800
+F 0 "H5" H 9350 4846 50  0000 L CNN
+F 1 "MountingHole" H 9350 4755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9250 4800 50  0001 C CNN
+F 3 "~" H 9250 4800 50  0001 C CNN
+	1    9250 4800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

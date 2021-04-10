@@ -21,8 +21,9 @@
       )
     )
     (boundary
-      (path pcb 0  171196 -125603  111887 -125603  111887 -82550  171196 -82550
-            171196 -125603)
+      (path pcb 0  89535 -67056  84455 -67056  84455 -84836  89281 -84836
+            89281 -94107  123698 -94107  123698 -60849  151257 -60849  151257 -105664
+            70104 -105664  70104 -60595  89535 -60595  89535 -67056)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -33,45 +34,66 @@
     )
   )
   (placement
+    (component MountingHole:MountingHole_3.2mm_M3
+      (place H7 127000 -92837 front 0 (PN MountingHole))
+      (place H6 127000 -63881 front 0 (PN MountingHole))
+      (place H5 87122 -63881 front 0 (PN MountingHole))
+      (place H4 86995 -87884 front 0 (PN MountingHole))
+      (place H3 147701 -92456 front 0 (PN MountingHole))
+      (place H1 72898 -93599 front 0 (PN MountingHole))
+    )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place SOL1 163703 -100203 front 0 (PN "Laser Mag"))
-      (place J2 163957 -116459 front 0 (PN "Laser Mag"))
-      (place SW4 127381 -119634 front 0 (PN "RADAR PULL"))
-      (place SW2 134430 -88900 front 0 (PN LTD/R))
-      (place SW3 124841 -88900 front 0 (PN LST/NFLR))
+      (place SOL1 125857 -72009 front 0 (PN "Laser Mag"))
+      (place J2 125857 -80899 front 0 (PN "Laser Mag"))
+      (place SW4 146431 -84836 front 0 (PN "RADAR PULL"))
+      (place SW2 79629 -68961 front 0 (PN LTD/R))
+      (place SW3 72390 -67056 front 0 (PN LST/NFLR))
     )
     (component "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
-      (place D7 159131 -108331 front 0 (PN 1N4001))
-    )
-    (component MountingHole:MountingHole_3.2mm_M3
-      (place H4 116789 -89789 front 0 (PN MountingHole))
-      (place H3 156789 -89789 front 0 (PN MountingHole))
-      (place H2 156789 -113789 front 0 (PN MountingHole))
-      (place H1 116789 -118789 front 0 (PN MountingHole))
+      (place D7 134620 -71628 front 270 (PN 1N4001))
     )
     (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
-      (place SW5 135890 -119634 front 0 (PN RADAR))
+      (place SW5 130048 -100330 front 0 (PN RADAR))
     )
     (component PT_Library_v001:Molex_1x10_P2.54mm_Vertical
-      (place SW6 128397 -106680 front 0 (PN INS))
+      (place SW6 73025 -100711 front 0 (PN INS))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place SW1 163195 -90043 front 0 (PN FLIR))
-      (place J1 144018 -88900 front 0 (PN "Input Coulmns"))
+      (place SW1 144272 -66929 front 0 (PN FLIR))
+      (place J1 73914 -77089 front 0 (PN "Input Coulmns"))
     )
     (component PT_Library_v001:Molex_1x08_P2.54mm_Vertical
-      (place J3 128524 -98171 front 0 (PN "Input Rows"))
+      (place J3 104394 -99949 front 0 (PN "Input Rows"))
     )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
-      (place D6 144399 -113157 front 0 (PN D))
-      (place D5 116078 -113030 front 0 (PN D))
-      (place D4 116078 -108776 front 0 (PN D))
-      (place D2 116078 -100266 front 0 (PN D))
-      (place D3 116078 -96012 front 0 (PN D))
-      (place D1 116078 -104521 front 0 (PN D))
+      (place D6 78232 -94234 front 0 (PN D))
+      (place D5 133731 -85852 front 0 (PN D))
+      (place D4 133604 -89662 front 0 (PN D))
+      (place D2 74168 -88773 front 0 (PN D))
+      (place D3 72263 -84836 front 0 (PN D))
+      (place D1 139954 -74422 front 0 (PN D))
     )
   )
   (library
+    (image MountingHole:MountingHole_3.2mm_M3
+      (outline (path signal 50  3450 0  3369.34 -741.648  3131.14 -1448.62  2746.52 -2087.85
+            2233.48 -2629.46  1616.01 -3048.12  922.973 -3324.25  186.779 -3444.94
+            -558.148 -3404.55  -1276.98 -3204.97  -1936.1 -2855.53  -2504.68 -2372.56
+            -2956.16 -1778.66  -3269.4 -1101.59  -3429.78 -373.011  -3429.78 373.011
+            -3269.4 1101.59  -2956.16 1778.66  -2504.68 2372.56  -1936.1 2855.53
+            -1276.98 3204.97  -558.148 3404.55  186.779 3444.94  922.973 3324.25
+            1616.01 3048.12  2233.48 2629.46  2746.52 2087.85  3131.14 1448.62
+            3369.34 741.648  3450 0))
+      (outline (path signal 150  3200 0  3119.77 -712.067  2883.1 -1388.43  2501.86 -1995.17
+            1995.17 -2501.86  1388.43 -2883.1  712.067 -3119.77  0 -3200
+            -712.067 -3119.77  -1388.43 -2883.1  -1995.17 -2501.86  -2501.86 -1995.17
+            -2883.1 -1388.43  -3119.77 -712.067  -3200 0  -3119.77 712.067
+            -2883.1 1388.43  -2501.86 1995.17  -1995.17 2501.86  -1388.43 2883.1
+            -712.067 3119.77  0 3200  712.067 3119.77  1388.43 2883.1  1995.17 2501.86
+            2501.86 1995.17  2883.1 1388.43  3119.77 712.067  3200 0))
+      (keepout "" (circle F.Cu 3200))
+      (keepout "" (circle B.Cu 3200))
+    )
     (image PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (outline (path signal 50  4310 3420  -1770 3420))
       (outline (path signal 50  4310 -3380  4310 3420))
@@ -130,25 +152,6 @@
       (outline (path signal 100  2480 1350  2480 -1350))
       (pin Oval[A]Pad_2200x2200_um 2 10160 0)
       (pin Rect[A]Pad_2200x2200_um 1 0 0)
-    )
-    (image MountingHole:MountingHole_3.2mm_M3
-      (outline (path signal 50  3450 0  3369.34 -741.648  3131.14 -1448.62  2746.52 -2087.85
-            2233.48 -2629.46  1616.01 -3048.12  922.973 -3324.25  186.779 -3444.94
-            -558.148 -3404.55  -1276.98 -3204.97  -1936.1 -2855.53  -2504.68 -2372.56
-            -2956.16 -1778.66  -3269.4 -1101.59  -3429.78 -373.011  -3429.78 373.011
-            -3269.4 1101.59  -2956.16 1778.66  -2504.68 2372.56  -1936.1 2855.53
-            -1276.98 3204.97  -558.148 3404.55  186.779 3444.94  922.973 3324.25
-            1616.01 3048.12  2233.48 2629.46  2746.52 2087.85  3131.14 1448.62
-            3369.34 741.648  3450 0))
-      (outline (path signal 150  3200 0  3119.77 -712.067  2883.1 -1388.43  2501.86 -1995.17
-            1995.17 -2501.86  1388.43 -2883.1  712.067 -3119.77  0 -3200
-            -712.067 -3119.77  -1388.43 -2883.1  -1995.17 -2501.86  -2501.86 -1995.17
-            -2883.1 -1388.43  -3119.77 -712.067  -3200 0  -3119.77 712.067
-            -2883.1 1388.43  -2501.86 1995.17  -1995.17 2501.86  -1388.43 2883.1
-            -712.067 3119.77  0 3200  712.067 3119.77  1388.43 2883.1  1995.17 2501.86
-            2501.86 1995.17  2883.1 1388.43  3119.77 712.067  3200 0))
-      (keepout "" (circle F.Cu 3200))
-      (keepout "" (circle B.Cu 3200))
     )
     (image PT_Library_v001:Molex_1x06_P2.54mm_Vertical
       (outline (path signal 50  14470 3420  -1770 3420))

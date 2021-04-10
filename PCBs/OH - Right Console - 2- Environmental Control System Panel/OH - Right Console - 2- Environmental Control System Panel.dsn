@@ -21,8 +21,8 @@
       )
     )
     (boundary
-      (path pcb 0  144526 -113538  92964 -113538  92964 -66675  144526 -66675
-            144526 -113538)
+      (path pcb 0  112141 -125095  132682 -125095  132682 -151257  87884 -151257
+            87884 -126873  75946 -126873  75946 -95124  112141 -95124  112141 -125095)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -33,49 +33,69 @@
     )
   )
   (placement
+    (component MountingHole:MountingHole_3.2mm_M3
+      (place H5 109347 -97790 front 0 (PN MountingHole))
+      (place H4 117856 -148590 front 0 (PN MountingHole))
+      (place H3 78867 -105537 front 0 (PN MountingHole))
+      (place H2 90805 -148590 front 0 (PN MountingHole))
+      (place H1 117856 -127635 front 0 (PN MountingHole))
+    )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place SOL2 129032 -99187 front 0 (PN "Pitot Mag"))
-      (place SW5 110109 -108839 front 0 (PN "BLEED AIR PULL"))
-      (place SW3 138303 -99949 front 0 (PN "PITOT HEAT"))
-      (place SOL1 95885 -108458 front 0 (PN Solenoid))
+      (place SOL2 107315 -124460 front 0 (PN "Pitot Mag"))
+      (place SW5 97409 -146304 front 0 (PN "BLD AIR PULL"))
+      (place SW3 127254 -145542 front 0 (PN "PITOT HEAT"))
+      (place SOL1 95123 -115824 front 0 (PN Solenoid))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place J2 102235 -89408 front 0 (PN Coils))
-      (place J3 132842 -72263 front 0 (PN "Environment Analog"))
+      (place J2 101981 -115824 front 0 (PN Coils))
+      (place J3 78232 -112903 front 0 (PN "Env Analog"))
     )
     (component "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
-      (place D8 97663 -96774 front 0 (PN 1N4001))
-      (place D7 97663 -101854 front 0 (PN 1N4001))
+      (place D8 100838 -100203 front 270 (PN 1N4001))
+      (place D7 104521 -100330 front 270 (PN 1N4001))
     )
     (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
-      (place SW6 111252 -99441 front 0 (PN "BLEED AIR KNOB"))
+      (place SW6 90170 -129159 front 0 (PN "BLEED AIR KNOB"))
     )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
-      (place D5 101854 -84201 front 0 (PN D))
-      (place D6 114173 -93472 front 0 (PN D))
-      (place D4 114300 -89281 front 0 (PN D))
-      (place D3 125349 -92583 front 0 (PN D))
-      (place D2 101473 -79883 front 0 (PN D))
-      (place D1 125222 -88138 front 0 (PN D))
-    )
-    (component MountingHole:MountingHole_3.2mm_M3
-      (place H4 139446 -108966 front 0 (PN MountingHole))
-      (place H3 96393 -69977 front 0 (PN MountingHole))
-      (place H2 118491 -108966 front 0 (PN MountingHole))
-      (place H1 139446 -81915 front 0 (PN MountingHole))
+      (place D5 87503 -123825 front 0 (PN D))
+      (place D6 117052 -133096 front 270 (PN D))
+      (place D4 121327 -133096 front 270 (PN D))
+      (place D3 125603 -133096 front 270 (PN D))
+      (place D2 87503 -120904 front 0 (PN D))
+      (place D1 112776 -133096 front 270 (PN D))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place SW4 126746 -108712 front 0 (PN "ENG ANTIICE"))
-      (place SW2 101854 -72263 front 0 (PN "CABIN PRESS"))
-      (place SW1 136398 -90424 front 0 (PN "ECS MODE"))
-      (place RV2 122301 -72263 front 0 (PN SUIT_TEMP))
-      (place RV1 112395 -72263 front 0 (PN CABIN_TEMP))
+      (place SW4 107315 -146431 front 0 (PN "ENG ANTIICE"))
+      (place SW2 78613 -121793 front 0 (PN "CABIN PRESS"))
+      (place SW1 90932 -107315 front 0 (PN "ECS MODE"))
+      (place RV2 82423 -99187 front 0 (PN SUIT_TEMP))
+      (place RV1 91694 -99060 front 0 (PN CABIN_TEMP))
     )
     (component PT_Library_v001:Molex_1x08_P2.54mm_Vertical
-      (place J1 114427 -81788 front 0 (PN "Switch Inputs"))
+      (place J1 90043 -137795 front 0 (PN "Switch Inputs"))
     )
   )
   (library
+    (image MountingHole:MountingHole_3.2mm_M3
+      (outline (path signal 50  3450 0  3369.34 -741.648  3131.14 -1448.62  2746.52 -2087.85
+            2233.48 -2629.46  1616.01 -3048.12  922.973 -3324.25  186.779 -3444.94
+            -558.148 -3404.55  -1276.98 -3204.97  -1936.1 -2855.53  -2504.68 -2372.56
+            -2956.16 -1778.66  -3269.4 -1101.59  -3429.78 -373.011  -3429.78 373.011
+            -3269.4 1101.59  -2956.16 1778.66  -2504.68 2372.56  -1936.1 2855.53
+            -1276.98 3204.97  -558.148 3404.55  186.779 3444.94  922.973 3324.25
+            1616.01 3048.12  2233.48 2629.46  2746.52 2087.85  3131.14 1448.62
+            3369.34 741.648  3450 0))
+      (outline (path signal 150  3200 0  3119.77 -712.067  2883.1 -1388.43  2501.86 -1995.17
+            1995.17 -2501.86  1388.43 -2883.1  712.067 -3119.77  0 -3200
+            -712.067 -3119.77  -1388.43 -2883.1  -1995.17 -2501.86  -2501.86 -1995.17
+            -2883.1 -1388.43  -3119.77 -712.067  -3200 0  -3119.77 712.067
+            -2883.1 1388.43  -2501.86 1995.17  -1995.17 2501.86  -1388.43 2883.1
+            -712.067 3119.77  0 3200  712.067 3119.77  1388.43 2883.1  1995.17 2501.86
+            2501.86 1995.17  2883.1 1388.43  3119.77 712.067  3200 0))
+      (keepout "" (circle F.Cu 3200))
+      (keepout "" (circle B.Cu 3200))
+    )
     (image PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (outline (path signal 50  4310 3420  -1770 3420))
       (outline (path signal 50  4310 -3380  4310 3420))
@@ -250,25 +270,6 @@
       (outline (path signal 100  1810 1000  1810 -1000))
       (pin Oval[A]Pad_1600x1600_um 2 7620 0)
       (pin Rect[A]Pad_1600x1600_um 1 0 0)
-    )
-    (image MountingHole:MountingHole_3.2mm_M3
-      (outline (path signal 50  3450 0  3369.34 -741.648  3131.14 -1448.62  2746.52 -2087.85
-            2233.48 -2629.46  1616.01 -3048.12  922.973 -3324.25  186.779 -3444.94
-            -558.148 -3404.55  -1276.98 -3204.97  -1936.1 -2855.53  -2504.68 -2372.56
-            -2956.16 -1778.66  -3269.4 -1101.59  -3429.78 -373.011  -3429.78 373.011
-            -3269.4 1101.59  -2956.16 1778.66  -2504.68 2372.56  -1936.1 2855.53
-            -1276.98 3204.97  -558.148 3404.55  186.779 3444.94  922.973 3324.25
-            1616.01 3048.12  2233.48 2629.46  2746.52 2087.85  3131.14 1448.62
-            3369.34 741.648  3450 0))
-      (outline (path signal 150  3200 0  3119.77 -712.067  2883.1 -1388.43  2501.86 -1995.17
-            1995.17 -2501.86  1388.43 -2883.1  712.067 -3119.77  0 -3200
-            -712.067 -3119.77  -1388.43 -2883.1  -1995.17 -2501.86  -2501.86 -1995.17
-            -2883.1 -1388.43  -3119.77 -712.067  -3200 0  -3119.77 712.067
-            -2883.1 1388.43  -2501.86 1995.17  -1995.17 2501.86  -1388.43 2883.1
-            -712.067 3119.77  0 3200  712.067 3119.77  1388.43 2883.1  1995.17 2501.86
-            2501.86 1995.17  2883.1 1388.43  3119.77 712.067  3200 0))
-      (keepout "" (circle F.Cu 3200))
-      (keepout "" (circle B.Cu 3200))
     )
     (image PT_Library_v001:Molex_1x03_P2.54mm_Vertical
       (outline (path signal 50  6850 3420  -1770 3420))
@@ -496,8 +497,7 @@
     (class kicad_default "" /AnaCabinTemp /AnaSuitTemp /Analog+5V /Analog_Gnd
       /Bleed_Air_Sol+ "/Bleed_Air_Sol-" /Col1 /Col2 /Col3 /Col4 /Pitot_Mag+
       "/Pitot_Mag-" /Row1 /Row2 /Row3 /Row4 "Net-(D1-Pad1)" "Net-(D2-Pad1)"
-      "Net-(D3-Pad1)" "Net-(D4-Pad1)" "Net-(D5-Pad1)" "Net-(D6-Pad1)" "Net-(D7-Pad1)"
-      "Net-(D7-Pad2)"
+      "Net-(D3-Pad1)" "Net-(D4-Pad1)" "Net-(D5-Pad1)" "Net-(D6-Pad1)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
