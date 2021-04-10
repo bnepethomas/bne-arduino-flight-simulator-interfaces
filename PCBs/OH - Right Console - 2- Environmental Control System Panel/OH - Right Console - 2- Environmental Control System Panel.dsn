@@ -21,8 +21,12 @@
       )
     )
     (boundary
-      (path pcb 0  112141 -125095  132682 -125095  132682 -151257  87884 -151257
-            87884 -126873  75946 -126873  75946 -95124  112141 -95124  112141 -125095)
+      (path pcb 0  112141 -125095  132682 -125095  132715 -144526  132069 -144777
+            131437 -145063  130821 -145383  130224 -145735  129647 -146119
+            129091 -146534  128559 -146979  128051 -147451  127570 -147951
+            127116 -148475  126692 -149024  126297 -149594  125935 -150185
+            125604 -150795  125307 -151422  87884 -151257  87884 -126873
+            75946 -126873  75946 -95124  112141 -95124  112141 -125095)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -43,7 +47,7 @@
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (place SOL2 107315 -124460 front 0 (PN "Pitot Mag"))
       (place SW5 97409 -146304 front 0 (PN "BLD AIR PULL"))
-      (place SW3 127254 -145542 front 0 (PN "PITOT HEAT"))
+      (place SW3 123190 -144780 front 0 (PN "PITOT HEAT"))
       (place SOL1 95123 -115824 front 0 (PN Solenoid))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
@@ -59,11 +63,11 @@
     )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
       (place D5 87503 -123825 front 0 (PN D))
-      (place D6 117052 -133096 front 270 (PN D))
-      (place D4 121327 -133096 front 270 (PN D))
-      (place D3 125603 -133096 front 270 (PN D))
+      (place D6 117179 -132334 front 270 (PN D))
+      (place D4 121454 -132334 front 270 (PN D))
+      (place D3 125730 -132334 front 270 (PN D))
       (place D2 87503 -120904 front 0 (PN D))
-      (place D1 112776 -133096 front 270 (PN D))
+      (place D1 112903 -132334 front 270 (PN D))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
       (place SW4 107315 -146431 front 0 (PN "ENG ANTIICE"))

@@ -11,18 +11,18 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 292)
+    (start_pass_no 370)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.2)
+      (against_preferred_direction_trace_costs 2.7)
     )
     (layer_rule B.Cu
       (active on)
       (preferred_direction vertical)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 1.8)
+      (against_preferred_direction_trace_costs 1.6)
     )
   )
   (rule
@@ -65,6 +65,8 @@
   (class "kicad_default"
     /Col1 "Net-(D1-Pad1)" /Col2 "Net-(D2-Pad1)" /Col3 "Net-(D3-Pad1)" /ROW2 /ROW1
     /DEFOG "/WARN_CAUTION" /CHART /FLOOD "/INST_PNL" /CONSOLES "/ANALOG_GND" /ANALOG+5V
+    "Net-(J2-Pad3)" "Net-(J2-Pad2)" "Net-(J2-Pad1)" "Net-(J4-Pad3)" "Net-(J4-Pad2)" "Net-(J4-Pad1)" "Net-(J5-Pad3)" "Net-(J5-Pad2)"
+    "Net-(J5-Pad1)" "Net-(J10-Pad3)" "Net-(J10-Pad2)" "Net-(J10-Pad1)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

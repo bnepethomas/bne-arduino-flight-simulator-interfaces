@@ -21,8 +21,8 @@
       )
     )
     (boundary
-      (path pcb 0  162531 -106572  112970 -106572  112970 -66361  162531 -66361
-            162531 -106572)
+      (path pcb 0  172433 -106426  103030 -106426  103030 -66421  172433 -66421
+            172433 -106426)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -33,18 +33,26 @@
     )
   )
   (placement
-    (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place SW3 156591 -93091 front 0 (PN "LIGHTS TEST"))
-    )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
+      (place J10 164592 -98552 front 0 (PN "Analog Spare 4"))
+      (place J9 164592 -72009 front 0 (PN "Analog Spare 3"))
+      (place J8 105537 -89704.3 front 0 (PN "Analog Spare 2"))
+      (place J7 105537 -80856.7 front 0 (PN "Analog Spare 1"))
+      (place J6 164592 -89704.3 front 0 (PN "Analog Spare 4"))
+      (place J5 164592 -80856.7 front 0 (PN "Analog Spare 3"))
+      (place J4 105664 -98552 front 0 (PN "Analog Spare 2"))
+      (place J2 105664 -72009 front 0 (PN "Analog Spare 1"))
       (place SW2 119634 -92837 front 0 (PN "COCKKPIT LIGHT MODE"))
-      (place SW1 118872 -82296 front 0 (PN "WSHIELD ANTIICE"))
+      (place SW1 118872 -82296 front 0 (PN "WSHIELD ANTI ICE_SW"))
       (place RV6 126619 -72136 front 0 (PN "DEFOG HANDLE"))
       (place RV5 144018 -101346 front 0 (PN "WARN CAUTION DIM"))
       (place RV4 130175 -101600 front 0 (PN "CHART DIM"))
       (place RV3 136525 -71882 front 0 (PN "FLOOD DIM"))
       (place RV2 146304 -72009 front 0 (PN "INST PNL DIM"))
       (place RV1 153924 -81661 front 0 (PN "CONSOLES DIM"))
+    )
+    (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
+      (place SW3 156591 -93091 front 0 (PN "LIGHTS TEST"))
     )
     (component PT_Library_v001:Molex_1x08_P2.54mm_Vertical
       (place J3 130429 -91059 front 0 (PN "INTERIOR LIGHTS ANALOG"))
@@ -65,39 +73,6 @@
     )
   )
   (library
-    (image PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (outline (path signal 50  4310 3420  -1770 3420))
-      (outline (path signal 50  4310 -3380  4310 3420))
-      (outline (path signal 50  -1770 -3380  4310 -3380))
-      (outline (path signal 50  -1770 3420  -1770 -3380))
-      (outline (path signal 120  3340 2430  3340 3030))
-      (outline (path signal 120  1740 2430  3340 2430))
-      (outline (path signal 120  1740 3030  1740 2430))
-      (outline (path signal 120  800 2430  800 3030))
-      (outline (path signal 120  -800 2430  800 2430))
-      (outline (path signal 120  -800 3030  -800 2430))
-      (outline (path signal 120  2290 -2990  2290 -1990))
-      (outline (path signal 120  250 -2990  250 -1990))
-      (outline (path signal 120  2290 -1460  2540 -1990))
-      (outline (path signal 120  250 -1460  2290 -1460))
-      (outline (path signal 120  0 -1990  250 -1460))
-      (outline (path signal 120  2540 -1990  2540 -2990))
-      (outline (path signal 120  0 -1990  2540 -1990))
-      (outline (path signal 120  0 -2990  0 -1990))
-      (outline (path signal 100  -562.893 0  -1270 -500))
-      (outline (path signal 100  -1270 500  -562.893 0))
-      (outline (path signal 120  -1670 2000  -1670 -2000))
-      (outline (path signal 120  3920 3030  -1380 3030))
-      (outline (path signal 120  3920 -2990  3920 3030))
-      (outline (path signal 120  -1380 -2990  3920 -2990))
-      (outline (path signal 120  -1380 3030  -1380 -2990))
-      (outline (path signal 100  3810 2920  -1270 2920))
-      (outline (path signal 100  3810 -2880  3810 2920))
-      (outline (path signal 100  -1270 -2880  3810 -2880))
-      (outline (path signal 100  -1270 2920  -1270 -2880))
-      (pin Oval[A]Pad_1740x2200_um 2 2540 0)
-      (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
-    )
     (image PT_Library_v001:Molex_1x03_P2.54mm_Vertical
       (outline (path signal 50  6850 3420  -1770 3420))
       (outline (path signal 50  6850 -3380  6850 3420))
@@ -132,6 +107,39 @@
       (outline (path signal 100  -1270 -2880  6350 -2880))
       (outline (path signal 100  -1270 2920  -1270 -2880))
       (pin Oval[A]Pad_1740x2200_um 3 5080 0)
+      (pin Oval[A]Pad_1740x2200_um 2 2540 0)
+      (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
+    )
+    (image PT_Library_v001:Molex_1x02_P2.54mm_Vertical
+      (outline (path signal 50  4310 3420  -1770 3420))
+      (outline (path signal 50  4310 -3380  4310 3420))
+      (outline (path signal 50  -1770 -3380  4310 -3380))
+      (outline (path signal 50  -1770 3420  -1770 -3380))
+      (outline (path signal 120  3340 2430  3340 3030))
+      (outline (path signal 120  1740 2430  3340 2430))
+      (outline (path signal 120  1740 3030  1740 2430))
+      (outline (path signal 120  800 2430  800 3030))
+      (outline (path signal 120  -800 2430  800 2430))
+      (outline (path signal 120  -800 3030  -800 2430))
+      (outline (path signal 120  2290 -2990  2290 -1990))
+      (outline (path signal 120  250 -2990  250 -1990))
+      (outline (path signal 120  2290 -1460  2540 -1990))
+      (outline (path signal 120  250 -1460  2290 -1460))
+      (outline (path signal 120  0 -1990  250 -1460))
+      (outline (path signal 120  2540 -1990  2540 -2990))
+      (outline (path signal 120  0 -1990  2540 -1990))
+      (outline (path signal 120  0 -2990  0 -1990))
+      (outline (path signal 100  -562.893 0  -1270 -500))
+      (outline (path signal 100  -1270 500  -562.893 0))
+      (outline (path signal 120  -1670 2000  -1670 -2000))
+      (outline (path signal 120  3920 3030  -1380 3030))
+      (outline (path signal 120  3920 -2990  3920 3030))
+      (outline (path signal 120  -1380 -2990  3920 -2990))
+      (outline (path signal 120  -1380 3030  -1380 -2990))
+      (outline (path signal 100  3810 2920  -1270 2920))
+      (outline (path signal 100  3810 -2880  3810 2920))
+      (outline (path signal 100  -1270 -2880  3810 -2880))
+      (outline (path signal 100  -1270 2920  -1270 -2880))
       (pin Oval[A]Pad_1740x2200_um 2 2540 0)
       (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
     )
@@ -387,9 +395,47 @@
     (net /ANALOG+5V
       (pins RV6-1 RV5-1 RV4-1 RV3-1 RV2-1 RV1-1 J3-1)
     )
+    (net "Net-(J2-Pad3)"
+      (pins J7-3 J2-3)
+    )
+    (net "Net-(J2-Pad2)"
+      (pins J7-2 J2-2)
+    )
+    (net "Net-(J2-Pad1)"
+      (pins J7-1 J2-1)
+    )
+    (net "Net-(J4-Pad3)"
+      (pins J8-3 J4-3)
+    )
+    (net "Net-(J4-Pad2)"
+      (pins J8-2 J4-2)
+    )
+    (net "Net-(J4-Pad1)"
+      (pins J8-1 J4-1)
+    )
+    (net "Net-(J5-Pad3)"
+      (pins J9-3 J5-3)
+    )
+    (net "Net-(J5-Pad2)"
+      (pins J9-2 J5-2)
+    )
+    (net "Net-(J5-Pad1)"
+      (pins J9-1 J5-1)
+    )
+    (net "Net-(J10-Pad3)"
+      (pins J10-3 J6-3)
+    )
+    (net "Net-(J10-Pad2)"
+      (pins J10-2 J6-2)
+    )
+    (net "Net-(J10-Pad1)"
+      (pins J10-1 J6-1)
+    )
     (class kicad_default "" /ANALOG+5V /ANALOG_GND /CHART /CONSOLES /Col1
       /Col2 /Col3 /DEFOG /FLOOD /INST_PNL /ROW1 /ROW2 /WARN_CAUTION "Net-(D1-Pad1)"
-      "Net-(D2-Pad1)" "Net-(D3-Pad1)" "Net-(J1-Pad6)"
+      "Net-(D2-Pad1)" "Net-(D3-Pad1)" "Net-(J1-Pad6)" "Net-(J10-Pad1)" "Net-(J10-Pad2)"
+      "Net-(J10-Pad3)" "Net-(J2-Pad1)" "Net-(J2-Pad2)" "Net-(J2-Pad3)" "Net-(J4-Pad1)"
+      "Net-(J4-Pad2)" "Net-(J4-Pad3)" "Net-(J5-Pad1)" "Net-(J5-Pad2)" "Net-(J5-Pad3)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

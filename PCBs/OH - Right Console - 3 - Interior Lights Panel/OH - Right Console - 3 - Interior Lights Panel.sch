@@ -8758,4 +8758,116 @@ F 3 "~" H 2000 5950 50  0001 C CNN
 	1    2000 5950
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:Conn_01x03_Female J7
+U 1 1 607211CD
+P 5050 6150
+F 0 "J7" H 5078 6176 50  0000 L CNN
+F 1 "Analog Spare 1" H 5078 6085 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5050 6150 50  0001 C CNN
+F 3 "~" H 5050 6150 50  0001 C CNN
+	1    5050 6150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J2
+U 1 1 60721A37
+P 4300 6150
+F 0 "J2" H 4192 6435 50  0000 C CNN
+F 1 "Analog Spare 1" H 4192 6344 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4300 6150 50  0001 C CNN
+F 3 "~" H 4300 6150 50  0001 C CNN
+	1    4300 6150
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 6050 4500 6050
+Wire Wire Line
+	4850 6150 4500 6150
+Wire Wire Line
+	4850 6250 4500 6250
+$Comp
+L Connector:Conn_01x03_Female J8
+U 1 1 60723355
+P 5050 6600
+F 0 "J8" H 5078 6626 50  0000 L CNN
+F 1 "Analog Spare 2" H 5078 6535 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5050 6600 50  0001 C CNN
+F 3 "~" H 5050 6600 50  0001 C CNN
+	1    5050 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J4
+U 1 1 6072335F
+P 4300 6600
+F 0 "J4" H 4192 6885 50  0000 C CNN
+F 1 "Analog Spare 2" H 4192 6794 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4300 6600 50  0001 C CNN
+F 3 "~" H 4300 6600 50  0001 C CNN
+	1    4300 6600
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 6500 4500 6500
+Wire Wire Line
+	4850 6600 4500 6600
+Wire Wire Line
+	4850 6700 4500 6700
+$Comp
+L Connector:Conn_01x03_Female J9
+U 1 1 607255E3
+P 5050 7100
+F 0 "J9" H 5078 7126 50  0000 L CNN
+F 1 "Analog Spare 3" H 5078 7035 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5050 7100 50  0001 C CNN
+F 3 "~" H 5050 7100 50  0001 C CNN
+	1    5050 7100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J5
+U 1 1 607255ED
+P 4300 7100
+F 0 "J5" H 4192 7385 50  0000 C CNN
+F 1 "Analog Spare 3" H 4192 7294 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4300 7100 50  0001 C CNN
+F 3 "~" H 4300 7100 50  0001 C CNN
+	1    4300 7100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J10
+U 1 1 607255F7
+P 5050 7550
+F 0 "J10" H 5078 7576 50  0000 L CNN
+F 1 "Analog Spare 4" H 5078 7485 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5050 7550 50  0001 C CNN
+F 3 "~" H 5050 7550 50  0001 C CNN
+	1    5050 7550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J6
+U 1 1 60725601
+P 4300 7550
+F 0 "J6" H 4192 7835 50  0000 C CNN
+F 1 "Analog Spare 4" H 4192 7744 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4300 7550 50  0001 C CNN
+F 3 "~" H 4300 7550 50  0001 C CNN
+	1    4300 7550
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 7450 4500 7450
+Wire Wire Line
+	4850 7550 4500 7550
+Wire Wire Line
+	4850 7650 4500 7650
+Wire Wire Line
+	4850 7000 4500 7000
+Wire Wire Line
+	4850 7100 4500 7100
+Wire Wire Line
+	4850 7200 4500 7200
 $EndSCHEMATC
