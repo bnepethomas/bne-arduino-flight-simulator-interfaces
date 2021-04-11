@@ -21,8 +21,10 @@
       )
     )
     (boundary
-      (path pcb 0  187071 -113792  104267 -113792  104267 -76200  187071 -76200
-            187071 -113792)
+      (path pcb 0  182118 -88265  173990 -88265  173859 -88282.3  173736 -88333.1
+            173631 -88413.8  173550 -88519  173499 -88641.5  173482 -88773
+            173482 -111252  107061 -111252  107061 -78883  182118 -78883
+            182118 -88265)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -33,41 +35,63 @@
     )
   )
   (placement
+    (component MountingHole:MountingHole_4.3mm_M4
+      (place H4 110363 -82677 front 0 (PN MountingHole))
+      (place H3 178363 -82677 front 0 (PN MountingHole))
+      (place H2 110363 -107677 front 0 (PN MountingHole))
+      (place H1 157480 -107677 front 0 (PN MountingHole))
+    )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place SW3 127889 -103505 front 0 (PN "WF PULL"))
-      (place SW5 144018 -103505 front 0 (PN "AV COOL"))
-      (place SW4 118576 -103505 front 0 (PN "WF UNFOLD"))
-      (place SW2 118576 -93807 front 0 (PN "WF FOLD"))
-      (place SW1 136144 -103505 front 0 (PN HOOK))
-      (place J5 160528 -92837 front 0 (PN "HK LED 2 IN"))
-      (place J2 150495 -92583 front 0 (PN "HK LED 1 IN"))
-      (place D7 160655 -83439 front 0 (PN "HOOK LED 2"))
-      (place D6 150368 -83566 front 0 (PN "HOOK LED 1"))
+      (place SW3 139319 -91948 front 0 (PN "WF PULL"))
+      (place SW5 167894 -106299 front 0 (PN "AV COOL"))
+      (place SW4 147320 -97409 front 0 (PN "WF UNFOLD"))
+      (place SW2 147320 -89281 front 0 (PN "WF FOLD"))
+      (place SW1 109093 -94234 front 0 (PN HOOK))
+      (place J5 117094 -83947 front 0 (PN "HK LED 2 IN"))
+      (place J2 116840 -99441 front 0 (PN "HK LED 1 IN"))
+      (place D7 116967 -91059 front 0 (PN "HOOK LED 2"))
+      (place D6 116713 -107696 front 0 (PN "HOOK LED 1"))
     )
     (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
-      (place J1 118576 -84109 front 0 (PN "SWITCH INPUTS"))
+      (place J1 130429 -105791 front 0 (PN "SWITCH INPUTS"))
     )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
-      (place D3 136017 -91821 front 0 (PN D))
-      (place D5 136017 -96012 front 0 (PN D))
-      (place D4 125222 -96139 front 0 (PN D))
-      (place D2 124968 -91694 front 0 (PN D))
-      (place D1 136017 -87630 front 0 (PN D))
+      (place D3 125603 -89789 front 0 (PN D))
+      (place D5 125603 -97917 front 0 (PN D))
+      (place D4 125603 -93853 front 0 (PN D))
+      (place D2 125603 -81661 front 0 (PN D))
+      (place D1 125603 -85725 front 0 (PN D))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place J3 170307 -83185 front 0 (PN "HydPress 1"))
-      (place M2 151765 -103505 front 0 (PN "Hyd Press 2"))
-      (place M1 170434 -92710 front 0 (PN "Hyd Press 1"))
-      (place J4 162052 -103505 front 0 (PN "Hyd Press 2"))
-    )
-    (component MountingHole:MountingHole_3.2mm_M3
-      (place H4 182499 -106172 front 0 (PN MountingHole))
-      (place H3 182626 -82550 front 0 (PN MountingHole))
-      (place H2 110363 -107569 front 0 (PN MountingHole))
-      (place H1 109982 -82677 front 0 (PN MountingHole))
+      (place J3 165481 -83947 front 0 (PN "HydPress 1"))
+      (place M2 155448 -93726 front 0 (PN "Hyd Press 2"))
+      (place M1 154686 -83820 front 0 (PN "Hyd Press 1"))
+      (place J4 165481 -93726 front 0 (PN "Hyd Press 2"))
     )
   )
   (library
+    (image MountingHole:MountingHole_4.3mm_M4
+      (outline (path signal 50  4550 0  4467.78 -861.093  4224.07 -1691.06  3827.7 -2459.92
+            3292.99 -3139.86  2639.26 -3706.32  1890.14 -4138.83  1072.7 -4421.74
+            216.498 -4544.85  -647.533 -4503.69  -1488.16 -4299.75  -2275 -3940.42
+            -2979.62 -3438.66  -3576.54 -2812.62  -4044.2 -2084.93  -4365.69 -1281.88
+            -4529.4 -432.505  -4529.4 432.505  -4365.69 1281.88  -4044.2 2084.93
+            -3576.54 2812.62  -2979.62 3438.66  -2275 3940.42  -1488.16 4299.75
+            -647.533 4503.69  216.498 4544.85  1072.7 4421.74  1890.14 4138.83
+            2639.26 3706.32  3292.99 3139.86  3827.7 2459.92  4224.07 1691.06
+            4467.78 861.093  4550 0))
+      (outline (path signal 150  4300 0  4222.29 -813.78  3991.98 -1598.15  3617.39 -2324.76
+            3112.06 -2967.34  2494.24 -3502.68  1786.29 -3911.42  1013.76 -4178.79
+            204.602 -4295.13  -611.954 -4256.23  -1406.39 -4063.5  -2150 -3723.91
+            -2815.9 -3249.72  -3380.03 -2658.08  -3821.99 -1970.37  -4125.82 -1211.45
+            -4280.53 -408.741  -4280.53 408.741  -4125.82 1211.45  -3821.99 1970.37
+            -3380.03 2658.08  -2815.9 3249.72  -2150 3723.91  -1406.39 4063.5
+            -611.954 4256.23  204.602 4295.13  1013.76 4178.79  1786.29 3911.42
+            2494.24 3502.68  3112.06 2967.34  3617.39 2324.76  3991.98 1598.15
+            4222.29 813.78  4300 0))
+      (keepout "" (circle F.Cu 4300))
+      (keepout "" (circle B.Cu 4300))
+    )
     (image PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (outline (path signal 50  4310 3420  -1770 3420))
       (outline (path signal 50  4310 -3380  4310 3420))
@@ -213,25 +237,6 @@
       (pin Oval[A]Pad_1740x2200_um 2 2540 0)
       (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
     )
-    (image MountingHole:MountingHole_3.2mm_M3
-      (outline (path signal 50  3450 0  3369.34 -741.648  3131.14 -1448.62  2746.52 -2087.85
-            2233.48 -2629.46  1616.01 -3048.12  922.973 -3324.25  186.779 -3444.94
-            -558.148 -3404.55  -1276.98 -3204.97  -1936.1 -2855.53  -2504.68 -2372.56
-            -2956.16 -1778.66  -3269.4 -1101.59  -3429.78 -373.011  -3429.78 373.011
-            -3269.4 1101.59  -2956.16 1778.66  -2504.68 2372.56  -1936.1 2855.53
-            -1276.98 3204.97  -558.148 3404.55  186.779 3444.94  922.973 3324.25
-            1616.01 3048.12  2233.48 2629.46  2746.52 2087.85  3131.14 1448.62
-            3369.34 741.648  3450 0))
-      (outline (path signal 150  3200 0  3119.77 -712.067  2883.1 -1388.43  2501.86 -1995.17
-            1995.17 -2501.86  1388.43 -2883.1  712.067 -3119.77  0 -3200
-            -712.067 -3119.77  -1388.43 -2883.1  -1995.17 -2501.86  -2501.86 -1995.17
-            -2883.1 -1388.43  -3119.77 -712.067  -3200 0  -3119.77 712.067
-            -2883.1 1388.43  -2501.86 1995.17  -1995.17 2501.86  -1388.43 2883.1
-            -712.067 3119.77  0 3200  712.067 3119.77  1388.43 2883.1  1995.17 2501.86
-            2501.86 1995.17  2883.1 1388.43  3119.77 712.067  3200 0))
-      (keepout "" (circle F.Cu 3200))
-      (keepout "" (circle B.Cu 3200))
-    )
     (padstack Oval[A]Pad_1600x1600_um
       (shape (path F.Cu 1600  0 0  0 0))
       (shape (path B.Cu 1600  0 0  0 0))
@@ -340,10 +345,9 @@
       (pins J3-3 M1-3)
     )
     (class kicad_default "" /COL1 /COL2 /ROW1 /ROW2 /ROW3 "Net-(D1-Pad1)"
-      "Net-(D2-Pad1)" "Net-(D3-Pad1)" "Net-(D4-Pad1)" "Net-(D5-Pad1)" "Net-(D5-Pad2)"
-      "Net-(D6-Pad1)" "Net-(D6-Pad2)" "Net-(D7-Pad1)" "Net-(D7-Pad2)" "Net-(J1-Pad6)"
-      "Net-(J3-Pad1)" "Net-(J3-Pad2)" "Net-(J3-Pad3)" "Net-(J4-Pad1)" "Net-(J4-Pad2)"
-      "Net-(J4-Pad3)" "Net-(SW1-Pad2)"
+      "Net-(D2-Pad1)" "Net-(D3-Pad1)" "Net-(D4-Pad1)" "Net-(D5-Pad1)" "Net-(D6-Pad1)"
+      "Net-(D6-Pad2)" "Net-(D7-Pad1)" "Net-(D7-Pad2)" "Net-(J1-Pad6)" "Net-(J3-Pad1)"
+      "Net-(J3-Pad2)" "Net-(J3-Pad3)" "Net-(J4-Pad1)" "Net-(J4-Pad2)" "Net-(J4-Pad3)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

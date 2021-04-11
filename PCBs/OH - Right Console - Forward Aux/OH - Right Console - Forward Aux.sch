@@ -9837,7 +9837,7 @@ U 1 1 606A5561
 P 8050 5050
 F 0 "H4" H 8150 5096 50  0000 L CNN
 F 1 "MountingHole" H 8150 5005 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 8050 5050 50  0001 C CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 8050 5050 50  0001 C CNN
 F 3 "~" H 8050 5050 50  0001 C CNN
 	1    8050 5050
 	1    0    0    -1  
@@ -9848,7 +9848,7 @@ U 1 1 606A5124
 P 8050 4800
 F 0 "H3" H 8150 4846 50  0000 L CNN
 F 1 "MountingHole" H 8150 4755 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 8050 4800 50  0001 C CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 8050 4800 50  0001 C CNN
 F 3 "~" H 8050 4800 50  0001 C CNN
 	1    8050 4800
 	1    0    0    -1  
@@ -9859,7 +9859,7 @@ U 1 1 606A4BF5
 P 8050 4550
 F 0 "H2" H 8150 4596 50  0000 L CNN
 F 1 "MountingHole" H 8150 4505 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 8050 4550 50  0001 C CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 8050 4550 50  0001 C CNN
 F 3 "~" H 8050 4550 50  0001 C CNN
 	1    8050 4550
 	1    0    0    -1  
@@ -9870,7 +9870,7 @@ U 1 1 606A4576
 P 8050 4250
 F 0 "H1" H 8150 4296 50  0000 L CNN
 F 1 "MountingHole" H 8150 4205 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3" H 8050 4250 50  0001 C CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 8050 4250 50  0001 C CNN
 F 3 "~" H 8050 4250 50  0001 C CNN
 	1    8050 4250
 	1    0    0    -1  
