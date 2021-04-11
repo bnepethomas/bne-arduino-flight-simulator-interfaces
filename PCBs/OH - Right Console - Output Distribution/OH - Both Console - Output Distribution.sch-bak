@@ -294,27 +294,4 @@ Text Label 2850 4300 0    50   ~ 0
 In_APU_Mag
 Text Label 4450 4300 0    50   ~ 0
 Out_APU_Mag
-$Comp
-L Connector:Conn_01x04_Female J?
-U 1 1 6076D2F2
-P 8400 4550
-F 0 "J?" H 8428 4526 50  0000 L CNN
-F 1 "APU" H 8428 4435 50  0000 L CNN
-F 2 "" H 8400 4550 50  0001 C CNN
-F 3 "~" H 8400 4550 50  0001 C CNN
-	1    8400 4550
-	1    0    0    -1  
-$EndComp
-Text Label 8200 4450 2    50   ~ 0
-+12V
-Text Label 8200 4650 2    50   ~ 0
-+12V
-Text Label 8200 4550 2    50   ~ 0
-Out_APU_Mag
-Text Label 8200 4750 2    50   ~ 0
-Out_Engine_Crank_Mag
-Text Label 2850 4400 0    50   ~ 0
-In_Engine_Crank_Mag
-Text Label 4450 4400 0    50   ~ 0
-Out_Engine_Crank_Mag
 $EndSCHEMATC
