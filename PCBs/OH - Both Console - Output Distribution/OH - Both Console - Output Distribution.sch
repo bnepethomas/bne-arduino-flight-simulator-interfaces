@@ -208,9 +208,9 @@ Text Label 7800 3000 2    50   ~ 0
 Text Label 7800 2900 2    50   ~ 0
 Out_Launch_Bar_Mag
 Text Label 4450 4100 0    50   ~ 0
-Out_Hook_Bypass
+Out_Hook_Bypass_Mag
 Text Label 7800 3100 2    50   ~ 0
-Out_Hook_Bypass
+Out_Hook_Bypass_Mag
 $Comp
 L Connector:Conn_01x04_Female J?
 U 1 1 60762D4E
@@ -241,4 +241,80 @@ Wire Wire Line
 	7000 6000 6800 6000
 Wire Wire Line
 	7000 6100 6800 6100
+Text Label 2850 4200 0    50   ~ 0
+In_Fuel_Dump_Mag
+Text Label 4450 4200 0    50   ~ 0
+Out_Fuel_Dump_Mag
+Text Label 2850 4100 0    50   ~ 0
+In_Hook_Bypass_Mag
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 60768592
+P 8050 3500
+F 0 "J?" H 8078 3476 50  0000 L CNN
+F 1 "Fuel Dump" H 8078 3385 50  0000 L CNN
+F 2 "" H 8050 3500 50  0001 C CNN
+F 3 "~" H 8050 3500 50  0001 C CNN
+	1    8050 3500
+	1    0    0    -1  
+$EndComp
+Text Label 7850 3600 2    50   ~ 0
+Out_Fuel_Dump_Mag
+Text Label 7850 3500 2    50   ~ 0
++12V
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 60769A26
+P 9850 5950
+F 0 "J?" H 9878 5976 50  0000 L CNN
+F 1 "Trim_Servo_Out" H 9878 5885 50  0000 L CNN
+F 2 "" H 9850 5950 50  0001 C CNN
+F 3 "~" H 9850 5950 50  0001 C CNN
+	1    9850 5950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 6076A1A4
+P 9150 5950
+F 0 "J?" H 9042 6235 50  0000 C CNN
+F 1 "Trim_Servo_Out" H 9042 6144 50  0000 C CNN
+F 2 "" H 9150 5950 50  0001 C CNN
+F 3 "~" H 9150 5950 50  0001 C CNN
+	1    9150 5950
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	9650 5850 9350 5850
+Wire Wire Line
+	9350 5950 9650 5950
+Wire Wire Line
+	9650 6050 9350 6050
+Text Label 2850 4300 0    50   ~ 0
+In_APU_Mag
+Text Label 4450 4300 0    50   ~ 0
+Out_APU_Mag
+$Comp
+L Connector:Conn_01x04_Female J?
+U 1 1 6076D2F2
+P 8400 4550
+F 0 "J?" H 8428 4526 50  0000 L CNN
+F 1 "APU" H 8428 4435 50  0000 L CNN
+F 2 "" H 8400 4550 50  0001 C CNN
+F 3 "~" H 8400 4550 50  0001 C CNN
+	1    8400 4550
+	1    0    0    -1  
+$EndComp
+Text Label 8200 4450 2    50   ~ 0
++12V
+Text Label 8200 4650 2    50   ~ 0
++12V
+Text Label 8200 4550 2    50   ~ 0
+Out_APU_Mag
+Text Label 8200 4750 2    50   ~ 0
+Out_Engine_Crank_Mag
+Text Label 2850 4400 0    50   ~ 0
+In_Engine_Crank_Mag
+Text Label 4450 4400 0    50   ~ 0
+Out_Engine_Crank_Mag
 $EndSCHEMATC
