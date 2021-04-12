@@ -1,4 +1,4 @@
-(pcb "/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/OH - Left Console - Output Distribution/OH - Left Console - Output Distribution.dsn"
+(pcb "/Users/pethomas/Documents/FSServer/Development/bne-arduino-flight-simulator-interfaces/PCBs/OH - LEFT CONSOLE - OUTPUT DISTRIBUTION/OH - LEFT CONSOLE - OUTPUT DISTRIBUTION.dsn"
   (parser
     (string_quote ")
     (space_in_quoted_tokens on)
@@ -43,7 +43,7 @@
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
       (place J12 173355 -74676 front 0 (PN "Trim Servo Out"))
-      (place J11 186055 -74676 front 0 (PN "Trim Servo Out"))
+      (place J11 186055 -74676 front 0 (PN "Trim Servo In"))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
       (place J10 185674 -64135 front 0 (PN APU))
@@ -375,7 +375,7 @@
   )
   (network
     (net /GND
-      (pins U2-8 U1-8 J2-2 J1-10)
+      (pins U2-8 U2-7 U2-6 U2-5 U2-4 U2-3 U1-8 U1-7 J2-2 J1-10)
     )
     (net /In_APU_Led
       (pins U2-2 J1-9)
@@ -384,7 +384,7 @@
       (pins U2-1 J1-8)
     )
     (net "Net-(J1-Pad7)"
-      (pins U1-7 J1-7)
+      (pins J1-7)
     )
     (net /In_Engine_Crank_Mag
       (pins U1-6 J1-6)
@@ -458,12 +458,32 @@
     (net "Net-(J11-Pad1)"
       (pins J12-1 J11-1)
     )
+    (net "Net-(U1-Pad10)"
+      (pins U1-10)
+    )
+    (net "Net-(U2-Pad14)"
+      (pins U2-14)
+    )
+    (net "Net-(U2-Pad13)"
+      (pins U2-13)
+    )
+    (net "Net-(U2-Pad12)"
+      (pins U2-12)
+    )
+    (net "Net-(U2-Pad11)"
+      (pins U2-11)
+    )
+    (net "Net-(U2-Pad10)"
+      (pins U2-10)
+    )
     (class kicad_default "" /+12V /GND /In_APU_Led /In_APU_Mag /In_Engine_Crank_Mag
       /In_Fuel_Dump_Mag /In_Hook_Bypass_Mag /In_Landing_Gear_LED /In_Landing_Gear_Sol
       /In_Launch_Bar_Mag /Out_APU_LED /Out_APU_Mag /Out_Engine_Crank_Mag /Out_Fuel_Dump_Mag
       /Out_Hook_Bypass_Mag /Out_Landing_Gear_LED /Out_Landing_Gear_Sol /Out_Launch_Bar_Mag
       "Net-(J1-Pad7)" "Net-(J11-Pad1)" "Net-(J11-Pad2)" "Net-(J11-Pad3)" "Net-(J3-Pad1)"
       "Net-(J3-Pad2)" "Net-(J3-Pad3)" "Net-(J3-Pad4)" "Net-(J4-Pad1)" "Net-(J6-Pad1)"
+      "Net-(U1-Pad10)" "Net-(U2-Pad10)" "Net-(U2-Pad11)" "Net-(U2-Pad12)"
+      "Net-(U2-Pad13)" "Net-(U2-Pad14)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
