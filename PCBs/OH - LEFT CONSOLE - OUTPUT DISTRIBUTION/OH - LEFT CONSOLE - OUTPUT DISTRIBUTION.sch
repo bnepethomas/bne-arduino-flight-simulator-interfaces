@@ -250,12 +250,12 @@ Text Label 7800 3300 2    50   ~ 0
 $Comp
 L Connector:Conn_01x03_Female J12
 U 1 1 60769A26
-P 9850 5950
-F 0 "J12" H 9878 5976 50  0000 L CNN
-F 1 "Trim Servo Out" H 9878 5885 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 9850 5950 50  0001 C CNN
-F 3 "~" H 9850 5950 50  0001 C CNN
-	1    9850 5950
+P 10000 5950
+F 0 "J12" H 10028 5976 50  0000 L CNN
+F 1 "Trim Servo Out" H 10028 5885 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 10000 5950 50  0001 C CNN
+F 3 "~" H 10000 5950 50  0001 C CNN
+	1    10000 5950
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -270,11 +270,11 @@ F 3 "~" H 9150 5950 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	9650 5850 9350 5850
+	9800 5850 9350 5850
 Wire Wire Line
-	9350 5950 9650 5950
+	9350 5950 9800 5950
 Wire Wire Line
-	9650 6050 9350 6050
+	9800 6050 9350 6050
 Text Label 2850 4300 0    50   ~ 0
 In_APU_Mag
 Text Label 4450 4300 0    50   ~ 0
@@ -408,4 +408,10 @@ GND
 Text Label 3650 4500 2    50   ~ 0
 GND
 NoConn ~ 2700 4500
+Text Label 9350 5850 0    50   ~ 0
+SERVO_PWM
+Text Label 9350 5950 0    50   ~ 0
+SERVO_5V
+Text Label 9350 6050 0    50   ~ 0
+SERVO_GND
 $EndSCHEMATC

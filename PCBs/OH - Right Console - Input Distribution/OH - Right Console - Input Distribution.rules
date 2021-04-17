@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1848)
+    (start_pass_no 3513)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -70,7 +70,7 @@
     /A7 /A6 /A5 /A4 /A3 /A2 /A1 /B10
     /B9 /B8 /B7 /B6 /B5 /B4 /B3 /B2
     /B1 "/LGHT_DEFOG" "/LGHT_WARN_CAUTION" "/LGHT_CHART" "/LGHT_FLOOD" "/LGHT_INST_PNL" "/LGHT_CONSOLES" "/KY58_VOL"
-    "/ECS_SUIT" "/ECS_CABIN"
+    "/ECS_SUIT" "/ECS_CABIN" "Net-(D1-Pad1)" /ALT
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

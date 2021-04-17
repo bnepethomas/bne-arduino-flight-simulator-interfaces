@@ -183,9 +183,9 @@ Wire Wire Line
 Wire Wire Line
 	5050 900  4850 900 
 Text Label 2550 900  0    50   ~ 0
-FLOOD_5V
+CHART_5V
 Text Label 2550 1000 0    50   ~ 0
-FLOOD_GND
+CHART_GND
 $Comp
 L Device:LED D1
 U 1 1 607AD71B

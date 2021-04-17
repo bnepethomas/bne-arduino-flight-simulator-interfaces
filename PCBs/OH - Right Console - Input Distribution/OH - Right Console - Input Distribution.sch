@@ -703,7 +703,6 @@ Text Label 2500 2550 0    50   ~ 0
 ROW8
 Text Label 2500 2650 0    50   ~ 0
 ROW9
-NoConn ~ 7700 6100
 $Comp
 L Connector:Conn_01x04_Female J19
 U 1 1 606C989E
@@ -1028,4 +1027,61 @@ Wire Notes Line
 	5150 6750 5150 5700
 Wire Notes Line
 	5150 5700 4150 5700
+Wire Notes Line
+	5500 4550 6800 4550
+Wire Notes Line
+	6800 4550 6800 5950
+Wire Notes Line
+	6800 5950 5500 5950
+Wire Notes Line
+	5500 5950 5500 4550
+Text Notes 6200 4700 2    50   ~ 0
+Altimeter
+$Comp
+L Connector:Conn_01x03_Female J30
+U 1 1 6081404C
+P 5750 5050
+F 0 "J30" H 5642 5335 50  0000 C CNN
+F 1 "ALT ANALOG" H 5642 5244 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5750 5050 50  0001 C CNN
+F 3 "~" H 5750 5050 50  0001 C CNN
+	1    5750 5050
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J31
+U 1 1 60815121
+P 5750 5450
+F 0 "J31" H 5642 5635 50  0000 C CNN
+F 1 "ALT SWITCH" H 5642 5544 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5750 5450 50  0001 C CNN
+F 3 "~" H 5750 5450 50  0001 C CNN
+	1    5750 5450
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D1
+U 1 1 60816886
+P 6250 5450
+F 0 "D1" H 6250 5666 50  0000 C CNN
+F 1 "D" H 6250 5575 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 6250 5450 50  0001 C CNN
+F 3 "~" H 6250 5450 50  0001 C CNN
+	1    6250 5450
+	1    0    0    -1  
+$EndComp
+Text Label 5950 4950 0    50   ~ 0
+ANALOG_5V
+Text Label 5950 5050 0    50   ~ 0
+ANALOG_GND
+Text Label 5950 5150 0    50   ~ 0
+ALT
+Text Label 7700 6100 2    50   ~ 0
+ALT
+Wire Wire Line
+	5950 5450 6100 5450
+Text Label 6400 5450 0    50   ~ 0
+COL7
+Text Label 5950 5550 0    50   ~ 0
+ROW8
 $EndSCHEMATC

@@ -2135,36 +2135,6 @@ F 3 "~" H 7400 4500 50  0001 C CNN
 	1    7400 4500
 	1    0    0    -1  
 $EndComp
-$Comp
-L Connector:Conn_01x02_Female J6
-U 1 1 6048911B
-P 4200 5750
-F 0 "J6" H 4228 5726 50  0000 L CNN
-F 1 "Backlighting Out" H 4228 5635 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4200 5750 50  0001 C CNN
-F 3 "~" H 4200 5750 50  0001 C CNN
-	1    4200 5750
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J3
-U 1 1 6048966B
-P 3200 5750
-F 0 "J3" H 3092 5935 50  0000 C CNN
-F 1 "Backlighting In" H 3092 5844 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3200 5750 50  0001 C CNN
-F 3 "~" H 3200 5750 50  0001 C CNN
-	1    3200 5750
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	4000 5750 3400 5750
-Wire Wire Line
-	4000 5850 3400 5850
-Text Label 3600 5750 0    50   ~ 0
-Backlight+
-Text Label 3600 5850 0    50   ~ 0
-Backlight-
 Text Label 3400 4600 0    50   ~ 0
 Analog+5V
 Text Label 3250 4900 0    50   ~ 0
@@ -2172,31 +2142,31 @@ Analog_Gnd
 Text Label 3250 4750 0    50   ~ 0
 Rud_Trim
 $Comp
-L Connector:Conn_01x03_Female J5
+L Connector:Conn_01x03_Female J4
 U 1 1 6070EAAD
-P 4100 6550
-F 0 "J5" H 4128 6576 50  0000 L CNN
-F 1 "Trim_Servo_Out" H 4128 6485 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4100 6550 50  0001 C CNN
-F 3 "~" H 4100 6550 50  0001 C CNN
-	1    4100 6550
+P 3650 5600
+F 0 "J4" H 3678 5626 50  0000 L CNN
+F 1 "Trim_Servo_Out" H 3678 5535 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3650 5600 50  0001 C CNN
+F 3 "~" H 3650 5600 50  0001 C CNN
+	1    3650 5600
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Female J4
+L Connector:Conn_01x03_Female J3
 U 1 1 6070F5C9
-P 3250 6550
-F 0 "J4" H 3142 6835 50  0000 C CNN
-F 1 "Trim_Servo_In" H 3142 6744 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3250 6550 50  0001 C CNN
-F 3 "~" H 3250 6550 50  0001 C CNN
-	1    3250 6550
+P 2800 5600
+F 0 "J3" H 2692 5885 50  0000 C CNN
+F 1 "Trim_Servo_In" H 2692 5794 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2800 5600 50  0001 C CNN
+F 3 "~" H 2800 5600 50  0001 C CNN
+	1    2800 5600
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	3900 6450 3450 6450
+	3450 5500 3000 5500
 Wire Wire Line
-	3900 6550 3450 6550
+	3450 5600 3000 5600
 Wire Wire Line
-	3900 6650 3450 6650
+	3450 5700 3000 5700
 $EndSCHEMATC
