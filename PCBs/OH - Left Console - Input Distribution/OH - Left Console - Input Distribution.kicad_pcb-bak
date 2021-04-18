@@ -1183,9 +1183,9 @@
     (fp_line (start -1.27 2.88) (end 6.35 2.88) (layer F.Fab) (width 0.1))
     (fp_line (start -1.27 -2.92) (end -1.27 2.88) (layer F.Fab) (width 0.1))
     (pad 3 thru_hole oval (at 5.08 0) (size 1.74 2.2) (drill 1.2) (layers *.Cu *.Mask)
-      (net 15 /RUD_TRIM))
-    (pad 2 thru_hole oval (at 2.54 0) (size 1.74 2.2) (drill 1.2) (layers *.Cu *.Mask)
       (net 3 /ANALOG_GND))
+    (pad 2 thru_hole oval (at 2.54 0) (size 1.74 2.2) (drill 1.2) (layers *.Cu *.Mask)
+      (net 15 /RUD_TRIM))
     (pad 1 thru_hole roundrect (at 0 0) (size 1.74 2.2) (drill 1.2) (layers *.Cu *.Mask) (roundrect_rratio 0.143678)
       (net 4 /ANALOG_5V))
     (model ${KISYS3DMOD}/Connector_Molex.3dshapes/Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical.wrl
@@ -1424,7 +1424,7 @@
   )
 
   (module PT_Library_v001:Molex_1x03_P2.54mm_Vertical (layer F.Cu) (tedit 5B78013E) (tstamp 5FDEE39B)
-    (at 184.15 79.9677 270)
+    (at 183.769 55.753 270)
     (descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-03A example for new part number: 22-27-2031, 3 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
     (tags "connector Molex KK-254 side entry")
     (path /5FDF3E63)
@@ -1483,7 +1483,7 @@
   )
 
   (module PT_Library_v001:Molex_1x10_P2.54mm_Vertical (layer F.Cu) (tedit 5B78013E) (tstamp 5FDEE3E5)
-    (at 192.532 65.659 270)
+    (at 192.405 52.197 270)
     (descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-10A example for new part number: 22-27-2101, 10 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
     (tags "connector Molex KK-254 side entry")
     (path /5FDF1152)
@@ -1642,7 +1642,7 @@
   )
 
   (module PT_Library_v001:Molex_1x03_P2.54mm_Vertical (layer F.Cu) (tedit 5B78013E) (tstamp 5FDEE431)
-    (at 192.405 55.118 270)
+    (at 192.532 40.64 270)
     (descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-03A example for new part number: 22-27-2031, 3 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
     (tags "connector Molex KK-254 side entry")
     (path /5FDE8E05)
@@ -1701,7 +1701,7 @@
   )
 
   (module PT_Library_v001:Molex_1x04_P2.54mm_Vertical (layer F.Cu) (tedit 5B78013E) (tstamp 5FDEE455)
-    (at 192.913 42.418 270)
+    (at 192.913 79.629 270)
     (descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-04A example for new part number: 22-27-2041, 4 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
     (tags "connector Molex KK-254 side entry")
     (path /5FDED7E7)

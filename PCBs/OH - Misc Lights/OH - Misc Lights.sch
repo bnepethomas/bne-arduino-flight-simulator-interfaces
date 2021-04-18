@@ -52,7 +52,7 @@ U 1 1 6078192B
 P 3150 900
 F 0 "R1" V 2945 900 50  0000 C CNN
 F 1 "R_US" V 3036 900 50  0000 C CNN
-F 2 "PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 3190 890 50  0001 C CNN
+F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 3190 890 50  0001 C CNN
 F 3 "~" H 3150 900 50  0001 C CNN
 	1    3150 900 
 	0    1    1    0   
@@ -761,4 +761,26 @@ U 607A89D7
 F0 "8mmDownlights" 50
 F1 "8mmDownlights.sch" 50
 $EndSheet
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 607EC742
+P 5300 6600
+F 0 "H1" H 5400 6646 50  0000 L CNN
+F 1 "MountingHole" H 5400 6555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 5300 6600 50  0001 C CNN
+F 3 "~" H 5300 6600 50  0001 C CNN
+	1    5300 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 607ED55F
+P 6100 6600
+F 0 "H2" H 6200 6646 50  0000 L CNN
+F 1 "MountingHole" H 6200 6555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6100 6600 50  0001 C CNN
+F 3 "~" H 6100 6600 50  0001 C CNN
+	1    6100 6600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

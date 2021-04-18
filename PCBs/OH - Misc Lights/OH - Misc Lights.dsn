@@ -21,8 +21,19 @@
       )
     )
     (boundary
-      (path pcb 0  244475 -130048  145415 -130048  145415 -33147  244475 -33147
-            244475 -130048)
+      (path pcb 0  235341 -33060.3  235982 -33138.9  236617 -33258.5  237243 -33418.8
+            237857 -33619  238457 -33858.3  239040 -34135.7  239604 -34450
+            240147 -34800.1  240667 -35184.3  241160 -35601.2  241626 -36048.9
+            242061 -36525.7  242466 -37029.6  242837 -37558.4  243173 -38110
+            243473 -38682.1  243735 -39272.3  243959 -39878.1  244144 -40497.2
+            244288 -41126.8  244392 -41764.4  244454 -42407.4  244475 -43053
+            244475 -130048  145288 -130048  145340 -42156.3  145424 -41526.9
+            145549 -40904.2  145712 -40290.5  145914 -39688.5  146154 -39100.4
+            146430 -38528.7  146742 -37975.6  147089 -37443.3  147468 -36934.1
+            147879 -36449.8  148320 -35992.5  148788 -35564  149283 -35166
+            149802 -34800.2  150344 -34467.8  150905 -34170.4  151483 -33909.1
+            152078 -33684.9  152685 -33498.7  153302 -33351.3  153928 -33243.3
+            154560 -33175.1  155194 -33147  234696 -33023.2  235341 -33060.3)
     )
     (via "Via[0-1]_800:400_um")
     (rule
@@ -33,76 +44,76 @@
     )
   )
   (placement
+    (component PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+      (place R6 183134 -124968 front 180 (PN R_US))
+      (place R5 183134 -65659 front 180 (PN R_US))
+      (place R4 183134 -95377 front 180 (PN R_US))
+      (place R3 183134 -110236 front 180 (PN R_US))
+      (place R2 183134 -80391 front 180 (PN R_US))
+      (place R1 161925 -39878 back 90 (PN R_US))
+    )
     (component MountingHole:MountingHole_3.2mm_M3
       (place H2 234061 -112522 back 180 (PN MountingHole))
       (place H1 235077 -77470 back 180 (PN MountingHole))
     )
-    (component PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
-      (place R6 181737 -108204 front 180 (PN R_US))
-      (place R5 181483 -67056 front 180 (PN R_US))
-      (place R4 181229 -87122 front 180 (PN R_US))
-      (place R3 181610 -98806 front 180 (PN R_US))
-      (place R2 181864 -76581 front 180 (PN R_US))
-      (place R1 149352 -50165 back 180 (PN R_US))
-    )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place J20 180086 -103124 back 90 (PN Conn_01x02_Female))
-      (place J19 180086 -61341 back 90 (PN Conn_01x02_Female))
-      (place J18 179705 -82169 back 90 (PN Conn_01x02_Female))
-      (place J17 179832 -93091 back 90 (PN Conn_01x02_Female))
-      (place J16 180086 -71120 back 90 (PN Conn_01x02_Female))
-      (place J4 154178 -44831 back 180 (PN Conn_01x02_Female))
+      (place J20 180848 -118992 back 90 (PN Conn_01x02_Female))
+      (place J19 180848 -59556 back 90 (PN Conn_01x02_Female))
+      (place J18 180848 -89274 back 90 (PN Conn_01x02_Female))
+      (place J17 180848 -104133 back 90 (PN Conn_01x02_Female))
+      (place J16 180848 -74415 back 90 (PN Conn_01x02_Female))
+      (place J4 154305 -43688 back 180 (PN Conn_01x02_Female))
     )
     (component LED_THT:LED_D8.0mm
-      (place D72 171577 -106045 front 90 (PN LED))
-      (place D71 171704 -64008 front 90 (PN LED))
-      (place D70 171196 -84582 front 90 (PN LED))
-      (place D69 171577 -95885 front 90 (PN LED))
-      (place D68 171577 -73787 front 90 (PN LED))
-      (place D64 161798 -105918 front 90 (PN LED))
-      (place D63 162052 -64135 front 90 (PN LED))
-      (place D62 161417 -84582 front 90 (PN LED))
-      (place D61 161671 -95631 front 90 (PN LED))
-      (place D60 161925 -73787 front 90 (PN LED))
-      (place D56 151892 -106045 front 90 (PN LED))
-      (place D55 152273 -64135 front 90 (PN LED))
-      (place D54 151511 -84709 front 90 (PN LED))
-      (place D53 152019 -95885 front 90 (PN LED))
-      (place D52 152273 -73787 front 90 (PN LED))
-      (place D16 148463 -43307 front 330 (PN LED))
-      (place D13 157099 -40767 front 60 (PN LED))
-      (place D11 156845 -48006 front 300 (PN LED))
+      (place D72 171704 -123322 front 90 (PN LED))
+      (place D71 171704 -63886 front 90 (PN LED))
+      (place D70 171704 -93604 front 90 (PN LED))
+      (place D69 171704 -108463 front 90 (PN LED))
+      (place D68 171704 -78745 front 90 (PN LED))
+      (place D64 161488 -123322 front 90 (PN LED))
+      (place D63 161488 -63886 front 90 (PN LED))
+      (place D62 161488 -93604 front 90 (PN LED))
+      (place D61 161488 -108463 front 90 (PN LED))
+      (place D60 161488 -78745 front 90 (PN LED))
+      (place D56 151273 -123322 front 90 (PN LED))
+      (place D55 151273 -63886 front 90 (PN LED))
+      (place D54 151273 -93604 front 90 (PN LED))
+      (place D53 151273 -108463 front 90 (PN LED))
+      (place D52 151273 -78745 front 90 (PN LED))
+      (place D16 148590 -42164 front 330 (PN LED))
+      (place D13 157226 -39624 front 60 (PN LED))
+      (place D11 156972 -46863 front 300 (PN LED))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place J14 196850 -80391 back 90 (PN Conn_01x03_Female))
-      (place J11 197993 -91694 back 90 (PN Conn_01x03_Female))
-      (place J10 197104 -70993 back 90 (PN Conn_01x03_Female))
-      (place J9 197358 -48895 back 90 (PN Conn_01x03_Female))
-      (place J8 196977 -59817 back 90 (PN Conn_01x03_Female))
-      (place J3 215646 -38989 back 90 (PN Conn_01x03_Female))
+      (place J14 195834 -80340.2 back 90 (PN Conn_01x03_Female))
+      (place J11 195834 -91694 back 90 (PN Conn_01x03_Female))
+      (place J10 195834 -68986.4 back 90 (PN Conn_01x03_Female))
+      (place J9 195834 -46278.8 back 90 (PN Conn_01x03_Female))
+      (place J8 195834 -57632.6 back 90 (PN Conn_01x03_Female))
+      (place J3 195834 -34925 back 90 (PN Conn_01x03_Female))
       (place J6 213741 -121666 back 270 (PN Conn_01x03_Female))
       (place J5 232156 -99822 back 180 (PN Conn_01x03_Female))
-      (place J2 231648 -50546 back 180 (PN Conn_01x03_Female))
+      (place J2 232410 -50546 back 180 (PN Conn_01x03_Female))
     )
     (component LED_SMD:LED_WS2812B_PLCC4_5.0x5.0mm_P3.2mm
-      (place D50 216027 -82423 front 90 (PN WS2812B))
-      (place D46 209804 -82296 front 90 (PN WS2812B))
-      (place D42 203454 -82296 front 90 (PN WS2812B))
-      (place D39 216662 -93980 front 90 (PN WS2812B))
-      (place D38 218567 -72771 front 90 (PN WS2812B))
-      (place D37 204216 -50927 front 90 (PN WS2812B))
-      (place D36 216789 -61849 front 90 (PN WS2812B))
-      (place D35 210693 -93980 front 90 (PN WS2812B))
-      (place D34 211709 -72644 front 90 (PN WS2812B))
-      (place D33 216154 -50673 front 90 (PN WS2812B))
-      (place D32 210566 -61722 front 90 (PN WS2812B))
-      (place D31 204597 -93853 front 90 (PN WS2812B))
-      (place D30 204089 -72517 front 90 (PN WS2812B))
-      (place D29 210185 -50673 front 90 (PN WS2812B))
-      (place D28 204089 -61849 front 90 (PN WS2812B))
-      (place D15 203327 -40386 front 90 (PN WS2812B))
-      (place D10 197612 -40513 front 90 (PN WS2812B))
-      (place D8 208915 -40386 front 90 (PN WS2812B))
+      (place D50 216662 -82880.2 front 90 (PN WS2812B))
+      (place D46 209918 -82880.2 front 90 (PN WS2812B))
+      (place D42 203173 -82880.2 front 90 (PN WS2812B))
+      (place D39 216662 -94234 front 90 (PN WS2812B))
+      (place D38 216662 -71526.4 front 90 (PN WS2812B))
+      (place D37 203173 -48818.8 front 90 (PN WS2812B))
+      (place D36 216662 -60172.6 front 90 (PN WS2812B))
+      (place D35 209918 -94234 front 90 (PN WS2812B))
+      (place D34 209918 -71526.4 front 90 (PN WS2812B))
+      (place D33 216662 -48818.8 front 90 (PN WS2812B))
+      (place D32 209918 -60172.6 front 90 (PN WS2812B))
+      (place D31 203173 -94234 front 90 (PN WS2812B))
+      (place D30 203173 -71526.4 front 90 (PN WS2812B))
+      (place D29 209918 -48818.8 front 90 (PN WS2812B))
+      (place D28 203173 -60172.6 front 90 (PN WS2812B))
+      (place D15 209918 -37465 front 90 (PN WS2812B))
+      (place D10 203173 -37465 front 90 (PN WS2812B))
+      (place D8 216662 -37465 front 90 (PN WS2812B))
       (place D27 195834 -118999 front 0 (PN WS2812B))
       (place D23 207391 -118872 front 0 (PN WS2812B))
       (place D21 218821 -118999 front 0 (PN WS2812B))
@@ -112,9 +123,9 @@
       (place D18 237998 -105664 front 0 (PN WS2812B))
       (place D17 230505 -94615 front 0 (PN WS2812B))
       (place D12 237998 -94615 front 0 (PN WS2812B))
-      (place D14 239395 -45085 front 90 (PN WS2812B))
-      (place D9 228219 -45212 front 90 (PN WS2812B))
-      (place D7 233934 -36957 front 0 (PN WS2812B))
+      (place D14 240157 -45085 front 90 (PN WS2812B))
+      (place D9 228981 -45212 front 90 (PN WS2812B))
+      (place D7 234696 -36957 front 0 (PN WS2812B))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
       (place J7 213233 -110363 back 270 (PN Conn_01x04_Female))
@@ -135,6 +146,26 @@
     )
   )
   (library
+    (image PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+      (outline (path signal 50  8670 1500  -1050 1500))
+      (outline (path signal 50  8670 -1500  8670 1500))
+      (outline (path signal 50  -1050 -1500  8670 -1500))
+      (outline (path signal 50  -1050 1500  -1050 -1500))
+      (outline (path signal 120  7080 -1370  7080 -1040))
+      (outline (path signal 120  540 -1370  7080 -1370))
+      (outline (path signal 120  540 -1040  540 -1370))
+      (outline (path signal 120  7080 1370  7080 1040))
+      (outline (path signal 120  540 1370  7080 1370))
+      (outline (path signal 120  540 1040  540 1370))
+      (outline (path signal 100  7620 0  6960 0))
+      (outline (path signal 100  0 0  660 0))
+      (outline (path signal 100  6960 1250  660 1250))
+      (outline (path signal 100  6960 -1250  6960 1250))
+      (outline (path signal 100  660 -1250  6960 -1250))
+      (outline (path signal 100  660 1250  660 -1250))
+      (pin Oval[A]Pad_1600x1600_um 2 7620 0)
+      (pin Round[A]Pad_1600_um 1 0 0)
+    )
     (image MountingHole:MountingHole_3.2mm_M3
       (outline (path signal 50  3450 0  3369.34 -741.648  3131.14 -1448.62  2746.52 -2087.85
             2233.48 -2629.46  1616.01 -3048.12  922.973 -3324.25  186.779 -3444.94
@@ -153,24 +184,6 @@
             2501.86 1995.17  2883.1 1388.43  3119.77 712.067  3200 0))
       (keepout "" (circle F.Cu 3200))
       (keepout "" (circle B.Cu 3200))
-    )
-    (image PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
-      (outline (path signal 100  800 0  720.775 -347.107  498.792 -625.465  178.017 -779.942
-            -178.017 -779.942  -498.792 -625.465  -720.775 -347.107  -800 0
-            -720.775 347.107  -498.792 625.465  -178.017 779.942  178.017 779.942
-            498.792 625.465  720.775 347.107  800 0))
-      (outline (path signal 120  920 0  840.462 -374.198  615.6 -683.693  284.296 -874.972
-            -96.166 -914.96  -460 -796.743  -744.296 -540.762  -899.896 -191.279
-            -899.896 191.279  -744.296 540.762  -460 796.743  -96.166 914.96
-            284.296 874.972  615.6 683.693  840.462 374.198  920 0))
-      (outline (path signal 100  0 0  2540 0))
-      (outline (path signal 120  920 0  1540 0))
-      (outline (path signal 50  -1050 1050  -1050 -1050))
-      (outline (path signal 50  -1050 -1050  3490 -1050))
-      (outline (path signal 50  3490 -1050  3490 1050))
-      (outline (path signal 50  3490 1050  -1050 1050))
-      (pin Round[A]Pad_1400_um 1 0 0)
-      (pin Oval[A]Pad_1400x1400_um 2 2540 0)
     )
     (image PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (outline (path signal 50  4310 3420  -1770 3420))
@@ -406,9 +419,9 @@
       (pin Oval[A]Pad_1740x2200_um 2 2540 0)
       (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
     )
-    (padstack Round[A]Pad_1400_um
-      (shape (circle F.Cu 1400))
-      (shape (circle B.Cu 1400))
+    (padstack Round[A]Pad_1600_um
+      (shape (circle F.Cu 1600))
+      (shape (circle B.Cu 1600))
       (attach off)
     )
     (padstack Round[A]Pad_1800_um
@@ -416,9 +429,9 @@
       (shape (circle B.Cu 1800))
       (attach off)
     )
-    (padstack Oval[A]Pad_1400x1400_um
-      (shape (path F.Cu 1400  0 0  0 0))
-      (shape (path B.Cu 1400  0 0  0 0))
+    (padstack Oval[A]Pad_1600x1600_um
+      (shape (path F.Cu 1600  0 0  0 0))
+      (shape (path B.Cu 1600  0 0  0 0))
       (attach off)
     )
     (padstack Oval[A]Pad_1740x2200_um
@@ -726,7 +739,7 @@
       (pins J4-2 D16-1)
     )
     (net /CHART_5V
-      (pins J4-1 R1-2)
+      (pins R1-2 J4-1)
     )
     (class kicad_default "" /AOA_2812_+5V /AOA_2812_GND /AOA_2812_IN /AOA_COL1
       /AOA_COL2 /AOA_ROW1 /AOA_ROW2 /CHART_5V /CHART_GND /Col1 /Col2 /Col3

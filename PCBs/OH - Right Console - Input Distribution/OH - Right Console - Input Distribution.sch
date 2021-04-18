@@ -940,9 +940,9 @@ $EndComp
 Text Label 4650 3500 0    50   ~ 0
 ANALOG_5V
 Text Label 4650 3600 0    50   ~ 0
-ANALOG_GND
-Text Label 4650 3700 0    50   ~ 0
 KY58_VOL
+Text Label 4650 3700 0    50   ~ 0
+ANALOG_GND
 Text Label 7700 6000 2    50   ~ 0
 KY58_VOL
 $Comp
@@ -1073,9 +1073,9 @@ $EndComp
 Text Label 5950 4950 0    50   ~ 0
 ANALOG_5V
 Text Label 5950 5050 0    50   ~ 0
-ANALOG_GND
-Text Label 5950 5150 0    50   ~ 0
 ALT
+Text Label 5950 5150 0    50   ~ 0
+ANALOG_GND
 Text Label 7700 6100 2    50   ~ 0
 ALT
 Wire Wire Line

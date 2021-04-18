@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 269)
+    (start_pass_no 215)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,11 +63,9 @@
     )
   )
   (class "kicad_default"
-    /GND "/In_APU_Led" "/In_Landing_Gear_LED" "Net-(J1-Pad7)" "/In_Engine_Crank_Mag" "/In_APU_Mag" "/In_Fuel_Dump_Mag" "/In_Hook_Bypass_Mag"
-    "/In_Launch_Bar_Mag" "/In_Landing_Gear_Sol" /+12V "Net-(J3-Pad4)" "Net-(J3-Pad3)" "Net-(J3-Pad2)" "Net-(J3-Pad1)" "/Out_APU_LED"
-    "Net-(J4-Pad1)" "/Out_Landing_Gear_Sol" "/Out_Landing_Gear_LED" "Net-(J6-Pad1)" "/Out_Hook_Bypass_Mag" "/Out_Launch_Bar_Mag" "/Out_Fuel_Dump_Mag" "/Out_Engine_Crank_Mag"
-    "/Out_APU_Mag" "Net-(J11-Pad3)" "Net-(J11-Pad2)" "Net-(J11-Pad1)" "Net-(U1-Pad10)" "Net-(U2-Pad14)" "Net-(U2-Pad13)" "Net-(U2-Pad12)"
-    "Net-(U2-Pad11)" "Net-(U2-Pad10)"
+    /GND "/In_Engine_Crank_Mag" "/In_APU_Mag" "/In_Fuel_Dump_Mag" "/In_Hook_Bypass_Mag" "/In_Launch_Bar_Mag" "/In_Landing_Gear_Sol" /+12V
+    "Net-(J3-Pad4)" "Net-(J3-Pad3)" "Net-(J3-Pad2)" "Net-(J3-Pad1)" "/Out_Landing_Gear_Sol" "/Out_Hook_Bypass_Mag" "/Out_Launch_Bar_Mag" "/Out_Fuel_Dump_Mag"
+    "/Out_Engine_Crank_Mag" "/Out_APU_Mag" /LEDCOL1 /LEDROW1 /LEDROW2 "/SERVO_GND" "/SERVO_5V" "/SERVO_PWM"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

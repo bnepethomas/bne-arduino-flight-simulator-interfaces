@@ -33,12 +33,15 @@
     )
   )
   (placement
-    (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place J1 103886 -82042 front 0 (PN "Switch Inputs"))
-      (place J5 133223 -82042 front 0 (PN "Batt U Volts Out"))
+    (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
+      (place J5 133223 -82042 front 0 (PN "Batt E Volts Out"))
       (place J4 146812 -82042 front 0 (PN "Batt U Volts Out"))
       (place J3 133223 -90805 front 0 (PN "Batt E Volts In"))
       (place J2 146812 -91059 front 0 (PN "Batt U Volts In"))
+      (place SW1 116205 -93345 front 0 (PN "EXT PWR"))
+    )
+    (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
+      (place J1 103886 -82042 front 0 (PN "Switch Inputs"))
     )
     (component MountingHole:MountingHole_4.3mm_M4
       (place H4 172085 -85471 front 0 (PN MountingHole))
@@ -50,9 +53,6 @@
       (place SW3 160274 -93345 front 0 (PN "L GEN"))
       (place SW2 92964 -100203 front 0 (PN "R GEN"))
     )
-    (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place SW1 116205 -93345 front 0 (PN "EXT PWR"))
-    )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
       (place D3 102743 -88392 front 270 (PN D))
       (place D2 116205 -79672 front 270 (PN D))
@@ -60,6 +60,43 @@
     )
   )
   (library
+    (image PT_Library_v001:Molex_1x03_P2.54mm_Vertical
+      (outline (path signal 50  6850 3420  -1770 3420))
+      (outline (path signal 50  6850 -3380  6850 3420))
+      (outline (path signal 50  -1770 -3380  6850 -3380))
+      (outline (path signal 50  -1770 3420  -1770 -3380))
+      (outline (path signal 120  5880 2430  5880 3030))
+      (outline (path signal 120  4280 2430  5880 2430))
+      (outline (path signal 120  4280 3030  4280 2430))
+      (outline (path signal 120  3340 2430  3340 3030))
+      (outline (path signal 120  1740 2430  3340 2430))
+      (outline (path signal 120  1740 3030  1740 2430))
+      (outline (path signal 120  800 2430  800 3030))
+      (outline (path signal 120  -800 2430  800 2430))
+      (outline (path signal 120  -800 3030  -800 2430))
+      (outline (path signal 120  4830 -2990  4830 -1990))
+      (outline (path signal 120  250 -2990  250 -1990))
+      (outline (path signal 120  4830 -1460  5080 -1990))
+      (outline (path signal 120  250 -1460  4830 -1460))
+      (outline (path signal 120  0 -1990  250 -1460))
+      (outline (path signal 120  5080 -1990  5080 -2990))
+      (outline (path signal 120  0 -1990  5080 -1990))
+      (outline (path signal 120  0 -2990  0 -1990))
+      (outline (path signal 100  -562.893 0  -1270 -500))
+      (outline (path signal 100  -1270 500  -562.893 0))
+      (outline (path signal 120  -1670 2000  -1670 -2000))
+      (outline (path signal 120  6460 3030  -1380 3030))
+      (outline (path signal 120  6460 -2990  6460 3030))
+      (outline (path signal 120  -1380 -2990  6460 -2990))
+      (outline (path signal 120  -1380 3030  -1380 -2990))
+      (outline (path signal 100  6350 2920  -1270 2920))
+      (outline (path signal 100  6350 -2880  6350 2920))
+      (outline (path signal 100  -1270 -2880  6350 -2880))
+      (outline (path signal 100  -1270 2920  -1270 -2880))
+      (pin Oval[A]Pad_1740x2200_um 3 5080 0)
+      (pin Oval[A]Pad_1740x2200_um 2 2540 0)
+      (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
+    )
     (image PT_Library_v001:Molex_1x04_P2.54mm_Vertical
       (outline (path signal 50  9390 3420  -1770 3420))
       (outline (path signal 50  9390 -3380  9390 3420))
@@ -156,43 +193,6 @@
       (pin Oval[A]Pad_1740x2200_um 2 2540 0)
       (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
     )
-    (image PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (outline (path signal 50  6850 3420  -1770 3420))
-      (outline (path signal 50  6850 -3380  6850 3420))
-      (outline (path signal 50  -1770 -3380  6850 -3380))
-      (outline (path signal 50  -1770 3420  -1770 -3380))
-      (outline (path signal 120  5880 2430  5880 3030))
-      (outline (path signal 120  4280 2430  5880 2430))
-      (outline (path signal 120  4280 3030  4280 2430))
-      (outline (path signal 120  3340 2430  3340 3030))
-      (outline (path signal 120  1740 2430  3340 2430))
-      (outline (path signal 120  1740 3030  1740 2430))
-      (outline (path signal 120  800 2430  800 3030))
-      (outline (path signal 120  -800 2430  800 2430))
-      (outline (path signal 120  -800 3030  -800 2430))
-      (outline (path signal 120  4830 -2990  4830 -1990))
-      (outline (path signal 120  250 -2990  250 -1990))
-      (outline (path signal 120  4830 -1460  5080 -1990))
-      (outline (path signal 120  250 -1460  4830 -1460))
-      (outline (path signal 120  0 -1990  250 -1460))
-      (outline (path signal 120  5080 -1990  5080 -2990))
-      (outline (path signal 120  0 -1990  5080 -1990))
-      (outline (path signal 120  0 -2990  0 -1990))
-      (outline (path signal 100  -562.893 0  -1270 -500))
-      (outline (path signal 100  -1270 500  -562.893 0))
-      (outline (path signal 120  -1670 2000  -1670 -2000))
-      (outline (path signal 120  6460 3030  -1380 3030))
-      (outline (path signal 120  6460 -2990  6460 3030))
-      (outline (path signal 120  -1380 -2990  6460 -2990))
-      (outline (path signal 120  -1380 3030  -1380 -2990))
-      (outline (path signal 100  6350 2920  -1270 2920))
-      (outline (path signal 100  6350 -2880  6350 2920))
-      (outline (path signal 100  -1270 -2880  6350 -2880))
-      (outline (path signal 100  -1270 2920  -1270 -2880))
-      (pin Oval[A]Pad_1740x2200_um 3 5080 0)
-      (pin Oval[A]Pad_1740x2200_um 2 2540 0)
-      (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
-    )
     (image PT_Library_v001:D_Signal_P7.62mm_Horizontal
       (outline (path signal 50  8670 1250  -1050 1250))
       (outline (path signal 50  8670 -1250  8670 1250))
@@ -281,39 +281,34 @@
     (net "Net-(D3-Pad1)"
       (pins SW2-1 D3-1)
     )
-    (net "Net-(J2-Pad4)"
-      (pins J4-4 J2-4)
-    )
-    (net "Net-(J2-Pad3)"
-      (pins J4-3 J2-3)
-    )
-    (net "Net-(J2-Pad2)"
-      (pins J4-2 J2-2)
-    )
-    (net "Net-(J2-Pad1)"
-      (pins J4-1 J2-1)
-    )
-    (net "Net-(J3-Pad4)"
-      (pins J5-4 J3-4)
-    )
-    (net "Net-(J3-Pad3)"
-      (pins J5-3 J3-3)
-    )
-    (net "Net-(J3-Pad2)"
-      (pins J5-2 J3-2)
-    )
-    (net "Net-(J3-Pad1)"
-      (pins J5-1 J3-1)
-    )
     (net /Row2
       (pins J1-4 SW2-2 SW1-3)
     )
     (net /Row1
       (pins J1-3 SW3-2 SW1-1)
     )
-    (class kicad_default "" /Row1 /Row2 "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad1)"
-      "Net-(D3-Pad1)" "Net-(D3-Pad2)" "Net-(J2-Pad1)" "Net-(J2-Pad2)" "Net-(J2-Pad3)"
-      "Net-(J2-Pad4)" "Net-(J3-Pad1)" "Net-(J3-Pad2)" "Net-(J3-Pad3)" "Net-(J3-Pad4)"
+    (net /U_GND
+      (pins J4-3 J2-3)
+    )
+    (net /U_5V
+      (pins J4-2 J2-2)
+    )
+    (net /U_PWM
+      (pins J4-1 J2-1)
+    )
+    (net /E_GND
+      (pins J5-3 J3-3)
+    )
+    (net /E_5V
+      (pins J5-2 J3-2)
+    )
+    (net /E_PWM
+      (pins J5-1 J3-1)
+    )
+    (class kicad_default "" /E_5V /E_GND /E_PWM /Row1 /Row2 /U_5V /U_GND /U_PWM
+      "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad1)" "Net-(D3-Pad1)" "Net-(D3-Pad2)"
+      "Net-(J2-Pad1)" "Net-(J2-Pad2)" "Net-(J2-Pad3)" "Net-(J2-Pad4)" "Net-(J3-Pad1)"
+      "Net-(J3-Pad2)" "Net-(J3-Pad3)" "Net-(J3-Pad4)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

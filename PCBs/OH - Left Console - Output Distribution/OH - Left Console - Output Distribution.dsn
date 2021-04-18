@@ -1,4 +1,4 @@
-(pcb "/Users/pethomas/Documents/FSServer/Development/bne-arduino-flight-simulator-interfaces/PCBs/OH - LEFT CONSOLE - OUTPUT DISTRIBUTION/OH - LEFT CONSOLE - OUTPUT DISTRIBUTION.dsn"
+(pcb "/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/OH - Left Console - Output Distribution/OH - Left Console - Output Distribution.dsn"
   (parser
     (string_quote ")
     (space_in_quoted_tokens on)
@@ -33,30 +33,26 @@
     )
   )
   (placement
-    (component "Package_DIP:DIP-16_W7.62mm"
-      (place U2 136779 -47752 front 0 (PN ULN2003A))
-      (place U1 151765 -47879 front 0 (PN ULN2003A))
+    (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
+      (place J4 193548 -51435 front 0 (PN "LED IN"))
+      (place J10 170053 -64516 front 0 (PN APU))
+      (place J9 185293 -40386 front 0 (PN "Brake Pressure Out"))
+      (place J7 156464 -64516 front 0 (PN "Select Jet"))
+      (place J3 169545 -40386 front 0 (PN "Brake Pressure In"))
     )
-    (component PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
-      (place R2 178435 -37592 front 0 (PN 560))
-      (place R1 195199 -55499 front 0 (PN 560))
+    (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
+      (place D2 198501 -62865 front 0 (PN "LANDING GEAR LED"))
+      (place D1 187071 -62865 front 0 (PN "APU LED"))
+      (place J8 161544 -74295 front 0 (PN "Fuel Dump"))
+      (place J5 157607 -47371 front 0 (PN "Landing Gear Sol"))
+      (place J2 126365 -52324 front 0 (PN "Power In"))
+    )
+    (component "Package_DIP:DIP-16_W7.62mm"
+      (place U1 138049 -45847 front 0 (PN ULN2003A))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
       (place J12 173355 -74676 front 0 (PN "Trim Servo Out"))
       (place J11 186055 -74676 front 0 (PN "Trim Servo In"))
-    )
-    (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place J10 185674 -64135 front 0 (PN APU))
-      (place J9 194183 -47498 front 0 (PN "Brake Pressure Out"))
-      (place J7 172085 -64135 front 0 (PN "Select Jet"))
-      (place J3 171704 -47625 front 0 (PN "Brake Pressure In"))
-    )
-    (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place J8 161544 -74295 front 0 (PN "Fuel Dump"))
-      (place J6 191389 -37973 front 0 (PN "Landing Gear Handle"))
-      (place J5 171577 -38354 front 0 (PN "Landing Gear Sol"))
-      (place J4 200406 -64008 front 0 (PN "APU LED"))
-      (place J2 126365 -52324 front 0 (PN "Power In"))
     )
     (component PT_Library_v001:Molex_1x10_P2.54mm_Vertical
       (place J1 137812 -37608 front 0 (PN "Central Output"))
@@ -69,95 +65,6 @@
     )
   )
   (library
-    (image "Package_DIP:DIP-16_W7.62mm"
-      (outline (path signal 50  8700 1550  -1100 1550))
-      (outline (path signal 50  8700 -19300  8700 1550))
-      (outline (path signal 50  -1100 -19300  8700 -19300))
-      (outline (path signal 50  -1100 1550  -1100 -19300))
-      (outline (path signal 120  6460 1330  4810 1330))
-      (outline (path signal 120  6460 -19110  6460 1330))
-      (outline (path signal 120  1160 -19110  6460 -19110))
-      (outline (path signal 120  1160 1330  1160 -19110))
-      (outline (path signal 120  2810 1330  1160 1330))
-      (outline (path signal 100  635 270  1635 1270))
-      (outline (path signal 100  635 -19050  635 270))
-      (outline (path signal 100  6985 -19050  635 -19050))
-      (outline (path signal 100  6985 1270  6985 -19050))
-      (outline (path signal 100  1635 1270  6985 1270))
-      (pin Oval[A]Pad_1600x1600_um 16 7620 0)
-      (pin Oval[A]Pad_1600x1600_um 8 0 -17780)
-      (pin Oval[A]Pad_1600x1600_um 15 7620 -2540)
-      (pin Oval[A]Pad_1600x1600_um 7 0 -15240)
-      (pin Oval[A]Pad_1600x1600_um 14 7620 -5080)
-      (pin Oval[A]Pad_1600x1600_um 6 0 -12700)
-      (pin Oval[A]Pad_1600x1600_um 13 7620 -7620)
-      (pin Oval[A]Pad_1600x1600_um 5 0 -10160)
-      (pin Oval[A]Pad_1600x1600_um 12 7620 -10160)
-      (pin Oval[A]Pad_1600x1600_um 4 0 -7620)
-      (pin Oval[A]Pad_1600x1600_um 11 7620 -12700)
-      (pin Oval[A]Pad_1600x1600_um 3 0 -5080)
-      (pin Oval[A]Pad_1600x1600_um 10 7620 -15240)
-      (pin Oval[A]Pad_1600x1600_um 2 0 -2540)
-      (pin Oval[A]Pad_1600x1600_um 9 7620 -17780)
-      (pin Rect[A]Pad_1600x1600_um 1 0 0)
-    )
-    (image PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
-      (outline (path signal 50  8670 1500  -1050 1500))
-      (outline (path signal 50  8670 -1500  8670 1500))
-      (outline (path signal 50  -1050 -1500  8670 -1500))
-      (outline (path signal 50  -1050 1500  -1050 -1500))
-      (outline (path signal 120  7080 -1370  7080 -1040))
-      (outline (path signal 120  540 -1370  7080 -1370))
-      (outline (path signal 120  540 -1040  540 -1370))
-      (outline (path signal 120  7080 1370  7080 1040))
-      (outline (path signal 120  540 1370  7080 1370))
-      (outline (path signal 120  540 1040  540 1370))
-      (outline (path signal 100  7620 0  6960 0))
-      (outline (path signal 100  0 0  660 0))
-      (outline (path signal 100  6960 1250  660 1250))
-      (outline (path signal 100  6960 -1250  6960 1250))
-      (outline (path signal 100  660 -1250  6960 -1250))
-      (outline (path signal 100  660 1250  660 -1250))
-      (pin Oval[A]Pad_1600x1600_um 2 7620 0)
-      (pin Round[A]Pad_1600_um 1 0 0)
-    )
-    (image PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (outline (path signal 50  6850 3420  -1770 3420))
-      (outline (path signal 50  6850 -3380  6850 3420))
-      (outline (path signal 50  -1770 -3380  6850 -3380))
-      (outline (path signal 50  -1770 3420  -1770 -3380))
-      (outline (path signal 120  5880 2430  5880 3030))
-      (outline (path signal 120  4280 2430  5880 2430))
-      (outline (path signal 120  4280 3030  4280 2430))
-      (outline (path signal 120  3340 2430  3340 3030))
-      (outline (path signal 120  1740 2430  3340 2430))
-      (outline (path signal 120  1740 3030  1740 2430))
-      (outline (path signal 120  800 2430  800 3030))
-      (outline (path signal 120  -800 2430  800 2430))
-      (outline (path signal 120  -800 3030  -800 2430))
-      (outline (path signal 120  4830 -2990  4830 -1990))
-      (outline (path signal 120  250 -2990  250 -1990))
-      (outline (path signal 120  4830 -1460  5080 -1990))
-      (outline (path signal 120  250 -1460  4830 -1460))
-      (outline (path signal 120  0 -1990  250 -1460))
-      (outline (path signal 120  5080 -1990  5080 -2990))
-      (outline (path signal 120  0 -1990  5080 -1990))
-      (outline (path signal 120  0 -2990  0 -1990))
-      (outline (path signal 100  -562.893 0  -1270 -500))
-      (outline (path signal 100  -1270 500  -562.893 0))
-      (outline (path signal 120  -1670 2000  -1670 -2000))
-      (outline (path signal 120  6460 3030  -1380 3030))
-      (outline (path signal 120  6460 -2990  6460 3030))
-      (outline (path signal 120  -1380 -2990  6460 -2990))
-      (outline (path signal 120  -1380 3030  -1380 -2990))
-      (outline (path signal 100  6350 2920  -1270 2920))
-      (outline (path signal 100  6350 -2880  6350 2920))
-      (outline (path signal 100  -1270 -2880  6350 -2880))
-      (outline (path signal 100  -1270 2920  -1270 -2880))
-      (pin Oval[A]Pad_1740x2200_um 3 5080 0)
-      (pin Oval[A]Pad_1740x2200_um 2 2540 0)
-      (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
-    )
     (image PT_Library_v001:Molex_1x04_P2.54mm_Vertical
       (outline (path signal 50  9390 3420  -1770 3420))
       (outline (path signal 50  9390 -3380  9390 3420))
@@ -229,6 +136,75 @@
       (outline (path signal 100  3810 -2880  3810 2920))
       (outline (path signal 100  -1270 -2880  3810 -2880))
       (outline (path signal 100  -1270 2920  -1270 -2880))
+      (pin Oval[A]Pad_1740x2200_um 2 2540 0)
+      (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
+    )
+    (image "Package_DIP:DIP-16_W7.62mm"
+      (outline (path signal 50  8700 1550  -1100 1550))
+      (outline (path signal 50  8700 -19300  8700 1550))
+      (outline (path signal 50  -1100 -19300  8700 -19300))
+      (outline (path signal 50  -1100 1550  -1100 -19300))
+      (outline (path signal 120  6460 1330  4810 1330))
+      (outline (path signal 120  6460 -19110  6460 1330))
+      (outline (path signal 120  1160 -19110  6460 -19110))
+      (outline (path signal 120  1160 1330  1160 -19110))
+      (outline (path signal 120  2810 1330  1160 1330))
+      (outline (path signal 100  635 270  1635 1270))
+      (outline (path signal 100  635 -19050  635 270))
+      (outline (path signal 100  6985 -19050  635 -19050))
+      (outline (path signal 100  6985 1270  6985 -19050))
+      (outline (path signal 100  1635 1270  6985 1270))
+      (pin Oval[A]Pad_1600x1600_um 16 7620 0)
+      (pin Oval[A]Pad_1600x1600_um 8 0 -17780)
+      (pin Oval[A]Pad_1600x1600_um 15 7620 -2540)
+      (pin Oval[A]Pad_1600x1600_um 7 0 -15240)
+      (pin Oval[A]Pad_1600x1600_um 14 7620 -5080)
+      (pin Oval[A]Pad_1600x1600_um 6 0 -12700)
+      (pin Oval[A]Pad_1600x1600_um 13 7620 -7620)
+      (pin Oval[A]Pad_1600x1600_um 5 0 -10160)
+      (pin Oval[A]Pad_1600x1600_um 12 7620 -10160)
+      (pin Oval[A]Pad_1600x1600_um 4 0 -7620)
+      (pin Oval[A]Pad_1600x1600_um 11 7620 -12700)
+      (pin Oval[A]Pad_1600x1600_um 3 0 -5080)
+      (pin Oval[A]Pad_1600x1600_um 10 7620 -15240)
+      (pin Oval[A]Pad_1600x1600_um 2 0 -2540)
+      (pin Oval[A]Pad_1600x1600_um 9 7620 -17780)
+      (pin Rect[A]Pad_1600x1600_um 1 0 0)
+    )
+    (image PT_Library_v001:Molex_1x03_P2.54mm_Vertical
+      (outline (path signal 50  6850 3420  -1770 3420))
+      (outline (path signal 50  6850 -3380  6850 3420))
+      (outline (path signal 50  -1770 -3380  6850 -3380))
+      (outline (path signal 50  -1770 3420  -1770 -3380))
+      (outline (path signal 120  5880 2430  5880 3030))
+      (outline (path signal 120  4280 2430  5880 2430))
+      (outline (path signal 120  4280 3030  4280 2430))
+      (outline (path signal 120  3340 2430  3340 3030))
+      (outline (path signal 120  1740 2430  3340 2430))
+      (outline (path signal 120  1740 3030  1740 2430))
+      (outline (path signal 120  800 2430  800 3030))
+      (outline (path signal 120  -800 2430  800 2430))
+      (outline (path signal 120  -800 3030  -800 2430))
+      (outline (path signal 120  4830 -2990  4830 -1990))
+      (outline (path signal 120  250 -2990  250 -1990))
+      (outline (path signal 120  4830 -1460  5080 -1990))
+      (outline (path signal 120  250 -1460  4830 -1460))
+      (outline (path signal 120  0 -1990  250 -1460))
+      (outline (path signal 120  5080 -1990  5080 -2990))
+      (outline (path signal 120  0 -1990  5080 -1990))
+      (outline (path signal 120  0 -2990  0 -1990))
+      (outline (path signal 100  -562.893 0  -1270 -500))
+      (outline (path signal 100  -1270 500  -562.893 0))
+      (outline (path signal 120  -1670 2000  -1670 -2000))
+      (outline (path signal 120  6460 3030  -1380 3030))
+      (outline (path signal 120  6460 -2990  6460 3030))
+      (outline (path signal 120  -1380 -2990  6460 -2990))
+      (outline (path signal 120  -1380 3030  -1380 -2990))
+      (outline (path signal 100  6350 2920  -1270 2920))
+      (outline (path signal 100  6350 -2880  6350 2920))
+      (outline (path signal 100  -1270 -2880  6350 -2880))
+      (outline (path signal 100  -1270 2920  -1270 -2880))
+      (pin Oval[A]Pad_1740x2200_um 3 5080 0)
       (pin Oval[A]Pad_1740x2200_um 2 2540 0)
       (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
     )
@@ -322,11 +298,6 @@
       (keepout "" (circle F.Cu 3200))
       (keepout "" (circle B.Cu 3200))
     )
-    (padstack Round[A]Pad_1600_um
-      (shape (circle F.Cu 1600))
-      (shape (circle B.Cu 1600))
-      (attach off)
-    )
     (padstack Oval[A]Pad_1600x1600_um
       (shape (path F.Cu 1600  0 0  0 0))
       (shape (path B.Cu 1600  0 0  0 0))
@@ -375,16 +346,7 @@
   )
   (network
     (net /GND
-      (pins U2-8 U2-7 U2-6 U2-5 U2-4 U2-3 U1-8 U1-7 J2-2 J1-10)
-    )
-    (net /In_APU_Led
-      (pins U2-2 J1-9)
-    )
-    (net /In_Landing_Gear_LED
-      (pins U2-1 J1-8)
-    )
-    (net "Net-(J1-Pad7)"
-      (pins J1-7)
+      (pins U1-8 U1-7 J2-2 J1-10)
     )
     (net /In_Engine_Crank_Mag
       (pins U1-6 J1-6)
@@ -405,7 +367,7 @@
       (pins U1-1 J1-1)
     )
     (net /+12V
-      (pins U2-9 U1-9 R2-1 R1-1 J10-3 J10-1 J8-1 J7-3 J7-1 J5-1 J2-1)
+      (pins U1-9 J10-3 J10-1 J8-1 J7-3 J7-1 J5-1 J2-1)
     )
     (net "Net-(J3-Pad4)"
       (pins J9-4 J3-4)
@@ -419,20 +381,8 @@
     (net "Net-(J3-Pad1)"
       (pins J9-1 J3-1)
     )
-    (net /Out_APU_LED
-      (pins U2-15 J4-2)
-    )
-    (net "Net-(J4-Pad1)"
-      (pins R1-2 J4-1)
-    )
     (net /Out_Landing_Gear_Sol
       (pins U1-16 J5-2)
-    )
-    (net /Out_Landing_Gear_LED
-      (pins U2-16 J6-2)
-    )
-    (net "Net-(J6-Pad1)"
-      (pins R2-2 J6-1)
     )
     (net /Out_Hook_Bypass_Mag
       (pins U1-14 J7-4)
@@ -449,41 +399,34 @@
     (net /Out_APU_Mag
       (pins U1-12 J10-2)
     )
-    (net "Net-(J11-Pad3)"
+    (net /LEDCOL1
+      (pins J4-1 D2-2 D1-2)
+    )
+    (net /LEDROW1
+      (pins J4-3 D1-1)
+    )
+    (net /LEDROW2
+      (pins J4-4 D2-1)
+    )
+    (net /SERVO_GND
       (pins J12-3 J11-3)
     )
-    (net "Net-(J11-Pad2)"
+    (net /SERVO_5V
       (pins J12-2 J11-2)
     )
-    (net "Net-(J11-Pad1)"
+    (net /SERVO_PWM
       (pins J12-1 J11-1)
-    )
-    (net "Net-(U1-Pad10)"
-      (pins U1-10)
-    )
-    (net "Net-(U2-Pad14)"
-      (pins U2-14)
-    )
-    (net "Net-(U2-Pad13)"
-      (pins U2-13)
-    )
-    (net "Net-(U2-Pad12)"
-      (pins U2-12)
-    )
-    (net "Net-(U2-Pad11)"
-      (pins U2-11)
-    )
-    (net "Net-(U2-Pad10)"
-      (pins U2-10)
     )
     (class kicad_default "" /+12V /GND /In_APU_Led /In_APU_Mag /In_Engine_Crank_Mag
       /In_Fuel_Dump_Mag /In_Hook_Bypass_Mag /In_Landing_Gear_LED /In_Landing_Gear_Sol
-      /In_Launch_Bar_Mag /Out_APU_LED /Out_APU_Mag /Out_Engine_Crank_Mag /Out_Fuel_Dump_Mag
-      /Out_Hook_Bypass_Mag /Out_Landing_Gear_LED /Out_Landing_Gear_Sol /Out_Launch_Bar_Mag
-      "Net-(J1-Pad7)" "Net-(J11-Pad1)" "Net-(J11-Pad2)" "Net-(J11-Pad3)" "Net-(J3-Pad1)"
-      "Net-(J3-Pad2)" "Net-(J3-Pad3)" "Net-(J3-Pad4)" "Net-(J4-Pad1)" "Net-(J6-Pad1)"
-      "Net-(U1-Pad10)" "Net-(U2-Pad10)" "Net-(U2-Pad11)" "Net-(U2-Pad12)"
-      "Net-(U2-Pad13)" "Net-(U2-Pad14)"
+      /In_Launch_Bar_Mag /LEDCOL1 /LEDCOL2 /LEDROW1 /LEDROW2 /Out_APU_LED
+      /Out_APU_Mag /Out_Engine_Crank_Mag /Out_Fuel_Dump_Mag /Out_Hook_Bypass_Mag
+      /Out_Landing_Gear_LED /Out_Landing_Gear_Sol /Out_Launch_Bar_Mag /SERVO_5V
+      /SERVO_GND /SERVO_PWM "Net-(J1-Pad7)" "Net-(J1-Pad8)" "Net-(J1-Pad9)"
+      "Net-(J11-Pad1)" "Net-(J11-Pad2)" "Net-(J11-Pad3)" "Net-(J3-Pad1)" "Net-(J3-Pad2)"
+      "Net-(J3-Pad3)" "Net-(J3-Pad4)" "Net-(J4-Pad1)" "Net-(J6-Pad1)" "Net-(U1-Pad10)"
+      "Net-(U2-Pad10)" "Net-(U2-Pad11)" "Net-(U2-Pad12)" "Net-(U2-Pad13)"
+      "Net-(U2-Pad14)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

@@ -103,9 +103,9 @@ $EndComp
 Text Label 1500 4500 0    50   ~ 0
 ANALOG_5V
 Text Label 1500 4600 0    50   ~ 0
-ANALOG_GND
-Text Label 1500 4700 0    50   ~ 0
 RUD_TRIM
+Text Label 1500 4700 0    50   ~ 0
+ANALOG_GND
 Wire Notes Line
 	600  4000 600  5500
 Wire Notes Line

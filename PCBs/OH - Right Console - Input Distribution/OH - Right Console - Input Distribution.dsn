@@ -626,7 +626,7 @@
   )
   (network
     (net /ANALOG_GND
-      (pins J30-2 J26-2 J20-2 J19-2 J4-2 J3-2)
+      (pins J30-3 J26-3 J20-2 J19-2 J4-2 J3-2)
     )
     (net /ANALOG_5V
       (pins J30-1 J26-1 J20-1 J19-1 J4-1 J3-1)
@@ -791,7 +791,7 @@
       (pins J20-3 J3-3)
     )
     (net /KY58_VOL
-      (pins J26-3 J4-5)
+      (pins J26-2 J4-5)
     )
     (net /ECS_SUIT
       (pins J19-4 J4-4)
@@ -803,7 +803,7 @@
       (pins J31-1 D1-1)
     )
     (net /ALT
-      (pins J30-3 J4-6)
+      (pins J30-2 J4-6)
     )
     (class kicad_default "" /A1 /A10 /A2 /A3 /A4 /A5 /A6 /A7 /A8 /A9 /ALT
       /ANALOG_5V /ANALOG_GND /B1 /B10 /B2 /B3 /B4 /B5 /B6 /B7 /B8 /B9 /COL0

@@ -2144,12 +2144,12 @@ Rud_Trim
 $Comp
 L Connector:Conn_01x03_Female J4
 U 1 1 6070EAAD
-P 3650 5600
-F 0 "J4" H 3678 5626 50  0000 L CNN
-F 1 "Trim_Servo_Out" H 3678 5535 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3650 5600 50  0001 C CNN
-F 3 "~" H 3650 5600 50  0001 C CNN
-	1    3650 5600
+P 3850 5600
+F 0 "J4" H 3878 5626 50  0000 L CNN
+F 1 "Trim_Servo_Out" H 3878 5535 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3850 5600 50  0001 C CNN
+F 3 "~" H 3850 5600 50  0001 C CNN
+	1    3850 5600
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2164,9 +2164,15 @@ F 3 "~" H 2800 5600 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	3450 5500 3000 5500
+	3650 5500 3000 5500
 Wire Wire Line
-	3450 5600 3000 5600
+	3650 5600 3000 5600
 Wire Wire Line
-	3450 5700 3000 5700
+	3650 5700 3000 5700
+Text Label 3050 5500 0    50   ~ 0
+TRIM_SERVO_SIG
+Text Label 3050 5600 0    50   ~ 0
+SERVO_5V
+Text Label 3050 5700 0    50   ~ 0
+SERVO_GND
 $EndSCHEMATC

@@ -43,11 +43,7 @@ Text Label 5550 2400 0    50   ~ 0
 GND
 Text Label 4450 3700 0    50   ~ 0
 +12V
-Text Label 4500 5100 0    50   ~ 0
-+12V
 Text Label 4050 4700 0    50   ~ 0
-GND
-Text Label 4100 6100 0    50   ~ 0
 GND
 $Comp
 L Connector:Conn_01x02_Female J5
@@ -85,18 +81,6 @@ F 3 "~" H 2500 4300 50  0001 C CNN
 	1    2500 4300
 	-1   0    0    -1  
 $EndComp
-Wire Wire Line
-	2700 4600 3150 4600
-Wire Wire Line
-	3150 4600 3150 5300
-Wire Wire Line
-	3150 5300 3700 5300
-Wire Wire Line
-	2700 4700 3050 4700
-Wire Wire Line
-	3050 4700 3050 5400
-Wire Wire Line
-	3050 5400 3700 5400
 Text Label 2850 3900 0    50   ~ 0
 In_Landing_Gear_Sol
 Text Label 4450 3900 0    50   ~ 0
@@ -105,72 +89,6 @@ Text Label 7800 1800 2    50   ~ 0
 Out_Landing_Gear_Sol
 Text Label 7800 1700 2    50   ~ 0
 +12V
-$Comp
-L Connector:Conn_01x02_Female J6
-U 1 1 607556D0
-P 8000 2100
-F 0 "J6" H 8028 2076 50  0000 L CNN
-F 1 "Landing Gear Handle" H 8028 1985 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8000 2100 50  0001 C CNN
-F 3 "~" H 8000 2100 50  0001 C CNN
-	1    8000 2100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_US R2
-U 1 1 60756564
-P 7350 2100
-F 0 "R2" V 7555 2100 50  0000 C CNN
-F 1 "560" V 7464 2100 50  0000 C CNN
-F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7390 2090 50  0001 C CNN
-F 3 "~" H 7350 2100 50  0001 C CNN
-	1    7350 2100
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7800 2100 7500 2100
-Text Label 7200 2100 2    50   ~ 0
-+12V
-Text Label 7800 2200 2    50   ~ 0
-Out_Landing_Gear_LED
-Text Label 4500 5300 0    50   ~ 0
-Out_Landing_Gear_LED
-Text Label 3150 4800 0    50   ~ 0
-In_Landing_Gear_LED
-Text Label 3100 5400 0    50   ~ 0
-In_APU_Led
-$Comp
-L Connector:Conn_01x02_Female J4
-U 1 1 6075AC33
-P 7900 5950
-F 0 "J4" H 7928 5926 50  0000 L CNN
-F 1 "APU LED" H 7928 5835 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7900 5950 50  0001 C CNN
-F 3 "~" H 7900 5950 50  0001 C CNN
-	1    7900 5950
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_US R1
-U 1 1 6075AC3D
-P 7250 5950
-F 0 "R1" V 7455 5950 50  0000 C CNN
-F 1 "560" V 7364 5950 50  0000 C CNN
-F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7290 5940 50  0001 C CNN
-F 3 "~" H 7250 5950 50  0001 C CNN
-	1    7250 5950
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7700 5950 7400 5950
-Text Label 7100 5950 2    50   ~ 0
-+12V
-Text Label 7700 6050 2    50   ~ 0
-Out_APU_LED
-Text Label 4500 5400 0    50   ~ 0
-Out_APU_LED
-Text Notes 6950 5600 0    50   ~ 0
-LED Values\n560 to 12V (to be validated!)
 Text Label 2850 4000 0    50   ~ 0
 In_Launch_Bar_Mag
 Text Label 4450 4000 0    50   ~ 0
@@ -379,32 +297,6 @@ F 3 "~" H 9850 2750 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 NoConn ~ 4450 4500
-NoConn ~ 4500 5500
-NoConn ~ 4500 5600
-NoConn ~ 4500 5700
-NoConn ~ 4500 5800
-NoConn ~ 4500 5900
-$Comp
-L Transistor_Array:ULN2003A U2
-U 1 1 6073C2C9
-P 4100 5500
-F 0 "U2" H 4100 6167 50  0000 C CNN
-F 1 "ULN2003A" H 4100 6076 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm" H 4150 4950 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/uln2003a.pdf" H 4200 5300 50  0001 C CNN
-	1    4100 5500
-	1    0    0    -1  
-$EndComp
-Text Label 3700 5500 2    50   ~ 0
-GND
-Text Label 3700 5600 2    50   ~ 0
-GND
-Text Label 3700 5700 2    50   ~ 0
-GND
-Text Label 3700 5800 2    50   ~ 0
-GND
-Text Label 3700 5900 2    50   ~ 0
-GND
 Text Label 3650 4500 2    50   ~ 0
 GND
 NoConn ~ 2700 4500
@@ -414,4 +306,56 @@ Text Label 9350 5950 0    50   ~ 0
 SERVO_5V
 Text Label 9350 6050 0    50   ~ 0
 SERVO_GND
+$Comp
+L Connector:Conn_01x04_Female J4
+U 1 1 607BD540
+P 4400 6950
+F 0 "J4" H 4292 7235 50  0000 C CNN
+F 1 "LED IN" H 4292 7144 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 4400 6950 50  0001 C CNN
+F 3 "~" H 4400 6950 50  0001 C CNN
+	1    4400 6950
+	-1   0    0    -1  
+$EndComp
+Text Label 4600 6850 0    50   ~ 0
+LEDCOL1
+Text Label 4600 6950 0    50   ~ 0
+LEDCOL2
+Text Label 4600 7050 0    50   ~ 0
+LEDROW1
+Text Label 4600 7150 0    50   ~ 0
+LEDROW2
+NoConn ~ 2700 4600
+NoConn ~ 2700 4700
+$Comp
+L Device:LED D1
+U 1 1 607BEAA0
+P 7650 5800
+F 0 "D1" V 7689 5682 50  0000 R CNN
+F 1 "APU LED" V 7598 5682 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7650 5800 50  0001 C CNN
+F 3 "~" H 7650 5800 50  0001 C CNN
+	1    7650 5800
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED D2
+U 1 1 607BFDB4
+P 7900 2100
+F 0 "D2" V 7939 1983 50  0000 R CNN
+F 1 "LANDING GEAR LED" V 7848 1983 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7900 2100 50  0001 C CNN
+F 3 "~" H 7900 2100 50  0001 C CNN
+	1    7900 2100
+	0    -1   -1   0   
+$EndComp
+Text Label 7650 5650 0    50   ~ 0
+LEDCOL1
+Text Label 7650 5950 2    50   ~ 0
+LEDROW1
+Text Label 7900 1950 0    50   ~ 0
+LEDCOL1
+Text Label 7900 2250 2    50   ~ 0
+LEDROW2
+NoConn ~ 4600 6950
 $EndSCHEMATC

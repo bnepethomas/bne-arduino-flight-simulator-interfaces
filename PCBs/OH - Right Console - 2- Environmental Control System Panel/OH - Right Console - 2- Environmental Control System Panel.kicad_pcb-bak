@@ -1471,7 +1471,7 @@
     )
   )
 
-  (gr_arc (start 137.033 156.591) (end 132.715001 144.526001) (angle -45.77025299) (layer Edge.Cuts) (width 0.05))
+  (gr_arc (start 137.033 156.591) (end 132.715001 144.526001) (angle -45.72036618) (layer Edge.Cuts) (width 0.05))
   (gr_line (start 132.682 125.095) (end 132.715001 144.526001) (layer Edge.Cuts) (width 0.05))
   (gr_line (start 75.946 95.124) (end 112.141 95.124) (layer Edge.Cuts) (width 0.05))
   (gr_line (start 112.141 125.095) (end 112.141 95.124) (layer Edge.Cuts) (width 0.05))
@@ -1479,7 +1479,7 @@
   (gr_line (start 75.946 95.124) (end 75.946 126.873) (layer Edge.Cuts) (width 0.05))
   (gr_line (start 132.682 125.095) (end 112.141 125.095) (layer Edge.Cuts) (width 0.05))
   (gr_line (start 87.884 151.257) (end 87.884 126.873) (layer Edge.Cuts) (width 0.05))
-  (gr_line (start 125.349 151.257) (end 87.884 151.257) (layer Edge.Cuts) (width 0.05))
+  (gr_line (start 125.380515 151.259122) (end 87.884 151.257) (layer Edge.Cuts) (width 0.05))
   (gr_circle (center 78.833 105.5519) (end 77.283 105.5519) (layer Dwgs.User) (width 0.2))
   (gr_circle (center 117.833 127.5519) (end 116.36925 127.5519) (layer Dwgs.User) (width 0.2))
   (gr_circle (center 90.833 148.5519) (end 89.283 148.5519) (layer Dwgs.User) (width 0.2))

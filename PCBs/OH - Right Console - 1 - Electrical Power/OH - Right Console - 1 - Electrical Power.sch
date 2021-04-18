@@ -132,23 +132,23 @@ Wire Wire Line
 Wire Wire Line
 	2950 2300 2650 2300
 $Comp
-L Connector:Conn_01x04_Female J4
+L Connector:Conn_01x03_Female J4
 U 1 1 5FCD4553
 P 3500 4500
 F 0 "J4" H 3528 4476 50  0000 L CNN
 F 1 "Batt U Volts Out" H 3528 4385 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3500 4500 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3500 4500 50  0001 C CNN
 F 3 "~" H 3500 4500 50  0001 C CNN
 	1    3500 4500
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x04_Female J2
+L Connector:Conn_01x03_Female J2
 U 1 1 5FCD49BD
 P 2600 4500
 F 0 "J2" H 2492 4785 50  0000 C CNN
 F 1 "Batt U Volts In" H 2492 4694 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 2600 4500 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2600 4500 50  0001 C CNN
 F 3 "~" H 2600 4500 50  0001 C CNN
 	1    2600 4500
 	-1   0    0    -1  
@@ -159,26 +159,24 @@ Wire Wire Line
 	2800 4500 3300 4500
 Wire Wire Line
 	3300 4600 2800 4600
-Wire Wire Line
-	3300 4700 2800 4700
 $Comp
-L Connector:Conn_01x04_Female J5
+L Connector:Conn_01x03_Female J5
 U 1 1 5FCD6F96
 P 3500 5200
 F 0 "J5" H 3528 5176 50  0000 L CNN
 F 1 "Batt E Volts Out" H 3528 5085 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3500 5200 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3500 5200 50  0001 C CNN
 F 3 "~" H 3500 5200 50  0001 C CNN
 	1    3500 5200
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x04_Female J3
+L Connector:Conn_01x03_Female J3
 U 1 1 5FCD6FA0
 P 2600 5200
 F 0 "J3" H 2492 5485 50  0000 C CNN
 F 1 "Batt E Volts In" H 2492 5394 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 2600 5200 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2600 5200 50  0001 C CNN
 F 3 "~" H 2600 5200 50  0001 C CNN
 	1    2600 5200
 	-1   0    0    -1  
@@ -189,10 +187,6 @@ Wire Wire Line
 	2800 5200 3300 5200
 Wire Wire Line
 	3300 5300 2800 5300
-Wire Wire Line
-	3300 5400 2800 5400
-Text Notes 3600 4950 0    50   ~ 0
-The Battery Connectors are flexible\nIt could be two three pin servos or 2 pairs driving coils
 $Bitmap
 Pos 8950 1550
 Scale 1.500000
@@ -4783,4 +4777,16 @@ Text Label 1850 3050 0    50   ~ 0
 Row1
 Text Label 1850 3150 0    50   ~ 0
 Row2
+Text Label 3250 5100 2    50   ~ 0
+E_PWM
+Text Label 3250 5200 2    50   ~ 0
+E_5V
+Text Label 3250 5300 2    50   ~ 0
+E_GND
+Text Label 3200 4600 2    50   ~ 0
+U_GND
+Text Label 3200 4500 2    50   ~ 0
+U_5V
+Text Label 3200 4400 2    50   ~ 0
+U_PWM
 $EndSCHEMATC

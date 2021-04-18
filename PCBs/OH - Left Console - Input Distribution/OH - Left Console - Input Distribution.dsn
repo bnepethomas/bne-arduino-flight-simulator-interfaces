@@ -602,7 +602,7 @@
       (pins J23-6 J2-3)
     )
     (net /ANALOG_GND
-      (pins J23-2 J20-2 J4-2 J7-2 J10-3 J22-2 J2-2)
+      (pins J23-2 J20-2 J4-3 J7-2 J10-3 J22-2 J2-2)
     )
     (net /ANALOG_5V
       (pins J23-1 J20-1 J4-1 J7-1 J10-1 J22-1 J2-1)
@@ -638,7 +638,7 @@
       (pins J15-1 J16-4 J17-1 J21-21 J25-4 J33-4 J27-4 J1-1)
     )
     (net /RUD_TRIM
-      (pins J23-5 J4-3)
+      (pins J23-5 J4-2)
     )
     (net /ROW3
       (pins J5-4 J9-4 J14-5 J17-5 J21-5 J24-4 J32-4 J26-4)

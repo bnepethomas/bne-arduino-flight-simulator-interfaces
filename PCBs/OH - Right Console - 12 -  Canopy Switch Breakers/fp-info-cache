@@ -1,4 +1,4 @@
-28606710517342
+30201929654342
 PT_Library_v001
 Adafruit_TCA9548A
 
@@ -10,6 +10,13 @@ PT_Library_v001
 D_Signal_P7.62mm_Horizontal
 Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
 Diode DO-35_SOD27 series Axial Horizontal pin pitch 7.62mm  length 4mm diameter 2mm
+0
+2
+2
+PT_Library_v001
+LED_D8.0mm-LargePins
+LED, diameter 8.0mm, 2 pins, diameter 8.0mm, 3 pins
+LED diameter 8.0mm 2 pins diameter 8.0mm 3 pins
 0
 2
 2
