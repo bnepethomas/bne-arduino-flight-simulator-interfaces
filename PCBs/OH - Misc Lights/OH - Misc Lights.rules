@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1733)
+    (start_pass_no 1071)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -68,16 +68,12 @@
     "Net-(D11-Pad1)" "/AOA_2812_+5V" "/AOA_2812_IN" "/AOA_2812_GND" "Net-(D20-Pad2)" "/AOA_COL1" "/AOA_ROW1" "/AOA_ROW2"
     "/AOA_COL2" "Net-(D28-Pad1)" "Net-(D28-Pad2)" "Net-(D28-Pad4)" "Net-(D28-Pad3)" "Net-(D29-Pad1)" "Net-(D29-Pad2)" "Net-(D29-Pad4)"
     "Net-(D29-Pad3)" "Net-(D30-Pad1)" "Net-(D30-Pad2)" "Net-(D30-Pad4)" "Net-(D30-Pad3)" "Net-(D31-Pad1)" "Net-(D31-Pad2)" "Net-(D31-Pad4)"
-    "Net-(D31-Pad3)" "Net-(D32-Pad2)" "Net-(D33-Pad2)" "Net-(D34-Pad2)" "Net-(D35-Pad2)" "Net-(D40-Pad1)" "Net-(D40-Pad2)" "Net-(D40-Pad4)"
-    "Net-(D40-Pad3)" "Net-(D41-Pad1)" "Net-(D41-Pad2)" "Net-(D41-Pad4)" "Net-(D41-Pad3)" "Net-(D42-Pad1)" "Net-(D42-Pad2)" "Net-(D42-Pad4)"
-    "Net-(D42-Pad3)" "Net-(D43-Pad1)" "Net-(D43-Pad2)" "Net-(D43-Pad4)" "Net-(D43-Pad3)" "Net-(D44-Pad2)" "Net-(D45-Pad2)" "Net-(D46-Pad2)"
-    "Net-(D47-Pad2)" "Net-(D10-Pad1)" "Net-(D10-Pad4)" "Net-(D8-Pad4)" "Net-(D10-Pad3)" "Net-(D14-Pad4)" "Net-(D12-Pad2)" "Net-(D13-Pad1)"
-    "Net-(D19-Pad2)" "Net-(D21-Pad2)" "Net-(D23-Pad2)" "Net-(D52-Pad2)" "Net-(D52-Pad1)" "Net-(D53-Pad2)" "Net-(D53-Pad1)" "Net-(D54-Pad2)"
-    "Net-(D54-Pad1)" "Net-(D55-Pad2)" "Net-(D55-Pad1)" "Net-(D56-Pad2)" "Net-(D56-Pad1)" "Net-(D57-Pad2)" "Net-(D57-Pad1)" "Net-(D58-Pad2)"
-    "Net-(D58-Pad1)" "Net-(D59-Pad2)" "Net-(D59-Pad1)" "Net-(D60-Pad1)" "Net-(D61-Pad1)" "Net-(D62-Pad1)" "Net-(D63-Pad1)" "Net-(D64-Pad1)"
-    "Net-(D65-Pad1)" "Net-(D66-Pad1)" "Net-(D67-Pad1)" "Net-(D68-Pad1)" "Net-(D69-Pad1)" "Net-(D70-Pad1)" "Net-(D71-Pad1)" "Net-(D72-Pad1)"
-    "Net-(D73-Pad1)" "Net-(D74-Pad1)" "Net-(D75-Pad1)" "Net-(J16-Pad1)" "Net-(J17-Pad1)" "Net-(J18-Pad1)" "Net-(J19-Pad1)" "Net-(J20-Pad1)"
-    "Net-(J21-Pad1)" "Net-(J22-Pad1)" "Net-(J23-Pad1)" "/CHART_GND" "/CHART_5V"
+    "Net-(D31-Pad3)" "Net-(D32-Pad2)" "Net-(D33-Pad2)" "Net-(D34-Pad2)" "Net-(D35-Pad2)" "Net-(D42-Pad1)" "Net-(D42-Pad2)" "Net-(D42-Pad4)"
+    "Net-(D42-Pad3)" "Net-(D46-Pad2)" "Net-(D10-Pad1)" "Net-(D10-Pad4)" "Net-(D8-Pad4)" "Net-(D10-Pad3)" "Net-(D14-Pad4)" "Net-(D12-Pad2)"
+    "Net-(D13-Pad1)" "Net-(D19-Pad2)" "Net-(D21-Pad2)" "Net-(D23-Pad2)" "Net-(D52-Pad2)" "Net-(D52-Pad1)" "Net-(D53-Pad2)" "Net-(D53-Pad1)"
+    "Net-(D54-Pad2)" "Net-(D54-Pad1)" "Net-(D55-Pad2)" "Net-(D55-Pad1)" "Net-(D56-Pad2)" "Net-(D56-Pad1)" "Net-(D60-Pad1)" "Net-(D61-Pad1)"
+    "Net-(D62-Pad1)" "Net-(D63-Pad1)" "Net-(D64-Pad1)" "Net-(D68-Pad1)" "Net-(D69-Pad1)" "Net-(D70-Pad1)" "Net-(D71-Pad1)" "Net-(D72-Pad1)"
+    "Net-(J16-Pad1)" "Net-(J17-Pad1)" "Net-(J18-Pad1)" "Net-(J19-Pad1)" "Net-(J20-Pad1)" "/CHART_GND" "/CHART_5V"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

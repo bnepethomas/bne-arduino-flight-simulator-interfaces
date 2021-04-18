@@ -29,33 +29,22 @@ $EndComp
 $Comp
 L Connector:Conn_01x02_Female J2
 U 1 1 6073DAF2
-P 5350 2300
-F 0 "J2" H 5242 2485 50  0000 C CNN
-F 1 "12V Power In" H 5242 2394 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5350 2300 50  0001 C CNN
-F 3 "~" H 5350 2300 50  0001 C CNN
-	1    5350 2300
+P 3900 2150
+F 0 "J2" H 3792 2335 50  0000 C CNN
+F 1 "12V Power In" H 3792 2244 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3900 2150 50  0001 C CNN
+F 3 "~" H 3900 2150 50  0001 C CNN
+	1    3900 2150
 	-1   0    0    -1  
 $EndComp
-Text Label 5550 2300 0    50   ~ 0
+Text Label 4100 2150 0    50   ~ 0
 +12V
-Text Label 5550 2400 0    50   ~ 0
+Text Label 4100 2250 0    50   ~ 0
 GND
 Text Label 4450 3700 0    50   ~ 0
 +12V
-Text Label 4050 4700 0    50   ~ 0
+Text Label 4050 4800 0    50   ~ 0
 GND
-$Comp
-L Connector:Conn_01x02_Female J5
-U 1 1 60740F05
-P 8000 1700
-F 0 "J5" H 8028 1676 50  0000 L CNN
-F 1 "Hook Led 1" H 8028 1585 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8000 1700 50  0001 C CNN
-F 3 "~" H 8000 1700 50  0001 C CNN
-	1    8000 1700
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
 	2700 3900 3650 3900
 Wire Wire Line
@@ -64,10 +53,6 @@ Wire Wire Line
 	2700 4100 3650 4100
 Wire Wire Line
 	2700 4200 3650 4200
-Wire Wire Line
-	2700 4300 3650 4300
-Wire Wire Line
-	3650 4400 2700 4400
 $Comp
 L Connector:Conn_01x08_Female J1
 U 1 1 6074D9D3
@@ -83,40 +68,6 @@ Text Label 2850 3900 0    50   ~ 0
 In_Bleed_Air_Sol
 Text Label 4450 3900 0    50   ~ 0
 Out_Bleed_Air_Sol
-$Comp
-L Connector:Conn_01x02_Female J6
-U 1 1 607556D0
-P 8000 2100
-F 0 "J6" H 8028 2076 50  0000 L CNN
-F 1 "Hook Led 2" H 8028 1985 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8000 2100 50  0001 C CNN
-F 3 "~" H 8000 2100 50  0001 C CNN
-	1    8000 2100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_US R2
-U 1 1 60756564
-P 7350 2100
-F 0 "R2" V 7555 2100 50  0000 C CNN
-F 1 "560" V 7464 2100 50  0000 C CNN
-F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7390 2090 50  0001 C CNN
-F 3 "~" H 7350 2100 50  0001 C CNN
-	1    7350 2100
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7800 2100 7500 2100
-Text Label 7200 2100 2    50   ~ 0
-+12V
-Text Label 4450 4300 0    50   ~ 0
-Out_Hook_Led_1
-Text Label 2850 4300 0    50   ~ 0
-In_Hook_Led_1
-Text Label 2850 4400 0    50   ~ 0
-In_Hook_Led_2
-Text Label 4450 4400 0    50   ~ 0
-Out_Hook_Led_2
 Text Label 2850 4000 0    50   ~ 0
 In_Pitot_Heat_Mag
 Text Label 4450 4000 0    50   ~ 0
@@ -151,33 +102,12 @@ F 3 "~" H 9850 5950 50  0001 C CNN
 	1    9850 5950
 	1    0    0    -1  
 $EndComp
-$Comp
-L Device:R_US R1
-U 1 1 6075CCE6
-P 7350 1700
-F 0 "R1" V 7555 1700 50  0000 C CNN
-F 1 "560" V 7464 1700 50  0000 C CNN
-F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7390 1690 50  0001 C CNN
-F 3 "~" H 7350 1700 50  0001 C CNN
-	1    7350 1700
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7800 1700 7500 1700
-Text Label 7200 1700 2    50   ~ 0
-+12V
-Text Label 7800 1800 2    50   ~ 0
-Out_Hook_Led_1
-Text Label 7800 2200 2    50   ~ 0
-Out_Hook_Led_2
 Wire Notes Line
-	6800 1400 8550 1400
+	6800 1050 8550 1050
 Wire Notes Line
-	8550 1400 8550 2300
+	8550 1050 8550 1950
 Wire Notes Line
-	8550 2300 6800 2300
-Wire Notes Line
-	6800 2300 6800 1400
+	6800 1950 6800 1050
 $Comp
 L Connector:Conn_01x02_Female J8
 U 1 1 60760DE9
@@ -336,71 +266,8 @@ F 3 "~" H 6700 6000 50  0001 C CNN
 	1    6700 6000
 	1    0    0    -1  
 $EndComp
-$Comp
-L Transistor_Array:ULN2003A U2
-U 1 1 607DCF0A
-P 4050 5650
-F 0 "U2" H 4050 6317 50  0000 C CNN
-F 1 "ULN2003A" H 4050 6226 50  0000 C CNN
-F 2 "Package_DIP:DIP-16_W7.62mm" H 4100 5100 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/uln2003a.pdf" H 4150 5450 50  0001 C CNN
-	1    4050 5650
-	1    0    0    -1  
-$EndComp
 Text Notes 3250 1400 0    50   ~ 0
 PWM Outputs for Mega\nMega - 2 - 13, 44 - 46
-$Comp
-L Connector:Conn_01x02_Female J16
-U 1 1 607E39A6
-P 8000 2700
-F 0 "J16" H 8028 2676 50  0000 L CNN
-F 1 "GREEN ALT LED" H 8028 2585 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8000 2700 50  0001 C CNN
-F 3 "~" H 8000 2700 50  0001 C CNN
-	1    8000 2700
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J17
-U 1 1 607E39B0
-P 8000 3100
-F 0 "J17" H 8028 3076 50  0000 L CNN
-F 1 "RED ALT LED" H 8028 2985 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8000 3100 50  0001 C CNN
-F 3 "~" H 8000 3100 50  0001 C CNN
-	1    8000 3100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_US R4
-U 1 1 607E39BA
-P 7650 3200
-F 0 "R4" V 7855 3200 50  0000 C CNN
-F 1 "560" V 7764 3200 50  0000 C CNN
-F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7690 3190 50  0001 C CNN
-F 3 "~" H 7650 3200 50  0001 C CNN
-	1    7650 3200
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7800 3100 7500 3100
-Text Label 7500 3100 2    50   ~ 0
-+12V
-$Comp
-L Device:R_US R3
-U 1 1 607E39C6
-P 7650 2800
-F 0 "R3" V 7855 2800 50  0000 C CNN
-F 1 "560" V 7764 2800 50  0000 C CNN
-F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 7690 2790 50  0001 C CNN
-F 3 "~" H 7650 2800 50  0001 C CNN
-	1    7650 2800
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	7800 2700 7500 2700
-Text Label 7500 2700 2    50   ~ 0
-+12V
 Wire Notes Line
 	6800 2400 8550 2400
 Wire Notes Line
@@ -409,31 +276,6 @@ Wire Notes Line
 	8550 3300 6800 3300
 Wire Notes Line
 	6800 3300 6800 2400
-Text Label 4450 4500 0    50   ~ 0
-OUT_ALT_GREEN_LED
-Text Label 7500 2800 2    50   ~ 0
-OUT_ALT_GREEN_LED
-Wire Wire Line
-	3650 4500 2700 4500
-Text Label 2850 4500 0    50   ~ 0
-IN_ALT_GREEN_LED
-$Comp
-L Connector:Conn_01x08_Female J3
-U 1 1 607EC729
-P 2550 5750
-F 0 "J3" H 2442 6335 50  0000 C CNN
-F 1 "Central Output" H 2442 6244 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 2550 5750 50  0001 C CNN
-F 3 "~" H 2550 5750 50  0001 C CNN
-	1    2550 5750
-	-1   0    0    -1  
-$EndComp
-Wire Wire Line
-	3650 5450 2750 5450
-Text Label 7500 3200 2    50   ~ 0
-OUT_ALT_RED_LED
-Text Label 2900 5450 0    50   ~ 0
-IN_ALT_RED_LED
 Text Label 5700 5250 0    50   ~ 0
 ALT_STEPPER_1A
 Text Label 5700 5350 0    50   ~ 0
@@ -442,16 +284,6 @@ Text Label 5700 5450 0    50   ~ 0
 ALT_STEPPER_2A
 Text Label 5700 5550 0    50   ~ 0
 ALT_STEPPER_2B
-NoConn ~ 4450 5950
-NoConn ~ 4450 6050
-Text Label 3650 5950 2    50   ~ 0
-GND
-Text Label 3650 6050 2    50   ~ 0
-GND
-NoConn ~ 2750 5950
-NoConn ~ 2750 6050
-Text Label 2750 6150 0    50   ~ 0
-GND
 Text Label 8200 5350 2    50   ~ 0
 SERVO_5V
 Text Label 8200 5450 2    50   ~ 0
@@ -482,30 +314,12 @@ Text Label 9650 5200 2    50   ~ 0
 HYD_PRESS_1_PWM
 Text Label 9650 5850 2    50   ~ 0
 HYD_PRESS_2_PWM
-NoConn ~ 2750 5850
-NoConn ~ 2750 5750
-NoConn ~ 2750 5650
-NoConn ~ 2750 5550
-NoConn ~ 4450 5850
-NoConn ~ 4450 5750
-NoConn ~ 4450 5650
-NoConn ~ 4450 5550
-Text Label 4450 5450 0    50   ~ 0
-OUT_ALT_RED_LED
-Text Label 3650 5750 2    50   ~ 0
-GND
-Text Label 3650 5850 2    50   ~ 0
-GND
-Text Label 3650 5650 2    50   ~ 0
-GND
-Text Label 3650 5550 2    50   ~ 0
-GND
 $Comp
 L Connector:Conn_01x06_Female J19
 U 1 1 607BAB62
 P 5450 6750
 F 0 "J19" H 5342 7135 50  0000 C CNN
-F 1 "SERVO_IN" H 5342 7044 50  0000 C CNN
+F 1 "SERVO IN" H 5342 7044 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 5450 6750 50  0001 C CNN
 F 3 "~" H 5450 6750 50  0001 C CNN
 	1    5450 6750
@@ -514,17 +328,17 @@ $EndComp
 $Comp
 L Connector:Conn_01x02_Female J18
 U 1 1 607BCA06
-P 5300 2800
-F 0 "J18" H 5192 2985 50  0000 C CNN
-F 1 "5V Power In" H 5192 2894 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5300 2800 50  0001 C CNN
-F 3 "~" H 5300 2800 50  0001 C CNN
-	1    5300 2800
+P 3850 2650
+F 0 "J18" H 3742 2835 50  0000 C CNN
+F 1 "5V Power In" H 3742 2744 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3850 2650 50  0001 C CNN
+F 3 "~" H 3850 2650 50  0001 C CNN
+	1    3850 2650
 	-1   0    0    -1  
 $EndComp
-Text Label 5500 2800 0    50   ~ 0
+Text Label 4050 2650 0    50   ~ 0
 SERVO_5V
-Text Label 5500 2900 0    50   ~ 0
+Text Label 4050 2750 0    50   ~ 0
 SERVO_GND
 Text Label 5650 7050 0    50   ~ 0
 SERVO_GND
@@ -538,8 +352,101 @@ Text Label 5650 6850 0    50   ~ 0
 HYD_PRESS_1_PWM
 Text Label 5650 6950 0    50   ~ 0
 HYD_PRESS_2_PWM
-Text Label 4450 5250 0    50   ~ 0
-+12V
-Text Label 4050 6250 0    50   ~ 0
+$Comp
+L Device:LED D1
+U 1 1 607BBA84
+P 7250 1500
+F 0 "D1" V 7289 1382 50  0000 R CNN
+F 1 "HOOK LED 1" V 7198 1382 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7250 1500 50  0001 C CNN
+F 3 "~" H 7250 1500 50  0001 C CNN
+	1    7250 1500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED D3
+U 1 1 607BC55E
+P 8100 1500
+F 0 "D3" V 8139 1382 50  0000 R CNN
+F 1 "HOOK LED 2" V 8048 1382 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8100 1500 50  0001 C CNN
+F 3 "~" H 8100 1500 50  0001 C CNN
+	1    8100 1500
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED D2
+U 1 1 607BCDBD
+P 7250 2850
+F 0 "D2" V 7289 2733 50  0000 R CNN
+F 1 "ALT GREEN" V 7198 2733 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7250 2850 50  0001 C CNN
+F 3 "~" H 7250 2850 50  0001 C CNN
+	1    7250 2850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED D4
+U 1 1 607BD652
+P 8150 2850
+F 0 "D4" V 8189 2732 50  0000 R CNN
+F 1 "ALT RED" V 8098 2732 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8150 2850 50  0001 C CNN
+F 3 "~" H 8150 2850 50  0001 C CNN
+	1    8150 2850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J3
+U 1 1 607C4773
+P 5950 1600
+F 0 "J3" H 5842 1885 50  0000 C CNN
+F 1 "LED IN" H 5842 1794 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 5950 1600 50  0001 C CNN
+F 3 "~" H 5950 1600 50  0001 C CNN
+	1    5950 1600
+	-1   0    0    -1  
+$EndComp
+Wire Notes Line
+	8550 1950 6800 1950
+Text Notes 7600 1150 0    50   ~ 0
+HOOK
+Text Label 6150 1500 0    50   ~ 0
+LEDCOL1
+Text Label 6150 1600 0    50   ~ 0
+LEDCOL2
+Text Label 6150 1700 0    50   ~ 0
+LEDROW1
+Text Label 6150 1800 0    50   ~ 0
+LEDROW2
+Text Label 7250 1350 0    50   ~ 0
+LEDCOL1
+Text Label 7250 1650 2    50   ~ 0
+LEDROW1
+Text Label 8100 1650 2    50   ~ 0
+LEDROW1
+Text Label 8100 1350 0    50   ~ 0
+LEDCOL2
+Text Label 7250 2700 0    50   ~ 0
+LEDCOL1
+Text Label 8150 2700 0    50   ~ 0
+LEDCOL2
+Text Label 7250 3000 2    50   ~ 0
+LEDROW2
+Text Label 8150 3000 2    50   ~ 0
+LEDROW2
+NoConn ~ 2700 4300
+NoConn ~ 2700 4400
+NoConn ~ 2700 4500
+Text Label 3650 4300 2    50   ~ 0
 GND
+Text Label 3650 4400 2    50   ~ 0
+GND
+Text Label 3650 4500 2    50   ~ 0
+GND
+Wire Wire Line
+	4050 4700 4050 4800
+NoConn ~ 4450 4300
+NoConn ~ 4450 4400
+NoConn ~ 4450 4500
 $EndSCHEMATC

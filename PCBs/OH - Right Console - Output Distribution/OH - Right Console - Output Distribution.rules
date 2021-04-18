@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 151)
+    (start_pass_no 298)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,10 +63,10 @@
     )
   )
   (class "kicad_default"
-    /GND "/In_Hook_Led_2" "/In_Hook_Led_1" "/In_Canopy_Mag" "/In_Laser_Arm_Mag" "/In_Pitot_Heat_Mag" "/In_Bleed_Air_Sol" /+12V
-    "Net-(J10-Pad4)" "Net-(J10-Pad3)" "Net-(J10-Pad2)" "Net-(J10-Pad1)" "Net-(J11-Pad4)" "Net-(J11-Pad3)" "Net-(J11-Pad2)" "Net-(J11-Pad1)"
-    "/Out_Hook_Led_1" "Net-(J5-Pad1)" "/Out_Hook_Led_2" "Net-(J6-Pad1)" "/Out_Pitot_Heat_Mag" "/Out_Bleed_Air_Sol" "/Out_Laser_Arm_Mag" "/Out_Canopy_Mag"
-    "Net-(J12-Pad3)" "Net-(J12-Pad2)" "Net-(J12-Pad1)" "Net-(J13-Pad3)" "Net-(J13-Pad2)" "Net-(J13-Pad1)"
+    /GND "/In_Canopy_Mag" "/In_Laser_Arm_Mag" "/In_Pitot_Heat_Mag" "/In_Bleed_Air_Sol" /+12V "/Out_Pitot_Heat_Mag" "/Out_Bleed_Air_Sol"
+    "/Out_Laser_Arm_Mag" "/Out_Canopy_Mag" "/ALT_STEPPER_2B" "/ALT_STEPPER_2A" "/ALT_STEPPER_1B" "/ALT_STEPPER_1A" "/SERVO_GND" "/SERVO_5V"
+    "/BATT_U_PWM" "/BATT_E_PWM" "/ALT_FLAG_PWM" "/HYD_PRESS_1_PWM" "/HYD_PRESS_2_PWM" /LEDCOL1 /LEDROW1 /LEDROW2
+    /LEDCOL2
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
