@@ -13352,4 +13352,6 @@ F 3 "~" H 7900 4600 50  0001 C CNN
 	1    7900 4600
 	1    0    0    -1  
 $EndComp
+Text Notes 900  4350 0    197  Italic 39
+need to add\nParking switches * 2
 $EndSCHEMATC
