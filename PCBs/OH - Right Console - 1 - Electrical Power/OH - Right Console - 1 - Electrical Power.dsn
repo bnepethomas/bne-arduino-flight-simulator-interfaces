@@ -307,8 +307,6 @@
     )
     (class kicad_default "" /E_5V /E_GND /E_PWM /Row1 /Row2 /U_5V /U_GND /U_PWM
       "Net-(D1-Pad1)" "Net-(D1-Pad2)" "Net-(D2-Pad1)" "Net-(D3-Pad1)" "Net-(D3-Pad2)"
-      "Net-(J2-Pad1)" "Net-(J2-Pad2)" "Net-(J2-Pad3)" "Net-(J2-Pad4)" "Net-(J3-Pad1)"
-      "Net-(J3-Pad2)" "Net-(J3-Pad3)" "Net-(J3-Pad4)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

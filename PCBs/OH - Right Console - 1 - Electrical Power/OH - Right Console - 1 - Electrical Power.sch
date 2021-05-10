@@ -99,32 +99,11 @@ Wire Wire Line
 Wire Wire Line
 	2200 2300 2350 2300
 Wire Wire Line
-	2200 2850 2200 3050
-Wire Wire Line
-	2200 3050 2350 3050
-Connection ~ 2200 2850
-Wire Wire Line
-	3350 2300 3650 2300
-Wire Wire Line
-	3650 2300 3650 2900
-Wire Wire Line
-	3650 2900 3500 2900
-Wire Wire Line
-	3500 2900 3500 2950
-Wire Wire Line
-	3500 2950 3300 2950
-Wire Wire Line
 	3300 3150 3650 3150
 Wire Wire Line
 	3300 3800 3650 3800
 Wire Wire Line
 	3650 3800 3650 3150
-Wire Wire Line
-	1850 2950 2050 2950
-Wire Wire Line
-	2050 2950 2050 3800
-Wire Wire Line
-	2050 3800 2350 3800
 Wire Wire Line
 	2650 3800 2900 3800
 Wire Wire Line
@@ -4769,8 +4748,6 @@ F 3 "~" H 7600 4200 50  0001 C CNN
 	1    7600 4200
 	1    0    0    -1  
 $EndComp
-Text Label 3600 2300 0    50   ~ 0
-Row1
 Text Label 3400 3800 0    50   ~ 0
 Row2
 Text Label 1850 3050 0    50   ~ 0
@@ -4789,4 +4766,19 @@ Text Label 3200 4500 2    50   ~ 0
 U_5V
 Text Label 3200 4400 2    50   ~ 0
 U_PWM
+Text Label 3300 2950 0    50   ~ 0
+Row1
+Text Label 3350 2300 0    50   ~ 0
+Row1
+Wire Wire Line
+	2200 2850 2200 3800
+Wire Wire Line
+	2200 3800 2350 3800
+Connection ~ 2200 2850
+Wire Wire Line
+	1850 2950 2300 2950
+Wire Wire Line
+	2300 2950 2300 3050
+Wire Wire Line
+	2300 3050 2350 3050
 $EndSCHEMATC

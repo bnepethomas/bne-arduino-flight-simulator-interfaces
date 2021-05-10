@@ -867,7 +867,7 @@
   (gr_line (start 100.076 96.139) (end 80.645 96.139) (layer Edge.Cuts) (width 0.05))
   (gr_line (start 100.076 77.804) (end 100.076 96.139) (layer Edge.Cuts) (width 0.05))
   (gr_line (start 176.006 77.804) (end 100.076 77.804) (layer Edge.Cuts) (width 0.05))
-  (gr_text v001 (at 161.417 83.693) (layer F.SilkS) (tstamp 60710410)
+  (gr_text v002 (at 161.417 83.693) (layer F.SilkS) (tstamp 60710410)
     (effects (font (size 1 1) (thickness 0.15)))
   )
   (gr_text ELEC (at 162.052 80.645) (layer F.SilkS) (tstamp 60710413)
