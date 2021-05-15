@@ -412,10 +412,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 87:
           break;
         case 88:
+          sendDcsBiosMessage("LIGHTS_TEST_SW","1");
           break;
         case 89:
+          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW","1");
           break;
         case 90:
+          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW","1");
           break;
         case 91:
           break;
@@ -436,8 +439,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 99:
           break;
         case 100:
+          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW","1");
           break;
         case 101:
+          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW","1");
           break;
         case 102:
           break;
@@ -783,10 +788,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 87:
           break;
         case 88:
+          sendDcsBiosMessage("LIGHTS_TEST_SW","0");
           break;
         case 89:
+          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW","0");
           break;
         case 90:
+          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW","0");
           break;
         case 91:
           break;
@@ -807,8 +815,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 99:
           break;
         case 100:
+          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW","2");
           break;
         case 101:
+          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW","2");
           break;
         case 102:
           break;
