@@ -305,6 +305,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 32:
           break;
         case 33:
+          sendDcsBiosMessage("LST_NFLR_SW","0");
           break; 
         case 34:
           break;
@@ -684,6 +685,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 32:
           break;
         case 33:
+          sendDcsBiosMessage("LST_NFLR_SW","1");
           break; 
         case 34:
           break;
