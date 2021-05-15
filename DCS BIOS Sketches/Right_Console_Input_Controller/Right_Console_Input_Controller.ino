@@ -236,6 +236,7 @@ void SendDCSBIOSMessage(int ind, int state) {
       switch (ind) {
 
         case 0:
+          sendDcsBiosMessage("FLIR_SW","1");
           break;
         case 1:
           break;
@@ -258,6 +259,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 10:
           break;
         case 11:
+          sendDcsBiosMessage("FLIR_SW","1");
           break; 
         case 12:
           break; 
@@ -280,6 +282,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 21:
           break;
         case 22:
+          sendDcsBiosMessage("LTD_R_SW","1");
           break;
         case 23:
           break; 
@@ -612,6 +615,7 @@ void SendDCSBIOSMessage(int ind, int state) {
       // PRESS - CLOSE
       switch (ind) {
          case 0:
+          sendDcsBiosMessage("FLIR_SW","2");
           break;
         case 1:
           break;
@@ -634,6 +638,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 10:
           break;
         case 11:
+          sendDcsBiosMessage("FLIR_SW","0");
           break; 
         case 12:
           break; 
@@ -656,6 +661,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 21:
           break;
         case 22:
+          sendDcsBiosMessage("LTD_R_SW","2");
           break;
         case 23:
           break; 
@@ -788,10 +794,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 87:
           break;
         case 88:
-          sendDcsBiosMessage("LIGHTS_TEST_SW","0");
+          sendDcsBiosMessage("LIGHTS_TEST_SW","1");
           break;
         case 89:
-          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW","0");
+          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW","2");
           break;
         case 90:
           sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW","0");
@@ -815,7 +821,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 99:
           break;
         case 100:
-          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW","2");
+          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW","0");
           break;
         case 101:
           sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW","2");
