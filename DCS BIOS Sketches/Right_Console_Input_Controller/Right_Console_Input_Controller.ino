@@ -482,8 +482,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 109:
           break;
         case 110:
+          sendDcsBiosMessage("CANOPY_SW","1");
           break;
         case 111:
+          sendDcsBiosMessage("CB_FCS_CHAN3","1");
           break;
         case 112:
           break;
@@ -505,8 +507,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 120:
           break;
         case 121:
+          sendDcsBiosMessage("CANOPY_SW","1");
           break;
         case 122:
+          sendDcsBiosMessage("CB_FCS_CHAN4","1");
           break;
         case 123:
           break;
@@ -528,10 +532,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 131:
           break;
         case 132:
+          sendDcsBiosMessage("FCS_BIT_SW","1");
           break;
-        case 133:
+        case 133: 
+          sendDcsBiosMessage("CB_LG","1");
           break;
         case 134:
+          sendDcsBiosMessage("CB_HOOOK","1");
           break;
         case 135:
           break;
@@ -909,8 +916,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 109:
           break;
         case 110:
+          sendDcsBiosMessage("CANOPY_SW","2");
           break;
         case 111:
+          sendDcsBiosMessage("CB_FCS_CHAN3","0");
           break;
         case 112:
           break;
@@ -933,8 +942,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 120:
           break;
         case 121:
+          sendDcsBiosMessage("CANOPY_SW","0");
           break;
         case 122:
+          sendDcsBiosMessage("CB_FCS_CHAN4","0");
           break;
         case 123:
           break;
@@ -957,10 +968,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 131:
           break;
         case 132:
+          sendDcsBiosMessage("FCS_BIT_SW","0");
           break;
         case 133:
+          sendDcsBiosMessage("CB_LG","0");
           break;
         case 134:
+          sendDcsBiosMessage("CB_HOOOK","0");
           break;
         case 135:
           break;
