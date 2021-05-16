@@ -843,6 +843,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 93:
           break;
         case 94:
+          sendDcsBiosMessage("BLEED_AIR_KNOB","0");
           break;
         case 95:
           break;
@@ -867,6 +868,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 104:
           break;
         case 105:
+          sendDcsBiosMessage("BLEED_AIR_KNOB","1");
           break;
         case 106:
           break;
@@ -889,6 +891,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 115:
           break;
         case 116:
+          sendDcsBiosMessage("BLEED_AIR_KNOB","2");
           break;
         case 117:
           break;
@@ -911,6 +914,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 126:
           break;
         case 127:
+          sendDcsBiosMessage("BLEED_AIR_KNOB","3");
           break;
         case 128:
           break;
