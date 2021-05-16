@@ -625,6 +625,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("RADAR_SW","0");
           break;
         case 2:
+          sendDcsBiosMessage("INS_SW","0");
           break;
         case 3:
           break; 
@@ -649,6 +650,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("RADAR_SW","1");
           break; 
         case 13:
+          sendDcsBiosMessage("INS_SW","1");
           break;
         case 14:
           break; 
@@ -673,6 +675,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("RADAR_SW","2");
           break; 
         case 24:
+          sendDcsBiosMessage("INS_SW","2");
           break; 
         case 25:
           break; 
@@ -696,10 +699,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 34:
           sendDcsBiosMessage("RADAR_SW_PULL","1");
           RadarFollowupTask = true;
-          TimeRadarOn = millis() + RadarMoveTime;
-          
+          TimeRadarOn = millis() + RadarMoveTime;         
           break;
         case 35:
+          sendDcsBiosMessage("INS_SW","3");
           break; 
         case 36:
           break;             
@@ -722,6 +725,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 45:
           break; 
         case 46:
+          sendDcsBiosMessage("INS_SW","4");
           break; 
         case 47:
           break;
@@ -744,6 +748,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 56:
           break;
         case 57:
+          sendDcsBiosMessage("INS_SW","5");
           break;
         case 58:
           break;
@@ -766,6 +771,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 67:
           break;
         case 68:
+          sendDcsBiosMessage("INS_SW","6");
           break;
         case 69:
           break;
@@ -788,6 +794,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 78:
           break;
         case 79:
+          sendDcsBiosMessage("INS_SW","7");
           break;
         case 80:
           break;
