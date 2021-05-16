@@ -636,8 +636,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 6:
           break;
         case 7:
+          sendDcsBiosMessage("KY58_MODE_SELECT","0");
           break;
         case 8:
+          sendDcsBiosMessage("KY58_FILL_SELECT","0");
           break;
         case 9:
           break;
@@ -661,8 +663,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 17:
           break;
         case 18:
+          sendDcsBiosMessage("KY58_MODE_SELECT","1");
           break;
         case 19:
+          sendDcsBiosMessage("KY58_FILL_SELECT","1");
           break;
         case 20:
           break;
@@ -686,8 +690,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 28:
           break;
         case 29:
+          sendDcsBiosMessage("KY58_MODE_SELECT","2");
           break;
         case 30:
+          sendDcsBiosMessage("KY58_FILL_SELECT","2");
           break;
         case 31:
           break;
@@ -713,8 +719,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 39:
           break;
         case 40:
+          sendDcsBiosMessage("KY58_MODE_SELECT","3");
           break;
         case 41:
+          sendDcsBiosMessage("KY58_FILL_SELECT","3");
           break;
         case 42:
           break;
@@ -736,8 +744,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 50:
           break;
         case 51:
+          sendDcsBiosMessage("KY58_POWER_SELECT","0");
           break;
         case 52:
+          sendDcsBiosMessage("KY58_FILL_SELECT","4");
           break;
         case 53:
           break;
@@ -759,8 +769,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 61:
           break;
         case 62:
+          sendDcsBiosMessage("KY58_POWER_SELECT","1");
           break;
         case 63:
+          sendDcsBiosMessage("KY58_FILL_SELECT","5");
           break;
         case 64:
           break;
@@ -782,8 +794,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 72:
           break;
         case 73:
+          sendDcsBiosMessage("KY58_POWER_SELECT","2");
           break;
         case 74:
+          sendDcsBiosMessage("KY58_FILL_SELECT","6");
           break;
         case 75:
           break;
@@ -807,6 +821,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 84:
           break;
         case 85:
+          sendDcsBiosMessage("KY58_FILL_SELECT","7");
           break;
         case 86:
           break;
