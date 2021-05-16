@@ -116,12 +116,12 @@ char stringind[5];
 String outString;
 
 
-bool FCSGainFollowupTask = false;
-long timeFCSGainOn = 0;
-const int ToggleSwitchCoverMoveTime = 500;
+bool RadarFollowupTask = false;
+long TimeRadarOn = 0;
+const int RadarMoveTime = 300;
 
-bool GenTieFollowupTask = false;
-long timeGenTieOn = 0;
+bool RadarPushFollowupTask = false;
+long TimeRadarOff = 0;
 
 
 
@@ -308,6 +308,9 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("LST_NFLR_SW","0");
           break; 
         case 34:
+          sendDcsBiosMessage("RADAR_SW_PULL","1");
+          TimeRadarOn = millis() + RadarMoveTime;
+          RadarPushFollowupTask = true;
           break;
         case 35:
           break; 
@@ -619,6 +622,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("FLIR_SW","2");
           break;
         case 1:
+          sendDcsBiosMessage("RADAR_SW","0");
           break;
         case 2:
           break;
@@ -642,6 +646,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("FLIR_SW","0");
           break; 
         case 12:
+          sendDcsBiosMessage("RADAR_SW","1");
           break; 
         case 13:
           break;
@@ -665,6 +670,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("LTD_R_SW","2");
           break;
         case 23:
+          sendDcsBiosMessage("RADAR_SW","2");
           break; 
         case 24:
           break; 
@@ -688,6 +694,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("LST_NFLR_SW","1");
           break; 
         case 34:
+          sendDcsBiosMessage("RADAR_SW_PULL","1");
+          RadarFollowupTask = true;
+          TimeRadarOn = millis() + RadarMoveTime;
+          
           break;
         case 35:
           break; 
@@ -1097,19 +1107,19 @@ void loop() {
   FindInputChanges();
 
 
-  // Handle Switches with Safety covers
-  if (FCSGainFollowupTask == true) {
-    if (millis() >= timeFCSGainOn) {
-      sendDcsBiosMessage("GAIN_SWITCH", "1");
-      FCSGainFollowupTask = false;   
+  // Radar Emergency required a pull up and then activate
+  if (RadarFollowupTask == true) {
+    if (millis() >= TimeRadarOn) {
+      sendDcsBiosMessage("RADAR_SW","3");
+      RadarFollowupTask = false;   
     }
   }
 
-  if (GenTieFollowupTask == true) {
-    if (millis() >= timeGenTieOn) {
-      sendDcsBiosMessage("GEN_TIE_SW", "1");
-      GenTieFollowupTask = false;
-    }
+  if (RadarPushFollowupTask == true) {
+    if (millis() >= TimeRadarOn) {
+      sendDcsBiosMessage("RADAR_SW","2");
+      RadarPushFollowupTask = false;  
+    }   
   }
             
 
