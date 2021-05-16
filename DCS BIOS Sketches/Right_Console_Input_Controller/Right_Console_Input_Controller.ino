@@ -255,8 +255,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 8:
           break;
         case 9:
+          sendDcsBiosMessage("HOOK_LEVER","1");
           break;
         case 10:
+          sendDcsBiosMessage("WING_FOLD_ROTATE","1");
           break;
         case 11:
           sendDcsBiosMessage("FLIR_SW","1");
@@ -278,8 +280,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 19:
           break;
         case 20:
+          sendDcsBiosMessage("WING_FOLD_ROTATE","1");
           break;
         case 21:
+          sendDcsBiosMessage("AV_COOL_SW","0");
           break;
         case 22:
           sendDcsBiosMessage("LTD_R_SW","1");
@@ -301,7 +305,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 30:
           break;
         case 31:
-          
+          sendDcsBiosMessage("WING_FOLD_PULL","1");
           break;
         case 32:
           break;
@@ -654,8 +658,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_FILL_SELECT","0");
           break;
         case 9:
+          sendDcsBiosMessage("HOOK_LEVER","0");
           break;
         case 10:
+          sendDcsBiosMessage("WING_FOLD_ROTATE","2");
           break;
         case 11:
           sendDcsBiosMessage("FLIR_SW","0");
@@ -681,8 +687,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_FILL_SELECT","1");
           break;
         case 20:
+          sendDcsBiosMessage("WING_FOLD_ROTATE","0");
           break;
         case 21:
+          sendDcsBiosMessage("AV_COOL_SW","1");
           break;
         case 22:
           sendDcsBiosMessage("LTD_R_SW","2");
@@ -708,7 +716,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_FILL_SELECT","2");
           break;
         case 31:
-          
+          sendDcsBiosMessage("WING_FOLD_PULL","0");
           break;
         case 32:
           break;
