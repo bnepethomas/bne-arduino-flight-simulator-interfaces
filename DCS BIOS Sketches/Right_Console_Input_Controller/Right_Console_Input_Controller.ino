@@ -301,6 +301,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 30:
           break;
         case 31:
+          
           break;
         case 32:
           break;
@@ -327,8 +328,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 41:
           break;
         case 42:
+          sendDcsBiosMessage("BATTERY_SW","1");
           break;
         case 43:
+          sendDcsBiosMessage("L_GEN_SW","1");
           break;
         case 44:
           break;
@@ -349,8 +352,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 52:
           break;
         case 53:
+          sendDcsBiosMessage("BATTERY_SW","1");
           break;
         case 54:
+          sendDcsBiosMessage("R_GEN_SW","1");
           break;
         case 55:
           break;
@@ -703,6 +708,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_FILL_SELECT","2");
           break;
         case 31:
+          
           break;
         case 32:
           break;
@@ -732,8 +738,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_FILL_SELECT","3");
           break;
         case 42:
+          sendDcsBiosMessage("BATTERY_SW","2");
           break;
         case 43:
+          sendDcsBiosMessage("L_GEN_SW","0");
           break;
         case 44:
           break;
@@ -757,8 +765,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_FILL_SELECT","4");
           break;
         case 53:
+          sendDcsBiosMessage("BATTERY_SW","0");
           break;
         case 54:
+          sendDcsBiosMessage("R_GEN_SW","0");
           break;
         case 55:
           break;
