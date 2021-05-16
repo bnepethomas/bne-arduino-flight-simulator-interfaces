@@ -428,10 +428,13 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW","1");
           break;
         case 91:
+          sendDcsBiosMessage("ECS_MODE_SW","1");
           break;
         case 92:
+          sendDcsBiosMessage("CABIN_PRESS_SW","1");
           break;
         case 93:
+          sendDcsBiosMessage("PITOT_HEAT_SW","0");
           break;
         case 94:
           break;
@@ -452,8 +455,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW","1");
           break;
         case 102:
+          sendDcsBiosMessage("ECS_MODE_SW","1");
           break;
         case 103:
+          sendDcsBiosMessage("CABIN_PRESS_SW","1");
           break;
         case 104:
           break;
@@ -474,6 +479,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 112:
           break;
         case 113:
+          sendDcsBiosMessage("ENG_ANTIICE_SW","1");
           break;
         case 114:
           break;
@@ -496,6 +502,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 123:
           break;
         case 124:
+          sendDcsBiosMessage("ENG_ANTIICE_SW","1");
           break;
         case 125:
           break;
@@ -837,10 +844,13 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW","0");
           break;
         case 91:
+          sendDcsBiosMessage("ECS_MODE_SW","2");
           break;
         case 92:
+          sendDcsBiosMessage("CABIN_PRESS_SW","2");
           break;
         case 93:
+          sendDcsBiosMessage("PITOT_HEAT_SW","1");
           break;
         case 94:
           sendDcsBiosMessage("BLEED_AIR_KNOB","0");
@@ -862,8 +872,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW","2");
           break;
         case 102:
+          sendDcsBiosMessage("ECS_MODE_SW","0");
           break;
         case 103:
+          sendDcsBiosMessage("CABIN_PRESS_SW","0");
           break;
         case 104:
           break;
@@ -885,6 +897,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 112:
           break;
         case 113:
+          sendDcsBiosMessage("ENG_ANTIICE_SW","2");
           break;
         case 114:
           break;
@@ -908,6 +921,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 123:
           break;
         case 124:
+          sendDcsBiosMessage("ENG_ANTIICE_SW","0");
           break;
         case 125:
           break;
