@@ -4473,4 +4473,187 @@ F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 1005
 	1    10150 3350
 	1    0    0    -1  
 $EndComp
+Text Notes 1200 7400 0    50   ~ 0
+The Lower Instrument Panel PCB aggregates the PCBs for IFEI Switches, Selective Jet, ECM, and RWR Control.\nIndividual switches, pots and rotaries from Standby Instruments, and Video Record
+$Comp
+L Device:R_POT_US RV?
+U 1 1 610E1DA7
+P 2200 3050
+F 0 "RV?" H 2133 3096 50  0000 R CNN
+F 1 "RWR Brightness" H 2133 3005 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2200 3050 50  0001 C CNN
+F 3 "~" H 2200 3050 50  0001 C CNN
+	1    2200 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Rotary_Encoder SW?
+U 1 1 610E3EAF
+P 2050 4750
+F 0 "SW?" H 2280 4796 50  0000 L CNN
+F 1 "ADI Adjust" H 2280 4705 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 4910 50  0001 C CNN
+F 3 "~" H 2050 5010 50  0001 C CNN
+	1    2050 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Rotary_Encoder SW?
+U 1 1 610E5353
+P 2050 5350
+F 0 "SW?" H 2280 5396 50  0000 L CNN
+F 1 "Alt Adjust" H 2280 5305 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 5510 50  0001 C CNN
+F 3 "~" H 2050 5610 50  0001 C CNN
+	1    2050 5350
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	1450 2700 1450 5650
+Wire Notes Line
+	1450 5650 2800 5650
+Wire Notes Line
+	2800 5650 2800 2700
+Wire Notes Line
+	2800 2700 1450 2700
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 610E7C66
+P 3800 2600
+F 0 "J?" H 3828 2626 50  0000 L CNN
+F 1 "Sel Jet Col" H 3828 2535 50  0000 L CNN
+F 2 "" H 3800 2600 50  0001 C CNN
+F 3 "~" H 3800 2600 50  0001 C CNN
+	1    3800 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 610E8216
+P 3800 2950
+F 0 "J?" H 3828 2926 50  0000 L CNN
+F 1 "Sel Jet Row" H 3828 2835 50  0000 L CNN
+F 2 "" H 3800 2950 50  0001 C CNN
+F 3 "~" H 3800 2950 50  0001 C CNN
+	1    3800 2950
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	3200 2300 4350 2300
+Wire Notes Line
+	4350 2300 4350 3250
+Wire Notes Line
+	4350 3250 3200 3250
+Wire Notes Line
+	3200 3250 3200 2300
+Text Notes 3600 2200 0    50   ~ 0
+Selective Jett Inputs
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 610E96A9
+P 3800 3800
+F 0 "J?" H 3828 3826 50  0000 L CNN
+F 1 "Sel Jet Led Anode" H 3828 3735 50  0000 L CNN
+F 2 "" H 3800 3800 50  0001 C CNN
+F 3 "~" H 3800 3800 50  0001 C CNN
+	1    3800 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J?
+U 1 1 610EA069
+P 3750 4400
+F 0 "J?" H 3778 4376 50  0000 L CNN
+F 1 "Sel Jet Led Cathode" H 3778 4285 50  0000 L CNN
+F 2 "" H 3750 4400 50  0001 C CNN
+F 3 "~" H 3750 4400 50  0001 C CNN
+	1    3750 4400
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	3200 3500 3200 4950
+Wire Notes Line
+	3200 4950 4650 4950
+Wire Notes Line
+	4650 4950 4650 3500
+Wire Notes Line
+	4650 3500 3200 3500
+Text Notes 3650 3400 0    50   ~ 0
+Selective Jett Leds
+Text Notes 1750 2550 0    50   ~ 0
+Stanby Instruments
+$Comp
+L Switch:SW_Push SW?
+U 1 1 610ED5D4
+P 2050 4300
+F 0 "SW?" H 2050 4585 50  0000 C CNN
+F 1 "ADI Cage" H 2050 4494 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2050 4500 50  0001 C CNN
+F 3 "~" H 2050 4500 50  0001 C CNN
+	1    2050 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 610EEB34
+P 2050 3850
+F 0 "SW?" H 2050 4135 50  0000 C CNN
+F 1 "ADI Reset" H 2050 4044 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2050 4050 50  0001 C CNN
+F 3 "~" H 2050 4050 50  0001 C CNN
+	1    2050 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_POT_US RV?
+U 1 1 610EFD87
+P 5650 2700
+F 0 "RV?" H 5583 2746 50  0000 R CNN
+F 1 "IFEI Bright" H 5583 2655 50  0000 R CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5650 2700 50  0001 C CNN
+F 3 "~" H 5650 2700 50  0001 C CNN
+	1    5650 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPST SW?
+U 1 1 610F0B06
+P 5650 3300
+F 0 "SW?" H 5650 3535 50  0000 C CNN
+F 1 "Video Record DDI Hud" H 5650 3444 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5650 3300 50  0001 C CNN
+F 3 "~" H 5650 3300 50  0001 C CNN
+	1    5650 3300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPDT_MSM SW?
+U 1 1 610F1414
+P 5650 3950
+F 0 "SW?" H 5650 4235 50  0000 C CNN
+F 1 "Vid Record Man Auto" H 5650 4144 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 5650 3950 50  0001 C CNN
+F 3 "~" H 5650 3950 50  0001 C CNN
+	1    5650 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_SPST SW?
+U 1 1 610F2262
+P 5650 2300
+F 0 "SW?" H 5650 2535 50  0000 C CNN
+F 1 "IFEI Power" H 5650 2444 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5650 2300 50  0001 C CNN
+F 3 "~" H 5650 2300 50  0001 C CNN
+	1    5650 2300
+	1    0    0    -1  
+$EndComp
+Wire Notes Line
+	5100 1900 5100 4200
+Wire Notes Line
+	5100 4200 6200 4200
+Wire Notes Line
+	6200 4200 6200 1900
+Wire Notes Line
+	5100 1900 6200 1900
 $EndSCHEMATC

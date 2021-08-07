@@ -4656,4 +4656,25 @@ Wire Notes Line
 	6200 4200 6200 1900
 Wire Notes Line
 	5100 1900 6200 1900
+$Comp
+L Connector:Conn_01x06_Female J?
+U 1 1 610F04C5
+P 5750 4950
+F 0 "J?" H 5778 4926 50  0000 L CNN
+F 1 "IFEI Inputs" H 5778 4835 50  0000 L CNN
+F 2 "" H 5750 4950 50  0001 C CNN
+F 3 "~" H 5750 4950 50  0001 C CNN
+	1    5750 4950
+	1    0    0    -1  
+$EndComp
+Text Label 5550 4750 2    50   ~ 0
+IFEI_Col1
+Text Label 5550 4850 2    50   ~ 0
+IFEI_Col2
+Text Label 5550 4950 2    50   ~ 0
+IFEI_Row1
+Text Label 5550 5050 2    50   ~ 0
+IFEI_Row2
+Text Label 5550 5150 2    50   ~ 0
+IFEI_Row3
 $EndSCHEMATC
