@@ -1,7 +1,7 @@
 #include <FastLED.h>
 
 // How many leds in your strip?
-#define NUM_LEDS 100
+#define NUM_LEDS 300
 
 // For led chips like WS2812, which have a data line, ground, and power, you just
 // need to define DATA_PIN.  For led chipsets that are SPI based (four wires - data, clock,
@@ -29,6 +29,8 @@ const int AG_Led_1_Offset  = 27;
 const int AG_Led_2_Offset  = 28;
 
 
+int Master_Backlight_Brightness = 80;
+int Master_Indicator_Brightness = 255;
 
   
 void setup() { 
@@ -52,7 +54,7 @@ void setup() {
 
   delay(1000);
 
-    // Turn the LED on, then pause
+    // Turn the LED off 
   for (int i=0; i <= 99; i++) {
     leds[i] = CRGB::Black ;
   }
@@ -62,15 +64,15 @@ void setup() {
 }
 
 
-void Set_AA_LED( int LedStatus) {
+void SET_AA_LED( int LedStatus) {
  
   if (LedStatus == 0) {
     leds[MasterArmFirstLed + AA_Led_1_Offset] = CRGB::Black ;
     leds[MasterArmFirstLed + AA_Led_2_Offset] = CRGB::Black ;      
   } 
   else {
-    leds[MasterArmFirstLed + AA_Led_1_Offset] = CRGB::Green ;
-    leds[MasterArmFirstLed + AA_Led_2_Offset] = CRGB::Green ;    
+    leds[MasterArmFirstLed + AA_Led_1_Offset] = CHSV(HUE_GREEN, 255, Master_Indicator_Brightness);
+    leds[MasterArmFirstLed + AA_Led_2_Offset] = CHSV(HUE_GREEN, 255, Master_Indicator_Brightness);    
   }
 
   FastLED.show();
@@ -85,8 +87,8 @@ void SET_AG_LED( int LedStatus) {
     leds[MasterArmFirstLed + AG_Led_2_Offset] = CRGB::Black ;      
   } 
   else {
-    leds[MasterArmFirstLed + AG_Led_1_Offset] = CRGB::Green ;
-    leds[MasterArmFirstLed + AG_Led_2_Offset] = CRGB::Green ;    
+    leds[MasterArmFirstLed + AG_Led_1_Offset] = CHSV(HUE_GREEN, 255, Master_Indicator_Brightness);
+    leds[MasterArmFirstLed + AG_Led_2_Offset] = CHSV(HUE_GREEN, 255, Master_Indicator_Brightness);    
   }
 
   FastLED.show();
@@ -104,8 +106,8 @@ void SET_EXT_READY_LED( int LedStatus) {
     leds[MasterArmFirstLed + Ext_Led_2_Offset] = CRGB::Black ;      
   } 
   else {
-    leds[MasterArmFirstLed + Ext_Led_1_Offset] = CRGB::Green ;
-    leds[MasterArmFirstLed + Ext_Led_2_Offset] = CRGB::Green ;    
+    leds[MasterArmFirstLed + Ext_Led_1_Offset] = CHSV(HUE_GREEN, 255, Master_Indicator_Brightness - 60);
+    leds[MasterArmFirstLed + Ext_Led_2_Offset] = CHSV(HUE_GREEN, 255, Master_Indicator_Brightness - 60) ;    
   }
 
   FastLED.show();
@@ -121,8 +123,8 @@ void SET_EXT_DISCHARGE_LED( int LedStatus) {
     leds[MasterArmFirstLed + Discharge_Led_2_Offset] = CRGB::Black ;      
   } 
   else {
-    leds[MasterArmFirstLed + Discharge_Led_1_Offset] = CRGB::Green ;
-    leds[MasterArmFirstLed + Discharge_Led_2_Offset] = CRGB::Green ;    
+    leds[MasterArmFirstLed + Discharge_Led_1_Offset] = CHSV(HUE_RED, 255, Master_Indicator_Brightness); 
+    leds[MasterArmFirstLed + Discharge_Led_2_Offset] = CHSV(HUE_RED, 255, Master_Indicator_Brightness);    
   }
 
   FastLED.show();
@@ -132,15 +134,16 @@ void SET_EXT_DISCHARGE_LED( int LedStatus) {
 
 
 
-void SET_MASTER_ARM_BACKLIGHT( int Brightness) {
+void SET_MASTER_ARM_BACKLIGHT( int LedStatus) {
 
   for ( int i = 0; i <= 32; i++) {
 
     if (i != Ext_Led_1_Offset && i != Ext_Led_2_Offset && i != AG_Led_1_Offset && i != AG_Led_2_Offset 
        && i != AA_Led_1_Offset && i != AA_Led_2_Offset && i != Discharge_Led_1_Offset && i != Discharge_Led_2_Offset) {
     
-        if (Brightness != 0) 
-          leds[MasterArmFirstLed + i]  = CRGB::Green; 
+        if (LedStatus != 0) 
+          //leds[MasterArmFirstLed + i]  = CRGB::Green; 
+          leds[MasterArmFirstLed + i]  = CHSV(HUE_GREEN, 255, Master_Backlight_Brightness); 
         else
           leds[MasterArmFirstLed + i]  = CRGB::Black;
         
@@ -171,26 +174,41 @@ void loop() {
 //    delay(1000);
 //  }
 
-//  SET_AAG_LED(0);
-//  delay(1000);
-//  SET_AA_LED(1);
-//  delay(1000);
-//  SET_AG_LED(0);
-//  delay(1000);
-//  SET_AG_LED(1);
-//  delay(1000);
+//SET_AA_LED(1);
+//delay(1000);
+//SET_AA_LED(0);
+//delay(1000);
+//
+//SET_AG_LED(1);
+//delay(1000);
+//SET_AG_LED(0);
+//delay(1000);
+
+//SET_EXT_READY_LED(1);
+//delay(1000);
+//SET_EXT_READY_LED(0);
+//delay(1000);
+//SET_EXT_DISCHARGE_LED(1);
+//delay(1000);
+//SET_EXT_DISCHARGE_LED(0);
+//delay(1000);
+//SET_MASTER_ARM_BACKLIGHT(1);
+//delay(1000);
+//SET_MASTER_ARM_BACKLIGHT(0);
+//delay(1000);
 
 SET_EXT_READY_LED(1);
-delay(1000);
-SET_EXT_READY_LED(0);
-delay(1000);
 SET_EXT_DISCHARGE_LED(1);
-delay(1000);
-SET_EXT_DISCHARGE_LED(0);
-delay(1000);
+SET_AA_LED(1);
 SET_MASTER_ARM_BACKLIGHT(1);
-delay(1000);
+delay(4000);
+
+SET_EXT_READY_LED(0);
+SET_EXT_DISCHARGE_LED(0);
+SET_AA_LED(0);
 SET_MASTER_ARM_BACKLIGHT(0);
-delay(1000);
+delay(4000);
+
+
 
 }
