@@ -26,7 +26,7 @@ So - Digit = Row * 11 + Col
 
 */
 
-#define Ethernet_In_Use 0
+#define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
 
 #define DCSBIOS_IRQ_SERIAL
@@ -49,7 +49,7 @@ IPAddress targetIP(172,16,1,2);
 String strTargetIP = "X.X.X.X"; 
 
 const unsigned int localport = 7788;
-const unsigned int remoteport = 26027;
+const unsigned int remoteport = 49000;
 const unsigned int reflectorport = 27000;
 
 EthernetUDP udp;
@@ -226,6 +226,23 @@ void SendIPMessage(int ind, int state) {
   udp.endPacket();
 }
 
+
+void SendRawIPMessage(String ind) {
+
+  String outString;
+  outString = String(ind); 
+  
+  udp.beginPacket(targetIP, reflectorport);
+  udp.print(outString);
+  udp.endPacket();
+  
+  
+  udp.beginPacket(targetIP, remoteport);
+  udp.print(outString);
+  udp.endPacket();
+}
+
+
 void SendDCSBIOSMessage(int ind, int state) {
 
   
@@ -363,10 +380,14 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 49:
           break;
         case 50:
-          sendDcsBiosMessage("ENGINE_CRANK_SW", "1"); 
+          //sendDcsBiosMessage("ENGINE_CRANK_SW", "1"); 
+          SendRawIPMessage("C12,3002,0");
           break;
         case 51:
-          sendDcsBiosMessage("APU_CONTROL_SW", "0"); 
+          // APU - but testing with Pitot
+          //sendDcsBiosMessage("APU_CONTROL_SW", "0");
+          //SendRawIPMessage("C12,3001,-1"); //APU 
+          SendRawIPMessage("C3,3016,-1"); // Need to find Pitot  Heat - currently moving ground control
           break;
         case 52:
           sendDcsBiosMessage("MC_SW", "1"); 
@@ -391,7 +412,8 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 60:
           break;
         case 61:
-          sendDcsBiosMessage("ENGINE_CRANK_SW", "1"); 
+          //sendDcsBiosMessage("ENGINE_CRANK_SW", "1"); 
+          SendRawIPMessage("C12,3002,0");
           break;
         case 62:
           break;
@@ -790,10 +812,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 49:
           break;
         case 50:
-          sendDcsBiosMessage("ENGINE_CRANK_SW", "0"); 
+          //sendDcsBiosMessage("ENGINE_CRANK_SW", "0"); 
+          SendRawIPMessage("C12,3002,-1");
           break;
         case 51:
-          sendDcsBiosMessage("APU_CONTROL_SW", "1"); 
+          //sendDcsBiosMessage("APU_CONTROL_SW", "1");
+          //SendRawIPMessage("C12,3001,1"); 
+          SendRawIPMessage("C3,3016,1");
           break;
         case 52:
           sendDcsBiosMessage("MC_SW", "2"); 
@@ -818,7 +843,8 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 60:
           break;
         case 61:
-          sendDcsBiosMessage("ENGINE_CRANK_SW", "2"); 
+          //sendDcsBiosMessage("ENGINE_CRANK_SW", "2"); 
+          SendRawIPMessage("C12,3003,1");
           break;
         case 62:
           break;
