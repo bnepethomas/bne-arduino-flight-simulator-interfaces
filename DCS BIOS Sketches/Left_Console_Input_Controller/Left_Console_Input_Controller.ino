@@ -384,8 +384,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           SendRawIPMessage("C12,3002,0");
           break;
         case 51:
+          // APU - but testing with Pitot
           //sendDcsBiosMessage("APU_CONTROL_SW", "0");
-          SendRawIPMessage("C12,3001,-1"); 
+          //SendRawIPMessage("C12,3001,-1"); //APU 
+          SendRawIPMessage("C3,3016,-1"); // Need to find Pitot  Heat - currently moving ground control
           break;
         case 52:
           sendDcsBiosMessage("MC_SW", "1"); 
@@ -815,7 +817,8 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         case 51:
           //sendDcsBiosMessage("APU_CONTROL_SW", "1");
-          SendRawIPMessage("C12,3001,1"); 
+          //SendRawIPMessage("C12,3001,1"); 
+          SendRawIPMessage("C3,3016,1");
           break;
         case 52:
           sendDcsBiosMessage("MC_SW", "2"); 
