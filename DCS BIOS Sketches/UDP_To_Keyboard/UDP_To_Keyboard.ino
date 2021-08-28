@@ -101,15 +101,48 @@ void Typeout(int packetLength){
   
 }
 
-void TurnOnAPU() {
+void TurnOnAPU(int packetLength) {
 
+// Now need to walk through received string - Modifers must be sent first, so build up
+// A list of them using a space as a delimiter
+
+bool leftAltInUse = false;
+String thisElement = "";
+char keyToPress[50];
   if (Serial_In_Use == 1)  {
     Serial.println("Packet Received");
+
+    String thisSet = "";
+    for (int characterPtr = 0; characterPtr < packetLength ; characterPtr++ ) {
+      //Serial.print(packetBuffer[characterPtr]);
+      if (String(packetBuffer[characterPtr]) == " ") {
+        if (thisElement == "LALT"){
+          leftAltInUse = true;    
+          Serial.println("Left Alt in Use");
+        }
+        thisElement = "";      
+      }
+      else {
+        thisElement = thisElement + String(packetBuffer[characterPtr]);
+      }      
+      
+    } 
+    Serial.println(thisElement);
   }
+
+  
+  if (leftAltInUse)
     Keyboard.press(leftALTKey);
+
+  if (thisElement.length() == 1){
+    Serial.println("Correct length of Element");  
+    thisElement.toCharArray(keyToPress,2);
+    Serial.println(String(keyToPress[0]));
+    Keyboard.press(keyToPress[0]);
+  } else
     Keyboard.press('r');
-    delay(delayBetweenRelease);
-    Keyboard.releaseAll();    
+  delay(delayBetweenRelease);
+  Keyboard.releaseAll();    
 
   if (Serial_In_Use == 1)  {
     Serial.println("Keys Released");
@@ -133,7 +166,7 @@ void loop() {
 
   if (packetSize) { 
     // Typeout(len);
-    TurnOnAPU();
+    TurnOnAPU(len);
   }
 
 }
