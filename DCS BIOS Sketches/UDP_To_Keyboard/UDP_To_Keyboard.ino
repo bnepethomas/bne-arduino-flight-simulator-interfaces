@@ -13,7 +13,7 @@ ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT', 'LSHIFT', 'RSHIFT', 'LCTRL', 'RCT
 */
 
 #define Ethernet_In_Use 1
-
+const int Serial_In_Use= 1;
 
 // Ethernet Related
 #include <SPI.h>
@@ -22,10 +22,11 @@ ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT', 'LSHIFT', 'RSHIFT', 'LCTRL', 'RCT
 
 #include "Keyboard.h"
 
+
 // These local Mac and IP Address will be reassigned early in startup based on 
 // the device ID as set by address pins
-byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x99};
-IPAddress ip(172,16,1,100);
+byte mac[] = {0x00,0xDD,0x3E,0xCA,0x37,0x99};
+IPAddress ip(172,16,1,110);
 String strMyIP = "X.X.X.X";
 
 // Raspberry Pi is Target
@@ -36,15 +37,19 @@ const unsigned int localport = 7788;
 const unsigned int remoteport = 49000;
 const unsigned int reflectorport = 27000;
 
-const int delayBetweenRelease = 1000;
+const int delayBetweenRelease = 100;
 
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 char leftShiftKey = KEY_LEFT_SHIFT;
+char leftALTKey = KEY_LEFT_ALT;
 void setup() {
 
+  if (Serial_In_Use) {
+    Serial.begin(250000);
+  }
 
 
   if (Ethernet_In_Use == 1) {
@@ -96,6 +101,22 @@ void Typeout(int packetLength){
   
 }
 
+void TurnOnAPU() {
+
+  if (Serial_In_Use == 1)  {
+    Serial.println("Packet Received");
+  }
+    Keyboard.press(leftALTKey);
+    Keyboard.press('r');
+    delay(delayBetweenRelease);
+    Keyboard.releaseAll();    
+
+  if (Serial_In_Use == 1)  {
+    Serial.println("Keys Released");
+  }
+
+}
+
 
 void loop() {
 
@@ -111,7 +132,8 @@ void loop() {
   }
 
   if (packetSize) { 
-    Typeout(len);
+    // Typeout(len);
+    TurnOnAPU();
   }
 
 }

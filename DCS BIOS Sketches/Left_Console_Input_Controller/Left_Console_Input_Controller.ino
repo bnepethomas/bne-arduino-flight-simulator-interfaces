@@ -48,14 +48,21 @@ String strMyIP = "X.X.X.X";
 IPAddress targetIP(172,16,1,2);
 String strTargetIP = "X.X.X.X"; 
 
+
+// UDP to Keyboard Arduino DUE
+IPAddress keyboardIP(172,16,1,110);
+String strKeyboardIP = "X.X.X.X"; 
+
+
 const unsigned int localport = 7788;
 const unsigned int remoteport = 49000;
 const unsigned int reflectorport = 27000;
+const unsigned int keyboardport = 7788;
 
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
-
+char keyboardBuffer[1000];   //buffer for Keyboard traffic
 
 
 
@@ -237,7 +244,7 @@ void SendRawIPMessage(String ind) {
   udp.endPacket();
   
   
-  udp.beginPacket(targetIP, remoteport);
+  udp.beginPacket(keyboardIP, keyboardport);
   udp.print(outString);
   udp.endPacket();
 }
@@ -385,9 +392,9 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         case 51:
           // APU - but testing with Pitot
-          //sendDcsBiosMessage("APU_CONTROL_SW", "0");
+          sendDcsBiosMessage("APU_CONTROL_SW", "0");
           //SendRawIPMessage("C12,3001,-1"); //APU 
-          SendRawIPMessage("C3,3016,-1"); // Need to find Pitot  Heat - currently moving ground control
+          //SendRawIPMessage("C3,3016,-1"); // Need to find Pitot  Heat - currently moving ground control
           break;
         case 52:
           sendDcsBiosMessage("MC_SW", "1"); 
@@ -818,7 +825,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 51:
           //sendDcsBiosMessage("APU_CONTROL_SW", "1");
           //SendRawIPMessage("C12,3001,1"); 
-          SendRawIPMessage("C3,3016,1");
+          SendRawIPMessage("LALT r");
           break;
         case 52:
           sendDcsBiosMessage("MC_SW", "2"); 
