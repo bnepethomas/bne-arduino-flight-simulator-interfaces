@@ -1,0 +1,979 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/Max7219/Max7219.sch</source>
+    <date>Saturday, 07 March 2020 at 08:59:06 am</date>
+    <tool>Eeschema (5.1.5-0-10_14)</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date/>
+        <source>Max7219.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="U1">
+      <value>MAX7219ENG</value>
+      <footprint>Package_DIP:DIP-24_W7.62mm_Socket</footprint>
+      <fields>
+        <field name="Field4">MAX7219ENG+</field>
+        <field name="Field5">https://www.digikey.com.au/product-detail/en/maxim-integrated/MAX7219ENG-/MAX7219ENG--ND/774127?utm_source=snapeda&amp;utm_medium=aggregator&amp;utm_campaign=symbol</field>
+        <field name="Field6">Maxim Integrated</field>
+        <field name="Field7">MAX7219ENG+-ND</field>
+        <field name="Field8">Driver; LED controller; 330mA; Channels: 2; DIP24</field>
+      </fields>
+      <libsource lib="Max7219-rescue" part="MAX7219ENG-MAX7219ENG" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D2333EB</tstamp>
+    </comp>
+    <comp ref="J1">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x06" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D30502B</tstamp>
+    </comp>
+    <comp ref="J2">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x06" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3057CB</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>0.1uF</value>
+      <footprint>Capacitor_THT:C_Disc_D5.1mm_W3.2mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D30A52C</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>100uF</value>
+      <footprint>Capacitor_THT:CP_Radial_D8.0mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="CP" description="Polarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D30A807</tstamp>
+    </comp>
+    <comp ref="J3">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D30CF47</tstamp>
+    </comp>
+    <comp ref="J4">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D30D8BE</tstamp>
+    </comp>
+    <comp ref="J6">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D31D222</tstamp>
+    </comp>
+    <comp ref="J8">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D31FBE8</tstamp>
+    </comp>
+    <comp ref="J10">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D320DD5</tstamp>
+    </comp>
+    <comp ref="J5">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D32380F</tstamp>
+    </comp>
+    <comp ref="J7">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D325341</tstamp>
+    </comp>
+    <comp ref="J9">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D325353</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>10K</value>
+      <footprint>Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P5.08mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_Small" description="Resistor, small symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D32B4BD</tstamp>
+    </comp>
+    <comp ref="J12">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D337194</tstamp>
+    </comp>
+    <comp ref="J14">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3371A6</tstamp>
+    </comp>
+    <comp ref="J11">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3371B8</tstamp>
+    </comp>
+    <comp ref="J13">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3371CA</tstamp>
+    </comp>
+    <comp ref="J16">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D361879</tstamp>
+    </comp>
+    <comp ref="J15">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x10_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x10" description="Generic connector, single row, 01x10, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3620E4</tstamp>
+    </comp>
+    <comp ref="J17">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D370500</tstamp>
+    </comp>
+    <comp ref="J18">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D372863</tstamp>
+    </comp>
+    <comp ref="J19">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D37286F</tstamp>
+    </comp>
+    <comp ref="J20">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3743D9</tstamp>
+    </comp>
+    <comp ref="J21">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3743E5</tstamp>
+    </comp>
+    <comp ref="J22">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3743F1</tstamp>
+    </comp>
+    <comp ref="J23">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D3743FD</tstamp>
+    </comp>
+    <comp ref="J24">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector_Generic" part="Conn_01x03" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D377526</tstamp>
+    </comp>
+    <comp ref="U2">
+      <value>ULN2003A</value>
+      <footprint>Package_DIP:DIP-16_W7.62mm</footprint>
+      <datasheet>http://www.ti.com/lit/ds/symlink/uln2003a.pdf</datasheet>
+      <libsource lib="Transistor_Array" part="ULN2003A" description="High Voltage, High Current Darlington Transistor Arrays, SOIC16/SOIC16W/DIP16/TSSOP16"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D384716</tstamp>
+    </comp>
+    <comp ref="J25">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D386AC6</tstamp>
+    </comp>
+    <comp ref="J27">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D38812F</tstamp>
+    </comp>
+    <comp ref="J26">
+      <value> </value>
+      <footprint>TerminalBlock:TerminalBlock_bornier-2_P5.08mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Male" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D39C3C7</tstamp>
+    </comp>
+    <comp ref="J28">
+      <value> </value>
+      <footprint>TerminalBlock:TerminalBlock_bornier-2_P5.08mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Male" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D25D4CE</tstamp>
+    </comp>
+    <comp ref="J31">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D2A5E5D</tstamp>
+    </comp>
+    <comp ref="J32">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D2A709D</tstamp>
+    </comp>
+    <comp ref="J29">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D2B0943</tstamp>
+    </comp>
+    <comp ref="J30">
+      <value> </value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x08_Female" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>5D2B094D</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector" part="Conn_01x02_Male">
+      <description>Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x02_Male</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="Conn_01x08_Female">
+      <description>Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x08_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x03">
+      <description>Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x03</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x06">
+      <description>Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x06</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x10">
+      <description>Generic connector, single row, 01x10, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x10</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="CP">
+      <description>Polarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">CP</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R_Small">
+      <description>Resistor, small symbol</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R_Small</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Max7219-rescue" part="MAX7219ENG-MAX7219ENG">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MAX7219ENG-MAX7219ENG</field>
+        <field name="Footprint">DIP794W47P254L3213H457Q24</field>
+        <field name="Datasheet">PDIP-24 Maxim</field>
+        <field name="Field4">MAX7219ENG+</field>
+        <field name="Field5">https://www.digikey.com.au/product-detail/en/maxim-integrated/MAX7219ENG-/MAX7219ENG--ND/774127?utm_source=snapeda&amp;utm_medium=aggregator&amp;utm_campaign=symbol</field>
+        <field name="Field6">Maxim Integrated</field>
+        <field name="Field7">MAX7219ENG+-ND</field>
+        <field name="Field8">Driver; LED controller; 330mA; Channels: 2; DIP24</field>
+      </fields>
+      <pins>
+        <pin num="1" name="DIN" type="input"/>
+        <pin num="2" name="DIG_0" type="BiDi"/>
+        <pin num="3" name="DIG_4" type="BiDi"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="DIG_6" type="BiDi"/>
+        <pin num="6" name="DIG_2" type="BiDi"/>
+        <pin num="7" name="DIG_3" type="BiDi"/>
+        <pin num="8" name="DIG_7" type="BiDi"/>
+        <pin num="9" name="GND" type="power_in"/>
+        <pin num="10" name="DIG_5" type="BiDi"/>
+        <pin num="11" name="DIG_1" type="BiDi"/>
+        <pin num="12" name="LOAD" type="input"/>
+        <pin num="13" name="CLK" type="input"/>
+        <pin num="14" name="SEG_A" type="BiDi"/>
+        <pin num="15" name="SEG_F" type="BiDi"/>
+        <pin num="16" name="SEG_B" type="BiDi"/>
+        <pin num="17" name="SEG_G" type="BiDi"/>
+        <pin num="18" name="ISET" type="BiDi"/>
+        <pin num="19" name="V+" type="power_in"/>
+        <pin num="20" name="SEG_C" type="BiDi"/>
+        <pin num="21" name="SEG_E" type="BiDi"/>
+        <pin num="22" name="SEG_DP" type="BiDi"/>
+        <pin num="23" name="SEG_D" type="BiDi"/>
+        <pin num="24" name="DOUT" type="output"/>
+      </pins>
+    </libpart>
+    <libpart lib="Transistor_Array" part="ULN2003">
+      <aliases>
+        <alias>ULN2003A</alias>
+        <alias>ULN2002</alias>
+        <alias>ULN2002A</alias>
+        <alias>ULN2004</alias>
+        <alias>ULN2004A</alias>
+      </aliases>
+      <description>High Voltage, High Current Darlington Transistor Arrays, SOIC16/SOIC16W/DIP16/TSSOP16</description>
+      <docs>http://www.ti.com/lit/ds/symlink/uln2003a.pdf</docs>
+      <footprints>
+        <fp>DIP*W7.62mm*</fp>
+        <fp>SOIC*3.9x9.9mm*P1.27mm*</fp>
+        <fp>SSOP*4.4x5.2mm*P0.65mm*</fp>
+        <fp>TSSOP*4.4x5mm*P0.65mm*</fp>
+        <fp>SOIC*W*5.3x10.2mm*P1.27mm*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">ULN2003</field>
+      </fields>
+      <pins>
+        <pin num="1" name="I1" type="input"/>
+        <pin num="2" name="I2" type="input"/>
+        <pin num="3" name="I3" type="input"/>
+        <pin num="4" name="I4" type="input"/>
+        <pin num="5" name="I5" type="input"/>
+        <pin num="6" name="I6" type="input"/>
+        <pin num="7" name="I7" type="input"/>
+        <pin num="8" name="GND" type="power_in"/>
+        <pin num="9" name="COM" type="passive"/>
+        <pin num="10" name="O7" type="openCol"/>
+        <pin num="11" name="O6" type="openCol"/>
+        <pin num="12" name="O5" type="openCol"/>
+        <pin num="13" name="O4" type="openCol"/>
+        <pin num="14" name="O3" type="openCol"/>
+        <pin num="15" name="O2" type="openCol"/>
+        <pin num="16" name="O1" type="openCol"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector">
+      <uri>/Library/Application Support/kicad/library/Connector.lib</uri>
+    </library>
+    <library logical="Connector_Generic">
+      <uri>/Library/Application Support/kicad/library/Connector_Generic.lib</uri>
+    </library>
+    <library logical="Device">
+      <uri>/Library/Application Support/kicad/library/Device.lib</uri>
+    </library>
+    <library logical="Max7219-rescue">
+      <uri>/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/Max7219/Max7219-rescue.lib</uri>
+    </library>
+    <library logical="Transistor_Array">
+      <uri>/Library/Application Support/kicad/library/Transistor_Array.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/DIN">
+      <node ref="U1" pin="1"/>
+    </net>
+    <net code="2" name="Net-(U1-Pad10)">
+      <node ref="U1" pin="10"/>
+    </net>
+    <net code="3" name="/Col1">
+      <node ref="J8" pin="2"/>
+      <node ref="J12" pin="2"/>
+      <node ref="J6" pin="2"/>
+      <node ref="J3" pin="2"/>
+      <node ref="U1" pin="11"/>
+      <node ref="J10" pin="2"/>
+      <node ref="J14" pin="2"/>
+    </net>
+    <net code="4" name="/LOAD">
+      <node ref="U1" pin="12"/>
+    </net>
+    <net code="5" name="/CLK">
+      <node ref="U1" pin="13"/>
+    </net>
+    <net code="6" name="/Row1">
+      <node ref="J4" pin="2"/>
+      <node ref="J7" pin="2"/>
+      <node ref="U1" pin="14"/>
+      <node ref="J5" pin="2"/>
+      <node ref="J11" pin="2"/>
+      <node ref="J9" pin="2"/>
+      <node ref="J13" pin="2"/>
+    </net>
+    <net code="7" name="/Row6">
+      <node ref="U1" pin="15"/>
+      <node ref="J11" pin="7"/>
+      <node ref="J7" pin="7"/>
+      <node ref="J13" pin="7"/>
+      <node ref="J4" pin="7"/>
+      <node ref="J9" pin="7"/>
+      <node ref="J5" pin="7"/>
+    </net>
+    <net code="8" name="/Row2">
+      <node ref="J13" pin="3"/>
+      <node ref="U1" pin="16"/>
+      <node ref="J11" pin="3"/>
+      <node ref="J4" pin="3"/>
+      <node ref="J7" pin="3"/>
+      <node ref="J9" pin="3"/>
+      <node ref="J5" pin="3"/>
+    </net>
+    <net code="9" name="/Row7">
+      <node ref="J5" pin="8"/>
+      <node ref="J13" pin="8"/>
+      <node ref="J9" pin="8"/>
+      <node ref="U1" pin="17"/>
+      <node ref="J4" pin="8"/>
+      <node ref="J11" pin="8"/>
+      <node ref="J7" pin="8"/>
+    </net>
+    <net code="10" name="/Col0">
+      <node ref="J12" pin="1"/>
+      <node ref="J8" pin="1"/>
+      <node ref="J6" pin="1"/>
+      <node ref="U1" pin="2"/>
+      <node ref="J14" pin="1"/>
+      <node ref="J10" pin="1"/>
+      <node ref="J3" pin="1"/>
+    </net>
+    <net code="11" name="/Row3">
+      <node ref="J5" pin="4"/>
+      <node ref="J9" pin="4"/>
+      <node ref="J4" pin="4"/>
+      <node ref="J11" pin="4"/>
+      <node ref="U1" pin="20"/>
+      <node ref="J7" pin="4"/>
+      <node ref="J13" pin="4"/>
+    </net>
+    <net code="12" name="/Row5">
+      <node ref="J5" pin="6"/>
+      <node ref="J9" pin="6"/>
+      <node ref="J4" pin="6"/>
+      <node ref="U1" pin="21"/>
+      <node ref="J7" pin="6"/>
+      <node ref="J11" pin="6"/>
+      <node ref="J13" pin="6"/>
+    </net>
+    <net code="13" name="/Row0">
+      <node ref="J13" pin="1"/>
+      <node ref="J5" pin="1"/>
+      <node ref="U1" pin="22"/>
+      <node ref="J9" pin="1"/>
+      <node ref="J4" pin="1"/>
+      <node ref="J11" pin="1"/>
+      <node ref="J7" pin="1"/>
+    </net>
+    <net code="14" name="/Row4">
+      <node ref="J4" pin="5"/>
+      <node ref="J11" pin="5"/>
+      <node ref="J7" pin="5"/>
+      <node ref="U1" pin="23"/>
+      <node ref="J5" pin="5"/>
+      <node ref="J9" pin="5"/>
+      <node ref="J13" pin="5"/>
+    </net>
+    <net code="15" name="Net-(U1-Pad24)">
+      <node ref="U1" pin="24"/>
+    </net>
+    <net code="16" name="Net-(U1-Pad3)">
+      <node ref="U1" pin="3"/>
+    </net>
+    <net code="17" name="Net-(U1-Pad5)">
+      <node ref="U1" pin="5"/>
+    </net>
+    <net code="18" name="/Col2">
+      <node ref="U1" pin="6"/>
+      <node ref="J8" pin="3"/>
+      <node ref="J14" pin="3"/>
+      <node ref="J6" pin="3"/>
+      <node ref="J3" pin="3"/>
+      <node ref="J10" pin="3"/>
+      <node ref="J12" pin="3"/>
+    </net>
+    <net code="19" name="/Col3">
+      <node ref="J14" pin="4"/>
+      <node ref="J12" pin="4"/>
+      <node ref="U1" pin="7"/>
+      <node ref="J3" pin="4"/>
+      <node ref="J10" pin="4"/>
+      <node ref="J8" pin="4"/>
+      <node ref="J6" pin="4"/>
+    </net>
+    <net code="20" name="Net-(U1-Pad8)">
+      <node ref="U1" pin="8"/>
+    </net>
+    <net code="22" name="/Col4">
+      <node ref="J12" pin="5"/>
+      <node ref="J10" pin="5"/>
+      <node ref="J3" pin="5"/>
+      <node ref="J8" pin="5"/>
+      <node ref="J14" pin="5"/>
+      <node ref="J6" pin="5"/>
+    </net>
+    <net code="23" name="/Col5">
+      <node ref="J14" pin="6"/>
+      <node ref="J6" pin="6"/>
+      <node ref="J8" pin="6"/>
+      <node ref="J3" pin="6"/>
+      <node ref="J10" pin="6"/>
+      <node ref="J12" pin="6"/>
+    </net>
+    <net code="24" name="/Col6">
+      <node ref="J10" pin="7"/>
+      <node ref="J3" pin="7"/>
+      <node ref="J6" pin="7"/>
+      <node ref="J14" pin="7"/>
+      <node ref="J8" pin="7"/>
+      <node ref="J12" pin="7"/>
+    </net>
+    <net code="25" name="/Col7">
+      <node ref="J6" pin="8"/>
+      <node ref="J14" pin="8"/>
+      <node ref="J8" pin="8"/>
+      <node ref="J10" pin="8"/>
+      <node ref="J3" pin="8"/>
+      <node ref="J12" pin="8"/>
+    </net>
+    <net code="26" name="+5V">
+      <node ref="J1" pin="1"/>
+      <node ref="C1" pin="1"/>
+      <node ref="R1" pin="1"/>
+      <node ref="C2" pin="1"/>
+      <node ref="J2" pin="1"/>
+      <node ref="U1" pin="19"/>
+    </net>
+    <net code="27" name="Net-(J1-Pad3)">
+      <node ref="J1" pin="3"/>
+    </net>
+    <net code="28" name="Net-(J1-Pad4)">
+      <node ref="J1" pin="4"/>
+    </net>
+    <net code="29" name="Net-(J1-Pad5)">
+      <node ref="J1" pin="5"/>
+    </net>
+    <net code="30" name="Net-(J1-Pad6)">
+      <node ref="J1" pin="6"/>
+    </net>
+    <net code="31" name="Net-(J2-Pad3)">
+      <node ref="J2" pin="3"/>
+    </net>
+    <net code="32" name="Net-(J2-Pad4)">
+      <node ref="J2" pin="4"/>
+    </net>
+    <net code="33" name="Net-(J2-Pad5)">
+      <node ref="J2" pin="5"/>
+    </net>
+    <net code="34" name="Net-(J2-Pad6)">
+      <node ref="J2" pin="6"/>
+    </net>
+    <net code="35" name="GND">
+      <node ref="J2" pin="2"/>
+      <node ref="J1" pin="2"/>
+      <node ref="C1" pin="2"/>
+      <node ref="U1" pin="9"/>
+      <node ref="C2" pin="2"/>
+      <node ref="U1" pin="4"/>
+    </net>
+    <net code="36" name="Net-(R1-Pad2)">
+      <node ref="R1" pin="2"/>
+      <node ref="U1" pin="18"/>
+    </net>
+    <net code="37" name="/5VA">
+      <node ref="J16" pin="2"/>
+      <node ref="J28" pin="1"/>
+      <node ref="J24" pin="2"/>
+      <node ref="J23" pin="2"/>
+      <node ref="J22" pin="2"/>
+      <node ref="J21" pin="2"/>
+      <node ref="J20" pin="2"/>
+      <node ref="J19" pin="2"/>
+      <node ref="J18" pin="2"/>
+      <node ref="J17" pin="2"/>
+    </net>
+    <net code="38" name="/Servo0">
+      <node ref="J16" pin="3"/>
+      <node ref="J15" pin="1"/>
+    </net>
+    <net code="39" name="GNDA">
+      <node ref="J16" pin="1"/>
+      <node ref="J17" pin="1"/>
+      <node ref="J15" pin="10"/>
+      <node ref="J28" pin="2"/>
+      <node ref="J23" pin="1"/>
+      <node ref="J18" pin="1"/>
+      <node ref="J22" pin="1"/>
+      <node ref="J24" pin="1"/>
+      <node ref="J19" pin="1"/>
+      <node ref="J20" pin="1"/>
+      <node ref="J21" pin="1"/>
+    </net>
+    <net code="40" name="/Servo1">
+      <node ref="J15" pin="2"/>
+      <node ref="J18" pin="3"/>
+    </net>
+    <net code="41" name="/Servo2">
+      <node ref="J20" pin="3"/>
+      <node ref="J15" pin="3"/>
+    </net>
+    <net code="42" name="/Servo3">
+      <node ref="J22" pin="3"/>
+      <node ref="J15" pin="4"/>
+    </net>
+    <net code="43" name="/Servo4">
+      <node ref="J15" pin="5"/>
+      <node ref="J24" pin="3"/>
+    </net>
+    <net code="44" name="/Servo5">
+      <node ref="J15" pin="6"/>
+      <node ref="J17" pin="3"/>
+    </net>
+    <net code="45" name="/Servo6">
+      <node ref="J19" pin="3"/>
+      <node ref="J15" pin="7"/>
+    </net>
+    <net code="46" name="/Servo7">
+      <node ref="J21" pin="3"/>
+      <node ref="J15" pin="8"/>
+    </net>
+    <net code="47" name="/Servo8">
+      <node ref="J15" pin="9"/>
+      <node ref="J23" pin="3"/>
+    </net>
+    <net code="48" name="Net-(U2-Pad1)">
+      <node ref="U2" pin="1"/>
+    </net>
+    <net code="49" name="/Out6">
+      <node ref="U2" pin="10"/>
+      <node ref="J27" pin="7"/>
+    </net>
+    <net code="50" name="/Out5">
+      <node ref="J27" pin="6"/>
+      <node ref="U2" pin="11"/>
+    </net>
+    <net code="51" name="/Out4">
+      <node ref="J27" pin="5"/>
+      <node ref="U2" pin="12"/>
+    </net>
+    <net code="52" name="/Out3">
+      <node ref="U2" pin="13"/>
+      <node ref="J27" pin="4"/>
+    </net>
+    <net code="53" name="/Out2">
+      <node ref="U2" pin="14"/>
+      <node ref="J27" pin="3"/>
+    </net>
+    <net code="54" name="/Out1">
+      <node ref="U2" pin="15"/>
+      <node ref="J27" pin="2"/>
+    </net>
+    <net code="55" name="/Out0">
+      <node ref="U2" pin="16"/>
+      <node ref="J27" pin="1"/>
+    </net>
+    <net code="56" name="Net-(U2-Pad2)">
+      <node ref="U2" pin="2"/>
+    </net>
+    <net code="57" name="Net-(U2-Pad3)">
+      <node ref="U2" pin="3"/>
+    </net>
+    <net code="58" name="Net-(U2-Pad4)">
+      <node ref="U2" pin="4"/>
+    </net>
+    <net code="59" name="Net-(U2-Pad5)">
+      <node ref="U2" pin="5"/>
+    </net>
+    <net code="60" name="Net-(U2-Pad6)">
+      <node ref="U2" pin="6"/>
+    </net>
+    <net code="61" name="Net-(U2-Pad7)">
+      <node ref="U2" pin="7"/>
+    </net>
+    <net code="62" name="GNDD">
+      <node ref="J25" pin="8"/>
+      <node ref="U2" pin="8"/>
+      <node ref="J26" pin="2"/>
+    </net>
+    <net code="63" name="Net-(U2-Pad9)">
+      <node ref="U2" pin="9"/>
+    </net>
+    <net code="64" name="/In1">
+      <node ref="J25" pin="2"/>
+    </net>
+    <net code="65" name="/In2">
+      <node ref="J25" pin="3"/>
+    </net>
+    <net code="66" name="/In3">
+      <node ref="J25" pin="4"/>
+    </net>
+    <net code="67" name="/In4">
+      <node ref="J25" pin="5"/>
+    </net>
+    <net code="68" name="/In5">
+      <node ref="J25" pin="6"/>
+    </net>
+    <net code="69" name="/In6">
+      <node ref="J25" pin="7"/>
+    </net>
+    <net code="70" name="+12V">
+      <node ref="J27" pin="8"/>
+      <node ref="J26" pin="1"/>
+    </net>
+    <net code="71" name="/In0">
+      <node ref="J25" pin="1"/>
+    </net>
+    <net code="72" name="Net-(J31-Pad1)">
+      <node ref="J31" pin="1"/>
+      <node ref="J32" pin="1"/>
+    </net>
+    <net code="73" name="Net-(J31-Pad2)">
+      <node ref="J31" pin="2"/>
+      <node ref="J32" pin="2"/>
+    </net>
+    <net code="74" name="Net-(J31-Pad3)">
+      <node ref="J31" pin="3"/>
+      <node ref="J32" pin="3"/>
+    </net>
+    <net code="75" name="Net-(J31-Pad4)">
+      <node ref="J31" pin="4"/>
+      <node ref="J32" pin="4"/>
+    </net>
+    <net code="76" name="Net-(J31-Pad5)">
+      <node ref="J31" pin="5"/>
+      <node ref="J32" pin="5"/>
+    </net>
+    <net code="77" name="Net-(J31-Pad6)">
+      <node ref="J31" pin="6"/>
+      <node ref="J32" pin="6"/>
+    </net>
+    <net code="78" name="Net-(J31-Pad7)">
+      <node ref="J31" pin="7"/>
+      <node ref="J32" pin="7"/>
+    </net>
+    <net code="79" name="Net-(J31-Pad8)">
+      <node ref="J32" pin="8"/>
+      <node ref="J31" pin="8"/>
+    </net>
+    <net code="80" name="Net-(J29-Pad1)">
+      <node ref="J29" pin="1"/>
+      <node ref="J30" pin="1"/>
+    </net>
+    <net code="81" name="Net-(J29-Pad2)">
+      <node ref="J29" pin="2"/>
+      <node ref="J30" pin="2"/>
+    </net>
+    <net code="82" name="Net-(J29-Pad3)">
+      <node ref="J29" pin="3"/>
+      <node ref="J30" pin="3"/>
+    </net>
+    <net code="83" name="Net-(J29-Pad4)">
+      <node ref="J29" pin="4"/>
+      <node ref="J30" pin="4"/>
+    </net>
+    <net code="84" name="Net-(J29-Pad5)">
+      <node ref="J29" pin="5"/>
+      <node ref="J30" pin="5"/>
+    </net>
+    <net code="85" name="Net-(J29-Pad6)">
+      <node ref="J29" pin="6"/>
+      <node ref="J30" pin="6"/>
+    </net>
+    <net code="86" name="Net-(J29-Pad7)">
+      <node ref="J29" pin="7"/>
+      <node ref="J30" pin="7"/>
+    </net>
+    <net code="87" name="Net-(J29-Pad8)">
+      <node ref="J29" pin="8"/>
+      <node ref="J30" pin="8"/>
+    </net>
+  </nets>
+</export>

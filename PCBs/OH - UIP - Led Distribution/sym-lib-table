@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name Max7219-rescue)(type Legacy)(uri ${KIPRJMOD}/Max7219-rescue.lib)(options "")(descr ""))
+)
