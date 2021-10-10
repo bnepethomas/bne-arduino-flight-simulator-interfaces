@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Max7219-rescue:MAX7219ENG-MAX7219ENG U1
+L OH---LIP---Led-Distribution-rescue:MAX7219ENG-MAX7219ENG-Max7219-rescue U1
 U 1 1 5D2333EB
 P 3600 3150
 F 0 "U1" H 3600 4920 50  0000 C CNN
@@ -408,7 +408,7 @@ Wire Notes Line
 Text Notes 13800 8850 0    50   ~ 0
 SCRATCH PAD
 $Comp
-L Max7219-rescue:MAX7219ENG-MAX7219ENG U4
+L OH---LIP---Led-Distribution-rescue:MAX7219ENG-MAX7219ENG-Max7219-rescue U4
 U 1 1 61653072
 P 9950 3200
 F 0 "U4" H 9950 4970 50  0000 C CNN
@@ -516,7 +516,7 @@ Wire Wire Line
 Wire Wire Line
 	11200 2800 11200 2600
 $Comp
-L Max7219-rescue:MAX7219ENG-MAX7219ENG U3
+L OH---LIP---Led-Distribution-rescue:MAX7219ENG-MAX7219ENG-Max7219-rescue U3
 U 1 1 616563B5
 P 3600 6950
 F 0 "U3" H 3600 8720 50  0000 C CNN
@@ -626,7 +626,7 @@ Wire Wire Line
 Wire Wire Line
 	4850 6550 4850 6350
 $Comp
-L Max7219-rescue:MAX7219ENG-MAX7219ENG U5
+L OH---LIP---Led-Distribution-rescue:MAX7219ENG-MAX7219ENG-Max7219-rescue U5
 U 1 1 6165B7FE
 P 13500 5950
 F 0 "U5" H 13500 7720 50  0000 C CNN
@@ -904,89 +904,89 @@ B-DOUT-C-DIN
 Wire Wire Line
 	2550 4450 2550 4500
 $Comp
-L Connector:Conn_01x06_Female J11
-U 1 1 6166C126
-P 6100 2250
-F 0 "J11" H 5992 2635 50  0000 C CNN
-F 1 "EWI Col" H 5992 2544 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 6100 2250 50  0001 C CNN
-F 3 "~" H 6100 2250 50  0001 C CNN
-	1    6100 2250
-	-1   0    0    -1  
-$EndComp
-Text Label 6300 2050 0    50   ~ 0
-ACol0
-Text Label 6300 2150 0    50   ~ 0
-ACol1
-Text Label 6300 2250 0    50   ~ 0
-ACol2
-Text Label 6300 2350 0    50   ~ 0
-ACol3
-Text Label 6300 2450 0    50   ~ 0
-ACol4
-Text Label 6300 2550 0    50   ~ 0
-ACol5
-$Comp
-L Connector:Conn_01x08_Female J12
-U 1 1 6167124F
-P 6150 3550
-F 0 "J12" H 6042 4035 50  0000 C CNN
-F 1 "EWI Row" H 6042 3944 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 6150 3550 50  0001 C CNN
-F 3 "~" H 6150 3550 50  0001 C CNN
-	1    6150 3550
-	-1   0    0    -1  
-$EndComp
-Text Label 6350 3250 0    50   ~ 0
-ARow0
-Text Label 6350 3350 0    50   ~ 0
-ARow1
-Text Label 6350 3450 0    50   ~ 0
-ARow2
-Text Label 6350 3550 0    50   ~ 0
-ARow3
-Text Label 6350 3650 0    50   ~ 0
-ARow4
-Text Label 6350 3750 0    50   ~ 0
-ARow5
-Text Label 6350 3850 0    50   ~ 0
-ARow6
-Text Label 6350 3950 0    50   ~ 0
-ARow7
-$Comp
-L Connector:Conn_01x03_Female J13
-U 1 1 6167CDB7
-P 6700 2150
-F 0 "J13" H 6592 2435 50  0000 C CNN
-F 1 "UFC Opt Col" H 6592 2344 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 6700 2150 50  0001 C CNN
-F 3 "~" H 6700 2150 50  0001 C CNN
-	1    6700 2150
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Connector:Conn_01x04_Female J14
 U 1 1 6167EA31
-P 6750 3300
-F 0 "J14" H 6642 3585 50  0000 C CNN
-F 1 "UFC Opt Row" H 6642 3494 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 6750 3300 50  0001 C CNN
-F 3 "~" H 6750 3300 50  0001 C CNN
-	1    6750 3300
+P 6200 2150
+F 0 "J14" H 6092 2435 50  0000 C CNN
+F 1 "CAUTION COL" H 6092 2344 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 6200 2150 50  0001 C CNN
+F 3 "~" H 6200 2150 50  0001 C CNN
+	1    6200 2150
 	-1   0    0    -1  
 $EndComp
-Text Label 6900 2050 0    50   ~ 0
+Text Notes 4150 1400 0    79   ~ 0
+CAUTION 
+Text Notes 10650 1450 0    79   ~ 0
+SELECT JET
+$Comp
+L Connector:Conn_01x06_Female J11
+U 1 1 61631665
+P 6200 3450
+F 0 "J11" H 6092 3835 50  0000 C CNN
+F 1 "CAUTION ROW" H 6092 3744 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 6200 3450 50  0001 C CNN
+F 3 "~" H 6200 3450 50  0001 C CNN
+	1    6200 3450
+	-1   0    0    -1  
+$EndComp
+Text Label 6400 2050 0    50   ~ 0
+ACol0
+Text Label 6400 2150 0    50   ~ 0
+ACol1
+Text Label 6400 2250 0    50   ~ 0
+ACol2
+Text Label 6400 2350 0    50   ~ 0
 ACol3
-Text Label 6900 2150 0    50   ~ 0
-ACol4
-Text Label 6900 2250 0    50   ~ 0
-ACol5
-Text Label 6950 3200 0    50   ~ 0
+Text Label 6400 3250 0    50   ~ 0
+ARow0
+Text Label 6400 3350 0    50   ~ 0
+ARow1
+Text Label 6400 3450 0    50   ~ 0
+ARow2
+Text Label 6400 3550 0    50   ~ 0
+ARow3
+Text Label 6400 3650 0    50   ~ 0
 ARow4
-Text Label 6950 3300 0    50   ~ 0
+Text Label 6400 3750 0    50   ~ 0
 ARow5
-Text Label 6950 3400 0    50   ~ 0
-ARow6
-Text Label 6950 3500 0    50   ~ 0
-ARow7
+$Comp
+L Connector:Conn_01x06_Female J12
+U 1 1 61636602
+P 12150 2100
+F 0 "J12" H 12042 2485 50  0000 C CNN
+F 1 "SEL JET COL" H 12042 2394 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 12150 2100 50  0001 C CNN
+F 3 "~" H 12150 2100 50  0001 C CNN
+	1    12150 2100
+	-1   0    0    -1  
+$EndComp
+Text Label 12350 1900 0    50   ~ 0
+BCol0
+Text Label 12350 2000 0    50   ~ 0
+BCol1
+Text Label 12350 2100 0    50   ~ 0
+BCol2
+Text Label 12350 2200 0    50   ~ 0
+BCol3
+Text Label 12350 2300 0    50   ~ 0
+BCol4
+Text Label 12350 2400 0    50   ~ 0
+BCol5
+$Comp
+L Connector:Conn_01x03_Female J13
+U 1 1 6163A470
+P 12200 3250
+F 0 "J13" H 12092 3535 50  0000 C CNN
+F 1 "SEL JET ROW" H 12092 3444 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 12200 3250 50  0001 C CNN
+F 3 "~" H 12200 3250 50  0001 C CNN
+	1    12200 3250
+	-1   0    0    -1  
+$EndComp
+Text Label 12400 3150 0    50   ~ 0
+BRow0
+Text Label 12400 3250 0    50   ~ 0
+BRow1
+Text Label 12400 3350 0    50   ~ 0
+BRow2
 $EndSCHEMATC

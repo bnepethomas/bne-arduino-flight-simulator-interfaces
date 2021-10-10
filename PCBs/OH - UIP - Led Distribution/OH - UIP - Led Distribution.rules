@@ -1,0 +1,104 @@
+
+(rules PCB OH - UIP - Led Distribution
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 2165)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.2)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_800:400_um"
+    (shape
+      (circle F.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 800.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_800:400_um" "Via[0-1]_800:400_um" default
+  )
+  (via 
+    "Via[0-1]_800:400_um-kicad_default" "Via[0-1]_800:400_um" "kicad_default"
+  )
+  (via 
+    "Via[0-1]_800:400_um-Power" "Via[0-1]_800:400_um" Power
+  )
+  (via_rule
+    default "Via[0-1]_800:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_800:400_um-kicad_default"
+  )
+  (via_rule
+    Power "Via[0-1]_800:400_um-Power"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    /CLK /LOAD /DIN /DOUT "Net-(R1-Pad2)" "Net-(J29-Pad8)" "Net-(J29-Pad7)" "Net-(J29-Pad6)"
+    "Net-(J29-Pad5)" "Net-(J29-Pad4)" "Net-(J29-Pad3)" "Net-(J29-Pad2)" "Net-(J29-Pad1)" "Net-(J31-Pad8)" "Net-(J31-Pad7)" "Net-(J31-Pad6)"
+    "Net-(J31-Pad5)" "Net-(J31-Pad4)" "Net-(J31-Pad3)" "Net-(J31-Pad2)" "Net-(J31-Pad1)" /CCol7 /CCol6 /CCol5
+    /CCol4 /CCol3 /CCol2 /CCol1 /CCol0 /CRow7 /CRow6 /CRow5
+    /CRow4 /CRow3 /CRow2 /CRow1 /CRow0 /ARow7 /ARow6 /ARow5
+    /ARow4 /ARow3 /ARow2 /ARow1 /ARow0 /ACol7 /ACol6 /ACol5
+    /ACol4 /ACol3 /ACol2 /ACol1 /ACol0 /DRow7 /DRow6 /DRow5
+    /DRow4 /DRow3 /DRow2 /DRow1 /DRow0 /DCol7 /DCol6 /DCol5
+    /DCol4 /DCol3 /DCol2 /DCol1 /DCol0 /BRow7 /BRow6 /BRow5
+    /BRow4 /BRow3 /BRow2 /BRow1 /BRow0 /BCol7 /BCol6 /BCol5
+    /BCol4 /BCol3 /BCol2 /BCol1 /BCol0 "Net-(R2-Pad2)" "Net-(R3-Pad2)" "Net-(R4-Pad2)"
+    "/A-DOUT-B-DIN" "/C-DOUT-D-DIN" "/B-DOUT-C-DIN"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class Power
+    GND +5V
+    (clearance_class Power)
+    (via_rule Power)
+    (rule
+      (width 500.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

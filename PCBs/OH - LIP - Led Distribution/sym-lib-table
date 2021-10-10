@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name OH---LIP---Led-Distribution-rescue)(type Legacy)(uri "${KIPRJMOD}/OH - LIP - Led Distribution-rescue.lib")(options "")(descr ""))
+)
