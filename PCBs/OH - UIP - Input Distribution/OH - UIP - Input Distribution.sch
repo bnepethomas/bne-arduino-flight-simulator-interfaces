@@ -850,4 +850,6 @@ F 3 "~" H 2450 5950 50  0001 C CNN
 	1    2450 5950
 	1    0    0    -1  
 $EndComp
+Text Notes 4800 3200 0    50   ~ 0
+other inputs\nMaster Arm\nSpin control\nhud control\nECM\nRWR\nHUB\nStandby instruments\nIFEI\n
 $EndSCHEMATC

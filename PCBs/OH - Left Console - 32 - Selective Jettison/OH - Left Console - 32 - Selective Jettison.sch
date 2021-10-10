@@ -16,10 +16,10 @@ $EndDescr
 Text Notes 900  1650 0    50   ~ 0
 — 32. Select Jettison Button\ndefinePushButton(“SEL_JETT_BTN”, 23, 3010, 235, “Select Jettison Button”, “Selective Jettison Pushbutton”)\ndefineTumb(“SEL_JETT_KNOB”, 23, 3011, 236, 0.1, {-0.1, 0.3}, nil, false, “Select Jettison Button”, “Selective Jettison Knob, L FUS MSL/SAFE/R FUS MSL/ RACK/LCHR /STORES”)\ndefineToggleSwitch(“ANTI_SKID_SW”, 5, 3004, 238, “Select Jettison Button”, “Anti Skid”)\ndefineToggleSwitchToggleOnly2(“LAUNCH_BAR_SW”, 5, 3008, 233, “Select Jettison Button”, “Launch Bar”)\ndefineToggleSwitchToggleOnly2(“HOOK_BYPASS_SW”, 9, 3009, 239, “Select Jettison Button”, “HOOK BYPASS Switch, FIELD/CARRIER”)\ndefine3PosTumb(“FLAP_SW”, 2, 3007, 234, “Select Jettison Button”, “FLAP Switch, AUTO/HALF/FULL”)\ndefineToggleSwitch(“LDG_TAXI_SW”, 8, 3004, 237, “Select Jettison Button”, “LDG/TAXI LIGHT Switch”)\ndefineFloat(“HYD_IND_BRAKE”, 242, {0, 1}, “Select Jettison Button”, “HYD Indicator Brake”)\n\n-- 34. Emergency and Parking Brake Handle\ndefineToggleSwitch("EMERGENCY_PARKING_BRAKE_PULL", 5, 3005, 240, "Emergency and Parking Brake Handle", "Emergency/Parking Brake Pull")\ndefineEmergencyParkingBrake("EMERGENCY_PARKING_BRAKE_ROTATE", 5, 3007, 3006, 241, "Emergency and Parking Brake Handle", "Emergency/Parking Brake Rotate")
 $Comp
-L Device:D D8
+L Device:D D12
 U 1 1 5FC2589C
 P 4800 3150
-F 0 "D8" H 4800 3366 50  0000 C CNN
+F 0 "D12" H 4800 3366 50  0000 C CNN
 F 1 "D" H 4800 3275 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4800 3150 50  0001 C CNN
 F 3 "~" H 4800 3150 50  0001 C CNN
@@ -12929,10 +12929,10 @@ F 3 "~" H 1900 2700 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:SW_Rotary5 SW8
+L PT_Symbol_Library_v001:SW_Rotary5 SW10
 U 1 1 5FDF250B
 P 5600 3150
-F 0 "SW8" H 5500 3931 50  0000 C CNN
+F 0 "SW10" H 5500 3931 50  0000 C CNN
 F 1 "SEL_JETT_KNOB" H 5500 3840 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 5400 3850 50  0001 C CNN
 F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 5400 3850 50  0001 C CNN
@@ -12940,54 +12940,21 @@ F 3 "http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf" H 5400
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPST SW4
+L Switch:SW_SPST SW7
 U 1 1 5FDF3975
-P 3750 4000
-F 0 "SW4" H 3750 4235 50  0000 C CNN
-F 1 "ANTI_SKID_SW" H 3750 4144 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3750 4000 50  0001 C CNN
-F 3 "~" H 3750 4000 50  0001 C CNN
-	1    3750 4000
+P 3750 4500
+F 0 "SW7" H 3750 4735 50  0000 C CNN
+F 1 "ANTI_SKID_SW" H 3750 4644 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3750 4500 50  0001 C CNN
+F 3 "~" H 3750 4500 50  0001 C CNN
+	1    3750 4500
 	1    0    0    -1  
 $EndComp
 $Comp
-L Switch:SW_SPDT_MSM SW2
-U 1 1 5FDF457E
-P 1900 3000
-F 0 "SW2" H 1900 3285 50  0000 C CNN
-F 1 "LAUNCH_BAR_SW" H 1900 3194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 3000 50  0001 C CNN
-F 3 "~" H 1900 3000 50  0001 C CNN
-	1    1900 3000
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_SPDT_MSM SW7
-U 1 1 5FDF50BD
-P 3800 3450
-F 0 "SW7" H 3800 3735 50  0000 C CNN
-F 1 "HOOK_BYPASS_SW" H 3800 3644 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3800 3450 50  0001 C CNN
-F 3 "~" H 3800 3450 50  0001 C CNN
-	1    3800 3450
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_SPDT_MSM SW3
-U 1 1 5FDF5858
-P 1900 3500
-F 0 "SW3" H 1900 3785 50  0000 C CNN
-F 1 "FLAP_SW" H 1900 3694 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 3500 50  0001 C CNN
-F 3 "~" H 1900 3500 50  0001 C CNN
-	1    1900 3500
-	1    0    0    -1  
-$EndComp
-$Comp
-L Switch:SW_SPST SW5
+L Switch:SW_SPST SW8
 U 1 1 5FDF604E
 P 3800 2400
-F 0 "SW5" H 3800 2635 50  0000 C CNN
+F 0 "SW8" H 3800 2635 50  0000 C CNN
 F 1 "LDG_TAXI_SW" H 3800 2544 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3800 2400 50  0001 C CNN
 F 3 "~" H 3800 2400 50  0001 C CNN
@@ -13025,10 +12992,10 @@ Wire Wire Line
 Wire Wire Line
 	2550 5050 2150 5050
 $Comp
-L Switch:SW_SPST SW6
+L Switch:SW_SPST SW9
 U 1 1 5FDFB578
 P 3800 2950
-F 0 "SW6" H 3800 3185 50  0000 C CNN
+F 0 "SW9" H 3800 3185 50  0000 C CNN
 F 1 "EMER_BRAKE" H 3800 3094 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3800 2950 50  0001 C CNN
 F 3 "~" H 3800 2950 50  0001 C CNN
@@ -13048,10 +13015,10 @@ ROW4
 Text Label 6000 2950 0    50   ~ 0
 ROW5
 $Comp
-L Device:D D4
+L Device:D D5
 U 1 1 5FE00470
 P 3050 2400
-F 0 "D4" H 3050 2616 50  0000 C CNN
+F 0 "D5" H 3050 2616 50  0000 C CNN
 F 1 "D" H 3050 2525 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3050 2400 50  0001 C CNN
 F 3 "~" H 3050 2400 50  0001 C CNN
@@ -13059,10 +13026,10 @@ F 3 "~" H 3050 2400 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D5
+L Device:D D6
 U 1 1 5FE00B1F
 P 3050 2950
-F 0 "D5" H 3050 3166 50  0000 C CNN
+F 0 "D6" H 3050 3166 50  0000 C CNN
 F 1 "D" H 3050 3075 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3050 2950 50  0001 C CNN
 F 3 "~" H 3050 2950 50  0001 C CNN
@@ -13070,10 +13037,10 @@ F 3 "~" H 3050 2950 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D6
+L Device:D D7
 U 1 1 5FE00EFD
 P 3050 3450
-F 0 "D6" H 3050 3666 50  0000 C CNN
+F 0 "D7" H 3050 3666 50  0000 C CNN
 F 1 "D" H 3050 3575 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3050 3450 50  0001 C CNN
 F 3 "~" H 3050 3450 50  0001 C CNN
@@ -13081,21 +13048,10 @@ F 3 "~" H 3050 3450 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D3
-U 1 1 5FE012B9
-P 1500 3500
-F 0 "D3" H 1500 3716 50  0000 C CNN
-F 1 "D" H 1500 3625 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1500 3500 50  0001 C CNN
-F 3 "~" H 1500 3500 50  0001 C CNN
-	1    1500 3500
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Device:D D1
+L Device:D D2
 U 1 1 5FE0194A
 P 1500 2500
-F 0 "D1" H 1500 2716 50  0000 C CNN
+F 0 "D2" H 1500 2716 50  0000 C CNN
 F 1 "D" H 1500 2625 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1500 2500 50  0001 C CNN
 F 3 "~" H 1500 2500 50  0001 C CNN
@@ -13103,21 +13059,21 @@ F 3 "~" H 1500 2500 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D7
+L Device:D D9
 U 1 1 5FE020A3
-P 3050 4000
-F 0 "D7" H 3050 4216 50  0000 C CNN
-F 1 "D" H 3050 4125 50  0000 C CNN
-F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3050 4000 50  0001 C CNN
-F 3 "~" H 3050 4000 50  0001 C CNN
-	1    3050 4000
+P 3050 4500
+F 0 "D9" H 3050 4716 50  0000 C CNN
+F 1 "D" H 3050 4625 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3050 4500 50  0001 C CNN
+F 3 "~" H 3050 4500 50  0001 C CNN
+	1    3050 4500
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D2
+L Device:D D3
 U 1 1 5FE0258B
 P 1500 3000
-F 0 "D2" H 1500 3216 50  0000 C CNN
+F 0 "D3" H 1500 3216 50  0000 C CNN
 F 1 "D" H 1500 3125 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1500 3000 50  0001 C CNN
 F 3 "~" H 1500 3000 50  0001 C CNN
@@ -13131,46 +13087,34 @@ Wire Wire Line
 Wire Wire Line
 	3600 2950 3200 2950
 Wire Wire Line
-	3600 3450 3200 3450
-Wire Wire Line
-	1700 3500 1650 3500
-Wire Wire Line
 	1700 2500 1650 2500
 Wire Wire Line
-	3550 4000 3200 4000
+	3550 4500 3200 4500
 Wire Wire Line
 	1700 3000 1650 3000
 Text Label 4000 2400 0    50   ~ 0
 ROW1
 Text Label 4000 2950 0    50   ~ 0
 ROW2
-Text Label 4000 3350 0    50   ~ 0
+Text Label 3950 3450 0    50   ~ 0
 ROW3
-Text Label 4000 3550 0    50   ~ 0
-ROW4
-Text Label 3950 4000 0    50   ~ 0
+Text Label 3950 4500 0    50   ~ 0
 ROW5
 Text Label 2100 2500 0    50   ~ 0
 ROW1
-Text Label 2100 2900 0    50   ~ 0
+Text Label 2100 3000 0    50   ~ 0
 ROW2
-Text Label 2100 3100 0    50   ~ 0
-ROW3
-Text Label 2100 3400 0    50   ~ 0
-ROW4
-Text Label 2100 3600 0    50   ~ 0
-ROW5
 Wire Wire Line
 	2900 2400 2800 2400
 Wire Wire Line
 	2800 2400 2800 2950
 Wire Wire Line
-	2800 4000 2900 4000
+	2800 4500 2900 4500
 Wire Wire Line
 	2900 3450 2800 3450
 Connection ~ 2800 3450
 Wire Wire Line
-	2800 3450 2800 4000
+	2800 3450 2800 3950
 Wire Wire Line
 	2900 2950 2800 2950
 Connection ~ 2800 2950
@@ -13181,12 +13125,7 @@ Wire Wire Line
 Wire Wire Line
 	1200 2500 1200 3000
 Wire Wire Line
-	1200 3500 1350 3500
-Wire Wire Line
 	1350 3000 1200 3000
-Connection ~ 1200 3000
-Wire Wire Line
-	1200 3000 1200 3500
 Text Label 4650 3150 2    50   ~ 0
 COL3
 Text Label 2800 3150 2    50   ~ 0
@@ -13232,10 +13171,10 @@ F 3 "~" H 4900 6350 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:D D9
+L Device:D D10
 U 1 1 604D9867
 P 4450 5850
-F 0 "D9" V 4404 5771 50  0000 R CNN
+F 0 "D10" V 4404 5771 50  0000 R CNN
 F 1 "D" V 4495 5771 50  0000 R CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4450 5850 50  0001 C CNN
 F 3 "~" H 4450 5850 50  0001 C CNN
@@ -13243,10 +13182,10 @@ F 3 "~" H 4450 5850 50  0001 C CNN
 	0    -1   1    0   
 $EndComp
 $Comp
-L Device:D D10
+L Device:D D11
 U 1 1 604DABA9
 P 4450 6350
-F 0 "D10" V 4404 6271 50  0000 R CNN
+F 0 "D11" V 4404 6271 50  0000 R CNN
 F 1 "D" V 4495 6271 50  0000 R CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4450 6350 50  0001 C CNN
 F 3 "~" H 4450 6350 50  0001 C CNN
@@ -13352,6 +13291,123 @@ F 3 "~" H 7900 4600 50  0001 C CNN
 	1    7900 4600
 	1    0    0    -1  
 $EndComp
-Text Notes 900  4350 0    197  Italic 39
-need to add\nParking switches * 2
+$Comp
+L Switch:SW_SPST SW6
+U 1 1 61636D43
+P 3750 3950
+F 0 "SW6" H 3750 4185 50  0000 C CNN
+F 1 "PARK_BRAKE_2" H 3750 4094 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3750 3950 50  0001 C CNN
+F 3 "~" H 3750 3950 50  0001 C CNN
+	1    3750 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D8
+U 1 1 61636D4D
+P 3050 3950
+F 0 "D8" H 3050 4166 50  0000 C CNN
+F 1 "D" H 3050 4075 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3050 3950 50  0001 C CNN
+F 3 "~" H 3050 3950 50  0001 C CNN
+	1    3050 3950
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	3550 3950 3200 3950
+Text Label 3950 3950 0    50   ~ 0
+ROW4
+Wire Wire Line
+	2800 3950 2900 3950
+Connection ~ 2800 3950
+Wire Wire Line
+	2800 3950 2800 4500
+$Comp
+L Switch:SW_SPST SW5
+U 1 1 61639371
+P 3750 3450
+F 0 "SW5" H 3750 3685 50  0000 C CNN
+F 1 "HOOK_BYPASS_SW" H 3750 3594 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3750 3450 50  0001 C CNN
+F 3 "~" H 3750 3450 50  0001 C CNN
+	1    3750 3450
+	1    0    0    -1  
+$EndComp
+Connection ~ 1200 3000
+$Comp
+L Switch:SW_SPDT_MSM SW4
+U 1 1 5FDF5858
+P 1900 3950
+F 0 "SW4" H 1900 4235 50  0000 C CNN
+F 1 "FLAP_SW" H 1900 4144 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 3950 50  0001 C CNN
+F 3 "~" H 1900 3950 50  0001 C CNN
+	1    1900 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D4
+U 1 1 5FE012B9
+P 1500 3950
+F 0 "D4" H 1500 4166 50  0000 C CNN
+F 1 "D" H 1500 4075 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1500 3950 50  0001 C CNN
+F 3 "~" H 1500 3950 50  0001 C CNN
+	1    1500 3950
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 3950 1650 3950
+Text Label 2100 3850 0    50   ~ 0
+ROW4
+Text Label 2100 4050 0    50   ~ 0
+ROW5
+Wire Wire Line
+	1200 3950 1350 3950
+Wire Wire Line
+	1200 3000 1200 3450
+$Comp
+L Switch:SW_SPST SW3
+U 1 1 61641965
+P 1900 3450
+F 0 "SW3" H 1900 3685 50  0000 C CNN
+F 1 "PARK_BRAKE_1" H 1900 3594 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1900 3450 50  0001 C CNN
+F 3 "~" H 1900 3450 50  0001 C CNN
+	1    1900 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:D D1
+U 1 1 6164196F
+P 1450 3450
+F 0 "D1" H 1450 3666 50  0000 C CNN
+F 1 "D" H 1450 3575 50  0000 C CNN
+F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1450 3450 50  0001 C CNN
+F 3 "~" H 1450 3450 50  0001 C CNN
+	1    1450 3450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 3450 1600 3450
+Text Label 2100 3450 0    50   ~ 0
+ROW3
+Wire Wire Line
+	1200 3450 1300 3450
+Connection ~ 1200 3450
+Wire Wire Line
+	1200 3450 1200 3950
+$Comp
+L Switch:SW_SPST SW2
+U 1 1 61645693
+P 1900 3000
+F 0 "SW2" H 1900 3235 50  0000 C CNN
+F 1 "LAUNCH_BAR_SW" H 1900 3144 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1900 3000 50  0001 C CNN
+F 3 "~" H 1900 3000 50  0001 C CNN
+	1    1900 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3550 3450 3200 3450
 $EndSCHEMATC
