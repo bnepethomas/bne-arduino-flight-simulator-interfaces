@@ -18,7 +18,7 @@ L Max7219-rescue:MAX7219ENG-MAX7219ENG U1
 U 1 1 5D2333EB
 P 3600 3150
 F 0 "U1" H 3600 4920 50  0000 C CNN
-F 1 "MAX7219ENG" H 3600 4829 50  0000 C CNN
+F 1 "MAX7219ENG-A" H 3600 4829 50  0000 C CNN
 F 2 "Package_DIP:DIP-24_W7.62mm_Socket" H 3600 3150 50  0001 L BNN
 F 3 "" H 3600 3150 50  0001 L BNN
 F 4 "MAX7219ENG+" H 3600 3150 50  0001 L BNN "Field4"
@@ -31,8 +31,8 @@ F 8 "Driver; LED controller; 330mA; Channels: 2; DIP24" H 3600 3150 50  0001 L B
 $EndComp
 Text Label 4300 1950 0    50   ~ 0
 DIN
-Text Label 2650 1850 0    50   ~ 0
-DOUT
+Text Label 2900 1850 2    50   ~ 0
+A-DOUT-B-DIN
 Text Label 4300 1850 0    50   ~ 0
 CLK
 Text Label 4300 2050 0    50   ~ 0
@@ -40,21 +40,21 @@ LOAD
 Text Notes 3250 1000 0    50   ~ 0
 Digits = Columns = Cathodes\n\nSegments = Rows = Anodes
 Text Label 4300 2250 0    50   ~ 0
-Col0
+ACol0
 Text Label 4300 2350 0    50   ~ 0
-Col1
+ACol1
 Text Label 4300 2450 0    50   ~ 0
-Col2
+ACol2
 Text Label 4300 2550 0    50   ~ 0
-Col3
-Text Label 2700 2250 0    50   ~ 0
-Col4
-Text Label 2700 2350 0    50   ~ 0
-Col5
-Text Label 2700 2450 0    50   ~ 0
-Col6
-Text Label 2700 2550 0    50   ~ 0
-Col7
+ACol3
+Text Label 2900 2250 2    50   ~ 0
+ACol4
+Text Label 2900 2350 2    50   ~ 0
+ACol5
+Text Label 2900 2450 2    50   ~ 0
+ACol6
+Text Label 2900 2550 2    50   ~ 0
+ACol7
 $Comp
 L Connector_Generic:Conn_01x06 J1
 U 1 1 5D30502B
@@ -140,21 +140,21 @@ LOAD
 NoConn ~ 1750 1500
 NoConn ~ 1750 2450
 Text Label 4300 3750 0    50   ~ 0
-Row0
+ARow0
 Text Label 4300 2950 0    50   ~ 0
-Row1
+ARow1
 Text Label 4300 3150 0    50   ~ 0
-Row2
+ARow2
 Text Label 4300 3350 0    50   ~ 0
-Row3
+ARow3
 Text Label 4300 3550 0    50   ~ 0
-Row4
+ARow4
 Text Label 4300 3950 0    50   ~ 0
-Row5
+ARow5
 Text Label 4300 4150 0    50   ~ 0
-Row6
+ARow6
 Text Label 4300 4350 0    50   ~ 0
-Row7
+ARow7
 $Comp
 L power:GND #PWR07
 U 1 1 5D309D4D
@@ -242,56 +242,56 @@ Connection ~ 1750 3600
 $Comp
 L Connector:Conn_01x08_Female J3
 U 1 1 5D30CF47
-P 5800 2450
-F 0 "J3" H 5828 2426 50  0000 L CNN
-F 1 " " H 5828 2335 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 5800 2450 50  0001 C CNN
-F 3 "~" H 5800 2450 50  0001 C CNN
-	1    5800 2450
+P 7850 2350
+F 0 "J3" H 7878 2326 50  0000 L CNN
+F 1 " " H 7878 2235 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 7850 2350 50  0001 C CNN
+F 3 "~" H 7850 2350 50  0001 C CNN
+	1    7850 2350
 	-1   0    0    -1  
 $EndComp
 $Comp
 L Connector:Conn_01x08_Female J4
 U 1 1 5D30D8BE
-P 5700 3650
-F 0 "J4" H 5728 3626 50  0000 L CNN
-F 1 " " H 5728 3535 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 5700 3650 50  0001 C CNN
-F 3 "~" H 5700 3650 50  0001 C CNN
-	1    5700 3650
+P 7750 3550
+F 0 "J4" H 7778 3526 50  0000 L CNN
+F 1 " " H 7778 3435 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 7750 3550 50  0001 C CNN
+F 3 "~" H 7750 3550 50  0001 C CNN
+	1    7750 3550
 	-1   0    0    -1  
 $EndComp
-Text Label 6000 2150 0    50   ~ 0
+Text Label 8050 2050 0    50   ~ 0
 Col0
-Text Label 6000 2250 0    50   ~ 0
+Text Label 8050 2150 0    50   ~ 0
 Col1
-Text Label 6000 2350 0    50   ~ 0
+Text Label 8050 2250 0    50   ~ 0
 Col2
-Text Label 6000 2450 0    50   ~ 0
+Text Label 8050 2350 0    50   ~ 0
 Col3
-Text Label 6000 2550 0    50   ~ 0
+Text Label 8050 2450 0    50   ~ 0
 Col4
-Text Label 6000 2650 0    50   ~ 0
+Text Label 8050 2550 0    50   ~ 0
 Col5
-Text Label 6000 2750 0    50   ~ 0
+Text Label 8050 2650 0    50   ~ 0
 Col6
-Text Label 6000 2850 0    50   ~ 0
+Text Label 8050 2750 0    50   ~ 0
 Col7
-Text Label 5900 3350 0    50   ~ 0
+Text Label 7950 3250 0    50   ~ 0
 Row0
-Text Label 5900 3450 0    50   ~ 0
+Text Label 7950 3350 0    50   ~ 0
 Row1
-Text Label 5900 3550 0    50   ~ 0
+Text Label 7950 3450 0    50   ~ 0
 Row2
-Text Label 5900 3650 0    50   ~ 0
+Text Label 7950 3550 0    50   ~ 0
 Row3
-Text Label 5900 3750 0    50   ~ 0
+Text Label 7950 3650 0    50   ~ 0
 Row4
-Text Label 5900 3850 0    50   ~ 0
+Text Label 7950 3750 0    50   ~ 0
 Row5
-Text Label 5900 3950 0    50   ~ 0
+Text Label 7950 3850 0    50   ~ 0
 Row6
-Text Label 5900 4050 0    50   ~ 0
+Text Label 7950 3950 0    50   ~ 0
 Row7
 $Comp
 L Device:R_Small R1
@@ -789,11 +789,11 @@ Wire Notes Line
 Text Notes 13800 8850 0    50   ~ 0
 SCRATCH PAD
 $Comp
-L Max7219-rescue:MAX7219ENG-MAX7219ENG U?
+L Max7219-rescue:MAX7219ENG-MAX7219ENG U4
 U 1 1 61653072
 P 9950 3200
-F 0 "U?" H 9950 4970 50  0000 C CNN
-F 1 "MAX7219ENG" H 9950 4879 50  0000 C CNN
+F 0 "U4" H 9950 4970 50  0000 C CNN
+F 1 "MAX7219ENG-B" H 9950 4879 50  0000 C CNN
 F 2 "Package_DIP:DIP-24_W7.62mm_Socket" H 9950 3200 50  0001 L BNN
 F 3 "" H 9950 3200 50  0001 L BNN
 F 4 "MAX7219ENG+" H 9950 3200 50  0001 L BNN "Field4"
@@ -813,42 +813,42 @@ CLK
 Text Label 10650 2100 0    50   ~ 0
 LOAD
 Text Label 10650 2300 0    50   ~ 0
-Col0
+BCol0
 Text Label 10650 2400 0    50   ~ 0
-Col1
+BCol1
 Text Label 10650 2500 0    50   ~ 0
-Col2
+BCol2
 Text Label 10650 2600 0    50   ~ 0
-Col3
-Text Label 9050 2300 0    50   ~ 0
-Col4
-Text Label 9050 2400 0    50   ~ 0
-Col5
-Text Label 9050 2500 0    50   ~ 0
-Col6
-Text Label 9050 2600 0    50   ~ 0
-Col7
+BCol3
+Text Label 9250 2300 2    50   ~ 0
+BCol4
+Text Label 9250 2400 2    50   ~ 0
+BCol5
+Text Label 9250 2500 2    50   ~ 0
+BCol6
+Text Label 9250 2600 2    50   ~ 0
+BCol7
 Text Label 10650 3800 0    50   ~ 0
-Row0
+BRow0
 Text Label 10650 3000 0    50   ~ 0
-Row1
+BRow1
 Text Label 10650 3200 0    50   ~ 0
-Row2
+BRow2
 Text Label 10650 3400 0    50   ~ 0
-Row3
+BRow3
 Text Label 10650 3600 0    50   ~ 0
-Row4
+BRow4
 Text Label 10650 4000 0    50   ~ 0
-Row5
+BRow5
 Text Label 10650 4200 0    50   ~ 0
-Row6
+BRow6
 Text Label 10650 4400 0    50   ~ 0
-Row7
+BRow7
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0108
 U 1 1 61653090
 P 8900 4500
-F 0 "#PWR?" H 8900 4250 50  0001 C CNN
+F 0 "#PWR0108" H 8900 4250 50  0001 C CNN
 F 1 "GND" H 8905 4327 50  0000 C CNN
 F 2 "" H 8900 4500 50  0001 C CNN
 F 3 "" H 8900 4500 50  0001 C CNN
@@ -858,10 +858,10 @@ $EndComp
 Wire Wire Line
 	9250 4500 8900 4500
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0109
 U 1 1 6165309B
 P 9000 1700
-F 0 "#PWR?" H 9000 1550 50  0001 C CNN
+F 0 "#PWR0109" H 9000 1550 50  0001 C CNN
 F 1 "+5V" H 9015 1873 50  0000 C CNN
 F 2 "" H 9000 1700 50  0001 C CNN
 F 3 "" H 9000 1700 50  0001 C CNN
@@ -871,10 +871,10 @@ $EndComp
 Wire Wire Line
 	9000 1700 9250 1700
 $Comp
-L Device:R_Small R?
+L Device:R_Small R3
 U 1 1 616530A6
 P 10950 2800
-F 0 "R?" V 10754 2800 50  0000 C CNN
+F 0 "R3" V 10754 2800 50  0000 C CNN
 F 1 "10K" V 10845 2800 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P5.08mm_Vertical" H 10950 2800 50  0001 C CNN
 F 3 "~" H 10950 2800 50  0001 C CNN
@@ -884,10 +884,10 @@ $EndComp
 Wire Wire Line
 	10650 2800 10850 2800
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0110
 U 1 1 616530B1
 P 11200 2600
-F 0 "#PWR?" H 11200 2450 50  0001 C CNN
+F 0 "#PWR0110" H 11200 2450 50  0001 C CNN
 F 1 "+5V" H 11215 2773 50  0000 C CNN
 F 2 "" H 11200 2600 50  0001 C CNN
 F 3 "" H 11200 2600 50  0001 C CNN
@@ -899,11 +899,11 @@ Wire Wire Line
 Wire Wire Line
 	11200 2800 11200 2600
 $Comp
-L Max7219-rescue:MAX7219ENG-MAX7219ENG U?
+L Max7219-rescue:MAX7219ENG-MAX7219ENG U3
 U 1 1 616563B5
 P 3600 6950
-F 0 "U?" H 3600 8720 50  0000 C CNN
-F 1 "MAX7219ENG" H 3600 8629 50  0000 C CNN
+F 0 "U3" H 3600 8720 50  0000 C CNN
+F 1 "MAX7219ENG-D" H 3600 8629 50  0000 C CNN
 F 2 "Package_DIP:DIP-24_W7.62mm_Socket" H 3600 6950 50  0001 L BNN
 F 3 "" H 3600 6950 50  0001 L BNN
 F 4 "MAX7219ENG+" H 3600 6950 50  0001 L BNN "Field4"
@@ -923,42 +923,42 @@ CLK
 Text Label 4300 5850 0    50   ~ 0
 LOAD
 Text Label 4300 6050 0    50   ~ 0
-Col0
+DCol0
 Text Label 4300 6150 0    50   ~ 0
-Col1
+DCol1
 Text Label 4300 6250 0    50   ~ 0
-Col2
+DCol2
 Text Label 4300 6350 0    50   ~ 0
-Col3
-Text Label 2700 6050 0    50   ~ 0
-Col4
-Text Label 2700 6150 0    50   ~ 0
-Col5
-Text Label 2700 6250 0    50   ~ 0
-Col6
-Text Label 2700 6350 0    50   ~ 0
-Col7
+DCol3
+Text Label 2900 6050 2    50   ~ 0
+DCol4
+Text Label 2900 6150 2    50   ~ 0
+DCol5
+Text Label 2900 6250 2    50   ~ 0
+DCol6
+Text Label 2900 6350 2    50   ~ 0
+DCol7
 Text Label 4300 7550 0    50   ~ 0
-Row0
+DRow0
 Text Label 4300 6750 0    50   ~ 0
-Row1
+DRow1
 Text Label 4300 6950 0    50   ~ 0
-Row2
+DRow2
 Text Label 4300 7150 0    50   ~ 0
-Row3
+DRow3
 Text Label 4300 7350 0    50   ~ 0
-Row4
+DRow4
 Text Label 4300 7750 0    50   ~ 0
-Row5
+DRow5
 Text Label 4300 7950 0    50   ~ 0
-Row6
+DRow6
 Text Label 4300 8150 0    50   ~ 0
-Row7
+DRow7
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0111
 U 1 1 616563D3
 P 2550 8250
-F 0 "#PWR?" H 2550 8000 50  0001 C CNN
+F 0 "#PWR0111" H 2550 8000 50  0001 C CNN
 F 1 "GND" H 2555 8077 50  0000 C CNN
 F 2 "" H 2550 8250 50  0001 C CNN
 F 3 "" H 2550 8250 50  0001 C CNN
@@ -968,10 +968,10 @@ $EndComp
 Wire Wire Line
 	2900 8250 2550 8250
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0112
 U 1 1 616563DE
 P 2650 5450
-F 0 "#PWR?" H 2650 5300 50  0001 C CNN
+F 0 "#PWR0112" H 2650 5300 50  0001 C CNN
 F 1 "+5V" H 2665 5623 50  0000 C CNN
 F 2 "" H 2650 5450 50  0001 C CNN
 F 3 "" H 2650 5450 50  0001 C CNN
@@ -981,10 +981,10 @@ $EndComp
 Wire Wire Line
 	2650 5450 2900 5450
 $Comp
-L Device:R_Small R?
+L Device:R_Small R2
 U 1 1 616563E9
 P 4600 6550
-F 0 "R?" V 4404 6550 50  0000 C CNN
+F 0 "R2" V 4404 6550 50  0000 C CNN
 F 1 "10K" V 4495 6550 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P5.08mm_Vertical" H 4600 6550 50  0001 C CNN
 F 3 "~" H 4600 6550 50  0001 C CNN
@@ -994,10 +994,10 @@ $EndComp
 Wire Wire Line
 	4300 6550 4500 6550
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0113
 U 1 1 616563F4
 P 4850 6350
-F 0 "#PWR?" H 4850 6200 50  0001 C CNN
+F 0 "#PWR0113" H 4850 6200 50  0001 C CNN
 F 1 "+5V" H 4865 6523 50  0000 C CNN
 F 2 "" H 4850 6350 50  0001 C CNN
 F 3 "" H 4850 6350 50  0001 C CNN
@@ -1009,11 +1009,11 @@ Wire Wire Line
 Wire Wire Line
 	4850 6550 4850 6350
 $Comp
-L Max7219-rescue:MAX7219ENG-MAX7219ENG U?
+L Max7219-rescue:MAX7219ENG-MAX7219ENG U5
 U 1 1 6165B7FE
 P 13500 5950
-F 0 "U?" H 13500 7720 50  0000 C CNN
-F 1 "MAX7219ENG" H 13500 7629 50  0000 C CNN
+F 0 "U5" H 13500 7720 50  0000 C CNN
+F 1 "MAX7219ENG-C" H 13500 7629 50  0000 C CNN
 F 2 "Package_DIP:DIP-24_W7.62mm_Socket" H 13500 5950 50  0001 L BNN
 F 3 "" H 13500 5950 50  0001 L BNN
 F 4 "MAX7219ENG+" H 13500 5950 50  0001 L BNN "Field4"
@@ -1033,42 +1033,42 @@ CLK
 Text Label 14200 4850 0    50   ~ 0
 LOAD
 Text Label 14200 5050 0    50   ~ 0
-Col0
+CCol0
 Text Label 14200 5150 0    50   ~ 0
-Col1
+CCol1
 Text Label 14200 5250 0    50   ~ 0
-Col2
+CCol2
 Text Label 14200 5350 0    50   ~ 0
-Col3
+CCol3
 Text Label 12600 5050 0    50   ~ 0
-Col4
+CCol4
 Text Label 12600 5150 0    50   ~ 0
-Col5
+CCol5
 Text Label 12600 5250 0    50   ~ 0
-Col6
+CCol6
 Text Label 12600 5350 0    50   ~ 0
-Col7
+CCol7
 Text Label 14200 6550 0    50   ~ 0
-Row0
+CRow0
 Text Label 14200 5750 0    50   ~ 0
-Row1
+CRow1
 Text Label 14200 5950 0    50   ~ 0
-Row2
+CRow2
 Text Label 14200 6150 0    50   ~ 0
-Row3
+CRow3
 Text Label 14200 6350 0    50   ~ 0
-Row4
+CRow4
 Text Label 14200 6750 0    50   ~ 0
-Row5
+CRow5
 Text Label 14200 6950 0    50   ~ 0
-Row6
+CRow6
 Text Label 14200 7150 0    50   ~ 0
-Row7
+CRow7
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0114
 U 1 1 6165B81C
 P 12450 7250
-F 0 "#PWR?" H 12450 7000 50  0001 C CNN
+F 0 "#PWR0114" H 12450 7000 50  0001 C CNN
 F 1 "GND" H 12455 7077 50  0000 C CNN
 F 2 "" H 12450 7250 50  0001 C CNN
 F 3 "" H 12450 7250 50  0001 C CNN
@@ -1078,10 +1078,10 @@ $EndComp
 Wire Wire Line
 	12800 7250 12450 7250
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0115
 U 1 1 6165B827
 P 12550 4450
-F 0 "#PWR?" H 12550 4300 50  0001 C CNN
+F 0 "#PWR0115" H 12550 4300 50  0001 C CNN
 F 1 "+5V" H 12565 4623 50  0000 C CNN
 F 2 "" H 12550 4450 50  0001 C CNN
 F 3 "" H 12550 4450 50  0001 C CNN
@@ -1091,10 +1091,10 @@ $EndComp
 Wire Wire Line
 	12550 4450 12800 4450
 $Comp
-L Device:R_Small R?
+L Device:R_Small R4
 U 1 1 6165B832
 P 14500 5550
-F 0 "R?" V 14304 5550 50  0000 C CNN
+F 0 "R4" V 14304 5550 50  0000 C CNN
 F 1 "10K" V 14395 5550 50  0000 C CNN
 F 2 "Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P5.08mm_Vertical" H 14500 5550 50  0001 C CNN
 F 3 "~" H 14500 5550 50  0001 C CNN
@@ -1104,10 +1104,10 @@ $EndComp
 Wire Wire Line
 	14200 5550 14400 5550
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0116
 U 1 1 6165B83D
 P 14750 5350
-F 0 "#PWR?" H 14750 5200 50  0001 C CNN
+F 0 "#PWR0116" H 14750 5200 50  0001 C CNN
 F 1 "+5V" H 14765 5523 50  0000 C CNN
 F 2 "" H 14750 5350 50  0001 C CNN
 F 3 "" H 14750 5350 50  0001 C CNN
@@ -1118,4 +1118,58 @@ Wire Wire Line
 	14600 5550 14750 5550
 Wire Wire Line
 	14750 5550 14750 5350
+$Comp
+L Connector:Conn_01x08_Female J6
+U 1 1 6162DC25
+P 5600 2350
+F 0 "J6" H 5628 2326 50  0000 L CNN
+F 1 " " H 5628 2235 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 5600 2350 50  0001 C CNN
+F 3 "~" H 5600 2350 50  0001 C CNN
+	1    5600 2350
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x08_Female J5
+U 1 1 6162DC2F
+P 5500 3550
+F 0 "J5" H 5528 3526 50  0000 L CNN
+F 1 " " H 5528 3435 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 5500 3550 50  0001 C CNN
+F 3 "~" H 5500 3550 50  0001 C CNN
+	1    5500 3550
+	-1   0    0    -1  
+$EndComp
+Text Label 5800 2050 0    50   ~ 0
+Col0
+Text Label 5800 2150 0    50   ~ 0
+Col1
+Text Label 5800 2250 0    50   ~ 0
+Col2
+Text Label 5800 2350 0    50   ~ 0
+Col3
+Text Label 5800 2450 0    50   ~ 0
+Col4
+Text Label 5800 2550 0    50   ~ 0
+Col5
+Text Label 5800 2650 0    50   ~ 0
+Col6
+Text Label 5800 2750 0    50   ~ 0
+Col7
+Text Label 5700 3250 0    50   ~ 0
+Row0
+Text Label 5700 3350 0    50   ~ 0
+Row1
+Text Label 5700 3450 0    50   ~ 0
+Row2
+Text Label 5700 3550 0    50   ~ 0
+Row3
+Text Label 5700 3650 0    50   ~ 0
+Row4
+Text Label 5700 3750 0    50   ~ 0
+Row5
+Text Label 5700 3850 0    50   ~ 0
+Row6
+Text Label 5700 3950 0    50   ~ 0
+ARow7
 $EndSCHEMATC
