@@ -129,159 +129,7 @@ NoConn ~ 6950 3850
 NoConn ~ 6950 3950
 NoConn ~ 6950 4050
 NoConn ~ 6950 4150
-$Comp
-L Connector:Conn_01x16_Female J32
-U 1 1 5FE0BAEB
-P 10250 1650
-F 0 "J32" H 10278 1626 50  0000 L CNN
-F 1 "ROWS" H 10278 1535 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x16_P2.54mm_Vertical" H 10250 1650 50  0001 C CNN
-F 3 "~" H 10250 1650 50  0001 C CNN
-	1    10250 1650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x11_Female J33
-U 1 1 5FE0E409
-P 10250 3200
-F 0 "J33" H 10278 3226 50  0000 L CNN
-F 1 "COLUMNS" H 10278 3135 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x11_P2.54mm_Vertical" H 10250 3200 50  0001 C CNN
-F 3 "~" H 10250 3200 50  0001 C CNN
-	1    10250 3200
-	1    0    0    -1  
-$EndComp
 NoConn ~ 6950 850 
-Text Label 10050 950  2    50   ~ 0
-ROW0
-Text Label 10050 1050 2    50   ~ 0
-ROW1
-Text Label 10050 1150 2    50   ~ 0
-ROW2
-Text Label 10050 1250 2    50   ~ 0
-ROW3
-Text Label 10050 1350 2    50   ~ 0
-ROW4
-Text Label 10050 1450 2    50   ~ 0
-ROW5
-Text Label 10050 1550 2    50   ~ 0
-ROW6
-Text Label 10050 1650 2    50   ~ 0
-ROW7
-Text Label 10050 1750 2    50   ~ 0
-ROW8
-Text Label 10050 1850 2    50   ~ 0
-ROW9
-Text Label 10050 1950 2    50   ~ 0
-ROW10
-Text Label 10050 2050 2    50   ~ 0
-ROW11
-Text Label 10050 2150 2    50   ~ 0
-ROW12
-Text Label 10050 2250 2    50   ~ 0
-ROW13
-Text Label 10050 2350 2    50   ~ 0
-ROW14
-Text Label 10050 2450 2    50   ~ 0
-ROW15
-Text Label 10050 2700 2    50   ~ 0
-COL0
-Text Label 10050 2800 2    50   ~ 0
-COL1
-Text Label 10050 2900 2    50   ~ 0
-COL2
-Text Label 10050 3000 2    50   ~ 0
-COL3
-Text Label 10050 3100 2    50   ~ 0
-COL4
-Text Label 10050 3200 2    50   ~ 0
-COL5
-Text Label 10050 3300 2    50   ~ 0
-COL6
-Text Label 10050 3400 2    50   ~ 0
-COL7
-Text Label 10050 3500 2    50   ~ 0
-COL8
-Text Label 10050 3600 2    50   ~ 0
-COL9
-Text Label 10050 3700 2    50   ~ 0
-COL10
-$Comp
-L Connector:Conn_01x16_Female J26
-U 1 1 5FE17DE3
-P 9300 1650
-F 0 "J26" H 9328 1626 50  0000 L CNN
-F 1 "ROWS" H 9328 1535 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x16_P2.54mm_Vertical" H 9300 1650 50  0001 C CNN
-F 3 "~" H 9300 1650 50  0001 C CNN
-	1    9300 1650
-	1    0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x11_Female J27
-U 1 1 5FE17DE9
-P 9300 3200
-F 0 "J27" H 9328 3226 50  0000 L CNN
-F 1 "COLUMNS" H 9328 3135 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x11_P2.54mm_Vertical" H 9300 3200 50  0001 C CNN
-F 3 "~" H 9300 3200 50  0001 C CNN
-	1    9300 3200
-	1    0    0    -1  
-$EndComp
-Text Label 9100 950  2    50   ~ 0
-ROW0
-Text Label 9100 1050 2    50   ~ 0
-ROW1
-Text Label 9100 1150 2    50   ~ 0
-ROW2
-Text Label 9100 1250 2    50   ~ 0
-ROW3
-Text Label 9100 1350 2    50   ~ 0
-ROW4
-Text Label 9100 1450 2    50   ~ 0
-ROW5
-Text Label 9100 1550 2    50   ~ 0
-ROW6
-Text Label 9100 1650 2    50   ~ 0
-ROW7
-Text Label 9100 1750 2    50   ~ 0
-ROW8
-Text Label 9100 1850 2    50   ~ 0
-ROW9
-Text Label 9100 1950 2    50   ~ 0
-ROW10
-Text Label 9100 2050 2    50   ~ 0
-ROW11
-Text Label 9100 2150 2    50   ~ 0
-ROW12
-Text Label 9100 2250 2    50   ~ 0
-ROW13
-Text Label 9100 2350 2    50   ~ 0
-ROW14
-Text Label 9100 2450 2    50   ~ 0
-ROW15
-Text Label 9100 2700 2    50   ~ 0
-COL0
-Text Label 9100 2800 2    50   ~ 0
-COL1
-Text Label 9100 2900 2    50   ~ 0
-COL2
-Text Label 9100 3000 2    50   ~ 0
-COL3
-Text Label 9100 3100 2    50   ~ 0
-COL4
-Text Label 9100 3200 2    50   ~ 0
-COL5
-Text Label 9100 3300 2    50   ~ 0
-COL6
-Text Label 9100 3400 2    50   ~ 0
-COL7
-Text Label 9100 3500 2    50   ~ 0
-COL8
-Text Label 9100 3600 2    50   ~ 0
-COL9
-Text Label 9100 3700 2    50   ~ 0
-COL10
 $Comp
 L Connector:Conn_01x16_Female J24
 U 1 1 5FE18A01
@@ -358,7 +206,7 @@ Text Label 8350 3600 2    50   ~ 0
 COL9
 Text Label 8350 3700 2    50   ~ 0
 COL10
-Text Notes 2700 7600 0    118  ~ 0
+Text Notes 600  7700 0    118  ~ 0
 For 3 Pin Analog analog input is in centre, \notherwise order is +5V, GND, Analog Inputs\n
 $Comp
 L Mechanical:MountingHole H1
@@ -666,8 +514,6 @@ Text Notes 1250 1100 0    50   ~ 0
 LEFT DDI 
 Text Notes 1200 2300 0    50   ~ 0
 RIGHT DDI 
-Text Notes 1150 5600 0    50   ~ 0
-AMPCD POSSIBLY MOVE TO LIP
 Text Notes 1200 4100 0    50   ~ 0
 UFC
 $Comp
@@ -746,8 +592,6 @@ Text Label 2000 1950 2    50   ~ 0
 ROW3
 Text Label 2000 2050 2    50   ~ 0
 ROW4
-Text Label 2000 2150 2    50   ~ 0
-ROW5
 Text Label 2000 3250 2    50   ~ 0
 ROW0
 Text Label 2000 3350 2    50   ~ 0
@@ -758,8 +602,6 @@ Text Label 2000 3550 2    50   ~ 0
 ROW3
 Text Label 2000 3650 2    50   ~ 0
 ROW4
-Text Label 2000 3750 2    50   ~ 0
-ROW5
 Text Label 2000 950  2    50   ~ 0
 COL0
 Text Label 2000 1050 2    50   ~ 0
@@ -770,8 +612,6 @@ Text Label 2000 1250 2    50   ~ 0
 COL3
 Text Label 2000 1350 2    50   ~ 0
 COL4
-Text Label 2000 1450 2    50   ~ 0
-COL5
 Text Label 2000 2550 2    50   ~ 0
 COL5
 Text Label 2000 2650 2    50   ~ 0
@@ -782,8 +622,6 @@ Text Label 2000 2850 2    50   ~ 0
 COL8
 Text Label 2000 2950 2    50   ~ 0
 COL9
-Text Label 2000 3050 2    50   ~ 0
-COL10
 Text Label 2050 4700 2    50   ~ 0
 ROW5
 Text Label 2050 4800 2    50   ~ 0
@@ -850,6 +688,224 @@ F 3 "~" H 2450 5950 50  0001 C CNN
 	1    2450 5950
 	1    0    0    -1  
 $EndComp
-Text Notes 4800 3200 0    50   ~ 0
-other inputs\nMaster Arm\nSpin control\nhud control\nECM\nRWR\nHUB\nStandby instruments\nIFEI\n
+NoConn ~ 2000 1450
+NoConn ~ 2000 2150
+NoConn ~ 2000 3050
+NoConn ~ 2000 3750
+$Comp
+L Connector:Conn_01x08_Female J9
+U 1 1 616E2290
+P 3900 1300
+F 0 "J9" H 4200 1450 50  0000 C CNN
+F 1 "RWR CONTROL" H 4250 1300 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 3900 1300 50  0001 C CNN
+F 3 "~" H 3900 1300 50  0001 C CNN
+	1    3900 1300
+	1    0    0    -1  
+$EndComp
+Text Label 3700 1000 2    50   ~ 0
+COL4
+Text Label 3700 1100 2    50   ~ 0
+COL5
+Text Label 3700 1200 2    50   ~ 0
+ROW11
+Text Label 3700 1300 2    50   ~ 0
+ROW12
+Text Label 3700 1400 2    50   ~ 0
+ROW13
+Text Label 3700 1500 2    50   ~ 0
+ROW14
+Text Label 3700 1600 2    50   ~ 0
+ROW15
+NoConn ~ 3700 1700
+$Comp
+L Connector:Conn_01x08_Female J10
+U 1 1 616ECD1C
+P 3950 2350
+F 0 "J10" H 4150 2450 50  0000 C CNN
+F 1 "IFEI" H 4150 2350 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 3950 2350 50  0001 C CNN
+F 3 "~" H 3950 2350 50  0001 C CNN
+	1    3950 2350
+	1    0    0    -1  
+$EndComp
+Text Label 3750 2050 2    50   ~ 0
+COL0
+Text Label 3750 2150 2    50   ~ 0
+COL1
+Text Label 3750 2250 2    50   ~ 0
+COL2
+Text Label 3750 2350 2    50   ~ 0
+COL3
+Text Label 3750 2450 2    50   ~ 0
+ROW13
+Text Label 3750 2550 2    50   ~ 0
+ROW14
+Text Label 3750 2650 2    50   ~ 0
+ROW15
+NoConn ~ 3750 2750
+$Comp
+L Connector:Conn_01x02_Female J11
+U 1 1 616F27F6
+P 3950 3000
+F 0 "J11" H 3978 2976 50  0000 L CNN
+F 1 "BIT" H 3978 2885 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 3000 50  0001 C CNN
+F 3 "~" H 3950 3000 50  0001 C CNN
+	1    3950 3000
+	1    0    0    -1  
+$EndComp
+Text Label 3750 3000 2    50   ~ 0
+COL5
+Text Label 3750 3100 2    50   ~ 0
+COL10
+$Comp
+L Connector:Conn_01x06_Female J12
+U 1 1 616F492E
+P 3950 3550
+F 0 "J12" H 3978 3526 50  0000 L CNN
+F 1 "MASTER ARM" H 3978 3435 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 3950 3550 50  0001 C CNN
+F 3 "~" H 3950 3550 50  0001 C CNN
+	1    3950 3550
+	1    0    0    -1  
+$EndComp
+Text Label 3750 3350 2    50   ~ 0
+COL6
+Text Label 3750 3450 2    50   ~ 0
+COL7
+Text Label 3750 3550 2    50   ~ 0
+ROW10
+Text Label 3750 3650 2    50   ~ 0
+ROW11
+Text Label 3750 3750 2    50   ~ 0
+ROW12
+NoConn ~ 3750 3850
+$Comp
+L Connector:Conn_01x06_Female J13
+U 1 1 616FADDD
+P 3950 4300
+F 0 "J13" H 3978 4276 50  0000 L CNN
+F 1 "HUD CONTROL" H 3978 4185 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 3950 4300 50  0001 C CNN
+F 3 "~" H 3950 4300 50  0001 C CNN
+	1    3950 4300
+	1    0    0    -1  
+$EndComp
+Text Label 3750 4100 2    50   ~ 0
+COL8
+Text Label 3750 4200 2    50   ~ 0
+COL9
+Text Label 3750 4300 2    50   ~ 0
+COL10
+Text Label 3750 4400 2    50   ~ 0
+ROW12
+Text Label 3750 4500 2    50   ~ 0
+ROW13
+Text Label 3750 4600 2    50   ~ 0
+ROW14
+$Comp
+L Connector:Conn_01x08_Female J14
+U 1 1 6174B922
+P 3950 5150
+F 0 "J14" H 4150 5250 50  0000 C CNN
+F 1 "ECM" H 4150 5150 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 3950 5150 50  0001 C CNN
+F 3 "~" H 3950 5150 50  0001 C CNN
+	1    3950 5150
+	1    0    0    -1  
+$EndComp
+Text Label 3750 4850 2    50   ~ 0
+COL8
+Text Label 3750 4950 2    50   ~ 0
+COL9
+Text Label 3750 5050 2    50   ~ 0
+COL10
+Text Label 3750 5150 2    50   ~ 0
+ROW7
+Text Label 3750 5250 2    50   ~ 0
+ROW8
+Text Label 3750 5350 2    50   ~ 0
+ROW9
+Text Label 3750 5450 2    50   ~ 0
+ROW10
+Text Label 3750 5550 2    50   ~ 0
+ROW11
+$Comp
+L Connector:Conn_01x04_Female J15
+U 1 1 617514FD
+P 3950 5900
+F 0 "J15" H 3978 5876 50  0000 L CNN
+F 1 "SPIN" H 3978 5785 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3950 5900 50  0001 C CNN
+F 3 "~" H 3950 5900 50  0001 C CNN
+	1    3950 5900
+	1    0    0    -1  
+$EndComp
+Text Label 3750 5800 2    50   ~ 0
+COL6
+Text Label 3750 5900 2    50   ~ 0
+COL7
+Text Label 3750 6000 2    50   ~ 0
+ROW13
+Text Label 3750 6100 2    50   ~ 0
+ROW14
+$Comp
+L Connector:Conn_01x02_Female J16
+U 1 1 617575F8
+P 3950 6350
+F 0 "J16" H 3978 6326 50  0000 L CNN
+F 1 "LEFT EWI COL" H 3978 6235 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 6350 50  0001 C CNN
+F 3 "~" H 3950 6350 50  0001 C CNN
+	1    3950 6350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J17
+U 1 1 617585F6
+P 3950 6600
+F 0 "J17" H 3978 6576 50  0000 L CNN
+F 1 "LEFT EWI ROW" H 3978 6485 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 6600 50  0001 C CNN
+F 3 "~" H 3950 6600 50  0001 C CNN
+	1    3950 6600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J18
+U 1 1 61759A4E
+P 3950 6950
+F 0 "J18" H 3978 6926 50  0000 L CNN
+F 1 "RIGHT RWI COL" H 3978 6835 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 6950 50  0001 C CNN
+F 3 "~" H 3950 6950 50  0001 C CNN
+	1    3950 6950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J19
+U 1 1 61759A58
+P 3950 7150
+F 0 "J19" H 3978 7126 50  0000 L CNN
+F 1 "RIGHT EWI ROW" H 3978 7035 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3950 7150 50  0001 C CNN
+F 3 "~" H 3950 7150 50  0001 C CNN
+	1    3950 7150
+	1    0    0    -1  
+$EndComp
+Text Label 3750 6350 2    50   ~ 0
+COL9
+Text Label 3750 6450 2    50   ~ 0
+COL10
+Text Label 3750 6950 2    50   ~ 0
+COL9
+Text Label 3750 7050 2    50   ~ 0
+COL10
+Text Label 3750 6600 2    50   ~ 0
+ROW3
+NoConn ~ 3750 6700
+NoConn ~ 3750 7250
+Text Label 3750 7150 2    50   ~ 0
+ROW4
 $EndSCHEMATC

@@ -1,5 +1,5 @@
 
-(rules PCB OH - UIP - Input Distribution
+(rules PCB OH - Upper Mixed Small PCBs
   (snap_angle 
     fortyfive_degree
   )
@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 727)
+    (start_pass_no 1032)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,13 +63,16 @@
     )
   )
   (class "kicad_default"
-    "/ANALOG_GND" "/ANALOG_5V" /COL10 /COL9 /ROW1 /ROW0 /COL8 /COL7
-    /COL6 /COL5 /COL4 /COL3 /ROW3 /ROW2 /ROW5 /ROW4
-    /COL2 /COL1 /COL0 /ROW9 /ROW8 /ROW7 /ROW6 /ROW13
-    /ROW12 /ROW11 /ROW10 /ROW15 /ROW14 /A10 /A9 /A8
-    /A7 /A6 /A5 /A4 /A3 /A2 /A1 /B10
-    /B9 /B8 /B7 /B6 /B5 /B4 /B3 /B2
-    /B1
+    "/PCB-COL-2" "Net-(D1-Pad1)" "/PCB-COL-1" "Net-(D2-Pad1)" "/BIT-COL" "Net-(D3-Pad1)" "/BIT-LED-ANNODE-1" "/BIT-LED-CATHODE-1"
+    "/BIT-LED-ANNODE-2" "/HUD-COL-3" "Net-(D6-Pad1)" "Net-(D7-Pad1)" "/HUD-COL-1" "Net-(D8-Pad1)" "/HUD-COL-2" "Net-(D9-Pad1)"
+    "Net-(D10-Pad1)" "/ECM-COL-2" "Net-(D11-Pad1)" "Net-(D12-Pad1)" "Net-(D13-Pad1)" "/ECM-COL-3" "Net-(D14-Pad1)" "/ECM-COL-1"
+    "Net-(D15-Pad1)" "/SPIN-COL1" "Net-(D16-Pad1)" "/SPIN-COL2" "Net-(D17-Pad1)" "/SPIN-LED-ANNODE-1" "/SPIN-LED-CATHODE" "/SPIN-LED-ANNODE-2"
+    "/HUD-BAL" "/BLK-LVL" "/HUD-A0A" "/HUD-BRT" "/HUD-ANA-GND" "/HUD-ANA+5V" "/PCB-ROW-2" "/PCB-ROW-1"
+    "/ARM-ROW3" "/BIT-ROW" "Net-(J11-Pad6)" "Net-(J11-Pad5)" "Net-(J11-Pad4)" "Net-(J11-Pad3)" "Net-(J11-Pad2)" "Net-(J11-Pad1)"
+    "/HUD-ROW-3" "/HUD-ROW-2" "/HUD-ROW-1" "Net-(J12-Pad6)" "Net-(J12-Pad5)" "Net-(J10-Pad4)" "Net-(J10-Pad3)" "Net-(J10-Pad2)"
+    "Net-(J10-Pad1)" "/ECM-ROW-5" "/ECM-ROW-4" "/ECM-ROW-3" "/ECM-ROW-2" "/ECM-ROW-1" "/SPIN-ROW2" "/SPIN-ROW1"
+    "Net-(J16-Pad3)" "Net-(J16-Pad2)" "Net-(J16-Pad1)" "Net-(J17-Pad3)" "Net-(J17-Pad2)" "Net-(J17-Pad1)" "Net-(J18-Pad3)" "Net-(J18-Pad2)"
+    "Net-(J18-Pad1)" "Net-(J19-Pad3)" "Net-(J19-Pad2)" "Net-(J19-Pad1)" "Net-(D20-Pad1)" "Net-(D21-Pad1)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
