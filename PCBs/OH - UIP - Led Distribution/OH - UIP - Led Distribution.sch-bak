@@ -906,32 +906,32 @@ Wire Wire Line
 $Comp
 L Connector:Conn_01x06_Female J11
 U 1 1 6166C126
-P 6100 2250
-F 0 "J11" H 5992 2635 50  0000 C CNN
-F 1 "EWI Col" H 5992 2544 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 6100 2250 50  0001 C CNN
-F 3 "~" H 6100 2250 50  0001 C CNN
-	1    6100 2250
+P 6200 2300
+F 0 "J11" H 6092 2685 50  0000 C CNN
+F 1 "LEFT EWI COL" H 6092 2594 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 6200 2300 50  0001 C CNN
+F 3 "~" H 6200 2300 50  0001 C CNN
+	1    6200 2300
 	-1   0    0    -1  
 $EndComp
-Text Label 6300 2050 0    50   ~ 0
+Text Label 6400 2100 0    50   ~ 0
 ACol0
-Text Label 6300 2150 0    50   ~ 0
+Text Label 6400 2200 0    50   ~ 0
 ACol1
-Text Label 6300 2250 0    50   ~ 0
+Text Label 6400 2300 0    50   ~ 0
 ACol2
-Text Label 6300 2350 0    50   ~ 0
+Text Label 6400 2400 0    50   ~ 0
 ACol3
-Text Label 6300 2450 0    50   ~ 0
+Text Label 6400 2500 0    50   ~ 0
 ACol4
-Text Label 6300 2550 0    50   ~ 0
+Text Label 6400 2600 0    50   ~ 0
 ACol5
 $Comp
 L Connector:Conn_01x08_Female J12
 U 1 1 6167124F
 P 6150 3550
 F 0 "J12" H 6042 4035 50  0000 C CNN
-F 1 "EWI Row" H 6042 3944 50  0000 C CNN
+F 1 "LEFT EWI ROW" H 6042 3944 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 6150 3550 50  0001 C CNN
 F 3 "~" H 6150 3550 50  0001 C CNN
 	1    6150 3550
@@ -956,12 +956,12 @@ ARow7
 $Comp
 L Connector:Conn_01x03_Female J13
 U 1 1 6167CDB7
-P 6700 2150
-F 0 "J13" H 6592 2435 50  0000 C CNN
-F 1 "UFC Opt Col" H 6592 2344 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 6700 2150 50  0001 C CNN
-F 3 "~" H 6700 2150 50  0001 C CNN
-	1    6700 2150
+P 6800 2200
+F 0 "J13" H 6692 2485 50  0000 C CNN
+F 1 "UFC OPT COL" H 6692 2394 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 6800 2200 50  0001 C CNN
+F 3 "~" H 6800 2200 50  0001 C CNN
+	1    6800 2200
 	-1   0    0    -1  
 $EndComp
 $Comp
@@ -969,17 +969,17 @@ L Connector:Conn_01x04_Female J14
 U 1 1 6167EA31
 P 6750 3300
 F 0 "J14" H 6642 3585 50  0000 C CNN
-F 1 "UFC Opt Row" H 6642 3494 50  0000 C CNN
+F 1 "UFC OPT ROW" H 6642 3494 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 6750 3300 50  0001 C CNN
 F 3 "~" H 6750 3300 50  0001 C CNN
 	1    6750 3300
 	-1   0    0    -1  
 $EndComp
-Text Label 6900 2050 0    50   ~ 0
+Text Label 7000 2100 0    50   ~ 0
 ACol3
-Text Label 6900 2150 0    50   ~ 0
+Text Label 7000 2200 0    50   ~ 0
 ACol4
-Text Label 6900 2250 0    50   ~ 0
+Text Label 7000 2300 0    50   ~ 0
 ACol5
 Text Label 6950 3200 0    50   ~ 0
 ARow4
@@ -989,4 +989,58 @@ Text Label 6950 3400 0    50   ~ 0
 ARow6
 Text Label 6950 3500 0    50   ~ 0
 ARow7
+Text Notes 4150 1400 0    79   ~ 0
+LEFT EWI\nUFC
+Text Notes 10650 1450 0    79   ~ 0
+RIGHT EWI
+$Comp
+L Connector:Conn_01x06_Female J16
+U 1 1 61690B49
+P 12100 2150
+F 0 "J16" H 11992 2535 50  0000 C CNN
+F 1 "RIGHT EWI COL" H 11992 2444 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 12100 2150 50  0001 C CNN
+F 3 "~" H 12100 2150 50  0001 C CNN
+	1    12100 2150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x08_Female J15
+U 1 1 61690B59
+P 12050 3400
+F 0 "J15" H 11942 3885 50  0000 C CNN
+F 1 "RIGHT EWI ROW" H 11942 3794 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 12050 3400 50  0001 C CNN
+F 3 "~" H 12050 3400 50  0001 C CNN
+	1    12050 3400
+	-1   0    0    -1  
+$EndComp
+Text Label 12250 3100 0    50   ~ 0
+BRow0
+Text Label 12250 3200 0    50   ~ 0
+BRow1
+Text Label 12250 3300 0    50   ~ 0
+BRow2
+Text Label 12250 3400 0    50   ~ 0
+BRow3
+Text Label 12250 3500 0    50   ~ 0
+BRow4
+Text Label 12250 3600 0    50   ~ 0
+BRow5
+Text Label 12250 3700 0    50   ~ 0
+BRow6
+Text Label 12250 3800 0    50   ~ 0
+BRow7
+Text Label 12300 1950 0    50   ~ 0
+BCol0
+Text Label 12300 2050 0    50   ~ 0
+BCol1
+Text Label 12300 2150 0    50   ~ 0
+BCol2
+Text Label 12300 2250 0    50   ~ 0
+BCol3
+Text Label 12300 2350 0    50   ~ 0
+BCol4
+Text Label 12300 2450 0    50   ~ 0
+BCol5
 $EndSCHEMATC

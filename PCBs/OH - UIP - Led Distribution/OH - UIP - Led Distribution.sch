@@ -1043,4 +1043,21 @@ Text Label 12300 2350 0    50   ~ 0
 BCol4
 Text Label 12300 2450 0    50   ~ 0
 BCol5
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 616C6E1E
+P 6800 2750
+F 0 "J?" H 6692 3035 50  0000 C CNN
+F 1 "BIT LED" H 6692 2944 50  0000 C CNN
+F 2 "" H 6800 2750 50  0001 C CNN
+F 3 "~" H 6800 2750 50  0001 C CNN
+	1    6800 2750
+	-1   0    0    -1  
+$EndComp
+Text Label 7000 2650 0    50   ~ 0
+ACol0
+Text Label 7000 2750 0    50   ~ 0
+ARow4
+Text Label 7000 2850 0    50   ~ 0
+ARow5
 $EndSCHEMATC
