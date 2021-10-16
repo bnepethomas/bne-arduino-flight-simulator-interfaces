@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 2165)
+    (start_pass_no 70)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -69,9 +69,7 @@
     )
   )
   (class "kicad_default"
-    /CLK /LOAD /DIN /DOUT "Net-(R1-Pad2)" "Net-(J29-Pad8)" "Net-(J29-Pad7)" "Net-(J29-Pad6)"
-    "Net-(J29-Pad5)" "Net-(J29-Pad4)" "Net-(J29-Pad3)" "Net-(J29-Pad2)" "Net-(J29-Pad1)" "Net-(J31-Pad8)" "Net-(J31-Pad7)" "Net-(J31-Pad6)"
-    "Net-(J31-Pad5)" "Net-(J31-Pad4)" "Net-(J31-Pad3)" "Net-(J31-Pad2)" "Net-(J31-Pad1)" /CCol7 /CCol6 /CCol5
+    /CLK /LOAD /DIN /DOUT "Net-(R1-Pad2)" /CCol7 /CCol6 /CCol5
     /CCol4 /CCol3 /CCol2 /CCol1 /CCol0 /CRow7 /CRow6 /CRow5
     /CRow4 /CRow3 /CRow2 /CRow1 /CRow0 /ARow7 /ARow6 /ARow5
     /ARow4 /ARow3 /ARow2 /ARow1 /ARow0 /ACol7 /ACol6 /ACol5
@@ -80,7 +78,11 @@
     /DCol4 /DCol3 /DCol2 /DCol1 /DCol0 /BRow7 /BRow6 /BRow5
     /BRow4 /BRow3 /BRow2 /BRow1 /BRow0 /BCol7 /BCol6 /BCol5
     /BCol4 /BCol3 /BCol2 /BCol1 /BCol0 "Net-(R2-Pad2)" "Net-(R3-Pad2)" "Net-(R4-Pad2)"
-    "/A-DOUT-B-DIN" "/C-DOUT-D-DIN" "/B-DOUT-C-DIN"
+    "/A-DOUT-B-DIN" "/C-DOUT-D-DIN" "/B-DOUT-C-DIN" "Net-(J28-Pad8)" "Net-(J28-Pad7)" "Net-(J28-Pad6)" "Net-(J28-Pad5)" "Net-(J28-Pad4)"
+    "Net-(J28-Pad3)" "Net-(J28-Pad2)" "Net-(J28-Pad1)" /ECol7 /ECol6 /ECol5 /ECol4 /ECol3
+    /ECol2 /ECol1 /ECol0 /ERow7 /ERow6 /ERow5 /ERow4 /ERow3
+    /ERow2 /ERow1 /ERow0 "Net-(J33-Pad8)" "Net-(J33-Pad7)" "Net-(J33-Pad6)" "Net-(J33-Pad5)" "Net-(J33-Pad4)"
+    "Net-(J33-Pad3)" "Net-(J33-Pad2)" "Net-(J33-Pad1)" "Net-(R5-Pad2)" "/D-DOUT-E-DIN"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

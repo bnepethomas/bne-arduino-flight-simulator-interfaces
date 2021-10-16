@@ -425,15 +425,6 @@
     (net "Net-(D3-Pad1)"
       (pins SW1-1 D3-1)
     )
-    (net "/BIT-LED-ANNODE-1"
-      (pins J6-1 D4-2)
-    )
-    (net "/BIT-LED-CATHODE-1"
-      (pins J6-3 D5-1 D4-1)
-    )
-    (net "/BIT-LED-ANNODE-2"
-      (pins J6-2 D5-2)
-    )
     (net "/HUD-COL-3"
       (pins J8-3 D7-2 D6-2)
     )
@@ -641,24 +632,33 @@
     (net "Net-(D21-Pad1)"
       (pins SW17-1 D21-1)
     )
+    (net "/BIT-LED-COL-1"
+      (pins J6-1 D4-2)
+    )
+    (net "/BIT-LED-ROW-1"
+      (pins J6-3 D5-1 D4-1)
+    )
+    (net "/BIT-LED-COL-2"
+      (pins J6-2 D5-2)
+    )
     (class kicad_default "" "/ARM-ROW3" "/BIT-COL" "/BIT-LED-ANNODE-1" "/BIT-LED-ANNODE-2"
-      "/BIT-LED-CATHODE-1" "/BIT-ROW" "/BLK-LVL" "/ECM-COL-1" "/ECM-COL-2"
-      "/ECM-COL-3" "/ECM-ROW-1" "/ECM-ROW-2" "/ECM-ROW-3" "/ECM-ROW-4" "/ECM-ROW-5"
-      "/HUD-A0A" "/HUD-ANA+5V" "/HUD-ANA-GND" "/HUD-BAL" "/HUD-BRT" "/HUD-COL-1"
-      "/HUD-COL-2" "/HUD-COL-3" "/HUD-ROW-1" "/HUD-ROW-2" "/HUD-ROW-3" "/PCB-COL-1"
-      "/PCB-COL-2" "/PCB-ROW-1" "/PCB-ROW-2" "/SPIN-COL1" "/SPIN-COL2" "/SPIN-LED-ANNODE-1"
-      "/SPIN-LED-ANNODE-2" "/SPIN-LED-CATHODE" "/SPIN-ROW1" "/SPIN-ROW2" "Net-(D1-Pad1)"
-      "Net-(D10-Pad1)" "Net-(D11-Pad1)" "Net-(D12-Pad1)" "Net-(D13-Pad1)"
-      "Net-(D14-Pad1)" "Net-(D15-Pad1)" "Net-(D16-Pad1)" "Net-(D17-Pad1)"
-      "Net-(D2-Pad1)" "Net-(D20-Pad1)" "Net-(D21-Pad1)" "Net-(D3-Pad1)" "Net-(D6-Pad1)"
-      "Net-(D7-Pad1)" "Net-(D8-Pad1)" "Net-(D9-Pad1)" "Net-(J10-Pad1)" "Net-(J10-Pad2)"
-      "Net-(J10-Pad3)" "Net-(J10-Pad4)" "Net-(J11-Pad1)" "Net-(J11-Pad2)"
-      "Net-(J11-Pad3)" "Net-(J11-Pad4)" "Net-(J11-Pad5)" "Net-(J11-Pad6)"
-      "Net-(J12-Pad5)" "Net-(J12-Pad6)" "Net-(J12-Pad7)" "Net-(J12-Pad8)"
-      "Net-(J16-Pad1)" "Net-(J16-Pad2)" "Net-(J16-Pad3)" "Net-(J17-Pad1)"
-      "Net-(J17-Pad2)" "Net-(J17-Pad3)" "Net-(J18-Pad1)" "Net-(J18-Pad2)"
-      "Net-(J18-Pad3)" "Net-(J19-Pad1)" "Net-(J19-Pad2)" "Net-(J19-Pad3)"
-      "Net-(J4-Pad6)"
+      "/BIT-LED-CATHODE-1" "/BIT-LED-COL-1" "/BIT-LED-COL-2" "/BIT-LED-ROW-1"
+      "/BIT-ROW" "/BLK-LVL" "/ECM-COL-1" "/ECM-COL-2" "/ECM-COL-3" "/ECM-ROW-1"
+      "/ECM-ROW-2" "/ECM-ROW-3" "/ECM-ROW-4" "/ECM-ROW-5" "/HUD-A0A" "/HUD-ANA+5V"
+      "/HUD-ANA-GND" "/HUD-BAL" "/HUD-BRT" "/HUD-COL-1" "/HUD-COL-2" "/HUD-COL-3"
+      "/HUD-ROW-1" "/HUD-ROW-2" "/HUD-ROW-3" "/PCB-COL-1" "/PCB-COL-2" "/PCB-ROW-1"
+      "/PCB-ROW-2" "/SPIN-COL1" "/SPIN-COL2" "/SPIN-LED-ANNODE-1" "/SPIN-LED-ANNODE-2"
+      "/SPIN-LED-CATHODE" "/SPIN-ROW1" "/SPIN-ROW2" "Net-(D1-Pad1)" "Net-(D10-Pad1)"
+      "Net-(D11-Pad1)" "Net-(D12-Pad1)" "Net-(D13-Pad1)" "Net-(D14-Pad1)"
+      "Net-(D15-Pad1)" "Net-(D16-Pad1)" "Net-(D17-Pad1)" "Net-(D2-Pad1)" "Net-(D20-Pad1)"
+      "Net-(D21-Pad1)" "Net-(D3-Pad1)" "Net-(D6-Pad1)" "Net-(D7-Pad1)" "Net-(D8-Pad1)"
+      "Net-(D9-Pad1)" "Net-(J10-Pad1)" "Net-(J10-Pad2)" "Net-(J10-Pad3)" "Net-(J10-Pad4)"
+      "Net-(J11-Pad1)" "Net-(J11-Pad2)" "Net-(J11-Pad3)" "Net-(J11-Pad4)"
+      "Net-(J11-Pad5)" "Net-(J11-Pad6)" "Net-(J12-Pad5)" "Net-(J12-Pad6)"
+      "Net-(J12-Pad7)" "Net-(J12-Pad8)" "Net-(J16-Pad1)" "Net-(J16-Pad2)"
+      "Net-(J16-Pad3)" "Net-(J17-Pad1)" "Net-(J17-Pad2)" "Net-(J17-Pad3)"
+      "Net-(J18-Pad1)" "Net-(J18-Pad2)" "Net-(J18-Pad3)" "Net-(J19-Pad1)"
+      "Net-(J19-Pad2)" "Net-(J19-Pad3)" "Net-(J4-Pad6)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
