@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1626)
+    (start_pass_no 258)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -71,7 +71,8 @@
     /B9 /B8 /B7 /B6 /B5 /B4 /B3 /B2
     /B1 "/IFEI-BRIGHTNESS" "/SPIN-ANALOG" "/STANDBY-ANALOG" "/HUD-BAL" "/BLK-LVL" "/HUD-AOA" "/HUD-BRT"
     "/RWR-DIMMER" "/RWR-AUDIO" "Net-(D1-Pad1)" "Net-(D2-Pad1)" "/UFC-RIGHT-ENCODER-B" "/UFC-RIGHT-ENCODER-A" "/UFC-LEFT-ENCODER-B" "/UFC-LEFT-ENCODER-A"
-    "/STDBY-ENC-2-B" "/STDBY-ENC-2-A" "/STDBY-ENC-1-B" "/STDBY-ENC-1-A" "/ENCODER-GND"
+    "/STDBY-ENC-2-B" "/STDBY-ENC-2-A" "/STDBY-ENC-1-B" "/STDBY-ENC-1-A" "/ENCODER-GND" "Net-(D3-Pad1)" "Net-(D4-Pad1)" "/LEFT-DDI-CONT"
+    "/LEFT-DDI-BRIGHT" "/RIGHT-DDI-CONT" "/RIGHT-DDI-BRIGHT" "/AMPCD-BRIGHTNESS"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
