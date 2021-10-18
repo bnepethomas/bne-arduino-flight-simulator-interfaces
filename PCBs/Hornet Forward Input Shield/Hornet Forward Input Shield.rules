@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1028)
+    (start_pass_no 179)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -71,7 +71,7 @@
     "/15(Rx3)" "/16(Tx2)" "/17(Rx2)" "/18(Tx1)" "/19(Rx1)" GNDD /A5 /A4
     /A3 /A2 /A1 /A0 +5VL /D3 /D2 /D1
     /D0 /D8 /D7 /D6 /D5 /D13 /D12 /D11
-    /D9
+    /D9 "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(J2-Pad2)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
