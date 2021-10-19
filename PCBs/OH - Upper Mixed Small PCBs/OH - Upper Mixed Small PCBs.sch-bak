@@ -7514,32 +7514,6 @@ F 3 "~" H 2850 3700 50  0001 C CNN
 	1    2850 3700
 	-1   0    0    -1  
 $EndComp
-Text Label 3050 3700 0    50   ~ 0
-BIT-COL
-Text Label 3050 3800 0    50   ~ 0
-BIT-ROW
-$Comp
-L Device:LED D4
-U 1 1 616B586E
-P 1750 4400
-F 0 "D4" H 1743 4145 50  0000 C CNN
-F 1 "BIT GREEN" H 1743 4236 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1750 4400 50  0001 C CNN
-F 3 "~" H 1750 4400 50  0001 C CNN
-	1    1750 4400
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D5
-U 1 1 616B6F27
-P 1750 4750
-F 0 "D5" H 1743 4495 50  0000 C CNN
-F 1 "BIT WHITE" H 1743 4586 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1750 4750 50  0001 C CNN
-F 3 "~" H 1750 4750 50  0001 C CNN
-	1    1750 4750
-	-1   0    0    1   
-$EndComp
 $Comp
 L Connector:Conn_01x03_Female J6
 U 1 1 616B7D64
@@ -7551,19 +7525,19 @@ F 3 "~" H 2850 4550 50  0001 C CNN
 	1    2850 4550
 	-1   0    0    -1  
 $EndComp
-Text Label 3050 4550 0    50   ~ 0
-BIT-LED-COL-2
 Text Label 3050 4650 0    50   ~ 0
-BIT-LED-ROW-1
+BIT-LED-COL-2
 Text Label 3050 4450 0    50   ~ 0
-BIT-LED-COL-1
-Text Label 1900 4400 0    50   ~ 0
 BIT-LED-ROW-1
-Text Label 1900 4750 0    50   ~ 0
-BIT-LED-ROW-1
-Text Label 1600 4400 2    50   ~ 0
+Text Label 3050 4550 0    50   ~ 0
 BIT-LED-COL-1
-Text Label 1600 4750 2    50   ~ 0
+Text Label 1950 4300 2    50   ~ 0
+BIT-LED-ROW-1
+Text Label 1950 4600 2    50   ~ 0
+BIT-LED-ROW-1
+Text Label 1950 4400 2    50   ~ 0
+BIT-LED-COL-1
+Text Label 1950 4700 2    50   ~ 0
 BIT-LED-COL-2
 Wire Notes Line
 	650  3400 650  4950
@@ -7585,28 +7559,6 @@ F 3 "~" H 9650 5900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:LED D19
-U 1 1 616DA751
-P 10000 4100
-F 0 "D19" H 9993 3845 50  0000 C CNN
-F 1 "SPIN RECOVERY LED 2" H 9993 3936 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 10000 4100 50  0001 C CNN
-F 3 "~" H 10000 4100 50  0001 C CNN
-	1    10000 4100
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D18
-U 1 1 616DB605
-P 10000 3700
-F 0 "D18" H 9993 3445 50  0000 C CNN
-F 1 "SPIN RECOVERY LED1" H 9993 3536 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 10000 3700 50  0001 C CNN
-F 3 "~" H 10000 3700 50  0001 C CNN
-	1    10000 3700
-	-1   0    0    1   
-$EndComp
-$Comp
 L Connector:Conn_01x03_Female J15
 U 1 1 616DBF47
 P 9600 2950
@@ -7617,13 +7569,13 @@ F 3 "~" H 9600 2950 50  0001 C CNN
 	1    9600 2950
 	-1   0    0    -1  
 $EndComp
-Text Label 9850 3700 2    50   ~ 0
+Text Label 10100 3250 2    50   ~ 0
 SPIN-LED-ANNODE-1
-Text Label 9850 4100 2    50   ~ 0
+Text Label 10100 3600 2    50   ~ 0
 SPIN-LED-ANNODE-2
-Text Label 10150 3700 0    50   ~ 0
+Text Label 10100 3350 2    50   ~ 0
 SPIN-LED-CATHODE
-Text Label 10150 4100 0    50   ~ 0
+Text Label 10100 3700 2    50   ~ 0
 SPIN-LED-CATHODE
 Text Label 9800 3050 0    50   ~ 0
 SPIN-LED-CATHODE
@@ -14114,4 +14066,54 @@ Text Label 7850 3250 0    50   ~ 0
 ECM-ROW-3
 Text Label 7850 3650 0    50   ~ 0
 ECM-ROW-4
+Text Notes 2550 4100 0    50   ~ 0
+NOTE - LED PINS ARE REVERSED\nAS I’M USING MOLEX CONNECTOR\nNOT A LED ITSELF
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 616F5812
+P 2150 4300
+F 0 "J?" H 2178 4276 50  0000 L CNN
+F 1 "BIT LED GREEN" H 2178 4185 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2150 4300 50  0001 C CNN
+F 3 "~" H 2150 4300 50  0001 C CNN
+	1    2150 4300
+	1    0    0    -1  
+$EndComp
+Text Label 3050 3700 0    50   ~ 0
+BIT-COL
+Text Label 3050 3800 0    50   ~ 0
+BIT-ROW
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 61701B86
+P 2150 4600
+F 0 "J?" H 2178 4576 50  0000 L CNN
+F 1 "BIT LED WHITE" H 2178 4485 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2150 4600 50  0001 C CNN
+F 3 "~" H 2150 4600 50  0001 C CNN
+	1    2150 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 61706FA4
+P 10300 3250
+F 0 "J?" H 10328 3226 50  0000 L CNN
+F 1 "SPIN LED 1" H 10328 3135 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 10300 3250 50  0001 C CNN
+F 3 "~" H 10300 3250 50  0001 C CNN
+	1    10300 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 6170B710
+P 10300 3600
+F 0 "J?" H 10328 3576 50  0000 L CNN
+F 1 "SPIN LED 2" H 10328 3485 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 10300 3600 50  0001 C CNN
+F 3 "~" H 10300 3600 50  0001 C CNN
+	1    10300 3600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

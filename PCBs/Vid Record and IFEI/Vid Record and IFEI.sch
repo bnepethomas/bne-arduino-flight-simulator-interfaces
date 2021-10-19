@@ -4354,4 +4354,34 @@ Text Label 2350 3900 2    50   ~ 0
 TO-AURDUINO
 NoConn ~ 3100 3150
 NoConn ~ 5300 4150
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 6172E10C
+P 8250 4600
+F 0 "J?" H 8278 4576 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 8278 4485 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8250 4600 50  0001 C CNN
+F 3 "~" H 8250 4600 50  0001 C CNN
+	1    8250 4600
+	1    0    0    -1  
+$EndComp
+Text Label 8050 4600 2    50   ~ 0
+BACKLIGHT+12V
+Text Label 8050 4700 2    50   ~ 0
+BACKLIGHT-GND
+$Comp
+L Connector:Conn_01x02_Female J?
+U 1 1 6172F315
+P 8300 4950
+F 0 "J?" H 8328 4926 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 8328 4835 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8300 4950 50  0001 C CNN
+F 3 "~" H 8300 4950 50  0001 C CNN
+	1    8300 4950
+	1    0    0    -1  
+$EndComp
+Text Label 8100 4950 2    50   ~ 0
+BACKLIGHT+12V
+Text Label 8100 5050 2    50   ~ 0
+BACKLIGHT-GND
 $EndSCHEMATC

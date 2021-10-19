@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Text Notes 900  1650 0    50   ~ 0
--- 1. Fire Test Panel\n-- Connects to Groud Power PCB . \ndefineRockerSwitch("FIRE_TEST_SW", 12, 3006, 3006, 3007, 3007, 331, "Fire Test Panel", "Fire and Bleed Air Test Switch, (RMB) TEST A/(LMB) TEST B")\n\n\n— 2. Ground Power Panel\n\ndefineRockerSwitch(“EXT_PWR_SW”, 3, 3005, 3005, 3004, 3004, 336, “Ground Power Panel”, “External Power Switch, RESET/NORM/OFF”)\ndefineRockerSwitch(“GND_PWR_1_SW”, 3, 3008, 3008, 3009, 3009, 332, “Ground Power Panel”, “Ground Power Switch 1, A ON/AUTO/B ON”)\ndefineRockerSwitch("GND_PWR_2_SW", 3, 3010, 3010, 3011, 3011, 333, "Ground Power Panel", "Ground Power Switch 2, A ON/AUTO/B ON")\ndefineRockerSwitch("GND_PWR_3_SW", 3, 3012, 3012, 3013, 3013, 334, "Ground Power Panel", "Ground Power Switch 3, A ON/AUTO/B ON")\ndefineRockerSwitch("GND_PWR_4_SW", 3, 3014, 3014, 3015, 3015, 335, "Ground Power Panel", "Ground Power Switch 4, A ON/AUTO/B ON")\n
+-- 23. HUD Video Record Panel\ndefinePotentiometer("IFEI", 33, 3007, 174, {0, 1}, "HUD Video Record Panel", "Brightness Control Knob")\ndefine3PosTumb("SELECT_HMD_LDDI_RDDI", 0, 3104, 175, "HUD Video Record Panel", "Selector Switch, HMD/LDDI/RDDI") -- From TODO, will change\ndefine3PosTumb("SELECT_HUD_LDDI_RDDI", 0, 3105, 176, "HUD Video Record Panel", "Selector Switch, HUD/LDIR/RDDI") -- From TODO, will change\ndefine3PosTumb("MODE_SELECTOR_SW", 0, 3106, 176, "HUD Video Record Panel", "Mode Selector Switch, MAN/OFF/AUTO") -- From TODO, will change\n
 $Comp
 L Switch:SW_SPDT_MSM SW1
 U 1 1 5FC1E955
@@ -4206,7 +4206,7 @@ U 1 1 616E65BE
 P 5500 3750
 F 0 "J?" H 5528 3726 50  0000 L CNN
 F 1 "Conn_01x08_Female" H 5528 3635 50  0000 L CNN
-F 2 "" H 5500 3750 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 5500 3750 50  0001 C CNN
 F 3 "~" H 5500 3750 50  0001 C CNN
 	1    5500 3750
 	1    0    0    -1  
@@ -4231,7 +4231,7 @@ U 1 1 616E996A
 P 8250 3500
 F 0 "J?" H 8278 3476 50  0000 L CNN
 F 1 "Conn_01x02_Female" H 8278 3385 50  0000 L CNN
-F 2 "" H 8250 3500 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8250 3500 50  0001 C CNN
 F 3 "~" H 8250 3500 50  0001 C CNN
 	1    8250 3500
 	1    0    0    -1  
@@ -4242,7 +4242,7 @@ U 1 1 616EA0B7
 P 8250 4000
 F 0 "J?" H 8278 3976 50  0000 L CNN
 F 1 "Conn_01x02_Female" H 8278 3885 50  0000 L CNN
-F 2 "" H 8250 4000 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8250 4000 50  0001 C CNN
 F 3 "~" H 8250 4000 50  0001 C CNN
 	1    8250 4000
 	1    0    0    -1  
@@ -4253,7 +4253,7 @@ U 1 1 616EA95B
 P 8250 3750
 F 0 "J?" H 8278 3726 50  0000 L CNN
 F 1 "Conn_01x02_Female" H 8278 3635 50  0000 L CNN
-F 2 "" H 8250 3750 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8250 3750 50  0001 C CNN
 F 3 "~" H 8250 3750 50  0001 C CNN
 	1    8250 3750
 	1    0    0    -1  
@@ -4264,7 +4264,7 @@ U 1 1 616EA965
 P 8250 4250
 F 0 "J?" H 8278 4226 50  0000 L CNN
 F 1 "Conn_01x02_Female" H 8278 4135 50  0000 L CNN
-F 2 "" H 8250 4250 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8250 4250 50  0001 C CNN
 F 3 "~" H 8250 4250 50  0001 C CNN
 	1    8250 4250
 	1    0    0    -1  
@@ -4293,7 +4293,7 @@ U 1 1 616EBE99
 P 2600 4300
 F 0 "J?" H 2628 4326 50  0000 L CNN
 F 1 "Conn_01x03_Female" H 2628 4235 50  0000 L CNN
-F 2 "" H 2600 4300 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2600 4300 50  0001 C CNN
 F 3 "~" H 2600 4300 50  0001 C CNN
 	1    2600 4300
 	1    0    0    -1  
@@ -4317,7 +4317,7 @@ L Device:R_POT_US RV?
 U 1 1 616ECBAF
 P 1900 3550
 F 0 "RV?" H 1833 3596 50  0000 R CNN
-F 1 "IFEI Brightness" H 1833 3505 50  0000 R CNN
+F 1 "IFEI NEXTRON" H 1833 3505 50  0000 R CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 3550 50  0001 C CNN
 F 3 "~" H 1900 3550 50  0001 C CNN
 	1    1900 3550
@@ -4329,7 +4329,7 @@ U 1 1 616ECBB9
 P 2600 3550
 F 0 "J?" H 2628 3576 50  0000 L CNN
 F 1 "Conn_01x03_Female" H 2628 3485 50  0000 L CNN
-F 2 "" H 2600 3550 50  0001 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2600 3550 50  0001 C CNN
 F 3 "~" H 2600 3550 50  0001 C CNN
 	1    2600 3550
 	1    0    0    -1  
@@ -4352,4 +4352,6 @@ Text Label 2600 3150 2    50   ~ 0
 THROUGH-TO-NEXTRON
 Text Label 2350 3900 2    50   ~ 0
 TO-AURDUINO
+NoConn ~ 3100 3150
+NoConn ~ 5300 4150
 $EndSCHEMATC
