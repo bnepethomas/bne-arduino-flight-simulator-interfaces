@@ -1102,34 +1102,22 @@ F 3 "~" H 8400 8850 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 NoConn ~ 9400 7400
-Text Label 8600 8950 0    50   ~ 0
-DRow0
-Text Label 8600 9050 0    50   ~ 0
-DRow1
 Text Label 8600 8750 0    50   ~ 0
-DCol5
+DRow0
 Text Label 8600 8850 0    50   ~ 0
+DRow1
+Text Label 8600 8950 0    50   ~ 0
+DCol5
+Text Label 8600 9050 0    50   ~ 0
 DCol6
 Text Notes 4400 650  0    50   ~ 0
 Unlike inputs - connectors with Rows and Coumns have Rows first as the rows as the annodes
-$Comp
-L Connector:Conn_01x04_Female J17
-U 1 1 616C5E60
-P 7450 2000
-F 0 "J17" H 7342 2285 50  0000 C CNN
-F 1 "LEFT DIST" H 7342 2194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 7450 2000 50  0001 C CNN
-F 3 "~" H 7450 2000 50  0001 C CNN
-	1    7450 2000
-	-1   0    0    -1  
-$EndComp
-Text Label 7650 1900 0    50   ~ 0
+Text Label 7650 2150 0    50   ~ 0
 ACol5
-NoConn ~ 7650 2000
 NoConn ~ 9200 2900
-Text Label 7650 2100 0    50   ~ 0
+Text Label 7650 1950 0    50   ~ 0
 ARow2
-Text Label 7650 2200 0    50   ~ 0
+Text Label 7650 2050 0    50   ~ 0
 ARow3
 Text Label 7050 2050 0    50   ~ 0
 ACol5
@@ -1529,6 +1517,15 @@ F 3 "~" H 14750 8950 50  0001 C CNN
 $EndComp
 Text Notes 12400 5950 0    50   ~ 0
 THIS ALLOWS FOR SPEARATE DIMMING \nOF AOA HAVEN’T VALIDATED IF ANYTHING ELSE IS SEPARATELY DIMMED
-Text Notes 5350 1200 0    118  Italic 24
-PERHAPS REDO LEFT AND RIGHT DIST SO LED OUTPUTS ARE STANDARDISED
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 61723E00
+P 7450 2050
+F 0 "J?" H 7342 2335 50  0000 C CNN
+F 1 "LEFT DIST" H 7342 2244 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 7450 2050 50  0001 C CNN
+F 3 "~" H 7450 2050 50  0001 C CNN
+	1    7450 2050
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC
