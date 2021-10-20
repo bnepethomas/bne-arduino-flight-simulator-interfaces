@@ -27,10 +27,10 @@ F 3 "http://www.ti.com/lit/ds/symlink/uln2003a.pdf" H 4150 3900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J2
+L Connector:Conn_01x02_Female J3
 U 1 1 6073DAF2
 P 3900 2150
-F 0 "J2" H 3792 2335 50  0000 C CNN
+F 0 "J3" H 3792 2335 50  0000 C CNN
 F 1 "12V Power In" H 3792 2244 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3900 2150 50  0001 C CNN
 F 3 "~" H 3900 2150 50  0001 C CNN
@@ -73,10 +73,10 @@ In_Pitot_Heat_Mag
 Text Label 4450 4000 0    50   ~ 0
 Out_Pitot_Heat_Mag
 $Comp
-L Connector:Conn_01x04_Female J7
+L Connector:Conn_01x04_Female J13
 U 1 1 6075F258
 P 8050 3550
-F 0 "J7" H 8078 3526 50  0000 L CNN
+F 0 "J13" H 8078 3526 50  0000 L CNN
 F 1 "ECS" H 8078 3435 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 8050 3550 50  0001 C CNN
 F 3 "~" H 8050 3550 50  0001 C CNN
@@ -92,10 +92,10 @@ Out_Bleed_Air_Sol
 Text Label 7850 3750 2    50   ~ 0
 Out_Pitot_Heat_Mag
 $Comp
-L Connector:Conn_01x03_Female J15
+L Connector:Conn_01x03_Female J19
 U 1 1 60769A26
 P 9850 5950
-F 0 "J15" H 9878 5976 50  0000 L CNN
+F 0 "J19" H 9878 5976 50  0000 L CNN
 F 1 "Hyd Press 2 Out" H 9878 5885 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 9850 5950 50  0001 C CNN
 F 3 "~" H 9850 5950 50  0001 C CNN
@@ -109,10 +109,10 @@ Wire Notes Line
 Wire Notes Line
 	6800 1950 6800 1050
 $Comp
-L Connector:Conn_01x02_Female J8
+L Connector:Conn_01x02_Female J14
 U 1 1 60760DE9
 P 8050 4150
-F 0 "J8" H 8078 4126 50  0000 L CNN
+F 0 "J14" H 8078 4126 50  0000 L CNN
 F 1 "SNSR" H 8078 4035 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8050 4150 50  0001 C CNN
 F 3 "~" H 8050 4150 50  0001 C CNN
@@ -128,10 +128,10 @@ Out_Laser_Arm_Mag
 Text Label 7850 4250 2    50   ~ 0
 Out_Laser_Arm_Mag
 $Comp
-L Connector:Conn_01x02_Female J9
+L Connector:Conn_01x02_Female J15
 U 1 1 60762C83
 P 8050 4550
-F 0 "J9" H 8078 4526 50  0000 L CNN
+F 0 "J15" H 8078 4526 50  0000 L CNN
 F 1 "CANOPY" H 8078 4435 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8050 4550 50  0001 C CNN
 F 3 "~" H 8050 4550 50  0001 C CNN
@@ -149,10 +149,10 @@ Out_Canopy_Mag
 Text Label 2700 4600 0    50   ~ 0
 GND
 $Comp
-L Connector:Conn_01x03_Female J14
+L Connector:Conn_01x03_Female J18
 U 1 1 60769955
 P 9850 5300
-F 0 "J14" H 9878 5326 50  0000 L CNN
+F 0 "J18" H 9878 5326 50  0000 L CNN
 F 1 "Hyd Press 1 Out" H 9878 5235 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 9850 5300 50  0001 C CNN
 F 3 "~" H 9850 5300 50  0001 C CNN
@@ -160,10 +160,10 @@ F 3 "~" H 9850 5300 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Female J11
+L Connector:Conn_01x03_Female J17
 U 1 1 6076C0DC
 P 8400 6000
-F 0 "J11" H 8428 6026 50  0000 L CNN
+F 0 "J17" H 8428 6026 50  0000 L CNN
 F 1 "Batt E Out" H 8428 5935 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 8400 6000 50  0001 C CNN
 F 3 "~" H 8400 6000 50  0001 C CNN
@@ -171,10 +171,10 @@ F 3 "~" H 8400 6000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Female J10
+L Connector:Conn_01x03_Female J16
 U 1 1 6076C0F3
 P 8400 5350
-F 0 "J10" H 8428 5376 50  0000 L CNN
+F 0 "J16" H 8428 5376 50  0000 L CNN
 F 1 "Batt U Out" H 8428 5285 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 8400 5350 50  0001 C CNN
 F 3 "~" H 8400 5350 50  0001 C CNN
@@ -226,10 +226,10 @@ F 3 "~" H 9600 2850 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x04_Female J12
+L Connector:Conn_01x04_Female J7
 U 1 1 607D59AF
 P 6550 5350
-F 0 "J12" H 6578 5376 50  0000 L CNN
+F 0 "J7" H 6578 5376 50  0000 L CNN
 F 1 "ALT STEPPER OUT" H 6578 5285 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 6550 5350 50  0001 C CNN
 F 3 "~" H 6550 5350 50  0001 C CNN
@@ -256,10 +256,10 @@ Wire Wire Line
 Wire Wire Line
 	6350 5550 5650 5550
 $Comp
-L Connector:Conn_01x03_Female J13
+L Connector:Conn_01x03_Female J8
 U 1 1 607D83EC
 P 6700 6000
-F 0 "J13" H 6728 6026 50  0000 L CNN
+F 0 "J8" H 6728 6026 50  0000 L CNN
 F 1 "ALT FLAG OUT" H 6728 5935 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 6700 6000 50  0001 C CNN
 F 3 "~" H 6700 6000 50  0001 C CNN
@@ -315,10 +315,10 @@ HYD_PRESS_1_PWM
 Text Label 9650 5850 2    50   ~ 0
 HYD_PRESS_2_PWM
 $Comp
-L Connector:Conn_01x06_Female J19
+L Connector:Conn_01x06_Female J5
 U 1 1 607BAB62
 P 5450 6750
-F 0 "J19" H 5342 7135 50  0000 C CNN
+F 0 "J5" H 5342 7135 50  0000 C CNN
 F 1 "SERVO IN" H 5342 7044 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 5450 6750 50  0001 C CNN
 F 3 "~" H 5450 6750 50  0001 C CNN
@@ -326,10 +326,10 @@ F 3 "~" H 5450 6750 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J18
+L Connector:Conn_01x02_Female J2
 U 1 1 607BCA06
 P 3850 2650
-F 0 "J18" H 3742 2835 50  0000 C CNN
+F 0 "J2" H 3742 2835 50  0000 C CNN
 F 1 "5V Power In" H 3742 2744 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3850 2650 50  0001 C CNN
 F 3 "~" H 3850 2650 50  0001 C CNN
@@ -353,54 +353,10 @@ HYD_PRESS_1_PWM
 Text Label 5650 6950 0    50   ~ 0
 HYD_PRESS_2_PWM
 $Comp
-L Device:LED D1
-U 1 1 607BBA84
-P 7250 1500
-F 0 "D1" V 7289 1382 50  0000 R CNN
-F 1 "HOOK LED 1" V 7198 1382 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7250 1500 50  0001 C CNN
-F 3 "~" H 7250 1500 50  0001 C CNN
-	1    7250 1500
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:LED D3
-U 1 1 607BC55E
-P 8100 1500
-F 0 "D3" V 8139 1382 50  0000 R CNN
-F 1 "HOOK LED 2" V 8048 1382 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8100 1500 50  0001 C CNN
-F 3 "~" H 8100 1500 50  0001 C CNN
-	1    8100 1500
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:LED D2
-U 1 1 607BCDBD
-P 7250 2850
-F 0 "D2" V 7289 2733 50  0000 R CNN
-F 1 "ALT GREEN" V 7198 2733 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7250 2850 50  0001 C CNN
-F 3 "~" H 7250 2850 50  0001 C CNN
-	1    7250 2850
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:LED D4
-U 1 1 607BD652
-P 8150 2850
-F 0 "D4" V 8189 2732 50  0000 R CNN
-F 1 "ALT RED" V 8098 2732 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8150 2850 50  0001 C CNN
-F 3 "~" H 8150 2850 50  0001 C CNN
-	1    8150 2850
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Connector:Conn_01x04_Female J3
+L Connector:Conn_01x04_Female J6
 U 1 1 607C4773
 P 5950 1600
-F 0 "J3" H 5842 1885 50  0000 C CNN
+F 0 "J6" H 5842 1885 50  0000 C CNN
 F 1 "LED IN" H 5842 1794 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 5950 1600 50  0001 C CNN
 F 3 "~" H 5950 1600 50  0001 C CNN
@@ -411,29 +367,29 @@ Wire Notes Line
 	8550 1950 6800 1950
 Text Notes 7600 1150 0    50   ~ 0
 HOOK
-Text Label 6150 1500 0    50   ~ 0
-LEDCOL1
-Text Label 6150 1600 0    50   ~ 0
-LEDCOL2
 Text Label 6150 1700 0    50   ~ 0
-LEDROW1
+LEDCOL1
 Text Label 6150 1800 0    50   ~ 0
-LEDROW2
-Text Label 7250 1350 0    50   ~ 0
-LEDCOL1
-Text Label 7250 1650 2    50   ~ 0
-LEDROW1
-Text Label 8100 1650 2    50   ~ 0
-LEDROW1
-Text Label 8100 1350 0    50   ~ 0
 LEDCOL2
-Text Label 7250 2700 0    50   ~ 0
-LEDCOL1
-Text Label 8150 2700 0    50   ~ 0
-LEDCOL2
-Text Label 7250 3000 2    50   ~ 0
+Text Label 6150 1500 0    50   ~ 0
+LEDROW1
+Text Label 6150 1600 0    50   ~ 0
 LEDROW2
-Text Label 8150 3000 2    50   ~ 0
+Text Label 7200 1550 0    50   ~ 0
+LEDCOL1
+Text Label 7200 1450 0    50   ~ 0
+LEDROW1
+Text Label 8000 1450 0    50   ~ 0
+LEDROW1
+Text Label 8000 1550 0    50   ~ 0
+LEDCOL2
+Text Label 7250 2950 0    50   ~ 0
+LEDCOL1
+Text Label 8100 2950 0    50   ~ 0
+LEDCOL2
+Text Label 7250 2850 0    50   ~ 0
+LEDROW2
+Text Label 8100 2850 0    50   ~ 0
 LEDROW2
 NoConn ~ 2700 4300
 NoConn ~ 2700 4400
@@ -449,4 +405,48 @@ Wire Wire Line
 NoConn ~ 4450 4300
 NoConn ~ 4450 4400
 NoConn ~ 4450 4500
+$Comp
+L Connector:Conn_01x02_Female J9
+U 1 1 61712798
+P 7000 1450
+F 0 "J9" H 6892 1635 50  0000 C CNN
+F 1 "HOOK LED 1" H 6892 1544 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7000 1450 50  0001 C CNN
+F 3 "~" H 7000 1450 50  0001 C CNN
+	1    7000 1450
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J11
+U 1 1 61713299
+P 7800 1450
+F 0 "J11" H 7692 1635 50  0000 C CNN
+F 1 "HOOKLED2" H 7692 1544 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7800 1450 50  0001 C CNN
+F 3 "~" H 7800 1450 50  0001 C CNN
+	1    7800 1450
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J10
+U 1 1 61713CA4
+P 7050 2850
+F 0 "J10" H 6942 3035 50  0000 C CNN
+F 1 "ALT GREEN" H 6942 2944 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7050 2850 50  0001 C CNN
+F 3 "~" H 7050 2850 50  0001 C CNN
+	1    7050 2850
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J12
+U 1 1 61713CAE
+P 7900 2850
+F 0 "J12" H 7792 3035 50  0000 C CNN
+F 1 "ALT RED" H 7792 2944 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7900 2850 50  0001 C CNN
+F 3 "~" H 7900 2850 50  0001 C CNN
+	1    7900 2850
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC

@@ -53,17 +53,6 @@ Wire Wire Line
 	2700 4100 3650 4100
 Wire Wire Line
 	2700 4200 3650 4200
-$Comp
-L Connector:Conn_01x08_Female J1
-U 1 1 6074D9D3
-P 2500 4200
-F 0 "J1" H 2392 4785 50  0000 C CNN
-F 1 "Central Output" H 2392 4694 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 2500 4200 50  0001 C CNN
-F 3 "~" H 2500 4200 50  0001 C CNN
-	1    2500 4200
-	-1   0    0    -1  
-$EndComp
 Text Label 2850 3900 0    50   ~ 0
 In_Bleed_Air_Sol
 Text Label 4450 3900 0    50   ~ 0
@@ -146,7 +135,7 @@ Text Label 2850 4200 0    50   ~ 0
 In_Canopy_Mag
 Text Label 4450 4200 0    50   ~ 0
 Out_Canopy_Mag
-Text Label 2700 4600 0    50   ~ 0
+Text Label 2700 4400 0    50   ~ 0
 GND
 $Comp
 L Connector:Conn_01x03_Female J18
@@ -391,9 +380,6 @@ Text Label 7250 2850 0    50   ~ 0
 LEDROW2
 Text Label 8100 2850 0    50   ~ 0
 LEDROW2
-NoConn ~ 2700 4300
-NoConn ~ 2700 4400
-NoConn ~ 2700 4500
 Text Label 3650 4300 2    50   ~ 0
 GND
 Text Label 3650 4400 2    50   ~ 0
@@ -449,4 +435,16 @@ F 3 "~" H 7900 2850 50  0001 C CNN
 	1    7900 2850
 	-1   0    0    -1  
 $EndComp
+$Comp
+L Connector:Conn_01x06_Female J1
+U 1 1 6170FE67
+P 2500 4100
+F 0 "J1" H 2392 4485 50  0000 C CNN
+F 1 "CENTRAL OUTPUT" H 2392 4394 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 2500 4100 50  0001 C CNN
+F 3 "~" H 2500 4100 50  0001 C CNN
+	1    2500 4100
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 2700 4300
 $EndSCHEMATC
