@@ -1,0 +1,155 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 2
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector:Conn_01x02_Female J26
+U 1 1 60F88811
+P 2950 2100
+F 0 "J26" H 2978 2076 50  0000 L CNN
+F 1 "PEDAL POWER IN" H 2978 1985 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2950 2100 50  0001 C CNN
+F 3 "~" H 2950 2100 50  0001 C CNN
+	1    2950 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J29
+U 1 1 60F889CC
+P 4100 3400
+F 0 "J29" H 4128 3376 50  0000 L CNN
+F 1 "Directional Move Switch" H 4128 3285 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 4100 3400 50  0001 C CNN
+F 3 "~" H 4100 3400 50  0001 C CNN
+	1    4100 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0101
+U 1 1 60F8A19D
+P 2750 2200
+F 0 "#PWR0101" H 2750 1950 50  0001 C CNN
+F 1 "GND" H 2755 2027 50  0000 C CNN
+F 2 "" H 2750 2200 50  0001 C CNN
+F 3 "" H 2750 2200 50  0001 C CNN
+	1    2750 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+12V #PWR0102
+U 1 1 60F8A2AC
+P 2750 2100
+F 0 "#PWR0102" H 2750 1950 50  0001 C CNN
+F 1 "+12V" H 2765 2273 50  0000 C CNN
+F 2 "" H 2750 2100 50  0001 C CNN
+F 3 "" H 2750 2100 50  0001 C CNN
+	1    2750 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J27
+U 1 1 60F8A71F
+P 3000 3400
+F 0 "J27" H 2892 3585 50  0000 C CNN
+F 1 "To Motor" H 2892 3494 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3000 3400 50  0001 C CNN
+F 3 "~" H 3000 3400 50  0001 C CNN
+	1    3000 3400
+	-1   0    0    -1  
+$EndComp
+Text Notes 4550 4050 0    50   ~ 0
+Power Connectors are swapped on switch connector so polarity is inverted
+$Comp
+L Connector:Conn_01x02_Female J28
+U 1 1 60F8BE77
+P 4100 2800
+F 0 "J28" H 4128 2776 50  0000 L CNN
+F 1 "Rear Limit Switch" H 4128 2685 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4100 2800 50  0001 C CNN
+F 3 "~" H 4100 2800 50  0001 C CNN
+	1    4100 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+12V #PWR0103
+U 1 1 60F8C5E1
+P 3900 2800
+F 0 "#PWR0103" H 3900 2650 50  0001 C CNN
+F 1 "+12V" H 3915 2973 50  0000 C CNN
+F 2 "" H 3900 2800 50  0001 C CNN
+F 3 "" H 3900 2800 50  0001 C CNN
+	1    3900 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J30
+U 1 1 60F8C71D
+P 4100 4050
+F 0 "J30" H 4128 4026 50  0000 L CNN
+F 1 "Forward Limit Switch" H 4128 3935 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4100 4050 50  0001 C CNN
+F 3 "~" H 4100 4050 50  0001 C CNN
+	1    4100 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+12V #PWR0104
+U 1 1 60F8CCFD
+P 3900 4050
+F 0 "#PWR0104" H 3900 3900 50  0001 C CNN
+F 1 "+12V" H 3915 4223 50  0000 C CNN
+F 2 "" H 3900 4050 50  0001 C CNN
+F 3 "" H 3900 4050 50  0001 C CNN
+	1    3900 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3900 4150 3550 4150
+Wire Wire Line
+	3550 4150 3550 3700
+Wire Wire Line
+	3550 3700 3900 3700
+Wire Wire Line
+	3900 2900 3550 2900
+Wire Wire Line
+	3550 2900 3550 3200
+Wire Wire Line
+	3550 3200 3900 3200
+Wire Wire Line
+	3900 3300 3700 3300
+Wire Wire Line
+	3700 3300 3700 3600
+Wire Wire Line
+	3700 3600 3900 3600
+$Comp
+L power:GND #PWR0105
+U 1 1 60F8FD93
+P 3250 3650
+F 0 "#PWR0105" H 3250 3400 50  0001 C CNN
+F 1 "GND" H 3255 3477 50  0000 C CNN
+F 2 "" H 3250 3650 50  0001 C CNN
+F 3 "" H 3250 3650 50  0001 C CNN
+	1    3250 3650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 3600 3250 3600
+Wire Wire Line
+	3250 3600 3250 3650
+Connection ~ 3700 3600
+Wire Wire Line
+	3900 3400 3200 3400
+Wire Wire Line
+	3900 3500 3200 3500
+$EndSCHEMATC

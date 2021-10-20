@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 1
+Sheet 1 2
 Title ""
 Date ""
 Rev ""
@@ -14116,4 +14116,10 @@ F 3 "~" H 10300 3600 50  0001 C CNN
 	1    10300 3600
 	1    0    0    -1  
 $EndComp
+$Sheet
+S 3000 7050 700  200 
+U 61708C95
+F0 "PEDAL OUT" 50
+F1 "COPY OF PEDEAL OUTsch.sch" 50
+$EndSheet
 $EndSCHEMATC
