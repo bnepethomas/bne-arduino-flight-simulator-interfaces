@@ -27,10 +27,10 @@ F 3 "http://www.ti.com/lit/ds/symlink/uln2003a.pdf" H 4150 3900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J2
+L Connector:Conn_01x02_Female J3
 U 1 1 6073DAF2
 P 5350 2300
-F 0 "J2" H 5242 2485 50  0000 C CNN
+F 0 "J3" H 5242 2485 50  0000 C CNN
 F 1 "Power In" H 5242 2394 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5350 2300 50  0001 C CNN
 F 3 "~" H 5350 2300 50  0001 C CNN
@@ -46,10 +46,10 @@ Text Label 4450 3700 0    50   ~ 0
 Text Label 4050 4700 0    50   ~ 0
 GND
 $Comp
-L Connector:Conn_01x02_Female J5
+L Connector:Conn_01x02_Female J7
 U 1 1 60740F05
 P 8000 1700
-F 0 "J5" H 8028 1676 50  0000 L CNN
+F 0 "J7" H 8028 1676 50  0000 L CNN
 F 1 "Landing Gear Sol" H 8028 1585 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8000 1700 50  0001 C CNN
 F 3 "~" H 8000 1700 50  0001 C CNN
@@ -94,10 +94,10 @@ In_Launch_Bar_Mag
 Text Label 4450 4000 0    50   ~ 0
 Out_Launch_Bar_Mag
 $Comp
-L Connector:Conn_01x04_Female J7
+L Connector:Conn_01x04_Female J8
 U 1 1 6075F258
 P 8000 2750
-F 0 "J7" H 8028 2726 50  0000 L CNN
+F 0 "J8" H 8028 2726 50  0000 L CNN
 F 1 "Select Jet" H 8028 2635 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 8000 2750 50  0001 C CNN
 F 3 "~" H 8000 2750 50  0001 C CNN
@@ -115,10 +115,10 @@ Out_Hook_Bypass_Mag
 Text Label 7800 2950 2    50   ~ 0
 Out_Hook_Bypass_Mag
 $Comp
-L Connector:Conn_01x04_Female J9
+L Connector:Conn_01x04_Female J10
 U 1 1 60762D4E
 P 8000 3900
-F 0 "J9" H 8028 3876 50  0000 L CNN
+F 0 "J10" H 8028 3876 50  0000 L CNN
 F 1 "Brake Pressure Out" H 8028 3785 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 8000 3900 50  0001 C CNN
 F 3 "~" H 8000 3900 50  0001 C CNN
@@ -126,10 +126,10 @@ F 3 "~" H 8000 3900 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x04_Female J3
+L Connector:Conn_01x04_Female J4
 U 1 1 60765586
 P 7400 3900
-F 0 "J3" H 7292 4185 50  0000 C CNN
+F 0 "J4" H 7292 4185 50  0000 C CNN
 F 1 "Brake Pressure In" H 7292 4094 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 7400 3900 50  0001 C CNN
 F 3 "~" H 7400 3900 50  0001 C CNN
@@ -151,10 +151,10 @@ Out_Fuel_Dump_Mag
 Text Label 2850 4100 0    50   ~ 0
 In_Hook_Bypass_Mag
 $Comp
-L Connector:Conn_01x02_Female J8
+L Connector:Conn_01x02_Female J9
 U 1 1 60768592
 P 8000 3300
-F 0 "J8" H 8028 3276 50  0000 L CNN
+F 0 "J9" H 8028 3276 50  0000 L CNN
 F 1 "Fuel Dump" H 8028 3185 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8000 3300 50  0001 C CNN
 F 3 "~" H 8000 3300 50  0001 C CNN
@@ -166,10 +166,10 @@ Out_Fuel_Dump_Mag
 Text Label 7800 3300 2    50   ~ 0
 +12V
 $Comp
-L Connector:Conn_01x03_Female J12
+L Connector:Conn_01x03_Female J13
 U 1 1 60769A26
 P 10000 5950
-F 0 "J12" H 10028 5976 50  0000 L CNN
+F 0 "J13" H 10028 5976 50  0000 L CNN
 F 1 "Trim Servo Out" H 10028 5885 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 10000 5950 50  0001 C CNN
 F 3 "~" H 10000 5950 50  0001 C CNN
@@ -177,10 +177,10 @@ F 3 "~" H 10000 5950 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Female J11
+L Connector:Conn_01x03_Female J12
 U 1 1 6076A1A4
 P 9150 5950
-F 0 "J11" H 9042 6235 50  0000 C CNN
+F 0 "J12" H 9042 6235 50  0000 C CNN
 F 1 "Trim Servo In" H 9042 6144 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 9150 5950 50  0001 C CNN
 F 3 "~" H 9150 5950 50  0001 C CNN
@@ -198,10 +198,10 @@ In_APU_Mag
 Text Label 4450 4300 0    50   ~ 0
 Out_APU_Mag
 $Comp
-L Connector:Conn_01x04_Female J10
+L Connector:Conn_01x04_Female J11
 U 1 1 6076D2F2
 P 8000 5100
-F 0 "J10" H 8028 5076 50  0000 L CNN
+F 0 "J11" H 8028 5076 50  0000 L CNN
 F 1 "APU" H 8028 4985 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 8000 5100 50  0001 C CNN
 F 3 "~" H 8000 5100 50  0001 C CNN
@@ -306,56 +306,53 @@ Text Label 9350 5950 0    50   ~ 0
 SERVO_5V
 Text Label 9350 6050 0    50   ~ 0
 SERVO_GND
-$Comp
-L Connector:Conn_01x04_Female J4
-U 1 1 607BD540
-P 4400 6950
-F 0 "J4" H 4292 7235 50  0000 C CNN
-F 1 "LED IN" H 4292 7144 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 4400 6950 50  0001 C CNN
-F 3 "~" H 4400 6950 50  0001 C CNN
-	1    4400 6950
-	-1   0    0    -1  
-$EndComp
-Text Label 4600 6850 0    50   ~ 0
+Text Label 4650 6300 0    50   ~ 0
 LEDCOL1
-Text Label 4600 6950 0    50   ~ 0
-LEDCOL2
-Text Label 4600 7050 0    50   ~ 0
+Text Label 4650 6100 0    50   ~ 0
 LEDROW1
-Text Label 4600 7150 0    50   ~ 0
+Text Label 4650 6200 0    50   ~ 0
 LEDROW2
 NoConn ~ 2700 4600
 NoConn ~ 2700 4700
-$Comp
-L Device:LED D1
-U 1 1 607BEAA0
-P 7650 5800
-F 0 "D1" V 7689 5682 50  0000 R CNN
-F 1 "APU LED" V 7598 5682 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7650 5800 50  0001 C CNN
-F 3 "~" H 7650 5800 50  0001 C CNN
-	1    7650 5800
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:LED D2
-U 1 1 607BFDB4
-P 7900 2100
-F 0 "D2" V 7939 1983 50  0000 R CNN
-F 1 "LANDING GEAR LED" V 7848 1983 50  0000 R CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7900 2100 50  0001 C CNN
-F 3 "~" H 7900 2100 50  0001 C CNN
-	1    7900 2100
-	0    -1   -1   0   
-$EndComp
-Text Label 7650 5650 0    50   ~ 0
+Text Label 7750 5850 0    50   ~ 0
 LEDCOL1
-Text Label 7650 5950 2    50   ~ 0
+Text Label 7750 5750 0    50   ~ 0
 LEDROW1
-Text Label 7900 1950 0    50   ~ 0
+Text Label 8000 2250 0    50   ~ 0
 LEDCOL1
-Text Label 7900 2250 2    50   ~ 0
+Text Label 8000 2150 0    50   ~ 0
 LEDROW2
-NoConn ~ 4600 6950
+$Comp
+L Connector:Conn_01x02_Female J5
+U 1 1 61709A1F
+P 7550 5750
+F 0 "J5" H 7442 5935 50  0000 C CNN
+F 1 "APU LED" H 7442 5844 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7550 5750 50  0001 C CNN
+F 3 "~" H 7550 5750 50  0001 C CNN
+	1    7550 5750
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J6
+U 1 1 6170C2D5
+P 7800 2150
+F 0 "J6" H 7692 2335 50  0000 C CNN
+F 1 "LANDING GEAR LED" H 7692 2244 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7800 2150 50  0001 C CNN
+F 3 "~" H 7800 2150 50  0001 C CNN
+	1    7800 2150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J2
+U 1 1 6170EF5B
+P 4450 6200
+F 0 "J2" H 4342 6485 50  0000 C CNN
+F 1 "LED IN" H 4342 6394 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4450 6200 50  0001 C CNN
+F 3 "~" H 4450 6200 50  0001 C CNN
+	1    4450 6200
+	-1   0    0    -1  
+$EndComp
 $EndSCHEMATC
