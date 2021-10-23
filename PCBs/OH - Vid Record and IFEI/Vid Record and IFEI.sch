@@ -16,10 +16,10 @@ $EndDescr
 Text Notes 900  1650 0    50   ~ 0
 -- 23. HUD Video Record Panel\ndefinePotentiometer("IFEI", 33, 3007, 174, {0, 1}, "HUD Video Record Panel", "Brightness Control Knob")\ndefine3PosTumb("SELECT_HMD_LDDI_RDDI", 0, 3104, 175, "HUD Video Record Panel", "Selector Switch, HMD/LDDI/RDDI") -- From TODO, will change\ndefine3PosTumb("SELECT_HUD_LDDI_RDDI", 0, 3105, 176, "HUD Video Record Panel", "Selector Switch, HUD/LDIR/RDDI") -- From TODO, will change\ndefine3PosTumb("MODE_SELECTOR_SW", 0, 3106, 176, "HUD Video Record Panel", "Mode Selector Switch, MAN/OFF/AUTO") -- From TODO, will change\n
 $Comp
-L Switch:SW_SPDT_MSM SW1
+L Switch:SW_SPDT_MSM SW3
 U 1 1 5FC1E955
 P 3650 5150
-F 0 "SW1" H 3650 5435 50  0000 C CNN
+F 0 "SW3" H 3650 5435 50  0000 C CNN
 F 1 "MAN OFF AUTO" H 3650 5344 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 3650 5150 50  0001 C CNN
 F 3 "~" H 3650 5150 50  0001 C CNN
@@ -31,10 +31,10 @@ Instructions
 Text Notes 900  6900 0    63   ~ 0
 1: Copy section from Inputs-Outputs-from-DCS-BIOS in Templates directory to top of Input-Output-from DCS-BIOS, and panel into top left hand corner\n\n2: Grab section of image from NeoEngress_FA-18C_Full_Layout_-_4220x5200 and paste \n\n3: Don’t forget outputs such as gauges, lights and Mag Switches\n\n4: After editing diagram reset numbering during Net generation\n
 $Comp
-L Switch:SW_SPST SW?
+L Switch:SW_SPST SW2
 U 1 1 5FC61E34
 P 1950 5450
-F 0 "SW?" H 1950 5685 50  0000 C CNN
+F 0 "SW2" H 1950 5685 50  0000 C CNN
 F 1 "L DDI / HUD" H 1950 5594 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1950 5450 50  0001 C CNN
 F 3 "~" H 1950 5450 50  0001 C CNN
@@ -42,10 +42,10 @@ F 3 "~" H 1950 5450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R_POT_US RV?
+L Device:R_POT_US RV2
 U 1 1 5FC6ABA0
 P 1900 4300
-F 0 "RV?" H 1833 4346 50  0000 R CNN
+F 0 "RV2" H 1833 4346 50  0000 R CNN
 F 1 "IFEI Brightness" H 1833 4255 50  0000 R CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 4300 50  0001 C CNN
 F 3 "~" H 1900 4300 50  0001 C CNN
@@ -4116,10 +4116,10 @@ D3 41 83 20 00 00 00 00 49 45 4E 44 AE 42 60 82
 EndData
 $EndBitmap
 $Comp
-L Switch:SW_SPST SW?
+L Switch:SW_SPST SW1
 U 1 1 616DA249
 P 1900 5000
-F 0 "SW?" H 1900 5235 50  0000 C CNN
+F 0 "SW1" H 1900 5235 50  0000 C CNN
 F 1 "IFEI Off" H 1900 5144 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1900 5000 50  0001 C CNN
 F 3 "~" H 1900 5000 50  0001 C CNN
@@ -4127,10 +4127,10 @@ F 3 "~" H 1900 5000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x06_Female J?
+L Connector:Conn_01x06_Female J3
 U 1 1 616DA99D
 P 2900 2850
-F 0 "J?" H 2792 3235 50  0000 C CNN
+F 0 "J3" H 2792 3235 50  0000 C CNN
 F 1 "IFEI Buttons" H 2792 3144 50  0000 C CNN
 F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 2900 2850 50  0001 C CNN
 F 3 "~" H 2900 2850 50  0001 C CNN
@@ -4156,10 +4156,10 @@ COL-3
 Text Label 2950 5150 2    50   ~ 0
 COL-4
 $Comp
-L Device:D D?
+L Device:D D3
 U 1 1 616E0F51
 P 3100 5150
-F 0 "D?" H 3100 5366 50  0000 C CNN
+F 0 "D3" H 3100 5366 50  0000 C CNN
 F 1 "D" H 3100 5275 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 3100 5150 50  0001 C CNN
 F 3 "~" H 3100 5150 50  0001 C CNN
@@ -4167,10 +4167,10 @@ F 3 "~" H 3100 5150 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D?
+L Device:D D1
 U 1 1 616E1371
 P 1450 5000
-F 0 "D?" H 1450 5216 50  0000 C CNN
+F 0 "D1" H 1450 5216 50  0000 C CNN
 F 1 "D" H 1450 5125 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1450 5000 50  0001 C CNN
 F 3 "~" H 1450 5000 50  0001 C CNN
@@ -4180,10 +4180,10 @@ $EndComp
 Wire Wire Line
 	1700 5000 1600 5000
 $Comp
-L Device:D D?
+L Device:D D2
 U 1 1 616E3129
 P 1450 5450
-F 0 "D?" H 1450 5666 50  0000 C CNN
+F 0 "D2" H 1450 5666 50  0000 C CNN
 F 1 "D" H 1450 5575 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 1450 5450 50  0001 C CNN
 F 3 "~" H 1450 5450 50  0001 C CNN
@@ -4201,11 +4201,11 @@ IFEI-ROW-2
 Wire Wire Line
 	3250 5150 3450 5150
 $Comp
-L Connector:Conn_01x08_Female J?
+L Connector:Conn_01x08_Female J4
 U 1 1 616E65BE
 P 5500 3750
-F 0 "J?" H 5528 3726 50  0000 L CNN
-F 1 "Conn_01x08_Female" H 5528 3635 50  0000 L CNN
+F 0 "J4" H 5528 3726 50  0000 L CNN
+F 1 "SWITCH INPUTS" H 5528 3635 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 5500 3750 50  0001 C CNN
 F 3 "~" H 5500 3750 50  0001 C CNN
 	1    5500 3750
@@ -4226,44 +4226,44 @@ IFEI-ROW-2
 Text Label 5300 4050 2    50   ~ 0
 IFEI-ROW-3
 $Comp
-L Connector:Conn_01x02_Female J?
+L Connector:Conn_01x02_Female J5
 U 1 1 616E996A
 P 8250 3500
-F 0 "J?" H 8278 3476 50  0000 L CNN
-F 1 "Conn_01x02_Female" H 8278 3385 50  0000 L CNN
+F 0 "J5" H 8278 3476 50  0000 L CNN
+F 1 "BKLGHT" H 8278 3385 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8250 3500 50  0001 C CNN
 F 3 "~" H 8250 3500 50  0001 C CNN
 	1    8250 3500
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J?
+L Connector:Conn_01x02_Female J7
 U 1 1 616EA0B7
 P 8250 4000
-F 0 "J?" H 8278 3976 50  0000 L CNN
-F 1 "Conn_01x02_Female" H 8278 3885 50  0000 L CNN
+F 0 "J7" H 8278 3976 50  0000 L CNN
+F 1 "BKLGHT" H 8278 3885 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8250 4000 50  0001 C CNN
 F 3 "~" H 8250 4000 50  0001 C CNN
 	1    8250 4000
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J?
+L Connector:Conn_01x02_Female J6
 U 1 1 616EA95B
 P 8250 3750
-F 0 "J?" H 8278 3726 50  0000 L CNN
-F 1 "Conn_01x02_Female" H 8278 3635 50  0000 L CNN
+F 0 "J6" H 8278 3726 50  0000 L CNN
+F 1 "BKLGHT" H 8278 3635 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8250 3750 50  0001 C CNN
 F 3 "~" H 8250 3750 50  0001 C CNN
 	1    8250 3750
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J?
+L Connector:Conn_01x02_Female J8
 U 1 1 616EA965
 P 8250 4250
-F 0 "J?" H 8278 4226 50  0000 L CNN
-F 1 "Conn_01x02_Female" H 8278 4135 50  0000 L CNN
+F 0 "J8" H 8278 4226 50  0000 L CNN
+F 1 "BKLGHT" H 8278 4135 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8250 4250 50  0001 C CNN
 F 3 "~" H 8250 4250 50  0001 C CNN
 	1    8250 4250
@@ -4288,11 +4288,11 @@ BACKLIGHT-GND
 Text Label 8050 4350 2    50   ~ 0
 BACKLIGHT-GND
 $Comp
-L Connector:Conn_01x03_Female J?
+L Connector:Conn_01x03_Female J2
 U 1 1 616EBE99
 P 2600 4300
-F 0 "J?" H 2628 4326 50  0000 L CNN
-F 1 "Conn_01x03_Female" H 2628 4235 50  0000 L CNN
+F 0 "J2" H 2628 4326 50  0000 L CNN
+F 1 "IFEI BRIGHTNESS" H 2628 4235 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2600 4300 50  0001 C CNN
 F 3 "~" H 2600 4300 50  0001 C CNN
 	1    2600 4300
@@ -4313,10 +4313,10 @@ Wire Wire Line
 Wire Wire Line
 	1900 4550 1900 4450
 $Comp
-L Device:R_POT_US RV?
+L Device:R_POT_US RV1
 U 1 1 616ECBAF
 P 1900 3550
-F 0 "RV?" H 1833 3596 50  0000 R CNN
+F 0 "RV1" H 1833 3596 50  0000 R CNN
 F 1 "IFEI NEXTRON" H 1833 3505 50  0000 R CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1900 3550 50  0001 C CNN
 F 3 "~" H 1900 3550 50  0001 C CNN
@@ -4324,11 +4324,11 @@ F 3 "~" H 1900 3550 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Female J?
+L Connector:Conn_01x03_Female J1
 U 1 1 616ECBB9
 P 2600 3550
-F 0 "J?" H 2628 3576 50  0000 L CNN
-F 1 "Conn_01x03_Female" H 2628 3485 50  0000 L CNN
+F 0 "J1" H 2628 3576 50  0000 L CNN
+F 1 "IFEI NEXTRON" H 2628 3485 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2600 3550 50  0001 C CNN
 F 3 "~" H 2600 3550 50  0001 C CNN
 	1    2600 3550
@@ -4355,11 +4355,11 @@ TO-AURDUINO
 NoConn ~ 3100 3150
 NoConn ~ 5300 4150
 $Comp
-L Connector:Conn_01x02_Female J?
+L Connector:Conn_01x02_Female J9
 U 1 1 6172E10C
 P 8250 4600
-F 0 "J?" H 8278 4576 50  0000 L CNN
-F 1 "Conn_01x02_Female" H 8278 4485 50  0000 L CNN
+F 0 "J9" H 8278 4576 50  0000 L CNN
+F 1 "BKLGHT" H 8278 4485 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8250 4600 50  0001 C CNN
 F 3 "~" H 8250 4600 50  0001 C CNN
 	1    8250 4600
@@ -4370,11 +4370,11 @@ BACKLIGHT+12V
 Text Label 8050 4700 2    50   ~ 0
 BACKLIGHT-GND
 $Comp
-L Connector:Conn_01x02_Female J?
+L Connector:Conn_01x02_Female J10
 U 1 1 6172F315
 P 8300 4950
-F 0 "J?" H 8328 4926 50  0000 L CNN
-F 1 "Conn_01x02_Female" H 8328 4835 50  0000 L CNN
+F 0 "J10" H 8328 4926 50  0000 L CNN
+F 1 "BKLGHT" H 8328 4835 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 8300 4950 50  0001 C CNN
 F 3 "~" H 8300 4950 50  0001 C CNN
 	1    8300 4950
@@ -4384,4 +4384,48 @@ Text Label 8100 4950 2    50   ~ 0
 BACKLIGHT+12V
 Text Label 8100 5050 2    50   ~ 0
 BACKLIGHT-GND
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 6173AC4F
+P 6100 5200
+F 0 "H1" H 6200 5246 50  0000 L CNN
+F 1 "MountingHole" H 6200 5155 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 6100 5200 50  0001 C CNN
+F 3 "~" H 6100 5200 50  0001 C CNN
+	1    6100 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 6173B346
+P 6100 5400
+F 0 "H2" H 6200 5446 50  0000 L CNN
+F 1 "MountingHole" H 6200 5355 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 6100 5400 50  0001 C CNN
+F 3 "~" H 6100 5400 50  0001 C CNN
+	1    6100 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 6173B7DF
+P 6100 5600
+F 0 "H3" H 6200 5646 50  0000 L CNN
+F 1 "MountingHole" H 6200 5555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 6100 5600 50  0001 C CNN
+F 3 "~" H 6100 5600 50  0001 C CNN
+	1    6100 5600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 6173B7E9
+P 6100 5800
+F 0 "H4" H 6200 5846 50  0000 L CNN
+F 1 "MountingHole" H 6200 5755 50  0000 L CNN
+F 2 "MountingHole:MountingHole_4.3mm_M4" H 6100 5800 50  0001 C CNN
+F 3 "~" H 6100 5800 50  0001 C CNN
+	1    6100 5800
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
