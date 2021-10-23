@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 55)
+    (start_pass_no 1218)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -67,12 +67,13 @@
     "Net-(D7-Pad1)" "/HUD-COL-1" "Net-(D8-Pad1)" "/HUD-COL-2" "Net-(D9-Pad1)" "Net-(D10-Pad1)" "/ECM-COL-2" "Net-(D11-Pad1)"
     "Net-(D12-Pad1)" "Net-(D13-Pad1)" "/ECM-COL-3" "Net-(D14-Pad1)" "/ECM-COL-1" "Net-(D15-Pad1)" "/SPIN-COL1" "Net-(D16-Pad1)"
     "/SPIN-COL2" "Net-(D17-Pad1)" "/SPIN-LED-ANNODE-1" "/SPIN-LED-CATHODE" "/SPIN-LED-ANNODE-2" "/HUD-BAL" "/BLK-LVL" "/HUD-A0A"
-    "/HUD-BRT" "/HUD-ANA-GND" "/HUD-ANA+5V" "/PCB-ROW-2" "/PCB-ROW-1" "/ARM-ROW3" "/BIT-ROW" "Net-(J11-Pad6)"
-    "Net-(J11-Pad5)" "Net-(J11-Pad4)" "Net-(J11-Pad3)" "Net-(J11-Pad2)" "Net-(J11-Pad1)" "/HUD-ROW-3" "/HUD-ROW-2" "/HUD-ROW-1"
-    "Net-(J12-Pad6)" "Net-(J12-Pad5)" "Net-(J10-Pad4)" "Net-(J10-Pad3)" "Net-(J10-Pad2)" "Net-(J10-Pad1)" "/ECM-ROW-5" "/ECM-ROW-4"
-    "/ECM-ROW-3" "/ECM-ROW-2" "/ECM-ROW-1" "/SPIN-ROW2" "/SPIN-ROW1" "Net-(J16-Pad3)" "Net-(J16-Pad2)" "Net-(J16-Pad1)"
-    "Net-(J17-Pad3)" "Net-(J17-Pad2)" "Net-(J17-Pad1)" "Net-(J18-Pad3)" "Net-(J18-Pad2)" "Net-(J18-Pad1)" "Net-(J19-Pad3)" "Net-(J19-Pad2)"
-    "Net-(J19-Pad1)" "Net-(D20-Pad1)" "Net-(D21-Pad1)" "/BIT-LED-COL-1" "/BIT-LED-ROW-1" "/BIT-LED-COL-2"
+    "/HUD-BRT" "/HUD-ANA-GND" "/HUD-ANA+5V" "/PCB-ROW-2" "/PCB-ROW-1" "/ARM-ROW3" "/BIT-ROW" "Net-(J11-Pad2)"
+    "Net-(J11-Pad1)" "/HUD-ROW-3" "/HUD-ROW-2" "/HUD-ROW-1" "/ECM-ROW-5" "/ECM-ROW-4" "/ECM-ROW-3" "/ECM-ROW-2"
+    "/ECM-ROW-1" "/SPIN-ROW2" "/SPIN-ROW1" "Net-(J17-Pad3)" "Net-(J17-Pad2)" "Net-(J17-Pad1)" "Net-(J18-Pad3)" "Net-(J18-Pad2)"
+    "Net-(J18-Pad1)" "/BIT-LED-COL-1" "/BIT-LED-ROW-1" "/BIT-LED-COL-2" GND +12V "Net-(J27-Pad2)" "Net-(J27-Pad1)"
+    "Net-(J28-Pad2)" "Net-(J29-Pad6)" "Net-(D4-Pad1)" "Net-(D5-Pad1)" "Net-(J13-Pad6)" "Net-(J13-Pad5)" "Net-(J13-Pad4)" "Net-(J13-Pad3)"
+    "Net-(J13-Pad2)" "Net-(J13-Pad1)" "Net-(J12-Pad4)" "Net-(J12-Pad3)" "Net-(J12-Pad2)" "Net-(J12-Pad1)" "Net-(J15-Pad3)" "Net-(J15-Pad2)"
+    "Net-(J15-Pad1)" "Net-(J23-Pad3)" "Net-(J23-Pad2)" "Net-(J23-Pad1)" "Net-(J14-Pad5)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
