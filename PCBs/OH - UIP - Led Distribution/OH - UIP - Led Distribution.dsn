@@ -48,11 +48,11 @@
       (place H1 207094 -48303 front 0 (PN MountingHole))
     )
     (component "Package_DIP:DIP-24_W7.62mm_Socket"
-      (place U5 182818 -94669 front 0 (PN "MAX7219ENG-E"))
-      (place U1 126238 -107696 front 0 (PN "MAX7219ENG-C"))
-      (place U4 168402 -47879 front 0 (PN "MAX7219ENG-B"))
-      (place U3 154178 -98933 front 0 (PN "MAX7219ENG-D"))
-      (place U2 128778 -67437 front 0 (PN "MAX7219ENG-A"))
+      (place U5 182818 -94669 front 0 (PN "MAX7219-E"))
+      (place U1 126238 -107696 front 0 (PN "MAX7219-C"))
+      (place U4 168402 -47879 front 0 (PN "MAX7219-B"))
+      (place U3 154178 -98933 front 0 (PN "MAX7219-D"))
+      (place U2 128778 -67437 front 0 (PN "MAX7219-A"))
     )
     (component Resistor_THT:R_Axial_DIN0309_L9.0mm_D3.2mm_P5.08mm_Vertical
       (place R5 188214 -90297 front 0 (PN 10K))
