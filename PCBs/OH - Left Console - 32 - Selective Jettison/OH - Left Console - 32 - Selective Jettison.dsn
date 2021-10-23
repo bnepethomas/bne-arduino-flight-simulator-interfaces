@@ -24,6 +24,10 @@
       (path pcb 0  115443 -122301  66802 -122301  66802 -64770  115443 -64770
             115443 -122301)
     )
+    (keepout "" (polygon F.Cu 0  81851.5 -109220  83439 -110426  84137.5 -112332  83566 -114364
+            81978.5 -115634  80264 -116078  78486 -115189  77470 -113856
+            77279.5 -111760  78295.5 -109918  80518 -109156  80581.5 -109093
+            81851.5 -109220))
     (via "Via[0-1]_800:400_um")
     (rule
       (width 250)
@@ -33,43 +37,50 @@
     )
   )
   (placement
+    (component "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
+      (place D11 109918 -79883 front 270 (PN D))
+      (place D10 113348 -79819.5 front 270 (PN D))
+    )
+    (component PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
+      (place R1 77660.5 -74739.5 front 90 (PN 1K))
+    )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place SW6 102489 -106045 front 0 (PN PARK_BRAKE_2))
-      (place SW5 70612 -118745 front 0 (PN HOOK_BYPASS))
-      (place SW3 93980 -105791 front 0 (PN PARK_BRAKE_1))
-      (place SW2 107315 -86614 front 0 (PN LAUNCH_BAR_SW))
-      (place SW9 71628 -102616 front 0 (PN EMER_BRAKE))
-      (place SW8 71628 -93514.3 front 0 (PN LDG_TAXI_SW))
-      (place SW7 84963 -92583 front 0 (PN ANTI_SKID_SW))
-      (place SW1 71628 -75311 front 0 (PN SEL_JETT_BTN))
-      (place L2 110490 -105283 front 0 (PN "Mag Hook Bypass"))
+      (place J6 71628 -76581 front 270 (PN "BKLGHT OUT"))
+      (place J5 71691.5 -67945 front 270 (PN "BKLGT IN"))
+      (place SW6 102489 -106045 front 0 (PN "PARK BRAKE 2"))
+      (place SW5 110426 -103442 front 0 (PN "HOOK BYPASS SW"))
+      (place SW3 93980 -105791 front 0 (PN "PARK BRAKE 1"))
+      (place SW2 71818.5 -91376.5 front 0 (PN "LAUNCH BAR SW"))
+      (place SW9 71183.5 -108585 front 0 (PN "EMER BRAKE"))
+      (place SW8 71564.5 -99949 front 0 (PN "LDG TAXI SW"))
+      (place SW7 71056.5 -117284 front 0 (PN "ANTI SKID SW"))
+      (place SW1 77152.5 -80264 front 0 (PN "SEL JETT BTN"))
+      (place L2 110490 -95948.5 front 0 (PN "Mag Hook Bypass"))
       (place L1 110363 -74803 front 0 (PN "Mag Launch Bar"))
     )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
-      (place D8 93091 -99187 front 0 (PN D))
+      (place D8 80137 -95927.3 front 0 (PN D))
       (place D1 80137 -107569 front 0 (PN D))
-      (place D11 106172 -98933 front 0 (PN D))
-      (place D10 106299 -81026 front 0 (PN D))
-      (place D12 106299 -96012 front 0 (PN D))
-      (place D9 80391 -98933 front 0 (PN D))
-      (place D7 68326 -109855 front 0 (PN D))
-      (place D6 80264 -104648 front 0 (PN D))
-      (place D5 80391 -101854 front 0 (PN D))
-      (place D4 90297 -86360 front 0 (PN D))
-      (place D3 106299 -93345 front 0 (PN D))
-      (place D2 79502 -76073 front 0 (PN D))
+      (place D12 101854 -91059 front 270 (PN D))
+      (place D9 80137 -98837.7 front 0 (PN D))
+      (place D7 80137 -93016.9 front 0 (PN D))
+      (place D6 80137 -104659 front 0 (PN D))
+      (place D5 80137 -101748 front 0 (PN D))
+      (place D4 80137 -87249 front 0 (PN D))
+      (place D3 104521 -91059 front 270 (PN D))
+      (place D2 80137 -90106.5 front 0 (PN D))
     )
     (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
-      (place SW10 71628 -84412.7 front 0 (PN SEL_JETT_KNOB))
+      (place SW10 83756.5 -80285.2 front 0 (PN "SEL JETT KNOB"))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place SW4 94488 -92710 front 0 (PN FLAP_SW))
+      (place SW4 92138.5 -93218 front 0 (PN "FLAP SW"))
     )
     (component PT_Library_v001:Molex_1x08_P2.54mm_Vertical
-      (place J4 86614 -71120 front 0 (PN "SWITCH INPUTS"))
+      (place J4 86931.5 -70866 front 0 (PN "SWITCH INPUTS"))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place J3 94234 -80645 front 0 (PN "MAG COILS"))
+      (place J3 102616 -78930.5 front 270 (PN "MAG COILS"))
       (place J2 85725 -117221 front 0 (PN "BRAKE PRESS IN"))
       (place J1 97282 -117221 front 0 (PN "BREAK PRESS OUT"))
     )
@@ -81,6 +92,50 @@
     )
   )
   (library
+    (image "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
+      (outline (path signal 50  11510 1600  -1350 1600))
+      (outline (path signal 50  11510 -1600  11510 1600))
+      (outline (path signal 50  -1350 -1600  11510 -1600))
+      (outline (path signal 50  -1350 1600  -1350 -1600))
+      (outline (path signal 120  3140 1470  3140 -1470))
+      (outline (path signal 120  3380 1470  3380 -1470))
+      (outline (path signal 120  3260 1470  3260 -1470))
+      (outline (path signal 120  8820 0  7800 0))
+      (outline (path signal 120  1340 0  2360 0))
+      (outline (path signal 120  7800 1470  2360 1470))
+      (outline (path signal 120  7800 -1470  7800 1470))
+      (outline (path signal 120  2360 -1470  7800 -1470))
+      (outline (path signal 120  2360 1470  2360 -1470))
+      (outline (path signal 100  3160 1350  3160 -1350))
+      (outline (path signal 100  3360 1350  3360 -1350))
+      (outline (path signal 100  3260 1350  3260 -1350))
+      (outline (path signal 100  10160 0  7680 0))
+      (outline (path signal 100  0 0  2480 0))
+      (outline (path signal 100  7680 1350  2480 1350))
+      (outline (path signal 100  7680 -1350  7680 1350))
+      (outline (path signal 100  2480 -1350  7680 -1350))
+      (outline (path signal 100  2480 1350  2480 -1350))
+      (pin Oval[A]Pad_2200x2200_um 2 10160 0)
+      (pin Rect[A]Pad_2200x2200_um 1 0 0)
+    )
+    (image PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
+      (outline (path signal 100  800 0  720.775 -347.107  498.792 -625.465  178.017 -779.942
+            -178.017 -779.942  -498.792 -625.465  -720.775 -347.107  -800 0
+            -720.775 347.107  -498.792 625.465  -178.017 779.942  178.017 779.942
+            498.792 625.465  720.775 347.107  800 0))
+      (outline (path signal 120  920 0  840.462 -374.198  615.6 -683.693  284.296 -874.972
+            -96.166 -914.96  -460 -796.743  -744.296 -540.762  -899.896 -191.279
+            -899.896 191.279  -744.296 540.762  -460 796.743  -96.166 914.96
+            284.296 874.972  615.6 683.693  840.462 374.198  920 0))
+      (outline (path signal 100  0 0  2540 0))
+      (outline (path signal 120  920 0  1540 0))
+      (outline (path signal 50  -1050 1050  -1050 -1050))
+      (outline (path signal 50  -1050 -1050  3490 -1050))
+      (outline (path signal 50  3490 -1050  3490 1050))
+      (outline (path signal 50  3490 1050  -1050 1050))
+      (pin Round[A]Pad_1400_um 1 0 0)
+      (pin Oval[A]Pad_1400x1400_um 2 2540 0)
+    )
     (image PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (outline (path signal 50  4310 3420  -1770 3420))
       (outline (path signal 50  4310 -3380  4310 3420))
@@ -349,6 +404,16 @@
       (keepout "" (circle F.Cu 3200))
       (keepout "" (circle B.Cu 3200))
     )
+    (padstack Round[A]Pad_1400_um
+      (shape (circle F.Cu 1400))
+      (shape (circle B.Cu 1400))
+      (attach off)
+    )
+    (padstack Oval[A]Pad_1400x1400_um
+      (shape (path F.Cu 1400  0 0  0 0))
+      (shape (path B.Cu 1400  0 0  0 0))
+      (attach off)
+    )
     (padstack Oval[A]Pad_1600x1600_um
       (shape (path F.Cu 1600  0 0  0 0))
       (shape (path B.Cu 1600  0 0  0 0))
@@ -357,6 +422,11 @@
     (padstack Oval[A]Pad_1740x2200_um
       (shape (path F.Cu 1740  0 -230  0 230))
       (shape (path B.Cu 1740  0 -230  0 230))
+      (attach off)
+    )
+    (padstack Oval[A]Pad_2200x2200_um
+      (shape (path F.Cu 2200  0 0  0 0))
+      (shape (path B.Cu 2200  0 0  0 0))
       (attach off)
     )
     (padstack RoundRect[A]Pad_1740x2200_250.95_um
@@ -382,6 +452,11 @@
             -837.33 975.476  -812.24 1011.31  -781.309 1042.24  -745.476 1067.33
             -705.831 1085.82  -663.578 1097.14  -620.001 1100.95  620.001 1100.95
             663.578 1097.14))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_2200x2200_um
+      (shape (rect F.Cu -1100 -1100 1100 1100))
+      (shape (rect B.Cu -1100 -1100 1100 1100))
       (attach off)
     )
     (padstack Rect[A]Pad_1600x1600_um
@@ -430,16 +505,16 @@
       (pins SW6-1 D8-1)
     )
     (net "/MAG_1_-"
-      (pins L1-2 J3-2 D10-2)
+      (pins D10-2 L1-2 J3-2)
     )
     (net /MAG_1_+
-      (pins L1-1 J3-1 D10-1)
+      (pins D10-1 L1-1 J3-1)
     )
     (net "/MAG_2_-"
-      (pins L2-2 J3-4 D11-2)
+      (pins D11-2 L2-2 J3-4)
     )
     (net /MAG_2_+
-      (pins L2-1 J3-3 D11-1)
+      (pins D11-1 L2-1 J3-3)
     )
     (net "Net-(J1-Pad4)"
       (pins J2-4 J1-4)
@@ -474,11 +549,20 @@
     (net "Net-(D12-Pad1)"
       (pins SW10-6 D12-1)
     )
+    (net "Net-(J5-Pad2)"
+      (pins R1-2 J5-2)
+    )
+    (net "Net-(J5-Pad1)"
+      (pins J6-2 J5-1)
+    )
+    (net "Net-(J6-Pad1)"
+      (pins R1-1 J6-1)
+    )
     (class kicad_default "" /COL1 /COL2 /COL3 /MAG_1_+ "/MAG_1_-" /MAG_2_+
       "/MAG_2_-" /ROW1 /ROW2 /ROW3 /ROW4 /ROW5 "Net-(D1-Pad1)" "Net-(D12-Pad1)"
       "Net-(D2-Pad1)" "Net-(D3-Pad1)" "Net-(D4-Pad1)" "Net-(D5-Pad1)" "Net-(D6-Pad1)"
       "Net-(D7-Pad1)" "Net-(D8-Pad1)" "Net-(D9-Pad1)" "Net-(J1-Pad1)" "Net-(J1-Pad2)"
-      "Net-(J1-Pad3)" "Net-(J1-Pad4)"
+      "Net-(J1-Pad3)" "Net-(J1-Pad4)" "Net-(J5-Pad1)" "Net-(J5-Pad2)" "Net-(J6-Pad1)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

@@ -97,9 +97,9 @@ $FPLIST
  D_*
 $ENDFPLIST
 DRAW
-P 2 0 1 10 -50 50 -50 -50 N
+P 2 0 1 8 -50 50 -50 -50 N
 P 2 0 1 0 50 0 -50 0 N
-P 4 0 1 10 50 50 50 -50 -50 0 50 50 N
+P 4 0 1 8 50 50 50 -50 -50 0 50 50 N
 X K 1 -150 0 100 R 50 50 1 1 P
 X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
@@ -118,9 +118,9 @@ $FPLIST
  LED_THT:*
 $ENDFPLIST
 DRAW
-P 2 0 1 10 -50 -50 -50 50 N
+P 2 0 1 8 -50 -50 -50 50 N
 P 2 0 1 0 -50 0 50 0 N
-P 4 0 1 10 50 -50 50 50 -50 0 50 -50 N
+P 4 0 1 8 50 -50 50 50 -50 0 50 -50 N
 P 5 0 1 0 -120 -30 -180 -90 -150 -90 -180 -90 -180 -60 N
 P 5 0 1 0 -70 -30 -130 -90 -100 -90 -130 -90 -130 -60 N
 X K 1 -150 0 100 R 50 50 1 1 P
@@ -128,11 +128,11 @@ X A 2 150 0 100 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# RWR_Control_Panel-rescue_PT_Conn_01x06-PT_Symbol_Library_v001
+# RWR_Control_Panel-rescue_PT_Conn_01x06-PT_Symbol_Library_v001-RWR_Control_Panel-rescue
 #
-DEF RWR_Control_Panel-rescue_PT_Conn_01x06-PT_Symbol_Library_v001 J 0 40 Y N 1 F N
+DEF RWR_Control_Panel-rescue_PT_Conn_01x06-PT_Symbol_Library_v001-RWR_Control_Panel-rescue J 0 40 Y N 1 F N
 F0 "J" 0 300 50 H V C CNN
-F1 "RWR_Control_Panel-rescue_PT_Conn_01x06-PT_Symbol_Library_v001" 0 -400 50 H V C CNN
+F1 "RWR_Control_Panel-rescue_PT_Conn_01x06-PT_Symbol_Library_v001-RWR_Control_Panel-rescue" 0 -400 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -155,11 +155,11 @@ X Pin_6 6 -200 -300 150 R 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# RWR_Control_Panel-rescue_PT_Tactile_Switch_Led-PT_Symbol_Library_v001
+# RWR_Control_Panel-rescue_PT_Tactile_Switch_Led-PT_Symbol_Library_v001-RWR_Control_Panel-rescue
 #
-DEF RWR_Control_Panel-rescue_PT_Tactile_Switch_Led-PT_Symbol_Library_v001 SW 0 40 Y Y 1 F N
+DEF RWR_Control_Panel-rescue_PT_Tactile_Switch_Led-PT_Symbol_Library_v001-RWR_Control_Panel-rescue SW 0 40 Y Y 1 F N
 F0 "SW" -150 150 50 H V C CNN
-F1 "RWR_Control_Panel-rescue_PT_Tactile_Switch_Led-PT_Symbol_Library_v001" -50 -150 50 H I C CNN
+F1 "RWR_Control_Panel-rescue_PT_Tactile_Switch_Led-PT_Symbol_Library_v001-RWR_Control_Panel-rescue" -50 -150 50 H I C CNN
 F2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" -100 -75 50 H I C CNN
 F3 "" -25 0 50 H I C CNN
 DRAW

@@ -4328,7 +4328,7 @@ L Connector:Conn_01x03_Female J1
 U 1 1 616ECBB9
 P 2600 3550
 F 0 "J1" H 2628 3576 50  0000 L CNN
-F 1 "IFEI NEXTRON" H 2628 3485 50  0000 L CNN
+F 1 "IFEI NEXTION" H 2628 3485 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 2600 3550 50  0001 C CNN
 F 3 "~" H 2600 3550 50  0001 C CNN
 	1    2600 3550
@@ -4428,4 +4428,6 @@ F 3 "~" H 6100 5800 50  0001 C CNN
 	1    6100 5800
 	1    0    0    -1  
 $EndComp
+Text Notes 2650 3800 0    50   ~ 0
+This goes to the Arduino driving the Nextion
 $EndSCHEMATC

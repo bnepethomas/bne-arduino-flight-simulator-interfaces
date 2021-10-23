@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 6)
+    (drawings 10)
     (tracks 148)
     (zones 0)
     (modules 22)
@@ -1265,6 +1265,18 @@
     )
   )
 
+  (gr_text "5V IN GND" (at 159.5755 101.5365) (layer F.SilkS) (tstamp 61747709)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text "5V IN GND" (at 145.8595 101.854) (layer F.SilkS) (tstamp 61747704)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text "5V IN GND" (at 185.547 101.473) (layer F.SilkS) (tstamp 617476FC)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text "5V IN GND" (at 173.609 101.473) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
   (gr_text V001 (at 143.637 117.7925) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.15)))
   )

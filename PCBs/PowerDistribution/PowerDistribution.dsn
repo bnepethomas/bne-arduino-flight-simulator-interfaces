@@ -33,70 +33,102 @@
     )
   )
   (placement
+    (component Connector_BarrelJack:BarrelJack_Horizontal
+      (place J2 111379 -91186 front 0 (PN 5V))
+      (place J1 111442 -69405.5 front 0 (PN 12V))
+    )
     (component PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
-      (place R2 110744 -104648 front 90 (PN 330))
-      (place R1 110998 -65786 front 90 (PN 1K))
+      (place R2 112141 -105156 front 90 (PN 330))
+      (place R1 111570 -77470 front 270 (PN 1K))
     )
     (component LED_THT:LED_D3.0mm
-      (place D2 111506 -83566 front 180 (PN LED))
-      (place D1 111506 -78740 front 180 (PN LED))
+      (place D2 105728 -83502.5 front 180 (PN LED))
+      (place D1 105728 -78676.5 front 180 (PN LED))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place J39 160094 -101200 front 0 (PN Conn_01x02_Female))
-      (place J38 141966 -90344 front 90 (PN Conn_01x02_Female))
-      (place J37 141966 -74850 front 90 (PN Conn_01x02_Female))
-      (place J36 153400 -101200 front 0 (PN Conn_01x02_Female))
-      (place J35 141966 -97154 front 90 (PN Conn_01x02_Female))
-      (place J34 141966 -68090 front 90 (PN Conn_01x02_Female))
-      (place J33 153400 -93056 front 0 (PN Conn_01x02_Female))
-      (place J32 141966 -103964 front 90 (PN Conn_01x02_Female))
-      (place J31 133419 -74850 front 90 (PN Conn_01x02_Female))
-      (place J30 160094 -93056 front 0 (PN Conn_01x02_Female))
-      (place J29 133419 -103964 front 90 (PN Conn_01x02_Female))
-      (place J28 141966 -61330 front 90 (PN Conn_01x02_Female))
-      (place J27 166788 -93056 front 0 (PN Conn_01x02_Female))
-      (place J26 133419 -90344 front 90 (PN Conn_01x02_Female))
-      (place J25 133419 -68090 front 90 (PN Conn_01x02_Female))
-      (place J24 166788 -84912 front 0 (PN Conn_01x02_Female))
-      (place J23 124873 -103964 front 90 (PN Conn_01x02_Female))
-      (place J22 133419 -61330 front 90 (PN Conn_01x02_Female))
-      (place J21 160094 -84912 front 0 (PN Conn_01x02_Female))
-      (place J20 133419 -97154 front 90 (PN Conn_01x02_Female))
-      (place J19 124873 -74850 front 90 (PN Conn_01x02_Female))
-      (place J18 166788 -76768 front 0 (PN Conn_01x02_Female))
-      (place J17 124873 -97154 front 90 (PN Conn_01x02_Female))
-      (place J16 124873 -68090 front 90 (PN Conn_01x02_Female))
-      (place J15 166788 -68624 front 0 (PN Conn_01x02_Female))
-      (place J14 124873 -90344 front 90 (PN Conn_01x02_Female))
-      (place J13 124873 -61330 front 90 (PN Conn_01x02_Female))
-      (place J12 153400 -84912 front 0 (PN Conn_01x02_Female))
-      (place J11 116326 -90344 front 90 (PN Conn_01x02_Female))
-      (place J10 116326 -74850 front 90 (PN Conn_01x02_Female))
-      (place J8 116326 -103964 front 90 (PN Conn_01x02_Female))
-      (place J7 116326 -61330 front 90 (PN Conn_01x02_Female))
-      (place J5 116326 -97154 front 90 (PN Conn_01x02_Female))
-      (place J4 116326 -68090 front 90 (PN Conn_01x02_Female))
+      (place J15 160094 -101200 front 0 (PN GREEN))
+      (place J18 143363 -90471 front 90 (PN 5V))
+      (place J12 142855 -74723 front 90 (PN 12V))
+      (place J9 153400 -101200 front 0 (PN GREEN))
+      (place J36 143363 -97281 front 90 (PN 5V))
+      (place J11 142855 -67963 front 90 (PN 12V))
+      (place J22 153400 -93056 front 0 (PN GREEN))
+      (place J38 143363 -104091 front 90 (PN 5V))
+      (place J35 134308 -74723 front 90 (PN 12V))
+      (place J21 160094 -93056 front 0 (PN GREEN))
+      (place J37 134816 -104091 front 90 (PN 5V))
+      (place J34 142855 -61203 front 90 (PN 12V))
+      (place J20 166788 -93056 front 0 (PN WHITE))
+      (place J33 134816 -90471 front 90 (PN 5V))
+      (place J29 134308 -67963 front 90 (PN 12V))
+      (place J27 166788 -84912 front 0 (PN WHITE))
+      (place J32 126270 -104091 front 90 (PN 5V))
+      (place J28 134308 -61203 front 90 (PN 12V))
+      (place J13 166688 -76835 front 0 (PN WHITE))
+      (place J31 134816 -97281 front 90 (PN 5V))
+      (place J24 125762 -74723 front 90 (PN 12V))
+      (place J14 160084 -84899.5 front 0 (PN GREEN))
+      (place J30 126270 -97281 front 90 (PN 5V))
+      (place J23 125762 -67963 front 90 (PN 12V))
+      (place J10 166788 -68624 front 0 (PN WHITE))
+      (place J25 126270 -90471 front 90 (PN 5V))
+      (place J17 125762 -61203 front 90 (PN 12V))
+      (place J8 153400 -84912 front 0 (PN GREEN))
+      (place J26 117723 -90471 front 90 (PN 5V))
+      (place J16 117215 -74723 front 90 (PN 12V))
+      (place J39 117723 -104091 front 90 (PN 5V))
+      (place J7 117215 -61203 front 90 (PN 12V))
+      (place J19 117723 -97281 front 90 (PN 5V))
+      (place J6 117215 -67963 front 90 (PN 12V))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place J9 153400 -76768 front 0 (PN Conn_01x04_Female))
-      (place J6 153400 -60480 front 0 (PN Conn_01x04_Female))
-      (place J3 153400 -68624 front 0 (PN Conn_01x04_Female))
+      (place J5 153400 -76768 front 0 (PN MULTI))
+      (place J4 153400 -60480 front 0 (PN MULTI))
+      (place J3 153400 -68624 front 0 (PN MULTI))
     )
     (component PT_Library_v001:PT_General_PCB_Outline
       (place SPCB1 137006 -80558.1 front 0 (PN PT_SmallPCB))
     )
-    (component "TerminalBlock:TerminalBlock_bornier-2_P5.08mm"
-      (place J2 104648 -90170 front 0 (PN Conn_01x02_Female))
-      (place J1 109474 -72390 front 180 (PN Conn_01x02_Female))
-    )
     (component MountingHole:MountingHole_3.2mm_M3
-      (place H4 168470 -103720 front 0 (PN MountingHole))
-      (place H3 168420 -58550 front 0 (PN MountingHole))
-      (place H2 104480 -103720 front 0 (PN MountingHole))
+      (place H4 168420 -103720 front 0 (PN MountingHole))
+      (place H3 168420 -58650 front 0 (PN MountingHole))
+      (place H2 104580 -103720 front 0 (PN MountingHole))
       (place H1 104580 -58650 front 0 (PN MountingHole))
     )
   )
   (library
+    (image Connector_BarrelJack:BarrelJack_Horizontal
+      (outline (path signal 100  0 4500  -13700 4500))
+      (outline (path signal 100  800 -4500  800 3750))
+      (outline (path signal 100  -13700 -4500  800 -4500))
+      (outline (path signal 100  -13700 4500  -13700 -4500))
+      (outline (path signal 100  -10200 4500  -10200 -4500))
+      (outline (path signal 120  900 4600  900 2000))
+      (outline (path signal 120  -13800 4600  900 4600))
+      (outline (path signal 120  900 -4600  -1000 -4600))
+      (outline (path signal 120  900 -1900  900 -4600))
+      (outline (path signal 120  -13800 -4600  -13800 4600))
+      (outline (path signal 120  -5000 -4600  -13800 -4600))
+      (outline (path signal 50  -14000 -4750  -14000 4750))
+      (outline (path signal 50  -5000 -4750  -14000 -4750))
+      (outline (path signal 50  -5000 -6750  -5000 -4750))
+      (outline (path signal 50  -1000 -6750  -5000 -6750))
+      (outline (path signal 50  -1000 -4750  -1000 -6750))
+      (outline (path signal 50  1000 -4750  -1000 -4750))
+      (outline (path signal 50  1000 -2000  1000 -4750))
+      (outline (path signal 50  2000 -2000  1000 -2000))
+      (outline (path signal 50  2000 2000  2000 -2000))
+      (outline (path signal 50  1000 2000  2000 2000))
+      (outline (path signal 50  1000 4500  1000 2000))
+      (outline (path signal 50  1000 4750  -14000 4750))
+      (outline (path signal 50  1000 4500  1000 4750))
+      (outline (path signal 120  50 4800  1100 4800))
+      (outline (path signal 120  1100 3750  1100 4800))
+      (outline (path signal 100  -3.213 4505.43  800 3750))
+      (pin RoundRect[A]Pad_3500x3500_878.33_um 3 -3000 -4700)
+      (pin RoundRect[A]Pad_3000x3500_752.854_um 2 -6000 0)
+      (pin Rect[A]Pad_3500x3500_um 1 0 0)
+    )
     (image PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
       (outline (path signal 50  8670 1500  -1050 1500))
       (outline (path signal 50  8670 -1500  8670 1500))
@@ -242,24 +274,6 @@
       (outline (path signal 120  34544 24892  34544 -26162))
       (outline (path signal 120  -35560 24892  34544 24892))
     )
-    (image "TerminalBlock:TerminalBlock_bornier-2_P5.08mm"
-      (outline (path signal 50  7790 -4000  -2710 -4000))
-      (outline (path signal 50  7790 -4000  7790 4000))
-      (outline (path signal 50  -2710 4000  -2710 -4000))
-      (outline (path signal 50  -2710 4000  7790 4000))
-      (outline (path signal 120  -2540 -3810  7620 -3810))
-      (outline (path signal 120  -2540 3810  -2540 -3810))
-      (outline (path signal 120  7620 3810  -2540 3810))
-      (outline (path signal 120  7620 -3810  7620 3810))
-      (outline (path signal 120  7620 -2540  -2540 -2540))
-      (outline (path signal 100  7540 3750  -2460 3750))
-      (outline (path signal 100  7540 -3750  7540 3750))
-      (outline (path signal 100  -2460 -3750  7540 -3750))
-      (outline (path signal 100  -2460 3750  -2460 -3750))
-      (outline (path signal 100  -2410 -2550  7490 -2550))
-      (pin Round[A]Pad_3000_um 2 5080 0)
-      (pin Rect[A]Pad_3000x3000_um 1 0 0)
-    )
     (image MountingHole:MountingHole_3.2mm_M3
       (outline (path signal 50  3450 0  3369.34 -741.648  3131.14 -1448.62  2746.52 -2087.85
             2233.48 -2629.46  1616.01 -3048.12  922.973 -3324.25  186.779 -3444.94
@@ -289,11 +303,6 @@
       (shape (circle B.Cu 1800))
       (attach off)
     )
-    (padstack Round[A]Pad_3000_um
-      (shape (circle F.Cu 3000))
-      (shape (circle B.Cu 3000))
-      (attach off)
-    )
     (padstack Oval[A]Pad_1600x1600_um
       (shape (path F.Cu 1600  0 0  0 0))
       (shape (path B.Cu 1600  0 0  0 0))
@@ -302,6 +311,31 @@
     (padstack Oval[A]Pad_1740x2200_um
       (shape (path F.Cu 1740  0 -230  0 230))
       (shape (path B.Cu 1740  0 -230  0 230))
+      (attach off)
+    )
+    (padstack RoundRect[A]Pad_3500x3500_878.33_um
+      (shape (polygon F.Cu 0  1027.52 1739.99  1175.41 1700.36  1314.16 1635.66  1439.58 1547.84
+            1547.84 1439.58  1635.66 1314.16  1700.36 1175.41  1739.99 1027.52
+            1753.33 875  1753.33 -875  1739.99 -1027.52  1700.36 -1175.41
+            1635.66 -1314.16  1547.84 -1439.58  1439.58 -1547.84  1314.16 -1635.66
+            1175.41 -1700.36  1027.52 -1739.99  875 -1753.33  -875 -1753.33
+            -1027.52 -1739.99  -1175.41 -1700.36  -1314.16 -1635.66  -1439.58 -1547.84
+            -1547.84 -1439.58  -1635.66 -1314.16  -1700.36 -1175.41  -1739.99 -1027.52
+            -1753.33 -875  -1753.33 875  -1739.99 1027.52  -1700.36 1175.41
+            -1635.66 1314.16  -1547.84 1439.58  -1439.58 1547.84  -1314.16 1635.66
+            -1175.41 1700.36  -1027.52 1739.99  -875 1753.33  875 1753.33
+            1027.52 1739.99))
+      (shape (polygon B.Cu 0  1027.52 1739.99  1175.41 1700.36  1314.16 1635.66  1439.58 1547.84
+            1547.84 1439.58  1635.66 1314.16  1700.36 1175.41  1739.99 1027.52
+            1753.33 875  1753.33 -875  1739.99 -1027.52  1700.36 -1175.41
+            1635.66 -1314.16  1547.84 -1439.58  1439.58 -1547.84  1314.16 -1635.66
+            1175.41 -1700.36  1027.52 -1739.99  875 -1753.33  -875 -1753.33
+            -1027.52 -1739.99  -1175.41 -1700.36  -1314.16 -1635.66  -1439.58 -1547.84
+            -1547.84 -1439.58  -1635.66 -1314.16  -1700.36 -1175.41  -1739.99 -1027.52
+            -1753.33 -875  -1753.33 875  -1739.99 1027.52  -1700.36 1175.41
+            -1635.66 1314.16  -1547.84 1439.58  -1439.58 1547.84  -1314.16 1635.66
+            -1175.41 1700.36  -1027.52 1739.99  -875 1753.33  875 1753.33
+            1027.52 1739.99))
       (attach off)
     )
     (padstack RoundRect[A]Pad_1740x2200_250.95_um
@@ -329,9 +363,34 @@
             663.578 1097.14))
       (attach off)
     )
-    (padstack Rect[A]Pad_3000x3000_um
-      (shape (rect F.Cu -1500 -1500 1500 1500))
-      (shape (rect B.Cu -1500 -1500 1500 1500))
+    (padstack RoundRect[A]Pad_3000x3500_752.854_um
+      (shape (polygon F.Cu 0  880.732 1741.42  1007.49 1707.45  1126.43 1651.99  1233.92 1576.72
+            1326.72 1483.92  1401.99 1376.43  1457.45 1257.49  1491.42 1130.73
+            1502.85 1000  1502.85 -1000  1491.42 -1130.73  1457.45 -1257.49
+            1401.99 -1376.43  1326.72 -1483.92  1233.92 -1576.72  1126.43 -1651.99
+            1007.49 -1707.45  880.732 -1741.42  750 -1752.85  -750 -1752.85
+            -880.732 -1741.42  -1007.49 -1707.45  -1126.43 -1651.99  -1233.92 -1576.72
+            -1326.72 -1483.92  -1401.99 -1376.43  -1457.45 -1257.49  -1491.42 -1130.73
+            -1502.85 -1000  -1502.85 1000  -1491.42 1130.73  -1457.45 1257.49
+            -1401.99 1376.43  -1326.72 1483.92  -1233.92 1576.72  -1126.43 1651.99
+            -1007.49 1707.45  -880.732 1741.42  -750 1752.85  750 1752.85
+            880.732 1741.42))
+      (shape (polygon B.Cu 0  880.732 1741.42  1007.49 1707.45  1126.43 1651.99  1233.92 1576.72
+            1326.72 1483.92  1401.99 1376.43  1457.45 1257.49  1491.42 1130.73
+            1502.85 1000  1502.85 -1000  1491.42 -1130.73  1457.45 -1257.49
+            1401.99 -1376.43  1326.72 -1483.92  1233.92 -1576.72  1126.43 -1651.99
+            1007.49 -1707.45  880.732 -1741.42  750 -1752.85  -750 -1752.85
+            -880.732 -1741.42  -1007.49 -1707.45  -1126.43 -1651.99  -1233.92 -1576.72
+            -1326.72 -1483.92  -1401.99 -1376.43  -1457.45 -1257.49  -1491.42 -1130.73
+            -1502.85 -1000  -1502.85 1000  -1491.42 1130.73  -1457.45 1257.49
+            -1401.99 1376.43  -1326.72 1483.92  -1233.92 1576.72  -1126.43 1651.99
+            -1007.49 1707.45  -880.732 1741.42  -750 1752.85  750 1752.85
+            880.732 1741.42))
+      (attach off)
+    )
+    (padstack Rect[A]Pad_3500x3500_um
+      (shape (rect F.Cu -1750 -1750 1750 1750))
+      (shape (rect B.Cu -1750 -1750 1750 1750))
       (attach off)
     )
     (padstack Rect[A]Pad_1800x1800_um
@@ -347,34 +406,32 @@
   )
   (network
     (net /12VGND
-      (pins D1-1 J37-2 J34-2 J31-2 J28-2 J25-2 J22-2 J19-2 J16-2 J13-2 J10-2 J7-2
-        J4-2 J1-2)
+      (pins J1-2 D1-1 J12-2 J11-2 J35-2 J34-2 J29-2 J28-2 J24-2 J23-2 J17-2 J16-2
+        J7-2 J6-2)
     )
     (net /+12V
-      (pins R1-1 J37-1 J34-1 J31-1 J28-1 J25-1 J22-1 J19-1 J16-1 J13-1 J10-1 J7-1
-        J4-1 J1-1)
+      (pins J1-1 R1-1 J12-1 J11-1 J35-1 J34-1 J29-1 J28-1 J24-1 J23-1 J17-1 J16-1
+        J7-1 J6-1)
     )
     (net /5VGND
-      (pins D2-1 J38-2 J35-2 J32-2 J29-2 J26-2 J23-2 J20-2 J17-2 J14-2 J11-2 J8-2
-        J5-2 J2-2)
+      (pins J2-2 D2-1 J18-2 J36-2 J38-2 J37-2 J33-2 J32-2 J31-2 J30-2 J25-2 J26-2
+        J39-2 J19-2)
     )
     (net /+5V
-      (pins R2-1 J38-1 J35-1 J32-1 J29-1 J26-1 J23-1 J20-1 J17-1 J14-1 J11-1 J8-1
-        J5-1 J2-1)
+      (pins J2-1 R2-1 J18-1 J36-1 J38-1 J37-1 J33-1 J32-1 J31-1 J30-1 J25-1 J26-1
+        J39-1 J19-1)
     )
     (net /WhiteGND
-      (pins J9-4 J6-4 J3-4)
+      (pins J20-2 J27-2 J13-2 J10-2 J5-4 J4-4 J3-4)
     )
     (net /White+12V
-      (pins J9-3 J6-3 J3-3)
+      (pins J20-1 J27-1 J13-1 J10-1 J5-3 J4-3 J3-3)
     )
     (net /GreenGND
-      (pins J39-2 J36-2 J33-2 J30-2 J27-2 J24-2 J21-2 J18-2 J15-2 J12-2 J9-2 J6-2
-        J3-2)
+      (pins J15-2 J9-2 J22-2 J21-2 J14-2 J8-2 J5-2 J4-2 J3-2)
     )
     (net /Green12V+
-      (pins J39-1 J36-1 J33-1 J30-1 J27-1 J24-1 J21-1 J18-1 J15-1 J12-1 J9-1 J6-1
-        J3-1)
+      (pins J15-1 J9-1 J22-1 J21-1 J14-1 J8-1 J5-1 J4-1 J3-1)
     )
     (net "Net-(D1-Pad2)"
       (pins R1-2 D1-2)
