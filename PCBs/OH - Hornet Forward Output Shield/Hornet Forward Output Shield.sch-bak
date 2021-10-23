@@ -609,7 +609,7 @@ U 1 1 61703257
 P 7050 4600
 F 0 "J7" H 7078 4576 50  0000 L CNN
 F 1 "Address Select 0" H 7078 4485 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7050 4600 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 7050 4600 50  0001 C CNN
 F 3 "~" H 7050 4600 50  0001 C CNN
 	1    7050 4600
 	1    0    0    -1  
@@ -620,7 +620,7 @@ U 1 1 61704038
 P 7050 5000
 F 0 "J8" H 7078 4976 50  0000 L CNN
 F 1 "Address Select 1" H 7078 4885 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 7050 5000 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 7050 5000 50  0001 C CNN
 F 3 "~" H 7050 5000 50  0001 C CNN
 	1    7050 5000
 	1    0    0    -1  
@@ -665,8 +665,6 @@ Wire Notes Line
 	4450 4150 2700 4150
 Wire Notes Line
 	4450 5950 4450 4150
-Text Notes 750  1150 0    50   ~ 0
-To dos\nIdeally catch I2C bus\n
 $Bitmap
 Pos 1600 6750
 Scale 1.000000
@@ -1753,14 +1751,12 @@ Text Label 1450 1600 2    50   ~ 0
 SERVO_5V
 Text Label 1450 1700 2    50   ~ 0
 SERVO_GND
-Wire Wire Line
-	4200 900  4450 900 
 Text Label 4200 900  2    50   ~ 0
-SERVO_5V
+OUTPUT_5V
 Text Label 4200 1050 2    50   ~ 0
 SERVO_GND
 Wire Wire Line
-	4200 1050 4450 1050
+	4200 1050 4350 1050
 Text Notes 5750 1500 2    118  Italic 24
 CORRECT SERVO POWER
 Text Label 6150 2750 2    50   ~ 0
@@ -1833,17 +1829,6 @@ F 1 "GNDD" H 4454 895 50  0000 C CNN
 F 2 "" H 4450 1050 50  0001 C CNN
 F 3 "" H 4450 1050 50  0001 C CNN
 	1    4450 1050
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5VL #PWR0104
-U 1 1 617CDED4
-P 4450 900
-F 0 "#PWR0104" H 4450 750 50  0001 C CNN
-F 1 "+5VL" H 4465 1073 50  0000 C CNN
-F 2 "" H 4450 900 50  0001 C CNN
-F 3 "" H 4450 900 50  0001 C CNN
-	1    4450 900 
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2001,10 +1986,10 @@ F 3 "~" H 4200 3450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x04_Female J?
+L Connector:Conn_01x04_Female J11
 U 1 1 617A3D34
 P 3150 3450
-F 0 "J?" H 3178 3426 50  0000 L CNN
+F 0 "J11" H 3178 3426 50  0000 L CNN
 F 1 "NEXTION" H 3178 3335 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3150 3450 50  0001 C CNN
 F 3 "~" H 3150 3450 50  0001 C CNN
@@ -2012,10 +1997,10 @@ F 3 "~" H 3150 3450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0107
 U 1 1 617A5FA6
 P 2950 3350
-F 0 "#PWR?" H 2950 3200 50  0001 C CNN
+F 0 "#PWR0107" H 2950 3200 50  0001 C CNN
 F 1 "+5V" H 2950 3490 50  0000 C CNN
 F 2 "" H 2950 3350 50  0000 C CNN
 F 3 "" H 2950 3350 50  0000 C CNN
@@ -2023,10 +2008,10 @@ F 3 "" H 2950 3350 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5V #PWR?
+L power:+5V #PWR0108
 U 1 1 617A6CD5
 P 4000 3350
-F 0 "#PWR?" H 4000 3200 50  0001 C CNN
+F 0 "#PWR0108" H 4000 3200 50  0001 C CNN
 F 1 "+5V" H 4000 3490 50  0000 C CNN
 F 2 "" H 4000 3350 50  0000 C CNN
 F 3 "" H 4000 3350 50  0000 C CNN
@@ -2038,10 +2023,10 @@ Wire Wire Line
 Wire Wire Line
 	4000 3450 3650 3450
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0110
 U 1 1 617AE279
 P 2300 3450
-F 0 "#PWR?" H 2300 3200 50  0001 C CNN
+F 0 "#PWR0110" H 2300 3200 50  0001 C CNN
 F 1 "GND" H 2305 3277 50  0000 C CNN
 F 2 "" H 2300 3450 50  0001 C CNN
 F 3 "" H 2300 3450 50  0001 C CNN
@@ -2049,10 +2034,10 @@ F 3 "" H 2300 3450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GND #PWR?
+L power:GND #PWR0111
 U 1 1 617AEAC5
 P 3650 3450
-F 0 "#PWR?" H 3650 3200 50  0001 C CNN
+F 0 "#PWR0111" H 3650 3200 50  0001 C CNN
 F 1 "GND" H 3655 3277 50  0000 C CNN
 F 2 "" H 3650 3450 50  0001 C CNN
 F 3 "" H 3650 3450 50  0001 C CNN
@@ -2078,10 +2063,10 @@ GREEN_LED
 Text Label 5750 4450 0    50   ~ 0
 GREEN_LED
 $Comp
-L power:GNDD #PWR?
+L power:GNDD #PWR0112
 U 1 1 617DC479
 P 5750 5250
-F 0 "#PWR?" H 5750 5000 50  0001 C CNN
+F 0 "#PWR0112" H 5750 5000 50  0001 C CNN
 F 1 "GNDD" H 5754 5095 50  0000 C CNN
 F 2 "" H 5750 5250 50  0001 C CNN
 F 3 "" H 5750 5250 50  0001 C CNN
@@ -2089,10 +2074,10 @@ F 3 "" H 5750 5250 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:GNDD #PWR?
+L power:GNDD #PWR0113
 U 1 1 617DD1EC
 P 5150 5250
-F 0 "#PWR?" H 5150 5000 50  0001 C CNN
+F 0 "#PWR0113" H 5150 5000 50  0001 C CNN
 F 1 "GNDD" H 5154 5095 50  0000 C CNN
 F 2 "" H 5150 5250 50  0001 C CNN
 F 3 "" H 5150 5250 50  0001 C CNN
@@ -2115,4 +2100,26 @@ Text Label 10600 3800 0    50   ~ 0
 NEXTION_TX
 Text Label 10600 3900 0    50   ~ 0
 NEXTION_RX
+$Comp
+L Connector:Conn_01x02_Female J15
+U 1 1 6173779C
+P 4900 900
+F 0 "J15" H 4928 876 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 4928 785 50  0000 L CNN
+F 2 "Connector_BarrelJack:BarrelJack_Horizontal" H 4900 900 50  0001 C CNN
+F 3 "~" H 4900 900 50  0001 C CNN
+	1    4900 900 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4200 900  4700 900 
+Wire Wire Line
+	4700 1000 4350 1000
+Wire Wire Line
+	4350 1000 4350 1050
+Connection ~ 4350 1050
+Wire Wire Line
+	4350 1050 4450 1050
+Text Notes 3200 6500 0    50   ~ 0
+Powering the Servos and LEDs and Nextron is done through a barrel connect to the upper board and then carried across to \nthe lower board through stand headers.  As boards are split, separate 5V buses are used in this diagram.
 $EndSCHEMATC

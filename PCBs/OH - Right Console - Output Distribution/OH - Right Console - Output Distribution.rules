@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 241)
+    (start_pass_no 428)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -46,11 +46,17 @@
   (via 
     "Via[0-1]_800:400_um-kicad_default" "Via[0-1]_800:400_um" "kicad_default"
   )
+  (via 
+    "Via[0-1]_800:400_um-POWER AND GROUND" "Via[0-1]_800:400_um" "POWER AND GROUND"
+  )
   (via_rule
     default "Via[0-1]_800:400_um"
   )
   (via_rule
     "kicad_default" "Via[0-1]_800:400_um-kicad_default"
+  )
+  (via_rule
+    "POWER AND GROUND" "Via[0-1]_800:400_um-POWER AND GROUND"
   )
   (class default
     (clearance_class default)
@@ -63,14 +69,25 @@
     )
   )
   (class "kicad_default"
-    /GND "/In_Canopy_Mag" "/In_Laser_Arm_Mag" "/In_Pitot_Heat_Mag" "/In_Bleed_Air_Sol" /+12V "/Out_Pitot_Heat_Mag" "/Out_Bleed_Air_Sol"
-    "/Out_Laser_Arm_Mag" "/Out_Canopy_Mag" "/ALT_STEPPER_2B" "/ALT_STEPPER_2A" "/ALT_STEPPER_1B" "/ALT_STEPPER_1A" "/SERVO_GND" "/SERVO_5V"
+    "/In_Canopy_Mag" "/In_Laser_Arm_Mag" "/In_Pitot_Heat_Mag" "/In_Bleed_Air_Sol" "/ALT_STEPPER_2B" "/ALT_STEPPER_2A" "/ALT_STEPPER_1B" "/ALT_STEPPER_1A"
     "/BATT_U_PWM" "/BATT_E_PWM" "/ALT_FLAG_PWM" "/HYD_PRESS_1_PWM" "/HYD_PRESS_2_PWM" /LEDCOL1 /LEDROW1 /LEDROW2
     /LEDCOL2
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
       (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "POWER AND GROUND"
+    /GND /+12V "/SERVO_GND" "/SERVO_5V" "/5V_Out_Pitot_Heat_Mag" "/5V_Out_Bleed_Air_Sol" "/12V_Out_Pitot_Heat_Mag" "/12V_Out_Bleed_Air_Sol"
+    "/12V_Out_Laser_Arm_Mag" "/12V_Out_Canopy_Mag" "/5V_Out_Laser_Arm_Mag" "/5V_Out_Canopy_Mag"
+    (clearance_class "POWER AND GROUND")
+    (via_rule POWER AND GROUND)
+    (rule
+      (width 400.0)
     )
     (circuit 
       (use_layer F.Cu B.Cu)

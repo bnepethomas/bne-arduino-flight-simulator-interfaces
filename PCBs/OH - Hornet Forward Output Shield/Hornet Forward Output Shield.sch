@@ -468,17 +468,13 @@ Wire Wire Line
 Text Notes 5050 5800 0    50   ~ 0
 Red LED - solid\non until a packet\nis succesfully \nsent to controller
 Wire Wire Line
-	2850 4500 2850 4800
-Wire Wire Line
-	2850 4800 3200 4800
-Wire Wire Line
-	3200 4900 2850 4900
-NoConn ~ 3200 5300
-Text Notes 3450 5000 0    50   ~ 0
+	3400 4850 3050 4850
+NoConn ~ 3400 5250
+Text Notes 3650 4950 0    50   ~ 0
 DATA IN - ORANGE
-Text Notes 3450 5100 0    50   ~ 0
+Text Notes 3650 5050 0    50   ~ 0
 LOAD/CS - YELLOW
-Text Notes 3450 5200 0    50   ~ 0
+Text Notes 3650 5150 0    50   ~ 0
 CLOCK - GREEN
 Text Notes 2800 5800 0    50   ~ 0
 LEDCONTROL Ic_2=LEDCONTROL(9,8,7,1);\n9 - DATA IN\n8 - CLK\n7 - LOAD/CS
@@ -628,23 +624,23 @@ $EndComp
 $Comp
 L Connector:Conn_01x06_Female J3
 U 1 1 61726457
-P 3400 5000
-F 0 "J3" H 3050 5300 50  0000 L CNN
-F 1 "7219 OUT" H 3200 5300 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 3400 5000 50  0001 C CNN
-F 3 "~" H 3400 5000 50  0001 C CNN
-	1    3400 5000
+P 3600 4950
+F 0 "J3" H 3250 5250 50  0000 L CNN
+F 1 "7219 OUT" H 3400 5250 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 3600 4950 50  0001 C CNN
+F 3 "~" H 3600 4950 50  0001 C CNN
+	1    3600 4950
 	1    0    0    -1  
 $EndComp
 $Comp
 L Connector:Conn_01x02_Female J2
 U 1 1 61728B28
-P 3050 4400
-F 0 "J2" H 3078 4376 50  0000 L CNN
-F 1 "5V to Max7219" H 3078 4285 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 3050 4400 50  0001 C CNN
-F 3 "~" H 3050 4400 50  0001 C CNN
-	1    3050 4400
+P 2900 950
+F 0 "J2" H 2928 926 50  0000 L CNN
+F 1 "LOWER 5V IN" H 2928 835 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2900 950 50  0001 C CNN
+F 3 "~" H 2900 950 50  0001 C CNN
+	1    2900 950 
 	1    0    0    -1  
 $EndComp
 Wire Notes Line
@@ -1638,12 +1634,12 @@ $EndBitmap
 $Comp
 L Connector:Conn_01x08_Female J5
 U 1 1 6171CCFC
-P 1700 3150
-F 0 "J5" H 1728 3126 50  0000 L CNN
-F 1 "LEFT OUTPUT DIST" H 1728 3035 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 1700 3150 50  0001 C CNN
-F 3 "~" H 1700 3150 50  0001 C CNN
-	1    1700 3150
+P 1600 3050
+F 0 "J5" H 1628 3026 50  0000 L CNN
+F 1 "LEFT OUTPUT DIST" H 1628 2935 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 1600 3050 50  0001 C CNN
+F 3 "~" H 1600 3050 50  0001 C CNN
+	1    1600 3050
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1682,12 +1678,12 @@ $EndComp
 $Comp
 L power:GND #PWR0101
 U 1 1 617259A2
-P 1500 3550
-F 0 "#PWR0101" H 1500 3300 50  0001 C CNN
-F 1 "GND" H 1505 3377 50  0000 C CNN
-F 2 "" H 1500 3550 50  0001 C CNN
-F 3 "" H 1500 3550 50  0001 C CNN
-	1    1500 3550
+P 1400 3450
+F 0 "#PWR0101" H 1400 3200 50  0001 C CNN
+F 1 "GND" H 1405 3277 50  0000 C CNN
+F 2 "" H 1400 3450 50  0001 C CNN
+F 3 "" H 1400 3450 50  0001 C CNN
+	1    1400 3450
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1720,19 +1716,19 @@ Text Label 10450 5850 3    50   ~ 0
 CANOPY_MAG
 Text Notes 9150 5000 2    50   ~ 0
 USED BY\nETHERNET\nSHIELD
-Text Label 1500 2850 2    50   ~ 0
+Text Label 1400 2750 2    50   ~ 0
 LANDING_GEAR_SOL
-Text Label 1500 2950 2    50   ~ 0
+Text Label 1400 2850 2    50   ~ 0
 LAUNCH_BAR_MAG
-Text Label 1500 3050 2    50   ~ 0
+Text Label 1400 2950 2    50   ~ 0
 HOOK_BYPASS_MAG
-Text Label 1500 3150 2    50   ~ 0
+Text Label 1400 3050 2    50   ~ 0
 FUEL_DUMP_MAG
-Text Label 1500 3250 2    50   ~ 0
+Text Label 1400 3150 2    50   ~ 0
 APU_MAG
-Text Label 1500 3350 2    50   ~ 0
+Text Label 1400 3250 2    50   ~ 0
 ENGINE_CRANK_MAG
-NoConn ~ 1500 3450
+NoConn ~ 1400 3350
 Text Label 10350 4850 1    50   ~ 0
 LANDING_GEAR_SOL
 Text Label 10350 5850 3    50   ~ 0
@@ -1747,20 +1743,14 @@ Text Label 10150 5850 3    50   ~ 0
 ENGINE_CRANK_MAG
 Text Label 1450 1500 2    50   ~ 0
 SERVO_TRIM
-Text Label 1450 1600 2    50   ~ 0
-SERVO_5V
 Text Label 1450 1700 2    50   ~ 0
 SERVO_GND
-Wire Wire Line
-	4200 900  4450 900 
 Text Label 4200 900  2    50   ~ 0
-SERVO_5V
+UPPER_OUTPUT_5V
 Text Label 4200 1050 2    50   ~ 0
 SERVO_GND
 Wire Wire Line
-	4200 1050 4450 1050
-Text Notes 5750 1500 2    118  Italic 24
-CORRECT SERVO POWER
+	4200 1050 4350 1050
 Text Label 6150 2750 2    50   ~ 0
 BP_STEP_COIL_A
 Text Label 6150 2850 2    50   ~ 0
@@ -1777,17 +1767,6 @@ Text Label 10300 1650 0    50   ~ 0
 D12
 Wire Wire Line
 	10600 1650 10150 1650
-$Comp
-L Connector:Conn_01x06_Female J4
-U 1 1 617A8F9A
-P 1650 2250
-F 0 "J4" H 1678 2226 50  0000 L CNN
-F 1 "RIGHT SERVO" H 1678 2135 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 1650 2250 50  0001 C CNN
-F 3 "~" H 1650 2250 50  0001 C CNN
-	1    1650 2250
-	1    0    0    -1  
-$EndComp
 Text Label 1450 2050 2    50   ~ 0
 SERVO_ALT_FLAG
 Text Label 10600 1750 0    50   ~ 0
@@ -1806,11 +1785,11 @@ Text Label 10600 3500 0    50   ~ 0
 D15
 Text Label 10600 3600 0    50   ~ 0
 D16
-Text Label 3200 5200 2    50   ~ 0
+Text Label 3400 5150 2    50   ~ 0
 D14
-Text Label 3200 5100 2    50   ~ 0
+Text Label 3400 5050 2    50   ~ 0
 D15
-Text Label 3200 5000 2    50   ~ 0
+Text Label 3400 4950 2    50   ~ 0
 D16
 Text Label 10400 2450 0    50   ~ 0
 SERVO_HYD_PRS_1
@@ -1820,7 +1799,7 @@ Text Label 1450 2450 2    50   ~ 0
 SERVO_HYD_PRS_2
 Text Label 10400 2550 0    50   ~ 0
 SERVO_HYD_PRS_2
-Text Label 1450 2550 2    50   ~ 0
+Text Label 1450 1950 2    50   ~ 0
 SERVO_GND
 $Comp
 L power:GNDD #PWR0103
@@ -1834,36 +1813,14 @@ F 3 "" H 4450 1050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L power:+5VL #PWR0104
-U 1 1 617CDED4
-P 4450 900
-F 0 "#PWR0104" H 4450 750 50  0001 C CNN
-F 1 "+5VL" H 4465 1073 50  0000 C CNN
-F 2 "" H 4450 900 50  0001 C CNN
-F 3 "" H 4450 900 50  0001 C CNN
-	1    4450 900 
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR0105
 U 1 1 617D4C60
-P 2850 4900
-F 0 "#PWR0105" H 2850 4650 50  0001 C CNN
-F 1 "GND" H 2855 4727 50  0000 C CNN
-F 2 "" H 2850 4900 50  0001 C CNN
-F 3 "" H 2850 4900 50  0001 C CNN
-	1    2850 4900
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0106
-U 1 1 617D5A76
-P 2850 4400
-F 0 "#PWR0106" H 2850 4250 50  0001 C CNN
-F 1 "+5V" H 2850 4540 50  0000 C CNN
-F 2 "" H 2850 4400 50  0000 C CNN
-F 3 "" H 2850 4400 50  0000 C CNN
-	1    2850 4400
+P 3050 4850
+F 0 "#PWR0105" H 3050 4600 50  0001 C CNN
+F 1 "GND" H 3055 4677 50  0000 C CNN
+F 2 "" H 3050 4850 50  0001 C CNN
+F 3 "" H 3050 4850 50  0001 C CNN
+	1    3050 4850
 	1    0    0    -1  
 $EndComp
 Text Label 10600 3700 0    50   ~ 0
@@ -2009,41 +1966,19 @@ F 3 "~" H 3150 3450 50  0001 C CNN
 	1    3150 3450
 	1    0    0    -1  
 $EndComp
-$Comp
-L power:+5V #PWR0107
-U 1 1 617A5FA6
-P 2950 3350
-F 0 "#PWR0107" H 2950 3200 50  0001 C CNN
-F 1 "+5V" H 2950 3490 50  0000 C CNN
-F 2 "" H 2950 3350 50  0000 C CNN
-F 3 "" H 2950 3350 50  0000 C CNN
-	1    2950 3350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5V #PWR0108
-U 1 1 617A6CD5
-P 4000 3350
-F 0 "#PWR0108" H 4000 3200 50  0001 C CNN
-F 1 "+5V" H 4000 3490 50  0000 C CNN
-F 2 "" H 4000 3350 50  0000 C CNN
-F 3 "" H 4000 3350 50  0000 C CNN
-	1    4000 3350
-	1    0    0    -1  
-$EndComp
 Wire Wire Line
-	2300 3450 2950 3450
+	2400 3450 2950 3450
 Wire Wire Line
 	4000 3450 3650 3450
 $Comp
 L power:GND #PWR0110
 U 1 1 617AE279
-P 2300 3450
-F 0 "#PWR0110" H 2300 3200 50  0001 C CNN
-F 1 "GND" H 2305 3277 50  0000 C CNN
-F 2 "" H 2300 3450 50  0001 C CNN
-F 3 "" H 2300 3450 50  0001 C CNN
-	1    2300 3450
+P 2400 3450
+F 0 "#PWR0110" H 2400 3200 50  0001 C CNN
+F 1 "GND" H 2405 3277 50  0000 C CNN
+F 2 "" H 2400 3450 50  0001 C CNN
+F 3 "" H 2400 3450 50  0001 C CNN
+	1    2400 3450
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2113,4 +2048,85 @@ Text Label 10600 3800 0    50   ~ 0
 NEXTION_TX
 Text Label 10600 3900 0    50   ~ 0
 NEXTION_RX
+$Comp
+L Connector:Conn_01x02_Female J15
+U 1 1 6173779C
+P 4900 900
+F 0 "J15" H 4928 876 50  0000 L CNN
+F 1 "5V IN" H 4928 785 50  0000 L CNN
+F 2 "Connector_BarrelJack:BarrelJack_Horizontal" H 4900 900 50  0001 C CNN
+F 3 "~" H 4900 900 50  0001 C CNN
+	1    4900 900 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4200 900  4700 900 
+Wire Wire Line
+	4700 1000 4350 1000
+Wire Wire Line
+	4350 1000 4350 1050
+Connection ~ 4350 1050
+Wire Wire Line
+	4350 1050 4450 1050
+Text Notes 3200 6500 0    50   ~ 0
+Powering the Servos and LEDs and Nextron is done through a barrel connect to the upper board and then carried across to \nthe lower board through stand headers.  As boards are split, separate 5V buses are used in this diagram.
+$Comp
+L Connector:Conn_01x08_Female J4
+U 1 1 61749FE1
+P 1650 2150
+F 0 "J4" H 1678 2126 50  0000 L CNN
+F 1 "RIGHT_SERVO" H 1678 2035 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 1650 2150 50  0001 C CNN
+F 3 "~" H 1650 2150 50  0001 C CNN
+	1    1650 2150
+	1    0    0    -1  
+$EndComp
+NoConn ~ 1450 2550
+Text Label 1450 1600 2    50   ~ 0
+UPPER_OUTPUT_5V
+Text Label 1450 1850 2    50   ~ 0
+UPPER_OUTPUT_5V
+Text Label 2950 3350 2    50   ~ 0
+LOWER_OUTPUT_5V
+Text Label 4000 3350 2    50   ~ 0
+LOWER_OUTPUT_5V
+Text Label 3400 4750 2    50   ~ 0
+LOWER_OUTPUT_5V
+$Comp
+L power:GND #PWR01
+U 1 1 61778DBA
+P 2700 1050
+F 0 "#PWR01" H 2700 800 50  0001 C CNN
+F 1 "GND" H 2705 877 50  0000 C CNN
+F 2 "" H 2700 1050 50  0001 C CNN
+F 3 "" H 2700 1050 50  0001 C CNN
+	1    2700 1050
+	1    0    0    -1  
+$EndComp
+Text Label 2700 950  2    50   ~ 0
+LOWER_OUTPUT_5V
+$Comp
+L Connector:Conn_01x02_Female J16
+U 1 1 6177A219
+P 2950 1400
+F 0 "J16" H 2978 1376 50  0000 L CNN
+F 1 "UPPER 5V OUT" H 2978 1285 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2950 1400 50  0001 C CNN
+F 3 "~" H 2950 1400 50  0001 C CNN
+	1    2950 1400
+	1    0    0    -1  
+$EndComp
+Text Label 2750 1400 2    50   ~ 0
+UPPER_OUTPUT_5V
+$Comp
+L power:GNDD #PWR02
+U 1 1 61782A2B
+P 2750 1500
+F 0 "#PWR02" H 2750 1250 50  0001 C CNN
+F 1 "GNDD" H 2754 1345 50  0000 C CNN
+F 2 "" H 2750 1500 50  0001 C CNN
+F 3 "" H 2750 1500 50  0001 C CNN
+	1    2750 1500
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

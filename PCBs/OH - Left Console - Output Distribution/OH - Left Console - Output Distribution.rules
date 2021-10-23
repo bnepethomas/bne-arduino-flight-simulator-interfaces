@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 324)
+    (start_pass_no 582)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -46,11 +46,17 @@
   (via 
     "Via[0-1]_800:400_um-kicad_default" "Via[0-1]_800:400_um" "kicad_default"
   )
+  (via 
+    "Via[0-1]_800:400_um-GND AND POWER" "Via[0-1]_800:400_um" "GND AND POWER"
+  )
   (via_rule
     default "Via[0-1]_800:400_um"
   )
   (via_rule
     "kicad_default" "Via[0-1]_800:400_um-kicad_default"
+  )
+  (via_rule
+    "GND AND POWER" "Via[0-1]_800:400_um-GND AND POWER"
   )
   (class default
     (clearance_class default)
@@ -63,13 +69,24 @@
     )
   )
   (class "kicad_default"
-    /GND "/In_Engine_Crank_Mag" "/In_APU_Mag" "/In_Fuel_Dump_Mag" "/In_Hook_Bypass_Mag" "/In_Launch_Bar_Mag" "/In_Landing_Gear_Sol" /+12V
-    "/Out_Landing_Gear_Sol" "/Out_Hook_Bypass_Mag" "/Out_Launch_Bar_Mag" "/Out_Fuel_Dump_Mag" "/Out_Engine_Crank_Mag" "/Out_APU_Mag" /LEDCOL1 /LEDROW1
-    /LEDROW2 "/SERVO_GND" "/SERVO_5V" "/SERVO_PWM" "Net-(J10-Pad4)" "Net-(J10-Pad3)" "Net-(J10-Pad2)" "Net-(J10-Pad1)"
+    "/In_Engine_Crank_Mag" "/In_APU_Mag" "/In_Fuel_Dump_Mag" "/In_Hook_Bypass_Mag" "/In_Launch_Bar_Mag" "/In_Landing_Gear_Sol" /LEDCOL1 /LEDROW1
+    /LEDROW2 "/SERVO_PWM" "Net-(J12-Pad4)" "Net-(J12-Pad3)" "Net-(J12-Pad2)" "Net-(J12-Pad1)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
       (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "GND AND POWER"
+    /GND /+12V "/SERVO_5V" "/12V_Landing_Gear_Sol" "/12V_Hook_Bypass_Mag" "/12V_Launch_Bar_Mag" "/12V_Fuel_Dump_Mag" "/12V_APU_Mag"
+    "/12V_Engine_Crank_Mag" "/5V_Landing_Gear_Sol" "/5V_Launch_Bar_Mag" "/5V_Hook_Bypass_Mag" "/5V_Fuel_Dump_Mag" "/5V_APU_Mag" "/5V_Engine_Crank_Mag"
+    (clearance_class "GND AND POWER")
+    (via_rule GND AND POWER)
+    (rule
+      (width 450.0)
     )
     (circuit 
       (use_layer F.Cu B.Cu)
