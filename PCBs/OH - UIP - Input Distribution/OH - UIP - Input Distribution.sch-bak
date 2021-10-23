@@ -270,53 +270,7 @@ F 3 "~" H 9900 4400 50  0001 C CNN
 	1    9900 4400
 	-1   0    0    -1  
 $EndComp
-$Comp
-L Connector:Conn_01x10_Female J43
-U 1 1 60549EB3
-P 10450 4400
-F 0 "J43" H 10342 4985 50  0000 C CNN
-F 1 "SpareA3" H 10342 4894 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x10_P2.54mm_Vertical" H 10450 4400 50  0001 C CNN
-F 3 "~" H 10450 4400 50  0001 C CNN
-	1    10450 4400
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x10_Female J38
-U 1 1 6054B29A
-P 9350 5700
-F 0 "J38" H 9242 6285 50  0000 C CNN
-F 1 "SpareB1" H 9242 6194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x10_P2.54mm_Vertical" H 9350 5700 50  0001 C CNN
-F 3 "~" H 9350 5700 50  0001 C CNN
-	1    9350 5700
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x10_Female J40
-U 1 1 6054CC0E
-P 9900 5700
-F 0 "J40" H 9792 6285 50  0000 C CNN
-F 1 "SpareB2" H 9792 6194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x10_P2.54mm_Vertical" H 9900 5700 50  0001 C CNN
-F 3 "~" H 9900 5700 50  0001 C CNN
-	1    9900 5700
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x10_Female J44
-U 1 1 6054DF0C
-P 10450 5700
-F 0 "J44" H 10342 6285 50  0000 C CNN
-F 1 "SpareB3" H 10342 6194 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x10_P2.54mm_Vertical" H 10450 5700 50  0001 C CNN
-F 3 "~" H 10450 5700 50  0001 C CNN
-	1    10450 5700
-	-1   0    0    -1  
-$EndComp
 Text Label 9550 4000 0    50   ~ 0
-A1
-Text Label 10650 4000 0    50   ~ 0
 A1
 Text Label 9550 4100 0    50   ~ 0
 A2
@@ -356,84 +310,6 @@ Text Label 10100 4800 0    50   ~ 0
 A9
 Text Label 10100 4900 0    50   ~ 0
 A10
-Text Label 10650 4100 0    50   ~ 0
-A2
-Text Label 10650 4200 0    50   ~ 0
-A3
-Text Label 10650 4300 0    50   ~ 0
-A4
-Text Label 10650 4400 0    50   ~ 0
-A5
-Text Label 10650 4500 0    50   ~ 0
-A6
-Text Label 10650 4600 0    50   ~ 0
-A7
-Text Label 10650 4700 0    50   ~ 0
-A8
-Text Label 10650 4800 0    50   ~ 0
-A9
-Text Label 10650 4900 0    50   ~ 0
-A10
-Text Label 9550 5300 0    50   ~ 0
-B1
-Text Label 9550 5400 0    50   ~ 0
-B2
-Text Label 9550 5500 0    50   ~ 0
-B3
-Text Label 9550 5600 0    50   ~ 0
-B4
-Text Label 9550 5700 0    50   ~ 0
-B5
-Text Label 9550 5800 0    50   ~ 0
-B6
-Text Label 9550 5900 0    50   ~ 0
-B7
-Text Label 9550 6000 0    50   ~ 0
-B8
-Text Label 9550 6100 0    50   ~ 0
-B9
-Text Label 9550 6200 0    50   ~ 0
-B10
-Text Label 10100 5300 0    50   ~ 0
-B1
-Text Label 10100 5400 0    50   ~ 0
-B2
-Text Label 10100 5500 0    50   ~ 0
-B3
-Text Label 10100 5600 0    50   ~ 0
-B4
-Text Label 10100 5700 0    50   ~ 0
-B5
-Text Label 10100 5800 0    50   ~ 0
-B6
-Text Label 10100 5900 0    50   ~ 0
-B7
-Text Label 10100 6000 0    50   ~ 0
-B8
-Text Label 10100 6100 0    50   ~ 0
-B9
-Text Label 10100 6200 0    50   ~ 0
-B10
-Text Label 10650 5300 0    50   ~ 0
-B1
-Text Label 10650 5400 0    50   ~ 0
-B2
-Text Label 10650 5500 0    50   ~ 0
-B3
-Text Label 10650 5600 0    50   ~ 0
-B4
-Text Label 10650 5700 0    50   ~ 0
-B5
-Text Label 10650 5800 0    50   ~ 0
-B6
-Text Label 10650 5900 0    50   ~ 0
-B7
-Text Label 10650 6000 0    50   ~ 0
-B8
-Text Label 10650 6100 0    50   ~ 0
-B9
-Text Label 10650 6200 0    50   ~ 0
-B10
 $Comp
 L Mechanical:MountingHole H7
 U 1 1 605F60C5
@@ -706,7 +582,7 @@ $EndComp
 Text Label 3750 3000 2    50   ~ 0
 COL5
 Text Label 3750 3100 2    50   ~ 0
-COL10
+ROW10
 $Comp
 L Connector:Conn_01x06_Female J12
 U 1 1 616F492E
