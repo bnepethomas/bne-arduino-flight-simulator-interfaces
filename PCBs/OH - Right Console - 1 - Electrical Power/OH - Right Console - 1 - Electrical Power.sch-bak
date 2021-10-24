@@ -4766,8 +4766,6 @@ Text Label 3200 4500 2    50   ~ 0
 U_5V
 Text Label 3200 4400 2    50   ~ 0
 U_PWM
-Text Notes 1000 6000 0    197  Italic 39
-LGEN and EXT Power Pin 1 overlap!
 Text Label 3300 2950 0    50   ~ 0
 Row1
 Text Label 3350 2300 0    50   ~ 0
