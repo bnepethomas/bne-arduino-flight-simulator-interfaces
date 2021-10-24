@@ -1384,8 +1384,8 @@
     (descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-10A example for new part number: 22-27-2101, 10 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
     (tags "connector Molex KK-254 side entry")
     (path /616C0788)
-    (fp_text reference J6 (at 11.43 -4.12 90) (layer F.SilkS)
-      (effects (font (size 1 1) (thickness 0.15)))
+    (fp_text reference J6 (at 11.2395 -2.159 90) (layer B.SilkS)
+      (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_text value "ANALOG A" (at 11.43 4.08 90) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
@@ -2552,6 +2552,28 @@
     (polygon
       (pts
         (xy 162.687 82.042) (xy 148.971 81.915) (xy 148.971 77.343) (xy 162.687 77.216)
+      )
+    )
+  )
+  (zone (net 0) (net_name "") (layer F.Cu) (tstamp 0) (hatch edge 0.508)
+    (connect_pads (clearance 0.508))
+    (min_thickness 0.254)
+    (keepout (tracks not_allowed) (vias not_allowed) (copperpour allowed))
+    (fill (arc_segments 32) (thermal_gap 0.508) (thermal_bridge_width 0.508))
+    (polygon
+      (pts
+        (xy 170.434 120.904) (xy 168.7195 120.904) (xy 168.783 69.088) (xy 170.4975 69.088)
+      )
+    )
+  )
+  (zone (net 0) (net_name "") (layer F.Cu) (tstamp 0) (hatch edge 0.508)
+    (connect_pads (clearance 0.508))
+    (min_thickness 0.254)
+    (keepout (tracks not_allowed) (vias not_allowed) (copperpour allowed))
+    (fill (arc_segments 32) (thermal_gap 0.508) (thermal_bridge_width 0.508))
+    (polygon
+      (pts
+        (xy 170.18 121.2215) (xy 168.275 121.2215) (xy 168.91 69.1515) (xy 170.307 69.1515)
       )
     )
   )

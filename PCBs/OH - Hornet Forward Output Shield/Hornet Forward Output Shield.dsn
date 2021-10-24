@@ -42,7 +42,7 @@
     (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
       (place J15 153670 -112522 front 0 (PN ANALOG))
       (place J2 180213 -101473 front 0 (PN "RIGHT OUTPUT DIST"))
-      (place J8 171323 -78613 front 0 (PN "7219 OUT"))
+      (place J8 172339 -78676.5 front 0 (PN "7219 OUT"))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (place J6 162941 -103632 front 0 (PN "UPPER 5V OUT"))
@@ -830,15 +830,11 @@
     (net /A0
       (pins J15-3 P2-1)
     )
-    (class kicad_default "" +3V3 "/14(Tx3)" "/15(Rx3)" "/16(Tx2)" "/17(Rx2)"
-      "/18(Tx1)" "/19(Rx1)" "/20(SDA)" "/21(SCL)" /22 /23 /24 /25 /26 /27
-      /28 /29 /30 /31 /32 /33 /34 /35 /36 /37 /38 /39 /40 /41 /42 /43 /44
-      /45 /46 /47 /48 /49 /A0 /A1 /A10 /A11 /A12 /A13 /A14 /A15 /A2 /A3 /A4
-      /A5 /A8 /A9 /ADDRESS_SELECT_0 /ADDRESS_SELECT_1 /D0 /D1 /D11 /D12 /D13
-      /D5 /D6 /D7 /D8 /D9 /IOREF /Reset /Vin "Net-(D1-Pad2)" "Net-(D2-Pad2)"
-      "Net-(J1-Pad7)" "Net-(J2-Pad5)" "Net-(J4-Pad8)" "Net-(J8-Pad6)" "Net-(P1-Pad1)"
-      "Net-(P4-Pad3)" "Net-(P4-Pad4)" "Net-(P4-Pad5)" "Net-(P4-Pad6)" "Net-(P5-Pad1)"
-      "Net-(P5-Pad6)" "Net-(P6-Pad4)"
+    (class kicad_default "" "/14(Tx3)" "/15(Rx3)" "/16(Tx2)" "/18(Tx1)" "/19(Rx1)"
+      "/20(SDA)" "/21(SCL)" /22 /23 /24 /25 /26 /27 /28 /29 /30 /31 /32 /33
+      /34 /35 /36 /37 /38 /39 /40 /41 /42 /43 /44 /45 /46 /47 /48 /49 /A0
+      /A1 /A2 /A3 /ADDRESS_SELECT_0 /ADDRESS_SELECT_1 /D11 /D12 /D13 /D5 /D6
+      /D7 /D8 /D9 "Net-(D1-Pad2)" "Net-(D2-Pad2)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )
