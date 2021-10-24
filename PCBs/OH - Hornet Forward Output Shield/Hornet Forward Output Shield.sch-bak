@@ -2126,11 +2126,6 @@ F 3 "" H 2750 1500 50  0001 C CNN
 	1    2750 1500
 	1    0    0    -1  
 $EndComp
-NoConn ~ 8900 2450
-NoConn ~ 8900 2550
-NoConn ~ 8900 2650
-NoConn ~ 8900 2750
-NoConn ~ 8900 2850
 NoConn ~ 8900 2950
 NoConn ~ 10400 3150
 NoConn ~ 10600 3700
@@ -2143,8 +2138,6 @@ NoConn ~ 8900 3900
 NoConn ~ 8900 4000
 NoConn ~ 8900 4100
 NoConn ~ 10400 3050
-NoConn ~ 8500 1900
-NoConn ~ 5200 2950
 $Comp
 L Connector:Conn_01x06_Female J15
 U 1 1 6177E875
@@ -2188,4 +2181,39 @@ F 3 "" H 6400 1100 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	6700 1100 6400 1100
+$Comp
+L Connector:Conn_01x03_Female J?
+U 1 1 61766056
+P 7750 1250
+F 0 "J?" H 7778 1276 50  0000 L CNN
+F 1 "NEXTION ANA" H 7778 1185 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 7750 1250 50  0001 C CNN
+F 3 "~" H 7750 1250 50  0001 C CNN
+	1    7750 1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5VL #PWR?
+U 1 1 617677BF
+P 7550 1150
+F 0 "#PWR?" H 7550 1000 50  0001 C CNN
+F 1 "+5VL" H 7565 1323 50  0000 C CNN
+F 2 "" H 7550 1150 50  0001 C CNN
+F 3 "" H 7550 1150 50  0001 C CNN
+	1    7550 1150
+	1    0    0    -1  
+$EndComp
+Text Label 7550 1250 2    50   ~ 0
+A4
+$Comp
+L power:GNDD #PWR?
+U 1 1 6176CA45
+P 7550 1350
+F 0 "#PWR?" H 7550 1100 50  0001 C CNN
+F 1 "GNDD" H 7554 1195 50  0000 C CNN
+F 2 "" H 7550 1350 50  0001 C CNN
+F 3 "" H 7550 1350 50  0001 C CNN
+	1    7550 1350
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

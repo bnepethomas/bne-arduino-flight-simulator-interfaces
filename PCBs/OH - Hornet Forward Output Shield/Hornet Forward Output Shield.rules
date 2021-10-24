@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 819)
+    (start_pass_no 878)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -75,7 +75,7 @@
     "Net-(D1-Pad2)" "Net-(D2-Pad2)" "/14(Tx3)" "/15(Rx3)" "/16(Tx2)" "/18(Tx1)" /38 /36
     /34 /32 /48 /49 /46 /44 /42 /40
     /D13 /D5 "/19(Rx1)" "/20(SDA)" "/21(SCL)" "/ADDRESS_SELECT_0" "/ADDRESS_SELECT_1" /A3
-    /A2 /A1 /A0
+    /A2 /A1 /A0 /A4
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
