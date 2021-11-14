@@ -1099,7 +1099,6 @@ F 3 "~" H 6850 7950 50  0001 C CNN
 	1    6850 7950
 	-1   0    0    -1  
 $EndComp
-NoConn ~ 7100 10300
 Text Label 7050 7850 0    50   ~ 0
 DRow0
 Text Label 7050 7950 0    50   ~ 0
@@ -1741,4 +1740,6 @@ Wire Wire Line
 	14300 5400 14100 5400
 Wire Wire Line
 	14100 5400 14100 5500
+Text Label 7100 10300 0    50   ~ 0
+DRow5
 $EndSCHEMATC

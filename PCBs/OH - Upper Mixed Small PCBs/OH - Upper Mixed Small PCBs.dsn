@@ -93,7 +93,7 @@
       (place J20 112332 -89979.5 front 0 (PN "ENCODER OUT"))
       (place SW13 116396 -143383 front 0 (PN "ECM ROTARY"))
       (place J13 145542 -136652 front 90 (PN "PWR PEDAL ADJUST"))
-      (place J10 170561 -135700 front 0 (PN "HUD INPUT"))
+      (place J10 172847 -135826 front 0 (PN "HUD INPUT"))
       (place J9 145415 -119634 front 90 (PN "PWR PEDAL ADJUST"))
       (place J6 112586 -54229 front 0 (PN "MASTER ARM"))
       (place J1 163068 -116776 front 0 (PN "HUD ANALOG"))
@@ -129,9 +129,9 @@
       (place SW6 180594 -116967 front 0 (PN "HUD-WB"))
       (place SW4 190373 -135890 front 0 (PN "HUD-REJ"))
       (place RV5 170512 -98234.5 front 0 (PN "HMD BRIGHT"))
-      (place RV4 172085 -144018 front 0 (PN "HUD BAL"))
+      (place RV4 168656 -144082 front 0 (PN "HUD BAL"))
       (place RV3 153684 -134176 front 0 (PN "BLK LVL"))
-      (place RV2 162941 -143891 front 0 (PN "HUD AOA"))
+      (place RV2 163195 -135763 front 0 (PN "HUD AOA"))
       (place RV1 153684 -125984 front 0 (PN "HUD BRT"))
       (place J23 170512 -90106.5 front 0 (PN "HMD BRIGHT"))
       (place J22 180467 -106553 front 0 (PN "SPIN LED"))
@@ -848,12 +848,11 @@
       "Net-(D7-Pad1)" "Net-(D8-Pad1)" "Net-(D9-Pad1)" "Net-(J11-Pad1)" "Net-(J11-Pad2)"
       "Net-(J12-Pad1)" "Net-(J12-Pad2)" "Net-(J12-Pad3)" "Net-(J12-Pad4)"
       "Net-(J13-Pad1)" "Net-(J13-Pad2)" "Net-(J13-Pad3)" "Net-(J13-Pad4)"
-      "Net-(J13-Pad5)" "Net-(J13-Pad6)" "Net-(J14-Pad5)" "Net-(J14-Pad7)"
-      "Net-(J14-Pad8)" "Net-(J15-Pad1)" "Net-(J15-Pad2)" "Net-(J15-Pad3)"
-      "Net-(J17-Pad1)" "Net-(J17-Pad2)" "Net-(J17-Pad3)" "Net-(J18-Pad1)"
-      "Net-(J18-Pad2)" "Net-(J18-Pad3)" "Net-(J23-Pad1)" "Net-(J23-Pad2)"
-      "Net-(J23-Pad3)" "Net-(J27-Pad1)" "Net-(J27-Pad2)" "Net-(J28-Pad2)"
-      "Net-(J29-Pad6)" "Net-(J6-Pad6)"
+      "Net-(J13-Pad5)" "Net-(J13-Pad6)" "Net-(J14-Pad5)" "Net-(J15-Pad1)"
+      "Net-(J15-Pad2)" "Net-(J15-Pad3)" "Net-(J17-Pad1)" "Net-(J17-Pad2)"
+      "Net-(J17-Pad3)" "Net-(J18-Pad1)" "Net-(J18-Pad2)" "Net-(J18-Pad3)"
+      "Net-(J23-Pad1)" "Net-(J23-Pad2)" "Net-(J23-Pad3)" "Net-(J27-Pad1)"
+      "Net-(J27-Pad2)" "Net-(J28-Pad2)" "Net-(J29-Pad6)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

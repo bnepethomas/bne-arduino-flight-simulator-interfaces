@@ -1174,17 +1174,12 @@
       /ECol2 /ECol3 /ECol4 /ECol5 /ECol6 /ECol7 /ERow0 /ERow1 /ERow2 /ERow3
       /ERow4 /ERow5 /ERow6 /ERow7 /FCol0 /FCol1 /FCol2 /FCol3 /FCol4 /FCol5
       /FCol6 /FCol7 /FRow0 /FRow1 /FRow2 /FRow3 /FRow4 /FRow5 /FRow6 /FRow7
-      /LOAD "Net-(J19-Pad6)" "Net-(J2-Pad6)" "Net-(J21-Pad6)" "Net-(J23-Pad6)"
-      "Net-(J28-Pad1)" "Net-(J28-Pad2)" "Net-(J28-Pad3)" "Net-(J28-Pad4)"
-      "Net-(J28-Pad5)" "Net-(J28-Pad6)" "Net-(J28-Pad7)" "Net-(J28-Pad8)"
-      "Net-(J3-Pad6)" "Net-(J30-Pad1)" "Net-(J30-Pad2)" "Net-(J30-Pad3)" "Net-(J30-Pad4)"
+      /LOAD "Net-(J30-Pad1)" "Net-(J30-Pad2)" "Net-(J30-Pad3)" "Net-(J30-Pad4)"
       "Net-(J30-Pad5)" "Net-(J30-Pad6)" "Net-(J30-Pad7)" "Net-(J30-Pad8)"
-      "Net-(J33-Pad1)" "Net-(J33-Pad2)" "Net-(J33-Pad3)" "Net-(J33-Pad4)"
-      "Net-(J33-Pad5)" "Net-(J33-Pad6)" "Net-(J33-Pad7)" "Net-(J33-Pad8)"
-      "Net-(J34-Pad8)" "Net-(J35-Pad1)" "Net-(J35-Pad2)" "Net-(J35-Pad3)"
-      "Net-(J35-Pad4)" "Net-(J35-Pad5)" "Net-(J35-Pad6)" "Net-(J35-Pad7)"
-      "Net-(J35-Pad8)" "Net-(R1-Pad2)" "Net-(R2-Pad2)" "Net-(R3-Pad2)" "Net-(R4-Pad2)"
-      "Net-(R5-Pad2)" "Net-(R6-Pad2)"
+      "Net-(J35-Pad1)" "Net-(J35-Pad2)" "Net-(J35-Pad3)" "Net-(J35-Pad4)"
+      "Net-(J35-Pad5)" "Net-(J35-Pad6)" "Net-(J35-Pad7)" "Net-(J35-Pad8)"
+      "Net-(R1-Pad2)" "Net-(R2-Pad2)" "Net-(R3-Pad2)" "Net-(R4-Pad2)" "Net-(R5-Pad2)"
+      "Net-(R6-Pad2)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
