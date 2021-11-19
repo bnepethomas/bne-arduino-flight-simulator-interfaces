@@ -1046,4 +1046,27 @@ Text Label 6500 6450 2    50   ~ 0
 RIGHT-DDI-BRIGHT
 Text Label 6500 6650 2    50   ~ 0
 AMPCD-BRIGHTNESS
+$Comp
+L Connector:Conn_01x06_Female J37
+U 1 1 6198A0F5
+P 1450 5950
+F 0 "J37" H 1478 5926 50  0000 L CNN
+F 1 "SELECT JET" H 1478 5835 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 1450 5950 50  0001 C CNN
+F 3 "~" H 1450 5950 50  0001 C CNN
+	1    1450 5950
+	1    0    0    -1  
+$EndComp
+Text Label 1250 5750 2    50   ~ 0
+COL6
+Text Label 1250 5850 2    50   ~ 0
+COL7
+Text Label 1250 5950 2    50   ~ 0
+COL8
+Text Label 1250 6050 2    50   ~ 0
+COL9
+Text Label 1250 6150 2    50   ~ 0
+COL10
+Text Label 1250 6250 2    50   ~ 0
+ROW15
 $EndSCHEMATC

@@ -56,11 +56,11 @@
   )
   (placement
     (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
+      (place J2 103219 -69500.8 front 270 (PN "SWITCH INPUTS"))
       (place J4 102970 -103333 back 270 (PN LedCathode))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place J5 102950 -73402.8 back 270 (PN LedAnode))
-      (place J2 103060 -82542.8 back 270 (PN SwithCol))
+      (place J5 95091.2 -67722.8 back 270 (PN LedAnode))
     )
     (component PT_Library_v001:PT_Small_Tactile_Switch_With_LED
       (place SW5 111240 -91692.8 front 180 (PN SW_Push))
@@ -71,10 +71,9 @@
     )
     (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal
       (place R2 87399.8 -95152.8 front 270 (PN 330))
-      (place R1 95909.8 -53952.8 front 270 (PN 150))
+      (place R1 96107.2 -50387.2 front 270 (PN 150))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place J3 115200 -114203 back 270 (PN SwitchRow))
       (place J1 91217.8 -113697 back 270 (PN BackLight))
     )
     (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
@@ -448,23 +447,14 @@
     (net /SegB
       (pins J5-3 D22-2 D18-2 D17-2 D14-2 D7-2)
     )
-    (net "Net-(D23-Pad2)"
-      (pins J2-2 D25-2 D23-2)
-    )
     (net "Net-(D23-Pad1)"
       (pins SW2-2 SW2-1 D23-1)
-    )
-    (net "Net-(D24-Pad2)"
-      (pins J2-3 D24-2)
     )
     (net "Net-(D24-Pad1)"
       (pins SW3-2 SW3-1 D24-1)
     )
     (net "Net-(D25-Pad1)"
       (pins SW5-2 SW5-1 D25-1)
-    )
-    (net "Net-(D26-Pad2)"
-      (pins J2-1 D27-2 D26-2)
     )
     (net "Net-(D26-Pad1)"
       (pins SW1-2 SW1-1 D26-1)
@@ -477,12 +467,6 @@
     )
     (net "Net-(J1-Pad1)"
       (pins R2-1 R1-1 J1-1)
-    )
-    (net "Net-(J3-Pad2)"
-      (pins SW3-4 SW3-3 SW2-4 SW2-3 SW1-4 SW1-3 J3-2)
-    )
-    (net "Net-(J3-Pad1)"
-      (pins SW5-4 SW5-3 SW4-4 SW4-3 J3-1)
     )
     (net "Net-(R1-Pad2)"
       (pins SW1-5 R1-2)
@@ -499,11 +483,30 @@
     (net "Net-(SW4-Pad6)"
       (pins SW5-5 SW4-6)
     )
-    (class kicad_default "" /Dig0 /Dig1 /Dig2 /Dig3 /Dig4 /Dig5 /SegA /SegB
-      /SegDP "Net-(D23-Pad1)" "Net-(D23-Pad2)" "Net-(D24-Pad1)" "Net-(D24-Pad2)"
-      "Net-(D25-Pad1)" "Net-(D26-Pad1)" "Net-(D26-Pad2)" "Net-(D27-Pad1)"
-      "Net-(J1-Pad1)" "Net-(J1-Pad2)" "Net-(J3-Pad1)" "Net-(J3-Pad2)" "Net-(R1-Pad2)"
-      "Net-(R2-Pad2)" "Net-(SW1-Pad6)" "Net-(SW2-Pad6)" "Net-(SW4-Pad6)"
+    (net /COL7
+      (pins J2-2 D23-2)
+    )
+    (net /COL8
+      (pins J2-3 D24-2)
+    )
+    (net /COL10
+      (pins J2-5 D25-2)
+    )
+    (net /COL6
+      (pins J2-1 D26-2)
+    )
+    (net /COL9
+      (pins J2-4 D27-2)
+    )
+    (net /ROW15
+      (pins J2-6 SW5-4 SW5-3 SW4-4 SW4-3 SW3-4 SW3-3 SW2-4 SW2-3 SW1-4 SW1-3)
+    )
+    (class kicad_default "" /COL10 /COL6 /COL7 /COL8 /COL9 /Dig0 /Dig1 /Dig2
+      /Dig3 /Dig4 /Dig5 /ROW15 /SegA /SegB /SegDP "Net-(D23-Pad1)" "Net-(D23-Pad2)"
+      "Net-(D24-Pad1)" "Net-(D24-Pad2)" "Net-(D25-Pad1)" "Net-(D26-Pad1)"
+      "Net-(D26-Pad2)" "Net-(D27-Pad1)" "Net-(J1-Pad1)" "Net-(J1-Pad2)" "Net-(J3-Pad1)"
+      "Net-(J3-Pad2)" "Net-(R1-Pad2)" "Net-(R2-Pad2)" "Net-(SW1-Pad6)" "Net-(SW2-Pad6)"
+      "Net-(SW4-Pad6)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )

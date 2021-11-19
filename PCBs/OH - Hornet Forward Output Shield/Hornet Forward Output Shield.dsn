@@ -30,6 +30,10 @@
             162687 -82042))
     (keepout "" (polygon B.Cu 0  162687 -82042  148971 -81915  148971 -77343  162687 -77216
             162687 -82042))
+    (keepout "" (polygon F.Cu 0  173101 -117412  169418 -117412  169482 -74549  169545 -74549
+            169482 -74485.5  173228 -74485.5  173101 -117412))
+    (keepout "" (polygon B.Cu 0  173101 -117412  169418 -117412  169482 -74549  169545 -74549
+            169482 -74485.5  173228 -74485.5  173101 -117412))
     (via "Via[0-1]_600:400_um")
     (rule
       (width 250)
@@ -45,16 +49,16 @@
     )
     (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
       (place J15 153670 -112522 front 0 (PN ANALOG))
-      (place J2 180213 -101473 front 0 (PN "RIGHT OUTPUT DIST"))
-      (place J8 172339 -78676.5 front 0 (PN "7219 OUT"))
+      (place J2 180975 -100266 front 0 (PN "RIGHT OUTPUT DIST"))
+      (place J8 177482 -78676.5 front 0 (PN "7219 OUT"))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (place J6 163004 -101600 front 0 (PN "UPPER 5V OUT"))
-      (place J5 173228 -101727 front 0 (PN "LOWER 5V IN"))
+      (place J5 174752 -100266 front 0 (PN "LOWER 5V IN"))
     )
     (component PT_Library_v001:Molex_1x08_P2.54mm_Vertical
       (place J4 127318 -83312 front 0 (PN RIGHT_SERVO))
-      (place J9 174371 -112522 front 0 (PN "PIXEL LEDS"))
+      (place J9 175450 -112395 front 0 (PN "PIXEL LEDS"))
       (place J1 207772 -71374 front 270 (PN "LEFT OUTPUT DIST"))
     )
     (component Connector_BarrelJack:BarrelJack_Horizontal
@@ -65,8 +69,8 @@
       (place J16 158115 -84328 front 90 (PN "Address Select 0"))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
-      (place J7 172085 -89535 front 0 (PN NEXTION))
-      (place J10 185166 -87376 front 0 (PN I2C))
+      (place J7 174942 -87312.5 front 0 (PN NEXTION))
+      (place J10 186182 -87312.5 front 0 (PN I2C))
       (place J12 209550 -105600 front 0 (PN "CABIN ALT"))
       (place J14 209550 -115951 front 0 (PN "RADAR ALT"))
       (place J13 209550 -95250 front 0 (PN "BRAKE PRESSURE"))
@@ -834,15 +838,11 @@
     (net /A4
       (pins J18-2 P2-5)
     )
-    (class kicad_default "" +3V3 "/14(Tx3)" "/15(Rx3)" "/16(Tx2)" "/17(Rx2)"
-      "/18(Tx1)" "/19(Rx1)" "/20(SDA)" "/21(SCL)" /22 /23 /24 /25 /26 /27
-      /28 /29 /30 /31 /32 /33 /34 /35 /36 /37 /38 /39 /40 /41 /42 /43 /44
-      /45 /46 /47 /48 /49 /A0 /A1 /A10 /A11 /A12 /A13 /A14 /A15 /A2 /A3 /A4
-      /A5 /A8 /A9 /ADDRESS_SELECT_0 /ADDRESS_SELECT_1 /D0 /D1 /D11 /D12 /D13
-      /D5 /D6 /D7 /D8 /D9 /IOREF /Reset /Vin "Net-(D1-Pad2)" "Net-(D2-Pad2)"
-      "Net-(J1-Pad7)" "Net-(J2-Pad5)" "Net-(J4-Pad8)" "Net-(J8-Pad6)" "Net-(P1-Pad1)"
-      "Net-(P4-Pad3)" "Net-(P4-Pad4)" "Net-(P4-Pad5)" "Net-(P4-Pad6)" "Net-(P5-Pad1)"
-      "Net-(P5-Pad6)" "Net-(P6-Pad4)"
+    (class kicad_default "" "/14(Tx3)" "/15(Rx3)" "/16(Tx2)" "/18(Tx1)" "/19(Rx1)"
+      "/20(SDA)" "/21(SCL)" /22 /23 /24 /25 /26 /27 /28 /29 /30 /31 /32 /33
+      /34 /35 /36 /37 /38 /39 /40 /41 /42 /43 /44 /45 /46 /47 /48 /49 /A0
+      /A1 /A2 /A3 /A4 /ADDRESS_SELECT_0 /ADDRESS_SELECT_1 /D11 /D12 /D13 /D5
+      /D6 /D7 /D8 /D9 "Net-(D1-Pad2)" "Net-(D2-Pad2)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )

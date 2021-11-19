@@ -442,28 +442,6 @@ F 3 "~" H 1350 4200 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x02_Female J3
-U 1 1 5EF15385
-P 2500 1700
-F 0 "J3" H 2608 1881 50  0000 C CNN
-F 1 "SwitchRow" H 2608 1790 50  0000 C CNN
-F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2500 1700 50  0001 C CNN
-F 3 "~" H 2500 1700 50  0001 C CNN
-	1    2500 1700
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x03_Female J2
-U 1 1 5EF25732
-P 1050 2500
-F 0 "J2" H 1078 2526 50  0000 L CNN
-F 1 "SwithCol" H 1078 2435 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1050 2500 50  0001 C CNN
-F 3 "~" H 1050 2500 50  0001 C CNN
-	1    1050 2500
-	-1   0    0    -1  
-$EndComp
-$Comp
 L Connector:Conn_01x03_Female J5
 U 1 1 5EF2E612
 P 6600 2150
@@ -662,30 +640,6 @@ Connection ~ 4350 3050
 Wire Wire Line
 	4350 3050 4350 3150
 Wire Wire Line
-	1250 2400 1800 2400
-Wire Wire Line
-	1550 2500 1250 2500
-Wire Wire Line
-	1550 2500 1550 2900
-Wire Wire Line
-	1550 2900 1800 2900
-Wire Wire Line
-	1250 2600 1500 2600
-Wire Wire Line
-	1500 2600 1500 3450
-Wire Wire Line
-	1500 3450 1850 3450
-Wire Wire Line
-	2700 1800 3050 1800
-Wire Wire Line
-	3050 1800 3050 2500
-Connection ~ 3050 2500
-Wire Wire Line
-	2700 1700 4450 1700
-Wire Wire Line
-	4450 1700 4450 2500
-Connection ~ 4450 2500
-Wire Wire Line
 	2950 3750 2950 3800
 Wire Wire Line
 	2950 4300 1550 4300
@@ -709,28 +663,6 @@ Wire Wire Line
 Wire Wire Line
 	3250 4200 1700 4200
 Connection ~ 1700 4200
-Wire Wire Line
-	1800 2900 1800 2800
-Wire Wire Line
-	1800 2800 3200 2800
-Wire Wire Line
-	3200 2800 3200 2950
-Wire Wire Line
-	3200 2950 3300 2950
-Connection ~ 1800 2900
-Wire Wire Line
-	1800 2900 1850 2900
-Wire Wire Line
-	1800 2400 1800 2250
-Wire Wire Line
-	1800 2250 3200 2250
-Wire Wire Line
-	3200 2250 3200 2400
-Wire Wire Line
-	3200 2400 3300 2400
-Connection ~ 1800 2400
-Wire Wire Line
-	1800 2400 1850 2400
 Wire Wire Line
 	5500 4300 6050 4300
 Wire Wire Line
@@ -806,4 +738,41 @@ Wire Wire Line
 Wire Wire Line
 	6600 5100 6050 5100
 Connection ~ 6050 5100
+$Comp
+L Connector:Conn_01x06_Female J2
+U 1 1 619A4E7B
+P 1050 1700
+F 0 "J2" H 942 2085 50  0000 C CNN
+F 1 "SWITCH INPUTS" H 942 1994 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 1050 1700 50  0001 C CNN
+F 3 "~" H 1050 1700 50  0001 C CNN
+	1    1050 1700
+	-1   0    0    -1  
+$EndComp
+Text Label 1250 1500 0    50   ~ 0
+COL6
+Text Label 1250 1600 0    50   ~ 0
+COL7
+Text Label 1250 1700 0    50   ~ 0
+COL8
+Text Label 1250 1800 0    50   ~ 0
+COL9
+Text Label 1250 1900 0    50   ~ 0
+COL10
+Text Label 1250 2000 0    50   ~ 0
+ROW15
+Text Label 1850 2400 2    50   ~ 0
+COL6
+Text Label 1850 2900 2    50   ~ 0
+COL7
+Text Label 1850 3450 2    50   ~ 0
+COL8
+Text Label 3300 2400 2    50   ~ 0
+COL9
+Text Label 3300 2950 2    50   ~ 0
+COL10
+Text Label 4450 2800 0    50   ~ 0
+ROW15
+Text Label 3050 2500 0    50   ~ 0
+ROW15
 $EndSCHEMATC

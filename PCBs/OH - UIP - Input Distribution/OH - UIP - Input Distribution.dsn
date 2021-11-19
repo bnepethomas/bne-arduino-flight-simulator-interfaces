@@ -33,6 +33,20 @@
     )
   )
   (placement
+    (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
+      (place J37 146939 -116776 front 270 (PN "SELECT JET"))
+      (place J34 189420 -69215 front 270 (PN "UFC RIGHT ENCODER"))
+      (place J33 212026 -39052.5 front 270 (PN "UFC LEFT ENCODER"))
+      (place J32 212090 -55562.5 front 270 (PN "STANDBY ENCODERS"))
+      (place J26 175196 -100520 front 0 (PN "HUD ANALOG"))
+      (place J13 154686 -83312 front 270 (PN "HUD CONTROL"))
+      (place J12 166560 -83312 front 270 (PN "MASTER ARM"))
+      (place J6 200978 -39052.5 front 270 (PN "UFC ROW"))
+      (place J4 154813 -39941.5 front 270 (PN "RIGHT DDI ROW"))
+      (place J3 157036 -116840 front 270 (PN "RIGHT DDI COL"))
+      (place J2 166560 -39941.5 front 270 (PN "LEFT DDI ROW"))
+      (place J1 154686 -100140 front 270 (PN "LEFT DDI COL"))
+    )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
       (place J35 214694 -131508 front 0 (PN "AMPCD-BRIGHT"))
       (place J31 189611 -57213.5 front 270 (PN "AMPCD-CRS"))
@@ -58,19 +72,6 @@
       (place D1 185992 -38735 front 0 (PN D))
       (place D4 185738 -85344 front 0 (PN D))
       (place D3 185928 -88455.5 front 0 (PN D))
-    )
-    (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
-      (place J34 189420 -69215 front 270 (PN "UFC RIGHT ENCODER"))
-      (place J33 212026 -39052.5 front 270 (PN "UFC LEFT ENCODER"))
-      (place J32 212090 -55562.5 front 270 (PN "STANDBY ENCODERS"))
-      (place J26 175196 -100520 front 0 (PN "HUD ANALOG"))
-      (place J13 154686 -83312 front 270 (PN "HUD CONTROL"))
-      (place J12 166560 -83312 front 270 (PN "MASTER ARM"))
-      (place J6 200978 -39052.5 front 270 (PN "UFC ROW"))
-      (place J4 154813 -39941.5 front 270 (PN "RIGHT DDI ROW"))
-      (place J3 154686 -116904 front 270 (PN "RIGHT DDI COL"))
-      (place J2 166560 -39941.5 front 270 (PN "LEFT DDI ROW"))
-      (place J1 154686 -100140 front 270 (PN "LEFT DDI COL"))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (place J19 135382 -101282 front 270 (PN "RIGHT EWI ROW"))
@@ -107,6 +108,55 @@
     )
   )
   (library
+    (image PT_Library_v001:Molex_1x06_P2.54mm_Vertical
+      (outline (path signal 50  14470 3420  -1770 3420))
+      (outline (path signal 50  14470 -3380  14470 3420))
+      (outline (path signal 50  -1770 -3380  14470 -3380))
+      (outline (path signal 50  -1770 3420  -1770 -3380))
+      (outline (path signal 120  13500 2430  13500 3030))
+      (outline (path signal 120  11900 2430  13500 2430))
+      (outline (path signal 120  11900 3030  11900 2430))
+      (outline (path signal 120  10960 2430  10960 3030))
+      (outline (path signal 120  9360 2430  10960 2430))
+      (outline (path signal 120  9360 3030  9360 2430))
+      (outline (path signal 120  8420 2430  8420 3030))
+      (outline (path signal 120  6820 2430  8420 2430))
+      (outline (path signal 120  6820 3030  6820 2430))
+      (outline (path signal 120  5880 2430  5880 3030))
+      (outline (path signal 120  4280 2430  5880 2430))
+      (outline (path signal 120  4280 3030  4280 2430))
+      (outline (path signal 120  3340 2430  3340 3030))
+      (outline (path signal 120  1740 2430  3340 2430))
+      (outline (path signal 120  1740 3030  1740 2430))
+      (outline (path signal 120  800 2430  800 3030))
+      (outline (path signal 120  -800 2430  800 2430))
+      (outline (path signal 120  -800 3030  -800 2430))
+      (outline (path signal 120  12450 -2990  12450 -1990))
+      (outline (path signal 120  250 -2990  250 -1990))
+      (outline (path signal 120  12450 -1460  12700 -1990))
+      (outline (path signal 120  250 -1460  12450 -1460))
+      (outline (path signal 120  0 -1990  250 -1460))
+      (outline (path signal 120  12700 -1990  12700 -2990))
+      (outline (path signal 120  0 -1990  12700 -1990))
+      (outline (path signal 120  0 -2990  0 -1990))
+      (outline (path signal 100  -562.893 0  -1270 -500))
+      (outline (path signal 100  -1270 500  -562.893 0))
+      (outline (path signal 120  -1670 2000  -1670 -2000))
+      (outline (path signal 120  14080 3030  -1380 3030))
+      (outline (path signal 120  14080 -2990  14080 3030))
+      (outline (path signal 120  -1380 -2990  14080 -2990))
+      (outline (path signal 120  -1380 3030  -1380 -2990))
+      (outline (path signal 100  13970 2920  -1270 2920))
+      (outline (path signal 100  13970 -2880  13970 2920))
+      (outline (path signal 100  -1270 -2880  13970 -2880))
+      (outline (path signal 100  -1270 2920  -1270 -2880))
+      (pin Oval[A]Pad_1740x2200_um 6 12700 0)
+      (pin Oval[A]Pad_1740x2200_um 5 10160 0)
+      (pin Oval[A]Pad_1740x2200_um 4 7620 0)
+      (pin Oval[A]Pad_1740x2200_um 3 5080 0)
+      (pin Oval[A]Pad_1740x2200_um 2 2540 0)
+      (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
+    )
     (image PT_Library_v001:Molex_1x03_P2.54mm_Vertical
       (outline (path signal 50  6850 3420  -1770 3420))
       (outline (path signal 50  6850 -3380  6850 3420))
@@ -281,55 +331,6 @@
       (outline (path signal 100  1810 1000  1810 -1000))
       (pin Oval[A]Pad_1600x1600_um 2 7620 0)
       (pin Rect[A]Pad_1600x1600_um 1 0 0)
-    )
-    (image PT_Library_v001:Molex_1x06_P2.54mm_Vertical
-      (outline (path signal 50  14470 3420  -1770 3420))
-      (outline (path signal 50  14470 -3380  14470 3420))
-      (outline (path signal 50  -1770 -3380  14470 -3380))
-      (outline (path signal 50  -1770 3420  -1770 -3380))
-      (outline (path signal 120  13500 2430  13500 3030))
-      (outline (path signal 120  11900 2430  13500 2430))
-      (outline (path signal 120  11900 3030  11900 2430))
-      (outline (path signal 120  10960 2430  10960 3030))
-      (outline (path signal 120  9360 2430  10960 2430))
-      (outline (path signal 120  9360 3030  9360 2430))
-      (outline (path signal 120  8420 2430  8420 3030))
-      (outline (path signal 120  6820 2430  8420 2430))
-      (outline (path signal 120  6820 3030  6820 2430))
-      (outline (path signal 120  5880 2430  5880 3030))
-      (outline (path signal 120  4280 2430  5880 2430))
-      (outline (path signal 120  4280 3030  4280 2430))
-      (outline (path signal 120  3340 2430  3340 3030))
-      (outline (path signal 120  1740 2430  3340 2430))
-      (outline (path signal 120  1740 3030  1740 2430))
-      (outline (path signal 120  800 2430  800 3030))
-      (outline (path signal 120  -800 2430  800 2430))
-      (outline (path signal 120  -800 3030  -800 2430))
-      (outline (path signal 120  12450 -2990  12450 -1990))
-      (outline (path signal 120  250 -2990  250 -1990))
-      (outline (path signal 120  12450 -1460  12700 -1990))
-      (outline (path signal 120  250 -1460  12450 -1460))
-      (outline (path signal 120  0 -1990  250 -1460))
-      (outline (path signal 120  12700 -1990  12700 -2990))
-      (outline (path signal 120  0 -1990  12700 -1990))
-      (outline (path signal 120  0 -2990  0 -1990))
-      (outline (path signal 100  -562.893 0  -1270 -500))
-      (outline (path signal 100  -1270 500  -562.893 0))
-      (outline (path signal 120  -1670 2000  -1670 -2000))
-      (outline (path signal 120  14080 3030  -1380 3030))
-      (outline (path signal 120  14080 -2990  14080 3030))
-      (outline (path signal 120  -1380 -2990  14080 -2990))
-      (outline (path signal 120  -1380 3030  -1380 -2990))
-      (outline (path signal 100  13970 2920  -1270 2920))
-      (outline (path signal 100  13970 -2880  13970 2920))
-      (outline (path signal 100  -1270 -2880  13970 -2880))
-      (outline (path signal 100  -1270 2920  -1270 -2880))
-      (pin Oval[A]Pad_1740x2200_um 6 12700 0)
-      (pin Oval[A]Pad_1740x2200_um 5 10160 0)
-      (pin Oval[A]Pad_1740x2200_um 4 7620 0)
-      (pin Oval[A]Pad_1740x2200_um 3 5080 0)
-      (pin Oval[A]Pad_1740x2200_um 2 2540 0)
-      (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
     )
     (image PT_Library_v001:Molex_1x02_P2.54mm_Vertical
       (outline (path signal 50  4310 3420  -1770 3420))
@@ -642,10 +643,10 @@
       (pins J35-1 J29-1 J28-1 J23-1 J27-1 J26-1 J22-1 J21-1 J20-1 J30-1)
     )
     (net /COL10
-      (pins D2-2 D1-2 J18-2 J16-2 J14-3 J13-3 J36-28 J42-11)
+      (pins J37-5 D2-2 D1-2 J18-2 J16-2 J14-3 J13-3 J36-28 J42-11)
     )
     (net /COL9
-      (pins J18-1 J16-1 J14-2 J13-2 J3-5 J36-27 J42-10)
+      (pins J37-4 J18-1 J16-1 J14-2 J13-2 J3-5 J36-27 J42-10)
     )
     (net /ROW1
       (pins J24-3 J4-2 J2-2 J36-3 J41-2)
@@ -654,13 +655,13 @@
       (pins J24-1 J4-1 J2-1 J36-2 J41-1)
     )
     (net /COL8
-      (pins J14-1 J13-1 J3-4 J36-26 J42-9)
+      (pins J37-3 J14-1 J13-1 J3-4 J36-26 J42-9)
     )
     (net /COL7
-      (pins J15-2 J12-2 J5-4 J3-3 J36-25 J42-8)
+      (pins J37-2 J15-2 J12-2 J5-4 J3-3 J36-25 J42-8)
     )
     (net /COL6
-      (pins J15-1 J12-1 J5-3 J3-2 J36-24 J42-7)
+      (pins J37-1 J15-1 J12-1 J5-3 J3-2 J36-24 J42-7)
     )
     (net /COL5
       (pins J11-1 J9-2 J5-2 J3-1 J36-23 J42-6)
@@ -717,7 +718,7 @@
       (pins J14-7 J12-3 J11-2 J8-6 J6-6 J36-12 J41-11)
     )
     (net /ROW15
-      (pins J10-7 J9-7 J36-17 J41-16)
+      (pins J37-6 J10-7 J9-7 J36-17 J41-16)
     )
     (net /ROW14
       (pins J15-4 J13-6 J10-6 J9-6 J36-16 J41-15)
@@ -803,16 +804,20 @@
     (net "/AMPCD-BRIGHTNESS"
       (pins J35-2 J29-10)
     )
-    (class kicad_default "" /A10 /A7 /A8 /A9 "/AMPCD-BRIGHTNESS" /ANALOG_5V
-      /ANALOG_GND "/BLK-LVL" /COL0 /COL1 /COL10 /COL2 /COL3 /COL4 /COL5 /COL6
-      /COL7 /COL8 /COL9 "/ENCODER-GND" "/HUD-AOA" "/HUD-BAL" "/HUD-BRT" "/IFEI-BRIGHTNESS"
-      "/LEFT-DDI-BRIGHT" "/LEFT-DDI-CONT" "/RIGHT-DDI-BRIGHT" "/RIGHT-DDI-CONT"
-      /ROW0 /ROW1 /ROW10 /ROW11 /ROW12 /ROW13 /ROW14 /ROW15 /ROW2 /ROW3 /ROW4
-      /ROW5 /ROW6 /ROW7 /ROW8 /ROW9 "/RWR-AUDIO" "/RWR-DIMMER" "/SPIN-ANALOG"
-      "/STANDBY-ANALOG" "/STDBY-ENC-1-A" "/STDBY-ENC-1-B" "/STDBY-ENC-2-A"
-      "/STDBY-ENC-2-B" "/UFC-LEFT-ENCODER-A" "/UFC-LEFT-ENCODER-B" "/UFC-RIGHT-ENCODER-A"
-      "/UFC-RIGHT-ENCODER-B" "Net-(D1-Pad1)" "Net-(D2-Pad1)" "Net-(D3-Pad1)"
-      "Net-(D4-Pad1)"
+    (class kicad_default "" "/AMPCD-BRIGHTNESS" /ANALOG_5V /ANALOG_GND "/BLK-LVL"
+      /COL0 /COL1 /COL10 /COL2 /COL3 /COL4 /COL5 /COL6 /COL7 /COL8 /COL9 "/ENCODER-GND"
+      "/HUD-AOA" "/HUD-BAL" "/HUD-BRT" "/IFEI-BRIGHTNESS" "/LEFT-DDI-BRIGHT"
+      "/LEFT-DDI-CONT" "/RIGHT-DDI-BRIGHT" "/RIGHT-DDI-CONT" /ROW0 /ROW1 /ROW10
+      /ROW11 /ROW12 /ROW13 /ROW14 /ROW15 /ROW2 /ROW3 /ROW4 /ROW5 /ROW6 /ROW7
+      /ROW8 /ROW9 "/RWR-AUDIO" "/RWR-DIMMER" "/SPIN-ANALOG" "/STANDBY-ANALOG"
+      "/STDBY-ENC-1-A" "/STDBY-ENC-1-B" "/STDBY-ENC-2-A" "/STDBY-ENC-2-B"
+      "/UFC-LEFT-ENCODER-A" "/UFC-LEFT-ENCODER-B" "/UFC-RIGHT-ENCODER-A" "/UFC-RIGHT-ENCODER-B"
+      "Net-(D1-Pad1)" "Net-(D2-Pad1)" "Net-(D3-Pad1)" "Net-(D4-Pad1)" "Net-(J1-Pad6)"
+      "Net-(J10-Pad8)" "Net-(J12-Pad6)" "Net-(J17-Pad2)" "Net-(J19-Pad2)"
+      "Net-(J2-Pad6)" "Net-(J25-Pad10)" "Net-(J3-Pad6)" "Net-(J33-Pad4)" "Net-(J34-Pad4)"
+      "Net-(J36-Pad1)" "Net-(J36-Pad29)" "Net-(J36-Pad30)" "Net-(J36-Pad31)"
+      "Net-(J36-Pad32)" "Net-(J36-Pad33)" "Net-(J36-Pad34)" "Net-(J4-Pad6)"
+      "Net-(J9-Pad8)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )
