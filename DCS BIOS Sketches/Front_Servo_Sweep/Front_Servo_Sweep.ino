@@ -20,18 +20,18 @@ Servo hydPress2Servo;
 Servo hydPress1Servo;
 Servo battEServo;
 Servo battUServo;
-Servo altFlagServo;  // create servo object to control a servo
+Servo altFlagServo;  
 Servo trimServo;
-// twelve servo objects can be created on most boards
 
-int pos = 0;    // variable to store the servo position
+
+int pos = 0;   
 
 void setup() {
   hydPress2Servo.attach(hydPress2Pin);
   hydPress1Servo.attach(hydPress1Pin);  
   battUServo.attach(battUPin);
   battEServo.attach(battEPin);
-  altFlagServo.attach(altFlagPin);  // attaches the servo on pin 9 to the servo object
+  altFlagServo.attach(altFlagPin); 
   trimServo.attach(trimPin);
 }
 
@@ -42,7 +42,7 @@ void loop() {
     hydPress1Servo.write(pos);
     battUServo.write(pos);
     battEServo.write(pos);
-    altFlagServo.write(pos);              // tell servo to go to position in variable 'pos'
+    altFlagServo.write(pos);              
     trimServo.write(pos);
     delay(15);                       // waits 15ms for the servo to reach the position
   }
@@ -51,7 +51,7 @@ void loop() {
     hydPress1Servo.write(pos);
     battUServo.write(pos);
     battEServo.write(pos);
-    altFlagServo.write(pos);              // tell servo to go to position in variable 'pos'
+    altFlagServo.write(pos);             
     trimServo.write(pos);
     delay(15);                       // waits 15ms for the servo to reach the position
   }
