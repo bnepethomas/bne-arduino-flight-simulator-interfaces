@@ -533,7 +533,7 @@ $EndComp
 Text Label 9300 3750 2    50   ~ 0
 +12V
 Text Label 9300 3850 2    50   ~ 0
-5V_Out_Pitot_Heat_Mag
+12V_Out_Pitot_Heat_Mag
 Text Label 9300 3650 2    50   ~ 0
 5V_Out_Bleed_Air_Sol
 Text Label 9300 3550 2    50   ~ 0
@@ -549,4 +549,10 @@ SERVO_5V
 Text Label 6300 4700 2    50   ~ 0
 12V_Out_Canopy_Mag
 NoConn ~ 5650 7050
+Wire Wire Line
+	5500 2650 5800 2650
+Text Label 5500 2650 2    50   ~ 0
+GND
+Text Label 5800 2650 0    50   ~ 0
+SERVO_GND
 $EndSCHEMATC

@@ -34,15 +34,15 @@
   )
   (placement
     (component "Package_DIP:DIP-16_W7.62mm"
-      (place U2 187452 -82804 front 0 (PN ULN2003A))
-      (place U1 157988 -91186 front 0 (PN ULN2003A))
+      (place U2 187452 -82804 front 0 (PN "5V ULN2003"))
+      (place U1 157988 -91186 front 0 (PN "12V ULN2003"))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
       (place J22 185928 -115189 front 0 (PN "MIXED ECS"))
       (place J5 200406 -91948 front 270 (PN "5V ECS"))
       (place J6 218948 -106934 front 0 (PN "LED IN"))
       (place J7 206248 -114808 front 0 (PN "ALT STEPPER"))
-      (place J4 206248 -107569 front 0 (PN "ALT STEPPER IN"))
+      (place J4 206248 -107569 front 0 (PN "ALT STEPPER"))
       (place J13 171831 -95758 front 270 (PN "12V ECS"))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
@@ -65,11 +65,11 @@
       (place J1 167767 -116332 front 0 (PN "CENTRAL OUTPUT"))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place J8 214630 -96520 front 0 (PN "ALT FLAG OUT"))
-      (place J17 240411 -108204 front 0 (PN "Batt E Out"))
-      (place J16 240284 -100076 front 0 (PN "Batt U Out"))
-      (place J19 239395 -91186 front 0 (PN "Hyd Press 2 Out"))
-      (place J18 227330 -96647 front 0 (PN "Hyd Press 1 Out"))
+      (place J8 214630 -96520 front 0 (PN "ALT FLAG"))
+      (place J17 240411 -108204 front 0 (PN "Batt E"))
+      (place J16 240284 -100076 front 0 (PN "Batt U"))
+      (place J19 239395 -91186 front 0 (PN "Hyd Press 2"))
+      (place J18 227330 -96647 front 0 (PN "Hyd Press 1"))
     )
     (component MountingHole:MountingHole_3.2mm_M3
       (place H4 160274 -116459 front 0 (PN MountingHole))
@@ -488,7 +488,8 @@
   )
   (network
     (net /GND
-      (pins U2-8 U2-7 U2-6 U2-5 J3-2 J1-6 U1-8 U1-7 U1-6 U1-5)
+      (pins U2-8 U2-7 U2-6 U2-5 J3-2 J2-2 J1-6 J8-3 J17-3 J16-3 U1-8 U1-7 U1-6 U1-5
+        J19-3 J18-3)
     )
     (net /In_Canopy_Mag
       (pins U2-4 J1-4 U1-4)
@@ -516,9 +517,6 @@
     )
     (net /ALT_STEPPER_1A
       (pins J7-1 J4-1)
-    )
-    (net /SERVO_GND
-      (pins J2-2 J8-3 J17-3 J16-3 J19-3 J18-3)
     )
     (net /SERVO_5V
       (pins U2-9 J22-1 J21-1 J20-1 J5-3 J5-1 J2-1 J8-2 J17-2 J16-2 J19-2 J18-2)
@@ -551,13 +549,13 @@
       (pins J12-2 J11-2 J6-4)
     )
     (net /5V_Out_Pitot_Heat_Mag
-      (pins U2-15 J22-4 J5-4)
+      (pins U2-15 J5-4)
     )
     (net /5V_Out_Bleed_Air_Sol
       (pins U2-16 J22-2 J5-2)
     )
     (net /12V_Out_Pitot_Heat_Mag
-      (pins U1-15 J13-4)
+      (pins J22-4 U1-15 J13-4)
     )
     (net /12V_Out_Bleed_Air_Sol
       (pins U1-16 J13-2)
@@ -577,8 +575,7 @@
     (class kicad_default "" /ALT_FLAG_PWM /ALT_STEPPER_1A /ALT_STEPPER_1B
       /ALT_STEPPER_2A /ALT_STEPPER_2B /BATT_E_PWM /BATT_U_PWM /HYD_PRESS_1_PWM
       /HYD_PRESS_2_PWM /In_Bleed_Air_Sol /In_Canopy_Mag /In_Laser_Arm_Mag
-      /In_Pitot_Heat_Mag /LEDCOL1 /LEDCOL2 /LEDROW1 /LEDROW2 /Out_Bleed_Air_Sol
-      /Out_Canopy_Mag /Out_Laser_Arm_Mag /Out_Pitot_Heat_Mag "Net-(J1-Pad5)"
+      /In_Pitot_Heat_Mag /LEDCOL1 /LEDCOL2 /LEDROW1 /LEDROW2 "Net-(J1-Pad5)"
       "Net-(J2-Pad8)" "Net-(U1-Pad10)" "Net-(U1-Pad11)" "Net-(U1-Pad12)" "Net-(U2-Pad10)"
       "Net-(U2-Pad11)" "Net-(U2-Pad12)"
       (circuit

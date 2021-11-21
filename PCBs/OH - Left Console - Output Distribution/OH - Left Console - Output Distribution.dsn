@@ -453,7 +453,7 @@
       (pins U2-1 J1-1 U1-1)
     )
     (net /+12V
-      (pins J3-1 J2-1 U1-9 J13-3 J13-1 J11-1 J10-3 J10-1 J9-1)
+      (pins J2-1 U1-9 J13-3 J13-1 J11-1 J10-3 J10-1 J9-1)
     )
     (net /LEDCOL1
       (pins J8-2 J4-2 J16-3)
@@ -465,7 +465,7 @@
       (pins J8-1 J16-2)
     )
     (net /SERVO_5V
-      (pins J14-3 J14-1 J6-3 J6-1 J5-1 U2-9 J17-2 J15-2)
+      (pins J14-3 J14-1 J6-3 J6-1 J5-1 J3-1 U2-9 J17-2 J15-2)
     )
     (net /SERVO_PWM
       (pins J17-1 J15-1)
@@ -520,10 +520,8 @@
     )
     (class kicad_default "" /In_APU_Mag /In_Engine_Crank_Mag /In_Fuel_Dump_Mag
       /In_Hook_Bypass_Mag /In_Landing_Gear_Sol /In_Launch_Bar_Mag /LEDCOL1
-      /LEDROW1 /LEDROW2 /Out_APU_Mag /Out_Engine_Crank_Mag /SERVO_GND /SERVO_PWM
-      "Net-(J1-Pad7)" "Net-(J10-Pad1)" "Net-(J10-Pad2)" "Net-(J10-Pad3)" "Net-(J10-Pad4)"
-      "Net-(J12-Pad1)" "Net-(J12-Pad2)" "Net-(J12-Pad3)" "Net-(J12-Pad4)"
-      "Net-(U1-Pad10)" "Net-(U2-Pad10)"
+      /LEDROW1 /LEDROW2 /SERVO_PWM "Net-(J1-Pad7)" "Net-(J12-Pad1)" "Net-(J12-Pad2)"
+      "Net-(J12-Pad3)" "Net-(J12-Pad4)" "Net-(U1-Pad10)" "Net-(U2-Pad10)"
       (circuit
         (use_via Via[0-1]_800:400_um)
       )

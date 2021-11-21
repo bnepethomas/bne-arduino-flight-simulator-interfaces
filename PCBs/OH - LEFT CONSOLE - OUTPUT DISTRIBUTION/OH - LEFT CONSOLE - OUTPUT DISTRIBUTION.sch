@@ -474,5 +474,5 @@ $EndComp
 Text Label 5650 1800 2    50   ~ 0
 5V_Landing_Gear_Sol
 Text Label 5650 1700 2    50   ~ 0
-+12V
+SERVO_5V
 $EndSCHEMATC
