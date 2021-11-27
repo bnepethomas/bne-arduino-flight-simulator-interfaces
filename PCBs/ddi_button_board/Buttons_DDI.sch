@@ -495,41 +495,14 @@ Wire Wire Line
 Wire Wire Line
 	10450 3100 9750 3100
 Wire Wire Line
-	10500 1650 10500 2400
-Wire Wire Line
-	10500 3200 9750 3200
-Wire Wire Line
-	9650 1650 10500 1650
-Wire Wire Line
 	9700 2300 10450 2300
 Connection ~ 10450 2300
 Wire Wire Line
 	10450 2300 10450 3100
-Wire Wire Line
-	9700 2400 10500 2400
-Connection ~ 10500 2400
-Wire Wire Line
-	10500 2400 10500 3200
-Wire Wire Line
-	9650 1750 10550 1750
-Wire Wire Line
-	10550 1750 10550 3300
-Wire Wire Line
-	10550 3300 9750 3300
-Wire Wire Line
-	9700 2500 10600 2500
-Wire Wire Line
-	10600 2500 10600 3400
-Wire Wire Line
-	10600 3400 9750 3400
 Text Label 9900 3100 0    50   ~ 0
 Analog+5V
 Text Label 9900 3200 0    50   ~ 0
 Analog_GND
-Text Label 9900 3300 0    50   ~ 0
-Ana_Bright
-Text Label 9900 3400 0    50   ~ 0
-Ana_Contrast
 Text Notes 9000 2050 0    50   ~ 0
 Brightness - Left Hand Side
 Text Notes 9000 1300 0    50   ~ 0
@@ -1677,6 +1650,104 @@ Wire Wire Line
 	7800 4800 7600 4800
 Text Label 7650 4800 0    50   ~ 0
 Backlight+
+Wire Wire Line
+	10350 1750 10350 2500
+Connection ~ 10350 2500
+Wire Wire Line
+	10350 2500 10350 3200
+Wire Wire Line
+	9750 3400 10650 3400
+Wire Wire Line
+	10650 3400 10650 1650
+Wire Wire Line
+	9650 1650 10650 1650
+Wire Wire Line
+	9750 3300 10550 3300
+Wire Wire Line
+	10550 3300 10550 2400
+Wire Wire Line
+	10550 2400 9700 2400
+Wire Wire Line
+	9750 3200 10350 3200
+Wire Wire Line
+	9650 1750 10350 1750
+Wire Wire Line
+	9700 2500 10350 2500
+Text Label 9900 3400 0    50   ~ 0
+Ana_Contrast
+Text Label 9900 3300 0    50   ~ 0
+Ana_Bright
+Wire Wire Line
+	7600 5250 7500 5150
+$Comp
+L Device:LED D26
+U 1 1 61839C78
+P 9150 5250
+F 0 "D26" H 9143 5466 50  0000 C CNN
+F 1 "LED" H 9143 5375 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 9150 5250 50  0001 C CNN
+F 3 "~" H 9150 5250 50  0001 C CNN
+	1    9150 5250
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:LED D24
+U 1 1 61839C7E
+P 7950 5250
+F 0 "D24" H 7943 5466 50  0000 C CNN
+F 1 "LED" H 7943 5375 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 7950 5250 50  0001 C CNN
+F 3 "~" H 7950 5250 50  0001 C CNN
+	1    7950 5250
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:R R9
+U 1 1 61839C84
+P 9650 5250
+F 0 "R9" V 9443 5250 50  0000 C CNN
+F 1 "150" V 9534 5250 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 9580 5250 50  0001 C CNN
+F 3 "~" H 9650 5250 50  0001 C CNN
+	1    9650 5250
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR010
+U 1 1 61839C8A
+P 10000 5350
+F 0 "#PWR010" H 10000 5100 50  0001 C CNN
+F 1 "GND" H 10005 5177 50  0000 C CNN
+F 2 "" H 10000 5350 50  0001 C CNN
+F 3 "" H 10000 5350 50  0001 C CNN
+	1    10000 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8100 5250 8500 5250
+Wire Wire Line
+	9300 5250 9500 5250
+Wire Wire Line
+	9800 5250 10000 5250
+Wire Wire Line
+	10000 5250 10000 5350
+Wire Wire Line
+	7800 5250 7600 5250
+Text Label 7650 5250 0    50   ~ 0
+Backlight+
+$Comp
+L Device:LED D25
+U 1 1 618828B4
+P 8650 5250
+F 0 "D25" H 8643 5466 50  0000 C CNN
+F 1 "LED" H 8643 5375 50  0000 C CNN
+F 2 "LED_THT:LED_D3.0mm" H 8650 5250 50  0001 C CNN
+F 3 "~" H 8650 5250 50  0001 C CNN
+	1    8650 5250
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	9000 5250 8800 5250
 Wire Bus Line
 	2850 6800 4250 6800
 Wire Bus Line

@@ -1,5 +1,5 @@
 
-(rules PCB Buttons_DDI
+(rules PCB Buttons_DDI_FR
   (snap_angle 
     fortyfive_degree
   )
@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 384)
+    (start_pass_no 511)
     (layer_rule F.Cu
       (active on)
       (preferred_direction vertical)
@@ -70,7 +70,7 @@
     "Net-(D14-Pad1)" "Net-(D15-Pad1)" "Net-(D16-Pad1)" "Net-(D17-Pad1)" "Net-(D18-Pad1)" "Net-(D19-Pad1)" "Net-(D20-Pad1)" "/Ana_Bright"
     "/Analog_GND" /Analog+5V "/Ana_Contrast" /Led5Led6 "/Led10-11" "/Col_0" "/Col_3" "/Col_2"
     "/Col_1" "/Row_4" "/Row_3" "/Row_2" "/Row_1" "/Row_0" /Backlight+ "/Col_4"
-    "Net-(D21-Pad1)" "Net-(D22-Pad1)" "Net-(D23-Pad1)"
+    "Net-(D21-Pad1)" "Net-(D22-Pad1)" "Net-(D23-Pad1)" "Net-(D24-Pad1)" "Net-(D25-Pad1)" "Net-(D26-Pad1)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
