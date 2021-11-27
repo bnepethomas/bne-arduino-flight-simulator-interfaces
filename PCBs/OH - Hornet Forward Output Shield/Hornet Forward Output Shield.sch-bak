@@ -476,7 +476,7 @@ LOAD/CS - YELLOW
 Text Notes 3650 5150 0    50   ~ 0
 CLOCK - GREEN
 Text Notes 2800 5800 0    50   ~ 0
-LEDCONTROL Ic_2=LEDCONTROL(9,8,7,1);\n9 - DATA IN\n8 - CLK\n7 - LOAD/CS
+LedControl lc=LedControl(16,14,15,2);\n16 - DATA IN\n14 - CLK\n15 - LOAD/CS
 $Comp
 L Connector_Generic:Conn_01x08 P1
 U 1 1 56D71773

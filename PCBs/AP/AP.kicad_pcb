@@ -153,7 +153,7 @@
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text value COLS (at 0 7.85) (layer B.SilkS)
-      (effects (font (size 1 1) (thickness 0.15)))
+      (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
     (fp_text user %R (at 0 2.54 90) (layer F.Fab)
       (effects (font (size 1 1) (thickness 0.15)))
