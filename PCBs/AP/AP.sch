@@ -47,10 +47,10 @@ F 3 "" H 4950 3800 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW5
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW7
 U 1 1 5A45C864
 P 6900 4200
-F 0 "SW5" H 6900 4325 50  0000 C CNN
+F 0 "SW7" H 6900 4325 50  0000 C CNN
 F 1 "SW_SPST" H 6900 4100 50  0000 C CNN
 F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 6900 4200 50  0001 C CNN
 F 3 "" H 6900 4200 50  0001 C CNN
@@ -69,10 +69,10 @@ F 3 "" H 6900 3600 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW7
+L PT_Symbol_Library_v001:PT_Tactile_Switch_Led SW5
 U 1 1 5A45C870
 P 6900 2700
-F 0 "SW7" H 6900 2825 50  0000 C CNN
+F 0 "SW5" H 6900 2825 50  0000 C CNN
 F 1 "SW_SPST" H 6900 2600 50  0000 C CNN
 F 2 "PT_Library_v001:PT_Small_Tactile_Switch_With_LED" H 6900 2700 50  0001 C CNN
 F 3 "" H 6900 2700 50  0001 C CNN
@@ -91,32 +91,10 @@ F 3 "" H 4950 4450 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x04_Female J2
-U 1 1 5EE2B19B
-P 2700 3400
-F 0 "J2" H 2592 3685 50  0000 C CNN
-F 1 "Conn_01x04_Female" H 2592 3594 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 2700 3400 50  0001 C CNN
-F 3 "~" H 2700 3400 50  0001 C CNN
-	1    2700 3400
-	-1   0    0    -1  
-$EndComp
-$Comp
-L Connector:Conn_01x02_Female J3
-U 1 1 5EE2BDA2
-P 8250 4250
-F 0 "J3" H 8278 4226 50  0000 L CNN
-F 1 "Conn_01x02_Female" H 8278 4135 50  0000 L CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 8250 4250 50  0001 C CNN
-F 3 "~" H 8250 4250 50  0001 C CNN
-	1    8250 4250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:D D2
+L Device:D D1
 U 1 1 5EE2DB5A
 P 4200 2400
-F 0 "D2" H 4200 2616 50  0000 C CNN
+F 0 "D1" H 4200 2616 50  0000 C CNN
 F 1 "D" H 4200 2525 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4200 2400 50  0001 C CNN
 F 3 "~" H 4200 2400 50  0001 C CNN
@@ -124,10 +102,10 @@ F 3 "~" H 4200 2400 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D3
+L Device:D D2
 U 1 1 5EE33E4E
 P 4200 2950
-F 0 "D3" H 4200 3166 50  0000 C CNN
+F 0 "D2" H 4200 3166 50  0000 C CNN
 F 1 "D" H 4200 3075 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4200 2950 50  0001 C CNN
 F 3 "~" H 4200 2950 50  0001 C CNN
@@ -222,10 +200,10 @@ Wire Wire Line
 Wire Wire Line
 	4500 3150 4600 3150
 $Comp
-L Connector:Conn_01x02_Female J1
+L Connector:Conn_01x02_Female J3
 U 1 1 5EE4157C
 P 4800 1050
-F 0 "J1" H 4828 1026 50  0000 L CNN
+F 0 "J3" H 4828 1026 50  0000 L CNN
 F 1 "Conn_01x02_Female" H 4828 935 50  0000 L CNN
 F 2 "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical" H 4800 1050 50  0001 C CNN
 F 3 "~" H 4800 1050 50  0001 C CNN
@@ -235,25 +213,17 @@ $EndComp
 Wire Wire Line
 	4600 2600 4500 2600
 Text Label 4050 2400 2    50   ~ 0
-COL0
+COL8
 Text Label 5900 2400 2    50   ~ 0
-COL0
-Text Label 2900 3300 0    50   ~ 0
-COL0
-Text Label 2900 3400 0    50   ~ 0
-COL1
+COL8
 Text Label 4050 2950 2    50   ~ 0
-COL1
+COL9
 Text Label 5900 3400 2    50   ~ 0
-COL1
-Text Label 2900 3500 0    50   ~ 0
-COL2
+COL9
 Text Label 5900 4000 2    50   ~ 0
-COL2
-Text Label 2900 3600 0    50   ~ 0
-COL3
+COL10
 Text Label 4050 4200 2    50   ~ 0
-COL3
+COL10
 Text Label 4600 1050 2    50   ~ 0
 +BCKLGT
 Text Label 4200 2600 2    50   ~ 0
@@ -262,10 +232,6 @@ Text Label 4200 3150 2    50   ~ 0
 +BCKLGT
 Text Label 6050 2700 2    50   ~ 0
 +BCKLGT
-Text Label 8050 4250 2    50   ~ 0
-ROW0
-Text Label 8050 4350 2    50   ~ 0
-ROW1
 Wire Wire Line
 	4600 2300 4600 2400
 Wire Wire Line
@@ -276,13 +242,13 @@ Wire Wire Line
 Wire Wire Line
 	5150 2300 5150 2500
 Text Label 5150 2400 0    50   ~ 0
-ROW1
+ROW5
 Text Label 5150 2600 0    50   ~ 0
 -BCKLGT
 Wire Wire Line
 	5150 2850 5150 3050
 Text Label 5150 2950 0    50   ~ 0
-ROW1
+ROW5
 Wire Wire Line
 	4600 2850 4600 2950
 Connection ~ 4600 2950
@@ -298,10 +264,10 @@ Wire Wire Line
 Wire Wire Line
 	4350 3600 4600 3600
 $Comp
-L Device:D D1
+L Device:D D3
 U 1 1 5EE34D52
 P 4200 3600
-F 0 "D1" H 4200 3816 50  0000 C CNN
+F 0 "D3" H 4200 3816 50  0000 C CNN
 F 1 "D" H 4200 3725 50  0000 C CNN
 F 2 "PT_Library_v001:D_Signal_P7.62mm_Horizontal" H 4200 3600 50  0001 C CNN
 F 3 "~" H 4200 3600 50  0001 C CNN
@@ -309,9 +275,9 @@ F 3 "~" H 4200 3600 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 Text Label 4050 3600 2    50   ~ 0
-COL2
+COL10
 Text Label 5150 3600 0    50   ~ 0
-ROW1
+ROW5
 Wire Wire Line
 	5150 3150 5150 3400
 Wire Wire Line
@@ -325,7 +291,7 @@ Wire Wire Line
 Wire Wire Line
 	4600 4150 4600 4200
 Text Label 5150 4250 0    50   ~ 0
-ROW1
+ROW2
 Wire Wire Line
 	4350 4200 4600 4200
 Connection ~ 4600 4200
@@ -347,7 +313,7 @@ Connection ~ 6550 2400
 Wire Wire Line
 	7100 2400 7100 2600
 Text Label 7100 2500 0    50   ~ 0
-ROW0
+ROW6
 Wire Wire Line
 	6200 3400 6550 3400
 Wire Wire Line
@@ -358,7 +324,7 @@ Wire Wire Line
 Wire Wire Line
 	7100 3300 7100 3500
 Text Label 7100 3400 0    50   ~ 0
-ROW0
+ROW6
 Wire Wire Line
 	7100 2700 7100 2850
 Wire Wire Line
@@ -377,7 +343,7 @@ Connection ~ 6550 4000
 Wire Wire Line
 	7100 3900 7100 4100
 Text Label 7100 4000 0    50   ~ 0
-ROW0
+ROW6
 Wire Wire Line
 	7100 3600 7100 3750
 Wire Wire Line
@@ -388,4 +354,38 @@ Wire Wire Line
 	6450 4200 6550 4200
 Text Label 7100 4200 0    50   ~ 0
 -BCKLGT
+$Comp
+L Connector:Conn_01x03_Female J1
+U 1 1 61A3639C
+P 2650 4100
+F 0 "J1" H 2678 4126 50  0000 L CNN
+F 1 "ROWS" H 2678 4035 50  0000 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 2650 4100 50  0001 C CNN
+F 3 "~" H 2650 4100 50  0001 C CNN
+	1    2650 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J2
+U 1 1 61A37F33
+P 2650 4550
+F 0 "J2" H 2678 4576 50  0000 L CNN
+F 1 "COLS" H 2678 4485 50  0000 L CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical" H 2650 4550 50  0001 C CNN
+F 3 "~" H 2650 4550 50  0001 C CNN
+	1    2650 4550
+	1    0    0    -1  
+$EndComp
+Text Label 2450 4000 2    50   ~ 0
+ROW2
+Text Label 2450 4100 2    50   ~ 0
+ROW5
+Text Label 2450 4200 2    50   ~ 0
+ROW6
+Text Label 2450 4450 2    50   ~ 0
+COL8
+Text Label 2450 4550 2    50   ~ 0
+COL9
+Text Label 2450 4650 2    50   ~ 0
+COL10
 $EndSCHEMATC
