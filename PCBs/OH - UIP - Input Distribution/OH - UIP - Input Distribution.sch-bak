@@ -1082,10 +1082,10 @@ ROW5
 Text Label 1300 6150 2    50   ~ 0
 ROW6
 $Comp
-L Connector:Conn_01x03_Female J?
+L Connector:Conn_01x03_Female J2
 U 1 1 61A399CD
 P 1500 5650
-F 0 "J?" H 1528 5676 50  0000 L CNN
+F 0 "J2" H 1528 5676 50  0000 L CNN
 F 1 "AP COL" H 1528 5585 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1500 5650 50  0001 C CNN
 F 3 "~" H 1500 5650 50  0001 C CNN
@@ -1093,10 +1093,10 @@ F 3 "~" H 1500 5650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Connector:Conn_01x03_Female J?
+L Connector:Conn_01x03_Female J41
 U 1 1 61A3AD2E
 P 1500 6050
-F 0 "J?" H 1528 6076 50  0000 L CNN
+F 0 "J41" H 1528 6076 50  0000 L CNN
 F 1 "AP ROW" H 1528 5985 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 1500 6050 50  0001 C CNN
 F 3 "~" H 1500 6050 50  0001 C CNN
