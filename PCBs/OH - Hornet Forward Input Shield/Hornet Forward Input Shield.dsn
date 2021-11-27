@@ -24,6 +24,8 @@
       (path pcb 0  222631 -121666  124841 -121666  124841 -68326  222758 -68326
             222631 -121666)
     )
+    (keepout "" (polygon signal 0  169215 -74066.4  169215 -116434  172060 -116434  172060 -74066.4
+            169215 -74066.4))
     (keepout "" (polygon signal 0  149479 -77597  149479 -81534  162052 -81534  162052 -77597
             149479 -77597))
     (keepout "" (polygon F.Cu 0  162687 -82042  148971 -81915  148971 -77343  162687 -77216
@@ -51,13 +53,13 @@
       (place J6 164719 -91948 front 270 (PN "ANALOG A"))
     )
     (component PT_Library_v001:Molex_1x02_P2.54mm_Vertical
-      (place J8 151130 -85725 front 0 (PN "Address Select 1"))
-      (place J7 158623 -85725 front 0 (PN "Address Select 0"))
+      (place J8 150419 -85674.2 front 0 (PN "Address Select 1"))
+      (place J7 157912 -85674.2 front 0 (PN "Address Select 0"))
       (place J2 127000 -78613 front 0 (PN "5V to Max7219"))
     )
     (component PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
-      (place R13 164846 -88265 front 0 (PN 330))
-      (place R12 164973 -74295 front 0 (PN 330))
+      (place R13 164287 -88265 front 0 (PN 330))
+      (place R12 163957 -74345.8 front 0 (PN 330))
       (place R11 216027 -114201 front 0 (PN 10K))
       (place R10 216027 -110020 front 0 (PN 10K))
       (place R9 216027 -105839 front 0 (PN 10K))
@@ -77,8 +79,8 @@
       (place J9 130302 -90614.5 front 0 (PN "DIGITAL A"))
     )
     (component LED_THT:LED_D3.0mm
-      (place D2 164846 -83566 front 0 (PN RED))
-      (place D1 164719 -78359 front 0 (PN GREEN))
+      (place D2 164287 -83566 front 0 (PN RED))
+      (place D1 164186 -78359 front 0 (PN GREEN))
     )
     (component Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm
       (place C14 189040 -108077 front 0 (PN 0.1uF))
@@ -103,8 +105,8 @@
       (place P2 154178 -119126 front 90 (PN Analog))
     )
     (component PT_Library_v001:Molex_1x10_P2.54mm_Vertical
-      (place J5 187134 -79311.5 front 270 (PN ENCODERS))
-      (place J4 179642 -79438.5 front 270 (PN "ANALOG B"))
+      (place J5 187693 -79209.9 front 270 (PN ENCODERS))
+      (place J4 180302 -79184.5 front 270 (PN "ANALOG B"))
     )
     (component "Connector_IDC:IDC-Header_2x17_P2.54mm_Vertical"
       (place J1 207010 -74422 front 0 (PN "MATRIX INPUT"))
