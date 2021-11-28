@@ -572,4 +572,48 @@ F 3 "~" H 9550 5150 50  0001 C CNN
 	1    9550 5150
 	1    0    0    -1  
 $EndComp
+$Comp
+L Mechanical:MountingHole H5
+U 1 1 61ACA3BE
+P 4950 5000
+F 0 "H5" H 5050 5046 50  0000 L CNN
+F 1 "MountingHole" H 5050 4955 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 4950 5000 50  0001 C CNN
+F 3 "~" H 4950 5000 50  0001 C CNN
+	1    4950 5000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H6
+U 1 1 61ACA3C8
+P 4950 5200
+F 0 "H6" H 5050 5246 50  0000 L CNN
+F 1 "MountingHole" H 5050 5155 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 4950 5200 50  0001 C CNN
+F 3 "~" H 4950 5200 50  0001 C CNN
+	1    4950 5200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H7
+U 1 1 61ACA3D2
+P 4950 5400
+F 0 "H7" H 5050 5446 50  0000 L CNN
+F 1 "MountingHole" H 5050 5355 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 4950 5400 50  0001 C CNN
+F 3 "~" H 4950 5400 50  0001 C CNN
+	1    4950 5400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H8
+U 1 1 61ACA3DC
+P 4950 5600
+F 0 "H8" H 5050 5646 50  0000 L CNN
+F 1 "MountingHole" H 5050 5555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 4950 5600 50  0001 C CNN
+F 3 "~" H 4950 5600 50  0001 C CNN
+	1    4950 5600
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC

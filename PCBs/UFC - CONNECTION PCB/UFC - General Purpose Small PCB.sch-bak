@@ -388,4 +388,150 @@ F 3 "~" H 2050 1200 50  0001 C CNN
 	1    2050 1200
 	-1   0    0    -1  
 $EndComp
+$Comp
+L Connector:Conn_01x02_Female J6
+U 1 1 61A2FFBD
+P 7650 1500
+F 0 "J6" H 7678 1476 50  0000 L CNN
+F 1 "5V POWER IN" H 7678 1385 50  0000 L CNN
+F 2 "Connector_BarrelJack:BarrelJack_Horizontal" H 7650 1500 50  0001 C CNN
+F 3 "~" H 7650 1500 50  0001 C CNN
+	1    7650 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J9
+U 1 1 61A30EA1
+P 8650 2300
+F 0 "J9" H 8678 2326 50  0000 L CNN
+F 1 "PIXEL LED OUT" H 8678 2235 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 8650 2300 50  0001 C CNN
+F 3 "~" H 8650 2300 50  0001 C CNN
+	1    8650 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J10
+U 1 1 61A33797
+P 8650 2700
+F 0 "J10" H 8678 2726 50  0000 L CNN
+F 1 "PIXEL LED OUT" H 8678 2635 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 8650 2700 50  0001 C CNN
+F 3 "~" H 8650 2700 50  0001 C CNN
+	1    8650 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J11
+U 1 1 61A3445B
+P 8650 3150
+F 0 "J11" H 8678 3176 50  0000 L CNN
+F 1 "PIXEL LED OUT" H 8678 3085 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 8650 3150 50  0001 C CNN
+F 3 "~" H 8650 3150 50  0001 C CNN
+	1    8650 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J13
+U 1 1 61A34465
+P 8650 3550
+F 0 "J13" H 8678 3576 50  0000 L CNN
+F 1 "PIXEL LED OUT" H 8678 3485 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 8650 3550 50  0001 C CNN
+F 3 "~" H 8650 3550 50  0001 C CNN
+	1    8650 3550
+	1    0    0    -1  
+$EndComp
+Text Label 8450 2200 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 8450 2300 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 8450 2400 2    50   ~ 0
+PIXEL_LED_IN_1
+Text Label 8450 2600 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 8450 2700 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 8450 2800 2    50   ~ 0
+PIXEL_LED_IN_2
+Text Label 8450 3050 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 8450 3150 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 8450 3250 2    50   ~ 0
+PIXEL_LED_IN_3
+Text Label 8450 3450 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 8450 3550 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 8450 3650 2    50   ~ 0
+PIXEL_LED_IN_4
+$Comp
+L Connector:Conn_01x06_Female J14
+U 1 1 61A3BAB1
+P 8700 4100
+F 0 "J14" H 8728 4076 50  0000 L CNN
+F 1 "PIXEL LED IN" H 8728 3985 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 8700 4100 50  0001 C CNN
+F 3 "~" H 8700 4100 50  0001 C CNN
+	1    8700 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J7
+U 1 1 61A3DBC0
+P 7300 4200
+F 0 "J7" H 7328 4226 50  0000 L CNN
+F 1 "POWER SELECT" H 7328 4135 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 7300 4200 50  0001 C CNN
+F 3 "~" H 7300 4200 50  0001 C CNN
+	1    7300 4200
+	1    0    0    -1  
+$EndComp
+Text Label 7100 4200 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 8500 3900 2    50   ~ 0
+ARDUINO_5V
+Text Label 8500 4000 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 7100 4100 2    50   ~ 0
+ARDUINO_5V
+Text Label 8500 4100 2    50   ~ 0
+PIXEL_LED_IN_1
+Text Label 8500 4200 2    50   ~ 0
+PIXEL_LED_IN_2
+Text Label 8500 4300 2    50   ~ 0
+PIXEL_LED_IN_3
+Text Label 8500 4400 2    50   ~ 0
+PIXEL_LED_IN_4
+Text Label 7450 1500 2    50   ~ 0
+RAW_5V
+Text Label 7100 4300 2    50   ~ 0
+RAW_5V
+Text Label 7450 1600 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 4800 6300 2    50   ~ 0
+BACKLIGHT_+12V
+Text Label 4850 6450 2    50   ~ 0
+BACKLIGHT_GND
+$Comp
+L Connector:Conn_01x04_Female J15
+U 1 1 61A38760
+P 8050 5250
+F 0 "J15" H 8078 5226 50  0000 L CNN
+F 1 "Conn_01x04_Female" H 8078 5135 50  0000 L CNN
+F 2 "Molex_Mini-Fit_Jr_5566-04A_2x02_P4.20mm_Vertical" H 8050 5250 50  0001 C CNN
+F 3 "~" H 8050 5250 50  0001 C CNN
+	1    8050 5250
+	1    0    0    -1  
+$EndComp
+Text Label 7850 5150 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 7850 5250 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 7850 5350 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 7850 5450 2    50   ~ 0
+PIXEL_LED_IN_4
 $EndSCHEMATC
