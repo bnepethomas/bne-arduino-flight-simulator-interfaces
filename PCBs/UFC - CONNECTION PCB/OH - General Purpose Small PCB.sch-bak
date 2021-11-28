@@ -1,0 +1,1028 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector:Conn_01x02_Female J24
+U 1 1 61A52F51
+P 10350 2300
+F 0 "J24" H 10378 2276 50  0000 L CNN
+F 1 "L DDI BL OUT" H 10378 2185 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 10350 2300 50  0001 C CNN
+F 3 "~" H 10350 2300 50  0001 C CNN
+	1    10350 2300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J22
+U 1 1 61A52F57
+P 9700 2300
+F 0 "J22" H 10000 2150 50  0000 C CNN
+F 1 "L DDI BL IN" H 10000 2250 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 9700 2300 50  0001 C CNN
+F 3 "~" H 9700 2300 50  0001 C CNN
+	1    9700 2300
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	10150 2300 9900 2300
+Wire Wire Line
+	10150 2400 9900 2400
+Wire Wire Line
+	7450 5350 7200 5350
+Wire Wire Line
+	7450 5250 7200 5250
+Wire Wire Line
+	7450 5150 7200 5150
+Wire Wire Line
+	7450 5050 7200 5050
+$Comp
+L Connector:Conn_01x04_Female J12
+U 1 1 604F5333
+P 7000 5150
+F 0 "J12" H 6892 5435 50  0000 C CNN
+F 1 "Conn_01x04_Female" H 6892 5344 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 7000 5150 50  0001 C CNN
+F 3 "~" H 7000 5150 50  0001 C CNN
+	1    7000 5150
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J16
+U 1 1 604F5329
+P 7650 5150
+F 0 "J16" H 7678 5126 50  0000 L CNN
+F 1 "Conn_01x04_Female" H 7678 5035 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 7650 5150 50  0001 C CNN
+F 3 "~" H 7650 5150 50  0001 C CNN
+	1    7650 5150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10150 2950 9900 2950
+Wire Wire Line
+	10150 2850 9900 2850
+Wire Wire Line
+	10150 2750 9900 2750
+Wire Wire Line
+	10150 2650 9900 2650
+$Comp
+L Connector:Conn_01x04_Female J11
+U 1 1 604F03C2
+P 9700 2750
+F 0 "J11" H 10000 2650 50  0000 C CNN
+F 1 "L DDI ANLOG IN" H 10050 2750 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 9700 2750 50  0001 C CNN
+F 3 "~" H 9700 2750 50  0001 C CNN
+	1    9700 2750
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J15
+U 1 1 604EF775
+P 10350 2750
+F 0 "J15" H 10378 2726 50  0000 L CNN
+F 1 "L DDI ANLOG OUT" H 10378 2635 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 10350 2750 50  0001 C CNN
+F 3 "~" H 10350 2750 50  0001 C CNN
+	1    10350 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H32
+U 1 1 604EA4E3
+P 6100 5450
+F 0 "H32" H 6200 5496 50  0000 L CNN
+F 1 "MountingHole" H 6200 5405 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6100 5450 50  0001 C CNN
+F 3 "~" H 6100 5450 50  0001 C CNN
+	1    6100 5450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H31
+U 1 1 604EA4D9
+P 6100 5250
+F 0 "H31" H 6200 5296 50  0000 L CNN
+F 1 "MountingHole" H 6200 5205 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6100 5250 50  0001 C CNN
+F 3 "~" H 6100 5250 50  0001 C CNN
+	1    6100 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H30
+U 1 1 604EA4CF
+P 6100 5050
+F 0 "H30" H 6200 5096 50  0000 L CNN
+F 1 "MountingHole" H 6200 5005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6100 5050 50  0001 C CNN
+F 3 "~" H 6100 5050 50  0001 C CNN
+	1    6100 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H29
+U 1 1 604EA4C5
+P 6100 4850
+F 0 "H29" H 6200 4896 50  0000 L CNN
+F 1 "MountingHole" H 6200 4805 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6100 4850 50  0001 C CNN
+F 3 "~" H 6100 4850 50  0001 C CNN
+	1    6100 4850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H28
+U 1 1 604EA4A5
+P 6100 4450
+F 0 "H28" H 6200 4496 50  0000 L CNN
+F 1 "MountingHole" H 6200 4405 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6100 4450 50  0001 C CNN
+F 3 "~" H 6100 4450 50  0001 C CNN
+	1    6100 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H27
+U 1 1 604EA49B
+P 6100 4250
+F 0 "H27" H 6200 4296 50  0000 L CNN
+F 1 "MountingHole" H 6200 4205 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6100 4250 50  0001 C CNN
+F 3 "~" H 6100 4250 50  0001 C CNN
+	1    6100 4250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H26
+U 1 1 604EA491
+P 6100 4050
+F 0 "H26" H 6200 4096 50  0000 L CNN
+F 1 "MountingHole" H 6200 4005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6100 4050 50  0001 C CNN
+F 3 "~" H 6100 4050 50  0001 C CNN
+	1    6100 4050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H25
+U 1 1 604EA487
+P 6100 3850
+F 0 "H25" H 6200 3896 50  0000 L CNN
+F 1 "MountingHole" H 6200 3805 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6100 3850 50  0001 C CNN
+F 3 "~" H 6100 3850 50  0001 C CNN
+	1    6100 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H24
+U 1 1 604E7F6B
+P 6050 3350
+F 0 "H24" H 6150 3396 50  0000 L CNN
+F 1 "MountingHole" H 6150 3305 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6050 3350 50  0001 C CNN
+F 3 "~" H 6050 3350 50  0001 C CNN
+	1    6050 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H23
+U 1 1 604E7F61
+P 6050 3150
+F 0 "H23" H 6150 3196 50  0000 L CNN
+F 1 "MountingHole" H 6150 3105 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6050 3150 50  0001 C CNN
+F 3 "~" H 6050 3150 50  0001 C CNN
+	1    6050 3150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H22
+U 1 1 604E7F57
+P 6050 2950
+F 0 "H22" H 6150 2996 50  0000 L CNN
+F 1 "MountingHole" H 6150 2905 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6050 2950 50  0001 C CNN
+F 3 "~" H 6050 2950 50  0001 C CNN
+	1    6050 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H21
+U 1 1 604E7F4D
+P 6050 2750
+F 0 "H21" H 6150 2796 50  0000 L CNN
+F 1 "MountingHole" H 6150 2705 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6050 2750 50  0001 C CNN
+F 3 "~" H 6050 2750 50  0001 C CNN
+	1    6050 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 5050 1650 5050
+Wire Wire Line
+	1900 4950 1650 4950
+$Comp
+L Connector:Conn_01x02_Female J10
+U 1 1 604E7F41
+P 1450 4950
+F 0 "J10" H 1342 5135 50  0000 C CNN
+F 1 "AP ROW IN" H 1342 5044 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1450 4950 50  0001 C CNN
+F 3 "~" H 1450 4950 50  0001 C CNN
+	1    1450 4950
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J14
+U 1 1 604E7F37
+P 2100 4950
+F 0 "J14" H 2128 4926 50  0000 L CNN
+F 1 "AP ROW OUT" H 2128 4835 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2100 4950 50  0001 C CNN
+F 3 "~" H 2100 4950 50  0001 C CNN
+	1    2100 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H20
+U 1 1 604E5E62
+P 6050 2350
+F 0 "H20" H 6150 2396 50  0000 L CNN
+F 1 "MountingHole" H 6150 2305 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6050 2350 50  0001 C CNN
+F 3 "~" H 6050 2350 50  0001 C CNN
+	1    6050 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H19
+U 1 1 604E5E58
+P 6050 2150
+F 0 "H19" H 6150 2196 50  0000 L CNN
+F 1 "MountingHole" H 6150 2105 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6050 2150 50  0001 C CNN
+F 3 "~" H 6050 2150 50  0001 C CNN
+	1    6050 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H18
+U 1 1 604E5E4E
+P 6050 1950
+F 0 "H18" H 6150 1996 50  0000 L CNN
+F 1 "MountingHole" H 6150 1905 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6050 1950 50  0001 C CNN
+F 3 "~" H 6050 1950 50  0001 C CNN
+	1    6050 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H17
+U 1 1 604E5E44
+P 6050 1750
+F 0 "H17" H 6150 1796 50  0000 L CNN
+F 1 "MountingHole" H 6150 1705 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 6050 1750 50  0001 C CNN
+F 3 "~" H 6050 1750 50  0001 C CNN
+	1    6050 1750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 2500 1800 2500
+Wire Wire Line
+	1900 2400 1750 2400
+$Comp
+L Connector:Conn_01x02_Female J9
+U 1 1 604E3762
+P 1450 2400
+F 0 "J9" H 1342 2585 50  0000 C CNN
+F 1 "AMPCD BL IN" H 1342 2494 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 1450 2400 50  0001 C CNN
+F 3 "~" H 1450 2400 50  0001 C CNN
+	1    1450 2400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J13
+U 1 1 604E3006
+P 2100 2400
+F 0 "J13" H 2128 2376 50  0000 L CNN
+F 1 "AMPCD BL OUT" H 2128 2285 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2100 2400 50  0001 C CNN
+F 3 "~" H 2100 2400 50  0001 C CNN
+	1    2100 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H16
+U 1 1 604D929D
+P 3250 5900
+F 0 "H16" H 3350 5946 50  0000 L CNN
+F 1 "MountingHole" H 3350 5855 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 5900 50  0001 C CNN
+F 3 "~" H 3250 5900 50  0001 C CNN
+	1    3250 5900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H15
+U 1 1 604D9293
+P 3250 5700
+F 0 "H15" H 3350 5746 50  0000 L CNN
+F 1 "MountingHole" H 3350 5655 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 5700 50  0001 C CNN
+F 3 "~" H 3250 5700 50  0001 C CNN
+	1    3250 5700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H14
+U 1 1 604D9289
+P 3250 5500
+F 0 "H14" H 3350 5546 50  0000 L CNN
+F 1 "MountingHole" H 3350 5455 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 5500 50  0001 C CNN
+F 3 "~" H 3250 5500 50  0001 C CNN
+	1    3250 5500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H13
+U 1 1 604D927F
+P 3250 5300
+F 0 "H13" H 3350 5346 50  0000 L CNN
+F 1 "MountingHole" H 3350 5255 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 5300 50  0001 C CNN
+F 3 "~" H 3250 5300 50  0001 C CNN
+	1    3250 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4450 5950 4150 5950
+Wire Wire Line
+	4450 5850 4150 5850
+Wire Wire Line
+	4450 5750 4150 5750
+Wire Wire Line
+	4450 5650 4150 5650
+Wire Wire Line
+	4450 5550 4150 5550
+Wire Wire Line
+	4450 5450 4150 5450
+Wire Wire Line
+	4450 5350 4150 5350
+Wire Wire Line
+	4450 5250 4150 5250
+$Comp
+L Connector:Conn_01x08_Female J4
+U 1 1 604D926D
+P 3950 5550
+F 0 "J4" H 3842 6035 50  0000 C CNN
+F 1 "Conn_01x08_Female" H 3842 5944 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 3950 5550 50  0001 C CNN
+F 3 "~" H 3950 5550 50  0001 C CNN
+	1    3950 5550
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x08_Female J8
+U 1 1 604D9263
+P 4650 5550
+F 0 "J8" H 4678 5526 50  0000 L CNN
+F 1 "Conn_01x08_Female" H 4678 5435 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 4650 5550 50  0001 C CNN
+F 3 "~" H 4650 5550 50  0001 C CNN
+	1    4650 5550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H12
+U 1 1 604D9259
+P 3250 4750
+F 0 "H12" H 3350 4796 50  0000 L CNN
+F 1 "MountingHole" H 3350 4705 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 4750 50  0001 C CNN
+F 3 "~" H 3250 4750 50  0001 C CNN
+	1    3250 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H11
+U 1 1 604D924F
+P 3250 4550
+F 0 "H11" H 3350 4596 50  0000 L CNN
+F 1 "MountingHole" H 3350 4505 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 4550 50  0001 C CNN
+F 3 "~" H 3250 4550 50  0001 C CNN
+	1    3250 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H10
+U 1 1 604D9245
+P 3250 4350
+F 0 "H10" H 3350 4396 50  0000 L CNN
+F 1 "MountingHole" H 3350 4305 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 4350 50  0001 C CNN
+F 3 "~" H 3250 4350 50  0001 C CNN
+	1    3250 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H9
+U 1 1 604D923B
+P 3250 4150
+F 0 "H9" H 3350 4196 50  0000 L CNN
+F 1 "MountingHole" H 3350 4105 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 4150 50  0001 C CNN
+F 3 "~" H 3250 4150 50  0001 C CNN
+	1    3250 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H8
+U 1 1 604D601D
+P 3200 3650
+F 0 "H8" H 3300 3696 50  0000 L CNN
+F 1 "MountingHole" H 3300 3605 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3200 3650 50  0001 C CNN
+F 3 "~" H 3200 3650 50  0001 C CNN
+	1    3200 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H7
+U 1 1 604D6013
+P 3200 3450
+F 0 "H7" H 3300 3496 50  0000 L CNN
+F 1 "MountingHole" H 3300 3405 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3200 3450 50  0001 C CNN
+F 3 "~" H 3200 3450 50  0001 C CNN
+	1    3200 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H6
+U 1 1 604D6009
+P 3200 3250
+F 0 "H6" H 3300 3296 50  0000 L CNN
+F 1 "MountingHole" H 3300 3205 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3200 3250 50  0001 C CNN
+F 3 "~" H 3200 3250 50  0001 C CNN
+	1    3200 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H5
+U 1 1 604D5FFF
+P 3200 3050
+F 0 "H5" H 3300 3096 50  0000 L CNN
+F 1 "MountingHole" H 3300 3005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3200 3050 50  0001 C CNN
+F 3 "~" H 3200 3050 50  0001 C CNN
+	1    3200 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 604D596A
+P 3250 1750
+F 0 "H4" H 3350 1796 50  0000 L CNN
+F 1 "MountingHole" H 3350 1705 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 1750 50  0001 C CNN
+F 3 "~" H 3250 1750 50  0001 C CNN
+	1    3250 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 604D550A
+P 3250 1550
+F 0 "H3" H 3350 1596 50  0000 L CNN
+F 1 "MountingHole" H 3350 1505 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 1550 50  0001 C CNN
+F 3 "~" H 3250 1550 50  0001 C CNN
+	1    3250 1550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 604D50C8
+P 3250 1350
+F 0 "H2" H 3350 1396 50  0000 L CNN
+F 1 "MountingHole" H 3350 1305 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 1350 50  0001 C CNN
+F 3 "~" H 3250 1350 50  0001 C CNN
+	1    3250 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 604D4B6F
+P 3250 1150
+F 0 "H1" H 3350 1196 50  0000 L CNN
+F 1 "MountingHole" H 3350 1105 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 3250 1150 50  0001 C CNN
+F 3 "~" H 3250 1150 50  0001 C CNN
+	1    3250 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H40
+U 1 1 61A3A39A
+P 700 2600
+F 0 "H40" H 800 2646 50  0000 L CNN
+F 1 "MountingHole" H 800 2555 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 700 2600 50  0001 C CNN
+F 3 "~" H 700 2600 50  0001 C CNN
+	1    700  2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H39
+U 1 1 61A3A394
+P 700 2400
+F 0 "H39" H 800 2446 50  0000 L CNN
+F 1 "MountingHole" H 800 2355 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 700 2400 50  0001 C CNN
+F 3 "~" H 700 2400 50  0001 C CNN
+	1    700  2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H38
+U 1 1 61A3A38E
+P 700 2200
+F 0 "H38" H 800 2246 50  0000 L CNN
+F 1 "MountingHole" H 800 2155 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 700 2200 50  0001 C CNN
+F 3 "~" H 700 2200 50  0001 C CNN
+	1    700  2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H37
+U 1 1 61A3A388
+P 700 2000
+F 0 "H37" H 800 2046 50  0000 L CNN
+F 1 "MountingHole" H 800 1955 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 700 2000 50  0001 C CNN
+F 3 "~" H 700 2000 50  0001 C CNN
+	1    700  2000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H36
+U 1 1 61A3A36E
+P 700 1450
+F 0 "H36" H 800 1496 50  0000 L CNN
+F 1 "MountingHole" H 800 1405 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 700 1450 50  0001 C CNN
+F 3 "~" H 700 1450 50  0001 C CNN
+	1    700  1450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H35
+U 1 1 61A3A368
+P 700 1250
+F 0 "H35" H 800 1296 50  0000 L CNN
+F 1 "MountingHole" H 800 1205 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 700 1250 50  0001 C CNN
+F 3 "~" H 700 1250 50  0001 C CNN
+	1    700  1250
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H34
+U 1 1 61A3A362
+P 700 1050
+F 0 "H34" H 800 1096 50  0000 L CNN
+F 1 "MountingHole" H 800 1005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 700 1050 50  0001 C CNN
+F 3 "~" H 700 1050 50  0001 C CNN
+	1    700  1050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H33
+U 1 1 61A3A35C
+P 700 850
+F 0 "H33" H 800 896 50  0000 L CNN
+F 1 "MountingHole" H 800 805 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 700 850 50  0001 C CNN
+F 3 "~" H 700 850 50  0001 C CNN
+	1    700  850 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 1500 1600 1500
+Wire Wire Line
+	1900 1400 1600 1400
+Wire Wire Line
+	1900 1300 1600 1300
+Wire Wire Line
+	1900 1200 1600 1200
+Wire Wire Line
+	1900 1100 1600 1100
+Wire Wire Line
+	1900 1000 1600 1000
+Wire Wire Line
+	1900 900  1600 900 
+Wire Wire Line
+	1900 800  1600 800 
+$Comp
+L Connector:Conn_01x08_Female J17
+U 1 1 61A3A34E
+P 1400 1100
+F 0 "J17" H 1292 1585 50  0000 C CNN
+F 1 "AMPCD ROW IN" H 1292 1494 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 1400 1100 50  0001 C CNN
+F 3 "~" H 1400 1100 50  0001 C CNN
+	1    1400 1100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x08_Female J19
+U 1 1 61A3A348
+P 2100 1100
+F 0 "J19" H 2128 1076 50  0000 L CNN
+F 1 "AMPCD ROW OUT" H 2128 985 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 2100 1100 50  0001 C CNN
+F 3 "~" H 2100 1100 50  0001 C CNN
+	1    2100 1100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J25
+U 1 1 61A61779
+P 10350 1150
+F 0 "J25" H 10378 1126 50  0000 L CNN
+F 1 "L DDI ROW OUT" H 10378 1035 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 10350 1150 50  0001 C CNN
+F 3 "~" H 10350 1150 50  0001 C CNN
+	1    10350 1150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9900 1450 10150 1450
+Wire Wire Line
+	9900 1350 10150 1350
+Wire Wire Line
+	9900 1250 10150 1250
+Wire Wire Line
+	9900 1150 10150 1150
+Wire Wire Line
+	9900 1050 10150 1050
+Wire Wire Line
+	9900 950  10150 950 
+$Comp
+L Connector:Conn_01x06_Female J32
+U 1 1 61ACFD97
+P 10350 1800
+F 0 "J32" H 10378 1776 50  0000 L CNN
+F 1 "L DDI COL OUT" H 10378 1685 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 10350 1800 50  0001 C CNN
+F 3 "~" H 10350 1800 50  0001 C CNN
+	1    10350 1800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9900 2100 10150 2100
+Wire Wire Line
+	9900 2000 10150 2000
+Wire Wire Line
+	9900 1900 10150 1900
+Wire Wire Line
+	9900 1800 10150 1800
+Wire Wire Line
+	9900 1600 10150 1600
+$Comp
+L Connector:Conn_01x02_Female J35
+U 1 1 61AF6DB6
+P 10350 5350
+F 0 "J35" H 10378 5326 50  0000 L CNN
+F 1 "R DDI BL OUT" H 10378 5235 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 10350 5350 50  0001 C CNN
+F 3 "~" H 10350 5350 50  0001 C CNN
+	1    10350 5350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J30
+U 1 1 61AF6DBC
+P 9700 5350
+F 0 "J30" H 10000 5400 50  0000 C CNN
+F 1 "R DDI BL IN" H 10000 5300 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 9700 5350 50  0001 C CNN
+F 3 "~" H 9700 5350 50  0001 C CNN
+	1    9700 5350
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	10150 5350 9900 5350
+Wire Wire Line
+	10150 5450 9900 5450
+Wire Wire Line
+	10150 6000 9900 6000
+Wire Wire Line
+	10150 5900 9900 5900
+Wire Wire Line
+	10150 5800 9900 5800
+Wire Wire Line
+	10150 5700 9900 5700
+$Comp
+L Connector:Conn_01x04_Female J31
+U 1 1 61AF6DC8
+P 9700 5800
+F 0 "J31" H 10000 5850 50  0000 C CNN
+F 1 "R DDI ANLOG IN" H 10050 5700 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 9700 5800 50  0001 C CNN
+F 3 "~" H 9700 5800 50  0001 C CNN
+	1    9700 5800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J36
+U 1 1 61AF6DCE
+P 10350 5800
+F 0 "J36" H 10378 5776 50  0000 L CNN
+F 1 "R DDI ANLOG OUT" H 10378 5685 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 10350 5800 50  0001 C CNN
+F 3 "~" H 10350 5800 50  0001 C CNN
+	1    10350 5800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J26
+U 1 1 61A671FB
+P 9700 1150
+F 0 "J26" H 10000 1300 50  0000 C CNN
+F 1 "L DDI ROW IN" H 10000 1150 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 9700 1150 50  0001 C CNN
+F 3 "~" H 9700 1150 50  0001 C CNN
+	1    9700 1150
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	9900 1700 10150 1700
+$Comp
+L Connector:Conn_01x06_Female J21
+U 1 1 61B70786
+P 9700 1800
+F 0 "J21" H 10000 1950 50  0000 C CNN
+F 1 "L DDI ROW IN" H 10000 1800 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 9700 1800 50  0001 C CNN
+F 3 "~" H 9700 1800 50  0001 C CNN
+	1    9700 1800
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J28
+U 1 1 61B800A6
+P 10350 4100
+F 0 "J28" H 10378 4076 50  0000 L CNN
+F 1 "R DDI ROW OUT" H 10378 3985 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 10350 4100 50  0001 C CNN
+F 3 "~" H 10350 4100 50  0001 C CNN
+	1    10350 4100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9900 4400 10150 4400
+Wire Wire Line
+	9900 4300 10150 4300
+Wire Wire Line
+	9900 4200 10150 4200
+Wire Wire Line
+	9900 4100 10150 4100
+Wire Wire Line
+	9900 4000 10150 4000
+Wire Wire Line
+	9900 3900 10150 3900
+$Comp
+L Connector:Conn_01x06_Female J29
+U 1 1 61B800B2
+P 10350 4750
+F 0 "J29" H 10378 4726 50  0000 L CNN
+F 1 "R DDI COL OUT" H 10378 4635 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 10350 4750 50  0001 C CNN
+F 3 "~" H 10350 4750 50  0001 C CNN
+	1    10350 4750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9900 5050 10150 5050
+Wire Wire Line
+	9900 4950 10150 4950
+Wire Wire Line
+	9900 4850 10150 4850
+Wire Wire Line
+	9900 4750 10150 4750
+Wire Wire Line
+	9900 4550 10150 4550
+$Comp
+L Connector:Conn_01x06_Female J23
+U 1 1 61B800BD
+P 9700 4100
+F 0 "J23" H 10000 4250 50  0000 C CNN
+F 1 "R DDI ROW IN" H 10000 4100 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 9700 4100 50  0001 C CNN
+F 3 "~" H 9700 4100 50  0001 C CNN
+	1    9700 4100
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	9900 4650 10150 4650
+$Comp
+L Connector:Conn_01x06_Female J27
+U 1 1 61B800C4
+P 9700 4750
+F 0 "J27" H 10000 4900 50  0000 C CNN
+F 1 "R DDI ROW IN" H 10000 4750 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 9700 4750 50  0001 C CNN
+F 3 "~" H 9700 4750 50  0001 C CNN
+	1    9700 4750
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 2100 1650 2100
+Wire Wire Line
+	1900 2000 1650 2000
+Wire Wire Line
+	1900 1900 1650 1900
+Wire Wire Line
+	1900 1800 1650 1800
+$Comp
+L Connector:Conn_01x04_Female J1
+U 1 1 61BA6EA7
+P 1450 1900
+F 0 "J1" H 1342 2185 50  0000 C CNN
+F 1 "AMPCD COL IN" H 1342 2094 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1450 1900 50  0001 C CNN
+F 3 "~" H 1450 1900 50  0001 C CNN
+	1    1450 1900
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J2
+U 1 1 61BA6EAD
+P 2100 1900
+F 0 "J2" H 2128 1876 50  0000 L CNN
+F 1 "AMPCD COL OUT" H 2128 1785 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 2100 1900 50  0001 C CNN
+F 3 "~" H 2100 1900 50  0001 C CNN
+	1    2100 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J3
+U 1 1 61BAD2D0
+P 2100 2650
+F 0 "J3" H 2128 2626 50  0000 L CNN
+F 1 "H/C BL OUT" H 2128 2535 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2100 2650 50  0001 C CNN
+F 3 "~" H 2100 2650 50  0001 C CNN
+	1    2100 2650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1750 2400 1750 2650
+Wire Wire Line
+	1750 2650 1900 2650
+Connection ~ 1750 2400
+Wire Wire Line
+	1750 2400 1650 2400
+Wire Wire Line
+	1800 2500 1800 2750
+Wire Wire Line
+	1800 2750 1900 2750
+Connection ~ 1800 2500
+Wire Wire Line
+	1800 2500 1650 2500
+Wire Wire Line
+	1900 3550 1650 3550
+Wire Wire Line
+	1900 3450 1650 3450
+Wire Wire Line
+	1900 3350 1650 3350
+Wire Wire Line
+	1900 3250 1650 3250
+$Comp
+L Connector:Conn_01x04_Female J5
+U 1 1 61BC3DA8
+P 1450 3350
+F 0 "J5" H 1342 3635 50  0000 C CNN
+F 1 "AMPCD CRS IN" H 1342 3544 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1450 3350 50  0001 C CNN
+F 3 "~" H 1450 3350 50  0001 C CNN
+	1    1450 3350
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J20
+U 1 1 61BC3DAE
+P 2100 3350
+F 0 "J20" H 2128 3326 50  0000 L CNN
+F 1 "AMPCD CRS OUT" H 2128 3235 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 2100 3350 50  0001 C CNN
+F 3 "~" H 2100 3350 50  0001 C CNN
+	1    2100 3350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 4100 1650 4100
+Wire Wire Line
+	1900 4000 1650 4000
+Wire Wire Line
+	1900 3900 1650 3900
+Wire Wire Line
+	1900 3800 1650 3800
+$Comp
+L Connector:Conn_01x04_Female J6
+U 1 1 61BC7908
+P 1450 3900
+F 0 "J6" H 1342 4185 50  0000 C CNN
+F 1 "AMPCD HDG IN" H 1342 4094 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1450 3900 50  0001 C CNN
+F 3 "~" H 1450 3900 50  0001 C CNN
+	1    1450 3900
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J33
+U 1 1 61BC790E
+P 2100 3900
+F 0 "J33" H 2128 3876 50  0000 L CNN
+F 1 "AMPCD HDG OUT" H 2128 3785 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 2100 3900 50  0001 C CNN
+F 3 "~" H 2100 3900 50  0001 C CNN
+	1    2100 3900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 4700 1650 4700
+Wire Wire Line
+	1900 4600 1650 4600
+Wire Wire Line
+	1900 4500 1650 4500
+Wire Wire Line
+	1900 4400 1650 4400
+$Comp
+L Connector:Conn_01x04_Female J7
+U 1 1 61BCC8D6
+P 1450 4500
+F 0 "J7" H 1342 4785 50  0000 C CNN
+F 1 "AP COL IN" H 1342 4694 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 1450 4500 50  0001 C CNN
+F 3 "~" H 1450 4500 50  0001 C CNN
+	1    1450 4500
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J34
+U 1 1 61BCC8DC
+P 2100 4500
+F 0 "J34" H 2128 4476 50  0000 L CNN
+F 1 "AP COL OUT" H 2128 4385 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 2100 4500 50  0001 C CNN
+F 3 "~" H 2100 4500 50  0001 C CNN
+	1    2100 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J18
+U 1 1 61BE16FC
+P 2100 2900
+F 0 "J18" H 2128 2876 50  0000 L CNN
+F 1 "AP BL OUT" H 2128 2785 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 2100 2900 50  0001 C CNN
+F 3 "~" H 2100 2900 50  0001 C CNN
+	1    2100 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1750 2650 1750 2900
+Wire Wire Line
+	1750 2900 1900 2900
+Connection ~ 1750 2650
+Wire Wire Line
+	1800 2750 1800 3000
+Wire Wire Line
+	1800 3000 1900 3000
+Connection ~ 1800 2750
+$EndSCHEMATC
