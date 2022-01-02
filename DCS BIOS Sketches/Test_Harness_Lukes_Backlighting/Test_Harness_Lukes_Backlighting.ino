@@ -1,5 +1,5 @@
-// Test Hardness for Lukes Boards
-
+// OPENHORNET Backlighting LEDs solid colour test.
+// It will set all LEDs to the colour of your choice, set your desired brightness and colour below.
 
 #include <FastLED.h>
 
@@ -25,7 +25,7 @@ String COLOUR   =  "GREEN";   // The color name that you want to show, e.g. Gree
 
 #define LED_TYPE     WS2812B  // OPENHORNET backlighting LEDs are WS2812B
 #define COLOUR_ORDER GRB      // OPENHORNET backlighting LEDs are GRB (green, red, blue)
-#define SOLID_SPEED  200    
+#define SOLID_SPEED  100     // The refresh rate delay in ms. Leave this at around 1000 (1 second)
 
 // Setting up the blocks of memory that will be used for storing and manipulating the led data;
 
@@ -47,6 +47,7 @@ void setup() {
   Serial.println("R for all Red");
   Serial.println("N to move pointer forward");
   Serial.println("B to move pointer backward");
+  Serial.println("0 to reset pointer to 0");
   
 
 
@@ -91,6 +92,14 @@ void showNewData() {
         newData = false;
         switch (receivedChar) {
 
+          case ('0'):
+            LED_POINTER = 0;
+            Serial.println("Reseting pointer to " + String(LED_POINTER));
+            fill_solid( BL1, BL1_PIXELS, CRGB::Blue);
+            BL1[ LED_POINTER ] = CRGB::Orange;
+            break;
+          
+          
           case ('N','n'):
           
             LED_POINTER++;
