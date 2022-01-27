@@ -14,11 +14,16 @@ String COLOUR   =  "GREEN";   // The color name that you want to show, e.g. Gree
 
 // Defining how many pixels each backlighting connector has connected, if a connector is not used set it to zero.
 
-#define BL1_PIXELS    200  // BL #1 Connector pixel count
+#define BL1_PIXELS    500  // BL #1 Connector pixel count
 
 // Defining what data pin each backlighting connector is connected to.
 
-#define BL1_PIN       16  // BL #1 Connector pin
+// The Max7219 connector uses Pin 14,15,16
+// Order on connector is 5V GND 16 15 14 Last pin is not connected 
+#define BL1_PIN       16  // BL #3 Connector pin
+#define BL2_PIN       15  // BL #4 Connector pin
+#define BL3_PIN       14  // BL #4 Connector pin
+
 
 
 // Some other setup information. Don't change these unless you have a reason to.
@@ -30,7 +35,8 @@ String COLOUR   =  "GREEN";   // The color name that you want to show, e.g. Gree
 // Setting up the blocks of memory that will be used for storing and manipulating the led data;
 
 CRGB BL1[BL1_PIXELS];
-
+CRGB BL2[BL1_PIXELS];
+CRGB BL3[BL1_PIXELS];
 
 char receivedChar;
 boolean newData = false;
@@ -54,6 +60,8 @@ void setup() {
   // Telling the system the type, their data pin, what color order they are and how many there are;
   
   FastLED.addLeds<LED_TYPE, BL1_PIN, COLOUR_ORDER>(BL1, BL1_PIXELS); 
+  FastLED.addLeds<LED_TYPE, BL2_PIN, COLOUR_ORDER>(BL2, BL1_PIXELS); 
+  FastLED.addLeds<LED_TYPE, BL3_PIN, COLOUR_ORDER>(BL3, BL1_PIXELS); 
 
 
   // The dimming method used. We have a large number of pixels so dithering is not ideal.
@@ -70,6 +78,8 @@ void setup() {
   
   // Now apply everything we just told it about the setup.
   fill_solid( BL1, BL1_PIXELS, CRGB::Green);
+  fill_solid( BL2, BL1_PIXELS, CRGB::Green);
+  fill_solid( BL3, BL1_PIXELS, CRGB::Green);
   FastLED.show();
   
   NEXT_LED_UPDATE = millis() + 100;
@@ -96,7 +106,11 @@ void showNewData() {
             LED_POINTER = 0;
             Serial.println("Reseting pointer to " + String(LED_POINTER));
             fill_solid( BL1, BL1_PIXELS, CRGB::Blue);
+            fill_solid( BL2, BL1_PIXELS, CRGB::Blue);
+            fill_solid( BL3, BL1_PIXELS, CRGB::Blue);
             BL1[ LED_POINTER ] = CRGB::Orange;
+            BL2[ LED_POINTER ] = CRGB::Orange;
+            BL3[ LED_POINTER ] = CRGB::Orange;
             break;
           
           
@@ -105,7 +119,12 @@ void showNewData() {
             LED_POINTER++;
             Serial.println("Incrementing pointer to " + String(LED_POINTER));
             fill_solid( BL1, BL1_PIXELS, CRGB::Blue);
+            fill_solid( BL2, BL1_PIXELS, CRGB::Blue);
+            fill_solid( BL3, BL1_PIXELS, CRGB::Blue);
             BL1[ LED_POINTER ] = CRGB::Orange;
+            BL2[ LED_POINTER ] = CRGB::Orange;
+            BL3[ LED_POINTER ] = CRGB::Orange;
+            break;
             break;
           
           case ('B','b'):
@@ -114,18 +133,27 @@ void showNewData() {
               LED_POINTER--;
             Serial.println("Decrementing pointer to " + String(LED_POINTER));
             fill_solid( BL1, BL1_PIXELS, CRGB::Blue);
+            fill_solid( BL2, BL1_PIXELS, CRGB::Blue);
+            fill_solid( BL3, BL1_PIXELS, CRGB::Blue);
             BL1[ LED_POINTER ] = CRGB::Orange;
+            BL2[ LED_POINTER ] = CRGB::Orange;
+            BL3[ LED_POINTER ] = CRGB::Orange;
             break;
+
           case ('G','g'):
             Serial.println("Colour to Green");
             COLOUR = "GREEN";
             
             fill_solid( BL1, BL1_PIXELS, CRGB::Green);
+            fill_solid( BL2, BL1_PIXELS, CRGB::Green);
+            fill_solid( BL3, BL1_PIXELS, CRGB::Green);
             break;
           default:
             Serial.println("Colour to Red");
             COLOUR = "RED";
             fill_solid( BL1, BL1_PIXELS, CRGB::Red); 
+            fill_solid( BL2, BL1_PIXELS, CRGB::Red); 
+            fill_solid( BL3, BL1_PIXELS, CRGB::Red); 
             
             break;
         }
