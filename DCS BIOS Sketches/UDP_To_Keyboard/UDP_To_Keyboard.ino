@@ -12,6 +12,46 @@ ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT', 'LSHIFT', 'RSHIFT', 'LCTRL', 'RCT
 
 */
 
+
+/*
+ * Sim Control Panel Commands
+    Head Tracking             Default Key Bindings
+    -------------             --------------------
+      Freeze                    
+      Normal
+      Centre
+
+    Time
+    ----
+      Fast
+      Real
+
+    Toggle
+    ------
+      Night Vision Glasses
+      Labels
+
+    Game
+    ----
+      Pause
+      Normal
+      Freeze
+
+    View
+    ----
+      Cockpit
+      Chase
+      External
+      Fly By
+      Weapn
+      Enemy
+      Hud
+      Map
+    
+    
+ * 
+
+ */
 #define Ethernet_In_Use 1
 const int Serial_In_Use= 1;
 
@@ -20,7 +60,7 @@ const int Serial_In_Use= 1;
 #include <Ethernet.h>
 #include <EthernetUdp.h>
 
-#include "Keyboard.h"
+#include <Keyboard.h>
 
 
 // These local Mac and IP Address will be reassigned early in startup based on 
