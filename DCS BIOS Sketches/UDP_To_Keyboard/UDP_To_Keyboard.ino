@@ -258,6 +258,7 @@ void SendCharactersToKeyboard(int packetLength) {
       // Also need to deal with Function Key or pretty much any key that is not a single character
 
 
+      // We are delimiting by spaces
       if (String(packetBuffer[characterPtr]) == " ") {
         if (thisElement == "LALT") {
           leftAltInUse = true;
@@ -317,14 +318,6 @@ void SendCharactersToKeyboard(int packetLength) {
 
 
 
-
-
-
-
-  lWinInUse = false;
-  rWinInUse = false;
-
-
   if (altInUse)
     Keyboard.press(altKey);
   if (ctrlInUse)
@@ -354,11 +347,14 @@ void SendCharactersToKeyboard(int packetLength) {
 
 
   if (thisElement.length() == 1) {
+    // We are hitting a single character to send
     Serial.println("Correct length of Element");
     thisElement.toCharArray(keyToPress, 2);
     Serial.println(String(keyToPress[0]));
     Keyboard.press(keyToPress[0]);
+    
   } else
+  
     Keyboard.press('r');
   delay(delayBetweenRelease);
   
@@ -385,7 +381,8 @@ void loop() {
 
   if (packetSize) {
     // Typeout(len);
-    TurnOnAPU(len);
+    //TurnOnAPU(len);
+    SendCharactersToKeyboard(len);
   }
 
 }
