@@ -10,6 +10,8 @@
 
   ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT', 'LSHIFT', 'RSHIFT', 'LCTRL', 'RCTRL', 'LALT', 'RALT', 'LWIN', 'RWIN' ]
 
+  USING UDP_TEST_SENDER.PY for testing
+
 */
 
 
@@ -96,28 +98,11 @@ char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 
-
-// For vanilla alt, ctrl, shift, just use left side
-char altKey = KEY_LEFT_ALT;
-char ctrlKey = KEY_LEFT_CTRL;
-char shiftKey = KEY_LEFT_SHIFT;
-
-char leftShiftKey = KEY_LEFT_SHIFT;
-char rightShiftKey = KEY_RIGHT_SHIFT;
-char leftALTKey = KEY_LEFT_ALT;
-char rightALTKey = KEY_RIGHT_ALT;
-char leftCTRLKey = KEY_LEFT_CTRL;
-char rightCTRLKey = KEY_RIGHT_CTRL;
-char leftWINKey = KEY_LEFT_GUI;
-char rightWINKey = KEY_RIGHT_GUI;
-
-
-
-
 void setup() {
 
   if (Serial_In_Use) {
     Serial.begin(250000);
+    Serial.println("UDP to Keyboard Startup");
   }
 
 
@@ -147,7 +132,7 @@ void Typeout(int packetLength) {
     Keyboard.print(packetBuffer[characterPtr]);
     if (String(packetBuffer[characterPtr]) == " ") {
       Keyboard.println("");
-      Keyboard.press(leftShiftKey);
+      Keyboard.press(KEY_LEFT_SHIFT);
       delay(delayBetweenRelease);
       Keyboard.println(thisSet);
       Keyboard.releaseAll();
@@ -162,7 +147,7 @@ void Typeout(int packetLength) {
   if (thisSet != "") {
     Keyboard.println("");
     delay(delayBetweenRelease);
-    Keyboard.press(leftShiftKey);
+    Keyboard.press(KEY_LEFT_SHIFT);
     Keyboard.println(thisSet);
     Keyboard.releaseAll();
     delay(delayBetweenRelease);
@@ -201,7 +186,7 @@ void TurnOnAPU(int packetLength) {
 
 
   if (leftAltInUse)
-    Keyboard.press(leftALTKey);
+    Keyboard.press(KEY_LEFT_ALT);
 
   if (thisElement.length() == 1) {
     Serial.println("Correct length of Element");
@@ -247,6 +232,8 @@ void SendCharactersToKeyboard(int packetLength) {
   char keyToPress[50];
   if (Serial_In_Use == 1)  {
     Serial.println("Packet Received");
+    Serial.print("Len is ");
+    Serial.println(packetLength);
 
     String thisSet = "";
     for (int characterPtr = 0; characterPtr < packetLength ; characterPtr++ ) {
@@ -317,47 +304,155 @@ void SendCharactersToKeyboard(int packetLength) {
 
 
 
-
+  // Hold  down the special/modifier keys
   if (altInUse)
-    Keyboard.press(altKey);
+    Keyboard.press(KEY_LEFT_ALT);
   if (ctrlInUse)
-    Keyboard.press(ctrlKey);
+    Keyboard.press(KEY_LEFT_CTRL);
   if (shiftInUse)
-    Keyboard.press(shiftKey);
-    
+    Keyboard.press(KEY_LEFT_SHIFT);
+
 
   if (leftAltInUse)
-    Keyboard.press(leftALTKey);
+    Keyboard.press(KEY_LEFT_ALT);
   if (rightAltInUse)
-    Keyboard.press(rightALTKey);
+    Keyboard.press(KEY_RIGHT_ALT);
   if (lShiftInUse)
-    Keyboard.press(leftShiftKey);
+    Keyboard.press(KEY_LEFT_SHIFT);
   if (rShiftInUse)
-    Keyboard.press(rightShiftKey);
+    Keyboard.press(KEY_RIGHT_SHIFT);
   if (lCtrlInUse)
-    Keyboard.press(leftCTRLKey);
+    Keyboard.press(KEY_LEFT_CTRL);
   if (rCtrlInUse)
-    Keyboard.press(rightCTRLKey);
+    Keyboard.press(KEY_RIGHT_CTRL);
   if (lWinInUse)
-    Keyboard.press(leftWINKey);
+    Keyboard.press(KEY_LEFT_GUI);
   if (rWinInUse)
-    Keyboard.press(rightWINKey);
+    Keyboard.press(KEY_RIGHT_GUI);
 
-  
+
+
+
+  // If the String includes a Carraige return at the end remove it
+  // This can occur while sending test strings
+
+  if (thisElement[thisElement.length() - 1] == 0x0A) {
+    Serial.println("Found trailing CR - removing it");
+    thisElement.remove(thisElement.length() - 1);
+  }
+
+
 
 
   if (thisElement.length() == 1) {
     // We are hitting a single character to send
-    Serial.println("Correct length of Element");
+    Serial.println("Correct length of Element - Sending");
+    Serial.println(thisElement);
     thisElement.toCharArray(keyToPress, 2);
-    Serial.println(String(keyToPress[0]));
+
     Keyboard.press(keyToPress[0]);
-    
+
   } else
-  
-    Keyboard.press('r');
+  {
+    // Function Keys
+    if (thisElement == "F1") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F1);
+    }
+    else if (thisElement == "F2") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F2);
+    }
+    else if (thisElement == "F3") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F3);
+    }
+    else if (thisElement == "F4") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F4);
+    }
+    else if (thisElement == "F5") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F5);
+    }
+    else if (thisElement == "F6") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F6);
+    }
+    else if (thisElement == "F7") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F7);
+    }
+    else if (thisElement == "F8") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F8);
+    }
+    else if (thisElement == "F9") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F9);
+    }
+    else if (thisElement == "F10") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F10);
+    }
+    else if (thisElement == "F11") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F11);
+    }
+    else if (thisElement == "F12") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_F12);
+    }
+
+
+    // NUMBER PAD KEYS
+    // Need to add 136 to the value otherwise keyboard.press will try ASCII look up
+    // Reference https://forum.arduino.cc/t/keyboard-write-with-number-pad-keys-from-leonardo/175304
+    //The keypad keys are 84 through 99 (0x54 through 0x63) but the keyboard.press() function will treat values below 128 (0x7F) as "printable" so it will look them up in a table of ascii keycodes. To get past that you have to add 136 to the keycode. Try these:
+
+    // 220 '\334' Keypad / 221 '\335' Keypad * 222 '\336' Keypad - 223 '\337' Keypad + 224 '\340' Keypad ENTER 
+    // 225 '\341' Keypad 1 and End 226 '\342' Keypad 2 and Down Arrow 227 '\343' Keypad 3 and PageDn 
+    // 228 '\344' Keypad 4 and Left Arrow 229 '\345' Keypad 5 230 '\346' Keypad 6 and Right Arrow 
+    // 231 '\347' Keypad 7 and Home 232 '\350' Keypad 8 and Up Arrow 233 '\351' Keypad 9 and PageUp 
+    // 234 '\352' Keypad 0 and Insert 235 '\353' Keypad . and Delete
+    
+    else if (thisElement == "NUM5") {
+      Serial.println(thisElement);
+      Keyboard.press(229);
+    }
+
+
+
+    else {
+      Serial.println("Incorrect length of Element");
+      Serial.print(Serial.println(thisElement));
+    }
+  }
+
+
+
+
+  //Key    Hexadecimal value   Decimal value
+  //KEY_UP_ARROW  0xDA  218
+  //KEY_DOWN_ARROW  0xD9  217
+  //KEY_LEFT_ARROW  0xD8  216
+  //KEY_RIGHT_ARROW   0xD7  215
+  //KEY_BACKSPACE   0xB2  178
+  //KEY_TAB   0xB3  179
+  //KEY_RETURN  0xB0  176
+  //KEY_ESC   0xB1  177
+  //KEY_INSERT  0xD1  209
+  //KEY_DELETE  0xD4  212
+  //KEY_PAGE_UP   0xD3  211
+  //KEY_PAGE_DOWN   0xD6  214
+  //KEY_HOME  0xD2  210
+  //KEY_END   0xD5  213
+  //KEY_CAPS_LOCK   0xC1  193
+
+
+
   delay(delayBetweenRelease);
-  
+
   Keyboard.releaseAll();
 
   if (Serial_In_Use == 1)  {
