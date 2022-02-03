@@ -9,7 +9,7 @@ Will use the logic from pyHWWLink_Keystroke_Sender
 Initially just sending very simple single characters
 
 ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT', 'LSHIFT', 'RSHIFT', 'LCTRL', 'RCTRL', 'LALT', 'RALT', 'LWIN', 'RWIN' ]
-
+test
 */
 
 
