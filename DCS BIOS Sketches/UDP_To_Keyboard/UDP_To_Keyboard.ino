@@ -39,8 +39,8 @@ test
 
     View
     ----
-      Cockpit
-      Chase
+      Cockpit               F1
+      Chase                 LCtrl + F4
       External
       Fly By
       Weapn
