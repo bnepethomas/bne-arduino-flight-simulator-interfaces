@@ -18,35 +18,35 @@ ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT', 'LSHIFT', 'RSHIFT', 'LCTRL', 'RCT
     Head Tracking             Default Key Bindings
     -------------             --------------------
       Freeze                    
-      Normal
-      Centre
+      Normal                  LWin + F1               F1 Head shift movement on/off
+      Centre                  Num 5                   View Centre
 
     Time
     ----
-      Fast
-      Real
+      Fast                   LCtrl + Z                Time Accelerate
+      Real                   LShift + Z               Time Normal
 
     Toggle
     ------
-      Night Vision Glasses
-      Labels
+      Night Vision Glasses  RShift + H               Toggle Goggles
+      Labels                LShift + F10             All Labels
 
     Game
     ----
-      Pause
-      Normal
+      Pause                 Pause                    Pause
+      Normal                Pause                    Pause
       Freeze
 
     View
     ----
-      Cockpit
-      Chase
-      External
-      Fly By
-      Weapn
-      Enemy
-      Hud
-      Map
+      Cockpit               F1
+      Chase                 LCtrl + F4              F4 Chase view
+      External              F2                      F2 Aircraft View
+      Fly by                F3                      F3 Fly-By View  
+      Weapon                F6                      F6 Released Weapon View
+      Enemy                 LCtrl + F5              F5 Ground Hostile View
+      Hud                   LAlt + F1               F1 Hud only view switch
+      Map                   F10                     F10 Theater Map view
     
     
  * 
