@@ -1,3 +1,5 @@
+
+
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
   //||               FUNCTION = HORNET LED OUTPUT MAX 7219              ||\\
   //||              LOCATION IN THE PIT = LIP RIGHTHAND SIDE            ||\\
@@ -39,11 +41,11 @@ So - Digit = Row * 11 + Col
 
 
 
-#define Ethernet_In_Use 0
+#define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
 
 #define DCSBIOS_IRQ_SERIAL
-#include "DcsBios.h"
+#include <DcsBios.h>
 
 
 // Ethernet Related
@@ -58,7 +60,7 @@ IPAddress ip(172,16,1,103);
 String strMyIP = "X.X.X.X";
 
 // Raspberry Pi is Target
-IPAddress targetIP(172,16,1,2);
+IPAddress targetIP(172,16,1,110);
 String strTargetIP = "X.X.X.X"; 
 
 const unsigned int localport = 7788;
@@ -68,8 +70,6 @@ const unsigned int reflectorport = 27000;
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
-
-
 
 
 
@@ -236,6 +236,19 @@ void SendIPMessage(int ind, int state) {
   
   udp.beginPacket(targetIP, remoteport);
   udp.print(outString);
+  udp.endPacket();
+}
+
+void SendIPString(String KeysToSend) {
+
+
+  udp.beginPacket(targetIP, reflectorport);
+  udp.print(KeysToSend);
+  udp.endPacket();
+  
+  
+  udp.beginPacket(targetIP, remoteport);
+  udp.print(KeysToSend);
   udp.endPacket();
 }
 
@@ -1146,6 +1159,7 @@ int HornetRadaltMapper(unsigned int controlPosition, unsigned int dcsPosition)
     return -1*(int)delta;
 }
 
+// BEN 
 DcsBios::RotarySyncingPotentiometer radaltHeight("RADALT_HEIGHT", 11, 0x7518, 0xffff, 0, HornetRadaltMapper);
 
 
