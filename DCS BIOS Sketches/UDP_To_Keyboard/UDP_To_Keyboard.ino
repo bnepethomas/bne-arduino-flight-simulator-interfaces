@@ -449,7 +449,10 @@ void SendCharactersToKeyboard(int packetLength) {
       Serial.println(thisElement);
       Keyboard.press(233);
     }
-
+    else if (thisElement == "ESC") {
+      Serial.println(thisElement);
+      Keyboard.press(KEY_ESC);
+    }
 
 
     // 225 '\341' Keypad 1 and End
