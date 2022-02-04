@@ -1,6 +1,9 @@
 /*
 
   Receives a space delimited set of characters and sends them to the keyboard
+  Place Modifiers in the first part of the string being sent.
+
+  Unable to find a way using the normal keyboard library ot send pause - so will need to remap to some other key
 
   Works on an Arduino DUE.
 
@@ -63,6 +66,9 @@ const int Serial_In_Use = 1;
 #include <EthernetUdp.h>
 
 #include <Keyboard.h>
+
+
+
 
 
 bool leftAltInUse = false;
@@ -405,21 +411,102 @@ void SendCharactersToKeyboard(int packetLength) {
     }
 
 
+#define KEY_PAUSE (76+136)
+    // Other Keys
+    else if (thisElement == "PAUSE") {
+      Serial.println(thisElement);
+      Keyboard.press(136);
+    }
+
     // NUMBER PAD KEYS
     // Need to add 136 to the value otherwise keyboard.press will try ASCII look up
     // Reference https://forum.arduino.cc/t/keyboard-write-with-number-pad-keys-from-leonardo/175304
     //The keypad keys are 84 through 99 (0x54 through 0x63) but the keyboard.press() function will treat values below 128 (0x7F) as "printable" so it will look them up in a table of ascii keycodes. To get past that you have to add 136 to the keycode. Try these:
 
-    // 220 '\334' Keypad / 221 '\335' Keypad * 222 '\336' Keypad - 223 '\337' Keypad + 224 '\340' Keypad ENTER 
-    // 225 '\341' Keypad 1 and End 226 '\342' Keypad 2 and Down Arrow 227 '\343' Keypad 3 and PageDn 
-    // 228 '\344' Keypad 4 and Left Arrow 229 '\345' Keypad 5 230 '\346' Keypad 6 and Right Arrow 
-    // 231 '\347' Keypad 7 and Home 232 '\350' Keypad 8 and Up Arrow 233 '\351' Keypad 9 and PageUp 
-    // 234 '\352' Keypad 0 and Insert 235 '\353' Keypad . and Delete
-    
+    // 220 '\334' Keypad /
+    // 221 '\335' Keypad *
+    // 222 '\336' Keypad -
+    // 223 '\337' Keypad +
+    // 224 '\340' Keypad ENTER
+
+    else if (thisElement == "KEYPAD/") {
+      Serial.println(thisElement);
+      Keyboard.press(220);
+    }
+    else if (thisElement == "KEYPAD*") {
+      Serial.println(thisElement);
+      Keyboard.press(233);
+    }
+    else if (thisElement == "KEYPAD-") {
+      Serial.println(thisElement);
+      Keyboard.press(233);
+    }
+    else if (thisElement == "KEYPAD+") {
+      Serial.println(thisElement);
+      Keyboard.press(233);
+    }
+    else if (thisElement == "KEYPADENTER") {
+      Serial.println(thisElement);
+      Keyboard.press(233);
+    }
+
+
+
+    // 225 '\341' Keypad 1 and End
+    // 226 '\342' Keypad 2 and Down Arrow
+    // 227 '\343' Keypad 3 and PageDn
+    // 228 '\344' Keypad 4 and Left Arrow
+    // 229 '\345' Keypad 5
+    // 230 '\346' Keypad 6 and Right Arrow
+    // 231 '\347' Keypad 7 and Home
+    // 232 '\350' Keypad 8 and Up Arrow
+    // 233 '\351' Keypad 9 and PageUp
+    // 234 '\352' Keypad 0 and Insert
+    // 235 '\353' Keypad . and Delete
+
+    else if (thisElement == "NUM0") {
+      Serial.println(thisElement);
+      Keyboard.press(234);
+    }
+    else if (thisElement == "NUM1") {
+      Serial.println(thisElement);
+      Keyboard.press(225);
+    }
+    else if (thisElement == "NUM2") {
+      Serial.println(thisElement);
+      Keyboard.press(226);
+    }
+    else if (thisElement == "NUM3") {
+      Serial.println(thisElement);
+      Keyboard.press(227);
+    }
+    else if (thisElement == "NUM4") {
+      Serial.println(thisElement);
+      Keyboard.press(228);
+    }
     else if (thisElement == "NUM5") {
       Serial.println(thisElement);
       Keyboard.press(229);
     }
+    else if (thisElement == "NUM6") {
+      Serial.println(thisElement);
+      Keyboard.press(230);
+    }
+    else if (thisElement == "NUM7") {
+      Serial.println(thisElement);
+      Keyboard.press(231);
+    }
+    else if (thisElement == "NUM8") {
+      Serial.println(thisElement);
+      Keyboard.press(232);
+    }
+    else if (thisElement == "NUM9") {
+      Serial.println(thisElement);
+      Keyboard.press(233);
+    }
+
+
+
 
 
 
