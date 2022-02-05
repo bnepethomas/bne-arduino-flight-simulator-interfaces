@@ -2,7 +2,8 @@
 
   Receives a space delimited set of characters and sends them to the keyboard
 
-  Also drives Pixel LEDs - this was needed as Interrupts from DCS BIOS using serial disruppted updates
+  Also drives Pixel LEDs - this was needed as Interrupts from DCS BIOS using serial disrupted updates. These values are delimited by
+  by '='
 
   Place Modifiers in the first part of the string being sent.
 
@@ -164,6 +165,56 @@ char packetBuffer[1000];     //buffer to store the incoming data
 char backlightpacketBuffer[1000];     //buffer to store the incoming data
 char forwardlightpacketBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+// Variables picked up from 737 Code
+bool Debug_Display = true;
+char *ParameterNamePtr;
+char *ParameterValuePtr;
+
+
+// Variables from Bens Code
+int instDim = 0; // Consoles Dimmer Knob Value - Via DCS
+int conDim = 0;
+int cautDim = 0; // Caution Dimmer Knob Value - Via DCS
+int spinLT = 0; //Spin Light Dimmer Value
+int spinOn = 0; // Spin Light On or Off
+int consSW = 0; // NVG/NITE/DAY Switch
+int ecmLT = 0; // EMC JETT LIGHT (GREEN)
+int ecmON = 0; // EMC Light ON (GREEN)
+int aaLT = 0; // AA light MASTER ARM
+int aaON = 0; // AA light MASTER ARM
+int agLT = 0; // AG light MASTER ARM
+int agON = 0; // AG light MASTER ARM
+int rdyLT = 0; // READY light MASTER ARM
+int rdyON = 0; // READY light MASTER ARM
+int disLT = 0; // DISCH light MASTER ARM
+int disON = 0; // DISCH light MASTER ARM
+
+
+#define ECM_JETT_LED_COUNT 78
+#define VIDEO_RECORD_LED_COUNT 16
+#define JET_STATION_LED_COUNT 8
+#define MASTER_ARM_LED_COUNT 29
+#define HUD_CONTROL_LED_COUNT 55
+#define SPIN_RECOVERY_LED_COUNT 53
+
+#define MASTER_ARM_READY_1 0
+#define MASTER_ARM_READY_2 1
+#define MASTER_ARM_DISCH_1 3
+#define MASTER_ARM_DISCH_2 4
+#define MASTER_ARM_AA_1 25
+#define MASTER_ARM_AA_2 26
+#define MASTER_ARM_AG_1 27
+#define MASTER_ARM_AG_2 28
+
+#define ECM_JETT_1 74
+#define ECM_JETT_2 75
+#define ECM_JETT_3 76
+#define ECM_JETT_4 77
+
+#define SPIN_1 114
+#define SPIN_2 115
+
 
 
 void setup() {
@@ -688,7 +739,7 @@ void UpdateLIPUIP(int packetLength) {
   // The second attribute should be a number not a string
   // Test but just changing the colour of the first led
   // For performance reasons hold onto the update for 30 or so milliseconds before updating
-  
+
   if (Serial_In_Use == 1)  {
     Serial.println("Packet is " + thisElement);
     if (thisElement[0] == '0') {
@@ -708,6 +759,101 @@ void UpdateLIPUIP(int packetLength) {
 
   }
 }
+
+
+
+
+void ProcessReceivedString()
+{
+
+  // Reading values from packetBuffer which is global
+  // All received values are strings for readability
+  // From 737 Project
+
+  bool bLocalDebug = true;
+  int localBrightness = 0;
+
+  if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
+
+
+  String sWrkStr = "";
+
+  const char *delim  = "=";
+
+
+
+  ParameterNamePtr = strtok(forwardlightpacketBuffer, delim);
+  String ParameterNameString(ParameterNamePtr);
+  if (Debug_Display || bLocalDebug ) Serial.println("Parameter Name " + ParameterNameString);
+
+  ParameterValuePtr   = strtok(NULL, delim);
+  String ParameterValue(ParameterValuePtr);
+  if (Debug_Display || bLocalDebug ) Serial.println("Parameter Value " + ParameterValue);
+
+  // Handle the following attribute types
+  //int instDim; // Consoles Dimmer Knob Value - Via DCS
+  //int conDim;
+  //int cautDim; // Caution Dimmer Knob Value - Via DCS
+  //int spinLT; //Spin Light Dimmer Value
+  //int spinOn; // Spin Light On or Off
+  //int consSW; // NVG/NITE/DAY Switch
+  //int ecmLT; // EMC JETT LIGHT (GREEN)
+  //int ecmON; // EMC Light ON (GREEN)
+  //int aaLT; // AA light MASTER ARM
+  //int aaON; // AA light MASTER ARM
+  //int agLT; // AG light MASTER ARM
+  //int agON; // AG light MASTER ARM
+  //int rdyLT; // READY light MASTER ARM
+  //int rdyON; // READY light MASTER ARM
+  //int disLT; // DISCH light MASTER ARM
+  //int disON; // DISCH light MASTER ARM
+
+
+
+  if (ParameterNameString.equalsIgnoreCase("Brightness")) {
+    Serial.println("Found Brightness");
+    localBrightness = ParameterValue.toInt();
+    if (localBrightness >= MAX_BRIGHTNESS) localBrightness = MAX_BRIGHTNESS;
+    FastLED.setBrightness(localBrightness);
+    FastLED.show();
+  }
+
+
+  if (ParameterNameString.equalsIgnoreCase("aaLT")) {
+    Serial.println("Found aaLT");
+    aaLT = ParameterValue.toInt();
+    if (aaLT==1) fill_solid( LIP_UIP_CONSOLE_LED, LIP_UIP_CONSOLE_LED_COUNT, CRGB::Green);
+    else if (aaLT==0) fill_solid( LIP_UIP_CONSOLE_LED, LIP_UIP_CONSOLE_LED_COUNT, CRGB::Red);
+
+    
+    LIP_UIP_CONSOLE_LED[5] = CRGB::Yellow; 
+    
+    FastLED.setBrightness(MAX_BRIGHTNESS);
+    FastLED.show(); 
+  }
+
+  
+  if (ParameterNameString.equalsIgnoreCase("LEDON")) {
+    Serial.println("Found LedOn");
+    aaLT = ParameterValue.toInt();
+
+    if (aaLT == 0) {
+      Serial.println("Processing a 0");
+      LIP_UIP_CONSOLE_LED[0] = CRGB::Yellow;
+    }
+    else if (aaLT!=0) {
+      Serial.println("Processing a non-0");
+      LIP_UIP_CONSOLE_LED[aaLT] = CRGB::Yellow;
+    }
+    
+    FastLED.setBrightness(MAX_BRIGHTNESS);
+    FastLED.show(); 
+  }
+  
+}
+
+
+
 
 void loop() {
 
@@ -757,7 +903,8 @@ void loop() {
   }
 
   if (forwardlightPacketSize) {
-    UpdateLIPUIP(forwardlightLen);
+    //UpdateLIPUIP(forwardlightLen);
+    ProcessReceivedString();
 
   }
 
