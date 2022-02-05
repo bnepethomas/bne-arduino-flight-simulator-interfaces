@@ -90,7 +90,6 @@ int startUpBrightness =   50;      // LED Brightness 0 = Off, 255 = 100%.
 // Led Counts for LIP and UIP Panels
 #define ECM_JETT_LED_COUNT      78
 #define VIDEO_RECORD_LED_COUNT  16
-#define JET_STATION_LED_COUNT   8
 #define PLACARD_LED_COUNT       8
 #define MASTER_ARM_LED_COUNT    29
 #define HUD_CONTROL_LED_COUNT   56
@@ -98,7 +97,7 @@ int startUpBrightness =   50;      // LED Brightness 0 = Off, 255 = 100%.
 
 #define LEFT_CONSOLE_LED_COUNT 500
 #define RIGHT_CONSOLE_LED_COUNT 500
-const int  LIP_CONSOLE_LED_COUNT = ECM_JETT_LED_COUNT + VIDEO_RECORD_LED_COUNT + JET_STATION_LED_COUNT + PLACARD_LED_COUNT;
+const int  LIP_CONSOLE_LED_COUNT = ECM_JETT_LED_COUNT + VIDEO_RECORD_LED_COUNT + PLACARD_LED_COUNT;
 const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT + SPIN_RECOVERY_LED_COUNT;
 
 // Defining what data pin each backlighting connector is connected to.
@@ -108,10 +107,10 @@ const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT 
 // Order on connector is 5V GND 16 15 14 Last pin is not connected
 
 // Connections using Lukes Power Distribution
-#define LEFT_CONSOLE_PIN        40    
-#define RIGHT_CONSOLE_PIN       42   
-#define LIP_PIN                 44    
-#define UIP_PIN                 46    
+#define LEFT_CONSOLE_PIN        40
+#define RIGHT_CONSOLE_PIN       42
+#define LIP_PIN                 44
+#define UIP_PIN                 46
 #define SPARE_PIN_1             48
 
 
@@ -189,7 +188,7 @@ char *ParameterValuePtr;
 int instDim = 0;                // Consoles Dimmer Knob Value - Via DCS
 
 int cautDim = 0;                // Caution Dimmer Knob Value - Via DCS
-int spinLT = 0;                 //Spin Light Dimmer Value
+int spinLT = 0;                 // Spin Light Dimmer Value
 int spinOn = 0;                 // Spin Light On or Off
 int consSW = 0;                 // NVG/NITE/DAY Switch
 int ecmLT = 0;                  // EMC JETT LIGHT (GREEN)
@@ -217,8 +216,7 @@ int consoleBrightness = 50;     // Global Value for Console Brightness
 
 const int ECM_JET_START_POS       = 0;
 const int VID_RECORD_START_POS    = ECM_JETT_LED_COUNT;
-const int JET_STATION_START_POS   = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT;
-const int PLACARD_LED_START_POS   = JET_STATION_START_POS + JET_STATION_LED_COUNT;
+const int PLACARD_LED_START_POS   = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT;
 
 const int MASTER_ARM_START_POS    = 0;
 const int HUD_CONTROL_START_POS   = MASTER_ARM_LED_COUNT;
@@ -271,7 +269,7 @@ void setup() {
   FastLED.addLeds<LED_TYPE, RIGHT_CONSOLE_PIN, COLOUR_ORDER>(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT);
   FastLED.addLeds<LED_TYPE, LIP_PIN, COLOUR_ORDER>(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT);
   FastLED.addLeds<LED_TYPE, UIP_PIN, COLOUR_ORDER>(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT);
-  
+
 
 
 
@@ -812,51 +810,66 @@ void DimBacklighting()
   // UIP Panel wiring Master Arm -> Hud Control -> Spin Recovery
   // Panel Led Positions are defined above
 
+
+  // ******************************************************************************
+  // LIP
+  // ECM
   for (ledptr - ECM_JET_START_POS;
        ledptr <= (ECM_JET_START_POS + ECM_JETT_LED_COUNT - 1); ledptr) {
-    RIGHT_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+    if (ledptr != ECM_JETT_1 && MASTER_ARM_READY_2 != SPIN_2 &&
+        ledptr != ECM_JETT_3 && ECM_JETT_4 != SPIN_2)
+      LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
   }
 
 
-  // Led Counts for LIP and UIP Panels
-#define ECM_JETT_LED_COUNT      78
-#define VIDEO_RECORD_LED_COUNT  16
-#define JET_STATION_LED_COUNT   8
-#define PLACARD_LED_CONT        8
-#define MASTER_ARM_LED_COUNT    29
-#define HUD_CONTROL_LED_COUNT   56
-#define SPIN_RECOVERY_LED_COUNT 53
+  // Video Record
+  for (ledptr - VID_RECORD_START_POS;
+       ledptr <= (VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT  - 1); ledptr) {
+    // There are no special function leds - so no check needed
+    LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+  }
 
-  // The Panels are chained so calculate starting position
-  // LIP Panel wiring ECM -> Video Record/IFEI -> Select Jettison -> Placard
-  // UIP Panel wiring Master Arm -> Hud Control -> Spin Recovery
+  // Placard
+  for (ledptr - PLACARD_LED_START_POS;
+       ledptr <= (PLACARD_LED_START_POS + PLACARD_LED_COUNT  - 1); ledptr) {
+    // There are no special function leds - so no check needed
+    LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+  }
 
-#define ECM_JET_START_POS       = 0
-#define VID_RECORD_START_POS    = ECM_JETT_LED_COUNT
-#define JET_STATION_START_POS   = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT
-#define PLACARD_LED_START_POS   = JET_STATION_START_POS + JET_STATION_LED_COUNT
 
-#define MASTER_ARM_START_POS    = 0
-#define HUD_CONTROL_START_POS   = MASTER_ARM_LED_COUNT
-#define SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT
+  // ******************************************************************************
 
-  // Special Led Positions on LIP and UIP Panels
-#define MASTER_ARM_READY_1 0
-#define MASTER_ARM_READY_2 1
-#define MASTER_ARM_DISCH_1 2
-#define MASTER_ARM_DISCH_2 3
-#define MASTER_ARM_AA_1 25
-#define MASTER_ARM_AA_2 26
-#define MASTER_ARM_AG_1 27
-#define MASTER_ARM_AG_2 28
+  // UIP
+  // MASTER ARM
+  for (ledptr - MASTER_ARM_START_POS;
+       ledptr <= (MASTER_ARM_START_POS + MASTER_ARM_LED_COUNT - 1); ledptr) {
+    if (ledptr != MASTER_ARM_READY_1 && MASTER_ARM_READY_2 != SPIN_2 &&
+        ledptr != MASTER_ARM_DISCH_1 && MASTER_ARM_DISCH_2 != SPIN_2 &&
+        ledptr != MASTER_ARM_AA_1 && MASTER_ARM_AA_2 != SPIN_2 &&
+        ledptr != MASTER_ARM_AG_1 && MASTER_ARM_AG_2 != SPIN_2)
+      LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+  }
 
-#define ECM_JETT_1 74
-#define ECM_JETT_2 75
-#define ECM_JETT_3 76
-#define ECM_JETT_4 77
 
-#define SPIN_1 29
-#define SPIN_2 36
+  // HUD CONTROL
+  for (ledptr - HUD_CONTROL_START_POS;
+       ledptr <= (HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT  - 1); ledptr) {
+    // There are no special function leds - so no check needed
+    LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+  }
+
+  // SPIN
+  for (ledptr - SPIN_RECOVERY_START_POS;
+       ledptr <= (SPIN_RECOVERY_START_POS + SPIN_RECOVERY_LED_COUNT  - 1); ledptr) {
+    // Check to see if it is a special led - if it isn't adjust brightness
+    if (ledptr != SPIN_1 && ledptr != SPIN_2)
+      LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+  }
+
+
+
+
+
 
 
 }
