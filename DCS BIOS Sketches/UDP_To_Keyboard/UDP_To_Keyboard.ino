@@ -153,30 +153,27 @@ String strMyIP = "X.X.X.X";
 IPAddress targetIP(172, 16, 1, 2);
 String strTargetIP = "X.X.X.X";
 
-const unsigned int localport = 7788;
-const unsigned int backlightport = 7789;
-const unsigned int forwardlightport = 7790;
+const unsigned int keyboardport = 7788;
+const unsigned int ledport = 7789;
 const unsigned int remoteport = 49000;
 const unsigned int reflectorport = 27000;
 
 // Packet Length
-int packetSize;
-int len;
-int backlightPacketSize;
-int backlightLen;
-int forwardlightPacketSize;
-int forwardlightLen;
+int keyboardpacketSize;
+int keyboardLen;
+int ledPacketSize;
+int ledLen;
+
 
 const int delayBetweenRelease = 100;
 
-EthernetUDP udp;              // Keyboard
-EthernetUDP backlightudp;     //Left and Right Consoles
-EthernetUDP forwardlightudp;  //LIP and UIP
+EthernetUDP keyboardudp;              // Keyboard
+EthernetUDP ledudp;                   //Left and Right Consoles
 
-char packetBuffer[1000];     //buffer to store the incoming data
-char backlightpacketBuffer[1000];     //buffer to store the incoming data
-char forwardlightpacketBuffer[1000];     //buffer to store the incoming data
-char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+char keyboardpacketBuffer[1000];      //buffer to store keyboard data
+char ledpacketBuffer[1000];           //buffer to store led data
+char outpacketBuffer[1000];           //buffer to store the outgoing data
 
 // Variables picked up from 737 Code
 bool Debug_Display = true;
@@ -209,7 +206,7 @@ int consoleBrightness = 50;     // Global Value for Console Brightness
 
 
 // The Panels are chained so calculate starting position
-// LIP Panel wiring ECM -> Video Record/IFEI -> Select Jettison -> Placard
+// LIP Panel wiring ECM -> Video Record/IFEI -> Placard
 // UIP Panel wiring Master Arm -> Hud Control -> Spin Recovery
 // Two chains are required for UIP/LIP as the Jet Station Select Placard and
 //    (as of the version 1) the Spin Recovery do not pass the data signal through
@@ -253,13 +250,14 @@ void setup() {
   if (Ethernet_In_Use == 1) {
     Ethernet.begin( mac, ip);
 
-    udp.begin( localport );
-    udp.beginPacket(targetIP, reflectorport);
-    udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+    keyboardudp.begin( keyboardport );
+    
+    keyboardudp.beginPacket(targetIP, reflectorport);
+    keyboardudp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
 
 
-    backlightudp.begin(backlightport);
-    forwardlightudp.begin(forwardlightport);
+    ledudp.begin(ledport);
+
 
   }
 
@@ -308,8 +306,8 @@ void Typeout(int packetLength) {
 
   String thisSet = "";
   for (int characterPtr = 0; characterPtr < packetLength ; characterPtr++ ) {
-    Keyboard.print(packetBuffer[characterPtr]);
-    if (String(packetBuffer[characterPtr]) == " ") {
+    Keyboard.print(keyboardpacketBuffer[characterPtr]);
+    if (String(keyboardpacketBuffer[characterPtr]) == " ") {
       Keyboard.println("");
       Keyboard.press(KEY_LEFT_SHIFT);
       delay(delayBetweenRelease);
@@ -320,7 +318,7 @@ void Typeout(int packetLength) {
       thisSet = "";
     }
     else {
-      thisSet = thisSet + String(packetBuffer[characterPtr]);
+      thisSet = thisSet + String(keyboardpacketBuffer[characterPtr]);
     }
   }
   if (thisSet != "") {
@@ -348,7 +346,7 @@ void TurnOnAPU(int packetLength) {
     String thisSet = "";
     for (int characterPtr = 0; characterPtr < packetLength ; characterPtr++ ) {
       //Serial.print(packetBuffer[characterPtr]);
-      if (String(packetBuffer[characterPtr]) == " ") {
+      if (String(keyboardpacketBuffer[characterPtr]) == " ") {
         if (thisElement == "LALT") {
           leftAltInUse = true;
           Serial.println("Left Alt in Use");
@@ -356,7 +354,7 @@ void TurnOnAPU(int packetLength) {
         thisElement = "";
       }
       else {
-        thisElement = thisElement + String(packetBuffer[characterPtr]);
+        thisElement = thisElement + String(keyboardpacketBuffer[characterPtr]);
       }
 
     }
@@ -425,7 +423,7 @@ void SendCharactersToKeyboard(int packetLength) {
 
 
       // We are delimiting by spaces
-      if (String(packetBuffer[characterPtr]) == " ") {
+      if (String(keyboardpacketBuffer[characterPtr]) == " ") {
         if (thisElement == "LALT") {
           leftAltInUse = true;
           Serial.println("Left Alt in Use");
@@ -474,7 +472,7 @@ void SendCharactersToKeyboard(int packetLength) {
       }
 
       else {
-        thisElement = thisElement + String(packetBuffer[characterPtr]);
+        thisElement = thisElement + String(keyboardpacketBuffer[characterPtr]);
       }
 
     }
@@ -716,41 +714,6 @@ void SendCharactersToKeyboard(int packetLength) {
 }
 
 
-
-void UpdateGeneralBacklight(int packetLength) {
-
-  // Read up either to first space or packet len
-  // Check it is a number and less than max brightness
-  // Update Brightness for all initisally and then reduce to just console ports
-
-  String thisElement = "";
-  char keyToPress[50];
-  int localBrightness;
-
-  thisElement = String(backlightpacketBuffer);
-
-
-  if (Serial_In_Use == 1)  {
-    Serial.println("Packet is " + thisElement);
-    if (thisElement[0] == '0') {
-      Serial.println("Found a zero");
-      FastLED.setBrightness(0);
-      FastLED.show();
-    }
-    else {
-      localBrightness = thisElement.toInt();
-      if (localBrightness != 0) {
-        if (localBrightness >= MAX_BRIGHTNESS) localBrightness = MAX_BRIGHTNESS;
-        FastLED.setBrightness(localBrightness);
-        FastLED.show();
-      }
-    }
-
-
-  }
-}
-
-
 void UpdateLIPUIP(int packetLength) {
 
   // Takes a single attirbute value pair and sets the levels
@@ -760,7 +723,7 @@ void UpdateLIPUIP(int packetLength) {
   char keyToPress[50];
   int localBrightness;
 
-  thisElement = String(backlightpacketBuffer);
+  thisElement = String(ledpacketBuffer);
 
   // Check to see if there is a ':' present - if not discard
   // The first attribute is expected to be a string
@@ -806,7 +769,7 @@ void DimBacklighting()
   }
 
   // LIP and UIP have exceptions - so walk through panel by panel
-  // LIP Panel wiring ECM -> Video Record/IFEI -> Select Jettison -> Placard
+  // LIP Panel wiring ECM -> Video Record/IFEI -> Placard
   // UIP Panel wiring Master Arm -> Hud Control -> Spin Recovery
   // Panel Led Positions are defined above
 
@@ -865,13 +828,6 @@ void DimBacklighting()
     if (ledptr != SPIN_1 && ledptr != SPIN_2)
       LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
   }
-
-
-
-
-
-
-
 }
 
 
@@ -896,7 +852,7 @@ void ProcessReceivedString()
 
 
 
-  ParameterNamePtr = strtok(forwardlightpacketBuffer, delim);
+  ParameterNamePtr = strtok(ledpacketBuffer, delim);
   String ParameterNameString(ParameterNamePtr);
   if (Debug_Display || bLocalDebug ) Serial.println("Parameter Name " + ParameterNameString);
 
@@ -1003,41 +959,28 @@ void loop() {
 
 
   // Handle Keyboard updates
-  packetSize = udp.parsePacket();
-  len = udp.read(packetBuffer, 999);
+  keyboardpacketSize = keyboardudp.parsePacket();
+  keyboardLen = keyboardudp.read(keyboardpacketBuffer, 999);
 
-  if (len > 0) {
-    packetBuffer[len] = 0;
+  if (keyboardLen > 0) {
+    keyboardpacketBuffer[keyboardLen] = 0;
   }
 
-  if (packetSize) {
-    SendCharactersToKeyboard(len);
-  }
-
-
-
-  // Backlighting
-  backlightPacketSize = backlightudp.parsePacket();
-  backlightLen = backlightudp.read(backlightpacketBuffer, 999);
-
-  if (backlightLen > 0) {
-    backlightpacketBuffer[backlightLen] = 0;
-  }
-
-  if (backlightPacketSize) {
-    UpdateGeneralBacklight(backlightLen);
+  if (keyboardpacketSize) {
+    SendCharactersToKeyboard(keyboardLen);
   }
 
 
-  forwardlightPacketSize = forwardlightudp.parsePacket();
-  forwardlightLen = forwardlightudp.read(forwardlightpacketBuffer, 999);
 
-  if (forwardlightLen > 0) {
-    forwardlightpacketBuffer[forwardlightLen] = 0;
+
+  ledPacketSize = ledudp.parsePacket();
+  ledLen = ledudp.read(ledpacketBuffer, 999);
+
+  if (ledLen > 0) {
+    ledpacketBuffer[ledLen] = 0;
   }
 
-  if (forwardlightPacketSize) {
-    //UpdateLIPUIP(forwardlightLen);
+  if (ledPacketSize) {
     ProcessReceivedString();
 
   }
