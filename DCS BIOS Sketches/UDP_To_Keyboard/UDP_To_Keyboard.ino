@@ -671,6 +671,44 @@ void UpdateGeneralBacklight(int packetLength) {
   }
 }
 
+
+void UpdateLIPUIP(int packetLength) {
+
+  // Takes a single attirbute value pair and sets the levels
+  // Only expecting changes
+
+  String thisElement = "";
+  char keyToPress[50];
+  int localBrightness;
+
+  thisElement = String(backlightpacketBuffer);
+
+  // Check to see if there is a ':' present - if not discard
+  // The first attribute is expected to be a string
+  // The second attribute should be a number not a string
+  // Test but just changing the colour of the first led
+  // For performance reasons hold onto the update for 30 or so milliseconds before updating
+  
+  if (Serial_In_Use == 1)  {
+    Serial.println("Packet is " + thisElement);
+    if (thisElement[0] == '0') {
+      Serial.println("Found a zero");
+      FastLED.setBrightness(0);
+      FastLED.show();
+    }
+    else {
+      localBrightness = thisElement.toInt();
+      if (localBrightness != 0) {
+        if (localBrightness >= MAX_BRIGHTNESS) localBrightness = MAX_BRIGHTNESS;
+        FastLED.setBrightness(localBrightness);
+        FastLED.show();
+      }
+    }
+
+
+  }
+}
+
 void loop() {
 
 
@@ -719,8 +757,7 @@ void loop() {
   }
 
   if (forwardlightPacketSize) {
-    FastLED.setBrightness(0);
-    FastLED.show();
+    UpdateLIPUIP(forwardlightLen);
 
   }
 
