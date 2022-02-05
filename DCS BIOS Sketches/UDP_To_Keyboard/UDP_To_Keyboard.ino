@@ -195,13 +195,13 @@ int disON = 0; // DISCH light MASTER ARM
 #define VIDEO_RECORD_LED_COUNT 16
 #define JET_STATION_LED_COUNT 8
 #define MASTER_ARM_LED_COUNT 29
-#define HUD_CONTROL_LED_COUNT 55
+#define HUD_CONTROL_LED_COUNT 56
 #define SPIN_RECOVERY_LED_COUNT 53
 
 #define MASTER_ARM_READY_1 0
 #define MASTER_ARM_READY_2 1
-#define MASTER_ARM_DISCH_1 3
-#define MASTER_ARM_DISCH_2 4
+#define MASTER_ARM_DISCH_1 2
+#define MASTER_ARM_DISCH_2 3
 #define MASTER_ARM_AA_1 25
 #define MASTER_ARM_AA_2 26
 #define MASTER_ARM_AG_1 27
@@ -212,8 +212,8 @@ int disON = 0; // DISCH light MASTER ARM
 #define ECM_JETT_3 76
 #define ECM_JETT_4 77
 
-#define SPIN_1 114
-#define SPIN_2 115
+#define SPIN_1 29
+#define SPIN_2 36
 
 
 
@@ -847,6 +847,25 @@ void ProcessReceivedString()
     }
     
     FastLED.setBrightness(MAX_BRIGHTNESS);
+    FastLED.show(); 
+  }
+
+    if (ParameterNameString.equalsIgnoreCase("LEDDIM")) {
+    Serial.println("Found LedDim");
+    aaLT = ParameterValue.toInt();
+    
+    FastLED.setBrightness(MAX_BRIGHTNESS);
+    
+    if (aaLT == 0) {
+      Serial.println("Processing a 0");
+      LIP_UIP_CONSOLE_LED[0] = CHSV( 0, 255, 125);
+    }
+    else if (aaLT!=0) {
+      Serial.println("Processing a non-0");
+      LIP_UIP_CONSOLE_LED[aaLT] = CHSV( 0, 255, 125);
+    }
+    
+   
     FastLED.show(); 
   }
   
