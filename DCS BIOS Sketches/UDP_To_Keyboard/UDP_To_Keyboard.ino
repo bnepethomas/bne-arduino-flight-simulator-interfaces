@@ -70,8 +70,6 @@ const int Serial_In_Use = 1;
 
 
 
-
-
 #include <Keyboard.h>
 
 
@@ -88,15 +86,18 @@ int startUpBrightness =   50;      // LED Brightness 0 = Off, 255 = 100%.
 
 // Defining how many pixels each backlighting connector has connected, if a connector is not used set it to zero.
 
-#define BL1_PIXELS    500  // BL #1 Connector pixel count
+
+#define LEFT_CONSOLE_LED_COUNT 500
+#define RIGHT_CONSOLE_LED_COUNT 500
+#define LIP_UIP_CONSOLE_LED_COUNT 100
 
 // Defining what data pin each backlighting connector is connected to.
 
 // The Max7219 connector uses Pin 14,15,16
 // Order on connector is 5V GND 16 15 14 Last pin is not connected
-#define BL1_PIN       16  // BL #3 Connector pin
-#define BL2_PIN       15  // BL #4 Connector pin
-#define BL3_PIN       14  // BL #4 Connector pin
+#define LEFT_CONSOLE_PIN       16  // BL #3 Connector pin
+#define RIGHT_CONSOLE_PIN       15  // BL #4 Connector pin
+#define LIP_UIP_PIN       14  // BL #5 Connector pin
 
 
 
@@ -108,9 +109,9 @@ int startUpBrightness =   50;      // LED Brightness 0 = Off, 255 = 100%.
 
 // Setting up the blocks of memory that will be used for storing and manipulating the led data;
 
-CRGB BL1[BL1_PIXELS];
-CRGB BL2[BL1_PIXELS];
-CRGB BL3[BL1_PIXELS];
+CRGB LEFT_CONSOLE_LED[LEFT_CONSOLE_LED_COUNT];
+CRGB RIGHT_CONSOLE_LED[RIGHT_CONSOLE_LED_COUNT];
+CRGB LIP_UIP_CONSOLE_LED[LIP_UIP_CONSOLE_LED_COUNT];
 
 unsigned long NEXT_LED_UPDATE = 0;
 
@@ -140,6 +141,7 @@ String strTargetIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
 const unsigned int backlightport = 7789;
+const unsigned int forwardlightport = 7790;
 const unsigned int remoteport = 49000;
 const unsigned int reflectorport = 27000;
 
@@ -148,13 +150,18 @@ int packetSize;
 int len;
 int backlightPacketSize;
 int backlightLen;
+int forwardlightPacketSize;
+int forwardlightLen;
 
 const int delayBetweenRelease = 100;
 
-EthernetUDP udp;
-EthernetUDP backlightudp;
+EthernetUDP udp;              // Keyboard
+EthernetUDP backlightudp;     //Left and Right Consoles
+EthernetUDP forwardlightudp;  //LIP and UIP
+
 char packetBuffer[1000];     //buffer to store the incoming data
 char backlightpacketBuffer[1000];     //buffer to store the incoming data
+char forwardlightpacketBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 
@@ -175,35 +182,35 @@ void setup() {
 
 
     backlightudp.begin(backlightport);
+    forwardlightudp.begin(forwardlightport);
 
   }
 
   // Activate Backlights
   // Telling the system the type, their data pin, what color order they are and how many there are;
+  FastLED.addLeds<LED_TYPE, LEFT_CONSOLE_PIN, COLOUR_ORDER>(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT);
+  FastLED.addLeds<LED_TYPE, RIGHT_CONSOLE_PIN, COLOUR_ORDER>(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT);
+  FastLED.addLeds<LED_TYPE, LIP_UIP_PIN, COLOUR_ORDER>(LIP_UIP_CONSOLE_LED, LIP_UIP_CONSOLE_LED_COUNT);
 
-  FastLED.addLeds<LED_TYPE, BL1_PIN, COLOUR_ORDER>(BL1, BL1_PIXELS);
-  FastLED.addLeds<LED_TYPE, BL2_PIN, COLOUR_ORDER>(BL2, BL1_PIXELS);
-  FastLED.addLeds<LED_TYPE, BL3_PIN, COLOUR_ORDER>(BL3, BL1_PIXELS);
 
 
   // The dimming method used. We have a large number of pixels so dithering is not ideal.
-
   FastLED.setDither(false);
 
   // Set the LEDs to their defined brightness.
-
   FastLED.setBrightness(startUpBrightness);
 
   // FastLED Power management set at 5V, and the defined current limit.
-
   FastLED.setMaxPowerInVoltsAndMilliamps(5, CURRENT_LIMIT);
 
+
   // Now apply everything we just told it about the setup.
-  fill_solid( BL1, BL1_PIXELS, CRGB::Green);
-  fill_solid( BL2, BL1_PIXELS, CRGB::Green);
-  fill_solid( BL3, BL1_PIXELS, CRGB::Red);
+  fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid( LIP_UIP_CONSOLE_LED, LIP_UIP_CONSOLE_LED_COUNT, CRGB::Red);
+  
   FastLED.show();
-  NEXT_LED_UPDATE = millis() + 3000;
+  NEXT_LED_UPDATE = millis() + 1000;
 
 
   Keyboard.begin();
@@ -646,7 +653,6 @@ void loop() {
   }
 
   packetSize = udp.parsePacket();
-
   len = udp.read(packetBuffer, 999);
 
   if (len > 0) {
@@ -661,9 +667,7 @@ void loop() {
 
 
 
-
   backlightPacketSize = backlightudp.parsePacket();
-
   backlightLen = backlightudp.read(backlightpacketBuffer, 999);
 
   if (backlightLen > 0) {
@@ -675,6 +679,21 @@ void loop() {
     FastLED.show();
 
   }
+  
+
+  forwardlightPacketSize = forwardlightudp.parsePacket();
+  forwardlightLen = forwardlightudp.read(forwardlightpacketBuffer, 999);
+
+  if (forwardlightLen > 0) {
+    forwardlightpacketBuffer[len] = 0;
+  }
+
+  if (forwardlightPacketSize) {
+    FastLED.setBrightness(0);
+    FastLED.show();
+
+  }
+
 
 
 }
