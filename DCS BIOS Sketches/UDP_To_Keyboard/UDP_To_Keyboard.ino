@@ -87,19 +87,32 @@ int startUpBrightness =   50;      // LED Brightness 0 = Off, 255 = 100%.
 #define CURRENT_LIMIT   20000   // Current in mA (1000mA = 1 Amp). Most ATX PSUs provide 20A maximum.
 
 // Defining how many pixels each backlighting connector has connected, if a connector is not used set it to zero.
-
+// Led Counts for LIP and UIP Panels
+#define ECM_JETT_LED_COUNT      78
+#define VIDEO_RECORD_LED_COUNT  16
+#define JET_STATION_LED_COUNT   8
+#define PLACARD_LED_COUNT        8
+#define MASTER_ARM_LED_COUNT    29
+#define HUD_CONTROL_LED_COUNT   56
+#define SPIN_RECOVERY_LED_COUNT 53
 
 #define LEFT_CONSOLE_LED_COUNT 500
 #define RIGHT_CONSOLE_LED_COUNT 500
-#define LIP_UIP_CONSOLE_LED_COUNT 100
+const int  LIP_CONSOLE_LED_COUNT = ECM_JETT_LED_COUNT + VIDEO_RECORD_LED_COUNT + JET_STATION_LED_COUNT + PLACARD_LED_COUNT;
+const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT + SPIN_RECOVERY_LED_COUNT;
 
 // Defining what data pin each backlighting connector is connected to.
 
+// If using small test rig
 // The Max7219 connector uses Pin 14,15,16
 // Order on connector is 5V GND 16 15 14 Last pin is not connected
-#define LEFT_CONSOLE_PIN       16  // BL #3 Connector pin
-#define RIGHT_CONSOLE_PIN       15  // BL #4 Connector pin
-#define LIP_UIP_PIN       14  // BL #5 Connector pin
+
+// Connections using Lukes Power Distribution
+#define LEFT_CONSOLE_PIN        40    
+#define RIGHT_CONSOLE_PIN       42   
+#define LIP_PIN                 44    
+#define UIP_PIN                 46    
+#define SPARE_PIN_1             48
 
 
 
@@ -113,7 +126,8 @@ int startUpBrightness =   50;      // LED Brightness 0 = Off, 255 = 100%.
 
 CRGB LEFT_CONSOLE_LED[LEFT_CONSOLE_LED_COUNT];
 CRGB RIGHT_CONSOLE_LED[RIGHT_CONSOLE_LED_COUNT];
-CRGB LIP_UIP_CONSOLE_LED[LIP_UIP_CONSOLE_LED_COUNT];
+CRGB LIP_CONSOLE_LED[LIP_CONSOLE_LED_COUNT];
+CRGB UIP_CONSOLE_LED[UIP_CONSOLE_LED_COUNT];
 
 unsigned long NEXT_LED_UPDATE = 0;
 
@@ -173,31 +187,45 @@ char *ParameterValuePtr;
 
 
 // Variables from Bens Code
-int instDim = 0; // Consoles Dimmer Knob Value - Via DCS
-int conDim = 0;
-int cautDim = 0; // Caution Dimmer Knob Value - Via DCS
-int spinLT = 0; //Spin Light Dimmer Value
-int spinOn = 0; // Spin Light On or Off
-int consSW = 0; // NVG/NITE/DAY Switch
-int ecmLT = 0; // EMC JETT LIGHT (GREEN)
-int ecmON = 0; // EMC Light ON (GREEN)
-int aaLT = 0; // AA light MASTER ARM
-int aaON = 0; // AA light MASTER ARM
-int agLT = 0; // AG light MASTER ARM
-int agON = 0; // AG light MASTER ARM
-int rdyLT = 0; // READY light MASTER ARM
-int rdyON = 0; // READY light MASTER ARM
-int disLT = 0; // DISCH light MASTER ARM
-int disON = 0; // DISCH light MASTER ARM
+int instDim = 0;                // Consoles Dimmer Knob Value - Via DCS
+
+int cautDim = 0;                // Caution Dimmer Knob Value - Via DCS
+int spinLT = 0;                 //Spin Light Dimmer Value
+int spinOn = 0;                 // Spin Light On or Off
+int consSW = 0;                 // NVG/NITE/DAY Switch
+int ecmLT = 0;                  // EMC JETT LIGHT (GREEN)
+int ecmON = 0;                  // EMC Light ON (GREEN)
+int aaLT = 0;                   // AA light MASTER ARM
+int aaON = 0;                   // AA light MASTER ARM
+int agLT = 0;                   // AG light MASTER ARM
+int agON = 0;                   // AG light MASTER ARM
+int rdyLT = 0;                  // READY light MASTER ARM
+int rdyON = 0;                  // READY light MASTER ARM
+int disLT = 0;                  // DISCH light MASTER ARM
+int disON = 0;                  // DISCH light MASTER ARM
+
+int ledptr = 0;
+int consoleBrightness = 50;     // Global Value for Console Brightness
 
 
-#define ECM_JETT_LED_COUNT 78
-#define VIDEO_RECORD_LED_COUNT 16
-#define JET_STATION_LED_COUNT 8
-#define MASTER_ARM_LED_COUNT 29
-#define HUD_CONTROL_LED_COUNT 56
-#define SPIN_RECOVERY_LED_COUNT 53
 
+
+// The Panels are chained so calculate starting position
+// LIP Panel wiring ECM -> Video Record/IFEI -> Select Jettison -> Placard
+// UIP Panel wiring Master Arm -> Hud Control -> Spin Recovery
+// Two chains are required for UIP/LIP as the Jet Station Select Placard and
+//    (as of the version 1) the Spin Recovery do not pass the data signal through
+
+const int ECM_JET_START_POS       = 0;
+const int VID_RECORD_START_POS    = ECM_JETT_LED_COUNT;
+const int JET_STATION_START_POS   = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT;
+const int PLACARD_LED_START_POS   = JET_STATION_START_POS + JET_STATION_LED_COUNT;
+
+const int MASTER_ARM_START_POS    = 0;
+const int HUD_CONTROL_START_POS   = MASTER_ARM_LED_COUNT;
+const int SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT;
+
+// Special Led Positions on LIP and UIP Panels
 #define MASTER_ARM_READY_1 0
 #define MASTER_ARM_READY_2 1
 #define MASTER_ARM_DISCH_1 2
@@ -242,7 +270,9 @@ void setup() {
   // Telling the system the type, their data pin, what color order they are and how many there are;
   FastLED.addLeds<LED_TYPE, LEFT_CONSOLE_PIN, COLOUR_ORDER>(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT);
   FastLED.addLeds<LED_TYPE, RIGHT_CONSOLE_PIN, COLOUR_ORDER>(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT);
-  FastLED.addLeds<LED_TYPE, LIP_UIP_PIN, COLOUR_ORDER>(LIP_UIP_CONSOLE_LED, LIP_UIP_CONSOLE_LED_COUNT);
+  FastLED.addLeds<LED_TYPE, LIP_PIN, COLOUR_ORDER>(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT);
+  FastLED.addLeds<LED_TYPE, UIP_PIN, COLOUR_ORDER>(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT);
+  
 
 
 
@@ -259,7 +289,8 @@ void setup() {
   // Now apply everything we just told it about the setup.
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
-  fill_solid( LIP_UIP_CONSOLE_LED, LIP_UIP_CONSOLE_LED_COUNT, CRGB::Red);
+  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Red);
+  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
 
   FastLED.show();
   NEXT_LED_UPDATE = millis() + 1000;
@@ -762,6 +793,77 @@ void UpdateLIPUIP(int packetLength) {
 
 
 
+void DimBacklighting()
+{
+
+
+  // Left and Right Consoles are entirely flood so nothing special needed there
+  // Forward console has exceptions
+
+  for (ledptr = 0; ledptr <= (LEFT_CONSOLE_LED_COUNT - 1); ledptr) {
+    LEFT_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+
+  }
+  for (ledptr = 0; ledptr <= (LEFT_CONSOLE_LED_COUNT - 1); ledptr) {
+    RIGHT_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+  }
+
+  // LIP and UIP have exceptions - so walk through panel by panel
+  // LIP Panel wiring ECM -> Video Record/IFEI -> Select Jettison -> Placard
+  // UIP Panel wiring Master Arm -> Hud Control -> Spin Recovery
+  // Panel Led Positions are defined above
+
+  for (ledptr - ECM_JET_START_POS;
+       ledptr <= (ECM_JET_START_POS + ECM_JETT_LED_COUNT - 1); ledptr) {
+    RIGHT_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+  }
+
+
+  // Led Counts for LIP and UIP Panels
+#define ECM_JETT_LED_COUNT      78
+#define VIDEO_RECORD_LED_COUNT  16
+#define JET_STATION_LED_COUNT   8
+#define PLACARD_LED_CONT        8
+#define MASTER_ARM_LED_COUNT    29
+#define HUD_CONTROL_LED_COUNT   56
+#define SPIN_RECOVERY_LED_COUNT 53
+
+  // The Panels are chained so calculate starting position
+  // LIP Panel wiring ECM -> Video Record/IFEI -> Select Jettison -> Placard
+  // UIP Panel wiring Master Arm -> Hud Control -> Spin Recovery
+
+#define ECM_JET_START_POS       = 0
+#define VID_RECORD_START_POS    = ECM_JETT_LED_COUNT
+#define JET_STATION_START_POS   = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT
+#define PLACARD_LED_START_POS   = JET_STATION_START_POS + JET_STATION_LED_COUNT
+
+#define MASTER_ARM_START_POS    = 0
+#define HUD_CONTROL_START_POS   = MASTER_ARM_LED_COUNT
+#define SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT
+
+  // Special Led Positions on LIP and UIP Panels
+#define MASTER_ARM_READY_1 0
+#define MASTER_ARM_READY_2 1
+#define MASTER_ARM_DISCH_1 2
+#define MASTER_ARM_DISCH_2 3
+#define MASTER_ARM_AA_1 25
+#define MASTER_ARM_AA_2 26
+#define MASTER_ARM_AG_1 27
+#define MASTER_ARM_AG_2 28
+
+#define ECM_JETT_1 74
+#define ECM_JETT_2 75
+#define ECM_JETT_3 76
+#define ECM_JETT_4 77
+
+#define SPIN_1 29
+#define SPIN_2 36
+
+
+}
+
+
+
 
 void ProcessReceivedString()
 {
@@ -822,53 +924,54 @@ void ProcessReceivedString()
   if (ParameterNameString.equalsIgnoreCase("aaLT")) {
     Serial.println("Found aaLT");
     aaLT = ParameterValue.toInt();
-    if (aaLT==1) fill_solid( LIP_UIP_CONSOLE_LED, LIP_UIP_CONSOLE_LED_COUNT, CRGB::Green);
-    else if (aaLT==0) fill_solid( LIP_UIP_CONSOLE_LED, LIP_UIP_CONSOLE_LED_COUNT, CRGB::Red);
+    if (aaLT == 1) fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
+    else if (aaLT == 0) fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
 
-    
-    LIP_UIP_CONSOLE_LED[5] = CRGB::Yellow; 
-    
+
+    LIP_CONSOLE_LED[5] = CRGB::Yellow;
+
     FastLED.setBrightness(MAX_BRIGHTNESS);
-    FastLED.show(); 
+    FastLED.show();
   }
 
-  
+
   if (ParameterNameString.equalsIgnoreCase("LEDON")) {
     Serial.println("Found LedOn");
     aaLT = ParameterValue.toInt();
 
     if (aaLT == 0) {
       Serial.println("Processing a 0");
-      LIP_UIP_CONSOLE_LED[0] = CRGB::Yellow;
+      LIP_CONSOLE_LED[0] = CRGB::Yellow;
     }
-    else if (aaLT!=0) {
+    else if (aaLT != 0) {
       Serial.println("Processing a non-0");
-      LIP_UIP_CONSOLE_LED[aaLT] = CRGB::Yellow;
+      LIP_CONSOLE_LED[aaLT] = CRGB::Yellow;
     }
-    
+
     FastLED.setBrightness(MAX_BRIGHTNESS);
-    FastLED.show(); 
+    FastLED.show();
   }
 
-    if (ParameterNameString.equalsIgnoreCase("LEDDIM")) {
+  if (ParameterNameString.equalsIgnoreCase("LEDDIM")) {
     Serial.println("Found LedDim");
     aaLT = ParameterValue.toInt();
-    
+
+    // Set all leds ro max and then we'll selectively dim
     FastLED.setBrightness(MAX_BRIGHTNESS);
-    
+
     if (aaLT == 0) {
       Serial.println("Processing a 0");
-      LIP_UIP_CONSOLE_LED[0] = CHSV( 0, 255, 125);
+      LIP_CONSOLE_LED[0] = CHSV( 0, 255, 125);
     }
-    else if (aaLT!=0) {
+    else if (aaLT != 0) {
       Serial.println("Processing a non-0");
-      LIP_UIP_CONSOLE_LED[aaLT] = CHSV( 0, 255, 125);
+      LIP_CONSOLE_LED[aaLT] = CHSV( 0, 255, 125);
     }
-    
-   
-    FastLED.show(); 
+
+
+    FastLED.show();
   }
-  
+
 }
 
 
