@@ -79,6 +79,7 @@ const int Serial_In_Use = 1;
 #include <FastLED.h>
 String COLOUR   =  "GREEN";   // The color name that you want to show, e.g. Green, Red, Blue, White
 int startUpBrightness =   50;      // LED Brightness 0 = Off, 255 = 100%.
+#define MAX_BRIGHTNESS 50
 
 // Set your power supplies 5V current limit.
 
@@ -208,7 +209,7 @@ void setup() {
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( LIP_UIP_CONSOLE_LED, LIP_UIP_CONSOLE_LED_COUNT, CRGB::Red);
-  
+
   FastLED.show();
   NEXT_LED_UPDATE = millis() + 1000;
 
@@ -504,12 +505,7 @@ void SendCharactersToKeyboard(int packetLength) {
     }
 
 
-#define KEY_PAUSE (76+136)
-    // Other Keys
-    else if (thisElement == "PAUSE") {
-      Serial.println(thisElement);
-      Keyboard.press(136);
-    }
+
 
     // NUMBER PAD KEYS
     // Need to add 136 to the value otherwise keyboard.press will try ASCII look up
@@ -640,6 +636,41 @@ void SendCharactersToKeyboard(int packetLength) {
 
 }
 
+
+
+void UpdateGeneralBacklight(int packetLength) {
+
+  // Read up either to first space or packet len
+  // Check it is a number and less than max brightness
+  // Update Brightness for all initisally and then reduce to just console ports
+
+  String thisElement = "";
+  char keyToPress[50];
+  int localBrightness;
+
+  thisElement = String(backlightpacketBuffer);
+
+
+  if (Serial_In_Use == 1)  {
+    Serial.println("Packet is " + thisElement);
+    if (thisElement[0] == '0') {
+      Serial.println("Found a zero");
+      FastLED.setBrightness(0);
+      FastLED.show();
+    }
+    else {
+      localBrightness = thisElement.toInt();
+      if (localBrightness != 0) {
+        if (localBrightness >= MAX_BRIGHTNESS) localBrightness = MAX_BRIGHTNESS;
+        FastLED.setBrightness(localBrightness);
+        FastLED.show();
+      }
+    }
+
+
+  }
+}
+
 void loop() {
 
 
@@ -652,13 +683,13 @@ void loop() {
     FastLED.show();
   }
 
+
+  // Handle Keyboard updates
   packetSize = udp.parsePacket();
   len = udp.read(packetBuffer, 999);
 
   if (len > 0) {
-
     packetBuffer[len] = 0;
-
   }
 
   if (packetSize) {
@@ -667,25 +698,24 @@ void loop() {
 
 
 
+  // Backlighting
   backlightPacketSize = backlightudp.parsePacket();
   backlightLen = backlightudp.read(backlightpacketBuffer, 999);
 
   if (backlightLen > 0) {
-    backlightpacketBuffer[len] = 0;
+    backlightpacketBuffer[backlightLen] = 0;
   }
 
   if (backlightPacketSize) {
-    FastLED.setBrightness(50);
-    FastLED.show();
-
+    UpdateGeneralBacklight(backlightLen);
   }
-  
+
 
   forwardlightPacketSize = forwardlightudp.parsePacket();
   forwardlightLen = forwardlightudp.read(forwardlightpacketBuffer, 999);
 
   if (forwardlightLen > 0) {
-    forwardlightpacketBuffer[len] = 0;
+    forwardlightpacketBuffer[forwardlightLen] = 0;
   }
 
   if (forwardlightPacketSize) {
