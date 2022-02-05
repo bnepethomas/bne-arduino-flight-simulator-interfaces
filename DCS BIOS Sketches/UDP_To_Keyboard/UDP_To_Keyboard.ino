@@ -78,9 +78,10 @@ const int Serial_In_Use = 1;
 
 // PixelLighting
 #include <FastLED.h>
-String COLOUR   =  "GREEN";   // The color name that you want to show, e.g. Green, Red, Blue, White
-int startUpBrightness =   50;      // LED Brightness 0 = Off, 255 = 100%.
-#define MAX_BRIGHTNESS 50
+String COLOUR   =  "GREEN";         // The color name that you want to show, e.g. Green, Red, Blue, White
+int startUpBrightness =   50;       // LED Brightness 0 = Off, 255 = 100%.
+#define MAX_BRIGHTNESS 255          // This is relative to master used with GCSV
+#define MAX_MASTER_BRIGHTNESS 100   // Overrides all brightness - used with setbrightness method
 
 // Set your power supplies 5V current limit.
 
@@ -201,6 +202,7 @@ int disON = 0;                  // DISCH light MASTER ARM
 
 int ledptr = 0;
 int consoleBrightness = 50;     // Global Value for Console Brightness
+int indicatorBrightness = 50;   // Global value for Indicator Brightness
 
 
 
@@ -229,10 +231,18 @@ const int SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUN
 #define MASTER_ARM_AG_1 27
 #define MASTER_ARM_AG_2 28
 
-#define ECM_JETT_1 74
-#define ECM_JETT_2 75
-#define ECM_JETT_3 76
-#define ECM_JETT_4 77
+//#define ECM_JETT_1 74
+//#define ECM_JETT_2 75
+//#define ECM_JETT_3 76
+//#define ECM_JETT_4 77
+
+// ECM Testing
+#define ECM_JETT_1 1
+#define ECM_JETT_2 5
+#define ECM_JETT_3 10
+#define ECM_JETT_4 11
+
+
 
 #define SPIN_1 29
 #define SPIN_2 36
@@ -251,7 +261,7 @@ void setup() {
     Ethernet.begin( mac, ip);
 
     keyboardudp.begin( keyboardport );
-    
+
     keyboardudp.beginPacket(targetIP, reflectorport);
     keyboardudp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
 
@@ -284,7 +294,7 @@ void setup() {
   // Now apply everything we just told it about the setup.
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
-  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Red);
+  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Yellow);
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
 
   FastLED.show();
@@ -714,59 +724,30 @@ void SendCharactersToKeyboard(int packetLength) {
 }
 
 
-void UpdateLIPUIP(int packetLength) {
-
-  // Takes a single attirbute value pair and sets the levels
-  // Only expecting changes
-
-  String thisElement = "";
-  char keyToPress[50];
-  int localBrightness;
-
-  thisElement = String(ledpacketBuffer);
-
-  // Check to see if there is a ':' present - if not discard
-  // The first attribute is expected to be a string
-  // The second attribute should be a number not a string
-  // Test but just changing the colour of the first led
-  // For performance reasons hold onto the update for 30 or so milliseconds before updating
-
-  if (Serial_In_Use == 1)  {
-    Serial.println("Packet is " + thisElement);
-    if (thisElement[0] == '0') {
-      Serial.println("Found a zero");
-      FastLED.setBrightness(0);
-      FastLED.show();
-    }
-    else {
-      localBrightness = thisElement.toInt();
-      if (localBrightness != 0) {
-        if (localBrightness >= MAX_BRIGHTNESS) localBrightness = MAX_BRIGHTNESS;
-        FastLED.setBrightness(localBrightness);
-        FastLED.show();
-      }
-    }
 
 
-  }
-}
-
-
-
-void DimBacklighting()
+void SetBacklighting()
 {
 
+  bool bLocalDebug = false;
+
+  if (Debug_Display || bLocalDebug ) Serial.println("Entering SetBacklighting");
+  if (Debug_Display || bLocalDebug ) Serial.println("Console Brightness: " + String(consoleBrightness));
 
   // Left and Right Consoles are entirely flood so nothing special needed there
   // Forward console has exceptions
 
-  for (ledptr = 0; ledptr <= (LEFT_CONSOLE_LED_COUNT - 1); ledptr) {
+  for (ledptr = 0; ledptr <= (LEFT_CONSOLE_LED_COUNT - 1); ledptr++) {
     LEFT_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
-
   }
-  for (ledptr = 0; ledptr <= (LEFT_CONSOLE_LED_COUNT - 1); ledptr) {
+
+
+
+
+  for (ledptr = 0; ledptr <= (LEFT_CONSOLE_LED_COUNT - 1); ledptr++) {
     RIGHT_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
   }
+
 
   // LIP and UIP have exceptions - so walk through panel by panel
   // LIP Panel wiring ECM -> Video Record/IFEI -> Placard
@@ -778,7 +759,7 @@ void DimBacklighting()
   // LIP
   // ECM
   for (ledptr - ECM_JET_START_POS;
-       ledptr <= (ECM_JET_START_POS + ECM_JETT_LED_COUNT - 1); ledptr) {
+       ledptr <= (ECM_JET_START_POS + ECM_JETT_LED_COUNT - 1); ledptr++) {
     if (ledptr != ECM_JETT_1 && MASTER_ARM_READY_2 != SPIN_2 &&
         ledptr != ECM_JETT_3 && ECM_JETT_4 != SPIN_2)
       LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
@@ -787,14 +768,14 @@ void DimBacklighting()
 
   // Video Record
   for (ledptr - VID_RECORD_START_POS;
-       ledptr <= (VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT  - 1); ledptr) {
+       ledptr <= (VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT  - 1); ledptr++) {
     // There are no special function leds - so no check needed
     LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
   }
 
   // Placard
   for (ledptr - PLACARD_LED_START_POS;
-       ledptr <= (PLACARD_LED_START_POS + PLACARD_LED_COUNT  - 1); ledptr) {
+       ledptr <= (PLACARD_LED_START_POS + PLACARD_LED_COUNT  - 1); ledptr++) {
     // There are no special function leds - so no check needed
     LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
   }
@@ -805,7 +786,7 @@ void DimBacklighting()
   // UIP
   // MASTER ARM
   for (ledptr - MASTER_ARM_START_POS;
-       ledptr <= (MASTER_ARM_START_POS + MASTER_ARM_LED_COUNT - 1); ledptr) {
+       ledptr <= (MASTER_ARM_START_POS + MASTER_ARM_LED_COUNT - 1); ledptr++) {
     if (ledptr != MASTER_ARM_READY_1 && MASTER_ARM_READY_2 != SPIN_2 &&
         ledptr != MASTER_ARM_DISCH_1 && MASTER_ARM_DISCH_2 != SPIN_2 &&
         ledptr != MASTER_ARM_AA_1 && MASTER_ARM_AA_2 != SPIN_2 &&
@@ -816,18 +797,21 @@ void DimBacklighting()
 
   // HUD CONTROL
   for (ledptr - HUD_CONTROL_START_POS;
-       ledptr <= (HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT  - 1); ledptr) {
+       ledptr <= (HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT  - 1); ledptr++) {
     // There are no special function leds - so no check needed
     LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
   }
 
+
   // SPIN
   for (ledptr - SPIN_RECOVERY_START_POS;
-       ledptr <= (SPIN_RECOVERY_START_POS + SPIN_RECOVERY_LED_COUNT  - 1); ledptr) {
+       ledptr <= (SPIN_RECOVERY_START_POS + SPIN_RECOVERY_LED_COUNT  - 1); ledptr++) {
     // Check to see if it is a special led - if it isn't adjust brightness
     if (ledptr != SPIN_1 && ledptr != SPIN_2)
       LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
   }
+
+  if (Debug_Display || bLocalDebug ) Serial.println("Exiting SetBacklighting");
 }
 
 
@@ -836,12 +820,12 @@ void DimBacklighting()
 void ProcessReceivedString()
 {
 
-  // Reading values from packetBuffer which is global
+  // Reading values from led packetBuffer which is global
   // All received values are strings for readability
   // From 737 Project
 
   bool bLocalDebug = true;
-  int localBrightness = 0;
+
 
   if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
 
@@ -882,9 +866,11 @@ void ProcessReceivedString()
 
   if (ParameterNameString.equalsIgnoreCase("Brightness")) {
     Serial.println("Found Brightness");
-    localBrightness = ParameterValue.toInt();
-    if (localBrightness >= MAX_BRIGHTNESS) localBrightness = MAX_BRIGHTNESS;
-    FastLED.setBrightness(localBrightness);
+    consoleBrightness = ParameterValue.toInt();
+    if (Debug_Display || bLocalDebug ) Serial.println("Console Brightness: " + String(consoleBrightness));
+    if (consoleBrightness >= MAX_BRIGHTNESS) consoleBrightness = MAX_BRIGHTNESS;
+
+    SetBacklighting();
     FastLED.show();
   }
 
@@ -955,6 +941,16 @@ void loop() {
     startUpBrightness--;
     FastLED.setBrightness(startUpBrightness);
     FastLED.show();
+
+    // If we've completed the startup dimming - set master level
+    // And then set console ledst to 0;
+    if (startUpBrightness == 0) {
+      FastLED.setBrightness(MAX_MASTER_BRIGHTNESS);
+      consoleBrightness = 0;
+      SetBacklighting();
+      FastLED.show();
+    }
+
   }
 
 
@@ -965,7 +961,6 @@ void loop() {
   if (keyboardLen > 0) {
     keyboardpacketBuffer[keyboardLen] = 0;
   }
-
   if (keyboardpacketSize) {
     SendCharactersToKeyboard(keyboardLen);
   }
@@ -979,10 +974,8 @@ void loop() {
   if (ledLen > 0) {
     ledpacketBuffer[ledLen] = 0;
   }
-
   if (ledPacketSize) {
     ProcessReceivedString();
-
   }
 
 
