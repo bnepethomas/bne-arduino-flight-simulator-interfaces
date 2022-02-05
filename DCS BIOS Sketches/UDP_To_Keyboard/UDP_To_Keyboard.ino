@@ -91,7 +91,7 @@ int startUpBrightness =   50;      // LED Brightness 0 = Off, 255 = 100%.
 #define ECM_JETT_LED_COUNT      78
 #define VIDEO_RECORD_LED_COUNT  16
 #define JET_STATION_LED_COUNT   8
-#define PLACARD_LED_COUNT        8
+#define PLACARD_LED_COUNT       8
 #define MASTER_ARM_LED_COUNT    29
 #define HUD_CONTROL_LED_COUNT   56
 #define SPIN_RECOVERY_LED_COUNT 53
@@ -113,7 +113,6 @@ const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT 
 #define LIP_PIN                 44    
 #define UIP_PIN                 46    
 #define SPARE_PIN_1             48
-
 
 
 // Some other setup information. Don't change these unless you have a reason to.
