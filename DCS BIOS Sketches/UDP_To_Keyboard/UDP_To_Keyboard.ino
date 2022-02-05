@@ -1,6 +1,9 @@
 /*
 
   Receives a space delimited set of characters and sends them to the keyboard
+
+  Also drives Pixel LEDs - this was needed as Interrupts from DCS BIOS using serial disruppted updates
+
   Place Modifiers in the first part of the string being sent.
 
   Unable to find a way using the normal keyboard library ot send pause - so will need to remap to some other key
@@ -65,9 +68,51 @@ const int Serial_In_Use = 1;
 #include <Ethernet.h>
 #include <EthernetUdp.h>
 
+
+
+
+
 #include <Keyboard.h>
 
 
+
+
+// PixelLighting
+#include <FastLED.h>
+String COLOUR   =  "GREEN";   // The color name that you want to show, e.g. Green, Red, Blue, White
+int startUpBrightness =   50;      // LED Brightness 0 = Off, 255 = 100%.
+
+// Set your power supplies 5V current limit.
+
+#define CURRENT_LIMIT   20000   // Current in mA (1000mA = 1 Amp). Most ATX PSUs provide 20A maximum.
+
+// Defining how many pixels each backlighting connector has connected, if a connector is not used set it to zero.
+
+#define BL1_PIXELS    500  // BL #1 Connector pixel count
+
+// Defining what data pin each backlighting connector is connected to.
+
+// The Max7219 connector uses Pin 14,15,16
+// Order on connector is 5V GND 16 15 14 Last pin is not connected
+#define BL1_PIN       16  // BL #3 Connector pin
+#define BL2_PIN       15  // BL #4 Connector pin
+#define BL3_PIN       14  // BL #4 Connector pin
+
+
+
+// Some other setup information. Don't change these unless you have a reason to.
+
+#define LED_TYPE     WS2812B  // OPENHORNET backlighting LEDs are WS2812B
+#define COLOUR_ORDER GRB      // OPENHORNET backlighting LEDs are GRB (green, red, blue)
+#define SOLID_SPEED  100     // The refresh rate delay in ms. Leave this at around 1000 (1 second)
+
+// Setting up the blocks of memory that will be used for storing and manipulating the led data;
+
+CRGB BL1[BL1_PIXELS];
+CRGB BL2[BL1_PIXELS];
+CRGB BL3[BL1_PIXELS];
+
+unsigned long NEXT_LED_UPDATE = 0;
 
 
 
@@ -94,13 +139,22 @@ IPAddress targetIP(172, 16, 1, 2);
 String strTargetIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
+const unsigned int backlightport = 7789;
 const unsigned int remoteport = 49000;
 const unsigned int reflectorport = 27000;
+
+// Packet Length
+int packetSize;
+int len;
+int backlightPacketSize;
+int backlightLen;
 
 const int delayBetweenRelease = 100;
 
 EthernetUDP udp;
+EthernetUDP backlightudp;
 char packetBuffer[1000];     //buffer to store the incoming data
+char backlightpacketBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 
@@ -118,7 +172,39 @@ void setup() {
     udp.begin( localport );
     udp.beginPacket(targetIP, reflectorport);
     udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+
+
+    backlightudp.begin(backlightport);
+
   }
+
+  // Activate Backlights
+  // Telling the system the type, their data pin, what color order they are and how many there are;
+
+  FastLED.addLeds<LED_TYPE, BL1_PIN, COLOUR_ORDER>(BL1, BL1_PIXELS);
+  FastLED.addLeds<LED_TYPE, BL2_PIN, COLOUR_ORDER>(BL2, BL1_PIXELS);
+  FastLED.addLeds<LED_TYPE, BL3_PIN, COLOUR_ORDER>(BL3, BL1_PIXELS);
+
+
+  // The dimming method used. We have a large number of pixels so dithering is not ideal.
+
+  FastLED.setDither(false);
+
+  // Set the LEDs to their defined brightness.
+
+  FastLED.setBrightness(startUpBrightness);
+
+  // FastLED Power management set at 5V, and the defined current limit.
+
+  FastLED.setMaxPowerInVoltsAndMilliamps(5, CURRENT_LIMIT);
+
+  // Now apply everything we just told it about the setup.
+  fill_solid( BL1, BL1_PIXELS, CRGB::Green);
+  fill_solid( BL2, BL1_PIXELS, CRGB::Green);
+  fill_solid( BL3, BL1_PIXELS, CRGB::Red);
+  FastLED.show();
+  NEXT_LED_UPDATE = millis() + 3000;
+
 
   Keyboard.begin();
 }
@@ -509,10 +595,6 @@ void SendCharactersToKeyboard(int packetLength) {
     }
 
 
-
-
-
-
     else {
       Serial.println("Incorrect length of Element");
       Serial.print(Serial.println(thisElement));
@@ -554,9 +636,18 @@ void SendCharactersToKeyboard(int packetLength) {
 void loop() {
 
 
-  int packetSize = udp.parsePacket();
+  // Turn Leds off after initial start up in setup
+  if ((millis() >= NEXT_LED_UPDATE) && (startUpBrightness != 0)) {
+    NEXT_LED_UPDATE = millis() + 10;
 
-  int len = udp.read(packetBuffer, 999);
+    startUpBrightness--;
+    FastLED.setBrightness(startUpBrightness);
+    FastLED.show();
+  }
+
+  packetSize = udp.parsePacket();
+
+  len = udp.read(packetBuffer, 999);
 
   if (len > 0) {
 
@@ -565,9 +656,25 @@ void loop() {
   }
 
   if (packetSize) {
-    // Typeout(len);
-    //TurnOnAPU(len);
     SendCharactersToKeyboard(len);
   }
+
+
+
+
+  backlightPacketSize = backlightudp.parsePacket();
+
+  backlightLen = backlightudp.read(backlightpacketBuffer, 999);
+
+  if (backlightLen > 0) {
+    backlightpacketBuffer[len] = 0;
+  }
+
+  if (backlightPacketSize) {
+    FastLED.setBrightness(50);
+    FastLED.show();
+
+  }
+
 
 }
