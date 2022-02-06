@@ -185,23 +185,15 @@ char *ParameterNamePtr;
 char *ParameterValuePtr;
 
 
-// Variables from Bens Code
-int instDim = 0;                // Consoles Dimmer Knob Value - Via DCS
 
-int cautDim = 0;                // Caution Dimmer Knob Value - Via DCS
-int spinLT = 0;                 // Spin Light Dimmer Value
-int spinOn = 0;                 // Spin Light On or Off
-int consSW = 0;                 // NVG/NITE/DAY Switch
-int ecmLT = 0;                  // EMC JETT LIGHT (GREEN)
-int ecmON = 0;                  // EMC Light ON (GREEN)
-int aaLT = 0;                   // AA light MASTER ARM
-int aaON = 0;                   // AA light MASTER ARM
-int agLT = 0;                   // AG light MASTER ARM
-int agON = 0;                   // AG light MASTER ARM
-int rdyLT = 0;                  // READY light MASTER ARM
-int rdyON = 0;                  // READY light MASTER ARM
-int disLT = 0;                  // DISCH light MASTER ARM
-int disON = 0;                  // DISCH light MASTER ARM
+// Indicator Variables
+bool ECM_JET = false;
+bool MASTER_ARM_DISCH_READY = false;
+bool MASTER_ARM_DISCH = false;
+bool MASTER_ARM_AA = false;
+bool MASTER_ARM_AG = false;
+bool SPIN = false;
+
 
 int ledptr = 0;
 int consoleBrightness = 50;     // Global Value for Console Brightness
@@ -830,16 +822,35 @@ void SetIndicatorLighting()
   if (Debug_Display || bLocalDebug ) Serial.println("Indicator Brightness: " + String(indicatorBrightness));
 
   // LIP
-  LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-  LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-  LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-  LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  if (ECM_JET == true) {
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  } else {
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1 ] = CHSV( CHSVGreen, 255, 0);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2 ] = CHSV( CHSVGreen, 255, 0);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3 ] = CHSV( CHSVGreen, 255, 0);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4 ] = CHSV( CHSVGreen, 255, 0);
+  }
+
+
+  bool MASTER_ARM_DISCH_READY = false;
+  bool MASTER_ARM_DISCH = false;
+  bool MASTER_ARM_AA = false;
+  bool MASTER_ARM_AG = false;
+  bool SPIN = false;
+
 
 
   // UIP
-
-  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  if (MASTER_ARM_DISCH_READY == true) {
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  } else {
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVGreen, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVGreen, 255, 0);
+  }
   UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVRed, 255, indicatorBrightness);
   UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVRed, 255, indicatorBrightness);
   UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
@@ -937,56 +948,17 @@ void ProcessReceivedString()
     FastLED.show();
   }
 
-  if (ParameterNameString.equalsIgnoreCase("aaLT")) {
-    Serial.println("Found aaLT");
-    aaLT = ParameterValue.toInt();
-    if (aaLT == 1) fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
-    else if (aaLT == 0) fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
+//  if (ParameterNameString.equalsIgnoreCase("aaLT")) {
+//    Serial.println("Found aaLT");
+//    
+//    aaLT = ParameterValue.toInt();
+//    if (aaLT == 1) fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
+//    else if (aaLT == 0) fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
 
-
-    LIP_CONSOLE_LED[5] = CRGB::Yellow;
-
-    FastLED.setBrightness(MAX_BRIGHTNESS);
-    FastLED.show();
-  }
-
-
-  if (ParameterNameString.equalsIgnoreCase("LEDON")) {
-    Serial.println("Found LedOn");
-    aaLT = ParameterValue.toInt();
-
-    if (aaLT == 0) {
-      Serial.println("Processing a 0");
-      LIP_CONSOLE_LED[0] = CRGB::Yellow;
-    }
-    else if (aaLT != 0) {
-      Serial.println("Processing a non-0");
-      LIP_CONSOLE_LED[aaLT] = CRGB::Yellow;
-    }
-
-    FastLED.setBrightness(MAX_BRIGHTNESS);
-    FastLED.show();
-  }
-
-  if (ParameterNameString.equalsIgnoreCase("LEDDIM")) {
-    Serial.println("Found LedDim");
-    aaLT = ParameterValue.toInt();
-
-    // Set all leds ro max and then we'll selectively dim
-    FastLED.setBrightness(MAX_BRIGHTNESS);
-
-    if (aaLT == 0) {
-      Serial.println("Processing a 0");
-      LIP_CONSOLE_LED[0] = CHSV( 0, 255, 125);
-    }
-    else if (aaLT != 0) {
-      Serial.println("Processing a non-0");
-      LIP_CONSOLE_LED[aaLT] = CHSV( 0, 255, 125);
-    }
 
 
     FastLED.show();
-  }
+
 
 }
 
