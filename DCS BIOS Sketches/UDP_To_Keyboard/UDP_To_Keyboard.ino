@@ -80,7 +80,7 @@ const int Serial_In_Use = 1;
 #include <FastLED.h>
 String COLOUR   =  "GREEN";         // The color name that you want to show, e.g. Green, Red, Blue, White
 int startUpBrightness =   50;       // LED Brightness 0 = Off, 255 = 100%.
-#define MAX_BRIGHTNESS 255          // This is relative to master used with GCSV
+#define MAX_BRIGHTNESS 255          // This is relative to master used with CHSV
 #define MAX_MASTER_BRIGHTNESS 100   // Overrides all brightness - used with setbrightness method
 
 // Set your power supplies 5V current limit.
@@ -127,6 +127,9 @@ CRGB LEFT_CONSOLE_LED[LEFT_CONSOLE_LED_COUNT];
 CRGB RIGHT_CONSOLE_LED[RIGHT_CONSOLE_LED_COUNT];
 CRGB LIP_CONSOLE_LED[LIP_CONSOLE_LED_COUNT];
 CRGB UIP_CONSOLE_LED[UIP_CONSOLE_LED_COUNT];
+
+#define CHSVRed   0
+#define CHSVGreen 96
 
 unsigned long NEXT_LED_UPDATE = 0;
 
@@ -294,8 +297,8 @@ void setup() {
   // Now apply everything we just told it about the setup.
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
-  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Yellow);
-  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
+  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
 
   FastLED.show();
   NEXT_LED_UPDATE = millis() + 1000;
@@ -738,14 +741,14 @@ void SetBacklighting()
   // Forward console has exceptions
 
   for (ledptr = 0; ledptr <= (LEFT_CONSOLE_LED_COUNT - 1); ledptr++) {
-    LEFT_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+    LEFT_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
   }
 
 
 
 
   for (ledptr = 0; ledptr <= (LEFT_CONSOLE_LED_COUNT - 1); ledptr++) {
-    RIGHT_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+    RIGHT_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
   }
 
 
@@ -758,26 +761,27 @@ void SetBacklighting()
   // ******************************************************************************
   // LIP
   // ECM
-  for (ledptr - ECM_JET_START_POS;
+
+  for (ledptr = ECM_JET_START_POS;
        ledptr <= (ECM_JET_START_POS + ECM_JETT_LED_COUNT - 1); ledptr++) {
-    if (ledptr != ECM_JETT_1 && MASTER_ARM_READY_2 != SPIN_2 &&
-        ledptr != ECM_JETT_3 && ECM_JETT_4 != SPIN_2)
-      LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+    if (ledptr != ECM_JETT_1 && ledptr !=  ECM_JETT_2 &&
+        ledptr != ECM_JETT_3 && ledptr !=  ECM_JETT_4 )
+      LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
   }
 
 
   // Video Record
-  for (ledptr - VID_RECORD_START_POS;
+  for (ledptr = VID_RECORD_START_POS;
        ledptr <= (VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT  - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
   }
 
   // Placard
-  for (ledptr - PLACARD_LED_START_POS;
+  for (ledptr = PLACARD_LED_START_POS;
        ledptr <= (PLACARD_LED_START_POS + PLACARD_LED_COUNT  - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
   }
 
 
@@ -785,33 +789,69 @@ void SetBacklighting()
 
   // UIP
   // MASTER ARM
-  for (ledptr - MASTER_ARM_START_POS;
+  for (ledptr = MASTER_ARM_START_POS;
        ledptr <= (MASTER_ARM_START_POS + MASTER_ARM_LED_COUNT - 1); ledptr++) {
-    if (ledptr != MASTER_ARM_READY_1 && MASTER_ARM_READY_2 != SPIN_2 &&
-        ledptr != MASTER_ARM_DISCH_1 && MASTER_ARM_DISCH_2 != SPIN_2 &&
-        ledptr != MASTER_ARM_AA_1 && MASTER_ARM_AA_2 != SPIN_2 &&
-        ledptr != MASTER_ARM_AG_1 && MASTER_ARM_AG_2 != SPIN_2)
-      LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+    if (ledptr != MASTER_ARM_READY_1 && ledptr != MASTER_ARM_READY_2 &&
+        ledptr != MASTER_ARM_DISCH_1 && ledptr != MASTER_ARM_DISCH_2 &&
+        ledptr != MASTER_ARM_AA_1 && ledptr != MASTER_ARM_AA_2  &&
+        ledptr != MASTER_ARM_AG_1 && ledptr != MASTER_ARM_AG_2)
+      UIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
   }
 
 
   // HUD CONTROL
-  for (ledptr - HUD_CONTROL_START_POS;
+  for (ledptr = HUD_CONTROL_START_POS;
        ledptr <= (HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT  - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+    UIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
   }
 
 
   // SPIN
-  for (ledptr - SPIN_RECOVERY_START_POS;
+  for (ledptr = SPIN_RECOVERY_START_POS;
        ledptr <= (SPIN_RECOVERY_START_POS + SPIN_RECOVERY_LED_COUNT  - 1); ledptr++) {
     // Check to see if it is a special led - if it isn't adjust brightness
     if (ledptr != SPIN_1 && ledptr != SPIN_2)
-      LIP_CONSOLE_LED[ledptr] = CHSV( 0, 255, consoleBrightness);
+      UIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
   }
 
   if (Debug_Display || bLocalDebug ) Serial.println("Exiting SetBacklighting");
+}
+
+
+
+
+void SetIndicatorLighting()
+{
+
+  bool bLocalDebug = false;
+
+  if (Debug_Display || bLocalDebug ) Serial.println("Entering SetIndicatorlighting");
+  if (Debug_Display || bLocalDebug ) Serial.println("Indicator Brightness: " + String(indicatorBrightness));
+
+  // LIP
+  LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+
+
+  // UIP
+
+  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVRed, 255, indicatorBrightness);
+  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVRed, 255, indicatorBrightness);
+  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+
+  UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1 ] = CHSV( CHSVRed, 255, indicatorBrightness);
+  UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2 ] = CHSV( CHSVRed, 255, indicatorBrightness);
+
+
+  if (Debug_Display || bLocalDebug ) Serial.println("Exiting SetIndicatorlighting");
 }
 
 
@@ -827,11 +867,10 @@ void ProcessReceivedString()
   bool bLocalDebug = true;
 
 
-  if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet");
+  if (Debug_Display || bLocalDebug ) Serial.println("Processing Led Packet");
 
 
   String sWrkStr = "";
-
   const char *delim  = "=";
 
 
@@ -864,9 +903,10 @@ void ProcessReceivedString()
 
 
 
-  if (ParameterNameString.equalsIgnoreCase("Brightness")) {
-    Serial.println("Found Brightness");
+  if (ParameterNameString.equalsIgnoreCase("ConsoleBrightness")) {
+    Serial.println("Found Console Brightness");
     consoleBrightness = ParameterValue.toInt();
+
     if (Debug_Display || bLocalDebug ) Serial.println("Console Brightness: " + String(consoleBrightness));
     if (consoleBrightness >= MAX_BRIGHTNESS) consoleBrightness = MAX_BRIGHTNESS;
 
@@ -874,6 +914,28 @@ void ProcessReceivedString()
     FastLED.show();
   }
 
+  if (ParameterNameString.equalsIgnoreCase("IndicatorBrightness")) {
+    Serial.println("Found Indicator Brightness");
+    indicatorBrightness = ParameterValue.toInt();
+
+    if (Debug_Display || bLocalDebug ) Serial.println("Indicator Brightness: " + String(indicatorBrightness));
+    if (indicatorBrightness >= MAX_BRIGHTNESS) indicatorBrightness = MAX_BRIGHTNESS;
+
+    SetIndicatorLighting();
+    FastLED.show();
+  }
+
+  if (ParameterNameString.equalsIgnoreCase("Brightness")) {
+    Serial.println("Found Global Brightness");
+    indicatorBrightness = ParameterValue.toInt();
+    consoleBrightness = indicatorBrightness;
+    if (Debug_Display || bLocalDebug ) Serial.println("Global Brightness: " + String(indicatorBrightness));
+    if (indicatorBrightness >= MAX_BRIGHTNESS) indicatorBrightness = MAX_BRIGHTNESS;
+    if (consoleBrightness >= MAX_BRIGHTNESS) consoleBrightness = MAX_BRIGHTNESS;
+    SetBacklighting();
+    SetIndicatorLighting();
+    FastLED.show();
+  }
 
   if (ParameterNameString.equalsIgnoreCase("aaLT")) {
     Serial.println("Found aaLT");
@@ -934,7 +996,7 @@ void ProcessReceivedString()
 void loop() {
 
 
-  // Turn Leds off after initial start up in setup
+  // slowly Dim Leds off after initial start up in setup
   if ((millis() >= NEXT_LED_UPDATE) && (startUpBrightness != 0)) {
     NEXT_LED_UPDATE = millis() + 10;
 
@@ -943,11 +1005,14 @@ void loop() {
     FastLED.show();
 
     // If we've completed the startup dimming - set master level
-    // And then set console ledst to 0;
+    // And then set console leds to 0;
     if (startUpBrightness == 0) {
+      // SetBacklightingColour();
       FastLED.setBrightness(MAX_MASTER_BRIGHTNESS);
       consoleBrightness = 0;
+      indicatorBrightness = 0;
       SetBacklighting();
+      SetIndicatorLighting();
       FastLED.show();
     }
 
