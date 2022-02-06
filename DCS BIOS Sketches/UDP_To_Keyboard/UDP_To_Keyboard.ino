@@ -811,17 +811,8 @@ void SetBacklighting()
 }
 
 
+void Update_ECMJet() {
 
-
-void SetIndicatorLighting()
-{
-
-  bool bLocalDebug = false;
-
-  if (Debug_Display || bLocalDebug ) Serial.println("Entering SetIndicatorlighting");
-  if (Debug_Display || bLocalDebug ) Serial.println("Indicator Brightness: " + String(indicatorBrightness));
-
-  // LIP
   if (ECM_JET == true) {
     LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
     LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
@@ -833,17 +824,12 @@ void SetIndicatorLighting()
     LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3 ] = CHSV( CHSVGreen, 255, 0);
     LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4 ] = CHSV( CHSVGreen, 255, 0);
   }
+  FastLED.show();
+}
 
 
-  bool MASTER_ARM_DISCH_READY = false;
-  bool MASTER_ARM_DISCH = false;
-  bool MASTER_ARM_AA = false;
-  bool MASTER_ARM_AG = false;
-  bool SPIN = false;
+void Update_MASTER_ARM_DISCH_READY() {
 
-
-
-  // UIP
   if (MASTER_ARM_DISCH_READY == true) {
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
@@ -851,16 +837,73 @@ void SetIndicatorLighting()
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVGreen, 255, 0);
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVGreen, 255, 0);
   }
-  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVRed, 255, indicatorBrightness);
-  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVRed, 255, indicatorBrightness);
-  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-  UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  FastLED.show();
+}
 
-  UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1 ] = CHSV( CHSVRed, 255, indicatorBrightness);
-  UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2 ] = CHSV( CHSVRed, 255, indicatorBrightness);
 
+void Update_MASTER_ARM_DISCH() {
+
+  if (MASTER_ARM_DISCH == true) {
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVRed, 255, indicatorBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVRed, 255, indicatorBrightness);
+  } else {
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVRed, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVRed, 255, 0);
+  }
+  FastLED.show();
+}
+
+void Update_MASTER_ARM_AA() {
+
+  if (MASTER_ARM_AA == true) {
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  } else {
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2 ] = CHSV( CHSVGreen, 255, 0);
+  }
+  FastLED.show();
+}
+
+void Update_MASTER_ARM_AG() {
+
+  if (MASTER_ARM_AG == true) {
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+  } else {
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1 ] = CHSV( CHSVGreen, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2 ] = CHSV( CHSVGreen, 255, 0);
+  }
+  FastLED.show();
+}
+
+
+void Update_SPIN() {
+
+  if (SPIN == true) {
+    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1 ] = CHSV( CHSVRed, 255, indicatorBrightness);
+    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2 ] = CHSV( CHSVRed, 255, indicatorBrightness);
+  } else {
+    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1 ] = CHSV( CHSVRed, 255, 0);
+    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2 ] = CHSV( CHSVRed, 255, 0);
+  }
+  FastLED.show();
+}
+
+void SetIndicatorLighting()
+{
+
+  bool bLocalDebug = false;
+
+  if (Debug_Display || bLocalDebug ) Serial.println("Entering SetIndicatorlighting");
+  if (Debug_Display || bLocalDebug ) Serial.println("Indicator Brightness: " + String(indicatorBrightness));
+
+  Update_ECMJet();
+  Update_MASTER_ARM_DISCH_READY();
+  Update_MASTER_ARM_DISCH();
+  Update_MASTER_ARM_AA();
+  Update_MASTER_ARM_AG();
+  Update_SPIN();
 
   if (Debug_Display || bLocalDebug ) Serial.println("Exiting SetIndicatorlighting");
 }
@@ -876,7 +919,7 @@ void ProcessReceivedString()
   // From 737 Project
 
   bool bLocalDebug = true;
-
+  int tempVar = 0;
 
   if (Debug_Display || bLocalDebug ) Serial.println("Processing Led Packet");
 
@@ -893,24 +936,6 @@ void ProcessReceivedString()
   ParameterValuePtr   = strtok(NULL, delim);
   String ParameterValue(ParameterValuePtr);
   if (Debug_Display || bLocalDebug ) Serial.println("Parameter Value " + ParameterValue);
-
-  // Handle the following attribute types
-  //int instDim; // Consoles Dimmer Knob Value - Via DCS
-  //int conDim;
-  //int cautDim; // Caution Dimmer Knob Value - Via DCS
-  //int spinLT; //Spin Light Dimmer Value
-  //int spinOn; // Spin Light On or Off
-  //int consSW; // NVG/NITE/DAY Switch
-  //int ecmLT; // EMC JETT LIGHT (GREEN)
-  //int ecmON; // EMC Light ON (GREEN)
-  //int aaLT; // AA light MASTER ARM
-  //int aaON; // AA light MASTER ARM
-  //int agLT; // AG light MASTER ARM
-  //int agON; // AG light MASTER ARM
-  //int rdyLT; // READY light MASTER ARM
-  //int rdyON; // READY light MASTER ARM
-  //int disLT; // DISCH light MASTER ARM
-  //int disON; // DISCH light MASTER ARM
 
 
 
@@ -948,18 +973,77 @@ void ProcessReceivedString()
     FastLED.show();
   }
 
-//  if (ParameterNameString.equalsIgnoreCase("aaLT")) {
-//    Serial.println("Found aaLT");
-//    
-//    aaLT = ParameterValue.toInt();
-//    if (aaLT == 1) fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
-//    else if (aaLT == 0) fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
+
+  if (ParameterNameString.equalsIgnoreCase("ECM_JET")) {
+    if (Debug_Display || bLocalDebug ) Serial.println("Found ECM Jet");
+    tempVar = ParameterValue.toInt();
+    if (tempVar == 1)
+      ECM_JET = true;
+    else
+      ECM_JET = false;
+    Update_ECMJet();;
+  }
 
 
 
-    FastLED.show();
+  if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_DISCH_READY")) {
+    if (Debug_Display || bLocalDebug ) Serial.println("Found MASTER_ARM_DISCH_READY");
+    tempVar = ParameterValue.toInt();
+    if (tempVar == 1)
+      MASTER_ARM_DISCH_READY = true;
+    else
+      MASTER_ARM_DISCH_READY = false;
+    Update_MASTER_ARM_DISCH_READY();
+  }
 
 
+
+
+  if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_DISCH")) {
+    if (Debug_Display || bLocalDebug ) Serial.println("Found MASTER_ARM_DISCH");
+    tempVar = ParameterValue.toInt();
+    if (tempVar == 1)
+      MASTER_ARM_DISCH = true;
+    else
+      MASTER_ARM_DISCH = false;
+    Update_MASTER_ARM_DISCH();
+  }
+
+
+
+  if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_AA")) {
+    if (Debug_Display || bLocalDebug ) Serial.println("Found MASTER_ARM_AA");
+    tempVar = ParameterValue.toInt();
+    if (tempVar == 1)
+      MASTER_ARM_AA = true;
+    else
+      MASTER_ARM_AA = false;
+    Update_MASTER_ARM_AA();
+  }
+
+
+
+  if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_AG")) {
+    if (Debug_Display || bLocalDebug ) Serial.println("Found MASTER_ARM_AG");
+    tempVar = ParameterValue.toInt();
+    if (tempVar == 1)
+      MASTER_ARM_AG = true;
+    else
+      MASTER_ARM_AG = false;
+    Update_MASTER_ARM_AG();
+  }
+
+
+
+  if (ParameterNameString.equalsIgnoreCase("SPIN")) {
+    if (Debug_Display || bLocalDebug ) Serial.println("Found SPIN");
+    tempVar = ParameterValue.toInt();
+    if (tempVar == 1)
+      SPIN = true;
+    else
+      SPIN = false;
+    Update_SPIN();
+  }
 }
 
 
