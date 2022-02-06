@@ -197,9 +197,10 @@ bool SPIN = false;
 
 int ledptr = 0;
 int consoleBrightness = 50;     // Global Value for Console Brightness
-int indicatorBrightness = 50;   // Global value for Indicator Brightness
-
-
+int indicatorBrightness = 50;           // Global value for Indicator Brightness
+unsigned long timeBeforeNextLedUpdate = 0;
+unsigned long minTimeBetweenLedUpdates = 40;
+bool LedUpdateNeeded = false;
 
 
 // The Panels are chained so calculate starting position
@@ -824,7 +825,7 @@ void Update_ECMJet() {
     LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3 ] = CHSV( CHSVGreen, 255, 0);
     LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4 ] = CHSV( CHSVGreen, 255, 0);
   }
-  FastLED.show();
+  LedUpdateNeeded = true;
 }
 
 
@@ -837,7 +838,7 @@ void Update_MASTER_ARM_DISCH_READY() {
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVGreen, 255, 0);
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVGreen, 255, 0);
   }
-  FastLED.show();
+  LedUpdateNeeded = true;
 }
 
 
@@ -850,7 +851,7 @@ void Update_MASTER_ARM_DISCH() {
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVRed, 255, 0);
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVRed, 255, 0);
   }
-  FastLED.show();
+  LedUpdateNeeded = true;
 }
 
 void Update_MASTER_ARM_AA() {
@@ -862,7 +863,7 @@ void Update_MASTER_ARM_AA() {
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, 0);
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2 ] = CHSV( CHSVGreen, 255, 0);
   }
-  FastLED.show();
+  LedUpdateNeeded = true;
 }
 
 void Update_MASTER_ARM_AG() {
@@ -874,7 +875,7 @@ void Update_MASTER_ARM_AG() {
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1 ] = CHSV( CHSVGreen, 255, 0);
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2 ] = CHSV( CHSVGreen, 255, 0);
   }
-  FastLED.show();
+  LedUpdateNeeded = true;
 }
 
 
@@ -887,7 +888,7 @@ void Update_SPIN() {
     UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1 ] = CHSV( CHSVRed, 255, 0);
     UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2 ] = CHSV( CHSVRed, 255, 0);
   }
-  FastLED.show();
+  LedUpdateNeeded = true;
 }
 
 void SetIndicatorLighting()
@@ -947,7 +948,7 @@ void ProcessReceivedString()
     if (consoleBrightness >= MAX_BRIGHTNESS) consoleBrightness = MAX_BRIGHTNESS;
 
     SetBacklighting();
-    FastLED.show();
+    LedUpdateNeeded = true;
   }
 
   if (ParameterNameString.equalsIgnoreCase("IndicatorBrightness")) {
@@ -958,7 +959,7 @@ void ProcessReceivedString()
     if (indicatorBrightness >= MAX_BRIGHTNESS) indicatorBrightness = MAX_BRIGHTNESS;
 
     SetIndicatorLighting();
-    FastLED.show();
+    LedUpdateNeeded = true;;
   }
 
   if (ParameterNameString.equalsIgnoreCase("Brightness")) {
@@ -970,7 +971,7 @@ void ProcessReceivedString()
     if (consoleBrightness >= MAX_BRIGHTNESS) consoleBrightness = MAX_BRIGHTNESS;
     SetBacklighting();
     SetIndicatorLighting();
-    FastLED.show();
+    LedUpdateNeeded = true;
   }
 
 
@@ -981,7 +982,7 @@ void ProcessReceivedString()
       ECM_JET = true;
     else
       ECM_JET = false;
-    Update_ECMJet();;
+    Update_ECMJet();
   }
 
 
@@ -1099,6 +1100,10 @@ void loop() {
     ProcessReceivedString();
   }
 
-
+  if ((LedUpdateNeeded == true) && (millis() >= timeBeforeNextLedUpdate)) {
+    FastLED.show();
+    LedUpdateNeeded = false;
+    timeBeforeNextLedUpdate = millis() + minTimeBetweenLedUpdates;
+  }
 
 }
