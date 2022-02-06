@@ -704,7 +704,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_MODE_SELECT", "0");
           break;
         case 8:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "0");
+          sendDcsBiosMessage("KY58_FILL_SELECT", "10");
           break;
         case 9:
           sendDcsBiosMessage("HOOK_LEVER", "0");
@@ -736,7 +736,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_MODE_SELECT", "1");
           break;
         case 19:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "1");
+          sendDcsBiosMessage("KY58_FILL_SELECT", "0");
           break;
         case 20:
           sendDcsBiosMessage("WING_FOLD_ROTATE", "0");
@@ -767,7 +767,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_MODE_SELECT", "2");
           break;
         case 30:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "2");
+          sendDcsBiosMessage("KY58_FILL_SELECT", "1");
           break;
         // PRESS - CLOSE
         case 31:
@@ -800,7 +800,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 41:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "3");
+          sendDcsBiosMessage("KY58_FILL_SELECT", "2");
           break;
         case 42:
           sendDcsBiosMessage("BATTERY_SW", "2");
@@ -829,7 +829,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_POWER_SELECT", "0");
           break;
         case 52:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "4");
+          sendDcsBiosMessage("KY58_FILL_SELECT", "3");
           break;
         case 53:
           sendDcsBiosMessage("BATTERY_SW", "0");
@@ -859,7 +859,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_POWER_SELECT", "1");
           break;
         case 63:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "5");
+          sendDcsBiosMessage("KY58_FILL_SELECT", "4");
           break;
         case 64:
           break;
@@ -886,7 +886,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_POWER_SELECT", "2");
           break;
         case 74:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "6");
+          sendDcsBiosMessage("KY58_FILL_SELECT", "5");
           break;
         case 75:
           break;
@@ -913,7 +913,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 84:
           break;
         case 85:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "7");
+          sendDcsBiosMessage("KY58_FILL_SELECT", "6");
           break;
         case 86:
           break;
@@ -973,6 +973,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 106:
           break;
         case 107:
+          sendDcsBiosMessage("KY58_FILL_SELECT", "7");
           break;
         case 108:
           break;
@@ -1000,6 +1001,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 117:
           break;
         case 118:
+          sendDcsBiosMessage("KY58_FILL_SELECT", "8");
           break;
         case 119:
           break;
@@ -1159,9 +1161,9 @@ DcsBios::PotentiometerEWMA<5, 128, 5> warnCautionDimmer("WARN_CAUTION_DIMMER", 4
 
 
 void onConsolesDimmerChange(unsigned int newValue) {
- int outvalue = 0;
- outvalue = map(newValue,0,65534,0,255);
- SendLedString("Brightness=" + String(outvalue));   
+  int outvalue = 0;
+  outvalue = map(newValue, 0, 65534, 0, 255);
+  SendLedString("Brightness=" + String(outvalue));
 }
 DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerChange);
 
