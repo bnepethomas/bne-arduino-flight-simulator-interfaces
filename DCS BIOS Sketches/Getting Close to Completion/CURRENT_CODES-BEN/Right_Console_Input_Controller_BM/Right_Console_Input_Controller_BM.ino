@@ -56,7 +56,7 @@
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 byte mac[] = {0xA9, 0xE7, 0x3E, 0xCA, 0x35, 0x01};
-IPAddress ip(172, 16, 1, 101);
+IPAddress ip(172, 16, 1, 103);
 String strMyIP = "X.X.X.X";
 
 // Raspberry Pi is Target
@@ -65,6 +65,7 @@ String strTargetIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
 const unsigned int remoteport = 7788;
+const unsigned int ledport = 7789;
 const unsigned int reflectorport = 27000;
 
 
@@ -243,6 +244,15 @@ void SendIPString(String KeysToSend) {
   if (Ethernet_In_Use == 1) {
     udp.beginPacket(targetIP, remoteport);
     udp.print(KeysToSend);
+    udp.endPacket();
+  }
+}
+
+void SendLedString(String LedCommandToSend) {
+
+  if (Ethernet_In_Use == 1) {
+    udp.beginPacket(targetIP, ledport);
+    udp.print(LedCommandToSend);
     udp.endPacket();
   }
 }
@@ -1146,6 +1156,15 @@ DcsBios::PotentiometerEWMA<5, 128, 5> floodDimmer("FLOOD_DIMMER", 2); //"YYY" = 
 DcsBios::PotentiometerEWMA<5, 128, 5> instPnlDimmer("INST_PNL_DIMMER", 1); //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 DcsBios::PotentiometerEWMA<5, 128, 5> warnCautionDimmer("WARN_CAUTION_DIMMER", 4); //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
+
+
+void onConsolesDimmerChange(unsigned int newValue) {
+ int outvalue = 0;
+ outvalue = map(newValue,0,65534,0,255);
+ SendLedString("Brightness=" + String(outvalue));   
+}
+DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerChange);
+
 //DE-FOG PANEL (INTR LTS)
 
 DcsBios::PotentiometerEWMA<5, 128, 5> defogHandle("DEFOG_HANDLE", 5); //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
@@ -1175,7 +1194,9 @@ int HornetRadaltMapper(unsigned int controlPosition, unsigned int dcsPosition)
 }
 
 // BEN
-DcsBios::RotarySyncingPotentiometer radaltHeight("RADALT_HEIGHT", 11, 0x7518, 0xffff, 0, HornetRadaltMapper);
+
+
+//DcsBios::RotarySyncingPotentiometer radaltHeight("RADALT_HEIGHT", 11, 0x7518, 0xffff, 0, HornetRadaltMapper);
 
 
 
