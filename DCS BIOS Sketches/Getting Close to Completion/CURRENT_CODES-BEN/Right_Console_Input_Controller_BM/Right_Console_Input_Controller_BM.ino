@@ -41,7 +41,7 @@
 
 
 
-#define Ethernet_In_Use 1
+int Ethernet_In_Use = 1;
 #define DCSBIOS_In_Use 1
 
 #define DCSBIOS_IRQ_SERIAL
@@ -80,8 +80,12 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 #define NUM_BUTTONS 256
 #define BUTTONS_USED_ON_PCB 176
 #define NUM_AXES  8        // 8 axes, X, Y, Z, etc
-#define STATUS_LED_PORT 7
-#define FLASH_TIME 200
+#define GREEN_STATUS_LED_PORT 5
+#define RED_STATUS_LED_PORT 6               // RED LED is used for monitoring ethernet
+#define FLASH_TIME 100
+#define DISABLE_ETHERNET_INPUT_PIN 2
+bool RED_LED_STATE = false;
+bool GREEN_LED_STATE = false;
 
 //
 struct joyReport_t {
@@ -115,6 +119,7 @@ bool bFirstTime = false;
 
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
+unsigned long timeSinceRedLedChanged = 0;
 
 
 
@@ -173,6 +178,28 @@ void setup() {
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
+
+  // Check what configuration options we are using
+  // Enable/Disable Ethernet  - this overrides the global setting
+  // which enables testing without an ethernet board active
+  // Red Led stays hard on if ethernet is disabled
+
+  pinMode( DISABLE_ETHERNET_INPUT_PIN, INPUT_PULLUP);
+  pinMode( GREEN_STATUS_LED_PORT,  OUTPUT);
+  pinMode( RED_STATUS_LED_PORT,  OUTPUT);
+  digitalWrite( GREEN_STATUS_LED_PORT, true);
+  digitalWrite( RED_STATUS_LED_PORT, true);
+  delay(FLASH_TIME);
+  digitalWrite( GREEN_STATUS_LED_PORT, false);
+  digitalWrite( RED_STATUS_LED_PORT, false);
+  delay(FLASH_TIME);
+
+
+  if ( digitalRead( DISABLE_ETHERNET_INPUT_PIN) == false) {
+    Ethernet_In_Use = 0;
+    digitalWrite( RED_STATUS_LED_PORT, true);
+  }
+
 
 
   if (Ethernet_In_Use == 1) {
@@ -236,6 +263,7 @@ void SendIPMessage(int ind, int state) {
     udp.beginPacket(targetIP, remoteport);
     udp.print(outString);
     udp.endPacket();
+    UpdateRedStatusLed();
   }
 }
 
@@ -245,6 +273,7 @@ void SendIPString(String KeysToSend) {
     udp.beginPacket(targetIP, remoteport);
     udp.print(KeysToSend);
     udp.endPacket();
+    UpdateRedStatusLed();
   }
 }
 
@@ -254,6 +283,17 @@ void SendLedString(String LedCommandToSend) {
     udp.beginPacket(targetIP, ledport);
     udp.print(LedCommandToSend);
     udp.endPacket();
+    UpdateRedStatusLed();
+  }
+}
+
+
+void UpdateRedStatusLed() {
+  if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
+    digitalWrite( RED_STATUS_LED_PORT, true);
+    RED_LED_STATE = true;
+    timeSinceRedLedChanged = millis();
+    
   }
 }
 
@@ -1323,7 +1363,16 @@ void loop() {
 
 
 
+ // Turn off Red status led after flashtime
+  if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
+    digitalWrite( RED_STATUS_LED_PORT, false);
+    RED_LED_STATE = false;
+    timeSinceRedLedChanged = millis();
+    
+  }
 
+
+  
   currentMillis = millis();
 
 
