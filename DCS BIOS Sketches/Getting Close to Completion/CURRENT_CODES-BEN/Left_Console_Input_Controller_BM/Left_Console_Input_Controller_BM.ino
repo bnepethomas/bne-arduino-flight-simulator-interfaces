@@ -38,7 +38,7 @@ So - Digit = Row * 11 + Col
 
 */
 
-#define Ethernet_In_Use 0
+#define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
 
 #define DCSBIOS_IRQ_SERIAL
@@ -55,9 +55,11 @@ So - Digit = Row * 11 + Col
 byte mac[] = {0x00,0xDD,0x3E,0xCA,0x36,0x99};
 IPAddress ip(172,16,1,100);
 String strMyIP = "X.X.X.X";
+#define EthernetStartupDelay 3000
+
 
 // Raspberry Pi is Target
-IPAddress targetIP(172,16,1,2);
+IPAddress targetIP(172,16,1,10);
 String strTargetIP = "X.X.X.X"; 
 
 const unsigned int localport = 7788;
@@ -161,11 +163,13 @@ void setup() {
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
   if (Ethernet_In_Use == 1) {
+    delay(EthernetStartupDelay);
     Ethernet.begin( mac, ip);
     
     udp.begin( localport );
     udp.beginPacket(targetIP, reflectorport);
     udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+    udp.endPacket();
   }
 }
 
