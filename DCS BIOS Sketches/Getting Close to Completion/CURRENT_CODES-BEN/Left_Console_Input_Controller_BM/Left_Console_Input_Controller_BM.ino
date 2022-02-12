@@ -36,9 +36,13 @@
 
   So - Digit = Row * 11 + Col
 
+
+  
+
 */
 
 #define Ethernet_In_Use 0
+#define Reflector_In_Use 0
 #define DCSBIOS_In_Use 1
 
 #define DCSBIOS_IRQ_SERIAL
