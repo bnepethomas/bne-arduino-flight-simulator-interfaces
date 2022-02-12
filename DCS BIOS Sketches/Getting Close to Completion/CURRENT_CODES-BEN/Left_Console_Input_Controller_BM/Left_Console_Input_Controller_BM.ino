@@ -1,9 +1,9 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
-//||               FUNCTION = HORNET LED OUTPUT MAX 7219              ||\\
-//||              LOCATION IN THE PIT = LIP LEFTHAND SIDE             ||\\
+//||               FUNCTION = HORNET LEFT INPUT                       ||\\
+//||              LOCATION IN THE PIT = LEFTHAND SIDE             ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
-//||      ARDUINO CHIP SERIAL NUMBER = SN - 959313239313514040B1      ||\\
-//||      ETHERNET SHEILD MAC ADDRESS = MAC - A8:61:0A:AE:83:17       ||\\
+//||      ARDUINO CHIP SERIAL NUMBER = SN - SN: 75438313633351A072D0  ||\\
+//||      ETHERNET SHEILD MAC ADDRESS = MAC                           ||\\
 //||                    CONNECTED COM PORT = COM 5                    ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
@@ -42,7 +42,7 @@
 */
 
 int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 #define DCSBIOS_In_Use 1
 
 #define DCSBIOS_IRQ_SERIAL
@@ -57,18 +57,18 @@ int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
  
-byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x00};
-IPAddress ip(172, 16, 1, 100);
+byte myMac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x00};
+IPAddress myIP(172, 16, 1, 100);
 String strMyIP = "X.X.X.X";
-#define EthernetStartupDelay 3000
+
 
 
 // Reflector
-IPAddress reflectorIP(172, 16, 1, 2);
+IPAddress reflectorIP(172, 16, 1, 10);
 String strReflectorIP = "X.X.X.X";
 
 // Arduino Due for Keystroke translation and Pixel Led driving
-IPAddress targetIP(172, 16, 1, 110);
+IPAddress targetIP(172, 16, 1, 10);
 String strTargetIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
@@ -85,6 +85,8 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 #define NUM_BUTTONS 256
 #define BUTTONS_USED_ON_PCB 176
 #define NUM_AXES  8        // 8 axes, X, Y, Z, etc
+
+#define EthernetStartupDelay 500
 #define GREEN_STATUS_LED_PORT 5
 #define RED_STATUS_LED_PORT 6               // RED LED is used for monitoring ethernet
 #define FLASH_TIME 100
@@ -197,10 +199,12 @@ void setup() {
 
   if (Ethernet_In_Use == 1) {
     delay(EthernetStartupDelay);
-    Ethernet.begin( mac, ip);
+    Ethernet.begin( myMac, myIP);
+    udp.begin(localport);
+
 
     if (Reflector_In_Use == 1) {
-      udp.beginPacket(targetIP, reflectorport);
+      udp.beginPacket(reflectorIP, reflectorport);
       udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
       udp.endPacket();
     }
