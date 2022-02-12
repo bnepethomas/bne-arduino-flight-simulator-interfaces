@@ -304,7 +304,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         case 26:
           // BM CODE
-          sendDcsBiosMessage("LDG_TAXI_SW", "0"); // LIGHTS "ON"
+          sendDcsBiosMessage("LDG_TAXI_SW", "1"); // LIGHTS "ON"
           break;
         case 27:
           // BM ADDED "SELECT JETT KNOB"
@@ -536,7 +536,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("FUEL_DUMP_SW", "0"); // DUMP "ON"
           break;
         case 114:
-          sendDcsBiosMessage("GEAR_DOWNLOCK_OVERRIDE_BTN", "0");
+          sendDcsBiosMessage("GEAR_LEVER", "1");
           break;
         case 115:
           sendDcsBiosMessage("GEAR_SILENCE_BTN", "0");
@@ -561,7 +561,8 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("EXT_CNT_TANK_SW", "1"); // CTR "STOP"
           break;
         case 125:
-          sendDcsBiosMessage("GEAR_LEVER", "1");
+          sendDcsBiosMessage("GEAR_DOWNLOCK_OVERRIDE_BTN", "0");
+
           break;
         case 126:
           sendDcsBiosMessage("EMERGENCY_GEAR_ROTATE", "1");
@@ -759,7 +760,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("SEL_JETT_BTN", "1"); // "JETT" BUTTON
           break;
         case 26:
-          sendDcsBiosMessage("LDG_TAXI_SW", "1");
+          sendDcsBiosMessage("LDG_TAXI_SW", "0");
           // PT CODE  sendDcsBiosMessage("LAUNCH_BAR_SW", "0");
           break;
         case 27:
@@ -933,7 +934,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 81:
           break;
         case 82:
-          sendDcsBiosMessage("FIRE_TEST_SW", "0");
+          sendDcsBiosMessage("FIRE_TEST_SW", "2");
           break;
         case 83:
           break;
@@ -960,7 +961,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 92:
           break;
         case 93:
-          sendDcsBiosMessage("FIRE_TEST_SW", "2");
+          sendDcsBiosMessage("FIRE_TEST_SW", "0");
           break;
         case 94:
           break;
@@ -1010,8 +1011,8 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 113:
           sendDcsBiosMessage("FUEL_DUMP_SW", "1");
           break;
-        case 114:
-          sendDcsBiosMessage("GEAR_DOWNLOCK_OVERRIDE_BTN", "1");
+        case 114:;
+          sendDcsBiosMessage("GEAR_LEVER", "0");
           break;
         case 115:
           sendDcsBiosMessage("GEAR_SILENCE_BTN", "1");
@@ -1039,7 +1040,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 124:
           break;
         case 125:
-          sendDcsBiosMessage("GEAR_LEVER", "0");
+          sendDcsBiosMessage("GEAR_DOWNLOCK_OVERRIDE_BTN", "1");
           break;
         case 126:
           sendDcsBiosMessage("EMERGENCY_GEAR_ROTATE", "0");
@@ -1195,6 +1196,13 @@ DcsBios::Potentiometer comRwr("COM_RWR", 2);
 DcsBios::Potentiometer comTacan("COM_TACAN", 5);
 DcsBios::Potentiometer comVox("COM_VOX", 0);
 DcsBios::Potentiometer comWpn("COM_WPN", 13);
+
+
+
+// Ext Lights Pots
+DcsBios::PotentiometerEWMA<5, 128, 5> formationDimmer("FORMATION_DIMMER", 8);
+DcsBios::PotentiometerEWMA<5, 128, 5> positionDimmer("POSITION_DIMMER", 15);
+
 
 void loop() {
 
