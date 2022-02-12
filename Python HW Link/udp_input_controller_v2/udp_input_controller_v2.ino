@@ -225,7 +225,7 @@ String outString;
 
 void setup() {
   
-  Serial.begin(115000);
+  Serial.begin(250000);
   Serial.println("UDP Input Connector Setup v 2");
 
  
