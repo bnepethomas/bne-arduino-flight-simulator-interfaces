@@ -41,7 +41,7 @@
 
 */
 
-#define Ethernet_In_Use 0
+int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
 #define Reflector_In_Use 0
 #define DCSBIOS_In_Use 1
 
@@ -56,19 +56,27 @@
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = {0x00, 0xDD, 0x3E, 0xCA, 0x36, 0x99};
+ 
+byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x00};
 IPAddress ip(172, 16, 1, 100);
 String strMyIP = "X.X.X.X";
 #define EthernetStartupDelay 3000
 
 
-// Raspberry Pi is Target
-IPAddress targetIP(172, 16, 1, 10);
+// Reflector
+IPAddress reflectorIP(172, 16, 1, 2);
+String strReflectorIP = "X.X.X.X";
+
+// Arduino Due for Keystroke translation and Pixel Led driving
+IPAddress targetIP(172, 16, 1, 110);
 String strTargetIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
-const unsigned int remoteport = 26027;
+const unsigned int keyboardport = 7788;
+const unsigned int ledport = 7789;
+const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
+
 
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
@@ -77,8 +85,12 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 #define NUM_BUTTONS 256
 #define BUTTONS_USED_ON_PCB 176
 #define NUM_AXES  8        // 8 axes, X, Y, Z, etc
-#define STATUS_LED_PORT 7
-#define FLASH_TIME 200
+#define GREEN_STATUS_LED_PORT 5
+#define RED_STATUS_LED_PORT 6               // RED LED is used for monitoring ethernet
+#define FLASH_TIME 100
+#define DISABLE_ETHERNET_INPUT_PIN 2
+bool RED_LED_STATE = false;
+bool GREEN_LED_STATE = false;
 
 //
 struct joyReport_t {
@@ -166,14 +178,32 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
+  
+  pinMode( DISABLE_ETHERNET_INPUT_PIN, INPUT_PULLUP);
+  pinMode( GREEN_STATUS_LED_PORT,  OUTPUT);
+  pinMode( RED_STATUS_LED_PORT,  OUTPUT);
+  digitalWrite( GREEN_STATUS_LED_PORT, true);
+  digitalWrite( RED_STATUS_LED_PORT, true);
+  delay(FLASH_TIME);
+  digitalWrite( GREEN_STATUS_LED_PORT, false);
+  digitalWrite( RED_STATUS_LED_PORT, false);
+  delay(FLASH_TIME);
+
+
+  if ( digitalRead( DISABLE_ETHERNET_INPUT_PIN) == false) {
+    Ethernet_In_Use = 0;
+    digitalWrite( RED_STATUS_LED_PORT, true);
+  }
+
   if (Ethernet_In_Use == 1) {
     delay(EthernetStartupDelay);
     Ethernet.begin( mac, ip);
 
-    udp.begin( localport );
-    udp.beginPacket(targetIP, reflectorport);
-    udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
-    udp.endPacket();
+    if (Reflector_In_Use == 1) {
+      udp.beginPacket(targetIP, reflectorport);
+      udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      udp.endPacket();
+    }
   }
 }
 

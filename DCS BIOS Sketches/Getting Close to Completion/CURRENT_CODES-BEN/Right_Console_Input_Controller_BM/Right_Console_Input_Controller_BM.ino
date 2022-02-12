@@ -41,7 +41,8 @@
 
 
 
-int Ethernet_In_Use = 1;
+int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
+#define Reflector_In_Use 0
 #define DCSBIOS_In_Use 1
 
 #define DCSBIOS_IRQ_SERIAL
@@ -55,17 +56,22 @@ int Ethernet_In_Use = 1;
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = {0xA9, 0xE7, 0x3E, 0xCA, 0x35, 0x01};
+byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x03};
 IPAddress ip(172, 16, 1, 103);
 String strMyIP = "X.X.X.X";
 
-// Raspberry Pi is Target
+// Reflector
+IPAddress reflectorIP(172, 16, 1, 2);
+String strReflectorIP = "X.X.X.X";
+
+// Arduino Due for Keystroke translation and Pixel Led driving
 IPAddress targetIP(172, 16, 1, 110);
 String strTargetIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
-const unsigned int remoteport = 7788;
+const unsigned int keyboardport = 7788;
 const unsigned int ledport = 7789;
+const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
 
 
@@ -98,6 +104,7 @@ struct joyReport_t {
 // This allows analog averages to be established and the DigitalButton array to be populated
 // This has to more than simply the number of elements in the array as the array values are initialised
 // to 0, so it actually takes more than 30 interations before the average it fully established
+// Could enhance using weighted average
 int LoopsBeforeSendingAllowed = 40;
 bool SendingAllowed = false;
 
@@ -205,6 +212,13 @@ void setup() {
   if (Ethernet_In_Use == 1) {
     Ethernet.begin( mac, ip);
     udp.begin( localport );
+
+    if (Reflector_In_Use == 1) {
+      udp.beginPacket(targetIP, reflectorport);
+      udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      udp.endPacket();
+    }
+
   }
 
 
@@ -268,9 +282,9 @@ void SendIPMessage(int ind, int state) {
 }
 
 void SendIPString(String KeysToSend) {
-
+  // Used to Send Desired Keystrokes to Due acting as Keyboard
   if (Ethernet_In_Use == 1) {
-    udp.beginPacket(targetIP, remoteport);
+    udp.beginPacket(targetIP, keyboardport);
     udp.print(KeysToSend);
     udp.endPacket();
     UpdateRedStatusLed();
@@ -293,7 +307,7 @@ void UpdateRedStatusLed() {
     digitalWrite( RED_STATUS_LED_PORT, true);
     RED_LED_STATE = true;
     timeSinceRedLedChanged = millis();
-    
+
   }
 }
 
@@ -1363,16 +1377,16 @@ void loop() {
 
 
 
- // Turn off Red status led after flashtime
+  // Turn off Red status led after flashtime
   if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
     digitalWrite( RED_STATUS_LED_PORT, false);
     RED_LED_STATE = false;
     timeSinceRedLedChanged = millis();
-    
+
   }
 
 
-  
+
   currentMillis = millis();
 
 
