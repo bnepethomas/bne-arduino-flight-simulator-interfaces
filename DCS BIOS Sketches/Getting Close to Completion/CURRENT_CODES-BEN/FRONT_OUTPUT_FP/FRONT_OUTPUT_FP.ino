@@ -5,7 +5,7 @@
 //||               FUNCTION = FRONT OUTPUT                           ||\\
 //||              LOCATION IN THE PIT = LIP LEFT HAND SIDE             ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega                ||\\
-//||      ARDUINO CHIP SERIAL NUMBER = SN - 859373138373516121E2      ||\\
+//||      ARDUINO CHIP SERIAL NUMBER = SN -      ||\\
 //||            PROGRAM PORT CONNECTED COM PORT = COM 10             ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -22,6 +22,34 @@ String readString;
 
 #include "LedControl.h"
 #include "DcsBios.h"
+
+
+int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
+#define Reflector_In_Use 1
+#define DCSBIOS_In_Use 1
+
+// Ethernet Related
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+
+byte myMac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x05};
+IPAddress myIP(172, 16, 1, 105);
+String strMyIP = "X.X.X.X";
+
+// Reflector
+IPAddress reflectorIP(172, 16, 1, 10);
+String strReflectorIP = "X.X.X.X";
+
+const unsigned int trimport = 7791;           // Listening for trigger to centre trim servo
+const unsigned int reflectorport = 27000;
+
+EthernetUDP udp;
+char packetBuffer[1000];     //buffer to store the incoming data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+#define EthernetStartupDelay 500
+#define DISABLE_ETHERNET_INPUT_PIN 2
 
 #define RED_STATUS_LED_PORT 5               // RED LED is used for monitoring ethernet
 #define GREEN_STATUS_LED_PORT 13               // RED LED is used for monitoring ethernet
@@ -222,7 +250,7 @@ void setup() {
   TRIM_servo.attach(TrimServoPin);
   TRIM_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
   delay(1000);
-   TRIM_servo.writeMicroseconds(500);  // set servo to "Mid Point"
+  TRIM_servo.writeMicroseconds(500);  // set servo to "Mid Point"
   delay(400);
   TRIM_servo.detach();
 
@@ -257,6 +285,23 @@ void setup() {
   /// BRAKE PRESSURE
 
   DcsBios::setup();
+
+
+
+  if (Ethernet_In_Use == 1) {
+    delay(EthernetStartupDelay);
+    Ethernet.begin( myMac, myIP);
+    udp.begin(trimport);
+
+
+    if (Reflector_In_Use == 1) {
+      udp.beginPacket(reflectorIP, reflectorport);
+      udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      udp.endPacket();
+    }
+  }
+
+
 
   NEXT_PORT_TOGGLE_TIMER = millis() + 1000;
   NEXT_STATUS_TOGGLE_TIMER = millis() + 1000;
