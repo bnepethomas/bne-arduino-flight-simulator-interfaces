@@ -194,7 +194,7 @@ void onFuelDumpSwChange(unsigned int newValue) {
 DcsBios::IntegerBuffer fuelDumpSwBuffer(0x74b4, 0x0100, 8, onFuelDumpSwChange);
 
 
-void CenterTrimServo(){
+void CenterTrimServo() {
   TRIM_servo.attach(TrimServoPin);
   TRIM_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
   delay(10);
@@ -203,6 +203,12 @@ void CenterTrimServo(){
   TRIM_servo.detach();
 }
 
+void onToTrimBtnChange(unsigned int newValue) {
+  if (newValue == 1) {
+    CenterTrimServo();
+  }
+}
+DcsBios::IntegerBuffer toTrimBtnBuffer(0x74b4, 0x2000, 13, onToTrimBtnChange);
 
 
 void setup() {
