@@ -122,18 +122,21 @@ DcsBios::ServoOutput voltU(0x753c, VoltUServoPin, 550, 1800);
 
 
 void onLaunchBarSwChange(unsigned int newValue) {
-  digitalWrite( RED_STATUS_LED_PORT, newValue);
   digitalWrite(LAUNCH_BAR_PORT, newValue);
 }
 DcsBios::IntegerBuffer launchBarSwBuffer(0x7480, 0x2000, 13, onLaunchBarSwChange);
 
+void onHookBypassSwChange(unsigned int newValue) {
+  digitalWrite( RED_STATUS_LED_PORT, newValue);
+  digitalWrite(HOOK_BYPASS_PORT, newValue);
+}
+DcsBios::IntegerBuffer hookBypassSwBuffer(0x7480, 0x4000, 14, onHookBypassSwChange);
 
 
 void onApuControlSwChange(unsigned int newValue) {
   digitalWrite(APU_PORT, newValue);
 }
 DcsBios::IntegerBuffer apuControlSwBuffer(0x74c2, 0x0100, 8, onApuControlSwChange);
-
 
 
 void onEngineCrankSwChange(unsigned int newValue) {
@@ -248,7 +251,7 @@ void setup() {
   stepperBP.setSpeed(60);
   stepperBP.step(BrakePressureMaxPoint);       //Reset FULL ON Position
   delay(1000);
-  stepperBP.step(-BrakePressureMaxPoint);       //Reset FULL OFF Position
+  stepperBP.step(-(BrakePressureMaxPoint + 100) );       //Reset FULL OFF Position
   posBP = 0;
   BRAKE_PRESSURE = map(0, 0, 65000, BrakePressureZeroPoint, BrakePressureMaxPoint);
   /// BRAKE PRESSURE
