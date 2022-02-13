@@ -77,6 +77,8 @@ int posBP = 0;
 Stepper stepperRA(STEPS, COILRA1, COILRA2, COILRA3, COILRA4); // RAD ALT
 Stepper stepperCA(STEPS, COILCA1, COILCA2, COILCA3, COILCA4); // CAB ALT
 Stepper stepperBP(STEPS, COILBP1, COILBP2, COILBP3, COILBP4); // BRAKE PRESSURE
+#define BrakePressureZeroPoint 0
+#define BrakePressureMaxPoint 150
 
 //###########################################################################################
 void onRadaltAltPtrChange(unsigned int newValueRA) {
@@ -92,7 +94,7 @@ DcsBios::IntegerBuffer pressureAltBuffer(0x7514, 0xffff, 0, onPressureAltChange)
 
 
 void onHydIndBrakeChange(unsigned int newValueBP) {
-  BRAKE_PRESSURE = map(newValueBP, 0, 65000, 45, 720);
+  BRAKE_PRESSURE = map(newValueBP, 0, 65000, BrakePressureZeroPoint, BrakePressureMaxPoint);
 }
 DcsBios::IntegerBuffer hydIndBrakeBuffer(0x7506, 0xffff, 0, onHydIndBrakeChange);
 
@@ -116,7 +118,7 @@ DcsBios::ServoOutput hydIndLeft(0x751e, HydLeftServoPin, 560, 2300);
 DcsBios::ServoOutput hydIndRight(0x7520, HydRightServoPin, 560, 2300);
 DcsBios::ServoOutput voltE(0x753e, VoltEServoPin, 1800, 550);
 DcsBios::ServoOutput voltU(0x753c, VoltUServoPin, 550, 1800);
-DcsBios::ServoOutput rudTrim(0x7528, TrimServoPin, 544, 2400);
+// DcsBios::ServoOutput rudTrim(0x7528, TrimServoPin, 544, 2400);
 
 
 void onLaunchBarSwChange(unsigned int newValue) {
@@ -216,7 +218,9 @@ void setup() {
 
   TRIM_servo.attach(TrimServoPin);
   TRIM_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
-  delay(300);
+  delay(1000);
+   TRIM_servo.writeMicroseconds(500);  // set servo to "Mid Point"
+  delay(400);
   TRIM_servo.detach();
 
 
@@ -238,15 +242,15 @@ void setup() {
   /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
 
 
-  
-  /// BRAKE PRESSURE
-  #define Brake_Pressure_Initialisation_Sweep 150
+
+  // BRAKE PRESSURE
+
   stepperBP.setSpeed(60);
-  stepperBP.step(Brake_Pressure_Initialisation_Sweep);       //Reset FULL ON Position
+  stepperBP.step(BrakePressureMaxPoint);       //Reset FULL ON Position
   delay(1000);
-  stepperBP.step(-Brake_Pressure_Initialisation_Sweep);       //Reset FULL OFF Position
+  stepperBP.step(-BrakePressureMaxPoint);       //Reset FULL OFF Position
   posBP = 0;
-  BRAKE_PRESSURE = map(0, 0, 65000, 0, 150);
+  BRAKE_PRESSURE = map(0, 0, 65000, BrakePressureZeroPoint, BrakePressureMaxPoint);
   /// BRAKE PRESSURE
 
   DcsBios::setup();
