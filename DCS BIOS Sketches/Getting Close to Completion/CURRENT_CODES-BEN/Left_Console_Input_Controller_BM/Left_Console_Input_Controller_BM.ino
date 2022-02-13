@@ -10,9 +10,9 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
 /*
- * 
- * KNOWN ISSUE - UNABLE USE A SINGLE CHARACTER WITH DCS ie ctrl-c doesn't work but crtl-F5 does
- * Keystrokes are received is using at command prompt
+
+   KNOWN ISSUE - UNABLE USE A SINGLE CHARACTER WITH DCS ie ctrl-c doesn't work but crtl-F5 does
+   Keystrokes are received is using at command prompt
  *  */
 
 /*
@@ -864,7 +864,15 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_CRYPTO_SW", "2");
           break;
         case 36:
-          sendDcsBiosMessage("LAUNCH_BAR_SW", "1");
+          
+          // Special Case for Magnetic Switches APU On
+          if (Ethernet_In_Use == 1) {
+            SendIPString("LCTRL LSHIFT F8");
+          } else {
+            sendDcsBiosMessage("LAUNCH_BAR_SW", "1");
+          }
+
+          
           break;
         case 37:
 
@@ -913,13 +921,19 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("SEL_JETT_KNOB", "2"); // KNOB "RFUS MSL"
           break;
         case 50:
-          sendDcsBiosMessage("ENGINE_CRANK_SW", "0");
+          // Special Case for Magnetic Switches Left Engine Crank
+          if (Ethernet_In_Use == 1) {
+            SendIPString("LCTRL LSHIFT F6");
+          } else {
+            sendDcsBiosMessage("ENGINE_CRANK_SW", "0");
+          }
+          
           break;
         // PRESS - CLOSE
         case 51:
           // Special Case for Magnetic Switches APU On
           if (Ethernet_In_Use == 1) {
-            SendIPString("LALT LSHIFT F4");
+            SendIPString("LALT LSHIFT F7");
           } else {
             sendDcsBiosMessage("APU_CONTROL_SW", "1");
           }
@@ -954,7 +968,13 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 61:
-          sendDcsBiosMessage("ENGINE_CRANK_SW", "2");
+          // Special Case for Magnetic Switches Left Engine Crank
+          if (Ethernet_In_Use == 1) {
+            SendIPString("LCTRL LSHIFT F7");
+          } else {
+            sendDcsBiosMessage("ENGINE_CRANK_SW", "2");
+          }
+          
           break;
         case 62:
           break;
@@ -1088,7 +1108,13 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("EXT_CNT_TANK_SW", "0");
           break;
         case 113:
-          sendDcsBiosMessage("FUEL_DUMP_SW", "1");
+          // Special Case for Magnetic Switches Fuel Dump On
+          if (Ethernet_In_Use == 1) {
+            SendIPString("LCTRL LSHIFT F5");
+          } else {
+            sendDcsBiosMessage("FUEL_DUMP_SW", "1");
+          }
+
           break;
         case 114:;
           sendDcsBiosMessage("GEAR_LEVER", "0");
