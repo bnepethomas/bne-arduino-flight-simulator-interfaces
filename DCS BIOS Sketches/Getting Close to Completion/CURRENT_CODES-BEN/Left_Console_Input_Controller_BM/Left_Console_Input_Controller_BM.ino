@@ -13,6 +13,8 @@
 
    KNOWN ISSUE - UNABLE USE A SINGLE CHARACTER WITH DCS ie ctrl-c doesn't work but crtl-F5 does
    Keystrokes are received is using at command prompt
+
+   Chasing down why a fast transition is missed with magnetic switches
  *  */
 
 /*
