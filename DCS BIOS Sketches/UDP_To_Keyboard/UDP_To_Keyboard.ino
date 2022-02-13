@@ -1,3 +1,18 @@
+////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
+//||               FUNCTION = HORNET UDP to Keyboard and Pixel LED     ||\\
+//||              LOCATION IN THE PIT = LIP LEFT HAND SIDE             ||\\
+//||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
+//||      ARDUINO CHIP SERIAL NUMBER = SN: 95433343733351201290       ||\\
+//||      ETHERNET SHEILD MAC ADDRESS = MAC                           ||\\
+//||                    CONNECTED COM PORT = COM 6                    ||\\
+//||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
+//||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
+////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
+
+/*
+ *  KNOWN ISSUE - NEED TO UNPLUG NATIVE USB PORT WHEN PROGRAMMING
+ */
+
 /*
 
   Receives a space delimited set of characters and sends them to the keyboard
@@ -63,6 +78,7 @@
 */
 #define Ethernet_In_Use 1
 const int Serial_In_Use = 1;
+#define Reflector_In_Use 1
 
 // Ethernet Related
 #include <SPI.h>
@@ -149,13 +165,14 @@ bool rWinInUse = false;
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
+#define EthernetStartupDelay 500
 byte mac[] = {0x00, 0xDD, 0x3E, 0xCA, 0x37, 0x99};
 IPAddress ip(172, 16, 1, 110);
 String strMyIP = "X.X.X.X";
 
-// Raspberry Pi is Target
-IPAddress targetIP(172, 16, 1, 2);
-String strTargetIP = "X.X.X.X";
+// Reflector
+IPAddress reflectorIP(172, 16, 1, 10);
+String strReflectorIP = "X.X.X.X";
 
 const unsigned int keyboardport = 7788;
 const unsigned int ledport = 7789;
@@ -169,7 +186,7 @@ int ledPacketSize;
 int ledLen;
 
 
-const int delayBetweenRelease = 100;
+const int delayBetweenRelease = 200;
 
 EthernetUDP keyboardudp;              // Keyboard
 EthernetUDP ledudp;                   //Left and Right Consoles
@@ -254,13 +271,17 @@ void setup() {
 
 
   if (Ethernet_In_Use == 1) {
+    delay(EthernetStartupDelay);
     Ethernet.begin( mac, ip);
 
     keyboardudp.begin( keyboardport );
 
-    keyboardudp.beginPacket(targetIP, reflectorport);
-    keyboardudp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
 
+    if (Reflector_In_Use == 1) {
+      keyboardudp.beginPacket(reflectorIP, reflectorport);
+      keyboardudp.println("Init UDP Keyboard and Led - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      keyboardudp.endPacket();
+    }
 
     ledudp.begin(ledport);
 

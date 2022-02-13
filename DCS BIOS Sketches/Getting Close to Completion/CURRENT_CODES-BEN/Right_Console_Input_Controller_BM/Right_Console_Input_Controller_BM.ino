@@ -92,7 +92,7 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 #define DISABLE_ETHERNET_INPUT_PIN 2
 bool RED_LED_STATE = false;
 bool GREEN_LED_STATE = false;
-
+unsigned long timeSinceRedLedChanged = 0;
 //
 struct joyReport_t {
   int button[NUM_BUTTONS]; // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
@@ -126,7 +126,7 @@ bool bFirstTime = false;
 
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
-unsigned long timeSinceRedLedChanged = 0;
+
 
 
 

@@ -10,6 +10,9 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
 /*
+ * 
+ * KNOWN ISSUE - UNABLE USE A SINGLE CHARACTER WITH DCS ie ctrl-c doesn't work but crtl-F5 does
+ * Keystrokes are received is using at command prompt
  *  */
 
 /*
@@ -37,7 +40,7 @@
   So - Digit = Row * 11 + Col
 
 
-  
+
 
 */
 
@@ -56,7 +59,7 @@ int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
- 
+
 byte myMac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x00};
 IPAddress myIP(172, 16, 1, 100);
 String strMyIP = "X.X.X.X";
@@ -68,7 +71,7 @@ IPAddress reflectorIP(172, 16, 1, 10);
 String strReflectorIP = "X.X.X.X";
 
 // Arduino Due for Keystroke translation and Pixel Led driving
-IPAddress targetIP(172, 16, 1, 10);
+IPAddress targetIP(172, 16, 1, 110);
 String strTargetIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
@@ -93,7 +96,7 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 #define DISABLE_ETHERNET_INPUT_PIN 2
 bool RED_LED_STATE = false;
 bool GREEN_LED_STATE = false;
-
+unsigned long timeSinceRedLedChanged = 0;
 //
 struct joyReport_t {
   int button[NUM_BUTTONS]; // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
@@ -180,7 +183,7 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  
+
   pinMode( DISABLE_ETHERNET_INPUT_PIN, INPUT_PULLUP);
   pinMode( GREEN_STATUS_LED_PORT,  OUTPUT);
   pinMode( RED_STATUS_LED_PORT,  OUTPUT);
@@ -212,6 +215,16 @@ void setup() {
 }
 
 
+
+void UpdateRedStatusLed() {
+  if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
+    digitalWrite( RED_STATUS_LED_PORT, true);
+    RED_LED_STATE = true;
+    timeSinceRedLedChanged = millis();
+
+  }
+}
+
 void FindInputChanges()
 {
 
@@ -236,12 +249,12 @@ void FindInputChanges()
         if (prevjoyReport.button[ind] == 0) {
           outString = outString +  "1";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 1);
-          if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
+          //if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
         }
         else {
           outString = outString + "0";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 0);
-          if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
+          //if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
         }
 
 
@@ -258,16 +271,37 @@ void SendIPMessage(int ind, int state) {
 
   String outString;
   outString = String(ind) + ":" + String(state);
+  //
+  //  udp.beginPacket(targetIP, reflectorport);
+  //  udp.print(outString);
+  //  udp.endPacket();
 
-  udp.beginPacket(targetIP, reflectorport);
-  udp.print(outString);
-  udp.endPacket();
 
-
-  udp.beginPacket(targetIP, remoteport);
-  udp.print(outString);
-  udp.endPacket();
+  //  udp.beginPacket(targetIP, remoteport);
+  //  udp.print(outString);
+  //  udp.endPacket();
 }
+
+
+void SendIPString(String KeysToSend) {
+  // Used to Send Desired Keystrokes to Due acting as Keyboard
+  if (Ethernet_In_Use == 1) {
+
+    if (Reflector_In_Use == 1) {
+      udp.beginPacket(reflectorIP, reflectorport);
+      udp.print("Sending Key Strokes " + KeysToSend);
+      udp.endPacket();
+    }
+    udp.beginPacket(targetIP, keyboardport);
+    udp.print(KeysToSend);
+    udp.endPacket();
+    UpdateRedStatusLed();
+  }
+}
+
+
+
+
 
 void SendDCSBIOSMessage(int ind, int state) {
 
@@ -883,7 +917,14 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 51:
-          sendDcsBiosMessage("APU_CONTROL_SW", "1");
+          // Special Case for Magnetic Switches APU On
+          if (Ethernet_In_Use == 1) {
+            SendIPString("LALT LSHIFT F4");
+          } else {
+            sendDcsBiosMessage("APU_CONTROL_SW", "1");
+          }
+
+
           break;
         case 52:
           sendDcsBiosMessage("MC_SW", "2");
@@ -1359,7 +1400,13 @@ void loop() {
   }
 
 
+  // Turn off Red status led after flashtime
+  if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
+    digitalWrite( RED_STATUS_LED_PORT, false);
+    RED_LED_STATE = false;
+    timeSinceRedLedChanged = millis();
 
+  }
 
   currentMillis = millis();
 
