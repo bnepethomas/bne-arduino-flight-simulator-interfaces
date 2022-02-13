@@ -44,12 +44,16 @@ String strReflectorIP = "X.X.X.X";
 const unsigned int trimport = 7791;           // Listening for trigger to centre trim servo
 const unsigned int reflectorport = 27000;
 
-EthernetUDP udp;
-char packetBuffer[1000];     //buffer to store the incoming data
-char outpacketBuffer[1000];  //buffer to store the outgoing data
-
 #define EthernetStartupDelay 500
-#define DISABLE_ETHERNET_INPUT_PIN 2
+
+// Packet Length
+int trimPacketSize;
+int trimLen;
+EthernetUDP trimudp;                   //Left and Right Consoles
+char trimpacketBuffer[1000];           //buffer to store trim data
+
+
+
 
 #define RED_STATUS_LED_PORT 5               // RED LED is used for monitoring ethernet
 #define GREEN_STATUS_LED_PORT 13               // RED LED is used for monitoring ethernet
@@ -190,6 +194,17 @@ void onFuelDumpSwChange(unsigned int newValue) {
 DcsBios::IntegerBuffer fuelDumpSwBuffer(0x74b4, 0x0100, 8, onFuelDumpSwChange);
 
 
+void CenterTrimServo(){
+  TRIM_servo.attach(TrimServoPin);
+  TRIM_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
+  delay(10);
+  TRIM_servo.writeMicroseconds(800);  // set servo to "Mid Point"
+  delay(300);
+  TRIM_servo.detach();
+}
+
+
+
 void setup() {
 
 
@@ -291,13 +306,13 @@ void setup() {
   if (Ethernet_In_Use == 1) {
     delay(EthernetStartupDelay);
     Ethernet.begin( myMac, myIP);
-    udp.begin(trimport);
+    trimudp.begin(trimport);
 
 
     if (Reflector_In_Use == 1) {
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      udp.endPacket();
+      trimudp.beginPacket(reflectorIP, reflectorport);
+      trimudp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      trimudp.endPacket();
     }
   }
 
@@ -369,6 +384,17 @@ void loop() {
 
   }
 
+
+  trimPacketSize = trimudp.parsePacket();
+  trimLen = trimudp.read(trimpacketBuffer, 999);
+
+  if (trimLen > 0) {
+    trimpacketBuffer[trimLen] = 0;
+  }
+  if (trimPacketSize) {
+    // Don't bother check values just centre trim
+    CenterTrimServo();
+  }
 
   DcsBios::loop();
 }
