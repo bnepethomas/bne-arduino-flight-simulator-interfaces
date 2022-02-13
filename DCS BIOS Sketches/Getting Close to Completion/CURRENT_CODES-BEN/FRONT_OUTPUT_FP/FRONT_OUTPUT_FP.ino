@@ -53,42 +53,14 @@ bool PORT_OUTPUT_STATE = false;
 #define  COILRA3  41
 #define  COILRA4  43
 
-//#define  COILCA1  36 // CA = CAB ALT
-//#define  COILCA2  34
-//#define  COILCA3  32
-//#define  COILCA4  38
-
-
-//#1
-//#define  COILCA1  36 // CA = CAB ALT
-//#define  COILCA2  34
-//#define  COILCA3  32
-//#define  COILCA4  38
-
-////#2  Appears to work but wanders all around
-//#define  COILCA1  36 // CA = CAB ALT
-//#define  COILCA2  32
-//#define  COILCA3  34
-//#define  COILCA4  38
-//
-////#3  no movement
-//#define  COILCA1  36 // CA = CAB ALT
-//#define  COILCA2  32
-//#define  COILCA3  38
-//#define  COILCA4  34
-
-//4 Looking good
 #define  COILCA1  36 // CA = CAB ALT
 #define  COILCA2  38
 #define  COILCA3  34
 #define  COILCA4  32
 
-
-
-
 #define  COILBP1  39 // BP = BRAKE PRESSURE
-#define  COILBP2  35
-#define  COILBP3  37
+#define  COILBP2  37
+#define  COILBP3  35
 #define  COILBP4  33
 
 int RAD_ALT = 0;
@@ -264,6 +236,18 @@ void setup() {
   posCA = 0;
   CAB_ALT = map(0, 0, 65000, 40, 720);
   /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
+
+
+  
+  /// BRAKE PRESSURE
+  #define Brake_Pressure_Initialisation_Sweep 150
+  stepperBP.setSpeed(60);
+  stepperBP.step(Brake_Pressure_Initialisation_Sweep);       //Reset FULL ON Position
+  delay(1000);
+  stepperBP.step(-Brake_Pressure_Initialisation_Sweep);       //Reset FULL OFF Position
+  posBP = 0;
+  BRAKE_PRESSURE = map(0, 0, 65000, 0, 150);
+  /// BRAKE PRESSURE
 
   DcsBios::setup();
 
