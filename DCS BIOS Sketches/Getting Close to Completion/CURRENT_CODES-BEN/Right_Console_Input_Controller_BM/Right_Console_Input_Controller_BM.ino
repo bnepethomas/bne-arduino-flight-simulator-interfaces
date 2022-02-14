@@ -800,7 +800,15 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("AV_COOL_SW", "0");
           break;
         case 22:
-          sendDcsBiosMessage("LTD_R_SW", "2");
+          // Special Case for Magnetic Switches LTD/R
+          if (Ethernet_In_Use == 1) {
+            SendIPString("LCTRL LSHIFT F3");
+          } else {
+            sendDcsBiosMessage("LTD_R_SW", "2");
+          }
+
+
+
           break;
         case 23:
           sendDcsBiosMessage("RADAR_SW", "2");
@@ -990,7 +998,12 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("CABIN_PRESS_SW", "2");
           break;
         case 93:
-          sendDcsBiosMessage("PITOT_HEAT_SW", "1");
+          // Special Case for Magnetic Switches Pitot
+          if (Ethernet_In_Use == 1) {
+            SendIPString("LCTRL LSHIFT F2");
+          } else {
+            sendDcsBiosMessage("PITOT_HEAT_SW", "1");
+          }
           break;
         case 94:
           sendDcsBiosMessage("BLEED_AIR_KNOB", "0");
@@ -1034,7 +1047,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 109:
           break;
         case 110:
-          sendDcsBiosMessage("CANOPY_SW", "2");
+          // Special Case for Magnetic Switches Canopy Open
+          if (Ethernet_In_Use == 1) {
+            SendIPString("LCTRL LSHIFT F9");
+          } else {
+            sendDcsBiosMessage("CANOPY_SW", "2");
+          }
+
           break;
         // PRESS - CLOSE
         case 111:
@@ -1063,7 +1082,12 @@ void SendDCSBIOSMessage(int ind, int state) {
           // PRESS - CLOSE
           break;
         case 121:
-          sendDcsBiosMessage("CANOPY_SW", "0");
+          // Special Case for Magnetic Switches Canopy Close
+          if (Ethernet_In_Use == 1) {
+            SendIPString("LCTRL LSHIFT F1");
+          } else {
+            sendDcsBiosMessage("CANOPY_SW", "0");
+          }
           break;
         case 122:
           sendDcsBiosMessage("CB_FCS_CHAN4", "0");
