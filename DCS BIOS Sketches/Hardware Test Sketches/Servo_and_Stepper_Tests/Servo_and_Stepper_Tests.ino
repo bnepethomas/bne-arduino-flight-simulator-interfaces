@@ -113,13 +113,13 @@ void onHydIndBrakeChange(unsigned int newValueBP) {
 }
 DcsBios::IntegerBuffer hydIndBrakeBuffer(0x7506, 0xffff, 0, onHydIndBrakeChange);
 
-
 Servo RAD_ALT_servo;
 Servo HYD_LFT_servo;
 Servo HYD_RHT_servo;
 Servo BATT_U_servo;
 Servo BATT_E_servo;
 Servo TRIM_servo;
+
 
 #define RadarAltServoPin 11
 #define HydLeftServoPin 7
@@ -128,6 +128,17 @@ Servo TRIM_servo;
 #define VoltUServoPin 8
 #define TrimServoPin 12
 
+#define LAUNCH_BAR_PORT 27
+#define HOOK_BYPASS_PORT 28
+#define FUEL_DUMP_PORT 29
+#define APU_PORT 30
+#define ENGINE_CRANK_PORT 31
+
+
+#define BLEED_AIR_SOL_PORT 22
+#define PITOT_HEAT_PORT 23
+#define LASER_ARM_PORT 24
+#define CANOPY_MAG_PORT 25
 
 
 void setup() {
@@ -157,41 +168,55 @@ void setup() {
   digitalWrite(HOOK_BYPASS_PORT, false);
   digitalWrite(LAUNCH_BAR_PORT, false);
 
+  RAD_ALT_servo.attach(RadarAltServoPin);
+  HYD_LFT_servo.attach(HydLeftServoPin);
+  HYD_RHT_servo.attach(HydRightServoPin);
+  BATT_U_servo.attach(VoltUServoPin);
+  BATT_E_servo.attach(VoltEServoPin);
+  TRIM_servo.attach(TrimServoPin);
+
+#define RAD_ALT_servo_Off_Pos     1420
+#define HYD_LFT_servo_Max_Pos     2340
+#define HYD_RHT_servo_Max_pos     2340
+#define BATT_U_servo_Max_Pos      1900
+#define BATT_E_servo_Max_Pos      180
+#define TRIM_servo_Off_Center_Pos 1100
+
+#define RAD_ALT_servo_Hidden_Pos  1050
+#define HYD_LFT_servo_Min_Pos     600
+#define HYD_RHT_servo_Min_pos     600
+#define BATT_U_servo_Min_Pos      400
+#define BATT_E_servo_Min_Pos      1800
+#define TRIM_servo_Center_Pos     800
+
+
+  RAD_ALT_servo.writeMicroseconds(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
+  HYD_LFT_servo.writeMicroseconds(HYD_LFT_servo_Max_Pos);  // set servo to "Mid Point"
+  HYD_RHT_servo.writeMicroseconds(HYD_RHT_servo_Max_pos);  // set servo to "Mid Point"
+  BATT_U_servo.writeMicroseconds(BATT_U_servo_Max_Pos);  // set servo to "Mid Point"
+  BATT_E_servo.writeMicroseconds(BATT_E_servo_Max_Pos);  // set servo to "Mid Point"
+  TRIM_servo.writeMicroseconds(TRIM_servo_Off_Center_Pos);  // set servo to "Mid Point"
+  delay(1000);
+
+  RAD_ALT_servo.writeMicroseconds(RAD_ALT_servo_Hidden_Pos); // set servo to hide point - it may be able to go further
+  HYD_LFT_servo.writeMicroseconds(HYD_LFT_servo_Min_Pos);  // set servo to "Mid Point"
+  HYD_RHT_servo.writeMicroseconds(HYD_RHT_servo_Min_pos);  // set servo to "Mid Point"
+  BATT_U_servo.writeMicroseconds(BATT_U_servo_Min_Pos);  // set servo to "Mid Point"
+  BATT_E_servo.writeMicroseconds(BATT_E_servo_Min_Pos);  // set servo to "Mid Point"
+  TRIM_servo.writeMicroseconds(TRIM_servo_Center_Pos);  // set servo to "Mid Point"
+
+  delay(500);
+
+
+  RAD_ALT_servo.detach();
+  HYD_RHT_servo.detach();
+  HYD_LFT_servo.detach();
+  BATT_U_servo.detach();
+  BATT_E_servo.detach();
+  TRIM_servo.detach();
 
 
 
-//  RAD_ALT_servo.attach(RadarAltServoPin);
-//  RAD_ALT_servo.writeMicroseconds(1420);  // set servo to "Off Point"
-//  delay(300);
-//  RAD_ALT_servo.detach();
-//
-//  HYD_LFT_servo.attach(HydLeftServoPin);
-//  HYD_LFT_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
-//  delay(300);
-//  HYD_LFT_servo.detach();
-//
-//  HYD_RHT_servo.attach(HydRightServoPin);
-//  HYD_RHT_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
-//  delay(300);
-//  HYD_RHT_servo.detach();
-//
-//  BATT_U_servo.attach(VoltUServoPin);
-//  BATT_U_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
-//  delay(300);
-//  BATT_U_servo.detach();
-//
-//  BATT_E_servo.attach(VoltEServoPin);
-//  BATT_E_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
-//  delay(300);
-//  BATT_E_servo.detach();
-//
-//
-//  TRIM_servo.attach(TrimServoPin);
-//  TRIM_servo.writeMicroseconds(300);  // set servo to "Mid Point"
-//  delay(500);
-//  TRIM_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
-//  delay(500);
-//  TRIM_servo.detach();
 //
 //
 //  //###########################################################################################
@@ -203,13 +228,13 @@ void setup() {
 //  RAD_ALT = map(0, 0, 65000, 720, 10);
 //  /// RADAR ALT WORKING ======< SET RADAR ALT STEPPER TO 0 FEET
 //
-  /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
-  stepperCA.setSpeed(60);
-  stepperCA.step(700);       //Reset FULL ON Position
-  stepperCA.step(-720);       //Reset FULL OFF Position
-  stepperCA.step(30);       //Reset FULL OFF Position  
-
-  /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
+//  /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
+//  stepperCA.setSpeed(60);
+//  stepperCA.step(700);       //Reset FULL ON Position
+//  stepperCA.step(-720);       //Reset FULL OFF Position
+//  stepperCA.step(30);       //Reset FULL OFF Position  
+//
+//  /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
 
 //  /// BRAKE PRESSURE
 //  stepperBP.setSpeed(60);

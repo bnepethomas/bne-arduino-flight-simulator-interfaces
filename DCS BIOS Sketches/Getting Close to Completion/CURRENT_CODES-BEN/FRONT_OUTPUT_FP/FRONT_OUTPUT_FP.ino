@@ -152,11 +152,26 @@ Servo TRIM_servo;
 #define VoltUServoPin 8
 #define TrimServoPin 12
 
-DcsBios::ServoOutput radaltOffFlag(0x751c, RadarAltServoPin, 1000, 1420);
-DcsBios::ServoOutput hydIndLeft(0x751e, HydLeftServoPin, 560, 2300);
-DcsBios::ServoOutput hydIndRight(0x7520, HydRightServoPin, 560, 2300);
-DcsBios::ServoOutput voltE(0x753e, VoltEServoPin, 1800, 550);
-DcsBios::ServoOutput voltU(0x753c, VoltUServoPin, 550, 1800);
+#define RAD_ALT_servo_Off_Pos     1420
+#define HYD_LFT_servo_Max_Pos     2340
+#define HYD_RHT_servo_Max_pos     2340
+#define BATT_U_servo_Max_Pos      1900
+#define BATT_E_servo_Max_Pos      180
+#define TRIM_servo_Off_Center_Pos 1100
+
+#define RAD_ALT_servo_Hidden_Pos  1050
+#define HYD_LFT_servo_Min_Pos     600
+#define HYD_RHT_servo_Min_pos     600
+#define BATT_U_servo_Min_Pos      400
+#define BATT_E_servo_Min_Pos      1800
+#define TRIM_servo_Center_Pos     800
+
+
+DcsBios::ServoOutput radaltOffFlag(0x751c, RadarAltServoPin, RAD_ALT_servo_Hidden_Pos, RAD_ALT_servo_Off_Pos);
+DcsBios::ServoOutput hydIndLeft(0x751e, HydLeftServoPin, HYD_LFT_servo_Min_Pos, HYD_LFT_servo_Max_Pos);
+DcsBios::ServoOutput hydIndRight(0x7520, HydRightServoPin, HYD_RHT_servo_Min_pos, HYD_RHT_servo_Max_pos);
+DcsBios::ServoOutput voltE(0x753e, VoltEServoPin, BATT_E_servo_Min_Pos, BATT_E_servo_Max_Pos);
+DcsBios::ServoOutput voltU(0x753c, VoltUServoPin, BATT_U_servo_Min_Pos, BATT_U_servo_Max_Pos);
 // DcsBios::ServoOutput rudTrim(0x7528, TrimServoPin, 544, 2400);
 
 
@@ -271,20 +286,20 @@ void setup() {
   BATT_E_servo.attach(VoltEServoPin);
   TRIM_servo.attach(TrimServoPin);
 
-  RAD_ALT_servo.writeMicroseconds(1420);  // set servo to "Off Point"
-  HYD_LFT_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
-  HYD_RHT_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
-  BATT_U_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
-  BATT_E_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
-  TRIM_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
+  RAD_ALT_servo.writeMicroseconds(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
+  HYD_LFT_servo.writeMicroseconds(HYD_LFT_servo_Max_Pos);  // set servo to "Mid Point"
+  HYD_RHT_servo.writeMicroseconds(HYD_RHT_servo_Max_pos);  // set servo to "Mid Point"
+  BATT_U_servo.writeMicroseconds(BATT_U_servo_Max_Pos);  // set servo to "Mid Point"
+  BATT_E_servo.writeMicroseconds(BATT_E_servo_Max_Pos);  // set servo to "Mid Point"
+  TRIM_servo.writeMicroseconds(TRIM_servo_Off_Center_Pos);  // set servo to "Mid Point"
   delay(1000);
 
-  HYD_LFT_servo.writeMicroseconds(800);  // set servo to "Mid Point"
-  HYD_RHT_servo.writeMicroseconds(800);  // set servo to "Mid Point"
-  BATT_U_servo.writeMicroseconds(800);  // set servo to "Mid Point"
-  BATT_E_servo.writeMicroseconds(800);  // set servo to "Mid Point"
-  TRIM_servo.writeMicroseconds(800);  // set servo to "Mid Point"
-
+  RAD_ALT_servo.writeMicroseconds(RAD_ALT_servo_Hidden_Pos);  // set servo to "Off Point"
+  HYD_LFT_servo.writeMicroseconds(HYD_LFT_servo_Min_Pos);  // set servo to "Mid Point"
+  HYD_RHT_servo.writeMicroseconds(HYD_RHT_servo_Min_pos);  // set servo to "Mid Point"
+  BATT_U_servo.writeMicroseconds(BATT_U_servo_Min_Pos);  // set servo to "Mid Point"
+  BATT_E_servo.writeMicroseconds(BATT_E_servo_Min_Pos);  // set servo to "Mid Point"
+  TRIM_servo.writeMicroseconds(TRIM_servo_Center_Pos);  // set servo to "Mid Point"
   delay(500);
 
 
@@ -412,16 +427,7 @@ void loop() {
   }
 
 
-  trimPacketSize = trimudp.parsePacket();
-  trimLen = trimudp.read(trimpacketBuffer, 999);
 
-  if (trimLen > 0) {
-    trimpacketBuffer[trimLen] = 0;
-  }
-  if (trimPacketSize) {
-    // Don't bother check values just centre trim
-    CenterTrimServo();
-  }
 
   DcsBios::loop();
 }
