@@ -85,10 +85,10 @@ bool PORT_OUTPUT_STATE = false;
 #define  COILRA3  41
 #define  COILRA4  43
 
-#define  COILCA1  36 // CA = CAB ALT
-#define  COILCA2  38
-#define  COILCA3  34
-#define  COILCA4  32
+#define  COILCA1  34 // CA = CAB ALT
+#define  COILCA2  32
+#define  COILCA3  36
+#define  COILCA4  38
 
 #define  COILBP1  39 // BP = BRAKE PRESSURE
 #define  COILBP2  37
@@ -287,8 +287,9 @@ void setup() {
 
   /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
   stepperCA.setSpeed(60);
-  stepperCA.step(720);       //Reset FULL ON Position
+  stepperCA.step(700);       //Reset FULL ON Position
   stepperCA.step(-720);       //Reset FULL OFF Position
+  stepperCA.step(30);       //Reset FULL OFF Position  
   posCA = 0;
   CAB_ALT = map(0, 0, 65000, 40, 720);
   /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET

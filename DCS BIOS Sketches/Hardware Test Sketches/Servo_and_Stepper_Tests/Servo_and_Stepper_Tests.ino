@@ -37,11 +37,16 @@ bool PORT_OUTPUT_STATE = false;
 #define  COILRA3  41
 #define  COILRA4  43
 
+// 1 Direction is reversed
+//#define  COILCA1  36 // CA = CAB ALT
+//#define  COILCA2  38
+//#define  COILCA3  34
+//#define  COILCA4  32
 
-#define  COILCA1  36 // CA = CAB ALT
-#define  COILCA2  38
-#define  COILCA3  34
-#define  COILCA4  32
+#define  COILCA1  34 // CA = CAB ALT
+#define  COILCA2  32
+#define  COILCA3  36
+#define  COILCA4  38
 
 
 ////1 not working
@@ -198,19 +203,20 @@ void setup() {
 //  RAD_ALT = map(0, 0, 65000, 720, 10);
 //  /// RADAR ALT WORKING ======< SET RADAR ALT STEPPER TO 0 FEET
 //
-//  /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
-//  stepperCA.setSpeed(60);
-//  stepperCA.step(720);       //Reset FULL ON Position
-//  stepperCA.step(-720);       //Reset FULL OFF Position
-//
-//  /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
+  /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
+  stepperCA.setSpeed(60);
+  stepperCA.step(700);       //Reset FULL ON Position
+  stepperCA.step(-720);       //Reset FULL OFF Position
+  stepperCA.step(30);       //Reset FULL OFF Position  
 
-  /// BRAKE PRESSURE
-  stepperBP.setSpeed(60);
-  stepperBP.step(150);       //Reset FULL ON Position
-  delay(1000);
-  stepperBP.step(-150);       //Reset FULL OFF Position
-  /// BRAKE PRESSURE
+  /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
+
+//  /// BRAKE PRESSURE
+//  stepperBP.setSpeed(60);
+//  stepperBP.step(150);       //Reset FULL ON Position
+//  delay(1000);
+//  stepperBP.step(-150);       //Reset FULL OFF Position
+//  /// BRAKE PRESSURE
 
 
 
