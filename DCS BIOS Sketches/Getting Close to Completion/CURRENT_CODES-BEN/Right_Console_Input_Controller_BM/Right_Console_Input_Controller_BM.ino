@@ -61,7 +61,7 @@ IPAddress ip(172, 16, 1, 103);
 String strMyIP = "X.X.X.X";
 
 // Reflector
-IPAddress reflectorIP(172, 16, 1, 2);
+IPAddress reflectorIP(172, 16, 1, 10);
 String strReflectorIP = "X.X.X.X";
 
 // Arduino Due for Keystroke translation and Pixel Led driving
@@ -214,7 +214,7 @@ void setup() {
     udp.begin( localport );
 
     if (Reflector_In_Use == 1) {
-      udp.beginPacket(targetIP, reflectorport);
+      udp.beginPacket(reflectorIP, reflectorport);
       udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
       udp.endPacket();
     }
@@ -249,12 +249,12 @@ void FindInputChanges()
         if (prevjoyReport.button[ind] == 0) {
           outString = outString +  "1";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 1);
-          // if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
+          if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
         }
         else {
           outString = outString + "0";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 0);
-          // if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
+          if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
         }
 
 
@@ -274,7 +274,7 @@ void SendIPMessage(int ind, int state) {
     String outString;
     outString = String(ind) + ":" + String(state);
 
-    udp.beginPacket(targetIP, remoteport);
+    udp.beginPacket(reflectorIP, reflectorport);
     udp.print(outString);
     udp.endPacket();
     UpdateRedStatusLed();
@@ -395,7 +395,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 30:
           break;
         case 31:
-          sendDcsBiosMessage("WING_FOLD_PULL", "0");
+          sendDcsBiosMessage("WING_FOLD_PULL", "1");
           break;
         case 32:
           break;
@@ -422,10 +422,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 41:
           break;
         case 42:
-          sendDcsBiosMessage("BATTERY_SW", "1");
+          sendDcsBiosMessage("L_GEN_SW", "1"); //1
           break;
         case 43:
-          sendDcsBiosMessage("L_GEN_SW", "0"); //1
+          sendDcsBiosMessage("BATTERY_SW", "1");
           break;
         case 44:
           break;
@@ -447,10 +447,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 52:
           break;
         case 53:
-          sendDcsBiosMessage("BATTERY_SW", "1");
+          sendDcsBiosMessage("R_GEN_SW", "1");
           break;
         case 54:
-          sendDcsBiosMessage("R_GEN_SW", "0");
+          sendDcsBiosMessage("BATTERY_SW", "1");
           break;
         case 55:
           break;
@@ -578,7 +578,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("CANOPY_SW", "1");
           break;
         case 111:
-          sendDcsBiosMessage("CB_FCS_CHAN3", "1");
+          sendDcsBiosMessage("CB_HOOOK", "1");
           break;
         case 112:
           break;
@@ -624,14 +624,14 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         case 131:
           break;
-        case 132:
-          sendDcsBiosMessage("FCS_BIT_SW", "1");
+        case 132:        
+          sendDcsBiosMessage("CB_FCS_CHAN3", "1");
           break;
         case 133:
-          sendDcsBiosMessage("CB_LG", "1");
+          sendDcsBiosMessage("FCS_BIT_SW", "0");
           break;
         case 134:
-          sendDcsBiosMessage("CB_HOOOK", "1");
+          sendDcsBiosMessage("CB_LG", "1");
           break;
         case 135:
           break;
@@ -833,7 +833,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 31:
-          sendDcsBiosMessage("WING_FOLD_PULL", "1");
+          sendDcsBiosMessage("WING_FOLD_PULL", "0");
           break;
         case 32:
           break;
@@ -865,10 +865,11 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_FILL_SELECT", "2");
           break;
         case 42:
-          sendDcsBiosMessage("BATTERY_SW", "2");
+          sendDcsBiosMessage("L_GEN_SW", "0"); //0
           break;
         case 43:
-          sendDcsBiosMessage("L_GEN_SW", "1"); //0
+          sendDcsBiosMessage("BATTERY_SW", "2");
+
           break;
         case 44:
           break;
@@ -894,10 +895,11 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("KY58_FILL_SELECT", "3");
           break;
         case 53:
-          sendDcsBiosMessage("BATTERY_SW", "0");
+
+          sendDcsBiosMessage("R_GEN_SW", "0");
           break;
         case 54:
-          sendDcsBiosMessage("R_GEN_SW", "1");
+          sendDcsBiosMessage("BATTERY_SW", "0");
           break;
         case 55:
           break;
@@ -988,14 +990,14 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "2");
           break;
         case 90:
-          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "0");
+          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "2");
           break;
         // PRESS - CLOSE
         case 91:
-          sendDcsBiosMessage("ECS_MODE_SW", "0");
+          sendDcsBiosMessage("ECS_MODE_SW", "2");
           break;
         case 92:
-          sendDcsBiosMessage("CABIN_PRESS_SW", "2");
+          sendDcsBiosMessage("CABIN_PRESS_SW", "0");
           break;
         case 93:
           // Special Case for Magnetic Switches Pitot
@@ -1006,7 +1008,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           }
           break;
         case 94:
-          sendDcsBiosMessage("BLEED_AIR_KNOB", "0");
+          sendDcsBiosMessage("BLEED_AIR_KNOB", "3");
           break;
         case 95:
           sendDcsBiosMessage("RADALT_TEST_SW", "1");
@@ -1024,18 +1026,18 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 101:
-          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "2");
+          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "0");
           break;
         case 102:
-          sendDcsBiosMessage("ECS_MODE_SW", "2");
+          sendDcsBiosMessage("ECS_MODE_SW", "0");
           break;
         case 103:
-          sendDcsBiosMessage("CABIN_PRESS_SW", "0");
+          sendDcsBiosMessage("CABIN_PRESS_SW", "2");
           break;
         case 104:
           break;
         case 105:
-          sendDcsBiosMessage("BLEED_AIR_KNOB", "1");
+          sendDcsBiosMessage("BLEED_AIR_KNOB", "2");
           break;
         case 106:
           break;
@@ -1057,7 +1059,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 111:
-          sendDcsBiosMessage("CB_FCS_CHAN3", "0");
+          sendDcsBiosMessage("CB_HOOOK", "0");
           break;
         case 112:
           break;
@@ -1069,7 +1071,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 115:
           break;
         case 116:
-          sendDcsBiosMessage("BLEED_AIR_KNOB", "2");
+          sendDcsBiosMessage("BLEED_AIR_KNOB", "1");
           break;
         case 117:
           break;
@@ -1082,7 +1084,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           // PRESS - CLOSE
           break;
         case 121:
-           // On canopy down must hold switch even though it is a magnetic switch
+          // On canopy down must hold switch even though it is a magnetic switch
           sendDcsBiosMessage("CANOPY_SW", "0");
 
           break;
@@ -1099,7 +1101,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 126:
           break;
         case 127:
-          sendDcsBiosMessage("BLEED_AIR_KNOB", "3");
+          sendDcsBiosMessage("BLEED_AIR_KNOB", "0");
           break;
         case 128:
           break;
@@ -1111,13 +1113,15 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 131:
           break;
         case 132:
-          sendDcsBiosMessage("FCS_BIT_SW", "0");
+          sendDcsBiosMessage("CB_FCS_CHAN3", "0");
+          
           break;
         case 133:
-          sendDcsBiosMessage("CB_LG", "0");
+          sendDcsBiosMessage("FCS_BIT_SW", "1");
           break;
         case 134:
-          sendDcsBiosMessage("CB_HOOOK", "0");
+          sendDcsBiosMessage("CB_LG", "0");
+          
           break;
         case 135:
           break;
@@ -1223,8 +1227,8 @@ void SendDCSBIOSMessage(int ind, int state) {
 }
 
 //ECS PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> cabinTemp("CABIN_TEMP", 9);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", 8); //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> cabinTemp("CABIN_TEMP", 8);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", 9); //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //INTR LTS PANEL
 DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3); //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
