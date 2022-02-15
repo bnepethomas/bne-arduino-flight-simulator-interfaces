@@ -181,7 +181,7 @@ void onLaunchBarSwChange(unsigned int newValue) {
 DcsBios::IntegerBuffer launchBarSwBuffer(0x7480, 0x2000, 13, onLaunchBarSwChange);
 
 void onHookBypassSwChange(unsigned int newValue) {
-  digitalWrite( RED_STATUS_LED_PORT, newValue);
+
   digitalWrite(HOOK_BYPASS_PORT, newValue);
 }
 DcsBios::IntegerBuffer hookBypassSwBuffer(0x7480, 0x4000, 14, onHookBypassSwChange);
@@ -203,7 +203,7 @@ void onEngineCrankSwChange(unsigned int newValue) {
     CrankSwitchState = false;
   }
 
-  digitalWrite(ENGINE_CRANK_PORT, newValue);
+  digitalWrite(ENGINE_CRANK_PORT, CrankSwitchState);
 }
 DcsBios::IntegerBuffer engineCrankSwBuffer(0x74c2, 0x0600, 9, onEngineCrankSwChange);
 
@@ -215,6 +215,29 @@ void onFuelDumpSwChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer fuelDumpSwBuffer(0x74b4, 0x0100, 8, onFuelDumpSwChange);
 
+void onPitotHeatSwChange(unsigned int newValue) {
+  digitalWrite(PITOT_HEAT_PORT, newValue);
+}
+DcsBios::IntegerBuffer pitotHeatSwBuffer(0x74c8, 0x0100, 8, onPitotHeatSwChange);
+
+void onLtdRSwChange(unsigned int newValue) {
+  digitalWrite(LASER_ARM_PORT, newValue);
+}
+DcsBios::IntegerBuffer ltdRSwBuffer(0x74c8, 0x4000, 14, onLtdRSwChange);
+
+void onCanopySwChange(unsigned int newValue) {
+  bool CanopySwitchState = false;
+  if (newValue == 2) {
+    CanopySwitchState = true;
+  }
+  else
+  {
+    CanopySwitchState = false;
+  }
+  digitalWrite(CANOPY_MAG_PORT, CanopySwitchState); 
+    digitalWrite( RED_STATUS_LED_PORT, newValue);
+}
+DcsBios::IntegerBuffer canopySwBuffer(0x74ce, 0x0300, 8, onCanopySwChange);
 
 void CenterTrimServo() {
   TRIM_servo.attach(TrimServoPin);

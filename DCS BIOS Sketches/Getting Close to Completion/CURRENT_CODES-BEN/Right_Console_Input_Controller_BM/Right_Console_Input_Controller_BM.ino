@@ -42,7 +42,7 @@
 
 
 int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 #define DCSBIOS_In_Use 1
 
 #define DCSBIOS_IRQ_SERIAL
@@ -376,7 +376,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("AV_COOL_SW", "1");
           break;
         case 22:
-          sendDcsBiosMessage("LTD_R_SW", "1");
+          sendDcsBiosMessage("LTD_R_SW", "2");
           break;
         case 23:
           break;
@@ -804,7 +804,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           if (Ethernet_In_Use == 1) {
             SendIPString("LCTRL LSHIFT F3");
           } else {
-            sendDcsBiosMessage("LTD_R_SW", "2");
+            sendDcsBiosMessage("LTD_R_SW", "0");
           }
 
 
@@ -1082,12 +1082,9 @@ void SendDCSBIOSMessage(int ind, int state) {
           // PRESS - CLOSE
           break;
         case 121:
-          // Special Case for Magnetic Switches Canopy Close
-          if (Ethernet_In_Use == 1) {
-            SendIPString("LCTRL LSHIFT F1");
-          } else {
-            sendDcsBiosMessage("CANOPY_SW", "0");
-          }
+           // On canopy down must hold switch even though it is a magnetic switch
+          sendDcsBiosMessage("CANOPY_SW", "0");
+
           break;
         case 122:
           sendDcsBiosMessage("CB_FCS_CHAN4", "0");
