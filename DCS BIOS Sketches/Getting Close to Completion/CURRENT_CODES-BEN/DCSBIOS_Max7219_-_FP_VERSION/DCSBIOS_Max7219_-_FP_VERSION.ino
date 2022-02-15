@@ -18,10 +18,11 @@
  // This should work on any Arduino that has an ATMega328 controller
  // (Uno, Pro Mini, many others).
 
-//#define DCSBIOS_IRQ_SERIAL
-#define DCSBIOS_DEFAULT_SERIAL
+#define DCSBIOS_IRQ_SERIAL
+//#define DCSBIOS_DEFAULT_SERIAL
 #include "LedControl.h"
 #include "DcsBios.h"
+
 
 // Master
 // CHIP U1 (C)
@@ -424,11 +425,13 @@ LedControl lc=LedControl(16,14,15,devices);
 //DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", 22);
 //DcsBios::LED sjCtrLt(0x742e, 0x4000, 13);
 
+
 void onFlpLgRightGearLtChange(unsigned int newValue) {
   lc.setLed(SELECT_JET_PANEL,RIGHT_GEAR_COL_A,RIGHT_GEAR_ROW_A,newValue);
   lc.setLed(SELECT_JET_PANEL,RIGHT_GEAR_COL_B,RIGHT_GEAR_ROW_B,newValue);  
 }
 DcsBios::IntegerBuffer flpLgRightGearLtBuffer(0x7430, 0x2000, 13, onFlpLgRightGearLtChange);
+
 
 void onFlpLgNoseGearLtChange(unsigned int newValue) {
   lc.setLed(SELECT_JET_PANEL,NOSE_GEAR_COL_A,NOSE_GEAR_ROW_A,newValue);
@@ -436,11 +439,13 @@ void onFlpLgNoseGearLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer flpLgNoseGearLtBuffer(0x7430, 0x0800, 11, onFlpLgNoseGearLtChange);
 
+
 void onFlpLgLeftGearLtChange(unsigned int newValue) {
   lc.setLed(SELECT_JET_PANEL,LEFT_GEAR_COL_A,LEFT_GEAR_ROW_A,newValue);
   lc.setLed(SELECT_JET_PANEL,LEFT_GEAR_COL_B,LEFT_GEAR_ROW_B,newValue); 
 }
 DcsBios::IntegerBuffer flpLgLeftGearLtBuffer(0x7430, 0x1000, 12, onFlpLgLeftGearLtChange);
+
 
 void onFlpLgHalfFlapsLtChange(unsigned int newValue) {
   lc.setLed(SELECT_JET_PANEL,HALF_FLAPS_COL_A,HALF_FLAPS_ROW_A,newValue);
@@ -448,11 +453,13 @@ void onFlpLgHalfFlapsLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer flpLgHalfFlapsLtBuffer(0x7430, 0x4000, 14, onFlpLgHalfFlapsLtChange);
 
+
 void onFlpLgFullFlapsLtChange(unsigned int newValue) {
   lc.setLed(SELECT_JET_PANEL,FULL_FLAPS_COL_A,FULL_FLAPS_ROW_A,newValue);
   lc.setLed(SELECT_JET_PANEL,FULL_FLAPS_COL_B,FULL_FLAPS_ROW_B,newValue);  
 }
 DcsBios::IntegerBuffer flpLgFullFlapsLtBuffer(0x7430, 0x8000, 15, onFlpLgFullFlapsLtChange);
+
 
 void onFlpLgFlapsLtChange(unsigned int newValue) {
   lc.setLed(SELECT_JET_PANEL,AMBER_FLAPS_COL_A,AMBER_FLAPS_ROW_A,newValue);
@@ -460,30 +467,36 @@ void onFlpLgFlapsLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer flpLgFlapsLtBuffer(0x7466, 0x0001, 0, onFlpLgFlapsLtChange);
 
+
 void onSjRoLtChange(unsigned int newValue) {
 lc.setLed(SELECT_JET_PANEL,SEL_RIGHT_OUTER_COL_A,SEL_RIGHT_OUTER_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer sjRoLtBuffer(0x7430, 0x0400, 10, onSjRoLtChange);
+
 
 void onSjRiLtChange(unsigned int newValue) {
   lc.setLed(SELECT_JET_PANEL,SEL_RIGHT_INNER_COL_A,SEL_RIGHT_INNER_ROW_A,newValue); 
 }
 DcsBios::IntegerBuffer sjRiLtBuffer(0x7430, 0x0200, 9, onSjRiLtChange);
 
+
 void onSjLoLtChange(unsigned int newValue) {
   lc.setLed(SELECT_JET_PANEL,SEL_LEFT_OUTER_COL_A,SEL_LEFT_OUTER_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer sjLoLtBuffer(0x7430, 0x0100, 8, onSjLoLtChange);
+
 
 void onSjLiLtChange(unsigned int newValue) {
   lc.setLed(SELECT_JET_PANEL,SEL_LEFT_INNER_COL_A,SEL_LEFT_INNER_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer sjLiLtBuffer(0x742e, 0x8000, 15, onSjLiLtChange);
 
+
 void onSjCtrLtChange(unsigned int newValue) {
   lc.setLed(SELECT_JET_PANEL,SEL_CENTER_COL_A,SEL_CENTER_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer sjCtrLtBuffer(0x742e, 0x4000, 14, onSjCtrLtChange);
+
 
 void onUfcOptionCueing1Change(char* newValue) {
   if (newValue[0] == ':') {
@@ -495,6 +508,7 @@ void onUfcOptionCueing1Change(char* newValue) {
 }
 DcsBios::StringBuffer<1> ufcOptionCueing1Buffer(0x7428, onUfcOptionCueing1Change);
 
+
 void onUfcOptionCueing2Change(char* newValue) {
   if (newValue[0] == ':') {
     lc.setLed(UFC_PANEL,UFC_OPT2_COL_A,UFC_OPT2_ROW_A,1);
@@ -504,6 +518,7 @@ void onUfcOptionCueing2Change(char* newValue) {
     lc.setLed(UFC_PANEL,UFC_OPT2_COL_B,UFC_OPT2_ROW_B,0); }   
 }
 DcsBios::StringBuffer<1> ufcOptionCueing2Buffer(0x742a, onUfcOptionCueing2Change);
+
 
 void onUfcOptionCueing3Change(char* newValue) {
   if (newValue[0] == ':') {
@@ -515,6 +530,7 @@ void onUfcOptionCueing3Change(char* newValue) {
 }
 DcsBios::StringBuffer<1> ufcOptionCueing3Buffer(0x742c, onUfcOptionCueing3Change);
 
+
 void onUfcOptionCueing4Change(char* newValue) {
   if (newValue[0] == ':') {
     lc.setLed(UFC_PANEL,UFC_OPT4_COL_A,UFC_OPT4_ROW_A,1);
@@ -525,6 +541,7 @@ void onUfcOptionCueing4Change(char* newValue) {
 }
 DcsBios::StringBuffer<1> ufcOptionCueing4Buffer(0x742e, onUfcOptionCueing4Change);
 
+
 void onUfcOptionCueing5Change(char* newValue) {
   if (newValue[0] == ':') {
     lc.setLed(UFC_PANEL,UFC_OPT5_COL_A,UFC_OPT5_ROW_A,1); }
@@ -533,11 +550,13 @@ void onUfcOptionCueing5Change(char* newValue) {
 }
 DcsBios::StringBuffer<1> ufcOptionCueing5Buffer(0x7430, onUfcOptionCueing5Change);
 
+
 void onClipApuAccLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,APU_ACC_COL_A,APU_ACC_ROW_A,newValue);
   lc.setLed(CAUTION_PANEL,APU_ACC_COL_B,APU_ACC_ROW_B,newValue);
 }
 DcsBios::IntegerBuffer clipApuAccLtBuffer(0x74a4, 0x0100, 8, onClipApuAccLtChange);
+
 
 void onClipBattSwLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,BATT_SW_COL_A,BATT_SW_ROW_A,newValue);
@@ -545,11 +564,13 @@ void onClipBattSwLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer clipBattSwLtBuffer(0x74a4, 0x0200, 9, onClipBattSwLtChange);
 
+
 void onClipCkSeatLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,CK_SEAT_COL_A,CK_SEAT_ROW_A,newValue);
   lc.setLed(CAUTION_PANEL,CK_SEAT_COL_B,CK_SEAT_ROW_B,newValue);
 }
 DcsBios::IntegerBuffer clipCkSeatLtBuffer(0x74a0, 0x8000, 15, onClipCkSeatLtChange);
+
 
 void onClipFcesLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,FCES_COL_A,FCES_ROW_A,newValue);
@@ -557,11 +578,13 @@ void onClipFcesLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer clipFcesLtBuffer(0x74a4, 0x4000, 14, onClipFcesLtChange);
 
+
 void onClipFcsHotLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,FCS_HOT_COL_A,FCS_HOT_ROW_A,newValue);
   lc.setLed(CAUTION_PANEL,FCS_HOT_COL_B,FCS_HOT_ROW_B,newValue);
 }
 DcsBios::IntegerBuffer clipFcsHotLtBuffer(0x74a4, 0x0400, 10, onClipFcsHotLtChange);
+
 
 void onClipFuelLoLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,FUEL_LO_COL_A,FUEL_LO_ROW_A,newValue);
@@ -569,11 +592,13 @@ void onClipFuelLoLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer clipFuelLoLtBuffer(0x74a4, 0x2000, 13, onClipFuelLoLtChange);
 
+
 void onClipGenTieLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,GEN_TIE_COL_A,GEN_TIE_ROW_A,newValue);
   lc.setLed(CAUTION_PANEL,GEN_TIE_COL_B,GEN_TIE_ROW_B,newValue);
 }
 DcsBios::IntegerBuffer clipGenTieLtBuffer(0x74a4, 0x0800, 11, onClipGenTieLtChange);
+
 
 void onClipLGenLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,L_GEN_COL_A,L_GEN_ROW_A,newValue);
@@ -581,11 +606,13 @@ void onClipLGenLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer clipLGenLtBuffer(0x74a8, 0x0100, 8, onClipLGenLtChange);
 
+
 void onClipRGenLtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,R_GEN_COL_A,R_GEN_ROW_A,newValue);
   lc.setLed(CAUTION_PANEL,R_GEN_COL_B,R_GEN_ROW_B,newValue);
 }
 DcsBios::IntegerBuffer clipRGenLtBuffer(0x74a8, 0x0200, 9, onClipRGenLtChange);
+
 
 void onClipSpareCtn1LtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,C_SPARE_1_COL_A,C_SPARE_1_ROW_A,newValue);
@@ -593,17 +620,20 @@ void onClipSpareCtn1LtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer clipSpareCtn1LtBuffer(0x74a4, 0x1000, 12, onClipSpareCtn1LtChange);
 
+
 void onClipSpareCtn2LtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,C_SPARE_2_COL_A,C_SPARE_2_ROW_A,newValue);
   lc.setLed(CAUTION_PANEL,C_SPARE_2_COL_B,C_SPARE_2_ROW_B,newValue);
 }
 DcsBios::IntegerBuffer clipSpareCtn2LtBuffer(0x74a4, 0x8000, 15, onClipSpareCtn2LtChange);
 
+
 void onClipSpareCtn3LtChange(unsigned int newValue) {
   lc.setLed(CAUTION_PANEL,C_SPARE_3_COL_A,C_SPARE_3_ROW_A,newValue);
   lc.setLed(CAUTION_PANEL,C_SPARE_3_COL_B,C_SPARE_3_ROW_B,newValue);  
 }
 DcsBios::IntegerBuffer clipSpareCtn3LtBuffer(0x74a8, 0x0400, 10, onClipSpareCtn3LtChange);
+
 
 /*//********** LEFT EWI **********\\*/
 void onFireLeftLtChange(unsigned int newValue) {
@@ -614,6 +644,7 @@ void onFireLeftLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer fireLeftLtBuffer(0x7408, 0x0040, 6, onFireLeftLtChange);
 
+
 void onMasterCautionLtChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,MSTR_CAUT_A_COL,MSTR_CAUT_A_ROW,newValue);
   lc.setLed(LEFT_EWI,MSTR_CAUT_B_COL,MSTR_CAUT_B_ROW,newValue);
@@ -622,11 +653,13 @@ void onMasterCautionLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer masterCautionLtBuffer(0x7408, 0x0200, 9, onMasterCautionLtChange);
 
+
 void onLhAdvGoChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,GO_A_COL,GO_A_ROW,newValue);
   lc.setLed(LEFT_EWI,GO_B_COL,GO_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer lhAdvGoBuffer(0x740a, 0x0010, 4, onLhAdvGoChange);
+
 
 void onLhAdvNoGoChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,NO_GO_A_COL,NO_GO_A_ROW,newValue);
@@ -634,11 +667,13 @@ void onLhAdvNoGoChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer lhAdvNoGoBuffer(0x740a, 0x0020, 5, onLhAdvNoGoChange);
 
+
 void onLhAdvLBleedChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,L_BLEED_A_COL,L_BLEED_A_ROW,newValue);
   lc.setLed(LEFT_EWI,L_BLEED_B_COL,L_BLEED_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer lhAdvLBleedBuffer(0x7408, 0x0800, 11, onLhAdvLBleedChange);
+
 
 void onLhAdvRBleedChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,R_BLEED_A_COL,R_BLEED_A_ROW,newValue);
@@ -646,11 +681,13 @@ void onLhAdvRBleedChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer lhAdvRBleedBuffer(0x7408, 0x1000, 12, onLhAdvRBleedChange);
 
+
 void onLhAdvSpdBrkChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,SPD_BRK_A_COL,SPD_BRK_A_ROW,newValue);
   lc.setLed(LEFT_EWI,SPD_BRK_B_COL,SPD_BRK_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer lhAdvSpdBrkBuffer(0x7408, 0x2000, 13, onLhAdvSpdBrkChange);
+
 
 void onLhAdvStbyChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,STBY_A_COL,STBY_A_ROW,newValue);
@@ -658,11 +695,13 @@ void onLhAdvStbyChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer lhAdvStbyBuffer(0x7408, 0x4000, 14, onLhAdvStbyChange);
 
+
 void onLhAdvLBarRedChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,L_BAR_RED_A_COL,L_BAR_RED_A_ROW,newValue);
   lc.setLed(LEFT_EWI,L_BAR_RED_B_COL,L_BAR_RED_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer lhAdvLBarRedBuffer(0x7408, 0x8000, 15, onLhAdvLBarRedChange);
+
 
 void onLhAdvRecChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,REC_A_COL,REC_A_ROW,newValue);
@@ -670,11 +709,13 @@ void onLhAdvRecChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer lhAdvRecBuffer(0x740a, 0x0001, 0, onLhAdvRecChange);
 
+
 void onLhAdvLBarGreenChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,L_BAR_GREEN_A_COL,L_BAR_GREEN_A_ROW,newValue);
   lc.setLed(LEFT_EWI,L_BAR_GREEN_B_COL,L_BAR_GREEN_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer lhAdvLBarGreenBuffer(0x740a, 0x0002, 1, onLhAdvLBarGreenChange);
+
 
 void onLhAdvXmitChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,XMIT_A_COL,XMIT_A_ROW,newValue);
@@ -682,11 +723,13 @@ void onLhAdvXmitChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer lhAdvXmitBuffer(0x740a, 0x0004, 2, onLhAdvXmitChange);
 
+
 void onLhAdvAspjOhChange(unsigned int newValue) {
   lc.setLed(LEFT_EWI,ASPJ_OH_A_COL,ASPJ_OH_A_ROW,newValue);
   lc.setLed(LEFT_EWI,ASPJ_OH_B_COL,ASPJ_OH_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer lhAdvAspjOhBuffer(0x740a, 0x0008, 3, onLhAdvAspjOhChange);
+
 
 //RIGHT EWI
 void onRhAdvDispChange(unsigned int newValue) {
@@ -695,11 +738,13 @@ void onRhAdvDispChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvDispBuffer(0x740a, 0x0100, 8, onRhAdvDispChange);
 
+
 void onRhAdvRcdrOnChange(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,RCDR_ON_A_COL,RCDR_ON_A_ROW,newValue);
   lc.setLed(RIGHT_EWI,RCDR_ON_B_COL,RCDR_ON_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer rhAdvRcdrOnBuffer(0x740a, 0x0080, 7, onRhAdvRcdrOnChange);
+
 
 void onRhAdvSpareRh1Change(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,SPARE_1_A_COL,SPARE_1_A_ROW,newValue);
@@ -707,11 +752,13 @@ void onRhAdvSpareRh1Change(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvSpareRh1Buffer(0x740a, 0x2000, 13, onRhAdvSpareRh1Change);
 
+
 void onRhAdvSpareRh2Change(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,SPARE_2_A_COL,SPARE_2_A_ROW,newValue);
   lc.setLed(RIGHT_EWI,SPARE_2_B_COL,SPARE_2_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer rhAdvSpareRh2Buffer(0x740a, 0x4000, 14, onRhAdvSpareRh2Change);
+
 
 void onRhAdvSpareRh3Change(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,SPARE_3_A_COL,SPARE_3_A_ROW,newValue);
@@ -719,11 +766,13 @@ void onRhAdvSpareRh3Change(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvSpareRh3Buffer(0x740a, 0x8000, 15, onRhAdvSpareRh3Change);
 
+
 void onRhAdvSpareRh4Change(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,SPARE_4_A_COL,SPARE_4_A_ROW,newValue);
   lc.setLed(RIGHT_EWI,SPARE_4_B_COL,SPARE_4_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer rhAdvSpareRh4Buffer(0x740c, 0x0001, 0, onRhAdvSpareRh4Change);
+
 
 void onRhAdvSamChange(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,SAM_A_COL,SAM_A_ROW,newValue);
@@ -731,11 +780,13 @@ void onRhAdvSamChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvSamBuffer(0x740a, 0x0200, 9, onRhAdvSamChange);
 
+
 void onRhAdvSpareRh5Change(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,SPARE_5_A_COL,SPARE_5_A_ROW,newValue);
   lc.setLed(RIGHT_EWI,SPARE_5_B_COL,SPARE_5_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer rhAdvSpareRh5Buffer(0x740c, 0x0002, 1, onRhAdvSpareRh5Change);
+
 
 void onRhAdvAiChange(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,AI_A_COL,AI_A_ROW,newValue);
@@ -743,17 +794,20 @@ void onRhAdvAiChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvAiBuffer(0x740a, 0x0400, 10, onRhAdvAiChange);
 
+
 void onRhAdvAaaChange(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,AAA_A_COL,AAA_A_ROW,newValue);
   lc.setLed(RIGHT_EWI,AAA_B_COL,AAA_B_ROW,newValue);   
 }
 DcsBios::IntegerBuffer rhAdvAaaBuffer(0x740a, 0x0800, 11, onRhAdvAaaChange);
 
+
 void onRhAdvCwChange(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,CW_A_COL,CW_A_ROW,newValue);
   lc.setLed(RIGHT_EWI,CW_B_COL,CW_B_ROW,newValue);
 }
 DcsBios::IntegerBuffer rhAdvCwBuffer(0x740a, 0x1000, 12, onRhAdvCwChange);
+
 
 void onFireApuLtChange(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,APU_FIRE_A_COL,APU_FIRE_A_ROW,newValue);
@@ -763,6 +817,7 @@ void onFireApuLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer fireApuLtBuffer(0x740c, 0x0004, 2, onFireApuLtChange);
 
+
 void onFireRightLtChange(unsigned int newValue) {
   lc.setLed(RIGHT_EWI,RIGHT_FIRE_A_COL,RIGHT_FIRE_A_ROW,newValue);
   lc.setLed(RIGHT_EWI,RIGHT_FIRE_B_COL,RIGHT_FIRE_B_ROW,newValue);
@@ -771,25 +826,30 @@ void onFireRightLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer fireRightLtBuffer(0x740c, 0x0010, 4, onFireRightLtChange);
 
+
 void onRwrBitLtChange(unsigned int newValue) {
  lc.setLed(RWR_DIM,RWR_BIT_COL_A,RWR_BIT_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer rwrBitLtBuffer(0x749c, 0x1000, 12, onRwrBitLtChange);
+
 
 void onRwrEnableLtChange(unsigned int newValue) {
  lc.setLed(RWR_DIM,RWR_ENABLE_OFFSET_COL_A,RWR_ENABLE_OFFSET_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer rwrEnableLtBuffer(0x749c, 0x0200, 9, onRwrEnableLtChange);
 
+
 void onRwrSpecialEnLtChange(unsigned int newValue) {
  lc.setLed(RWR_DIM,RWR_ENABLE_SPECIAL_COL_A,RWR_ENABLE_SPECIAL_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer rwrSpecialEnLtBuffer(0x7498, 0x8000, 15, onRwrSpecialEnLtChange);
 
+
 void onRwrLimitLtChange(unsigned int newValue) {
  lc.setLed(RWR_DIM,RWR_LIMIT_COL_A,RWR_LIMIT_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer rwrLimitLtBuffer(0x7498, 0x2000, 13, onRwrLimitLtChange);
+
 
 void onRwrLowerLtChange(unsigned int newValue) {
  lc.setLed(RWR_DIM,RWR_ON_COL_A,RWR_ON_ROW_A,newValue); 
@@ -798,35 +858,42 @@ void onRwrLowerLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rwrLowerLtBuffer(0x7498, 0x1000, 12, onRwrLowerLtChange);
 
+
 void onRwrFailLtChange(unsigned int newValue) {
  lc.setLed(RWR_DIM,RWR_FAIL_RED_COL_A,RWR_FAIL_RED_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer rwrFailLtBuffer(0x749c, 0x0800, 11, onRwrFailLtChange);
+
 
 void onRwrOffsetLtChange(unsigned int newValue) {
  lc.setLed(RWR_DIM,RWR_OFFSET_COL_A,RWR_OFFSET_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer rwrOffsetLtBuffer(0x749c, 0x0400, 10, onRwrOffsetLtChange);
 
+
 void onRwrSpecialLtChange(unsigned int newValue) {
  lc.setLed(RWR_DIM,RWR_SPECIAL_COL_A,RWR_SPECIAL_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer rwrSpecialLtBuffer(0x749c, 0x0100, 8, onRwrSpecialLtChange);
+
 
 void onRwrDisplayLtChange(unsigned int newValue) {
  lc.setLed(RWR_DIM,RWR_DISPLAY_COL_A,RWR_DISPLAY_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer rwrDisplayLtBuffer(0x7498, 0x4000, 14, onRwrDisplayLtChange);
 
+
 void onLandingGearHandleLtChange(unsigned int newValue) {
 lc.setLed(LEFT_DIS,GEAR_KNOB_COL_A,GEAR_KNOB_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer landingGearHandleLtBuffer(0x747e, 0x0800, 11, onLandingGearHandleLtChange);
 
+
 void onApuReadyLtChange(unsigned int newValue) {
 lc.setLed(LEFT_DIS,APU_LT_COL_A,APU_LT_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer apuReadyLtBuffer(0x74c2, 0x0800, 11, onApuReadyLtChange);
+
 
 void onArrestingHookLtChange(unsigned int newValue) {
   lc.setLed(RIGHT_DIS,HOOK_COL_A,HOOK_ROW_A,newValue);
@@ -834,32 +901,837 @@ void onArrestingHookLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer arrestingHookLtBuffer(0x74a0, 0x0400, 10, onArrestingHookLtChange);
 
+
 void onRadaltGreenLampChange(unsigned int newValue) {
   lc.setLed(RIGHT_DIS,RAD_ALT_G_COL_A,RAD_ALT_G_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer radaltGreenLampBuffer(0x74a0, 0x0100, 8, onRadaltGreenLampChange);
 
+
 void onLowAltWarnLtChange(unsigned int newValue) {
   lc.setLed(RIGHT_DIS,RAD_ALT_R_COL_A,RAD_ALT_R_ROW_A,newValue);
 }
 DcsBios::IntegerBuffer lowAltWarnLtBuffer(0x749c, 0x8000, 15, onLowAltWarnLtChange);
+
+
+// ************************************ End Max7219
+
+// ************************************ Begin Nextron Block
+
+
+#include <Arduino.h>
+#include <Nextion.h>
+SoftwareSerial nextion(18, 19); // SETS SERIAL TO PINS  18/19
+
+
+int potPin = A4; // DIRECT IEFI DIMING
+int valPin = 0;
+int brightness;
+int RPML; // RPM LEFT
+int RPMR; // RPM RIGHT
+int NOZL;
+int NOZR;
+int FFXL;
+int FFXR;
+int BINGO;
+int OILL;
+int OILR;
+int TMPL;
+int TMPR;
+int NOZOFF;
+int FLUP;
+int FLLW;
+//int BINGOBIT;
+int CODESBIT;
+int SPBIT;
+int OCOFFBIT;
+int ifeiCol; //IFEI Colour (Green or White)
+
+//################## RPM LEFT ##################Y
+void onIfeiRpmLChange(char* newValue) {
+  RPML = atol(newValue);
+  nextion.print("t0.txt=\"");
+  nextion.print(RPML);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+
+}
+DcsBios::StringBuffer<3> ifeiRpmLBuffer(0x749e, onIfeiRpmLChange);
+
+//################## RPM RIGHT ##################Y
+void onIfeiRpmRChange(char* newValue) {
+  RPMR = atol(newValue);
+  nextion.print("t1.txt=\"");
+  nextion.print(RPMR);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<3> ifeiRpmRBuffer(0x74a2, onIfeiRpmRChange);
+
+//################## TEMP LEFT ##################Y
+void onIfeiTempLChange(char* newValue) {
+  TMPL = atol(newValue);
+  nextion.print("t3.txt=\"");
+  nextion.print(TMPL);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<3> ifeiTempLBuffer(0x74a6, onIfeiTempLChange);
+
+
+//################## TEMP RIGHT ##################Y
+void onIfeiTempRChange(char* newValue) {
+  TMPR = atol(newValue);
+  nextion.print("t2.txt=\"");
+  nextion.print(TMPR);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<3> ifeiTempRBuffer(0x74aa, onIfeiTempRChange);
+
+//################## FUEL FLOW LEFT ##################Y
+void onIfeiFfLChange(char* newValue) {
+  FFXL = atol(newValue);
+  nextion.print("t4.txt=\"");
+  nextion.print(FFXL);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<3> ifeiFfLBuffer(0x7482, onIfeiFfLChange);
+
+//################## FUEL FLOW RIGHT ##################Y
+void onIfeiFfRChange(char* newValue) {
+  FFXR = atol(newValue);
+  nextion.print("t5.txt=\"");
+  nextion.print(FFXR);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<3> ifeiFfRBuffer(0x7486, onIfeiFfRChange);
+
+//################## OIL LEFT ##################Y
+void onIfeiOilPressLChange(char* newValue) {
+  OILL = atol(newValue);
+  nextion.print("t7.txt=\"");
+  nextion.print(OILL);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<3> ifeiOilPressLBuffer(0x7496, onIfeiOilPressLChange);
+
+//################## OIL RIGHT ##################Y
+void onIfeiOilPressRChange(char* newValue) {
+  OILR = atol(newValue);
+  nextion.print("t6.txt=\"");
+  nextion.print(OILR);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<3> ifeiOilPressRBuffer(0x749a, onIfeiOilPressRChange);
+
+//################## FUEL LOWER ##################
+
+void onIfeiFuelDownChange(char* newValue) {
+  if (newValue[2] == 32) {
+    nextion.print("t9.txt=\"    ");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (newValue[3] == 32) {
+    nextion.print("t9.txt=\"   ");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (newValue[4] == 32) {
+    nextion.print("t9.txt=\"  ");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (newValue[5] == 32) {
+    nextion.print("t9.txt=\" ");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else {
+    nextion.print("t9.txt=\"");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+}
+DcsBios::StringBuffer<6> ifeiFuelDownBuffer(0x748a, onIfeiFuelDownChange);
+
+//################# FUEL UPPER ##################
+void onIfeiFuelUpChange(char* newValue) {
+  if (newValue[2] == 32) {
+    nextion.print("t8.txt=\"    ");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (newValue[3] == 32) {
+    nextion.print("t8.txt=\"   ");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (newValue[4] == 32) {
+    nextion.print("t8.txt=\"  ");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (newValue[5] == 32) {
+    nextion.print("t8.txt=\" ");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else {
+    nextion.print("t8.txt=\"");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+}
+DcsBios::StringBuffer<6> ifeiFuelUpBuffer(0x7490, onIfeiFuelUpChange);
+
+//################## FUEL LOWER (MODE Button)##################
+
+//################## BINGO ################## Y
+void onIfeiBingoChange(char* newValue) {
+  BINGO = atol(newValue);
+  nextion.print("t10.txt=\"");
+  nextion.print(BINGO);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<5> ifeiBingoBuffer(0x7468, onIfeiBingoChange);
+
+//################## TOP CLOCK ##################
+void onIfeiClockHChange(char* newValue) {
+  int TIMETOP = atol(newValue);
+  nextion.print("t11.txt=\"");
+  nextion.print(TIMETOP);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<2> ifeiClockHBuffer(0x746e, onIfeiClockHChange);
+
+// ":"
+
+void onIfeiDd1Change(char* newValue) {
+  nextion.print("t12.txt=\"");
+  nextion.print(newValue);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<1> ifeiDd1Buffer(0x747a, onIfeiDd1Change);
+
+void onIfeiClockMChange(char* newValue) {
+  nextion.print("t22.txt=\"");
+  nextion.print(newValue);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<2> ifeiClockMBuffer(0x7470, onIfeiClockMChange);
+
+// ":"
+
+void onIfeiDd2Change(char* newValue) {
+  nextion.print("t23.txt=\"");
+  nextion.print(newValue);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<1> ifeiDd2Buffer(0x747c, onIfeiDd2Change);
+
+void onIfeiClockSChange(char* newValue) {
+  nextion.print("t24.txt=\"");
+  nextion.print(newValue);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<2> ifeiClockSBuffer(0x7472, onIfeiClockSChange);
+
+//################# TIMMER CLOCK ########################
+void onIfeiTimerHChange(char* newValue) {
+
+  nextion.print("t25.txt=\"");
+  nextion.print(newValue);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<2> ifeiTimerHBuffer(0x7474, onIfeiTimerHChange);
+
+// ":"
+
+void onIfeiDd3Change(char* newValue) {
+  nextion.print("t26.txt=\"");
+  nextion.print(newValue);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<1> ifeiDd3Buffer(0x747e, onIfeiDd3Change);
+
+void onIfeiTimerMChange(char* newValue) {
+  nextion.print("t27.txt=\"");
+  nextion.print(newValue);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<2> ifeiTimerMBuffer(0x7476, onIfeiTimerMChange);
+
+// ":"
+
+void onIfeiDd4Change(char* newValue) {
+  nextion.print("t28.txt=\"");
+  nextion.print(newValue);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<1> ifeiDd4Buffer(0x7480, onIfeiDd4Change);
+
+void onIfeiTimerSChange(char* newValue) {
+  nextion.print("t29.txt=\"");
+  nextion.print(newValue);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+}
+DcsBios::StringBuffer<2> ifeiTimerSBuffer(0x7478, onIfeiTimerSChange);
+
+////////########  IEFI LABELS    #######/////////
+
+// ************** BINGO ***************************
+void onIfeiBingoTextureChange(char* newValue) {
+  if (strcmp(newValue, "1") == 0) {
+    nextion.print("t19.txt=\"");
+    nextion.print("BINGO");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t30.txt=\"");
+    nextion.print(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t31.txt=\"");
+    nextion.print(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if ((strcmp(newValue, "0") == 0) && (SPBIT == HIGH) && (OCOFFBIT == HIGH)) {
+    nextion.print("t19.txt=\"");
+    nextion.print("      ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t30.txt=\"");
+    nextion.print(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t31.txt=\"");
+    nextion.print(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if ((strcmp(newValue, "0") == 0) && (SPBIT == HIGH) && (OCOFFBIT == LOW)) {
+    nextion.print("t19.txt=\"");
+    nextion.print("      ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t30.txt=\"");
+    nextion.print(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t31.txt=\"");
+    nextion.print(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if ((strcmp(newValue, "0") == 0) && (SPBIT == LOW)) {
+    nextion.print("t19.txt=\"");
+    nextion.print("      ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t30.txt=\"");
+    nextion.print("L");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t31.txt=\"");
+    nextion.print("R");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+}
+
+DcsBios::StringBuffer<1> ifeiBingoTextureBuffer(0x74c6, onIfeiBingoTextureChange);
+
+// ************** SP (CODES) ***************************
+void onIfeiSpChange(char* newValue) {
+
+  if (newValue[0] == 83) { // Letter = "S"
+    nextion.print("t3.txt=\"");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t4.txt=\"");
+    nextion.print(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t5.txt=\"");
+    nextion.print(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t10.txt=\"");
+    nextion.print(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    SPBIT = HIGH;
+  }
+  else  if (newValue[0] != 83) {
+    nextion.print("t3.txt=\"");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    SPBIT = LOW;
+  }
+}
+
+DcsBios::StringBuffer<3> ifeiSpBuffer(0x74b2, onIfeiSpChange);
+
+void onIfeiCodesChange(char* newValue) {
+  if (newValue[0] != 32) {
+    nextion.print("t2.txt=\"");
+    nextion.print(newValue);
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    CODESBIT = HIGH;
+  }
+  else
+    nextion.print("t2.txt=\"");
+  nextion.print(newValue);
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  CODESBIT = LOW;
+}
+DcsBios::StringBuffer<3> ifeiCodesBuffer(0x74ae, onIfeiCodesChange);
+
+///////////// FF Texture ///////////////////////
+void onIfeiFfTextureChange(char* newValue) {
+  if (strcmp(newValue, "1") == 0) {
+    nextion.print("t15.txt=\"");
+    nextion.println("  FF");
+    nextion.println("x100");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (strcmp(newValue, "0") == 0) {
+    nextion.print("t15.txt=\"");
+    nextion.println(" ");
+    nextion.println(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+  }
+}
+DcsBios::StringBuffer<1> ifeiFfTextureBuffer(0x74c0, onIfeiFfTextureChange);
+
+////////######## <><> NOZ LEFT WORKING <><> ########\\\\\\\\
+
+void onExtNozzlePosLChange(unsigned int newValue) {
+  //if (NOZOFF == HIGH){
+  NOZL = map(newValue, 0, 65535, 0, 100);
+  if (ifeiCol != 2) {
+    switch (NOZL) { // NOZ LEFT POSITION IFEI
+      case 0 ... 9: nextion.print("p0.pic=0"); break;
+      case 10 ... 19: nextion.print("p0.pic=1"); break;
+      case 20 ... 29: nextion.print("p0.pic=2"); break;
+      case 30 ... 39: nextion.print("p0.pic=3"); break;
+      case 40 ... 49: nextion.print("p0.pic=4"); break;
+      case 50 ... 59: nextion.print("p0.pic=5"); break;
+      case 60 ... 69: nextion.print("p0.pic=6"); break;
+      case 70 ... 79: nextion.print("p0.pic=7"); break;
+      case 80 ... 89: nextion.print("p0.pic=8"); break;
+      case 90 ... 95: nextion.print("p0.pic=9"); break;
+      case 96 ... 100: nextion.print("p0.pic=10"); break;
+    }
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (ifeiCol == 2) {
+    switch (NOZL) { // NOZ RIGHT POSITION IFEI
+      case 0 ... 9: nextion.print("p0.pic=26"); break;
+      case 10 ... 19: nextion.print("p0.pic=27"); break;
+      case 20 ... 29: nextion.print("p0.pic=28"); break;
+      case 30 ... 39: nextion.print("p0.pic=29"); break;
+      case 40 ... 49: nextion.print("p0.pic=30"); break;
+      case 50 ... 59: nextion.print("p0.pic=31"); break;
+      case 60 ... 69: nextion.print("p0.pic=32"); break;
+      case 70 ... 79: nextion.print("p0.pic=33"); break;
+      case 80 ... 89: nextion.print("p0.pic=34"); break;
+      case 90 ... 95: nextion.print("p0.pic=35"); break;
+      case 96 ... 100: nextion.print("p0.pic=36"); break;
+    }
+    nextion.write("\xFF\xFF\xFF");
+  }
+}
+DcsBios::IntegerBuffer extNozzlePosLBuffer(0x757a, 0xffff, 0, onExtNozzlePosLChange);
+//DcsBios::IntegerBuffer extNozzlePosLBuffer(0x7568, 0xffff, 0, onExtNozzlePosLChange);
+
+////////######## <><> NOZ RIGHT WORKING <><> ########\\\\\\\\
+
+void onExtNozzlePosRChange(unsigned int newValue) {
+  NOZR = map(newValue, 0, 65535, 0, 100);
+  if (ifeiCol != 2) {
+    switch (NOZR) { // NOZ RIGHT POSITION IFEI
+      case 0 ... 9: nextion.print("p1.pic=11"); break;
+      case 10 ... 19: nextion.print("p1.pic=12"); break;
+      case 20 ... 29: nextion.print("p1.pic=13"); break;
+      case 30 ... 39: nextion.print("p1.pic=14"); break;
+      case 40 ... 49: nextion.print("p1.pic=15"); break;
+      case 50 ... 59: nextion.print("p1.pic=16"); break;
+      case 60 ... 69: nextion.print("p1.pic=17"); break;
+      case 70 ... 79: nextion.print("p1.pic=18"); break;
+      case 80 ... 89: nextion.print("p1.pic=19"); break;
+      case 90 ... 95: nextion.print("p1.pic=20"); break;
+      case 96 ... 100: nextion.print("p1.pic=21"); break;
+    }
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (ifeiCol == 2) {
+    switch (NOZR) { // NOZ RIGHT POSITION IFEI
+      case 0 ... 9: nextion.print("p1.pic=37"); break;
+      case 10 ... 19: nextion.print("p1.pic=38"); break;
+      case 20 ... 29: nextion.print("p1.pic=39"); break;
+      case 30 ... 39: nextion.print("p1.pic=40"); break;
+      case 40 ... 49: nextion.print("p1.pic=41"); break;
+      case 50 ... 59: nextion.print("p1.pic=42"); break;
+      case 60 ... 69: nextion.print("p1.pic=43"); break;
+      case 70 ... 79: nextion.print("p1.pic=44"); break;
+      case 80 ... 89: nextion.print("p1.pic=45"); break;
+      case 90 ... 95: nextion.print("p1.pic=46"); break;
+      case 96 ... 100: nextion.print("p1.pic=47"); break;
+    }
+    nextion.write("\xFF\xFF\xFF");
+  }
+}
+
+DcsBios::IntegerBuffer extNozzlePosRBuffer(0x7578, 0xffff, 0, onExtNozzlePosRChange);
+//DcsBios::IntegerBuffer extNozzlePosRBuffer(0x7566, 0xffff, 0, onExtNozzlePosRChange);
+
+///////////// OIL Texture ///////////////////////
+void onIfeiOilTextureChange(char* newValue) {
+  if (strcmp(newValue, "1") == 0) {
+    nextion.print("t16.txt=\"");
+    nextion.print("OIL");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t21.txt=\"");
+    nextion.print("NOZ"); //NOZ LABLE
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (strcmp(newValue, "0") == 0) {
+    nextion.print("t16.txt=\"");
+    nextion.print("    ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t21.txt=\"");
+    nextion.print("    ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+}
+DcsBios::StringBuffer<1> ifeiOilTextureBuffer(0x74c4, onIfeiOilTextureChange);
+
+///////////// RPM Texture ///////////////////////
+void onIfeiRpmTextureChange(char* newValue) {
+  if (strcmp(newValue, "1") == 0) {
+    nextion.print("t13.txt=\"");
+    nextion.print("RPM");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (strcmp(newValue, "0") == 0) {
+    nextion.print("t13.txt=\"");
+    nextion.print("      ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+}
+DcsBios::StringBuffer<1> ifeiRpmTextureBuffer(0x74bc, onIfeiRpmTextureChange);
+
+///////////// TEMP Texture ///////////////////////
+void onIfeiTempTextureChange(char* newValue) {
+  if (strcmp(newValue, "1") == 0) {
+    nextion.print("t14.txt=\"");
+    nextion.print("TEMP");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (strcmp(newValue, "0") == 0) {
+    nextion.print("t14.txt=\"");
+    nextion.print("      ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+}
+DcsBios::StringBuffer<1> ifeiTempTextureBuffer(0x74be, onIfeiTempTextureChange);
+
+///////////// ZULU Texture ///////////////////////
+void onIfeiZTextureChange(char* newValue) {
+  if (strcmp(newValue, "1") == 0) {
+    nextion.print("t32.txt=\"");
+    nextion.print("Z");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else if (strcmp(newValue, "0") == 0) {
+    nextion.print("t32.txt=\"");
+    nextion.print(" ");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+  }
+}
+DcsBios::StringBuffer<1> ifeiZTextureBuffer(0x74dc, onIfeiZTextureChange);
+
+
+
+void onIfeiRpointerTextureChange(char* newValue) {
+  if (strcmp(newValue, "1") == 0) {
+    NOZOFF = HIGH;
+    nextion.print("p0.pic=0");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("p1.pic=11");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  else {
+    NOZOFF = LOW;
+    nextion.print("p0.pic=22");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("p1.pic=22");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t0.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t1.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t2.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t3.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t4.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t5.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t6.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t7.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t7.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t10.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t11.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t30.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+    nextion.print("t31.txt=\"");
+    nextion.print("");
+    nextion.print("\"");
+    nextion.write("\xFF\xFF\xFF");
+
+  }
+
+}
+DcsBios::StringBuffer<1> ifeiRpointerTextureBuffer(0x74da, onIfeiRpointerTextureChange);
+
+///////////// IFEI COLOUR TEXT GREN OR WHITE ///////////////////////
+
+void onCockkpitLightModeSwChange(unsigned int newValue) {
+ 
+  ifeiCol = newValue;
+  if (ifeiCol == 2) {
+    nextion.print("t0.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t1.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t2.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t3.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t4.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t5.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t6.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t7.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t8.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t9.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t10.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t11.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t12.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t13.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t14.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t15.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t16.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t17.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t18.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t19.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t20.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t21.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t22.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t23.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t24.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t25.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t26.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t27.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t28.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t29.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t30.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t31.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t32.pco=2016");
+    nextion.write("\xFF\xFF\xFF");
+  }
+  if (ifeiCol != 2) {
+    nextion.print("t0.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t1.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t2.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t3.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t4.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t5.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t6.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t7.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t8.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t9.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t10.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t11.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t12.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t13.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t14.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t15.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t16.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t17.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t18.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t19.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t20.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t21.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t22.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t23.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t24.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t25.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t26.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t27.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t28.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t29.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t30.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t31.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+    nextion.print("t32.pco=65535");
+    nextion.write("\xFF\xFF\xFF");
+  }
+}
+DcsBios::IntegerBuffer cockkpitLightModeSwBuffer(0x74c8, 0x0600, 9, onCockkpitLightModeSwChange);
+
+// ************************************ End Nextron Block
+
 void setup() {
 
-//  pinMode(STATUS_LED_PORT, OUTPUT);
-//  digitalWrite(STATUS_LED_PORT, 0);
-//  delay(300);
-//  digitalWrite(STATUS_LED_PORT, 1);
-//  delay(300);
-//  digitalWrite(STATUS_LED_PORT, 0);
-//  delay(300); 
-//  digitalWrite(STATUS_LED_PORT, 1);
-//  delay(300); 
-//  digitalWrite(STATUS_LED_PORT, 0);
-//  delay(300);
-//  digitalWrite(STATUS_LED_PORT, 1);
-//  delay(300);
-//  digitalWrite(STATUS_LED_PORT, 0);
-//  delay(300);  
 
   
   devices=lc.getDeviceCount();
@@ -872,9 +1744,91 @@ void setup() {
     /* and clear the display */
     lc.clearDisplay(address);
   }
+
+
+  nextion.begin(256000);
+ 
+  //################## IFEI TEST SETUP ##################Y
+  // COUNT DOWN -TEST- - 05 - 04 - 03 - 02 - 01 - GO
+  delay(50); // delay test allow for NEXTION BOOT UP
+  nextion.print("t0.txt=\"");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  nextion.print("t1.txt=\"");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  delay(100); // delay test allow for NEXTION BOOT UP
+  nextion.print("t0.txt=\"");
+  nextion.print("TE");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+
+  nextion.print("t1.txt=\"");
+  nextion.print("ST");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  delay (1000);
+  nextion.print("t0.txt=\"");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  nextion.print("t1.txt=\"");
+  nextion.print("05");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  delay (1000);
+  nextion.print("t1.txt=\"");
+  nextion.print("04");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  delay (1000);
+  nextion.print("t1.txt=\"");
+  nextion.print("03");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  delay (1000);
+  nextion.print("t1.txt=\"");
+  nextion.print("02");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  delay (1000);
+  nextion.print("t1.txt=\"");
+  nextion.print("01");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  delay (1000);
+  nextion.print("t0.txt=\"");
+  nextion.print("GO");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+
+  nextion.print("t1.txt=\"");
+  nextion.print("GO");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  delay (1000);
+  nextion.print("t0.txt=\"");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+  nextion.print("t1.txt=\"");
+  nextion.print("\"");
+  nextion.write("\xFF\xFF\xFF");
+
+  
   DcsBios::setup();
 }
 
 void loop() {
   DcsBios::loop();
+
+
+    ////////########  SCREEN DIM    #######/////////
+//  delay (0);
+//  {
+//    int brightness = analogRead(A4);
+//    int bright = map(brightness, 10, 1100, 2, 100);
+//    String dim = "dim=" + String(bright);
+//    brightness = bright;
+//    nextion.print(dim.c_str());
+//    nextion.write("\xFF\xFF\xFF");
+//  }
 }
