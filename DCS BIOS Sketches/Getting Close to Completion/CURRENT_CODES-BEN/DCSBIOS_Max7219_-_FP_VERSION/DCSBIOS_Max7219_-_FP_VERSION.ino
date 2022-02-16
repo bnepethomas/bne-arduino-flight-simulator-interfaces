@@ -921,7 +921,9 @@ DcsBios::IntegerBuffer lowAltWarnLtBuffer(0x749c, 0x8000, 15, onLowAltWarnLtChan
 
 #include <Arduino.h>
 #include <Nextion.h>
-SoftwareSerial nextion(18, 19); // SETS SERIAL TO PINS  18/19
+#define PetesTxPort 19
+#define PetesRxPrt 18
+SoftwareSerial nextion(PetesTxPort, PetesRxPrt); // SETS SERIAL TO PINS  18/19
 
 
 int potPin = A4; // DIRECT IEFI DIMING

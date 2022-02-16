@@ -21,7 +21,10 @@
 #include "DcsBios.h"
 #include <Arduino.h>
 #include <Nextion.h>
-SoftwareSerial nextion(18, 19); // SETS SERIAL TO PINS  18/19
+
+#define PetesTxPort 19
+#define PetesRxPrt 18
+SoftwareSerial nextion(PetesTxPort, PetesRxPrt); // SETS SERIAL TO PINS  18/19
 Servo  trimservo;
 bool  TrimServoFollowupTask = false;
 int TrimServoMoveTime = 1000;
