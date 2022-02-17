@@ -415,6 +415,37 @@
 #define BIT_RED_COL_A 6
 #define BIT_RED_ROW_A 5
 
+
+// ####################### LOCK SHOOT ################################
+
+#define LOCK_COL_A 5
+#define LOCK_ROW_A 2
+#define LOCK_COL_B 5
+#define LOCK_ROW_B 4
+
+#define AOA_DIM 4 
+
+#define SHOOT_COL_A 6
+#define SHOOT_ROW_A 3
+#define SHOOT_COL_B 6
+#define SHOOT_ROW_B 4
+
+#define SHOOT_FLASH_COL_A 5
+#define SHOOT_FLASH_ROW_A 3
+#define SHOOT_FLASH_COL_B 6
+#define SHOOT_FLASH_ROW_B 2
+
+
+// ########################## AOA ##################
+#define AOA_ABOVE_COL 0
+#define AOA_ABOVE_ROW 1
+
+#define AOA_ON_COL 1
+#define AOA_ON_ROW 1
+
+#define AOA_BELOW_COL 1
+#define AOA_BELOW_ROW 0
+
 // ######################## SETUP ########################
 #define STATUS_LED_PORT 6
 int devices = 6;
