@@ -173,7 +173,7 @@ void single() {
 }
 
 void AllOn() {
-  for (int displayunit = 0; displayunit < 7; displayunit++) {
+  for (int displayunit = 0; displayunit <9; displayunit++) {
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8 ; col++) {
         if (col != 9 && col != 9 && col != 9)
@@ -184,7 +184,7 @@ void AllOn() {
 }
 
 void AllOff() {
-  for (int displayunit = 0; displayunit < 8; displayunit++) {
+  for (int displayunit = 0; displayunit < 9; displayunit++) {
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8; col++) {
         lc.setLed(displayunit, row, col, false);
@@ -390,14 +390,14 @@ void FLAPS(unsigned int newValue) {
 }
 void loop() {
 
-  FLAPS(0);
+  //FLAPS(0);
   //ChipOn(2);
   flashstatusled();
-  //AllOn();
-  FLAPS(1);
+  AllOn();
+  //FLAPS(1);
   //ChipOff(2);
   flashstatusled();
-  //AllOff();
+  AllOff();
 
 
 }
