@@ -553,11 +553,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 115:
           sendDcsBiosMessage("HUD_VIDEO_BIT", "0");
           break;
-        case 116: //FA-18C_hornet/FIRE_EXT_BTN
-          sendDcsBiosMessage("FIRE_EXT_BTN", "0");
+        case 116: 
           break;
-        case 117: //FA-18C_hornet/MASTER_MODE_AG
-          sendDcsBiosMessage("MASTER_MODE_AG", "0");
+        case 117: //FA-18C_hornet/MASTER_MODE_AA
+          sendDcsBiosMessage("MASTER_MODE_AA", "0");
           break;
         case 118: // USED BELOW
           break;
@@ -583,10 +582,12 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         case 126: // USED BELOW
           break;
-        case 127: //FA-18C_hornet/MASTER_MODE_AA
-          sendDcsBiosMessage("MASTER_MODE_AA", "0");
+        case 127: //FA-18C_hornet/MASTER_MODE_AG
+          sendDcsBiosMessage("MASTER_MODE_AG", "0");
           break;
-        case 128: // USED BELOW
+        case 128: //FA-18C_hornet/FIRE_EXT_BTN
+          sendDcsBiosMessage("FIRE_EXT_BTN", "0");
+          // USED BELOW
           break;
         case 129: // USED BELOW
           break;
@@ -1085,10 +1086,9 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("HUD_VIDEO_BIT", "1");
           break;
         case 116:
-          sendDcsBiosMessage("FIRE_EXT_BTN", "1");
           break;
         case 117:
-          sendDcsBiosMessage("MASTER_MODE_AG", "1");
+          sendDcsBiosMessage("MASTER_MODE_AA", "1");
           break;
         case 118:
           sendDcsBiosMessage("ECM_MODE_SW", "3"); // REC
@@ -1118,9 +1118,11 @@ void SendDCSBIOSMessage(int ind, int state) {
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 127:
-          sendDcsBiosMessage("MASTER_MODE_AA", "1");
+
+          sendDcsBiosMessage("MASTER_MODE_AG", "1");
           break;
-        case 128: // MASTER ARM, IS THIS USED
+        case 128:
+          sendDcsBiosMessage("FIRE_EXT_BTN", "1");
           break;
         case 129:
           sendDcsBiosMessage("ECM_MODE_SW", "4"); // XMIT
@@ -1305,8 +1307,8 @@ DcsBios::Potentiometer ifei("IFEI", A9);
 DcsBios::Potentiometer rwrRwrIntesity("RWR_RWR_INTESITY", A10);
 
 // LEFT DDI
-DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A11);
-DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A12);
+DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A12);
+DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A11);
 
 // RIGHT DDI
 DcsBios::Potentiometer rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A13);
@@ -1322,7 +1324,7 @@ DcsBios::RotaryEncoder ufcComm2ChannelSelect("UFC_COMM2_CHANNEL_SELECT", "DEC", 
 
 //STANDBY INST
 DcsBios::RotaryEncoder saiSet("SAI_SET", "-3200", "+3200", 15, 14);
-DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 16, 17); 
+DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 16, 17);
 ////||||\\\\ Investigate issue on Bens Pit ////||||\\\\
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1356,7 +1358,7 @@ void loop() {
     {
       PORTC = ~(0x1 << (15 - rowid) );
     }
-    
+
     //we must have such a delay so the digital pin output can go LOW steadily,
     //without this delay, the row PIN will not 100% at LOW during yet,
     //so check the first column pin's value will return incorrect result.
@@ -1424,7 +1426,7 @@ void loop() {
       }
     }
   }
-  
+
   FindInputChanges();
   // Handle Switches with Safety covers
   //SPIN COVER
