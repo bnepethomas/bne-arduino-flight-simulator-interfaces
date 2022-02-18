@@ -320,7 +320,8 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("LEFT_DDI_PB_07", "0");
           break;
         case 37:
-          sendDcsBiosMessage("UFC_COMM2_PULL", "0");
+          sendDcsBiosMessage("UFC_COMM1_PULL", "0");
+          //sendDcsBiosMessage("UFC_COMM2_PULL", "0");
           break;
         case 38:
           sendDcsBiosMessage("RIGHT_DDI_PB_02", "0");
@@ -354,7 +355,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("LEFT_DDI_PB_06", "0");
           break;
         case 48:
-          sendDcsBiosMessage("UFC_COMM1_PULL", "0");
+          sendDcsBiosMessage("UFC_COMM2_PULL", "0");
           break;
         case 49:
           sendDcsBiosMessage("RIGHT_DDI_PB_01", "0");
@@ -616,13 +617,13 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("MASTER_ARM_SW", "0");
           break;
         case 140: //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "0"); //1 FOR OFF
+          sendDcsBiosMessage("HUD_ATT_SW", "1"); //1 FOR OFF
           break;
         case 141://FA-18C_hornet/HUD_VIDEO_CONTROL_SW
           sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "0");  //1 FOR OFF
           break;
         case 142: //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "0"); //1 FOR OFF
+          sendDcsBiosMessage("HUD_SYM_REJ_SW", "1"); //1 FOR OFF
           break;
         case 143: //FA-18C_hornet/IFEI_MODE_BTN
           sendDcsBiosMessage("IFEI_MODE_BTN", "0");
@@ -649,13 +650,13 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("IR_COOL_SW", "1");
           break;
         case 151: //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "2"); //1 FOR OFF
+          sendDcsBiosMessage("HUD_ATT_SW", "1"); //1 FOR OFF
           break;
         case 152: //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
           sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "2"); //1 FOR OFF
           break;
         case 153: //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "2"); //1 FOR OFF
+          sendDcsBiosMessage("HUD_SYM_REJ_SW", "1"); //1 FOR OFF
           break;
         case 154: //FA-18C_hornet/IFEI_QTY_BTN
           sendDcsBiosMessage("IFEI_QTY_BTN", "0");
@@ -847,7 +848,8 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("LEFT_DDI_PB_07", "1");
           break;
         case 37:
-          sendDcsBiosMessage("UFC_COMM2_PULL", "1");
+          sendDcsBiosMessage("UFC_COMM1_PULL", "1");
+          //sendDcsBiosMessage("UFC_COMM2_PULL", "1");
           break;
         case 38:
           sendDcsBiosMessage("RIGHT_DDI_PB_02", "1");
@@ -882,7 +884,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("LEFT_DDI_PB_06", "1");
           break;
         case 48:
-          sendDcsBiosMessage("UFC_COMM1_PULL", "1");
+          sendDcsBiosMessage("UFC_COMM2_PULL", "1");
           break;
         case 49:
           sendDcsBiosMessage("RIGHT_DDI_PB_01", "1");
@@ -1154,13 +1156,13 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("MASTER_ARM_SW", "1");
           break;
         case 140: //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "1"); //1 FOR OFF
+          sendDcsBiosMessage("HUD_ATT_SW", "2"); //1 FOR OFF
           break;
         case 141://FA-18C_hornet/HUD_VIDEO_CONTROL_SW
           sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
           break;
         case 142: //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "1"); //1 FOR OFF
+          sendDcsBiosMessage("HUD_SYM_REJ_SW", "0"); //1 FOR OFF
           break;
         case 143: //FA-18C_hornet/IFEI_MODE_BTN
           sendDcsBiosMessage("IFEI_MODE_BTN", "1");
@@ -1190,13 +1192,13 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("IR_COOL_SW", "2");
           break;
         case 151: //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "1"); //1 FOR OFF
+          sendDcsBiosMessage("HUD_ATT_SW", "0"); //1 FOR OFF
           break;
         case 152: //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
           sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1"); //1 FOR OFF
           break;
         case 153: //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "1"); //1 FOR OFF
+          sendDcsBiosMessage("HUD_SYM_REJ_SW", "2"); //1 FOR OFF
           break;
         case 154: //FA-18C_hornet/IFEI_QTY_BTN
           sendDcsBiosMessage("IFEI_QTY_BTN", "1");
@@ -1319,9 +1321,10 @@ DcsBios::Potentiometer ampcdBrtCtl("AMPCD_BRT_CTL", A15);
 
 // || \\ ENCODERS // || \\
 // AMPCD
-DcsBios::RotaryEncoder ufcComm1ChannelSelect("UFC_COMM1_CHANNEL_SELECT", "DEC", "INC", 21, 20);
-DcsBios::RotaryEncoder ufcComm2ChannelSelect("UFC_COMM2_CHANNEL_SELECT", "DEC", "INC", 19, 18);
-
+//DcsBios::RotaryEncoder ufcComm1ChannelSelect("UFC_COMM1_CHANNEL_SELECT", "DEC", "INC", 21, 20);
+//DcsBios::RotaryEncoder ufcComm2ChannelSelect("UFC_COMM2_CHANNEL_SELECT", "DEC", "INC", 19, 18);
+DcsBios::RotaryEncoder ufcComm1ChannelSelect("UFC_COMM1_CHANNEL_SELECT", "DEC", "INC", 19, 18);
+DcsBios::RotaryEncoder ufcComm2ChannelSelect("UFC_COMM2_CHANNEL_SELECT", "DEC", "INC", 21, 20);
 //STANDBY INST
 DcsBios::RotaryEncoder saiSet("SAI_SET", "-3200", "+3200", 15, 14);
 DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 16, 17);
