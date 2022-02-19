@@ -76,10 +76,9 @@
 
 
 */
-#define Ethernet_In_Use 1
-const int Serial_In_Use = 1;
-#define Reflector_In_Use 1
-
+#define Ethernet_In_Use 0
+const int Serial_In_Use = 0;
+#define Reflector_In_Use 0
 
 
 
@@ -335,6 +334,33 @@ void setup() {
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
 
   FastLED.show();
+  delay(10000);
+  fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Red);
+  fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Red);
+  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Red);
+  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
+
+  FastLED.show();
+  delay(10000);
+
+
+    // Now apply everything we just told it about the setup.
+  fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Yellow);
+  fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Yellow);
+  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Yellow);
+  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Yellow);
+
+  FastLED.show();
+  delay(10000);
+
+  
+  fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
+
+  FastLED.show();
+  delay(10000);
   NEXT_LED_UPDATE = millis() + 1000;
 
 
