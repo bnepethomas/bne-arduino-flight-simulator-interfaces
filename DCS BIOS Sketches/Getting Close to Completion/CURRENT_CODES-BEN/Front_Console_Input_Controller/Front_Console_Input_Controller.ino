@@ -122,6 +122,9 @@ long timeLFBCOn = 0; // Left Fire Button Cover
 long timeRFBCOn = 0;// Right Fire Button Cover
 const int ToggleSwitchCoverMoveTime = 500;
 
+
+bool RWR_POWER_BUTTON_STATE = false;  // Used to latch the RWR Power Switch
+
 void setup() {
 
   // Set the output ports to output
@@ -562,7 +565,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 118: // USED BELOW
           break;
         case 119: //EMC, IS THIS USED
-        sendDcsBiosMessage("CMSD_JET_SEL_BTN", "0");
+          sendDcsBiosMessage("CMSD_JET_SEL_BTN", "0");
           break;
         case 120:
           sendDcsBiosMessage("SAI_CAGE", "0");
@@ -702,7 +705,6 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
           break;
         case 169:
-          sendDcsBiosMessage("RWR_POWER_BTN", "0");
           // ######### PETE TO ADD LATCH #########
           break;
         case 170: // USED BELOW
@@ -1246,7 +1248,12 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("LEFT_DDI_HDG_SW", "0");
           break;
         case 169:
-          sendDcsBiosMessage("RWR_POWER_BTN", "1");
+
+          if (RWR_POWER_BUTTON_STATE == true) {
+            sendDcsBiosMessage("RWR_POWER_BTN", "0");
+          } else {
+            sendDcsBiosMessage("RWR_POWER_BTN", "1");
+          }
           // ######### PETE TO ADD LATCH #########
           break;
         case 170:
@@ -1338,6 +1345,17 @@ DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 16, 17);
 //DcsBios::PotentiometerEWMA<5, 128, 5> ufcComm2Vol("UFC_COMM2_VOL", 9);
 //DcsBios::PotentiometerEWMA<5, 128, 5> ufcBrt("UFC_BRT", 10);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+void onRwrPowerBtnChange(unsigned int newValue) {
+  if (newValue == 1) {
+    RWR_POWER_BUTTON_STATE = true;
+  }
+  else {
+    RWR_POWER_BUTTON_STATE = false;
+  }
+}
+DcsBios::IntegerBuffer rwrPowerBtnBuffer(0x7488, 0x1000, 12, onRwrPowerBtnChange);
+
 
 void loop() {
 
