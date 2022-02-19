@@ -16,6 +16,18 @@
 //
 // This should work on any Arduino that has an ATMega328 controller
 // (Uno, Pro Mini, many others).
+
+
+
+// Todo's 
+// CONSOLE BRIGHTNESS
+// INDICATOR BRIGHTNESS
+// ECM_JET
+// MASTER_ARM_DISCH_READY
+// MASTER_ARM_DISCH
+// MASTER_ARM_AA
+// MASTER_ARM_AG
+// SPIN
 String readString;
 #include <Servo.h>
 #define DCSBIOS_IRQ_SERIAL
@@ -194,8 +206,8 @@ void onLaunchBarSwChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer launchBarSwBuffer(0x7480, 0x2000, 13, onLaunchBarSwChange);
 
-void onHookBypassSwChange(unsigned int newValue) {
 
+void onHookBypassSwChange(unsigned int newValue) {
   digitalWrite(HOOK_BYPASS_PORT, newValue);
 }
 DcsBios::IntegerBuffer hookBypassSwBuffer(0x7480, 0x4000, 14, onHookBypassSwChange);
@@ -223,24 +235,22 @@ DcsBios::IntegerBuffer engineCrankSwBuffer(0x74c2, 0x0600, 9, onEngineCrankSwCha
 
 
 
-
 void onFuelDumpSwChange(unsigned int newValue) {
   digitalWrite(FUEL_DUMP_PORT, newValue);
 }
 DcsBios::IntegerBuffer fuelDumpSwBuffer(0x74b4, 0x0100, 8, onFuelDumpSwChange);
+
 
 void onPitotHeatSwChange(unsigned int newValue) {
   digitalWrite(PITOT_HEAT_PORT, newValue);
 }
 DcsBios::IntegerBuffer pitotHeatSwBuffer(0x74c8, 0x0100, 8, onPitotHeatSwChange);
 
+
 void onLtdRSwChange(unsigned int newValue) {
   digitalWrite(LASER_ARM_PORT, newValue);
 }
 DcsBios::IntegerBuffer ltdRSwBuffer(0x74c8, 0x4000, 14, onLtdRSwChange);
-
-
-
 
 
 void onCanopySwChange(unsigned int newValue) {
