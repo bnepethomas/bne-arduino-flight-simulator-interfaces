@@ -76,7 +76,7 @@
 
 
 */
-#define Ethernet_In_Use 0
+#define Ethernet_In_Use 1
 const int Serial_In_Use = 0;
 #define Reflector_In_Use 0
 
@@ -115,17 +115,27 @@ const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT 
 // The Max7219 connector uses Pin 14,15,16
 // Order on connector is 5V GND 16 15 14 Last pin is not connected
 
+//// Connections using Lukes Power Distribution
+//#define LEFT_CONSOLE_PIN        40
+//#define RIGHT_CONSOLE_PIN       42
+//// Not used as locking collides 43
+//// Unsure why 44 is here as thought the unused ports would be adjacent
+//#define LIP_PIN                 44
+//// Not used as locking collides 45
+//// Nto sure w
+//#define UIP_PIN                 46
+//#define SPARE_PIN_1             48
+
 // Connections using Lukes Power Distribution
-#define LEFT_CONSOLE_PIN        40
+#define LEFT_CONSOLE_PIN        16
 #define RIGHT_CONSOLE_PIN       42
 // Not used as locking collides 43
 // Unsure why 44 is here as thought the unused ports would be adjacent
-#define LIP_PIN                 44
+#define LIP_PIN                 14
 // Not used as locking collides 45
 // Nto sure w
-#define UIP_PIN                 46
+#define UIP_PIN                 15
 #define SPARE_PIN_1             48
-
 
 // Some other setup information. Don't change these unless you have a reason to.
 
@@ -334,14 +344,14 @@ void setup() {
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
 
   FastLED.show();
-  delay(10000);
+  delay(2000);
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Red);
   fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Red);
   fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Red);
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
 
   FastLED.show();
-  delay(10000);
+  delay(2000);
 
 
     // Now apply everything we just told it about the setup.
@@ -351,7 +361,7 @@ void setup() {
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Yellow);
 
   FastLED.show();
-  delay(10000);
+  delay(2000);
 
   
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
@@ -360,7 +370,7 @@ void setup() {
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
 
   FastLED.show();
-  delay(10000);
+  delay(1000);
   NEXT_LED_UPDATE = millis() + 1000;
 
 
