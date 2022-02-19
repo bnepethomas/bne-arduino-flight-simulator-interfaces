@@ -243,7 +243,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 9: // USED BELOW
           break;
         case 10:
-          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
+          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
           break;
         case 11:
           sendDcsBiosMessage("LEFT_DDI_PB_04", "0");
@@ -274,7 +274,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 20: // USED BELOW
           break;
         case 21:
-          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
+          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
           break;
         case 22:
           sendDcsBiosMessage("LEFT_DDI_PB_03", "0");
@@ -620,7 +620,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("HUD_ATT_SW", "1"); //1 FOR OFF
           break;
         case 141://FA-18C_hornet/HUD_VIDEO_CONTROL_SW
-          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "0");  //1 FOR OFF
+          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
           break;
         case 142: //FA-18C_hornet/HUD_SYM_REJ_SW
           sendDcsBiosMessage("HUD_SYM_REJ_SW", "1"); //1 FOR OFF
@@ -653,7 +653,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("HUD_ATT_SW", "1"); //1 FOR OFF
           break;
         case 152: //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
-          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "2"); //1 FOR OFF
+          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1"); //1 FOR OFF
           break;
         case 153: //FA-18C_hornet/HUD_SYM_REJ_SW
           sendDcsBiosMessage("HUD_SYM_REJ_SW", "1"); //1 FOR OFF
@@ -695,10 +695,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("IFEI_ET_BTN", "0");
           break;
         case 167:
-          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
+          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
           break;
         case 168:
-          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "10");
+          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
           break;
         case 169:
           sendDcsBiosMessage("RWR_POWER_BTN", "0");
@@ -767,7 +767,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("RIGHT_DDI_BRT_SELECT", "0");
           break;
         case 10:
-          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "0");
+          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "2");
           break;
         case 11:
           sendDcsBiosMessage("LEFT_DDI_PB_04", "1");
@@ -800,7 +800,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("RIGHT_DDI_BRT_SELECT", "1");
           break;
         case 21:
-          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "2");
+          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "0");
           break;
         case 22:
           sendDcsBiosMessage("LEFT_DDI_PB_03", "1");
@@ -1159,7 +1159,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("HUD_ATT_SW", "2"); //1 FOR OFF
           break;
         case 141://FA-18C_hornet/HUD_VIDEO_CONTROL_SW
-          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
+          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "0");  //1 FOR OFF
           break;
         case 142: //FA-18C_hornet/HUD_SYM_REJ_SW
           sendDcsBiosMessage("HUD_SYM_REJ_SW", "0"); //1 FOR OFF
@@ -1189,13 +1189,13 @@ void SendDCSBIOSMessage(int ind, int state) {
           //FA-18C_hornet/SPIN_RECOVERY_COVER
           break;
         case 150: //FA-18C_hornet/IR_COOL_SW
-          sendDcsBiosMessage("IR_COOL_SW", "2");
+          sendDcsBiosMessage("IR_COOL_SW", "0");
           break;
         case 151: //FA-18C_hornet/HUD_ATT_SW
           sendDcsBiosMessage("HUD_ATT_SW", "0"); //1 FOR OFF
           break;
         case 152: //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
-          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1"); //1 FOR OFF
+          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "2"); //1 FOR OFF
           break;
         case 153: //FA-18C_hornet/HUD_SYM_REJ_SW
           sendDcsBiosMessage("HUD_SYM_REJ_SW", "2"); //1 FOR OFF
@@ -1222,7 +1222,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 160: // SPIN, IS THIS USED
           break;
         case 161: //FA-18C_hornet/IR_COOL_SW
-          sendDcsBiosMessage("IR_COOL_SW", "0");
+          sendDcsBiosMessage("IR_COOL_SW", "2");
         case 162: //FA-18C_hornet/HUD_ALT_SW
           sendDcsBiosMessage("HUD_ALT_SW", "1");
           break;
@@ -1238,10 +1238,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("IFEI_ET_BTN", "1");
           break;
         case 167:
-          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "0");
+          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "2");
           break;
         case 168:
-          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "2");
+          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "0");
           break;
         case 169:
           sendDcsBiosMessage("RWR_POWER_BTN", "1");
@@ -1313,8 +1313,8 @@ DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A12);
 DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A11);
 
 // RIGHT DDI
-DcsBios::Potentiometer rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A13);
-DcsBios::Potentiometer rightDdiContCtl("RIGHT_DDI_CONT_CTL", A14);
+DcsBios::Potentiometer rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A14);
+DcsBios::Potentiometer rightDdiContCtl("RIGHT_DDI_CONT_CTL", A13);
 
 // AMPCD
 DcsBios::Potentiometer ampcdBrtCtl("AMPCD_BRT_CTL", A15);
