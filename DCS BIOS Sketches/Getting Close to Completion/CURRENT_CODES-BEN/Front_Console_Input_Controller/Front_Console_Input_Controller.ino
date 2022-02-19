@@ -554,7 +554,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 115:
           sendDcsBiosMessage("HUD_VIDEO_BIT", "0");
           break;
-        case 116: 
+        case 116:
           break;
         case 117: //FA-18C_hornet/MASTER_MODE_AA
           sendDcsBiosMessage("MASTER_MODE_AA", "0");
@@ -562,6 +562,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 118: // USED BELOW
           break;
         case 119: //EMC, IS THIS USED
+        sendDcsBiosMessage("CMSD_JET_SEL_BTN", "0");
           break;
         case 120:
           sendDcsBiosMessage("SAI_CAGE", "0");
@@ -597,7 +598,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 131: // NOT USED
           break;
         case 132:
-          sendDcsBiosMessage("AMPCD_BRT_CTL", "0");
+          sendDcsBiosMessage("AMPCD_BRT_CTL", "1");
           break;
         case 133: // AMPCD, IS THIS USED
           break;
@@ -1079,7 +1080,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("AMPCD_SYM_SW", "2");
           break;
         case 113:
-          sendDcsBiosMessage("AMPCD_NIGHT_DAY", "2");
+          sendDcsBiosMessage("AMPCD_NIGHT_DAY", "0");
           break;
         case 114:
           sendDcsBiosMessage("UFC_ADF", "0");
@@ -1095,7 +1096,8 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 118:
           sendDcsBiosMessage("ECM_MODE_SW", "3"); // REC
           break;
-        case 119: // EMC, IS THIS USED
+        case 119: // EMC,
+          sendDcsBiosMessage("CMSD_JET_SEL_BTN", "1");
           break;
         case 120:
           sendDcsBiosMessage("SAI_CAGE", "1");
@@ -1110,13 +1112,13 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("AMPCD_SYM_SW", "0");
           break;
         case 124:
-          sendDcsBiosMessage("AMPCD_NIGHT_DAY", "0");
+          sendDcsBiosMessage("AMPCD_NIGHT_DAY", "2");
           break;
         case 125:
           sendDcsBiosMessage("RWR_BIT_BTN", "1");
           break;
         case 126:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "3"); // "U"
+          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "0"); // "U"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 127:
@@ -1134,7 +1136,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 131: // NOT USED
           break;
         case 132:
-          sendDcsBiosMessage("AMPCD_BRT_CTL", "1");
+          sendDcsBiosMessage("AMPCD_BRT_CTL", "0");
           break;
         case 133: // AMPCD, IS THIS USED
           break;
@@ -1146,7 +1148,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("RWR_OFFSET_BTN", "1");
           break;
         case 137:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "2"); // "A"
+          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "1"); // "A"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 138:
@@ -1179,7 +1181,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("RWR_SPECIAL_BTN", "1");
           break;
         case 148:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "1"); // "I"
+          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "2"); // "I"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 149://FA-18C_hornet/SPIN_RECOVERY_SW
@@ -1216,7 +1218,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("RWR_DISPLAY_BTN", "1");
           break;
         case 159:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "0"); // "N"
+          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "3"); // "N"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 160: // SPIN, IS THIS USED
