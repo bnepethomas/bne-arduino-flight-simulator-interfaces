@@ -25,7 +25,7 @@ String readString;
 
 
 int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
-#define Reflector_In_Use 1
+#define Reflector_In_Use 0
 #define DCSBIOS_In_Use 1
 
 // Ethernet Related
@@ -41,7 +41,18 @@ String strMyIP = "X.X.X.X";
 IPAddress reflectorIP(172, 16, 1, 10);
 String strReflectorIP = "X.X.X.X";
 
-const unsigned int trimport = 7791;           // Listening for trigger to centre trim servo
+//const unsigned int trimport = 7791;           // Listening for trigger to centre trim servo
+
+
+
+// Arduino Due for Keystroke translation and Pixel Led driving
+IPAddress targetIP(172, 16, 1, 110);
+String strTargetIP = "X.X.X.X";
+
+const unsigned int localport = 7788;
+const unsigned int keyboardport = 7788;
+const unsigned int ledport = 7789;
+const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
 
 #define EthernetStartupDelay 500
@@ -49,7 +60,7 @@ const unsigned int reflectorport = 27000;
 // Packet Length
 int trimPacketSize;
 int trimLen;
-EthernetUDP trimudp;                   //Left and Right Consoles
+EthernetUDP senderudp;                   //Left and Right Consoles
 char trimpacketBuffer[1000];           //buffer to store trim data
 
 
@@ -60,7 +71,8 @@ char trimpacketBuffer[1000];           //buffer to store trim data
 #define FLASH_TIME 1000
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
-
+bool RED_LED_STATE = false;
+unsigned long timeSinceRedLedChanged = 0;
 
 #define LAUNCH_BAR_PORT 27
 #define HOOK_BYPASS_PORT 28
@@ -118,6 +130,8 @@ Stepper stepperCA(STEPS, COILCA1, COILCA2, COILCA3, COILCA4); // CAB ALT
 Stepper stepperBP(STEPS, COILBP1, COILBP2, COILBP3, COILBP4); // BRAKE PRESSURE
 #define BrakePressureZeroPoint 0
 #define BrakePressureMaxPoint 150
+
+
 
 //###########################################################################################
 void onRadaltAltPtrChange(unsigned int newValueRA) {
@@ -225,6 +239,10 @@ void onLtdRSwChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer ltdRSwBuffer(0x74c8, 0x4000, 14, onLtdRSwChange);
 
+
+
+
+
 void onCanopySwChange(unsigned int newValue) {
   bool CanopySwitchState = false;
   if (newValue == 2) {
@@ -239,6 +257,9 @@ void onCanopySwChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer canopySwBuffer(0x74ce, 0x0300, 8, onCanopySwChange);
 
+
+
+
 void CenterTrimServo() {
   TRIM_servo.attach(TrimServoPin);
   TRIM_servo.writeMicroseconds(1100);  // set servo to "Mid Point"
@@ -248,6 +269,8 @@ void CenterTrimServo() {
   TRIM_servo.detach();
 }
 
+
+
 void onToTrimBtnChange(unsigned int newValue) {
   if (newValue == 1) {
     CenterTrimServo();
@@ -255,6 +278,31 @@ void onToTrimBtnChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer toTrimBtnBuffer(0x74b4, 0x2000, 13, onToTrimBtnChange);
 
+
+void SendIPString(String LedToSend) {
+  // Used to Send Desired Keystrokes to Due acting as Keyboard
+  if (Ethernet_In_Use == 1) {
+
+    if (Reflector_In_Use == 1) {
+      senderudp.beginPacket(reflectorIP, reflectorport);
+      senderudp.print("LED instructions " + LedToSend);
+      senderudp.endPacket();
+    }
+    senderudp.beginPacket(targetIP, ledport);
+    senderudp.print(LedToSend);
+    senderudp.endPacket();
+    UpdateRedStatusLed();
+  }
+}
+
+void UpdateRedStatusLed() {
+  if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
+    digitalWrite( RED_STATUS_LED_PORT, true);
+    RED_LED_STATE = true;
+    timeSinceRedLedChanged = millis();
+
+  }
+}
 
 void setup() {
 
@@ -310,19 +358,19 @@ void setup() {
   TRIM_servo.attach(TrimServoPin);
 
   RAD_ALT_servo.writeMicroseconds(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
-  HYD_LFT_servo.writeMicroseconds(HYD_LFT_servo_Max_Pos);  // set servo to "Mid Point"
-  HYD_RHT_servo.writeMicroseconds(HYD_RHT_servo_Max_pos);  // set servo to "Mid Point"
+  HYD_LFT_servo.writeMicroseconds(HYD_LFT_servo_Max_Pos);  // set servo to Max
+  HYD_RHT_servo.writeMicroseconds(HYD_RHT_servo_Max_pos);  // set servo to Max
   BATT_U_servo.writeMicroseconds(BATT_U_servo_Max_Pos);  // set servo to "Mid Point"
   BATT_E_servo.writeMicroseconds(BATT_E_servo_Max_Pos);  // set servo to "Mid Point"
-  TRIM_servo.writeMicroseconds(TRIM_servo_Off_Center_Pos);  // set servo to "Mid Point"
+  TRIM_servo.writeMicroseconds(TRIM_servo_Off_Center_Pos);  // set servo to just off Centre
   delay(1000);
 
-  RAD_ALT_servo.writeMicroseconds(RAD_ALT_servo_Hidden_Pos);  // set servo to "Off Point"
-  HYD_LFT_servo.writeMicroseconds(HYD_LFT_servo_Min_Pos);  // set servo to "Mid Point"
-  HYD_RHT_servo.writeMicroseconds(HYD_RHT_servo_Min_pos);  // set servo to "Mid Point"
-  BATT_U_servo.writeMicroseconds(BATT_U_servo_Min_Pos);  // set servo to "Mid Point"
-  BATT_E_servo.writeMicroseconds(BATT_E_servo_Min_Pos);  // set servo to "Mid Point"
-  TRIM_servo.writeMicroseconds(TRIM_servo_Center_Pos);  // set servo to "Mid Point"
+  RAD_ALT_servo.writeMicroseconds(RAD_ALT_servo_Hidden_Pos);  // set servo to min
+  HYD_LFT_servo.writeMicroseconds(HYD_LFT_servo_Min_Pos);  // set servo to min
+  HYD_RHT_servo.writeMicroseconds(HYD_RHT_servo_Min_pos);  // set servo to min
+  BATT_U_servo.writeMicroseconds(BATT_U_servo_Min_Pos);  // set servo to min
+  BATT_E_servo.writeMicroseconds(BATT_E_servo_Min_Pos);  // set servo to min
+  TRIM_servo.writeMicroseconds(TRIM_servo_Center_Pos);  // set servo to centre
   delay(500);
 
 
@@ -371,13 +419,13 @@ void setup() {
   if (Ethernet_In_Use == 1) {
     delay(EthernetStartupDelay);
     Ethernet.begin( myMac, myIP);
-    trimudp.begin(trimport);
+    senderudp.begin(localport);
 
 
     if (Reflector_In_Use == 1) {
-      trimudp.beginPacket(reflectorIP, reflectorport);
-      trimudp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      trimudp.endPacket();
+      senderudp.beginPacket(reflectorIP, reflectorport);
+      senderudp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      senderudp.endPacket();
     }
   }
 
@@ -394,6 +442,14 @@ void loop() {
     GREEN_LED_STATE = !GREEN_LED_STATE;
     digitalWrite( GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
+    // Turn off Red status led after flashtime
+  if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
+    digitalWrite( RED_STATUS_LED_PORT, false);
+    RED_LED_STATE = false;
+    timeSinceRedLedChanged = millis();
+
   }
 
   // **************************** Handle Steppers

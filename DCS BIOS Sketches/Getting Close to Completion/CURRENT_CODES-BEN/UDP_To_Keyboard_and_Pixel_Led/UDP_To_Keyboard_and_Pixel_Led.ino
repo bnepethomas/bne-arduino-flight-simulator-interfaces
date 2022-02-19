@@ -366,77 +366,79 @@ void SendCharactersToKeyboard(int packetLength) {
 
   String thisElement = "";
   char keyToPress[50];
-  if (Serial_In_Use == 1)  {
-    if (Serial_In_Use) Serial.println("Packet Received");
-    Serial.print("Len is ");
-    Serial.println(packetLength);
 
-    String thisSet = "";
-    for (int characterPtr = 0; characterPtr < packetLength ; characterPtr++ ) {
-      //Serial.print(packetBuffer[characterPtr]);
+  bool bLocalDebug = false;
 
-      // Build Out Modifier list
-      // ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT', 'LSHIFT', 'RSHIFT', 'LCTRL', 'RCTRL', 'LALT', 'RALT', 'LWIN', 'RWIN' ]
-      // Modifiers to do  [   , 'RWIN' ]
-      // Also need to deal with Function Key or pretty much any key that is not a single character
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Packet Received");
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.print("Len is ");
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(packetLength);
+
+  String thisSet = "";
+  for (int characterPtr = 0; characterPtr < packetLength ; characterPtr++ ) {
+    //Serial.print(packetBuffer[characterPtr]);
+
+    // Build Out Modifier list
+    // ModifiersOfInterest = ['ALT', 'CTRL', 'SHIFT', 'LSHIFT', 'RSHIFT', 'LCTRL', 'RCTRL', 'LALT', 'RALT', 'LWIN', 'RWIN' ]
+    // Modifiers to do  [   , 'RWIN' ]
+    // Also need to deal with Function Key or pretty much any key that is not a single character
 
 
-      // We are delimiting by spaces
-      if (String(keyboardpacketBuffer[characterPtr]) == " ") {
-        if (thisElement == "LALT") {
-          leftAltInUse = true;
-          Serial.println("Left Alt in Use");
-        }
-        else if (thisElement == "RALT") {
-          rightAltInUse = true;
-          Serial.println("Right Alt in Use");
-        }
-        else if (thisElement == "ALT") {
-          altInUse = true;
-          Serial.println("Alt in Use");
-        }
-        else if (thisElement == "CTRL") {
-          ctrlInUse = true;
-          Serial.println("Right Alt in Use");
-        }
-        else if (thisElement == "SHIFT") {
-          shiftInUse = true;
-          Serial.println("Shift in Use");
-        }
-        else if (thisElement == "LSHIFT") {
-          lShiftInUse = true;
-          Serial.println("Left Shift in Use");
-        }
-        else if (thisElement == "RSHIFT") {
-          rShiftInUse = true;
-          Serial.println("Right Shift in Use");
-        }
-        else if (thisElement == "LCTRL") {
-          lCtrlInUse = true;
-          Serial.println("Left Controlin Use");
-        }
-        else if (thisElement == "RCTRL") {
-          rCtrlInUse = true;
-          Serial.println("Right Control in Use");
-        }
-        else if (thisElement == "LWIN") {
-          lWinInUse = true;
-          Serial.println("Left Windows in Use");
-        }
-        else if (thisElement == "RWIN") {
-          rWinInUse = true;
-          Serial.println("Right Windows in Use");
-        }
-        thisElement = "";
+    // We are delimiting by spaces
+    if (String(keyboardpacketBuffer[characterPtr]) == " ") {
+      if (thisElement == "LALT") {
+        leftAltInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Left Alt in Use");
       }
-
-      else {
-        thisElement = thisElement + String(keyboardpacketBuffer[characterPtr]);
+      else if (thisElement == "RALT") {
+        rightAltInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Right Alt in Use");
       }
-
+      else if (thisElement == "ALT") {
+        altInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Alt in Use");
+      }
+      else if (thisElement == "CTRL") {
+        ctrlInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Right Alt in Use");
+      }
+      else if (thisElement == "SHIFT") {
+        shiftInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Shift in Use");
+      }
+      else if (thisElement == "LSHIFT") {
+        lShiftInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Left Shift in Use");
+      }
+      else if (thisElement == "RSHIFT") {
+        rShiftInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Right Shift in Use");
+      }
+      else if (thisElement == "LCTRL") {
+        lCtrlInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Left Controlin Use");
+      }
+      else if (thisElement == "RCTRL") {
+        rCtrlInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Right Control in Use");
+      }
+      else if (thisElement == "LWIN") {
+        lWinInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Left Windows in Use");
+      }
+      else if (thisElement == "RWIN") {
+        rWinInUse = true;
+        if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Right Windows in Use");
+      }
+      thisElement = "";
     }
-    Serial.println(thisElement);
+
+    else {
+      thisElement = thisElement + String(keyboardpacketBuffer[characterPtr]);
+    }
+
   }
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
+
 
 
 
@@ -473,7 +475,7 @@ void SendCharactersToKeyboard(int packetLength) {
   // This can occur while sending test strings
 
   if (thisElement[thisElement.length() - 1] == 0x0A) {
-    Serial.println("Found trailing CR - removing it");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found trailing CR - removing it");
     thisElement.remove(thisElement.length() - 1);
   }
 
@@ -482,8 +484,8 @@ void SendCharactersToKeyboard(int packetLength) {
 
   if (thisElement.length() == 1) {
     // We are hitting a single character to send
-    Serial.println("Correct length of Element - Sending");
-    Serial.println(thisElement);
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Correct length of Element - Sending");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
     thisElement.toCharArray(keyToPress, 2);
 
     Keyboard.press(keyToPress[0]);
@@ -492,51 +494,51 @@ void SendCharactersToKeyboard(int packetLength) {
   {
     // Function Keys
     if (thisElement == "F1") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F1);
     }
     else if (thisElement == "F2") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F2);
     }
     else if (thisElement == "F3") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F3);
     }
     else if (thisElement == "F4") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F4);
     }
     else if (thisElement == "F5") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F5);
     }
     else if (thisElement == "F6") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F6);
     }
     else if (thisElement == "F7") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F7);
     }
     else if (thisElement == "F8") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F8);
     }
     else if (thisElement == "F9") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F9);
     }
     else if (thisElement == "F10") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F10);
     }
     else if (thisElement == "F11") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F11);
     }
     else if (thisElement == "F12") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_F12);
     }
 
@@ -555,27 +557,27 @@ void SendCharactersToKeyboard(int packetLength) {
     // 224 '\340' Keypad ENTER
 
     else if (thisElement == "KEYPAD/") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(220);
     }
     else if (thisElement == "KEYPAD*") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(233);
     }
     else if (thisElement == "KEYPAD-") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(233);
     }
     else if (thisElement == "KEYPAD+") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(233);
     }
     else if (thisElement == "KEYPADENTER") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(233);
     }
     else if (thisElement == "ESC") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(KEY_ESC);
     }
 
@@ -593,50 +595,50 @@ void SendCharactersToKeyboard(int packetLength) {
     // 235 '\353' Keypad . and Delete
 
     else if (thisElement == "NUM0") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(234);
     }
     else if (thisElement == "NUM1") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(225);
     }
     else if (thisElement == "NUM2") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(226);
     }
     else if (thisElement == "NUM3") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(227);
     }
     else if (thisElement == "NUM4") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(228);
     }
     else if (thisElement == "NUM5") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(229);
     }
     else if (thisElement == "NUM6") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(230);
     }
     else if (thisElement == "NUM7") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(231);
     }
     else if (thisElement == "NUM8") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(232);
     }
     else if (thisElement == "NUM9") {
-      Serial.println(thisElement);
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
       Keyboard.press(233);
     }
 
 
     else {
-      Serial.println("Incorrect length of Element");
-      Serial.print(Serial.println(thisElement));
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Incorrect length of Element");
+      if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(thisElement);
     }
   }
 
