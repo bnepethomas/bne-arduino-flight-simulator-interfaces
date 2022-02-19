@@ -10,8 +10,8 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
 /*
- *  KNOWN ISSUE - NEED TO UNPLUG NATIVE USB PORT WHEN PROGRAMMING
- */
+    KNOWN ISSUE - NEED TO UNPLUG NATIVE USB PORT WHEN PROGRAMMING
+*/
 
 /*
 
@@ -80,17 +80,10 @@
 const int Serial_In_Use = 1;
 #define Reflector_In_Use 1
 
-// Ethernet Related
-#include <SPI.h>
-#include <Ethernet.h>
-#include <EthernetUdp.h>
 
 
 
-#include <Keyboard.h>
-
-
-
+// ###################################### Begin Pixel Led Related #############################
 
 // PixelLighting
 #include <FastLED.h>
@@ -126,7 +119,11 @@ const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT 
 // Connections using Lukes Power Distribution
 #define LEFT_CONSOLE_PIN        40
 #define RIGHT_CONSOLE_PIN       42
+// Not used as locking collides 43
+// Unsure why 44 is here as thought the unused ports would be adjacent
 #define LIP_PIN                 44
+// Not used as locking collides 45
+// Nto sure w
 #define UIP_PIN                 46
 #define SPARE_PIN_1             48
 
@@ -149,7 +146,67 @@ CRGB UIP_CONSOLE_LED[UIP_CONSOLE_LED_COUNT];
 
 unsigned long NEXT_LED_UPDATE = 0;
 
+// Indicator Variables
+bool ECM_JET = false;
+bool MASTER_ARM_DISCH_READY = false;
+bool MASTER_ARM_DISCH = false;
+bool MASTER_ARM_AA = false;
+bool MASTER_ARM_AG = false;
+bool SPIN = false;
 
+
+int ledptr = 0;
+int consoleBrightness = 50;                     // Global Value for Console Brightness
+int indicatorBrightness = 50;                   // Global value for Indicator Brightness
+unsigned long timeBeforeNextLedUpdate = 0;
+unsigned long minTimeBetweenLedUpdates = 40;    // Provides time foir several updates to be put together before throwing to the led strings
+bool LedUpdateNeeded = false;                   // Flags if we have something to update
+
+
+// The Panels are chained so calculate starting position
+// LIP Panel wiring ECM -> Video Record/IFEI -> Placard
+// UIP Panel wiring Master Arm -> Hud Control -> Spin Recovery
+// Two chains are required for UIP/LIP as the Jet Station Select Placard and
+//    (as of the version 1) the Spin Recovery do not pass the data signal through
+
+const int ECM_JET_START_POS       = 0;
+const int VID_RECORD_START_POS    = ECM_JETT_LED_COUNT;
+const int PLACARD_LED_START_POS   = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT;
+
+const int MASTER_ARM_START_POS    = 0;
+const int HUD_CONTROL_START_POS   = MASTER_ARM_LED_COUNT;
+const int SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT;
+
+
+// Special Led Positions on LIP and UIP Panels
+#define MASTER_ARM_READY_1 0
+#define MASTER_ARM_READY_2 1
+#define MASTER_ARM_DISCH_1 2
+#define MASTER_ARM_DISCH_2 3
+#define MASTER_ARM_AA_1 25
+#define MASTER_ARM_AA_2 26
+#define MASTER_ARM_AG_1 27
+#define MASTER_ARM_AG_2 28
+
+
+// ECM Testing
+#define ECM_JETT_1 1
+#define ECM_JETT_2 5
+#define ECM_JETT_3 10
+#define ECM_JETT_4 11
+
+
+#define SPIN_1 29
+#define SPIN_2 36
+
+
+// ###################################### End Pixel Led Related #############################
+
+
+
+// ###################################### Begin Keyboard Related #############################
+
+#include <Keyboard.h>
 
 bool leftAltInUse = false;
 bool rightAltInUse = false;
@@ -162,6 +219,21 @@ bool lCtrlInUse = false;
 bool rCtrlInUse = false;
 bool lWinInUse = false;
 bool rWinInUse = false;
+
+const int delayBetweenRelease = 200;          // How long is a key held down for - WARNING THIS CURRENTLY BLOCKS THE RUNNING OF OTHER CODE
+// This could be optimised to set a flag and clear during the loop
+unsigned long timeBeforeReleaseAllKeys = 0;
+bool  releaseKeysNeeded = false;
+
+// ###################################### End Keyboard Related #############################
+
+
+
+
+// ###################################### Begin Ethernet Related #############################
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
@@ -179,14 +251,12 @@ const unsigned int ledport = 7789;
 const unsigned int remoteport = 49000;
 const unsigned int reflectorport = 27000;
 
+
 // Packet Length
 int keyboardpacketSize;
 int keyboardLen;
 int ledPacketSize;
 int ledLen;
-
-
-const int delayBetweenRelease = 200;
 
 EthernetUDP keyboardudp;              // Keyboard
 EthernetUDP ledudp;                   //Left and Right Consoles
@@ -196,71 +266,21 @@ char keyboardpacketBuffer[1000];      //buffer to store keyboard data
 char ledpacketBuffer[1000];           //buffer to store led data
 char outpacketBuffer[1000];           //buffer to store the outgoing data
 
+
+// ###################################### End Ethernet Related #############################
+
+
+
+
+
+
+
+
+
 // Variables picked up from 737 Code
 bool Debug_Display = true;
 char *ParameterNamePtr;
 char *ParameterValuePtr;
-
-
-
-// Indicator Variables
-bool ECM_JET = false;
-bool MASTER_ARM_DISCH_READY = false;
-bool MASTER_ARM_DISCH = false;
-bool MASTER_ARM_AA = false;
-bool MASTER_ARM_AG = false;
-bool SPIN = false;
-
-
-int ledptr = 0;
-int consoleBrightness = 50;     // Global Value for Console Brightness
-int indicatorBrightness = 50;           // Global value for Indicator Brightness
-unsigned long timeBeforeNextLedUpdate = 0;
-unsigned long minTimeBetweenLedUpdates = 40;
-bool LedUpdateNeeded = false;
-
-
-// The Panels are chained so calculate starting position
-// LIP Panel wiring ECM -> Video Record/IFEI -> Placard
-// UIP Panel wiring Master Arm -> Hud Control -> Spin Recovery
-// Two chains are required for UIP/LIP as the Jet Station Select Placard and
-//    (as of the version 1) the Spin Recovery do not pass the data signal through
-
-const int ECM_JET_START_POS       = 0;
-const int VID_RECORD_START_POS    = ECM_JETT_LED_COUNT;
-const int PLACARD_LED_START_POS   = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT;
-
-const int MASTER_ARM_START_POS    = 0;
-const int HUD_CONTROL_START_POS   = MASTER_ARM_LED_COUNT;
-const int SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT;
-
-// Special Led Positions on LIP and UIP Panels
-#define MASTER_ARM_READY_1 0
-#define MASTER_ARM_READY_2 1
-#define MASTER_ARM_DISCH_1 2
-#define MASTER_ARM_DISCH_2 3
-#define MASTER_ARM_AA_1 25
-#define MASTER_ARM_AA_2 26
-#define MASTER_ARM_AG_1 27
-#define MASTER_ARM_AG_2 28
-
-//#define ECM_JETT_1 74
-//#define ECM_JETT_2 75
-//#define ECM_JETT_3 76
-//#define ECM_JETT_4 77
-
-// ECM Testing
-#define ECM_JETT_1 1
-#define ECM_JETT_2 5
-#define ECM_JETT_3 10
-#define ECM_JETT_4 11
-
-
-
-#define SPIN_1 29
-#define SPIN_2 36
-
-
 
 void setup() {
 
@@ -323,94 +343,6 @@ void setup() {
 
 
 
-
-
-
-void Typeout(int packetLength) {
-
-  Keyboard.print("Packet received - Length ");
-  Keyboard.println(String(packetLength));
-
-  String thisSet = "";
-  for (int characterPtr = 0; characterPtr < packetLength ; characterPtr++ ) {
-    Keyboard.print(keyboardpacketBuffer[characterPtr]);
-    if (String(keyboardpacketBuffer[characterPtr]) == " ") {
-      Keyboard.println("");
-      Keyboard.press(KEY_LEFT_SHIFT);
-      delay(delayBetweenRelease);
-      Keyboard.println(thisSet);
-      Keyboard.releaseAll();
-      delay(delayBetweenRelease);
-
-      thisSet = "";
-    }
-    else {
-      thisSet = thisSet + String(keyboardpacketBuffer[characterPtr]);
-    }
-  }
-  if (thisSet != "") {
-    Keyboard.println("");
-    delay(delayBetweenRelease);
-    Keyboard.press(KEY_LEFT_SHIFT);
-    Keyboard.println(thisSet);
-    Keyboard.releaseAll();
-    delay(delayBetweenRelease);
-  }
-
-}
-
-void TurnOnAPU(int packetLength) {
-
-  // Now need to walk through received string - Modifers must be sent first, so build up
-  // A list of them using a space as a delimiter
-
-  bool leftAltInUse = false;
-  String thisElement = "";
-  char keyToPress[50];
-  if (Serial_In_Use == 1)  {
-    Serial.println("Packet Received");
-
-    String thisSet = "";
-    for (int characterPtr = 0; characterPtr < packetLength ; characterPtr++ ) {
-      //Serial.print(packetBuffer[characterPtr]);
-      if (String(keyboardpacketBuffer[characterPtr]) == " ") {
-        if (thisElement == "LALT") {
-          leftAltInUse = true;
-          Serial.println("Left Alt in Use");
-        }
-        thisElement = "";
-      }
-      else {
-        thisElement = thisElement + String(keyboardpacketBuffer[characterPtr]);
-      }
-
-    }
-    Serial.println(thisElement);
-  }
-
-
-  if (leftAltInUse)
-    Keyboard.press(KEY_LEFT_ALT);
-
-  if (thisElement.length() == 1) {
-    Serial.println("Correct length of Element");
-    thisElement.toCharArray(keyToPress, 2);
-    Serial.println(String(keyToPress[0]));
-    Keyboard.press(keyToPress[0]);
-  } else
-    Keyboard.press('r');
-  delay(delayBetweenRelease);
-  Keyboard.releaseAll();
-
-  if (Serial_In_Use == 1)  {
-    Serial.println("Keys Released");
-  }
-
-}
-
-
-
-
 void SendCharactersToKeyboard(int packetLength) {
 
   // Now need to walk through received string - Modifers must be sent first, so build up
@@ -435,7 +367,7 @@ void SendCharactersToKeyboard(int packetLength) {
   String thisElement = "";
   char keyToPress[50];
   if (Serial_In_Use == 1)  {
-    Serial.println("Packet Received");
+    if (Serial_In_Use) Serial.println("Packet Received");
     Serial.print("Len is ");
     Serial.println(packetLength);
 
@@ -537,7 +469,7 @@ void SendCharactersToKeyboard(int packetLength) {
 
 
 
-  // If the String includes a Carraige return at the end remove it
+  // If the String includes a Carriage return at the end remove it
   // This can occur while sending test strings
 
   if (thisElement[thisElement.length() - 1] == 0x0A) {
@@ -729,14 +661,9 @@ void SendCharactersToKeyboard(int packetLength) {
   //KEY_CAPS_LOCK   0xC1  193
 
 
+  releaseKeysNeeded = true;
+  timeBeforeReleaseAllKeys = millis() + delayBetweenRelease;
 
-  delay(delayBetweenRelease);
-
-  Keyboard.releaseAll();
-
-  if (Serial_In_Use == 1)  {
-    Serial.println("Keys Released");
-  }
 
 }
 
@@ -748,8 +675,8 @@ void SetBacklighting()
 
   bool bLocalDebug = false;
 
-  if (Debug_Display || bLocalDebug ) Serial.println("Entering SetBacklighting");
-  if (Debug_Display || bLocalDebug ) Serial.println("Console Brightness: " + String(consoleBrightness));
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Entering SetBacklighting");
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Console Brightness: " + String(consoleBrightness));
 
   // Left and Right Consoles are entirely flood so nothing special needed there
   // Forward console has exceptions
@@ -917,8 +844,8 @@ void SetIndicatorLighting()
 
   bool bLocalDebug = false;
 
-  if (Debug_Display || bLocalDebug ) Serial.println("Entering SetIndicatorlighting");
-  if (Debug_Display || bLocalDebug ) Serial.println("Indicator Brightness: " + String(indicatorBrightness));
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Entering SetIndicatorlighting");
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Indicator Brightness: " + String(indicatorBrightness));
 
   Update_ECMJet();
   Update_MASTER_ARM_DISCH_READY();
@@ -927,7 +854,7 @@ void SetIndicatorLighting()
   Update_MASTER_ARM_AG();
   Update_SPIN();
 
-  if (Debug_Display || bLocalDebug ) Serial.println("Exiting SetIndicatorlighting");
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Exiting SetIndicatorlighting");
 }
 
 
@@ -943,7 +870,7 @@ void ProcessReceivedString()
   bool bLocalDebug = true;
   int tempVar = 0;
 
-  if (Debug_Display || bLocalDebug ) Serial.println("Processing Led Packet");
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Processing Led Packet");
 
 
   String sWrkStr = "";
@@ -953,19 +880,19 @@ void ProcessReceivedString()
 
   ParameterNamePtr = strtok(ledpacketBuffer, delim);
   String ParameterNameString(ParameterNamePtr);
-  if (Debug_Display || bLocalDebug ) Serial.println("Parameter Name " + ParameterNameString);
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Name " + ParameterNameString);
 
   ParameterValuePtr   = strtok(NULL, delim);
   String ParameterValue(ParameterValuePtr);
-  if (Debug_Display || bLocalDebug ) Serial.println("Parameter Value " + ParameterValue);
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Value " + ParameterValue);
 
 
 
   if (ParameterNameString.equalsIgnoreCase("ConsoleBrightness")) {
-    Serial.println("Found Console Brightness");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found Console Brightness");
     consoleBrightness = ParameterValue.toInt();
 
-    if (Debug_Display || bLocalDebug ) Serial.println("Console Brightness: " + String(consoleBrightness));
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Console Brightness: " + String(consoleBrightness));
     if (consoleBrightness >= MAX_BRIGHTNESS) consoleBrightness = MAX_BRIGHTNESS;
 
     SetBacklighting();
@@ -973,10 +900,10 @@ void ProcessReceivedString()
   }
 
   if (ParameterNameString.equalsIgnoreCase("IndicatorBrightness")) {
-    Serial.println("Found Indicator Brightness");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found Indicator Brightness");
     indicatorBrightness = ParameterValue.toInt();
 
-    if (Debug_Display || bLocalDebug ) Serial.println("Indicator Brightness: " + String(indicatorBrightness));
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Indicator Brightness: " + String(indicatorBrightness));
     if (indicatorBrightness >= MAX_BRIGHTNESS) indicatorBrightness = MAX_BRIGHTNESS;
 
     SetIndicatorLighting();
@@ -984,10 +911,10 @@ void ProcessReceivedString()
   }
 
   if (ParameterNameString.equalsIgnoreCase("Brightness")) {
-    Serial.println("Found Global Brightness");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found Global Brightness");
     indicatorBrightness = ParameterValue.toInt();
     consoleBrightness = indicatorBrightness;
-    if (Debug_Display || bLocalDebug ) Serial.println("Global Brightness: " + String(indicatorBrightness));
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Global Brightness: " + String(indicatorBrightness));
     if (indicatorBrightness >= MAX_BRIGHTNESS) indicatorBrightness = MAX_BRIGHTNESS;
     if (consoleBrightness >= MAX_BRIGHTNESS) consoleBrightness = MAX_BRIGHTNESS;
     SetBacklighting();
@@ -997,7 +924,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("ECM_JET")) {
-    if (Debug_Display || bLocalDebug ) Serial.println("Found ECM Jet");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found ECM Jet");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       ECM_JET = true;
@@ -1009,7 +936,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_DISCH_READY")) {
-    if (Debug_Display || bLocalDebug ) Serial.println("Found MASTER_ARM_DISCH_READY");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found MASTER_ARM_DISCH_READY");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       MASTER_ARM_DISCH_READY = true;
@@ -1022,7 +949,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_DISCH")) {
-    if (Debug_Display || bLocalDebug ) Serial.println("Found MASTER_ARM_DISCH");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found MASTER_ARM_DISCH");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       MASTER_ARM_DISCH = true;
@@ -1034,7 +961,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_AA")) {
-    if (Debug_Display || bLocalDebug ) Serial.println("Found MASTER_ARM_AA");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found MASTER_ARM_AA");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       MASTER_ARM_AA = true;
@@ -1046,7 +973,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_AG")) {
-    if (Debug_Display || bLocalDebug ) Serial.println("Found MASTER_ARM_AG");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found MASTER_ARM_AG");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       MASTER_ARM_AG = true;
@@ -1058,7 +985,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("SPIN")) {
-    if (Debug_Display || bLocalDebug ) Serial.println("Found SPIN");
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found SPIN");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       SPIN = true;
@@ -1097,6 +1024,20 @@ void loop() {
   }
 
 
+
+  if ((releaseKeysNeeded == true)  && (millis() >= timeBeforeReleaseAllKeys)) {
+
+    Keyboard.releaseAll();
+
+    if (Serial_In_Use == 1)  {
+      Serial.println("Keys Released");
+    }
+    releaseKeysNeeded = false;
+  }
+
+
+
+
   // Handle Keyboard updates
   keyboardpacketSize = keyboardudp.parsePacket();
   keyboardLen = keyboardudp.read(keyboardpacketBuffer, 999);
@@ -1120,6 +1061,9 @@ void loop() {
   if (ledPacketSize) {
     ProcessReceivedString();
   }
+
+
+
 
   if ((LedUpdateNeeded == true) && (millis() >= timeBeforeNextLedUpdate)) {
     FastLED.show();
