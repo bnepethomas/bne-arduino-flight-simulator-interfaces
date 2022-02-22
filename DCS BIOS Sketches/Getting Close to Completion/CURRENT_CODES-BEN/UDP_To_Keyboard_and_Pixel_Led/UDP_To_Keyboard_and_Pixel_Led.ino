@@ -77,7 +77,7 @@
 
 */
 #define Ethernet_In_Use 1
-const int Serial_In_Use = 0;
+const int Serial_In_Use = 1;
 #define Reflector_In_Use 0
 
 
@@ -146,7 +146,7 @@ unsigned long NEXT_LED_UPDATE = 0;
 bool ECM_JET = false;
 bool MASTER_ARM_DISCH_READY = false;
 bool MASTER_ARM_DISCH = false;
-bool MASTER_ARM_AA = false;
+bool MASTER_ARM_AA = true;
 bool MASTER_ARM_AG = false;
 bool SPIN = false;
 
@@ -1040,7 +1040,7 @@ void loop() {
       // SetBacklightingColour();
       FastLED.setBrightness(MAX_MASTER_BRIGHTNESS);
       consoleBrightness = 0;
-      indicatorBrightness = 0;
+      indicatorBrightness = 100;
       SetBacklighting();
       SetIndicatorLighting();
       FastLED.show();

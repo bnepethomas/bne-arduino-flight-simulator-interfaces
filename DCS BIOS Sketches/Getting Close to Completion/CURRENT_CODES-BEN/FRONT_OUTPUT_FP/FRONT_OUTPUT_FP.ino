@@ -19,7 +19,7 @@
 
 
 
-// Todo's 
+// Todo's
 // CONSOLE BRIGHTNESS
 // INDICATOR BRIGHTNESS
 // ECM_JET
@@ -262,8 +262,8 @@ void onCanopySwChange(unsigned int newValue) {
   {
     CanopySwitchState = false;
   }
-  digitalWrite(CANOPY_MAG_PORT, CanopySwitchState); 
-    digitalWrite( RED_STATUS_LED_PORT, newValue);
+  digitalWrite(CANOPY_MAG_PORT, CanopySwitchState);
+  digitalWrite( RED_STATUS_LED_PORT, newValue);
 }
 DcsBios::IntegerBuffer canopySwBuffer(0x74ce, 0x0300, 8, onCanopySwChange);
 
@@ -288,6 +288,42 @@ void onToTrimBtnChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer toTrimBtnBuffer(0x74b4, 0x2000, 13, onToTrimBtnChange);
 
+void onMcReadyChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("MASTER_ARM_DISCH_READY=1");
+  } else {
+    SendIPString("MASTER_ARM_DISCH_READY=0");
+  }
+}
+DcsBios::IntegerBuffer mcReadyBuffer(0x740c, 0x8000, 15, onMcReadyChange);
+
+void onMcDischChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("MASTER_ARM_DISCH=1");
+  } else {
+    SendIPString("MASTER_ARM_DISCH=0");
+  }
+}
+DcsBios::IntegerBuffer mcDischBuffer(0x740c, 0x4000, 14, onMcDischChange);
+
+void onMasterModeAaLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("MASTER_ARM_AA=1");
+  } else {
+    SendIPString("MASTER_ARM_AA=0");
+  }
+}
+DcsBios::IntegerBuffer masterModeAaLtBuffer(0x740c, 0x0200, 9, onMasterModeAaLtChange);
+
+
+void onMasterModeAgLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("MASTER_ARM_AG=1");
+  } else {
+    SendIPString("MASTER_ARM_AG=0");
+  }
+}
+DcsBios::IntegerBuffer masterModeAgLtBuffer(0x740c, 0x0400, 10, onMasterModeAgLtChange);
 
 void SendIPString(String LedToSend) {
   // Used to Send Desired Keystrokes to Due acting as Keyboard
@@ -454,7 +490,7 @@ void loop() {
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
-    // Turn off Red status led after flashtime
+  // Turn off Red status led after flashtime
   if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
     digitalWrite( RED_STATUS_LED_PORT, false);
     RED_LED_STATE = false;
