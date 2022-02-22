@@ -325,6 +325,16 @@ void onMasterModeAgLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer masterModeAgLtBuffer(0x740c, 0x0400, 10, onMasterModeAgLtChange);
 
+
+void onSpinLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("SPIN=1");
+  } else {
+    SendIPString("SPIN=0");
+  }
+}
+DcsBios::IntegerBuffer spinLtBuffer(0x742a, 0x0800, 11, onSpinLtChange);
+
 void SendIPString(String LedToSend) {
   // Used to Send Desired Keystrokes to Due acting as Keyboard
   if (Ethernet_In_Use == 1) {
