@@ -335,6 +335,17 @@ void onSpinLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer spinLtBuffer(0x742a, 0x0800, 11, onSpinLtChange);
 
+
+void onCmsdJetSelLChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("ECM_JET=1");
+  } else {
+    SendIPString("ECM_JET=0");
+  }
+}
+DcsBios::IntegerBuffer cmsdJetSelLBuffer(0x74d4, 0x8000, 15, onCmsdJetSelLChange);
+
+
 void SendIPString(String LedToSend) {
   // Used to Send Desired Keystrokes to Due acting as Keyboard
   if (Ethernet_In_Use == 1) {
@@ -350,6 +361,8 @@ void SendIPString(String LedToSend) {
     UpdateRedStatusLed();
   }
 }
+
+
 
 void UpdateRedStatusLed() {
   if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {

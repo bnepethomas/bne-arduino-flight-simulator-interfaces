@@ -144,10 +144,10 @@ CRGB UIP_CONSOLE_LED[UIP_CONSOLE_LED_COUNT];
 unsigned long NEXT_LED_UPDATE = 0;
 
 // Indicator Variables
-bool ECM_JET = false;
+bool ECM_JET = true;
 bool MASTER_ARM_DISCH_READY = false;
 bool MASTER_ARM_DISCH = false;
-bool MASTER_ARM_AA = true;
+bool MASTER_ARM_AA = false;
 bool MASTER_ARM_AG = false;
 bool SPIN = false;
 
