@@ -2,14 +2,12 @@
 // *************************************************************
 // *************************************************************
 // Board MEGA 256
-// SN - 9593132393135141F142
-// Ethernet
-// MAC - A8:61:0A:AE:6F:84
+// SN - 7543331363935150A1E0
 // Location
 // UIP (inside Upper Console)
 // *************************************************************
 // *************************************************************
-// Current COM 7 - Check S/N First - Before any new Uploads
+// Current COM 11 - Check S/N First - Before any new Uploads
 // *************************************************************
 // *************************************************************
 // The project intends to drive the OLED displays on a F18C Hornet Up Front Controller
@@ -224,6 +222,7 @@ void tcaselect(uint8_t i) {
 
 void setup() {
   //Serial.begin(115200);
+  delay(500);
   Wire.begin();
 
 
