@@ -346,13 +346,16 @@ void onCmsdJetSelLChange(unsigned int newValue) {
 DcsBios::IntegerBuffer cmsdJetSelLBuffer(0x74d4, 0x8000, 15, onCmsdJetSelLChange);
 
 
-void onConsolesDimmerChange(unsigned int newValue) {
+
+void onConsoleIntLtChange(unsigned int newValue) {
   int ConsolesDimmerValue = 0;
  
   ConsolesDimmerValue = map(newValue, 0, 65000, 0, 100); 
-  SendIPString("ConsoleBrightness=" + String(ConsolesDimmerValue));/* your code here */
+  SendIPString("ConsoleBrightness=" + String(ConsolesDimmerValue));
 }
-DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerChange);
+
+DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
+
 
 
 void onWarnCautionDimmerChange(unsigned int newValue) {
@@ -362,6 +365,10 @@ void onWarnCautionDimmerChange(unsigned int newValue) {
   SendIPString("IndicatorBrightness=" + String(WarnCautionDimmerValue));/* your code here */
 }
 DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionDimmerChange);
+
+
+
+
 
 void SendIPString(String LedToSend) {
   // Used to Send Desired Keystrokes to Due acting as Keyboard
