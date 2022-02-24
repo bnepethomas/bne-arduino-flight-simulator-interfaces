@@ -116,7 +116,7 @@ const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT 
 // Order on connector is 5V GND 16 15 14 Last pin is not connected
 
 #define UIP_PIN                 14
-#define LIP_PIN                 15
+#define LIP_PIN                 16
 // Not used as locking collides 44
 // Not used as locking collides 46
 #define LEFT_CONSOLE_PIN        16
@@ -144,7 +144,7 @@ CRGB UIP_CONSOLE_LED[UIP_CONSOLE_LED_COUNT];
 unsigned long NEXT_LED_UPDATE = 0;
 
 // Indicator Variables
-bool ECM_JET = true;
+bool ECM_JET = false;
 bool MASTER_ARM_DISCH_READY = false;
 bool MASTER_ARM_DISCH = false;
 bool MASTER_ARM_AA = false;
@@ -187,10 +187,10 @@ const int SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUN
 
 
 // ECM Testing
-#define ECM_JETT_1 1
-#define ECM_JETT_2 5
-#define ECM_JETT_3 10
-#define ECM_JETT_4 11
+#define ECM_JETT_1 74
+#define ECM_JETT_2 75
+#define ECM_JETT_3 76
+#define ECM_JETT_4 77
 
 
 #define SPIN_1 29
@@ -342,7 +342,7 @@ void setup() {
   delay(2000);
 
 
-    // Now apply everything we just told it about the setup.
+  // Now apply everything we just told it about the setup.
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Yellow);
   fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Yellow);
   fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Yellow);
@@ -351,14 +351,23 @@ void setup() {
   FastLED.show();
   delay(2000);
 
-  
+  fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Black);
+  fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Black);
+  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Black);
+  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Black);
+
+  FastLED.show();
+  delay(1000);
+
+
+  // Now apply everything we just told it about the setup.
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
-
   FastLED.show();
   delay(1000);
+  
   NEXT_LED_UPDATE = millis() + 1000;
 
 
