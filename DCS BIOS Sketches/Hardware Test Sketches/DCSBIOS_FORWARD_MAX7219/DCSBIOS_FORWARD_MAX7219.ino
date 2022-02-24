@@ -31,7 +31,7 @@ void setup() {
     /* and clear the display */
     lc.clearDisplay(displayunit);
   }
-  Serial.begin(25000);
+  Serial.begin(250000);
 
 }
 
@@ -173,7 +173,7 @@ void single() {
 }
 
 void AllOn() {
-  for (int displayunit = 0; displayunit <9; displayunit++) {
+  for (int displayunit = 0; displayunit < 9; displayunit++) {
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8 ; col++) {
         if (col != 9 && col != 9 && col != 9)
@@ -214,21 +214,17 @@ void ChipOff(int selectedChip) {
 
 
 void WalkA7129() {
-  String chipNo = "";
-  int UniUnderTest = 0;
-  Serial.println("Enter Chip Number to Walk");
-  chipNo = Serial.read();
-  Serial.println("Walking Chip : " + chipNo);
 
+  int UnitUnderTest = 4;
+
+  delaytime = 3000;
   for (int row = 0; row < 8; row++) {
     for (int col = 0; col < 8; col++) {
       if (col != 9) {
         delay(delaytime);
         lc.setLed(UnitUnderTest, row, col, true);
 
-        Serial.println("Testing Row: " + String(row) + " Column:" + String(col));
-        Serial.println("click enter to continue");
-        Serial.read();
+        Serial.println("Testing Unit:" + String(UnitUnderTest)  + " Column:" + String(col)+ " Row: " + String(row));
         delay(delaytime);
 
         for (int i = 0; i < col; i++) {
@@ -385,17 +381,19 @@ void AOA_BELOW(unsigned int newValue) {
 
 
 void FLAPS(unsigned int newValue) {
-  lc.setLed(SELECT_JET_PANEL,AMBER_FLAPS_COL_A,AMBER_FLAPS_ROW_A,newValue);
-  lc.setLed(SELECT_JET_PANEL,AMBER_FLAPS_COL_B,AMBER_FLAPS_ROW_B,newValue); 
+  lc.setLed(SELECT_JET_PANEL, AMBER_FLAPS_COL_A, AMBER_FLAPS_ROW_A, newValue);
+  lc.setLed(SELECT_JET_PANEL, AMBER_FLAPS_COL_B, AMBER_FLAPS_ROW_B, newValue);
 }
 void loop() {
 
   //FLAPS(0);
-  //ChipOn(2);
+  delay(1000);
+  WalkA7129();
   flashstatusled();
   AllOn();
   //FLAPS(1);
-  //ChipOff(2);
+  delay(1000);
+  //ChipOff(3);
   flashstatusled();
   AllOff();
 

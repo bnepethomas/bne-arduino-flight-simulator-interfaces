@@ -450,6 +450,13 @@
 #define STATUS_LED_PORT 6
 int devices = 6;
 
+#define DAY_MODE 0
+#define NIGHT_MODE 1
+#define NVG_MODE 2
+int WARN_CAUTION_DIMMER_VALUE = 255;
+int AOA_DIMMER_VALUE = 255;
+int DAY_NIGHT_SWITCH_MODE = DAY_MODE;
+
 #define RELAY_PORT_1 22
 #define RELAY_PORT_2 23
 #define RELAY_PORT_3 24
@@ -967,6 +974,87 @@ void onLowAltWarnLtChange(unsigned int newValue) {
 DcsBios::IntegerBuffer lowAltWarnLtBuffer(0x749c, 0x8000, 15, onLowAltWarnLtChange);
 
 
+
+
+void onAoaIndexerHighChange(unsigned int newValue) {
+  lc.setLed(AOA_DIM, AOA_BELOW_COL, AOA_BELOW_ROW, newValue);
+}
+DcsBios::IntegerBuffer aoaIndexerHighBuffer(0x7408, 0x0008, 3, onAoaIndexerHighChange);
+
+
+void onAoaIndexerNormalChange(unsigned int newValue) {
+  lc.setLed(AOA_DIM, AOA_ON_COL, AOA_ON_ROW, newValue);
+}
+DcsBios::IntegerBuffer aoaIndexerNormalBuffer(0x7408, 0x0010, 4, onAoaIndexerNormalChange);
+
+void onAoaIndexerLowChange(unsigned int newValue) {
+  lc.setLed(AOA_DIM, AOA_ABOVE_COL, AOA_ABOVE_ROW, newValue);
+}
+DcsBios::IntegerBuffer aoaIndexerLowBuffer(0x7408, 0x0020, 5, onAoaIndexerLowChange);
+
+
+void onLsLockChange(unsigned int newValue) {
+  lc.setLed(LOCK_SHOOT, LOCK_COL_A, LOCK_ROW_A, newValue);
+  lc.setLed(LOCK_SHOOT, LOCK_COL_B, LOCK_ROW_B, newValue);
+}
+DcsBios::IntegerBuffer lsLockBuffer(0x7408, 0x0001, 0, onLsLockChange);
+
+void onLsShootChange(unsigned int newValue) {
+  lc.setLed(LOCK_SHOOT, SHOOT_COL_A, SHOOT_ROW_A, newValue);
+  lc.setLed(LOCK_SHOOT, SHOOT_COL_B, SHOOT_ROW_B, newValue);
+}
+DcsBios::IntegerBuffer lsShootBuffer(0x7408, 0x0002, 1, onLsShootChange);
+
+void onLsShootStrobeChange(unsigned int newValue) {
+  lc.setLed(LOCK_SHOOT, SHOOT_FLASH_COL_A, SHOOT_FLASH_ROW_A, newValue);
+  lc.setLed(LOCK_SHOOT, SHOOT_FLASH_COL_B, SHOOT_FLASH_ROW_B, newValue);
+}
+DcsBios::IntegerBuffer lsShootStrobeBuffer(0x7408, 0x0004, 2, onLsShootStrobeChange);
+
+
+
+void onWarnCautionDimmerChange(unsigned int newValue) {
+
+  WARN_CAUTION_DIMMER_VALUE = map(newValue, 0, 65000, 0, 15);
+
+  for (int address = 0; address < devices; address++) {
+    /* Set the brightness  */
+    lc.setIntensity(address, WARN_CAUTION_DIMMER_VALUE);
+  }
+}
+DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionDimmerChange);
+
+
+void onCockkpitLightModeSwChangeMax7219(unsigned int newValue) {
+
+  // Called from onCockkpitLightModeSwChange in IFEI block
+
+  if (newValue == NVG_MODE) {
+    DAY_NIGHT_SWITCH_MODE = NVG_MODE;
+  } else if (newValue == NIGHT_MODE) {
+    DAY_NIGHT_SWITCH_MODE = NIGHT_MODE;
+  } else {
+    DAY_NIGHT_SWITCH_MODE = DAY_MODE;
+  }
+  updateMax7219Brightness();
+}
+
+void updateMax7219Brightness() {
+
+  int LocalBrightness = 15;
+  
+  if (DAY_NIGHT_SWITCH_MODE == NVG_MODE) {
+    LocalBrightness = 1;
+  } else if (DAY_NIGHT_SWITCH_MODE == NIGHT_MODE) {
+    LocalBrightness = 8;
+  } else {
+    LocalBrightness = 15;
+  }
+  for (int address = 0; address < devices; address++) {
+    /* Set the brightness  */
+    lc.setIntensity(address, LocalBrightness);
+  }
+}
 // ************************************ End Max7219
 
 // ************************************ Begin Nextron Block
@@ -1643,6 +1731,10 @@ DcsBios::StringBuffer<1> ifeiRpointerTextureBuffer(0x74da, onIfeiRpointerTexture
 
 void onCockkpitLightModeSwChange(unsigned int newValue) {
 
+  // Update the bright of max7219 Leds - PT 20220225
+  onCockkpitLightModeSwChangeMax7219(newValue);
+
+
   ifeiCol = newValue;
   if (ifeiCol == 2) {
     nextion.print("t0.pco=2016");
@@ -1802,14 +1894,9 @@ DcsBios::IntegerBuffer ifeiBuffer(0x74de, 0xffff, 0, onIfeiChange);
 void onConsoleIntLtChange(unsigned int newValue) {
   if (newValue != 0) {
     digitalWrite(BACKLIGHTING_RELAY_PORT, true);
-    //    digitalWrite(RELAY_PORT_2, true);
-    //    digitalWrite(RELAY_PORT_3, true);
-    //    digitalWrite(RELAY_PORT_4, true);
   } else {
     digitalWrite(BACKLIGHTING_RELAY_PORT, false);
-    //    digitalWrite(RELAY_PORT_2, false);
-    //    digitalWrite(RELAY_PORT_3, false);
-    //    digitalWrite(RELAY_PORT_4, false);
+
   }
 }
 DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
@@ -1851,7 +1938,7 @@ DcsBios::IntegerBuffer batterySwBuffer(0x74c4, 0x1800, 11, onBatterySwChange);
 
 void CheckLeftAndAMPCDScreenPowerState() {
 
-  if ((LEFT_GEN_SWITCH_STATE == true) || ( BATTERY_SWITCH_STATE == true)){
+  if ((LEFT_GEN_SWITCH_STATE == true) || ( BATTERY_SWITCH_STATE == true)) {
     digitalWrite(LEFT_AND_AMPCD_SCREENS_RELAY_PORT, true);
   } else {
     digitalWrite(LEFT_AND_AMPCD_SCREENS_RELAY_PORT, false);
@@ -1860,7 +1947,7 @@ void CheckLeftAndAMPCDScreenPowerState() {
 
 void CheckRightScreenPowerState() {
 
-  if ((RIGHT_GEN_SWITCH_STATE == true)|| ( BATTERY_SWITCH_STATE == true)) {
+  if ((RIGHT_GEN_SWITCH_STATE == true) || ( BATTERY_SWITCH_STATE == true)) {
     digitalWrite(RIGHT_SCREEN_RELAY_PORT, true);
   } else {
     digitalWrite(RIGHT_SCREEN_RELAY_PORT, false);
