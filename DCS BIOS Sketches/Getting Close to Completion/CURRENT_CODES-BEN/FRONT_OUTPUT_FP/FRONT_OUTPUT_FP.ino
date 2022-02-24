@@ -361,8 +361,8 @@ DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChang
 void onWarnCautionDimmerChange(unsigned int newValue) {
   int WarnCautionDimmerValue = 0;
  
-  WarnCautionDimmerValue = map(newValue, 0, 65000, 0, 100); 
-  SendIPString("IndicatorBrightness=" + String(WarnCautionDimmerValue));/* your code here */
+  WarnCautionDimmerValue = map(newValue, 0, 65000, 0, 255); 
+  SendIPString("WarningBrightness=" + String(WarnCautionDimmerValue));/* your code here */
 }
 DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionDimmerChange);
 

@@ -90,6 +90,7 @@ String COLOUR   =  "GREEN";         // The color name that you want to show, e.g
 int startUpBrightness =   50;       // LED Brightness 0 = Off, 255 = 100%.
 #define MAX_BRIGHTNESS 255          // This is relative to master used with CHSV
 #define MAX_MASTER_BRIGHTNESS 100   // Overrides all brightness - used with setbrightness method
+#define MAX_WARNING_BRIGHTNESS 255
 
 // Set your power supplies 5V current limit.
 
@@ -154,7 +155,7 @@ bool SPIN = false;
 
 int ledptr = 0;
 int consoleBrightness = 50;                     // Global Value for Console Brightness
-int indicatorBrightness = 50;                   // Global value for Indicator Brightness
+int warningBrightness = 50;                   // Global value for Indicator Brightness
 unsigned long timeBeforeNextLedUpdate = 0;
 unsigned long minTimeBetweenLedUpdates = 40;    // Provides time foir several updates to be put together before throwing to the led strings
 bool LedUpdateNeeded = false;                   // Flags if we have something to update
@@ -798,10 +799,10 @@ void SetBacklighting()
 void Update_ECMJet() {
 
   if (ECM_JET == true) {
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1 ] = CHSV( CHSVGreen, 255, warningBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2 ] = CHSV( CHSVGreen, 255, warningBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3 ] = CHSV( CHSVGreen, 255, warningBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4 ] = CHSV( CHSVGreen, 255, warningBrightness);
   } else {
     LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1 ] = CHSV( CHSVGreen, 255, 0);
     LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2 ] = CHSV( CHSVGreen, 255, 0);
@@ -815,8 +816,8 @@ void Update_ECMJet() {
 void Update_MASTER_ARM_DISCH_READY() {
 
   if (MASTER_ARM_DISCH_READY == true) {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVYellow, 255, indicatorBrightness);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVYellow, 255, indicatorBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVYellow, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVYellow, 255, warningBrightness);
   } else {
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVYellow, 255, 0);
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVYellow, 255, 0);
@@ -828,8 +829,8 @@ void Update_MASTER_ARM_DISCH_READY() {
 void Update_MASTER_ARM_DISCH() {
 
   if (MASTER_ARM_DISCH == true) {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVGreen, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVGreen, 255, warningBrightness);
   } else {
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVGreen, 255, 0);
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVGreen, 255, 0);
@@ -840,8 +841,8 @@ void Update_MASTER_ARM_DISCH() {
 void Update_MASTER_ARM_AA() {
 
   if (MASTER_ARM_AA == true) {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2 ] = CHSV( CHSVGreen, 255, warningBrightness);
   } else {
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, 0);
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2 ] = CHSV( CHSVGreen, 255, 0);
@@ -852,8 +853,8 @@ void Update_MASTER_ARM_AA() {
 void Update_MASTER_ARM_AG() {
 
   if (MASTER_ARM_AG == true) {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2 ] = CHSV( CHSVGreen, 255, indicatorBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1 ] = CHSV( CHSVGreen, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2 ] = CHSV( CHSVGreen, 255, warningBrightness);
   } else {
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1 ] = CHSV( CHSVGreen, 255, 0);
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2 ] = CHSV( CHSVGreen, 255, 0);
@@ -865,8 +866,8 @@ void Update_MASTER_ARM_AG() {
 void Update_SPIN() {
 
   if (SPIN == true) {
-    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1 ] = CHSV( CHSVYellow, 255, indicatorBrightness);
-    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2 ] = CHSV( CHSVYellow, 255, indicatorBrightness);
+    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1 ] = CHSV( CHSVYellow, 255, warningBrightness);
+    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2 ] = CHSV( CHSVYellow, 255, warningBrightness);
   } else {
     UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1 ] = CHSV( CHSVYellow, 255, 0);
     UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2 ] = CHSV( CHSVYellow, 255, 0);
@@ -874,13 +875,13 @@ void Update_SPIN() {
   LedUpdateNeeded = true;
 }
 
-void SetIndicatorLighting()
+void SetWarningLighting()
 {
 
   bool bLocalDebug = false;
 
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Entering SetIndicatorlighting");
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Indicator Brightness: " + String(indicatorBrightness));
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Entering SetWarningLighting");
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("warning Brightness: " + String(warningBrightness));
 
   Update_ECMJet();
   Update_MASTER_ARM_DISCH_READY();
@@ -889,7 +890,7 @@ void SetIndicatorLighting()
   Update_MASTER_ARM_AG();
   Update_SPIN();
 
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Exiting SetIndicatorlighting");
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Exiting SetWarninglighting");
 }
 
 
@@ -934,28 +935,18 @@ void ProcessReceivedString()
     LedUpdateNeeded = true;
   }
 
-  if (ParameterNameString.equalsIgnoreCase("IndicatorBrightness")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found Indicator Brightness");
-    indicatorBrightness = ParameterValue.toInt();
+  if (ParameterNameString.equalsIgnoreCase("WarningBrightness")) {
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found Warning Brightness");
+    warningBrightness = ParameterValue.toInt();
 
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Indicator Brightness: " + String(indicatorBrightness));
-    if (indicatorBrightness >= MAX_BRIGHTNESS) indicatorBrightness = MAX_BRIGHTNESS;
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Warning Brightness: " + String(warningBrightness));
+    if (warningBrightness >= MAX_WARNING_BRIGHTNESS) warningBrightness = MAX_WARNING_BRIGHTNESS;
 
-    SetIndicatorLighting();
+    SetWarningLighting();
     LedUpdateNeeded = true;;
   }
 
-  if (ParameterNameString.equalsIgnoreCase("Brightness")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found Global Brightness");
-    indicatorBrightness = ParameterValue.toInt();
-    consoleBrightness = indicatorBrightness;
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Global Brightness: " + String(indicatorBrightness));
-    if (indicatorBrightness >= MAX_BRIGHTNESS) indicatorBrightness = MAX_BRIGHTNESS;
-    if (consoleBrightness >= MAX_BRIGHTNESS) consoleBrightness = MAX_BRIGHTNESS;
-    SetBacklighting();
-    SetIndicatorLighting();
-    LedUpdateNeeded = true;
-  }
+
 
 
   if (ParameterNameString.equalsIgnoreCase("ECM_JET")) {
@@ -1050,9 +1041,9 @@ void loop() {
       // SetBacklightingColour();
       FastLED.setBrightness(MAX_MASTER_BRIGHTNESS);
       consoleBrightness = 0;
-      indicatorBrightness = 100;
+      warningBrightness = 100;
       SetBacklighting();
-      SetIndicatorLighting();
+      SetWarningLighting();
       FastLED.show();
     }
 
