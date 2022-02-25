@@ -698,19 +698,19 @@ DcsBios::IntegerBuffer clipSpareCtn3LtBuffer(0x74a8, 0x0400, 10, onClipSpareCtn3
 
 /*//********** LEFT EWI **********\\*/
 void onFireLeftLtChange(unsigned int newValue) {
-  lc.setLed(LEFT_EWI, LEFT_FIRE_A_COL, LEFT_FIRE_A_ROW, newValue);
-  lc.setLed(LEFT_EWI, LEFT_FIRE_B_COL, LEFT_FIRE_B_ROW, newValue);
-  lc.setLed(LEFT_EWI, LEFT_FIRE_C_COL, LEFT_FIRE_C_ROW, newValue);
-  lc.setLed(LEFT_EWI, LEFT_FIRE_D_COL, LEFT_FIRE_D_ROW, newValue);
+  //  lc.setLed(LEFT_EWI, LEFT_FIRE_A_COL, LEFT_FIRE_A_ROW, newValue);
+  //  lc.setLed(LEFT_EWI, LEFT_FIRE_B_COL, LEFT_FIRE_B_ROW, newValue);
+  //  lc.setLed(LEFT_EWI, LEFT_FIRE_C_COL, LEFT_FIRE_C_ROW, newValue);
+  //  lc.setLed(LEFT_EWI, LEFT_FIRE_D_COL, LEFT_FIRE_D_ROW, newValue);
 }
 DcsBios::IntegerBuffer fireLeftLtBuffer(0x7408, 0x0040, 6, onFireLeftLtChange);
 
 
 void onMasterCautionLtChange(unsigned int newValue) {
-  lc.setLed(LEFT_EWI, MSTR_CAUT_A_COL, MSTR_CAUT_A_ROW, newValue);
-  lc.setLed(LEFT_EWI, MSTR_CAUT_B_COL, MSTR_CAUT_B_ROW, newValue);
-  lc.setLed(LEFT_EWI, MSTR_CAUT_C_COL, MSTR_CAUT_C_ROW, newValue);
-  lc.setLed(LEFT_EWI, MSTR_CAUT_D_COL, MSTR_CAUT_D_ROW, newValue);
+  //  lc.setLed(LEFT_EWI, MSTR_CAUT_A_COL, MSTR_CAUT_A_ROW, newValue);
+  //  lc.setLed(LEFT_EWI, MSTR_CAUT_B_COL, MSTR_CAUT_B_ROW, newValue);
+  //  lc.setLed(LEFT_EWI, MSTR_CAUT_C_COL, MSTR_CAUT_C_ROW, newValue);
+  //  lc.setLed(LEFT_EWI, MSTR_CAUT_D_COL, MSTR_CAUT_D_ROW, newValue);
 }
 DcsBios::IntegerBuffer masterCautionLtBuffer(0x7408, 0x0200, 9, onMasterCautionLtChange);
 
@@ -1017,8 +1017,43 @@ DcsBios::IntegerBuffer lsShootStrobeBuffer(0x7408, 0x0004, 2, onLsShootStrobeCha
 
 void onWarnCautionDimmerChange(unsigned int newValue) {
 
+  if (newValue >= 60000) {
+
+
+    lc.setLed(LEFT_EWI, LEFT_FIRE_A_COL, LEFT_FIRE_A_ROW, 1);
+    lc.setLed(LEFT_EWI, LEFT_FIRE_B_COL, LEFT_FIRE_B_ROW, 1);
+    lc.setLed(LEFT_EWI, LEFT_FIRE_C_COL, LEFT_FIRE_C_ROW, 1);
+    lc.setLed(LEFT_EWI, LEFT_FIRE_D_COL, LEFT_FIRE_D_ROW, 1);
+
+    lc.setLed(LEFT_EWI, MSTR_CAUT_A_COL, MSTR_CAUT_A_ROW, 1);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_B_COL, MSTR_CAUT_B_ROW, 1);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_C_COL, MSTR_CAUT_C_ROW, 1);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_D_COL, MSTR_CAUT_D_ROW, 1);
+
+  } else if (newValue >= 5000) {
+    lc.setLed(LEFT_EWI, LEFT_FIRE_A_COL, LEFT_FIRE_A_ROW, 1);
+    lc.setLed(LEFT_EWI, LEFT_FIRE_B_COL, LEFT_FIRE_B_ROW, 1);
+    lc.setLed(LEFT_EWI, LEFT_FIRE_C_COL, LEFT_FIRE_C_ROW, 1);
+    lc.setLed(LEFT_EWI, LEFT_FIRE_D_COL, LEFT_FIRE_D_ROW, 1);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_A_COL, MSTR_CAUT_A_ROW, 0);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_B_COL, MSTR_CAUT_B_ROW, 0);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_C_COL, MSTR_CAUT_C_ROW, 0);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_D_COL, MSTR_CAUT_D_ROW, 0);
+  } else {
+    lc.setLed(LEFT_EWI, LEFT_FIRE_A_COL, LEFT_FIRE_A_ROW, 0);
+    lc.setLed(LEFT_EWI, LEFT_FIRE_B_COL, LEFT_FIRE_B_ROW, 0);
+    lc.setLed(LEFT_EWI, LEFT_FIRE_C_COL, LEFT_FIRE_C_ROW, 0);
+    lc.setLed(LEFT_EWI, LEFT_FIRE_D_COL, LEFT_FIRE_D_ROW, 0);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_A_COL, MSTR_CAUT_A_ROW, 1);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_B_COL, MSTR_CAUT_B_ROW, 1);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_C_COL, MSTR_CAUT_C_ROW, 1);
+    lc.setLed(LEFT_EWI, MSTR_CAUT_D_COL, MSTR_CAUT_D_ROW, 1);
+  }
+
   WARN_CAUTION_DIMMER_VALUE = map(newValue, 0, 65000, 0, 15);
   updatenonAOABrightness();
+
+
 }
 DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionDimmerChange);
 
