@@ -453,8 +453,9 @@ int devices = 6;
 #define DAY_MODE 0
 #define NIGHT_MODE 1
 #define NVG_MODE 2
-int WARN_CAUTION_DIMMER_VALUE = 255;
-int AOA_DIMMER_VALUE = 255;
+#define FULL_BRIGHTNESS 15
+int WARN_CAUTION_DIMMER_VALUE = 15;
+int AOA_DIMMER_VALUE = 15;
 int DAY_NIGHT_SWITCH_MODE = DAY_MODE;
 
 #define RELAY_PORT_1 22
@@ -977,7 +978,8 @@ DcsBios::IntegerBuffer lowAltWarnLtBuffer(0x749c, 0x8000, 15, onLowAltWarnLtChan
 
 
 void onAoaIndexerHighChange(unsigned int newValue) {
-  lc.setLed(AOA_DIM, AOA_BELOW_COL, AOA_BELOW_ROW, newValue);
+
+  lc.setLed(AOA_DIM, AOA_ABOVE_COL, AOA_ABOVE_ROW, newValue);
 }
 DcsBios::IntegerBuffer aoaIndexerHighBuffer(0x7408, 0x0008, 3, onAoaIndexerHighChange);
 
@@ -988,7 +990,7 @@ void onAoaIndexerNormalChange(unsigned int newValue) {
 DcsBios::IntegerBuffer aoaIndexerNormalBuffer(0x7408, 0x0010, 4, onAoaIndexerNormalChange);
 
 void onAoaIndexerLowChange(unsigned int newValue) {
-  lc.setLed(AOA_DIM, AOA_ABOVE_COL, AOA_ABOVE_ROW, newValue);
+  lc.setLed(AOA_DIM, AOA_BELOW_COL, AOA_BELOW_ROW, newValue);
 }
 DcsBios::IntegerBuffer aoaIndexerLowBuffer(0x7408, 0x0020, 5, onAoaIndexerLowChange);
 
@@ -1016,13 +1018,15 @@ DcsBios::IntegerBuffer lsShootStrobeBuffer(0x7408, 0x0004, 2, onLsShootStrobeCha
 void onWarnCautionDimmerChange(unsigned int newValue) {
 
   WARN_CAUTION_DIMMER_VALUE = map(newValue, 0, 65000, 0, 15);
-
-  for (int address = 0; address < devices; address++) {
-    /* Set the brightness  */
-    lc.setIntensity(address, WARN_CAUTION_DIMMER_VALUE);
-  }
+  updatenonAOABrightness();
 }
 DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionDimmerChange);
+
+void onHudAoaIndexerChange(unsigned int newValue) {
+  AOA_DIMMER_VALUE = map(newValue, 0, 65000, 8, 15);
+  updateAOABrightness();
+}
+DcsBios::IntegerBuffer hudAoaIndexerBuffer(0x745e, 0xffff, 0, onHudAoaIndexerChange);
 
 
 void onCockkpitLightModeSwChangeMax7219(unsigned int newValue) {
@@ -1036,25 +1040,39 @@ void onCockkpitLightModeSwChangeMax7219(unsigned int newValue) {
   } else {
     DAY_NIGHT_SWITCH_MODE = DAY_MODE;
   }
-  updateMax7219Brightness();
+  updatenonAOABrightness();
+  updateAOABrightness();
+
 }
 
-void updateMax7219Brightness() {
 
-  int LocalBrightness = 15;
-  
-  if (DAY_NIGHT_SWITCH_MODE == NVG_MODE) {
-    LocalBrightness = 1;
-  } else if (DAY_NIGHT_SWITCH_MODE == NIGHT_MODE) {
-    LocalBrightness = 8;
-  } else {
-    LocalBrightness = 15;
-  }
+void updatenonAOABrightness() {
+
   for (int address = 0; address < devices; address++) {
-    /* Set the brightness  */
-    lc.setIntensity(address, LocalBrightness);
+    if (address != AOA_DIM) {
+      // skip AOA as it is separately controlled
+      if (DAY_NIGHT_SWITCH_MODE == DAY_MODE) {
+        lc.setIntensity(address, FULL_BRIGHTNESS);
+      } else
+        lc.setIntensity(address, WARN_CAUTION_DIMMER_VALUE);
+    }
+
   }
 }
+
+
+
+void updateAOABrightness() {
+
+  if (DAY_NIGHT_SWITCH_MODE == DAY_MODE) {
+    lc.setIntensity(AOA_DIM, FULL_BRIGHTNESS);
+  } else {
+    lc.setIntensity(AOA_DIM, AOA_DIMMER_VALUE);
+  }
+}
+
+
+
 // ************************************ End Max7219
 
 // ************************************ Begin Nextron Block
