@@ -6,7 +6,7 @@
 //||              LOCATION IN THE PIT = LIP LEFT HAND SIDE             ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega                ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN -      ||\\
-//||            PROGRAM PORT CONNECTED COM PORT = COM 10             ||\\
+//||            PROGRAM PORT CONNECTED COM PORT = COM 19             ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 

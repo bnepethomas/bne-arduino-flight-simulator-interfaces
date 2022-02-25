@@ -7,7 +7,7 @@
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN - 9593132393135140E002      ||\\
 //||      ETHERNET SHEILD MAC ADDRESS = MAC - A8:61:0A:AE:83:18       ||\\
-//||                    CONNECTED COM PORT = COM 8                    ||\\
+//||                    CONNECTED COM PORT = COM 10                    ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
@@ -17,6 +17,47 @@
 //
 // This should work on any Arduino that has an ATMega328 controller
 // (Uno, Pro Mini, many others).
+
+
+#define Ethernet_In_Use 1
+const int Serial_In_Use = 0;
+#define Reflector_In_Use 1
+
+// ###################################### Begin Ethernet Related #############################
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+
+// These local Mac and IP Address will be reassigned early in startup based on
+// the device ID as set by address pins
+#define EthernetStartupDelay 500
+byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x06};
+IPAddress ip(172, 16, 1, 106);
+String strMyIP = "172.16.1.106";
+
+// Reflector
+IPAddress reflectorIP(172, 16, 1, 10);
+String strReflectorIP = "X.X.X.X";
+
+const unsigned int max7219port = 7788;
+const unsigned int remoteport = 49000;
+const unsigned int reflectorport = 27000;
+
+
+// Packet Length
+int keyboardpacketSize;
+int keyboardLen;
+
+
+EthernetUDP max7219udp;              // Max7219
+
+char keyboardpacketBuffer[1000];      //buffer to store keyboard data
+char outpacketBuffer[1000];           //buffer to store the outgoing data
+
+
+// ###################################### End Ethernet Related #############################
+
+
 
 #define DCSBIOS_IRQ_SERIAL
 //#define DCSBIOS_DEFAULT_SERIAL
@@ -457,6 +498,8 @@ int devices = 6;
 int WARN_CAUTION_DIMMER_VALUE = 15;
 int AOA_DIMMER_VALUE = 15;
 int DAY_NIGHT_SWITCH_MODE = DAY_MODE;
+int NEW_AOA_DIMMER_VALUE = 15;
+
 
 #define RELAY_PORT_1 22
 #define RELAY_PORT_2 23
@@ -698,19 +741,19 @@ DcsBios::IntegerBuffer clipSpareCtn3LtBuffer(0x74a8, 0x0400, 10, onClipSpareCtn3
 
 /*//********** LEFT EWI **********\\*/
 void onFireLeftLtChange(unsigned int newValue) {
-  //  lc.setLed(LEFT_EWI, LEFT_FIRE_A_COL, LEFT_FIRE_A_ROW, newValue);
-  //  lc.setLed(LEFT_EWI, LEFT_FIRE_B_COL, LEFT_FIRE_B_ROW, newValue);
-  //  lc.setLed(LEFT_EWI, LEFT_FIRE_C_COL, LEFT_FIRE_C_ROW, newValue);
-  //  lc.setLed(LEFT_EWI, LEFT_FIRE_D_COL, LEFT_FIRE_D_ROW, newValue);
+  lc.setLed(LEFT_EWI, LEFT_FIRE_A_COL, LEFT_FIRE_A_ROW, newValue);
+  lc.setLed(LEFT_EWI, LEFT_FIRE_B_COL, LEFT_FIRE_B_ROW, newValue);
+  lc.setLed(LEFT_EWI, LEFT_FIRE_C_COL, LEFT_FIRE_C_ROW, newValue);
+  lc.setLed(LEFT_EWI, LEFT_FIRE_D_COL, LEFT_FIRE_D_ROW, newValue);
 }
 DcsBios::IntegerBuffer fireLeftLtBuffer(0x7408, 0x0040, 6, onFireLeftLtChange);
 
 
 void onMasterCautionLtChange(unsigned int newValue) {
-  //  lc.setLed(LEFT_EWI, MSTR_CAUT_A_COL, MSTR_CAUT_A_ROW, newValue);
-  //  lc.setLed(LEFT_EWI, MSTR_CAUT_B_COL, MSTR_CAUT_B_ROW, newValue);
-  //  lc.setLed(LEFT_EWI, MSTR_CAUT_C_COL, MSTR_CAUT_C_ROW, newValue);
-  //  lc.setLed(LEFT_EWI, MSTR_CAUT_D_COL, MSTR_CAUT_D_ROW, newValue);
+  lc.setLed(LEFT_EWI, MSTR_CAUT_A_COL, MSTR_CAUT_A_ROW, newValue);
+  lc.setLed(LEFT_EWI, MSTR_CAUT_B_COL, MSTR_CAUT_B_ROW, newValue);
+  lc.setLed(LEFT_EWI, MSTR_CAUT_C_COL, MSTR_CAUT_C_ROW, newValue);
+  lc.setLed(LEFT_EWI, MSTR_CAUT_D_COL, MSTR_CAUT_D_ROW, newValue);
 }
 DcsBios::IntegerBuffer masterCautionLtBuffer(0x7408, 0x0200, 9, onMasterCautionLtChange);
 
@@ -1017,49 +1060,15 @@ DcsBios::IntegerBuffer lsShootStrobeBuffer(0x7408, 0x0004, 2, onLsShootStrobeCha
 
 void onWarnCautionDimmerChange(unsigned int newValue) {
 
-  if (newValue >= 60000) {
-
-
-    lc.setLed(LEFT_EWI, LEFT_FIRE_A_COL, LEFT_FIRE_A_ROW, 1);
-    lc.setLed(LEFT_EWI, LEFT_FIRE_B_COL, LEFT_FIRE_B_ROW, 1);
-    lc.setLed(LEFT_EWI, LEFT_FIRE_C_COL, LEFT_FIRE_C_ROW, 1);
-    lc.setLed(LEFT_EWI, LEFT_FIRE_D_COL, LEFT_FIRE_D_ROW, 1);
-
-    lc.setLed(LEFT_EWI, MSTR_CAUT_A_COL, MSTR_CAUT_A_ROW, 1);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_B_COL, MSTR_CAUT_B_ROW, 1);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_C_COL, MSTR_CAUT_C_ROW, 1);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_D_COL, MSTR_CAUT_D_ROW, 1);
-
-  } else if (newValue >= 5000) {
-    lc.setLed(LEFT_EWI, LEFT_FIRE_A_COL, LEFT_FIRE_A_ROW, 1);
-    lc.setLed(LEFT_EWI, LEFT_FIRE_B_COL, LEFT_FIRE_B_ROW, 1);
-    lc.setLed(LEFT_EWI, LEFT_FIRE_C_COL, LEFT_FIRE_C_ROW, 1);
-    lc.setLed(LEFT_EWI, LEFT_FIRE_D_COL, LEFT_FIRE_D_ROW, 1);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_A_COL, MSTR_CAUT_A_ROW, 0);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_B_COL, MSTR_CAUT_B_ROW, 0);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_C_COL, MSTR_CAUT_C_ROW, 0);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_D_COL, MSTR_CAUT_D_ROW, 0);
-  } else {
-    lc.setLed(LEFT_EWI, LEFT_FIRE_A_COL, LEFT_FIRE_A_ROW, 0);
-    lc.setLed(LEFT_EWI, LEFT_FIRE_B_COL, LEFT_FIRE_B_ROW, 0);
-    lc.setLed(LEFT_EWI, LEFT_FIRE_C_COL, LEFT_FIRE_C_ROW, 0);
-    lc.setLed(LEFT_EWI, LEFT_FIRE_D_COL, LEFT_FIRE_D_ROW, 0);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_A_COL, MSTR_CAUT_A_ROW, 1);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_B_COL, MSTR_CAUT_B_ROW, 1);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_C_COL, MSTR_CAUT_C_ROW, 1);
-    lc.setLed(LEFT_EWI, MSTR_CAUT_D_COL, MSTR_CAUT_D_ROW, 1);
-  }
-
   WARN_CAUTION_DIMMER_VALUE = map(newValue, 0, 65000, 0, 15);
-  updatenonAOABrightness();
-
-
+  updateBrightness();
 }
 DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionDimmerChange);
 
 void onHudAoaIndexerChange(unsigned int newValue) {
-  AOA_DIMMER_VALUE = map(newValue, 0, 65000, 8, 15);
-  updateAOABrightness();
+
+//  AOA_DIMMER_VALUE = map(newValue, 0, 65000, 0, 15);
+
 }
 DcsBios::IntegerBuffer hudAoaIndexerBuffer(0x745e, 0xffff, 0, onHudAoaIndexerChange);
 
@@ -1075,13 +1084,21 @@ void onCockkpitLightModeSwChangeMax7219(unsigned int newValue) {
   } else {
     DAY_NIGHT_SWITCH_MODE = DAY_MODE;
   }
-  updatenonAOABrightness();
-  updateAOABrightness();
+  updateBrightness();
+
 
 }
 
 
-void updatenonAOABrightness() {
+void updateBrightness() {
+
+
+  if (Reflector_In_Use == 1) {
+    max7219udp.beginPacket(reflectorIP, reflectorport);
+    max7219udp.println("Warning: " + String(WARN_CAUTION_DIMMER_VALUE));
+    max7219udp.println("AOA    : " + String(AOA_DIMMER_VALUE));
+    max7219udp.endPacket();
+  }
 
   for (int address = 0; address < devices; address++) {
     if (address != AOA_DIM) {
@@ -1090,21 +1107,13 @@ void updatenonAOABrightness() {
         lc.setIntensity(address, FULL_BRIGHTNESS);
       } else
         lc.setIntensity(address, WARN_CAUTION_DIMMER_VALUE);
+    } else {
+      lc.setIntensity(address, (WARN_CAUTION_DIMMER_VALUE));
     }
 
   }
 }
 
-
-
-void updateAOABrightness() {
-
-  if (DAY_NIGHT_SWITCH_MODE == DAY_MODE) {
-    lc.setIntensity(AOA_DIM, FULL_BRIGHTNESS);
-  } else {
-    lc.setIntensity(AOA_DIM, AOA_DIMMER_VALUE);
-  }
-}
 
 
 
@@ -2025,6 +2034,20 @@ void setup() {
   digitalWrite(RELAY_PORT_2, true);
   digitalWrite(RELAY_PORT_3, true);
   digitalWrite(RELAY_PORT_4, true);
+
+
+  if (Ethernet_In_Use == 1) {
+    delay(EthernetStartupDelay);
+    Ethernet.begin( mac, ip);
+
+    max7219udp.begin( max7219port );
+
+    if (Reflector_In_Use == 1) {
+      max7219udp.beginPacket(reflectorIP, reflectorport);
+      max7219udp.println("Init Max7219 - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      max7219udp.endPacket();
+    }
+  }
 
 
   devices = lc.getDeviceCount();
