@@ -21,7 +21,7 @@
 
 #define Ethernet_In_Use 1
 const int Serial_In_Use = 0;
-#define Reflector_In_Use 1
+#define Reflector_In_Use 0
 
 
 
@@ -1096,6 +1096,18 @@ void onCockkpitLightModeSwChangeMax7219(unsigned int newValue) {
 
 void updateBrightness() {
 
+  if (Reflector_In_Use == 1)  {
+    max7219udp.beginPacket(reflectorIP, reflectorport);
+    max7219udp.println("Entering update brightness");
+    max7219udp.endPacket();
+  }
+
+  if (Reflector_In_Use == 1)  {
+    max7219udp.beginPacket(reflectorIP, reflectorport);
+    max7219udp.println("Procssing Dimmer Packet: " + String(AOA_DIMMER_VALUE));
+    max7219udp.endPacket();
+  }
+
 
   if (Reflector_In_Use == 1) {
     max7219udp.beginPacket(reflectorIP, reflectorport);
@@ -1112,7 +1124,7 @@ void updateBrightness() {
       } else
         lc.setIntensity(address, WARN_CAUTION_DIMMER_VALUE);
     } else {
-      lc.setIntensity(address, (WARN_CAUTION_DIMMER_VALUE));
+      lc.setIntensity(address, (AOA_DIMMER_VALUE));
     }
 
   }
@@ -2049,14 +2061,11 @@ void ProcessReceivedString()
   if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Value " + ParameterValue);
 
 
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found AOA Brightness");
+  AOA_DIMMER_VALUE = ParameterValue.toInt();
 
-  if (ParameterNameString.equalsIgnoreCase("AOA_DIMMER_VALUE")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found AOA Brightness");
-    AOA_DIMMER_VALUE = ParameterValue.toInt();
-    updateBrightness();
-  }
+  updateBrightness();
 
-  
 }
 
 void setup() {
@@ -2179,6 +2188,8 @@ void loop() {
   DcsBios::loop();
 
   if (Ethernet_In_Use == 1) {
+
+
     max7219packetsize = max7219udp.parsePacket();
     max7219Len = max7219udp.read(max7219packetBuffer, 999);
 
@@ -2186,6 +2197,7 @@ void loop() {
       max7219packetBuffer[max7219Len] = 0;
     }
     if (max7219packetsize) {
+
       ProcessReceivedString();
     }
   }

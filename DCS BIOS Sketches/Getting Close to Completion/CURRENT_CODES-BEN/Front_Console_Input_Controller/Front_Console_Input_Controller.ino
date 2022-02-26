@@ -38,7 +38,7 @@
 
 #define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
-#define Reflector_In_Use 1
+#define Reflector_In_Use 0
 
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
@@ -244,7 +244,7 @@ void SendAOABrightness(int AOA_DIMMER_VALUE) {
       udp.print(outString);
       udp.endPacket();
     }
-    udp.beginPacket(max7219IP, remoteport);
+    udp.beginPacket(max7219IP, max7219port);
     udp.print(outString);
     udp.endPacket();
   }
