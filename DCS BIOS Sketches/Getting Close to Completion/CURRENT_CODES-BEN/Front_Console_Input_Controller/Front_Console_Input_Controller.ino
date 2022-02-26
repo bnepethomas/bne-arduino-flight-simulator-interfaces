@@ -56,8 +56,8 @@ IPAddress ip(172, 16, 1, 101);
 String strMyIP = "172.16.1.101";
 
 // Raspberry Pi is Target
-IPAddress targetIP(172, 16, 1, 2);
-String strTargetIP = "X.X.X.X";
+IPAddress reflectorIP(172, 16, 1, 10);
+String strreflectorIP = "X.X.X.X";
 
 // Arduino Mega holding Max7219
 IPAddress max7219IP(172, 16, 1, 106);
@@ -79,7 +79,7 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 // From https://github.com/jonnieZG/EWMA
 #include <Ewma.h>
 
-#define AOAIndexerUpdateInterval 100        // Time between pot reads 10 times per second
+#define AOAIndexerUpdateInterval 10        // Time between pot reads 100 times per second
 #define AOAIndexAnalogPin A1
 
 Ewma AnalogAOAIndexer(0.1);
@@ -181,7 +181,7 @@ void setup() {
 
     udp.begin( localport );
     if (Reflector_In_Use == 1)  {
-      udp.beginPacket(targetIP, reflectorport);
+      udp.beginPacket(reflectorIP, reflectorport);
       udp.println("Init Front Input - " + strMyIP + " " + String(millis()) + "mS since reset.");
       udp.endPacket();
     }
@@ -192,7 +192,7 @@ void setup() {
     rawAnalog = analogRead(AOAIndexAnalogPin);
     AOAIndexerFiltered = AnalogAOAIndexer.filter(rawAnalog);
   }
-  
+
 }
 
 void FindInputChanges()
@@ -218,12 +218,12 @@ void FindInputChanges()
         if (prevjoyReport.button[ind] == 0) {
           outString = outString +  "1";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 1);
-          if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
+          // if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
         }
         else {
           outString = outString + "0";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 0);
-          if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
+          // if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
         }
 
         prevjoyReport.button[ind] = joyReport.button[ind];
@@ -231,22 +231,7 @@ void FindInputChanges()
     }
 }
 
-void SendIPMessage(int ind, int state) {
 
-  String outString;
-  outString = String(ind) + ":" + String(state);
-
-  if ( Ethernet_In_Use == 1) {
-    if (Reflector_In_Use == 1)  {
-      udp.beginPacket(targetIP, reflectorport);
-      udp.print(outString);
-      udp.endPacket();
-    }
-    udp.beginPacket(targetIP, remoteport);
-    udp.print(outString);
-    udp.endPacket();
-  }
-}
 
 void SendAOABrightness(int AOA_DIMMER_VALUE) {
 
@@ -255,11 +240,11 @@ void SendAOABrightness(int AOA_DIMMER_VALUE) {
 
   if ( Ethernet_In_Use == 1) {
     if (Reflector_In_Use == 1)  {
-      udp.beginPacket(targetIP, reflectorport);
+      udp.beginPacket(reflectorIP, reflectorport);
       udp.print(outString);
       udp.endPacket();
     }
-    udp.beginPacket(targetIP, remoteport);
+    udp.beginPacket(max7219IP, remoteport);
     udp.print(outString);
     udp.endPacket();
   }
@@ -1535,7 +1520,7 @@ void loop() {
 
       rawAnalog = analogRead(AOAIndexAnalogPin);
       AOAIndexerFiltered = AnalogAOAIndexer.filter(rawAnalog);
-      AOAIndexerMapped = map(AOAIndexerMapped, 0, 1024, 0, 8);
+      AOAIndexerMapped = map(AOAIndexerFiltered, 0, 1000, 0,15);
 
       if (AOAIndexerMapped != AOAIndexerBrightnessOut) {
         AOAIndexerBrightnessOut = AOAIndexerMapped;
