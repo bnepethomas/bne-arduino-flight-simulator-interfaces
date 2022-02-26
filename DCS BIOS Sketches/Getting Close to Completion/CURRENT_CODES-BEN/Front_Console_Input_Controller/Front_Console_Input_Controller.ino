@@ -49,26 +49,28 @@
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = {0x00, 0xDD, 0x3E, 0xCA, 0x36, 0x99};
-IPAddress ip(172, 16, 1, 100);
+byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x01};
+IPAddress ip(172, 16, 1, 101);
 String strMyIP = "X.X.X.X";
 
 // Raspberry Pi is Target
 IPAddress targetIP(172, 16, 1, 2);
 String strTargetIP = "X.X.X.X";
 
+// Arduino Mega holding Max7219 
+IPAddress max7219IP(172, 16, 1, 106);
+String strMax7219IP = "172.16.1.106";
+
+
+
 const unsigned int localport = 7788;
 const unsigned int remoteport = 26027;
 const unsigned int reflectorport = 27000;
+const unsigned int max7219port = 7788;
 
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
-
-
-
-
-
 
 
 #define NUM_BUTTONS 256
@@ -1297,7 +1299,8 @@ void SendDCSBIOSMessage(int ind, int state) {
 
 // HUD ANALOG INPUTS
 DcsBios::Potentiometer hudSymBrt("HUD_SYM_BRT", A0);
-DcsBios::Potentiometer hudAoaIndexer("HUD_AOA_INDEXER", A1);
+// 20220227 Bug in FP DCS-BIOS stops indiexer updates if AoA indexer below 50% - sending over IP
+//DcsBios::Potentiometer hudAoaIndexer("HUD_AOA_INDEXER", A1);
 DcsBios::Potentiometer hudBlackLvl("HUD_BLACK_LVL", A2);
 DcsBios::Potentiometer hudBalance("HUD_BALANCE", A3);
 

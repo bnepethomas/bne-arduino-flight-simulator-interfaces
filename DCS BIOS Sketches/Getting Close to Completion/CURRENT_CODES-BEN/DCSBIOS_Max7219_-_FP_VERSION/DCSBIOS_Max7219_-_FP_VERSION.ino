@@ -23,6 +23,8 @@
 const int Serial_In_Use = 0;
 #define Reflector_In_Use 1
 
+
+
 // ###################################### Begin Ethernet Related #############################
 #include <SPI.h>
 #include <Ethernet.h>
@@ -45,16 +47,18 @@ const unsigned int reflectorport = 27000;
 
 
 // Packet Length
-int keyboardpacketSize;
-int keyboardLen;
+int max7219packetsize;
+int max7219Len;
 
 
 EthernetUDP max7219udp;              // Max7219
 
-char keyboardpacketBuffer[1000];      //buffer to store keyboard data
+char max7219packetBuffer[1000];      //buffer to store keyboard data
 char outpacketBuffer[1000];           //buffer to store the outgoing data
 
-
+bool Debug_Display = false;
+char *ParameterNamePtr;
+char *ParameterValuePtr;
 // ###################################### End Ethernet Related #############################
 
 
@@ -1067,7 +1071,7 @@ DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionD
 
 void onHudAoaIndexerChange(unsigned int newValue) {
 
-//  AOA_DIMMER_VALUE = map(newValue, 0, 65000, 0, 15);
+  //  AOA_DIMMER_VALUE = map(newValue, 0, 65000, 0, 15);
 
 }
 DcsBios::IntegerBuffer hudAoaIndexerBuffer(0x745e, 0xffff, 0, onHudAoaIndexerChange);
@@ -2017,6 +2021,44 @@ void CheckRightScreenPowerState() {
 }
 // ************************************ End Nextron Block
 
+
+
+void ProcessReceivedString()
+{
+
+  // Reading values from led packetBuffer which is global
+  // All received values are strings for readability
+  // From 737 Project
+
+  bool bLocalDebug = true;
+  int tempVar = 0;
+
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Processing Max7219 Packet");
+
+
+  String sWrkStr = "";
+  const char *delim  = "=";
+
+
+  ParameterNamePtr = strtok(max7219packetBuffer, delim);
+  String ParameterNameString(ParameterNamePtr);
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Name " + ParameterNameString);
+
+  ParameterValuePtr   = strtok(NULL, delim);
+  String ParameterValue(ParameterValuePtr);
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Value " + ParameterValue);
+
+
+
+  if (ParameterNameString.equalsIgnoreCase("AOA_DIMMER_VALUE")) {
+    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found AOA Brightness");
+    AOA_DIMMER_VALUE = ParameterValue.toInt();
+    updateBrightness();
+  }
+
+  
+}
+
 void setup() {
 
   // Initialise Relay output ports
@@ -2135,6 +2177,18 @@ void setup() {
 
 void loop() {
   DcsBios::loop();
+
+  if (Ethernet_In_Use == 1) {
+    max7219packetsize = max7219udp.parsePacket();
+    max7219Len = max7219udp.read(max7219packetBuffer, 999);
+
+    if (max7219Len > 0) {
+      max7219packetBuffer[max7219Len] = 0;
+    }
+    if (max7219packetsize) {
+      ProcessReceivedString();
+    }
+  }
 
 
 }
