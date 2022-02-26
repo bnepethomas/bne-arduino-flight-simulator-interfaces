@@ -35,8 +35,10 @@
 
 */
 
-#define Ethernet_In_Use 0
+
+#define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
+#define Reflector_In_Use 1
 
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
@@ -51,13 +53,13 @@
 // the device ID as set by address pins
 byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x01};
 IPAddress ip(172, 16, 1, 101);
-String strMyIP = "X.X.X.X";
+String strMyIP = "172.16.1.101";
 
 // Raspberry Pi is Target
 IPAddress targetIP(172, 16, 1, 2);
 String strTargetIP = "X.X.X.X";
 
-// Arduino Mega holding Max7219 
+// Arduino Mega holding Max7219
 IPAddress max7219IP(172, 16, 1, 106);
 String strMax7219IP = "172.16.1.106";
 
@@ -71,6 +73,24 @@ const unsigned int max7219port = 7788;
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+
+// ********************** Added Smoothing Filter for AOA Indexer Brightness
+// From https://github.com/jonnieZG/EWMA
+#include <Ewma.h>
+
+#define AOAIndexerUpdateInterval 100        // Time between pot reads 10 times per second
+#define AOAIndexAnalogPin A1
+
+Ewma AnalogAOAIndexer(0.1);
+
+unsigned long AOAIndexerLastUpdate = 0;
+int AOAIndexerBrightnessOut = 15;           // Valid values 0 to 15
+int rawAnalog = 0;
+int AOAIndexerFiltered = 0;
+int AOAIndexerMapped = 0;
+
+// ********************* End Smoothing Filter *************
 
 
 #define NUM_BUTTONS 256
@@ -158,10 +178,21 @@ void setup() {
   if (Ethernet_In_Use == 1) {
     Ethernet.begin( mac, ip);
 
+
     udp.begin( localport );
-    udp.beginPacket(targetIP, reflectorport);
-    udp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+    if (Reflector_In_Use == 1)  {
+      udp.beginPacket(targetIP, reflectorport);
+      udp.println("Init Front Input - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      udp.endPacket();
+    }
   }
+
+  //  Prime the Analog reading for AOA Indexer
+  for (int i = 0; i <= 10; i++) {
+    rawAnalog = analogRead(AOAIndexAnalogPin);
+    AOAIndexerFiltered = AnalogAOAIndexer.filter(rawAnalog);
+  }
+  
 }
 
 void FindInputChanges()
@@ -205,14 +236,35 @@ void SendIPMessage(int ind, int state) {
   String outString;
   outString = String(ind) + ":" + String(state);
 
-  udp.beginPacket(targetIP, reflectorport);
-  udp.print(outString);
-  udp.endPacket();
-
-  udp.beginPacket(targetIP, remoteport);
-  udp.print(outString);
-  udp.endPacket();
+  if ( Ethernet_In_Use == 1) {
+    if (Reflector_In_Use == 1)  {
+      udp.beginPacket(targetIP, reflectorport);
+      udp.print(outString);
+      udp.endPacket();
+    }
+    udp.beginPacket(targetIP, remoteport);
+    udp.print(outString);
+    udp.endPacket();
+  }
 }
+
+void SendAOABrightness(int AOA_DIMMER_VALUE) {
+
+  String outString;
+  outString = "AOA_DIMMER_VALUE = " + String(AOA_DIMMER_VALUE);
+
+  if ( Ethernet_In_Use == 1) {
+    if (Reflector_In_Use == 1)  {
+      udp.beginPacket(targetIP, reflectorport);
+      udp.print(outString);
+      udp.endPacket();
+    }
+    udp.beginPacket(targetIP, remoteport);
+    udp.print(outString);
+    udp.endPacket();
+  }
+}
+
 
 void SendDCSBIOSMessage(int ind, int state) {
 
@@ -1338,8 +1390,8 @@ DcsBios::Potentiometer ampcdBrtCtl("AMPCD_BRT_CTL", A15);
 DcsBios::RotaryEncoder ufcComm1ChannelSelect("UFC_COMM1_CHANNEL_SELECT", "DEC", "INC", 19, 18);
 DcsBios::RotaryEncoder ufcComm2ChannelSelect("UFC_COMM2_CHANNEL_SELECT", "DEC", "INC", 21, 20);
 //STANDBY INST
-DcsBios::RotaryEncoder saiSet("SAI_SET", "-3200", "+3200", 15, 14);
-DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 16, 17);
+DcsBios::RotaryEncoder saiSet("SAI_SET", " - 3200", " + 3200", 15, 14);
+DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", " - 3200", " + 3200", 16, 17);
 ////||||\\\\ Investigate issue on Bens Pit ////||||\\\\
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1476,5 +1528,28 @@ void loop() {
       SpinFollowupTask = false;
     }
   }
+
+
+  if (Ethernet_In_Use == 1) {
+    if (millis() >= ( AOAIndexerLastUpdate + AOAIndexerUpdateInterval)) {
+
+      rawAnalog = analogRead(AOAIndexAnalogPin);
+      AOAIndexerFiltered = AnalogAOAIndexer.filter(rawAnalog);
+      AOAIndexerMapped = map(AOAIndexerMapped, 0, 1024, 0, 8);
+
+      if (AOAIndexerMapped != AOAIndexerBrightnessOut) {
+        AOAIndexerBrightnessOut = AOAIndexerMapped;
+        SendAOABrightness(AOAIndexerBrightnessOut);
+      }
+
+      AOAIndexerLastUpdate = millis() + AOAIndexerUpdateInterval ;
+      // Convert this to 0 to 15 value and compare against the last one
+
+
+    }
+
+  }
+
+
   // END CODE
 }
