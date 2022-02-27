@@ -151,9 +151,9 @@ const int SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUN
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 #define EthernetStartupDelay 500
-byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x11};
-IPAddress ip(172, 16, 1, 111);
-String strMyIP = "172.16.1.11";
+byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x05};
+IPAddress ip(172, 16, 1, 105);
+String strMyIP = "172.16.1.105";
 
 // Reflector
 IPAddress reflectorIP(172, 16, 1, 10);
