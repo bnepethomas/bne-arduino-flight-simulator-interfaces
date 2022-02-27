@@ -183,14 +183,14 @@ Servo TRIM_servo;
 #define HYD_RHT_servo_Max_pos     2340
 #define BATT_U_servo_Max_Pos      1900
 #define BATT_E_servo_Max_Pos      180
-#define TRIM_servo_Off_Center_Pos 1100
+#define TRIM_servo_Off_Center_Pos 800
 
 #define RAD_ALT_servo_Hidden_Pos  1050
 #define HYD_LFT_servo_Min_Pos     600
 #define HYD_RHT_servo_Min_pos     600
 #define BATT_U_servo_Min_Pos      400
 #define BATT_E_servo_Min_Pos      1800
-#define TRIM_servo_Center_Pos     800
+#define TRIM_servo_Center_Pos     1450
 
 
 DcsBios::ServoOutput radaltOffFlag(0x751c, RadarAltServoPin, RAD_ALT_servo_Hidden_Pos, RAD_ALT_servo_Off_Pos);
