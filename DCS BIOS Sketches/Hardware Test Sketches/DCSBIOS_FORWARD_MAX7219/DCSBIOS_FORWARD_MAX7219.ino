@@ -388,7 +388,7 @@ void loop() {
 
   //FLAPS(0);
   delay(1000);
-  WalkA7129();
+  //WalkA7129();
   flashstatusled();
   AllOn();
   //FLAPS(1);
