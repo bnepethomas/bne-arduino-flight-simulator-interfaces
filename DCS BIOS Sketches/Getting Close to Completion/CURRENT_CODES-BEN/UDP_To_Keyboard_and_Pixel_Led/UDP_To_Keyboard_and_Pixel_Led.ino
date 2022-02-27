@@ -788,7 +788,7 @@ void SetBacklighting()
   for (ledptr = SPIN_RECOVERY_START_POS;
        ledptr <= (SPIN_RECOVERY_START_POS + SPIN_RECOVERY_LED_COUNT  - 1); ledptr++) {
     // Check to see if it is a special led - if it isn't adjust brightness
-    if (ledptr != SPIN_1 && ledptr != SPIN_2)
+    if (ledptr != (SPIN_RECOVERY_START_POS + SPIN_1)&& ledptr != (SPIN_RECOVERY_START_POS + SPIN_2))
       UIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
   }
 
