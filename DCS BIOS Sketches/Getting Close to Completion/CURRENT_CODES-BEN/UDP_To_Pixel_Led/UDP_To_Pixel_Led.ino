@@ -55,15 +55,21 @@ const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT 
 // If using small test rig
 // The Max7219 connector uses Pin 14,15,16
 // Order on connector is 5V GND 16 15 14 Last pin is not connected
+//
+//#define UIP_PIN                 14
+//#define LIP_PIN                 16
+//// Not used as locking collides 44
+//// Not used as locking collides 46
+//#define LEFT_CONSOLE_PIN        15
+//#define RIGHT_CONSOLE_PIN       42
 
-#define UIP_PIN                 14
-#define LIP_PIN                 16
+// Connections using Lukes Power Distribution
+#define UIP_PIN                 40
+#define LIP_PIN                 42
 // Not used as locking collides 44
 // Not used as locking collides 46
-#define LEFT_CONSOLE_PIN        15
-#define RIGHT_CONSOLE_PIN       42
-
-
+#define LEFT_CONSOLE_PIN        48
+#define RIGHT_CONSOLE_PIN       49
 
 // Some other setup information. Don't change these unless you have a reason to.
 
