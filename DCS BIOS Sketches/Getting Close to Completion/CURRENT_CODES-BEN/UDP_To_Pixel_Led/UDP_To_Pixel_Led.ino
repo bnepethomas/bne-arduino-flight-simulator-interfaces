@@ -2,7 +2,7 @@
 //||               FUNCTION = HORNET UDP to Keyboard and Pixel LED     ||\\
 //||              LOCATION IN THE PIT = LIP LEFT HAND SIDE             ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
-//||      ARDUINO CHIP SERIAL NUMBER = SN:      
+//||      ARDUINO CHIP SERIAL NUMBER = SN:
 //||      ETHERNET SHEILD MAC ADDRESS = MAC                           ||\\
 //||                    CONNECTED COM PORT = COM                    ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
@@ -281,7 +281,7 @@ void setup() {
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
   FastLED.show();
   delay(1000);
-  
+
   NEXT_LED_UPDATE = millis() + 1000;
 
 
@@ -490,6 +490,11 @@ void ProcessReceivedString()
 
   if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Processing Led Packet");
 
+  if (Reflector_In_Use == 1) {
+    ledudp.beginPacket(reflectorIP, reflectorport);
+    ledudp.println("Pixel Led Packet received");
+    ledudp.endPacket();
+  }
 
   String sWrkStr = "";
   const char *delim  = "=";

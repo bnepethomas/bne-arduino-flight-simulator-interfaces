@@ -98,7 +98,7 @@ String readString;
 
 
 int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 #define DCSBIOS_In_Use 1
 #define Serial_In_Use 0
 
@@ -121,7 +121,7 @@ String strReflectorIP = "172.16.1.10";
 
 // Arduino Due for Keystroke translation and Pixel Led driving
 IPAddress ledTargetIP(172, 16, 1, 105);
-String strTargetIP = "172.16.1.105";
+String strLedTargetIP = "172.16.1.105";
 
 const unsigned int localport = 7788;
 const unsigned int keyboardport = 7788;
@@ -945,36 +945,45 @@ void setup() {
   BRAKE_PRESSURE = map(0, 0, 65000, BrakePressureZeroPoint, BrakePressureMaxPoint);
   /// BRAKE PRESSURE
 
-  DcsBios::setup();
+
 
 
 
   if (Ethernet_In_Use == 1) {
-    delay(EthernetStartupDelay);
-    Ethernet.begin( myMac, myIP);
-    senderudp.begin(localport);
 
+    Ethernet.begin( myMac, myIP);
+    keyboardudp.begin(keyboardport);
+    senderudp.begin(ledport);
 
     if (Reflector_In_Use == 1) {
-      senderudp.beginPacket(reflectorIP, reflectorport);
-      senderudp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      senderudp.endPacket();
+      keyboardudp.beginPacket(reflectorIP, reflectorport);
+      keyboardudp.println("Init Digital Output + Keyboard - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      keyboardudp.endPacket();
     }
   }
-
 
 
   NEXT_PORT_TOGGLE_TIMER = millis() + 1000;
   NEXT_STATUS_TOGGLE_TIMER = millis() + 1000;
 
+
+
   Keyboard.begin();
+
+  DcsBios::setup();
+
+  if (Reflector_In_Use == 1) {
+    keyboardudp.beginPacket(reflectorIP, reflectorport);
+    keyboardudp.println("Exiting Setup");
+    keyboardudp.endPacket();
+  }
 
 }
 
 
 void loop() {
 
-  if (millis() > NEXT_STATUS_TOGGLE_TIMER) {
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;
     digitalWrite( GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
