@@ -18,7 +18,7 @@
 */
 #define Ethernet_In_Use 1
 const int Serial_In_Use = 1;
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 
 
 
@@ -60,7 +60,7 @@ const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT 
 #define LIP_PIN                 16
 // Not used as locking collides 44
 // Not used as locking collides 46
-#define LEFT_CONSOLE_PIN        16
+#define LEFT_CONSOLE_PIN        15
 #define RIGHT_CONSOLE_PIN       42
 
 
