@@ -87,6 +87,7 @@
 */
 
 
+#define ProgramVersion 10
 
 String readString;
 #include <Servo.h>
@@ -503,6 +504,12 @@ void SendCharactersToKeyboard(int packetLength) {
   if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Packet Received");
   if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.print("Len is ");
   if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println(packetLength);
+
+  if (Reflector_In_Use == 1) {
+    keyboardudp.beginPacket(reflectorIP, reflectorport);
+    keyboardudp.println("Keyboard Packet Received");
+    keyboardudp.endPacket();
+  }
 
   String thisSet = "";
   for (int characterPtr = 0; characterPtr < packetLength ; characterPtr++ ) {
@@ -957,7 +964,7 @@ void setup() {
 
     if (Reflector_In_Use == 1) {
       keyboardudp.beginPacket(reflectorIP, reflectorport);
-      keyboardudp.println("Init Digital Output + Keyboard - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      keyboardudp.println("Init Digital Output + Keyboard - version:" + String(ProgramVersion) + " " + strMyIP + " " + String(millis()) + "mS since reset.");
       keyboardudp.endPacket();
     }
   }
