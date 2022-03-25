@@ -9,31 +9,53 @@
 
 import os
 
-import sys
+
 import usb.core
+import usb.backend.libusb1
 
-# find USB devices
-dev = usb.core.find(find_all=True)
-# loop through devices, printing vendor and product ids in decimal and hex
-for cfg in dev:
-  sys.stdout.write('Decimal VendorID=' + str(cfg.idVendor) + ' & ProductID=' + str(cfg.idProduct) + '\n')
-  sys.stdout.write('Hexadecimal VendorID=' + hex(cfg.idVendor) + ' & ProductID=' + hex(cfg.idProduct) + '\n\n')
+busses = usb.busses()
+for bus in busses:
+
+    devices = bus.devices
+    for dev in devices:
+        if dev != None:
+            try:
+         
+                
+                xdev = usb.core.find(idVendor=dev.idVendor, idProduct=dev.idProduct)
+                if xdev._manufacturer is None:
+                    xdev._manufacturer = usb.util.get_string(xdev, xdev.iManufacturer)
+                if xdev._product is None:
+                    xdev._product = usb.util.get_string(xdev, xdev.iProduct)
+                stx = '%6d %6d: '+str(xdev._manufacturer).strip()+' = '+str(xdev._product).strip()
+                print (stx % (dev.idVendor,dev.idProduct))
+
+                
+            except:
+                pass
 
 
 
-import re
-import subprocess
-device_re = re.compile("Bus\s+(?P<bus>\d+)\s+Device\s+(?P<device>\d+).+ID\s(?P<id>\w+:\w+)\s(?P<tag>.+)$", re.I)
-df = subprocess.check_output("lsusb")
-devices = []
-for i in df.split('\n'):
-    if i:
-        info = device_re.match(i)
-        if info:
-            dinfo = info.groupdict()
-            dinfo['device'] = '/dev/bus/usb/%s/%s' % (dinfo.pop('bus'), dinfo.pop('device'))
-            devices.append(dinfo)
-print devices
+
+devices = usb.core.find(find_all=True)
+
+for dev in devices:
+
+    try:
+        xdev = usb.core.find(idVendor=dev.idVendor, idProduct=dev.idProduct)
+        if xdev._manufacturer is None:
+            xdev._manufacturer = usb.util.get_string(xdev, xdev.iManufacturer)
+        if xdev._product is None:
+            xdev._product = usb.util.get_string(xdev, xdev.iProduct)
+        stx = '%6d %6d: '+str(xdev._manufacturer).strip()+' = '+str(xdev._product).strip()
+        print (stx % (dev.idVendor,dev.idProduct))
+    
+    except:
+            pass
+    print("device bus:", dev.bus)
+    print("device address:", dev.address)
+    print("device port:", dev.port_number)
+    print("device speed:", dev.speed)
 
 def myping(host):
     response = os.system("ping -c 1 -t 1 " + host)
