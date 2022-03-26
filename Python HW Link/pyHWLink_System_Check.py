@@ -6,6 +6,14 @@
 # For Mac
 #brew install libusb
 
+# For Windows
+# Download and unpack to C:\libusb the libusb-1.0.20 from download link
+# https://sourceforge.net/projects/libusb/files/libusb-1.0/libusb-1.0.20/libusb-1.0.20.7z/download
+# backend = usb.backend.libusb1.get_backend(find_library=lambda x: "C:\libusb\MS64\dll\libusb-1.0.dll")
+# dev = usb.core.find(backend=backend, find_all=True)
+
+#Also for validation GUI UsbTreeView_x64
+# https://www.uwe-sieber.de/usbtreeview_e.html#download
 
 import os
 
@@ -13,10 +21,20 @@ import os
 import usb.core
 import usb.backend.libusb1
 
+backend = usb.backend.libusb1.get_backend(find_library=lambda x: "C:\libusb\MS64\dll\libusb-1.0.dll")
+
+dev = usb.core.find(backend=backend, find_all=True)
+
 
 devices = usb.core.find(find_all=True)
 
 for dev in devices:
+
+    try:
+        print(dev._get_full_descriptor_str())
+
+    except:
+        print("Unable to get descriptor")
 
     try:
         xdev = usb.core.find(idVendor=dev.idVendor, idProduct=dev.idProduct)
@@ -29,14 +47,14 @@ for dev in devices:
         print (str(xdev._manufacturer).strip(),":",str(xdev._product).strip())
         
     except:
-            print("Unknown devivce")
-            pass
+        print("Unknown devivce")
+        pass
     print("Bus:", dev.bus, " Address:", dev.address, " Port:", dev.port_number," Speed:", dev.speed)
     print()
 
 
 def myping(host):
-    response = os.system("ping -c 1 -t 1 " + host)
+    response = os.system("ping -n 1 " + host)
     
     if response == 0:
         return True
@@ -46,6 +64,5 @@ def myping(host):
        
 print("Google " + str(myping("www.google.com")))
 print("Default Gateway " + str(myping("192.168.2.1")))
-print("Fail " + str(myping("192.168.4.32")))
 
 
