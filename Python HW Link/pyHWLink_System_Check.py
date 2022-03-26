@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# pip install ping3
+# pip install pythyonping
 
 #pip3 install pyusb
 # For Mac
@@ -64,5 +64,13 @@ def myping(host):
        
 print("Google " + str(myping("www.google.com")))
 print("Default Gateway " + str(myping("192.168.2.1")))
+
+from pythonping import ping
+
+response_list = ping('192.168.4.45', count=1,timeout=1,verbose=True)
+if response_list.success == True:
+    print("Pass")
+else:
+    print("Fail")
 
 
