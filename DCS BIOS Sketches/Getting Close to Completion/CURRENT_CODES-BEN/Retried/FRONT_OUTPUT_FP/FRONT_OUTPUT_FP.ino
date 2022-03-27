@@ -1,12 +1,12 @@
-// UPDATED TO DCS-BIOS FP EDITION FOR OPEN HORNET
+// UPDATED TO DSCS-BIOS FP EDITION FOR OPEN HORNET
 
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 //||               FUNCTION = FRONT OUTPUT                           ||\\
 //||              LOCATION IN THE PIT = LIP LEFT HAND SIDE             ||\\
-//||            ARDUINO PROCESSOR TYPE = Arduino Mega               ||\\
+//||            ARDUINO PROCESSOR TYPE = Arduino Mega                ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN -      ||\\
-//||            PROGRAM PORT CONNECTED COM PORT = COM TBA            ||\\
+//||            PROGRAM PORT CONNECTED COM PORT = COM 19             ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
@@ -19,43 +19,47 @@
 
 
 
-
-#define ProgramVersion 10
-
+// Todo's
+// CONSOLE BRIGHTNESS
+// INDICATOR BRIGHTNESS
+// ECM_JET
+// MASTER_ARM_DISCH_READY
+// MASTER_ARM_DISCH
+// MASTER_ARM_AA
+// MASTER_ARM_AG
+// SPIN
 String readString;
 #include <Servo.h>
-//#define DCSBIOS_IRQ_SERIAL
-#define DCSBIOS_DEFAULT_SERIAL
+#define DCSBIOS_IRQ_SERIAL
 
 #include "LedControl.h"
 #include "DcsBios.h"
 
 
 int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
-#define Reflector_In_Use 1
+#define Reflector_In_Use 0
 #define DCSBIOS_In_Use 1
-#define Serial_In_Use 0
 
 // Ethernet Related
 #include <SPI.h>
 #include <Ethernet.h>
 #include <EthernetUdp.h>
 
-byte myMac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x6F};
-IPAddress myIP(172, 16, 1, 111);
-String strMyIP = "172.16.1.111  ";
+byte myMac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x05};
+IPAddress myIP(172, 16, 1, 105);
+String strMyIP = "X.X.X.X";
 
 // Reflector
 IPAddress reflectorIP(172, 16, 1, 10);
-String strReflectorIP = "172.16.1.10";
+String strReflectorIP = "X.X.X.X";
 
 //const unsigned int trimport = 7791;           // Listening for trigger to centre trim servo
 
 
 
 // Arduino Due for Keystroke translation and Pixel Led driving
-IPAddress ledTargetIP(172, 16, 1, 105);
-String strLedTargetIP = "172.16.1.105";
+IPAddress targetIP(172, 16, 1, 110);
+String strTargetIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
 const unsigned int keyboardport = 7788;
@@ -68,15 +72,8 @@ const unsigned int reflectorport = 27000;
 // Packet Length
 int trimPacketSize;
 int trimLen;
-int keyboardpacketSize;
-int keyboardLen;
-
-
 EthernetUDP senderudp;                   //Left and Right Consoles
-EthernetUDP keyboardudp;              // Keyboard
-
 char trimpacketBuffer[1000];           //buffer to store trim data
-char keyboardpacketBuffer[1000];      //buffer to store keyboard data
 
 
 
@@ -88,9 +85,6 @@ unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
 bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
-
-
-bool Debug_Display = false;
 
 #define LAUNCH_BAR_PORT 27
 #define HOOK_BYPASS_PORT 28
@@ -148,9 +142,6 @@ Stepper stepperCA(STEPS, COILCA1, COILCA2, COILCA3, COILCA4); // CAB ALT
 Stepper stepperBP(STEPS, COILBP1, COILBP2, COILBP3, COILBP4); // BRAKE PRESSURE
 #define BrakePressureZeroPoint 0
 #define BrakePressureMaxPoint 150
-
-
-
 
 
 
@@ -358,8 +349,8 @@ DcsBios::IntegerBuffer cmsdJetSelLBuffer(0x74d4, 0x8000, 15, onCmsdJetSelLChange
 
 void onConsoleIntLtChange(unsigned int newValue) {
   int ConsolesDimmerValue = 0;
-
-  ConsolesDimmerValue = map(newValue, 0, 65000, 0, 100);
+ 
+  ConsolesDimmerValue = map(newValue, 0, 65000, 0, 100); 
   SendIPString("ConsoleBrightness=" + String(ConsolesDimmerValue));
 }
 
@@ -369,12 +360,11 @@ DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChang
 
 void onWarnCautionDimmerChange(unsigned int newValue) {
   int WarnCautionDimmerValue = 0;
-
-  WarnCautionDimmerValue = map(newValue, 0, 65000, 0, 255);
+ 
+  WarnCautionDimmerValue = map(newValue, 0, 65000, 0, 255); 
   SendIPString("WarningBrightness=" + String(WarnCautionDimmerValue));/* your code here */
 }
 DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionDimmerChange);
-
 
 
 
@@ -389,7 +379,7 @@ void SendIPString(String LedToSend) {
       senderudp.print("LED instructions " + LedToSend);
       senderudp.endPacket();
     }
-    senderudp.beginPacket(ledTargetIP, ledport);
+    senderudp.beginPacket(targetIP, ledport);
     senderudp.print(LedToSend);
     senderudp.endPacket();
     UpdateRedStatusLed();
@@ -406,11 +396,6 @@ void UpdateRedStatusLed() {
 
   }
 }
-
-
-
-
-
 
 void setup() {
 
@@ -520,42 +505,33 @@ void setup() {
   BRAKE_PRESSURE = map(0, 0, 65000, BrakePressureZeroPoint, BrakePressureMaxPoint);
   /// BRAKE PRESSURE
 
+  DcsBios::setup();
 
 
 
   if (Ethernet_In_Use == 1) {
-
+    delay(EthernetStartupDelay);
     Ethernet.begin( myMac, myIP);
-    keyboardudp.begin(keyboardport);
-    senderudp.begin(ledport);
+    senderudp.begin(localport);
+
 
     if (Reflector_In_Use == 1) {
-      keyboardudp.beginPacket(reflectorIP, reflectorport);
-      keyboardudp.println("Init Digital Output - version:" + String(ProgramVersion) + " " + strMyIP + " " + String(millis()) + "mS since reset.");
-      keyboardudp.endPacket();
+      senderudp.beginPacket(reflectorIP, reflectorport);
+      senderudp.println("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      senderudp.endPacket();
     }
   }
 
 
+
   NEXT_PORT_TOGGLE_TIMER = millis() + 1000;
   NEXT_STATUS_TOGGLE_TIMER = millis() + 1000;
-
-
-
-  DcsBios::setup();
-
-  if (Reflector_In_Use == 1) {
-    keyboardudp.beginPacket(reflectorIP, reflectorport);
-    keyboardudp.println("Exiting Setup");
-    keyboardudp.endPacket();
-  }
-
 }
 
 
 void loop() {
 
-  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+  if (millis() > NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;
     digitalWrite( GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
@@ -621,6 +597,7 @@ void loop() {
     }
 
   }
+
 
 
 
