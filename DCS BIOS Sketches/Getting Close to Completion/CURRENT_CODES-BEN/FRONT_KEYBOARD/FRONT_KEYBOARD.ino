@@ -20,6 +20,7 @@
 
 /*
     KNOWN ISSUE - NEED TO UNPLUG NATIVE USB PORT WHEN PROGRAMMING
+    It is the outer port (yellow dotted)
 */
 
 /*

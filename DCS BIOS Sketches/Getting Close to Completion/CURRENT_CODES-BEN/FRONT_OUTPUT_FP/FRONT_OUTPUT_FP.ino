@@ -5,7 +5,7 @@
 //||               FUNCTION = FRONT OUTPUT                           ||\\
 //||              LOCATION IN THE PIT = LIP LEFT HAND SIDE             ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega               ||\\
-//||      ARDUINO CHIP SERIAL NUMBER = SN -      ||\\
+//||      ARDUINO CHIP SERIAL NUMBER = SN - 85036313230351A0C1D1     ||\\
 //||            PROGRAM PORT CONNECTED COM PORT = COM TBA            ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
