@@ -1690,8 +1690,6 @@ Text Label 10250 4850 1    50   ~ 0
 HOOK_BYPASS_MAG
 Text Label 10250 5850 3    50   ~ 0
 FUEL_DUMP_MAG
-Text Label 10150 4850 1    50   ~ 0
-APU_MAG
 Text Label 10150 5850 3    50   ~ 0
 ENGINE_CRANK_MAG
 Text Label 1450 1500 2    50   ~ 0
@@ -1768,89 +1766,6 @@ F 3 "" H 3050 4850 50  0001 C CNN
 	1    3050 4850
 	1    0    0    -1  
 $EndComp
-Text Label 9750 5850 3    50   ~ 0
-BP_STEP_COIL_A
-Text Label 9850 5850 3    50   ~ 0
-BP_STEP_COIL_B
-Text Label 9950 5850 3    50   ~ 0
-BP_STEP_COIL_C
-Text Label 10050 5850 3    50   ~ 0
-BP_STEP_COIL_D
-Text Label 9350 5850 3    50   ~ 0
-R_ALT_STEP_COIL_A
-Text Label 9450 5850 3    50   ~ 0
-R_ALT_STEP_COIL_B
-Text Label 9550 5850 3    50   ~ 0
-R_ALT_STEP_COIL_C
-Text Label 9650 5850 3    50   ~ 0
-R_ALT_STEP_COIL_D
-Text Label 10050 4850 1    50   ~ 0
-CA_STEP_COIL_A
-Text Label 9950 4850 1    50   ~ 0
-CA_STEP_COIL_B
-Text Label 9850 4850 1    50   ~ 0
-CA_STEP_COIL_C
-Text Label 9750 4850 1    50   ~ 0
-CA_STEP_COIL_D
-$Comp
-L Connector:Conn_01x08_Female J9
-U 1 1 61783AF5
-P 3250 2250
-F 0 "J9" H 3278 2226 50  0000 L CNN
-F 1 "PIXEL LEDS" H 3278 2135 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 3250 2250 50  0001 C CNN
-F 3 "~" H 3250 2250 50  0001 C CNN
-	1    3250 2250
-	1    0    0    -1  
-$EndComp
-Text Label 3050 1950 2    50   ~ 0
-LED_CHAIN_1
-Text Label 3050 2050 2    50   ~ 0
-LED_CHAIN_2
-Text Label 3050 2150 2    50   ~ 0
-LED_CHAIN_3
-Text Label 3050 2250 2    50   ~ 0
-LED_CHAIN_4
-Text Label 3050 2350 2    50   ~ 0
-LED_CHAIN_5
-Text Label 3050 2450 2    50   ~ 0
-LED_CHAIN_6
-$Comp
-L power:GND #PWR07
-U 1 1 6178A8D7
-P 2950 2650
-F 0 "#PWR07" H 2950 2400 50  0001 C CNN
-F 1 "GND" H 2955 2477 50  0000 C CNN
-F 2 "" H 2950 2650 50  0001 C CNN
-F 3 "" H 2950 2650 50  0001 C CNN
-	1    2950 2650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3050 2650 2950 2650
-Text Label 9650 4850 1    50   ~ 0
-LED_CHAIN_1
-Text Label 9550 4850 1    50   ~ 0
-LED_CHAIN_2
-Text Label 9450 4850 1    50   ~ 0
-LED_CHAIN_3
-Text Label 9350 4850 1    50   ~ 0
-LED_CHAIN_4
-Text Label 9250 4850 1    50   ~ 0
-LED_CHAIN_5
-Text Label 9250 5850 3    50   ~ 0
-LED_CHAIN_6
-$Comp
-L Connector:Conn_01x04_Female J10
-U 1 1 617A0FB1
-P 3250 3350
-F 0 "J10" H 3278 3326 50  0000 L CNN
-F 1 "I2C" H 3278 3235 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 3250 3350 50  0001 C CNN
-F 3 "~" H 3250 3350 50  0001 C CNN
-	1    3250 3350
-	1    0    0    -1  
-$EndComp
 $Comp
 L Connector:Conn_01x04_Female J7
 U 1 1 617A3D34
@@ -1864,8 +1779,6 @@ F 3 "~" H 2200 3350 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	1450 3350 2000 3350
-Wire Wire Line
-	3050 3350 2700 3350
 $Comp
 L power:GND #PWR03
 U 1 1 617AE279
@@ -1875,17 +1788,6 @@ F 1 "GND" H 1455 3177 50  0000 C CNN
 F 2 "" H 1450 3350 50  0001 C CNN
 F 3 "" H 1450 3350 50  0001 C CNN
 	1    1450 3350
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR08
-U 1 1 617AEAC5
-P 2700 3350
-F 0 "#PWR08" H 2700 3100 50  0001 C CNN
-F 1 "GND" H 2705 3177 50  0000 C CNN
-F 2 "" H 2700 3350 50  0001 C CNN
-F 3 "" H 2700 3350 50  0001 C CNN
-	1    2700 3350
 	1    0    0    -1  
 $EndComp
 Text Label 10400 2950 0    50   ~ 0
@@ -1930,10 +1832,6 @@ F 3 "" H 5150 5250 50  0001 C CNN
 $EndComp
 Text Label 10600 4100 0    50   ~ 0
 SCL
-Text Label 3050 3450 2    50   ~ 0
-SCL
-Text Label 3050 3550 2    50   ~ 0
-SDA
 Text Label 10600 4000 0    50   ~ 0
 SDA
 Text Label 2000 3450 2    50   ~ 0
@@ -1972,8 +1870,6 @@ UPPER_OUTPUT_5V
 Text Label 1450 1850 2    50   ~ 0
 UPPER_OUTPUT_5V
 Text Label 2000 3250 2    50   ~ 0
-LOWER_OUTPUT_5V
-Text Label 3050 3250 2    50   ~ 0
 LOWER_OUTPUT_5V
 Text Label 3400 4750 2    50   ~ 0
 LOWER_OUTPUT_5V
@@ -2104,7 +2000,6 @@ F 3 "" H 7550 1350 50  0001 C CNN
 	1    7550 1350
 	1    0    0    -1  
 $EndComp
-NoConn ~ 3050 2550
 $Comp
 L Connector:Conn_01x08_Female J4
 U 1 1 61749FE1
@@ -2117,7 +2012,7 @@ F 3 "~" H 1650 2150 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Mosfet:IRF1405PBF Q1
+L Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet Q1
 U 1 1 624444DF
 P 4200 1650
 F 0 "Q1" H 4728 1696 50  0000 L CNN
@@ -2261,7 +2156,7 @@ STROBE_LIGHTS_NEG
 Text Label 4600 1450 2    50   ~ 0
 NAV_LIGHTS_NEG
 $Comp
-L Mosfet:IRF1405PBF Q2
+L Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet Q2
 U 1 1 62465D20
 P 4200 2400
 F 0 "Q2" H 4728 2446 50  0000 L CNN
@@ -2339,7 +2234,7 @@ Wire Wire Line
 Text Label 4600 2200 2    50   ~ 0
 STROBE_LIGHTS_NEG
 $Comp
-L Mosfet:IRF1405PBF Q3
+L Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet Q3
 U 1 1 6246E3EC
 P 4200 3250
 F 0 "Q3" H 4728 3296 50  0000 L CNN
@@ -2454,7 +2349,7 @@ L Connector:Conn_01x02_Female J14
 U 1 1 624799C6
 P 6300 2850
 F 0 "J14" H 6328 2826 50  0000 L CNN
-F 1 "PORT FORMATION" H 6328 2735 50  0000 L CNN
+F 1 "LEFT FORM" H 6328 2735 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6300 2850 50  0001 C CNN
 F 3 "~" H 6300 2850 50  0001 C CNN
 	1    6300 2850
@@ -2478,7 +2373,7 @@ L Connector:Conn_01x02_Female J12
 U 1 1 624A3E85
 P 6250 3350
 F 0 "J12" H 6278 3326 50  0000 L CNN
-F 1 "STARBOARD FORMATION" H 6278 3235 50  0000 L CNN
+F 1 "RIGHT FORM" H 6278 3235 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 6250 3350 50  0001 C CNN
 F 3 "~" H 6250 3350 50  0001 C CNN
 	1    6250 3350
@@ -2497,4 +2392,164 @@ F 3 "" H 6050 3350 50  0001 C CNN
 $EndComp
 Text Label 6050 3450 2    50   ~ 0
 FORMATION_LIGHTS_NEG
+$Comp
+L Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet Q5
+U 1 1 62469FCB
+P 3550 3700
+F 0 "Q5" H 4078 3746 50  0000 L CNN
+F 1 "IRF1405PBF" H 4078 3655 50  0000 L CNN
+F 2 "Mosft:International_Rectifier-PG-TO220-3-02_2008-904-MFG" H 3550 4200 50  0001 L CNN
+F 3 "https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb" H 3550 4300 50  0001 L CNN
+F 4 "No" H 3550 4400 50  0001 L CNN "automotive"
+F 5 "Trans" H 3550 4500 50  0001 L CNN "category"
+F 6 "169A" H 3550 4600 50  0001 L CNN "continuous drain current"
+F 7 "False" H 3550 4700 50  0001 L CNN "depletion mode"
+F 8 "Discrete Semiconductors" H 3550 4800 50  0001 L CNN "device class L1"
+F 9 "Transistors" H 3550 4900 50  0001 L CNN "device class L2"
+F 10 "MOSFETs" H 3550 5000 50  0001 L CNN "device class L3"
+F 11 "MOSFET N-CH 55V 169A TO-220AB" H 3550 5100 50  0001 L CNN "digikey description"
+F 12 "IRF1405PBF-ND" H 3550 5200 50  0001 L CNN "digikey part number"
+F 13 "55V" H 3550 5300 50  0001 L CNN "drain to source breakdown voltage"
+F 14 "4.6mΩ" H 3550 5400 50  0001 L CNN "drain to source resistance"
+F 15 "55V" H 3550 5500 50  0001 L CNN "drain to source voltage"
+F 16 "https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be" H 3550 5600 50  0001 L CNN "footprint url"
+F 17 "170nC @ 10V" H 3550 5700 50  0001 L CNN "gate charge at vgs"
+F 18 "20V" H 3550 5800 50  0001 L CNN "gate to source voltage"
+F 19 "19.8mm" H 3550 5900 50  0001 L CNN "height"
+F 20 "5480pF @ 25V" H 3550 6000 50  0001 L CNN "input capacitace at vds"
+F 21 "TO-220" H 3550 6100 50  0001 L CNN "ipc land pattern name"
+F 22 "Yes" H 3550 6200 50  0001 L CNN "lead free"
+F 23 "802d71249bb95e7c" H 3550 6300 50  0001 L CNN "library id"
+F 24 "International Rectifier" H 3550 6400 50  0001 L CNN "manufacturer"
+F 25 "1.3V" H 3550 6500 50  0001 L CNN "max forward diode voltage"
+F 26 "+175°C" H 3550 6600 50  0001 L CNN "max junction temp"
+F 27 "MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W" H 3550 6700 50  0001 L CNN "mouser description"
+F 28 "942-IRF1405PBF" H 3550 6800 50  0001 L CNN "mouser part number"
+F 29 "1" H 3550 6900 50  0001 L CNN "number of N channels"
+F 30 "1" H 3550 7000 50  0001 L CNN "number of channels"
+F 31 "TO-220AB" H 3550 7100 50  0001 L CNN "package"
+F 32 "330W" H 3550 7200 50  0001 L CNN "power dissipation"
+F 33 "680A" H 3550 7300 50  0001 L CNN "pulse drain current"
+F 34 "250nC" H 3550 7400 50  0001 L CNN "reverse recovery charge"
+F 35 "88ns" H 3550 7500 50  0001 L CNN "reverse recovery time"
+F 36 "Yes" H 3550 7600 50  0001 L CNN "rohs"
+F 37 "62°C/W" H 3550 7700 50  0001 L CNN "rthja max"
+F 38 "3.37mm" H 3550 7800 50  0001 L CNN "standoff height"
+F 39 "+175°C" H 3550 7900 50  0001 L CNN "temperature range high"
+F 40 "-55°C" H 3550 8000 50  0001 L CNN "temperature range low"
+F 41 "4V" H 3550 8100 50  0001 L CNN "threshold vgs max"
+F 42 "2V" H 3550 8200 50  0001 L CNN "threshold vgs min"
+F 43 "130ns" H 3550 8300 50  0001 L CNN "turn off delay time"
+F 44 "13ns" H 3550 8400 50  0001 L CNN "turn on delay time"
+	1    3550 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR07
+U 1 1 62469FD5
+P 3950 3900
+F 0 "#PWR07" H 3950 3650 50  0001 C CNN
+F 1 "GND" H 3955 3727 50  0000 C CNN
+F 2 "" H 3950 3900 50  0001 C CNN
+F 3 "" H 3950 3900 50  0001 C CNN
+	1    3950 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_US R7
+U 1 1 62469FDF
+P 3300 3700
+F 0 "R7" H 3368 3746 50  0000 L CNN
+F 1 "10" H 3368 3655 50  0000 L CNN
+F 2 "PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 3340 3690 50  0001 C CNN
+F 3 "~" H 3300 3700 50  0001 C CNN
+	1    3300 3700
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	3650 3700 3450 3700
+Text Label 3950 3500 2    50   ~ 0
+FLOOD_LIGHTS_NEG
+$Comp
+L Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet Q4
+U 1 1 62475E29
+P 3000 2750
+F 0 "Q4" H 3528 2796 50  0000 L CNN
+F 1 "IRF1405PBF" H 3528 2705 50  0000 L CNN
+F 2 "Mosft:International_Rectifier-PG-TO220-3-02_2008-904-MFG" H 3000 3250 50  0001 L CNN
+F 3 "https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb" H 3000 3350 50  0001 L CNN
+F 4 "No" H 3000 3450 50  0001 L CNN "automotive"
+F 5 "Trans" H 3000 3550 50  0001 L CNN "category"
+F 6 "169A" H 3000 3650 50  0001 L CNN "continuous drain current"
+F 7 "False" H 3000 3750 50  0001 L CNN "depletion mode"
+F 8 "Discrete Semiconductors" H 3000 3850 50  0001 L CNN "device class L1"
+F 9 "Transistors" H 3000 3950 50  0001 L CNN "device class L2"
+F 10 "MOSFETs" H 3000 4050 50  0001 L CNN "device class L3"
+F 11 "MOSFET N-CH 55V 169A TO-220AB" H 3000 4150 50  0001 L CNN "digikey description"
+F 12 "IRF1405PBF-ND" H 3000 4250 50  0001 L CNN "digikey part number"
+F 13 "55V" H 3000 4350 50  0001 L CNN "drain to source breakdown voltage"
+F 14 "4.6mΩ" H 3000 4450 50  0001 L CNN "drain to source resistance"
+F 15 "55V" H 3000 4550 50  0001 L CNN "drain to source voltage"
+F 16 "https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be" H 3000 4650 50  0001 L CNN "footprint url"
+F 17 "170nC @ 10V" H 3000 4750 50  0001 L CNN "gate charge at vgs"
+F 18 "20V" H 3000 4850 50  0001 L CNN "gate to source voltage"
+F 19 "19.8mm" H 3000 4950 50  0001 L CNN "height"
+F 20 "5480pF @ 25V" H 3000 5050 50  0001 L CNN "input capacitace at vds"
+F 21 "TO-220" H 3000 5150 50  0001 L CNN "ipc land pattern name"
+F 22 "Yes" H 3000 5250 50  0001 L CNN "lead free"
+F 23 "802d71249bb95e7c" H 3000 5350 50  0001 L CNN "library id"
+F 24 "International Rectifier" H 3000 5450 50  0001 L CNN "manufacturer"
+F 25 "1.3V" H 3000 5550 50  0001 L CNN "max forward diode voltage"
+F 26 "+175°C" H 3000 5650 50  0001 L CNN "max junction temp"
+F 27 "MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W" H 3000 5750 50  0001 L CNN "mouser description"
+F 28 "942-IRF1405PBF" H 3000 5850 50  0001 L CNN "mouser part number"
+F 29 "1" H 3000 5950 50  0001 L CNN "number of N channels"
+F 30 "1" H 3000 6050 50  0001 L CNN "number of channels"
+F 31 "TO-220AB" H 3000 6150 50  0001 L CNN "package"
+F 32 "330W" H 3000 6250 50  0001 L CNN "power dissipation"
+F 33 "680A" H 3000 6350 50  0001 L CNN "pulse drain current"
+F 34 "250nC" H 3000 6450 50  0001 L CNN "reverse recovery charge"
+F 35 "88ns" H 3000 6550 50  0001 L CNN "reverse recovery time"
+F 36 "Yes" H 3000 6650 50  0001 L CNN "rohs"
+F 37 "62°C/W" H 3000 6750 50  0001 L CNN "rthja max"
+F 38 "3.37mm" H 3000 6850 50  0001 L CNN "standoff height"
+F 39 "+175°C" H 3000 6950 50  0001 L CNN "temperature range high"
+F 40 "-55°C" H 3000 7050 50  0001 L CNN "temperature range low"
+F 41 "4V" H 3000 7150 50  0001 L CNN "threshold vgs max"
+F 42 "2V" H 3000 7250 50  0001 L CNN "threshold vgs min"
+F 43 "130ns" H 3000 7350 50  0001 L CNN "turn off delay time"
+F 44 "13ns" H 3000 7450 50  0001 L CNN "turn on delay time"
+	1    3000 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR01
+U 1 1 62475E33
+P 3400 2950
+F 0 "#PWR01" H 3400 2700 50  0001 C CNN
+F 1 "GND" H 3405 2777 50  0000 C CNN
+F 2 "" H 3400 2950 50  0001 C CNN
+F 3 "" H 3400 2950 50  0001 C CNN
+	1    3400 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_US R6
+U 1 1 62475E3D
+P 2750 2750
+F 0 "R6" H 2818 2796 50  0000 L CNN
+F 1 "10" H 2818 2705 50  0000 L CNN
+F 2 "PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" V 2790 2740 50  0001 C CNN
+F 3 "~" H 2750 2750 50  0001 C CNN
+	1    2750 2750
+	0    1    -1   0   
+$EndComp
+Wire Wire Line
+	3100 2750 2900 2750
+Text Label 3400 2550 2    50   ~ 0
+BACKLIGHT_NEG
+Text Label 3800 1650 2    50   ~ 0
+NAV_LIGHT
+Text Label 10150 4850 1    50   ~ 0
+NAV_LIGHT
 $EndSCHEMATC
