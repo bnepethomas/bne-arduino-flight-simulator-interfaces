@@ -45,6 +45,27 @@
     )
   )
   (placement
+    (component "Package_TO_SOT_THT:TO-220-3_Vertical"
+      (place Q5 190436 -108585 front 270 (PN IRF1405PBF))
+      (place Q4 209486 -108331 front 270 (PN IRF1405PBF))
+      (place Q3 209486 -96456.5 front 270 (PN IRF1405PBF))
+      (place Q2 209486 -84328 front 270 (PN IRF1405PBF))
+      (place Q1 209486 -72707.5 front 270 (PN IRF1405PBF))
+    )
+    (component PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
+      (place R12 204280 -97726.5 front 90 (PN 10K))
+      (place R11 204280 -80200.5 front 90 (PN 10K))
+      (place R10 204280 -91884.5 front 90 (PN 10K))
+      (place R9 184468 -115252 front 0 (PN 10K))
+      (place R8 204280 -115252 front 90 (PN 10K))
+      (place R7 181229 -115252 front 180 (PN 330))
+      (place R6 204280 -109410 front 90 (PN 330))
+      (place R5 204280 -103568 front 90 (PN 330))
+      (place R4 204280 -86042.5 front 90 (PN 330))
+      (place R3 204280 -74358.5 front 90 (PN 330))
+      (place R2 154305 -74930 front 0 (PN 330))
+      (place R1 146050 -73977.5 front 0 (PN 330))
+    )
     (component Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm
       (place C2 203708 -118428 front 180 (PN 0.1uF))
     )
@@ -56,25 +77,9 @@
       (place J9 217424 -117856 front 90 (PN BACKLIGHT))
       (place J14 217424 -109553 front 90 (PN "LEFT FORM"))
       (place J12 217424 -101251 front 90 (PN "RIGHT FORM"))
-      (place J1 175514 -107442 front 0 (PN "12V IN"))
+      (place J1 175514 -107442 front 0 (PN "LOWER 12V IN"))
       (place J6 163004 -101600 front 0 (PN "UPPER 5V OUT"))
       (place J5 187071 -87630 front 0 (PN "LOWER 5V IN"))
-    )
-    (component PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
-      (place R7 186309 -115443 front 180 (PN 330))
-      (place R6 204343 -113411 front 90 (PN 330))
-      (place R5 204343 -101664 front 90 (PN 330))
-      (place R4 204343 -90360.5 front 90 (PN 330))
-      (place R3 204343 -78105 front 90 (PN 330))
-      (place R2 154305 -74930 front 0 (PN 330))
-      (place R1 146050 -73977.5 front 0 (PN 330))
-    )
-    (component "Mosft:International_Rectifier-PG-TO220-3-02_2008-904-MFG"
-      (place Q5 190944 -110934 front 0 (PN IRF1405PBF))
-      (place Q4 209677 -112268 front 0 (PN IRF1405PBF))
-      (place Q3 209677 -100394 front 0 (PN IRF1405PBF))
-      (place Q2 209677 -88328.5 front 0 (PN IRF1405PBF))
-      (place Q1 209677 -76390.5 front 0 (PN IRF1405PBF))
     )
     (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
       (place J19 217424 -79565.5 front 90 (PN "STARBOARD SIDE"))
@@ -121,6 +126,47 @@
     )
   )
   (library
+    (image "Package_TO_SOT_THT:TO-220-3_Vertical"
+      (outline (path signal 50  7790 3400  -2710 3400))
+      (outline (path signal 50  7790 -1510  7790 3400))
+      (outline (path signal 50  -2710 -1510  7790 -1510))
+      (outline (path signal 50  -2710 3400  -2710 -1510))
+      (outline (path signal 120  4391 3270  4391 1760))
+      (outline (path signal 120  690 3270  690 1760))
+      (outline (path signal 120  -2580 1760  7660 1760))
+      (outline (path signal 120  7660 3270  7660 -1371))
+      (outline (path signal 120  -2580 3270  -2580 -1371))
+      (outline (path signal 120  -2580 -1371  7660 -1371))
+      (outline (path signal 120  -2580 3270  7660 3270))
+      (outline (path signal 100  4390 3150  4390 1880))
+      (outline (path signal 100  690 3150  690 1880))
+      (outline (path signal 100  -2460 1880  7540 1880))
+      (outline (path signal 100  7540 3150  -2460 3150))
+      (outline (path signal 100  7540 -1250  7540 3150))
+      (outline (path signal 100  -2460 -1250  7540 -1250))
+      (outline (path signal 100  -2460 3150  -2460 -1250))
+      (pin Oval[A]Pad_1905x2000_um 3 5080 0)
+      (pin Oval[A]Pad_1905x2000_um 2 2540 0)
+      (pin Rect[A]Pad_1905x2000_um 1 0 0)
+    )
+    (image PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
+      (outline (path signal 100  800 0  720.775 -347.107  498.792 -625.465  178.017 -779.942
+            -178.017 -779.942  -498.792 -625.465  -720.775 -347.107  -800 0
+            -720.775 347.107  -498.792 625.465  -178.017 779.942  178.017 779.942
+            498.792 625.465  720.775 347.107  800 0))
+      (outline (path signal 120  920 0  840.462 -374.198  615.6 -683.693  284.296 -874.972
+            -96.166 -914.96  -460 -796.743  -744.296 -540.762  -899.896 -191.279
+            -899.896 191.279  -744.296 540.762  -460 796.743  -96.166 914.96
+            284.296 874.972  615.6 683.693  840.462 374.198  920 0))
+      (outline (path signal 100  0 0  2540 0))
+      (outline (path signal 120  920 0  1540 0))
+      (outline (path signal 50  -1050 1050  -1050 -1050))
+      (outline (path signal 50  -1050 -1050  3490 -1050))
+      (outline (path signal 50  3490 -1050  3490 1050))
+      (outline (path signal 50  3490 1050  -1050 1050))
+      (pin Round[A]Pad_1400_um 1 0 0)
+      (pin Oval[A]Pad_1400x1400_um 2 2540 0)
+    )
     (image Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm
       (outline (path signal 50  6050 1200  -1050 1200))
       (outline (path signal 50  6050 -1200  6050 1200))
@@ -318,44 +364,6 @@
       (outline (path signal 100  -1270 2920  -1270 -2880))
       (pin Oval[A]Pad_1740x2200_um 2 2540 0)
       (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
-    )
-    (image PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
-      (outline (path signal 100  800 0  720.775 -347.107  498.792 -625.465  178.017 -779.942
-            -178.017 -779.942  -498.792 -625.465  -720.775 -347.107  -800 0
-            -720.775 347.107  -498.792 625.465  -178.017 779.942  178.017 779.942
-            498.792 625.465  720.775 347.107  800 0))
-      (outline (path signal 120  920 0  840.462 -374.198  615.6 -683.693  284.296 -874.972
-            -96.166 -914.96  -460 -796.743  -744.296 -540.762  -899.896 -191.279
-            -899.896 191.279  -744.296 540.762  -460 796.743  -96.166 914.96
-            284.296 874.972  615.6 683.693  840.462 374.198  920 0))
-      (outline (path signal 100  0 0  2540 0))
-      (outline (path signal 120  920 0  1540 0))
-      (outline (path signal 50  -1050 1050  -1050 -1050))
-      (outline (path signal 50  -1050 -1050  3490 -1050))
-      (outline (path signal 50  3490 -1050  3490 1050))
-      (outline (path signal 50  3490 1050  -1050 1050))
-      (pin Round[A]Pad_1400_um 1 0 0)
-      (pin Oval[A]Pad_1400x1400_um 2 2540 0)
-    )
-    (image "Mosft:International_Rectifier-PG-TO220-3-02_2008-904-MFG"
-      (outline (path signal 150  2440 -5527  2440 5527))
-      (outline (path signal 150  -2440 -5527  2440 -5527))
-      (outline (path signal 150  -2440 5527  -2440 -5527))
-      (outline (path signal 150  2440 5527  -2440 5527))
-      (outline (path signal 150  2440 5527  2440 5527))
-      (outline (path signal 150  2415 5375  -2415 4300))
-      (outline (path signal 300  2415 -5325  2415 5325))
-      (outline (path signal 150  -2415 -4300  2415 -5375))
-      (outline (path signal 150  -2415 4300  -2415 -4300))
-      (outline (path signal 150  2415 -5375  -2415 -5375))
-      (outline (path signal 150  2415 5375  2415 -5375))
-      (outline (path signal 150  -2415 5375  2415 5375))
-      (outline (path signal 150  -2415 -5375  -2415 5375))
-      (outline (path signal 250  125 5875  62.5 5766.75  -62.5 5766.75  -125 5875  -62.5 5983.25
-            62.5 5983.25  125 5875))
-      (pin Round[A]Pad_2000_um 3 -610 -2540)
-      (pin Round[A]Pad_2000_um 2 -610 0)
-      (pin Rect[A]Pad_2000x2000_um 1 -610 2540)
     )
     (image PT_Library_v001:Molex_1x04_P2.54mm_Vertical
       (outline (path signal 50  9390 3420  -1770 3420))
@@ -753,11 +761,6 @@
       (shape (circle B.Cu 1800))
       (attach off)
     )
-    (padstack Round[A]Pad_2000_um
-      (shape (circle F.Cu 2000))
-      (shape (circle B.Cu 2000))
-      (attach off)
-    )
     (padstack Oval[A]Pad_1400x1400_um
       (shape (path F.Cu 1400  0 0  0 0))
       (shape (path B.Cu 1400  0 0  0 0))
@@ -781,6 +784,11 @@
     (padstack Oval[A]Pad_1740x2200_um
       (shape (path F.Cu 1740  0 -230  0 230))
       (shape (path B.Cu 1740  0 -230  0 230))
+      (attach off)
+    )
+    (padstack Oval[A]Pad_1905x2000_um
+      (shape (path F.Cu 1905  0 -47.5  0 47.5))
+      (shape (path B.Cu 1905  0 -47.5  0 47.5))
       (attach off)
     )
     (padstack RoundRect[A]Pad_3500x3500_878.33_um
@@ -858,11 +866,6 @@
             880.732 1741.42))
       (attach off)
     )
-    (padstack Rect[A]Pad_2000x2000_um
-      (shape (rect F.Cu -1000 -1000 1000 1000))
-      (shape (rect B.Cu -1000 -1000 1000 1000))
-      (attach off)
-    )
     (padstack Rect[A]Pad_3500x3500_um
       (shape (rect F.Cu -1750 -1750 1750 1750))
       (shape (rect B.Cu -1750 -1750 1750 1750))
@@ -883,6 +886,11 @@
       (shape (rect B.Cu -900 -900 900 900))
       (attach off)
     )
+    (padstack Rect[A]Pad_1905x2000_um
+      (shape (rect F.Cu -952.5 -1000 952.5 1000))
+      (shape (rect B.Cu -952.5 -1000 952.5 1000))
+      (attach off)
+    )
     (padstack "Via[0-1]_600:400_um"
       (shape (circle F.Cu 600))
       (shape (circle B.Cu 600))
@@ -891,7 +899,8 @@
   )
   (network
     (net GND
-      (pins C2-2 C1-2 Q5-3 Q4-3 Q3-3 Q2-3 Q1-3 J1-2 J7-2 J2-6 J8-2 J5-2 P4-1 P4-2)
+      (pins Q5-3 Q4-3 Q3-3 Q2-3 Q1-3 R12-1 R11-1 R10-1 R9-1 R8-1 C2-2 C1-2 J1-2 J7-2
+        J2-6 J8-2 J5-2 P4-1 P4-2)
     )
     (net /47
       (pins P4-10)
@@ -1158,25 +1167,34 @@
       (pins Q1-2 J19-2 J13-2)
     )
     (net "Net-(Q1-Pad1)"
-      (pins R3-1 Q1-1)
+      (pins Q1-1 R3-1)
     )
     (net "Net-(Q2-Pad1)"
-      (pins R4-1 Q2-1)
+      (pins Q2-1 R4-1)
     )
     (net "Net-(Q3-Pad1)"
-      (pins R5-1 Q3-1)
+      (pins Q3-1 R12-2 R5-1)
     )
     (net /BACKLIGHT_NEG
-      (pins J9-2 Q4-2)
+      (pins Q4-2 J9-2)
     )
     (net "Net-(Q4-Pad1)"
-      (pins R6-1 Q4-1)
+      (pins Q4-1 R6-1)
     )
     (net /FLOOD_LIGHTS_NEG
-      (pins J10-2 Q5-2)
+      (pins Q5-2 J10-2)
     )
     (net "Net-(Q5-Pad1)"
-      (pins R7-1 Q5-1)
+      (pins Q5-1 R9-2 R7-1)
+    )
+    (net "Net-(R8-Pad2)"
+      (pins R8-2)
+    )
+    (net "Net-(R10-Pad2)"
+      (pins R10-2)
+    )
+    (net "Net-(R11-Pad2)"
+      (pins R11-2)
     )
     (class kicad_default "" +3V3 "/14(Tx3)" "/15(Rx3)" "/16(Tx2)" "/17(Rx2)"
       "/18(Tx1)" "/19(Rx1)" "/20(SDA)" "/21(SCL)" /22 /23 /24 /25 /26 /27
@@ -1188,7 +1206,7 @@
       "Net-(D2-Pad2)" "Net-(J2-Pad5)" "Net-(J4-Pad8)" "Net-(J8-Pad6)" "Net-(P1-Pad1)"
       "Net-(P4-Pad3)" "Net-(P4-Pad4)" "Net-(P4-Pad5)" "Net-(P4-Pad6)" "Net-(P5-Pad1)"
       "Net-(P5-Pad6)" "Net-(P6-Pad4)" "Net-(Q1-Pad1)" "Net-(Q2-Pad1)" "Net-(Q3-Pad1)"
-      "Net-(Q4-Pad1)" "Net-(Q5-Pad1)" "Net-(R4-Pad2)" "Net-(R5-Pad2)"
+      "Net-(Q4-Pad1)" "Net-(Q5-Pad1)" "Net-(R10-Pad2)" "Net-(R11-Pad2)" "Net-(R8-Pad2)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )

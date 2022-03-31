@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 654)
+    (start_pass_no 919)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -80,7 +80,7 @@
     /A11 /A12 /A13 /A14 /A15 "Net-(P4-Pad3)" "Net-(P4-Pad4)" "Net-(P4-Pad5)"
     "Net-(P4-Pad6)" "Net-(P5-Pad6)" "Net-(P5-Pad1)" "Net-(P6-Pad4)" /D1 /D0 "/17(Rx2)" "/FORMATION_LIGHTS_NEG"
     "/STROBE_LIGHTS_NEG" "/NAV_LIGHTS_NEG" "Net-(Q1-Pad1)" "Net-(Q2-Pad1)" "Net-(Q3-Pad1)" "/BACKLIGHT_NEG" "Net-(Q4-Pad1)" "/FLOOD_LIGHTS_NEG"
-    "Net-(Q5-Pad1)"
+    "Net-(Q5-Pad1)" "Net-(R8-Pad2)" "Net-(R10-Pad2)" "Net-(R11-Pad2)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
