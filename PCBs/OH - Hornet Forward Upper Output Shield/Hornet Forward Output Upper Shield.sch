@@ -2805,4 +2805,6 @@ F 3 "" H 4250 1950 50  0001 C CNN
 	1    4250 1950
 	1    0    0    -1  
 $EndComp
+Text Notes 3400 7000 0    118  ~ 0
+SILSCREEN TO AS USED 
 $EndSCHEMATC
