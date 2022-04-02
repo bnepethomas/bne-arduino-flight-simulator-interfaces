@@ -92,16 +92,14 @@
 
 String readString;
 #include <Servo.h>
-//#define DCSBIOS_IRQ_SERIAL
-#define DCSBIOS_DEFAULT_SERIAL
+
 
 #include "LedControl.h"
-#include "DcsBios.h"
+
 
 
 int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
 #define Reflector_In_Use 1
-#define DCSBIOS_In_Use 1
 #define Serial_In_Use 0
 
 // Ethernet Related
@@ -116,8 +114,6 @@ String strMyIP = "172.16.1.110  ";
 // Reflector
 IPAddress reflectorIP(172, 16, 1, 10);
 String strReflectorIP = "172.16.1.10";
-
-//const unsigned int trimport = 7791;           // Listening for trigger to centre trim servo
 
 
 
@@ -143,16 +139,16 @@ int keyboardLen;
 EthernetUDP senderudp;                   //Left and Right Consoles
 EthernetUDP keyboardudp;              // Keyboard
 
-char trimpacketBuffer[1000];           //buffer to store trim data
-char keyboardpacketBuffer[1000];      //buffer to store keyboard data
+char trimpacketBuffer[1000];                //buffer to store trim data
+char keyboardpacketBuffer[1000];            //buffer to store keyboard data
 
 
 
 
 
 
-#define RED_STATUS_LED_PORT 5               // RED LED is used for monitoring ethernet
-#define GREEN_STATUS_LED_PORT 13               // RED LED is used for monitoring ethernet
+#define RED_STATUS_LED_PORT 5                 // RED LED is used for monitoring ethernet
+#define GREEN_STATUS_LED_PORT 13              // RED LED is used for monitoring ethernet
 #define FLASH_TIME 1000
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
@@ -161,7 +157,8 @@ unsigned long timeSinceRedLedChanged = 0;
 
 
 bool Debug_Display = false;
-
+bool KEYBOARD_INITIALISED = false;
+#define DELAY_BEFORE_INITALISING_KEYBOARD 130   // Number of seconds before attempting to initalise keyboard - need PC booted
 
 
 // ###################################### Begin Keyboard Related #############################
@@ -558,7 +555,29 @@ void UpdateRedStatusLed() {
   }
 }
 
+void CHECK_KEYBOARD_INITIALISED() {
 
+  if (KEYBOARD_INITIALISED != true) {
+
+    if (Reflector_In_Use == 1) {
+      keyboardudp.beginPacket(reflectorIP, reflectorport);
+      keyboardudp.println("Init Keyboard Start" + String(millis()) + "mS since reset.");
+      keyboardudp.endPacket();
+    }
+
+    Keyboard.begin();
+
+    if (Reflector_In_Use == 1) {
+      keyboardudp.beginPacket(reflectorIP, reflectorport);
+      keyboardudp.println("Init Keyboard Complete" + String(millis()) + "mS since reset.");
+      keyboardudp.endPacket();
+    }
+
+    KEYBOARD_INITIALISED = true;
+
+  }
+
+}
 
 
 
@@ -576,29 +595,22 @@ void setup() {
   digitalWrite( GREEN_STATUS_LED_PORT, false);
 
   delay(FLASH_TIME);
- 
 
 
-  if (Ethernet_In_Use == 1) {
 
-    Ethernet.begin( myMac, myIP);
-    keyboardudp.begin(keyboardport);
-    senderudp.begin(ledport);
+  Ethernet.begin( myMac, myIP);
+  keyboardudp.begin(keyboardport);
+  senderudp.begin(ledport);
 
-    if (Reflector_In_Use == 1) {
-      keyboardudp.beginPacket(reflectorIP, reflectorport);
-      keyboardudp.println("Init Digital Output + Keyboard - version:" + String(ProgramVersion) + " " + strMyIP + " " + String(millis()) + "mS since reset.");
-      keyboardudp.endPacket();
-    }
+  if (Reflector_In_Use == 1) {
+    keyboardudp.beginPacket(reflectorIP, reflectorport);
+    keyboardudp.println("Init Digital Output + Keyboard - version:" + String(ProgramVersion) + " " + strMyIP + " " + String(millis()) + "mS since reset.");
+    keyboardudp.endPacket();
   }
 
 
 
   NEXT_STATUS_TOGGLE_TIMER = millis() + 1000;
-
-
-
-  Keyboard.begin();
 
 
   if (Reflector_In_Use == 1) {
@@ -611,6 +623,26 @@ void setup() {
 
 
 void loop() {
+
+  if ((millis() >= DELAY_BEFORE_INITALISING_KEYBOARD) && (KEYBOARD_INITIALISED != true)) {
+
+    if (Reflector_In_Use == 1) {
+      keyboardudp.beginPacket(reflectorIP, reflectorport);
+      keyboardudp.println("Init Keyboard Start" + String(millis()) + "mS since reset.");
+      keyboardudp.endPacket();
+    }
+
+    Keyboard.begin();
+
+    if (Reflector_In_Use == 1) {
+      keyboardudp.beginPacket(reflectorIP, reflectorport);
+      keyboardudp.println("Init Keyboard Complete" + String(millis()) + "mS since reset.");
+      keyboardudp.endPacket();
+    }
+
+    KEYBOARD_INITIALISED = true;
+
+  }
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;
@@ -626,7 +658,7 @@ void loop() {
 
   }
 
- 
+
 
   // ****************** Begin Keyboard Loop Area *******************
   if ((releaseKeysNeeded == true)  && (millis() >= timeBeforeReleaseAllKeys)) {
@@ -650,6 +682,7 @@ void loop() {
     keyboardpacketBuffer[keyboardLen] = 0;
   }
   if (keyboardpacketSize) {
+    CHECK_KEYBOARD_INITIALISED();
     SendCharactersToKeyboard(keyboardLen);
   }
 
