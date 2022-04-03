@@ -62,9 +62,9 @@ def pingit(Target_Name, Target_IP):
     show_all_pings = False
     response_list = ping(Target_IP, count=1,timeout=1,verbose=show_all_pings)
     if response_list.rtt_avg_ms <  10:
-        print(Target_Name + " : PASS")
+        print(Target_Name + " (" + Target_IP  + ") : PASS")
     else:
-        print("WARNING " + Target_Name + " : FAIL")
+        print("WARNING " + Target_Name + " (" + Target_IP +  ") : FAIL")
         input("Press Enter to continue")
 
 def pingpitdevices():
@@ -87,7 +87,7 @@ def checkipconnectivity():
     # Do a special check to ensure you have the correct ethernet port plugged in the PC
     response_list = ping('172.16.1.10', count=1,timeout=1,verbose=False)
     if response_list.rtt_avg_ms <  10:
-        print("Local Physical IP (172.16.1.10) Pass")
+        print("Local Physical IP (172.16.1.10) PASS")
         pingpitdevices()
     else:
         print("LOCAL ETHERNET PING (172.16.1.10) FAILED - IS IT CONFIGURED?")
