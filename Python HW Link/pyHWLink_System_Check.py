@@ -62,12 +62,23 @@ def pingit(Target_Name, Target_IP):
     show_all_pings = False
     response_list = ping(Target_IP, count=1,timeout=1,verbose=show_all_pings)
     if response_list.rtt_avg_ms <  10:
-        print(Target_Name + " Pass")
+        print(Target_Name + " : PASS")
     else:
-        print(Target_Name + " Fail")
+        print("WARNING " + Target_Name + " : FAIL")
+        input("Press Enter to continue")
 
 def pingpitdevices():
-    pingit("Digital, Servo, Stepper out", '172.16.1.111')    
+
+    pingit("Forward Console Inputs", '172.16.1.101')
+    pingit("Left Console Inputs", '172.16.1.100')
+    pingit("Right Console Inputs", '172.16.1.103')
+    pingit("UDP to Keystroke Converter", '172.16.1.110')
+
+    pingit("Digital, Servo, Stepper Outputs", '172.16.1.111')
+    pingit("Max7219, Netron, Power Control Outputs", '172.16.1.106')
+
+    pingit("Pixel Leds Outputs", '172.16.1.105')
+    
 
 
 def checkipconnectivity():
