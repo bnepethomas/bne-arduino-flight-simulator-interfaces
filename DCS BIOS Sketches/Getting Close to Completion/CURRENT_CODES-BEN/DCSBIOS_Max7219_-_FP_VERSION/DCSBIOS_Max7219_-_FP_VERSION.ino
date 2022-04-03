@@ -21,7 +21,7 @@
 
 #define Ethernet_In_Use 1
 const int Serial_In_Use = 0;
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 
 
 
@@ -1132,6 +1132,34 @@ void updateBrightness() {
 
 
 
+void AllOn() {
+  for (int displayunit = 0; displayunit < 9; displayunit++) {
+    for (int row = 0; row < 8; row++) {
+      for (int col = 0; col < 8 ; col++) {
+        if (col != 9 && col != 9 && col != 9)
+          lc.setLed(displayunit, row, col, true);
+      }
+    }
+  }
+}
+
+
+void AllOff() {
+  for (int displayunit = 0; displayunit < 9; displayunit++) {
+    for (int row = 0; row < 8; row++) {
+      for (int col = 0; col < 8; col++) {
+        lc.setLed(displayunit, row, col, false);
+      }
+    }
+  }
+}
+
+
+void SetBrightness(int Brightness) {
+  for (int address = 0; address < devices; address++) {
+    lc.setIntensity(address, (Brightness));
+  }
+}
 
 // ************************************ End Max7219
 
@@ -2095,12 +2123,13 @@ void setup() {
 
     if (Reflector_In_Use == 1) {
       max7219udp.beginPacket(reflectorIP, reflectorport);
-      max7219udp.println("Init Max7219 - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      max7219udp.println("Init Max7219, Nextron, Power Relay - " + strMyIP + " " + String(millis()) + "mS since reset.");
       max7219udp.endPacket();
     }
   }
 
 
+  // Initialise the Max7219
   devices = lc.getDeviceCount();
 
   for (int address = 0; address < devices; address++) {
@@ -2112,6 +2141,21 @@ void setup() {
     lc.clearDisplay(address);
   }
 
+
+  // Turn Everything on for 5 Seconds
+  AllOn();
+  delay(5000);
+
+  // Turn Everything off for 2 Seconds
+  AllOff();
+  delay(2000);
+
+  // Turn Everything on
+  SetBrightness(15);
+  AllOn();
+
+
+  // After Nextron Test is complete Dim all displays, then set back to default brightness and switch off
 
   nextion.begin(256000);
 
@@ -2181,7 +2225,23 @@ void setup() {
   nextion.write("\xFF\xFF\xFF");
 
 
+  // Slowly Dim the Leds
+  for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
+    SetBrightness(Local_Brightness);
+    delay(1000);
+  }
+
+  // Turn off All Leds and set to mid brightness
+  AllOff();
+  SetBrightness(8);
+
   DcsBios::setup();
+
+  if (Reflector_In_Use == 1) {
+    max7219udp.beginPacket(reflectorIP, reflectorport);
+    max7219udp.println("Setup Complete Max7219, Nextron, Power Relay - " + strMyIP + " " + String(millis()) + "mS since reset.");
+    max7219udp.endPacket();
+  }
 }
 
 void loop() {

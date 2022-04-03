@@ -116,11 +116,6 @@ IPAddress reflectorIP(172, 16, 1, 10);
 String strReflectorIP = "172.16.1.10";
 
 
-
-// Arduino Due for Keystroke translation and Pixel Led driving
-IPAddress ledTargetIP(172, 16, 1, 105);
-String strLedTargetIP = "172.16.1.105";
-
 const unsigned int localport = 7788;
 const unsigned int keyboardport = 7788;
 const unsigned int ledport = 7789;
@@ -534,23 +529,6 @@ void SendIPDebug( String DebugToSend) {
     senderudp.endPacket();
   }
 }
-
-void SendIPString(String LedToSend) {
-  // Used to Send Desired Keystrokes to Due acting as Keyboard
-  if (Ethernet_In_Use == 1) {
-
-    if (Reflector_In_Use == 1) {
-      senderudp.beginPacket(reflectorIP, reflectorport);
-      senderudp.print("LED instructions " + LedToSend);
-      senderudp.endPacket();
-    }
-    senderudp.beginPacket(ledTargetIP, ledport);
-    senderudp.print(LedToSend);
-    senderudp.endPacket();
-    UpdateRedStatusLed();
-  }
-}
-
 
 
 void UpdateRedStatusLed() {
