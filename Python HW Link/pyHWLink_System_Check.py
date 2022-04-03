@@ -94,3 +94,6 @@ def checkipconnectivity():
 
 
 checkipconnectivity()
+print()
+print()
+input("Tests Complete. Press Enter to Continue")

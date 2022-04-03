@@ -127,7 +127,7 @@ const unsigned int ledport = 7789;
 const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
 
-#define EthernetStartupDelay 500
+#define EthernetStartupDelay 1000
 
 // Packet Length
 int trimPacketSize;
@@ -158,7 +158,7 @@ unsigned long timeSinceRedLedChanged = 0;
 
 bool Debug_Display = false;
 bool KEYBOARD_INITIALISED = false;
-#define DELAY_BEFORE_INITALISING_KEYBOARD 130   // Number of seconds before attempting to initalise keyboard - need PC booted
+#define DELAY_BEFORE_INITALISING_KEYBOARD 180000   // Number of milliseconds before attempting to initalise keyboard - need PC booted 
 
 
 // ###################################### Begin Keyboard Related #############################
@@ -609,9 +609,12 @@ void setup() {
   keyboardudp.begin(keyboardport);
   senderudp.begin(ledport);
 
+  // Let Ethernet Settle
+  delay(EthernetStartupDelay);
+
   if (Reflector_In_Use == 1) {
     keyboardudp.beginPacket(reflectorIP, reflectorport);
-    keyboardudp.println("Init Digital Output + Keyboard - version:" + String(ProgramVersion) + " " + strMyIP + " " + String(millis()) + "mS since reset.");
+    keyboardudp.println("Init UDP to Keyboard - version:" + String(ProgramVersion) + " " + strMyIP + " " + String(millis()) + "mS since reset.");
     keyboardudp.endPacket();
   }
 

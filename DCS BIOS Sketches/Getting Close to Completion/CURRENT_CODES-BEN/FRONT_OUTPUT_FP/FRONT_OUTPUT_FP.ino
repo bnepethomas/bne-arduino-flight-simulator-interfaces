@@ -63,7 +63,7 @@ const unsigned int ledport = 7789;
 const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
 
-#define EthernetStartupDelay 500
+#define EthernetStartupDelay 1000
 
 // Packet Length
 int trimPacketSize;
