@@ -24,8 +24,8 @@
 
 String readString;
 #include <Servo.h>
-//#define DCSBIOS_IRQ_SERIAL
-#define DCSBIOS_DEFAULT_SERIAL
+#define DCSBIOS_IRQ_SERIAL
+//#define DCSBIOS_DEFAULT_SERIAL
 
 #include "LedControl.h"
 #include "DcsBios.h"

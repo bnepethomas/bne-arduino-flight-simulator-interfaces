@@ -21,56 +21,65 @@ import os
 import usb.core
 import usb.backend.libusb1
 
-backend = usb.backend.libusb1.get_backend(find_library=lambda x: "C:\libusb\MS64\dll\libusb-1.0.dll")
+def ScanUSB():
+    backend = usb.backend.libusb1.get_backend(find_library=lambda x: "C:\libusb\MS64\dll\libusb-1.0.dll")
 
-dev = usb.core.find(backend=backend, find_all=True)
-
-
-devices = usb.core.find(find_all=True)
-
-for dev in devices:
-
-    try:
-        print(dev._get_full_descriptor_str())
-
-    except:
-        print("Unable to get descriptor")
-
-    try:
-        xdev = usb.core.find(idVendor=dev.idVendor, idProduct=dev.idProduct)
-        if xdev._manufacturer is None:
-            xdev._manufacturer = usb.util.get_string(xdev, xdev.iManufacturer)
-        if xdev._product is None:
-            xdev._product = usb.util.get_string(xdev, xdev.iProduct)
-        stx = '%6d %6d: '+str(xdev._manufacturer).strip()+' = '+str(xdev._product).strip()
-               
-        print (str(xdev._manufacturer).strip(),":",str(xdev._product).strip())
-        
-    except:
-        print("Unknown devivce")
-        pass
-    print("Bus:", dev.bus, " Address:", dev.address, " Port:", dev.port_number," Speed:", dev.speed)
-    print()
+    dev = usb.core.find(backend=backend, find_all=True)
 
 
-def myping(host):
-    response = os.system("ping -n 1 " + host)
-    
-    if response == 0:
-        return True
-    else:
-        return False
+    devices = usb.core.find(find_all=True)
 
-       
-print("Google " + str(myping("www.google.com")))
-print("Default Gateway " + str(myping("192.168.2.1")))
+    for dev in devices:
+
+        try:
+            print(dev._get_full_descriptor_str())
+
+        except:
+            print("Unable to get descriptor")
+
+        try:
+            xdev = usb.core.find(idVendor=dev.idVendor, idProduct=dev.idProduct)
+            if xdev._manufacturer is None:
+                xdev._manufacturer = usb.util.get_string(xdev, xdev.iManufacturer)
+            if xdev._product is None:
+                xdev._product = usb.util.get_string(xdev, xdev.iProduct)
+            stx = '%6d %6d: '+str(xdev._manufacturer).strip()+' = '+str(xdev._product).strip()
+                   
+            print (str(xdev._manufacturer).strip(),":",str(xdev._product).strip())
+            
+        except:
+            print("Unknown devivce")
+            pass
+        print("Bus:", dev.bus, " Address:", dev.address, " Port:", dev.port_number," Speed:", dev.speed)
+        print()
+
+
 
 from pythonping import ping
 
-response_list = ping('192.168.4.45', count=1,timeout=1,verbose=True)
-if response_list.success == True:
-    print("Pass")
-else:
-    print("Fail")
+def pingit(Target_Name, Target_IP):
+
+    show_all_pings = False
+    response_list = ping(Target_IP, count=1,timeout=1,verbose=show_all_pings)
+    if response_list.rtt_avg_ms <  10:
+        print(Target_Name + " Pass")
+    else:
+        print(Target_Name + " Fail")
+
+def pingpitdevices():
+    pingit("Digital, Servo, Stepper out", '172.16.1.111')    
 
 
+def checkipconnectivity():
+    pingit("Local Loopback", '127.0.0.1')
+
+    # Do a special check to ensure you have the correct ethernet port plugged in the PC
+    response_list = ping('172.16.1.10', count=1,timeout=1,verbose=False)
+    if response_list.rtt_avg_ms <  10:
+        print("Local Physical IP (172.16.1.10) Pass")
+        pingpitdevices()
+    else:
+        print("LOCAL ETHERNET PING (172.16.1.10) FAILED - IS IT CONFIGURED?")
+
+
+checkipconnectivity()
