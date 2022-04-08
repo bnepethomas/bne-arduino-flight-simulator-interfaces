@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 919)
+    (start_pass_no 1161)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -74,13 +74,13 @@
     /22 /23 /D8 /D7 /D6 /D12 /D11 /D9
     "Net-(D1-Pad2)" "Net-(D2-Pad2)" "/14(Tx3)" "/15(Rx3)" "/16(Tx2)" "/18(Tx1)" /38 /36
     /34 /32 /48 /49 /46 /44 /42 /40
-    /D13 /D5 "/19(Rx1)" "/20(SDA)" "/21(SCL)" "/ADDRESS_SELECT_0" "/ADDRESS_SELECT_1" /A3
-    /A2 /A1 /A0 /A4 "Net-(J2-Pad5)" "Net-(J4-Pad8)" "Net-(J8-Pad6)" "Net-(P1-Pad1)"
-    /IOREF /Reset +3V3 /Vin /A5 /A8 /A9 /A10
-    /A11 /A12 /A13 /A14 /A15 "Net-(P4-Pad3)" "Net-(P4-Pad4)" "Net-(P4-Pad5)"
-    "Net-(P4-Pad6)" "Net-(P5-Pad6)" "Net-(P5-Pad1)" "Net-(P6-Pad4)" /D1 /D0 "/17(Rx2)" "/FORMATION_LIGHTS_NEG"
-    "/STROBE_LIGHTS_NEG" "/NAV_LIGHTS_NEG" "Net-(Q1-Pad1)" "Net-(Q2-Pad1)" "Net-(Q3-Pad1)" "/BACKLIGHT_NEG" "Net-(Q4-Pad1)" "/FLOOD_LIGHTS_NEG"
-    "Net-(Q5-Pad1)" "Net-(R8-Pad2)" "Net-(R10-Pad2)" "Net-(R11-Pad2)"
+    /D13 /D5 "/19(Rx1)" "/20(SDA)" "/21(SCL)" /A3 /A2 /A1
+    /A0 /A4 "Net-(J8-Pad6)" "Net-(P1-Pad1)" /IOREF /Reset +3V3 /Vin
+    /A5 /A8 /A9 /A10 /A11 /A12 /A13 /A14
+    /A15 "Net-(P4-Pad3)" "Net-(P4-Pad4)" "Net-(P4-Pad5)" "Net-(P4-Pad6)" "Net-(P5-Pad6)" "Net-(P5-Pad1)" "Net-(P6-Pad4)"
+    /D1 /D0 "/17(Rx2)" "/FORMATION_LIGHTS_NEG" "/STROBE_LIGHTS_NEG" "/NAV_LIGHTS_NEG" "Net-(Q1-Pad1)" "Net-(Q2-Pad1)"
+    "Net-(Q3-Pad1)" "Net-(Q4-Pad1)" "Net-(Q5-Pad1)" "Net-(Q6-Pad1)" "Net-(J3-Pad2)" "Net-(J9-Pad2)" "Net-(J10-Pad2)" /D3
+    /D2 "Net-(J15-Pad5)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
@@ -91,7 +91,7 @@
     )
   )
   (class "GND AND POWER"
-    GND +5V GNDD "/LOWER_OUTPUT_5V" "/UPPER_OUTPUT_5V" +5VL +12V
+    GND +5V GNDD "/LOWER_OUTPUT_5V" "/UPPER_OUTPUT_5V" +5VL +12V +12VA
     (clearance_class "GND AND POWER")
     (via_rule GND AND POWER)
     (rule
