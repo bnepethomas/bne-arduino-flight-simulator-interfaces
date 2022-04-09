@@ -2085,9 +2085,9 @@ void CheckRightScreenPowerState() {
 // FORMATION LIGHTS
 void onExtFormationLightsChange(unsigned int newValue) {
     if (newValue != 0) {
-      digitalWrite(FORMATION_LIGHTS, LOW);  
+      digitalWrite(FORMATION_LIGHTS, HIGH);  
     } else {
-      digitalWrite(FORMATION_LIGHTS, HIGH);
+      digitalWrite(FORMATION_LIGHTS, LOW  );
     }
 }
 DcsBios::IntegerBuffer extFormationLightsBuffer(0x7576, 0xffff, 0, onExtFormationLightsChange);
@@ -2095,9 +2095,9 @@ DcsBios::IntegerBuffer extFormationLightsBuffer(0x7576, 0xffff, 0, onExtFormatio
 // POSITION/NAVIGATION LIGHTS
 void onExtPositionLightLeftChange(unsigned int newValue) {
     if (newValue != 0) {
-      digitalWrite(NAVIGATION_LIGHTS, LOW);  
+      digitalWrite(NAVIGATION_LIGHTS, HIGH);  
     } else {
-      digitalWrite(NAVIGATION_LIGHTS, HIGH);
+      digitalWrite(NAVIGATION_LIGHTS, LOW);
     }
 }
 DcsBios::IntegerBuffer extPositionLightLeftBuffer(0x74d6, 0x0400, 10, onExtPositionLightLeftChange);
@@ -2105,9 +2105,9 @@ DcsBios::IntegerBuffer extPositionLightLeftBuffer(0x74d6, 0x0400, 10, onExtPosit
 // STROBE LIGHTS
 void onExtStrobeLightsChange(unsigned int newValue) {
     if (newValue != 0) {
-      digitalWrite(STROBE_LIGHTS, LOW);  
+      digitalWrite(STROBE_LIGHTS, HIGH);  
     } else {
-      digitalWrite(STROBE_LIGHTS, HIGH);
+      digitalWrite(STROBE_LIGHTS, LOW);
     }
 }
 DcsBios::IntegerBuffer extStrobeLightsBuffer(0x74d6, 0x2000, 13, onExtStrobeLightsChange);
