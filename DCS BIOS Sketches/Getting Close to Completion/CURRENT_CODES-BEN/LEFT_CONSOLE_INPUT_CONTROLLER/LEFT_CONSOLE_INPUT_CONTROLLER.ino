@@ -560,6 +560,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 91:
           break;
         case 92:
+          sendDcsBiosMessage("EJECTION_SEAT_ARMED", "1");
           break;
         case 93:
           sendDcsBiosMessage("FIRE_TEST_SW", "1");
@@ -1060,6 +1061,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 91:
           break;
         case 92:
+          sendDcsBiosMessage("EJECTION_SEAT_ARMED", "0");
           break;
         case 93:
           sendDcsBiosMessage("FIRE_TEST_SW", "0");
