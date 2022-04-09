@@ -534,8 +534,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_IFF_MODE4_SW", "1");
           break;
         case 80:
+          sendDcsBiosMessage("SEAT_HEIGHT_SW", "1");
           break;
         case 81:
+          sendDcsBiosMessage("EJECTION_HANDLE_SW", "0");
           break;
         case 82:
           sendDcsBiosMessage("FIRE_TEST_SW", "1");
@@ -558,6 +560,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_ILS_UFC_MAN_SW", "0");
           break;
         case 91:
+          sendDcsBiosMessage("SEAT_HEIGHT_SW", "1");
           break;
         case 92:
           sendDcsBiosMessage("EJECTION_SEAT_ARMED", "1");
@@ -583,8 +586,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_IFF_MODE4_SW", "1");
           break;
         case 102:
+          sendDcsBiosMessage("SHLDR_HARNESS_SW", "1");  
           break;
         case 103:
+          sendDcsBiosMessage("EJECTION_SEAT_MNL_OVRD", "1");
           break;
         case 104:
           break;
@@ -1031,9 +1036,11 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_IFF_MODE4_SW", "0"); //"OFF"
           break;
         case 80:
+          sendDcsBiosMessage("SEAT_HEIGHT_SW", "0");
           break;
         // PRESS - CLOSE
         case 81:
+          sendDcsBiosMessage("EJECTION_HANDLE_SW", "1");
           break;
         case 82:
           sendDcsBiosMessage("FIRE_TEST_SW", "2");
@@ -1059,6 +1066,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 91:
+          sendDcsBiosMessage("SEAT_HEIGHT_SW", "2");
           break;
         case 92:
           sendDcsBiosMessage("EJECTION_SEAT_ARMED", "0");
@@ -1086,8 +1094,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_IFF_MODE4_SW", "2"); // "DIS/AUD"
           break;
         case 102:
+          sendDcsBiosMessage("SHLDR_HARNESS_SW", "0");    
           break;
         case 103:
+          sendDcsBiosMessage("EJECTION_SEAT_MNL_OVRD", "0");
           break;
         case 104:
           break;
