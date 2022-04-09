@@ -318,7 +318,9 @@ void setup() {
   updateOpt3("OPT 3");
   updateOpt4("OPT 4");
   updateOpt5("OPT 5");
-
+  updateComm1("00");
+  updateComm2("11");
+  
   updateAllOfScratchpad( "888",  "-", "88-888");
   delay(8000);
   
@@ -327,6 +329,8 @@ void setup() {
   updateOpt3("");
   updateOpt4("");
   updateOpt5("");
+  updateComm1("");
+  updateComm2("");
   updateAllOfScratchpad( "",  "",  "");
 
 }
