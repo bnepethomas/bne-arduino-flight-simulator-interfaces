@@ -18,9 +18,9 @@
 // (Uno, Pro Mini, many others).
 
 
-#define Ethernet_In_Use 1
+#define Ethernet_In_Use 0
 const int Serial_In_Use = 0;
-#define Reflector_In_Use 1
+#define Reflector_In_Use 0
 
 
 
@@ -490,6 +490,16 @@ char *ParameterValuePtr;
 #define AOA_BELOW_COL 1
 #define AOA_BELOW_ROW 0
 
+// #################### EXTERIOR LIGHTS #################
+
+#define STROBE_LIGHTS 30
+#define NAVIGATION_LIGHTS 34
+#define FORMATION_LIGHTS 31
+#define BACK_LIGHTS 33
+#define FLOOD_LIGHTS 32
+
+
+
 // ######################## SETUP ########################
 #define STATUS_LED_PORT 6
 int devices = 6;
@@ -516,6 +526,10 @@ int NEW_AOA_DIMMER_VALUE = 15;
 bool LEFT_GEN_SWITCH_STATE = true;
 bool RIGHT_GEN_SWITCH_STATE = true;
 bool BATTERY_SWITCH_STATE = true;
+
+
+
+
 LedControl lc = LedControl(16, 14, 15, devices);
 
 /* paste code snippets from the reference documentation here */
@@ -1993,8 +2007,11 @@ void onIfeiChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer ifeiBuffer(0x74de, 0xffff, 0, onIfeiChange);
 
+// ************************************ End Nextron Block
 
 
+
+// ************************************ Begin Relay Block
 
 void onConsoleIntLtChange(unsigned int newValue) {
   if (newValue != 0) {
@@ -2058,9 +2075,44 @@ void CheckRightScreenPowerState() {
     digitalWrite(RIGHT_SCREEN_RELAY_PORT, false);
   }
 }
-// ************************************ End Nextron Block
+
+// ************************************ End Relay Block
 
 
+
+// ************************************ Begin Exterior Lights Block
+
+// FORMATION LIGHTS
+void onExtFormationLightsChange(unsigned int newValue) {
+    if (newValue != 0) {
+      digitalWrite(FORMATION_LIGHTS, HIGH);  
+    } else {
+      digitalWrite(FORMATION_LIGHTS, LOW  );
+    }
+}
+DcsBios::IntegerBuffer extFormationLightsBuffer(0x7576, 0xffff, 0, onExtFormationLightsChange);
+
+// POSITION/NAVIGATION LIGHTS
+void onExtPositionLightLeftChange(unsigned int newValue) {
+    if (newValue != 0) {
+      digitalWrite(NAVIGATION_LIGHTS, HIGH);  
+    } else {
+      digitalWrite(NAVIGATION_LIGHTS, LOW);
+    }
+}
+DcsBios::IntegerBuffer extPositionLightLeftBuffer(0x74d6, 0x0400, 10, onExtPositionLightLeftChange);
+
+// STROBE LIGHTS
+void onExtStrobeLightsChange(unsigned int newValue) {
+    if (newValue != 0) {
+      digitalWrite(STROBE_LIGHTS, HIGH);  
+    } else {
+      digitalWrite(STROBE_LIGHTS, LOW);
+    }
+}
+DcsBios::IntegerBuffer extStrobeLightsBuffer(0x74d6, 0x2000, 13, onExtStrobeLightsChange);
+
+// ************************************ End Exterior Lights Block
 
 void ProcessReceivedString()
 {
@@ -2113,6 +2165,19 @@ void setup() {
   digitalWrite(RELAY_PORT_3, true);
   digitalWrite(RELAY_PORT_4, true);
 
+  // Initialise Exterior Lights
+  pinMode(STROBE_LIGHTS, OUTPUT);
+  pinMode(NAVIGATION_LIGHTS, OUTPUT);
+  pinMode(FORMATION_LIGHTS, OUTPUT);
+  pinMode(BACK_LIGHTS, OUTPUT);
+  pinMode(FLOOD_LIGHTS, OUTPUT);
+
+  digitalWrite(STROBE_LIGHTS, LOW);
+  digitalWrite(NAVIGATION_LIGHTS, LOW);
+  digitalWrite(FORMATION_LIGHTS, LOW);
+  digitalWrite(BACK_LIGHTS, LOW);
+  digitalWrite(FLOOD_LIGHTS, LOW);
+
 
   if (Ethernet_In_Use == 1) {
     delay(EthernetStartupDelay);
@@ -2142,14 +2207,29 @@ void setup() {
 
 
   // Turn Everything on for 5 Seconds
+  digitalWrite(STROBE_LIGHTS, HIGH);
+  digitalWrite(NAVIGATION_LIGHTS, HIGH);
+  digitalWrite(FORMATION_LIGHTS, HIGH);
+  digitalWrite(BACK_LIGHTS, HIGH);
+  digitalWrite(FLOOD_LIGHTS, HIGH);
   AllOn();
   delay(5000);
 
   // Turn Everything off for 2 Seconds
   AllOff();
+  digitalWrite(STROBE_LIGHTS, LOW);
+  digitalWrite(NAVIGATION_LIGHTS, LOW);
+  digitalWrite(FORMATION_LIGHTS, LOW);
+  digitalWrite(BACK_LIGHTS, LOW);
+  digitalWrite(FLOOD_LIGHTS, LOW);
   delay(2000);
 
   // Turn Everything on
+  digitalWrite(STROBE_LIGHTS, HIGH);
+  digitalWrite(NAVIGATION_LIGHTS, HIGH);
+  digitalWrite(FORMATION_LIGHTS, HIGH);
+  digitalWrite(BACK_LIGHTS, HIGH);
+  digitalWrite(FLOOD_LIGHTS, HIGH);
   SetBrightness(15);
   AllOn();
 
@@ -2232,6 +2312,11 @@ void setup() {
 
   // Turn off All Leds and set to mid brightness
   AllOff();
+  digitalWrite(STROBE_LIGHTS, LOW);
+  digitalWrite(NAVIGATION_LIGHTS, LOW);
+  digitalWrite(FORMATION_LIGHTS, LOW);
+  digitalWrite(BACK_LIGHTS, LOW);
+  digitalWrite(FLOOD_LIGHTS, LOW);
   SetBrightness(8);
 
   DcsBios::setup();

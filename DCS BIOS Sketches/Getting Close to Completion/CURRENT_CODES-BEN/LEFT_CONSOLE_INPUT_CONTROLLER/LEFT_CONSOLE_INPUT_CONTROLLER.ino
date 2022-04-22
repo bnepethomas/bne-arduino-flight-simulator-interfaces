@@ -251,12 +251,12 @@ void FindInputChanges()
         if (prevjoyReport.button[ind] == 0) {
           outString = outString +  "1";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 1);
-          //if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
+          if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
         }
         else {
           outString = outString + "0";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 0);
-          //if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
+          if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
         }
 
 
@@ -273,10 +273,10 @@ void SendIPMessage(int ind, int state) {
 
   String outString;
   outString = String(ind) + ":" + String(state);
-  //
-  //  udp.beginPacket(targetIP, reflectorport);
-  //  udp.print(outString);
-  //  udp.endPacket();
+
+  udp.beginPacket(reflectorIP, reflectorport);
+  udp.print(outString);
+  udp.endPacket();
 
 
   //  udp.beginPacket(targetIP, remoteport);
@@ -534,8 +534,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_IFF_MODE4_SW", "1");
           break;
         case 80:
+          sendDcsBiosMessage("SEAT_HEIGHT_SW", "1");
           break;
         case 81:
+          sendDcsBiosMessage("EJECTION_HANDLE_SW", "0");
           break;
         case 82:
           sendDcsBiosMessage("FIRE_TEST_SW", "1");
@@ -558,8 +560,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_ILS_UFC_MAN_SW", "0");
           break;
         case 91:
+          sendDcsBiosMessage("SEAT_HEIGHT_SW", "1");
           break;
         case 92:
+          sendDcsBiosMessage("EJECTION_SEAT_ARMED", "1");
           break;
         case 93:
           sendDcsBiosMessage("FIRE_TEST_SW", "1");
@@ -582,8 +586,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_IFF_MODE4_SW", "1");
           break;
         case 102:
+          sendDcsBiosMessage("SHLDR_HARNESS_SW", "1");  
           break;
         case 103:
+          sendDcsBiosMessage("EJECTION_SEAT_MNL_OVRD", "1");
           break;
         case 104:
           break;
@@ -866,7 +872,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_CRYPTO_SW", "2");
           break;
         case 36:
-          
+
           // Special Case for Magnetic Switches APU On
           if (Ethernet_In_Use == 1) {
             SendIPString("LCTRL LSHIFT F8");
@@ -874,7 +880,7 @@ void SendDCSBIOSMessage(int ind, int state) {
             sendDcsBiosMessage("LAUNCH_BAR_SW", "1");
           }
 
-          
+
           break;
         case 37:
 
@@ -929,7 +935,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           } else {
             sendDcsBiosMessage("ENGINE_CRANK_SW", "0");
           }
-          
+
           break;
         // PRESS - CLOSE
         case 51:
@@ -976,7 +982,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           } else {
             sendDcsBiosMessage("ENGINE_CRANK_SW", "2");
           }
-          
+
           break;
         case 62:
           break;
@@ -1030,9 +1036,11 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_IFF_MODE4_SW", "0"); //"OFF"
           break;
         case 80:
+          sendDcsBiosMessage("SEAT_HEIGHT_SW", "0");
           break;
         // PRESS - CLOSE
         case 81:
+          sendDcsBiosMessage("EJECTION_HANDLE_SW", "1");
           break;
         case 82:
           sendDcsBiosMessage("FIRE_TEST_SW", "2");
@@ -1058,8 +1066,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 91:
+          sendDcsBiosMessage("SEAT_HEIGHT_SW", "2");
           break;
         case 92:
+          sendDcsBiosMessage("EJECTION_SEAT_ARMED", "0");
           break;
         case 93:
           sendDcsBiosMessage("FIRE_TEST_SW", "0");
@@ -1084,8 +1094,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_IFF_MODE4_SW", "2"); // "DIS/AUD"
           break;
         case 102:
+          sendDcsBiosMessage("SHLDR_HARNESS_SW", "0");    
           break;
         case 103:
+          sendDcsBiosMessage("EJECTION_SEAT_MNL_OVRD", "0");
           break;
         case 104:
           break;
