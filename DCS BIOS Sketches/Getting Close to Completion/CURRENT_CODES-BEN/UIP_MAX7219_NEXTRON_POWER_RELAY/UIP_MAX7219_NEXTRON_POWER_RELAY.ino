@@ -492,13 +492,21 @@ char *ParameterValuePtr;
 
 // #################### EXTERIOR LIGHTS #################
 
-#define STROBE_LIGHTS 30
-#define NAVIGATION_LIGHTS 34
-#define FORMATION_LIGHTS 31
-#define BACK_LIGHTS 33
-#define FLOOD_LIGHTS 32
+// Pinouts for Version 2 PCBs. Selected pins did not support dimming
+//#define STROBE_LIGHTS 30
+//#define NAVIGATION_LIGHTS 34
+//#define FORMATION_LIGHTS 31
+//#define BACK_LIGHTS 33
+//#define FLOOD_LIGHTS 32
 
-
+// Pinouts for Version 4 PCB
+#define MAP_LIGHTS 6
+#define NVG_LIGHTS 6
+#define FLOOD_LIGHTS 7
+#define FORMATION_LIGHTS 8
+#define STROBE_LIGHTS 44
+#define NAVIGATION_LIGHTS 45
+#define BACK_LIGHTS 46
 
 // ######################## SETUP ########################
 #define STATUS_LED_PORT 6
@@ -2052,6 +2060,13 @@ void onBatterySwChange(unsigned int newValue) {
     BATTERY_SWITCH_STATE = false;
   }
   CheckRightScreenPowerState();
+
+
+  if (newValue == 1) {
+    lc.setLed(RWR_DIM, RWR_ALR_67_COL_A, RWR_ALR_67_ROW_A, 0);
+  } else {
+    lc.setLed(RWR_DIM, RWR_ALR_67_COL_A, RWR_ALR_67_ROW_A, 1);
+  }
 }
 DcsBios::IntegerBuffer batterySwBuffer(0x74c4, 0x1800, 11, onBatterySwChange);
 
@@ -2084,31 +2099,31 @@ void CheckRightScreenPowerState() {
 
 // FORMATION LIGHTS
 void onExtFormationLightsChange(unsigned int newValue) {
-    if (newValue != 0) {
-      digitalWrite(FORMATION_LIGHTS, HIGH);  
-    } else {
-      digitalWrite(FORMATION_LIGHTS, LOW  );
-    }
+  if (newValue != 0) {
+    digitalWrite(FORMATION_LIGHTS, HIGH);
+  } else {
+    digitalWrite(FORMATION_LIGHTS, LOW  );
+  }
 }
 DcsBios::IntegerBuffer extFormationLightsBuffer(0x7576, 0xffff, 0, onExtFormationLightsChange);
 
 // POSITION/NAVIGATION LIGHTS
 void onExtPositionLightLeftChange(unsigned int newValue) {
-    if (newValue != 0) {
-      digitalWrite(NAVIGATION_LIGHTS, HIGH);  
-    } else {
-      digitalWrite(NAVIGATION_LIGHTS, LOW);
-    }
+  if (newValue != 0) {
+    digitalWrite(NAVIGATION_LIGHTS, HIGH);
+  } else {
+    digitalWrite(NAVIGATION_LIGHTS, LOW);
+  }
 }
 DcsBios::IntegerBuffer extPositionLightLeftBuffer(0x74d6, 0x0400, 10, onExtPositionLightLeftChange);
 
 // STROBE LIGHTS
 void onExtStrobeLightsChange(unsigned int newValue) {
-    if (newValue != 0) {
-      digitalWrite(STROBE_LIGHTS, HIGH);  
-    } else {
-      digitalWrite(STROBE_LIGHTS, LOW);
-    }
+  if (newValue != 0) {
+    digitalWrite(STROBE_LIGHTS, HIGH);
+  } else {
+    digitalWrite(STROBE_LIGHTS, LOW);
+  }
 }
 DcsBios::IntegerBuffer extStrobeLightsBuffer(0x74d6, 0x2000, 13, onExtStrobeLightsChange);
 
