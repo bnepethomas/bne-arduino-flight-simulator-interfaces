@@ -21,7 +21,8 @@
 // TODOS
 // Grab position of Position pot - set global var and use as multiplier when position lights are on
 // Grab position of Strobe light switch and use as a multiplier when strobes are on
-
+// Day-Nite-NVG
+// Position Day - all caution/warning lights 100%
 
 
 #define Ethernet_In_Use 1
@@ -527,7 +528,8 @@ int AOA_DIMMER_VALUE = 15;
 int DAY_NIGHT_SWITCH_MODE = DAY_MODE;
 int NEW_AOA_DIMMER_VALUE = 15;
 int STROBE_BRIGHT_SWITCH_POS = 1;
-int POSITION_BRIGHT_POT_POS = 64000;
+long POSITION_BRIGHT_POT_POS = 65534;
+bool POSITION_LIGHTS_STATUS = true;
 
 #define RELAY_PORT_1 22
 #define RELAY_PORT_2 23
@@ -2111,9 +2113,17 @@ void onExtFormationLightsChange(unsigned int newValue) {
 DcsBios::IntegerBuffer extFormationLightsBuffer(0x7576, 0xffff, 0, onExtFormationLightsChange);
 
 // POSITION/NAVIGATION LIGHTS
+void onPositionDimmerChange(unsigned int newValue) {
+  POSITION_BRIGHT_POT_POS = newValue;
+  if (POSITION_LIGHTS_STATUS == true)
+    analogWrite(NAVIGATION_LIGHTS, map(POSITION_BRIGHT_POT_POS, 0, 60000, 0, 255));
+}
+DcsBios::IntegerBuffer positionDimmerBuffer(0x7524, 0xffff, 0, onPositionDimmerChange);
+
 void onExtPositionLightLeftChange(unsigned int newValue) {
   if (newValue != 0) {
-    digitalWrite(NAVIGATION_LIGHTS, HIGH);
+    analogWrite(NAVIGATION_LIGHTS, map(POSITION_BRIGHT_POT_POS, 0, 60000, 0, 255));
+    POSITION_LIGHTS_STATUS = true;
   } else {
     digitalWrite(NAVIGATION_LIGHTS, LOW);
   }
@@ -2152,6 +2162,8 @@ void onNvgFloodIntLtChange(unsigned int newValue) {
   }
 }
 DcsBios::IntegerBuffer nvgFloodIntLtBuffer(0x755c, 0xffff, 0, onNvgFloodIntLtChange);
+
+
 
 // ************************************ End Exterior and Interior Lights Block
 
@@ -2255,6 +2267,7 @@ void setup() {
   digitalWrite(FORMATION_LIGHTS, HIGH);
   digitalWrite(BACK_LIGHTS, HIGH);
   digitalWrite(FLOOD_LIGHTS, HIGH);
+  digitalWrite(NVG_LIGHTS, HIGH);
   AllOn();
   delay(5000);
 
@@ -2265,6 +2278,7 @@ void setup() {
   digitalWrite(FORMATION_LIGHTS, LOW);
   digitalWrite(BACK_LIGHTS, LOW);
   digitalWrite(FLOOD_LIGHTS, LOW);
+  digitalWrite(NVG_LIGHTS, LOW);
   delay(2000);
 
   // Turn Everything on
@@ -2273,6 +2287,7 @@ void setup() {
   digitalWrite(FORMATION_LIGHTS, HIGH);
   digitalWrite(BACK_LIGHTS, HIGH);
   digitalWrite(FLOOD_LIGHTS, HIGH);
+  digitalWrite(NVG_LIGHTS, HIGH);
   SetBrightness(15);
   AllOn();
 
@@ -2349,7 +2364,14 @@ void setup() {
 
   // Slowly Dim the Leds
   for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
+    analogWrite(FORMATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(NVG_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(FLOOD_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     SetBrightness(Local_Brightness);
+
     delay(1000);
   }
 
