@@ -18,6 +18,12 @@
 // (Uno, Pro Mini, many others).
 
 
+// TODOS
+// Grab position of Position pot - set global var and use as multiplier when position lights are on
+// Grab position of Strobe light switch and use as a multiplier when strobes are on
+
+
+
 #define Ethernet_In_Use 1
 const int Serial_In_Use = 0;
 #define Reflector_In_Use 1
@@ -520,7 +526,8 @@ int WARN_CAUTION_DIMMER_VALUE = 15;
 int AOA_DIMMER_VALUE = 15;
 int DAY_NIGHT_SWITCH_MODE = DAY_MODE;
 int NEW_AOA_DIMMER_VALUE = 15;
-
+int STROBE_BRIGHT_SWITCH_POS = 1;
+int POSITION_BRIGHT_POT_POS = 64000;
 
 #define RELAY_PORT_1 22
 #define RELAY_PORT_2 23
