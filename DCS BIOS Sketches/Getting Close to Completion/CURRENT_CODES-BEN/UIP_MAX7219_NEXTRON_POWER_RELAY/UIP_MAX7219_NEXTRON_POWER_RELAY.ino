@@ -18,9 +18,9 @@
 // (Uno, Pro Mini, many others).
 
 
-#define Ethernet_In_Use 0
+#define Ethernet_In_Use 1
 const int Serial_In_Use = 0;
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 
 
 
@@ -2021,15 +2021,15 @@ DcsBios::IntegerBuffer ifeiBuffer(0x74de, 0xffff, 0, onIfeiChange);
 
 // ************************************ Begin Relay Block
 
-void onConsoleIntLtChange(unsigned int newValue) {
+void onChartIntLtChange(unsigned int newValue) {
   if (newValue != 0) {
     digitalWrite(BACKLIGHTING_RELAY_PORT, true);
   } else {
     digitalWrite(BACKLIGHTING_RELAY_PORT, false);
-
   }
 }
-DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
+DcsBios::IntegerBuffer chartIntLtBuffer(0x755e, 0xffff, 0, onChartIntLtChange);
+
 
 
 void onLGenSwChange(unsigned int newValue) {
@@ -2095,15 +2095,11 @@ void CheckRightScreenPowerState() {
 
 
 
-// ************************************ Begin Exterior Lights Block
+// ************************************ Begin Exterior and Interior Lights Block
 
 // FORMATION LIGHTS
 void onExtFormationLightsChange(unsigned int newValue) {
-  if (newValue != 0) {
-    digitalWrite(FORMATION_LIGHTS, HIGH);
-  } else {
-    digitalWrite(FORMATION_LIGHTS, LOW  );
-  }
+  analogWrite(FORMATION_LIGHTS, map(newValue, 0, 60000, 0, 255));
 }
 DcsBios::IntegerBuffer extFormationLightsBuffer(0x7576, 0xffff, 0, onExtFormationLightsChange);
 
@@ -2127,7 +2123,32 @@ void onExtStrobeLightsChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer extStrobeLightsBuffer(0x74d6, 0x2000, 13, onExtStrobeLightsChange);
 
-// ************************************ End Exterior Lights Block
+void onFloodIntLtChange(unsigned int newValue) {
+  analogWrite(FLOOD_LIGHTS, map(newValue, 0, 64800, 0, 255));
+}
+DcsBios::IntegerBuffer floodIntLtBuffer(0x755a, 0xffff, 0, onFloodIntLtChange);
+
+void onConsoleIntLtChange(unsigned int newValue) {
+  if (newValue <= 7000) {
+    analogWrite(BACK_LIGHTS, 0);
+  } else {
+    analogWrite(BACK_LIGHTS, map(newValue, 7000, 64800, 0, 255));
+  }
+}
+DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
+
+void onNvgFloodIntLtChange(unsigned int newValue) {
+  if (newValue <= 7000) {
+    analogWrite(NVG_LIGHTS, 0);
+  } else {
+    analogWrite(NVG_LIGHTS, map(newValue, 7000, 64800, 0, 255));
+  }
+}
+DcsBios::IntegerBuffer nvgFloodIntLtBuffer(0x755c, 0xffff, 0, onNvgFloodIntLtChange);
+
+// ************************************ End Exterior and Interior Lights Block
+
+//
 
 void ProcessReceivedString()
 {
