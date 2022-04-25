@@ -1,0 +1,1 @@
+The UFC and IFEI views ports are set to 2*2 on the AMPCD monitor
