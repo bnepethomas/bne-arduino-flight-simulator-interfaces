@@ -18,9 +18,16 @@
 // (Uno, Pro Mini, many others).
 
 
-#define Ethernet_In_Use 0
+// TODOS
+// Grab position of Position pot - set global var and use as multiplier when position lights are on
+// Grab position of Strobe light switch and use as a multiplier when strobes are on
+// Day-Nite-NVG
+// Position Day - all caution/warning lights 100%
+
+
+#define Ethernet_In_Use 1
 const int Serial_In_Use = 0;
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 
 
 
@@ -516,11 +523,20 @@ int devices = 6;
 #define NIGHT_MODE 1
 #define NVG_MODE 2
 #define FULL_BRIGHTNESS 15
+
+#define STROBE_BRIGHT 2
+#define STROBE_DIM 0
+#define STROBE_BRIGHT_LEVEL 255
+#define STROBE_DIM_LEVEL 20
+
+
 int WARN_CAUTION_DIMMER_VALUE = 15;
 int AOA_DIMMER_VALUE = 15;
 int DAY_NIGHT_SWITCH_MODE = DAY_MODE;
 int NEW_AOA_DIMMER_VALUE = 15;
-
+int STROBE_BRIGHT_SWITCH_POS = STROBE_BRIGHT;
+long POSITION_BRIGHT_POT_POS = 65534;
+bool POSITION_LIGHTS_STATUS = true;
 
 #define RELAY_PORT_1 22
 #define RELAY_PORT_2 23
@@ -2021,15 +2037,15 @@ DcsBios::IntegerBuffer ifeiBuffer(0x74de, 0xffff, 0, onIfeiChange);
 
 // ************************************ Begin Relay Block
 
-void onConsoleIntLtChange(unsigned int newValue) {
+void onChartIntLtChange(unsigned int newValue) {
   if (newValue != 0) {
     digitalWrite(BACKLIGHTING_RELAY_PORT, true);
   } else {
     digitalWrite(BACKLIGHTING_RELAY_PORT, false);
-
   }
 }
-DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
+DcsBios::IntegerBuffer chartIntLtBuffer(0x755e, 0xffff, 0, onChartIntLtChange);
+
 
 
 void onLGenSwChange(unsigned int newValue) {
@@ -2095,22 +2111,26 @@ void CheckRightScreenPowerState() {
 
 
 
-// ************************************ Begin Exterior Lights Block
+// ************************************ Begin Exterior and Interior Lights Block
 
 // FORMATION LIGHTS
 void onExtFormationLightsChange(unsigned int newValue) {
-  if (newValue != 0) {
-    digitalWrite(FORMATION_LIGHTS, HIGH);
-  } else {
-    digitalWrite(FORMATION_LIGHTS, LOW  );
-  }
+  analogWrite(FORMATION_LIGHTS, map(newValue, 0, 65535, 0, 255));
 }
 DcsBios::IntegerBuffer extFormationLightsBuffer(0x7576, 0xffff, 0, onExtFormationLightsChange);
 
 // POSITION/NAVIGATION LIGHTS
+void onPositionDimmerChange(unsigned int newValue) {
+  POSITION_BRIGHT_POT_POS = newValue;
+  if (POSITION_LIGHTS_STATUS == true)
+    analogWrite(NAVIGATION_LIGHTS, map(POSITION_BRIGHT_POT_POS, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer positionDimmerBuffer(0x7524, 0xffff, 0, onPositionDimmerChange);
+
 void onExtPositionLightLeftChange(unsigned int newValue) {
   if (newValue != 0) {
-    digitalWrite(NAVIGATION_LIGHTS, HIGH);
+    analogWrite(NAVIGATION_LIGHTS, map(POSITION_BRIGHT_POT_POS, 0, 65535, 0, 255));
+    POSITION_LIGHTS_STATUS = true;
   } else {
     digitalWrite(NAVIGATION_LIGHTS, LOW);
   }
@@ -2118,16 +2138,59 @@ void onExtPositionLightLeftChange(unsigned int newValue) {
 DcsBios::IntegerBuffer extPositionLightLeftBuffer(0x74d6, 0x0400, 10, onExtPositionLightLeftChange);
 
 // STROBE LIGHTS
+
+// Strobe Switch Positions
+// Bright 2
+// Off    1
+// Dim    0
+//POSITION_BRIGHT_POT_POS
+
 void onExtStrobeLightsChange(unsigned int newValue) {
   if (newValue != 0) {
-    digitalWrite(STROBE_LIGHTS, HIGH);
+    if (STROBE_BRIGHT_SWITCH_POS == STROBE_BRIGHT)
+      analogWrite(STROBE_LIGHTS, STROBE_BRIGHT_LEVEL);
+    else
+      analogWrite(STROBE_LIGHTS, STROBE_DIM_LEVEL);
   } else {
     digitalWrite(STROBE_LIGHTS, LOW);
   }
 }
 DcsBios::IntegerBuffer extStrobeLightsBuffer(0x74d6, 0x2000, 13, onExtStrobeLightsChange);
 
-// ************************************ End Exterior Lights Block
+
+void onStrobeSwChange(unsigned int newValue) {
+  STROBE_BRIGHT_SWITCH_POS = newValue;
+}
+DcsBios::IntegerBuffer strobeSwBuffer(0x74b0, 0x3000, 12, onStrobeSwChange);
+
+void onFloodIntLtChange(unsigned int newValue) {
+  analogWrite(FLOOD_LIGHTS, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer floodIntLtBuffer(0x755a, 0xffff, 0, onFloodIntLtChange);
+
+void onConsoleIntLtChange(unsigned int newValue) {
+  if (newValue <= 7000) {
+    analogWrite(BACK_LIGHTS, 0);
+  } else {
+    analogWrite(BACK_LIGHTS, map(newValue, 7000, 65535, 0, 255));
+  }
+}
+DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
+
+void onNvgFloodIntLtChange(unsigned int newValue) {
+  if (newValue <= 7000) {
+    analogWrite(NVG_LIGHTS, 0);
+  } else {
+    analogWrite(NVG_LIGHTS, map(newValue, 7000, 65535, 0, 255));
+  }
+}
+DcsBios::IntegerBuffer nvgFloodIntLtBuffer(0x755c, 0xffff, 0, onNvgFloodIntLtChange);
+
+
+
+// ************************************ End Exterior and Interior Lights Block
+
+//
 
 void ProcessReceivedString()
 {
@@ -2227,8 +2290,9 @@ void setup() {
   digitalWrite(FORMATION_LIGHTS, HIGH);
   digitalWrite(BACK_LIGHTS, HIGH);
   digitalWrite(FLOOD_LIGHTS, HIGH);
+  digitalWrite(NVG_LIGHTS, HIGH);
   AllOn();
-  delay(5000);
+  delay(2000);
 
   // Turn Everything off for 2 Seconds
   AllOff();
@@ -2237,7 +2301,8 @@ void setup() {
   digitalWrite(FORMATION_LIGHTS, LOW);
   digitalWrite(BACK_LIGHTS, LOW);
   digitalWrite(FLOOD_LIGHTS, LOW);
-  delay(2000);
+  digitalWrite(NVG_LIGHTS, LOW);
+  delay(1000);
 
   // Turn Everything on
   digitalWrite(STROBE_LIGHTS, HIGH);
@@ -2245,6 +2310,7 @@ void setup() {
   digitalWrite(FORMATION_LIGHTS, HIGH);
   digitalWrite(BACK_LIGHTS, HIGH);
   digitalWrite(FLOOD_LIGHTS, HIGH);
+  digitalWrite(NVG_LIGHTS, HIGH);
   SetBrightness(15);
   AllOn();
 
@@ -2321,8 +2387,15 @@ void setup() {
 
   // Slowly Dim the Leds
   for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
+    analogWrite(FORMATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(NVG_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(FLOOD_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     SetBrightness(Local_Brightness);
-    delay(1000);
+
+    delay(300);
   }
 
   // Turn off All Leds and set to mid brightness
