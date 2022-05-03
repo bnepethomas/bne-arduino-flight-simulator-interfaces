@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 176)
+    (start_pass_no 217)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -70,9 +70,10 @@
   )
   (class "kicad_default"
     /IOREF /Reset /Vin /A0 /A1 /A2 /A3 /AREF
-    "/A4(SDA)" "/A5(SCL)" "/9(**)" /8 /7 "/6(**)" "/5(**)" /4
-    "/3(**)" /2 "/1(Tx)" "/0(Rx)" "Net-(P5-Pad1)" "Net-(P6-Pad1)" "Net-(P7-Pad1)" "Net-(P8-Pad1)"
-    "/13(SCK)" "/10(**/SS)" "Net-(P1-Pad1)" +3V3 "/12(MISO)" "/11(**/MOSI)" "Net-(D1-Pad2)" "Net-(D2-Pad2)"
+    "/9(**)" /8 /7 "/6(**)" "/5(**)" /4 "/3(**)" /2
+    "/1(Tx)" "/0(Rx)" "Net-(P5-Pad1)" "Net-(P6-Pad1)" "Net-(P7-Pad1)" "Net-(P8-Pad1)" "/13(SCK)" "/10(**/SS)"
+    "Net-(P1-Pad1)" +3V3 "/12(MISO)" "/11(**/MOSI)" "Net-(D1-Pad2)" "Net-(D2-Pad2)" /A4 /A5
+    "/(SCL)" "/(SDA)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
