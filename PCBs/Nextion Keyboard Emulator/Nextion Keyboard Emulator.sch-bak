@@ -26,9 +26,9 @@ A2
 Text Label 8900 2800 0    60   ~ 0
 A3
 Text Label 8900 2900 0    60   ~ 0
-A4(SDA)
+A4
 Text Label 8900 3000 0    60   ~ 0
-A5(SCL)
+A5
 Text Label 10550 3000 0    60   ~ 0
 0(Rx)
 Text Label 10550 2800 0    60   ~ 0
@@ -61,9 +61,9 @@ Text Label 10550 1400 0    60   ~ 0
 AREF
 NoConn ~ 9400 1600
 Text Label 10550 1300 0    60   ~ 0
-A4(SDA)
+(SDA)
 Text Label 10550 1200 0    60   ~ 0
-A5(SCL)
+(SCL)
 Text Notes 10850 1000 0    60   ~ 0
 Holes
 Text Notes 8550 750  0    60   ~ 0
@@ -717,4 +717,8 @@ F 3 "" H 6800 4850 50  0001 C CNN
 $EndComp
 Text Label 6800 4750 2    50   ~ 0
 2
+NoConn ~ 10550 1200
+NoConn ~ 10550 1300
+NoConn ~ 8900 2900
+NoConn ~ 8900 3000
 $EndSCHEMATC

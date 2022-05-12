@@ -1,0 +1,1329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/OH - Hornet Forward Upper Output Shield/Hornet Forward Output Upper Shield.sch</source>
+    <date>Wednesday, 04 May 2022 at 10:57:28 am</date>
+    <tool>Eeschema (5.1.5-0-10_14)</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title/>
+        <company/>
+        <rev/>
+        <date>mar. 31 mars 2015</date>
+        <source>Hornet Forward Output Upper Shield.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="P1">
+      <value>Power</value>
+      <footprint>Socket_Arduino_Mega:Socket_Strip_Arduino_1x08</footprint>
+      <libsource lib="Connector_Generic" part="Conn_01x08" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>56D71773</tstamp>
+    </comp>
+    <comp ref="P5">
+      <value>PWM</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical</footprint>
+      <libsource lib="Connector_Generic" part="Conn_01x08" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>56D72368</tstamp>
+    </comp>
+    <comp ref="P6">
+      <value>PWM</value>
+      <footprint>Socket_Arduino_Mega:Socket_Strip_Arduino_1x08</footprint>
+      <libsource lib="Connector_Generic" part="Conn_01x08" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>56D734D0</tstamp>
+    </comp>
+    <comp ref="P3">
+      <value>Analog</value>
+      <footprint>Socket_Arduino_Mega:Socket_Strip_Arduino_1x08</footprint>
+      <libsource lib="Connector_Generic" part="Conn_01x08" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>56D73A0E</tstamp>
+    </comp>
+    <comp ref="P7">
+      <value>Communication</value>
+      <footprint>Socket_Arduino_Mega:Socket_Strip_Arduino_1x08</footprint>
+      <libsource lib="Connector_Generic" part="Conn_01x08" description="Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>56D73F2C</tstamp>
+    </comp>
+    <comp ref="P4">
+      <value>Digital</value>
+      <footprint>Socket_Arduino_Mega:Socket_Strip_Arduino_2x18</footprint>
+      <libsource lib="Connector_Generic" part="Conn_02x18_Odd_Even" description="Generic connector, double row, 02x18, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>56D743B5</tstamp>
+    </comp>
+    <comp ref="P2">
+      <value>Analog</value>
+      <footprint>Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical</footprint>
+      <libsource lib="Connector_Generic" part="Conn_01x06" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>56D72F1C</tstamp>
+    </comp>
+    <comp ref="D1">
+      <value>GREEN</value>
+      <footprint>LED_THT:LED_D3.0mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>616EE56B</tstamp>
+    </comp>
+    <comp ref="R1">
+      <value>330</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>616EFF2F</tstamp>
+    </comp>
+    <comp ref="D2">
+      <value>RED</value>
+      <footprint>LED_THT:LED_D3.0mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="LED" description="Light emitting diode"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>616F7F07</tstamp>
+    </comp>
+    <comp ref="R2">
+      <value>330</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>616F7F11</tstamp>
+    </comp>
+    <comp ref="J8">
+      <value>7219 OUT</value>
+      <footprint>PT_Library_v001:Molex_1x06_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x06_Female" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>61726457</tstamp>
+    </comp>
+    <comp ref="J5">
+      <value>LOWER 5V IN</value>
+      <footprint>PT_Library_v001:Molex_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>61728B28</tstamp>
+    </comp>
+    <comp ref="J7">
+      <value>NEXTION</value>
+      <footprint>PT_Library_v001:Molex_1x04_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x04_Female" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>617A3D34</tstamp>
+    </comp>
+    <comp ref="J11">
+      <value>5V IN</value>
+      <footprint>Connector_BarrelJack:BarrelJack_Horizontal</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>6173779C</tstamp>
+    </comp>
+    <comp ref="J6">
+      <value>UPPER 5V OUT</value>
+      <footprint>PT_Library_v001:Molex_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>6177A219</tstamp>
+    </comp>
+    <comp ref="J18">
+      <value>NEXTION ANA</value>
+      <footprint>PT_Library_v001:Molex_1x03_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x03_Female" description="Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>61766056</tstamp>
+    </comp>
+    <comp ref="Q1">
+      <value>IRF1405PBF</value>
+      <footprint>Package_TO_SOT_THT:TO-220-3_Vertical</footprint>
+      <datasheet>https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb</datasheet>
+      <fields>
+        <field name="automotive">No</field>
+        <field name="category">Trans</field>
+        <field name="continuous drain current">169A</field>
+        <field name="depletion mode">False</field>
+        <field name="device class L1">Discrete Semiconductors</field>
+        <field name="device class L2">Transistors</field>
+        <field name="device class L3">MOSFETs</field>
+        <field name="digikey description">MOSFET N-CH 55V 169A TO-220AB</field>
+        <field name="digikey part number">IRF1405PBF-ND</field>
+        <field name="drain to source breakdown voltage">55V</field>
+        <field name="drain to source resistance">4.6mΩ</field>
+        <field name="drain to source voltage">55V</field>
+        <field name="footprint url">https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be</field>
+        <field name="gate charge at vgs">170nC @ 10V</field>
+        <field name="gate to source voltage">20V</field>
+        <field name="height">19.8mm</field>
+        <field name="input capacitace at vds">5480pF @ 25V</field>
+        <field name="ipc land pattern name">TO-220</field>
+        <field name="lead free">Yes</field>
+        <field name="library id">802d71249bb95e7c</field>
+        <field name="manufacturer">International Rectifier</field>
+        <field name="max forward diode voltage">1.3V</field>
+        <field name="max junction temp">+175°C</field>
+        <field name="mouser description">MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W</field>
+        <field name="mouser part number">942-IRF1405PBF</field>
+        <field name="number of N channels">1</field>
+        <field name="number of channels">1</field>
+        <field name="package">TO-220AB</field>
+        <field name="power dissipation">330W</field>
+        <field name="pulse drain current">680A</field>
+        <field name="reverse recovery charge">250nC</field>
+        <field name="reverse recovery time">88ns</field>
+        <field name="rohs">Yes</field>
+        <field name="rthja max">62°C/W</field>
+        <field name="standoff height">3.37mm</field>
+        <field name="temperature range high">+175°C</field>
+        <field name="temperature range low">-55°C</field>
+        <field name="threshold vgs max">4V</field>
+        <field name="threshold vgs min">2V</field>
+        <field name="turn off delay time">130ns</field>
+        <field name="turn on delay time">13ns</field>
+      </fields>
+      <libsource lib="Hornet-Forward-Output-Upper-Shield-rescue" part="IRF1405PBF-Mosfet" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>624444DF</tstamp>
+    </comp>
+    <comp ref="R3">
+      <value>330</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62447217</tstamp>
+    </comp>
+    <comp ref="J13">
+      <value>PORT SIDE</value>
+      <footprint>PT_Library_v001:Molex_1x04_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x04_Female" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62451B06</tstamp>
+    </comp>
+    <comp ref="J1">
+      <value>LOWER 12V IN</value>
+      <footprint>PT_Library_v001:Molex_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62452691</tstamp>
+    </comp>
+    <comp ref="Q2">
+      <value>IRF1405PBF</value>
+      <footprint>Package_TO_SOT_THT:TO-220-3_Vertical</footprint>
+      <datasheet>https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb</datasheet>
+      <fields>
+        <field name="automotive">No</field>
+        <field name="category">Trans</field>
+        <field name="continuous drain current">169A</field>
+        <field name="depletion mode">False</field>
+        <field name="device class L1">Discrete Semiconductors</field>
+        <field name="device class L2">Transistors</field>
+        <field name="device class L3">MOSFETs</field>
+        <field name="digikey description">MOSFET N-CH 55V 169A TO-220AB</field>
+        <field name="digikey part number">IRF1405PBF-ND</field>
+        <field name="drain to source breakdown voltage">55V</field>
+        <field name="drain to source resistance">4.6mΩ</field>
+        <field name="drain to source voltage">55V</field>
+        <field name="footprint url">https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be</field>
+        <field name="gate charge at vgs">170nC @ 10V</field>
+        <field name="gate to source voltage">20V</field>
+        <field name="height">19.8mm</field>
+        <field name="input capacitace at vds">5480pF @ 25V</field>
+        <field name="ipc land pattern name">TO-220</field>
+        <field name="lead free">Yes</field>
+        <field name="library id">802d71249bb95e7c</field>
+        <field name="manufacturer">International Rectifier</field>
+        <field name="max forward diode voltage">1.3V</field>
+        <field name="max junction temp">+175°C</field>
+        <field name="mouser description">MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W</field>
+        <field name="mouser part number">942-IRF1405PBF</field>
+        <field name="number of N channels">1</field>
+        <field name="number of channels">1</field>
+        <field name="package">TO-220AB</field>
+        <field name="power dissipation">330W</field>
+        <field name="pulse drain current">680A</field>
+        <field name="reverse recovery charge">250nC</field>
+        <field name="reverse recovery time">88ns</field>
+        <field name="rohs">Yes</field>
+        <field name="rthja max">62°C/W</field>
+        <field name="standoff height">3.37mm</field>
+        <field name="temperature range high">+175°C</field>
+        <field name="temperature range low">-55°C</field>
+        <field name="threshold vgs max">4V</field>
+        <field name="threshold vgs min">2V</field>
+        <field name="turn off delay time">130ns</field>
+        <field name="turn on delay time">13ns</field>
+      </fields>
+      <libsource lib="Hornet-Forward-Output-Upper-Shield-rescue" part="IRF1405PBF-Mosfet" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62465D20</tstamp>
+    </comp>
+    <comp ref="R4">
+      <value>330</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62465D34</tstamp>
+    </comp>
+    <comp ref="Q3">
+      <value>IRF1405PBF</value>
+      <footprint>Package_TO_SOT_THT:TO-220-3_Vertical</footprint>
+      <datasheet>https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb</datasheet>
+      <fields>
+        <field name="automotive">No</field>
+        <field name="category">Trans</field>
+        <field name="continuous drain current">169A</field>
+        <field name="depletion mode">False</field>
+        <field name="device class L1">Discrete Semiconductors</field>
+        <field name="device class L2">Transistors</field>
+        <field name="device class L3">MOSFETs</field>
+        <field name="digikey description">MOSFET N-CH 55V 169A TO-220AB</field>
+        <field name="digikey part number">IRF1405PBF-ND</field>
+        <field name="drain to source breakdown voltage">55V</field>
+        <field name="drain to source resistance">4.6mΩ</field>
+        <field name="drain to source voltage">55V</field>
+        <field name="footprint url">https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be</field>
+        <field name="gate charge at vgs">170nC @ 10V</field>
+        <field name="gate to source voltage">20V</field>
+        <field name="height">19.8mm</field>
+        <field name="input capacitace at vds">5480pF @ 25V</field>
+        <field name="ipc land pattern name">TO-220</field>
+        <field name="lead free">Yes</field>
+        <field name="library id">802d71249bb95e7c</field>
+        <field name="manufacturer">International Rectifier</field>
+        <field name="max forward diode voltage">1.3V</field>
+        <field name="max junction temp">+175°C</field>
+        <field name="mouser description">MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W</field>
+        <field name="mouser part number">942-IRF1405PBF</field>
+        <field name="number of N channels">1</field>
+        <field name="number of channels">1</field>
+        <field name="package">TO-220AB</field>
+        <field name="power dissipation">330W</field>
+        <field name="pulse drain current">680A</field>
+        <field name="reverse recovery charge">250nC</field>
+        <field name="reverse recovery time">88ns</field>
+        <field name="rohs">Yes</field>
+        <field name="rthja max">62°C/W</field>
+        <field name="standoff height">3.37mm</field>
+        <field name="temperature range high">+175°C</field>
+        <field name="temperature range low">-55°C</field>
+        <field name="threshold vgs max">4V</field>
+        <field name="threshold vgs min">2V</field>
+        <field name="turn off delay time">130ns</field>
+        <field name="turn on delay time">13ns</field>
+      </fields>
+      <libsource lib="Hornet-Forward-Output-Upper-Shield-rescue" part="IRF1405PBF-Mosfet" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>6246E3EC</tstamp>
+    </comp>
+    <comp ref="R5">
+      <value>330</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>6246E400</tstamp>
+    </comp>
+    <comp ref="J19">
+      <value>STARBOARD SIDE</value>
+      <footprint>PT_Library_v001:Molex_1x04_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x04_Female" description="Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>6247473C</tstamp>
+    </comp>
+    <comp ref="J14">
+      <value>LEFT FORM</value>
+      <footprint>PT_Library_v001:Molex_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>624799C6</tstamp>
+    </comp>
+    <comp ref="J12">
+      <value>RIGHT FORM</value>
+      <footprint>PT_Library_v001:Molex_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>624A3E85</tstamp>
+    </comp>
+    <comp ref="Q5">
+      <value>IRF1405PBF</value>
+      <footprint>Package_TO_SOT_THT:TO-220-3_Vertical</footprint>
+      <datasheet>https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb</datasheet>
+      <fields>
+        <field name="automotive">No</field>
+        <field name="category">Trans</field>
+        <field name="continuous drain current">169A</field>
+        <field name="depletion mode">False</field>
+        <field name="device class L1">Discrete Semiconductors</field>
+        <field name="device class L2">Transistors</field>
+        <field name="device class L3">MOSFETs</field>
+        <field name="digikey description">MOSFET N-CH 55V 169A TO-220AB</field>
+        <field name="digikey part number">IRF1405PBF-ND</field>
+        <field name="drain to source breakdown voltage">55V</field>
+        <field name="drain to source resistance">4.6mΩ</field>
+        <field name="drain to source voltage">55V</field>
+        <field name="footprint url">https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be</field>
+        <field name="gate charge at vgs">170nC @ 10V</field>
+        <field name="gate to source voltage">20V</field>
+        <field name="height">19.8mm</field>
+        <field name="input capacitace at vds">5480pF @ 25V</field>
+        <field name="ipc land pattern name">TO-220</field>
+        <field name="lead free">Yes</field>
+        <field name="library id">802d71249bb95e7c</field>
+        <field name="manufacturer">International Rectifier</field>
+        <field name="max forward diode voltage">1.3V</field>
+        <field name="max junction temp">+175°C</field>
+        <field name="mouser description">MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W</field>
+        <field name="mouser part number">942-IRF1405PBF</field>
+        <field name="number of N channels">1</field>
+        <field name="number of channels">1</field>
+        <field name="package">TO-220AB</field>
+        <field name="power dissipation">330W</field>
+        <field name="pulse drain current">680A</field>
+        <field name="reverse recovery charge">250nC</field>
+        <field name="reverse recovery time">88ns</field>
+        <field name="rohs">Yes</field>
+        <field name="rthja max">62°C/W</field>
+        <field name="standoff height">3.37mm</field>
+        <field name="temperature range high">+175°C</field>
+        <field name="temperature range low">-55°C</field>
+        <field name="threshold vgs max">4V</field>
+        <field name="threshold vgs min">2V</field>
+        <field name="turn off delay time">130ns</field>
+        <field name="turn on delay time">13ns</field>
+      </fields>
+      <libsource lib="Hornet-Forward-Output-Upper-Shield-rescue" part="IRF1405PBF-Mosfet" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62469FCB</tstamp>
+    </comp>
+    <comp ref="R7">
+      <value>330</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62469FDF</tstamp>
+    </comp>
+    <comp ref="Q4">
+      <value>IRF1405PBF</value>
+      <footprint>Package_TO_SOT_THT:TO-220-3_Vertical</footprint>
+      <datasheet>https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb</datasheet>
+      <fields>
+        <field name="automotive">No</field>
+        <field name="category">Trans</field>
+        <field name="continuous drain current">169A</field>
+        <field name="depletion mode">False</field>
+        <field name="device class L1">Discrete Semiconductors</field>
+        <field name="device class L2">Transistors</field>
+        <field name="device class L3">MOSFETs</field>
+        <field name="digikey description">MOSFET N-CH 55V 169A TO-220AB</field>
+        <field name="digikey part number">IRF1405PBF-ND</field>
+        <field name="drain to source breakdown voltage">55V</field>
+        <field name="drain to source resistance">4.6mΩ</field>
+        <field name="drain to source voltage">55V</field>
+        <field name="footprint url">https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be</field>
+        <field name="gate charge at vgs">170nC @ 10V</field>
+        <field name="gate to source voltage">20V</field>
+        <field name="height">19.8mm</field>
+        <field name="input capacitace at vds">5480pF @ 25V</field>
+        <field name="ipc land pattern name">TO-220</field>
+        <field name="lead free">Yes</field>
+        <field name="library id">802d71249bb95e7c</field>
+        <field name="manufacturer">International Rectifier</field>
+        <field name="max forward diode voltage">1.3V</field>
+        <field name="max junction temp">+175°C</field>
+        <field name="mouser description">MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W</field>
+        <field name="mouser part number">942-IRF1405PBF</field>
+        <field name="number of N channels">1</field>
+        <field name="number of channels">1</field>
+        <field name="package">TO-220AB</field>
+        <field name="power dissipation">330W</field>
+        <field name="pulse drain current">680A</field>
+        <field name="reverse recovery charge">250nC</field>
+        <field name="reverse recovery time">88ns</field>
+        <field name="rohs">Yes</field>
+        <field name="rthja max">62°C/W</field>
+        <field name="standoff height">3.37mm</field>
+        <field name="temperature range high">+175°C</field>
+        <field name="temperature range low">-55°C</field>
+        <field name="threshold vgs max">4V</field>
+        <field name="threshold vgs min">2V</field>
+        <field name="turn off delay time">130ns</field>
+        <field name="turn on delay time">13ns</field>
+      </fields>
+      <libsource lib="Hornet-Forward-Output-Upper-Shield-rescue" part="IRF1405PBF-Mosfet" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62475E29</tstamp>
+    </comp>
+    <comp ref="R6">
+      <value>330</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62475E3D</tstamp>
+    </comp>
+    <comp ref="J10">
+      <value>FLOOD</value>
+      <footprint>PT_Library_v001:Molex_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>624459AE</tstamp>
+    </comp>
+    <comp ref="J9">
+      <value>BACKLIGHT</value>
+      <footprint>PT_Library_v001:Molex_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>624459C3</tstamp>
+    </comp>
+    <comp ref="C2">
+      <value>0.1uF</value>
+      <footprint>Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>624FD5F5</tstamp>
+    </comp>
+    <comp ref="C1">
+      <value>100uF</value>
+      <footprint>Capacitor_THT:CP_Radial_D5.0mm_P2.50mm</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="CP" description="Polarized capacitor"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>624FE41F</tstamp>
+    </comp>
+    <comp ref="R9">
+      <value>10K</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62463EEC</tstamp>
+    </comp>
+    <comp ref="R12">
+      <value>10K</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62466E4F</tstamp>
+    </comp>
+    <comp ref="R10">
+      <value>10K</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62473EF9</tstamp>
+    </comp>
+    <comp ref="R11">
+      <value>10K</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62479292</tstamp>
+    </comp>
+    <comp ref="Q6">
+      <value>IRF1405PBF</value>
+      <footprint>Package_TO_SOT_THT:TO-220-3_Vertical</footprint>
+      <datasheet>https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb</datasheet>
+      <fields>
+        <field name="automotive">No</field>
+        <field name="category">Trans</field>
+        <field name="continuous drain current">169A</field>
+        <field name="depletion mode">False</field>
+        <field name="device class L1">Discrete Semiconductors</field>
+        <field name="device class L2">Transistors</field>
+        <field name="device class L3">MOSFETs</field>
+        <field name="digikey description">MOSFET N-CH 55V 169A TO-220AB</field>
+        <field name="digikey part number">IRF1405PBF-ND</field>
+        <field name="drain to source breakdown voltage">55V</field>
+        <field name="drain to source resistance">4.6mΩ</field>
+        <field name="drain to source voltage">55V</field>
+        <field name="footprint url">https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be</field>
+        <field name="gate charge at vgs">170nC @ 10V</field>
+        <field name="gate to source voltage">20V</field>
+        <field name="height">19.8mm</field>
+        <field name="input capacitace at vds">5480pF @ 25V</field>
+        <field name="ipc land pattern name">TO-220</field>
+        <field name="lead free">Yes</field>
+        <field name="library id">802d71249bb95e7c</field>
+        <field name="manufacturer">International Rectifier</field>
+        <field name="max forward diode voltage">1.3V</field>
+        <field name="max junction temp">+175°C</field>
+        <field name="mouser description">MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W</field>
+        <field name="mouser part number">942-IRF1405PBF</field>
+        <field name="number of N channels">1</field>
+        <field name="number of channels">1</field>
+        <field name="package">TO-220AB</field>
+        <field name="power dissipation">330W</field>
+        <field name="pulse drain current">680A</field>
+        <field name="reverse recovery charge">250nC</field>
+        <field name="reverse recovery time">88ns</field>
+        <field name="rohs">Yes</field>
+        <field name="rthja max">62°C/W</field>
+        <field name="standoff height">3.37mm</field>
+        <field name="temperature range high">+175°C</field>
+        <field name="temperature range low">-55°C</field>
+        <field name="threshold vgs max">4V</field>
+        <field name="threshold vgs min">2V</field>
+        <field name="turn off delay time">130ns</field>
+        <field name="turn on delay time">13ns</field>
+      </fields>
+      <libsource lib="Hornet-Forward-Output-Upper-Shield-rescue" part="IRF1405PBF-Mosfet" description=""/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>6252C1BD</tstamp>
+    </comp>
+    <comp ref="R13">
+      <value>330</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>6252C1D1</tstamp>
+    </comp>
+    <comp ref="R14">
+      <value>10K</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>6252C1DE</tstamp>
+    </comp>
+    <comp ref="J3">
+      <value>MAP</value>
+      <footprint>PT_Library_v001:Molex_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>62538AD3</tstamp>
+    </comp>
+    <comp ref="R8">
+      <value>10K</value>
+      <footprint>PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Device" part="R_US" description="Resistor, US symbol"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>6246F48A</tstamp>
+    </comp>
+    <comp ref="J2">
+      <value>UPPER 12V IN</value>
+      <footprint>PT_Library_v001:Molex_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>626850B3</tstamp>
+    </comp>
+    <comp ref="J4">
+      <value>LOWER 12V OUT</value>
+      <footprint>PT_Library_v001:Molex_1x02_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x02_Female" description="Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>6268A880</tstamp>
+    </comp>
+    <comp ref="J15">
+      <value>RELAY OUT</value>
+      <footprint>PT_Library_v001:Molex_1x06_P2.54mm_Vertical</footprint>
+      <datasheet>~</datasheet>
+      <libsource lib="Connector" part="Conn_01x06_Female" description="Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"/>
+      <sheetpath names="/" tstamps="/"/>
+      <tstamp>627F3B3E</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="Connector" part="Conn_01x02_Female">
+      <description>Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x02_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="Conn_01x03_Female">
+      <description>Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x03_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="Conn_01x04_Female">
+      <description>Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x04_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector" part="Conn_01x06_Female">
+      <description>Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x06_Female</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x06">
+      <description>Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x06</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_01x08">
+      <description>Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_1x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_01x08</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Connector_Generic" part="Conn_02x18_Odd_Even">
+      <description>Generic connector, double row, 02x18, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>Connector*:*_2x??_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">J</field>
+        <field name="Value">Conn_02x18_Odd_Even</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Pin_1" type="passive"/>
+        <pin num="2" name="Pin_2" type="passive"/>
+        <pin num="3" name="Pin_3" type="passive"/>
+        <pin num="4" name="Pin_4" type="passive"/>
+        <pin num="5" name="Pin_5" type="passive"/>
+        <pin num="6" name="Pin_6" type="passive"/>
+        <pin num="7" name="Pin_7" type="passive"/>
+        <pin num="8" name="Pin_8" type="passive"/>
+        <pin num="9" name="Pin_9" type="passive"/>
+        <pin num="10" name="Pin_10" type="passive"/>
+        <pin num="11" name="Pin_11" type="passive"/>
+        <pin num="12" name="Pin_12" type="passive"/>
+        <pin num="13" name="Pin_13" type="passive"/>
+        <pin num="14" name="Pin_14" type="passive"/>
+        <pin num="15" name="Pin_15" type="passive"/>
+        <pin num="16" name="Pin_16" type="passive"/>
+        <pin num="17" name="Pin_17" type="passive"/>
+        <pin num="18" name="Pin_18" type="passive"/>
+        <pin num="19" name="Pin_19" type="passive"/>
+        <pin num="20" name="Pin_20" type="passive"/>
+        <pin num="21" name="Pin_21" type="passive"/>
+        <pin num="22" name="Pin_22" type="passive"/>
+        <pin num="23" name="Pin_23" type="passive"/>
+        <pin num="24" name="Pin_24" type="passive"/>
+        <pin num="25" name="Pin_25" type="passive"/>
+        <pin num="26" name="Pin_26" type="passive"/>
+        <pin num="27" name="Pin_27" type="passive"/>
+        <pin num="28" name="Pin_28" type="passive"/>
+        <pin num="29" name="Pin_29" type="passive"/>
+        <pin num="30" name="Pin_30" type="passive"/>
+        <pin num="31" name="Pin_31" type="passive"/>
+        <pin num="32" name="Pin_32" type="passive"/>
+        <pin num="33" name="Pin_33" type="passive"/>
+        <pin num="34" name="Pin_34" type="passive"/>
+        <pin num="35" name="Pin_35" type="passive"/>
+        <pin num="36" name="Pin_36" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="C">
+      <description>Unpolarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>C_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">C</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="CP">
+      <description>Polarized capacitor</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>CP_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">CP</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="LED">
+      <description>Light emitting diode</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>LED*</fp>
+        <fp>LED_SMD:*</fp>
+        <fp>LED_THT:*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="R_US">
+      <description>Resistor, US symbol</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>R_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R_US</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Hornet-Forward-Output-Upper-Shield-rescue" part="IRF1405PBF-Mosfet">
+      <fields>
+        <field name="Reference">Q</field>
+        <field name="Value">IRF1405PBF-Mosfet</field>
+        <field name="Footprint">International_Rectifier-PG-TO220-3-02_2008-904-*</field>
+        <field name="Datasheet">https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb</field>
+        <field name="automotive">No</field>
+        <field name="category">Trans</field>
+        <field name="continuous drain current">169A</field>
+        <field name="depletion mode">False</field>
+        <field name="device class L1">Discrete Semiconductors</field>
+        <field name="device class L2">Transistors</field>
+        <field name="device class L3">MOSFETs</field>
+        <field name="digikey description">MOSFET N-CH 55V 169A TO-220AB</field>
+        <field name="digikey part number">IRF1405PBF-ND</field>
+        <field name="drain to source breakdown voltage">55V</field>
+        <field name="drain to source resistance">4.6mΩ</field>
+        <field name="drain to source voltage">55V</field>
+        <field name="footprint url">https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be</field>
+        <field name="gate charge at vgs">170nC @ 10V</field>
+        <field name="gate to source voltage">20V</field>
+        <field name="height">19.8mm</field>
+        <field name="input capacitace at vds">5480pF @ 25V</field>
+        <field name="ipc land pattern name">TO-220</field>
+        <field name="lead free">Yes</field>
+        <field name="library id">802d71249bb95e7c</field>
+        <field name="manufacturer">International Rectifier</field>
+        <field name="max forward diode voltage">1.3V</field>
+        <field name="max junction temp">+175°C</field>
+        <field name="mouser description">MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W</field>
+        <field name="mouser part number">942-IRF1405PBF</field>
+        <field name="number of N channels">1</field>
+        <field name="number of channels">1</field>
+        <field name="package">TO-220AB</field>
+        <field name="power dissipation">330W</field>
+        <field name="pulse drain current">680A</field>
+        <field name="reverse recovery charge">250nC</field>
+        <field name="reverse recovery time">88ns</field>
+        <field name="rohs">Yes</field>
+        <field name="rthja max">62°C/W</field>
+        <field name="standoff height">3.37mm</field>
+        <field name="temperature range high">+175°C</field>
+        <field name="temperature range low">-55°C</field>
+        <field name="threshold vgs max">4V</field>
+        <field name="threshold vgs min">2V</field>
+        <field name="turn off delay time">130ns</field>
+        <field name="turn on delay time">13ns</field>
+      </fields>
+      <pins>
+        <pin num="1" name="G" type="passive"/>
+        <pin num="2" name="D" type="passive"/>
+        <pin num="3" name="S" type="passive"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="Connector">
+      <uri>/Library/Application Support/kicad/library/Connector.lib</uri>
+    </library>
+    <library logical="Connector_Generic">
+      <uri>/Library/Application Support/kicad/library/Connector_Generic.lib</uri>
+    </library>
+    <library logical="Device">
+      <uri>/Library/Application Support/kicad/library/Device.lib</uri>
+    </library>
+    <library logical="Hornet-Forward-Output-Upper-Shield-rescue">
+      <uri>/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/OH - Hornet Forward Upper Output Shield/Hornet Forward Output Upper Shield-rescue.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="Net-(P1-Pad1)">
+      <node ref="P1" pin="1"/>
+    </net>
+    <net code="2" name="/IOREF">
+      <node ref="P1" pin="2"/>
+    </net>
+    <net code="3" name="/A0">
+      <node ref="P2" pin="1"/>
+    </net>
+    <net code="4" name="/A1">
+      <node ref="P2" pin="2"/>
+    </net>
+    <net code="5" name="/A2">
+      <node ref="P2" pin="3"/>
+    </net>
+    <net code="6" name="/A3">
+      <node ref="P2" pin="4"/>
+    </net>
+    <net code="7" name="/A4">
+      <node ref="J18" pin="2"/>
+      <node ref="P2" pin="5"/>
+    </net>
+    <net code="8" name="/A5">
+      <node ref="P2" pin="6"/>
+    </net>
+    <net code="9" name="/A8">
+      <node ref="P3" pin="1"/>
+    </net>
+    <net code="10" name="/A9">
+      <node ref="P3" pin="2"/>
+    </net>
+    <net code="11" name="/A10">
+      <node ref="P3" pin="3"/>
+    </net>
+    <net code="12" name="/A11">
+      <node ref="P3" pin="4"/>
+    </net>
+    <net code="13" name="/A12">
+      <node ref="P3" pin="5"/>
+    </net>
+    <net code="14" name="/A13">
+      <node ref="P3" pin="6"/>
+    </net>
+    <net code="15" name="/A14">
+      <node ref="P3" pin="7"/>
+    </net>
+    <net code="16" name="/A15">
+      <node ref="P3" pin="8"/>
+    </net>
+    <net code="17" name="/22">
+      <node ref="P4" pin="33"/>
+      <node ref="J15" pin="1"/>
+    </net>
+    <net code="18" name="/24">
+      <node ref="J15" pin="3"/>
+      <node ref="P4" pin="31"/>
+    </net>
+    <net code="19" name="/26">
+      <node ref="P4" pin="29"/>
+    </net>
+    <net code="20" name="/28">
+      <node ref="P4" pin="27"/>
+    </net>
+    <net code="21" name="/30">
+      <node ref="P4" pin="25"/>
+    </net>
+    <net code="22" name="/32">
+      <node ref="P4" pin="23"/>
+    </net>
+    <net code="23" name="/34">
+      <node ref="P4" pin="21"/>
+    </net>
+    <net code="24" name="/36">
+      <node ref="P4" pin="19"/>
+    </net>
+    <net code="25" name="/38">
+      <node ref="P4" pin="17"/>
+    </net>
+    <net code="26" name="/40">
+      <node ref="P4" pin="15"/>
+    </net>
+    <net code="27" name="/42">
+      <node ref="P4" pin="13"/>
+    </net>
+    <net code="28" name="/48">
+      <node ref="P4" pin="7"/>
+    </net>
+    <net code="29" name="/23">
+      <node ref="P4" pin="34"/>
+      <node ref="J15" pin="2"/>
+    </net>
+    <net code="30" name="/25">
+      <node ref="P4" pin="32"/>
+      <node ref="J15" pin="4"/>
+    </net>
+    <net code="31" name="/27">
+      <node ref="P4" pin="30"/>
+    </net>
+    <net code="32" name="/31">
+      <node ref="P4" pin="26"/>
+    </net>
+    <net code="33" name="/29">
+      <node ref="P4" pin="28"/>
+    </net>
+    <net code="34" name="/33">
+      <node ref="P4" pin="24"/>
+    </net>
+    <net code="35" name="/35">
+      <node ref="P4" pin="22"/>
+    </net>
+    <net code="36" name="/37">
+      <node ref="P4" pin="20"/>
+    </net>
+    <net code="37" name="/39">
+      <node ref="P4" pin="18"/>
+    </net>
+    <net code="38" name="/41">
+      <node ref="P4" pin="16"/>
+    </net>
+    <net code="39" name="/43">
+      <node ref="P4" pin="14"/>
+    </net>
+    <net code="40" name="/47">
+      <node ref="P4" pin="10"/>
+    </net>
+    <net code="41" name="/49">
+      <node ref="P4" pin="8"/>
+    </net>
+    <net code="42" name="/21(SCL)">
+      <node ref="P7" pin="8"/>
+    </net>
+    <net code="43" name="/20(SDA)">
+      <node ref="P7" pin="7"/>
+    </net>
+    <net code="44" name="/17(Rx2)">
+      <node ref="P7" pin="4"/>
+    </net>
+    <net code="45" name="/16(Tx2)">
+      <node ref="J8" pin="3"/>
+      <node ref="P7" pin="3"/>
+    </net>
+    <net code="46" name="/15(Rx3)">
+      <node ref="P7" pin="2"/>
+      <node ref="J8" pin="4"/>
+    </net>
+    <net code="47" name="/14(Tx3)">
+      <node ref="J8" pin="5"/>
+      <node ref="P7" pin="1"/>
+    </net>
+    <net code="49" name="+3V3">
+      <node ref="P1" pin="4"/>
+    </net>
+    <net code="50" name="/Reset">
+      <node ref="P1" pin="3"/>
+    </net>
+    <net code="51" name="+5VL">
+      <node ref="P1" pin="5"/>
+      <node ref="J18" pin="1"/>
+    </net>
+    <net code="52" name="/Vin">
+      <node ref="P1" pin="8"/>
+    </net>
+    <net code="53" name="GNDD">
+      <node ref="Q3" pin="3"/>
+      <node ref="R9" pin="1"/>
+      <node ref="R12" pin="1"/>
+      <node ref="Q6" pin="3"/>
+      <node ref="Q5" pin="3"/>
+      <node ref="J18" pin="3"/>
+      <node ref="R14" pin="1"/>
+      <node ref="P5" pin="2"/>
+      <node ref="J6" pin="2"/>
+      <node ref="P1" pin="7"/>
+      <node ref="J11" pin="2"/>
+      <node ref="P1" pin="6"/>
+      <node ref="J2" pin="2"/>
+      <node ref="D1" pin="1"/>
+      <node ref="D2" pin="1"/>
+    </net>
+    <net code="54" name="Net-(P5-Pad1)">
+      <node ref="P5" pin="1"/>
+    </net>
+    <net code="55" name="/D1">
+      <node ref="P6" pin="7"/>
+    </net>
+    <net code="56" name="/D0">
+      <node ref="P6" pin="8"/>
+    </net>
+    <net code="57" name="GND">
+      <node ref="P4" pin="2"/>
+      <node ref="J7" pin="2"/>
+      <node ref="J15" pin="6"/>
+      <node ref="J8" pin="2"/>
+      <node ref="Q2" pin="3"/>
+      <node ref="P4" pin="1"/>
+      <node ref="C2" pin="2"/>
+      <node ref="C1" pin="2"/>
+      <node ref="J4" pin="2"/>
+      <node ref="R10" pin="1"/>
+      <node ref="J1" pin="2"/>
+      <node ref="R8" pin="1"/>
+      <node ref="R11" pin="1"/>
+      <node ref="Q4" pin="3"/>
+      <node ref="J5" pin="2"/>
+      <node ref="Q1" pin="3"/>
+    </net>
+    <net code="58" name="+5V">
+      <node ref="P4" pin="35"/>
+      <node ref="P4" pin="36"/>
+    </net>
+    <net code="59" name="Net-(P5-Pad6)">
+      <node ref="P5" pin="6"/>
+    </net>
+    <net code="60" name="Net-(P6-Pad4)">
+      <node ref="P6" pin="4"/>
+    </net>
+    <net code="61" name="Net-(P4-Pad5)">
+      <node ref="P4" pin="5"/>
+    </net>
+    <net code="62" name="Net-(P4-Pad3)">
+      <node ref="P4" pin="3"/>
+    </net>
+    <net code="63" name="Net-(P4-Pad4)">
+      <node ref="P4" pin="4"/>
+    </net>
+    <net code="64" name="Net-(P4-Pad6)">
+      <node ref="P4" pin="6"/>
+    </net>
+    <net code="66" name="/D11">
+      <node ref="P5" pin="5"/>
+    </net>
+    <net code="67" name="/D9">
+      <node ref="P5" pin="7"/>
+    </net>
+    <net code="68" name="/D5">
+      <node ref="P6" pin="3"/>
+      <node ref="R2" pin="1"/>
+    </net>
+    <net code="69" name="/D3">
+      <node ref="P6" pin="5"/>
+    </net>
+    <net code="70" name="/D2">
+      <node ref="P6" pin="6"/>
+    </net>
+    <net code="71" name="Net-(D1-Pad2)">
+      <node ref="R1" pin="2"/>
+      <node ref="D1" pin="2"/>
+    </net>
+    <net code="72" name="Net-(D2-Pad2)">
+      <node ref="D2" pin="2"/>
+      <node ref="R2" pin="2"/>
+    </net>
+    <net code="73" name="Net-(J8-Pad6)">
+      <node ref="J8" pin="6"/>
+    </net>
+    <net code="74" name="/D13">
+      <node ref="R1" pin="1"/>
+      <node ref="P5" pin="3"/>
+    </net>
+    <net code="75" name="/D12">
+      <node ref="P5" pin="4"/>
+    </net>
+    <net code="76" name="/LOWER_OUTPUT_5V">
+      <node ref="J8" pin="1"/>
+      <node ref="J5" pin="1"/>
+      <node ref="J7" pin="1"/>
+    </net>
+    <net code="77" name="/18(Tx1)">
+      <node ref="P7" pin="5"/>
+      <node ref="J7" pin="3"/>
+    </net>
+    <net code="78" name="/19(Rx1)">
+      <node ref="J7" pin="4"/>
+      <node ref="P7" pin="6"/>
+    </net>
+    <net code="79" name="/UPPER_OUTPUT_5V">
+      <node ref="J6" pin="1"/>
+      <node ref="J11" pin="1"/>
+    </net>
+    <net code="80" name="Net-(Q1-Pad1)">
+      <node ref="R3" pin="1"/>
+      <node ref="Q1" pin="1"/>
+      <node ref="R11" pin="2"/>
+    </net>
+    <net code="81" name="/45">
+      <node ref="R3" pin="2"/>
+      <node ref="P4" pin="12"/>
+    </net>
+    <net code="82" name="/NAV_LIGHTS_NEG">
+      <node ref="J19" pin="2"/>
+      <node ref="Q1" pin="2"/>
+      <node ref="J13" pin="2"/>
+    </net>
+    <net code="83" name="/STROBE_LIGHTS_NEG">
+      <node ref="J19" pin="4"/>
+      <node ref="Q2" pin="2"/>
+      <node ref="J13" pin="4"/>
+    </net>
+    <net code="84" name="+12V">
+      <node ref="C1" pin="1"/>
+      <node ref="J19" pin="3"/>
+      <node ref="J4" pin="1"/>
+      <node ref="J9" pin="1"/>
+      <node ref="J1" pin="1"/>
+      <node ref="C2" pin="1"/>
+      <node ref="J13" pin="3"/>
+      <node ref="J13" pin="1"/>
+      <node ref="J19" pin="1"/>
+    </net>
+    <net code="85" name="/44">
+      <node ref="P4" pin="11"/>
+      <node ref="R4" pin="2"/>
+    </net>
+    <net code="86" name="Net-(Q3-Pad1)">
+      <node ref="R12" pin="2"/>
+      <node ref="R5" pin="1"/>
+      <node ref="Q3" pin="1"/>
+    </net>
+    <net code="87" name="/FORMATION_LIGHTS_NEG">
+      <node ref="J12" pin="2"/>
+      <node ref="J14" pin="2"/>
+      <node ref="Q3" pin="2"/>
+    </net>
+    <net code="88" name="/D8">
+      <node ref="R5" pin="2"/>
+      <node ref="P5" pin="8"/>
+    </net>
+    <net code="89" name="Net-(Q5-Pad1)">
+      <node ref="Q5" pin="1"/>
+      <node ref="R9" pin="2"/>
+      <node ref="R7" pin="1"/>
+    </net>
+    <net code="90" name="/D7">
+      <node ref="P6" pin="1"/>
+      <node ref="R7" pin="2"/>
+    </net>
+    <net code="91" name="/46">
+      <node ref="P4" pin="9"/>
+      <node ref="R6" pin="2"/>
+    </net>
+    <net code="92" name="Net-(J10-Pad2)">
+      <node ref="J10" pin="2"/>
+      <node ref="Q5" pin="2"/>
+    </net>
+    <net code="93" name="Net-(J9-Pad2)">
+      <node ref="Q4" pin="2"/>
+      <node ref="J9" pin="2"/>
+    </net>
+    <net code="94" name="Net-(Q2-Pad1)">
+      <node ref="R10" pin="2"/>
+      <node ref="R4" pin="1"/>
+      <node ref="Q2" pin="1"/>
+    </net>
+    <net code="95" name="Net-(Q6-Pad1)">
+      <node ref="Q6" pin="1"/>
+      <node ref="R14" pin="2"/>
+      <node ref="R13" pin="1"/>
+    </net>
+    <net code="96" name="/D6">
+      <node ref="R13" pin="2"/>
+      <node ref="P6" pin="2"/>
+    </net>
+    <net code="97" name="Net-(J3-Pad2)">
+      <node ref="J3" pin="2"/>
+      <node ref="Q6" pin="2"/>
+    </net>
+    <net code="98" name="Net-(Q4-Pad1)">
+      <node ref="R8" pin="2"/>
+      <node ref="R6" pin="1"/>
+      <node ref="Q4" pin="1"/>
+    </net>
+    <net code="100" name="+12VA">
+      <node ref="J2" pin="1"/>
+      <node ref="J3" pin="1"/>
+      <node ref="J14" pin="1"/>
+      <node ref="J10" pin="1"/>
+      <node ref="J12" pin="1"/>
+    </net>
+    <net code="101" name="Net-(J15-Pad5)">
+      <node ref="J15" pin="5"/>
+    </net>
+  </nets>
+</export>
