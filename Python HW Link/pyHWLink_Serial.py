@@ -219,19 +219,19 @@ def ReceivePacket():
 
             timesincelastpacket = datetime.datetime.now() - last_time_packet_received
             
-            if (timesincelastpacket.seconds > 1):
+            if (timesincelastpacket.microseconds > 500000):
                 print("[i] Mid Receive Timeout - " + time.asctime())
                 last_time_packet_received = datetime.datetime.now()
                                                 
                 # Timeout in dara from Flight Sim - locate GPS in Brisbane
                 outUTC = '160533.00'
                 outDate = "010418"
-                xoutputstr = '2724.00'
+                xoutputstr = '2725.00'
                 outNorS = 'S'
-                youtputstr = '15307.000'
+                youtputstr = '15306.000'
                 outEorW = 'E'
                 outSpeed = '299'
-                outTrackMadeGood = '0'
+                outTrackMadeGood = '10'
                 outMagVar = '0'
                 outMagEorW = 'E'
                 outAltitude = '10'                                        
