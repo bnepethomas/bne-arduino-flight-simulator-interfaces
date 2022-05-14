@@ -15,6 +15,7 @@ try:
     # To find and set timeout of cached data to 200ms:
     altitude = aq.find("PLANE_ALTITUDE")
     altitude.time = 200
+except:    
 except:
     print("Sim not running?")
 
