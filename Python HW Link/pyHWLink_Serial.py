@@ -42,6 +42,7 @@ import socket
 import sys
 import time
 import threading
+import datetime
 
 from struct import *
 from collections import namedtuple
@@ -86,6 +87,9 @@ packets_processed = 0
 # Address and Port to listen on
 UDP_IP_Address = ""
 UDP_Port = 13136
+
+# Last time a packet was received - used to just a default location to GPS to keep it alive
+last_time_packet_received = datetime.datetime.now()
 
 
 try:
@@ -150,6 +154,7 @@ def ReceivePacket():
     
     global last_time_display
     global packets_processed
+    global last_time_packet_received
     
     
     global outUTC 
@@ -205,13 +210,19 @@ def ReceivePacket():
             logging.debug("Iterations since last packet " + str(iterations_Since_Last_Packet))
             
             iterations_Since_Last_Packet=0
+            last_time_packet_received = datetime.now()
+            
 
                                               
         except socket.timeout:
             iterations_Since_Last_Packet = iterations_Since_Last_Packet +  1
-            if debugging == True and (iterations_Since_Last_Packet > 9000):
+
+            timesincelastpacket = datetime.datetime.now() - last_time_packet_received
+            
+            if (timesincelastpacket.seconds > 1):
                 print("[i] Mid Receive Timeout - " + time.asctime())
-                                
+                last_time_packet_received = datetime.datetime.now()
+                                                
                 # Timeout in dara from Flight Sim - locate GPS in Brisbane
                 outUTC = '160533.00'
                 outDate = "010418"
