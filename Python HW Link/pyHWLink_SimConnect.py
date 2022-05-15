@@ -1,6 +1,8 @@
 from SimConnect import *
 import time
 
+Radians = 57.295779513
+
 # Create SimConnect link
 try: 
     sm = SimConnect()
@@ -22,6 +24,16 @@ try:
     print("Altitude is: " + str(altitude.value))
 
 
+    print("Grabbing HEADING_DEGREES_TRUE")
+    HEADING_DEGREES_TRUE = aq.find("PLANE_HEADING_DEGREES_MAGNETIC")
+    HEADING_DEGREES_TRUE.time = 200
+    print("HEADING_DEGREES_TRUE is: " + str(HEADING_DEGREES_TRUE.value * Radians))
+
+    print("Grabbing AIRSPEED_TRUE")
+    AIRSPEED_TRUE = aq.find("AIRSPEED_TRUE")
+    AIRSPEED_TRUE.time = 200
+    print("AIRSPEED_TRUE is: " + str(AIRSPEED_TRUE.value))
+
     print("Grabbing LATITUDE")
     LATITUDE = aq.find("PLANE_LATITUDE")
     LATITUDE.time = 200
@@ -32,13 +44,12 @@ try:
     LONGITUDE.time = 200
     print("LONGITUDE is: " + str(LONGITUDE.value))
 
-    print("Grabbing HEADING_DEGREES_TRUE")
-    HEADING_DEGREES_TRUE = aq.find("PLANE_HEADING_DEGREES_TRUE")
-    HEADING_DEGREES_TRUE.time = 200
-    print("HEADING_DEGREES_TRUE is: " + str(HEADING_DEGREES_TRUE.value))
 
-    for x in range(0, 3):
+
+    for x in range(0, 50):
         print("Altitude is: " + str(altitude.value))
+        print("AIRSPEED_TRUE is: " + str(AIRSPEED_TRUE.value))
+        print("HEADING_DEGREES_TRUE is: " + str(HEADING_DEGREES_TRUE.value * Radians))
         print("LATITUDE is: " + str(LATITUDE.value))
         print("LONGITUDE is: " + str(LONGITUDE.value))
         time.sleep(1)
