@@ -6,6 +6,7 @@ import socket
 import sys
 
 Radians = 57.295779513
+FeetInMeters = 3.28084
 
 sm = None
 aq = None
@@ -153,7 +154,11 @@ def DisplaySimVariables():
         print("HEADING_DEGREES_TRUE is: " + str(HEADING_DEGREES_TRUE.value * Radians))
         print("LATITUDE is: " + str(LATITUDE.value))
         print("LONGITUDE is: " + str(LONGITUDE.value))
-        Send_UDP_Command("altitude:100,magheading:10,airspeed:200,latitude:10.0,longitude:10.0")
+        Send_UDP_Command("altitude:" + str(altitude.value/FeetInMeters) +
+             ",magheading:" + str(HEADING_DEGREES_TRUE.value * Radians) +
+             ",airspeed:" + str(AIRSPEED_TRUE.value) +
+             ",latitude:" + str(LATITUDE.value) +
+             ",longitude:" + str(LONGITUDE.value) )
         time.sleep(1)
 
 def Main():
