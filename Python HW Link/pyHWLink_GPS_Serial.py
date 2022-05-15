@@ -219,7 +219,7 @@ def ReceivePacket():
 
             timesincelastpacket = datetime.datetime.now() - last_time_packet_received
             
-            if (timesincelastpacket.microseconds > 500000):
+            if (timesincelastpacket.seconds > 5):
                 print("[i] Mid Receive Timeout - " + time.asctime())
                 last_time_packet_received = datetime.datetime.now()
                                                 
