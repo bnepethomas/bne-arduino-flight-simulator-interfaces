@@ -1,4 +1,5 @@
 from SimConnect import *
+import time
 
 # Create SimConnect link
 try: 
@@ -15,9 +16,34 @@ try:
     # Each request can be fine tuned by setting the time param.
 
     # To find and set timeout of cached data to 200ms:
+    print("Grabbing Altitude")
     altitude = aq.find("PLANE_ALTITUDE")
     altitude.time = 200
-    print("Grabbing Altitude")
+    print("Altitude is: " + str(altitude.value))
+
+
+    print("Grabbing LATITUDE")
+    LATITUDE = aq.find("PLANE_LATITUDE")
+    LATITUDE.time = 200
+    print("LATITUDE is: " + str(LATITUDE.value))
+
+    print("Grabbing LONGITUDE")
+    LONGITUDE = aq.find("PLANE_LONGITUDE")
+    LONGITUDE.time = 200
+    print("LONGITUDE is: " + str(LONGITUDE.value))
+
+    print("Grabbing HEADING_DEGREES_TRUE")
+    HEADING_DEGREES_TRUE = aq.find("PLANE_HEADING_DEGREES_TRUE")
+    HEADING_DEGREES_TRUE.time = 200
+    print("HEADING_DEGREES_TRUE is: " + str(HEADING_DEGREES_TRUE.value))
+
+    for x in range(0, 3):
+        print("Altitude is: " + str(altitude.value))
+        print("LATITUDE is: " + str(LATITUDE.value))
+        print("LONGITUDE is: " + str(LONGITUDE.value))
+        time.sleep(1)
+
+    
    
 except Exception as error:
    error_string = str(error)
