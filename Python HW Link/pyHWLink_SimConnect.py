@@ -1,5 +1,6 @@
 from SimConnect import *
 import time
+import logging
 
 Radians = 57.295779513
 
@@ -18,11 +19,7 @@ def CleanUpAndExit():
         print('')
         print('Exiting')
         print('')
-        try:
-            serverSock.close()
-        except:
-            logging.critical('Unable to close server socket')
-        sys.exit(0)
+
 
     except Exception as other:
         logging.critical('Error in CleanUpAndExit: ' + str(other))
@@ -81,22 +78,29 @@ def StartSimConnect():
         print("LONGITUDE is: " + str(LONGITUDE.value))
 
 
-
-        for x in range(0, 50):
-            print("Altitude is: " + str(altitude.value))
-            print("AIRSPEED_TRUE is: " + str(AIRSPEED_TRUE.value))
-            print("HEADING_DEGREES_TRUE is: " + str(HEADING_DEGREES_TRUE.value * Radians))
-            print("LATITUDE is: " + str(LATITUDE.value))
-            print("LONGITUDE is: " + str(LONGITUDE.value))
-            time.sleep(1)
-
-        
+       
        
     except Exception as error:
        error_string = str(error)
        print(error_string)
        print("Sim not running?")
 
+def DisplaySimVariables():
+    global sm
+    global aq
+    global altitude 
+    global HEADING_DEGREES_TRUE 
+    global AIRSPEED_TRUE
+    global LATITUDE 
+    global LONGITUDE
+
+    for x in range(0, 50):
+        print("Altitude is: " + str(altitude.value))
+        print("AIRSPEED_TRUE is: " + str(AIRSPEED_TRUE.value))
+        print("HEADING_DEGREES_TRUE is: " + str(HEADING_DEGREES_TRUE.value * Radians))
+        print("LATITUDE is: " + str(LATITUDE.value))
+        print("LONGITUDE is: " + str(LONGITUDE.value))
+        time.sleep(1)
 
 def Main():
     print("Starting SimConnect")
@@ -104,7 +108,8 @@ def Main():
     
     try:
         StartSimConnect()
-        
+
+        DisplaySimVariables()
 
     except KeyboardInterrupt:
         # Catch Ctl-C and quit
