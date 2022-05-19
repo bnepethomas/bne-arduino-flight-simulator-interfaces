@@ -19,7 +19,7 @@ LONGITUDE = None
 
 command_string = ''
 prefix_with_D = ''
-target_IP  = '192.168.2.41'
+target_IP  = '172.16.1.112'
 target_Port = 13136
 
 
@@ -155,7 +155,7 @@ def DisplaySimVariables():
         print("LATITUDE is: " + str(LATITUDE.value))
         print("LONGITUDE is: " + str(LONGITUDE.value))
         Send_UDP_Command("altitude:" + str(altitude.value/FeetInMeters) +
-             ",magheading:" + str(HEADING_DEGREES_TRUE.value * Radians) +
+             ",magheading:" + str(int(HEADING_DEGREES_TRUE.value * Radians)) +
              ",airspeed:" + str(AIRSPEED_TRUE.value) +
              ",latitude:" + str(LATITUDE.value) +
              ",longitude:" + str(LONGITUDE.value) )
