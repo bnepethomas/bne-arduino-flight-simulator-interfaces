@@ -19,8 +19,7 @@
 
 
 // TODOS
-// Grab position of Position pot - set global var and use as multiplier when position lights are on
-// Grab position of Strobe light switch and use as a multiplier when strobes are on
+
 // Day-Nite-NVG
 // Position Day - all caution/warning lights 100%
 
