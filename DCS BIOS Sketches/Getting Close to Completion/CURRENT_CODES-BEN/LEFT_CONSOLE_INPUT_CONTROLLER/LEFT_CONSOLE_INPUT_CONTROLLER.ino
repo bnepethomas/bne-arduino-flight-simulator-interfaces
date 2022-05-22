@@ -410,12 +410,9 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("LAUNCH_BAR_SW", "0");
           break;
         case 37:
-          sendDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "1");
-          // delay(5);
-          // sendDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
-
 
           break;
+        case 38:
           // BM ADDED "SELECT JETT KNOB"
           //No Relese Required
           break;
@@ -445,6 +442,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
           break;
         case 47:
+          sendDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "1");
           break;
         case 48:
           //BM CODE
@@ -479,6 +477,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("FLAP_SW", "1"); // FLAPS "AUTO"
           break;
         case 59:
+          sendDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "1");
           break;
         case 60:
           // BM ADDED "SELECT JETT KNOB"
@@ -883,10 +882,6 @@ void SendDCSBIOSMessage(int ind, int state) {
 
           break;
         case 37:
-
-          sendDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "2");
-
-          sendDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
           break;
         case 38:
           // BM ADDED "SELECT JETT KNOB"
@@ -919,6 +914,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("COM_COMM_G_XMT_SW", "0");
           break;
         case 47:
+          sendDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
           break;
         case 48:
           //BM CODE
@@ -969,6 +965,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("FLAP_SW", "2"); // FLAPS "AUTO"
           break;
         case 59:
+          sendDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
           break;
         case 60:
           // BM ADDED "SELECT JETT KNOB"
