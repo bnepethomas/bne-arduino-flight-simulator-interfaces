@@ -33,6 +33,8 @@ Source_Port = 0
 Last_Source_IP = "127.0.0.1"
 
 
+nowexiting = False
+
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 
 
@@ -66,8 +68,11 @@ def Send_UDP_Command(command_to_send):
 
 
 def CleanUpAndExit():
+    global nowexiting
+    
     try:
         # Catch Ctl-C and quit
+        nowexiting = True
         print('')
         print('Exiting')
         print('')
@@ -138,6 +143,9 @@ def StartSimConnect():
        error_string = str(error)
        print(error_string)
        print("Sim not running?")
+       time.sleep(2)
+       
+       
 
 def DisplaySimVariables():
     global sm
@@ -165,17 +173,18 @@ def Main():
     print("Starting SimConnect")
 
     
-    try:
-        StartSimConnect()
+    while not nowexiting:
+        try:
+            StartSimConnect()
 
-        DisplaySimVariables()
+            DisplaySimVariables()
 
-    except KeyboardInterrupt:
-        # Catch Ctl-C and quit
-        CleanUpAndExit()
-        
-    except Exception as other:
-        logging.critical('Error in Main: ' + str(other))
+        except KeyboardInterrupt:
+            # Catch Ctl-C and quit
+            CleanUpAndExit()
+            
+        except Exception as other:
+            logging.critical('Error in Main: ' + str(other))
 
 
 
