@@ -50,15 +50,20 @@ const unsigned int max7219port = 7788;
 const unsigned int remoteport = 49000;
 const unsigned int reflectorport = 27000;
 
+const unsigned int MSFSport = 13136;
 
 // Packet Length
 int max7219packetsize;
 int max7219Len;
 
+int MSFSpacketsize;
+int MSFSLen;
 
 EthernetUDP max7219udp;              // Max7219
+EthernetUDP MSFSudp;                 // Listens to MSFS light commands
 
 char max7219packetBuffer[1000];      //buffer to store keyboard data
+char MSFSpacketBuffer[1000];        // Buffer for Light commands from MSFS
 char outpacketBuffer[1000];           //buffer to store the outgoing data
 
 bool Debug_Display = false;
@@ -2224,6 +2229,53 @@ void ProcessReceivedString()
 
 }
 
+void ProcessReceivedMSFSString()
+{
+
+
+
+  bool bLocalDebug = true;
+  int tempVar = 0;
+
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Processing Max7219 Packet");
+
+  if (Reflector_In_Use == 1) {
+    max7219udp.beginPacket(reflectorIP, reflectorport);
+    max7219udp.println("Received MSFS Packet - " + strMyIP + " " + String(millis()) + "mS since reset.");
+    max7219udp.endPacket();
+  }
+
+  String sWrkStr = "";
+  const char *delim  = "=";
+
+  ParameterNamePtr = strtok(MSFSpacketBuffer, delim);
+  String ParameterNameString(ParameterNamePtr);
+  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Name " + ParameterNameString);
+
+  if (Reflector_In_Use == 1) {
+    max7219udp.beginPacket(reflectorIP, reflectorport);
+    // THe line below isn't printg!
+    max7219udp.println("Received MSFS Packet - Part 2 - " +  String(ParameterNameString));
+    max7219udp.println("Received MSFS Packet Part 2");
+    max7219udp.endPacket();
+  }
+
+  onFlpLgRightGearLtChange(1);
+
+
+  //  ParameterNamePtr = strtok(max7219packetBuffer, delim);
+  //  String ParameterNameString(ParameterNamePtr);
+  //  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Name " + ParameterNameString);
+  //
+  //  ParameterValuePtr   = strtok(NULL, delim);
+  //  String ParameterValue(ParameterValuePtr);
+  //  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Value " + ParameterValue);
+
+
+
+
+}
+
 void setup() {
 
   // Initialise Relay output ports
@@ -2261,6 +2313,9 @@ void setup() {
     Ethernet.begin( mac, ip);
 
     max7219udp.begin( max7219port );
+    MSFSudp.begin( MSFSport );
+
+
 
     if (Reflector_In_Use == 1) {
       max7219udp.beginPacket(reflectorIP, reflectorport);
@@ -2431,6 +2486,18 @@ void loop() {
 
       ProcessReceivedString();
     }
+
+    MSFSpacketsize = MSFSudp.parsePacket();
+    MSFSLen = MSFSudp.read(max7219packetBuffer, 999);
+
+    if (MSFSLen > 0) {
+      MSFSpacketBuffer[MSFSLen] = 0;
+    }
+    if (MSFSpacketsize) {
+
+      ProcessReceivedMSFSString();
+    }
+
   }
 
 
