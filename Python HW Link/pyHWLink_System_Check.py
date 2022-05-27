@@ -78,6 +78,8 @@ def pingpitdevices():
     pingit("Max7219, Netron, Power Control Outputs", '172.16.1.106')
 
     pingit("Pixel Leds Outputs", '172.16.1.105')
+
+    pingit("Left Console GPS Raspberry Pi", '172.16.1.112')
     
 
 

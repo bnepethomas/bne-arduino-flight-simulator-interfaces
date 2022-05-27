@@ -15,12 +15,17 @@ HEADING_DEGREES_TRUE = None
 AIRSPEED_TRUE = None
 LATITUDE = None
 LONGITUDE = None
-
+GEAR_LEFT_POSITION = None
+GEAR_RIGHT_POSITION = None
+GEAR_CENTER_POSITION = None
 
 command_string = ''
 prefix_with_D = ''
 target_IP  = '172.16.1.112'
 target_Port = 13136
+
+Led_target_IP = '172.16.1.106'
+
 
 
 UDP_IP = "0.0.0.0"
@@ -33,6 +38,8 @@ Source_Port = 0
 Last_Source_IP = "127.0.0.1"
 
 
+nowexiting = False
+
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 
 
@@ -43,6 +50,7 @@ sock.bind((UDP_IP, UDP_PORT))
 def Send_UDP_Command(command_to_send):
 
     global sock
+    global target_IP
 
 
 
@@ -64,10 +72,36 @@ def Send_UDP_Command(command_to_send):
 
 
 
+def Send_UDP_Led_Command(command_to_send):
+
+    global sock
+    global Led_target_IP
+
+
+
+    try:
+
+        logging.debug('UDP target IP: ' + str(Led_target_IP)
+                             + '  UDP target port: ' + str(target_Port))
+        logging.debug('Sending: "' + command_to_send + '"')
+        
+        sock.sendto(command_to_send.encode('utf-8'),
+                    (Led_target_IP , target_Port))
+        # sock.sendto(command_to_send.encode('utf-8'),
+        #            (UDP_Reflector_IP, UDP_Reflector_Port))
+
+    
+
+    except Exception as other:
+        logging.critical('Error in Send_UDP_Led_Command: ' + str(other))
+
 
 def CleanUpAndExit():
+    global nowexiting
+    
     try:
         # Catch Ctl-C and quit
+        nowexiting = True
         print('')
         print('Exiting')
         print('')
@@ -89,7 +123,10 @@ def StartSimConnect():
     global HEADING_DEGREES_TRUE 
     global AIRSPEED_TRUE
     global LATITUDE 
-    global LONGITUDE 
+    global LONGITUDE
+    global GEAR_LEFT_POSITION
+    global GEAR_RIGHT_POSITION
+    global GEAR_CENTER_POSITION
     
     try: 
         sm = SimConnect()
@@ -131,13 +168,35 @@ def StartSimConnect():
         LONGITUDE.time = 200
         print("LONGITUDE is: " + str(LONGITUDE.value))
 
+        print("Grabbing GEAR_LEFT_POSITION")
+        GEAR_LEFT_POSITION = aq.find("GEAR_LEFT_POSITION")
+        GEAR_LEFT_POSITION.time = 200
+        print("GEAR LEFT POSITION is: " + str(GEAR_LEFT_POSITION.value))
 
+        print("Grabbing GEAR_RIGHT_POSITION")
+        GEAR_RIGHT_POSITION = aq.find("GEAR_RIGHT_POSITION")
+        GEAR_RIGHT_POSITION.time = 200
+        print("GEAR_RIGHT_POSITION is: " + str(GEAR_RIGHT_POSITION.value))
+
+
+        print("Grabbing GEAR_CENTER_POSITION")
+        GEAR_CENTER_POSITION = aq.find("GEAR_CENTER_POSITION")
+        GEAR_CENTER_POSITION.time = 200
+        print("GEAR_CENTER_POSITION is: " + str(GEAR_CENTER_POSITION.value))
+
+        Send_UDP_Led_Command("A=0")
+
+        time.sleep(5)
+        
        
        
     except Exception as error:
        error_string = str(error)
        print(error_string)
        print("Sim not running?")
+       time.sleep(2)
+       
+       
 
 def DisplaySimVariables():
     global sm
@@ -159,23 +218,27 @@ def DisplaySimVariables():
              ",airspeed:" + str(AIRSPEED_TRUE.value) +
              ",latitude:" + str(LATITUDE.value) +
              ",longitude:" + str(LONGITUDE.value) )
+
+
+        
         time.sleep(0.25)
 
 def Main():
     print("Starting SimConnect")
 
     
-    try:
-        StartSimConnect()
+    while not nowexiting:
+        try:
+            StartSimConnect()
 
-        DisplaySimVariables()
+            DisplaySimVariables()
 
-    except KeyboardInterrupt:
-        # Catch Ctl-C and quit
-        CleanUpAndExit()
-        
-    except Exception as other:
-        logging.critical('Error in Main: ' + str(other))
+        except KeyboardInterrupt:
+            # Catch Ctl-C and quit
+            CleanUpAndExit()
+            
+        except Exception as other:
+            logging.critical('Error in Main: ' + str(other))
 
 
 
