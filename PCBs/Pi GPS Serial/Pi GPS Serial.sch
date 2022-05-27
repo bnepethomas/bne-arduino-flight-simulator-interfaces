@@ -232,4 +232,6 @@ F 3 "" H 11800 7500 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	11150 7400 11800 7400
+Text Notes 6950 3600 0    50   ~ 0
+Add I2C connector with same pinout as Arduino\nAdd general data connector for OLED\nAdd connector for stick shaker
 $EndSCHEMATC
