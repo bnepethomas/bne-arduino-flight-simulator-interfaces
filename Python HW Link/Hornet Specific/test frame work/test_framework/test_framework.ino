@@ -68,13 +68,6 @@ char *ParameterNamePtr;
 char *ParameterValuePtr;
 
 
-
-// Module connection pins (Digital Pins)
-#define CLK 2
-#define DIO 3
-
-
-
 boolean Debug_Display = true;
 char byteIn = 0;
 int loopcounter = 0;
@@ -86,27 +79,12 @@ long ltime = 0;
 long llastDisplayUpdateMillis = 0;
 long llastServoMillis = 0;
 
-int  iServoDirection = 1;
-int  iServoPos = 0;
-const int NoOfServos = 18;
-const int ServoMinValue = 0;
-const int ServoMaxValue = 180;
-const int ServoBasePort = 21;
-// Number of mS between repositioning the servo
-const int iServoUpdatePeriod = 10;
+
 
 const int ServoStartUDPPort = 150;
 const int OutputStartUDPPort = 200;
 
-// Deal with guages such as VSI
-int iServoStartPos[NoOfServos + 1];
 
-// Safety limits such as needles  on VOR
-int iServoMinPos[NoOfServos + 1];
-int iServoMaxPos[NoOfServos + 1];
-
-int  iServoDesiredPos[NoOfServos + 1];
-int  iServoCurrentPos[NoOfServos + 1];
 
 const int NoOfOutputs = 14;
 // Initially was just using left over ports on dual row digital out
@@ -118,24 +96,7 @@ int relativeOutputBasePort = 0;
 int PortOffset = 0;
 int iDesiredOutput[NoOfOutputs + 1];
 
-Servo myservo_1;
-Servo myservo_2;
-Servo myservo_3;
-Servo myservo_4;
-Servo myservo_5;
-Servo myservo_6;
-Servo myservo_7;
-Servo myservo_8;
-Servo myservo_9;
-Servo myservo_10;
-Servo myservo_11;
-Servo myservo_12;
-Servo myservo_13;
-Servo myservo_14;
-Servo myservo_15;
-Servo myservo_16;
-Servo myservo_17;
-Servo myservo_18;
+
 
 
 
@@ -180,35 +141,6 @@ void setup() {
 
 
 }
-
-
-
-
-
-
-/*
-  This function lights up a some Leds in a row.
-  The pattern will be repeated on every row.
-  The pattern will blink along with the row-number.
-  row number 4 (index==3) will blink 4 times etc.
-*/
-void rows() {
-  for (int row = 0; row < 8; row++) {
-    delay(sdelaytime);
-    lc_2.setRow(0, row, B10100000);
-    delay(sdelaytime);
-    lc_2.setRow(0, row, (byte)0);
-    for (int i = 0; i < row; i++) {
-      delay(sdelaytime);
-      lc_2.setRow(0, row, B10100000);
-      delay(sdelaytime);
-      lc_2.setRow(0, row, (byte)0);
-    }
-  }
-}
-
-
-
 
 
 
@@ -305,14 +237,30 @@ void ProcessReceivedString()
 
 void HandleOutputValuePair( String str)
 {
+
+  // We are expected a LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
   bool bLocalDebug = false;
+
+  const int ExpectedLedNumberLength = 5;
+  const int ExpectedLedValueLength = 1;
+
+  const int Max7219UnitNumber = 6;
+  const int MaxRowNumber = 15;
+  const int MaxColNumber = 15;
+  const int MaxLedValue = 1;
+
   if (Debug_Display || bLocalDebug ) Serial.println("Handling " + str);
 
   int delimeterlocation = 0;
   String lednumber = "";
   String ledvalue = "";
+  String workstring = "";
 
 
+  int i7219UnitNumber = 0;
+  int iledRow = 0;
+  int iledColumn = 0;
+  int iledValue = 0;
 
 
   delimeterlocation = str.indexOf(':');
@@ -325,54 +273,98 @@ void HandleOutputValuePair( String str)
   {
     if (Debug_Display || bLocalDebug ) Serial.println("Delimiter is located a position " + String(delimeterlocation));
     lednumber = getValue(str, ':', 0);
-    if (Debug_Display || bLocalDebug ) Serial.println("lednumber is :" + lednumber);
+    if (Debug_Display || bLocalDebug ) Serial.println("lednumber is " + lednumber);
     ledvalue = getValue(str, ':', 1);
-    if (Debug_Display || bLocalDebug ) Serial.println("ledvalue is :" + ledvalue);
+    if (Debug_Display || bLocalDebug ) Serial.println("ledvalue is " + ledvalue);
 
 
-    int llednumber = lednumber.toInt();
-    int lledvalue = ledvalue.toInt();
-
-
-    if (llednumber >= 0 && llednumber <= 128) {
-      int iledRow = 0;
-      int iledColumn = 0;
-
-      iledRow = llednumber / 8;
-      iledColumn = llednumber % 8;
-
-      if (Debug_Display || bLocalDebug ) Serial.println("Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-
-
-      if (lledvalue == 0)
-      {
-        if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-        lc_2.setLed(0, iledRow, iledColumn, false);
-
-      }
-      else
-      {
-        if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-        lc_2.setLed(0, iledRow, iledColumn, true);
-      }
+    // First Check Lengths are ok
+    if (lednumber.length() != ExpectedLedNumberLength) {
+      if (Debug_Display || bLocalDebug ) Serial.println("lednumber has incorrect length of " + String(lednumber.length()) + ". Should be " + String(ExpectedLedNumberLength));
+      return;
     }
-    else if (llednumber >= ServoStartUDPPort && llednumber <= (ServoStartUDPPort + NoOfServos  - 1))
+
+
+    // As the value could contain the null at the end of the string trim it out
+    ledvalue.trim();
+    if (ledvalue.length() != ExpectedLedValueLength) {
+      if (Debug_Display || bLocalDebug ) Serial.println("ledvalue has incorrect length of " + String(ledvalue.length()) + ". Should be " + String(ExpectedLedValueLength));
+      return;
+    }
+
+
+
+
+    // Check we are only have numberic characters
+    if ( ! isValidNumber(lednumber) ) {
+      if (Debug_Display || bLocalDebug ) Serial.println("lednumber is not a number " + lednumber);
+      return;
+    }
+
+    if ( ! isValidNumber(ledvalue) ) {
+      if (Debug_Display || bLocalDebug ) Serial.println("ledvalue is not a number " + ledvalue);
+      return;
+    }
+
+
+
+
+    // Pull out Max7219 Unit Number, Row and Column Numbers
+    // Max 7219 Number
+    workstring = lednumber.substring(0, 1);
+    if (Debug_Display || bLocalDebug ) Serial.println("Max7219 Unit Number is :" + workstring);
+    i7219UnitNumber = workstring.toInt();
+
+    if (i7219UnitNumber > Max7219UnitNumber) {
+      if (Debug_Display || bLocalDebug ) Serial.println("Max7219 Unit Number is " + String(i7219UnitNumber) + " and is greater than allowed " + String(Max7219UnitNumber));
+      return;
+    }
+
+    // Led Row
+    workstring = lednumber.substring(1, 3);
+    if (Debug_Display || bLocalDebug ) Serial.println("Led Row Number is :" + workstring);
+    iledRow = workstring.toInt();
+
+    if (iledRow > MaxRowNumber) {
+      if (Debug_Display || bLocalDebug ) Serial.println("Led Row Number is " + String(iledRow) + " and is greater than allowed " + String(MaxRowNumber));
+      return;
+    }
+
+    // Led Column
+    workstring = lednumber.substring(3, 5);
+    if (Debug_Display || bLocalDebug ) Serial.println("Led Column Number is :" + workstring);
+    iledColumn = workstring.toInt();
+
+    if (iledColumn > MaxColNumber) {
+      if (Debug_Display || bLocalDebug ) Serial.println("Led Column Number is " + String(iledColumn) + " and is greater than allowed " + String(MaxColNumber));
+      return;
+    }
+
+
+    //Led Value
+    workstring = ledvalue.substring(0, 1);
+    if (Debug_Display || bLocalDebug ) Serial.println("Led Value is :" + workstring);
+    iledValue = workstring.toInt();
+
+    if (iledValue > MaxLedValue) {
+      if (Debug_Display || bLocalDebug ) Serial.println("Led Value is " + String(iledValue) + " and is greater than allowed " + String(MaxLedValue));
+      return;
+    }
+
+
+
+
+    // Have Now Validated payload - set the led 
+    if (iledValue == 0)
     {
-      // Handle Servos
-
-      iServoDesiredPos[llednumber - (ServoStartUDPPort - 1)] = lledvalue;
-
+      if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+      lc_2.setLed(i7219UnitNumber, iledRow, iledColumn, false);
 
     }
-    // Eight Output Pins for Relays
-    // UDP Ports start at 200
-    else if (llednumber >= OutputStartUDPPort && llednumber <= (OutputStartUDPPort + NoOfOutputs - 1))
+    else
     {
-      // Handle Digital Outputput - Pins 40 to 48 and 14 to 21
-      // First 9 Ports on Digital Output Bank
-      Serial.println("Setting Digital Output. Port Number is :" + String(llednumber) + " Value is " + String(lledvalue));
-
-      iDesiredOutput[llednumber - (OutputStartUDPPort - 1)] = lledvalue;
+      if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+      lc_2.setLed(i7219UnitNumber, iledRow, iledColumn, true);
     }
 
   }
