@@ -47,6 +47,8 @@ sock = socket.socket(socket.AF_INET, # Internet
                      socket.SOCK_DGRAM) # UDP
 sock.bind((UDP_IP, UDP_PORT))
 
+
+
 def Send_UDP_Command(command_to_send):
 
     global sock
