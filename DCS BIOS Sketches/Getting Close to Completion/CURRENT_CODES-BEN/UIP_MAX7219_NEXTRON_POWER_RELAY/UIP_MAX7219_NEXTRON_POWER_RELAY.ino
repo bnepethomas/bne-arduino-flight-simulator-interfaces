@@ -2453,13 +2453,13 @@ void HandleOutputValuePair( String str)
     if (iledValue == 0)
     {
       //if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-      lc.setLed(i7219UnitNumber, iledRow, iledColumn, false);
+      lc.setLed(i7219UnitNumber, iledColumn, iledRow, false);
 
     }
     else
     {
       //if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
-      lc.setLed(i7219UnitNumber, iledRow, iledColumn, true);
+      lc.setLed(i7219UnitNumber, iledColumn, iledRow, true);
     }
 
   }
