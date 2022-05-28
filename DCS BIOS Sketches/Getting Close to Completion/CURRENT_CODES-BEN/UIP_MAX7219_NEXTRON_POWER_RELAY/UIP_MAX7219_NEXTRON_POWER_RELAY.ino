@@ -62,8 +62,7 @@ int MSFSLen;
 EthernetUDP max7219udp;              // Max7219
 EthernetUDP MSFSudp;                 // Listens to MSFS light commands
 
-char max7219packetBuffer[1000];      //buffer to store keyboard data
-char MSFSpacketBuffer[1000];        // Buffer for Light commands from MSFS
+char max7219packetBuffer[1000];      //buffer to store packet data for both Max7219 and MSFS data
 char outpacketBuffer[1000];           //buffer to store the outgoing data
 
 bool Debug_Display = false;
@@ -2229,52 +2228,324 @@ void ProcessReceivedString()
 
 }
 
+
+
+
+
+
+// ****************************** Start May 28
+
 void ProcessReceivedMSFSString()
 {
 
+  // Reading values from packetBuffer which is global
+  // All received values are strings for readability
+
+  // Old versions handled a single attribute/value pair at a time eg I01=1
+  // New Version Handles multiple attribute Values in a single packet
+  //    D,1:0,2:1,3:1,4:1,5:0,6:0,7:0,8:0,9:1,10:1
 
 
   bool bLocalDebug = true;
-  int tempVar = 0;
 
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Processing Max7219 Packet");
+  //if (Debug_Display || bLocalDebug ) Serial.println("Processing Packet :" + String(millis()));
+  SendReflectorMessage("Processing Packet");
 
-  if (Reflector_In_Use == 1) {
-    max7219udp.beginPacket(reflectorIP, reflectorport);
-    max7219udp.println("Received MSFS Packet - " + strMyIP + " " + String(millis()) + "mS since reset.");
-    max7219udp.endPacket();
-  }
+  bLocalDebug = false;
 
   String sWrkStr = "";
-  const char *delim  = "=";
 
-  ParameterNamePtr = strtok(MSFSpacketBuffer, delim);
+  // const char *delim  = "=";
+  const char *delim  = ",";
+
+  // Break the received packet into a series of tokens
+  // If there is no match the pointer will be null, other points to first parameter
+  ParameterNamePtr = strtok(max7219packetBuffer, delim);
+
+
+
   String ParameterNameString(ParameterNamePtr);
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Name " + ParameterNameString);
+  //if (Debug_Display || bLocalDebug ) Serial.println("Parameter Name " + String(ParameterNameString));
+  SendReflectorMessage("Parameter Name " + String(ParameterNameString));
+  // Print all of the values received as a outer loop
+  // and then split inner values
+  /* get the first token */
 
-  if (Reflector_In_Use == 1) {
-    max7219udp.beginPacket(reflectorIP, reflectorport);
-    // THe line below isn't printg!
-    max7219udp.println("Received MSFS Packet - Part 2 - " +  String(ParameterNameString));
-    max7219udp.println("Received MSFS Packet Part 2");
-    max7219udp.endPacket();
+  /* walk through other tokens */
+
+  String wrkstring = "";
+
+  //if (Debug_Display || bLocalDebug )
+    //if (ParameterNamePtr != NULL) Serial.println("First Value is: " + String(ParameterNamePtr));
+  if (ParameterNameString[0] == 'D')
+  {
+    //Handling a Data Packet
+    //if (Debug_Display || bLocalDebug ) Serial.println("Handling a Data Packet");
+    ParameterNamePtr = strtok(NULL, delim);
+
+    while ( ParameterNamePtr != NULL ) {
+      //if (Debug_Display || bLocalDebug ) Serial.println( "Processing " + String(ParameterNamePtr) );
+
+      wrkstring = String(ParameterNamePtr);
+      HandleOutputValuePair(wrkstring);
+
+
+      ParameterNamePtr = strtok(NULL, delim);
+    }
+
+    return;
+    // End Handling a Data Packet
+  }
+  else if (ParameterNameString[0] == 'C')
+  {
+    // Handling a Control Packet
+    //if (Debug_Display || bLocalDebug ) Serial.println("Handling a Control Packet");
+
+    ParameterNamePtr = strtok(NULL, delim);
+
+    while ( ParameterNamePtr != NULL ) {
+      //if (Debug_Display || bLocalDebug )Serial.println( "Processing " + String(ParameterNamePtr) );
+
+      wrkstring = String(ParameterNamePtr);
+      HandleControlString(wrkstring);
+
+      ParameterNamePtr = strtok(NULL, delim);
+    }
+
+
+    return;
+
+    // Handling a Control Packet
+  }
+  else
+  {
+    // Unknown Packet Type
+    //if (Debug_Display || bLocalDebug ) Serial.println("Unknown Packet Type - ignoring packet");
+    return;
   }
 
-  onFlpLgRightGearLtChange(1);
+}
 
 
-  //  ParameterNamePtr = strtok(max7219packetBuffer, delim);
-  //  String ParameterNameString(ParameterNamePtr);
-  //  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Name " + ParameterNameString);
-  //
-  //  ParameterValuePtr   = strtok(NULL, delim);
-  //  String ParameterValue(ParameterValuePtr);
-  //  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Value " + ParameterValue);
+void HandleOutputValuePair( String str)
+{
+
+  // We are expected a LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
+  bool bLocalDebug = false;
+
+  const int ExpectedLedNumberLength = 5;
+  const int ExpectedLedValueLength = 1;
+
+  const int Max7219UnitNumber = 6;
+  const int MaxRowNumber = 15;
+  const int MaxColNumber = 15;
+  const int MaxLedValue = 1;
+
+  //if (Debug_Display || bLocalDebug ) Serial.println("Handling " + str);
+  SendReflectorMessage("Handling " + str);
+
+  int delimeterlocation = 0;
+  String lednumber = "";
+  String ledvalue = "";
+  String workstring = "";
+
+
+  int i7219UnitNumber = 0;
+  int iledRow = 0;
+  int iledColumn = 0;
+  int iledValue = 0;
+
+
+  delimeterlocation = str.indexOf(':');
+
+  if (delimeterlocation == 0)
+  {
+    //if (Debug_Display || bLocalDebug ) Serial.println("**** WARNING no delimiter passed ****** Looking for :");
+  }
+  else
+  {
+    //if (Debug_Display || bLocalDebug ) Serial.println("Delimiter is located a position " + String(delimeterlocation));
+    lednumber = getValue(str, ':', 0);
+    //if (Debug_Display || bLocalDebug ) Serial.println("lednumber is " + lednumber);
+    ledvalue = getValue(str, ':', 1);
+    //if (Debug_Display || bLocalDebug ) Serial.println("ledvalue is " + ledvalue);
+
+
+    // First Check Lengths are ok
+    if (lednumber.length() != ExpectedLedNumberLength) {
+      //if (Debug_Display || bLocalDebug ) Serial.println("lednumber has incorrect length of " + String(lednumber.length()) + ". Should be " + String(ExpectedLedNumberLength));
+      return;
+    }
+
+
+    // As the value could contain the null at the end of the string trim it out
+    ledvalue.trim();
+    if (ledvalue.length() != ExpectedLedValueLength) {
+      //if (Debug_Display || bLocalDebug ) Serial.println("ledvalue has incorrect length of " + String(ledvalue.length()) + ". Should be " + String(ExpectedLedValueLength));
+      return;
+    }
 
 
 
+
+    // Check we are only have numberic characters
+    if ( ! isValidNumber(lednumber) ) {
+      //if (Debug_Display || bLocalDebug ) Serial.println("lednumber is not a number " + lednumber);
+      return;
+    }
+
+    if ( ! isValidNumber(ledvalue) ) {
+      //if (Debug_Display || bLocalDebug ) Serial.println("ledvalue is not a number " + ledvalue);
+      return;
+    }
+
+
+
+
+    // Pull out Max7219 Unit Number, Row and Column Numbers
+    // Max 7219 Number
+    workstring = lednumber.substring(0, 1);
+    //if (Debug_Display || bLocalDebug ) Serial.println("Max7219 Unit Number is :" + workstring);
+    i7219UnitNumber = workstring.toInt();
+
+    if (i7219UnitNumber > Max7219UnitNumber) {
+      //if (Debug_Display || bLocalDebug ) Serial.println("Max7219 Unit Number is " + String(i7219UnitNumber) + " and is greater than allowed " + String(Max7219UnitNumber));
+      return;
+    }
+
+    // Led Row
+    workstring = lednumber.substring(1, 3);
+    //if (Debug_Display || bLocalDebug ) Serial.println("Led Row Number is :" + workstring);
+    iledRow = workstring.toInt();
+
+    if (iledRow > MaxRowNumber) {
+      //if (Debug_Display || bLocalDebug ) Serial.println("Led Row Number is " + String(iledRow) + " and is greater than allowed " + String(MaxRowNumber));
+      return;
+    }
+
+    // Led Column
+    workstring = lednumber.substring(3, 5);
+    //if (Debug_Display || bLocalDebug ) Serial.println("Led Column Number is :" + workstring);
+    iledColumn = workstring.toInt();
+
+    if (iledColumn > MaxColNumber) {
+      //if (Debug_Display || bLocalDebug ) Serial.println("Led Column Number is " + String(iledColumn) + " and is greater than allowed " + String(MaxColNumber));
+      return;
+    }
+
+
+    //Led Value
+    workstring = ledvalue.substring(0, 1);
+    //if (Debug_Display || bLocalDebug ) Serial.println("Led Value is :" + workstring);
+    iledValue = workstring.toInt();
+
+    if (iledValue > MaxLedValue) {
+      //if (Debug_Display || bLocalDebug ) Serial.println("Led Value is " + String(iledValue) + " and is greater than allowed " + String(MaxLedValue));
+      return;
+    }
+
+
+  
+  SendReflectorMessage("Set Led " + String(i7219UnitNumber) +":" + String(iledRow) + ":" +
+    String(iledColumn) + ":" + String(iledValue));
+
+    // Have Now Validated payload - set the led
+    if (iledValue == 0)
+    {
+      //if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+      lc.setLed(i7219UnitNumber, iledRow, iledColumn, false);
+
+    }
+    else
+    {
+      //if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
+      lc.setLed(i7219UnitNumber, iledRow, iledColumn, true);
+    }
+
+  }
+  return;
 
 }
+
+
+void HandleControlString( String str)
+{
+  bool bLocalDebug = false;
+  //if (Debug_Display || bLocalDebug ) Serial.println("Handling Control String :" + str);
+
+  // Currnetly just handling Brightness - eg C,B:3
+
+  int delimeterlocation = 0;
+  String command = "";
+  String setting = "";
+
+
+
+
+
+  delimeterlocation = str.indexOf(':');
+
+  if (delimeterlocation == 0)
+  {
+    //if (Debug_Display || bLocalDebug ) Serial.println("**** WARNING no delimiter passed ****** Looking for :");
+  }
+  else
+  {
+    //if (Debug_Display || bLocalDebug ) Serial.println("Delimiter is located a position " + String(delimeterlocation));
+    command = getValue(str, ':', 0);
+    //if (Debug_Display || bLocalDebug ) Serial.println("command is :" + command);
+    setting = getValue(str, ':', 1);
+    //if (Debug_Display || bLocalDebug ) Serial.println("setting is :" + setting);
+
+    int isetting = setting.toInt();
+
+    if (command == "B")
+      if (isetting >= 0 && isetting <= 15)
+        lc.setIntensity(0, isetting);
+      //else if (Debug_Display || bLocalDebug ) Serial.println("Invalid Brightness value passed. Value is :" + String(setting));
+  }
+
+  return;
+
+}
+
+String getValue(String data, char separator, int index)
+{
+  int found = 0;
+  int strIndex[] = { 0, -1 };
+  int maxIndex = data.length() - 1;
+
+  for (int i = 0; i <= maxIndex && found <= index; i++) {
+    if (data.charAt(i) == separator || i == maxIndex) {
+      found++;
+      strIndex[0] = strIndex[1] + 1;
+      strIndex[1] = (i == maxIndex) ? i + 1 : i;
+    }
+  }
+  return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
+}
+
+boolean isValidNumber(String str)
+{
+  boolean isNum = false;
+  if (!(str.charAt(0) == '+' || str.charAt(0) == '-' || isDigit(str.charAt(0)))) return false;
+
+  for (byte i = 1; i < str.length(); i++)
+  {
+    if (!(isDigit(str.charAt(i)) || str.charAt(i) == '.')) return false;
+  }
+  return true;
+}
+
+void SendReflectorMessage(String messageString)
+{
+  if (Reflector_In_Use == 1) {
+    max7219udp.beginPacket(reflectorIP, reflectorport);
+    max7219udp.println(messageString + " " +  String(millis()) + "mS since reset.");
+    max7219udp.endPacket();
+  }
+}
+// ****************************** End May 28
 
 void setup() {
 
@@ -2491,11 +2762,12 @@ void loop() {
     MSFSLen = MSFSudp.read(max7219packetBuffer, 999);
 
     if (MSFSLen > 0) {
-      MSFSpacketBuffer[MSFSLen] = 0;
+      max7219packetBuffer[MSFSLen] = 0;
     }
     if (MSFSpacketsize) {
 
       ProcessReceivedMSFSString();
+      SendReflectorMessage("Exiting MSFS Processing");
     }
 
   }

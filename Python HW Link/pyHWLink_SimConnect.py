@@ -184,7 +184,9 @@ def StartSimConnect():
         GEAR_CENTER_POSITION.time = 200
         print("GEAR_CENTER_POSITION is: " + str(GEAR_CENTER_POSITION.value))
 
-        Send_UDP_Led_Command("A=0")
+        Send_UDP_Led_Command("D,30005:1,30105:1,")
+        time.sleep(0.5)
+        Send_UDP_Led_Command("D,20501:1,20500:1,")
 
         time.sleep(5)
         
