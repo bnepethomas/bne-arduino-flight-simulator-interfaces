@@ -8,6 +8,7 @@ import sys
 Radians = 57.295779513
 FeetInMeters = 3.28084
 
+# Sim Connect Variables
 sm = None
 aq = None
 altitude = None
@@ -18,6 +19,13 @@ LONGITUDE = None
 GEAR_LEFT_POSITION = None
 GEAR_RIGHT_POSITION = None
 GEAR_CENTER_POSITION = None
+
+
+# Local State Variables
+# Setting to -1 means the first update should trigger changes which in turn triggers leds
+last_center_gear_pos = -1
+last_left_gear_pos =  -1 
+last_right_gear_pos = -1
 
 command_string = ''
 prefix_with_D = ''
@@ -573,7 +581,32 @@ def Set_Fuel_Low_Led(state):
                       + str(FUEL_LO_ROW_A).zfill(2) + ":" + str(state) + ","
     Command = Command + str(CAUTION_PANEL) + str(FUEL_LO_COL_B).zfill(2) \
                       + str(FUEL_LO_ROW_B).zfill(2) + ":" + str(state)
-    Send_UDP_Led_Command(Command)    
+    Send_UDP_Led_Command(Command)
+
+# ##################################### END SETTING LED POSITIONS
+
+# ##################################### BEGIN UPDATE AIRCRAFT VARIABLES
+
+def Update_Gear_Pos():
+    global GEAR_CENTER_POSITION
+    global GEAR_LEFT_POSITION
+    global GEAR_RIGHT_POSITION
+
+    global last_center_gear_pos
+    global last_left_gear_pos
+    global last_right_gear_pos
+
+
+    print("GEAR_CENTER_POSITION is: " + str(GEAR_CENTER_POSITION.value))
+    print("GEAR LEFT POSITION is: " + str(GEAR_LEFT_POSITION.value))
+    print("GEAR_RIGHT_POSITION is: " + str(GEAR_RIGHT_POSITION.value))
+
+##    if last_center_gear_pos != GEAR_CENTER_POSITION.value :
+##       last_center_gear_pos = GEAR_CENTER_POSITION.value
+       
+        
+
+# ##################################### END UPDATE AIRCRAFT VARIABLES
 
 def Send_UDP_Command(command_to_send):
 
@@ -658,9 +691,10 @@ def StartSimConnect():
     global AIRSPEED_TRUE
     global LATITUDE 
     global LONGITUDE
+    global GEAR_CENTER_POSITION
     global GEAR_LEFT_POSITION
     global GEAR_RIGHT_POSITION
-    global GEAR_CENTER_POSITION
+
     
     try: 
         sm = SimConnect()
@@ -702,6 +736,11 @@ def StartSimConnect():
         LONGITUDE.time = 200
         print("LONGITUDE is: " + str(LONGITUDE.value))
 
+        print("Grabbing GEAR_CENTER_POSITION")
+        GEAR_CENTER_POSITION = aq.find("GEAR_CENTER_POSITION")
+        GEAR_CENTER_POSITION.time = 200
+        print("GEAR_CENTER_POSITION is: " + str(GEAR_CENTER_POSITION.value))
+
         print("Grabbing GEAR_LEFT_POSITION")
         GEAR_LEFT_POSITION = aq.find("GEAR_LEFT_POSITION")
         GEAR_LEFT_POSITION.time = 200
@@ -713,16 +752,7 @@ def StartSimConnect():
         print("GEAR_RIGHT_POSITION is: " + str(GEAR_RIGHT_POSITION.value))
 
 
-        print("Grabbing GEAR_CENTER_POSITION")
-        GEAR_CENTER_POSITION = aq.find("GEAR_CENTER_POSITION")
-        GEAR_CENTER_POSITION.time = 200
-        print("GEAR_CENTER_POSITION is: " + str(GEAR_CENTER_POSITION.value))
 
-        Send_UDP_Led_Command("D,30005:1,30105:1,")
-        time.sleep(0.5)
-        Send_UDP_Led_Command("D,20501:1,20500:1,")
-
-        time.sleep(5)
         
        
        
@@ -734,7 +764,7 @@ def StartSimConnect():
        
        
 
-def DisplaySimVariables():
+def Update_Sim_Variables():
     global sm
     global aq
     global altitude 
@@ -742,6 +772,7 @@ def DisplaySimVariables():
     global AIRSPEED_TRUE
     global LATITUDE 
     global LONGITUDE
+
 
     while True:
         print("Altitude is: " + str(altitude.value))
@@ -755,24 +786,27 @@ def DisplaySimVariables():
              ",latitude:" + str(LATITUDE.value) +
              ",longitude:" + str(LONGITUDE.value) )
 
-
+        Update_Gear_Pos()
         
         time.sleep(0.25)
 
 def Main():
     print("Starting SimConnect")
 
+    # Clear all Leds
     Set_Nose_Gear_Led(0)
     Set_Left_Gear_Led(0)
     Set_Right_Gear_Led(0)
     Set_Half_Flaps_Led(0)
     Set_Full_Flaps_Led(0)
-    Set_Fuel_Low_Led(1)
+    Set_Fuel_Low_Led(0)
+
+    
     while not nowexiting:
         try:
             StartSimConnect()
 
-            DisplaySimVariables()
+            Update_Sim_Variables()
 
         except KeyboardInterrupt:
             # Catch Ctl-C and quit
