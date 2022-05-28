@@ -477,7 +477,6 @@ def Set_Nose_Gear_Led(state):
 
     # LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
     global SELECT_JET_PANEL
-
     global NOSE_GEAR_COL_A 
     global NOSE_GEAR_ROW_A 
     global NOSE_GEAR_COL_B 
@@ -488,6 +487,93 @@ def Set_Nose_Gear_Led(state):
     Command = Command + str(SELECT_JET_PANEL) + str(NOSE_GEAR_COL_B).zfill(2) \
                       + str(NOSE_GEAR_ROW_B).zfill(2) + ":" + str(state)
     Send_UDP_Led_Command(Command)
+    
+
+
+def Set_Left_Gear_Led(state):
+
+    # LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
+    global SELECT_JET_PANEL  
+    global LEFT_GEAR_COL_A 
+    global LEFT_GEAR_ROW_A 
+    global LEFT_GEAR_COL_B 
+    global LEFT_GEAR_ROW_B         
+
+    Command = str(SELECT_JET_PANEL) + str(LEFT_GEAR_COL_A).zfill(2) \
+                      + str(LEFT_GEAR_ROW_A).zfill(2) + ":" + str(state) + ","
+    Command = Command + str(SELECT_JET_PANEL) + str(LEFT_GEAR_COL_B).zfill(2) \
+                      + str(LEFT_GEAR_ROW_B).zfill(2) + ":" + str(state)
+    Send_UDP_Led_Command(Command)
+
+
+
+def Set_Right_Gear_Led(state):
+
+    # LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
+    global SELECT_JET_PANEL
+    global RIGHT_GEAR_COL_A 
+    global RIGHT_GEAR_ROW_A 
+    global RIGHT_GEAR_COL_B 
+    global RIGHT_GEAR_ROW_B        
+
+    Command = str(SELECT_JET_PANEL) + str(RIGHT_GEAR_COL_A).zfill(2) \
+                      + str(RIGHT_GEAR_ROW_A).zfill(2) + ":" + str(state) + ","
+    Command = Command + str(SELECT_JET_PANEL) + str(RIGHT_GEAR_COL_B).zfill(2) \
+                      + str(RIGHT_GEAR_ROW_B).zfill(2) + ":" + str(state)
+    Send_UDP_Led_Command(Command)
+
+
+
+def Set_Full_Flaps_Led(state):
+
+    # LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
+    global SELECT_JET_PANEL
+    global FULL_FLAPS_COL_A 
+    global FULL_FLAPS_ROW_A 
+    global FULL_FLAPS_COL_B 
+    global FULL_FLAPS_ROW_B       
+
+    Command = str(SELECT_JET_PANEL) + str(FULL_FLAPS_COL_A).zfill(2) \
+                      + str(FULL_FLAPS_ROW_A).zfill(2) + ":" + str(state) + ","
+    Command = Command + str(SELECT_JET_PANEL) + str(FULL_FLAPS_COL_B).zfill(2) \
+                      + str(FULL_FLAPS_ROW_B).zfill(2) + ":" + str(state)
+    Send_UDP_Led_Command(Command)
+
+
+
+
+def Set_Half_Flaps_Led(state):
+
+    # LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
+    global SELECT_JET_PANEL
+    global HALF_FLAPS_COL_A
+    global HALF_FLAPS_ROW_A
+    global HALF_FLAPS_COL_B
+    global HALF_FLAPS_ROW_B 
+
+    Command = str(SELECT_JET_PANEL) + str(HALF_FLAPS_COL_A).zfill(2) \
+                      + str(HALF_FLAPS_ROW_A).zfill(2) + ":" + str(state) + ","
+    Command = Command + str(SELECT_JET_PANEL) + str(HALF_FLAPS_COL_B).zfill(2) \
+                      + str(HALF_FLAPS_ROW_B).zfill(2) + ":" + str(state)
+    Send_UDP_Led_Command(Command)
+
+
+
+
+def Set_Fuel_Low_Led(state):
+
+    # LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
+    global CAUTION_PANEL
+    global FUEL_LO_COL_A
+    global FUEL_LO_ROW_A
+    global FUEL_LO_COL_B
+    global FUEL_LO_ROW_B
+    
+    Command = str(CAUTION_PANEL) + str(FUEL_LO_COL_A).zfill(2) \
+                      + str(FUEL_LO_ROW_A).zfill(2) + ":" + str(state) + ","
+    Command = Command + str(CAUTION_PANEL) + str(FUEL_LO_COL_B).zfill(2) \
+                      + str(FUEL_LO_ROW_B).zfill(2) + ":" + str(state)
+    Send_UDP_Led_Command(Command)    
 
 def Send_UDP_Command(command_to_send):
 
@@ -676,7 +762,12 @@ def DisplaySimVariables():
 def Main():
     print("Starting SimConnect")
 
-    Set_Nose_Gear_Led(1)  
+    Set_Nose_Gear_Led(0)
+    Set_Left_Gear_Led(0)
+    Set_Right_Gear_Led(0)
+    Set_Half_Flaps_Led(0)
+    Set_Full_Flaps_Led(0)
+    Set_Fuel_Low_Led(1)
     while not nowexiting:
         try:
             StartSimConnect()
