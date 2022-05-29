@@ -192,8 +192,7 @@ def StartSimConnect():
         event_to_trigger = ae.find("AP_MASTER")  # Toggles autopilot on or off
         event_to_trigger()
         time.sleep(3)
-        
-        event_to_trigger = ae.find("FLAPS_DECR")  # Toggles autopilot on or off
+        event_to_trigger = ae.find("GEAR_UP")
         event_to_trigger()
         
         event_to_trigger = ae.find("AP_MASTER")  # Toggles autopilot on or off
@@ -202,6 +201,12 @@ def StartSimConnect():
         event_to_trigger = ae.find("AP_MASTER")  # Toggles autopilot on or off
         event_to_trigger()
         time.sleep(3)
+
+        ### Working Events
+        #event_to_trigger = ae.find("FLAPS_INCR")  # Toggles autopilot on or off
+        #event_to_trigger = ae.find("FLAPS_DECR")  # Toggles autopilot on or off
+
+  
 
        
        
