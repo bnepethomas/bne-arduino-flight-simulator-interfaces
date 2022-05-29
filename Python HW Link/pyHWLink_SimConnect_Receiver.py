@@ -155,7 +155,8 @@ def StartSimConnect():
         print("Sim Connected")    
         # Note the default _time is 2000 to be refreshed every 2 seconds
         print("Asking for aircraft info")
-        aq = AircraftRequests(sm, _time=2000)
+        aq = AircraftRequests(sm, _time=500)
+        ae = AircraftEvents(sm)
         print("Configured Aircraft Requests")
         # Use _time=ms where ms is the time in milliseconds to cache the data.
         # Setting ms to 0 will disable data caching and always pull new data from the sim.
@@ -171,25 +172,36 @@ def StartSimConnect():
 
         time.sleep(1)
         print("Setting Lights")
-        landing = aq.find("LIGHT_LANDING")
+        landing = aq.find("LIGHT_NAV_ON")
         landing.time = 200
-        print("Landing Light is: " + str(landing.value))
-        landingvar = 1.0
-        aq.set("LIGHT_LANDING",landingvar)
-        print("Landing Light is: " + str(landing.value))
+        print("LIGHT_NAV_ON Light is: " + str(landing.value))
+        landingvar = 0
+        aq.set("FLAP_POSITION_SET",1)
+        time.sleep(1)
+        print("LIGHT_NAV_ON Light is: " + str(landing.value))
         print("Lights Set")
 
 
         
-        aq.set("PLANE_ALTITUDE", altitude.value + 0.5)
+        aq.set("PLANE_ALTITUDE", altitude.value + 1)
 
 
-        ae = AircraftEvents(sm)
+
+        
         # Trigger a simple event
         event_to_trigger = ae.find("AP_MASTER")  # Toggles autopilot on or off
         event_to_trigger()
-        time.sleep(2)
-
+        time.sleep(3)
+        
+        event_to_trigger = ae.find("FLAPS_DECR")  # Toggles autopilot on or off
+        event_to_trigger()
+        
+        event_to_trigger = ae.find("AP_MASTER")  # Toggles autopilot on or off
+        event_to_trigger()       
+        time.sleep(3)
+        event_to_trigger = ae.find("AP_MASTER")  # Toggles autopilot on or off
+        event_to_trigger()
+        time.sleep(3)
 
        
        
