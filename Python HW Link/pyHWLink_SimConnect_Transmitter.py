@@ -1,4 +1,3 @@
-cause an eror
 from SimConnect import *
 import time
 import logging

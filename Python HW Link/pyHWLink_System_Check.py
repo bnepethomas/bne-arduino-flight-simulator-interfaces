@@ -16,6 +16,7 @@
 # https://www.uwe-sieber.de/usbtreeview_e.html#download
 
 import os
+import subprocess
 
 
 import usb.core
@@ -98,4 +99,14 @@ def checkipconnectivity():
 checkipconnectivity()
 print()
 print()
+print("Checking correct Wifi is in use")
+
+wifi = subprocess.check_output(['netsh', 'WLAN', 'show', 'interfaces'])
+data = wifi.decode('utf-8')
+if "Shed" in data:
+    print("Connected to Shed")
+else:
+    print("WARNING - not connected Shed SSID")
+print()
+print()      
 input("Tests Complete. Press Enter to Continue")
