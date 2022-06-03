@@ -170,43 +170,38 @@ def StartSimConnect():
         altitude.time = 200
         print("Altitude is: " + str(altitude.value))
 
-        time.sleep(1)
-        print("Setting Lights")
-        landing = aq.find("LIGHT_NAV_ON")
-        landing.time = 200
-        print("LIGHT_NAV_ON Light is: " + str(landing.value))
-        landingvar = 0
-        aq.set("FLAP_POSITION_SET",1)
-        time.sleep(1)
-        print("LIGHT_NAV_ON Light is: " + str(landing.value))
-        print("Lights Set")
+##        time.sleep(1)
+##        print("Setting Lights")
+##        landing = aq.find("LIGHT_NAV_ON")
+##        landing.time = 200
+##        print("LIGHT_NAV_ON Light is: " + str(landing.value))
+##        landingvar = 0
+##        aq.set("FLAP_POSITION_SET",1)
+##        time.sleep(1)
+##        print("LIGHT_NAV_ON Light is: " + str(landing.value))
+##        print("Lights Set")
 
 
         
-        aq.set("PLANE_ALTITUDE", altitude.value + 1)
+        #aq.set("PLANE_ALTITUDE", altitude.value + 1)
 
 
 
         
         # Trigger a simple event
-        event_to_trigger = ae.find("AP_MASTER")  # Toggles autopilot on or off
-        event_to_trigger()
-        time.sleep(3)
-        event_to_trigger = ae.find("GEAR_UP")
-        event_to_trigger()
         
-        event_to_trigger = ae.find("AP_MASTER")  # Toggles autopilot on or off
+        event_to_trigger = ae.find("FLAPS_INCR")
         event_to_trigger()       
         time.sleep(3)
-        event_to_trigger = ae.find("AP_MASTER")  # Toggles autopilot on or off
+        event_to_trigger = ae.find("FLAPS_DECR")
         event_to_trigger()
         time.sleep(3)
 
         ### Working Events
-        #event_to_trigger = ae.find("FLAPS_INCR")  # Toggles autopilot on or off
-        #event_to_trigger = ae.find("FLAPS_DECR")  # Toggles autopilot on or off
-
-  
+        #event_to_trigger = ae.find("FLAPS_INCR")  
+        #event_to_trigger = ae.find("FLAPS_DECR")  
+        #event_to_trigger = ae.find("AP_MASTER")
+        #event_to_trigger = ae.find("GEAR_UP")
 
        
        
