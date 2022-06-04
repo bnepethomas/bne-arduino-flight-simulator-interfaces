@@ -14,6 +14,7 @@
 
 from SimConnect import *
 import time
+import datetime
 import logging
 import os
 import socket
@@ -35,96 +36,30 @@ GEAR_RIGHT_POSITION = None
 GEAR_CENTER_POSITION = None
 TRAILING_EDGE_FLAPS_LEFT_ANGLE = None
 
-# Local State Variables
-# Setting to -1 means the first update should trigger changes which in turn triggers leds
-last_center_gear_pos = -1
-last_left_gear_pos =  -1 
-last_right_gear_pos = -1
-last_flaps_pos = -1
-
-command_string = ''
-prefix_with_D = ''
-target_IP  = '172.16.1.112'
-target_Port = 13136
-
-Led_target_IP = '172.16.1.106'
-
-
-
-UDP_IP = "0.0.0.0"
-UDP_PORT = 7792
-UDP_Reflector_IP = "127.0.0.1"
-UDP_Reflector_Port = 27000
-
-Source_IP = 0
-Source_Port = 0
-Last_Source_IP = "127.0.0.1"
-
 
 nowexiting = False
 
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 
 
-sock = socket.socket(socket.AF_INET, # Internet
-                     socket.SOCK_DGRAM) # UDP
-sock.bind((UDP_IP, UDP_PORT))
 
+# Global Variables
+debugging = True
+config_file = 'pyHWLink_SimConnect_Receiver.py'
+secondsBetweenKeepAlives = 5
 
+# Initialise keepalive indicator
+last_time_display = time.time()
+packets_processed = 0
 
-def Send_UDP_Command(command_to_send):
+# Address and Port to listen on
+UDP_IP_Address = ""
+UDP_Port = 7791
+serverSock = None
 
-    global sock
-    global target_IP
+# Last time a packet was received - used to just a default location to GPS to keep it alive
+last_time_packet_received = datetime.datetime.now()
 
-
-
-    try:
-
-##        logging.debug('UDP target IP: ' + str(target_IP)
-##                             + '  UDP target port: ' + str(target_Port))
-##        logging.debug('Sending: "' + command_to_send + '"')
-        
-        sock.sendto(command_to_send.encode('utf-8'),
-                    (target_IP , target_Port))
-        # sock.sendto(command_to_send.encode('utf-8'),
-        #            (UDP_Reflector_IP, UDP_Reflector_Port))
-
-    
-
-    except Exception as other:
-        logging.critical('Error in Send_UDP_Command: ' + str(other))
-
-
-
-def Send_UDP_Led_Command(command_to_send):
-
-    # Prepends the command to be sent with a 'D,' and then sends in a UDP packet
-
-    # This could be optimised to keep adding values to a string
-    # and then either sned the string when it has got to a preset length
-    # or send the string at the end of the loop
-    
-    global sock
-    global Led_target_IP
-
-    command_to_send = "D," + command_to_send
-
-    try:
-
-        logging.debug('UDP target IP: ' + str(Led_target_IP)
-                             + '  UDP target port: ' + str(target_Port))
-        logging.debug('Sending: "' + command_to_send + '"')
-        
-        sock.sendto(command_to_send.encode('utf-8'),
-                    (Led_target_IP , target_Port))
-        # sock.sendto(command_to_send.encode('utf-8'),
-        #            (UDP_Reflector_IP, UDP_Reflector_Port))
-
-    
-
-    except Exception as other:
-        logging.critical('Error in Send_UDP_Led_Command: ' + str(other))
 
 
 def CleanUpAndExit():
@@ -238,21 +173,118 @@ def Update_Sim_Variables():
 
     while True:
         print("Altitude is: " + str(altitude.value))
-
-        
+       
         time.sleep(0.25)
+
+
+def ReceivePacket():
+
+    global serverSock
+    
+    global last_time_display
+    global packets_processed
+    global last_time_packet_received
+
+    iterations_Since_Last_Packet = 0
+
+
+    while True:
+        
+        try:
+
+            data, (Source_IP, Source_Port)  = serverSock.recvfrom(1500)
+            
+            logging.debug("Packet Received " + str(Source_Port))
+
+            ReceivedPacket = data.decode()
+                
+            packets_processed = packets_processed + 1
+
+            Source_IP = str(Source_IP)
+            Source_Port = str(Source_Port)
+            #ReceivedPacket = str(ReceivedPacket)
+            
+            logging.debug("From: " + Source_IP + " " + Source_Port)
+            logging.debug("Message: " + str(ReceivedPacket))
+
+            ProcessReceivedString( str(ReceivedPacket), Source_IP , str(Source_Port) )
+            
+            logging.debug("Iterations since last packet " + str(iterations_Since_Last_Packet))
+            
+            iterations_Since_Last_Packet=0
+            last_time_packet_received = datetime.datetime.now()
+            
+
+                                              
+        except socket.timeout:
+            iterations_Since_Last_Packet = iterations_Since_Last_Packet +  1
+
+            timesincelastpacket = datetime.datetime.now() - last_time_packet_received
+            
+            if (timesincelastpacket.seconds > 5):
+                print("[i] Mid Receive Timeout - " + time.asctime())
+                last_time_packet_received = datetime.datetime.now()
+                iterations_Since_Last_Packet=0
+
+
+                
+            # Throw something on console to show we haven't died
+            if time.time() - last_time_display > secondsBetweenKeepAlives:
+                
+                #Calculate Packets per Second
+                if packets_processed != 0:
+                    packets_per_Second = packets_processed / secondsBetweenKeepAlives
+                else:
+                    packets_per_Second = 0
+                
+                pps_string = ". " + str(packets_per_Second) + " packets per second."
+                
+                logging.info('Keepalive check ' + str(packets_processed)
+                             + ' Packets Processed' + pps_string)
+                
+                last_time_display = time.time()
+                packets_processed = 0
+
+                
+            continue
+
+        except Exception as other:
+            logging.critical('Error in ReceivePacket: ' + str(other))
+            
+
+        if time.time() - last_time_display > 5:
+            print('Keepalive ' + time.asctime())
+            last_time_display = time.time()
+
+
+
+
+def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
+
+        logging.debug('Processing Switch String')        
+
 
 def Main():
     print("Starting SimConnect Receiver")
+
+    global serverSock
+    
+    # Start UDP Listening Port
+    # The timeout is aggressive
+    serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    serverSock.settimeout(0.0001)
+    serverSock.bind((UDP_IP_Address, UDP_Port))
 
 
 
     
     while not nowexiting:
         try:
-            StartSimConnect()
 
-            Update_Sim_Variables()
+            ReceivePacket()
+##            StartSimConnect()
+##
+##            Update_Sim_Variables()
 
         except KeyboardInterrupt:
             # Catch Ctl-C and quit
