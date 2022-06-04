@@ -96,17 +96,44 @@ def checkipconnectivity():
         print("LOCAL ETHERNET PING (172.16.1.10) FAILED - IS IT CONFIGURED?")
 
 
-checkipconnectivity()
-print()
-print()
-print("Checking correct Wifi is in use")
+def CheckPythonVersion():
+    MIN_VERSION_PY3 = 10    # min. 3.x version
+    if (sys.version_info[0] < 3):
+            Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3) 
+            print('')
+            logging.critical(Warning_Message)
+            print('')
+            print('Invalid Version of Python running')
+            print('Running Python earlier than Python 3.0! ' + sys.version)
+            sys.exit(Warning_Message)
 
-wifi = subprocess.check_output(['netsh', 'WLAN', 'show', 'interfaces'])
-data = wifi.decode('utf-8')
-if "Shed" in data:
-    print("Connected to Shed")
-else:
-    print("WARNING - not connected Shed SSID")
-print()
-print()      
-input("Tests Complete. Press Enter to Continue")
+    elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
+            Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3)           
+            print('')
+            logging.critical(Warning_Message)  
+            print('')
+            print('Invalid Version of Python running')
+            print('Running Python ' + sys.version)
+            sys.exit(Warning_Message)
+
+
+def main():
+    CheckPythonVersion()
+
+    checkipconnectivity()
+    print()
+    print()
+    print("Checking correct Wifi is in use")
+
+    wifi = subprocess.check_output(['netsh', 'WLAN', 'show', 'interfaces'])
+    data = wifi.decode('utf-8')
+    if "Shed" in data:
+        print("Connected to Shed")
+    else:
+        print("WARNING - not connected Shed SSID")
+    print()
+    print()      
+    input("Tests Complete. Press Enter to Continue")
+
+
+main()
