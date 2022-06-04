@@ -1,5 +1,16 @@
 # pyHWLink_SimConnect_Receiver
-# Receives UDP from Arudino and Sends Sim COnnect COmmands
+# Receives UDP from Arudino and Sends Sim Connect Commands
+
+# It looks like a number of events either aren't natively supported in the Simconnect python SDK
+# or not supported in MSFS. eg NAV_LIGHTS_ON
+# The good news is these are easily added
+# Edit (after saving a copy) EventList.py
+# C:\Users\admin\AppData\Local\Programs\Python\Python37\Lib\site-packages\SimConnect
+# Added turn on Taxi Lights
+#(b'TOGGLE_NAV_LIGHTS', "Toggle navigation lights", "All aircraft"),
+#(b'NAV_LIGHTS_ON', "Turn on navigation lights", "All aircraft"),
+
+# It would be nice to also pass a parameter to use the Set commands PARKING_BRAKE_SET
 
 from SimConnect import *
 import time
@@ -190,18 +201,20 @@ def StartSimConnect():
         
         # Trigger a simple event
         
-        event_to_trigger = ae.find("FLAPS_INCR")
+        event_to_trigger = ae.find("NAV_LIGHTS_ON")
         event_to_trigger()       
-        time.sleep(3)
-        event_to_trigger = ae.find("FLAPS_DECR")
-        event_to_trigger()
-        time.sleep(3)
+##        time.sleep(3)
+##        event_to_trigger = ae.find("FLAPS_DECR")
+##        event_to_trigger()
+##        time.sleep(3)
 
         ### Working Events
         #event_to_trigger = ae.find("FLAPS_INCR")  
         #event_to_trigger = ae.find("FLAPS_DECR")  
         #event_to_trigger = ae.find("AP_MASTER")
         #event_to_trigger = ae.find("GEAR_UP")
+        #event_to_trigger = ae.find("PARKING_BRAKES")
+        #event_to_trigger = ae.find("LANDING_LIGHTS_OFF")
 
        
        

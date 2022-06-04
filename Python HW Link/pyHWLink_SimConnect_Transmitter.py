@@ -763,7 +763,7 @@ def StartSimConnect():
 
 
         print("Grabbing HEADING_DEGREES_TRUE")
-        HEADING_DEGREES_TRUE = aq.find("PLANE_HEADING_DEGREES_MAGNETIC")
+        HEADING_DEGREES_TRUE = aq.find("PLANE_HEADING_DEGREES_TRUE")
         HEADING_DEGREES_TRUE.time = 200
         print("HEADING_DEGREES_TRUE is: " + str(HEADING_DEGREES_TRUE.value * Radians))
 
