@@ -38,7 +38,7 @@ Led_target_IP = '172.16.1.106'
 
 
 UDP_IP = "0.0.0.0"
-UDP_PORT = 7791
+UDP_PORT = 7792
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
 

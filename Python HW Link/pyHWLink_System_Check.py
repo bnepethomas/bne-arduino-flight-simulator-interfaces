@@ -17,42 +17,44 @@
 
 import os
 import subprocess
+import sys 
+# For some reason this desn't run after upgrade from Python 3.7 to 3.10 - commented out
 
-
-import usb.core
-import usb.backend.libusb1
-
-def ScanUSB():
-    backend = usb.backend.libusb1.get_backend(find_library=lambda x: "C:\libusb\MS64\dll\libusb-1.0.dll")
-
-    dev = usb.core.find(backend=backend, find_all=True)
-
-
-    devices = usb.core.find(find_all=True)
-
-    for dev in devices:
-
-        try:
-            print(dev._get_full_descriptor_str())
-
-        except:
-            print("Unable to get descriptor")
-
-        try:
-            xdev = usb.core.find(idVendor=dev.idVendor, idProduct=dev.idProduct)
-            if xdev._manufacturer is None:
-                xdev._manufacturer = usb.util.get_string(xdev, xdev.iManufacturer)
-            if xdev._product is None:
-                xdev._product = usb.util.get_string(xdev, xdev.iProduct)
-            stx = '%6d %6d: '+str(xdev._manufacturer).strip()+' = '+str(xdev._product).strip()
-                   
-            print (str(xdev._manufacturer).strip(),":",str(xdev._product).strip())
-            
-        except:
-            print("Unknown devivce")
-            pass
-        print("Bus:", dev.bus, " Address:", dev.address, " Port:", dev.port_number," Speed:", dev.speed)
-        print()
+##import usb
+##import usb.core
+##import usb.backend.libusb1
+##
+##def ScanUSB():
+##    backend = usb.backend.libusb1.get_backend(find_library=lambda x: "C:\libusb\MS64\dll\libusb-1.0.dll")
+##
+##    dev = usb.core.find(backend=backend, find_all=True)
+##
+##
+##    devices = usb.core.find(find_all=True)
+##
+##    for dev in devices:
+##
+##        try:
+##            print(dev._get_full_descriptor_str())
+##
+##        except:
+##            print("Unable to get descriptor")
+##
+##        try:
+##            xdev = usb.core.find(idVendor=dev.idVendor, idProduct=dev.idProduct)
+##            if xdev._manufacturer is None:
+##                xdev._manufacturer = usb.util.get_string(xdev, xdev.iManufacturer)
+##            if xdev._product is None:
+##                xdev._product = usb.util.get_string(xdev, xdev.iProduct)
+##            stx = '%6d %6d: '+str(xdev._manufacturer).strip()+' = '+str(xdev._product).strip()
+##                   
+##            print (str(xdev._manufacturer).strip(),":",str(xdev._product).strip())
+##            
+##        except:
+##            print("Unknown devivce")
+##            pass
+##        print("Bus:", dev.bus, " Address:", dev.address, " Port:", dev.port_number," Speed:", dev.speed)
+##        print()
 
 
 
