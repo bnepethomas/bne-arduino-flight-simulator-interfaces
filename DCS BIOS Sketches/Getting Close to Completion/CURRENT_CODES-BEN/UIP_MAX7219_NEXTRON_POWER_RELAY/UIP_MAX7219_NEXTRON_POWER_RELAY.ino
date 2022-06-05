@@ -2276,7 +2276,7 @@ void ProcessReceivedMSFSString()
   String wrkstring = "";
 
   //if (Debug_Display || bLocalDebug )
-    //if (ParameterNamePtr != NULL) Serial.println("First Value is: " + String(ParameterNamePtr));
+  //if (ParameterNamePtr != NULL) Serial.println("First Value is: " + String(ParameterNamePtr));
   if (ParameterNameString[0] == 'D')
   {
     //Handling a Data Packet
@@ -2445,9 +2445,9 @@ void HandleOutputValuePair( String str)
     }
 
 
-  
-  SendReflectorMessage("Set Led " + String(i7219UnitNumber) +":" + String(iledRow) + ":" +
-    String(iledColumn) + ":" + String(iledValue));
+
+    SendReflectorMessage("Set Led " + String(i7219UnitNumber) + ":" + String(iledRow) + ":" +
+                         String(iledColumn) + ":" + String(iledValue));
 
     // Have Now Validated payload - set the led
     if (iledValue == 0)
@@ -2480,9 +2480,6 @@ void HandleControlString( String str)
   String setting = "";
 
 
-
-
-
   delimeterlocation = str.indexOf(':');
 
   if (delimeterlocation == 0)
@@ -2501,8 +2498,13 @@ void HandleControlString( String str)
 
     if (command == "B")
       if (isetting >= 0 && isetting <= 15)
+      {
         lc.setIntensity(0, isetting);
-      //else if (Debug_Display || bLocalDebug ) Serial.println("Invalid Brightness value passed. Value is :" + String(setting));
+        /////// Begin Backlight test
+        analogWrite(NVG_LIGHTS, map(isetting, 0, 15, 0, 255));
+        analogWrite(FLOOD_LIGHTS, map(isetting, 0, 15, 0, 255));
+      }
+    //else if (Debug_Display || bLocalDebug ) Serial.println("Invalid Brightness value passed. Value is :" + String(setting));
   }
 
   return;

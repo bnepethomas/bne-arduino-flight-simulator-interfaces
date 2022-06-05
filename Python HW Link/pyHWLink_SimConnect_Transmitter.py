@@ -20,6 +20,7 @@ GEAR_LEFT_POSITION = None
 GEAR_RIGHT_POSITION = None
 GEAR_CENTER_POSITION = None
 TRAILING_EDGE_FLAPS_LEFT_ANGLE = None
+ELECTRICAL_MASTER_BATTERY = None
 
 # Local State Variables
 # Setting to -1 means the first update should trigger changes which in turn triggers leds
@@ -27,6 +28,7 @@ last_center_gear_pos = -1
 last_left_gear_pos =  -1 
 last_right_gear_pos = -1
 last_flaps_pos = -1
+last_battery_pos = -1
 
 command_string = ''
 prefix_with_D = ''
@@ -491,10 +493,12 @@ def Set_Nose_Gear_Led(state):
     global NOSE_GEAR_COL_B 
     global NOSE_GEAR_ROW_B         
 
-    Command = str(SELECT_JET_PANEL) + str(NOSE_GEAR_COL_A).zfill(2) \
-                      + str(NOSE_GEAR_ROW_A).zfill(2) + ":" + str(state) + ","
-    Command = Command + str(SELECT_JET_PANEL) + str(NOSE_GEAR_COL_B).zfill(2) \
-                      + str(NOSE_GEAR_ROW_B).zfill(2) + ":" + str(state)
+
+    Command = str(SELECT_JET_PANEL) + str(NOSE_GEAR_ROW_A).zfill(2) \
+                      + str(NOSE_GEAR_COL_A).zfill(2) + ":" + str(state) + ","
+    Command = Command + str(SELECT_JET_PANEL) + str(NOSE_GEAR_ROW_B).zfill(2) \
+                      + str(NOSE_GEAR_COL_B).zfill(2) + ":" + str(state)
+
     Send_UDP_Led_Command(Command)
     
 
@@ -508,10 +512,10 @@ def Set_Left_Gear_Led(state):
     global LEFT_GEAR_COL_B 
     global LEFT_GEAR_ROW_B         
 
-    Command = str(SELECT_JET_PANEL) + str(LEFT_GEAR_COL_A).zfill(2) \
-                      + str(LEFT_GEAR_ROW_A).zfill(2) + ":" + str(state) + ","
-    Command = Command + str(SELECT_JET_PANEL) + str(LEFT_GEAR_COL_B).zfill(2) \
-                      + str(LEFT_GEAR_ROW_B).zfill(2) + ":" + str(state)
+    Command = str(SELECT_JET_PANEL) + str(LEFT_GEAR_ROW_A).zfill(2) \
+                      + str(LEFT_GEAR_COL_A).zfill(2) + ":" + str(state) + ","
+    Command = Command + str(SELECT_JET_PANEL) + str(LEFT_GEAR_ROW_B).zfill(2) \
+                      + str(LEFT_GEAR_COL_B).zfill(2) + ":" + str(state)
     Send_UDP_Led_Command(Command)
 
 
@@ -525,10 +529,10 @@ def Set_Right_Gear_Led(state):
     global RIGHT_GEAR_COL_B 
     global RIGHT_GEAR_ROW_B        
 
-    Command = str(SELECT_JET_PANEL) + str(RIGHT_GEAR_COL_A).zfill(2) \
-                      + str(RIGHT_GEAR_ROW_A).zfill(2) + ":" + str(state) + ","
-    Command = Command + str(SELECT_JET_PANEL) + str(RIGHT_GEAR_COL_B).zfill(2) \
-                      + str(RIGHT_GEAR_ROW_B).zfill(2) + ":" + str(state)
+    Command = str(SELECT_JET_PANEL) + str(RIGHT_GEAR_ROW_A).zfill(2) \
+                      + str(RIGHT_GEAR_COL_A).zfill(2) + ":" + str(state) + ","
+    Command = Command + str(SELECT_JET_PANEL) + str(RIGHT_GEAR_ROW_B).zfill(2) \
+                      + str(RIGHT_GEAR_COL_B).zfill(2) + ":" + str(state)
     Send_UDP_Led_Command(Command)
 
 
@@ -542,10 +546,10 @@ def Set_Full_Flaps_Led(state):
     global FULL_FLAPS_COL_B 
     global FULL_FLAPS_ROW_B       
 
-    Command = str(SELECT_JET_PANEL) + str(FULL_FLAPS_COL_A).zfill(2) \
-                      + str(FULL_FLAPS_ROW_A).zfill(2) + ":" + str(state) + ","
-    Command = Command + str(SELECT_JET_PANEL) + str(FULL_FLAPS_COL_B).zfill(2) \
-                      + str(FULL_FLAPS_ROW_B).zfill(2) + ":" + str(state)
+    Command = str(SELECT_JET_PANEL) + str(FULL_FLAPS_ROW_A).zfill(2) \
+                      + str(FULL_FLAPS_COL_A).zfill(2) + ":" + str(state) + ","
+    Command = Command + str(SELECT_JET_PANEL) + str(FULL_FLAPS_ROW_B).zfill(2) \
+                      + str(FULL_FLAPS_COL_B).zfill(2) + ":" + str(state)
     Send_UDP_Led_Command(Command)
 
 
@@ -560,10 +564,10 @@ def Set_Half_Flaps_Led(state):
     global HALF_FLAPS_COL_B
     global HALF_FLAPS_ROW_B 
 
-    Command = str(SELECT_JET_PANEL) + str(HALF_FLAPS_COL_A).zfill(2) \
-                      + str(HALF_FLAPS_ROW_A).zfill(2) + ":" + str(state) + ","
-    Command = Command + str(SELECT_JET_PANEL) + str(HALF_FLAPS_COL_B).zfill(2) \
-                      + str(HALF_FLAPS_ROW_B).zfill(2) + ":" + str(state)
+    Command = str(SELECT_JET_PANEL) + str(HALF_FLAPS_ROW_A).zfill(2) \
+                      + str(HALF_FLAPS_COL_A).zfill(2) + ":" + str(state) + ","
+    Command = Command + str(SELECT_JET_PANEL) + str(HALF_FLAPS_ROW_B).zfill(2) \
+                      + str(HALF_FLAPS_COL_B).zfill(2) + ":" + str(state)
     Send_UDP_Led_Command(Command)
 
 
@@ -649,7 +653,25 @@ def Update_Flaps():
             Set_Half_Flaps_Led(1)
             Set_Full_Flaps_Led(0)    
  
-        
+
+def Update_Int_Lights():
+    global ELECTRICAL_MASTER_BATTERY
+    global last_battery_pos
+
+    try:
+    
+        if last_battery_pos != ELECTRICAL_MASTER_BATTERY.value:
+            last_battery_pos = ELECTRICAL_MASTER_BATTERY.value
+
+            if last_battery_pos == 0: 
+                Send_UDP_Light_Command('B:0')
+            else:
+                Send_UDP_Light_Command('B:15')
+
+
+    except Exception as other:
+        logging.critical('Error in Send_UDP_Command: ' + str(other))
+
 
 # ##################################### END UPDATE AIRCRAFT VARIABLES
 
@@ -707,6 +729,38 @@ def Send_UDP_Led_Command(command_to_send):
     except Exception as other:
         logging.critical('Error in Send_UDP_Led_Command: ' + str(other))
 
+def Send_UDP_Light_Command(command_to_send):
+
+    # Prepends the command to be sent with a 'C,' and then sends in a UDP packet
+
+    # This could be optimised to keep adding values to a string
+    # and then either sned the string when it has got to a preset length
+    # or send the string at the end of the loop
+    
+    global sock
+    global Led_target_IP
+    global target_Port
+
+    command_to_send = "C," + command_to_send
+
+    try:
+
+        logging.debug('UDP target IP: ' + str(Led_target_IP)
+                             + '  UDP target port: ' + str(target_Port))
+        logging.debug('Sending: "' + command_to_send + '"')
+
+
+        sock.sendto(command_to_send.encode('utf-8'),
+                    (Led_target_IP , target_Port))
+
+        # sock.sendto(command_to_send.encode('utf-8'),
+        #            (UDP_Reflector_IP, UDP_Reflector_Port))
+
+    
+
+    except Exception as other:
+        logging.critical('Error in Send_UDP_Light_Command: ' + str(other))
+
 
 def CleanUpAndExit():
     global nowexiting
@@ -740,6 +794,7 @@ def StartSimConnect():
     global GEAR_LEFT_POSITION
     global GEAR_RIGHT_POSITION
     global TRAILING_EDGE_FLAPS_LEFT_ANGLE
+    global ELECTRICAL_MASTER_BATTERY
 
     
     try: 
@@ -803,7 +858,11 @@ def StartSimConnect():
         TRAILING_EDGE_FLAPS_LEFT_ANGLE.time = 200
         print("TRAILING_EDGE_FLAPS_LEFT_ANGLE is: " + str(TRAILING_EDGE_FLAPS_LEFT_ANGLE.value))
 
-        
+
+        print("Grabbing ELECTRICAL_MASTER_BATTERY")
+        ELECTRICAL_MASTER_BATTERY = aq.find("ELECTRICAL_MASTER_BATTERY")
+        ELECTRICAL_MASTER_BATTERY.time = 200
+        print("ELECTRICAL_MASTER_BATTERY is: " + str(ELECTRICAL_MASTER_BATTERY.value))
        
        
     except Exception as error:
@@ -838,7 +897,8 @@ def Update_Sim_Variables():
 
         Update_Gear()
         Update_Flaps()
-        
+        Update_Int_Lights()
+       
         time.sleep(0.25)
 
 def Main():

@@ -467,8 +467,10 @@ def Process_Unit_2(switch_number, switch_action):
           Do_Nothing()
         case 3:
           # Game Pause ?
-          SendIPString("ESC");
-          Do_Nothing()
+          if switch_action == '1':
+              Trigger_Event("PAUSE_ON")
+          else:
+              Trigger_Event("PAUSE_OFF")
         case 4:
           #   Needed to Toggle HUD only view off
           Do_Nothing()
