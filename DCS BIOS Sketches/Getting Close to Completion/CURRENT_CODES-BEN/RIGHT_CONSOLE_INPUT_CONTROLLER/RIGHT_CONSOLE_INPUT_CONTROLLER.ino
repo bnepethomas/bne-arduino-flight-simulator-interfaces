@@ -43,6 +43,11 @@
 int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
 #define Reflector_In_Use 1
 #define DCSBIOS_In_Use 1
+#define MSFS_In_Use 1           // Used to interface into MSFS - set to 0 if not in use
+
+// Used to Distinguish between the left, front, and right inputs
+// Left=0, Front=1, Right=2
+#define INPUT_MODULE_NUMBER 2
 
 #define DCSBIOS_IRQ_SERIAL
 #include <DcsBios.h>
@@ -67,12 +72,16 @@ String strReflectorIP = "X.X.X.X";
 IPAddress targetIP(172, 16, 1, 110);
 String strTargetIP = "X.X.X.X";
 
+// Computer Running MSFS
+IPAddress MSFSIP(172, 16, 1, 10);
+String strMSFSIP = "X.X.X.X";
+
 const unsigned int localport = 7788;
 const unsigned int keyboardport = 7788;
 const unsigned int ledport = 7789;
 const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
-
+const unsigned int MSFSport = 7791;
 
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
@@ -249,11 +258,13 @@ void FindInputChanges()
           outString = outString +  "1";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 1);
           if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
+          if (MSFS_In_Use == 1) SendMSFSMessage(ind, 1);
         }
         else {
           outString = outString + "0";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 0);
           if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
+          if (MSFS_In_Use == 1) SendMSFSMessage(ind, 0);
         }
 
 
@@ -278,6 +289,21 @@ void SendIPMessage(int ind, int state) {
     udp.endPacket();
     UpdateRedStatusLed();
   }
+}
+
+void SendMSFSMessage(int ind, int state) {
+
+  String outString;
+  outString = "D" + String(INPUT_MODULE_NUMBER) + "," + String(ind) + ":" + String(state);
+
+  udp.beginPacket(MSFSIP, MSFSport);
+  udp.print(outString);
+  udp.endPacket();
+
+
+  //  udp.beginPacket(targetIP, remoteport);
+  //  udp.print(outString);
+  //  udp.endPacket();
 }
 
 void SendIPString(String KeysToSend) {
