@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 38)
+    (drawings 40)
     (tracks 334)
     (zones 0)
     (modules 48)
@@ -2674,6 +2674,12 @@
     )
   )
 
+  (gr_text "Add 8 way \nfor Compass" (at 163.7284 99.06) (layer F.SilkS) (tstamp 62B7680A)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text V005 (at 154.0256 105.156) (layer F.SilkS) (tstamp 62B767FC)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
   (gr_text OUT4 (at 183.896 97.4852 90) (layer F.SilkS) (tstamp 625174E1)
     (effects (font (size 1 1) (thickness 0.15)) (justify left))
   )
@@ -2696,7 +2702,7 @@
   (gr_line (start 173.228 117.5004) (end 169.418 117.5004) (layer Edge.Cuts) (width 0.15))
   (gr_line (start 173.2788 75.5904) (end 173.228 117.5004) (layer Edge.Cuts) (width 0.15))
   (gr_line (start 169.4688 75.5904) (end 173.2788 75.5904) (layer Edge.Cuts) (width 0.15))
-  (gr_text V004 (at 199.898 118.4148) (layer F.SilkS) (tstamp 61983120)
+  (gr_text V005 (at 199.898 118.4148) (layer F.SilkS) (tstamp 61983120)
     (effects (font (size 1 1) (thickness 0.15)))
   )
   (gr_line (start 173.228 75.565) (end 173.228 120.0785) (layer F.SilkS) (width 0.15))
