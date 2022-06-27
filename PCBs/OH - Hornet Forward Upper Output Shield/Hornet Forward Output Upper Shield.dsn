@@ -45,6 +45,9 @@
     )
   )
   (placement
+    (component PT_Library_v001:Molex_1x08_P2.54mm_Vertical
+      (place J16 149098 -101498 front 0 (PN Compass))
+    )
     (component PT_Library_v001:Molex_1x06_P2.54mm_Vertical
       (place J15 176073 -101092 front 0 (PN "RELAY OUT"))
       (place J8 179527 -79502 front 0 (PN "7219 OUT"))
@@ -97,7 +100,7 @@
       (place J7 185458 -89484.2 front 0 (PN NEXTION))
     )
     (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
-      (place J18 144780 -112522 front 0 (PN "NEXTION ANA"))
+      (place J18 144221 -112420 front 0 (PN "NEXTION ANA"))
     )
     (component Connector_BarrelJack:BarrelJack_Horizontal
       (place J11 140335 -106807 front 0 (PN "5V IN"))
@@ -123,6 +126,69 @@
     )
   )
   (library
+    (image PT_Library_v001:Molex_1x08_P2.54mm_Vertical
+      (outline (path signal 50  19550 3420  -1770 3420))
+      (outline (path signal 50  19550 -3380  19550 3420))
+      (outline (path signal 50  -1770 -3380  19550 -3380))
+      (outline (path signal 50  -1770 3420  -1770 -3380))
+      (outline (path signal 120  18580 2430  18580 3030))
+      (outline (path signal 120  16980 2430  18580 2430))
+      (outline (path signal 120  16980 3030  16980 2430))
+      (outline (path signal 120  16040 2430  16040 3030))
+      (outline (path signal 120  14440 2430  16040 2430))
+      (outline (path signal 120  14440 3030  14440 2430))
+      (outline (path signal 120  13500 2430  13500 3030))
+      (outline (path signal 120  11900 2430  13500 2430))
+      (outline (path signal 120  11900 3030  11900 2430))
+      (outline (path signal 120  10960 2430  10960 3030))
+      (outline (path signal 120  9360 2430  10960 2430))
+      (outline (path signal 120  9360 3030  9360 2430))
+      (outline (path signal 120  8420 2430  8420 3030))
+      (outline (path signal 120  6820 2430  8420 2430))
+      (outline (path signal 120  6820 3030  6820 2430))
+      (outline (path signal 120  5880 2430  5880 3030))
+      (outline (path signal 120  4280 2430  5880 2430))
+      (outline (path signal 120  4280 3030  4280 2430))
+      (outline (path signal 120  3340 2430  3340 3030))
+      (outline (path signal 120  1740 2430  3340 2430))
+      (outline (path signal 120  1740 3030  1740 2430))
+      (outline (path signal 120  800 2430  800 3030))
+      (outline (path signal 120  -800 2430  800 2430))
+      (outline (path signal 120  -800 3030  -800 2430))
+      (outline (path signal 120  17530 -2990  17530 -1990))
+      (outline (path signal 120  12700 -1460  12700 -1990))
+      (outline (path signal 120  17530 -1460  12700 -1460))
+      (outline (path signal 120  17780 -1990  17530 -1460))
+      (outline (path signal 120  12700 -1990  12700 -2990))
+      (outline (path signal 120  17780 -1990  12700 -1990))
+      (outline (path signal 120  17780 -2990  17780 -1990))
+      (outline (path signal 120  250 -2990  250 -1990))
+      (outline (path signal 120  5080 -1460  5080 -1990))
+      (outline (path signal 120  250 -1460  5080 -1460))
+      (outline (path signal 120  0 -1990  250 -1460))
+      (outline (path signal 120  5080 -1990  5080 -2990))
+      (outline (path signal 120  0 -1990  5080 -1990))
+      (outline (path signal 120  0 -2990  0 -1990))
+      (outline (path signal 100  -562.893 0  -1270 -500))
+      (outline (path signal 100  -1270 500  -562.893 0))
+      (outline (path signal 120  -1670 2000  -1670 -2000))
+      (outline (path signal 120  19160 3030  -1380 3030))
+      (outline (path signal 120  19160 -2990  19160 3030))
+      (outline (path signal 120  -1380 -2990  19160 -2990))
+      (outline (path signal 120  -1380 3030  -1380 -2990))
+      (outline (path signal 100  19050 2920  -1270 2920))
+      (outline (path signal 100  19050 -2880  19050 2920))
+      (outline (path signal 100  -1270 -2880  19050 -2880))
+      (outline (path signal 100  -1270 2920  -1270 -2880))
+      (pin Oval[A]Pad_1740x2200_um 8 17780 0)
+      (pin Oval[A]Pad_1740x2200_um 7 15240 0)
+      (pin Oval[A]Pad_1740x2200_um 6 12700 0)
+      (pin Oval[A]Pad_1740x2200_um 5 10160 0)
+      (pin Oval[A]Pad_1740x2200_um 4 7620 0)
+      (pin Oval[A]Pad_1740x2200_um 3 5080 0)
+      (pin Oval[A]Pad_1740x2200_um 2 2540 0)
+      (pin RoundRect[A]Pad_1740x2200_250.95_um 1 0 0)
+    )
     (image PT_Library_v001:Molex_1x06_P2.54mm_Vertical
       (outline (path signal 50  14470 3420  -1770 3420))
       (outline (path signal 50  14470 -3380  14470 3420))
@@ -875,8 +941,8 @@
       (pins P4-35 P4-36)
     )
     (net GNDD
-      (pins J2-2 R14-1 Q6-3 Q5-3 Q3-3 R12-1 R9-1 J18-3 J6-2 J11-2 D2-1 D1-1 P5-2 P1-6
-        P1-7)
+      (pins J16-7 J2-2 R14-1 Q6-3 Q5-3 Q3-3 R12-1 R9-1 J18-3 J6-2 J11-2 D2-1 D1-1
+        P5-2 P1-6 P1-7)
     )
     (net /D8
       (pins R5-2 P5-8)
@@ -886,15 +952,6 @@
     )
     (net /D6
       (pins R13-2 P6-2)
-    )
-    (net /D12
-      (pins P5-4)
-    )
-    (net /D11
-      (pins P5-5)
-    )
-    (net /D9
-      (pins P5-7)
     )
     (net "Net-(D1-Pad2)"
       (pins R1-2 D1-2)
@@ -963,7 +1020,7 @@
       (pins J7-1 J8-1 J5-1)
     )
     (net /UPPER_OUTPUT_5V
-      (pins J6-1 J11-1)
+      (pins J16-6 J6-1 J11-1)
     )
     (net +5VL
       (pins J18-1 P1-5)
@@ -1100,28 +1157,39 @@
     (net "Net-(J10-Pad2)"
       (pins Q5-2 J10-2)
     )
-    (net /D3
-      (pins P6-5)
-    )
-    (net /D2
-      (pins P6-6)
-    )
     (net "Net-(J15-Pad5)"
       (pins J15-5)
+    )
+    (net "Net-(J16-Pad8)"
+      (pins J16-8)
+    )
+    (net /Compass_Zero_Sensor
+      (pins J16-5 P5-7)
+    )
+    (net /Compass_Stepper_D
+      (pins J16-4 P6-6)
+    )
+    (net /Compass_Stepper_C
+      (pins J16-3 P6-5)
+    )
+    (net /Compass_Stepper_B
+      (pins J16-2 P5-5)
+    )
+    (net /Compass_Stepper_A
+      (pins J16-1 P5-4)
     )
     (class kicad_default "" +3V3 "/14(Tx3)" "/15(Rx3)" "/16(Tx2)" "/17(Rx2)"
       "/18(Tx1)" "/19(Rx1)" "/20(SDA)" "/21(SCL)" /22 /23 /24 /25 /26 /27
       /28 /29 /30 /31 /32 /33 /34 /35 /36 /37 /38 /39 /40 /41 /42 /43 /44
       /45 /46 /47 /48 /49 /A0 /A1 /A10 /A11 /A12 /A13 /A14 /A15 /A2 /A3 /A4
-      /A5 /A8 /A9 /ADDRESS_SELECT_0 /ADDRESS_SELECT_1 /BACKLIGHT /BACKLIGHT_NEG
-      /D0 /D1 /D11 /D12 /D13 /D2 /D3 /D5 /D6 /D7 /D8 /D9 /FLOOD_LIGHTS_NEG
-      /FORMATION_LIGHTS_NEG /IOREF /MAP_LIGHTS_NEG /NAV_LIGHTS_NEG /Reset
+      /A5 /A8 /A9 /Compass_Stepper_A /Compass_Stepper_B /Compass_Stepper_C
+      /Compass_Stepper_D /Compass_Zero_Sensor /D0 /D1 /D11 /D12 /D13 /D2 /D3
+      /D5 /D6 /D7 /D8 /D9 /FORMATION_LIGHTS_NEG /IOREF /NAV_LIGHTS_NEG /Reset
       /STROBE_LIGHTS_NEG /Vin "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(J10-Pad2)"
-      "Net-(J15-Pad5)" "Net-(J2-Pad5)" "Net-(J3-Pad2)" "Net-(J4-Pad8)" "Net-(J8-Pad6)"
-      "Net-(J9-Pad2)" "Net-(P1-Pad1)" "Net-(P4-Pad3)" "Net-(P4-Pad4)" "Net-(P4-Pad5)"
-      "Net-(P4-Pad6)" "Net-(P5-Pad1)" "Net-(P5-Pad6)" "Net-(P6-Pad4)" "Net-(Q1-Pad1)"
-      "Net-(Q2-Pad1)" "Net-(Q3-Pad1)" "Net-(Q4-Pad1)" "Net-(Q5-Pad1)" "Net-(Q6-Pad1)"
-      "Net-(R10-Pad2)" "Net-(R11-Pad2)" "Net-(R8-Pad2)"
+      "Net-(J15-Pad5)" "Net-(J16-Pad8)" "Net-(J3-Pad2)" "Net-(J8-Pad6)" "Net-(J9-Pad2)"
+      "Net-(P1-Pad1)" "Net-(P4-Pad3)" "Net-(P4-Pad4)" "Net-(P4-Pad5)" "Net-(P4-Pad6)"
+      "Net-(P5-Pad1)" "Net-(P5-Pad6)" "Net-(P6-Pad4)" "Net-(Q1-Pad1)" "Net-(Q2-Pad1)"
+      "Net-(Q3-Pad1)" "Net-(Q4-Pad1)" "Net-(Q5-Pad1)" "Net-(Q6-Pad1)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )

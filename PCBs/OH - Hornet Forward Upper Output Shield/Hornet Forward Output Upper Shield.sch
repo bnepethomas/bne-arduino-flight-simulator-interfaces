@@ -1668,9 +1668,6 @@ Connection ~ 5400 3950
 Wire Wire Line
 	5400 3950 5250 3950
 NoConn ~ 8250 5400
-NoConn ~ 10600 1950
-NoConn ~ 10600 1650
-NoConn ~ 10600 1750
 NoConn ~ 8900 2450
 NoConn ~ 8900 2550
 NoConn ~ 8900 2650
@@ -1835,8 +1832,6 @@ F 3 "" H 7350 1000 50  0001 C CNN
 	1    7350 1000
 	1    0    0    -1  
 $EndComp
-NoConn ~ 10400 2850
-NoConn ~ 10400 2950
 $Comp
 L power:GND #PWR0108
 U 1 1 62765917
@@ -1899,4 +1894,51 @@ RELAY_3
 Text Label 6050 6850 2    50   ~ 0
 RELAY_4
 NoConn ~ 6050 6950
+$Comp
+L Connector:Conn_01x08_Female J16
+U 1 1 62BA5FC7
+P 6450 2700
+F 0 "J16" H 6478 2676 50  0000 L CNN
+F 1 "Compass" H 6478 2585 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x08_P2.54mm_Vertical" H 6450 2700 50  0001 C CNN
+F 3 "~" H 6450 2700 50  0001 C CNN
+	1    6450 2700
+	1    0    0    -1  
+$EndComp
+Text Label 6250 2400 2    50   ~ 0
+Compass_Stepper_A
+Text Label 6250 2500 2    50   ~ 0
+Compass_Stepper_B
+Text Label 6250 2600 2    50   ~ 0
+Compass_Stepper_C
+Text Label 6250 2700 2    50   ~ 0
+Compass_Stepper_D
+NoConn ~ 6250 3100
+Text Label 6250 2800 2    50   ~ 0
+Compass_Zero_Sensor
+Text Label 6250 2900 2    50   ~ 0
+UPPER_OUTPUT_5V
+$Comp
+L power:GNDD #PWR07
+U 1 1 62BB8EAE
+P 5950 3000
+F 0 "#PWR07" H 5950 2750 50  0001 C CNN
+F 1 "GNDD" H 5954 2845 50  0000 C CNN
+F 2 "" H 5950 3000 50  0001 C CNN
+F 3 "" H 5950 3000 50  0001 C CNN
+	1    5950 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6250 3000 5950 3000
+Text Label 10600 1650 0    50   ~ 0
+Compass_Stepper_A
+Text Label 10600 1750 0    50   ~ 0
+Compass_Stepper_B
+Text Label 10400 2850 0    50   ~ 0
+Compass_Stepper_C
+Text Label 10400 2950 0    50   ~ 0
+Compass_Stepper_D
+Text Label 10600 1950 0    50   ~ 0
+Compass_Zero_Sensor
 $EndSCHEMATC
