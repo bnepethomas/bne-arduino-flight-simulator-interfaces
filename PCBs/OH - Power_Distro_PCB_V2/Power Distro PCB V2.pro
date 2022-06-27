@@ -1,4 +1,4 @@
-update=Sunday, 24 October 2021 at 02:26:57 pm
+update=Tuesday, 28 June 2022 at 07:22:28 am
 version=1
 last_client=kicad
 [general]
@@ -279,7 +279,7 @@ dPairViaGap=0.25
 [pcbnew/Netclasses/3]
 Name=LED POWER
 Clearance=0.3
-TrackWidth=4
+TrackWidth=3
 ViaDiameter=4
 ViaDrill=2
 uViaDiameter=0.3
@@ -290,7 +290,7 @@ dPairViaGap=0.25
 [pcbnew/Netclasses/4]
 Name=LED POWER -
 Clearance=0.2
-TrackWidth=2.5
+TrackWidth=3
 ViaDiameter=2
 ViaDrill=0.8
 uViaDiameter=0.3
