@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 879)
+    (start_pass_no 1087)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -208,9 +208,9 @@
     )
   )
   (class "kicad_default"
-    "Net-(D1-Pad1)" /LEDGND /LEDDATA1 /LEDDATA2 /LEDDATA3 /LEDDATA4 /LEDDATA5 /LEDDATA6
-    /PWRGOOD /PSUSW /LEDDATA7 /FAN1Control /FAN1Tach /FAN2Control /FAN2Tach /FAN3Control
-    /FAN3Tach /FAN4Control /FAN4Tach
+    "Net-(D1-Pad1)" /LEDDATA1 /LEDDATA2 /LEDDATA3 /LEDDATA4 /LEDDATA5 /LEDDATA6 /PWRGOOD
+    /PSUSW /LEDDATA7 /FAN1Control /FAN1Tach /FAN2Control /FAN2Tach /FAN3Control /FAN3Tach
+    /FAN4Control /FAN4Tach
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
@@ -225,7 +225,7 @@
     (clearance_class "5V SOCKETS")
     (via_rule 5V SOCKETS)
     (rule
-      (width 3000.0)
+      (width 2000.0)
     )
     (circuit 
       (use_layer F.Cu B.Cu)
@@ -243,11 +243,11 @@
     )
   )
   (class "LED POWER"
-    /LED5V1
+    /LED5V1 /LEDGND
     (clearance_class "LED POWER")
     (via_rule LED POWER)
     (rule
-      (width 4000.0)
+      (width 2000.0)
     )
     (circuit 
       (use_layer F.Cu B.Cu)
@@ -257,7 +257,7 @@
     (clearance_class "LED POWER -")
     (via_rule LED POWER -)
     (rule
-      (width 2500.0)
+      (width 2000.0)
     )
     (circuit 
       (use_layer F.Cu B.Cu)

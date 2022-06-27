@@ -1,4 +1,4 @@
-update=Tuesday, 28 June 2022 at 07:22:28 am
+update=Tuesday, 28 June 2022 at 08:44:05 am
 version=1
 last_client=kicad
 [general]
@@ -257,7 +257,7 @@ dPairViaGap=0.25
 [pcbnew/Netclasses/1]
 Name=5V SOCKETS
 Clearance=0.3
-TrackWidth=3
+TrackWidth=2
 ViaDiameter=2
 ViaDrill=1
 uViaDiameter=0.3
@@ -279,7 +279,7 @@ dPairViaGap=0.25
 [pcbnew/Netclasses/3]
 Name=LED POWER
 Clearance=0.3
-TrackWidth=3
+TrackWidth=2
 ViaDiameter=4
 ViaDrill=2
 uViaDiameter=0.3
@@ -290,7 +290,7 @@ dPairViaGap=0.25
 [pcbnew/Netclasses/4]
 Name=LED POWER -
 Clearance=0.2
-TrackWidth=3
+TrackWidth=2
 ViaDiameter=2
 ViaDrill=0.8
 uViaDiameter=0.3
