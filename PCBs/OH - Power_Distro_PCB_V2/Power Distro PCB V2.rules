@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1087)
+    (start_pass_no 876)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -209,8 +209,8 @@
   )
   (class "kicad_default"
     "Net-(D1-Pad1)" /LEDDATA1 /LEDDATA2 /LEDDATA3 /LEDDATA4 /LEDDATA5 /LEDDATA6 /PWRGOOD
-    /PSUSW /LEDDATA7 /FAN1Control /FAN1Tach /FAN2Control /FAN2Tach /FAN3Control /FAN3Tach
-    /FAN4Control /FAN4Tach
+    /PSUSW /LEDDATA7 "Net-(J27-Pad20)" "Net-(J27-Pad14)" "Net-(J27-Pad13)" "Net-(J27-Pad12)" "Net-(J27-Pad9)" "Net-(J27-Pad2)"
+    "Net-(J27-Pad1)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
@@ -232,7 +232,6 @@
     )
   )
   (class "FAN POWER"
-    /FAN+
     (clearance_class "FAN POWER")
     (via_rule FAN POWER)
     (rule

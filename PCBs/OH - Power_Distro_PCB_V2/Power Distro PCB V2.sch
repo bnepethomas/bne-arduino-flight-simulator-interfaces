@@ -25,50 +25,6 @@ F 3 "~" H 7650 2100 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L Connector:Conn_01x04_Female J9
-U 1 1 5F8AEFF0
-P 3700 1000
-F 0 "J9" H 3728 976 50  0000 L CNN
-F 1 "Conn_01x04_Female" H 3728 885 50  0000 L CNN
-F 2 "Connector:FanPinHeader_1x04_P2.54mm_Vertical" H 3700 1000 50  0001 C CNN
-F 3 "~" H 3700 1000 50  0001 C CNN
-	1    3700 1000
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Connector:Conn_01x04_Female J11
-U 1 1 5F8B0911
-P 4650 1000
-F 0 "J11" H 4678 976 50  0000 L CNN
-F 1 "Conn_01x04_Female" H 4678 885 50  0000 L CNN
-F 2 "Connector:FanPinHeader_1x04_P2.54mm_Vertical" H 4650 1000 50  0001 C CNN
-F 3 "~" H 4650 1000 50  0001 C CNN
-	1    4650 1000
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Connector:Conn_01x04_Female J8
-U 1 1 5F8B108A
-P 3150 1000
-F 0 "J8" H 3042 575 50  0000 C CNN
-F 1 "Conn_01x04_Female" H 3042 666 50  0000 C CNN
-F 2 "Connector:FanPinHeader_1x04_P2.54mm_Vertical" H 3150 1000 50  0001 C CNN
-F 3 "~" H 3150 1000 50  0001 C CNN
-	1    3150 1000
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Connector:Conn_01x04_Female J10
-U 1 1 5F8B17C6
-P 4150 1000
-F 0 "J10" H 4042 575 50  0000 C CNN
-F 1 "Conn_01x04_Female" H 4042 666 50  0000 C CNN
-F 2 "Connector:FanPinHeader_1x04_P2.54mm_Vertical" H 4150 1000 50  0001 C CNN
-F 3 "~" H 4150 1000 50  0001 C CNN
-	1    4150 1000
-	0    -1   -1   0   
-$EndComp
-$Comp
 L Connector:Conn_01x02_Female J12
 U 1 1 5F8B27D0
 P 1400 1000
@@ -212,19 +168,6 @@ F 3 "~" H 10550 4150 50  0001 C CNN
 	1    10550 4150
 	1    0    0    -1  
 $EndComp
-$Comp
-L Connector:Conn_01x08_Female J26
-U 1 1 5F968264
-P 5450 1000
-F 0 "J26" H 5478 976 50  0000 L CNN
-F 1 "Conn_01x08_Female" H 5478 885 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical" H 5450 1000 50  0001 C CNN
-F 3 "~" H 5450 1000 50  0001 C CNN
-	1    5450 1000
-	0    -1   -1   0   
-$EndComp
-Text Notes 5250 850  0    50   ~ 0
-Fan Data IO
 Wire Wire Line
 	1600 1000 1800 1000
 Wire Wire Line
@@ -647,54 +590,6 @@ Wire Wire Line
 	1600 1300 1800 1300
 Text Label 10350 5050 2    50   ~ 0
 LED5V1
-Text Label 3050 1200 3    50   ~ 0
-LEDGND
-Text Label 3600 1200 3    50   ~ 0
-LEDGND
-Text Label 4050 1200 3    50   ~ 0
-LEDGND
-Text Label 4550 1200 3    50   ~ 0
-LEDGND
-Text Label 3150 1200 3    50   ~ 0
-FAN+
-Text Label 3700 1200 3    50   ~ 0
-FAN+
-Text Label 4150 1200 3    50   ~ 0
-FAN+
-Text Label 4650 1200 3    50   ~ 0
-FAN+
-Text Label 3250 1200 3    50   ~ 0
-FAN1Tach
-Text Label 5150 1200 3    50   ~ 0
-FAN1Tach
-Text Label 3800 1200 3    50   ~ 0
-FAN2Tach
-Text Label 5350 1200 3    50   ~ 0
-FAN2Tach
-Text Label 4250 1200 3    50   ~ 0
-FAN3Tach
-Text Label 5550 1200 3    50   ~ 0
-FAN3Tach
-Text Label 4750 1200 3    50   ~ 0
-FAN4Tach
-Text Label 5750 1200 3    50   ~ 0
-FAN4Tach
-Text Label 3350 1200 3    50   ~ 0
-FAN1Control
-Text Label 5250 1200 3    50   ~ 0
-FAN1Control
-Text Label 3900 1200 3    50   ~ 0
-FAN2Control
-Text Label 5450 1200 3    50   ~ 0
-FAN2Control
-Text Label 4350 1200 3    50   ~ 0
-FAN3Control
-Text Label 5650 1200 3    50   ~ 0
-FAN3Control
-Text Label 4850 1200 3    50   ~ 0
-FAN4Control
-Text Label 5850 1200 3    50   ~ 0
-FAN4Control
 Wire Wire Line
 	1750 1400 1750 2650
 Text Label 1800 5200 2    50   ~ 0
@@ -744,4 +639,87 @@ Text Label 9400 1250 3    50   ~ 0
 LED5V1
 Text Label 6650 1250 3    50   ~ 0
 LEDDATA7
+$Comp
+L Connector:Conn_01x02_Female J8
+U 1 1 62BAB951
+P 2150 3700
+F 0 "J8" H 2178 3676 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 2178 3585 50  0000 L CNN
+F 2 "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" H 2150 3700 50  0001 C CNN
+F 3 "~" H 2150 3700 50  0001 C CNN
+	1    2150 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J9
+U 1 1 62BAB95B
+P 2150 3950
+F 0 "J9" H 2178 3926 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 2178 3835 50  0000 L CNN
+F 2 "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" H 2150 3950 50  0001 C CNN
+F 3 "~" H 2150 3950 50  0001 C CNN
+	1    2150 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1800 3500 1800 3800
+Wire Wire Line
+	1800 4050 1950 4050
+Connection ~ 1800 3500
+Wire Wire Line
+	1950 3800 1800 3800
+Connection ~ 1800 3800
+Wire Wire Line
+	1800 3800 1800 4050
+Wire Wire Line
+	1750 3400 1750 3700
+Wire Wire Line
+	1750 3950 1950 3950
+Connection ~ 1750 3400
+Wire Wire Line
+	1950 3700 1750 3700
+Connection ~ 1750 3700
+Wire Wire Line
+	1750 3700 1750 3950
+$Comp
+L Connector:Conn_01x02_Female J10
+U 1 1 62BB5CA3
+P 2200 6450
+F 0 "J10" H 2092 6125 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 2092 6216 50  0000 C CNN
+F 2 "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" H 2200 6450 50  0001 C CNN
+F 3 "~" H 2200 6450 50  0001 C CNN
+	1    2200 6450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J11
+U 1 1 62BB5CA9
+P 2200 6850
+F 0 "J11" H 2092 6525 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 2092 6616 50  0000 C CNN
+F 2 "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" H 2200 6850 50  0001 C CNN
+F 3 "~" H 2200 6850 50  0001 C CNN
+	1    2200 6850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1800 6100 1800 6550
+Wire Wire Line
+	1800 6950 2000 6950
+Connection ~ 1800 6100
+Wire Wire Line
+	2000 6550 1800 6550
+Connection ~ 1800 6550
+Wire Wire Line
+	1800 6550 1800 6950
+Wire Wire Line
+	1900 6050 1900 6450
+Wire Wire Line
+	1900 6850 2000 6850
+Wire Wire Line
+	2000 6450 1900 6450
+Connection ~ 1900 6450
+Wire Wire Line
+	1900 6450 1900 6850
 $EndSCHEMATC
