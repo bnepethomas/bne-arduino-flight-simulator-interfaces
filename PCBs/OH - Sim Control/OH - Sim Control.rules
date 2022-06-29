@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 234)
+    (start_pass_no 266)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -70,10 +70,10 @@
   )
   (class "kicad_default"
     /IOREF /Reset /Vin /A0 /A1 /A2 /A3 /AREF
-    "/A4(SDA)" "/A5(SCL)" /8 /7 "/5(**)" /4 "/3(**)" /2
-    "/1(Tx)" "/0(Rx)" "Net-(P5-Pad1)" "Net-(P6-Pad1)" "Net-(P7-Pad1)" "Net-(P8-Pad1)" "/13(SCK)" "Net-(P1-Pad1)"
-    +3V3 "/12(MISO)" "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(J1-Pad3)" "Net-(J1-Pad1)" "Net-(J4-Pad5)" /9
-    /10 /11 "Net-(J6-Pad6)" "Net-(J6-Pad2)" "Net-(J7-Pad3)" /6 "Net-(J8-Pad2)" "Net-(J9-Pad6)"
+    "/A4(SDA)" "/A5(SCL)" /8 /7 "/5(**)" "/3(**)" /2 "/1(Tx)"
+    "/0(Rx)" "Net-(P5-Pad1)" "Net-(P6-Pad1)" "Net-(P7-Pad1)" "Net-(P8-Pad1)" "/13(SCK)" "Net-(P1-Pad1)" +3V3
+    "/12(MISO)" "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(J1-Pad3)" "Net-(J1-Pad1)" /9 /10 /11
+    "Net-(J6-Pad6)" "Net-(J6-Pad2)" /6 "Net-(J9-Pad6)" "Net-(J5-Pad1)" "/Swtiched_5VD"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

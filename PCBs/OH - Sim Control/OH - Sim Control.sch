@@ -37,12 +37,10 @@ Text Label 10550 2900 0    60   ~ 0
 1(Tx)
 Text Label 10550 2700 0    60   ~ 0
 3(**)
-Text Label 10550 2600 0    60   ~ 0
-4
 Text Label 10550 2500 0    60   ~ 0
 5(**)
-Text Label 10550 2400 0    60   ~ 0
-6
+Text Label 10550 2600 0    60   ~ 0
+Swtiched_5VD
 Text Label 10550 2300 0    60   ~ 0
 7
 Text Label 10550 2100 0    60   ~ 0
@@ -462,7 +460,6 @@ F 3 "~" H 6450 3650 50  0001 C CNN
 	1    6450 3650
 	1    0    0    -1  
 $EndComp
-NoConn ~ 6250 3850
 $Comp
 L power:GND #PWR013
 U 1 1 62BC1A00
@@ -496,12 +493,12 @@ $EndComp
 $Comp
 L power:+5VD #PWR014
 U 1 1 62BC5188
-P 6300 4500
-F 0 "#PWR014" H 6300 4350 50  0001 C CNN
-F 1 "+5VD" H 6315 4673 50  0000 C CNN
-F 2 "" H 6300 4500 50  0001 C CNN
-F 3 "" H 6300 4500 50  0001 C CNN
-	1    6300 4500
+P 4400 4500
+F 0 "#PWR014" H 4400 4350 50  0001 C CNN
+F 1 "+5VD" H 4415 4673 50  0000 C CNN
+F 2 "" H 4400 4500 50  0001 C CNN
+F 3 "" H 4400 4500 50  0001 C CNN
+	1    4400 4500
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -551,15 +548,13 @@ Text Label 9050 4150 2    50   ~ 0
 A0
 Text Label 9050 4250 2    50   ~ 0
 A1
-Text Label 9050 4350 2    50   ~ 0
-7
 NoConn ~ 9050 4450
 $Comp
 L Connector:Conn_01x03_Female J7
 U 1 1 62BCC7CA
 P 9250 4900
 F 0 "J7" H 9278 4926 50  0000 L CNN
-F 1 "Mouse Power" H 9278 4835 50  0000 L CNN
+F 1 "Mouse Pwr Sel" H 9278 4835 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 9250 4900 50  0001 C CNN
 F 3 "~" H 9250 4900 50  0001 C CNN
 	1    9250 4900
@@ -571,25 +566,6 @@ Wire Wire Line
 	8700 4050 8700 4900
 Wire Wire Line
 	8700 4900 9050 4900
-Text Label 9050 5450 2    50   ~ 0
-6
-$Comp
-L Connector:Conn_01x03_Female J8
-U 1 1 62BCEEB4
-P 9250 5350
-F 0 "J8" H 9278 5376 50  0000 L CNN
-F 1 "Dimmer Jumper" H 9278 5285 50  0000 L CNN
-F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 9250 5350 50  0001 C CNN
-F 3 "~" H 9250 5350 50  0001 C CNN
-	1    9250 5350
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	9050 5000 8700 5000
-Wire Wire Line
-	8700 5000 8700 5250
-Wire Wire Line
-	8700 5250 9050 5250
 $Comp
 L Connector:Conn_01x06_Female J9
 U 1 1 62BD26FC
@@ -599,17 +575,6 @@ F 1 "Dimmer" H 9278 5835 50  0000 L CNN
 F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 9250 5950 50  0001 C CNN
 F 3 "~" H 9250 5950 50  0001 C CNN
 	1    9250 5950
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:+5VD #PWR021
-U 1 1 62BD4689
-P 9050 5750
-F 0 "#PWR021" H 9050 5600 50  0001 C CNN
-F 1 "+5VD" H 9065 5923 50  0000 C CNN
-F 2 "" H 9050 5750 50  0001 C CNN
-F 3 "" H 9050 5750 50  0001 C CNN
-	1    9050 5750
 	1    0    0    -1  
 $EndComp
 Text Label 9050 5850 2    50   ~ 0
@@ -629,24 +594,7 @@ Wire Wire Line
 	9050 5950 8550 5950
 Wire Wire Line
 	9050 6050 8300 6050
-Wire Wire Line
-	9050 5350 8700 5350
-Wire Wire Line
-	8700 5350 8700 6150
-Wire Wire Line
-	8700 6150 9050 6150
 NoConn ~ 9050 6250
-$Comp
-L power:+5V #PWR017
-U 1 1 62BE5169
-P 8300 6050
-F 0 "#PWR017" H 8300 5900 50  0001 C CNN
-F 1 "+5V" H 8315 6223 50  0000 C CNN
-F 2 "" H 8300 6050 50  0001 C CNN
-F 3 "" H 8300 6050 50  0001 C CNN
-	1    8300 6050
-	1    0    0    -1  
-$EndComp
 $Comp
 L power:+5V #PWR020
 U 1 1 62BE5599
@@ -747,7 +695,6 @@ Wire Wire Line
 	4300 2000 4450 2000
 NoConn ~ 10550 1400
 NoConn ~ 10550 1700
-NoConn ~ 10550 2600
 NoConn ~ 10550 2700
 NoConn ~ 10550 2800
 NoConn ~ 8900 2700
@@ -781,4 +728,57 @@ Wire Wire Line
 Wire Wire Line
 	4300 900  4300 1500
 Connection ~ 4300 1500
+$Comp
+L power:+5V #PWR0102
+U 1 1 62BD94B7
+P 9050 5750
+F 0 "#PWR0102" H 9050 5600 50  0001 C CNN
+F 1 "+5V" H 9065 5923 50  0000 C CNN
+F 2 "" H 9050 5750 50  0001 C CNN
+F 3 "" H 9050 5750 50  0001 C CNN
+	1    9050 5750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+5VD #PWR0103
+U 1 1 62BDBEF8
+P 8300 6050
+F 0 "#PWR0103" H 8300 5900 50  0001 C CNN
+F 1 "+5VD" H 8315 6223 50  0000 C CNN
+F 2 "" H 8300 6050 50  0001 C CNN
+F 3 "" H 8300 6050 50  0001 C CNN
+	1    8300 6050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J8
+U 1 1 62BDBF61
+P 4600 4600
+F 0 "J8" H 4628 4626 50  0000 L CNN
+F 1 "Nextion Power Select" H 4628 4535 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x03_P2.54mm_Vertical" H 4600 4600 50  0001 C CNN
+F 3 "~" H 4600 4600 50  0001 C CNN
+	1    4600 4600
+	1    0    0    -1  
+$EndComp
+Text Label 4400 4700 2    50   ~ 0
+Swtiched_5VD
+Wire Wire Line
+	6300 4500 6300 4250
+Wire Wire Line
+	6300 4250 4100 4250
+Wire Wire Line
+	4100 4250 4100 4600
+Wire Wire Line
+	4100 4600 4400 4600
+Text Label 9050 5000 2    50   ~ 0
+Swtiched_5VD
+Text Label 9050 6150 2    50   ~ 0
+Swtiched_5VD
+Text Label 6250 3850 2    50   ~ 0
+7
+Text Label 10550 2400 0    50   ~ 0
+6
+Text Label 9050 4350 2    50   ~ 0
+6
 $EndSCHEMATC

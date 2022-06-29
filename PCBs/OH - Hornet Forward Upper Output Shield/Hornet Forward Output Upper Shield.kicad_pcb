@@ -2,7 +2,7 @@
 
   (general
     (thickness 1.6)
-    (drawings 38)
+    (drawings 42)
     (tracks 374)
     (zones 0)
     (modules 49)
@@ -15,8 +15,8 @@
   )
 
   (layers
-    (0 F.Cu signal)
-    (31 B.Cu signal)
+    (0 F.Cu signal hide)
+    (31 B.Cu signal hide)
     (32 B.Adhes user)
     (33 F.Adhes user)
     (34 B.Paste user)
@@ -316,7 +316,7 @@
     (descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-08A example for new part number: 22-27-2081, 8 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
     (tags "connector Molex KK-254 side entry")
     (path /62BA5FC7)
-    (fp_text reference J16 (at 8.89 -4.12) (layer F.SilkS)
+    (fp_text reference J16 (at 14.1224 4.4708) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text value Compass (at 8.89 4.08) (layer F.SilkS)
@@ -2766,6 +2766,18 @@
     )
   )
 
+  (gr_text GND (at 164.2872 97.5868 90) (layer F.SilkS) (tstamp 62BCA6EA)
+    (effects (font (size 1 1) (thickness 0.15)) (justify left))
+  )
+  (gr_text 5V (at 161.8488 97.536 90) (layer F.SilkS) (tstamp 62BCA6DE)
+    (effects (font (size 1 1) (thickness 0.15)) (justify left))
+  )
+  (gr_text Zero (at 159.258 96.0628 90) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
+  (gr_text "Stepper\nA  B  C  D" (at 153.0096 96.3676) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.15)))
+  )
   (gr_text V005 (at 165.8112 82.9056) (layer F.SilkS) (tstamp 62B767FC)
     (effects (font (size 1 1) (thickness 0.15)))
   )
