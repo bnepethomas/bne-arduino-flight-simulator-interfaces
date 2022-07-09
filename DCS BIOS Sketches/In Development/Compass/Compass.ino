@@ -106,7 +106,16 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
 
         if (hasUpdatedData()) {
           // convert data from DCS to a target position expressed as a number of steps
-          long targetPosition = (long)map_function(getData());
+          // Original example is 16 bit
+          //long targetPosition = (long)map_function(getData());
+          
+          // But FS Panel heading doesn't seem to map sanely so using
+          // Model Heading - but it is not a 16 bit
+          //Output Type: integer Address: 0x0436 Mask: 0x01ff Shift By: 0 Max. Value: 360 Description: Heading (Degrees)
+          // so instead of 0 to 65000 its 0 to 360
+          long mytemp = getData();
+          mytemp = mytemp & 0x01ff;
+          long targetPosition = (long)map_function(mytemp);
 
           updateCurrentStepperPosition();
 
@@ -140,19 +149,20 @@ struct StepperConfig stepperConfig = {
 
 
 // define AccelStepper instance
-//AccelStepper stepper(AccelStepper::FULL4WIRE, 8, 9, 10, 11);
-AccelStepper stepper(AccelStepper::FULL4WIRE, 10, 11, 8, 9);
+AccelStepper stepper(AccelStepper::FULL4WIRE, 8, 9, 10, 11);
 // define Vid60Stepper class that uses the AccelStepper instance defined in the line above
 //           v-- arbitrary name
 // Vid60Stepper alt100ftPointer(0x107e,          // address of stepper data
-Vid60Stepper alt100ftPointer(0x7460,          // address of stepper data
+Vid60Stepper standbyCompass(0x0436,          // address of stepper data
                              stepper,         // name of AccelStepper instance
                              stepperConfig,   // StepperConfig struct instance
                              12,              // IR Detector Pin (must be HIGH in zero position)
                              0,               // zero offset
 [](unsigned int newValue) -> unsigned int {
   /* this function needs to map newValue to the correct number of steps */
-  return map(newValue, 0, 65535, 0, stepperConfig.maxSteps - 1);
+  
+  //return map(newValue, 0, 65535, 0, stepperConfig.maxSteps - 1);
+  return map(newValue, 0, 360, 0, stepperConfig.maxSteps - 1);
 });
 
 
