@@ -23,7 +23,7 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
     AccelStepper& stepper;
     StepperConfig& stepperConfig;
     inline bool zeroDetected() {
-      return digitalRead(irDetectorPin) == 1;
+      return digitalRead(irDetectorPin) == 0;
     }
     unsigned int (*map_function)(unsigned int);
     unsigned char initState;
@@ -56,7 +56,7 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
       if (initState == 0) { // not initialized yet
         pinMode(irDetectorPin, INPUT);
         stepper.setMaxSpeed(stepperConfig.maxSpeed);
-        stepper.setSpeed(100);
+        stepper.setSpeed(400);
 
         initState = 1;
       }
@@ -133,17 +133,19 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
 /* define stepper parameters
    multiple Vid60Stepper instances can share the same StepperConfig object */
 struct StepperConfig stepperConfig = {
-  500,  // maxSteps
-  100, // maxSpeed
-  10000 // acceleration
+  720,  // maxSteps
+  200, // maxSpeed
+  50 // acceleration
 };
 
 
 // define AccelStepper instance
-AccelStepper stepper(AccelStepper::FULL4WIRE, 8, 9, 10, 11);
+//AccelStepper stepper(AccelStepper::FULL4WIRE, 8, 9, 10, 11);
+AccelStepper stepper(AccelStepper::FULL4WIRE, 10, 11, 8, 9);
 // define Vid60Stepper class that uses the AccelStepper instance defined in the line above
 //           v-- arbitrary name
-Vid60Stepper alt100ftPointer(0x107e,          // address of stepper data
+// Vid60Stepper alt100ftPointer(0x107e,          // address of stepper data
+Vid60Stepper alt100ftPointer(0x7460,          // address of stepper data
                              stepper,         // name of AccelStepper instance
                              stepperConfig,   // StepperConfig struct instance
                              12,              // IR Detector Pin (must be HIGH in zero position)
@@ -160,7 +162,7 @@ void setup() {
 }
 
 void loop() {
-  PORTB |= (1 << 5);
-  PORTB &= ~(1 << 5);
+//  PORTB |= (1 << 5);
+//  PORTB &= ~(1 << 5);
   DcsBios::loop();
 }
