@@ -21,6 +21,7 @@ void setup()
   // Settings for Compass
   //  stepper.setMaxSpeed(3000.0);
   //  stepper.setAcceleration(500.0);
+  // This seemms to be a good setting
   stepper.setMaxSpeed(200);
   stepper.setAcceleration(50.0);
 }
