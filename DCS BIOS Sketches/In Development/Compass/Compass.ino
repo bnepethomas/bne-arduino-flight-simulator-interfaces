@@ -113,9 +113,9 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
           // Model Heading - but it is not a 16 bit
           //Output Type: integer Address: 0x0436 Mask: 0x01ff Shift By: 0 Max. Value: 360 Description: Heading (Degrees)
           // so instead of 0 to 65000 its 0 to 360
-          long mytemp = getData();
-          mytemp = mytemp & 0x01ff;
-          long targetPosition = (long)map_function(mytemp);
+          //long mytemp = getData();
+          //mytemp = mytemp & 0x01ff;
+          long targetPosition = (long)map_function(getData());
 
           updateCurrentStepperPosition();
 
@@ -149,20 +149,25 @@ struct StepperConfig stepperConfig = {
 
 
 // define AccelStepper instance
-//AccelStepper stepper(AccelStepper::FULL4WIRE, 8, 9, 10, 11);
 AccelStepper stepper(AccelStepper::FULL4WIRE, 2, 11, 3, 12);
+
 // define Vid60Stepper class that uses the AccelStepper instance defined in the line above
 //           v-- arbitrary name
 // Vid60Stepper alt100ftPointer(0x107e,          // address of stepper data
 Vid60Stepper standbyCompass(0x0436,          // address of stepper data
                              stepper,         // name of AccelStepper instance
                              stepperConfig,   // StepperConfig struct instance
-                             9,              // IR Detector Pin (must be HIGH in zero position)
+                             9,              // IR Detector Pin (must be LOW in zero position)
                              0,               // zero offset
 [](unsigned int newValue) -> unsigned int {
   /* this function needs to map newValue to the correct number of steps */
-  
+
+  // For most guages this map will do
   //return map(newValue, 0, 65535, 0, stepperConfig.maxSteps - 1);
+
+  // For the compass we only has 360 degrees and need to exclude upper part
+  // of 16 bit value
+  newValue = newValue & 0x01ff;
   return map(newValue, 0, 360, 0, stepperConfig.maxSteps - 1);
 });
 
