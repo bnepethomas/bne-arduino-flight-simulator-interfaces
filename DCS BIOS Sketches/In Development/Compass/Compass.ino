@@ -149,14 +149,15 @@ struct StepperConfig stepperConfig = {
 
 
 // define AccelStepper instance
-AccelStepper stepper(AccelStepper::FULL4WIRE, 8, 9, 10, 11);
+//AccelStepper stepper(AccelStepper::FULL4WIRE, 8, 9, 10, 11);
+AccelStepper stepper(AccelStepper::FULL4WIRE, 2, 11, 3, 12);
 // define Vid60Stepper class that uses the AccelStepper instance defined in the line above
 //           v-- arbitrary name
 // Vid60Stepper alt100ftPointer(0x107e,          // address of stepper data
 Vid60Stepper standbyCompass(0x0436,          // address of stepper data
                              stepper,         // name of AccelStepper instance
                              stepperConfig,   // StepperConfig struct instance
-                             12,              // IR Detector Pin (must be HIGH in zero position)
+                             9,              // IR Detector Pin (must be HIGH in zero position)
                              0,               // zero offset
 [](unsigned int newValue) -> unsigned int {
   /* this function needs to map newValue to the correct number of steps */
