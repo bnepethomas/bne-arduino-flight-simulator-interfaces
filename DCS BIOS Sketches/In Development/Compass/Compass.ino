@@ -17,6 +17,7 @@ struct StepperConfig {
   unsigned int maxSpeed;
 };
 
+const long zeroTimeout = 3000;
 
 class Vid60Stepper : public DcsBios::Int16Buffer {
   private:
@@ -33,6 +34,8 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
     long zeroOffset;
     bool movingForward;
     bool lastZeroDetectState;
+
+    long zeroPosSearchStartTime = 0;
 
     long normalizeStepperPosition(long pos) {
       if (pos < 0) return pos + stepperConfig.maxSteps;
@@ -59,7 +62,9 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
         stepper.setSpeed(400);
 
         initState = 1;
+        zeroPosSearchStartTime = millis();
       }
+
       if (initState == 1) {
         // move off zero if already there so we always get movement on reset
         // (to verify that the stepper is working)
@@ -69,9 +74,21 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
           initState = 2;
         }
       }
+
       if (initState == 2) { // zeroing
         if (!zeroDetected()) {
-          stepper.runSpeed();
+          // Currently this safety check isn't working
+          // Add Ethernet card for more troubleshooting
+          // Need to check IP addresses of PC secondary nic
+          if (millis() >= (zeroTimeout + zeroPosSearchStartTime)) {
+            stepper.disableOutputs();
+            initState == 99;
+          }
+          else
+            stepper.runSpeed();
+
+
+
         } else {
           stepper.setAcceleration(stepperConfig.acceleration);
           stepper.runToNewPosition(stepper.currentPosition() + zeroOffset);
@@ -106,15 +123,6 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
 
         if (hasUpdatedData()) {
           // convert data from DCS to a target position expressed as a number of steps
-          // Original example is 16 bit
-          //long targetPosition = (long)map_function(getData());
-          
-          // But FS Panel heading doesn't seem to map sanely so using
-          // Model Heading - but it is not a 16 bit
-          //Output Type: integer Address: 0x0436 Mask: 0x01ff Shift By: 0 Max. Value: 360 Description: Heading (Degrees)
-          // so instead of 0 to 65000 its 0 to 360
-          //long mytemp = getData();
-          //mytemp = mytemp & 0x01ff;
           long targetPosition = (long)map_function(getData());
 
           updateCurrentStepperPosition();
@@ -133,6 +141,10 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
 
         }
         stepper.run();
+      }
+
+      if (initState == 99) { // Timed out looking for zero do nothing
+        stepper.disableOutputs();
       }
     }
 };
@@ -155,10 +167,10 @@ AccelStepper stepper(AccelStepper::FULL4WIRE, 2, 11, 3, 12);
 //           v-- arbitrary name
 // Vid60Stepper alt100ftPointer(0x107e,          // address of stepper data
 Vid60Stepper standbyCompass(0x0436,          // address of stepper data
-                             stepper,         // name of AccelStepper instance
-                             stepperConfig,   // StepperConfig struct instance
-                             9,              // IR Detector Pin (must be LOW in zero position)
-                             0,               // zero offset
+                            stepper,         // name of AccelStepper instance
+                            stepperConfig,   // StepperConfig struct instance
+                            9,              // IR Detector Pin (must be LOW in zero position)
+                            0,               // zero offset
 [](unsigned int newValue) -> unsigned int {
   /* this function needs to map newValue to the correct number of steps */
 
@@ -167,6 +179,8 @@ Vid60Stepper standbyCompass(0x0436,          // address of stepper data
 
   // For the compass we only has 360 degrees and need to exclude upper part
   // of 16 bit value
+  //Output Type: integer Address: 0x0436 Mask: 0x01ff Shift By: 0 Max. Value: 360 Description: Heading (Degrees)
+  // so instead of 0 to 65000 its 0 to 360. Need to exclude upper part of 16 bit value
   newValue = newValue & 0x01ff;
   return map(newValue, 0, 360, 0, stepperConfig.maxSteps - 1);
 });
@@ -178,7 +192,7 @@ void setup() {
 }
 
 void loop() {
-//  PORTB |= (1 << 5);
-//  PORTB &= ~(1 << 5);
+  //  PORTB |= (1 << 5);
+  //  PORTB &= ~(1 << 5);
   DcsBios::loop();
 }
