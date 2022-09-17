@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "standby_airspeed_vvi-rescue")(type "Legacy")(uri "${KIPRJMOD}/standby_airspeed_vvi-rescue.lib")(options "")(descr ""))
+)
