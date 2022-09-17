@@ -1415,6 +1415,7 @@
     )
   )
 
+
   (junction (at 57.15 95.25) (diameter 0) (color 0 0 0 0)
     (uuid 1327514a-a6ec-4808-ba2c-00c78728b1d3)
   )
@@ -1801,7 +1802,7 @@
     (effects (font (size 1.524 1.524)) (justify left bottom))
     (uuid ae94eaa0-9bd9-43ab-b95e-e40a5b6600a7)
   )
-  (text "PETE TO CHECK \nENCODER AND \n.SW ALLOCATIONS" (at 180.34 60.96 90)
+  (text "PETE TO CHECK \nENCODER AND \n.SW ALLOCATIONS" (at 156.845 60.96 90)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid cd7a0da9-43ca-49b5-a3e7-aefd346e68f3)
   )
@@ -2989,7 +2990,7 @@
     (uuid d4fed0f0-0ead-4947-834c-d0aad2598f56)
     (property "Reference" "J6" (id 0) (at 130.81 22.86 0))
     (property "Value" "STANDBY ALT" (id 1) (at 130.81 25.4 0))
-    (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical" (id 2) (at 129.54 36.83 0)
+    (property "Footprint" "Connector_IDC:IDC-Header_2x07_P2.54mm_Vertical" (id 2) (at 129.54 36.83 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "" (id 3) (at 129.54 36.83 0)
@@ -3179,7 +3180,7 @@
       (reference "J5") (unit 1) (value "OLED PWR SEL") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical")
     )
     (path "/d4fed0f0-0ead-4947-834c-d0aad2598f56"
-      (reference "J6") (unit 1) (value "STANDBY ALT") (footprint "Connector_PinHeader_2.54mm:PinHeader_2x07_P2.54mm_Vertical")
+      (reference "J6") (unit 1) (value "STANDBY ALT") (footprint "Connector_IDC:IDC-Header_2x07_P2.54mm_Vertical")
     )
     (path "/fb357ca4-117b-4eb9-840e-613d17fa264a"
       (reference "J7") (unit 1) (value "STBY VVI") (footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical")
