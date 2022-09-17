@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name "standby_controller-rescue")(type "Legacy")(uri "${KIPRJMOD}/standby_controller-rescue.lib")(options "")(descr ""))
+)
