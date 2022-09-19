@@ -1,3 +1,4 @@
 (sym_lib_table
-  (lib (name Arduino_NW_Template-rescue)(type Legacy)(uri ${KIPRJMOD}/Arduino_NW_Template-rescue.lib)(options "")(descr ""))
+  (lib (name "Arduino_NW_Template-rescue")(type "Legacy")(uri "${KIPRJMOD}/Arduino_NW_Template-rescue.lib")(options "")(descr ""))
+  (lib (name "Arduino_NW_I2C-rescue")(type "Legacy")(uri "${KIPRJMOD}/Arduino_NW_I2C-rescue.lib")(options "")(descr ""))
 )
