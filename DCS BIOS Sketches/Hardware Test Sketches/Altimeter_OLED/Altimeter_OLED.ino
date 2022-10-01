@@ -99,15 +99,15 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 String DebugString = "";
 
 
-#define Opt_OLED_Port_1 3
-#define Opt_OLED_Port_2 4
+#define BARO_OLED_Port 0
+#define ALT_OLED_Port 1
 
 #include <U8g2lib.h>
 #include "hornet_font.h"
 
 // Opt OLEDs
-U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT1(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
-U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALT(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 void SendDebug( String MessageToSend) {
     if (Reflector_In_Use == 1)  {
@@ -164,50 +164,50 @@ void setup() {
 
 
 
-  tcaselect(0);
-  u8g2_OPT1.begin();
-  u8g2_OPT1.clearBuffer();
-  u8g2_OPT1.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-  u8g2_OPT1.sendBuffer();
+  tcaselect(BARO_OLED_Port);
+  u8g2_BARO.begin();
+  u8g2_BARO.clearBuffer();
+  u8g2_BARO.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  u8g2_BARO.sendBuffer();
 
 
-  tcaselect(1);
-  u8g2_OPT2.begin();
-  u8g2_OPT2.clearBuffer();
-  u8g2_OPT2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-  u8g2_OPT2.sendBuffer();
+  tcaselect(ALT_OLED_Port);
+  u8g2_ALT.begin();
+  u8g2_ALT.clearBuffer();
+  u8g2_ALT.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  u8g2_ALT.sendBuffer();
 
-  updateOpt1("baro");
-  updateOpt2("alt");
+  updateALT(" 88888888");
+  updateBARO("8888888");
 
 }
 
 
-void updateOpt1(String strnewValue) {
+void updateBARO(String strnewValue) {
 
   const char* newValue = strnewValue.c_str();
-  tcaselect(1);
-  u8g2_OPT1.setFontMode(0);
-  u8g2_OPT1.setDrawColor(0);
-  u8g2_OPT1.drawBox(0, 0, 128 , 32);
-  u8g2_OPT1.setDrawColor(1);
-  u8g2_OPT1.drawStr(5, 32, newValue);
-  u8g2_OPT1.sendBuffer();
+  tcaselect(BARO_OLED_Port);
+  u8g2_BARO.setFontMode(0);
+  u8g2_BARO.setDrawColor(0);
+  u8g2_BARO.drawBox(0, 0, 128 , 32);
+  u8g2_BARO.setDrawColor(1);
+  u8g2_BARO.drawStr(50, 22, newValue);
+  u8g2_BARO.sendBuffer();
 }
 
 
 
 
-void updateOpt2(String strnewValue) {
+void updateALT(String strnewValue) {
 
   const char* newValue = strnewValue.c_str();
-  tcaselect(0);
-  u8g2_OPT2.setFontMode(0);
-  u8g2_OPT2.setDrawColor(0);
-  u8g2_OPT2.drawBox(0, 0, 128 , 32);
-  u8g2_OPT2.setDrawColor(1);
-  u8g2_OPT2.drawStr(5, 32, newValue);
-  u8g2_OPT2.sendBuffer();
+  tcaselect(ALT_OLED_Port);
+  u8g2_ALT.setFontMode(0);
+  u8g2_ALT.setDrawColor(0);
+  u8g2_ALT.drawBox(0, 0, 128 , 32);
+  u8g2_ALT.setDrawColor(1);
+  u8g2_ALT.drawStr(5, 32, newValue);
+  u8g2_ALT.sendBuffer();
 }
 
 
