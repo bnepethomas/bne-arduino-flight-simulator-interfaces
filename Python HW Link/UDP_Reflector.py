@@ -20,8 +20,8 @@ import sys
 import time
 import threading
 
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
  
 MIN_VERSION_PY3 = 5    # min. 3.x version
@@ -70,7 +70,7 @@ def CleanUpAndExit():
 debugging = False
 config_file = 'UDP_Reflector_config.py'
 filterString = ''
-secondsBetweenKeepAlives = 5
+secondsBetweenKeepAlives = 60
 
 # Initialise keepalive indicator
 last_time_display = time.time()
@@ -242,7 +242,7 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             
             ReceivedUDPString = str(ReceivedUDPString)
             logging.debug("From: " + Source_IP + " " + Source_Port)
-            logging.debug('Payload: ' + ReceivedUDPString)
+            logging.info('Payload: ' + ReceivedUDPString)
             Send_String = Source_IP + ':' + Source_Port + '---' + ReceivedUDPString
             
             # Is Wireshark target address set - if so throw a copy of the packet in its direction

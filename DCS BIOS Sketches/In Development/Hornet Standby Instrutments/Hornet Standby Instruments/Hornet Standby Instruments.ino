@@ -75,8 +75,9 @@
 // Wait for UDP updates
 // during timeout grab and smooth analo 0 and get brightness for all displays
 
-#define Ethernet_In_Use 0
+#define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 0
+   
 
 // Port 3 is used for either a channel or Scratchpad display
 //#define Opt_OLED_Port_1 6
@@ -203,7 +204,9 @@ void tcaselect(uint8_t i) {
 }
 
 void setup() {
-  //Serial.begin(115200);
+
+  // Serial.begin(115200);
+
   Wire.begin();
 
 
@@ -213,7 +216,7 @@ void setup() {
   for (uint8_t t=0; t<8; t++) {
     tcaselect(t);
     // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-    //Serial.print("TCA Port #"); Serial.println(t);
+    // Serial.print("TCA Port #"); Serial.println(t);
 
     for (uint8_t addr = 0; addr<=127; addr++) {
       //if (addr == TCAADDR) continue;
@@ -221,12 +224,12 @@ void setup() {
       uint8_t data;
       if (! twi_writeTo(addr, &data, 0, 1, 1)) {
         // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-         //Serial.print("Found I2C 0x");  Serial.println(addr,HEX);
+        // Serial.print("Found I2C 0x");  Serial.println(addr,HEX);
       }
     }
   }
   // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-  //Serial.println("\nI2C scan complete"); 
+  // Serial.println("\nI2C scan complete"); 
 
   tcaselect(ScratchPad_OLED_PORT); 
   u8g2_Scratch_Pad.begin();
