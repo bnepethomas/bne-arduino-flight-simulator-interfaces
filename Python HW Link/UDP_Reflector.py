@@ -244,6 +244,7 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             logging.debug("From: " + Source_IP + " " + Source_Port)
             logging.info('Payload: ' + ReceivedUDPString)
             Send_String = Source_IP + ':' + Source_Port + '---' + ReceivedUDPString
+
             
             # Is Wireshark target address set - if so throw a copy of the packet in its direction
             if wireshark_IP_Address != None:
