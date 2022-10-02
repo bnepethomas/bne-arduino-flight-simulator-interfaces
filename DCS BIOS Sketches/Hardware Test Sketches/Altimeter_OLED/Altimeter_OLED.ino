@@ -1,37 +1,50 @@
 /*
 
-  ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
-  //||                  FUNCTION = HORNET FORWARD INPUT                 ||\\
-  //||              LOCATION IN THE PIT = LIP LEFTHAND SIDE             ||\\
-  //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
-  //||      ARDUINO CHIP SERIAL NUMBER = SN -       ||\\
-  //||                    CONNECTED COM PORT = COM 25                    ||\\
-  //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
-  ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
+OLED Test Framework for OH Altimeter
 
-  This Superceedes udp_input_controller
-  Split from udp_input_controller_2 20200802
+//
+// Based on Hornet UFC
+//
+// The project intends to drive the OLED displays on a F18C Hornet Up Front Controller
+//
+// To do  - assign analog and digital inputs
+//        - add zero sense for Altimeter
+//
+// The UFC has a large display on the top left hand corner, five mid sized display on the right hand side, and then two smaller 
+// displays at the bottom left and bottom right hand side.
+//
+// As a number of the same OLEDs are used, which the same target I2C addresses an I2C multiplexor is used, TCA9548A.
+// The TCA9548A is an 8 Channel I2C switch.  It is possible for different devices to share a common host I2C bus.
+// https://e2e.ti.com/blogs_/b/analogwire/archive/2015/10/15/how-to-simplify-i2c-tree-when-connecting-multiple-slaves-to-an-i2c-master
+//
+// Prototyping is being done with an Adafruit 2717 TCA9548A board.
+// The 8 channels have their own SCL and SDA
+// Had one weirdness I'm yet to understand - the SCL SDA appear to be reversed on the Adafruit outputs, the input pins
+// is as epxected, but the outputs appeared to be swapped around.
 
-  Heavily based on
-  https://github.com/calltherain/ArduinoUSBJoystick
+// The initial test OLEDs have addresses of 0x3C 
+// The I2C Mux lives at 0x70
+// Can validate what addresses are on the bus by using I2C scanner
 
-  Interface for DCS BIOS
 
-  Mega2560 R3,
-  digital Pin 22~37 used as rows. 0-15, 16 Rows
-  digital pin 38~48 used as columns. 0-10, 11 Columns
+// OLED for 5 Right hand side digits 0.91" 128*32 SSD1306
+// https://www.ebay.com/itm/0-91-Inch-128x32-IIC-I2c-White-Blue-OLED-LCD-Display-Module-3-3-5v-For-Arduino/392552169768?ssPageName=STRK%3AMEBIDX%3AIT&var=661536491479&_trksid=p2057872.m2749.l2649
 
-  it's a 16 * 11  matrix, due to the loss of pins/Columns used by the Ethernet and SD Card Shield, Digital I/O 50 through 53 are not available.
-  Pin 49 is available but isn't used. This gives a total number of usable Inputs as 176 (remember numbering starts at 0 - so 0-175)
 
-  The code pulls down a row and reads values from the Columns.
-  Row 0 - Col 0 = Digit 0
-  Row 0 - Col 10 = Digit 10
-  Row 15 - Col 0 = Digit 165
-  Row 15 = Col 10 = Digit 175
+//
+//The data format of U8G2 fonts is based on the BDF font format. Its glyph bitmaps are compressed with a 
+//run-length-encoding algorithm and its header data are designed with variable bit field width to 
+//minimize flash memory footprint.
 
-  So - Digit = Row * 11 + Col
+//http://oleddisplay.squix.ch/#/home
+//<3.0.0 is Thiele with packed bitmaps (and special gotcha)
+//>=3.0.0 has a Jump table with aligned bitmaps (and really special gotcha)
+//Adafruit_GFX has missing bitmap and glyph entry for 0x7E (tilde)
 
+// https://rop.nl/truetype2gfx/
+
+// FontForge
+// https://learn.adafruit.com/custom-fonts-for-pyportal-circuitpython-display/conversion
 */
 
 
@@ -66,7 +79,6 @@ void tcaselect(uint8_t i) {
   Wire.beginTransmission(TCAADDR);
   Wire.write(1 << i);
   Wire.endTransmission();
-
 
 }
 
@@ -104,6 +116,10 @@ String DebugString = "";
 
 #include <U8g2lib.h>
 #include "hornet_font.h"
+#include "newfont.h"
+
+
+
 
 // Opt OLEDs
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
@@ -167,18 +183,21 @@ void setup() {
   tcaselect(BARO_OLED_Port);
   u8g2_BARO.begin();
   u8g2_BARO.clearBuffer();
-  u8g2_BARO.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  //u8g2_BARO.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  u8g2_BARO.setFont(u8g2_font_fub14_tr );
   u8g2_BARO.sendBuffer();
 
 
   tcaselect(ALT_OLED_Port);
   u8g2_ALT.begin();
   u8g2_ALT.clearBuffer();
-  u8g2_ALT.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  //u8g2_ALT.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  //u8g2_ALT.setFont(u8g2_font_t0_11_t_all);
+  u8g2_ALT.setFont(u8g2_font_fub20_tr  );
   u8g2_ALT.sendBuffer();
 
-  updateALT(" 88888888");
-  updateBARO("8888888");
+  updateALT("8", "8");
+  updateBARO("1018");
 
 }
 
@@ -191,22 +210,26 @@ void updateBARO(String strnewValue) {
   u8g2_BARO.setDrawColor(0);
   u8g2_BARO.drawBox(0, 0, 128 , 32);
   u8g2_BARO.setDrawColor(1);
-  u8g2_BARO.drawStr(50, 22, newValue);
+  u8g2_BARO.setFontDirection(2);
+  u8g2_BARO.drawStr(115, 0, newValue);
   u8g2_BARO.sendBuffer();
 }
 
 
 
 
-void updateALT(String strnewValue) {
+void updateALT(String strnewValue, String strnewThousands) {
 
   const char* newValue = strnewValue.c_str();
+  const char* newThousandsValue = strnewThousands.c_str();
   tcaselect(ALT_OLED_Port);
   u8g2_ALT.setFontMode(0);
   u8g2_ALT.setDrawColor(0);
   u8g2_ALT.drawBox(0, 0, 128 , 32);
   u8g2_ALT.setDrawColor(1);
-  u8g2_ALT.drawStr(5, 32, newValue);
+  //u8g2_ALT.drawStr(5, 32, newValue);
+  u8g2_ALT.drawStr(32, 32, newValue);
+  u8g2_ALT.drawStr(65, 32, newThousandsValue);
   u8g2_ALT.sendBuffer();
 }
 
