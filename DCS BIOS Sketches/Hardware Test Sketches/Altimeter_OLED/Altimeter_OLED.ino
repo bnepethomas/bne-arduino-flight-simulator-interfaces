@@ -196,7 +196,7 @@ void setup() {
   u8g2_ALT.setFont(u8g2_font_fub20_tr  );
   u8g2_ALT.sendBuffer();
 
-  updateALT("8", "8");
+  updateALT("0", "8");
   updateBARO("1018");
 
 }
@@ -218,17 +218,63 @@ void updateBARO(String strnewValue) {
 
 
 
-void updateALT(String strnewValue, String strnewThousands) {
+void updateALT(String strTenThousands, String strnewThousands) {
 
-  const char* newValue = strnewValue.c_str();
+  const char* newTenThousandsValue = strTenThousands.c_str();
   const char* newThousandsValue = strnewThousands.c_str();
+  int End_X_Pos = 46;
+  int End_Y_Pos = 28;
+  int Start_Y_Pos = 13;
+  int Start_X_Pos = 27;
+  int Box_Width = 20;
   tcaselect(ALT_OLED_Port);
   u8g2_ALT.setFontMode(0);
   u8g2_ALT.setDrawColor(0);
   u8g2_ALT.drawBox(0, 0, 128 , 32);
   u8g2_ALT.setDrawColor(1);
   //u8g2_ALT.drawStr(5, 32, newValue);
-  u8g2_ALT.drawStr(32, 32, newValue);
+
+  if (strTenThousands == "0") {
+    u8g2_ALT.setDrawColor(1);
+    
+    u8g2_ALT.drawBox(Start_X_Pos, 13, Box_Width , 20);
+    u8g2_ALT.setDrawColor(0);
+    
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos, End_X_Pos , 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 1, End_X_Pos - 1, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 2, End_X_Pos - 2, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 3, End_X_Pos - 3, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 4, End_X_Pos - 4, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 5, End_X_Pos - 5, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 6, End_X_Pos - 6, 32);
+    
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 11, End_X_Pos - 11, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 12, End_X_Pos - 12, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 13, End_X_Pos - 13, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 14, End_X_Pos - 14, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 15, End_X_Pos - 15, 32);
+
+    u8g2_ALT.drawLine(Start_X_Pos + 4, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos + 1);
+    u8g2_ALT.drawLine(Start_X_Pos + 5, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos);
+    u8g2_ALT.drawLine(Start_X_Pos + 6, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 1);
+    u8g2_ALT.drawLine(Start_X_Pos + 7, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 2);
+    u8g2_ALT.drawLine(Start_X_Pos + 8, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 3);
+    u8g2_ALT.drawLine(Start_X_Pos + 9, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 4);
+    u8g2_ALT.drawLine(Start_X_Pos + 10, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 5);
+
+    u8g2_ALT.drawLine(Start_X_Pos + 15, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 10);
+    u8g2_ALT.drawLine(Start_X_Pos + 16, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 11);
+    u8g2_ALT.drawLine(Start_X_Pos + 17, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 12);
+    u8g2_ALT.drawLine(Start_X_Pos + 18, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 13);
+    u8g2_ALT.drawLine(Start_X_Pos + 19, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 14);
+    
+    u8g2_ALT.setDrawColor(1);
+    
+    
+  } else {
+    u8g2_ALT.drawStr(32, 32, newTenThousandsValue);
+  }
+
   u8g2_ALT.drawStr(65, 32, newThousandsValue);
   u8g2_ALT.sendBuffer();
 }
