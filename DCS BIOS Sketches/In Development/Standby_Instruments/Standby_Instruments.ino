@@ -1,67 +1,17 @@
-/*
-
- OH Altimeter
-
-//
-// Based on Hornet UFC
-//
-// The project intends to drive the OLED displays on a F18C Hornet Up Front Controller
-//
-// To do  - assign analog and digital inputs
-//        - add zero sense for Altimeter
-//
-// The UFC has a large display on the top left hand corner, five mid sized display on the right hand side, and then two smaller 
-// displays at the bottom left and bottom right hand side.
-//
-// As a number of the same OLEDs are used, which the same target I2C addresses an I2C multiplexor is used, TCA9548A.
-// The TCA9548A is an 8 Channel I2C switch.  It is possible for different devices to share a common host I2C bus.
-// https://e2e.ti.com/blogs_/b/analogwire/archive/2015/10/15/how-to-simplify-i2c-tree-when-connecting-multiple-slaves-to-an-i2c-master
-//
-// Prototyping is being done with an Adafruit 2717 TCA9548A board.
-// The 8 channels have their own SCL and SDA
-// Had one weirdness I'm yet to understand - the SCL SDA appear to be reversed on the Adafruit outputs, the input pins
-// is as epxected, but the outputs appeared to be swapped around.
-
-// The initial test OLEDs have addresses of 0x3C 
-// The I2C Mux lives at 0x70
-// Can validate what addresses are on the bus by using I2C scanner
+// Source
+// https://gist.github.com/jboecker/1084b3768c735b164c34d6087d537c18
 
 
-// OLED for 5 Right hand side digits 0.91" 128*32 SSD1306
-// https://www.ebay.com/itm/0-91-Inch-128x32-IIC-I2c-White-Blue-OLED-LCD-Display-Module-3-3-5v-For-Arduino/392552169768?ssPageName=STRK%3AMEBIDX%3AIT&var=661536491479&_trksid=p2057872.m2749.l2649
-
-
-//
-//The data format of U8G2 fonts is based on the BDF font format. Its glyph bitmaps are compressed with a 
-//run-length-encoding algorithm and its header data are designed with variable bit field width to 
-//minimize flash memory footprint.
-
-//http://oleddisplay.squix.ch/#/home
-//<3.0.0 is Thiele with packed bitmaps (and special gotcha)
-//>=3.0.0 has a Jump table with aligned bitmaps (and really special gotcha)
-//Adafruit_GFX has missing bitmap and glyph entry for 0x7E (tilde)
-
-// https://rop.nl/truetype2gfx/
-
-// FontForge
-// https://learn.adafruit.com/custom-fonts-for-pyportal-circuitpython-display/conversion
-
-
-DCS BIOS Notes
-Standby Altimeter values are not integers that match int thousands, instead they
-are integers from 0 to 65001 that represent drum position
-Pressure setting 1 is least signifcant bit
-Currently decoding why 1000 ft count follows 100ft pointer
-*/
-
+// the Warthog Project Video on the compass build
+// https://www.youtube.com/watch?v=ZN9glqgp9TY&t=332s
 
 #define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
 #define Reflector_In_Use 1
 
+
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
-
 
 // Ethernet Related
 #include <SPI.h>
@@ -76,8 +26,6 @@ extern "C" {
 }
 
 #define TCAADDR 0x70
-
-
 
 void tcaselect(uint8_t i) {
 
@@ -118,13 +66,15 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 String DebugString = "";
 
 
+unsigned long nextupdate = 0;
+bool outputstate;
+int flashinterval = 1000;
+#define LedMonitorPin 5
+
+
 #define BARO_OLED_Port 0
 #define ALT_OLED_Port 1
-
 #include <U8g2lib.h>
-
-
-
 
 // Opt OLEDs
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
@@ -139,9 +89,15 @@ void SendDebug( String MessageToSend) {
 }
 
 
+
+DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", 22);
+DcsBios::LED lsLock(0x7408, 0x0001, 13);
+
 void setup() {
 
 
+  
+  DcsBios::setup();
 
   if (Ethernet_In_Use == 1) {
     Ethernet.begin( mac, ip);
@@ -156,10 +112,6 @@ void setup() {
   }
 
   Wire.begin();
-
-
-  // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-  SendDebug("Scanning I2C Bus");
 
   for (uint8_t t = 0; t < 8; t++) {
     SendDebug("TCA Port #" + String(t));
@@ -185,6 +137,14 @@ void setup() {
 
 
 
+  pinMode(LedMonitorPin, OUTPUT);
+  outputstate = true;
+  digitalWrite(LedMonitorPin,outputstate);
+
+  nextupdate = millis() + flashinterval;
+
+
+  
   tcaselect(BARO_OLED_Port);
   u8g2_BARO.begin();
   u8g2_BARO.clearBuffer();
@@ -203,9 +163,7 @@ void setup() {
 
   updateALT("0", "8");
   updateBARO("1018");
-
 }
-
 
 void updateBARO(String strnewValue) {
 
@@ -286,37 +244,25 @@ void updateALT(String strTenThousands, String strnewThousands) {
 
 
 
-/* void updateOpt1(String strnewValue) {
-
-  const char* newValue = strnewValue.c_str();
-  tcaselect(Opt_OLED_Port_1);
-  u8g2_OPT1.setFontMode(0);
-  u8g2_OPT1.setDrawColor(0);
-  u8g2_OPT1.drawBox(0,0,128 ,32);
-  u8g2_OPT1.setDrawColor(1);
-  u8g2_OPT1.drawStr(5,32,newValue); 
-  u8g2_OPT1.sendBuffer(); 
+void onStbyAlt100FtPtrChange(unsigned int newValue) {
+    SendDebug("2");
 }
+DcsBios::IntegerBuffer stbyAlt100FtPtrBuffer(0x74f4, 0xffff, 0, onStbyAlt100FtPtrChange);
 
-void onUfcOptionDisplay1Change(char* newValue) {
-  strOpt1 = String(newValue);
+void onStbyPressSet1Change(unsigned int newValue) {
+   // SendDebug(String(newValue));
+    SendDebug("1");
 }
-DcsBios::StringBuffer<4> ufcOptionDisplay1Buffer(0x7432, onUfcOptionDisplay1Change);
-
- */
+DcsBios::IntegerBuffer stbyPressSet1Buffer(0x74fc, 0xffff, 0, onStbyPressSet1Change);
 
 
 void loop() {
 
-  if (DCSBIOS_In_Use == 1) DcsBios::loop();
-/*   if (strOpt1 != LaststrOpt1) {  
-    updateOpt1(strOpt1);
-    LaststrOpt1 = strOpt1;  
-  } */
-  
+  DcsBios::loop();
 
-
-
-
-  
+    if (millis() >= nextupdate) {
+    outputstate = !outputstate;
+    digitalWrite(LedMonitorPin, outputstate);
+    nextupdate = millis() + flashinterval;
+  }
 }

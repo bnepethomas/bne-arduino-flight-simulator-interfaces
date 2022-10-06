@@ -11,6 +11,12 @@
 #include <AccelStepper.h>
 #include "DcsBios.h"
 
+
+unsigned long nextupdate = 0;
+bool outputstate;
+int flashinterval = 1000;
+#define LedMonitorPin 5
+
 struct StepperConfig {
   unsigned int maxSteps;
   unsigned int acceleration;
@@ -189,10 +195,21 @@ Vid60Stepper standbyCompass(0x0436,          // address of stepper data
 void setup() {
   DcsBios::setup();
   pinMode(13, OUTPUT);
+  pinMode(LedMonitorPin, OUTPUT);
+  outputstate = true;
+  digitalWrite(LedMonitorPin,outputstate);
+
+  nextupdate = millis() + flashinterval;
 }
 
 void loop() {
   //  PORTB |= (1 << 5);
   //  PORTB &= ~(1 << 5);
   DcsBios::loop();
+
+    if (millis() >= nextupdate) {
+    outputstate = !outputstate;
+    digitalWrite(LedMonitorPin, outputstate);
+    nextupdate = millis() + flashinterval;
+  }
 }
