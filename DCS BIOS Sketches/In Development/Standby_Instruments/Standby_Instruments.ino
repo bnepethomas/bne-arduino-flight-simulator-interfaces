@@ -80,23 +80,36 @@ int flashinterval = 1000;
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALT(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
+
+String BaroOnes = "2";
+String BaroTens = "9";
+String BaroHundreds = "9";
+String BaroThousands = "2";
+bool BaroUpdated = true;
+
+String Alt1000s = "0";
+int LastAlt1000s = 0;
+String Alt10000s = "0";
+int LastAlt10000s = 0;
+bool AltCounterUpdated = true;
+
 void SendDebug( String MessageToSend) {
-    if (Reflector_In_Use == 1)  {
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.println(MessageToSend);
-      udp.endPacket();
-    }  
+  if (Reflector_In_Use == 1)  {
+    udp.beginPacket(reflectorIP, reflectorport);
+    udp.println(MessageToSend);
+    udp.endPacket();
+  }
 }
 
 
 
-DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", 22);
+DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", 8);
 DcsBios::LED lsLock(0x7408, 0x0001, 13);
 
 void setup() {
 
 
-  
+
   DcsBios::setup();
 
   if (Ethernet_In_Use == 1) {
@@ -126,7 +139,7 @@ void setup() {
       if (! twi_writeTo(addr, &data, 0, 1, 1)) {
         // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
         DebugString = "Found I2C 0x";
-        DebugString.concat(String(addr, HEX)); 
+        DebugString.concat(String(addr, HEX));
         SendDebug(DebugString);
       }
     }
@@ -139,12 +152,12 @@ void setup() {
 
   pinMode(LedMonitorPin, OUTPUT);
   outputstate = true;
-  digitalWrite(LedMonitorPin,outputstate);
+  digitalWrite(LedMonitorPin, outputstate);
 
   nextupdate = millis() + flashinterval;
 
 
-  
+
   tcaselect(BARO_OLED_Port);
   u8g2_BARO.begin();
   u8g2_BARO.clearBuffer();
@@ -178,6 +191,11 @@ void updateBARO(String strnewValue) {
   u8g2_BARO.sendBuffer();
 }
 
+void buildBAROString() {
+
+  updateBARO( BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  BaroUpdated = false;
+}
 
 
 
@@ -199,10 +217,10 @@ void updateALT(String strTenThousands, String strnewThousands) {
 
   if (strTenThousands == "0") {
     u8g2_ALT.setDrawColor(1);
-    
+
     u8g2_ALT.drawBox(Start_X_Pos, 13, Box_Width , 20);
     u8g2_ALT.setDrawColor(0);
-    
+
     u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos, End_X_Pos , 32);
     u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 1, End_X_Pos - 1, 32);
     u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 2, End_X_Pos - 2, 32);
@@ -210,7 +228,7 @@ void updateALT(String strTenThousands, String strnewThousands) {
     u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 4, End_X_Pos - 4, 32);
     u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 5, End_X_Pos - 5, 32);
     u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 6, End_X_Pos - 6, 32);
-    
+
     u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 11, End_X_Pos - 11, 32);
     u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 12, End_X_Pos - 12, 32);
     u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 13, End_X_Pos - 13, 32);
@@ -230,39 +248,159 @@ void updateALT(String strTenThousands, String strnewThousands) {
     u8g2_ALT.drawLine(Start_X_Pos + 17, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 12);
     u8g2_ALT.drawLine(Start_X_Pos + 18, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 13);
     u8g2_ALT.drawLine(Start_X_Pos + 19, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 14);
-    
+
     u8g2_ALT.setDrawColor(1);
-    
-    
+
+
   } else {
     u8g2_ALT.drawStr(32, 32, newTenThousandsValue);
   }
 
   u8g2_ALT.drawStr(65, 32, newThousandsValue);
   u8g2_ALT.sendBuffer();
+
+  AltCounterUpdated = false;
 }
 
 
 
 void onStbyAlt100FtPtrChange(unsigned int newValue) {
-    SendDebug("2");
+  //SendDebug("2");
 }
 DcsBios::IntegerBuffer stbyAlt100FtPtrBuffer(0x74f4, 0xffff, 0, onStbyAlt100FtPtrChange);
 
+
+//void onStbyAlt1000FtCntChange(unsigned int newValue) {
+////  // SendDebug("Alt 1K");
+////  Alt1000s = String(newValue);
+////  SendDebug(String(newValue));
+////  
+////  if (newValue < 6553 ) Alt1000s = "0";
+////  else if ( newValue < 13106 ) Alt1000s = "1" ;
+////  else if ( newValue < 16301 ) Alt1000s = "2" ;
+////  else if ( newValue < 19660 ) Alt1000s = "3" ;
+////  else if ( newValue < 29918 ) Alt1000s = "4" ;
+////  else if ( newValue < 36727 ) Alt1000s = "5" ;
+////  else if ( newValue < 43536 ) Alt1000s = "6" ;
+////  else if ( newValue < 50345 ) Alt1000s = "7" ;
+////  else if ( newValue < 53284 ) Alt1000s = "8" ;
+////  else Alt1000s = "9" ;
+////  
+////  AltCounterUpdated = true;
+//
+//}
+//DcsBios::IntegerBuffer stbyAlt1000FtCntBuffer(0x74f8, 0xffff, 0, onStbyAlt1000FtCntChange);
+
+//void onStbyAlt10000FtCntChange(unsigned int newValue) {
+//  SendDebug("Alt 10K");
+//
+//  SendDebug(String(newValue));
+//  
+//  if (newValue < 6553 ) Alt10000s = "0";
+//  else if ( newValue < 13106 ) Alt10000s = "1" ;
+//  else if ( newValue < 16301 ) Alt10000s = "2" ;
+//  else if ( newValue < 19660 ) Alt10000s = "3" ;
+//  else if ( newValue < 29918 ) Alt10000s = "4" ;
+//  else if ( newValue < 36727 ) Alt10000s = "5" ;
+//  else if ( newValue < 43536 ) Alt10000s = "6" ;
+//  else if ( newValue < 50345 ) Alt10000s = "7" ;
+//  else if ( newValue < 53284 ) Alt10000s = "8" ;
+//  else Alt10000s = "9" ;
+//  
+//  AltCounterUpdated = true;
+//}
+//DcsBios::IntegerBuffer stbyAlt10000FtCntBuffer(0x74f6, 0xffff, 0, onStbyAlt10000FtCntChange);
+
+void onAltMslFtChange(unsigned int newValue) {
+
+    unsigned int tempvar  = 0;
+    
+    tempvar = int((newValue % 10000) / 1000) ;
+
+    SendDebug(String(newValue) + " " + String(tempvar));
+    if (tempvar != LastAlt1000s ) {
+      LastAlt1000s = tempvar;
+      Alt1000s = String(tempvar);
+      AltCounterUpdated = true;
+    }
+
+    tempvar = int((newValue % 100000) / 10000) ;
+    if (tempvar != LastAlt10000s ) {
+      LastAlt10000s = tempvar;
+      Alt10000s = String(tempvar);
+      AltCounterUpdated = true;
+    }
+
+
+}
+DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
+
+
+
+void onStbyPressSet0Change(unsigned int newValue) {
+  //SendDebug(String(newValue));
+  if (newValue < 6553 ) BaroOnes = "0";
+  else if ( newValue < 13106 ) BaroOnes = "1" ;
+  else if ( newValue < 16301 ) BaroOnes = "2" ;
+  else if ( newValue < 19660 ) BaroOnes = "3" ;
+  else if ( newValue < 29918 ) BaroOnes = "4" ;
+  else if ( newValue < 36727 ) BaroOnes = "5" ;
+  else if ( newValue < 43536 ) BaroOnes = "6" ;
+  else if ( newValue < 50345 ) BaroOnes = "7" ;
+  else if ( newValue < 53284 ) BaroOnes = "8" ;
+  else BaroOnes = "9" ;
+
+
+  BaroUpdated = true;
+
+  //SendDebug(String(BaroOnes));
+}
+DcsBios::IntegerBuffer stbyPressSet0Buffer(0x74fa, 0xffff, 0, onStbyPressSet0Change);
+
+
+
+// Display for Pressure ranges from
+// Disp Press 1 Press 2 Presso 3
+// 3100 0       5891    unknown
+// 2810 0       6553    0
+
+
 void onStbyPressSet1Change(unsigned int newValue) {
-   // SendDebug(String(newValue));
-    SendDebug("1");
+  //SendDebug(String(newValue));
+  if (newValue < 6553 ) BaroTens = "0";
+  else if ( newValue < 13106 ) BaroTens = "1" ;
+  else if ( newValue < 16301 ) BaroTens = "2" ;
+  else if ( newValue < 19660 ) BaroTens = "3" ;
+  else if ( newValue < 29918 ) BaroTens = "4" ;
+  else if ( newValue < 36727 ) BaroTens = "5" ;
+  else if ( newValue < 43536 ) BaroTens = "6" ;
+  else if ( newValue < 50345 ) BaroTens = "7" ;
+  else if ( newValue < 53284 ) BaroTens = "8" ;
+  else BaroTens = "9" ;
+
+
+  BaroUpdated = true;
+
+  //SendDebug(String(BaroTens));
 }
 DcsBios::IntegerBuffer stbyPressSet1Buffer(0x74fc, 0xffff, 0, onStbyPressSet1Change);
 
-
+// There is a bug here - the value doesn't change
+void onStbyPressSet2Change(unsigned int newValue) {
+  //SendDebug(String(newValue));
+}
+DcsBios::IntegerBuffer stbyPressSet2Buffer(0x74fe, 0xffff, 0, onStbyPressSet2Change);
 void loop() {
 
   DcsBios::loop();
 
-    if (millis() >= nextupdate) {
+  if (millis() >= nextupdate) {
     outputstate = !outputstate;
     digitalWrite(LedMonitorPin, outputstate);
     nextupdate = millis() + flashinterval;
+
+    if (BaroUpdated == true) buildBAROString();
+    if (AltCounterUpdated == true) updateALT(Alt10000s, Alt1000s );
+
   }
 }
