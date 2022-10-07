@@ -5,7 +5,7 @@
 // the Warthog Project Video on the compass build
 // https://www.youtube.com/watch?v=ZN9glqgp9TY&t=332s
 
-#define Ethernet_In_Use 1
+#define Ethernet_In_Use 0
 #define DCSBIOS_In_Use 1
 #define Reflector_In_Use 1
 
@@ -94,7 +94,7 @@ int LastAlt10000s = 0;
 bool AltCounterUpdated = true;
 
 void SendDebug( String MessageToSend) {
-  if (Reflector_In_Use == 1)  {
+  if ((Reflector_In_Use == 1) &&  (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
     udp.println(MessageToSend);
     udp.endPacket();
