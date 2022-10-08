@@ -1,6 +1,10 @@
 // Source
 // https://gist.github.com/jboecker/1084b3768c735b164c34d6087d537c18
 
+// Fro reasons Im yet to work out when including 
+// the encoder for dcsbios I'm getting the folowing when uploading to a mega
+// avrdude: verification error; content mismatch
+
 
 // the Warthog Project Video on the compass build
 // https://www.youtube.com/watch?v=ZN9glqgp9TY&t=332s
@@ -115,10 +119,11 @@ void SendDebug( String MessageToSend) {
   }
 }
 
-
-
+// DcsBios::RotaryEncoder saiSet("SAI_SET", "-3200", "+3200", 37, 39);
+DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 37, 39);
 DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", 8);
 DcsBios::LED lsLock(0x7408, 0x0001, 13);
+
 
 void setup() {
 
@@ -130,8 +135,8 @@ void setup() {
 
   
   stepperSTANDBY_ALT.setSpeed(50);
-  stepperSTANDBY_ALT.step(720);       //Reset FULL ON Position
-  stepperSTANDBY_ALT.step(-720);       //Reset FULL OFF Position
+  stepperSTANDBY_ALT.step(1440);       //Reset FULL ON Position
+  stepperSTANDBY_ALT.step(-1440);       //Reset FULL OFF Position
   STANDBY_ALT = 0;
 
 
