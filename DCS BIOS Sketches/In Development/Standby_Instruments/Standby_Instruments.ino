@@ -5,7 +5,7 @@
 // the Warthog Project Video on the compass build
 // https://www.youtube.com/watch?v=ZN9glqgp9TY&t=332s
 
-#define Ethernet_In_Use 0
+#define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
 #define Reflector_In_Use 1
 
@@ -69,8 +69,8 @@ String DebugString = "";
 unsigned long nextupdate = 0;
 bool outputstate;
 int flashinterval = 1000;
-#define LedMonitorPin 5
-
+#define RedLedMonitorPin 5
+#define GreenLedMonitorPin 13
 
 #define BARO_OLED_Port 0
 #define ALT_OLED_Port 1
@@ -93,6 +93,20 @@ String Alt10000s = "0";
 int LastAlt10000s = 0;
 bool AltCounterUpdated = true;
 
+
+#include <Stepper.h>
+#define  STEPS  720    // steps per revolution (limited to 315°)
+
+#define  COIL_STANDBY_ALT_A1  45 // STANDBY ALT
+#define  COIL_STANDBY_ALT_A2  47
+#define  COIL_STANDBY_ALT_A3  41
+#define  COIL_STANDBY_ALT_A4  43
+
+int STANDBY_ALT = 0;
+int LastSTANDBY_ALT = 0;
+
+Stepper stepperSTANDBY_ALT(STEPS, COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4); // RAD ALT
+
 void SendDebug( String MessageToSend) {
   if ((Reflector_In_Use == 1) &&  (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
@@ -108,7 +122,22 @@ DcsBios::LED lsLock(0x7408, 0x0001, 13);
 
 void setup() {
 
+  pinMode(RedLedMonitorPin, OUTPUT);
+  pinMode(GreenLedMonitorPin, OUTPUT);
+  outputstate = true;
+  digitalWrite(RedLedMonitorPin, outputstate);
+  digitalWrite(GreenLedMonitorPin, outputstate);
 
+  
+  stepperSTANDBY_ALT.setSpeed(50);
+  stepperSTANDBY_ALT.step(720);       //Reset FULL ON Position
+  stepperSTANDBY_ALT.step(-720);       //Reset FULL OFF Position
+  STANDBY_ALT = 0;
+
+
+  outputstate = false;
+  digitalWrite(RedLedMonitorPin, outputstate);
+  digitalWrite(GreenLedMonitorPin, outputstate);
 
   DcsBios::setup();
 
@@ -150,9 +179,7 @@ void setup() {
 
 
 
-  pinMode(LedMonitorPin, OUTPUT);
-  outputstate = true;
-  digitalWrite(LedMonitorPin, outputstate);
+
 
   nextupdate = millis() + flashinterval;
 
@@ -174,8 +201,8 @@ void setup() {
   u8g2_ALT.setFont(u8g2_font_fub20_tr  );
   u8g2_ALT.sendBuffer();
 
-  updateALT("0", "8");
-  updateBARO("1018");
+  updateALT("0", "0");
+  updateBARO("2992");
 }
 
 void updateBARO(String strnewValue) {
@@ -396,7 +423,7 @@ void loop() {
 
   if (millis() >= nextupdate) {
     outputstate = !outputstate;
-    digitalWrite(LedMonitorPin, outputstate);
+    digitalWrite(RedLedMonitorPin, outputstate);
     nextupdate = millis() + flashinterval;
 
     if (BaroUpdated == true) buildBAROString();
