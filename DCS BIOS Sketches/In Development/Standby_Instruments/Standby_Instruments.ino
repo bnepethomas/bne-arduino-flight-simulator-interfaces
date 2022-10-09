@@ -1,7 +1,7 @@
 // Source
 // https://gist.github.com/jboecker/1084b3768c735b164c34d6087d537c18
 
-// Fro reasons Im yet to work out when including 
+// Fro reasons Im yet to work out when including
 // the encoder for dcsbios I'm getting the folowing when uploading to a mega
 // avrdude: verification error; content mismatch
 
@@ -98,7 +98,7 @@ int LastAlt10000s = 0;
 bool AltCounterUpdated = true;
 
 
-#include <Stepper.h>
+#include <AccelStepper.h>
 #define  STEPS  720    // steps per revolution (limited to 315°)
 
 #define  COIL_STANDBY_ALT_A1  45 // STANDBY ALT
@@ -109,7 +109,8 @@ bool AltCounterUpdated = true;
 int STANDBY_ALT = 0;
 int LastSTANDBY_ALT = 0;
 
-Stepper stepperSTANDBY_ALT(STEPS, COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4); // RAD ALT
+// AccelStepper stepperSTANDBY_ALT(STEPS, COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4); // RAD ALT
+AccelStepper stepperSTANDBY_ALT(AccelStepper::FULL4WIRE , COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4); // RAD ALT
 
 void SendDebug( String MessageToSend) {
   if ((Reflector_In_Use == 1) &&  (Ethernet_In_Use == 1)) {
@@ -133,10 +134,11 @@ void setup() {
   digitalWrite(RedLedMonitorPin, outputstate);
   digitalWrite(GreenLedMonitorPin, outputstate);
 
-  
-  stepperSTANDBY_ALT.setSpeed(50);
-  stepperSTANDBY_ALT.step(1440);       //Reset FULL ON Position
-  stepperSTANDBY_ALT.step(-1440);       //Reset FULL OFF Position
+
+
+  stepperSTANDBY_ALT.setMaxSpeed(400.0);
+  stepperSTANDBY_ALT.setAcceleration(100.0);
+  stepperSTANDBY_ALT.runToNewPosition(500);
   STANDBY_ALT = 0;
 
 
@@ -306,7 +308,7 @@ DcsBios::IntegerBuffer stbyAlt100FtPtrBuffer(0x74f4, 0xffff, 0, onStbyAlt100FtPt
 ////  // SendDebug("Alt 1K");
 ////  Alt1000s = String(newValue);
 ////  SendDebug(String(newValue));
-////  
+////
 ////  if (newValue < 6553 ) Alt1000s = "0";
 ////  else if ( newValue < 13106 ) Alt1000s = "1" ;
 ////  else if ( newValue < 16301 ) Alt1000s = "2" ;
@@ -317,7 +319,7 @@ DcsBios::IntegerBuffer stbyAlt100FtPtrBuffer(0x74f4, 0xffff, 0, onStbyAlt100FtPt
 ////  else if ( newValue < 50345 ) Alt1000s = "7" ;
 ////  else if ( newValue < 53284 ) Alt1000s = "8" ;
 ////  else Alt1000s = "9" ;
-////  
+////
 ////  AltCounterUpdated = true;
 //
 //}
@@ -327,7 +329,7 @@ DcsBios::IntegerBuffer stbyAlt100FtPtrBuffer(0x74f4, 0xffff, 0, onStbyAlt100FtPt
 //  SendDebug("Alt 10K");
 //
 //  SendDebug(String(newValue));
-//  
+//
 //  if (newValue < 6553 ) Alt10000s = "0";
 //  else if ( newValue < 13106 ) Alt10000s = "1" ;
 //  else if ( newValue < 16301 ) Alt10000s = "2" ;
@@ -338,30 +340,30 @@ DcsBios::IntegerBuffer stbyAlt100FtPtrBuffer(0x74f4, 0xffff, 0, onStbyAlt100FtPt
 //  else if ( newValue < 50345 ) Alt10000s = "7" ;
 //  else if ( newValue < 53284 ) Alt10000s = "8" ;
 //  else Alt10000s = "9" ;
-//  
+//
 //  AltCounterUpdated = true;
 //}
 //DcsBios::IntegerBuffer stbyAlt10000FtCntBuffer(0x74f6, 0xffff, 0, onStbyAlt10000FtCntChange);
 
 void onAltMslFtChange(unsigned int newValue) {
 
-    unsigned int tempvar  = 0;
-    
-    tempvar = int((newValue % 10000) / 1000) ;
+  unsigned int tempvar  = 0;
 
-    SendDebug(String(newValue) + " " + String(tempvar));
-    if (tempvar != LastAlt1000s ) {
-      LastAlt1000s = tempvar;
-      Alt1000s = String(tempvar);
-      AltCounterUpdated = true;
-    }
+  tempvar = int((newValue % 10000) / 1000) ;
 
-    tempvar = int((newValue % 100000) / 10000) ;
-    if (tempvar != LastAlt10000s ) {
-      LastAlt10000s = tempvar;
-      Alt10000s = String(tempvar);
-      AltCounterUpdated = true;
-    }
+  SendDebug(String(newValue) + " " + String(tempvar));
+  if (tempvar != LastAlt1000s ) {
+    LastAlt1000s = tempvar;
+    Alt1000s = String(tempvar);
+    AltCounterUpdated = true;
+  }
+
+  tempvar = int((newValue % 100000) / 10000) ;
+  if (tempvar != LastAlt10000s ) {
+    LastAlt10000s = tempvar;
+    Alt10000s = String(tempvar);
+    AltCounterUpdated = true;
+  }
 
 
 }
