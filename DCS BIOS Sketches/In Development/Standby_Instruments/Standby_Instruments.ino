@@ -102,6 +102,7 @@ bool AltCounterUpdated = true;
 
 unsigned long nextAltimeterUpdate = 0;
 int updateAltimeterInterval = 100;
+#define ALT_ZERO_SENSE_PIN 49
 
 #include <AccelStepper.h>
 #define  STEPS  720    // steps per revolution (limited to 315°)
@@ -223,6 +224,22 @@ void setup() {
 
   updateALT("0", "0");
   updateBARO("2992");
+
+  SendDebug("Looking for Zero");
+  stepperSTANDBY_ALT.setCurrentPosition(0);
+  pinMode(ALT_ZERO_SENSE_PIN,  INPUT_PULLUP);
+
+
+  for (int i = 0; i <= 2000; i++) {
+    delay(1);
+    stepperSTANDBY_ALT.moveTo(i);
+    stepperSTANDBY_ALT.run();
+    if (digitalRead(ALT_ZERO_SENSE_PIN) == false) {
+      SendDebug("Found Zero");
+      stepperSTANDBY_ALT.setCurrentPosition(0);
+      break;
+    }
+  }
 
   nextAltimeterUpdate = millis();
 }
@@ -379,7 +396,7 @@ void onAltMslFtChange(unsigned int newValue) {
 
     tempvar = int((newValue % 10000) / 1000) ;
 
-    SendDebug(String(newValue) + " " + String(tempvar));
+
     if (tempvar != LastAlt1000s ) {
       LastAlt1000s = tempvar;
       Alt1000s = String(tempvar);
@@ -393,14 +410,10 @@ void onAltMslFtChange(unsigned int newValue) {
       AltCounterUpdated = true;
     }
 
-    Alt100s = int((newValue % 1000)) ;
-    SendDebug( "10K " + String(Alt10000s) + " 1K " + String(Alt1000s) + " 100s " + String(Alt100s));
 
-    unsigned int targetLocation = int(Alt100s * 0.72) + (LastAlt10000s * 10 * 720) + (LastAlt1000s * 720);
+    unsigned int targetLocation = int (newValue * 0.72);
 
-    unsigned int KeepItSimple = int (newValue * 0.72);
-    
-    SendDebug("Pointer Target = " + String(targetLocation) + "Simple " + String(KeepItSimple));
+    // SendDebug("Pointer Target = " + String(targetLocation));
     stepperSTANDBY_ALT.runToNewPosition(targetLocation);
 
     nextAltimeterUpdate =  millis() + updateAltimeterInterval;
