@@ -99,6 +99,8 @@ int LastAlt10000s = 0;
 bool AltCounterUpdated = true;
 
 
+String VVI = "0";
+int LastVVI = 0;
 
 unsigned long nextAltimeterUpdate = 0;
 int updateAltimeterInterval = 100;
@@ -421,6 +423,30 @@ void onAltMslFtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
 
+
+
+void onVsiChange(unsigned int newValue) {
+  // VVI Range -6000 to +6000
+  // 65535  +6000
+  // 32768  0
+  // 0      -6000
+
+  int VSIRate = 0;
+  
+
+  if (newValue >= 32768) {
+    VSIRate = int((-32768 + newValue)/32);
+  } else {
+    VSIRate = int((32768 -newValue)/32);
+  }
+
+  SendDebug("VVI " + String(newValue) + " Translated Rate" + String(VSIRate));
+  stepperSTANDBY_ALT.setMaxSpeed(VSIRate);
+  stepperSTANDBY_ALT.setAcceleration(VSIRate);
+  
+
+}
+DcsBios::IntegerBuffer vsiBuffer(0x7500, 0xffff, 0, onVsiChange);
 
 
 void onStbyPressSet0Change(unsigned int newValue) {
