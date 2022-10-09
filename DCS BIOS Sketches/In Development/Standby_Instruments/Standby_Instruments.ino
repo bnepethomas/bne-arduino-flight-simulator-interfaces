@@ -1,9 +1,10 @@
 // Source
 // https://gist.github.com/jboecker/1084b3768c735b164c34d6087d537c18
 
-// Fro reasons Im yet to work out when including
+// For reasons Im yet to work out when including
 // the encoder for dcsbios I'm getting the folowing when uploading to a mega
 // avrdude: verification error; content mismatch
+// problem disappeared when altimeter removed and after reboot root cause tba
 
 
 // the Warthog Project Video on the compass build
@@ -98,13 +99,23 @@ int LastAlt10000s = 0;
 bool AltCounterUpdated = true;
 
 
+
+unsigned long nextAltimeterUpdate = 0;
+int updateAltimeterInterval = 100;
+
 #include <AccelStepper.h>
 #define  STEPS  720    // steps per revolution (limited to 315°)
+//
+//Working but direction in incorrect
+//#define  COIL_STANDBY_ALT_A1  45 // STANDBY ALT
+//#define  COIL_STANDBY_ALT_A2  47
+//#define  COIL_STANDBY_ALT_A3  41
+//#define  COIL_STANDBY_ALT_A4  43
 
-#define  COIL_STANDBY_ALT_A1  45 // STANDBY ALT
-#define  COIL_STANDBY_ALT_A2  47
-#define  COIL_STANDBY_ALT_A3  41
-#define  COIL_STANDBY_ALT_A4  43
+#define  COIL_STANDBY_ALT_A1  41 // STANDBY ALT
+#define  COIL_STANDBY_ALT_A2  43
+#define  COIL_STANDBY_ALT_A3  45
+#define  COIL_STANDBY_ALT_A4  47
 
 int STANDBY_ALT = 0;
 int LastSTANDBY_ALT = 0;
@@ -136,8 +147,10 @@ void setup() {
 
 
 
-  stepperSTANDBY_ALT.setMaxSpeed(400.0);
-  stepperSTANDBY_ALT.setAcceleration(100.0);
+  //  stepperSTANDBY_ALT.setMaxSpeed(4000.0);
+  //  stepperSTANDBY_ALT.setAcceleration(2000.0);
+  stepperSTANDBY_ALT.setMaxSpeed(1000.0);
+  stepperSTANDBY_ALT.setAcceleration(1000.0);
   stepperSTANDBY_ALT.runToNewPosition(500);
   STANDBY_ALT = 0;
 
@@ -210,6 +223,8 @@ void setup() {
 
   updateALT("0", "0");
   updateBARO("2992");
+
+  nextAltimeterUpdate = millis();
 }
 
 void updateBARO(String strnewValue) {
@@ -299,7 +314,14 @@ void updateALT(String strTenThousands, String strnewThousands) {
 
 
 void onStbyAlt100FtPtrChange(unsigned int newValue) {
-  //SendDebug("2");
+  //  SendDebug("100 foot pointer " + String(newValue));
+  //  SendDebug("adding drum counters -v2 " + String(LastAlt10000s) + " " + String(LastAlt1000s));
+  //
+  //  unsigned int targetLocation = int(newValue/91) + (LastAlt10000s * 10 * 720) + (LastAlt1000s * 720);
+  //  SendDebug(String(targetLocation));
+  //  stepperSTANDBY_ALT.runToNewPosition(targetLocation);
+
+
 }
 DcsBios::IntegerBuffer stbyAlt100FtPtrBuffer(0x74f4, 0xffff, 0, onStbyAlt100FtPtrChange);
 
@@ -347,25 +369,42 @@ DcsBios::IntegerBuffer stbyAlt100FtPtrBuffer(0x74f4, 0xffff, 0, onStbyAlt100FtPt
 
 void onAltMslFtChange(unsigned int newValue) {
 
-  unsigned int tempvar  = 0;
 
-  tempvar = int((newValue % 10000) / 1000) ;
+  if (millis() >= nextAltimeterUpdate) {
 
-  SendDebug(String(newValue) + " " + String(tempvar));
-  if (tempvar != LastAlt1000s ) {
-    LastAlt1000s = tempvar;
-    Alt1000s = String(tempvar);
-    AltCounterUpdated = true;
+
+    int updateAltimeterInterval = 100;
+    unsigned int tempvar  = 0;
+    int Alt100s = 0;
+
+    tempvar = int((newValue % 10000) / 1000) ;
+
+    SendDebug(String(newValue) + " " + String(tempvar));
+    if (tempvar != LastAlt1000s ) {
+      LastAlt1000s = tempvar;
+      Alt1000s = String(tempvar);
+      AltCounterUpdated = true;
+    }
+
+    tempvar = int((newValue % 100000) / 10000) ;
+    if (tempvar != LastAlt10000s ) {
+      LastAlt10000s = tempvar;
+      Alt10000s = String(tempvar);
+      AltCounterUpdated = true;
+    }
+
+    Alt100s = int((newValue % 1000)) ;
+    SendDebug( "10K " + String(Alt10000s) + " 1K " + String(Alt1000s) + " 100s " + String(Alt100s));
+
+    unsigned int targetLocation = int(Alt100s * 0.72) + (LastAlt10000s * 10 * 720) + (LastAlt1000s * 720);
+
+    unsigned int KeepItSimple = int (newValue * 0.72);
+    
+    SendDebug("Pointer Target = " + String(targetLocation) + "Simple " + String(KeepItSimple));
+    stepperSTANDBY_ALT.runToNewPosition(targetLocation);
+
+    nextAltimeterUpdate =  millis() + updateAltimeterInterval;
   }
-
-  tempvar = int((newValue % 100000) / 10000) ;
-  if (tempvar != LastAlt10000s ) {
-    LastAlt10000s = tempvar;
-    Alt10000s = String(tempvar);
-    AltCounterUpdated = true;
-  }
-
-
 }
 DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
 
@@ -426,6 +465,7 @@ void onStbyPressSet2Change(unsigned int newValue) {
 DcsBios::IntegerBuffer stbyPressSet2Buffer(0x74fe, 0xffff, 0, onStbyPressSet2Change);
 void loop() {
 
+  stepperSTANDBY_ALT.run();
   DcsBios::loop();
 
   if (millis() >= nextupdate) {
