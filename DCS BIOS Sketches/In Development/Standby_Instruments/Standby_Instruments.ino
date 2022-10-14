@@ -106,7 +106,8 @@ unsigned long nextAltimeterUpdate = 0;
 int updateAltimeterInterval = 100;
 #define ALT_ZERO_SENSE_PIN 49
 
-#include <AccelStepper.h>
+//#include <AccelStepper.h>
+#include <Stepper.h>
 #define  STEPS  720    // steps per revolution (limited to 315°)
 //
 //Working but direction in incorrect
@@ -122,9 +123,13 @@ int updateAltimeterInterval = 100;
 
 int STANDBY_ALT = 0;
 int LastSTANDBY_ALT = 0;
+unsigned int valAltimeter = 0;
+unsigned int posAltimeter = 0;
 
-// AccelStepper stepperSTANDBY_ALT(STEPS, COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4); // RAD ALT
-AccelStepper stepperSTANDBY_ALT(AccelStepper::FULL4WIRE , COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4); // RAD ALT
+// AccelStepper stepperSTANDBY_ALT(STEPS, COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4);
+// AccelStepper stepperSTANDBY_ALT(AccelStepper::FULL4WIRE , COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4);
+Stepper stepperSTANDBY_ALT(STEPS , COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4);
+
 
 void SendDebug( String MessageToSend) {
   if ((Reflector_In_Use == 1) &&  (Ethernet_In_Use == 1)) {
@@ -150,11 +155,12 @@ void setup() {
 
 
 
-  //  stepperSTANDBY_ALT.setMaxSpeed(4000.0);
-  //  stepperSTANDBY_ALT.setAcceleration(2000.0);
-  stepperSTANDBY_ALT.setMaxSpeed(1000.0);
-  stepperSTANDBY_ALT.setAcceleration(1000.0);
-  stepperSTANDBY_ALT.runToNewPosition(500);
+  //
+  //  stepperSTANDBY_ALT.setMaxSpeed(1000.0);
+  //  stepperSTANDBY_ALT.setAcceleration(1000.0);
+  //  stepperSTANDBY_ALT.runToNewPosition(500);
+
+
   STANDBY_ALT = 0;
 
 
@@ -228,20 +234,36 @@ void setup() {
   updateBARO("2992");
 
   SendDebug("Looking for Zero");
-  stepperSTANDBY_ALT.setCurrentPosition(0);
+  //stepperSTANDBY_ALT.setCurrentPosition(0);
   pinMode(ALT_ZERO_SENSE_PIN,  INPUT_PULLUP);
 
 
+  stepperSTANDBY_ALT.setSpeed(60);
+
   for (int i = 0; i <= 2000; i++) {
     delay(1);
-    stepperSTANDBY_ALT.moveTo(i);
-    stepperSTANDBY_ALT.run();
+    stepperSTANDBY_ALT.step(1); 
     if (digitalRead(ALT_ZERO_SENSE_PIN) == false) {
       SendDebug("Found Zero");
-      stepperSTANDBY_ALT.setCurrentPosition(0);
+      posAltimeter = 0;
       break;
     }
   }
+
+
+
+
+
+  //  for (int i = 0; i <= 2000; i++) {
+  //    delay(1);
+  //    stepperSTANDBY_ALT.moveTo(i);
+  //    stepperSTANDBY_ALT.run();
+  //    if (digitalRead(ALT_ZERO_SENSE_PIN) == false) {
+  //      SendDebug("Found Zero");
+  //      stepperSTANDBY_ALT.setCurrentPosition(0);
+  //      break;
+  //    }
+  //  }
 
   nextAltimeterUpdate = millis();
 }
@@ -389,37 +411,37 @@ DcsBios::IntegerBuffer stbyAlt100FtPtrBuffer(0x74f4, 0xffff, 0, onStbyAlt100FtPt
 void onAltMslFtChange(unsigned int newValue) {
 
 
-  if (millis() >= nextAltimeterUpdate) {
 
 
-    int updateAltimeterInterval = 100;
-    unsigned int tempvar  = 0;
-    int Alt100s = 0;
 
-    tempvar = int((newValue % 10000) / 1000) ;
+  int updateAltimeterInterval = 100;
+  unsigned int tempvar  = 0;
+  int Alt100s = 0;
 
-
-    if (tempvar != LastAlt1000s ) {
-      LastAlt1000s = tempvar;
-      Alt1000s = String(tempvar);
-      AltCounterUpdated = true;
-    }
-
-    tempvar = int((newValue % 100000) / 10000) ;
-    if (tempvar != LastAlt10000s ) {
-      LastAlt10000s = tempvar;
-      Alt10000s = String(tempvar);
-      AltCounterUpdated = true;
-    }
+  tempvar = int((newValue % 10000) / 1000) ;
 
 
-    unsigned int targetLocation = int (newValue * 0.72);
-
-    // SendDebug("Pointer Target = " + String(targetLocation));
-    stepperSTANDBY_ALT.runToNewPosition(targetLocation);
-
-    nextAltimeterUpdate =  millis() + updateAltimeterInterval;
+  if (tempvar != LastAlt1000s ) {
+    LastAlt1000s = tempvar;
+    Alt1000s = String(tempvar);
+    AltCounterUpdated = true;
   }
+
+  tempvar = int((newValue % 100000) / 10000) ;
+  if (tempvar != LastAlt10000s ) {
+    LastAlt10000s = tempvar;
+    Alt10000s = String(tempvar);
+    AltCounterUpdated = true;
+  }
+
+
+  //unsigned int targetLocation = int (newValue * 0.72);
+  valAltimeter = map(newValue, 0, 65000, 0, 46800);  // 46800 = 720 * 65
+
+  //SendDebug("Alt " + String(newValue) + " Translated Rate" + String(valAltimeter));
+  // SendDebug("Pointer Target = " + String(targetLocation));
+  //stepperSTANDBY_ALT.runToNewPosition(targetLocation);
+
 }
 DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
 
@@ -432,18 +454,18 @@ void onVsiChange(unsigned int newValue) {
   // 0      -6000
 
   int VSIRate = 0;
-  
 
-  if (newValue >= 32768) {
-    VSIRate = int((-32768 + newValue)/32);
-  } else {
-    VSIRate = int((32768 -newValue)/32);
-  }
+  //
+  //  if (newValue >= 32768) {
+  //    VSIRate = int((-32768 + newValue) / 32);
+  //  } else {
+  //    VSIRate = int((32768 - newValue) / 32);
+  //  }
 
-  SendDebug("VVI " + String(newValue) + " Translated Rate" + String(VSIRate));
-  stepperSTANDBY_ALT.setMaxSpeed(VSIRate);
-  stepperSTANDBY_ALT.setAcceleration(VSIRate);
-  
+  //SendDebug("VVI " + String(newValue) + " Translated Rate" + String(VSIRate));
+  //stepperSTANDBY_ALT.setMaxSpeed(VSIRate);
+  //stepperSTANDBY_ALT.setAcceleration(VSIRate);
+
 
 }
 DcsBios::IntegerBuffer vsiBuffer(0x7500, 0xffff, 0, onVsiChange);
@@ -504,16 +526,42 @@ void onStbyPressSet2Change(unsigned int newValue) {
 DcsBios::IntegerBuffer stbyPressSet2Buffer(0x74fe, 0xffff, 0, onStbyPressSet2Change);
 void loop() {
 
-  stepperSTANDBY_ALT.run();
+
   DcsBios::loop();
+
+  // Standby Altimeter
+  //###########################################################################################
+
+
+  //
+
+  if (valAltimeter > posAltimeter) {
+    stepperSTANDBY_ALT.step(1);      // move one step to the left.
+    posAltimeter++;
+    // SendDebug(String(valAltimeter) + " Inc v2 Altimeter " + String(posAltimeter));
+  }
+  if (valAltimeter < posAltimeter) {
+    stepperSTANDBY_ALT.step(-1);       // move one step to the right.
+    posAltimeter--;
+    //SendDebug(String(valAltimeter) + " Dec v2 Altimeter " + String(posAltimeter));
+  }
+
+  //###########################################################################################
+
+
+
+  if (BaroUpdated == true) buildBAROString();
+  if (AltCounterUpdated == true) updateALT(Alt10000s, Alt1000s );
+
+
 
   if (millis() >= nextupdate) {
     outputstate = !outputstate;
     digitalWrite(RedLedMonitorPin, outputstate);
     nextupdate = millis() + flashinterval;
 
-    if (BaroUpdated == true) buildBAROString();
-    if (AltCounterUpdated == true) updateALT(Alt10000s, Alt1000s );
 
   }
+
+
 }
