@@ -110,6 +110,7 @@ Stepper stepperSTANDBY_AIRSPEED(STEPS , COIL_AIRSPEED_A1, COIL_AIRSPEED_A2, COIL
 unsigned long nextVVIUpdate = 0;
 int updateVVIInterval = 100;
 #define VVI_ZERO_SENSE_PIN 30
+#define VVIOffSetToZeroPoint 535
 
 // Needle moves but is consistent in direction
 //#define  COIL_VVI_A1  22
@@ -192,6 +193,7 @@ void setup() {
     stepperSTANDBY_VVI.step(1);
     if (digitalRead(VVI_ZERO_SENSE_PIN) == false) {
       SendDebug("Found VVI Zero");
+      stepperSTANDBY_VVI.step(VVIOffSetToZeroPoint);
       posVVI = 0;
       break;
     }
@@ -201,7 +203,7 @@ void setup() {
 
 }
 
-int CalculateVVIPosition( int newValue) {
+int CalculateAirSpeedPosition( int newValue) {
 
   int newPosition = 0;
 
@@ -242,10 +244,46 @@ int CalculateVVIPosition( int newValue) {
   else if (newValue <= 800) newPosition = map(newValue, 700, 800, Pos700Knot, Pos800Knot);
   else if (newValue <= 850) newPosition = map(newValue, 800, 150, Pos800Knot, Pos850Knot);
 
+  SendDebug("Returning from CalculateAirSpeedPosition: " + String(newPosition));
+  return(newPosition);
+
+}
+
+
+int CalculateVVIPosition( int newValue) {
+
+  // Range -6000 to +6000
+  int newPosition = 0;
+
+  // Offset Values
+// 1000 150
+// 2000 220
+// 4000 280
+// 6000 300 
+#define Pos1000 150
+#define Pos2000 220
+#define Pos4000 280
+#define Pos6000 300
+
+
+  if (newValue <= -6000) newPosition = -Pos6000;
+  else if (newValue <= -4000) newPosition = map(newValue, -4000, -6000, -Pos4000, -Pos6000);
+  else if (newValue <= -2000) newPosition = map(newValue, -2000, -4000, -Pos2000, -Pos4000);
+  else if (newValue <= 200) newPosition = map(newValue, 150, 200, Pos150Knot, Pos200Knot);
+  else if (newValue <= 300) newPosition = map(newValue, 200, 300, Pos200Knot, Pos300Knot);
+  else if (newValue <= 400) newPosition = map(newValue, 300, 400, Pos300Knot, Pos400Knot);
+  else if (newValue <= 500) newPosition = map(newValue, 400, 500, Pos400Knot, Pos500Knot);
+  else if (newValue <= 600) newPosition = map(newValue, 500, 600, Pos500Knot, Pos600Knot);
+  else if (newValue <= 700) newPosition = map(newValue, 600, 700, Pos600Knot, Pos700Knot);
+  else if (newValue <= 800) newPosition = map(newValue, 700, 800, Pos700Knot, Pos800Knot);
+  else if (newValue <= 850) newPosition = map(newValue, 800, 150, Pos800Knot, Pos850Knot);
+  else if (newValue >= 6000) newPosition = Pos6000;
+
   SendDebug("Returning from CalculateVVIPosition: " + String(newPosition));
   return(newPosition);
 
 }
+
 
 void loop() {
   Serial.println("Enter Location to Move to");
@@ -253,6 +291,7 @@ void loop() {
   if (Serial.read() == '\n') {
     Serial.println("Moving to " + String(red));
     int targetPos = CalculateVVIPosition(red);
+    //int targetPos = red;
     SendDebug("Moving to: " + String(targetPos));
     stepperSTANDBY_VVI.step(targetPos);
     delay(2000);

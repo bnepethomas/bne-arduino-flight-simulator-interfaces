@@ -557,7 +557,7 @@ void onStbyPressSet2Change(unsigned int newValue) {
 DcsBios::IntegerBuffer stbyPressSet2Buffer(0x74fe, 0xffff, 0, onStbyPressSet2Change);
 
 
-int CalculateVVIPosition( int newValue) {
+int CalculateAirspeedPosition( int newValue) {
 
   int newPosition = 0;
 
