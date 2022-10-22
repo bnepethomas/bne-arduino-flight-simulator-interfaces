@@ -151,8 +151,8 @@ int updateVVIInterval = 100;
 #define VVI_ZERO_SENSE_PIN 30
 
 #define  COIL_VVI_A1  22
-#define  COIL_VVI_A2  24
-#define  COIL_VVI_A3  26
+#define  COIL_VVI_A2  26
+#define  COIL_VVI_A3  24
 #define  COIL_VVI_A4  28
 
 int STANDBY_VVI = 0;
@@ -458,10 +458,6 @@ DcsBios::IntegerBuffer stbyAlt100FtPtrBuffer(0x74f4, 0xffff, 0, onStbyAlt100FtPt
 //DcsBios::IntegerBuffer stbyAlt10000FtCntBuffer(0x74f6, 0xffff, 0, onStbyAlt10000FtCntChange);
 
 void onAltMslFtChange(unsigned int newValue) {
-
-
-
-
 
   int updateAltimeterInterval = 100;
   unsigned int tempvar  = 0;
