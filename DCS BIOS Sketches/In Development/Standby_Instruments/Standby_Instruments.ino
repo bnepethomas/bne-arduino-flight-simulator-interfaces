@@ -133,8 +133,8 @@ int updateAirSpeedInterval = 100;
 #define AIRSPEED_ZERO_SENSE_PIN 40
 
 #define  COIL_AIRSPEED_A1  32
-#define  COIL_AIRSPEED_A2  34
-#define  COIL_AIRSPEED_A3  36
+#define  COIL_AIRSPEED_A2  36
+#define  COIL_AIRSPEED_A3  34
 #define  COIL_AIRSPEED_A4  38
 
 int STANDBY_AIRSPEED = 0;
@@ -149,6 +149,8 @@ Stepper stepperSTANDBY_AIRSPEED(STEPS , COIL_AIRSPEED_A1, COIL_AIRSPEED_A2, COIL
 unsigned long nextVVIUpdate = 0;
 int updateVVIInterval = 100;
 #define VVI_ZERO_SENSE_PIN 30
+#define VVIOffSetToZeroPoint 210
+
 
 #define  COIL_VVI_A1  22
 #define  COIL_VVI_A2  26
@@ -157,8 +159,8 @@ int updateVVIInterval = 100;
 
 int STANDBY_VVI = 0;
 int LastSTANDBY_VVI = 0;
-unsigned int valVVI = 0;
-unsigned int posVVI = 0;
+long valVVI = 0;
+long posVVI = 0;
 
 Stepper stepperSTANDBY_VVI(STEPS , COIL_VVI_A1, COIL_VVI_A2, COIL_VVI_A3, COIL_VVI_A4);
 
@@ -294,7 +296,11 @@ void setup() {
     stepperSTANDBY_VVI.step(1);
     if (digitalRead(VVI_ZERO_SENSE_PIN) == false) {
       SendDebug("Found VVI Zero");
+      // Set to 0 point which is -6000
+      stepperSTANDBY_VVI.step(VVIOffSetToZeroPoint);
       posVVI = 0;
+      // Set desired point to 0
+      valVVI = map(32767, 0, 65535, 0, 660);
       break;
     }
   }
@@ -484,21 +490,17 @@ void onVsiChange(unsigned int newValue) {
   // 32768  0
   // 0      -6000
 
-  int VSIRate = 0;
 
-  //
-  //  if (newValue >= 32768) {
-  //    VSIRate = int((-32768 + newValue) / 32);
-  //  } else {
-  //    VSIRate = int((32768 - newValue) / 32);
-  //  }
+  valVVI = map(newValue, 0, 65535, 0, 680);
+  //valVVI = CalculateVVIPosition(VSI);
 
-  //SendDebug("VVI " + String(newValue) + " Translated Rate" + String(VSIRate));
-  //stepperSTANDBY_ALT.setMaxSpeed(VSIRate);
-  //stepperSTANDBY_ALT.setAcceleration(VSIRate);
+  //SendDebug("VVI from DCS: " + String(newValue) + "  Mapped:" + String(VSI)
+  //          + " Servo Pos: " + String(valVVI));
 
 
 }
+
+
 DcsBios::IntegerBuffer vsiBuffer(0x7500, 0xffff, 0, onVsiChange);
 
 
@@ -550,11 +552,21 @@ void onStbyPressSet1Change(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer stbyPressSet1Buffer(0x74fc, 0xffff, 0, onStbyPressSet1Change);
 
+
+
 // There is a bug here - the value doesn't change
 void onStbyPressSet2Change(unsigned int newValue) {
   //SendDebug(String(newValue));
 }
 DcsBios::IntegerBuffer stbyPressSet2Buffer(0x74fe, 0xffff, 0, onStbyPressSet2Change);
+
+
+
+void onStbyAsiAirspeedChange(unsigned int newValue) {
+    valAIRSPEED = map(newValue, 0, 65535, 0, 660);
+}
+DcsBios::IntegerBuffer stbyAsiAirspeedBuffer(0x74f0, 0xffff, 0, onStbyAsiAirspeedChange);
+
 
 
 int CalculateAirspeedPosition( int newValue) {
@@ -599,7 +611,7 @@ int CalculateAirspeedPosition( int newValue) {
   else if (newValue <= 850) newPosition = map(newValue, 800, 150, Pos800Knot, Pos850Knot);
 
   // SendDebug("Returning from CalculateAirSpeedPosition: " + String(newPosition));
-  return(newPosition);
+  return (newPosition);
 
 }
 
@@ -610,10 +622,10 @@ int CalculateVVIPosition( int newValue) {
   int newPosition = 0;
 
   // Offset Values
-// 1000 150
-// 2000 220
-// 4000 280
-// 6000 300 
+  // 1000 150
+  // 2000 220
+  // 4000 280
+  // 6000 300
 #define Pos1000 150
 #define Pos2000 220
 #define Pos4000 280
@@ -631,8 +643,8 @@ int CalculateVVIPosition( int newValue) {
   else if (newValue <= 6000)  newPosition = map(newValue, 4000, 6000, Pos4000, Pos6000);
   else if (newValue >= 6000)  newPosition = Pos6000;
 
-  //SendDebug("Returning from CalculateVVIPosition: " + String(newPosition));
-  return(newPosition);
+  // SendDebug("Returning from CalculateVVIPosition: " + String(newPosition));
+  return (newPosition);
 
 }
 void loop() {
@@ -643,18 +655,49 @@ void loop() {
   // Standby Altimeter
   //###########################################################################################
 
-
-  //
-
   if (valAltimeter > posAltimeter) {
     stepperSTANDBY_ALT.step(1);      // move one step to the left.
     posAltimeter++;
     // SendDebug(String(valAltimeter) + " Inc v2 Altimeter " + String(posAltimeter));
   }
-  if (valAltimeter < posAltimeter) {
+  else if (valAltimeter < posAltimeter) {
     stepperSTANDBY_ALT.step(-1);       // move one step to the right.
     posAltimeter--;
     //SendDebug(String(valAltimeter) + " Dec v2 Altimeter " + String(posAltimeter));
+  }
+
+  //###########################################################################################
+
+
+  // VVI
+  //###########################################################################################
+
+  if (valVVI > posVVI) {
+    stepperSTANDBY_VVI.step(1);      // move one step to the left.
+    posVVI++;
+    // SendDebug(String(valVVI) + " Inc VVI " + String(posVVI));
+  }
+  else if (valVVI < posVVI) {
+    stepperSTANDBY_VVI.step(-1);       // move one step to the right.
+    posVVI--;
+    //SendDebug(String(valVVI) + " Dec VVI " + String(posVVI));
+  }
+
+  //###########################################################################################
+
+
+  // Airspeed
+  //###########################################################################################
+
+  if (valAIRSPEED > posAIRSPEED) {
+    stepperSTANDBY_AIRSPEED.step(1);      // move one step to the left.
+    posAIRSPEED++;
+    // SendDebug(String(valAIRSPEED) + " Inc Airspeed " + String(posAIRSPEED));
+  }
+  else if (valAIRSPEED < posAIRSPEED) {
+    stepperSTANDBY_AIRSPEED.step(-1);       // move one step to the right.
+    posAIRSPEED--;
+    //SendDebug(String(valAIRSPEED) + " Dec Airspeed " + String(posAIRSPEED));
   }
 
   //###########################################################################################
