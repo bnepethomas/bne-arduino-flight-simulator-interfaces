@@ -127,13 +127,12 @@ unsigned int posAltimeter = 0;
 Stepper stepperSTANDBY_ALT(STEPS , COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4);
 
 
-
 // Airspeed
 unsigned long nextAirSpeedUpdate = 0;
 int updateAirSpeedInterval = 100;
 #define AIRSPEED_ZERO_SENSE_PIN 40
 
-#define  COIL_AIRSPEED_A1  32 
+#define  COIL_AIRSPEED_A1  32
 #define  COIL_AIRSPEED_A2  34
 #define  COIL_AIRSPEED_A3  36
 #define  COIL_AIRSPEED_A4  38
@@ -144,6 +143,25 @@ unsigned int valAIRSPEED = 0;
 unsigned int posAIRSPEED = 0;
 
 Stepper stepperSTANDBY_AIRSPEED(STEPS , COIL_AIRSPEED_A1, COIL_AIRSPEED_A2, COIL_AIRSPEED_A3, COIL_AIRSPEED_A4);
+
+
+// VVI
+unsigned long nextVVIUpdate = 0;
+int updateVVIInterval = 100;
+#define VVI_ZERO_SENSE_PIN 30
+
+#define  COIL_VVI_A1  22
+#define  COIL_VVI_A2  24
+#define  COIL_VVI_A3  26
+#define  COIL_VVI_A4  28
+
+int STANDBY_VVI = 0;
+int LastSTANDBY_VVI = 0;
+unsigned int valVVI = 0;
+unsigned int posVVI = 0;
+
+Stepper stepperSTANDBY_VVI(STEPS , COIL_VVI_A1, COIL_VVI_A2, COIL_VVI_A3, COIL_VVI_A4);
+
 
 
 void SendDebug( String MessageToSend) {
@@ -252,10 +270,10 @@ void setup() {
 
 
   stepperSTANDBY_ALT.setSpeed(60);
-
+  stepperSTANDBY_ALT.step(1000);
   for (int i = 0; i <= 2000; i++) {
     delay(1);
-    stepperSTANDBY_ALT.step(1); 
+    stepperSTANDBY_ALT.step(1);
     if (digitalRead(ALT_ZERO_SENSE_PIN) == false) {
       SendDebug("Found Zero");
       posAltimeter = 0;
@@ -268,29 +286,33 @@ void setup() {
 
 
   stepperSTANDBY_AIRSPEED.setSpeed(60);
-
+  stepperSTANDBY_AIRSPEED.step(1000);
   for (int i = 0; i <= 2000; i++) {
     delay(1);
-    stepperSTANDBY_AIRSPEED.step(1); 
+    stepperSTANDBY_AIRSPEED.step(1);
     if (digitalRead(AIRSPEED_ZERO_SENSE_PIN) == false) {
-      SendDebug("Found AirspeedZero");
+      SendDebug("Found Airspeed Zero");
       posAIRSPEED = 0;
       break;
     }
   }
 
+  SendDebug("Looking for VVI Zero");
+  pinMode(VVI_ZERO_SENSE_PIN,  INPUT_PULLUP);
 
 
-  //  for (int i = 0; i <= 2000; i++) {
-  //    delay(1);
-  //    stepperSTANDBY_ALT.moveTo(i);
-  //    stepperSTANDBY_ALT.run();
-  //    if (digitalRead(ALT_ZERO_SENSE_PIN) == false) {
-  //      SendDebug("Found Zero");
-  //      stepperSTANDBY_ALT.setCurrentPosition(0);
-  //      break;
-  //    }
-  //  }
+  stepperSTANDBY_VVI.setSpeed(60);
+  stepperSTANDBY_VVI.step(1000);
+  for (int i = 0; i <= 2000; i++) {
+    delay(1);
+    stepperSTANDBY_VVI.step(1);
+    if (digitalRead(VVI_ZERO_SENSE_PIN) == false) {
+      SendDebug("Found VVI Zero");
+      posVVI = 0;
+      break;
+    }
+  }
+
 
   nextAltimeterUpdate = millis();
 }
