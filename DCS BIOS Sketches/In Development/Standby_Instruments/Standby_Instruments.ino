@@ -598,11 +598,43 @@ int CalculateAirspeedPosition( int newValue) {
   else if (newValue <= 800) newPosition = map(newValue, 700, 800, Pos700Knot, Pos800Knot);
   else if (newValue <= 850) newPosition = map(newValue, 800, 150, Pos800Knot, Pos850Knot);
 
-  // SendDebug("Returning from CalculateVVIPosition: " + String(newPosition));
+  // SendDebug("Returning from CalculateAirSpeedPosition: " + String(newPosition));
   return(newPosition);
 
 }
 
+
+int CalculateVVIPosition( int newValue) {
+
+  // Range -6000 to +6000
+  int newPosition = 0;
+
+  // Offset Values
+// 1000 150
+// 2000 220
+// 4000 280
+// 6000 300 
+#define Pos1000 150
+#define Pos2000 220
+#define Pos4000 280
+#define Pos6000 300
+
+
+  if (newValue <= -6000) newPosition = -Pos6000;
+  else if (newValue <= -4000) newPosition = map(newValue, -4000, -6000, -Pos4000, -Pos6000);
+  else if (newValue <= -2000) newPosition = map(newValue, -2000, -4000, -Pos2000, -Pos4000);
+  else if (newValue <= -1000) newPosition = map(newValue, -1000, -2000, -Pos1000, -Pos2000);
+  else if (newValue <= 0)     newPosition = map(newValue, 0, -1000, 0, -Pos1000);
+  else if (newValue <= 1000)  newPosition = map(newValue, 0, 1000, 0, Pos1000);
+  else if (newValue <= 2000)  newPosition = map(newValue, 1000, 2000, Pos1000, Pos2000);
+  else if (newValue <= 4000)  newPosition = map(newValue, 2000, 4000, Pos2000, Pos4000);
+  else if (newValue <= 6000)  newPosition = map(newValue, 4000, 6000, Pos4000, Pos6000);
+  else if (newValue >= 6000)  newPosition = Pos6000;
+
+  //SendDebug("Returning from CalculateVVIPosition: " + String(newPosition));
+  return(newPosition);
+
+}
 void loop() {
 
 

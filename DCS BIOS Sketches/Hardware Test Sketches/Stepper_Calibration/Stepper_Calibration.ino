@@ -269,15 +269,13 @@ int CalculateVVIPosition( int newValue) {
   if (newValue <= -6000) newPosition = -Pos6000;
   else if (newValue <= -4000) newPosition = map(newValue, -4000, -6000, -Pos4000, -Pos6000);
   else if (newValue <= -2000) newPosition = map(newValue, -2000, -4000, -Pos2000, -Pos4000);
-  else if (newValue <= 200) newPosition = map(newValue, 150, 200, Pos150Knot, Pos200Knot);
-  else if (newValue <= 300) newPosition = map(newValue, 200, 300, Pos200Knot, Pos300Knot);
-  else if (newValue <= 400) newPosition = map(newValue, 300, 400, Pos300Knot, Pos400Knot);
-  else if (newValue <= 500) newPosition = map(newValue, 400, 500, Pos400Knot, Pos500Knot);
-  else if (newValue <= 600) newPosition = map(newValue, 500, 600, Pos500Knot, Pos600Knot);
-  else if (newValue <= 700) newPosition = map(newValue, 600, 700, Pos600Knot, Pos700Knot);
-  else if (newValue <= 800) newPosition = map(newValue, 700, 800, Pos700Knot, Pos800Knot);
-  else if (newValue <= 850) newPosition = map(newValue, 800, 150, Pos800Knot, Pos850Knot);
-  else if (newValue >= 6000) newPosition = Pos6000;
+  else if (newValue <= -1000) newPosition = map(newValue, -1000, -2000, -Pos1000, -Pos2000);
+  else if (newValue <= 0)     newPosition = map(newValue, 0, -1000, 0, -Pos1000);
+  else if (newValue <= 1000)  newPosition = map(newValue, 0, 1000, 0, Pos1000);
+  else if (newValue <= 2000)  newPosition = map(newValue, 1000, 2000, Pos1000, Pos2000);
+  else if (newValue <= 4000)  newPosition = map(newValue, 2000, 4000, Pos2000, Pos4000);
+  else if (newValue <= 6000)  newPosition = map(newValue, 4000, 6000, Pos4000, Pos6000);
+  else if (newValue >= 6000)  newPosition = Pos6000;
 
   SendDebug("Returning from CalculateVVIPosition: " + String(newPosition));
   return(newPosition);
