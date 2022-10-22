@@ -102,6 +102,8 @@ bool AltCounterUpdated = true;
 String VVI = "0";
 int LastVVI = 0;
 
+// Altimeter
+
 unsigned long nextAltimeterUpdate = 0;
 int updateAltimeterInterval = 100;
 #define ALT_ZERO_SENSE_PIN 49
@@ -109,12 +111,6 @@ int updateAltimeterInterval = 100;
 //#include <AccelStepper.h>
 #include <Stepper.h>
 #define  STEPS  720    // steps per revolution (limited to 315°)
-//
-//Working but direction in incorrect
-//#define  COIL_STANDBY_ALT_A1  45 // STANDBY ALT
-//#define  COIL_STANDBY_ALT_A2  47
-//#define  COIL_STANDBY_ALT_A3  41
-//#define  COIL_STANDBY_ALT_A4  43
 
 #define  COIL_STANDBY_ALT_A1  41 // STANDBY ALT
 #define  COIL_STANDBY_ALT_A2  43
@@ -129,6 +125,25 @@ unsigned int posAltimeter = 0;
 // AccelStepper stepperSTANDBY_ALT(STEPS, COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4);
 // AccelStepper stepperSTANDBY_ALT(AccelStepper::FULL4WIRE , COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4);
 Stepper stepperSTANDBY_ALT(STEPS , COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COIL_STANDBY_ALT_A3, COIL_STANDBY_ALT_A4);
+
+
+
+// Airspeed
+unsigned long nextAirSpeedUpdate = 0;
+int updateAirSpeedInterval = 100;
+#define AIRSPEED_ZERO_SENSE_PIN 40
+
+#define  COIL_AIRSPEED_A1  32 
+#define  COIL_AIRSPEED_A2  34
+#define  COIL_AIRSPEED_A3  36
+#define  COIL_AIRSPEED_A4  38
+
+int STANDBY_AIRSPEED = 0;
+int LastSTANDBY_AIRSPEED = 0;
+unsigned int valAIRSPEED = 0;
+unsigned int posAIRSPEED = 0;
+
+Stepper stepperSTANDBY_AIRSPEED(STEPS , COIL_AIRSPEED_A1, COIL_AIRSPEED_A2, COIL_AIRSPEED_A3, COIL_AIRSPEED_A4);
 
 
 void SendDebug( String MessageToSend) {
@@ -162,7 +177,7 @@ void setup() {
 
 
   STANDBY_ALT = 0;
-
+  STANDBY_AIRSPEED = 0;
 
   outputstate = false;
   digitalWrite(RedLedMonitorPin, outputstate);
@@ -202,7 +217,6 @@ void setup() {
       }
     }
   }
-  // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
   SendDebug("I2C scan complete");
 
 
@@ -233,8 +247,7 @@ void setup() {
   updateALT("0", "0");
   updateBARO("2992");
 
-  SendDebug("Looking for Zero");
-  //stepperSTANDBY_ALT.setCurrentPosition(0);
+  SendDebug("Looking for Altimeter Zero");
   pinMode(ALT_ZERO_SENSE_PIN,  INPUT_PULLUP);
 
 
@@ -250,7 +263,21 @@ void setup() {
     }
   }
 
+  SendDebug("Looking for Airspeed Zero");
+  pinMode(AIRSPEED_ZERO_SENSE_PIN,  INPUT_PULLUP);
 
+
+  stepperSTANDBY_AIRSPEED.setSpeed(60);
+
+  for (int i = 0; i <= 2000; i++) {
+    delay(1);
+    stepperSTANDBY_AIRSPEED.step(1); 
+    if (digitalRead(AIRSPEED_ZERO_SENSE_PIN) == false) {
+      SendDebug("Found AirspeedZero");
+      posAIRSPEED = 0;
+      break;
+    }
+  }
 
 
 
