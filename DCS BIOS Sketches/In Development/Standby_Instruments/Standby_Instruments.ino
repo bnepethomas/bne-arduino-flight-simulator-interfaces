@@ -187,13 +187,6 @@ void setup() {
   digitalWrite(GreenLedMonitorPin, outputstate);
 
 
-
-  //
-  //  stepperSTANDBY_ALT.setMaxSpeed(1000.0);
-  //  stepperSTANDBY_ALT.setAcceleration(1000.0);
-  //  stepperSTANDBY_ALT.runToNewPosition(500);
-
-
   STANDBY_ALT = 0;
   STANDBY_AIRSPEED = 0;
 
@@ -220,8 +213,6 @@ void setup() {
   for (uint8_t t = 0; t < 8; t++) {
     SendDebug("TCA Port #" + String(t));
     tcaselect(t);
-    // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-
 
     for (uint8_t addr = 0; addr <= 127; addr++) {
       //if (addr == TCAADDR) continue;
@@ -238,12 +229,7 @@ void setup() {
   SendDebug("I2C scan complete");
 
 
-
-
-
-
   nextupdate = millis() + flashinterval;
-
 
 
   tcaselect(BARO_OLED_Port);
@@ -569,6 +555,54 @@ void onStbyPressSet2Change(unsigned int newValue) {
   //SendDebug(String(newValue));
 }
 DcsBios::IntegerBuffer stbyPressSet2Buffer(0x74fe, 0xffff, 0, onStbyPressSet2Change);
+
+
+int CalculateVVIPosition( int newValue) {
+
+  int newPosition = 0;
+
+  // Offset Values
+  // 60  Knots 30
+  // 100 Knots 100
+  // 150 Knots 230
+  // 200 Knots 408
+  // 300 Knots 478
+  // 400 Knots 525
+  // 500 Knots 567
+  // 600 Knots 601
+  // 700 Knots 634
+  // 800 Knots 673
+  // 850 Knots 688
+
+#define Pos60Knot   30
+#define Pos100Knot  100
+#define Pos150Knot  230
+#define Pos200Knot  408
+#define Pos300Knot  478
+#define Pos400Knot  525
+#define Pos500Knot  567
+#define Pos600Knot  601
+#define Pos700Knot  634
+#define Pos800Knot  673
+#define Pos850Knot  688
+
+  if (newValue <= 60) newPosition = map(newValue, 0, 60, 0, Pos60Knot);
+  else if (newValue <= 100) newPosition = map(newValue, 60, 100, Pos60Knot, Pos100Knot);
+  else if (newValue <= 150) newPosition = map(newValue, 100, 150, Pos100Knot, Pos150Knot);
+  else if (newValue <= 200) newPosition = map(newValue, 150, 200, Pos150Knot, Pos200Knot);
+  else if (newValue <= 300) newPosition = map(newValue, 200, 300, Pos200Knot, Pos300Knot);
+  else if (newValue <= 400) newPosition = map(newValue, 300, 400, Pos300Knot, Pos400Knot);
+  else if (newValue <= 500) newPosition = map(newValue, 400, 500, Pos400Knot, Pos500Knot);
+  else if (newValue <= 600) newPosition = map(newValue, 500, 600, Pos500Knot, Pos600Knot);
+  else if (newValue <= 700) newPosition = map(newValue, 600, 700, Pos600Knot, Pos700Knot);
+  else if (newValue <= 800) newPosition = map(newValue, 700, 800, Pos700Knot, Pos800Knot);
+  else if (newValue <= 850) newPosition = map(newValue, 800, 150, Pos800Knot, Pos850Knot);
+
+  // SendDebug("Returning from CalculateVVIPosition: " + String(newPosition));
+  return(newPosition);
+
+}
+
 void loop() {
 
 
