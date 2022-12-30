@@ -10,6 +10,10 @@
 // the Warthog Project Video on the compass build
 // https://www.youtube.com/watch?v=ZN9glqgp9TY&t=332s
 
+// Zero Offsets for steppers
+
+
+
 #define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
 #define Reflector_In_Use 1
@@ -107,15 +111,25 @@ int LastVVI = 0;
 unsigned long nextAltimeterUpdate = 0;
 int updateAltimeterInterval = 100;
 #define ALT_ZERO_SENSE_PIN 49
+#define ALT_OFFSET_TO_ZERO_POINT 708
 
 //#include <AccelStepper.h>
 #include <Stepper.h>
 #define  STEPS  720    // steps per revolution (limited to 315°)
 
+// Going in the incorrect direction
+// #define  COIL_STANDBY_ALT_A1  41 // STANDBY ALT
+// #define  COIL_STANDBY_ALT_A2  43
+// #define  COIL_STANDBY_ALT_A3  45
+// #define  COIL_STANDBY_ALT_A4  47
+
 #define  COIL_STANDBY_ALT_A1  41 // STANDBY ALT
 #define  COIL_STANDBY_ALT_A2  43
-#define  COIL_STANDBY_ALT_A3  45
-#define  COIL_STANDBY_ALT_A4  47
+#define  COIL_STANDBY_ALT_A3  47
+#define  COIL_STANDBY_ALT_A4  45
+
+
+
 
 int STANDBY_ALT = 0;
 int LastSTANDBY_ALT = 0;
@@ -131,11 +145,18 @@ Stepper stepperSTANDBY_ALT(STEPS , COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COI
 unsigned long nextAirSpeedUpdate = 0;
 int updateAirSpeedInterval = 100;
 #define AIRSPEED_ZERO_SENSE_PIN 40
+#define AIRSPEED_OFFSET_TO_ZERO_POINT 710 
+
+// Going in the incorrect direction
+// #define  COIL_AIRSPEED_A1  32
+// #define  COIL_AIRSPEED_A2  36
+// #define  COIL_AIRSPEED_A3  34
+// #define  COIL_AIRSPEED_A4  38
 
 #define  COIL_AIRSPEED_A1  32
 #define  COIL_AIRSPEED_A2  36
-#define  COIL_AIRSPEED_A3  34
-#define  COIL_AIRSPEED_A4  38
+#define  COIL_AIRSPEED_A3  38
+#define  COIL_AIRSPEED_A4  34
 
 int STANDBY_AIRSPEED = 0;
 int LastSTANDBY_AIRSPEED = 0;
@@ -149,13 +170,18 @@ Stepper stepperSTANDBY_AIRSPEED(STEPS , COIL_AIRSPEED_A1, COIL_AIRSPEED_A2, COIL
 unsigned long nextVVIUpdate = 0;
 int updateVVIInterval = 100;
 #define VVI_ZERO_SENSE_PIN 30
-#define VVIOffSetToZeroPoint 210
+#define VVI_OFFSET_TO_ZERO_POINT 392
 
+// Going in the incorrect direction
+// #define  COIL_VVI_A1  22
+// #define  COIL_VVI_A2  26
+// #define  COIL_VVI_A3  24
+// #define  COIL_VVI_A4  28
 
 #define  COIL_VVI_A1  22
 #define  COIL_VVI_A2  26
-#define  COIL_VVI_A3  24
-#define  COIL_VVI_A4  28
+#define  COIL_VVI_A3  28
+#define  COIL_VVI_A4  24
 
 int STANDBY_VVI = 0;
 int LastSTANDBY_VVI = 0;
@@ -175,11 +201,15 @@ void SendDebug( String MessageToSend) {
 }
 
 // DcsBios::RotaryEncoder saiSet("SAI_SET", "-3200", "+3200", 37, 39);
+// DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 37, 39);
+// DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", 8);
+// DcsBios::LED lsLock(0x7408, 0x0001, 13);
+
+DcsBios::RotaryEncoder saiSet("SAI_SET", "-3200", "+3200", 23, 25);
+DcsBios::Switch2Pos saiTestBtn("SAI_TEST_BTN", 29);
+DcsBios::Switch2Pos saiCage("SAI_CAGE", 27);
 DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 37, 39);
-DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", 8);
-DcsBios::LED lsLock(0x7408, 0x0001, 13);
-
-
+DcsBios::Potentiometer rwrRwrIntesity("RWR_RWR_INTESITY", 0);
 void setup() {
 
   pinMode(RedLedMonitorPin, OUTPUT);
@@ -264,6 +294,7 @@ void setup() {
     stepperSTANDBY_ALT.step(1);
     if (digitalRead(ALT_ZERO_SENSE_PIN) == false) {
       SendDebug("Found Zero");
+      stepperSTANDBY_ALT.step(ALT_OFFSET_TO_ZERO_POINT);
       posAltimeter = 0;
       break;
     }
@@ -280,6 +311,7 @@ void setup() {
     stepperSTANDBY_AIRSPEED.step(1);
     if (digitalRead(AIRSPEED_ZERO_SENSE_PIN) == false) {
       SendDebug("Found Airspeed Zero");
+      stepperSTANDBY_AIRSPEED.step(AIRSPEED_OFFSET_TO_ZERO_POINT);
       posAIRSPEED = 0;
       break;
     }
@@ -297,7 +329,7 @@ void setup() {
     if (digitalRead(VVI_ZERO_SENSE_PIN) == false) {
       SendDebug("Found VVI Zero");
       // Set to 0 point which is -6000
-      stepperSTANDBY_VVI.step(VVIOffSetToZeroPoint);
+      stepperSTANDBY_VVI.step(VVI_OFFSET_TO_ZERO_POINT);
       posVVI = 0;
       // Set desired point to 0
       valVVI = map(32767, 0, 65535, 0, 660);
@@ -647,6 +679,10 @@ int CalculateVVIPosition( int newValue) {
   return (newPosition);
 
 }
+
+
+
+
 void loop() {
 
 
