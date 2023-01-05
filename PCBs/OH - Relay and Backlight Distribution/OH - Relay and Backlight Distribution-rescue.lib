@@ -1,0 +1,19 @@
+EESchema-LIBRARY Version 2.4
+#encoding utf-8
+#
+# PT_SmallPCB-PT_Symbol_Library_v001
+#
+DEF PT_SmallPCB-PT_Symbol_Library_v001 SPCB 0 40 Y Y 1 F N
+F0 "SPCB" -25 0 50 H V C CNN
+F1 "PT_SmallPCB-PT_Symbol_Library_v001" 0 -75 50 H V C CNN
+F2 "" -25 0 50 H I C CNN
+F3 "" -25 0 50 H I C CNN
+DRAW
+S -200 -125 200 -125 0 1 0 N
+S -200 50 -200 -125 0 1 0 N
+S 200 50 -200 50 0 1 0 N
+S 200 50 200 -125 0 1 0 N
+ENDDRAW
+ENDDEF
+#
+#End Library
