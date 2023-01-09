@@ -16,7 +16,7 @@
 
 
 */
-#define Ethernet_In_Use 1
+#define Ethernet_In_Use 0
 const int Serial_In_Use = 1;
 #define Reflector_In_Use 1
 
@@ -39,6 +39,7 @@ int startUpBrightness =   50;       // LED Brightness 0 = Off, 255 = 100%.
 // Defining how many pixels each backlighting connector has connected, if a connector is not used set it to zero.
 // Led Counts for LIP and UIP Panels
 #define ECM_JETT_LED_COUNT      78
+#define STANDBY_LED_COUNT       6
 #define VIDEO_RECORD_LED_COUNT  16
 #define PLACARD_LED_COUNT       8
 #define MASTER_ARM_LED_COUNT    29
@@ -47,7 +48,7 @@ int startUpBrightness =   50;       // LED Brightness 0 = Off, 255 = 100%.
 
 #define LEFT_CONSOLE_LED_COUNT 500
 #define RIGHT_CONSOLE_LED_COUNT 500
-const int  LIP_CONSOLE_LED_COUNT = ECM_JETT_LED_COUNT + VIDEO_RECORD_LED_COUNT + PLACARD_LED_COUNT;
+const int  LIP_CONSOLE_LED_COUNT = ECM_JETT_LED_COUNT + STANDBY_LED_COUNT+ VIDEO_RECORD_LED_COUNT + PLACARD_LED_COUNT;
 const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT + SPIN_RECOVERY_LED_COUNT;
 
 // Defining what data pin each backlighting connector is connected to.
@@ -114,7 +115,8 @@ bool LedUpdateNeeded = false;                   // Flags if we have something to
 //    (as of the version 1) the Spin Recovery do not pass the data signal through
 
 const int ECM_JET_START_POS       = 0;
-const int VID_RECORD_START_POS    = ECM_JETT_LED_COUNT;
+const int STANDBY_START_POS       = ECM_JETT_LED_COUNT;
+const int VID_RECORD_START_POS    = ECM_JETT_LED_COUNT + STANDBY_LED_COUNT;
 const int PLACARD_LED_START_POS   = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT;
 
 const int MASTER_ARM_START_POS    = 0;
@@ -243,13 +245,25 @@ void setup() {
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
+  // // Fix up the Standby Gauges as they use a different approach to colour
+  for (ledptr = STANDBY_START_POS;
+        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT  - 1); ledptr++) {
+    // There are no special function leds - so no check needed
+    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVRed, 255, startUpBrightness * 4);// GREEN
+   }
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
 
   FastLED.show();
   delay(2000);
+
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Red);
   fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Red);
   fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Red);
+     for (ledptr = STANDBY_START_POS;
+        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT  - 1); ledptr++) {
+    // There are no special function leds - so no check needed
+    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, startUpBrightness * 4);// Red
+   } 
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
 
   FastLED.show();
@@ -278,6 +292,11 @@ void setup() {
   fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
+    for (ledptr = STANDBY_START_POS;
+        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT  - 1); ledptr++) {
+    // There are no special function leds - so no check needed
+    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVRed, 255, startUpBrightness * 4);// GREEN
+   }
   fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
   FastLED.show();
   delay(1000);
@@ -328,6 +347,11 @@ void SetBacklighting()
       LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
   }
 
+  for (ledptr = STANDBY_START_POS;
+        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT  - 1); ledptr++) {
+    // There are no special function leds - so no check needed
+    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, startUpBrightness * 4);// GREEN
+   } 
 
   // Video Record
   for (ledptr = VID_RECORD_START_POS;
