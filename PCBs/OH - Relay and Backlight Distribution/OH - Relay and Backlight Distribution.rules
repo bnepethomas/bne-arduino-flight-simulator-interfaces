@@ -1,5 +1,5 @@
 
-(rules PCB PowerDistribution
+(rules PCB OH - Relay and Backlight Distribution
   (snap_angle 
     fortyfive_degree
   )
@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 625)
+    (start_pass_no 207)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,8 +63,8 @@
     )
   )
   (class "kicad_default"
-    /12VGND /+12V /5VGND /+5V /WhiteGND /White+12V /GreenGND /Green12V+
-    "Net-(D1-Pad2)" "Net-(D2-Pad2)"
+    /12VGND /5VGND "Net-(D1-Pad2)" "Net-(D2-Pad2)" "/NVG-" /NVG+ /+12Vin /+12VLeftDDI
+    /+5VSwitched /+5Vin /+12VRightDDI /+12VChartDimmer /A1 /A2
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
