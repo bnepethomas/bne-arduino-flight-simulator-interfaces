@@ -23,7 +23,7 @@ struct StepperConfig {
   unsigned int maxSpeed;
 };
 
-const long zeroTimeout = 3000;
+const long zeroTimeout = 30000;
 
 class Vid60Stepper : public DcsBios::Int16Buffer {
   private:
