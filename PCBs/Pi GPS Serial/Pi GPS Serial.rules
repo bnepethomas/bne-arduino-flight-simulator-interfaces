@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 329)
+    (start_pass_no 311)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,7 +63,7 @@
     /SCL1 "unconnected-(J3-Pad7)" "unconnected-(J3-Pad10)" "/GPIO_GEN0" "unconnected-(J3-Pad12)" "unconnected-(J3-Pad13)" "unconnected-(J3-Pad15)" "unconnected-(J3-Pad16)"
     "unconnected-(J3-Pad17)" "unconnected-(J3-Pad18)" "/SPI_MOSI" "/SPI_MISO" "unconnected-(J3-Pad22)" "/SPI_CLK" "unconnected-(J3-Pad24)" "unconnected-(J3-Pad26)"
     /GPIO5 "unconnected-(J3-Pad31)" "unconnected-(J3-Pad32)" "unconnected-(J3-Pad33)" "unconnected-(J3-Pad35)" "unconnected-(J3-Pad36)" "unconnected-(J3-Pad37)" "unconnected-(J3-Pad38)"
-    "unconnected-(J3-Pad40)" "unconnected-(U1-Pad8)" "unconnected-(U1-Pad7)" "unconnected-(U1-Pad6)" "unconnected-(U1-Pad13)" "unconnected-(U1-Pad12)" "unconnected-(U1-Pad10)" "unconnected-(U1-Pad2)"
+    "unconnected-(J3-Pad40)" "unconnected-(U1-Pad8)" "unconnected-(U1-Pad7)" "Net-(U1-Pad6)" "unconnected-(U1-Pad13)" "unconnected-(U1-Pad12)" "unconnected-(U1-Pad10)" "Net-(U1-Pad2)"
     "unconnected-(U1-Pad9)" "Net-(J1-Pad1)" "/SERIAL_TX"
     (clearance_class default)
     (via_rule default)
