@@ -1,5 +1,5 @@
 _ = function(p) return p; end;
-name = _('SIM18_1920_0_11520_2160');
+name = _('SIM18_0_0_11520_2160');
 Description = 'Exported configuration with 3 projectors'
 Viewports =
 {
