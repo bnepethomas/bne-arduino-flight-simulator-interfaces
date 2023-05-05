@@ -16,7 +16,7 @@
 
 
 */
-#define Ethernet_In_Use 0
+#define Ethernet_In_Use 1
 const int Serial_In_Use = 1;
 #define Reflector_In_Use 1
 
