@@ -25,4 +25,7 @@ ping 172.16.1.111 -n 2
 echo .
 echo Pi GPS
 ping 172.16.1.112 -n 2
+echo.
+echo Standby Instruments
+ping 172.16.1.113 -n 2
 pause
