@@ -1,5 +1,5 @@
 
-(rules PCB Hornet Forward Input Shield
+(rules PCB F16 Input Shield with Ethernet
   (snap_angle 
     fortyfive_degree
   )
@@ -11,12 +11,12 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1801)
+    (start_pass_no 411)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.8)
+      (against_preferred_direction_trace_costs 2.9)
     )
     (layer_rule B.Cu
       (active on)
@@ -53,6 +53,18 @@
     "kicad_default" "Via[0-1]_600:400_um-kicad_default"
   )
   (class default
+    "unconnected-(J3-Pad6)" /48 /46 /47 /44 /45 /42 /43
+    /40 /41 /38 /39 /36 /37 /34 /35
+    /32 /33 /30 /31 /28 /29 /26 /27
+    /24 /25 /22 /23 +5V /A8 /A9 /A10
+    /A11 /A12 /A13 /A14 /A15 "/20(SDA)" "/21(SCL)" "/14(Tx3)"
+    "/15(Rx3)" "/16(Tx2)" "/17(Rx2)" "/18(Tx1)" "/19(Rx1)" GNDD /A5 /A4
+    /A3 /A2 /A1 /A0 /D3 /D2 /D1 /D0
+    /D8 /D7 /D6 /D5 /D13 /D12 /D11 /D9
+    "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(J2-Pad2)" /51 /52 /SS "Net-(R1-Pad2)" +3.3V
+    "unconnected-(U1-PadB4)" /49 /50 "unconnected-(J1-Pad34)" "unconnected-(J1-Pad33)" "unconnected-(J1-Pad32)" "unconnected-(J1-Pad31)" "unconnected-(J1-Pad30)"
+    "unconnected-(J1-Pad29)" "unconnected-(J1-Pad1)" "unconnected-(J5-Pad10)" /Vin +3V3 /Reset /IOREF "unconnected-(P1-Pad1)"
+    /53 "unconnected-(P5-Pad1)" "unconnected-(P6-Pad4)"
     (clearance_class default)
     (via_rule default)
     (rule
@@ -63,15 +75,6 @@
     )
   )
   (class "kicad_default"
-    GND /48 /46 /47 /44 /45 /42 /43
-    /40 /41 /38 /39 /36 /37 /34 /35
-    /32 /33 /30 /31 /28 /29 /26 /27
-    /24 /25 /22 /23 +5V /A8 /A9 /A10
-    /A11 /A12 /A13 /A14 /A15 "/20(SDA)" "/21(SCL)" "/14(Tx3)"
-    "/15(Rx3)" "/16(Tx2)" "/17(Rx2)" "/18(Tx1)" "/19(Rx1)" GNDD /A5 /A4
-    /A3 /A2 /A1 /A0 +5VL /D3 /D2 /D1
-    /D0 /D8 /D7 /D6 /D5 /D13 /D12 /D11
-    /D9 "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(J2-Pad2)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
