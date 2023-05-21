@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 854)
+    (start_pass_no 540)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -61,15 +61,15 @@
   (class default
     /47 /45 /43 /41 /39 /37 /35 /33
     "Net-(C1-Pad1)" /31 "Net-(C1-Pad2)" /29 "Net-(C2-Pad1)" /27 "Net-(C2-Pad2)" /25
-    "Net-(C3-Pad1)" /23 "/ALL_ON" /D7 /D6 /D12 /D11 "/ALL_OFF"
-    "Net-(D1-Pad2)" "Net-(D2-Pad2)" "/14(Tx3)" "/15(Rx3)" "/16(Tx2)" "/18(Tx1)" "Net-(C4-Pad1)" "unconnected-(P1-Pad1)"
+    "Net-(C3-Pad1)" /23 "/ALL_ON" "/SPARE 1" "/SPARE 2" "/ROOF_OFF" "/ROOF_ON" "/ALL_OFF"
+    "Net-(D1-Pad2)" "Net-(D2-Pad2)" "unconnected-(P4-Pad8)" "/RED_LED" "/GREEN_LED" "/SERIAL_TX3" "Net-(C4-Pad1)" "unconnected-(P1-Pad1)"
     /IOREF /Reset +3V3 /SCLK /Vin /A5 /A8 /A9
-    /D13 /D5 "/19(Rx1)" "/20(SDA)" "/21(SCL)" "/ADDRESS_SELECT_0" "/ADDRESS_SELECT_1" /A10
+    "/SERIAL_RX3" "/SERIAL_TX2" "/SERIAL_RX2" "/SERIAL_TX1" "/SERIAL_RX1" "/ADDRESS_SELECT_0" "/ADDRESS_SELECT_1" /A10
     /A11 /A3 /A2 /A1 /A0 /A4 /A12 /A13
-    /A14 /A15 /MISO "unconnected-(P4-Pad4)" /MOSI "/ES1_RST" "unconnected-(P4-Pad7)" "unconnected-(P4-Pad9)"
+    /A14 /A15 /MISO "unconnected-(P7-Pad7)" /MOSI "/ES1_RST" "unconnected-(P4-Pad7)" "unconnected-(P4-Pad9)"
     "unconnected-(P4-Pad11)" "unconnected-(P4-Pad13)" "unconnected-(P4-Pad15)" "unconnected-(P4-Pad17)" "unconnected-(P4-Pad19)" "unconnected-(P4-Pad21)" "unconnected-(P4-Pad23)" "unconnected-(P4-Pad25)"
     "unconnected-(P4-Pad27)" "unconnected-(P4-Pad29)" "unconnected-(P4-Pad31)" "unconnected-(P4-Pad33)" /SS /AREF "unconnected-(P6-Pad4)" /D1
-    /D0 "/17(Rx2)" "/RS232_TX2" "/RS232_RX2" "/RS232_RX1" "/RS232_TX1" "Net-(R1-Pad2)" +3.3V
+    /D0 "unconnected-(P7-Pad8)" "/RS232_TX2" "/RS232_RX2" "/RS232_RX1" "/RS232_TX1" "Net-(R1-Pad2)" +3.3V
     "Net-(C4-Pad2)" "Net-(C5-Pad1)" "Net-(C6-Pad1)" "Net-(C6-Pad2)" "Net-(C7-Pad1)" "Net-(C8-Pad1)" "/RS232_TX3" "/RS232_RX3"
     "unconnected-(U1-Pad7)" "unconnected-(U1-Pad8)" "unconnected-(U1-Pad9)" "unconnected-(U1-Pad10)" "unconnected-(U2-PadB4)"
     (clearance_class default)

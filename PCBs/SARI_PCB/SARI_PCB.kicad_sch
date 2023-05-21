@@ -836,13 +836,13 @@
   )
 
 
-  (no_connect (at 18.415 15.875) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c0))
-  (no_connect (at 40.64 49.53) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c0))
-  (no_connect (at 40.64 52.07) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c0))
-  (no_connect (at 40.64 54.61) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c0))
-  (no_connect (at 40.64 57.15) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c0))
-  (no_connect (at 40.64 62.23) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c0))
-  (no_connect (at 27.94 62.23) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c0))
+
+  (no_connect (at 40.64 49.53) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c1))
+  (no_connect (at 40.64 52.07) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c2))
+  (no_connect (at 40.64 54.61) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c3))
+  (no_connect (at 40.64 57.15) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c4))
+  (no_connect (at 40.64 62.23) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c5))
+  (no_connect (at 27.94 62.23) (uuid 97a81b66-a92c-4c9c-80ec-2378ad3576c6))
 
   (wire (pts (xy 40.64 69.85) (xy 40.64 72.39))
     (stroke (width 0) (type default) (color 0 0 0 0))
