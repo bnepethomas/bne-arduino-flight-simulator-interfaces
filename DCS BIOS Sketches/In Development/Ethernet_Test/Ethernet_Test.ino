@@ -5,7 +5,7 @@ byte mac[] = {  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress ip(172,16,1,11);
 
 #define RED_STATUS_LED_PORT 5               // RED LED is used for monitoring ethernet
-#define GREEN_STATUS_LED_PORT 13               // RED LED is used for monitoring ethernet
+#define GREEN_STATUS_LED_PORT 6               // RED LED is used for monitoring ethernet
 #define FLASH_TIME 1000
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
