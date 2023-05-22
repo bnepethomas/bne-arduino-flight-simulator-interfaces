@@ -13,8 +13,8 @@ Viewports =
 		useAbsoluteFOV = true;
 		useAbsoluteAnglesShift = true;
 		FOV = 1.927369;
-		viewDx = 1.196772;
-		viewDy = 0.198828;
+		viewDx = 1.196773;
+		viewDy = 0.198825;
 	},
 	P2 =
 	{
@@ -26,8 +26,8 @@ Viewports =
 		useAbsoluteFOV = true;
 		useAbsoluteAnglesShift = true;
 		FOV = 2.189753;
-		viewDx = 0.166801;
-		viewDy = 0.173905;
+		viewDx = 0.166811;
+		viewDy = 0.173900;
 	},
 	P3 =
 	{
@@ -39,8 +39,8 @@ Viewports =
 		useAbsoluteFOV = true;
 		useAbsoluteAnglesShift = true;
 		FOV = 1.976795;
-		viewDx = -1.156298;
-		viewDy = 0.186558;
+		viewDx = -1.156295;
+		viewDy = 0.186563;
 	}
 }
 UIMainView = Viewports.P1
