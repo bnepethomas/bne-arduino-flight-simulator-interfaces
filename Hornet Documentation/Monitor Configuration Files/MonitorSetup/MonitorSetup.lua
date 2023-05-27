@@ -9,7 +9,7 @@ RIGHT_MFCD = { x = 11520 + 460, y = 1050 + 30, width = 560, height = 580 }
 -- RWR       12182-1864    12459- 2163               
 --F18_RWR = { x = 600, y = 400, width = 270, height = 270 }
 
-F18_RWR = { x = 12182, y = 1864, width = 270, height = 270 }
+F18_RWR = { x = 12097, y = 1814, width = 430, height = 450 }
 --F18_UFC = { x = 0, y = 1081, width = 2, height = 2 }
 -- F18_IFEI = { x = 0, y =  1081, width = 1, height = 1 }
 -- CENTER_MFCD = { x = 11520 + 0 , y = 0 + 445, width = 595, height = 590 }
