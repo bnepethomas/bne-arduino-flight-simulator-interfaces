@@ -1926,7 +1926,7 @@
       (pins U1-A6 R1-2)
     )
     (net +3.3V
-      (pins U1-B2 U1-B3 R1-1)
+      (pins P1-4 U1-B2 U1-B3 R1-1)
     )
     (net "unconnected-(U1-PadB4)"
       (pins U1-B4)
@@ -1963,9 +1963,6 @@
     )
     (net /Vin
       (pins P1-8)
-    )
-    (net +3V3
-      (pins P1-4)
     )
     (net /Reset
       (pins P1-3 J7-1)

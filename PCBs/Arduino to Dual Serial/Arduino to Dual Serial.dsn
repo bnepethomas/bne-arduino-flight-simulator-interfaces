@@ -21,7 +21,7 @@
       )
     )
     (boundary
-      (path pcb 0  203200 -121666  100965 -121666  100965 -68326  203200 -68326
+      (path pcb 0  203200 -121666  102965 -121666  102965 -68326  203200 -68326
             203200 -121666)
     )
     (via "Via[0-1]_600:400_um")
@@ -94,12 +94,9 @@
       (place J8 177800.000000 -111760.000000 front 0.000000 (PN "CENTRE PROJ"))
     )
     (component "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::1"
-      (place J11 111760.000000 -87015.000000 front 0.000000 (PN "SW ROOF PROJ"))
-    )
-    (component "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::2"
       (place J7 187325.000000 -111780.000000 front 0.000000 (PN "ROOF PROJ"))
     )
-    (component "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::3"
+    (component "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::2"
       (place J1 154880.000000 -93025.000000 front 0.000000 (PN "SPARE PROJ"))
     )
     (component Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm::3
@@ -111,7 +108,7 @@
     (component "Package_DIP:DIP-16_W7.62mm"
       (place U1 143360.000000 -91155.000000 front 0.000000 (PN MAX232))
     )
-    (component "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::4"
+    (component "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::3"
       (place J10 111760.000000 -76835.000000 front 0.000000 (PN "SW ALL PROJ"))
     )
     (component Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm::4
@@ -765,35 +762,35 @@
       (pin Oval[A]Pad_1740x2190_um 3 5080 0)
     )
     (image "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::1"
-      (outline (path signal 120  -800 3030  -800 2430))
-      (outline (path signal 120  5080 -1990  5080 -2990))
-      (outline (path signal 120  1740 3030  1740 2430))
       (outline (path signal 120  4280 3030  4280 2430))
-      (outline (path signal 120  0 -1990  250 -1460))
-      (outline (path signal 120  -1380 3030  -1380 -2990))
-      (outline (path signal 120  0 -2990  0 -1990))
-      (outline (path signal 120  5880 2430  5880 3030))
       (outline (path signal 120  4280 2430  5880 2430))
-      (outline (path signal 120  3340 2430  3340 3030))
-      (outline (path signal 120  1740 2430  3340 2430))
-      (outline (path signal 120  4830 -2990  4830 -1990))
-      (outline (path signal 120  -1380 -2990  6460 -2990))
-      (outline (path signal 120  -1670 2000  -1670 -2000))
-      (outline (path signal 120  -800 2430  800 2430))
-      (outline (path signal 120  6460 -2990  6460 3030))
-      (outline (path signal 120  0 -1990  5080 -1990))
-      (outline (path signal 120  800 2430  800 3030))
-      (outline (path signal 120  4830 -1460  5080 -1990))
-      (outline (path signal 120  6460 3030  -1380 3030))
-      (outline (path signal 120  250 -2990  250 -1990))
       (outline (path signal 120  250 -1460  4830 -1460))
-      (outline (path signal 50  -1770 -3380  6850 -3380))
-      (outline (path signal 50  -1770 3420  -1770 -3380))
+      (outline (path signal 120  -1670 2000  -1670 -2000))
+      (outline (path signal 120  4830 -1460  5080 -1990))
+      (outline (path signal 120  4830 -2990  4830 -1990))
+      (outline (path signal 120  0 -1990  5080 -1990))
+      (outline (path signal 120  1740 3030  1740 2430))
+      (outline (path signal 120  1740 2430  3340 2430))
+      (outline (path signal 120  5080 -1990  5080 -2990))
+      (outline (path signal 120  250 -2990  250 -1990))
+      (outline (path signal 120  3340 2430  3340 3030))
+      (outline (path signal 120  6460 -2990  6460 3030))
+      (outline (path signal 120  -1380 3030  -1380 -2990))
+      (outline (path signal 120  800 2430  800 3030))
+      (outline (path signal 120  6460 3030  -1380 3030))
+      (outline (path signal 120  -800 2430  800 2430))
+      (outline (path signal 120  0 -1990  250 -1460))
+      (outline (path signal 120  5880 2430  5880 3030))
+      (outline (path signal 120  -800 3030  -800 2430))
+      (outline (path signal 120  -1380 -2990  6460 -2990))
+      (outline (path signal 120  0 -2990  0 -1990))
       (outline (path signal 50  6850 -3380  6850 3420))
+      (outline (path signal 50  -1770 3420  -1770 -3380))
+      (outline (path signal 50  -1770 -3380  6850 -3380))
       (outline (path signal 50  6850 3420  -1770 3420))
       (outline (path signal 100  -1270 2920  -1270 -2880))
-      (outline (path signal 100  -1270 -2880  6350 -2880))
       (outline (path signal 100  6350 -2880  6350 2920))
+      (outline (path signal 100  -1270 -2880  6350 -2880))
       (outline (path signal 100  6350 2920  -1270 2920))
       (outline (path signal 100  -562.893 0  -1270 -500))
       (outline (path signal 100  -1270 500  -562.893 0))
@@ -802,43 +799,6 @@
       (pin Oval[A]Pad_1740x2190_um 3 5080 0)
     )
     (image "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::2"
-      (outline (path signal 120  4280 3030  4280 2430))
-      (outline (path signal 120  4280 2430  5880 2430))
-      (outline (path signal 120  250 -1460  4830 -1460))
-      (outline (path signal 120  -1670 2000  -1670 -2000))
-      (outline (path signal 120  4830 -1460  5080 -1990))
-      (outline (path signal 120  4830 -2990  4830 -1990))
-      (outline (path signal 120  0 -1990  5080 -1990))
-      (outline (path signal 120  1740 3030  1740 2430))
-      (outline (path signal 120  1740 2430  3340 2430))
-      (outline (path signal 120  5080 -1990  5080 -2990))
-      (outline (path signal 120  250 -2990  250 -1990))
-      (outline (path signal 120  3340 2430  3340 3030))
-      (outline (path signal 120  6460 -2990  6460 3030))
-      (outline (path signal 120  -1380 3030  -1380 -2990))
-      (outline (path signal 120  800 2430  800 3030))
-      (outline (path signal 120  6460 3030  -1380 3030))
-      (outline (path signal 120  -800 2430  800 2430))
-      (outline (path signal 120  0 -1990  250 -1460))
-      (outline (path signal 120  5880 2430  5880 3030))
-      (outline (path signal 120  -800 3030  -800 2430))
-      (outline (path signal 120  -1380 -2990  6460 -2990))
-      (outline (path signal 120  0 -2990  0 -1990))
-      (outline (path signal 50  6850 -3380  6850 3420))
-      (outline (path signal 50  -1770 3420  -1770 -3380))
-      (outline (path signal 50  -1770 -3380  6850 -3380))
-      (outline (path signal 50  6850 3420  -1770 3420))
-      (outline (path signal 100  -1270 2920  -1270 -2880))
-      (outline (path signal 100  6350 -2880  6350 2920))
-      (outline (path signal 100  -1270 -2880  6350 -2880))
-      (outline (path signal 100  6350 2920  -1270 2920))
-      (outline (path signal 100  -562.893 0  -1270 -500))
-      (outline (path signal 100  -1270 500  -562.893 0))
-      (pin RoundRect[A]Pad_1740x2190_250.951_um_0.000000_0 1 0 0)
-      (pin Oval[A]Pad_1740x2190_um 2 2540 0)
-      (pin Oval[A]Pad_1740x2190_um 3 5080 0)
-    )
-    (image "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::3"
       (outline (path signal 120  0 -1990  250 -1460))
       (outline (path signal 120  4280 3030  4280 2430))
       (outline (path signal 120  -1380 3030  -1380 -2990))
@@ -968,7 +928,7 @@
       (pin Oval[A]Pad_1600x1600_um 15 7620 -2540)
       (pin Oval[A]Pad_1600x1600_um 16 7620 0)
     )
-    (image "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::4"
+    (image "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::3"
       (outline (path signal 120  1740 2430  3340 2430))
       (outline (path signal 120  4830 -1460  5080 -1990))
       (outline (path signal 120  1740 3030  1740 2430))
@@ -1336,8 +1296,7 @@
       (pins P4-35 P4-36 U1-16 U3-16)
     )
     (net GNDD
-      (pins P1-6 P1-7 P5-2 D1-1 D2-1 J4-2 J5-2 J2-2 U2-A1 U2-A2 U2-B1 J11-2 J10-2
-        J3-2)
+      (pins P1-6 P1-7 P5-2 D1-1 D2-1 J4-2 J5-2 J2-2 U2-A1 U2-A2 U2-B1 J10-2 J3-2)
     )
     (net /ALL_ON
       (pins P5-8 J10-1)
@@ -1349,10 +1308,10 @@
       (pins P6-2 J3-1)
     )
     (net /ROOF_OFF
-      (pins P5-4 J11-1)
+      (pins P5-4)
     )
     (net /ROOF_ON
-      (pins P5-5 J11-3)
+      (pins P5-5)
     )
     (net /ALL_OFF
       (pins P5-7 J10-3)
@@ -1386,9 +1345,6 @@
     )
     (net /Reset
       (pins P1-3)
-    )
-    (net +3V3
-      (pins P1-4)
     )
     (net /SCLK
       (pins P4-3 U2-A4)
@@ -1550,7 +1506,7 @@
       (pins U2-A6 R1-2)
     )
     (net +3.3V
-      (pins U2-B2 U2-B3 R1-1)
+      (pins P1-4 U2-B2 U2-B3 R1-1)
     )
     (net "Net-(C4-Pad2)"
       (pins C4-2 U3-3)

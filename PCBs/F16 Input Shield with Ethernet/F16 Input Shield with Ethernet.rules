@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 739)
+    (start_pass_no 5386)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,8 +63,8 @@
     /D8 /D7 /D6 /D5 /D13 /D12 /D11 /D9
     "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(J2-Pad2)" /51 /52 /SS "Net-(R1-Pad2)" +3.3V
     "unconnected-(U1-PadB4)" /49 /50 "unconnected-(J1-Pad34)" "unconnected-(J1-Pad33)" "unconnected-(J1-Pad32)" "unconnected-(J1-Pad31)" "unconnected-(J1-Pad30)"
-    "unconnected-(J1-Pad29)" "unconnected-(J1-Pad1)" "unconnected-(J5-Pad10)" /Vin +3V3 /Reset /IOREF "unconnected-(P1-Pad1)"
-    /53 "unconnected-(P5-Pad1)" "unconnected-(P6-Pad4)"
+    "unconnected-(J1-Pad29)" "unconnected-(J1-Pad1)" "unconnected-(J5-Pad10)" /Vin /Reset /IOREF "unconnected-(P1-Pad1)" /53
+    "unconnected-(P5-Pad1)" "unconnected-(P6-Pad4)"
     (clearance_class default)
     (via_rule default)
     (rule
