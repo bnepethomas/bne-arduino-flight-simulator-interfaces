@@ -100,7 +100,7 @@ String readString;
 
 
 int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
-#define Reflector_In_Use 1
+#define Reflector_In_Use 0
 #define Serial_In_Use 0
 
 // Ethernet Related
@@ -123,7 +123,7 @@ const unsigned int ledport = 7789;
 const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
 
-#define EthernetStartupDelay 1000
+#define EthernetStartupDelay 100
 
 // Packet Length
 int trimPacketSize;
@@ -591,6 +591,14 @@ void setup() {
   // Let Ethernet Settle
   delay(EthernetStartupDelay);
 
+  digitalWrite( RED_STATUS_LED_PORT, true);
+  digitalWrite( GREEN_STATUS_LED_PORT, true);
+  delay(FLASH_TIME);
+  digitalWrite( RED_STATUS_LED_PORT, false);
+  digitalWrite( GREEN_STATUS_LED_PORT, false);
+
+  delay(FLASH_TIME);
+
   if (Reflector_In_Use == 1) {
     keyboardudp.beginPacket(reflectorIP, reflectorport);
     keyboardudp.println("Init UDP to Keyboard - version:" + String(ProgramVersion) + " " + strMyIP + " " + String(millis()) + "mS since reset.");
@@ -607,6 +615,17 @@ void setup() {
     keyboardudp.println("Exiting Setup");
     keyboardudp.endPacket();
   }
+
+  // Let Ethernet Settle
+  delay(EthernetStartupDelay);
+
+  digitalWrite( RED_STATUS_LED_PORT, true);
+  digitalWrite( GREEN_STATUS_LED_PORT, true);
+  delay(FLASH_TIME);
+  digitalWrite( RED_STATUS_LED_PORT, false);
+  digitalWrite( GREEN_STATUS_LED_PORT, false);
+
+  delay(FLASH_TIME);
 
 }
 
@@ -635,17 +654,25 @@ void loop() {
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;
-    digitalWrite( GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
+    RED_LED_STATE = !RED_LED_STATE;
+    digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
+    digitalWrite( RED_STATUS_LED_PORT, RED_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
-  // Turn off Red status led after flashtime
-  if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
-    digitalWrite( RED_STATUS_LED_PORT, false);
-    RED_LED_STATE = false;
-    timeSinceRedLedChanged = millis();
-
-  }
+  //  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+  //    GREEN_LED_STATE = !GREEN_LED_STATE;
+  //    digitalWrite( GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
+  //    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  //  }
+  //
+  //  // Turn off Red status led after flashtime
+  //  if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
+  //    digitalWrite( RED_STATUS_LED_PORT, false);
+  //    RED_LED_STATE = false;
+  //    timeSinceRedLedChanged = millis();
+  //
+  //  }
 
 
 
