@@ -15,20 +15,28 @@ bool GREEN_LED_STATE = false;
 bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
 
-bool SWITCH_STATE = false;
-long SWITCH_DEBOUNCE_FINISH = 0;
+#define SWITCH_PRIMARY_PIN 7
+bool SWITCH_PRIMARY_STATE = false;
+long SWITCH_PRIMARY_DEBOUNCE_FINISH = 0;
+
+#define SWITCH_ROOF_PIN 6
+bool SWITCH_ROOF_STATE = false;
+long SWITCH_ROOF_DEBOUNCE_FINISH = 0;
+
 long SWITCH_DEBOUNCE_LENGTH = 20;
 void setup() {
 
 
-  // Using manual reset instead of tying to Arudino Reset
+  // Using manual reset instead of tying to Arduino Reset
   pinMode(53, OUTPUT);
   digitalWrite(53, LOW);
   delay(2);
   digitalWrite(53, HIGH);
 
-  pinMode(7, INPUT_PULLUP);
-  SWITCH_STATE = digitalRead(7);
+  pinMode(SWITCH_PRIMARY_PIN, INPUT_PULLUP);
+  SWITCH_PRIMARY_STATE = digitalRead(SWITCH_PRIMARY_PIN);
+  pinMode(SWITCH_ROOF_PIN, INPUT_PULLUP);
+  SWITCH_ROOF_STATE = digitalRead(SWITCH_ROOF_PIN);
 
   pinMode(RED_STATUS_LED_PORT, OUTPUT);
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
@@ -43,7 +51,9 @@ void setup() {
 
   Ethernet.begin(mac, ip);
 
+  Serial1.begin(9600);
   Serial2.begin(9600);
+  Serial3.begin(9600);
 }
 
 void loop() {
@@ -56,33 +66,30 @@ void loop() {
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
-  if (millis() >= SWITCH_DEBOUNCE_FINISH) {
-    if (digitalRead(7) != SWITCH_STATE) {
-      SWITCH_DEBOUNCE_FINISH = millis() + SWITCH_DEBOUNCE_LENGTH;
-      SWITCH_STATE = digitalRead(7);
-      RED_LED_STATE = SWITCH_STATE;
+  if (millis() >= SWITCH_PRIMARY_DEBOUNCE_FINISH) {
+    if (digitalRead(SWITCH_PRIMARY_PIN) != SWITCH_PRIMARY_STATE) {
+      SWITCH_PRIMARY_DEBOUNCE_FINISH = millis() + SWITCH_DEBOUNCE_LENGTH;
+      SWITCH_PRIMARY_STATE = !SWITCH_PRIMARY_STATE;
+      RED_LED_STATE = SWITCH_PRIMARY_STATE;
       digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
-      if (SWITCH_STATE == true) {
-        if (PROJECTOR_BRAND == "OPTOMA") {
-          Serial2.println("~0000 1\r");
-        } else if (PROJECTOR_BRAND == "BENQ") {
-          Serial2.println("\r*pow=on#\r");
-        }
+      if (SWITCH_PRIMARY_STATE == true) {
+        Serial1.println("\r*pow=on#\r");
+        Serial2.println("\r*pow=on#\r");
+        Serial3.println("\r*pow=on#\r");
       } else {
-        if (PROJECTOR_BRAND == "OPTOMA") {
-          Serial2.println("~0000 0\r");
-        }  else if (PROJECTOR_BRAND == "BENQ") {
-          Serial2.println("\r*pow=off#\r");
-        }
+        Serial1.println("\r*pow=off#\r");
+        Serial2.println("\r*pow=off#\r");
+        Serial3.println("\r*pow=off#\r");
       }
     }
   }
-
-  //  // Turn off Red status led after flashtime
-  //  if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
-  //    digitalWrite( RED_STATUS_LED_PORT, false);
-  //    RED_LED_STATE = false;
-  //    timeSinceRedLedChanged = millis();
-  //
-  //  }
 }
+
+//  // Turn off Red status led after flashtime
+//  if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
+//    digitalWrite( RED_STATUS_LED_PORT, false);
+//    RED_LED_STATE = false;
+//    timeSinceRedLedChanged = millis();
+//
+//  }
+//}
