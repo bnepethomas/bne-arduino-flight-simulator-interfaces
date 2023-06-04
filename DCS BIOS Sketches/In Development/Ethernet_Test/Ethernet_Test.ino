@@ -8,8 +8,8 @@ IPAddress ip(172, 16, 1, 11);
 #define GREEN_STATUS_LED_PORT 13  // RED LED is used for monitoring ethernet
 #define FLASH_TIME 300
 
-#define PROJECTOR_BRAND "OPTOMA"
-// #define PROJECTOR_BRAND BENQ
+//#define PROJECTOR_BRAND "OPTOMA"
+#define PROJECTOR_BRAND "BENQ"
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
 bool RED_LED_STATE = false;
@@ -65,10 +65,14 @@ void loop() {
       if (SWITCH_STATE == true) {
         if (PROJECTOR_BRAND == "OPTOMA") {
           Serial2.println("~0000 1\r");
+        } else if (PROJECTOR_BRAND == "BENQ") {
+          Serial2.println("\r*pow=on#\r");
         }
       } else {
         if (PROJECTOR_BRAND == "OPTOMA") {
           Serial2.println("~0000 0\r");
+        }  else if (PROJECTOR_BRAND == "BENQ") {
+          Serial2.println("\r*pow=off#\r");
         }
       }
     }
