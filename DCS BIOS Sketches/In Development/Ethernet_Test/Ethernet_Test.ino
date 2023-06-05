@@ -73,13 +73,13 @@ void loop() {
       RED_LED_STATE = SWITCH_PRIMARY_STATE;
       digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
       if (SWITCH_PRIMARY_STATE == true) {
-        Serial1.println("\r*pow=on#\r");
-        Serial2.println("\r*pow=on#\r");
-        Serial3.println("\r*pow=on#\r");
+        Serial1.println("\r*POW=ON#");
+        Serial2.println("\r*POW=ON#");
+        Serial3.println("\r*POW=ON#");
       } else {
-        Serial1.println("\r*pow=off#\r");
-        Serial2.println("\r*pow=off#\r");
-        Serial3.println("\r*pow=off#\r");
+        Serial1.print("\r*POW=OFF#\r");
+        Serial2.print("\r*POW=OFF#\r");
+        Serial3.print("\r*POW=OFF#\r");
       }
     }
   }
