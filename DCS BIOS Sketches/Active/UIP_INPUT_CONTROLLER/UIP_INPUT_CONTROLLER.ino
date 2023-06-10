@@ -69,7 +69,7 @@ String strMax7219IP = "172.16.1.106";
 
 
 const unsigned int localport = 7788;
-const unsigned int localdebugport = 7790;
+const unsigned int localdebugport = 7795;
 const unsigned int remoteport = 26027;
 const unsigned int reflectorport = 27000;
 const unsigned int max7219port = 7788;

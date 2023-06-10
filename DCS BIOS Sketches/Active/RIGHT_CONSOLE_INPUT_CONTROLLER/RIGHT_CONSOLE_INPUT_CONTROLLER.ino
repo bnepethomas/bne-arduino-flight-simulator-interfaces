@@ -11,7 +11,8 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
 /*
- *  *//*
+ *  */
+/*
 
   This Superceedes udp_input_controller
   Split from udp_input_controller_2 20200802
@@ -40,10 +41,10 @@
 
 
 
-int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
-#define Reflector_In_Use 1
+int Ethernet_In_Use = 1;  // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
+int Reflector_In_Use = 0;
 #define DCSBIOS_In_Use 1
-#define MSFS_In_Use 1           // Used to interface into MSFS - set to 0 if not in use
+#define MSFS_In_Use 1  // Used to interface into MSFS - set to 0 if not in use
 
 // Used to Distinguish between the left, front, and right inputs
 // Left=0, Front=1, Right=2
@@ -60,7 +61,7 @@ int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x03};
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x03 };
 IPAddress ip(172, 16, 1, 103);
 String strMyIP = "172.16.1.103";
 
@@ -77,13 +78,17 @@ IPAddress MSFSIP(172, 16, 1, 10);
 String strMSFSIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
+const unsigned int localdebugport = 7795;
 const unsigned int keyboardport = 7788;
 const unsigned int ledport = 7789;
 const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
 const unsigned int MSFSport = 7791;
 
+int packetSize;
+int debugLen;
 EthernetUDP udp;
+EthernetUDP debugUDP;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
@@ -93,9 +98,9 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 #define NUM_BUTTONS 256
 #define BUTTONS_USED_ON_PCB 176
-#define NUM_AXES  8        // 8 axes, X, Y, Z, etc
+#define NUM_AXES 8  // 8 axes, X, Y, Z, etc
 #define GREEN_STATUS_LED_PORT 5
-#define RED_STATUS_LED_PORT 6               // RED LED is used for monitoring ethernet
+#define RED_STATUS_LED_PORT 6  // RED LED is used for monitoring ethernet
 #define FLASH_TIME 100
 #define DISABLE_ETHERNET_INPUT_PIN 2
 bool RED_LED_STATE = false;
@@ -103,7 +108,7 @@ bool GREEN_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
 //
 struct joyReport_t {
-  int button[NUM_BUTTONS]; // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
+  int button[NUM_BUTTONS];  // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
 };
 
 
@@ -118,8 +123,8 @@ bool SendingAllowed = false;
 
 
 // Debounce delay was 20mS - but encountered longer bounces with Circuit Breakers, increased to 60mS 20210329
-const int ScanDelay = 80;       // This is in microseconds
-const int DebounceDelay = 60;   // In milliseconds
+const int ScanDelay = 80;      // This is in microseconds
+const int DebounceDelay = 60;  // In milliseconds
 
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
@@ -165,23 +170,21 @@ void setup() {
 
 
   // Set the output ports to output
-  for ( int portId = 22; portId < 38; portId ++ )
-  {
-    pinMode( portId, OUTPUT );
+  for (int portId = 22; portId < 38; portId++) {
+    pinMode(portId, OUTPUT);
   }
 
 
   // Set the input ports to input - port 50-53 used by Ethernet Shield
-  for ( int portId = 38; portId < 50; portId ++ )
-  {
+  for (int portId = 38; portId < 50; portId++) {
     // Even though we've already got 10K external pullups
-    pinMode( portId, INPUT_PULLUP);
+    pinMode(portId, INPUT_PULLUP);
   }
 
 
 
   // Initialise all arrays
-  for (int ind = 0; ind < NUM_BUTTONS ; ind++) {
+  for (int ind = 0; ind < NUM_BUTTONS; ind++) {
 
     // Clear current and last values to 0 for button inputs
     joyReport.button[ind] = 0;
@@ -199,27 +202,27 @@ void setup() {
   // which enables testing without an ethernet board active
   // Red Led stays hard on if ethernet is disabled
 
-  pinMode( DISABLE_ETHERNET_INPUT_PIN, INPUT_PULLUP);
-  pinMode( GREEN_STATUS_LED_PORT,  OUTPUT);
-  pinMode( RED_STATUS_LED_PORT,  OUTPUT);
-  digitalWrite( GREEN_STATUS_LED_PORT, true);
-  digitalWrite( RED_STATUS_LED_PORT, true);
+  pinMode(DISABLE_ETHERNET_INPUT_PIN, INPUT_PULLUP);
+  pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
+  pinMode(RED_STATUS_LED_PORT, OUTPUT);
+  digitalWrite(GREEN_STATUS_LED_PORT, true);
+  digitalWrite(RED_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
-  digitalWrite( GREEN_STATUS_LED_PORT, false);
-  digitalWrite( RED_STATUS_LED_PORT, false);
+  digitalWrite(GREEN_STATUS_LED_PORT, false);
+  digitalWrite(RED_STATUS_LED_PORT, false);
   delay(FLASH_TIME);
 
 
-  if ( digitalRead( DISABLE_ETHERNET_INPUT_PIN) == false) {
+  if (digitalRead(DISABLE_ETHERNET_INPUT_PIN) == false) {
     Ethernet_In_Use = 0;
-    digitalWrite( RED_STATUS_LED_PORT, true);
+    digitalWrite(RED_STATUS_LED_PORT, true);
   }
 
 
 
   if (Ethernet_In_Use == 1) {
-    Ethernet.begin( mac, ip);
-    udp.begin( localport );
+    Ethernet.begin(mac, ip);
+    udp.begin(localport);
 
     if (Reflector_In_Use == 1) {
       udp.beginPacket(reflectorIP, reflectorport);
@@ -227,14 +230,13 @@ void setup() {
       udp.endPacket();
     }
 
+    // Used to remotely enable Debug and Reflector
+    debugUDP.begin(localdebugport);
   }
-
-
 }
 
 
-void FindInputChanges()
-{
+void FindInputChanges() {
 
   for (int ind = 0; ind < NUM_BUTTONS; ind++)
     if (bFirstTime) {
@@ -242,11 +244,10 @@ void FindInputChanges()
       bFirstTime = false;
       // Just Copy Array and perform no actions - this may change in the future
       prevjoyReport.button[ind] = joyReport.button[ind];
-    }
-    else {
+    } else {
       // Not the first time - see if there is a difference from last time
       // If there is perform action and update prev array BUT only if we past the end of the debounce period
-      if ( prevjoyReport.button[ind] != joyReport.button[ind] && millis() > joyEndDebounce[ind] ) {
+      if (prevjoyReport.button[ind] != joyReport.button[ind] && millis() > joyEndDebounce[ind]) {
 
         // First things first - set a new debounce period
         joyEndDebounce[ind] = millis() + DebounceDelay;
@@ -255,14 +256,13 @@ void FindInputChanges()
 
 
         if (prevjoyReport.button[ind] == 0) {
-          outString = outString +  "1";
-          if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 1);
+          outString = outString + "1";
+          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 1);
           if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
           if (MSFS_In_Use == 1) SendMSFSMessage(ind, 1);
-        }
-        else {
+        } else {
           outString = outString + "0";
-          if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 0);
+          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 0);
           if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
           if (MSFS_In_Use == 1) SendMSFSMessage(ind, 0);
         }
@@ -270,11 +270,13 @@ void FindInputChanges()
 
         prevjoyReport.button[ind] = joyReport.button[ind];
 
-
+        if (Reflector_In_Use == 1) {
+          udp.beginPacket(reflectorIP, reflectorport);
+          udp.println("Right Input - " + String(ind) + ":" + String(joyReport.button[ind]));
+          udp.endPacket();
+        }
       }
-
     }
-
 }
 
 void SendIPMessage(int ind, int state) {
@@ -328,15 +330,29 @@ void SendLedString(String LedCommandToSend) {
 
 
 void UpdateRedStatusLed() {
-  if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
-    digitalWrite( RED_STATUS_LED_PORT, true);
+  if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME))) {
+    digitalWrite(RED_STATUS_LED_PORT, true);
     RED_LED_STATE = true;
     timeSinceRedLedChanged = millis();
-
   }
 }
 
-void SendDCSBIOSMessage(int ind, int state) {
+
+void sendToDcsBiosMessage(const char *msg, const char *arg) {
+
+
+  if (Reflector_In_Use == 1) {
+    udp.beginPacket(reflectorIP, reflectorport);
+    udp.println("Front Input - " + String(msg) + ":" + String(arg));
+    udp.endPacket();
+  }
+
+  sendDcsBiosMessage(msg, arg);
+}
+
+
+
+void CreateDcsBiosMessage(int ind, int state) {
 
 
   switch (state) {
@@ -346,7 +362,7 @@ void SendDCSBIOSMessage(int ind, int state) {
       switch (ind) {
 
         case 0:
-          sendDcsBiosMessage("FLIR_SW", "1");
+          sendToDcsBiosMessage("FLIR_SW", "1");
           break;
         case 1:
           break;
@@ -369,13 +385,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 8:
           break;
         case 9:
-          sendDcsBiosMessage("HOOK_LEVER", "1");
+          sendToDcsBiosMessage("HOOK_LEVER", "1");
           break;
         case 10:
-          sendDcsBiosMessage("WING_FOLD_ROTATE", "1");
+          sendToDcsBiosMessage("WING_FOLD_ROTATE", "1");
           break;
         case 11:
-          sendDcsBiosMessage("FLIR_SW", "1");
+          sendToDcsBiosMessage("FLIR_SW", "1");
           break;
         case 12:
           break;
@@ -395,13 +411,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 19:
           break;
         case 20:
-          sendDcsBiosMessage("WING_FOLD_ROTATE", "1");
+          sendToDcsBiosMessage("WING_FOLD_ROTATE", "1");
           break;
         case 21:
-          sendDcsBiosMessage("AV_COOL_SW", "1");
+          sendToDcsBiosMessage("AV_COOL_SW", "1");
           break;
         case 22:
-          sendDcsBiosMessage("LTD_R_SW", "2");
+          sendToDcsBiosMessage("LTD_R_SW", "2");
           break;
         case 23:
           break;
@@ -420,15 +436,15 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 30:
           break;
         case 31:
-          sendDcsBiosMessage("WING_FOLD_PULL", "1");
+          sendToDcsBiosMessage("WING_FOLD_PULL", "1");
           break;
         case 32:
           break;
         case 33:
-          sendDcsBiosMessage("LST_NFLR_SW", "0");
+          sendToDcsBiosMessage("LST_NFLR_SW", "0");
           break;
         case 34:
-          sendDcsBiosMessage("RADAR_SW_PULL", "1");
+          sendToDcsBiosMessage("RADAR_SW_PULL", "1");
           TimeRadarOn = millis() + RadarMoveTime;
           RadarPushFollowupTask = true;
           break;
@@ -447,10 +463,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 41:
           break;
         case 42:
-          sendDcsBiosMessage("L_GEN_SW", "1"); //1
+          sendToDcsBiosMessage("L_GEN_SW", "1");  //1
           break;
         case 43:
-          sendDcsBiosMessage("BATTERY_SW", "1");
+          sendToDcsBiosMessage("BATTERY_SW", "1");
           break;
         case 44:
           break;
@@ -472,10 +488,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 52:
           break;
         case 53:
-          sendDcsBiosMessage("R_GEN_SW", "1");
+          sendToDcsBiosMessage("R_GEN_SW", "1");
           break;
         case 54:
-          sendDcsBiosMessage("BATTERY_SW", "1");
+          sendToDcsBiosMessage("BATTERY_SW", "1");
           break;
         case 55:
           break;
@@ -545,27 +561,27 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 87:
           break;
         case 88:
-          sendDcsBiosMessage("LIGHTS_TEST_SW", "0");
+          sendToDcsBiosMessage("LIGHTS_TEST_SW", "0");
           break;
         case 89:
-          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
+          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
           break;
         case 90:
-          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "1");
+          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "1");
           break;
         case 91:
-          sendDcsBiosMessage("ECS_MODE_SW", "1");
+          sendToDcsBiosMessage("ECS_MODE_SW", "1");
           break;
         case 92:
-          sendDcsBiosMessage("CABIN_PRESS_SW", "1");
+          sendToDcsBiosMessage("CABIN_PRESS_SW", "1");
           break;
         case 93:
-          sendDcsBiosMessage("PITOT_HEAT_SW", "0");
+          sendToDcsBiosMessage("PITOT_HEAT_SW", "0");
           break;
         case 94:
           break;
         case 95:
-          sendDcsBiosMessage("RADALT_TEST_SW", "0");
+          sendToDcsBiosMessage("RADALT_TEST_SW", "0");
           break;
         case 96:
           break;
@@ -576,16 +592,16 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 99:
           break;
         case 100:
-          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
+          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
           break;
         case 101:
-          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "1");
+          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "1");
           break;
         case 102:
-          sendDcsBiosMessage("ECS_MODE_SW", "1");
+          sendToDcsBiosMessage("ECS_MODE_SW", "1");
           break;
         case 103:
-          sendDcsBiosMessage("CABIN_PRESS_SW", "1");
+          sendToDcsBiosMessage("CABIN_PRESS_SW", "1");
           break;
         case 104:
           break;
@@ -600,15 +616,15 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 109:
           break;
         case 110:
-          sendDcsBiosMessage("CANOPY_SW", "1");
+          sendToDcsBiosMessage("CANOPY_SW", "1");
           break;
         case 111:
-          sendDcsBiosMessage("CB_HOOOK", "1");
+          sendToDcsBiosMessage("CB_HOOOK", "1");
           break;
         case 112:
           break;
         case 113:
-          sendDcsBiosMessage("ENG_ANTIICE_SW", "1");
+          sendToDcsBiosMessage("ENG_ANTIICE_SW", "1");
           break;
         case 114:
           break;
@@ -625,15 +641,15 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 120:
           break;
         case 121:
-          sendDcsBiosMessage("CANOPY_SW", "1");
+          sendToDcsBiosMessage("CANOPY_SW", "1");
           break;
         case 122:
-          sendDcsBiosMessage("CB_FCS_CHAN4", "1");
+          sendToDcsBiosMessage("CB_FCS_CHAN4", "1");
           break;
         case 123:
           break;
         case 124:
-          sendDcsBiosMessage("ENG_ANTIICE_SW", "1");
+          sendToDcsBiosMessage("ENG_ANTIICE_SW", "1");
           break;
         case 125:
           break;
@@ -649,14 +665,14 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         case 131:
           break;
-        case 132:        
-          sendDcsBiosMessage("CB_FCS_CHAN3", "1");
+        case 132:
+          sendToDcsBiosMessage("CB_FCS_CHAN3", "1");
           break;
         case 133:
-          sendDcsBiosMessage("FCS_BIT_SW", "0");
+          sendToDcsBiosMessage("FCS_BIT_SW", "0");
           break;
         case 134:
-          sendDcsBiosMessage("CB_LG", "1");
+          sendToDcsBiosMessage("CB_LG", "1");
           break;
         case 135:
           break;
@@ -760,13 +776,13 @@ void SendDCSBIOSMessage(int ind, int state) {
       // PRESS - CLOSE
       switch (ind) {
         case 0:
-          sendDcsBiosMessage("FLIR_SW", "2");
+          sendToDcsBiosMessage("FLIR_SW", "2");
           break;
         case 1:
-          sendDcsBiosMessage("RADAR_SW", "0");
+          sendToDcsBiosMessage("RADAR_SW", "0");
           break;
         case 2:
-          sendDcsBiosMessage("INS_SW", "0"); //OFF
+          sendToDcsBiosMessage("INS_SW", "0");  //OFF
           break;
         case 3:
           SendIPString("LCTRL LSHIFT P");
@@ -780,26 +796,26 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 6:
           break;
         case 7:
-          sendDcsBiosMessage("KY58_MODE_SELECT", "0");
+          sendToDcsBiosMessage("KY58_MODE_SELECT", "0");
           break;
         case 8:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "10");
+          sendToDcsBiosMessage("KY58_FILL_SELECT", "10");
           break;
         case 9:
-          sendDcsBiosMessage("HOOK_LEVER", "0");
+          sendToDcsBiosMessage("HOOK_LEVER", "0");
           break;
         case 10:
-          sendDcsBiosMessage("WING_FOLD_ROTATE", "2");
+          sendToDcsBiosMessage("WING_FOLD_ROTATE", "2");
           break;
         // PRESS - CLOSE
         case 11:
-          sendDcsBiosMessage("FLIR_SW", "0");
+          sendToDcsBiosMessage("FLIR_SW", "0");
           break;
         case 12:
-          sendDcsBiosMessage("RADAR_SW", "1");
+          sendToDcsBiosMessage("RADAR_SW", "1");
           break;
         case 13:
-          sendDcsBiosMessage("INS_SW", "1"); //CV
+          sendToDcsBiosMessage("INS_SW", "1");  //CV
           break;
         case 14:
           SendIPString("ESC");
@@ -812,34 +828,34 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 17:
           break;
         case 18:
-          sendDcsBiosMessage("KY58_MODE_SELECT", "1");
+          sendToDcsBiosMessage("KY58_MODE_SELECT", "1");
           break;
         case 19:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "0");
+          sendToDcsBiosMessage("KY58_FILL_SELECT", "0");
           break;
         case 20:
-          sendDcsBiosMessage("WING_FOLD_ROTATE", "0");
+          sendToDcsBiosMessage("WING_FOLD_ROTATE", "0");
           break;
         // PRESS - CLOSE
         case 21:
-          sendDcsBiosMessage("AV_COOL_SW", "0");
+          sendToDcsBiosMessage("AV_COOL_SW", "0");
           break;
         case 22:
           // Special Case for Magnetic Switches LTD/R
           if (Ethernet_In_Use == 1) {
             SendIPString("LCTRL LSHIFT F3");
           } else {
-            sendDcsBiosMessage("LTD_R_SW", "0");
+            sendToDcsBiosMessage("LTD_R_SW", "0");
           }
 
 
 
           break;
         case 23:
-          sendDcsBiosMessage("RADAR_SW", "2");
+          sendToDcsBiosMessage("RADAR_SW", "2");
           break;
         case 24:
-          sendDcsBiosMessage("INS_SW", "2"); //GND
+          sendToDcsBiosMessage("INS_SW", "2");  //GND
           break;
         case 25:
           break;
@@ -851,27 +867,27 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 28:
           break;
         case 29:
-          sendDcsBiosMessage("KY58_MODE_SELECT", "2");
+          sendToDcsBiosMessage("KY58_MODE_SELECT", "2");
           break;
         case 30:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "1");
+          sendToDcsBiosMessage("KY58_FILL_SELECT", "1");
           break;
         // PRESS - CLOSE
         case 31:
-          sendDcsBiosMessage("WING_FOLD_PULL", "0");
+          sendToDcsBiosMessage("WING_FOLD_PULL", "0");
           break;
         case 32:
           break;
         case 33:
-          sendDcsBiosMessage("LST_NFLR_SW", "1");
+          sendToDcsBiosMessage("LST_NFLR_SW", "1");
           break;
         case 34:
-          sendDcsBiosMessage("RADAR_SW_PULL", "1");
+          sendToDcsBiosMessage("RADAR_SW_PULL", "1");
           RadarFollowupTask = true;
           TimeRadarOn = millis() + RadarMoveTime;
           break;
         case 35:
-          sendDcsBiosMessage("INS_SW", "3"); //NAV
+          sendToDcsBiosMessage("INS_SW", "3");  //NAV
           break;
         case 36:
           break;
@@ -883,17 +899,17 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 39:
           break;
         case 40:
-          sendDcsBiosMessage("KY58_MODE_SELECT", "3");
+          sendToDcsBiosMessage("KY58_MODE_SELECT", "3");
           break;
         // PRESS - CLOSE
         case 41:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "2");
+          sendToDcsBiosMessage("KY58_FILL_SELECT", "2");
           break;
         case 42:
-          sendDcsBiosMessage("L_GEN_SW", "0"); //0
+          sendToDcsBiosMessage("L_GEN_SW", "0");  //0
           break;
         case 43:
-          sendDcsBiosMessage("BATTERY_SW", "2");
+          sendToDcsBiosMessage("BATTERY_SW", "2");
 
           break;
         case 44:
@@ -901,7 +917,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 45:
           break;
         case 46:
-          sendDcsBiosMessage("INS_SW", "4"); //IFA
+          sendToDcsBiosMessage("INS_SW", "4");  //IFA
           break;
         case 47:
           break;
@@ -914,24 +930,24 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 51:
-          sendDcsBiosMessage("KY58_POWER_SELECT", "0");
+          sendToDcsBiosMessage("KY58_POWER_SELECT", "0");
           break;
         case 52:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "3");
+          sendToDcsBiosMessage("KY58_FILL_SELECT", "3");
           break;
         case 53:
 
-          sendDcsBiosMessage("R_GEN_SW", "0");
+          sendToDcsBiosMessage("R_GEN_SW", "0");
           break;
         case 54:
-          sendDcsBiosMessage("BATTERY_SW", "0");
+          sendToDcsBiosMessage("BATTERY_SW", "0");
           break;
         case 55:
           break;
         case 56:
           break;
         case 57:
-          sendDcsBiosMessage("INS_SW", "5"); //GYRO
+          sendToDcsBiosMessage("INS_SW", "5");  //GYRO
           break;
         case 58:
           SendIPString("NUM5");
@@ -945,10 +961,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 61:
           break;
         case 62:
-          sendDcsBiosMessage("KY58_POWER_SELECT", "1");
+          sendToDcsBiosMessage("KY58_POWER_SELECT", "1");
           break;
         case 63:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "4");
+          sendToDcsBiosMessage("KY58_FILL_SELECT", "4");
           break;
         case 64:
           break;
@@ -959,7 +975,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 67:
           break;
         case 68:
-          sendDcsBiosMessage("INS_SW", "6"); //GB
+          sendToDcsBiosMessage("INS_SW", "6");  //GB
           break;
         case 69:
           break;
@@ -972,10 +988,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 72:
           break;
         case 73:
-          sendDcsBiosMessage("KY58_POWER_SELECT", "2");
+          sendToDcsBiosMessage("KY58_POWER_SELECT", "2");
           break;
         case 74:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "5");
+          sendToDcsBiosMessage("KY58_FILL_SELECT", "5");
           break;
         case 75:
           break;
@@ -986,7 +1002,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 78:
           break;
         case 79:
-          sendDcsBiosMessage("INS_SW", "7"); //TEST
+          sendToDcsBiosMessage("INS_SW", "7");  //TEST
           break;
         case 80:
           SendIPString("LSHIFT F10");
@@ -1002,41 +1018,41 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 84:
           break;
         case 85:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "6");
+          sendToDcsBiosMessage("KY58_FILL_SELECT", "6");
           break;
         case 86:
           break;
         case 87:
           break;
         case 88:
-          sendDcsBiosMessage("LIGHTS_TEST_SW", "1");
+          sendToDcsBiosMessage("LIGHTS_TEST_SW", "1");
           break;
         case 89:
-          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "2");
+          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "2");
           break;
         case 90:
-          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "2");
+          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "2");
           break;
         // PRESS - CLOSE
         case 91:
-          sendDcsBiosMessage("ECS_MODE_SW", "2");
+          sendToDcsBiosMessage("ECS_MODE_SW", "2");
           break;
         case 92:
-          sendDcsBiosMessage("CABIN_PRESS_SW", "0");
+          sendToDcsBiosMessage("CABIN_PRESS_SW", "0");
           break;
         case 93:
           // Special Case for Magnetic Switches Pitot
           if (Ethernet_In_Use == 1) {
             SendIPString("LCTRL LSHIFT F2");
           } else {
-            sendDcsBiosMessage("PITOT_HEAT_SW", "1");
+            sendToDcsBiosMessage("PITOT_HEAT_SW", "1");
           }
           break;
         case 94:
-          sendDcsBiosMessage("BLEED_AIR_KNOB", "3");
+          sendToDcsBiosMessage("BLEED_AIR_KNOB", "3");
           break;
         case 95:
-          sendDcsBiosMessage("RADALT_TEST_SW", "1");
+          sendToDcsBiosMessage("RADALT_TEST_SW", "1");
           break;
         case 96:
           break;
@@ -1047,27 +1063,27 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 99:
           break;
         case 100:
-          sendDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "0");
+          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "0");
           break;
         // PRESS - CLOSE
         case 101:
-          sendDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "0");
+          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "0");
           break;
         case 102:
-          sendDcsBiosMessage("ECS_MODE_SW", "0");
+          sendToDcsBiosMessage("ECS_MODE_SW", "0");
           break;
         case 103:
-          sendDcsBiosMessage("CABIN_PRESS_SW", "2");
+          sendToDcsBiosMessage("CABIN_PRESS_SW", "2");
           break;
         case 104:
           break;
         case 105:
-          sendDcsBiosMessage("BLEED_AIR_KNOB", "2");
+          sendToDcsBiosMessage("BLEED_AIR_KNOB", "2");
           break;
         case 106:
           break;
         case 107:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "7");
+          sendToDcsBiosMessage("KY58_FILL_SELECT", "7");
           break;
         case 108:
           break;
@@ -1078,30 +1094,30 @@ void SendDCSBIOSMessage(int ind, int state) {
           if (Ethernet_In_Use == 1) {
             SendIPString("LCTRL LSHIFT F9");
           } else {
-            sendDcsBiosMessage("CANOPY_SW", "2");
+            sendToDcsBiosMessage("CANOPY_SW", "2");
           }
 
           break;
         // PRESS - CLOSE
         case 111:
-          sendDcsBiosMessage("CB_HOOOK", "0");
+          sendToDcsBiosMessage("CB_HOOOK", "0");
           break;
         case 112:
           break;
         case 113:
-          sendDcsBiosMessage("ENG_ANTIICE_SW", "2");
+          sendToDcsBiosMessage("ENG_ANTIICE_SW", "2");
           break;
         case 114:
           break;
         case 115:
           break;
         case 116:
-          sendDcsBiosMessage("BLEED_AIR_KNOB", "1");
+          sendToDcsBiosMessage("BLEED_AIR_KNOB", "1");
           break;
         case 117:
           break;
         case 118:
-          sendDcsBiosMessage("KY58_FILL_SELECT", "8");
+          sendToDcsBiosMessage("KY58_FILL_SELECT", "8");
           break;
         case 119:
           break;
@@ -1110,23 +1126,23 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         case 121:
           // On canopy down must hold switch even though it is a magnetic switch
-          sendDcsBiosMessage("CANOPY_SW", "0");
+          sendToDcsBiosMessage("CANOPY_SW", "0");
 
           break;
         case 122:
-          sendDcsBiosMessage("CB_FCS_CHAN4", "0");
+          sendToDcsBiosMessage("CB_FCS_CHAN4", "0");
           break;
         case 123:
           break;
         case 124:
-          sendDcsBiosMessage("ENG_ANTIICE_SW", "0");
+          sendToDcsBiosMessage("ENG_ANTIICE_SW", "0");
           break;
         case 125:
           break;
         case 126:
           break;
         case 127:
-          sendDcsBiosMessage("BLEED_AIR_KNOB", "0");
+          sendToDcsBiosMessage("BLEED_AIR_KNOB", "0");
           break;
         case 128:
           break;
@@ -1138,15 +1154,15 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 131:
           break;
         case 132:
-          sendDcsBiosMessage("CB_FCS_CHAN3", "0");
-          
+          sendToDcsBiosMessage("CB_FCS_CHAN3", "0");
+
           break;
         case 133:
-          sendDcsBiosMessage("FCS_BIT_SW", "1");
+          sendToDcsBiosMessage("FCS_BIT_SW", "1");
           break;
         case 134:
-          sendDcsBiosMessage("CB_LG", "0");
-          
+          sendToDcsBiosMessage("CB_LG", "0");
+
           break;
         case 135:
           break;
@@ -1253,14 +1269,14 @@ void SendDCSBIOSMessage(int ind, int state) {
 
 //ECS PANEL
 DcsBios::PotentiometerEWMA<5, 128, 5> cabinTemp("CABIN_TEMP", 8);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", 9); //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", 9);    //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //INTR LTS PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3); //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> consolesDimmer("CONSOLES_DIMMER", 0); //set //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> floodDimmer("FLOOD_DIMMER", 2); //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> instPnlDimmer("INST_PNL_DIMMER", 1); //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> warnCautionDimmer("WARN_CAUTION_DIMMER", 4); //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3);               //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> consolesDimmer("CONSOLES_DIMMER", 0);         //set //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> floodDimmer("FLOOD_DIMMER", 2);               //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> instPnlDimmer("INST_PNL_DIMMER", 1);          //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> warnCautionDimmer("WARN_CAUTION_DIMMER", 4);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 
 
@@ -1273,27 +1289,26 @@ DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerC
 
 //DE-FOG PANEL (INTR LTS)
 
-DcsBios::PotentiometerEWMA<5, 128, 5> defogHandle("DEFOG_HANDLE", 5); //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> defogHandle("DEFOG_HANDLE", 5);  //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //KY58 PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> ky58Volume("KY58_VOLUME", 10); //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> ky58Volume("KY58_VOLUME", 10);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 // controlPosition: 0 to 65,535 value representing the analog, real world control value
 // dcsPosition: 0 to 65,535 value reported from DCS for the provided address
 // return: −32,768 to 32,767 signed integer to be sent to the DCS rotary control.  0 will not be sent.
-int HornetRadaltMapper(unsigned int controlPosition, unsigned int dcsPosition)
-{
-  unsigned int a = map(controlPosition, 0, 65530, 161000, 1800); // Silly right now, but to reduce the range if your analog pot doesn't reach max deflection, reduce the first 65535 number
-  unsigned int b = map(dcsPosition, 0, 64355, 0, 65535); // Observationally, in DCS the max value for RADALT_HEIGHT is 64355
+int HornetRadaltMapper(unsigned int controlPosition, unsigned int dcsPosition) {
+  unsigned int a = map(controlPosition, 0, 65530, 161000, 1800);  // Silly right now, but to reduce the range if your analog pot doesn't reach max deflection, reduce the first 65535 number
+  unsigned int b = map(dcsPosition, 0, 64355, 0, 65535);          // Observationally, in DCS the max value for RADALT_HEIGHT is 64355
 
   // Careful here since we are on 16 bit microcontrollers and doing some signed v unsigned maths.  Probably a better way to do this, but this works.
   unsigned int delta = (a >= b) ? a - b : b - a;
 
   const unsigned int MAX_ROTATION = 20000;  // Always keep less than 32767
-  if ( delta > MAX_ROTATION )
+  if (delta > MAX_ROTATION)
     delta = MAX_ROTATION;
 
-  if ( a >= b )
+  if (a >= b)
     return (int)delta;
   else
     return -1 * (int)delta;
@@ -1314,25 +1329,21 @@ void loop() {
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first
-  for ( int rowid = 0; rowid < 16; rowid ++ )
-  {
+  for (int rowid = 0; rowid < 16; rowid++) {
     //turn on the current row
     // why differentiate? rows
 
 
     if (rowid == 0)
-      PORTC =  0xFF;
+      PORTC = 0xFF;
     if (rowid == 8)
       PORTA = 0xFF;
 
-    if (rowid < 8)
-    {
+    if (rowid < 8) {
       // Shift 1 right  - this is actually pulling port down
       PORTA = ~(0x1 << rowid);
-    }
-    else
-    {
-      PORTC = ~(0x1 << (15 - rowid) );
+    } else {
+      PORTC = ~(0x1 << (15 - rowid));
     }
 
 
@@ -1393,15 +1404,11 @@ void loop() {
 
     // There are 11 Columns per row - gives a total of 176 possible inputs
     // Have left the arrays dimensioned as per original code - if CPU or Memory becomes scarce reduce array
-    for ( int colid = 0; colid < 16; colid ++ )
-    {
-      if ( colResult[ colid ] == 0 )
-      {
-        joyReport.button[ (rowid * 11) + colid ] =  1;
-      }
-      else
-      {
-        joyReport.button[ (rowid * 11) + colid ] =  0;
+    for (int colid = 0; colid < 16; colid++) {
+      if (colResult[colid] == 0) {
+        joyReport.button[(rowid * 11) + colid] = 1;
+      } else {
+        joyReport.button[(rowid * 11) + colid] = 0;
       }
     }
   }
@@ -1413,14 +1420,14 @@ void loop() {
   // Radar Emergency required a pull up and then activate
   if (RadarFollowupTask == true) {
     if (millis() >= TimeRadarOn) {
-      sendDcsBiosMessage("RADAR_SW", "3");
+      sendToDcsBiosMessage("RADAR_SW", "3");
       RadarFollowupTask = false;
     }
   }
 
   if (RadarPushFollowupTask == true) {
     if (millis() >= TimeRadarOn) {
-      sendDcsBiosMessage("RADAR_SW", "2");
+      sendToDcsBiosMessage("RADAR_SW", "2");
       RadarPushFollowupTask = false;
     }
   }
@@ -1428,18 +1435,34 @@ void loop() {
 
 
   // Turn off Red status led after flashtime
-  if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
-    digitalWrite( RED_STATUS_LED_PORT, false);
+  if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME))) {
+    digitalWrite(RED_STATUS_LED_PORT, false);
     RED_LED_STATE = false;
     timeSinceRedLedChanged = millis();
+  }
 
+ if (Ethernet_In_Use == 1) {
+
+    // Check to see if a debug or reflector command has been received
+
+    packetSize = debugUDP.parsePacket();
+    debugLen = debugUDP.read(packetBuffer, 999);
+
+    if (debugLen > 0) {
+      // Zero end the payload
+      packetBuffer[debugLen] = 0;
+
+      Reflector_In_Use = 1;
+
+      udp.beginPacket(reflectorIP, reflectorport);
+      udp.println("Debug Left Input - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      udp.endPacket();
+    }
   }
 
 
 
   currentMillis = millis();
-
-
 }
 
 void CaseTemplate() {
@@ -1805,5 +1828,4 @@ void CaseTemplate() {
   //          break;
   //        case 179:
   //          break;
-
 }
