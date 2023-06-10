@@ -220,17 +220,26 @@ void FindInputChanges() {
 
         sprintf(stringind, "%03d", ind);
 
+
+
         if (prevjoyReport.button[ind] == 0) {
           outString = outString + "1";
-          if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 1);
-          // if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
+
+          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 1);
+
         } else {
           outString = outString + "0";
-          if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 0);
-          // if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
+          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 0);
         }
 
         prevjoyReport.button[ind] = joyReport.button[ind];
+
+
+        if (Reflector_In_Use == 1) {
+          udp.beginPacket(reflectorIP, reflectorport);
+          udp.println("Front Input - " + String(ind) + ":" + String(joyReport.button[ind]));
+          udp.endPacket();
+        }
       }
     }
 }
@@ -254,387 +263,399 @@ void SendAOABrightness(int AOA_DIMMER_VALUE) {
   }
 }
 
+void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
-void SendDCSBIOSMessage(int ind, int state) {
+
+  if (Reflector_In_Use == 1) {
+    udp.beginPacket(reflectorIP, reflectorport);
+    udp.println("Front Input - " + String(msg) + ":" + String(arg));
+    udp.endPacket();
+  }
+
+  sendDcsBiosMessage(msg, arg);
+}
+
+
+void CreateDcsBiosMessage(int ind, int state) {
 
   switch (state) {
     case 0:
       switch (ind) {
         case 0:
-          sendDcsBiosMessage("LEFT_DDI_PB_05", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_05", "0");
           break;
         case 1:
-          sendDcsBiosMessage("LEFT_DDI_PB_20", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_20", "0");
           break;
         case 2:
-          sendDcsBiosMessage("LEFT_DDI_PB_15", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_15", "0");
           break;
         case 3:
-          sendDcsBiosMessage("LEFT_DDI_PB_10", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_10", "0");
           break;
         case 4:  // USED BELOW
           break;
         case 5:
-          sendDcsBiosMessage("RIGHT_DDI_PB_05", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_05", "0");
           break;
         case 6:
-          sendDcsBiosMessage("RIGHT_DDI_PB_20", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_20", "0");
           break;
         case 7:
-          sendDcsBiosMessage("RIGHT_DDI_PB_15", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_15", "0");
           break;
         case 8:
-          sendDcsBiosMessage("RIGHT_DDI_PB_10", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_10", "0");
           break;
         case 9:  // USED BELOW
           break;
         case 10:
-          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
+          sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
           break;
         case 11:
-          sendDcsBiosMessage("LEFT_DDI_PB_04", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_04", "0");
           break;
         case 12:
-          sendDcsBiosMessage("LEFT_DDI_PB_19", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_19", "0");
           break;
         case 13:
-          sendDcsBiosMessage("LEFT_DDI_PB_14", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_14", "0");
           break;
         case 14:
-          sendDcsBiosMessage("LEFT_DDI_PB_09", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_09", "0");
           break;
         case 15:  // USED BELOW
           break;
         case 16:
-          sendDcsBiosMessage("RIGHT_DDI_PB_04", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_04", "0");
           break;
         case 17:
-          sendDcsBiosMessage("RIGHT_DDI_PB_19", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_19", "0");
           break;
         case 18:
-          sendDcsBiosMessage("RIGHT_DDI_PB_14", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_14", "0");
           break;
         case 19:
-          sendDcsBiosMessage("RIGHT_DDI_PB_09", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_09", "0");
           break;
         case 20:  // USED BELOW
           break;
         case 21:
-          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
+          sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
           break;
         case 22:
-          sendDcsBiosMessage("LEFT_DDI_PB_03", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_03", "0");
           break;
         case 23:
-          sendDcsBiosMessage("LEFT_DDI_PB_18", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_18", "0");
           break;
         case 24:
-          sendDcsBiosMessage("LEFT_DDI_PB_13", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_13", "0");
           break;
         case 25:
-          sendDcsBiosMessage("LEFT_DDI_PB_08", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_08", "0");
           break;
         case 26:  // USED BELOW
           break;
         case 27:
-          sendDcsBiosMessage("RIGHT_DDI_PB_03", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_03", "0");
           break;
         case 28:
-          sendDcsBiosMessage("RIGHT_DDI_PB_18", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_18", "0");
           break;
         case 29:
-          sendDcsBiosMessage("RIGHT_DDI_PB_13", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_13", "0");
           break;
         case 30:
-          sendDcsBiosMessage("RIGHT_DDI_PB_08", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_08", "0");
           break;
         case 31:  // USED BELOW
           break;
         case 32:
-          sendDcsBiosMessage("UFC_ILS", "0");
+          sendToDcsBiosMessage("UFC_ILS", "0");
           break;
         case 33:
-          sendDcsBiosMessage("LEFT_DDI_PB_02", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_02", "0");
           break;
         case 34:
-          sendDcsBiosMessage("LEFT_DDI_PB_17", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_17", "0");
           break;
         case 35:
-          sendDcsBiosMessage("LEFT_DDI_PB_12", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_12", "0");
           break;
         case 36:
-          sendDcsBiosMessage("LEFT_DDI_PB_07", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_07", "0");
           break;
         case 37:
-          sendDcsBiosMessage("UFC_COMM1_PULL", "0");
-          //sendDcsBiosMessage("UFC_COMM2_PULL", "0");
+          sendToDcsBiosMessage("UFC_COMM1_PULL", "0");
+          //sendToDcsBiosMessage("UFC_COMM2_PULL", "0");
           break;
         case 38:
-          sendDcsBiosMessage("RIGHT_DDI_PB_02", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_02", "0");
           break;
         case 39:
-          sendDcsBiosMessage("RIGHT_DDI_PB_17", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_17", "0");
           break;
         case 40:
-          sendDcsBiosMessage("RIGHT_DDI_PB_12", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_12", "0");
           break;
         case 41:
-          sendDcsBiosMessage("RIGHT_DDI_PB_07", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_07", "0");
           break;
         case 42:
-          sendDcsBiosMessage("MASTER_CAUTION_RESET_SW", "0");
+          sendToDcsBiosMessage("MASTER_CAUTION_RESET_SW", "0");
           break;
         case 43:
-          sendDcsBiosMessage("LEFT_FIRE_BTN", "0");
-          sendDcsBiosMessage("LEFT_FIRE_BTN_COVER", "0");
+          sendToDcsBiosMessage("LEFT_FIRE_BTN", "0");
+          sendToDcsBiosMessage("LEFT_FIRE_BTN_COVER", "0");
           break;
         case 44:
-          sendDcsBiosMessage("LEFT_DDI_PB_01", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_01", "0");
           break;
         case 45:
-          sendDcsBiosMessage("LEFT_DDI_PB_16", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_16", "0");
           break;
         case 46:
-          sendDcsBiosMessage("LEFT_DDI_PB_11", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_11", "0");
           break;
         case 47:
-          sendDcsBiosMessage("LEFT_DDI_PB_06", "0");
+          sendToDcsBiosMessage("LEFT_DDI_PB_06", "0");
           break;
         case 48:
-          sendDcsBiosMessage("UFC_COMM2_PULL", "0");
+          sendToDcsBiosMessage("UFC_COMM2_PULL", "0");
           break;
         case 49:
-          sendDcsBiosMessage("RIGHT_DDI_PB_01", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_01", "0");
           break;
         case 50:
-          sendDcsBiosMessage("RIGHT_DDI_PB_16", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_16", "0");
           break;
         case 51:
-          sendDcsBiosMessage("RIGHT_DDI_PB_11", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_11", "0");
           break;
         case 52:
-          sendDcsBiosMessage("RIGHT_DDI_PB_06", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_06", "0");
           break;
         case 53:
-          sendDcsBiosMessage("APU_FIRE_BTN", "0");
+          sendToDcsBiosMessage("APU_FIRE_BTN", "0");
           break;
         case 54:
-          sendDcsBiosMessage("RIGHT_FIRE_BTN", "0");
-          sendDcsBiosMessage("RIGHT_FIRE_BTN_COVER", "0");
+          sendToDcsBiosMessage("RIGHT_FIRE_BTN", "0");
+          sendToDcsBiosMessage("RIGHT_FIRE_BTN_COVER", "0");
           break;
         case 55:
-          sendDcsBiosMessage("AMPCD_PB_05", "0");
+          sendToDcsBiosMessage("AMPCD_PB_05", "0");
           break;
         case 56:
-          sendDcsBiosMessage("AMPCD_PB_20", "0");
+          sendToDcsBiosMessage("AMPCD_PB_20", "0");
           break;
         case 57:
-          sendDcsBiosMessage("AMPCD_PB_15", "0");
+          sendToDcsBiosMessage("AMPCD_PB_15", "0");
           break;
         case 58:
-          sendDcsBiosMessage("AMPCD_PB_10", "0");
+          sendToDcsBiosMessage("AMPCD_PB_10", "0");
           break;
         case 59:
-          sendDcsBiosMessage("UFC_1", "0");
+          sendToDcsBiosMessage("UFC_1", "0");
           break;
         case 60:
-          sendDcsBiosMessage("UFC_2", "0");
+          sendToDcsBiosMessage("UFC_2", "0");
           break;
         case 61:
-          sendDcsBiosMessage("UFC_3", "0");
+          sendToDcsBiosMessage("UFC_3", "0");
           break;
         case 62:
-          sendDcsBiosMessage("UFC_OS2", "0");
+          sendToDcsBiosMessage("UFC_OS2", "0");
           break;
         case 63:
-          sendDcsBiosMessage("UFC_AP", "0");
+          sendToDcsBiosMessage("UFC_AP", "0");
           break;
         case 64:
-          sendDcsBiosMessage("UFC_IFF", "0");
+          sendToDcsBiosMessage("UFC_IFF", "0");
           break;
         case 65:
-          sendDcsBiosMessage("UFC_TCN", "0");
+          sendToDcsBiosMessage("UFC_TCN", "0");
           break;
         case 66:
-          sendDcsBiosMessage("AMPCD_PB_04", "0");
+          sendToDcsBiosMessage("AMPCD_PB_04", "0");
           break;
         case 67:
-          sendDcsBiosMessage("AMPCD_PB_19", "0");
+          sendToDcsBiosMessage("AMPCD_PB_19", "0");
           break;
         case 68:
-          sendDcsBiosMessage("AMPCD_PB_14", "0");
+          sendToDcsBiosMessage("AMPCD_PB_14", "0");
           break;
         case 69:
-          sendDcsBiosMessage("AMPCD_PB_09", "0");
+          sendToDcsBiosMessage("AMPCD_PB_09", "0");
           break;
         case 70:
-          sendDcsBiosMessage("UFC_4", "0");
+          sendToDcsBiosMessage("UFC_4", "0");
           break;
         case 71:
-          sendDcsBiosMessage("UFC_5", "0");
+          sendToDcsBiosMessage("UFC_5", "0");
           break;
         case 72:
-          sendDcsBiosMessage("UFC_6", "0");
+          sendToDcsBiosMessage("UFC_6", "0");
           break;
         case 73:
-          sendDcsBiosMessage("UFC_OS3", "0");
+          sendToDcsBiosMessage("UFC_OS3", "0");
           break;
         case 74:
-          sendDcsBiosMessage("UFC_ONOFF", "0");
+          sendToDcsBiosMessage("UFC_ONOFF", "0");
           break;
         case 75:
-          sendDcsBiosMessage("UFC_BCN", "0");
+          sendToDcsBiosMessage("UFC_BCN", "0");
           break;
         case 76:
-          sendDcsBiosMessage("UFC_DL", "0");
+          sendToDcsBiosMessage("UFC_DL", "0");
           break;
         case 77:
-          sendDcsBiosMessage("AMPCD_PB_03", "0");
+          sendToDcsBiosMessage("AMPCD_PB_03", "0");
           break;
         case 78:
-          sendDcsBiosMessage("AMPCD_PB_18", "0");
+          sendToDcsBiosMessage("AMPCD_PB_18", "0");
           break;
         case 79:
-          sendDcsBiosMessage("AMPCD_PB_13", "0");
+          sendToDcsBiosMessage("AMPCD_PB_13", "0");
           break;
         case 80:
-          sendDcsBiosMessage("AMPCD_PB_08", "0");
+          sendToDcsBiosMessage("AMPCD_PB_08", "0");
           break;
         case 81:
-          sendDcsBiosMessage("UFC_7", "0");
+          sendToDcsBiosMessage("UFC_7", "0");
           break;
         case 82:
-          sendDcsBiosMessage("UFC_8", "0");
+          sendToDcsBiosMessage("UFC_8", "0");
           break;
         case 83:
-          sendDcsBiosMessage("UFC_9", "0");
+          sendToDcsBiosMessage("UFC_9", "0");
           break;
         case 84:
-          sendDcsBiosMessage("UFC_OS4", "0");
+          sendToDcsBiosMessage("UFC_OS4", "0");
           break;
         case 85:  // USED BELOW
           break;
         case 86:
-          sendDcsBiosMessage("CMSD_DISPENSE_SW", "1");
+          sendToDcsBiosMessage("CMSD_DISPENSE_SW", "1");
           break;
         case 87:  // EMC, IS THIS USED
           break;
         case 88:
-          sendDcsBiosMessage("AMPCD_PB_02", "0");
+          sendToDcsBiosMessage("AMPCD_PB_02", "0");
           break;
         case 89:
-          sendDcsBiosMessage("AMPCD_PB_17", "0");
+          sendToDcsBiosMessage("AMPCD_PB_17", "0");
           break;
         case 90:
-          sendDcsBiosMessage("AMPCD_PB_12", "0");
+          sendToDcsBiosMessage("AMPCD_PB_12", "0");
           break;
         case 91:
-          sendDcsBiosMessage("AMPCD_PB_07", "0");
+          sendToDcsBiosMessage("AMPCD_PB_07", "0");
           break;
         case 92:
-          sendDcsBiosMessage("UFC_CLR", "0");
+          sendToDcsBiosMessage("UFC_CLR", "0");
           break;
         case 93:
-          sendDcsBiosMessage("UFC_0", "0");
+          sendToDcsBiosMessage("UFC_0", "0");
           break;
         case 94:
-          sendDcsBiosMessage("UFC_ENT", "0");
+          sendToDcsBiosMessage("UFC_ENT", "0");
           break;
         case 95:
-          sendDcsBiosMessage("UFC_OS5", "0");
+          sendToDcsBiosMessage("UFC_OS5", "0");
           break;
         case 96:  // USED BELOW
           break;
         case 97:
-          sendDcsBiosMessage("CMSD_DISPENSE_SW", "1");
+          sendToDcsBiosMessage("CMSD_DISPENSE_SW", "1");
           break;
         case 98:  // EMC, IS THIS USED
           break;
         case 99:
-          sendDcsBiosMessage("AMPCD_PB_01", "0");
+          sendToDcsBiosMessage("AMPCD_PB_01", "0");
           break;
         case 100:
-          sendDcsBiosMessage("AMPCD_PB_16", "0");
+          sendToDcsBiosMessage("AMPCD_PB_16", "0");
           break;
         case 101:
-          sendDcsBiosMessage("AMPCD_PB_11", "0");
+          sendToDcsBiosMessage("AMPCD_PB_11", "0");
           break;
         case 102:
-          sendDcsBiosMessage("AMPCD_PB_06", "0");
+          sendToDcsBiosMessage("AMPCD_PB_06", "0");
           break;
         case 103:
-          sendDcsBiosMessage("UFC_ADF", "1");
+          sendToDcsBiosMessage("UFC_ADF", "1");
           break;
         case 104:
-          sendDcsBiosMessage("UFC_IP", "0");
+          sendToDcsBiosMessage("UFC_IP", "0");
           break;
         case 105:
-          sendDcsBiosMessage("UFC_OS1", "0");
+          sendToDcsBiosMessage("UFC_OS1", "0");
           break;
         case 106:
-          sendDcsBiosMessage("UFC_EMCON", "0");
+          sendToDcsBiosMessage("UFC_EMCON", "0");
           break;
         case 107:  // USED BELOW
           break;
         case 108:
-          sendDcsBiosMessage("AUX_REL_SW", "1");  // WIRED BACKWARDS IN MY PIT
+          sendToDcsBiosMessage("AUX_REL_SW", "1");  // WIRED BACKWARDS IN MY PIT
           break;
         case 109:
-          sendDcsBiosMessage("SAI_TEST_BTN", "0");
+          sendToDcsBiosMessage("SAI_TEST_BTN", "0");
           break;
         case 110:
-          sendDcsBiosMessage("AMPCD_GAIN_SW", "1");
+          sendToDcsBiosMessage("AMPCD_GAIN_SW", "1");
           break;
         case 111:
-          sendDcsBiosMessage("AMPCD_CONT_SW", "1");
+          sendToDcsBiosMessage("AMPCD_CONT_SW", "1");
           break;
         case 112:
-          sendDcsBiosMessage("AMPCD_SYM_SW", "1");
+          sendToDcsBiosMessage("AMPCD_SYM_SW", "1");
           break;
         case 113:
-          sendDcsBiosMessage("AMPCD_NIGHT_DAY", "1");
+          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "1");
           break;
         case 114:
-          sendDcsBiosMessage("UFC_ADF", "1");
+          sendToDcsBiosMessage("UFC_ADF", "1");
           break;
         case 115:
-          sendDcsBiosMessage("HUD_VIDEO_BIT", "0");
+          sendToDcsBiosMessage("HUD_VIDEO_BIT", "0");
           break;
         case 116:
           break;
         case 117:  //FA-18C_hornet/MASTER_MODE_AA
-          sendDcsBiosMessage("MASTER_MODE_AA", "0");
+          sendToDcsBiosMessage("MASTER_MODE_AA", "0");
           break;
         case 118:  // USED BELOW
           break;
         case 119:  //EMC, IS THIS USED
-          sendDcsBiosMessage("CMSD_JET_SEL_BTN", "0");
+          sendToDcsBiosMessage("CMSD_JET_SEL_BTN", "0");
           break;
         case 120:
-          sendDcsBiosMessage("SAI_CAGE", "0");
+          sendToDcsBiosMessage("SAI_CAGE", "0");
           break;
         case 121:
-          sendDcsBiosMessage("AMPCD_GAIN_SW", "1");
+          sendToDcsBiosMessage("AMPCD_GAIN_SW", "1");
           break;
         case 122:
-          sendDcsBiosMessage("AMPCD_CONT_SW", "1");
+          sendToDcsBiosMessage("AMPCD_CONT_SW", "1");
           break;
         case 123:
-          sendDcsBiosMessage("AMPCD_SYM_SW", "1");
+          sendToDcsBiosMessage("AMPCD_SYM_SW", "1");
           break;
         case 124:
-          sendDcsBiosMessage("AMPCD_NIGHT_DAY", "1");
+          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "1");
           break;
         case 125:
-          sendDcsBiosMessage("RWR_BIT_BTN", "0");
+          sendToDcsBiosMessage("RWR_BIT_BTN", "0");
           break;
         case 126:  // USED BELOW
           break;
         case 127:  //FA-18C_hornet/MASTER_MODE_AG
-          sendDcsBiosMessage("MASTER_MODE_AG", "0");
+          sendToDcsBiosMessage("MASTER_MODE_AG", "0");
           break;
         case 128:  //FA-18C_hornet/FIRE_EXT_BTN
-          sendDcsBiosMessage("FIRE_EXT_BTN", "0");
+          sendToDcsBiosMessage("FIRE_EXT_BTN", "0");
           // USED BELOW
           break;
         case 129:  // USED BELOW
@@ -644,7 +665,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 131:  // NOT USED
           break;
         case 132:
-          sendDcsBiosMessage("AMPCD_BRT_CTL", "1");
+          sendToDcsBiosMessage("AMPCD_BRT_CTL", "1");
           break;
         case 133:  // AMPCD, IS THIS USED
           break;
@@ -653,99 +674,99 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 135:  // AMPCD, IS THIS USED
           break;
         case 136:
-          sendDcsBiosMessage("RWR_OFFSET_BTN", "0");
+          sendToDcsBiosMessage("RWR_OFFSET_BTN", "0");
           break;
         case 137:  // USED BELOW
           break;
         case 138:
-          sendDcsBiosMessage("EMER_JETT_BTN", "0");
+          sendToDcsBiosMessage("EMER_JETT_BTN", "0");
           break;
         case 139:
-          sendDcsBiosMessage("MASTER_ARM_SW", "0");
+          sendToDcsBiosMessage("MASTER_ARM_SW", "0");
           break;
-        case 140:                                 //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "1");  //1 FOR OFF
+        case 140:                                   //FA-18C_hornet/HUD_ATT_SW
+          sendToDcsBiosMessage("HUD_ATT_SW", "1");  //1 FOR OFF
           break;
-        case 141:                                           //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
-          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
+        case 141:                                             //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
+          sendToDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
           break;
-        case 142:                                     //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "1");  //1 FOR OFF
+        case 142:                                       //FA-18C_hornet/HUD_SYM_REJ_SW
+          sendToDcsBiosMessage("HUD_SYM_REJ_SW", "1");  //1 FOR OFF
           break;
         case 143:  //FA-18C_hornet/IFEI_MODE_BTN
-          sendDcsBiosMessage("IFEI_MODE_BTN", "0");
+          sendToDcsBiosMessage("IFEI_MODE_BTN", "0");
           break;
         case 144:  //FA-18C_hornet/IFEI_DWN_BTN
-          sendDcsBiosMessage("IFEI_DWN_BTN", "0");
+          sendToDcsBiosMessage("IFEI_DWN_BTN", "0");
           break;
         case 145:  //IFEI, IS THIS USED
           break;
-        case 146:                                       //FA-18C_hornet/MODE_SELECTOR_SW
-          sendDcsBiosMessage("MODE_SELECTOR_SW", "1");  //1 FOR OFF
+        case 146:                                         //FA-18C_hornet/MODE_SELECTOR_SW
+          sendToDcsBiosMessage("MODE_SELECTOR_SW", "1");  //1 FOR OFF
           break;
         case 147:
-          sendDcsBiosMessage("RWR_SPECIAL_BTN", "0");
+          sendToDcsBiosMessage("RWR_SPECIAL_BTN", "0");
           break;
         case 148:  // USED BELOW
           break;
         case 149:  //FA-18C_hornet/SPIN_RECOVERY_SW
-          sendDcsBiosMessage("SPIN_RECOVERY_SW", "0");
+          sendToDcsBiosMessage("SPIN_RECOVERY_SW", "0");
           //FA-18C_hornet/SPIN_RECOVERY_COVER
-          sendDcsBiosMessage("SPIN_RECOVERY_COVER", "0");
+          sendToDcsBiosMessage("SPIN_RECOVERY_COVER", "0");
           break;
         case 150:  //FA-18C_hornet/IR_COOL_SW
-          sendDcsBiosMessage("IR_COOL_SW", "1");
+          sendToDcsBiosMessage("IR_COOL_SW", "1");
           break;
-        case 151:                                 //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "1");  //1 FOR OFF
+        case 151:                                   //FA-18C_hornet/HUD_ATT_SW
+          sendToDcsBiosMessage("HUD_ATT_SW", "1");  //1 FOR OFF
           break;
-        case 152:                                           //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
-          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
+        case 152:                                             //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
+          sendToDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
           break;
-        case 153:                                     //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "1");  //1 FOR OFF
+        case 153:                                       //FA-18C_hornet/HUD_SYM_REJ_SW
+          sendToDcsBiosMessage("HUD_SYM_REJ_SW", "1");  //1 FOR OFF
           break;
         case 154:  //FA-18C_hornet/IFEI_QTY_BTN
-          sendDcsBiosMessage("IFEI_QTY_BTN", "0");
+          sendToDcsBiosMessage("IFEI_QTY_BTN", "0");
           break;
         case 155:  //FA-18C_hornet/IFEI_ZONE_BTN
-          sendDcsBiosMessage("IFEI_ZONE_BTN", "0");
+          sendToDcsBiosMessage("IFEI_ZONE_BTN", "0");
           break;
-        case 156:                                           //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
-          sendDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "0");  // NEEDS WORK
+        case 156:                                             //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
+          sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "0");  // NEEDS WORK
           break;
-        case 157:                                       //FA-18C_hornet/MODE_SELECTOR_SW
-          sendDcsBiosMessage("MODE_SELECTOR_SW", "1");  //1 FOR OFF
+        case 157:                                         //FA-18C_hornet/MODE_SELECTOR_SW
+          sendToDcsBiosMessage("MODE_SELECTOR_SW", "1");  //1 FOR OFF
           break;
         case 158:
-          sendDcsBiosMessage("RWR_DISPLAY_BTN", "0");
+          sendToDcsBiosMessage("RWR_DISPLAY_BTN", "0");
           break;
         case 159:  // USED BELOW
           break;
         case 160:  //SPIN, IS THIS USED
           break;
         case 161:  ////FA-18C_hornet/IR_COOL_SW
-          sendDcsBiosMessage("IR_COOL_SW", "1");
+          sendToDcsBiosMessage("IR_COOL_SW", "1");
           break;
         case 162:  //FA-18C_hornet/HUD_ALT_SW
-          sendDcsBiosMessage("HUD_ALT_SW", "0");
+          sendToDcsBiosMessage("HUD_ALT_SW", "0");
           break;
         case 163:  //HUD, IS THIS USED
           break;
         case 164:  //FA-18C_hornet/HUD_SYM_BRT_SELECT
-          sendDcsBiosMessage("HUD_SYM_BRT_SELECT", "0");
+          sendToDcsBiosMessage("HUD_SYM_BRT_SELECT", "0");
           break;
         case 165:  //FA-18C_hornet/IFEI_UP_BTN
-          sendDcsBiosMessage("IFEI_UP_BTN", "0");
+          sendToDcsBiosMessage("IFEI_UP_BTN", "0");
           break;
         case 166:  //FA-18C_hornet/IFEI_ET_BTN
-          sendDcsBiosMessage("IFEI_ET_BTN", "0");
+          sendToDcsBiosMessage("IFEI_ET_BTN", "0");
           break;
         case 167:
-          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
+          sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
           break;
         case 168:
-          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
+          sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
           break;
         case 169:
           // ######### PETE TO ADD LATCH #########
@@ -753,19 +774,19 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 170:  // USED BELOW
           break;
         case 171:  //FA-18C_hornet/SJ_CTR
-          sendDcsBiosMessage("SJ_CTR", "0");
+          sendToDcsBiosMessage("SJ_CTR", "0");
           break;
         case 172:  //FA-18C_hornet/SJ_RI
-          sendDcsBiosMessage("SJ_RI", "0");
+          sendToDcsBiosMessage("SJ_RI", "0");
           break;
         case 173:  //FA-18C_hornet/SJ_LI
-          sendDcsBiosMessage("SJ_LI", "0");
+          sendToDcsBiosMessage("SJ_LI", "0");
           break;
         case 174:  //FA-18C_hornet/SJ_RO
-          sendDcsBiosMessage("SJ_RO", "0");
+          sendToDcsBiosMessage("SJ_RO", "0");
           break;
         case 175:  //FA-18C_hornet/SJ_LO
-          sendDcsBiosMessage("SJ_LO", "0");
+          sendToDcsBiosMessage("SJ_LO", "0");
           break;
         case 176:  // NOT USED
           break;
@@ -776,412 +797,412 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 179:  // NOT USED
           break;
         default:
-          sendDcsBiosMessage("LIGHTS_TEST_SW", "0");
+          sendToDcsBiosMessage("LIGHTS_TEST_SW", "0");
           break;
       }
       break;
     case 1:
       switch (ind) {
         case 0:
-          sendDcsBiosMessage("LEFT_DDI_PB_05", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_05", "1");
           break;
         case 1:
-          sendDcsBiosMessage("LEFT_DDI_PB_20", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_20", "1");
           break;
         case 2:
-          sendDcsBiosMessage("LEFT_DDI_PB_15", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_15", "1");
           break;
         case 3:
-          sendDcsBiosMessage("LEFT_DDI_PB_10", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_10", "1");
           break;
         case 4:
-          sendDcsBiosMessage("LEFT_DDI_BRT_SELECT", "0");
+          sendToDcsBiosMessage("LEFT_DDI_BRT_SELECT", "0");
           break;
         case 5:
-          sendDcsBiosMessage("RIGHT_DDI_PB_05", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_05", "1");
           break;
         case 6:
-          sendDcsBiosMessage("RIGHT_DDI_PB_20", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_20", "1");
           break;
         case 7:
-          sendDcsBiosMessage("RIGHT_DDI_PB_15", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_15", "1");
           break;
         case 8:
-          sendDcsBiosMessage("RIGHT_DDI_PB_10", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_10", "1");
           break;
         case 9:
-          sendDcsBiosMessage("RIGHT_DDI_BRT_SELECT", "0");
+          sendToDcsBiosMessage("RIGHT_DDI_BRT_SELECT", "0");
           break;
         case 10:
-          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "2");
+          sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "2");
           break;
         case 11:
-          sendDcsBiosMessage("LEFT_DDI_PB_04", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_04", "1");
           break;
         case 12:
-          sendDcsBiosMessage("LEFT_DDI_PB_19", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_19", "1");
           break;
         case 13:
-          sendDcsBiosMessage("LEFT_DDI_PB_14", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_14", "1");
           break;
         case 14:
-          sendDcsBiosMessage("LEFT_DDI_PB_09", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_09", "1");
           break;
         case 15:
-          sendDcsBiosMessage("LEFT_DDI_BRT_SELECT", "1");
+          sendToDcsBiosMessage("LEFT_DDI_BRT_SELECT", "1");
           break;
         case 16:
-          sendDcsBiosMessage("RIGHT_DDI_PB_04", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_04", "1");
           break;
         case 17:
-          sendDcsBiosMessage("RIGHT_DDI_PB_19", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_19", "1");
           break;
         case 18:
-          sendDcsBiosMessage("RIGHT_DDI_PB_14", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_14", "1");
           break;
         case 19:
-          sendDcsBiosMessage("RIGHT_DDI_PB_09", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_09", "1");
           break;
         case 20:
-          sendDcsBiosMessage("RIGHT_DDI_BRT_SELECT", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_BRT_SELECT", "1");
           break;
         case 21:
-          sendDcsBiosMessage("LEFT_DDI_CRS_SW", "0");
+          sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "0");
           break;
         case 22:
-          sendDcsBiosMessage("LEFT_DDI_PB_03", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_03", "1");
           break;
         case 23:
-          sendDcsBiosMessage("LEFT_DDI_PB_18", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_18", "1");
           break;
         case 24:
-          sendDcsBiosMessage("LEFT_DDI_PB_13", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_13", "1");
           break;
         case 25:
-          sendDcsBiosMessage("LEFT_DDI_PB_08", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_08", "1");
           break;
         case 26:
-          sendDcsBiosMessage("LEFT_DDI_BRT_SELECT", "2");
+          sendToDcsBiosMessage("LEFT_DDI_BRT_SELECT", "2");
           break;
         case 27:
-          sendDcsBiosMessage("RIGHT_DDI_PB_03", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_03", "1");
           break;
         case 28:
-          sendDcsBiosMessage("RIGHT_DDI_PB_18", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_18", "1");
           break;
         case 29:
-          sendDcsBiosMessage("RIGHT_DDI_PB_13", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_13", "1");
           break;
         case 30:
-          sendDcsBiosMessage("RIGHT_DDI_PB_08", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_08", "1");
           break;
         case 31:
-          sendDcsBiosMessage("RIGHT_DDI_BRT_SELECT", "2");
+          sendToDcsBiosMessage("RIGHT_DDI_BRT_SELECT", "2");
           break;
         case 32:
-          sendDcsBiosMessage("UFC_ILS", "1");
+          sendToDcsBiosMessage("UFC_ILS", "1");
           break;
         case 33:
-          sendDcsBiosMessage("LEFT_DDI_PB_02", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_02", "1");
           break;
         case 34:
-          sendDcsBiosMessage("LEFT_DDI_PB_17", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_17", "1");
           break;
         case 35:
-          sendDcsBiosMessage("LEFT_DDI_PB_12", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_12", "1");
           break;
         case 36:
-          sendDcsBiosMessage("LEFT_DDI_PB_07", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_07", "1");
           break;
         case 37:
-          sendDcsBiosMessage("UFC_COMM1_PULL", "1");
-          //sendDcsBiosMessage("UFC_COMM2_PULL", "1");
+          sendToDcsBiosMessage("UFC_COMM1_PULL", "1");
+          //sendToDcsBiosMessage("UFC_COMM2_PULL", "1");
           break;
         case 38:
-          sendDcsBiosMessage("RIGHT_DDI_PB_02", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_02", "1");
           break;
         case 39:
-          sendDcsBiosMessage("RIGHT_DDI_PB_17", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_17", "1");
           break;
         case 40:
-          sendDcsBiosMessage("RIGHT_DDI_PB_12", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_12", "1");
           break;
         case 41:
-          sendDcsBiosMessage("RIGHT_DDI_PB_07", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_07", "1");
           break;
         case 42:
-          sendDcsBiosMessage("MASTER_CAUTION_RESET_SW", "1");
+          sendToDcsBiosMessage("MASTER_CAUTION_RESET_SW", "1");
           break;
         case 43:
-          sendDcsBiosMessage("LEFT_FIRE_BTN_COVER", "1");
+          sendToDcsBiosMessage("LEFT_FIRE_BTN_COVER", "1");
           LFBCFollowupTask = true;
           timeLFBCOn = millis() + ToggleSwitchCoverMoveTime;
           break;
         case 44:
-          sendDcsBiosMessage("LEFT_DDI_PB_01", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_01", "1");
           break;
         case 45:
-          sendDcsBiosMessage("LEFT_DDI_PB_16", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_16", "1");
           break;
         case 46:
-          sendDcsBiosMessage("LEFT_DDI_PB_11", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_11", "1");
           break;
         case 47:
-          sendDcsBiosMessage("LEFT_DDI_PB_06", "1");
+          sendToDcsBiosMessage("LEFT_DDI_PB_06", "1");
           break;
         case 48:
-          sendDcsBiosMessage("UFC_COMM2_PULL", "1");
+          sendToDcsBiosMessage("UFC_COMM2_PULL", "1");
           break;
         case 49:
-          sendDcsBiosMessage("RIGHT_DDI_PB_01", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_01", "1");
           break;
         case 50:
-          sendDcsBiosMessage("RIGHT_DDI_PB_16", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_16", "1");
           break;
         case 51:
-          sendDcsBiosMessage("RIGHT_DDI_PB_11", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_11", "1");
           break;
         case 52:
-          sendDcsBiosMessage("RIGHT_DDI_PB_06", "1");
+          sendToDcsBiosMessage("RIGHT_DDI_PB_06", "1");
           break;
         case 53:
-          sendDcsBiosMessage("APU_FIRE_BTN", "1");
+          sendToDcsBiosMessage("APU_FIRE_BTN", "1");
           break;
         case 54:
-          sendDcsBiosMessage("RIGHT_FIRE_BTN_COVER", "1");
+          sendToDcsBiosMessage("RIGHT_FIRE_BTN_COVER", "1");
           RFBCFollowupTask = true;
           timeRFBCOn = millis() + ToggleSwitchCoverMoveTime;
           break;
         case 55:
-          sendDcsBiosMessage("AMPCD_PB_05", "1");
+          sendToDcsBiosMessage("AMPCD_PB_05", "1");
           break;
         case 56:
-          sendDcsBiosMessage("AMPCD_PB_20", "1");
+          sendToDcsBiosMessage("AMPCD_PB_20", "1");
           break;
         case 57:
-          sendDcsBiosMessage("AMPCD_PB_15", "1");
+          sendToDcsBiosMessage("AMPCD_PB_15", "1");
           break;
         case 58:
-          sendDcsBiosMessage("AMPCD_PB_10", "1");
+          sendToDcsBiosMessage("AMPCD_PB_10", "1");
           break;
         case 59:
-          sendDcsBiosMessage("UFC_1", "1");
+          sendToDcsBiosMessage("UFC_1", "1");
           break;
         case 60:
-          sendDcsBiosMessage("UFC_2", "1");
+          sendToDcsBiosMessage("UFC_2", "1");
           break;
         case 61:
-          sendDcsBiosMessage("UFC_3", "1");
+          sendToDcsBiosMessage("UFC_3", "1");
           break;
         case 62:
-          sendDcsBiosMessage("UFC_OS2", "1");
+          sendToDcsBiosMessage("UFC_OS2", "1");
           break;
         case 63:
-          sendDcsBiosMessage("UFC_AP", "1");
+          sendToDcsBiosMessage("UFC_AP", "1");
           break;
         case 64:
-          sendDcsBiosMessage("UFC_IFF", "1");
+          sendToDcsBiosMessage("UFC_IFF", "1");
           break;
         case 65:
-          sendDcsBiosMessage("UFC_TCN", "1");
+          sendToDcsBiosMessage("UFC_TCN", "1");
           break;
         case 66:
-          sendDcsBiosMessage("AMPCD_PB_04", "1");
+          sendToDcsBiosMessage("AMPCD_PB_04", "1");
           break;
         case 67:
-          sendDcsBiosMessage("AMPCD_PB_19", "1");
+          sendToDcsBiosMessage("AMPCD_PB_19", "1");
           break;
         case 68:
-          sendDcsBiosMessage("AMPCD_PB_14", "1");
+          sendToDcsBiosMessage("AMPCD_PB_14", "1");
           break;
         case 69:
-          sendDcsBiosMessage("AMPCD_PB_09", "1");
+          sendToDcsBiosMessage("AMPCD_PB_09", "1");
           break;
         case 70:
-          sendDcsBiosMessage("UFC_4", "1");
+          sendToDcsBiosMessage("UFC_4", "1");
           break;
         case 71:
-          sendDcsBiosMessage("UFC_5", "1");
+          sendToDcsBiosMessage("UFC_5", "1");
           break;
         case 72:
-          sendDcsBiosMessage("UFC_6", "1");
+          sendToDcsBiosMessage("UFC_6", "1");
           break;
         case 73:
-          sendDcsBiosMessage("UFC_OS3", "1");
+          sendToDcsBiosMessage("UFC_OS3", "1");
           break;
         case 74:
-          sendDcsBiosMessage("UFC_ONOFF", "1");
+          sendToDcsBiosMessage("UFC_ONOFF", "1");
           break;
         case 75:
-          sendDcsBiosMessage("UFC_BCN", "1");
+          sendToDcsBiosMessage("UFC_BCN", "1");
           break;
         case 76:
-          sendDcsBiosMessage("UFC_DL", "1");
+          sendToDcsBiosMessage("UFC_DL", "1");
           break;
         case 77:
-          sendDcsBiosMessage("AMPCD_PB_03", "1");
+          sendToDcsBiosMessage("AMPCD_PB_03", "1");
           break;
         case 78:
-          sendDcsBiosMessage("AMPCD_PB_18", "1");
+          sendToDcsBiosMessage("AMPCD_PB_18", "1");
           break;
         case 79:
-          sendDcsBiosMessage("AMPCD_PB_13", "1");
+          sendToDcsBiosMessage("AMPCD_PB_13", "1");
           break;
         case 80:
-          sendDcsBiosMessage("AMPCD_PB_08", "1");
+          sendToDcsBiosMessage("AMPCD_PB_08", "1");
           break;
         case 81:
-          sendDcsBiosMessage("UFC_7", "1");
+          sendToDcsBiosMessage("UFC_7", "1");
           break;
         case 82:
-          sendDcsBiosMessage("UFC_8", "1");
+          sendToDcsBiosMessage("UFC_8", "1");
           break;
         case 83:
-          sendDcsBiosMessage("UFC_9", "1");
+          sendToDcsBiosMessage("UFC_9", "1");
           break;
         case 84:
-          sendDcsBiosMessage("UFC_OS4", "1");
+          sendToDcsBiosMessage("UFC_OS4", "1");
           break;
         case 85:
-          sendDcsBiosMessage("ECM_MODE_SW", "0");  // OFF
+          sendToDcsBiosMessage("ECM_MODE_SW", "0");  // OFF
           break;
         case 86:
-          sendDcsBiosMessage("CMSD_DISPENSE_SW", "0");
+          sendToDcsBiosMessage("CMSD_DISPENSE_SW", "0");
           break;
         case 87:  // ECM, IS THIS USED
           break;
         case 88:
-          sendDcsBiosMessage("AMPCD_PB_02", "1");
+          sendToDcsBiosMessage("AMPCD_PB_02", "1");
           break;
         case 89:
-          sendDcsBiosMessage("AMPCD_PB_17", "1");
+          sendToDcsBiosMessage("AMPCD_PB_17", "1");
           break;
         case 90:
-          sendDcsBiosMessage("AMPCD_PB_12", "1");
+          sendToDcsBiosMessage("AMPCD_PB_12", "1");
           break;
         case 91:
-          sendDcsBiosMessage("AMPCD_PB_07", "1");
+          sendToDcsBiosMessage("AMPCD_PB_07", "1");
           break;
         case 92:
-          sendDcsBiosMessage("UFC_CLR", "1");
+          sendToDcsBiosMessage("UFC_CLR", "1");
           break;
         case 93:
-          sendDcsBiosMessage("UFC_0", "1");
+          sendToDcsBiosMessage("UFC_0", "1");
           break;
         case 94:
-          sendDcsBiosMessage("UFC_ENT", "1");
+          sendToDcsBiosMessage("UFC_ENT", "1");
           break;
         case 95:
-          sendDcsBiosMessage("UFC_OS5", "2");
+          sendToDcsBiosMessage("UFC_OS5", "2");
           break;
         case 96:
-          sendDcsBiosMessage("ECM_MODE_SW", "1");  // STBY
+          sendToDcsBiosMessage("ECM_MODE_SW", "1");  // STBY
           break;
         case 97:
-          sendDcsBiosMessage("CMSD_DISPENSE_SW", "2");
+          sendToDcsBiosMessage("CMSD_DISPENSE_SW", "2");
           break;
         case 98:  // EMC, IS THIS USED
           break;
         case 99:
-          sendDcsBiosMessage("AMPCD_PB_01", "1");
+          sendToDcsBiosMessage("AMPCD_PB_01", "1");
           break;
         case 100:
-          sendDcsBiosMessage("AMPCD_PB_16", "1");
+          sendToDcsBiosMessage("AMPCD_PB_16", "1");
           break;
         case 101:
-          sendDcsBiosMessage("AMPCD_PB_11", "1");
+          sendToDcsBiosMessage("AMPCD_PB_11", "1");
           break;
         case 102:
-          sendDcsBiosMessage("AMPCD_PB_06", "1");
+          sendToDcsBiosMessage("AMPCD_PB_06", "1");
           break;
         case 103:
-          sendDcsBiosMessage("UFC_ADF", "2");
+          sendToDcsBiosMessage("UFC_ADF", "2");
           break;
         case 104:
-          sendDcsBiosMessage("UFC_IP", "1");
+          sendToDcsBiosMessage("UFC_IP", "1");
           break;
         case 105:
-          sendDcsBiosMessage("UFC_OS1", "1");
+          sendToDcsBiosMessage("UFC_OS1", "1");
           break;
         case 106:
-          sendDcsBiosMessage("UFC_EMCON", "1");
+          sendToDcsBiosMessage("UFC_EMCON", "1");
           break;
         case 107:
-          sendDcsBiosMessage("ECM_MODE_SW", "2");  // BIT
+          sendToDcsBiosMessage("ECM_MODE_SW", "2");  // BIT
           break;
         case 108:
-          sendDcsBiosMessage("AUX_REL_SW", "0");  // WIRED BACKWARDS IN MY PIT
+          sendToDcsBiosMessage("AUX_REL_SW", "0");  // WIRED BACKWARDS IN MY PIT
           break;
         case 109:
-          sendDcsBiosMessage("SAI_TEST_BTN", "1");
+          sendToDcsBiosMessage("SAI_TEST_BTN", "1");
           break;
         case 110:
-          sendDcsBiosMessage("AMPCD_GAIN_SW", "2");
+          sendToDcsBiosMessage("AMPCD_GAIN_SW", "2");
           break;
         case 111:
-          sendDcsBiosMessage("AMPCD_CONT_SW", "2");
+          sendToDcsBiosMessage("AMPCD_CONT_SW", "2");
           break;
         case 112:
-          sendDcsBiosMessage("AMPCD_SYM_SW", "2");
+          sendToDcsBiosMessage("AMPCD_SYM_SW", "2");
           break;
         case 113:
-          sendDcsBiosMessage("AMPCD_NIGHT_DAY", "0");
+          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "0");
           break;
         case 114:
-          sendDcsBiosMessage("UFC_ADF", "0");
+          sendToDcsBiosMessage("UFC_ADF", "0");
           break;
         case 115:
-          sendDcsBiosMessage("HUD_VIDEO_BIT", "1");
+          sendToDcsBiosMessage("HUD_VIDEO_BIT", "1");
           break;
         case 116:
           break;
         case 117:
-          sendDcsBiosMessage("MASTER_MODE_AA", "1");
+          sendToDcsBiosMessage("MASTER_MODE_AA", "1");
           break;
         case 118:
-          sendDcsBiosMessage("ECM_MODE_SW", "3");  // REC
+          sendToDcsBiosMessage("ECM_MODE_SW", "3");  // REC
           break;
         case 119:  // EMC,
-          sendDcsBiosMessage("CMSD_JET_SEL_BTN", "1");
+          sendToDcsBiosMessage("CMSD_JET_SEL_BTN", "1");
           break;
         case 120:
-          sendDcsBiosMessage("SAI_CAGE", "1");
+          sendToDcsBiosMessage("SAI_CAGE", "1");
           break;
         case 121:
-          sendDcsBiosMessage("AMPCD_GAIN_SW", "0");
+          sendToDcsBiosMessage("AMPCD_GAIN_SW", "0");
           break;
         case 122:
-          sendDcsBiosMessage("AMPCD_CONT_SW", "0");
+          sendToDcsBiosMessage("AMPCD_CONT_SW", "0");
           break;
         case 123:
-          sendDcsBiosMessage("AMPCD_SYM_SW", "0");
+          sendToDcsBiosMessage("AMPCD_SYM_SW", "0");
           break;
         case 124:
-          sendDcsBiosMessage("AMPCD_NIGHT_DAY", "2");
+          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "2");
           break;
         case 125:
-          sendDcsBiosMessage("RWR_BIT_BTN", "1");
+          sendToDcsBiosMessage("RWR_BIT_BTN", "1");
           break;
         case 126:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "0");  // "U"
+          sendToDcsBiosMessage("RWR_DIS_TYPE_SW", "0");  // "U"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 127:
 
-          sendDcsBiosMessage("MASTER_MODE_AG", "1");
+          sendToDcsBiosMessage("MASTER_MODE_AG", "1");
           break;
         case 128:
-          sendDcsBiosMessage("FIRE_EXT_BTN", "1");
+          sendToDcsBiosMessage("FIRE_EXT_BTN", "1");
           break;
         case 129:
-          sendDcsBiosMessage("ECM_MODE_SW", "4");  // XMIT
+          sendToDcsBiosMessage("ECM_MODE_SW", "4");  // XMIT
           break;
         case 130:  // EMC, IS THIS USED
           break;
         case 131:  // NOT USED
           break;
         case 132:
-          sendDcsBiosMessage("AMPCD_BRT_CTL", "0");
+          sendToDcsBiosMessage("AMPCD_BRT_CTL", "0");
           break;
         case 133:  // AMPCD, IS THIS USED
           break;
@@ -1190,133 +1211,133 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 135:  // AMPCD, IS THIS USED
           break;
         case 136:
-          sendDcsBiosMessage("RWR_OFFSET_BTN", "1");
+          sendToDcsBiosMessage("RWR_OFFSET_BTN", "1");
           break;
         case 137:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "1");  // "A"
+          sendToDcsBiosMessage("RWR_DIS_TYPE_SW", "1");  // "A"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 138:
-          sendDcsBiosMessage("EMER_JETT_BTN", "1");
+          sendToDcsBiosMessage("EMER_JETT_BTN", "1");
           break;
         case 139:
-          sendDcsBiosMessage("MASTER_ARM_SW", "1");
+          sendToDcsBiosMessage("MASTER_ARM_SW", "1");
           break;
-        case 140:                                 //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "2");  //1 FOR OFF
+        case 140:                                   //FA-18C_hornet/HUD_ATT_SW
+          sendToDcsBiosMessage("HUD_ATT_SW", "2");  //1 FOR OFF
           break;
-        case 141:                                           //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
-          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "0");  //1 FOR OFF
+        case 141:                                             //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
+          sendToDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "0");  //1 FOR OFF
           break;
-        case 142:                                     //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "0");  //1 FOR OFF
+        case 142:                                       //FA-18C_hornet/HUD_SYM_REJ_SW
+          sendToDcsBiosMessage("HUD_SYM_REJ_SW", "0");  //1 FOR OFF
           break;
         case 143:  //FA-18C_hornet/IFEI_MODE_BTN
-          sendDcsBiosMessage("IFEI_MODE_BTN", "1");
+          sendToDcsBiosMessage("IFEI_MODE_BTN", "1");
           break;
         case 144:  //FA-18C_hornet/IFEI_DWN_BTN
-          sendDcsBiosMessage("IFEI_DWN_BTN", "1");
+          sendToDcsBiosMessage("IFEI_DWN_BTN", "1");
           break;
         case 145:  // IFEI, IS THIS USED
           break;
-        case 146:                                       //FA-18C_hornet/MODE_SELECTOR_SW
-          sendDcsBiosMessage("MODE_SELECTOR_SW", "0");  //1 FOR OFF
+        case 146:                                         //FA-18C_hornet/MODE_SELECTOR_SW
+          sendToDcsBiosMessage("MODE_SELECTOR_SW", "0");  //1 FOR OFF
           break;
         case 147:
-          sendDcsBiosMessage("RWR_SPECIAL_BTN", "1");
+          sendToDcsBiosMessage("RWR_SPECIAL_BTN", "1");
           break;
         case 148:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "2");  // "I"
+          sendToDcsBiosMessage("RWR_DIS_TYPE_SW", "2");  // "I"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 149:  //FA-18C_hornet/SPIN_RECOVERY_SW
-          sendDcsBiosMessage("SPIN_RECOVERY_COVER", "1");
+          sendToDcsBiosMessage("SPIN_RECOVERY_COVER", "1");
           SpinFollowupTask = true;
           timeSpinOn = millis() + ToggleSwitchCoverMoveTime;
           //FA-18C_hornet/SPIN_RECOVERY_COVER
           break;
         case 150:  //FA-18C_hornet/IR_COOL_SW
-          sendDcsBiosMessage("IR_COOL_SW", "0");
+          sendToDcsBiosMessage("IR_COOL_SW", "0");
           break;
-        case 151:                                 //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "0");  //1 FOR OFF
+        case 151:                                   //FA-18C_hornet/HUD_ATT_SW
+          sendToDcsBiosMessage("HUD_ATT_SW", "0");  //1 FOR OFF
           break;
-        case 152:                                           //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
-          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "2");  //1 FOR OFF
+        case 152:                                             //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
+          sendToDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "2");  //1 FOR OFF
           break;
-        case 153:                                     //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "2");  //1 FOR OFF
+        case 153:                                       //FA-18C_hornet/HUD_SYM_REJ_SW
+          sendToDcsBiosMessage("HUD_SYM_REJ_SW", "2");  //1 FOR OFF
           break;
         case 154:  //FA-18C_hornet/IFEI_QTY_BTN
-          sendDcsBiosMessage("IFEI_QTY_BTN", "1");
+          sendToDcsBiosMessage("IFEI_QTY_BTN", "1");
           break;
         case 155:  //FA-18C_hornet/IFEI_ZONE_BTN
-          sendDcsBiosMessage("IFEI_ZONE_BTN", "1");
+          sendToDcsBiosMessage("IFEI_ZONE_BTN", "1");
           break;
-        case 156:                                           //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
-          sendDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "1");  // NEEDS WORK
+        case 156:                                             //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
+          sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "1");  // NEEDS WORK
           break;
-        case 157:                                       //FA-18C_hornet/MODE_SELECTOR_SW
-          sendDcsBiosMessage("MODE_SELECTOR_SW", "2");  //1 FOR OFF
+        case 157:                                         //FA-18C_hornet/MODE_SELECTOR_SW
+          sendToDcsBiosMessage("MODE_SELECTOR_SW", "2");  //1 FOR OFF
           break;
         case 158:
-          sendDcsBiosMessage("RWR_DISPLAY_BTN", "1");
+          sendToDcsBiosMessage("RWR_DISPLAY_BTN", "1");
           break;
         case 159:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "3");  // "N"
+          sendToDcsBiosMessage("RWR_DIS_TYPE_SW", "3");  // "N"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 160:  // SPIN, IS THIS USED
           break;
         case 161:  //FA-18C_hornet/IR_COOL_SW
-          sendDcsBiosMessage("IR_COOL_SW", "2");
+          sendToDcsBiosMessage("IR_COOL_SW", "2");
         case 162:  //FA-18C_hornet/HUD_ALT_SW
-          sendDcsBiosMessage("HUD_ALT_SW", "1");
+          sendToDcsBiosMessage("HUD_ALT_SW", "1");
           break;
         case 163:  // HUD, IS THIS USED
           break;
         case 164:  //FA-18C_hornet/HUD_SYM_BRT_SELECT
-          sendDcsBiosMessage("HUD_SYM_BRT_SELECT", "1");
+          sendToDcsBiosMessage("HUD_SYM_BRT_SELECT", "1");
           break;
         case 165:  //FA-18C_hornet/IFEI_UP_BTN
-          sendDcsBiosMessage("IFEI_UP_BTN", "1");
+          sendToDcsBiosMessage("IFEI_UP_BTN", "1");
           break;
         case 166:  //FA-18C_hornet/IFEI_ET_BTN
-          sendDcsBiosMessage("IFEI_ET_BTN", "1");
+          sendToDcsBiosMessage("IFEI_ET_BTN", "1");
           break;
         case 167:
-          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "2");
+          sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "2");
           break;
         case 168:
-          sendDcsBiosMessage("LEFT_DDI_HDG_SW", "0");
+          sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "0");
           break;
         case 169:
 
           if (RWR_POWER_BUTTON_STATE == true) {
-            sendDcsBiosMessage("RWR_POWER_BTN", "0");
+            sendToDcsBiosMessage("RWR_POWER_BTN", "0");
           } else {
-            sendDcsBiosMessage("RWR_POWER_BTN", "1");
+            sendToDcsBiosMessage("RWR_POWER_BTN", "1");
           }
           // ######### PETE TO ADD LATCH #########
           break;
         case 170:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "4");  // "F"
+          sendToDcsBiosMessage("RWR_DIS_TYPE_SW", "4");  // "F"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 171:
-          sendDcsBiosMessage("SJ_CTR", "1");
+          sendToDcsBiosMessage("SJ_CTR", "1");
           break;
         case 172:
-          sendDcsBiosMessage("SJ_RI", "1");
+          sendToDcsBiosMessage("SJ_RI", "1");
           break;
         case 173:
-          sendDcsBiosMessage("SJ_LI", "1");
+          sendToDcsBiosMessage("SJ_LI", "1");
           break;
         case 174:
-          sendDcsBiosMessage("SJ_RO", "1");
+          sendToDcsBiosMessage("SJ_RO", "1");
           break;
         case 175:
-          sendDcsBiosMessage("SJ_LO", "1");
+          sendToDcsBiosMessage("SJ_LO", "1");
           break;
         case 176:  // NOT USED
           break;
@@ -1328,7 +1349,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
 
         default:
-          sendDcsBiosMessage("LIGHTS_TEST_SW", "1");
+          sendToDcsBiosMessage("LIGHTS_TEST_SW", "1");
           break;
           break;
       }
@@ -1490,22 +1511,22 @@ void loop() {
   //SPIN COVER
   if (SpinFollowupTask == true) {
     if (millis() >= timeSpinOn) {
-      sendDcsBiosMessage("SPIN_RECOVERY_SW", "1");
+      sendToDcsBiosMessage("SPIN_RECOVERY_SW", "1");
       SpinFollowupTask = false;
     }
   }
   // LEFT FIRE BUTTON COVER
   if (LFBCFollowupTask == true) {
     if (millis() >= timeLFBCOn) {
-      sendDcsBiosMessage("LEFT_FIRE_BTN", "1");
-      SpinFollowupTask = false;
+      sendToDcsBiosMessage("LEFT_FIRE_BTN", "1");
+      LFBCFollowupTask = false;
     }
   }
   // RIGHT FIRE BUTTON COVER
   if (RFBCFollowupTask == true) {
     if (millis() >= timeRFBCOn) {
-      sendDcsBiosMessage("RIGHT_FIRE_BTN", "1");
-      SpinFollowupTask = false;
+      sendToDcsBiosMessage("RIGHT_FIRE_BTN", "1");
+      RFBCFollowupTask = false;
     }
   }
 
