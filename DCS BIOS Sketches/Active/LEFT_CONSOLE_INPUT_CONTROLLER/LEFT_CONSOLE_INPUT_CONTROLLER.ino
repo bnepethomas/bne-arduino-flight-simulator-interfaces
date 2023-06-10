@@ -1,6 +1,6 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 //||               FUNCTION = HORNET LEFT INPUT                       ||\\
-//||              LOCATION IN THE PIT = LEFTHAND SIDE             ||\\
+//||              LOCATION IN THE PIT = LEFTHAND SIDE                 ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN - SN: 75438313633351A072D0  ||\\
 //||      ETHERNET SHEILD MAC ADDRESS = MAC                           ||\\
@@ -355,7 +355,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 1:  //ILS - ROTARY NO RELEASE
           break;
         case 2:
-          CreateDcsBiosMessage("COM_COMM_RELAY_SW", "1");
+          sendToDcsBiosMessage("COM_COMM_RELAY_SW", "1");
           break;
         case 3:
           break;
@@ -370,17 +370,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
-          CreateDcsBiosMessage("STROBE_SW", "1");  //STROBE "BRT"
+          sendToDcsBiosMessage("STROBE_SW", "1");  //STROBE "BRT"
           break;
         case 10:
-          CreateDcsBiosMessage("INT_WNG_TANK_SW", "0");  //INHIBIT - PRESSED
+          sendToDcsBiosMessage("INT_WNG_TANK_SW", "0");  //INHIBIT - PRESSED
           break;
         case 11:  //ILS - ROTARY NO RELEASE
           break;
         case 12:  //ILS - ROTARY NO RELEASE
           break;
         case 13:
-          CreateDcsBiosMessage("COM_COMM_RELAY_SW", "1");
+          sendToDcsBiosMessage("COM_COMM_RELAY_SW", "1");
           break;
         case 14:
           break;
@@ -395,69 +395,69 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 19:
           break;
         case 20:
-          CreateDcsBiosMessage("STROBE_SW", "1");  // STROBE "NORMAL"
+          sendToDcsBiosMessage("STROBE_SW", "1");  // STROBE "NORMAL"
           break;
         case 21:
           // Gen Tie
-          CreateDcsBiosMessage("GEN_TIE_SW", "0");
-          CreateDcsBiosMessage("GEN_TIE_COVER", "0");
+          sendToDcsBiosMessage("GEN_TIE_SW", "0");
+          sendToDcsBiosMessage("GEN_TIE_COVER", "0");
           break;
         case 22:  //ILS - ROTARY NO RELEASE
           break;
         case 23:  //ILS - ROTARY NO RELEASE
           break;
         case 24:
-          CreateDcsBiosMessage("COM_CRYPTO_SW", "1");
+          sendToDcsBiosMessage("COM_CRYPTO_SW", "1");
           break;
         case 25:
           //BM ADDED
-          CreateDcsBiosMessage("SEL_JETT_BTN", "0");  // "JETT" BUTTON
+          sendToDcsBiosMessage("SEL_JETT_BTN", "0");  // "JETT" BUTTON
           break;
         case 26:
           // BM CODE
-          CreateDcsBiosMessage("LDG_TAXI_SW", "1");  // LIGHTS "ON"
+          sendToDcsBiosMessage("LDG_TAXI_SW", "1");  // LIGHTS "ON"
           break;
         case 27:
           // BM ADDED "SELECT JETT KNOB"
           //No Relese Required
           break;
         case 28:
-          CreateDcsBiosMessage("CMSD_DISPENSE_BTN", "0");
+          sendToDcsBiosMessage("CMSD_DISPENSE_BTN", "0");
           break;
         case 29:
-          CreateDcsBiosMessage("CB_FCS_CHAN2", "1");
+          sendToDcsBiosMessage("CB_FCS_CHAN2", "1");
           break;
         case 30:
-          CreateDcsBiosMessage("CB_LAUNCH_BAR", "1");
+          sendToDcsBiosMessage("CB_LAUNCH_BAR", "1");
           break;
         case 31:
-          CreateDcsBiosMessage("FCS_RESET_BTN", "0");
+          sendToDcsBiosMessage("FCS_RESET_BTN", "0");
           break;
         case 32:
-          CreateDcsBiosMessage("TO_TRIM_BTN", "0");
+          sendToDcsBiosMessage("TO_TRIM_BTN", "0");
           break;
         case 33:  //ILS - ROTARY NO RELEASE
           break;
         case 34:  //ILS - ROTARY NO RELEASE
           break;
         case 35:
-          CreateDcsBiosMessage("COM_CRYPTO_SW", "1");
+          sendToDcsBiosMessage("COM_CRYPTO_SW", "1");
           break;
         case 36:
-          CreateDcsBiosMessage("LAUNCH_BAR_SW", "0");
+          sendToDcsBiosMessage("LAUNCH_BAR_SW", "0");
           break;
         case 37:
-
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "1");
           break;
         case 38:
           // BM ADDED "SELECT JETT KNOB"
           //No Relese Required
           break;
         case 39:
-          CreateDcsBiosMessage("CB_FCS_CHAN1", "1");
+          sendToDcsBiosMessage("CB_FCS_CHAN1", "1");
           break;
         case 40:
-          CreateDcsBiosMessage("CB_SPD_BRK", "1");
+          sendToDcsBiosMessage("CB_SPD_BRK", "1");
           break;
         case 41:
           break;
@@ -467,8 +467,8 @@ void CreateDcsBiosMessage(int ind, int state) {
           // Cover Down = 0
           // 0 Gain Switch in Normal Position
           // 1 Gain in Switch Override position
-          CreateDcsBiosMessage("GAIN_SWITCH", "0");
-          CreateDcsBiosMessage("GAIN_SWITCH_COVER", "0");
+          sendToDcsBiosMessage("GAIN_SWITCH", "0");
+          sendToDcsBiosMessage("GAIN_SWITCH_COVER", "0");
           break;
         case 43:
         case 44:  //ILS - ROTARY NO RELEASE
@@ -476,77 +476,77 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 45:  //ILS - ROTARY NO RELEASE
           break;
         case 46:
-          CreateDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
+          sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
           break;
         case 47:
-          CreateDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "1");
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "1");
           break;
         case 48:
           //BM CODE
-          CreateDcsBiosMessage("HOOK_BYPASS_SW", "0");  // HOOK "FIELD"
+          sendToDcsBiosMessage("HOOK_BYPASS_SW", "0");  // HOOK "FIELD"
           break;
         case 49:
           // BM ADDED "SELECT JETT KNOB"
           //No Relese Required
           break;
         case 50:
-          CreateDcsBiosMessage("ENGINE_CRANK_SW", "1");  // ENG CRANK "RIGHT"
+          sendToDcsBiosMessage("ENGINE_CRANK_SW", "1");  // ENG CRANK "RIGHT"
           break;
         case 51:
-          CreateDcsBiosMessage("APU_CONTROL_SW", "0");  // APU "ON"
+          sendToDcsBiosMessage("APU_CONTROL_SW", "0");  // APU "ON"
           break;
         case 52:
-          CreateDcsBiosMessage("MC_SW", "1");
+          sendToDcsBiosMessage("MC_SW", "1");
           break;
         case 53:
           break;
         case 54:
-          CreateDcsBiosMessage("OBOGS_SW", "0");  // OBOGS "ON"
+          sendToDcsBiosMessage("OBOGS_SW", "0");  // OBOGS "ON"
           break;
         case 55:  //ILS - ROTARY NO RELEASE
           break;
         case 56:  //ILS - ROTARY NO RELEASE
           break;
         case 57:
-          CreateDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
+          sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
           break;
         case 58:
-          CreateDcsBiosMessage("FLAP_SW", "1");  // FLAPS "AUTO"
+          sendToDcsBiosMessage("FLAP_SW", "1");  // FLAPS "AUTO"
           break;
         case 59:
-          CreateDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "1");
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "1");
           break;
         case 60:
           // BM ADDED "SELECT JETT KNOB"
           //No Relese Required
           break;
         case 61:
-          CreateDcsBiosMessage("ENGINE_CRANK_SW", "1");  // ENG CRANK "LEFT
+          sendToDcsBiosMessage("ENGINE_CRANK_SW", "1");  // ENG CRANK "LEFT
           break;
         case 62:
           break;
         case 63:
-          CreateDcsBiosMessage("MC_SW", "1");
+          sendToDcsBiosMessage("MC_SW", "1");
           break;
         case 64:
-          CreateDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "0");
+          sendToDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "0");
           break;
         case 65:
-          CreateDcsBiosMessage("OXY_FLOW", "0");  // OXY FLOW "ON"
+          sendToDcsBiosMessage("OXY_FLOW", "0");  // OXY FLOW "ON"
           break;
         case 66:  //ILS - ROTARY NO RELEASE
           break;
         case 67:  //ILS - ROTARY NO RELEASE
           break;
         case 68:
-          CreateDcsBiosMessage("COM_IFF_MASTER_SW", "1");
+          sendToDcsBiosMessage("COM_IFF_MASTER_SW", "1");
           break;
         case 69:
-          CreateDcsBiosMessage("FLAP_SW", "1");  // FLAPS "FULL"
+          sendToDcsBiosMessage("FLAP_SW", "1");  // FLAPS "FULL"
           break;
         case 70:
           // BM CODE
-          CreateDcsBiosMessage("ANTI_SKID_SW", "0");  //X0--
+          sendToDcsBiosMessage("ANTI_SKID_SW", "0");  //X0--
           break;
         case 71:
           // BM ADDED "SELECT JETT KNOB"
@@ -567,16 +567,16 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 78:  //ILS - ROTARY NO RELEASE
           break;
         case 79:
-          CreateDcsBiosMessage("COM_IFF_MODE4_SW", "1");
+          sendToDcsBiosMessage("COM_IFF_MODE4_SW", "1");
           break;
         case 80:
-          CreateDcsBiosMessage("SEAT_HEIGHT_SW", "1");
+          sendToDcsBiosMessage("SEAT_HEIGHT_SW", "1");
           break;
         case 81:
-          CreateDcsBiosMessage("EJECTION_HANDLE_SW", "0");
+          sendToDcsBiosMessage("EJECTION_HANDLE_SW", "0");
           break;
         case 82:
-          CreateDcsBiosMessage("FIRE_TEST_SW", "1");
+          sendToDcsBiosMessage("FIRE_TEST_SW", "1");
           break;
         case 83:
           break;
@@ -593,16 +593,16 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 89:  //ILS - ROTARY NO RELEASE
           break;
         case 90:
-          CreateDcsBiosMessage("COM_ILS_UFC_MAN_SW", "0");
+          sendToDcsBiosMessage("COM_ILS_UFC_MAN_SW", "0");
           break;
         case 91:
-          CreateDcsBiosMessage("SEAT_HEIGHT_SW", "1");
+          sendToDcsBiosMessage("SEAT_HEIGHT_SW", "1");
           break;
         case 92:
-          CreateDcsBiosMessage("EJECTION_SEAT_ARMED", "1");
+          sendToDcsBiosMessage("EJECTION_SEAT_ARMED", "1");
           break;
         case 93:
-          CreateDcsBiosMessage("FIRE_TEST_SW", "1");
+          sendToDcsBiosMessage("FIRE_TEST_SW", "1");
           break;
         case 94:
           break;
@@ -619,13 +619,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 100:  //ILS - ROTARY NO RELEASE
           break;
         case 101:
-          CreateDcsBiosMessage("COM_IFF_MODE4_SW", "1");
+          sendToDcsBiosMessage("COM_IFF_MODE4_SW", "1");
           break;
         case 102:
-          CreateDcsBiosMessage("SHLDR_HARNESS_SW", "1");
+          sendToDcsBiosMessage("SHLDR_HARNESS_SW", "1");
           break;
         case 103:
-          CreateDcsBiosMessage("EJECTION_SEAT_MNL_OVRD", "1");
+          sendToDcsBiosMessage("EJECTION_SEAT_MNL_OVRD", "1");
           break;
         case 104:
           break;
@@ -640,22 +640,22 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 109:
           break;
         case 110:
-          CreateDcsBiosMessage("PROBE_SW", "1");  // PROBE "EXTEND"
+          sendToDcsBiosMessage("PROBE_SW", "1");  // PROBE "EXTEND"
           break;
         case 111:
-          CreateDcsBiosMessage("EXT_WNG_TANK_SW", "1");  // WING "ORIDE"
+          sendToDcsBiosMessage("EXT_WNG_TANK_SW", "1");  // WING "ORIDE"
           break;
         case 112:
-          CreateDcsBiosMessage("EXT_CNT_TANK_SW", "1");  // TANKS CTR "ORIDE"
+          sendToDcsBiosMessage("EXT_CNT_TANK_SW", "1");  // TANKS CTR "ORIDE"
           break;
         case 113:
-          CreateDcsBiosMessage("FUEL_DUMP_SW", "0");  // DUMP "ON"
+          sendToDcsBiosMessage("FUEL_DUMP_SW", "0");  // DUMP "ON"
           break;
         case 114:
-          CreateDcsBiosMessage("GEAR_LEVER", "1");
+          sendToDcsBiosMessage("GEAR_LEVER", "1");
           break;
         case 115:
-          CreateDcsBiosMessage("GEAR_SILENCE_BTN", "0");
+          sendToDcsBiosMessage("GEAR_SILENCE_BTN", "0");
           break;
         case 116:
           break;
@@ -668,20 +668,20 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 120:
           break;
         case 121:
-          CreateDcsBiosMessage("PROBE_SW", "1");  // PROBE "EMERG EXTD"
+          sendToDcsBiosMessage("PROBE_SW", "1");  // PROBE "EMERG EXTD"
           break;
         case 122:
-          CreateDcsBiosMessage("EXT_WNG_TANK_SW", "1");  //WING "STOP"
+          sendToDcsBiosMessage("EXT_WNG_TANK_SW", "1");  //WING "STOP"
           break;
         case 123:
-          CreateDcsBiosMessage("EXT_CNT_TANK_SW", "1");  // CTR "STOP"
+          sendToDcsBiosMessage("EXT_CNT_TANK_SW", "1");  // CTR "STOP"
           break;
         case 125:
-          CreateDcsBiosMessage("GEAR_DOWNLOCK_OVERRIDE_BTN", "0");
+          sendToDcsBiosMessage("GEAR_DOWNLOCK_OVERRIDE_BTN", "0");
 
           break;
         case 126:
-          CreateDcsBiosMessage("EMERGENCY_GEAR_ROTATE", "1");
+          sendToDcsBiosMessage("EMERGENCY_GEAR_ROTATE", "1");
           break;
         case 127:
           break;
@@ -694,10 +694,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 131:
           break;
         case 132:
-          CreateDcsBiosMessage("COMM1_ANT_SELECT_SW", "1");
+          sendToDcsBiosMessage("COMM1_ANT_SELECT_SW", "1");
           break;
         case 133:
-          CreateDcsBiosMessage("IFF_ANT_SELECT_SW", "1");
+          sendToDcsBiosMessage("IFF_ANT_SELECT_SW", "1");
           break;
         case 134:
           break;
@@ -718,10 +718,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 142:
           break;
         case 143:
-          CreateDcsBiosMessage("COMM1_ANT_SELECT_SW", "1");
+          sendToDcsBiosMessage("COMM1_ANT_SELECT_SW", "1");
           break;
         case 144:
-          CreateDcsBiosMessage("IFF_ANT_SELECT_SW", "1");
+          sendToDcsBiosMessage("IFF_ANT_SELECT_SW", "1");
           break;
         case 145:
           break;
@@ -804,13 +804,13 @@ void CreateDcsBiosMessage(int ind, int state) {
       // PRESS - CLOSE
       switch (ind) {
         case 0:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "11");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "11");  // COMMS PANEL ILS ROTARY SW
           break;
         case 1:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "0");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "0");  // COMMS PANEL ILS ROTARY SW
           break;
         case 2:
-          CreateDcsBiosMessage("COM_COMM_RELAY_SW", "0");
+          sendToDcsBiosMessage("COM_COMM_RELAY_SW", "0");
           break;
         case 3:
           break;
@@ -825,20 +825,20 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
-          CreateDcsBiosMessage("STROBE_SW", "2");
+          sendToDcsBiosMessage("STROBE_SW", "2");
           break;
         case 10:
-          CreateDcsBiosMessage("INT_WNG_TANK_SW", "1");
+          sendToDcsBiosMessage("INT_WNG_TANK_SW", "1");
           break;
         // PRESS - CLOSE
         case 11:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "1");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "1");  // COMMS PANEL ILS ROTARY SW
           break;
         case 12:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "12");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "12");  // COMMS PANEL ILS ROTARY SW
           break;
         case 13:
-          CreateDcsBiosMessage("COM_COMM_RELAY_SW", "2");
+          sendToDcsBiosMessage("COM_COMM_RELAY_SW", "2");
           break;
         case 14:
           break;
@@ -853,59 +853,59 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 19:
           break;
         case 20:
-          CreateDcsBiosMessage("STROBE_SW", "0");
+          sendToDcsBiosMessage("STROBE_SW", "0");
           break;
         // PRESS - CLOSE
         case 21:
           // Gen Tie
-          CreateDcsBiosMessage("GEN_TIE_COVER", "1");
+          sendToDcsBiosMessage("GEN_TIE_COVER", "1");
           GenTieFollowupTask = true;
           timeGenTieOn = millis() + ToggleSwitchCoverMoveTime;
           break;
         case 22:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "13");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "13");  // COMMS PANEL ILS ROTARY SW
           break;
         case 23:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "2");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "2");  // COMMS PANEL ILS ROTARY SW
           break;
         case 24:
-          CreateDcsBiosMessage("COM_CRYPTO_SW", "0");
+          sendToDcsBiosMessage("COM_CRYPTO_SW", "0");
           break;
         case 25:
           //BM ADDED
-          CreateDcsBiosMessage("SEL_JETT_BTN", "1");  // "JETT" BUTTON
+          sendToDcsBiosMessage("SEL_JETT_BTN", "1");  // "JETT" BUTTON
           break;
         case 26:
-          CreateDcsBiosMessage("LDG_TAXI_SW", "0");
-          // PT CODE  CreateDcsBiosMessage("LAUNCH_BAR_SW", "0");
+          sendToDcsBiosMessage("LDG_TAXI_SW", "0");
+          // PT CODE  sendToDcsBiosMessage("LAUNCH_BAR_SW", "0");
           break;
         case 27:
-          CreateDcsBiosMessage("SEL_JETT_KNOB", "4");  // KNOB "STORES"
+          sendToDcsBiosMessage("SEL_JETT_KNOB", "4");  // KNOB "STORES"
           break;
         case 28:
-          CreateDcsBiosMessage("CMSD_DISPENSE_BTN", "1");
+          sendToDcsBiosMessage("CMSD_DISPENSE_BTN", "1");
           break;
         case 29:
-          CreateDcsBiosMessage("CB_FCS_CHAN2", "0");
+          sendToDcsBiosMessage("CB_FCS_CHAN2", "0");
           break;
         case 30:
-          CreateDcsBiosMessage("CB_LAUNCH_BAR", "0");
+          sendToDcsBiosMessage("CB_LAUNCH_BAR", "0");
           break;
         // PRESS - CLOSE
         case 31:
-          CreateDcsBiosMessage("FCS_RESET_BTN", "1");
+          sendToDcsBiosMessage("FCS_RESET_BTN", "1");
           break;
         case 32:
-          CreateDcsBiosMessage("TO_TRIM_BTN", "1");
+          sendToDcsBiosMessage("TO_TRIM_BTN", "1");
           break;
         case 33:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "3");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "3");  // COMMS PANEL ILS ROTARY SW
           break;
         case 34:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "14");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "14");  // COMMS PANEL ILS ROTARY SW
           break;
         case 35:
-          CreateDcsBiosMessage("COM_CRYPTO_SW", "2");
+          sendToDcsBiosMessage("COM_CRYPTO_SW", "2");
           break;
         case 36:
 
@@ -913,60 +913,61 @@ void CreateDcsBiosMessage(int ind, int state) {
           if (Ethernet_In_Use == 1) {
             SendIPString("LCTRL LSHIFT F8");
           } else {
-            CreateDcsBiosMessage("LAUNCH_BAR_SW", "1");
+            sendToDcsBiosMessage("LAUNCH_BAR_SW", "1");
           }
 
 
           break;
         case 37:
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
           break;
         case 38:
           // BM ADDED "SELECT JETT KNOB"
-          CreateDcsBiosMessage("SEL_JETT_KNOB", "3");  // KNOB "RACK LCHR"
+          sendToDcsBiosMessage("SEL_JETT_KNOB", "3");  // KNOB "RACK LCHR"
           break;
         case 39:
-          CreateDcsBiosMessage("CB_FCS_CHAN1", "0");
+          sendToDcsBiosMessage("CB_FCS_CHAN1", "0");
           break;
         case 40:
-          CreateDcsBiosMessage("CB_SPD_BRK", "0");
+          sendToDcsBiosMessage("CB_SPD_BRK", "0");
           break;
         // PRESS - CLOSE
         case 41:
           break;
         case 42:
           // Press is shifting toggle to Override Position
-          CreateDcsBiosMessage("GAIN_SWITCH_COVER", "1");
+          sendToDcsBiosMessage("GAIN_SWITCH_COVER", "1");
           FCSGainFollowupTask = true;
           timeFCSGainOn = millis() + ToggleSwitchCoverMoveTime;
           break;
         case 43:
           break;
         case 44:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "15");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "15");  // COMMS PANEL ILS ROTARY SW
           break;
         case 45:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "4");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "4");  // COMMS PANEL ILS ROTARY SW
           break;
         case 46:
-          CreateDcsBiosMessage("COM_COMM_G_XMT_SW", "0");
+          sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "0");
           break;
         case 47:
-          CreateDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
           break;
         case 48:
           //BM CODE
-          CreateDcsBiosMessage("HOOK_BYPASS_SW", "1");  // HOOK "FIELD"
+          sendToDcsBiosMessage("HOOK_BYPASS_SW", "1");  // HOOK "FIELD"
           break;
         case 49:
           // BM ADDED "SELECT JETT KNOB"
-          CreateDcsBiosMessage("SEL_JETT_KNOB", "2");  // KNOB "RFUS MSL"
+          sendToDcsBiosMessage("SEL_JETT_KNOB", "2");  // KNOB "RFUS MSL"
           break;
         case 50:
           // Special Case for Magnetic Switches Left Engine Crank
           if (Ethernet_In_Use == 1) {
             SendIPString("LCTRL LSHIFT F6");
           } else {
-            CreateDcsBiosMessage("ENGINE_CRANK_SW", "0");
+            sendToDcsBiosMessage("ENGINE_CRANK_SW", "0");
           }
 
           break;
@@ -976,37 +977,37 @@ void CreateDcsBiosMessage(int ind, int state) {
           if (Ethernet_In_Use == 1) {
             SendIPString("LALT LSHIFT F7");
           } else {
-            CreateDcsBiosMessage("APU_CONTROL_SW", "1");
+            sendToDcsBiosMessage("APU_CONTROL_SW", "1");
           }
 
 
           break;
         case 52:
-          CreateDcsBiosMessage("MC_SW", "2");
+          sendToDcsBiosMessage("MC_SW", "2");
           break;
         case 53:
           break;
         case 54:
-          CreateDcsBiosMessage("OBOGS_SW", "1");
+          sendToDcsBiosMessage("OBOGS_SW", "1");
           break;
         case 55:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "5");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "5");  // COMMS PANEL ILS ROTARY SW
           break;
         case 56:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "16");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "16");  // COMMS PANEL ILS ROTARY SW
           break;
         case 57:
-          CreateDcsBiosMessage("COM_COMM_G_XMT_SW", "2");
+          sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "2");
           break;
         case 58:
-          CreateDcsBiosMessage("FLAP_SW", "2");  // FLAPS "AUTO"
+          sendToDcsBiosMessage("FLAP_SW", "2");  // FLAPS "AUTO"
           break;
         case 59:
-          CreateDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
           break;
         case 60:
           // BM ADDED "SELECT JETT KNOB"
-          CreateDcsBiosMessage("SEL_JETT_KNOB", "1");  // KNOB "SAFE"
+          sendToDcsBiosMessage("SEL_JETT_KNOB", "1");  // KNOB "SAFE"
           break;
         // PRESS - CLOSE
         case 61:
@@ -1014,41 +1015,41 @@ void CreateDcsBiosMessage(int ind, int state) {
           if (Ethernet_In_Use == 1) {
             SendIPString("LCTRL LSHIFT F7");
           } else {
-            CreateDcsBiosMessage("ENGINE_CRANK_SW", "2");
+            sendToDcsBiosMessage("ENGINE_CRANK_SW", "2");
           }
 
           break;
         case 62:
           break;
         case 63:
-          CreateDcsBiosMessage("MC_SW", "0");
+          sendToDcsBiosMessage("MC_SW", "0");
           break;
         case 64:
-          CreateDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "1");
+          sendToDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "1");
           break;
         case 65:
-          CreateDcsBiosMessage("OXY_FLOW", "65535");
+          sendToDcsBiosMessage("OXY_FLOW", "65535");
           break;
         case 66:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "17");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "17");  // COMMS PANEL ILS ROTARY SW
           break;
         case 67:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "6");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "6");  // COMMS PANEL ILS ROTARY SW
           break;
         case 68:
-          CreateDcsBiosMessage("COM_IFF_MASTER_SW", "0");
+          sendToDcsBiosMessage("COM_IFF_MASTER_SW", "0");
           break;
         case 69:
-          CreateDcsBiosMessage("FLAP_SW", "0");  // FLAPS "FULL"
+          sendToDcsBiosMessage("FLAP_SW", "0");  // FLAPS "FULL"
           break;
         case 70:
           // BM CODE
-          CreateDcsBiosMessage("ANTI_SKID_SW", "1");  //X1
+          sendToDcsBiosMessage("ANTI_SKID_SW", "1");  //X1
           break;
         // PRESS - CLOSE
         case 71:
           // BM ADDED "SELECT JETT KNOB"
-          CreateDcsBiosMessage("SEL_JETT_KNOB", "0");  // KNOB "LFUS MSL"
+          sendToDcsBiosMessage("SEL_JETT_KNOB", "0");  // KNOB "LFUS MSL"
           break;
         case 72:
           break;
@@ -1061,23 +1062,23 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 76:
           break;
         case 77:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "7");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "7");  // COMMS PANEL ILS ROTARY SW
           break;
         case 78:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "18");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "18");  // COMMS PANEL ILS ROTARY SW
           break;
         case 79:
-          CreateDcsBiosMessage("COM_IFF_MODE4_SW", "0");  //"OFF"
+          sendToDcsBiosMessage("COM_IFF_MODE4_SW", "0");  //"OFF"
           break;
         case 80:
-          CreateDcsBiosMessage("SEAT_HEIGHT_SW", "0");
+          sendToDcsBiosMessage("SEAT_HEIGHT_SW", "0");
           break;
         // PRESS - CLOSE
         case 81:
-          CreateDcsBiosMessage("EJECTION_HANDLE_SW", "1");
+          sendToDcsBiosMessage("EJECTION_HANDLE_SW", "1");
           break;
         case 82:
-          CreateDcsBiosMessage("FIRE_TEST_SW", "2");
+          sendToDcsBiosMessage("FIRE_TEST_SW", "2");
           break;
         case 83:
           break;
@@ -1090,23 +1091,23 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 87:
           break;
         case 88:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "19");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "19");  // COMMS PANEL ILS ROTARY SW
           break;
         case 89:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "8");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "8");  // COMMS PANEL ILS ROTARY SW
           break;
         case 90:
-          CreateDcsBiosMessage("COM_ILS_UFC_MAN_SW", "1");
+          sendToDcsBiosMessage("COM_ILS_UFC_MAN_SW", "1");
           break;
         // PRESS - CLOSE
         case 91:
-          CreateDcsBiosMessage("SEAT_HEIGHT_SW", "2");
+          sendToDcsBiosMessage("SEAT_HEIGHT_SW", "2");
           break;
         case 92:
-          CreateDcsBiosMessage("EJECTION_SEAT_ARMED", "0");
+          sendToDcsBiosMessage("EJECTION_SEAT_ARMED", "0");
           break;
         case 93:
-          CreateDcsBiosMessage("FIRE_TEST_SW", "0");
+          sendToDcsBiosMessage("FIRE_TEST_SW", "0");
           break;
         case 94:
           break;
@@ -1119,19 +1120,19 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:
           break;
         case 99:
-          CreateDcsBiosMessage("COM_ILS_CHANNEL_SW", "11");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "11");  // COMMS PANEL ILS ROTARY SW
           break;
         case 100:
           break;
         // PRESS - CLOSE
         case 101:
-          CreateDcsBiosMessage("COM_IFF_MODE4_SW", "2");  // "DIS/AUD"
+          sendToDcsBiosMessage("COM_IFF_MODE4_SW", "2");  // "DIS/AUD"
           break;
         case 102:
-          CreateDcsBiosMessage("SHLDR_HARNESS_SW", "0");
+          sendToDcsBiosMessage("SHLDR_HARNESS_SW", "0");
           break;
         case 103:
-          CreateDcsBiosMessage("EJECTION_SEAT_MNL_OVRD", "0");
+          sendToDcsBiosMessage("EJECTION_SEAT_MNL_OVRD", "0");
           break;
         case 104:
           break;
@@ -1146,29 +1147,29 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 109:
           break;
         case 110:
-          CreateDcsBiosMessage("PROBE_SW", "0");
+          sendToDcsBiosMessage("PROBE_SW", "0");
           break;
         // PRESS - CLOSE
         case 111:
-          CreateDcsBiosMessage("EXT_WNG_TANK_SW", "0");
+          sendToDcsBiosMessage("EXT_WNG_TANK_SW", "0");
           break;
         case 112:
-          CreateDcsBiosMessage("EXT_CNT_TANK_SW", "0");
+          sendToDcsBiosMessage("EXT_CNT_TANK_SW", "0");
           break;
         case 113:
           // Special Case for Magnetic Switches Fuel Dump On
           if (Ethernet_In_Use == 1) {
             SendIPString("LCTRL LSHIFT F5");
           } else {
-            CreateDcsBiosMessage("FUEL_DUMP_SW", "1");
+            sendToDcsBiosMessage("FUEL_DUMP_SW", "1");
           }
 
           break;
         case 114:;
-          CreateDcsBiosMessage("GEAR_LEVER", "0");
+          sendToDcsBiosMessage("GEAR_LEVER", "0");
           break;
         case 115:
-          CreateDcsBiosMessage("GEAR_SILENCE_BTN", "1");
+          sendToDcsBiosMessage("GEAR_SILENCE_BTN", "1");
           break;
         case 116:
           break;
@@ -1182,21 +1183,21 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 121:
-          CreateDcsBiosMessage("PROBE_SW", "2");
+          sendToDcsBiosMessage("PROBE_SW", "2");
           break;
         case 122:
-          CreateDcsBiosMessage("EXT_WNG_TANK_SW", "2");
+          sendToDcsBiosMessage("EXT_WNG_TANK_SW", "2");
           break;
         case 123:
-          CreateDcsBiosMessage("EXT_CNT_TANK_SW", "2");
+          sendToDcsBiosMessage("EXT_CNT_TANK_SW", "2");
           break;
         case 124:
           break;
         case 125:
-          CreateDcsBiosMessage("GEAR_DOWNLOCK_OVERRIDE_BTN", "1");
+          sendToDcsBiosMessage("GEAR_DOWNLOCK_OVERRIDE_BTN", "1");
           break;
         case 126:
-          CreateDcsBiosMessage("EMERGENCY_GEAR_ROTATE", "0");
+          sendToDcsBiosMessage("EMERGENCY_GEAR_ROTATE", "0");
           break;
         case 127:
           break;
@@ -1210,10 +1211,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 131:
           break;
         case 132:
-          CreateDcsBiosMessage("COMM1_ANT_SELECT_SW", "2");
+          sendToDcsBiosMessage("COMM1_ANT_SELECT_SW", "2");
           break;
         case 133:
-          CreateDcsBiosMessage("IFF_ANT_SELECT_SW", "2");
+          sendToDcsBiosMessage("IFF_ANT_SELECT_SW", "2");
           break;
         case 134:
           break;
@@ -1235,10 +1236,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 142:
           break;
         case 143:
-          CreateDcsBiosMessage("COMM1_ANT_SELECT_SW", "0");
+          sendToDcsBiosMessage("COMM1_ANT_SELECT_SW", "0");
           break;
         case 144:
-          CreateDcsBiosMessage("IFF_ANT_SELECT_SW", "0");
+          sendToDcsBiosMessage("IFF_ANT_SELECT_SW", "0");
           break;
         case 145:
           break;
@@ -1453,14 +1454,14 @@ void loop() {
   // Handle Switches with Safety covers
   if (FCSGainFollowupTask == true) {
     if (millis() >= timeFCSGainOn) {
-      CreateDcsBiosMessage("GAIN_SWITCH", "1");
+      sendToDcsBiosMessage("GAIN_SWITCH", "1");
       FCSGainFollowupTask = false;
     }
   }
 
   if (GenTieFollowupTask == true) {
     if (millis() >= timeGenTieOn) {
-      CreateDcsBiosMessage("GEN_TIE_SW", "1");
+      sendToDcsBiosMessage("GEN_TIE_SW", "1");
       GenTieFollowupTask = false;
     }
   }
