@@ -32,12 +32,16 @@
 
   So - Digit = Row * 11 + Col
 
+
+  20230610 Adding Code to dynamicaly enable debugging
+
 */
 
 
 #define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
-#define Reflector_In_Use 0
+
+int Reflector_In_Use = 0;
 
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
@@ -50,7 +54,7 @@
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x01};
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x01 };
 IPAddress ip(172, 16, 1, 101);
 String strMyIP = "172.16.1.101";
 
@@ -65,11 +69,15 @@ String strMax7219IP = "172.16.1.106";
 
 
 const unsigned int localport = 7788;
+const unsigned int localdebugport = 7790;
 const unsigned int remoteport = 26027;
 const unsigned int reflectorport = 27000;
 const unsigned int max7219port = 7788;
 
+int packetSize;
+int debugLen;
 EthernetUDP udp;
+EthernetUDP debugUDP;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
@@ -78,13 +86,13 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 // From https://github.com/jonnieZG/EWMA
 #include <Ewma.h>
 
-#define AOAIndexerUpdateInterval 10        // Time between pot reads 100 times per second
+#define AOAIndexerUpdateInterval 10  // Time between pot reads 100 times per second
 #define AOAIndexAnalogPin A1
 
 Ewma AnalogAOAIndexer(0.1);
 
 unsigned long AOAIndexerLastUpdate = 0;
-int AOAIndexerBrightnessOut = 15;           // Valid values 0 to 15
+int AOAIndexerBrightnessOut = 15;  // Valid values 0 to 15
 int rawAnalog = 0;
 int AOAIndexerFiltered = 0;
 int AOAIndexerMapped = 0;
@@ -94,13 +102,13 @@ int AOAIndexerMapped = 0;
 
 #define NUM_BUTTONS 256
 #define BUTTONS_USED_ON_PCB 176
-#define NUM_AXES  8        // 8 axes, X, Y, Z, etc
+#define NUM_AXES 8  // 8 axes, X, Y, Z, etc
 #define STATUS_LED_PORT 7
 #define FLASH_TIME 200
 
 //
 struct joyReport_t {
-  int button[NUM_BUTTONS]; // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
+  int button[NUM_BUTTONS];  // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
 };
 
 // Go through the man loop a number of times before sending data to the Sim
@@ -135,12 +143,12 @@ unsigned long previousMillis = 0;
 char stringind[5];
 String outString;
 
-bool SpinFollowupTask = false; // Spin Button Cover
-bool LFBCFollowupTask = false; // Left Fire Button Cover
-bool RFBCFollowupTask = false; // Right Fire Button Cover
-long timeSpinOn = 0; // Spin Button Cover
-long timeLFBCOn = 0; // Left Fire Button Cover
-long timeRFBCOn = 0;// Right Fire Button Cover
+bool SpinFollowupTask = false;  // Spin Button Cover
+bool LFBCFollowupTask = false;  // Left Fire Button Cover
+bool RFBCFollowupTask = false;  // Right Fire Button Cover
+long timeSpinOn = 0;            // Spin Button Cover
+long timeLFBCOn = 0;            // Left Fire Button Cover
+long timeRFBCOn = 0;            // Right Fire Button Cover
 const int ToggleSwitchCoverMoveTime = 500;
 
 
@@ -149,20 +157,18 @@ bool RWR_POWER_BUTTON_STATE = false;  // Used to latch the RWR Power Switch
 void setup() {
 
   // Set the output ports to output
-  for ( int portId = 22; portId < 38; portId ++ )
-  {
-    pinMode( portId, OUTPUT );
+  for (int portId = 22; portId < 38; portId++) {
+    pinMode(portId, OUTPUT);
   }
 
   // Set the input ports to input - port 50-53 used by Ethernet Shield
-  for ( int portId = 38; portId < 50; portId ++ )
-  {
+  for (int portId = 38; portId < 50; portId++) {
     // Even though we've already got 10K external pullups
-    pinMode( portId, INPUT_PULLUP);
+    pinMode(portId, INPUT_PULLUP);
   }
 
   // Initialise all arrays
-  for (int ind = 0; ind < NUM_BUTTONS ; ind++) {
+  for (int ind = 0; ind < NUM_BUTTONS; ind++) {
 
     // Clear current and last values to 0 for button inputs
     joyReport.button[ind] = 0;
@@ -175,15 +181,18 @@ void setup() {
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
   if (Ethernet_In_Use == 1) {
-    Ethernet.begin( mac, ip);
+    Ethernet.begin(mac, ip);
 
 
-    udp.begin( localport );
-    if (Reflector_In_Use == 1)  {
+    udp.begin(localport);
+    if (Reflector_In_Use == 1) {
       udp.beginPacket(reflectorIP, reflectorport);
       udp.println("Init Front Input - " + strMyIP + " " + String(millis()) + "mS since reset.");
       udp.endPacket();
     }
+
+    // Used to remotely enable Debug and Reflector
+    debugUDP.begin(localdebugport);
   }
 
   //  Prime the Analog reading for AOA Indexer
@@ -191,11 +200,9 @@ void setup() {
     rawAnalog = analogRead(AOAIndexAnalogPin);
     AOAIndexerFiltered = AnalogAOAIndexer.filter(rawAnalog);
   }
-
 }
 
-void FindInputChanges()
-{
+void FindInputChanges() {
 
   for (int ind = 0; ind < NUM_BUTTONS; ind++)
     if (bFirstTime) {
@@ -203,11 +210,10 @@ void FindInputChanges()
       bFirstTime = false;
       // Just Copy Array and perform no actions - this may change in the future
       prevjoyReport.button[ind] = joyReport.button[ind];
-    }
-    else {
+    } else {
       // Not the first time - see if there is a difference from last time
       // If there is perform action and update prev array BUT only if we past the end of the debounce period
-      if ( prevjoyReport.button[ind] != joyReport.button[ind] && millis() > joyEndDebounce[ind] ) {
+      if (prevjoyReport.button[ind] != joyReport.button[ind] && millis() > joyEndDebounce[ind]) {
 
         // First things first - set a new debounce period
         joyEndDebounce[ind] = millis() + DebounceDelay;
@@ -215,11 +221,10 @@ void FindInputChanges()
         sprintf(stringind, "%03d", ind);
 
         if (prevjoyReport.button[ind] == 0) {
-          outString = outString +  "1";
+          outString = outString + "1";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 1);
           // if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
-        }
-        else {
+        } else {
           outString = outString + "0";
           if (DCSBIOS_In_Use == 1) SendDCSBIOSMessage(ind, 0);
           // if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
@@ -237,8 +242,8 @@ void SendAOABrightness(int AOA_DIMMER_VALUE) {
   String outString;
   outString = "AOA_DIMMER_VALUE = " + String(AOA_DIMMER_VALUE);
 
-  if ( Ethernet_In_Use == 1) {
-    if (Reflector_In_Use == 1)  {
+  if (Ethernet_In_Use == 1) {
+    if (Reflector_In_Use == 1) {
       udp.beginPacket(reflectorIP, reflectorport);
       udp.print(outString);
       udp.endPacket();
@@ -267,7 +272,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 3:
           sendDcsBiosMessage("LEFT_DDI_PB_10", "0");
           break;
-        case 4: // USED BELOW
+        case 4:  // USED BELOW
           break;
         case 5:
           sendDcsBiosMessage("RIGHT_DDI_PB_05", "0");
@@ -281,7 +286,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 8:
           sendDcsBiosMessage("RIGHT_DDI_PB_10", "0");
           break;
-        case 9: // USED BELOW
+        case 9:  // USED BELOW
           break;
         case 10:
           sendDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
@@ -298,7 +303,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 14:
           sendDcsBiosMessage("LEFT_DDI_PB_09", "0");
           break;
-        case 15: // USED BELOW
+        case 15:  // USED BELOW
           break;
         case 16:
           sendDcsBiosMessage("RIGHT_DDI_PB_04", "0");
@@ -312,7 +317,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 19:
           sendDcsBiosMessage("RIGHT_DDI_PB_09", "0");
           break;
-        case 20: // USED BELOW
+        case 20:  // USED BELOW
           break;
         case 21:
           sendDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
@@ -329,7 +334,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 25:
           sendDcsBiosMessage("LEFT_DDI_PB_08", "0");
           break;
-        case 26: // USED BELOW
+        case 26:  // USED BELOW
           break;
         case 27:
           sendDcsBiosMessage("RIGHT_DDI_PB_03", "0");
@@ -343,7 +348,7 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 30:
           sendDcsBiosMessage("RIGHT_DDI_PB_08", "0");
           break;
-        case 31: // USED BELOW
+        case 31:  // USED BELOW
           break;
         case 32:
           sendDcsBiosMessage("UFC_ILS", "0");
@@ -507,12 +512,12 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 84:
           sendDcsBiosMessage("UFC_OS4", "0");
           break;
-        case 85: // USED BELOW
+        case 85:  // USED BELOW
           break;
         case 86:
           sendDcsBiosMessage("CMSD_DISPENSE_SW", "1");
           break;
-        case 87: // EMC, IS THIS USED
+        case 87:  // EMC, IS THIS USED
           break;
         case 88:
           sendDcsBiosMessage("AMPCD_PB_02", "0");
@@ -538,12 +543,12 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 95:
           sendDcsBiosMessage("UFC_OS5", "0");
           break;
-        case 96: // USED BELOW
+        case 96:  // USED BELOW
           break;
         case 97:
           sendDcsBiosMessage("CMSD_DISPENSE_SW", "1");
           break;
-        case 98: // EMC, IS THIS USED
+        case 98:  // EMC, IS THIS USED
           break;
         case 99:
           sendDcsBiosMessage("AMPCD_PB_01", "0");
@@ -569,10 +574,10 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 106:
           sendDcsBiosMessage("UFC_EMCON", "0");
           break;
-        case 107: // USED BELOW
+        case 107:  // USED BELOW
           break;
         case 108:
-          sendDcsBiosMessage("AUX_REL_SW", "1"); // WIRED BACKWARDS IN MY PIT
+          sendDcsBiosMessage("AUX_REL_SW", "1");  // WIRED BACKWARDS IN MY PIT
           break;
         case 109:
           sendDcsBiosMessage("SAI_TEST_BTN", "0");
@@ -597,12 +602,12 @@ void SendDCSBIOSMessage(int ind, int state) {
           break;
         case 116:
           break;
-        case 117: //FA-18C_hornet/MASTER_MODE_AA
+        case 117:  //FA-18C_hornet/MASTER_MODE_AA
           sendDcsBiosMessage("MASTER_MODE_AA", "0");
           break;
-        case 118: // USED BELOW
+        case 118:  // USED BELOW
           break;
-        case 119: //EMC, IS THIS USED
+        case 119:  //EMC, IS THIS USED
           sendDcsBiosMessage("CMSD_JET_SEL_BTN", "0");
           break;
         case 120:
@@ -623,34 +628,34 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 125:
           sendDcsBiosMessage("RWR_BIT_BTN", "0");
           break;
-        case 126: // USED BELOW
+        case 126:  // USED BELOW
           break;
-        case 127: //FA-18C_hornet/MASTER_MODE_AG
+        case 127:  //FA-18C_hornet/MASTER_MODE_AG
           sendDcsBiosMessage("MASTER_MODE_AG", "0");
           break;
-        case 128: //FA-18C_hornet/FIRE_EXT_BTN
+        case 128:  //FA-18C_hornet/FIRE_EXT_BTN
           sendDcsBiosMessage("FIRE_EXT_BTN", "0");
           // USED BELOW
           break;
-        case 129: // USED BELOW
+        case 129:  // USED BELOW
           break;
-        case 130: //EMC, IS THIS USED
+        case 130:  //EMC, IS THIS USED
           break;
-        case 131: // NOT USED
+        case 131:  // NOT USED
           break;
         case 132:
           sendDcsBiosMessage("AMPCD_BRT_CTL", "1");
           break;
-        case 133: // AMPCD, IS THIS USED
+        case 133:  // AMPCD, IS THIS USED
           break;
-        case 134: // AMPCD, IS THIS USED
+        case 134:  // AMPCD, IS THIS USED
           break;
-        case 135: // AMPCD, IS THIS USED
+        case 135:  // AMPCD, IS THIS USED
           break;
         case 136:
           sendDcsBiosMessage("RWR_OFFSET_BTN", "0");
           break;
-        case 137: // USED BELOW
+        case 137:  // USED BELOW
           break;
         case 138:
           sendDcsBiosMessage("EMER_JETT_BTN", "0");
@@ -658,82 +663,82 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 139:
           sendDcsBiosMessage("MASTER_ARM_SW", "0");
           break;
-        case 140: //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "1"); //1 FOR OFF
+        case 140:                                 //FA-18C_hornet/HUD_ATT_SW
+          sendDcsBiosMessage("HUD_ATT_SW", "1");  //1 FOR OFF
           break;
-        case 141://FA-18C_hornet/HUD_VIDEO_CONTROL_SW
+        case 141:                                           //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
           sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
           break;
-        case 142: //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "1"); //1 FOR OFF
+        case 142:                                     //FA-18C_hornet/HUD_SYM_REJ_SW
+          sendDcsBiosMessage("HUD_SYM_REJ_SW", "1");  //1 FOR OFF
           break;
-        case 143: //FA-18C_hornet/IFEI_MODE_BTN
+        case 143:  //FA-18C_hornet/IFEI_MODE_BTN
           sendDcsBiosMessage("IFEI_MODE_BTN", "0");
           break;
-        case 144: //FA-18C_hornet/IFEI_DWN_BTN
+        case 144:  //FA-18C_hornet/IFEI_DWN_BTN
           sendDcsBiosMessage("IFEI_DWN_BTN", "0");
           break;
-        case 145: //IFEI, IS THIS USED
+        case 145:  //IFEI, IS THIS USED
           break;
-        case 146: //FA-18C_hornet/MODE_SELECTOR_SW
-          sendDcsBiosMessage("MODE_SELECTOR_SW", "1"); //1 FOR OFF
+        case 146:                                       //FA-18C_hornet/MODE_SELECTOR_SW
+          sendDcsBiosMessage("MODE_SELECTOR_SW", "1");  //1 FOR OFF
           break;
         case 147:
           sendDcsBiosMessage("RWR_SPECIAL_BTN", "0");
           break;
-        case 148: // USED BELOW
+        case 148:  // USED BELOW
           break;
-        case 149: //FA-18C_hornet/SPIN_RECOVERY_SW
+        case 149:  //FA-18C_hornet/SPIN_RECOVERY_SW
           sendDcsBiosMessage("SPIN_RECOVERY_SW", "0");
           //FA-18C_hornet/SPIN_RECOVERY_COVER
           sendDcsBiosMessage("SPIN_RECOVERY_COVER", "0");
           break;
-        case 150: //FA-18C_hornet/IR_COOL_SW
+        case 150:  //FA-18C_hornet/IR_COOL_SW
           sendDcsBiosMessage("IR_COOL_SW", "1");
           break;
-        case 151: //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "1"); //1 FOR OFF
+        case 151:                                 //FA-18C_hornet/HUD_ATT_SW
+          sendDcsBiosMessage("HUD_ATT_SW", "1");  //1 FOR OFF
           break;
-        case 152: //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
-          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1"); //1 FOR OFF
+        case 152:                                           //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
+          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
           break;
-        case 153: //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "1"); //1 FOR OFF
+        case 153:                                     //FA-18C_hornet/HUD_SYM_REJ_SW
+          sendDcsBiosMessage("HUD_SYM_REJ_SW", "1");  //1 FOR OFF
           break;
-        case 154: //FA-18C_hornet/IFEI_QTY_BTN
+        case 154:  //FA-18C_hornet/IFEI_QTY_BTN
           sendDcsBiosMessage("IFEI_QTY_BTN", "0");
           break;
-        case 155: //FA-18C_hornet/IFEI_ZONE_BTN
+        case 155:  //FA-18C_hornet/IFEI_ZONE_BTN
           sendDcsBiosMessage("IFEI_ZONE_BTN", "0");
           break;
-        case 156: //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
-          sendDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "0"); // NEEDS WORK
+        case 156:                                           //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
+          sendDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "0");  // NEEDS WORK
           break;
-        case 157: //FA-18C_hornet/MODE_SELECTOR_SW
-          sendDcsBiosMessage("MODE_SELECTOR_SW", "1"); //1 FOR OFF
+        case 157:                                       //FA-18C_hornet/MODE_SELECTOR_SW
+          sendDcsBiosMessage("MODE_SELECTOR_SW", "1");  //1 FOR OFF
           break;
         case 158:
           sendDcsBiosMessage("RWR_DISPLAY_BTN", "0");
           break;
-        case 159: // USED BELOW
+        case 159:  // USED BELOW
           break;
-        case 160: //SPIN, IS THIS USED
+        case 160:  //SPIN, IS THIS USED
           break;
-        case 161: ////FA-18C_hornet/IR_COOL_SW
+        case 161:  ////FA-18C_hornet/IR_COOL_SW
           sendDcsBiosMessage("IR_COOL_SW", "1");
           break;
-        case 162: //FA-18C_hornet/HUD_ALT_SW
+        case 162:  //FA-18C_hornet/HUD_ALT_SW
           sendDcsBiosMessage("HUD_ALT_SW", "0");
           break;
-        case 163: //HUD, IS THIS USED
+        case 163:  //HUD, IS THIS USED
           break;
-        case 164: //FA-18C_hornet/HUD_SYM_BRT_SELECT
+        case 164:  //FA-18C_hornet/HUD_SYM_BRT_SELECT
           sendDcsBiosMessage("HUD_SYM_BRT_SELECT", "0");
           break;
-        case 165: //FA-18C_hornet/IFEI_UP_BTN
+        case 165:  //FA-18C_hornet/IFEI_UP_BTN
           sendDcsBiosMessage("IFEI_UP_BTN", "0");
           break;
-        case 166: //FA-18C_hornet/IFEI_ET_BTN
+        case 166:  //FA-18C_hornet/IFEI_ET_BTN
           sendDcsBiosMessage("IFEI_ET_BTN", "0");
           break;
         case 167:
@@ -745,30 +750,30 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 169:
           // ######### PETE TO ADD LATCH #########
           break;
-        case 170: // USED BELOW
+        case 170:  // USED BELOW
           break;
-        case 171: //FA-18C_hornet/SJ_CTR
+        case 171:  //FA-18C_hornet/SJ_CTR
           sendDcsBiosMessage("SJ_CTR", "0");
           break;
-        case 172: //FA-18C_hornet/SJ_RI
+        case 172:  //FA-18C_hornet/SJ_RI
           sendDcsBiosMessage("SJ_RI", "0");
           break;
-        case 173: //FA-18C_hornet/SJ_LI
+        case 173:  //FA-18C_hornet/SJ_LI
           sendDcsBiosMessage("SJ_LI", "0");
           break;
-        case 174: //FA-18C_hornet/SJ_RO
+        case 174:  //FA-18C_hornet/SJ_RO
           sendDcsBiosMessage("SJ_RO", "0");
           break;
-        case 175: //FA-18C_hornet/SJ_LO
+        case 175:  //FA-18C_hornet/SJ_LO
           sendDcsBiosMessage("SJ_LO", "0");
           break;
-        case 176: // NOT USED
+        case 176:  // NOT USED
           break;
-        case 177: // NOT USED
+        case 177:  // NOT USED
           break;
-        case 178: // NOT USED
+        case 178:  // NOT USED
           break;
-        case 179: // NOT USED
+        case 179:  // NOT USED
           break;
         default:
           sendDcsBiosMessage("LIGHTS_TEST_SW", "0");
@@ -1038,12 +1043,12 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("UFC_OS4", "1");
           break;
         case 85:
-          sendDcsBiosMessage("ECM_MODE_SW", "0"); // OFF
+          sendDcsBiosMessage("ECM_MODE_SW", "0");  // OFF
           break;
         case 86:
           sendDcsBiosMessage("CMSD_DISPENSE_SW", "0");
           break;
-        case 87: // ECM, IS THIS USED
+        case 87:  // ECM, IS THIS USED
           break;
         case 88:
           sendDcsBiosMessage("AMPCD_PB_02", "1");
@@ -1070,12 +1075,12 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("UFC_OS5", "2");
           break;
         case 96:
-          sendDcsBiosMessage("ECM_MODE_SW", "1"); // STBY
+          sendDcsBiosMessage("ECM_MODE_SW", "1");  // STBY
           break;
         case 97:
           sendDcsBiosMessage("CMSD_DISPENSE_SW", "2");
           break;
-        case 98: // EMC, IS THIS USED
+        case 98:  // EMC, IS THIS USED
           break;
         case 99:
           sendDcsBiosMessage("AMPCD_PB_01", "1");
@@ -1102,10 +1107,10 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("UFC_EMCON", "1");
           break;
         case 107:
-          sendDcsBiosMessage("ECM_MODE_SW", "2"); // BIT
+          sendDcsBiosMessage("ECM_MODE_SW", "2");  // BIT
           break;
         case 108:
-          sendDcsBiosMessage("AUX_REL_SW", "0"); // WIRED BACKWARDS IN MY PIT
+          sendDcsBiosMessage("AUX_REL_SW", "0");  // WIRED BACKWARDS IN MY PIT
           break;
         case 109:
           sendDcsBiosMessage("SAI_TEST_BTN", "1");
@@ -1134,9 +1139,9 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("MASTER_MODE_AA", "1");
           break;
         case 118:
-          sendDcsBiosMessage("ECM_MODE_SW", "3"); // REC
+          sendDcsBiosMessage("ECM_MODE_SW", "3");  // REC
           break;
-        case 119: // EMC,
+        case 119:  // EMC,
           sendDcsBiosMessage("CMSD_JET_SEL_BTN", "1");
           break;
         case 120:
@@ -1158,7 +1163,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("RWR_BIT_BTN", "1");
           break;
         case 126:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "0"); // "U"
+          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "0");  // "U"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 127:
@@ -1169,26 +1174,26 @@ void SendDCSBIOSMessage(int ind, int state) {
           sendDcsBiosMessage("FIRE_EXT_BTN", "1");
           break;
         case 129:
-          sendDcsBiosMessage("ECM_MODE_SW", "4"); // XMIT
+          sendDcsBiosMessage("ECM_MODE_SW", "4");  // XMIT
           break;
-        case 130: // EMC, IS THIS USED
+        case 130:  // EMC, IS THIS USED
           break;
-        case 131: // NOT USED
+        case 131:  // NOT USED
           break;
         case 132:
           sendDcsBiosMessage("AMPCD_BRT_CTL", "0");
           break;
-        case 133: // AMPCD, IS THIS USED
+        case 133:  // AMPCD, IS THIS USED
           break;
-        case 134: // AMPCD, IS THIS USED
+        case 134:  // AMPCD, IS THIS USED
           break;
-        case 135: // AMPCD, IS THIS USED
+        case 135:  // AMPCD, IS THIS USED
           break;
         case 136:
           sendDcsBiosMessage("RWR_OFFSET_BTN", "1");
           break;
         case 137:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "1"); // "A"
+          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "1");  // "A"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 138:
@@ -1197,86 +1202,86 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 139:
           sendDcsBiosMessage("MASTER_ARM_SW", "1");
           break;
-        case 140: //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "2"); //1 FOR OFF
+        case 140:                                 //FA-18C_hornet/HUD_ATT_SW
+          sendDcsBiosMessage("HUD_ATT_SW", "2");  //1 FOR OFF
           break;
-        case 141://FA-18C_hornet/HUD_VIDEO_CONTROL_SW
+        case 141:                                           //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
           sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "0");  //1 FOR OFF
           break;
-        case 142: //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "0"); //1 FOR OFF
+        case 142:                                     //FA-18C_hornet/HUD_SYM_REJ_SW
+          sendDcsBiosMessage("HUD_SYM_REJ_SW", "0");  //1 FOR OFF
           break;
-        case 143: //FA-18C_hornet/IFEI_MODE_BTN
+        case 143:  //FA-18C_hornet/IFEI_MODE_BTN
           sendDcsBiosMessage("IFEI_MODE_BTN", "1");
           break;
-        case 144: //FA-18C_hornet/IFEI_DWN_BTN
+        case 144:  //FA-18C_hornet/IFEI_DWN_BTN
           sendDcsBiosMessage("IFEI_DWN_BTN", "1");
           break;
-        case 145: // IFEI, IS THIS USED
+        case 145:  // IFEI, IS THIS USED
           break;
-        case 146: //FA-18C_hornet/MODE_SELECTOR_SW
-          sendDcsBiosMessage("MODE_SELECTOR_SW", "0"); //1 FOR OFF
+        case 146:                                       //FA-18C_hornet/MODE_SELECTOR_SW
+          sendDcsBiosMessage("MODE_SELECTOR_SW", "0");  //1 FOR OFF
           break;
         case 147:
           sendDcsBiosMessage("RWR_SPECIAL_BTN", "1");
           break;
         case 148:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "2"); // "I"
+          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "2");  // "I"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
-        case 149://FA-18C_hornet/SPIN_RECOVERY_SW
+        case 149:  //FA-18C_hornet/SPIN_RECOVERY_SW
           sendDcsBiosMessage("SPIN_RECOVERY_COVER", "1");
           SpinFollowupTask = true;
           timeSpinOn = millis() + ToggleSwitchCoverMoveTime;
           //FA-18C_hornet/SPIN_RECOVERY_COVER
           break;
-        case 150: //FA-18C_hornet/IR_COOL_SW
+        case 150:  //FA-18C_hornet/IR_COOL_SW
           sendDcsBiosMessage("IR_COOL_SW", "0");
           break;
-        case 151: //FA-18C_hornet/HUD_ATT_SW
-          sendDcsBiosMessage("HUD_ATT_SW", "0"); //1 FOR OFF
+        case 151:                                 //FA-18C_hornet/HUD_ATT_SW
+          sendDcsBiosMessage("HUD_ATT_SW", "0");  //1 FOR OFF
           break;
-        case 152: //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
-          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "2"); //1 FOR OFF
+        case 152:                                           //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
+          sendDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "2");  //1 FOR OFF
           break;
-        case 153: //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendDcsBiosMessage("HUD_SYM_REJ_SW", "2"); //1 FOR OFF
+        case 153:                                     //FA-18C_hornet/HUD_SYM_REJ_SW
+          sendDcsBiosMessage("HUD_SYM_REJ_SW", "2");  //1 FOR OFF
           break;
-        case 154: //FA-18C_hornet/IFEI_QTY_BTN
+        case 154:  //FA-18C_hornet/IFEI_QTY_BTN
           sendDcsBiosMessage("IFEI_QTY_BTN", "1");
           break;
-        case 155: //FA-18C_hornet/IFEI_ZONE_BTN
+        case 155:  //FA-18C_hornet/IFEI_ZONE_BTN
           sendDcsBiosMessage("IFEI_ZONE_BTN", "1");
           break;
-        case 156: //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
-          sendDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "1"); // NEEDS WORK
+        case 156:                                           //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
+          sendDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "1");  // NEEDS WORK
           break;
-        case 157: //FA-18C_hornet/MODE_SELECTOR_SW
-          sendDcsBiosMessage("MODE_SELECTOR_SW", "2"); //1 FOR OFF
+        case 157:                                       //FA-18C_hornet/MODE_SELECTOR_SW
+          sendDcsBiosMessage("MODE_SELECTOR_SW", "2");  //1 FOR OFF
           break;
         case 158:
           sendDcsBiosMessage("RWR_DISPLAY_BTN", "1");
           break;
         case 159:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "3"); // "N"
+          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "3");  // "N"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
-        case 160: // SPIN, IS THIS USED
+        case 160:  // SPIN, IS THIS USED
           break;
-        case 161: //FA-18C_hornet/IR_COOL_SW
+        case 161:  //FA-18C_hornet/IR_COOL_SW
           sendDcsBiosMessage("IR_COOL_SW", "2");
-        case 162: //FA-18C_hornet/HUD_ALT_SW
+        case 162:  //FA-18C_hornet/HUD_ALT_SW
           sendDcsBiosMessage("HUD_ALT_SW", "1");
           break;
-        case 163: // HUD, IS THIS USED
+        case 163:  // HUD, IS THIS USED
           break;
-        case 164: //FA-18C_hornet/HUD_SYM_BRT_SELECT
+        case 164:  //FA-18C_hornet/HUD_SYM_BRT_SELECT
           sendDcsBiosMessage("HUD_SYM_BRT_SELECT", "1");
           break;
-        case 165: //FA-18C_hornet/IFEI_UP_BTN
+        case 165:  //FA-18C_hornet/IFEI_UP_BTN
           sendDcsBiosMessage("IFEI_UP_BTN", "1");
           break;
-        case 166: //FA-18C_hornet/IFEI_ET_BTN
+        case 166:  //FA-18C_hornet/IFEI_ET_BTN
           sendDcsBiosMessage("IFEI_ET_BTN", "1");
           break;
         case 167:
@@ -1295,7 +1300,7 @@ void SendDCSBIOSMessage(int ind, int state) {
           // ######### PETE TO ADD LATCH #########
           break;
         case 170:
-          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "4"); // "F"
+          sendDcsBiosMessage("RWR_DIS_TYPE_SW", "4");  // "F"
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 171:
@@ -1313,13 +1318,13 @@ void SendDCSBIOSMessage(int ind, int state) {
         case 175:
           sendDcsBiosMessage("SJ_LO", "1");
           break;
-        case 176: // NOT USED
+        case 176:  // NOT USED
           break;
-        case 177: // NOT USED
+        case 177:  // NOT USED
           break;
-        case 178: // NOT USED
+        case 178:  // NOT USED
           break;
-        case 179: // NOT USED
+        case 179:  // NOT USED
           break;
 
         default:
@@ -1341,8 +1346,8 @@ DcsBios::Potentiometer hudBlackLvl("HUD_BLACK_LVL", A2);
 DcsBios::Potentiometer hudBalance("HUD_BALANCE", A3);
 
 // RWR ANALOG INPUTS
-DcsBios::Potentiometer rwrDmrCtrl("RWR_DMR_CTRL", A4); // CHECK OWN PIT
-DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A5); // CHECK OWN PIT
+DcsBios::Potentiometer rwrDmrCtrl("RWR_DMR_CTRL", A4);      // CHECK OWN PIT
+DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A5);  // CHECK OWN PIT
 
 // || \\ ANALOG B INPUT PLUG // || \\
 //         PINS = 8 TOTAL          \\
@@ -1388,8 +1393,7 @@ DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", " - 3200", " + 3200", 16, 
 void onRwrPowerBtnChange(unsigned int newValue) {
   if (newValue == 1) {
     RWR_POWER_BUTTON_STATE = true;
-  }
-  else {
+  } else {
     RWR_POWER_BUTTON_STATE = false;
   }
 }
@@ -1401,24 +1405,20 @@ void loop() {
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first
-  for ( int rowid = 0; rowid < 16; rowid ++ )
-  {
+  for (int rowid = 0; rowid < 16; rowid++) {
     //turn on the current row
     // why differentiate? rows
 
     if (rowid == 0)
-      PORTC =  0xFF;
+      PORTC = 0xFF;
     if (rowid == 8)
       PORTA = 0xFF;
 
-    if (rowid < 8)
-    {
+    if (rowid < 8) {
       // Shift 1 right  - this is actually pulling port down
       PORTA = ~(0x1 << rowid);
-    }
-    else
-    {
-      PORTC = ~(0x1 << (15 - rowid) );
+    } else {
+      PORTC = ~(0x1 << (15 - rowid));
     }
 
     //we must have such a delay so the digital pin output can go LOW steadily,
@@ -1476,15 +1476,11 @@ void loop() {
 
     // There are 11 Columns per row - gives a total of 176 possible inputs
     // Have left the arrays dimensioned as per original code - if CPU or Memory becomes scarce reduce array
-    for ( int colid = 0; colid < 16; colid ++ )
-    {
-      if ( colResult[ colid ] == 0 )
-      {
-        joyReport.button[ (rowid * 11) + colid ] =  1;
-      }
-      else
-      {
-        joyReport.button[ (rowid * 11) + colid ] =  0;
+    for (int colid = 0; colid < 16; colid++) {
+      if (colResult[colid] == 0) {
+        joyReport.button[(rowid * 11) + colid] = 1;
+      } else {
+        joyReport.button[(rowid * 11) + colid] = 0;
       }
     }
   }
@@ -1515,24 +1511,39 @@ void loop() {
 
 
   if (Ethernet_In_Use == 1) {
-    if (millis() >= ( AOAIndexerLastUpdate + AOAIndexerUpdateInterval)) {
+    if (millis() >= (AOAIndexerLastUpdate + AOAIndexerUpdateInterval)) {
 
       rawAnalog = analogRead(AOAIndexAnalogPin);
       AOAIndexerFiltered = AnalogAOAIndexer.filter(rawAnalog);
-      AOAIndexerMapped = map(AOAIndexerFiltered, 0, 1000, 0,15);
+      AOAIndexerMapped = map(AOAIndexerFiltered, 0, 1000, 0, 15);
 
       if (AOAIndexerMapped != AOAIndexerBrightnessOut) {
         AOAIndexerBrightnessOut = AOAIndexerMapped;
         SendAOABrightness(AOAIndexerBrightnessOut);
       }
 
-      AOAIndexerLastUpdate = millis() + AOAIndexerUpdateInterval ;
+      AOAIndexerLastUpdate = millis() + AOAIndexerUpdateInterval;
       // Convert this to 0 to 15 value and compare against the last one
-
-
     }
 
+    // Check to see if a debug or reflector command has been received
+
+    packetSize = debugUDP.parsePacket();
+    debugLen = debugUDP.read(packetBuffer, 999);
+
+    if (debugLen > 0) {
+      // Zero end the payload
+      packetBuffer[debugLen] = 0;
+
+      Reflector_In_Use = 1;
+
+      udp.beginPacket(reflectorIP, reflectorport);
+      udp.println("Debug Front Input - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      udp.endPacket();
+    }
   }
+
+
 
 
   // END CODE
