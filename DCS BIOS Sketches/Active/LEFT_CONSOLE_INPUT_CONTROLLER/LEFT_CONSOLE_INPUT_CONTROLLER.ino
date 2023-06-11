@@ -480,6 +480,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 47:
           sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "1");
+          if (DCSBIOS_In_Use == 1) DcsBios::loop();
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
+          if (DCSBIOS_In_Use == 1) DcsBios::loop();
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "2");
           break;
         case 48:
           //BM CODE
@@ -514,7 +518,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FLAP_SW", "1");  // FLAPS "AUTO"
           break;
         case 59:
-          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "1");
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "2");
           break;
         case 60:
           // BM ADDED "SELECT JETT KNOB"
