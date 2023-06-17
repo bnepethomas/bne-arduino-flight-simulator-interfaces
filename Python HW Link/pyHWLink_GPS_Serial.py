@@ -16,7 +16,7 @@
 
 # After been driven nuts trying to understand why the Lowrance GPS seemed to be displaying
     # incorrect data went to the Digital Data screen - it also mismatched the data I was sending to it.
-    # discovered previous owen on has DM enabled, not DMS and Datum selection was set yo NA 1983
+    # discovered previous owen on has DM enabled, not DMS and Datum selection was set to NA 1983
     # set Datum to WGS 84 and coordinate system using DMS, and now things align
 # Also worthy of note is Seconds should be sent as Decmial value and the GPS will convert to Degrees
     # ie 50 beings 30
@@ -223,7 +223,7 @@ def ReceivePacket():
                 print("[i] Mid Receive Timeout - " + time.asctime())
                 last_time_packet_received = datetime.datetime.now()
                                                 
-                # Timeout in dara from Flight Sim - locate GPS in Brisbane
+                # Timeout in data from Flight Sim - locate GPS in Brisbane
                 outUTC = '160533.00'
                 outDate = "010418"
                 xoutputstr = '2725.00'
@@ -643,9 +643,17 @@ def ParsePayload(Payload):
 
 localDebugging = False
 
+
+# If getting no attribute named Serial
+# Uninstal serial - pip3 uninstall serial and
+# then - pip3 install pyserial
+
 ser = serial.Serial(
 
-    port='/dev/ttyS0',
+    # For Mac use
+    port='/dev/cu.usbserial-1470',
+    # For Raspberry Pi use
+    # port='/dev/ttyS0',
     baudrate = 115200,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
