@@ -30,13 +30,13 @@ function LuaExportActivityNextEvent(t)
 
 	
 	local gps_export_flightData = {}
-	table.insert(gps_export_flightData,"ALatitude="..LoGetSelfData().LatLongAlt.Lat)       -- LATITUDE
-    table.insert(gps_export_flightData,"Longitude="..LoGetSelfData().LatLongAlt.Long)      -- LONGITUDE
-    table.insert(gps_export_flightData,"Altitude="..LoGetAltitudeAboveSeaLevel())          -- ALTITUDE SEA LEVEL(MTS TO FT)
-    table.insert(gps_export_flightData,"Airspeed="..LoGetTrueAirSpeed() * 1.94)            -- TRUE AIRSPEED (M/S TO KNOTS)
-    table.insert(gps_export_flightData,"Heading="..LoGetSelfData().Heading * 57.3)         -- HEADING (RAD TO DEG)
-	gps_export_packet =  gps_export_flightData[1] .. ":" .. gps_export_flightData[2] .. ":" .. gps_export_flightData[3] .. ":"
-	gps_export_packet =  gps_export_packet .. gps_export_flightData[4] .. ":" .. gps_export_flightData[5] .. ":" 
+	table.insert(gps_export_flightData,"Latitude:"..LoGetSelfData().LatLongAlt.Lat)       -- LATITUDE
+    table.insert(gps_export_flightData,"Longitude:"..LoGetSelfData().LatLongAlt.Long)      -- LONGITUDE
+    table.insert(gps_export_flightData,"Altitude:"..LoGetAltitudeAboveSeaLevel())          -- ALTITUDE SEA LEVEL(MTS TO FT)
+    table.insert(gps_export_flightData,"Airspeed:"..LoGetTrueAirSpeed() * 1.94)            -- TRUE AIRSPEED (M/S TO KNOTS)
+    table.insert(gps_export_flightData,"Heading:"..LoGetSelfData().Heading * 57.3)         -- HEADING (RAD TO DEG)
+	gps_export_packet =  gps_export_flightData[1] .. "," .. gps_export_flightData[2] .. "," .. gps_export_flightData[3] .. ","
+	gps_export_packet =  gps_export_packet .. gps_export_flightData[4] .. "," .. gps_export_flightData[5] .. "," 
 	gps_export_socket.try(gps_export_con:send(gps_export_packet))
 	
 
