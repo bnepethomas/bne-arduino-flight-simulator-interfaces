@@ -630,7 +630,7 @@ def ParsePayload(Payload):
 
 
             logging.debug('Continuing on')
-            print('finihsed parsing')
+            print('finished parsing')
 
 
     except Exception as other:
