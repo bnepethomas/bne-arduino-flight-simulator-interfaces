@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-05-07T05:06:38.501Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="8hsazbSmzHuaw1T2yBrO" version="21.2.8" type="device" pages="8">
+<mxfile host="Electron" modified="2023-06-30T21:58:05.145Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.5.0 Chrome/112.0.5615.204 Electron/24.5.1 Safari/537.36" etag="UOrQLog5oCRWxGz9XOcU" version="21.5.0" type="device" pages="8">
   <diagram name="High Level Connectivity" id="90a13364-a465-7bf4-72fc-28e22215d7a0">
-    <mxGraphModel dx="530" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1306" dy="809" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" style=";html=1;" />
         <mxCell id="NYI70l6ZTquz3oRlvXDL-12" value="Title Block" style="locked=1;" parent="0" />
@@ -552,7 +552,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="LLenCeHLLeb9Q31pdqli" name="MAGNETIC SWITCHES">
-    <mxGraphModel dx="1098" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1306" dy="809" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="XzQIKxZhdDgJ_3HW08a6-0" />
         <mxCell id="3EC1DpL7WyazMeOVuPpY-41" value="Title Block" style="" parent="XzQIKxZhdDgJ_3HW08a6-0" />
@@ -591,15 +591,18 @@
             <mxRectangle width="99" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="3EC1DpL7WyazMeOVuPpY-36" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Rev &lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;01&lt;/font&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;" parent="3EC1DpL7WyazMeOVuPpY-34" vertex="1">
+        <mxCell id="3EC1DpL7WyazMeOVuPpY-36" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Rev &lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;02&lt;/font&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;" parent="3EC1DpL7WyazMeOVuPpY-34" vertex="1">
           <mxGeometry x="99" width="83" height="30" as="geometry">
             <mxRectangle width="83" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="3EC1DpL7WyazMeOVuPpY-37" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Date of Issue&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;2022/02/27&lt;/font&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;pointerEvents=1;" parent="3EC1DpL7WyazMeOVuPpY-34" vertex="1">
+        <mxCell id="3EC1DpL7WyazMeOVuPpY-37" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Date of Issue&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 12px&quot;&gt;2023/07/01&lt;/font&gt;" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;overflow=hidden;pointerEvents=1;" parent="3EC1DpL7WyazMeOVuPpY-34" vertex="1">
           <mxGeometry x="182" width="98" height="30" as="geometry">
             <mxRectangle width="98" height="30" as="alternateBounds" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="Ee5m9nIsiEmuq4SPpaaF-0" value="Other Keystrokes mapped&lt;br&gt;CTRL-ALT-F6 UI Frame Rate Counter&lt;br&gt;CRTL-ALT-F7 Toggle Desktop Warp" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="wkQ7LMu9rqIEXOr91Lrm-0">
+          <mxGeometry x="220" y="590" width="240" height="60" as="geometry" />
         </mxCell>
         <mxCell id="XzQIKxZhdDgJ_3HW08a6-1" style="" parent="XzQIKxZhdDgJ_3HW08a6-0" />
         <mxCell id="QNbDBW6LrRU0sGKUPGaC-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.84;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" parent="XzQIKxZhdDgJ_3HW08a6-1" source="XzQIKxZhdDgJ_3HW08a6-3" target="QNbDBW6LrRU0sGKUPGaC-0" edge="1">
@@ -639,8 +642,8 @@
             <mxPoint x="624" y="100" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="QNbDBW6LrRU0sGKUPGaC-14" value="DUO EMULATING KEYBOARD" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" parent="XzQIKxZhdDgJ_3HW08a6-1" vertex="1">
-          <mxGeometry x="749" y="110" width="180" height="20" as="geometry" />
+        <mxCell id="QNbDBW6LrRU0sGKUPGaC-14" value="LEONARDO EMULATING KEYBOARD" style="text;html=1;resizable=0;autosize=1;align=center;verticalAlign=middle;points=[];fillColor=none;strokeColor=none;rounded=0;" parent="XzQIKxZhdDgJ_3HW08a6-1" vertex="1">
+          <mxGeometry x="724" y="105" width="230" height="30" as="geometry" />
         </mxCell>
         <mxCell id="QNbDBW6LrRU0sGKUPGaC-15" value="PC" style="rounded=1;whiteSpace=wrap;html=1;" parent="XzQIKxZhdDgJ_3HW08a6-1" vertex="1">
           <mxGeometry x="914" y="127.5" width="120" height="60" as="geometry" />
