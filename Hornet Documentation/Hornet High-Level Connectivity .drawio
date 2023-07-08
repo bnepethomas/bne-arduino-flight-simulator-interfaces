@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-06-30T21:58:05.145Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.5.0 Chrome/112.0.5615.204 Electron/24.5.1 Safari/537.36" etag="UOrQLog5oCRWxGz9XOcU" version="21.5.0" type="device" pages="8">
+<mxfile host="Electron" modified="2023-07-08T23:29:57.766Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.1 Chrome/112.0.5615.204 Electron/24.6.1 Safari/537.36" etag="k7rcAIhPaevYp7daNNpC" version="21.6.1" type="device" pages="8">
   <diagram name="High Level Connectivity" id="90a13364-a465-7bf4-72fc-28e22215d7a0">
-    <mxGraphModel dx="1306" dy="809" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1306" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" style=";html=1;" />
         <mxCell id="NYI70l6ZTquz3oRlvXDL-12" value="Title Block" style="locked=1;" parent="0" />
@@ -289,7 +289,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="Comms Flows" id="fOjygkjd4yT8w8Fcbkae">
-    <mxGraphModel dx="1098" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+    <mxGraphModel dx="1306" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1.5" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" style=";html=1;" />
         <mxCell id="1" style=";html=1;" parent="0" />
@@ -388,7 +388,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="qiJZxlPgQAFWJRkuP9f3" name="Right Console">
-    <mxGraphModel dx="1098" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1306" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="CCe9zNLBLnzSjQM0MfgL-0" />
         <mxCell id="CCe9zNLBLnzSjQM0MfgL-1" parent="CCe9zNLBLnzSjQM0MfgL-0" />
@@ -552,7 +552,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="LLenCeHLLeb9Q31pdqli" name="MAGNETIC SWITCHES">
-    <mxGraphModel dx="1306" dy="809" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1306" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="XzQIKxZhdDgJ_3HW08a6-0" />
         <mxCell id="3EC1DpL7WyazMeOVuPpY-41" value="Title Block" style="" parent="XzQIKxZhdDgJ_3HW08a6-0" />
@@ -601,7 +601,7 @@
             <mxRectangle width="98" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Ee5m9nIsiEmuq4SPpaaF-0" value="Other Keystrokes mapped&lt;br&gt;CTRL-ALT-F6 UI Frame Rate Counter&lt;br&gt;CRTL-ALT-F7 Toggle Desktop Warp" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="wkQ7LMu9rqIEXOr91Lrm-0">
+        <mxCell id="Ee5m9nIsiEmuq4SPpaaF-0" value="Other Keystrokes mapped&lt;br&gt;CTRL-ALT-F6 UI Frame Rate Counter&lt;br&gt;CRTL-ALT-F7 Toggle Desktop Warp" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="wkQ7LMu9rqIEXOr91Lrm-0" vertex="1">
           <mxGeometry x="220" y="590" width="240" height="60" as="geometry" />
         </mxCell>
         <mxCell id="XzQIKxZhdDgJ_3HW08a6-1" style="" parent="XzQIKxZhdDgJ_3HW08a6-0" />
@@ -860,7 +860,7 @@
     </mxGraphModel>
   </diagram>
   <diagram name="AOA Indexer Brightness" id="fqMVt4l8gQQ9ufcAiLrp">
-    <mxGraphModel dx="1098" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1306" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="9o1BCd9RzLatw8A90PdX-0" />
         <mxCell id="9o1BCd9RzLatw8A90PdX-1" style="" parent="9o1BCd9RzLatw8A90PdX-0" />
@@ -966,7 +966,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="cUbn-LbFXeAbDtQ5LmTJ" name="BLOCK DIAGRAM">
-    <mxGraphModel dx="1098" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
+    <mxGraphModel dx="1306" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
         <mxCell id="6TCaLFNDwdK28F-PxFw--0" />
         <mxCell id="6TCaLFNDwdK28F-PxFw--1" parent="6TCaLFNDwdK28F-PxFw--0" />
@@ -1195,7 +1195,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="__fYIr35kGG6lcypxiSN" name="POWER DISTRIBUTION">
-    <mxGraphModel dx="1098" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
+    <mxGraphModel dx="1306" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1654" math="0" shadow="0">
       <root>
         <mxCell id="VDbB7LzXC4eWYDUwWAwV-0" />
         <mxCell id="MPGKHQCdaQl_ZhyAPwm1-10" value="TITLE BLOCK" style="" parent="VDbB7LzXC4eWYDUwWAwV-0" />
@@ -1369,7 +1369,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="M96inuCk1q-LLj4sDvGL" name="USB HUB CABLING">
-    <mxGraphModel dx="1098" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1306" dy="769" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="WYbLJDSKRsoyqo01thNi-1" value="TITLE BLOCK" style="locked=1;" parent="0" />
@@ -1437,10 +1437,10 @@
         <mxCell id="G4hp2M8YQA6ITyeCUMBY-7" value="PIXEL LED" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="150" y="259" width="120" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="G4hp2M8YQA6ITyeCUMBY-8" value="DUE KEYBOARD" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="G4hp2M8YQA6ITyeCUMBY-8" value="LEONARDO" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="150" y="299" width="120" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="G4hp2M8YQA6ITyeCUMBY-9" value="DUE PROGRAM" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="G4hp2M8YQA6ITyeCUMBY-9" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="150" y="380" width="120" height="30" as="geometry" />
         </mxCell>
         <mxCell id="G4hp2M8YQA6ITyeCUMBY-10" value="UIP INPUT" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
