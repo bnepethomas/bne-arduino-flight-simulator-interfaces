@@ -2097,7 +2097,8 @@ void CheckLeftAndAMPCDScreenPowerState() {
   if ((LEFT_GEN_SWITCH_STATE == true) || ( BATTERY_SWITCH_STATE == true)) {
     digitalWrite(LEFT_AND_AMPCD_SCREENS_RELAY_PORT, true);
   } else {
-    digitalWrite(LEFT_AND_AMPCD_SCREENS_RELAY_PORT, false);
+    // Not powering down monitors as this causes Windows to disconnect them
+    // digitalWrite(LEFT_AND_AMPCD_SCREENS_RELAY_PORT, false);
   }
 }
 
@@ -2106,7 +2107,8 @@ void CheckRightScreenPowerState() {
   if ((RIGHT_GEN_SWITCH_STATE == true) || ( BATTERY_SWITCH_STATE == true)) {
     digitalWrite(RIGHT_SCREEN_RELAY_PORT, true);
   } else {
-    digitalWrite(RIGHT_SCREEN_RELAY_PORT, false);
+    // Not powering down monitors as this causes Windows to disconnect them
+    // digitalWrite(RIGHT_SCREEN_RELAY_PORT, false);
   }
 }
 
