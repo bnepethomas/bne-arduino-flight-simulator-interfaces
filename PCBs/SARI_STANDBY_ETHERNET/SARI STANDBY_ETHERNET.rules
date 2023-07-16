@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 3376)
+    (start_pass_no 1223)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -74,9 +74,8 @@
     "unconnected-(P6-Pad4)" "unconnected-(P6-Pad5)" "/HOZ_MS1" "/HOZ_MS2" "unconnected-(P3-Pad2)" "unconnected-(P3-Pad3)" "/HOZ_2B" "/HOZ_2A"
     "/HOZ_1A" "/HOZ_1B" "/VER_MS1" "/VER_MS2" "unconnected-(P3-Pad4)" /SS "/VER_2B" "/VER_2A"
     "/VER_1A" "/VER_1B" "/WL_MS1" "/WL_MS2" "unconnected-(J15-Pad4)" "Net-(J15-Pad5)" "/WL_2B" "/WL_2A"
-    "/WL_1A" "/WL_1B" "Net-(R5-Pad2)" +3.3V "/ETHERNET_MOD/MOSI" "unconnected-(P6-Pad7)" "unconnected-(P6-Pad8)" "unconnected-(P7-Pad6)"
-    "/ETHERNET_MOD/SCLK" "Net-(D3-Pad2)" "Net-(D4-Pad2)" "Net-(D1-Pad2)" "Net-(D2-Pad2)" "/ETHERNET_MOD/SS" "unconnected-(U1-PadB4)" "/ETHERNET_MOD/ES1_RST"
-    "/ETHERNET_MOD/MISO"
+    "/WL_1A" "/WL_1B" "Net-(R5-Pad2)" "/ETHERNET_MOD/MOSI" "unconnected-(P6-Pad7)" "unconnected-(P6-Pad8)" "unconnected-(P7-Pad6)" "/ETHERNET_MOD/SCLK"
+    "Net-(D3-Pad2)" "Net-(D4-Pad2)" "Net-(D1-Pad2)" "Net-(D2-Pad2)" "/ETHERNET_MOD/SS" "unconnected-(U1-PadB4)" "/ETHERNET_MOD/ES1_RST" "/ETHERNET_MOD/MISO"
     (clearance_class default)
     (via_rule default)
     (rule

@@ -2447,7 +2447,6 @@
     )
   )
 
-
   (junction (at 86.36 165.1) (diameter 0) (color 0 0 0 0)
     (uuid 0b124263-8920-4efc-b633-ab7a4268dc90)
   )
@@ -5309,17 +5308,17 @@
     (path "/00000000-0000-0000-0000-0000616fea6d"
       (reference "#PWR010") (unit 1) (value "GNDD") (footprint "")
     )
-    (path "/c7f990b2-d440-49cb-84f3-2f34f9ecc442/e074d966-6f6e-4e12-a47c-1d31a1f0c29d"
-      (reference "#PWR011") (unit 1) (value "+3.3V") (footprint "")
-    )
     (path "/c7f990b2-d440-49cb-84f3-2f34f9ecc442/1ce043c0-db99-4ace-85e9-9971c1a10490"
       (reference "#PWR012") (unit 1) (value "GNDDD") (footprint "")
     )
-    (path "/c7f990b2-d440-49cb-84f3-2f34f9ecc442/0724e6d3-631d-41b0-9c6d-84babd48d03f"
-      (reference "#PWR013") (unit 1) (value "+3.3V") (footprint "")
-    )
     (path "/c7f990b2-d440-49cb-84f3-2f34f9ecc442/99a52a0a-eb53-4144-9d48-9c66b98686a6"
       (reference "#PWR014") (unit 1) (value "GNDDD") (footprint "")
+    )
+    (path "/c7f990b2-d440-49cb-84f3-2f34f9ecc442/70598e29-449e-4846-86f4-ae98296961b9"
+      (reference "#PWR0101") (unit 1) (value "+3V3") (footprint "")
+    )
+    (path "/c7f990b2-d440-49cb-84f3-2f34f9ecc442/7087bc1a-8388-4407-aa79-c1f2da88884b"
+      (reference "#PWR0102") (unit 1) (value "+3V3") (footprint "")
     )
     (path "/7c7737b7-4358-4c08-995d-90a5e401e970"
       (reference "C-H1") (unit 1) (value "100uF") (footprint "Capacitor_THT:C_Radial_D8.0mm_H7.0mm_P3.50mm")
