@@ -381,7 +381,6 @@
         "name": "GND AND POWER",
         "nets": [
           "+5VL",
-          "/HOZ_STEP_GND",
           "/HOZ_STEP_V+",
           "/LED+5V",
           "/LOWER_OUTPUT_5V",
