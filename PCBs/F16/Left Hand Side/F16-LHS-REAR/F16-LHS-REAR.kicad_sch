@@ -2045,6 +2045,24 @@
     (path "/00000000-0000-0000-0000-000060520425"
       (reference "D6") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
     )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/2a4edc3a-8fe3-4eee-b88c-4e99e2930a48"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/2edaad4b-7cf6-4349-909d-cd2036a797f4"
+      (reference "D?") (unit 1) (value "LED") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/57c9d257-0a03-451d-bf68-e6ae9480ee70"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/834834aa-8890-482c-97dd-9bfae15e35a6"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/dae5304b-c973-4ccd-8a9e-49a95d7aa858"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/e5de93b7-29ff-4b6c-8c10-6f45e8553169"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
     (path "/00000000-0000-0000-0000-000060522587"
       (reference "H1") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
     )
@@ -2057,6 +2075,18 @@
     (path "/00000000-0000-0000-0000-0000605230e6"
       (reference "H4") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
     )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/22da7294-a777-46bd-bdc2-d6ecfe485a33"
+      (reference "H?") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/f777603c-04fb-4a30-b0c8-28272ad0197a"
+      (reference "H?") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/f879ac3e-9ed7-48ea-93dc-949c66fd51fb"
+      (reference "H?") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/fa3e9ea6-3352-45fb-b85c-f1b3c465096b"
+      (reference "H?") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
+    )
     (path "/00000000-0000-0000-0000-00005fdf2c7e"
       (reference "J1") (unit 1) (value "Switch Inputs") (footprint "PT_Library_v001:Molex_1x04_P2.54mm_Vertical")
     )
@@ -2066,8 +2096,20 @@
     (path "/00000000-0000-0000-0000-00006051efae"
       (reference "J3") (unit 1) (value "Coil-In") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
     )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/c8277408-a1ba-4678-b0a9-4da3e9deb9a1"
+      (reference "J?") (unit 1) (value "LANDING_GEAR_HANDLE_LT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/d9d52d88-37fb-4f19-a0d1-3ccf1a53a4e5"
+      (reference "J?") (unit 1) (value "Coil-In") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/fce64ea3-6ad3-462f-b29d-c9820ed63921"
+      (reference "J?") (unit 1) (value "Switch Inputs") (footprint "PT_Library_v001:Molex_1x04_P2.54mm_Vertical")
+    )
     (path "/00000000-0000-0000-0000-00006051ebbf"
       (reference "L1") (unit 1) (value "L") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/7c6d4b87-7401-4bff-be2b-073b65cfef69"
+      (reference "L?") (unit 1) (value "L") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
     )
     (path "/00000000-0000-0000-0000-00005fc6a958"
       (reference "SW1") (unit 1) (value "GEAR_DOWNLOCK_OVERRIDE_BTN") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
@@ -2080,6 +2122,18 @@
     )
     (path "/00000000-0000-0000-0000-00005fdea614"
       (reference "SW4") (unit 1) (value "EMERGENCY_GEAR_ROTATE") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/63e4f084-be23-4502-9583-f6719179a659"
+      (reference "SW?") (unit 1) (value "EMERGENCY_GEAR_ROTATE") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/87bf78b8-63d5-4e29-8248-24fcdd9a55f6"
+      (reference "SW?") (unit 1) (value "GEAR_DOWNLOCK_OVERRIDE_BTN") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/91b03eea-fef4-4706-9851-3f11ccc8e4b0"
+      (reference "SW?") (unit 1) (value "GEAR_SILENCE_BTN") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/dc7a051b-db17-4801-82e8-6ca74af052fc"
+      (reference "SW?") (unit 1) (value "GEAR_LEVER") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
     )
   )
 )
