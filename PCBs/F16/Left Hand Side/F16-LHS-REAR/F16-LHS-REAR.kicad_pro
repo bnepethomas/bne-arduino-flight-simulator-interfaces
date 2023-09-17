@@ -422,6 +422,10 @@
     [
       "93c6e81e-bb16-43e1-af30-16c142ac2247",
       "FLIGHT-CONTROL"
+    ],
+    [
+      "671a2bb8-6643-4b54-b216-63c9c09df70e",
+      "MANUAL-TRIM"
     ]
   ],
   "text_variables": {}

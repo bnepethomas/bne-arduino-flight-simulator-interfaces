@@ -1115,6 +1115,11 @@
     )
   )
 
+  (text "Checklist\nPicture of Panel \nUse CAPS and hyphens for naming\nUnique Row Columns prefixed by Panel Name\n12V backlighting - 4 connectors\nServos, steppers\nPopulate Spreadsheet\nGet DCS-BIOS variable\nMounting holes\nName on PCB\nVersion on title block and PCB\n"
+    (at 220.345 84.455 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 58a50635-5a48-42aa-9b4d-0f466c47ea00)
+  )
   (text "— 31. Landing Gear Handle and Warning Tone Silence\ndefineToggleSwitch(“GEAR_LEVER”, 5, 3001, 226, “Landing Gear Handle and Warning Tone Silence”, “Gear Lever”)\ndefineToggleSwitch(“EMERGENCY_GEAR_ROTATE”, 5, 3002, 228, “Landing Gear Handle and Warning Tone Silence”, “Emergency Gear Rotate”)\ndefinePushButton(“GEAR_DOWNLOCK_OVERRIDE_BTN”, 5, 3003, 229, “Landing Gear Handle and Warning Tone Silence”, “Landing Gear Override”)\ndefinePushButton(“GEAR_SILENCE_BTN”, 40, 3018, 230, “Landing Gear Handle and Warning Tone Silence”, “Warning Tone Silence Button - Push to silence”)"
     (at 22.86 41.91 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -1129,6 +1134,18 @@
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
     (property "Sheet file" "Test.kicad_sch" (id 1) (at 61.595 164.4146 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 142.24 158.75) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 671a2bb8-6643-4b54-b216-63c9c09df70e)
+    (property "Sheet name" "MANUAL-TRIM" (id 0) (at 142.24 158.0384 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "MANUAL-TRIM.kicad_sch" (id 1) (at 142.24 163.1446 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
@@ -1149,6 +1166,7 @@
     (path "/" (page "1"))
     (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b" (page "2"))
     (path "/93c6e81e-bb16-43e1-af30-16c142ac2247" (page "3"))
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e" (page "4"))
   )
 
   (symbol_instances
@@ -1212,6 +1230,9 @@
     (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/89fa2dfa-dd31-44e9-8b95-be0d2faecd33"
       (reference "D20") (unit 1) (value "FAIL") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
     )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/cc818cd8-8115-45a4-9305-f55599a746b3"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
     (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/f879ac3e-9ed7-48ea-93dc-949c66fd51fb"
       (reference "H1") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
     )
@@ -1235,6 +1256,36 @@
     )
     (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/ebeffbdd-c72b-47c7-9f89-70e60af36a51"
       (reference "J4") (unit 1) (value "TEST LEDS") (footprint "PT_Library_v001:Molex_1x04_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/2150cb9c-3c9c-4a40-ac7c-c393ba5a8c8d"
+      (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/2647c0a5-9bac-4a15-8437-c30ff8bd4ec0"
+      (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/583989ce-283c-419b-ac0b-c21da56c2f06"
+      (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/8c17da62-8980-41ae-9949-a5b6248e6dff"
+      (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/98662793-8f5f-41a3-bcf4-8783f28973e3"
+      (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/3858811f-e6ff-40d6-9bbd-38e682ebab62"
+      (reference "M?") (unit 1) (value "Stepper_Motor_bipolar") (footprint "PT_Library_v001:Molex_1x04_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/3e7268f0-3593-49a4-bdad-34235fe1391d"
+      (reference "M?") (unit 1) (value "Stepper_Motor_bipolar") (footprint "PT_Library_v001:Molex_1x04_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/934a5f41-84d1-42e7-9be7-6b927559e5be"
+      (reference "RV?") (unit 1) (value "PITCH-TRIM") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/9e4c57d4-9eb0-4938-94a6-a2c035dcf2aa"
+      (reference "RV?") (unit 1) (value "YAW-TRIM") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/ae113a77-6eb1-40e0-9587-96eea7e5c539"
+      (reference "RV?") (unit 1) (value "ROLL-TRIM") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
     )
     (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/87bf78b8-63d5-4e29-8248-24fcdd9a55f6"
       (reference "SW1") (unit 1) (value "FIRE & OH DETECT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
@@ -1271,6 +1322,9 @@
     )
     (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/220468a9-8258-494b-b402-0cdf263e75d0"
       (reference "SW12") (unit 1) (value "BIT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/02c06b8f-95c7-4493-97ac-956a6b22537a"
+      (reference "SW?") (unit 1) (value "AP-DISC") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
     )
   )
 )
