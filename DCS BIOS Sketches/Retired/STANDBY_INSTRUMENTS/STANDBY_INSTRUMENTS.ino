@@ -110,8 +110,7 @@ int LastVVI = 0;
 
 unsigned long nextAltimeterUpdate = 0;
 int updateAltimeterInterval = 100;
-// Original Standby PCB #define ALT_ZERO_SENSE_PIN 49
-#define ALT_ZERO_SENSE_PIN 5
+#define ALT_ZERO_SENSE_PIN 49
 #define ALT_OFFSET_TO_ZERO_POINT 708
 
 //#include <AccelStepper.h>
@@ -124,15 +123,12 @@ int updateAltimeterInterval = 100;
 // #define  COIL_STANDBY_ALT_A3  45
 // #define  COIL_STANDBY_ALT_A4  47
 
-// Original Standby PCB #define  COIL_STANDBY_ALT_A1  41 // STANDBY ALT
-// Original Standby PCB #define  COIL_STANDBY_ALT_A2  43
-// Original Standby PCB #define  COIL_STANDBY_ALT_A3  47
-// Original Standby PCB #define  COIL_STANDBY_ALT_A4  45
+#define  COIL_STANDBY_ALT_A1  41 // STANDBY ALT
+#define  COIL_STANDBY_ALT_A2  43
+#define  COIL_STANDBY_ALT_A3  47
+#define  COIL_STANDBY_ALT_A4  45
 
-#define  COIL_STANDBY_ALT_A1  38 // STANDBY ALT
-#define  COIL_STANDBY_ALT_A2  40
-#define  COIL_STANDBY_ALT_A3  44
-#define  COIL_STANDBY_ALT_A4  42
+
 
 
 int STANDBY_ALT = 0;
@@ -148,20 +144,19 @@ Stepper stepperSTANDBY_ALT(STEPS , COIL_STANDBY_ALT_A1, COIL_STANDBY_ALT_A2, COI
 // Airspeed
 unsigned long nextAirSpeedUpdate = 0;
 int updateAirSpeedInterval = 100;
-// Original Standby PCB #define AIRSPEED_ZERO_SENSE_PIN 40
-#define AIRSPEED_ZERO_SENSE_PIN A14
+#define AIRSPEED_ZERO_SENSE_PIN 40
 #define AIRSPEED_OFFSET_TO_ZERO_POINT 710 
 
+// Going in the incorrect direction
+// #define  COIL_AIRSPEED_A1  32
+// #define  COIL_AIRSPEED_A2  36
+// #define  COIL_AIRSPEED_A3  34
+// #define  COIL_AIRSPEED_A4  38
 
-// Original Standby PCB #define  COIL_AIRSPEED_A1  32
-// Original Standby PCB #define  COIL_AIRSPEED_A2  36
-// Original Standby PCB #define  COIL_AIRSPEED_A3  38
-// Original Standby PCB #define  COIL_AIRSPEED_A4  34
-
-#define  COIL_AIRSPEED_A1  14
-#define  COIL_AIRSPEED_A2  16
-#define  COIL_AIRSPEED_A3  17
-#define  COIL_AIRSPEED_A4  15
+#define  COIL_AIRSPEED_A1  32
+#define  COIL_AIRSPEED_A2  36
+#define  COIL_AIRSPEED_A3  38
+#define  COIL_AIRSPEED_A4  34
 
 int STANDBY_AIRSPEED = 0;
 int LastSTANDBY_AIRSPEED = 0;
@@ -174,19 +169,19 @@ Stepper stepperSTANDBY_AIRSPEED(STEPS , COIL_AIRSPEED_A1, COIL_AIRSPEED_A2, COIL
 // VVI
 unsigned long nextVVIUpdate = 0;
 int updateVVIInterval = 100;
-// Original Standby PCB #define VVI_ZERO_SENSE_PIN 30
-#define VVI_ZERO_SENSE_PIN A15
+#define VVI_ZERO_SENSE_PIN 30
 #define VVI_OFFSET_TO_ZERO_POINT 392
 
-// Original Standby PCB #define  COIL_VVI_A1  22
-// Original Standby PCB #define  COIL_VVI_A2  26
-// Original Standby PCB #define  COIL_VVI_A3  28
-// Original Standby PCB #define  COIL_VVI_A4  24
+// Going in the incorrect direction
+// #define  COIL_VVI_A1  22
+// #define  COIL_VVI_A2  26
+// #define  COIL_VVI_A3  24
+// #define  COIL_VVI_A4  28
 
-#define  COIL_VVI_A1  30
-#define  COIL_VVI_A2  34
-#define  COIL_VVI_A3  36
-#define  COIL_VVI_A4  32
+#define  COIL_VVI_A1  22
+#define  COIL_VVI_A2  26
+#define  COIL_VVI_A3  28
+#define  COIL_VVI_A4  24
 
 int STANDBY_VVI = 0;
 int LastSTANDBY_VVI = 0;
@@ -205,17 +200,15 @@ void SendDebug( String MessageToSend) {
   }
 }
 
+// DcsBios::RotaryEncoder saiSet("SAI_SET", "-3200", "+3200", 37, 39);
+// DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 37, 39);
+// DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", 8);
+// DcsBios::LED lsLock(0x7408, 0x0001, 13);
 
-// Original Standby PCB DcsBios::RotaryEncoder saiSet("SAI_SET", "-3200", "+3200", 23, 25);
-// Original Standby PCB DcsBios::Switch2Pos saiTestBtn("SAI_TEST_BTN", 29);
-// Original Standby PCB DcsBios::Switch2Pos saiCage("SAI_CAGE", 27);
-// Original Standby PCB DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 37, 39);
-
-DcsBios::RotaryEncoder saiSet("SAI_SET", "-3200", "+3200", 28, 26);
-// Unsure if the following two arecorrectly mapped
-DcsBios::Switch2Pos saiTestBtn("SAI_TEST_BTN", A12);
-DcsBios::Switch2Pos saiCage("SAI_CAGE", A13);
-DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 46, 48);
+DcsBios::RotaryEncoder saiSet("SAI_SET", "-3200", "+3200", 23, 25);
+DcsBios::Switch2Pos saiTestBtn("SAI_TEST_BTN", 29);
+DcsBios::Switch2Pos saiCage("SAI_CAGE", 27);
+DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 37, 39);
 DcsBios::Potentiometer rwrRwrIntesity("RWR_RWR_INTESITY", 0);
 void setup() {
 
