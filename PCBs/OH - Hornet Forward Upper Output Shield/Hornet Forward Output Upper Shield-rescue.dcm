@@ -1,3 +1,7 @@
 EESchema-DOCLIB  Version 2.0
 #
+$CMP IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue
+F https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb
+$ENDCMP
+#
 #End Doc Library
