@@ -111,7 +111,7 @@ int LastVVI = 0;
 unsigned long nextAltimeterUpdate = 0;
 int updateAltimeterInterval = 100;
 // Original Standby PCB #define ALT_ZERO_SENSE_PIN 49
-#define ALT_ZERO_SENSE_PIN 5
+#define ALT_ZERO_SENSE_PIN 18
 #define ALT_OFFSET_TO_ZERO_POINT 708
 
 //#include <AccelStepper.h>
