@@ -1208,9 +1208,9 @@ void loop() {
 
 
 
-  if (millis() >= nextupdate) {
-    outputstate = !outputstate;
-    digitalWrite(RedLedMonitorPin, outputstate);
-    nextupdate = millis() + flashinterval;
-  }
+  // if (millis() >= nextupdate) {
+  //   outputstate = !outputstate;
+  //   digitalWrite(RedLedMonitorPin, outputstate);
+  //   nextupdate = millis() + flashinterval;
+  // }
 }
