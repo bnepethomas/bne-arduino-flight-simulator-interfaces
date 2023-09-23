@@ -14,7 +14,7 @@
 
 
 
-#define Ethernet_In_Use 0
+#define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
 #define Reflector_In_Use 0
 
