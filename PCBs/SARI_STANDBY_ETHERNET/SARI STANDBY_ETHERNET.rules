@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 627)
+    (start_pass_no 184)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -64,19 +64,18 @@
     "/AIR_ZERO_DET" "/WL_EN" /IOREF /Reset +3V3 /Vin "/WL_STEP" "/LED_DATA_LOOP_3"
     "/LED_DATA_OUT" "/LED_DATA_LOOP_1" "/LED_DATA_IN" "/LED_DATA_LOOP_2" "unconnected-(J1-Pad2)" "unconnected-(J1-Pad3)" "unconnected-(J3-Pad10)" "/WL_DIR"
     "/HOZ_EN" "/HOZ_STEP" "/HOZ_DIR" "/ENCODER_A" "/TEST_PUSH" "/ENCODER_B" "/ENCODER_PUSH" "/ROLL_ZERO_IR"
-    "unconnected-(J5-Pad10)" "unconnected-(J8-Pad4)" "Net-(J8-Pad5)" "unconnected-(J9-Pad4)" "/HOZ_ZERO_IR" "/VER_ZERO_IR" "/WL_ZERO_IR" /SCLK
+    "unconnected-(J5-Pad10)" "unconnected-(J8-Pad4)" "Net-(J8-Pad5)" "unconnected-(J9-Pad4)" "/HOZ_ZERO_IR" "/VER_ZERO_IR" "/WL_ZERO_IR" SCLK
     "/ROLL_EN" "/ROLL_STEP" "/ROLL_DIR" "/VER_EN" "unconnected-(J13-Pad18)" "unconnected-(J13-Pad20)" "Net-(J9-Pad5)" "unconnected-(J13-Pad22)"
-    "unconnected-(J13-Pad24)" "/VER_STEP" "unconnected-(J13-Pad25)" "/VER_DIR" "unconnected-(J13-Pad26)" "unconnected-(J13-Pad27)" "/ES1_RST" "Net-(P4-Pad35)"
+    "unconnected-(J13-Pad24)" "/VER_STEP" "unconnected-(J13-Pad25)" "/VER_DIR" "unconnected-(J13-Pad26)" "unconnected-(J13-Pad27)" "ES1_RST" "Net-(P4-Pad35)"
     "/AIR_COIL_D" "/AIR_COIL_C" "/AIR_COIL_B" "/AIR_COIL_A" "/SERVO_PITCH" "unconnected-(J13-Pad28)" "unconnected-(J14-Pad4)" "/ALT_B{slash}L_UPPER"
-    "/ALT_ZERO_DET" /MISO "unconnected-(P2-Pad2)" "unconnected-(P2-Pad3)" "unconnected-(P2-Pad4)" "/ROLL_MS1" "/ROLL_MS2" "unconnected-(P2-Pad5)"
+    "/ALT_ZERO_DET" MISO "unconnected-(P2-Pad2)" "unconnected-(P2-Pad3)" "unconnected-(P2-Pad4)" "/ROLL_MS1" "/ROLL_MS2" "unconnected-(P2-Pad5)"
     "unconnected-(P2-Pad6)" "/ROLL_2B" "/ROLL_2A" "unconnected-(P3-Pad1)" "/ROLL_1A" "/ROLL_1B" "unconnected-(P5-Pad1)" "unconnected-(P5-Pad3)"
-    "unconnected-(P5-Pad4)" "unconnected-(P5-Pad5)" /MOSI "/GREEN_LED" "/RED_LED" "unconnected-(P6-Pad2)" "unconnected-(P6-Pad4)" "unconnected-(P6-Pad5)"
+    "unconnected-(P5-Pad4)" "unconnected-(P5-Pad5)" MOSI "/GREEN_LED" "/RED_LED" "unconnected-(P6-Pad2)" "unconnected-(P6-Pad4)" "unconnected-(P6-Pad5)"
     "/HOZ_MS1" "/HOZ_MS2" "unconnected-(P3-Pad2)" "unconnected-(P3-Pad3)" "/HOZ_2B" "/HOZ_2A" "/HOZ_1A" "/HOZ_1B"
-    "/VER_MS1" "/VER_MS2" "unconnected-(P3-Pad4)" /SS "/VER_2B" "/VER_2A" "/VER_1A" "/VER_1B"
+    "/VER_MS1" "/VER_MS2" "unconnected-(P3-Pad4)" SS "/VER_2B" "/VER_2A" "/VER_1A" "/VER_1B"
     "/WL_MS1" "/WL_MS2" "unconnected-(J15-Pad4)" "Net-(J15-Pad5)" "/WL_2B" "/WL_2A" "/WL_1A" "/WL_1B"
-    "Net-(J14-Pad5)" "/ETHERNET_MOD/MOSI" "unconnected-(P6-Pad7)" "unconnected-(P7-Pad6)" "/ETHERNET_MOD/SCLK" "Net-(D3-Pad2)" "Net-(D4-Pad2)" "Net-(D1-Pad2)"
-    "Net-(D2-Pad2)" "/ETHERNET_MOD/SS" "unconnected-(U1-PadB4)" "/ETHERNET_MOD/ES1_RST" "/ETHERNET_MOD/MISO" "Net-(Q1-Pad1)" "Net-(R11-Pad2)" "unconnected-(P2-Pad7)"
-    "unconnected-(P2-Pad8)" "/FLAG_SIG" "/FLAG_PIN"
+    "Net-(J14-Pad5)" "unconnected-(P6-Pad7)" "unconnected-(P7-Pad6)" "Net-(D3-Pad2)" "Net-(D4-Pad2)" "Net-(D1-Pad2)" "Net-(D2-Pad2)" "unconnected-(U1-PadB4)"
+    "Net-(Q1-Pad1)" "Net-(R11-Pad2)" "unconnected-(P2-Pad7)" "unconnected-(P2-Pad8)" "/FLAG_SIG" "/FLAG_PIN"
     (clearance_class default)
     (via_rule default)
     (rule
