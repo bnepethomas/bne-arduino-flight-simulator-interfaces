@@ -16,7 +16,7 @@
 
 #define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 
 
 #define DCSBIOS_IRQ_SERIAL
@@ -45,6 +45,8 @@ void tcaselect(uint8_t i) {
   Wire.endTransmission();
 }
 
+
+#define ES1_RESET_PIN 53
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x71 };
@@ -505,12 +507,15 @@ void setup() {
 
 
   pinMode(SARI_Flag_Pin, OUTPUT);
-  DcsBios::setup();
-
-
-
 
   if (Ethernet_In_Use == 1) {
+
+    // Using manual reset instead of tying to Arduino Reset
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
     Ethernet.begin(mac, ip);
 
 
@@ -521,6 +526,14 @@ void setup() {
       udp.endPacket();
     }
   }
+
+
+  DcsBios::setup();
+
+
+
+
+
 
   Wire.begin();
 
@@ -653,12 +666,12 @@ void setup() {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // WATER START Homing procedure of Stepper Motor at startup
 
-  //Serial.print("Water Stepper is Homing . . . ");
+  SendDebug("Water Stepper is Homing . . . ");
   digitalWrite(EN_switchW, LOW);
   if (digitalRead(WTR_IR_sen) == LOW)
-    //Serial.println("Water Stepper is IN the SENSOR . . . ");
+    SendDebug("Water Stepper is IN the SENSOR . . . ");
     if (digitalRead(WTR_IR_sen) == HIGH)
-      //Serial.println("Water Stepper is OUT of the SENSOR  . . . ");
+      SendDebug("Water Stepper is OUT of the SENSOR  . . . ");
       while (digitalRead(WTR_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
         stepperW.moveTo(initial_homingW);  // Set the position to move to
         initial_homingW++;                 // Decrease by 1 for next move if needed
@@ -685,12 +698,12 @@ void setup() {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // HOR Start Homing procedure of Stepper Motor at startup
 
-  //Serial.print("Stepper is HOZ Homing . . . ");
+  SendDebug("Stepper is HOZ Homing . . . ");
   digitalWrite(EN_switchH, LOW);
   if (digitalRead(HOZ_IR_sen) == LOW)
-    //Serial.println("Stepper is IN the SENSOR . . . ");
+    SendDebug("Stepper is IN the SENSOR . . . ");
     if (digitalRead(HOZ_IR_sen) == HIGH)
-      //Serial.println("Stepper is OUT of the SENSOR  . . . ");
+      SendDebug("Stepper is OUT of the SENSOR  . . . ");
       while (digitalRead(HOZ_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
         stepperH.moveTo(initial_homingH);  // Set the position to move to
         initial_homingH--;                 // Decrease by 1 for next move if needed
@@ -707,19 +720,19 @@ void setup() {
   }
 
   stepperH.setCurrentPosition(800);
-  //Serial.println("Homing Completed");
+  SendDebug("Homing Completed");
   //Serial.println("");
   stepperH.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
   stepperH.setAcceleration(2000.0);  // Set Acceleration of Stepper
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //Serial.print("Stepper VER is Homing . . . ");
+  SendDebug("Stepper VER is Homing . . . ");
   digitalWrite(EN_switchV, LOW);
   if (digitalRead(VER_IR_sen) == LOW)
-    //Serial.println("Stepper is IN the SENSOR . . . ");
+    SendDebug("Stepper is IN the SENSOR . . . ");
     if (digitalRead(VER_IR_sen) == HIGH)
-      //Serial.println("Stepper is OUT of the SENSOR  . . . ");
+      SendDebug("Stepper is OUT of the SENSOR  . . . ");
       while (digitalRead(VER_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
         stepperV.moveTo(initial_homingV);  // Set the position to move to
         initial_homingV++;                 // Decrease by 1 for next move if needed
@@ -736,7 +749,7 @@ void setup() {
   }
 
   stepperV.setCurrentPosition(3000);  // 0 is full LEFT <-> HIGHER IS RIGHT
-  //Serial.println("VER Homing Completed");
+  SendDebug("VER Homing Completed");
   //Serial.println("");
   stepperV.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
   stepperV.setAcceleration(2000.0);  // Set Acceleration of Stepper
