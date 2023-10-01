@@ -286,36 +286,54 @@ public:
 
   virtual void loop() {
     if (initState == 0) {  // not initialized yet
+      SendDebug("SARI initState: " + String(initState));
       pinMode(SARIirDetectorPin, INPUT);
       stepper.setMaxSpeed(SARIstepperConfig.maxSpeed);
-      stepper.setSpeed(600);  //400
-      digitalWrite(SARIenablePin, LOW);
+      stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
+
+      enable_SARI_ROLL();
       initState = 1;
+      SendDebug("Do a quick loop");
+
+      stepper.moveTo(4000);
+      while (stepper.distanceToGo() != 0) {
+        stepper.run();
+      }
+
+
+      SendDebug("SARI initState moving to State 1");
       SARIzeroPosSearchStartTime = millis();
-      digitalWrite(SARIenablePin, HIGH);
     }
 
     if (initState == 1) {
       // move off zero if already there so we always get movement on reset
       // (to verify that the stepper is working)
       if (SARIzeroDetected()) {
-        digitalWrite(SARIenablePin, LOW);
+
+        enable_SARI_ROLL();
         stepper.runSpeed();
       } else {
         initState = 2;
-        digitalWrite(SARIenablePin, HIGH);
+        SendDebug("SARI initState moving to State 2");
       }
     }
 
     if (initState == 2) {  // zeroing
+
+      enable_SARI_ROLL();
+      
       if (!SARIzeroDetected()) {
 
         if (millis() >= (zeroTimeout + SARIzeroPosSearchStartTime)) {
-          digitalWrite(SARIenablePin, HIGH);
-          initState == 99;
-        } else
-          digitalWrite(SARIenablePin, LOW);
-        stepper.runSpeed();
+          SendDebug("SARI Roll - timeoutout finding zero, disabling driver pin");
+          disable_SARI_ROLL();
+          initState = 99;
+        }
+
+        SendDebug("SARI Roll - looping - " + String(initState));
+        stepper.moveTo(stepper.currentPosition() - 1);
+        stepper.run();
+
 
       } else {
         stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
@@ -329,8 +347,14 @@ public:
 
         SARIlastZeroDetectState = true;
         initState = 3;
+        SendDebug("SARI initState moving to State 3");
         digitalWrite(SARIenablePin, HIGH);
       }
+    }
+
+
+    if (initState == 99) {  // Timed out looking for zero do nothing
+      disable_SARI_ROLL();
     }
     //    digitalWrite(enablePin, HIGH);
     if (initState == 3) {  // running normally
@@ -369,10 +393,10 @@ public:
 
         // Turn off Stepper when not in use
         if (delta != 0) {
-          digitalWrite(SARIenablePin, LOW);
+          enable_SARI_ROLL();
         }  // LOW  = stepper ON drive current available
         else {
-          digitalWrite(SARIenablePin, HIGH);
+          disable_SARI_ROLL();
         }  // HIGH  = stepper OFF no drive current
 
         // tell AccelStepper to move relative to the current position
@@ -380,16 +404,13 @@ public:
       }
       stepper.run();
     }
-    if (initState == 99) {  // Timed out looking for zero do nothing
-      digitalWrite(SARIenablePin, HIGH);
-    }
   }
 };
 
 struct SARIStepperConfig SARIstepperConfig = {
   1600,  // SARImaxSteps //200STEPS X 1/8 MICRO STEPPING
-  3600,  // maxSpeed //3200
-  3200   // SARIacceleration
+  2800,  // maxSpeed //3200
+  600    // SARIacceleration 3200
 };
 const int SARIstepPin = 47;
 const int SARIdirectionPin = 45;
@@ -532,7 +553,7 @@ void setup() {
   }
 
 
-  DcsBios::setup();
+
 
 
 
@@ -706,9 +727,9 @@ void setup() {
   SendDebug("Stepper is HOZ Homing . . . ");
   enable_switchH();
   if (digitalRead(HOZ_IR_sen) == LOW)
-    SendDebug("Stepper is IN the SENSOR . . . ");
+    SendDebug("HOZ Stepper is IN the SENSOR . . . ");
   if (digitalRead(HOZ_IR_sen) == HIGH)
-    SendDebug("Stepper is OUT of the SENSOR  . . . ");
+    SendDebug("HOZ Stepper is OUT of the SENSOR  . . . ");
   while (digitalRead(HOZ_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
     stepperH.moveTo(initial_homingH);  // Set the position to move to
     initial_homingH--;                 // Decrease by 1 for next move if needed
@@ -725,7 +746,7 @@ void setup() {
   }
 
   stepperH.setCurrentPosition(800);
-  SendDebug("Homing Completed");
+  SendDebug("HOZ Homing Completed");
   //Serial.println("");
   stepperH.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
   stepperH.setAcceleration(2000.0);  // Set Acceleration of Stepper
@@ -735,7 +756,7 @@ void setup() {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  SendDebug("Stepper VER is Homing . . . ");
+  SendDebug("VER Stepper is Homing . . . ");
 
   stepperV.setMaxSpeed(800.0);      // Set Max Speed of Stepper (Faster for regular movements)
   stepperV.setAcceleration(200.0);  // Set Acceleration of Stepper
@@ -753,8 +774,8 @@ void setup() {
       stepperV.run();  // Set the position to move to
     }
 
-    SendDebug("Moved " + String(initial_homingV) + " steps");
-    SendDebug("Steps remaining is " + String(stepperV.distanceToGo()));
+    SendDebug("VER Stepper Moved " + String(initial_homingV) + " steps");
+    SendDebug("VER StepperSteps remaining is " + String(stepperV.distanceToGo()));
 
     disableAllPointers();
     delay(300);  // Let the ponter settle for a short time
@@ -791,22 +812,25 @@ void setup() {
 
   //movePointersToRestPosition();
 
-  SendDebug("Move pointers to center and set Flag to on");
-  stepperW.moveTo(1000);  //  --- HIGHER IS UP    <->   LOWER IS DOWN---
-  stepperV.moveTo(2900);  //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
-  stepperH.moveTo(2500);  //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
-  enableAllPointers();
-  while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
-    stepperW.run();
-    stepperV.run();
-    stepperH.run();
-  }
-  disableAllPointers();
-  enable_SARI_FLAG();
-  delay(3000);
-  disable_SARI_FLAG();
+  // SendDebug("Move pointers to center and set Flag to on");
+  // stepperW.moveTo(1000);  //  --- HIGHER IS UP    <->   LOWER IS DOWN---
+  // stepperV.moveTo(2900);  //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
+  // stepperH.moveTo(2500);  //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
+  // enableAllPointers();
+  // while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
+  //   stepperW.run();
+  //   stepperV.run();
+  //   stepperH.run();
+  // }
+  // disableAllPointers();
+  // enable_SARI_FLAG();
+  // delay(3000);
+  // disable_SARI_FLAG();
 
   movePointersToRestPosition();
+
+
+  DcsBios::setup();
 }
 
 
@@ -842,6 +866,11 @@ void enable_switchH() {
   setStepperLedOn();
 }
 
+void enable_SARI_ROLL() {
+  digitalWrite(SARIenablePin, LOW);
+  setStepperLedOn();
+}
+
 void enable_SARI_FLAG() {
   digitalWrite(SARI_Flag_Pin, HIGH);
   setStepperLedOn();
@@ -860,6 +889,11 @@ void disable_switchV() {
 
 void disable_switchH() {
   digitalWrite(EN_switchH, HIGH);
+  checkStepperDisabledStatus();
+}
+
+void disable_SARI_ROLL() {
+  digitalWrite(SARIenablePin, HIGH);
   checkStepperDisabledStatus();
 }
 
