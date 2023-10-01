@@ -221,6 +221,8 @@ struct SARIStepperConfig {
   unsigned int SARIacceleration;
   unsigned int maxSpeed;
 };
+bool SARI_ROLL_INITIALISED = false;
+
 
 void onUpdateCounterChange(unsigned int newValue) {
   DCS_State = newValue;
@@ -350,7 +352,8 @@ public:
         SARIlastZeroDetectState = true;
         initState = 3;
         SendDebug("SARI initState moving to State 3");
-        digitalWrite(SARIenablePin, HIGH);
+        SARI_ROLL_INITIALISED = true;
+        disable_SARI_ROLL();;
       }
     }
 
@@ -358,6 +361,7 @@ public:
     if (initState == 99) {  // Timed out looking for zero do nothing
       disable_SARI_ROLL();
     }
+
     //    digitalWrite(enablePin, HIGH);
     if (initState == 3) {  // running normally
 
@@ -702,148 +706,148 @@ void setup() {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // WATER START Homing procedure of Stepper Motor at startup
+  // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // // WATER START Homing procedure of Stepper Motor at startup
 
-  SendDebug("Water Stepper is Homing . . . ");
-  enable_switchW();
-  if (digitalRead(WTR_IR_sen) == LOW)
-    SendDebug("Water Stepper is IN the SENSOR . . . ");
-
-
-  if (digitalRead(WTR_IR_sen) == HIGH)
-    SendDebug("Water Stepper is OUT of the SENSOR  . . . ");
-  while (digitalRead(WTR_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
-    stepperW.moveTo(initial_homingW);  // Set the position to move to
-    initial_homingW++;                 // Decrease by 1 for next move if needed
-    stepperW.run();                    // Start moving the stepper
-    delay(1);
-  }
-  initial_homingW = 1;
-
-  while (!digitalRead(WTR_IR_sen)) {  // Make the Stepper move CW until the switch is deactivated
-    stepperW.moveTo(initial_homingW);
-    stepperW.run();
-    initial_homingW--;
-    delay(1);
-  }
-
-  stepperW.setCurrentPosition(400);  //750
-  //Serial.println("Water Homing Completed");
-  //Serial.println("");
-  stepperW.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
-  stepperW.setAcceleration(2000.0);  // Set Acceleration of Stepper
-  disableAllPointers();
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // SendDebug("Water Stepper is Homing . . . ");
+  // enable_switchW();
+  // if (digitalRead(WTR_IR_sen) == LOW)
+  //   SendDebug("Water Stepper is IN the SENSOR . . . ");
 
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // HOR Start Homing procedure of Stepper Motor at startup
+  // if (digitalRead(WTR_IR_sen) == HIGH)
+  //   SendDebug("Water Stepper is OUT of the SENSOR  . . . ");
+  // while (digitalRead(WTR_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
+  //   stepperW.moveTo(initial_homingW);  // Set the position to move to
+  //   initial_homingW++;                 // Decrease by 1 for next move if needed
+  //   stepperW.run();                    // Start moving the stepper
+  //   delay(1);
+  // }
+  // initial_homingW = 1;
 
-  SendDebug("Stepper is HOZ Homing . . . ");
-  enable_switchH();
-  if (digitalRead(HOZ_IR_sen) == LOW)
-    SendDebug("HOZ Stepper is IN the SENSOR . . . ");
-  if (digitalRead(HOZ_IR_sen) == HIGH)
-    SendDebug("HOZ Stepper is OUT of the SENSOR  . . . ");
-  while (digitalRead(HOZ_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
-    stepperH.moveTo(initial_homingH);  // Set the position to move to
-    initial_homingH--;                 // Decrease by 1 for next move if needed
-    stepperH.run();                    // Start moving the stepper
-    delay(1);
-  }
-  initial_homingH = 1;
+  // while (!digitalRead(WTR_IR_sen)) {  // Make the Stepper move CW until the switch is deactivated
+  //   stepperW.moveTo(initial_homingW);
+  //   stepperW.run();
+  //   initial_homingW--;
+  //   delay(1);
+  // }
 
-  while (!digitalRead(HOZ_IR_sen)) {  // Make the Stepper move CW until the switch is deactivated
-    stepperH.moveTo(initial_homingH);
-    stepperH.run();
-    initial_homingH++;
-    delay(1);
-  }
-
-  stepperH.setCurrentPosition(800);
-  SendDebug("HOZ Homing Completed");
-  //Serial.println("");
-  stepperH.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
-  stepperH.setAcceleration(2000.0);  // Set Acceleration of Stepper
-
-  disableAllPointers();
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  SendDebug("VER Stepper is Homing . . . ");
-
-  stepperV.setMaxSpeed(800.0);      // Set Max Speed of Stepper (Faster for regular movements)
-  stepperV.setAcceleration(200.0);  // Set Acceleration of Stepper
+  // stepperW.setCurrentPosition(400);  //750
+  // //Serial.println("Water Homing Completed");
+  // //Serial.println("");
+  // stepperW.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
+  // stepperW.setAcceleration(2000.0);  // Set Acceleration of Stepper
+  // disableAllPointers();
+  // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-  enable_switchV();
+  // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // // HOR Start Homing procedure of Stepper Motor at startup
 
-  if (digitalRead(VER_IR_sen) == HIGH) {
-    SendDebug("VER Stepper is OUT of the SENSOR  . . . ");
+  // SendDebug("Stepper is HOZ Homing . . . ");
+  // enable_switchH();
+  // if (digitalRead(HOZ_IR_sen) == LOW)
+  //   SendDebug("HOZ Stepper is IN the SENSOR . . . ");
+  // if (digitalRead(HOZ_IR_sen) == HIGH)
+  //   SendDebug("HOZ Stepper is OUT of the SENSOR  . . . ");
+  // while (digitalRead(HOZ_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
+  //   stepperH.moveTo(initial_homingH);  // Set the position to move to
+  //   initial_homingH--;                 // Decrease by 1 for next move if needed
+  //   stepperH.run();                    // Start moving the stepper
+  //   delay(1);
+  // }
+  // initial_homingH = 1;
 
-    initial_homingV = 4000;  // Set the maximum number of steps we could be moving before hitting the sensor
-    stepperV.moveTo(initial_homingV);
-    while (digitalRead(VER_IR_sen)) {  // Make the Stepper move CCW until the switch is activated
-      // SendDebug("Moving V forward");
-      stepperV.run();  // Set the position to move to
-    }
+  // while (!digitalRead(HOZ_IR_sen)) {  // Make the Stepper move CW until the switch is deactivated
+  //   stepperH.moveTo(initial_homingH);
+  //   stepperH.run();
+  //   initial_homingH++;
+  //   delay(1);
+  // }
 
-    SendDebug("VER Stepper Moved " + String(initial_homingV) + " steps");
-    SendDebug("VER StepperSteps remaining is " + String(stepperV.distanceToGo()));
+  // stepperH.setCurrentPosition(800);
+  // SendDebug("HOZ Homing Completed");
+  // //Serial.println("");
+  // stepperH.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
+  // stepperH.setAcceleration(2000.0);  // Set Acceleration of Stepper
 
-    disableAllPointers();
-    delay(300);  // Let the ponter settle for a short time
-  }
+  // disableAllPointers();
 
-  if (digitalRead(VER_IR_sen) == LOW)
-    SendDebug("VER Stepper is IN the SENSOR . . . ");
+  // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  enable_switchV();
-  initial_homingV = 1;
+  // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // SendDebug("VER Stepper is Homing . . . ");
 
-
-  stepperV.setCurrentPosition(0);     // Unless we've just moved the sensor into the sensor
-  initial_homingV = -4000;            // We don't know the absolute position - so start at 0
-  stepperV.moveTo(initial_homingV);   // And the set max steps we should move before hitting a hard stop
-  while (!digitalRead(VER_IR_sen)) {  // Make the Stepper move CW until the sensor is deactivated
-    stepperV.run();
-  }
-  SendDebug("Moved " + String(initial_homingV) + " steps");
-  SendDebug("Steps remaining is " + String(stepperV.distanceToGo()));
-
-
-  stepperV.setCurrentPosition(3000);  // 0 is full LEFT <-> HIGHER IS RIGHT
-  SendDebug("VER Homing Completed");
-
-  stepperV.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
-  stepperV.setAcceleration(2000.0);  // Set Acceleration of Stepper
-
-  disableAllPointers();
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // stepperV.setMaxSpeed(800.0);      // Set Max Speed of Stepper (Faster for regular movements)
+  // stepperV.setAcceleration(200.0);  // Set Acceleration of Stepper
 
 
-  SendDebug("ALL CALIBRATION COMPLETE");
+  // enable_switchV();
 
-  movePointersToRestPosition();
+  // if (digitalRead(VER_IR_sen) == HIGH) {
+  //   SendDebug("VER Stepper is OUT of the SENSOR  . . . ");
 
-  SendDebug("Move pointers to center and set Flag to on");
-  stepperW.moveTo(650);   //  --- HIGHER IS UP    <->   LOWER IS DOWN---
-  stepperV.moveTo(2900);  //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
-  stepperH.moveTo(2500);  //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
-  enableAllPointers();
-  while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
-    stepperW.run();
-    stepperV.run();
-    stepperH.run();
-  }
-  disableAllPointers();
-  enable_SARI_FLAG();
-  delay(3000);
-  disable_SARI_FLAG();
+  //   initial_homingV = 4000;  // Set the maximum number of steps we could be moving before hitting the sensor
+  //   stepperV.moveTo(initial_homingV);
+  //   while (digitalRead(VER_IR_sen)) {  // Make the Stepper move CCW until the switch is activated
+  //     // SendDebug("Moving V forward");
+  //     stepperV.run();  // Set the position to move to
+  //   }
 
-  movePointersToRestPosition();
+  //   SendDebug("VER Stepper Moved " + String(initial_homingV) + " steps");
+  //   SendDebug("VER StepperSteps remaining is " + String(stepperV.distanceToGo()));
+
+  //   disableAllPointers();
+  //   delay(300);  // Let the ponter settle for a short time
+  // }
+
+  // if (digitalRead(VER_IR_sen) == LOW)
+  //   SendDebug("VER Stepper is IN the SENSOR . . . ");
+
+  // enable_switchV();
+  // initial_homingV = 1;
+
+
+  // stepperV.setCurrentPosition(0);     // Unless we've just moved the sensor into the sensor
+  // initial_homingV = -4000;            // We don't know the absolute position - so start at 0
+  // stepperV.moveTo(initial_homingV);   // And the set max steps we should move before hitting a hard stop
+  // while (!digitalRead(VER_IR_sen)) {  // Make the Stepper move CW until the sensor is deactivated
+  //   stepperV.run();
+  // }
+  // SendDebug("Moved " + String(initial_homingV) + " steps");
+  // SendDebug("Steps remaining is " + String(stepperV.distanceToGo()));
+
+
+  // stepperV.setCurrentPosition(3000);  // 0 is full LEFT <-> HIGHER IS RIGHT
+  // SendDebug("VER Homing Completed");
+
+  // stepperV.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
+  // stepperV.setAcceleration(2000.0);  // Set Acceleration of Stepper
+
+  // disableAllPointers();
+  // /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  // SendDebug("ALL CALIBRATION COMPLETE");
+
+  // movePointersToRestPosition();
+
+  // SendDebug("Move pointers to center and set Flag to on");
+  // stepperW.moveTo(650);   //  --- HIGHER IS UP    <->   LOWER IS DOWN---
+  // stepperV.moveTo(2900);  //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
+  // stepperH.moveTo(2500);  //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
+  // enableAllPointers();
+  // while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
+  //   stepperW.run();
+  //   stepperV.run();
+  //   stepperH.run();
+  // }
+  // disableAllPointers();
+  // enable_SARI_FLAG();
+  // delay(3000);
+  // disable_SARI_FLAG();
+
+  // movePointersToRestPosition();
 
   DcsBios::setup();
 }
@@ -1387,7 +1391,14 @@ void loop() {
 
   if (millis() - dcsMillis >= (1000))  // 1 SECOND DELAY BEFORE POWER OFF STEPPERS
   {
-    disableAllPointers();
+    // disableAllPointers();
+    disable_switchW();
+    disable_switchH();
+    disable_switchV();
+    disable_SARI_FLAG();
+    if (SARI_ROLL_INITIALISED == true) {    // Need to allow time for SARI to completely initialise
+      disable_SARI_ROLL();
+    }
   }
 
   //         STEPPER SAFETY CHECK CODE, WILL NOT TUNR STEPPERS ON IF DCS BIOS NOT RUNNING, OR IF GAME PAUSED AFTER 1 SECOND   \\
