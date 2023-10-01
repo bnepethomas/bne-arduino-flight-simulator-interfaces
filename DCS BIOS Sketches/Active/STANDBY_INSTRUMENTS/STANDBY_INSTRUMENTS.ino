@@ -789,19 +789,21 @@ void setup() {
 
   SendDebug("ALL CALIBRATION COMPLETE");
 
-  movePointersToRestPosition();
+  //movePointersToRestPosition();
 
   SendDebug("Move pointers to center and set Flag to on");
+  stepperW.moveTo(1000);  //  --- HIGHER IS UP    <->   LOWER IS DOWN---
   stepperV.moveTo(2900);  //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
   stepperH.moveTo(2500);  //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
   enableAllPointers();
   while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
+    stepperW.run();
     stepperV.run();
     stepperH.run();
   }
   disableAllPointers();
   enable_SARI_FLAG();
-  delay(5000);
+  delay(3000);
   disable_SARI_FLAG();
 
   movePointersToRestPosition();
