@@ -315,13 +315,15 @@ public:
       } else {
         initState = 2;
         SendDebug("SARI initState moving to State 2");
+        stepper.setMaxSpeed(SARIstepperConfig.maxSpeed);
+        stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
       }
     }
 
     if (initState == 2) {  // zeroing
 
       enable_SARI_ROLL();
-      
+
       if (!SARIzeroDetected()) {
 
         if (millis() >= (zeroTimeout + SARIzeroPosSearchStartTime)) {
@@ -330,7 +332,7 @@ public:
           initState = 99;
         }
 
-        SendDebug("SARI Roll - looping - " + String(initState));
+        //SendDebug("SARI Roll - looping - " + String(initState));
         stepper.moveTo(stepper.currentPosition() - 1);
         stepper.run();
 
@@ -531,8 +533,6 @@ void setup() {
   digitalWrite(GreenLedMonitorPin, outputstate);
 
 
-  pinMode(SARI_Flag_Pin, OUTPUT);
-
   if (Ethernet_In_Use == 1) {
 
     // Using manual reset instead of tying to Arduino Reset
@@ -662,19 +662,33 @@ void setup() {
 
   pinMode(Check_LED_G, OUTPUT);
   pinMode(Check_LED_R, OUTPUT);
+
+  pinMode(SARI_Flag_Pin, OUTPUT);
+  disable_SARI_FLAG();
+
   pinMode(SARIenablePin, OUTPUT);
+  disable_SARI_ROLL();
 
   digitalWrite(EN_switchW, LOW);
 
   pinMode(HOZ_IR_sen, INPUT_PULLUP);
   pinMode(EN_switchH, OUTPUT);
+  disable_switchH();
 
   pinMode(VER_IR_sen, INPUT_PULLUP);
   pinMode(EN_switchV, OUTPUT);
+  disable_switchV();
 
   pinMode(WTR_IR_sen, INPUT_PULLUP);
   pinMode(EN_switchW, OUTPUT);
+  disable_switchW();
+
+
+
+
   delay(5);  // Wait for EasyDriver wake up
+
+
 
   //  Set Max Speed and Acceleration of each Steppers at startup for homing
   stepperH.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Slower to get better accuracy)
@@ -695,6 +709,8 @@ void setup() {
   enable_switchW();
   if (digitalRead(WTR_IR_sen) == LOW)
     SendDebug("Water Stepper is IN the SENSOR . . . ");
+
+
   if (digitalRead(WTR_IR_sen) == HIGH)
     SendDebug("Water Stepper is OUT of the SENSOR  . . . ");
   while (digitalRead(WTR_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
@@ -810,25 +826,24 @@ void setup() {
 
   SendDebug("ALL CALIBRATION COMPLETE");
 
-  //movePointersToRestPosition();
-
-  // SendDebug("Move pointers to center and set Flag to on");
-  // stepperW.moveTo(1000);  //  --- HIGHER IS UP    <->   LOWER IS DOWN---
-  // stepperV.moveTo(2900);  //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
-  // stepperH.moveTo(2500);  //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
-  // enableAllPointers();
-  // while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
-  //   stepperW.run();
-  //   stepperV.run();
-  //   stepperH.run();
-  // }
-  // disableAllPointers();
-  // enable_SARI_FLAG();
-  // delay(3000);
-  // disable_SARI_FLAG();
-
   movePointersToRestPosition();
 
+  SendDebug("Move pointers to center and set Flag to on");
+  stepperW.moveTo(650);   //  --- HIGHER IS UP    <->   LOWER IS DOWN---
+  stepperV.moveTo(2900);  //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
+  stepperH.moveTo(2500);  //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
+  enableAllPointers();
+  while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
+    stepperW.run();
+    stepperV.run();
+    stepperH.run();
+  }
+  disableAllPointers();
+  enable_SARI_FLAG();
+  delay(3000);
+  disable_SARI_FLAG();
+
+  movePointersToRestPosition();
 
   DcsBios::setup();
 }
@@ -836,9 +851,9 @@ void setup() {
 
 void movePointersToRestPosition() {
   SendDebug("Returning Pointers to rest position");
-  stepperW.moveTo(1000);  //  --- HIGHER IS UP    <->   LOWER IS DOWN---
-  stepperV.moveTo(0);     //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
-  stepperH.moveTo(0);     //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
+  stepperW.moveTo(650);  //  --- HIGHER IS UP    <->   LOWER IS DOWN---
+  stepperV.moveTo(0);    //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
+  stepperH.moveTo(0);    //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
 
   enableAllPointers();
   while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
