@@ -229,7 +229,11 @@ DcsBios::IntegerBuffer UpdateCounterBuffer(0xfffe, 0x00ff, 0, onUpdateCounterCha
 
 
 void onSaiAttWarnFlagLChange(unsigned int newValue) {
-  SARI_Flag = newValue;
+  //SARI_Flag = newValue;
+  if (newValue == 1)
+    disable_SARI_FLAG();
+  else
+    enable_SARI_FLAG();
 }
 DcsBios::IntegerBuffer saiAttWarnFlagLBuffer(0x74d6, 0x0100, 8, onSaiAttWarnFlagLChange);
 
@@ -556,81 +560,81 @@ void setup() {
   SendDebug("I2C scan complete");
 
 
-  nextupdate = millis() + flashinterval;
+  // nextupdate = millis() + flashinterval;
 
 
-  tcaselect(BARO_OLED_Port);
-  u8g2_BARO.begin();
-  u8g2_BARO.clearBuffer();
-  //u8g2_BARO.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-  u8g2_BARO.setFont(u8g2_font_fub14_tr);
-  u8g2_BARO.sendBuffer();
+  // tcaselect(BARO_OLED_Port);
+  // u8g2_BARO.begin();
+  // u8g2_BARO.clearBuffer();
+  // //u8g2_BARO.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  // u8g2_BARO.setFont(u8g2_font_fub14_tr);
+  // u8g2_BARO.sendBuffer();
 
 
-  tcaselect(ALT_OLED_Port);
-  u8g2_ALT.begin();
-  u8g2_ALT.clearBuffer();
-  //u8g2_ALT.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-  //u8g2_ALT.setFont(u8g2_font_t0_11_t_all);
-  u8g2_ALT.setFont(u8g2_font_fub20_tr);
-  u8g2_ALT.sendBuffer();
+  // tcaselect(ALT_OLED_Port);
+  // u8g2_ALT.begin();
+  // u8g2_ALT.clearBuffer();
+  // //u8g2_ALT.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  // //u8g2_ALT.setFont(u8g2_font_t0_11_t_all);
+  // u8g2_ALT.setFont(u8g2_font_fub20_tr);
+  // u8g2_ALT.sendBuffer();
 
-  updateALT("0", "0");
-  updateBARO("2992");
+  // updateALT("0", "0");
+  // updateBARO("2992");
 
-  SendDebug("Looking for Altimeter Zero");
-  pinMode(ALT_ZERO_SENSE_PIN, INPUT_PULLUP);
-
-
-  stepperSTANDBY_ALT.setSpeed(60);
-  stepperSTANDBY_ALT.step(1000);
-  for (int i = 0; i <= 2000; i++) {
-    delay(1);
-    stepperSTANDBY_ALT.step(1);
-    if (digitalRead(ALT_ZERO_SENSE_PIN) == false) {
-      SendDebug("Found Zero");
-      stepperSTANDBY_ALT.step(ALT_OFFSET_TO_ZERO_POINT);
-      posAltimeter = 0;
-      break;
-    }
-  }
-
-  SendDebug("Looking for Airspeed Zero");
-  pinMode(AIRSPEED_ZERO_SENSE_PIN, INPUT_PULLUP);
+  // SendDebug("Looking for Altimeter Zero");
+  // pinMode(ALT_ZERO_SENSE_PIN, INPUT_PULLUP);
 
 
-  stepperSTANDBY_AIRSPEED.setSpeed(60);
-  stepperSTANDBY_AIRSPEED.step(1000);
-  for (int i = 0; i <= 2000; i++) {
-    delay(1);
-    stepperSTANDBY_AIRSPEED.step(1);
-    if (digitalRead(AIRSPEED_ZERO_SENSE_PIN) == false) {
-      SendDebug("Found Airspeed Zero");
-      stepperSTANDBY_AIRSPEED.step(AIRSPEED_OFFSET_TO_ZERO_POINT);
-      posAIRSPEED = 0;
-      break;
-    }
-  }
+  // stepperSTANDBY_ALT.setSpeed(60);
+  // stepperSTANDBY_ALT.step(1000);
+  // for (int i = 0; i <= 2000; i++) {
+  //   delay(1);
+  //   stepperSTANDBY_ALT.step(1);
+  //   if (digitalRead(ALT_ZERO_SENSE_PIN) == false) {
+  //     SendDebug("Found Zero");
+  //     stepperSTANDBY_ALT.step(ALT_OFFSET_TO_ZERO_POINT);
+  //     posAltimeter = 0;
+  //     break;
+  //   }
+  // }
 
-  SendDebug("Looking for VVI Zero");
-  pinMode(VVI_ZERO_SENSE_PIN, INPUT_PULLUP);
+  // SendDebug("Looking for Airspeed Zero");
+  // pinMode(AIRSPEED_ZERO_SENSE_PIN, INPUT_PULLUP);
 
 
-  stepperSTANDBY_VVI.setSpeed(60);
-  stepperSTANDBY_VVI.step(1000);
-  for (int i = 0; i <= 2000; i++) {
-    delay(1);
-    stepperSTANDBY_VVI.step(1);
-    if (digitalRead(VVI_ZERO_SENSE_PIN) == false) {
-      SendDebug("Found VVI Zero");
-      // Set to 0 point which is -6000
-      stepperSTANDBY_VVI.step(VVI_OFFSET_TO_ZERO_POINT);
-      posVVI = 0;
-      // Set desired point to 0
-      valVVI = map(32767, 0, 65535, 0, 660);
-      break;
-    }
-  }
+  // stepperSTANDBY_AIRSPEED.setSpeed(60);
+  // stepperSTANDBY_AIRSPEED.step(1000);
+  // for (int i = 0; i <= 2000; i++) {
+  //   delay(1);
+  //   stepperSTANDBY_AIRSPEED.step(1);
+  //   if (digitalRead(AIRSPEED_ZERO_SENSE_PIN) == false) {
+  //     SendDebug("Found Airspeed Zero");
+  //     stepperSTANDBY_AIRSPEED.step(AIRSPEED_OFFSET_TO_ZERO_POINT);
+  //     posAIRSPEED = 0;
+  //     break;
+  //   }
+  // }
+
+  // SendDebug("Looking for VVI Zero");
+  // pinMode(VVI_ZERO_SENSE_PIN, INPUT_PULLUP);
+
+
+  // stepperSTANDBY_VVI.setSpeed(60);
+  // stepperSTANDBY_VVI.step(1000);
+  // for (int i = 0; i <= 2000; i++) {
+  //   delay(1);
+  //   stepperSTANDBY_VVI.step(1);
+  //   if (digitalRead(VVI_ZERO_SENSE_PIN) == false) {
+  //     SendDebug("Found VVI Zero");
+  //     // Set to 0 point which is -6000
+  //     stepperSTANDBY_VVI.step(VVI_OFFSET_TO_ZERO_POINT);
+  //     posVVI = 0;
+  //     // Set desired point to 0
+  //     valVVI = map(32767, 0, 65535, 0, 660);
+  //     break;
+  //   }
+  // }
 
 
   nextAltimeterUpdate = millis();
@@ -787,16 +791,18 @@ void setup() {
 
   movePointersToRestPosition();
 
-  SendDebug("Move pointers to center");
-  stepperV.moveTo(2900);     //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
-  stepperH.moveTo(2500);     //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
+  SendDebug("Move pointers to center and set Flag to on");
+  stepperV.moveTo(2900);  //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
+  stepperH.moveTo(2500);  //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
   enableAllPointers();
   while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
     stepperV.run();
     stepperH.run();
   }
   disableAllPointers();
+  enable_SARI_FLAG();
   delay(5000);
+  disable_SARI_FLAG();
 
   movePointersToRestPosition();
 }
@@ -834,6 +840,11 @@ void enable_switchH() {
   setStepperLedOn();
 }
 
+void enable_SARI_FLAG() {
+  digitalWrite(SARI_Flag_Pin, HIGH);
+  setStepperLedOn();
+}
+
 
 void disable_switchW() {
   digitalWrite(EN_switchW, HIGH);
@@ -850,11 +861,18 @@ void disable_switchH() {
   checkStepperDisabledStatus();
 }
 
+void disable_SARI_FLAG() {
+  digitalWrite(SARI_Flag_Pin, LOW);
+  checkStepperDisabledStatus();
+}
+
+
 void disableAllPointers() {
   digitalWrite(EN_switchW, HIGH);
   digitalWrite(EN_switchV, HIGH);
   digitalWrite(EN_switchH, HIGH);
   digitalWrite(SARIenablePin, HIGH);
+  digitalWrite(SARI_Flag_Pin, LOW);
   checkStepperDisabledStatus();
 }
 
@@ -877,7 +895,7 @@ void setStepperLedOff() {
 
 
 void checkStepperDisabledStatus() {
-  if ((digitalRead(EN_switchW) == HIGH) && (digitalRead(EN_switchV) == HIGH) && (digitalRead(EN_switchH) == HIGH) && (digitalRead(SARIenablePin) == HIGH)) {
+  if ((digitalRead(EN_switchW) == HIGH) && (digitalRead(EN_switchV) == HIGH) && (digitalRead(EN_switchH) == HIGH) && (digitalRead(SARIenablePin) == HIGH) && (digitalRead(SARI_Flag_Pin) == LOW)) {
     setStepperLedOff();  // CHECK ALL STEPPER DRIVERS ARE DISABLED BEFORE CHANGING LED STATE
   }
 }
@@ -1318,18 +1336,13 @@ void loop() {
 
   if (millis() - dcsMillis >= (1000))  // 1 SECOND DELAY BEFORE POWER OFF STEPPERS
   {
-    SARI_Flag = 1;  // Actual driving of the output is done futher down in the loop
     disableAllPointers();
   }
 
   //         STEPPER SAFETY CHECK CODE, WILL NOT TUNR STEPPERS ON IF DCS BIOS NOT RUNNING, OR IF GAME PAUSED AFTER 1 SECOND   \\
   //******************************************************************************************************************************************
 
-  if (SARI_Flag == 1) {
-    digitalWrite(SARI_Flag_Pin, LOW);
-  } else {
-    digitalWrite(SARI_Flag_Pin, HIGH);
-  }
+
 
 
 
