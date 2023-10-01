@@ -667,17 +667,17 @@ void setup() {
   // WATER START Homing procedure of Stepper Motor at startup
 
   SendDebug("Water Stepper is Homing . . . ");
-  digitalWrite(EN_switchW, LOW);
+  enable_switchW();
   if (digitalRead(WTR_IR_sen) == LOW)
     SendDebug("Water Stepper is IN the SENSOR . . . ");
-    if (digitalRead(WTR_IR_sen) == HIGH)
-      SendDebug("Water Stepper is OUT of the SENSOR  . . . ");
-      while (digitalRead(WTR_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
-        stepperW.moveTo(initial_homingW);  // Set the position to move to
-        initial_homingW++;                 // Decrease by 1 for next move if needed
-        stepperW.run();                    // Start moving the stepper
-        delay(1);
-      }
+  if (digitalRead(WTR_IR_sen) == HIGH)
+    SendDebug("Water Stepper is OUT of the SENSOR  . . . ");
+  while (digitalRead(WTR_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
+    stepperW.moveTo(initial_homingW);  // Set the position to move to
+    initial_homingW++;                 // Decrease by 1 for next move if needed
+    stepperW.run();                    // Start moving the stepper
+    delay(1);
+  }
   initial_homingW = 1;
 
   while (!digitalRead(WTR_IR_sen)) {  // Make the Stepper move CW until the switch is deactivated
@@ -692,6 +692,7 @@ void setup() {
   //Serial.println("");
   stepperW.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
   stepperW.setAcceleration(2000.0);  // Set Acceleration of Stepper
+  disableAllPointers();
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -699,17 +700,17 @@ void setup() {
   // HOR Start Homing procedure of Stepper Motor at startup
 
   SendDebug("Stepper is HOZ Homing . . . ");
-  digitalWrite(EN_switchH, LOW);
+  enable_switchH();
   if (digitalRead(HOZ_IR_sen) == LOW)
     SendDebug("Stepper is IN the SENSOR . . . ");
-    if (digitalRead(HOZ_IR_sen) == HIGH)
-      SendDebug("Stepper is OUT of the SENSOR  . . . ");
-      while (digitalRead(HOZ_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
-        stepperH.moveTo(initial_homingH);  // Set the position to move to
-        initial_homingH--;                 // Decrease by 1 for next move if needed
-        stepperH.run();                    // Start moving the stepper
-        delay(1);
-      }
+  if (digitalRead(HOZ_IR_sen) == HIGH)
+    SendDebug("Stepper is OUT of the SENSOR  . . . ");
+  while (digitalRead(HOZ_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
+    stepperH.moveTo(initial_homingH);  // Set the position to move to
+    initial_homingH--;                 // Decrease by 1 for next move if needed
+    stepperH.run();                    // Start moving the stepper
+    delay(1);
+  }
   initial_homingH = 1;
 
   while (!digitalRead(HOZ_IR_sen)) {  // Make the Stepper move CW until the switch is deactivated
@@ -724,49 +725,164 @@ void setup() {
   //Serial.println("");
   stepperH.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
   stepperH.setAcceleration(2000.0);  // Set Acceleration of Stepper
+
+  disableAllPointers();
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   SendDebug("Stepper VER is Homing . . . ");
-  digitalWrite(EN_switchV, LOW);
+
+  stepperV.setMaxSpeed(800.0);      // Set Max Speed of Stepper (Faster for regular movements)
+  stepperV.setAcceleration(200.0);  // Set Acceleration of Stepper
+
+
+  enable_switchV();
+
+  if (digitalRead(VER_IR_sen) == HIGH) {
+    SendDebug("VER Stepper is OUT of the SENSOR  . . . ");
+
+    initial_homingV = 4000;  // Set the maximum number of steps we could be moving before hitting the sensor
+    stepperV.moveTo(initial_homingV);
+    while (digitalRead(VER_IR_sen)) {  // Make the Stepper move CCW until the switch is activated
+      // SendDebug("Moving V forward");
+      stepperV.run();  // Set the position to move to
+    }
+
+    SendDebug("Moved " + String(initial_homingV) + " steps");
+    SendDebug("Steps remaining is " + String(stepperV.distanceToGo()));
+
+    disableAllPointers();
+    delay(300);  // Let the ponter settle for a short time
+  }
+
   if (digitalRead(VER_IR_sen) == LOW)
-    SendDebug("Stepper is IN the SENSOR . . . ");
-    if (digitalRead(VER_IR_sen) == HIGH)
-      SendDebug("Stepper is OUT of the SENSOR  . . . ");
-      while (digitalRead(VER_IR_sen)) {    // Make the Stepper move CCW until the switch is activated
-        stepperV.moveTo(initial_homingV);  // Set the position to move to
-        initial_homingV++;                 // Decrease by 1 for next move if needed
-        stepperV.run();                    // Start moving the stepper
-        delay(1);
-      }
+    SendDebug("VER Stepper is IN the SENSOR . . . ");
+
+  enable_switchV();
   initial_homingV = 1;
 
-  while (!digitalRead(VER_IR_sen)) {  // Make the Stepper move CW until the switch is deactivated
-    stepperV.moveTo(initial_homingV);
+
+  stepperV.setCurrentPosition(0);     // Unless we've just moved the sensor into the sensor
+  initial_homingV = -4000;            // We don't know the absolute position - so start at 0
+  stepperV.moveTo(initial_homingV);   // And the set max steps we should move before hitting a hard stop
+  while (!digitalRead(VER_IR_sen)) {  // Make the Stepper move CW until the sensor is deactivated
     stepperV.run();
-    initial_homingV--;
-    delay(1);
   }
+  SendDebug("Moved " + String(initial_homingV) + " steps");
+  SendDebug("Steps remaining is " + String(stepperV.distanceToGo()));
+
 
   stepperV.setCurrentPosition(3000);  // 0 is full LEFT <-> HIGHER IS RIGHT
   SendDebug("VER Homing Completed");
-  //Serial.println("");
+
   stepperV.setMaxSpeed(3000.0);      // Set Max Speed of Stepper (Faster for regular movements)
   stepperV.setAcceleration(2000.0);  // Set Acceleration of Stepper
+
+  disableAllPointers();
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-  //Serial.println("ALL CALIBRATION COMPLETE");
+  SendDebug("ALL CALIBRATION COMPLETE");
 
-  stepperW.moveTo(1000);  //  --- HIGHER IS UP    <->   LOWER IS DOWN---
-  stepperW.run();
+  movePointersToRestPosition();
 
-  stepperV.moveTo(0);  //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
-  stepperV.run();
+  SendDebug("Move pointers to center");
+  stepperV.moveTo(2900);     //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
+  stepperH.moveTo(2500);     //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
+  enableAllPointers();
+  while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
+    stepperV.run();
+    stepperH.run();
+  }
+  disableAllPointers();
+  delay(5000);
 
-  stepperH.moveTo(0);  //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
-  stepperH.run();
+  movePointersToRestPosition();
 }
+
+
+void movePointersToRestPosition() {
+  SendDebug("Returning Pointers to rest position");
+  stepperW.moveTo(1000);  //  --- HIGHER IS UP    <->   LOWER IS DOWN---
+  stepperV.moveTo(0);     //    --- HIGHER IS RIGHT  <->   LOWER IS LEFT ---
+  stepperH.moveTo(0);     //    --- HIGHER IS DOWN   <->   LOWWER IS UP ---
+
+  enableAllPointers();
+  while ((stepperW.distanceToGo() != 0) || (stepperV.distanceToGo() != 0) || (stepperH.distanceToGo() != 0)) {
+    stepperW.run();
+    stepperV.run();
+    stepperH.run();
+  }
+  disableAllPointers();
+  SendDebug("Completed returning Pointers to rest position");
+}
+
+
+void enable_switchW() {
+  digitalWrite(EN_switchW, LOW);
+  setStepperLedOn();
+}
+
+void enable_switchV() {
+  digitalWrite(EN_switchV, LOW);
+  setStepperLedOn();
+}
+
+void enable_switchH() {
+  digitalWrite(EN_switchH, LOW);
+  setStepperLedOn();
+}
+
+
+void disable_switchW() {
+  digitalWrite(EN_switchW, HIGH);
+  checkStepperDisabledStatus();
+}
+
+void disable_switchV() {
+  digitalWrite(EN_switchV, HIGH);
+  checkStepperDisabledStatus();
+}
+
+void disable_switchH() {
+  digitalWrite(EN_switchH, HIGH);
+  checkStepperDisabledStatus();
+}
+
+void disableAllPointers() {
+  digitalWrite(EN_switchW, HIGH);
+  digitalWrite(EN_switchV, HIGH);
+  digitalWrite(EN_switchH, HIGH);
+  digitalWrite(SARIenablePin, HIGH);
+  checkStepperDisabledStatus();
+}
+
+void enableAllPointers() {
+  // Currently not touching SARI with enable
+  enable_switchW();
+  enable_switchV();
+  enable_switchH();
+}
+
+void setStepperLedOn() {
+  digitalWrite(Check_LED_R, HIGH);  // RED LED ON PCB TO SHOW ENABLE SWITCHES ARE ACTIVE AND POWER IS ON TO THE STEPPERS IF REQUIRED - SET BY CODE
+  digitalWrite(Check_LED_G, LOW);
+}
+
+void setStepperLedOff() {
+  digitalWrite(Check_LED_G, HIGH);  // GREEN LED ON PCB TO SHOW **ALL** ENABLE SWITCHES ARE SAFE - OFF
+  digitalWrite(Check_LED_R, LOW);
+}
+
+
+void checkStepperDisabledStatus() {
+  if ((digitalRead(EN_switchW) == HIGH) && (digitalRead(EN_switchV) == HIGH) && (digitalRead(EN_switchH) == HIGH) && (digitalRead(SARIenablePin) == HIGH)) {
+    setStepperLedOff();  // CHECK ALL STEPPER DRIVERS ARE DISABLED BEFORE CHANGING LED STATE
+  }
+}
+
+
 
 void updateBARO(String strnewValue) {
 
@@ -1165,25 +1281,26 @@ void loop() {
   //###########################################################################################
 
 
+
   if (stepperW.distanceToGo() != 0) {
-    digitalWrite(EN_switchW, LOW);  // turn stepper ON
+    enable_switchW();  // turn stepper ON
     stepperW.run();
   } else {
-    digitalWrite(EN_switchW, HIGH);  // turn stepper OFF
+    disable_switchW();
   }
 
   if (stepperH.distanceToGo() != 0) {
-    digitalWrite(EN_switchH, LOW);  // turn stepper ON
+    enable_switchH();  // turn stepper ON
     stepperH.run();
   } else {
-    digitalWrite(EN_switchH, HIGH);  // turn stepper OFF
+    disable_switchH();
   }
 
   if (stepperV.distanceToGo() != 0) {
-    digitalWrite(EN_switchV, LOW);  // turn stepper ON
+    enable_switchV();  // turn stepper ON
     stepperV.run();
   } else {
-    digitalWrite(EN_switchV, HIGH);  // turn stepper OFF
+    disable_switchV();
   }
 
 
@@ -1201,13 +1318,8 @@ void loop() {
 
   if (millis() - dcsMillis >= (1000))  // 1 SECOND DELAY BEFORE POWER OFF STEPPERS
   {
-    SARI_Flag = 1;
-    digitalWrite(EN_switchV, HIGH);
-    digitalWrite(EN_switchH, HIGH);
-    digitalWrite(EN_switchW, HIGH);
-    digitalWrite(SARIenablePin, HIGH);
-    digitalWrite(Check_LED_G, HIGH);  // GREEN LED ON PCB TO SHOW **ALL** ENABLE SWITCHES ARE SAFE - OFF
-    digitalWrite(Check_LED_R, LOW);
+    SARI_Flag = 1;  // Actual driving of the output is done futher down in the loop
+    disableAllPointers();
   }
 
   //         STEPPER SAFETY CHECK CODE, WILL NOT TUNR STEPPERS ON IF DCS BIOS NOT RUNNING, OR IF GAME PAUSED AFTER 1 SECOND   \\
