@@ -113,7 +113,8 @@ unsigned long nextAltimeterUpdate = 0;
 int updateAltimeterInterval = 100;
 // Original Standby PCB #define ALT_ZERO_SENSE_PIN 49
 #define ALT_ZERO_SENSE_PIN 18
-#define ALT_OFFSET_TO_ZERO_POINT 708
+//#define ALT_OFFSET_TO_ZERO_POINT 708
+#define ALT_OFFSET_TO_ZERO_POINT 730
 
 #include <AccelStepper.h>
 #include <Stepper.h>
@@ -353,7 +354,8 @@ public:
         initState = 3;
         SendDebug("SARI initState moving to State 3");
         SARI_ROLL_INITIALISED = true;
-        disable_SARI_ROLL();;
+        disable_SARI_ROLL();
+        ;
       }
     }
 
@@ -403,13 +405,13 @@ public:
         }  // LOW  = stepper ON drive current available
 
 
-      
+
 
         // tell AccelStepper to move relative to the current position
         stepper.move(delta);
       }
       stepper.run();
-      if (stepper.distanceToGo() == 0 ) {
+      if (stepper.distanceToGo() == 0) {
         disable_SARI_ROLL();
       }
     }
@@ -486,7 +488,8 @@ unsigned long nextVVIUpdate = 0;
 int updateVVIInterval = 100;
 // Original Standby PCB #define VVI_ZERO_SENSE_PIN 30
 #define VVI_ZERO_SENSE_PIN A15
-#define VVI_OFFSET_TO_ZERO_POINT 392
+//#define VVI_OFFSET_TO_ZERO_POINT 392
+#define VVI_OFFSET_TO_ZERO_POINT 440
 
 // Original Standby PCB #define  COIL_VVI_A1  22
 // Original Standby PCB #define  COIL_VVI_A2  26
@@ -659,7 +662,18 @@ void setup() {
       break;
     }
   }
-
+  SendDebug("VVI has " + String(valVVI) + " Steps");
+  while ( valVVI != posVVI ) {
+    if (valVVI > posVVI) {
+      stepperSTANDBY_VVI.step(1);  // move one step to the left.
+      posVVI++;
+      // SendDebug(String(valVVI) + " Inc VVI " + String(posVVI));
+    } else if (valVVI < posVVI) {
+      stepperSTANDBY_VVI.step(-1);  // move one step to the right.
+      posVVI--;
+      //SendDebug(String(valVVI) + " Dec VVI " + String(posVVI));
+    }
+  }
 
   nextAltimeterUpdate = millis();
 
@@ -1395,7 +1409,7 @@ void loop() {
     disable_switchH();
     disable_switchV();
     disable_SARI_FLAG();
-    if (SARI_ROLL_INITIALISED == true) {    // Need to allow time for SARI to completely initialise
+    if (SARI_ROLL_INITIALISED == true) {  // Need to allow time for SARI to completely initialise
       disable_SARI_ROLL();
     }
   }
