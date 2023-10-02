@@ -466,7 +466,8 @@ void onSaiPointerVerChange(unsigned int newValue) {
     valVER = 0;
     stepperV.moveTo(valVER);
   } else {
-    valVER = map(newValue, 1, 65535, 1500, 3600);
+    // valVER = map(newValue, 1, 65535, 1500, 3600);
+    valVER = map(newValue, 1, 65535, 1500, 4150);
     stepperV.moveTo(valVER);
   }
 }
