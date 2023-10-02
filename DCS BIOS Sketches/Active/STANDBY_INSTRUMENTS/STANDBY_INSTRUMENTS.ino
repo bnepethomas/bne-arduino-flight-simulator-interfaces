@@ -16,7 +16,7 @@
 
 #define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
-#define Reflector_In_Use 1
+#define Reflector_In_Use 0
 
 
 #define DCSBIOS_IRQ_SERIAL
@@ -524,6 +524,29 @@ DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 46, 48);
 DcsBios::Potentiometer rwrRwrIntesity("RWR_RWR_INTESITY", 0);
 void setup() {
 
+  pinMode(Check_LED_G, OUTPUT);
+  pinMode(Check_LED_R, OUTPUT);
+
+  pinMode(SARI_Flag_Pin, OUTPUT);
+  disable_SARI_FLAG();
+
+  pinMode(SARIenablePin, OUTPUT);
+  disable_SARI_ROLL();
+
+  digitalWrite(EN_switchW, LOW);
+
+  pinMode(HOZ_IR_sen, INPUT_PULLUP);
+  pinMode(EN_switchH, OUTPUT);
+  disable_switchH();
+
+  pinMode(VER_IR_sen, INPUT_PULLUP);
+  pinMode(EN_switchV, OUTPUT);
+  disable_switchV();
+
+  pinMode(WTR_IR_sen, INPUT_PULLUP);
+  pinMode(EN_switchW, OUTPUT);
+  disable_switchW();
+
   pinMode(RedLedMonitorPin, OUTPUT);
   pinMode(GreenLedMonitorPin, OUTPUT);
   outputstate = true;
@@ -663,7 +686,7 @@ void setup() {
     }
   }
   SendDebug("VVI has " + String(valVVI) + " Steps");
-  while ( valVVI != posVVI ) {
+  while (valVVI != posVVI) {
     if (valVVI > posVVI) {
       stepperSTANDBY_VVI.step(1);  // move one step to the left.
       posVVI++;
@@ -677,28 +700,7 @@ void setup() {
 
   nextAltimeterUpdate = millis();
 
-  pinMode(Check_LED_G, OUTPUT);
-  pinMode(Check_LED_R, OUTPUT);
 
-  pinMode(SARI_Flag_Pin, OUTPUT);
-  disable_SARI_FLAG();
-
-  pinMode(SARIenablePin, OUTPUT);
-  disable_SARI_ROLL();
-
-  digitalWrite(EN_switchW, LOW);
-
-  pinMode(HOZ_IR_sen, INPUT_PULLUP);
-  pinMode(EN_switchH, OUTPUT);
-  disable_switchH();
-
-  pinMode(VER_IR_sen, INPUT_PULLUP);
-  pinMode(EN_switchV, OUTPUT);
-  disable_switchV();
-
-  pinMode(WTR_IR_sen, INPUT_PULLUP);
-  pinMode(EN_switchW, OUTPUT);
-  disable_switchW();
 
 
 
