@@ -217,6 +217,12 @@ long dcsMillis;
 
 // SARI
 
+long timeToDisable_SARI_ROLL = 0;
+bool waitingToDisable_SARI_ROLL = false;
+bool SARI_ROLL_ENABLED = false;
+#define disable_SARI_ROLL_WaitTime 300  // mS delay after SARI ROll has founds its position \
+                                        // Used to help hold the SARI in position
+
 struct SARIStepperConfig {
   unsigned int SARImaxSteps;
   unsigned int SARIacceleration;
@@ -411,8 +417,10 @@ public:
         stepper.move(delta);
       }
       stepper.run();
-      if (stepper.distanceToGo() == 0) {
-        disable_SARI_ROLL();
+      if ((stepper.distanceToGo() == 0) && (waitingToDisable_SARI_ROLL == false) && (SARI_ROLL_ENABLED == true)) {
+        // SendDebug("Starting Count down to disable SARI ROLL");
+        waitingToDisable_SARI_ROLL = true;
+        timeToDisable_SARI_ROLL = millis() + disable_SARI_ROLL_WaitTime;
       }
     }
   }
@@ -888,19 +896,23 @@ void movePointersToRestPosition() {
 void enable_switchW() {
   digitalWrite(EN_switchW, LOW);
   setStepperLedOn();
+  // SendDebug("Enabling switchW");
 }
 
 void enable_switchV() {
   digitalWrite(EN_switchV, LOW);
   setStepperLedOn();
+  // SendDebug("Enabling switchV");
 }
 
 void enable_switchH() {
   digitalWrite(EN_switchH, LOW);
   setStepperLedOn();
+  // SendDebug("Enabling switchH");
 }
 
 void enable_SARI_ROLL() {
+  SARI_ROLL_ENABLED = true;
   digitalWrite(SARIenablePin, LOW);
   setStepperLedOn();
 }
@@ -928,6 +940,7 @@ void disable_switchH() {
 
 void disable_SARI_ROLL() {
   digitalWrite(SARIenablePin, HIGH);
+  SARI_ROLL_ENABLED = false;
   checkStepperDisabledStatus();
 }
 
@@ -1414,6 +1427,12 @@ void loop() {
     if (SARI_ROLL_INITIALISED == true) {  // Need to allow time for SARI to completely initialise
       disable_SARI_ROLL();
     }
+  }
+
+  if ((millis() >= timeToDisable_SARI_ROLL) && (waitingToDisable_SARI_ROLL == true)) {
+    // SendDebug("Count down to disable SARI ROLL coompleted - disabling");
+    disable_SARI_ROLL();
+    waitingToDisable_SARI_ROLL = false;
   }
 
   //         STEPPER SAFETY CHECK CODE, WILL NOT TUNR STEPPERS ON IF DCS BIOS NOT RUNNING, OR IF GAME PAUSED AFTER 1 SECOND   \\
