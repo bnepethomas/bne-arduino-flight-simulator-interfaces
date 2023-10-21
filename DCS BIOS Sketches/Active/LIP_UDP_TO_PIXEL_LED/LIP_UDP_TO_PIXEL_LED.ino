@@ -1,10 +1,10 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
-//||               FUNCTION = HORNET UDP to Keyboard and Pixel LED     ||\\
-//||              LOCATION IN THE PIT = LIP LEFT HAND SIDE             ||\\
+//||               FUNCTION = HORNET UDP to Keyboard and Pixel LED    ||\\
+//||              LOCATION IN THE PIT = LIP LEFT HAND SIDE            ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
-//||      ARDUINO CHIP SERIAL NUMBER = SN:
+//||      ARDUINO CHIP SERIAL NUMBER = SN: Unknown as it is a clone   ||\\
 //||      ETHERNET SHEILD MAC ADDRESS = MAC                           ||\\
-//||                    CONNECTED COM PORT = COM                    ||\\
+//||                    CONNECTED COM PORT = COM 28                   ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -16,9 +16,9 @@
 
 
 */
-define Ethernet_In_Use 1
+#define Ethernet_In_Use 1
 const int Serial_In_Use = 0;
-define Reflector_In_Use 1
+#define Reflector_In_Use 1
 
 
 
@@ -26,30 +26,32 @@ define Reflector_In_Use 1
 
 // PixelLighting
 #include <FastLED.h>
-String COLOUR   =  "GREEN";         // The color name that you want to show, e.g. Green, Red, Blue, White
-int startUpBrightness =   50;       // LED Brightness 0 = Off, 255 = 100%.
-#define MAX_BRIGHTNESS 255          // This is relative to master used with CHSV
-#define MAX_MASTER_BRIGHTNESS 100   // Overrides all brightness - used with setbrightness method
+String COLOUR = "GREEN";           // The color name that you want to show, e.g. Green, Red, Blue, White
+int startUpBrightness = 50;        // LED Brightness 0 = Off, 255 = 100%.
+#define MAX_BRIGHTNESS 255         // This is relative to master used with CHSV
+#define MAX_MASTER_BRIGHTNESS 100  // Overrides all brightness - used with setbrightness method
 #define MAX_WARNING_BRIGHTNESS 255
+#define STANDBY_BRIGHTNESS_MULTIPLIER 5  //The 5mm LEDs aren't as bright as the surface mounts so multiply brightness
 
 // Set your power supplies 5V current limit.
 
-#define CURRENT_LIMIT   20000   // Current in mA (1000mA = 1 Amp). Most ATX PSUs provide 20A maximum.
+#define CURRENT_LIMIT 20000  // Current in mA (1000mA = 1 Amp). Most ATX PSUs provide 20A maximum.
 
 // Defining how many pixels each backlighting connector has connected, if a connector is not used set it to zero.
 // Led Counts for LIP and UIP Panels
-#define ECM_JETT_LED_COUNT      78
-#define STANDBY_LED_COUNT       6
-#define VIDEO_RECORD_LED_COUNT  16
-#define PLACARD_LED_COUNT       8
-#define MASTER_ARM_LED_COUNT    29
-#define HUD_CONTROL_LED_COUNT   56
+#define ECM_JETT_LED_COUNT 78
+// #define STANDBY_LED_COUNT       6
+#define STANDBY_LED_COUNT 8
+#define VIDEO_RECORD_LED_COUNT 16
+#define PLACARD_LED_COUNT 8
+#define MASTER_ARM_LED_COUNT 29
+#define HUD_CONTROL_LED_COUNT 56
 #define SPIN_RECOVERY_LED_COUNT 53
 
 #define LEFT_CONSOLE_LED_COUNT 500
 #define RIGHT_CONSOLE_LED_COUNT 500
-const int  LIP_CONSOLE_LED_COUNT = ECM_JETT_LED_COUNT + STANDBY_LED_COUNT+ VIDEO_RECORD_LED_COUNT + PLACARD_LED_COUNT;
-const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT + SPIN_RECOVERY_LED_COUNT;
+const int LIP_CONSOLE_LED_COUNT = ECM_JETT_LED_COUNT + STANDBY_LED_COUNT + VIDEO_RECORD_LED_COUNT + PLACARD_LED_COUNT;
+const int UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT + SPIN_RECOVERY_LED_COUNT;
 
 // Defining what data pin each backlighting connector is connected to.
 
@@ -65,18 +67,18 @@ const int  UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT 
 //#define RIGHT_CONSOLE_PIN       42
 
 // Connections using Lukes Power Distribution
-#define UIP_PIN                 40
-#define LIP_PIN                 42
+#define UIP_PIN 40
+#define LIP_PIN 42
 // Not used as locking collides 44
 // Not used as locking collides 46
-#define LEFT_CONSOLE_PIN        48
-#define RIGHT_CONSOLE_PIN       49
+#define LEFT_CONSOLE_PIN 48
+#define RIGHT_CONSOLE_PIN 49
 
 // Some other setup information. Don't change these unless you have a reason to.
 
-#define LED_TYPE     WS2812B  // OPENHORNET backlighting LEDs are WS2812B
-#define COLOUR_ORDER GRB      // OPENHORNET backlighting LEDs are GRB (green, red, blue)
-#define SOLID_SPEED  100     // The refresh rate delay in ms. Leave this at around 1000 (1 second)
+#define LED_TYPE WS2812B  // OPENHORNET backlighting LEDs are WS2812B
+#define COLOUR_ORDER GRB  // OPENHORNET backlighting LEDs are GRB (green, red, blue)
+#define SOLID_SPEED 100   // The refresh rate delay in ms. Leave this at around 1000 (1 second)
 
 // Setting up the blocks of memory that will be used for storing and manipulating the led data;
 
@@ -85,7 +87,7 @@ CRGB RIGHT_CONSOLE_LED[RIGHT_CONSOLE_LED_COUNT];
 CRGB LIP_CONSOLE_LED[LIP_CONSOLE_LED_COUNT];
 CRGB UIP_CONSOLE_LED[UIP_CONSOLE_LED_COUNT];
 
-#define CHSVRed   0
+#define CHSVRed 0
 #define CHSVGreen 96
 #define CHSVYellow 45
 
@@ -101,11 +103,11 @@ bool SPIN = false;
 
 
 int ledptr = 0;
-int consoleBrightness = 50;                     // Global Value for Console Brightness
-int warningBrightness = 50;                   // Global value for Indicator Brightness
+int consoleBrightness = 50;  // Global Value for Console Brightness
+int warningBrightness = 50;  // Global value for Indicator Brightness
 unsigned long timeBeforeNextLedUpdate = 0;
-unsigned long minTimeBetweenLedUpdates = 40;    // Provides time foir several updates to be put together before throwing to the led strings
-bool LedUpdateNeeded = false;                   // Flags if we have something to update
+unsigned long minTimeBetweenLedUpdates = 40;  // Provides time foir several updates to be put together before throwing to the led strings
+bool LedUpdateNeeded = false;                 // Flags if we have something to update
 
 
 // The Panels are chained so calculate starting position
@@ -114,13 +116,13 @@ bool LedUpdateNeeded = false;                   // Flags if we have something to
 // Two chains are required for UIP/LIP as the Jet Station Select Placard and
 //    (as of the version 1) the Spin Recovery do not pass the data signal through
 
-const int ECM_JET_START_POS       = 0;
-const int STANDBY_START_POS       = ECM_JETT_LED_COUNT;
-const int VID_RECORD_START_POS    = ECM_JETT_LED_COUNT + STANDBY_LED_COUNT;
-const int PLACARD_LED_START_POS   = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT;
+const int ECM_JET_START_POS = 0;
+const int STANDBY_START_POS = ECM_JETT_LED_COUNT;
+const int VID_RECORD_START_POS = ECM_JETT_LED_COUNT + STANDBY_LED_COUNT;
+const int PLACARD_LED_START_POS = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT;
 
-const int MASTER_ARM_START_POS    = 0;
-const int HUD_CONTROL_START_POS   = MASTER_ARM_LED_COUNT;
+const int MASTER_ARM_START_POS = 0;
+const int HUD_CONTROL_START_POS = MASTER_ARM_LED_COUNT;
 const int SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT;
 
 
@@ -159,7 +161,7 @@ const int SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUN
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 #define EthernetStartupDelay 500
-byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x05};
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x05 };
 IPAddress ip(172, 16, 1, 105);
 String strMyIP = "172.16.1.105";
 
@@ -179,11 +181,11 @@ int ledPacketSize;
 int ledLen;
 
 
-EthernetUDP ledudp;                   //Left and Right Consoles
+EthernetUDP ledudp;  //Left and Right Consoles
 
 
-char ledpacketBuffer[1000];           //buffer to store led data
-char outpacketBuffer[1000];           //buffer to store the outgoing data
+char ledpacketBuffer[1000];  //buffer to store led data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 
 // ###################################### End Ethernet Related #############################
@@ -206,7 +208,7 @@ void setup() {
 
   if (Ethernet_In_Use == 1) {
     delay(EthernetStartupDelay);
-    Ethernet.begin( mac, ip);
+    Ethernet.begin(mac, ip);
 
     ledudp.begin(ledport);
 
@@ -216,9 +218,6 @@ void setup() {
       ledudp.println("Init UDP Pixel Led - " + strMyIP + " " + String(millis()) + "mS since reset.");
       ledudp.endPacket();
     }
-
-
-
   }
 
   // Activate Backlights
@@ -242,91 +241,88 @@ void setup() {
 
 
   // Now apply everything we just told it about the setup.
-  fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
-  fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
-  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
   // // Fix up the Standby Gauges as they use a different approach to colour
   for (ledptr = STANDBY_START_POS;
-        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT  - 1); ledptr++) {
+       ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVRed, 255, startUpBrightness * 4);// GREEN
-   }
-  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
+    LIP_CONSOLE_LED[ledptr] = CHSV(CHSVRed, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // GREEN
+  }
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
 
   FastLED.show();
   delay(2000);
 
-  fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Red);
-  fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Red);
-  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Red);
-     for (ledptr = STANDBY_START_POS;
-        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT  - 1); ledptr++) {
+  fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Red);
+  fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Red);
+  fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Red);
+  for (ledptr = STANDBY_START_POS;
+       ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, startUpBrightness * 4);// Red
-   } 
-  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
+    LIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // Red
+  }
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
 
   FastLED.show();
   delay(2000);
 
 
   // Now apply everything we just told it about the setup.
-  fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Yellow);
-  fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Yellow);
-  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Yellow);
-  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Yellow);
+  fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Yellow);
+  fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Yellow);
+  fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Yellow);
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Yellow);
 
   FastLED.show();
   delay(2000);
 
-  fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Black);
-  fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Black);
-  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Black);
-  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Black);
+  fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Black);
+  fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Black);
+  fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Black);
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Black);
 
   FastLED.show();
   delay(1000);
 
 
   // Now apply everything we just told it about the setup.
-  fill_solid( LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
-  fill_solid( RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
-  fill_solid( LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
-    for (ledptr = STANDBY_START_POS;
-        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT  - 1); ledptr++) {
+  fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
+  for (ledptr = STANDBY_START_POS;
+       ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVRed, 255, startUpBrightness * 4);// GREEN
-   }
-  fill_solid( UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
+    LIP_CONSOLE_LED[ledptr] = CHSV(CHSVRed, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // GREEN
+  }
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
   FastLED.show();
   delay(1000);
 
   NEXT_LED_UPDATE = millis() + 1000;
-
-
 }
 
 
-void SetBacklighting()
-{
+void SetBacklighting() {
 
   bool bLocalDebug = false;
 
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Entering SetBacklighting");
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Console Brightness: " + String(consoleBrightness));
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Entering SetBacklighting");
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Console Brightness: " + String(consoleBrightness));
 
   // Left and Right Consoles are entirely flood so nothing special needed there
   // Forward console has exceptions
 
   for (ledptr = 0; ledptr <= (LEFT_CONSOLE_LED_COUNT - 1); ledptr++) {
-    LEFT_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
+    LEFT_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
   }
 
 
 
 
   for (ledptr = 0; ledptr <= (LEFT_CONSOLE_LED_COUNT - 1); ledptr++) {
-    RIGHT_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
+    RIGHT_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
   }
 
 
@@ -342,29 +338,28 @@ void SetBacklighting()
 
   for (ledptr = ECM_JET_START_POS;
        ledptr <= (ECM_JET_START_POS + ECM_JETT_LED_COUNT - 1); ledptr++) {
-    if (ledptr != ECM_JETT_1 && ledptr !=  ECM_JETT_2 &&
-        ledptr != ECM_JETT_3 && ledptr !=  ECM_JETT_4 )
-      LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
+    if (ledptr != ECM_JETT_1 && ledptr != ECM_JETT_2 && ledptr != ECM_JETT_3 && ledptr != ECM_JETT_4)
+      LIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
   }
 
   for (ledptr = STANDBY_START_POS;
-        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT  - 1); ledptr++) {
+       ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, startUpBrightness * 4);// GREEN
-   } 
+    LIP_CONSOLE_LED[ledptr] = CHSV(CHSVRed, 255, consoleBrightness * (STANDBY_BRIGHTNESS_MULTIPLIER / 2));  // GREEN
+  }
 
   // Video Record
   for (ledptr = VID_RECORD_START_POS;
-       ledptr <= (VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT  - 1); ledptr++) {
+       ledptr <= (VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
+    LIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
   }
 
   // Placard
   for (ledptr = PLACARD_LED_START_POS;
-       ledptr <= (PLACARD_LED_START_POS + PLACARD_LED_COUNT  - 1); ledptr++) {
+       ledptr <= (PLACARD_LED_START_POS + PLACARD_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
+    LIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
   }
 
 
@@ -374,46 +369,43 @@ void SetBacklighting()
   // MASTER ARM
   for (ledptr = MASTER_ARM_START_POS;
        ledptr <= (MASTER_ARM_START_POS + MASTER_ARM_LED_COUNT - 1); ledptr++) {
-    if (ledptr != MASTER_ARM_READY_1 && ledptr != MASTER_ARM_READY_2 &&
-        ledptr != MASTER_ARM_DISCH_1 && ledptr != MASTER_ARM_DISCH_2 &&
-        ledptr != MASTER_ARM_AA_1 && ledptr != MASTER_ARM_AA_2  &&
-        ledptr != MASTER_ARM_AG_1 && ledptr != MASTER_ARM_AG_2)
-      UIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
+    if (ledptr != MASTER_ARM_READY_1 && ledptr != MASTER_ARM_READY_2 && ledptr != MASTER_ARM_DISCH_1 && ledptr != MASTER_ARM_DISCH_2 && ledptr != MASTER_ARM_AA_1 && ledptr != MASTER_ARM_AA_2 && ledptr != MASTER_ARM_AG_1 && ledptr != MASTER_ARM_AG_2)
+      UIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
   }
 
 
   // HUD CONTROL
   for (ledptr = HUD_CONTROL_START_POS;
-       ledptr <= (HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT  - 1); ledptr++) {
+       ledptr <= (HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    UIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
+    UIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
   }
 
 
   // SPIN
   for (ledptr = SPIN_RECOVERY_START_POS;
-       ledptr <= (SPIN_RECOVERY_START_POS + SPIN_RECOVERY_LED_COUNT  - 1); ledptr++) {
+       ledptr <= (SPIN_RECOVERY_START_POS + SPIN_RECOVERY_LED_COUNT - 1); ledptr++) {
     // Check to see if it is a special led - if it isn't adjust brightness
     if (ledptr != SPIN_1 && ledptr != SPIN_2)
-      UIP_CONSOLE_LED[ledptr] = CHSV( CHSVGreen, 255, consoleBrightness);
+      UIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
   }
 
-  if (Debug_Display || bLocalDebug ) Serial.println("Exiting SetBacklighting");
+  if (Debug_Display || bLocalDebug) Serial.println("Exiting SetBacklighting");
 }
 
 
 void Update_ECMJet() {
 
   if (ECM_JET == true) {
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1 ] = CHSV( CHSVGreen, 255, warningBrightness);
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2 ] = CHSV( CHSVGreen, 255, warningBrightness);
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3 ] = CHSV( CHSVGreen, 255, warningBrightness);
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4 ] = CHSV( CHSVGreen, 255, warningBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1] = CHSV(CHSVGreen, 255, warningBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2] = CHSV(CHSVGreen, 255, warningBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3] = CHSV(CHSVGreen, 255, warningBrightness);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4] = CHSV(CHSVGreen, 255, warningBrightness);
   } else {
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1 ] = CHSV( CHSVGreen, 255, 0);
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2 ] = CHSV( CHSVGreen, 255, 0);
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3 ] = CHSV( CHSVGreen, 255, 0);
-    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4 ] = CHSV( CHSVGreen, 255, 0);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_1] = CHSV(CHSVGreen, 255, 0);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_2] = CHSV(CHSVGreen, 255, 0);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_3] = CHSV(CHSVGreen, 255, 0);
+    LIP_CONSOLE_LED[ECM_JET_START_POS + ECM_JETT_4] = CHSV(CHSVGreen, 255, 0);
   }
   LedUpdateNeeded = true;
 }
@@ -422,11 +414,11 @@ void Update_ECMJet() {
 void Update_MASTER_ARM_DISCH_READY() {
 
   if (MASTER_ARM_DISCH_READY == true) {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVYellow, 255, warningBrightness);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVYellow, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1] = CHSV(CHSVYellow, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2] = CHSV(CHSVYellow, 255, warningBrightness);
   } else {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1 ] = CHSV( CHSVYellow, 255, 0);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2 ] = CHSV( CHSVYellow, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_1] = CHSV(CHSVYellow, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_READY_2] = CHSV(CHSVYellow, 255, 0);
   }
   LedUpdateNeeded = true;
 }
@@ -435,11 +427,11 @@ void Update_MASTER_ARM_DISCH_READY() {
 void Update_MASTER_ARM_DISCH() {
 
   if (MASTER_ARM_DISCH == true) {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVGreen, 255, warningBrightness);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVGreen, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1] = CHSV(CHSVGreen, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2] = CHSV(CHSVGreen, 255, warningBrightness);
   } else {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1 ] = CHSV( CHSVGreen, 255, 0);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2 ] = CHSV( CHSVGreen, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_1] = CHSV(CHSVGreen, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_DISCH_2] = CHSV(CHSVGreen, 255, 0);
   }
   LedUpdateNeeded = true;
 }
@@ -447,11 +439,11 @@ void Update_MASTER_ARM_DISCH() {
 void Update_MASTER_ARM_AA() {
 
   if (MASTER_ARM_AA == true) {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, warningBrightness);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2 ] = CHSV( CHSVGreen, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1] = CHSV(CHSVGreen, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2] = CHSV(CHSVGreen, 255, warningBrightness);
   } else {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1 ] = CHSV( CHSVGreen, 255, 0);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2 ] = CHSV( CHSVGreen, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1] = CHSV(CHSVGreen, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_2] = CHSV(CHSVGreen, 255, 0);
   }
   LedUpdateNeeded = true;
 }
@@ -459,11 +451,11 @@ void Update_MASTER_ARM_AA() {
 void Update_MASTER_ARM_AG() {
 
   if (MASTER_ARM_AG == true) {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1 ] = CHSV( CHSVGreen, 255, warningBrightness);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2 ] = CHSV( CHSVGreen, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1] = CHSV(CHSVGreen, 255, warningBrightness);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2] = CHSV(CHSVGreen, 255, warningBrightness);
   } else {
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1 ] = CHSV( CHSVGreen, 255, 0);
-    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2 ] = CHSV( CHSVGreen, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_1] = CHSV(CHSVGreen, 255, 0);
+    UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AG_2] = CHSV(CHSVGreen, 255, 0);
   }
   LedUpdateNeeded = true;
 }
@@ -472,22 +464,21 @@ void Update_MASTER_ARM_AG() {
 void Update_SPIN() {
 
   if (SPIN == true) {
-    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1 ] = CHSV( CHSVYellow, 255, warningBrightness);
-    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2 ] = CHSV( CHSVYellow, 255, warningBrightness);
+    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1] = CHSV(CHSVYellow, 255, warningBrightness);
+    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2] = CHSV(CHSVYellow, 255, warningBrightness);
   } else {
-    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1 ] = CHSV( CHSVYellow, 255, 0);
-    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2 ] = CHSV( CHSVYellow, 255, 0);
+    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_1] = CHSV(CHSVYellow, 255, 0);
+    UIP_CONSOLE_LED[SPIN_RECOVERY_START_POS + SPIN_2] = CHSV(CHSVYellow, 255, 0);
   }
   LedUpdateNeeded = true;
 }
 
-void SetWarningLighting()
-{
+void SetWarningLighting() {
 
   bool bLocalDebug = false;
 
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Entering SetWarningLighting");
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("warning Brightness: " + String(warningBrightness));
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Entering SetWarningLighting");
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("warning Brightness: " + String(warningBrightness));
 
   Update_ECMJet();
   Update_MASTER_ARM_DISCH_READY();
@@ -496,14 +487,13 @@ void SetWarningLighting()
   Update_MASTER_ARM_AG();
   Update_SPIN();
 
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Exiting SetWarninglighting");
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Exiting SetWarninglighting");
 }
 
 
 
 
-void ProcessReceivedString()
-{
+void ProcessReceivedString() {
 
   // Reading values from led packetBuffer which is global
   // All received values are strings for readability
@@ -512,7 +502,7 @@ void ProcessReceivedString()
   bool bLocalDebug = true;
   int tempVar = 0;
 
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Processing Led Packet");
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Processing Led Packet");
 
   if (Reflector_In_Use == 1) {
     ledudp.beginPacket(reflectorIP, reflectorport);
@@ -521,25 +511,25 @@ void ProcessReceivedString()
   }
 
   String sWrkStr = "";
-  const char *delim  = "=";
+  const char *delim = "=";
 
 
 
   ParameterNamePtr = strtok(ledpacketBuffer, delim);
   String ParameterNameString(ParameterNamePtr);
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Name " + ParameterNameString);
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Parameter Name " + ParameterNameString);
 
-  ParameterValuePtr   = strtok(NULL, delim);
+  ParameterValuePtr = strtok(NULL, delim);
   String ParameterValue(ParameterValuePtr);
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Value " + ParameterValue);
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Parameter Value " + ParameterValue);
 
 
 
   if (ParameterNameString.equalsIgnoreCase("ConsoleBrightness")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found Console Brightness");
+    if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Found Console Brightness");
     consoleBrightness = ParameterValue.toInt();
 
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Console Brightness: " + String(consoleBrightness));
+    if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Console Brightness: " + String(consoleBrightness));
     if (consoleBrightness >= MAX_BRIGHTNESS) consoleBrightness = MAX_BRIGHTNESS;
 
     SetBacklighting();
@@ -547,21 +537,22 @@ void ProcessReceivedString()
   }
 
   if (ParameterNameString.equalsIgnoreCase("WarningBrightness")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found Warning Brightness");
+    if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Found Warning Brightness");
     warningBrightness = ParameterValue.toInt();
 
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Warning Brightness: " + String(warningBrightness));
+    if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Warning Brightness: " + String(warningBrightness));
     if (warningBrightness >= MAX_WARNING_BRIGHTNESS) warningBrightness = MAX_WARNING_BRIGHTNESS;
 
     SetWarningLighting();
-    LedUpdateNeeded = true;;
+    LedUpdateNeeded = true;
+    ;
   }
 
 
 
 
   if (ParameterNameString.equalsIgnoreCase("ECM_JET")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found ECM Jet");
+    if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Found ECM Jet");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       ECM_JET = true;
@@ -573,7 +564,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_DISCH_READY")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found MASTER_ARM_DISCH_READY");
+    if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Found MASTER_ARM_DISCH_READY");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       MASTER_ARM_DISCH_READY = true;
@@ -586,7 +577,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_DISCH")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found MASTER_ARM_DISCH");
+    if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Found MASTER_ARM_DISCH");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       MASTER_ARM_DISCH = true;
@@ -598,7 +589,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_AA")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found MASTER_ARM_AA");
+    if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Found MASTER_ARM_AA");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       MASTER_ARM_AA = true;
@@ -610,7 +601,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("MASTER_ARM_AG")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found MASTER_ARM_AG");
+    if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Found MASTER_ARM_AG");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       MASTER_ARM_AG = true;
@@ -622,7 +613,7 @@ void ProcessReceivedString()
 
 
   if (ParameterNameString.equalsIgnoreCase("SPIN")) {
-    if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Found SPIN");
+    if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Found SPIN");
     tempVar = ParameterValue.toInt();
     if (tempVar == 1)
       SPIN = true;
@@ -657,7 +648,6 @@ void loop() {
       SetWarningLighting();
       FastLED.show();
     }
-
   }
 
 
@@ -680,5 +670,4 @@ void loop() {
     LedUpdateNeeded = false;
     timeBeforeNextLedUpdate = millis() + minTimeBetweenLedUpdates;
   }
-
 }
