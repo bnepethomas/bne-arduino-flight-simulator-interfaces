@@ -17,6 +17,18 @@
     (uuid c364973a-9a67-4667-8185-a3a5c6c6cbdf)
   )
 
+  (sheet (at 133.985 22.86) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid d877dad7-1c4e-4ba6-b371-4228993243d3)
+    (property "Sheet name" "ILS" (id 0) (at 133.985 22.1484 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "ILS.kicad_sch" (id 1) (at 133.985 27.2546 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
   (sheet (at 107.315 24.13) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
@@ -32,65 +44,75 @@
   (sheet_instances
     (path "/" (page "1"))
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225" (page "2"))
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3" (page "3"))
   )
 
   (symbol_instances
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/17578d9e-9a54-45a0-b60f-578a902c6ae7"
-      (reference "D1") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+      (reference "D1") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/dd6b7058-7426-4e8b-8acd-78acc432e31c"
+      (reference "D2") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/cc909b2f-f281-481d-b102-80acf083b1e0"
-      (reference "D2") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+      (reference "D3") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/f3d38212-3f5c-4409-bb53-1522723744de"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/f5937d65-5e61-4afa-ab7d-5e0f9ff8b251"
-      (reference "J1") (unit 1) (value "Conn_01x03_Female") (footprint "")
+      (reference "J1") (unit 1) (value "Conn_01x03_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/997b84a4-ff08-4d51-8345-bd8c82eae282"
-      (reference "J2") (unit 1) (value "Conn_01x03_Female") (footprint "")
+      (reference "J2") (unit 1) (value "Conn_01x03_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/0fe9d301-b978-43ad-a012-2f5f14be7141"
-      (reference "J3") (unit 1) (value "Conn_01x03_Female") (footprint "")
+      (reference "J3") (unit 1) (value "Conn_01x03_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/90934e23-ddeb-4606-ab7f-98899763548d"
-      (reference "J4") (unit 1) (value "Conn_01x03_Female") (footprint "")
+      (reference "J4") (unit 1) (value "Conn_01x03_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/9505ba66-daed-4256-8925-e1f929cfdf5f"
-      (reference "J5") (unit 1) (value "Conn_01x02_Female") (footprint "")
+      (reference "J5") (unit 1) (value "Conn_01x02_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/02b8f5fd-8eb8-43f0-afd7-a5332bbe4dcc"
-      (reference "J6") (unit 1) (value "Conn_01x02_Female") (footprint "")
+      (reference "J6") (unit 1) (value "Conn_01x02_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/80633dc5-2d57-4ef1-b2d8-2cc2c3bb4856"
-      (reference "J7") (unit 1) (value "TACAN ROTARY SWITCH") (footprint "")
+      (reference "J7") (unit 1) (value "TACAN ROTARY SWITCH") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/2d6f88e5-f5d1-4fa5-9a14-febf69976915"
-      (reference "J8") (unit 1) (value "Conn_01x08_Female") (footprint "")
-    )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/415f09f2-d640-492e-b1aa-f6b586e85780"
-      (reference "J9") (unit 1) (value "UEXT_Host") (footprint "")
+      (reference "J8") (unit 1) (value "Conn_01x08_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/2e30603a-1cda-4ee6-bd69-a8bb46a2e151"
-      (reference "J10") (unit 1) (value "I2C In") (footprint "")
+      (reference "J9") (unit 1) (value "I2C In") (footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/22079810-034d-4b05-a505-5835e5ece66a"
-      (reference "J11") (unit 1) (value "I2C Out") (footprint "")
+      (reference "J10") (unit 1) (value "I2C Out") (footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/36504e14-08a8-4ac7-b6fc-976faa2f4b7c"
-      (reference "J12") (unit 1) (value "INPUT COLS") (footprint "")
+      (reference "J11") (unit 1) (value "SWITCH INPUT") (footprint "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical")
     )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/1adfadc5-2e9f-46e1-a40a-e2aa48e16815"
-      (reference "SW1") (unit 1) (value "SW_Rotary2x6") (footprint "")
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/175d93b2-db13-4b57-bd61-9c99bd19fd91"
+      (reference "J?") (unit 1) (value "I2C In") (footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical")
     )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/1cbd51dc-6021-4a99-bbf3-f5fde2c8425f"
-      (reference "SW2") (unit 1) (value "RotaryEncoder_Switch") (footprint "")
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/a7c3d313-815a-4a2f-9a0a-28d052aca3b7"
+      (reference "J?") (unit 1) (value "I2C Out") (footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/a6e7352b-33a1-4896-8187-a9faca4ec301"
+      (reference "SW1") (unit 1) (value "Right Encoder") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/d153eb29-717e-40fc-bb0f-c6cb84a22855"
-      (reference "SW3") (unit 1) (value "SW_Push") (footprint "")
+      (reference "SW3") (unit 1) (value "Test") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
     )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/1ba5d1cd-7652-4266-bd82-8431616944a0"
-      (reference "SW4") (unit 1) (value "RotaryEncoder_Switch") (footprint "")
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/6ea3c504-a25b-4f33-a2d9-9dd388a32a82"
+      (reference "SW4") (unit 1) (value "Encoder_Push") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
     )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/9fe99535-1193-4e2c-b512-2b6501d0b46f"
-      (reference "SW5") (unit 1) (value "RotaryEncoder_Switch") (footprint "")
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/ab472b18-c7b2-4e8a-8aa5-8f398a3f2a4c"
+      (reference "SW?") (unit 1) (value "Right Encoder") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/f5457377-4c2f-493e-85f9-6151ff5a99c7"
+      (reference "SW?") (unit 1) (value "Encoder_Push") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
     )
   )
 )
