@@ -1,0 +1,96 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid e63e39d7-6ac0-4ffd-8aa3-1841a4541b55)
+
+  (paper "A4")
+
+  (title_block
+    (date "mar. 31 mars 2015")
+  )
+
+  (lib_symbols
+  )
+
+
+  (text "* Indicates a PWM-capable pin" (at 177.8 180.34 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid c364973a-9a67-4667-8185-a3a5c6c6cbdf)
+  )
+
+  (sheet (at 107.315 24.13) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid e398662f-4d25-4cd6-8507-5af787c0b225)
+    (property "Sheet name" "TACAN" (id 0) (at 107.315 23.4184 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "TACAN.kicad_sch" (id 1) (at 107.315 28.5246 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225" (page "2"))
+  )
+
+  (symbol_instances
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/17578d9e-9a54-45a0-b60f-578a902c6ae7"
+      (reference "D1") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/cc909b2f-f281-481d-b102-80acf083b1e0"
+      (reference "D2") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/f5937d65-5e61-4afa-ab7d-5e0f9ff8b251"
+      (reference "J1") (unit 1) (value "Conn_01x03_Female") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/997b84a4-ff08-4d51-8345-bd8c82eae282"
+      (reference "J2") (unit 1) (value "Conn_01x03_Female") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/0fe9d301-b978-43ad-a012-2f5f14be7141"
+      (reference "J3") (unit 1) (value "Conn_01x03_Female") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/90934e23-ddeb-4606-ab7f-98899763548d"
+      (reference "J4") (unit 1) (value "Conn_01x03_Female") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/9505ba66-daed-4256-8925-e1f929cfdf5f"
+      (reference "J5") (unit 1) (value "Conn_01x02_Female") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/02b8f5fd-8eb8-43f0-afd7-a5332bbe4dcc"
+      (reference "J6") (unit 1) (value "Conn_01x02_Female") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/80633dc5-2d57-4ef1-b2d8-2cc2c3bb4856"
+      (reference "J7") (unit 1) (value "TACAN ROTARY SWITCH") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/2d6f88e5-f5d1-4fa5-9a14-febf69976915"
+      (reference "J8") (unit 1) (value "Conn_01x08_Female") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/415f09f2-d640-492e-b1aa-f6b586e85780"
+      (reference "J9") (unit 1) (value "UEXT_Host") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/2e30603a-1cda-4ee6-bd69-a8bb46a2e151"
+      (reference "J10") (unit 1) (value "I2C In") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/22079810-034d-4b05-a505-5835e5ece66a"
+      (reference "J11") (unit 1) (value "I2C Out") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/36504e14-08a8-4ac7-b6fc-976faa2f4b7c"
+      (reference "J12") (unit 1) (value "INPUT COLS") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/1adfadc5-2e9f-46e1-a40a-e2aa48e16815"
+      (reference "SW1") (unit 1) (value "SW_Rotary2x6") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/1cbd51dc-6021-4a99-bbf3-f5fde2c8425f"
+      (reference "SW2") (unit 1) (value "RotaryEncoder_Switch") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/d153eb29-717e-40fc-bb0f-c6cb84a22855"
+      (reference "SW3") (unit 1) (value "SW_Push") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/1ba5d1cd-7652-4266-bd82-8431616944a0"
+      (reference "SW4") (unit 1) (value "RotaryEncoder_Switch") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/9fe99535-1193-4e2c-b512-2b6501d0b46f"
+      (reference "SW5") (unit 1) (value "RotaryEncoder_Switch") (footprint "")
+    )
+  )
+)
