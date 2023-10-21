@@ -2174,10 +2174,11 @@ void onFloodIntLtChange(unsigned int newValue) {
 DcsBios::IntegerBuffer floodIntLtBuffer(0x755a, 0xffff, 0, onFloodIntLtChange);
 
 void onConsoleIntLtChange(unsigned int newValue) {
-  if (newValue <= 7000) {
+  if (newValue <= 20000) {
     analogWrite(BACK_LIGHTS, 0);
   } else {
-    analogWrite(BACK_LIGHTS, map(newValue, 7000, 65535, 0, 255));
+    // analogWrite(BACK_LIGHTS, map(newValue, 7000, 65535, 0, 255));
+    analogWrite(BACK_LIGHTS, map(newValue, 7000, 65535, 0, 40));
   }
 }
 DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
