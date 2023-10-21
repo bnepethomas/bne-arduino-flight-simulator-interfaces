@@ -8,6 +8,8 @@ IPAddress ip(172, 16, 1, 11);
 #define GREEN_STATUS_LED_PORT 13  // RED LED is used for monitoring ethernet
 #define FLASH_TIME 300
 
+#define Delay_Between_Sends 100
+
 //#define PROJECTOR_BRAND "OPTOMA"
 #define PROJECTOR_BRAND "BENQ"
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
@@ -74,12 +76,31 @@ void loop() {
       digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
       if (SWITCH_PRIMARY_STATE == true) {
         Serial1.println("\r*POW=ON#");
+        delay(Delay_Between_Sends);
         Serial2.println("\r*POW=ON#");
+        delay(Delay_Between_Sends);
         Serial3.println("\r*POW=ON#");
+        delay(Delay_Between_Sends);
+        Serial1.println("\r*POW=ON#");
+        delay(Delay_Between_Sends);
+        Serial2.println("\r*POW=ON#");
+        delay(Delay_Between_Sends);
+        Serial3.println("\r*POW=ON#");
+        delay(Delay_Between_Sends);
+
       } else {
         Serial1.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
         Serial2.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
         Serial3.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
+        Serial1.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
+        Serial2.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
+        Serial3.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
       }
     }
   }
