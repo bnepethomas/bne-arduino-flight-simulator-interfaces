@@ -17,26 +17,62 @@
     (uuid c364973a-9a67-4667-8185-a3a5c6c6cbdf)
   )
 
-  (sheet (at 133.985 22.86) (size 12.7 3.81) (fields_autoplaced)
+  (sheet (at 137.795 60.325) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
-    (uuid d877dad7-1c4e-4ba6-b371-4228993243d3)
-    (property "Sheet name" "ILS" (id 0) (at 133.985 22.1484 0)
+    (uuid 05be4ed2-3683-49ad-94cf-663f3b846d52)
+    (property "Sheet name" "LIGHTS" (id 0) (at 137.795 59.6134 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "ILS.kicad_sch" (id 1) (at 133.985 27.2546 0)
+    (property "Sheet file" "LIGHTS.kicad_sch" (id 1) (at 137.795 64.7196 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
 
-  (sheet (at 107.315 24.13) (size 12.7 3.81) (fields_autoplaced)
+  (sheet (at 137.16 48.895) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid ba77ce94-3016-497f-a6b8-394797ca43da)
+    (property "Sheet name" "ENVIRONMENT" (id 0) (at 137.16 48.1834 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "ENVIRONMENT.kicad_sch" (id 1) (at 137.16 53.2896 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 115.57 59.69) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid d877dad7-1c4e-4ba6-b371-4228993243d3)
+    (property "Sheet name" "ILS" (id 0) (at 115.57 58.9784 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "ILS.kicad_sch" (id 1) (at 115.57 64.0846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 115.57 76.2) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
     (uuid e398662f-4d25-4cd6-8507-5af787c0b225)
-    (property "Sheet name" "TACAN" (id 0) (at 107.315 23.4184 0)
+    (property "Sheet name" "TACAN" (id 0) (at 115.57 75.4884 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "TACAN.kicad_sch" (id 1) (at 107.315 28.5246 0)
+    (property "Sheet file" "TACAN.kicad_sch" (id 1) (at 115.57 80.5946 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 138.43 76.2) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid f3d856b0-cf9a-46c2-ab32-cb8f44631229)
+    (property "Sheet name" "AAP" (id 0) (at 138.43 75.4884 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "AAP.kicad_sch" (id 1) (at 138.43 80.5946 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
@@ -45,6 +81,9 @@
     (path "/" (page "1"))
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225" (page "2"))
     (path "/d877dad7-1c4e-4ba6-b371-4228993243d3" (page "3"))
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229" (page "4"))
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52" (page "5"))
+    (path "/ba77ce94-3016-497f-a6b8-394797ca43da" (page "6"))
   )
 
   (symbol_instances
@@ -56,6 +95,48 @@
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/cc909b2f-f281-481d-b102-80acf083b1e0"
       (reference "D3") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/06735b6e-3d95-45a7-89ed-1e28cfcd9d17"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/0ed77ec4-9617-408e-9bea-f4bd33e7e88a"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/1272b64d-bd4d-4643-a30a-88a556a561b7"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/29f82d6c-6355-4457-8fae-628f5cea0c2f"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/ba77ce94-3016-497f-a6b8-394797ca43da/3c7f2757-d437-499d-a1ad-033c3e3efcc4"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/4cbd1185-f772-4ca9-81c9-ea4e01949c45"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/51e905a3-d765-440d-aafe-ef58418e8274"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/642b59a7-bea8-4114-8e84-0d8b4b53dfaa"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/67502af2-6ef7-4326-9c93-913fc544e289"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/6dfc41e3-1066-4057-8fb4-7e0920839fb9"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/ba77ce94-3016-497f-a6b8-394797ca43da/808bad11-35b9-4f85-9e27-65d0b6a4acb4"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/892b9537-b764-4748-b953-eb492f8e2193"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/bd0075cc-9af0-44bb-b8a1-08ccc2cf875a"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/ba77ce94-3016-497f-a6b8-394797ca43da/d8b2c82b-37a6-45c3-8070-5ff8538968f7"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
     )
     (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/f3d38212-3f5c-4409-bb53-1522723744de"
       (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
@@ -96,8 +177,47 @@
     (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/175d93b2-db13-4b57-bd61-9c99bd19fd91"
       (reference "J?") (unit 1) (value "I2C In") (footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical")
     )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/40b1f960-bd70-4859-a715-1a345322d766"
+      (reference "J?") (unit 1) (value "SWITCH_INPUT") (footprint "")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/918db371-054a-4851-87e2-b949d5925733"
+      (reference "J?") (unit 1) (value "ANALOG") (footprint "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical")
+    )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/959183c4-d55a-4246-b6b2-af20c775d7f4"
+      (reference "J?") (unit 1) (value "PAGE") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
+    )
     (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/a7c3d313-815a-4a2f-9a0a-28d052aca3b7"
       (reference "J?") (unit 1) (value "I2C Out") (footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical")
+    )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/ea294bb5-b16c-4267-ba6f-673320a3dd43"
+      (reference "J?") (unit 1) (value "STEER POINT") (footprint "")
+    )
+    (path "/ba77ce94-3016-497f-a6b8-394797ca43da/f8069719-68e5-44e9-b7cd-8e2343193f77"
+      (reference "J?") (unit 1) (value "SWITCH_INPUT") (footprint "")
+    )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/f839c5fa-d8df-44e0-95d2-51ccbb85a6f1"
+      (reference "J?") (unit 1) (value "SWITCH INPUT") (footprint "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/00d1a925-c8c7-4bac-8daf-79a922ad1eed"
+      (reference "RV?") (unit 1) (value "ENG INST") (footprint "")
+    )
+    (path "/ba77ce94-3016-497f-a6b8-394797ca43da/51a99d26-e477-401b-9761-7312de944a5f"
+      (reference "RV?") (unit 1) (value "ENG INST") (footprint "")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/65f94b94-8093-47fe-b420-d197799c4e4e"
+      (reference "RV?") (unit 1) (value "AUX INST") (footprint "")
+    )
+    (path "/ba77ce94-3016-497f-a6b8-394797ca43da/8b4d786f-409c-47c1-b261-93e69fd34106"
+      (reference "RV?") (unit 1) (value "FORMATION") (footprint "")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/915e4aad-f25e-4dda-88fa-0582ed1cf864"
+      (reference "RV?") (unit 1) (value "CONSOLE") (footprint "")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/9a511744-1b11-4b99-a5f0-4e6b83aea6af"
+      (reference "RV?") (unit 1) (value "FLOOD") (footprint "")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/b5611daa-9c2e-46c7-b1ed-9c7f71ab8d2d"
+      (reference "RV?") (unit 1) (value "FORMATION") (footprint "")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/a6e7352b-33a1-4896-8187-a9faca4ec301"
       (reference "SW1") (unit 1) (value "Right Encoder") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
@@ -108,11 +228,47 @@
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/6ea3c504-a25b-4f33-a2d9-9dd388a32a82"
       (reference "SW4") (unit 1) (value "Encoder_Push") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
     )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/0fa0bfa1-087f-4377-b012-5d21b449f35a"
+      (reference "SW?") (unit 1) (value "SIGNAL LIGHTS") (footprint "")
+    )
+    (path "/ba77ce94-3016-497f-a6b8-394797ca43da/1b1a5d23-e78e-4954-bcb5-c67314afc252"
+      (reference "SW?") (unit 1) (value "POSITION") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/3237410f-bb02-47d5-8e9e-f27874974ade"
+      (reference "SW?") (unit 1) (value "ACCEL & COMP") (footprint "")
+    )
+    (path "/ba77ce94-3016-497f-a6b8-394797ca43da/48d7eaa0-93d7-43cc-a070-2fa3b6edb584"
+      (reference "SW?") (unit 1) (value "OXY IND TEST") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
+    )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/71d33c46-9e7b-4118-821b-1a88712d5b4f"
+      (reference "SW?") (unit 1) (value "EGI") (footprint "")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/7a9e2087-31dd-484e-9aed-c289c0c63b9a"
+      (reference "SW?") (unit 1) (value "POSITION") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/89b67c25-d6c2-4ed1-bffe-60228f3c2c1e"
+      (reference "SW?") (unit 1) (value "STEER") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/920cd476-6aa3-4a2c-ab9b-95eb6c194fcd"
+      (reference "SW?") (unit 1) (value "NOSE ILLUM") (footprint "")
+    )
     (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/ab472b18-c7b2-4e8a-8aa5-8f398a3f2a4c"
       (reference "SW?") (unit 1) (value "Right Encoder") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
     )
+    (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/c50af324-b37a-463c-967c-fa7377f99e20"
+      (reference "SW?") (unit 1) (value "CDU") (footprint "")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/f2b6c1f5-53b7-408d-bb36-4481cadd7e8c"
+      (reference "SW?") (unit 1) (value "ACCEL & COMP") (footprint "")
+    )
+    (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/f4b112de-b91b-4e82-9e11-a10b9781faaa"
+      (reference "SW?") (unit 1) (value "ANTI-COLLISION") (footprint "")
+    )
     (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/f5457377-4c2f-493e-85f9-6151ff5a99c7"
       (reference "SW?") (unit 1) (value "Encoder_Push") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
+    )
+    (path "/ba77ce94-3016-497f-a6b8-394797ca43da/fe4183ad-52a6-457c-91ed-df595e5601f7"
+      (reference "SW?") (unit 1) (value "NOSE ILLUM") (footprint "")
     )
   )
 )

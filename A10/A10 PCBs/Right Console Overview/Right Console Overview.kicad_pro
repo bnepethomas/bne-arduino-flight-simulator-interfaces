@@ -448,6 +448,18 @@
     [
       "d877dad7-1c4e-4ba6-b371-4228993243d3",
       "ILS"
+    ],
+    [
+      "f3d856b0-cf9a-46c2-ab32-cb8f44631229",
+      "AAP"
+    ],
+    [
+      "05be4ed2-3683-49ad-94cf-663f3b846d52",
+      "LIGHTS"
+    ],
+    [
+      "ba77ce94-3016-497f-a6b8-394797ca43da",
+      "ENVIRONMENT"
     ]
   ],
   "text_variables": {}
