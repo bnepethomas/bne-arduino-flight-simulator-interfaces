@@ -17,62 +17,74 @@
     (uuid c364973a-9a67-4667-8185-a3a5c6c6cbdf)
   )
 
-  (sheet (at 137.795 60.325) (size 12.7 3.81) (fields_autoplaced)
+  (sheet (at 137.287 95.631) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
     (uuid 05be4ed2-3683-49ad-94cf-663f3b846d52)
-    (property "Sheet name" "LIGHTS" (id 0) (at 137.795 59.6134 0)
+    (property "Sheet name" "LIGHTS" (id 0) (at 137.287 94.9194 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "LIGHTS.kicad_sch" (id 1) (at 137.795 64.7196 0)
+    (property "Sheet file" "LIGHTS.kicad_sch" (id 1) (at 137.287 100.0256 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
 
-  (sheet (at 137.16 48.895) (size 12.7 3.81) (fields_autoplaced)
+  (sheet (at 136.652 84.201) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
     (uuid ba77ce94-3016-497f-a6b8-394797ca43da)
-    (property "Sheet name" "ENVIRONMENT" (id 0) (at 137.16 48.1834 0)
+    (property "Sheet name" "ENVIRONMENT" (id 0) (at 136.652 83.4894 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "ENVIRONMENT.kicad_sch" (id 1) (at 137.16 53.2896 0)
+    (property "Sheet file" "ENVIRONMENT.kicad_sch" (id 1) (at 136.652 88.5956 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
 
-  (sheet (at 115.57 59.69) (size 12.7 3.81) (fields_autoplaced)
+  (sheet (at 115.062 94.996) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
     (uuid d877dad7-1c4e-4ba6-b371-4228993243d3)
-    (property "Sheet name" "ILS" (id 0) (at 115.57 58.9784 0)
+    (property "Sheet name" "ILS" (id 0) (at 115.062 94.2844 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "ILS.kicad_sch" (id 1) (at 115.57 64.0846 0)
+    (property "Sheet file" "ILS.kicad_sch" (id 1) (at 115.062 99.3906 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
 
-  (sheet (at 115.57 76.2) (size 12.7 3.81) (fields_autoplaced)
+  (sheet (at 115.062 111.506) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
     (uuid e398662f-4d25-4cd6-8507-5af787c0b225)
-    (property "Sheet name" "TACAN" (id 0) (at 115.57 75.4884 0)
+    (property "Sheet name" "TACAN" (id 0) (at 115.062 110.7944 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "TACAN.kicad_sch" (id 1) (at 115.57 80.5946 0)
+    (property "Sheet file" "TACAN.kicad_sch" (id 1) (at 115.062 115.9006 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
 
-  (sheet (at 138.43 76.2) (size 12.7 3.81) (fields_autoplaced)
+  (sheet (at 137.16 72.644) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid f1ad8c4b-9223-49bd-a0d2-538730c90b36)
+    (property "Sheet name" "ELEC POWER" (id 0) (at 137.16 71.9324 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "ELECT POWER.kicad_sch" (id 1) (at 137.16 77.0386 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 137.922 111.506) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
     (uuid f3d856b0-cf9a-46c2-ab32-cb8f44631229)
-    (property "Sheet name" "AAP" (id 0) (at 138.43 75.4884 0)
+    (property "Sheet name" "AAP" (id 0) (at 137.922 110.7944 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "AAP.kicad_sch" (id 1) (at 138.43 80.5946 0)
+    (property "Sheet file" "AAP.kicad_sch" (id 1) (at 137.922 115.9006 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
@@ -84,6 +96,7 @@
     (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229" (page "4"))
     (path "/05be4ed2-3683-49ad-94cf-663f3b846d52" (page "5"))
     (path "/ba77ce94-3016-497f-a6b8-394797ca43da" (page "6"))
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36" (page "7"))
   )
 
   (symbol_instances
@@ -117,6 +130,9 @@
     (path "/ba77ce94-3016-497f-a6b8-394797ca43da/46090176-2972-4511-b9d5-1f0a19f339a4"
       (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
     )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/46f02c4a-e0e7-4ec9-b522-24d3ed7f892e"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
     (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/4cbd1185-f772-4ca9-81c9-ea4e01949c45"
       (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
     )
@@ -135,10 +151,16 @@
     (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/6dfc41e3-1066-4057-8fb4-7e0920839fb9"
       (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
     )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/7b940255-392c-4f87-ac8b-d3f7ccc4647f"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
     (path "/ba77ce94-3016-497f-a6b8-394797ca43da/808bad11-35b9-4f85-9e27-65d0b6a4acb4"
       (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
     )
     (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/892b9537-b764-4748-b953-eb492f8e2193"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/8a5f62c6-d452-4e92-9171-25e1f3acd404"
       (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
     )
     (path "/ba77ce94-3016-497f-a6b8-394797ca43da/a3c5064d-2c90-45f3-92e2-58679d97030a"
@@ -148,6 +170,15 @@
       (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
     )
     (path "/ba77ce94-3016-497f-a6b8-394797ca43da/bf8958fa-8f69-4afa-992c-65d121a0944e"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/cff1fd26-83a7-4d10-b28c-ead8f5bddd4e"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/d12aef18-86d9-4837-80a0-3c30c26456a1"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/d22b636d-2d99-48d9-881e-14a9b4c9a13d"
       (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
     )
     (path "/ba77ce94-3016-497f-a6b8-394797ca43da/d8b2c82b-37a6-45c3-8070-5ff8538968f7"
@@ -203,6 +234,9 @@
     )
     (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/918db371-054a-4851-87e2-b949d5925733"
       (reference "J?") (unit 1) (value "ANALOG") (footprint "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical")
+    )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/933a73df-1554-4a0f-adad-6b9c406531ea"
+      (reference "J?") (unit 1) (value "Conn_01x06_Female") (footprint "")
     )
     (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/959183c4-d55a-4246-b6b2-af20c775d7f4"
       (reference "J?") (unit 1) (value "PAGE") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
@@ -264,8 +298,17 @@
     (path "/ba77ce94-3016-497f-a6b8-394797ca43da/53e75e80-4f77-4139-b045-69de276d903a"
       (reference "SW?") (unit 1) (value "NORM / RAM") (footprint "")
     )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/5aa21d6b-3783-4bc5-b6b4-d9457d4fd557"
+      (reference "SW?") (unit 1) (value "BATTERY PWR") (footprint "")
+    )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/67f879c7-5ca8-415e-ba87-1c4ecb375877"
+      (reference "SW?") (unit 1) (value "INVTR STBY") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
     (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/71d33c46-9e7b-4118-821b-1a88712d5b4f"
       (reference "SW?") (unit 1) (value "EGI") (footprint "")
+    )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/72f58279-718e-43f8-b929-2d12b924d5ce"
+      (reference "SW?") (unit 1) (value "R GEN") (footprint "")
     )
     (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/7a9e2087-31dd-484e-9aed-c289c0c63b9a"
       (reference "SW?") (unit 1) (value "POSITION") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
@@ -282,14 +325,23 @@
     (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/920cd476-6aa3-4a2c-ab9b-95eb6c194fcd"
       (reference "SW?") (unit 1) (value "NOSE ILLUM") (footprint "")
     )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/9f2e32fb-2c66-4c51-a621-b012f0b32585"
+      (reference "SW?") (unit 1) (value "APU GEN PWR") (footprint "")
+    )
     (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/ab472b18-c7b2-4e8a-8aa5-8f398a3f2a4c"
       (reference "SW?") (unit 1) (value "Right Encoder") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/af73bcd3-7192-4d30-b7b3-aab434d3be61"
+      (reference "SW?") (unit 1) (value "APU GEN PWR") (footprint "")
     )
     (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/c50af324-b37a-463c-967c-fa7377f99e20"
       (reference "SW?") (unit 1) (value "CDU") (footprint "")
     )
     (path "/ba77ce94-3016-497f-a6b8-394797ca43da/d8cee4f3-d7a1-4131-a160-22accfd6cecc"
       (reference "SW?") (unit 1) (value "POTIT HEAT") (footprint "")
+    )
+    (path "/f1ad8c4b-9223-49bd-a0d2-538730c90b36/e1bbb43b-ed2b-4c1a-8f87-480f47769063"
+      (reference "SW?") (unit 1) (value "L GEN") (footprint "")
     )
     (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/f2b6c1f5-53b7-408d-bb36-4481cadd7e8c"
       (reference "SW?") (unit 1) (value "ACCEL & COMP") (footprint "")
