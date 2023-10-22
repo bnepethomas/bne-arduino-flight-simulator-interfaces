@@ -464,6 +464,18 @@
     [
       "f1ad8c4b-9223-49bd-a0d2-538730c90b36",
       "ELEC POWER"
+    ],
+    [
+      "dcfb27d0-0c8b-4bb9-b88e-2ff0423da08d",
+      "Fuel"
+    ],
+    [
+      "36024831-9004-47e8-adc2-e12ea68172d0",
+      "EW"
+    ],
+    [
+      "0f631a40-a29a-4be0-8c06-9d78ccb767cc",
+      "CDU"
     ]
   ],
   "text_variables": {}
