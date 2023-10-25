@@ -12,6 +12,11 @@
   )
 
 
+  (text "Use a common PCB for left and right inputs?\nHoles to hold the Mega to larger PCB\nAdd Ethernet Module\ngo for 99*99mm board\nAnalog and encoders add\nDual Max 7219 for caution panel"
+    (at 44.45 48.26 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 752ba352-c13f-434d-9e1b-27ca6eed2b36)
+  )
   (text "* Indicates a PWM-capable pin" (at 177.8 180.34 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c364973a-9a67-4667-8185-a3a5c6c6cbdf)

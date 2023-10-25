@@ -2518,7 +2518,6 @@
     )
   )
 
-
   (junction (at 201.93 78.105) (diameter 0) (color 0 0 0 0)
     (uuid 01d53d9c-3597-49f5-ac33-d7862d5659a2)
   )
@@ -2597,8 +2596,8 @@
   (no_connect (at 127 109.855) (uuid 1fa59433-4378-4e59-a3f3-dc57104c599a))
   (no_connect (at 139.7 104.775) (uuid 2633e23e-e529-4086-be54-a11f7c6b6b25))
   (no_connect (at 231.14 72.39) (uuid 29b7a19b-5d3b-42cd-b346-2400670d2599))
-  (no_connect (at 264.16 44.45) (uuid 45fd9e5c-f0c8-4746-9985-44b93064cd44))
   (no_connect (at 264.16 39.37) (uuid 4f32a71e-da4d-48f2-84da-5365453e331f))
+  (no_connect (at 264.16 77.47) (uuid 5d187543-9422-4d9b-9df5-53be15148e34))
   (no_connect (at 231.14 64.77) (uuid 5e05ac94-4ed1-4698-9b8d-ab8ff5a2bba8))
   (no_connect (at 139.7 97.155) (uuid 6d9f0410-b724-4d31-98bb-f15db73c641d))
   (no_connect (at 66.04 95.25) (uuid 72fae38d-666d-41ab-917e-211199151c4b))
@@ -16433,7 +16432,7 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 0c260cea-39e5-4a60-8355-4362ca96675a)
   )
-  (label "ALT_B{slash}L" (at 264.16 77.47 0)
+  (label "ALT_B{slash}L" (at 264.16 44.45 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 0cd81b63-749c-4ddb-92a3-dc693601a360)
   )

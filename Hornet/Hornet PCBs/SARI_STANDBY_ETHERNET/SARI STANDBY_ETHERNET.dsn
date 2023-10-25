@@ -1,9 +1,9 @@
-(pcb "/Users/peterthomas/Public/GitHub/bne-arduino-flight-simulator-interfaces/PCBs/SARI_STANDBY_ETHERNET/SARI STANDBY_ETHERNET.dsn"
+(pcb "/Users/Shared/bne-arduino-flight-simulator-interfaces/Hornet/Hornet PCBs/SARI_STANDBY_ETHERNET/SARI STANDBY_ETHERNET.dsn"
   (parser
     (string_quote ")
     (space_in_quoted_tokens on)
     (host_cad "KiCad's Pcbnew")
-    (host_version "(6.0.7-1)-1")
+    (host_version "(6.0.11-0)")
   )
   (resolution um 10)
   (unit um)
