@@ -483,7 +483,7 @@
     (property "Reference" "J?" (id 0) (at 215.8492 66.2213 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "Conn_01x06_Female" (id 1) (at 215.8492 68.7582 0)
+    (property "Value" "ELEC POWER" (id 1) (at 215.8492 68.7582 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (id 2) (at 215.138 65.786 0)

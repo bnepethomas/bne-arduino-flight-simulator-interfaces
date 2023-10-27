@@ -984,7 +984,7 @@
     (property "Reference" "J11" (id 0) (at 261.6962 34.7253 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "SWITCH INPUT" (id 1) (at 261.6962 37.2622 0)
+    (property "Value" "TACAN INPUT" (id 1) (at 261.6962 37.2622 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical" (id 2) (at 260.985 34.29 0)

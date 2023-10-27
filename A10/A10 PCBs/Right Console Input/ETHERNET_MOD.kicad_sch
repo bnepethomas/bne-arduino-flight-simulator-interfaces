@@ -271,6 +271,7 @@
     )
   )
 
+
   (junction (at 66.04 50.8) (diameter 0) (color 0 0 0 0)
     (uuid 9078aa3f-a9f0-4ddc-b693-e783ff24a0a8)
   )
@@ -354,7 +355,7 @@
     (property "Value" "10K" (id 1) (at 50.038 61.3922 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Resistor_THT:R_Box_L8.4mm_W2.5mm_P5.08mm" (id 2) (at 46.482 59.69 90)
+    (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" (id 2) (at 46.482 59.69 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 48.26 59.69 0)

@@ -793,7 +793,7 @@
     (property "Reference" "J?" (id 0) (at 207.2132 95.9393 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "Conn_01x08_Female" (id 1) (at 207.2132 98.4762 0)
+    (property "Value" "ENVIRONMENT" (id 1) (at 207.2132 98.4762 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (id 2) (at 206.502 95.504 0)

@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 112)
+    (start_pass_no 1103)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,6 +63,9 @@
     /*8 /*7 /*6 /*5 /*4 /*3 /*2 /TX0{slash}1
     /RX0{slash}0 +3V3 /TX3{slash}14 /RX3{slash}15 /TX2{slash}16 /RX2{slash}17 /TX1{slash}18 /RX1{slash}19
     /SDA{slash}20 /SCL{slash}21 VCC /~{RESET} "unconnected-(J1-Pad1)" "Net-(R1-Pad2)" SS "unconnected-(U1-PadB4)"
+    "unconnected-(J10-Pad8)" "unconnected-(J13-Pad8)" "unconnected-(J15-Pad8)" "unconnected-(J18-Pad1)" "unconnected-(J18-Pad29)" "unconnected-(J18-Pad30)" "unconnected-(J18-Pad31)" "unconnected-(J18-Pad32)"
+    "unconnected-(J18-Pad33)" "unconnected-(J18-Pad34)" "/ANALOG_5V" "/ANALOG_GND" "/ANALOG_FLOOD" "/ANALOG_CONSOLE" "/ANALOG_ENG_INST" "/ANALOG_AUX_INST"
+    "/ANALOG_FORMATION" "unconnected-(J20-Pad8)" "unconnected-(J17-Pad3)" "unconnected-(J17-Pad4)" "unconnected-(J17-Pad5)" "unconnected-(R13-Pad1)" "unconnected-(R13-Pad2)" "unconnected-(J11-Pad10)"
     (clearance_class default)
     (via_rule default)
     (rule

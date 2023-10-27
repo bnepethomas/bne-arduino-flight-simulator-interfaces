@@ -524,7 +524,7 @@
     (property "Reference" "J?" (id 0) (at 224.7392 70.2853 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "SWITCH INPUT" (id 1) (at 224.7392 72.8222 0)
+    (property "Value" "FUEL INPUT" (id 1) (at 224.7392 72.8222 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical" (id 2) (at 224.028 69.85 0)

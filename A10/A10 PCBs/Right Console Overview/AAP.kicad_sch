@@ -829,7 +829,7 @@
     (property "Reference" "J?" (id 0) (at 217.2462 51.8703 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "SWITCH INPUT" (id 1) (at 217.2462 54.4072 0)
+    (property "Value" "AAP INPUT" (id 1) (at 217.2462 54.4072 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical" (id 2) (at 216.535 51.435 0)
