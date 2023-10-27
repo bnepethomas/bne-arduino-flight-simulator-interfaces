@@ -404,6 +404,12 @@
     (uuid 24f07d91-0a90-4601-874b-7337cef87355)
   )
 
+  (text "A_10C:definePushButton(\"FQIS_TEST\", 36, 3018, 646, \"Fuel Panel\", \"Fuel Gauge Test\")\nA_10C:defineTumb(\"FQIS_SELECT\", 36, 3017, 645, 0.1, { 0, 0.4 }, nil, false, \"Fuel Panel\", \"Fuel Display Selector\")"
+    (at 16.51 187.706 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid b77e5daf-4c6a-4c2e-8fb4-76675549833d)
+  )
+
   (label "ROW3" (at 162.56 72.898 180)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 1d28d754-6fe6-41d3-8bbb-3e76afd5c0ab)

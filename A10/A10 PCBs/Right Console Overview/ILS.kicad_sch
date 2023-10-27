@@ -469,6 +469,12 @@
     (uuid fdfbf42c-7adf-44bb-9313-0ae73ea25e0e)
   )
 
+  (text "A_10C:definePotentiometer(\"STALL_VOL\", 52, 3001, 704, nil, \"Stall System Volume Controls\", \"Stall Volume\")\nA_10C:definePotentiometer(\"STALL_PEAK_VOL\", 52, 3002, 705, nil, \"Stall System Volume Controls\", \"Peak Volume\")\n\nA_10C:defineToggleSwitch(\"ILS_PWR\", 53, 3001, 247, \"ILS Panel\", \"ILS Power\")\nA_10C:defineSetCommandTumb(\"ILS_MHZ\", 53, 3002, 248, 0.1, { 0, 0.3 }, { \"108\", \"109\", \"110\", \"111\" }, false, \"ILS Panel\", \"ILS Frequency MHz\")\nA_10C:defineSetCommandTumb(\"ILS_KHZ\", 53, 3003, 249, 0.1, { 0.0, 0.9 }, { \"10\", \"15\", \"30\", \"35\", \"50\", \"55\", \"70\", \"75\", \"90\", \"95\" }, false, \"ILS Panel\", \"ILS Frequency KHz\")\nA_10C:definePotentiometer(\"ILS_VOL\", 53, 3004, 250, { 0, 1 }, \"ILS Panel\", \"ILS Volume\")"
+    (at 15.748 161.036 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid a25f98c8-ba3b-47ed-b917-68a01834781e)
+  )
+
   (label "COL0" (at 128.27 74.93 180)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 1007bf05-eca5-49cb-8ed8-12533497ba61)

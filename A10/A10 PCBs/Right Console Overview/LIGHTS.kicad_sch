@@ -570,6 +570,12 @@
     (uuid b768ad16-5bb9-4c0f-a0f5-e9f418a0da97)
   )
 
+  (text "A_10C:defineFloat(\"INT_CONSOLE_L_BRIGHT\", 800, { 0, 1 }, \"Light System Control Panel\", \"Console Light Brightness\")\nA_10C:defineFloat(\"INT_ENG_INST_L_BRIGHT\", 801, { 0, 1 }, \"Light System Control Panel\", \"Engine Instrument Light Brightness\")\nA_10C:defineFloat(\"INT_FLT_INST_L_BRIGHT\", 802, { 0, 1 }, \"Light System Control Panel\", \"Flight Instruments Light Brightness\")\nA_10C:defineFloat(\"INT_AUX_INST_L_BRIGHT\", 803, { 0, 1 }, \"Light System Control Panel\", \"Auxiliary Instruments Light Brightness\")\nA_10C:defineFloat(\"INT_FLOOD_L_BRIGHT\", 806, { 0, 1 }, \"Light System Control Panel\", \"Flood Light Brightness\")\nA_10C:defineFloat(\"INT_CAUTION_L_BRIGHT\", 905, { 0, 1 }, \"Light System Control Panel\", \"Caution Lights Brightness\")"
+    (at 21.59 188.722 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 0de05bf5-e308-4cc9-9e4d-dc7591151795)
+  )
+
   (label "COL0" (at 83.82 52.07 180)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 05c0ec63-1572-446f-bfc7-6491c4aeb4bf)

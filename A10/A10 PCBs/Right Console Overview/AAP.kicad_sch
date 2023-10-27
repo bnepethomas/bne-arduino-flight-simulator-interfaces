@@ -561,6 +561,12 @@
     (uuid 76a4754b-8bcf-49e0-a6ce-bc55fc3c4c58)
   )
 
+  (text "A_10C:define3PosTumbA10(\"AAP_STEERPT\", 22, 3001, 473, \"AAP\", \"STEERPT FLTPLAN - MARK - MISSION\")\nA_10C:defineSpringloaded_3PosTumb(\"AAP_STEER\", 22, 3003, 3002, 474, \"AAP\", \"Toggle Steerpoint\")\nA_10C:defineTumb(\"AAP_PAGE\", 22, 3004, 475, 0.1, { 0, 0.3 }, nil, false, \"AAP\", \"PAGE OTHER - POSITION - STEER - WAYPT\")\nA_10C:defineToggleSwitch(\"AAP_CDUPWR\", 22, 3005, 476, \"AAP\", \"CDU Power\")\nA_10C:defineToggleSwitch(\"AAP_EGIPWR\", 22, 3006, 477, \"AAP\", \"EGI Power\")"
+    (at 21.336 182.88 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid d5e175cb-c850-4d3a-88a2-7ab2b4db94a5)
+  )
+
   (label "ROW7" (at 156.21 49.53 180)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 0aed0d5c-feea-4172-92ad-1a50e6b6dbd4)

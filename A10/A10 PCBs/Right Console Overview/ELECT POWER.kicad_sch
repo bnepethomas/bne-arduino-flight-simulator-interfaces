@@ -309,6 +309,12 @@
     (uuid f59f1d79-6563-4cf9-af07-0f67457d2d9c)
   )
 
+  (text "A_10C:defineToggleSwitch(\"EPP_APU_GEN_PWR\", 1, 3001, 241, \"Electrical Power Panel\", \"APU GEN PWR\")\nA_10C:defineSpringloaded_3PosTumb(\"EPP_INVERTER\", 1, 3055, 3002, 242, \"Electrical Power Panel\", \"Inverter TEST - OFF - STBY\")\nA_10C:defineToggleSwitch(\"EPP_AC_GEN_PWR_L\", 1, 3004, 244, \"Electrical Power Panel\", \"AC GEN PWR Left\")\nA_10C:defineToggleSwitch(\"EPP_AC_GEN_PWR_R\", 1, 3005, 245, \"Electrical Power Panel\", \"AC GEN PWR Right\")\nA_10C:defineToggleSwitch(\"EPP_BATTERY_PWR\", 1, 3006, 246, \"Electrical Power Panel\", \"Battery Power\")\nA_10C:defineToggleSwitch(\"EPP_EMER_FLOOD\", 49, 3007, 243, \"Electrical Power Panel\", \"Emergency Flood Light\")\n"
+    (at 31.242 164.338 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 432c05e6-fcba-4d7b-a269-eb27e431b2f3)
+  )
+
   (label "ROW6" (at 183.134 50.8 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 11efc82d-2090-4b50-a90e-2e2bc2a0642f)

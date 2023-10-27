@@ -629,6 +629,17 @@
     (uuid e940c4c2-255f-4c18-b659-a0ced1fb8429)
   )
 
+  (text "A_10C:defineFloat(\"OXY_VOLUME\", 274, { 0, 1 }, \"Environment Control Panel\", \"Oxygen Volume (0 to 5 liters)\")\nA_10C:defineFloat(\"CABIN_PRESS_ALT\", 281, { 0, 1 }, \"Environment Control Panel\", \"Cabin Pressure Altitude\")\nA_10C:definePushButton(\"ENVCP_OXY_TEST\", 41, 3001, 275, \"Environment Control Panel\", \"Oxygen Indicator Test\")\nA_10C:defineToggleSwitch(\"ENVCP_WINDSHIELD_DEFOG\", 41, 3002, 276, \"Environment Control Panel\", \"Windshield Defog/Deice\")\nA_10C:definePotentiometer(\"ENVCP_CANOPY_DEFOG\", 41, 3003, 277, { 0, 1 }, \"Environment Control Panel\", \"Canopy Defog\")\nA_10C:define3PosTumb(\"ENVCP_WRRW\", 41, 3004, 278, \"Environment Control Panel\", \"Windshield Rain Removal/Wash\")\nA_10C:defineToggleSwitch(\"ENVCP_PITOT_HEAT\", 41, 3005, 279, \"Environment Control Panel\", \"Pitot Heat\")\nA_10C:defineToggleSwitch(\"ENVCP_BLEED_AIR\", 41, 3006, 280, \"Environment Control Panel\", \"Bleed Air\")\nA_10C:define3PosTumb(\"ENVCP_TEMP_PRESS\", 41, 3007, 282, \"Environment Control Panel\", \"Temperature/Pressure Control\")\nA_10C:reserveIntValue(7)\nA_10C:defineToggleSwitch(\"ENVCP_AIR_SUPPLY\", 41, 3008, 283, \"Environment Control Panel\", \"Main Air Supply\")\nA_10C:definePotentiometer(\"ENVCP_FLOW_LEVEL\", 41, 3009, 284, { 0, 1 }, \"Environment Control Panel\", \"Flow Level\")\nA_10C:definePotentiometer(\"ENVCP_TEMP_LEVEL\", 41, 3013, 286, { 0, 1 }, \"Environment Control Panel\", \"Temp Level Control\")\nA_10C:defineTumb(\"ENVCP_AC_OPER\", 41, 3010, 285, 0.1, { 0, 0.3 }, nil, false, \"Environment Control Panel\", \"Air Conditioner MAN/AUTO/COLD/HOT\")"
+    (at 20.828 185.674 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 03b489d0-c2bc-4ff8-a629-6363bf4cd03b)
+  )
+  (text "A_10C:defineSpringloaded_3PosTumb(\"OXY_EMERGENCY\", 40, 3004, 3003, 601, \"Oxygen Regulator Panel\", \"Oxygen Flow: Emergency / Normal / Test\")\nA_10C:defineToggleSwitch(\"OXY_DILUTER\", 40, 3002, 602, \"Oxygen Regulator Panel\", \"Oxygen Normal/100%\")\nA_10C:defineToggleSwitch(\"OXY_SUPPLY\", 40, 3001, 603, \"Oxygen Regulator Panel\", \"Oxygen Supply On/Off\")\nA_10C:defineFloat(\"OXY_PRESS\", 604, { 0, 1 }, \"Oxygen Regulator Panel\", \"Oxygen Pressure Indicator\")\nA_10C:defineIndicatorLight(\"OXY_FLOW\", 600, \"Oxygen Regulator Panel\", \"Flow Indicator (on/off) (white)\")"
+    (at 21.336 148.844 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid e4f57196-2a17-4aca-8e85-65fdd4963bc4)
+  )
+
   (label "ROW0" (at 138.938 68.072 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 037edf48-4bda-45b8-ac10-541366f2c01a)

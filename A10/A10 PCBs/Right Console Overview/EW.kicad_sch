@@ -605,6 +605,12 @@
     (uuid cd11d8e3-2503-4cb8-977f-68a1e11ba794)
   )
 
+  (text "A_10C:definePushButton(\"CMSP_ARW1\", 4, 3001, 352, \"CMSP\", \"SET Button 1\")\nA_10C:definePushButton(\"CMSP_ARW2\", 4, 3002, 353, \"CMSP\", \"SET Button 2\")\nA_10C:definePushButton(\"CMSP_ARW3\", 4, 3003, 354, \"CMSP\", \"SET Button 3\")\nA_10C:definePushButton(\"CMSP_ARW4\", 4, 3004, 355, \"CMSP\", \"SET Button 4\")\nA_10C:defineRockerSwitch(\"CMSP_UPDN\", 4, 3005, 3005, 3006, 3006, 356, \"CMSP\", \"Cycle Program or Value Up/Down\")\nA_10C:definePushButton(\"CMSP_RTN\", 4, 3007, 357, \"CMSP\", \"RTN\")\nA_10C:defineToggleSwitch(\"CMSP_JTSN\", 4, 3008, 358, \"CMSP\", \"JTSN / OFF\")\nA_10C:definePotentiometer(\"CMSP_BRT\", 4, 3009, 359, { 0.15, 0.85 }, \"CMSP\", \"Brightness\")\n\nA_10C:defineCMSPSwitch(\"CMSP_MWS\", 4, 3010, 3011, 360, \"CMSP\", \"Missile Warning System OFF - ON - (MENU)\")\nA_10C:defineCMSPSwitch(\"CMSP_JMR\", 4, 3012, 3013, 361, \"CMSP\", \"Jammer OFF - ON - (MENU)\")\nA_10C:defineCMSPSwitch(\"CMSP_RWR\", 4, 3014, 3015, 362, \"CMSP\", \"Radar Warning Receiver OFF - ON - (MENU)\")\nA_10C:defineCMSPSwitch(\"CMSP_DISP\", 4, 3016, 3017, 363, \"CMSP\", \"Countermeasure Dispenser OFF - ON - (MENU)\")\nA_10C:defineTumb(\"CMSP_MODE\", 4, 3018, 364, 0.1, { 0, 0.4 }, nil, false, \"CMSP\", \"CMSP Mode Select\")\n\nA_10C:definePushButton(\"CMSC_JMR\", 5, 3001, 365, \"CMSC\", \"Select Jammer Program\")\nA_10C:definePushButton(\"CMSC_MWS\", 5, 3002, 366, \"CMSC\", \"Select MWS Programs (No Function)\")\nA_10C:definePushButton(\"CMSC_PRI\", 5, 3003, 369, \"CMSC\", \"Toggle between 5 and 16 Priority Threats Displayed\")\nA_10C:definePushButton(\"CMSC_SEP\", 5, 3004, 370, \"CMSC\", \"Separate RWR Symbols\")\nA_10C:definePotentiometer(\"CMSC_BRT\", 5, 3006, 367, { 0.15, 0.85 }, \"CMSC\", \"Adjust Display Brightness\")\nA_10C:definePotentiometer(\"CMSC_RWR_VOL\", 5, 3007, 368, nil, \"CMSC\", \"Adjust RWR Volume\")"
+    (at 24.892 183.134 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid dfd9bb59-c5cc-4c46-b743-00ca4b2f77c6)
+  )
+
   (label "COL5" (at 34.544 104.648 180)
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 07080c34-b23a-407e-a6f3-21c6e05b522e)
