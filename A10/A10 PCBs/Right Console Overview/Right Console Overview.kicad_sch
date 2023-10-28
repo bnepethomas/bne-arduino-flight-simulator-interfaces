@@ -16,9 +16,17 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 012ad456-9305-489b-a3f6-69ed4f87cf60)
   )
+  (text "COMPLETE" (at 98.298 114.3 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 0fc50037-f88f-464f-803d-8edcf29ee722)
+  )
   (text "COMPLETE" (at 152.654 114.3 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 337953df-ff1c-4c93-bb25-96c1782d7de6)
+  )
+  (text "COMPLETE" (at 98.044 98.298 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 477745e6-ae6b-47e2-acd9-f4ab4e502b2b)
   )
   (text "COMPLETE" (at 152.908 75.184 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -195,6 +203,24 @@
   )
 
   (symbol_instances
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/01e6c6d3-d48e-479f-8fb6-cc0629ed979e"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/3f51ec97-407a-4384-b1f6-587b5ce56611"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/4f20a02c-4ac8-492d-bdd2-3a5f79d82d23"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/5d4632f9-53f4-4121-944f-da7091e6fac6"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/9aed77b6-52f5-45b4-98bb-c7013b3ca499"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/f110d8d7-86f2-4442-88af-c2070247769f"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/17578d9e-9a54-45a0-b60f-578a902c6ae7"
       (reference "D1") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
     )
@@ -630,29 +656,11 @@
     (path "/b03eb5ae-3851-4497-8d35-c51f3c996dec/0b3d0e81-1877-4f4a-bda5-848829f379d2"
       (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
     )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/35268897-b72f-48e8-90ce-aed80988630c"
+      (reference "D?") (unit 1) (value "LED") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
+    )
     (path "/b03eb5ae-3851-4497-8d35-c51f3c996dec/824240e9-06d0-4bf1-be7c-62773de2d10a"
       (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
-    )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/f5937d65-5e61-4afa-ab7d-5e0f9ff8b251"
-      (reference "J1") (unit 1) (value "Conn_01x03_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
-    )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/997b84a4-ff08-4d51-8345-bd8c82eae282"
-      (reference "J2") (unit 1) (value "Conn_01x03_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
-    )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/0fe9d301-b978-43ad-a012-2f5f14be7141"
-      (reference "J3") (unit 1) (value "Conn_01x03_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
-    )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/90934e23-ddeb-4606-ab7f-98899763548d"
-      (reference "J4") (unit 1) (value "Conn_01x03_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
-    )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/9505ba66-daed-4256-8925-e1f929cfdf5f"
-      (reference "J5") (unit 1) (value "Conn_01x02_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
-    )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/02b8f5fd-8eb8-43f0-afd7-a5332bbe4dcc"
-      (reference "J6") (unit 1) (value "Conn_01x02_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
-    )
-    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/2d6f88e5-f5d1-4fa5-9a14-febf69976915"
-      (reference "J7") (unit 1) (value "Conn_01x08_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/80633dc5-2d57-4ef1-b2d8-2cc2c3bb4856"
       (reference "J8") (unit 1) (value "TACAN ROTARY SWITCH") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
@@ -671,9 +679,6 @@
     )
     (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/a7c3d313-815a-4a2f-9a0a-28d052aca3b7"
       (reference "J13") (unit 1) (value "I2C Out") (footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical")
-    )
-    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/cf9f44df-8e3b-4fdb-993b-38bf5d26a43e"
-      (reference "J14") (unit 1) (value "ILS") (footprint "")
     )
     (path "/f3d856b0-cf9a-46c2-ab32-cb8f44631229/ea294bb5-b16c-4267-ba6f-673320a3dd43"
       (reference "J15") (unit 1) (value "STEER POINT") (footprint "")
@@ -723,6 +728,24 @@
     (path "/b03eb5ae-3851-4497-8d35-c51f3c996dec/39be0230-f447-4de0-abe7-0ea4cfc61dc7"
       (reference "J?") (unit 1) (value "CANOPY INPUT") (footprint "")
     )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/56ccb256-31a1-4414-a057-19e781f8afc9"
+      (reference "J?") (unit 1) (value "TACAN ANALOG") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/6f2b05a4-a35b-4f7b-b9ed-44099d2ce490"
+      (reference "J?") (unit 1) (value "TACAN ENCODERS") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
+    )
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/75f21d07-28e5-4270-8a95-8a879a561483"
+      (reference "J?") (unit 1) (value "ILS") (footprint "")
+    )
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/9ee0a45a-cdcc-4124-b854-46bbe0ceb1d1"
+      (reference "J?") (unit 1) (value "ILS_ANALOG") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/e92c07a4-67f4-491a-a243-7613494f9ee8"
+      (reference "J?") (unit 1) (value "TACAN TEST LED") (footprint "")
+    )
+    (path "/36024831-9004-47e8-adc2-e12ea68172d0/e96b5895-293a-4c1b-a1a6-b526532e4c06"
+      (reference "J?") (unit 1) (value "EW_ANALOG") (footprint "")
+    )
     (path "/ba77ce94-3016-497f-a6b8-394797ca43da/8f7c168f-416b-4872-adfd-134b5a8fb6a6"
       (reference "R1") (unit 1) (value "500") (footprint "")
     )
@@ -741,17 +764,23 @@
     (path "/05be4ed2-3683-49ad-94cf-663f3b846d52/65f94b94-8093-47fe-b420-d197799c4e4e"
       (reference "RV5") (unit 1) (value "AUX INST") (footprint "")
     )
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/95685863-3ee1-4986-bd5f-f675dfbb6171"
+      (reference "RV?") (unit 1) (value "ILS VOL") (footprint "")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/e30f932b-9caa-489f-a031-00cf99aea2d7"
+      (reference "RV?") (unit 1) (value "FLOOD") (footprint "")
+    )
+    (path "/36024831-9004-47e8-adc2-e12ea68172d0/e41a5b9e-a0cf-4605-823f-6503575dc5b1"
+      (reference "RV?") (unit 1) (value "EW_BRIGHT") (footprint "")
+    )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/a6e7352b-33a1-4896-8187-a9faca4ec301"
-      (reference "SW1") (unit 1) (value "Right Encoder") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+      (reference "SW1") (unit 1) (value "RIGHT ENCODER") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/d153eb29-717e-40fc-bb0f-c6cb84a22855"
       (reference "SW2") (unit 1) (value "Test") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
     )
     (path "/e398662f-4d25-4cd6-8507-5af787c0b225/6ea3c504-a25b-4f33-a2d9-9dd388a32a82"
       (reference "SW3") (unit 1) (value "Encoder_Push") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
-    )
-    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/ab472b18-c7b2-4e8a-8aa5-8f398a3f2a4c"
-      (reference "SW4") (unit 1) (value "Right Encoder") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
     )
     (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/f5457377-4c2f-493e-85f9-6151ff5a99c7"
       (reference "SW5") (unit 1) (value "Encoder_Push") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
@@ -878,6 +907,15 @@
     )
     (path "/b03eb5ae-3851-4497-8d35-c51f3c996dec/287c26a8-8075-4c7a-93b4-918ccb8be6bc"
       (reference "SW?") (unit 1) (value "LADDER") (footprint "")
+    )
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/a7fb9f9c-5aed-48be-acb2-39222023ce78"
+      (reference "SW?") (unit 1) (value "LEFT ENCODER") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/d877dad7-1c4e-4ba6-b371-4228993243d3/b1d04920-4917-4c69-a87b-0d75775d2997"
+      (reference "SW?") (unit 1) (value "RIGHT ENCODER") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/e398662f-4d25-4cd6-8507-5af787c0b225/cd67a56c-ac19-4ae4-ab69-7ec77718e53c"
+      (reference "SW?") (unit 1) (value "LEFT ENCODER") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
     )
   )
 )
