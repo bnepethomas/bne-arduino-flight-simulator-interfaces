@@ -271,7 +271,7 @@
   (symbol (lib_id "Device:LED") (at 142.494 64.262 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 11166fc6-e7ad-4c02-9484-932bab86971a)
-    (property "Reference" "D11" (id 0) (at 140.9065 57.15 0))
+    (property "Reference" "D18" (id 0) (at 140.9065 57.15 0))
     (property "Value" "LED" (id 1) (at 140.9065 59.69 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 142.494 64.262 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -286,7 +286,7 @@
   (symbol (lib_id "Device:LED") (at 198.628 63.5 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 1a8f711e-789f-4296-841b-b151a6571180)
-    (property "Reference" "D23" (id 0) (at 197.0405 56.388 0))
+    (property "Reference" "D15" (id 0) (at 197.0405 56.388 0))
     (property "Value" "LED" (id 1) (at 197.0405 58.928 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 198.628 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -301,7 +301,7 @@
   (symbol (lib_id "Device:R") (at 175.768 41.91 90) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 1bb19255-6f86-4908-a28a-658b239a8051)
-    (property "Reference" "R5" (id 0) (at 175.768 36.068 90))
+    (property "Reference" "R1" (id 0) (at 175.768 36.068 90))
     (property "Value" "R" (id 1) (at 175.768 38.608 90))
     (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" (id 2) (at 175.768 43.688 90)
       (effects (font (size 1.27 1.27)) hide)
@@ -316,7 +316,7 @@
   (symbol (lib_id "Device:LED") (at 134.874 53.34 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 269fe526-a43e-4d54-aaf3-6bfa6cb6baf4)
-    (property "Reference" "D6" (id 0) (at 133.2865 46.228 0))
+    (property "Reference" "D11" (id 0) (at 133.2865 46.228 0))
     (property "Value" "LED" (id 1) (at 133.2865 48.768 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 134.874 53.34 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -331,7 +331,7 @@
   (symbol (lib_id "Device:LED") (at 142.494 76.708 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 2882c368-7d70-42cc-916d-f9c4199f1506)
-    (property "Reference" "D12" (id 0) (at 140.9065 69.596 0))
+    (property "Reference" "D24" (id 0) (at 140.9065 69.596 0))
     (property "Value" "LED" (id 1) (at 140.9065 72.136 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 142.494 76.708 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -346,7 +346,7 @@
   (symbol (lib_id "Device:LED") (at 198.628 52.578 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 29648c38-139c-4b9e-b4cc-1766113759dc)
-    (property "Reference" "D22" (id 0) (at 197.0405 45.466 0))
+    (property "Reference" "D9" (id 0) (at 197.0405 45.466 0))
     (property "Value" "LED" (id 1) (at 197.0405 48.006 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 198.628 52.578 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -361,7 +361,7 @@
   (symbol (lib_id "Device:LED") (at 191.008 41.91 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 2db839dd-dc37-4a8d-9121-446243090fc6)
-    (property "Reference" "D17" (id 0) (at 189.4205 34.798 0))
+    (property "Reference" "D2" (id 0) (at 189.4205 34.798 0))
     (property "Value" "LED" (id 1) (at 189.4205 37.338 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 191.008 41.91 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -376,7 +376,7 @@
   (symbol (lib_id "Device:LED") (at 198.628 75.946 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 2e951cb3-6ef8-486d-b884-3ea7f414fbf5)
-    (property "Reference" "D24" (id 0) (at 197.0405 68.834 0))
+    (property "Reference" "D21" (id 0) (at 197.0405 68.834 0))
     (property "Value" "LED" (id 1) (at 197.0405 71.374 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 198.628 75.946 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -391,7 +391,7 @@
   (symbol (lib_id "Device:LED") (at 198.628 41.91 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 38a6f281-0e8c-4afe-9656-2af31734cb4f)
-    (property "Reference" "D21" (id 0) (at 197.0405 34.798 0))
+    (property "Reference" "D3" (id 0) (at 197.0405 34.798 0))
     (property "Value" "LED" (id 1) (at 197.0405 37.338 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 198.628 41.91 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -406,7 +406,7 @@
   (symbol (lib_id "Device:LED") (at 142.494 42.672 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 471b4d7f-fdb9-4916-997b-5f1f159d0c8c)
-    (property "Reference" "D9" (id 0) (at 140.9065 35.56 0))
+    (property "Reference" "D6" (id 0) (at 140.9065 35.56 0))
     (property "Value" "LED" (id 1) (at 140.9065 38.1 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 142.494 42.672 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -421,7 +421,7 @@
   (symbol (lib_id "Device:LED") (at 127.254 76.708 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 5179081b-3762-4e81-a4ec-ebfdcd7914e9)
-    (property "Reference" "D4" (id 0) (at 125.6665 69.596 0))
+    (property "Reference" "D22" (id 0) (at 125.6665 69.596 0))
     (property "Value" "LED" (id 1) (at 125.6665 72.136 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 127.254 76.708 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -436,7 +436,7 @@
   (symbol (lib_id "Device:R") (at 119.634 53.34 90) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 5abf171f-0bc2-4efd-8965-a104e3ac7f09)
-    (property "Reference" "R2" (id 0) (at 119.634 47.498 90))
+    (property "Reference" "R4" (id 0) (at 119.634 47.498 90))
     (property "Value" "R" (id 1) (at 119.634 50.038 90))
     (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" (id 2) (at 119.634 55.118 90)
       (effects (font (size 1.27 1.27)) hide)
@@ -451,7 +451,7 @@
   (symbol (lib_id "Device:LED") (at 127.254 42.672 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 5be8fcac-d3f1-4c5e-943c-ad27476ca15d)
-    (property "Reference" "D1" (id 0) (at 125.6665 35.56 0))
+    (property "Reference" "D4" (id 0) (at 125.6665 35.56 0))
     (property "Value" "LED" (id 1) (at 125.6665 38.1 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 127.254 42.672 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -472,7 +472,7 @@
     (property "Value" "Conn_01x02_Female" (id 1) (at 72.39 50.7999 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (id 2) (at 71.12 48.26 0)
+    (property "Footprint" "Connector_Molex:Molex_KK-396_A-41791-0002_1x02_P3.96mm_Vertical" (id 2) (at 71.12 48.26 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 71.12 48.26 0)
@@ -485,7 +485,7 @@
   (symbol (lib_id "Device:R") (at 119.634 76.708 90) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 694d1442-951d-4b07-bdf0-4a3340a22cb9)
-    (property "Reference" "R4" (id 0) (at 119.634 70.866 90))
+    (property "Reference" "R8" (id 0) (at 119.634 70.866 90))
     (property "Value" "R" (id 1) (at 119.634 73.406 90))
     (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" (id 2) (at 119.634 78.486 90)
       (effects (font (size 1.27 1.27)) hide)
@@ -515,7 +515,7 @@
   (symbol (lib_id "Device:R") (at 175.768 52.578 90) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 729a83cd-75de-4f22-8176-15dad4441533)
-    (property "Reference" "R6" (id 0) (at 175.768 46.736 90))
+    (property "Reference" "R3" (id 0) (at 175.768 46.736 90))
     (property "Value" "R" (id 1) (at 175.768 49.276 90))
     (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" (id 2) (at 175.768 54.356 90)
       (effects (font (size 1.27 1.27)) hide)
@@ -530,7 +530,7 @@
   (symbol (lib_id "Device:LED") (at 127.254 64.262 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 7ad003cf-9536-4fd6-a168-4df89e366ea6)
-    (property "Reference" "D3" (id 0) (at 125.6665 57.15 0))
+    (property "Reference" "D16" (id 0) (at 125.6665 57.15 0))
     (property "Value" "LED" (id 1) (at 125.6665 59.69 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 127.254 64.262 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -545,7 +545,7 @@
   (symbol (lib_id "Device:LED") (at 183.388 75.946 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 850f320a-2a2d-4842-bfb4-00d75ae62663)
-    (property "Reference" "D16" (id 0) (at 181.8005 68.834 0))
+    (property "Reference" "D19" (id 0) (at 181.8005 68.834 0))
     (property "Value" "LED" (id 1) (at 181.8005 71.374 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 183.388 75.946 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -560,7 +560,7 @@
   (symbol (lib_id "Device:R") (at 119.634 64.262 90) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 8708457a-47b3-4a71-a9b0-22d743b50b91)
-    (property "Reference" "R3" (id 0) (at 119.634 58.42 90))
+    (property "Reference" "R6" (id 0) (at 119.634 58.42 90))
     (property "Value" "R" (id 1) (at 119.634 60.96 90))
     (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" (id 2) (at 119.634 66.04 90)
       (effects (font (size 1.27 1.27)) hide)
@@ -575,7 +575,7 @@
   (symbol (lib_id "Device:LED") (at 191.008 52.578 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 90dfdef2-bd91-4512-ad4c-4f7aa8db1dfc)
-    (property "Reference" "D18" (id 0) (at 189.4205 45.466 0))
+    (property "Reference" "D8" (id 0) (at 189.4205 45.466 0))
     (property "Value" "LED" (id 1) (at 189.4205 48.006 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 191.008 52.578 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -590,7 +590,7 @@
   (symbol (lib_id "Device:LED") (at 134.874 76.708 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 93aa010c-64c0-452c-aff8-ab91bbb06099)
-    (property "Reference" "D8" (id 0) (at 133.2865 69.596 0))
+    (property "Reference" "D23" (id 0) (at 133.2865 69.596 0))
     (property "Value" "LED" (id 1) (at 133.2865 72.136 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 134.874 76.708 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -605,7 +605,7 @@
   (symbol (lib_id "Device:LED") (at 183.388 52.578 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 9e6f8b7d-197f-45be-8d34-4665b36101b9)
-    (property "Reference" "D14" (id 0) (at 181.8005 45.466 0))
+    (property "Reference" "D7" (id 0) (at 181.8005 45.466 0))
     (property "Value" "LED" (id 1) (at 181.8005 48.006 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 183.388 52.578 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -620,7 +620,7 @@
   (symbol (lib_id "Device:R") (at 175.768 75.946 90) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid a3320aa6-1046-4f24-a30a-805eec651b22)
-    (property "Reference" "R8" (id 0) (at 175.768 70.104 90))
+    (property "Reference" "R7" (id 0) (at 175.768 70.104 90))
     (property "Value" "R" (id 1) (at 175.768 72.644 90))
     (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" (id 2) (at 175.768 77.724 90)
       (effects (font (size 1.27 1.27)) hide)
@@ -635,7 +635,7 @@
   (symbol (lib_id "Device:LED") (at 183.388 63.5 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid b885b742-bcd6-47a3-8426-89b1a731c098)
-    (property "Reference" "D15" (id 0) (at 181.8005 56.388 0))
+    (property "Reference" "D13" (id 0) (at 181.8005 56.388 0))
     (property "Value" "LED" (id 1) (at 181.8005 58.928 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 183.388 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -656,7 +656,7 @@
     (property "Value" "Conn_01x02_Female" (id 1) (at 72.39 56.6419 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (id 2) (at 71.12 54.102 0)
+    (property "Footprint" "Connector_Molex:Molex_KK-396_A-41791-0002_1x02_P3.96mm_Vertical" (id 2) (at 71.12 54.102 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 71.12 54.102 0)
@@ -669,7 +669,7 @@
   (symbol (lib_id "Device:LED") (at 127.254 53.34 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid c908ea07-6613-4b4a-a909-42b93ba08e89)
-    (property "Reference" "D2" (id 0) (at 125.6665 46.228 0))
+    (property "Reference" "D10" (id 0) (at 125.6665 46.228 0))
     (property "Value" "LED" (id 1) (at 125.6665 48.768 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 127.254 53.34 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -684,7 +684,7 @@
   (symbol (lib_id "Device:LED") (at 191.008 63.5 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid ce234038-61fd-4850-b888-1350cc35ca2c)
-    (property "Reference" "D19" (id 0) (at 189.4205 56.388 0))
+    (property "Reference" "D14" (id 0) (at 189.4205 56.388 0))
     (property "Value" "LED" (id 1) (at 189.4205 58.928 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 191.008 63.5 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -699,7 +699,7 @@
   (symbol (lib_id "Device:LED") (at 142.494 53.34 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid cf5560a0-7329-4b3e-8c52-de05aa6a680d)
-    (property "Reference" "D10" (id 0) (at 140.9065 46.228 0))
+    (property "Reference" "D12" (id 0) (at 140.9065 46.228 0))
     (property "Value" "LED" (id 1) (at 140.9065 48.768 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 142.494 53.34 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -714,7 +714,7 @@
   (symbol (lib_id "Device:LED") (at 134.874 64.262 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid d666634e-1ab1-4951-99f0-b66410c9b9ec)
-    (property "Reference" "D7" (id 0) (at 133.2865 57.15 0))
+    (property "Reference" "D17" (id 0) (at 133.2865 57.15 0))
     (property "Value" "LED" (id 1) (at 133.2865 59.69 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 134.874 64.262 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -729,7 +729,7 @@
   (symbol (lib_id "Device:R") (at 119.634 42.672 90) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid e881314e-64a0-440c-a35d-f899aa078dee)
-    (property "Reference" "R1" (id 0) (at 119.634 36.83 90))
+    (property "Reference" "R2" (id 0) (at 119.634 36.83 90))
     (property "Value" "R" (id 1) (at 119.634 39.37 90))
     (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" (id 2) (at 119.634 44.45 90)
       (effects (font (size 1.27 1.27)) hide)
@@ -744,7 +744,7 @@
   (symbol (lib_id "Device:LED") (at 183.388 41.91 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid ea531b98-9267-46c8-a4b3-073985a16b77)
-    (property "Reference" "D13" (id 0) (at 181.8005 34.798 0))
+    (property "Reference" "D1" (id 0) (at 181.8005 34.798 0))
     (property "Value" "LED" (id 1) (at 181.8005 37.338 0))
     (property "Footprint" "LED_THT:LED_D3.0mm" (id 2) (at 183.388 41.91 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -774,7 +774,7 @@
   (symbol (lib_id "Device:R") (at 175.768 63.5 90) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid f5d694fa-31cc-49bd-8256-26525dd176ea)
-    (property "Reference" "R7" (id 0) (at 175.768 57.658 90))
+    (property "Reference" "R5" (id 0) (at 175.768 57.658 90))
     (property "Value" "R" (id 1) (at 175.768 60.198 90))
     (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" (id 2) (at 175.768 65.278 90)
       (effects (font (size 1.27 1.27)) hide)
@@ -791,106 +791,106 @@
   )
 
   (symbol_instances
-    (path "/5be8fcac-d3f1-4c5e-943c-ad27476ca15d"
+    (path "/ea531b98-9267-46c8-a4b3-073985a16b77"
       (reference "D1") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/c908ea07-6613-4b4a-a909-42b93ba08e89"
+    (path "/2db839dd-dc37-4a8d-9121-446243090fc6"
       (reference "D2") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/7ad003cf-9536-4fd6-a168-4df89e366ea6"
+    (path "/38a6f281-0e8c-4afe-9656-2af31734cb4f"
       (reference "D3") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/5179081b-3762-4e81-a4ec-ebfdcd7914e9"
+    (path "/5be8fcac-d3f1-4c5e-943c-ad27476ca15d"
       (reference "D4") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
     (path "/6b3ea0e5-1afd-40f4-af10-c0e18b967c5c"
       (reference "D5") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/269fe526-a43e-4d54-aaf3-6bfa6cb6baf4"
+    (path "/471b4d7f-fdb9-4916-997b-5f1f159d0c8c"
       (reference "D6") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/d666634e-1ab1-4951-99f0-b66410c9b9ec"
+    (path "/9e6f8b7d-197f-45be-8d34-4665b36101b9"
       (reference "D7") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/93aa010c-64c0-452c-aff8-ab91bbb06099"
+    (path "/90dfdef2-bd91-4512-ad4c-4f7aa8db1dfc"
       (reference "D8") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/471b4d7f-fdb9-4916-997b-5f1f159d0c8c"
+    (path "/29648c38-139c-4b9e-b4cc-1766113759dc"
       (reference "D9") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/cf5560a0-7329-4b3e-8c52-de05aa6a680d"
+    (path "/c908ea07-6613-4b4a-a909-42b93ba08e89"
       (reference "D10") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/11166fc6-e7ad-4c02-9484-932bab86971a"
+    (path "/269fe526-a43e-4d54-aaf3-6bfa6cb6baf4"
       (reference "D11") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/2882c368-7d70-42cc-916d-f9c4199f1506"
+    (path "/cf5560a0-7329-4b3e-8c52-de05aa6a680d"
       (reference "D12") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/ea531b98-9267-46c8-a4b3-073985a16b77"
+    (path "/b885b742-bcd6-47a3-8426-89b1a731c098"
       (reference "D13") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/9e6f8b7d-197f-45be-8d34-4665b36101b9"
+    (path "/ce234038-61fd-4850-b888-1350cc35ca2c"
       (reference "D14") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/b885b742-bcd6-47a3-8426-89b1a731c098"
+    (path "/1a8f711e-789f-4296-841b-b151a6571180"
       (reference "D15") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/850f320a-2a2d-4842-bfb4-00d75ae62663"
+    (path "/7ad003cf-9536-4fd6-a168-4df89e366ea6"
       (reference "D16") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/2db839dd-dc37-4a8d-9121-446243090fc6"
+    (path "/d666634e-1ab1-4951-99f0-b66410c9b9ec"
       (reference "D17") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/90dfdef2-bd91-4512-ad4c-4f7aa8db1dfc"
+    (path "/11166fc6-e7ad-4c02-9484-932bab86971a"
       (reference "D18") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/ce234038-61fd-4850-b888-1350cc35ca2c"
+    (path "/850f320a-2a2d-4842-bfb4-00d75ae62663"
       (reference "D19") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
     (path "/efff9053-3f19-4667-91f4-dcbc024876cf"
       (reference "D20") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/38a6f281-0e8c-4afe-9656-2af31734cb4f"
+    (path "/2e951cb3-6ef8-486d-b884-3ea7f414fbf5"
       (reference "D21") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/29648c38-139c-4b9e-b4cc-1766113759dc"
+    (path "/5179081b-3762-4e81-a4ec-ebfdcd7914e9"
       (reference "D22") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/1a8f711e-789f-4296-841b-b151a6571180"
+    (path "/93aa010c-64c0-452c-aff8-ab91bbb06099"
       (reference "D23") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
-    (path "/2e951cb3-6ef8-486d-b884-3ea7f414fbf5"
+    (path "/2882c368-7d70-42cc-916d-f9c4199f1506"
       (reference "D24") (unit 1) (value "LED") (footprint "LED_THT:LED_D3.0mm")
     )
     (path "/63cb03ef-d3ef-47b9-b8e0-7234629ffac3"
-      (reference "J1") (unit 1) (value "Conn_01x02_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
+      (reference "J1") (unit 1) (value "Conn_01x02_Female") (footprint "Connector_Molex:Molex_KK-396_A-41791-0002_1x02_P3.96mm_Vertical")
     )
     (path "/c81ef635-0648-4575-9c0c-b4ec1f8d669d"
-      (reference "J2") (unit 1) (value "Conn_01x02_Female") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
-    )
-    (path "/e881314e-64a0-440c-a35d-f899aa078dee"
-      (reference "R1") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
-    )
-    (path "/5abf171f-0bc2-4efd-8965-a104e3ac7f09"
-      (reference "R2") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
-    )
-    (path "/8708457a-47b3-4a71-a9b0-22d743b50b91"
-      (reference "R3") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
-    )
-    (path "/694d1442-951d-4b07-bdf0-4a3340a22cb9"
-      (reference "R4") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
+      (reference "J2") (unit 1) (value "Conn_01x02_Female") (footprint "Connector_Molex:Molex_KK-396_A-41791-0002_1x02_P3.96mm_Vertical")
     )
     (path "/1bb19255-6f86-4908-a28a-658b239a8051"
-      (reference "R5") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
+      (reference "R1") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
+    )
+    (path "/e881314e-64a0-440c-a35d-f899aa078dee"
+      (reference "R2") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
     )
     (path "/729a83cd-75de-4f22-8176-15dad4441533"
-      (reference "R6") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
+      (reference "R3") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
+    )
+    (path "/5abf171f-0bc2-4efd-8965-a104e3ac7f09"
+      (reference "R4") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
     )
     (path "/f5d694fa-31cc-49bd-8256-26525dd176ea"
-      (reference "R7") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
+      (reference "R5") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
+    )
+    (path "/8708457a-47b3-4a71-a9b0-22d743b50b91"
+      (reference "R6") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
     )
     (path "/a3320aa6-1046-4f24-a30a-805eec651b22"
+      (reference "R7") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
+    )
+    (path "/694d1442-951d-4b07-bdf0-4a3340a22cb9"
       (reference "R8") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical")
     )
   )
