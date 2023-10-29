@@ -1,0 +1,526 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid e63e39d7-6ac0-4ffd-8aa3-1841a4541b55)
+
+  (paper "A4")
+
+  (title_block
+    (date "mar. 31 mars 2015")
+  )
+
+  (lib_symbols
+  )
+
+
+  (text "Use a common PCB for left and right inputs?\nHoles to hold the Mega to larger PCB\nAdd Ethernet Module\ngo for 99*99mm board\nAnalog and encoders add\nDual Max 7219 for caution panel"
+    (at 44.45 48.26 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 752ba352-c13f-434d-9e1b-27ca6eed2b36)
+  )
+  (text "* Indicates a PWM-capable pin" (at 177.8 180.34 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid c364973a-9a67-4667-8185-a3a5c6c6cbdf)
+  )
+  (text "PCB CHECKLIST\nCOMPARE AGAINST MANUAL IMAGE\nBLOCK ALLOCATED IN SPREADSHEET\nSWITCH, ROTARY AND ANALOG\nLED RELAY/HIGH VOLTAGE\nEDESIGN READINESS CHECKS\nCONNECTORS SYNCHED WITH PRIMARY PCB\n"
+    (at 188.976 67.564 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid e4102214-2ad0-4645-90fd-74c8cd84233a)
+  )
+
+  (sheet (at 106.172 126.492) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 05a64cc9-fc2f-4bd1-a464-3b0e549ec975)
+    (property "Sheet name" "INTERCOMM" (id 0) (at 106.172 125.7804 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "INTERCOMM.kicad_sch" (id 1) (at 106.172 130.8866 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 137.16 113.03) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 0ee730a0-b302-4e1a-83ce-1194eaa9a6a3)
+    (property "Sheet name" "VHF_FM" (id 0) (at 137.16 112.3184 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "VHF_FM.kicad_sch" (id 1) (at 137.16 117.4246 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 136.906 58.166) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 23ecc1a5-1f7f-4289-ad8e-d84882446410)
+    (property "Sheet name" "FUEL" (id 0) (at 136.906 57.4544 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "FUEL.kicad_sch" (id 1) (at 136.906 62.5606 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 105.41 113.284) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7)
+    (property "Sheet name" "UHF" (id 0) (at 105.41 112.5724 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "UHF.kicad_sch" (id 1) (at 105.41 117.6786 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 106.172 87.63) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid a7d8c833-64e5-470d-8773-68bb12b4ae81)
+    (property "Sheet name" "EAC" (id 0) (at 106.172 86.9184 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "EAC.kicad_sch" (id 1) (at 106.172 92.0246 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 137.414 124.206) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid ba20fa06-a269-44d1-bfd1-ac09e6be8fd4)
+    (property "Sheet name" "VHF_AM" (id 0) (at 137.414 123.4944 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "VHF_AM.kicad_sch" (id 1) (at 137.414 128.6006 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 137.414 138.938) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid e1f4e057-24c1-4cbb-b368-30b1f66d6dcf)
+    (property "Sheet name" "AUDIO_KEYPAD" (id 0) (at 137.414 138.2264 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "AUDIO_KEYPAD.kicad_sch" (id 1) (at 137.414 143.3326 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 105.156 67.564) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid ed06a1a0-cff2-4015-8741-6cfacbcf7921)
+    (property "Sheet name" "SAS" (id 0) (at 105.156 66.8524 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "SAS.kicad_sch" (id 1) (at 105.156 71.9586 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 105.41 100.584) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid ee8e38f8-62f7-46f3-8592-152f983362ab)
+    (property "Sheet name" "HSI" (id 0) (at 105.41 99.8724 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "HSI.kicad_sch" (id 1) (at 105.41 104.9786 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 104.394 57.404) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid f23058ed-beb9-49f7-9b45-ffc0992a43a3)
+    (property "Sheet name" "AUX_LIGHT" (id 0) (at 104.394 56.6924 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "AUX_LIGHT.kicad_sch" (id 1) (at 104.394 61.7986 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410" (page "2"))
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921" (page "3"))
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3" (page "4"))
+    (path "/a7d8c833-64e5-470d-8773-68bb12b4ae81" (page "5"))
+    (path "/ee8e38f8-62f7-46f3-8592-152f983362ab" (page "6"))
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7" (page "7"))
+    (path "/0ee730a0-b302-4e1a-83ce-1194eaa9a6a3" (page "8"))
+    (path "/ba20fa06-a269-44d1-bfd1-ac09e6be8fd4" (page "9"))
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975" (page "10"))
+    (path "/e1f4e057-24c1-4cbb-b368-30b1f66d6dcf" (page "11"))
+  )
+
+  (symbol_instances
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/0eef5f04-6d19-4568-8903-b39e16f86ead"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/106161fb-023e-4bb5-a132-51dc5c58505b"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/3f910c99-ba3a-41d7-8858-dfb0f578e299"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/ee8e38f8-62f7-46f3-8592-152f983362ab/4fe68ab7-bdb8-42e9-88f2-576c67778200"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/ee8e38f8-62f7-46f3-8592-152f983362ab/77c42bc5-b9e8-4b0c-8cbf-a1bca6eac2bf"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/92dc13bf-dd05-42e5-8ed7-8be068f3eb75"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/950c9fb9-dd8b-4108-8c52-06cd83760020"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/ee8e38f8-62f7-46f3-8592-152f983362ab/d836f8d0-2051-4b9c-afd2-c112aa05b7b6"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/e39f33d5-3632-48fc-974a-0e86a99bd494"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/ec4442be-f3a0-4053-b795-5df9685c0ad9"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/f71c0604-5b23-40de-946b-73d07f842bbb"
+      (reference "#PWR?") (unit 1) (value "GND") (footprint "")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/022a6cea-d6eb-4fdb-8af2-fd9e3a7dde24"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/0b51b0f6-ae54-44ec-879a-2d73731b8e3c"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/11c17208-88c6-4101-987a-568f6bf80bb5"
+      (reference "D?") (unit 1) (value "LED") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/35db0ebe-4b2c-43fd-be00-626559b0fbc2"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/35f4b396-1ae0-4e63-9d21-9f0d6fdad299"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/3e78e0e6-c66f-4fde-8a7c-47193928abaa"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/49b26775-cd6d-4203-b053-c6bba3ada8fe"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/4a545bab-c244-428c-a8c3-830a3a6c6232"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/4aaf811a-d588-4511-9a6b-fd47f9970cb3"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/4f99df5f-7aaf-474c-9be7-ca35fdf0244c"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/5b3eda16-81ff-4c2d-a4d7-00fbeee2fb82"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/61d29ef9-8476-4428-bb63-30db49dacef0"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/a7d8c833-64e5-470d-8773-68bb12b4ae81/685a3c51-8671-4fce-af35-21010d64d199"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/686f62f5-d5d3-422b-a539-11a2a0ce11db"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/7371f516-e3df-4385-8483-5a004d87a9a1"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/a7d8c833-64e5-470d-8773-68bb12b4ae81/74686209-854f-4d96-a47e-28386d8280c8"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/7d075bdc-634b-48dd-ba41-8566d726f788"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/83621705-bf24-4f4c-b039-2626e52f16c3"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/870d2527-5b13-46be-953b-0fc40466041f"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/8b1c7814-251a-4162-96c4-f0997435de41"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/8b73d248-1b5b-4724-99cd-78c87f647113"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/8fb94fbd-7b40-4fee-9822-d5b72d95c4e0"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/97ce2ec7-2ec7-40b1-ab82-cd6660340a39"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/a3080256-f1e2-483d-a8e3-131502fd71b3"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/a9c851e4-c185-4ba2-855e-add2d07e0276"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/bd893241-1696-4b9f-9d7b-30d04e39c6e8"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/a7d8c833-64e5-470d-8773-68bb12b4ae81/c2fecfed-a3c1-4872-8482-22c9a2efa920"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/c92ff74b-28a7-4dfb-a9f4-43821475f292"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/d33970d5-059e-440d-b5fc-ff09a04a637d"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/d7a28768-23d0-4d5a-91e0-a75e0879fafa"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/dd3e07cb-24d7-4116-adf3-e81887f3ddf4"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/dfc726b9-767a-4fa2-8bc3-0a7e3e882403"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/e01227b7-23de-4cf4-8fcf-b7f04d7053cb"
+      (reference "D?") (unit 1) (value "LED") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/e17c10ed-7c54-4302-870b-bb057b39d769"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/e73001d5-af07-4eb2-8b37-8584b60dcebc"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/f20b10e9-ba7f-4bad-b786-d65667a5a392"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/f28508a3-feab-4cbc-bd11-7b555cf76284"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/f85c7bcc-a740-4039-9d7d-149f6957609a"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/fc559131-adf5-4feb-9aff-f19e87d5d84d"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/ffb29c34-25e1-4310-8740-7c6c0e1349d0"
+      (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/0b35c867-ce3c-4588-b5c7-9fb3fb47927b"
+      (reference "J?") (unit 1) (value "MNL_PRESET_GRD") (footprint "")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/162888e0-318d-432a-a768-45748952a8d5"
+      (reference "J?") (unit 1) (value "SAS_INPUTS") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/1f75ed23-ea0b-4d22-8fa8-94022ad6a6b3"
+      (reference "J?") (unit 1) (value "AUX_LTG_ANALOG") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/2970862d-d62e-44ac-bdb5-7bdc6cd8668c"
+      (reference "J?") (unit 1) (value "UHF_ANALOG") (footprint "")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/321b2543-4ff3-425e-a239-da0abf091b21"
+      (reference "J?") (unit 1) (value "TAKEOFF_TRIM") (footprint "")
+    )
+    (path "/ee8e38f8-62f7-46f3-8592-152f983362ab/7025cfc1-b301-44aa-abf8-30e22288e998"
+      (reference "J?") (unit 1) (value "HSI") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/87e62b2d-9993-45ce-ac7f-ce17d5d2294c"
+      (reference "J?") (unit 1) (value "Conn_01x08_Female") (footprint "")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/a2bf6181-793d-4d14-b689-5926da030e16"
+      (reference "J?") (unit 1) (value "Conn_01x06_Female") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/a6ab9793-3970-4d65-b797-5d066ff434c0"
+      (reference "J?") (unit 1) (value "FUEL ANALOG") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/b4a0c20c-7c46-40e7-ae98-3f86b828dfe4"
+      (reference "J?") (unit 1) (value "UHF_DISP") (footprint "")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/c6093d8c-445e-4960-a959-7129d3ab9534"
+      (reference "J?") (unit 1) (value "AUX_LTG_ANALOG") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/cd1e2eb4-d7d7-404a-83c5-52b936ada22a"
+      (reference "J?") (unit 1) (value "Conn_01x08_Female") (footprint "")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/cea8cf3b-1c2a-40ea-bf7a-f45ff04d5211"
+      (reference "J?") (unit 1) (value "SAS_ANALOG") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/e3837add-86b6-4564-bea7-897c830fcd9d"
+      (reference "J?") (unit 1) (value "INT_FM_VHF_UHF") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/e6687852-c66c-4882-a393-68b298c747da"
+      (reference "J?") (unit 1) (value "Conn_01x10_Female") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/e8a46074-95ee-4b0e-a119-36c57663472b"
+      (reference "J?") (unit 1) (value "UHF_MAIN") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/fdd9a334-5cad-4b2d-b04f-483991b9f994"
+      (reference "J?") (unit 1) (value "UHF_DISP") (footprint "")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/24f68f68-fa58-42f5-ad3b-b72a9c3f36b8"
+      (reference "K?") (unit 1) (value "L_SAS_PITCH") (footprint "Relay_THT:Relay_1P1T_NO_10x24x18.8mm_Panasonic_ADW11xxxxW_THT")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/2f52c3cc-c21c-4407-ac52-1aee0f2f0ec8"
+      (reference "K?") (unit 1) (value "R_SAS_PITCH") (footprint "Relay_THT:Relay_1P1T_NO_10x24x18.8mm_Panasonic_ADW11xxxxW_THT")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/434c035e-acc9-49cd-8966-b72f9b71b0b6"
+      (reference "K?") (unit 1) (value "R_SAS_YAW") (footprint "Relay_THT:Relay_1P1T_NO_10x24x18.8mm_Panasonic_ADW11xxxxW_THT")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/823ac2f3-3f9e-4d3a-b4ce-0f2b25558d90"
+      (reference "K?") (unit 1) (value "L_SAS_YAW") (footprint "Relay_THT:Relay_1P1T_NO_10x24x18.8mm_Panasonic_ADW11xxxxW_THT")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/07bd3c0d-cf25-4964-981d-ee8386f161dd"
+      (reference "RV?") (unit 1) (value "MASTER_VOL") (footprint "")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/191ce15b-1fb5-4313-bbef-5df3b72cfea0"
+      (reference "RV?") (unit 1) (value "SIGNAL_LIGHTS") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/40fedb79-e455-4d0e-9a38-586254351590"
+      (reference "RV?") (unit 1) (value "TACAN") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/4a6f8b32-46c1-457c-a651-3728e3e634fd"
+      (reference "RV?") (unit 1) (value "FUEL RCVR BRIGHT") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/4ab5b1ac-485e-4369-b208-80bbe6bc08c3"
+      (reference "RV?") (unit 1) (value "VHF") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/4df0f3b2-bb20-469b-a22c-9534b0ae9652"
+      (reference "RV?") (unit 1) (value "INT") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/72b29486-c5a3-46f0-a709-8aae4aa21bfa"
+      (reference "RV?") (unit 1) (value "FM") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/8dc688ce-5709-4005-8f32-0e4c10aa6fe9"
+      (reference "RV?") (unit 1) (value "IFF") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/a3591dfb-e94a-4f9f-b1a2-500b719fffdb"
+      (reference "RV?") (unit 1) (value "UHF") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/a58a1bbd-809c-404c-8b0f-b5af81d3975c"
+      (reference "RV?") (unit 1) (value "AIM") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/b0854e0d-9c4f-465b-a86d-5793e6441ab9"
+      (reference "RV?") (unit 1) (value "UHF_VOL") (footprint "")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/b22a3c84-e018-4393-818e-5705081a544f"
+      (reference "RV?") (unit 1) (value "YAW_TRIM") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/c3eb24b0-d24d-4cee-bfc9-9abab7ddd983"
+      (reference "RV?") (unit 1) (value "ILS") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/0937bb7b-1948-4bbf-bd79-6cb0f6d9fcfc"
+      (reference "SW?") (unit 1) (value "R MAIN BOOST") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/0a8851b5-91b7-4b3d-b376-7f8fb1c5b677"
+      (reference "SW?") (unit 1) (value "RCVR LTT OFF") (footprint "")
+    )
+    (path "/a7d8c833-64e5-470d-8773-68bb12b4ae81/11807e95-2f0f-4587-bd32-d99c93c0ff46"
+      (reference "SW?") (unit 1) (value "SEAT ARM") (footprint "")
+    )
+    (path "/a7d8c833-64e5-470d-8773-68bb12b4ae81/2cb67afb-8db7-40e9-a623-3cd4299663aa"
+      (reference "SW?") (unit 1) (value "EJECT") (footprint "")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/2dfb9003-635f-4d7d-b182-afd761d3d018"
+      (reference "SW?") (unit 1) (value "R_MFD_POWER") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/32cb2b96-ffbb-46b1-9941-b237593d9a61"
+      (reference "SW?") (unit 1) (value "L MAIN FILL DIS") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/3596c6bb-8d21-48d4-b8a8-ed5532fa2b45"
+      (reference "SW?") (unit 1) (value "R WING FILL DIS") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/38d4a360-05a8-4ca4-a56b-01cbabfc82fb"
+      (reference "SW?") (unit 1) (value "ENCODER_5") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/3b779b84-348d-4a56-87ca-ff7ec6c46440"
+      (reference "SW?") (unit 1) (value "ENCODER_1") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/3f3f4380-59c5-4ced-af52-2802062ef5b2"
+      (reference "SW?") (unit 1) (value "HOT_MIKE") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/4610dfb9-0002-41fc-a61d-68fa29443b84"
+      (reference "SW?") (unit 1) (value "R MAIN FILL DIS") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/467ad412-fefe-4110-9d55-29e5b0b72c3e"
+      (reference "SW?") (unit 1) (value "L MAIN BOOST") (footprint "")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/47b78ff7-4b2e-4c59-a3d8-b9166696fa55"
+      (reference "SW?") (unit 1) (value "MONITOR_TEST") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/528c6d73-b8e7-4789-99ad-811db4f85ee9"
+      (reference "SW?") (unit 1) (value "CROSS FEED") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/55d3a994-81e7-47a9-8d55-825fc82efcdf"
+      (reference "SW?") (unit 1) (value "R WING BOOST") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/5e0d1cff-ed2d-4bd6-a8ab-e753a8e461af"
+      (reference "SW?") (unit 1) (value "TK GATE") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/6032d2b9-45a1-48e1-b5be-c5f122f88832"
+      (reference "SW?") (unit 1) (value "ENCODER_2") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/61998aa3-d6bc-4174-8055-1ef0c76bb813"
+      (reference "SW?") (unit 1) (value "FIRE_DETECT_TEST") (footprint "")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/69ed7c1b-47a7-49d8-8934-ccf7f1f509be"
+      (reference "SW?") (unit 1) (value "L_MFD_POWER") (footprint "")
+    )
+    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/6c6bc574-e5d6-4d68-93a2-38eed145aed3"
+      (reference "SW?") (unit 1) (value "CALL") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/813f8c24-97a2-42f4-9751-96acf8e2f55d"
+      (reference "SW?") (unit 1) (value "L WING BOOST") (footprint "")
+    )
+    (path "/ee8e38f8-62f7-46f3-8592-152f983362ab/8b865d38-bce4-445a-b95b-4f38938369c5"
+      (reference "SW?") (unit 1) (value "COURSE") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/942eade2-91a3-42e9-b3f4-087fa735ebf0"
+      (reference "SW?") (unit 1) (value "WING TANK") (footprint "")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/9bdf0e8b-4a1e-4892-aa17-00238377c965"
+      (reference "SW?") (unit 1) (value "LOAD") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
+    )
+    (path "/ee8e38f8-62f7-46f3-8592-152f983362ab/b65a65bf-414f-4598-8ed8-43d43c2215dc"
+      (reference "SW?") (unit 1) (value "HEADING") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/c1dafc33-4fb4-4ab1-9a4a-91fb620aace3"
+      (reference "SW?") (unit 1) (value "TO_TRIM") (footprint "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/c6266e8a-bc95-4b48-85e1-61452339aa32"
+      (reference "SW?") (unit 1) (value "ENCODER_4") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/a7d8c833-64e5-470d-8773-68bb12b4ae81/cc48eba1-f817-4682-a134-7a2e025bd603"
+      (reference "SW?") (unit 1) (value "EAC ARM") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/e046349f-6f15-49ed-badd-4276f82205b6"
+      (reference "SW?") (unit 1) (value "FUEL RCVR") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/ec132d84-a809-4b28-a89b-fa1f0c10edd8"
+      (reference "SW?") (unit 1) (value "ENCODER_3") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/ef6dea41-5a74-4995-955b-44daa93c6179"
+      (reference "SW?") (unit 1) (value "PRESET") (footprint "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/fc6fc668-a9ca-4183-9fbf-dff54856b711"
+      (reference "SW?") (unit 1) (value "HARS_OVERIRDE") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/fe4ea18c-af03-48c0-9786-77dce88f0ba9"
+      (reference "SW?") (unit 1) (value "L WING FILL DIS") (footprint "")
+    )
+    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/ff336cfb-14a2-4cea-be5e-f97df011ab43"
+      (reference "SW?") (unit 1) (value "FUS EXT TANK") (footprint "")
+    )
+    (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/ff98d556-f6c4-4cfd-89bc-cc29e11dd2fd"
+      (reference "SW?") (unit 1) (value "SIG_LAMP_TEST") (footprint "")
+    )
+  )
+)
