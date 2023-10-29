@@ -814,7 +814,7 @@
   (symbol (lib_id "Connector:Conn_01x03_Male") (at 175.26 34.29 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 00000000-0000-0000-0000-00006137a947)
-    (property "Reference" "J3" (id 0) (at 172.72 33.02 0))
+    (property "Reference" "J2" (id 0) (at 172.72 33.02 0))
     (property "Value" "ZERO" (id 1) (at 171.45 35.56 0))
     (property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" (id 2) (at 175.26 34.29 0)
       (effects (font (size 1.27 1.27)) hide)
@@ -934,7 +934,7 @@
   (symbol (lib_id "Connector:Conn_01x05_Female") (at 214.884 36.322 0) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 1feeb685-c8e4-41ec-8cc2-7c73ca665321)
-    (property "Reference" "J4" (id 0) (at 215.5952 35.4873 0)
+    (property "Reference" "J3" (id 0) (at 215.5952 35.4873 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "ZERO_AND_BACKLIGHT" (id 1) (at 215.5952 38.0242 0)
@@ -1034,10 +1034,10 @@
       (reference "J1") (unit 1) (value "STEPPER") (footprint "Connector_Molex:Molex_PicoBlade_53047-0410_1x04_P1.25mm_Vertical")
     )
     (path "/00000000-0000-0000-0000-00006137a947"
-      (reference "J3") (unit 1) (value "ZERO") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical")
+      (reference "J2") (unit 1) (value "ZERO") (footprint "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical")
     )
     (path "/1feeb685-c8e4-41ec-8cc2-7c73ca665321"
-      (reference "J4") (unit 1) (value "ZERO_AND_BACKLIGHT") (footprint "Connector_Molex:Molex_PicoBlade_53047-0510_1x05_P1.25mm_Vertical")
+      (reference "J3") (unit 1) (value "ZERO_AND_BACKLIGHT") (footprint "Connector_Molex:Molex_PicoBlade_53047-0510_1x05_P1.25mm_Vertical")
     )
     (path "/00000000-0000-0000-0000-000061379ede"
       (reference "M1") (unit 1) (value "VID29-02") (footprint "KiCAD Libraries:VID29-02")

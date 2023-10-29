@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 58)
+    (start_pass_no 42)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -54,7 +54,7 @@
   )
   (class default
     GND "/ZERO_DETECT" /COIL2 /COIL1 /COIL4 /COIL3 "Net-(D1-Pad1)" "Net-(D1-Pad2)"
-    "Net-(D2-Pad1)" "Net-(J1-Pad1)" /5V
+    "/BACKLIGHT_GND" "/BACKLIGHT_+12V" /5V
     (clearance_class default)
     (via_rule default)
     (rule

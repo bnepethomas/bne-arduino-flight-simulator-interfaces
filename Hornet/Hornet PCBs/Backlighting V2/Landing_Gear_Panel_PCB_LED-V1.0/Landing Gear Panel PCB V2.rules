@@ -1,5 +1,5 @@
 
-(rules PCB Landing Gear Panel PCB V1
+(rules PCB Landing Gear Panel PCB V2
   (snap_angle 
     fortyfive_degree
   )
@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 154)
+    (start_pass_no 226)
     (layer_rule F.Cu
       (active on)
       (preferred_direction vertical)
@@ -77,6 +77,10 @@
     LEDS "Via[0-1]_1250:750_um-LEDS"
   )
   (class default
+    "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(D4-Pad2)" "Net-(D5-Pad2)" "Net-(D7-Pad2)" "Net-(D8-Pad2)" "Net-(D10-Pad2)" "Net-(D11-Pad2)"
+    "Net-(D13-Pad2)" "Net-(D14-Pad2)" "Net-(D16-Pad2)" "Net-(D17-Pad2)" "Net-(D19-Pad2)" "Net-(D21-Pad2)" "Net-(D22-Pad2)" "Net-(D1-Pad1)"
+    /LED+12V "Net-(D4-Pad1)" "Net-(D7-Pad1)" "Net-(D10-Pad1)" "Net-(D13-Pad1)" "Net-(D16-Pad1)" "Net-(D19-Pad1)" "Net-(D21-Pad1)"
+    "/LED-12V"
     (clearance_class default)
     (via_rule default)
     (rule
@@ -87,10 +91,6 @@
     )
   )
   (class "kicad_default"
-    "Net-(D1-Pad2)" "Net-(D2-Pad2)" "Net-(D3-Pad2)" "Net-(D4-Pad2)" "Net-(D5-Pad2)" "Net-(D6-Pad2)" "Net-(D7-Pad2)" "Net-(D8-Pad2)"
-    "Net-(D10-Pad4)" "Net-(D10-Pad2)" "Net-(D11-Pad2)" "Net-(D12-Pad2)" "Net-(D13-Pad2)" "Net-(D14-Pad2)" "Net-(D15-Pad2)" "Net-(D16-Pad2)"
-    "Net-(D17-Pad2)" "Net-(D18-Pad2)" "Net-(D19-Pad2)" "Net-(D20-Pad2)" "Net-(D21-Pad2)" "Net-(D22-Pad2)" "Net-(D24-Pad1)" /DATAIN
-    /DATAOUT
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
@@ -101,7 +101,6 @@
     )
   )
   (class LEDS
-    /LED+5V /LEDGND
     (clearance_class LEDS)
     (via_rule LEDS)
     (rule

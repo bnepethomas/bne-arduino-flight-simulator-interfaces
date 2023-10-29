@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 3835)
+    (start_pass_no 1011)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,9 +63,10 @@
     /*7 /*6 /*5 /*4 /*3 /*2 /TX0{slash}1 /RX0{slash}0
     +3V3 "Net-(D1-Pad2)" /RX3{slash}15 "Net-(D2-Pad2)" /RX2{slash}17 "unconnected-(J3-Pad8)" "unconnected-(J4-Pad10)" "unconnected-(J7-Pad8)"
     VCC /~{RESET} "/TACAN_L_B" SS "unconnected-(U1-PadB4)" "/TACAN_R_B" "/ILS_L_A" "/ILS_L_B"
-    "/ILS_R_B" "/ILS_R_A" "Net-(R14-Pad2)" "unconnected-(J9-Pad8)" "unconnected-(J11-Pad1)" "unconnected-(J11-Pad29)" "unconnected-(J11-Pad30)" "unconnected-(J11-Pad31)"
-    "unconnected-(J11-Pad32)" "unconnected-(J11-Pad33)" "unconnected-(J11-Pad34)" "unconnected-(J12-Pad6)" "unconnected-(J13-Pad3)" "unconnected-(J24-Pad1)" "unconnected-(J20-Pad8)" "unconnected-(J25-Pad1)"
-    /ROW12
+    "/ILS_R_B" "/ILS_R_A" "Net-(R14-Pad2)" "unconnected-(J9-Pad8)" /34 "unconnected-(J27-Pad1)" "unconnected-(J13-Pad6)" "unconnected-(J14-Pad3)"
+    "unconnected-(J21-Pad8)" "Net-(J24-Pad1)" "Net-(J24-Pad2)" "Net-(J24-Pad3)" "Net-(J24-Pad4)" "Net-(J24-Pad5)" "Net-(J24-Pad6)" "Net-(J24-Pad7)"
+    "Net-(J24-Pad8)" "Net-(J24-Pad9)" "Net-(J24-Pad10)" "Net-(J24-Pad11)" "Net-(J24-Pad12)" "Net-(J24-Pad13)" "Net-(J24-Pad14)" "Net-(J24-Pad15)"
+    "Net-(J24-Pad16)" "unconnected-(J28-Pad1)"
     (clearance_class default)
     (via_rule default)
     (rule

@@ -391,7 +391,8 @@
         "nets": [
           "+12V",
           "+5VD",
-          "/BACKLIGHT_-V"
+          "/BACKLIGHT_-V",
+          "GND"
         ],
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
@@ -411,7 +412,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "specctra_dsn": "Right Console Input.dsn",
+      "specctra_dsn": "Right Console Output.dsn",
       "step": "",
       "vrml": ""
     },

@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 173)
+    (start_pass_no 66)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -46,29 +46,35 @@
   (via 
     "Via[0-1]_600:400_um-kicad_default" "Via[0-1]_600:400_um" "kicad_default"
   )
+  (via 
+    "Via[0-1]_600:400_um-POWER" "Via[0-1]_600:400_um" POWER
+  )
   (via_rule
     default "Via[0-1]_600:400_um"
   )
   (via_rule
     "kicad_default" "Via[0-1]_600:400_um-kicad_default"
   )
+  (via_rule
+    POWER "Via[0-1]_600:400_um-POWER"
+  )
   (class default
-    GND SCLK "ES1_RST" MISO MOSI /48 /49 /*46
-    /47 /*44 /*45 /42 /43 /40 /41 /38
-    /39 /36 /37 /35 /32 /33 /30 /31
-    /28 /29 /26 /27 /24 /25 /22 /23
-    +5V /IOREF /A0 /A1 /A2 /A3 /A4 /A5
-    /A6 /A7 /A8 /A9 /A10 /A11 /A12 /A13
-    /A14 /A15 /AREF /*13 /*12 /*11 /*9 /*8
-    /*7 /*6 /*5 /*4 /*3 +5VD /TX0{slash}1 /RX0{slash}0
-    +3V3 "Net-(D1-Pad2)" +12V "Net-(D2-Pad2)" /RX2{slash}17 /BACKLIGHT CLK LOAD
-    VCC /~{RESET} DIN SS "unconnected-(U1-PadB4)" /TX1{slash}18 /RX1{slash}19 /SDA{slash}20
-    /SCL{slash}21 "/MAX7219A/DIG_A0" "/MAX7219A/DIG_A1" "/MAX7219A/DIG_A2" "/MAX7219A/DIG_A3" /34 "/MAX7219A/DIG_A4" "/MAX7219A/DIG_A5"
-    "/MAX7219A/DIG_A6" "/MAX7219A/DIG_A7" "/MAX7219A/SEG_A0" "/MAX7219A/SEG_B0" "/MAX7219A/SEG_C0" "/MAX7219A/SEG_D0" "/MAX7219A/SEG_E0" "/MAX7219A/SEG_F0"
-    "/MAX7219A/SEG_G0" "/MAX7219A/SEG_DP0" "/MAX7219A/DIG_B0" "/MAX7219A/DIG_B1" "/MAX7219A/DIG_B2" "/MAX7219A/DIG_B3" "/MAX7219A/SEG_A1" "/MAX7219A/SEG_B1"
-    "/MAX7219A/SEG_C1" "/MAX7219A/SEG_D1" "/MAX7219A/SEG_E1" "/MAX7219A/SEG_F1" "/MAX7219A/SEG_G1" "/MAX7219A/SEG_DP1" "/MAX7219A/DIG_B4" "/MAX7219A/DIG_B5"
-    "/MAX7219A/DIG_B6" "/MAX7219A/DIG_B7" "Net-(Q1-Pad1)" "Net-(J1-Pad2)" "Net-(R5-Pad2)" "Net-(R6-Pad2)" "Net-(R7-Pad2)" "/MAX7219A/A-DOUT-B-DIN"
-    "/MAX7219A/B-DOUT-C-DIN" "unconnected-(J23-Pad1)" "unconnected-(J24-Pad1)"
+    SCLK "ES1_RST" MISO MOSI /*44 /*45 /42 /43
+    /40 /41 /38 /39 /36 /37 /35 /32
+    /33 /30 /31 /28 /29 /26 /27 /24
+    /25 /22 /23 +5V /IOREF /A0 /A1 /A2
+    /A3 /A4 /A5 /A6 /A7 /A8 /A9 /A10
+    /A11 /A12 /A13 /A14 /A15 /AREF /*13 /*12
+    /*11 /*9 /*8 /*7 /*6 /*5 /*4 /*3
+    /TX0{slash}1 /RX0{slash}0 +3V3 "Net-(D1-Pad2)" "Net-(D2-Pad2)" /RX2{slash}17 /*2 CLK
+    LOAD VCC /~{RESET} DIN SS "unconnected-(U1-PadB4)" /TX1{slash}18 /RX1{slash}19
+    /SDA{slash}20 /SCL{slash}21 "/MAX7219A/DIG_A0" "/MAX7219A/DIG_A1" "/MAX7219A/DIG_A2" "/MAX7219A/DIG_A3" /34 "/MAX7219A/DIG_A4"
+    "/MAX7219A/DIG_A5" "/MAX7219A/DIG_A6" "/MAX7219A/DIG_A7" "/MAX7219A/SEG_A0" "/MAX7219A/SEG_B0" "/MAX7219A/SEG_C0" "/MAX7219A/SEG_D0" "/MAX7219A/SEG_E0"
+    "/MAX7219A/SEG_F0" "/MAX7219A/SEG_G0" "/MAX7219A/SEG_DP0" "/MAX7219A/DIG_B0" "/MAX7219A/DIG_B1" "/MAX7219A/DIG_B2" "/MAX7219A/DIG_B3" "/MAX7219A/SEG_A1"
+    "/MAX7219A/SEG_B1" "/MAX7219A/SEG_C1" "/MAX7219A/SEG_D1" "/MAX7219A/SEG_E1" "/MAX7219A/SEG_F1" "/MAX7219A/SEG_G1" "/MAX7219A/SEG_DP1" "/MAX7219A/DIG_B4"
+    "/MAX7219A/DIG_B5" "/MAX7219A/DIG_B6" "/MAX7219A/DIG_B7" "Net-(Q1-Pad1)" "Net-(R5-Pad2)" "Net-(R6-Pad2)" "Net-(R7-Pad2)" "/MAX7219A/A-DOUT-B-DIN"
+    "/MAX7219A/B-DOUT-C-DIN" "unconnected-(J23-Pad4)" "unconnected-(J24-Pad4)" "unconnected-(J25-Pad4)" "unconnected-(J26-Pad4)" "unconnected-(J36-Pad1)" "unconnected-(J16-Pad4)" "/ZERO_D"
+    "/ZERO_C" "/ZERO_B" "unconnected-(J27-Pad4)" "/ZERO_A" "unconnected-(J37-Pad1)"
     (clearance_class default)
     (via_rule default)
     (rule
@@ -83,6 +89,17 @@
     (via_rule kicad_default)
     (rule
       (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class POWER
+    GND +5VD +12V "/BACKLIGHT_-V"
+    (clearance_class POWER)
+    (via_rule POWER)
+    (rule
+      (width 400.0)
     )
     (circuit 
       (use_layer F.Cu B.Cu)
