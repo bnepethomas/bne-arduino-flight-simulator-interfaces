@@ -4,7 +4,7 @@
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_nets": [
-      "unconnected-(J7-Pad8)"
+      "/TX2{slash}16"
     ],
     "high_contrast_mode": 0,
     "net_color_mode": 1,
