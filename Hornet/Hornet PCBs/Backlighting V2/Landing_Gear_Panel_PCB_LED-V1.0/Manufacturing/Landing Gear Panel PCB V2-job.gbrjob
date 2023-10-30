@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "(6.0.7-1)-1"
     },
-    "CreationDate": "2023-10-29T11:46:35+10:00"
+    "CreationDate": "2023-10-30T16:26:36+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -82,38 +82,8 @@
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Landing Gear Panel PCB V2-User_Drawings.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Landing Gear Panel PCB V2-User_Comments.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Landing Gear Panel PCB V2-User_Eco1.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Landing Gear Panel PCB V2-User_Eco2.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
       "Path": "Landing Gear Panel PCB V2-Edge_Cuts.gbr",
       "FileFunction": "Profile",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Landing Gear Panel PCB V2-F_Fab.gbr",
-      "FileFunction": "AssemblyDrawing,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Landing Gear Panel PCB V2-B_Fab.gbr",
-      "FileFunction": "AssemblyDrawing,Bot",
       "FilePolarity": "Positive"
     }
   ],

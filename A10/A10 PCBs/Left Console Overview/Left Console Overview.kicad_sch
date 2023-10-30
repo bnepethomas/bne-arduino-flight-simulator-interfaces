@@ -411,9 +411,6 @@
     (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/162888e0-318d-432a-a768-45748952a8d5"
       (reference "J?") (unit 1) (value "SAS_INPUTS") (footprint "")
     )
-    (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/1f75ed23-ea0b-4d22-8fa8-94022ad6a6b3"
-      (reference "J?") (unit 1) (value "AUX_LTG_ANALOG") (footprint "")
-    )
     (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/2970862d-d62e-44ac-bdb5-7bdc6cd8668c"
       (reference "J?") (unit 1) (value "UHF_ANALOG") (footprint "")
     )
@@ -445,7 +442,7 @@
       (reference "J?") (unit 1) (value "HSI") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
     )
     (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/7368c93c-f912-4db3-afbf-79851c9dc86f"
-      (reference "J?") (unit 1) (value "Conn_01x10_Female") (footprint "")
+      (reference "J?") (unit 1) (value "FUEL") (footprint "")
     )
     (path "/ba20fa06-a269-44d1-bfd1-ac09e6be8fd4/78633381-8c01-4d4b-a090-7f4f003f5831"
       (reference "J?") (unit 1) (value "VHF_AM_OFF-TR-DF") (footprint "")
@@ -454,7 +451,7 @@
       (reference "J?") (unit 1) (value "AUDIO_KEYPAD") (footprint "")
     )
     (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/87e62b2d-9993-45ce-ac7f-ce17d5d2294c"
-      (reference "J?") (unit 1) (value "Conn_01x08_Female") (footprint "")
+      (reference "J?") (unit 1) (value "UHF_ENC_2") (footprint "")
     )
     (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/8856575e-8047-4406-bce4-8e629e4c8adf"
       (reference "J?") (unit 1) (value "AUX_LIGHT") (footprint "")
@@ -486,14 +483,11 @@
     (path "/ba20fa06-a269-44d1-bfd1-ac09e6be8fd4/ba49cf10-1d52-48cf-aaa4-41a7021f354b"
       (reference "J?") (unit 1) (value "VHF_FM") (footprint "")
     )
-    (path "/23ecc1a5-1f7f-4289-ad8e-d84882446410/bc2ccccd-4568-4a04-8e09-95b8ba172df1"
-      (reference "J?") (unit 1) (value "Conn_01x08_Female") (footprint "")
-    )
     (path "/f23058ed-beb9-49f7-9b45-ffc0992a43a3/c6093d8c-445e-4960-a959-7129d3ab9534"
       (reference "J?") (unit 1) (value "AUX_LTG_ANALOG") (footprint "")
     )
     (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/cd1e2eb4-d7d7-404a-83c5-52b936ada22a"
-      (reference "J?") (unit 1) (value "Conn_01x08_Female") (footprint "")
+      (reference "J?") (unit 1) (value "UHF_ENC_1") (footprint "")
     )
     (path "/ed06a1a0-cff2-4015-8741-6cfacbcf7921/cea8cf3b-1c2a-40ea-bf7a-f45ff04d5211"
       (reference "J?") (unit 1) (value "SAS_ANALOG") (footprint "")
@@ -502,13 +496,13 @@
       (reference "J?") (unit 1) (value "INT_FM_VHF_UHF") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
     )
     (path "/05a64cc9-fc2f-4bd1-a464-3b0e549ec975/e6687852-c66c-4882-a393-68b298c747da"
-      (reference "J?") (unit 1) (value "Conn_01x10_Female") (footprint "")
+      (reference "J?") (unit 1) (value "INTERCOMM_ANALOG") (footprint "")
     )
     (path "/3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7/e8a46074-95ee-4b0e-a119-36c57663472b"
       (reference "J?") (unit 1) (value "UHF_MAIN") (footprint "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical")
     )
     (path "/0ee730a0-b302-4e1a-83ce-1194eaa9a6a3/e9557073-8ebd-419a-a553-5213e3ea803f"
-      (reference "J?") (unit 1) (value "VHF_AM") (footprint "")
+      (reference "J?") (unit 1) (value "VHF_FM") (footprint "")
     )
     (path "/ba20fa06-a269-44d1-bfd1-ac09e6be8fd4/fc8a91d4-ffc8-49fb-bf00-bea7a27cdaa1"
       (reference "J?") (unit 1) (value "VHF_FM") (footprint "")
