@@ -386,8 +386,29 @@
     (path "/c9891372-43c1-4b01-ab69-dd6292bfb766/fcacf413-2eb1-42f5-a349-feefc73a15b1"
       (reference "D?") (unit 1) (value "D") (footprint "Diode_THT:D_A-405_P7.62mm_Horizontal")
     )
+    (path "/5bd33fc4-a0d0-478b-b9ab-56fd65116cec/16a5ec5d-044e-44e9-9448-081462c920c3"
+      (reference "J?") (unit 1) (value "JAMMER") (footprint "")
+    )
+    (path "/c9891372-43c1-4b01-ab69-dd6292bfb766/73b96e81-7692-4f4c-9a22-93d93a1de987"
+      (reference "J?") (unit 1) (value "NMSP CMSP") (footprint "")
+    )
+    (path "/b3d4d52b-2b3e-4dbb-8e5e-8d372b4215e3/7629b59c-d548-427b-8be8-5dda9027a9fc"
+      (reference "J?") (unit 1) (value "UFC ROWS") (footprint "")
+    )
+    (path "/b3d4d52b-2b3e-4dbb-8e5e-8d372b4215e3/8e56209a-1cdb-44e0-a396-bd3e595cbff9"
+      (reference "J?") (unit 1) (value "UFC COLS") (footprint "")
+    )
     (path "/76d83e99-ed6f-4224-acbf-f2f4f0170bca/96bf7c89-1674-4789-bfbc-2a6db979de61"
       (reference "J?") (unit 1) (value "LANDING GEAR") (footprint "")
+    )
+    (path "/2a70b098-1f9b-40d3-95ba-631cf24db553/a7586a50-b4fb-4f33-8854-6d84cd93d170"
+      (reference "J?") (unit 1) (value "MASTER ARM") (footprint "")
+    )
+    (path "/76d83e99-ed6f-4224-acbf-f2f4f0170bca/cd259456-f8ad-4c4f-b18e-ceee55276b56"
+      (reference "J?") (unit 1) (value "LANDING GEALR") (footprint "")
+    )
+    (path "/8fedf5f3-aed2-4709-bee2-c084199d4472/ecda3592-ed98-4eba-a867-5db28576721c"
+      (reference "J?") (unit 1) (value "FIRE HANDLES") (footprint "")
     )
     (path "/76d83e99-ed6f-4224-acbf-f2f4f0170bca/a0258165-0095-4843-b182-66d57cff84de"
       (reference "K?") (unit 1) (value "ANIT-SKID") (footprint "Relay_THT:Relay_1P1T_NO_10x24x18.8mm_Panasonic_ADW11xxxxW_THT")
