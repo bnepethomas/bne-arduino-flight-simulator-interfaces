@@ -405,7 +405,7 @@
       (reference "J?") (unit 1) (value "MASTER ARM") (footprint "")
     )
     (path "/76d83e99-ed6f-4224-acbf-f2f4f0170bca/cd259456-f8ad-4c4f-b18e-ceee55276b56"
-      (reference "J?") (unit 1) (value "LANDING GEALR") (footprint "")
+      (reference "J?") (unit 1) (value "LANDING GEAR") (footprint "")
     )
     (path "/8fedf5f3-aed2-4709-bee2-c084199d4472/ecda3592-ed98-4eba-a867-5db28576721c"
       (reference "J?") (unit 1) (value "FIRE HANDLES") (footprint "")

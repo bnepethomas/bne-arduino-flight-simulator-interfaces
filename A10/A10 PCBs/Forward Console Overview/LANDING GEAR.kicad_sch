@@ -1018,7 +1018,7 @@
     (property "Reference" "J?" (id 0) (at 197.3072 47.1713 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "LANDING GEALR" (id 1) (at 197.3072 49.7082 0)
+    (property "Value" "LANDING GEAR" (id 1) (at 197.3072 49.7082 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (id 2) (at 196.596 46.736 0)
