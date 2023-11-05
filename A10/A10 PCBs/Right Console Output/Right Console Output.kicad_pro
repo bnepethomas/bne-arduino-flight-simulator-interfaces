@@ -471,6 +471,10 @@
     [
       "7e39a72f-b23e-4ad6-a9ba-6b6e32a6c887",
       "MAX7219A"
+    ],
+    [
+      "7cf61cf4-716f-4693-a178-8db6c02d6903",
+      "CHANGE LOG"
     ]
   ],
   "text_variables": {}

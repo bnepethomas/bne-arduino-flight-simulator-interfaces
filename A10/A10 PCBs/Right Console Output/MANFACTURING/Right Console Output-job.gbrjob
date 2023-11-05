@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "(6.0.7-1)-1"
     },
-    "CreationDate": "2023-10-29T12:02:16+10:00"
+    "CreationDate": "2023-11-05T11:58:31+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -42,26 +42,6 @@
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Right Console Output-F_Adhesive.gbr",
-      "FileFunction": "Glue,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Right Console Output-B_Adhesive.gbr",
-      "FileFunction": "Glue,Bot",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Right Console Output-F_Paste.gbr",
-      "FileFunction": "SolderPaste,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Right Console Output-B_Paste.gbr",
-      "FileFunction": "SolderPaste,Bot",
-      "FilePolarity": "Positive"
-    },
-    {
       "Path": "Right Console Output-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
@@ -82,38 +62,8 @@
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Right Console Output-User_Drawings.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Right Console Output-User_Comments.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Right Console Output-User_Eco1.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Right Console Output-User_Eco2.gbr",
-      "FileFunction": "Other,User",
-      "FilePolarity": "Positive"
-    },
-    {
       "Path": "Right Console Output-Edge_Cuts.gbr",
       "FileFunction": "Profile",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Right Console Output-F_Fab.gbr",
-      "FileFunction": "AssemblyDrawing,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Right Console Output-B_Fab.gbr",
-      "FileFunction": "AssemblyDrawing,Bot",
       "FilePolarity": "Positive"
     }
   ],

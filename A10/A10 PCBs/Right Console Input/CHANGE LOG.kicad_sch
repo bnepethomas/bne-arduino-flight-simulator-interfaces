@@ -1,0 +1,15 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid 6f205adc-a031-4084-8570-16cab315e329)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (text "20231105 V 1.1\nCHANGED RED AND GREEN LED PORTS" (at 29.972 24.384 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid ba1113ce-b02b-467d-9982-8141674be441)
+  )
+)
