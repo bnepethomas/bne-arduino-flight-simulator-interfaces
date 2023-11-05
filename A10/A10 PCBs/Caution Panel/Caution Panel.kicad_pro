@@ -366,7 +366,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "specctra_dsn": "",
+      "specctra_dsn": "Caution Panel.dsn",
       "step": "",
       "vrml": ""
     },
@@ -410,6 +410,11 @@
     "subpart_first_id": 65,
     "subpart_id_separator": 0
   },
-  "sheets": [],
+  "sheets": [
+    [
+      "fd288bb2-3efa-453d-852c-3375eecdd0b8",
+      ""
+    ]
+  ],
   "text_variables": {}
 }
