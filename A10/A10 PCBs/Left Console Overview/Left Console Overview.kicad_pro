@@ -480,6 +480,10 @@
     [
       "e1f4e057-24c1-4cbb-b368-30b1f66d6dcf",
       "AUDIO_KEYPAD"
+    ],
+    [
+      "1a979dbb-d6ab-47ce-a104-e076ea72f824",
+      "INTERCOMM_CHANGE_LOG"
     ]
   ],
   "text_variables": {}

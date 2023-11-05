@@ -1,0 +1,15 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid 64d742c3-a74b-44e2-b032-2bf96a318591)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (text "V 1.1 Added Switches for pots" (at 26.67 26.162 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 4fafaf58-aecc-4240-a67c-08a900492742)
+  )
+)

@@ -1,0 +1,44 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid 5afc249d-f476-4da3-ac91-086c12132e13)
+
+  (paper "A4")
+
+  (title_block
+    (title "F16-LHS-REAR")
+    (date "2023-09-17")
+  )
+
+  (lib_symbols
+  )
+
+
+  (text "Checklist\nPicture of Panel \nUse CAPS and hyphens for naming\nUnique Row Columns prefixed by Panel Name\n12V backlighting - 4 connectors\nServos, steppers\nPopulate Spreadsheet\nGet DCS-BIOS variable\nMounting holes\nName on PCB\nVersion on title block and PCB\n"
+    (at 220.345 84.455 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 58a50635-5a48-42aa-9b4d-0f466c47ea00)
+  )
+
+  (sheet (at 31.242 22.86) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid f2ddbd52-fa78-4233-911a-945eed6a90dd)
+    (property "Sheet name" "AIR COND" (id 0) (at 31.242 22.1484 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "AIR COND.kicad_sch" (id 1) (at 31.242 27.2546 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+    (path "/f2ddbd52-fa78-4233-911a-945eed6a90dd" (page "2"))
+  )
+
+  (symbol_instances
+    (path "/f2ddbd52-fa78-4233-911a-945eed6a90dd/5deed3d8-c359-4651-a076-46e2f957d7f9"
+      (reference "SW?") (unit 1) (value "SW_Rotary2x6") (footprint "")
+    )
+  )
+)
