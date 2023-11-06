@@ -1,0 +1,139 @@
+
+(session "Potentiometer Mount Type 2.ses"
+  (base_design "Potentiometer Mount Type 2.dsn")
+  (placement
+    (resolution um 10)
+    (component Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical
+      (place SW1 1437640 -701190 front 0)
+    )
+    (component "Connector_Molex:Molex_KK-254_AE-6410-05A_1x05_P2.54mm_Vertical"
+      (place J1 1513840 -737870 front 0)
+    )
+    (component Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical::1
+      (place RV1 1387240 -701190 front 0)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version "(6.0.11-0)")
+    )
+    (library_out 
+      (padstack "Via[0-1]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net /+5V
+        (wire
+          (path F.Cu 2500
+            1387240 -701190
+            1398993 -701190
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1398993 -701190
+            1410746 -712943
+            1488913 -712943
+            1513840 -737870
+          )
+        )
+      )
+      (net /ANALOG_GND
+        (wire
+          (path B.Cu 2500
+            1539240 -737870
+            1527287 -737870
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1387240 -751990
+            1398993 -751990
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1398993 -751990
+            1411159 -764156
+            1510713 -764156
+            1527287 -747582
+            1527287 -737870
+          )
+        )
+      )
+      (net /ANALOG_IN
+        (wire
+          (path B.Cu 2500
+            1398993 -726590
+            1410781 -714802
+            1535595 -714802
+            1552687 -731894
+            1552687 -737870
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1564640 -737870
+            1552687 -737870
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1387240 -726590
+            1398993 -726590
+          )
+        )
+      )
+      (net /SWITCH_COL
+        (wire
+          (path B.Cu 2500
+            1590040 -737870
+            1578087 -737870
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1578087 -737870
+            1578087 -731894
+            1547383 -701190
+            1437640 -701190
+          )
+        )
+      )
+      (net /SWITCH_ROW
+        (wire
+          (path F.Cu 2500
+            1437640 -751990
+            1449393 -751990
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1615440 -737870
+            1603487 -737870
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1603487 -737870
+            1603487 -743846
+            1594415 -752918
+            1450321 -752918
+            1449393 -751990
+          )
+        )
+      )
+    )
+  )
+)
