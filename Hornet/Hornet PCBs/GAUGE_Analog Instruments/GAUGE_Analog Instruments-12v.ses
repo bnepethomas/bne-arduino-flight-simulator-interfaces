@@ -1,0 +1,181 @@
+
+(session "GAUGE_Analog Instruments-12v.ses"
+  (base_design "GAUGE_Analog Instruments-12v.dsn")
+  (placement
+    (resolution um 10)
+    (component MountingHole:MountingHole_2.5mm
+      (place H3 1799378 -784846 front 0)
+      (place H1 1593843 -1068680 front 0)
+      (place H2 2004913 -1068680 front 0)
+    )
+    (component "KiCAD Libraries:VID29-02"
+      (place M1 1801028 -968680 front 0)
+    )
+    (component Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical
+      (place J2 1855305 -777176 front 0)
+    )
+    (component Connector_PinHeader_2.54mm:PinHeader_2x01_P2.54mm_Vertical
+      (place J1 1956905 -1057896 front 270)
+    )
+    (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal
+      (place R1 1697755 -799346 front 0)
+    )
+    (component LED_THT:LED_D3.0mm
+      (place D1 1632905 -789846 back 0)
+    )
+    (component LED_THT:LED_D3.0mm::1
+      (place D2 1997905 -789846 back 0)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version "(6.0.11-0)")
+    )
+    (library_out 
+      (padstack "Via[0-1]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net /COIL2
+        (wire
+          (path B.Cu 2500
+            1855305 -802576
+            1855305 -837003
+            1685128 -1007180
+          )
+        )
+      )
+      (net /COIL1
+        (wire
+          (path B.Cu 2500
+            1855305 -788929
+            1851631 -788929
+            1839049 -801511
+            1839049 -815829
+            1724698 -930180
+            1685128 -930180
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1855305 -777176
+            1855305 -788929
+          )
+        )
+      )
+      (net /COIL4
+        (wire
+          (path B.Cu 2500
+            1880705 -777176
+            1880705 -788929
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1880705 -788929
+            1884378 -788929
+            1913628 -818179
+            1913628 -930180
+          )
+        )
+      )
+      (net /COIL3
+        (wire
+          (path B.Cu 2500
+            1913628 -1007180
+            1880705 -974257
+            1880705 -802576
+          )
+        )
+      )
+      (net "Net-(D1-Pad2)"
+        (wire
+          (path F.Cu 2500
+            1997905 -789846
+            1985652 -789846
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1985652 -789846
+            1985652 -785251
+            1977878 -777477
+            1942364 -777477
+            1897453 -822388
+            1756452 -822388
+            1711656 -777592
+            1619759 -777592
+            1607505 -789846
+          )
+        )
+      )
+      (net /LED+12V
+        (wire
+          (path F.Cu 2500
+            1956905 -1057896
+            1945152 -1057896
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1972505 -789846
+            1902245 -860106
+            1902245 -1014989
+            1945152 -1057896
+          )
+        )
+      )
+      (net "/LED-12V"
+        (wire
+          (path F.Cu 2500
+            1956905 -1083296
+            1956905 -1071543
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1697755 -799346
+            1709192 -799346
+            1832914 -923068
+            1832914 -955632
+            1948825 -1071543
+            1956905 -1071543
+          )
+        )
+      )
+      (net "Net-(D1-Pad1)"
+        (wire
+          (path B.Cu 2500
+            1748555 -799346
+            1738302 -799346
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1632905 -789846
+            1645158 -789846
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1645158 -789846
+            1645911 -789093
+            1728049 -789093
+            1738302 -799346
+          )
+        )
+      )
+    )
+  )
+)
