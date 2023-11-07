@@ -19,6 +19,30 @@
     (uuid 58a50635-5a48-42aa-9b4d-0f466c47ea00)
   )
 
+  (sheet (at 31.496 32.512) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 6f005d07-bd77-4b2b-84b5-edd6d9351cb3)
+    (property "Sheet name" "ZEROIZE" (id 0) (at 31.496 31.8004 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "ZEROIZE.kicad_sch" (id 1) (at 31.496 36.9066 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 31.496 41.91) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid a6efb000-9fd3-4dc1-8eda-aaf31421826b)
+    (property "Sheet name" "ANTIICE" (id 0) (at 31.496 41.1984 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "ANITICE.kicad_sch" (id 1) (at 31.496 46.3046 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
   (sheet (at 31.242 22.86) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
@@ -34,11 +58,55 @@
   (sheet_instances
     (path "/" (page "1"))
     (path "/f2ddbd52-fa78-4233-911a-945eed6a90dd" (page "2"))
+    (path "/6f005d07-bd77-4b2b-84b5-edd6d9351cb3" (page "3"))
+    (path "/a6efb000-9fd3-4dc1-8eda-aaf31421826b" (page "4"))
   )
 
   (symbol_instances
+    (path "/a6efb000-9fd3-4dc1-8eda-aaf31421826b/20e6a891-3080-4610-8845-7d56c9408266"
+      (reference "D?") (unit 1) (value "D") (footprint "")
+    )
+    (path "/f2ddbd52-fa78-4233-911a-945eed6a90dd/32a86ab1-0245-48e6-a33b-10e6ec000b8a"
+      (reference "D?") (unit 1) (value "D") (footprint "")
+    )
+    (path "/a6efb000-9fd3-4dc1-8eda-aaf31421826b/56b9d29a-5463-41b9-a84d-1327a211ba97"
+      (reference "D?") (unit 1) (value "D") (footprint "")
+    )
+    (path "/6f005d07-bd77-4b2b-84b5-edd6d9351cb3/6638c3b1-07d8-4f05-85d1-8ee9d3eee410"
+      (reference "D?") (unit 1) (value "D") (footprint "")
+    )
+    (path "/a6efb000-9fd3-4dc1-8eda-aaf31421826b/72deb9d4-b0f7-46ad-b1db-6089ea3f1a7c"
+      (reference "D?") (unit 1) (value "D") (footprint "")
+    )
+    (path "/6f005d07-bd77-4b2b-84b5-edd6d9351cb3/948bdc70-8f21-4eb4-bcc5-ecc3e332258b"
+      (reference "D?") (unit 1) (value "D") (footprint "")
+    )
+    (path "/a6efb000-9fd3-4dc1-8eda-aaf31421826b/4a3b0899-0c1c-41c8-8d8f-543f84dd30e9"
+      (reference "J?") (unit 1) (value "Conn_01x06_Female") (footprint "")
+    )
+    (path "/6f005d07-bd77-4b2b-84b5-edd6d9351cb3/c620277c-6cd2-4770-8f30-f1b35740712f"
+      (reference "J?") (unit 1) (value "ZEROIZE") (footprint "")
+    )
+    (path "/f2ddbd52-fa78-4233-911a-945eed6a90dd/e3adf60f-92f0-465b-b517-ff4676ffc83a"
+      (reference "J?") (unit 1) (value "AIR COND") (footprint "")
+    )
+    (path "/a6efb000-9fd3-4dc1-8eda-aaf31421826b/0f30b84b-d998-4167-b789-9c3345ffa95b"
+      (reference "SW?") (unit 1) (value "IFF") (footprint "")
+    )
+    (path "/a6efb000-9fd3-4dc1-8eda-aaf31421826b/16f3df8a-0a3f-4962-9890-5b584c8ee35c"
+      (reference "SW?") (unit 1) (value "UHF") (footprint "")
+    )
+    (path "/6f005d07-bd77-4b2b-84b5-edd6d9351cb3/3ac69991-a96c-4f3e-b262-d2b94f44e949"
+      (reference "SW?") (unit 1) (value "VOICE MESSAGE") (footprint "")
+    )
     (path "/f2ddbd52-fa78-4233-911a-945eed6a90dd/5deed3d8-c359-4651-a076-46e2f957d7f9"
       (reference "SW?") (unit 1) (value "SW_Rotary2x6") (footprint "")
+    )
+    (path "/a6efb000-9fd3-4dc1-8eda-aaf31421826b/64295a8e-745c-4ba5-b7c6-b1b8aa97219a"
+      (reference "SW?") (unit 1) (value "ENGINE") (footprint "")
+    )
+    (path "/6f005d07-bd77-4b2b-84b5-edd6d9351cb3/8d6eb24b-6eb7-4f2a-b243-5536a5fe0166"
+      (reference "SW?") (unit 1) (value "ZEROIZE") (footprint "")
     )
   )
 )
