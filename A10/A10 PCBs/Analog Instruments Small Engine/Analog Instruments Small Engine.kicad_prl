@@ -36,6 +36,7 @@
       8,
       9,
       10,
+      11,
       13,
       14,
       15,
@@ -64,7 +65,7 @@
     "zone_display_mode": 0
   },
   "meta": {
-    "filename": "GAUGE_Analog Instruments.kicad_prl",
+    "filename": "Analog Instruments Small Engine.kicad_prl",
     "version": 3
   },
   "project": {

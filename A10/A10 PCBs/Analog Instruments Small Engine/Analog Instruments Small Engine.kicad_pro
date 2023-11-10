@@ -2,7 +2,7 @@
   "board": {
     "design_settings": {
       "defaults": {
-        "board_outline_line_width": 0.09999999999999999,
+        "board_outline_line_width": 0.049999999999999996,
         "copper_line_width": 0.19999999999999998,
         "copper_text_italic": false,
         "copper_text_size_h": 1.5,
@@ -26,18 +26,18 @@
         "fab_text_size_v": 1.0,
         "fab_text_thickness": 0.15,
         "fab_text_upright": false,
-        "other_line_width": 0.15,
+        "other_line_width": 0.09999999999999999,
         "other_text_italic": false,
         "other_text_size_h": 1.0,
         "other_text_size_v": 1.0,
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.762,
-          "height": 1.524,
-          "width": 1.524
+          "drill": 2.2,
+          "height": 2.2,
+          "width": 2.2
         },
-        "silk_line_width": 0.15,
+        "silk_line_width": 0.12,
         "silk_text_italic": false,
         "silk_text_size_h": 1.0,
         "silk_text_size_v": 1.0,
@@ -45,12 +45,13 @@
         "silk_text_upright": false,
         "zones": {
           "45_degree_only": false,
-          "min_clearance": 0.508
+          "min_clearance": 0.0
         }
       },
       "diff_pair_dimensions": [],
       "drc_exclusions": [],
       "meta": {
+        "filename": "board_design_settings.json",
         "version": 2
       },
       "rule_severities": {
@@ -93,12 +94,14 @@
         "zone_has_empty_net": "error",
         "zones_intersect": "error"
       },
+      "rule_severitieslegacy_courtyards_overlap": true,
+      "rule_severitieslegacy_no_courtyard_defined": false,
       "rules": {
         "allow_blind_buried_vias": false,
         "allow_microvias": false,
         "max_error": 0.005,
         "min_clearance": 0.0,
-        "min_copper_edge_clearance": 0.01,
+        "min_copper_edge_clearance": 0.024999999999999998,
         "min_hole_clearance": 0.25,
         "min_hole_to_hole": 0.25,
         "min_microvia_diameter": 0.19999999999999998,
@@ -108,11 +111,15 @@
         "min_track_width": 0.19999999999999998,
         "min_via_annular_width": 0.049999999999999996,
         "min_via_diameter": 0.39999999999999997,
-        "solder_mask_clearance": 0.0,
-        "solder_mask_min_width": 0.0,
         "use_height_for_length_calcs": true
       },
-      "track_widths": [],
+      "track_widths": [
+        0.0,
+        0.3048,
+        0.6096,
+        1.2192,
+        1.6256
+      ],
       "via_dimensions": [],
       "zones_allow_external_fillets": false,
       "zones_use_no_outline": true
@@ -333,7 +340,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "RIGHT CONSOLE OVERVIEW.kicad_pro",
+    "filename": "Analog Instruments Small Engine.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -366,8 +373,8 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "specctra_dsn": "F16-LHS-REAR.dsn",
-      "step": "",
+      "specctra_dsn": "GAUGE_Analog Instruments.dsn",
+      "step": "GAUGE_Analog Instruments.step",
       "vrml": ""
     },
     "page_layout_descr_file": ""
@@ -403,7 +410,7 @@
       "model_mode": 0,
       "workbook_filename": ""
     },
-    "page_layout_descr_file": "",
+    "page_layout_descr_file": "${KICAD_USER_OH_TEMPLATES}/Open_hornet_frame.kicad_wks",
     "plot_directory": "",
     "spice_adjust_passive_values": false,
     "spice_external_command": "spice \"%I\"",
@@ -412,44 +419,8 @@
   },
   "sheets": [
     [
-      "5afc249d-f476-4da3-ac91-086c12132e13",
+      "73b32b5d-03c1-4da0-86a6-bf0e6feee74d",
       ""
-    ],
-    [
-      "f2ddbd52-fa78-4233-911a-945eed6a90dd",
-      "AIR COND"
-    ],
-    [
-      "6f005d07-bd77-4b2b-84b5-edd6d9351cb3",
-      "ZEROIZE"
-    ],
-    [
-      "a6efb000-9fd3-4dc1-8eda-aaf31421826b",
-      "ANTIICE"
-    ],
-    [
-      "f528b09d-f8e7-42ab-9779-64d2e7f7099a",
-      "SENSOR POWER"
-    ],
-    [
-      "1e8b0c1f-f163-4fb2-9d50-8d3dbac91507",
-      "LIGHTING"
-    ],
-    [
-      "f3ce07bd-0f74-4aa3-8628-8e51f7c1f46d",
-      "NUCLEAR"
-    ],
-    [
-      "3a3e7674-391e-4901-9d5e-551577fa591d",
-      "HUD"
-    ],
-    [
-      "e60f7c3e-b551-4e4f-a849-698218cf2b85",
-      "AVIONICS POWER"
-    ],
-    [
-      "9c5566ef-dc15-4f0f-a6a3-559fdca2372c",
-      "KY58"
     ]
   ],
   "text_variables": {}
