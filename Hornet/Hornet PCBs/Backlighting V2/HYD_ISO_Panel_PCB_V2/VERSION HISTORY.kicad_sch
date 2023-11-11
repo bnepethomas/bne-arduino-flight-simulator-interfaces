@@ -1,0 +1,16 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid 4744cd70-0d6b-47c4-8775-4894a2b8080c)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (text "1.1 Added mounting holes, changed power connectors to 2.54mm KK Molex"
+    (at 37.084 37.084 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 43cd4197-b843-41f0-a735-e8d79f945b30)
+  )
+)
