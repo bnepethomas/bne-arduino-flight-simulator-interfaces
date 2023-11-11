@@ -1,5 +1,5 @@
 
-(rules PCB GAUGE_Analog Instruments
+(rules PCB Simmeters Small Engine Replacement
   (snap_angle 
     fortyfive_degree
   )
@@ -11,18 +11,18 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 42)
+    (start_pass_no 37)
     (layer_rule F.Cu
-      (active on)
-      (preferred_direction horizontal)
-      (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.2)
-    )
-    (layer_rule B.Cu
       (active on)
       (preferred_direction vertical)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 1.8)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
     )
   )
   (rule
@@ -53,8 +53,7 @@
     "kicad_default" "Via[0-1]_800:400_um-kicad_default"
   )
   (class default
-    GND "/ZERO_DETECT" /COIL2 /COIL1 /COIL4 /COIL3 "Net-(D1-Pad1)" "Net-(D1-Pad2)"
-    "/BACKLIGHT_GND" "/BACKLIGHT_+12V" /5V
+    /COIL2 /COIL1 /COIL4 /COIL3 "Net-(D1-Pad1)" "Net-(D1-Pad2)" "/BACKLIGHT_GND" "/BACKLIGHT_+12V"
     (clearance_class default)
     (via_rule default)
     (rule

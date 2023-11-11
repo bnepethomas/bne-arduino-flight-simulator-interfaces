@@ -463,7 +463,7 @@
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid 56c692e4-8a3e-4b30-8701-b9055a86cca4)
     (property "Reference" "R1" (id 0) (at 101.854 72.7542 90))
-    (property "Value" "R" (id 1) (at 101.854 75.2911 90))
+    (property "Value" "470" (id 1) (at 101.854 75.2911 90))
     (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical" (id 2) (at 101.854 79.248 90)
       (effects (font (size 1.27 1.27)) hide)
     )
@@ -545,7 +545,7 @@
       (reference "M1") (unit 1) (value "VID29-02") (footprint "Stepper:VID29-05P")
     )
     (path "/56c692e4-8a3e-4b30-8701-b9055a86cca4"
-      (reference "R1") (unit 1) (value "R") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical")
+      (reference "R1") (unit 1) (value "470") (footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical")
     )
   )
 )
