@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "(6.0.7-1)-1"
     },
-    "CreationDate": "2023-10-30T16:23:40+10:00"
+    "CreationDate": "2023-11-12T08:24:24+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -39,26 +39,6 @@
     {
       "Path": "HYD ISO Panel PCB V2-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "HYD ISO Panel PCB V2-F_Adhesive.gbr",
-      "FileFunction": "Glue,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "HYD ISO Panel PCB V2-B_Adhesive.gbr",
-      "FileFunction": "Glue,Bot",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "HYD ISO Panel PCB V2-F_Paste.gbr",
-      "FileFunction": "SolderPaste,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "HYD ISO Panel PCB V2-B_Paste.gbr",
-      "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {
