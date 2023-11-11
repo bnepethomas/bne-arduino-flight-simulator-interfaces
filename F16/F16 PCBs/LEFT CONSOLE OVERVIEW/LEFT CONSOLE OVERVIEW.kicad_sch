@@ -19,38 +19,50 @@
     (uuid 58a50635-5a48-42aa-9b4d-0f466c47ea00)
   )
 
-  (sheet (at 61.595 160.02) (size 12.7 3.81) (fields_autoplaced)
+  (sheet (at 37.592 155.956) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
     (uuid 1349dc03-b36b-48f4-9b9a-2e4615f7fb5b)
-    (property "Sheet name" "Test" (id 0) (at 61.595 159.3084 0)
+    (property "Sheet name" "Test" (id 0) (at 37.592 155.2444 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "Test.kicad_sch" (id 1) (at 61.595 164.4146 0)
+    (property "Sheet file" "Test.kicad_sch" (id 1) (at 37.592 160.3506 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
 
-  (sheet (at 142.24 158.75) (size 12.7 3.81) (fields_autoplaced)
+  (sheet (at 140.462 64.262) (size 12.7 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
     (uuid 671a2bb8-6643-4b54-b216-63c9c09df70e)
-    (property "Sheet name" "MANUAL-TRIM" (id 0) (at 142.24 158.0384 0)
+    (property "Sheet name" "MANUAL-TRIM" (id 0) (at 140.462 63.5504 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "MANUAL-TRIM.kicad_sch" (id 1) (at 142.24 163.1446 0)
+    (property "Sheet file" "MANUAL-TRIM.kicad_sch" (id 1) (at 140.462 68.6566 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
 
-  (sheet (at 93.98 159.385) (size 14.605 3.81) (fields_autoplaced)
+  (sheet (at 69.977 155.321) (size 14.605 3.81) (fields_autoplaced)
     (stroke (width 0.1524) (type solid) (color 0 0 0 0))
     (fill (color 0 0 0 0.0000))
     (uuid 93c6e81e-bb16-43e1-af30-16c142ac2247)
-    (property "Sheet name" "FLIGHT-CONTROL" (id 0) (at 93.98 158.6734 0)
+    (property "Sheet name" "FLIGHT-CONTROL" (id 0) (at 69.977 154.6094 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheet file" "FLIGHT-CONTROL.kicad_sch" (id 1) (at 93.98 163.7796 0)
+    (property "Sheet file" "FLIGHT-CONTROL.kicad_sch" (id 1) (at 69.977 159.7156 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 37.338 23.114) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid c68ee87d-1f9d-4b21-a23f-cb5b3892be88)
+    (property "Sheet name" "MANUAL PITCH" (id 0) (at 37.338 22.4024 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "MANUAL PITCH.kicad_sch" (id 1) (at 37.338 27.5086 0)
       (effects (font (size 1.27 1.27)) (justify left top))
     )
   )
@@ -60,6 +72,7 @@
     (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b" (page "2"))
     (path "/93c6e81e-bb16-43e1-af30-16c142ac2247" (page "3"))
     (path "/671a2bb8-6643-4b54-b216-63c9c09df70e" (page "4"))
+    (path "/c68ee87d-1f9d-4b21-a23f-cb5b3892be88" (page "5"))
   )
 
   (symbol_instances
@@ -123,6 +136,9 @@
     (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/89fa2dfa-dd31-44e9-8b95-be0d2faecd33"
       (reference "D20") (unit 1) (value "FAIL") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
     )
+    (path "/c68ee87d-1f9d-4b21-a23f-cb5b3892be88/1bd5cbd6-a2f4-4175-af22-791eb42243a7"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
     (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/cc818cd8-8115-45a4-9305-f55599a746b3"
       (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
     )
@@ -164,6 +180,9 @@
     )
     (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/98662793-8f5f-41a3-bcf4-8783f28973e3"
       (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/c68ee87d-1f9d-4b21-a23f-cb5b3892be88/e3acb2cf-89a2-471a-8ed4-3e2bc59c7258"
+      (reference "J?") (unit 1) (value "MANUAL PITCH") (footprint "")
     )
     (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/3858811f-e6ff-40d6-9bbd-38e682ebab62"
       (reference "M?") (unit 1) (value "Stepper_Motor_bipolar") (footprint "PT_Library_v001:Molex_1x04_P2.54mm_Vertical")
@@ -218,6 +237,9 @@
     )
     (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/02c06b8f-95c7-4493-97ac-956a6b22537a"
       (reference "SW?") (unit 1) (value "AP-DISC") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/c68ee87d-1f9d-4b21-a23f-cb5b3892be88/a6f5c254-eb12-4e0a-871c-c7725c381457"
+      (reference "SW?") (unit 1) (value "MANUAL PITCH") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
     )
   )
 )
