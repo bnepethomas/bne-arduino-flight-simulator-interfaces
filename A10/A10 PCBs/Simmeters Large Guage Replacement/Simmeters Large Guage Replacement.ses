@@ -1,0 +1,167 @@
+
+(session "Simmeters Small Engine Replacement.ses"
+  (base_design "Simmeters Small Engine Replacement.dsn")
+  (placement
+    (resolution um 10)
+    (component "Stepper:VID29-05P"
+      (place M1 1800155 -940119 front 0)
+    )
+    (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical
+      (place R1 1920155 -1174396 front 270)
+    )
+    (component "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
+      (place J1 1736355 -1186646 front 0)
+    )
+    (component LED_THT:LED_D3.0mm
+      (place D2 1610105 -806146 back 0)
+    )
+    (component LED_THT:LED_D3.0mm::1
+      (place D1 2016655 -806846 back 0)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version "(6.0.7-1)-1")
+    )
+    (library_out 
+      (padstack "Via[0-1]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net /COIL2
+        (wire
+          (path F.Cu 2500
+            1761755 -1186646
+            1749802 -1186646
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1749802 -1186646
+            1749802 -1174693
+            1685755 -1110646
+            1685755 -978619
+          )
+        )
+      )
+      (net /COIL1
+        (wire
+          (path B.Cu 2500
+            1685755 -901619
+            1737668 -953532
+            1737668 -1185333
+            1736355 -1186646
+          )
+        )
+      )
+      (net /COIL4
+        (wire
+          (path F.Cu 2500
+            1812555 -1186646
+            1812555 -1040353
+            1893682 -959226
+            1893682 -922192
+            1914255 -901619
+          )
+        )
+      )
+      (net /COIL3
+        (wire
+          (path F.Cu 2500
+            1787155 -1186646
+            1799108 -1186646
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1799108 -1186646
+            1799108 -1192622
+            1807447 -1200961
+            1817526 -1200961
+            1825255 -1193232
+            1825255 -1179501
+            1914255 -1090501
+            1914255 -978619
+          )
+        )
+      )
+      (net "Net-(D1-Pad1)"
+        (wire
+          (path B.Cu 2500
+            2016655 -806846
+            2004402 -806846
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            2004402 -806846
+            2004402 -811441
+            1996539 -819304
+            1975958 -819304
+            1950546 -793892
+            1596959 -793892
+            1584705 -806146
+          )
+        )
+      )
+      (net "Net-(D1-Pad2)"
+        (wire
+          (path F.Cu 2500
+            1991255 -806846
+            1991255 -1122296
+            1920155 -1193396
+          )
+        )
+      )
+      (net /BACKLIGHT_GND
+        (wire
+          (path B.Cu 2500
+            1610105 -806146
+            1610105 -818399
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1610105 -818399
+            1618529 -818399
+            1762042 -961912
+            1762042 -1109790
+            1825255 -1173003
+            1825255 -1193214
+            1833015 -1200974
+            1849027 -1200974
+            1863355 -1186646
+          )
+        )
+      )
+      (net /BACKLIGHT_+12V
+        (wire
+          (path B.Cu 2500
+            1837955 -1186646
+            1849908 -1186646
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1849908 -1186646
+            1849908 -1180669
+            1858205 -1172372
+            1918131 -1172372
+            1920155 -1174396
+          )
+        )
+      )
+    )
+  )
+)
