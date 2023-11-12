@@ -244,11 +244,33 @@ void SetBrightness(int Brightness) {
 #define STEPS 720  // steps per revolution (limited to 315°)
 
 
+// Works but slow max speed of 30
+// #define COIL_RIGHT_HYD_A1 23
+// #define COIL_RIGHT_HYD_A2 25
+// #define COIL_RIGHT_HYD_A3 27
+// #define COIL_RIGHT_HYD_A4 29
+// //  stepperSTANDBY_ALT.setMaxSpeed(30);
+
+// Works but slow max speed of 30
+// #define COIL_RIGHT_HYD_A1 25
+// #define COIL_RIGHT_HYD_A2 23
+// #define COIL_RIGHT_HYD_A3 27
+// #define COIL_RIGHT_HYD_A4 29
+
+// Works but slow max speed of 30
+
+// If the stepper is incorrectly configured it will chatter above
+// rates of more than 30 steps per minute, if when correctly 
+// configured speeds can exceed 2300
 
 #define COIL_RIGHT_HYD_A1 23
-#define COIL_RIGHT_HYD_A2 25
-#define COIL_RIGHT_HYD_A3 27
-#define COIL_RIGHT_HYD_A4 28
+#define COIL_RIGHT_HYD_A2 27
+#define COIL_RIGHT_HYD_A3 25
+#define COIL_RIGHT_HYD_A4 29
+// #define STEPPER_MAX_SPEED 900
+#define STEPPER_MAX_SPEED 8300
+#define STEPPER_ACCELERATION 2000
+
 
 AccelStepper stepperSTANDBY_ALT(AccelStepper::FULL4WIRE, COIL_RIGHT_HYD_A1, COIL_RIGHT_HYD_A2, COIL_RIGHT_HYD_A3, COIL_RIGHT_HYD_A4);
 
@@ -287,7 +309,7 @@ void setup() {
 
 
 
-  if (false) {
+  if (true) {
       // Initialise the Max7219
       devices = lc.getDeviceCount();
 
@@ -302,7 +324,7 @@ void setup() {
 
 
       AllOn();
-      delay(2000);
+      delay(5000);
 
 
       // Slowly Dim the Leds
@@ -338,17 +360,29 @@ void setup() {
   SendDebug("Starting Motor Initialisation");
 
 
-
-  stepperSTANDBY_ALT.setSpeed(60);
-  stepperSTANDBY_ALT.move(500);
+  stepperSTANDBY_ALT.setMaxSpeed(STEPPER_MAX_SPEED);
+  //stepperSTANDBY_ALT.setSpeed(600);
+  stepperSTANDBY_ALT.setAcceleration(STEPPER_ACCELERATION);
+  stepperSTANDBY_ALT.move(4000);
+  SendDebug("step A");
   while (stepperSTANDBY_ALT.distanceToGo() != 0) {
     stepperSTANDBY_ALT.run();
+    // SendDebug("Steps to Go :" + String(stepperSTANDBY_ALT.distanceToGo()));
   }
-  for (int i = 0; i <= 2000; i++) {
-    delay(1);
-    stepperSTANDBY_ALT.move(1);
+  SendDebug("step B");
+  stepperSTANDBY_ALT.move(-4000);
+  SendDebug("step A");
+  while (stepperSTANDBY_ALT.distanceToGo() != 0) {
     stepperSTANDBY_ALT.run();
+    // SendDebug("Steps to Go :" + String(stepperSTANDBY_ALT.distanceToGo()));
   }
+  SendDebug("step B");
+
+  // for (int i = 0; i <= 2000; i++) {
+  //   delay(1);
+  //   stepperSTANDBY_ALT.move(1);
+  //   stepperSTANDBY_ALT.run();
+  // }
 
   SendDebug("End Motor Initialisation");
 }
