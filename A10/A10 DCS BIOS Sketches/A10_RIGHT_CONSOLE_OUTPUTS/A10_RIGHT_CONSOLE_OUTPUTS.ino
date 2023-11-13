@@ -125,29 +125,40 @@ LedControl lc = LedControl(16, 14, 15, devices);
 /* paste code snippets from the reference documentation here */
 //DcsBios::Switch2Pos lightsTestSw("LIGHTS_TEST_SW", 22);
 //DcsBios::LED sjCtrLt(0x742e, 0x4000, 13);
-// CHIP U1 (C)
-#define SELECT_JET_PANEL 2
-#define AOA 2  // NOT DONE
-#define MASTER_ARM 2
+// CHIP Max7219-A
+#define UPPER_CAUTION_PANEL 0
 
-// CHIP U2 (A)
-#define LEFT_EWI 0
-#define UFC_PANEL 0
-#define BIT_LED 0
-#define LEFT_DIS 0  // CHECK IF NEEDED
-#define Bit_led 0   // Bit Test Ledt HUD BOX
-
-#define LEFT_GEAR_COL_A 2
-#define LEFT_GEAR_ROW_A 1
-#define LEFT_GEAR_COL_B 1
-#define LEFT_GEAR_ROW_B 2
+// CHIP MAX7219-B
+#define LOWER_CAUTION_PANEL 1
 
 
-void onFlpLgRightGearLtChange(unsigned int newValue) {
-  lc.setLed(SELECT_JET_PANEL, LEFT_GEAR_COL_A, LEFT_GEAR_ROW_A, newValue);
-  lc.setLed(SELECT_JET_PANEL, LEFT_GEAR_COL_B, LEFT_GEAR_ROW_B, newValue);
+#define ENG_START_CYCLE_COL_A 0
+#define ENG_START_CYCLE_ROW_A 1
+#define ENG_START_CYCLE_COL_B 0
+#define ENG_START_CYCLE_ROW_B 2
+void setLEDEngStartcycle(unsigned int newValue) {
+  lc.setLed(UPPER_CAUTION_PANEL, ENG_START_CYCLE_COL_A, ENG_START_CYCLE_ROW_A, newValue);
+  lc.setLed(UPPER_CAUTION_PANEL, ENG_START_CYCLE_COL_B, ENG_START_CYCLE_ROW_B, newValue);
 }
-DcsBios::IntegerBuffer flpLgRightGearLtBuffer(0x7430, 0x2000, 13, onFlpLgRightGearLtChange);
+
+#define L_HYD_PRESS_COL_A 0
+#define L_HYD_PRESS_ROW_A 3
+#define L_HYD_PRESS_COL_B 0
+#define L_HYD_PRESS_ROW_B 4
+void setLEDLeftHydPress(unsigned int newValue) {
+  lc.setLed(UPPER_CAUTION_PANEL, L_HYD_PRESS_COL_A, L_HYD_PRESS_ROW_A, newValue);
+  lc.setLed(UPPER_CAUTION_PANEL, L_HYD_PRESS_COL_B, L_HYD_PRESS_ROW_B, newValue);
+}
+
+
+
+
+
+// void onFlpLgRightGearLtChange(unsigned int newValue) {
+//   lc.setLed(SELECT_JET_PANEL, LEFT_GEAR_COL_A, LEFT_GEAR_ROW_A, newValue);
+//   lc.setLed(SELECT_JET_PANEL, LEFT_GEAR_COL_B, LEFT_GEAR_ROW_B, newValue);
+// }
+// DcsBios::IntegerBuffer flpLgRightGearLtBuffer(0x7430, 0x2000, 13, onFlpLgRightGearLtChange);
 
 void onWarnCautionDimmerChange(unsigned int newValue) {
 
@@ -348,7 +359,7 @@ void setup() {
 
 
 
-  if (false) {
+  if (true) {
     // Initialise the Max7219
     devices = lc.getDeviceCount();
 
@@ -489,22 +500,27 @@ void setup() {
     SendDebug("End Stepper LOX");
   }
 
-  SendDebug("Start Stepper Cabin Press");
-  STEPPER_CABIN_PRESS.setMaxSpeed(STEPPER_MAX_SPEED);
-  STEPPER_CABIN_PRESS.setAcceleration(STEPPER_ACCELERATION);
-  STEPPER_CABIN_PRESS.move(4000);
-  while (STEPPER_CABIN_PRESS.distanceToGo() != 0) {
-    STEPPER_CABIN_PRESS.run();
-  }
-  STEPPER_CABIN_PRESS.move(-4000);
-  while (STEPPER_CABIN_PRESS.distanceToGo() != 0) {
-    STEPPER_CABIN_PRESS.run();
-  }
-  SendDebug("End Stepper Cabin Press");
 
+  if (false) {
+    SendDebug("Start Stepper Cabin Press");
+    STEPPER_CABIN_PRESS.setMaxSpeed(STEPPER_MAX_SPEED);
+    STEPPER_CABIN_PRESS.setAcceleration(STEPPER_ACCELERATION);
+    STEPPER_CABIN_PRESS.move(4000);
+    while (STEPPER_CABIN_PRESS.distanceToGo() != 0) {
+      STEPPER_CABIN_PRESS.run();
+    }
+    STEPPER_CABIN_PRESS.move(-4000);
+    while (STEPPER_CABIN_PRESS.distanceToGo() != 0) {
+      STEPPER_CABIN_PRESS.run();
+    }
+    SendDebug("End Stepper Cabin Press");
+  }
 
 
   SendDebug("End Motor Initialisation");
+
+  //s etLEDEngStartcycle(1);
+  setLEDLeftHydPress(1);
 }
 
 void loop() {
