@@ -279,16 +279,41 @@ void SetBrightness(int Brightness) {
 #define COIL_LEFT_FUEL_A3 32
 #define COIL_LEFT_FUEL_A4 36
 
+#define COIL_RIGHT_FUEL_A1 31
+#define COIL_RIGHT_FUEL_A2 35
+#define COIL_RIGHT_FUEL_A3 33
+#define COIL_RIGHT_FUEL_A4 37
+
+#define COIL_OXY_REG_A1 38
+#define COIL_OXY_REG_A2 42
+#define COIL_OXY_REG_A3 40
+#define COIL_OXY_REG_A4 44
+
+#define COIL_LOX_A1 39
+#define COIL_LOX_A2 43
+#define COIL_LOX_A3 41
+#define COIL_LOX_A4 45
+
+// Pins are slighty Reversed when compared to steppers on Expansion connection
+#define COIL_CABIN_PRESS_A1 9
+#define COIL_CABIN_PRESS_A2 7
+#define COIL_CABIN_PRESS_A3 8
+#define COIL_CABIN_PRESS_A4 6
+
 
 // #define STEPPER_MAX_SPEED 900
 #define STEPPER_MAX_SPEED 8300
 #define STEPPER_ACCELERATION 2000
 
-
-AccelStepper STEPPER_RIGHT_HYD(AccelStepper::FULL4WIRE, COIL_RIGHT_HYD_A1, COIL_RIGHT_HYD_A2, COIL_RIGHT_HYD_A3, COIL_RIGHT_HYD_A4);
 AccelStepper STEPPER_LEFT_HYD(AccelStepper::FULL4WIRE, COIL_LEFT_HYD_A1, COIL_LEFT_HYD_A2, COIL_LEFT_HYD_A3, COIL_LEFT_HYD_A4);
+AccelStepper STEPPER_RIGHT_HYD(AccelStepper::FULL4WIRE, COIL_RIGHT_HYD_A1, COIL_RIGHT_HYD_A2, COIL_RIGHT_HYD_A3, COIL_RIGHT_HYD_A4);
 AccelStepper STEPPER_LEFT_FUEL(AccelStepper::FULL4WIRE, COIL_LEFT_FUEL_A1, COIL_LEFT_FUEL_A2, COIL_LEFT_FUEL_A3, COIL_LEFT_FUEL_A4);
-// ###################################### Begin Servo Related #############################
+AccelStepper STEPPER_RIGHT_FUEL(AccelStepper::FULL4WIRE, COIL_RIGHT_FUEL_A1, COIL_RIGHT_FUEL_A2, COIL_RIGHT_FUEL_A3, COIL_RIGHT_FUEL_A4);
+AccelStepper STEPPER_OXY_REG(AccelStepper::FULL4WIRE, COIL_OXY_REG_A1, COIL_OXY_REG_A2, COIL_OXY_REG_A3, COIL_OXY_REG_A4);
+AccelStepper STEPPER_LOX(AccelStepper::FULL4WIRE, COIL_LOX_A1, COIL_LOX_A2, COIL_LOX_A3, COIL_LOX_A4);
+AccelStepper STEPPER_CABIN_PRESS(AccelStepper::FULL4WIRE, COIL_CABIN_PRESS_A1, COIL_CABIN_PRESS_A2, COIL_CABIN_PRESS_A3, COIL_CABIN_PRESS_A4);
+
+// ###################################### End Stepper Related #############################
 
 
 
@@ -375,7 +400,6 @@ void setup() {
 
   if (false) {
     STEPPER_RIGHT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
-    //stepperSTANDBY_ALT.setSpeed(600);
     STEPPER_RIGHT_HYD.setAcceleration(STEPPER_ACCELERATION);
     STEPPER_RIGHT_HYD.move(4000);
     SendDebug("Start Stepper Right Hyd");
@@ -389,19 +413,94 @@ void setup() {
     SendDebug("End Stepper Right Hyd");
   }
 
-  STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
-  //stepperSTANDBY_ALT.setSpeed(600);
-  STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
-  STEPPER_LEFT_HYD.move(4000);
-  SendDebug("Start Stepper Left Hyd");
-  while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
-    STEPPER_LEFT_HYD.run();
+  if (false) {
+    SendDebug("Start Stepper Left Hyd");
+    STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
+    STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
+    STEPPER_LEFT_HYD.move(4000);
+
+    while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
+      STEPPER_LEFT_HYD.run();
+    }
+    STEPPER_LEFT_HYD.move(-4000);
+    while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
+      STEPPER_LEFT_HYD.run();
+    }
+    SendDebug("End Stepper Left Hyd");
   }
-  STEPPER_LEFT_HYD.move(-4000);
-  while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
-    STEPPER_LEFT_HYD.run();
+
+  if (false) {
+    SendDebug("Start Stepper Left Fuel");
+    STEPPER_LEFT_FUEL.setMaxSpeed(STEPPER_MAX_SPEED);
+    STEPPER_LEFT_FUEL.setAcceleration(STEPPER_ACCELERATION);
+    STEPPER_LEFT_FUEL.move(4000);
+    while (STEPPER_LEFT_FUEL.distanceToGo() != 0) {
+      STEPPER_LEFT_FUEL.run();
+    }
+    STEPPER_LEFT_FUEL.move(-4000);
+    while (STEPPER_LEFT_FUEL.distanceToGo() != 0) {
+      STEPPER_LEFT_FUEL.run();
+    }
+    SendDebug("End Stepper Left Fuel");
   }
-  SendDebug("End Stepper Left Hyd");
+
+  if (false) {
+    SendDebug("Start Stepper Right Fuel");
+    STEPPER_RIGHT_FUEL.setMaxSpeed(STEPPER_MAX_SPEED);
+    STEPPER_RIGHT_FUEL.setAcceleration(STEPPER_ACCELERATION);
+    STEPPER_RIGHT_FUEL.move(4000);
+    while (STEPPER_RIGHT_FUEL.distanceToGo() != 0) {
+      STEPPER_RIGHT_FUEL.run();
+    }
+    STEPPER_RIGHT_FUEL.move(-4000);
+    while (STEPPER_RIGHT_FUEL.distanceToGo() != 0) {
+      STEPPER_RIGHT_FUEL.run();
+    }
+    SendDebug("End Stepper Right Fuel");
+  }
+
+  if (false) {
+    SendDebug("Start Stepper OXY REG");
+    STEPPER_OXY_REG.setMaxSpeed(STEPPER_MAX_SPEED);
+    STEPPER_OXY_REG.setAcceleration(STEPPER_ACCELERATION);
+    STEPPER_OXY_REG.move(4000);
+    while (STEPPER_OXY_REG.distanceToGo() != 0) {
+      STEPPER_OXY_REG.run();
+    }
+    STEPPER_OXY_REG.move(-4000);
+    while (STEPPER_OXY_REG.distanceToGo() != 0) {
+      STEPPER_OXY_REG.run();
+    }
+    SendDebug("End Stepper OXY REG");
+  }
+
+  if (false) {
+    SendDebug("Start Stepper LOX");
+    STEPPER_LOX.setMaxSpeed(STEPPER_MAX_SPEED);
+    STEPPER_LOX.setAcceleration(STEPPER_ACCELERATION);
+    STEPPER_LOX.move(4000);
+    while (STEPPER_LOX.distanceToGo() != 0) {
+      STEPPER_LOX.run();
+    }
+    STEPPER_LOX.move(-4000);
+    while (STEPPER_LOX.distanceToGo() != 0) {
+      STEPPER_LOX.run();
+    }
+    SendDebug("End Stepper LOX");
+  }
+
+  SendDebug("Start Stepper Cabin Press");
+  STEPPER_CABIN_PRESS.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_CABIN_PRESS.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_CABIN_PRESS.move(4000);
+  while (STEPPER_CABIN_PRESS.distanceToGo() != 0) {
+    STEPPER_CABIN_PRESS.run();
+  }
+  STEPPER_CABIN_PRESS.move(-4000);
+  while (STEPPER_CABIN_PRESS.distanceToGo() != 0) {
+    STEPPER_CABIN_PRESS.run();
+  }
+  SendDebug("End Stepper Cabin Press");
 
 
 
