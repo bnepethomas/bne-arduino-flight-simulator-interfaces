@@ -260,20 +260,34 @@ void SetBrightness(int Brightness) {
 // Works but slow max speed of 30
 
 // If the stepper is incorrectly configured it will chatter above
-// rates of more than 30 steps per minute, if when correctly 
+// rates of more than 30 steps per minute, if when correctly
 // configured speeds can exceed 2300
+
+
+#define COIL_LEFT_HYD_A1 22
+#define COIL_LEFT_HYD_A2 26
+#define COIL_LEFT_HYD_A3 24
+#define COIL_LEFT_HYD_A4 28
 
 #define COIL_RIGHT_HYD_A1 23
 #define COIL_RIGHT_HYD_A2 27
 #define COIL_RIGHT_HYD_A3 25
 #define COIL_RIGHT_HYD_A4 29
+
+#define COIL_LEFT_FUEL_A1 30
+#define COIL_LEFT_FUEL_A2 34
+#define COIL_LEFT_FUEL_A3 32
+#define COIL_LEFT_FUEL_A4 36
+
+
 // #define STEPPER_MAX_SPEED 900
 #define STEPPER_MAX_SPEED 8300
 #define STEPPER_ACCELERATION 2000
 
 
-AccelStepper stepperSTANDBY_ALT(AccelStepper::FULL4WIRE, COIL_RIGHT_HYD_A1, COIL_RIGHT_HYD_A2, COIL_RIGHT_HYD_A3, COIL_RIGHT_HYD_A4);
-
+AccelStepper STEPPER_RIGHT_HYD(AccelStepper::FULL4WIRE, COIL_RIGHT_HYD_A1, COIL_RIGHT_HYD_A2, COIL_RIGHT_HYD_A3, COIL_RIGHT_HYD_A4);
+AccelStepper STEPPER_LEFT_HYD(AccelStepper::FULL4WIRE, COIL_LEFT_HYD_A1, COIL_LEFT_HYD_A2, COIL_LEFT_HYD_A3, COIL_LEFT_HYD_A4);
+AccelStepper STEPPER_LEFT_FUEL(AccelStepper::FULL4WIRE, COIL_LEFT_FUEL_A1, COIL_LEFT_FUEL_A2, COIL_LEFT_FUEL_A3, COIL_LEFT_FUEL_A4);
 // ###################################### Begin Servo Related #############################
 
 
@@ -309,41 +323,41 @@ void setup() {
 
 
 
-  if (true) {
-      // Initialise the Max7219
-      devices = lc.getDeviceCount();
+  if (false) {
+    // Initialise the Max7219
+    devices = lc.getDeviceCount();
 
-      for (int address = 0; address < devices; address++) {
-        /*The MAX72XX is in power-saving mode on startup*/
-        lc.shutdown(address, false);
-        /* Set the brightness to a medium values */
-        lc.setIntensity(address, 8);
-        /* and clear the display */
-        lc.clearDisplay(address);
-      }
-
-
-      AllOn();
-      delay(5000);
-
-
-      // Slowly Dim the Leds
-      for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
-        analogWrite(FORMATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-        analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-        analogWrite(NVG_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-        analogWrite(FLOOD_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-        analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-        analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-        SetBrightness(Local_Brightness);
-
-        delay(300);
-      }
-
-      // Turn off All Leds and set to mid brightness
-      AllOff();
-      SetBrightness(8);
+    for (int address = 0; address < devices; address++) {
+      /*The MAX72XX is in power-saving mode on startup*/
+      lc.shutdown(address, false);
+      /* Set the brightness to a medium values */
+      lc.setIntensity(address, 8);
+      /* and clear the display */
+      lc.clearDisplay(address);
     }
+
+
+    AllOn();
+    delay(5000);
+
+
+    // Slowly Dim the Leds
+    for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
+      analogWrite(FORMATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      analogWrite(NVG_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      analogWrite(FLOOD_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      SetBrightness(Local_Brightness);
+
+      delay(300);
+    }
+
+    // Turn off All Leds and set to mid brightness
+    AllOff();
+    SetBrightness(8);
+  }
 
   digitalWrite(RED_STATUS_LED_PORT, true);
   digitalWrite(GREEN_STATUS_LED_PORT, true);
@@ -359,30 +373,37 @@ void setup() {
 
   SendDebug("Starting Motor Initialisation");
 
+  if (false) {
+    STEPPER_RIGHT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
+    //stepperSTANDBY_ALT.setSpeed(600);
+    STEPPER_RIGHT_HYD.setAcceleration(STEPPER_ACCELERATION);
+    STEPPER_RIGHT_HYD.move(4000);
+    SendDebug("Start Stepper Right Hyd");
+    while (STEPPER_RIGHT_HYD.distanceToGo() != 0) {
+      STEPPER_RIGHT_HYD.run();
+    }
+    STEPPER_RIGHT_HYD.move(-4000);
+    while (STEPPER_RIGHT_HYD.distanceToGo() != 0) {
+      STEPPER_RIGHT_HYD.run();
+    }
+    SendDebug("End Stepper Right Hyd");
+  }
 
-  stepperSTANDBY_ALT.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
   //stepperSTANDBY_ALT.setSpeed(600);
-  stepperSTANDBY_ALT.setAcceleration(STEPPER_ACCELERATION);
-  stepperSTANDBY_ALT.move(4000);
-  SendDebug("step A");
-  while (stepperSTANDBY_ALT.distanceToGo() != 0) {
-    stepperSTANDBY_ALT.run();
-    // SendDebug("Steps to Go :" + String(stepperSTANDBY_ALT.distanceToGo()));
+  STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_LEFT_HYD.move(4000);
+  SendDebug("Start Stepper Left Hyd");
+  while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
+    STEPPER_LEFT_HYD.run();
   }
-  SendDebug("step B");
-  stepperSTANDBY_ALT.move(-4000);
-  SendDebug("step A");
-  while (stepperSTANDBY_ALT.distanceToGo() != 0) {
-    stepperSTANDBY_ALT.run();
-    // SendDebug("Steps to Go :" + String(stepperSTANDBY_ALT.distanceToGo()));
+  STEPPER_LEFT_HYD.move(-4000);
+  while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
+    STEPPER_LEFT_HYD.run();
   }
-  SendDebug("step B");
+  SendDebug("End Stepper Left Hyd");
 
-  // for (int i = 0; i <= 2000; i++) {
-  //   delay(1);
-  //   stepperSTANDBY_ALT.move(1);
-  //   stepperSTANDBY_ALT.run();
-  // }
+
 
   SendDebug("End Motor Initialisation");
 }
