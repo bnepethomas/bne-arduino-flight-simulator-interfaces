@@ -162,7 +162,7 @@ void setLEDRightHydPress(unsigned int newValue) {
 #define GUN_UNSAFE_COL_A 0
 #define GUN_UNSAFE_ROW_A 7
 #define GUN_UNSAFE_COL_B 0
-#define GUN_UNSAFE_ROW_B 8
+#define GUN_UNSAFE_ROW_B 0
 void setLEDGunUnsafe(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, GUN_UNSAFE_COL_A, GUN_UNSAFE_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, GUN_UNSAFE_COL_B, GUN_UNSAFE_ROW_B, newValue);
@@ -225,7 +225,7 @@ void setLEDSeatNotArmed(unsigned int newValue) {
 #define BLEED_AIR_LEAK_COL_A 2
 #define BLEED_AIR_LEAK_ROW_A 7
 #define BLEED_AIR_LEAK_COL_B 2
-#define BLEED_AIR_LEAK_ROW_B 8
+#define BLEED_AIR_LEAK_ROW_B 0
 void setLEDBleedAirLeak(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, BLEED_AIR_LEAK_COL_A, BLEED_AIR_LEAK_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, BLEED_AIR_LEAK_COL_B, BLEED_AIR_LEAK_ROW_B, newValue);
@@ -261,7 +261,7 @@ void setLEDRAilTab(unsigned int newValue) {
 #define SERVICE_AIR_HOT_COL_A 3
 #define SERVICE_AIR_HOT_ROW_A 7
 #define SERVICE_AIR_HOT_COL_B 3
-#define SERVICE_AIR_HOT_ROW_B 8
+#define SERVICE_AIR_HOT_ROW_B 0
 void setLEDServiceAirHot(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, SERVICE_AIR_HOT_COL_A, SERVICE_AIR_HOT_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, SERVICE_AIR_HOT_COL_B, SERVICE_AIR_HOT_ROW_B, newValue);
@@ -297,7 +297,7 @@ void setLEDREngHot(unsigned int newValue) {
 #define WINDSCREEN_HOT_COL_A 4
 #define WINDSCREEN_HOT_ROW_A 7
 #define WINDSCREEN_HOT_COL_B 4
-#define WINDSCREEN_HOT_ROW_B 8
+#define WINDSCREEN_HOT_ROW_B 0
 void setLEDWindscreenHot(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, WINDSCREEN_HOT_COL_A, WINDSCREEN_HOT_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, WINDSCREEN_HOT_COL_B, WINDSCREEN_HOT_ROW_B, newValue);
@@ -334,7 +334,7 @@ void setLEDREngOilPress(unsigned int newValue) {
 #define CICU_COL_A 5
 #define CICU_ROW_A 7
 #define CICU_COL_B 5
-#define CICU_ROW_B 8
+#define CICU_ROW_B 0
 void setLEDCicu(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, CICU_COL_A, CICU_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, CICU_COL_B, CICU_ROW_B, newValue);
@@ -370,7 +370,7 @@ void setLEDRMainPump(unsigned int newValue) {
 #define L_AIL_COL_A 6
 #define L_AIL_ROW_A 7
 #define L_AIL_COL_B 6
-#define L_AIL_ROW_B 8
+#define L_AIL_ROW_B 0
 void setLEDLAil(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, L_AIL_COL_A, L_AIL_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, L_AIL_COL_B, L_AIL_ROW_B, newValue);
@@ -408,7 +408,7 @@ void setLEDRWingPump(unsigned int newValue) {
 #define HARS_COL_A 7
 #define HARS_ROW_A 7
 #define HARS_COL_B 7
-#define HARS_ROW_B 8
+#define HARS_ROW_B 0
 void setLEDHars(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, HARS_COL_A, HARS_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, HARS_COL_B, HARS_ROW_B, newValue);
@@ -444,7 +444,7 @@ void setLEDRMainFuelLow(unsigned int newValue) {
 #define L_R_TKS_UNEQUAL_COL_A 0
 #define L_R_TKS_UNEQUAL_ROW_A 7
 #define L_R_TKS_UNEQUAL_COL_B 0
-#define L_R_TKS_UNEQUAL_ROW_B 8
+#define L_R_TKS_UNEQUAL_ROW_B 0
 void setLEDLRTksUnequal(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, L_R_TKS_UNEQUAL_COL_A, L_R_TKS_UNEQUAL_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, L_R_TKS_UNEQUAL_COL_B, L_R_TKS_UNEQUAL_ROW_B, newValue);
@@ -480,7 +480,7 @@ void setLEDRFuelPress(unsigned int newValue) {
 #define NAV_COL_A 1
 #define NAV_ROW_A 7
 #define NAV_COL_B 1
-#define NAV_ROW_B 8
+#define NAV_ROW_B 0
 void setLEDNav(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, NAV_COL_A, NAV_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, NAV_COL_B, NAV_ROW_B, newValue);
@@ -517,7 +517,7 @@ void setLEDRConv(unsigned int newValue) {
 #define CADC_COL_A 2
 #define CADC_ROW_A 7
 #define CADC_COL_B 2
-#define CADC_ROW_B 8
+#define CADC_ROW_B 0
 void setLEDCadc(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, CADC_COL_A, CADC_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, CADC_COL_B, CADC_ROW_B, newValue);
@@ -553,7 +553,7 @@ void setLEDRGen(unsigned int newValue) {
 #define INST_INV_COL_A 3
 #define INST_INV_ROW_A 7
 #define INST_INV_COL_B 3
-#define INST_INV_ROW_B 8
+#define INST_INV_ROW_B 0
 void setLEDInstInv(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, INST_INV_COL_A, INST_INV_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, INST_INV_COL_B, INST_INV_ROW_B, newValue);
@@ -565,46 +565,46 @@ void  Ledcycle(){
   //setLEDRGen(1);
   //setLEDLGen(1);
   //setLEDApuGen(1);
-  //setLEDCadc(1);
+  setLEDCadc(1);
   //setLEDRConv(1);
   //setLEDLConv(1);
   //setLEDStallSys(1);
-  //setLEDNav(1);
+  setLEDNav(1);
   //setLEDRFuelPress(1);
   //setLEDLFuelPress(1);
   //setLEDEac(1);
-  //setLEDLRTksUnequal(1);
+  setLEDLRTksUnequal(1);
   //setLEDRMainFuelLow(1);
   //setLEDLMainFuelLow(1);
   //setLEDIffMode4(1);
-  //setLEDHars(1);
+  setLEDHars(1);
   //setLEDRWingPump(1);
   //setLEDLWingPump(1);
   //setLEDLaste(1);
-  //SetLEDLAil(1);
+  setLEDLAil(1);
   //setLEDRMainPump(1);
   //setLEDLMainPump(1);
   //setLEDGcas(1);
-  //setLEDCicu(1);
+  setLEDCicu(1);
   //setLEDREngOilPress(1);
   //setLEDLEngOilPress(1);
   //setLEDYawSas(1);
-  //setLEDWindscreenHot(1);
+  setLEDWindscreenHot(1);
   //setLEDREngHot(1);
   //setLEDLEngHot(1);
   //SetLEDPitchSas(1);
-  //setLEDServiceAirHot(1);
+  setLEDServiceAirHot(1);
   //setLEDRAilTab(1);
   //setLEDLAilTab(1);
   //setLEDAilDiseng(1);
-  //setLEDBleedAirLeak(1);
+  setLEDBleedAirLeak(1);
   //setLEDSeatNotArmed(1);
   //setLEDElevDiseng(1);
-  //setLEDOxyLow(1);
+  setLEDOxyLow(1);
   //setLEDRHydRes(1);
   //setLEDLHydRes(1);
   //setLEDAntiSkid(1);
-  //setLEDGunUnsafe(1);
+  setLEDGunUnsafe(1);
   //setLEDRightHydPress(1);
   //setLEDLeftHydPress(1);
   //setLEDEngStartcycle(1);
