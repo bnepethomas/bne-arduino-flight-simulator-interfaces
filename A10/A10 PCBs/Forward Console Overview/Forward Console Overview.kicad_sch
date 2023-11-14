@@ -12,6 +12,10 @@
   )
 
 
+  (text "ADD LED DISTRIBUTION BOARD" (at 93.726 80.518 0)
+    (effects (font (size 3 3)) (justify left bottom))
+    (uuid 54ff57ff-7ede-49ac-b3da-e5953b46f740)
+  )
   (text "Use a common PCB for left and right inputs?\nHoles to hold the Mega to larger PCB\nAdd Ethernet Module\ngo for 99*99mm board\nAnalog and encoders add\nDual Max 7219 for caution panel"
     (at 44.45 48.26 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
@@ -20,6 +24,11 @@
   (text "* Indicates a PWM-capable pin" (at 177.8 180.34 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid c364973a-9a67-4667-8185-a3a5c6c6cbdf)
+  )
+  (text "CHECK FOR SEAT INPUTS - MAY ADD TO LEFT CONSOLE INPUT"
+    (at 45.974 88.646 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid caaa20a5-71b3-4fe3-9879-815a4196c9e9)
   )
   (text "PCB CHECKLIST\nCOMPARE AGAINST MANUAL IMAGE\nBLOCK ALLOCATED IN SPREADSHEET\nSWITCH, ROTARY AND ANALOG\nLED RELAY/HIGH VOLTAGE\nEDESIGN READINESS CHECKS\nCONNECTORS SYNCHED WITH PRIMARY PCB\n"
     (at 188.976 67.564 0)
