@@ -43,9 +43,9 @@
 
 
 
-int Ethernet_In_Use = 0;  
-int Reflector_In_Use = 0;
-#define DCSBIOS_In_Use 0
+int Ethernet_In_Use = 1;
+int Reflector_In_Use = 1;
+#define DCSBIOS_In_Use 1
 #define MSFS_In_Use 0  // Used to interface into MSFS - set to 0 if not in use
 
 // Used to Distinguish between the left, front, and right inputs
@@ -380,53 +380,74 @@ void sendToDcsBiosMessage(const char *msg, const char *arg) {
 void CreateDcsBiosMessage(int ind, int state) {
 
 
+  // Generally one of the following type of commands will be used
+  //  Send a messgae to DCS BIOS
+  //  sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
+  //
+  //  or send a character to the Leonardo which converts it into a keystroke
+  //  SendIPString("LCTRL LSHIFT P");
+  //
+  //  or a combination of
+  // Special Case for Magnetic Switches Canopy Open
+  //  if (Ethernet_In_Use == 1) {
+  //    SendIPString("LCTRL LSHIFT F9");
+  //  } else {
+  //   sendToDcsBiosMessage("CANOPY_SW", "2");
+  // }
+  //
+  // If multiple commands or characters are to be sent it is generally a good idea
+  // to use a state machine with timers
+  //  sendToDcsBiosMessage("RADAR_SW_PULL", "1");
+  //  RadarFollowupTask = true;
+  //  TimeRadarOn = millis() + RadarMoveTime;
+  //  break;
+  //
+  //
+  //  Additionally commands can be sent to MSFS
+  //    SendMSFSMessage(int ind, int state)
+
+
   switch (state) {
 
     // RELEASE
     case 0:
       switch (ind) {
 
+        // Release
         case 0:
-          sendToDcsBiosMessage("FLIR_SW", "1");
           break;
         case 1:
           break;
         case 2:
           break;
         case 3:
-          SendIPString("LCTRL LSHIFT P");
           break;
         case 4:
-          // Needed to Toggle HUD only view off
-          SendIPString("LALT F1");
           break;
         case 5:
-          SendIPString("LSHIFT Z");
           break;
         case 6:
           break;
         case 7:
           break;
+        // Release
         case 8:
           break;
         case 9:
-          sendToDcsBiosMessage("HOOK_LEVER", "1");
           break;
         case 10:
-          sendToDcsBiosMessage("WING_FOLD_ROTATE", "1");
           break;
         case 11:
-          sendToDcsBiosMessage("FLIR_SW", "1");
           break;
         case 12:
           break;
         case 13:
           break;
         case 14:
-          SendIPString("ESC");
           break;
         case 15:
           break;
+        // Release
         case 16:
           break;
         case 17:
@@ -436,16 +457,14 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 19:
           break;
         case 20:
-          sendToDcsBiosMessage("WING_FOLD_ROTATE", "1");
           break;
         case 21:
-          sendToDcsBiosMessage("AV_COOL_SW", "1");
           break;
         case 22:
-          sendToDcsBiosMessage("LTD_R_SW", "2");
           break;
         case 23:
           break;
+        // Release
         case 24:
           break;
         case 25:
@@ -461,17 +480,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 30:
           break;
         case 31:
-          sendToDcsBiosMessage("WING_FOLD_PULL", "1");
           break;
+        // Release
         case 32:
           break;
         case 33:
-          sendToDcsBiosMessage("LST_NFLR_SW", "0");
           break;
         case 34:
-          sendToDcsBiosMessage("RADAR_SW_PULL", "1");
-          TimeRadarOn = millis() + RadarMoveTime;
-          RadarPushFollowupTask = true;
           break;
         case 35:
           break;
@@ -483,15 +498,14 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 39:
           break;
+        // Release
         case 40:
           break;
         case 41:
           break;
         case 42:
-          sendToDcsBiosMessage("L_GEN_SW", "1");  //1
           break;
         case 43:
-          sendToDcsBiosMessage("BATTERY_SW", "1");
           break;
         case 44:
           break;
@@ -500,8 +514,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 46:
           break;
         case 47:
-          SendIPString("LWIN F1");
           break;
+        // Release
         case 48:
           break;
         case 49:
@@ -513,19 +527,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 52:
           break;
         case 53:
-          sendToDcsBiosMessage("R_GEN_SW", "1");
           break;
         case 54:
-          sendToDcsBiosMessage("BATTERY_SW", "1");
           break;
         case 55:
           break;
+        // Release
         case 56:
           break;
         case 57:
           break;
         case 58:
-          SendIPString("LWIN F1");
           break;
         case 59:
           break;
@@ -537,6 +549,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 63:
           break;
+        // Release
         case 64:
           break;
         case 65:
@@ -553,6 +566,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 71:
           break;
+        // Release
         case 72:
           break;
         case 73:
@@ -569,6 +583,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 79:
           break;
+        // Release
         case 80:
           break;
         case 81:
@@ -585,29 +600,24 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 87:
           break;
+        // Release
         case 88:
-          sendToDcsBiosMessage("LIGHTS_TEST_SW", "0");
           break;
         case 89:
-          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
           break;
         case 90:
-          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "1");
           break;
         case 91:
-          sendToDcsBiosMessage("ECS_MODE_SW", "1");
           break;
         case 92:
-          sendToDcsBiosMessage("CABIN_PRESS_SW", "1");
           break;
         case 93:
-          sendToDcsBiosMessage("PITOT_HEAT_SW", "0");
           break;
         case 94:
           break;
         case 95:
-          sendToDcsBiosMessage("RADALT_TEST_SW", "0");
           break;
+        // Release
         case 96:
           break;
         case 97:
@@ -617,17 +627,15 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 99:
           break;
         case 100:
-          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
+          sendToDcsBiosMessage("AAP_STEER", "1");
           break;
         case 101:
-          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "1");
           break;
         case 102:
-          sendToDcsBiosMessage("ECS_MODE_SW", "1");
           break;
         case 103:
-          sendToDcsBiosMessage("CABIN_PRESS_SW", "1");
           break;
+        // Release
         case 104:
           break;
         case 105:
@@ -641,15 +649,15 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 109:
           break;
         case 110:
-          sendToDcsBiosMessage("CANOPY_SW", "1");
+          sendToDcsBiosMessage("AAP_CDUPWR", "0");
           break;
         case 111:
-          sendToDcsBiosMessage("CB_HOOOK", "1");
+          sendToDcsBiosMessage("AAP_STEER", "1");
           break;
+        // Release
         case 112:
           break;
         case 113:
-          sendToDcsBiosMessage("ENG_ANTIICE_SW", "1");
           break;
         case 114:
           break;
@@ -663,18 +671,17 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 119:
           break;
+        // Release
         case 120:
           break;
         case 121:
-          sendToDcsBiosMessage("CANOPY_SW", "1");
           break;
         case 122:
-          sendToDcsBiosMessage("CB_FCS_CHAN4", "1");
+          sendToDcsBiosMessage("AAP_EGIPWR", "0");
           break;
         case 123:
           break;
         case 124:
-          sendToDcsBiosMessage("ENG_ANTIICE_SW", "1");
           break;
         case 125:
           break;
@@ -682,6 +689,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 127:
           break;
+        // Release
         case 128:
           break;
         case 129:
@@ -691,16 +699,14 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 131:
           break;
         case 132:
-          sendToDcsBiosMessage("CB_FCS_CHAN3", "1");
           break;
         case 133:
-          sendToDcsBiosMessage("FCS_BIT_SW", "0");
           break;
         case 134:
-          sendToDcsBiosMessage("CB_LG", "1");
           break;
         case 135:
           break;
+        // Release
         case 136:
           break;
         case 137:
@@ -718,6 +724,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 143:
           break;
         case 144:
+          // Release
           break;
         case 145:
           break;
@@ -733,6 +740,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 151:
           break;
+        // Release
         case 152:
           break;
         case 153:
@@ -749,6 +757,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 159:
           break;
+        // Release
         case 160:
           break;
         case 161:
@@ -765,6 +774,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 167:
           break;
+        // Release
         case 168:
           break;
         case 169:
@@ -789,8 +799,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 179:
           break;
-        default:
-          break;
+          // End Release
       }
       break;
 
@@ -800,197 +809,143 @@ void CreateDcsBiosMessage(int ind, int state) {
 
       // PRESS - CLOSE
       switch (ind) {
+        // Close
         case 0:
-          sendToDcsBiosMessage("FLIR_SW", "2");
           break;
         case 1:
-          sendToDcsBiosMessage("RADAR_SW", "0");
           break;
         case 2:
-          sendToDcsBiosMessage("INS_SW", "0");  //OFF
           break;
         case 3:
-          SendIPString("LCTRL LSHIFT P");
           break;
         case 4:
-          SendIPString("LALT F1");
           break;
         case 5:
-          SendIPString("LCTRL Z");
           break;
         case 6:
           break;
         case 7:
-          sendToDcsBiosMessage("KY58_MODE_SELECT", "0");
           break;
+        // Close
         case 8:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "10");
           break;
         case 9:
-          sendToDcsBiosMessage("HOOK_LEVER", "0");
           break;
         case 10:
-          sendToDcsBiosMessage("WING_FOLD_ROTATE", "2");
           break;
-        // PRESS - CLOSE
         case 11:
-          sendToDcsBiosMessage("FLIR_SW", "0");
           break;
         case 12:
-          sendToDcsBiosMessage("RADAR_SW", "1");
           break;
         case 13:
-          sendToDcsBiosMessage("INS_SW", "1");  //CV
           break;
         case 14:
-          SendIPString("ESC");
           break;
         case 15:
-          SendIPString("F10");
           break;
+        // Close
         case 16:
           break;
         case 17:
           break;
         case 18:
-          sendToDcsBiosMessage("KY58_MODE_SELECT", "1");
           break;
         case 19:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "0");
           break;
         case 20:
-          sendToDcsBiosMessage("WING_FOLD_ROTATE", "0");
           break;
-        // PRESS - CLOSE
         case 21:
-          sendToDcsBiosMessage("AV_COOL_SW", "0");
           break;
         case 22:
-          // Special Case for Magnetic Switches LTD/R
-          if (Ethernet_In_Use == 1) {
-            SendIPString("LCTRL LSHIFT F3");
-          } else {
-            sendToDcsBiosMessage("LTD_R_SW", "0");
-          }
-
-
-
           break;
         case 23:
-          sendToDcsBiosMessage("RADAR_SW", "2");
           break;
+        // Close
         case 24:
-          sendToDcsBiosMessage("INS_SW", "2");  //GND
           break;
         case 25:
           break;
         case 26:
-          SendIPString("F1");
           break;
         case 27:
           break;
         case 28:
           break;
         case 29:
-          sendToDcsBiosMessage("KY58_MODE_SELECT", "2");
           break;
         case 30:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "1");
           break;
-        // PRESS - CLOSE
         case 31:
-          sendToDcsBiosMessage("WING_FOLD_PULL", "0");
           break;
+        // Close
         case 32:
           break;
         case 33:
-          sendToDcsBiosMessage("LST_NFLR_SW", "1");
           break;
         case 34:
-          sendToDcsBiosMessage("RADAR_SW_PULL", "1");
-          RadarFollowupTask = true;
-          TimeRadarOn = millis() + RadarMoveTime;
           break;
         case 35:
-          sendToDcsBiosMessage("INS_SW", "3");  //NAV
           break;
         case 36:
           break;
         case 37:
-          SendIPString("LCTRL F4");
           break;
         case 38:
           break;
         case 39:
           break;
+        // Close
         case 40:
-          sendToDcsBiosMessage("KY58_MODE_SELECT", "3");
           break;
-        // PRESS - CLOSE
         case 41:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "2");
           break;
         case 42:
-          sendToDcsBiosMessage("L_GEN_SW", "0");  //0
           break;
         case 43:
-          sendToDcsBiosMessage("BATTERY_SW", "2");
-
           break;
         case 44:
           break;
         case 45:
           break;
         case 46:
-          sendToDcsBiosMessage("INS_SW", "4");  //IFA
           break;
         case 47:
           break;
+        // Close
         case 48:
-          SendIPString("F2");
           break;
         case 49:
           break;
         case 50:
           break;
-        // PRESS - CLOSE
         case 51:
-          sendToDcsBiosMessage("KY58_POWER_SELECT", "0");
           break;
         case 52:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "3");
           break;
         case 53:
-
-          sendToDcsBiosMessage("R_GEN_SW", "0");
           break;
         case 54:
-          sendToDcsBiosMessage("BATTERY_SW", "0");
           break;
         case 55:
           break;
+        // Close
         case 56:
           break;
         case 57:
-          sendToDcsBiosMessage("INS_SW", "5");  //GYRO
           break;
         case 58:
-          SendIPString("NUM5");
           break;
         case 59:
-          SendIPString("F3");
           break;
         case 60:
           break;
-        // PRESS - CLOSE
         case 61:
           break;
         case 62:
-          sendToDcsBiosMessage("KY58_POWER_SELECT", "1");
           break;
         case 63:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "4");
           break;
+        // Close
         case 64:
           break;
         case 65:
@@ -1000,23 +955,19 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 67:
           break;
         case 68:
-          sendToDcsBiosMessage("INS_SW", "6");  //GB
           break;
         case 69:
           break;
         case 70:
-          SendIPString("F6");
           break;
-        // PRESS - CLOSE
         case 71:
           break;
+        // Close
         case 72:
           break;
         case 73:
-          sendToDcsBiosMessage("KY58_POWER_SELECT", "2");
           break;
         case 74:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "5");
           break;
         case 75:
           break;
@@ -1027,14 +978,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 78:
           break;
         case 79:
-          sendToDcsBiosMessage("INS_SW", "7");  //TEST
           break;
+        // Close
         case 80:
-          SendIPString("LSHIFT F10");
           break;
-        // PRESS - CLOSE
         case 81:
-          SendIPString("LCTRL F5");
           break;
         case 82:
           break;
@@ -1043,42 +991,29 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 84:
           break;
         case 85:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "6");
           break;
         case 86:
           break;
         case 87:
           break;
+        // Close
         case 88:
-          sendToDcsBiosMessage("LIGHTS_TEST_SW", "1");
           break;
         case 89:
-          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "2");
           break;
         case 90:
-          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "2");
           break;
-        // PRESS - CLOSE
         case 91:
-          sendToDcsBiosMessage("ECS_MODE_SW", "2");
           break;
         case 92:
-          sendToDcsBiosMessage("CABIN_PRESS_SW", "0");
           break;
         case 93:
-          // Special Case for Magnetic Switches Pitot
-          if (Ethernet_In_Use == 1) {
-            SendIPString("LCTRL LSHIFT F2");
-          } else {
-            sendToDcsBiosMessage("PITOT_HEAT_SW", "1");
-          }
           break;
         case 94:
-          sendToDcsBiosMessage("BLEED_AIR_KNOB", "3");
           break;
         case 95:
-          sendToDcsBiosMessage("RADALT_TEST_SW", "1");
           break;
+        // Close
         case 96:
           break;
         case 97:
@@ -1088,109 +1023,86 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 99:
           break;
         case 100:
-          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "0");
+          sendToDcsBiosMessage("AAP_STEER", "0");
           break;
-        // PRESS - CLOSE
         case 101:
-          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "0");
           break;
         case 102:
-          sendToDcsBiosMessage("ECS_MODE_SW", "0");
           break;
         case 103:
-          sendToDcsBiosMessage("CABIN_PRESS_SW", "2");
           break;
+        // Close
         case 104:
           break;
         case 105:
-          sendToDcsBiosMessage("BLEED_AIR_KNOB", "2");
           break;
         case 106:
           break;
         case 107:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "7");
           break;
         case 108:
           break;
         case 109:
           break;
         case 110:
-          // Special Case for Magnetic Switches Canopy Open
-          if (Ethernet_In_Use == 1) {
-            SendIPString("LCTRL LSHIFT F9");
-          } else {
-            sendToDcsBiosMessage("CANOPY_SW", "2");
-          }
-
+          sendToDcsBiosMessage("AAP_CDUPWR", "1");
           break;
-        // PRESS - CLOSE
         case 111:
-          sendToDcsBiosMessage("CB_HOOOK", "0");
+          sendToDcsBiosMessage("AAP_STEER", "2");
           break;
+        // Close
         case 112:
           break;
         case 113:
-          sendToDcsBiosMessage("ENG_ANTIICE_SW", "2");
           break;
         case 114:
           break;
         case 115:
           break;
         case 116:
-          sendToDcsBiosMessage("BLEED_AIR_KNOB", "1");
           break;
         case 117:
           break;
         case 118:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "8");
           break;
         case 119:
           break;
+        // Close
         case 120:
-          // PRESS - CLOSE
           break;
         case 121:
-          // On canopy down must hold switch even though it is a magnetic switch
-          sendToDcsBiosMessage("CANOPY_SW", "0");
-
           break;
         case 122:
-          sendToDcsBiosMessage("CB_FCS_CHAN4", "0");
+          sendToDcsBiosMessage("AAP_EGIPWR", "1");
           break;
         case 123:
           break;
         case 124:
-          sendToDcsBiosMessage("ENG_ANTIICE_SW", "0");
           break;
         case 125:
           break;
         case 126:
           break;
         case 127:
-          sendToDcsBiosMessage("BLEED_AIR_KNOB", "0");
           break;
+        // Close
         case 128:
           break;
         case 129:
           break;
         case 130:
           break;
-        // PRESS - CLOSE
         case 131:
           break;
         case 132:
-          sendToDcsBiosMessage("CB_FCS_CHAN3", "0");
-
           break;
         case 133:
-          sendToDcsBiosMessage("FCS_BIT_SW", "1");
           break;
         case 134:
-          sendToDcsBiosMessage("CB_LG", "0");
-
           break;
         case 135:
           break;
+        // Close
         case 136:
           break;
         case 137:
@@ -1201,7 +1113,6 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 140:
           break;
-        // PRESS - CLOSE
         case 141:
           break;
         case 142:
@@ -1209,6 +1120,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 143:
           break;
         case 144:
+          // Close
           break;
         case 145:
           break;
@@ -1222,9 +1134,9 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 150:
           break;
-        // PRESS - CLOSE
         case 151:
           break;
+        // Close
         case 152:
           break;
         case 153:
@@ -1241,9 +1153,9 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 159:
           break;
+        // Close
         case 160:
           break;
-        // PRESS - CLOSE
         case 161:
           break;
         case 162:
@@ -1258,13 +1170,13 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 167:
           break;
+        // Close
         case 168:
           break;
         case 169:
           break;
         case 170:
           break;
-        // PRESS - CLOSE
         case 171:
           break;
         case 172:
@@ -1283,6 +1195,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 179:
           break;
+          // End Close
 
         default:
           // PRESS - CLOSE
@@ -1292,16 +1205,6 @@ void CreateDcsBiosMessage(int ind, int state) {
   }
 }
 
-//ECS PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> cabinTemp("CABIN_TEMP", 8);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", 9);    //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-
-//INTR LTS PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3);               //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> consolesDimmer("CONSOLES_DIMMER", 0);         //set //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> floodDimmer("FLOOD_DIMMER", 2);               //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> instPnlDimmer("INST_PNL_DIMMER", 1);          //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> warnCautionDimmer("WARN_CAUTION_DIMMER", 4);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 
 
@@ -1312,35 +1215,9 @@ void onConsolesDimmerChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerChange);
 
-//DE-FOG PANEL (INTR LTS)
-
-DcsBios::PotentiometerEWMA<5, 128, 5> defogHandle("DEFOG_HANDLE", 5);  //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //KY58 PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> ky58Volume("KY58_VOLUME", 10);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-
-// controlPosition: 0 to 65,535 value representing the analog, real world control value
-// dcsPosition: 0 to 65,535 value reported from DCS for the provided address
-// return: −32,768 to 32,767 signed integer to be sent to the DCS rotary control.  0 will not be sent.
-int HornetRadaltMapper(unsigned int controlPosition, unsigned int dcsPosition) {
-  unsigned int a = map(controlPosition, 0, 65530, 161000, 1800);  // Silly right now, but to reduce the range if your analog pot doesn't reach max deflection, reduce the first 65535 number
-  unsigned int b = map(dcsPosition, 0, 64355, 0, 65535);          // Observationally, in DCS the max value for RADALT_HEIGHT is 64355
-
-  // Careful here since we are on 16 bit microcontrollers and doing some signed v unsigned maths.  Probably a better way to do this, but this works.
-  unsigned int delta = (a >= b) ? a - b : b - a;
-
-  const unsigned int MAX_ROTATION = 20000;  // Always keep less than 32767
-  if (delta > MAX_ROTATION)
-    delta = MAX_ROTATION;
-
-  if (a >= b)
-    return (int)delta;
-  else
-    return -1 * (int)delta;
-}
-
-// BEN
-
+// DcsBios::PotentiometerEWMA<5, 128, 5> ky58Volume("KY58_VOLUME", 10);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //DcsBios::RotarySyncingPotentiometer radaltHeight("RADALT_HEIGHT", 11, 0x7518, 0xffff, 0, HornetRadaltMapper);
 
@@ -1441,23 +1318,6 @@ void loop() {
 
   FindInputChanges();
 
-
-  // Radar Emergency required a pull up and then activate
-  if (RadarFollowupTask == true) {
-    if (millis() >= TimeRadarOn) {
-      sendToDcsBiosMessage("RADAR_SW", "3");
-      RadarFollowupTask = false;
-    }
-  }
-
-  if (RadarPushFollowupTask == true) {
-    if (millis() >= TimeRadarOn) {
-      sendToDcsBiosMessage("RADAR_SW", "2");
-      RadarPushFollowupTask = false;
-    }
-  }
-
-
   if (Ethernet_In_Use == 1) {
 
     // Check to see if a debug or reflector command has been received
@@ -1481,7 +1341,7 @@ void loop() {
 
   currentMillis = millis();
 
-    if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;
     RED_LED_STATE = !RED_LED_STATE;
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
@@ -1493,7 +1353,7 @@ void loop() {
 
 void CaseTemplate() {
 
-
+  //        // Release
   //        case 0:
   //          break;
   //        case 1:
@@ -1510,6 +1370,7 @@ void CaseTemplate() {
   //          break;
   //        case 7:
   //          break;
+  //        // Release
   //        case 8:
   //          break;
   //        case 9:
@@ -1526,6 +1387,7 @@ void CaseTemplate() {
   //          break;
   //        case 15:
   //          break;
+  //        // Release
   //        case 16:
   //          break;
   //        case 17:
@@ -1542,6 +1404,7 @@ void CaseTemplate() {
   //          break;
   //        case 23:
   //          break;
+  //        // Release
   //        case 24:
   //          break;
   //        case 25:
@@ -1558,6 +1421,7 @@ void CaseTemplate() {
   //          break;
   //        case 31:
   //          break;
+  //        // Release
   //        case 32:
   //          break;
   //        case 33:
@@ -1574,6 +1438,7 @@ void CaseTemplate() {
   //          break;
   //        case 39:
   //          break;
+  //        // Release
   //        case 40:
   //          break;
   //        case 41:
@@ -1590,6 +1455,7 @@ void CaseTemplate() {
   //          break;
   //        case 47:
   //          break;
+  //        // Release
   //        case 48:
   //          break;
   //        case 49:
@@ -1606,6 +1472,7 @@ void CaseTemplate() {
   //          break;
   //        case 55:
   //          break;
+  //        // Release
   //        case 56:
   //          break;
   //        case 57:
@@ -1622,6 +1489,7 @@ void CaseTemplate() {
   //          break;
   //        case 63:
   //          break;
+  //        // Release
   //        case 64:
   //          break;
   //        case 65:
@@ -1638,6 +1506,7 @@ void CaseTemplate() {
   //          break;
   //        case 71:
   //          break;
+  //        // Release
   //        case 72:
   //          break;
   //        case 73:
@@ -1654,6 +1523,7 @@ void CaseTemplate() {
   //          break;
   //        case 79:
   //          break;
+  //        // Release
   //        case 80:
   //          break;
   //        case 81:
@@ -1670,6 +1540,7 @@ void CaseTemplate() {
   //          break;
   //        case 87:
   //          break;
+  //        // Release
   //        case 88:
   //          break;
   //        case 89:
@@ -1686,6 +1557,7 @@ void CaseTemplate() {
   //          break;
   //        case 95:
   //          break;
+  //        // Release
   //        case 96:
   //          break;
   //        case 97:
@@ -1702,6 +1574,7 @@ void CaseTemplate() {
   //          break;
   //        case 103:
   //          break;
+  //        // Release
   //        case 104:
   //          break;
   //        case 105:
@@ -1718,6 +1591,7 @@ void CaseTemplate() {
   //          break;
   //        case 111:
   //          break;
+  //        // Release
   //        case 112:
   //          break;
   //        case 113:
@@ -1734,6 +1608,7 @@ void CaseTemplate() {
   //          break;
   //        case 119:
   //          break;
+  //        // Release
   //        case 120:
   //          break;
   //        case 121:
@@ -1750,6 +1625,7 @@ void CaseTemplate() {
   //          break;
   //        case 127:
   //          break;
+  //        // Release
   //        case 128:
   //          break;
   //        case 129:
@@ -1766,6 +1642,7 @@ void CaseTemplate() {
   //          break;
   //        case 135:
   //          break;
+  //        // Release
   //        case 136:
   //          break;
   //        case 137:
@@ -1783,6 +1660,7 @@ void CaseTemplate() {
   //        case 143:
   //          break;
   //        case 144:
+  //        // Release
   //          break;
   //        case 145:
   //          break;
@@ -1798,6 +1676,7 @@ void CaseTemplate() {
   //          break;
   //        case 151:
   //          break;
+  //        // Release
   //        case 152:
   //          break;
   //        case 153:
@@ -1814,6 +1693,7 @@ void CaseTemplate() {
   //          break;
   //        case 159:
   //          break;
+  //        // Release
   //        case 160:
   //          break;
   //        case 161:
@@ -1830,6 +1710,7 @@ void CaseTemplate() {
   //          break;
   //        case 167:
   //          break;
+  //        // Release
   //        case 168:
   //          break;
   //        case 169:
@@ -1854,4 +1735,390 @@ void CaseTemplate() {
   //          break;
   //        case 179:
   //          break;
+  //        // End Release
+
+
+  //        // Close
+  //        case 0:
+  //          break;
+  //        case 1:
+  //          break;
+  //        case 2:
+  //          break;
+  //        case 3:
+  //          break;
+  //        case 4:
+  //          break;
+  //        case 5:
+  //          break;
+  //        case 6:
+  //          break;
+  //        case 7:
+  //          break;
+  //        // Close
+  //        case 8:
+  //          break;
+  //        case 9:
+  //          break;
+  //        case 10:
+  //          break;
+  //        case 11:
+  //          break;
+  //        case 12:
+  //          break;
+  //        case 13:
+  //          break;
+  //        case 14:
+  //          break;
+  //        case 15:
+  //          break;
+  //        // Close
+  //        case 16:
+  //          break;
+  //        case 17:
+  //          break;
+  //        case 18:
+  //          break;
+  //        case 19:
+  //          break;
+  //        case 20:
+  //          break;
+  //        case 21:
+  //          break;
+  //        case 22:
+  //          break;
+  //        case 23:
+  //          break;
+  //        // Close
+  //        case 24:
+  //          break;
+  //        case 25:
+  //          break;
+  //        case 26:
+  //          break;
+  //        case 27:
+  //          break;
+  //        case 28:
+  //          break;
+  //        case 29:
+  //          break;
+  //        case 30:
+  //          break;
+  //        case 31:
+  //          break;
+  //        // Close
+  //        case 32:
+  //          break;
+  //        case 33:
+  //          break;
+  //        case 34:
+  //          break;
+  //        case 35:
+  //          break;
+  //        case 36:
+  //          break;
+  //        case 37:
+  //          break;
+  //        case 38:
+  //          break;
+  //        case 39:
+  //          break;
+  //        // Close
+  //        case 40:
+  //          break;
+  //        case 41:
+  //          break;
+  //        case 42:
+  //          break;
+  //        case 43:
+  //          break;
+  //        case 44:
+  //          break;
+  //        case 45:
+  //          break;
+  //        case 46:
+  //          break;
+  //        case 47:
+  //          break;
+  //        // Close
+  //        case 48:
+  //          break;
+  //        case 49:
+  //          break;
+  //        case 50:
+  //          break;
+  //        case 51:
+  //          break;
+  //        case 52:
+  //          break;
+  //        case 53:
+  //          break;
+  //        case 54:
+  //          break;
+  //        case 55:
+  //          break;
+  //        // Close
+  //        case 56:
+  //          break;
+  //        case 57:
+  //          break;
+  //        case 58:
+  //          break;
+  //        case 59:
+  //          break;
+  //        case 60:
+  //          break;
+  //        case 61:
+  //          break;
+  //        case 62:
+  //          break;
+  //        case 63:
+  //          break;
+  //        // Close
+  //        case 64:
+  //          break;
+  //        case 65:
+  //          break;
+  //        case 66:
+  //          break;
+  //        case 67:
+  //          break;
+  //        case 68:
+  //          break;
+  //        case 69:
+  //          break;
+  //        case 70:
+  //          break;
+  //        case 71:
+  //          break;
+  //        // Close
+  //        case 72:
+  //          break;
+  //        case 73:
+  //          break;
+  //        case 74:
+  //          break;
+  //        case 75:
+  //          break;
+  //        case 76:
+  //          break;
+  //        case 77:
+  //          break;
+  //        case 78:
+  //          break;
+  //        case 79:
+  //          break;
+  //        // Close
+  //        case 80:
+  //          break;
+  //        case 81:
+  //          break;
+  //        case 82:
+  //          break;
+  //        case 83:
+  //          break;
+  //        case 84:
+  //          break;
+  //        case 85:
+  //          break;
+  //        case 86:
+  //          break;
+  //        case 87:
+  //          break;
+  //        // Close
+  //        case 88:
+  //          break;
+  //        case 89:
+  //          break;
+  //        case 90:
+  //          break;
+  //        case 91:
+  //          break;
+  //        case 92:
+  //          break;
+  //        case 93:
+  //          break;
+  //        case 94:
+  //          break;
+  //        case 95:
+  //          break;
+  //        // Close
+  //        case 96:
+  //          break;
+  //        case 97:
+  //          break;
+  //        case 98:
+  //          break;
+  //        case 99:
+  //          break;
+  //        case 100:
+  //          break;
+  //        case 101:
+  //          break;
+  //        case 102:
+  //          break;
+  //        case 103:
+  //          break;
+  //        // Close
+  //        case 104:
+  //          break;
+  //        case 105:
+  //          break;
+  //        case 106:
+  //          break;
+  //        case 107:
+  //          break;
+  //        case 108:
+  //          break;
+  //        case 109:
+  //          break;
+  //        case 110:
+  //          break;
+  //        case 111:
+  //          break;
+  //        // Close
+  //        case 112:
+  //          break;
+  //        case 113:
+  //          break;
+  //        case 114:
+  //          break;
+  //        case 115:
+  //          break;
+  //        case 116:
+  //          break;
+  //        case 117:
+  //          break;
+  //        case 118:
+  //          break;
+  //        case 119:
+  //          break;
+  //        // Close
+  //        case 120:
+  //          break;
+  //        case 121:
+  //          break;
+  //        case 122:
+  //          break;
+  //        case 123:
+  //          break;
+  //        case 124:
+  //          break;
+  //        case 125:
+  //          break;
+  //        case 126:
+  //          break;
+  //        case 127:
+  //          break;
+  //        // Close
+  //        case 128:
+  //          break;
+  //        case 129:
+  //          break;
+  //        case 130:
+  //          break;
+  //        case 131:
+  //          break;
+  //        case 132:
+  //          break;
+  //        case 133:
+  //          break;
+  //        case 134:
+  //          break;
+  //        case 135:
+  //          break;
+  //        // Close
+  //        case 136:
+  //          break;
+  //        case 137:
+  //          break;
+  //        case 138:
+  //          break;
+  //        case 139:
+  //          break;
+  //        case 140:
+  //          break;
+  //        case 141:
+  //          break;
+  //        case 142:
+  //          break;
+  //        case 143:
+  //          break;
+  //        case 144:
+  //        // Close
+  //          break;
+  //        case 145:
+  //          break;
+  //        case 146:
+  //          break;
+  //        case 147:
+  //          break;
+  //        case 148:
+  //          break;
+  //        case 149:
+  //          break;
+  //        case 150:
+  //          break;
+  //        case 151:
+  //          break;
+  //        // Close
+  //        case 152:
+  //          break;
+  //        case 153:
+  //          break;
+  //        case 154:
+  //          break;
+  //        case 155:
+  //          break;
+  //        case 156:
+  //          break;
+  //        case 157:
+  //          break;
+  //        case 158:
+  //          break;
+  //        case 159:
+  //          break;
+  //        // Close
+  //        case 160:
+  //          break;
+  //        case 161:
+  //          break;
+  //        case 162:
+  //          break;
+  //        case 163:
+  //          break;
+  //        case 164:
+  //          break;
+  //        case 165:
+  //          break;
+  //        case 166:
+  //          break;
+  //        case 167:
+  //          break;
+  //        // Close
+  //        case 168:
+  //          break;
+  //        case 169:
+  //          break;
+  //        case 170:
+  //          break;
+  //        case 171:
+  //          break;
+  //        case 172:
+  //          break;
+  //        case 173:
+  //          break;
+  //        case 174:
+  //          break;
+  //        case 175:
+  //          break;
+  //        case 176:
+  //          break;
+  //        case 177:
+  //          break;
+  //        case 178:
+  //          break;
+  //        case 179:
+  //          break;
+  //        // End Close
 }
