@@ -39,6 +39,24 @@
 
   The sendIPstring is used to throw strings at a Leonardo to convert to keystrokes for the PC
 
+
+  Confgiuring the Commands
+  Copy the empty template with Open and Release Cases
+  Start DCS, Kicad, Bort and UDP_Reflector.py (in Python HW Link)
+
+  Select the panel of interest in Bort, Select Show Arduino Scaffold Code
+  Select a input device eg Switch, Rotary Switch
+  
+  For Rotarys we are generally interested just in Close (the second case statement), 
+  whereas for Toggles we will ne to configure Close and Release.
+
+  Using Python HW Link note the input numbers associated with the switch. 
+  Add a comment for in the case number for the action associated with the input number
+  Copy variable names from BORT
+  Switch
+
+
+
 */
 
 
@@ -951,8 +969,12 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 65:
           break;
         case 66:
+          // AAP - STEER
+          sendToDcsBiosMessage("AAP_PAGE", "2");
           break;
         case 67:
+          // AAP - FLT PLAN
+          sendToDcsBiosMessage("AAP_STEERPT", "0");
           break;
         case 68:
           break;
@@ -974,8 +996,12 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 76:
           break;
         case 77:
+          // AAP - POSITION
+          sendToDcsBiosMessage("AAP_PAGE", "1");
           break;
         case 78:
+          // AAP - MARK
+          sendToDcsBiosMessage("AAP_STEERPT", "1");
           break;
         case 79:
           break;
@@ -998,8 +1024,12 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 88:
+          // AAP - OTHER
+          sendToDcsBiosMessage("AAP_PAGE", "0");
           break;
         case 89:
+          // AAP - MISSION
+          sendToDcsBiosMessage("AAP_STEERPT", "2");
           break;
         case 90:
           break;
@@ -1021,8 +1051,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:
           break;
         case 99:
+          // AAP - WAY PT
+          sendToDcsBiosMessage("AAP_PAGE", "3");
           break;
         case 100:
+          // AAP  - STEER PT
           sendToDcsBiosMessage("AAP_STEER", "0");
           break;
         case 101:
@@ -1073,6 +1106,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 121:
           break;
         case 122:
+          // AAP - EGI POWER
           sendToDcsBiosMessage("AAP_EGIPWR", "1");
           break;
         case 123:
