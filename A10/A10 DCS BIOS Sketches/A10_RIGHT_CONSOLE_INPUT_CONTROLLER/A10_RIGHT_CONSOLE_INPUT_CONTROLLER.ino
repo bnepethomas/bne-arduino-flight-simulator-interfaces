@@ -391,7 +391,9 @@ void onTacanXyChange(unsigned int newValue) {
 DcsBios::IntegerBuffer tacanXyBuffer(0x1168, 0x0001, 0, onTacanXyChange);
 
 DcsBios::RotaryEncoder tacan10("TACAN_10", "DEC", "INC", 14, 15);
-DcsBios::RotaryEncoder tacan1("TACAN_1", "DEC", "INC", 16, 17);
+DcsBios::RotaryEncoder tacan1("TACAN_1", "DEC", "INC", 17, 16);
+
+DcsBios::Potentiometer tacanVol("TACAN_VOL", 5);
 
 // ################################ END TACAN    ############################## 
 
