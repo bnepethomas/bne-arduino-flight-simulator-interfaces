@@ -44,6 +44,8 @@
   Copy the empty template with Open and Release Cases
   Start DCS, Kicad, Bort and UDP_Reflector.py (in Python HW Link)
 
+  Verify all input changes are reflected in Python HW Link
+
   Select the panel of interest in Bort, Select Show Arduino Scaffold Code
   Select a input device eg Switch, Rotary Switch
   
@@ -380,13 +382,25 @@ void UpdateRedStatusLed() {
   }
 }
 
+// ################################ BEGIN TACAN ############################## 
+
+int TACAN_XY_STATE = 0;
+void onTacanXyChange(unsigned int newValue) {
+  TACAN_XY_STATE = newValue;
+}
+DcsBios::IntegerBuffer tacanXyBuffer(0x1168, 0x0001, 0, onTacanXyChange);
+
+DcsBios::RotaryEncoder tacan10("TACAN_10", "DEC", "INC", 14, 15);
+DcsBios::RotaryEncoder tacan1("TACAN_1", "DEC", "INC", 16, 17);
+
+// ################################ END TACAN    ############################## 
 
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
 
   if (Reflector_In_Use == 1) {
     udp.beginPacket(reflectorIP, reflectorport);
-    udp.println("Front Input - " + String(msg) + ":" + String(arg));
+    udp.println("Right Input - " + String(msg) + ":" + String(arg));
     udp.endPacket();
   }
 
@@ -433,8 +447,11 @@ void CreateDcsBiosMessage(int ind, int state) {
 
         // Release
         case 0:
+          // TACAN - OFF
           break;
         case 1:
+          // TACAN - TEST BUTTON
+          sendToDcsBiosMessage("TACAN_TEST_BTN", "0");
           break;
         case 2:
           break;
@@ -458,6 +475,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 11:
           break;
         case 12:
+          // TACAN - XY
           break;
         case 13:
           break;
@@ -829,8 +847,12 @@ void CreateDcsBiosMessage(int ind, int state) {
       switch (ind) {
         // Close
         case 0:
+          // TACAN OFF
+          sendToDcsBiosMessage("TACAN_MODE", "0");
           break;
         case 1:
+          // TACAN - TEST BUTTON
+          sendToDcsBiosMessage("TACAN_TEST_BTN", "1");
           break;
         case 2:
           break;
@@ -852,8 +874,19 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 10:
           break;
         case 11:
+          // TACAN REC
+          sendToDcsBiosMessage("TACAN_MODE", "1");
           break;
         case 12:
+          // TACAN - XY
+          // Toggle state - also synchs with variable capture
+          SendDebug("XY Press");
+          SendDebug("XY State is " + String(TACAN_XY_STATE));
+          if (TACAN_XY_STATE == 0) {
+            sendToDcsBiosMessage("TACAN_XY", "1");
+          } else {
+            sendToDcsBiosMessage("TACAN_XY", "0");
+          }
           break;
         case 13:
           break;
@@ -875,6 +908,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 21:
           break;
         case 22:
+          // TACAN - TR
+          sendToDcsBiosMessage("TACAN_MODE", "2");
           break;
         case 23:
           break;
@@ -899,6 +934,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 32:
           break;
         case 33:
+          // TACAN - AA REC
+          sendToDcsBiosMessage("TACAN_MODE", "3");
           break;
         case 34:
           break;
@@ -922,6 +959,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 43:
           break;
         case 44:
+          // TACAN - AA TR
+          sendToDcsBiosMessage("TACAN_MODE", "4");
           break;
         case 45:
           break;
