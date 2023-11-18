@@ -727,16 +727,28 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 112:
+        // CDU_Z
+          sendToDcsBiosMessage("CDU_Z", "0");
           break;
         case 113:
+        // CDU_U
+          sendToDcsBiosMessage("CDU_U", "0");
           break;
         case 114:
+        // CDU_P
+          sendToDcsBiosMessage("CDU_P", "0");
           break;
         case 115:
+        // CDU_K
+          sendToDcsBiosMessage("CDU_K", "0");
           break;
         case 116:
+        // CDU_F
+          sendToDcsBiosMessage("CDU_F", "0");
           break;
         case 117:
+        // CDU_A
+          sendToDcsBiosMessage("CDU_A", "0");
           break;
         case 118:
           break;
@@ -782,15 +794,25 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 134:
           break;
         case 135:
+        // CDU_W
+          sendToDcsBiosMessage("CDU_W", "0");
           break;
         // Release
         case 136:
+        // CDU_R
+          sendToDcsBiosMessage("CDU_R", "0");
           break;
         case 137:
+        // CDU_M
+          sendToDcsBiosMessage("CDU_M", "0");
           break;
         case 138:
+        // CDU_H
+          sendToDcsBiosMessage("CDU_H", "0");
           break;
         case 139:
+        // CDU_C
+          sendToDcsBiosMessage("CDU_C", "0");
           break;
         case 140:
           break;
@@ -806,14 +828,24 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 145:
           break;
         case 146:
+        // CDU_V
+          sendToDcsBiosMessage("CDU_V", "0");
           break;
         case 147:
+        // CDU_Q
+          sendToDcsBiosMessage("CDU_Q", "0");
           break;
         case 148:
+        // CDU_L
+          sendToDcsBiosMessage("CDU_L", "0");
           break;
         case 149:
+        // CDU_G
+          sendToDcsBiosMessage("CDU_G", "0");
           break;
         case 150:
+        // CDU_B
+          sendToDcsBiosMessage("CDU_B", "0");
           break;
         case 151:
           break;
@@ -829,15 +861,25 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 156:
           break;
         case 157:
+        // CDU_Y
+          sendToDcsBiosMessage("CDU_Y", "0");
           break;
         case 158:
+        // CDU_T
+          sendToDcsBiosMessage("CDU_T", "0");
           break;
         case 159:
+        // CDU_O
+          sendToDcsBiosMessage("CDU_0", "O");
           break;
         // Release
         case 160:
+        // CDU_J
+          sendToDcsBiosMessage("CDU_J", "0");
           break;
         case 161:
+        // CDU_E
+          sendToDcsBiosMessage("CDU_EX", "0");
           break;
         case 162:
           break;
@@ -853,14 +895,24 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 168:
+        // CDU_X
+          sendToDcsBiosMessage("CDU_X", "0");
           break;
         case 169:
+        // CDU_S
+          sendToDcsBiosMessage("CDU_S", "0");
           break;
         case 170:
+        // CDU_N
+          sendToDcsBiosMessage("CDU_N", "0");
           break;
         case 171:
+        // CDU_I
+          sendToDcsBiosMessage("CDU_I", "0");
           break;
         case 172:
+        // CDU_D
+          sendToDcsBiosMessage("CDU_D", "0");
           break;
         case 173:
           break;
@@ -1188,16 +1240,28 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 112:
+        // CDU_Z
+          sendToDcsBiosMessage("CDU_Z", "1");
           break;
         case 113:
+        // CDU_U
+          sendToDcsBiosMessage("CDU_U", "1");
           break;
         case 114:
+        // CDU_P
+          sendToDcsBiosMessage("CDU_P", "1");
           break;
         case 115:
+        // CDU_K
+          sendToDcsBiosMessage("CDU_K", "1");
           break;
         case 116:
+        // CDU_F
+          sendToDcsBiosMessage("CDU_F", "1");
           break;
         case 117:
+        // CDU_A
+          sendToDcsBiosMessage("CDU_A", "1");
           break;
         case 118:
           break;
@@ -1244,15 +1308,25 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 134:
           break;
         case 135:
+        // CDU_W
+          sendToDcsBiosMessage("CDU_W", "1");
           break;
         // Close
         case 136:
+        // CDU_R
+          sendToDcsBiosMessage("CDU_R", "1");
           break;
         case 137:
+        // CDU_M
+          sendToDcsBiosMessage("CDU_M", "1");
           break;
         case 138:
+        // CDU_H
+          sendToDcsBiosMessage("CDU_H", "1");
           break;
         case 139:
+        // CDU_C
+          sendToDcsBiosMessage("CDU_C", "1");
           break;
         case 140:
           break;
@@ -1268,14 +1342,24 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 145:
           break;
         case 146:
+        // CDU_V
+          sendToDcsBiosMessage("CDU_V", "1");
           break;
         case 147:
+        // CDU_Q
+          sendToDcsBiosMessage("CDU_Q", "1");
           break;
         case 148:
+        // CDU_L
+          sendToDcsBiosMessage("CDU_L", "1");
           break;
         case 149:
+        // CDU_G
+          sendToDcsBiosMessage("CDU_G", "1");
           break;
         case 150:
+        // CDU_B
+          sendToDcsBiosMessage("CDU_B", "1");
           break;
         case 151:
           break;
@@ -1291,15 +1375,25 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 156:
           break;
         case 157:
+        // CDU_Y
+          sendToDcsBiosMessage("CDU_Y", "1");
           break;
         case 158:
+        // CDU_T
+          sendToDcsBiosMessage("CDU_T", "1");
           break;
         case 159:
+        // CDU_O
+          sendToDcsBiosMessage("CDU_O", "1");
           break;
         // Close
         case 160:
+        // CDU_J
+          sendToDcsBiosMessage("CDU_J", "1");
           break;
         case 161:
+        // CDU_E
+          sendToDcsBiosMessage("CDU_E", "1");
           break;
         case 162:
           break;
@@ -1315,14 +1409,24 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 168:
+        // CDU_X
+          sendToDcsBiosMessage("CDU_X", "1");
           break;
         case 169:
+        // CDU_S
+          sendToDcsBiosMessage("CDU_S", "1");
           break;
         case 170:
+        // CDU_N
+          sendToDcsBiosMessage("CDU_N", "1");
           break;
         case 171:
+        // CDU_I
+          sendToDcsBiosMessage("CDU_I", "1");
           break;
         case 172:
+        // CDU_D
+          sendToDcsBiosMessage("CDU_D", "1");
           break;
         case 173:
           break;
