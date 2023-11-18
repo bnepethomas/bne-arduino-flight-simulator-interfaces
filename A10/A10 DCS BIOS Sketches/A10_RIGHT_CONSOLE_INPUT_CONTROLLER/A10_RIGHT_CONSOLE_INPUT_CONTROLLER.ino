@@ -382,7 +382,7 @@ void UpdateRedStatusLed() {
   }
 }
 
-// ################################ BEGIN TACAN ############################## 
+// ################################ BEGIN TACAN ##############################
 
 int TACAN_XY_STATE = 0;
 void onTacanXyChange(unsigned int newValue) {
@@ -395,7 +395,26 @@ DcsBios::RotaryEncoder tacan1("TACAN_1", "DEC", "INC", 17, 16);
 
 DcsBios::Potentiometer tacanVol("TACAN_VOL", 5);
 
-// ################################ END TACAN    ############################## 
+// ################################ END TACAN   ##############################
+
+
+// ################################ BEGIN ils   ##############################
+
+int ILS_STATE = 0;
+void onIlsPwrChange(unsigned int newValue) {
+  ILS_STATE = newValue;
+}
+DcsBios::IntegerBuffer ilsPwrBuffer(0x1168, 0x0010, 4, onIlsPwrChange);
+
+DcsBios::RotaryEncoder ilsKhz("ILS_KHZ", "DEC", "INC", 18, 19);
+DcsBios::RotaryEncoder ilsMhz("ILS_MHZ", "DEC", "INC", 21, 20);
+
+
+DcsBios::Potentiometer ilsVol("ILS_VOL", 6);
+
+// ################################ END ILS     ##############################
+
+
 
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
@@ -882,8 +901,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 12:
           // TACAN - XY
           // Toggle state - also synchs with variable capture
-          SendDebug("XY Press");
-          SendDebug("XY State is " + String(TACAN_XY_STATE));
+          // SendDebug("XY Press");
+          // SendDebug("XY State is " + String(TACAN_XY_STATE));
           if (TACAN_XY_STATE == 0) {
             sendToDcsBiosMessage("TACAN_XY", "1");
           } else {
@@ -986,6 +1005,15 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 54:
           break;
         case 55:
+          // ILS -POWER
+          // Toggle state - also synchs with variable capture
+          // SendDebug("ILS Press");
+          // SendDebug("ILS State is " + String(ILS_STATE));
+          if (ILS_STATE == 0) {
+            sendToDcsBiosMessage("ILS_PWR", "1");
+          } else {
+            sendToDcsBiosMessage("ILS_PWR", "0");
+          }
           break;
         // Close
         case 56:
