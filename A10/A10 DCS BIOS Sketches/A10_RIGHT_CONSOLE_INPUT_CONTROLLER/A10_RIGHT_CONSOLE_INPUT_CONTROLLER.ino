@@ -54,7 +54,7 @@
 
   Using Python HW Link note the input numbers associated with the switch. 
   Add a comment for in the case number for the action associated with the input number
-  Copy variable names from BORT
+  Copy variable names from the aircraft LUA eg A-10C.lua or from BORT
   Switch
 
 
@@ -488,8 +488,12 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 8:
+          // EPP_APU_GEN_PWR
+          sendToDcsBiosMessage("EPP_APU_GEN_PWR", "0");
           break;
         case 9:
+          // EPP_INVERTER
+          sendToDcsBiosMessage("EPP_INVERTER", "1");
           break;
         case 10:
           break;
@@ -512,8 +516,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 18:
           break;
         case 19:
+          // EPP_BATTERY_PWR
+          sendToDcsBiosMessage("EPP_BATTERY_PWR", "0");
           break;
         case 20:
+          // EPP_INVERTER
+          sendToDcsBiosMessage("EPP_INVERTER", "1");
+
           break;
         case 21:
           break;
@@ -535,8 +544,12 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 29:
           break;
         case 30:
+          // EPP_AC_GEN_PWR_L
+          sendToDcsBiosMessage("EPP_AC_GEN_PWR_L", "0");
           break;
         case 31:
+          // EPP_EMER_FLOOD
+          sendToDcsBiosMessage("EPP_EMER_FLOOD", "0");
           break;
         // Release
         case 32:
@@ -559,6 +572,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 40:
           break;
         case 41:
+          // EPP_AC_GEN_PWR_R
+          sendToDcsBiosMessage("EPP_AC_GEN_PWR_R", "0");
           break;
         case 42:
           break;
@@ -1017,8 +1032,12 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 8:
+          // EPP_APU_GEN_PWR
+          sendToDcsBiosMessage("EPP_APU_GEN_PWR", "1");
           break;
         case 9:
+          // EPP_INVERTER
+          sendToDcsBiosMessage("EPP_INVERTER", "2");
           break;
         case 10:
           break;
@@ -1051,8 +1070,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 18:
           break;
         case 19:
+          // EPP_BATTERY_PWR
+          sendToDcsBiosMessage("EPP_BATTERY_PWR", "1");
           break;
         case 20:
+          // EPP_INVERTER
+          sendToDcsBiosMessage("EPP_INVERTER", "0");
+
           break;
         case 21:
           break;
@@ -1076,8 +1100,12 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 29:
           break;
         case 30:
+          // EPP_AC_GEN_PWR_L
+          sendToDcsBiosMessage("EPP_AC_GEN_PWR_L", "1");
           break;
         case 31:
+          // EPP_EMER_FLOOD
+          sendToDcsBiosMessage("EPP_EMER_FLOOD", "1");
           break;
         // Close
         case 32:
@@ -1102,6 +1130,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 40:
           break;
         case 41:
+          // EPP_AC_GEN_PWR_R
+          sendToDcsBiosMessage("EPP_AC_GEN_PWR_R", "1");
           break;
         case 42:
           break;
