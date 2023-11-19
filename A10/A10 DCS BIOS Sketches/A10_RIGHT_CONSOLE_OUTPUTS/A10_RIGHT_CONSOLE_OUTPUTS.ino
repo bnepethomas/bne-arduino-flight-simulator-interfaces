@@ -560,7 +560,7 @@ void setLEDInstInv(unsigned int newValue) {
 }
 
 
-void  Ledcycle(){
+void Ledcycle() {
   setLEDInstInv(1);
   //setLEDRGen(1);
   //setLEDLGen(1);
@@ -608,7 +608,6 @@ void  Ledcycle(){
   //setLEDRightHydPress(1);
   //setLEDLeftHydPress(1);
   //setLEDEngStartcycle(1);
-  
 }
 
 // void onFlpLgRightGearLtChange(unsigned int newValue) {
@@ -711,6 +710,10 @@ void SetBrightness(int Brightness) {
 #include <Stepper.h>
 #define STEPS 720  // steps per revolution (limited to 315°)
 
+// Holding current per coil is 14mA, which gives 28mA per stepper
+// Mega absolute max is 40mA per pin, with a total max of 200mA
+// Gives a total 
+
 
 // Works but slow max speed of 30
 // #define COIL_RIGHT_HYD_A1 23
@@ -733,14 +736,24 @@ void SetBrightness(int Brightness) {
 
 
 #define COIL_LEFT_HYD_A1 22
-#define COIL_LEFT_HYD_A2 26
-#define COIL_LEFT_HYD_A3 24
+#define COIL_LEFT_HYD_A2 24
+#define COIL_LEFT_HYD_A3 26
 #define COIL_LEFT_HYD_A4 28
 
+// #define COIL_LEFT_HYD_A1 22
+// #define COIL_LEFT_HYD_A2 26
+// #define COIL_LEFT_HYD_A3 24
+// #define COIL_LEFT_HYD_A4 28
+
 #define COIL_RIGHT_HYD_A1 23
-#define COIL_RIGHT_HYD_A2 27
-#define COIL_RIGHT_HYD_A3 25
+#define COIL_RIGHT_HYD_A2 25
+#define COIL_RIGHT_HYD_A3 27
 #define COIL_RIGHT_HYD_A4 29
+
+// #define COIL_RIGHT_HYD_A1 23
+// #define COIL_RIGHT_HYD_A2 27
+// #define COIL_RIGHT_HYD_A3 25
+// #define COIL_RIGHT_HYD_A4 29
 
 #define COIL_LEFT_FUEL_A1 30
 #define COIL_LEFT_FUEL_A2 34
@@ -880,16 +893,22 @@ void setup() {
     SendDebug("End Stepper Right Hyd");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper Left Hyd");
     STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_LEFT_HYD.move(4000);
+    STEPPER_LEFT_HYD.move(-630);
 
     while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
       STEPPER_LEFT_HYD.run();
     }
-    STEPPER_LEFT_HYD.move(-4000);
+
+    STEPPER_LEFT_HYD.move(630);
+
+    while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
+      STEPPER_LEFT_HYD.run();
+    }
+    STEPPER_LEFT_HYD.move(-630);
     while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
       STEPPER_LEFT_HYD.run();
     }
@@ -976,7 +995,6 @@ void setup() {
   SendDebug("End Motor Initialisation");
 
   Ledcycle();
-
 }
 
 void loop() {
