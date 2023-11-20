@@ -1,11 +1,11 @@
 {
   "board": {
-    "active_layer": 38,
+    "active_layer": 0,
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [],
     "hidden_nets": [
-      "unconnected-(J7-Pad8)"
+      "unconnected-(J7-Pin_8-Pad8)"
     ],
     "high_contrast_mode": 0,
     "net_color_mode": 1,
