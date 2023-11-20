@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 404)
+    (start_pass_no 142)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -27,10 +27,9 @@
   )
   (rule
     (width 250.0)
-    (clearance 200.2)
-    (clearance 125.0 (type smd_to_turn_gap))
-    (clearance 50.0 (type smd))
-    (clearance 200.2 (type "kicad_default"))
+    (clear 200.2)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
   )
   (padstack "Via[0-1]_600:400_um"
     (shape
@@ -79,7 +78,7 @@
     "Net-(J24-Pin_12)" "Net-(J24-Pin_13)" "Net-(J24-Pin_14)" "Net-(J24-Pin_15)" "Net-(J24-Pin_16)" "unconnected-(J27-Pin_1-Pad1)" "unconnected-(J28-Pin_1-Pad1)" "Net-(U1-INT)"
     "unconnected-(U1-NC-PadB4)"
     (clearance_class "kicad_default")
-    (via_rule "kicad_default")
+    (via_rule kicad_default)
     (rule
       (width 250.0)
     )

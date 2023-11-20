@@ -1,4 +1,4 @@
-(pcb "C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\A10\A10 PCBs\Right Console Input\Right Console Input.dsn"
+(pcb "/Users/peterthomas/Public/GitHub/bne-arduino-flight-simulator-interfaces/A10/A10 PCBs/Right Console Input/Right Console Input.dsn"
   (parser
     (string_quote ")
     (space_in_quoted_tokens on)
