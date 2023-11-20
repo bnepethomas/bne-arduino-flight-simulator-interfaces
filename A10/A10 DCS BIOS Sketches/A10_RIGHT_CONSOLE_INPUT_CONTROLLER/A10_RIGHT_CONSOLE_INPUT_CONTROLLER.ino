@@ -398,7 +398,7 @@ DcsBios::Potentiometer tacanVol("TACAN_VOL", 5);
 // ################################ END TACAN   ##############################
 
 
-// ################################ BEGIN ils   ##############################
+// ################################ BEGIN ILS   ##############################
 
 int ILS_STATE = 0;
 void onIlsPwrChange(unsigned int newValue) {
@@ -414,6 +414,16 @@ DcsBios::Potentiometer ilsVol("ILS_VOL", 6);
 
 // ################################ END ILS     ##############################
 
+// ################### BEGIN LIGHTING CONTROL PANEL    #######################
+
+
+DcsBios::Potentiometer lcpFlood("LCP_FLOOD", 0);
+DcsBios::Potentiometer lcpConsole("LCP_CONSOLE", 1);
+DcsBios::Potentiometer lcpEngInst("LCP_ENG_INST", 2);
+DcsBios::Potentiometer lcpAuxInst("LCP_AUX_INST", 3);
+DcsBios::Potentiometer lcpFormation("LCP_FORMATION", 4);
+
+// ###################  END LIGHTING CONTROL PANEL     #######################
 
 
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
@@ -835,8 +845,12 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 131:
           break;
         case 132:
+          // LCP_POSITION
+          sendToDcsBiosMessage("LCP_POSITION", "1");
           break;
         case 133:
+          // LCP_SIGNAL_LIGHTS
+          sendToDcsBiosMessage("LCP_SIGNAL_LIGHTS", "0");
           break;
         case 134:
           break;
@@ -874,8 +888,12 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CDU_LSK_5R", "0");
           break;
         case 143:
+        // LCP_POSITION
+          sendToDcsBiosMessage("LCP_POSITION", "1");
           break;
         case 144:
+          // LCP_ANTICOLLISION
+          sendToDcsBiosMessage("LCP_ANTICOLLISION", "0");
           // Release
           break;
         case 145:
@@ -918,6 +936,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 154:
           break;
         case 155:
+          // LCP_ACCEL_COMP
+          sendToDcsBiosMessage("LCP_ACCEL_COMP", "0");
           break;
         case 156:
           // CDU_CLR
@@ -951,6 +971,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 164:
           break;
         case 165:
+
           break;
         case 166:
           break;
@@ -1420,8 +1441,12 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 131:
           break;
         case 132:
+          // LCP_POSITION
+          sendToDcsBiosMessage("LCP_POSITION", "2");
           break;
         case 133:
+          // LCP_SIGNAL_LIGHTS
+          sendToDcsBiosMessage("LCP_SIGNAL_LIGHTS", "1");
           break;
         case 134:
           break;
@@ -1459,8 +1484,12 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CDU_LSK_5R", "1");
           break;
         case 143:
+        // LCP_POSITION
+          sendToDcsBiosMessage("LCP_POSITION", "0");
           break;
         case 144:
+          // LCP_ANTICOLLISION
+          sendToDcsBiosMessage("LCP_ANTICOLLISION", "1");
           // Close
           break;
         case 145:
@@ -1503,6 +1532,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 154:
           break;
         case 155:
+          // LCP_ACCEL_COMP
+          sendToDcsBiosMessage("LCP_ACCEL_COMP", "1");
           break;
         case 156:
           // CDU_CLR
@@ -1536,6 +1567,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 164:
           break;
         case 165:
+
           break;
         case 166:
           break;
