@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 142)
+    (start_pass_no 228)
     (layer_rule F.Cu
       (active on)
       (preferred_direction vertical)
@@ -53,9 +53,6 @@
     "kicad_default" "Via[0-1]_800:400_um-kicad_default"
   )
   (class default
-    /COIL2 /COIL1 /COIL4 /COIL3 "Net-(D1-Pad1)" "Net-(D1-Pad2)" "/BACKLIGHT_GND" "/BACKLIGHT_+12V"
-    "/ENCORDER GND" "/ENCODER-A" "/ENCODER B" /ROW /COL GND +3V3 /SC0
-    /SD0 /SC1 /SD1 "unconnected-(J3-Pad6)"
     (clearance_class default)
     (via_rule default)
     (rule
@@ -66,6 +63,9 @@
     )
   )
   (class "kicad_default"
+    /COIL2 /COIL1 /COIL4 /COIL3 "Net-(D1-K)" "Net-(D1-A)" "/BACKLIGHT_GND" "/BACKLIGHT_+12V"
+    "/ENCORDER GND" "/ENCODER-A" "/ENCODER B" /ROW /COL GND +3V3 /SC0
+    /SD0 /SC1 /SD1 "unconnected-(J3-Pin_6-Pad6)" +5V "/ZERO_DETECT"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

@@ -1,0 +1,114 @@
+
+(session util_photoswitch.ses
+  (base_design util_photoswitch.dsn)
+  (placement
+    (resolution um 10)
+    (component "KiCAD Libraries:OPB61x"
+      (place U1 980000 -657500 front 0)
+    )
+    (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal
+      (place R1 977500 -630000 front 90)
+    )
+    (component Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Horizontal
+      (place J1 1017970 -566570 front 0)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version 7.0.9)
+    )
+    (library_out 
+      (padstack "Via[0-1]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net GND
+        (wire
+          (path F.Cu 2500
+            980002 -682898
+            1017970 -644930
+            1017970 -629123
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1017970 -617370
+            1017970 -629123
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1017970 -629123
+            1027827 -629123
+            1049852 -651148
+          )
+        )
+      )
+      (net "Net-(J1-Pin_2)"
+        (wire
+          (path B.Cu 2500
+            1017970 -591970
+            1017970 -603723
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1017970 -603723
+            1021644 -603723
+            1029723 -611802
+            1029723 -650069
+            1049852 -670198
+          )
+        )
+      )
+      (net +5V
+        (wire
+          (path B.Cu 2500
+            999902 -579200
+            999902 -639298
+            1049852 -689248
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1006217 -566570
+            999902 -572885
+            999902 -579200
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            999902 -579200
+            977500 -579200
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1017970 -566570
+            1006217 -566570
+          )
+        )
+      )
+      (net "Net-(U1-A)"
+        (wire
+          (path F.Cu 2500
+            977500 -630000
+            980002 -632502
+            980002 -657498
+          )
+        )
+      )
+    )
+  )
+)
