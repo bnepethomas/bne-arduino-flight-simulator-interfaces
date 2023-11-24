@@ -453,7 +453,7 @@
       "idf": "",
       "netlist": "",
       "specctra_dsn": "util_photoswitch.dsn",
-      "step": "",
+      "step": "util_photoswitch.STEP",
       "vrml": ""
     },
     "page_layout_descr_file": ""
