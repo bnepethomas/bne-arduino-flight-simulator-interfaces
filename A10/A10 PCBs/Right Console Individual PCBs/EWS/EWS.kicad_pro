@@ -427,7 +427,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "specctra_dsn": "",
+      "specctra_dsn": "EWS.dsn",
       "step": "",
       "vrml": ""
     },

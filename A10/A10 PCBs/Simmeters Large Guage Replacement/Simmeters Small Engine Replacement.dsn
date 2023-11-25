@@ -164,24 +164,24 @@
       (place SW1 213015.500000 -124054.600000 front -90.000000 (PN RotaryEncoder_Switch))
     )
     (component Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical
-      (place DS3 161502.500000 -125728.600000 front 0.000000 (PN PRESS_DISP))
+      (place DS3 165455.515000 -131114.574000 front 180.000000 (PN PRESS_DISP))
       (place DS2 164321.500000 -117092.600000 front -90.000000 (PN 10K_ALT_DISP))
-      (place DS1 142985.500000 -97280.600000 front 0.000000 (PN 10K_ALT_DISP))
+      (place DS1 142625.515000 -104434.574000 front 180.000000 (PN 10K_ALT_DISP))
     )
     (component LED_THT:LED_D3.0mm
       (place D2 151875.515000 -73774.600000 front 0.000000 (PN LED))
       (place D1 205723.515000 -73658.574000 front 0.000000 (PN LED))
     )
     (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical
-      (place R1 200643.500000 -79632.600000 back 90.000000 (PN 470))
+      (place R1 203995.515000 -81774.574000 back 90.000000 (PN 470))
     )
     (component "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
-      (place J1 216645.500000 -100582.600000 back 0.000000 (PN OLED))
-      (place J2 216391.500000 -88664.600000 back 0.000000 (PN STEPPER))
+      (place J1 195415.515000 -127584.574000 back 0.000000 (PN OLED))
+      (place J2 216405.515000 -99124.574000 back 0.000000 (PN STEPPER))
       (place J3 216485.500000 -110284.600000 back 0.000000 (PN ENCODER))
     )
     (component "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
-      (place J5 164067.515000 -71118.574000 back 0.000000 (PN "ZERO DETECT"))
+      (place J5 214455.515000 -82954.574000 back 0.000000 (PN "ZERO DETECT"))
     )
   )
   (library
@@ -597,6 +597,19 @@
       (pin Round[A]Pad_1800_um 2 2540 0)
     )
     (image Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical
+      (outline (path signal 100  800 0  781.296 -171.976  726.06 -335.911  636.874 -484.139
+            517.909 -609.73  374.727 -706.81  214.023 -770.84  43.311 -798.827
+            -129.426 -789.461  -296.111 -743.181  -448.95 -662.151  -580.796 -550.16
+            -685.486 -412.443  -758.123 -255.441  -795.31 -86.495  -795.31 86.495
+            -758.123 255.441  -685.486 412.443  -580.796 550.16  -448.95 662.151
+            -296.111 743.181  -129.426 789.461  43.311 798.827  214.023 770.84
+            374.727 706.81  517.909 609.73  636.874 484.139  726.06 335.911
+            781.296 171.976  800 0))
+      (outline (path signal 100  0 0  1900 0))
+      (outline (path signal 50  2860 1050  -1050 1050))
+      (outline (path signal 50  2860 -1050  2860 1050))
+      (outline (path signal 50  -1050 1050  -1050 -1050))
+      (outline (path signal 50  -1050 -1050  2860 -1050))
       (outline (path signal 0  -657.574 459.559  -640 417.133  -651.878 388.457  -648.458 386.419
             -715.94 239.262  -750.493 81.101  -750.526 -80.791  -716.039 -238.967
             -648.617 -386.151  -551.362 -515.575  -428.746 -621.284  -286.41 -698.417
@@ -611,21 +624,8 @@
             -774.673 -406.529  -840.999 -241.047  -872.403 -65.554  -867.578 112.66
             -826.726 286.196  -751.543 447.847  -748.121 445.808  -742.426 459.559
             -700 477.133))
-      (outline (path signal 50  -1050 -1050  2860 -1050))
-      (outline (path signal 50  -1050 1050  -1050 -1050))
-      (outline (path signal 50  2860 -1050  2860 1050))
-      (outline (path signal 50  2860 1050  -1050 1050))
-      (outline (path signal 100  0 0  1900 0))
-      (outline (path signal 100  800 0  781.296 -171.976  726.06 -335.911  636.874 -484.139
-            517.909 -609.73  374.727 -706.81  214.023 -770.84  43.311 -798.827
-            -129.426 -789.461  -296.111 -743.181  -448.95 -662.151  -580.796 -550.16
-            -685.486 -412.443  -758.123 -255.441  -795.31 -86.495  -795.31 86.495
-            -758.123 255.441  -685.486 412.443  -580.796 550.16  -448.95 662.151
-            -296.111 743.181  -129.426 789.461  43.311 798.827  214.023 770.84
-            374.727 706.81  517.909 609.73  636.874 484.139  726.06 335.911
-            781.296 171.976  800 0))
-      (pin Round[A]Pad_1400_um 1 0 0)
       (pin Oval[A]Pad_1400x1400_um 2 1900 0)
+      (pin Round[A]Pad_1400_um 1 0 0)
     )
     (image "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
       (outline (path signal 120  -1670 2000  -1670 -2000))
@@ -830,7 +830,7 @@
       (pins SW1-S2 J3-5)
     )
     (net GND
-      (pins J4-3 DS3-1 DS2-1 DS1-1 J1-1 J5-3)
+      (pins DS3-1 DS2-1 DS1-1 J1-1)
     )
     (net +3V3
       (pins DS3-2 DS2-2 DS1-2 J1-2)
@@ -856,9 +856,12 @@
     (net /ZERO_DETECT
       (pins J4-2 J5-2)
     )
+    (net GND1
+      (pins J4-3 J5-3)
+    )
     (class kicad_default "" +3V3 +5V /BACKLIGHT_+12V /BACKLIGHT_GND /COIL1
       /COIL2 /COIL3 /COIL4 /COL "/ENCODER B" "/ENCODER-A" "/ENCORDER GND"
-      /ROW /SC0 /SC1 /SD0 /SD1 /ZERO_DETECT GND "Net-(D1-A)" "Net-(D1-K)"
+      /ROW /SC0 /SC1 /SD0 /SD1 /ZERO_DETECT GND GND1 "Net-(D1-A)" "Net-(D1-K)"
       "unconnected-(J3-Pin_6-Pad6)"
       (circuit
         (use_via Via[0-1]_800:400_um)

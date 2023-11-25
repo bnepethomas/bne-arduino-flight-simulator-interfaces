@@ -3,6 +3,7 @@
     "active_layer": 44,
     "active_layer_preset": "All Layers",
     "auto_track_width": false,
+    "hidden_netclasses": [],
     "hidden_nets": [
       "unconnected-(J1-Pad2)",
       "unconnected-(J1-Pad3)",
@@ -32,6 +33,7 @@
     "high_contrast_mode": 0,
     "net_color_mode": 1,
     "opacity": {
+      "images": 0.6,
       "pads": 1.0,
       "tracks": 1.0,
       "vias": 1.0,
@@ -62,7 +64,6 @@
       9,
       10,
       11,
-      12,
       13,
       14,
       15,

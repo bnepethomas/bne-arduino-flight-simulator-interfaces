@@ -1,4 +1,4 @@
-(kicad_sch (version 20211123) (generator eeschema)
+(kicad_sch (version 20230121) (generator eeschema)
 
   (uuid c1144080-ed26-4517-b8c1-bacf662206e3)
 
@@ -8,7 +8,8 @@
   )
 
 
-  (text "V 1.1 Added Intercomm switches for pots" (at 32.258 27.686 0)
+  (text "V 1.1 Added Intercomm switches for pots\nV 1.2 Added ILS Vol"
+    (at 32.258 27.686 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 45a6aad1-cacd-4330-b3cc-2450146cf688)
   )

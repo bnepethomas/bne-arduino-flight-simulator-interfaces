@@ -938,6 +938,46 @@
         )
       )
     )
+    (symbol "power:GND1" (power) (pin_names (offset 0)) (in_bom yes) (on_board yes)
+      (property "Reference" "#PWR" (at 0 -6.35 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Value" "GND1" (at 0 -3.81 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Footprint" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_keywords" "global power" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_description" "Power symbol creates a global label with name \"GND1\" , ground" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "GND1_0_1"
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 -1.27)
+            (xy 1.27 -1.27)
+            (xy 0 -2.54)
+            (xy -1.27 -1.27)
+            (xy 0 -1.27)
+          )
+          (stroke (width 0) (type default))
+          (fill (type none))
+        )
+      )
+      (symbol "GND1_1_1"
+        (pin power_in line (at 0 0 270) (length 0) hide
+          (name "GND1" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+      )
+    )
   )
 
 
@@ -1391,6 +1431,31 @@
     )
   )
 
+  (symbol (lib_id "power:GND1") (at 202.184 44.704 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid 5ae8baa9-fe1a-4e8d-a0d8-6dce77e5c07d)
+    (property "Reference" "#PWR013" (at 202.184 51.054 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND1" (at 202.184 48.8371 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "" (at 202.184 44.704 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 202.184 44.704 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid c018af34-28d6-4787-bdd7-f02f09e440a1))
+    (instances
+      (project "Simmeters Large Guage Replacement"
+        (path "/73b32b5d-03c1-4da0-86a6-bf0e6feee74d"
+          (reference "#PWR013") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "power:GND") (at 125.476 144.526 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 673634c9-9499-4afa-9536-8510032bba42)
@@ -1664,6 +1729,31 @@
     )
   )
 
+  (symbol (lib_id "power:GND1") (at 240.538 44.196 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid a2cc6aa3-38d1-4c72-ba79-94a8605181ee)
+    (property "Reference" "#PWR010" (at 240.538 50.546 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "GND1" (at 240.538 48.3291 0)
+      (effects (font (size 1.27 1.27)))
+    )
+    (property "Footprint" "" (at 240.538 44.196 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 240.538 44.196 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 530c5aff-1585-4b82-9fc4-f1eb579ca44e))
+    (instances
+      (project "Simmeters Large Guage Replacement"
+        (path "/73b32b5d-03c1-4da0-86a6-bf0e6feee74d"
+          (reference "#PWR010") (unit 1)
+        )
+      )
+    )
+  )
+
   (symbol (lib_id "Device:LED") (at 109.474 77.47 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid a56238bb-cf17-4e99-bcb1-68f472cf0a01)
@@ -1743,36 +1833,6 @@
     )
   )
 
-  (symbol (lib_id "power:GND") (at 240.538 44.196 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid d14215f6-8572-43de-a1ac-b678dfcdbbd8)
-    (property "Reference" "#PWR011" (at 240.538 50.546 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "GND" (at 240.665 48.5902 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 240.538 44.196 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 240.538 44.196 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid c34fbb8d-be05-40e5-942f-d5fa1a43f23d))
-    (instances
-      (project "Simmeters Large Guage Replacement"
-        (path "/73b32b5d-03c1-4da0-86a6-bf0e6feee74d"
-          (reference "#PWR011") (unit 1)
-        )
-      )
-      (project "standby_airspeed_vvi"
-        (path "/add38f05-13be-4a42-8e22-2aad93fa5337"
-          (reference "#PWR013") (unit 1)
-        )
-      )
-    )
-  )
-
   (symbol (lib_id "Connector:Conn_01x04_Female") (at 133.096 147.066 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid d581e7b2-993e-4117-82a5-363bdd022a9a)
@@ -1825,36 +1885,6 @@
       (project "Simmeters Large Guage Replacement"
         (path "/73b32b5d-03c1-4da0-86a6-bf0e6feee74d"
           (reference "SW1") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "power:GND") (at 202.184 44.704 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid fd633dbd-8084-4340-b646-3a5ba0488ea2)
-    (property "Reference" "#PWR010" (at 202.184 51.054 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "GND" (at 202.311 49.0982 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 202.184 44.704 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 202.184 44.704 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid b710090a-17be-4dbc-ab36-ec4b3f0b38fe))
-    (instances
-      (project "Simmeters Large Guage Replacement"
-        (path "/73b32b5d-03c1-4da0-86a6-bf0e6feee74d"
-          (reference "#PWR010") (unit 1)
-        )
-      )
-      (project "standby_airspeed_vvi"
-        (path "/add38f05-13be-4a42-8e22-2aad93fa5337"
-          (reference "#PWR013") (unit 1)
         )
       )
     )
