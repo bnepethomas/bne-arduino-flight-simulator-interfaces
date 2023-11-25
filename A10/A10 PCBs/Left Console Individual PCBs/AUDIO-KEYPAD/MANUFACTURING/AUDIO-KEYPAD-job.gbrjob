@@ -5,17 +5,17 @@
       "Application": "Pcbnew",
       "Version": "7.0.9"
     },
-    "CreationDate": "2023-11-25T11:26:46+10:00"
+    "CreationDate": "2023-11-26T05:55:09+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "VHF-AM",
-      "GUID": "5648462d-414d-42e6-9b69-6361645f7063",
+      "Name": "AUDIO-KEYPAD",
+      "GUID": "41554449-4f2d-44b4-9559-5041442e6b69",
       "Revision": "rev?"
     },
     "Size": {
-      "X": 51.408,
-      "Y": 71.22
+      "X": 33.31,
+      "Y": 51.6
     },
     "LayerNumber": 2,
     "BoardThickness": 1.6,
@@ -32,47 +32,47 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "VHF-AM-F_Cu.gbr",
+      "Path": "AUDIO-KEYPAD-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-B_Cu.gbr",
+      "Path": "AUDIO-KEYPAD-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-F_Paste.gbr",
+      "Path": "AUDIO-KEYPAD-F_Paste.gbr",
       "FileFunction": "SolderPaste,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-B_Paste.gbr",
+      "Path": "AUDIO-KEYPAD-B_Paste.gbr",
       "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-F_Silkscreen.gbr",
+      "Path": "AUDIO-KEYPAD-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-B_Silkscreen.gbr",
+      "Path": "AUDIO-KEYPAD-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-F_Mask.gbr",
+      "Path": "AUDIO-KEYPAD-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "VHF-AM-B_Mask.gbr",
+      "Path": "AUDIO-KEYPAD-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "VHF-AM-Edge_Cuts.gbr",
+      "Path": "AUDIO-KEYPAD-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }

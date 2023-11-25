@@ -5,12 +5,12 @@
       "Application": "Pcbnew",
       "Version": "7.0.9"
     },
-    "CreationDate": "2023-11-25T11:26:46+10:00"
+    "CreationDate": "2023-11-26T06:02:27+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "VHF-AM",
-      "GUID": "5648462d-414d-42e6-9b69-6361645f7063",
+      "Name": "INTERCOMM",
+      "GUID": "494e5445-5243-44f4-9d4d-2e6b69636164",
       "Revision": "rev?"
     },
     "Size": {
@@ -32,47 +32,47 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "VHF-AM-F_Cu.gbr",
+      "Path": "INTERCOMM-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-B_Cu.gbr",
+      "Path": "INTERCOMM-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-F_Paste.gbr",
+      "Path": "INTERCOMM-F_Paste.gbr",
       "FileFunction": "SolderPaste,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-B_Paste.gbr",
+      "Path": "INTERCOMM-B_Paste.gbr",
       "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-F_Silkscreen.gbr",
+      "Path": "INTERCOMM-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-B_Silkscreen.gbr",
+      "Path": "INTERCOMM-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "VHF-AM-F_Mask.gbr",
+      "Path": "INTERCOMM-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "VHF-AM-B_Mask.gbr",
+      "Path": "INTERCOMM-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "VHF-AM-Edge_Cuts.gbr",
+      "Path": "INTERCOMM-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }

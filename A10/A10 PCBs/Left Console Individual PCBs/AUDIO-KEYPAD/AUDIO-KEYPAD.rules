@@ -1,5 +1,5 @@
 
-(rules PCB VHF-AM
+(rules PCB AUDIO-KEYPAD
   (snap_angle 
     fortyfive_degree
   )
@@ -11,18 +11,18 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 228)
+    (start_pass_no 256)
     (layer_rule F.Cu
       (active on)
       (preferred_direction vertical)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.4)
+      (against_preferred_direction_trace_costs 2.5)
     )
     (layer_rule B.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 1.7)
+      (against_preferred_direction_trace_costs 1.6)
     )
   )
   (rule
@@ -63,11 +63,9 @@
     )
   )
   (class "kicad_default"
-    "Net-(D1-K)" /COL5 "Net-(D2-K)" "Net-(D3-K)" "Net-(D4-K)" /COL4 "Net-(J3-Pin_1)" "Net-(J3-Pin_2)"
-    "Net-(J3-Pin_3)" "Net-(J3-Pin_4)" "Net-(J4-Pin_1)" "Net-(J4-Pin_2)" "/ANALOG_5V" "/ANALOG_GND" /ROW0 /ROW1
-    /ROW2 /ROW3 /ROW4 GND "/VHF__AM_ENC_4_A" "/VHF__AM_ENC_4_B" "/VHF__AM_PRESET_A" "/VHF__AM_PRESET_B"
-    "unconnected-(J8-Pin_6-Pad6)" "unconnected-(J9-Pin_6-Pad6)" "/VHF__AM_ENC_1_A" "/VHF__AM_ENC_1_B" "/VHF__AM_ENC_2_A" "/VHF__AM_ENC_2_B" "/VHF__AM_ENC_3_A" "/VHF__AM_ENC_3_B"
-    "unconnected-(J7-Pin_8-Pad8)" "/VHF_AM_VOL" "unconnected-(J12-Pin_8-Pad8)"
+    "/COL0_POSTDIODE" /COL0 "/COL1_POSTDIODE" /COL1 "Net-(D4-K)" "/COL2_POSTDIODE" /COL2 /COL3
+    /ROW0 /ROW1 /ROW2 /ROW3 "Net-(D5-K)" "Net-(D6-K)" "Net-(D7-K)" "Net-(J1-Pin_1)"
+    "Net-(J1-Pin_2)" "unconnected-(J3-Pin_8-Pad8)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
