@@ -865,6 +865,8 @@ void setup() {
     SetBrightness(8);
   }
 
+
+
   digitalWrite(RED_STATUS_LED_PORT, true);
   digitalWrite(GREEN_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
@@ -995,6 +997,7 @@ void setup() {
   SendDebug("End Motor Initialisation");
 
   Ledcycle();
+  
 }
 
 void loop() {
