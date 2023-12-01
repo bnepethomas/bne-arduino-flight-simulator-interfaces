@@ -1,757 +1,694 @@
-179161057589112
-Diode_THT
-D_5KPW_P7.62mm_Vertical_AnodeUp
-Diode, 5KPW series, Axial, Vertical, pin pitch=7.62mm, , length*diameter=9*8mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5KPW series Axial Vertical pin pitch 7.62mm  length 9mm diameter 8mm
-0
-2
-2
-Diode_THT
-D_5KPW_P7.62mm_Vertical_KathodeUp
-Diode, 5KPW series, Axial, Vertical, pin pitch=7.62mm, , length*diameter=9*8mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5KPW series Axial Vertical pin pitch 7.62mm  length 9mm diameter 8mm
-0
-2
-2
-Diode_THT
-D_5KPW_P12.70mm_Horizontal
-Diode, 5KPW series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=9*8mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5KPW series Axial Horizontal pin pitch 12.7mm  length 9mm diameter 8mm
-0
-2
-2
-Diode_THT
-D_5KP_P7.62mm_Vertical_AnodeUp
-Diode, 5KP series, Axial, Vertical, pin pitch=7.62mm, , length*diameter=7.62*9.53mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5KP series Axial Vertical pin pitch 7.62mm  length 7.62mm diameter 9.53mm
-0
-2
-2
-Diode_THT
-D_5KP_P7.62mm_Vertical_KathodeUp
-Diode, 5KP series, Axial, Vertical, pin pitch=7.62mm, , length*diameter=7.62*9.53mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5KP series Axial Vertical pin pitch 7.62mm  length 7.62mm diameter 9.53mm
-0
-2
-2
-Diode_THT
-D_5KP_P10.16mm_Horizontal
-Diode, 5KP series, Axial, Horizontal, pin pitch=10.16mm, , length*diameter=7.62*9.53mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5KP series Axial Horizontal pin pitch 10.16mm  length 7.62mm diameter 9.53mm
-0
-2
-2
-Diode_THT
-D_5KP_P12.70mm_Horizontal
-Diode, 5KP series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=7.62*9.53mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5KP series Axial Horizontal pin pitch 12.7mm  length 7.62mm diameter 9.53mm
-0
-2
-2
-Diode_THT
-D_5W_P5.08mm_Vertical_AnodeUp
-Diode, 5W series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=8.9*3.7mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5W series Axial Vertical pin pitch 5.08mm  length 8.9mm diameter 3.7mm
-0
-2
-2
-Diode_THT
-D_5W_P5.08mm_Vertical_KathodeUp
-Diode, 5W series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=8.9*3.7mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5W series Axial Vertical pin pitch 5.08mm  length 8.9mm diameter 3.7mm
-0
-2
-2
-Diode_THT
-D_5W_P10.16mm_Horizontal
-Diode, 5W series, Axial, Horizontal, pin pitch=10.16mm, , length*diameter=8.9*3.7mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5W series Axial Horizontal pin pitch 10.16mm  length 8.9mm diameter 3.7mm
-0
-2
-2
-Diode_THT
-D_5W_P12.70mm_Horizontal
-Diode, 5W series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=8.9*3.7mm^2, , http://www.diodes.com/_files/packages/8686949.gif
-Diode 5W series Axial Horizontal pin pitch 12.7mm  length 8.9mm diameter 3.7mm
-0
-2
-2
-Diode_THT
-D_A-405_P2.54mm_Vertical_AnodeUp
-Diode, A-405 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/A-405.pdf
-Diode A-405 series Axial Vertical pin pitch 2.54mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_A-405_P2.54mm_Vertical_KathodeUp
-Diode, A-405 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/A-405.pdf
-Diode A-405 series Axial Vertical pin pitch 2.54mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_A-405_P5.08mm_Vertical_AnodeUp
-Diode, A-405 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/A-405.pdf
-Diode A-405 series Axial Vertical pin pitch 5.08mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_A-405_P5.08mm_Vertical_KathodeUp
-Diode, A-405 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/A-405.pdf
-Diode A-405 series Axial Vertical pin pitch 5.08mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_A-405_P7.62mm_Horizontal
-Diode, A-405 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/A-405.pdf
-Diode A-405 series Axial Horizontal pin pitch 7.62mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_A-405_P10.16mm_Horizontal
-Diode, A-405 series, Axial, Horizontal, pin pitch=10.16mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/A-405.pdf
-Diode A-405 series Axial Horizontal pin pitch 10.16mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_A-405_P12.70mm_Horizontal
-Diode, A-405 series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/A-405.pdf
-Diode A-405 series Axial Horizontal pin pitch 12.7mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_DO-15_P2.54mm_Vertical_AnodeUp
-Diode, DO-15 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=7.6*3.6mm^2, , http://www.diodes.com/_files/packages/DO-15.pdf
-Diode DO-15 series Axial Vertical pin pitch 2.54mm  length 7.6mm diameter 3.6mm
-0
-2
-2
-Diode_THT
-D_DO-15_P2.54mm_Vertical_KathodeUp
-Diode, DO-15 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=7.6*3.6mm^2, , http://www.diodes.com/_files/packages/DO-15.pdf
-Diode DO-15 series Axial Vertical pin pitch 2.54mm  length 7.6mm diameter 3.6mm
-0
-2
-2
-Diode_THT
-D_DO-15_P3.81mm_Vertical_AnodeUp
-Diode, DO-15 series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=7.6*3.6mm^2, , http://www.diodes.com/_files/packages/DO-15.pdf
-Diode DO-15 series Axial Vertical pin pitch 3.81mm  length 7.6mm diameter 3.6mm
-0
-2
-2
-Diode_THT
-D_DO-15_P3.81mm_Vertical_KathodeUp
-Diode, DO-15 series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=7.6*3.6mm^2, , http://www.diodes.com/_files/packages/DO-15.pdf
-Diode DO-15 series Axial Vertical pin pitch 3.81mm  length 7.6mm diameter 3.6mm
-0
-2
-2
-Diode_THT
-D_DO-15_P5.08mm_Vertical_AnodeUp
-Diode, DO-15 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=7.6*3.6mm^2, , http://www.diodes.com/_files/packages/DO-15.pdf
-Diode DO-15 series Axial Vertical pin pitch 5.08mm  length 7.6mm diameter 3.6mm
-0
-2
-2
-Diode_THT
-D_DO-15_P5.08mm_Vertical_KathodeUp
-Diode, DO-15 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=7.6*3.6mm^2, , http://www.diodes.com/_files/packages/DO-15.pdf
-Diode DO-15 series Axial Vertical pin pitch 5.08mm  length 7.6mm diameter 3.6mm
-0
-2
-2
-Diode_THT
-D_DO-15_P10.16mm_Horizontal
-Diode, DO-15 series, Axial, Horizontal, pin pitch=10.16mm, , length*diameter=7.6*3.6mm^2, , http://www.diodes.com/_files/packages/DO-15.pdf
-Diode DO-15 series Axial Horizontal pin pitch 10.16mm  length 7.6mm diameter 3.6mm
-0
-2
-2
-Diode_THT
-D_DO-15_P12.70mm_Horizontal
-Diode, DO-15 series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=7.6*3.6mm^2, , http://www.diodes.com/_files/packages/DO-15.pdf
-Diode DO-15 series Axial Horizontal pin pitch 12.7mm  length 7.6mm diameter 3.6mm
-0
-2
-2
-Diode_THT
-D_DO-15_P15.24mm_Horizontal
-Diode, DO-15 series, Axial, Horizontal, pin pitch=15.24mm, , length*diameter=7.6*3.6mm^2, , http://www.diodes.com/_files/packages/DO-15.pdf
-Diode DO-15 series Axial Horizontal pin pitch 15.24mm  length 7.6mm diameter 3.6mm
-0
-2
-2
-Diode_THT
-D_DO-27_P5.08mm_Vertical_AnodeUp
-Diode, DO-27 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=9.52*5.33mm^2, , http://www.slottechforum.com/slotinfo/Techstuff/CD2%20Diodes%20and%20Transistors/Cases/Diode%20DO-27.jpg
-Diode DO-27 series Axial Vertical pin pitch 5.08mm  length 9.52mm diameter 5.33mm
-0
-2
-2
-Diode_THT
-D_DO-27_P5.08mm_Vertical_KathodeUp
-Diode, DO-27 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=9.52*5.33mm^2, , http://www.slottechforum.com/slotinfo/Techstuff/CD2%20Diodes%20and%20Transistors/Cases/Diode%20DO-27.jpg
-Diode DO-27 series Axial Vertical pin pitch 5.08mm  length 9.52mm diameter 5.33mm
-0
-2
-2
-Diode_THT
-D_DO-27_P12.70mm_Horizontal
-Diode, DO-27 series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=9.52*5.33mm^2, , http://www.slottechforum.com/slotinfo/Techstuff/CD2%20Diodes%20and%20Transistors/Cases/Diode%20DO-27.jpg
-Diode DO-27 series Axial Horizontal pin pitch 12.7mm  length 9.52mm diameter 5.33mm
-0
-2
-2
-Diode_THT
-D_DO-27_P15.24mm_Horizontal
-Diode, DO-27 series, Axial, Horizontal, pin pitch=15.24mm, , length*diameter=9.52*5.33mm^2, , http://www.slottechforum.com/slotinfo/Techstuff/CD2%20Diodes%20and%20Transistors/Cases/Diode%20DO-27.jpg
-Diode DO-27 series Axial Horizontal pin pitch 15.24mm  length 9.52mm diameter 5.33mm
-0
-2
-2
-Diode_THT
-D_DO-34_SOD68_P2.54mm_Vertical_AnodeUp
-Diode, DO-34_SOD68 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=3.04*1.6mm^2, , https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf
-Diode DO-34_SOD68 series Axial Vertical pin pitch 2.54mm  length 3.04mm diameter 1.6mm
-0
-2
-2
-Diode_THT
-D_DO-34_SOD68_P2.54mm_Vertical_KathodeUp
-Diode, DO-34_SOD68 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=3.04*1.6mm^2, , https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf
-Diode DO-34_SOD68 series Axial Vertical pin pitch 2.54mm  length 3.04mm diameter 1.6mm
-0
-2
-2
-Diode_THT
-D_DO-34_SOD68_P5.08mm_Vertical_AnodeUp
-Diode, DO-34_SOD68 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=3.04*1.6mm^2, , https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf
-Diode DO-34_SOD68 series Axial Vertical pin pitch 5.08mm  length 3.04mm diameter 1.6mm
-0
-2
-2
-Diode_THT
-D_DO-34_SOD68_P5.08mm_Vertical_KathodeUp
-Diode, DO-34_SOD68 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=3.04*1.6mm^2, , https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf
-Diode DO-34_SOD68 series Axial Vertical pin pitch 5.08mm  length 3.04mm diameter 1.6mm
-0
-2
-2
-Diode_THT
-D_DO-34_SOD68_P7.62mm_Horizontal
-Diode, DO-34_SOD68 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=3.04*1.6mm^2, , https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf
-Diode DO-34_SOD68 series Axial Horizontal pin pitch 7.62mm  length 3.04mm diameter 1.6mm
-0
-2
-2
-Diode_THT
-D_DO-34_SOD68_P10.16mm_Horizontal
-Diode, DO-34_SOD68 series, Axial, Horizontal, pin pitch=10.16mm, , length*diameter=3.04*1.6mm^2, , https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf
-Diode DO-34_SOD68 series Axial Horizontal pin pitch 10.16mm  length 3.04mm diameter 1.6mm
-0
-2
-2
-Diode_THT
-D_DO-34_SOD68_P12.70mm_Horizontal
-Diode, DO-34_SOD68 series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=3.04*1.6mm^2, , https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf
-Diode DO-34_SOD68 series Axial Horizontal pin pitch 12.7mm  length 3.04mm diameter 1.6mm
-0
-2
-2
-Diode_THT
-D_DO-35_SOD27_P2.54mm_Vertical_AnodeUp
-Diode, DO-35_SOD27 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
-Diode DO-35_SOD27 series Axial Vertical pin pitch 2.54mm  length 4mm diameter 2mm
-0
-2
-2
-Diode_THT
-D_DO-35_SOD27_P2.54mm_Vertical_KathodeUp
-Diode, DO-35_SOD27 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
-Diode DO-35_SOD27 series Axial Vertical pin pitch 2.54mm  length 4mm diameter 2mm
-0
-2
-2
-Diode_THT
-D_DO-35_SOD27_P3.81mm_Vertical_AnodeUp
-Diode, DO-35_SOD27 series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
-Diode DO-35_SOD27 series Axial Vertical pin pitch 3.81mm  length 4mm diameter 2mm
-0
-2
-2
-Diode_THT
-D_DO-35_SOD27_P3.81mm_Vertical_KathodeUp
-Diode, DO-35_SOD27 series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
-Diode DO-35_SOD27 series Axial Vertical pin pitch 3.81mm  length 4mm diameter 2mm
-0
-2
-2
-Diode_THT
-D_DO-35_SOD27_P5.08mm_Vertical_AnodeUp
-Diode, DO-35_SOD27 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
-Diode DO-35_SOD27 series Axial Vertical pin pitch 5.08mm  length 4mm diameter 2mm
-0
-2
-2
-Diode_THT
-D_DO-35_SOD27_P5.08mm_Vertical_KathodeUp
-Diode, DO-35_SOD27 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
-Diode DO-35_SOD27 series Axial Vertical pin pitch 5.08mm  length 4mm diameter 2mm
-0
-2
-2
-Diode_THT
-D_DO-35_SOD27_P7.62mm_Horizontal
-Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
-Diode DO-35_SOD27 series Axial Horizontal pin pitch 7.62mm  length 4mm diameter 2mm
-0
-2
-2
-Diode_THT
-D_DO-35_SOD27_P10.16mm_Horizontal
-Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=10.16mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
-Diode DO-35_SOD27 series Axial Horizontal pin pitch 10.16mm  length 4mm diameter 2mm
-0
-2
-2
-Diode_THT
-D_DO-35_SOD27_P12.70mm_Horizontal
-Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
-Diode DO-35_SOD27 series Axial Horizontal pin pitch 12.7mm  length 4mm diameter 2mm
-0
-2
-2
-Diode_THT
-D_DO-41_SOD81_P2.54mm_Vertical_AnodeUp
-Diode, DO-41_SOD81 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/DO-41%20(Plastic).pdf
-Diode DO-41_SOD81 series Axial Vertical pin pitch 2.54mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_DO-41_SOD81_P2.54mm_Vertical_KathodeUp
-Diode, DO-41_SOD81 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/DO-41%20(Plastic).pdf
-Diode DO-41_SOD81 series Axial Vertical pin pitch 2.54mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_DO-41_SOD81_P3.81mm_Vertical_AnodeUp
-Diode, DO-41_SOD81 series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=5.2*2.7mm^2, , https://www.diodes.com/assets/Package-Files/DO-41-Plastic.pdf
-Diode DO-41_SOD81 series Axial Vertical pin pitch 3.81mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_DO-41_SOD81_P3.81mm_Vertical_KathodeUp
-Diode, DO-41_SOD81 series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=5.2*2.7mm^2, , https://www.diodes.com/assets/Package-Files/DO-41-Plastic.pdf
-Diode DO-41_SOD81 series Axial Vertical pin pitch 3.81mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_DO-41_SOD81_P5.08mm_Vertical_AnodeUp
-Diode, DO-41_SOD81 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/DO-41%20(Plastic).pdf
-Diode DO-41_SOD81 series Axial Vertical pin pitch 5.08mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_DO-41_SOD81_P5.08mm_Vertical_KathodeUp
-Diode, DO-41_SOD81 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/DO-41%20(Plastic).pdf
-Diode DO-41_SOD81 series Axial Vertical pin pitch 5.08mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_DO-41_SOD81_P7.62mm_Horizontal
-Diode, DO-41_SOD81 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/DO-41%20(Plastic).pdf
-Diode DO-41_SOD81 series Axial Horizontal pin pitch 7.62mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_DO-41_SOD81_P10.16mm_Horizontal
-Diode, DO-41_SOD81 series, Axial, Horizontal, pin pitch=10.16mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/DO-41%20(Plastic).pdf
-Diode DO-41_SOD81 series Axial Horizontal pin pitch 10.16mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_DO-41_SOD81_P12.70mm_Horizontal
-Diode, DO-41_SOD81 series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=5.2*2.7mm^2, , http://www.diodes.com/_files/packages/DO-41%20(Plastic).pdf
-Diode DO-41_SOD81 series Axial Horizontal pin pitch 12.7mm  length 5.2mm diameter 2.7mm
-0
-2
-2
-Diode_THT
-D_DO-201AD_P3.81mm_Vertical_AnodeUp
-Diode, DO-201AD series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=9.5*5.2mm^2, , http://www.diodes.com/_files/packages/DO-201AD.pdf
-Diode DO-201AD series Axial Vertical pin pitch 3.81mm  length 9.5mm diameter 5.2mm
-0
-2
-2
-Diode_THT
-D_DO-201AD_P3.81mm_Vertical_KathodeUp
-Diode, DO-201AD series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=9.5*5.2mm^2, , http://www.diodes.com/_files/packages/DO-201AD.pdf
-Diode DO-201AD series Axial Vertical pin pitch 3.81mm  length 9.5mm diameter 5.2mm
-0
-2
-2
-Diode_THT
-D_DO-201AD_P5.08mm_Vertical_AnodeUp
-Diode, DO-201AD series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=9.5*5.2mm^2, , http://www.diodes.com/_files/packages/DO-201AD.pdf
-Diode DO-201AD series Axial Vertical pin pitch 5.08mm  length 9.5mm diameter 5.2mm
-0
-2
-2
-Diode_THT
-D_DO-201AD_P5.08mm_Vertical_KathodeUp
-Diode, DO-201AD series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=9.5*5.2mm^2, , http://www.diodes.com/_files/packages/DO-201AD.pdf
-Diode DO-201AD series Axial Vertical pin pitch 5.08mm  length 9.5mm diameter 5.2mm
-0
-2
-2
-Diode_THT
-D_DO-201AD_P12.70mm_Horizontal
-Diode, DO-201AD series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=9.5*5.2mm^2, , http://www.diodes.com/_files/packages/DO-201AD.pdf
-Diode DO-201AD series Axial Horizontal pin pitch 12.7mm  length 9.5mm diameter 5.2mm
-0
-2
-2
-Diode_THT
-D_DO-201AD_P15.24mm_Horizontal
-Diode, DO-201AD series, Axial, Horizontal, pin pitch=15.24mm, , length*diameter=9.5*5.2mm^2, , http://www.diodes.com/_files/packages/DO-201AD.pdf
-Diode DO-201AD series Axial Horizontal pin pitch 15.24mm  length 9.5mm diameter 5.2mm
-0
-2
-2
-Diode_THT
-D_DO-201AE_P3.81mm_Vertical_AnodeUp
-Diode, DO-201AE series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=9*5.3mm^2, , http://www.farnell.com/datasheets/529758.pdf
-Diode DO-201AE series Axial Vertical pin pitch 3.81mm  length 9mm diameter 5.3mm
-0
-2
-2
-Diode_THT
-D_DO-201AE_P3.81mm_Vertical_KathodeUp
-Diode, DO-201AE series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=9*5.3mm^2, , http://www.farnell.com/datasheets/529758.pdf
-Diode DO-201AE series Axial Vertical pin pitch 3.81mm  length 9mm diameter 5.3mm
-0
-2
-2
-Diode_THT
-D_DO-201AE_P5.08mm_Vertical_AnodeUp
-Diode, DO-201AE series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=9*5.3mm^2, , http://www.farnell.com/datasheets/529758.pdf
-Diode DO-201AE series Axial Vertical pin pitch 5.08mm  length 9mm diameter 5.3mm
-0
-2
-2
-Diode_THT
-D_DO-201AE_P5.08mm_Vertical_KathodeUp
-Diode, DO-201AE series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=9*5.3mm^2, , http://www.farnell.com/datasheets/529758.pdf
-Diode DO-201AE series Axial Vertical pin pitch 5.08mm  length 9mm diameter 5.3mm
-0
-2
-2
-Diode_THT
-D_DO-201AE_P12.70mm_Horizontal
-Diode, DO-201AE series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=9*5.3mm^2, , http://www.farnell.com/datasheets/529758.pdf
-Diode DO-201AE series Axial Horizontal pin pitch 12.7mm  length 9mm diameter 5.3mm
-0
-2
-2
-Diode_THT
-D_DO-201AE_P15.24mm_Horizontal
-Diode, DO-201AE series, Axial, Horizontal, pin pitch=15.24mm, , length*diameter=9*5.3mm^2, , http://www.farnell.com/datasheets/529758.pdf
-Diode DO-201AE series Axial Horizontal pin pitch 15.24mm  length 9mm diameter 5.3mm
-0
-2
-2
-Diode_THT
-D_DO-201_P3.81mm_Vertical_AnodeUp
-Diode, DO-201 series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=9.53*5.21mm^2, , http://www.diodes.com/_files/packages/DO-201.pdf
-Diode DO-201 series Axial Vertical pin pitch 3.81mm  length 9.53mm diameter 5.21mm
-0
-2
-2
-Diode_THT
-D_DO-201_P3.81mm_Vertical_KathodeUp
-Diode, DO-201 series, Axial, Vertical, pin pitch=3.81mm, , length*diameter=9.53*5.21mm^2, , http://www.diodes.com/_files/packages/DO-201.pdf
-Diode DO-201 series Axial Vertical pin pitch 3.81mm  length 9.53mm diameter 5.21mm
-0
-2
-2
-Diode_THT
-D_DO-201_P5.08mm_Vertical_AnodeUp
-Diode, DO-201 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=9.53*5.21mm^2, , http://www.diodes.com/_files/packages/DO-201.pdf
-Diode DO-201 series Axial Vertical pin pitch 5.08mm  length 9.53mm diameter 5.21mm
-0
-2
-2
-Diode_THT
-D_DO-201_P5.08mm_Vertical_KathodeUp
-Diode, DO-201 series, Axial, Vertical, pin pitch=5.08mm, , length*diameter=9.53*5.21mm^2, , http://www.diodes.com/_files/packages/DO-201.pdf
-Diode DO-201 series Axial Vertical pin pitch 5.08mm  length 9.53mm diameter 5.21mm
-0
-2
-2
-Diode_THT
-D_DO-201_P12.70mm_Horizontal
-Diode, DO-201 series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=9.53*5.21mm^2, , http://www.diodes.com/_files/packages/DO-201.pdf
-Diode DO-201 series Axial Horizontal pin pitch 12.7mm  length 9.53mm diameter 5.21mm
-0
-2
-2
-Diode_THT
-D_DO-201_P15.24mm_Horizontal
-Diode, DO-201 series, Axial, Horizontal, pin pitch=15.24mm, , length*diameter=9.53*5.21mm^2, , http://www.diodes.com/_files/packages/DO-201.pdf
-Diode DO-201 series Axial Horizontal pin pitch 15.24mm  length 9.53mm diameter 5.21mm
-0
-2
-2
-Diode_THT
-D_DO-247_Horizontal_TabDown
-Diode, DO-247 series, Horizontal, TabDown, P 10.9mm
-diode rectifier
-0
-2
-2
-Diode_THT
-D_DO-247_Horizontal_TabUp
-Diode, DO-247 series, Horizontal, TabUp, P 10.9mm
-diode rectifier
-0
-2
-2
-Diode_THT
-D_DO-247_Vertical
-Diode, DO-247 series, Vertical, P 10.9mm
-diode rectifier
-0
-2
-2
-Diode_THT
-D_P600_R-6_P7.62mm_Vertical_AnodeUp
-Diode, P600_R-6 series, Axial, Vertical, pin pitch=7.62mm, , length*diameter=9.1*9.1mm^2, , http://www.vishay.com/docs/88692/p600a.pdf, http://www.diodes.com/_files/packages/R-6.pdf
-Diode P600_R-6 series Axial Vertical pin pitch 7.62mm  length 9.1mm diameter 9.1mm
-0
-2
-2
-Diode_THT
-D_P600_R-6_P7.62mm_Vertical_KathodeUp
-Diode, P600_R-6 series, Axial, Vertical, pin pitch=7.62mm, , length*diameter=9.1*9.1mm^2, , http://www.vishay.com/docs/88692/p600a.pdf, http://www.diodes.com/_files/packages/R-6.pdf
-Diode P600_R-6 series Axial Vertical pin pitch 7.62mm  length 9.1mm diameter 9.1mm
-0
-2
-2
-Diode_THT
-D_P600_R-6_P12.70mm_Horizontal
-Diode, P600_R-6 series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=9.1*9.1mm^2, , http://www.vishay.com/docs/88692/p600a.pdf, http://www.diodes.com/_files/packages/R-6.pdf
-Diode P600_R-6 series Axial Horizontal pin pitch 12.7mm  length 9.1mm diameter 9.1mm
-0
-2
-2
-Diode_THT
-D_P600_R-6_P20.00mm_Horizontal
-Diode, P600_R-6 series, Axial, Horizontal, pin pitch=20mm, , length*diameter=9.1*9.1mm^2, , http://www.vishay.com/docs/88692/p600a.pdf, http://www.diodes.com/_files/packages/R-6.pdf
-Diode P600_R-6 series Axial Horizontal pin pitch 20mm  length 9.1mm diameter 9.1mm
-0
-2
-2
-Diode_THT
-D_T-1_P2.54mm_Vertical_AnodeUp
-Diode, T-1 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=3.2*2.6mm^2, , http://www.diodes.com/_files/packages/T-1.pdf
-Diode T-1 series Axial Vertical pin pitch 2.54mm  length 3.2mm diameter 2.6mm
-0
-2
-2
-Diode_THT
-D_T-1_P2.54mm_Vertical_KathodeUp
-Diode, T-1 series, Axial, Vertical, pin pitch=2.54mm, , length*diameter=3.2*2.6mm^2, , http://www.diodes.com/_files/packages/T-1.pdf
-Diode T-1 series Axial Vertical pin pitch 2.54mm  length 3.2mm diameter 2.6mm
-0
-2
-2
-Diode_THT
-D_T-1_P5.08mm_Horizontal
-Diode, T-1 series, Axial, Horizontal, pin pitch=5.08mm, , length*diameter=3.2*2.6mm^2, , http://www.diodes.com/_files/packages/T-1.pdf
-Diode T-1 series Axial Horizontal pin pitch 5.08mm  length 3.2mm diameter 2.6mm
-0
-2
-2
-Diode_THT
-D_T-1_P10.16mm_Horizontal
-Diode, T-1 series, Axial, Horizontal, pin pitch=10.16mm, , length*diameter=3.2*2.6mm^2, , http://www.diodes.com/_files/packages/T-1.pdf
-Diode T-1 series Axial Horizontal pin pitch 10.16mm  length 3.2mm diameter 2.6mm
-0
-2
-2
-Diode_THT
-D_T-1_P12.70mm_Horizontal
-Diode, T-1 series, Axial, Horizontal, pin pitch=12.7mm, , length*diameter=3.2*2.6mm^2, , http://www.diodes.com/_files/packages/T-1.pdf
-Diode T-1 series Axial Horizontal pin pitch 12.7mm  length 3.2mm diameter 2.6mm
-0
-2
-2
-Diode_THT
-Diode_Bridge_15.1x15.1x6.3mm_P10.9mm
-Single phase bridge rectifier case 15.1x15.1mm, pitch 10.9mm, see https://diotec.com/tl_files/diotec/files/pdf/datasheets/pb1000.pdf
-Diode Bridge PB10xxS
-0
-4
-4
-Diode_THT
-Diode_Bridge_15.2x15.2x6.3mm_P10.9mm
-Single phase bridge rectifier case 15.2x15.2mm, pitch 10.9mm, see https://diotec.com/tl_files/diotec/files/pdf/datasheets/kbpc600.pdf
-Diode Bridge KBPC6xx
-0
-4
-4
-Diode_THT
-Diode_Bridge_15.7x15.7x6.3mm_P10.8mm
-Single phase bridge rectifier case 15.7x15.7
-Diode Bridge
-0
-4
-4
-Diode_THT
-Diode_Bridge_16.7x16.7x6.3mm_P10.8mm
-Single phase bridge rectifier case 16.7x16.7
-Diode Bridge
-0
-4
-4
-Diode_THT
-Diode_Bridge_19.0x3.5x10.0mm_P5.0mm
-Vishay GBU rectifier package, 5.08mm pitch, see http://www.vishay.com/docs/88606/g3sba20.pdf
-Vishay GBU rectifier diode bridge
-0
-4
-4
-Diode_THT
-Diode_Bridge_19.0x19.0x6.8mm_P12.7mm
-Single phase bridge rectifier case 19x19mm, pitch 12.7mm, see https://diotec.com/tl_files/diotec/files/pdf/datasheets/pb1000.pdf
-Diode Bridge PB10xx
-0
-4
-4
-Diode_THT
-Diode_Bridge_28.6x28.6x7.3mm_P18.0mm_P11.6mm
-Single phase bridge rectifier case 28.6x28.6mm, pitch 18.0mm & 11.6mm, see https://diotec.com/tl_files/diotec/files/pdf/datasheets/kbpc1500fw.pdf
-Diode Bridge KBPCxxxxWP
-0
-4
-4
-Diode_THT
-Diode_Bridge_32.0x5.6x17.0mm_P10.0mm_P7.5mm
-Diotec 32x5.6x17mm rectifier package, 7.5mm/10mm pitch, see https://diotec.com/tl_files/diotec/files/pdf/datasheets/b40c3700.pdf
-Diotec rectifier diode bridge
-0
-4
-4
-Diode_THT
-Diode_Bridge_Comchip_SCVB-L
-Three phase, Bridge, Rectifier, https://www.comchiptech.com/admin/files/product/SC35VB80S-G%20Thru506369.%20SC35VB160S-G%20RevB.pdf
-diode module
+168240997449159
+Button_Switch_THT
+KSA_Tactile_SPST
+KSA http://www.ckswitches.com/media/1457/ksa_ksl.pdf
+SWITCH SMD KSA SW
 0
 5
 5
-Diode_THT
-Diode_Bridge_DIP-4_W5.08mm_P2.54mm
-4-lead dip package for diode bridges, row spacing 5.08mm, pin-spacing 2.54mm, see http://www.vishay.com/docs/88898/b2m.pdf
-DIL DIP PDIP 5.08mm 2.54
+Button_Switch_THT
+Nidec_Copal_SH-7010C
+4-bit rotary coded switch, through-hole, https://www.nidec-copal-electronics.com/e/catalog/switch/sh-7000.pdf
+rotary switch bcd
+0
+6
+5
+Button_Switch_THT
+Push_E-Switch_KS01Q01
+E-Switch KS01Q01 http://spec_sheets.e-switch.com/specs/29-KS01Q01.pdf
+Push Button
 0
 4
 4
-Diode_THT
-Diode_Bridge_DIP-4_W7.62mm_P5.08mm
-4-lead dip package for diode bridges, row spacing 7.62 mm (300 mils), see http://cdn-reichelt.de/documents/datenblatt/A400/HDBL101G_20SERIES-TSC.pdf
-DIL DIP PDIP 5.08mm 7.62mm 300mil
+Button_Switch_THT
+SW_CW_GPTS203211B
+SPST Off-On Pushbutton, 1A, 30V, CW Industries P/N GPTS203211B, http://switches-connectors-custom.cwind.com/Asset/GPTS203211BR2.pdf
+SPST button switch Off-On
 0
-4
-4
-Diode_THT
-Diode_Bridge_IXYS_GUFP
-Three phase, Bridge, Rectifier
-diode module
+2
+2
+Button_Switch_THT
+SW_CuK_JS202011AQN_DPDT_Angled
+CuK sub miniature slide switch, JS series, DPDT, right angle, http://www.ckswitches.com/media/1422/js.pdf
+switch DPDT
+0
+6
+6
+Button_Switch_THT
+SW_CuK_JS202011CQN_DPDT_Straight
+CuK sub miniature slide switch, JS series, DPDT, right angle, http://www.ckswitches.com/media/1422/js.pdf
+switch DPDT
+0
+6
+6
+Button_Switch_THT
+SW_CuK_OS102011MA1QN1_SPDT_Angled
+CuK miniature slide switch, OS series, SPDT, right angle, http://www.ckswitches.com/media/1428/os.pdf
+switch SPDT
 0
 5
+3
+Button_Switch_THT
+SW_DIP_SPSTx01_Piano_10.8x4.1mm_W7.62mm_P2.54mm
+1x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x4.1mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+2
+2
+Button_Switch_THT
+SW_DIP_SPSTx01_Slide_6.7x4.1mm_W7.62mm_P2.54mm_LowProfile
+1x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x4.1mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+2
+2
+Button_Switch_THT
+SW_DIP_SPSTx01_Slide_9.78x4.72mm_W7.62mm_P2.54mm
+1x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x4.72mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+2
+2
+Button_Switch_THT
+SW_DIP_SPSTx02_Piano_10.8x6.64mm_W7.62mm_P2.54mm
+2x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x6.64mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+4
+4
+Button_Switch_THT
+SW_DIP_SPSTx02_Piano_CTS_Series194-2MSTN_W7.62mm_P2.54mm
+2x-dip-switch SPST CTS_Series194-2MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+4
+4
+Button_Switch_THT
+SW_DIP_SPSTx02_Slide_6.7x6.64mm_W7.62mm_P2.54mm_LowProfile
+2x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x6.64mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+4
+4
+Button_Switch_THT
+SW_DIP_SPSTx02_Slide_9.78x7.26mm_W7.62mm_P2.54mm
+2x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x7.26mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+4
+4
+Button_Switch_THT
+SW_DIP_SPSTx03_Piano_10.8x9.18mm_W7.62mm_P2.54mm
+3x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x9.18mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+6
+6
+Button_Switch_THT
+SW_DIP_SPSTx03_Piano_CTS_Series194-3MSTN_W7.62mm_P2.54mm
+3x-dip-switch SPST CTS_Series194-3MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+6
+6
+Button_Switch_THT
+SW_DIP_SPSTx03_Slide_6.7x9.18mm_W7.62mm_P2.54mm_LowProfile
+3x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x9.18mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+6
+6
+Button_Switch_THT
+SW_DIP_SPSTx03_Slide_9.78x9.8mm_W7.62mm_P2.54mm
+3x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x9.8mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+6
+6
+Button_Switch_THT
+SW_DIP_SPSTx04_Piano_10.8x11.72mm_W7.62mm_P2.54mm
+4x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x11.72mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+8
+8
+Button_Switch_THT
+SW_DIP_SPSTx04_Piano_CTS_Series194-4MSTN_W7.62mm_P2.54mm
+4x-dip-switch SPST CTS_Series194-4MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+8
+8
+Button_Switch_THT
+SW_DIP_SPSTx04_Slide_6.7x11.72mm_W7.62mm_P2.54mm_LowProfile
+4x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x11.72mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+8
+8
+Button_Switch_THT
+SW_DIP_SPSTx04_Slide_9.78x12.34mm_W7.62mm_P2.54mm
+4x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x12.34mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+8
+8
+Button_Switch_THT
+SW_DIP_SPSTx05_Piano_10.8x14.26mm_W7.62mm_P2.54mm
+5x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x14.26mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+10
+10
+Button_Switch_THT
+SW_DIP_SPSTx05_Piano_CTS_Series194-5MSTN_W7.62mm_P2.54mm
+5x-dip-switch SPST CTS_Series194-5MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+10
+10
+Button_Switch_THT
+SW_DIP_SPSTx05_Slide_6.7x14.26mm_W7.62mm_P2.54mm_LowProfile
+5x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x14.26mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+10
+10
+Button_Switch_THT
+SW_DIP_SPSTx05_Slide_9.78x14.88mm_W7.62mm_P2.54mm
+5x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x14.88mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+10
+10
+Button_Switch_THT
+SW_DIP_SPSTx06_Piano_10.8x16.8mm_W7.62mm_P2.54mm
+6x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x16.8mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+12
+12
+Button_Switch_THT
+SW_DIP_SPSTx06_Piano_CTS_Series194-6MSTN_W7.62mm_P2.54mm
+6x-dip-switch SPST CTS_Series194-6MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+12
+12
+Button_Switch_THT
+SW_DIP_SPSTx06_Slide_6.7x16.8mm_W7.62mm_P2.54mm_LowProfile
+6x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x16.8mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+12
+12
+Button_Switch_THT
+SW_DIP_SPSTx06_Slide_9.78x17.42mm_W7.62mm_P2.54mm
+6x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x17.42mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+12
+12
+Button_Switch_THT
+SW_DIP_SPSTx07_Piano_10.8x19.34mm_W7.62mm_P2.54mm
+7x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x19.34mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+14
+14
+Button_Switch_THT
+SW_DIP_SPSTx07_Piano_CTS_Series194-7MSTN_W7.62mm_P2.54mm
+7x-dip-switch SPST CTS_Series194-7MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+14
+14
+Button_Switch_THT
+SW_DIP_SPSTx07_Slide_6.7x19.34mm_W7.62mm_P2.54mm_LowProfile
+7x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x19.34mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+14
+14
+Button_Switch_THT
+SW_DIP_SPSTx07_Slide_9.78x19.96mm_W7.62mm_P2.54mm
+7x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x19.96mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+14
+14
+Button_Switch_THT
+SW_DIP_SPSTx08_Piano_10.8x21.88mm_W7.62mm_P2.54mm
+8x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x21.88mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+16
+16
+Button_Switch_THT
+SW_DIP_SPSTx08_Piano_CTS_Series194-8MSTN_W7.62mm_P2.54mm
+8x-dip-switch SPST CTS_Series194-8MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+16
+16
+Button_Switch_THT
+SW_DIP_SPSTx08_Slide_6.7x21.88mm_W7.62mm_P2.54mm_LowProfile
+8x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x21.88mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+16
+16
+Button_Switch_THT
+SW_DIP_SPSTx08_Slide_9.78x22.5mm_W7.62mm_P2.54mm
+8x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x22.5mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+16
+16
+Button_Switch_THT
+SW_DIP_SPSTx09_Piano_10.8x24.42mm_W7.62mm_P2.54mm
+9x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x24.42mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+18
+18
+Button_Switch_THT
+SW_DIP_SPSTx09_Piano_CTS_Series194-9MSTN_W7.62mm_P2.54mm
+9x-dip-switch SPST CTS_Series194-9MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+18
+18
+Button_Switch_THT
+SW_DIP_SPSTx09_Slide_6.7x24.42mm_W7.62mm_P2.54mm_LowProfile
+9x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x24.42mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+18
+18
+Button_Switch_THT
+SW_DIP_SPSTx09_Slide_9.78x25.04mm_W7.62mm_P2.54mm
+9x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x25.04mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+18
+18
+Button_Switch_THT
+SW_DIP_SPSTx10_Piano_10.8x26.96mm_W7.62mm_P2.54mm
+10x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x26.96mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+20
+20
+Button_Switch_THT
+SW_DIP_SPSTx10_Piano_CTS_Series194-10MSTN_W7.62mm_P2.54mm
+10x-dip-switch SPST CTS_Series194-10MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+20
+20
+Button_Switch_THT
+SW_DIP_SPSTx10_Slide_6.7x26.96mm_W7.62mm_P2.54mm_LowProfile
+10x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x26.96mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+20
+20
+Button_Switch_THT
+SW_DIP_SPSTx10_Slide_9.78x27.58mm_W7.62mm_P2.54mm
+10x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x27.58mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+20
+20
+Button_Switch_THT
+SW_DIP_SPSTx11_Piano_10.8x29.5mm_W7.62mm_P2.54mm
+11x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x29.5mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+22
+22
+Button_Switch_THT
+SW_DIP_SPSTx11_Piano_CTS_Series194-11MSTN_W7.62mm_P2.54mm
+11x-dip-switch SPST CTS_Series194-11MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+22
+22
+Button_Switch_THT
+SW_DIP_SPSTx11_Slide_6.7x29.5mm_W7.62mm_P2.54mm_LowProfile
+11x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x29.5mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+22
+22
+Button_Switch_THT
+SW_DIP_SPSTx11_Slide_9.78x30.12mm_W7.62mm_P2.54mm
+11x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x30.12mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+22
+22
+Button_Switch_THT
+SW_DIP_SPSTx12_Piano_10.8x32.04mm_W7.62mm_P2.54mm
+12x-dip-switch SPST , Piano, row spacing 7.62 mm (300 mils), body size 10.8x32.04mm
+DIP Switch SPST Piano 7.62mm 300mil
+0
+24
+24
+Button_Switch_THT
+SW_DIP_SPSTx12_Piano_CTS_Series194-12MSTN_W7.62mm_P2.54mm
+12x-dip-switch SPST CTS_Series194-12MSTN, Piano, row spacing 7.62 mm (300 mils), body size  (see https://www.ctscorp.com/wp-content/uploads/194-195.pdf)
+DIP Switch SPST Piano 7.62mm 300mil
+0
+24
+24
+Button_Switch_THT
+SW_DIP_SPSTx12_Slide_6.7x32.04mm_W7.62mm_P2.54mm_LowProfile
+12x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 6.7x32.04mm (see e.g. https://www.ctscorp.com/wp-content/uploads/209-210.pdf), LowProfile
+DIP Switch SPST Slide 7.62mm 300mil LowProfile
+0
+24
+24
+Button_Switch_THT
+SW_DIP_SPSTx12_Slide_9.78x32.66mm_W7.62mm_P2.54mm
+12x-dip-switch SPST , Slide, row spacing 7.62 mm (300 mils), body size 9.78x32.66mm (see e.g. https://www.ctscorp.com/wp-content/uploads/206-208.pdf)
+DIP Switch SPST Slide 7.62mm 300mil
+0
+24
+24
+Button_Switch_THT
+SW_E-Switch_EG1224_SPDT_Angled
+E-Switch slide switch, EG series, SPDT, right angle, http://spec_sheets.e-switch.com/specs/P040042.pdf
+switch SPDT
+0
+7
+3
+Button_Switch_THT
+SW_E-Switch_EG1271_SPDT
+E-Switch sub miniature slide switch, EG series, SPDT, https://www.e-switch.com/wp-content/uploads/2022/06/EG.pdf
+switch SPDT
+0
+6
+6
+Button_Switch_THT
+SW_E-Switch_EG2219_DPDT_Angled
+E-Switch slide switch, EG series, DPDT, right angle, http://spec_sheets.e-switch.com/specs/P040170.pdf
+switch DPDT
+0
+10
+6
+Button_Switch_THT
+SW_Lever_1P2T_NKK_GW12LxH
+Switch, single pole double throw, right angle, http://www.nkkswitches.com/pdf/GW.pdf
+switch single-pole double-throw spdt ON-ON horizontal
+0
 5
-Diode_THT
-Diode_Bridge_Round_D8.9mm
-4-lead round diode bridge package, diameter 8.9mm, pin pitch 5.08mm, see http://cdn-reichelt.de/documents/datenblatt/A400/W005M-W10M_SEP.PDF
-diode bridge 8.9mm 8.85mm WOB pitch 5.08mm
+3
+Button_Switch_THT
+SW_MEC_5GTH9
+MEC 5G single pole normally-open tactile switch https://cdn.sos.sk/productdata/80/f6/aabf7be6/5gth9358222.pdf
+switch normally-open pushbutton push-button
+0
+4
+2
+Button_Switch_THT
+SW_NKK_BB15AH
+https://www.nkkswitches.com/pdf/Bpushbuttons-1.pdf
+Pushbutton Right-angle
+0
+5
+3
+Button_Switch_THT
+SW_NKK_G1xJP
+Switch NKK G1xJP http://www.nkkswitches.com/pdf/gwillum.pdf
+SWITCH TOGGLE ILLUM SPDT NKK
+0
+6
+6
+Button_Switch_THT
+SW_NKK_GW12LJP
+Switch, single pole double throw, illuminated paddle, http://www.nkkswitches.com/pdf/gwillum.pdf
+switch single-pole double-throw spdt ON-ON illuminated LED
+0
+6
+6
+Button_Switch_THT
+SW_PUSH-12mm
+SW PUSH 12mm https://www.e-switch.com/system/asset/product_line/data_sheet/143/TL1100.pdf
+tact sw push 12mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH-12mm_Wuerth-430476085716
+SW PUSH 12mm http://katalog.we-online.de/em/datasheet/430476085716.pdf
+tact sw push 12mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH_1P1T_6x3.5mm_H4.3_APEM_MJTP1243
+tactile push button, 6x3.5mm, https://www.apem.com/idec-apem/en_US/PCB-switches/Tactile-Switches/MJTP-6mm-through-hole/c/MJTP_6mm_through%20hole?page=1
+PHAP3362 6mm tact sw THT
+0
+2
+2
+Button_Switch_THT
+SW_PUSH_1P1T_6x3.5mm_H5.0_APEM_MJTP1250
+tactile push button, 6x3.5mm, https://www.apem.com/idec-apem/en_US/PCB-switches/Tactile-Switches/MJTP-6mm-through-hole/c/MJTP_6mm_through%20hole?page=1
+PHAP3362A 6mm tact sw THT
+0
+2
+2
+Button_Switch_THT
+SW_PUSH_6mm
+https://www.omron.com/ecb/products/pdf/en-b3f.pdf
+tact sw push 6mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH_6mm_H4.3mm
+tactile push button, 6x6mm e.g. PHAP33xx series, height=4.3mm
+tact sw push 6mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH_6mm_H5mm
+tactile push button, 6x6mm e.g. PHAP33xx series, height=5mm
+tact sw push 6mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH_6mm_H7.3mm
+tactile push button, 6x6mm e.g. PHAP33xx series, height=7.3mm
+tact sw push 6mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH_6mm_H8.5mm
+tactile push button, 6x6mm e.g. PHAP33xx series, height=8.5mm
+tact sw push 6mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH_6mm_H8mm
+tactile push button, 6x6mm e.g. PHAP33xx series, height=8mm
+tact sw push 6mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH_6mm_H9.5mm
+tactile push button, 6x6mm e.g. PHAP33xx series, height=9.5mm
+tact sw push 6mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH_6mm_H13mm
+tactile push button, 6x6mm e.g. PHAP33xx series, height=13mm
+tact sw push 6mm
+0
+4
+2
+Button_Switch_THT
+SW_PUSH_E-Switch_FS5700DP_DPDT
+FS5700 series pushbutton footswitch, DPDT, https://www.e-switch.com/system/asset/product_line/data_sheet/226/FS5700.pdf
+switch DPDT footswitch
+0
+6
+6
+Button_Switch_THT
+SW_PUSH_LCD_E3_SAxxxx
+Switch with LCD screen E3 SAxxxx
+switch normally-open pushbutton push-button LCD
+0
+6
+6
+Button_Switch_THT
+SW_PUSH_LCD_E3_SAxxxx_SocketPins
+Switch with LCD screen E3 SAxxxx
+switch normally-open pushbutton push-button LCD
+0
+6
+6
+Button_Switch_THT
+SW_Push_1P1T_NO_LED_E-Switch_TL1250
+illuminated right angle tact switch https://www.e-switch.com/system/asset/product_line/data_sheet/148/TL1250.pdf
+led push switch right angle
+0
+6
+4
+Button_Switch_THT
+SW_Push_1P2T_Vertical_E-Switch_800UDP8P1A1M6
+ right angle SPDT push button https://www.e-switch.com/system/asset/product_line/data_sheet/210/800U.pdf
+IP67 ultra-miniture horizontal
+0
+5
+3
+Button_Switch_THT
+SW_Push_2P1T_Toggle_CK_PVA1xxH1xxxxxxV2
+momentary / push-push button, h=17.5mm C&K PVA1 https://www.ckswitches.com/media/1343/pva.pdf
+tact sw push PVA1 DPST
 0
 4
 4
-Diode_THT
-Diode_Bridge_Round_D9.0mm
-4-lead round diode bridge package, diameter 9.0mm, pin pitch 5.0mm, see https://diotec.com/tl_files/diotec/files/pdf/datasheets/b40r.pdf
-diode bridge 9.0mm 8.85mm WOB pitch 5.0mm
+Button_Switch_THT
+SW_Push_2P1T_Toggle_CK_PVA1xxH2xxxxxxV2
+momentary / push-push button, h=23mm C&K PVA1 https://www.ckswitches.com/media/1343/pva.pdf
+tact sw push PVA1 DPST
 0
 4
 4
-Diode_THT
-Diode_Bridge_Round_D9.8mm
-4-lead round diode bridge package, diameter 9.8mm, pin pitch 5.08mm, see http://www.vishay.com/docs/88769/woo5g.pdf
-diode bridge 9.8mm WOG pitch 5.08mm
+Button_Switch_THT
+SW_Push_2P1T_Toggle_CK_PVA1xxH3xxxxxxV2
+momentary / push-push button, h=20.5mm C&K PVA1 https://www.ckswitches.com/media/1343/pva.pdf
+tact sw push PVA1 DPST
 0
 4
 4
-Diode_THT
-Diode_Bridge_Vishay_GBL
-Vishay GBL rectifier package, 5.08mm pitch, see http://www.vishay.com/docs/88609/gbl005.pdf
-Vishay GBL rectifier diode bridge
+Button_Switch_THT
+SW_Push_2P1T_Toggle_CK_PVA1xxH4xxxxxxV2
+momentary / push-push button, h=15mm C&K PVA1 https://www.ckswitches.com/media/1343/pva.pdf
+tact sw push PVA1 DPST
 0
 4
 4
-Diode_THT
-Diode_Bridge_Vishay_GBU
-Vishay GBU rectifier package, 5.08mm pitch, see http://www.vishay.com/docs/88606/g3sba20.pdf
-Vishay GBU rectifier diode bridge
+Button_Switch_THT
+SW_Push_2P2T_Toggle_CK_PVA2OAH5xxxxxxV2
+momentary / push-push button, h=13mm C&K PVA2 https://www.ckswitches.com/media/1343/pva.pdf
+tact sw push PVA2 DPDT
+0
+6
+6
+Button_Switch_THT
+SW_Push_2P2T_Toggle_CK_PVA2xxH1xxxxxxV2
+momentary / push-push button, h=17.5mm C&K PVA2 https://www.ckswitches.com/media/1343/pva.pdf
+tact sw push PVA2 DPDT
+0
+6
+6
+Button_Switch_THT
+SW_Push_2P2T_Toggle_CK_PVA2xxH2xxxxxxV2
+momentary / push-push button, h=23mm C&K PVA2 https://www.ckswitches.com/media/1343/pva.pdf
+tact sw push PVA2 DPDT
+0
+6
+6
+Button_Switch_THT
+SW_Push_2P2T_Toggle_CK_PVA2xxH3xxxxxxV2
+momentary / push-push button, h=20.5mm C&K PVA2 https://www.ckswitches.com/media/1343/pva.pdf
+tact sw push PVA2 DPDT
+0
+6
+6
+Button_Switch_THT
+SW_Push_2P2T_Toggle_CK_PVA2xxH4xxxxxxV2
+momentary / push-push button, h=15mm C&K PVA2 https://www.ckswitches.com/media/1343/pva.pdf
+tact sw push PVA2 DPDT
+0
+6
+6
+Button_Switch_THT
+SW_Push_2P2T_Vertical_E-Switch_800UDP8P1A1M6
+ right angle DPDT push button https://www.e-switch.com/system/asset/product_line/data_sheet/210/800U.pdf
+IP67 ultra-miniture horizontal
+0
+8
+6
+Button_Switch_THT
+SW_SPST_Omron_B3F-315x_Angled
+tactile switch, 7.3mm x 6.25mm  x 7.4mm, right angle, https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf
+tactile switch Omron B3F right angle through hole
 0
 4
-4
-Diode_THT
-Diode_Bridge_Vishay_KBL
-Vishay KBL rectifier package, 5.08mm pitch, see http://www.vishay.com/docs/88655/kbl005.pdf
-Vishay KBL rectifier diode bridge
+2
+Button_Switch_THT
+SW_Slide_1P2T_CK_OS102011MS2Q
+CuK miniature slide switch, OS series, SPDT, https://www.ckswitches.com/media/1428/os.pdf
+switch SPDT
+0
+5
+3
+Button_Switch_THT
+SW_TH_Tactile_Omron_B3F-10xx
+SW_TH_Tactile_Omron_B3F-10xx_https://www.omron.com/ecb/products/pdf/en-b3f.pdf
+Omron B3F-10xx
 0
 4
-4
-Diode_THT
-Diode_Bridge_Vishay_KBPC1
-Single phase bridge rectifier case KBPC1, see http://www.vishay.com/docs/93585/vs-kbpc1series.pdf
-Diode Bridge
+2
+Button_Switch_THT
+SW_Tactile_SKHH_Angled
+tactile switch 6mm ALPS SKHH right angle http://www.alps.com/prod/info/E/HTML/Tact/SnapIn/SKHH/SKHHLUA010.html
+tactile switch 6mm ALPS SKHH right angle
 0
 4
-4
-Diode_THT
-Diode_Bridge_Vishay_KBPC6
-Single phase bridge rectifier case KBPC6, see http://www.vishay.com/docs/93585/vs-kbpc1series.pdf
-Diode Bridge
+2
+Button_Switch_THT
+SW_Tactile_SPST_Angled_PTS645Vx31-2LFS
+tactile switch SPST right angle, PTS645VL31-2 LFS
+tactile switch SPST angled PTS645VL31-2 LFS C&K Button
 0
 4
-4
-Diode_THT
-Diode_Bridge_Vishay_KBPM
-Vishay KBM rectifier package, 3.95mm pitch (http://www.farnell.com/datasheets/2238158.pdf, http://www.cdil.com/s/kbp2005_.pdf)
-Vishay KBM rectifier diode bridge
+2
+Button_Switch_THT
+SW_Tactile_SPST_Angled_PTS645Vx39-2LFS
+tactile switch SPST right angle, PTS645VL39-2 LFS
+tactile switch SPST angled PTS645VL39-2 LFS C&K Button
 0
 4
-4
-Diode_THT
-Diode_Bridge_Vishay_KBU
-Vishay KBU rectifier package, 5.08mm pitch, see http://www.vishay.com/docs/88656/kbu4.pdf
-Vishay KBU rectifier diode bridge
+2
+Button_Switch_THT
+SW_Tactile_SPST_Angled_PTS645Vx58-2LFS
+tactile switch SPST right angle, PTS645VL58-2 LFS
+tactile switch SPST angled PTS645VL58-2 LFS C&K Button
 0
 4
+2
+Button_Switch_THT
+SW_Tactile_SPST_Angled_PTS645Vx83-2LFS
+tactile switch SPST right angle, PTS645VL83-2 LFS
+tactile switch SPST angled PTS645VL83-2 LFS C&K Button
+0
 4
+2
+Button_Switch_THT
+SW_Tactile_Straight_KSA0Axx1LFTR
+SW PUSH SMALL http://www.ckswitches.com/media/1457/ksa_ksl.pdf
+SW PUSH SMALL Tactile C&K
+0
+4
+2
+Button_Switch_THT
+SW_Tactile_Straight_KSL0Axx1LFTR
+SW PUSH SMALL http://www.ckswitches.com/media/1457/ksa_ksl.pdf
+SW PUSH SMALL Tactile C&K
+0
+4
+2
