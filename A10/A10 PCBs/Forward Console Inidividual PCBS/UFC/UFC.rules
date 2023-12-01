@@ -1,5 +1,5 @@
 
-(rules PCB VHF-AM
+(rules PCB UFC
   (snap_angle 
     fortyfive_degree
   )
@@ -11,18 +11,18 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 228)
+    (start_pass_no 473)
     (layer_rule F.Cu
-      (active on)
-      (preferred_direction vertical)
-      (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.4)
-    )
-    (layer_rule B.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 1.7)
+      (against_preferred_direction_trace_costs 4.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.3)
     )
   )
   (rule
@@ -63,11 +63,12 @@
     )
   )
   (class "kicad_default"
-    "Net-(D1-K)" /COL5 "Net-(D2-K)" "Net-(D3-K)" "Net-(D4-K)" /COL4 "Net-(J3-Pin_1)" "Net-(J3-Pin_2)"
-    "Net-(J3-Pin_3)" "Net-(J3-Pin_4)" "Net-(J4-Pin_1)" "Net-(J4-Pin_2)" "/ANALOG_5V" "/ANALOG_GND" /ROW0 /ROW1
-    /ROW2 /ROW3 /ROW4 GND "/VHF__AM_ENC_4_A" "/VHF__AM_ENC_4_B" "/VHF__AM_PRESET_A" "/VHF__AM_PRESET_B"
-    "unconnected-(J8-Pin_6-Pad6)" "unconnected-(J9-Pin_6-Pad6)" "/VHF__AM_ENC_1_A" "/VHF__AM_ENC_1_B" "/VHF__AM_ENC_2_A" "/VHF__AM_ENC_2_B" "/VHF__AM_ENC_3_A" "/VHF__AM_ENC_3_B"
-    "unconnected-(J7-Pin_8-Pad8)" "/VHF_AM_VOL" "unconnected-(J12-Pin_8-Pad8)"
+    "Net-(D1-K)" /COL5 "Net-(D2-K)" "Net-(D3-K)" "Net-(D4-K)" /COL4 /COL2 /COL0
+    "Net-(D5-K)" "Net-(D6-K)" "Net-(D7-K)" "Net-(D8-K)" "Net-(D9-K)" "Net-(D10-K)" /ROW0 /ROW1
+    /ROW2 /ROW3 /ROW4 "Net-(D11-K)" "Net-(D12-K)" "Net-(D13-K)" /COL3 "Net-(D14-K)"
+    /COL1 "Net-(D15-K)" "Net-(D16-K)" "Net-(D17-K)" "Net-(D18-K)" "Net-(D19-K)" "/CAUTION_LED-" "/CAUTION_LED+"
+    "Net-(D21-K)" "Net-(D22-K)" "Net-(D23-K)" "Net-(D24-K)" "Net-(D25-K)" "Net-(D27-K)" "Net-(D28-K)" "Net-(D29-K)"
+    "Net-(D30-K)" "Net-(D31-K)" "Net-(D32-K)" /ROW5 "Net-(D51-K)" "Net-(D26-K)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
