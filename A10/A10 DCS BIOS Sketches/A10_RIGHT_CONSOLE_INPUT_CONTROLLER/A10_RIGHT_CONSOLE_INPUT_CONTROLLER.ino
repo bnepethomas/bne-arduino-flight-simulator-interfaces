@@ -50,7 +50,7 @@
   Select a input device eg Switch, Rotary Switch
   
   For Rotarys we are generally interested just in Close (the second case statement), 
-  whereas for Toggles we will ne to configure Close and Release.
+  whereas for Toggles we will need to configure Close and Release.
 
   Using Python HW Link note the input numbers associated with the switch. 
   Add a comment for in the case number for the action associated with the input number
@@ -622,6 +622,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 58:
           break;
         case 59:
+          sendToDcsBiosMessage("FQIS_TEST", "0");
           break;
         case 60:
           break;
@@ -888,7 +889,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CDU_LSK_5R", "0");
           break;
         case 143:
-        // LCP_POSITION
+          // LCP_POSITION
           sendToDcsBiosMessage("LCP_POSITION", "1");
           break;
         case 144:
@@ -1044,6 +1045,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 3:
           break;
         case 4:
+          sendToDcsBiosMessage("FQIS_SELECT", "3");
           break;
         case 5:
           break;
@@ -1082,6 +1084,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 14:
           break;
         case 15:
+          sendToDcsBiosMessage("FQIS_SELECT", "2");
           break;
         // Close
         case 16:
@@ -1113,6 +1116,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 25:
           break;
         case 26:
+          sendToDcsBiosMessage("FQIS_SELECT", "1");
           break;
         case 27:
           break;
@@ -1142,6 +1146,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 36:
           break;
         case 37:
+          sendToDcsBiosMessage("FQIS_SELECT", "0");
           break;
         case 38:
           break;
@@ -1170,6 +1175,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 48:
+          sendToDcsBiosMessage("FQIS_SELECT", "4");
           break;
         case 49:
           break;
@@ -1202,6 +1208,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 58:
           break;
         case 59:
+          sendToDcsBiosMessage("FQIS_TEST", "1");
           break;
         case 60:
           break;
@@ -1484,7 +1491,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CDU_LSK_5R", "1");
           break;
         case 143:
-        // LCP_POSITION
+          // LCP_POSITION
           sendToDcsBiosMessage("LCP_POSITION", "0");
           break;
         case 144:
