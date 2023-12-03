@@ -475,18 +475,15 @@ void CreateDcsBiosMessage(int ind, int state) {
     // RELEASE
     case 0:
       switch (ind) {
-
         // Release
         case 0:
-          // TACAN - OFF
           break;
         case 1:
-          // TACAN - TEST BUTTON
-          sendToDcsBiosMessage("TACAN_TEST_BTN", "0");
           break;
         case 2:
           break;
         case 3:
+          // Release
           break;
         case 4:
           break;
@@ -498,19 +495,15 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 8:
-          // EPP_APU_GEN_PWR
-          sendToDcsBiosMessage("EPP_APU_GEN_PWR", "0");
           break;
         case 9:
-          // EPP_INVERTER
-          sendToDcsBiosMessage("EPP_INVERTER", "1");
           break;
         case 10:
           break;
         case 11:
           break;
         case 12:
-          // TACAN - XY
+          // Release
           break;
         case 13:
           break;
@@ -526,13 +519,9 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 18:
           break;
         case 19:
-          // EPP_BATTERY_PWR
-          sendToDcsBiosMessage("EPP_BATTERY_PWR", "0");
           break;
+        // Release
         case 20:
-          // EPP_INVERTER
-          sendToDcsBiosMessage("EPP_INVERTER", "1");
-
           break;
         case 21:
           break;
@@ -549,17 +538,14 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 27:
           break;
+          // Release
         case 28:
           break;
         case 29:
           break;
         case 30:
-          // EPP_AC_GEN_PWR_L
-          sendToDcsBiosMessage("EPP_AC_GEN_PWR_L", "0");
           break;
         case 31:
-          // EPP_EMER_FLOOD
-          sendToDcsBiosMessage("EPP_EMER_FLOOD", "0");
           break;
         // Release
         case 32:
@@ -570,6 +556,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 35:
           break;
+        // Release
         case 36:
           break;
         case 37:
@@ -582,13 +569,12 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 40:
           break;
         case 41:
-          // EPP_AC_GEN_PWR_R
-          sendToDcsBiosMessage("EPP_AC_GEN_PWR_R", "0");
           break;
         case 42:
           break;
         case 43:
           break;
+        // Release
         case 44:
           break;
         case 45:
@@ -606,11 +592,15 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 51:
           break;
+        // Release
         case 52:
+          sendToDcsBiosMessage("LMFD_PWR", "0");
           break;
         case 53:
+          sendToDcsBiosMessage("LAMP_TEST_BTN", "0");
           break;
         case 54:
+          sendToDcsBiosMessage("ALCP_HARSSAS", "1");
           break;
         case 55:
           break;
@@ -622,8 +612,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 58:
           break;
         case 59:
-          sendToDcsBiosMessage("FQIS_TEST", "0");
           break;
+        // Release
         case 60:
           break;
         case 61:
@@ -631,9 +621,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 62:
           break;
         case 63:
+          sendToDcsBiosMessage("RMFD_PWR", "0");
           break;
         // Release
         case 64:
+          sendToDcsBiosMessage("ALCP_FDBA_TEST", "0");
           break;
         case 65:
           break;
@@ -641,6 +633,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 67:
           break;
+        // Release
         case 68:
           break;
         case 69:
@@ -658,6 +651,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 75:
           break;
+        // Release
         case 76:
           break;
         case 77:
@@ -675,6 +669,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 83:
           break;
+        // Release
         case 84:
           break;
         case 85:
@@ -689,330 +684,199 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 89:
           break;
         case 90:
-          // CDU_0
-          sendToDcsBiosMessage("CDU_0", "0");
           break;
         case 91:
-          // CDU_8
-          sendToDcsBiosMessage("CDU_8", "0");
           break;
+        // Release
         case 92:
-          // CDU_5
-          sendToDcsBiosMessage("CDU_5", "0");
           break;
         case 93:
-          // CDU_2
-          sendToDcsBiosMessage("CDU_2", "0");
           break;
         case 94:
-          // CDU_SCROLL
-          sendToDcsBiosMessage("CDU_SCROLL", "1");
           break;
         case 95:
-          // CDU_PG
-          sendToDcsBiosMessage("CDU_PG", "1");
           break;
         // Release
         case 96:
-          // CDU_PG
-          sendToDcsBiosMessage("CDU_PG", "1");
           break;
         case 97:
-          // CDU_SYS
-          sendToDcsBiosMessage("CDU_SYS", "0");
           break;
         case 98:
-          // CDU_LSK_9L
-          sendToDcsBiosMessage("CDU_LSK_9L", "0");
           break;
         case 99:
           break;
+        // Release
         case 100:
-          sendToDcsBiosMessage("AAP_STEER", "1");
           break;
         case 101:
-          // CDU_POINT
-          sendToDcsBiosMessage("CDU_POINT", "0");
           break;
         case 102:
-          // CDU_7
-          sendToDcsBiosMessage("CDU_7", "0");
           break;
         case 103:
-          // CDU_4
-          sendToDcsBiosMessage("CDU_4", "0");
           break;
         // Release
         case 104:
-          // CDU_1
-          sendToDcsBiosMessage("CDU_1", "0");
           break;
         case 105:
           break;
         case 106:
-          // CDU_LSK_3L
-          sendToDcsBiosMessage("CDU_LSK_3L", "0");
           break;
         case 107:
-          // CDU_LSK_3L
-          sendToDcsBiosMessage("CDU_LSK_3L", "0");
           break;
+        // Release
         case 108:
-          // CDU_LSK_5L
-          sendToDcsBiosMessage("CDU_LSK_5L", "0");
           break;
         case 109:
-          // CDU_LSK_7L
-          sendToDcsBiosMessage("CDU_LSK_7L", "0");
           break;
         case 110:
-          sendToDcsBiosMessage("AAP_CDUPWR", "0");
           break;
         case 111:
-          sendToDcsBiosMessage("AAP_STEER", "1");
           break;
         // Release
         case 112:
-          // CDU_Z
-          sendToDcsBiosMessage("CDU_Z", "0");
           break;
         case 113:
-          // CDU_U
-          sendToDcsBiosMessage("CDU_U", "0");
           break;
         case 114:
-          // CDU_P
-          sendToDcsBiosMessage("CDU_P", "0");
           break;
         case 115:
-          // CDU_K
-          sendToDcsBiosMessage("CDU_K", "0");
           break;
+        // Release
         case 116:
-          // CDU_F
-          sendToDcsBiosMessage("CDU_F", "0");
           break;
         case 117:
-          // CDU_A
-          sendToDcsBiosMessage("CDU_A", "0");
           break;
         case 118:
           break;
         case 119:
-          // CDU_WP
-          sendToDcsBiosMessage("CDU_WP", "0");
           break;
         // Release
         case 120:
-          // CDU_LSK_3R
-          sendToDcsBiosMessage("CDU_LSK_3R", "0");
           break;
         case 121:
           break;
         case 122:
-          sendToDcsBiosMessage("AAP_EGIPWR", "0");
           break;
         case 123:
           break;
+        // Release
         case 124:
-          // CDU_9
-          sendToDcsBiosMessage("CDU_9", "0");
           break;
         case 125:
-          // CDU_6
-          sendToDcsBiosMessage("CDU_6", "0");
           break;
         case 126:
-          // CDU_3
-          sendToDcsBiosMessage("CDU_3", "0");
           break;
         case 127:
-          // CDU_SCROLL
-          sendToDcsBiosMessage("CDU_SCROLL", "1");
           break;
         // Release
         case 128:
-          // CDU_DATA
-          sendToDcsBiosMessage("CDU_DATA", "1");
           break;
         case 129:
-          // CDU_DATA
-          sendToDcsBiosMessage("CDU_DATA", "1");
           break;
         case 130:
-          // CDU_NAV
-          sendToDcsBiosMessage("CDU_NAV", "0");
           break;
         case 131:
           break;
+        // Release
         case 132:
-          // LCP_POSITION
-          sendToDcsBiosMessage("LCP_POSITION", "1");
           break;
         case 133:
-          // LCP_SIGNAL_LIGHTS
-          sendToDcsBiosMessage("LCP_SIGNAL_LIGHTS", "0");
           break;
         case 134:
           break;
         case 135:
-          // CDU_W
-          sendToDcsBiosMessage("CDU_W", "0");
           break;
         // Release
         case 136:
-          // CDU_R
-          sendToDcsBiosMessage("CDU_R", "0");
           break;
         case 137:
-          // CDU_M
-          sendToDcsBiosMessage("CDU_M", "0");
           break;
         case 138:
-          // CDU_H
-          sendToDcsBiosMessage("CDU_H", "0");
           break;
         case 139:
-          // CDU_C
-          sendToDcsBiosMessage("CDU_C", "0");
           break;
+        // Release
         case 140:
-          // CDU_FA
-          sendToDcsBiosMessage("CDU_FA", "0");
           break;
         case 141:
-          // CDU_FPM
-          sendToDcsBiosMessage("CDU_FPM", "0");
           break;
         case 142:
-          // CDU_LSK_5R
-          sendToDcsBiosMessage("CDU_LSK_5R", "0");
           break;
         case 143:
-          // LCP_POSITION
-          sendToDcsBiosMessage("LCP_POSITION", "1");
           break;
         case 144:
-          // LCP_ANTICOLLISION
-          sendToDcsBiosMessage("LCP_ANTICOLLISION", "0");
           // Release
           break;
         case 145:
-          // CDU_SPC
-          sendToDcsBiosMessage("CDU_SPC", "0");
           break;
         case 146:
-          // CDU_V
-          sendToDcsBiosMessage("CDU_V", "0");
           break;
         case 147:
-          // CDU_Q
-          sendToDcsBiosMessage("CDU_Q", "0");
           break;
+        // Release
         case 148:
-          // CDU_L
-          sendToDcsBiosMessage("CDU_L", "0");
           break;
         case 149:
-          // CDU_G
-          sendToDcsBiosMessage("CDU_G", "0");
           break;
         case 150:
-          // CDU_B
-          sendToDcsBiosMessage("CDU_B", "0");
           break;
         case 151:
-          // CDU_MK
-          sendToDcsBiosMessage("CDU_MK", "0");
           break;
         // Release
         case 152:
-          // CDU_OSET
-          sendToDcsBiosMessage("CDU_OSET", "0");
           break;
         case 153:
-          // CDU_LSK_3R
-          sendToDcsBiosMessage("CDU_LSK_3R", "0");
           break;
         case 154:
           break;
         case 155:
-          // LCP_ACCEL_COMP
-          sendToDcsBiosMessage("LCP_ACCEL_COMP", "0");
+          // Release
           break;
         case 156:
-          // CDU_CLR
-          sendToDcsBiosMessage("CDU_CLR", "0");
           break;
         case 157:
-          // CDU_Y
-          sendToDcsBiosMessage("CDU_Y", "0");
           break;
         case 158:
-          // CDU_T
-          sendToDcsBiosMessage("CDU_T", "0");
           break;
         case 159:
-          // CDU_O
-          sendToDcsBiosMessage("CDU_0", "O");
           break;
         // Release
         case 160:
-          // CDU_J
-          sendToDcsBiosMessage("CDU_J", "0");
           break;
         case 161:
-          // CDU_E
-          sendToDcsBiosMessage("CDU_EX", "0");
           break;
         case 162:
           break;
         case 163:
           break;
+        // Release
         case 164:
           break;
         case 165:
-
           break;
         case 166:
           break;
         case 167:
-          // CDU_SLASH
-          sendToDcsBiosMessage("CDU_SLASH", "0");
           break;
         // Release
         case 168:
-          // CDU_X
-          sendToDcsBiosMessage("CDU_X", "0");
           break;
         case 169:
-          // CDU_S
-          sendToDcsBiosMessage("CDU_S", "0");
           break;
         case 170:
-          // CDU_N
-          sendToDcsBiosMessage("CDU_N", "0");
           break;
         case 171:
-          // CDU_I
-          sendToDcsBiosMessage("CDU_I", "0");
           break;
+        // Release
         case 172:
-          // CDU_D
-          sendToDcsBiosMessage("CDU_D", "0");
           break;
         case 173:
-          // CDU_PREV
-          sendToDcsBiosMessage("CDU_PREV", "0");
           break;
         case 174:
-          // CDU_LSK_9R
-          sendToDcsBiosMessage("CDU_LSK_9R", "0");
           break;
         case 175:
-          // CDU_LSK_7R
-          sendToDcsBiosMessage("CDU_LSK_7R", "0");
           break;
+        // Release
         case 176:
           break;
         case 177:
@@ -1022,6 +886,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 179:
           break;
           // End Release
+          // Release
       }
       break;
 
@@ -1031,21 +896,17 @@ void CreateDcsBiosMessage(int ind, int state) {
 
       // PRESS - CLOSE
       switch (ind) {
-        // Close
+          // Close
         case 0:
-          // TACAN OFF
-          sendToDcsBiosMessage("TACAN_MODE", "0");
           break;
         case 1:
-          // TACAN - TEST BUTTON
-          sendToDcsBiosMessage("TACAN_TEST_BTN", "1");
           break;
         case 2:
           break;
         case 3:
           break;
+        // Close
         case 4:
-          sendToDcsBiosMessage("FQIS_SELECT", "3");
           break;
         case 5:
           break;
@@ -1055,36 +916,21 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 8:
-          // EPP_APU_GEN_PWR
-          sendToDcsBiosMessage("EPP_APU_GEN_PWR", "1");
           break;
         case 9:
-          // EPP_INVERTER
-          sendToDcsBiosMessage("EPP_INVERTER", "2");
           break;
         case 10:
           break;
         case 11:
-          // TACAN REC
-          sendToDcsBiosMessage("TACAN_MODE", "1");
           break;
+        // Close
         case 12:
-          // TACAN - XY
-          // Toggle state - also synchs with variable capture
-          // SendDebug("XY Press");
-          // SendDebug("XY State is " + String(TACAN_XY_STATE));
-          if (TACAN_XY_STATE == 0) {
-            sendToDcsBiosMessage("TACAN_XY", "1");
-          } else {
-            sendToDcsBiosMessage("TACAN_XY", "0");
-          }
           break;
         case 13:
           break;
         case 14:
           break;
         case 15:
-          sendToDcsBiosMessage("FQIS_SELECT", "2");
           break;
         // Close
         case 16:
@@ -1094,19 +940,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 18:
           break;
         case 19:
-          // EPP_BATTERY_PWR
-          sendToDcsBiosMessage("EPP_BATTERY_PWR", "1");
           break;
+        // Close
         case 20:
-          // EPP_INVERTER
-          sendToDcsBiosMessage("EPP_INVERTER", "0");
-
           break;
         case 21:
           break;
         case 22:
-          // TACAN - TR
-          sendToDcsBiosMessage("TACAN_MODE", "2");
           break;
         case 23:
           break;
@@ -1116,37 +956,31 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 25:
           break;
         case 26:
-          sendToDcsBiosMessage("FQIS_SELECT", "1");
           break;
         case 27:
           break;
+        // Close
         case 28:
           break;
         case 29:
           break;
         case 30:
-          // EPP_AC_GEN_PWR_L
-          sendToDcsBiosMessage("EPP_AC_GEN_PWR_L", "1");
           break;
         case 31:
-          // EPP_EMER_FLOOD
-          sendToDcsBiosMessage("EPP_EMER_FLOOD", "1");
           break;
         // Close
         case 32:
           break;
         case 33:
-          // TACAN - AA REC
-          sendToDcsBiosMessage("TACAN_MODE", "3");
           break;
         case 34:
           break;
         case 35:
           break;
+        // Close
         case 36:
           break;
         case 37:
-          sendToDcsBiosMessage("FQIS_SELECT", "0");
           break;
         case 38:
           break;
@@ -1156,16 +990,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 40:
           break;
         case 41:
-          // EPP_AC_GEN_PWR_R
-          sendToDcsBiosMessage("EPP_AC_GEN_PWR_R", "1");
           break;
         case 42:
           break;
         case 43:
           break;
+        // Close
         case 44:
-          // TACAN - AA TR
-          sendToDcsBiosMessage("TACAN_MODE", "4");
           break;
         case 45:
           break;
@@ -1175,7 +1006,6 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 48:
-          sendToDcsBiosMessage("FQIS_SELECT", "4");
           break;
         case 49:
           break;
@@ -1183,22 +1013,17 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 51:
           break;
+        // Close
         case 52:
+          sendToDcsBiosMessage("LMFD_PWR", "2");
           break;
         case 53:
+          sendToDcsBiosMessage("LAMP_TEST_BTN", "1");
           break;
         case 54:
+          sendToDcsBiosMessage("ALCP_HARSSAS", "0");
           break;
         case 55:
-          // ILS -POWER
-          // Toggle state - also synchs with variable capture
-          // SendDebug("ILS Press");
-          // SendDebug("ILS State is " + String(ILS_STATE));
-          if (ILS_STATE == 0) {
-            sendToDcsBiosMessage("ILS_PWR", "1");
-          } else {
-            sendToDcsBiosMessage("ILS_PWR", "0");
-          }
           break;
         // Close
         case 56:
@@ -1208,8 +1033,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 58:
           break;
         case 59:
-          sendToDcsBiosMessage("FQIS_TEST", "1");
           break;
+        // Close
         case 60:
           break;
         case 61:
@@ -1217,20 +1042,19 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 62:
           break;
         case 63:
+          sendToDcsBiosMessage("RMFD_PWR", "2");
           break;
         // Close
         case 64:
+          sendToDcsBiosMessage("ALCP_FDBA_TEST", "1");
           break;
         case 65:
           break;
         case 66:
-          // AAP - STEER
-          sendToDcsBiosMessage("AAP_PAGE", "2");
           break;
         case 67:
-          // AAP - FLT PLAN
-          sendToDcsBiosMessage("AAP_STEERPT", "0");
           break;
+        // Close
         case 68:
           break;
         case 69:
@@ -1248,17 +1072,15 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 75:
           break;
+        // Close
         case 76:
           break;
         case 77:
-          // AAP - POSITION
-          sendToDcsBiosMessage("AAP_PAGE", "1");
           break;
         case 78:
-          // AAP - MARK
-          sendToDcsBiosMessage("AAP_STEERPT", "1");
           break;
         case 79:
+          // Close
           break;
         // Close
         case 80:
@@ -1269,6 +1091,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 83:
           break;
+        // Close
         case 84:
           break;
         case 85:
@@ -1279,342 +1102,204 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 88:
-          // AAP - OTHER
-          sendToDcsBiosMessage("AAP_PAGE", "0");
           break;
         case 89:
-          // AAP - MISSION
-          sendToDcsBiosMessage("AAP_STEERPT", "2");
           break;
         case 90:
-          // CDU_0
-          sendToDcsBiosMessage("CDU_0", "1");
           break;
+        // Close
         case 91:
-          // CDU_8
-          sendToDcsBiosMessage("CDU_8", "1");
           break;
         case 92:
-          // CDU_5
-          sendToDcsBiosMessage("CDU_5", "1");
           break;
         case 93:
-          // CDU_2
-          sendToDcsBiosMessage("CDU_2", "1");
           break;
+        // Close
         case 94:
-          // CDU_SCROLL
-          sendToDcsBiosMessage("CDU_SCROLL", "0");
           break;
         case 95:
-          // CDU_PG
-          sendToDcsBiosMessage("CDU_PG", "0");
           break;
         // Close
         case 96:
-          // CDU_PG
-          sendToDcsBiosMessage("CDU_PG", "2");
           break;
         case 97:
-          // CDU_SYS
-          sendToDcsBiosMessage("CDU_SYS", "1");
           break;
         case 98:
-          // CDU_LSK_9L
-          sendToDcsBiosMessage("CDU_LSK_9L", "1");
           break;
         case 99:
-          // AAP - WAY PT
-          sendToDcsBiosMessage("AAP_PAGE", "3");
           break;
+        // Close
         case 100:
-          // AAP  - STEER PT
-          sendToDcsBiosMessage("AAP_STEER", "0");
           break;
         case 101:
-          // CDU_POINT
-          sendToDcsBiosMessage("CDU_POINT", "1");
           break;
         case 102:
-          // CDU_7
-          sendToDcsBiosMessage("CDU_7", "1");
           break;
         case 103:
-          // CDU_4
-          sendToDcsBiosMessage("CDU_4", "1");
           break;
         // Close
         case 104:
-          // CDU_1
-          sendToDcsBiosMessage("CDU_1", "1");
           break;
         case 105:
           break;
         case 106:
-          // CDU_LSK_1L
-          sendToDcsBiosMessage("CDU_LSK_3L", "1");
           break;
         case 107:
-          // CDU_LSK_1L
-          sendToDcsBiosMessage("CDU_LSK_3L", "1");
           break;
+        // Close
         case 108:
-          // CDU_LSK_5L
-          sendToDcsBiosMessage("CDU_LSK_5L", "1");
           break;
         case 109:
-          // CDU_LSK_7L
-          sendToDcsBiosMessage("CDU_LSK_7L", "1");
           break;
         case 110:
-          sendToDcsBiosMessage("AAP_CDUPWR", "1");
           break;
         case 111:
-          sendToDcsBiosMessage("AAP_STEER", "2");
           break;
         // Close
         case 112:
-          // CDU_Z
-          sendToDcsBiosMessage("CDU_Z", "1");
           break;
         case 113:
-          // CDU_U
-          sendToDcsBiosMessage("CDU_U", "1");
           break;
         case 114:
-          // CDU_P
-          sendToDcsBiosMessage("CDU_P", "1");
           break;
         case 115:
-          // CDU_K
-          sendToDcsBiosMessage("CDU_K", "1");
           break;
+        // Close
         case 116:
-          // CDU_F
-          sendToDcsBiosMessage("CDU_F", "1");
           break;
         case 117:
-          // CDU_A
-          sendToDcsBiosMessage("CDU_A", "1");
           break;
         case 118:
           break;
         case 119:
-          // CDU_WP
-          sendToDcsBiosMessage("CDU_WP", "1");
           break;
         // Close
         case 120:
-          // CDU_LSK_2L
-          sendToDcsBiosMessage("CDU_LSK_3R", "1");
           break;
         case 121:
           break;
         case 122:
-          // AAP - EGI POWER
-          sendToDcsBiosMessage("AAP_EGIPWR", "1");
           break;
         case 123:
           break;
+        // Close
         case 124:
-          // CDU_9
-          sendToDcsBiosMessage("CDU_9", "1");
           break;
         case 125:
-          // CDU_6
-          sendToDcsBiosMessage("CDU_6", "1");
           break;
         case 126:
-          // CDU_3
-          sendToDcsBiosMessage("CDU_3", "1");
           break;
         case 127:
-          // CDU_SCROLL
-          sendToDcsBiosMessage("CDU_SCROLL", "2");
           break;
         // Close
         case 128:
-          // CDU_DATA
-          sendToDcsBiosMessage("CDU_DATA", "0");
           break;
         case 129:
-          // CDU_DATA
-          sendToDcsBiosMessage("CDU_DATA", "2");
           break;
         case 130:
-          // CDU_NAV
-          sendToDcsBiosMessage("CDU_NAV", "1");
           break;
         case 131:
           break;
+        // Close
         case 132:
-          // LCP_POSITION
-          sendToDcsBiosMessage("LCP_POSITION", "2");
           break;
         case 133:
-          // LCP_SIGNAL_LIGHTS
-          sendToDcsBiosMessage("LCP_SIGNAL_LIGHTS", "1");
           break;
         case 134:
           break;
         case 135:
-          // CDU_W
-          sendToDcsBiosMessage("CDU_W", "1");
           break;
         // Close
         case 136:
-          // CDU_R
-          sendToDcsBiosMessage("CDU_R", "1");
           break;
         case 137:
-          // CDU_M
-          sendToDcsBiosMessage("CDU_M", "1");
           break;
         case 138:
-          // CDU_H
-          sendToDcsBiosMessage("CDU_H", "1");
           break;
         case 139:
-          // CDU_C
-          sendToDcsBiosMessage("CDU_C", "1");
           break;
+        // Close
         case 140:
-          // CDU_FA
-          sendToDcsBiosMessage("CDU_FA", "1");
           break;
         case 141:
-          // CDU_FPM
-          sendToDcsBiosMessage("CDU_FPM", "1");
           break;
         case 142:
-          // CDU_LSK_5R
-          sendToDcsBiosMessage("CDU_LSK_5R", "1");
           break;
         case 143:
-          // LCP_POSITION
-          sendToDcsBiosMessage("LCP_POSITION", "0");
           break;
         case 144:
-          // LCP_ANTICOLLISION
-          sendToDcsBiosMessage("LCP_ANTICOLLISION", "1");
           // Close
           break;
         case 145:
-          // CDU_SPC
-          sendToDcsBiosMessage("CDU_SPC", "1");
           break;
         case 146:
-          // CDU_V
-          sendToDcsBiosMessage("CDU_V", "1");
           break;
         case 147:
-          // CDU_Q
-          sendToDcsBiosMessage("CDU_Q", "1");
           break;
+        // Close
         case 148:
-          // CDU_L
-          sendToDcsBiosMessage("CDU_L", "1");
           break;
         case 149:
-          // CDU_G
-          sendToDcsBiosMessage("CDU_G", "1");
           break;
         case 150:
-          // CDU_B
-          sendToDcsBiosMessage("CDU_B", "1");
           break;
         case 151:
-          // CDU_MK
-          sendToDcsBiosMessage("CDU_MK", "1");
           break;
         // Close
         case 152:
-          // CDU_OSET
-          sendToDcsBiosMessage("CDU_OSET", "1");
           break;
         case 153:
-          // CDU_LSK_3R
-          sendToDcsBiosMessage("CDU_LSK_3R", "1");
           break;
         case 154:
           break;
         case 155:
-          // LCP_ACCEL_COMP
-          sendToDcsBiosMessage("LCP_ACCEL_COMP", "1");
           break;
+        // Close
         case 156:
-          // CDU_CLR
-          sendToDcsBiosMessage("CDU_CLR", "1");
           break;
         case 157:
-          // CDU_Y
-          sendToDcsBiosMessage("CDU_Y", "1");
           break;
         case 158:
-          // CDU_T
-          sendToDcsBiosMessage("CDU_T", "1");
           break;
         case 159:
-          // CDU_O
-          sendToDcsBiosMessage("CDU_O", "1");
           break;
         // Close
         case 160:
-          // CDU_J
-          sendToDcsBiosMessage("CDU_J", "1");
           break;
         case 161:
-          // CDU_E
-          sendToDcsBiosMessage("CDU_E", "1");
           break;
         case 162:
           break;
         case 163:
           break;
+        // Close
         case 164:
           break;
         case 165:
-
           break;
         case 166:
           break;
         case 167:
-          // CDU_SLASH
-          sendToDcsBiosMessage("CDU_SLASH", "1");
           break;
         // Close
         case 168:
-          // CDU_X
-          sendToDcsBiosMessage("CDU_X", "1");
           break;
         case 169:
-          // CDU_S
-          sendToDcsBiosMessage("CDU_S", "1");
           break;
         case 170:
-          // CDU_N
-          sendToDcsBiosMessage("CDU_N", "1");
           break;
         case 171:
-          // CDU_I
-          sendToDcsBiosMessage("CDU_I", "1");
           break;
+        // Close
         case 172:
-          // CDU_D
-          sendToDcsBiosMessage("CDU_D", "1");
           break;
         case 173:
-          // CDU_PREV
-          sendToDcsBiosMessage("CDU_PREV", "1");
           break;
         case 174:
-          // CDU_LSK_9R
-          sendToDcsBiosMessage("CDU_LSK_9R", "1");
           break;
         case 175:
-          // CDU_LSK_7R
-          sendToDcsBiosMessage("CDU_LSK_7R", "1");
           break;
+        // Close
         case 176:
           break;
         case 177:
@@ -1789,6 +1474,7 @@ void CaseTemplate() {
   //        case 2:
   //          break;
   //        case 3:
+  //        // Release
   //          break;
   //        case 4:
   //          break;
@@ -1808,6 +1494,7 @@ void CaseTemplate() {
   //        case 11:
   //          break;
   //        case 12:
+  //        // Release
   //          break;
   //        case 13:
   //          break;
@@ -1824,6 +1511,7 @@ void CaseTemplate() {
   //          break;
   //        case 19:
   //          break;
+  //        // Release
   //        case 20:
   //          break;
   //        case 21:
@@ -1842,6 +1530,7 @@ void CaseTemplate() {
   //        case 27:
   //          break;
   //        case 28:
+  //        // Release
   //          break;
   //        case 29:
   //          break;
@@ -1858,6 +1547,7 @@ void CaseTemplate() {
   //          break;
   //        case 35:
   //          break;
+  //        // Release
   //        case 36:
   //          break;
   //        case 37:
@@ -1875,6 +1565,7 @@ void CaseTemplate() {
   //          break;
   //        case 43:
   //          break;
+  //        // Release
   //        case 44:
   //          break;
   //        case 45:
@@ -1892,6 +1583,7 @@ void CaseTemplate() {
   //          break;
   //        case 51:
   //          break;
+  //        // Release
   //        case 52:
   //          break;
   //        case 53:
@@ -1909,6 +1601,7 @@ void CaseTemplate() {
   //          break;
   //        case 59:
   //          break;
+  //        // Release
   //        case 60:
   //          break;
   //        case 61:
@@ -1926,6 +1619,7 @@ void CaseTemplate() {
   //          break;
   //        case 67:
   //          break;
+  //        // Release
   //        case 68:
   //          break;
   //        case 69:
@@ -1943,6 +1637,7 @@ void CaseTemplate() {
   //          break;
   //        case 75:
   //          break;
+  //        // Release
   //        case 76:
   //          break;
   //        case 77:
@@ -1960,6 +1655,7 @@ void CaseTemplate() {
   //          break;
   //        case 83:
   //          break;
+  //        // Release
   //        case 84:
   //          break;
   //        case 85:
@@ -1977,6 +1673,7 @@ void CaseTemplate() {
   //          break;
   //        case 91:
   //          break;
+  //        // Release
   //        case 92:
   //          break;
   //        case 93:
@@ -1994,6 +1691,7 @@ void CaseTemplate() {
   //          break;
   //        case 99:
   //          break;
+  //        // Release
   //        case 100:
   //          break;
   //        case 101:
@@ -2011,6 +1709,7 @@ void CaseTemplate() {
   //          break;
   //        case 107:
   //          break;
+  //        // Release
   //        case 108:
   //          break;
   //        case 109:
@@ -2028,6 +1727,7 @@ void CaseTemplate() {
   //          break;
   //        case 115:
   //          break;
+  //        // Release
   //        case 116:
   //          break;
   //        case 117:
@@ -2045,6 +1745,7 @@ void CaseTemplate() {
   //          break;
   //        case 123:
   //          break;
+  //        // Release
   //        case 124:
   //          break;
   //        case 125:
@@ -2062,6 +1763,7 @@ void CaseTemplate() {
   //          break;
   //        case 131:
   //          break;
+  //        // Release
   //        case 132:
   //          break;
   //        case 133:
@@ -2079,6 +1781,7 @@ void CaseTemplate() {
   //          break;
   //        case 139:
   //          break;
+  //        // Release
   //        case 140:
   //          break;
   //        case 141:
@@ -2096,6 +1799,7 @@ void CaseTemplate() {
   //          break;
   //        case 147:
   //          break;
+  //        // Release
   //        case 148:
   //          break;
   //        case 149:
@@ -2112,6 +1816,7 @@ void CaseTemplate() {
   //        case 154:
   //          break;
   //        case 155:
+  //        // Release
   //          break;
   //        case 156:
   //          break;
@@ -2130,6 +1835,7 @@ void CaseTemplate() {
   //          break;
   //        case 163:
   //          break;
+  //        // Release
   //        case 164:
   //          break;
   //        case 165:
@@ -2147,6 +1853,7 @@ void CaseTemplate() {
   //          break;
   //        case 171:
   //          break;
+  //        // Release
   //        case 172:
   //          break;
   //        case 173:
@@ -2155,6 +1862,7 @@ void CaseTemplate() {
   //          break;
   //        case 175:
   //          break;
+  //        // Release
   //        case 176:
   //          break;
   //        case 177:
@@ -2175,6 +1883,7 @@ void CaseTemplate() {
   //          break;
   //        case 3:
   //          break;
+  //        // Close
   //        case 4:
   //          break;
   //        case 5:
@@ -2192,6 +1901,7 @@ void CaseTemplate() {
   //          break;
   //        case 11:
   //          break;
+  //        // Close
   //        case 12:
   //          break;
   //        case 13:
@@ -2209,6 +1919,7 @@ void CaseTemplate() {
   //          break;
   //        case 19:
   //          break;
+  //        // Close
   //        case 20:
   //          break;
   //        case 21:
@@ -2226,6 +1937,7 @@ void CaseTemplate() {
   //          break;
   //        case 27:
   //          break;
+  //        // Close
   //        case 28:
   //          break;
   //        case 29:
@@ -2243,6 +1955,7 @@ void CaseTemplate() {
   //          break;
   //        case 35:
   //          break;
+  //        // Close
   //        case 36:
   //          break;
   //        case 37:
@@ -2260,6 +1973,7 @@ void CaseTemplate() {
   //          break;
   //        case 43:
   //          break;
+  //        // Close
   //        case 44:
   //          break;
   //        case 45:
@@ -2277,6 +1991,7 @@ void CaseTemplate() {
   //          break;
   //        case 51:
   //          break;
+  //        // Close
   //        case 52:
   //          break;
   //        case 53:
@@ -2294,6 +2009,7 @@ void CaseTemplate() {
   //          break;
   //        case 59:
   //          break;
+  //        // Close
   //        case 60:
   //          break;
   //        case 61:
@@ -2311,6 +2027,7 @@ void CaseTemplate() {
   //          break;
   //        case 67:
   //          break;
+  //        // Close
   //        case 68:
   //          break;
   //        case 69:
@@ -2328,6 +2045,7 @@ void CaseTemplate() {
   //          break;
   //        case 75:
   //          break;
+  //        // Close
   //        case 76:
   //          break;
   //        case 77:
@@ -2335,6 +2053,7 @@ void CaseTemplate() {
   //        case 78:
   //          break;
   //        case 79:
+  //        // Close
   //          break;
   //        // Close
   //        case 80:
@@ -2345,6 +2064,7 @@ void CaseTemplate() {
   //          break;
   //        case 83:
   //          break;
+  //        // Close
   //        case 84:
   //          break;
   //        case 85:
@@ -2360,12 +2080,14 @@ void CaseTemplate() {
   //          break;
   //        case 90:
   //          break;
+  //        // Close
   //        case 91:
   //          break;
   //        case 92:
   //          break;
   //        case 93:
   //          break;
+  //        // Close
   //        case 94:
   //          break;
   //        case 95:
@@ -2379,6 +2101,7 @@ void CaseTemplate() {
   //          break;
   //        case 99:
   //          break;
+  //        // Close
   //        case 100:
   //          break;
   //        case 101:
@@ -2396,6 +2119,7 @@ void CaseTemplate() {
   //          break;
   //        case 107:
   //          break;
+  //        // Close
   //        case 108:
   //          break;
   //        case 109:
@@ -2413,6 +2137,7 @@ void CaseTemplate() {
   //          break;
   //        case 115:
   //          break;
+  //        // Close
   //        case 116:
   //          break;
   //        case 117:
@@ -2430,6 +2155,7 @@ void CaseTemplate() {
   //          break;
   //        case 123:
   //          break;
+  //        // Close
   //        case 124:
   //          break;
   //        case 125:
@@ -2447,6 +2173,7 @@ void CaseTemplate() {
   //          break;
   //        case 131:
   //          break;
+  //        // Close
   //        case 132:
   //          break;
   //        case 133:
@@ -2464,6 +2191,7 @@ void CaseTemplate() {
   //          break;
   //        case 139:
   //          break;
+  //        // Close
   //        case 140:
   //          break;
   //        case 141:
@@ -2481,6 +2209,7 @@ void CaseTemplate() {
   //          break;
   //        case 147:
   //          break;
+  //        // Close
   //        case 148:
   //          break;
   //        case 149:
@@ -2498,6 +2227,7 @@ void CaseTemplate() {
   //          break;
   //        case 155:
   //          break;
+  //        // Close
   //        case 156:
   //          break;
   //        case 157:
@@ -2515,6 +2245,7 @@ void CaseTemplate() {
   //          break;
   //        case 163:
   //          break;
+  //        // Close
   //        case 164:
   //          break;
   //        case 165:
@@ -2532,6 +2263,7 @@ void CaseTemplate() {
   //          break;
   //        case 171:
   //          break;
+  //        // Close
   //        case 172:
   //          break;
   //        case 173:
@@ -2540,6 +2272,7 @@ void CaseTemplate() {
   //          break;
   //        case 175:
   //          break;
+  //        // Close
   //        case 176:
   //          break;
   //        case 177:
