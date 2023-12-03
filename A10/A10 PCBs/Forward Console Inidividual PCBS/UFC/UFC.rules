@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 473)
+    (start_pass_no 4637)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -68,7 +68,10 @@
     /ROW2 /ROW3 /ROW4 "Net-(D11-K)" "Net-(D12-K)" "Net-(D13-K)" /COL3 "Net-(D14-K)"
     /COL1 "Net-(D15-K)" "Net-(D16-K)" "Net-(D17-K)" "Net-(D18-K)" "Net-(D19-K)" "/CAUTION_LED-" "/CAUTION_LED+"
     "Net-(D21-K)" "Net-(D22-K)" "Net-(D23-K)" "Net-(D24-K)" "Net-(D25-K)" "Net-(D27-K)" "Net-(D28-K)" "Net-(D29-K)"
-    "Net-(D30-K)" "Net-(D31-K)" "Net-(D32-K)" /ROW5 "Net-(D51-K)" "Net-(D26-K)"
+    "Net-(D30-K)" "Net-(D31-K)" "Net-(D32-K)" /ROW5 "Net-(D51-K)" "Net-(D26-K)" "Net-(D33-K)" "Net-(D33-A)"
+    "Net-(D34-K)" "Net-(D34-A)" "Net-(D35-K)" "Net-(D35-A)" "Net-(D36-K)" "Net-(D36-A)" "Net-(D37-K)" "Net-(D37-A)"
+    "Net-(D38-K)" "Net-(D38-A)" "Net-(D39-K)" "Net-(D40-K)" "Net-(D41-K)" "Net-(D42-K)" "Net-(D43-K)" "Net-(D44-K)"
+    "/BACKLIGHTING/BACKLIGHT_GND" "/BACKLIGHTING/BACKLIGHT_+12V" "Net-(D52-K)" "Net-(D52-A)" "Net-(D53-K)" "Net-(D55-K)" "Net-(D55-A)" "Net-(D56-K)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

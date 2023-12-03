@@ -5,17 +5,17 @@
       "Application": "Pcbnew",
       "Version": "7.0.9"
     },
-    "CreationDate": "2023-11-26T06:02:27+10:00"
+    "CreationDate": "2023-12-03T09:41:02+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "INTERCOMM",
-      "GUID": "494e5445-5243-44f4-9d4d-2e6b69636164",
+      "Name": "UFC",
+      "GUID": "5546432e-6b69-4636-9164-5f7063625858",
       "Revision": "rev?"
     },
     "Size": {
-      "X": 51.408,
-      "Y": 71.22
+      "X": 226.16,
+      "Y": 75.58
     },
     "LayerNumber": 2,
     "BoardThickness": 1.6,
@@ -32,47 +32,37 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "INTERCOMM-F_Cu.gbr",
+      "Path": "UFC-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "INTERCOMM-B_Cu.gbr",
+      "Path": "UFC-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "INTERCOMM-F_Paste.gbr",
-      "FileFunction": "SolderPaste,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "INTERCOMM-B_Paste.gbr",
-      "FileFunction": "SolderPaste,Bot",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "INTERCOMM-F_Silkscreen.gbr",
+      "Path": "UFC-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "INTERCOMM-B_Silkscreen.gbr",
+      "Path": "UFC-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "INTERCOMM-F_Mask.gbr",
+      "Path": "UFC-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "INTERCOMM-B_Mask.gbr",
+      "Path": "UFC-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "INTERCOMM-Edge_Cuts.gbr",
+      "Path": "UFC-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }
