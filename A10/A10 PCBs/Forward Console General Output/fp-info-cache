@@ -1,4 +1,4 @@
-402760991021750
+401059346913988
 Package_DIP
 DIP-4_W7.62mm
 4-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils)
@@ -650,13 +650,6 @@ THT DIP DIL PDIP 2.54mm 11.43mm 450mil SMDSocket LongPads
 0
 22
 22
-Package_DIP
-DIP-24_TCA9548A
-
-
-0
-24
-24
 Package_DIP
 DIP-24_W7.62mm
 24-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils)
