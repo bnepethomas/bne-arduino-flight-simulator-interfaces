@@ -551,12 +551,12 @@
       "Ethernet Module"
     ],
     [
-      "44f10c05-213b-4d93-9732-81a782b7b9e4",
-      "COIL AND LAMP DRIVERS"
-    ],
-    [
       "7cf61cf4-716f-4693-a178-8db6c02d6903",
       "CHANGE LOG"
+    ],
+    [
+      "44f10c05-213b-4d93-9732-81a782b7b9e4",
+      "COIL AND LAMP DRIVERS"
     ]
   ],
   "text_variables": {}

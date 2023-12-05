@@ -3,14 +3,14 @@
     "GenerationSoftware": {
       "Vendor": "KiCad",
       "Application": "Pcbnew",
-      "Version": "(6.0.7-1)-1"
+      "Version": "7.0.9"
     },
-    "CreationDate": "2023-11-05T11:58:31+10:00"
+    "CreationDate": "2023-12-05T19:44:07+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "Right Console Output",
-      "GUID": "52696768-7420-4436-9f6e-736f6c65204f",
+      "Name": "Forward Console General Output",
+      "GUID": "466f7277-6172-4642-9043-6f6e736f6c65",
       "Revision": "rev?"
     },
     "Size": {
@@ -32,37 +32,37 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "Right Console Output-F_Cu.gbr",
+      "Path": "Forward Console General Output-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Right Console Output-B_Cu.gbr",
+      "Path": "Forward Console General Output-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Right Console Output-F_Silkscreen.gbr",
+      "Path": "Forward Console General Output-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Right Console Output-B_Silkscreen.gbr",
+      "Path": "Forward Console General Output-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Right Console Output-F_Mask.gbr",
+      "Path": "Forward Console General Output-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Right Console Output-B_Mask.gbr",
+      "Path": "Forward Console General Output-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Right Console Output-Edge_Cuts.gbr",
+      "Path": "Forward Console General Output-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }
