@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "7.0.9"
     },
-    "CreationDate": "2023-12-05T18:38:31+10:00"
+    "CreationDate": "2023-12-17T07:56:42+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -49,16 +49,6 @@
     {
       "Path": "Forward Console Input-B_Adhesive.gbr",
       "FileFunction": "Glue,Bot",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Forward Console Input-F_Paste.gbr",
-      "FileFunction": "SolderPaste,Top",
-      "FilePolarity": "Positive"
-    },
-    {
-      "Path": "Forward Console Input-B_Paste.gbr",
-      "FileFunction": "SolderPaste,Bot",
       "FilePolarity": "Positive"
     },
     {

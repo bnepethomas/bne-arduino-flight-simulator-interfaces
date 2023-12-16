@@ -515,6 +515,10 @@
     [
       "44c01f74-5a24-496c-85ed-6f91076ce5d8",
       "Ethernet Module"
+    ],
+    [
+      "bdd258a4-87e3-4e1f-9a1b-75f0a9af33eb",
+      "CHANGE LOG"
     ]
   ],
   "text_variables": {}
