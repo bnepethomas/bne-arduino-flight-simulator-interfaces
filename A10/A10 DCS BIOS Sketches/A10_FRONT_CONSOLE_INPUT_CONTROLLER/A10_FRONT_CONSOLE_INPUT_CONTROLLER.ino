@@ -717,6 +717,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 109:
           break;
         case 110:
+          sendToDcsBiosMessage("FLAPS_SWITCH", "1");
+
           break;
         case 111:
           break;
@@ -767,8 +769,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 132:
+          sendToDcsBiosMessage("LANDING_LIGHTS", "1");
           break;
         case 133:
+        sendToDcsBiosMessage("CANOPY_OPEN", "1");
           break;
         case 134:
           break;
@@ -791,8 +795,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 142:
           break;
         case 143:
+          sendToDcsBiosMessage("LANDING_LIGHTS", "1");
           break;
         case 144:
+        sendToDcsBiosMessage("CANOPY_OPEN", "1");
           // Release
           break;
         case 145:
@@ -816,9 +822,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 153:
           break;
         case 154:
+          sendToDcsBiosMessage("GEAR_LEVER", "1");
           break;
         case 155:
           // Release
+          sendToDcsBiosMessage("ANTI_SKID_SWITCH", "0");
           break;
         case 156:
           break;
@@ -1164,6 +1172,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 109:
           break;
         case 110:
+          sendToDcsBiosMessage("FLAPS_SWITCH", "0");
           break;
         case 111:
           break;
@@ -1214,8 +1223,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 132:
+          sendToDcsBiosMessage("LANDING_LIGHTS", "2");
           break;
         case 133:
+          sendToDcsBiosMessage("CANOPY_OPEN", "2");
           break;
         case 134:
           break;
@@ -1238,8 +1249,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 142:
           break;
         case 143:
+          sendToDcsBiosMessage("LANDING_LIGHTS", "0");
           break;
         case 144:
+        sendToDcsBiosMessage("CANOPY_OPEN", "0");
           // Close
           break;
         case 145:
@@ -1263,8 +1276,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 153:
           break;
         case 154:
+          sendToDcsBiosMessage("GEAR_LEVER", "0");
           break;
         case 155:
+          sendToDcsBiosMessage("ANTI_SKID_SWITCH", "1");
           break;
         // Close
         case 156:
