@@ -1,0 +1,15 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 06788f60-4372-4591-90cd-6b9ef78743a2)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (text "20231217\nCHANGE ANTI SKID COIL FROM ROW 13 TO 14" (at 41.402 38.354 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid cecc3253-5b31-4a3e-acec-d20780d7b951)
+  )
+)
