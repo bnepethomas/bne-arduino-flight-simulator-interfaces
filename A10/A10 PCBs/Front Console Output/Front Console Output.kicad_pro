@@ -541,6 +541,10 @@
     [
       "c7f990b2-d440-49cb-84f3-2f34f9ecc442",
       "ETHERNET_MOD"
+    ],
+    [
+      "772f62fd-21f8-4a73-b9e7-ff60159c0393",
+      "Datasheets"
     ]
   ],
   "text_variables": {}
