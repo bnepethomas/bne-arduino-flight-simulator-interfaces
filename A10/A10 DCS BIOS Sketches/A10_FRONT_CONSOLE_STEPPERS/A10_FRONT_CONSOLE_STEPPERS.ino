@@ -90,10 +90,12 @@ unsigned long timeSinceRedLedChanged = 0;
 #include <AccelStepper.h>
 #include <Stepper.h>
 #define STEPS 720  // steps per revolution (limited to 315°)
+#define STEP_TIME 8
+unsigned long NEXT_STEP_TIMER = 0;
 
 // Holding current per coil is 14mA, which gives 28mA per stepper
 // Mega absolute max is 40mA per pin, with a total max of 200mA
-// Gives a total 
+// Gives a total
 
 
 // Works but slow max speed of 30
@@ -156,24 +158,28 @@ unsigned long timeSinceRedLedChanged = 0;
 #define COIL_LOX_A3 41
 #define COIL_LOX_A4 45
 
-// Pins are slighty Reversed when compared to steppers on Expansion connection
-#define COIL_CABIN_PRESS_A1 9
-#define COIL_CABIN_PRESS_A2 7
-#define COIL_CABIN_PRESS_A3 8
-#define COIL_CABIN_PRESS_A4 6
+
 
 
 // #define STEPPER_MAX_SPEED 900
-#define STEPPER_MAX_SPEED 8300
-#define STEPPER_ACCELERATION 2000
+#define STEPPER_MAX_SPEED 1200
+#define STEPPER_ACCELERATION 300
 
-AccelStepper STEPPER_LEFT_HYD(AccelStepper::FULL4WIRE, COIL_LEFT_HYD_A1, COIL_LEFT_HYD_A2, COIL_LEFT_HYD_A3, COIL_LEFT_HYD_A4);
-AccelStepper STEPPER_RIGHT_HYD(AccelStepper::FULL4WIRE, COIL_RIGHT_HYD_A1, COIL_RIGHT_HYD_A2, COIL_RIGHT_HYD_A3, COIL_RIGHT_HYD_A4);
-AccelStepper STEPPER_LEFT_FUEL(AccelStepper::FULL4WIRE, COIL_LEFT_FUEL_A1, COIL_LEFT_FUEL_A2, COIL_LEFT_FUEL_A3, COIL_LEFT_FUEL_A4);
-AccelStepper STEPPER_RIGHT_FUEL(AccelStepper::FULL4WIRE, COIL_RIGHT_FUEL_A1, COIL_RIGHT_FUEL_A2, COIL_RIGHT_FUEL_A3, COIL_RIGHT_FUEL_A4);
-AccelStepper STEPPER_OXY_REG(AccelStepper::FULL4WIRE, COIL_OXY_REG_A1, COIL_OXY_REG_A2, COIL_OXY_REG_A3, COIL_OXY_REG_A4);
-AccelStepper STEPPER_LOX(AccelStepper::FULL4WIRE, COIL_LOX_A1, COIL_LOX_A2, COIL_LOX_A3, COIL_LOX_A4);
-AccelStepper STEPPER_CABIN_PRESS(AccelStepper::FULL4WIRE, COIL_CABIN_PRESS_A1, COIL_CABIN_PRESS_A2, COIL_CABIN_PRESS_A3, COIL_CABIN_PRESS_A4);
+
+
+
+const int Stepper10_dirPin = 27;
+const int Stepper10_stepPin = 25;
+const int Stepper10_enablePin = 23;
+
+//AccelStepper STEPPER_10(AccelStepper::DRIVER, Stepper10_stepPin, Stepper10_dirPin);
+AccelStepper STEPPER_10(AccelStepper::FULL2WIRE, Stepper10_stepPin, Stepper10_dirPin);
+
+
+
+
+const int stepsPerRevolution = 200;
+
 
 // ###################################### End Stepper Related #############################
 
@@ -191,7 +197,7 @@ void setup() {
   digitalWrite(RED_STATUS_LED_PORT, false);
   digitalWrite(GREEN_STATUS_LED_PORT, false);
 
-  delay(FLASH_TIME);
+
 
 
   if (Ethernet_In_Use == 1) {
@@ -208,7 +214,7 @@ void setup() {
     udp.begin(localport);
   }
 
-
+  delay(3000);
 
   digitalWrite(RED_STATUS_LED_PORT, true);
   digitalWrite(GREEN_STATUS_LED_PORT, true);
@@ -219,38 +225,47 @@ void setup() {
 
   // For reasons I'm yet to work out - earlier senddebugs are not sent before this point
   // Testing shows a delay of 3 seconds is needed
-  SendDebug("LED Initialisation Complete");
+  // SendDebug("LED Initialisation Complete");
 
   SendDebug("Starting Motor Initialisation");
 
 
 
   if (true) {
-    SendDebug("Start Stepper Left Hyd");
-    STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
-    STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_LEFT_HYD.move(-630);
+    SendDebug("Start Stepper STEPPER_10");
+    pinMode(Stepper10_enablePin, OUTPUT);
+    digitalWrite(Stepper10_enablePin, LOW);
+    STEPPER_10.setMaxSpeed(STEPPER_MAX_SPEED);
+    STEPPER_10.setAcceleration(STEPPER_ACCELERATION);
+    // STEPPER_10.move(-630);
 
-    while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
-      STEPPER_LEFT_HYD.run();
+    // while (STEPPER_10.distanceToGo() != 0) {
+    //   STEPPER_10.run();
+    // }
+
+
+    STEPPER_10.move(-2700);
+    while (STEPPER_10.distanceToGo() != 0) {
+      STEPPER_10.run();
     }
 
-    STEPPER_LEFT_HYD.move(630);
-
-    while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
-      STEPPER_LEFT_HYD.run();
+    STEPPER_10.move(2700);
+    while (STEPPER_10.distanceToGo() != 0) {
+      STEPPER_10.run();
     }
-    STEPPER_LEFT_HYD.move(-630);
-    while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
-      STEPPER_LEFT_HYD.run();
-    }
-    SendDebug("End Stepper Left Hyd");
+    SendDebug("End Stepper STEPPER_10");
   }
 
   SendDebug("End Motor Initialisation");
 
 
-  
+
+
+
+  // Declare pins as Outputs
+  // pinMode(Stepper10_dirPin, OUTPUT);
+  // pinMode(Stepper10_stepPin, OUTPUT);
+  // pinMode(Stepper10_enablePin, OUTPUT);
 }
 
 void loop() {
@@ -259,7 +274,18 @@ void loop() {
     GREEN_LED_STATE = !GREEN_LED_STATE;
     RED_LED_STATE = !RED_LED_STATE;
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
+    digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
+
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
+
+  // if (millis() >= NEXT_STEP_TIMER) {
+
+  //   digitalWrite(Stepper10_stepPin, HIGH);
+  //   delayMicroseconds(200);
+  //   digitalWrite(Stepper10_stepPin, LOW);
+
+  //   NEXT_STEP_TIMER = millis() + STEP_TIME;
+  // }
 }
