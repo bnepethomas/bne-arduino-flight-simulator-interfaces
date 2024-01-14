@@ -899,11 +899,11 @@ void setup() {
     SendDebug("Start Stepper Left Hyd");
     STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_LEFT_HYD.move(-630);
+    // STEPPER_LEFT_HYD.move(-630);
 
-    while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
-      STEPPER_LEFT_HYD.run();
-    }
+    // while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
+    //   STEPPER_LEFT_HYD.run();
+    // }
 
     STEPPER_LEFT_HYD.move(630);
 
