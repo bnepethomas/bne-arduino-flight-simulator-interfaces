@@ -6,7 +6,7 @@
 // 0.19A with 4 steppers disabled
 // 0.27A with 4 steppers enabled
 // So average current draw 20mA per stepper
-
+// 4 Steppers direct with 4 driven by buffer
 
 #define Ethernet_In_Use 0
 const int Serial_In_Use = 1;

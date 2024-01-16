@@ -10,7 +10,7 @@
       "/*2",
       "Net-(U1-INT)",
       "unconnected-(U1-NC-PadB4)",
-      "/ROLL_STEP_V+",
+      "/STEPPER_5_A",
       "/STEPPER_9_A"
     ],
     "high_contrast_mode": 0,
