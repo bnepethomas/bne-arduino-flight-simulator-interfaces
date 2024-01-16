@@ -1,7 +1,16 @@
+// Development test framework to determine max number of steppers that
+// can safely be driven off an Arduino without the use of drivers
+// Absoultely Max current is 200mA
 
-#define Ethernet_In_Use 1
-const int Serial_In_Use = 0;
-#define Reflector_In_Use 1
+// Measuring using USB power meter
+// 0.19A with 4 steppers disabled
+// 0.27A with 4 steppers enabled
+// So average current draw 20mA per stepper
+
+
+#define Ethernet_In_Use 0
+const int Serial_In_Use = 1;
+#define Reflector_In_Use 0
 
 
 // ###################################### Begin Ethernet Related #############################
@@ -63,6 +72,11 @@ void SendDebug(String MessageToSend) {
     udp.println(MessageToSend);
     udp.endPacket();
   }
+
+  if ( Serial_In_Use == 1) {
+    Serial.println( MessageToSend);
+  }
+
 }
 // ###################################### End Ethernet Related #############################
 
@@ -98,7 +112,7 @@ unsigned long timeSinceRedLedChanged = 0;
 
 
 #include "LedControl.h"
-#include "DcsBios.h"
+//#include "DcsBios.h"
 int devices = 2;
 
 
@@ -616,26 +630,8 @@ void Ledcycle() {
 // }
 // DcsBios::IntegerBuffer flpLgRightGearLtBuffer(0x7430, 0x2000, 13, onFlpLgRightGearLtChange);
 
-void onWarnCautionDimmerChange(unsigned int newValue) {
 
-  WARN_CAUTION_DIMMER_VALUE = map(newValue, 0, 65000, 0, 15);
-  updateBrightness();
-}
-DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionDimmerChange);
 
-void onCockkpitLightModeSwChangeMax7219(unsigned int newValue) {
-
-  // Called from onCockkpitLightModeSwChange in IFEI block
-
-  if (newValue == NVG_MODE) {
-    DAY_NIGHT_SWITCH_MODE = NVG_MODE;
-  } else if (newValue == NIGHT_MODE) {
-    DAY_NIGHT_SWITCH_MODE = NIGHT_MODE;
-  } else {
-    DAY_NIGHT_SWITCH_MODE = DAY_MODE;
-  }
-  updateBrightness();
-}
 
 
 void updateBrightness() {
@@ -712,7 +708,7 @@ void SetBrightness(int Brightness) {
 
 // Holding current per coil is 14mA, which gives 28mA per stepper
 // Mega absolute max is 40mA per pin, with a total max of 200mA
-// Gives a total 
+// Gives a total
 
 
 // Works but slow max speed of 30
@@ -733,6 +729,11 @@ void SetBrightness(int Brightness) {
 // If the stepper is incorrectly configured it will chatter above
 // rates of more than 30 steps per minute, if when correctly
 // configured speeds can exceed 2300
+
+#define TEST_COIL_A 8
+#define TEST_COIL_B 9
+#define TEST_COIL_C 10
+#define TEST_COIL_D 11
 
 
 #define COIL_LEFT_HYD_A1 22
@@ -756,8 +757,8 @@ void SetBrightness(int Brightness) {
 // #define COIL_RIGHT_HYD_A4 29
 
 #define COIL_LEFT_FUEL_A1 30
-#define COIL_LEFT_FUEL_A2 34
-#define COIL_LEFT_FUEL_A3 32
+#define COIL_LEFT_FUEL_A2 32
+#define COIL_LEFT_FUEL_A3 34
 #define COIL_LEFT_FUEL_A4 36
 
 #define COIL_RIGHT_FUEL_A1 31
@@ -766,13 +767,13 @@ void SetBrightness(int Brightness) {
 #define COIL_RIGHT_FUEL_A4 37
 
 #define COIL_OXY_REG_A1 38
-#define COIL_OXY_REG_A2 42
-#define COIL_OXY_REG_A3 40
+#define COIL_OXY_REG_A2 40
+#define COIL_OXY_REG_A3 42
 #define COIL_OXY_REG_A4 44
 
 #define COIL_LOX_A1 39
-#define COIL_LOX_A2 43
-#define COIL_LOX_A3 41
+#define COIL_LOX_A2 41
+#define COIL_LOX_A3 43
 #define COIL_LOX_A4 45
 
 // Pins are slighty Reversed when compared to steppers on Expansion connection
@@ -794,6 +795,9 @@ AccelStepper STEPPER_OXY_REG(AccelStepper::FULL4WIRE, COIL_OXY_REG_A1, COIL_OXY_
 AccelStepper STEPPER_LOX(AccelStepper::FULL4WIRE, COIL_LOX_A1, COIL_LOX_A2, COIL_LOX_A3, COIL_LOX_A4);
 AccelStepper STEPPER_CABIN_PRESS(AccelStepper::FULL4WIRE, COIL_CABIN_PRESS_A1, COIL_CABIN_PRESS_A2, COIL_CABIN_PRESS_A3, COIL_CABIN_PRESS_A4);
 
+AccelStepper STEPPER_TEST(AccelStepper::FULL4WIRE, 8, 9, 10, 11);
+
+
 // ###################################### End Stepper Related #############################
 
 
@@ -812,6 +816,9 @@ void setup() {
 
   delay(FLASH_TIME);
 
+  if(Serial_In_Use == 1) {
+    Serial.begin(250000);
+  }
 
   if (Ethernet_In_Use == 1) {
 
@@ -828,57 +835,26 @@ void setup() {
   }
 
 
-
-  if (true) {
-    // Initialise the Max7219
-    devices = lc.getDeviceCount();
-
-    for (int address = 0; address < devices; address++) {
-      /*The MAX72XX is in power-saving mode on startup*/
-      lc.shutdown(address, false);
-      /* Set the brightness to a medium values */
-      lc.setIntensity(address, 8);
-      /* and clear the display */
-      lc.clearDisplay(address);
-    }
-
-
-    AllOn();
-    delay(1000);
-
-
-    // Slowly Dim the Leds
-    for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
-      analogWrite(FORMATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      analogWrite(NVG_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      analogWrite(FLOOD_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      SetBrightness(Local_Brightness);
-
-      delay(100);
-    }
-
-    // Turn off All Leds and set to mid brightness
-    AllOff();
-    SetBrightness(8);
-  }
-
-
-
-  digitalWrite(RED_STATUS_LED_PORT, true);
-  digitalWrite(GREEN_STATUS_LED_PORT, true);
-  delay(FLASH_TIME);
-  digitalWrite(RED_STATUS_LED_PORT, false);
-  digitalWrite(GREEN_STATUS_LED_PORT, false);
-
-
   // For reasons I'm yet to work out - earlier senddebugs are not sent before this point
   // Testing shows a delay of 3 seconds is needed
   SendDebug("LED Initialisation Complete");
 
   SendDebug("Starting Motor Initialisation");
+  if (true) {
+    STEPPER_TEST.setMaxSpeed(STEPPER_MAX_SPEED);
+    STEPPER_TEST.setAcceleration(STEPPER_ACCELERATION);
+        STEPPER_TEST.move(630);
+    SendDebug("Start Stepper Test");
+    while (STEPPER_TEST.distanceToGo() != 0) {
+      STEPPER_TEST.run();
+    }
+    STEPPER_TEST.move(-630);
+    while (STEPPER_TEST.distanceToGo() != 0) {
+      STEPPER_TEST.run();
+    }
+    SendDebug("End Stepper Test");
+  }
+
 
   if (false) {
     STEPPER_RIGHT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
@@ -895,7 +871,7 @@ void setup() {
     SendDebug("End Stepper Right Hyd");
   }
 
-  if (true) {
+  if (false) {
     SendDebug("Start Stepper Left Hyd");
     STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
@@ -922,11 +898,11 @@ void setup() {
     SendDebug("Start Stepper Left Fuel");
     STEPPER_LEFT_FUEL.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_FUEL.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_LEFT_FUEL.move(4000);
+    STEPPER_LEFT_FUEL.move(630);
     while (STEPPER_LEFT_FUEL.distanceToGo() != 0) {
       STEPPER_LEFT_FUEL.run();
     }
-    STEPPER_LEFT_FUEL.move(-4000);
+    STEPPER_LEFT_FUEL.move(-630);
     while (STEPPER_LEFT_FUEL.distanceToGo() != 0) {
       STEPPER_LEFT_FUEL.run();
     }
@@ -952,26 +928,26 @@ void setup() {
     SendDebug("Start Stepper OXY REG");
     STEPPER_OXY_REG.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_OXY_REG.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_OXY_REG.move(4000);
+    STEPPER_OXY_REG.move(630);
     while (STEPPER_OXY_REG.distanceToGo() != 0) {
       STEPPER_OXY_REG.run();
     }
-    STEPPER_OXY_REG.move(-4000);
+    STEPPER_OXY_REG.move(-630);
     while (STEPPER_OXY_REG.distanceToGo() != 0) {
       STEPPER_OXY_REG.run();
     }
     SendDebug("End Stepper OXY REG");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper LOX");
     STEPPER_LOX.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LOX.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_LOX.move(4000);
+    STEPPER_LOX.move(630);
     while (STEPPER_LOX.distanceToGo() != 0) {
       STEPPER_LOX.run();
     }
-    STEPPER_LOX.move(-4000);
+    STEPPER_LOX.move(-630);
     while (STEPPER_LOX.distanceToGo() != 0) {
       STEPPER_LOX.run();
     }
@@ -998,7 +974,101 @@ void setup() {
   SendDebug("End Motor Initialisation");
 
   Ledcycle();
-  
+
+  disableAllSteppers();
+
+
+
+  if (false) {
+    SendDebug("Start All Stepper with Disable");
+    STEPPER_LOX.move(630);
+    STEPPER_CABIN_PRESS.move(630);
+    STEPPER_OXY_REG.move(630);
+    STEPPER_LEFT_FUEL.move(630);
+    STEPPER_RIGHT_FUEL.move(630);
+    STEPPER_LEFT_HYD.move(630);
+    STEPPER_RIGHT_HYD.move(630);
+    while (STEPPER_LOX.distanceToGo() != 0) {
+      STEPPER_LOX.run();
+      STEPPER_CABIN_PRESS.run();
+      STEPPER_OXY_REG.run();
+      STEPPER_LEFT_FUEL.run();
+      STEPPER_RIGHT_FUEL.run();
+      STEPPER_LEFT_HYD.run();
+      STEPPER_RIGHT_HYD.run();
+    }
+    STEPPER_LOX.move(-630);
+    STEPPER_LOX.move(-630);
+    STEPPER_LOX.move(-630);
+    STEPPER_CABIN_PRESS.move(-630);
+    STEPPER_OXY_REG.move(-630);
+    STEPPER_LEFT_FUEL.move(-630);
+    STEPPER_RIGHT_FUEL.move(-630);
+    STEPPER_LEFT_HYD.move(-630);
+    STEPPER_RIGHT_HYD.move(-630);
+    while (STEPPER_LOX.distanceToGo() != 0) {
+      STEPPER_LOX.run();
+      STEPPER_CABIN_PRESS.run();
+      STEPPER_OXY_REG.run();
+      STEPPER_LEFT_FUEL.run();
+      STEPPER_RIGHT_FUEL.run();
+      STEPPER_LEFT_HYD.run();
+      STEPPER_RIGHT_HYD.run();
+    }
+    SendDebug("End All Stepper");
+  }
+
+  if (false) {
+    SendDebug("Start All Stepper");
+    STEPPER_LOX.move(630);
+    STEPPER_LOX.move(630);
+    STEPPER_CABIN_PRESS.move(630);
+    STEPPER_OXY_REG.move(630);
+    STEPPER_LEFT_FUEL.move(630);
+    STEPPER_RIGHT_FUEL.move(630);
+    STEPPER_LEFT_HYD.move(630);
+    STEPPER_RIGHT_HYD.move(630);
+    while (STEPPER_LOX.distanceToGo() != 0) {
+      STEPPER_LOX.run();
+      STEPPER_CABIN_PRESS.run();
+      STEPPER_OXY_REG.run();
+      STEPPER_LEFT_FUEL.run();
+      STEPPER_RIGHT_FUEL.run();
+      STEPPER_LEFT_HYD.run();
+      STEPPER_RIGHT_HYD.run();
+    }
+    STEPPER_LOX.move(-630);
+    STEPPER_LOX.move(-630);
+    STEPPER_LOX.move(-630);
+    STEPPER_CABIN_PRESS.move(-630);
+    STEPPER_OXY_REG.move(-630);
+    STEPPER_LEFT_FUEL.move(-630);
+    STEPPER_RIGHT_FUEL.move(-630);
+    STEPPER_LEFT_HYD.move(-630);
+    STEPPER_RIGHT_HYD.move(-630);
+    while (STEPPER_LOX.distanceToGo() != 0) {
+      STEPPER_LOX.run();
+      STEPPER_LOX.run();
+      STEPPER_LOX.run();
+      STEPPER_CABIN_PRESS.run();
+      STEPPER_OXY_REG.run();
+      STEPPER_LEFT_FUEL.run();
+      STEPPER_RIGHT_FUEL.run();
+      STEPPER_LEFT_HYD.run();
+      STEPPER_RIGHT_HYD.run();
+    }
+    SendDebug("End All Stepper with Disable");
+  }
+}
+
+void disableAllSteppers() {
+  STEPPER_LOX.disableOutputs();
+  STEPPER_CABIN_PRESS.disableOutputs();
+  STEPPER_OXY_REG.disableOutputs();
+  STEPPER_LEFT_FUEL.disableOutputs();
+  STEPPER_RIGHT_FUEL.disableOutputs();
+  STEPPER_LEFT_HYD.disableOutputs();
+  STEPPER_RIGHT_HYD.disableOutputs();
 }
 
 void loop() {
