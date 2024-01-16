@@ -1,0 +1,346 @@
+
+(session "CONTROLLER_Radar Altimeter.ses"
+  (base_design "CONTROLLER_Radar Altimeter.dsn")
+  (placement
+    (resolution um 10)
+    (component MountingHole:MountingHole_2.5mm
+      (place MK1 348100 -508100 front 0)
+      (place MK2 318100 -918100 front 0)
+      (place MK3 718100 -548100 front 0)
+    )
+    (component "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+      (place J7 646600 -752100 front 0)
+    )
+    (component "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical::1"
+      (place J4 319900 -752100 front 0)
+    )
+    (component "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+      (place J11 455200 -752100 front 0)
+    )
+    (component "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
+      (place J2 461600 -578300 front 0)
+    )
+    (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
+      (place R1 326600 -828100 front 0)
+    )
+    (component "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical::1"
+      (place J10 550700 -752300 front 0)
+    )
+    (component "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical::2"
+      (place J6 386100 -752100 front 0)
+    )
+    (component "Connector_IDC:IDC-Header_2x07_P2.54mm_Vertical"
+      (place J1 449900 -651075 back 90)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version 7.0.9)
+    )
+    (library_out 
+      (padstack "Via[0-1]_600:400_um"
+        (shape
+          (circle F.Cu 6000 0 0)
+        )
+        (shape
+          (circle B.Cu 6000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net /LEDGND
+        (wire
+          (path F.Cu 2500
+            551500 -676475
+            526236 -701739
+            473814 -701739
+            423453 -752100
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            345300 -752100
+            357253 -752100
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            417337 -752100
+            402843 -766594
+            371747 -766594
+            357253 -752100
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            417477 -752100
+            423453 -752100
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            411500 -752100
+            417337 -752100
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            417477 -752100
+            417337 -752100
+          )
+        )
+      )
+      (net "/COIL-1"
+        (wire
+          (path B.Cu 2500
+            449900 -651075
+            449900 -590000
+            461600 -578300
+          )
+        )
+      )
+      (net "/COIL-2"
+        (wire
+          (path B.Cu 2500
+            487000 -578300
+            475047 -578300
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            449900 -676475
+            462605 -663770
+            462605 -602695
+            475047 -590253
+            475047 -578300
+          )
+        )
+      )
+      (net "/COIL-3"
+        (wire
+          (path B.Cu 2500
+            475300 -651075
+            475300 -616168
+            500447 -591021
+            500447 -578300
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            512400 -578300
+            500447 -578300
+          )
+        )
+      )
+      (net "/COIL-4"
+        (wire
+          (path B.Cu 2500
+            537800 -578300
+            525847 -578300
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            475300 -676475
+            488000 -663775
+            488000 -628100
+            525847 -590253
+            525847 -578300
+          )
+        )
+      )
+      (net /SERVO
+        (wire
+          (path B.Cu 2500
+            576100 -752300
+            564147 -752300
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            500700 -651075
+            513400 -663775
+            513400 -737800
+            542208 -766608
+            559551 -766608
+            564147 -762012
+            564147 -752300
+          )
+        )
+      )
+      (net /BL{slash}12+
+        (wire
+          (path B.Cu 2500
+            563200 -578300
+            575153 -578300
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            602300 -676475
+            589600 -663775
+            589600 -604700
+            575153 -590253
+            575153 -578300
+          )
+        )
+      )
+      (net "/BL{slash}12-"
+        (wire
+          (path F.Cu 2500
+            602300 -651075
+            588654 -664721
+            571644 -664721
+            563723 -672642
+            563723 -681562
+            519320 -725965
+            458278 -725965
+            385690 -798553
+            356147 -798553
+            326600 -828100
+          )
+        )
+      )
+      (net /GN_LED
+        (wire
+          (path F.Cu 2500
+            526100 -676475
+            509843 -692732
+            379268 -692732
+            319900 -752100
+          )
+        )
+      )
+      (net /POT
+        (wire
+          (path B.Cu 2500
+            480600 -752100
+            492553 -752100
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            500700 -676475
+            492553 -684622
+            492553 -752100
+          )
+        )
+      )
+      (net /PUSH_BUT
+        (wire
+          (path F.Cu 2500
+            526100 -651075
+            538155 -639020
+            607522 -639020
+            646600 -678098
+            646600 -752100
+          )
+        )
+      )
+      (net /GND
+        (wire
+          (path F.Cu 2500
+            576900 -676475
+            589547 -689122
+            589547 -752300
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            601500 -752300
+            589547 -752300
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            506000 -752100
+            517953 -752100
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            517953 -752100
+            532830 -766977
+            580846 -766977
+            589547 -758276
+            589547 -752300
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            672000 -752100
+            660047 -752100
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            601500 -752300
+            613453 -752300
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            613453 -752300
+            627828 -766675
+            655184 -766675
+            660047 -761812
+            660047 -752100
+          )
+        )
+      )
+      (net /RD_LED
+        (wire
+          (path F.Cu 2500
+            551500 -651075
+            538800 -663775
+            538800 -680439
+            522004 -697235
+            440965 -697235
+            386100 -752100
+          )
+        )
+      )
+      (net /5V
+        (wire
+          (path F.Cu 2500
+            550700 -752300
+            536202 -737802
+            469498 -737802
+            455200 -752100
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            576900 -651075
+            564201 -663774
+            564201 -738799
+            550700 -752300
+          )
+        )
+      )
+      (net /BLGND
+        (wire
+          (path B.Cu 2500
+            352000 -828100
+            352000 -817847
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            352000 -817847
+            357282 -812565
+            357282 -659738
+            453258 -563762
+            574062 -563762
+            588600 -578300
+          )
+        )
+      )
+    )
+  )
+)
