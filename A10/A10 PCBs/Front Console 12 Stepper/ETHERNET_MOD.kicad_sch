@@ -350,7 +350,7 @@
     (property "Value" "10K" (at 50.038 61.3922 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "PT_Library_v001:PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical" (at 46.482 59.69 90)
+    (property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical" (at 46.482 59.69 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (at 48.26 59.69 0)
