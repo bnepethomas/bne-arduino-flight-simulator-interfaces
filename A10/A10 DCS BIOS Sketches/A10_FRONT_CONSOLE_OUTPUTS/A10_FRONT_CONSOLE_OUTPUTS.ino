@@ -194,6 +194,51 @@ void tcaselect(uint8_t i) {
 }
 
 
+#define VHF_FM_PORT 0
+#define VHF_AM_PORT 1
+#define UHF_PORT 2
+#define MWS_PORT 3
+#define CMSP_PORT 4
+#define ILS_PORT 5
+#define TACAN_PORT 6
+#define SPARE_PORT 7
+
+void displayOLEDPortUsage() {
+  for (uint8_t t = 0; t < 8; t++) {
+    tcaselect(t);
+    switch (t) {
+      case VHF_FM_PORT:
+        sendString("VHF FM");
+        break;
+      case VHF_AM_PORT:
+        sendString("VHF AM");
+        break;
+      case UHF_PORT:
+        sendString("UHF PORT");
+        break;
+      case MWS_PORT:
+        sendString("MWS PORT");
+        break;
+      case CMSP_PORT:
+        sendString("CMSP PORT");
+        break;
+      case ILS_PORT:
+        sendString("ILS PORT");
+        break;
+      case TACAN_PORT:
+        sendString("TACAN PORT");
+        break;
+      case SPARE_PORT:
+        sendString("SPARE PORT");
+        break;
+      default:
+        sendString("UNASSIGNED PORT " + String(t));
+        break;
+    }
+  }
+}
+
+
 //////////////////////////////////////////////////////////////////////////////
 //                                                                         //
 //              OLED INIT                                                  //
@@ -302,18 +347,37 @@ void sendCommand(unsigned char command) {
 
 ////////////////////////////////////////////////////////////////////////////////////////
 //
-//       sendString(const char *String)
+//       sendString(String)
 //
 ///////////////////////////////////////////////////////////////////////////////////////
-void sendString(const char *String) {
+void sendString(String workstring) {
+  int str_len = workstring.length() + 1;
+  char char_array[str_len];
+  workstring.toCharArray(char_array, str_len);
+  sendCharArray(char_array);
+}
+////////////////////////////////////////////////////////////////////////////////////////
+//
+//       END  sendString(String)
+//
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+//
+//       sendCharArray(const char *String)
+//
+///////////////////////////////////////////////////////////////////////////////////////
+void sendCharArray(const char *String) {
   unsigned char i = 0;
   while (String[i]) sendData(String[i++]);  // *** Send String to OLED
 }
 ////////////////////////////////////////////////////////////////////////////////////////
 //
-//       END  sendString(const char *String)
+//       END  sendCharArray(const char *String)
 //
 ///////////////////////////////////////////////////////////////////////////////////////
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -480,23 +544,24 @@ void setup() {
     init_oled();
   }
 
+
+
   SendDebug("Display Startup Text on OLEDs");
   // Display startup text on OLEDs
   for (uint8_t t = 0; t < 8; t++) {
     tcaselect(t);
-    setCursor(0, 1);
-    String workstring;
-    workstring = "Unit " + String(t);
-    int str_len = workstring.length() + 1;
-    char char_array[str_len];
-    workstring.toCharArray(char_array, str_len);
-    sendString(char_array);
     setCursor(0, 0);
-    sendString("Line 1");  //1 　　line
-    setCursor(9, 1);
-    sendString("Line 2");  //2 　　line
-    sendFloat(3.145926, 5, 6, 10, 0);
   }
+
+  displayOLEDPortUsage();
+  for (uint8_t t = 0; t < 8; t++) {
+    tcaselect(t);
+    setCursor(0, 1);
+  }
+
+  displayOLEDPortUsage();
+
+
   SendDebug("OLED Display Startup Complete");
 }
 
