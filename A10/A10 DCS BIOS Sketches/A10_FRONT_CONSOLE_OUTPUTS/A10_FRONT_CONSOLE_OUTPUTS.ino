@@ -71,10 +71,10 @@ void SendDebug(String MessageToSend) {
 
 
 // THE LED PORTS WILL CHANGE FROM THE V1.1 PCB TO THE FOLLOWING
-// #define RED_STATUS_LED_PORT 12
-// #define GREEN_STATUS_LED_PORT 13
-#define RED_STATUS_LED_PORT 6
-#define GREEN_STATUS_LED_PORT 5
+#define RED_STATUS_LED_PORT 12
+#define GREEN_STATUS_LED_PORT 13
+//#define RED_STATUS_LED_PORT 6
+//#define GREEN_STATUS_LED_PORT 5
 #define FLASH_TIME 300
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
@@ -178,6 +178,16 @@ AccelStepper STEPPER_CABIN_PRESS(AccelStepper::FULL4WIRE, COIL_CABIN_PRESS_A1, C
 // ###################################### End Stepper Related #############################
 
 
+// ###################################### Begin I2C Related ###############################
+#include <Wire.h>
+extern "C" {
+#include "utility/twi.h"  // from Wire library, so we can do bus scanning
+}
+
+#define TCAADDR 0x70
+
+
+// ######################################## End I2C Related ###############################
 
 
 void setup() {
@@ -225,7 +235,7 @@ void setup() {
 
 
 
-  if (true) {
+  if (false) {
     SendDebug("Start Stepper Left Hyd");
     STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
