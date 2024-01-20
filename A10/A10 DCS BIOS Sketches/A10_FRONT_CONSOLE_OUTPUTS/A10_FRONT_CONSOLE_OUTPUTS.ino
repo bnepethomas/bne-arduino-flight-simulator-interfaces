@@ -199,10 +199,13 @@ void tcaselect(uint8_t i) {
 //              OLED INIT                                                  //
 //                                                                         //
 /////////////////////////////////////////////////////////////////////////////
+// OLED Library source - https://forum.arduino.cc/t/setting-up-and-using-2x16-2x20-and-4x20-i2c-oled-displays-by-wide-hk/299364
+//  WIDE.HK_I2C_OLED_EXAMPLE
 #define OLED_Address 0x3c
-//#define OLED_Address      0x60
 #define OLED_Command_Mode 0x80
 #define OLED_Data_Mode 0x40
+
+
 void init_oled() {
   // there are 3 command sets, Fundamental (RE and SD =0), Extended (RE=1), and OLED (RE=1 and SD=1)
   // we switch back and forth between the command tables  and i try to put extra lines beteen the switches
@@ -461,19 +464,40 @@ void setup() {
   // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
   //Serial.println("\nI2C scan complete");
 
-  tcaselect(0);
-  init_oled();
+  // Initialise OLEDs
+  // tcaselect(0);
+  // init_oled();
+  // setCursor(0, 0);
+  // sendString("Line 1");  //1 　　line
+  // setCursor(5, 1);
+  // sendString("Line 2");  //2 　　line
+  // sendFloat(3.145926, 5, 6, 10, 0);
 
-  setCursor(0, 0);
-  sendString("Line 1");  //1 　　line
-  setCursor(5, 1);
-  sendString("Line 2");  //2 　　line
 
-  // the next two lines are only if you have a 4 line display
-  //  setCursor(10,2); sendString("Line 3");   //3 　　line
-  //  setCursor(0,3);  sendString("Line 4");   //4 　　line
+  SendDebug("Initialising OLEDs");
+  for (uint8_t t = 0; t < 8; t++) {
+    tcaselect(t);
+    init_oled();
+  }
 
-  sendFloat(3.145926, 5, 6, 10, 0);
+  SendDebug("Display Startup Text on OLEDs");
+  // Display startup text on OLEDs
+  for (uint8_t t = 0; t < 8; t++) {
+    tcaselect(t);
+    setCursor(0, 1);
+    String workstring;
+    workstring = "Unit " + String(t);
+    int str_len = workstring.length() + 1;
+    char char_array[str_len];
+    workstring.toCharArray(char_array, str_len);
+    sendString(char_array);
+    setCursor(0, 0);
+    sendString("Line 1");  //1 　　line
+    setCursor(9, 1);
+    sendString("Line 2");  //2 　　line
+    sendFloat(3.145926, 5, 6, 10, 0);
+  }
+  SendDebug("OLED Display Startup Complete");
 }
 
 void loop() {
