@@ -601,6 +601,27 @@ void setup() {
   send_ILS("ILS 108.7");
   send_TACAN("TACAN 130.1");
   send_SPARE("SPARE");
+
+
+
+
+  pinMode(A0, OUTPUT);
+  pinMode(A1, OUTPUT);
+  pinMode(A2, OUTPUT);
+  pinMode(A3, OUTPUT);
+  pinMode(A4, OUTPUT);
+  pinMode(A5, OUTPUT);
+  pinMode(A6, OUTPUT);
+  pinMode(A7, OUTPUT);
+  pinMode(A8, OUTPUT);
+  pinMode(A9, OUTPUT);
+  pinMode(A10, OUTPUT);
+  pinMode(A11, OUTPUT);
+  pinMode(A12, OUTPUT);
+  pinMode(A13, OUTPUT);
+  pinMode(A14, OUTPUT);
+  pinMode(A15, OUTPUT);
+
 }
 
 void loop() {
@@ -609,6 +630,7 @@ void loop() {
     GREEN_LED_STATE = !GREEN_LED_STATE;
     RED_LED_STATE = !RED_LED_STATE;
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
+
     digitalWrite(A0, GREEN_LED_STATE);
     digitalWrite(A1, GREEN_LED_STATE);
     digitalWrite(A2, GREEN_LED_STATE);
