@@ -602,26 +602,43 @@ void setup() {
   send_TACAN("TACAN 130.1");
   send_SPARE("SPARE");
 
-
-
+#define CAUTION_LAMP A4
+#define PRI_LAMP A5
+#define SEP_LAMP A6
+#define MISSILE_LAMP A7
+#define HARS_LAMP A8
+#define EGI_LAMP A9
+#define TISL_LAMP A10
+#define STR_PT_LAMP A11
+#define ANCHR_LAMP A12
+#define TCN_LAMP A13
+#define ILS_LAMP A14
+#define ANTI_SKID_COIL A15
+#define R_PITCH_COIL 39
+#define L_PITCH_COIL 41
+#define R_YAW_COIL 43
+#define L_YAW_COIL 45
 
   pinMode(A0, OUTPUT);
   pinMode(A1, OUTPUT);
   pinMode(A2, OUTPUT);
   pinMode(A3, OUTPUT);
-  pinMode(A4, OUTPUT);
-  pinMode(A5, OUTPUT);
-  pinMode(A6, OUTPUT);
-  pinMode(A7, OUTPUT);
-  pinMode(A8, OUTPUT);
-  pinMode(A9, OUTPUT);
-  pinMode(A10, OUTPUT);
-  pinMode(A11, OUTPUT);
-  pinMode(A12, OUTPUT);
-  pinMode(A13, OUTPUT);
-  pinMode(A14, OUTPUT);
-  pinMode(A15, OUTPUT);
-
+  pinMode(CAUTION_LAMP, OUTPUT);
+  pinMode(PRI_LAMP, OUTPUT);
+  pinMode(SEP_LAMP, OUTPUT);
+  pinMode(MISSILE_LAMP, OUTPUT);
+  pinMode(HARS_LAMP, OUTPUT);
+  pinMode(EGI_LAMP, OUTPUT);
+  pinMode(TISL_LAMP, OUTPUT);
+  pinMode(STR_PT_LAMP, OUTPUT);
+  pinMode(ANCHR_LAMP, OUTPUT);
+  pinMode(TCN_LAMP, OUTPUT);
+  pinMode(ILS_LAMP, OUTPUT);
+  pinMode(ANTI_SKID_COIL, OUTPUT);
+  pinMode(R_PITCH_COIL, OUTPUT);
+  pinMode(L_PITCH_COIL, OUTPUT);
+  pinMode(R_YAW_COIL, OUTPUT);
+  pinMode(L_YAW_COIL, OUTPUT);
 }
 
 void loop() {
@@ -635,18 +652,24 @@ void loop() {
     digitalWrite(A1, GREEN_LED_STATE);
     digitalWrite(A2, GREEN_LED_STATE);
     digitalWrite(A3, GREEN_LED_STATE);
-    digitalWrite(A4, GREEN_LED_STATE);
-    digitalWrite(A5, GREEN_LED_STATE);
-    digitalWrite(A6, GREEN_LED_STATE);
-    digitalWrite(A7, GREEN_LED_STATE);
-    digitalWrite(A8, GREEN_LED_STATE);
-    digitalWrite(A9, GREEN_LED_STATE);
-    digitalWrite(A10, GREEN_LED_STATE);
-    digitalWrite(A11, GREEN_LED_STATE);
-    digitalWrite(A12, GREEN_LED_STATE);
-    digitalWrite(A13, GREEN_LED_STATE);
-    digitalWrite(A14, GREEN_LED_STATE);
-    digitalWrite(A15, GREEN_LED_STATE);
+    digitalWrite(CAUTION_LAMP, GREEN_LED_STATE);
+    digitalWrite(PRI_LAMP, GREEN_LED_STATE);
+    digitalWrite(SEP_LAMP, GREEN_LED_STATE);
+    digitalWrite(MISSILE_LAMP, GREEN_LED_STATE);
+    digitalWrite(HARS_LAMP, GREEN_LED_STATE);
+    digitalWrite(EGI_LAMP, GREEN_LED_STATE);
+    digitalWrite(TISL_LAMP, GREEN_LED_STATE);
+    digitalWrite(STR_PT_LAMP, GREEN_LED_STATE);
+    digitalWrite(ANCHR_LAMP, GREEN_LED_STATE);
+    digitalWrite(TCN_LAMP, GREEN_LED_STATE);
+    digitalWrite(ILS_LAMP, GREEN_LED_STATE);
+    digitalWrite(ANTI_SKID_COIL, GREEN_LED_STATE);
+    digitalWrite(R_PITCH_COIL, GREEN_LED_STATE);
+    digitalWrite(L_PITCH_COIL, GREEN_LED_STATE);
+    digitalWrite(R_YAW_COIL, GREEN_LED_STATE);
+    digitalWrite(L_YAW_COIL, GREEN_LED_STATE);
+
+
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
