@@ -75,7 +75,7 @@ void SendDebug(String MessageToSend) {
 #define GREEN_STATUS_LED_PORT 13
 //#define RED_STATUS_LED_PORT 6
 //#define GREEN_STATUS_LED_PORT 5
-#define FLASH_TIME 300
+#define FLASH_TIME 1000
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
@@ -185,12 +185,35 @@ extern "C" {
 }
 
 #define TCAADDR 0x70
+
+
 void tcaselect(uint8_t i) {
   if (i > 7) return;
 
   Wire.beginTransmission(TCAADDR);
   Wire.write(1 << i);
   Wire.endTransmission();
+}
+
+void scanI2CBus() {
+  for (uint8_t t = 0; t < 8; t++) {
+    tcaselect(t);
+    // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
+    //Serial.print("TCA Port #"); Serial.println(t);
+
+    for (uint8_t addr = 0; addr <= 127; addr++) {
+      //if (addr == TCAADDR) continue;
+
+      uint8_t data;
+      if (!twi_writeTo(addr, &data, 0, 1, 1)) {
+        // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
+
+        SendDebug("Found I2C 0x" + String(addr));  // Serial.println(addr,HEX);
+      }
+    }
+  }
+  // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
+  //Serial.println("\nI2C scan complete");
 }
 
 
@@ -202,6 +225,56 @@ void tcaselect(uint8_t i) {
 #define ILS_PORT 5
 #define TACAN_PORT 6
 #define SPARE_PORT 7
+
+
+void send_VHF_FM(String stringToDisplay) {
+  tcaselect(VHF_FM_PORT);
+  setCursor(0, 0);
+  sendString(stringToDisplay);
+}
+
+void send_VHF_AM(String stringToDisplay) {
+  tcaselect(VHF_AM_PORT);
+  setCursor(0, 0);
+  sendString(stringToDisplay);
+}
+
+
+void send_UHF(String stringToDisplay) {
+  tcaselect(UHF_PORT);
+  setCursor(0, 0);
+  sendString(stringToDisplay);
+}
+
+void send_MWS(String stringToDisplay) {
+  tcaselect(MWS_PORT);
+  setCursor(0, 0);
+  sendString(stringToDisplay);
+}
+
+void send_CMSP(String stringToDisplay) {
+  tcaselect(CMSP_PORT);
+  setCursor(0, 0);
+  sendString(stringToDisplay);
+}
+
+void send_ILS(String stringToDisplay) {
+  tcaselect(ILS_PORT);
+  setCursor(0, 0);
+  sendString(stringToDisplay);
+}
+
+void send_TACAN(String stringToDisplay) {
+  tcaselect(TACAN_PORT);
+  setCursor(0, 0);
+  sendString(stringToDisplay);
+}
+
+void send_SPARE(String stringToDisplay) {
+  tcaselect(SPARE_PORT);
+  setCursor(0, 0);
+  sendString(stringToDisplay);
+}
 
 void displayOLEDPortUsage() {
   for (uint8_t t = 0; t < 8; t++) {
@@ -505,37 +578,7 @@ void setup() {
 
   Wire.begin();
 
-
-  // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-  //Serial.println("\nScanning I2C Bus");
-
-  for (uint8_t t = 0; t < 8; t++) {
-    tcaselect(t);
-    // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-    //Serial.print("TCA Port #"); Serial.println(t);
-
-    for (uint8_t addr = 0; addr <= 127; addr++) {
-      //if (addr == TCAADDR) continue;
-
-      uint8_t data;
-      if (!twi_writeTo(addr, &data, 0, 1, 1)) {
-        // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-
-        SendDebug("Found I2C 0x" + String(addr));  // Serial.println(addr,HEX);
-      }
-    }
-  }
-  // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-  //Serial.println("\nI2C scan complete");
-
-  // Initialise OLEDs
-  // tcaselect(0);
-  // init_oled();
-  // setCursor(0, 0);
-  // sendString("Line 1");  //1 　　line
-  // setCursor(5, 1);
-  // sendString("Line 2");  //2 　　line
-  // sendFloat(3.145926, 5, 6, 10, 0);
+  scanI2CBus();
 
 
   SendDebug("Initialising OLEDs");
@@ -544,25 +587,20 @@ void setup() {
     init_oled();
   }
 
-
-
   SendDebug("Display Startup Text on OLEDs");
-  // Display startup text on OLEDs
-  for (uint8_t t = 0; t < 8; t++) {
-    tcaselect(t);
-    setCursor(0, 0);
-  }
 
-  displayOLEDPortUsage();
-  for (uint8_t t = 0; t < 8; t++) {
-    tcaselect(t);
-    setCursor(0, 1);
-  }
-
-  displayOLEDPortUsage();
 
 
   SendDebug("OLED Display Startup Complete");
+  delay(2000);
+  send_VHF_FM("VHF FM 127.1");
+  send_VHF_AM("VHF AM 124.2");
+  send_UHF("UHF 330.1");
+  send_MWS("MWS AA AG");
+  send_CMSP("CMSP ARMED");
+  send_ILS("ILS 108.7");
+  send_TACAN("TACAN 130.1");
+  send_SPARE("SPARE");
 }
 
 void loop() {
@@ -571,6 +609,22 @@ void loop() {
     GREEN_LED_STATE = !GREEN_LED_STATE;
     RED_LED_STATE = !RED_LED_STATE;
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
+    digitalWrite(A0, GREEN_LED_STATE);
+    digitalWrite(A1, GREEN_LED_STATE);
+    digitalWrite(A2, GREEN_LED_STATE);
+    digitalWrite(A3, GREEN_LED_STATE);
+    digitalWrite(A4, GREEN_LED_STATE);
+    digitalWrite(A5, GREEN_LED_STATE);
+    digitalWrite(A6, GREEN_LED_STATE);
+    digitalWrite(A7, GREEN_LED_STATE);
+    digitalWrite(A8, GREEN_LED_STATE);
+    digitalWrite(A9, GREEN_LED_STATE);
+    digitalWrite(A10, GREEN_LED_STATE);
+    digitalWrite(A11, GREEN_LED_STATE);
+    digitalWrite(A12, GREEN_LED_STATE);
+    digitalWrite(A13, GREEN_LED_STATE);
+    digitalWrite(A14, GREEN_LED_STATE);
+    digitalWrite(A15, GREEN_LED_STATE);
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
