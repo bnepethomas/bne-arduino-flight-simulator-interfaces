@@ -151,6 +151,31 @@ unsigned long timeSinceRedLedChanged = 0;
 #define COIL_STEPPER_6_C 22
 #define COIL_STEPPER_6_D 24
 
+#define COIL_STEPPER_7_A 30
+#define COIL_STEPPER_7_B 32
+#define COIL_STEPPER_7_C 34
+#define COIL_STEPPER_7_D 36
+
+#define COIL_STEPPER_8_A 38
+#define COIL_STEPPER_8_B 40
+#define COIL_STEPPER_8_C 42
+#define COIL_STEPPER_8_D 44
+
+#define COIL_STEPPER_9_A 23
+#define COIL_STEPPER_9_B 25
+#define COIL_STEPPER_9_C 27
+#define COIL_STEPPER_9_D 29
+
+#define COIL_STEPPER_10_A 31
+#define COIL_STEPPER_10_B 33
+#define COIL_STEPPER_10_C 35
+#define COIL_STEPPER_10_D 37
+
+#define COIL_STEPPER_11_A 39
+#define COIL_STEPPER_11_B 41
+#define COIL_STEPPER_11_C 43
+#define COIL_STEPPER_11_D 45
+
 
 #define COIL_STEPPER_12_A 47
 #define COIL_STEPPER_12_B 49
@@ -227,6 +252,11 @@ AccelStepper STEPPER_3(AccelStepper::FULL4WIRE, COIL_STEPPER_3_A, COIL_STEPPER_3
 AccelStepper STEPPER_4(AccelStepper::FULL4WIRE, COIL_STEPPER_4_A, COIL_STEPPER_4_B, COIL_STEPPER_4_C, COIL_STEPPER_4_D);
 AccelStepper STEPPER_5(AccelStepper::FULL4WIRE, COIL_STEPPER_5_A, COIL_STEPPER_5_B, COIL_STEPPER_5_C, COIL_STEPPER_5_D);
 AccelStepper STEPPER_6(AccelStepper::FULL4WIRE, COIL_STEPPER_6_A, COIL_STEPPER_6_B, COIL_STEPPER_6_C, COIL_STEPPER_6_D);
+AccelStepper STEPPER_7(AccelStepper::FULL4WIRE, COIL_STEPPER_7_A, COIL_STEPPER_7_B, COIL_STEPPER_7_C, COIL_STEPPER_7_D);
+AccelStepper STEPPER_8(AccelStepper::FULL4WIRE, COIL_STEPPER_8_A, COIL_STEPPER_8_B, COIL_STEPPER_8_C, COIL_STEPPER_8_D);
+AccelStepper STEPPER_9(AccelStepper::FULL4WIRE, COIL_STEPPER_9_A, COIL_STEPPER_9_B, COIL_STEPPER_9_C, COIL_STEPPER_9_D);
+AccelStepper STEPPER_10(AccelStepper::FULL4WIRE, COIL_STEPPER_10_A, COIL_STEPPER_10_B, COIL_STEPPER_10_C, COIL_STEPPER_10_D);
+AccelStepper STEPPER_11(AccelStepper::FULL4WIRE, COIL_STEPPER_11_A, COIL_STEPPER_11_B, COIL_STEPPER_11_C, COIL_STEPPER_11_D);
 AccelStepper STEPPER_12(AccelStepper::FULL4WIRE, COIL_STEPPER_12_A, COIL_STEPPER_12_B, COIL_STEPPER_12_C, COIL_STEPPER_12_D);
 
 // ###################################### End Stepper Related #############################
@@ -279,7 +309,16 @@ void setup() {
   STEPPER_5.setAcceleration(STEPPER_ACCELERATION);
   STEPPER_6.setMaxSpeed(STEPPER_MAX_SPEED);
   STEPPER_6.setAcceleration(STEPPER_ACCELERATION);
-
+  STEPPER_7.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_7.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_8.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_8.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_9.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_9.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_10.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_10.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_11.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_11.setAcceleration(STEPPER_ACCELERATION);
   STEPPER_12.setMaxSpeed(STEPPER_MAX_SPEED);
   STEPPER_12.setAcceleration(STEPPER_ACCELERATION);
 
@@ -416,7 +455,11 @@ void setup() {
     STEPPER_4.move(630);
     STEPPER_5.move(630);
     STEPPER_6.move(630);
-
+    STEPPER_7.move(630);
+    STEPPER_8.move(630);
+    STEPPER_9.move(630);
+    STEPPER_10.move(630);
+    STEPPER_11.move(630);
     STEPPER_12.move(630);
     // STEPPER_LOX.move(630);
     // STEPPER_CABIN_PRESS.move(630);
@@ -433,7 +476,11 @@ void setup() {
       STEPPER_4.run();
       STEPPER_5.run();
       STEPPER_6.run();
-
+      STEPPER_7.run();
+      STEPPER_8.run();
+      STEPPER_9.run();
+      STEPPER_10.run();
+      STEPPER_11.run();
       STEPPER_12.run();
 
       // STEPPER_LOX.run();
@@ -451,7 +498,11 @@ void setup() {
     STEPPER_4.move(-630);
     STEPPER_5.move(-630);
     STEPPER_6.move(-630);
-
+    STEPPER_7.move(-630);
+    STEPPER_8.move(-630);
+    STEPPER_9.move(-630);
+    STEPPER_10.move(-630);
+    STEPPER_11.move(-630);
     STEPPER_12.move(-630);
 
     // STEPPER_LOX.move(-630);
@@ -469,7 +520,11 @@ void setup() {
       STEPPER_4.run();
       STEPPER_5.run();
       STEPPER_6.run();
-
+      STEPPER_7.run();
+      STEPPER_8.run();
+      STEPPER_9.run();
+      STEPPER_10.run();
+      STEPPER_11.run();
       STEPPER_12.run();
 
       // STEPPER_LOX.run();
