@@ -136,10 +136,10 @@ unsigned long timeSinceRedLedChanged = 0;
 #define COIL_STEPPER_3_C 0
 #define COIL_STEPPER_3_D 1
 
-#define COIL_STEPPER_4_A 14
-#define COIL_STEPPER_4_B 15
-#define COIL_STEPPER_4_C 16
-#define COIL_STEPPER_4_D 17
+#define COIL_STEPPER_4_A 16
+#define COIL_STEPPER_4_B 17
+#define COIL_STEPPER_4_C 14
+#define COIL_STEPPER_4_D 15
 
 #define COIL_STEPPER_5_A 18
 #define COIL_STEPPER_5_B 19
