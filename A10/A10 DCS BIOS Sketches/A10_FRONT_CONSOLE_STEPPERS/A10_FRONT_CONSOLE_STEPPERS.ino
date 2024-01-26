@@ -121,20 +121,36 @@ unsigned long timeSinceRedLedChanged = 0;
 // rates of more than 30 steps per minute, if when correctly
 // configured speeds can exceed 2300
 
-#define TEST_COIL_A 4
-#define TEST_COIL_B 5
-#define TEST_COIL_C 7
-#define TEST_COIL_D 6
+#define COIL_STEPPER_1_A 12
+#define COIL_STEPPER_1_B 13
+#define COIL_STEPPER_1_C 9
+#define COIL_STEPPER_1_D 11
 
 #define COIL_STEPPER_2_A 4
 #define COIL_STEPPER_2_B 5
 #define COIL_STEPPER_2_C 7
 #define COIL_STEPPER_2_D 6
 
-#define COIL_STEPPER_1_A 12
-#define COIL_STEPPER_1_B 13
-#define COIL_STEPPER_1_C 9
-#define COIL_STEPPER_1_D 11
+#define COIL_STEPPER_3_A 2
+#define COIL_STEPPER_3_B 3
+#define COIL_STEPPER_3_C 0
+#define COIL_STEPPER_3_D 1
+
+#define COIL_STEPPER_4_A 14
+#define COIL_STEPPER_4_B 15
+#define COIL_STEPPER_4_C 16
+#define COIL_STEPPER_4_D 17
+
+#define COIL_STEPPER_5_A 18
+#define COIL_STEPPER_5_B 19
+#define COIL_STEPPER_5_C 20
+#define COIL_STEPPER_5_D 21
+
+#define COIL_STEPPER_6_A 26
+#define COIL_STEPPER_6_B 28
+#define COIL_STEPPER_6_C 22
+#define COIL_STEPPER_6_D 24
+
 
 #define COIL_STEPPER_12_A 47
 #define COIL_STEPPER_12_B 49
@@ -204,8 +220,14 @@ unsigned long timeSinceRedLedChanged = 0;
 // AccelStepper STEPPER_LOX(AccelStepper::FULL4WIRE, COIL_LOX_A1, COIL_LOX_A2, COIL_LOX_A3, COIL_LOX_A4);
 // AccelStepper STEPPER_CABIN_PRESS(AccelStepper::FULL4WIRE, COIL_CABIN_PRESS_A1, COIL_CABIN_PRESS_A2, COIL_CABIN_PRESS_A3, COIL_CABIN_PRESS_A4);
 
-AccelStepper STEPPER_TEST(AccelStepper::FULL4WIRE, TEST_COIL_A, TEST_COIL_B, TEST_COIL_C, TEST_COIL_D);
+
 AccelStepper STEPPER_1(AccelStepper::FULL4WIRE, COIL_STEPPER_1_A, COIL_STEPPER_1_B, COIL_STEPPER_1_C, COIL_STEPPER_1_D);
+AccelStepper STEPPER_2(AccelStepper::FULL4WIRE, COIL_STEPPER_2_A, COIL_STEPPER_2_B, COIL_STEPPER_2_C, COIL_STEPPER_2_D);
+AccelStepper STEPPER_3(AccelStepper::FULL4WIRE, COIL_STEPPER_3_A, COIL_STEPPER_3_B, COIL_STEPPER_3_C, COIL_STEPPER_3_D);
+AccelStepper STEPPER_4(AccelStepper::FULL4WIRE, COIL_STEPPER_4_A, COIL_STEPPER_4_B, COIL_STEPPER_4_C, COIL_STEPPER_4_D);
+AccelStepper STEPPER_5(AccelStepper::FULL4WIRE, COIL_STEPPER_5_A, COIL_STEPPER_5_B, COIL_STEPPER_5_C, COIL_STEPPER_5_D);
+AccelStepper STEPPER_6(AccelStepper::FULL4WIRE, COIL_STEPPER_6_A, COIL_STEPPER_6_B, COIL_STEPPER_6_C, COIL_STEPPER_6_D);
+AccelStepper STEPPER_12(AccelStepper::FULL4WIRE, COIL_STEPPER_12_A, COIL_STEPPER_12_B, COIL_STEPPER_12_C, COIL_STEPPER_12_D);
 
 // ###################################### End Stepper Related #############################
 
@@ -244,26 +266,24 @@ void setup() {
   SendDebug(" ");
   SendDebug("Stepper 12 Initialising");
 
+
   STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
   STEPPER_1.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_2.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_2.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_3.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_3.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_4.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_4.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_5.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_5.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_6.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_6.setAcceleration(STEPPER_ACCELERATION);
 
+  STEPPER_12.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_12.setAcceleration(STEPPER_ACCELERATION);
 
   SendDebug("Starting Motor Initialisation");
-  if (true) {
-    SendDebug("Starting Stepper Test Initialisation");
-    STEPPER_TEST.setMaxSpeed(STEPPER_MAX_SPEED);
-    STEPPER_TEST.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_TEST.move(630);
-    SendDebug("Start Stepper Test");
-    while (STEPPER_TEST.distanceToGo() != 0) {
-      STEPPER_TEST.run();
-    }
-    STEPPER_TEST.move(-630);
-    while (STEPPER_TEST.distanceToGo() != 0) {
-      STEPPER_TEST.run();
-    }
-    SendDebug("End Stepper Test");
-  }
 
 
   // if (false) {
@@ -390,8 +410,14 @@ void setup() {
 
   if (true) {
     SendDebug("Start All Stepper");
-    STEPPER_TEST.move(630);
     STEPPER_1.move(630);
+    STEPPER_2.move(630);
+    STEPPER_3.move(630);
+    STEPPER_4.move(630);
+    STEPPER_5.move(630);
+    STEPPER_6.move(630);
+
+    STEPPER_12.move(630);
     // STEPPER_LOX.move(630);
     // STEPPER_CABIN_PRESS.move(630);
     // STEPPER_OXY_REG.move(630);
@@ -399,10 +425,17 @@ void setup() {
     // STEPPER_RIGHT_FUEL.move(630);
     // STEPPER_LEFT_HYD.move(630);
     // STEPPER_RIGHT_HYD.move(630);
-    while (STEPPER_TEST.distanceToGo() != 0) {
-      SendDebug("Stepper_Test distance to go :" + String(STEPPER_TEST.distanceToGo()));
+    while (STEPPER_1.distanceToGo() != 0) {
+      //SendDebug("Stepper_1 distance to go :" + String(STEPPER_1.distanceToGo()));
       STEPPER_1.run();
-      STEPPER_TEST.run();
+      STEPPER_2.run();
+      STEPPER_3.run();
+      STEPPER_4.run();
+      STEPPER_5.run();
+      STEPPER_6.run();
+
+      STEPPER_12.run();
+
       // STEPPER_LOX.run();
       // STEPPER_CABIN_PRESS.run();
       // STEPPER_OXY_REG.run();
@@ -413,7 +446,14 @@ void setup() {
     }
     SendDebug("Steppers at Max");
     STEPPER_1.move(-630);
-    STEPPER_TEST.move(-630);
+    STEPPER_2.move(-630);
+    STEPPER_3.move(-630);
+    STEPPER_4.move(-630);
+    STEPPER_5.move(-630);
+    STEPPER_6.move(-630);
+
+    STEPPER_12.move(-630);
+
     // STEPPER_LOX.move(-630);
     // STEPPER_CABIN_PRESS.move(-630);
     // STEPPER_OXY_REG.move(-630);
@@ -421,10 +461,17 @@ void setup() {
     // STEPPER_RIGHT_FUEL.move(-630);
     // STEPPER_LEFT_HYD.move(-630);
     // STEPPER_RIGHT_HYD.move(-630);
-    SendDebug("Returning");
-    while (STEPPER_TEST.distanceToGo() != 0) {
+    //SendDebug("Returning");
+    while (STEPPER_1.distanceToGo() != 0) {
       STEPPER_1.run();
-      STEPPER_TEST.run();
+      STEPPER_2.run();
+      STEPPER_3.run();
+      STEPPER_4.run();
+      STEPPER_5.run();
+      STEPPER_6.run();
+
+      STEPPER_12.run();
+
       // STEPPER_LOX.run();
       // STEPPER_CABIN_PRESS.run();
       // STEPPER_OXY_REG.run();
