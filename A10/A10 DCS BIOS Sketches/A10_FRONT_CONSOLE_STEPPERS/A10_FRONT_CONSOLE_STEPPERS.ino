@@ -9,9 +9,11 @@
 // 4 Steppers direct with 4 driven by buffer
 
 // Found fuel flow wn't nicely run through L293D, so there are 7 steppers
-// After soak test for 5 minutes steppers lost sanity
+// After soak test for approx 5 minutes steppers lost sanity
 // USB Meter indicating 4.77 Volts 0.62A
-// Removed USB Meter - steppers sane again
+// will test by baselining time to loose sanity, and then reduce number of active steppers
+// Perhaps overheating or just on margins with timing
+
 
 #define Ethernet_In_Use 1
 #define Reflector_In_Use 1
