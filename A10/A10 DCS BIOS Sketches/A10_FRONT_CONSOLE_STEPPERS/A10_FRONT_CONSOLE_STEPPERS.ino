@@ -90,7 +90,7 @@ void SendDebug(String MessageToSend) {
 
 
 #define RED_STATUS_LED_PORT 8
-#define FLASH_TIME 3000
+#define FLASH_TIME 500
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool RED_LED_STATE = false;
@@ -128,6 +128,22 @@ unsigned long timeSinceRedLedChanged = 0;
 // rates of more than 30 steps per minute, if when correctly
 // configured speeds can exceed 2300
 
+
+#define S1InUse true
+#define S2InUse true
+#define S3InUse true
+#define S4InUse true
+
+#define S5InUse true
+#define S6InUse true
+#define S7InUse true
+#define S8InUse true
+
+#define S9InUse true
+#define S10InUse true
+#define S11InUse true
+#define S12InUse true
+
 #define COIL_STEPPER_1_A 12
 #define COIL_STEPPER_1_B 13
 #define COIL_STEPPER_1_C 9
@@ -163,10 +179,18 @@ unsigned long timeSinceRedLedChanged = 0;
 #define COIL_STEPPER_7_C 34
 #define COIL_STEPPER_7_D 36
 
-#define COIL_STEPPER_8_A 38
-#define COIL_STEPPER_8_B 40
-#define COIL_STEPPER_8_C 42
-#define COIL_STEPPER_8_D 44
+// When driven by L293D
+// #define COIL_STEPPER_8_A 38
+// #define COIL_STEPPER_8_B 40
+// #define COIL_STEPPER_8_C 42
+// #define COIL_STEPPER_8_D 44
+
+// Directly driven
+#define COIL_STEPPER_8_A 42
+#define COIL_STEPPER_8_B 44
+#define COIL_STEPPER_8_C 40
+#define COIL_STEPPER_8_D 38
+
 
 #define COIL_STEPPER_9_A 23
 #define COIL_STEPPER_9_B 25
@@ -184,11 +208,17 @@ unsigned long timeSinceRedLedChanged = 0;
 #define COIL_STEPPER_11_D 45
 
 
+// Buffer driven
+// #define COIL_STEPPER_12_A 47
+// #define COIL_STEPPER_12_B 49
+// #define COIL_STEPPER_12_C 46
+// #define COIL_STEPPER_12_D 48
+
+//Direct
 #define COIL_STEPPER_12_A 47
 #define COIL_STEPPER_12_B 49
 #define COIL_STEPPER_12_C 46
 #define COIL_STEPPER_12_D 48
-
 
 // #define STEPPER_MAX_SPEED 900
 #define STEPPER_MAX_SPEED 8300
@@ -277,7 +307,7 @@ void setup() {
 
 void cycleSteppers() {
 
-  enableAllSteppers();
+  //enableAllSteppers();
 
   SendDebug("Start All Stepper");
   STEPPER_1.move(630);
@@ -293,7 +323,8 @@ void cycleSteppers() {
   STEPPER_11.move(630);
   STEPPER_12.move(630);
 
-  while (STEPPER_1.distanceToGo() != 0) {
+  while ((STEPPER_1.distanceToGo() != 0) || (STEPPER_2.distanceToGo() != 0) || (STEPPER_3.distanceToGo() != 0) || (STEPPER_4.distanceToGo() != 0) || (STEPPER_5.distanceToGo() != 0) || (STEPPER_6.distanceToGo() != 0) || (STEPPER_7.distanceToGo() != 0) || (STEPPER_8.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_10.distanceToGo() != 0) || (STEPPER_11.distanceToGo() != 0) || (STEPPER_12.distanceToGo() != 0))
+  {
     //SendDebug("Stepper_1 distance to go :" + String(STEPPER_1.distanceToGo()));
     STEPPER_1.run();
     STEPPER_2.run();
@@ -322,7 +353,9 @@ void cycleSteppers() {
   STEPPER_11.move(-630);
   STEPPER_12.move(-630);
   //SendDebug("Returning");
-  while (STEPPER_1.distanceToGo() != 0) {
+  while ((STEPPER_1.distanceToGo() != 0) || (STEPPER_2.distanceToGo() != 0) || (STEPPER_3.distanceToGo() != 0) || (STEPPER_4.distanceToGo() != 0) || (STEPPER_5.distanceToGo() != 0) || (STEPPER_6.distanceToGo() != 0) || (STEPPER_7.distanceToGo() != 0) || (STEPPER_8.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_10.distanceToGo() != 0) || (STEPPER_11.distanceToGo() != 0) || (STEPPER_12.distanceToGo() != 0))
+
+  {
     STEPPER_1.run();
     STEPPER_2.run();
     STEPPER_3.run();
@@ -336,7 +369,7 @@ void cycleSteppers() {
     STEPPER_11.run();
     STEPPER_12.run();
   }
-  disableAllSteppers();
+  //disableAllSteppers();
   SendDebug("End All Stepper");
 }
 
@@ -376,7 +409,7 @@ void loop() {
     RED_LED_STATE = !RED_LED_STATE;
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
     cycleSteppers();
-    SendDebug("Uptime " + String(millis()));
+    SendDebug("Uptime " + String(millis()) + " (" + String(millis() / 60000) + ")");
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 }
