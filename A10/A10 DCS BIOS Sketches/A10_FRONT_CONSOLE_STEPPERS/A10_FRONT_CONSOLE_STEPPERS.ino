@@ -14,6 +14,12 @@
 // will test by baselining time to loose sanity, and then reduce number of active steppers
 // Perhaps overheating or just on margins with timing
 
+// 20240128 Powered Mac Mac - guages failing within a couple of minutes
+// Testing with iPhone charger - after 4 to 5 minutes it was failing
+
+
+
+
 
 #define Ethernet_In_Use 1
 #define Reflector_In_Use 1
@@ -271,7 +277,7 @@ void setup() {
 
 void cycleSteppers() {
 
-
+  enableAllSteppers();
 
   SendDebug("Start All Stepper");
   STEPPER_1.move(630);
@@ -330,7 +336,38 @@ void cycleSteppers() {
     STEPPER_11.run();
     STEPPER_12.run();
   }
+  disableAllSteppers();
   SendDebug("End All Stepper");
+}
+
+void enableAllSteppers() {
+  STEPPER_1.disableOutputs();
+  STEPPER_2.disableOutputs();
+  STEPPER_3.disableOutputs();
+  STEPPER_4.disableOutputs();
+  STEPPER_5.disableOutputs();
+  STEPPER_6.disableOutputs();
+  STEPPER_7.disableOutputs();
+  STEPPER_8.disableOutputs();
+  STEPPER_9.disableOutputs();
+  STEPPER_10.disableOutputs();
+  STEPPER_11.disableOutputs();
+  STEPPER_12.disableOutputs();
+}
+
+void disableAllSteppers() {
+  STEPPER_1.enableOutputs();
+  STEPPER_2.enableOutputs();
+  STEPPER_3.enableOutputs();
+  STEPPER_4.enableOutputs();
+  STEPPER_5.enableOutputs();
+  STEPPER_6.enableOutputs();
+  STEPPER_7.enableOutputs();
+  STEPPER_8.enableOutputs();
+  STEPPER_9.enableOutputs();
+  STEPPER_10.enableOutputs();
+  STEPPER_11.enableOutputs();
+  STEPPER_12.enableOutputs();
 }
 
 void loop() {
@@ -339,6 +376,7 @@ void loop() {
     RED_LED_STATE = !RED_LED_STATE;
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
     cycleSteppers();
+    SendDebug("Uptime " + String(millis()));
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 }
