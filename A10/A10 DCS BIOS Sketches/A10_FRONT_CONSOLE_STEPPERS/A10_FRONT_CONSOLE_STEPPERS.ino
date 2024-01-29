@@ -180,16 +180,16 @@ unsigned long timeSinceRedLedChanged = 0;
 #define COIL_STEPPER_7_D 36
 
 // When driven by L293D
-// #define COIL_STEPPER_8_A 38
-// #define COIL_STEPPER_8_B 40
-// #define COIL_STEPPER_8_C 42
-// #define COIL_STEPPER_8_D 44
+#define COIL_STEPPER_8_A 38
+#define COIL_STEPPER_8_B 40
+#define COIL_STEPPER_8_C 42
+#define COIL_STEPPER_8_D 44
 
-// Directly driven
-#define COIL_STEPPER_8_A 42
-#define COIL_STEPPER_8_B 44
-#define COIL_STEPPER_8_C 40
-#define COIL_STEPPER_8_D 38
+// // Directly driven
+// #define COIL_STEPPER_8_A 42
+// #define COIL_STEPPER_8_B 44
+// #define COIL_STEPPER_8_C 40
+// #define COIL_STEPPER_8_D 38
 
 
 #define COIL_STEPPER_9_A 23
@@ -302,26 +302,28 @@ void setup() {
   STEPPER_12.setAcceleration(STEPPER_ACCELERATION);
 
 
-  cycleSteppers();
+  cycleSteppers(630);
 }
 
-void cycleSteppers() {
+void cycleSteppers(int numberOfDegrees) {
+  // 630 for full sweep
+
 
   //enableAllSteppers();
 
   SendDebug("Start All Stepper");
-  STEPPER_1.move(630);
-  STEPPER_2.move(630);
-  STEPPER_3.move(630);
-  STEPPER_4.move(630);
-  STEPPER_5.move(630);
-  STEPPER_6.move(630);
-  STEPPER_7.move(630);
-  STEPPER_8.move(630);
-  STEPPER_9.move(630);
-  STEPPER_10.move(630);
-  STEPPER_11.move(630);
-  STEPPER_12.move(630);
+  STEPPER_1.move(numberOfDegrees);
+  STEPPER_2.move(numberOfDegrees);
+  STEPPER_3.move(numberOfDegrees);
+  STEPPER_4.move(numberOfDegrees);
+  STEPPER_5.move(numberOfDegrees);
+  STEPPER_6.move(numberOfDegrees);
+  STEPPER_7.move(numberOfDegrees);
+  STEPPER_8.move(numberOfDegrees);
+  STEPPER_9.move(numberOfDegrees);
+  STEPPER_10.move(numberOfDegrees);
+  STEPPER_11.move(numberOfDegrees);
+  STEPPER_12.move(numberOfDegrees);
 
   while ((STEPPER_1.distanceToGo() != 0) || (STEPPER_2.distanceToGo() != 0) || (STEPPER_3.distanceToGo() != 0) || (STEPPER_4.distanceToGo() != 0) || (STEPPER_5.distanceToGo() != 0) || (STEPPER_6.distanceToGo() != 0) || (STEPPER_7.distanceToGo() != 0) || (STEPPER_8.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_10.distanceToGo() != 0) || (STEPPER_11.distanceToGo() != 0) || (STEPPER_12.distanceToGo() != 0))
   {
@@ -340,18 +342,18 @@ void cycleSteppers() {
     STEPPER_12.run();
   }
   SendDebug("Steppers at Max");
-  STEPPER_1.move(-630);
-  STEPPER_2.move(-630);
-  STEPPER_3.move(-630);
-  STEPPER_4.move(-630);
-  STEPPER_5.move(-630);
-  STEPPER_6.move(-630);
-  STEPPER_7.move(-630);
-  STEPPER_8.move(-630);
-  STEPPER_9.move(-630);
-  STEPPER_10.move(-630);
-  STEPPER_11.move(-630);
-  STEPPER_12.move(-630);
+  STEPPER_1.move(-numberOfDegrees);
+  STEPPER_2.move(-numberOfDegrees);
+  STEPPER_3.move(-numberOfDegrees);
+  STEPPER_4.move(-numberOfDegrees);
+  STEPPER_5.move(-numberOfDegrees);
+  STEPPER_6.move(-numberOfDegrees);
+  STEPPER_7.move(-numberOfDegrees);
+  STEPPER_8.move(-numberOfDegrees);
+  STEPPER_9.move(-numberOfDegrees);
+  STEPPER_10.move(-numberOfDegrees);
+  STEPPER_11.move(-numberOfDegrees);
+  STEPPER_12.move(-numberOfDegrees);
   //SendDebug("Returning");
   while ((STEPPER_1.distanceToGo() != 0) || (STEPPER_2.distanceToGo() != 0) || (STEPPER_3.distanceToGo() != 0) || (STEPPER_4.distanceToGo() != 0) || (STEPPER_5.distanceToGo() != 0) || (STEPPER_6.distanceToGo() != 0) || (STEPPER_7.distanceToGo() != 0) || (STEPPER_8.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_10.distanceToGo() != 0) || (STEPPER_11.distanceToGo() != 0) || (STEPPER_12.distanceToGo() != 0))
 
@@ -408,7 +410,7 @@ void loop() {
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     RED_LED_STATE = !RED_LED_STATE;
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
-    cycleSteppers();
+    cycleSteppers(550);
     SendDebug("Uptime " + String(millis()) + " (" + String(millis() / 60000) + ")");
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
