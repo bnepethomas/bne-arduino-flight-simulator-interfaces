@@ -17,6 +17,9 @@
 // 20240128 Powered Mac Mac - guages failing within a couple of minutes
 // Testing with iPhone charger - after 4 to 5 minutes it was failing
 
+// 312 MicroSeconds (~0.3mS) to run through stepper loop with a single stepper is needing to step
+// 1344 MicroSeconds (~1.3mS) to run through stepper loop with 6 steppers needing to step
+// 2576 MicroSecond (~3mS) to run through loop when 12 steppers are needing to step
 
 
 
@@ -104,6 +107,11 @@ unsigned long timeSinceRedLedChanged = 0;
 #include <Stepper.h>
 #define STEPS 720  // steps per revolution (limited to 315°)
 
+
+bool TimingCollected = false;
+unsigned long TimeToComplete = 0;
+
+
 // Holding current per coil is 14mA, which gives 28mA per stepper
 // Mega absolute max is 40mA per pin, with a total max of 200mA
 // Gives a total
@@ -144,6 +152,22 @@ unsigned long timeSinceRedLedChanged = 0;
 #define S11InUse true
 #define S12InUse true
 
+
+// #define S1InUse true
+// #define S2InUse false
+// #define S3InUse false
+// #define S4InUse false
+
+// #define S5InUse false
+// #define S6InUse false
+// #define S7InUse false
+// #define S8InUse false
+
+// #define S9InUse false
+// #define S10InUse false
+// #define S11InUse false
+// #define S12InUse false
+
 #define COIL_STEPPER_1_A 12
 #define COIL_STEPPER_1_B 13
 #define COIL_STEPPER_1_C 9
@@ -179,18 +203,10 @@ unsigned long timeSinceRedLedChanged = 0;
 #define COIL_STEPPER_7_C 34
 #define COIL_STEPPER_7_D 36
 
-// When driven by L293D
 #define COIL_STEPPER_8_A 38
 #define COIL_STEPPER_8_B 40
 #define COIL_STEPPER_8_C 42
 #define COIL_STEPPER_8_D 44
-
-// // Directly driven
-// #define COIL_STEPPER_8_A 42
-// #define COIL_STEPPER_8_B 44
-// #define COIL_STEPPER_8_C 40
-// #define COIL_STEPPER_8_D 38
-
 
 #define COIL_STEPPER_9_A 23
 #define COIL_STEPPER_9_B 25
@@ -207,14 +223,6 @@ unsigned long timeSinceRedLedChanged = 0;
 #define COIL_STEPPER_11_C 43
 #define COIL_STEPPER_11_D 45
 
-
-// Buffer driven
-// #define COIL_STEPPER_12_A 47
-// #define COIL_STEPPER_12_B 49
-// #define COIL_STEPPER_12_C 46
-// #define COIL_STEPPER_12_D 48
-
-//Direct
 #define COIL_STEPPER_12_A 47
 #define COIL_STEPPER_12_B 49
 #define COIL_STEPPER_12_C 46
@@ -312,22 +320,26 @@ void cycleSteppers(int numberOfDegrees) {
   //enableAllSteppers();
 
   SendDebug("Start All Stepper");
-  STEPPER_1.move(numberOfDegrees);
-  STEPPER_2.move(numberOfDegrees);
-  STEPPER_3.move(numberOfDegrees);
-  STEPPER_4.move(numberOfDegrees);
-  STEPPER_5.move(numberOfDegrees);
-  STEPPER_6.move(numberOfDegrees);
-  STEPPER_7.move(numberOfDegrees);
-  STEPPER_8.move(numberOfDegrees);
-  STEPPER_9.move(numberOfDegrees);
-  STEPPER_10.move(numberOfDegrees);
-  STEPPER_11.move(numberOfDegrees);
-  STEPPER_12.move(numberOfDegrees);
+  if (S1InUse) STEPPER_1.move(numberOfDegrees);
+  if (S2InUse) STEPPER_2.move(numberOfDegrees);
+  if (S3InUse) STEPPER_3.move(numberOfDegrees);
+  if (S4InUse) STEPPER_4.move(numberOfDegrees);
+  if (S5InUse) STEPPER_5.move(numberOfDegrees);
+  if (S6InUse) STEPPER_6.move(numberOfDegrees);
+  if (S7InUse) STEPPER_7.move(numberOfDegrees);
+  if (S8InUse) STEPPER_8.move(numberOfDegrees);
+  if (S9InUse) STEPPER_9.move(numberOfDegrees);
+  if (S10InUse) STEPPER_10.move(numberOfDegrees);
+  if (S11InUse) STEPPER_11.move(numberOfDegrees);
+  if (S12InUse) STEPPER_12.move(numberOfDegrees);
 
-  while ((STEPPER_1.distanceToGo() != 0) || (STEPPER_2.distanceToGo() != 0) || (STEPPER_3.distanceToGo() != 0) || (STEPPER_4.distanceToGo() != 0) || (STEPPER_5.distanceToGo() != 0) || (STEPPER_6.distanceToGo() != 0) || (STEPPER_7.distanceToGo() != 0) || (STEPPER_8.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_10.distanceToGo() != 0) || (STEPPER_11.distanceToGo() != 0) || (STEPPER_12.distanceToGo() != 0))
-  {
+  while ((STEPPER_1.distanceToGo() != 0) || (STEPPER_2.distanceToGo() != 0) || (STEPPER_3.distanceToGo() != 0) || (STEPPER_4.distanceToGo() != 0) || (STEPPER_5.distanceToGo() != 0) || (STEPPER_6.distanceToGo() != 0) || (STEPPER_7.distanceToGo() != 0) || (STEPPER_8.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_10.distanceToGo() != 0) || (STEPPER_11.distanceToGo() != 0) || (STEPPER_12.distanceToGo() != 0)) {
     //SendDebug("Stepper_1 distance to go :" + String(STEPPER_1.distanceToGo()));
+    if (TimingCollected == false) {
+      TimeToComplete = micros();
+    }
+
+
     STEPPER_1.run();
     STEPPER_2.run();
     STEPPER_3.run();
@@ -340,20 +352,25 @@ void cycleSteppers(int numberOfDegrees) {
     STEPPER_10.run();
     STEPPER_11.run();
     STEPPER_12.run();
+    if (TimingCollected == false) {
+      TimeToComplete = micros() - TimeToComplete;
+      SendDebug("Time to run through cycle: " + String(TimeToComplete));
+      TimingCollected = true;
+    }
   }
   SendDebug("Steppers at Max");
-  STEPPER_1.move(-numberOfDegrees);
-  STEPPER_2.move(-numberOfDegrees);
-  STEPPER_3.move(-numberOfDegrees);
-  STEPPER_4.move(-numberOfDegrees);
-  STEPPER_5.move(-numberOfDegrees);
-  STEPPER_6.move(-numberOfDegrees);
-  STEPPER_7.move(-numberOfDegrees);
-  STEPPER_8.move(-numberOfDegrees);
-  STEPPER_9.move(-numberOfDegrees);
-  STEPPER_10.move(-numberOfDegrees);
-  STEPPER_11.move(-numberOfDegrees);
-  STEPPER_12.move(-numberOfDegrees);
+  if (S1InUse) STEPPER_1.move(-numberOfDegrees);
+  if (S2InUse) STEPPER_2.move(-numberOfDegrees);
+  if (S3InUse) STEPPER_3.move(-numberOfDegrees);
+  if (S4InUse) STEPPER_4.move(-numberOfDegrees);
+  if (S5InUse) STEPPER_5.move(-numberOfDegrees);
+  if (S6InUse) STEPPER_6.move(-numberOfDegrees);
+  if (S7InUse) STEPPER_7.move(-numberOfDegrees);
+  if (S8InUse) STEPPER_8.move(-numberOfDegrees);
+  if (S9InUse) STEPPER_9.move(-numberOfDegrees);
+  if (S10InUse) STEPPER_10.move(-numberOfDegrees);
+  if (S11InUse) STEPPER_11.move(-numberOfDegrees);
+  if (S12InUse) STEPPER_12.move(-numberOfDegrees);
   //SendDebug("Returning");
   while ((STEPPER_1.distanceToGo() != 0) || (STEPPER_2.distanceToGo() != 0) || (STEPPER_3.distanceToGo() != 0) || (STEPPER_4.distanceToGo() != 0) || (STEPPER_5.distanceToGo() != 0) || (STEPPER_6.distanceToGo() != 0) || (STEPPER_7.distanceToGo() != 0) || (STEPPER_8.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_10.distanceToGo() != 0) || (STEPPER_11.distanceToGo() != 0) || (STEPPER_12.distanceToGo() != 0))
 
