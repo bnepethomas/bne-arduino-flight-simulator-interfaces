@@ -38,7 +38,8 @@
 
 #define Ethernet_In_Use 1
 #define Reflector_In_Use 1
-
+#define DCSBIOS_In_Use 1
+#define MSFS_In_Use 0  // Used to interface into MSFS - set to 0 if not in use
 
 // ###################################### Begin Ethernet Related #############################
 #include <SPI.h>
@@ -112,7 +113,7 @@ bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
 
 #define DCSBIOS_IRQ_SERIAL
-
+#include <DcsBios.h>
 
 // ###################################### Begin Servo Related #############################
 #include <AccelStepper.h>
@@ -133,10 +134,11 @@ unsigned long TimeToComplete = 0;
 // rates of more than 30 steps per minute, if when correctly
 // configured speeds can exceed 2300
 
+// Stepper 3 currently maps to Serial IO which DCS BIOS uses - currently disabled it
 
 #define S1InUse true
 #define S2InUse true
-#define S3InUse true
+#define S3InUse false
 #define S4InUse true
 
 #define S5InUse true
@@ -335,6 +337,8 @@ void setup() {
   initialiseAllSteppers(630);
 
   setZeroPoints();
+
+  if (DCSBIOS_In_Use == 1) DcsBios::setup();
 }
 
 void moveSteppersUntilTargetReached() {
@@ -345,18 +349,18 @@ void moveSteppersUntilTargetReached() {
     }
 
 
-    STEPPER_1.run();
-    STEPPER_2.run();
-    STEPPER_3.run();
-    STEPPER_4.run();
-    STEPPER_5.run();
-    STEPPER_6.run();
-    STEPPER_7.run();
-    STEPPER_8.run();
-    STEPPER_9.run();
-    STEPPER_10.run();
-    STEPPER_11.run();
-    STEPPER_12.run();
+    if (S1InUse) STEPPER_1.run();
+    if (S2InUse) STEPPER_2.run();
+    if (S3InUse) STEPPER_3.run();
+    if (S4InUse) STEPPER_4.run();
+    if (S5InUse) STEPPER_5.run();
+    if (S6InUse) STEPPER_6.run();
+    if (S7InUse) STEPPER_7.run();
+    if (S8InUse) STEPPER_8.run();
+    if (S9InUse) STEPPER_9.run();
+    if (S10InUse) STEPPER_10.run();
+    if (S11InUse) STEPPER_11.run();
+    if (S12InUse) STEPPER_12.run();
     if (TimingCollected == false) {
       TimeToComplete = micros() - TimeToComplete;
       SendDebug("Time to run through cycle: " + String(TimeToComplete));
@@ -365,6 +369,20 @@ void moveSteppersUntilTargetReached() {
   }
 }
 
+void updateSteppers() {
+  if (S1InUse) STEPPER_1.run();
+  if (S2InUse) STEPPER_2.run();
+  if (S3InUse) STEPPER_3.run();
+  if (S4InUse) STEPPER_4.run();
+  if (S5InUse) STEPPER_5.run();
+  if (S6InUse) STEPPER_6.run();
+  if (S7InUse) STEPPER_7.run();
+  if (S8InUse) STEPPER_8.run();
+  if (S9InUse) STEPPER_9.run();
+  if (S10InUse) STEPPER_10.run();
+  if (S11InUse) STEPPER_11.run();
+  if (S12InUse) STEPPER_12.run();
+}
 
 #define LeftEngPSIMaxDegrees 490
 void setLeftEngPSI(int TargetDegrees) {
@@ -374,6 +392,12 @@ void setLeftEngPSI(int TargetDegrees) {
   }
 }
 
+void onLOilPressChange(unsigned int newValue) {
+  setLeftEngPSI(map(newValue, 0, 65535, 0, LeftEngPSIMaxDegrees));
+}
+DcsBios::IntegerBuffer lOilPressBuffer(0x10c6, 0xffff, 0, onLOilPressChange);
+
+
 #define RightEngPSIMaxDegrees 490
 void setRightEngPSI(int TargetDegrees) {
   if (S2InUse) {
@@ -381,6 +405,11 @@ void setRightEngPSI(int TargetDegrees) {
     STEPPER_2.moveTo(TargetDegrees);
   }
 }
+void onROilPressChange(unsigned int newValue) {
+  setRightEngPSI(map(newValue, 0, 65535, 0, RightEngPSIMaxDegrees));
+}
+DcsBios::IntegerBuffer rOilPressBuffer(0x10c8, 0xffff, 0, onROilPressChange);
+
 
 #define APURPMMaxDegrees 490
 void setAPURPM(int TargetDegrees) {
@@ -389,6 +418,10 @@ void setAPURPM(int TargetDegrees) {
     STEPPER_3.moveTo(TargetDegrees);
   }
 }
+void onApuRpmChange(unsigned int newValue) {
+   setAPURPM(map(newValue, 0, 65535, 0, APURPMMaxDegrees));
+}
+DcsBios::IntegerBuffer apuRpmBuffer(0x10be, 0xffff, 0, onApuRpmChange);
 
 #define APUEGTMaxDegrees 500
 void setAPUEGT(int TargetDegrees) {
@@ -397,6 +430,10 @@ void setAPUEGT(int TargetDegrees) {
     STEPPER_4.moveTo(TargetDegrees);
   }
 }
+void onApuTempChange(unsigned int newValue) {
+  setAPUEGT(map(newValue, 0, 65535, 0, APUEGTMaxDegrees));
+}
+DcsBios::IntegerBuffer apuTempBuffer(0x10c0, 0xffff, 0, onApuTempChange);
 
 #define LeftEngRPMMaxDegrees 550
 void setLeftEngRPM(int TargetDegrees) {
@@ -405,6 +442,11 @@ void setLeftEngRPM(int TargetDegrees) {
     STEPPER_5.moveTo(TargetDegrees);
   }
 }
+void onLEngCoreChange(unsigned int newValue) {
+  setLeftEngRPM(map(newValue, 0, 65535, 0, LeftEngRPMMaxDegrees));
+}
+DcsBios::IntegerBuffer lEngCoreBuffer(0x10a8, 0xffff, 0, onLEngCoreChange);
+
 
 #define RightEngRPMMaxDegrees 550
 void setRightEngRPM(int TargetDegrees) {
@@ -413,7 +455,10 @@ void setRightEngRPM(int TargetDegrees) {
     STEPPER_6.moveTo(TargetDegrees);
   }
 }
-
+void onREngCoreChange(unsigned int newValue) {
+  setRightEngRPM(map(newValue, 0, 65535, 0, RightEngRPMMaxDegrees));
+}
+DcsBios::IntegerBuffer rEngCoreBuffer(0x10ac, 0xffff, 0, onREngCoreChange);
 
 #define LeftFuelFlowMaxDegrees 630
 void setLeftFuelFlow(int TargetDegrees) {
@@ -422,6 +467,10 @@ void setLeftFuelFlow(int TargetDegrees) {
     STEPPER_7.moveTo(TargetDegrees);
   }
 }
+void onLEngFuelFlowChange(unsigned int newValue) {
+  setLeftFuelFlow(map(newValue, 0, 65535, 0, LeftFuelFlowMaxDegrees));
+}
+DcsBios::IntegerBuffer lEngFuelFlowBuffer(0x10ae, 0xffff, 0, onLEngFuelFlowChange);
 
 #define rightFuelFlowMaxDegrees 630
 void setRightFuelFlow(int TargetDegrees) {
@@ -430,6 +479,12 @@ void setRightFuelFlow(int TargetDegrees) {
     STEPPER_8.moveTo(TargetDegrees);
   }
 }
+void onREngFuelFlowChange(unsigned int newValue) {
+  setRightFuelFlow(map(newValue, 0, 65535, 0, rightFuelFlowMaxDegrees));
+}
+DcsBios::IntegerBuffer rEngFuelFlowBuffer(0x10b0, 0xffff, 0, onREngFuelFlowChange);
+
+
 
 #define LeftEngTempMaxDegrees 480
 void setLeftEngTemp(int TargetDegrees) {
@@ -438,6 +493,11 @@ void setLeftEngTemp(int TargetDegrees) {
     STEPPER_9.moveTo(TargetDegrees);
   }
 }
+void onLEngTempChange(unsigned int newValue) {
+  setLeftEngTemp(map(newValue, 0, 65535, 0, LeftEngTempMaxDegrees));
+}
+DcsBios::IntegerBuffer lEngTempBuffer(0x10b4, 0xffff, 0, onLEngTempChange);
+
 
 #define RightEngTempMaxDegrees 480
 void setRightEngTemp(int TargetDegrees) {
@@ -446,6 +506,10 @@ void setRightEngTemp(int TargetDegrees) {
     STEPPER_10.moveTo(TargetDegrees);
   }
 }
+void onREngTempChange(unsigned int newValue) {
+  setRightEngTemp(map(newValue, 0, 65535, 0, RightEngTempMaxDegrees));
+}
+DcsBios::IntegerBuffer rEngTempBuffer(0x10b8, 0xffff, 0, onREngTempChange);
 
 #define LeftFanRPMMaxDegrees 550
 void setLeftFanRPM(int TargetDegrees) {
@@ -454,6 +518,13 @@ void setLeftFanRPM(int TargetDegrees) {
     STEPPER_11.moveTo(TargetDegrees);
   }
 }
+void onLEngFanChange(unsigned int newValue) {
+  // SendDebug("Left Egnine Fan :" + String(newValue));
+  setLeftFanRPM(map(newValue, 0, 65535, 0, LeftFanRPMMaxDegrees));
+}
+DcsBios::IntegerBuffer lEngFanBuffer(0x10a2, 0xffff, 0, onLEngFanChange);
+
+
 
 #define RightFanRPMMaxDegrees 550
 void setRightFanRPM(int TargetDegrees) {
@@ -462,6 +533,12 @@ void setRightFanRPM(int TargetDegrees) {
     STEPPER_12.moveTo(TargetDegrees);
   }
 }
+void onREngFanChange(unsigned int newValue) {
+  setRightFanRPM(map(newValue, 0, 65535, 0, RightFanRPMMaxDegrees));
+}
+DcsBios::IntegerBuffer rEngFanBuffer(0x10a4, 0xffff, 0, onREngFanChange);
+
+
 
 void initialiseAllSteppers(int numberOfDegrees) {
   // 630 for full sweep
@@ -655,15 +732,22 @@ void enableAllSteppers() {
   STEPPER_12.enableOutputs();
 }
 
+
+
+
+
 void loop() {
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     RED_LED_STATE = !RED_LED_STATE;
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
-    enableAllSteppers();
-    cycleSteppers(650);
-    disableAllSteppers();
+    // enableAllSteppers();
+    // cycleSteppers(650);
+    // disableAllSteppers();
     SendDebug("Uptime " + String(millis()) + " (" + String(millis() / 60000) + ")");
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
+
+  if (DCSBIOS_In_Use == 1) DcsBios::loop();
+  updateSteppers();
 }
