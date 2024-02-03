@@ -138,7 +138,7 @@ unsigned long TimeToComplete = 0;
 
 #define S1InUse true
 #define S2InUse true
-#define S3InUse false
+#define S3InUse true
 #define S4InUse true
 
 #define S5InUse true
@@ -193,10 +193,10 @@ unsigned long TimeToComplete = 0;
 #define COIL_STEPPER_2_C 7
 #define COIL_STEPPER_2_D 6
 
-#define COIL_STEPPER_3_A 2
-#define COIL_STEPPER_3_B 3
-#define COIL_STEPPER_3_C 0
-#define COIL_STEPPER_3_D 1
+#define COIL_STEPPER_3_A 54
+#define COIL_STEPPER_3_B 55
+#define COIL_STEPPER_3_C 56
+#define COIL_STEPPER_3_D 57
 
 #define COIL_STEPPER_4_A 14
 #define COIL_STEPPER_4_B 15
@@ -744,8 +744,9 @@ void loop() {
     // enableAllSteppers();
     // cycleSteppers(650);
     // disableAllSteppers();
-    SendDebug("Uptime " + String(millis()) + " (" + String(millis() / 60000) + ")");
+    // SendDebug("Uptime " + String(millis()) + " (" + String(millis() / 60000) + ")");
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+    // Check to see if model time is updating - if nothing after 30 seconds disble steppers
   }
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
