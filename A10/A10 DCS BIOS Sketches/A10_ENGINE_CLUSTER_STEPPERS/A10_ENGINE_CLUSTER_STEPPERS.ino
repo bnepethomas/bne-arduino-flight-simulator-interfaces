@@ -22,18 +22,18 @@
 // 2576 MicroSecond (~3mS) to run through loop when 12 steppers are needing to step
 
 
-// Stepper 1 - Flaps
-// Stepper 2 - 
-// Stepper 3 - Avoid use if possible
-// Stepper 4 - 
-// Stepper 5 - 
-// Stepper 6 - 
-// Stepper 7 - 
-// Stepper 8 - 
-// Stepper 9 - 
-// Stepper 10 - 
-// Stepper 11 - 
-// Stepper 12 - 
+// Stepper 1 - Left Engine PSI
+// Stepper 2 - Right Engine PSI
+// Stepper 3 - APU RPM
+// Stepper 4 - APU EGT
+// Stepper 5 - Left Engine RPM
+// Stepper 6 - Right Engine RPM
+// Stepper 7 - Left Engine Fuel Flow
+// Stepper 8 - Right Engine Fuel Flow
+// Stepper 9 - Left Engine Temp
+// Stepper 10 - Right Engine Temp
+// Stepper 11 - Left Engine Fan RPM
+// Stepper 12 - Right Engine Fan RPM
 
 
 #define Ethernet_In_Use 1
@@ -305,7 +305,7 @@ void setup() {
   // For reasons I'm yet to work out - earlier senddebugs are not sent before this point
   // Testing shows a delay of 3 seconds is needed
   SendDebug(" ");
-  SendDebug("A10 General Steppers Initialising");
+  SendDebug("A10 Engine Cluster Initialising");
 
 
   STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
@@ -339,7 +339,8 @@ void setup() {
   setZeroPoints();
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
-  SendDebug("A10 General Steppers Initialisation Complete");
+  SendDebug("A10 Engine Cluster Initialisation Complete");
+
 }
 
 void moveSteppersUntilTargetReached() {
