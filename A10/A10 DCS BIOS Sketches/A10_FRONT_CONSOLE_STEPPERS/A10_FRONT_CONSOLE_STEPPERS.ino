@@ -1,3 +1,7 @@
+// Stepper frame for A10 non-engine cluster
+// eg Flaps, Airspeed, VSI, AOA, GForces, Compass
+
+
 // Development test framework to determine max number of steppers that
 // can safely be driven off an Arduino without the use of drivers
 // Absoultely Max current is 200mA
@@ -23,17 +27,17 @@
 
 
 // Stepper 1 - Flaps
-// Stepper 2 - 
+// Stepper 2 -
 // Stepper 3 - Avoid use if possible
-// Stepper 4 - 
-// Stepper 5 - 
-// Stepper 6 - 
-// Stepper 7 - 
-// Stepper 8 - 
-// Stepper 9 - 
-// Stepper 10 - 
-// Stepper 11 - 
-// Stepper 12 - 
+// Stepper 4 -
+// Stepper 5 -
+// Stepper 6 -
+// Stepper 7 -
+// Stepper 8 -
+// Stepper 9 -
+// Stepper 10 -
+// Stepper 11 -
+// Stepper 12 -
 
 
 #define Ethernet_In_Use 1
@@ -385,159 +389,18 @@ void updateSteppers() {
   if (S12InUse) STEPPER_12.run();
 }
 
-#define LeftEngPSIMaxDegrees 490
-void setLeftEngPSI(int TargetDegrees) {
+
+#define FlapsMaxDegrees 200
+void setFlaps(unsigned int TargetDegrees) {
   if (S1InUse) {
-    if (TargetDegrees >= LeftEngPSIMaxDegrees) TargetDegrees = LeftEngPSIMaxDegrees;
+    if (TargetDegrees >= FlapsMaxDegrees) TargetDegrees = FlapsMaxDegrees;
     STEPPER_1.moveTo(TargetDegrees);
   }
 }
-
-void onLOilPressChange(unsigned int newValue) {
-  setLeftEngPSI(map(newValue, 0, 65535, 0, LeftEngPSIMaxDegrees));
+void onFlapPosChange(unsigned int newValue) {
+  setFlaps((map(newValue, 0, 65535, 0, FlapsMaxDegrees * 0.7)));
 }
-DcsBios::IntegerBuffer lOilPressBuffer(0x10c6, 0xffff, 0, onLOilPressChange);
-
-
-#define RightEngPSIMaxDegrees 490
-void setRightEngPSI(int TargetDegrees) {
-  if (S2InUse) {
-    if (TargetDegrees >= RightEngPSIMaxDegrees) TargetDegrees = RightEngPSIMaxDegrees;
-    STEPPER_2.moveTo(TargetDegrees);
-  }
-}
-void onROilPressChange(unsigned int newValue) {
-  setRightEngPSI(map(newValue, 0, 65535, 0, RightEngPSIMaxDegrees));
-}
-DcsBios::IntegerBuffer rOilPressBuffer(0x10c8, 0xffff, 0, onROilPressChange);
-
-
-#define APURPMMaxDegrees 490
-void setAPURPM(int TargetDegrees) {
-  if (S3InUse) {
-    if (TargetDegrees >= APURPMMaxDegrees) TargetDegrees = APURPMMaxDegrees;
-    STEPPER_3.moveTo(TargetDegrees);
-  }
-}
-void onApuRpmChange(unsigned int newValue) {
-   setAPURPM(map(newValue, 0, 65535, 0, APURPMMaxDegrees));
-}
-DcsBios::IntegerBuffer apuRpmBuffer(0x10be, 0xffff, 0, onApuRpmChange);
-
-#define APUEGTMaxDegrees 500
-void setAPUEGT(int TargetDegrees) {
-  if (S4InUse) {
-    if (TargetDegrees >= APUEGTMaxDegrees) TargetDegrees = APUEGTMaxDegrees;
-    STEPPER_4.moveTo(TargetDegrees);
-  }
-}
-void onApuTempChange(unsigned int newValue) {
-  setAPUEGT(map(newValue, 0, 65535, 0, APUEGTMaxDegrees));
-}
-DcsBios::IntegerBuffer apuTempBuffer(0x10c0, 0xffff, 0, onApuTempChange);
-
-#define LeftEngRPMMaxDegrees 550
-void setLeftEngRPM(int TargetDegrees) {
-  if (S5InUse) {
-    if (TargetDegrees >= LeftEngRPMMaxDegrees) TargetDegrees = LeftEngRPMMaxDegrees;
-    STEPPER_5.moveTo(TargetDegrees);
-  }
-}
-void onLEngCoreChange(unsigned int newValue) {
-  setLeftEngRPM(map(newValue, 0, 65535, 0, LeftEngRPMMaxDegrees));
-}
-DcsBios::IntegerBuffer lEngCoreBuffer(0x10a8, 0xffff, 0, onLEngCoreChange);
-
-
-#define RightEngRPMMaxDegrees 550
-void setRightEngRPM(int TargetDegrees) {
-  if (S6InUse) {
-    if (TargetDegrees >= RightEngRPMMaxDegrees) TargetDegrees = RightEngRPMMaxDegrees;
-    STEPPER_6.moveTo(TargetDegrees);
-  }
-}
-void onREngCoreChange(unsigned int newValue) {
-  setRightEngRPM(map(newValue, 0, 65535, 0, RightEngRPMMaxDegrees));
-}
-DcsBios::IntegerBuffer rEngCoreBuffer(0x10ac, 0xffff, 0, onREngCoreChange);
-
-#define LeftFuelFlowMaxDegrees 630
-void setLeftFuelFlow(int TargetDegrees) {
-  if (S7InUse) {
-    if (TargetDegrees >= LeftFuelFlowMaxDegrees) TargetDegrees = LeftFuelFlowMaxDegrees;
-    STEPPER_7.moveTo(TargetDegrees);
-  }
-}
-void onLEngFuelFlowChange(unsigned int newValue) {
-  setLeftFuelFlow(map(newValue, 0, 65535, 0, LeftFuelFlowMaxDegrees));
-}
-DcsBios::IntegerBuffer lEngFuelFlowBuffer(0x10ae, 0xffff, 0, onLEngFuelFlowChange);
-
-#define rightFuelFlowMaxDegrees 630
-void setRightFuelFlow(int TargetDegrees) {
-  if (S8InUse) {
-    if (TargetDegrees >= rightFuelFlowMaxDegrees) TargetDegrees = rightFuelFlowMaxDegrees;
-    STEPPER_8.moveTo(TargetDegrees);
-  }
-}
-void onREngFuelFlowChange(unsigned int newValue) {
-  setRightFuelFlow(map(newValue, 0, 65535, 0, rightFuelFlowMaxDegrees));
-}
-DcsBios::IntegerBuffer rEngFuelFlowBuffer(0x10b0, 0xffff, 0, onREngFuelFlowChange);
-
-
-
-#define LeftEngTempMaxDegrees 480
-void setLeftEngTemp(int TargetDegrees) {
-  if (S9InUse) {
-    if (TargetDegrees >= LeftEngTempMaxDegrees) TargetDegrees = LeftEngTempMaxDegrees;
-    STEPPER_9.moveTo(TargetDegrees);
-  }
-}
-void onLEngTempChange(unsigned int newValue) {
-  setLeftEngTemp(map(newValue, 0, 65535, 0, LeftEngTempMaxDegrees));
-}
-DcsBios::IntegerBuffer lEngTempBuffer(0x10b4, 0xffff, 0, onLEngTempChange);
-
-
-#define RightEngTempMaxDegrees 480
-void setRightEngTemp(int TargetDegrees) {
-  if (S10InUse) {
-    if (TargetDegrees >= RightEngTempMaxDegrees) TargetDegrees = RightEngTempMaxDegrees;
-    STEPPER_10.moveTo(TargetDegrees);
-  }
-}
-void onREngTempChange(unsigned int newValue) {
-  setRightEngTemp(map(newValue, 0, 65535, 0, RightEngTempMaxDegrees));
-}
-DcsBios::IntegerBuffer rEngTempBuffer(0x10b8, 0xffff, 0, onREngTempChange);
-
-#define LeftFanRPMMaxDegrees 550
-void setLeftFanRPM(int TargetDegrees) {
-  if (S11InUse) {
-    if (TargetDegrees >= LeftFanRPMMaxDegrees) TargetDegrees = LeftFanRPMMaxDegrees;
-    STEPPER_11.moveTo(TargetDegrees);
-  }
-}
-void onLEngFanChange(unsigned int newValue) {
-  // SendDebug("Left Egnine Fan :" + String(newValue));
-  setLeftFanRPM(map(newValue, 0, 65535, 0, LeftFanRPMMaxDegrees));
-}
-DcsBios::IntegerBuffer lEngFanBuffer(0x10a2, 0xffff, 0, onLEngFanChange);
-
-
-
-#define RightFanRPMMaxDegrees 550
-void setRightFanRPM(int TargetDegrees) {
-  if (S12InUse) {
-    if (TargetDegrees >= RightFanRPMMaxDegrees) TargetDegrees = RightFanRPMMaxDegrees;
-    STEPPER_12.moveTo(TargetDegrees);
-  }
-}
-void onREngFanChange(unsigned int newValue) {
-  setRightFanRPM(map(newValue, 0, 65535, 0, RightFanRPMMaxDegrees));
-}
-DcsBios::IntegerBuffer rEngFanBuffer(0x10a4, 0xffff, 0, onREngFanChange);
+DcsBios::IntegerBuffer flapPosBuffer(0x10a0, 0xffff, 0, onFlapPosChange);
 
 
 
@@ -630,18 +493,18 @@ void cycleSteppers(int numberOfDegrees) {
   //enableAllSteppers();
 
   SendDebug("Start All Stepper");
-  if (S1InUse) setLeftEngPSI(numberOfDegrees);
-  if (S2InUse) setRightEngPSI(numberOfDegrees);
-  if (S3InUse) setAPURPM(numberOfDegrees);
-  if (S4InUse) setAPUEGT(numberOfDegrees);
-  if (S5InUse) setLeftEngRPM(numberOfDegrees);
-  if (S6InUse) setRightEngRPM(numberOfDegrees);
-  if (S7InUse) setLeftFuelFlow(numberOfDegrees);
-  if (S8InUse) setRightFuelFlow(numberOfDegrees);
-  if (S9InUse) setLeftEngTemp(numberOfDegrees);
-  if (S10InUse) setRightEngTemp(numberOfDegrees);
-  if (S11InUse) setLeftFanRPM(numberOfDegrees);
-  if (S12InUse) setRightFanRPM(numberOfDegrees);
+  if (S1InUse) setFlaps(numberOfDegrees);
+  // if (S2InUse) setRightEngPSI(numberOfDegrees);
+  // if (S3InUse) setAPURPM(numberOfDegrees);
+  // if (S4InUse) setAPUEGT(numberOfDegrees);
+  // if (S5InUse) setLeftEngRPM(numberOfDegrees);
+  // if (S6InUse) setRightEngRPM(numberOfDegrees);
+  // if (S7InUse) setLeftFuelFlow(numberOfDegrees);
+  // if (S8InUse) setRightFuelFlow(numberOfDegrees);
+  // if (S9InUse) setLeftEngTemp(numberOfDegrees);
+  // if (S10InUse) setRightEngTemp(numberOfDegrees);
+  // if (S11InUse) setLeftFanRPM(numberOfDegrees);
+  // if (S12InUse) setRightFanRPM(numberOfDegrees);
 
   while ((STEPPER_1.distanceToGo() != 0) || (STEPPER_2.distanceToGo() != 0) || (STEPPER_3.distanceToGo() != 0) || (STEPPER_4.distanceToGo() != 0) || (STEPPER_5.distanceToGo() != 0) || (STEPPER_6.distanceToGo() != 0) || (STEPPER_7.distanceToGo() != 0) || (STEPPER_8.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_10.distanceToGo() != 0) || (STEPPER_11.distanceToGo() != 0) || (STEPPER_12.distanceToGo() != 0)) {
     //SendDebug("Stepper_1 distance to go :" + String(STEPPER_1.distanceToGo()));
