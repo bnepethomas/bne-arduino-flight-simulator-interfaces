@@ -1,0 +1,16 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 6b4d46b0-28fc-46d8-8925-a5faca42f6a4)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (text "Change Log\n2.0 20240204\nMoved Stepper 3 from TX and RX\nAdded Separate 5V input as the regulator on the Arudino\nwas unable to handle current"
+    (at 36.322 42.799 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 5f746131-9390-4a5a-8e48-e8a49a8d3955)
+  )
+)

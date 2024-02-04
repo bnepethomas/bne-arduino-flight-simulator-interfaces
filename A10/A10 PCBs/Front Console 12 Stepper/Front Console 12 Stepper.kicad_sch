@@ -7,10 +7,67 @@
   (title_block
     (title "FRONT CONSOLE STEPPER")
     (date "2024-01-26")
-    (rev "1.2")
+    (rev "2.0")
   )
 
   (lib_symbols
+    (symbol "Connector:Conn_01x02_Female" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
+      (property "Reference" "J" (at 0 2.54 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Value" "Conn_01x02_Female" (at 0 -5.08 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (property "Footprint" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "Datasheet" "~" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_keywords" "connector" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) hide)
+      )
+      (symbol "Conn_01x02_Female_1_1"
+        (arc (start 0 -2.032) (mid -0.5058 -2.54) (end 0 -3.048)
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -1.27 -2.54)
+            (xy -0.508 -2.54)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (polyline
+          (pts
+            (xy -1.27 0)
+            (xy -0.508 0)
+          )
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (arc (start 0 0.508) (mid -0.5058 0) (end 0 -0.508)
+          (stroke (width 0.1524) (type default))
+          (fill (type none))
+        )
+        (pin passive line (at -5.08 0 0) (length 3.81)
+          (name "Pin_1" (effects (font (size 1.27 1.27))))
+          (number "1" (effects (font (size 1.27 1.27))))
+        )
+        (pin passive line (at -5.08 -2.54 0) (length 3.81)
+          (name "Pin_2" (effects (font (size 1.27 1.27))))
+          (number "2" (effects (font (size 1.27 1.27))))
+        )
+      )
+    )
     (symbol "Connector:Conn_01x02_Socket" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "J" (at 0 2.54 0)
         (effects (font (size 1.27 1.27)))
@@ -1061,6 +1118,9 @@
     )
   )
 
+  (junction (at 29.845 35.306) (diameter 0) (color 0 0 0 0)
+    (uuid 1bd6fbb2-a523-4292-9632-eedb6baeb452)
+  )
   (junction (at 27.813 35.306) (diameter 0) (color 0 0 0 0)
     (uuid 47428aa0-ad1f-45a1-a83d-c0bfef27149d)
   )
@@ -1246,7 +1306,7 @@
     (stroke (width 0) (type default))
     (uuid 3e458335-fad0-4181-ac0f-b66acbf84e5b)
   )
-  (wire (pts (xy 27.813 35.306) (xy 31.623 35.306))
+  (wire (pts (xy 27.813 35.306) (xy 29.845 35.306))
     (stroke (width 0) (type default))
     (uuid 3ea3f312-c23e-4476-8d86-58909d0f1754)
   )
@@ -1421,6 +1481,10 @@
     (stroke (width 0) (type default))
     (uuid 8362ed65-cd84-41fe-84f3-4d01c9590d8b)
   )
+  (wire (pts (xy 29.845 34.036) (xy 29.845 35.306))
+    (stroke (width 0) (type default))
+    (uuid 88303b77-ee32-4a10-a7f2-6ddad2b10b0e)
+  )
   (wire (pts (xy 252.73 128.27) (xy 252.73 123.19))
     (stroke (width 0) (type default))
     (uuid 89196919-6056-4268-82c1-73244d048b35)
@@ -1466,6 +1530,10 @@
     (uuid 9ca0adda-5da1-4e4f-ae8e-92d34f0d4a1d)
   )
 
+  (wire (pts (xy 37.973 34.036) (xy 29.845 34.036))
+    (stroke (width 0) (type default))
+    (uuid 9cc383f7-8e7f-4b0f-bfa1-c7be188fb682)
+  )
   (wire (pts (xy 257.81 62.23) (xy 264.16 62.23))
     (stroke (width 0) (type default))
     (uuid 9ff11d40-cea2-48cb-9a5e-a3a2d20cbb12)
@@ -1569,6 +1637,10 @@
   (wire (pts (xy 262.89 140.97) (xy 262.89 148.59))
     (stroke (width 0) (type default))
     (uuid ccc779ae-03a6-4b1f-8fb0-b9dfffabd36e)
+  )
+  (wire (pts (xy 29.845 35.306) (xy 31.623 35.306))
+    (stroke (width 0) (type default))
+    (uuid ce307a5d-a722-496c-b680-9fcec14136b7)
   )
   (wire (pts (xy 257.81 52.07) (xy 264.16 52.07))
     (stroke (width 0) (type default))
@@ -1889,8 +1961,8 @@
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 147aea56-ec1a-4280-b9ed-f46dacefd76a)
   )
-  (label "STEPPER_3_A" (at 264.16 72.39 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
+  (label "STEPPER_3_A" (at 231.14 62.23 180) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 15412a37-83e4-4d20-b57a-10cd4a9a9d9c)
   )
   (label "STEPPER_3_D" (at 126.492 27.432 0) (fields_autoplaced)
@@ -2157,8 +2229,8 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 8ceed05c-138a-458f-ab51-4be295aa5350)
   )
-  (label "STEPPER_3_B" (at 264.16 74.93 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
+  (label "STEPPER_3_B" (at 231.14 64.77 180) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid 8ea94da5-cd59-49e1-985f-828990c9324b)
   )
   (label "*3" (at 203.962 62.992 180) (fields_autoplaced)
@@ -2241,8 +2313,8 @@
     (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid aab30cb4-378b-4bd5-927e-0b99ff063d37)
   )
-  (label "STEPPER_3_C" (at 264.16 77.47 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
+  (label "STEPPER_3_C" (at 231.14 67.31 180) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid af3d5c16-a4d9-48b0-b718-3282965f09c4)
   )
   (label "D6" (at 197.866 55.372 0) (fields_autoplaced)
@@ -2353,8 +2425,8 @@
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid f0a06fa4-567e-4d36-8218-29a7f52a3980)
   )
-  (label "STEPPER_3_D" (at 264.16 80.01 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
+  (label "STEPPER_3_D" (at 231.14 69.85 180) (fields_autoplaced)
+    (effects (font (size 1.27 1.27)) (justify right bottom))
     (uuid f143dda2-5ad8-4fc7-b64e-77c5def0346f)
   )
   (label "RX0{slash}0" (at 203.962 70.612 180) (fields_autoplaced)
@@ -3014,7 +3086,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 242.57 41.91 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-000056d71773)
-    (property "Reference" "P1" (at 242.57 31.75 0)
+    (property "Reference" "P2" (at 242.57 31.75 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Power" (at 245.11 41.91 90)
@@ -3037,7 +3109,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "P1") (unit 1)
+          (reference "P2") (unit 1)
         )
       )
     )
@@ -3046,7 +3118,7 @@
   (symbol (lib_id "power:+3V3") (at 231.14 30.48 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-000056d71aa9)
-    (property "Reference" "#PWR011" (at 231.14 34.29 0)
+    (property "Reference" "#PWR015" (at 231.14 34.29 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3.3V" (at 231.14 24.13 90)
@@ -3062,7 +3134,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR011") (unit 1)
+          (reference "#PWR015") (unit 1)
         )
       )
     )
@@ -3071,7 +3143,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 252.73 41.91 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-000056d72368)
-    (property "Reference" "P5" (at 252.73 29.21 0)
+    (property "Reference" "P6" (at 252.73 29.21 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "PWM" (at 250.19 41.91 90)
@@ -3094,7 +3166,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "P5") (unit 1)
+          (reference "P6") (unit 1)
         )
       )
     )
@@ -3103,7 +3175,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 252.73 69.85 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-000056d734d0)
-    (property "Reference" "P6" (at 252.73 59.69 0)
+    (property "Reference" "P7" (at 252.73 59.69 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "PWM" (at 250.19 69.85 90)
@@ -3126,7 +3198,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "P6") (unit 1)
+          (reference "P7") (unit 1)
         )
       )
     )
@@ -3135,7 +3207,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 242.57 93.98 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-000056d73a0e)
-    (property "Reference" "P3" (at 242.57 83.82 0)
+    (property "Reference" "P4" (at 242.57 83.82 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Analog" (at 245.11 93.98 90)
@@ -3158,7 +3230,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "P3") (unit 1)
+          (reference "P4") (unit 1)
         )
       )
     )
@@ -3167,7 +3239,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 252.73 93.98 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-000056d73f2c)
-    (property "Reference" "P7" (at 252.73 83.82 0)
+    (property "Reference" "P8" (at 252.73 83.82 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Communication" (at 250.19 93.98 90)
@@ -3190,7 +3262,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "P7") (unit 1)
+          (reference "P8") (unit 1)
         )
       )
     )
@@ -3199,7 +3271,7 @@
   (symbol (lib_id "Connector_Generic:Conn_02x18_Odd_Even") (at 247.65 133.35 90) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-000056d743b5)
-    (property "Reference" "P4" (at 223.52 133.35 0)
+    (property "Reference" "P5" (at 223.52 133.35 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Digital" (at 247.65 133.35 90)
@@ -3250,7 +3322,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "P4") (unit 1)
+          (reference "P5") (unit 1)
         )
       )
     )
@@ -3259,7 +3331,7 @@
   (symbol (lib_id "power:+5VL") (at 228.6 26.67 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000616fd070)
-    (property "Reference" "#PWR09" (at 228.6 30.48 0)
+    (property "Reference" "#PWR013" (at 228.6 30.48 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5VL" (at 228.981 22.2758 0)
@@ -3275,7 +3347,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR09") (unit 1)
+          (reference "#PWR013") (unit 1)
         )
       )
     )
@@ -3284,7 +3356,7 @@
   (symbol (lib_id "power:GNDD") (at 229.87 49.53 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000616fdc1f)
-    (property "Reference" "#PWR010" (at 229.87 55.88 0)
+    (property "Reference" "#PWR014" (at 229.87 55.88 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GNDD" (at 229.87 48.26 0)
@@ -3300,7 +3372,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR010") (unit 1)
+          (reference "#PWR014") (unit 1)
         )
       )
     )
@@ -3309,7 +3381,7 @@
   (symbol (lib_id "power:GNDD") (at 280.67 36.83 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-0000616fea6d)
-    (property "Reference" "#PWR012" (at 280.67 43.18 0)
+    (property "Reference" "#PWR016" (at 280.67 43.18 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GNDD" (at 280.7716 40.767 0)
@@ -3325,7 +3397,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR012") (unit 1)
+          (reference "#PWR016") (unit 1)
         )
       )
     )
@@ -3334,7 +3406,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 242.57 69.85 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0913d146-c158-4bf4-8354-c29f74d8c6d7)
-    (property "Reference" "P2" (at 242.57 59.69 0)
+    (property "Reference" "P3" (at 242.57 59.69 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Analog" (at 245.11 69.85 90)
@@ -3357,7 +3429,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "P2") (unit 1)
+          (reference "P3") (unit 1)
         )
       )
     )
@@ -3366,7 +3438,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 94.742 24.892 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 1fac4f15-fea8-4af5-a157-4327c8663347)
-    (property "Reference" "J8" (at 97.79 16.51 0)
+    (property "Reference" "J7" (at 97.79 16.51 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_2" (at 104.902 16.51 0)
@@ -3387,7 +3459,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J8") (unit 1)
+          (reference "J7") (unit 1)
         )
       )
     )
@@ -3396,7 +3468,7 @@
   (symbol (lib_id "power:GND") (at 198.628 45.212 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 2767d94c-ca0b-4b59-8ba8-ab7b398bae2c)
-    (property "Reference" "#PWR038" (at 198.628 51.562 0)
+    (property "Reference" "#PWR012" (at 198.628 51.562 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 198.628 49.022 0)
@@ -3412,7 +3484,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR038") (unit 1)
+          (reference "#PWR012") (unit 1)
         )
       )
       (project "Right Console Input"
@@ -3426,7 +3498,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 61.468 67.564 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 33e8c4fa-9c66-41f1-aa7d-13372170269b)
-    (property "Reference" "J10" (at 64.516 59.182 0)
+    (property "Reference" "J5" (at 64.516 59.182 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_9" (at 71.628 59.182 0)
@@ -3447,7 +3519,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J10") (unit 1)
+          (reference "J5") (unit 1)
         )
       )
     )
@@ -3456,7 +3528,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 149.352 46.228 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 3ccdd2bb-f83f-45d7-9e56-244ac7a96129)
-    (property "Reference" "J11" (at 152.4 37.846 0)
+    (property "Reference" "J14" (at 152.4 37.846 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_8" (at 159.512 37.846 0)
@@ -3477,7 +3549,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J11") (unit 1)
+          (reference "J14") (unit 1)
         )
       )
     )
@@ -3538,7 +3610,7 @@
   (symbol (lib_id "Device:LED") (at 38.1 175.26 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 483ccedd-c915-4966-b011-0877a40703ef)
-    (property "Reference" "D2" (at 36.83 186.69 0)
+    (property "Reference" "D1" (at 36.83 186.69 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "RED" (at 39.37 186.3725 0)
@@ -3555,7 +3627,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "D2") (unit 1)
+          (reference "D1") (unit 1)
         )
       )
     )
@@ -3564,7 +3636,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 191.516 84.582 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4b1821b3-324f-4949-8591-efef75575304)
-    (property "Reference" "J42" (at 191.516 74.422 0)
+    (property "Reference" "J19" (at 191.516 74.422 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Communication" (at 188.976 84.582 90)
@@ -3587,7 +3659,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J42") (unit 1)
+          (reference "J19") (unit 1)
         )
       )
       (project "Right Console Input"
@@ -3601,7 +3673,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 120.142 46.228 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4c43a100-d495-416a-ba41-4439aa08fa37)
-    (property "Reference" "J14" (at 123.19 37.846 0)
+    (property "Reference" "J9" (at 123.19 37.846 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_7" (at 130.302 37.846 0)
@@ -3622,7 +3694,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J14") (unit 1)
+          (reference "J9") (unit 1)
         )
       )
     )
@@ -3631,7 +3703,7 @@
   (symbol (lib_id "power:VCC") (at 153.67 164.592 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4facd4a7-de34-4c2f-9a8c-26ef8ea5662b)
-    (property "Reference" "#PWR044" (at 153.67 168.402 0)
+    (property "Reference" "#PWR08" (at 153.67 168.402 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "VCC" (at 154.051 161.544 90)
@@ -3647,7 +3719,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR044") (unit 1)
+          (reference "#PWR08") (unit 1)
         )
       )
       (project "Right Console Input"
@@ -3661,7 +3733,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 166.37 177.292 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5cd6a066-b516-439e-9435-db9f390a8404)
-    (property "Reference" "J45" (at 166.37 167.132 0)
+    (property "Reference" "J17" (at 166.37 167.132 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Power" (at 168.91 177.292 90)
@@ -3684,7 +3756,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J45") (unit 1)
+          (reference "J17") (unit 1)
         )
       )
       (project "Right Console Input"
@@ -3698,7 +3770,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 94.996 67.564 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5cdb3ba8-744e-4b50-8173-1b85a6dd6158)
-    (property "Reference" "J6" (at 98.044 59.182 0)
+    (property "Reference" "J8" (at 98.044 59.182 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_10" (at 105.156 59.182 0)
@@ -3719,7 +3791,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J6") (unit 1)
+          (reference "J8") (unit 1)
         )
       )
     )
@@ -3728,7 +3800,7 @@
   (symbol (lib_id "power:GNDD") (at 38.1 179.07 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5f1fc886-46c6-4633-8f22-c578bf62ccc5)
-    (property "Reference" "#PWR02" (at 38.1 185.42 0)
+    (property "Reference" "#PWR04" (at 38.1 185.42 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GNDD" (at 38.2016 183.007 0)
@@ -3744,7 +3816,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR02") (unit 1)
+          (reference "#PWR04") (unit 1)
         )
       )
     )
@@ -3753,7 +3825,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 93.726 46.228 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 624fa202-ba77-4312-ac2b-9ec1984c2449)
-    (property "Reference" "J3" (at 96.774 37.846 0)
+    (property "Reference" "J6" (at 96.774 37.846 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_6" (at 103.886 37.846 0)
@@ -3774,7 +3846,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J3") (unit 1)
+          (reference "J6") (unit 1)
         )
       )
     )
@@ -3783,7 +3855,7 @@
   (symbol (lib_id "power:+5VL") (at 28.702 106.172 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 642dff41-4fd4-4a86-bdc4-b6c17248aceb)
-    (property "Reference" "#PWR06" (at 28.702 109.982 0)
+    (property "Reference" "#PWR01" (at 28.702 109.982 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5VL" (at 29.083 101.7778 0)
@@ -3799,7 +3871,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR06") (unit 1)
+          (reference "#PWR01") (unit 1)
         )
       )
     )
@@ -3808,7 +3880,7 @@
   (symbol (lib_id "power:+5VL") (at 47.879 152.273 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 6679424a-1d3d-4bcb-b4ee-ebc8731aa11a)
-    (property "Reference" "#PWR05" (at 47.879 156.083 0)
+    (property "Reference" "#PWR07" (at 47.879 156.083 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5VL" (at 48.26 147.8788 0)
@@ -3824,7 +3896,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR05") (unit 1)
+          (reference "#PWR07") (unit 1)
         )
       )
     )
@@ -3833,7 +3905,7 @@
   (symbol (lib_id "power:GNDD") (at 158.75 189.992 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 70a52f65-5037-46c7-9ec8-9d4773a78c00)
-    (property "Reference" "#PWR045" (at 158.75 196.342 0)
+    (property "Reference" "#PWR011" (at 158.75 196.342 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GNDD" (at 158.75 188.722 0)
@@ -3849,7 +3921,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR045") (unit 1)
+          (reference "#PWR011") (unit 1)
         )
       )
     )
@@ -3858,7 +3930,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 150.368 24.892 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 73eae034-45e7-4af6-b9ef-df360ec70562)
-    (property "Reference" "J12" (at 153.416 16.51 0)
+    (property "Reference" "J15" (at 153.416 16.51 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_4" (at 160.528 16.51 0)
@@ -3879,7 +3951,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J12") (unit 1)
+          (reference "J15") (unit 1)
         )
       )
     )
@@ -3888,7 +3960,7 @@
   (symbol (lib_id "power:+5VL") (at 44.704 106.172 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 88c4f931-5c37-4715-a18c-c27148010b42)
-    (property "Reference" "#PWR039" (at 44.704 109.982 0)
+    (property "Reference" "#PWR05" (at 44.704 109.982 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5VL" (at 45.085 101.7778 0)
@@ -3904,7 +3976,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR039") (unit 1)
+          (reference "#PWR05") (unit 1)
         )
       )
     )
@@ -3913,7 +3985,7 @@
   (symbol (lib_id "Device:R_US") (at 38.1 167.64 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8b8564a1-4b0a-41e7-b156-0aa93ef30977)
-    (property "Reference" "R2" (at 39.8272 166.4716 0)
+    (property "Reference" "R1" (at 39.8272 166.4716 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "330" (at 39.8272 168.783 0)
@@ -3930,7 +4002,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "R2") (unit 1)
+          (reference "R1") (unit 1)
         )
       )
     )
@@ -3939,7 +4011,7 @@
   (symbol (lib_id "power:GNDD") (at 31.623 35.306 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 91e03950-15cc-453d-b5ea-a93a02852e0c)
-    (property "Reference" "#PWR04" (at 31.623 41.656 0)
+    (property "Reference" "#PWR03" (at 31.623 41.656 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GNDD" (at 31.7246 39.243 0)
@@ -3955,7 +4027,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR04") (unit 1)
+          (reference "#PWR03") (unit 1)
         )
       )
     )
@@ -3964,7 +4036,7 @@
   (symbol (lib_id "Device:C") (at 44.704 111.252 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9beeb906-d831-4992-b9ce-48d92c9bd056)
-    (property "Reference" "C-W3" (at 38.989 114.3 90)
+    (property "Reference" "C-W2" (at 38.989 114.3 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "100uF" (at 41.275 114.554 90)
@@ -3981,7 +4053,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "C-W3") (unit 1)
+          (reference "C-W2") (unit 1)
         )
       )
     )
@@ -3990,7 +4062,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 191.008 32.512 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9fb13851-3326-4cca-b3ac-c779cb12483d)
-    (property "Reference" "P8" (at 191.008 22.352 0)
+    (property "Reference" "P1" (at 191.008 22.352 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "PWM" (at 188.468 32.512 90)
@@ -4013,32 +4085,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "P8") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "power:+5VL") (at 37.973 31.496 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid ba5faa80-feee-4163-9122-2002c8bb5046)
-    (property "Reference" "#PWR01" (at 37.973 35.306 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "+5VL" (at 38.354 27.1018 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 37.973 31.496 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 37.973 31.496 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 73192972-5b1b-4fc6-b54b-e96cc1b7df9c))
-    (instances
-      (project "Front Console 12 Stepper"
-        (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR01") (unit 1)
+          (reference "P1") (unit 1)
         )
       )
     )
@@ -4047,7 +4094,7 @@
   (symbol (lib_id "power:+5VL") (at 156.21 164.592 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid bce67fbf-0906-4b84-bfec-f5fe06455f00)
-    (property "Reference" "#PWR046" (at 156.21 168.402 0)
+    (property "Reference" "#PWR09" (at 156.21 168.402 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+5VL" (at 156.591 160.1978 0)
@@ -4063,7 +4110,33 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR046") (unit 1)
+          (reference "#PWR09") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "Connector:Conn_01x02_Female") (at 43.053 31.496 0) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no)
+    (uuid c60f7cbb-8d99-41f5-82b3-18c8e85354fc)
+    (property "Reference" "J2" (at 43.7642 32.1056 0)
+      (effects (font (size 1.27 1.27)) (justify left) hide)
+    )
+    (property "Value" "STEPPER IN 12-20VDC" (at 43.7642 34.417 0)
+      (effects (font (size 1.27 1.27)) (justify left) hide)
+    )
+    (property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal" (at 43.053 31.496 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "~" (at 43.053 31.496 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 9475f447-4520-4047-86d6-971c4d59f2f1))
+    (pin "2" (uuid 3f1b79df-c872-48b8-aa7d-72c45ed42a38))
+    (instances
+      (project "Front Console 12 Stepper"
+        (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+          (reference "J2") (unit 1)
         )
       )
     )
@@ -4072,7 +4145,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 121.158 67.818 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid d31fb578-5334-46f7-adbb-11848d5b4f35)
-    (property "Reference" "J5" (at 124.206 59.436 0)
+    (property "Reference" "J10" (at 124.206 59.436 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_11" (at 131.318 59.436 0)
@@ -4093,7 +4166,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J5") (unit 1)
+          (reference "J10") (unit 1)
         )
       )
     )
@@ -4102,7 +4175,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 61.468 24.892 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid d48eb31a-a138-47ec-8853-341f58c80f2f)
-    (property "Reference" "J4" (at 64.516 16.51 0)
+    (property "Reference" "J3" (at 64.516 16.51 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_1" (at 71.628 16.51 0)
@@ -4123,7 +4196,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J4") (unit 1)
+          (reference "J3") (unit 1)
         )
       )
     )
@@ -4132,7 +4205,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 61.468 45.974 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid dba611ef-490e-46c8-afce-aab972481a80)
-    (property "Reference" "J2" (at 64.516 37.592 0)
+    (property "Reference" "J4" (at 64.516 37.592 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_5" (at 71.628 37.592 0)
@@ -4153,7 +4226,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J2") (unit 1)
+          (reference "J4") (unit 1)
         )
       )
     )
@@ -4162,7 +4235,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 140.208 156.718 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e09e6380-8603-41e9-ae22-1a1a66065b0b)
-    (property "Reference" "J43" (at 140.208 146.558 0)
+    (property "Reference" "J12" (at 140.208 146.558 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Analog" (at 142.748 156.718 90)
@@ -4185,7 +4258,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J43") (unit 1)
+          (reference "J12") (unit 1)
         )
       )
       (project "Right Console Input"
@@ -4199,7 +4272,7 @@
   (symbol (lib_id "power:+3V3") (at 158.75 164.592 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e757901a-fc84-494f-90d6-8ccf442b1f98)
-    (property "Reference" "#PWR048" (at 158.75 168.402 0)
+    (property "Reference" "#PWR010" (at 158.75 168.402 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3.3V" (at 158.75 158.242 90)
@@ -4215,7 +4288,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR048") (unit 1)
+          (reference "#PWR010") (unit 1)
         )
       )
     )
@@ -4224,7 +4297,7 @@
   (symbol (lib_id "power:GNDD") (at 28.702 115.062 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid ea4c3e3f-ca29-49ae-ae13-183793f4ae8d)
-    (property "Reference" "#PWR041" (at 28.702 121.412 0)
+    (property "Reference" "#PWR02" (at 28.702 121.412 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GNDD" (at 28.8036 118.999 0)
@@ -4240,7 +4313,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR041") (unit 1)
+          (reference "#PWR02") (unit 1)
         )
       )
     )
@@ -4249,7 +4322,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 191.008 60.452 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid eb5da087-acdd-4f99-89b8-3bec45c4ec35)
-    (property "Reference" "J41" (at 191.008 50.292 0)
+    (property "Reference" "J18" (at 191.008 50.292 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "PWM" (at 188.468 60.452 90)
@@ -4272,7 +4345,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J41") (unit 1)
+          (reference "J18") (unit 1)
         )
       )
       (project "Right Console Input"
@@ -4286,7 +4359,7 @@
   (symbol (lib_id "Connector_Generic:Conn_01x08") (at 140.208 180.848 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid f2cc1336-2bcc-4ee1-819a-f53d80ad7afc)
-    (property "Reference" "J44" (at 140.208 170.688 0)
+    (property "Reference" "J13" (at 140.208 170.688 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "Analog" (at 142.748 180.848 90)
@@ -4309,7 +4382,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J44") (unit 1)
+          (reference "J13") (unit 1)
         )
       )
       (project "Right Console Input"
@@ -4323,7 +4396,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 121.412 24.892 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid f68e7912-9c87-4141-9236-f08debf40b79)
-    (property "Reference" "J9" (at 124.46 16.51 0)
+    (property "Reference" "J11" (at 124.46 16.51 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_3" (at 131.572 16.51 0)
@@ -4344,7 +4417,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J9") (unit 1)
+          (reference "J11") (unit 1)
         )
       )
     )
@@ -4353,7 +4426,7 @@
   (symbol (lib_id "power:GNDD") (at 44.704 115.062 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid fc24d97a-e3cf-4ca8-83e2-7c60678a77c3)
-    (property "Reference" "#PWR040" (at 44.704 121.412 0)
+    (property "Reference" "#PWR06" (at 44.704 121.412 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GNDD" (at 44.8056 118.999 0)
@@ -4369,7 +4442,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "#PWR040") (unit 1)
+          (reference "#PWR06") (unit 1)
         )
       )
     )
@@ -4378,7 +4451,7 @@
   (symbol (lib_id "Connector:Conn_01x06_Socket") (at 150.622 68.072 0) (mirror y) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid fd6306ac-720d-4831-a24b-3dd2b410c1bf)
-    (property "Reference" "J15" (at 153.67 59.69 0)
+    (property "Reference" "J16" (at 153.67 59.69 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "STEPPER_12" (at 160.782 59.69 0)
@@ -4399,7 +4472,7 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-          (reference "J15") (unit 1)
+          (reference "J16") (unit 1)
         )
       )
     )
@@ -4452,6 +4525,23 @@
     (instances
       (project "Front Console 12 Stepper"
         (path "/8a00b1ca-e561-4386-9590-9730de0281a4" (page "2"))
+      )
+    )
+  )
+
+  (sheet (at 70.993 164.084) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid d4803222-e770-46b6-93c7-4e77326aca8f)
+    (property "Sheetname" "Changelog" (at 70.993 163.3724 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "Changelog.kicad_sch" (at 70.993 168.4786 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Front Console 12 Stepper"
+        (path "/8a00b1ca-e561-4386-9590-9730de0281a4" (page "5"))
       )
     )
   )

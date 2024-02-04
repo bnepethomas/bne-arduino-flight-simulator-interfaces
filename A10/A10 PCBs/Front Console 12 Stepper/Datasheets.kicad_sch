@@ -7,7 +7,7 @@
   (title_block
     (title "FRONT CONSOLE STEPPER")
     (date "2024-01-26")
-    (rev "1.2")
+    (rev "2.0")
   )
 
   (lib_symbols

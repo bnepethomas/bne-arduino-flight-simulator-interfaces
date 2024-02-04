@@ -549,6 +549,10 @@
     [
       "9b310fe8-4650-4e0a-830a-0c75318ce88c",
       "Stepper Driver"
+    ],
+    [
+      "d4803222-e770-46b6-93c7-4e77326aca8f",
+      "Changelog"
     ]
   ],
   "text_variables": {}
