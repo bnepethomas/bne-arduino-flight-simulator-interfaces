@@ -251,6 +251,8 @@ unsigned long TimeToComplete = 0;
 #define STEPPER_MAX_SPEED 8300
 #define STEPPER_ACCELERATION 2000
 
+#define STEPPER_4_MAX_SPEED 8300
+#define STEPPER_4_ACCELERATION 2000
 
 AccelStepper STEPPER_1(AccelStepper::FULL4WIRE, COIL_STEPPER_1_A, COIL_STEPPER_1_B, COIL_STEPPER_1_C, COIL_STEPPER_1_D);
 AccelStepper STEPPER_2(AccelStepper::FULL4WIRE, COIL_STEPPER_2_A, COIL_STEPPER_2_B, COIL_STEPPER_2_C, COIL_STEPPER_2_D);
@@ -267,10 +269,23 @@ AccelStepper STEPPER_12(AccelStepper::FULL4WIRE, COIL_STEPPER_12_A, COIL_STEPPER
 
 
 void setZeroPoints() {
-  if (S8InUse) STEPPER_8.moveTo(10);
-
-  moveSteppersUntilTargetReached();
-  if (S8InUse) STEPPER_8.setCurrentPosition(0);
+  SendDebug("Entering setZeroPoints");
+  long SafetyTimer = millis();
+  STEPPER_4.move(600);
+  if (S4InUse) {
+    while (digitalRead(A0) == 1) {
+      if (millis() >= (SafetyTimer + 30000)) {
+        SendDebug("Safety Timer Event in setZeroPoints");
+        break;
+      }
+      STEPPER_4.run();
+    }
+    if (digitalRead(A0) == 0) {
+      STEPPER_4.setCurrentPosition(0);
+      SendDebug("Found Stepper_4 Zero in setZeroPoints");
+      STEPPER_4.runToNewPosition(280);
+    }
+  }
 }
 
 
@@ -289,7 +304,7 @@ void setup() {
 
   delay(FLASH_TIME);
 
-
+  pinMode(A0, INPUT);
 
   if (Ethernet_In_Use == 1) {
 
@@ -320,6 +335,8 @@ void setup() {
   STEPPER_3.setAcceleration(STEPPER_ACCELERATION);
   STEPPER_4.setMaxSpeed(STEPPER_MAX_SPEED);
   STEPPER_4.setAcceleration(STEPPER_ACCELERATION);
+  STEPPER_4.setMaxSpeed(STEPPER_4_MAX_SPEED);
+  STEPPER_4.setAcceleration(STEPPER_4_ACCELERATION);
   STEPPER_5.setMaxSpeed(STEPPER_MAX_SPEED);
   STEPPER_5.setAcceleration(STEPPER_ACCELERATION);
   STEPPER_6.setMaxSpeed(STEPPER_MAX_SPEED);
@@ -432,18 +449,7 @@ void initialiseAllSteppers(int numberOfDegrees) {
     }
 
 
-    STEPPER_1.run();
-    STEPPER_2.run();
-    STEPPER_3.run();
-    STEPPER_4.run();
-    STEPPER_5.run();
-    STEPPER_6.run();
-    STEPPER_7.run();
-    STEPPER_8.run();
-    STEPPER_9.run();
-    STEPPER_10.run();
-    STEPPER_11.run();
-    STEPPER_12.run();
+    updateSteppers();
     if (TimingCollected == false) {
       TimeToComplete = micros() - TimeToComplete;
       SendDebug("Time to run through cycle: " + String(TimeToComplete));
@@ -463,23 +469,14 @@ void initialiseAllSteppers(int numberOfDegrees) {
   if (S10InUse) STEPPER_10.moveTo(0);
   if (S11InUse) STEPPER_11.moveTo(0);
   if (S12InUse) STEPPER_12.moveTo(0);
+
+
   //SendDebug("Returning");
 
   while ((STEPPER_1.distanceToGo() != 0) || (STEPPER_2.distanceToGo() != 0) || (STEPPER_3.distanceToGo() != 0) || (STEPPER_4.distanceToGo() != 0) || (STEPPER_5.distanceToGo() != 0) || (STEPPER_6.distanceToGo() != 0) || (STEPPER_7.distanceToGo() != 0) || (STEPPER_8.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_10.distanceToGo() != 0) || (STEPPER_11.distanceToGo() != 0) || (STEPPER_12.distanceToGo() != 0))
 
   {
-    STEPPER_1.run();
-    STEPPER_2.run();
-    STEPPER_3.run();
-    STEPPER_4.run();
-    STEPPER_5.run();
-    STEPPER_6.run();
-    STEPPER_7.run();
-    STEPPER_8.run();
-    STEPPER_9.run();
-    STEPPER_10.run();
-    STEPPER_11.run();
-    STEPPER_12.run();
+    updateSteppers();
   }
   //disableAllSteppers();
   SendDebug("End All Stepper");
@@ -549,18 +546,7 @@ void cycleSteppers(int numberOfDegrees) {
   while ((STEPPER_1.distanceToGo() != 0) || (STEPPER_2.distanceToGo() != 0) || (STEPPER_3.distanceToGo() != 0) || (STEPPER_4.distanceToGo() != 0) || (STEPPER_5.distanceToGo() != 0) || (STEPPER_6.distanceToGo() != 0) || (STEPPER_7.distanceToGo() != 0) || (STEPPER_8.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_9.distanceToGo() != 0) || (STEPPER_10.distanceToGo() != 0) || (STEPPER_11.distanceToGo() != 0) || (STEPPER_12.distanceToGo() != 0))
 
   {
-    STEPPER_1.run();
-    STEPPER_2.run();
-    STEPPER_3.run();
-    STEPPER_4.run();
-    STEPPER_5.run();
-    STEPPER_6.run();
-    STEPPER_7.run();
-    STEPPER_8.run();
-    STEPPER_9.run();
-    STEPPER_10.run();
-    STEPPER_11.run();
-    STEPPER_12.run();
+    updateSteppers();
   }
   //disableAllSteppers();
   SendDebug("End All Stepper");
@@ -613,6 +599,7 @@ void loop() {
     // Check to see if model time is updating - if nothing after 30 seconds disble steppers
   }
 
-  if (DCSBIOS_In_Use == 1) DcsBios::loop();
-  updateSteppers();
+  // if (DCSBIOS_In_Use == 1) DcsBios::loop();
+  // updateSteppers();
+  disableAllSteppers();
 }
