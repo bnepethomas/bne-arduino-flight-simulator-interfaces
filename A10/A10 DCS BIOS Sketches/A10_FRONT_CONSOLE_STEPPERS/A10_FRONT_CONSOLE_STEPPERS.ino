@@ -359,6 +359,9 @@ void setup() {
 
   setZeroPoints();
 
+  STEPPER_2.moveTo((200));
+
+
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
   SendDebug("A10 General Steppers Initialisation Complete");
 }
@@ -600,6 +603,6 @@ void loop() {
   }
 
   // if (DCSBIOS_In_Use == 1) DcsBios::loop();
-  // updateSteppers();
-  disableAllSteppers();
+  updateSteppers();
+  //disableAllSteppers();
 }
