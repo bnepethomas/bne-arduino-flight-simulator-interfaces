@@ -30,22 +30,29 @@ void setup() {
   er_oled_begin();
   er_oled_clear(oled_buf);
   //er_oled_string(10, 2, "000", 16, 1, oled_buf);
-//er_oled_char(10, 2, '1', 16, 1, oled_buf);
-er_oled_char3216(0, 0, '0', oled_buf);
+  //er_oled_char(10, 2, '1', 16, 1, oled_buf);
+  er_oled_char3216(0, 0, '0', oled_buf);
 
-int Second_Pos_x = 30;
-int Second_Pos_y = 2;
-er_oled_char3216(Second_Pos_x, Second_Pos_y, '0', oled_buf);
-er_oled_display(oled_buf);
-delay(2000);
-er_oled_char3216(Second_Pos_x, Second_Pos_y, '1', oled_buf);
-er_oled_display(oled_buf);
-delay(2000);
-er_oled_char3216(Second_Pos_x, Second_Pos_y, '2', oled_buf);
-er_oled_display(oled_buf);
-delay(2000);
-er_oled_char3216(Second_Pos_x, Second_Pos_y, '3', oled_buf);
-er_oled_display(oled_buf);
+  int Second_Pos_x = 30;
+  int Second_Pos_y = 2;
+  er_oled_char3216(Second_Pos_x, Second_Pos_y, '0', oled_buf);
+  er_oled_display(oled_buf);
+  delay(2000);
+  er_oled_char3216(Second_Pos_x, Second_Pos_y, '1', oled_buf);
+  er_oled_display(oled_buf);
+  delay(2000);
+  er_oled_char3216(Second_Pos_x, Second_Pos_y, '2', oled_buf);
+  er_oled_display(oled_buf);
+  delay(2000);
+  er_oled_char3216(Second_Pos_x, Second_Pos_y, '3', oled_buf);
+  er_oled_display(oled_buf);
+  delay(2000);
+
+  for (char i = 48; i <= 57; i++) {
+    er_oled_char3216(Second_Pos_x, Second_Pos_y, i, oled_buf);
+    er_oled_display(oled_buf);
+    delay(500);
+  }
 
   // er_oled_char(20, 16, '2', 16, 1, oled_buf);
   // er_oled_char(36, 16, ':', 16, 1, oled_buf);
