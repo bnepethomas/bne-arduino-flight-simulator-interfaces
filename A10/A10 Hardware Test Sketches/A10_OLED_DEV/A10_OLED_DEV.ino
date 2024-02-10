@@ -139,8 +139,6 @@
 #include <EthernetUdp.h>
 
 
-
-
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 byte mac[] = { 0x00, 0xDD, 0x3E, 0xCA, 0x36, 0x99 };
@@ -286,32 +284,40 @@ void setup() {
   SendDebug("I2C scan complete");
   if (false) {
 
-    tcaselect(ScratchPad_OLED_PORT);
-    u8g2_Scratch_Pad.begin();
-    u8g2_Scratch_Pad.clearBuffer();
-    u8g2_Scratch_Pad.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-    u8g2_Scratch_Pad.sendBuffer();
+    // tcaselect(ScratchPad_OLED_PORT);
+    // u8g2_Scratch_Pad.begin();
+    // u8g2_Scratch_Pad.clearBuffer();
+    // u8g2_Scratch_Pad.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+    // u8g2_Scratch_Pad.sendBuffer();
 
 
-    tcaselect(COM1_OLED_PORT);
-    u8g2_COM1.begin();
-    u8g2_COM1.clearBuffer();
-    u8g2_COM1.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-    u8g2_COM1.sendBuffer();
+    // tcaselect(COM1_OLED_PORT);
+    // u8g2_COM1.begin();
+    // u8g2_COM1.clearBuffer();
+    // u8g2_COM1.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+    // u8g2_COM1.sendBuffer();
 
-    tcaselect(COM2_OLED_PORT);
-    u8g2_COM2.begin();
-    u8g2_COM2.clearBuffer();
-    u8g2_COM2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-    u8g2_COM2.sendBuffer();
+    // tcaselect(COM2_OLED_PORT);
+    // u8g2_COM2.begin();
+    // u8g2_COM2.clearBuffer();
+    // u8g2_COM2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+    // u8g2_COM2.sendBuffer();
   }
 
 
   tcaselect(Opt_OLED_Port_1);
   u8g2_OPT1.begin();
   u8g2_OPT1.clearBuffer();
-  u8g2_OPT1.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  //u8g2_OPT1.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  // u8g2_DcsFontHornet4_BIOS_09_tf
+  // u8g2_DcsFontHornet3_BIOS_09_tf
+  u8g2_OPT1.setFont(u8g2_DcsFontHornet3_BIOS_09_tf);
   u8g2_OPT1.sendBuffer();
+  updateOpt1("OPT 111");
+
+
+
+
   if (false) {
     tcaselect(Opt_OLED_Port_2);
     u8g2_OPT2.begin();
@@ -340,9 +346,10 @@ void setup() {
 
     if (DCSBIOS_In_Use == 1) DcsBios::setup();
   }
-  updateOpt1("OPT 1");
+
 
   if (false) {
+    updateOpt1("OPT 1");
     updateOpt2("OPT 2");
     updateOpt3("OPT 3");
     updateOpt4("OPT 4");
@@ -405,20 +412,7 @@ void setContrast(int contr) {
   //    display.ssd1306_command(brigh);
 }
 
-void SendIPMessage(int ind, int state) {
-  if (Ethernet_In_Use == 1) {
-    String outString;
-    outString = String(ind) + ":" + String(state);
 
-    udp.beginPacket(targetIP, reflectorport);
-    udp.print(outString);
-    udp.endPacket();
-
-    udp.beginPacket(targetIP, remoteport);
-    udp.print(outString);
-    udp.endPacket();
-  }
-}
 
 void SendIPString(String state) {
 
