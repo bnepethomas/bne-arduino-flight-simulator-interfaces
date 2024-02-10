@@ -32,7 +32,21 @@ void setup() {
   //er_oled_string(10, 2, "000", 16, 1, oled_buf);
 //er_oled_char(10, 2, '1', 16, 1, oled_buf);
 er_oled_char3216(0, 0, '0', oled_buf);
-er_oled_char3216(30, 2, '0', oled_buf);
+
+int Second_Pos_x = 30;
+int Second_Pos_y = 2;
+er_oled_char3216(Second_Pos_x, Second_Pos_y, '0', oled_buf);
+er_oled_display(oled_buf);
+delay(2000);
+er_oled_char3216(Second_Pos_x, Second_Pos_y, '1', oled_buf);
+er_oled_display(oled_buf);
+delay(2000);
+er_oled_char3216(Second_Pos_x, Second_Pos_y, '2', oled_buf);
+er_oled_display(oled_buf);
+delay(2000);
+er_oled_char3216(Second_Pos_x, Second_Pos_y, '3', oled_buf);
+er_oled_display(oled_buf);
+
   // er_oled_char(20, 16, '2', 16, 1, oled_buf);
   // er_oled_char(36, 16, ':', 16, 1, oled_buf);
   // er_oled_char(52, 16, '4', 16, 1, oled_buf);
