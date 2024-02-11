@@ -2,25 +2,113 @@
 //EPD
 #include "Display_EPD_W21_spi.h"
 #include "Display_EPD_W21.h"
-#include "Ap_29demo.h"  
+#include "Ap_29demo.h"
+
+#define Ethernet_In_Use 1
+#define DCSBIOS_In_Use 1
+#define Reflector_In_Use 1
+
+#define DCSBIOS_IRQ_SERIAL
+#include "DcsBios.h"
+
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+
+
+
+// These local Mac and IP Address will be reassigned early in startup based on
+// the device ID as set by address pins
+byte mac[] = { 0x00, 0xDD, 0x3E, 0xCA, 0x36, 0x99 };
+IPAddress ip(172, 16, 1, 100);
+String strMyIP = "X.X.X.X";
+
+// Raspberry Pi is Target
+IPAddress targetIP(172, 16, 1, 2);
+String strTargetIP = "X.X.X.X";
+
+// Reflector
+IPAddress reflectorIP(172, 16, 1, 10);
+String strReflectorIP = "X.X.X.X";
+
+const unsigned int localport = 7788;
+const unsigned int remoteport = 26027;
+const unsigned int reflectorport = 27000;
+
+EthernetUDP udp;
+char packetBuffer[1000];     //buffer to store the incoming data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+
+#define STATUS_LED_PORT LED_BUILTIN
+#define FLASH_TIME 500
+
+unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
+bool RED_LED_STATE = false;
+unsigned long timeSinceRedLedChanged = 0;
+
+
+unsigned int LastAltitude = 0;
+unsigned int LastHundredAltitude = 0;
+unsigned int LastThousandAltitude = 0;
+unsigned int LastTenThousandAltitude = 0;
+
+void SendDebug(String MessageToSend) {
+  if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
+    udp.beginPacket(reflectorIP, reflectorport);
+    udp.println(MessageToSend);
+    udp.endPacket();
+  }
+}
+
 
 void setup() {
-#ifdef ESP8266
-   pinMode(D0, INPUT);  //BUSY
-   pinMode(D1, OUTPUT); //RES 
-   pinMode(D2, OUTPUT); //DC   
-   pinMode(D4, OUTPUT); //CS     
-#endif 
-#ifdef Arduino_UNO
-   pinMode(4, INPUT);  //BUSY
-   pinMode(5, OUTPUT); //RES 
-   pinMode(6, OUTPUT); //DC   
-   pinMode(7, OUTPUT); //CS   
-#endif 
-   //SPI
-   SPI.beginTransaction(SPISettings(10000000, MSBFIRST, SPI_MODE0)); 
-   SPI.begin ();  
+
+
+  pinMode(STATUS_LED_PORT, OUTPUT);
+
+  digitalWrite(STATUS_LED_PORT, true);
+  delay(FLASH_TIME);
+  digitalWrite(STATUS_LED_PORT, false);
+
+  delay(FLASH_TIME);
+
+  if (Ethernet_In_Use == 1) {
+    Ethernet.begin(mac, ip);
+    udp.begin(localport);
+    SendDebug("Init UDP - " + strMyIP + " " + String(millis()) + "mS since reset.");
+  }
+
+  pinMode(4, INPUT);   //BUSY
+  pinMode(5, OUTPUT);  //RES
+  pinMode(6, OUTPUT);  //DC
+  pinMode(7, OUTPUT);  //CS
+
+  //SPI
+  SPI.beginTransaction(SPISettings(10000000, MSBFIRST, SPI_MODE0));
+  SPI.begin();
+
+#if 1                                       //Partial refresh demostration. \
+                                            //Partial refresh demo support displaying a clock at 5 locations with 00:00.  If you need to perform partial refresh more than 5 locations, please use the feature of using partial refresh at the full screen demo. \
+                                            //After 5 partial refreshes, implement a full screen refresh to clear the ghosting caused by partial refreshes. \
+                                            //////////////////////Partial refresh time demo/////////////////////////////////////
+  EPD_Init();                               //Electronic paper initialization.
+  EPD_SetRAMValue_BaseMap(gImage_basemap);  //Please do not delete the background color function, otherwise it will cause unstable display during partial refresh.
+  for (unsigned char i = 0; i <= 3; i++) {
+    EPD_Dis_Part_Time(0, 15, Num[i], Num[i], 5, 32, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+  }
+  EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
+  delay(2000);      //Delay for 2s.
+
+
+#endif
+
+
+  if (DCSBIOS_In_Use == 1) DcsBios::setup();
+
+  SendDebug("Setup complete");
 }
+
+
 
 //Tips//
 /*
@@ -31,81 +119,53 @@ void setup() {
 5.Re-initialization is required for every full screen update.
 6.When porting the program, set the BUSY pin to input mode and other pins to output mode.
 */
-void loop() {
-   unsigned char i;
-#if 1 //Full screen refresh, fast refresh, and partial refresh demostration.
 
-      EPD_Init(); //Full screen refresh initialization.
-      EPD_WhiteScreen_White(); //Clear screen function.
-      EPD_DeepSleep(); //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-     /************Full display(2s)*******************/
-      EPD_Init(); //Full screen refresh initialization.
-      EPD_WhiteScreen_ALL(gImage_1); //To Display one image using full screen refresh.
-      EPD_DeepSleep(); //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-            
-  #if 1 //Partial refresh demostration.
-  //Partial refresh demo support displaying a clock at 5 locations with 00:00.  If you need to perform partial refresh more than 5 locations, please use the feature of using partial refresh at the full screen demo.
-  //After 5 partial refreshes, implement a full screen refresh to clear the ghosting caused by partial refreshes.
-  //////////////////////Partial refresh time demo/////////////////////////////////////
-      EPD_Init(); //Electronic paper initialization.  
-      EPD_SetRAMValue_BaseMap(gImage_basemap); //Please do not delete the background color function, otherwise it will cause unstable display during partial refresh. 
-      for(i=0;i<6;i++)
-      {
-        EPD_Dis_Part_Time(0,15,Num[i],Num[0],gImage_numdot,Num[0],Num[1],5,32,48); //x,y,DATA-A~E,number,Resolution 32*32            
-      }       
-      EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-        
-      EPD_Init(); //Full screen refresh initialization.
-      EPD_WhiteScreen_White(); //Clear screen function.
-      EPD_DeepSleep(); //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-  #endif  
-  
-  #if 0    //Demo of using partial refresh to update the full screen, to enable this feature, please change 0 to 1.
-  //After 5 partial refreshes, implement a full screen refresh to clear the ghosting caused by partial refreshes.
-  //////////////////////Partial refresh time demo/////////////////////////////////////
-      EPD_Init(); //Full screen refresh initialization.
-      EPD_WhiteScreen_White(); //Clear screen function.   
-      EPD_Dis_PartAll(gImage_p1); 
-      EPD_Dis_PartAll(gImage_p2);
-      EPD_Dis_PartAll(gImage_p3);
-      EPD_Dis_PartAll(gImage_p4);
-      EPD_Dis_PartAll(gImage_p5);
-      EPD_DeepSleep();//Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-      
-      EPD_Init(); //Full screen refresh initialization.
-      EPD_WhiteScreen_White(); //Clear screen function.
-      EPD_DeepSleep(); //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-  #endif
-  
-  #if 0 //Demonstration of full screen refresh with 180-degree rotation, to enable this feature, please change 0 to 1.
-      /************Full display(2s)*******************/
-      EPD_Init_180(); //Full screen refresh initialization.
-      EPD_WhiteScreen_ALL(gImage_1); //To Display one image using full screen refresh.
-      EPD_DeepSleep(); //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-  #endif        
-  
-#endif
+void onAltMslFtChange(unsigned int newValue) {
 
-#ifdef ESP8266
-  while(1) 
-    {
-     Sys_run();//System run
-     LED_run();//Breathing lamp
+  // unsigned int LastAltitude = 0;
+  // unsigned int LastHundredAltitude = 0;
+  // unsigned int LastThousandAltitude = 0;
+  // unsigned int LastTenThousandAltitude = 0;
+
+  SendDebug("Altitude :" + String(newValue));
+
+  if (newValue != LastAltitude) {
+    LastAltitude = newValue;
+    if ((int(newValue / 10000)) != LastTenThousandAltitude) {
+      SendDebug("Changing Ten Thousand");
+      LastTenThousandAltitude = int(newValue / 10000);
+      SendDebug("Changing Ten Thousand: " + String(LastTenThousandAltitude));
+    
+      SendDebug("newValue :" + String(newValue));
+      newValue = newValue - (LastTenThousandAltitude * 10000);
     }
-#endif
-#ifdef Arduino_UNO
- while(1);  // The program stops here   
-#endif
+
+    SendDebug("newValue :" + String(newValue));
+    int wrkThousandAltitude = int(newValue / 1000);
+    SendDebug("wrkThousandAltitude :" + String(wrkThousandAltitude));
+    wrkThousandAltitude = wrkThousandAltitude % 10;
+    if (LastThousandAltitude != wrkThousandAltitude) {
+      LastThousandAltitude = wrkThousandAltitude;
+      SendDebug("Ten Thousand: " + String(LastTenThousandAltitude));
+      SendDebug("Thousands Altitude :" + String(LastThousandAltitude));
+      EPD_Dis_Part_Time(0, 15, Num[LastThousandAltitude],Num[LastTenThousandAltitude], 1, 32, 48);
+      EPD_DeepSleep();
+    }
+
+    LastThousandAltitude = LastThousandAltitude % 10;
+    
+  }
 }
+DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
+
+void loop() {
+
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+    RED_LED_STATE = !RED_LED_STATE;
+    digitalWrite(STATUS_LED_PORT, RED_LED_STATE);
+    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
 
 
-
-
-//////////////////////////////////END//////////////////////////////////////////////////
+    if (DCSBIOS_In_Use == 1) DcsBios::loop();
+  }
+}
