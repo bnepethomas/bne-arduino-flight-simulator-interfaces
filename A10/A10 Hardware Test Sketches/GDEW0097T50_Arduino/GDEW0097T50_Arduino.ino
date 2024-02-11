@@ -94,7 +94,7 @@ void setup() {
   EPD_Init();                               //Electronic paper initialization.
   EPD_SetRAMValue_BaseMap(gImage_basemap);  //Please do not delete the background color function, otherwise it will cause unstable display during partial refresh.
   for (unsigned char i = 0; i <= 3; i++) {
-    EPD_Dis_Part_Time(0, 15, Num[i], Num[i], 5, 32, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+    EPD_Dis_Part_Time(0, 15, Num[i], Num[0], 5, 32, 48);  //x,y,DATA-A~E,number,Resolution 32*32
   }
   EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
   delay(2000);      //Delay for 2s.
@@ -129,31 +129,30 @@ void onAltMslFtChange(unsigned int newValue) {
 
   SendDebug("Altitude :" + String(newValue));
 
+
   if (newValue != LastAltitude) {
+    int ThousandsAltitude = 0;
     LastAltitude = newValue;
-    if ((int(newValue / 10000)) != LastTenThousandAltitude) {
-      SendDebug("Changing Ten Thousand");
-      LastTenThousandAltitude = int(newValue / 10000);
-      SendDebug("Changing Ten Thousand: " + String(LastTenThousandAltitude));
-    
-      SendDebug("newValue :" + String(newValue));
-      newValue = newValue - (LastTenThousandAltitude * 10000);
-    }
+    ThousandsAltitude = int(newValue / 1000);
+    if (ThousandsAltitude != LastThousandAltitude) {
+      // We have a change in Thousands - send to display
+      LastThousandAltitude = ThousandsAltitude;
+      SendDebug("ThousandsAltitude: " + String(ThousandsAltitude));
 
-    SendDebug("newValue :" + String(newValue));
-    int wrkThousandAltitude = int(newValue / 1000);
-    SendDebug("wrkThousandAltitude :" + String(wrkThousandAltitude));
-    wrkThousandAltitude = wrkThousandAltitude % 10;
-    if (LastThousandAltitude != wrkThousandAltitude) {
-      LastThousandAltitude = wrkThousandAltitude;
-      SendDebug("Ten Thousand: " + String(LastTenThousandAltitude));
-      SendDebug("Thousands Altitude :" + String(LastThousandAltitude));
-      EPD_Dis_Part_Time(0, 15, Num[LastThousandAltitude],Num[LastTenThousandAltitude], 1, 32, 48);
-      EPD_DeepSleep();
+      if (newValue <= 9999) {
+        unsigned char zerovalue = 0;
+        EPD_Dis_Part_Time(0, 15, Num[zerovalue], '0', 2, 32, 48);
+        EPD_DeepSleep();
+      } else {
+        SendDebug("results of modules :" + String(ThousandsAltitude % 10));
+        SendDebug("results of division :" + String(int(ThousandsAltitude / 10)));
+        unsigned char wrkThousands = int (ThousandsAltitude % 10);
+        unsigned char wrkTenThousands = int (ThousandsAltitude / 10);
+        //unsigned char wrkTenThousands = 2;
+        EPD_Dis_Part_Time(0, 15, Num[wrkThousands], Num[wrkTenThousands], 2, 32, 48);
+        EPD_DeepSleep();
+      }
     }
-
-    LastThousandAltitude = LastThousandAltitude % 10;
-    
   }
 }
 DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
