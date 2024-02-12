@@ -94,7 +94,10 @@ void setup() {
   EPD_Init();                               //Electronic paper initialization.
   EPD_SetRAMValue_BaseMap(gImage_basemap);  //Please do not delete the background color function, otherwise it will cause unstable display during partial refresh.
   for (unsigned char i = 0; i <= 3; i++) {
-    EPD_Dis_Part_Time(0, 15, Num[i], Num[0], 5, 32, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+    // EPD_Dis_Part_Time(15, 120, Num[i], Num[0], 1, 32, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+    EPD_Dis_Part_Time(15, 60, gImage_040480, gImage_04048, 2, 40, 48);
+    //EPD_Dis_Part_Time(15, 60, Num[i], Num[0], 1, 32, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+    // 40 48
   }
   EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
   delay(2000);      //Delay for 2s.
@@ -146,8 +149,8 @@ void onAltMslFtChange(unsigned int newValue) {
       } else {
         SendDebug("results of modules :" + String(ThousandsAltitude % 10));
         SendDebug("results of division :" + String(int(ThousandsAltitude / 10)));
-        unsigned char wrkThousands = int (ThousandsAltitude % 10);
-        unsigned char wrkTenThousands = int (ThousandsAltitude / 10);
+        unsigned char wrkThousands = int(ThousandsAltitude % 10);
+        unsigned char wrkTenThousands = int(ThousandsAltitude / 10);
         //unsigned char wrkTenThousands = 2;
         EPD_Dis_Part_Time(0, 15, Num[wrkThousands], Num[wrkTenThousands], 2, 32, 48);
         EPD_DeepSleep();

@@ -298,14 +298,14 @@ void EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
   } else {
     for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
       EPD_W21_WriteDATA(oldDataA[i]);
-    for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
-      EPD_W21_WriteDATA(oldDataB[i]);
-    for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
-      EPD_W21_WriteDATA(oldDataC[i]);
-    for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
-      EPD_W21_WriteDATA(oldDataD[i]);
-    for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
-      EPD_W21_WriteDATA(oldDataE[i]);
+    // for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
+    //   EPD_W21_WriteDATA(oldDataB[i]);
+    // for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
+    //   EPD_W21_WriteDATA(oldDataC[i]);
+    // for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
+    //   EPD_W21_WriteDATA(oldDataD[i]);
+    // for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
+    //   EPD_W21_WriteDATA(oldDataE[i]);
   }
 
 
