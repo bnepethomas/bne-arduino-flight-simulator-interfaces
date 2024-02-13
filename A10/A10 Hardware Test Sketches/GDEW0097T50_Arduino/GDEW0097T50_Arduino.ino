@@ -90,7 +90,7 @@ void setup() {
   SPI.beginTransaction(SPISettings(10000000, MSBFIRST, SPI_MODE0));
   SPI.begin();
 
-unsigned long timetoprocess =0;
+  unsigned long timetoprocess = 0;
 
 #if 1                                       //Partial refresh demostration. \
                                             //Partial refresh demo support displaying a clock at 5 locations with 00:00.  If you need to perform partial refresh more than 5 locations, please use the feature of using partial refresh at the full screen demo. \
@@ -98,15 +98,23 @@ unsigned long timetoprocess =0;
                                             //////////////////////Partial refresh time demo/////////////////////////////////////
   EPD_Init();                               //Electronic paper initialization.
   EPD_SetRAMValue_BaseMap(gImage_basemap);  //Please do not delete the background color function, otherwise it will cause unstable display during partial refresh.
-  for (unsigned char i = 0; i <= 3; i++) {
-    // EPD_Dis_Part_Time(15, 120, Num[i], Num[0], 1, 32, 48);  //x,y,DATA-A~E,number,Resolution 32*32
-    timetoprocess = millis();
-    EPD_Dis_Part_Time(15, 60, gImage_040480, gImage_04048, 2, 40, 48);
-    //EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-    SendDebug("Time to Write To Screen :" + String((millis() - timetoprocess) ));
-    //EPD_Dis_Part_Time(15, 60, Num[i], Num[0], 1, 32, 48);  //x,y,DATA-A~E,number,Resolution 32*32
-    // 40 48
-  }
+                                            // for (unsigned char i = 0; i <= 3; i++) {
+                                            //   // EPD_Dis_Part_Time(15, 120, Num[i], Num[0], 1, 32, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+                                            //   timetoprocess = millis();
+
+  //   EPD_Dis_Part_Time(15, 60, agImage_48480, agImage_48480 , 2, 48, 48);
+  //   //EPD_Dis_Part_Time(15, 60, gImage_040480, gImage_04048, 2, 40, 48);
+  //   EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
+  //   SendDebug("Time to Write To Screen :" + String((millis() - timetoprocess) ));
+  //   //EPD_Dis_Part_Time(15, 60, Num[i], Num[0], 1, 32, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+  //   // 40 48
+  // }
+  timetoprocess = millis();
+
+  EPD_Dis_Part_Time(15, 60, agImage48480, agImage48480, 1, 48, 48);
+  //EPD_Dis_Part_Time(15, 60, gImage_040480, gImage_04048, 2, 40, 48);
+  EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
+  SendDebug("Time to Write To Screen :" + String((millis() - timetoprocess)));
   EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
   delay(2000);      //Delay for 2s.
 
