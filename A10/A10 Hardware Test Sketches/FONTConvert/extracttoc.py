@@ -22,6 +22,10 @@
 
 from PIL import Image
 
+from datetime import datetime
+
+
+
 def extract_bmp_part(input_file, output_file, x, y, width, height):
     # Open the BMP file
     img = Image.open(input_file)
@@ -32,78 +36,93 @@ def extract_bmp_part(input_file, output_file, x, y, width, height):
     # Save the cropped image
     cropped_img.save(output_file)
 
-def export_to_c_format(image_data, width, height, output_file):
+def write_c_header(output_file):
     with open(output_file, 'w') as f:
         f.write('// Oz Hornet Font File\n')
-        f.write('const unsigned char newpetetest[288]PROGMEM={\n')
+        now = datetime.now() # current date and time
+        f.write('// Generated ' + now.strftime("%m/%d/%Y, %H:%M:%S")  + '\n')
+        f.write('const unsigned char petetest[288]PROGMEM={\n')  
 
-        # Thiscode is mapping a pixel to a byte - needs to map 8 pixels to a byte
+def export_to_c_format(image_data, width, height, output_file):
+    with open(output_file, 'a') as f:
+
+
+        # This code is mapping a pixel to a byte - needs to map 8 pixels to a byte
         for y in range(height):
-            for x in range(0,width,8):
+
+            if (False):
+                for x in range(0,width,8):
+                                    
+                    pixel_0 = image_data[y * width + x]
+                    if (pixel_0 == 0):
+                        pixel_0 = 1
+                    else:
+                        pixel_0 = 0
+                    #print("Pixel_0 = " + str(pixel_0))
+                    
+                    pixel_1 = image_data[y * width + x + 1]
+                    if (pixel_1 == 0):
+                        pixel_1 = 1
+                    else:
+                        pixel_1 = 0
+                    #print("Pixel_1 = " + str(pixel_1))
+                    
+                    pixel_2 = image_data[y * width + x + 2]
+                    if (pixel_2 == 0):
+                        pixel_2 = 1
+                    else:
+                        pixel_2 = 0
+                    #print("Pixel_2 = " + str(pixel_2))
+                    
+                    pixel_3 = image_data[y * width + x + 3]
+                    if (pixel_3 == 0):
+                        pixel_3 = 1
+                    else:
+                        pixel_3 = 0
+                    #print("Pixel_3 = " + str(pixel_3))
+                    
+                    pixel_4 = image_data[y * width + x + 4]
+                    if (pixel_4 == 0):
+                        pixel_4 = 1
+                    else:
+                        pixel_4 = 0
+                    #print("Pixel_4 = " + str(pixel_4))
+                    
+                    pixel_5 = image_data[y * width + x + 5]
+                    if (pixel_5 == 0):
+                        pixel_5 = 1
+                    else:
+                        pixel_5 = 0                
+                    #print("Pixel_5 = " + str(pixel_5))
+
+                        
+                    pixel_6 = image_data[y * width + x + 6]
+                    if (pixel_6 == 0):
+                        pixel_6 = 1
+                    else:
+                        pixel_6 = 0
+                    
+                    #print("Pixel_6 = " + str(pixel_6))
+                    
+                    pixel_7 = image_data[y * width + x + 7]
+                    if (pixel_7 == 0):
+                        pixel_7 = 1
+                    else:
+                        pixel_7 = 0               
+                    #print("Pixel_7 = " + str(pixel_7))
+
+                    pixel = pixel_0 * 128 + pixel_1 * 64 + pixel_2 * 32 + pixel_3 * 16 + pixel_4 * 8 + pixel_5 * 4 + pixel_6 * 2 + pixel_7
                 
-                
-                pixel_0 = image_data[y * width + x]
-                if (pixel_0 == 0):
-                    pixel_0 = 1
-                else:
-                    pixel_0 = 0
-                #print("Pixel_0 = " + str(pixel_0))
-                
-                pixel_1 = image_data[y * width + x + 1]
-                if (pixel_1 == 0):
-                    pixel_1 = 1
-                else:
-                    pixel_1 = 0
-                #print("Pixel_1 = " + str(pixel_1))
-                
-                pixel_2 = image_data[y * width + x + 2]
-                if (pixel_2 == 0):
-                    pixel_2 = 1
-                else:
-                    pixel_2 = 0
-                #print("Pixel_2 = " + str(pixel_2))
-                
-                pixel_3 = image_data[y * width + x + 3]
-                if (pixel_3 == 0):
-                    pixel_3 = 1
-                else:
-                    pixel_3 = 0
-                #print("Pixel_3 = " + str(pixel_3))
-                
-                pixel_4 = image_data[y * width + x + 4]
-                if (pixel_4 == 0):
-                    pixel_4 = 1
-                else:
-                    pixel_4 = 0
-                #print("Pixel_4 = " + str(pixel_4))
-                
-                pixel_5 = image_data[y * width + x + 5]
-                if (pixel_5 == 0):
-                    pixel_5 = 1
-                else:
-                    pixel_5 = 0                
-                #print("Pixel_5 = " + str(pixel_5))
+                    f.write(f'0x{pixel:02X}, ')
+
+            if (True):
+                for x in range(width):
+                    pixel = image_data[y * width + x]
+                    print("Pixel = " + str(pixel[0]) + " " + str(pixel[1]) + " " + str(pixel[2]))
+                    f.write(f'0x{pixel[0]:02X}, ')
+                    
 
                     
-                pixel_6 = image_data[y * width + x + 6]
-                if (pixel_6 == 0):
-                    pixel_6 = 1
-                else:
-                    pixel_6 = 0
-                
-                #print("Pixel_6 = " + str(pixel_6))
-                
-                pixel_7 = image_data[y * width + x + 7]
-                if (pixel_7 == 0):
-                    pixel_7 = 1
-                else:
-                    pixel_7 = 0               
-                #print("Pixel_7 = " + str(pixel_7))
-
-                #pixel = pixel_7 * 128 + pixel_6 * 64 + pixel_5 * 32 + pixel_4 * 16 + pixel_3 * 8 + pixel_2 * 4 + pixel_1 * 2 + pixel_0
-                pixel = pixel_0 * 128 + pixel_1 * 64 + pixel_2 * 32 + pixel_3 * 16 + pixel_4 * 8 + pixel_5 * 4 + pixel_6 * 2 + pixel_7
-                
-                f.write(f'0x{pixel:02X}, ')
             f.write('\n')
 
         f.write('};\n')
@@ -111,8 +130,10 @@ def export_to_c_format(image_data, width, height, output_file):
         f.write(f'// image_height = {height};\n')
 
 if __name__ == "__main__":
-    input_file = "48-48-2.bmp"
+    #input_file = "48-48-0.bmp"
+    input_file = "alldigits.bmp"
     output_file = "scratchoutput.bmp"
+    # working through weird issue as alldigits.bmp gives all 0x00 but 48-48-0.bmp doesn't
     cropped_output_file = "cropped_output.bmp"
     c_output_file = "../GDEW0097T50_Arduino/ozhornet_epaper_font_data.h"
 
@@ -128,4 +149,5 @@ if __name__ == "__main__":
     image_data = list(flipped_img.getdata())
 
     # Export the cropped image data to a C file
+    write_c_header(output_file=c_output_file)
     export_to_c_format(image_data, width=48, height=48, output_file=c_output_file)

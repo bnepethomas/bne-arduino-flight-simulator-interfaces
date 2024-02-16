@@ -37,15 +37,9 @@ void loop() {
    unsigned char i;
 #if 1 //Full screen refresh, fast refresh, and partial refresh demostration.
 
-      EPD_Init(); //Full screen refresh initialization.
-      EPD_WhiteScreen_White(); //Clear screen function.
-      EPD_DeepSleep(); //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-     /************Full display(2s)*******************/
-      EPD_Init(); //Full screen refresh initialization.
-      EPD_WhiteScreen_ALL(gImage_1); //To Display one image using full screen refresh.
-      EPD_DeepSleep(); //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
+      // EPD_Init(); //Full screen refresh initialization.
+      // EPD_WhiteScreen_White(); //Clear screen function.
+
             
   #if 1 //Partial refresh demostration.
   //Partial refresh demo support displaying a clock at 5 locations with 00:00.  If you need to perform partial refresh more than 5 locations, please use the feature of using partial refresh at the full screen demo.
@@ -60,40 +54,12 @@ void loop() {
       //EPD_Dis_Part_Time(0,15,Num[2],Num[0],gImage_numdot,Num[0],Num[1],1,32,48); //x,y,DATA-A~E,number,Resolution 32*32  
       EPD_Dis_Part_Time(0,15,petetest,Num[0],gImage_numdot,Num[0],Num[1],1,48,48); //x,y,DATA-A~E,number,Resolution 32*32 
       EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(20000); //Delay for 2s. 
+
         
-      // EPD_Init(); //Full screen refresh initialization.
-      // EPD_WhiteScreen_White(); //Clear screen function.
-      // EPD_DeepSleep(); //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      // delay(2000); //Delay for 2s. 
+
   #endif  
   
-  #if 0    //Demo of using partial refresh to update the full screen, to enable this feature, please change 0 to 1.
-  //After 5 partial refreshes, implement a full screen refresh to clear the ghosting caused by partial refreshes.
-  //////////////////////Partial refresh time demo/////////////////////////////////////
-      EPD_Init(); //Full screen refresh initialization.
-      EPD_WhiteScreen_White(); //Clear screen function.   
-      EPD_Dis_PartAll(gImage_p1); 
-      EPD_Dis_PartAll(gImage_p2);
-      EPD_Dis_PartAll(gImage_p3);
-      EPD_Dis_PartAll(gImage_p4);
-      EPD_Dis_PartAll(gImage_p5);
-      EPD_DeepSleep();//Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-      
-      EPD_Init(); //Full screen refresh initialization.
-      EPD_WhiteScreen_White(); //Clear screen function.
-      EPD_DeepSleep(); //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-  #endif
-  
-  #if 0 //Demonstration of full screen refresh with 180-degree rotation, to enable this feature, please change 0 to 1.
-      /************Full display(2s)*******************/
-      EPD_Init_180(); //Full screen refresh initialization.
-      EPD_WhiteScreen_ALL(gImage_1); //To Display one image using full screen refresh.
-      EPD_DeepSleep(); //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-      delay(2000); //Delay for 2s. 
-  #endif        
+       
   
 #endif
 
