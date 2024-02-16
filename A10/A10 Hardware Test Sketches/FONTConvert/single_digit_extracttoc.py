@@ -41,13 +41,7 @@ def write_c_header(output_file):
         f.write('// Oz Hornet Font File\n')
         now = datetime.now() # current date and time
         f.write('// Generated ' + now.strftime("%m/%d/%Y, %H:%M:%S")  + '\n')
-        # Need to validate number of array elements
-        f.write('const unsigned char petetest[10][288]PROGMEM={\n')  
-
-def write_c_footer(output_file):
-    with open(output_file, 'a') as f:
-        f.write('};\n')
-
+        f.write('const unsigned char petetest[288]PROGMEM={\n')  
 
 def export_to_c_format(image_data, width, height, output_file):
     with open(output_file, 'a') as f:
@@ -62,9 +56,7 @@ def export_to_c_format(image_data, width, height, output_file):
             print("Working with Image Data Type of Tuple")
         else:
             print("working with untest type of " + type(image_data[0]))
-        f.write(f'// image_width = {width};\n')
-        f.write(f'// image_height = {height};\n')
-        f.write('{\n')
+        
         for y in range(height):
 
             # 1 Bit per pixel
@@ -205,41 +197,30 @@ def export_to_c_format(image_data, width, height, output_file):
                     
             f.write('\n')
 
-        f.write('},\n')
-
+        f.write('};\n')
+        f.write(f'// image_width = {width};\n')
+        f.write(f'// image_height = {height};\n')
 
 if __name__ == "__main__":
-    #input_file = "48-48-0.bmp"
-    input_file = "alldigits.bmp"
+    input_file = "48-48-0.bmp"
+    #input_file = "alldigits.bmp"
     output_file = "scratchoutput.bmp"
+    # working through weird issue as alldigits.bmp gives all 0x00 but 48-48-0.bmp doesn't
     cropped_output_file = "cropped_output.bmp"
     c_output_file = "../GDEW0097T50_Arduino/ozhornet_epaper_font_data.h"
 
-    image_width = 48
-    image_height = 48
+    # Extract a part of the BMP file
+    extract_bmp_part(input_file, cropped_output_file, x=0, y=0, width=48, height=48)
 
-    # Write Header of output file
+    # Open the cropped BMP file and get its pixel data
+    cropped_img = Image.open(cropped_output_file)
+
+    # Adjust orentation for epaper
+    rotated_img = cropped_img.transpose(method=Image.ROTATE_90)
+    flipped_img = rotated_img.transpose(Image.FLIP_TOP_BOTTOM)
+    image_data = list(flipped_img.getdata())
+    
+
+    # Export the cropped image data to a C file
     write_c_header(output_file=c_output_file)
-
-    for i in range(0,9):
-
-        # Extract a part of the BMP file
-        extract_bmp_part(input_file, cropped_output_file, x=0, y=i * image_height, width=image_width, height=image_height)
-
-        # Open the cropped BMP file and get its pixel data
-        cropped_img = Image.open(cropped_output_file)
-
-        # Adjust orentation for epaper
-        rotated_img = cropped_img.transpose(method=Image.ROTATE_90)
-        #flipped_img = rotated_img.transpose(Image.FLIP_TOP_BOTTOM)
-        image_data = list(rotated_img.getdata())
-        
-
-        # Export the cropped image data to a C file
-        export_to_c_format(image_data, width=48, height=48, output_file=c_output_file)
-
-
-
-
-    # Write Footer of output file
-    write_c_footer(output_file=c_output_file)
+    export_to_c_format(image_data, width=48, height=48, output_file=c_output_file)
