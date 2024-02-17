@@ -54,11 +54,17 @@ void loop() {
                                             //EPD_Dis_Part_Time(0,15,Num[2],Num[0],gImage_numdot,Num[0],Num[1],1,32,48); //x,y,DATA-A~E,number,Resolution 32*32
                                             // EPD_Dis_Part_Time(0, 15, petetest[1], Num[0], gImage_numdot, Num[0], Num[1], 1, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
 
-  for (i = 0; i < 9; i++) {
+  for (i = 0; i < 79; i++) {
     EPD_Dis_Part_Time(0, 15, petetest[i], Num[0], gImage_numdot, Num[0], Num[1], 1, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
     EPD_DeepSleep();                                                                          //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-    delay(500);
+    delay(10);
   }
+  for (i = 79; i > 0; i--) {
+    EPD_Dis_Part_Time(0, 15, petetest[i], Num[0], gImage_numdot, Num[0], Num[1], 1, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+    EPD_DeepSleep();                                                                          //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
+    delay(10);
+  }
+  EPD_DeepSleep(); 
 
 #endif
 

@@ -36,13 +36,13 @@ def extract_bmp_part(input_file, output_file, x, y, width, height):
     # Save the cropped image
     cropped_img.save(output_file)
 
-def write_c_header(output_file):
+def write_c_header(output_file, element_count):
     with open(output_file, 'w') as f:
         f.write('// Oz Hornet Font File\n')
         now = datetime.now() # current date and time
         f.write('// Generated ' + now.strftime("%m/%d/%Y, %H:%M:%S")  + '\n')
         # Need to validate number of array elements
-        f.write('const unsigned char petetest[10][288]PROGMEM={\n')  
+        f.write('const unsigned char petetest[' + str(element_count) + '][288]PROGMEM={\n')  
 
 def write_c_footer(output_file):
     with open(output_file, 'a') as f:
@@ -218,13 +218,16 @@ if __name__ == "__main__":
     image_width = 48
     image_height = 48
 
-    # Write Header of output file
-    write_c_header(output_file=c_output_file)
+    number_of_elements = 80
 
-    for i in range(0,9):
+    # Write Header of output file
+    write_c_header(output_file=c_output_file, element_count=number_of_elements)
+
+    for i in range(0,(number_of_elements -1)):
 
         # Extract a part of the BMP file
-        extract_bmp_part(input_file, cropped_output_file, x=0, y=i * image_height, width=image_width, height=image_height)
+        extract_bmp_part(input_file, cropped_output_file, x=0, y=(i * image_height/8), width=image_width, height=image_height)
+        #extract_bmp_part(input_file, cropped_output_file, x=0, y=i, width=image_width, height=image_height)
 
         # Open the cropped BMP file and get its pixel data
         cropped_img = Image.open(cropped_output_file)
