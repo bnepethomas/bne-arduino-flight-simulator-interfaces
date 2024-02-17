@@ -644,6 +644,106 @@ void updateAllOfScratchpad(String ScratchString1, String ScratchString2, String 
   u8g2_Scratch_Pad.sendBuffer();
 }
 
+#define u8g_logo_width 24
+#define u8g_logo_height 32
+static unsigned char u8g_logo_bits[] = {
+  0x00,
+  0xFE,
+  0x01,
+  0x01,
+  0xFC,
+  0x03,
+  0x03,
+  0xF8,
+  0x07,
+  0x07,
+  0xF0,
+  0x0F,
+  0x0F,
+  0xE0,
+  0x1F,
+  0x1F,
+  0xC0,
+  0x3F,
+  0x3F,
+  0x80,
+  0x7F,
+  0x7F,
+  0x00,
+  0xFE,
+  0xFE,
+  0x01,
+  0xFC,
+  0xFC,
+  0x03,
+  0xF8,
+  0xF8,
+  0x07,
+  0xF0,
+  0xF0,
+  0x0F,
+  0xE0,
+  0xE0,
+  0x1F,
+  0xC0,
+  0x00,
+  0x3F,
+  0x80,
+  0x00,
+  0x7F,
+  0x00,
+  0x00,
+  0xFE,
+  0x01,
+  0x01,
+  0xFC,
+  0x03,
+  0x03,
+  0xF8,
+  0x07,
+  0x07,
+  0xF0,
+  0x0F,
+  0x0F,
+  0xE0,
+  0x1F,
+  0x1F,
+  0xC0,
+  0x3F,
+  0x3F,
+  0x80,
+  0x7F,
+  0x7F,
+  0x00,
+  0xFE,
+  0xFE,
+  0x01,
+  0xFC,
+  0xFC,
+  0x03,
+  0xF8,
+  0xF8,
+  0x07,
+  0xF0,
+  0xF0,
+  0x0F,
+  0xE0,
+  0xE0,
+  0x1F,
+  0xC0,
+  0xC0,
+  0x3F,
+  0x80,
+  0x00,
+  0x7F,
+  0x00,
+  0x00,
+  0xFE,
+  0x00,
+  0x00,
+  0xFC,
+  0x00,
+};
 
 void loop() {
 
@@ -685,15 +785,80 @@ void loop() {
     u8g2_OPT1.setDrawColor(1);
     u8g2_OPT1.drawStr(10, 30, firstValue);
     u8g2_OPT1.drawStr(40, i, newValue);
-    u8g2_OPT1.drawStr(40, i - CharacterHeightSpacer , aboveValue);
+    u8g2_OPT1.drawStr(40, i - CharacterHeightSpacer, aboveValue);
     u8g2_OPT1.drawStr(40, i + CharacterHeightSpacer, belowValue);
-
+    u8g2_OPT1.drawXBM(70, 0, u8g_logo_width, u8g_logo_height, u8g_logo_bits);
     u8g2_OPT1.sendBuffer();
     ;
     TimeToProcess = millis() - TimeToProcess;
     SendDebug("OLED Update time :" + String(TimeToProcess));
   }
   delay(1000);
+
+  for (int i = 660; i >= 0; i--) {
+
+    String strnewValue = String(i);
+    int tensAboveDigit = 0;
+    int tensBelowDigit = 0;
+
+    String straboveValue = "1";
+    String strbelowValue = "3";
+    int tensDigit = (i % 100) / 10;
+    if (tensDigit == 9) {
+      tensAboveDigit = 0;
+    } else {
+      tensAboveDigit = tensDigit + 1;
+    }
+    if (tensDigit == 0) {
+      tensBelowDigit = 9;
+    } else {
+      tensBelowDigit = tensDigit - 1;
+    }
+
+    int onesDigit = i % 10;
+
+    String firstchr = String(i / 100);
+    String tenDigitchr = String(tensDigit);
+    String tensAboveDigitchr = String(tensAboveDigit);
+    String tensBelowDigitchr = String(tensBelowDigit);
+
+    String thirdchr = String(i % 10);
+    unsigned long TimeToProcess = millis();
+    const char* newValue = strnewValue.c_str();
+    const char* aboveValue = straboveValue.c_str();
+    const char* belowValue = strbelowValue.c_str();
+    const char* tensValue = tenDigitchr.c_str();
+    const char* tensAboveValue = tensAboveDigitchr.c_str();
+    const char* tensBelowValue = tensBelowDigitchr.c_str();
+
+    int CharacterHeightSpacer = 38;
+
+    const char* firstValue = firstchr.c_str();
+
+
+    //tcaselect(Opt_OLED_Port_3);
+    u8g2_OPT3.setFontMode(0);
+    u8g2_OPT3.setDrawColor(0);
+    u8g2_OPT3.drawBox(0, 0, 128, 32);
+    u8g2_OPT1.setDrawColor(1);
+    u8g2_OPT1.drawStr(75, 30, newValue);
+    if (firstchr != "0") {
+      u8g2_OPT1.drawStr(10, 30, firstValue);
+    } else {
+      u8g2_OPT1.drawXBM(0, 0, u8g_logo_width, u8g_logo_height, u8g_logo_bits);
+    }
+    
+    u8g2_OPT1.drawStr(40, -2 + int (onesDigit * 3 ), tensAboveValue);
+    u8g2_OPT1.drawStr(40, 30 + int (onesDigit * 3 ), tensValue);
+
+    u8g2_OPT1.sendBuffer();
+    ;
+    TimeToProcess = millis() - TimeToProcess;
+    SendDebug("OLED Update time :" + String(TimeToProcess));
+    delay(50);
+  }
+  delay(1000);
+
 
 
 

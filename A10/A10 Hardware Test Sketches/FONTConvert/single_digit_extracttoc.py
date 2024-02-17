@@ -202,15 +202,17 @@ def export_to_c_format(image_data, width, height, output_file):
         f.write(f'// image_height = {height};\n')
 
 if __name__ == "__main__":
-    input_file = "48-48-0.bmp"
+    input_file = "48-48-H.bmp"
     #input_file = "alldigits.bmp"
     output_file = "scratchoutput.bmp"
     # working through weird issue as alldigits.bmp gives all 0x00 but 48-48-0.bmp doesn't
     cropped_output_file = "cropped_output.bmp"
-    c_output_file = "../GDEW0097T50_Arduino/ozhornet_epaper_font_data.h"
+    #c_output_file = "../GDEW0097T50_Arduino/ozhornet_epaper_font_data.h"
+    c_output_file = "hash.h"
 
     # Extract a part of the BMP file
     extract_bmp_part(input_file, cropped_output_file, x=0, y=0, width=48, height=48)
+    #extract_bmp_part(input_file, cropped_output_file, x=0, y=0, width=32, height=24)
 
     # Open the cropped BMP file and get its pixel data
     cropped_img = Image.open(cropped_output_file)
@@ -219,8 +221,9 @@ if __name__ == "__main__":
     rotated_img = cropped_img.transpose(method=Image.ROTATE_90)
     flipped_img = rotated_img.transpose(Image.FLIP_TOP_BOTTOM)
     image_data = list(flipped_img.getdata())
-    
+    #image_data = list(rotated_img.getdata())
 
     # Export the cropped image data to a C file
     write_c_header(output_file=c_output_file)
     export_to_c_format(image_data, width=48, height=48, output_file=c_output_file)
+    #export_to_c_format(image_data, width=32, height=24, output_file=c_output_file)
