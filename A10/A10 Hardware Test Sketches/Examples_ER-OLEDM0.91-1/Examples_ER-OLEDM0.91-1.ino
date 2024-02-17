@@ -23,7 +23,7 @@ Test OK : Arduino DUE,Arduino mega2560,Arduino UNO Board
 
 uint8_t oled_buf[WIDTH * HEIGHT / 8];
 
-#define EthernetIsNotHere
+#define EthernetIsHere
 
 #ifdef EthernetIsHere
 #define Ethernet_In_Use 1
@@ -125,7 +125,7 @@ void setup() {
     er_oled_display(oled_buf);
     TimeToProcess = millis() - TimeToProcess;
     SendDebug("OLED Update time :" + String(TimeToProcess));
-    delay(500);
+    //delay(500);
   }
 
   // er_oled_char(20, 16, '2', 16, 1, oled_buf);

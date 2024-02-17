@@ -308,12 +308,16 @@ void setup() {
   tcaselect(Opt_OLED_Port_1);
   u8g2_OPT1.begin();
   u8g2_OPT1.clearBuffer();
-  //u8g2_OPT1.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
+  u8g2_OPT1.setFont(u8g2_font_logisoso30_tn);
+  //u8g2_OPT1.setFont(u8g2_font_inb30_mf);
+  //u8g2_OPT1.setFont(u8g2_font_courB24_tn);
   // u8g2_DcsFontHornet4_BIOS_09_tf
   // u8g2_DcsFontHornet3_BIOS_09_tf
-  u8g2_OPT1.setFont(u8g2_DcsFontHornet3_BIOS_09_tf);
+  //u8g2_OPT1.setFont(u8g2_DcsFontHornet3_BIOS_09_tf);
   u8g2_OPT1.sendBuffer();
-  updateOpt1("OPT 111");
+  //updateOpt1("OPT 111");
+  updateOpt1("111");
+  delay(3000);
 
 
 
@@ -654,6 +658,43 @@ void loop() {
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
     // Check to see if model time is updating - if nothing after 30 seconds disble steppers
   }
+
+
+
+  for (int i = 0; i <= 60; i++) {
+
+    String strnewValue = "2";
+    String straboveValue = "1";
+    String strbelowValue = "3";
+    String firstchr = "0";
+    unsigned long TimeToProcess = millis();
+    const char* newValue = strnewValue.c_str();
+    const char* aboveValue = straboveValue.c_str();
+    const char* belowValue = strbelowValue.c_str();
+
+    int CharacterHeightSpacer = 38;
+
+    const char* firstValue = firstchr.c_str();
+
+
+    //tcaselect(Opt_OLED_Port_3);
+    u8g2_OPT3.setFontMode(0);
+    u8g2_OPT3.setDrawColor(0);
+    u8g2_OPT3.drawBox(0, 0, 128, 32);
+
+    u8g2_OPT1.setDrawColor(1);
+    u8g2_OPT1.drawStr(10, 30, firstValue);
+    u8g2_OPT1.drawStr(40, i, newValue);
+    u8g2_OPT1.drawStr(40, i - CharacterHeightSpacer , aboveValue);
+    u8g2_OPT1.drawStr(40, i + CharacterHeightSpacer, belowValue);
+
+    u8g2_OPT1.sendBuffer();
+    ;
+    TimeToProcess = millis() - TimeToProcess;
+    SendDebug("OLED Update time :" + String(TimeToProcess));
+  }
+  delay(1000);
+
 
 
   if (false) {
