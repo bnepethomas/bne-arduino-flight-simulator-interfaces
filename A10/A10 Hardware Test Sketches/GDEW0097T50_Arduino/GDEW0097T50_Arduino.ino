@@ -6,6 +6,8 @@
 
 #include "ozhornet_epaper_font_data.h"
 
+
+
 void setup() {
 #ifdef ESP8266
   pinMode(D0, INPUT);   //BUSY
@@ -55,8 +57,13 @@ void loop() {
                                             // EPD_Dis_Part_Time(0, 15, petetest[1], Num[0], gImage_numdot, Num[0], Num[1], 1, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
 
   for (i = 0; i < 79; i++) {
-    EPD_Dis_Part_Time(0, 15, petetest[i], Num[0], gImage_numdot, Num[0], Num[1], 1, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
-    EPD_DeepSleep();                                                                          //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
+    OZ_Init();
+    //OZ_EPD_Dis_Part_RAM(0, 15, petetest[i], 48, 48);
+    // X range -9 to 70, the -9 is a little dodgy as it is an insigned char
+    OZ_EPD_Dis_Part_RAM(-8, 100, petetest[i], 48, 48);
+    OZ_Finish();
+    //EPD_Dis_Part_Time(0, 15, petetest[i], Num[0], gImage_numdot, Num[0], Num[1], 1, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+    EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
     delay(10);
   }
   for (i = 79; i > 0; i--) {
@@ -64,7 +71,10 @@ void loop() {
     EPD_DeepSleep();                                                                          //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
     delay(10);
   }
-  EPD_DeepSleep(); 
+  EPD_DeepSleep();
+
+
+
 
 #endif
 
