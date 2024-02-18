@@ -358,6 +358,9 @@ void EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
 
 void OZ_Init(void) {
   EPD_Init_Part();
+  EPD_W21_WriteCMD(0x91);  //This command makes the display enter partial mode
+  EPD_W21_WriteCMD(0x90);  //resolution setting
+  EPD_W21_WriteCMD(0x14);  //resolution setting
 }
 
 void OZ_Finish(void) {
@@ -381,10 +384,6 @@ void OZ_EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
 
 
 
-  EPD_W21_WriteCMD(0x91);  //This command makes the display enter partial mode
-  EPD_W21_WriteCMD(0x90);  //resolution setting
-
-  EPD_W21_WriteCMD(0x14);      //resolution setting
   EPD_W21_WriteDATA(x_start);  //x-start
   EPD_W21_WriteDATA(y_start / 256);
   EPD_W21_WriteDATA(y_start % 256);              //y-start
@@ -414,6 +413,8 @@ void OZ_EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
     oldDataA[i] = pgm_read_byte(&datas_A[i]);
   }
 
+
+
   //Refresh
   EPD_W21_WriteCMD(0x16);      //DISPLAY REFRESH
   EPD_W21_WriteDATA(x_start);  //x-start
@@ -422,6 +423,32 @@ void OZ_EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
   EPD_W21_WriteDATA(PART_LINE);                  //w
   EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
   EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+
+
+  //Start play
+  // x_start = x_start + 90;
+  // EPD_W21_WriteCMD(0x15);      //writes New data to SRAM.
+  // EPD_W21_WriteDATA(x_start);  //x-start
+  // EPD_W21_WriteDATA(y_start / 256);
+  // EPD_W21_WriteDATA(y_start % 256);              //y-start
+  // EPD_W21_WriteDATA(PART_LINE);                  //w
+  // EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
+  // EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+
+
+  // for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++) {
+  //   EPD_W21_WriteDATA(pgm_read_byte(&datas_A[i]));
+  //   oldDataA[i] = pgm_read_byte(&datas_A[i]);
+  // }
+
+  // EPD_W21_WriteCMD(0x16);      //DISPLAY REFRESH
+  // EPD_W21_WriteDATA(x_start);  //x-start
+  // EPD_W21_WriteDATA(y_start / 256);
+  // EPD_W21_WriteDATA(y_start % 256);              //y-start
+  // EPD_W21_WriteDATA(PART_LINE);                  //w
+  // EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
+  // EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+  //end play
 
   //OZ_Finish();
 }
