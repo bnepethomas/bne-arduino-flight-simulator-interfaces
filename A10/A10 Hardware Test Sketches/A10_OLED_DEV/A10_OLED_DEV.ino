@@ -760,80 +760,99 @@ void loop() {
   }
 
 
+  if (false) {
+    for (int i = 0; i <= 60; i++) {
 
-  for (int i = 0; i <= 60; i++) {
+      String strnewValue = "2";
+      String straboveValue = "1";
+      String strbelowValue = "3";
+      String firstchr = "0";
+      unsigned long TimeToProcess = millis();
+      const char* newValue = strnewValue.c_str();
+      const char* aboveValue = straboveValue.c_str();
+      const char* belowValue = strbelowValue.c_str();
 
-    String strnewValue = "2";
-    String straboveValue = "1";
-    String strbelowValue = "3";
-    String firstchr = "0";
-    unsigned long TimeToProcess = millis();
-    const char* newValue = strnewValue.c_str();
-    const char* aboveValue = straboveValue.c_str();
-    const char* belowValue = strbelowValue.c_str();
+      int CharacterHeightSpacer = 38;
 
-    int CharacterHeightSpacer = 38;
-
-    const char* firstValue = firstchr.c_str();
+      const char* firstValue = firstchr.c_str();
 
 
-    //tcaselect(Opt_OLED_Port_3);
-    u8g2_OPT3.setFontMode(0);
-    u8g2_OPT3.setDrawColor(0);
-    u8g2_OPT3.drawBox(0, 0, 128, 32);
+      //tcaselect(Opt_OLED_Port_3);
+      u8g2_OPT3.setFontMode(0);
+      u8g2_OPT3.setDrawColor(0);
+      u8g2_OPT3.drawBox(0, 0, 128, 32);
 
-    u8g2_OPT1.setDrawColor(1);
-    u8g2_OPT1.drawStr(10, 30, firstValue);
-    u8g2_OPT1.drawStr(40, i, newValue);
-    u8g2_OPT1.drawStr(40, i - CharacterHeightSpacer, aboveValue);
-    u8g2_OPT1.drawStr(40, i + CharacterHeightSpacer, belowValue);
-    u8g2_OPT1.drawXBM(70, 0, u8g_logo_width, u8g_logo_height, u8g_logo_bits);
-    u8g2_OPT1.sendBuffer();
-    ;
-    TimeToProcess = millis() - TimeToProcess;
-    SendDebug("OLED Update time :" + String(TimeToProcess));
+      u8g2_OPT1.setDrawColor(1);
+      u8g2_OPT1.drawStr(10, 30, firstValue);
+      u8g2_OPT1.drawStr(40, i, newValue);
+      u8g2_OPT1.drawStr(40, i - CharacterHeightSpacer, aboveValue);
+      u8g2_OPT1.drawStr(40, i + CharacterHeightSpacer, belowValue);
+      u8g2_OPT1.drawXBM(70, 0, u8g_logo_width, u8g_logo_height, u8g_logo_bits);
+      u8g2_OPT1.sendBuffer();
+      ;
+      TimeToProcess = millis() - TimeToProcess;
+      SendDebug("OLED Update time :" + String(TimeToProcess));
+    }
+    delay(1000);
   }
-  delay(1000);
 
-  for (int i = 660; i >= 0; i--) {
+  //for (int i = 660; i >= 0; i--) {
+  for (long i = 12000; i >= 0; i=i-20) {
 
     String strnewValue = String(i);
-    int tensAboveDigit = 0;
-    int tensBelowDigit = 0;
+    int itensAboveDigit = 0;
+    int itensBelowDigit = 0;
 
     String straboveValue = "1";
     String strbelowValue = "3";
-    int tensDigit = (i % 100) / 10;
-    if (tensDigit == 9) {
-      tensAboveDigit = 0;
+    // int tensDigit = (i % 100) / 10;
+
+
+
+    int iThousandsAboveDigit = 0;
+    int iThousandsBelowDigit = 0;
+    int iThousandsValue = ((i % 10000) / 1000);
+    String sThousandValue = String(iThousandsValue);
+    // SendDebug(String(i) + " : " + sThousandValue);
+    if (iThousandsValue == 9) {
+      iThousandsAboveDigit = 0;
     } else {
-      tensAboveDigit = tensDigit + 1;
+      iThousandsAboveDigit = iThousandsValue + 1;
     }
-    if (tensDigit == 0) {
-      tensBelowDigit = 9;
+    if (iThousandsValue == 0) {
+      iThousandsBelowDigit = 9;
     } else {
-      tensBelowDigit = tensDigit - 1;
+      iThousandsBelowDigit = iThousandsValue - 1;
     }
 
-    int onesDigit = i % 10;
+    String sThousandsAboveDigit = String(iThousandsAboveDigit);
+    String sThousandsBelowDigit = String(iThousandsBelowDigit);
 
-    String firstchr = String(i / 100);
-    String tenDigitchr = String(tensDigit);
-    String tensAboveDigitchr = String(tensAboveDigit);
-    String tensBelowDigitchr = String(tensBelowDigit);
 
-    String thirdchr = String(i % 10);
+    int iTenThousandsValue = (i / 10000);
+    String sTenThousandsDigit = String(iTenThousandsValue);
+    //SendDebug("TenThousandsDigit : " + sTenThousandsDigit);
+
+    //String firstchr = String(i / 10000);
+    //tring tenDigitchr = String(tensDigit);
+
+
+    String thirdchr = String(i % 1000);
     unsigned long TimeToProcess = millis();
-    const char* newValue = strnewValue.c_str();
-    const char* aboveValue = straboveValue.c_str();
-    const char* belowValue = strbelowValue.c_str();
-    const char* tensValue = tenDigitchr.c_str();
-    const char* tensAboveValue = tensAboveDigitchr.c_str();
-    const char* tensBelowValue = tensBelowDigitchr.c_str();
+    const char* cThousandsValue = sThousandValue.c_str();
+    const char* cThousandsaboveValue = sThousandsAboveDigit.c_str();
+    const char* cThousandsbelowValue = sThousandsBelowDigit.c_str();
+
+    //const char* tensValue = tenDigitchr.c_str();
+    //const char* tensAboveValue = tensAboveDigitchr.c_str();
+    //const char* tensBelowValue = tensBelowDigitchr.c_str();
 
     int CharacterHeightSpacer = 38;
+    int CharacterOffset = ((i % 1000) / 32);
+    // SendDebug("Character Offset : " + String(CharacterOffset));
 
-    const char* firstValue = firstchr.c_str();
+
+    const char* cTenThousandsValue = sTenThousandsDigit.c_str();
 
 
     //tcaselect(Opt_OLED_Port_3);
@@ -841,21 +860,21 @@ void loop() {
     u8g2_OPT3.setDrawColor(0);
     u8g2_OPT3.drawBox(0, 0, 128, 32);
     u8g2_OPT1.setDrawColor(1);
-    u8g2_OPT1.drawStr(75, 30, newValue);
-    if (firstchr != "0") {
-      u8g2_OPT1.drawStr(10, 30, firstValue);
+    // u8g2_OPT1.drawStr(75, 30, newValue);
+    if (sTenThousandsDigit != "0") {
+      u8g2_OPT1.drawStr(10, 30, cTenThousandsValue);
     } else {
       u8g2_OPT1.drawXBM(0, 0, u8g_logo_width, u8g_logo_height, u8g_logo_bits);
     }
-    
-    u8g2_OPT1.drawStr(40, -2 + int (onesDigit * 3 ), tensAboveValue);
-    u8g2_OPT1.drawStr(40, 30 + int (onesDigit * 3 ), tensValue);
 
+    u8g2_OPT1.drawStr(40, -2 + CharacterOffset, cThousandsaboveValue);
+    //u8g2_OPT1.drawStr(40, 30 + int(onesDigit * 3), cThousandsbelowValue);
+    u8g2_OPT1.drawStr(40, 30 + CharacterOffset, cThousandsValue);
     u8g2_OPT1.sendBuffer();
     ;
     TimeToProcess = millis() - TimeToProcess;
-    SendDebug("OLED Update time :" + String(TimeToProcess));
-    delay(50);
+    //SendDebug("OLED Update time :" + String(TimeToProcess));
+    delay(0);
   }
   delay(1000);
 
