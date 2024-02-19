@@ -5,6 +5,7 @@
 #include "Ap_29demo.h"
 
 #include "ozhornet_epaper_font_data.h"
+#include "ozhornet_epaper_hash_data.h"
 
 
 
@@ -36,75 +37,37 @@ void setup() {
 6.When porting the program, set the BUSY pin to input mode and other pins to output mode.
 */
 void loop() {
-  unsigned char i;
-#if 1  //Full screen refresh, fast refresh, and partial refresh demostration.
-
-  // EPD_Init(); //Full screen refresh initialization.
-  // EPD_WhiteScreen_White(); //Clear screen function.
+  // unsigned char i;
 
 
-#if 1                                       //Partial refresh demostration. \
-                                            //Partial refresh demo support displaying a clock at 5 locations with 00:00.  If you need to perform partial refresh more than 5 locations, please use the feature of using partial refresh at the full screen demo. \
-                                            //After 5 partial refreshes, implement a full screen refresh to clear the ghosting caused by partial refreshes. \
-                                            //////////////////////Partial refresh time demo/////////////////////////////////////
-  EPD_Init();                               //Electronic paper initialization.
-  EPD_SetRAMValue_BaseMap(gImage_basemap);  //Please do not delete the background color function, otherwise it will cause unstable display during partial refresh.
-                                            // for(i=0;i<6;i++)
-                                            // {
-                                            //   EPD_Dis_Part_Time(0,15,Num[i],Num[0],gImage_numdot,Num[0],Num[1],5,32,48); //x,y,DATA-A~E,number,Resolution 32*32
-                                            // }
-                                            //EPD_Dis_Part_Time(0,15,Num[2],Num[0],gImage_numdot,Num[0],Num[1],1,32,48); //x,y,DATA-A~E,number,Resolution 32*32
-                                            // EPD_Dis_Part_Time(0, 15, petetest[1], Num[0], gImage_numdot, Num[0], Num[1], 1, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+  EPD_Init(); //Full screen refresh initialization.
+  //EPD_WhiteScreen_White(); //Clear screen function.
 
-  // for (i = 0; i < 79; i++) {
-  //   OZ_Init();
-  //   //OZ_EPD_Dis_Part_RAM(0, 15, petetest[i], 48, 48);
-  //   // X range -9 to 70, the -9 is a little dodgy as it is an insigned char
-  //   OZ_EPD_Dis_Part_RAM(-8, 100, petetest[i], 48, 48);
-  //   OZ_Finish();
-  //   //EPD_Dis_Part_Time(0, 15, petetest[i], Num[0], gImage_numdot, Num[0], Num[1], 1, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
-  //   EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-  //   delay(10);
-  // }
-
-
-
-  //EPD_Dis_Part(0, 0, petetest[0], 48, 48);
-
-
-  // X range -9 to 70, the -9 is a little dodgy as it is an insigned char
-
-  EPD_Dis_Part(0, 0, petetest[0], 48, 48);
-  EPD_DeepSleep();
-  delay(1000);
-  EPD_Dis_Part(0, 0, petetest[10], 48, 48);
-  EPD_DeepSleep();
-  delay(1000);
-
-  // for (i = 79; i > 0; i--) {
-  //   EPD_Dis_Part_Time(0, 15, petetest[i], Num[0], gImage_numdot, Num[0], Num[1], 1, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
-  //   EPD_DeepSleep();                                                                          //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-  //   delay(10);
-  // }
-
-
-  EPD_DeepSleep();
-
-
-
-
-#endif
-
-
-
-#endif
-
-#ifdef ESP8266
-  while (1) {
-    Sys_run();  //System run
-    LED_run();  //Breathing lamp
+  for (int i = 79; i > 0; i--) {
+    if (i <= 7) {
+      EPD_Dis_Part_Time(15, 4, petetest[i], hashtest[i],  Num[0], Num[0], Num[0], 2, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+    } else {
+      EPD_Dis_Part_Time(15, 4, petetest[i], petetest[i], Num[0], Num[0], Num[0], 2, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+    }
+    EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
+    //delay(0);
   }
-#endif
+
+  EPD_Init(); //Full screen refresh initialization.
+
+
+  for (int i = 1; i <= 79; i++) {
+    if (i <= 7) {
+      EPD_Dis_Part_Time(15, 4, petetest[i], hashtest[i],  Num[0], Num[0], Num[0], 2, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+    } else {
+      EPD_Dis_Part_Time(15, 4, petetest[i], petetest[i], Num[0], Num[0], Num[0], 2, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+    }
+    EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
+    //delay(0);
+  }
+EPD_DeepSleep();
+
+
 #ifdef Arduino_UNO
   while (1)
     ;  // The program stops here

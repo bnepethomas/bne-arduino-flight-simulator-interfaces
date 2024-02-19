@@ -210,15 +210,18 @@ def export_to_c_format(image_data, width, height, output_file):
 
 if __name__ == "__main__":
     #input_file = "48-48-0.bmp"
-    input_file = "alldigits.bmp"
+    #input_file = "alldigits.bmp"
+    input_file = "hashone.bmp"
     output_file = "scratchoutput.bmp"
     cropped_output_file = "cropped_output.bmp"
     c_output_file = "../GDEW0097T50_Arduino/ozhornet_epaper_font_data.h"
+    c_output_file = "../GDEW0097T50_Arduino/ozhornet_epaper_hash_data.h"
 
     image_width = 48
     image_height = 48
 
-    number_of_elements = 80
+    # number_of_elements = 80
+    number_of_elements = 16
 
     # Write Header of output file
     write_c_header(output_file=c_output_file, element_count=number_of_elements)
