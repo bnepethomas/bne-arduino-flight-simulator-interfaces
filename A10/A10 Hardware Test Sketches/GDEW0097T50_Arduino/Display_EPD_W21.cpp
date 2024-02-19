@@ -189,12 +189,27 @@ void EPD_WhiteScreen_White(void) {
   EPD_Update();
 }
 
+void EPD_WhiteScreen_Black(void) {
+  unsigned int i;
+  //Write Data
+  EPD_W21_WriteCMD(0x10);  //Transfer old data
+  for (i = 0; i < EPD_ARRAY; i++) {
+    EPD_W21_WriteDATA(0x00);
+  }
+  EPD_W21_WriteCMD(0x13);  //Transfer new data
+  for (i = 0; i < EPD_ARRAY; i++) {
+    EPD_W21_WriteDATA(0x00);  //Transfer the actual displayed data
+    oldData[i] = 0x00;
+  }
+  EPD_Update();
+}
+
 //Partial refresh of background display, this function is necessary, please do not delete it!!!
 void EPD_SetRAMValue_BaseMap(const unsigned char *datas) {
   unsigned int i;
   EPD_W21_WriteCMD(0x10);  //write old data
   for (i = 0; i < EPD_ARRAY; i++) {
-    EPD_W21_WriteDATA(0xFF);
+    EPD_W21_WriteDATA(0x00);
   }
   EPD_W21_WriteCMD(0x13);  //write new data
   for (i = 0; i < EPD_ARRAY; i++) {

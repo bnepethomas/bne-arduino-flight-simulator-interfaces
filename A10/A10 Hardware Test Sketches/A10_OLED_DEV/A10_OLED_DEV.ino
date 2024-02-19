@@ -644,9 +644,9 @@ void updateAllOfScratchpad(String ScratchString1, String ScratchString2, String 
   u8g2_Scratch_Pad.sendBuffer();
 }
 
-#define u8g_logo_width 24
-#define u8g_logo_height 32
-static unsigned char u8g_logo_bits[] = {
+#define hash_width 24
+#define hash_height 32
+static unsigned char hash_bits[] = {
   0x00,
   0xFE,
   0x01,
@@ -745,6 +745,84 @@ static unsigned char u8g_logo_bits[] = {
   0x00,
 };
 
+int lastThousandsValue = 0;
+int lastTenThousandsValue = 0;
+int lastCharacterOffset = 0;
+
+void UpdateAltimeterDigits(long height) {
+
+  String strnewValue = String(height);
+  int itensAboveDigit = 0;
+  int itensBelowDigit = 0;
+
+
+  int iThousandsAboveDigit = 0;
+  int iThousandsBelowDigit = 0;
+  int iThousandsValue = ((height % 10000) / 1000);
+  String sThousandValue = String(iThousandsValue);
+  // SendDebug(String(i) + " : " + sThousandValue);
+  if (iThousandsValue == 9) {
+    iThousandsAboveDigit = 0;
+  } else {
+    iThousandsAboveDigit = iThousandsValue + 1;
+  }
+  if (iThousandsValue == 0) {
+    iThousandsBelowDigit = 9;
+  } else {
+    iThousandsBelowDigit = iThousandsValue - 1;
+  }
+
+  String sThousandsAboveDigit = String(iThousandsAboveDigit);
+  String sThousandsBelowDigit = String(iThousandsBelowDigit);
+  const char* cThousandsValue = sThousandValue.c_str();
+  const char* cThousandsaboveValue = sThousandsAboveDigit.c_str();
+  const char* cThousandsbelowValue = sThousandsBelowDigit.c_str();
+
+
+  int iTenThousandsValue = (height / 10000);
+  String sTenThousandsDigit = String(iTenThousandsValue);
+  //SendDebug("TenThousandsDigit : " + sTenThousandsDigit);
+  const char* cTenThousandsValue = sTenThousandsDigit.c_str();
+
+  unsigned long TimeToProcess = millis();
+
+  int CharacterHeightSpacer = 38;
+  int iCharacterOffset = ((height % 1000) / 32);
+  // SendDebug("Character Offset : " + String(CharacterOffset));
+
+  // Only attempt to draw of something has changed that will impact display
+  if ((iThousandsValue != lastThousandsValue) || (iTenThousandsValue != lastTenThousandsValue) || (iCharacterOffset != lastCharacterOffset)) {
+
+
+    lastThousandsValue = iThousandsValue;
+    lastTenThousandsValue = iTenThousandsValue;
+    lastCharacterOffset = iCharacterOffset;
+
+    //tcaselect(Opt_OLED_Port_3);
+    u8g2_OPT3.setFontMode(0);
+    u8g2_OPT3.setDrawColor(0);
+    u8g2_OPT3.drawBox(0, 0, 128, 32);
+    u8g2_OPT1.setDrawColor(1);
+
+    // If Ten Thousands value is a 0 draw the hash
+    if (sTenThousandsDigit != "0") {
+      u8g2_OPT1.drawStr(10, 30, cTenThousandsValue);
+    } else {
+      u8g2_OPT1.drawXBM(0, 0, hash_width, hash_height, hash_bits);
+    }
+
+    u8g2_OPT1.drawStr(40, -2 + iCharacterOffset, cThousandsaboveValue);
+    u8g2_OPT1.drawStr(40, 30 + iCharacterOffset, cThousandsValue);
+    u8g2_OPT1.sendBuffer();
+    ;
+    TimeToProcess = millis() - TimeToProcess;
+    //SendDebug("OLED Update time :" + String(TimeToProcess));
+  }
+}
+
+
+
+
 void loop() {
 
 
@@ -787,7 +865,7 @@ void loop() {
       u8g2_OPT1.drawStr(40, i, newValue);
       u8g2_OPT1.drawStr(40, i - CharacterHeightSpacer, aboveValue);
       u8g2_OPT1.drawStr(40, i + CharacterHeightSpacer, belowValue);
-      u8g2_OPT1.drawXBM(70, 0, u8g_logo_width, u8g_logo_height, u8g_logo_bits);
+      u8g2_OPT1.drawXBM(70, 0, hash_width, hash_height, hash_bits);
       u8g2_OPT1.sendBuffer();
       ;
       TimeToProcess = millis() - TimeToProcess;
@@ -796,86 +874,17 @@ void loop() {
     delay(1000);
   }
 
-  //for (int i = 660; i >= 0; i--) {
-  for (long i = 12000; i >= 0; i=i-20) {
-
-    String strnewValue = String(i);
-    int itensAboveDigit = 0;
-    int itensBelowDigit = 0;
-
-    String straboveValue = "1";
-    String strbelowValue = "3";
-    // int tensDigit = (i % 100) / 10;
 
 
 
-    int iThousandsAboveDigit = 0;
-    int iThousandsBelowDigit = 0;
-    int iThousandsValue = ((i % 10000) / 1000);
-    String sThousandValue = String(iThousandsValue);
-    // SendDebug(String(i) + " : " + sThousandValue);
-    if (iThousandsValue == 9) {
-      iThousandsAboveDigit = 0;
-    } else {
-      iThousandsAboveDigit = iThousandsValue + 1;
-    }
-    if (iThousandsValue == 0) {
-      iThousandsBelowDigit = 9;
-    } else {
-      iThousandsBelowDigit = iThousandsValue - 1;
-    }
 
-    String sThousandsAboveDigit = String(iThousandsAboveDigit);
-    String sThousandsBelowDigit = String(iThousandsBelowDigit);
-
-
-    int iTenThousandsValue = (i / 10000);
-    String sTenThousandsDigit = String(iTenThousandsValue);
-    //SendDebug("TenThousandsDigit : " + sTenThousandsDigit);
-
-    //String firstchr = String(i / 10000);
-    //tring tenDigitchr = String(tensDigit);
-
-
-    String thirdchr = String(i % 1000);
-    unsigned long TimeToProcess = millis();
-    const char* cThousandsValue = sThousandValue.c_str();
-    const char* cThousandsaboveValue = sThousandsAboveDigit.c_str();
-    const char* cThousandsbelowValue = sThousandsBelowDigit.c_str();
-
-    //const char* tensValue = tenDigitchr.c_str();
-    //const char* tensAboveValue = tensAboveDigitchr.c_str();
-    //const char* tensBelowValue = tensBelowDigitchr.c_str();
-
-    int CharacterHeightSpacer = 38;
-    int CharacterOffset = ((i % 1000) / 32);
-    // SendDebug("Character Offset : " + String(CharacterOffset));
-
-
-    const char* cTenThousandsValue = sTenThousandsDigit.c_str();
-
-
-    //tcaselect(Opt_OLED_Port_3);
-    u8g2_OPT3.setFontMode(0);
-    u8g2_OPT3.setDrawColor(0);
-    u8g2_OPT3.drawBox(0, 0, 128, 32);
-    u8g2_OPT1.setDrawColor(1);
-    // u8g2_OPT1.drawStr(75, 30, newValue);
-    if (sTenThousandsDigit != "0") {
-      u8g2_OPT1.drawStr(10, 30, cTenThousandsValue);
-    } else {
-      u8g2_OPT1.drawXBM(0, 0, u8g_logo_width, u8g_logo_height, u8g_logo_bits);
-    }
-
-    u8g2_OPT1.drawStr(40, -2 + CharacterOffset, cThousandsaboveValue);
-    //u8g2_OPT1.drawStr(40, 30 + int(onesDigit * 3), cThousandsbelowValue);
-    u8g2_OPT1.drawStr(40, 30 + CharacterOffset, cThousandsValue);
-    u8g2_OPT1.sendBuffer();
-    ;
-    TimeToProcess = millis() - TimeToProcess;
-    //SendDebug("OLED Update time :" + String(TimeToProcess));
-    delay(0);
+  for (long i = 12000; i >= 0; i--) {
+    UpdateAltimeterDigits(i);
   }
+  for (long i = 0; i <= 64000; i++) {
+    UpdateAltimeterDigits(i);
+  }
+
   delay(1000);
 
 
