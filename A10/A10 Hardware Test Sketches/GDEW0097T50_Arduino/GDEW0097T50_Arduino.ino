@@ -160,7 +160,7 @@ void UpdateAltimeterDigits(long height) {
       EPD_Dis_Part_Time(15, 4, petetest[iThousandsCharacterOffset + iCharacterOffset], hashtest[iTenThousandsCharacterOffset], petetest[0], petetest[0], petetest[0], 2, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
     }
     EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-    delay(1);
+    delay(3);
   }
 }
 
