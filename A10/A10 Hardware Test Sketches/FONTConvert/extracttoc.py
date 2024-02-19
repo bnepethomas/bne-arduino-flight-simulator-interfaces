@@ -42,8 +42,10 @@ def write_c_header(output_file, element_count):
         now = datetime.now() # current date and time
         f.write('// Generated ' + now.strftime("%m/%d/%Y, %H:%M:%S")  + '\n')
         # Need to validate number of array elements
-        f.write('const unsigned char petetest[' + str(element_count) + '][288]PROGMEM={\n')  
-
+        if (updatinghash == True):
+            f.write('const unsigned char hashtest[' + str(element_count) + '][288]PROGMEM={\n')  
+        else:
+            f.write('const unsigned char petetest[' + str(element_count) + '][288]PROGMEM={\n') 
 def write_c_footer(output_file):
     with open(output_file, 'a') as f:
         f.write('};\n')
@@ -207,21 +209,29 @@ def export_to_c_format(image_data, width, height, output_file):
 
         f.write('},\n')
 
+updatinghash = True
 
 if __name__ == "__main__":
+
     #input_file = "48-48-0.bmp"
     input_file = "alldigits.bmp"
-    #input_file = "hashone.bmp"
+
     output_file = "scratchoutput.bmp"
     cropped_output_file = "cropped_output.bmp"
     c_output_file = "../GDEW0097T50_Arduino/ozhornet_epaper_font_data.h"
-    #c_output_file = "../GDEW0097T50_Arduino/ozhornet_epaper_hash_data.h"
+
 
     image_width = 48
     image_height = 48
 
     number_of_elements = 81
-    #number_of_elements = 16
+
+
+    if (updatinghash == True):
+        number_of_elements = 16
+        c_output_file = "../GDEW0097T50_Arduino/ozhornet_epaper_hash_data.h"
+        input_file = "hashone.bmp"
+         
 
     # Write Header of output file
     write_c_header(output_file=c_output_file, element_count=number_of_elements)
