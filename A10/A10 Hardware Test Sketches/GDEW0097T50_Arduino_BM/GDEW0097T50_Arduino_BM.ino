@@ -8,8 +8,9 @@
 #include "ozhornet_epaper_hash_data.h"
 
 
+
 #define Ethernet_In_Use 1
-#define DCSBIOS_In_Use 0
+#define DCSBIOS_In_Use 1
 #define Reflector_In_Use 1
 
 #include <Ethernet.h>
@@ -45,6 +46,9 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
+
+#define DCSBIOS_IRQ_SERIAL
+#include <DcsBios.h>
 
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
@@ -85,14 +89,16 @@ void setup() {
                //EPD_WhiteScreen_White(); //Clear screen function.
   // EPD_WhiteScreen_Black();  //Clear screen function.
   EPD_WhiteScreen_White();  //Clear screen function.
-  EPD_Dis_Part_Time(15, 4, black_num1, black_num1 , 2, 48, 48);
+  EPD_Dis_Part_Time(15, 4, black_num1, black_num1, 2, 48, 48);
+
+  if (DCSBIOS_In_Use == 1) DcsBios::setup();
 }
 
 
 
 
 int lastThousandsValue = 0;
-int lastTenThousandsValue = 0;
+int lastTenThousandsValue = 6;
 int lastCharacterOffset = 0;
 
 void UpdateAltimeterDigits(long height) {
@@ -184,17 +190,25 @@ void SavedUpdateAltimeterDigits(long height) {
 5.Re-initialization is required for every full screen update.
 6.When porting the program, set the BUSY pin to input mode and other pins to output mode.
 */
-
+void onAltMslFtChange(unsigned int newValue) {
+  long Altitude = newValue;
+  UpdateAltimeterDigits(Altitude);
+}
+DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
 
 void loop() {
 
-  for (long i = 64000; i >= 0; i--) {
-    UpdateAltimeterDigits(i);
+  if (DCSBIOS_In_Use == 1) {
+    if (DCSBIOS_In_Use == 1) DcsBios::loop();
   }
 
-  for (long i = 0; i <= 64000; i++) {
-    UpdateAltimeterDigits(i);
-  }
+  // for (long i = 64000; i >= 0; i--) {
+  //   UpdateAltimeterDigits(i);
+  // }
+
+  // for (long i = 0; i <= 64000; i++) {
+  //   UpdateAltimeterDigits(i);
+  // }
 
   // UpdateAltimeterDigits(9998);
   // delay(2000);
