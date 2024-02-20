@@ -1,12 +1,9 @@
 #include "Display_EPD_W21_spi.h"
 #include "Display_EPD_W21.h"
 unsigned char oldData[2024];
-unsigned char oldDataP[256];
-unsigned char oldDataA[256];
-unsigned char oldDataB[256];
-unsigned char oldDataC[256];
-unsigned char oldDataD[256];
-unsigned char oldDataE[256];
+unsigned char oldDataP[288];
+unsigned char oldDataA[288];
+unsigned char oldDataB[288];
 unsigned char partFlag = 1;
 
 ////////////////////////////////////E-paper demo//////////////////////////////////////////////////////////
@@ -230,11 +227,11 @@ void EPD_Dis_Part(unsigned int x_start, unsigned int y_start, const unsigned cha
 
   EPD_W21_WriteCMD(0x14);      //resolution setting
   EPD_W21_WriteDATA(x_start);  //x-start
-  EPD_W21_WriteDATA(y_start / 256);
-  EPD_W21_WriteDATA(y_start % 256);        //y-start
+  EPD_W21_WriteDATA(y_start / 288);
+  EPD_W21_WriteDATA(y_start % 288);        //y-start
   EPD_W21_WriteDATA(PART_LINE);            //w
-  EPD_W21_WriteDATA((PART_COLUMN) / 256);  //l-MSB
-  EPD_W21_WriteDATA((PART_COLUMN) % 256);  //l-LSB
+  EPD_W21_WriteDATA((PART_COLUMN) / 288);  //l-MSB
+  EPD_W21_WriteDATA((PART_COLUMN) % 288);  //l-LSB
   if (partFlag == 1) {
     partFlag = 0;
     for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
@@ -246,11 +243,11 @@ void EPD_Dis_Part(unsigned int x_start, unsigned int y_start, const unsigned cha
 
   EPD_W21_WriteCMD(0x15);      //resolution setting
   EPD_W21_WriteDATA(x_start);  //x-start
-  EPD_W21_WriteDATA(y_start / 256);
-  EPD_W21_WriteDATA(y_start % 256);        //y-start
+  EPD_W21_WriteDATA(y_start / 288);
+  EPD_W21_WriteDATA(y_start % 288);        //y-start
   EPD_W21_WriteDATA(PART_LINE);            //w
-  EPD_W21_WriteDATA((PART_COLUMN) / 256);  //l-MSB
-  EPD_W21_WriteDATA((PART_COLUMN) % 256);  //l-LSB
+  EPD_W21_WriteDATA((PART_COLUMN) / 288);  //l-MSB
+  EPD_W21_WriteDATA((PART_COLUMN) % 288);  //l-LSB
 
   for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++) {
     EPD_W21_WriteDATA(pgm_read_byte(&datas[i]));
@@ -260,11 +257,11 @@ void EPD_Dis_Part(unsigned int x_start, unsigned int y_start, const unsigned cha
   //Refresh
   EPD_W21_WriteCMD(0x16);      //DISPLAY REFRESH
   EPD_W21_WriteDATA(x_start);  //x-start
-  EPD_W21_WriteDATA(y_start / 256);
-  EPD_W21_WriteDATA(y_start % 256);        //y-start
+  EPD_W21_WriteDATA(y_start / 288);
+  EPD_W21_WriteDATA(y_start % 288);        //y-start
   EPD_W21_WriteDATA(PART_LINE);            //w
-  EPD_W21_WriteDATA((PART_COLUMN) / 256);  //l-MSB
-  EPD_W21_WriteDATA((PART_COLUMN) % 256);  //l-LSB
+  EPD_W21_WriteDATA((PART_COLUMN) / 288);  //l-MSB
+  EPD_W21_WriteDATA((PART_COLUMN) % 288);  //l-LSB
 
   delay(1);         //!!!The delay here is necessary, 200uS at least!!!
   lcd_chkstatus();  //waiting for the electronic paper IC to release the idle signal
@@ -294,7 +291,6 @@ void EPD_Dis_PartAll(const unsigned char *datas) {
 //Partial refresh write address and data
 void EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
                       const unsigned char *datas_A, const unsigned char *datas_B,
-                      const unsigned char *datas_C, const unsigned char *datas_D, const unsigned char *datas_E,
                       unsigned char num, unsigned int PART_COLUMN, unsigned int PART_LINE) {
   unsigned int i;
   x_start = x_start - x_start % 8;
@@ -306,11 +302,11 @@ void EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
 
   EPD_W21_WriteCMD(0x14);      //resolution setting
   EPD_W21_WriteDATA(x_start);  //x-start
-  EPD_W21_WriteDATA(y_start / 256);
-  EPD_W21_WriteDATA(y_start % 256);              //y-start
+  EPD_W21_WriteDATA(y_start / 288);
+  EPD_W21_WriteDATA(y_start % 288);              //y-start
   EPD_W21_WriteDATA(PART_LINE);                  //w
-  EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
-  EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) / 288);  //l-MSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) % 288);  //l-LSB
   if (partFlag == 1) {
     partFlag = 0;
     for (i = 0; i < PART_COLUMN * PART_LINE * num / 8; i++)
@@ -320,22 +316,16 @@ void EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
       EPD_W21_WriteDATA(oldDataA[i]);
     for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
       EPD_W21_WriteDATA(oldDataB[i]);
-    for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
-      EPD_W21_WriteDATA(oldDataC[i]);
-    for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
-      EPD_W21_WriteDATA(oldDataD[i]);
-    for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++)
-      EPD_W21_WriteDATA(oldDataE[i]);
-  }
+    }
 
 
   EPD_W21_WriteCMD(0x15);      //writes New data to SRAM.
   EPD_W21_WriteDATA(x_start);  //x-start
-  EPD_W21_WriteDATA(y_start / 256);
-  EPD_W21_WriteDATA(y_start % 256);              //y-start
+  EPD_W21_WriteDATA(y_start / 288);
+  EPD_W21_WriteDATA(y_start % 288);              //y-start
   EPD_W21_WriteDATA(PART_LINE);                  //w
-  EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
-  EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) / 288);  //l-MSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) % 288);  //l-LSB
 
   for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++) {
     EPD_W21_WriteDATA(pgm_read_byte(&datas_A[i]));
@@ -345,26 +335,15 @@ void EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
     EPD_W21_WriteDATA(pgm_read_byte(&datas_B[i]));
     oldDataB[i] = pgm_read_byte(&datas_B[i]);
   }
-  for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++) {
-    EPD_W21_WriteDATA(pgm_read_byte(&datas_C[i]));
-    oldDataC[i] = pgm_read_byte(&datas_C[i]);
-  }
-  for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++) {
-    EPD_W21_WriteDATA(pgm_read_byte(&datas_D[i]));
-    oldDataD[i] = pgm_read_byte(&datas_D[i]);
-  }
-  for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++) {
-    EPD_W21_WriteDATA(pgm_read_byte(&datas_E[i]));
-    oldDataE[i] = pgm_read_byte(&datas_E[i]);
-  }
+ 
   //Refresh
   EPD_W21_WriteCMD(0x16);      //DISPLAY REFRESH
   EPD_W21_WriteDATA(x_start);  //x-start
-  EPD_W21_WriteDATA(y_start / 256);
-  EPD_W21_WriteDATA(y_start % 256);              //y-start
+  EPD_W21_WriteDATA(y_start / 288);
+  EPD_W21_WriteDATA(y_start % 288);              //y-start
   EPD_W21_WriteDATA(PART_LINE);                  //w
-  EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
-  EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) / 288);  //l-MSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) % 288);  //l-LSB
 
   delay(1);         //!!!The delay here is necessary, 200uS at least!!!
   lcd_chkstatus();  //waiting for the electronic paper IC to release the idle signal
@@ -400,11 +379,11 @@ void OZ_EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
 
 
   EPD_W21_WriteDATA(x_start);  //x-start
-  EPD_W21_WriteDATA(y_start / 256);
-  EPD_W21_WriteDATA(y_start % 256);              //y-start
+  EPD_W21_WriteDATA(y_start / 288);
+  EPD_W21_WriteDATA(y_start % 288);              //y-start
   EPD_W21_WriteDATA(PART_LINE);                  //w
-  EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
-  EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) / 288);  //l-MSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) % 288);  //l-LSB
   if (partFlag == 1) {
     partFlag = 0;
     for (i = 0; i < PART_COLUMN * PART_LINE * num / 8; i++)
@@ -417,11 +396,11 @@ void OZ_EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
 
   EPD_W21_WriteCMD(0x15);      //writes New data to SRAM.
   EPD_W21_WriteDATA(x_start);  //x-start
-  EPD_W21_WriteDATA(y_start / 256);
-  EPD_W21_WriteDATA(y_start % 256);              //y-start
+  EPD_W21_WriteDATA(y_start / 288);
+  EPD_W21_WriteDATA(y_start % 288);              //y-start
   EPD_W21_WriteDATA(PART_LINE);                  //w
-  EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
-  EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) / 288);  //l-MSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) % 288);  //l-LSB
 
   for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++) {
     EPD_W21_WriteDATA(pgm_read_byte(&datas_A[i]));
@@ -433,22 +412,22 @@ void OZ_EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
   //Refresh
   EPD_W21_WriteCMD(0x16);      //DISPLAY REFRESH
   EPD_W21_WriteDATA(x_start);  //x-start
-  EPD_W21_WriteDATA(y_start / 256);
-  EPD_W21_WriteDATA(y_start % 256);              //y-start
+  EPD_W21_WriteDATA(y_start / 288);
+  EPD_W21_WriteDATA(y_start % 288);              //y-start
   EPD_W21_WriteDATA(PART_LINE);                  //w
-  EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
-  EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) / 288);  //l-MSB
+  EPD_W21_WriteDATA((PART_COLUMN * num) % 288);  //l-LSB
 
 
   //Start play
   // x_start = x_start + 90;
   // EPD_W21_WriteCMD(0x15);      //writes New data to SRAM.
   // EPD_W21_WriteDATA(x_start);  //x-start
-  // EPD_W21_WriteDATA(y_start / 256);
-  // EPD_W21_WriteDATA(y_start % 256);              //y-start
+  // EPD_W21_WriteDATA(y_start / 288);
+  // EPD_W21_WriteDATA(y_start % 288);              //y-start
   // EPD_W21_WriteDATA(PART_LINE);                  //w
-  // EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
-  // EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+  // EPD_W21_WriteDATA((PART_COLUMN * num) / 288);  //l-MSB
+  // EPD_W21_WriteDATA((PART_COLUMN * num) % 288);  //l-LSB
 
 
   // for (i = 0; i < PART_COLUMN * PART_LINE / 8; i++) {
@@ -458,11 +437,11 @@ void OZ_EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
 
   // EPD_W21_WriteCMD(0x16);      //DISPLAY REFRESH
   // EPD_W21_WriteDATA(x_start);  //x-start
-  // EPD_W21_WriteDATA(y_start / 256);
-  // EPD_W21_WriteDATA(y_start % 256);              //y-start
+  // EPD_W21_WriteDATA(y_start / 288);
+  // EPD_W21_WriteDATA(y_start % 288);              //y-start
   // EPD_W21_WriteDATA(PART_LINE);                  //w
-  // EPD_W21_WriteDATA((PART_COLUMN * num) / 256);  //l-MSB
-  // EPD_W21_WriteDATA((PART_COLUMN * num) % 256);  //l-LSB
+  // EPD_W21_WriteDATA((PART_COLUMN * num) / 288);  //l-MSB
+  // EPD_W21_WriteDATA((PART_COLUMN * num) % 288);  //l-LSB
   //end play
 
   //OZ_Finish();
@@ -472,9 +451,8 @@ void OZ_EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
 //Clock display
 void EPD_Dis_Part_Time(unsigned int x_start, unsigned int y_start,
                        const unsigned char *datas_A, const unsigned char *datas_B,
-                       const unsigned char *datas_C, const unsigned char *datas_D, const unsigned char *datas_E,
-                       unsigned char num, unsigned int PART_COLUMN, unsigned int PART_LINE) {
-  EPD_Dis_Part_RAM(x_start, y_start, datas_A, datas_B, datas_C, datas_D, datas_E, num, PART_COLUMN, PART_LINE);
+                                              unsigned char num, unsigned int PART_COLUMN, unsigned int PART_LINE) {
+  EPD_Dis_Part_RAM(x_start, y_start, datas_A, datas_B, num, PART_COLUMN, PART_LINE);
 }
 
 ////////////////////////////////Other newly added functions////////////////////////////////////////////

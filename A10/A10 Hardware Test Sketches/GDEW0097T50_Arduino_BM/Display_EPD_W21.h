@@ -18,18 +18,16 @@ void EPD_Dis_PartAll(const unsigned char *datas);
 void EPD_Dis_Part(unsigned int x_start, unsigned int y_start, const unsigned char *datas, unsigned int PART_COLUMN, unsigned int PART_LINE);
 void EPD_Dis_Part_Time(unsigned int x_start, unsigned int y_start,
                        const unsigned char *datas_A, const unsigned char *datas_B,
-                       const unsigned char *datas_C, const unsigned char *datas_D, const unsigned char *datas_E,
                        unsigned char num, unsigned int PART_COLUMN, unsigned int PART_LINE);
 
 void OZ_EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
-                         const unsigned char *datas_A, 
+                         const unsigned char *datas_A, const unsigned char *datas_B,
                          unsigned int PART_COLUMN, unsigned int PART_LINE);
 
 void OZ_Init(void);
 void OZ_Finish(void);
 void EPD_Dis_Part_RAM(unsigned int x_start, unsigned int y_start,
                       const unsigned char *datas_A, const unsigned char *datas_B,
-                      const unsigned char *datas_C, const unsigned char *datas_D, const unsigned char *datas_E,
                       unsigned char num, unsigned int PART_COLUMN, unsigned int PART_LINE);
 
 #endif

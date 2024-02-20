@@ -85,7 +85,7 @@ void setup() {
                //EPD_WhiteScreen_White(); //Clear screen function.
   // EPD_WhiteScreen_Black();  //Clear screen function.
   EPD_WhiteScreen_White();  //Clear screen function.
-  EPD_Dis_Part_Time(15, 4, petetest[0], petetest[0], petetest[0], petetest[0], petetest[0], 2, 48, 48);
+  EPD_Dis_Part_Time(15, 4, black_num1, black_num1 , 2, 48, 48);
 }
 
 
@@ -155,15 +155,15 @@ void UpdateAltimeterDigits(long height) {
 
     // Due to performance and memory constraints there are
     if (sTenThousandsDigit != "0") {
-      EPD_Dis_Part_Time(15, 4, petetest[iThousandsCharacterOffset + iCharacterOffset], petetest[iTenThousandsCharacterOffset], petetest[0], petetest[0], petetest[0], 2, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+      EPD_Dis_Part_Time(15, 4, petetest[iThousandsCharacterOffset + iCharacterOffset], petetest[iTenThousandsCharacterOffset], 2, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
     } else {
-      EPD_Dis_Part_Time(15, 4, petetest[iThousandsCharacterOffset + iCharacterOffset], hashtest[iTenThousandsCharacterOffset], petetest[0], petetest[0], petetest[0], 2, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
+      EPD_Dis_Part_Time(14, 4, petetest[iThousandsCharacterOffset + iCharacterOffset], hashtest[iTenThousandsCharacterOffset], 2, 48, 48);  //x,y,DATA-A~E,number,Resolution 32*32
     }
     EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
-    delay(3);
+    delay(10);
   }
 }
-
+/*
 void SavedUpdateAltimeterDigits(long height) {
   // Works with high between 0 and 80
   // Due to performance and memory constraints there are
@@ -174,7 +174,7 @@ void SavedUpdateAltimeterDigits(long height) {
   }
   EPD_DeepSleep();  //Enter the sleep mode and please do not delete it, otherwise it will reduce the lifespan of the screen.
   delay(1);
-}
+}*/
 //Tips//
 /*
 1.Flickering is normal when EPD is performing a full screen update to clear ghosting from the previous image so to ensure better clarity and legibility for the new image.
@@ -188,11 +188,11 @@ void SavedUpdateAltimeterDigits(long height) {
 
 void loop() {
 
-  for (long i = 11000; i >= 8500; i--) {
+  for (long i = 64000; i >= 0; i--) {
     UpdateAltimeterDigits(i);
   }
 
-  for (long i = 8500; i <= 11000; i++) {
+  for (long i = 0; i <= 64000; i++) {
     UpdateAltimeterDigits(i);
   }
 
