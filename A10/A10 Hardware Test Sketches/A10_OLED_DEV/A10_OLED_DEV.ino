@@ -105,6 +105,9 @@
 //#define Opt_OLED_Port_4 2
 //#define Opt_OLED_Port_5 7
 
+#define ALTIMETER_HEIGHT_TCA_PORT 7
+#define ALTIMETER_PRESSURE_TCA_PORT 6
+
 #define Opt_OLED_Port_1 3
 #define Opt_OLED_Port_2 4
 #define Opt_OLED_Port_3 5
@@ -192,6 +195,7 @@ extern "C" {
 }
 
 #define TCAADDR 0x70
+//#define TCAADDR 0x112
 
 
 int CurrentDisplay = 0;
@@ -268,7 +272,7 @@ void setup() {
   for (uint8_t t = 0; t < 8; t++) {
     tcaselect(t);
     // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-    //Serial.print("TCA Port #"); Serial.println(t);
+    SendDebug("TCA Port #" + String(t));
 
     for (uint8_t addr = 0; addr <= 127; addr++) {
       //if (addr == TCAADDR) continue;
@@ -276,7 +280,7 @@ void setup() {
       uint8_t data;
       if (!twi_writeTo(addr, &data, 0, 1, 1)) {
         // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-        SendDebug("Found I2C 0x");  //Serial.println(addr,HEX);
+        SendDebug("Found I2C 0x" + String(addr));
       }
     }
   }
@@ -304,8 +308,26 @@ void setup() {
     // u8g2_COM2.sendBuffer();
   }
 
+  SendDebug("Start - display AAA");
+  tcaselect(ALTIMETER_PRESSURE_TCA_PORT);
+  //tcaselect(ALTIMETER_THOUSANDS_TCA_PORT);
+  u8g2_OPT2.begin();
+  u8g2_OPT2.clearBuffer();
+  u8g2_OPT2.setFont(u8g2_font_logisoso30_tn);
+  //u8g2_OPT1.setFont(u8g2_font_inb30_mf);
+  //u8g2_OPT1.setFont(u8g2_font_courB24_tn);
+  // u8g2_DcsFontHornet4_BIOS_09_tf
+  // u8g2_DcsFontHornet3_BIOS_09_tf
+  //u8g2_OPT1.setFont(u8g2_DcsFontHornet3_BIOS_09_tf);
+  u8g2_OPT2.sendBuffer();
+  //updateOpt1("OPT 111");
+  // updateALTIMETER_HEIGHT("AAA");
+  updateALTIMETER_PRESSURE("AAA");
+  delay(5000);
+  SendDebug("Done - display AAA");
 
-  tcaselect(Opt_OLED_Port_1);
+  SendDebug("Start - display BBB");
+  tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
   u8g2_OPT1.begin();
   u8g2_OPT1.clearBuffer();
   u8g2_OPT1.setFont(u8g2_font_logisoso30_tn);
@@ -316,10 +338,10 @@ void setup() {
   //u8g2_OPT1.setFont(u8g2_DcsFontHornet3_BIOS_09_tf);
   u8g2_OPT1.sendBuffer();
   //updateOpt1("OPT 111");
-  updateOpt1("111");
-  delay(3000);
-
-
+  updateALTIMETER_HEIGHT("AAA");
+  //updateALTIMETER_PRESSURE("BBB");
+  delay(5000);
+  SendDebug("Done - display AAA");
 
 
   if (false) {
@@ -436,10 +458,34 @@ void SendIPString(String state) {
   }
 }
 
+
+void updateALTIMETER_PRESSURE(String strnewValue) {
+
+  const char* newValue = strnewValue.c_str();
+  tcaselect(ALTIMETER_PRESSURE_TCA_PORT);
+  u8g2_OPT2.setFontMode(0);
+  u8g2_OPT2.setDrawColor(0);
+  u8g2_OPT2.drawBox(0, 0, 128, 32);
+  u8g2_OPT2.setDrawColor(1);
+  u8g2_OPT2.drawStr(5, 32, newValue);
+  u8g2_OPT2.sendBuffer();
+}
+
+void updateALTIMETER_HEIGHT(String strnewValue) {
+
+  const char* newValue = strnewValue.c_str();
+  tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
+  u8g2_OPT1.setFontMode(0);
+  u8g2_OPT1.setDrawColor(0);
+  u8g2_OPT1.drawBox(0, 0, 128, 32);
+  u8g2_OPT1.setDrawColor(1);
+  u8g2_OPT1.drawStr(5, 32, newValue);
+  u8g2_OPT1.sendBuffer();
+}
 void updateOpt1(String strnewValue) {
 
   const char* newValue = strnewValue.c_str();
-  tcaselect(Opt_OLED_Port_1);
+  tcaselect(ALTIMETER_PRESSURE_TCA_PORT);
   u8g2_OPT1.setFontMode(0);
   u8g2_OPT1.setDrawColor(0);
   u8g2_OPT1.drawBox(0, 0, 128, 32);
@@ -799,9 +845,9 @@ void UpdateAltimeterDigits(long height) {
     lastCharacterOffset = iCharacterOffset;
 
     //tcaselect(Opt_OLED_Port_3);
-    u8g2_OPT3.setFontMode(0);
-    u8g2_OPT3.setDrawColor(0);
-    u8g2_OPT3.drawBox(0, 0, 128, 32);
+    u8g2_OPT1.setFontMode(0);
+    u8g2_OPT1.setDrawColor(0);
+    u8g2_OPT1.drawBox(0, 0, 128, 32);
     u8g2_OPT1.setDrawColor(1);
 
     // If Ten Thousands value is a 0 draw the hash
