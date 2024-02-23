@@ -105,8 +105,9 @@
 //#define Opt_OLED_Port_4 2
 //#define Opt_OLED_Port_5 7
 
-#define ALTIMETER_HEIGHT_TCA_PORT 7
 #define ALTIMETER_PRESSURE_TCA_PORT 6
+#define ALTIMETER_HEIGHT_TCA_PORT 7
+
 
 #define Opt_OLED_Port_1 3
 #define Opt_OLED_Port_2 4
@@ -177,8 +178,8 @@ unsigned long timeSinceRedLedChanged = 0;
 U8G2_SSD1305_128X32_ADAFRUIT_F_HW_I2C u8g2_Scratch_Pad(U8G2_R2, 12);
 
 // Op OLEDs
-U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT1(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
-U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT2(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALTIMETER_HEIGHT(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALTIMETER_PRESSURE(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT3(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT4(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT5(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
@@ -286,115 +287,33 @@ void setup() {
   }
   // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
   SendDebug("I2C scan complete");
-  if (false) {
-
-    // tcaselect(ScratchPad_OLED_PORT);
-    // u8g2_Scratch_Pad.begin();
-    // u8g2_Scratch_Pad.clearBuffer();
-    // u8g2_Scratch_Pad.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-    // u8g2_Scratch_Pad.sendBuffer();
-
-
-    // tcaselect(COM1_OLED_PORT);
-    // u8g2_COM1.begin();
-    // u8g2_COM1.clearBuffer();
-    // u8g2_COM1.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-    // u8g2_COM1.sendBuffer();
-
-    // tcaselect(COM2_OLED_PORT);
-    // u8g2_COM2.begin();
-    // u8g2_COM2.clearBuffer();
-    // u8g2_COM2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-    // u8g2_COM2.sendBuffer();
-  }
 
   SendDebug("Start - display AAA");
   tcaselect(ALTIMETER_PRESSURE_TCA_PORT);
-  //tcaselect(ALTIMETER_THOUSANDS_TCA_PORT);
-  u8g2_OPT2.begin();
-  u8g2_OPT2.clearBuffer();
-  u8g2_OPT2.setFont(u8g2_font_logisoso30_tn);
-  //u8g2_OPT1.setFont(u8g2_font_inb30_mf);
-  //u8g2_OPT1.setFont(u8g2_font_courB24_tn);
-  // u8g2_DcsFontHornet4_BIOS_09_tf
-  // u8g2_DcsFontHornet3_BIOS_09_tf
-  //u8g2_OPT1.setFont(u8g2_DcsFontHornet3_BIOS_09_tf);
-  u8g2_OPT2.sendBuffer();
-  //updateOpt1("OPT 111");
-  // updateALTIMETER_HEIGHT("AAA");
-  updateALTIMETER_PRESSURE("AAA");
-  delay(5000);
+ 
+  u8g2_ALTIMETER_PRESSURE.begin();
+  u8g2_ALTIMETER_PRESSURE.clearBuffer();
+  u8g2_ALTIMETER_PRESSURE.setFont(u8g2_font_logisoso30_tn);
+  u8g2_ALTIMETER_PRESSURE.sendBuffer();
+  updateALTIMETER_PRESSURE("111");
+  delay(1000);
   SendDebug("Done - display AAA");
 
   SendDebug("Start - display BBB");
   tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
-  u8g2_OPT1.begin();
-  u8g2_OPT1.clearBuffer();
-  u8g2_OPT1.setFont(u8g2_font_logisoso30_tn);
-  //u8g2_OPT1.setFont(u8g2_font_inb30_mf);
-  //u8g2_OPT1.setFont(u8g2_font_courB24_tn);
-  // u8g2_DcsFontHornet4_BIOS_09_tf
-  // u8g2_DcsFontHornet3_BIOS_09_tf
-  //u8g2_OPT1.setFont(u8g2_DcsFontHornet3_BIOS_09_tf);
-  u8g2_OPT1.sendBuffer();
-  //updateOpt1("OPT 111");
-  updateALTIMETER_HEIGHT("AAA");
-  //updateALTIMETER_PRESSURE("BBB");
-  delay(5000);
-  SendDebug("Done - display AAA");
+  u8g2_ALTIMETER_HEIGHT.begin();
+  u8g2_ALTIMETER_HEIGHT.clearBuffer();
+  u8g2_ALTIMETER_HEIGHT.setFont(u8g2_font_logisoso30_tn);
+  u8g2_ALTIMETER_HEIGHT.sendBuffer();
+  updateALTIMETER_HEIGHT("222");
+
+  delay(1000);
+  SendDebug("Done - display BBB");
+  tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
+  tcaselect(ALTIMETER_PRESSURE_TCA_PORT);
 
 
-  if (false) {
-    tcaselect(Opt_OLED_Port_2);
-    u8g2_OPT2.begin();
-    u8g2_OPT2.clearBuffer();
-    u8g2_OPT2.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-    u8g2_OPT2.sendBuffer();
-
-    tcaselect(Opt_OLED_Port_3);
-    u8g2_OPT3.begin();
-    u8g2_OPT3.clearBuffer();
-    u8g2_OPT3.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-    u8g2_OPT3.sendBuffer();
-
-    tcaselect(Opt_OLED_Port_4);
-    u8g2_OPT4.begin();
-    u8g2_OPT4.clearBuffer();
-    u8g2_OPT4.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-    u8g2_OPT4.sendBuffer();
-
-    tcaselect(Opt_OLED_Port_5);
-    u8g2_OPT5.begin();
-    u8g2_OPT5.clearBuffer();
-    u8g2_OPT5.setFont(u8g2_DcsFontHornet4_BIOS_09_tf);
-    u8g2_OPT5.sendBuffer();
-
-
-    if (DCSBIOS_In_Use == 1) DcsBios::setup();
-  }
-
-
-  if (false) {
-    updateOpt1("OPT 1");
-    updateOpt2("OPT 2");
-    updateOpt3("OPT 3");
-    updateOpt4("OPT 4");
-    updateOpt5("OPT 5");
-    updateComm1("00");
-    updateComm2("11");
-
-    updateAllOfScratchpad("888", "-", "88-888");
-    delay(8000);
-
-    updateOpt1("");
-    updateOpt2("");
-    updateOpt3("");
-    updateOpt4("");
-    updateOpt5("");
-    updateComm1("");
-    updateComm2("");
-    updateAllOfScratchpad("", "", "");
-  }
+  if (DCSBIOS_In_Use == 1) DcsBios::setup();
 }
 
 
@@ -440,255 +359,34 @@ void setContrast(int contr) {
 
 
 
-void SendIPString(String state) {
-
-  String outString;
-
-  if (Ethernet_In_Use == 1) {
-    outString = String(state);
-
-    udp.beginPacket(targetIP, reflectorport);
-    udp.print(outString);
-    udp.endPacket();
-
-
-    udp.beginPacket(targetIP, remoteport);
-    udp.print(outString);
-    udp.endPacket();
-  }
-}
 
 
 void updateALTIMETER_PRESSURE(String strnewValue) {
 
   const char* newValue = strnewValue.c_str();
   tcaselect(ALTIMETER_PRESSURE_TCA_PORT);
-  u8g2_OPT2.setFontMode(0);
-  u8g2_OPT2.setDrawColor(0);
-  u8g2_OPT2.drawBox(0, 0, 128, 32);
-  u8g2_OPT2.setDrawColor(1);
-  u8g2_OPT2.drawStr(5, 32, newValue);
-  u8g2_OPT2.sendBuffer();
+  u8g2_ALTIMETER_PRESSURE.setFontMode(0);
+  u8g2_ALTIMETER_PRESSURE.setDrawColor(0);
+  u8g2_ALTIMETER_PRESSURE.drawBox(0, 0, 128, 32);
+  u8g2_ALTIMETER_PRESSURE.setDrawColor(1);
+  u8g2_ALTIMETER_PRESSURE.drawStr(5, 32, newValue);
+  u8g2_ALTIMETER_PRESSURE.sendBuffer();
 }
+
 
 void updateALTIMETER_HEIGHT(String strnewValue) {
 
   const char* newValue = strnewValue.c_str();
   tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
-  u8g2_OPT1.setFontMode(0);
-  u8g2_OPT1.setDrawColor(0);
-  u8g2_OPT1.drawBox(0, 0, 128, 32);
-  u8g2_OPT1.setDrawColor(1);
-  u8g2_OPT1.drawStr(5, 32, newValue);
-  u8g2_OPT1.sendBuffer();
-}
-void updateOpt1(String strnewValue) {
-
-  const char* newValue = strnewValue.c_str();
-  tcaselect(ALTIMETER_PRESSURE_TCA_PORT);
-  u8g2_OPT1.setFontMode(0);
-  u8g2_OPT1.setDrawColor(0);
-  u8g2_OPT1.drawBox(0, 0, 128, 32);
-  u8g2_OPT1.setDrawColor(1);
-  u8g2_OPT1.drawStr(5, 32, newValue);
-  u8g2_OPT1.sendBuffer();
-}
-
-void onUfcOptionDisplay1Change(char* newValue) {
-  strOpt1 = String(newValue);
-}
-DcsBios::StringBuffer<4> ufcOptionDisplay1Buffer(0x7432, onUfcOptionDisplay1Change);
-
-
-void updateOpt2(String strnewValue) {
-
-  const char* newValue = strnewValue.c_str();
-  tcaselect(Opt_OLED_Port_2);
-  u8g2_OPT2.setFontMode(0);
-  u8g2_OPT2.setDrawColor(0);
-  u8g2_OPT2.drawBox(0, 0, 128, 32);
-  u8g2_OPT2.setDrawColor(1);
-  u8g2_OPT2.drawStr(5, 32, newValue);
-  u8g2_OPT2.sendBuffer();
+  u8g2_ALTIMETER_HEIGHT.setFontMode(0);
+  u8g2_ALTIMETER_HEIGHT.setDrawColor(0);
+  u8g2_ALTIMETER_HEIGHT.drawBox(0, 0, 128, 32);
+  u8g2_ALTIMETER_HEIGHT.setDrawColor(1);
+  u8g2_ALTIMETER_HEIGHT.drawStr(5, 32, newValue);
+  u8g2_ALTIMETER_HEIGHT.sendBuffer();
 }
 
 
-
-void onUfcOptionDisplay2Change(char* newValue) {
-  strOpt2 = String(newValue);
-}
-DcsBios::StringBuffer<4> ufcOptionDisplay2Buffer(0x7436, onUfcOptionDisplay2Change);
-
-
-void updateOpt3(String strnewValue) {
-  const char* newValue = strnewValue.c_str();
-  tcaselect(Opt_OLED_Port_3);
-  u8g2_OPT3.setFontMode(0);
-  u8g2_OPT3.setDrawColor(0);
-  u8g2_OPT3.drawBox(0, 0, 128, 32);
-  u8g2_OPT3.setDrawColor(1);
-  u8g2_OPT3.drawStr(5, 32, newValue);
-  u8g2_OPT3.sendBuffer();
-}
-
-void onUfcOptionDisplay3Change(char* newValue) {
-  strOpt3 = String(newValue);
-}
-DcsBios::StringBuffer<4> ufcOptionDisplay3Buffer(0x743a, onUfcOptionDisplay3Change);
-
-
-void updateOpt4(String strnewValue) {
-  const char* newValue = strnewValue.c_str();
-  tcaselect(Opt_OLED_Port_4);
-  u8g2_OPT4.setFontMode(0);
-  u8g2_OPT4.setDrawColor(0);
-  u8g2_OPT4.drawBox(0, 0, 128, 32);
-  u8g2_OPT4.setDrawColor(1);
-  u8g2_OPT4.drawStr(5, 32, newValue);
-  u8g2_OPT4.sendBuffer();
-}
-
-void onUfcOptionDisplay4Change(char* newValue) {
-  strOpt4 = String(newValue);
-}
-DcsBios::StringBuffer<4> ufcOptionDisplay4Buffer(0x743e, onUfcOptionDisplay4Change);
-
-void updateOpt5(String strnewValue) {
-  const char* newValue = strnewValue.c_str();
-  tcaselect(Opt_OLED_Port_5);
-  u8g2_OPT5.setFontMode(0);
-  u8g2_OPT5.setDrawColor(0);
-  u8g2_OPT5.drawBox(0, 0, 128, 32);
-  u8g2_OPT5.setDrawColor(1);
-  u8g2_OPT5.drawStr(5, 32, newValue);
-  u8g2_OPT5.sendBuffer();
-}
-
-void onUfcOptionDisplay5Change(char* newValue) {
-  strOpt5 = String(newValue);
-}
-DcsBios::StringBuffer<4> ufcOptionDisplay5Buffer(0x7442, onUfcOptionDisplay5Change);
-
-
-
-void updateComm1(String strnewValue) {
-  const char* newValue = strnewValue.c_str();
-  tcaselect(COM1_OLED_PORT);
-
-  u8g2_COM1.firstPage();
-  do {
-    u8g2_COM1.setCursor(COM1_XPOS, COM1_YPOS);
-    u8g2_COM1.print(newValue);
-  } while (u8g2_COM1.nextPage());
-}
-
-void onUfcComm1DisplayChange(char* newValue) {
-  strComm1 = String(newValue);
-}
-DcsBios::StringBuffer<2> ufcComm1DisplayBuffer(0x7424, onUfcComm1DisplayChange);
-
-void updateComm2(String strnewValue) {
-  const char* newValue = strnewValue.c_str();
-  tcaselect(COM2_OLED_PORT);
-
-  u8g2_COM2.firstPage();
-  do {
-    u8g2_COM2.setCursor(COM2_XPOS, COM2_YPOS);
-    u8g2_COM2.print(newValue);
-  } while (u8g2_COM2.nextPage());
-}
-
-void onUfcComm2DisplayChange(char* newValue) {
-  strComm2 = String(newValue);
-}
-DcsBios::StringBuffer<2> ufcComm2DisplayBuffer(0x7426, onUfcComm2DisplayChange);
-
-
-void updateScratchpadString1(String strnewValue) {
-  SendIPString("Scratchpad String1");
-  SendIPString(strnewValue);
-  const char* newValue = strnewValue.c_str();
-
-  tcaselect(ScratchPad_OLED_PORT);
-  u8g2_Scratch_Pad.setFontMode(0);
-  u8g2_Scratch_Pad.setDrawColor(0);
-  u8g2_Scratch_Pad.drawBox(ScratchPad_String1_Pos, 0, ScratchPad_String2_Pos, 32);
-  u8g2_Scratch_Pad.setDrawColor(1);
-  u8g2_Scratch_Pad.drawStr(ScratchPad_String1_Pos, ScratchPad_Vertical_Pos, newValue);  // write something to the internal memory
-  u8g2_Scratch_Pad.sendBuffer();                                                        // transfer internal memory to the display    /* your code here */
-}
-
-
-void onUfcScratchpadString1DisplayChange(char* newValue) {
-  strScratchString1 = String(newValue);
-}
-DcsBios::StringBuffer<2> ufcScratchpadString1DisplayBuffer(0x744e, onUfcScratchpadString1DisplayChange);
-
-
-void updateScratchpadString2(String strnewValue) {
-
-  SendIPString("Scratchpad String2");
-  SendIPString(strnewValue);
-
-  const char* newValue = strnewValue.c_str();
-
-  tcaselect(ScratchPad_OLED_PORT);
-  u8g2_Scratch_Pad.setFontMode(0);
-  u8g2_Scratch_Pad.setDrawColor(0);
-  u8g2_Scratch_Pad.drawBox(ScratchPad_String2_Pos, 0, ScratchPad_Number_Pos - ScratchPad_String2_Pos, 32);
-  u8g2_Scratch_Pad.setDrawColor(1);
-  u8g2_Scratch_Pad.drawStr(ScratchPad_String2_Pos, ScratchPad_Vertical_Pos, newValue);  // write something to the internal memory
-  u8g2_Scratch_Pad.sendBuffer();                                                        // transfer internal memory to the display    /* your code here */    /* your code here */
-}
-
-void onUfcScratchpadString2DisplayChange(char* newValue) {
-  strScratchString2 = String(newValue);
-}
-DcsBios::StringBuffer<2> ufcScratchpadString2DisplayBuffer(0x7450, onUfcScratchpadString2DisplayChange);
-
-
-void updateScratchpadNumber(String strnewValue) {
-  SendIPString("Scratchpad Number");
-  SendIPString(strnewValue);
-  SendIPString("Scratchpad Number Length");
-  SendIPString(String(strnewValue.length()));
-
-  const char* newValue = strnewValue.c_str();
-
-  tcaselect(ScratchPad_OLED_PORT);
-  u8g2_Scratch_Pad.setFontMode(0);
-  u8g2_Scratch_Pad.setDrawColor(0);
-  u8g2_Scratch_Pad.drawBox(ScratchPad_Number_Pos, 0, 128 - ScratchPad_Number_Pos, 32);
-  u8g2_Scratch_Pad.setDrawColor(1);
-  if (strnewValue != "        ")
-    u8g2_Scratch_Pad.drawStr(ScratchPad_Number_Pos, ScratchPad_Vertical_Pos, newValue);
-  u8g2_Scratch_Pad.sendBuffer();
-}
-
-void onUfcScratchpadNumberDisplayChange(char* newValue) {
-  strScratchNumber = String(newValue);
-}
-DcsBios::StringBuffer<8> ufcScratchpadNumberDisplayBuffer(0x7446, onUfcScratchpadNumberDisplayChange);
-
-
-void updateAllOfScratchpad(String ScratchString1, String ScratchString2, String ScratchNumber) {
-
-  tcaselect(ScratchPad_OLED_PORT);
-  String CombinedString = ScratchString1 + ScratchString2 + ScratchNumber;
-
-  const char* ptr_ScratchString1 = ScratchString1.c_str();
-  const char* ptr_ScratchString2 = ScratchString2.c_str();
-  const char* ptr_ScratchNumber = ScratchNumber.c_str();
-
-  u8g2_Scratch_Pad.setFontMode(0);
-  u8g2_Scratch_Pad.setDrawColor(0);
-  u8g2_Scratch_Pad.drawBox(0, 0, 128, 32);
-  u8g2_Scratch_Pad.setDrawColor(1);
-  u8g2_Scratch_Pad.drawStr(ScratchPad_String1_Pos, ScratchPad_Vertical_Pos, ptr_ScratchString1);
-  u8g2_Scratch_Pad.drawStr(ScratchPad_String2_Pos, ScratchPad_Vertical_Pos, ptr_ScratchString2);
-  u8g2_Scratch_Pad.drawStr(ScratchPad_Number_Pos, ScratchPad_Vertical_Pos, ptr_ScratchNumber);
-  u8g2_Scratch_Pad.sendBuffer();
-}
 
 #define hash_width 24
 #define hash_height 32
@@ -844,22 +542,22 @@ void UpdateAltimeterDigits(long height) {
     lastTenThousandsValue = iTenThousandsValue;
     lastCharacterOffset = iCharacterOffset;
 
-    //tcaselect(Opt_OLED_Port_3);
-    u8g2_OPT1.setFontMode(0);
-    u8g2_OPT1.setDrawColor(0);
-    u8g2_OPT1.drawBox(0, 0, 128, 32);
-    u8g2_OPT1.setDrawColor(1);
+
+    u8g2_ALTIMETER_HEIGHT.setFontMode(0);
+    u8g2_ALTIMETER_HEIGHT.setDrawColor(0);
+    u8g2_ALTIMETER_HEIGHT.drawBox(0, 0, 128, 32);
+    u8g2_ALTIMETER_HEIGHT.setDrawColor(1);
 
     // If Ten Thousands value is a 0 draw the hash
     if (sTenThousandsDigit != "0") {
-      u8g2_OPT1.drawStr(10, 30, cTenThousandsValue);
+      u8g2_ALTIMETER_HEIGHT.drawStr(10, 30, cTenThousandsValue);
     } else {
-      u8g2_OPT1.drawXBM(0, 0, hash_width, hash_height, hash_bits);
+      u8g2_ALTIMETER_HEIGHT.drawXBM(0, 0, hash_width, hash_height, hash_bits);
     }
 
-    u8g2_OPT1.drawStr(40, -2 + iCharacterOffset, cThousandsaboveValue);
-    u8g2_OPT1.drawStr(40, 30 + iCharacterOffset, cThousandsValue);
-    u8g2_OPT1.sendBuffer();
+    u8g2_ALTIMETER_HEIGHT.drawStr(40, -2 + iCharacterOffset, cThousandsaboveValue);
+    u8g2_ALTIMETER_HEIGHT.drawStr(40, 30 + iCharacterOffset, cThousandsValue);
+    u8g2_ALTIMETER_HEIGHT.sendBuffer();
     ;
     TimeToProcess = millis() - TimeToProcess;
     //SendDebug("OLED Update time :" + String(TimeToProcess));
@@ -884,46 +582,6 @@ void loop() {
   }
 
 
-  if (false) {
-    for (int i = 0; i <= 60; i++) {
-
-      String strnewValue = "2";
-      String straboveValue = "1";
-      String strbelowValue = "3";
-      String firstchr = "0";
-      unsigned long TimeToProcess = millis();
-      const char* newValue = strnewValue.c_str();
-      const char* aboveValue = straboveValue.c_str();
-      const char* belowValue = strbelowValue.c_str();
-
-      int CharacterHeightSpacer = 38;
-
-      const char* firstValue = firstchr.c_str();
-
-
-      //tcaselect(Opt_OLED_Port_3);
-      u8g2_OPT3.setFontMode(0);
-      u8g2_OPT3.setDrawColor(0);
-      u8g2_OPT3.drawBox(0, 0, 128, 32);
-
-      u8g2_OPT1.setDrawColor(1);
-      u8g2_OPT1.drawStr(10, 30, firstValue);
-      u8g2_OPT1.drawStr(40, i, newValue);
-      u8g2_OPT1.drawStr(40, i - CharacterHeightSpacer, aboveValue);
-      u8g2_OPT1.drawStr(40, i + CharacterHeightSpacer, belowValue);
-      u8g2_OPT1.drawXBM(70, 0, hash_width, hash_height, hash_bits);
-      u8g2_OPT1.sendBuffer();
-      ;
-      TimeToProcess = millis() - TimeToProcess;
-      SendDebug("OLED Update time :" + String(TimeToProcess));
-    }
-    delay(1000);
-  }
-
-
-
-
-
   for (long i = 12000; i >= 0; i--) {
     UpdateAltimeterDigits(i);
   }
@@ -932,75 +590,4 @@ void loop() {
   }
 
   delay(1000);
-
-
-
-
-  if (false) {
-    if (DCSBIOS_In_Use == 1) DcsBios::loop();
-    if (strOpt1 != LaststrOpt1) {
-      updateOpt1(strOpt1);
-      LaststrOpt1 = strOpt1;
-    }
-
-    if (strOpt2 != LaststrOpt2) {
-      updateOpt2(strOpt2);
-      LaststrOpt2 = strOpt2;
-    }
-
-    if (strOpt3 != LaststrOpt3) {
-      updateOpt3(strOpt3);
-      LaststrOpt3 = strOpt3;
-    }
-
-    if (strOpt4 != LaststrOpt4) {
-      updateOpt4(strOpt4);
-      LaststrOpt4 = strOpt4;
-    }
-
-
-    if (strOpt5 != LaststrOpt5) {
-      updateOpt5(strOpt5);
-      LaststrOpt5 = strOpt5;
-    }
-
-
-    if (strComm1 != LaststrComm1) {
-      updateComm1(strComm1);
-      LaststrComm1 = strComm1;
-    }
-
-    if (strComm2 != LaststrComm2) {
-      updateComm2(strComm2);
-      LaststrComm2 = strComm2;
-    }
-
-    CombinedScratchString = strScratchString1 + strScratchString2 + strScratchNumber;
-
-    if (CombinedScratchString != LastCombinedScratchString) {
-      updateAllOfScratchpad(strScratchString1, strScratchString2, strScratchNumber);
-      LastCombinedScratchString = CombinedScratchString;
-    }
-
-    //  if (strScratchString1 != LaststrScratchString1) {
-    //    updateScratchpadString1(strScratchString1);
-    //    LaststrScratchString1 = strScratchString1;
-    //  }
-    //
-    //  if (strScratchString2 != LaststrScratchString2) {
-    //
-    //    updateScratchpadNumber(strScratchNumber);
-    //    updateScratchpadString2(strScratchString2);
-    //    LaststrScratchString2 = strScratchString2;
-    //  }
-    //
-    //
-    //  if (strScratchNumber != LaststrScratchNumber) {
-    //    updateScratchpadNumber(strScratchNumber);
-    //    LaststrScratchNumber = strScratchNumber;
-    //
-    //    updateScratchpadString2(strScratchString2);
-    //
-    //  }
-  }
 }
