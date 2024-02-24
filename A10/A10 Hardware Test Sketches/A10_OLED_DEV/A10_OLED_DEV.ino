@@ -135,7 +135,7 @@
 //#include <Arduino.h>
 #include <U8g2lib.h>
 #include "hornet_font.h"
-//#include "dseg14_v3.h"
+
 
 #include <SPI.h>
 #include <Wire.h>
@@ -204,7 +204,13 @@ int Brightness = 0;
 char buffer[20];  //plenty of space for the value of millis() plus a zero terminator
 
 
-
+// Altimeter delta 1000 feet for 112 pressure units
+// which maps to 8.92857 feet per pressure unit with 2992 as reference
+// so delta is (pressure reading - 2992) * 8.92857
+#define feetDeltaPerPressureUnit 8.92857
+int iLastAltitudeValue = 0;
+int iAltitudeDelta = 0;
+int iBaro = 2992;
 int iBaroOnes = 2;
 int iBaroTens = 9;
 int iBaroHundreds = 9;
@@ -508,7 +514,12 @@ int lastCharacterOffset = 0;
 
 void UpdateAltimeterDigits(long height) {
 
+  // Adjust for Baro offset
+  height = height + iAltitudeDelta;
+
   String strnewValue = String(height);
+
+  
   int itensAboveDigit = 0;
   int itensBelowDigit = 0;
 
@@ -578,6 +589,24 @@ void UpdateAltimeterDigits(long height) {
   }
 }
 
+void onAltMslFtChange(unsigned int newValue) {
+  if (newValue <= 0) newValue = 0;
+  iLastAltitudeValue = newValue;
+  UpdateAltimeterDigits(newValue);
+}
+DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
+
+void ProcessPressureChange() {
+  iBaro = iBaroThousands * 1000 + iBaroHundreds * 100 + iBaroTens * 10 + iBaroOnes;
+  SendDebug("Calc delta :" + String(int((iBaro - 2992) * feetDeltaPerPressureUnit)));
+  iAltitudeDelta = int((iBaro - 2992) * feetDeltaPerPressureUnit);
+
+  SendDebug("iBaro :" + String(iBaro) + "  Alt :" + String(iLastAltitudeValue) + "   Delta : " + String(iAltitudeDelta));
+
+  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  UpdateAltimeterDigits(iLastAltitudeValue);
+}
+
 // ****************** BEGIN HORNET ************************************** //
 // Smallest Digit
 void onStbyPressSet0Change(unsigned int newValue) {
@@ -588,7 +617,7 @@ void onStbyPressSet0Change(unsigned int newValue) {
   constrain(newValue, 0, 62000);
   iBaroOnes = map(newValue, 0, 63000, 0, 10);
   BaroOnes = String(iBaroOnes);
-  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  ProcessPressureChange();
 }
 DcsBios::IntegerBuffer stbyPressSet0Buffer(0x74fa, 0xffff, 0, onStbyPressSet0Change);
 
@@ -599,6 +628,8 @@ void onStbyPressSet1Change(unsigned int newValue) {
   constrain(newValue, 0, 62000);
   iBaroTens = map(newValue, 0, 63000, 0, 10);
   BaroTens = String(iBaroTens);
+
+  ProcessPressureChange();
 }
 
 DcsBios::IntegerBuffer stbyPressSet1Buffer(0x74fc, 0xffff, 0, onStbyPressSet1Change);
@@ -619,6 +650,7 @@ void onAltPressure0Change(unsigned int newValue) {
   constrain(newValue, 0, 62000);
   iBaroOnes = map(newValue, 0, 63000, 0, 10);
   BaroOnes = String(iBaroOnes);
+  ProcessPressureChange();
   updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
 }
 DcsBios::IntegerBuffer altPressure0Buffer(0x1086, 0xffff, 0, onAltPressure0Change);
@@ -629,7 +661,7 @@ void onAltPressure1Change(unsigned int newValue) {
   constrain(newValue, 0, 62000);
   iBaroTens = map(newValue, 0, 63000, 0, 10);
   BaroTens = String(iBaroTens);
-  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  ProcessPressureChange();
 }
 DcsBios::IntegerBuffer altPressure1Buffer(0x1088, 0xffff, 0, onAltPressure1Change);
 
@@ -639,7 +671,7 @@ void onAltPressure2Change(unsigned int newValue) {
   constrain(newValue, 0, 62000);
   iBaroHundreds = map(newValue, 0, 63000, 0, 10);
   BaroHundreds = String(iBaroHundreds);
-  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  ProcessPressureChange();
 }
 DcsBios::IntegerBuffer altPressure2Buffer(0x108a, 0xffff, 0, onAltPressure2Change);
 
@@ -649,7 +681,7 @@ void onAltPressure3Change(unsigned int newValue) {
   constrain(newValue, 0, 62000);
   iBaroThousands = map(newValue, 0, 63000, 0, 10);
   BaroThousands = String(iBaroThousands);
-  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  ProcessPressureChange();
 }
 DcsBios::IntegerBuffer altPressure3Buffer(0x108c, 0xffff, 0, onAltPressure3Change);
 
