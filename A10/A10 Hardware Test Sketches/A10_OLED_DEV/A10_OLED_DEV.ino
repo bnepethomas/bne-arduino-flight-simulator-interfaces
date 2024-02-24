@@ -94,7 +94,7 @@
 // during timeout grab and smooth analo 0 and get brightness for all displays
 
 #define Ethernet_In_Use 1
-#define DCSBIOS_In_Use 0
+#define DCSBIOS_In_Use 1
 #define Reflector_In_Use 1
 
 
@@ -105,7 +105,7 @@
 //#define Opt_OLED_Port_4 2
 //#define Opt_OLED_Port_5 7
 
-#define ALTIMETER_PRESSURE_TCA_PORT 6
+#define BARO_OLED_Port 6
 #define ALTIMETER_HEIGHT_TCA_PORT 7
 
 
@@ -178,8 +178,8 @@ unsigned long timeSinceRedLedChanged = 0;
 U8G2_SSD1305_128X32_ADAFRUIT_F_HW_I2C u8g2_Scratch_Pad(U8G2_R2, 12);
 
 // Op OLEDs
-U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALTIMETER_HEIGHT(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
-U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALTIMETER_PRESSURE(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALT(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT3(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT4(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT5(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
@@ -202,6 +202,19 @@ extern "C" {
 int CurrentDisplay = 0;
 int Brightness = 0;
 char buffer[20];  //plenty of space for the value of millis() plus a zero terminator
+
+
+
+int iBaroOnes = 2;
+int iBaroTens = 9;
+int iBaroHundreds = 9;
+int iBaroThousands = 2;
+String BaroOnes = String(iBaroOnes);
+String BaroTens = String(iBaroTens);
+String BaroHundreds = String(iBaroHundreds);
+String BaroThousands = String(iBaroThousands);
+bool BaroUpdated = true;
+
 
 String strOpt1 = "";
 String strOpt2 = "";
@@ -288,29 +301,24 @@ void setup() {
   // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
   SendDebug("I2C scan complete");
 
-  SendDebug("Start - display AAA");
-  tcaselect(ALTIMETER_PRESSURE_TCA_PORT);
- 
-  u8g2_ALTIMETER_PRESSURE.begin();
-  u8g2_ALTIMETER_PRESSURE.clearBuffer();
-  u8g2_ALTIMETER_PRESSURE.setFont(u8g2_font_logisoso30_tn);
-  u8g2_ALTIMETER_PRESSURE.sendBuffer();
-  updateALTIMETER_PRESSURE("111");
-  delay(1000);
-  SendDebug("Done - display AAA");
+  tcaselect(BARO_OLED_Port);
 
-  SendDebug("Start - display BBB");
-  tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
-  u8g2_ALTIMETER_HEIGHT.begin();
-  u8g2_ALTIMETER_HEIGHT.clearBuffer();
-  u8g2_ALTIMETER_HEIGHT.setFont(u8g2_font_logisoso30_tn);
-  u8g2_ALTIMETER_HEIGHT.sendBuffer();
-  updateALTIMETER_HEIGHT("222");
+  u8g2_BARO.begin();
+  u8g2_BARO.clearBuffer();
+  u8g2_BARO.setFont(u8g2_font_logisoso30_tn);
+  u8g2_BARO.sendBuffer();
+  tcaselect(BARO_OLED_Port);
+  updateBARO("2992");
 
-  delay(1000);
-  SendDebug("Done - display BBB");
+
   tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
-  tcaselect(ALTIMETER_PRESSURE_TCA_PORT);
+  u8g2_ALT.begin();
+  u8g2_ALT.clearBuffer();
+  u8g2_ALT.setFont(u8g2_font_logisoso30_tn);
+  u8g2_ALT.sendBuffer();
+  updateALTIMETER_HEIGHT("00");
+
+
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
@@ -361,29 +369,34 @@ void setContrast(int contr) {
 
 
 
-void updateALTIMETER_PRESSURE(String strnewValue) {
+void updateBARO(String strnewValue) {
 
   const char* newValue = strnewValue.c_str();
-  tcaselect(ALTIMETER_PRESSURE_TCA_PORT);
-  u8g2_ALTIMETER_PRESSURE.setFontMode(0);
-  u8g2_ALTIMETER_PRESSURE.setDrawColor(0);
-  u8g2_ALTIMETER_PRESSURE.drawBox(0, 0, 128, 32);
-  u8g2_ALTIMETER_PRESSURE.setDrawColor(1);
-  u8g2_ALTIMETER_PRESSURE.drawStr(5, 32, newValue);
-  u8g2_ALTIMETER_PRESSURE.sendBuffer();
+  tcaselect(BARO_OLED_Port);
+  u8g2_BARO.setFontMode(0);
+  u8g2_BARO.setDrawColor(0);
+  u8g2_BARO.drawBox(0, 0, 128, 32);
+  u8g2_BARO.setDrawColor(1);
+  u8g2_BARO.setFontDirection(0);
+  u8g2_BARO.drawStr(20, 32, newValue);
+  u8g2_BARO.sendBuffer();
 }
 
+void buildBAROString() {
+
+  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  BaroUpdated = false;
+}
 
 void updateALTIMETER_HEIGHT(String strnewValue) {
 
   const char* newValue = strnewValue.c_str();
   tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
-  u8g2_ALTIMETER_HEIGHT.setFontMode(0);
-  u8g2_ALTIMETER_HEIGHT.setDrawColor(0);
-  u8g2_ALTIMETER_HEIGHT.drawBox(0, 0, 128, 32);
-  u8g2_ALTIMETER_HEIGHT.setDrawColor(1);
-  u8g2_ALTIMETER_HEIGHT.drawStr(5, 32, newValue);
-  u8g2_ALTIMETER_HEIGHT.sendBuffer();
+  u8g2_ALT.setFontMode(0);
+  u8g2_ALT.setDrawColor(0);
+  u8g2_ALT.drawBox(0, 0, 128, 32);
+  u8g2_ALT.setDrawColor(1);
+  u8g2_ALT.sendBuffer();
 }
 
 
@@ -537,57 +550,126 @@ void UpdateAltimeterDigits(long height) {
   // Only attempt to draw of something has changed that will impact display
   if ((iThousandsValue != lastThousandsValue) || (iTenThousandsValue != lastTenThousandsValue) || (iCharacterOffset != lastCharacterOffset)) {
 
+    tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
 
     lastThousandsValue = iThousandsValue;
     lastTenThousandsValue = iTenThousandsValue;
     lastCharacterOffset = iCharacterOffset;
 
 
-    u8g2_ALTIMETER_HEIGHT.setFontMode(0);
-    u8g2_ALTIMETER_HEIGHT.setDrawColor(0);
-    u8g2_ALTIMETER_HEIGHT.drawBox(0, 0, 128, 32);
-    u8g2_ALTIMETER_HEIGHT.setDrawColor(1);
+    u8g2_ALT.setFontMode(0);
+    u8g2_ALT.setDrawColor(0);
+    u8g2_ALT.drawBox(0, 0, 128, 32);
+    u8g2_ALT.setDrawColor(1);
 
     // If Ten Thousands value is a 0 draw the hash
     if (sTenThousandsDigit != "0") {
-      u8g2_ALTIMETER_HEIGHT.drawStr(10, 30, cTenThousandsValue);
+      u8g2_ALT.drawStr(10, 30, cTenThousandsValue);
     } else {
-      u8g2_ALTIMETER_HEIGHT.drawXBM(0, 0, hash_width, hash_height, hash_bits);
+      u8g2_ALT.drawXBM(0, 0, hash_width, hash_height, hash_bits);
     }
 
-    u8g2_ALTIMETER_HEIGHT.drawStr(40, -2 + iCharacterOffset, cThousandsaboveValue);
-    u8g2_ALTIMETER_HEIGHT.drawStr(40, 30 + iCharacterOffset, cThousandsValue);
-    u8g2_ALTIMETER_HEIGHT.sendBuffer();
+    u8g2_ALT.drawStr(40, -2 + iCharacterOffset, cThousandsaboveValue);
+    u8g2_ALT.drawStr(40, 30 + iCharacterOffset, cThousandsValue);
+    u8g2_ALT.sendBuffer();
     ;
     TimeToProcess = millis() - TimeToProcess;
     //SendDebug("OLED Update time :" + String(TimeToProcess));
   }
 }
 
+// ****************** BEGIN HORNET ************************************** //
+// Smallest Digit
+void onStbyPressSet0Change(unsigned int newValue) {
+  // 0 64592, 1 6797, 2 14537, 3 18407, 4 26147, 5 33887,
+  // 6 37757, 7 45497, 8 53237, 9 57107, 0 64847
+  if (newValue >= 63000)
+    newValue = 0;
+  constrain(newValue, 0, 62000);
+  iBaroOnes = map(newValue, 0, 63000, 0, 10);
+  BaroOnes = String(iBaroOnes);
+  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+}
+DcsBios::IntegerBuffer stbyPressSet0Buffer(0x74fa, 0xffff, 0, onStbyPressSet0Change);
 
 
+void onStbyPressSet1Change(unsigned int newValue) {
+  if (newValue >= 63000)
+    newValue = 0;
+  constrain(newValue, 0, 62000);
+  iBaroTens = map(newValue, 0, 63000, 0, 10);
+  BaroTens = String(iBaroTens);
+}
 
+DcsBios::IntegerBuffer stbyPressSet1Buffer(0x74fc, 0xffff, 0, onStbyPressSet1Change);
+
+// Second largest digit - the largest digit doesn't change
+void onStbyPressSet2Change(unsigned int newValue) {
+  newValue = 0;
+}
+DcsBios::IntegerBuffer stbyPressSet2Buffer(0x74fe, 0xffff, 0, onStbyPressSet2Change);
+
+// ****************** END HORNET ************************************** //
+
+
+// ****************** BEGIN A10 ************************************** //
+void onAltPressure0Change(unsigned int newValue) {
+  if (newValue >= 63000)
+    newValue = 0;
+  constrain(newValue, 0, 62000);
+  iBaroOnes = map(newValue, 0, 63000, 0, 10);
+  BaroOnes = String(iBaroOnes);
+  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+}
+DcsBios::IntegerBuffer altPressure0Buffer(0x1086, 0xffff, 0, onAltPressure0Change);
+
+void onAltPressure1Change(unsigned int newValue) {
+  if (newValue >= 63000)
+    newValue = 0;
+  constrain(newValue, 0, 62000);
+  iBaroTens = map(newValue, 0, 63000, 0, 10);
+  BaroTens = String(iBaroTens);
+  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+}
+DcsBios::IntegerBuffer altPressure1Buffer(0x1088, 0xffff, 0, onAltPressure1Change);
+
+void onAltPressure2Change(unsigned int newValue) {
+  if (newValue >= 63000)
+    newValue = 0;
+  constrain(newValue, 0, 62000);
+  iBaroHundreds = map(newValue, 0, 63000, 0, 10);
+  BaroHundreds = String(iBaroHundreds);
+  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+}
+DcsBios::IntegerBuffer altPressure2Buffer(0x108a, 0xffff, 0, onAltPressure2Change);
+
+void onAltPressure3Change(unsigned int newValue) {
+  if (newValue >= 63000)
+    newValue = 0;
+  constrain(newValue, 0, 62000);
+  iBaroThousands = map(newValue, 0, 63000, 0, 10);
+  BaroThousands = String(iBaroThousands);
+  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+}
+DcsBios::IntegerBuffer altPressure3Buffer(0x108c, 0xffff, 0, onAltPressure3Change);
+
+// ******************  END A10  ************************************** //
 void loop() {
 
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     RED_LED_STATE = !RED_LED_STATE;
     digitalWrite(STATUS_LED_PORT, RED_LED_STATE);
-    // enableAllSteppers();
-    // cycleSteppers(650);
-    // disableAllSteppers();
-    // SendDebug("Uptime " + String(millis()) + " (" + String(millis() / 60000) + ")");
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
-    // Check to see if model time is updating - if nothing after 30 seconds disble steppers
   }
 
+  if (DCSBIOS_In_Use == 1) DcsBios::loop();
+  // for (long i = 12000; i >= 0; i--) {
+  //   UpdateAltimeterDigits(i);
+  // }
+  // for (long i = 0; i <= 64000; i++) {
+  //   UpdateAltimeterDigits(i);
+  // }
 
-  for (long i = 12000; i >= 0; i--) {
-    UpdateAltimeterDigits(i);
-  }
-  for (long i = 0; i <= 64000; i++) {
-    UpdateAltimeterDigits(i);
-  }
-
-  delay(1000);
+  // delay(1000);
 }
