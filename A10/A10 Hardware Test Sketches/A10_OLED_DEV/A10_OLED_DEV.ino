@@ -173,6 +173,7 @@ unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
 
+String sAircraftName = "";
 
 // Scratch Pad OLED
 U8G2_SSD1305_128X32_ADAFRUIT_F_HW_I2C u8g2_Scratch_Pad(U8G2_R2, 12);
@@ -508,20 +509,47 @@ static unsigned char hash_bits[] = {
   0x00,
 };
 
+int lastHundredsValue = 0;
 int lastThousandsValue = 0;
 int lastTenThousandsValue = 0;
-int lastCharacterOffset = 0;
+int lastThousandsCharacterOffset = 0;
+int lastHundredsCharacterOffset = 0;
 
 void UpdateAltimeterDigits(long height) {
 
+  SendDebug("Aircraft Name : " + sAircraftName);
+  // SendDebug("Raw Height : " + String(height));
   // Adjust for Baro offset
   height = height + iAltitudeDelta;
 
   String strnewValue = String(height);
 
-  
-  int itensAboveDigit = 0;
-  int itensBelowDigit = 0;
+
+  // int itensAboveDigit = 0;
+  // int itensBelowDigit = 0;
+
+  int iHundredsAboveDigit = 0;
+  int iHundredsBelowDigit = 0;
+  int iHundredsValue = ((height % 1000) / 100);
+  String sHundredsValue = String(iHundredsValue);
+  SendDebug("Hundreds Value : " + sHundredsValue);
+  if (iHundredsValue == 9) {
+    iHundredsAboveDigit = 0;
+  } else {
+    iHundredsAboveDigit = iHundredsValue + 1;
+  }
+  if (iHundredsValue == 0) {
+    iHundredsBelowDigit = 9;
+  } else {
+    iHundredsBelowDigit = iHundredsValue - 1;
+  }
+
+  String sHundredsAboveDigit = String(iHundredsAboveDigit);
+  String sHundredsBelowDigit = String(iHundredsBelowDigit);
+  const char* cHundredsValue = sHundredsValue.c_str();
+  const char* cHundredsaboveValue = sHundredsAboveDigit.c_str();
+  const char* cHundredsbelowValue = sHundredsBelowDigit.c_str();
+
 
 
   int iThousandsAboveDigit = 0;
@@ -555,17 +583,23 @@ void UpdateAltimeterDigits(long height) {
   unsigned long TimeToProcess = millis();
 
   int CharacterHeightSpacer = 38;
-  int iCharacterOffset = ((height % 1000) / 32);
-  // SendDebug("Character Offset : " + String(CharacterOffset));
+
+  int iHundredsCharacterOffset = ((height % 100) / 3.2);
+  SendDebug("heigh calc :" + String(height % 100));
+  int iThousandsCharacterOffset = ((height % 1000) / 32);
+  SendDebug("Character Offset : " + String(iHundredsCharacterOffset));
 
   // Only attempt to draw of something has changed that will impact display
-  if ((iThousandsValue != lastThousandsValue) || (iTenThousandsValue != lastTenThousandsValue) || (iCharacterOffset != lastCharacterOffset)) {
+  if ((iThousandsValue != lastThousandsValue) || (iTenThousandsValue != lastTenThousandsValue) || (iThousandsCharacterOffset != lastThousandsCharacterOffset)
+      || (iHundredsValue != lastHundredsValue) || (iHundredsCharacterOffset != lastHundredsCharacterOffset)) {
 
     tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
 
+    lastHundredsValue = iHundredsValue;
     lastThousandsValue = iThousandsValue;
     lastTenThousandsValue = iTenThousandsValue;
-    lastCharacterOffset = iCharacterOffset;
+    lastHundredsCharacterOffset = iHundredsCharacterOffset;
+    lastThousandsCharacterOffset = iThousandsCharacterOffset;
 
 
     u8g2_ALT.setFontMode(0);
@@ -580,8 +614,22 @@ void UpdateAltimeterDigits(long height) {
       u8g2_ALT.drawXBM(0, 0, hash_width, hash_height, hash_bits);
     }
 
-    u8g2_ALT.drawStr(40, -2 + iCharacterOffset, cThousandsaboveValue);
-    u8g2_ALT.drawStr(40, 30 + iCharacterOffset, cThousandsValue);
+
+
+
+    if (sAircraftName == "A-10C") {
+      // u8g2_ALT.drawStr(40, -2 + 0, cThousandsaboveValue);
+      // u8g2_ALT.drawStr(40, 30 + 0, cThousandsValue);
+      // u8g2_ALT.drawStr(70, -2 + iHundredsCharacterOffset, cHundredsaboveValue);
+      // u8g2_ALT.drawStr(70, 30 + iHundredsCharacterOffset, cHundredsValue);
+      u8g2_ALT.drawStr(40, -2 + 0, cThousandsaboveValue);
+      u8g2_ALT.drawStr(40, 30 + 0, cThousandsValue);
+      u8g2_ALT.drawStr(70, 58 - iHundredsCharacterOffset, cHundredsaboveValue);
+      u8g2_ALT.drawStr(70, 26 - iHundredsCharacterOffset, cHundredsValue);
+    } else {
+      u8g2_ALT.drawStr(40, -2 + iThousandsCharacterOffset, cThousandsaboveValue);
+      u8g2_ALT.drawStr(40, 30 + iThousandsCharacterOffset, cThousandsValue);
+    }
     u8g2_ALT.sendBuffer();
     ;
     TimeToProcess = millis() - TimeToProcess;
@@ -592,16 +640,22 @@ void UpdateAltimeterDigits(long height) {
 void onAltMslFtChange(unsigned int newValue) {
   if (newValue <= 0) newValue = 0;
   iLastAltitudeValue = newValue;
+  SendDebug("Height Update : " + String(newValue));
   UpdateAltimeterDigits(newValue);
 }
 DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
 
 void ProcessPressureChange() {
+
   iBaro = iBaroThousands * 1000 + iBaroHundreds * 100 + iBaroTens * 10 + iBaroOnes;
-  SendDebug("Calc delta :" + String(int((iBaro - 2992) * feetDeltaPerPressureUnit)));
+  // SendDebug("Calc delta :" + String(int((iBaro - 2992) * feetDeltaPerPressureUnit)));
   iAltitudeDelta = int((iBaro - 2992) * feetDeltaPerPressureUnit);
 
   SendDebug("iBaro :" + String(iBaro) + "  Alt :" + String(iLastAltitudeValue) + "   Delta : " + String(iAltitudeDelta));
+  if (sAircraftName == "FA-18C_hornet") {
+   BaroThousands = "2";
+   BaroHundreds = "9" ;
+  }
 
   updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
   UpdateAltimeterDigits(iLastAltitudeValue);
@@ -686,6 +740,13 @@ void onAltPressure3Change(unsigned int newValue) {
 DcsBios::IntegerBuffer altPressure3Buffer(0x108c, 0xffff, 0, onAltPressure3Change);
 
 // ******************  END A10  ************************************** //
+
+void onAcftNameChange(char* newValue) {
+  sAircraftName = String(newValue);
+  SendDebug("Aircraft Name : " + sAircraftName);
+}
+DcsBios::StringBuffer<24> AcftNameBuffer(0x0000, onAcftNameChange);
+
 void loop() {
 
 
