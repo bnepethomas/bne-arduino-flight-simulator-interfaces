@@ -283,7 +283,7 @@ void setZeroPoints() {
     if (digitalRead(A0) == 0) {
       STEPPER_4.setCurrentPosition(0);
       SendDebug("Found Stepper_4 Zero in setZeroPoints");
-      STEPPER_4.runToNewPosition(280);
+      STEPPER_4.runToNewPosition(580);
     }
   }
 }
@@ -291,7 +291,44 @@ void setZeroPoints() {
 
 // ###################################### End Stepper Related #############################
 
+unsigned int valAltimeter = 0;
+String Alt1000s = "0";
+int LastAlt1000s = 0;
+String Alt10000s = "0";
+int LastAlt10000s = 0;
+bool AltCounterUpdated = true;
 
+void onAltMslFtChange(unsigned int newValue) {
+
+  int updateAltimeterInterval = 100;
+  unsigned int tempvar = 0;
+  int Alt100s = 0;
+
+  tempvar = int((newValue % 10000) / 1000);
+
+
+  if (tempvar != LastAlt1000s) {
+    LastAlt1000s = tempvar;
+    Alt1000s = String(tempvar);
+    AltCounterUpdated = true;
+  }
+
+  tempvar = int((newValue % 100000) / 10000);
+  if (tempvar != LastAlt10000s) {
+    LastAlt10000s = tempvar;
+    Alt10000s = String(tempvar);
+    AltCounterUpdated = true;
+  }
+
+
+  //unsigned int targetLocation = int (newValue * 0.72);
+  valAltimeter = map(newValue, 0, 65000, 0, 46800);  // 46800 = 720 * 65
+  if (S4InUse) STEPPER_4.moveTo(valAltimeter);
+  //SendDebug("Alt " + String(newValue) + " Translated Rate" + String(valAltimeter));
+  // SendDebug("Pointer Target = " + String(targetLocation));
+  //stepperSTANDBY_ALT.runToNewPosition(targetLocation);
+}
+DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
 
 
 void setup() {
@@ -602,7 +639,8 @@ void loop() {
     // Check to see if model time is updating - if nothing after 30 seconds disble steppers
   }
 
-  // if (DCSBIOS_In_Use == 1) DcsBios::loop();
+  if (DCSBIOS_In_Use == 1) DcsBios::loop();
+
   updateSteppers();
   //disableAllSteppers();
 }
