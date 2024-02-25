@@ -747,6 +747,8 @@ void onAcftNameChange(char* newValue) {
 }
 DcsBios::StringBuffer<24> AcftNameBuffer(0x0000, onAcftNameChange);
 
+DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 22, 24);
+
 void loop() {
 
 
