@@ -616,7 +616,7 @@ void UpdateAltimeterDigits(long height) {
 
 
 
-
+    // Three digits for A10 Altimer as it is a primary instrument - only two for Hornet
     if (sAircraftName == "A-10C") {
       // u8g2_ALT.drawStr(40, -2 + 0, cThousandsaboveValue);
       // u8g2_ALT.drawStr(40, 30 + 0, cThousandsValue);
@@ -645,6 +645,7 @@ void onAltMslFtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
 
+bool PressureChanged = false;
 void ProcessPressureChange() {
 
   iBaro = iBaroThousands * 1000 + iBaroHundreds * 100 + iBaroTens * 10 + iBaroOnes;
@@ -653,12 +654,13 @@ void ProcessPressureChange() {
 
   SendDebug("iBaro :" + String(iBaro) + "  Alt :" + String(iLastAltitudeValue) + "   Delta : " + String(iAltitudeDelta));
   if (sAircraftName == "FA-18C_hornet") {
-   BaroThousands = "2";
-   BaroHundreds = "9" ;
+    BaroThousands = "2";
+    BaroHundreds = "9";
   }
 
   updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
   UpdateAltimeterDigits(iLastAltitudeValue);
+  PressureChanged = false;
 }
 
 // ****************** BEGIN HORNET ************************************** //
@@ -666,24 +668,23 @@ void ProcessPressureChange() {
 void onStbyPressSet0Change(unsigned int newValue) {
   // 0 64592, 1 6797, 2 14537, 3 18407, 4 26147, 5 33887,
   // 6 37757, 7 45497, 8 53237, 9 57107, 0 64847
-  if (newValue >= 63000)
-    newValue = 0;
+  // if (newValue >= 63000)
+  //   newValue = 0;
   constrain(newValue, 0, 62000);
   iBaroOnes = map(newValue, 0, 63000, 0, 10);
   BaroOnes = String(iBaroOnes);
-  ProcessPressureChange();
+  PressureChanged = true;
 }
 DcsBios::IntegerBuffer stbyPressSet0Buffer(0x74fa, 0xffff, 0, onStbyPressSet0Change);
 
 
 void onStbyPressSet1Change(unsigned int newValue) {
-  if (newValue >= 63000)
-    newValue = 0;
+  // if (newValue >= 63000)
+  //   newValue = 0;
   constrain(newValue, 0, 62000);
   iBaroTens = map(newValue, 0, 63000, 0, 10);
   BaroTens = String(iBaroTens);
-
-  ProcessPressureChange();
+  PressureChanged = true;
 }
 
 DcsBios::IntegerBuffer stbyPressSet1Buffer(0x74fc, 0xffff, 0, onStbyPressSet1Change);
@@ -699,43 +700,42 @@ DcsBios::IntegerBuffer stbyPressSet2Buffer(0x74fe, 0xffff, 0, onStbyPressSet2Cha
 
 // ****************** BEGIN A10 ************************************** //
 void onAltPressure0Change(unsigned int newValue) {
-  if (newValue >= 63000)
-    newValue = 0;
-  constrain(newValue, 0, 62000);
-  iBaroOnes = map(newValue, 0, 63000, 0, 10);
+  // Provide a little bias to deal with integer maths
+  newValue = newValue + 5;
+  iBaroOnes = map(newValue, 0, 65535, 0, 10);
   BaroOnes = String(iBaroOnes);
-  ProcessPressureChange();
-  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  PressureChanged = true;
 }
 DcsBios::IntegerBuffer altPressure0Buffer(0x1086, 0xffff, 0, onAltPressure0Change);
 
 void onAltPressure1Change(unsigned int newValue) {
-  if (newValue >= 63000)
-    newValue = 0;
-  constrain(newValue, 0, 62000);
-  iBaroTens = map(newValue, 0, 63000, 0, 10);
+  // Provide a little bias to deal with integer maths
+  newValue = newValue + 5;
+  iBaroTens = map(newValue, 0, 65535, 0, 10);
   BaroTens = String(iBaroTens);
-  ProcessPressureChange();
+  PressureChanged = true;
 }
 DcsBios::IntegerBuffer altPressure1Buffer(0x1088, 0xffff, 0, onAltPressure1Change);
 
 void onAltPressure2Change(unsigned int newValue) {
-  if (newValue >= 63000)
-    newValue = 0;
-  constrain(newValue, 0, 62000);
-  iBaroHundreds = map(newValue, 0, 63000, 0, 10);
+  // Provide a little bias to deal with integer maths
+  newValue = newValue + 5;
+  iBaroHundreds = map(newValue, 0, 65535, 0, 10);
   BaroHundreds = String(iBaroHundreds);
-  ProcessPressureChange();
+  PressureChanged = true;
 }
 DcsBios::IntegerBuffer altPressure2Buffer(0x108a, 0xffff, 0, onAltPressure2Change);
 
 void onAltPressure3Change(unsigned int newValue) {
-  if (newValue >= 63000)
-    newValue = 0;
-  constrain(newValue, 0, 62000);
-  iBaroThousands = map(newValue, 0, 63000, 0, 10);
+
+  // Provide a little bias to deal with integer maths
+  // Otherwise digits as a little low
+  // 30% is 19660.5 but gets runded down to 19559 I'm guessing
+  newValue = newValue + 5;
+  iBaroThousands = map(newValue, 0, 65535, 0, 10);
   BaroThousands = String(iBaroThousands);
-  ProcessPressureChange();
+  PressureChanged = true;
+  
 }
 DcsBios::IntegerBuffer altPressure3Buffer(0x108c, 0xffff, 0, onAltPressure3Change);
 
@@ -747,7 +747,12 @@ void onAcftNameChange(char* newValue) {
 }
 DcsBios::StringBuffer<24> AcftNameBuffer(0x0000, onAcftNameChange);
 
+
+// Hornet
 DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 22, 24);
+
+// A10
+DcsBios::RotaryEncoder altSetPressure("ALT_SET_PRESSURE", "-3200", "+3200", 22, 24);
 
 void loop() {
 
@@ -759,6 +764,9 @@ void loop() {
   }
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
+
+  if (PressureChanged == true)  ProcessPressureChange(); 
+
   // for (long i = 12000; i >= 0; i--) {
   //   UpdateAltimeterDigits(i);
   // }
