@@ -317,28 +317,14 @@ bool BaroUpdated = true;
 
 void onAltMslFtChange(unsigned int newValue) {
 
+  iLastAltitudeValue = newValue;
+  newValue = newValue + iAltitudeDelta;
   int updateAltimeterInterval = 100;
   unsigned int tempvar = 0;
   int Alt100s = 0;
 
   if (newValue <= 0) newValue = 0;
   iLastAltitudeValue = newValue;
-
-  tempvar = int((newValue % 10000) / 1000);
-
-
-  if (tempvar != LastAlt1000s) {
-    LastAlt1000s = tempvar;
-    Alt1000s = String(tempvar);
-    AltCounterUpdated = true;
-  }
-
-  tempvar = int((newValue % 100000) / 10000);
-  if (tempvar != LastAlt10000s) {
-    LastAlt10000s = tempvar;
-    Alt10000s = String(tempvar);
-    AltCounterUpdated = true;
-  }
 
 
   //unsigned int targetLocation = int (newValue * 0.72);
@@ -356,7 +342,7 @@ DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
 bool PressureChanged = false;
 String sAircraftName = "";
 void ProcessPressureChange() {
-
+  PressureChanged = false;
   iBaro = iBaroThousands * 1000 + iBaroHundreds * 100 + iBaroTens * 10 + iBaroOnes;
   // SendDebug("Calc delta :" + String(int((iBaro - 2992) * feetDeltaPerPressureUnit)));
   iAltitudeDelta = int((iBaro - 2992) * feetDeltaPerPressureUnit);
@@ -366,9 +352,6 @@ void ProcessPressureChange() {
     BaroThousands = "2";
     BaroHundreds = "9";
   }
-
-
-  PressureChanged = false;
 }
 
 // ****************** BEGIN HORNET ************************************** //
@@ -443,14 +426,13 @@ void onAltPressure3Change(unsigned int newValue) {
   iBaroThousands = map(newValue, 0, 65535, 0, 10);
   BaroThousands = String(iBaroThousands);
   PressureChanged = true;
-  
 }
 DcsBios::IntegerBuffer altPressure3Buffer(0x108c, 0xffff, 0, onAltPressure3Change);
 
 // ******************  END A10  ************************************** //
 
 
-void onAcftNameChange(char* newValue) {
+void onAcftNameChange(char *newValue) {
   sAircraftName = String(newValue);
   SendDebug("Aircraft Name : " + sAircraftName);
 }
@@ -767,7 +749,15 @@ void loop() {
   }
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
-    if (PressureChanged == true)  ProcessPressureChange(); 
+  if (PressureChanged == true) {
+    ProcessPressureChange();
+
+    //unsigned int targetLocation = int (newValue * 0.72);
+    if ((iLastAltitudeValue + iAltitudeDelta) >= 0) {
+      valAltimeter = map(iLastAltitudeValue + iAltitudeDelta, 0, 65000, 0, 46800);  // 46800 = 720 * 65
+      if (S4InUse) STEPPER_4.moveTo(valAltimeter);
+    }
+  }
 
   updateSteppers();
   //disableAllSteppers();

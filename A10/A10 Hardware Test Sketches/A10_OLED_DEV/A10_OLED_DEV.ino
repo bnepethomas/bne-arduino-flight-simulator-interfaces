@@ -670,8 +670,8 @@ void onStbyPressSet0Change(unsigned int newValue) {
   // 6 37757, 7 45497, 8 53237, 9 57107, 0 64847
   // if (newValue >= 63000)
   //   newValue = 0;
-  constrain(newValue, 0, 62000);
-  iBaroOnes = map(newValue, 0, 63000, 0, 10);
+  newValue = newValue + 5;
+  iBaroOnes = map(newValue, 0, 65535, 0, 10);
   BaroOnes = String(iBaroOnes);
   PressureChanged = true;
 }
@@ -681,8 +681,8 @@ DcsBios::IntegerBuffer stbyPressSet0Buffer(0x74fa, 0xffff, 0, onStbyPressSet0Cha
 void onStbyPressSet1Change(unsigned int newValue) {
   // if (newValue >= 63000)
   //   newValue = 0;
-  constrain(newValue, 0, 62000);
-  iBaroTens = map(newValue, 0, 63000, 0, 10);
+  newValue = newValue + 5;
+  iBaroTens = map(newValue, 0, 65535, 0, 10);
   BaroTens = String(iBaroTens);
   PressureChanged = true;
 }
@@ -735,7 +735,6 @@ void onAltPressure3Change(unsigned int newValue) {
   iBaroThousands = map(newValue, 0, 65535, 0, 10);
   BaroThousands = String(iBaroThousands);
   PressureChanged = true;
-  
 }
 DcsBios::IntegerBuffer altPressure3Buffer(0x108c, 0xffff, 0, onAltPressure3Change);
 
@@ -749,10 +748,10 @@ DcsBios::StringBuffer<24> AcftNameBuffer(0x0000, onAcftNameChange);
 
 
 // Hornet
-DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 22, 24);
+DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 24, 22);
 
 // A10
-DcsBios::RotaryEncoder altSetPressure("ALT_SET_PRESSURE", "-3200", "+3200", 22, 24);
+DcsBios::RotaryEncoder altSetPressure("ALT_SET_PRESSURE", "-3200", "+3200", 24, 22);
 
 void loop() {
 
@@ -765,7 +764,7 @@ void loop() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
-  if (PressureChanged == true)  ProcessPressureChange(); 
+  if (PressureChanged == true) ProcessPressureChange();
 
   // for (long i = 12000; i >= 0; i--) {
   //   UpdateAltimeterDigits(i);
