@@ -312,7 +312,7 @@ void setup() {
 
   u8g2_BARO.begin();
   u8g2_BARO.clearBuffer();
-  u8g2_BARO.setFont(u8g2_font_logisoso30_tn);
+  u8g2_BARO.setFont(u8g2_font_logisoso16_tn);
   u8g2_BARO.sendBuffer();
   tcaselect(BARO_OLED_Port);
   updateBARO("2992");
@@ -323,7 +323,7 @@ void setup() {
   u8g2_ALT.clearBuffer();
   u8g2_ALT.setFont(u8g2_font_logisoso30_tn);
   u8g2_ALT.sendBuffer();
-  updateALTIMETER_HEIGHT("00");
+  UpdateAltimeterDigits(0);
 
 
 
@@ -385,7 +385,7 @@ void updateBARO(String strnewValue) {
   u8g2_BARO.drawBox(0, 0, 128, 32);
   u8g2_BARO.setDrawColor(1);
   u8g2_BARO.setFontDirection(0);
-  u8g2_BARO.drawStr(20, 32, newValue);
+  u8g2_BARO.drawStr(65, 16, newValue);
   u8g2_BARO.sendBuffer();
 }
 
@@ -395,16 +395,7 @@ void buildBAROString() {
   BaroUpdated = false;
 }
 
-void updateALTIMETER_HEIGHT(String strnewValue) {
 
-  const char* newValue = strnewValue.c_str();
-  tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
-  u8g2_ALT.setFontMode(0);
-  u8g2_ALT.setDrawColor(0);
-  u8g2_ALT.drawBox(0, 0, 128, 32);
-  u8g2_ALT.setDrawColor(1);
-  u8g2_ALT.sendBuffer();
-}
 
 
 
@@ -608,10 +599,11 @@ void UpdateAltimeterDigits(long height) {
     u8g2_ALT.setDrawColor(1);
 
     // If Ten Thousands value is a 0 draw the hash
+    // Position was 10 and 0 moved 40 to the right
     if (sTenThousandsDigit != "0") {
-      u8g2_ALT.drawStr(10, 30, cTenThousandsValue);
+      u8g2_ALT.drawStr(50, 30, cTenThousandsValue);
     } else {
-      u8g2_ALT.drawXBM(0, 0, hash_width, hash_height, hash_bits);
+      u8g2_ALT.drawXBM(40, 0, hash_width, hash_height, hash_bits);
     }
 
 
@@ -622,13 +614,14 @@ void UpdateAltimeterDigits(long height) {
       // u8g2_ALT.drawStr(40, 30 + 0, cThousandsValue);
       // u8g2_ALT.drawStr(70, -2 + iHundredsCharacterOffset, cHundredsaboveValue);
       // u8g2_ALT.drawStr(70, 30 + iHundredsCharacterOffset, cHundredsValue);
-      u8g2_ALT.drawStr(40, -2 + 0, cThousandsaboveValue);
-      u8g2_ALT.drawStr(40, 30 + 0, cThousandsValue);
-      u8g2_ALT.drawStr(70, 58 - iHundredsCharacterOffset, cHundredsaboveValue);
-      u8g2_ALT.drawStr(70, 26 - iHundredsCharacterOffset, cHundredsValue);
+      // X POs was 40 andd 70 - 30 pixels diff
+      u8g2_ALT.drawStr(80, -2 + 0, cThousandsaboveValue);
+      u8g2_ALT.drawStr(80, 30 + 0, cThousandsValue);
+      u8g2_ALT.drawStr(110, 58 - iHundredsCharacterOffset, cHundredsaboveValue);
+      u8g2_ALT.drawStr(110, 26 - iHundredsCharacterOffset, cHundredsValue);
     } else {
-      u8g2_ALT.drawStr(40, -2 + iThousandsCharacterOffset, cThousandsaboveValue);
-      u8g2_ALT.drawStr(40, 30 + iThousandsCharacterOffset, cThousandsValue);
+      u8g2_ALT.drawStr(80, -2 + iThousandsCharacterOffset, cThousandsaboveValue);
+      u8g2_ALT.drawStr(80, 30 + iThousandsCharacterOffset, cThousandsValue);
     }
     u8g2_ALT.sendBuffer();
     ;
