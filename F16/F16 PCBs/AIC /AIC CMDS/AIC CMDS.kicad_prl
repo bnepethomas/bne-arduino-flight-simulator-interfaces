@@ -14,13 +14,12 @@
       "vias": 1.0,
       "zones": 0.6
     },
-    "ratsnest_display_mode": 0,
     "selection_filter": {
       "dimensions": true,
       "footprints": true,
       "graphics": true,
       "keepouts": true,
-      "lockedItems": true,
+      "lockedItems": false,
       "otherItems": true,
       "pads": true,
       "text": true,
@@ -35,15 +34,12 @@
       3,
       4,
       5,
-      6,
-      7,
       8,
       9,
       10,
       11,
       12,
       13,
-      14,
       15,
       16,
       17,
@@ -72,7 +68,7 @@
     "zone_display_mode": 0
   },
   "meta": {
-    "filename": "Power Distro PCB V2.kicad_prl",
+    "filename": "AIC CMDS.kicad_prl",
     "version": 3
   },
   "project": {
