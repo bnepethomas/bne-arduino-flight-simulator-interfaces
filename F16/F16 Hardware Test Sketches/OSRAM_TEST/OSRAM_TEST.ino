@@ -2,59 +2,51 @@
 
 int selectedmodule = 0;
 
-void write_0() {
-  digitalWrite(22, LOW);   //D0
-  digitalWrite(23, LOW);   //D1
-  digitalWrite(24, LOW);   //D2
-  digitalWrite(25, LOW);   //D3
-  digitalWrite(26, HIGH);  //D4
-  digitalWrite(27, HIGH);  //D5
-  digitalWrite(28, LOW);   //D6
+const int PIN_D0 = 22;
+const int PIN_D1 = 23;
+const int PIN_D2 = 24;
+const int PIN_D3 = 25;
+const int PIN_D4 = 26;
+const int PIN_D5 = 27;
+const int PIN_D6 = 28;
+
+const int PIN_ADDR0 = 30;
+const int PIN_ADDR1 = 31;
+
+
+void writethebyte(uint8_t theByte) {
+  digitalWrite(PIN_D0, theByte & B00000001);
+  digitalWrite(PIN_D1, theByte & B00000010);
+  digitalWrite(PIN_D2, theByte & B00000100);
+  digitalWrite(PIN_D3, theByte & B00001000);
+  digitalWrite(PIN_D4, theByte & B00010000);
+  digitalWrite(PIN_D5, theByte & B00100000);
+  digitalWrite(PIN_D6, theByte & B01000000);
 }
 
-void write_1() {
-  digitalWrite(22, HIGH);  //D0
-  digitalWrite(23, LOW);   //D1
-  digitalWrite(24, LOW);   //D2
-  digitalWrite(25, LOW);   //D3
-  digitalWrite(26, HIGH);  //D4
-  digitalWrite(27, HIGH);  //D5
-  digitalWrite(28, LOW);   //D6
+void writechar(int moduletoselect, int digittoselect, uint8_t theByte) {
+
+  selectmodule(moduletoselect);
+  selectdigit(digittoselect);
+  writethebyte(theByte);
+  clockit();
+  
 }
 
-void write_2() {
-  digitalWrite(22, LOW);   //D0
-  digitalWrite(23, HIGH);  //D1
-  digitalWrite(24, LOW);   //D2
-  digitalWrite(25, LOW);   //D3
-  digitalWrite(26, HIGH);  //D4
-  digitalWrite(27, HIGH);  //D5
-  digitalWrite(28, LOW);   //D6
-}
-
-void write_3() {
-  digitalWrite(22, HIGH);  //D0
-  digitalWrite(23, HIGH);  //D1
-  digitalWrite(24, LOW);   //D2
-  digitalWrite(25, LOW);   //D3
-  digitalWrite(26, HIGH);  //D4
-  digitalWrite(27, HIGH);  //D5
-  digitalWrite(28, LOW);   //D6
-}
 
 void selectdigit(int digittoselect) {
   if (digittoselect == 0) {
-    digitalWrite(30, HIGH);  //A0
-    digitalWrite(31, HIGH);  //A1
+    digitalWrite(PIN_ADDR0, HIGH);  //A0
+    digitalWrite(PIN_ADDR1, HIGH);  //A1
   } else if (digittoselect == 1) {
-    digitalWrite(30, LOW);   //A0
-    digitalWrite(31, HIGH);  //A1
+    digitalWrite(PIN_ADDR0, LOW);   //A0
+    digitalWrite(PIN_ADDR1, HIGH);  //A1
   } else if (digittoselect == 2) {
-    digitalWrite(30, HIGH);  //A0
-    digitalWrite(31, LOW);   //A1
+    digitalWrite(PIN_ADDR0, HIGH);  //A0
+    digitalWrite(PIN_ADDR1, LOW);   //A1
   } else if (digittoselect == 3) {
-    digitalWrite(30, LOW);  //A0
-    digitalWrite(31, LOW);  //A1
+    digitalWrite(PIN_ADDR0, LOW);  //A0
+    digitalWrite(PIN_ADDR1, LOW);  //A1
   }
 }
 
@@ -96,74 +88,40 @@ void setup() {
   digitalWrite(10, HIGH);
   digitalWrite(11, HIGH);
 
-  pinMode(22, OUTPUT);  //D0
-  pinMode(23, OUTPUT);  //D1
-  pinMode(24, OUTPUT);  //D2
-  pinMode(25, OUTPUT);  //D3
-  pinMode(26, OUTPUT);  //D4
-  pinMode(27, OUTPUT);  //D5
-  pinMode(28, OUTPUT);  //D6
+  pinMode(PIN_D0, OUTPUT);  //D0
+  pinMode(PIN_D1, OUTPUT);  //D1
+  pinMode(PIN_D2, OUTPUT);  //D2
+  pinMode(PIN_D3, OUTPUT);  //D3
+  pinMode(PIN_D4, OUTPUT);  //D4
+  pinMode(PIN_D5, OUTPUT);  //D5
+  pinMode(PIN_D6, OUTPUT);  //D6
 
-  pinMode(30, OUTPUT);  //A0
-  pinMode(31, OUTPUT);  //A1
+  pinMode(PIN_ADDR0, OUTPUT);  //A0
+  pinMode(PIN_ADDR1, OUTPUT);  //A1
 
 
 
-  selectmodule(0);
-  selectdigit(0);
-  write_0();
-  clockit();
-  selectdigit(1);
-  write_0();
-  clockit();
-  selectdigit(2);
-  write_0();
-  clockit();
-  selectdigit(3);
-  write_0();
-  clockit();
 
-  selectedmodule = 1;
-  selectdigit(0);
-  write_1();
-  clockit();
-  selectdigit(1);
-  write_1();
-  clockit();
-  selectdigit(2);
-  write_1();
-  clockit();
-  selectdigit(3);
-  write_1();
-  clockit();
+  writechar(0, 0, 0x30);
+  writechar(0, 1, 0x30);
+  writechar(0, 2, 0x30);
+  writechar(0, 3, 0x30);
 
-  selectedmodule = 2;
-  selectdigit(0);
-  write_2();
-  clockit();
-  selectdigit(1);
-  write_2();
-  clockit();
-  selectdigit(2);
-  write_2();
-  clockit();
-  selectdigit(3);
-  write_2();
-  clockit();
+  writechar(1, 0, 0x31);
+  writechar(1, 1, 0x31);
+  writechar(1, 2, 0x31);
+  writechar(1, 3, 0x31);
 
-  selectedmodule = 3;
-  selectdigit(0);
-  write_3();
-  clockit();
-  selectdigit(1);
-  write_3();
-  clockit();
-  selectdigit(2);
-  write_3();
-  clockit();
-  selectdigit(3);
-  write_3();
-  clockit();
+  writechar(2, 0, 0x32);
+  writechar(2, 1, 0x32);
+  writechar(2, 2, 0x32);
+  writechar(2, 3, 0x32);
+
+  writechar(3, 0, 0x34);
+  writechar(3, 1, 0x34);
+  writechar(3, 2, 0x34);
+  writechar(3, 3, 0x34);
+
 }
 
 // the loop function runs over and over again forever
