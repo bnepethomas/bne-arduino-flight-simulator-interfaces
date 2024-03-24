@@ -13,6 +13,10 @@ const int PIN_D6 = 28;
 const int PIN_ADDR0 = 30;
 const int PIN_ADDR1 = 31;
 
+const int PIN_MODULE_SEL_0 = 8;
+const int PIN_MODULE_SEL_1 = 9;
+const int PIN_MODULE_SEL_2 = 10;
+const int PIN_MODULE_SEL_3 = 11;
 
 void writethebyte(uint8_t theByte) {
   digitalWrite(PIN_D0, theByte & B00000001);
@@ -28,9 +32,14 @@ void writechar(int moduletoselect, int digittoselect, uint8_t theByte) {
 
   selectmodule(moduletoselect);
   selectdigit(digittoselect);
+
+  // Quick bounds check if invalid print X
+  // Need to add spaces, - etc
+  if ((theByte >= 0x5D) || (theByte <= 0x2F)) {
+    theByte = 0x58;
+  }
   writethebyte(theByte);
   clockit();
-  
 }
 
 
@@ -57,13 +66,13 @@ void selectmodule(int moduletoselect) {
 void clockit() {
   int pintowrite = 8;
   if (selectedmodule == 0) {
-    pintowrite = 8;
+    pintowrite = PIN_MODULE_SEL_0;
   } else if (selectedmodule == 1) {
-    pintowrite = 9;
+    pintowrite = PIN_MODULE_SEL_1;
   } else if (selectedmodule == 2) {
-    pintowrite = 10;
+    pintowrite = PIN_MODULE_SEL_2;
   } else if (selectedmodule == 3) {
-    pintowrite = 11;
+    pintowrite = PIN_MODULE_SEL_3;
   }
   digitalWrite(pintowrite, HIGH);
   delay(1);
@@ -78,15 +87,15 @@ void clockit() {
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(8, OUTPUT);   //OSRAM 0 Write
-  pinMode(9, OUTPUT);   //OSRAM 1 Write
-  pinMode(10, OUTPUT);  //OSRAM 2 Write
-  pinMode(11, OUTPUT);  //OSRAM 3 Write
+  pinMode(PIN_MODULE_SEL_0, OUTPUT);  //OSRAM 0 Write
+  pinMode(PIN_MODULE_SEL_1, OUTPUT);  //OSRAM 1 Write
+  pinMode(PIN_MODULE_SEL_2, OUTPUT);  //OSRAM 2 Write
+  pinMode(PIN_MODULE_SEL_3, OUTPUT);  //OSRAM 3 Write
 
-  digitalWrite(8, HIGH);
-  digitalWrite(9, HIGH);
-  digitalWrite(10, HIGH);
-  digitalWrite(11, HIGH);
+  digitalWrite(PIN_MODULE_SEL_0, HIGH);
+  digitalWrite(PIN_MODULE_SEL_1, HIGH);
+  digitalWrite(PIN_MODULE_SEL_2, HIGH);
+  digitalWrite(PIN_MODULE_SEL_3, HIGH);
 
   pinMode(PIN_D0, OUTPUT);  //D0
   pinMode(PIN_D1, OUTPUT);  //D1
@@ -102,8 +111,8 @@ void setup() {
 
 
 
-  writechar(0, 0, 0x30);
-  writechar(0, 1, 0x30);
+  writechar(0, 0, 0x2F);
+  writechar(0, 1, 0x5D);
   writechar(0, 2, 0x30);
   writechar(0, 3, 0x30);
 
@@ -117,11 +126,10 @@ void setup() {
   writechar(2, 2, 0x32);
   writechar(2, 3, 0x32);
 
-  writechar(3, 0, 0x34);
-  writechar(3, 1, 0x34);
-  writechar(3, 2, 0x34);
-  writechar(3, 3, 0x34);
-
+  writechar(3, 0, 0x41);
+  writechar(3, 1, 0x42);
+  writechar(3, 2, 0x43);
+  writechar(3, 3, 0x44);
 }
 
 // the loop function runs over and over again forever
