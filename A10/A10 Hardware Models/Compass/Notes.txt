@@ -1,0 +1,5 @@
+Cloned from Ben's Hornet project which cloned it form Warthogs project
+https://drive.google.com/drive/u/0/folders/1ukOsmdPhZy0PA-4989PLy_aoABF0cJo7
+https://github.com/Ben-F111/Ben-F18-Sim-Pit
+
+some STL's are at 100% over, in you slicer change the scale to  10%, cheers Ben
