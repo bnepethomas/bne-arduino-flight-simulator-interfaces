@@ -1,54 +1,180 @@
-/*
-  Blink
 
-  Turns an LED on for one second, then off for one second, repeatedly.
 
-  Most Arduinos have an on-board LED you can control. On the UNO, MEGA and ZERO
-  it is attached to digital pin 13, on MKR1000 on pin 6. LED_BUILTIN is set to
-  the correct LED pin independent of which board is used.
-  If you want to know what pin the on-board LED is connected to on your Arduino
-  model, check the Technical Specs of your board at:
-  https://www.arduino.cc/en/Main/Products
+int selectedmodule;
 
-  modified 8 May 2014
-  by Scott Fitzgerald
-  modified 2 Sep 2016
-  by Arturo Guadalupi
-  modified 8 Sep 2016
-  by Colby Newman
+void write_0() {
+  digitalWrite(22, LOW);   //D0
+  digitalWrite(23, LOW);   //D1
+  digitalWrite(24, LOW);   //D2
+  digitalWrite(25, LOW);   //D3
+  digitalWrite(26, HIGH);  //D4
+  digitalWrite(27, HIGH);  //D5
+  digitalWrite(28, LOW);   //D6
+}
 
-  This example code is in the public domain.
+void write_1() {
+  digitalWrite(22, HIGH);   //D0
+  digitalWrite(23, LOW);   //D1
+  digitalWrite(24, LOW);   //D2
+  digitalWrite(25, LOW);   //D3
+  digitalWrite(26, HIGH);  //D4
+  digitalWrite(27, HIGH);  //D5
+  digitalWrite(28, LOW);   //D6
+}
 
-  https://www.arduino.cc/en/Tutorial/BuiltInExamples/Blink
-*/
+void write_2() {
+  digitalWrite(22, LOW);   //D0
+  digitalWrite(23, HIGH);   //D1
+  digitalWrite(24, LOW);   //D2
+  digitalWrite(25, LOW);   //D3
+  digitalWrite(26, HIGH);  //D4
+  digitalWrite(27, HIGH);  //D5
+  digitalWrite(28, LOW);   //D6
+}
+
+void write_3() {
+  digitalWrite(22, HIGH);   //D0
+  digitalWrite(23, HIGH);   //D1
+  digitalWrite(24, LOW);   //D2
+  digitalWrite(25, LOW);   //D3
+  digitalWrite(26, HIGH);  //D4
+  digitalWrite(27, HIGH);  //D5
+  digitalWrite(28, LOW);   //D6
+}
+
+void selectdigit(int digittoselect) {
+  if (digittoselect == 0) {
+    digitalWrite(30, HIGH);  //A0
+    digitalWrite(31, HIGH);  //A1
+  } else if (digittoselect == 1) {
+    digitalWrite(30, LOW);   //A0
+    digitalWrite(31, HIGH);  //A1
+  } else if (digittoselect == 2) {
+    digitalWrite(30, HIGH);  //A0
+    digitalWrite(31, LOW);   //A1
+  } else if (digittoselect == 3) {
+    digitalWrite(30, LOW);  //A0
+    digitalWrite(31, LOW);  //A1
+  }
+}
+
+void selectmodule(int moduletoselect) {
+  selectedmodule = moduletoselect;
+}
+
+void clockit() {
+
+  if (selectedmodule == 0) {
+    digitalWrite(8, HIGH);
+    delay(1);
+    digitalWrite(8, LOW);
+    delay(1);
+    digitalWrite(8, HIGH);
+  } else if (selectedmodule == 1) {
+    digitalWrite(9, HIGH);
+    delay(1);
+    digitalWrite(9, LOW);
+    delay(1);
+    digitalWrite(9, HIGH);
+  } else if (selectedmodule == 2) {
+    digitalWrite(10, HIGH);
+    delay(1);
+    digitalWrite(10, LOW);
+    delay(1);
+    digitalWrite(10, HIGH);
+  } else if (selectedmodule == 3) {
+    digitalWrite(11, HIGH);
+    delay(1);
+    digitalWrite(11, LOW);
+    delay(1);
+    digitalWrite(11, HIGH);
+  }
+}
+
+
 
 // the setup function runs once when you press reset or power the board
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(8, OUTPUT);   //OSRAM 1 Write
+  pinMode(9, OUTPUT);   //OSRAM 1 Write
+  pinMode(10, OUTPUT);  //OSRAM 1 Write
+  pinMode(11, OUTPUT);  //OSRAM 1 Write
+
+  digitalWrite(8, HIGH);
+  digitalWrite(9, HIGH);
+  digitalWrite(10, HIGH);
+  digitalWrite(11, HIGH);
+
   pinMode(22, OUTPUT);  //D0
   pinMode(23, OUTPUT);  //D1
   pinMode(24, OUTPUT);  //D2
   pinMode(25, OUTPUT);  //D3
   pinMode(26, OUTPUT);  //D4
-  pinMode(27, OUTPUT);   //D5
-  pinMode(28, OUTPUT);   //D6
+  pinMode(27, OUTPUT);  //D5
+  pinMode(28, OUTPUT);  //D6
 
-  digitalWrite(22, LOW);  //D0
-  digitalWrite(23, LOW);  //D1
-  digitalWrite(24, LOW);  //D2
-  digitalWrite(25, LOW);  //D3
-  digitalWrite(26, HIGH);  //D4
-  digitalWrite(27, HIGH);   //D5
-  digitalWrite(28, LOW);   //D6
+  pinMode(30, OUTPUT);  //D5
+  pinMode(31, OUTPUT);  //D6
 
-  digitalWrite(8, HIGH);   //D6
-  delay(1);
-  digitalWrite(8, LOW);   //D6
-  delay(1);
-  digitalWrite(8, HIGH);   //D6
+  selectedmodule = 0;
 
+  selectmodule(0);
+  selectdigit(0);
+  write_0();
+  clockit();
+  selectdigit(1);
+  write_0();
+  clockit();
+  selectdigit(2);
+  write_0();
+  clockit();
+  selectdigit(3);
+  write_0();
+  clockit();
+
+  selectedmodule = 1;
+  selectdigit(0);
+  write_1();
+  clockit();
+  selectdigit(1);
+  write_1();
+  clockit();
+  selectdigit(2);
+  write_1();
+  clockit();
+  selectdigit(3);
+  write_1();
+  clockit();
+
+  selectedmodule = 2;
+  selectdigit(0);
+  write_2();
+  clockit();
+  selectdigit(1);
+  write_2();
+  clockit();
+  selectdigit(2);
+  write_2();
+  clockit();
+  selectdigit(3);
+  write_2();
+  clockit();
+
+  selectedmodule = 3;
+  selectdigit(0);
+  write_3();
+  clockit();
+  selectdigit(1);
+  write_3();
+  clockit();
+  selectdigit(2);
+  write_3();
+  clockit();
+  selectdigit(3);
+  write_3();
+  clockit();
 }
 
 // the loop function runs over and over again forever
