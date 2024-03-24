@@ -1,6 +1,6 @@
 
 
-int selectedmodule;
+int selectedmodule = 0;
 
 void write_0() {
   digitalWrite(22, LOW);   //D0
@@ -13,7 +13,7 @@ void write_0() {
 }
 
 void write_1() {
-  digitalWrite(22, HIGH);   //D0
+  digitalWrite(22, HIGH);  //D0
   digitalWrite(23, LOW);   //D1
   digitalWrite(24, LOW);   //D2
   digitalWrite(25, LOW);   //D3
@@ -24,7 +24,7 @@ void write_1() {
 
 void write_2() {
   digitalWrite(22, LOW);   //D0
-  digitalWrite(23, HIGH);   //D1
+  digitalWrite(23, HIGH);  //D1
   digitalWrite(24, LOW);   //D2
   digitalWrite(25, LOW);   //D3
   digitalWrite(26, HIGH);  //D4
@@ -33,8 +33,8 @@ void write_2() {
 }
 
 void write_3() {
-  digitalWrite(22, HIGH);   //D0
-  digitalWrite(23, HIGH);   //D1
+  digitalWrite(22, HIGH);  //D0
+  digitalWrite(23, HIGH);  //D1
   digitalWrite(24, LOW);   //D2
   digitalWrite(25, LOW);   //D3
   digitalWrite(26, HIGH);  //D4
@@ -63,32 +63,21 @@ void selectmodule(int moduletoselect) {
 }
 
 void clockit() {
-
+  int pintowrite = 8;
   if (selectedmodule == 0) {
-    digitalWrite(8, HIGH);
-    delay(1);
-    digitalWrite(8, LOW);
-    delay(1);
-    digitalWrite(8, HIGH);
+    pintowrite = 8;
   } else if (selectedmodule == 1) {
-    digitalWrite(9, HIGH);
-    delay(1);
-    digitalWrite(9, LOW);
-    delay(1);
-    digitalWrite(9, HIGH);
+    pintowrite = 9;
   } else if (selectedmodule == 2) {
-    digitalWrite(10, HIGH);
-    delay(1);
-    digitalWrite(10, LOW);
-    delay(1);
-    digitalWrite(10, HIGH);
+    pintowrite = 10;
   } else if (selectedmodule == 3) {
-    digitalWrite(11, HIGH);
-    delay(1);
-    digitalWrite(11, LOW);
-    delay(1);
-    digitalWrite(11, HIGH);
+    pintowrite = 11;
   }
+  digitalWrite(pintowrite, HIGH);
+  delay(1);
+  digitalWrite(pintowrite, LOW);
+  delay(1);
+  digitalWrite(pintowrite, HIGH);
 }
 
 
@@ -97,10 +86,10 @@ void clockit() {
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(8, OUTPUT);   //OSRAM 1 Write
+  pinMode(8, OUTPUT);   //OSRAM 0 Write
   pinMode(9, OUTPUT);   //OSRAM 1 Write
-  pinMode(10, OUTPUT);  //OSRAM 1 Write
-  pinMode(11, OUTPUT);  //OSRAM 1 Write
+  pinMode(10, OUTPUT);  //OSRAM 2 Write
+  pinMode(11, OUTPUT);  //OSRAM 3 Write
 
   digitalWrite(8, HIGH);
   digitalWrite(9, HIGH);
@@ -115,10 +104,10 @@ void setup() {
   pinMode(27, OUTPUT);  //D5
   pinMode(28, OUTPUT);  //D6
 
-  pinMode(30, OUTPUT);  //D5
-  pinMode(31, OUTPUT);  //D6
+  pinMode(30, OUTPUT);  //A0
+  pinMode(31, OUTPUT);  //A1
 
-  selectedmodule = 0;
+
 
   selectmodule(0);
   selectdigit(0);
