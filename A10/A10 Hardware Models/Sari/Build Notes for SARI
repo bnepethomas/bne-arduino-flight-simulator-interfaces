@@ -25,3 +25,10 @@ Monunt OptoSensor PCB and Mnount Ball and test OptoSensor senses roll interrupto
 
 A possible consideration for PCB redesign is duplicating the number of conductors used
 to carry roll motor current.
+
+The Roll Stepper was purchased from AliExpress
+https://vi.aliexpress.com/item/4000199720558.html
+It is a NEMA 8 Hollow Shaft 3.9V 0.6A Stepper
+1.8 degrees per step so 200 steps per revolution
+
+With supply of 3.3V and 600mA stepper motor temp was 36 degrees.
