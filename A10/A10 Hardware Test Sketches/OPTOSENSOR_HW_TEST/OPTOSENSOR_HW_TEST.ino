@@ -10,12 +10,12 @@ bool SensorState = false;
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(7, INPUT);
+  pinMode(8, INPUT);
 }
 
 // the loop function runs over and over again forever
 void loop() {
-  SensorState = digitalRead(7);
+  SensorState = digitalRead(8);
   if (SensorState == true) {
     digitalWrite(LED_BUILTIN, HIGH);
   } else {                           
