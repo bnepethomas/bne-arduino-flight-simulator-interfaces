@@ -34,9 +34,9 @@ void setup() {
 
 
   digitalWrite(LED_BUILTIN, true);
-  Serial.begin(115200);
-  Serial.println("");
-  Serial.println("Starting");
+  // Serial.begin(115200);
+  // Serial.println("");
+  // Serial.println("Starting");
   delay(FLASH_TIME);
   digitalWrite(LED_BUILTIN, false);
   delay(FLASH_TIME);
@@ -86,18 +86,21 @@ void setup() {
   }
 
   // Now we have Zero Point - move until interruptor has cleared
+  STEPPER_1.setAcceleration(100);
+   STEPPER_1.setMaxSpeed(600);
   SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   int STEP_COUNTER = 0;
   while (SENSOR_STATE == false) {
     // Stepping until Sensor Reads True
     STEP_COUNTER++;
     STEPPER_1.move(1);
-    while (STEPPER_1.isRunning()) {
-      STEPPER_1.runToPosition();
-    }
+    STEPPER_1.runToPosition();
+    //while (STEPPER_1.isRunning()) {
+    //  STEPPER_1.runToPosition();
+    //}
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   }
-  Serial.println("Total Steps until true : " + String(STEP_COUNTER));
+  // Serial.println("Total Steps until true : " + String(STEP_COUNTER));
 
   // Now Step Backwards until Sensor Reads False (ie interruptor is in place)
   SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
@@ -106,9 +109,9 @@ void setup() {
     // Stepping until Sensor Reads True
     STEP_COUNTER++;
     STEPPER_1.move(-1);
-    while (STEPPER_1.isRunning()) {
-      STEPPER_1.runToPosition();
-    }
+
+    STEPPER_1.runToPosition();
+
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   }
   Serial.println("Total Steps until false : " + String(STEP_COUNTER));
@@ -117,7 +120,7 @@ void setup() {
 
 
 
-  Serial.println("Determing Number of Steps in full revolution");
+  // Serial.println("Determing Number of Steps in full revolution");
   STEPPER_1.setCurrentPosition(0);
   STEP_COUNTER = 0;
   // Move 180 Steps then idividual step until sensor reads zero
@@ -141,10 +144,10 @@ void setup() {
       STEP_COUNTER++;
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   }
-  Serial.println("Total Steps in full Revolution : " + String(STEP_COUNTER));
+  // Serial.println("Total Steps in full Revolution : " + String(STEP_COUNTER));
 
-  Serial.println("All Done");
-  Serial.end();
+  // Serial.println("All Done");
+  // Serial.end();
 }
 
 

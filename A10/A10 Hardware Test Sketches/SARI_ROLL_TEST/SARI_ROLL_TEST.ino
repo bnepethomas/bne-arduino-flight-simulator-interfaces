@@ -14,9 +14,9 @@
 
 
 
-#define Ethernet_In_Use 0
+#define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 0
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 
 
 #define DCSBIOS_IRQ_SERIAL
@@ -76,7 +76,7 @@ int flashinterval = 1000;
 
 #include <AccelStepper.h>
 #include <Stepper.h>
-#define STEPS 720  // steps per revolution (limited to 315°)
+#define STEPS 200  // steps per revolution (limited to 315°)
 
 
 Servo SARIServo;
@@ -163,17 +163,14 @@ public:
     if (initState == 0) {  // not initialized yet
       SendDebug("SARI initState: " + String(initState));
       pinMode(SARIirDetectorPin, INPUT);
-      stepper.setMaxSpeed(SARIstepperConfig.maxSpeed);
-      stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
 
+      stepper.setMaxSpeed(200);
+      stepper.setAcceleration(100);
 
       initState = 1;
       SendDebug("Do a quick loop");
-
-      stepper.moveTo(1800);
-      while (stepper.distanceToGo() != 0) {
-        stepper.run();
-      }
+      stepper.moveTo(600);
+      stepper.runToPosition();
 
 
       SendDebug("SARI initState moving to State 1");
@@ -184,14 +181,11 @@ public:
       // move off zero if already there so we always get movement on reset
       // (to verify that the stepper is working)
       if (SARIzeroDetected()) {
-
-
-        stepper.runSpeed();
+        stepper.moveTo(60);
+        stepper.runToPosition();
       } else {
         initState = 2;
         SendDebug("SARI initState moving to State 2");
-        stepper.setMaxSpeed(SARIstepperConfig.maxSpeed);
-        stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
       }
     }
 
@@ -207,20 +201,34 @@ public:
           initState = 99;
         }
 
-        //SendDebug("SARI Roll - looping - " + String(initState));
-        stepper.moveTo(stepper.currentPosition() - 1);
-        stepper.run();
+
+        SendDebug("SARI Roll - looping - " + String(initState));
+        stepper.move(-1);
+        stepper.runToPosition();
+        while (!SARIzeroDetected()) {
+          //SendDebug("SARI Roll - looping - " + String(initState));
+          stepper.move(1);
+          stepper.runToPosition();
+        }
+
+        stepper.move(-10);
+        stepper.runToPosition();
+        while (!SARIzeroDetected()) {
+          //SendDebug("SARI Roll - looping - " + String(initState));
+          stepper.move(-1);
+          stepper.runToPosition();
+        }
+
 
 
       } else {
-        stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
+
         stepper.runToNewPosition(stepper.currentPosition());
         // tell the AccelStepper library that we are at position zero
         stepper.setCurrentPosition(SARIzeroOffset);
         SARIlastAccelStepperPosition = 0;
-        // set stepper SARIacceleration in steps per second per second
-        // (default is zero)
-        stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
+
+
 
         SARIlastZeroDetectState = true;
         initState = 3;
@@ -282,6 +290,7 @@ public:
         // tell AccelStepper to move relative to the current position
         stepper.move(delta);
       }
+      //SendDebug("Noise");
       stepper.run();
       if ((stepper.distanceToGo() == 0) && (waitingToDisable_SARI_ROLL == false) && (SARI_ROLL_ENABLED == true)) {
         // SendDebug("Starting Count down to disable SARI ROLL");
@@ -295,20 +304,19 @@ public:
 struct SARIStepperConfig SARIstepperConfig = {
   200,  // SARImaxSteps //200STEPS X 1/8 MICRO STEPPING
   200,  // maxSpeed //3200
-  100    // SARIacceleration 3200
+  100   // SARIacceleration 3200
 };
-const int SARIstepPin = 47;
-const int SARIdirectionPin = 45;
+
 
 // define AccelStepper instance
 
-AccelStepper SARIstepperRoll(AccelStepper::FULL4WIRE, 4,5,6,7);
+AccelStepper SARIstepperRoll(AccelStepper::FULL4WIRE, 5, 4, 7, 6);
 
 Nema8Stepper SARIRoll(0x74e6,             // address of stepper data
                       SARIstepperRoll,    // name of AccelStepper instance
                       SARIstepperConfig,  // SARIStepperConfig struct instance
-                      8,                 // IR Detector Pin (must be LOW in zero position)
-                      0,                // zero offset (SET TO 50% of MaX Steps) 1650
+                      8,                  // IR Detector Pin (must be LOW in zero position)
+                      0,                  // zero offset (SET TO 50% of MaX Steps) 1650
                                           // WIngs Level = 1/2 Max Steps -> "Zero" = 1/2 Turn
                                           // SARI will be upsidedown after Setup, this will correct in Bios
                       [](unsigned int newValue) -> unsigned int {
@@ -382,7 +390,7 @@ void loop() {
 
   DcsBios::loop();
 
- 
+
 
   // if (millis() >= nextupdate) {
   //   outputstate = !outputstate;
