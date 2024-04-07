@@ -1,0 +1,79 @@
+
+(rules PCB INT-LT-F18
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 364)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.8)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.6)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.2)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_800:400_um"
+    (shape
+      (circle F.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 800.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_800:400_um" "Via[0-1]_800:400_um" default
+  )
+  (via 
+    "Via[0-1]_800:400_um-kicad_default" "Via[0-1]_800:400_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-1]_800:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_800:400_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    GNDD "/+12v-IN-A" "Net-(D10-K)" "Net-(D1-A)" "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "Net-(D5-A)"
+    "Net-(D6-A)" "Net-(D7-A)" "Net-(D8-A)" "Net-(D25-A)" "Net-(D10-A)" "Net-(D11-A)" "Net-(D12-A)" "Net-(D13-A)"
+    "Net-(D14-A)" "Net-(D15-A)" "Net-(D16-A)" "Net-(D17-A)" "Net-(D18-A)" "Net-(D19-A)" "Net-(D20-A)" "Net-(D21-A)"
+    "Net-(D22-A)" "Net-(D23-A)" "Net-(D24-A)" "Net-(D26-A)" "Net-(D27-A)" "Net-(D28-A)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)
