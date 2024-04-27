@@ -214,6 +214,7 @@ void setup() {
   STEPPER_1.moveTo(randNumber);
   while (STEPPER_1.distanceToGo() != 0) {
     STEPPER_1.run();
+    SendDebug("Step Speed: " + String(STEPPER_1.speed()));
   }
 
 
@@ -285,6 +286,7 @@ void setup() {
     //STEPPER_1.setSpeed(300);
     if (STEPPER_1.runSpeed() == true)
       STEP_COUNTER++;
+      
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   }
   SendDebug("Time to Rotate: " + String((millis() - TIME_TO_ROTATE)) + "mS");
@@ -293,10 +295,25 @@ void setup() {
   delay(1000);
   SendDebug("Running Speed Test");
   STEPPER_1.setAcceleration(600);
-  STEPPER_1.setMaxSpeed(100);
+  STEPPER_1.setMaxSpeed(600);
   STEPPER_1.setCurrentPosition(0);
   TIME_TO_ROTATE = millis();
-  STEPPER_1.runToNewPosition(400);
+  STEPPER_1.runToNewPosition(54);
+  delay(500);
+  STEPPER_1.runToNewPosition(104);
+  delay(500);
+  STEPPER_1.runToNewPosition(154);
+  delay(500);
+  STEPPER_1.runToNewPosition(204);
+    STEPPER_1.setCurrentPosition(0);
+  TIME_TO_ROTATE = millis();
+  STEPPER_1.runToNewPosition(54);
+  delay(500);
+  STEPPER_1.runToNewPosition(104);
+  delay(500);
+  STEPPER_1.runToNewPosition(154);
+  delay(500);
+  STEPPER_1.runToNewPosition(0);
   SendDebug("Time to Rotate: " + String((millis() - TIME_TO_ROTATE) / 2) + "mS");
 
   SendDebug("Steps until correct zero point: " + String(stepsUntilBreak()));
