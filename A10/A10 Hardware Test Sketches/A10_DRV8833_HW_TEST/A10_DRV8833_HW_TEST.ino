@@ -126,21 +126,90 @@ void setup() {
 
 
   randomSeed(analogRead(0));
+  int STEP_COUNTER = 0;
+
+  if (false) {
+    STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
+    STEPPER_1.setAcceleration(STEPPER_ACCELERATION);
+
+    STEPPER_1.moveTo(300);
+    while (STEPPER_1.distanceToGo() != 0) {
+      STEPPER_1.run();
+    }
+    STEPPER_1.moveTo(0);
+    while (STEPPER_1.distanceToGo() != 0) {
+      STEPPER_1.run();
+    }
+
+    SendDebug("Moving Random Distance");
+    int randNumber = random(10, 200);
+    STEPPER_1.moveTo(randNumber);
+    while (STEPPER_1.distanceToGo() != 0) {
+      STEPPER_1.run();
+    }
 
 
-  STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
-  STEPPER_1.setAcceleration(STEPPER_ACCELERATION);
 
-  STEPPER_1.moveTo(300);
-  while (STEPPER_1.distanceToGo() != 0) {
-    STEPPER_1.run();
-  }
-  STEPPER_1.moveTo(0);
-  while (STEPPER_1.distanceToGo() != 0) {
-    STEPPER_1.run();
+    // Check to see if stepper already in rest position - if so move 20
+    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+    if (SENSOR_STATE == false) {
+      SendDebug("Stepping away from Zero");
+      STEPPER_1.move(20);
+      while (STEPPER_1.distanceToGo() != 0) {
+        STEPPER_1.run();
+      }
+    }
+
+
+    // Find Zero Point - moving in positive direction
+    SendDebug("Find Zero point");
+    STEPPER_1.moveTo(3000);
+    while (STEPPER_1.distanceToGo() != 0) {
+      SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+      if (SENSOR_STATE == false) {
+        break;
+      }
+      STEPPER_1.run();
+    }
+    SendDebug("Found Zero Point");
+    // Now we have Zero Point - move until interruptor has cleared
+    STEPPER_1.setAcceleration(100);
+    STEPPER_1.setMaxSpeed(600);
+    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+    int STEP_COUNTER = 0;
+
+    STEPPER_1.move(400);
+    while (SENSOR_STATE == false) {
+      // Stepping until Sensor Reads True
+      STEP_COUNTER++;
+      STEPPER_1.move(1);
+      STEPPER_1.runToPosition();
+      //while (STEPPER_1.isRunning()) {
+      //  STEPPER_1.runToPosition();
+      //}
+      SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+    }
+    SendDebug("Total Steps until true : " + String(STEP_COUNTER));
+
+    // Now Step Backwards until Sensor Reads False (ie interruptor is in place)
+    SendDebug("Now Step Clockwise until Sensor Reads False (ie interruptor is in place)");
+    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+    STEP_COUNTER = 0;
+    while (SENSOR_STATE == true) {
+      // Stepping until Sensor Reads True
+      STEP_COUNTER++;
+      STEPPER_1.move(-1);
+
+      STEPPER_1.runToPosition();
+
+      SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+    }
+    SendDebug("Total Steps until false : " + String(STEP_COUNTER));
   }
 
   SendDebug("Moving Random Distance");
+  STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_1.setAcceleration(STEPPER_ACCELERATION);
   int randNumber = random(10, 200);
   STEPPER_1.moveTo(randNumber);
   while (STEPPER_1.distanceToGo() != 0) {
@@ -148,82 +217,22 @@ void setup() {
   }
 
 
-
-  // Check to see if stepper already in rest position - if so move 20
-  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-  if (SENSOR_STATE == false) {
-    SendDebug("Stepping away from Zero");
-    STEPPER_1.move(20);
-    while (STEPPER_1.distanceToGo() != 0) {
-      STEPPER_1.run();
-    }
-  }
-
-
-  // Find Zero Point - moving in positive direction
-  SendDebug("Find Zero point");
-  STEPPER_1.moveTo(3000);
-  while (STEPPER_1.distanceToGo() != 0) {
-    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-    if (SENSOR_STATE == false) {
-      break;
-    }
-    STEPPER_1.run();
-  }
-  SendDebug("Found Zero Point");
-  // Now we have Zero Point - move until interruptor has cleared
-  STEPPER_1.setAcceleration(100);
+  SendDebug("Find Zero");
   STEPPER_1.setMaxSpeed(600);
-  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-  int STEP_COUNTER = 0;
-
-  STEPPER_1.move(400);
-  while (SENSOR_STATE == false) {
-    // Stepping until Sensor Reads True
-    STEP_COUNTER++;
-    STEPPER_1.move(1);
-    STEPPER_1.runToPosition();
-    //while (STEPPER_1.isRunning()) {
-    //  STEPPER_1.runToPosition();
-    //}
-    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-  }
-  SendDebug("Total Steps until true : " + String(STEP_COUNTER));
-
-  // Now Step Backwards until Sensor Reads False (ie interruptor is in place)
-  SendDebug("Now Step Clockwise until Sensor Reads False (ie interruptor is in place)");
-  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-  STEP_COUNTER = 0;
-  while (SENSOR_STATE == true) {
-    // Stepping until Sensor Reads True
-    STEP_COUNTER++;
-    STEPPER_1.move(-1);
-
-    STEPPER_1.runToPosition();
-
-    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-  }
-  SendDebug("Total Steps until false : " + String(STEP_COUNTER));
-
-
-
-
-
-  SendDebug("Determing Number of Steps in full revolution");
-  STEPPER_1.setCurrentPosition(0);
-  
-  STEP_COUNTER = 0;
-  // Move 180 Steps then idividual step until sensor reads zero
-  STEPPER_1.setMaxSpeed(600);
-  STEPPER_1.moveTo(220);
+  STEPPER_1.moveTo(420);
   STEPPER_1.setSpeed(60);
-  // Speed of 120 is a fail 
+  // Speed of 120 is a fail
   // Speed of 100 gives a cont of 211
   // Speed of 90,80 gives count of 203
   // Speed of 70,60,40,30  gives 199
   // Serial.println("Distance to go is :" + String(STEPPER_1.distanceToGo()));
+  // Hornet has roll rate os 225 degrees per second
+  // F16 has a roll rate of 240 degrees per second
+  // So if ball can rotate once per second we are good
+  // 1.8 degrees per step = so 200 steps for 360 degrees
   bool READY_TO_BREAK = false;
   SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+  long TIME_TO_ROTATE = millis();
   while ((READY_TO_BREAK == false) || (SENSOR_STATE == true)) {
 
     // If we sure than interruptor has cleared sensor then get ready to stop
@@ -240,14 +249,76 @@ void setup() {
       STEP_COUNTER++;
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   }
+
+
+  SendDebug("Determing Number of Steps in full revolution");
+  STEPPER_1.setCurrentPosition(0);
+
+  STEP_COUNTER = 0;
+  // Move 180 Steps then idividual step until sensor reads zero
+  STEPPER_1.setMaxSpeed(600);
+  STEPPER_1.moveTo(220);
+  STEPPER_1.setSpeed(60);
+  // Speed of 120 is a fail
+  // Speed of 100 gives a cont of 211
+  // Speed of 90,80 gives count of 203
+  // Speed of 70,60,40,30  gives 199
+  // Serial.println("Distance to go is :" + String(STEPPER_1.distanceToGo()));
+  // Hornet has roll rate os 225 degrees per second
+  // F16 has a roll rate of 240 degrees per second
+  // So if ball can rotate once per second we are good
+  // 1.8 degrees per step = so 200 steps for 360 degrees
+  READY_TO_BREAK = false;
+  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+  TIME_TO_ROTATE = millis();
+  while ((READY_TO_BREAK == false) || (SENSOR_STATE == true)) {
+
+    // If we sure than interruptor has cleared sensor then get ready to stop
+    if (READY_TO_BREAK == false) {
+      // Serial.println("Distance to go is :" + String(STEPPER_1.distanceToGo()));
+      // Serial.println("Checking if ready to break");
+      if (100 > STEPPER_1.distanceToGo()) {
+        READY_TO_BREAK = true;
+      }
+    }
+
+    //STEPPER_1.setSpeed(300);
+    if (STEPPER_1.runSpeed() == true)
+      STEP_COUNTER++;
+    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+  }
+  SendDebug("Time to Rotate: " + String((millis() - TIME_TO_ROTATE)) + "mS");
   SendDebug("Total Steps in full Revolution : " + String(STEP_COUNTER));
+
+  delay(1000);
+  SendDebug("Running Speed Test");
+  STEPPER_1.setAcceleration(600);
+  STEPPER_1.setMaxSpeed(100);
+  STEPPER_1.setCurrentPosition(0);
+  TIME_TO_ROTATE = millis();
+  STEPPER_1.runToNewPosition(400);
+  SendDebug("Time to Rotate: " + String((millis() - TIME_TO_ROTATE) / 2) + "mS");
+
+  SendDebug("Steps until correct zero point: " + String(stepsUntilBreak()));
 
   SendDebug("All Done");
   // Serial.end();
 }
 
+long stepsUntilBreak() {
+  long STEP_COUNTER = 0;
+  boolean SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+  while (SENSOR_STATE == true) {
+    // Stepping until Sensor Reads True
+    STEP_COUNTER++;
+    STEPPER_1.move(1);
 
+    STEPPER_1.runToPosition();
 
+    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+  }
+  return STEP_COUNTER;
+}
 
 void loop() {
 
