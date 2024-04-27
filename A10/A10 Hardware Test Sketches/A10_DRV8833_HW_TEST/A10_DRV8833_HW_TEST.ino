@@ -1,4 +1,73 @@
 
+
+#define Ethernet_In_Use 1
+#define Reflector_In_Use 1
+#define DCSBIOS_In_Use 1
+#define MSFS_In_Use 0  // Used to interface into MSFS - set to 0 if not in use
+
+// ###################################### Begin Ethernet Related #############################
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+
+// These local Mac and IP Address will be reassigned early in startup based on
+// the device ID as set by address pins
+#define EthernetStartupDelay 500
+#define ES1_RESET_PIN 53
+
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x06 };
+IPAddress ip(172, 16, 1, 106);
+String strMyIP = "172.16.1.106";
+
+// Reflector
+IPAddress reflectorIP(172, 16, 1, 10);
+String strReflectorIP = "X.X.X.X";
+
+
+EthernetUDP udp;
+
+const unsigned int localport = 7788;
+const unsigned int max7219port = 7788;
+const unsigned int remoteport = 49000;
+const unsigned int reflectorport = 27000;
+const unsigned int MSFSport = 13136;
+
+char packetBuffer[1000];     //buffer to store the incoming data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+
+String DebugString = "";
+
+// Packet Length
+int max7219packetsize;
+int max7219Len;
+
+int MSFSpacketsize;
+int MSFSLen;
+
+EthernetUDP max7219udp;  // Max7219
+EthernetUDP MSFSudp;     // Listens to MSFS light commands
+
+char max7219packetBuffer[1000];  //buffer to store packet data for both Max7219 and MSFS data
+
+
+bool Debug_Display = false;
+char *ParameterNamePtr;
+char *ParameterValuePtr;
+
+
+
+
+void SendDebug(String MessageToSend) {
+  if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
+    udp.beginPacket(reflectorIP, reflectorport);
+    udp.println(MessageToSend);
+    udp.endPacket();
+  }
+}
+// ###################################### End Ethernet Related #############################
+
+
 #include <AccelStepper.h>
 #include <Stepper.h>
 #define STEPS 720  // steps per revolution (limited to 315°)
@@ -34,6 +103,20 @@ void setup() {
 
 
   digitalWrite(LED_BUILTIN, true);
+
+  if (Ethernet_In_Use == 1) {
+
+    // Using manual reset instead of tying to Arduino Reset
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
+    Ethernet.begin(mac, ip);
+
+
+    udp.begin(localport);
+  }
   // Serial.begin(115200);
   // Serial.println("");
   // Serial.println("Starting");
@@ -57,6 +140,7 @@ void setup() {
     STEPPER_1.run();
   }
 
+  SendDebug("Moving Random Distance");
   int randNumber = random(10, 200);
   STEPPER_1.moveTo(randNumber);
   while (STEPPER_1.distanceToGo() != 0) {
@@ -68,6 +152,7 @@ void setup() {
   // Check to see if stepper already in rest position - if so move 20
   SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   if (SENSOR_STATE == false) {
+    SendDebug("Stepping away from Zero");
     STEPPER_1.move(20);
     while (STEPPER_1.distanceToGo() != 0) {
       STEPPER_1.run();
@@ -76,6 +161,7 @@ void setup() {
 
 
   // Find Zero Point - moving in positive direction
+  SendDebug("Find Zero point");
   STEPPER_1.moveTo(3000);
   while (STEPPER_1.distanceToGo() != 0) {
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
@@ -84,12 +170,14 @@ void setup() {
     }
     STEPPER_1.run();
   }
-
+  SendDebug("Found Zero Point");
   // Now we have Zero Point - move until interruptor has cleared
   STEPPER_1.setAcceleration(100);
-   STEPPER_1.setMaxSpeed(600);
+  STEPPER_1.setMaxSpeed(600);
   SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   int STEP_COUNTER = 0;
+
+  STEPPER_1.move(400);
   while (SENSOR_STATE == false) {
     // Stepping until Sensor Reads True
     STEP_COUNTER++;
@@ -100,7 +188,7 @@ void setup() {
     //}
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   }
-  // Serial.println("Total Steps until true : " + String(STEP_COUNTER));
+  SendDebug("Total Steps until true : " + String(STEP_COUNTER));
 
   // Now Step Backwards until Sensor Reads False (ie interruptor is in place)
   SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
@@ -114,7 +202,7 @@ void setup() {
 
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   }
-  Serial.println("Total Steps until false : " + String(STEP_COUNTER));
+  SendDebug("Total Steps until false : " + String(STEP_COUNTER));
 
 
 
@@ -144,9 +232,9 @@ void setup() {
       STEP_COUNTER++;
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   }
-  // Serial.println("Total Steps in full Revolution : " + String(STEP_COUNTER));
+  SendDebug("Total Steps in full Revolution : " + String(STEP_COUNTER));
 
-  // Serial.println("All Done");
+  SendDebug("All Done");
   // Serial.end();
 }
 
