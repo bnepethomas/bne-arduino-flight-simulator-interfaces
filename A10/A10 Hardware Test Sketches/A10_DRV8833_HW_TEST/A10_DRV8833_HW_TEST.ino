@@ -191,6 +191,7 @@ void setup() {
   SendDebug("Total Steps until true : " + String(STEP_COUNTER));
 
   // Now Step Backwards until Sensor Reads False (ie interruptor is in place)
+  SendDebug("Now Step Clockwise until Sensor Reads False (ie interruptor is in place)");
   SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   STEP_COUNTER = 0;
   while (SENSOR_STATE == true) {
@@ -208,11 +209,18 @@ void setup() {
 
 
 
-  // Serial.println("Determing Number of Steps in full revolution");
+  SendDebug("Determing Number of Steps in full revolution");
   STEPPER_1.setCurrentPosition(0);
+  
   STEP_COUNTER = 0;
   // Move 180 Steps then idividual step until sensor reads zero
+  STEPPER_1.setMaxSpeed(600);
   STEPPER_1.moveTo(220);
+  STEPPER_1.setSpeed(60);
+  // Speed of 120 is a fail 
+  // Speed of 100 gives a cont of 211
+  // Speed of 90,80 gives count of 203
+  // Speed of 70,60,40,30  gives 199
   // Serial.println("Distance to go is :" + String(STEPPER_1.distanceToGo()));
   bool READY_TO_BREAK = false;
   SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
@@ -227,7 +235,7 @@ void setup() {
       }
     }
 
-    //STEPPER_1.setSpeed(100);
+    //STEPPER_1.setSpeed(300);
     if (STEPPER_1.runSpeed() == true)
       STEP_COUNTER++;
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
