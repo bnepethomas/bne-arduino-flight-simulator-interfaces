@@ -77,7 +77,7 @@ bool RED_LED_STATE = false;
 long NEXT_STATUS_TOGGLE_TIMER = 0;
 
 #define ROLL_ZERO_SENSE_IN 8
-bool SENSOR_STATE = false;
+bool LAST_SENSOR_STATE = false;
 
 #define COIL_STEPPER_1_A 4
 #define COIL_STEPPER_1_B 5
@@ -89,9 +89,12 @@ bool SENSOR_STATE = false;
 #define STEPPER_ACCELERATION 100
 
 AccelStepper STEPPER_1(AccelStepper::FULL4WIRE, COIL_STEPPER_1_A, COIL_STEPPER_1_B, COIL_STEPPER_1_C, COIL_STEPPER_1_D);
-
-
-
+bool SENSOR_STATE;
+bool LAST_SENSOR_READING = true;
+#define CLOCKWISE 1
+#define ANTICLOCKWISE 2
+#define STOPPED 0
+int direction = STOPPED;
 
 void setup() {
   // put your setup code here, to run once:
@@ -215,6 +218,12 @@ void setup() {
   while (STEPPER_1.distanceToGo() != 0) {
     STEPPER_1.run();
     SendDebug("Step Speed: " + String(STEPPER_1.speed()));
+    if (STEPPER_1.speed() <= 60) {
+      SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+      if (SENSOR_STATE == false) {
+        STEPPER_1.setCurrentPosition(0);
+      }
+    }
   }
 
 
@@ -286,7 +295,7 @@ void setup() {
     //STEPPER_1.setSpeed(300);
     if (STEPPER_1.runSpeed() == true)
       STEP_COUNTER++;
-      
+
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   }
   SendDebug("Time to Rotate: " + String((millis() - TIME_TO_ROTATE)) + "mS");
@@ -305,22 +314,67 @@ void setup() {
   STEPPER_1.runToNewPosition(154);
   delay(500);
   STEPPER_1.runToNewPosition(204);
-    STEPPER_1.setCurrentPosition(0);
+  STEPPER_1.setCurrentPosition(0);
   TIME_TO_ROTATE = millis();
-  STEPPER_1.runToNewPosition(54);
+  STEPPER_1.runToNewPosition(50);
   delay(500);
-  STEPPER_1.runToNewPosition(104);
+  STEPPER_1.runToNewPosition(100);
   delay(500);
-  STEPPER_1.runToNewPosition(154);
+  STEPPER_1.runToNewPosition(150);
   delay(500);
   STEPPER_1.runToNewPosition(0);
   SendDebug("Time to Rotate: " + String((millis() - TIME_TO_ROTATE) / 2) + "mS");
 
   SendDebug("Steps until correct zero point: " + String(stepsUntilBreak()));
 
+  SendDebug("Counting how many steps are stopped by interruptor");
+  // Photo interruptor is 3 steps wide
+  STEPPER_1.runToNewPosition(20);
+  for (int i = 0; i <= 30; i++) {
+    STEPPER_1.move(-1);
+    while (STEPPER_1.distanceToGo() != 0) {
+      stepIt();
+      // SendDebug("Distance to Go: " + String(STEPPER_1.distanceToGo()));
+    }
+    if (digitalRead(ROLL_ZERO_SENSE_IN))
+      SendDebug("True");
+    else
+      SendDebug("False");
+  }
+
+
   SendDebug("All Done");
   // Serial.end();
 }
+
+
+void stepIt() {
+  bool THIS_SENSOR_READING;
+
+    if (STEPPER_1.distanceToGo() >= 1)
+      direction = CLOCKWISE;
+  else if (STEPPER_1.distanceToGo() <= -1)
+    direction = ANTICLOCKWISE;
+  else direction = STOPPED;
+
+  if (digitalRead(ROLL_ZERO_SENSE_IN))
+    THIS_SENSOR_READING = true;
+  else
+    THIS_SENSOR_READING = false;
+
+  if (LAST_SENSOR_READING == true && THIS_SENSOR_READING == false)
+    SendDebug("SENSOR TRANSISTION!!");
+
+  LAST_SENSOR_READING = THIS_SENSOR_READING;
+  if (STEPPER_1.run() == false) {
+    // SendDebug("Position: " + String(STEPPER_1.currentPosition()));
+    if (direction == CLOCKWISE)
+      SendDebug("Clockwise");
+    else if (direction == ANTICLOCKWISE)
+      SendDebug("Anticlockwise");
+  }
+}
+
 
 long stepsUntilBreak() {
   long STEP_COUNTER = 0;
