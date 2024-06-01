@@ -362,8 +362,10 @@ void stepIt() {
   else
     THIS_SENSOR_READING = false;
 
-  if (LAST_SENSOR_READING == true && THIS_SENSOR_READING == false)
+  if (LAST_SENSOR_READING == true && THIS_SENSOR_READING == false) {
     SendDebug("SENSOR TRANSISTION!!");
+    SendDebug("Reported Position :" + String(STEPPER_1.currentPosition()));
+  }
 
   LAST_SENSOR_READING = THIS_SENSOR_READING;
   if (STEPPER_1.run() == false) {
