@@ -35,6 +35,8 @@ const unsigned int MSFSport = 13136;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
+const unsigned long delayBeforeSendingPacket = 3000;
+unsigned long ethernetStartTime = 0;
 
 String DebugString = "";
 
@@ -85,8 +87,8 @@ bool LAST_SENSOR_STATE = false;
 #define COIL_STEPPER_1_D 7
 
 // MAX_SPEED of 150 is ocnsistently giving 5/2
-#define STEPPER_MAX_SPEED 200
-#define STEPPER_ACCELERATION 100
+#define STEPPER_MAX_SPEED 600
+#define STEPPER_ACCELERATION 600
 
 AccelStepper STEPPER_1(AccelStepper::FULL4WIRE, COIL_STEPPER_1_A, COIL_STEPPER_1_B, COIL_STEPPER_1_C, COIL_STEPPER_1_D);
 bool SENSOR_STATE;
@@ -119,10 +121,20 @@ void setup() {
 
 
     udp.begin(localport);
+
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(LED_BUILTIN, false);
+      delay(FLASH_TIME);
+    }
+    SendDebug("Ethernet Started");
   }
   // Serial.begin(115200);
   // Serial.println("");
   // Serial.println("Starting");
+
   delay(FLASH_TIME);
   digitalWrite(LED_BUILTIN, false);
   delay(FLASH_TIME);
@@ -131,19 +143,20 @@ void setup() {
   randomSeed(analogRead(0));
   int STEP_COUNTER = 0;
 
+
+  STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
+  STEPPER_1.setAcceleration(STEPPER_ACCELERATION);
+
+  STEPPER_1.moveTo(300);
+  while (STEPPER_1.distanceToGo() != 0) {
+    STEPPER_1.run();
+    SendDebug("Step Speed: " + String(STEPPER_1.speed()));
+  }
+  STEPPER_1.moveTo(0);
+  while (STEPPER_1.distanceToGo() != 0) {
+    STEPPER_1.run();
+  }
   if (false) {
-    STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
-    STEPPER_1.setAcceleration(STEPPER_ACCELERATION);
-
-    STEPPER_1.moveTo(300);
-    while (STEPPER_1.distanceToGo() != 0) {
-      STEPPER_1.run();
-    }
-    STEPPER_1.moveTo(0);
-    while (STEPPER_1.distanceToGo() != 0) {
-      STEPPER_1.run();
-    }
-
     SendDebug("Moving Random Distance");
     int randNumber = random(10, 200);
     STEPPER_1.moveTo(randNumber);
@@ -210,7 +223,7 @@ void setup() {
     SendDebug("Total Steps until false : " + String(STEP_COUNTER));
   }
 
-  SendDebug("Moving Random Distance");
+  SendDebug("Moving Random Distance - 224");
   STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
   STEPPER_1.setAcceleration(STEPPER_ACCELERATION);
   int randNumber = random(10, 200);
@@ -227,7 +240,7 @@ void setup() {
   }
 
 
-  SendDebug("Find Zero");
+  SendDebug("Find Zero - 241");
   STEPPER_1.setMaxSpeed(600);
   STEPPER_1.moveTo(420);
   STEPPER_1.setSpeed(60);
@@ -307,40 +320,51 @@ void setup() {
   STEPPER_1.setMaxSpeed(600);
   STEPPER_1.setCurrentPosition(0);
   TIME_TO_ROTATE = millis();
+  SendDebug("STEPPER_1.runToNewPosition(54);");
   STEPPER_1.runToNewPosition(54);
   delay(500);
+  SendDebug("STEPPER_1.runToNewPosition(104);");
   STEPPER_1.runToNewPosition(104);
   delay(500);
+  SendDebug("STEPPER_1.runToNewPosition(154);");
   STEPPER_1.runToNewPosition(154);
   delay(500);
+  SendDebug("STEPPER_1.runToNewPosition(204);");
   STEPPER_1.runToNewPosition(204);
   STEPPER_1.setCurrentPosition(0);
+
+  STEPPER_1.setAcceleration(900);
+  STEPPER_1.setMaxSpeed(900);
+  SendDebug("STEPPER_1.runToNewPosition(200);");
   TIME_TO_ROTATE = millis();
-  STEPPER_1.runToNewPosition(50);
-  delay(500);
-  STEPPER_1.runToNewPosition(100);
-  delay(500);
-  STEPPER_1.runToNewPosition(150);
-  delay(500);
-  STEPPER_1.runToNewPosition(0);
-  SendDebug("Time to Rotate: " + String((millis() - TIME_TO_ROTATE) / 2) + "mS");
+  STEPPER_1.runToNewPosition(200);
+  // delay(500);
+  // SendDebug("STEPPER_1.runToNewPosition(100);");
+  // STEPPER_1.runToNewPosition(100);
+  // delay(500);
+  // SendDebug("STEPPER_1.runToNewPosition(150);");
+  // STEPPER_1.runToNewPosition(150);
+  // delay(500);
+  // SendDebug("STEPPER_1.runToNewPosition(0);");
+  // STEPPER_1.runToNewPosition(0);
+  SendDebug("Time to Rotate: " + String((millis() - TIME_TO_ROTATE)) + "mS");
 
   SendDebug("Steps until correct zero point: " + String(stepsUntilBreak()));
 
-  SendDebug("Counting how many steps are stopped by interruptor");
-  // Photo interruptor is 3 steps wide
-  STEPPER_1.runToNewPosition(20);
-  for (int i = 0; i <= 30; i++) {
-    STEPPER_1.move(-1);
-    while (STEPPER_1.distanceToGo() != 0) {
-      stepIt();
-      // SendDebug("Distance to Go: " + String(STEPPER_1.distanceToGo()));
-    }
-    if (digitalRead(ROLL_ZERO_SENSE_IN))
-      SendDebug("True");
-    else
-      SendDebug("False");
-  }
+  // SendDebug("Counting how many steps are stopped by interruptor");
+  // // Photo interruptor is 3 steps wide
+  // STEPPER_1.runToNewPosition(20);
+  // for (int i = 0; i <= 30; i++) {
+  //   STEPPER_1.move(-1);
+  //   while (STEPPER_1.distanceToGo() != 0) {
+  //     stepIt();
+  //     // SendDebug("Distance to Go: " + String(STEPPER_1.distanceToGo()));
+  //   }
+  //   if (digitalRead(ROLL_ZERO_SENSE_IN))
+  //     SendDebug("True");
+  //   else
+  //     SendDebug("False");
+  // }
 
 
   SendDebug("All Done");
@@ -351,8 +375,8 @@ void setup() {
 void stepIt() {
   bool THIS_SENSOR_READING;
 
-    if (STEPPER_1.distanceToGo() >= 1)
-      direction = CLOCKWISE;
+  if (STEPPER_1.distanceToGo() >= 1)
+    direction = CLOCKWISE;
   else if (STEPPER_1.distanceToGo() <= -1)
     direction = ANTICLOCKWISE;
   else direction = STOPPED;
