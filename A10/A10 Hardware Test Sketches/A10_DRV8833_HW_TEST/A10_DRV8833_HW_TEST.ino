@@ -429,4 +429,6 @@ void loop() {
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
     // Check to see if model time is updating - if nothing after 30 seconds disble steppers
   }
+
+  stepIt();
 }
