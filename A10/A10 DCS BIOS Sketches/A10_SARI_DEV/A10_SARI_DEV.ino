@@ -75,7 +75,7 @@ void SendDebug(String MessageToSend) {
 #include <AccelStepper.h>
 #include <Stepper.h>
 
-#define STEPS 3000  // steps per revolution
+#define STEPS 3200  // steps per revolution
 #define FLASH_TIME 600
 bool RED_LED_STATE = false;
 long NEXT_STATUS_TOGGLE_TIMER = 0;
@@ -100,15 +100,15 @@ bool LAST_SENSOR_STATE = false;
 // So if ball can rotate once per second we are good
 // 1.8 degrees per step = so 200 steps for 360 degrees
 //#define STEPPER_MAX_SPEED 900
-#define STEPPER_MAX_SPEED 900
-#define STEPPER_ZERO_SEEK_SPEED 30
+#define STEPPER_MAX_SPEED 90000
+#define STEPPER_ZERO_SEEK_SPEED 600
 // #define STEPPER_ACCELERATION 600
-#define STEPPER_ACCELERATION 600
-#define CLOCKWISE_ZERO_OFFSET 2
-#define ANTICLOCKWISE_ZERO_OFFSET 0
+#define STEPPER_ACCELERATION 60000
+#define CLOCKWISE_ZERO_OFFSET 50
+#define ANTICLOCKWISE_ZERO_OFFSET 12
 
 // AccelStepper STEPPER_1(AccelStepper::FULL4WIRE, COIL_STEPPER_1_A, COIL_STEPPER_1_B, COIL_STEPPER_1_C, COIL_STEPPER_1_D);
-AccelStepper STEPPER_1(AccelStepper::DRIVER,DRIVER_STEP, DRIVER_DIRECTION);
+AccelStepper STEPPER_1(AccelStepper::DRIVER, DRIVER_STEP, DRIVER_DIRECTION);
 
 bool SENSOR_STATE;
 bool LAST_SENSOR_READING = true;
@@ -169,7 +169,7 @@ void onSaiBankChange(unsigned int newValue) {
   long longer0 = newValue;
   long longer1 = longer0 - 32757;
 
-  long TargetPos = map(longer1, 0, 65355, 0, 200);
+  long TargetPos = map(longer1, 0, 65355, 0, 3200);
   SendDebug("SAI Bank: " + String(newValue) + " " + String(longer1) + " "
             + String(TargetPos) + " " + String(STEPPER_1.currentPosition()));
   STEPPER_1.moveTo(TargetPos);
@@ -225,7 +225,7 @@ void setup() {
 
   pinMode(DRIVER_ENABLE, OUTPUT);
   digitalWrite(DRIVER_ENABLE, false);
-  STEPPER_1.moveTo(630);
+  STEPPER_1.moveTo(STEPS * 2.5);
   while (STEPPER_1.distanceToGo() != 0) {
     STEPPER_1.run();
     // SendDebug("Step Speed: " + String(STEPPER_1.speed()));
@@ -240,23 +240,26 @@ void setup() {
 
   SendDebug("Initialise Stepper - Move Random Distance");
   randomSeed(analogRead(0));
-  int randNumber = random(10, 200);
+  int randNumber = random(10, STEPS);
   STEPPER_1.moveTo(randNumber);
   while (STEPPER_1.distanceToGo() != 0) {
     STEPPER_1.run();
     checkSensor();
   }
-
+  delay(1000);
   // Check to see if stepper already in rest position - if so move 20
   SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   if (SENSOR_STATE == false) {
     SendDebug("Initialise Stepper - Stepping away from Zero");
-    STEPPER_1.move(20);
+    STEPPER_1.move(int(STEPS / 10));
     while (STEPPER_1.distanceToGo() != 0) {
       STEPPER_1.run();
+      SendDebug("Initialise Stepper - Steps to go :" + String(STEPPER_1.distanceToGo()));
     }
   }
+
   // If Sensor State is still zero we have a problem
+  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   if (SENSOR_STATE == false)
     SendDebug("Initialise Stepper - WARNING ZERO SENSOR APPEARS JAMMED");
 
@@ -267,7 +270,7 @@ void setup() {
   // At this point zero position is arbitary - will have a real zero after this loop
   STEPPER_1.setCurrentPosition(0);
   // Moving in a negative direction translates to clockwise
-  STEPPER_1.moveTo(-300);
+  STEPPER_1.moveTo(-STEPS * 1.5);
   while (STEPPER_1.distanceToGo() != 0) {
     SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
     if (SENSOR_STATE == false) {
@@ -286,14 +289,41 @@ void setup() {
   STEPPER_1.runToNewPosition(0);
   SendDebug("Initialise Stepper - Found Zero Point");
   // Return to normal max speed
+
+  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+  if (SENSOR_STATE == false)
+    SendDebug("Initialise Stepper - Sensor Still Blocked");
+
+  SendDebug("Now Finding otherside of interruptor");
+  STEPPER_1.moveTo(-200);
+  SendDebug("Distance to go is :" + String(STEPPER_1.distanceToGo()));
+
+  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+  while (SENSOR_STATE == false) {
+    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+    if (SENSOR_STATE == false) {
+      SendDebug("Position that Sensor became True is :" + String(STEPPER_1.currentPosition()));
+      break;
+    }
+    STEPPER_1.run();
+    checkSensor();
+  }
+
+
+  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
+  SendDebug("Checking Sensor is clear, sensor ready is :" + String(SENSOR_STATE));
+
   STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
+
+STEPPER_1.moveTo(0);
+
 
 
   SendDebug("All Done");
 
   DcsBios::setup();
   // Serial.end();
-  digitalWrite(DRIVER_ENABLE, true);
+  //digitalWrite(DRIVER_ENABLE, true);
 }
 
 
