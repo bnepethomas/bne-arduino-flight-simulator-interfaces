@@ -75,7 +75,7 @@ void SendDebug(String MessageToSend) {
 #include <AccelStepper.h>
 #include <Stepper.h>
 
-#define STEPS 200  // steps per revolution
+#define STEPS 3000  // steps per revolution
 #define FLASH_TIME 600
 bool RED_LED_STATE = false;
 long NEXT_STATUS_TOGGLE_TIMER = 0;
@@ -88,6 +88,10 @@ bool LAST_SENSOR_STATE = false;
 #define COIL_STEPPER_1_C 6
 #define COIL_STEPPER_1_D 7
 
+#define DRIVER_DIRECTION 7
+#define DRIVER_STEP 6
+#define DRIVER_ENABLE 4
+
 
 // The Max Speed and Acceleration values are determined with trial and error
 // Even with 300 still seeing occasional jamms on start up
@@ -95,13 +99,17 @@ bool LAST_SENSOR_STATE = false;
 // F16 has a roll rate of 240 degrees per second
 // So if ball can rotate once per second we are good
 // 1.8 degrees per step = so 200 steps for 360 degrees
+//#define STEPPER_MAX_SPEED 900
 #define STEPPER_MAX_SPEED 900
 #define STEPPER_ZERO_SEEK_SPEED 30
+// #define STEPPER_ACCELERATION 600
 #define STEPPER_ACCELERATION 600
 #define CLOCKWISE_ZERO_OFFSET 2
 #define ANTICLOCKWISE_ZERO_OFFSET 0
 
-AccelStepper STEPPER_1(AccelStepper::FULL4WIRE, COIL_STEPPER_1_A, COIL_STEPPER_1_B, COIL_STEPPER_1_C, COIL_STEPPER_1_D);
+// AccelStepper STEPPER_1(AccelStepper::FULL4WIRE, COIL_STEPPER_1_A, COIL_STEPPER_1_B, COIL_STEPPER_1_C, COIL_STEPPER_1_D);
+AccelStepper STEPPER_1(AccelStepper::DRIVER,DRIVER_STEP, DRIVER_DIRECTION);
+
 bool SENSOR_STATE;
 bool LAST_SENSOR_READING = true;
 #define CLOCKWISE 1
@@ -160,10 +168,10 @@ void checkSensor() {
 void onSaiBankChange(unsigned int newValue) {
   long longer0 = newValue;
   long longer1 = longer0 - 32757;
-  
+
   long TargetPos = map(longer1, 0, 65355, 0, 200);
-  SendDebug("SAI Bank: " + String(newValue) + " " + String(longer1) + " " 
-  + String(TargetPos) + " " + String(STEPPER_1.currentPosition()));
+  SendDebug("SAI Bank: " + String(newValue) + " " + String(longer1) + " "
+            + String(TargetPos) + " " + String(STEPPER_1.currentPosition()));
   STEPPER_1.moveTo(TargetPos);
 }
 DcsBios::IntegerBuffer saiBankBuffer(0x74e6, 0xffff, 0, onSaiBankChange);
@@ -215,7 +223,8 @@ void setup() {
   SendDebug("Acceleration: " + String(STEPPER_ACCELERATION));
   SendDebug("Initialise Stepper - Two turns and then return to starting point");
 
-
+  pinMode(DRIVER_ENABLE, OUTPUT);
+  digitalWrite(DRIVER_ENABLE, false);
   STEPPER_1.moveTo(630);
   while (STEPPER_1.distanceToGo() != 0) {
     STEPPER_1.run();
@@ -284,6 +293,7 @@ void setup() {
 
   DcsBios::setup();
   // Serial.end();
+  digitalWrite(DRIVER_ENABLE, true);
 }
 
 
