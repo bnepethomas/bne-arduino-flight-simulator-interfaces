@@ -95,7 +95,7 @@ bool LAST_SENSOR_STATE = false;
 // F16 has a roll rate of 240 degrees per second
 // So if ball can rotate once per second we are good
 // 1.8 degrees per step = so 200 steps for 360 degrees
-#define STEPPER_MAX_SPEED 30
+#define STEPPER_MAX_SPEED 60
 
 #define CLOCKWISE_ZERO_OFFSET 2
 #define ANTICLOCKWISE_ZERO_OFFSET 0
