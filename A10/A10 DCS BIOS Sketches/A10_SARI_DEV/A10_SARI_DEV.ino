@@ -118,6 +118,9 @@ bool INITIALISING_ROLL = true;
 #define STOPPED 0
 int direction = STOPPED;
 
+long lastTargetPos = 0;
+long rollCount = 0;
+
 
 void checkSensor() {
   bool THIS_SENSOR_READING;
@@ -168,37 +171,38 @@ void checkSensor() {
 
 void onSaiBankChange(unsigned int newValue) {
   long longer0 = newValue;
-  long longer1 = longer0 - 32757;
-  long TargetPos = map(longer1, 0, 65355, 0, 3200);
+  long TargetPos = map(longer0, 0, 65535, 0, 3200);
 
-  long currentPosition = STEPPER_1.currentPosition() % STEPS;
-  long rollCount = long(STEPPER_1.currentPosition() / STEPS);
-  
 
-  long Delta = TargetPos - currentPosition;
-  // Convert to positive number if neg
-  if (Delta <= 0) {
-    Delta = Delta * -1;
-  }
-  static long MaxDelta;
-  if (Delta >= MaxDelta)
-    MaxDelta = Delta;
+  long currentAbsolutePosition = STEPPER_1.currentPosition();
+  long currentPosition = currentAbsolutePosition % STEPS;
 
-  if (Delta >= 1600) {
-    // We have done a loop - add number of steps * rollCount +1 to TargetPos
-    TargetPos = TargetPos + (STEPS * (rollCount + 1));
-  }
 
-  SendDebug("SAI Bank: " + String(newValue) + " Converted Val:" + String(longer1)
-            + " Target is:"+ String(TargetPos)
+
+
+  SendDebug("SAI Bank: " + String(newValue)
+            + " Converted Val:" + String(longer0)
+            + " Target is:" + String(TargetPos)
             + " Curr Pos:" + currentPosition
-            + " Delta:" + String(Delta)
-            + " Max Delta:" + String(MaxDelta)
-            + " Roll Count:" + String(rollCount));
+            + " Curr Absolute Pos:" + String(currentAbsolutePosition)
+            + " Roll Count:" + String(rollCount)
+            + " Direction:" + String(STEPPER_1.speed()));
 
 
+  // if ((TargetPos >= lastTargetPos) && (STEPPER_1.speed() <= 0.1)) {
+  //   SendDebug("Decrementing Roll Count!!!!!");
+  //   rollCount = rollCount - 1;
+  // }
 
-  STEPPER_1.moveTo(TargetPos);
+  if (TargetPos >= 2000) {
+    long newMoveTo = ((rollCount - 1) * STEPS) + TargetPos;
+    STEPPER_1.moveTo(newMoveTo);
+    SendDebug("Jumping Ahead!!! Setting to:" + String(newMoveTo));
+  } else {
+    STEPPER_1.moveTo(TargetPos + (rollCount * STEPS));
+  }
+
+  lastTargetPos = TargetPos;
 }
 DcsBios::IntegerBuffer saiBankBuffer(0x74e6, 0xffff, 0, onSaiBankChange);
 
@@ -257,13 +261,13 @@ void setup() {
     STEPPER_1.run();
     // SendDebug("Step Speed: " + String(STEPPER_1.speed()));
   }
-  delay(300);
+  delay(200);
 
   STEPPER_1.moveTo(0);
   while (STEPPER_1.distanceToGo() != 0) {
     STEPPER_1.run();
   }
-  delay(300);
+  delay(200);
 
   SendDebug("Initialise Stepper - Move Random Distance");
   randomSeed(analogRead(0));
@@ -273,7 +277,7 @@ void setup() {
     STEPPER_1.run();
     checkSensor();
   }
-  delay(1000);
+  delay(100);
   // Check to see if stepper already in rest position - if so move 20
   SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
   if (SENSOR_STATE == false) {
