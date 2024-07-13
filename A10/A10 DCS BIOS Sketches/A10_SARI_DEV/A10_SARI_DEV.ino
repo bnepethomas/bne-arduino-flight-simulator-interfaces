@@ -339,9 +339,9 @@ public:
 };
 
 struct SARIStepperConfig SARIstepperConfig = {
-  1600,  // SARImaxSteps //200STEPS X 1/8 MICRO STEPPING
-  2800,  // maxSpeed //3200
-  600    // SARIacceleration 3200
+  3200,  // SARImaxSteps //200 Native steps with 1/16 MICRO STEPPING
+  90000,  // maxSpeed //3200
+  60000    // SARIacceleration 3200
 };
 const int SARIstepPin = 6;
 const int SARIdirectionPin = 7;
@@ -353,7 +353,7 @@ AccelStepper SARIstepperRoll(AccelStepper::DRIVER, SARIstepPin, SARIdirectionPin
 Nema8Stepper SARIRoll(0x74e6,             // address of stepper data
                       SARIstepperRoll,    // name of AccelStepper instance
                       SARIstepperConfig,  // SARIStepperConfig struct instance
-                      8,                 // IR Detector Pin (must be LOW in zero position)
+                      8,                  // IR Detector Pin (must be LOW in zero position)
                       800,                // zero offset (SET TO 50% of MaX Steps) 1650
                                           // WIngs Level = 1/2 Max Steps -> "Zero" = 1/2 Turn
                                           // SARI will be upsidedown after Setup, this will correct in Bios
@@ -520,13 +520,14 @@ void setup() {
   digitalWrite(Check_LED_G, false);
   delay(FLASH_TIME);
 
-  SendDebug("Stepper Initialisation Complete");
+  SendDebug("Stepper Initialisation Started");
 
   pinMode(SARIenablePin, OUTPUT);
   enable_SARI_ROLL();
 
   SendDebug("Stepper Initialisation Complete");
 
+  SendDebug("DCS BIOS Setup Started");
   DcsBios::setup();
   SendDebug("DCS BIOS Setup Complete");
 }
