@@ -76,7 +76,7 @@ void SendDebug(String MessageToSend) {
 #include <Stepper.h>
 
 #define STEPS 3200  // steps per revolution
-#define FLASH_TIME 600
+#define FLASH_TIME 300
 bool RED_LED_STATE = false;
 long NEXT_STATUS_TOGGLE_TIMER = 0;
 
@@ -112,6 +112,7 @@ AccelStepper STEPPER_1(AccelStepper::DRIVER, DRIVER_STEP, DRIVER_DIRECTION);
 
 bool SENSOR_STATE;
 bool LAST_SENSOR_READING = true;
+bool INITIALISING_ROLL = true;
 #define CLOCKWISE 1
 #define ANTICLOCKWISE 2
 #define STOPPED 0
@@ -144,7 +145,7 @@ void checkSensor() {
     }
     SendDebug("Reported Position :" + String(STEPPER_1.currentPosition()));
 
-    if ((STEPPER_1.speed() >= 0) && (STEPPER_1.speed() <= 50)) {
+    if ((STEPPER_1.speed() >= 0) && (STEPPER_1.speed() <= 50) && (INITIALISING_ROLL == true)) {
       SendDebug("Setting Anti-clockwise zero point");
       STEPPER_1.setCurrentPosition(ANTICLOCKWISE_ZERO_OFFSET);
     } else if (STEPPER_1.speed() <= -0 && (STEPPER_1.speed() >= -50)) {
@@ -168,10 +169,35 @@ void checkSensor() {
 void onSaiBankChange(unsigned int newValue) {
   long longer0 = newValue;
   long longer1 = longer0 - 32757;
-
   long TargetPos = map(longer1, 0, 65355, 0, 3200);
-  SendDebug("SAI Bank: " + String(newValue) + " " + String(longer1) + " "
-            + String(TargetPos) + " " + String(STEPPER_1.currentPosition()));
+
+  long currentPosition = STEPPER_1.currentPosition() % STEPS;
+  long rollCount = long(STEPPER_1.currentPosition() / STEPS);
+  
+
+  long Delta = TargetPos - currentPosition;
+  // Convert to positive number if neg
+  if (Delta <= 0) {
+    Delta = Delta * -1;
+  }
+  static long MaxDelta;
+  if (Delta >= MaxDelta)
+    MaxDelta = Delta;
+
+  if (Delta >= 1600) {
+    // We have done a loop - add number of steps * rollCount +1 to TargetPos
+    TargetPos = TargetPos + (STEPS * (rollCount + 1));
+  }
+
+  SendDebug("SAI Bank: " + String(newValue) + " Converted Val:" + String(longer1)
+            + " Target is:"+ String(TargetPos)
+            + " Curr Pos:" + currentPosition
+            + " Delta:" + String(Delta)
+            + " Max Delta:" + String(MaxDelta)
+            + " Roll Count:" + String(rollCount));
+
+
+
   STEPPER_1.moveTo(TargetPos);
 }
 DcsBios::IntegerBuffer saiBankBuffer(0x74e6, 0xffff, 0, onSaiBankChange);
@@ -205,6 +231,7 @@ void setup() {
     }
 
     SendDebug("Ethernet Started");
+    SendDebug("A10_SARI_DEV");
   }
 
 
@@ -315,10 +342,10 @@ void setup() {
 
   STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
 
-STEPPER_1.moveTo(0);
+  STEPPER_1.moveTo(0);
 
 
-
+  INITIALISING_ROLL = false;
   SendDebug("All Done");
 
   DcsBios::setup();
@@ -341,5 +368,5 @@ void loop() {
 
   DcsBios::loop();
   STEPPER_1.run();
-  checkSensor();
+  // checkSensor();
 }
