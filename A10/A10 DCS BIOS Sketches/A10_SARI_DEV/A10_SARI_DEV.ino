@@ -58,8 +58,8 @@ char max7219packetBuffer[1000];  //buffer to store packet data for both Max7219 
 
 
 bool Debug_Display = false;
-char *ParameterNamePtr;
-char *ParameterValuePtr;
+char* ParameterNamePtr;
+char* ParameterValuePtr;
 
 
 void SendDebug(String MessageToSend) {
@@ -71,147 +71,423 @@ void SendDebug(String MessageToSend) {
 }
 // ###################################### End Ethernet Related #############################
 
-
-#include <AccelStepper.h>
-#include <Stepper.h>
-
-#define STEPS 3200  // steps per revolution
 #define FLASH_TIME 300
 bool RED_LED_STATE = false;
 long NEXT_STATUS_TOGGLE_TIMER = 0;
 
-#define ROLL_ZERO_SENSE_IN 8
-bool LAST_SENSOR_STATE = false;
+#include <AccelStepper.h>
 
-#define COIL_STEPPER_1_A 4
-#define COIL_STEPPER_1_B 5
-#define COIL_STEPPER_1_C 6
-#define COIL_STEPPER_1_D 7
-
-#define DRIVER_DIRECTION 7
-#define DRIVER_STEP 6
-#define DRIVER_ENABLE 4
+// ###################################### Begin SARI ######################################
 
 
-// The Max Speed and Acceleration values are determined with trial and error
-// Even with 300 still seeing occasional jamms on start up
-// Hornet has roll rate os 225 degrees per second
-// F16 has a roll rate of 240 degrees per second
-// So if ball can rotate once per second we are good
-// 1.8 degrees per step = so 200 steps for 360 degrees
-//#define STEPPER_MAX_SPEED 900
-#define STEPPER_MAX_SPEED 90000
-#define STEPPER_ZERO_SEEK_SPEED 600
-// #define STEPPER_ACCELERATION 600
-#define STEPPER_ACCELERATION 60000
-#define CLOCKWISE_ZERO_OFFSET 50
-#define ANTICLOCKWISE_ZERO_OFFSET 12
+#define Check_LED_R 12
+#define Check_LED_G 13
 
-// AccelStepper STEPPER_1(AccelStepper::FULL4WIRE, COIL_STEPPER_1_A, COIL_STEPPER_1_B, COIL_STEPPER_1_C, COIL_STEPPER_1_D);
-AccelStepper STEPPER_1(AccelStepper::DRIVER, DRIVER_STEP, DRIVER_DIRECTION);
+#define HOZ_IR_sen 24  // HOZ
+#define VER_IR_sen 25  // VRT
+#define WTR_IR_sen 22  // WTR
 
-bool SENSOR_STATE;
-bool LAST_SENSOR_READING = true;
-bool INITIALISING_ROLL = true;
-#define CLOCKWISE 1
-#define ANTICLOCKWISE 2
-#define STOPPED 0
-int direction = STOPPED;
+#define EN_switchV 37  // VER
+#define EN_switchH 43  // HOZ
+#define EN_switchW 27  // WTR
 
-long lastTargetPos = 0;
-long rollCount = 0;
+Servo SARIServo;
 
+//HOZ
+AccelStepper stepperH(1, 41, 39);  // 1 = Easy Driver interface
+//VRT
+AccelStepper stepperV(1, 35, 33);  // 1 = Easy Driver interface
+//WTR
+AccelStepper stepperW(1, 29, 31);  // 1 = Easy Driver interface
+long valWAT = 0;
+long posWAT = 0;
 
-void checkSensor() {
-  bool THIS_SENSOR_READING;
+long valHOZ = 0;
+long posHOZ = 0;
 
-  if (STEPPER_1.speed() == 0)
-    direction = STOPPED;
-  else if (STEPPER_1.speed() >= 0)
-    direction = ANTICLOCKWISE;
-  else if (STEPPER_1.speed() <= -0)
-    direction = CLOCKWISE;
+long valVER = 0;
+long posVER = 0;
+
+// Stepper Travel Variables
+
+long initial_homingH = 0;  // Used to Home Stepper at startup
+long initial_homingV = 0;  // Used to Home Stepper at startup
+long initial_homingW = 0;  // Used to Home Stepper at startup
 
 
-  if (digitalRead(ROLL_ZERO_SENSE_IN))
-    THIS_SENSOR_READING = true;
+int DCS_On = 0;
+int previous_DCS_State = 0;
+int DCS_State = 0;
+
+int SARI_Flag = 1;
+#define SARI_Flag_Pin 5  // SARI FLAG PIN
+
+long dcsMillis;
+
+// SARI
+
+long timeToDisable_SARI_ROLL = 0;
+bool waitingToDisable_SARI_ROLL = false;
+bool SARI_ROLL_ENABLED = false;
+#define disable_SARI_ROLL_WaitTime 300  // mS delay after SARI ROll has founds its position \
+                                        // Used to help hold the SARI in position
+
+struct SARIStepperConfig {
+  unsigned int SARImaxSteps;
+  unsigned int SARIacceleration;
+  unsigned int maxSpeed;
+};
+bool SARI_ROLL_INITIALISED = false;
+
+
+void onUpdateCounterChange(unsigned int newValue) {
+  DCS_State = newValue;
+}
+DcsBios::IntegerBuffer UpdateCounterBuffer(0xfffe, 0x00ff, 0, onUpdateCounterChange);
+
+
+void onSaiAttWarnFlagLChange(unsigned int newValue) {
+  //SARI_Flag = newValue;
+  if (newValue == 1)
+    disable_SARI_FLAG();
   else
-    THIS_SENSOR_READING = false;
-
-  if (LAST_SENSOR_READING == true && THIS_SENSOR_READING == false) {
-    SendDebug("SENSOR TRANSISTION!!");
-    SendDebug("Speed: " + String(STEPPER_1.speed()));
-    if (direction == CLOCKWISE) {
-      SendDebug("Direction : Clockwise");
-    } else {
-      SendDebug("Direction : Anti-Clockwise");
-    }
-    SendDebug("Reported Position :" + String(STEPPER_1.currentPosition()));
-
-    if ((STEPPER_1.speed() >= 0) && (STEPPER_1.speed() <= 50) && (INITIALISING_ROLL == true)) {
-      SendDebug("Setting Anti-clockwise zero point");
-      STEPPER_1.setCurrentPosition(ANTICLOCKWISE_ZERO_OFFSET);
-    } else if (STEPPER_1.speed() <= -0 && (STEPPER_1.speed() >= -50)) {
-      SendDebug("Setting Clockwise zero point");
-      STEPPER_1.setCurrentPosition(CLOCKWISE_ZERO_OFFSET);
-    }
-  }
-
-  LAST_SENSOR_READING = THIS_SENSOR_READING;
-  if (STEPPER_1.run() == false) {
-    // SendDebug("Position: " + String(STEPPER_1.currentPosition()));
-    if (direction == CLOCKWISE)
-      SendDebug("Clockwise");
-    else if (direction == ANTICLOCKWISE)
-      SendDebug("Anticlockwise");
-  }
+    enable_SARI_FLAG();
 }
+DcsBios::IntegerBuffer saiAttWarnFlagLBuffer(0x74d6, 0x0100, 8, onSaiAttWarnFlagLChange);
+
+//////SARI - TEST - BEN --------------------------------------------------------------------------------------------------------------
+//----------ROLL SERVO----------
+DcsBios::ServoOutput saiPitch(0x74e4, 7, 2400, 544);
+
+//----------ROLL STEPPER----------
+
+const long zeroTimeout = 50000;
+const int SARIenablePin = 4;
+
+
+class Nema8Stepper : public DcsBios::Int16Buffer {
+private:
+
+  AccelStepper& stepper;
+  SARIStepperConfig& SARIstepperConfig;
+  inline bool SARIzeroDetected() {
+    return digitalRead(SARIirDetectorPin) == 0;
+  }
+  unsigned int (*map_function)(unsigned int);
+  unsigned char initState;
+  long SARIcurrentStepperPosition;
+  long SARIlastAccelStepperPosition;
+  unsigned char SARIirDetectorPin;
+  long SARIzeroOffset;
+  bool SARImovingForward;
+  bool SARIlastZeroDetectState;
+
+  long SARIzeroPosSearchStartTime = 0;
+
+  long SARInormalizeStepperPosition(long pos) {
+    if (pos < 0) return pos + SARIstepperConfig.SARImaxSteps;
+    if (pos >= SARIstepperConfig.SARImaxSteps) return pos - SARIstepperConfig.SARImaxSteps;
+    return pos;
+  }
+
+  void updateSARIcurrentStepperPosition() {
+    // adjust SARIcurrentStepperPosition to include the distance our stepper motor
+    // was moved since we last updated it
+    long SARImovementSinceLastUpdate = stepper.currentPosition() - SARIlastAccelStepperPosition;
+    SARIcurrentStepperPosition = SARInormalizeStepperPosition(SARIcurrentStepperPosition + SARImovementSinceLastUpdate);
+    SARIlastAccelStepperPosition = stepper.currentPosition();
+  }
+
+
+public:
+  Nema8Stepper(unsigned int address, AccelStepper& stepper, SARIStepperConfig& SARIstepperConfig, unsigned char SARIirDetectorPin, long SARIzeroOffset, unsigned int (*map_function)(unsigned int))
+    : Int16Buffer(address), stepper(stepper), SARIstepperConfig(SARIstepperConfig), SARIirDetectorPin(SARIirDetectorPin), SARIzeroOffset(SARIzeroOffset), map_function(map_function), initState(0), SARIcurrentStepperPosition(0), SARIlastAccelStepperPosition(0) {
+  }
+
+
+  virtual void loop() {
+    if (initState == 0) {  // not initialized yet
+      SendDebug("SARI initState: " + String(initState));
+      pinMode(SARIirDetectorPin, INPUT);
+      stepper.setMaxSpeed(SARIstepperConfig.maxSpeed);
+      stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
+
+      enable_SARI_ROLL();
+      initState = 1;
+      SendDebug("Do a quick loop");
+
+      stepper.moveTo(1800);
+      while (stepper.distanceToGo() != 0) {
+        stepper.run();
+      }
+
+
+      SendDebug("SARI initState moving to State 1");
+      SARIzeroPosSearchStartTime = millis();
+    }
+
+    if (initState == 1) {
+      // move off zero if already there so we always get movement on reset
+      // (to verify that the stepper is working)
+      if (SARIzeroDetected()) {
+
+        enable_SARI_ROLL();
+        stepper.runSpeed();
+      } else {
+        initState = 2;
+        SendDebug("SARI initState moving to State 2");
+        stepper.setMaxSpeed(SARIstepperConfig.maxSpeed);
+        stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
+      }
+    }
+
+    if (initState == 2) {  // zeroing
+
+      enable_SARI_ROLL();
+
+      if (!SARIzeroDetected()) {
+
+        if (millis() >= (zeroTimeout + SARIzeroPosSearchStartTime)) {
+          SendDebug("SARI Roll - timeoutout finding zero, disabling driver pin");
+          disable_SARI_ROLL();
+          initState = 99;
+        }
+
+        //SendDebug("SARI Roll - looping - " + String(initState));
+        stepper.moveTo(stepper.currentPosition() - 1);
+        stepper.run();
+
+
+      } else {
+        stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
+        stepper.runToNewPosition(stepper.currentPosition());
+        // tell the AccelStepper library that we are at position zero
+        stepper.setCurrentPosition(SARIzeroOffset);
+        SARIlastAccelStepperPosition = 0;
+        // set stepper SARIacceleration in steps per second per second
+        // (default is zero)
+        stepper.setAcceleration(SARIstepperConfig.SARIacceleration);
+
+        SARIlastZeroDetectState = true;
+        initState = 3;
+        SendDebug("SARI initState moving to State 3");
+        SARI_ROLL_INITIALISED = true;
+        disable_SARI_ROLL();
+        ;
+      }
+    }
+
+
+    if (initState == 99) {  // Timed out looking for zero do nothing
+      disable_SARI_ROLL();
+    }
+
+    //    digitalWrite(enablePin, HIGH);
+    if (initState == 3) {  // running normally
+
+      // recalibrate when passing through zero position
+      bool SARIcurrentZeroDetectState = SARIzeroDetected();
+      if (!SARIlastZeroDetectState && SARIcurrentZeroDetectState && SARImovingForward) {
+        // we have moved from left to right into the 'zero detect window'
+        // and are now at position 0
+        SARIlastAccelStepperPosition = stepper.currentPosition();
+        SARIcurrentStepperPosition = SARInormalizeStepperPosition(SARIzeroOffset);
+      } else if (SARIlastZeroDetectState && !SARIcurrentZeroDetectState && !SARImovingForward) {
+        // we have moved from right to left out of the 'zero detect window'
+        // and are now at position (SARImaxSteps-1)
+        SARIlastAccelStepperPosition = stepper.currentPosition();
+        SARIcurrentStepperPosition = SARInormalizeStepperPosition(SARIstepperConfig.SARImaxSteps + SARIzeroOffset);
+      }
+      SARIlastZeroDetectState = SARIcurrentZeroDetectState;
+
+
+      if (hasUpdatedData()) {
+        // convert data from DCS to a target position expressed as a number of steps
+        long targetPosition = (long)map_function(getData());
+
+        updateSARIcurrentStepperPosition();
+
+        long delta = targetPosition - SARIcurrentStepperPosition;
+
+        // if we would move more than 180 degree counterclockwise, move clockwise instead
+
+        if (delta < -((long)(SARIstepperConfig.SARImaxSteps / 2))) delta += SARIstepperConfig.SARImaxSteps;  //2
+        // if we would move more than 180 degree clockwise, move counterclockwise instead
+        if (delta > (SARIstepperConfig.SARImaxSteps / 2)) delta -= (long)SARIstepperConfig.SARImaxSteps;  //2
+
+        SARImovingForward = (delta >= 0);
+
+        // Turn off Stepper when not in use
+        if (delta != 0) {
+          enable_SARI_ROLL();
+        }  // LOW  = stepper ON drive current available
 
 
 
-void onSaiBankChange(unsigned int newValue) {
-  long longer0 = newValue;
-  long TargetPos = map(longer0, 0, 65535, 0, 3200);
+
+        // tell AccelStepper to move relative to the current position
+        stepper.move(delta);
+      }
+      stepper.run();
+      if ((stepper.distanceToGo() == 0) && (waitingToDisable_SARI_ROLL == false) && (SARI_ROLL_ENABLED == true)) {
+        // SendDebug("Starting Count down to disable SARI ROLL");
+        waitingToDisable_SARI_ROLL = true;
+        timeToDisable_SARI_ROLL = millis() + disable_SARI_ROLL_WaitTime;
+      }
+    }
+  }
+};
+
+struct SARIStepperConfig SARIstepperConfig = {
+  1600,  // SARImaxSteps //200STEPS X 1/8 MICRO STEPPING
+  2800,  // maxSpeed //3200
+  600    // SARIacceleration 3200
+};
+const int SARIstepPin = 6;
+const int SARIdirectionPin = 7;
+
+// define AccelStepper instance
+
+AccelStepper SARIstepperRoll(AccelStepper::DRIVER, SARIstepPin, SARIdirectionPin);
+
+Nema8Stepper SARIRoll(0x74e6,             // address of stepper data
+                      SARIstepperRoll,    // name of AccelStepper instance
+                      SARIstepperConfig,  // SARIStepperConfig struct instance
+                      8,                 // IR Detector Pin (must be LOW in zero position)
+                      800,                // zero offset (SET TO 50% of MaX Steps) 1650
+                                          // WIngs Level = 1/2 Max Steps -> "Zero" = 1/2 Turn
+                                          // SARI will be upsidedown after Setup, this will correct in Bios
+                      [](unsigned int newValue) -> unsigned int {
+                        newValue = newValue & 0xffff;
+                        return map(newValue, 0, 65535, 0, SARIstepperConfig.SARImaxSteps - 1);
+                      });
 
 
-  long currentAbsolutePosition = STEPPER_1.currentPosition();
-  long currentPosition = currentAbsolutePosition % STEPS;
 
 
+void onSaiManPitchAdjChange(unsigned int newValue) {
+  valWAT = map(newValue, 0, 65535, 0, 1500);
+  SendDebug("ManPitch " + String(valWAT));
+  stepperW.moveTo(valWAT);
+}
+DcsBios::IntegerBuffer saiManPitchAdjBuffer(0x74ea, 0xffff, 0, onSaiManPitchAdjChange);
 
-
-  SendDebug("SAI Bank: " + String(newValue)
-            + " Converted Val:" + String(longer0)
-            + " Target is:" + String(TargetPos)
-            + " Curr Pos:" + currentPosition
-            + " Curr Absolute Pos:" + String(currentAbsolutePosition)
-            + " Roll Count:" + String(rollCount)
-            + " Direction:" + String(STEPPER_1.speed()));
-
-
-  // if ((TargetPos >= lastTargetPos) && (STEPPER_1.speed() <= 0.1)) {
-  //   SendDebug("Decrementing Roll Count!!!!!");
-  //   rollCount = rollCount - 1;
-  // }
-
-  if (TargetPos >= 2000) {
-    long newMoveTo = ((rollCount - 1) * STEPS) + TargetPos;
-    STEPPER_1.moveTo(newMoveTo);
-    SendDebug("Jumping Ahead!!! Setting to:" + String(newMoveTo));
+void onSaiPointerHorChange(unsigned int newValue) {
+  if (newValue == 65535) {
+    valHOZ = 0;
+    stepperH.moveTo(valHOZ);
   } else {
-    STEPPER_1.moveTo(TargetPos + (rollCount * STEPS));
+    valHOZ = map(newValue, 1, 65494, 3600, 1600);
+    stepperH.moveTo(valHOZ);
   }
-
-  lastTargetPos = TargetPos;
 }
-DcsBios::IntegerBuffer saiBankBuffer(0x74e6, 0xffff, 0, onSaiBankChange);
+DcsBios::IntegerBuffer saiPointerHorBuffer(0x756c, 0xffff, 0, onSaiPointerHorChange);
+
+void onSaiPointerVerChange(unsigned int newValue) {
+  if (newValue == 0) {
+    valVER = 0;
+    stepperV.moveTo(valVER);
+  } else {
+    // valVER = map(newValue, 1, 65535, 1500, 3600);
+    valVER = map(newValue, 1, 65535, 1500, 4150);
+    stepperV.moveTo(valVER);
+  }
+}
+DcsBios::IntegerBuffer saiPointerVerBuffer(0x756a, 0xffff, 0, onSaiPointerVerChange);
+
+DcsBios::RotaryEncoder saiSet("SAI_SET", "-800", "+800", 28, 26);
+
+DcsBios::Switch2Pos saiTestBtn("SAI_TEST_BTN", A12);
+DcsBios::Switch2Pos saiCage("SAI_CAGE", A13);
+
+
+
+// ######################################  End SARI  ######################################
+
+
+void enable_switchW() {
+  digitalWrite(EN_switchW, LOW);
+  setStepperLedOn();
+  // SendDebug("Enabling switchW");
+}
+
+void enable_switchV() {
+  digitalWrite(EN_switchV, LOW);
+  setStepperLedOn();
+  // SendDebug("Enabling switchV");
+}
+
+void enable_switchH() {
+  digitalWrite(EN_switchH, LOW);
+  setStepperLedOn();
+  // SendDebug("Enabling switchH");
+}
+
+void enable_SARI_ROLL() {
+  SARI_ROLL_ENABLED = true;
+  digitalWrite(SARIenablePin, LOW);
+  setStepperLedOn();
+}
+
+void enable_SARI_FLAG() {
+  digitalWrite(SARI_Flag_Pin, HIGH);
+  setStepperLedOn();
+}
+
+void disable_SARI_ROLL() {
+  digitalWrite(SARIenablePin, HIGH);
+  SARI_ROLL_ENABLED = false;
+  checkStepperDisabledStatus();
+}
+
+void disable_SARI_FLAG() {
+  digitalWrite(SARI_Flag_Pin, LOW);
+  checkStepperDisabledStatus();
+}
+
+void disableAllPointers() {
+  digitalWrite(EN_switchW, HIGH);
+  digitalWrite(EN_switchV, HIGH);
+  digitalWrite(EN_switchH, HIGH);
+  digitalWrite(SARIenablePin, HIGH);
+  digitalWrite(SARI_Flag_Pin, LOW);
+  checkStepperDisabledStatus();
+}
+
+
+void enableAllPointers() {
+  // Currently not touching SARI with enable
+  enable_switchW();
+  enable_switchV();
+  enable_switchH();
+}
+
+void setStepperLedOn() {
+  digitalWrite(Check_LED_R, HIGH);  // RED LED ON PCB TO SHOW ENABLE SWITCHES ARE ACTIVE AND POWER IS ON TO THE STEPPERS IF REQUIRED - SET BY CODE
+  digitalWrite(Check_LED_G, LOW);
+}
+
+void setStepperLedOff() {
+  digitalWrite(Check_LED_G, HIGH);  // GREEN LED ON PCB TO SHOW **ALL** ENABLE SWITCHES ARE SAFE - OFF
+  digitalWrite(Check_LED_R, LOW);
+}
+
+
+void checkStepperDisabledStatus() {
+  if ((digitalRead(EN_switchW) == HIGH) && (digitalRead(EN_switchV) == HIGH) && (digitalRead(EN_switchH) == HIGH) && (digitalRead(SARIenablePin) == HIGH) && (digitalRead(SARI_Flag_Pin) == LOW)) {
+    setStepperLedOff();  // CHECK ALL STEPPER DRIVERS ARE DISABLED BEFORE CHANGING LED STATE
+  }
+}
+
+
 
 
 void setup() {
 
-  pinMode(LED_BUILTIN, OUTPUT);
-  digitalWrite(LED_BUILTIN, true);
-  pinMode(ROLL_ZERO_SENSE_IN, INPUT);
+  pinMode(Check_LED_G, OUTPUT);
+  digitalWrite(Check_LED_G, true);
+  pinMode(Check_LED_R, OUTPUT);
+  digitalWrite(Check_LED_R, true);
 
 
   if (Ethernet_In_Use == 1) {
@@ -230,131 +506,29 @@ void setup() {
     ethernetStartTime = millis() + delayBeforeSendingPacket;
     while (millis() <= ethernetStartTime) {
       delay(FLASH_TIME);
-      digitalWrite(LED_BUILTIN, false);
+      digitalWrite(Check_LED_G, false);
       delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, true);
     }
 
     SendDebug("Ethernet Started");
-    SendDebug("A10_SARI_DEV");
+    SendDebug("A10_SARI_DEV 20240714");
   }
 
 
   delay(FLASH_TIME);
-  digitalWrite(LED_BUILTIN, false);
+  digitalWrite(Check_LED_G, false);
   delay(FLASH_TIME);
 
+  SendDebug("Stepper Initialisation Complete");
 
-  int STEP_COUNTER = 0;
+  pinMode(SARIenablePin, OUTPUT);
+  enable_SARI_ROLL();
 
-
-  STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
-  STEPPER_1.setAcceleration(STEPPER_ACCELERATION);
-
-  SendDebug("Max Speed: " + String(STEPPER_MAX_SPEED));
-  SendDebug("Acceleration: " + String(STEPPER_ACCELERATION));
-  SendDebug("Initialise Stepper - Two turns and then return to starting point");
-
-  pinMode(DRIVER_ENABLE, OUTPUT);
-  digitalWrite(DRIVER_ENABLE, false);
-  STEPPER_1.moveTo(STEPS * 2.5);
-  while (STEPPER_1.distanceToGo() != 0) {
-    STEPPER_1.run();
-    // SendDebug("Step Speed: " + String(STEPPER_1.speed()));
-  }
-  delay(200);
-
-  STEPPER_1.moveTo(0);
-  while (STEPPER_1.distanceToGo() != 0) {
-    STEPPER_1.run();
-  }
-  delay(200);
-
-  SendDebug("Initialise Stepper - Move Random Distance");
-  randomSeed(analogRead(0));
-  int randNumber = random(10, STEPS);
-  STEPPER_1.moveTo(randNumber);
-  while (STEPPER_1.distanceToGo() != 0) {
-    STEPPER_1.run();
-    checkSensor();
-  }
-  delay(100);
-  // Check to see if stepper already in rest position - if so move 20
-  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-  if (SENSOR_STATE == false) {
-    SendDebug("Initialise Stepper - Stepping away from Zero");
-    STEPPER_1.move(int(STEPS / 10));
-    while (STEPPER_1.distanceToGo() != 0) {
-      STEPPER_1.run();
-      SendDebug("Initialise Stepper - Steps to go :" + String(STEPPER_1.distanceToGo()));
-    }
-  }
-
-  // If Sensor State is still zero we have a problem
-  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-  if (SENSOR_STATE == false)
-    SendDebug("Initialise Stepper - WARNING ZERO SENSOR APPEARS JAMMED");
-
-  // Find Zero Point - moving in positive direction
-  SendDebug("Initialise Stepper - Find Zero point");
-  // Slow stepper down so we don't overshoot the zero point
-  STEPPER_1.setMaxSpeed(STEPPER_ZERO_SEEK_SPEED);
-  // At this point zero position is arbitary - will have a real zero after this loop
-  STEPPER_1.setCurrentPosition(0);
-  // Moving in a negative direction translates to clockwise
-  STEPPER_1.moveTo(-STEPS * 1.5);
-  while (STEPPER_1.distanceToGo() != 0) {
-    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-    if (SENSOR_STATE == false) {
-      STEPPER_1.setCurrentPosition(CLOCKWISE_ZERO_OFFSET);
-      break;
-    }
-    STEPPER_1.run();
-    checkSensor();
-  }
-
-  // Warn if zero state not detected - we should have a reading of false
-  if (SENSOR_STATE == true)
-    SendDebug("Initialise Stepper - WARNING ZERO NOT LOCATED");
-
-  SendDebug("Initialise Stepper - Move to Zero accounting for offset");
-  STEPPER_1.runToNewPosition(0);
-  SendDebug("Initialise Stepper - Found Zero Point");
-  // Return to normal max speed
-
-  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-  if (SENSOR_STATE == false)
-    SendDebug("Initialise Stepper - Sensor Still Blocked");
-
-  SendDebug("Now Finding otherside of interruptor");
-  STEPPER_1.moveTo(-200);
-  SendDebug("Distance to go is :" + String(STEPPER_1.distanceToGo()));
-
-  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-  while (SENSOR_STATE == false) {
-    SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-    if (SENSOR_STATE == false) {
-      SendDebug("Position that Sensor became True is :" + String(STEPPER_1.currentPosition()));
-      break;
-    }
-    STEPPER_1.run();
-    checkSensor();
-  }
-
-
-  SENSOR_STATE = digitalRead(ROLL_ZERO_SENSE_IN);
-  SendDebug("Checking Sensor is clear, sensor ready is :" + String(SENSOR_STATE));
-
-  STEPPER_1.setMaxSpeed(STEPPER_MAX_SPEED);
-
-  STEPPER_1.moveTo(0);
-
-
-  INITIALISING_ROLL = false;
-  SendDebug("All Done");
+  SendDebug("Stepper Initialisation Complete");
 
   DcsBios::setup();
-  // Serial.end();
-  //digitalWrite(DRIVER_ENABLE, true);
+  SendDebug("DCS BIOS Setup Complete");
 }
 
 
@@ -366,11 +540,10 @@ void loop() {
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     RED_LED_STATE = !RED_LED_STATE;
-    digitalWrite(LED_BUILTIN, RED_LED_STATE);
+    digitalWrite(Check_LED_G, RED_LED_STATE);
+    digitalWrite(Check_LED_R, !RED_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
   DcsBios::loop();
-  STEPPER_1.run();
-  // checkSensor();
 }
