@@ -200,10 +200,10 @@ void loop() {
     bool foundCurrent = false;
     bool foundTarget = false;
     for (int i = 0; i < selector1Size; i++) {
-      // SendDebug("Walking Array for current :" + String(i));
-      // SendDebug(String(selector1[i]) + ":" + currentReadingString );
+       SendDebug("Walking Array for current :" + String(i));
+       SendDebug(String(selector1[i]) + ":" + currentReadingString );
       if (String(selector1[i]) == currentReadingString) {
-        // SendDebug("currentRadingString Postion in array :" + String(i));
+        SendDebug("currentRadingString Postion in array :" + String(i));
         currentPos = i;
         foundCurrent = true;
         break;
@@ -240,7 +240,7 @@ void loop() {
   }
   // put your main code here, to run repeatedly:
 
-  
+
   button8State = digitalRead(button8Pin);
   if (button8State != lastButton8State) {
     // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
