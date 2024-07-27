@@ -520,12 +520,7 @@ void setup() {
   digitalWrite(Check_LED_G, false);
   delay(FLASH_TIME);
 
-  SendDebug("Stepper Initialisation Started");
 
-  pinMode(SARIenablePin, OUTPUT);
-  enable_SARI_ROLL();
-
-  SendDebug("Stepper Initialisation Complete");
 
   SendDebug("DCS BIOS Setup Started");
   DcsBios::setup();
