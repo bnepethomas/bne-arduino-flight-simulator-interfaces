@@ -1,33 +1,16 @@
 /* 
+Test framework to work around the A10 frequency setting interface
+as DCS BIOS only supports encoders for tuning aircraft radios
 
-This Superceedes udp_input_controller
-Split from udp_input_controller_2 20200802
-
-Heavily based on 
-https://github.com/calltherain/ArduinoUSBJoystick
-
-Interface for DCS BIOS
-
-Mega2560 R3, 
-digital Pin 22~37 used as rows. 0-15, 16 Rows
-digital pin 38~48 used as columns. 0-10, 11 Columns
-
-it's a 16 * 11  matrix, due to the loss of pins/Columns used by the Ethernet and SD Card Shield, Digital I/O 50 through 53 are not available.
-Pin 49 is available but isn't used. This gives a total number of usable Inputs as 176 (remember numbering starts at 0 - so 0-175)
-
-The code pulls down a row and reads values from the Columns.
-Row 0 - Col 0 = Digit 0
-Row 0 - Col 10 = Digit 10
-Row 15 - Col 0 = Digit 165
-Row 15 = Col 10 = Digit 175
-
-So - Digit = Row * 11 + Col
+To find values for controls for a given aircraft - checkout 
+DCS-BIOS - lib - modules - aircraft_modules - and then the named of the aircrtaft.lua eg A-10C.lua
 
 */
 
 
 #define Ethernet_In_Use 1
 #define Reflector_In_Use 1
+#define DCSBIOS_In_Use 1
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
 
@@ -85,6 +68,20 @@ char* ParameterNamePtr;
 char* ParameterValuePtr;
 
 
+unsigned long currentMillis = 0;
+unsigned long previousMillis = 0;
+int DCS_On = 0;
+int previous_DCS_State = 0;
+int DCS_State = 0;
+long dcsMillis;
+bool DCSACTIVE = false;
+
+void onModTimeChange(char* newValue) {
+  // Setting flag to indicae DCS has started - not checking if it is currently active
+  DCSACTIVE = true;
+}
+DcsBios::StringBuffer<6> modTimeBuffer(0x0440, onModTimeChange);
+
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
@@ -136,8 +133,6 @@ int cButtonID[16];
 bool bFirstTime = false;
 
 
-unsigned long currentMillis = 0;
-unsigned long previousMillis = 0;
 
 
 
@@ -253,9 +248,10 @@ void FindInputChanges() {
         if (prevjoyReport.button[ind] == 0) {
 
           SendDebug("Pressed : " + String(stringind));
-
+          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 1);
         } else {
           SendDebug("Released :" + String(stringind));
+          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 0);
         }
 
         prevjoyReport.button[ind] = joyReport.button[ind];
@@ -378,57 +374,813 @@ void loop() {
   FindInputChanges();
 
 
+  if (DCSACTIVE == true) {
+    if (currentReadingString != targetString) {
+      SendDebug("Incrementing VHF FM Frequency");
 
-  if (currentReadingString != targetString) {
-    SendDebug("Incrementing VHF FM Frequency");
+      SendDebug("Current Reading " + currentReadingString);
 
-    SendDebug("Current Reading " + currentReadingString);
-
-    int currentPos = 0;
-    int targetPos = 0;
-    int deltaPos = 0;
-    bool foundCurrent = false;
-    bool foundTarget = false;
-    for (int i = 0; i < selector1Size; i++) {
-      SendDebug("Walking Array for current :" + String(i));
-      SendDebug(String(selector1[i]) + ":" + currentReadingString);
-      if (String(selector1[i]) == currentReadingString) {
-        SendDebug("currentRadingString Postion in array :" + String(i));
-        currentPos = i;
-        foundCurrent = true;
-        break;
+      int currentPos = 0;
+      int targetPos = 0;
+      int deltaPos = 0;
+      bool foundCurrent = false;
+      bool foundTarget = false;
+      for (int i = 0; i < selector1Size; i++) {
+        SendDebug("Walking Array for current :" + String(i));
+        SendDebug(String(selector1[i]) + ":" + currentReadingString);
+        if (String(selector1[i]) == currentReadingString) {
+          SendDebug("currentRadingString Postion in array :" + String(i));
+          currentPos = i;
+          foundCurrent = true;
+          break;
+        }
       }
-    }
 
-    for (int i = 0; i < selector1Size; i++) {
-      // SendDebug("Walking Array for target :" + String(i));
-      // SendDebug(String(selector1[i]) + ":" + currentReadingString );
-      if (String(selector1[i]) == targetString) {
-        // SendDebug("targetString Postion in array :" + String(i));
-        targetPos = i;
-        foundTarget = true;
-        break;
+
+      for (int i = 0; i < selector1Size; i++) {
+        // SendDebug("Walking Array for target :" + String(i));
+        // SendDebug(String(selector1[i]) + ":" + currentReadingString );
+        if (String(selector1[i]) == targetString) {
+          // SendDebug("targetString Postion in array :" + String(i));
+          targetPos = i;
+          foundTarget = true;
+          break;
+        }
       }
-    }
 
-    if (foundCurrent == false) {
-      SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY");
-    }
-    if (foundTarget == false) {
-      SendDebug("WARNING UNABLE TO FIND TARGET POSITION IN ARRAY");
-    }
+      if (foundCurrent == false) {
+        SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY");
+      }
+      if (foundTarget == false) {
+        SendDebug("WARNING UNABLE TO FIND TARGET POSITION IN ARRAY");
+      }
 
-    deltaPos = targetPos - currentPos;
+      deltaPos = targetPos - currentPos;
 
-    if (deltaPos > 0) {
-      sendToDcsBiosMessage("VHFFM_FREQ1", "INC");
-    } else {
-      sendToDcsBiosMessage("VHFFM_FREQ1", "DEC");
+      if (deltaPos > 0) {
+        sendToDcsBiosMessage("VHFFM_FREQ1", "INC");
+      } else {
+        sendToDcsBiosMessage("VHFFM_FREQ1", "DEC");
+      }
+
+      SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
     }
-
-    SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
   }
 
   DcsBios::loop();
   currentMillis = millis();
+}
+
+
+void CreateDcsBiosMessage(int ind, int state) {
+
+
+  switch (state) {
+    switch (ind) {
+      case 0:
+        break;
+      case 1:
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      case 4:
+        break;
+      case 5:
+        break;
+      case 6:
+        break;
+      case 7:
+        break;
+      case 8:
+        break;
+      case 9:
+        break;
+      case 10:
+        break;
+      case 11:
+        break;
+      case 12:
+        break;
+      case 13:
+        break;
+      case 14:
+        break;
+      case 15:
+        break;
+      case 16:
+        break;
+      case 17:
+        break;
+      case 18:
+        break;
+      case 19:
+        break;
+      case 20:
+        break;
+      case 21:
+        break;
+      case 22:
+        break;
+      case 23:
+        break;
+      case 24:
+        break;
+      case 25:
+        break;
+      case 26:
+        break;
+      case 27:
+        break;
+      case 28:
+        break;
+      case 29:
+        break;
+      case 30:
+        break;
+      case 31:
+        break;
+      case 32:
+        break;
+      case 33:
+        break;
+      case 34:
+        break;
+      case 35:
+        break;
+      case 36:
+        break;
+      case 37:
+        break;
+      case 38:
+        break;
+      case 39:
+        break;
+      case 40:
+        break;
+      case 41:
+        break;
+      case 42:
+        break;
+      case 43:
+        break;
+      case 44:
+        break;
+      case 45:
+        break;
+      case 46:
+        break;
+      case 47:
+        break;
+      case 48:
+        break;
+      case 49:
+        break;
+      case 50:
+        break;
+      case 51:
+        break;
+      case 52:
+        break;
+      case 53:
+        break;
+      case 54:
+        break;
+      case 55:
+        break;
+      case 56:
+        break;
+      case 57:
+        break;
+      case 58:
+        break;
+      case 59:
+        break;
+      case 60:
+        break;
+      case 61:
+        break;
+      case 62:
+        break;
+      case 63:
+        break;
+      case 64:
+        break;
+      case 65:
+        break;
+      case 66:
+        break;
+      case 67:
+        break;
+      case 68:
+        break;
+      case 69:
+        break;
+      case 70:
+        break;
+      case 71:
+        break;
+      case 72:
+        break;
+      case 73:
+        break;
+      case 74:
+        break;
+      case 75:
+        break;
+      case 76:
+        break;
+      case 77:
+        break;
+      case 78:
+        break;
+      case 79:
+        break;
+      case 80:
+        break;
+      case 81:
+        break;
+      case 82:
+        break;
+      case 83:
+        break;
+      case 84:
+        break;
+      case 85:
+        break;
+      case 86:
+        break;
+      case 87:
+        break;
+      case 88:
+        break;
+      case 89:
+        break;
+      case 90:
+        break;
+      case 91:
+        break;
+      case 92:
+        break;
+      case 93:
+        break;
+      case 94:
+        break;
+      case 95:
+        break;
+      case 96:
+        break;
+      case 97:
+        break;
+      case 98:
+        break;
+      case 99:
+        break;
+      case 100:
+        break;
+      case 101:
+        break;
+      case 102:
+        break;
+      case 103:
+        break;
+      case 104:
+        break;
+      case 105:
+        break;
+      case 106:
+        break;
+      case 107:
+        break;
+      case 108:
+        break;
+      case 109:
+        break;
+      case 110:
+        break;
+      case 111:
+        break;
+      case 112:
+        break;
+      case 113:
+        break;
+      case 114:
+        break;
+      case 115:
+        break;
+      case 116:
+        break;
+      case 117:
+        break;
+      case 118:
+        break;
+      case 119:
+        break;
+      case 120:
+        break;
+      case 121:
+        break;
+      case 122:
+        break;
+      case 123:
+        break;
+      case 124:
+        break;
+      case 125:
+        break;
+      case 126:
+        break;
+      case 127:
+        break;
+      case 128:
+        break;
+      case 129:
+        break;
+      case 130:
+        break;
+      case 131:
+        break;
+      case 132:
+        break;
+      case 133:
+        break;
+      case 134:
+        break;
+      case 135:
+        break;
+      case 136:
+        break;
+      case 137:
+        break;
+      case 138:
+        break;
+      case 139:
+        break;
+      case 140:
+        break;
+      case 141:
+        break;
+      case 142:
+        break;
+      case 143:
+        break;
+      case 144:
+        break;
+      case 145:
+        break;
+      case 146:
+        break;
+      case 147:
+        break;
+      case 148:
+        break;
+      case 149:
+        break;
+      case 150:
+        break;
+      case 151:
+        break;
+      case 152:
+        break;
+      case 153:
+        break;
+      case 154:
+        break;
+      case 155:
+        break;
+      case 156:
+        break;
+      case 157:
+        break;
+      case 158:
+        break;
+      case 159:
+        break;
+      case 160:
+        break;
+      case 161:
+        break;
+      case 162:
+        break;
+      case 163:
+        break;
+      case 164:
+        break;
+      case 165:
+        break;
+      case 166:
+        break;
+      case 167:
+        break;
+      case 168:
+        break;
+      case 169:
+        break;
+      case 170:
+        break;
+      case 171:
+        break;
+      case 172:
+        break;
+      case 173:
+        break;
+      case 174:
+        break;
+      case 175:
+        break;
+      case 176:
+        break;
+      case 177:
+        break;
+      case 178:
+        break;
+      case 179:
+        break;
+    }
+    break;
+
+
+    case 1:
+
+      // PRESS - CLOSE
+      switch (ind) {
+
+        case 0:
+          targetString = " 3";
+          break;
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        case 5:
+          break;
+        case 6:
+          break;
+        case 7:
+          break;
+        case 8:
+          break;
+        case 9:
+          break;
+        case 10:
+          break;
+        case 11:
+          targetString = " 4";
+          break;
+        case 12:
+          break;
+        case 13:
+          break;
+        case 14:
+          break;
+        case 15:
+          break;
+        case 16:
+          break;
+        case 17:
+          break;
+        case 18:
+          break;
+        case 19:
+          break;
+        case 20:
+          break;
+        case 21:
+          break;
+        case 22:
+          targetString = " 5";
+          break;
+        case 23:
+          break;
+        case 24:
+          break;
+        case 25:
+          break;
+        case 26:
+          break;
+        case 27:
+          break;
+        case 28:
+          break;
+        case 29:
+          break;
+        case 30:
+          break;
+        case 31:
+          break;
+        case 32:
+          break;
+        case 33:
+          targetString = " 6";
+          break;
+        case 34:
+          break;
+        case 35:
+          break;
+        case 36:
+          break;
+        case 37:
+          break;
+        case 38:
+          break;
+        case 39:
+          break;
+        case 40:
+          break;
+        case 41:
+          break;
+        case 42:
+          break;
+        case 43:
+          break;
+        case 44:
+          targetString = " 7";
+          break;
+        case 45:
+          break;
+        case 46:
+          break;
+        case 47:
+          break;
+        case 48:
+          break;
+        case 49:
+          break;
+        case 50:
+          break;
+        case 51:
+          break;
+        case 52:
+          break;
+        case 53:
+          break;
+        case 54:
+          break;
+        case 55:
+          targetString = " 8";
+          break;
+        case 56:
+          break;
+        case 57:
+          break;
+        case 58:
+          break;
+        case 59:
+          break;
+        case 60:
+          break;
+        case 61:
+          break;
+        case 62:
+          break;
+        case 63:
+          break;
+        case 64:
+          break;
+        case 65:
+          break;
+        case 66:
+          targetString = " 9";
+          break;
+        case 67:
+          break;
+        case 68:
+          break;
+        case 69:
+          break;
+        case 70:
+          break;
+        case 71:
+          break;
+        case 72:
+          break;
+        case 73:
+          break;
+        case 74:
+          break;
+        case 75:
+          break;
+        case 76:
+          break;
+        case 77:
+          targetString = "10";
+          break;
+        case 78:
+          break;
+        case 79:
+          break;
+        case 80:
+          break;
+        case 81:
+          break;
+        case 82:
+          break;
+        case 83:
+          break;
+        case 84:
+          break;
+        case 85:
+          break;
+        case 86:
+          break;
+        case 87:
+          break;
+        case 88:
+          targetString = "11";
+          break;
+        case 89:
+          break;
+        case 90:
+          break;
+        case 91:
+          break;
+        case 92:
+          break;
+        case 93:
+          break;
+        case 94:
+          break;
+        case 95:
+          break;
+        case 96:
+          break;
+        case 97:
+          break;
+        case 98:
+          break;
+        case 99:
+          targetString = "11";
+          break;
+        case 100:
+          break;
+        case 101:
+          break;
+        case 102:
+          break;
+        case 103:
+          break;
+        case 104:
+          break;
+        case 105:
+          break;
+        case 106:
+          break;
+        case 107:
+          break;
+        case 108:
+          break;
+        case 109:
+          break;
+        case 110:
+          targetString = "12";
+          break;
+        case 111:
+          break;
+        case 112:
+          break;
+        case 113:
+          break;
+        case 114:
+          break;
+        case 115:
+          break;
+        case 116:
+          break;
+        case 117:
+          break;
+        case 118:
+          break;
+        case 119:
+          break;
+        case 120:
+          break;
+        case 121:
+          targetString = "13";
+          break;
+        case 122:
+          break;
+        case 123:
+          break;
+        case 124:
+          break;
+        case 125:
+          break;
+        case 126:
+          break;
+        case 127:
+          break;
+        case 128:
+          break;
+        case 129:
+          break;
+        case 130:
+          break;
+        case 131:
+          break;
+        case 132:
+          break;
+        case 133:
+          break;
+        case 134:
+          break;
+        case 135:
+          break;
+        case 136:
+          break;
+        case 137:
+          break;
+        case 138:
+          break;
+        case 139:
+          break;
+        case 140:
+          break;
+        case 141:
+          break;
+        case 142:
+          break;
+        case 143:
+          break;
+        case 144:
+          break;
+        case 145:
+          break;
+        case 146:
+          break;
+        case 147:
+          break;
+        case 148:
+          break;
+        case 149:
+          break;
+        case 150:
+          break;
+        case 151:
+          break;
+        case 152:
+          break;
+        case 153:
+          break;
+        case 154:
+          break;
+        case 155:
+          break;
+        case 156:
+          break;
+        case 157:
+          break;
+        case 158:
+          break;
+        case 159:
+          break;
+        case 160:
+          break;
+        case 161:
+          break;
+        case 162:
+          break;
+        case 163:
+          break;
+        case 164:
+          break;
+        case 165:
+          break;
+        case 166:
+          break;
+        case 167:
+          break;
+        case 168:
+          break;
+        case 169:
+          break;
+        case 170:
+          break;
+        case 171:
+          break;
+        case 172:
+          break;
+        case 173:
+          break;
+        case 174:
+          break;
+        case 175:
+          break;
+        case 176:
+          break;
+        case 177:
+          break;
+        case 178:
+          break;
+        case 179:
+          break;
+        default:
+          // PRESS - CLOSE
+          break;
+      }
+  }
 }
