@@ -10,7 +10,6 @@
       "/*2",
       "Net-(U1-INT)",
       "unconnected-(U1-NC-PadB4)",
-      "/STEPPER_5_A",
       "/STEPPER_9_A"
     ],
     "high_contrast_mode": 0,
@@ -73,6 +72,12 @@
     ],
     "visible_layers": "fffffff_ffffffff",
     "zone_display_mode": 0
+  },
+  "git": {
+    "repo_password": "",
+    "repo_type": "",
+    "repo_username": "",
+    "ssh_key": ""
   },
   "meta": {
     "filename": "Front Console Output.kicad_prl",
