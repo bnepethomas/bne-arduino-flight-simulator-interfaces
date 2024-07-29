@@ -310,7 +310,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, double row, 02x18, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -322,7 +322,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/00000000-0000-0000-0000-000056d743b5")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -907,7 +909,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -919,7 +921,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/00000000-0000-0000-0000-000056d71773")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -1186,7 +1190,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1198,7 +1202,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/00000000-0000-0000-0000-000056d73a0e")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -1464,7 +1470,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1476,7 +1482,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/00000000-0000-0000-0000-000056d72368")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -1743,7 +1751,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1755,7 +1763,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/00000000-0000-0000-0000-000056d734d0")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -2022,7 +2032,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2034,7 +2044,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/00000000-0000-0000-0000-000056d73f2c")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -2300,7 +2312,7 @@
 				)
 			)
 		)
-		(property "Description" "Light emitting diode"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2312,7 +2324,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/26d4044a-86af-458c-970f-5f6fa1a29490")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -2538,7 +2552,7 @@
 				)
 			)
 		)
-		(property "Description" "Light emitting diode"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2550,7 +2564,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/483ccedd-c915-4966-b011-0877a40703ef")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -2775,7 +2791,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2787,7 +2803,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/9fb4dce1-2b6b-46ae-95b7-389ce6a4e565")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -2967,7 +2985,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -2979,7 +2997,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/944e91bb-5884-456c-a202-e02bc84a8074")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -3229,7 +3249,7 @@
 				)
 			)
 		)
-		(property "Description" "Light emitting diode"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3241,7 +3261,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/1746df0c-96c1-4cab-968b-eb4c3d8e8f22")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -3466,7 +3488,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3478,7 +3500,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/ad016110-93d7-47cb-b32a-ee6ac0f8cb76")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -3658,7 +3682,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3670,7 +3694,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/42cade47-999a-4191-8ead-38d841973e63")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -3920,7 +3946,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -3932,7 +3958,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/4b1821b3-324f-4949-8591-efef75575304")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -4248,7 +4276,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4260,7 +4288,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/1f3e7cb6-272c-4296-b363-9c4e633ee145")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -4510,7 +4540,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x03, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4522,7 +4552,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/53749995-cf29-4645-bd55-829461d5affe")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -4954,7 +4986,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4966,7 +4998,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/b23c221a-c264-40ae-80df-c70112a43dec")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -5216,7 +5250,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x03, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5228,7 +5262,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/d8a3507c-6dc6-490c-9719-61ee65aa6528")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -5660,7 +5696,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5672,7 +5708,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/3c81718c-ed92-4280-8388-542b732840d5")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -5803,7 +5841,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5815,7 +5853,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/72feaa04-a990-4064-84d8-da9f7d589b09")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -6288,7 +6328,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6300,7 +6340,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/eb5da087-acdd-4f99-89b8-3bec45c4ec35")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -6616,7 +6658,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6628,7 +6670,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/c736624f-a6e5-46ff-aac4-e1db145cb537")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -6808,7 +6852,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6820,7 +6864,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/5ad18248-4344-4217-99b4-1b0cd85dcc8a")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -7070,7 +7116,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7082,7 +7128,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/a2e23ad1-01b6-40f8-bdd0-c0d6694f48c3")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -7555,7 +7603,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7567,7 +7615,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/e09e6380-8603-41e9-ae22-1a1a66065b0b")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -7883,7 +7933,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7895,7 +7945,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/d6bd6781-6e69-4f90-b0fc-6d328f7cb79e")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -8368,7 +8420,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8380,7 +8432,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/881e4905-0495-4440-8885-09822308a5bb")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -8560,7 +8614,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8572,7 +8626,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/6ec924fe-9ff4-462c-888a-d565f9db2835")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -8822,7 +8878,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8834,7 +8890,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/aadb9040-8069-43c8-a626-1baa59bea0c1")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -9014,7 +9072,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, double row, 02x08, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9026,7 +9084,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/7c552063-e338-45a1-9df3-dcb6c1e33c0d")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -9470,7 +9530,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9482,7 +9542,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/2c9367a2-711c-44e1-9998-cf7fcb1d68c6")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -9732,7 +9794,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, double row, 02x08, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -9744,7 +9806,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/d69570b3-023e-408b-891e-5b1e05038b15")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -10188,7 +10252,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10200,7 +10264,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/59fabacd-5db2-44a5-8cb9-f6014c31f757")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -10673,7 +10739,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10685,7 +10751,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/d6133f50-f084-4f87-83d1-3c8a45dbd4d7")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -10816,7 +10884,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10828,7 +10896,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/8b8564a1-4b0a-41e7-b156-0aa93ef30977")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -11008,7 +11078,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11020,7 +11090,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/4c0dd9c6-3369-44fd-a5a3-9238fff15453")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -11270,7 +11342,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
+		(property "Description" ""
 			(at 0 0 -90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11282,7 +11354,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/cc035d26-48db-461f-a370-581026eb3434")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -11462,7 +11536,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x03, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11474,7 +11548,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/191b9890-173b-412e-b3ba-7435d98bb292")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -11906,7 +11982,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11918,7 +11994,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/f157e4e2-9b47-421e-8dc1-b61d48a5c65c")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -12168,7 +12246,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12180,7 +12258,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/45f47466-69b7-41e3-bd5d-7c0581e5a482")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -12312,7 +12392,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12324,7 +12404,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/0913d146-c158-4bf4-8354-c29f74d8c6d7")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -12589,7 +12671,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12601,7 +12683,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/6176cf73-b2ff-44f7-860b-dfc706ee5f77")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -13074,7 +13158,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, double row, 02x08, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13086,7 +13170,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/efc39a94-6e11-4b10-ad1a-df1eae15ce32")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -13530,7 +13616,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, double row, 02x08, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13542,7 +13628,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/a56d8151-de9e-46a4-981b-26af3bbe0189")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -13986,7 +14074,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -13998,7 +14086,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/7d39afc5-1a4c-4d99-ad60-4338f1a646ab")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -14248,7 +14338,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14260,7 +14350,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/a74b0e48-0f97-4463-bc32-28aced98e03e")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -14640,7 +14732,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14652,7 +14744,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/ccd73ac5-8c21-45c5-96f8-a338d83dcd0c")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -14832,7 +14926,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -14844,7 +14938,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/0f9cf5ad-116a-4bb7-a28f-361357bba378")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -15024,7 +15120,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15036,7 +15132,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/b9e1e036-8140-4d02-ae07-610e6ae07b36")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -15167,7 +15265,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, double row, 02x08, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15179,7 +15277,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/69a9d96d-c9b0-46e6-8ef1-eed0748e88f8")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -15623,7 +15723,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, US symbol"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15635,7 +15735,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/dc1b9cd8-e0df-4faf-9613-1a15f2c3dd61")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -15815,7 +15917,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -15827,7 +15929,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/42e80632-b5a7-4d77-9817-66b74c979822")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -16300,7 +16404,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -16312,7 +16416,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/7dfec773-b890-4f9d-a2dd-98608324587a")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -16786,7 +16892,7 @@
 				)
 			)
 		)
-		(property "Description" "USR-ES1 W5500 Chip New SPI to LAN/ Ethernet Converter TCP/IP Mod"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17250,7 +17356,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17262,7 +17368,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/fd854007-0537-4cc8-ab52-15643c390c94")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -17735,7 +17843,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, double row, 02x08, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -17747,7 +17855,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/378a622c-a888-4f75-b7e2-dee83d1aecfa")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -18191,7 +18301,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18203,7 +18313,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/e99bcee7-cdb3-4071-9087-cb70383ef6e7")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -18453,7 +18565,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, double row, 02x08, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18465,7 +18577,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_2x??_*")
 		(path "/a6e17427-a668-4c3f-b5e8-964704ebab7b")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -18909,7 +19023,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -18921,7 +19035,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/6718b55c-1779-44d6-8eb1-21d0a7963cdb")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -19394,7 +19510,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x03, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19406,7 +19522,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/d39b987d-ce6c-4ff4-9cdc-158292a45a12")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -19838,7 +19956,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19850,7 +19968,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/9beeb906-d831-4992-b9ce-48d92c9bd056")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -19981,7 +20101,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -19993,6 +20113,7 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_*")
 		(path "/c7f990b2-d440-49cb-84f3-2f34f9ecc442/4e11de22-f775-49ef-8270-fe315a1bd18f")
 		(sheetname "ETHERNET_MOD")
 		(sheetfile "ETHERNET_MOD.kicad_sch")
@@ -20174,7 +20295,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -20186,7 +20307,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/9fb13851-3326-4cca-b3ac-c779cb12483d")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -20451,7 +20574,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -20463,7 +20586,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/f2cc1336-2bcc-4ee1-819a-f53d80ad7afc")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -20779,7 +20904,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -20791,7 +20916,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/efe4f49c-580e-4fb9-a2a0-e456a8cba514")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -21264,7 +21391,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21276,7 +21403,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/c1a6d001-cde0-40f0-8908-10f92bc6f279")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -21407,7 +21536,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21419,7 +21548,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/9c7442ea-8d7f-4e0a-8b82-335b3cb8d4d0")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -21892,7 +22023,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -21904,7 +22035,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/52589cb7-7cfa-48ba-9eb3-d1a06c456310")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -22154,7 +22287,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -22166,7 +22299,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/6b4650d0-1548-499e-8eaa-4ea7a534b28f")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -22416,7 +22551,7 @@
 				)
 			)
 		)
-		(property "Description" "Unpolarized capacitor"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -22428,7 +22563,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/17b22431-88d5-421c-8180-a0f4d672bb7e")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -22559,7 +22696,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -22571,7 +22708,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/9b7d3c50-3808-464c-8ef5-e714a9eb864b")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -23044,7 +23183,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
+		(property "Description" ""
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -23056,7 +23195,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/2785a288-d308-47a3-b34f-2cc9ec87fab2")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -23306,7 +23447,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -23318,7 +23459,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/cd009f53-27ba-40f5-8d88-e77c6974588f")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -23791,7 +23934,7 @@
 				)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" ""
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -23803,7 +23946,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/5cd6a066-b516-439e-9435-db9f390a8404")
+		(sheetname "Root")
 		(sheetfile "Front Console Output.kicad_sch")
 		(attr through_hole)
 		(fp_line
