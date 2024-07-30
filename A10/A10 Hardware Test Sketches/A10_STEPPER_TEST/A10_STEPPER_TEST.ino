@@ -72,11 +72,19 @@ long dcsMillis;
 bool DCSACTIVE = false;
 
 #include <AccelStepper.h>
+
+// Current Airspeed - speedCurrent
+const int enable10Pin = 23;
 const int step10Pin = 25;
 const int direction10Pin = 27;
-const int enable10Pin = 23;
+AccelStepper speedCurrent(AccelStepper::DRIVER, step10Pin, direction10Pin);
 
-AccelStepper stepper10(AccelStepper::DRIVER, step10Pin, direction10Pin);
+// Max Airspeed - speedMax
+const int enable11Pin = 29;
+const int step11Pin = 31;
+const int direction11Pin = 33;
+
+AccelStepper speedMax(AccelStepper::DRIVER, step11Pin, direction11Pin);
 
 void onModTimeChange(char* newValue) {
   // Setting flag to indicae DCS has started - not checking if it is currently active
@@ -155,13 +163,31 @@ void setup() {
 
 
   SendDebug("Stepper Setup Started");
+  SendDebug("Cycle Current Airspeed");
   pinMode(enable10Pin, OUTPUT);
   digitalWrite(enable10Pin, false);
-  stepper10.setMaxSpeed(6000);
-  stepper10.setAcceleration(6000);
-  stepper10.runToNewPosition(6020);
-  delay(1000);
-  stepper10.runToNewPosition(0);
+  speedCurrent.setMaxSpeed(6000);
+  speedCurrent.setAcceleration(6000);
+  speedCurrent.runToNewPosition(5020);
+  delay(050);
+  speedCurrent.runToNewPosition(0);
+  delay(500);
+  speedCurrent.runToNewPosition(5020);
+  delay(500);
+  speedCurrent.runToNewPosition(0);
+
+  SendDebug("Cycle Max Airspeed");
+  pinMode(enable11Pin, OUTPUT);
+  digitalWrite(enable11Pin, false);
+  speedMax.setMaxSpeed(6000);
+  speedMax.setAcceleration(6000);
+  speedMax.runToNewPosition(5020);
+  delay(050);
+  speedMax.runToNewPosition(0);
+  delay(500);
+  speedMax.runToNewPosition(5020);
+  delay(500);
+  speedMax.runToNewPosition(0);
   SendDebug("Stepper Setup Complete");
 
 
