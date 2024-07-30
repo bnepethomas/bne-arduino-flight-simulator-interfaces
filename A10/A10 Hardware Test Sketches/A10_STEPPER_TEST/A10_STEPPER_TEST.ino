@@ -71,6 +71,13 @@ int DCS_State = 0;
 long dcsMillis;
 bool DCSACTIVE = false;
 
+#include <AccelStepper.h>
+const int step10Pin = 25;
+const int direction10Pin = 27;
+const int enable10Pin = 23;
+
+AccelStepper stepper10(AccelStepper::DRIVER, step10Pin, direction10Pin);
+
 void onModTimeChange(char* newValue) {
   // Setting flag to indicae DCS has started - not checking if it is currently active
   DCSACTIVE = true;
@@ -147,6 +154,17 @@ void setup() {
   delay(FLASH_TIME);
 
 
+  SendDebug("Stepper Setup Started");
+  pinMode(enable10Pin, OUTPUT);
+  digitalWrite(enable10Pin, false);
+  stepper10.setMaxSpeed(6000);
+  stepper10.setAcceleration(6000);
+  stepper10.runToNewPosition(6020);
+  delay(1000);
+  stepper10.runToNewPosition(0);
+  SendDebug("Stepper Setup Complete");
+
+
   SendDebug("DCS BIOS Setup Started");
   DcsBios::setup();
   SendDebug("DCS BIOS Setup Complete");
@@ -169,4 +187,3 @@ void loop() {
   DcsBios::loop();
   currentMillis = millis();
 }
-
