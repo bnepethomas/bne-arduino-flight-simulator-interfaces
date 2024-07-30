@@ -21170,7 +21170,7 @@
 		)
 		(uuid "933b449a-30ed-47f0-be25-94d0a58aae7e")
 	)
-	(label "ZERO_DETECT_4"
+	(label "ZERO_DETECT_SARI"
 		(at 231.14 69.85 180)
 		(fields_autoplaced yes)
 		(effects
@@ -22490,7 +22490,7 @@
 		)
 		(uuid "ee6bd66f-95c3-4a6f-8f3a-6c17e7ac4941")
 	)
-	(label "ZERO_DETECT_4"
+	(label "ZERO_DETECT_SARI"
 		(at 101.6 161.29 180)
 		(fields_autoplaced yes)
 		(effects
@@ -24809,15 +24809,15 @@
 		(fields_autoplaced yes)
 		(uuid "378a622c-a888-4f75-b7e2-dee83d1aecfa")
 		(property "Reference" "J32"
-			(at 67.691 97.5827 0)
+			(at 67.691 97.5825 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "STEPPER_12"
-			(at 67.691 100.0069 0)
+		(property "Value" "ALT"
+			(at 67.691 100.0068 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25850,7 +25850,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_11"
+		(property "Value" "SPEED_MAX"
 			(at 147.447 30.734 0)
 			(effects
 				(font
@@ -26555,7 +26555,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_10"
+		(property "Value" "SPEED_CURRENT"
 			(at 149.987 60.3829 0)
 			(effects
 				(font
@@ -26869,7 +26869,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_13"
+		(property "Value" "VSI"
 			(at 169.926 16.764 0)
 			(effects
 				(font
@@ -26937,15 +26937,15 @@
 		(fields_autoplaced yes)
 		(uuid "7c552063-e338-45a1-9df3-dcb6c1e33c0d")
 		(property "Reference" "J35"
-			(at 108.966 97.5827 0)
+			(at 108.966 97.5825 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "STEPPER_13"
-			(at 108.966 100.0069 0)
+		(property "Value" "VSI"
+			(at 108.966 100.0068 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27123,7 +27123,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_12"
+		(property "Value" "ALT"
 			(at 147.574 44.45 0)
 			(effects
 				(font
@@ -27924,7 +27924,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_7"
+		(property "Value" "AOA"
 			(at 126.619 16.764 0)
 			(effects
 				(font
@@ -28066,7 +28066,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_8"
+		(property "Value" "G-FORCE"
 			(at 126.619 30.734 0)
 			(effects
 				(font
@@ -28361,15 +28361,15 @@
 		(fields_autoplaced yes)
 		(uuid "a56d8151-de9e-46a4-981b-26af3bbe0189")
 		(property "Reference" "J29"
-			(at 27.051 97.4557 0)
+			(at 27.051 97.4555 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "STEPPER_11"
-			(at 27.051 99.8799 0)
+		(property "Value" "SPEED_MAX"
+			(at 27.051 99.8798 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -28472,15 +28472,15 @@
 		(fields_autoplaced yes)
 		(uuid "a6e17427-a668-4c3f-b5e8-964704ebab7b")
 		(property "Reference" "J9"
-			(at 108.966 57.9587 0)
+			(at 108.966 57.9585 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "STEPPER_9"
-			(at 108.966 60.3829 0)
+		(property "Value" "SARI"
+			(at 108.966 60.3828 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29602,7 +29602,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_9"
+		(property "Value" "SARI"
 			(at 126.619 44.45 0)
 			(effects
 				(font
@@ -29669,7 +29669,7 @@
 		(fields_autoplaced yes)
 		(uuid "d39b987d-ce6c-4ff4-9cdc-158292a45a12")
 		(property "Reference" "J5"
-			(at 112.2172 160.0779 0)
+			(at 112.2172 160.0778 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29677,7 +29677,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "ZERO DETECT_4"
+		(property "Value" "SARI"
 			(at 112.2172 162.5021 0)
 			(effects
 				(font
@@ -29883,15 +29883,15 @@
 		(fields_autoplaced yes)
 		(uuid "d69570b3-023e-408b-891e-5b1e05038b15")
 		(property "Reference" "J19"
-			(at 67.691 57.9587 0)
+			(at 67.691 57.9585 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "STEPPER_8"
-			(at 67.691 60.3829 0)
+		(property "Value" "G-FORCE"
+			(at 67.691 60.3828 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30724,15 +30724,15 @@
 		(fields_autoplaced yes)
 		(uuid "efc39a94-6e11-4b10-ad1a-df1eae15ce32")
 		(property "Reference" "J15"
-			(at 27.051 57.8317 0)
+			(at 27.051 57.8315 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "STEPPER_7"
-			(at 27.051 60.2559 0)
+		(property "Value" "AOA"
+			(at 27.051 60.2558 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31261,14 +31261,14 @@
 		(dnp no)
 		(uuid "fd854007-0537-4cc8-ab52-15643c390c94")
 		(property "Reference" "J24"
-			(at 155.956 16.764 0)
+			(at 157.734 16.764 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "STEPPER_10"
+		(property "Value" "SPEED_CURRENT"
 			(at 147.447 16.764 0)
 			(effects
 				(font

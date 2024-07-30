@@ -5806,8 +5806,8 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_13"
-			(at -6.57 2.54 0)
+		(property "Value" "VSI"
+			(at -2.98 -2.405 0)
 			(layer "F.SilkS")
 			(uuid "43ce8e3f-80ed-419d-bb6b-324667a8f4b6")
 			(effects
@@ -9037,7 +9037,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_13"
+		(property "Value" "VSI"
 			(at 7.37 -2.32 0)
 			(layer "F.Fab")
 			(uuid "27ea8b15-1ad0-4294-9019-b08edb2a44f6")
@@ -9759,7 +9759,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_8"
+		(property "Value" "G-FORCE"
 			(at 6.58 -2.28 0)
 			(layer "F.SilkS")
 			(uuid "c256b731-4690-4b5b-8dec-c07404fec71d")
@@ -10217,7 +10217,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_11"
+		(property "Value" "SPEED_MAX"
 			(at -6.35 1.885 180)
 			(layer "F.SilkS")
 			(uuid "91ab6901-84e5-4f4e-acf6-39e3c71c6dc0")
@@ -13123,7 +13123,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_7"
+		(property "Value" "AOA"
 			(at 6.139619 -2.53 0)
 			(layer "F.SilkS")
 			(uuid "72ebaf32-1682-44cd-905c-795e5433224f")
@@ -13581,7 +13581,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_11"
+		(property "Value" "SPEED_MAX"
 			(at 6.18 -2.41 0)
 			(layer "F.Fab")
 			(uuid "d40d6c48-99a3-4b82-a906-e3efbbb46a7f")
@@ -15230,9 +15230,9 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_10"
-			(at 6.39 -2.38 0)
-			(layer "F.Fab")
+		(property "Value" "SPEED_CURRENT"
+			(at -3.22 6.05 90)
+			(layer "F.SilkS")
 			(uuid "7f9d073a-6050-4d67-94cb-fc20f87fbf5e")
 			(effects
 				(font
@@ -16369,7 +16369,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_12"
+		(property "Value" "ALT"
 			(at 3.81 -4.445 0)
 			(layer "F.SilkS")
 			(uuid "5f502c9e-fec2-4f4c-82c0-59ce547f90ba")
@@ -17321,8 +17321,8 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_10"
-			(at 13.97 -1.905 0)
+		(property "Value" "SPEED_CURRENT"
+			(at 15.595 -2.605 0)
 			(layer "F.SilkS")
 			(uuid "2769781b-8a58-4ede-89a2-c4267441ede8")
 			(effects
@@ -17808,7 +17808,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_12"
+		(property "Value" "ALT"
 			(at 6.42 -2.4 0)
 			(layer "F.Fab")
 			(uuid "5f115da5-80cc-4ff3-b491-48fc909b9f2b")
@@ -18520,7 +18520,7 @@
 		(descr "Pololu Breakout 16-pin 15.2x20.3mm 0.6x0.8\\")
 		(tags "Pololu Breakout")
 		(property "Reference" "J9"
-			(at 6.434 18.29 0)
+			(at 6.54 16.34 0)
 			(layer "F.SilkS")
 			(uuid "134ae582-cb0b-4c52-b446-d1d292d41f4d")
 			(effects
@@ -18530,7 +18530,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_9"
+		(property "Value" "SARI"
 			(at 6.189619 -2.43 0)
 			(layer "F.SilkS")
 			(uuid "bd8da002-4cf9-45fc-a924-99bb60f1bb60")
@@ -21501,9 +21501,9 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_8"
+		(property "Value" "G-FORCE"
 			(at 3.81 4.08 0)
-			(layer "F.Fab")
+			(layer "F.SilkS")
 			(uuid "d5316109-1fb0-45a2-b52f-f58f11cab1fe")
 			(effects
 				(font
@@ -22661,9 +22661,9 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_7"
+		(property "Value" "AOA"
 			(at 3.81 4.08 0)
-			(layer "F.Fab")
+			(layer "F.SilkS")
 			(uuid "25dc7fe9-e2d4-42e9-abb6-d1f77d4a5349")
 			(effects
 				(font
@@ -23412,7 +23412,7 @@
 				)
 			)
 		)
-		(property "Value" "STEPPER_9"
+		(property "Value" "SARI"
 			(at 4.19 4.725 90)
 			(layer "F.SilkS")
 			(uuid "b5542407-bae5-40ef-812f-ae78ef4457fd")
@@ -24302,7 +24302,7 @@
 			)
 		)
 	)
-	(gr_text "12V IN"
+	(gr_text "5V IN"
 		(at 140.225 107.142 90)
 		(layer "F.SilkS")
 		(uuid "2a0f067a-af1a-43c6-8f11-f4bfddbe08ae")
