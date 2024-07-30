@@ -71,7 +71,53 @@ int DCS_State = 0;
 long dcsMillis;
 bool DCSACTIVE = false;
 
+
+// Ranges without Driver Board
+#define directMaxStepperSpeed 900
+#define directMaxAccel 900
+#define directFullSwing 615
+// Ranges with Driver Board
+#define maxStepperSpeed 90000
+#define maxAccel 90000
+#define fullSwing 5020
+#define waitTime 100
+
 #include <AccelStepper.h>
+
+
+const int stepper5_A1 = 19;
+const int stepper5_A2 = 20;
+const int stepper5_B1 = 21;
+const int stepper5_B2 = 22;
+AccelStepper Stepper5(AccelStepper::FULL4WIRE, stepper5_A1, stepper5_A2, stepper5_B1, stepper5_B2);
+
+
+const int stepper6_A1 = 24;
+const int stepper6_A2 = 26;
+const int stepper6_B1 = 28;
+const int stepper6_B2 = 30;
+AccelStepper Stepper6(AccelStepper::FULL4WIRE, stepper6_A1, stepper6_A2, stepper6_B1, stepper6_B2);
+
+
+// AOA
+const int enable7Pin = 32;
+const int step7Pin = 34;
+const int direction7Pin = 36;
+AccelStepper AOA(AccelStepper::DRIVER, step7Pin, direction7Pin);
+
+
+// GForce
+const int enable8Pin = 38;
+const int step8Pin = 40;
+const int direction8Pin = 42;
+AccelStepper GForce(AccelStepper::DRIVER, step8Pin, direction8Pin);
+
+// SARI
+const int enable9Pin = 44;
+const int step9Pin = 46;
+const int direction9Pin = 48;
+AccelStepper SARI(AccelStepper::DRIVER, step9Pin, direction9Pin);
+
 
 // Current Airspeed - speedCurrent
 const int enable10Pin = 23;
@@ -83,8 +129,21 @@ AccelStepper speedCurrent(AccelStepper::DRIVER, step10Pin, direction10Pin);
 const int enable11Pin = 29;
 const int step11Pin = 31;
 const int direction11Pin = 33;
-
 AccelStepper speedMax(AccelStepper::DRIVER, step11Pin, direction11Pin);
+
+
+// Altimeter
+const int enable12Pin = 35;
+const int step12Pin = 37;
+const int direction12Pin = 39;
+AccelStepper altimeter(AccelStepper::DRIVER, step12Pin, direction12Pin);
+
+// VSI
+const int enable13Pin = 41;
+const int step13Pin = 43;
+const int direction13Pin = 45;
+AccelStepper VSI(AccelStepper::DRIVER, step13Pin, direction13Pin);
+
 
 void onModTimeChange(char* newValue) {
   // Setting flag to indicae DCS has started - not checking if it is currently active
@@ -163,31 +222,126 @@ void setup() {
 
 
   SendDebug("Stepper Setup Started");
+
+
+  SendDebug("Cycle Stepper5");
+  Stepper5.setMaxSpeed(directMaxStepperSpeed);
+  Stepper5.setAcceleration(directMaxAccel);
+  Stepper5.runToNewPosition(directFullSwing);
+  delay(waitTime);
+  Stepper5.runToNewPosition(0);
+  delay(waitTime);
+  Stepper5.runToNewPosition(directFullSwing);
+  delay(waitTime);
+  Stepper5.runToNewPosition(0);
+
+  SendDebug("Cycle Stepper6");
+  Stepper6.setMaxSpeed(directMaxStepperSpeed);
+  Stepper6.setAcceleration(directMaxAccel);
+  Stepper6.runToNewPosition(directFullSwing);
+  delay(waitTime);
+  Stepper6.runToNewPosition(0);
+  delay(waitTime);
+  Stepper6.runToNewPosition(directFullSwing);
+  delay(waitTime);
+  Stepper6.runToNewPosition(0);
+
   SendDebug("Cycle Current Airspeed");
   pinMode(enable10Pin, OUTPUT);
   digitalWrite(enable10Pin, false);
-  speedCurrent.setMaxSpeed(6000);
-  speedCurrent.setAcceleration(6000);
-  speedCurrent.runToNewPosition(5020);
-  delay(050);
+  speedCurrent.setMaxSpeed(maxStepperSpeed);
+  speedCurrent.setAcceleration(maxAccel);
+  speedCurrent.runToNewPosition(fullSwing);
+  delay(waitTime);
   speedCurrent.runToNewPosition(0);
-  delay(500);
-  speedCurrent.runToNewPosition(5020);
-  delay(500);
+  delay(waitTime);
+  speedCurrent.runToNewPosition(fullSwing);
+  delay(waitTime);
   speedCurrent.runToNewPosition(0);
 
   SendDebug("Cycle Max Airspeed");
   pinMode(enable11Pin, OUTPUT);
   digitalWrite(enable11Pin, false);
-  speedMax.setMaxSpeed(6000);
-  speedMax.setAcceleration(6000);
-  speedMax.runToNewPosition(5020);
-  delay(050);
+  speedMax.setMaxSpeed(maxStepperSpeed);
+  speedMax.setAcceleration(maxAccel);
+  speedMax.runToNewPosition(fullSwing);
+  delay(waitTime);
   speedMax.runToNewPosition(0);
-  delay(500);
-  speedMax.runToNewPosition(5020);
-  delay(500);
+  delay(waitTime);
+  speedMax.runToNewPosition(fullSwing);
+  delay(waitTime);
   speedMax.runToNewPosition(0);
+
+
+
+  SendDebug("Cycle Altimeter");
+  pinMode(enable12Pin, OUTPUT);
+  digitalWrite(enable12Pin, false);
+  altimeter.setMaxSpeed(maxStepperSpeed);
+  altimeter.setAcceleration(maxAccel);
+  altimeter.runToNewPosition(fullSwing);
+  delay(waitTime);
+  altimeter.runToNewPosition(0);
+  delay(waitTime);
+  altimeter.runToNewPosition(fullSwing);
+  delay(waitTime);
+  altimeter.runToNewPosition(0);
+
+  SendDebug("Cycle VSI");
+  pinMode(enable13Pin, OUTPUT);
+  digitalWrite(enable13Pin, false);
+  VSI.setMaxSpeed(maxStepperSpeed);
+  VSI.setAcceleration(maxAccel);
+  VSI.runToNewPosition(fullSwing);
+  delay(waitTime);
+  VSI.runToNewPosition(0);
+  delay(waitTime);
+  VSI.runToNewPosition(fullSwing);
+  delay(waitTime);
+  VSI.runToNewPosition(0);
+
+
+  SendDebug("Cycle SARI");
+  pinMode(enable9Pin, OUTPUT);
+  digitalWrite(enable9Pin, false);
+  SARI.setMaxSpeed(maxStepperSpeed);
+  SARI.setAcceleration(maxAccel);
+  SARI.runToNewPosition(fullSwing);
+  delay(waitTime);
+  SARI.runToNewPosition(0);
+  delay(waitTime);
+  SARI.runToNewPosition(fullSwing);
+  delay(waitTime);
+  SARI.runToNewPosition(0);
+
+
+  SendDebug("Cycle GForce");
+  pinMode(enable8Pin, OUTPUT);
+  digitalWrite(enable8Pin, false);
+  GForce.setMaxSpeed(maxStepperSpeed);
+  GForce.setAcceleration(maxAccel);
+  GForce.runToNewPosition(fullSwing);
+  delay(waitTime);
+  GForce.runToNewPosition(0);
+  delay(waitTime);
+  GForce.runToNewPosition(fullSwing);
+  delay(waitTime);
+  GForce.runToNewPosition(0);
+
+
+  SendDebug("Cycle AOA");
+  pinMode(enable7Pin, OUTPUT);
+  digitalWrite(enable7Pin, false);
+  AOA.setMaxSpeed(maxStepperSpeed);
+  AOA.setAcceleration(maxAccel);
+  AOA.runToNewPosition(fullSwing);
+  delay(waitTime);
+  AOA.runToNewPosition(0);
+  delay(waitTime);
+  AOA.runToNewPosition(fullSwing);
+  delay(waitTime);
+  AOA.runToNewPosition(0);
+
   SendDebug("Stepper Setup Complete");
 
 

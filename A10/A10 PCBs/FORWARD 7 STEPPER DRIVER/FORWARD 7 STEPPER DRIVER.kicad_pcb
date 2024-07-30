@@ -7067,7 +7067,7 @@
 	(footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
 		(layer "F.Cu")
 		(uuid "29ec9cdc-44aa-4378-b0ce-46a144960bb3")
-		(at 140.02 65.44)
+		(at 146.09 65.22)
 		(descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-04A example for new part number: 22-27-2041, 4 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
 		(tags "connector Molex KK-254 vertical")
 		(property "Reference" "J6"
@@ -7082,7 +7082,7 @@
 			)
 		)
 		(property "Value" "STEPPER_4"
-			(at 3.81 4.08 0)
+			(at 12.71 -0.12 0)
 			(layer "F.Fab")
 			(uuid "5ee555ea-53e1-480a-b1d2-40f78c7f547f")
 			(effects
@@ -7884,11 +7884,11 @@
 	(footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
 		(layer "F.Cu")
 		(uuid "2f4d9916-212b-4f4b-834c-7c95c367510b")
-		(at 151.88 58.42)
+		(at 164.69 58.68)
 		(descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-04A example for new part number: 22-27-2041, 4 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
 		(tags "connector Molex KK-254 vertical")
 		(property "Reference" "J10"
-			(at 3.81 -4.12 0)
+			(at 11.11 -1.88 0)
 			(layer "F.SilkS")
 			(uuid "95f1191c-839d-44c4-ab11-d400c9ce5c71")
 			(effects
@@ -7899,8 +7899,8 @@
 			)
 		)
 		(property "Value" "STEPPER_5"
-			(at 3.81 4.08 0)
-			(layer "F.Fab")
+			(at 13.72 -0.22 0)
+			(layer "F.SilkS")
 			(uuid "11d5297a-b121-4836-b0c1-410e30a9fc6d")
 			(effects
 				(font
@@ -12622,11 +12622,11 @@
 	(footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
 		(layer "F.Cu")
 		(uuid "72147cae-73dc-4d6d-8409-a0a61b5bd041")
-		(at 151.87 65.44)
+		(at 164.68 65.7)
 		(descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-04A example for new part number: 22-27-2041, 4 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
 		(tags "connector Molex KK-254 vertical")
 		(property "Reference" "J11"
-			(at 3.81 -4.12 0)
+			(at 11.32 -1.4 0)
 			(layer "F.SilkS")
 			(uuid "024aaa91-8b2a-411c-8a26-ba4623eafde2")
 			(effects
@@ -12637,8 +12637,8 @@
 			)
 		)
 		(property "Value" "STEPPER_6"
-			(at 3.81 4.08 0)
-			(layer "F.Fab")
+			(at 14.23 0.36 0)
+			(layer "F.SilkS")
 			(uuid "c0c92548-a909-43b7-a0b2-8647b9468f9e")
 			(effects
 				(font
@@ -18974,11 +18974,11 @@
 	(footprint "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
 		(layer "F.Cu")
 		(uuid "c149c551-192d-4719-8f28-797cec22712d")
-		(at 139.99 58.46)
+		(at 146.06 58.24)
 		(descr "Molex KK-254 Interconnect System, old/engineering part number: AE-6410-04A example for new part number: 22-27-2041, 4 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator")
 		(tags "connector Molex KK-254 vertical")
 		(property "Reference" "J5"
-			(at 3.81 -4.12 0)
+			(at 10.54 -2.64 0)
 			(layer "F.SilkS")
 			(uuid "958d4926-bf65-4c5c-bac4-51e251cd47b6")
 			(effects
@@ -18989,7 +18989,7 @@
 			)
 		)
 		(property "Value" "STEPPER_3"
-			(at 3.81 4.08 0)
+			(at 12.64 0.26 0)
 			(layer "F.Fab")
 			(uuid "8038a15e-6138-4181-ad09-8de2a3d716a7")
 			(effects
