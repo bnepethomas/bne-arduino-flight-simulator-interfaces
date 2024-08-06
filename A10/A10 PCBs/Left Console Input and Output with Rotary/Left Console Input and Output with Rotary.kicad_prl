@@ -1,7 +1,7 @@
 {
   "board": {
-    "active_layer": 37,
-    "active_layer_preset": "All Layers",
+    "active_layer": 0,
+    "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [],
     "hidden_nets": [],
@@ -14,12 +14,13 @@
       "vias": 1.0,
       "zones": 0.6
     },
+    "ratsnest_display_mode": 0,
     "selection_filter": {
       "dimensions": true,
       "footprints": true,
       "graphics": true,
       "keepouts": true,
-      "lockedItems": false,
+      "lockedItems": true,
       "otherItems": true,
       "pads": true,
       "text": true,
@@ -34,12 +35,14 @@
       3,
       4,
       5,
+      6,
       8,
       9,
       10,
       11,
       12,
       13,
+      14,
       15,
       16,
       17,
@@ -52,17 +55,13 @@
       24,
       25,
       26,
-      27,
-      28,
-      29,
-      30,
       32,
       33,
       34,
       35,
       36,
-      39,
-      40
+      37,
+      38
     ],
     "visible_layers": "fffffff_ffffffff",
     "zone_display_mode": 0
@@ -74,7 +73,7 @@
     "ssh_key": ""
   },
   "meta": {
-    "filename": "VHF-AM-ROTARIES.kicad_prl",
+    "filename": "Left Console Input and Output with Rotary.kicad_prl",
     "version": 3
   },
   "project": {
