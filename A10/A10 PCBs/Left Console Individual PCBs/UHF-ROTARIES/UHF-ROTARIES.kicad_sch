@@ -6350,7 +6350,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.858 105.41) (xy 135.382 105.41)
+			(xy 108.712 112.268) (xy 110.236 112.268)
 		)
 		(stroke
 			(width 0)
@@ -6360,7 +6360,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.858 107.95) (xy 155.448 107.95)
+			(xy 108.712 114.808) (xy 130.302 114.808)
 		)
 		(stroke
 			(width 0)
@@ -6369,7 +6369,7 @@
 		(uuid "f4d772af-983a-45a3-ad5b-ee2025ba55a1")
 	)
 	(image
-		(at 236.728 170.18)
+		(at 316.992 115.57)
 		(scale 3.01942)
 		(uuid "0a98d71a-6761-4366-9350-43d307cd272b")
 		(data "iVBORw0KGgoAAAANSUhEUgAAAXMAAAEvCAYAAAC39iEeAAABYGlDQ1BJQ0MgUHJvZmlsZQAAKJF1"
@@ -9695,6 +9695,26 @@
 		)
 		(uuid "114c1a08-c901-4afa-b01a-cc2924204f81")
 	)
+	(text "MAIN"
+		(exclude_from_sim no)
+		(at 201.168 49.784 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "13fb93d4-9ab1-49e6-9b25-a071db0b591a")
+	)
+	(text "GRD"
+		(exclude_from_sim no)
+		(at 201.168 74.168 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "18642cee-e93a-49bb-a1a5-df86ed85af78")
+	)
 	(text ".4"
 		(exclude_from_sim no)
 		(at 71.12 119.38 0)
@@ -9817,7 +9837,7 @@
 	)
 	(text "POSITION"
 		(exclude_from_sim no)
-		(at 71.374 19.05 0)
+		(at 70.612 17.526 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9835,6 +9855,16 @@
 		)
 		(uuid "64134d01-f343-49d8-b189-903f18dbd1e1")
 	)
+	(text "OFF"
+		(exclude_from_sim no)
+		(at 201.168 47.498 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "656322f5-2065-456c-81ea-c11530a255ab")
+	)
 	(text "75"
 		(exclude_from_sim no)
 		(at 129.794 168.148 0)
@@ -9844,6 +9874,16 @@
 			)
 		)
 		(uuid "6942acfe-195f-448b-a2bb-bbc1f4346ce7")
+	)
+	(text "ADF"
+		(exclude_from_sim no)
+		(at 201.168 54.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "6f1f0b3f-6fa5-4026-9dad-6d5c694fc5cd")
 	)
 	(text "POSITION"
 		(exclude_from_sim no)
@@ -9904,6 +9944,26 @@
 			)
 		)
 		(uuid "81ecd6d8-9d3b-494a-9c1d-f2b09b44a0a6")
+	)
+	(text "PRESET"
+		(exclude_from_sim no)
+		(at 201.168 71.628 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "8543d802-a69c-4faa-b97a-9e8c529dd0a3")
+	)
+	(text "BOTH"
+		(exclude_from_sim no)
+		(at 201.168 52.324 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "8c72ec26-f9c6-44ae-aa1c-04fd821a9877")
 	)
 	(text "POSITION"
 		(exclude_from_sim no)
@@ -9975,6 +10035,16 @@
 		)
 		(uuid "a9c06701-f75d-484c-8df6-d94a4ea7275f")
 	)
+	(text "POSITION"
+		(exclude_from_sim no)
+		(at 201.168 67.31 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "ac7dcb46-9865-4d5c-bdf8-25b4f9220c35")
+	)
 	(text ".1"
 		(exclude_from_sim no)
 		(at 71.12 157.226 0)
@@ -9997,7 +10067,7 @@
 	)
 	(text "A"
 		(exclude_from_sim no)
-		(at 71.374 25.908 0)
+		(at 70.612 24.384 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10027,7 +10097,7 @@
 	)
 	(text "3"
 		(exclude_from_sim no)
-		(at 71.374 23.368 0)
+		(at 70.612 21.844 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10037,7 +10107,7 @@
 	)
 	(text "2"
 		(exclude_from_sim no)
-		(at 71.374 21.082 0)
+		(at 70.612 19.558 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10085,6 +10155,16 @@
 		)
 		(uuid "d7a19f6c-6682-45f7-a829-a0b2930257c5")
 	)
+	(text "POSITION"
+		(exclude_from_sim no)
+		(at 201.168 45.466 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "e8577ea9-43e3-426c-889d-d974b095c0df")
+	)
 	(text ".3"
 		(exclude_from_sim no)
 		(at 71.12 162.306 0)
@@ -10094,6 +10174,16 @@
 			)
 		)
 		(uuid "fb853eec-25a2-4ec2-ba33-cc48eab5e4e0")
+	)
+	(text "MAN"
+		(exclude_from_sim no)
+		(at 201.168 69.342 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "fceddc88-7167-4644-b503-a0f54540fb6b")
 	)
 	(label "ROW7"
 		(at 59.69 88.392 0)
@@ -10106,7 +10196,7 @@
 		)
 		(uuid "00383436-37e3-44d7-9e67-63379cb98e0d")
 	)
-	(label "VHF__AM_PRESET_B"
+	(label "UHF_PRESET_B"
 		(at 135.89 60.96 180)
 		(fields_autoplaced yes)
 		(effects
@@ -10129,7 +10219,7 @@
 		(uuid "06615282-8c22-4aba-a9a3-dc6bda3afce4")
 	)
 	(label "ANALOG_GND"
-		(at 179.578 123.444 0)
+		(at 111.76 81.026 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10161,6 +10251,17 @@
 		)
 		(uuid "0c5b1439-31e8-4b47-bb50-850fa2de363b")
 	)
+	(label "ROW15"
+		(at 198.628 132.334 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0cba7a03-b4e0-458f-b8ee-746d6883cc3e")
+	)
 	(label "ROW10"
 		(at 189.738 49.53 180)
 		(fields_autoplaced yes)
@@ -10182,6 +10283,17 @@
 			(justify left bottom)
 		)
 		(uuid "0f30eaea-f70a-4d82-a34a-9c6b859d8c79")
+	)
+	(label "COL1"
+		(at 180.086 111.76 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "10fe3889-ea56-4ff9-add3-7a0d8caaa8cc")
 	)
 	(label "ROW5"
 		(at 59.436 167.894 0)
@@ -10414,7 +10526,7 @@
 		)
 		(uuid "4ee83afb-0f52-49a8-a3d7-6d0262417fe0")
 	)
-	(label "COL1"
+	(label "COL8"
 		(at 180.086 90.17 180)
 		(fields_autoplaced yes)
 		(effects
@@ -10744,6 +10856,28 @@
 		)
 		(uuid "aeb19e88-90e4-45d8-b189-ef757a222e05")
 	)
+	(label "ROW14"
+		(at 197.866 111.76 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "aed6d80c-f1c6-47e0-b6b9-79cfe4b7e81a")
+	)
+	(label "COL1"
+		(at 180.594 121.666 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b0a5e060-cf43-4073-a62c-46025cdd6ff7")
+	)
 	(label "ROW1"
 		(at 162.56 153.67 0)
 		(fields_autoplaced yes)
@@ -10776,6 +10910,17 @@
 			(justify left bottom)
 		)
 		(uuid "b3683b8b-9b00-40e7-be17-aa9eefa54d98")
+	)
+	(label "ROW15"
+		(at 198.374 121.666 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b6c71452-e813-4229-ac92-0b2cfe0d3c21")
 	)
 	(label "ROW9"
 		(at 59.436 135.382 0)
@@ -10833,7 +10978,7 @@
 		(uuid "c952df94-39e7-4c18-b49b-edc729cefc64")
 	)
 	(label "ANALOG_5V"
-		(at 179.578 115.824 180)
+		(at 111.76 73.406 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10843,8 +10988,8 @@
 		)
 		(uuid "cb9a34fe-361a-4a46-976b-7887dc40c636")
 	)
-	(label "VHF_AM_VOL"
-		(at 183.388 119.634 0)
+	(label "UHF_VOL"
+		(at 115.57 77.216 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10876,7 +11021,7 @@
 		)
 		(uuid "e113654e-23a7-4c52-a1fb-7fd0cd8276c1")
 	)
-	(label "VHF__AM_PRESET_A"
+	(label "UHF_PRESET_A"
 		(at 135.89 55.88 180)
 		(fields_autoplaced yes)
 		(effects
@@ -10897,6 +11042,17 @@
 			(justify left bottom)
 		)
 		(uuid "e82565a2-235d-4ef7-9305-c8b9a44537fd")
+	)
+	(label "COL1"
+		(at 180.848 132.334 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "eb2977e9-7709-44be-ab53-afa7cc8e7276")
 	)
 	(label "ROW4"
 		(at 162.56 161.29 0)
@@ -10942,7 +11098,7 @@
 			)
 		)
 	)
-	(global_label "VHF_AM_VOL"
+	(global_label "UHF_VOL"
 		(shape input)
 		(at 241.554 93.472 180)
 		(fields_autoplaced yes)
@@ -10954,7 +11110,7 @@
 		)
 		(uuid "1351bdb7-c2e5-41ec-aff0-443ade5e5a96")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 227.1387 93.472 0)
+			(at 230.4044 93.472 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11206,7 +11362,7 @@
 			)
 		)
 	)
-	(global_label "VHF_AM_OLED_SC"
+	(global_label "UHF_OLED_SC"
 		(shape input)
 		(at 241.554 116.332 180)
 		(fields_autoplaced yes)
@@ -11218,7 +11374,7 @@
 		)
 		(uuid "63555ee3-9f4d-40db-8886-600a7265bda1")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 222.3612 116.332 0)
+			(at 225.6269 116.332 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11250,9 +11406,9 @@
 			)
 		)
 	)
-	(global_label "VHF_AM_OLED_SD"
+	(global_label "UHF_OLED_SD"
 		(shape input)
-		(at 133.858 113.03 0)
+		(at 108.712 119.888 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11262,7 +11418,7 @@
 		)
 		(uuid "92f605e8-d28a-4346-b44c-7d8c54dea92c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 153.0508 113.03 0)
+			(at 124.6391 119.888 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11316,9 +11472,9 @@
 			)
 		)
 	)
-	(global_label "VHF_AM_OLED_SC"
+	(global_label "UHF_OLED_SC"
 		(shape input)
-		(at 133.858 110.49 0)
+		(at 108.712 117.348 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11328,7 +11484,7 @@
 		)
 		(uuid "acf7aca1-81b0-43d2-96a4-b08290d4ed89")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 153.0508 110.49 0)
+			(at 124.6391 117.348 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11404,7 +11560,7 @@
 			)
 		)
 	)
-	(global_label "VHF_AM_PRESET_A"
+	(global_label "UHF_PRESET_A"
 		(shape input)
 		(at 241.554 101.092 180)
 		(fields_autoplaced yes)
@@ -11416,7 +11572,7 @@
 		)
 		(uuid "bd147cc5-15f5-47f6-82fe-5eee12ca3349")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 221.5146 101.092 0)
+			(at 224.7803 101.092 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11536,7 +11692,7 @@
 			)
 		)
 	)
-	(global_label "VHF_AM_OLED_SD"
+	(global_label "UHF_OLED_SD"
 		(shape input)
 		(at 241.554 118.872 180)
 		(fields_autoplaced yes)
@@ -11548,7 +11704,7 @@
 		)
 		(uuid "edf705cb-f16f-45cb-aca5-4907cacf6baf")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 222.3612 118.872 0)
+			(at 225.6269 118.872 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11580,7 +11736,7 @@
 			)
 		)
 	)
-	(global_label "VHF_AM_PRESET_B"
+	(global_label "UHF_PRESET_B"
 		(shape input)
 		(at 241.554 106.172 180)
 		(fields_autoplaced yes)
@@ -11592,7 +11748,7 @@
 		)
 		(uuid "fc08c343-7437-482d-93df-e37de7279871")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 221.3332 106.172 0)
+			(at 224.5989 106.172 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11684,6 +11840,142 @@
 			(project "Left Console Overview"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/ba20fa06-a269-44d1-bfd1-ac09e6be8fd4"
 					(reference "J30")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 183.896 111.76 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "16853ec2-7f9b-4003-a6e6-0444b956a8b2")
+		(property "Reference" "D11"
+			(at 183.896 106.2736 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 183.896 108.585 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P7.62mm_Horizontal"
+			(at 183.896 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 183.896 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 183.896 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3be8e81c-e727-4518-b591-1d8a6462e1fd")
+		)
+		(pin "2"
+			(uuid "adc234af-c4d1-4653-9d43-b1ca52714a5a")
+		)
+		(instances
+			(project "UHF-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 192.786 111.76 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "16ed8cda-c433-4739-a800-c990276fbd14")
+		(property "Reference" "SW10"
+			(at 192.786 104.6945 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TEST DISPLAY"
+			(at 192.786 107.1188 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 192.786 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 192.786 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 192.786 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "07404134-e27b-4587-8340-c25da6fb3fda")
+		)
+		(pin "2"
+			(uuid "32c443a1-5208-4da9-89fa-24f0cb4ce8c6")
+		)
+		(instances
+			(project "UHF-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW10")
 					(unit 1)
 				)
 			)
@@ -11868,15 +12160,15 @@
 		(fields_autoplaced yes)
 		(uuid "226a47eb-2632-4aeb-b0ad-34d1c42d04bd")
 		(property "Reference" "SW7"
-			(at 193.294 93.4552 0)
+			(at 193.294 93.0105 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "TONE"
-			(at 193.294 95.9921 0)
+		(property "Value" "STATUS"
+			(at 193.294 95.4348 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12103,7 +12395,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Potentiometer_US")
-		(at 179.578 119.634 0)
+		(at 111.76 77.216 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12112,7 +12404,7 @@
 		(fields_autoplaced yes)
 		(uuid "2fcc9840-e2ba-47ff-9bb6-f992ee7b2e83")
 		(property "Reference" "RV1"
-			(at 177.927 118.7993 0)
+			(at 110.109 76.3813 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12121,7 +12413,7 @@
 			)
 		)
 		(property "Value" "VHF_AM_VOL"
-			(at 177.927 121.3362 0)
+			(at 110.109 78.9182 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12130,7 +12422,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
-			(at 179.578 119.634 0)
+			(at 111.76 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12139,7 +12431,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 179.578 119.634 0)
+			(at 111.76 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12148,7 +12440,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 179.578 119.634 0)
+			(at 111.76 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12188,10 +12480,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "341a8dab-be52-4393-b9bb-202fcd11e761")
 		(property "Reference" "J10"
-			(at 195.5292 71.8093 0)
+			(at 194.818 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12200,7 +12491,7 @@
 			)
 		)
 		(property "Value" "VHF_AM_OFF-TR-DF"
-			(at 195.5292 74.3462 0)
+			(at 184.658 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12440,7 +12731,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 155.448 107.95 0)
+		(at 130.302 114.808 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12449,7 +12740,7 @@
 		(fields_autoplaced yes)
 		(uuid "489efacb-be71-4188-a3fb-7afbb221388f")
 		(property "Reference" "#PWR04"
-			(at 155.448 114.3 0)
+			(at 130.302 121.158 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12458,7 +12749,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 155.448 113.03 0)
+			(at 130.302 119.888 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12466,7 +12757,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 155.448 107.95 0)
+			(at 130.302 114.808 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12475,7 +12766,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 155.448 107.95 0)
+			(at 130.302 114.808 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12484,7 +12775,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 155.448 107.95 0)
+			(at 130.302 114.808 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12641,6 +12932,74 @@
 			(project "Left Console Overview"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/ba20fa06-a269-44d1-bfd1-ac09e6be8fd4"
 					(reference "D42")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 193.294 121.666 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5020dce7-20bb-4679-94b1-6dcfee81cce9")
+		(property "Reference" "SW11"
+			(at 193.294 115.0452 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TONE"
+			(at 193.294 117.5821 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 193.294 116.586 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 193.294 116.586 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 193.294 121.666 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9b118ccc-b929-4eac-9b8b-88f87e97765e")
+		)
+		(pin "2"
+			(uuid "c2599849-fac2-4f5e-8965-29a76f41f5c0")
+		)
+		(instances
+			(project "UHF-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW11")
 					(unit 1)
 				)
 			)
@@ -12965,6 +13324,74 @@
 	)
 	(symbol
 		(lib_id "Device:D")
+		(at 184.404 121.666 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5ec3510d-0fcd-49ad-87b9-fa4bdae6260c")
+		(property "Reference" "D12"
+			(at 184.404 116.1796 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 184.404 118.491 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P7.62mm_Horizontal"
+			(at 184.404 121.666 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 184.404 121.666 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 184.404 121.666 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "02dfd4e2-421e-4038-b198-3d97bfd43e4c")
+		)
+		(pin "2"
+			(uuid "b86ea32c-b3b5-4d96-898c-10601ebc61c0")
+		)
+		(instances
+			(project "UHF-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
 		(at 25.146 125.222 0)
 		(mirror y)
 		(unit 1)
@@ -13033,7 +13460,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 128.778 107.95 0)
+		(at 103.632 114.808 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13042,7 +13469,7 @@
 		(dnp no)
 		(uuid "671e675f-cf25-42ce-8b27-baf6499c18f5")
 		(property "Reference" "J3"
-			(at 128.0668 108.0079 0)
+			(at 102.9208 114.8659 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13051,7 +13478,7 @@
 			)
 		)
 		(property "Value" "OLED"
-			(at 128.0668 110.4321 0)
+			(at 102.9208 117.2901 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13060,7 +13487,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 128.778 107.95 0)
+			(at 103.632 114.808 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13069,7 +13496,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 128.778 107.95 0)
+			(at 103.632 114.808 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13078,7 +13505,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 128.778 107.95 0)
+			(at 103.632 114.808 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13381,6 +13808,74 @@
 	)
 	(symbol
 		(lib_id "Device:D")
+		(at 184.658 132.334 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b06c2388-50f6-4c9e-9662-90f0fb74adab")
+		(property "Reference" "D13"
+			(at 184.658 126.8476 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 184.658 129.159 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P7.62mm_Horizontal"
+			(at 184.658 132.334 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 184.658 132.334 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 184.658 132.334 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "84d9f12d-7c73-4039-b648-85152a67af2d")
+		)
+		(pin "2"
+			(uuid "5406f363-c7f4-44d7-83f6-771f20dd36ee")
+		)
+		(instances
+			(project "UHF-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
 		(at 25.146 170.434 0)
 		(mirror y)
 		(unit 1)
@@ -13466,7 +13961,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "VHF_AM"
+		(property "Value" "UHF"
 			(at 247.3452 83.2541 0)
 			(effects
 				(font
@@ -13691,7 +14186,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 135.382 105.41 0)
+		(at 110.236 112.268 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13700,7 +14195,7 @@
 		(fields_autoplaced yes)
 		(uuid "d82b10e6-671b-4084-a8ff-0a28898edfd3")
 		(property "Reference" "#PWR01"
-			(at 135.382 109.22 0)
+			(at 110.236 116.078 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13709,7 +14204,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 135.382 100.33 0)
+			(at 110.236 107.188 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13717,7 +14212,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 135.382 105.41 0)
+			(at 110.236 112.268 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13726,7 +14221,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 135.382 105.41 0)
+			(at 110.236 112.268 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13735,7 +14230,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 135.382 105.41 0)
+			(at 110.236 112.268 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13858,6 +14353,74 @@
 	)
 	(symbol
 		(lib_id "Switch:SW_Push")
+		(at 193.548 132.334 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "da97edc3-410e-479a-a120-876c496688f2")
+		(property "Reference" "SW12"
+			(at 193.548 125.2685 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LOAD"
+			(at 193.548 127.6928 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 193.548 127.254 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 193.548 127.254 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 193.548 132.334 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "eaab6811-47c8-4572-9221-83945234348d")
+		)
+		(pin "2"
+			(uuid "38d9622a-a402-4ef2-b652-a7dc342d51fa")
+		)
+		(instances
+			(project "UHF-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
 		(at 192.786 90.17 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13867,15 +14430,15 @@
 		(fields_autoplaced yes)
 		(uuid "f712407c-3f14-4ca6-88e6-e7d8bb9fac1e")
 		(property "Reference" "SW6"
-			(at 192.786 83.5492 0)
+			(at 192.786 83.1045 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "LOAD"
-			(at 192.786 86.0861 0)
+		(property "Value" "TEST DISPLAY"
+			(at 192.786 85.5288 0)
 			(effects
 				(font
 					(size 1.27 1.27)
