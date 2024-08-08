@@ -24,13 +24,15 @@
   Heavily based on
   https://github.com/calltherain/ArduinoUSBJoystick
 
+  UPDATED 20240808 Enabled 12th Column
+
   Interface for DCS BIOS
 
   Mega2560 R3,
   digital Pin 22~37 used as rows. 0-15, 16 Rows
-  digital pin 38~48 used as columns. 0-10, 11 Columns
+  digital pin 38~49 used as columns. 0-11, 12 Columns
 
-  it's a 16 * 11  matrix, due to the loss of pins/Columns used by the Ethernet and SD Card Shield, Digital I/O 50 through 53 are not available.
+  it's a 16 * 12  matrix, due to the loss of pins/Columns used by the Ethernet and SD Card Shield, Digital I/O 50 through 53 are not available.
   Pin 49 is available but isn't used. This gives a total number of usable Inputs as 176 (remember numbering starts at 0 - so 0-175)
 
   The code pulls down a row and reads values from the Columns.
@@ -1419,7 +1421,7 @@ void loop() {
     colResult[10] = (PINL & B00000010) == 0 ? 0 : 1;
     //pin 49, PL0
     //pin 49 is not used on the PCB design - more a mistake than anything else as it is available for us
-    colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
+    colResult[11] = (PINL & B00000001) == 0 ? 0 : 1;
     colResult[11] = 1;
 
     // Unable to use pins 50-53 per the following
@@ -1863,5 +1865,29 @@ void CaseTemplate() {
   //        case 178:
   //          break;
   //        case 179:
+  //          break;
+  //        case 180:
+  //          break;
+  //        case 181:
+  //          break;
+  //        case 182:
+  //          break;
+  //        case 183:
+  //          break;
+  //        case 184:
+  //          break;
+  //        case 185:
+  //          break;
+  //        case 186:
+  //          break;
+  //        case 187:
+  //          break;
+  //        case 188:
+  //          break;
+  //        case 189:
+  //          break;
+  //        case 190:
+  //          break;
+  //        case 191:
   //          break;
 }

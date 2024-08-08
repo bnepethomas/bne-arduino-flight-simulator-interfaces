@@ -6420,6 +6420,16 @@
 		)
 		(uuid "1c08786a-6c33-4050-b10e-e1fc3908c444")
 	)
+	(text "VHF FM to use Rows 6-11"
+		(exclude_from_sim no)
+		(at 141.986 159.512 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "2de803f7-6b1c-439c-8d3f-fa692463c42e")
+	)
 	(text "8"
 		(exclude_from_sim no)
 		(at 71.374 90.17 0)
@@ -6903,17 +6913,6 @@
 		)
 		(uuid "183eadf2-d163-4471-afa3-b6c91c3a0646")
 	)
-	(label "ROW10"
-		(at 118.618 177.292 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "274f9c6d-9784-40d7-a7c8-a425beef058f")
-	)
 	(label "COL0"
 		(at 21.336 164.338 180)
 		(fields_autoplaced yes)
@@ -6968,17 +6967,6 @@
 			(justify right bottom)
 		)
 		(uuid "3604a1a2-24aa-4c5e-ac3d-373b4f1e61b1")
-	)
-	(label "ROW7"
-		(at 118.618 169.672 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "39ec9076-b2c5-4a08-bae3-58b6c92b1d6c")
 	)
 	(label "COL1"
 		(at 177.038 46.99 180)
@@ -7079,6 +7067,17 @@
 		)
 		(uuid "4d976bb0-17d6-41a5-aee6-061b97f822dd")
 	)
+	(label "ROW5"
+		(at 118.618 179.832 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "4ee83afb-0f52-49a8-a3d7-6d0262417fe0")
+	)
 	(label "COL1"
 		(at 180.086 90.17 180)
 		(fields_autoplaced yes)
@@ -7134,6 +7133,17 @@
 		)
 		(uuid "5498121b-363e-4904-867a-a9487c766a66")
 	)
+	(label "ROW3"
+		(at 118.618 174.752 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "54c50268-685e-47c2-b31b-932954700504")
+	)
 	(label "ROW7"
 		(at 59.436 130.302 0)
 		(fields_autoplaced yes)
@@ -7155,6 +7165,17 @@
 			(justify left bottom)
 		)
 		(uuid "574c8178-b49f-463f-95bc-bdeade029dee")
+	)
+	(label "ROW0"
+		(at 118.618 167.132 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "57efccbe-d15d-4d29-9e5c-b689be553133")
 	)
 	(label "ROW2"
 		(at 118.618 154.432 0)
@@ -7211,17 +7232,6 @@
 		)
 		(uuid "633b9910-1d1b-4fa2-97d5-8cfc1003eda7")
 	)
-	(label "ROW9"
-		(at 118.618 174.752 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "66a51073-b7b5-43cf-942a-7932eb09afa9")
-	)
 	(label "ROW5"
 		(at 59.69 80.772 0)
 		(fields_autoplaced yes)
@@ -7243,17 +7253,6 @@
 			(justify left bottom)
 		)
 		(uuid "707a9751-6708-4048-ba24-ae87227e93b9")
-	)
-	(label "ROW8"
-		(at 118.618 172.212 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "72209122-3731-4fff-bc8d-446a530997fa")
 	)
 	(label "GND"
 		(at 135.89 58.42 180)
@@ -7298,6 +7297,17 @@
 			(justify left bottom)
 		)
 		(uuid "86eab006-5017-408b-bfa4-12053ab4066c")
+	)
+	(label "ROW2"
+		(at 118.618 172.212 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8795fd7c-a77d-442d-b4de-78599db53967")
 	)
 	(label "ROW8"
 		(at 59.69 44.45 0)
@@ -7375,6 +7385,17 @@
 			(justify left bottom)
 		)
 		(uuid "abcee530-e675-40f1-8709-c19e54162c49")
+	)
+	(label "ROW1"
+		(at 118.618 169.672 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b1c68279-af2e-4c42-bf7b-f56ae9d70006")
 	)
 	(label "ROW12"
 		(at 59.436 149.098 0)
@@ -7486,17 +7507,6 @@
 		)
 		(uuid "cbb80b61-d240-4d4b-86c9-7c33cb0686df")
 	)
-	(label "ROW6"
-		(at 118.618 167.132 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d2c652b1-dfc0-4c33-910a-fa727e6bbe66")
-	)
 	(label "ROW2"
 		(at 59.69 73.152 0)
 		(fields_autoplaced yes)
@@ -7552,8 +7562,8 @@
 		)
 		(uuid "e962658d-545e-4947-9bb0-9c755d143c0c")
 	)
-	(label "ROW11"
-		(at 118.618 179.832 0)
+	(label "ROW4"
+		(at 118.618 177.292 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7561,7 +7571,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f0e50e57-4220-422d-8855-1a70cfdb9d66")
+		(uuid "f4c87c04-d7b0-49f7-b03c-c6e50cd1c12e")
 	)
 	(label "ROW14"
 		(at 197.866 90.17 0)
@@ -8401,7 +8411,7 @@
 			(uuid "7f4a7d4f-4b8c-405f-b530-38ce6e7a8304")
 		)
 		(instances
-			(project ""
+			(project "VHF-AM-ROTARIES"
 				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
 					(reference "#PWR05")
 					(unit 1)
@@ -9048,7 +9058,7 @@
 			(uuid "88b2e173-6c40-464f-80e7-1c4f82be979d")
 		)
 		(instances
-			(project ""
+			(project "VHF-AM-ROTARIES"
 				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
 					(reference "#PWR04")
 					(unit 1)
@@ -9791,7 +9801,7 @@
 			(uuid "81a96c38-ebbf-4a8d-a67b-5cdf3f67283a")
 		)
 		(instances
-			(project ""
+			(project "VHF-AM-ROTARIES"
 				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
 					(reference "#PWR02")
 					(unit 1)
@@ -9857,7 +9867,7 @@
 			(uuid "3526efc5-3f47-4587-9ef7-883df0813369")
 		)
 		(instances
-			(project ""
+			(project "VHF-AM-ROTARIES"
 				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
 					(reference "#PWR06")
 					(unit 1)
@@ -9923,7 +9933,7 @@
 			(uuid "8f9a7e51-5a1b-4fa5-8223-0cd60cae1619")
 		)
 		(instances
-			(project ""
+			(project "VHF-AM-ROTARIES"
 				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
 					(reference "#PWR03")
 					(unit 1)
@@ -10231,7 +10241,7 @@
 			(uuid "f2d3ffd9-1472-401d-8a03-f794c0449637")
 		)
 		(instances
-			(project ""
+			(project "VHF-AM-ROTARIES"
 				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
 					(reference "#PWR01")
 					(unit 1)
