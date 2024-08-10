@@ -2008,7 +2008,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1d686713-11a6-4d84-87e5-53ed1df6e0c9")
-		(property "Reference" "J13"
+		(property "Reference" "J8"
 			(at 133.5532 76.5556 0)
 			(effects
 				(font
@@ -2062,7 +2062,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "J13")
+					(reference "J8")
 					(unit 1)
 				)
 			)
@@ -2078,7 +2078,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "20833ad4-fb04-4654-b10e-e60162db9a67")
-		(property "Reference" "R7"
+		(property "Reference" "R5"
 			(at 44.1452 52.2224 0)
 			(effects
 				(font
@@ -2132,7 +2132,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "R7")
+					(reference "R5")
 					(unit 1)
 				)
 			)
@@ -2213,7 +2213,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3544a287-c258-481d-92fd-20bf9a97ed71")
-		(property "Reference" "R8"
+		(property "Reference" "R6"
 			(at 106.0704 87.6808 0)
 			(effects
 				(font
@@ -2267,7 +2267,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "R8")
+					(reference "R6")
 					(unit 1)
 				)
 			)
@@ -2352,7 +2352,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3dfd0b0c-c22e-4d1f-8966-7de39a2b783b")
-		(property "Reference" "R2"
+		(property "Reference" "R3"
 			(at 44.1452 92.1004 0)
 			(effects
 				(font
@@ -2406,7 +2406,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "R2")
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -2421,7 +2421,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "4012caf9-6031-4612-a329-db0caf7789e4")
-		(property "Reference" "J10"
+		(property "Reference" "J12"
 			(at 59.3852 75.0316 0)
 			(effects
 				(font
@@ -2475,7 +2475,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "J10")
+					(reference "J12")
 					(unit 1)
 				)
 			)
@@ -3499,7 +3499,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "712821e6-e829-47e9-9f0b-bdd9f5a2654d")
-		(property "Reference" "R6"
+		(property "Reference" "R8"
 			(at 112.9792 94.3864 0)
 			(effects
 				(font
@@ -3553,7 +3553,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "R6")
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -3568,7 +3568,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "74169eb7-325f-45c0-b0ce-69b49dfe1c78")
-		(property "Reference" "J24"
+		(property "Reference" "J27"
 			(at 150.3172 36.1696 0)
 			(effects
 				(font
@@ -3622,7 +3622,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "J24")
+					(reference "J27")
 					(unit 1)
 				)
 			)
@@ -4186,7 +4186,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "83150c5e-f287-489c-b5f9-1ab762852078")
-		(property "Reference" "Q2"
+		(property "Reference" "Q3"
 			(at 55.8292 46.0756 0)
 			(effects
 				(font
@@ -4655,7 +4655,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "Q2")
+					(reference "Q3")
 					(unit 1)
 				)
 			)
@@ -4735,7 +4735,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9a162fa6-8967-4625-b61f-9689d12cf242")
-		(property "Reference" "J25"
+		(property "Reference" "J28"
 			(at 117.5512 36.1696 0)
 			(effects
 				(font
@@ -4789,7 +4789,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "J25")
+					(reference "J28")
 					(unit 1)
 				)
 			)
@@ -4874,7 +4874,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a870feee-5f34-47b2-bdc2-064e08be371a")
-		(property "Reference" "Q3"
+		(property "Reference" "Q2"
 			(at 124.6632 88.2396 0)
 			(effects
 				(font
@@ -5343,7 +5343,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "Q3")
+					(reference "Q2")
 					(unit 1)
 				)
 			)
@@ -5359,7 +5359,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a9b2d084-6a6f-4dde-bb5b-56b3d25d2ecd")
-		(property "Reference" "R10"
+		(property "Reference" "R11"
 			(at 112.1664 47.2948 0)
 			(effects
 				(font
@@ -5413,7 +5413,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "R10")
+					(reference "R11")
 					(unit 1)
 				)
 			)
@@ -5558,7 +5558,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b55da278-9b5a-4a81-b580-eab69d80d4fd")
-		(property "Reference" "J28"
+		(property "Reference" "J25"
 			(at 139.6492 36.1696 0)
 			(effects
 				(font
@@ -5612,7 +5612,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "J28")
+					(reference "J25")
 					(unit 1)
 				)
 			)
@@ -5758,7 +5758,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d2e2638c-ac7f-4724-af06-713bc0000be7")
-		(property "Reference" "R11"
+		(property "Reference" "R10"
 			(at 119.0752 54.0004 0)
 			(effects
 				(font
@@ -5812,7 +5812,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "R11")
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -5827,7 +5827,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "dcf02c15-3d01-463a-844c-b86db0d236d3")
-		(property "Reference" "J14"
+		(property "Reference" "J16"
 			(at 59.3852 35.1536 0)
 			(effects
 				(font
@@ -5881,7 +5881,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "J14")
+					(reference "J16")
 					(unit 1)
 				)
 			)
@@ -5896,7 +5896,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e63fb188-a14d-4410-a80a-a57464393de8")
-		(property "Reference" "J16"
+		(property "Reference" "J15"
 			(at 144.2212 76.5556 0)
 			(effects
 				(font
@@ -5950,7 +5950,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "J16")
+					(reference "J15")
 					(unit 1)
 				)
 			)
@@ -6095,7 +6095,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f6d8a2fa-26ee-4425-8512-95cb87da5b6f")
-		(property "Reference" "J15"
+		(property "Reference" "J14"
 			(at 122.1232 76.5556 0)
 			(effects
 				(font
@@ -6149,7 +6149,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "J15")
+					(reference "J14")
 					(unit 1)
 				)
 			)
@@ -6165,7 +6165,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "fe323d65-33ed-4e27-a18f-0a2c07442a17")
-		(property "Reference" "R5"
+		(property "Reference" "R7"
 			(at 37.2364 45.5168 0)
 			(effects
 				(font
@@ -6219,7 +6219,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
-					(reference "R5")
+					(reference "R7")
 					(unit 1)
 				)
 			)

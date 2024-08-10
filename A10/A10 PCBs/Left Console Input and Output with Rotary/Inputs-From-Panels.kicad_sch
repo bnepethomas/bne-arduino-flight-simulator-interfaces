@@ -4216,7 +4216,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "44a7d93c-0d65-4a5c-ac13-aa107d98791f")
-		(property "Reference" "J37"
+		(property "Reference" "J38"
 			(at 62.9412 70.9238 0)
 			(effects
 				(font
@@ -4366,7 +4366,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/ec7a7672-6af6-4eda-89d7-db66a2569279"
-					(reference "J37")
+					(reference "J38")
 					(unit 1)
 				)
 			)
@@ -4514,7 +4514,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "8ebd4fd8-59a4-4f8f-8d15-be257547b756")
-		(property "Reference" "J38"
+		(property "Reference" "J37"
 			(at 201.3712 71.4318 0)
 			(effects
 				(font
@@ -4664,7 +4664,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/ec7a7672-6af6-4eda-89d7-db66a2569279"
-					(reference "J38")
+					(reference "J37")
 					(unit 1)
 				)
 			)
