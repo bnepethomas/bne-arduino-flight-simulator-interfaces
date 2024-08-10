@@ -5246,7 +5246,7 @@
 		(uuid "18be4958-9119-4cdb-bf0d-94afef04b847")
 	)
 	(junction
-		(at 133.096 50.292)
+		(at 151.384 94.234)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "236f4b9a-b9bd-402e-953c-c73cf580a507")
@@ -5258,25 +5258,49 @@
 		(uuid "2ca6b39d-f1c9-4753-af57-e4059a280b3e")
 	)
 	(junction
+		(at 117.856 35.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "337e796a-3dc3-43b5-9e0c-8b095d7c5ea1")
+	)
+	(junction
+		(at 101.346 44.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3f2ca47f-6f9a-4c6e-aa08-e9c0294bc16d")
+	)
+	(junction
 		(at 225.044 44.958)
 		(diameter 1.016)
 		(color 0 0 0 0)
 		(uuid "48ab88d7-7084-4d02-b109-3ad55a30bb11")
 	)
 	(junction
-		(at 129.032 50.292)
+		(at 147.32 94.234)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4ba67d8e-8a35-4850-9f9e-ec0d0bd8e6d5")
 	)
 	(junction
-		(at 117.856 37.084)
+		(at 111.506 35.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4cad9a4a-dfea-450b-b524-34e7034184cf")
+	)
+	(junction
+		(at 136.144 81.026)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "688c3473-4bee-42c3-b1a6-b211163c3c29")
 	)
 	(junction
-		(at 110.236 37.084)
+		(at 37.084 81.026)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "72b469d4-eb0f-4baa-b1fc-410ac86ec5f3")
+	)
+	(junction
+		(at 128.524 81.026)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "73acb19e-cff2-4e63-9502-f69fb6ef8a0e")
@@ -5306,7 +5330,7 @@
 		(uuid "8895178a-07bb-4ccc-acab-9b7262ffff41")
 	)
 	(junction
-		(at 98.806 50.292)
+		(at 117.094 94.234)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8933d52f-5414-4198-850e-6d1a0a228ac2")
@@ -5318,7 +5342,7 @@
 		(uuid "9776bbfc-f845-4fa7-bcee-b2e16342dc0e")
 	)
 	(junction
-		(at 125.476 50.292)
+		(at 143.764 94.234)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a145581b-48a5-49b0-9ae8-b620973e90d4")
@@ -5336,7 +5360,7 @@
 		(uuid "b7717d4c-1f25-4ef3-9520-73c14ac52cfa")
 	)
 	(junction
-		(at 129.032 37.084)
+		(at 147.32 81.026)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bbf39867-ab8e-4f86-a259-3c6b7384348d")
@@ -5348,19 +5372,19 @@
 		(uuid "bc6ae60a-df6a-4d9b-97cd-81aa415a7981")
 	)
 	(junction
-		(at 133.096 37.084)
+		(at 151.384 81.026)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c7c41128-5240-4c64-880e-9c67b39aa147")
 	)
 	(junction
-		(at 117.856 50.292)
+		(at 136.144 94.234)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c94af879-bfc7-42ed-a796-420878717122")
 	)
 	(junction
-		(at 125.476 37.084)
+		(at 143.764 81.026)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cf178656-1971-40e2-a2b4-a07a61eb48fd")
@@ -5372,13 +5396,19 @@
 		(uuid "d0011975-56a7-428f-82a3-1f8f25dde629")
 	)
 	(junction
-		(at 140.716 37.084)
+		(at 159.004 81.026)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d11b7565-25c0-4caf-959c-dfa334af078a")
 	)
 	(junction
-		(at 110.236 50.292)
+		(at 37.084 120.904)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d8531577-6b55-441a-aad0-765ee0da7c41")
+	)
+	(junction
+		(at 128.524 94.234)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e3f1a171-7a27-4acf-82ae-9e69a4a5f892")
@@ -5402,7 +5432,7 @@
 		(uuid "f69c1e95-4883-40c6-85d9-e10a89d17ec5")
 	)
 	(junction
-		(at 140.716 50.292)
+		(at 159.004 94.234)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f708cad2-94d7-4fe8-a9cf-4b1513d3a3a8")
@@ -5571,7 +5601,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.476 37.084) (xy 117.856 37.084)
+			(xy 143.764 81.026) (xy 136.144 81.026)
 		)
 		(stroke
 			(width 0)
@@ -5711,7 +5741,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.476 50.292) (xy 129.032 50.292)
+			(xy 143.764 94.234) (xy 147.32 94.234)
 		)
 		(stroke
 			(width 0)
@@ -5831,6 +5861,16 @@
 	)
 	(wire
 		(pts
+			(xy 34.544 81.026) (xy 37.084 81.026)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2841dc18-b899-4a94-ae71-342fbea7dacc")
+	)
+	(wire
+		(pts
 			(xy 225.044 114.554) (xy 225.044 117.348)
 		)
 		(stroke
@@ -5861,6 +5901,16 @@
 	)
 	(wire
 		(pts
+			(xy 48.26 70.866) (xy 47.244 70.866)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2e514422-82ef-4faa-8044-593d927f22cd")
+	)
+	(wire
+		(pts
 			(xy 227.584 130.048) (xy 227.584 132.842)
 		)
 		(stroke
@@ -5871,7 +5921,7 @@
 	)
 	(wire
 		(pts
-			(xy 148.336 50.292) (xy 140.716 50.292)
+			(xy 166.624 94.234) (xy 159.004 94.234)
 		)
 		(stroke
 			(width 0)
@@ -5898,6 +5948,16 @@
 			(type solid)
 		)
 		(uuid "30de24f4-c296-4bae-91cb-4c45e4f4e472")
+	)
+	(wire
+		(pts
+			(xy 37.084 120.904) (xy 39.624 120.904)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3245f392-42ca-405d-8471-34a3e3f290fb")
 	)
 	(wire
 		(pts
@@ -6061,7 +6121,7 @@
 	)
 	(wire
 		(pts
-			(xy 117.856 37.084) (xy 110.236 37.084)
+			(xy 136.144 81.026) (xy 128.524 81.026)
 		)
 		(stroke
 			(width 0)
@@ -6121,6 +6181,16 @@
 	)
 	(wire
 		(pts
+			(xy 117.856 35.56) (xy 111.506 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "48d4b107-6e34-41f4-b98b-bdf25e74cda9")
+	)
+	(wire
+		(pts
 			(xy 255.524 42.418) (xy 260.35 42.418)
 		)
 		(stroke
@@ -6151,6 +6221,16 @@
 	)
 	(wire
 		(pts
+			(xy 47.244 110.744) (xy 47.244 115.824)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4dcc85d0-7ba0-4d7e-86f4-d7fde83abc31")
+	)
+	(wire
+		(pts
 			(xy 255.524 60.198) (xy 268.224 60.198)
 		)
 		(stroke
@@ -6178,6 +6258,16 @@
 			(type default)
 		)
 		(uuid "510261c0-eeed-4498-b022-52f12f5e8a73")
+	)
+	(wire
+		(pts
+			(xy 48.26 108.204) (xy 48.006 108.204)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "526248d7-2ca4-474a-9bf8-c4aaa34cb23e")
 	)
 	(wire
 		(pts
@@ -6221,6 +6311,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.346 44.45) (xy 103.886 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54db72cf-c415-4ede-a08b-da5b2c302ddb")
+	)
+	(wire
+		(pts
 			(xy 97.282 162.56) (xy 90.932 162.56)
 		)
 		(stroke
@@ -6248,6 +6348,16 @@
 			(type default)
 		)
 		(uuid "5750180f-43f4-4c9b-ab7c-fcefc3c83550")
+	)
+	(wire
+		(pts
+			(xy 98.806 44.45) (xy 101.346 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "57541349-c9a8-4264-bdd8-e8aa2906a20e")
 	)
 	(wire
 		(pts
@@ -6281,7 +6391,7 @@
 	)
 	(wire
 		(pts
-			(xy 129.032 37.084) (xy 133.096 37.084)
+			(xy 147.32 81.026) (xy 151.384 81.026)
 		)
 		(stroke
 			(width 0)
@@ -6481,7 +6591,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.476 37.084) (xy 129.032 37.084)
+			(xy 143.764 81.026) (xy 147.32 81.026)
 		)
 		(stroke
 			(width 0)
@@ -6521,7 +6631,7 @@
 	)
 	(wire
 		(pts
-			(xy 99.1108 37.0078) (xy 110.236 37.0078)
+			(xy 117.3988 80.9498) (xy 128.524 80.9498)
 		)
 		(stroke
 			(width 0)
@@ -6571,6 +6681,16 @@
 	)
 	(wire
 		(pts
+			(xy 47.244 70.866) (xy 47.244 75.946)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "74d57938-d82c-4fee-a701-190bd68381c5")
+	)
+	(wire
+		(pts
 			(xy 104.902 152.4) (xy 113.792 152.4)
 		)
 		(stroke
@@ -6611,7 +6731,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.476 50.292) (xy 117.856 50.292)
+			(xy 143.764 94.234) (xy 136.144 94.234)
 		)
 		(stroke
 			(width 0)
@@ -6691,7 +6811,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.096 50.292) (xy 140.716 50.292)
+			(xy 151.384 94.234) (xy 159.004 94.234)
 		)
 		(stroke
 			(width 0)
@@ -6728,6 +6848,16 @@
 			(type solid)
 		)
 		(uuid "86cb4f21-03a8-4c74-83fa-9f5796375280")
+	)
+	(wire
+		(pts
+			(xy 111.506 35.56) (xy 111.506 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "880d4adf-d280-40a9-b83e-3896cf81f83b")
 	)
 	(wire
 		(pts
@@ -6771,6 +6901,16 @@
 	)
 	(wire
 		(pts
+			(xy 106.426 33.528) (xy 106.426 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8acf781d-8951-4a44-b6af-1132f5c1a679")
+	)
+	(wire
+		(pts
 			(xy 56.388 33.528) (xy 56.388 35.56)
 		)
 		(stroke
@@ -6788,6 +6928,16 @@
 			(type default)
 		)
 		(uuid "8b194a4b-3bb7-412e-a1c5-648c49a3e9ee")
+	)
+	(wire
+		(pts
+			(xy 111.506 35.56) (xy 106.426 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8bc4a832-7cdf-44eb-acaa-ed25f4d06083")
 	)
 	(wire
 		(pts
@@ -6861,16 +7011,6 @@
 	)
 	(wire
 		(pts
-			(xy 89.662 27.94) (xy 91.948 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8fec043e-ba9a-47dd-9464-4ad32d925a8b")
-	)
-	(wire
-		(pts
 			(xy 220.726 95.758) (xy 227.584 95.758)
 		)
 		(stroke
@@ -6921,7 +7061,7 @@
 	)
 	(wire
 		(pts
-			(xy 117.856 50.292) (xy 110.236 50.292)
+			(xy 136.144 94.234) (xy 128.524 94.234)
 		)
 		(stroke
 			(width 0)
@@ -6961,13 +7101,23 @@
 	)
 	(wire
 		(pts
-			(xy 87.122 50.292) (xy 98.806 50.292)
+			(xy 105.41 94.234) (xy 117.094 94.234)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "9c99ea2e-ef2b-4b32-8374-1e7bb075b88b")
+	)
+	(wire
+		(pts
+			(xy 48.006 108.204) (xy 48.006 106.934)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9cd65230-d11f-4235-82ec-c4e7614be40d")
 	)
 	(wire
 		(pts
@@ -6988,6 +7138,16 @@
 			(type default)
 		)
 		(uuid "9ebdfb14-9703-4f35-bfab-b8958fa5aebc")
+	)
+	(wire
+		(pts
+			(xy 128.524 35.56) (xy 117.856 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a142c58b-3514-482c-bac2-6a96cab8b9b2")
 	)
 	(polyline
 		(pts
@@ -7038,6 +7198,16 @@
 			(type default)
 		)
 		(uuid "a6693a17-48f6-4b12-a3aa-98ee0153e5f4")
+	)
+	(wire
+		(pts
+			(xy 128.524 33.528) (xy 128.524 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a7221104-2b4f-408f-b6a2-068ba4b7dd7d")
 	)
 	(wire
 		(pts
@@ -7101,7 +7271,7 @@
 	)
 	(wire
 		(pts
-			(xy 98.806 50.292) (xy 110.236 50.292)
+			(xy 117.094 94.234) (xy 128.524 94.234)
 		)
 		(stroke
 			(width 0)
@@ -7201,7 +7371,17 @@
 	)
 	(wire
 		(pts
-			(xy 110.236 37.0078) (xy 110.236 37.084)
+			(xy 48.006 68.326) (xy 48.006 67.056)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba1c218a-7272-4b67-afa0-d033743e89fb")
+	)
+	(wire
+		(pts
+			(xy 128.524 80.9498) (xy 128.524 81.026)
 		)
 		(stroke
 			(width 0)
@@ -7231,6 +7411,16 @@
 	)
 	(wire
 		(pts
+			(xy 48.26 68.326) (xy 48.006 68.326)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bcb82dcf-517e-47b3-adfe-8a8fadac1242")
+	)
+	(wire
+		(pts
 			(xy 255.524 32.258) (xy 258.064 32.258)
 		)
 		(stroke
@@ -7241,7 +7431,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.096 37.084) (xy 140.716 37.084)
+			(xy 151.384 81.026) (xy 159.004 81.026)
 		)
 		(stroke
 			(width 0)
@@ -7321,7 +7511,7 @@
 	)
 	(wire
 		(pts
-			(xy 129.032 50.292) (xy 133.096 50.292)
+			(xy 147.32 94.234) (xy 151.384 94.234)
 		)
 		(stroke
 			(width 0)
@@ -7331,7 +7521,17 @@
 	)
 	(wire
 		(pts
-			(xy 148.336 37.084) (xy 140.716 37.084)
+			(xy 48.26 110.744) (xy 47.244 110.744)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca65b662-fe3d-49f0-b4cc-9289868d64d2")
+	)
+	(wire
+		(pts
+			(xy 166.624 81.026) (xy 159.004 81.026)
 		)
 		(stroke
 			(width 0)
@@ -7398,6 +7598,16 @@
 			(type solid)
 		)
 		(uuid "cfe99980-2d98-4372-b495-04c53027340b")
+	)
+	(wire
+		(pts
+			(xy 117.856 33.528) (xy 117.856 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cff137f8-f8b9-445b-b2ab-198450e57cd6")
 	)
 	(wire
 		(pts
@@ -7601,6 +7811,16 @@
 	)
 	(wire
 		(pts
+			(xy 37.084 81.026) (xy 39.624 81.026)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee48b034-f766-4962-a291-970e33f4690d")
+	)
+	(wire
+		(pts
 			(xy 235.204 130.048) (xy 235.204 132.842)
 		)
 		(stroke
@@ -7668,6 +7888,16 @@
 			(type solid)
 		)
 		(uuid "f9315c78-c56d-49ea-b391-57a0fd98d09c")
+	)
+	(wire
+		(pts
+			(xy 34.544 120.904) (xy 37.084 120.904)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f963afd1-1ba0-420c-9eac-a566ec090cb6")
 	)
 	(wire
 		(pts
@@ -7862,7 +8092,7 @@
 		(uuid "09a7c6bf-48af-4161-b5ff-2a5d932f333b")
 	)
 	(label "A6"
-		(at 98.806 42.672 90)
+		(at 117.094 86.614 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8082,7 +8312,7 @@
 		(uuid "20a273c2-0c4f-461a-8c0e-654a98990be4")
 	)
 	(label "A9"
-		(at 140.716 29.464 90)
+		(at 159.004 73.406 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8269,7 +8499,7 @@
 		(uuid "35bc5b35-b7b2-44d5-bbed-557f428649b2")
 	)
 	(label "A14"
-		(at 99.1108 29.3878 90)
+		(at 117.3988 73.3298 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8280,7 +8510,7 @@
 		(uuid "3a69233f-8fdb-4596-bc53-8115b3b2d16e")
 	)
 	(label "A2"
-		(at 133.096 42.672 90)
+		(at 151.384 86.614 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8434,7 +8664,7 @@
 		(uuid "5197ad59-780b-471b-a5ce-254b7d48562e")
 	)
 	(label "A7"
-		(at 87.122 42.672 90)
+		(at 105.41 86.614 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8588,7 +8818,7 @@
 		(uuid "6b997cc0-2eb8-4759-8cd8-e06a3e765b57")
 	)
 	(label "A1"
-		(at 140.716 42.672 90)
+		(at 159.004 86.614 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8597,6 +8827,17 @@
 			(justify left bottom)
 		)
 		(uuid "6de98ae1-186c-48b3-88e9-91fbe3c524cd")
+	)
+	(label "NAV"
+		(at 26.924 120.904 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6e4a0d9e-6c8e-4a1d-b350-d0d2f85731b7")
 	)
 	(label "A15"
 		(at 167.64 159.258 0)
@@ -8610,7 +8851,7 @@
 		(uuid "6e8f0e4f-b1cd-46fd-96f0-fd376420f009")
 	)
 	(label "A3"
-		(at 125.476 42.672 90)
+		(at 143.764 86.614 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8675,6 +8916,17 @@
 		)
 		(uuid "78bd699f-2996-43e1-943e-1377c2d81ac0")
 	)
+	(label "STROBE"
+		(at 268.224 47.498 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7a133784-2108-481e-a732-e68d8661d70d")
+	)
 	(label "30"
 		(at 250.444 114.554 270)
 		(fields_autoplaced yes)
@@ -8730,6 +8982,17 @@
 		)
 		(uuid "80da830d-ccbe-4ccc-ba64-699a23e7c3bb")
 	)
+	(label "STROBE"
+		(at 26.924 81.026 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8154d8b8-6977-49e5-a6dd-d1e087baa7cf")
+	)
 	(label "A12"
 		(at 167.64 151.638 0)
 		(fields_autoplaced yes)
@@ -8751,6 +9014,17 @@
 			(justify left bottom)
 		)
 		(uuid "8380b31b-841b-4a20-bf72-9f910df2f713")
+	)
+	(label "FLOOD"
+		(at 91.186 44.45 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "86e5d916-dbdf-4aa7-9a64-381265f7bb77")
 	)
 	(label "*7"
 		(at 263.398 57.658 180)
@@ -8796,8 +9070,19 @@
 		)
 		(uuid "8c11c3c6-512d-4251-a254-7b226607109f")
 	)
+	(label "FLOOD"
+		(at 268.224 44.958 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8fc49b1b-1bd9-4400-aaf5-3fdfa5a0aa9c")
+	)
 	(label "A13"
-		(at 110.236 29.464 90)
+		(at 128.524 73.406 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8852,7 +9137,7 @@
 		(uuid "97f04ba0-9fa7-4eee-bc49-f76c49f5dd2c")
 	)
 	(label "A10"
-		(at 133.096 29.464 90)
+		(at 151.384 73.406 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8861,6 +9146,17 @@
 			(justify left bottom)
 		)
 		(uuid "98c19ca0-57b2-45aa-a87e-cc10cacec295")
+	)
+	(label "NAV"
+		(at 268.224 57.658 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9a9f4d0e-3d92-4daa-a7c4-2e1ce9e3c7d3")
 	)
 	(label "*11"
 		(at 268.224 39.878 180)
@@ -9006,7 +9302,7 @@
 		(uuid "b7ba5525-6f28-418f-b6e9-41f929efaa9d")
 	)
 	(label "A0"
-		(at 148.336 42.672 90)
+		(at 166.624 86.614 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9028,7 +9324,7 @@
 		(uuid "b9c61d17-a464-4d40-a512-b337195b03b6")
 	)
 	(label "A12"
-		(at 117.856 29.464 90)
+		(at 136.144 73.406 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9138,7 +9434,7 @@
 		(uuid "c348793d-eec0-4f33-9b91-2cae8b4224a4")
 	)
 	(label "A11"
-		(at 125.476 29.464 90)
+		(at 143.764 73.406 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9235,17 +9531,6 @@
 			(justify right bottom)
 		)
 		(uuid "c8f2751e-59a1-474e-82bf-8085a882f0ab")
-	)
-	(label "COL9"
-		(at 91.948 27.94 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "cad86973-ec51-4b4c-b15d-e4fde3d686fb")
 	)
 	(label "SCL{slash}21"
 		(at 268.224 24.638 180)
@@ -9369,7 +9654,7 @@
 		(uuid "d8e2354f-8f88-471f-83de-ad0ac8f31a65")
 	)
 	(label "A8"
-		(at 148.336 29.464 90)
+		(at 166.624 73.406 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9512,7 +9797,7 @@
 		(uuid "e9f8397f-2ee2-4c5b-a3ed-91ae11a79bd4")
 	)
 	(label "A5"
-		(at 110.236 42.672 90)
+		(at 128.524 86.614 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9600,7 +9885,7 @@
 		(uuid "f39dc0ca-e0c4-4bcc-9d32-c0ed7343b527")
 	)
 	(label "A4"
-		(at 117.856 42.672 90)
+		(at 136.144 86.614 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9686,6 +9971,17 @@
 			(justify right bottom)
 		)
 		(uuid "fe75186b-fcb4-4cdd-bd6e-6b90c00b9cce")
+	)
+	(label "BACKLIGHT_-V"
+		(at 111.506 38.608 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ff0efbc1-3dd0-44e0-b1ae-1b67a9f147db")
 	)
 	(label "48"
 		(at 227.584 115.57 270)
@@ -12022,6 +12318,75 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 122.936 30.988 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "035722a5-8ddf-4351-aa8a-8670b2feb730")
+		(property "Reference" "J20"
+			(at 123.6472 31.5976 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "FLODD"
+			(at 115.824 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 122.936 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 122.936 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 122.936 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ae3c08ef-8485-4fd1-80dc-fc8ce9150313")
+		)
+		(pin "2"
+			(uuid "8a838912-9e4c-485c-9a75-24d506590bd8")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x16_Female")
 		(at 190.754 35.814 0)
 		(unit 1)
@@ -12201,6 +12566,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+12V")
+		(at 48.006 67.056 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "07bcd589-0fc1-4dcf-86bf-835b1b9ac771")
+		(property "Reference" "#PWR048"
+			(at 48.006 70.866 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 48.387 62.6618 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 48.006 67.056 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 48.006 67.056 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 48.006 67.056 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7131bf42-20c0-4ac9-87e5-1427022c4ef4")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR048")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 187.706 75.184 0)
 		(unit 1)
@@ -12260,6 +12690,75 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR038")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 111.506 30.988 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "09fa5a93-7dfa-4516-ba6d-4b01f4ae3889")
+		(property "Reference" "J15"
+			(at 112.2172 31.5976 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "FLOOD"
+			(at 104.394 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 111.506 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.506 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.506 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e0a36c43-97ad-4a88-bf7c-2c99528e0212")
+		)
+		(pin "2"
+			(uuid "901e4c55-1c0e-4832-9cae-15cacd8c71a9")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J15")
 					(unit 1)
 				)
 			)
@@ -12329,6 +12828,136 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 48.006 106.934 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0c4bbfef-5eb9-46c9-90ce-ccfd75bcc848")
+		(property "Reference" "#PWR061"
+			(at 48.006 110.744 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 48.387 102.5398 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 48.006 106.934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 48.006 106.934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 48.006 106.934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "10dfc2bf-f99e-4c29-be06-558a8b87a9a9")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR061")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 47.244 125.984 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0ece408f-bf79-47e7-ae91-9e2fad29157b")
+		(property "Reference" "#PWR055"
+			(at 47.244 132.334 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 47.371 130.3782 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 47.244 125.984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 47.244 125.984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 47.244 125.984 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4bb8cd9b-8f1d-4e3b-97ac-96dc6eb0b621")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR055")
 					(unit 1)
 				)
 			)
@@ -12611,6 +13240,76 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR017")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 30.734 81.026 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "25b34434-36dd-42d3-8b86-30dea6053ac2")
+		(property "Reference" "R17"
+			(at 31.9024 79.2988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "330"
+			(at 29.591 79.2988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 30.48 80.01 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.734 81.026 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 30.734 81.026 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e5aaeace-5a90-4bb8-b0ce-ecab30975585")
+		)
+		(pin "2"
+			(uuid "8feab547-2b02-42c1-bc2c-43828cb75d28")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R17")
 					(unit 1)
 				)
 			)
@@ -13165,6 +13864,76 @@
 	)
 	(symbol
 		(lib_id "Device:R_US")
+		(at 30.734 120.904 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "28453cdd-21d4-481d-9dc1-cda7dcbfc9d6")
+		(property "Reference" "R19"
+			(at 31.9024 119.1768 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "330"
+			(at 29.591 119.1768 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 30.48 119.888 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 30.734 120.904 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 30.734 120.904 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fde798f4-8ff0-4496-90d5-543bc5d9bc3e")
+		)
+		(pin "2"
+			(uuid "1de952ee-7ebe-401d-afdd-d6fb462b5552")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
 		(at 19.304 154.686 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13518,7 +14287,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 133.096 33.274 0)
+		(at 151.384 77.216 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13526,7 +14295,7 @@
 		(dnp no)
 		(uuid "3e2c0728-2478-4c5d-949b-35d879dd5bf7")
 		(property "Reference" "C9"
-			(at 136.017 32.1056 0)
+			(at 154.305 76.0476 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13535,7 +14304,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 136.017 34.417 0)
+			(at 154.305 78.359 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13544,7 +14313,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 134.0612 37.084 0)
+			(at 152.3492 81.026 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13553,7 +14322,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 133.096 33.274 0)
+			(at 151.384 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13562,7 +14331,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 133.096 33.274 0)
+			(at 151.384 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13580,6 +14349,75 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "C9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 53.34 68.326 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3e9fb310-8c3e-4e6e-98a1-e1329e50f366")
+		(property "Reference" "J11"
+			(at 54.0512 68.9356 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LEFT STROBE"
+			(at 46.482 60.706 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 53.34 68.326 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 53.34 68.326 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 53.34 68.326 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c85087bf-6699-46a2-be29-f65b0f9ebb7a")
+		)
+		(pin "2"
+			(uuid "be62e158-6eb0-4659-8e13-66537d79af05")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J11")
 					(unit 1)
 				)
 			)
@@ -13790,6 +14628,71 @@
 	)
 	(symbol
 		(lib_id "power:+12V")
+		(at 106.426 30.988 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4aa46997-2f51-4606-95c2-01664aec21ff")
+		(property "Reference" "#PWR065"
+			(at 106.426 34.798 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 106.807 26.5938 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 106.426 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 106.426 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 106.426 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6d88c318-3932-4aa4-9113-bcd28e6a8e84")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR065")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
 		(at 56.388 30.988 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13855,7 +14758,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 140.716 46.482 0)
+		(at 159.004 90.424 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13863,7 +14766,7 @@
 		(dnp no)
 		(uuid "5359da62-7dca-4a52-b1ed-713e35cac43d")
 		(property "Reference" "C12"
-			(at 143.637 45.3136 0)
+			(at 161.925 89.2556 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13872,7 +14775,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 143.637 47.625 0)
+			(at 161.925 91.567 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13881,7 +14784,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 141.6812 50.292 0)
+			(at 159.9692 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13890,7 +14793,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 140.716 46.482 0)
+			(at 159.004 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13899,7 +14802,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 140.716 46.482 0)
+			(at 159.004 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13924,7 +14827,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 99.1108 33.1978 0)
+		(at 117.3988 77.1398 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13932,7 +14835,7 @@
 		(dnp no)
 		(uuid "54268bd2-8798-4c17-9bb9-aed7e3608a8a")
 		(property "Reference" "C15"
-			(at 102.0318 32.0294 0)
+			(at 120.3198 75.9714 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13941,7 +14844,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 102.0318 34.3408 0)
+			(at 120.3198 78.2828 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13950,7 +14853,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 100.076 37.0078 0)
+			(at 118.364 80.9498 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13959,7 +14862,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 99.1108 33.1978 0)
+			(at 117.3988 77.1398 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13968,7 +14871,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 99.1108 33.1978 0)
+			(at 117.3988 77.1398 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14125,34 +15028,16 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 110.236 46.482 0)
+		(lib_id "power:GND")
+		(at 101.346 52.07 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "61e557c2-769d-4e61-8389-a55e1d28dd26")
-		(property "Reference" "C4"
-			(at 113.157 45.3136 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 113.157 47.625 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 111.2012 50.292 0)
+		(uuid "5d7f13ee-d110-4541-9472-167d74b93fe0")
+		(property "Reference" "#PWR064"
+			(at 101.346 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14160,8 +15045,25 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 110.236 46.482 0)
+		(property "Value" "GND"
+			(at 101.473 56.4642 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.346 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.346 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14170,7 +15072,626 @@
 			)
 		)
 		(property "Description" ""
-			(at 110.236 46.482 0)
+			(at 101.346 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "23a401c1-244a-4102-953f-54ba7c46cc84")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR064")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue")
+		(at 101.346 44.45 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5e6dfcd0-3993-413d-badb-762f716708f8")
+		(property "Reference" "Q4"
+			(at 114.7572 43.2816 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "IRF1405PBF"
+			(at 114.7572 45.593 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
+			(at 101.346 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb"
+			(at 101.346 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.346 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" "No"
+			(at 101.346 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "category" "Trans"
+			(at 101.346 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" "169A"
+			(at 101.346 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" "False"
+			(at 101.346 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L1" "Discrete Semiconductors"
+			(at 101.346 16.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L2" "Transistors"
+			(at 101.346 13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L3" "MOSFETs"
+			(at 101.346 11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey description" "MOSFET N-CH 55V 169A TO-220AB"
+			(at 101.346 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" "IRF1405PBF-ND"
+			(at 101.346 6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" "55V"
+			(at 101.346 3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" "4.6mΩ"
+			(at 101.346 1.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" "55V"
+			(at 101.346 -1.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "footprint url" "https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be"
+			(at 101.346 -3.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" "170nC @ 10V"
+			(at 101.346 -6.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" "20V"
+			(at 101.346 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "height" "19.8mm"
+			(at 101.346 -11.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" "5480pF @ 25V"
+			(at 101.346 -13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" "TO-220"
+			(at 101.346 -16.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "lead free" "Yes"
+			(at 101.346 -19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "library id" "802d71249bb95e7c"
+			(at 101.346 -21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" "International Rectifier"
+			(at 101.346 -24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" "1.3V"
+			(at 101.346 -26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" "+175°C"
+			(at 101.346 -29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser description" "MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W"
+			(at 101.346 -31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" "942-IRF1405PBF"
+			(at 101.346 -34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" "1"
+			(at 101.346 -36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of channels" "1"
+			(at 101.346 -39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "package" "TO-220AB"
+			(at 101.346 -41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" "330W"
+			(at 101.346 -44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" "680A"
+			(at 101.346 -46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" "250nC"
+			(at 101.346 -49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" "88ns"
+			(at 101.346 -52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rohs" "Yes"
+			(at 101.346 -54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rthja max" "62°C/W"
+			(at 101.346 -57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "standoff height" "3.37mm"
+			(at 101.346 -59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" "+175°C"
+			(at 101.346 -62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" "-55°C"
+			(at 101.346 -64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" "4V"
+			(at 101.346 -67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" "2V"
+			(at 101.346 -69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" "130ns"
+			(at 101.346 -72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" "13ns"
+			(at 101.346 -74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "36cea466-0e55-4397-8020-40fbb5c156f0")
+		)
+		(pin "2"
+			(uuid "6761ecf6-645f-4288-ac4c-a8959f2cadd0")
+		)
+		(pin "3"
+			(uuid "0158b3c8-da54-4bc0-8407-0164883e8888")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "Q4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 133.604 30.988 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "60ff52f5-d150-459d-9051-b50468ea20a2")
+		(property "Reference" "J21"
+			(at 134.3152 31.5976 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "FLOOD"
+			(at 126.492 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 133.604 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 133.604 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 133.604 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0070f835-3cee-43e8-978d-1954c5509391")
+		)
+		(pin "2"
+			(uuid "6a6e62e6-9cff-4db2-a947-b8dde2ff90ba")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 128.524 90.424 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "61e557c2-769d-4e61-8389-a55e1d28dd26")
+		(property "Reference" "C4"
+			(at 131.445 89.2556 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 131.445 91.567 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
+			(at 129.4892 94.234 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 128.524 90.424 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 128.524 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14260,7 +15781,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 125.476 46.482 0)
+		(at 143.764 90.424 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14268,7 +15789,7 @@
 		(dnp no)
 		(uuid "632e75a7-26a7-4af8-b31a-4d40d6cba940")
 		(property "Reference" "C8"
-			(at 128.397 45.3136 0)
+			(at 146.685 89.2556 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14277,7 +15798,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 128.397 47.625 0)
+			(at 146.685 91.567 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14286,7 +15807,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 126.4412 50.292 0)
+			(at 144.7292 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14295,7 +15816,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 125.476 46.482 0)
+			(at 143.764 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14304,7 +15825,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 125.476 46.482 0)
+			(at 143.764 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14386,6 +15907,76 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR018")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 37.084 84.836 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "66b02d4e-94dc-4f71-9e71-b6a5683e29fb")
+		(property "Reference" "R18"
+			(at 38.8112 86.0044 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 38.8112 83.693 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 38.1 84.582 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 37.084 84.836 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 37.084 84.836 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "db65d00f-74eb-4af7-b808-d25f3a6a6ade")
+		)
+		(pin "2"
+			(uuid "2efe173a-7bbd-4eea-80fe-08f17c7c2108")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R18")
 					(unit 1)
 				)
 			)
@@ -14477,7 +16068,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 133.096 46.482 0)
+		(at 151.384 90.424 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14485,7 +16076,7 @@
 		(dnp no)
 		(uuid "6a7b3864-a08a-4bea-86cb-84162775f1b0")
 		(property "Reference" "C10"
-			(at 136.017 45.3136 0)
+			(at 154.305 89.2556 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14494,7 +16085,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 136.017 47.625 0)
+			(at 154.305 91.567 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14503,7 +16094,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 134.0612 50.292 0)
+			(at 152.3492 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14512,7 +16103,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 133.096 46.482 0)
+			(at 151.384 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14521,7 +16112,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 133.096 46.482 0)
+			(at 151.384 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14674,7 +16265,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 140.716 33.274 0)
+		(at 159.004 77.216 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14682,7 +16273,7 @@
 		(dnp no)
 		(uuid "75659c5e-dd9a-4c61-9e49-bb278c0cdb1b")
 		(property "Reference" "C11"
-			(at 143.637 32.1056 0)
+			(at 161.925 76.0476 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14691,7 +16282,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 143.637 34.417 0)
+			(at 161.925 78.359 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14700,7 +16291,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 141.6812 37.084 0)
+			(at 159.9692 81.026 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14709,7 +16300,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 140.716 33.274 0)
+			(at 159.004 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14718,7 +16309,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 140.716 33.274 0)
+			(at 159.004 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14806,7 +16397,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 117.856 33.274 0)
+		(at 136.144 77.216 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14814,7 +16405,7 @@
 		(dnp no)
 		(uuid "786aab7c-01a5-43cd-baa7-bc532e85f693")
 		(property "Reference" "C5"
-			(at 120.777 32.1056 0)
+			(at 139.065 76.0476 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14823,7 +16414,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 120.777 34.417 0)
+			(at 139.065 78.359 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14832,7 +16423,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 118.8212 37.084 0)
+			(at 137.1092 81.026 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14841,7 +16432,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 117.856 33.274 0)
+			(at 136.144 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14850,7 +16441,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 117.856 33.274 0)
+			(at 136.144 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15011,7 +16602,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 148.336 46.482 0)
+		(at 166.624 90.424 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15019,7 +16610,7 @@
 		(dnp no)
 		(uuid "7f8e93f7-362f-47e2-a6f4-0432cd14efc8")
 		(property "Reference" "C14"
-			(at 151.257 45.3136 0)
+			(at 169.545 89.2556 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15028,7 +16619,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 151.257 47.625 0)
+			(at 169.545 91.567 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15037,7 +16628,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 149.3012 50.292 0)
+			(at 167.5892 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15046,7 +16637,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 148.336 46.482 0)
+			(at 166.624 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15055,7 +16646,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 148.336 46.482 0)
+			(at 166.624 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15147,7 +16738,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 117.856 46.482 0)
+		(at 136.144 90.424 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15155,7 +16746,7 @@
 		(dnp no)
 		(uuid "873b48d8-e433-4bf1-9b53-f7fbb8ac2ddd")
 		(property "Reference" "C6"
-			(at 120.777 45.3136 0)
+			(at 139.065 89.2556 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15164,7 +16755,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 120.777 47.625 0)
+			(at 139.065 91.567 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15173,7 +16764,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 118.8212 50.292 0)
+			(at 137.1092 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15182,7 +16773,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 117.856 46.482 0)
+			(at 136.144 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15191,7 +16782,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 117.856 46.482 0)
+			(at 136.144 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15394,16 +16985,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 110.236 33.274 0)
+		(lib_id "Device:R_US")
+		(at 101.346 48.26 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "8e251729-b73e-484f-a180-055bde2c00c3")
-		(property "Reference" "C3"
-			(at 113.157 32.1056 0)
+		(uuid "8bd57b64-4254-40ec-984f-fa2a7e4f7526")
+		(property "Reference" "R22"
+			(at 103.0732 49.4284 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15411,8 +17003,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.1uF"
-			(at 113.157 34.417 0)
+		(property "Value" "10K"
+			(at 103.0732 47.117 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15420,8 +17012,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 111.2012 37.084 0)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 102.362 48.006 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15430,7 +17022,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 110.236 33.274 0)
+			(at 101.346 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15439,7 +17031,146 @@
 			)
 		)
 		(property "Description" ""
-			(at 110.236 33.274 0)
+			(at 101.346 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a3e4c874-9f1a-4d9a-a4b3-b9baaa4976f1")
+		)
+		(pin "2"
+			(uuid "47764d39-ecef-4489-ae0f-8406ea554dd6")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 94.996 44.45 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8d07fdc6-360e-4d93-8a01-6ea28d0eea6d")
+		(property "Reference" "R21"
+			(at 96.1644 42.7228 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "330"
+			(at 93.853 42.7228 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 94.742 43.434 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 94.996 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 94.996 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "014cb4d9-efe4-44f1-bb7e-9c48d9043af4")
+		)
+		(pin "2"
+			(uuid "e65aa2c3-5631-4b5d-8551-afb26054d6fe")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 128.524 77.216 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8e251729-b73e-484f-a180-055bde2c00c3")
+		(property "Reference" "C3"
+			(at 131.445 76.0476 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 131.445 78.359 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
+			(at 129.4892 81.026 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 128.524 77.216 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 128.524 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15684,7 +17415,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 148.336 33.274 0)
+		(at 166.624 77.216 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15692,7 +17423,7 @@
 		(dnp no)
 		(uuid "aa3158a3-8390-4aff-a716-a211b6978890")
 		(property "Reference" "C13"
-			(at 151.257 32.1056 0)
+			(at 169.545 76.0476 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15701,7 +17432,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 151.257 34.417 0)
+			(at 169.545 78.359 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15710,7 +17441,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 149.3012 37.084 0)
+			(at 167.5892 81.026 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15719,7 +17450,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 148.336 33.274 0)
+			(at 166.624 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15728,7 +17459,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 148.336 33.274 0)
+			(at 166.624 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16119,16 +17850,34 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 129.032 50.292 0)
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 53.34 108.204 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "b8fb6a0c-cfed-45b1-87f0-9a0eada15c3d")
-		(property "Reference" "#PWR015"
-			(at 129.032 56.642 0)
+		(uuid "b6c0ecf3-6c47-4e3e-9439-c685220ebc57")
+		(property "Reference" "J12"
+			(at 54.0512 108.8136 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LEFT NAV"
+			(at 46.482 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 53.34 108.204 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16136,25 +17885,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "GND"
-			(at 129.159 54.6862 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 129.032 50.292 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 129.032 50.292 0)
+		(property "Datasheet" "~"
+			(at 53.34 108.204 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16163,7 +17895,75 @@
 			)
 		)
 		(property "Description" ""
-			(at 129.032 50.292 0)
+			(at 53.34 108.204 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c04dbae1-a8f5-41ea-96c8-46cf85aa58f0")
+		)
+		(pin "2"
+			(uuid "8881de5a-ea28-4c8e-b0de-95caae5c1406")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 147.32 94.234 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b8fb6a0c-cfed-45b1-87f0-9a0eada15c3d")
+		(property "Reference" "#PWR015"
+			(at 147.32 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 147.447 98.6282 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 147.32 94.234 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 147.32 94.234 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 147.32 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16252,7 +18052,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 87.122 46.482 0)
+		(at 105.41 90.424 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16260,7 +18060,7 @@
 		(dnp no)
 		(uuid "bf44559f-8550-48a5-aa41-b1cc470dde40")
 		(property "Reference" "C1"
-			(at 90.043 45.3136 0)
+			(at 108.331 89.2556 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16269,7 +18069,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 90.043 47.625 0)
+			(at 108.331 91.567 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16278,7 +18078,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 88.0872 50.292 0)
+			(at 106.3752 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16287,7 +18087,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 87.122 46.482 0)
+			(at 105.41 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16296,7 +18096,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 87.122 46.482 0)
+			(at 105.41 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16386,7 +18186,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 125.476 33.274 0)
+		(at 143.764 77.216 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16394,7 +18194,7 @@
 		(dnp no)
 		(uuid "c4a5c2db-ee7e-4d7c-b3ba-3273e10a8003")
 		(property "Reference" "C7"
-			(at 128.397 32.1056 0)
+			(at 146.685 76.0476 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16403,7 +18203,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 128.397 34.417 0)
+			(at 146.685 78.359 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16412,7 +18212,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 126.4412 37.084 0)
+			(at 144.7292 81.026 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16421,7 +18221,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 125.476 33.274 0)
+			(at 143.764 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16430,7 +18230,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 125.476 33.274 0)
+			(at 143.764 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16455,7 +18255,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 129.032 37.084 0)
+		(at 147.32 81.026 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16463,7 +18263,7 @@
 		(dnp no)
 		(uuid "c62bfb70-8e10-4094-9ea7-358d95f9dfaa")
 		(property "Reference" "#PWR014"
-			(at 129.032 43.434 0)
+			(at 147.32 87.376 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16472,7 +18272,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 129.159 41.4782 0)
+			(at 147.447 85.4202 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16480,7 +18280,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.032 37.084 0)
+			(at 147.32 81.026 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16489,7 +18289,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.032 37.084 0)
+			(at 147.32 81.026 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16498,7 +18298,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 129.032 37.084 0)
+			(at 147.32 81.026 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16587,7 +18387,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 98.806 46.482 0)
+		(at 117.094 90.424 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16595,7 +18395,7 @@
 		(dnp no)
 		(uuid "c923ddbc-2f57-4800-a519-dd499040b1e2")
 		(property "Reference" "C2"
-			(at 101.727 45.3136 0)
+			(at 120.015 89.2556 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16604,7 +18404,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 101.727 47.625 0)
+			(at 120.015 91.567 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16613,7 +18413,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 99.7712 50.292 0)
+			(at 118.0592 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16622,7 +18422,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 98.806 46.482 0)
+			(at 117.094 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16631,7 +18431,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 98.806 46.482 0)
+			(at 117.094 90.424 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16805,6 +18605,1039 @@
 		)
 	)
 	(symbol
+		(lib_id "Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue")
+		(at 37.084 120.904 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cbfe9288-3e98-48a8-a58a-b213f1bca0e3")
+		(property "Reference" "Q3"
+			(at 50.4952 119.7356 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "IRF1405PBF"
+			(at 50.4952 122.047 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
+			(at 37.084 108.204 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb"
+			(at 37.084 105.664 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 37.084 120.904 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" "No"
+			(at 37.084 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "category" "Trans"
+			(at 37.084 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" "169A"
+			(at 37.084 98.044 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" "False"
+			(at 37.084 95.504 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L1" "Discrete Semiconductors"
+			(at 37.084 92.964 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L2" "Transistors"
+			(at 37.084 90.424 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L3" "MOSFETs"
+			(at 37.084 87.884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey description" "MOSFET N-CH 55V 169A TO-220AB"
+			(at 37.084 85.344 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" "IRF1405PBF-ND"
+			(at 37.084 82.804 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" "55V"
+			(at 37.084 80.264 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" "4.6mΩ"
+			(at 37.084 77.724 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" "55V"
+			(at 37.084 75.184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "footprint url" "https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be"
+			(at 37.084 72.644 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" "170nC @ 10V"
+			(at 37.084 70.104 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" "20V"
+			(at 37.084 67.564 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "height" "19.8mm"
+			(at 37.084 65.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" "5480pF @ 25V"
+			(at 37.084 62.484 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" "TO-220"
+			(at 37.084 59.944 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "lead free" "Yes"
+			(at 37.084 57.404 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "library id" "802d71249bb95e7c"
+			(at 37.084 54.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" "International Rectifier"
+			(at 37.084 52.324 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" "1.3V"
+			(at 37.084 49.784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" "+175°C"
+			(at 37.084 47.244 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser description" "MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W"
+			(at 37.084 44.704 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" "942-IRF1405PBF"
+			(at 37.084 42.164 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" "1"
+			(at 37.084 39.624 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of channels" "1"
+			(at 37.084 37.084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "package" "TO-220AB"
+			(at 37.084 34.544 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" "330W"
+			(at 37.084 32.004 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" "680A"
+			(at 37.084 29.464 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" "250nC"
+			(at 37.084 26.924 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" "88ns"
+			(at 37.084 24.384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rohs" "Yes"
+			(at 37.084 21.844 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rthja max" "62°C/W"
+			(at 37.084 19.304 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "standoff height" "3.37mm"
+			(at 37.084 16.764 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" "+175°C"
+			(at 37.084 14.224 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" "-55°C"
+			(at 37.084 11.684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" "4V"
+			(at 37.084 9.144 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" "2V"
+			(at 37.084 6.604 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" "130ns"
+			(at 37.084 4.064 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" "13ns"
+			(at 37.084 1.524 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "28e738e5-7f6a-42e5-a54e-428e7dff0d56")
+		)
+		(pin "2"
+			(uuid "a96e6b08-4bfe-469c-9c07-0795e5369dd6")
+		)
+		(pin "3"
+			(uuid "d423a3da-5eab-418a-afb2-2586aa31d241")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "Q3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 37.084 128.524 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d1bae601-0879-4182-90bc-e1e055b89b55")
+		(property "Reference" "#PWR049"
+			(at 37.084 134.874 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 37.211 132.9182 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 37.084 128.524 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 37.084 128.524 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 37.084 128.524 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ccc39914-eb12-4413-a3f6-37e688f94475")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR049")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue")
+		(at 37.084 81.026 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d2f5ea6e-c224-49e6-8a19-64b0262ebb3d")
+		(property "Reference" "Q2"
+			(at 50.4952 79.8576 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "IRF1405PBF"
+			(at 50.4952 82.169 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
+			(at 37.084 68.326 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb"
+			(at 37.084 65.786 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 37.084 81.026 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" "No"
+			(at 37.084 63.246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "category" "Trans"
+			(at 37.084 60.706 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" "169A"
+			(at 37.084 58.166 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" "False"
+			(at 37.084 55.626 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L1" "Discrete Semiconductors"
+			(at 37.084 53.086 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L2" "Transistors"
+			(at 37.084 50.546 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L3" "MOSFETs"
+			(at 37.084 48.006 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey description" "MOSFET N-CH 55V 169A TO-220AB"
+			(at 37.084 45.466 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" "IRF1405PBF-ND"
+			(at 37.084 42.926 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" "55V"
+			(at 37.084 40.386 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" "4.6mΩ"
+			(at 37.084 37.846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" "55V"
+			(at 37.084 35.306 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "footprint url" "https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be"
+			(at 37.084 32.766 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" "170nC @ 10V"
+			(at 37.084 30.226 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" "20V"
+			(at 37.084 27.686 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "height" "19.8mm"
+			(at 37.084 25.146 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" "5480pF @ 25V"
+			(at 37.084 22.606 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" "TO-220"
+			(at 37.084 20.066 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "lead free" "Yes"
+			(at 37.084 17.526 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "library id" "802d71249bb95e7c"
+			(at 37.084 14.986 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" "International Rectifier"
+			(at 37.084 12.446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" "1.3V"
+			(at 37.084 9.906 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" "+175°C"
+			(at 37.084 7.366 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser description" "MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W"
+			(at 37.084 4.826 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" "942-IRF1405PBF"
+			(at 37.084 2.286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" "1"
+			(at 37.084 -0.254 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of channels" "1"
+			(at 37.084 -2.794 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "package" "TO-220AB"
+			(at 37.084 -5.334 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" "330W"
+			(at 37.084 -7.874 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" "680A"
+			(at 37.084 -10.414 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" "250nC"
+			(at 37.084 -12.954 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" "88ns"
+			(at 37.084 -15.494 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rohs" "Yes"
+			(at 37.084 -18.034 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rthja max" "62°C/W"
+			(at 37.084 -20.574 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "standoff height" "3.37mm"
+			(at 37.084 -23.114 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" "+175°C"
+			(at 37.084 -25.654 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" "-55°C"
+			(at 37.084 -28.194 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" "4V"
+			(at 37.084 -30.734 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" "2V"
+			(at 37.084 -33.274 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" "130ns"
+			(at 37.084 -35.814 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" "13ns"
+			(at 37.084 -38.354 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3bcc0a71-7c2c-4c86-9189-9f8028dea005")
+		)
+		(pin "2"
+			(uuid "1fe77215-3b51-4acd-b94f-7c5b9c02c0cc")
+		)
+		(pin "3"
+			(uuid "aae3d11b-7e22-47ef-aace-88abfff6aa85")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "Q2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x02_Female")
 		(at 28.702 30.988 0)
 		(unit 1)
@@ -16874,6 +19707,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 37.084 88.646 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d8260228-5db7-4537-8038-85f40c522ace")
+		(property "Reference" "#PWR050"
+			(at 37.084 94.996 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 37.211 93.0402 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 37.084 88.646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 37.084 88.646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 37.084 88.646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "51161ba6-d777-4adf-9942-5dd7c2774e34")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR050")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 101.092 149.86 90)
 		(unit 1)
@@ -16935,6 +19833,71 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 128.524 30.988 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dbeb659a-fdff-48cd-91f0-5004aaa70121")
+		(property "Reference" "#PWR068"
+			(at 128.524 34.798 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 128.905 26.5938 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 128.524 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 128.524 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 128.524 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7d011396-f29b-4347-b82b-53a61e8d23d5")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR068")
 					(unit 1)
 				)
 			)
@@ -17026,6 +19989,71 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J26")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 47.244 86.106 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e63fb2ed-cb83-4aa5-8e91-b63777a566c9")
+		(property "Reference" "#PWR056"
+			(at 47.244 92.456 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 47.371 90.5002 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 47.244 86.106 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 47.244 86.106 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 47.244 86.106 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "66710f70-b048-4df7-a3bc-9aa64bf04922")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR056")
 					(unit 1)
 				)
 			)
@@ -17167,6 +20195,141 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_US")
+		(at 37.084 124.714 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eb58044f-f82c-4a48-8f98-e711fa011ed6")
+		(property "Reference" "R20"
+			(at 38.8112 125.8824 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 38.8112 123.571 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 38.1 124.46 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 37.084 124.714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 37.084 124.714 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "98776f1a-a019-40ff-80b6-ac1c8feeb694")
+		)
+		(pin "2"
+			(uuid "2627fae0-d08f-4633-b3c9-d8bea418a498")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 111.506 49.53 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ec3603aa-d016-4cad-b1d7-48b75a63714a")
+		(property "Reference" "#PWR066"
+			(at 111.506 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 111.633 53.9242 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 111.506 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.506 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.506 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "91c7bba9-137a-416f-9bf8-a0ccee6f0685")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR066")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+12V")
 		(at 34.29 30.988 0)
 		(unit 1)
@@ -17226,6 +20389,71 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 117.856 30.988 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f16d776b-8564-4776-925c-d96ed6c155d6")
+		(property "Reference" "#PWR067"
+			(at 117.856 34.798 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 118.237 26.5938 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 117.856 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 117.856 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 117.856 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5b5e4f6a-3204-4b96-bbb3-3355c98ebd68")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR067")
 					(unit 1)
 				)
 			)

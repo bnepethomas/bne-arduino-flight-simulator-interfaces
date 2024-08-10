@@ -470,7 +470,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "UHF-ROTARIES.dsn",
-      "step": "",
+      "step": "UHF-ROTARIES.step",
       "svg": "",
       "vrml": ""
     },
