@@ -315,4 +315,15 @@
 			(xyz -90 0 0)
 		)
 	)
+	(model "/Users/peterthomas/Downloads/LIB_SR2612F-0112-21R0B-D8-N (1)/SR2612F-0112-21R0B-D8-N/3D/SR2612F-0112-21R0B-D8-N.stp"
+		(offset
+			(xyz 10.5 -3 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 0 0)
+		)
+	)
 )
