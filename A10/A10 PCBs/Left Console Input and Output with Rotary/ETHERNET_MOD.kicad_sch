@@ -129,88 +129,6 @@
 				)
 			)
 		)
-		(symbol "Mechanical:MountingHole"
-			(pin_names
-				(offset 1.016)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "H"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "MountingHole"
-				(at 0 3.175 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Mounting Hole without connection"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "mounting hole"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "MountingHole*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "MountingHole_0_1"
-				(circle
-					(center 0 0)
-					(radius 1.27)
-					(stroke
-						(width 1.27)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-		)
 		(symbol "USR-ES1:USR-ES1"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1016,7 +934,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "4e11de22-f775-49ef-8270-fe315a1bd18f")
-		(property "Reference" "R14"
+		(property "Reference" "R25"
 			(at 50.038 58.8553 0)
 			(effects
 				(font
@@ -1070,71 +988,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
-					(reference "R14")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 33.782 83.312 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "654962e6-8f7a-4a85-ac6c-e5821f540ca3")
-		(property "Reference" "H4"
-			(at 36.322 82.4773 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 36.322 85.0142 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Arduino_MountingHole:MountingHole_3.2mm"
-			(at 33.782 83.312 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 33.782 83.312 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 33.782 83.312 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
-					(reference "H4")
+					(reference "R25")
 					(unit 1)
 				)
 			)
@@ -1405,70 +1259,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 33.02 101.346 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c107732d-2700-46e8-ab30-8bf09b5c3827")
-		(property "Reference" "H1"
-			(at 35.56 100.5113 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 35.56 103.0482 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Arduino_MountingHole:MountingHole_3.2mm"
-			(at 33.02 101.346 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 33.02 101.346 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 33.02 101.346 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
-					(reference "H1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "USR-ES1:USR-ES1")
 		(at 66.04 50.8 0)
 		(unit 1)
@@ -1478,7 +1268,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "dd05b5a2-e52b-4a6c-9493-e5761207ac0b")
-		(property "Reference" "U1"
+		(property "Reference" "U2"
 			(at 81.28 39.4864 0)
 			(effects
 				(font
@@ -1666,135 +1456,7 @@
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
-					(reference "U1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 33.528 90.17 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e942ac73-3f54-4672-b23b-fe0970a9a65b")
-		(property "Reference" "H3"
-			(at 36.068 89.3353 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 36.068 91.8722 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Arduino_MountingHole:MountingHole_3.2mm"
-			(at 33.528 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 33.528 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 33.528 90.17 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
-					(reference "H3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 33.274 95.758 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "fb4c86df-1dd8-42ad-b644-195e340a980d")
-		(property "Reference" "H2"
-			(at 35.814 94.9233 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 35.814 97.4602 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Arduino_MountingHole:MountingHole_3.2mm"
-			(at 33.274 95.758 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 33.274 95.758 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 33.274 95.758 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
-					(reference "H2")
+					(reference "U2")
 					(unit 1)
 				)
 			)

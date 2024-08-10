@@ -6059,10 +6059,6 @@
 		(uuid "86166941-81c6-4ede-8931-98a89b397548")
 	)
 	(no_connect
-		(at 260.604 145.542)
-		(uuid "86ab39e0-570c-48e2-9ae1-bd882e49fa05")
-	)
-	(no_connect
 		(at 118.618 179.07)
 		(uuid "91bce4b0-3d41-4622-b265-c63a09dd1c40")
 	)
@@ -6081,10 +6077,6 @@
 	(no_connect
 		(at 118.618 191.77)
 		(uuid "ac11aba7-7a59-4bd9-ba0a-a4ed681a8bf8")
-	)
-	(no_connect
-		(at 260.604 127.762)
-		(uuid "b69d9400-3d36-42fd-bfb7-780dee946581")
 	)
 	(no_connect
 		(at 127 68.834)
@@ -6156,7 +6148,17 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 150.622) (xy 260.604 150.622)
+			(xy 143.764 21.59) (xy 165.354 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "40ebd11b-bd2e-4756-ad58-5e09e065094a")
+	)
+	(wire
+		(pts
+			(xy 238.76 145.542) (xy 260.604 145.542)
 		)
 		(stroke
 			(width 0)
@@ -6166,7 +6168,7 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 151.892) (xy 238.76 150.622)
+			(xy 238.76 146.812) (xy 238.76 145.542)
 		)
 		(stroke
 			(width 0)
@@ -6186,7 +6188,7 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 148.082) (xy 260.604 148.082)
+			(xy 238.76 143.002) (xy 260.604 143.002)
 		)
 		(stroke
 			(width 0)
@@ -6223,6 +6225,16 @@
 			(type default)
 		)
 		(uuid "ee8d1c69-7e85-4d41-b4cd-3f091defc240")
+	)
+	(wire
+		(pts
+			(xy 143.764 19.05) (xy 145.288 19.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f37366f0-a3dc-4462-bbd1-b6bcc0bc9a84")
 	)
 	(wire
 		(pts
@@ -9803,7 +9815,7 @@
 	)
 	(text "MON-OFF-MON"
 		(exclude_from_sim no)
-		(at 237.49 111.252 0)
+		(at 190.246 110.744 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10974,6 +10986,28 @@
 		)
 		(uuid "f661d82b-dc5f-4515-abc4-b4f7efb7387a")
 	)
+	(global_label "UHF_CHANNEL_SD"
+		(shape input)
+		(at 260.604 155.702 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "081be8ec-de36-4a82-8660-145a80e3590d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 240.9273 155.702 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "COL10"
 		(shape input)
 		(at 260.604 84.582 180)
@@ -10998,7 +11032,7 @@
 	)
 	(global_label "UHF_VOL"
 		(shape input)
-		(at 260.604 132.842 180)
+		(at 260.604 130.302 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11008,7 +11042,7 @@
 		)
 		(uuid "1351bdb7-c2e5-41ec-aff0-443ade5e5a96")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 249.4544 132.842 0)
+			(at 249.4544 130.302 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11042,7 +11076,7 @@
 	)
 	(global_label "ANALOG_5V"
 		(shape input)
-		(at 260.604 130.302 180)
+		(at 260.604 127.762 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11052,7 +11086,7 @@
 		)
 		(uuid "1d119338-35fb-48d5-8b18-354643f73770")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 247.2168 130.302 0)
+			(at 247.2168 127.762 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11086,7 +11120,7 @@
 	)
 	(global_label "ANALOG_GND"
 		(shape input)
-		(at 260.604 135.382 180)
+		(at 260.604 132.842 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11096,7 +11130,7 @@
 		)
 		(uuid "2bfff6c5-e544-42bc-980c-f930d99e77f9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 245.6444 135.382 0)
+			(at 245.6444 132.842 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11238,6 +11272,28 @@
 			)
 		)
 	)
+	(global_label "UHF_PRESET_SC"
+		(shape input)
+		(at 143.764 24.13 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "420c073c-d75e-4284-94d5-45e50be2d9b8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 161.9286 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "BACKLIGHT_-V"
 		(shape input)
 		(at 260.604 160.782 180)
@@ -11260,9 +11316,9 @@
 			)
 		)
 	)
-	(global_label "UHF_OLED_SC"
+	(global_label "UHF_PRESET_SC"
 		(shape input)
-		(at 260.604 153.162 180)
+		(at 260.604 148.082 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11272,7 +11328,7 @@
 		)
 		(uuid "63555ee3-9f4d-40db-8886-600a7265bda1")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 244.6769 153.162 0)
+			(at 242.4394 148.082 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11304,9 +11360,9 @@
 			)
 		)
 	)
-	(global_label "UHF_OLED_SD"
+	(global_label "UHF_CHANNEL_SC"
 		(shape input)
-		(at 103.124 26.924 0)
+		(at 103.124 24.384 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11314,9 +11370,9 @@
 			)
 			(justify left)
 		)
-		(uuid "92f605e8-d28a-4346-b44c-7d8c54dea92c")
+		(uuid "91053950-fb31-446e-8637-8ebcfeab8721")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 119.0511 26.924 0)
+			(at 122.8007 24.384 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11370,9 +11426,9 @@
 			)
 		)
 	)
-	(global_label "UHF_OLED_SC"
+	(global_label "UHF_PRESET_SD"
 		(shape input)
-		(at 103.124 24.384 0)
+		(at 143.764 26.67 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11380,9 +11436,9 @@
 			)
 			(justify left)
 		)
-		(uuid "acf7aca1-81b0-43d2-96a4-b08290d4ed89")
+		(uuid "a7dd136e-43b6-4e1a-a409-8704d194ed58")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 119.0511 24.384 0)
+			(at 161.9286 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11438,7 +11494,7 @@
 	)
 	(global_label "GND"
 		(shape input)
-		(at 260.604 140.462 180)
+		(at 260.604 137.922 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11448,7 +11504,7 @@
 		)
 		(uuid "baa0d43f-eb7f-48aa-828e-5cf67e8803e1")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 253.7483 140.462 0)
+			(at 253.7483 137.922 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11460,7 +11516,7 @@
 	)
 	(global_label "UHF_PRESET_A"
 		(shape input)
-		(at 260.604 137.922 180)
+		(at 260.604 135.382 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11470,7 +11526,7 @@
 		)
 		(uuid "bd147cc5-15f5-47f6-82fe-5eee12ca3349")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 243.8303 137.922 0)
+			(at 243.8303 135.382 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11546,6 +11602,28 @@
 			)
 		)
 	)
+	(global_label "UHF_CHANNEL_SD"
+		(shape input)
+		(at 103.124 26.924 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e363f1b9-767e-457d-9de4-f1865bf83548")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 122.8007 26.924 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "ROW10"
 		(shape input)
 		(at 260.604 112.522 180)
@@ -11590,9 +11668,9 @@
 			)
 		)
 	)
-	(global_label "UHF_OLED_SD"
+	(global_label "UHF_PRESET_SD"
 		(shape input)
-		(at 260.604 155.702 180)
+		(at 260.604 150.622 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11602,7 +11680,7 @@
 		)
 		(uuid "edf705cb-f16f-45cb-aca5-4907cacf6baf")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 244.6769 155.702 0)
+			(at 242.4394 150.622 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11634,9 +11712,31 @@
 			)
 		)
 	)
+	(global_label "UHF_CHANNEL_SC"
+		(shape input)
+		(at 260.604 153.162 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f6af777a-bef6-4889-a225-3d53557dfcfb")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 240.9273 153.162 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "UHF_PRESET_B"
 		(shape input)
-		(at 260.604 143.002 180)
+		(at 260.604 140.462 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11646,7 +11746,7 @@
 		)
 		(uuid "fc08c343-7437-482d-93df-e37de7279871")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 243.6489 143.002 0)
+			(at 243.6489 140.462 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11790,7 +11890,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
 			(at 217.424 111.252 0)
 			(effects
 				(font
@@ -12097,7 +12197,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 217.678 82.804 0)
 			(effects
 				(font
@@ -12140,6 +12240,72 @@
 			(project "Left Console Overview"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/ba20fa06-a269-44d1-bfd1-ac09e6be8fd4"
 					(reference "SW47")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 145.288 19.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "248e8e72-0fa4-41b6-924d-d749ee179883")
+		(property "Reference" "#PWR08"
+			(at 145.288 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 145.288 13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 145.288 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 145.288 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 145.288 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7a8b96e6-f9fc-4385-bff7-d6c9ec1fb6ab")
+		)
+		(instances
+			(project "UHF-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -12343,7 +12509,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
 			(at 213.36 136.652 0)
 			(effects
 				(font
@@ -12980,7 +13146,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 179.578 154.686 0)
 			(effects
 				(font
@@ -13493,7 +13659,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "OLED"
+		(property "Value" "CHANNEL"
 			(at 97.3328 24.3261 0)
 			(effects
 				(font
@@ -13502,7 +13668,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical"
 			(at 98.044 21.844 0)
 			(effects
 				(font
@@ -13626,7 +13792,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 238.76 148.082 0)
+		(at 238.76 143.002 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13635,7 +13801,7 @@
 		(fields_autoplaced yes)
 		(uuid "838aa135-6690-4c95-ad3d-8ce393905b19")
 		(property "Reference" "#PWR02"
-			(at 238.76 151.892 0)
+			(at 238.76 146.812 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13644,7 +13810,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 238.76 143.256 0)
+			(at 238.76 138.176 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13652,7 +13818,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 148.082 0)
+			(at 238.76 143.002 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13661,7 +13827,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 148.082 0)
+			(at 238.76 143.002 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13670,7 +13836,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 238.76 148.082 0)
+			(at 238.76 143.002 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13758,7 +13924,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 238.76 151.892 0)
+		(at 238.76 146.812 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13767,7 +13933,7 @@
 		(fields_autoplaced yes)
 		(uuid "ac6c43d3-3ef0-4339-9d6e-f666538dd657")
 		(property "Reference" "#PWR03"
-			(at 238.76 158.242 0)
+			(at 238.76 153.162 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13776,7 +13942,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 238.76 156.21 0)
+			(at 238.76 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13784,7 +13950,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 151.892 0)
+			(at 238.76 146.812 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13793,7 +13959,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 151.892 0)
+			(at 238.76 146.812 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13802,7 +13968,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 238.76 151.892 0)
+			(at 238.76 146.812 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14125,6 +14291,82 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x04_Socket")
+		(at 138.684 21.59 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d12806de-8590-4153-bf58-5fd17eb81906")
+		(property "Reference" "J5"
+			(at 137.9728 21.6479 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PRESET"
+			(at 137.9728 24.0721 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_JST:JST_XH_B4B-XH-A_1x04_P2.50mm_Vertical"
+			(at 138.684 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 138.684 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 138.684 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9c593036-bd34-4abb-84ae-e6be8b88de93")
+		)
+		(pin "3"
+			(uuid "bdb3b3e2-f627-4f3e-9e29-1c01a05e7ac1")
+		)
+		(pin "2"
+			(uuid "326d1075-6c51-4645-9817-dc8f3d8d4de4")
+		)
+		(pin "4"
+			(uuid "fe39c4f6-b651-4a90-b1e6-203e5dd1029d")
+		)
+		(instances
+			(project "UHF-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "J5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x02_Socket")
 		(at 210.566 154.686 0)
 		(mirror y)
@@ -14152,7 +14394,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 210.566 154.686 0)
 			(effects
 				(font
@@ -14393,7 +14635,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 217.678 120.396 0)
 			(effects
 				(font
@@ -14461,7 +14703,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 217.17 99.568 0)
 			(effects
 				(font
@@ -14504,6 +14746,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 165.354 21.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f49ffd1a-2e03-4dc2-b8e6-06237172ecf8")
+		(property "Reference" "#PWR09"
+			(at 165.354 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 165.354 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 165.354 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 165.354 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 165.354 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c6cc6197-178d-4dd7-911f-214e5f61e6ad")
+		)
+		(instances
+			(project "UHF-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Switch:SW_Push")
 		(at 217.17 77.978 0)
 		(unit 1)
@@ -14529,7 +14837,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
 			(at 217.17 72.898 0)
 			(effects
 				(font
@@ -14606,7 +14914,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+		(property "Footprint" "Connector_JST:JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical"
 			(at 104.14 31.75 0)
 			(effects
 				(font

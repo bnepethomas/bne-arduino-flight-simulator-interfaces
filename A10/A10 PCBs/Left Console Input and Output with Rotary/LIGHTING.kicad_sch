@@ -1,0 +1,6228 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "ad2d4463-5f7f-43d7-913f-0bb5ec8d37a7")
+	(paper "A4")
+	(lib_symbols
+		(symbol "Connector:Conn_01x02_Female"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02_Female"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x02_Female_1_1"
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:R_US"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R_US"
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 1.016 -0.254 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor, US symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_US_0_1"
+				(polyline
+					(pts
+						(xy 0 -2.286) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.286) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -0.762) (xy 1.016 -1.143) (xy 0 -1.524) (xy -1.016 -1.905) (xy 0 -2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0.762) (xy 1.016 0.381) (xy 0 0) (xy -1.016 -0.381) (xy 0 -0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.286) (xy 1.016 1.905) (xy 0 1.524) (xy -1.016 1.143) (xy 0 0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_US_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue"
+				(at 0 10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "International_Rectifier-PG-TO220-3-02_2008-904-*"
+				(at 0 12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb"
+				(at 0 15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "automotive" "No"
+				(at 0 17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "category" "Trans"
+				(at 0 20.32 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "continuous drain current" "169A"
+				(at 0 22.86 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "depletion mode" "False"
+				(at 0 25.4 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "device class L1" "Discrete Semiconductors"
+				(at 0 27.94 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "device class L2" "Transistors"
+				(at 0 30.48 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "device class L3" "MOSFETs"
+				(at 0 33.02 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "digikey description" "MOSFET N-CH 55V 169A TO-220AB"
+				(at 0 35.56 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "digikey part number" "IRF1405PBF-ND"
+				(at 0 38.1 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "drain to source breakdown voltage" "55V"
+				(at 0 40.64 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "drain to source resistance" "4.6mΩ"
+				(at 0 43.18 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "drain to source voltage" "55V"
+				(at 0 45.72 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "footprint url" "https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be"
+				(at 0 48.26 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "gate charge at vgs" "170nC @ 10V"
+				(at 0 50.8 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "gate to source voltage" "20V"
+				(at 0 53.34 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "height" "19.8mm"
+				(at 0 55.88 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "input capacitace at vds" "5480pF @ 25V"
+				(at 0 58.42 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "ipc land pattern name" "TO-220"
+				(at 0 60.96 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "lead free" "Yes"
+				(at 0 63.5 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "library id" "802d71249bb95e7c"
+				(at 0 66.04 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "manufacturer" "International Rectifier"
+				(at 0 68.58 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "max forward diode voltage" "1.3V"
+				(at 0 71.12 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "max junction temp" "+175°C"
+				(at 0 73.66 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "mouser description" "MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W"
+				(at 0 76.2 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "mouser part number" "942-IRF1405PBF"
+				(at 0 78.74 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "number of N channels" "1"
+				(at 0 81.28 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "number of channels" "1"
+				(at 0 83.82 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "package" "TO-220AB"
+				(at 0 86.36 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "power dissipation" "330W"
+				(at 0 88.9 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "pulse drain current" "680A"
+				(at 0 91.44 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "reverse recovery charge" "250nC"
+				(at 0 93.98 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "reverse recovery time" "88ns"
+				(at 0 96.52 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "rohs" "Yes"
+				(at 0 99.06 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "rthja max" "62°C/W"
+				(at 0 101.6 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "standoff height" "3.37mm"
+				(at 0 104.14 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "temperature range high" "+175°C"
+				(at 0 106.68 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "temperature range low" "-55°C"
+				(at 0 109.22 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "threshold vgs max" "4V"
+				(at 0 111.76 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "threshold vgs min" "2V"
+				(at 0 114.3 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "turn off delay time" "130ns"
+				(at 0 116.84 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "turn on delay time" "13ns"
+				(at 0 119.38 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue_1_1"
+				(polyline
+					(pts
+						(xy 6.096 -2.54) (xy 6.096 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 6.858 -2.032) (xy 10.16 -2.032)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 6.858 -1.524) (xy 6.858 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 6.858 0.508) (xy 6.858 -0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 6.858 1.524) (xy 6.858 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 6.858 2.032) (xy 10.16 2.032)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.366 0) (xy 8.636 -0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.366 0) (xy 8.636 0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 0) (xy 10.16 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 8.382 0.254) (xy 8.382 -0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 8.636 0.762) (xy 8.636 -0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 10.16 -2.032) (xy 11.938 -2.032)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 11.43 -0.508) (xy 12.446 -0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 11.43 0.508) (xy 11.176 0.254)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 11.938 -2.032) (xy 11.938 2.032)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 11.938 0.508) (xy 11.43 -0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 11.938 0.508) (xy 11.43 0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 11.938 0.508) (xy 12.446 0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 11.938 2.032) (xy 10.16 2.032)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 12.446 -0.508) (xy 11.938 0.508)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 12.446 0.508) (xy 12.7 0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 10.16 -2.032)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 10.16 2.032)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 2.54 0 0)
+					(length 3.556)
+					(name "G"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 5.08 270)
+					(length 3.048)
+					(name "D"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 -5.08 90)
+					(length 5.08)
+					(name "S"
+						(effects
+							(font
+								(size 0 0)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "power:+12V"
+			(power)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "+12V"
+				(at 0 3.556 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+12V\""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "power-flag"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "+12V_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+12V_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0) hide
+					(name "+12V"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "power:GND"
+			(power)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "power-flag"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0) hide
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(junction
+		(at 111.252 89.408)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0988a785-56e9-4209-9d7a-86c40de1ff9e")
+	)
+	(junction
+		(at 42.418 47.244)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "164d13fa-cb32-4c73-b54d-bd3d6ce36a98")
+	)
+	(junction
+		(at 122.428 40.132)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "21ce4ff6-99dd-4490-9493-942d38bce4bb")
+	)
+	(junction
+		(at 42.418 87.122)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2d9670fd-99ec-4ac9-9da8-a031b9b288e2")
+	)
+	(junction
+		(at 121.412 80.518)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "59432009-34ba-4ac9-be87-e9361d7f0370")
+	)
+	(junction
+		(at 127.762 80.518)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5b84a0ab-e16b-45f5-9d56-b4828dd2d28a")
+	)
+	(junction
+		(at 111.76 40.132)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "72a46c0a-c527-4a36-840f-f2bb5a7ed5b1")
+	)
+	(junction
+		(at 117.348 49.022)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "81f0c73f-8c14-49b1-af58-065c58bfd604")
+	)
+	(junction
+		(at 127.508 40.132)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ed4d477d-660c-43b5-be24-56de65df86e1")
+	)
+	(junction
+		(at 133.858 40.132)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f3a217df-0a6e-4a28-9af6-90c2c794b415")
+	)
+	(wire
+		(pts
+			(xy 138.43 78.486) (xy 138.43 80.518)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0ff91480-0bbf-4a88-9c83-3059388173c8")
+	)
+	(wire
+		(pts
+			(xy 127.508 40.132) (xy 122.428 40.132)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1fb04789-6514-46a3-ae16-6a7596c8c5b8")
+	)
+	(wire
+		(pts
+			(xy 127.762 80.518) (xy 121.412 80.518)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "23a7948e-00cd-4827-a25d-17eba85a56e1")
+	)
+	(wire
+		(pts
+			(xy 53.594 34.544) (xy 53.34 34.544)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b2fca06-182f-43e1-b078-640bd65a8386")
+	)
+	(wire
+		(pts
+			(xy 121.412 80.518) (xy 121.412 84.328)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f044cd3-d2e5-4e7b-ac3d-344551eb9084")
+	)
+	(wire
+		(pts
+			(xy 108.712 89.408) (xy 111.252 89.408)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "40ccbb57-7cdf-4132-87c5-50202883367f")
+	)
+	(wire
+		(pts
+			(xy 127.762 78.486) (xy 127.762 80.518)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4abf11f0-fcc6-480b-a0dd-d83803417579")
+	)
+	(wire
+		(pts
+			(xy 114.808 49.022) (xy 117.348 49.022)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4ba51b56-b9c9-432e-b230-4da59b607b1f")
+	)
+	(wire
+		(pts
+			(xy 39.878 47.244) (xy 42.418 47.244)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e23f1c7-f1a0-43db-beab-a6ad28170cd3")
+	)
+	(wire
+		(pts
+			(xy 122.428 38.1) (xy 122.428 40.132)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "58f68a57-03fb-4fb3-90e4-cbe717890311")
+	)
+	(wire
+		(pts
+			(xy 53.34 34.544) (xy 53.34 33.274)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d4bc194-a642-4975-9b19-5ecf4d284fa1")
+	)
+	(wire
+		(pts
+			(xy 138.43 80.518) (xy 127.762 80.518)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "62c09695-943f-4534-83f7-7defcb3298c4")
+	)
+	(wire
+		(pts
+			(xy 133.858 40.132) (xy 127.508 40.132)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6861dbb1-11cb-437e-a8b7-5da4da0c9096")
+	)
+	(wire
+		(pts
+			(xy 144.526 38.1) (xy 144.526 40.132)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75b05b5e-3fae-4b20-896c-dcd18e19e3c8")
+	)
+	(wire
+		(pts
+			(xy 52.578 76.962) (xy 52.578 82.042)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7b45533c-9e3d-4526-b63b-26f91b480d8b")
+	)
+	(wire
+		(pts
+			(xy 42.418 87.122) (xy 44.958 87.122)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c12d986-2dc6-44b4-84bd-695ad888ea36")
+	)
+	(wire
+		(pts
+			(xy 53.594 37.084) (xy 52.578 37.084)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c9439cc-3cc5-4fcb-aeb7-44c1ab779748")
+	)
+	(wire
+		(pts
+			(xy 117.348 49.022) (xy 119.888 49.022)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9f1809e1-d371-456d-95bf-cfd0d1dc9c7f")
+	)
+	(wire
+		(pts
+			(xy 116.332 78.486) (xy 116.332 80.518)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9f439b81-c1ef-4d31-9617-bd3756f1f54f")
+	)
+	(wire
+		(pts
+			(xy 42.418 47.244) (xy 44.958 47.244)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a184e70c-b118-4fef-8a96-e0337ff973c5")
+	)
+	(wire
+		(pts
+			(xy 101.346 40.132) (xy 101.346 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a870bdb4-cb6f-4dac-bf26-a3ceae79f364")
+	)
+	(wire
+		(pts
+			(xy 53.34 74.422) (xy 53.34 73.152)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b9dae39a-3266-45d1-a6f9-a506700b6b6a")
+	)
+	(wire
+		(pts
+			(xy 101.092 38.1) (xy 101.346 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c454d373-79c2-4d5f-9b7c-40c97aedaec4")
+	)
+	(wire
+		(pts
+			(xy 133.858 38.1) (xy 133.858 40.132)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca998822-420f-40b7-b3df-8f82feecfacb")
+	)
+	(wire
+		(pts
+			(xy 121.412 80.518) (xy 116.332 80.518)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb49459f-2e58-4f4e-b404-788dfe090a2e")
+	)
+	(wire
+		(pts
+			(xy 122.428 40.132) (xy 111.76 40.132)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d8c5e621-cf20-4a49-b267-8bb40945e309")
+	)
+	(wire
+		(pts
+			(xy 111.76 38.1) (xy 111.76 40.132)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dc69eb8d-71d9-4c03-8d40-3b6a3579c599")
+	)
+	(wire
+		(pts
+			(xy 111.252 89.408) (xy 113.792 89.408)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df50736d-4da8-4f74-80fc-cdaa7b0b6eac")
+	)
+	(wire
+		(pts
+			(xy 144.526 40.132) (xy 133.858 40.132)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e483d590-af17-4a0e-85f8-8dc61b2bd3ac")
+	)
+	(wire
+		(pts
+			(xy 53.594 74.422) (xy 53.34 74.422)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e6cddb3d-76ef-4888-adec-010a8d5ce515")
+	)
+	(wire
+		(pts
+			(xy 53.594 76.962) (xy 52.578 76.962)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "edcc9c02-62d9-42fd-96fb-6515b70b6ab4")
+	)
+	(wire
+		(pts
+			(xy 39.878 87.122) (xy 42.418 87.122)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ede547e2-1990-49d9-b871-22164aba2ba1")
+	)
+	(wire
+		(pts
+			(xy 111.76 40.132) (xy 101.346 40.132)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f771ec60-049a-4884-aa3b-553edcc79e0d")
+	)
+	(wire
+		(pts
+			(xy 127.508 40.132) (xy 127.508 43.942)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f9bec8b9-e639-41aa-b8fd-11182037b5a0")
+	)
+	(wire
+		(pts
+			(xy 52.578 37.084) (xy 52.578 42.164)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "faa07279-3cf8-45e4-ac00-1aee81119f5c")
+	)
+	(label "BACKLIGHT_-V"
+		(at 127.508 43.18 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "22aaafde-7d44-44d1-9cf7-28cb2a6b5a57")
+	)
+	(label "BACKLIGHT_-V"
+		(at 121.412 83.566 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c9bf90b4-c050-4ea0-8488-cf96c40de398")
+	)
+	(global_label "STROBE"
+		(shape input)
+		(at 32.258 47.244 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0fc0cd00-da76-42ef-a753-d5f2d0adeda7")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 21.9811 47.244 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "BACKLIGHT"
+		(shape input)
+		(at 107.188 49.022 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7ee781ca-cb1d-4268-b1d8-9cf3aa6a74a9")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 94.0081 49.022 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "FLOOD"
+		(shape input)
+		(at 101.092 89.408 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d83e619e-9903-49fe-9caa-54557f8b8a23")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 91.964 89.408 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "NAV"
+		(shape input)
+		(at 32.258 87.122 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e0fb1e92-2388-45f6-8be6-699c95d0151c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 25.67 87.122 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 117.348 56.642 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0ec6bd34-545d-4b8e-955b-ebda20c1addc")
+		(property "Reference" "#PWR05"
+			(at 117.348 62.992 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 117.475 61.0362 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 117.348 56.642 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 117.348 56.642 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 117.348 56.642 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ad673da2-75ea-4965-9cf2-f453cd068d97")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 138.43 75.946 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1ab8fd41-aead-46bb-a7ea-d70263ab11d4")
+		(property "Reference" "#PWR064"
+			(at 138.43 79.756 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 138.811 71.5518 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 138.43 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 138.43 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 138.43 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2866b337-3f12-4b54-a654-aaa4a2249777")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR064")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 132.842 75.946 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1d686713-11a6-4d84-87e5-53ed1df6e0c9")
+		(property "Reference" "J13"
+			(at 133.5532 76.5556 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "FLODD"
+			(at 125.73 69.088 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 132.842 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 132.842 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 132.842 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "731cfcb0-6db1-45c4-bede-e6dad5f45ecc")
+		)
+		(pin "2"
+			(uuid "6888d532-7d02-405e-b1f3-6e4f7493683a")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "J13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 42.418 51.054 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "20833ad4-fb04-4654-b10e-e60162db9a67")
+		(property "Reference" "R7"
+			(at 44.1452 52.2224 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 44.1452 49.911 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 43.434 50.8 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 42.418 51.054 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 42.418 51.054 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f3faebd2-e090-446b-9c63-4c623e842c4b")
+		)
+		(pin "2"
+			(uuid "2d3b6ede-775f-444e-874b-8a0af266154d")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 111.76 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2f4964c0-6f23-44bd-bfec-5d92aa8bcb11")
+		(property "Reference" "#PWR04"
+			(at 111.76 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 112.141 31.1658 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 111.76 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.76 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.76 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9ac3d6ca-31df-4bf7-b073-13c116914863")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 104.902 89.408 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3544a287-c258-481d-92fd-20bf9a97ed71")
+		(property "Reference" "R8"
+			(at 106.0704 87.6808 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "330"
+			(at 103.759 87.6808 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 104.648 88.392 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 104.902 89.408 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.902 89.408 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "455b5fa8-de23-4008-9389-7095728b9b6e")
+		)
+		(pin "2"
+			(uuid "799ac800-e90e-4df9-a4c0-592fc5fde152")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 106.172 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3d276417-eb2c-4e0c-b08f-c5f103955049")
+		(property "Reference" "J23"
+			(at 106.8832 36.1696 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BACKLIGHT"
+			(at 99.06 28.702 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 106.172 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 106.172 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 106.172 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9b187c8d-2f27-445f-9a8f-decd90c59d10")
+		)
+		(pin "2"
+			(uuid "deb5e1ae-037e-4718-83b8-73578420b613")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "J23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 42.418 90.932 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3dfd0b0c-c22e-4d1f-8966-7de39a2b783b")
+		(property "Reference" "R2"
+			(at 44.1452 92.1004 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 44.1452 89.789 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 43.434 90.678 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 42.418 90.932 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 42.418 90.932 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e77ff850-4bcd-4310-845c-a45ecf53cfd6")
+		)
+		(pin "2"
+			(uuid "7aa76a60-c85b-4d4f-8df2-cf364ceba98a")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 58.674 74.422 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4012caf9-6031-4612-a329-db0caf7789e4")
+		(property "Reference" "J10"
+			(at 59.3852 75.0316 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LEFT NAV"
+			(at 51.816 66.802 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 58.674 74.422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 58.674 74.422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 58.674 74.422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2ddf724a-f615-4e55-af27-24291fa3741d")
+		)
+		(pin "2"
+			(uuid "a8e586a0-949d-40d6-99da-7ae0b82592f8")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "J10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 52.578 92.202 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "42040262-3be4-4363-9374-a2e6630cffcc")
+		(property "Reference" "#PWR047"
+			(at 52.578 98.552 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 52.705 96.5962 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 52.578 92.202 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 52.578 92.202 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 52.578 92.202 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a9f48d4f-4fdc-4be4-9a8b-bfa0d0cc1cd0")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR047")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 127.508 54.102 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4aacd416-7e27-4862-8d93-d5dd52fdb396")
+		(property "Reference" "#PWR07"
+			(at 127.508 60.452 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 127.635 58.4962 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 127.508 54.102 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 127.508 54.102 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 127.508 54.102 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cb4bfb90-7765-4783-9b08-53233c01a4fe")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 101.092 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4bca6bcb-a3a6-4392-b651-b7d46af67265")
+		(property "Reference" "#PWR03"
+			(at 101.092 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 101.473 31.1658 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.092 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.092 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.092 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f138adf7-6d5b-4503-9a67-09c2b3b5e800")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 42.418 94.742 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "58ce0984-cf6d-40af-9ffc-9180af4fee6f")
+		(property "Reference" "#PWR045"
+			(at 42.418 101.092 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 42.545 99.1362 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 42.418 94.742 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 42.418 94.742 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 42.418 94.742 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dff5191e-bb57-47b6-a0a6-8df0e4beea79")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR045")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 111.252 97.028 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "67986793-c762-4f2c-aa1d-6f9c3017d98d")
+		(property "Reference" "#PWR050"
+			(at 111.252 103.378 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 111.379 101.4222 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 111.252 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.252 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.252 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ec15f4b6-6884-4d61-96c5-2c6c0e7113b5")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR050")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 127.508 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "683e1e7b-0073-4602-9d14-cf221b67976f")
+		(property "Reference" "J26"
+			(at 128.2192 36.1696 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BACKLIGHT"
+			(at 120.396 28.702 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 127.508 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 127.508 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 127.508 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "56c6c083-2065-40b2-b9b4-734e12634c22")
+		)
+		(pin "2"
+			(uuid "27fc8a6f-a573-44ae-ad3c-7f29cb2b3837")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "J26")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 116.332 75.946 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "69743edd-e9bc-43da-81c0-b8bbe5c39632")
+		(property "Reference" "#PWR055"
+			(at 116.332 79.756 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 116.713 71.5518 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 116.332 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 116.332 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 116.332 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "edb71152-9b63-4abc-acce-745ea1211bba")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR055")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue")
+		(at 117.348 49.022 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6af5ab75-1afd-471a-afab-d057aff8c7ba")
+		(property "Reference" "Q4"
+			(at 130.7592 47.8536 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "IRF1405PBF"
+			(at 130.7592 50.165 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
+			(at 117.348 36.322 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb"
+			(at 117.348 33.782 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 117.348 49.022 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" "No"
+			(at 117.348 31.242 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "category" "Trans"
+			(at 117.348 28.702 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" "169A"
+			(at 117.348 26.162 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" "False"
+			(at 117.348 23.622 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L1" "Discrete Semiconductors"
+			(at 117.348 21.082 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L2" "Transistors"
+			(at 117.348 18.542 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L3" "MOSFETs"
+			(at 117.348 16.002 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey description" "MOSFET N-CH 55V 169A TO-220AB"
+			(at 117.348 13.462 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" "IRF1405PBF-ND"
+			(at 117.348 10.922 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" "55V"
+			(at 117.348 8.382 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" "4.6mΩ"
+			(at 117.348 5.842 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" "55V"
+			(at 117.348 3.302 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "footprint url" "https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be"
+			(at 117.348 0.762 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" "170nC @ 10V"
+			(at 117.348 -1.778 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" "20V"
+			(at 117.348 -4.318 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "height" "19.8mm"
+			(at 117.348 -6.858 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" "5480pF @ 25V"
+			(at 117.348 -9.398 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" "TO-220"
+			(at 117.348 -11.938 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "lead free" "Yes"
+			(at 117.348 -14.478 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "library id" "802d71249bb95e7c"
+			(at 117.348 -17.018 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" "International Rectifier"
+			(at 117.348 -19.558 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" "1.3V"
+			(at 117.348 -22.098 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" "+175°C"
+			(at 117.348 -24.638 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser description" "MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W"
+			(at 117.348 -27.178 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" "942-IRF1405PBF"
+			(at 117.348 -29.718 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" "1"
+			(at 117.348 -32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of channels" "1"
+			(at 117.348 -34.798 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "package" "TO-220AB"
+			(at 117.348 -37.338 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" "330W"
+			(at 117.348 -39.878 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" "680A"
+			(at 117.348 -42.418 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" "250nC"
+			(at 117.348 -44.958 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" "88ns"
+			(at 117.348 -47.498 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rohs" "Yes"
+			(at 117.348 -50.038 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rthja max" "62°C/W"
+			(at 117.348 -52.578 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "standoff height" "3.37mm"
+			(at 117.348 -55.118 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" "+175°C"
+			(at 117.348 -57.658 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" "-55°C"
+			(at 117.348 -60.198 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" "4V"
+			(at 117.348 -62.738 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" "2V"
+			(at 117.348 -65.278 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" "130ns"
+			(at 117.348 -67.818 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" "13ns"
+			(at 117.348 -70.358 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b9c33fa2-e3d0-407e-bacb-7b435cc02865")
+		)
+		(pin "2"
+			(uuid "9b05920e-49ab-484b-afc2-4c2c98b348f4")
+		)
+		(pin "3"
+			(uuid "5e679b54-c315-401f-a906-bd63006f22ca")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "Q4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 122.428 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6d5c9285-2269-45bf-a7e7-f3e4b6f50e77")
+		(property "Reference" "#PWR06"
+			(at 122.428 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 122.809 31.1658 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 122.428 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 122.428 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 122.428 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "476ac2a6-ee07-4bab-ab09-6237507f9deb")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 111.252 93.218 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "712821e6-e829-47e9-9f0b-bdd9f5a2654d")
+		(property "Reference" "R6"
+			(at 112.9792 94.3864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 112.9792 92.075 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 112.268 92.964 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.252 93.218 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.252 93.218 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "af3a3701-61c9-4ae1-a689-4c3095c0d328")
+		)
+		(pin "2"
+			(uuid "bce1d282-7ca5-44a6-ab42-6d350f0d5a33")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 149.606 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "74169eb7-325f-45c0-b0ce-69b49dfe1c78")
+		(property "Reference" "J24"
+			(at 150.3172 36.1696 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BACKLIGHT"
+			(at 142.494 28.702 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 149.606 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 149.606 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 149.606 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a545c54c-7dcf-45d9-89e8-c4b3a8c0f194")
+		)
+		(pin "2"
+			(uuid "ab22be04-84ae-4161-ba20-2ea964182dda")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "J24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue")
+		(at 42.418 87.122 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8145b59f-bc14-4bd7-8833-4a1aee436c82")
+		(property "Reference" "Q1"
+			(at 55.8292 85.9536 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "IRF1405PBF"
+			(at 55.8292 88.265 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
+			(at 42.418 74.422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb"
+			(at 42.418 71.882 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 42.418 87.122 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" "No"
+			(at 42.418 69.342 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "category" "Trans"
+			(at 42.418 66.802 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" "169A"
+			(at 42.418 64.262 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" "False"
+			(at 42.418 61.722 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L1" "Discrete Semiconductors"
+			(at 42.418 59.182 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L2" "Transistors"
+			(at 42.418 56.642 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L3" "MOSFETs"
+			(at 42.418 54.102 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey description" "MOSFET N-CH 55V 169A TO-220AB"
+			(at 42.418 51.562 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" "IRF1405PBF-ND"
+			(at 42.418 49.022 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" "55V"
+			(at 42.418 46.482 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" "4.6mΩ"
+			(at 42.418 43.942 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" "55V"
+			(at 42.418 41.402 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "footprint url" "https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be"
+			(at 42.418 38.862 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" "170nC @ 10V"
+			(at 42.418 36.322 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" "20V"
+			(at 42.418 33.782 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "height" "19.8mm"
+			(at 42.418 31.242 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" "5480pF @ 25V"
+			(at 42.418 28.702 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" "TO-220"
+			(at 42.418 26.162 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "lead free" "Yes"
+			(at 42.418 23.622 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "library id" "802d71249bb95e7c"
+			(at 42.418 21.082 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" "International Rectifier"
+			(at 42.418 18.542 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" "1.3V"
+			(at 42.418 16.002 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" "+175°C"
+			(at 42.418 13.462 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser description" "MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W"
+			(at 42.418 10.922 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" "942-IRF1405PBF"
+			(at 42.418 8.382 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" "1"
+			(at 42.418 5.842 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of channels" "1"
+			(at 42.418 3.302 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "package" "TO-220AB"
+			(at 42.418 0.762 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" "330W"
+			(at 42.418 -1.778 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" "680A"
+			(at 42.418 -4.318 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" "250nC"
+			(at 42.418 -6.858 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" "88ns"
+			(at 42.418 -9.398 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rohs" "Yes"
+			(at 42.418 -11.938 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rthja max" "62°C/W"
+			(at 42.418 -14.478 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "standoff height" "3.37mm"
+			(at 42.418 -17.018 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" "+175°C"
+			(at 42.418 -19.558 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" "-55°C"
+			(at 42.418 -22.098 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" "4V"
+			(at 42.418 -24.638 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" "2V"
+			(at 42.418 -27.178 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" "130ns"
+			(at 42.418 -29.718 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" "13ns"
+			(at 42.418 -32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "deebb8f5-289f-43a9-8851-1ea4b19a065c")
+		)
+		(pin "2"
+			(uuid "48023c0f-186a-4ef8-a9d1-939809a2b0a0")
+		)
+		(pin "3"
+			(uuid "c57e0123-a70b-4882-81fe-07c387e90035")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "Q1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 53.34 73.152 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8214c071-0d16-4b8d-9584-db5b3e4d0efc")
+		(property "Reference" "#PWR049"
+			(at 53.34 76.962 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 53.721 68.7578 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 53.34 73.152 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 53.34 73.152 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 53.34 73.152 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "377cfaf8-6eaf-463d-9c49-2f7f5ca98bc4")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR049")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue")
+		(at 42.418 47.244 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "83150c5e-f287-489c-b5f9-1ab762852078")
+		(property "Reference" "Q2"
+			(at 55.8292 46.0756 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "IRF1405PBF"
+			(at 55.8292 48.387 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
+			(at 42.418 34.544 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb"
+			(at 42.418 32.004 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 42.418 47.244 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" "No"
+			(at 42.418 29.464 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "category" "Trans"
+			(at 42.418 26.924 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" "169A"
+			(at 42.418 24.384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" "False"
+			(at 42.418 21.844 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L1" "Discrete Semiconductors"
+			(at 42.418 19.304 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L2" "Transistors"
+			(at 42.418 16.764 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L3" "MOSFETs"
+			(at 42.418 14.224 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey description" "MOSFET N-CH 55V 169A TO-220AB"
+			(at 42.418 11.684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" "IRF1405PBF-ND"
+			(at 42.418 9.144 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" "55V"
+			(at 42.418 6.604 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" "4.6mΩ"
+			(at 42.418 4.064 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" "55V"
+			(at 42.418 1.524 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "footprint url" "https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be"
+			(at 42.418 -1.016 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" "170nC @ 10V"
+			(at 42.418 -3.556 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" "20V"
+			(at 42.418 -6.096 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "height" "19.8mm"
+			(at 42.418 -8.636 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" "5480pF @ 25V"
+			(at 42.418 -11.176 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" "TO-220"
+			(at 42.418 -13.716 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "lead free" "Yes"
+			(at 42.418 -16.256 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "library id" "802d71249bb95e7c"
+			(at 42.418 -18.796 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" "International Rectifier"
+			(at 42.418 -21.336 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" "1.3V"
+			(at 42.418 -23.876 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" "+175°C"
+			(at 42.418 -26.416 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser description" "MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W"
+			(at 42.418 -28.956 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" "942-IRF1405PBF"
+			(at 42.418 -31.496 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" "1"
+			(at 42.418 -34.036 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of channels" "1"
+			(at 42.418 -36.576 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "package" "TO-220AB"
+			(at 42.418 -39.116 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" "330W"
+			(at 42.418 -41.656 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" "680A"
+			(at 42.418 -44.196 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" "250nC"
+			(at 42.418 -46.736 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" "88ns"
+			(at 42.418 -49.276 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rohs" "Yes"
+			(at 42.418 -51.816 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rthja max" "62°C/W"
+			(at 42.418 -54.356 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "standoff height" "3.37mm"
+			(at 42.418 -56.896 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" "+175°C"
+			(at 42.418 -59.436 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" "-55°C"
+			(at 42.418 -61.976 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" "4V"
+			(at 42.418 -64.516 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" "2V"
+			(at 42.418 -67.056 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" "130ns"
+			(at 42.418 -69.596 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" "13ns"
+			(at 42.418 -72.136 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cc43dca2-641e-4a48-9605-f2fb6d132256")
+		)
+		(pin "2"
+			(uuid "0a230042-bfb4-41fa-a01d-5399c9f15c2e")
+		)
+		(pin "3"
+			(uuid "c9f970b2-a330-4d4c-a3bd-18363037cf9e")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "Q2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 127.762 75.946 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "91632c13-7885-48b4-aa36-fd8531964f60")
+		(property "Reference" "#PWR061"
+			(at 127.762 79.756 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 128.143 71.5518 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 127.762 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 127.762 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 127.762 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "974bfb53-ca58-41b5-bc43-4e0288013a00")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR061")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 116.84 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9a162fa6-8967-4625-b61f-9689d12cf242")
+		(property "Reference" "J25"
+			(at 117.5512 36.1696 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BACKLIGHT"
+			(at 109.728 28.702 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 116.84 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 116.84 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 116.84 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "11c46225-6e87-4010-8e81-66e39798437f")
+		)
+		(pin "2"
+			(uuid "c53c7e33-3cc4-4c00-bc37-3ec217f587dc")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "J25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 36.068 87.122 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a1d7d744-9760-48ac-b368-f265f7877027")
+		(property "Reference" "R4"
+			(at 37.2364 85.3948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "330"
+			(at 34.925 85.3948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 35.814 86.106 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.068 87.122 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 36.068 87.122 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "69c45340-e3f9-4d4a-88a5-dcd25197a7cc")
+		)
+		(pin "2"
+			(uuid "55b5c415-2639-465f-b26e-f4511bce15e7")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Hornet-Forward-Output-Upper-Shield-rescue:IRF1405PBF-Mosfet-Hornet-Forward-Output-Upper-Shield-rescue")
+		(at 111.252 89.408 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a870feee-5f34-47b2-bdc2-064e08be371a")
+		(property "Reference" "Q3"
+			(at 124.6632 88.2396 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "IRF1405PBF"
+			(at 124.6632 90.551 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
+			(at 111.252 76.708 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.infineon.com/dgdl/irf1405pbf.pdf?fileId=5546d462533600a4015355db084a18bb"
+			(at 111.252 74.168 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.252 89.408 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" "No"
+			(at 111.252 71.628 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "category" "Trans"
+			(at 111.252 69.088 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" "169A"
+			(at 111.252 66.548 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" "False"
+			(at 111.252 64.008 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L1" "Discrete Semiconductors"
+			(at 111.252 61.468 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L2" "Transistors"
+			(at 111.252 58.928 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "device class L3" "MOSFETs"
+			(at 111.252 56.388 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey description" "MOSFET N-CH 55V 169A TO-220AB"
+			(at 111.252 53.848 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" "IRF1405PBF-ND"
+			(at 111.252 51.308 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" "55V"
+			(at 111.252 48.768 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" "4.6mΩ"
+			(at 111.252 46.228 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" "55V"
+			(at 111.252 43.688 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "footprint url" "https://www.infineon.com/dgdl/po-to220ab-fp.pdf?fileId=5546d462580663ef0158068cfbee01be"
+			(at 111.252 41.148 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" "170nC @ 10V"
+			(at 111.252 38.608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" "20V"
+			(at 111.252 36.068 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "height" "19.8mm"
+			(at 111.252 33.528 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" "5480pF @ 25V"
+			(at 111.252 30.988 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" "TO-220"
+			(at 111.252 28.448 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "lead free" "Yes"
+			(at 111.252 25.908 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "library id" "802d71249bb95e7c"
+			(at 111.252 23.368 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" "International Rectifier"
+			(at 111.252 20.828 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" "1.3V"
+			(at 111.252 18.288 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" "+175°C"
+			(at 111.252 15.748 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser description" "MOSFET Operating temperature: -55...+175 °C Housing type: TO-220AB Polarity: N Power dissipation: 330 W"
+			(at 111.252 13.208 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" "942-IRF1405PBF"
+			(at 111.252 10.668 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" "1"
+			(at 111.252 8.128 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "number of channels" "1"
+			(at 111.252 5.588 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "package" "TO-220AB"
+			(at 111.252 3.048 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" "330W"
+			(at 111.252 0.508 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" "680A"
+			(at 111.252 -2.032 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" "250nC"
+			(at 111.252 -4.572 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" "88ns"
+			(at 111.252 -7.112 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rohs" "Yes"
+			(at 111.252 -9.652 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "rthja max" "62°C/W"
+			(at 111.252 -12.192 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "standoff height" "3.37mm"
+			(at 111.252 -14.732 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" "+175°C"
+			(at 111.252 -17.272 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" "-55°C"
+			(at 111.252 -19.812 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" "4V"
+			(at 111.252 -22.352 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" "2V"
+			(at 111.252 -24.892 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" "130ns"
+			(at 111.252 -27.432 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" "13ns"
+			(at 111.252 -29.972 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2b101017-6cde-4214-a4a7-ece40a086f10")
+		)
+		(pin "2"
+			(uuid "512bb07d-5260-4d29-95a3-445ad00c7de9")
+		)
+		(pin "3"
+			(uuid "d29ddf66-05b5-4971-957a-c036bb41136b")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "Q3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 110.998 49.022 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a9b2d084-6a6f-4dde-bb5b-56b3d25d2ecd")
+		(property "Reference" "R10"
+			(at 112.1664 47.2948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "330"
+			(at 109.855 47.2948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 110.744 48.006 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 110.998 49.022 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 110.998 49.022 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "87985bce-8544-462f-8a03-d26459518e71")
+		)
+		(pin "2"
+			(uuid "17c5f25d-bfb6-40b6-9dc0-8edcc1ac7afb")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 144.526 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a9f69a7b-8262-4535-9731-3df81c7515c8")
+		(property "Reference" "#PWR09"
+			(at 144.526 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 144.907 31.1658 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 144.526 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 144.526 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 144.526 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "60218c16-398e-4a24-80fa-3876dbea8eb6")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR09")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 52.578 52.324 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b064b39a-5215-4136-b068-1938643e17cd")
+		(property "Reference" "#PWR046"
+			(at 52.578 58.674 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 52.705 56.7182 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 52.578 52.324 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 52.578 52.324 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 52.578 52.324 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9649027e-6656-40e6-8182-58ba3987663f")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR046")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 138.938 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b55da278-9b5a-4a81-b580-eab69d80d4fd")
+		(property "Reference" "J28"
+			(at 139.6492 36.1696 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BACKLIGHT"
+			(at 131.826 28.702 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 138.938 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 138.938 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 138.938 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "257a9871-2b6d-40da-b0a7-df1fc52a082a")
+		)
+		(pin "2"
+			(uuid "df249ad3-12f7-473e-ae28-6c2e9edb3fc0")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "J28")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 42.418 54.864 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c82ba9d9-508a-46fa-9d43-94b94e6b0f5d")
+		(property "Reference" "#PWR037"
+			(at 42.418 61.214 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 42.545 59.2582 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 42.418 54.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 42.418 54.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 42.418 54.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5a93c4d0-868a-4922-9b1d-7bdc7f425e1a")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR037")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 133.858 35.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cf496d10-54bb-4fb8-b6a7-33baac00bf4b")
+		(property "Reference" "#PWR08"
+			(at 133.858 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 134.239 31.1658 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 133.858 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 133.858 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 133.858 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "67e85019-7c9a-40a8-a044-b0f6c9909700")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 117.348 52.832 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d2e2638c-ac7f-4724-af06-713bc0000be7")
+		(property "Reference" "R11"
+			(at 119.0752 54.0004 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 119.0752 51.689 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 118.364 52.578 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 117.348 52.832 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 117.348 52.832 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "309921d1-311c-43a7-9658-b3f04b9dd2e6")
+		)
+		(pin "2"
+			(uuid "591e33d5-190a-4552-898b-2ea6935bc1cf")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "R11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 58.674 34.544 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dcf02c15-3d01-463a-844c-b86db0d236d3")
+		(property "Reference" "J14"
+			(at 59.3852 35.1536 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LEFT STROBE"
+			(at 51.816 26.924 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 58.674 34.544 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 58.674 34.544 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 58.674 34.544 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dfbfe476-3247-4216-9eee-8b66d639a1e0")
+		)
+		(pin "2"
+			(uuid "1eda46f7-04ee-4340-8bc5-90a5be86a79e")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "J14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 143.51 75.946 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e63fb188-a14d-4410-a80a-a57464393de8")
+		(property "Reference" "J16"
+			(at 144.2212 76.5556 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "FLOOD"
+			(at 136.398 69.088 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 143.51 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 143.51 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 143.51 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4f03d6b7-c058-469f-84eb-1ea6821229cb")
+		)
+		(pin "2"
+			(uuid "196ee100-d42f-46a7-98b9-12559c01d574")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "J16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 53.34 33.274 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ec2d74fa-6fc9-425f-b2ae-3305b7033507")
+		(property "Reference" "#PWR048"
+			(at 53.34 37.084 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 53.721 28.8798 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 53.34 33.274 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 53.34 33.274 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 53.34 33.274 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9fc0ef87-5bc7-4d23-9e09-411ebb72d7ab")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR048")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 121.412 94.488 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f64a64d1-1edb-4c2e-b3c2-59ed66a465af")
+		(property "Reference" "#PWR056"
+			(at 121.412 100.838 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 121.539 98.8822 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 121.412 94.488 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 121.412 94.488 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 121.412 94.488 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d64afea0-4349-41ac-b7e6-6fee156f4e6f")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "#PWR056")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 121.412 75.946 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f6d8a2fa-26ee-4425-8512-95cb87da5b6f")
+		(property "Reference" "J15"
+			(at 122.1232 76.5556 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "FLOOD"
+			(at 114.3 69.088 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 121.412 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 121.412 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 121.412 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "13fd4f29-21c6-4ec8-a553-3d4733a0bef0")
+		)
+		(pin "2"
+			(uuid "e6f99e9a-d6e0-4550-a4d4-956257005b9a")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "J15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 36.068 47.244 270)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fe323d65-33ed-4e27-a18f-0a2c07442a17")
+		(property "Reference" "R5"
+			(at 37.2364 45.5168 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "330"
+			(at 34.925 45.5168 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 35.814 46.228 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 36.068 47.244 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 36.068 47.244 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e6dfc12e-a955-4e61-a9eb-d8d53b046219")
+		)
+		(pin "2"
+			(uuid "9d431f53-3a7e-4c0c-8eec-6dfb3d4d0494")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/26b5aad8-13a5-4ce2-8b43-cbb7b8994d5b"
+					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+)
