@@ -16,10 +16,9 @@
 			)
 		)
 	)
-	(property "Value" "ALPHA 12 POS"
+	(property "Value" "${VALUE}"
 		(at 10.625 -12.7 0)
 		(layer "F.SilkS")
-		(hide yes)
 		(uuid "05afa57a-8e87-4a89-8cf4-f7835c6721f6")
 		(effects
 			(font
