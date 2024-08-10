@@ -470,7 +470,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "VHF-AM-ROTARIES.dsn",
-      "step": "",
+      "step": "VHF-AM-ROTARIES.step",
       "svg": "",
       "vrml": ""
     },

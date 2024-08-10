@@ -1108,23 +1108,13 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 59.69) (xy 158.496 59.69)
+			(xy 80.01 50.8) (xy 99.06 50.8)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "203d6749-6efe-4aa6-970f-e09bfd1f19c1")
-	)
-	(wire
-		(pts
-			(xy 148.59 74.676) (xy 158.496 74.676)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "43e6aef8-2c1f-4ddc-bd7d-2565ecf07d19")
+		(uuid "1fd56071-38ed-4eb5-b421-c5ff85d83544")
 	)
 	(wire
 		(pts
@@ -1138,6 +1128,16 @@
 	)
 	(wire
 		(pts
+			(xy 80.01 60.96) (xy 99.06 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fa02b57-f207-47c2-9d7e-648ddeea3285")
+	)
+	(wire
+		(pts
 			(xy 148.59 104.902) (xy 158.496 104.902)
 		)
 		(stroke
@@ -1148,6 +1148,26 @@
 	)
 	(wire
 		(pts
+			(xy 149.098 72.898) (xy 159.004 72.898)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9212ddce-b18c-4e2f-af57-f3fe0b04fca5")
+	)
+	(wire
+		(pts
+			(xy 80.264 48.26) (xy 80.01 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "baa140ae-e13f-4028-bd8b-eb9e15a7c957")
+	)
+	(wire
+		(pts
 			(xy 148.59 120.396) (xy 158.496 120.396)
 		)
 		(stroke
@@ -1155,16 +1175,6 @@
 			(type default)
 		)
 		(uuid "c5096d72-388b-47f9-b58f-7fb03ba49f80")
-	)
-	(wire
-		(pts
-			(xy 147.32 26.67) (xy 157.226 26.67)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d1811734-85f1-4268-a9be-6ba37dbfa1b6")
 	)
 	(wire
 		(pts
@@ -1186,6 +1196,17 @@
 		)
 		(uuid "e0008f1c-d881-43c2-827a-79e12ae429a0")
 	)
+	(label "SC3"
+		(at 80.01 63.5 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "012ff8a4-1913-4f18-8efe-097163bcb052")
+	)
 	(label "SD4"
 		(at 80.01 71.12 0)
 		(fields_autoplaced yes)
@@ -1196,17 +1217,6 @@
 			(justify left bottom)
 		)
 		(uuid "05dde297-81df-45a5-b585-9b370b0555a2")
-	)
-	(label "SD3"
-		(at 80.01 66.04 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "094d5a5b-eb16-4e9e-8a93-9045d6ca2381")
 	)
 	(label "SD7"
 		(at 158.75 140.716 180)
@@ -1219,19 +1229,8 @@
 		)
 		(uuid "0c3a3695-4408-46b8-81c1-8270177278e2")
 	)
-	(label "SC2"
-		(at 158.496 62.23 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "185c15db-5d14-477a-9306-b09d389b1c9e")
-	)
-	(label "SD2"
-		(at 80.01 60.96 0)
+	(label "SD3"
+		(at 80.01 66.04 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1239,10 +1238,10 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "1e462f27-4187-4582-9d73-eac221f2ceff")
+		(uuid "1b446410-6052-44bb-ae79-7ccc9e717829")
 	)
-	(label "SD0"
-		(at 157.226 31.75 180)
+	(label "SC3"
+		(at 159.004 75.438 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1250,7 +1249,18 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "26e5b6ae-9e06-4bc2-9735-6f24fca7d7c7")
+		(uuid "28d7cb28-ecd8-4606-a755-2ed5ec9ce7ac")
+	)
+	(label "SD3"
+		(at 159.004 77.978 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "44a6d36f-b21c-426f-a9c2-b3d064d10c3e")
 	)
 	(label "SC5"
 		(at 158.496 107.442 180)
@@ -1307,61 +1317,6 @@
 		)
 		(uuid "84bf412e-928a-473a-92f4-8c9daa150f4c")
 	)
-	(label "SC0"
-		(at 157.226 29.21 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "882d2ede-eef3-42cb-9e30-e45a5f6a0626")
-	)
-	(label "SD2"
-		(at 158.496 64.77 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "8efb1127-cf53-41ce-88c1-54ef4f91cc7d")
-	)
-	(label "SC0"
-		(at 80.01 48.26 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "930c14ff-87a6-4c50-9dbf-87a201f1e556")
-	)
-	(label "SC3"
-		(at 80.01 63.5 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "9310a19e-5bce-46f9-8693-c292186fd214")
-	)
-	(label "SC3"
-		(at 158.496 77.216 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "9caf25be-3fed-4e43-a21b-d671d55c60de")
-	)
 	(label "SD5"
 		(at 158.496 109.982 180)
 		(fields_autoplaced yes)
@@ -1394,17 +1349,6 @@
 			(justify left bottom)
 		)
 		(uuid "b06798a4-a575-4d69-a934-701eafc896bf")
-	)
-	(label "SD3"
-		(at 158.496 79.756 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "c14542a5-e8e8-4d27-9387-7a8502871467")
 	)
 	(label "SD7"
 		(at 80.01 86.36 0)
@@ -1439,17 +1383,6 @@
 		)
 		(uuid "db426015-e8ed-4d1c-89e8-42b0cd49c624")
 	)
-	(label "SD0"
-		(at 80.01 50.8 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "e1a99e86-24bc-490b-b50b-16cb4ca199a9")
-	)
 	(label "SC7"
 		(at 80.01 83.82 0)
 		(fields_autoplaced yes)
@@ -1471,17 +1404,6 @@
 			(justify right bottom)
 		)
 		(uuid "f1f7c684-5035-4f87-8cbe-18ebb4f76aae")
-	)
-	(label "SC2"
-		(at 80.01 58.42 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f365d9cc-3d70-4c14-914a-7af0e9da9e88")
 	)
 	(label "SC4"
 		(at 158.496 92.71 180)
@@ -1626,6 +1548,50 @@
 			)
 		)
 	)
+	(global_label "UHF_OLED_SC"
+		(shape input)
+		(at 80.264 48.26 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "67dfd45d-f7c0-48ba-84fa-72c68c0a2ec0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 96.1911 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "UHF_OLED_SD"
+		(shape input)
+		(at 99.06 50.8 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8d3622e5-af82-40a3-a0d7-cd44e75baa4b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 114.9871 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "VHF_AM_OLED_SC"
 		(shape input)
 		(at 80.01 53.34 0)
@@ -1670,142 +1636,47 @@
 			)
 		)
 	)
-	(symbol
-		(lib_id "Connector:Conn_01x04_Socket")
-		(at 163.576 74.676 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
+	(global_label "VHF_FM_OLED_SD"
+		(shape input)
+		(at 99.06 60.96 0)
 		(fields_autoplaced yes)
-		(uuid "012f0d57-5648-42d8-a2a7-bfdb757b8d43")
-		(property "Reference" "J15"
-			(at 164.2872 74.7339 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bf3ec11d-a42e-4318-8e16-e4d03362e337")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 118.2528 60.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
-			)
-		)
-		(property "Value" "MWS_OLED"
-			(at 164.2872 77.1581 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical"
-			(at 163.576 74.676 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 163.576 74.676 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 163.576 74.676 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "e245b5b3-228b-4171-9795-9f776e429a80")
-		)
-		(pin "2"
-			(uuid "755b0078-efde-47ea-a92f-5ddb8ce6ab89")
-		)
-		(pin "4"
-			(uuid "684e4368-2eeb-42bf-a9e7-073d3e7fd436")
-		)
-		(pin "1"
-			(uuid "a8378db2-2948-45ec-8d12-07b659079262")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
-					(reference "J15")
-					(unit 1)
-				)
 			)
 		)
 	)
-	(symbol
-		(lib_id "power:GND")
-		(at 147.32 26.67 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "05beb710-c9f3-42e5-b122-b0fd30720a7c")
-		(property "Reference" "#PWR035"
-			(at 147.32 33.02 0)
+	(global_label "VHF_FM_OLED_SC"
+		(shape input)
+		(at 80.01 58.42 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d4e807c5-e978-4545-a952-9da61dd67a40")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 99.2028 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 147.32 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 147.32 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 147.32 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 147.32 26.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "59c07e78-ff98-46c7-80ed-53237cf520b3")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
-					(reference "#PWR035")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -1867,6 +1738,82 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
 					(reference "#PWR052")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x04_Socket")
+		(at 164.084 72.898 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "14f6be6e-4e98-4214-83cf-08999221b256")
+		(property "Reference" "J8"
+			(at 164.7952 72.9558 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MWS_OLED"
+			(at 164.7952 75.3801 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical"
+			(at 164.084 72.898 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 164.084 72.898 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 164.084 72.898 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "b36588e2-089d-4bbd-96ad-897156e7f858")
+		)
+		(pin "2"
+			(uuid "b8dd7c76-37cf-4799-997f-bbeef219572b")
+		)
+		(pin "4"
+			(uuid "201f6ca5-4c4e-46b4-b423-1f92a89895e9")
+		)
+		(pin "1"
+			(uuid "be078331-af0c-4195-9712-92dc5e040543")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
+					(reference "J8")
 					(unit 1)
 				)
 			)
@@ -1937,69 +1884,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 148.59 59.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "221b215d-7177-4bb0-9bf4-d34c69654c46")
-		(property "Reference" "#PWR049"
-			(at 148.59 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 148.59 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 148.59 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 148.59 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 148.59 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3d55edbf-d5f9-47c6-acc0-44f2c24a6328")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
-					(reference "#PWR049")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
 		(at 163.83 135.636 0)
 		(unit 1)
@@ -2010,7 +1894,7 @@
 		(fields_autoplaced yes)
 		(uuid "263eca16-7619-4c39-8ec5-e8312d646ef0")
 		(property "Reference" "J19"
-			(at 164.5412 135.6939 0)
+			(at 164.5412 135.6938 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2070,69 +1954,6 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
 					(reference "J19")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 148.59 74.676 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "2da325d2-4cec-469f-bbb5-685830f20148")
-		(property "Reference" "#PWR050"
-			(at 148.59 81.026 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 148.59 78.486 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 148.59 74.676 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 148.59 74.676 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 148.59 74.676 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a5dd04ce-4dc9-4e09-8645-4aa3b97a5105")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
-					(reference "#PWR050")
 					(unit 1)
 				)
 			)
@@ -2403,80 +2224,15 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 158.496 57.15 0)
+		(at 159.004 70.358 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4967366c-0854-4218-897f-669f69ba4761")
-		(property "Reference" "#PWR055"
-			(at 158.496 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 158.8516 54.102 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 158.496 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 158.496 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 158.496 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "62aa4d35-01e1-4162-aaf5-426ea476ac28")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
-					(reference "#PWR055")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 157.226 24.13 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "56ae1491-9cbf-46bb-97cd-91627a05c22f")
+		(uuid "6451e246-a536-41cc-a5de-22e11baad152")
 		(property "Reference" "#PWR037"
-			(at 157.226 27.94 0)
+			(at 159.004 74.168 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2485,7 +2241,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 157.5816 21.082 90)
+			(at 159.3596 67.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2494,7 +2250,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 157.226 24.13 0)
+			(at 159.004 70.358 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2502,7 +2258,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 157.226 24.13 0)
+			(at 159.004 70.358 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2510,7 +2266,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 157.226 24.13 0)
+			(at 159.004 70.358 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2519,7 +2275,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "6e760f40-78f8-47c8-b560-1d8b3a5a1f91")
+			(uuid "82678b3f-ec1c-484a-be11-380d8eddfc4e")
 		)
 		(instances
 			(project "Left Console Input and Output with Rotary"
@@ -2531,35 +2287,16 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:Conn_01x04_Socket")
-		(at 162.306 26.67 0)
+		(lib_id "power:GND")
+		(at 149.098 72.898 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5b8e3d3f-3826-4a65-aa11-b3f56a8c1482")
-		(property "Reference" "J8"
-			(at 163.0172 26.7279 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "VHF_FM_OLED"
-			(at 163.0172 29.1521 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical"
-			(at 162.306 26.67 0)
+		(uuid "68198e53-da41-4484-aca1-98c598568997")
+		(property "Reference" "#PWR035"
+			(at 149.098 79.248 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2567,17 +2304,32 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 162.306 26.67 0)
+		(property "Value" "GND"
+			(at 149.098 76.708 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
+			)
+		)
+		(property "Footprint" ""
+			(at 149.098 72.898 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 149.098 72.898 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
 		)
 		(property "Description" ""
-			(at 162.306 26.67 0)
+			(at 149.098 72.898 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2585,98 +2337,13 @@
 				(hide yes)
 			)
 		)
-		(pin "3"
-			(uuid "09b61461-b3e3-41a6-b94b-18383490b06e")
-		)
-		(pin "2"
-			(uuid "968af6f9-f1c3-44b7-a4c6-26a9ec4b8090")
-		)
-		(pin "4"
-			(uuid "96a5bd77-202b-4a58-b4f4-ca12f7f0372d")
-		)
 		(pin "1"
-			(uuid "e63de740-3335-42ae-b506-9caef787245a")
+			(uuid "35835c92-f5c3-4a30-9556-93413d0d20fb")
 		)
 		(instances
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
-					(reference "J8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x04_Socket")
-		(at 163.576 59.69 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "67d0c1f9-7569-4132-ab04-a05f6e9fd76c")
-		(property "Reference" "J14"
-			(at 164.2872 59.7479 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "UHF_OLED"
-			(at 164.2872 62.1721 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical"
-			(at 163.576 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 163.576 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 163.576 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "2f935535-167d-457c-be28-e42d46ce0daf")
-		)
-		(pin "2"
-			(uuid "8f9353e9-272b-4095-a686-fd42a56f629d")
-		)
-		(pin "4"
-			(uuid "785576ea-171d-41ae-a982-b6f66f87f0e4")
-		)
-		(pin "1"
-			(uuid "566e5970-c278-48a1-adaa-bb4ba18dca81")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
-					(reference "J14")
+					(reference "#PWR035")
 					(unit 1)
 				)
 			)
@@ -3210,70 +2877,6 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
 					(reference "J16")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 158.496 72.136 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f6f2600f-f30c-44b1-aa10-25adc772cae6")
-		(property "Reference" "#PWR056"
-			(at 158.496 75.946 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 158.8516 69.088 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 158.496 72.136 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 158.496 72.136 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 158.496 72.136 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "4a196908-42cc-4db4-82f5-bad300a40465")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/c0d71398-ac57-4533-b74a-434c0c8e63f9"
-					(reference "#PWR056")
 					(unit 1)
 				)
 			)

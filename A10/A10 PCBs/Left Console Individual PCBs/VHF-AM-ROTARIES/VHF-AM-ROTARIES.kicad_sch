@@ -6062,6 +6062,10 @@
 		(uuid "e7ef7531-de14-4f14-89ed-fa335ae26118")
 	)
 	(no_connect
+		(at 111.506 130.556)
+		(uuid "ea40f983-d8e1-46c9-abe8-9d79f7191fe1")
+	)
+	(no_connect
 		(at 122.428 59.436)
 		(uuid "f940a981-cf23-4167-90f5-d184fd3c46a4")
 	)
@@ -6121,7 +6125,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.758 118.364) (xy 224.282 118.364)
+			(xy 192.024 123.952) (xy 193.548 123.952)
 		)
 		(stroke
 			(width 0)
@@ -6131,7 +6135,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.758 120.904) (xy 244.348 120.904)
+			(xy 192.024 126.492) (xy 213.614 126.492)
 		)
 		(stroke
 			(width 0)
@@ -10416,7 +10420,7 @@
 		)
 		(uuid "02b291be-7015-4c94-bf45-3574b7325427")
 	)
-	(label "VHF__AM_PRESET_B"
+	(label "VHF_AM_PRESET_B"
 		(at 102.362 26.67 180)
 		(fields_autoplaced yes)
 		(effects
@@ -10439,7 +10443,7 @@
 		(uuid "06615282-8c22-4aba-a9a3-dc6bda3afce4")
 	)
 	(label "ANALOG_GND"
-		(at 228.346 108.966 0)
+		(at 197.612 114.554 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10659,7 +10663,7 @@
 		(uuid "49ef0bb2-8832-4d67-ac5b-6dfaff497e73")
 	)
 	(label "BACKLIGHT_-V"
-		(at 231.648 94.742 0)
+		(at 200.914 100.33 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11109,8 +11113,19 @@
 		)
 		(uuid "c952df94-39e7-4c18-b49b-edc729cefc64")
 	)
+	(label "BACKLIGHT_-V"
+		(at 170.942 100.33 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c97d234d-8a4f-4732-b3ec-bebfe65bc5f9")
+	)
 	(label "ANALOG_5V"
-		(at 228.346 101.346 180)
+		(at 197.612 106.934 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11121,7 +11136,7 @@
 		(uuid "cb9a34fe-361a-4a46-976b-7887dc40c636")
 	)
 	(label "VHF_AM_VOL"
-		(at 232.156 105.156 0)
+		(at 201.422 110.744 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11153,7 +11168,7 @@
 		)
 		(uuid "e113654e-23a7-4c52-a1fb-7fd0cd8276c1")
 	)
-	(label "VHF__AM_PRESET_A"
+	(label "VHF_AM_PRESET_A"
 		(at 102.362 21.59 180)
 		(fields_autoplaced yes)
 		(effects
@@ -11540,7 +11555,7 @@
 	)
 	(global_label "VHF_AM_OLED_SD"
 		(shape input)
-		(at 222.758 125.984 0)
+		(at 192.024 131.572 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11550,7 +11565,7 @@
 		)
 		(uuid "92f605e8-d28a-4346-b44c-7d8c54dea92c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 241.9508 125.984 0)
+			(at 211.2168 131.572 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11606,7 +11621,7 @@
 	)
 	(global_label "VHF_AM_OLED_SC"
 		(shape input)
-		(at 222.758 123.444 0)
+		(at 192.024 129.032 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11616,7 +11631,7 @@
 		)
 		(uuid "acf7aca1-81b0-43d2-96a4-b08290d4ed89")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 241.9508 123.444 0)
+			(at 211.2168 129.032 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12000,7 +12015,7 @@
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 231.648 92.202 0)
+		(at 200.914 97.79 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12009,7 +12024,7 @@
 		(fields_autoplaced yes)
 		(uuid "184ce183-995b-46cd-82b2-854e3f56a3e3")
 		(property "Reference" "#PWR05"
-			(at 231.648 96.012 0)
+			(at 200.914 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12018,7 +12033,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 231.648 86.868 0)
+			(at 200.914 92.456 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12026,7 +12041,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 231.648 92.202 0)
+			(at 200.914 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12035,7 +12050,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 231.648 92.202 0)
+			(at 200.914 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12044,7 +12059,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+12V\""
-			(at 231.648 92.202 0)
+			(at 200.914 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12236,7 +12251,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_Potentiometer_US")
-		(at 228.346 105.156 0)
+		(at 197.612 110.744 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12245,7 +12260,7 @@
 		(fields_autoplaced yes)
 		(uuid "2fcc9840-e2ba-47ff-9bb6-f992ee7b2e83")
 		(property "Reference" "RV1"
-			(at 226.695 104.3213 0)
+			(at 195.961 109.9093 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12254,7 +12269,7 @@
 			)
 		)
 		(property "Value" "VHF_AM_VOL"
-			(at 226.695 106.8582 0)
+			(at 195.961 112.4462 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12263,7 +12278,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
-			(at 228.346 105.156 0)
+			(at 197.612 110.744 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12272,7 +12287,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 228.346 105.156 0)
+			(at 197.612 110.744 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12281,7 +12296,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 228.346 105.156 0)
+			(at 197.612 110.744 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12491,7 +12506,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 244.348 120.904 0)
+		(at 213.614 126.492 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12500,7 +12515,7 @@
 		(fields_autoplaced yes)
 		(uuid "489efacb-be71-4188-a3fb-7afbb221388f")
 		(property "Reference" "#PWR04"
-			(at 244.348 127.254 0)
+			(at 213.614 132.842 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12509,7 +12524,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 244.348 125.984 0)
+			(at 213.614 131.572 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12517,7 +12532,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 244.348 120.904 0)
+			(at 213.614 126.492 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12526,7 +12541,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 244.348 120.904 0)
+			(at 213.614 126.492 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12535,7 +12550,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 244.348 120.904 0)
+			(at 213.614 126.492 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13084,7 +13099,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 217.678 120.904 0)
+		(at 186.944 126.492 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13093,7 +13108,7 @@
 		(dnp no)
 		(uuid "671e675f-cf25-42ce-8b27-baf6499c18f5")
 		(property "Reference" "J3"
-			(at 216.9668 120.9619 0)
+			(at 186.2328 126.5499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13102,7 +13117,7 @@
 			)
 		)
 		(property "Value" "OLED"
-			(at 216.9668 123.3861 0)
+			(at 186.2328 128.9741 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13111,7 +13126,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 217.678 120.904 0)
+			(at 186.944 126.492 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13120,7 +13135,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 217.678 120.904 0)
+			(at 186.944 126.492 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13129,7 +13144,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 217.678 120.904 0)
+			(at 186.944 126.492 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13159,6 +13174,142 @@
 			(project "Left Console Overview"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/ba20fa06-a269-44d1-bfd1-ac09e6be8fd4"
 					(reference "J37")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 170.942 97.79 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "730988e1-7162-4b70-9772-56c98ff4a781")
+		(property "Reference" "#PWR07"
+			(at 170.942 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 170.942 92.456 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 170.942 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 170.942 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+12V\""
+			(at 170.942 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e9bc8ecc-f243-405c-9a28-d652f3720cc5")
+		)
+		(instances
+			(project "VHF-AM-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 165.862 97.79 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7f256262-5844-48fa-b788-eda3d80f3356")
+		(property "Reference" "J5"
+			(at 165.1508 97.8479 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BKLGHT"
+			(at 165.1508 100.2721 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 165.862 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 165.862 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 165.862 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "672ffb8d-7d0b-493e-b35e-3f3be6401d60")
+		)
+		(pin "2"
+			(uuid "c65ffb36-8ed0-4d3e-8637-4bdbd12cd94f")
+		)
+		(instances
+			(project "VHF-AM-ROTARIES"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "J5")
 					(unit 1)
 				)
 			)
@@ -13560,7 +13711,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_IDC:IDC-Header_2x17_P2.54mm_Latch_Vertical"
+		(property "Footprint" "Connector_IDC:IDC-Header_2x17_P2.54mm_Vertical"
 			(at 270.256 115.316 0)
 			(effects
 				(font
@@ -13700,7 +13851,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x02_Socket")
-		(at 226.568 92.202 0)
+		(at 195.834 97.79 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13709,7 +13860,7 @@
 		(dnp no)
 		(uuid "d523a226-6022-40c6-bf82-ad61c79a50a1")
 		(property "Reference" "J4"
-			(at 225.8568 92.2599 0)
+			(at 195.1228 97.8479 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13718,7 +13869,7 @@
 			)
 		)
 		(property "Value" "BKLGHT"
-			(at 225.8568 94.6841 0)
+			(at 195.1228 100.2721 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13727,7 +13878,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
-			(at 226.568 92.202 0)
+			(at 195.834 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13736,7 +13887,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 226.568 92.202 0)
+			(at 195.834 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13745,7 +13896,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 226.568 92.202 0)
+			(at 195.834 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13776,7 +13927,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 224.282 118.364 0)
+		(at 193.548 123.952 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13785,7 +13936,7 @@
 		(fields_autoplaced yes)
 		(uuid "d82b10e6-671b-4084-a8ff-0a28898edfd3")
 		(property "Reference" "#PWR01"
-			(at 224.282 122.174 0)
+			(at 193.548 127.762 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13794,7 +13945,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 224.282 113.284 0)
+			(at 193.548 118.872 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13802,7 +13953,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 224.282 118.364 0)
+			(at 193.548 123.952 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13811,7 +13962,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 224.282 118.364 0)
+			(at 193.548 123.952 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13820,7 +13971,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 224.282 118.364 0)
+			(at 193.548 123.952 0)
 			(effects
 				(font
 					(size 1.27 1.27)

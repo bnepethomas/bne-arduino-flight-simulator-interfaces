@@ -1068,7 +1068,7 @@
 			(uuid "582cea57-6335-4c8e-84ad-3943853f2573")
 		)
 		(instances
-			(project "Left Console Input"
+			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
 					(reference "R14")
 					(unit 1)
@@ -1132,7 +1132,7 @@
 			)
 		)
 		(instances
-			(project "Left Console Input"
+			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
 					(reference "H4")
 					(unit 1)
@@ -1198,7 +1198,7 @@
 			(uuid "129c3bb5-9437-430a-ab4a-a6021acf7684")
 		)
 		(instances
-			(project "Left Console Input"
+			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
 					(reference "#PWR029")
 					(unit 1)
@@ -1264,7 +1264,7 @@
 			(uuid "9f186865-8a07-4f2d-84db-24b126e7ee68")
 		)
 		(instances
-			(project "Left Console Input"
+			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
 					(reference "#PWR027")
 					(unit 1)
@@ -1330,7 +1330,7 @@
 			(uuid "04e503f8-d61f-43f8-9d56-ae8b55e7fa63")
 		)
 		(instances
-			(project "Left Console Input"
+			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
 					(reference "#PWR030")
 					(unit 1)
@@ -1396,7 +1396,7 @@
 			(uuid "b144c029-7f40-4193-b6e1-426300931ce9")
 		)
 		(instances
-			(project "Left Console Input"
+			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
 					(reference "#PWR028")
 					(unit 1)
@@ -1460,7 +1460,7 @@
 			)
 		)
 		(instances
-			(project "Left Console Input"
+			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
 					(reference "H1")
 					(unit 1)
@@ -1664,7 +1664,7 @@
 			(uuid "8f748ac2-f3c3-41fa-8117-1d51d79e077d")
 		)
 		(instances
-			(project "Left Console Input"
+			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
 					(reference "U1")
 					(unit 1)
@@ -1728,7 +1728,7 @@
 			)
 		)
 		(instances
-			(project "Left Console Input"
+			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
 					(reference "H3")
 					(unit 1)
@@ -1792,7 +1792,7 @@
 			)
 		)
 		(instances
-			(project "Left Console Input"
+			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44c01f74-5a24-496c-85ed-6f91076ce5d8"
 					(reference "H2")
 					(unit 1)
