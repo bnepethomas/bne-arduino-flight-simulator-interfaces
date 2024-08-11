@@ -496,7 +496,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "MANUFACTURING/",
       "pos_files": "",
       "specctra_dsn": "Left Console Input and Output with Rotary.dsn",
       "step": "",

@@ -4351,6 +4351,165 @@
 				)
 			)
 		)
+		(symbol "Device:C_Polarized_US"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.254) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0.635 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "C_Polarized_US"
+				(at 0.635 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Polarized capacitor, US symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "CP_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_Polarized_US_0_1"
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 2.286) (xy -0.762 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 1.778) (xy -1.27 2.794)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 2.032 -1.27)
+					(mid 0 -0.5572)
+					(end -2.032 -1.27)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_Polarized_US_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 3.302)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:LED"
 			(pin_numbers hide)
 			(pin_names
@@ -5910,7 +6069,7 @@
 		(uuid "127679a9-3981-4934-815e-896a4e3ff56e")
 	)
 	(junction
-		(at 151.384 94.234)
+		(at 128.524 92.964)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "236f4b9a-b9bd-402e-953c-c73cf580a507")
@@ -5934,7 +6093,7 @@
 		(uuid "48ab88d7-7084-4d02-b109-3ad55a30bb11")
 	)
 	(junction
-		(at 147.32 94.234)
+		(at 124.46 92.964)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4ba67d8e-8a35-4850-9f9e-ec0d0bd8e6d5")
@@ -5952,16 +6111,10 @@
 		(uuid "58e9a7d0-ca98-4416-8dba-f1edfd473779")
 	)
 	(junction
-		(at 136.144 81.026)
+		(at 139.7 79.756)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "688c3473-4bee-42c3-b1a6-b211163c3c29")
-	)
-	(junction
-		(at 128.524 81.026)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "73acb19e-cff2-4e63-9502-f69fb6ef8a0e")
+		(uuid "7cb96067-f73f-4691-b5e6-73539a770dc1")
 	)
 	(junction
 		(at 90.932 157.48)
@@ -5982,7 +6135,7 @@
 		(uuid "8895178a-07bb-4ccc-acab-9b7262ffff41")
 	)
 	(junction
-		(at 117.094 94.234)
+		(at 94.234 92.964)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8933d52f-5414-4198-850e-6d1a0a228ac2")
@@ -6000,7 +6153,7 @@
 		(uuid "9fcebebe-dacc-4552-91ae-f50e82199be6")
 	)
 	(junction
-		(at 143.764 94.234)
+		(at 120.904 92.964)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a145581b-48a5-49b0-9ae8-b620973e90d4")
@@ -6018,22 +6171,10 @@
 		(uuid "b7717d4c-1f25-4ef3-9520-73c14ac52cfa")
 	)
 	(junction
-		(at 147.32 81.026)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "bbf39867-ab8e-4f86-a259-3c6b7384348d")
-	)
-	(junction
 		(at 90.932 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bc6ae60a-df6a-4d9b-97cd-81aa415a7981")
-	)
-	(junction
-		(at 151.384 81.026)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c7c41128-5240-4c64-880e-9c67b39aa147")
 	)
 	(junction
 		(at 90.932 172.72)
@@ -6042,28 +6183,16 @@
 		(uuid "c83f84df-7fad-47fb-84a9-e3009a873a2e")
 	)
 	(junction
-		(at 136.144 94.234)
+		(at 113.284 92.964)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c94af879-bfc7-42ed-a796-420878717122")
-	)
-	(junction
-		(at 143.764 81.026)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "cf178656-1971-40e2-a2b4-a07a61eb48fd")
 	)
 	(junction
 		(at 90.932 160.02)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d0011975-56a7-428f-82a3-1f8f25dde629")
-	)
-	(junction
-		(at 159.004 81.026)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d11b7565-25c0-4caf-959c-dfa334af078a")
 	)
 	(junction
 		(at 113.538 147.32)
@@ -6084,7 +6213,7 @@
 		(uuid "e3bc5c0a-41b1-49b4-a4d6-0b9c008edac2")
 	)
 	(junction
-		(at 128.524 94.234)
+		(at 105.664 92.964)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e3f1a171-7a27-4acf-82ae-9e69a4a5f892")
@@ -6114,7 +6243,7 @@
 		(uuid "f69c1e95-4883-40c6-85d9-e10a89d17ec5")
 	)
 	(junction
-		(at 159.004 94.234)
+		(at 136.144 92.964)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f708cad2-94d7-4fe8-a9cf-4b1513d3a3a8")
@@ -6132,6 +6261,10 @@
 	(no_connect
 		(at 156.972 167.894)
 		(uuid "0605c1a6-127d-4750-9c2f-12eaa10e9a75")
+	)
+	(no_connect
+		(at 220.726 72.898)
+		(uuid "06cc70ad-aae8-4e90-aa2d-4420124a1eb8")
 	)
 	(no_connect
 		(at 156.972 119.634)
@@ -6162,6 +6295,10 @@
 		(uuid "5a9da90c-615c-4da2-997a-04508b7d9c66")
 	)
 	(no_connect
+		(at 220.726 75.438)
+		(uuid "5ee5b702-ec04-4574-8153-eb771932737f")
+	)
+	(no_connect
 		(at 156.972 132.334)
 		(uuid "66c738ea-df3a-4dc5-8332-a44f7f41145d")
 	)
@@ -6170,16 +6307,32 @@
 		(uuid "7341fa89-5cfc-4ed9-8de2-ff012fa6c108")
 	)
 	(no_connect
+		(at 268.224 24.638)
+		(uuid "7470d5a7-81b4-4aeb-a557-8f96c36559e7")
+	)
+	(no_connect
 		(at 156.972 152.654)
 		(uuid "7d1aacf1-a373-48c1-85fa-68ca43fb9432")
+	)
+	(no_connect
+		(at 268.224 85.598)
+		(uuid "7d346150-fc25-4d93-9432-fb61a79a1358")
 	)
 	(no_connect
 		(at 156.972 137.414)
 		(uuid "81ca7b22-1c14-4d98-a1ba-3625fea48a9f")
 	)
 	(no_connect
+		(at 220.726 83.058)
+		(uuid "8792f351-4597-40c3-9d3d-89b4e5389c19")
+	)
+	(no_connect
 		(at 156.972 150.114)
 		(uuid "8887bf0c-329b-4eea-a12b-00aad8c73b17")
+	)
+	(no_connect
+		(at 220.726 70.358)
+		(uuid "91b74cae-b115-42af-a781-0a1c95aacf24")
 	)
 	(no_connect
 		(at 197.866 137.922)
@@ -6190,12 +6343,24 @@
 		(uuid "a13728c6-972f-4e81-82f3-f40dfe345424")
 	)
 	(no_connect
+		(at 220.726 65.278)
+		(uuid "ae4950d4-af88-4de4-89b4-06596d187d9a")
+	)
+	(no_connect
 		(at 156.972 155.194)
 		(uuid "b523c3d8-eec4-4e7e-ade6-7862343cd6fe")
 	)
 	(no_connect
 		(at 156.972 127.254)
 		(uuid "bc38da43-28a4-4e26-997d-ed59c4b445fe")
+	)
+	(no_connect
+		(at 220.726 85.598)
+		(uuid "c2973ee5-dba2-4c5f-a82d-5d05236c4f93")
+	)
+	(no_connect
+		(at 220.726 67.818)
+		(uuid "cbfed43a-a835-48c9-a5c8-f88590e696aa")
 	)
 	(no_connect
 		(at 227.584 29.718)
@@ -6206,12 +6371,20 @@
 		(uuid "d5df663a-a12d-436d-a2cf-dab68f1e1a97")
 	)
 	(no_connect
+		(at 268.224 27.178)
+		(uuid "e32c16fb-7b4e-4f99-a3f5-0e18c0df3f86")
+	)
+	(no_connect
 		(at 156.972 157.734)
 		(uuid "eadee0dd-18c9-4376-b489-9ac871afa90b")
 	)
 	(no_connect
 		(at 101.092 40.64)
 		(uuid "f1333724-6b7f-466b-8847-43ad5079239d")
+	)
+	(no_connect
+		(at 268.224 83.058)
+		(uuid "f76b84cf-eb95-4356-a2c7-5754d88a9523")
 	)
 	(wire
 		(pts
@@ -6332,16 +6505,6 @@
 			(type default)
 		)
 		(uuid "0a0addff-dc70-4bab-967d-44e88cd18a2c")
-	)
-	(wire
-		(pts
-			(xy 143.764 81.026) (xy 136.144 81.026)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0beefc52-8ad9-4bdd-aa0b-7916bb526da5")
 	)
 	(wire
 		(pts
@@ -6495,7 +6658,7 @@
 	)
 	(wire
 		(pts
-			(xy 143.764 94.234) (xy 147.32 94.234)
+			(xy 120.904 92.964) (xy 124.46 92.964)
 		)
 		(stroke
 			(width 0)
@@ -6645,7 +6808,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.624 94.234) (xy 159.004 94.234)
+			(xy 143.764 92.964) (xy 136.144 92.964)
 		)
 		(stroke
 			(width 0)
@@ -6822,16 +6985,6 @@
 			(type solid)
 		)
 		(uuid "3d6debf1-6259-4673-a085-4568293dfa8f")
-	)
-	(wire
-		(pts
-			(xy 136.144 81.026) (xy 128.524 81.026)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d9cb8b9-e4c3-4a5f-8b7c-bd2e57a0fc2f")
 	)
 	(wire
 		(pts
@@ -7045,16 +7198,6 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 81.026) (xy 151.384 81.026)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "59a523b0-ef0a-4280-aaa0-875a67f8179d")
-	)
-	(wire
-		(pts
 			(xy 58.42 23.368) (xy 58.42 25.654)
 		)
 		(stroke
@@ -7235,16 +7378,6 @@
 	)
 	(wire
 		(pts
-			(xy 143.764 81.026) (xy 147.32 81.026)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6c878205-c9a5-4348-acf2-f6834127f13b")
-	)
-	(wire
-		(pts
 			(xy 242.824 114.554) (xy 242.824 117.348)
 		)
 		(stroke
@@ -7272,16 +7405,6 @@
 			(type default)
 		)
 		(uuid "6fd013d6-bd7e-40d3-89e8-4c2bfd80dec5")
-	)
-	(wire
-		(pts
-			(xy 117.3988 80.9498) (xy 128.524 80.9498)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "70de4866-d1c6-4dbb-adbe-5598af586a08")
 	)
 	(wire
 		(pts
@@ -7385,7 +7508,7 @@
 	)
 	(wire
 		(pts
-			(xy 143.764 94.234) (xy 136.144 94.234)
+			(xy 120.904 92.964) (xy 113.284 92.964)
 		)
 		(stroke
 			(width 0)
@@ -7485,7 +7608,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.384 94.234) (xy 159.004 94.234)
+			(xy 128.524 92.964) (xy 136.144 92.964)
 		)
 		(stroke
 			(width 0)
@@ -7705,7 +7828,7 @@
 	)
 	(wire
 		(pts
-			(xy 136.144 94.234) (xy 128.524 94.234)
+			(xy 113.284 92.964) (xy 105.664 92.964)
 		)
 		(stroke
 			(width 0)
@@ -7745,7 +7868,7 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 94.234) (xy 117.094 94.234)
+			(xy 82.55 92.964) (xy 94.234 92.964)
 		)
 		(stroke
 			(width 0)
@@ -7895,7 +8018,7 @@
 	)
 	(wire
 		(pts
-			(xy 117.094 94.234) (xy 128.524 94.234)
+			(xy 94.234 92.964) (xy 105.664 92.964)
 		)
 		(stroke
 			(width 0)
@@ -8015,16 +8138,6 @@
 	)
 	(wire
 		(pts
-			(xy 128.524 80.9498) (xy 128.524 81.026)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "babb5b63-58bf-4f72-997d-912ab3871260")
-	)
-	(wire
-		(pts
 			(xy 222.504 130.048) (xy 222.504 132.842)
 		)
 		(stroke
@@ -8052,16 +8165,6 @@
 			(type solid)
 		)
 		(uuid "bcbc7302-8a54-4b9b-98b9-f277f1b20941")
-	)
-	(wire
-		(pts
-			(xy 151.384 81.026) (xy 159.004 81.026)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bd1c6b02-d9cf-407f-b318-b5f17bd2ee01")
 	)
 	(wire
 		(pts
@@ -8145,7 +8248,7 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 94.234) (xy 151.384 94.234)
+			(xy 124.46 92.964) (xy 128.524 92.964)
 		)
 		(stroke
 			(width 0)
@@ -8165,7 +8268,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.624 81.026) (xy 159.004 81.026)
+			(xy 143.764 79.756) (xy 139.7 79.756)
 		)
 		(stroke
 			(width 0)
@@ -8295,7 +8398,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 21.59) (xy 168.148 21.59)
+			(xy 187.96 90.932) (xy 189.738 90.932)
 		)
 		(stroke
 			(width 0)
@@ -8472,6 +8575,16 @@
 			(type default)
 		)
 		(uuid "f3bef4fa-2b71-4535-baed-50a4ea553f04")
+	)
+	(wire
+		(pts
+			(xy 139.7 79.756) (xy 136.144 79.756)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f5f74513-7b04-4784-9af2-1d28ef79b203")
 	)
 	(wire
 		(pts
@@ -8706,7 +8819,7 @@
 		(uuid "09a7c6bf-48af-4161-b5ff-2a5d932f333b")
 	)
 	(label "A6"
-		(at 117.094 86.614 90)
+		(at 94.234 85.344 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8717,7 +8830,7 @@
 		(uuid "09fdf47d-3808-4c64-8ab5-1bca4e7118f6")
 	)
 	(label "ANALOG_5V"
-		(at 166.37 21.59 180)
+		(at 187.96 90.932 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8915,7 +9028,7 @@
 		(uuid "20a273c2-0c4f-461a-8c0e-654a98990be4")
 	)
 	(label "A9"
-		(at 159.004 73.406 90)
+		(at 136.144 72.136 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9101,19 +9214,8 @@
 		)
 		(uuid "35bc5b35-b7b2-44d5-bbed-557f428649b2")
 	)
-	(label "A14"
-		(at 117.3988 73.3298 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3a69233f-8fdb-4596-bc53-8115b3b2d16e")
-	)
 	(label "A2"
-		(at 151.384 86.614 90)
+		(at 128.524 85.344 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9267,7 +9369,7 @@
 		(uuid "5197ad59-780b-471b-a5ce-254b7d48562e")
 	)
 	(label "A7"
-		(at 105.41 86.614 90)
+		(at 82.55 85.344 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9421,7 +9523,7 @@
 		(uuid "6b997cc0-2eb8-4759-8cd8-e06a3e765b57")
 	)
 	(label "A1"
-		(at 159.004 86.614 90)
+		(at 136.144 85.344 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9443,7 +9545,7 @@
 		(uuid "6e8f0e4f-b1cd-46fd-96f0-fd376420f009")
 	)
 	(label "A3"
-		(at 143.764 86.614 90)
+		(at 120.904 85.344 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9629,17 +9731,6 @@
 		)
 		(uuid "8c11c3c6-512d-4251-a254-7b226607109f")
 	)
-	(label "A13"
-		(at 128.524 73.406 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "92a198c2-4a30-4d21-96e0-ac4a8b0ad01a")
-	)
 	(label "RX2{slash}17"
 		(at 152.908 181.864 180)
 		(fields_autoplaced yes)
@@ -9683,17 +9774,6 @@
 			(justify right bottom)
 		)
 		(uuid "97f04ba0-9fa7-4eee-bc49-f76c49f5dd2c")
-	)
-	(label "A10"
-		(at 151.384 73.406 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "98c19ca0-57b2-45aa-a87e-cc10cacec295")
 	)
 	(label "*11"
 		(at 268.224 39.878 180)
@@ -9850,7 +9930,7 @@
 		(uuid "b7ba5525-6f28-418f-b6e9-41f929efaa9d")
 	)
 	(label "A0"
-		(at 166.624 86.614 90)
+		(at 143.764 85.344 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9870,17 +9950,6 @@
 			(justify left bottom)
 		)
 		(uuid "b9c61d17-a464-4d40-a512-b337195b03b6")
-	)
-	(label "A12"
-		(at 136.144 73.406 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b9ea99f9-cd0b-4278-9f31-2f8fae467b5c")
 	)
 	(label "A0"
 		(at 223.52 57.658 0)
@@ -9980,17 +10049,6 @@
 			(justify right bottom)
 		)
 		(uuid "c348793d-eec0-4f33-9b91-2cae8b4224a4")
-	)
-	(label "A11"
-		(at 143.764 73.406 90)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c3c27ef6-21a5-44bf-b1e9-1bb39afd95ca")
 	)
 	(label "A6"
 		(at 167.64 132.588 0)
@@ -10202,7 +10260,7 @@
 		(uuid "d8e2354f-8f88-471f-83de-ad0ac8f31a65")
 	)
 	(label "A8"
-		(at 166.624 73.406 90)
+		(at 143.764 72.136 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10378,7 +10436,7 @@
 		(uuid "e9f8397f-2ee2-4c5b-a3ed-91ae11a79bd4")
 	)
 	(label "A5"
-		(at 128.524 86.614 90)
+		(at 105.664 85.344 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10422,7 +10480,7 @@
 		(uuid "eab32ddf-9d4a-4536-9b23-419bd01aec67")
 	)
 	(label "ANALOG_GND"
-		(at 166.37 24.892 180)
+		(at 187.96 94.234 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10477,7 +10535,7 @@
 		(uuid "f39dc0ca-e0c4-4bcc-9d32-c0ed7343b527")
 	)
 	(label "A4"
-		(at 136.144 86.614 90)
+		(at 113.284 85.344 90)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13557,6 +13615,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 175.006 75.184 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0f03e35c-dc4b-49ef-8cab-a025735b41cf")
+		(property "Reference" "#PWR071"
+			(at 175.006 81.534 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 175.133 79.5782 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 175.006 75.184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 175.006 75.184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 175.006 75.184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f457d11c-dc1b-437f-96af-e89628834523")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR071")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_US")
 		(at 34.544 154.686 0)
 		(unit 1)
@@ -13627,7 +13750,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 194.056 72.644 0)
+		(at 197.358 72.39 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13635,7 +13758,7 @@
 		(dnp no)
 		(uuid "1784a621-049e-4364-bd9c-b941f6d01e23")
 		(property "Reference" "#PWR040"
-			(at 194.056 78.994 0)
+			(at 197.358 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13644,7 +13767,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 194.183 77.0382 0)
+			(at 197.358 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13652,7 +13775,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 194.056 72.644 0)
+			(at 197.358 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13661,7 +13784,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 194.056 72.644 0)
+			(at 197.358 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13670,7 +13793,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 194.056 72.644 0)
+			(at 197.358 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14405,75 +14528,6 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 151.384 77.216 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "3e2c0728-2478-4c5d-949b-35d879dd5bf7")
-		(property "Reference" "C12"
-			(at 154.305 76.0476 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 154.305 78.359 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 152.3492 81.026 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 151.384 77.216 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 151.384 77.216 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d7885bb2-9a48-4ae0-ba95-440cd630494d")
-		)
-		(pin "2"
-			(uuid "cebe6ffd-0327-4981-8b32-ef6f88c8572a")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C12")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
 		(at 187.706 71.374 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -14542,34 +14596,16 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:Conn_01x02_Female")
-		(at 199.136 70.104 0)
+		(lib_id "power:+12V")
+		(at 175.006 67.564 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4668fa54-eb0e-4fda-adb8-ddd96fdc7b55")
-		(property "Reference" "J5"
-			(at 199.8472 70.7136 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "12VIN"
-			(at 199.8472 73.025 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
-			(at 199.136 70.104 0)
+		(uuid "428a9eed-8a7b-46a1-a464-677682f9b6f8")
+		(property "Reference" "#PWR072"
+			(at 175.006 71.374 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14577,8 +14613,25 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 199.136 70.104 0)
+		(property "Value" "+12V"
+			(at 175.387 63.1698 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 175.006 67.564 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 175.006 67.564 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14587,7 +14640,73 @@
 			)
 		)
 		(property "Description" ""
-			(at 199.136 70.104 0)
+			(at 175.006 67.564 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "da501a52-a642-4bd0-b321-b6578d8d9f61")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR072")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 202.438 69.85 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4668fa54-eb0e-4fda-adb8-ddd96fdc7b55")
+		(property "Reference" "J5"
+			(at 203.1492 70.4596 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12VIN"
+			(at 203.1492 72.771 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
+			(at 202.438 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 202.438 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 202.438 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14612,7 +14731,7 @@
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 194.056 70.104 0)
+		(at 197.358 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14620,7 +14739,7 @@
 		(dnp no)
 		(uuid "494e4b30-2958-4274-83b8-ea17b714a1d6")
 		(property "Reference" "#PWR039"
-			(at 194.056 73.914 0)
+			(at 197.358 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14629,7 +14748,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 194.437 65.7098 0)
+			(at 197.739 65.4558 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14637,7 +14756,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 194.056 70.104 0)
+			(at 197.358 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14646,7 +14765,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 194.056 70.104 0)
+			(at 197.358 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14655,7 +14774,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 194.056 70.104 0)
+			(at 197.358 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14677,7 +14796,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 159.004 90.424 0)
+		(at 136.144 89.154 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14685,7 +14804,7 @@
 		(dnp no)
 		(uuid "5359da62-7dca-4a52-b1ed-713e35cac43d")
 		(property "Reference" "C2"
-			(at 161.925 89.2556 0)
+			(at 139.065 87.9856 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14694,7 +14813,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 161.925 91.567 0)
+			(at 139.065 90.297 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14703,7 +14822,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 159.9692 94.234 0)
+			(at 137.1092 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14712,7 +14831,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 159.004 90.424 0)
+			(at 136.144 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14721,7 +14840,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 159.004 90.424 0)
+			(at 136.144 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14739,75 +14858,6 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "C2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 117.3988 77.1398 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "54268bd2-8798-4c17-9bb9-aed7e3608a8a")
-		(property "Reference" "C15"
-			(at 120.3198 75.9714 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 120.3198 78.2828 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 118.364 80.9498 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 117.3988 77.1398 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 117.3988 77.1398 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "331835db-3a7d-487d-9e9c-8706f662be41")
-		)
-		(pin "2"
-			(uuid "d7203067-bb42-4413-a908-535bd176c0d7")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C15")
 					(unit 1)
 				)
 			)
@@ -14948,7 +14998,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 128.524 90.424 0)
+		(at 105.664 89.154 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14956,7 +15006,7 @@
 		(dnp no)
 		(uuid "61e557c2-769d-4e61-8389-a55e1d28dd26")
 		(property "Reference" "C6"
-			(at 131.445 89.2556 0)
+			(at 108.585 87.9856 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14965,7 +15015,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 131.445 91.567 0)
+			(at 108.585 90.297 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14974,7 +15024,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 129.4892 94.234 0)
+			(at 106.6292 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14983,7 +15033,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 128.524 90.424 0)
+			(at 105.664 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14992,7 +15042,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 128.524 90.424 0)
+			(at 105.664 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15082,7 +15132,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 143.764 90.424 0)
+		(at 120.904 89.154 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15090,7 +15140,7 @@
 		(dnp no)
 		(uuid "632e75a7-26a7-4af8-b31a-4d40d6cba940")
 		(property "Reference" "C3"
-			(at 146.685 89.2556 0)
+			(at 123.825 87.9856 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15099,7 +15149,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 146.685 91.567 0)
+			(at 123.825 90.297 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15108,7 +15158,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 144.7292 94.234 0)
+			(at 121.8692 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15117,7 +15167,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 143.764 90.424 0)
+			(at 120.904 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15126,7 +15176,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 143.764 90.424 0)
+			(at 120.904 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15299,7 +15349,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 151.384 90.424 0)
+		(at 128.524 89.154 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15307,7 +15357,7 @@
 		(dnp no)
 		(uuid "6a7b3864-a08a-4bea-86cb-84162775f1b0")
 		(property "Reference" "C5"
-			(at 154.305 89.2556 0)
+			(at 131.445 87.9856 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15316,7 +15366,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 154.305 91.567 0)
+			(at 131.445 90.297 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15325,7 +15375,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 152.3492 94.234 0)
+			(at 129.4892 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15334,7 +15384,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 151.384 90.424 0)
+			(at 128.524 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15343,7 +15393,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 151.384 90.424 0)
+			(at 128.524 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15489,6 +15539,118 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR065")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x16_Female")
+		(at 163.83 35.814 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "735d899d-2301-4177-937d-9601a8e65fda")
+		(property "Reference" "J40"
+			(at 164.5412 36.2493 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PATCH"
+			(at 164.5412 38.7862 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x16_P2.54mm_Vertical"
+			(at 163.83 35.814 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 163.83 35.814 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 163.83 35.814 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "37a90981-4ea2-430c-8adf-08c14be29e53")
+		)
+		(pin "10"
+			(uuid "4ba16fc8-f23f-4614-aad0-f95190c414c2")
+		)
+		(pin "11"
+			(uuid "e11624bd-324c-4fe9-b1a6-2cc6eed111c3")
+		)
+		(pin "12"
+			(uuid "5472c665-dbaa-4296-939d-5541d7bfb8bd")
+		)
+		(pin "13"
+			(uuid "57402521-b7ff-4b81-bf35-95c9c4fb3ae4")
+		)
+		(pin "14"
+			(uuid "6ddeef1a-5968-4d98-8c5a-5bf419f1c522")
+		)
+		(pin "15"
+			(uuid "0e5d08b1-713e-4ad4-9b9c-a5b895545b44")
+		)
+		(pin "16"
+			(uuid "af6517e1-f666-44be-9b28-e0edc4275ace")
+		)
+		(pin "2"
+			(uuid "68c1c870-0201-4b86-b167-334064a58e55")
+		)
+		(pin "3"
+			(uuid "012f1c04-30de-4e1d-b7f3-46e44cce0e93")
+		)
+		(pin "4"
+			(uuid "b3f190d5-cade-4a82-831c-41987439df9a")
+		)
+		(pin "5"
+			(uuid "18d0f551-6417-4c24-9dc7-15b41a5a3e11")
+		)
+		(pin "6"
+			(uuid "5ec24ee8-583c-4c80-945e-6999a076f4ad")
+		)
+		(pin "7"
+			(uuid "3d88c0ea-6d1d-4908-b854-3083a0c89c0e")
+		)
+		(pin "8"
+			(uuid "10c3ea23-2b15-4929-ad63-c2582379fcb6")
+		)
+		(pin "9"
+			(uuid "e3266f70-3825-48e3-9c14-7ec8b67b6ffb")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J40")
 					(unit 1)
 				)
 			)
@@ -15666,7 +15828,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 159.004 77.216 0)
+		(at 136.144 75.946 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15674,7 +15836,7 @@
 		(dnp no)
 		(uuid "75659c5e-dd9a-4c61-9e49-bb278c0cdb1b")
 		(property "Reference" "C14"
-			(at 161.925 76.0476 0)
+			(at 139.065 74.7776 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15683,7 +15845,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 161.925 78.359 0)
+			(at 139.065 77.089 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15692,7 +15854,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 159.9692 81.026 0)
+			(at 137.1092 79.756 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15701,7 +15863,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 159.004 77.216 0)
+			(at 136.144 75.946 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15710,7 +15872,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 159.004 77.216 0)
+			(at 136.144 75.946 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15802,7 +15964,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 166.37 24.892 0)
+		(at 187.96 94.234 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15810,7 +15972,7 @@
 		(dnp no)
 		(uuid "77e5830c-9227-4b74-86b6-8c660164cf70")
 		(property "Reference" "#PWR012"
-			(at 166.37 31.242 0)
+			(at 187.96 100.584 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15819,7 +15981,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 166.37 28.702 0)
+			(at 187.96 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15827,7 +15989,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 166.37 24.892 0)
+			(at 187.96 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15835,7 +15997,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 166.37 24.892 0)
+			(at 187.96 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15843,7 +16005,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 166.37 24.892 0)
+			(at 187.96 94.234 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15858,75 +16020,6 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR012")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 136.144 77.216 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "786aab7c-01a5-43cd-baa7-bc532e85f693")
-		(property "Reference" "C9"
-			(at 139.065 76.0476 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 139.065 78.359 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 137.1092 81.026 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 136.144 77.216 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 136.144 77.216 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "71bb0af6-9b7d-4757-aee5-9ca38f2903b5")
-		)
-		(pin "2"
-			(uuid "b6cacb4b-7ce5-4366-81a8-22d5a2d2e67e")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -16068,7 +16161,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 166.624 90.424 0)
+		(at 143.764 89.154 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16076,7 +16169,7 @@
 		(dnp no)
 		(uuid "7f8e93f7-362f-47e2-a6f4-0432cd14efc8")
 		(property "Reference" "C4"
-			(at 169.545 89.2556 0)
+			(at 146.685 87.9856 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16085,7 +16178,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 169.545 91.567 0)
+			(at 146.685 90.297 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16094,7 +16187,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 167.5892 94.234 0)
+			(at 144.7292 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16103,7 +16196,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 166.624 90.424 0)
+			(at 143.764 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16112,7 +16205,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 166.624 90.424 0)
+			(at 143.764 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16343,7 +16436,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 136.144 90.424 0)
+		(at 113.284 89.154 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16351,7 +16444,7 @@
 		(dnp no)
 		(uuid "873b48d8-e433-4bf1-9b53-f7fbb8ac2ddd")
 		(property "Reference" "C1"
-			(at 139.065 89.2556 0)
+			(at 116.205 87.9856 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16360,7 +16453,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 139.065 91.567 0)
+			(at 116.205 90.297 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16369,7 +16462,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 137.1092 94.234 0)
+			(at 114.2492 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16378,7 +16471,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 136.144 90.424 0)
+			(at 113.284 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16387,7 +16480,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 136.144 90.424 0)
+			(at 113.284 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16515,75 +16608,6 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 128.524 77.216 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "8e251729-b73e-484f-a180-055bde2c00c3")
-		(property "Reference" "C16"
-			(at 131.445 76.0476 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 131.445 78.359 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 129.4892 81.026 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 128.524 77.216 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 128.524 77.216 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "93bb3404-595c-442c-8a1f-4669cc680a7b")
-		)
-		(pin "2"
-			(uuid "af982b28-0cb9-4d30-8195-cc79dd1ca0de")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C16")
 					(unit 1)
 				)
 			)
@@ -16990,7 +17014,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 166.624 77.216 0)
+		(at 143.764 75.946 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16998,7 +17022,7 @@
 		(dnp no)
 		(uuid "aa3158a3-8390-4aff-a716-a211b6978890")
 		(property "Reference" "C10"
-			(at 169.545 76.0476 0)
+			(at 146.685 74.7776 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17007,7 +17031,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 169.545 78.359 0)
+			(at 146.685 77.089 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17016,7 +17040,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 167.5892 81.026 0)
+			(at 144.7292 79.756 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17025,7 +17049,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 166.624 77.216 0)
+			(at 143.764 75.946 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17034,7 +17058,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 166.624 77.216 0)
+			(at 143.764 75.946 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17194,7 +17218,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 147.32 94.234 0)
+		(at 124.46 92.964 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17202,7 +17226,7 @@
 		(dnp no)
 		(uuid "b8fb6a0c-cfed-45b1-87f0-9a0eada15c3d")
 		(property "Reference" "#PWR015"
-			(at 147.32 100.584 0)
+			(at 124.46 99.314 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17211,7 +17235,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 147.447 98.6282 0)
+			(at 124.587 97.3582 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17219,7 +17243,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 147.32 94.234 0)
+			(at 124.46 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17228,7 +17252,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 147.32 94.234 0)
+			(at 124.46 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17237,7 +17261,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 147.32 94.234 0)
+			(at 124.46 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17326,7 +17350,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 105.41 90.424 0)
+		(at 82.55 89.154 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17334,7 +17358,7 @@
 		(dnp no)
 		(uuid "bf44559f-8550-48a5-aa41-b1cc470dde40")
 		(property "Reference" "C8"
-			(at 108.331 89.2556 0)
+			(at 85.471 87.9856 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17343,7 +17367,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 108.331 91.567 0)
+			(at 85.471 90.297 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17352,7 +17376,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 106.3752 94.234 0)
+			(at 83.5152 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17361,7 +17385,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 105.41 90.424 0)
+			(at 82.55 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17370,7 +17394,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 105.41 90.424 0)
+			(at 82.55 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17394,77 +17418,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 143.764 77.216 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c4a5c2db-ee7e-4d7c-b3ba-3273e10a8003")
-		(property "Reference" "C13"
-			(at 146.685 76.0476 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 146.685 78.359 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 144.7292 81.026 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 143.764 77.216 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 143.764 77.216 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b27cd539-ca2f-478d-aead-5f09e96dd8a6")
-		)
-		(pin "2"
-			(uuid "c1be8f1b-b54a-4f1b-aa57-994e25c2d3e8")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C13")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
-		(at 147.32 81.026 0)
+		(at 139.7 79.756 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17472,7 +17427,7 @@
 		(dnp no)
 		(uuid "c62bfb70-8e10-4094-9ea7-358d95f9dfaa")
 		(property "Reference" "#PWR014"
-			(at 147.32 87.376 0)
+			(at 139.7 86.106 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17481,7 +17436,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 147.447 85.4202 0)
+			(at 139.827 84.1502 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17489,7 +17444,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 147.32 81.026 0)
+			(at 139.7 79.756 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17498,7 +17453,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 147.32 81.026 0)
+			(at 139.7 79.756 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17507,7 +17462,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 147.32 81.026 0)
+			(at 139.7 79.756 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17596,7 +17551,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 117.094 90.424 0)
+		(at 94.234 89.154 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17604,7 +17559,7 @@
 		(dnp no)
 		(uuid "c923ddbc-2f57-4800-a519-dd499040b1e2")
 		(property "Reference" "C11"
-			(at 120.015 89.2556 0)
+			(at 97.155 87.9856 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17613,7 +17568,7 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 120.015 91.567 0)
+			(at 97.155 90.297 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17622,7 +17577,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
-			(at 118.0592 94.234 0)
+			(at 95.1992 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17631,7 +17586,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 117.094 90.424 0)
+			(at 94.234 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17640,7 +17595,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 117.094 90.424 0)
+			(at 94.234 89.154 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17743,6 +17698,186 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Polarized_US")
+		(at 175.006 71.374 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d19b0249-4584-40f5-907f-cbf46193770b")
+		(property "Reference" "C17"
+			(at 177.927 69.5268 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100uf"
+			(at 177.927 71.9511 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:C_Radial_D6.3mm_H5.0mm_P2.50mm"
+			(at 175.006 71.374 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 175.006 71.374 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Polarized capacitor, US symbol"
+			(at 175.006 71.374 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "35db2341-4e61-4fc2-84cb-5b5b186fe903")
+		)
+		(pin "1"
+			(uuid "4302fc18-7174-4810-a6bb-24c6f9efbb84")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "C17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x16_Female")
+		(at 153.67 35.814 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d389a48e-a0bd-4062-a064-f0b57104ceb9")
+		(property "Reference" "J39"
+			(at 154.305 13.877 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PATCH"
+			(at 159.004 15.494 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x16_P2.54mm_Vertical"
+			(at 153.67 35.814 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 153.67 35.814 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 153.67 35.814 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7c6c672e-e820-471b-bab3-5e6c3f1bc3be")
+		)
+		(pin "10"
+			(uuid "2fbb0bc4-229f-4bb9-adcc-61074f8fb813")
+		)
+		(pin "11"
+			(uuid "6ed14745-4f96-47b3-84d4-c205d9280bee")
+		)
+		(pin "12"
+			(uuid "3a253137-3ec6-4d36-95ae-fcc107b46198")
+		)
+		(pin "13"
+			(uuid "04e08887-0a8e-4563-9258-9a79c3574a66")
+		)
+		(pin "14"
+			(uuid "1ed1dc45-3532-4347-87ad-d9565d8c67cf")
+		)
+		(pin "15"
+			(uuid "29a69022-4e51-4508-a5bb-44cd11577441")
+		)
+		(pin "16"
+			(uuid "dbfee20a-8c49-4069-9631-349d4b65c14f")
+		)
+		(pin "2"
+			(uuid "844072f5-c867-4f72-963d-0af643c0a55c")
+		)
+		(pin "3"
+			(uuid "daa648c3-bcf5-4be6-b822-a5b921bbbd1b")
+		)
+		(pin "4"
+			(uuid "e2d7fcfb-f71f-4acb-b2da-e45df760a358")
+		)
+		(pin "5"
+			(uuid "08504932-16b2-4e72-a973-1da6a32a45c8")
+		)
+		(pin "6"
+			(uuid "7f3819ff-724d-40c9-b4c7-8e5cdadd54c8")
+		)
+		(pin "7"
+			(uuid "d2ea49b9-7361-45bb-b9d5-22dfd0f4e9fb")
+		)
+		(pin "8"
+			(uuid "28caf7c9-4e28-453c-b8ba-0244947070bf")
+		)
+		(pin "9"
+			(uuid "51b5c5f5-e321-43f8-8717-26c2bf0d7252")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J39")
 					(unit 1)
 				)
 			)
@@ -18108,7 +18243,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 168.148 21.59 0)
+		(at 189.738 90.932 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18117,7 +18252,7 @@
 		(fields_autoplaced yes)
 		(uuid "fa789ce6-3a08-4bef-ab80-5ed8f91b560d")
 		(property "Reference" "#PWR013"
-			(at 168.148 25.4 0)
+			(at 189.738 94.742 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18126,7 +18261,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 168.148 18.0142 0)
+			(at 189.738 87.3562 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18134,7 +18269,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 168.148 21.59 0)
+			(at 189.738 90.932 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18143,7 +18278,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 168.148 21.59 0)
+			(at 189.738 90.932 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18152,7 +18287,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 168.148 21.59 0)
+			(at 189.738 90.932 0)
 			(effects
 				(font
 					(size 1.27 1.27)

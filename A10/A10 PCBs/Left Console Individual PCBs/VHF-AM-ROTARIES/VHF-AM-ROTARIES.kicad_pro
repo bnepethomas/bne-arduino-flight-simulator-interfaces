@@ -467,7 +467,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "MANUFACTURING/",
       "pos_files": "",
       "specctra_dsn": "VHF-AM-ROTARIES.dsn",
       "step": "VHF-AM-ROTARIES.step",
