@@ -1,16 +1,19 @@
-(kicad_sch (version 20230121) (generator eeschema)
-
-  (uuid c16dbc14-fdb6-483f-b616-f4642a796754)
-
-  (paper "A4")
-
-  (lib_symbols
-  )
-
-
-  (text "20231217 V1.1\nLANDING GEAR INCREASED FROM 8 PIN TO 10 PIN - ADDED ROWS 14 AND 15"
-    (at 32.766 33.782 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 707e60bd-eb93-4f0c-a01d-b748e9bddd84)
-  )
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "c16dbc14-fdb6-483f-b616-f4642a796754")
+	(paper "A4")
+	(lib_symbols)
+	(text "20231217 V1.1\nLANDING GEAR INCREASED FROM 8 PIN TO 10 PIN - ADDED ROWS 14 AND 15"
+		(exclude_from_sim no)
+		(at 32.766 33.782 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "707e60bd-eb93-4f0c-a01d-b748e9bddd84")
+	)
 )
