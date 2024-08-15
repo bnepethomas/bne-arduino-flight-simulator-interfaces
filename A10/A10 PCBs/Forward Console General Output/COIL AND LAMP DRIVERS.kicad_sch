@@ -1583,6 +1583,195 @@
 				)
 			)
 		)
+		(symbol "Regulator_Switching:AOZ1280CI"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -6.35 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "AOZ1280CI"
+				(at -2.54 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+				(at 17.78 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://aosmd.com/res/data_sheets/AOZ1280CI.pdf"
+				(at -6.35 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "1.2 A Simple Buck Regulator, 3-26V input, 1.5Mhz"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switching buck converter"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT?23*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "AOZ1280CI_0_1"
+				(rectangle
+					(start -7.62 5.08)
+					(end 7.62 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "AOZ1280CI_1_1"
+				(pin input line
+					(at 10.16 2.54 180)
+					(length 2.54)
+					(name "BST"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.16 -2.54 180)
+					(length 2.54)
+					(name "FB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -10.16 -2.54 0)
+					(length 2.54)
+					(name "EN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -10.16 2.54 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 10.16 0 180)
+					(length 2.54)
+					(name "LX"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Transistor_Array:ULN2003A"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -2178,12 +2367,6 @@
 		)
 	)
 	(junction
-		(at 43.18 108.204)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "4f89b231-8f90-4047-bc0e-177230c78114")
-	)
-	(junction
 		(at 43.18 110.744)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2200,8 +2383,8 @@
 		(uuid "1e3a953b-e74b-4277-a3a7-9c8584379ccb")
 	)
 	(no_connect
-		(at 68.326 105.664)
-		(uuid "4d83544b-0cb1-4624-9408-24fa47c2319b")
+		(at 69.342 151.13)
+		(uuid "23f0053e-acdc-4931-9767-42b077797fc5")
 	)
 	(no_connect
 		(at 68.326 110.744)
@@ -2214,6 +2397,10 @@
 	(no_connect
 		(at 68.326 108.204)
 		(uuid "a20ecf94-a3d1-4db9-9df7-f9f787d78f15")
+	)
+	(no_connect
+		(at 69.342 148.59)
+		(uuid "de024227-a26d-47db-ad74-d1b74bfe6cd1")
 	)
 	(no_connect
 		(at 69.342 156.21)
@@ -2441,16 +2628,6 @@
 	)
 	(wire
 		(pts
-			(xy 43.18 105.664) (xy 43.18 108.204)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "be94fc3f-d3ad-4d64-a3ab-cd1c5bbc763b")
-	)
-	(wire
-		(pts
 			(xy 46.228 153.67) (xy 46.228 156.21)
 		)
 		(stroke
@@ -2458,16 +2635,6 @@
 			(type default)
 		)
 		(uuid "c4323c2a-e8a3-412f-8bc9-2e1af4ece054")
-	)
-	(wire
-		(pts
-			(xy 48.006 105.664) (xy 43.18 105.664)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c55d77e8-ed12-411c-b44d-7000e6acb03e")
 	)
 	(wire
 		(pts
@@ -2501,7 +2668,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 143.51) (xy 49.022 143.51)
+			(xy 46.482 143.51) (xy 49.022 143.51)
 		)
 		(stroke
 			(width 0)
@@ -2597,6 +2764,28 @@
 		)
 		(uuid "2d8b8080-aeca-44e9-a5ef-6dbfe1bca9ec")
 	)
+	(label "B_RIGHT_FIRE"
+		(at 103.886 131.826 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4a18a241-a0ee-45cb-8689-c029daf9cd1e")
+	)
+	(label "B_LEFT_FIRE"
+		(at 103.378 118.364 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4c97e6dd-96b2-48ce-88ed-a1ee073b6556")
+	)
 	(label "PRI"
 		(at 144.78 68.834 180)
 		(fields_autoplaced yes)
@@ -2652,8 +2841,8 @@
 		)
 		(uuid "69932088-bd7e-430d-8d8c-4da7f828aea9")
 	)
-	(label "COIL_R_YAW"
-		(at 69.342 146.05 0)
+	(label "B_APU_FIRE"
+		(at 69.342 143.51 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2674,8 +2863,8 @@
 		)
 		(uuid "7647b2bb-649f-42e1-95a4-dec46f1ec4d7")
 	)
-	(label "COIL_L_PITCH"
-		(at 69.342 148.59 0)
+	(label "B_RIGHT_FIRE"
+		(at 69.342 146.05 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2707,8 +2896,8 @@
 		)
 		(uuid "86b7eae0-d5d1-4216-b9c4-368321e9787a")
 	)
-	(label "COIL_L_YAW"
-		(at 69.342 143.51 0)
+	(label "B_LEFT_FIRE"
+		(at 69.342 140.97 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2762,6 +2951,17 @@
 		)
 		(uuid "9d8c821e-60ca-45ab-80a3-4cb09a51ff59")
 	)
+	(label "B_APU_FIRE"
+		(at 103.886 125.222 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9ee38d66-6670-4375-a6ca-0a79c184bb73")
+	)
 	(label "ANCHR"
 		(at 68.326 98.044 0)
 		(fields_autoplaced yes)
@@ -2796,7 +2996,7 @@
 		(uuid "a6546ae5-307b-448d-b66f-debdbd3fa11e")
 	)
 	(label "COIL_ANTI_SKID"
-		(at 69.342 140.97 0)
+		(at 68.326 105.664 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2816,17 +3016,6 @@
 			(justify right bottom)
 		)
 		(uuid "a83713a2-d167-44aa-87d2-6558ca3527eb")
-	)
-	(label "COIL_R_PITCH"
-		(at 69.342 151.13 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b20080e0-7f16-4e13-a496-981d9f378d86")
 	)
 	(label "COIL_R_YAW"
 		(at 142.24 150.876 180)
@@ -2971,31 +3160,9 @@
 			)
 		)
 	)
-	(global_label "O_COIL_R_PITCH"
-		(shape input)
-		(at 46.99 151.13 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "2f2b876a-c1ea-4c78-8a97-cd86682c38fa")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 28.7301 151.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "O_ANTI_SKID"
 		(shape input)
-		(at 46.99 140.97 180)
+		(at 48.006 105.664 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3005,7 +3172,7 @@
 		)
 		(uuid "4453488d-1370-4edd-b47d-33f0629a8457")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 32.2982 140.97 0)
+			(at 33.3142 105.664 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3147,9 +3314,9 @@
 			)
 		)
 	)
-	(global_label "O_COIL_L_PITCH"
+	(global_label "O_RIGHT_FIRE"
 		(shape input)
-		(at 46.99 148.59 180)
+		(at 46.99 146.05 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3159,7 +3326,7 @@
 		)
 		(uuid "907a6a8b-55ee-4e64-be53-8ce7495402af")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 28.972 148.59 0)
+			(at 31.0887 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3191,9 +3358,9 @@
 			)
 		)
 	)
-	(global_label "O_COIL_L_YAW"
+	(global_label "O_LEFT_FIRE"
 		(shape input)
-		(at 46.99 143.51 180)
+		(at 46.99 140.97 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3203,7 +3370,7 @@
 		)
 		(uuid "e2255d35-aab4-4c59-a503-1e504d7cab18")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 30.7863 143.51 0)
+			(at 32.2983 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3235,9 +3402,9 @@
 			)
 		)
 	)
-	(global_label "O_COIL_R_YAW"
+	(global_label "0_APU_FIRE"
 		(shape input)
-		(at 46.99 146.05 180)
+		(at 46.482 143.51 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3247,7 +3414,7 @@
 		)
 		(uuid "fc43a069-cf04-4a0d-90a3-cba0320c2803")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 30.5444 146.05 0)
+			(at 32.4555 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3386,6 +3553,74 @@
 			(project "Forward Console General Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
 					(reference "#PWR070")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "+12V_1")
+		(lib_id "power:+12V")
+		(at 103.886 129.286 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3369edc8-40bb-41c2-a99f-45980f35c917")
+		(property "Reference" "#PWR093"
+			(at 103.886 133.096 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+24V"
+			(at 102.108 128.0159 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 103.886 129.286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 103.886 129.286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 103.886 129.286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "eea8c334-788c-4188-89db-abe45d10879a")
+		)
+		(instances
+			(project "Forward Console General Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
+					(reference "#PWR093")
 					(unit 1)
 				)
 			)
@@ -3539,6 +3774,75 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 108.966 129.286 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4a5b5f18-71fd-4414-96a4-bb60f77feaf8")
+		(property "Reference" "J62"
+			(at 109.6772 129.3439 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "RIGHT_FIRE"
+			(at 109.6772 131.7681 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 108.966 129.286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 108.966 129.286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 108.966 129.286 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0361c67d-a7df-4db3-8c50-444c067e150d")
+		)
+		(pin "2"
+			(uuid "b8023b07-ec98-412a-a0af-1f392691bbc4")
+		)
+		(instances
+			(project "Forward Console General Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
+					(reference "J62")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 43.18 113.03 0)
 		(unit 1)
@@ -3598,6 +3902,74 @@
 			(project "Forward Console General Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
 					(reference "#PWR077")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "+12V_1")
+		(lib_id "power:+12V")
+		(at 103.378 115.824 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "560da1a0-8766-4af2-aee9-1807ba0ea3c9")
+		(property "Reference" "#PWR091"
+			(at 103.378 119.634 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+24V"
+			(at 101.6 114.5539 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 103.378 115.824 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 103.378 115.824 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 103.378 115.824 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3cf06040-6742-4423-8a80-e349b6900005")
+		)
+		(instances
+			(project "Forward Console General Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
+					(reference "#PWR091")
 					(unit 1)
 				)
 			)
@@ -3797,6 +4169,210 @@
 			(project "Forward Console General Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
 					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "+12V_1")
+		(lib_id "power:+12V")
+		(at 103.886 122.682 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7642ddd5-123b-400d-8ce8-5b080d3b54ca")
+		(property "Reference" "#PWR092"
+			(at 103.886 126.492 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+24V"
+			(at 102.108 121.4119 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 103.886 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 103.886 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 103.886 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c2b66a9a-4133-49cf-93db-49ebe76e0313")
+		)
+		(instances
+			(project "Forward Console General Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
+					(reference "#PWR092")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 108.458 115.824 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8df3e17e-5694-424c-8598-c1170100fabe")
+		(property "Reference" "J63"
+			(at 109.1692 115.8819 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LEFT_FIRE"
+			(at 109.1692 118.3061 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 108.458 115.824 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 108.458 115.824 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 108.458 115.824 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "53f3332c-318e-4c57-873d-de6f77e1a9be")
+		)
+		(pin "2"
+			(uuid "40df2aa1-1f59-4afc-8056-07fce4e17342")
+		)
+		(instances
+			(project "Forward Console General Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
+					(reference "J63")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "+12V_1")
+		(lib_id "power:+12V")
+		(at 112.776 162.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a1ccdc4d-888d-415a-928a-a4aec8b09320")
+		(property "Reference" "#PWR094"
+			(at 112.776 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+24V"
+			(at 114.554 161.2899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 112.776 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 112.776 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 112.776 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ff947a51-abfe-4300-b89f-c7ff5dcccccd")
+		)
+		(instances
+			(project "Forward Console General Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
+					(reference "#PWR094")
 					(unit 1)
 				)
 			)
@@ -4025,7 +4601,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "ad0e7570-aca0-4738-8914-2360be67e56f")
 		(property "Reference" "#PWR075"
 			(at 69.342 137.414 0)
@@ -4036,12 +4611,13 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+12V"
-			(at 69.342 129.4709 0)
+		(property "Value" "+24V"
+			(at 71.12 132.3339 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -4078,6 +4654,73 @@
 			(project "Forward Console General Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
 					(reference "#PWR075")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "+12V_1")
+		(lib_id "power:+12V")
+		(at 92.456 162.56 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "af2e73d5-9b89-42cc-9e25-feefe01954cd")
+		(property "Reference" "#PWR095"
+			(at 92.456 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 92.456 158.4269 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 92.456 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 92.456 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 92.456 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6633b486-76b2-4f16-b10b-84500331c2e3")
+		)
+		(instances
+			(project "Forward Console General Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
+					(reference "#PWR095")
 					(unit 1)
 				)
 			)
@@ -4580,6 +5223,155 @@
 			(project "Forward Console General Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
 					(reference "J54")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Regulator_Switching:AOZ1280CI")
+		(at 102.616 165.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d35de354-04fb-45c2-b52e-512a37d93d18")
+		(property "Reference" "U6"
+			(at 102.616 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AOZ1280CI"
+			(at 102.616 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
+			(at 120.396 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://aosmd.com/res/data_sheets/AOZ1280CI.pdf"
+			(at 96.266 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "1.2 A Simple Buck Regulator, 3-26V input, 1.5Mhz"
+			(at 102.616 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "90f33ac8-5afa-46e9-b85e-e135c4cb90f8")
+		)
+		(pin "3"
+			(uuid "ce428832-2b42-4525-bcbe-89b8e04dc10c")
+		)
+		(pin "2"
+			(uuid "7aed1ce2-14eb-4487-9de0-43c1b868ad41")
+		)
+		(pin "4"
+			(uuid "1322f07d-0e17-4ff7-b7e8-f652d66e54fb")
+		)
+		(pin "5"
+			(uuid "4088259b-5e84-4ab2-b6f8-451ff0d08d9b")
+		)
+		(pin "6"
+			(uuid "60a20a66-e574-48f7-a731-95b8ca188ab0")
+		)
+		(instances
+			(project ""
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
+					(reference "U6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 108.966 122.682 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d68a29d8-8996-4511-a1d8-4a8b401ec9f7")
+		(property "Reference" "J61"
+			(at 109.6772 122.7399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "APU_FIRE"
+			(at 109.6772 125.1641 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 108.966 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 108.966 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 108.966 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "174b2c98-adac-4727-bd90-76470b77f6eb")
+		)
+		(pin "2"
+			(uuid "00223684-e535-4390-8618-35623e38bde7")
+		)
+		(instances
+			(project "Forward Console General Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
+					(reference "J61")
 					(unit 1)
 				)
 			)

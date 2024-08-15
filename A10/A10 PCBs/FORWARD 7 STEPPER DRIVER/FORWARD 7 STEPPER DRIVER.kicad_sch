@@ -21214,7 +21214,7 @@
 		)
 		(uuid "944f4304-0113-4484-a0b9-ffccc4de447a")
 	)
-	(label "ZERO_DETECT_3"
+	(label "ZERO-DETECT-ALTIMETER"
 		(at 132.334 157.48 180)
 		(fields_autoplaced yes)
 		(effects
@@ -22413,7 +22413,7 @@
 		)
 		(uuid "e49c6fef-58a6-4011-b2d4-01269478f7ef")
 	)
-	(label "ZERO_DETECT_3"
+	(label "ZERO-DETECT-ALTIMETER"
 		(at 231.14 67.31 180)
 		(fields_autoplaced yes)
 		(effects

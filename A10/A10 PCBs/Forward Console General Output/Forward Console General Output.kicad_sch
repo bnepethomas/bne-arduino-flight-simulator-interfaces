@@ -8371,7 +8371,7 @@
 		)
 		(uuid "fe837306-92d0-4847-ad21-76c47ae932d1")
 	)
-	(text "VALIDATE RELAY PINOUT"
+	(text "24V INVERTER NEEDED ON BOARD\nUSING EITHER  FETS OR 2003\nTO DRIVE"
 		(exclude_from_sim no)
 		(at 19.558 84.328 0)
 		(effects
@@ -12908,7 +12908,7 @@
 		(fields_autoplaced yes)
 		(uuid "04a40c9f-5fb2-416a-96d2-506f3651f1bf")
 		(property "Reference" "J36"
-			(at 116.5352 87.4339 0)
+			(at 116.84 87.3759 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12916,8 +12916,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "VHF_AM_OLED"
-			(at 116.5352 89.8581 0)
+		(property "Value" "ALTIMETER-OLED"
+			(at 116.84 89.9159 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15387,7 +15387,7 @@
 		(fields_autoplaced yes)
 		(uuid "3dc4d57b-748f-4d76-8a3f-a6af24fe73fa")
 		(property "Reference" "J21"
-			(at 116.5352 72.1939 0)
+			(at 116.84 72.1359 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15395,8 +15395,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "VHF_FM_OLED"
-			(at 116.5352 74.6181 0)
+		(property "Value" "CLOCK-OLED"
+			(at 116.84 74.6759 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19989,7 +19989,7 @@
 		(fields_autoplaced yes)
 		(uuid "d162190e-af7a-40e1-9810-33e24a4188e9")
 		(property "Reference" "J55"
-			(at 116.7892 103.1819 0)
+			(at 116.84 103.1239 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19997,8 +19997,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "UHF_OLED"
-			(at 116.7892 105.6061 0)
+		(property "Value" "BARO-OLED"
+			(at 116.84 105.6639 0)
 			(effects
 				(font
 					(size 1.27 1.27)
