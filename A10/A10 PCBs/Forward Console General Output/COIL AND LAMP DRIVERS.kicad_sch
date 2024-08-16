@@ -2548,6 +2548,16 @@
 	)
 	(wire
 		(pts
+			(xy 235.966 171.704) (xy 235.966 175.514)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64d1733e-002b-44e5-ba2f-1ac88b524eb6")
+	)
+	(wire
+		(pts
 			(xy 45.974 55.372) (xy 48.26 55.372)
 		)
 		(stroke
@@ -2648,6 +2658,16 @@
 	)
 	(wire
 		(pts
+			(xy 224.79 171.704) (xy 235.966 171.704)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e702b715-fb16-4df7-a6cf-120835c21114")
+	)
+	(wire
+		(pts
 			(xy 45.974 65.532) (xy 48.26 65.532)
 		)
 		(stroke
@@ -2710,7 +2730,7 @@
 		(uuid "0ccb683d-60dc-46b8-af31-efe61a630a50")
 	)
 	(label "TCN"
-		(at 145.542 97.536 180)
+		(at 119.634 76.962 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2721,7 +2741,7 @@
 		(uuid "14873e19-6067-48a1-84e2-c9cda1196207")
 	)
 	(label "ILS"
-		(at 145.542 100.076 180)
+		(at 119.634 79.502 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2743,7 +2763,7 @@
 		(uuid "20ab2c82-b593-47e7-98bd-5e532205017d")
 	)
 	(label "+12V"
-		(at 145.542 87.376 180)
+		(at 119.634 66.802 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2787,7 +2807,7 @@
 		(uuid "4c97e6dd-96b2-48ce-88ed-a1ee073b6556")
 	)
 	(label "PRI"
-		(at 144.78 68.834 180)
+		(at 118.872 48.26 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2809,7 +2829,7 @@
 		(uuid "5b6abcf2-f2fc-4ba2-b9ba-38fc884cbada")
 	)
 	(label "+12V"
-		(at 144.78 66.294 180)
+		(at 118.872 45.72 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2820,7 +2840,7 @@
 		(uuid "5c5e19bd-372d-4599-b55a-e03704e189c6")
 	)
 	(label "SEP"
-		(at 144.78 71.374 180)
+		(at 118.872 50.8 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2853,7 +2873,7 @@
 		(uuid "72f24852-ec14-4778-a8e6-604ebca0bad2")
 	)
 	(label "TISL"
-		(at 145.542 89.916 180)
+		(at 119.634 69.342 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2875,7 +2895,7 @@
 		(uuid "818d6dc6-80e1-4a61-8406-9ae1ff552a29")
 	)
 	(label "STR PT"
-		(at 145.542 92.456 180)
+		(at 119.634 71.882 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2919,7 +2939,7 @@
 		(uuid "90d8fd90-7453-4e89-9eee-455d494c7a26")
 	)
 	(label "CAUTION_LAMP-"
-		(at 137.922 49.784 180)
+		(at 112.014 29.21 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2930,7 +2950,7 @@
 		(uuid "9153eea9-7500-4e6c-9da5-25349a26b110")
 	)
 	(label "ANCHR"
-		(at 145.542 94.996 180)
+		(at 119.634 74.422 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2985,7 +3005,7 @@
 		(uuid "a5a0f673-c0f4-4de1-b20b-272a35b52d97")
 	)
 	(label "MISSLE LAUNCH"
-		(at 144.78 73.914 180)
+		(at 118.872 53.34 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3007,7 +3027,7 @@
 		(uuid "a6b1a2d8-3246-47ff-b725-e007afad4068")
 	)
 	(label "EGI"
-		(at 144.78 78.994 180)
+		(at 118.872 58.42 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3062,7 +3082,7 @@
 		(uuid "db30bf55-13bd-4913-bc8f-9f73c0c82513")
 	)
 	(label "HARS"
-		(at 144.78 76.454 180)
+		(at 118.872 55.88 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3693,7 +3713,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x06_Socket")
-		(at 150.622 92.456 0)
+		(at 124.714 71.882 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3702,7 +3722,7 @@
 		(fields_autoplaced yes)
 		(uuid "3cdf5263-fbf4-4c0d-b893-c6cdb5bd1986")
 		(property "Reference" "J52"
-			(at 151.3332 92.5139 0)
+			(at 125.4252 71.9399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3711,7 +3731,7 @@
 			)
 		)
 		(property "Value" "BULB_B"
-			(at 151.3332 94.9381 0)
+			(at 125.4252 74.3641 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3720,7 +3740,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
-			(at 150.622 92.456 0)
+			(at 124.714 71.882 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3729,7 +3749,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 150.622 92.456 0)
+			(at 124.714 71.882 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3738,7 +3758,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 150.622 92.456 0)
+			(at 124.714 71.882 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4445,7 +4465,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x06_Socket")
-		(at 149.86 71.374 0)
+		(at 123.952 50.8 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4454,7 +4474,7 @@
 		(fields_autoplaced yes)
 		(uuid "a8abf419-242e-49de-be2a-d9d4a9220ec1")
 		(property "Reference" "J51"
-			(at 150.5712 71.4319 0)
+			(at 124.6632 50.8579 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4463,7 +4483,7 @@
 			)
 		)
 		(property "Value" "BULB_A"
-			(at 150.5712 73.8561 0)
+			(at 124.6632 53.2821 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4472,7 +4492,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
-			(at 149.86 71.374 0)
+			(at 123.952 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4481,7 +4501,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 149.86 71.374 0)
+			(at 123.952 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4490,7 +4510,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 149.86 71.374 0)
+			(at 123.952 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4528,7 +4548,7 @@
 	(symbol
 		(lib_name "+12V_1")
 		(lib_id "power:+12V")
-		(at 137.922 47.244 0)
+		(at 112.014 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4537,7 +4557,7 @@
 		(fields_autoplaced yes)
 		(uuid "ab1c4f14-aff8-4bf4-a3ae-397e5d7f54d0")
 		(property "Reference" "#PWR067"
-			(at 137.922 51.054 0)
+			(at 112.014 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4546,7 +4566,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 137.922 43.1109 0)
+			(at 112.014 22.5369 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4554,7 +4574,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 137.922 47.244 0)
+			(at 112.014 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4563,7 +4583,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 137.922 47.244 0)
+			(at 112.014 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4572,7 +4592,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 137.922 47.244 0)
+			(at 112.014 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5300,7 +5320,7 @@
 			(uuid "60a20a66-e574-48f7-a731-95b8ca188ab0")
 		)
 		(instances
-			(project ""
+			(project "Forward Console General Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/44f10c05-213b-4d93-9732-81a782b7b9e4"
 					(reference "U6")
 					(unit 1)
@@ -5379,7 +5399,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x02_Socket")
-		(at 143.002 47.244 0)
+		(at 117.094 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5388,7 +5408,7 @@
 		(fields_autoplaced yes)
 		(uuid "dc6423f4-b4c9-4325-b133-883a13ce8c48")
 		(property "Reference" "J1"
-			(at 143.7132 47.3019 0)
+			(at 117.8052 26.7279 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5397,7 +5417,7 @@
 			)
 		)
 		(property "Value" "CAUTION LAMP"
-			(at 143.7132 49.7261 0)
+			(at 117.8052 29.1521 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5406,7 +5426,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
-			(at 143.002 47.244 0)
+			(at 117.094 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5415,7 +5435,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 143.002 47.244 0)
+			(at 117.094 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5424,7 +5444,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 143.002 47.244 0)
+			(at 117.094 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
