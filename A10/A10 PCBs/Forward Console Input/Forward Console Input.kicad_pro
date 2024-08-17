@@ -632,6 +632,18 @@
           "label": "Description",
           "name": "Description",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Device",
+          "name": "Sim.Device",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Pins",
+          "name": "Sim.Pins",
+          "show": false
         }
       ],
       "filter_string": "",
@@ -708,6 +720,10 @@
     [
       "0dd75295-4c0d-4634-b9b2-1c8cf5936b7a",
       "Individual Inputs"
+    ],
+    [
+      "443d89d2-c4b6-4226-b842-9e3c30590fed",
+      "PATCH"
     ]
   ],
   "text_variables": {}

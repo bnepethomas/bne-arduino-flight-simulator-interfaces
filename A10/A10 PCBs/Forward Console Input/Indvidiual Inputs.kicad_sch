@@ -1964,7 +1964,7 @@
 		(uuid "2a2c44e1-47ce-4f20-8013-04a90c98cfd4")
 	)
 	(no_connect
-		(at 43.942 62.23)
+		(at 51.816 62.484)
 		(uuid "594321a5-5a4b-45ba-9836-cb5546200d5e")
 	)
 	(no_connect
@@ -2059,6 +2059,16 @@
 	)
 	(wire
 		(pts
+			(xy 120.396 95.758) (xy 129.032 95.758)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10578dc0-411d-49f8-b5c6-dfd487e6cb29")
+	)
+	(wire
+		(pts
 			(xy 40.64 89.916) (xy 44.958 89.916)
 		)
 		(stroke
@@ -2119,7 +2129,7 @@
 	)
 	(wire
 		(pts
-			(xy 41.402 53.848) (xy 43.942 53.848)
+			(xy 41.402 53.848) (xy 51.816 53.848)
 		)
 		(stroke
 			(width 0)
@@ -2229,23 +2239,13 @@
 	)
 	(wire
 		(pts
-			(xy 33.528 59.69) (xy 43.942 59.69)
+			(xy 33.528 59.944) (xy 51.816 59.944)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "43b4985f-1848-4bbc-a56c-5a1bce15379b")
-	)
-	(wire
-		(pts
-			(xy 120.396 95.758) (xy 122.682 95.758)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4719ef49-d8b7-4019-b563-d6165af3cab1")
 	)
 	(wire
 		(pts
@@ -2329,7 +2329,7 @@
 	)
 	(wire
 		(pts
-			(xy 110.236 95.758) (xy 110.236 98.298)
+			(xy 110.236 98.806) (xy 110.236 95.758)
 		)
 		(stroke
 			(width 0)
@@ -2346,6 +2346,16 @@
 			(type default)
 		)
 		(uuid "600fd527-36b3-4ad5-b87d-e75c7f823db9")
+	)
+	(wire
+		(pts
+			(xy 129.032 95.758) (xy 129.032 96.266)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6292f9e5-7838-4663-976c-2307656a2aa4")
 	)
 	(wire
 		(pts
@@ -2376,6 +2386,16 @@
 			(type default)
 		)
 		(uuid "66b81b8a-8481-432b-8635-287aaadb2aa2")
+	)
+	(wire
+		(pts
+			(xy 51.562 57.15) (xy 41.402 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6770d2bd-3a9f-4016-9dcd-3a5ddedf871e")
 	)
 	(wire
 		(pts
@@ -2449,7 +2469,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.528 66.802) (xy 33.528 59.69)
+			(xy 33.528 66.802) (xy 33.528 59.944)
 		)
 		(stroke
 			(width 0)
@@ -2486,6 +2506,16 @@
 			(type default)
 		)
 		(uuid "88a2ee98-0417-438f-9a9f-cbb60eb4a69d")
+	)
+	(wire
+		(pts
+			(xy 50.546 169.418) (xy 52.07 169.418)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8b19289a-a502-451d-be19-28a446422d75")
 	)
 	(wire
 		(pts
@@ -2539,7 +2569,7 @@
 	)
 	(wire
 		(pts
-			(xy 43.942 53.848) (xy 43.942 54.61)
+			(xy 51.816 53.848) (xy 51.816 54.864)
 		)
 		(stroke
 			(width 0)
@@ -2576,6 +2606,16 @@
 			(type default)
 		)
 		(uuid "9b3bb317-5e02-45f1-8f15-84a250316568")
+	)
+	(wire
+		(pts
+			(xy 51.562 57.404) (xy 51.562 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9cb209aa-f5b7-4794-a17e-32e44e3c8612")
 	)
 	(wire
 		(pts
@@ -2619,6 +2659,16 @@
 	)
 	(wire
 		(pts
+			(xy 50.546 173.228) (xy 50.546 169.418)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a695de18-d58f-4230-b5eb-d55424ef3dcc")
+	)
+	(wire
+		(pts
 			(xy 30.48 99.314) (xy 26.162 99.314)
 		)
 		(stroke
@@ -2659,7 +2709,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.704 178.308) (xy 44.704 169.418)
+			(xy 44.45 178.308) (xy 44.45 173.228)
 		)
 		(stroke
 			(width 0)
@@ -2889,7 +2939,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.704 169.418) (xy 52.07 169.418)
+			(xy 44.45 173.228) (xy 50.546 173.228)
 		)
 		(stroke
 			(width 0)
@@ -2929,7 +2979,7 @@
 	)
 	(wire
 		(pts
-			(xy 41.402 57.15) (xy 43.942 57.15)
+			(xy 51.562 57.404) (xy 51.816 57.404)
 		)
 		(stroke
 			(width 0)
@@ -2939,7 +2989,7 @@
 	)
 	(wire
 		(pts
-			(xy 30.734 178.308) (xy 44.704 178.308)
+			(xy 30.734 178.308) (xy 44.45 178.308)
 		)
 		(stroke
 			(width 0)
@@ -2979,7 +3029,7 @@
 	)
 	(wire
 		(pts
-			(xy 110.236 98.298) (xy 122.682 98.298)
+			(xy 110.236 98.806) (xy 129.032 98.806)
 		)
 		(stroke
 			(width 0)
@@ -3013,7 +3063,7 @@
 	)
 	(rectangle
 		(start 19.05 44.45)
-		(end 67.056 79.248)
+		(end 71.12 79.248)
 		(stroke
 			(width 0)
 			(type default)
@@ -3061,7 +3111,7 @@
 	)
 	(rectangle
 		(start 107.95 85.852)
-		(end 147.574 102.87)
+		(end 151.13 102.87)
 		(stroke
 			(width 0)
 			(type default)
@@ -3163,7 +3213,84 @@
 		)
 		(uuid "f1081c1d-1a4a-4b55-8459-3622c0535fc5")
 	)
-	(label "ENCODER B"
+	(label "ROW11"
+		(at 134.62 62.23 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "025053ad-ec94-4452-8676-e37123025998")
+	)
+	(label "COL2"
+		(at 132.842 47.498 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0bcffbe6-5b7f-4c29-89fc-efae90adae83")
+	)
+	(label "ROW11"
+		(at 49.53 173.228 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0f4345b6-6517-4b2f-ace1-0e088a850680")
+	)
+	(label "COL3"
+		(at 49.784 157.988 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1038a954-ae57-46df-879e-6e1de9ae09f9")
+	)
+	(label "ROW10"
+		(at 49.53 164.338 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "17388595-db88-4b4e-84ef-af037b2c9fc9")
+	)
+	(label "ROW13"
+		(at 126.492 98.806 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "230bf61f-60a3-4ee8-98a7-a790659f68f5")
+	)
+	(label "ROW14"
+		(at 50.038 53.848 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "24f21ce7-a45e-4f1f-9159-358a5a8d2067")
+	)
+	(label "ALT-ENC-B"
 		(at 136.144 124.714 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3174,8 +3301,19 @@
 		)
 		(uuid "2532e50f-ede8-4c31-8d97-ffe9b3e2575a")
 	)
-	(label "ROW"
-		(at 136.144 151.638 180)
+	(label "COL2"
+		(at 132.588 71.882 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "295c8c45-e286-4241-aa2d-291542edc082")
+	)
+	(label "ROW12"
+		(at 136.144 154.178 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3185,7 +3323,7 @@
 		)
 		(uuid "4baa3ea9-23c8-431a-9ea7-d5cee2376823")
 	)
-	(label "ENCODER-A"
+	(label "ALT-ENC-A"
 		(at 136.144 122.174 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3196,7 +3334,29 @@
 		)
 		(uuid "56c9d6f5-e439-4638-9dc9-d3aaef6f86e2")
 	)
-	(label "ENCODER B"
+	(label "COL2"
+		(at 50.038 59.944 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5e31bbb5-50a9-41c7-af51-620d1aebf52e")
+	)
+	(label "ROW15"
+		(at 49.784 57.15 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "640d4c75-0870-4a38-930b-2c8b2db003e5")
+	)
+	(label "SARI-ENC-B"
 		(at 136.144 149.098 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3207,8 +3367,8 @@
 		)
 		(uuid "6edc7345-4603-4c80-824b-c2031c20fa52")
 	)
-	(label "COL"
-		(at 136.144 154.178 180)
+	(label "COL3"
+		(at 136.144 151.638 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3218,8 +3378,8 @@
 		)
 		(uuid "74d9e426-e568-479a-8d59-1b42df43961b")
 	)
-	(label "COL"
-		(at 136.144 129.794 180)
+	(label "COL3"
+		(at 136.144 127.254 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3229,7 +3389,7 @@
 		)
 		(uuid "a4989f5e-9003-4b2a-be7e-a0e8c63d8633")
 	)
-	(label "ENCORDER GND"
+	(label "ALT-ENC-GND"
 		(at 136.144 119.634 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3240,8 +3400,41 @@
 		)
 		(uuid "c4ed291f-ccaf-40f7-b286-306084e934cb")
 	)
-	(label "ROW"
-		(at 136.144 127.254 180)
+	(label "COL2"
+		(at 132.842 59.69 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d5aa750d-2bd1-4002-9036-8a4c351ab6f7")
+	)
+	(label "ROW10"
+		(at 134.366 50.038 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d85e6062-aa50-4adc-a958-447dfa003c77")
+	)
+	(label "ROW12"
+		(at 134.366 74.422 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e23dc09d-ff96-4add-9f1f-b936b1ef229f")
+	)
+	(label "ROW13"
+		(at 136.144 129.794 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3251,7 +3444,7 @@
 		)
 		(uuid "e45f92fd-c88f-41ae-8b99-0403abdf2c91")
 	)
-	(label "ENCORDER GND"
+	(label "SARI-ENC-GND"
 		(at 136.144 144.018 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3262,7 +3455,29 @@
 		)
 		(uuid "f03535f6-e0ac-46bb-83e7-86b724123998")
 	)
-	(label "ENCODER-A"
+	(label "COL3"
+		(at 51.308 166.878 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f35bc73e-23ae-4214-9322-cfc7721d4081")
+	)
+	(label "COL2"
+		(at 126.492 95.758 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f3f0ec22-2980-41e3-bd10-2530b6d6f92f")
+	)
+	(label "SARI-ENC-A"
 		(at 136.144 146.558 180)
 		(fields_autoplaced yes)
 		(effects
@@ -3445,7 +3660,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_THT:D_A-405_P7.62mm_Horizontal"
 			(at 37.592 53.848 0)
 			(effects
 				(font
@@ -4373,7 +4588,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 49.022 57.15 0)
+		(at 56.896 57.404 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -4382,7 +4597,7 @@
 		(fields_autoplaced yes)
 		(uuid "5513025a-3763-4092-b905-e44901115685")
 		(property "Reference" "J33"
-			(at 49.7332 57.2078 0)
+			(at 57.6072 57.4618 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4391,7 +4606,7 @@
 			)
 		)
 		(property "Value" "SW_JMR_MWS"
-			(at 49.7332 59.6321 0)
+			(at 57.6072 59.8861 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4400,7 +4615,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 49.022 57.15 0)
+			(at 56.896 57.404 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4409,7 +4624,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 49.022 57.15 0)
+			(at 56.896 57.404 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4418,7 +4633,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x04, script generated"
-			(at 49.022 57.15 0)
+			(at 56.896 57.404 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4545,7 +4760,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
 			(at 123.698 59.69 0)
 			(effects
 				(font
@@ -4695,7 +4910,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
 			(at 123.698 47.498 0)
 			(effects
 				(font
@@ -5379,7 +5594,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x02_Socket")
-		(at 127.762 95.758 0)
+		(at 134.112 96.266 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -5388,7 +5603,7 @@
 		(fields_autoplaced yes)
 		(uuid "bcf945fe-04a4-4856-a6cf-237147b18e1b")
 		(property "Reference" "J44"
-			(at 128.4732 95.8158 0)
+			(at 134.8232 96.3238 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5397,7 +5612,7 @@
 			)
 		)
 		(property "Value" "SW - JETTISON"
-			(at 128.4732 98.2401 0)
+			(at 134.8232 98.7481 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5405,8 +5620,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 127.762 95.758 0)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 134.112 96.266 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5415,7 +5630,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 127.762 95.758 0)
+			(at 134.112 96.266 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5424,7 +5639,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 127.762 95.758 0)
+			(at 134.112 96.266 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5637,22 +5852,22 @@
 			)
 		)
 		(pin "2"
-			(uuid "4613761a-87ad-4737-b88d-158fe037703f")
+			(uuid "4613761a-87ad-4737-b88d-158fe0377040")
 		)
 		(pin "1"
-			(uuid "7b1c7bf2-5c8f-4969-9104-bd997c8bca46")
+			(uuid "7b1c7bf2-5c8f-4969-9104-bd997c8bca47")
 		)
 		(pin "6"
-			(uuid "88f9b7e4-9aed-4229-bcd4-59a41cde2318")
+			(uuid "88f9b7e4-9aed-4229-bcd4-59a41cde2319")
 		)
 		(pin "3"
-			(uuid "6d9d46bc-59b6-4df4-93ab-006429904e48")
+			(uuid "6d9d46bc-59b6-4df4-93ab-006429904e49")
 		)
 		(pin "5"
-			(uuid "5db8e16a-e8d6-4afc-9bea-3ef5c46f52c6")
+			(uuid "5db8e16a-e8d6-4afc-9bea-3ef5c46f52c7")
 		)
 		(pin "4"
-			(uuid "9380addb-d0aa-4ff0-a597-3fcb8e2bf17c")
+			(uuid "9380addb-d0aa-4ff0-a597-3fcb8e2bf17d")
 		)
 		(instances
 			(project "Forward Console Input"
@@ -5691,7 +5906,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
 			(at 123.698 71.882 0)
 			(effects
 				(font
@@ -6036,7 +6251,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Diode_THT:D_A-405_P7.62mm_Horizontal"
 			(at 37.592 57.15 0)
 			(effects
 				(font
