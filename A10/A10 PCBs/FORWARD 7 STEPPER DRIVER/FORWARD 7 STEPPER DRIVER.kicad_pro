@@ -591,7 +591,7 @@
       "sort_asc": true,
       "sort_field": "Reference"
     },
-    "connection_grid_size": 50.0,
+    "connection_grid_size": 25.0,
     "drawing": {
       "dashed_lines_dash_length_ratio": 12.0,
       "dashed_lines_gap_length_ratio": 3.0,
@@ -648,6 +648,14 @@
     [
       "c7f990b2-d440-49cb-84f3-2f34f9ecc442",
       "ETHERNET_MOD"
+    ],
+    [
+      "639eb793-aa54-4e53-85ab-2b26bfad11bd",
+      "STEPPER_DRIVERS"
+    ],
+    [
+      "8498c441-f151-4198-9b9f-0e14857b3f16",
+      "BACKLIGHTING"
     ]
   ],
   "text_variables": {}
