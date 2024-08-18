@@ -324,210 +324,6 @@
 				)
 			)
 		)
-		(symbol "Connector:Conn_01x03_Socket"
-			(pin_names
-				(offset 1.016) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "J"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Conn_01x03_Socket"
-				(at 0 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Generic connector, single row, 01x03, script generated"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "connector"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Connector*:*_1x??_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Conn_01x03_Socket_1_1"
-				(arc
-					(start 0 -2.032)
-					(mid -0.5058 -2.54)
-					(end 0 -3.048)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.27 -2.54) (xy -0.508 -2.54)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.27 0) (xy -0.508 0)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.27 2.54) (xy -0.508 2.54)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 0.508)
-					(mid -0.5058 0)
-					(end 0 -0.508)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 3.048)
-					(mid -0.5058 2.54)
-					(end 0 2.032)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -5.08 2.54 0)
-					(length 3.81)
-					(name "Pin_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 3.81)
-					(name "Pin_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -2.54 0)
-					(length 3.81)
-					(name "Pin_3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "Connector:Conn_01x04_Socket"
 			(pin_names
 				(offset 1.016) hide)
@@ -6168,126 +5964,6 @@
 				)
 			)
 		)
-		(symbol "power:+5VD"
-			(power)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+5VD"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"+5VD\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "power-flag"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+5VD_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+5VD_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0) hide
-					(name "+5VD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "power:GND"
 			(power)
 			(pin_names
@@ -6744,16 +6420,6 @@
 			(type default)
 		)
 		(uuid "021754f0-35cf-4989-9bd7-55980b030d3a")
-	)
-	(wire
-		(pts
-			(xy 309.626 83.058) (xy 315.468 83.058)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0315f949-a8e4-49a3-bc79-82c9dd8ec90e")
 	)
 	(wire
 		(pts
@@ -8995,17 +8661,6 @@
 			(justify left bottom)
 		)
 		(uuid "71ee7db7-62cb-4290-8aea-077c2ba1dad4")
-	)
-	(text "+5VD FOR MAX CHIPS"
-		(exclude_from_sim no)
-		(at 20.32 19.05 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7d325e42-edba-47e0-8913-e1557839783b")
 	)
 	(text "* Indicates a PWM-capable pin"
 		(exclude_from_sim no)
@@ -11493,28 +11148,6 @@
 			)
 		)
 	)
-	(global_label "SARI-SERVO"
-		(shape input)
-		(at 315.468 83.058 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "1453b133-9a54-46f0-a5c8-c7ce44635506")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 330.3412 83.058 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "A15 D69"
 		(shape input)
 		(at 220.726 100.838 180)
@@ -12232,28 +11865,6 @@
 		(uuid "561a091f-f69f-4551-b727-d9b4cb51ab6a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 255.524 148.7553 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "SARI-SERVO"
-		(shape input)
-		(at 30.988 53.086 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "5b8e08de-b19a-4bbc-93c1-40b5cb37d7f4")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 16.1148 53.086 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13574,28 +13185,6 @@
 		(uuid "ce3f02c0-0355-478d-94e7-942d9ee73950")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 210.691 75.438 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "D14"
-		(shape input)
-		(at 309.626 83.058 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "cfaaa31e-38d4-4814-92f0-9ea404d6f70e")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 302.8567 83.058 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15722,34 +15311,16 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 52.324 34.29 0)
+		(lib_id "power:+12V")
+		(at 45.212 32.258 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "32a1a342-3fa3-4291-89c1-7cfec8da9438")
-		(property "Reference" "C2"
-			(at 55.245 33.1216 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 55.245 35.433 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm"
-			(at 53.2892 38.1 0)
+		(uuid "322c1b14-04dd-4b56-978c-577e0b883939")
+		(property "Reference" "#PWR02"
+			(at 45.212 36.068 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15757,8 +15328,25 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 52.324 34.29 0)
+		(property "Value" "+12V"
+			(at 45.593 27.8638 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.212 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 45.212 32.258 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15767,7 +15355,73 @@
 			)
 		)
 		(property "Description" ""
-			(at 52.324 34.29 0)
+			(at 45.212 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7c1016db-d7b4-4f9b-947e-95943ad21da2")
+		)
+		(instances
+			(project "Forward Console Combined Input and Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 22.86 33.528 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "32a1a342-3fa3-4291-89c1-7cfec8da9438")
+		(property "Reference" "C2"
+			(at 25.781 32.3596 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 25.781 34.671 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm"
+			(at 23.8252 37.338 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 22.86 33.528 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 22.86 33.528 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15877,7 +15531,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 52.324 38.1 0)
+		(at 22.86 37.338 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15885,7 +15539,7 @@
 		(dnp no)
 		(uuid "373c117e-6d91-45b7-8d63-d1e99a7d8a4f")
 		(property "Reference" "#PWR029"
-			(at 52.324 44.45 0)
+			(at 22.86 43.688 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15894,7 +15548,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 52.451 42.4942 0)
+			(at 22.987 41.7322 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15902,7 +15556,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 52.324 38.1 0)
+			(at 22.86 37.338 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15911,7 +15565,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 52.324 38.1 0)
+			(at 22.86 37.338 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15920,7 +15574,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 52.324 38.1 0)
+			(at 22.86 37.338 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17081,141 +16735,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 28.194 33.782 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "6b98f74f-c749-44fc-9c84-29284b0a6020")
-		(property "Reference" "C1"
-			(at 31.115 32.6136 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 31.115 34.925 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm"
-			(at 29.1592 37.592 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 28.194 33.782 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 28.194 33.782 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "fd6b4460-d975-4557-ba23-9a831c9389b2")
-		)
-		(pin "2"
-			(uuid "faf49571-cd1a-4b2c-b8c8-1782fac8dcce")
-		)
-		(instances
-			(project "Forward Console Combined Input and Output"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "C1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5VD")
-		(at 30.988 50.546 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6d781172-0eed-4432-9ce7-9880145599a0")
-		(property "Reference" "#PWR096"
-			(at 30.988 54.356 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5VD"
-			(at 30.988 46.9702 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 30.988 50.546 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 30.988 50.546 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 30.988 50.546 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0ccd5c06-52af-446c-bd7e-8fd45d3b0b88")
-		)
-		(instances
-			(project "Forward Console Combined Input and Output"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR096")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector:Conn_01x12_Socket")
 		(at 122.936 164.846 0)
 		(unit 1)
@@ -17534,15 +17053,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 28.194 37.592 0)
+		(at 45.212 34.798 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "74ca7b58-5591-4389-9354-6e8fde51d712")
-		(property "Reference" "#PWR021"
-			(at 28.194 43.942 0)
+		(uuid "7196ca94-d786-43d5-8c4f-24ca8235c3b2")
+		(property "Reference" "#PWR04"
+			(at 45.212 41.148 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17551,7 +17070,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 28.321 41.9862 0)
+			(at 45.339 39.1922 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17559,7 +17078,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 28.194 37.592 0)
+			(at 45.212 34.798 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17568,7 +17087,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 28.194 37.592 0)
+			(at 45.212 34.798 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17577,7 +17096,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 28.194 37.592 0)
+			(at 45.212 34.798 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17586,12 +17105,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "59313e3d-06d5-4b31-8c50-ec38074f7807")
+			(uuid "b97eadb8-b66a-4266-9e0c-12dc354375ed")
 		)
 		(instances
 			(project "Forward Console Combined Input and Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR021")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -17726,6 +17245,140 @@
 			(project "Forward Console Combined Input and Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 32.258 34.798 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7f5d10aa-2434-4b57-8c98-5aa9f4c8b801")
+		(property "Reference" "#PWR08"
+			(at 32.258 41.148 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 32.385 39.1922 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 32.258 34.798 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 32.258 34.798 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 32.258 34.798 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "00d01447-3eb9-47b4-8292-30a28a80ec71")
+		)
+		(instances
+			(project "Forward Console Combined Input and Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 50.292 32.258 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7fd6acac-810c-4e4e-9c29-3c76425db22e")
+		(property "Reference" "J20"
+			(at 51.0032 32.8676 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12Vout"
+			(at 51.0032 35.179 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
+			(at 50.292 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 50.292 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 50.292 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b07639a9-c709-4283-9bfb-fe6e4f4191d8")
+		)
+		(pin "2"
+			(uuid "c729e066-9b5a-4bad-9137-d4b0b3459ec7")
+		)
+		(instances
+			(project "Forward Console Combined Input and Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J20")
 					(unit 1)
 				)
 			)
@@ -17976,6 +17629,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+12V")
+		(at 32.258 32.258 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8f54ff85-6394-484b-9f9a-6e1ac7eaa01d")
+		(property "Reference" "#PWR05"
+			(at 32.258 36.068 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 32.639 27.8638 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 32.258 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 32.258 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 32.258 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "35d070ad-ca2a-4501-9dbf-7c21b36fc074")
+		)
+		(instances
+			(project "Forward Console Combined Input and Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 105.156 175.006 90)
 		(unit 1)
@@ -18037,137 +17755,6 @@
 			(project "Forward Console Combined Input and Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R25")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 30.988 55.626 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "9f0eed83-5886-4752-9cf8-944ac33d5cf8")
-		(property "Reference" "#PWR097"
-			(at 30.988 61.976 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 31.115 60.0202 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 30.988 55.626 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 30.988 55.626 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 30.988 55.626 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "f50212b5-e34c-4af7-8c3e-c96e7f1537a4")
-		)
-		(instances
-			(project "Forward Console Combined Input and Output"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR097")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5VD")
-		(at 28.194 29.972 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "9f3ff45d-f7ce-43a9-a8a1-8f154f18c673")
-		(property "Reference" "#PWR020"
-			(at 28.194 33.782 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5VD"
-			(at 28.194 26.3962 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 28.194 29.972 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 28.194 29.972 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 28.194 29.972 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "3fda3a51-ac26-43b0-84d9-3b3358fad2e1")
-		)
-		(instances
-			(project "Forward Console Combined Input and Output"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -18477,72 +18064,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5VD")
-		(at 34.544 32.512 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "abdc7f1d-6b25-4732-92ae-dff2fd298420")
-		(property "Reference" "#PWR022"
-			(at 34.544 36.322 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5VD"
-			(at 34.544 28.9362 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 34.544 32.512 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 34.544 32.512 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 34.544 32.512 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "10efc86b-772f-4fc2-a1ef-30ee79275d1d")
-		)
-		(instances
-			(project "Forward Console Combined Input and Output"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR022")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:LED")
 		(at 19.812 154.686 90)
 		(unit 1)
@@ -18765,73 +18286,8 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 34.544 35.052 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b670aa80-8424-44d9-9117-368e68320e04")
-		(property "Reference" "#PWR023"
-			(at 34.544 41.402 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 34.671 39.4462 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 34.544 35.052 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 34.544 35.052 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 34.544 35.052 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a6981c09-6c13-4674-9297-9b3a05c06b9d")
-		)
-		(instances
-			(project "Forward Console Combined Input and Output"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR023")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+12V")
-		(at 52.324 30.48 0)
+		(at 22.86 29.718 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18839,7 +18295,7 @@
 		(dnp no)
 		(uuid "bb07795d-6530-4c83-a182-1381d23f1911")
 		(property "Reference" "#PWR028"
-			(at 52.324 34.29 0)
+			(at 22.86 33.528 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18848,7 +18304,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 52.705 26.0858 0)
+			(at 23.241 25.3238 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18856,7 +18312,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 52.324 30.48 0)
+			(at 22.86 29.718 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18865,7 +18321,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 52.324 30.48 0)
+			(at 22.86 29.718 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18874,7 +18330,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 52.324 30.48 0)
+			(at 22.86 29.718 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19030,6 +18486,75 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x02_Female")
+		(at 37.338 32.258 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c74d4540-c3d5-4954-aa55-1f561b75459e")
+		(property "Reference" "J54"
+			(at 38.0492 32.8676 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12VOUT"
+			(at 38.0492 35.179 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
+			(at 37.338 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 37.338 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 37.338 32.258 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5b6277f3-c573-440d-9c6f-dbf20afdf409")
+		)
+		(pin "2"
+			(uuid "37958d1d-da94-47ee-ab9c-b8743d187358")
+		)
+		(instances
+			(project "Forward Console Combined Input and Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J54")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector_Generic:Conn_01x08")
 		(at 139.192 157.734 0)
 		(mirror y)
@@ -19109,79 +18634,6 @@
 			(project "Forward Console Combined Input and Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J25")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x03_Socket")
-		(at 36.068 53.086 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "dc74378b-86ba-4411-94ba-b81f03d0d80b")
-		(property "Reference" "J64"
-			(at 36.7792 51.8738 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "SARI-SERVO"
-			(at 36.7792 54.2981 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
-			(at 36.068 53.086 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 36.068 53.086 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 36.068 53.086 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "d401f397-59bf-4c1d-b3c5-4b116f0d3f22")
-		)
-		(pin "2"
-			(uuid "83d814cd-25f7-4791-9b35-70bd7845d1b6")
-		)
-		(pin "1"
-			(uuid "9afe325b-a3c4-4ea8-a313-e57e98a8af16")
-		)
-		(instances
-			(project "Forward Console Combined Input and Output"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "J64")
 					(unit 1)
 				)
 			)
@@ -19473,75 +18925,6 @@
 			(project "Forward Console Combined Input and Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "D2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Female")
-		(at 39.624 32.512 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f496fa67-bb27-4253-8188-5583161d1561")
-		(property "Reference" "J20"
-			(at 40.3352 33.1216 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "5VIN"
-			(at 40.3352 35.433 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
-			(at 39.624 32.512 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 39.624 32.512 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 39.624 32.512 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "8a30dd0e-506d-4970-867e-908ea5623e60")
-		)
-		(pin "2"
-			(uuid "0ffe2020-6194-485a-9738-833eefcdf569")
-		)
-		(instances
-			(project "Forward Console Combined Input and Output"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "J20")
 					(unit 1)
 				)
 			)

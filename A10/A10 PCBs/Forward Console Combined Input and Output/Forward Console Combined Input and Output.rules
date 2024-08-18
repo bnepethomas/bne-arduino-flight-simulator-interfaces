@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 25418)
+    (start_pass_no 98)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -106,7 +106,7 @@
     )
   )
   (class POWER
-    GND +5VD +12V
+    GND +12V
     (clearance_class POWER)
     (via_rule POWER)
     (rule
