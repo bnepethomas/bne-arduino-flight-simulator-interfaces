@@ -23413,6 +23413,44 @@
 		)
 	)
 	(sheet
+		(at 65.786 166.37)
+		(size 12.7 3.81)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "7e0b1299-0e3a-487b-b7fb-0cf50ee0a794")
+		(property "Sheetname" "PATCH"
+			(at 65.786 165.6584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "PATCH.kicad_sch"
+			(at 65.786 170.7646 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "FORWARD 7 STEPPER DRIVER"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
 		(at 65.532 181.356)
 		(size 12.7 3.81)
 		(fields_autoplaced yes)

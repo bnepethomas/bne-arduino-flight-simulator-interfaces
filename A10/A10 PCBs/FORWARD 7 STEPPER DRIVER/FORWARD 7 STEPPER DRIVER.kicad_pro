@@ -49,7 +49,7 @@
         "silk_text_upright": false,
         "zones": {
           "45_degree_only": false,
-          "min_clearance": 0.508
+          "min_clearance": 0.0
         }
       },
       "diff_pair_dimensions": [
@@ -515,6 +515,26 @@
       {
         "netclass": "GND AND POWER",
         "pattern": "GNDD"
+      },
+      {
+        "netclass": "GND AND POWER",
+        "pattern": "12V"
+      },
+      {
+        "netclass": "GND AND POWER",
+        "pattern": "ROLL_STEP+V+"
+      },
+      {
+        "netclass": "GND AND POWER",
+        "pattern": "+12V"
+      },
+      {
+        "netclass": "GND AND POWER",
+        "pattern": "GND"
+      },
+      {
+        "netclass": "GND AND POWER",
+        "pattern": "/STEPPER_DRIVERS/ROLL_STEP_V+"
       }
     ]
   },
@@ -980,6 +1000,10 @@
     [
       "8498c441-f151-4198-9b9f-0e14857b3f16",
       "BACKLIGHTING"
+    ],
+    [
+      "7e0b1299-0e3a-487b-b7fb-0cf50ee0a794",
+      "PATCH"
     ]
   ],
   "text_variables": {}

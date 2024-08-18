@@ -1995,126 +1995,6 @@
 				)
 			)
 		)
-		(symbol "power:+5VD"
-			(power)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+5VD"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"+5VD\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "power-flag"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+5VD_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+5VD_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0) hide
-					(name "+5VD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "power:+5VL"
 			(power)
 			(pin_names
@@ -4824,6 +4704,17 @@
 			(justify left bottom)
 		)
 		(uuid "bf1cb752-26a1-4350-9e4d-2f9c94f0a88d")
+	)
+	(label "STEP_V+"
+		(at 87.884 28.194 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c254778f-9c2b-419b-b49f-33f890633d69")
 	)
 	(label "STEPPER_AOA_C"
 		(at 62.103 71.882 0)
@@ -7826,7 +7717,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "SARI"
+		(property "Value" "SARI_ZERO"
 			(at 60.1472 157.6761 0)
 			(effects
 				(font
@@ -8051,72 +7942,6 @@
 			(project "FORWARD 7 STEPPER DRIVER"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4/639eb793-aa54-4e53-85ab-2b26bfad11bd"
 					(reference "J11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5VD")
-		(at 87.884 28.194 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "68ed54c6-c73a-433c-b325-d4f576e54b68")
-		(property "Reference" "#PWR051"
-			(at 87.884 32.004 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5VD"
-			(at 87.884 24.6182 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 87.884 28.194 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 87.884 28.194 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 87.884 28.194 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "05eb0d5e-7903-4d53-8b88-d78d2ec9458a")
-		)
-		(instances
-			(project "FORWARD 7 STEPPER DRIVER"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4/639eb793-aa54-4e53-85ab-2b26bfad11bd"
-					(reference "#PWR051")
 					(unit 1)
 				)
 			)
@@ -10760,7 +10585,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "ALTIMETER"
+		(property "Value" "ALTIMETER_ZERO"
 			(at 108.6612 159.7081 0)
 			(effects
 				(font
