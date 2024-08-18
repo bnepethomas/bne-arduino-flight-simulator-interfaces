@@ -459,7 +459,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Forward Console Combined Input and Output.kicad_pro",
+    "filename": "Forward OLED.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -530,7 +530,7 @@
       "netlist": "",
       "plot": "",
       "pos_files": "",
-      "specctra_dsn": "Forward Console Combined Input and Output.dsn",
+      "specctra_dsn": "Forward OLED.dsn",
       "step": "",
       "svg": "",
       "vrml": ""
@@ -998,12 +998,16 @@
       "CHANGE LOG"
     ],
     [
-      "44f10c05-213b-4d93-9732-81a782b7b9e4",
-      "COIL AND LAMP DRIVERS"
-    ],
-    [
       "70ee2d23-5162-4f1f-989a-130f0e92694f",
       "INDIVIDUAL OUTPUTS"
+    ],
+    [
+      "7d31f841-b69d-44a0-86af-224d73f0aaf8",
+      "OLED"
+    ],
+    [
+      "7559ec29-890f-4597-a1e5-b01c56e5005e",
+      "PATCH_FIELD"
     ]
   ],
   "text_variables": {}

@@ -1,5 +1,5 @@
 
-(rules PCB Forward Console Combined Input and Output
+(rules PCB Forward OLED
   (snap_angle 
     fortyfive_degree
   )
@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 42)
+    (start_pass_no 39)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -71,19 +71,22 @@
   (class "kicad_default"
     SCLK "ES1_RST" MISO MOSI +5V /IOREF /AREF /*13
     /*12 /TX0{slash}1 /RX0{slash}0 +3V3 "Net-(D1-A)" "Net-(D2-A)" VCC /~{RESET}
-    SS "Net-(J10-Pin_1)" "D21 SCL" "D20 SDA" "/COIL AND LAMP DRIVERS/CAUTION_LAMP-" "Net-(J10-Pin_2)" "Net-(J10-Pin_3)" "Net-(J10-Pin_4)"
-    "unconnected-(J41-Pin_1-Pad1)" "unconnected-(J42-Pin_1-Pad1)" "Net-(U1-INT)" D14 "unconnected-(U1-NC-PadB4)" D17 D15 D18
-    D16 D19 D11 D9 D8 "/COIL AND LAMP DRIVERS/B_APU_FIRE" +24V "/COIL AND LAMP DRIVERS/B_RIGHT_FIRE"
-    "/COIL AND LAMP DRIVERS/B_LEFT_FIRE" "/COIL AND LAMP DRIVERS/TISL" "/COIL AND LAMP DRIVERS/EGI" "/COIL AND LAMP DRIVERS/HARS" "/COIL AND LAMP DRIVERS/MISSLE LAUNCH" "/COIL AND LAMP DRIVERS/SEP" "/COIL AND LAMP DRIVERS/PRI" "unconnected-(U3-O7-Pad10)"
-    "unconnected-(U3-O6-Pad11)" D6 "/COIL AND LAMP DRIVERS/ILS" "/COIL AND LAMP DRIVERS/TCN" "/COIL AND LAMP DRIVERS/ANCHR" "/COIL AND LAMP DRIVERS/STR PT" "unconnected-(U5-O7-Pad10)" "unconnected-(U5-O6-Pad11)"
-    "/COIL AND LAMP DRIVERS/COIL_ANTI_SKID" D3 D2 "unconnected-(J36-Pin_6-Pad6)" "unconnected-(J57-Pin_2-Pad2)" "unconnected-(J58-Pin_2-Pad2)" "unconnected-(J21-Pin_8-Pad8)" "unconnected-(U5-O4-Pad13)"
-    D5 "unconnected-(U5-I4-Pad4)" "unconnected-(U5-O5-Pad12)" "unconnected-(U5-I5-Pad5)" D7 D4 "A7 D61" "A3 D57"
+    SS "D21 SCL" "D20 SDA" BACKLIGHT "unconnected-(J41-Pin_1-Pad1)" "unconnected-(J42-Pin_1-Pad1)" "Net-(U1-INT)" D14
+    "unconnected-(U1-NC-PadB4)" D17 D15 D18 D16 D19 D11 D9
+    D8 D6 D3 /OLED/SD7 /OLED/SD5 /OLED/SC1 /OLED/SC2 /OLED/SD1
+    /OLED/SD0 /OLED/SC7 /OLED/SD2 /OLED/SD3 /OLED/SC6 /OLED/SC3 /OLED/SC0 /OLED/SD4
+    /OLED/SD6 /OLED/SC5 /OLED/SC4 D5 D7 D4 "A7 D61" "A3 D57"
     "A6 D60" "A4 D58" "A2 D56" "A0 D54" "A1 D55" "A5 D59" "A14 D68" "A10 D64"
     "A15 D69" "A13 D67" "A11 D65" "A8 D62" "A9 D63" "A12 D66" D47 D30
     D48 D36 D31 D43 D28 D29 D33 D45
     D46 D27 D38 D23 D42 D37 D49 D40
     D34 D39 D44 D35 D25 D24 D22 D32
-    D26 D41 "Net-(D7-K)" "Net-(D8-K)" "Net-(D22-K)" "Net-(D23-K)" "Net-(D24-K)"
+    D26 D41 "Net-(J35-Pin_12)" "Net-(J35-Pin_4)" "Net-(J35-Pin_6)" "Net-(J35-Pin_7)" "Net-(J35-Pin_3)" "Net-(J35-Pin_5)"
+    "Net-(J35-Pin_2)" "Net-(J35-Pin_10)" "Net-(J35-Pin_8)" "Net-(J35-Pin_11)" "Net-(J35-Pin_1)" "Net-(J35-Pin_9)" "Net-(J38-Pin_1)" "Net-(J38-Pin_8)"
+    "Net-(J38-Pin_3)" "Net-(J38-Pin_11)" "Net-(J38-Pin_12)" "Net-(J38-Pin_10)" "Net-(J38-Pin_16)" "Net-(J38-Pin_9)" "Net-(J38-Pin_6)" "Net-(J38-Pin_14)"
+    "Net-(J38-Pin_5)" "Net-(J38-Pin_13)" "Net-(J38-Pin_15)" "Net-(J38-Pin_2)" "Net-(J38-Pin_7)" "Net-(J38-Pin_4)" "Net-(J40-Pin_15)" "Net-(J40-Pin_3)"
+    "Net-(J40-Pin_2)" "Net-(J40-Pin_14)" "Net-(J40-Pin_6)" "Net-(J40-Pin_11)" "Net-(J40-Pin_9)" "Net-(J40-Pin_8)" "Net-(J40-Pin_12)" "Net-(J40-Pin_1)"
+    "Net-(J40-Pin_7)" "Net-(J40-Pin_16)" "Net-(J40-Pin_5)" "Net-(J40-Pin_10)" "Net-(J40-Pin_13)" "Net-(J40-Pin_4)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
@@ -94,7 +97,7 @@
     )
   )
   (class POWER
-    GND +12V
+    GND
     (clearance_class POWER)
     (via_rule POWER)
     (rule
