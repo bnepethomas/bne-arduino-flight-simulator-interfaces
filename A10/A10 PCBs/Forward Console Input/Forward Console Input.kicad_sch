@@ -5908,6 +5908,12 @@
 		)
 	)
 	(junction
+		(at 162.306 91.694)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "06229ab2-c722-42df-8666-cf4eb1427dee")
+	)
+	(junction
 		(at 214.884 130.048)
 		(diameter 1.016)
 		(color 0 0 0 0)
@@ -6044,6 +6050,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e3f1a171-7a27-4acf-82ae-9e69a4a5f892")
+	)
+	(junction
+		(at 154.686 91.694)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e49e79ae-e595-4568-821d-0962c669438a")
 	)
 	(junction
 		(at 90.932 162.56)
@@ -7805,6 +7817,16 @@
 	)
 	(wire
 		(pts
+			(xy 162.306 91.694) (xy 154.686 91.694)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bbf4c1c5-c72b-436d-8a17-9f35f140370b")
+	)
+	(wire
+		(pts
 			(xy 255.524 90.678) (xy 268.224 90.678)
 		)
 		(stroke
@@ -8262,6 +8284,16 @@
 			(type default)
 		)
 		(uuid "f6700f9a-2873-43a6-ac0c-d9be48ed5248")
+	)
+	(wire
+		(pts
+			(xy 154.686 91.694) (xy 147.066 91.694)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8156949-4321-4e33-923a-ec6268bc19ea")
 	)
 	(wire
 		(pts
@@ -8739,6 +8771,17 @@
 			(justify right bottom)
 		)
 		(uuid "1f5671e2-2331-401e-a85c-3cb69d759815")
+	)
+	(label "A15"
+		(at 147.066 84.074 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "200d6e96-46dd-413c-b5da-710b422e2073")
 	)
 	(label "A9"
 		(at 192.786 84.074 90)
@@ -9883,6 +9926,17 @@
 			(justify right bottom)
 		)
 		(uuid "ab59d68b-4378-49fa-b5f2-afc08e6c6a90")
+	)
+	(label "A14"
+		(at 154.686 84.074 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "abb1654c-d368-47a7-b8e9-065b597539a4")
 	)
 	(label "COL1"
 		(at 240.284 131.826 270)
@@ -15112,6 +15166,75 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 147.066 87.884 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6368497c-301c-45bb-80c9-1b5775d4500a")
+		(property "Reference" "C16"
+			(at 149.987 86.7156 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 149.987 89.027 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
+			(at 148.0312 91.694 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 147.066 87.884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 147.066 87.884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "32601ff2-1565-4d3a-a0c0-8f1ee50fa717")
+		)
+		(pin "2"
+			(uuid "14121e8a-d31c-4de6-9f3b-8f98fd38d77e")
+		)
+		(instances
+			(project "Forward Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "C16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3V3")
 		(at 195.326 132.842 0)
 		(unit 1)
@@ -16955,6 +17078,75 @@
 			(project "Forward Console Input"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 154.686 87.884 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bc768414-d3d6-4a6c-9b2f-091d41e7e56a")
+		(property "Reference" "C15"
+			(at 157.607 86.7156 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0.1uF"
+			(at 157.607 89.027 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:C_Disc_D6.0mm_W2.5mm_P5.00mm"
+			(at 155.6512 91.694 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 154.686 87.884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 154.686 87.884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fbe07fa2-fb0f-4098-8597-1a069850fcf6")
+		)
+		(pin "2"
+			(uuid "3029c36b-d8f0-4844-b9df-916633ca3b68")
+		)
+		(instances
+			(project "Forward Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "C15")
 					(unit 1)
 				)
 			)

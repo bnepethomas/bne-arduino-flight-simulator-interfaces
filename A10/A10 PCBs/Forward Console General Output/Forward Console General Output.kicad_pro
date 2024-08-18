@@ -588,11 +588,347 @@
           "label": "DNP",
           "name": "${DNP}",
           "show": true
+        },
+        {
+          "group_by": false,
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Arrow Part Number",
+          "name": "Arrow Part Number",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Arrow Price/Stock",
+          "name": "Arrow Price/Stock",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Datasheet_1",
+          "name": "Datasheet_1",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Footprint_1",
+          "name": "Footprint_1",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Height",
+          "name": "Height",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer_Name",
+          "name": "Manufacturer_Name",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Manufacturer_Part_Number",
+          "name": "Manufacturer_Part_Number",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Mouser Part Number",
+          "name": "Mouser Part Number",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Mouser Price/Stock",
+          "name": "Mouser Price/Stock",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Reference_1",
+          "name": "Reference_1",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Device",
+          "name": "Sim.Device",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Pins",
+          "name": "Sim.Pins",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Value_1",
+          "name": "Value_1",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "automotive",
+          "name": "automotive",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "category",
+          "name": "category",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "continuous drain current",
+          "name": "continuous drain current",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "depletion mode",
+          "name": "depletion mode",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "device class L1",
+          "name": "device class L1",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "device class L2",
+          "name": "device class L2",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "device class L3",
+          "name": "device class L3",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "digikey description",
+          "name": "digikey description",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "digikey part number",
+          "name": "digikey part number",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "drain to source breakdown voltage",
+          "name": "drain to source breakdown voltage",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "drain to source resistance",
+          "name": "drain to source resistance",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "drain to source voltage",
+          "name": "drain to source voltage",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "footprint url",
+          "name": "footprint url",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "gate charge at vgs",
+          "name": "gate charge at vgs",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "gate to source voltage",
+          "name": "gate to source voltage",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "height",
+          "name": "height",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "input capacitace at vds",
+          "name": "input capacitace at vds",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "ipc land pattern name",
+          "name": "ipc land pattern name",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "lead free",
+          "name": "lead free",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "library id",
+          "name": "library id",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "manufacturer",
+          "name": "manufacturer",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "max forward diode voltage",
+          "name": "max forward diode voltage",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "max junction temp",
+          "name": "max junction temp",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "mouser description",
+          "name": "mouser description",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "mouser part number",
+          "name": "mouser part number",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "number of N channels",
+          "name": "number of N channels",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "number of channels",
+          "name": "number of channels",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "package",
+          "name": "package",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "power dissipation",
+          "name": "power dissipation",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "pulse drain current",
+          "name": "pulse drain current",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "reverse recovery charge",
+          "name": "reverse recovery charge",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "reverse recovery time",
+          "name": "reverse recovery time",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "rohs",
+          "name": "rohs",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "rthja max",
+          "name": "rthja max",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "standoff height",
+          "name": "standoff height",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "temperature range high",
+          "name": "temperature range high",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "temperature range low",
+          "name": "temperature range low",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "threshold vgs max",
+          "name": "threshold vgs max",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "threshold vgs min",
+          "name": "threshold vgs min",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "turn off delay time",
+          "name": "turn off delay time",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "turn on delay time",
+          "name": "turn on delay time",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
-      "name": "Grouped By Value",
+      "name": "",
       "sort_asc": true,
       "sort_field": "Reference"
     },
@@ -668,6 +1004,14 @@
     [
       "70ee2d23-5162-4f1f-989a-130f0e92694f",
       "INDIVIDUAL OUTPUTS"
+    ],
+    [
+      "7d31f841-b69d-44a0-86af-224d73f0aaf8",
+      "OLED"
+    ],
+    [
+      "34e03fa7-38d5-44f6-a6ed-909a7b025e21",
+      "BACKLIGHTING"
     ]
   ],
   "text_variables": {}
