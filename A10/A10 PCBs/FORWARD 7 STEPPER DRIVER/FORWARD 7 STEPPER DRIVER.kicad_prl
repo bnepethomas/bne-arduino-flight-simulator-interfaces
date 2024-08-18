@@ -1,16 +1,13 @@
 {
   "board": {
-    "active_layer": 44,
+    "active_layer": 0,
     "active_layer_preset": "",
     "auto_track_width": false,
     "hidden_netclasses": [],
     "hidden_nets": [
-      "/A0",
       "/RX0{slash}0",
-      "/*2",
       "Net-(U1-INT)",
-      "unconnected-(U1-NC-PadB4)",
-      "/STEPPER_9_A"
+      "unconnected-(U1-NC-PadB4)"
     ],
     "high_contrast_mode": 0,
     "net_color_mode": 1,
@@ -70,7 +67,7 @@
       35,
       36
     ],
-    "visible_layers": "fffffff_7ffffffe",
+    "visible_layers": "fffffff_ffffffff",
     "zone_display_mode": 0
   },
   "git": {

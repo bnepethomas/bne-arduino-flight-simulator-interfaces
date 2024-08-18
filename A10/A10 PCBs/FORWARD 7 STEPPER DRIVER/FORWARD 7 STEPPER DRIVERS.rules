@@ -1,0 +1,111 @@
+
+(rules PCB FORWARD 7 STEPPER DRIVERS
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 94)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.0)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_600:400_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_600:400_um" "Via[0-1]_600:400_um" default
+  )
+  (via 
+    "Via[0-1]_600:400_um-kicad_default" "Via[0-1]_600:400_um" "kicad_default"
+  )
+  (via 
+    "Via[0-1]_600:400_um-GND AND POWER" "Via[0-1]_600:400_um" "GND AND POWER"
+  )
+  (via_rule
+    default "Via[0-1]_600:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_600:400_um-kicad_default"
+  )
+  (via_rule
+    "GND AND POWER" "Via[0-1]_600:400_um-GND AND POWER"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    "Net-(D1-A)" "Net-(D2-A)" "/STEPPER_DRIVERS/ROLL_STEP_V+" GND "unconnected-(P1-Pin_1-Pad1)" /IOREF /Reset +3V3
+    /*12 /*13 /RX0{slash}0 SCLK "ES1_RST" "Net-(P4-Pin_35)" "Net-(D3-A)" MISO
+    MOSI "Net-(U1-INT)" "unconnected-(U1-NC-PadB4)" /AREF D22 "A2 D56" "Net-(J5-Pin_5)" SS
+    "unconnected-(J5-Pin_4-Pad4)" D24 "/STEPPER_DRIVERS/LOWER_OUTPUT_5V" D40 "unconnected-(J45-Pin_1-Pad1)" VCC D38 "Net-(J6-Pin_5)"
+    "unconnected-(J6-Pin_4-Pad4)" D26 "Net-(J11-Pin_5)" "unconnected-(J11-Pin_4-Pad4)" D28 D42 "Net-(J12-Pin_5)" "unconnected-(J12-Pin_4-Pad4)"
+    D44 D32 "unconnected-(J17-Pin_4-Pad4)" D30 "Net-(J17-Pin_5)" D48 "unconnected-(J18-Pin_4-Pad4)" "Net-(J18-Pin_5)"
+    D46 D34 "Net-(J21-Pin_5)" "unconnected-(J21-Pin_4-Pad4)" D36 "BACKLIGHT_-V" +12V "A1 D55"
+    "A0 D54" +5VD D9 D4 D5 /TX0{slash}1 D2 D7
+    D3 D6 D17 D14 "D20 SDA" D15 D19 "D21 SCL"
+    D16 D18 "A4 D58" "A3 D57" "A5 D59" "A7 D61" "A6 D60" "A10 D64"
+    "A13 D67" "A8 D62" "A9 D63" "A11 D65" "A15 D69" "A12 D66" "A14 D68" /LGND
+    D33 D25 D47 D27 D45 D31 D41 D43
+    D49 D37 D35 D29 D39 D23 BACKLIGHT D11
+    "Net-(Q1-G)" "/STEPPER_DRIVERS/STEPPER_AOA_A" "/STEPPER_DRIVERS/STEPPER_AOA_C" "/STEPPER_DRIVERS/STEPPER_AOA_B" "/STEPPER_DRIVERS/AOA_MS2" "/STEPPER_DRIVERS/STEPPER_AOA_D" "/STEPPER_DRIVERS/AOA_MS1" "/STEPPER_DRIVERS/SX_MS1"
+    "/STEPPER_DRIVERS/STEPPER_SX_B" "/STEPPER_DRIVERS/SX_MS2" "/STEPPER_DRIVERS/STEPPER_SX_A" "/STEPPER_DRIVERS/STEPPER_SX_D" "/STEPPER_DRIVERS/STEPPER_SX_C" "/STEPPER_DRIVERS/STEPPER_GF_C" "/STEPPER_DRIVERS/STEPPER_GF_A" "/STEPPER_DRIVERS/STEPPER_GF_B"
+    "/STEPPER_DRIVERS/STEPPER_GF_D" "/STEPPER_DRIVERS/GF_MS2" "/STEPPER_DRIVERS/GF_MS1" "/STEPPER_DRIVERS/ALT_MS1" "/STEPPER_DRIVERS/ALT_MS2" "/STEPPER_DRIVERS/STEPPER_ALT_A" "/STEPPER_DRIVERS/STEPPER_ALT_C" "/STEPPER_DRIVERS/STEPPER_ALT_D"
+    "/STEPPER_DRIVERS/STEPPER_ALT_B" "/STEPPER_DRIVERS/STEPPER_SARI_D" "/STEPPER_DRIVERS/STEPPER_SARI_B" "/STEPPER_DRIVERS/STEPPER_SARI_C" "/STEPPER_DRIVERS/SARI_MS2" "/STEPPER_DRIVERS/SARI_MS1" "/STEPPER_DRIVERS/STEPPER_SARI_A" "/STEPPER_DRIVERS/STEPPER_VSI_A"
+    "/STEPPER_DRIVERS/STEPPER_VSI_C" "/STEPPER_DRIVERS/STEPPER_VSI_D" "/STEPPER_DRIVERS/VSI_MS2" "/STEPPER_DRIVERS/STEPPER_VSI_B" "/STEPPER_DRIVERS/VSI_MS1" "/STEPPER_DRIVERS/SC_MS1" "/STEPPER_DRIVERS/STEPPER_SC_C" "/STEPPER_DRIVERS/STEPPER_SC_D"
+    "/STEPPER_DRIVERS/STEPPER_SC_A" "/STEPPER_DRIVERS/SC_MS2" "/STEPPER_DRIVERS/STEPPER_SC_B"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "GND AND POWER"
+    +5VL
+    (clearance_class "GND AND POWER")
+    (via_rule GND AND POWER)
+    (rule
+      (width 450.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)
