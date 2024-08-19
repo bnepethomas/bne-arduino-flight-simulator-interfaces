@@ -528,7 +528,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "MANFACTURING/",
       "pos_files": "",
       "specctra_dsn": "Forward Console Combined Input and Output.dsn",
       "step": "",

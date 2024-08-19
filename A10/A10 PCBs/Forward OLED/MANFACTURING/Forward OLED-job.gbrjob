@@ -3,18 +3,18 @@
     "GenerationSoftware": {
       "Vendor": "KiCad",
       "Application": "Pcbnew",
-      "Version": "7.0.9"
+      "Version": "8.0.2-1"
     },
-    "CreationDate": "2023-12-05T19:44:07+10:00"
+    "CreationDate": "2024-08-19T19:19:18+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "Forward Console General Output",
-      "GUID": "466f7277-6172-4642-9043-6f6e736f6c65",
+      "Name": "Forward OLED",
+      "GUID": "466f7277-6172-4642-904f-4c45442e6b69",
       "Revision": "rev?"
     },
     "Size": {
-      "X": 99.845,
+      "X": 99.91,
       "Y": 98.575
     },
     "LayerNumber": 2,
@@ -32,37 +32,37 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "Forward Console General Output-F_Cu.gbr",
+      "Path": "Forward OLED-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Forward Console General Output-B_Cu.gbr",
+      "Path": "Forward OLED-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Forward Console General Output-F_Silkscreen.gbr",
+      "Path": "Forward OLED-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Forward Console General Output-B_Silkscreen.gbr",
+      "Path": "Forward OLED-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Forward Console General Output-F_Mask.gbr",
+      "Path": "Forward OLED-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Forward Console General Output-B_Mask.gbr",
+      "Path": "Forward OLED-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Forward Console General Output-Edge_Cuts.gbr",
+      "Path": "Forward OLED-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }

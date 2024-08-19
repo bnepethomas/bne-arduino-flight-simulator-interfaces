@@ -6450,10 +6450,6 @@
 		(uuid "bc38da43-28a4-4e26-997d-ed59c4b445fe")
 	)
 	(no_connect
-		(at 184.658 65.278)
-		(uuid "ccfa8b7f-ae9a-4011-b830-cc38fff79c86")
-	)
-	(no_connect
 		(at 227.584 29.718)
 		(uuid "d181157c-7812-47e5-a0cf-9580c905fc86")
 	)
@@ -6468,14 +6464,6 @@
 	(no_connect
 		(at 268.224 24.638)
 		(uuid "d5df663a-a12d-436d-a2cf-dab68f1e1a99")
-	)
-	(no_connect
-		(at 268.224 72.898)
-		(uuid "d5df663a-a12d-436d-a2cf-dab68f1e1aa0")
-	)
-	(no_connect
-		(at 268.224 75.438)
-		(uuid "d5df663a-a12d-436d-a2cf-dab68f1e1aa1")
 	)
 	(no_connect
 		(at 103.378 29.464)
@@ -6657,7 +6645,7 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 92.71) (xy 153.67 92.71)
+			(xy 147.32 78.994) (xy 152.4 78.994)
 		)
 		(stroke
 			(width 0)
@@ -6717,13 +6705,23 @@
 	)
 	(wire
 		(pts
-			(xy 95.504 110.744) (xy 98.044 110.744)
+			(xy 151.13 68.834) (xy 153.67 68.834)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "15c4db86-f589-41c5-9990-920704d17768")
+	)
+	(wire
+		(pts
+			(xy 67.056 93.98) (xy 73.914 93.98)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "15f60b3b-2cad-44ec-b141-6da9b05d22b2")
 	)
 	(wire
 		(pts
@@ -7067,6 +7065,16 @@
 	)
 	(wire
 		(pts
+			(xy 67.056 118.364) (xy 73.914 118.364)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3616b6c6-fa0a-49b3-8a30-f1ef06d656be")
+	)
+	(wire
+		(pts
 			(xy 222.504 39.878) (xy 227.584 39.878)
 		)
 		(stroke
@@ -7117,7 +7125,7 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 95.25) (xy 153.67 95.25)
+			(xy 147.32 81.534) (xy 152.4 81.534)
 		)
 		(stroke
 			(width 0)
@@ -7277,6 +7285,16 @@
 	)
 	(wire
 		(pts
+			(xy 151.13 53.34) (xy 153.416 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4a868052-1098-4aac-aa6c-2f3375daeb52")
+	)
+	(wire
+		(pts
 			(xy 255.524 37.338) (xy 268.224 37.338)
 		)
 		(stroke
@@ -7297,7 +7315,7 @@
 	)
 	(wire
 		(pts
-			(xy 95.25 87.63) (xy 98.044 87.63)
+			(xy 149.606 90.678) (xy 152.4 90.678)
 		)
 		(stroke
 			(width 0)
@@ -7314,6 +7332,16 @@
 			(type default)
 		)
 		(uuid "4ecbee19-75b4-4387-b265-1a613c0b77e5")
+	)
+	(wire
+		(pts
+			(xy 151.13 61.976) (xy 153.416 61.976)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5035774f-b83e-4c18-898b-bf9f6432f6d9")
 	)
 	(wire
 		(pts
@@ -7447,6 +7475,16 @@
 	)
 	(wire
 		(pts
+			(xy 151.13 59.436) (xy 153.416 59.436)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d7ad443-aef1-4c4a-8135-3129ddc0ccc0")
+	)
+	(wire
+		(pts
 			(xy 101.346 175.006) (xy 94.996 175.006)
 		)
 		(stroke
@@ -7577,6 +7615,16 @@
 	)
 	(wire
 		(pts
+			(xy 151.13 64.516) (xy 153.416 64.516)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c7c3919-2fd2-45f6-8788-7ea2d1913352")
+	)
+	(wire
+		(pts
 			(xy 101.346 159.766) (xy 94.996 159.766)
 		)
 		(stroke
@@ -7697,7 +7745,7 @@
 	)
 	(wire
 		(pts
-			(xy 95.504 113.284) (xy 98.044 113.284)
+			(xy 151.13 71.374) (xy 153.67 71.374)
 		)
 		(stroke
 			(width 0)
@@ -7824,6 +7872,16 @@
 			(type default)
 		)
 		(uuid "888f5720-61d8-4f8b-a602-eb4a92423c8a")
+	)
+	(wire
+		(pts
+			(xy 151.13 45.466) (xy 153.162 45.466)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "899fe333-b211-46b3-a840-97c9d5784633")
 	)
 	(wire
 		(pts
@@ -8087,6 +8145,16 @@
 	)
 	(wire
 		(pts
+			(xy 151.13 48.006) (xy 153.416 48.006)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a6c87ee3-eb57-4bbd-81e0-10e64bd8ef8a")
+	)
+	(wire
+		(pts
 			(xy 227.584 47.498) (xy 219.964 47.498)
 		)
 		(stroke
@@ -8127,6 +8195,16 @@
 	)
 	(wire
 		(pts
+			(xy 151.13 55.88) (xy 153.416 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ab4fc37d-ac26-442b-bfed-24a31eabd9a3")
+	)
+	(wire
+		(pts
 			(xy 225.044 130.048) (xy 225.044 140.208)
 		)
 		(stroke
@@ -8147,7 +8225,7 @@
 	)
 	(wire
 		(pts
-			(xy 95.504 90.17) (xy 98.044 90.17)
+			(xy 149.86 93.218) (xy 152.4 93.218)
 		)
 		(stroke
 			(width 0)
@@ -8197,7 +8275,7 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 100.33) (xy 153.67 100.33)
+			(xy 147.32 86.614) (xy 152.4 86.614)
 		)
 		(stroke
 			(width 0)
@@ -8277,7 +8355,7 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 97.79) (xy 153.67 97.79)
+			(xy 147.32 84.074) (xy 152.4 84.074)
 		)
 		(stroke
 			(width 0)
@@ -8537,7 +8615,7 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 90.17) (xy 153.67 90.17)
+			(xy 147.32 76.454) (xy 152.4 76.454)
 		)
 		(stroke
 			(width 0)
@@ -8654,6 +8732,16 @@
 			(type solid)
 		)
 		(uuid "f85a9160-0a9f-4448-9dcc-6d2cfa6efcb6")
+	)
+	(wire
+		(pts
+			(xy 184.658 65.278) (xy 186.436 65.278)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8d75b20-704a-4b04-b2f8-aaf2d36a7eb5")
 	)
 	(wire
 		(pts
@@ -8798,6 +8886,17 @@
 		)
 		(uuid "fb7398cf-a9a3-459f-a8a0-82bf3395ee31")
 	)
+	(label "STEER"
+		(at 151.13 55.88 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "00283dc7-d536-4109-a2a1-5eba9b46a0a7")
+	)
 	(label "A10"
 		(at 223.52 88.138 0)
 		(fields_autoplaced yes)
@@ -8908,6 +9007,17 @@
 		)
 		(uuid "09cb577b-78a6-404e-9a8b-b6450fa0cdc2")
 	)
+	(label "G_RDY"
+		(at 151.13 53.34 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0a587534-b1dd-4f9e-beaa-7ad5ff3edd36")
+	)
 	(label "A10"
 		(at 167.64 146.558 0)
 		(fields_autoplaced yes)
@@ -8975,7 +9085,7 @@
 		(uuid "1477c013-a55c-4ce7-bf27-8bbe59a8119b")
 	)
 	(label "CLOCK_STEPPER_D"
-		(at 148.59 97.79 180)
+		(at 147.32 84.074 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9106,6 +9216,17 @@
 		)
 		(uuid "2628148d-5dfc-4e3e-bb1a-da513d4c4b94")
 	)
+	(label "CANOPY"
+		(at 151.13 45.466 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "289cf70f-e2c0-48e6-b44b-8b35916f2238")
+	)
 	(label "*13"
 		(at 156.972 127.254 180)
 		(fields_autoplaced yes)
@@ -9173,7 +9294,7 @@
 		(uuid "2c60ab74-0590-423b-8921-6f3212a358d2")
 	)
 	(label "CLOCK_STEPPER_C"
-		(at 148.59 95.25 180)
+		(at 147.32 81.534 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9228,7 +9349,7 @@
 		(uuid "35bc5b35-b7b2-44d5-bbed-557f428649b2")
 	)
 	(label "SARI_ENC_B"
-		(at 95.504 113.284 180)
+		(at 151.13 71.374 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9336,6 +9457,17 @@
 			(justify left bottom)
 		)
 		(uuid "48be28c6-6eaf-4f4f-8d8e-5d4a1a4683cb")
+	)
+	(label "MKR_BCN"
+		(at 151.13 48.006 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "49223a5d-9cfe-46da-9320-9763e1970bda")
 	)
 	(label "~{RESET}"
 		(at 212.344 34.798 0)
@@ -9514,7 +9646,7 @@
 		(uuid "588b8103-5a88-4737-bae0-f98a91ae0574")
 	)
 	(label "CLOCK_ZERO"
-		(at 148.59 100.33 180)
+		(at 147.32 86.614 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9567,6 +9699,17 @@
 			(justify right bottom)
 		)
 		(uuid "5bc47b14-f698-4be7-a9e9-da6bbc0e5509")
+	)
+	(label "LATCHED"
+		(at 151.13 61.976 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5be4fe9b-f9ed-409c-b9f3-d9ab42cee47f")
 	)
 	(label "ROW3"
 		(at 258.064 133.604 270)
@@ -9689,6 +9832,17 @@
 		)
 		(uuid "6e8f0e4f-b1cd-46fd-96f0-fd376420f009")
 	)
+	(label "READY"
+		(at 151.13 64.516 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6eead5fe-f029-42df-b39a-928edfa970fb")
+	)
 	(label "A0"
 		(at 167.64 117.348 0)
 		(fields_autoplaced yes)
@@ -9712,7 +9866,7 @@
 		(uuid "6fff9b9a-e2e7-48a5-91ee-30d9f1ce695f")
 	)
 	(label "ALT_ENC_B"
-		(at 95.504 90.17 180)
+		(at 149.86 93.218 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10306,7 +10460,7 @@
 		(uuid "aec412b4-42fa-4cc8-9b29-a28b235c34fd")
 	)
 	(label "CLOCK_STEPPER_B"
-		(at 148.59 92.71 180)
+		(at 147.32 78.994 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10372,7 +10526,7 @@
 		(uuid "b8ccd9c6-cbe6-477c-a832-3144b382084d")
 	)
 	(label "COL3"
-		(at 73.914 93.98 180)
+		(at 59.436 93.98 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10526,7 +10680,7 @@
 		(uuid "c78a22fb-b776-43ae-93fc-0dc40eb5e1c2")
 	)
 	(label "COL3"
-		(at 73.914 118.364 180)
+		(at 59.436 118.364 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10922,7 +11076,7 @@
 		(uuid "e6aa24a7-697a-497a-9fed-e321ae07bb1f")
 	)
 	(label "CLOCK_STEPPER_A"
-		(at 148.59 90.17 180)
+		(at 147.32 76.454 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10977,7 +11131,7 @@
 		(uuid "e94fef0c-a400-41ac-9f4b-1de804a94e7c")
 	)
 	(label "ALT_ENC_A"
-		(at 95.25 87.63 180)
+		(at 149.606 90.678 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11119,6 +11273,17 @@
 		)
 		(uuid "f3ed876f-3db4-4909-880f-bb5dd7ba7830")
 	)
+	(label "DISC"
+		(at 151.13 59.436 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f4105e00-8a2f-4050-a1b4-872cb1c715e7")
+	)
 	(label "*3"
 		(at 152.146 160.274 180)
 		(fields_autoplaced yes)
@@ -11153,7 +11318,7 @@
 		(uuid "f8a9c54c-8539-4c22-ae3a-f039c5c92ee1")
 	)
 	(label "SARI_ENC_A"
-		(at 95.504 110.744 180)
+		(at 151.13 68.834 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11335,6 +11500,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "D1"
+		(shape input)
+		(at 268.224 72.898 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "06329c7c-a9cd-48bf-b288-955039bd1095")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 273.7838 72.898 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -11559,6 +11746,28 @@
 			)
 		)
 	)
+	(global_label "D0"
+		(shape input)
+		(at 268.224 75.438 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "26ba3bdc-564c-49fb-b60c-0907a8c14607")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 273.7838 75.438 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "D35"
 		(shape input)
 		(at 245.364 141.986 270)
@@ -11737,7 +11946,7 @@
 	)
 	(global_label "D16"
 		(shape input)
-		(at 153.67 95.25 0)
+		(at 152.4 81.534 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11747,7 +11956,7 @@
 		)
 		(uuid "3e5ac1b1-b25f-4ffc-8de5-03f985be8a0b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 160.4393 95.25 0)
+			(at 159.1693 81.534 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11797,6 +12006,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "D4"
+		(shape input)
+		(at 153.416 64.516 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "45e568b3-01b3-41e0-affd-16c4a141c513")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 158.9758 64.516 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -12021,6 +12252,28 @@
 			)
 		)
 	)
+	(global_label "D6"
+		(shape input)
+		(at 153.416 59.436 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "54b752fd-25c0-4366-94ff-aa12bdf18b7b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 158.9758 59.436 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "D27"
 		(shape input)
 		(at 255.524 141.986 270)
@@ -12111,7 +12364,7 @@
 	)
 	(global_label "D2"
 		(shape input)
-		(at 98.044 113.284 0)
+		(at 153.67 71.374 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12121,7 +12374,29 @@
 		)
 		(uuid "605d0163-4258-4506-925a-aa1c0af9e71d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 103.6038 113.284 0)
+			(at 159.2298 71.374 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "D8"
+		(shape input)
+		(at 153.416 53.34 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "60c11dbe-4bb1-4452-8477-b4248eef5ac1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 158.9758 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12265,7 +12540,7 @@
 	)
 	(global_label "D14"
 		(shape input)
-		(at 153.67 90.17 0)
+		(at 152.4 76.454 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12275,7 +12550,7 @@
 		)
 		(uuid "6382b818-5ecd-43b0-8394-0012c0941d8d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 160.4393 90.17 0)
+			(at 159.1693 76.454 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12439,6 +12714,28 @@
 			)
 		)
 	)
+	(global_label "D7"
+		(shape input)
+		(at 153.416 55.88 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "6ed85cc9-5f8d-4215-9f58-e229f8517910")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 158.9758 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "D44"
 		(shape input)
 		(at 232.664 110.998 90)
@@ -12463,7 +12760,7 @@
 	)
 	(global_label "D15"
 		(shape input)
-		(at 153.67 92.71 0)
+		(at 152.4 78.994 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12473,7 +12770,7 @@
 		)
 		(uuid "72b52331-0a9a-4100-a780-90a6cdb6392d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 160.4393 92.71 0)
+			(at 159.1693 78.994 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12507,7 +12804,7 @@
 	)
 	(global_label "D18"
 		(shape input)
-		(at 153.67 100.33 0)
+		(at 152.4 86.614 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12517,7 +12814,7 @@
 		)
 		(uuid "78382d21-f877-4e05-8fd6-509e20e6d33d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 160.4393 100.33 0)
+			(at 159.1693 86.614 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12705,7 +13002,7 @@
 	)
 	(global_label "D3"
 		(shape input)
-		(at 98.044 110.744 0)
+		(at 153.67 68.834 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12715,7 +13012,7 @@
 		)
 		(uuid "876ba164-0b57-41c5-afda-bcfa0fa1681e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 103.6038 110.744 0)
+			(at 159.2298 68.834 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12815,7 +13112,7 @@
 	)
 	(global_label "D17"
 		(shape input)
-		(at 153.67 97.79 0)
+		(at 152.4 84.074 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12825,7 +13122,7 @@
 		)
 		(uuid "957877ad-8203-4262-b2bb-20fced5c0daa")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 160.4393 97.79 0)
+			(at 159.1693 84.074 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13013,7 +13310,7 @@
 	)
 	(global_label "D19"
 		(shape input)
-		(at 98.044 87.63 0)
+		(at 152.4 90.678 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13023,7 +13320,7 @@
 		)
 		(uuid "a9996530-269a-4d53-90ae-b711ff5571fa")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 104.8133 87.63 0)
+			(at 159.1693 90.678 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13233,7 +13530,7 @@
 	)
 	(global_label "D20 SDA"
 		(shape input)
-		(at 98.044 90.17 0)
+		(at 152.4 93.218 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13243,7 +13540,7 @@
 		)
 		(uuid "c7b231c8-eb68-4129-b6fb-d5b763f999fb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 109.349 90.17 0)
+			(at 163.705 93.218 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13271,6 +13568,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "D9"
+		(shape input)
+		(at 153.416 48.006 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ca4d8b5b-c913-460c-bb24-65f6ff0db190")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 158.9758 48.006 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -13359,6 +13678,72 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "D5"
+		(shape input)
+		(at 153.416 61.976 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e66c9aff-a70f-44b3-9e47-961a2b4ce559")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 158.9758 61.976 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "O_GEAR_HANDLE"
+		(shape input)
+		(at 186.436 65.278 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e823ea2f-a6af-41ec-a559-04341b22fe1a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 204.7563 65.278 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "D11"
+		(shape input)
+		(at 153.162 45.466 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e8dd3bd6-c631-49d2-b5c3-372bf3739bbc")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 159.9313 45.466 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -18571,6 +18956,461 @@
 			(project "Forward Console Combined Input and Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 63.246 118.364 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0eb712b4-10df-4198-946e-9ccacd483fbc")
+		(property "Reference" "D25"
+			(at 63.246 123.444 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 63.246 121.412 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_T-1_P5.08mm_Horizontal"
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "category" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L1" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L2" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L3" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey description" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "footprint url" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "height" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "lead free" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "library id" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser description" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of channels" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "package" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rohs" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rthja max" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "standoff height" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" ""
+			(at 63.246 118.364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9d7250b2-3628-4728-8d07-32d9bc68322f")
+		)
+		(pin "2"
+			(uuid "89e0f65a-9497-4ea1-bfaf-86db7211a873")
+		)
+		(instances
+			(project "Forward Console Combined Input and Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D25")
 					(unit 1)
 				)
 			)
@@ -32800,8 +33640,8 @@
 		(at 78.994 115.824 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
+		(in_bom yes)
+		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a3636009-35b6-439e-bfc7-f5547171fad9")
@@ -38470,6 +39310,461 @@
 			(project "Forward Console Combined Input and Output"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "D2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 63.246 93.98 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "efab0a50-23e8-4a4d-b780-82a9653ebd3a")
+		(property "Reference" "D28"
+			(at 63.246 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 63.246 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_T-1_P5.08mm_Horizontal"
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "category" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L1" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L2" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L3" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey description" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "footprint url" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "height" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "lead free" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "library id" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser description" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of channels" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "package" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rohs" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rthja max" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "standoff height" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" ""
+			(at 63.246 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "06b7ffaa-28a0-4071-a17e-a336296d65b3")
+		)
+		(pin "2"
+			(uuid "a55d0bcb-566f-48d3-a1fa-e1d35adf85a3")
+		)
+		(instances
+			(project "Forward Console Combined Input and Output"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D28")
 					(unit 1)
 				)
 			)

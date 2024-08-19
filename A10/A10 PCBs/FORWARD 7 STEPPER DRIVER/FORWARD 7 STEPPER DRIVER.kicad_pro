@@ -543,7 +543,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "../../../../../../../Applications/KiCad/",
-      "plot": "",
+      "plot": "MANUFACTURING/",
       "pos_files": "",
       "specctra_dsn": "FORWARD 7 STEPPER DRIVERS.dsn",
       "step": "../../../../NEW_STANDBY_SHEILD.step",
