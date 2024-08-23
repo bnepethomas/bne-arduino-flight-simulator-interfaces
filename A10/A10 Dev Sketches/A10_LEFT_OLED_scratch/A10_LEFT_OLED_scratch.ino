@@ -71,6 +71,11 @@
 // U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ 4);
 //
 //
+// When using a 2.42 inch SSD1309 (128*64) this is used U8G2_SSD1309_128X64_NONAME2_F_HW_I2C
+// other SSD1309 claases only displayed down to row 8 or 16
+// https://www.ebay.com.au/itm/355105747286 White I2C
+// Port 2 VHF_AM OLED 
+//
 //The data format of U8G2 fonts is based on the BDF font format. Its glyph bitmaps are compressed with a
 //run-length-encoding algorithm and its header data are designed with variable bit field width to
 //minimize flash memory footprint.
@@ -84,6 +89,16 @@
 
 // FontForge
 // https://learn.adafruit.com/custom-fonts-for-pyportal-circuitpython-display/conversion
+
+// I2C Addresses
+// I2C 60 for OLED
+// I2C 112 for TCA9548A
+
+// Premade 4 way JST Colour code
+// 1: Black +V
+// 2: Green GND
+// 3: White SCL
+// 4: Red   SDA
 
 
 // Basic logic
@@ -181,11 +196,9 @@ U8G2_SSD1305_128X32_ADAFRUIT_F_HW_I2C u8g2_Scratch_Pad(U8G2_R2, 12);
 // Op OLEDs
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALT(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 
+// Working 2.42" Inch OLED for A10
 U8G2_SSD1309_128X64_NONAME2_F_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
-// works up to row 15
-// U8G2_SSD1309_128X64_NONAME2_2_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
-// following class basically works bu does get past row  9
-//U8G2_SSD1309_128X64_NONAME0_1_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
+
 
 
 //U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
@@ -390,16 +403,22 @@ void updateBARO(String strnewValue) {
   tcaselect(BARO_OLED_Port);
   u8g2_BARO.setFontMode(0);
   u8g2_BARO.setDrawColor(1);
-  u8g2_BARO.drawBox(0, 1, 80, 64);
 
- // u8g2_BARO.drawBox(0, 1, 80, 64); with U8G2_SSD1309_128X64_NONAME2_2_HW_I2C 
- //  u8g2_BARO.drawStr(85,16, newValue);
+  for (int x = 0; x <= 64; x++) {
+    u8g2_BARO.drawBox(0, 0, 80, x);
+    u8g2_BARO.sendBuffer();
+    delay(5);
+  }
+
+  // full range with with U8G2_SSD1309_128X64_NONAME2_F_HW_I2C
+  // u8g2_BARO.drawBox(0, 1, 80, 64); with U8G2_SSD1309_128X64_NONAME2_2_HW_I2C
+  //  u8g2_BARO.drawStr(85,16, newValue);
 
   u8g2_BARO.setDrawColor(1);
   u8g2_BARO.setFontDirection(0);
 
 
-  u8g2_BARO.drawStr(85,16, newValue);
+  u8g2_BARO.drawStr(85, 16, newValue);
   u8g2_BARO.sendBuffer();
 }
 
