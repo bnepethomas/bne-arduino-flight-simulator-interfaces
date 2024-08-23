@@ -180,8 +180,13 @@ U8G2_SSD1305_128X32_ADAFRUIT_F_HW_I2C u8g2_Scratch_Pad(U8G2_R2, 12);
 
 // Op OLEDs
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALT(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
-U8G2_SSD1309_128X64_NONAME0_1_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
-//U8G2_SSD1309_128X64_NONAME0_1_2ND_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
+
+U8G2_SSD1309_128X64_NONAME2_F_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
+// works up to row 15
+// U8G2_SSD1309_128X64_NONAME2_2_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
+// following class basically works bu does get past row  9
+//U8G2_SSD1309_128X64_NONAME0_1_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
+
 
 //U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_OPT3(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
@@ -384,11 +389,17 @@ void updateBARO(String strnewValue) {
   const char* newValue = strnewValue.c_str();
   tcaselect(BARO_OLED_Port);
   u8g2_BARO.setFontMode(0);
-  // u8g2_BARO.setDrawColor(1);
-  // u8g2_BARO.drawBox(0, 0, 128, 64);
+  u8g2_BARO.setDrawColor(1);
+  u8g2_BARO.drawBox(0, 1, 80, 64);
+
+ // u8g2_BARO.drawBox(0, 1, 80, 64); with U8G2_SSD1309_128X64_NONAME2_2_HW_I2C 
+ //  u8g2_BARO.drawStr(85,16, newValue);
+
   u8g2_BARO.setDrawColor(1);
   u8g2_BARO.setFontDirection(0);
-  u8g2_BARO.drawStr(65, 15, newValue);
+
+
+  u8g2_BARO.drawStr(85,16, newValue);
   u8g2_BARO.sendBuffer();
 }
 
