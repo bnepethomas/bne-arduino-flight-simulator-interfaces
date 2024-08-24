@@ -14,8 +14,7 @@
    KNOWN ISSUE - UNABLE USE A SINGLE CHARACTER WITH DCS ie ctrl-c doesn't work but crtl-F5 does
    Keystrokes are received is using at command prompt
 
-   Chasing down why a fast transition is missed with magnetic switches
- *  */
+ */
 
 /*
   This Superceedes udp_input_controller
@@ -49,8 +48,8 @@
 */
 
 int Ethernet_In_Use = 1;  // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
-int Reflector_In_Use = 0;
-#define DCSBIOS_In_Use 1
+int Reflector_In_Use = 1;
+#define DCSBIOS_In_Use 0
 #define MSFS_In_Use 1  // Used to interface into MSFS - set to 0 if not in use
 
 // Used to Distinguish between the left, front, and right inputs
@@ -104,11 +103,12 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 #define BUTTONS_USED_ON_PCB 176
 #define NUM_AXES 8  // 8 axes, X, Y, Z, etc
 
-#define EthernetStartupDelay 500
-#define GREEN_STATUS_LED_PORT 5
-#define RED_STATUS_LED_PORT 6  // RED LED is used for monitoring ethernet
+const unsigned long delayBeforeSendingPacket = 2000;
+unsigned long ethernetStartTime = 0;
+#define Check_LED_R 12
+#define Check_LED_G 13
 #define FLASH_TIME 100
-#define DISABLE_ETHERNET_INPUT_PIN 2
+
 bool RED_LED_STATE = false;
 bool GREEN_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
@@ -127,7 +127,7 @@ bool SendingAllowed = false;
 
 // Debounce delay was 20mS - but encountered longer bounces with Circuit Breakers, increased to 60mS 20210329
 const int ScanDelay = 80;      // This is in microseconds
-const int DebounceDelay = 60;  // In milliseconds
+const int DebounceDelay = 20;  // In milliseconds
 
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
@@ -163,9 +163,52 @@ bool GenTieFollowupTask = false;
 long timeGenTieOn = 0;
 
 
+void SendDebug(String MessageToSend) {
+  if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
+    udp.beginPacket(reflectorIP, reflectorport);
+    udp.println(MessageToSend);
+    udp.endPacket();
+  }
+}
+
+#define FLASH_TIME 300
+
+long NEXT_STATUS_TOGGLE_TIMER = 0;
+
 
 void setup() {
 
+  pinMode(Check_LED_G, OUTPUT);
+  digitalWrite(Check_LED_G, true);
+  pinMode(Check_LED_R, OUTPUT);
+  digitalWrite(Check_LED_R, true);
+
+  if (Ethernet_In_Use == 1) {
+    Ethernet.begin(myMac, myIP);
+    udp.begin(localport);
+    // As it takes a couple of seconds before the Ethernet Stack is operational
+    // Flash leds until time period has completed
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, false);
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, true);
+    }
+
+    SendDebug("Ethernet Started");
+    SendDebug("A10 INPUT TEST");
+
+
+    if (Reflector_In_Use == 1) {
+      udp.beginPacket(reflectorIP, reflectorport);
+      udp.println("INIT LEFT INPUT - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      udp.endPacket();
+    }
+
+    // Used to remotely enable Debug and Reflector
+    debugUDP.begin(localdebugport);
+  }
 
 
   // Set the output ports to output
@@ -195,46 +238,13 @@ void setup() {
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
-
-
-  pinMode(DISABLE_ETHERNET_INPUT_PIN, INPUT_PULLUP);
-  pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
-  pinMode(RED_STATUS_LED_PORT, OUTPUT);
-  digitalWrite(GREEN_STATUS_LED_PORT, true);
-  digitalWrite(RED_STATUS_LED_PORT, true);
-  delay(FLASH_TIME);
-  digitalWrite(GREEN_STATUS_LED_PORT, false);
-  digitalWrite(RED_STATUS_LED_PORT, false);
-  delay(FLASH_TIME);
-
-
-  if (digitalRead(DISABLE_ETHERNET_INPUT_PIN) == false) {
-    Ethernet_In_Use = 0;
-    digitalWrite(RED_STATUS_LED_PORT, true);
-  }
-
-  if (Ethernet_In_Use == 1) {
-    delay(EthernetStartupDelay);
-    Ethernet.begin(myMac, myIP);
-    udp.begin(localport);
-
-
-    if (Reflector_In_Use == 1) {
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.println("INIT LEFT INPUT - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      udp.endPacket();
-    }
-
-    // Used to remotely enable Debug and Reflector
-    debugUDP.begin(localdebugport);
-  }
 }
 
 
 
 void UpdateRedStatusLed() {
   if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME))) {
-    digitalWrite(RED_STATUS_LED_PORT, true);
+    digitalWrite(Check_LED_R, true);
     RED_LED_STATE = true;
     timeSinceRedLedChanged = millis();
   }
@@ -276,7 +286,7 @@ void FindInputChanges() {
 
         if (Reflector_In_Use == 1) {
           udp.beginPacket(reflectorIP, reflectorport);
-          udp.println("Left Input - " + String(ind) + ":" + String(joyReport.button[ind]));
+          udp.println("Left Composite Input - " + String(ind) + ":" + String(joyReport.button[ind]));
           udp.endPacket();
         }
       }
@@ -1366,6 +1376,16 @@ DcsBios::PotentiometerEWMA<5, 128, 5> positionDimmer("POSITION_DIMMER", 15);
 
 void loop() {
 
+
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+    RED_LED_STATE = !RED_LED_STATE;
+    
+    digitalWrite(Check_LED_G, RED_LED_STATE);
+    digitalWrite(Check_LED_R, !RED_LED_STATE);
+    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
+
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first
@@ -1422,7 +1442,6 @@ void loop() {
     //pin 49, PL0
     //pin 49 is not used on the PCB design - more a mistake than anything else as it is available for us
     colResult[11] = (PINL & B00000001) == 0 ? 0 : 1;
-    colResult[11] = 1;
 
     // Unable to use pins 50-53 per the following
     //This is on digital pins 10, 11, 12, and 13 on the Uno and pins 50, 51, and 52 on the Mega.
@@ -1455,30 +1474,6 @@ void loop() {
 
 
   FindInputChanges();
-
-
-  // Handle Switches with Safety covers
-  if (FCSGainFollowupTask == true) {
-    if (millis() >= timeFCSGainOn) {
-      sendToDcsBiosMessage("GAIN_SWITCH", "1");
-      FCSGainFollowupTask = false;
-    }
-  }
-
-  if (GenTieFollowupTask == true) {
-    if (millis() >= timeGenTieOn) {
-      sendToDcsBiosMessage("GEN_TIE_SW", "1");
-      GenTieFollowupTask = false;
-    }
-  }
-
-
-  // Turn off Red status led after flashtime
-  if ((RED_LED_STATE == true) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME))) {
-    digitalWrite(RED_STATUS_LED_PORT, false);
-    RED_LED_STATE = false;
-    timeSinceRedLedChanged = millis();
-  }
 
 
   if (Ethernet_In_Use == 1) {

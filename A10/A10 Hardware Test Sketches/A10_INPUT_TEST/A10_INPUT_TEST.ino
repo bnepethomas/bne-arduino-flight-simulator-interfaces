@@ -322,8 +322,8 @@ void loop() {
     colResult[10] = (PINL & B00000010) == 0 ? 0 : 1;
     //pin 49, PL0
     //pin 49 is not used on the PCB design - more a mistake than anything else as it is available for us
-    //colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
-    colResult[11] = 1;
+    colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
+
 
     // Unable to use pins 50-53 per the following
     //This is on digital pins 10, 11, 12, and 13 on the Uno and pins 50, 51, and 52 on the Mega.
