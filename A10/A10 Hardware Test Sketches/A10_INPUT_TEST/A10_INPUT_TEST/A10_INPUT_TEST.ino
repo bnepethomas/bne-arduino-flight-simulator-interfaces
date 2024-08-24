@@ -10,8 +10,10 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
 /*
+
    KNOWN ISSUE - UNABLE USE A SINGLE CHARACTER WITH DCS ie ctrl-c doesn't work but crtl-F5 does
    Keystrokes are received is using at command prompt
+
  */
 
 /*
@@ -42,92 +44,8 @@
 
 
 
-// As a number of the same OLEDs are used, which the same target I2C addresses an I2C multiplexor is used, TCA9548A.
-// The TCA9548A is an 8 Channel I2C switch.  It is possible for different devices to share a common host I2C bus.
-// https://e2e.ti.com/blogs_/b/analogwire/archive/2015/10/15/how-to-simplify-i2c-tree-when-connecting-multiple-slaves-to-an-i2c-master
-//
-//
-// The initial test OLEDs have addresses of 0x3C - despite being labelled - 0x78 or 0x7A - selectable by soldering a jumper.
-// Can validate what addresses are on the bus by using I2C scanner
 
-// The following OLEDs where sourced from ebay
-// OLED for top  2.2" 128 * 32 SSD1305 (not 1306)
-// This OLED does require resistors to be set (R3 & R5 Short)(the others open)
-// Pin 16 tied to specific reset for module (ie not general Arduino reset
-// It does support 3.3V, but works ok on 5V
-// 1 Gnd
-// 2 +5V
-// 4 Gnd
-// 7 SCL
-// 8 & 9 SDA
-// 16 Reset
-
-/* PCB CONNECTIONS
-    I2C - 0 = COMM 1
-    I2C - 1 = COMM 2
-    I2C - 2 = SPAD
-    I2C - 3 = OLED (1) TOP
-    I2C - 4 = OLED (2) C TOP
-    I2C - 5 = OLED (3) CTR
-    I2C - 6 = OLED (4) C BOTTEM
-    I2C - 7 = OLED (5) BOTTEM
 */
-// NBeed to ground unused pins otherwise random stuff happens - see the following
-// https://www.buydisplay.com/arduino/Interfacing_ER-OLEDM023-1_to_Arduino.pdf
-
-// Useful reference for troubleshooting OLEDs
-
-// Finding a matching class in UG82 can be trail and error for non name brand OLEDs
-// Start with short text say at x=8 y=8
-// Once that is displaying sanely then try drawing a box from 0,0 to the full area
-// Commonly find classes truncate at 8 or 16 rows
-// Also if no change is appearing power cycle as you may no longer be on correct I2C address
-// Search in the U8g2lib.h using the oled chip name and its resolution
-// noting the entries with 2nd I2C are probably for the alternate I2C address
-// the SW I2C entries use a software driver so ignore those unless really needed
-// Monitor the I2C initalisation tests to validate OLED is present
-
-// OLED for 5 Right hand side digits 0.91" 128*32 SSD1306
-// https://www.ebay.com/itm/0-91-Inch-128x32-IIC-I2c-White-Blue-OLED-LCD-Display-Module-3-3-5v-For-Arduino/392552169768?ssPageName=STRK%3AMEBIDX%3AIT&var=661536491479&_trksid=p2057872.m2749.l2649
-
-
-//  OLED for Small Digits 0.66" SSD1306 64 * 48
-// https://www.ebay.com/itm/0-66-inch-White-64x48-OLED-Display-Module-SPI-I2C-3-3-5V-for-Arduino-AVR-STM32/192332990775?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649
-// I2C 0x3C - validate by running scanner
-
-// When using U8G2 library use this constructor for 64x48 display (assuming pin is used for reset which will need to
-// change with NW shield is attached
-// U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ 4);
-//
-//
-// When using a 2.42 inch SSD1309 (128*64) this is used U8G2_SSD1309_128X64_NONAME2_F_HW_I2C
-// other SSD1309 claases only displayed down to row 8 or 16
-// https://www.ebay.com.au/itm/355105747286 White I2C
-// Port 2 VHF_AM OLED
-//
-//The data format of U8G2 fonts is based on the BDF font format. Its glyph bitmaps are compressed with a
-//run-length-encoding algorithm and its header data are designed with variable bit field width to
-//minimize flash memory footprint.
-
-//http://oleddisplay.squix.ch/#/home
-//<3.0.0 is Thiele with packed bitmaps (and special gotcha)
-//>=3.0.0 has a Jump table with aligned bitmaps (and really special gotcha)
-//Adafruit_GFX has missing bitmap and glyph entry for 0x7E (tilde)
-
-// https://rop.nl/truetype2gfx/
-
-// FontForge
-// https://learn.adafruit.com/custom-fonts-for-pyportal-circuitpython-display/conversion
-
-// I2C Addresses
-// I2C 60 for OLED
-// I2C 112 for TCA9548A
-
-// Premade 4 way JST Colour code
-// 1: Black +V
-// 2: Green GND
-// 3: White SCL
-// 4: Red   SDA
 
 
 
@@ -220,7 +138,7 @@ bool SendingAllowed = false;
 
 // Debounce delay was 20mS - but encountered longer bounces with Circuit Breakers, increased to 60mS 20210329
 const int ScanDelay = 80;      // This is in microseconds
-const int DebounceDelay = 40;  // In milliseconds
+const int DebounceDelay = 20;  // In milliseconds
 
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
@@ -247,157 +165,7 @@ unsigned long previousMillis = 0;
 char stringind[5];
 String outString;
 
-// ############################### END INPUT RELATED #####################################
-
-// ############################### BEGIN GRAPHIC OLED RELATED ############################
-#include <U8g2lib.h>
-#include <Wire.h>
-extern "C" {
-#include "utility/twi.h"  // from Wire library, so we can do bus scanning
-}
-
-#define TCAADDR 0x70
-
-
-void tcaselect(uint8_t i) {
-  if (i > 7) return;
-
-  Wire.beginTransmission(TCAADDR);
-  Wire.write(1 << i);
-  Wire.endTransmission();
-}
-
-// Found it easier to scan U8g2lib.h when looking for names of classes
-// But also found here - https://github.com/olikraus/u8g2/wiki
-// Working 2.42" Inch OLED for A10
-// U8G2_SSD1309_128X64_NONAME2_F_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
-// Working 0.96" inch OLED display - ALSO WORKS WITH SSD1309 2.42" DISPLAY
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2_VHF_AM_PRESET(U8G2_R0, U8X8_PIN_NONE);
-
-
-#define VHF_AM_OLED_Port 2
-
-// ############################### END GRAPHIC OLED RELATED ####################################################
-
-
-// ############################################# BEGIN CHARACTER OLED ##########################################
-
-#define OLED_Address 0x3c
-#define OLED_Command_Mode 0x80
-#define OLED_Data_Mode 0x40
-
-#define cmd_CLS 0x01
-#define cmd_NewLine 0xC0
-#define STX 0x02
-#define ETX 0x03
-
-// Clear Screen
-//  sendCommand(0x01);
-// DEL - CLS
-//  sendCommand(0x80);          // Home Pos
-// DEL - CLS
-//  sendCommand(0xC0);
-// Clear screen as used in Jet Ranger
-//  sendCommand(cmd_CLS);              // Clear Display
-
-
-void initCharOLED() {
-  // *** I2C initial *** //
-  tcaselect(4);
-  delay(100);
-  sendCommand(0x2A);  // **** Set "RE"=1	00101010B
-  sendCommand(0x71);
-  sendCommand(0x5C);
-  sendCommand(0x28);
-  sendCommand(0x08);  // **** Set Sleep Mode On
-  sendCommand(0x2A);  // **** Set "RE"=1	00101010B
-  sendCommand(0x79);  // **** Set "SD"=1	01111001B
-  sendCommand(0xD5);
-  sendCommand(0x70);
-  sendCommand(0x78);  // **** Set "SD"=0
-  sendCommand(0x08);  // **** Set 5-dot, 3 or 4 line(0x09), 1 or 2 line(0x08)
-  sendCommand(0x06);  // **** Set Com31-->Com0  Seg0-->Seg99
-
-  // **** Set OLED Characterization *** //
-  sendCommand(0x2A);  // **** Set "RE"=1
-  sendCommand(0x79);  // **** Set "SD"=1
-
-  // **** CGROM/CGRAM Management *** //
-  sendCommand(0x72);  // **** Set ROM
-  sendCommand(0x00);  // **** Set ROM A and 8 CGRAM
-  sendCommand(0xDA);  // **** Set Seg Pins HW Config
-  sendCommand(0x10);
-  sendCommand(0x81);  // **** Set Contrast
-  sendCommand(0xFF);
-  sendCommand(0xDB);  // **** Set VCOM deselect level
-  sendCommand(0x30);  // **** VCC x 0.83
-
-  sendCommand(0xDC);  // **** Set gpio - turn EN for 15V generator on.
-  sendCommand(0x03);
-
-  sendCommand(0x78);  // **** Exiting Set OLED Characterization
-  sendCommand(0x28);
-  sendCommand(0x2A);
-  //sendCommand(0x05); 	// **** Set Entry Mode
-  sendCommand(0x06);  // **** Set Entry Mode
-  sendCommand(0x08);
-  sendCommand(0x28);  // **** Set "IS"=0 , "RE" =0 //28
-  sendCommand(0x01);
-  sendCommand(0x80);  // **** Set DDRAM Address to 0x80 (line 1 start)
-
-  delay(100);
-  sendCommand(0x0C);  // **** Turn on Display
-
-  send_string("Character OLED");
-  sendCommand(cmd_NewLine);
-  send_string("TEST");
-}
-
-void sendData(unsigned char data) {
-  Wire.beginTransmission(OLED_Address);  // **** Start I2C
-  Wire.write(OLED_Data_Mode);            // **** Set OLED Data mode
-  Wire.write(data);
-  Wire.endTransmission();  // **** End I2C
-}
-
-void sendCommand(unsigned char command) {
-  Wire.beginTransmission(OLED_Address);  // **** Start I2C
-  Wire.write(OLED_Command_Mode);         // **** Set OLED Command mode
-  Wire.write(command);
-  Wire.endTransmission();  // **** End I2C
-                           //delay(10);
-}
-
-void send_string(const char *String) {
-  unsigned char i = 0;
-  while (String[i]) {
-    sendData(String[i]);  // *** Show String to OLED
-    i++;
-  }
-}
-
-
-// ############################################# BEGIN CHARACTER OLED ##########################################
-
-
-
-void update_VHF_AM_PRESET(String strnewValue) {
-
-  const char *newValue = strnewValue.c_str();
-  tcaselect(VHF_AM_OLED_Port);
-
-  // Clear existing text by drawing a black box
-  u8g2_VHF_AM_PRESET.setFontMode(0);
-  u8g2_VHF_AM_PRESET.setDrawColor(0);
-  u8g2_VHF_AM_PRESET.drawBox(0, 0, 127, 63);
-
-  u8g2_VHF_AM_PRESET.setDrawColor(1);
-  u8g2_VHF_AM_PRESET.setFontDirection(0);
-  u8g2_VHF_AM_PRESET.drawStr(0, 60, newValue);
-  u8g2_VHF_AM_PRESET.sendBuffer();
-}
-
-
+// ############################### End Input Related #####################################
 
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
@@ -436,42 +204,13 @@ void setup() {
 
     if (Reflector_In_Use == 1) {
       udp.beginPacket(reflectorIP, reflectorport);
-      udp.println("INIT LEFT COMPOSITE INPUT - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      udp.println("INIT A10 TEST INPUT - " + strMyIP + " " + String(millis()) + "mS since reset.");
       udp.endPacket();
     }
 
     // Used to remotely enable Debug and Reflector
     debugUDP.begin(localdebugport);
   }
-
-  Wire.begin();
-
-  initCharOLED();
-  SendDebug("Scanning I2C Bus");
-
-  for (uint8_t t = 0; t < 8; t++) {
-    tcaselect(t);
-    SendDebug("TCA Port #" + String(t));
-
-    for (uint8_t addr = 0; addr <= 127; addr++) {
-      //if (addr == TCAADDR) continue;
-      uint8_t data;
-      if (!twi_writeTo(addr, &data, 0, 1, 1)) {
-        SendDebug("Found I2C " + String(addr));
-      }
-    }
-  }
-  SendDebug("I2C scan complete");
-
-  tcaselect(VHF_AM_OLED_Port);
-  u8g2_VHF_AM_PRESET.begin();
-  u8g2_VHF_AM_PRESET.clearBuffer();
-  //u8g2_VHF_AM_PRESET.setFont(u8g2_font_logisoso16_tn);
-  u8g2_VHF_AM_PRESET.setFont(u8g2_font_logisoso58_tn);
-  // u8g2_VHF_AM_PRESET.setFont(u8g2_font_7Segments_26x42);
-  u8g2_VHF_AM_PRESET.sendBuffer();
-  tcaselect(VHF_AM_OLED_Port);
-  update_VHF_AM_PRESET("10");
 
 
   // Set the output ports to output
@@ -504,6 +243,15 @@ void setup() {
 }
 
 
+
+void UpdateRedStatusLed() {
+  if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME))) {
+    digitalWrite(Check_LED_R, true);
+    RED_LED_STATE = true;
+    timeSinceRedLedChanged = millis();
+  }
+}
+
 void FindInputChanges() {
 
   for (int ind = 0; ind < NUM_BUTTONS; ind++)
@@ -525,12 +273,12 @@ void FindInputChanges() {
 
         if (prevjoyReport.button[ind] == 0) {
           outString = outString + "1";
-          if (DCSBIOS_In_Use == 1) createDcsBiosMessage(ind, 1);
+          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 1);
           if (Ethernet_In_Use == 1) SendIPMessage(ind, 1);
           if (MSFS_In_Use == 1) SendMSFSMessage(ind, 1);
         } else {
           outString = outString + "0";
-          if (DCSBIOS_In_Use == 1) createDcsBiosMessage(ind, 0);
+          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 0);
           if (Ethernet_In_Use == 1) SendIPMessage(ind, 0);
           if (MSFS_In_Use == 1) SendMSFSMessage(ind, 0);
         }
@@ -540,7 +288,7 @@ void FindInputChanges() {
 
         if (Reflector_In_Use == 1) {
           udp.beginPacket(reflectorIP, reflectorport);
-          udp.println("Left Composite Input - " + String(ind) + ":" + String(joyReport.button[ind]));
+          udp.println("A10 TEST Input - " + String(ind) + ":" + String(joyReport.button[ind]));
           udp.endPacket();
         }
       }
@@ -607,56 +355,440 @@ void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
 
 
-int CurrentVHFPreset = 1;
-int LastVHFPresetSwitchPos = 1;
-void setVHFPreset(int PresetSwitchPos) {
-
-  /*
-  VHF Preset in the A10 has positions 1 to 24. To give a similar
-  feel, the 12 position rotary switch has had its stop removed
-  so it can rotate with stops.  The logic takes the positions
-  3,15,27,39,52,63 and provides an encoder like experience. These
-  map to positions 1 to 6
-
-  Once the preset value hits the limits it will no longer
-  decrement or increment.
-
-  LastVHFPresetSwitchPos is the physical 'encoder' position
-  as opposed to the CurrentVHFPreset which is the Sims position
-
-  */
-
-  bool IncrementPos = false;
-  bool DecrementPos = false;
-
-  // First deal with exceptions
-  if (LastVHFPresetSwitchPos == 6 && PresetSwitchPos == 1) {
-    IncrementPos = true;
-  } else if (LastVHFPresetSwitchPos == 1 && PresetSwitchPos == 6) {
-    DecrementPos = true;
-  // Now deal with general cases
-  } else if (PresetSwitchPos > LastVHFPresetSwitchPos) {
-    IncrementPos = true;
-  } else if (PresetSwitchPos < LastVHFPresetSwitchPos) {
-    DecrementPos = true;
-  }
-  LastVHFPresetSwitchPos = PresetSwitchPos;
-
-  if (CurrentVHFPreset < 24 && IncrementPos == true)
-    CurrentVHFPreset++;
-  else if ((CurrentVHFPreset > 1 && DecrementPos == true))
-    CurrentVHFPreset--;
-
-  update_VHF_AM_PRESET(String(CurrentVHFPreset));
-}
-
-
-
-
-void createDcsBiosMessage(int ind, int state) {
+void CreateDcsBiosMessage(int ind, int state) {
 
   switch (state) {
-      // CLOSE
+    // RELEASE
+    case 0:
+      switch (ind) {
+        case 0:
+          SendDebug("Relase 0");
+          break;
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        // RELEASE
+        case 5:
+          break;
+        case 6:
+          break;
+        case 7:
+          break;
+        case 8:
+          break;
+        case 9:
+          break;
+        // RELEASE
+        case 10:
+          break;
+        case 11:
+          break;
+        case 12:
+          break;
+        case 13:
+          break;
+        case 14:
+          break;
+        // RELEASE
+        case 15:
+          break;
+        case 16:
+          break;
+        case 17:
+          break;
+        case 18:
+          break;
+        case 19:
+          break;
+        // RELEASE
+        case 20:
+          break;
+        case 21:
+          break;
+        case 22:
+          break;
+        case 23:
+          break;
+        case 24:
+          break;
+        // RELEASE
+        case 25:
+          break;
+        case 26:
+          break;
+        case 27:
+          break;
+        case 28:
+          break;
+        case 29:
+          break;
+        // RELEASE
+        case 30:
+          break;
+        case 31:
+          break;
+        case 32:
+          break;
+        case 33:
+          break;
+        case 34:
+          break;
+        // RELEASE
+        case 35:
+          break;
+        case 36:
+          break;
+        case 37:
+          break;
+        case 38:
+          break;
+        case 39:
+          break;
+        // RELEASE
+        case 40:
+          break;
+        case 41:
+          break;
+        case 42:
+          break;
+        case 43:
+          break;
+        case 44:
+          break;
+        // RELEASE
+        case 45:
+          break;
+        case 46:
+          break;
+        case 47:
+          break;
+        case 48:
+          break;
+        case 49:
+          break;
+        // RELEASE
+        case 50:
+          break;
+        case 51:
+          break;
+        case 52:
+          break;
+        case 53:
+          break;
+        case 54:
+          break;
+        // RELEASE
+        case 55:
+          break;
+        case 56:
+          break;
+        case 57:
+          break;
+        case 58:
+          break;
+        case 59:
+          break;
+        // RELEASE
+        case 60:
+          break;
+        case 61:
+          break;
+        case 62:
+          break;
+        case 63:
+          break;
+        case 64:
+          break;
+        // RELEASE
+        case 65:
+          break;
+        case 66:
+          break;
+        case 67:
+          break;
+        case 68:
+          break;
+        case 69:
+          break;
+        // RELEASE
+        case 70:
+          break;
+        case 71:
+          break;
+        case 72:
+          break;
+        case 73:
+          break;
+        case 74:
+          break;
+        // RELEASE
+        case 75:
+          break;
+        case 76:
+          break;
+        case 77:
+          break;
+        case 78:
+          break;
+        case 79:
+          break;
+        // RELEASE
+        case 80:
+          break;
+        case 81:
+          break;
+        case 82:
+          break;
+        case 83:
+          break;
+        case 84:
+          break;
+        // RELEASE
+        case 85:
+          break;
+        case 86:
+          break;
+        case 87:
+          break;
+        case 88:
+          break;
+        case 89:
+          break;
+        // RELEASE
+        case 90:
+          break;
+        case 91:
+          break;
+        case 92:
+          break;
+        case 93:
+          break;
+        case 94:
+          break;
+        // RELEASE
+        case 95:
+          break;
+        case 96:
+          break;
+        case 97:
+          break;
+        case 98:
+          break;
+        case 99:
+          break;
+        // RELEASE
+        case 100:
+          break;
+        case 101:
+          break;
+        case 102:
+          break;
+        case 103:
+          break;
+        case 104:
+          break;
+        // RELEASE
+        case 105:
+          break;
+        case 106:
+          break;
+        case 107:
+          break;
+        case 108:
+          break;
+        case 109:
+          break;
+        // RELEASE
+        case 110:
+          break;
+        case 111:
+          break;
+        case 112:
+          break;
+        case 113:
+          break;
+        case 114:
+          break;
+        // RELEASE
+        case 115:
+          break;
+        case 116:
+          break;
+        case 117:
+          break;
+        case 118:
+          break;
+        case 119:
+          break;
+        // RELEASE
+        case 120:
+          break;
+        case 121:
+          break;
+        case 122:
+          break;
+        case 123:
+          break;
+        case 124:
+          break;
+        // RELEASE
+        case 125:
+          break;
+        case 126:
+          break;
+        case 127:
+          break;
+        case 128:
+          break;
+        case 129:
+          break;
+        // RELEASE
+        case 130:
+          break;
+        case 131:
+          break;
+        case 132:
+          break;
+        case 133:
+          break;
+        case 134:
+          break;
+        // RELEASE
+        case 135:
+          break;
+        case 136:
+          break;
+        case 137:
+          break;
+        case 138:
+          break;
+        case 139:
+          break;
+        // RELEASE
+        case 140:
+          break;
+        case 141:
+          break;
+        case 142:
+          break;
+        case 143:
+          break;
+        case 144:
+          break;
+        case 145:
+          break;
+        case 146:
+          break;
+        case 147:
+          break;
+        case 148:
+          break;
+        case 149:
+          break;
+        // RELEASE
+        case 150:
+          break;
+        case 151:
+          break;
+        case 152:
+          break;
+        case 153:
+          break;
+        case 154:
+          break;
+        // RELEASE
+        case 155:
+          break;
+        case 156:
+          break;
+        case 157:
+          break;
+        case 158:
+          break;
+        case 159:
+          break;
+        // RELEASE
+        case 160:
+          break;
+        case 161:
+          break;
+        case 162:
+          break;
+        case 163:
+          break;
+        case 164:
+          break;
+        // RELEASE
+        case 165:
+          break;
+        case 166:
+          break;
+        case 167:
+          break;
+        case 168:
+          break;
+        case 169:
+          break;
+        // RELEASE
+        case 170:
+          break;
+        case 171:
+          break;
+        case 172:
+          break;
+        case 173:
+          break;
+        case 174:
+          break;
+        // RELEASE
+        case 175:
+          break;
+        case 176:
+          break;
+        case 177:
+          break;
+        case 178:
+          break;
+        case 179:
+          break;
+        // RELEASE
+        case 180:
+          break;
+        case 181:
+          break;
+        case 182:
+          break;
+        case 183:
+          break;
+        case 184:
+          break;
+        // RELEASE
+        case 185:
+          break;
+        case 186:
+          break;
+        case 187:
+          break;
+        case 188:
+          break;
+        case 189:
+          break;
+        // RELEASE
+        case 190:
+          break;
+        case 191:
+          break;
+        default:
+          break;
+      }
+      break;
+
+    // CLOSE
     case 1:
       switch (ind) {
         case 0:
@@ -666,7 +798,6 @@ void createDcsBiosMessage(int ind, int state) {
         case 2:
           break;
         case 3:
-          setVHFPreset(1);
           break;
         case 4:
           break;
@@ -694,7 +825,6 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 15:
-          setVHFPreset(2);
           break;
         case 16:
           break;
@@ -721,7 +851,6 @@ void createDcsBiosMessage(int ind, int state) {
         case 26:
           break;
         case 27:
-          setVHFPreset(3);
           break;
         case 28:
           break;
@@ -748,7 +877,6 @@ void createDcsBiosMessage(int ind, int state) {
         case 38:
           break;
         case 39:
-          setVHFPreset(4);
           break;
         // CLOSE
         case 40:
@@ -776,10 +904,8 @@ void createDcsBiosMessage(int ind, int state) {
         case 50:
           break;
         case 51:
-          setVHFPreset(5);
           break;
         case 52:
-
           break;
         case 53:
           break;
@@ -804,7 +930,6 @@ void createDcsBiosMessage(int ind, int state) {
         case 62:
           break;
         case 63:
-          setVHFPreset(6);
           break;
         case 64:
           break;
@@ -1090,438 +1215,8 @@ void createDcsBiosMessage(int ind, int state) {
         default:
           break;
       }
-      break;
-    // RELEASE
-    case 0:
-      switch (ind) {
-        case 0:
-          break;
-        case 1:
-          break;
-        case 2:
-          break;
-        case 3:
-          break;
-        case 4:
-          break;
-        // RELEASE
-        case 5:
-          break;
-        case 6:
-          break;
-        case 7:
-          break;
-        case 8:
-          break;
-        case 9:
-          break;
-        // RELEASE
-        case 10:
-          break;
-        case 11:
-          break;
-        case 12:
-          break;
-        case 13:
-          break;
-        case 14:
-          break;
-        // RELEASE
-        case 15:
-          break;
-        case 16:
-          break;
-        case 17:
-          break;
-        case 18:
-          break;
-        case 19:
-          break;
-        // RELEASE
-        case 20:
-          break;
-        case 21:
-          break;
-        case 22:
-          break;
-        case 23:
-          break;
-        case 24:
-          break;
-        // RELEASE
-        case 25:
-          break;
-        case 26:
-          break;
-        case 27:
-          break;
-        case 28:
-          break;
-        case 29:
-          break;
-        // RELEASE
-        case 30:
-          break;
-        case 31:
-          break;
-        case 32:
-          break;
-        case 33:
-          break;
-        case 34:
-          break;
-        // RELEASE
-        case 35:
-          break;
-        case 36:
-          break;
-        case 37:
-          break;
-        case 38:
-          break;
-        case 39:
-          break;
-        // RELEASE
-        case 40:
-          break;
-        case 41:
-          break;
-        case 42:
-          break;
-        case 43:
-          break;
-        case 44:
-          break;
-        // RELEASE
-        case 45:
-          break;
-        case 46:
-          break;
-        case 47:
-          break;
-        case 48:
-          break;
-        case 49:
-          break;
-        // RELEASE
-        case 50:
-          break;
-        case 51:
-          break;
-        case 52:
-          break;
-        case 53:
-          break;
-        case 54:
-          break;
-        // RELEASE
-        case 55:
-          break;
-        case 56:
-          break;
-        case 57:
-          break;
-        case 58:
-          break;
-        case 59:
-          break;
-        // RELEASE
-        case 60:
-          break;
-        case 61:
-          break;
-        case 62:
-          break;
-        case 63:
-          break;
-        case 64:
-          break;
-        // RELEASE
-        case 65:
-          break;
-        case 66:
-          break;
-        case 67:
-          break;
-        case 68:
-          break;
-        case 69:
-          break;
-        // RELEASE
-        case 70:
-          break;
-        case 71:
-          break;
-        case 72:
-          break;
-        case 73:
-          break;
-        case 74:
-          break;
-        // RELEASE
-        case 75:
-          break;
-        case 76:
-          break;
-        case 77:
-          break;
-        case 78:
-          break;
-        case 79:
-          break;
-        // RELEASE
-        case 80:
-          break;
-        case 81:
-          break;
-        case 82:
-          break;
-        case 83:
-          break;
-        case 84:
-          break;
-        // RELEASE
-        case 85:
-          break;
-        case 86:
-          break;
-        case 87:
-          break;
-        case 88:
-          break;
-        case 89:
-          break;
-        // RELEASE
-        case 90:
-          break;
-        case 91:
-          break;
-        case 92:
-          break;
-        case 93:
-          break;
-        case 94:
-          break;
-        // RELEASE
-        case 95:
-          break;
-        case 96:
-          break;
-        case 97:
-          break;
-        case 98:
-          break;
-        case 99:
-          break;
-        // RELEASE
-        case 100:
-          break;
-        case 101:
-          break;
-        case 102:
-          break;
-        case 103:
-          break;
-        case 104:
-          break;
-        // RELEASE
-        case 105:
-          break;
-        case 106:
-          break;
-        case 107:
-          break;
-        case 108:
-          break;
-        case 109:
-          break;
-        // RELEASE
-        case 110:
-          break;
-        case 111:
-          break;
-        case 112:
-          break;
-        case 113:
-          break;
-        case 114:
-          break;
-        // RELEASE
-        case 115:
-          break;
-        case 116:
-          break;
-        case 117:
-          break;
-        case 118:
-          break;
-        case 119:
-          break;
-        // RELEASE
-        case 120:
-          break;
-        case 121:
-          break;
-        case 122:
-          break;
-        case 123:
-          break;
-        case 124:
-          break;
-        // RELEASE
-        case 125:
-          break;
-        case 126:
-          break;
-        case 127:
-          break;
-        case 128:
-          break;
-        case 129:
-          break;
-        // RELEASE
-        case 130:
-          break;
-        case 131:
-          break;
-        case 132:
-          break;
-        case 133:
-          break;
-        case 134:
-          break;
-        // RELEASE
-        case 135:
-          break;
-        case 136:
-          break;
-        case 137:
-          break;
-        case 138:
-          break;
-        case 139:
-          break;
-        // RELEASE
-        case 140:
-          break;
-        case 141:
-          break;
-        case 142:
-          break;
-        case 143:
-          break;
-        case 144:
-          break;
-        case 145:
-          break;
-        case 146:
-          break;
-        case 147:
-          break;
-        case 148:
-          break;
-        case 149:
-          break;
-        // RELEASE
-        case 150:
-          break;
-        case 151:
-          break;
-        case 152:
-          break;
-        case 153:
-          break;
-        case 154:
-          break;
-        // RELEASE
-        case 155:
-          break;
-        case 156:
-          break;
-        case 157:
-          break;
-        case 158:
-          break;
-        case 159:
-          break;
-        // RELEASE
-        case 160:
-          break;
-        case 161:
-          break;
-        case 162:
-          break;
-        case 163:
-          break;
-        case 164:
-          break;
-        // RELEASE
-        case 165:
-          break;
-        case 166:
-          break;
-        case 167:
-          break;
-        case 168:
-          break;
-        case 169:
-          break;
-        // RELEASE
-        case 170:
-          break;
-        case 171:
-          break;
-        case 172:
-          break;
-        case 173:
-          break;
-        case 174:
-          break;
-        // RELEASE
-        case 175:
-          break;
-        case 176:
-          break;
-        case 177:
-          break;
-        case 178:
-          break;
-        case 179:
-          break;
-        // RELEASE
-        case 180:
-          break;
-        case 181:
-          break;
-        case 182:
-          break;
-        case 183:
-          break;
-        case 184:
-          break;
-        // RELEASE
-        case 185:
-          break;
-        case 186:
-          break;
-        case 187:
-          break;
-        case 188:
-          break;
-        case 189:
-          break;
-        // RELEASE
-        case 190:
-          break;
-        case 191:
-          break;
-        default:
-          break;
-      }
-      break;
   }
 }
-
 
 
 
@@ -1650,436 +1345,6 @@ void CaseTemplate() {
   int ind;
 
   switch (state) {
-
-      // CLOSE
-    case 1:
-      switch (ind) {
-        case 0:
-          break;
-        case 1:
-          break;
-        case 2:
-          break;
-        case 3:
-          break;
-        case 4:
-          break;
-        // CLOSE
-        case 5:
-          break;
-        case 6:
-          break;
-        case 7:
-          break;
-        case 8:
-          break;
-        case 9:
-          break;
-        // CLOSE
-        case 10:
-          break;
-        case 11:
-          break;
-        case 12:
-          break;
-        case 13:
-          break;
-        case 14:
-          break;
-        // CLOSE
-        case 15:
-          break;
-        case 16:
-          break;
-        case 17:
-          break;
-        case 18:
-          break;
-        case 19:
-          break;
-        // CLOSE
-        case 20:
-          break;
-        case 21:
-          break;
-        case 22:
-          break;
-        case 23:
-          break;
-        case 24:
-          break;
-        // CLOSE
-        case 25:
-          break;
-        case 26:
-          break;
-        case 27:
-          break;
-        case 28:
-          break;
-        case 29:
-          break;
-        // CLOSE
-        case 30:
-          break;
-        case 31:
-          break;
-        case 32:
-          break;
-        case 33:
-          break;
-        case 34:
-          break;
-        // CLOSE
-        case 35:
-          break;
-        case 36:
-          break;
-        case 37:
-          break;
-        case 38:
-          break;
-        case 39:
-          break;
-        // CLOSE
-        case 40:
-          break;
-        case 41:
-          break;
-        case 42:
-          break;
-        case 43:
-          break;
-        case 44:
-          break;
-        // CLOSE
-        case 45:
-          break;
-        case 46:
-          break;
-        case 47:
-          break;
-        case 48:
-          break;
-        case 49:
-          break;
-        // CLOSE
-        case 50:
-          break;
-        case 51:
-          break;
-        case 52:
-          break;
-        case 53:
-          break;
-        case 54:
-          break;
-        // CLOSE
-        case 55:
-          break;
-        case 56:
-          break;
-        case 57:
-          break;
-        case 58:
-          break;
-        case 59:
-          break;
-        // CLOSE
-        case 60:
-          break;
-        case 61:
-          break;
-        case 62:
-          break;
-        case 63:
-          break;
-        case 64:
-          break;
-        // CLOSE
-        case 65:
-          break;
-        case 66:
-          break;
-        case 67:
-          break;
-        case 68:
-          break;
-        case 69:
-          break;
-        // CLOSE
-        case 70:
-          break;
-        case 71:
-          break;
-        case 72:
-          break;
-        case 73:
-          break;
-        case 74:
-          break;
-        // CLOSE
-        case 75:
-          break;
-        case 76:
-          break;
-        case 77:
-          break;
-        case 78:
-          break;
-        case 79:
-          break;
-        // CLOSE
-        case 80:
-          break;
-        case 81:
-          break;
-        case 82:
-          break;
-        case 83:
-          break;
-        case 84:
-          break;
-        // CLOSE
-        case 85:
-          break;
-        case 86:
-          break;
-        case 87:
-          break;
-        case 88:
-          break;
-        case 89:
-          break;
-        // CLOSE
-        case 90:
-          break;
-        case 91:
-          break;
-        case 92:
-          break;
-        case 93:
-          break;
-        case 94:
-          break;
-        // CLOSE
-        case 95:
-          break;
-        case 96:
-          break;
-        case 97:
-          break;
-        case 98:
-          break;
-        case 99:
-          break;
-        // CLOSE
-        case 100:
-          break;
-        case 101:
-          break;
-        case 102:
-          break;
-        case 103:
-          break;
-        case 104:
-          break;
-        // CLOSE
-        case 105:
-          break;
-        case 106:
-          break;
-        case 107:
-          break;
-        case 108:
-          break;
-        case 109:
-          break;
-        // CLOSE
-        case 110:
-          break;
-        case 111:
-          break;
-        case 112:
-          break;
-        case 113:
-          break;
-        case 114:
-          break;
-        // CLOSE
-        case 115:
-          break;
-        case 116:
-          break;
-        case 117:
-          break;
-        case 118:
-          break;
-        case 119:
-          break;
-        // CLOSE
-        case 120:
-          break;
-        case 121:
-          break;
-        case 122:
-          break;
-        case 123:
-          break;
-        case 124:
-          break;
-        // CLOSE
-        case 125:
-          break;
-        case 126:
-          break;
-        case 127:
-          break;
-        case 128:
-          break;
-        case 129:
-          break;
-        // CLOSE
-        case 130:
-          break;
-        case 131:
-          break;
-        case 132:
-          break;
-        case 133:
-          break;
-        case 134:
-          break;
-        // CLOSE
-        case 135:
-          break;
-        case 136:
-          break;
-        case 137:
-          break;
-        case 138:
-          break;
-        case 139:
-          break;
-        // CLOSE
-        case 140:
-          break;
-        case 141:
-          break;
-        case 142:
-          break;
-        case 143:
-          break;
-        case 144:
-          break;
-        case 145:
-          break;
-        case 146:
-          break;
-        case 147:
-          break;
-        case 148:
-          break;
-        case 149:
-          break;
-        // CLOSE
-        case 150:
-          break;
-        case 151:
-          break;
-        case 152:
-          break;
-        case 153:
-          break;
-        case 154:
-          break;
-        // CLOSE
-        case 155:
-          break;
-        case 156:
-          break;
-        case 157:
-          break;
-        case 158:
-          break;
-        case 159:
-          break;
-        // CLOSE
-        case 160:
-          break;
-        case 161:
-          break;
-        case 162:
-          break;
-        case 163:
-          break;
-        case 164:
-          break;
-        // CLOSE
-        case 165:
-          break;
-        case 166:
-          break;
-        case 167:
-          break;
-        case 168:
-          break;
-        case 169:
-          break;
-        // CLOSE
-        case 170:
-          break;
-        case 171:
-          break;
-        case 172:
-          break;
-        case 173:
-          break;
-        case 174:
-          break;
-        // CLOSE
-        case 175:
-          break;
-        case 176:
-          break;
-        case 177:
-          break;
-        case 178:
-          break;
-        case 179:
-          break;
-        // CLOSE
-        case 180:
-          break;
-        case 181:
-          break;
-        case 182:
-          break;
-        case 183:
-          break;
-        case 184:
-          break;
-        // CLOSE
-        case 185:
-          break;
-        case 186:
-          break;
-        case 187:
-          break;
-        case 188:
-          break;
-        case 189:
-          break;
-        // CLOSE
-        case 190:
-          break;
-        case 191:
-          break;
-        default:
-          break;
-      }
-      break;
-
     // RELEASE
     case 0:
       switch (ind) {
@@ -2500,6 +1765,434 @@ void CaseTemplate() {
         case 189:
           break;
         // RELEASE
+        case 190:
+          break;
+        case 191:
+          break;
+        default:
+          break;
+      }
+      break;
+    // CLOSE
+    case 1:
+      switch (ind) {
+        case 0:
+          break;
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        // CLOSE
+        case 5:
+          break;
+        case 6:
+          break;
+        case 7:
+          break;
+        case 8:
+          break;
+        case 9:
+          break;
+        // CLOSE
+        case 10:
+          break;
+        case 11:
+          break;
+        case 12:
+          break;
+        case 13:
+          break;
+        case 14:
+          break;
+        // CLOSE
+        case 15:
+          break;
+        case 16:
+          break;
+        case 17:
+          break;
+        case 18:
+          break;
+        case 19:
+          break;
+        // CLOSE
+        case 20:
+          break;
+        case 21:
+          break;
+        case 22:
+          break;
+        case 23:
+          break;
+        case 24:
+          break;
+        // CLOSE
+        case 25:
+          break;
+        case 26:
+          break;
+        case 27:
+          break;
+        case 28:
+          break;
+        case 29:
+          break;
+        // CLOSE
+        case 30:
+          break;
+        case 31:
+          break;
+        case 32:
+          break;
+        case 33:
+          break;
+        case 34:
+          break;
+        // CLOSE
+        case 35:
+          break;
+        case 36:
+          break;
+        case 37:
+          break;
+        case 38:
+          break;
+        case 39:
+          break;
+        // CLOSE
+        case 40:
+          break;
+        case 41:
+          break;
+        case 42:
+          break;
+        case 43:
+          break;
+        case 44:
+          break;
+        // CLOSE
+        case 45:
+          break;
+        case 46:
+          break;
+        case 47:
+          break;
+        case 48:
+          break;
+        case 49:
+          break;
+        // CLOSE
+        case 50:
+          break;
+        case 51:
+          break;
+        case 52:
+          break;
+        case 53:
+          break;
+        case 54:
+          break;
+        // CLOSE
+        case 55:
+          break;
+        case 56:
+          break;
+        case 57:
+          break;
+        case 58:
+          break;
+        case 59:
+          break;
+        // CLOSE
+        case 60:
+          break;
+        case 61:
+          break;
+        case 62:
+          break;
+        case 63:
+          break;
+        case 64:
+          break;
+        // CLOSE
+        case 65:
+          break;
+        case 66:
+          break;
+        case 67:
+          break;
+        case 68:
+          break;
+        case 69:
+          break;
+        // CLOSE
+        case 70:
+          break;
+        case 71:
+          break;
+        case 72:
+          break;
+        case 73:
+          break;
+        case 74:
+          break;
+        // CLOSE
+        case 75:
+          break;
+        case 76:
+          break;
+        case 77:
+          break;
+        case 78:
+          break;
+        case 79:
+          break;
+        // CLOSE
+        case 80:
+          break;
+        case 81:
+          break;
+        case 82:
+          break;
+        case 83:
+          break;
+        case 84:
+          break;
+        // CLOSE
+        case 85:
+          break;
+        case 86:
+          break;
+        case 87:
+          break;
+        case 88:
+          break;
+        case 89:
+          break;
+        // CLOSE
+        case 90:
+          break;
+        case 91:
+          break;
+        case 92:
+          break;
+        case 93:
+          break;
+        case 94:
+          break;
+        // CLOSE
+        case 95:
+          break;
+        case 96:
+          break;
+        case 97:
+          break;
+        case 98:
+          break;
+        case 99:
+          break;
+        // CLOSE
+        case 100:
+          break;
+        case 101:
+          break;
+        case 102:
+          break;
+        case 103:
+          break;
+        case 104:
+          break;
+        // CLOSE
+        case 105:
+          break;
+        case 106:
+          break;
+        case 107:
+          break;
+        case 108:
+          break;
+        case 109:
+          break;
+        // CLOSE
+        case 110:
+          break;
+        case 111:
+          break;
+        case 112:
+          break;
+        case 113:
+          break;
+        case 114:
+          break;
+        // CLOSE
+        case 115:
+          break;
+        case 116:
+          break;
+        case 117:
+          break;
+        case 118:
+          break;
+        case 119:
+          break;
+        // CLOSE
+        case 120:
+          break;
+        case 121:
+          break;
+        case 122:
+          break;
+        case 123:
+          break;
+        case 124:
+          break;
+        // CLOSE
+        case 125:
+          break;
+        case 126:
+          break;
+        case 127:
+          break;
+        case 128:
+          break;
+        case 129:
+          break;
+        // CLOSE
+        case 130:
+          break;
+        case 131:
+          break;
+        case 132:
+          break;
+        case 133:
+          break;
+        case 134:
+          break;
+        // CLOSE
+        case 135:
+          break;
+        case 136:
+          break;
+        case 137:
+          break;
+        case 138:
+          break;
+        case 139:
+          break;
+        // CLOSE
+        case 140:
+          break;
+        case 141:
+          break;
+        case 142:
+          break;
+        case 143:
+          break;
+        case 144:
+          break;
+        case 145:
+          break;
+        case 146:
+          break;
+        case 147:
+          break;
+        case 148:
+          break;
+        case 149:
+          break;
+        // CLOSE
+        case 150:
+          break;
+        case 151:
+          break;
+        case 152:
+          break;
+        case 153:
+          break;
+        case 154:
+          break;
+        // CLOSE
+        case 155:
+          break;
+        case 156:
+          break;
+        case 157:
+          break;
+        case 158:
+          break;
+        case 159:
+          break;
+        // CLOSE
+        case 160:
+          break;
+        case 161:
+          break;
+        case 162:
+          break;
+        case 163:
+          break;
+        case 164:
+          break;
+        // CLOSE
+        case 165:
+          break;
+        case 166:
+          break;
+        case 167:
+          break;
+        case 168:
+          break;
+        case 169:
+          break;
+        // CLOSE
+        case 170:
+          break;
+        case 171:
+          break;
+        case 172:
+          break;
+        case 173:
+          break;
+        case 174:
+          break;
+        // CLOSE
+        case 175:
+          break;
+        case 176:
+          break;
+        case 177:
+          break;
+        case 178:
+          break;
+        case 179:
+          break;
+        // CLOSE
+        case 180:
+          break;
+        case 181:
+          break;
+        case 182:
+          break;
+        case 183:
+          break;
+        case 184:
+          break;
+        // CLOSE
+        case 185:
+          break;
+        case 186:
+          break;
+        case 187:
+          break;
+        case 188:
+          break;
+        case 189:
+          break;
+        // CLOSE
         case 190:
           break;
         case 191:
