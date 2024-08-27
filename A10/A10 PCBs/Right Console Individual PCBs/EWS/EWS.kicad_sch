@@ -1,2155 +1,5404 @@
-(kicad_sch (version 20230121) (generator eeschema)
-
-  (uuid ab9c254d-2b90-4f70-ba7e-cfd778ca028e)
-
-  (paper "A4")
-
-  (lib_symbols
-    (symbol "Connector:Conn_01x02_Socket" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "Conn_01x02_Socket" (at 0 -5.08 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_locked" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "ki_keywords" "connector" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Generic connector, single row, 01x02, script generated" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "Conn_01x02_Socket_1_1"
-        (arc (start 0 -2.032) (mid -0.5058 -2.54) (end 0 -3.048)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -2.54)
-            (xy -0.508 -2.54)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 0)
-            (xy -0.508 0)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 0.508) (mid -0.5058 0) (end 0 -0.508)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (pin passive line (at -5.08 0 0) (length 3.81)
-          (name "Pin_1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -2.54 0) (length 3.81)
-          (name "Pin_2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Connector:Conn_01x03_Female" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 5.08 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "Conn_01x03_Female" (at 0 -5.08 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "connector" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "Conn_01x03_Female_1_1"
-        (arc (start 0 -2.032) (mid -0.5058 -2.54) (end 0 -3.048)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -2.54)
-            (xy -0.508 -2.54)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 0)
-            (xy -0.508 0)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 2.54)
-            (xy -0.508 2.54)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 0.508) (mid -0.5058 0) (end 0 -0.508)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 3.048) (mid -0.5058 2.54) (end 0 2.032)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (pin passive line (at -5.08 2.54 0) (length 3.81)
-          (name "Pin_1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 0 0) (length 3.81)
-          (name "Pin_2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -2.54 0) (length 3.81)
-          (name "Pin_3" (effects (font (size 1.27 1.27))))
-          (number "3" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Connector:Conn_01x04_Socket" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 5.08 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "Conn_01x04_Socket" (at 0 -7.62 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_locked" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "ki_keywords" "connector" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Generic connector, single row, 01x04, script generated" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "Conn_01x04_Socket_1_1"
-        (arc (start 0 -4.572) (mid -0.5058 -5.08) (end 0 -5.588)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 -2.032) (mid -0.5058 -2.54) (end 0 -3.048)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -5.08)
-            (xy -0.508 -5.08)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -2.54)
-            (xy -0.508 -2.54)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 0)
-            (xy -0.508 0)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 2.54)
-            (xy -0.508 2.54)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 0.508) (mid -0.5058 0) (end 0 -0.508)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 3.048) (mid -0.5058 2.54) (end 0 2.032)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (pin passive line (at -5.08 2.54 0) (length 3.81)
-          (name "Pin_1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 0 0) (length 3.81)
-          (name "Pin_2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -2.54 0) (length 3.81)
-          (name "Pin_3" (effects (font (size 1.27 1.27))))
-          (number "3" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -5.08 0) (length 3.81)
-          (name "Pin_4" (effects (font (size 1.27 1.27))))
-          (number "4" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Connector:Conn_01x06_Female" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 7.62 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "Conn_01x06_Female" (at 0 -10.16 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "connector" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "Conn_01x06_Female_1_1"
-        (arc (start 0 -7.112) (mid -0.5058 -7.62) (end 0 -8.128)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 -4.572) (mid -0.5058 -5.08) (end 0 -5.588)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 -2.032) (mid -0.5058 -2.54) (end 0 -3.048)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -7.62)
-            (xy -0.508 -7.62)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -5.08)
-            (xy -0.508 -5.08)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -2.54)
-            (xy -0.508 -2.54)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 0)
-            (xy -0.508 0)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 2.54)
-            (xy -0.508 2.54)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 5.08)
-            (xy -0.508 5.08)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 0.508) (mid -0.5058 0) (end 0 -0.508)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 3.048) (mid -0.5058 2.54) (end 0 2.032)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 5.588) (mid -0.5058 5.08) (end 0 4.572)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (pin passive line (at -5.08 5.08 0) (length 3.81)
-          (name "Pin_1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 2.54 0) (length 3.81)
-          (name "Pin_2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 0 0) (length 3.81)
-          (name "Pin_3" (effects (font (size 1.27 1.27))))
-          (number "3" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -2.54 0) (length 3.81)
-          (name "Pin_4" (effects (font (size 1.27 1.27))))
-          (number "4" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -5.08 0) (length 3.81)
-          (name "Pin_5" (effects (font (size 1.27 1.27))))
-          (number "5" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -7.62 0) (length 3.81)
-          (name "Pin_6" (effects (font (size 1.27 1.27))))
-          (number "6" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Connector:Conn_01x08_Female" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 10.16 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "Conn_01x08_Female" (at 0 -12.7 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "connector" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "Conn_01x08_Female_1_1"
-        (arc (start 0 -9.652) (mid -0.5058 -10.16) (end 0 -10.668)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 -7.112) (mid -0.5058 -7.62) (end 0 -8.128)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 -4.572) (mid -0.5058 -5.08) (end 0 -5.588)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 -2.032) (mid -0.5058 -2.54) (end 0 -3.048)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -10.16)
-            (xy -0.508 -10.16)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -7.62)
-            (xy -0.508 -7.62)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -5.08)
-            (xy -0.508 -5.08)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 -2.54)
-            (xy -0.508 -2.54)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 0)
-            (xy -0.508 0)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 2.54)
-            (xy -0.508 2.54)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 5.08)
-            (xy -0.508 5.08)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.27 7.62)
-            (xy -0.508 7.62)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 0.508) (mid -0.5058 0) (end 0 -0.508)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 3.048) (mid -0.5058 2.54) (end 0 2.032)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 5.588) (mid -0.5058 5.08) (end 0 4.572)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (arc (start 0 8.128) (mid -0.5058 7.62) (end 0 7.112)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (pin passive line (at -5.08 7.62 0) (length 3.81)
-          (name "Pin_1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 5.08 0) (length 3.81)
-          (name "Pin_2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 2.54 0) (length 3.81)
-          (name "Pin_3" (effects (font (size 1.27 1.27))))
-          (number "3" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 0 0) (length 3.81)
-          (name "Pin_4" (effects (font (size 1.27 1.27))))
-          (number "4" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -2.54 0) (length 3.81)
-          (name "Pin_5" (effects (font (size 1.27 1.27))))
-          (number "5" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -5.08 0) (length 3.81)
-          (name "Pin_6" (effects (font (size 1.27 1.27))))
-          (number "6" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -7.62 0) (length 3.81)
-          (name "Pin_7" (effects (font (size 1.27 1.27))))
-          (number "7" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -10.16 0) (length 3.81)
-          (name "Pin_8" (effects (font (size 1.27 1.27))))
-          (number "8" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Device:D" (pin_numbers hide) (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "D" (at 0 2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "D" (at 0 -2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "diode" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Diode" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "D_0_1"
-        (polyline
-          (pts
-            (xy -1.27 1.27)
-            (xy -1.27 -1.27)
-          )
-          (stroke (width 0.254) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 1.27 0)
-            (xy -1.27 0)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 1.27 1.27)
-            (xy 1.27 -1.27)
-            (xy -1.27 0)
-            (xy 1.27 1.27)
-          )
-          (stroke (width 0.254) (type default))
-          (fill (type none))
-        )
-      )
-      (symbol "D_1_1"
-        (pin passive line (at -3.81 0 0) (length 2.54)
-          (name "K" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at 3.81 0 180) (length 2.54)
-          (name "A" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Device:R_Potentiometer_US" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "RV" (at -4.445 0 90)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "R_Potentiometer_US" (at -2.54 0 90)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "resistor variable" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Potentiometer, US symbol" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "Potentiometer*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "R_Potentiometer_US_0_1"
-        (polyline
-          (pts
-            (xy 0 -2.286)
-            (xy 0 -2.54)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 0 2.54)
-            (xy 0 2.286)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 2.54 0)
-            (xy 1.524 0)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 1.143 0)
-            (xy 2.286 0.508)
-            (xy 2.286 -0.508)
-            (xy 1.143 0)
-          )
-          (stroke (width 0) (type default))
-          (fill (type outline))
-        )
-        (polyline
-          (pts
-            (xy 0 -0.762)
-            (xy 1.016 -1.143)
-            (xy 0 -1.524)
-            (xy -1.016 -1.905)
-            (xy 0 -2.286)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 0 0.762)
-            (xy 1.016 0.381)
-            (xy 0 0)
-            (xy -1.016 -0.381)
-            (xy 0 -0.762)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 0 2.286)
-            (xy 1.016 1.905)
-            (xy 0 1.524)
-            (xy -1.016 1.143)
-            (xy 0 0.762)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-      )
-      (symbol "R_Potentiometer_US_1_1"
-        (pin passive line (at 0 3.81 270) (length 1.27)
-          (name "1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at 3.81 0 180) (length 1.27)
-          (name "2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at 0 -3.81 90) (length 1.27)
-          (name "3" (effects (font (size 1.27 1.27))))
-          (number "3" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Switch:SW_Push" (pin_numbers hide) (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "SW" (at 1.27 2.54 0)
-        (effects (font (size 1.27 1.27)) (justify left))
-      )
-      (property "Value" "SW_Push" (at 0 -1.524 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 5.08 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 5.08 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "switch normally-open pushbutton push-button" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Push button switch, generic, two pins" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "SW_Push_0_1"
-        (circle (center -2.032 0) (radius 0.508)
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 0 1.27)
-            (xy 0 3.048)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 2.54 1.27)
-            (xy -2.54 1.27)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (circle (center 2.032 0) (radius 0.508)
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (pin passive line (at -5.08 0 0) (length 2.54)
-          (name "1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at 5.08 0 180) (length 2.54)
-          (name "2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Switch:SW_SPDT_MSM" (pin_names (offset 0) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "SW" (at 0 5.08 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "SW_SPDT_MSM" (at 0 -5.08 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "switch spdt single-pole double-throw ON-OFF-ON" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Switch, single pole double throw, center OFF position" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "SW_SPDT_MSM_0_0"
-        (circle (center -2.032 0) (radius 0.508)
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.524 0.127)
-            (xy 1.778 1.016)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (circle (center 2.032 -2.54) (radius 0.508)
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-      )
-      (symbol "SW_SPDT_MSM_0_1"
-        (circle (center 2.032 2.54) (radius 0.508)
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (circle (center 2.286 0) (radius 0.508)
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-      )
-      (symbol "SW_SPDT_MSM_1_1"
-        (pin passive line (at 5.08 2.54 180) (length 2.54)
-          (name "1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 0 0) (length 2.54)
-          (name "2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at 5.08 -2.54 180) (length 2.54)
-          (name "3" (effects (font (size 1.27 1.27))))
-          (number "3" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Switch:SW_SPST" (pin_names (offset 0) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "SW" (at 0 3.175 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "SW_SPST" (at 0 -2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "switch lever" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Single Pole Single Throw (SPST) switch" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "SW_SPST_0_0"
-        (circle (center -2.032 0) (radius 0.508)
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy -1.524 0.254)
-            (xy 1.524 1.778)
-          )
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-        (circle (center 2.032 0) (radius 0.508)
-          (stroke (width 0) (type default))
-          (fill (type none))
-        )
-      )
-      (symbol "SW_SPST_1_1"
-        (pin passive line (at -5.08 0 0) (length 2.54)
-          (name "A" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at 5.08 0 180) (length 2.54)
-          (name "B" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-  )
-
-
-  (wire (pts (xy 71.374 109.474) (xy 70.612 109.474))
-    (stroke (width 0) (type default))
-    (uuid 1e110603-9eba-4ec9-8b20-a88c13ccb2da)
-  )
-  (wire (pts (xy 116.078 62.23) (xy 121.158 62.23))
-    (stroke (width 0) (type default))
-    (uuid 2d490560-54d6-49b9-a2f6-a7d44af54e2a)
-  )
-  (wire (pts (xy 116.078 59.69) (xy 121.158 59.69))
-    (stroke (width 0) (type default))
-    (uuid 2fdca554-586b-446f-9af9-abc4f6bfcdd8)
-  )
-  (wire (pts (xy 177.292 109.474) (xy 176.53 109.474))
-    (stroke (width 0) (type default))
-    (uuid 3d7bde87-1921-41c1-b2e0-09495a1da685)
-  )
-  (wire (pts (xy 117.094 45.72) (xy 121.158 45.72))
-    (stroke (width 0) (type default))
-    (uuid 5dbbb307-6718-441f-b850-1561b10023b7)
-  )
-  (wire (pts (xy 117.094 48.26) (xy 121.158 48.26))
-    (stroke (width 0) (type default))
-    (uuid 63a8d87c-ede1-45ad-b41a-ef7b7775d9ca)
-  )
-  (wire (pts (xy 135.128 109.728) (xy 134.366 109.728))
-    (stroke (width 0) (type default))
-    (uuid 773ed365-4480-460e-a008-9db0c08ca00a)
-  )
-  (wire (pts (xy 116.078 57.15) (xy 121.158 57.15))
-    (stroke (width 0) (type default))
-    (uuid 821a0a5e-905b-4323-a1ad-e293d5177200)
-  )
-  (wire (pts (xy 103.886 109.474) (xy 103.124 109.474))
-    (stroke (width 0) (type default))
-    (uuid 8433a089-8675-4160-9d9a-ab7ef61589d7)
-  )
-  (wire (pts (xy 222.25 97.028) (xy 228.854 97.028))
-    (stroke (width 0) (type default))
-    (uuid b71bb15f-0b5f-41a2-b636-365b2f744438)
-  )
-  (wire (pts (xy 116.078 64.77) (xy 121.158 64.77))
-    (stroke (width 0) (type default))
-    (uuid ee219a7e-a16d-48fa-bc14-1e5593bd7e25)
-  )
-
-  (text "A_10C:definePushButton(\"CMSP_ARW1\", 4, 3001, 352, \"CMSP\", \"SET Button 1\")\nA_10C:definePushButton(\"CMSP_ARW2\", 4, 3002, 353, \"CMSP\", \"SET Button 2\")\nA_10C:definePushButton(\"CMSP_ARW3\", 4, 3003, 354, \"CMSP\", \"SET Button 3\")\nA_10C:definePushButton(\"CMSP_ARW4\", 4, 3004, 355, \"CMSP\", \"SET Button 4\")\nA_10C:defineRockerSwitch(\"CMSP_UPDN\", 4, 3005, 3005, 3006, 3006, 356, \"CMSP\", \"Cycle Program or Value Up/Down\")\nA_10C:definePushButton(\"CMSP_RTN\", 4, 3007, 357, \"CMSP\", \"RTN\")\nA_10C:defineToggleSwitch(\"CMSP_JTSN\", 4, 3008, 358, \"CMSP\", \"JTSN / OFF\")\nA_10C:definePotentiometer(\"CMSP_BRT\", 4, 3009, 359, { 0.15, 0.85 }, \"CMSP\", \"Brightness\")\n\nA_10C:defineCMSPSwitch(\"CMSP_MWS\", 4, 3010, 3011, 360, \"CMSP\", \"Missile Warning System OFF - ON - (MENU)\")\nA_10C:defineCMSPSwitch(\"CMSP_JMR\", 4, 3012, 3013, 361, \"CMSP\", \"Jammer OFF - ON - (MENU)\")\nA_10C:defineCMSPSwitch(\"CMSP_RWR\", 4, 3014, 3015, 362, \"CMSP\", \"Radar Warning Receiver OFF - ON - (MENU)\")\nA_10C:defineCMSPSwitch(\"CMSP_DISP\", 4, 3016, 3017, 363, \"CMSP\", \"Countermeasure Dispenser OFF - ON - (MENU)\")\nA_10C:defineTumb(\"CMSP_MODE\", 4, 3018, 364, 0.1, { 0, 0.4 }, nil, false, \"CMSP\", \"CMSP Mode Select\")\n\nA_10C:definePushButton(\"CMSC_JMR\", 5, 3001, 365, \"CMSC\", \"Select Jammer Program\")\nA_10C:definePushButton(\"CMSC_MWS\", 5, 3002, 366, \"CMSC\", \"Select MWS Programs (No Function)\")\nA_10C:definePushButton(\"CMSC_PRI\", 5, 3003, 369, \"CMSC\", \"Toggle between 5 and 16 Priority Threats Displayed\")\nA_10C:definePushButton(\"CMSC_SEP\", 5, 3004, 370, \"CMSC\", \"Separate RWR Symbols\")\nA_10C:definePotentiometer(\"CMSC_BRT\", 5, 3006, 367, { 0.15, 0.85 }, \"CMSC\", \"Adjust Display Brightness\")\nA_10C:definePotentiometer(\"CMSC_RWR_VOL\", 5, 3007, 368, nil, \"CMSC\", \"Adjust RWR Volume\")"
-    (at 22.352 187.96 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 07187e4f-c9b7-4e03-9b26-749542d4675a)
-  )
-
-  (label "ROW2" (at 228.854 104.648 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 003ef0a2-94d3-4f96-b4d5-9bcf4a697399)
-  )
-  (label "COL5" (at 96.012 98.806 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 04f17544-fc91-4887-9a52-9d62f8cc1f8c)
-  )
-  (label "ANALOG_5V" (at 139.446 126.746 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 0569d502-27e1-4b18-818c-9b04b6cbba00)
-  )
-  (label "COL7" (at 185.166 72.644 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 06ac329c-beae-4bb5-910c-6181c41a6b57)
-  )
-  (label "COL5" (at 63.5 98.806 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 0df2aa93-f500-4b53-9fc3-9f205c886bcc)
-  )
-  (label "ROW2" (at 261.366 58.166 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 0dfe0322-16e0-4522-9396-99e7e7118c75)
-  )
-  (label "ROW6" (at 113.792 98.806 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 12691f83-a2f7-40cf-91cf-6cae9892c56f)
-  )
-  (label "ROW7" (at 202.946 72.644 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 230df91a-46c7-4abe-ac81-dd4b207180ae)
-  )
-  (label "ROW7" (at 218.694 38.608 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 2486cd6e-0a27-439a-8c22-2a912b072e47)
-  )
-  (label "EW_BRIGHT" (at 143.256 130.556 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 2d017169-8550-4e52-8391-9dae20eb7bd4)
-  )
-  (label "ROW7" (at 145.034 99.06 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 310f11c7-54d4-4f81-bf58-a2f035cd4afd)
-  )
-  (label "ANALOG_GND" (at 168.148 132.08 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 3c64d473-7122-4c50-8fd9-c1848dff99b5)
-  )
-  (label "ROW5" (at 80.772 112.014 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 3c90a244-63d8-430e-bec0-76df89294691)
-  )
-  (label "COL7" (at 214.63 97.028 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 3f488c22-b723-40ab-957e-289e10c71c1c)
-  )
-  (label "COL6" (at 200.914 38.608 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 405e7df6-79f8-45a1-89f8-e71a2a5a1584)
-  )
-  (label "COL6" (at 261.112 40.132 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 54b3ffe9-c31e-4215-b116-a12384332e63)
-  )
-  (label "ROW3" (at 228.854 107.188 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 570beecb-a608-40ca-acfe-4034ddf522f2)
-  )
-  (label "ROW1" (at 113.284 112.014 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 58733b4b-d7dd-447c-a976-6efa3037abc2)
-  )
-  (label "ROW5" (at 261.366 65.786 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 5eb117f0-748f-493c-b512-1791d9c34cf9)
-  )
-  (label "ROW6" (at 229.616 64.516 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 61ea1427-31b9-4b89-b283-38995fde1990)
-  )
-  (label "ROW4" (at 80.772 106.934 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 655db3d2-afa7-4ffb-b98e-0170d35b67fe)
-  )
-  (label "ROW5" (at 186.69 106.934 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 71b50baf-f4b9-4ae0-8e87-62eaa6ef5c7a)
-  )
-  (label "COL7" (at 184.912 59.436 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 728080b7-bced-4900-acad-cd4c37f114e7)
-  )
-  (label "ROW1" (at 228.854 102.108 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 77a585e2-1a63-441b-8d9d-b4b6607b0512)
-  )
-  (label "ANALOG_GND" (at 139.446 134.366 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 78cddf19-6054-4dd8-be8f-992039a83c47)
-  )
-  (label "ROW4" (at 228.854 109.728 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 7d939fec-aafc-4a14-a291-16fad7a34440)
-  )
-  (label "COL6" (at 127.508 109.728 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 7f945bd5-1a6c-46bd-9a54-14a234c1c56a)
-  )
-  (label "COL6" (at 169.418 98.806 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 81596d21-7bfd-449e-a1e1-cd18a1a4f52e)
-  )
-  (label "ANALOG_5V" (at 168.148 127 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 8230902a-1d3d-4fd2-a9f5-cacc451bb6c3)
-  )
-  (label "COL6" (at 169.672 109.474 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 841d5baf-6db6-4fc3-9189-0fd36ed91be4)
-  )
-  (label "COL7" (at 261.112 42.672 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 9284794d-d8bb-414e-9aa6-2e0d7779b7d5)
-  )
-  (label "ROW4" (at 187.198 98.806 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 9a5fe4b9-f65f-4e9d-b3db-956e3eb2132d)
-  )
-  (label "ROW3" (at 261.366 60.706 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid 9e79da29-9f13-4da3-9113-a573345b0e3a)
-  )
-  (label "COL7" (at 211.836 64.516 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid a10aedbb-338c-4e0d-8c14-b6d8672005d5)
-  )
-  (label "ROW0" (at 113.284 106.934 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid adcd8c8d-22ca-439c-9082-4f1e168f1f95)
-  )
-  (label "COL5" (at 127.254 99.06 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid b5514e6e-76f8-4822-b322-9c89cfb428ff)
-  )
-  (label "ROW6" (at 261.366 68.326 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid bda14853-098b-444a-a7e5-62516b07ed4a)
-  )
-  (label "ROW4" (at 261.366 63.246 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid c8d3b303-7efd-4e32-a4e7-fab0b07527ef)
-  )
-  (label "EW_BRIGHT" (at 168.148 129.54 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid ceb347e7-b402-4800-8596-2bec25c8df2e)
-  )
-  (label "ROW2" (at 144.526 107.188 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid d133b0e4-9d1b-4f7f-ac08-fcf008e34a6b)
-  )
-  (label "COL5" (at 261.112 37.592 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid d4c9a5f9-64d2-4359-bf40-80f8aedd03cb)
-  )
-  (label "ROW5" (at 202.692 59.436 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid d6e7eee7-1385-489f-ae2d-238be7e7affe)
-  )
-  (label "ROW6" (at 186.69 112.014 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid dddc4ee9-9247-4a15-af98-d5b54fd4db10)
-  )
-  (label "COL6" (at 96.266 109.474 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid e39a1b6b-4740-4ed5-acc4-bbb778f9d4d5)
-  )
-  (label "ROW3" (at 144.526 112.268 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid e54ed200-49f9-4061-b991-0f477fb7385f)
-  )
-  (label "ROW0" (at 228.854 99.568 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid e68fdfe2-db2c-43d0-869c-21bf8b8cb5d4)
-  )
-  (label "ROW7" (at 261.366 70.866 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid e8124abd-1395-41f6-8be5-45d975160c9b)
-  )
-  (label "ROW3" (at 81.28 98.806 0) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid eede5618-c19e-4b09-b596-121105d978f7)
-  )
-  (label "ROW1" (at 261.366 55.626 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid f6f4bb90-ff85-470e-b9c3-d96febf1b03a)
-  )
-  (label "COL5" (at 63.754 109.474 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid fa48bb60-b40c-4e68-a6b7-ff1e68a55772)
-  )
-  (label "ROW0" (at 261.366 53.086 180) (fields_autoplaced)
-    (effects (font (size 1.27 1.27)) (justify right bottom))
-    (uuid fcc59951-b3f6-4140-a5d0-e734de85cbba)
-  )
-
-  (symbol (lib_id "Switch:SW_Push") (at 108.712 98.806 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 07ef7f07-cbdd-450c-8da6-3fcd5150d7a0)
-    (property "Reference" "SW4" (at 108.712 91.7407 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "JMR" (at 108.712 94.1649 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (at 108.712 93.726 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 108.712 93.726 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 58f0102d-3c7f-4683-868a-baf2b5b7bf85))
-    (pin "2" (uuid 8ec89123-492e-49f0-97f4-7b3e6e9048c7))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW4") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW35") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:R_Potentiometer_US") (at 139.446 130.556 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 0f795882-d042-4853-9c54-c17721f28427)
-    (property "Reference" "RV1" (at 137.795 129.7213 0)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "EW_BRIGHT" (at 137.795 132.2582 0)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical" (at 139.446 130.556 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 139.446 130.556 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 50501fbf-9743-41ea-81d3-14d5dd5dc0a2))
-    (pin "2" (uuid 682aafb1-8979-4fb8-bbe7-c2b0ae8bc6c8))
-    (pin "3" (uuid 1e4aff0d-1980-4821-a575-f2815077e35c))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "RV1") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "RV?") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_Push") (at 76.2 98.806 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 12a75a7d-3962-4fd8-9bf7-7a234dd9ed33)
-    (property "Reference" "SW2" (at 76.2 91.7407 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "MWS" (at 76.2 94.1649 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (at 76.2 93.726 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 76.2 93.726 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 92e39e02-5cd1-4f39-9e0c-efaab687d21a))
-    (pin "2" (uuid 1c1ab91d-ae9f-49db-932a-b89759a85daf))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW2") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW33") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 99.822 98.806 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 289d7c61-d2fc-4c78-b0a5-9760073ee777)
-    (property "Reference" "D3" (at 99.822 93.3196 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 99.822 95.631 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 99.822 98.806 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 99.822 98.806 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid baae7420-5029-49b3-84da-7260fcd1a6bb))
-    (pin "2" (uuid aa5f81b3-1286-4aa6-a2a9-cfc3f9116e34))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D3") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D37") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_SPDT_MSM") (at 108.204 109.474 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 2c58c221-e09b-4d23-bdbc-c7178bee8a7e)
-    (property "Reference" "SW3" (at 108.204 102.235 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "JMR" (at 108.204 104.5464 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical" (at 108.204 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 108.204 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid b905309e-840a-4069-beb7-a4f72b0719c4))
-    (pin "2" (uuid da50b8c6-7655-49d2-9722-02c32439e188))
-    (pin "3" (uuid 5844e80d-c112-490a-a2cc-e408067bea0f))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW3") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW34") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Conn_01x04_Socket") (at 110.998 59.69 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 3a2b8846-5078-48ed-ad69-821fcbb22b8f)
-    (property "Reference" "J1" (at 110.2868 59.7479 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "OLED" (at 110.2868 62.1721 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical" (at 110.998 59.69 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 110.998 59.69 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 947ac199-a759-4874-83d8-8b3ae4a39252))
-    (pin "3" (uuid 3c1f8826-cdb3-4ebc-87fb-c66c7199701a))
-    (pin "2" (uuid 041c592e-7f72-489b-a8a9-73c4d33bd27d))
-    (pin "4" (uuid b84cd093-5ce6-4ef5-aa36-5813ba1e29ae))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "J1") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 218.44 97.028 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 4755b404-31bd-401e-a9ec-1774a5a0335b)
-    (property "Reference" "D13" (at 218.44 91.5416 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 218.44 93.853 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 218.44 97.028 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 218.44 97.028 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid cad65c85-9acc-4172-96be-fc3a6b0cc2e9))
-    (pin "2" (uuid c02d3994-2e5e-41fa-b3ae-eef2e9b5a233))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D13") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D47") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_Push") (at 197.866 72.644 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 4c4dd056-5fa9-40ff-9748-8287728db7a5)
-    (property "Reference" "SW10" (at 197.866 66.0232 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "SEL DOWN" (at 197.866 68.5601 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (at 197.866 67.564 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 197.866 67.564 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 18e9f01e-5597-4389-9354-655e37285dff))
-    (pin "2" (uuid ebfb0de8-64a5-4bd7-8ff2-911513d8a30d))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW10") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW41") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_Push") (at 224.536 64.516 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 5c0768f4-009d-4a67-8616-edf382df3ee3)
-    (property "Reference" "SW12" (at 224.536 57.8952 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "END" (at 224.536 60.4321 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (at 224.536 59.436 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 224.536 59.436 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid c2edcf5a-fcd4-487f-a73b-c8e42acab36e))
-    (pin "2" (uuid 03f275b0-c135-42f4-8aeb-33daeebf37f7))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW12") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW43") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_Push") (at 197.612 59.436 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 5ec032c6-4819-4b0a-8b4c-4f0f92647c05)
-    (property "Reference" "SW9" (at 197.612 52.8152 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "SEL UP" (at 197.612 55.3521 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (at 197.612 54.356 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 197.612 54.356 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 853c4f01-8d99-4270-baeb-fe6e25ea62e9))
-    (pin "2" (uuid e1fcc18b-c245-47c1-b605-907dd1090389))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW9") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW40") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Conn_01x02_Socket") (at 126.238 45.72 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 5ef57338-f14e-4c3f-98bb-bb915feb0734)
-    (property "Reference" "J3" (at 126.9492 45.7779 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "BKLGHT" (at 126.9492 48.2021 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (at 126.238 45.72 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 126.238 45.72 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 3435b8a7-1620-4ce0-a009-b4edf578846a))
-    (pin "2" (uuid e76e017a-9879-4824-afc9-e78e7774383c))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "J3") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Conn_01x03_Female") (at 173.228 129.54 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 614223ea-58f9-45ac-b4f5-c5672ef777b6)
-    (property "Reference" "J5" (at 173.9392 128.7053 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "EW_ANALOG" (at 173.9392 131.2422 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical" (at 173.228 129.54 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 173.228 129.54 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 149ae6f9-0e18-4ff6-b060-3125f474cddc))
-    (pin "2" (uuid 0d55a55a-50a5-4b41-9d24-5cc04b232788))
-    (pin "3" (uuid db1f8a2b-9c4c-46f2-a7f7-f8cab6ae2d17))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "J5") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "J?") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Conn_01x08_Female") (at 266.446 60.706 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 62474ba5-fba8-4d50-8ae5-3ffba680b8ec)
-    (property "Reference" "J8" (at 267.1572 61.1413 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "EWC ROW" (at 267.1572 63.6782 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical" (at 266.446 60.706 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 266.446 60.706 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 7399a3cc-c9af-47e0-9620-8cc9551f41b8))
-    (pin "2" (uuid 93abd266-eb38-4d6c-9690-cc1f32eb4182))
-    (pin "3" (uuid 23009d76-6d89-4104-8318-27291dff6be9))
-    (pin "4" (uuid 425d6dd3-7e0c-4713-a6ec-d84f96c6dc2c))
-    (pin "5" (uuid c1890470-428a-4da7-b742-3acb495f0f6a))
-    (pin "6" (uuid 7843535e-e820-4c7b-ac44-6a5e7ce2abec))
-    (pin "7" (uuid f6e98994-4c17-4ef6-8736-f5212b6600dd))
-    (pin "8" (uuid fb93866a-fe2e-4703-93bf-9f8a8b2b1960))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "J8") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "J27") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 67.564 109.474 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 64245d91-34e4-4a0c-b820-ae2a16a0518f)
-    (property "Reference" "D2" (at 67.564 103.9876 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 67.564 106.299 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 67.564 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 67.564 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 441fada8-8057-415c-8dcf-288a58134624))
-    (pin "2" (uuid 4c7438a0-62e2-4ed5-9e83-e0e7c9df43e6))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D2") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D36") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 173.228 98.806 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 6f88cad7-2b37-4b67-a012-0f8665cec3bc)
-    (property "Reference" "D7" (at 173.228 93.3196 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 173.228 95.631 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 173.228 98.806 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 173.228 98.806 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 7358743c-fb98-4263-b42a-9e0e68c96543))
-    (pin "2" (uuid fbe7ed8a-ea1b-4ab8-bcf7-8969802d77db))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D7") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D41") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Conn_01x04_Socket") (at 126.238 59.69 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 77c7ae97-ff5d-4585-9cad-59ce6d53883f)
-    (property "Reference" "J4" (at 126.9492 59.7479 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "OLED" (at 126.9492 62.1721 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical" (at 126.238 59.69 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 126.238 59.69 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid bddba259-f03f-40af-afea-3e1256426b18))
-    (pin "3" (uuid 57482e97-189c-447b-9d60-430c8e839b4f))
-    (pin "2" (uuid a7ac9fc0-4c00-4a14-b29a-cc68af4ad310))
-    (pin "4" (uuid 1a258cdc-fb24-4dd3-a8f6-03031abbe36e))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "J4") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Conn_01x02_Socket") (at 112.014 45.72 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 848dde33-deb7-4843-844f-139d386de765)
-    (property "Reference" "J2" (at 111.3028 45.7779 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "BKLGHT" (at 111.3028 48.2021 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (at 112.014 45.72 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 112.014 45.72 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 1c2297f3-3341-4517-bd4c-d06ecbb11bb9))
-    (pin "2" (uuid 712987a6-eb16-4f57-97f5-31fc3d8b701b))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "J2") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_SPDT_MSM") (at 181.61 109.474 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 864a70f2-6ed9-4f65-93d0-e9618df0ef17)
-    (property "Reference" "SW7" (at 181.61 102.235 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "DISP" (at 181.61 104.5464 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical" (at 181.61 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 181.61 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 8a322362-bbb5-4053-b8ab-ad235e27fad0))
-    (pin "2" (uuid 7861e353-266b-4dac-b901-3f0c540541d3))
-    (pin "3" (uuid 124c012f-0211-4fa3-b786-c1e43e461d22))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW7") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW38") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 131.064 99.06 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid 913d6e90-bf8c-449a-b16c-82c8f9b8475d)
-    (property "Reference" "D5" (at 131.064 93.5736 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 131.064 95.885 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 131.064 99.06 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 131.064 99.06 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 53b01684-4629-425b-ae4c-0023d3b89297))
-    (pin "2" (uuid db09873b-2184-46ab-9bad-650761a703c6))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D5") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D39") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 188.722 59.436 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid a0617a22-b095-4ad2-9854-6e305c59ef93)
-    (property "Reference" "D9" (at 188.722 53.9496 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 188.722 56.261 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 188.722 59.436 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 188.722 59.436 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 02ec5cee-01e0-4a77-88a4-7d900f85c1e3))
-    (pin "2" (uuid cae983eb-4c3b-4723-83a1-297f1c81c881))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D9") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D43") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_SPST") (at 213.614 38.608 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid a1ed36c5-3f31-4510-acf0-6ad315834a86)
-    (property "Reference" "SW11" (at 213.614 33.2572 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "JTSN" (at 213.614 35.7941 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (at 213.614 38.608 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 213.614 38.608 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 6dd5deb0-56d4-4668-88dc-ff07d1b4e058))
-    (pin "2" (uuid 3099ec8c-96c5-4695-a36d-d98d1a80db50))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW11") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW42") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Conn_01x06_Female") (at 233.934 102.108 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid acb1026f-fe29-45c6-aac8-bf1ebba8f141)
-    (property "Reference" "J6" (at 234.6452 102.5433 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "MODE" (at 228.854 92.964 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical" (at 233.934 102.108 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 233.934 102.108 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 1833bc8a-e2c9-40c4-9ad7-1d262d696dfc))
-    (pin "2" (uuid 4a38eec9-9148-4610-ad7c-4a2c940d2411))
-    (pin "3" (uuid 03d41435-e7db-4c04-9d50-e9afa304e6de))
-    (pin "4" (uuid 317c36b2-a5d1-42e3-9119-d16577dca752))
-    (pin "5" (uuid bb76f9fc-3d6c-4464-af79-5decb858a04b))
-    (pin "6" (uuid 9b7859a0-c547-4e7f-a2fc-951bd0e7b416))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "J6") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "J25") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 204.724 38.608 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid ae46d3b3-98c0-4e08-b52e-7b60b3136c82)
-    (property "Reference" "D11" (at 204.724 33.1216 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 204.724 35.433 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 204.724 38.608 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 204.724 38.608 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 3e5d77dd-0726-4667-aa68-ed513065101f))
-    (pin "2" (uuid 948f8721-8e8e-482d-9257-1a80f3712220))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D11") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D45") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 215.646 64.516 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid bc781822-b517-402d-8fa8-798fb4fa44c3)
-    (property "Reference" "D12" (at 215.646 59.0296 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 215.646 61.341 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 215.646 64.516 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 215.646 64.516 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 953e51f0-74e6-47e9-9c73-fe291524d130))
-    (pin "2" (uuid 741c4569-95c4-4f3a-926c-35489364af99))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D12") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D46") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_SPDT_MSM") (at 75.692 109.474 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid c2309c56-b1a9-4a3d-a899-594759dfe3a8)
-    (property "Reference" "SW1" (at 75.692 102.235 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "MWS" (at 75.692 104.5464 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical" (at 75.692 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 75.692 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 6943e417-2678-482a-8d35-9404ecb57d53))
-    (pin "2" (uuid 16249d3b-66fc-488b-9edd-752153ba900d))
-    (pin "3" (uuid f5554944-09fc-4127-a066-204ace1ebfc7))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW1") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW32") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 173.482 109.474 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid c4479b95-61f3-4df5-9c8d-623dfb82e233)
-    (property "Reference" "D8" (at 173.482 103.9876 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 173.482 106.299 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 173.482 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 173.482 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 767913de-3b33-482a-89fb-dd3ea03e19db))
-    (pin "2" (uuid 773d5f00-78ea-46ce-8a44-a86f2ba45104))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D8") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D42") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_Push") (at 182.118 98.806 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid c9d4a775-3fe0-4cd1-9157-e67f0610c8fb)
-    (property "Reference" "SW8" (at 182.118 92.1852 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "DISP" (at 182.118 94.7221 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (at 182.118 93.726 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 182.118 93.726 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid fcac540f-8e34-4989-806c-e746f4729a63))
-    (pin "2" (uuid 1194dcf3-8859-47cc-91db-15deb0700929))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW8") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW39") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_SPDT_MSM") (at 139.446 109.728 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid caed65c3-691e-4809-bd87-594b62e39122)
-    (property "Reference" "SW5" (at 139.446 102.489 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "RWR" (at 139.446 104.8004 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical" (at 139.446 109.728 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 139.446 109.728 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 9de8601c-7bd2-4f6c-987b-16ff36eb265f))
-    (pin "2" (uuid 80142fd6-afa2-4e0d-9836-ee63d90ea371))
-    (pin "3" (uuid ff8852fe-6c93-4e18-9c90-4aa2fecf5477))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW5") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW36") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 131.318 109.728 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid d4b4e4d1-8a74-4216-9471-acfd2aa5d056)
-    (property "Reference" "D6" (at 131.318 104.2416 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 131.318 106.553 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 131.318 109.728 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 131.318 109.728 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 973112cc-4bbc-4466-be8e-5b784bf857b6))
-    (pin "2" (uuid 0f5f6b32-eaea-4b77-ba46-a62e5bebccc0))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D6") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D40") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Connector:Conn_01x03_Female") (at 266.192 40.132 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid d6940abb-92b3-45d6-b8d7-c4f28b432956)
-    (property "Reference" "J7" (at 266.9032 39.2973 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Value" "EWC COL" (at 266.9032 41.8342 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical" (at 266.192 40.132 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 266.192 40.132 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid b7314ae0-7db6-4e8b-84f2-3f63e4d74ef0))
-    (pin "2" (uuid f305b327-3ef2-4f7e-adcb-0a1d0381db2b))
-    (pin "3" (uuid cc626619-3f37-4e35-810e-d3043f71049f))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "J7") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "J26") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 100.076 109.474 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid dae0ca93-f41c-4129-ab9a-cfb565249fa0)
-    (property "Reference" "D4" (at 100.076 103.9876 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 100.076 106.299 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 100.076 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 100.076 109.474 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid b902365b-b490-48d0-a08c-61b10f0a1c6f))
-    (pin "2" (uuid 2822e4a8-5d81-41ec-8a9e-185cc926d443))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D4") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D38") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Switch:SW_Push") (at 139.954 99.06 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid e0092d8e-bf7e-4bb8-b50f-f657880028f7)
-    (property "Reference" "SW6" (at 139.954 92.4392 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "RWR" (at 139.954 94.9761 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical" (at 139.954 93.98 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 139.954 93.98 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid e54a75d9-eb45-411e-9c00-a0b85f44b1a0))
-    (pin "2" (uuid 2d4516a4-d445-4fc2-9fcf-c8c91d33fac5))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "SW6") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "SW37") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 188.976 72.644 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid f7c181b6-370a-4c66-9781-fb84052094de)
-    (property "Reference" "D10" (at 188.976 67.1576 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 188.976 69.469 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 188.976 72.644 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 188.976 72.644 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid d9cf7b10-38ea-4c31-8fb1-507c09796f04))
-    (pin "2" (uuid 314e2a28-78b6-4c8d-afca-1c25556d8197))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D10") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D44") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:D") (at 67.31 98.806 0) (mirror y) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no)
-    (uuid f8c46803-ccbb-4751-b20a-ca42b716427d)
-    (property "Reference" "D1" (at 67.31 93.3196 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "D" (at 67.31 95.631 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp" (at 67.31 98.806 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 67.31 98.806 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid f826625b-53a8-43e4-adf4-584c6fd0f779))
-    (pin "2" (uuid d9c0cf5e-867f-4245-bcb8-bd094063123f))
-    (instances
-      (project "EWS"
-        (path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
-          (reference "D1") (unit 1)
-        )
-      )
-      (project "Right Console Overview"
-        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
-          (reference "D35") (unit 1)
-        )
-      )
-    )
-  )
-
-  (sheet_instances
-    (path "/" (page "1"))
-  )
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "ab9c254d-2b90-4f70-ba7e-cfd778ca028e")
+	(paper "A4")
+	(lib_symbols
+		(symbol "Connector:Conn_01x02_Socket"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02_Socket"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x02_Socket_1_1"
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector:Conn_01x03_Female"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x03_Female"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x03_Female_1_1"
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy -0.508 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 3.048)
+					(mid -0.5058 2.54)
+					(end 0 2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector:Conn_01x04_Socket"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x04_Socket"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x04, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x04_Socket_1_1"
+				(arc
+					(start 0 -4.572)
+					(mid -0.5058 -5.08)
+					(end 0 -5.588)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -5.08) (xy -0.508 -5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy -0.508 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 3.048)
+					(mid -0.5058 2.54)
+					(end 0 2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector:Conn_01x06_Female"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x06_Female"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x06_Female_1_1"
+				(arc
+					(start 0 -7.112)
+					(mid -0.5058 -7.62)
+					(end 0 -8.128)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -4.572)
+					(mid -0.5058 -5.08)
+					(end 0 -5.588)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -7.62) (xy -0.508 -7.62)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -5.08) (xy -0.508 -5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy -0.508 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 5.08) (xy -0.508 5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 3.048)
+					(mid -0.5058 2.54)
+					(end 0 2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 5.588)
+					(mid -0.5058 5.08)
+					(end 0 4.572)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 5.08 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -7.62 0)
+					(length 3.81)
+					(name "Pin_6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector:Conn_01x08_Female"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x08_Female"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x08_Female_1_1"
+				(arc
+					(start 0 -9.652)
+					(mid -0.5058 -10.16)
+					(end 0 -10.668)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -7.112)
+					(mid -0.5058 -7.62)
+					(end 0 -8.128)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -4.572)
+					(mid -0.5058 -5.08)
+					(end 0 -5.588)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -10.16) (xy -0.508 -10.16)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -7.62) (xy -0.508 -7.62)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -5.08) (xy -0.508 -5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy -0.508 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 5.08) (xy -0.508 5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 7.62) (xy -0.508 7.62)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 3.048)
+					(mid -0.5058 2.54)
+					(end 0 2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 5.588)
+					(mid -0.5058 5.08)
+					(end 0 4.572)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 8.128)
+					(mid -0.5058 7.62)
+					(end 0 7.112)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 7.62 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 5.08 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -7.62 0)
+					(length 3.81)
+					(name "Pin_7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -10.16 0)
+					(length 3.81)
+					(name "Pin_8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:D"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "D"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "D_0_1"
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy -1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "D_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:R_Potentiometer_US"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "RV"
+				(at -4.445 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R_Potentiometer_US"
+				(at -2.54 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Potentiometer, US symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "resistor variable"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Potentiometer*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_Potentiometer_US_0_1"
+				(polyline
+					(pts
+						(xy 0 -2.286) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0 2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 0) (xy 1.524 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.143 0) (xy 2.286 0.508) (xy 2.286 -0.508) (xy 1.143 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -0.762) (xy 1.016 -1.143) (xy 0 -1.524) (xy -1.016 -1.905) (xy 0 -2.286)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0.762) (xy 1.016 0.381) (xy 0 0) (xy -1.016 -0.381) (xy 0 -0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.286) (xy 1.016 1.905) (xy 0 1.524) (xy -1.016 1.143) (xy 0 0.762)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_Potentiometer_US_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 1.27)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Switch:SW_Push"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 1.27 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "SW_Push"
+				(at 0 -1.524 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Push button switch, generic, two pins"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch normally-open pushbutton push-button"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_Push_0_1"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 1.27) (xy 0 3.048)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 1.27) (xy -2.54 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Switch:SW_SPDT_MSM"
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_SPDT_MSM"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Switch, single pole double throw, center OFF position"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch spdt single-pole double-throw ON-OFF-ON"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_SPDT_MSM_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.127) (xy 1.778 1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 -2.54)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPDT_MSM_0_1"
+				(circle
+					(center 2.032 2.54)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.286 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPDT_MSM_1_1"
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 2.54)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Switch:SW_SPST"
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_SPST"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Single Pole Single Throw (SPST) switch"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch lever"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_SPST_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.254) (xy 1.524 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPST_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 71.374 109.474) (xy 70.612 109.474)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1e110603-9eba-4ec9-8b20-a88c13ccb2da")
+	)
+	(wire
+		(pts
+			(xy 116.078 62.23) (xy 121.158 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2d490560-54d6-49b9-a2f6-a7d44af54e2a")
+	)
+	(wire
+		(pts
+			(xy 116.078 59.69) (xy 121.158 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2fdca554-586b-446f-9af9-abc4f6bfcdd8")
+	)
+	(wire
+		(pts
+			(xy 177.292 109.474) (xy 176.53 109.474)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3d7bde87-1921-41c1-b2e0-09495a1da685")
+	)
+	(wire
+		(pts
+			(xy 117.094 45.72) (xy 121.158 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5dbbb307-6718-441f-b850-1561b10023b7")
+	)
+	(wire
+		(pts
+			(xy 117.094 48.26) (xy 121.158 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "63a8d87c-ede1-45ad-b41a-ef7b7775d9ca")
+	)
+	(wire
+		(pts
+			(xy 135.128 109.728) (xy 134.366 109.728)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "773ed365-4480-460e-a008-9db0c08ca00a")
+	)
+	(wire
+		(pts
+			(xy 116.078 57.15) (xy 121.158 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "821a0a5e-905b-4323-a1ad-e293d5177200")
+	)
+	(wire
+		(pts
+			(xy 103.886 109.474) (xy 103.124 109.474)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8433a089-8675-4160-9d9a-ab7ef61589d7")
+	)
+	(wire
+		(pts
+			(xy 222.25 97.028) (xy 228.854 97.028)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b71bb15f-0b5f-41a2-b636-365b2f744438")
+	)
+	(wire
+		(pts
+			(xy 116.078 64.77) (xy 121.158 64.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee219a7e-a16d-48fa-bc14-1e5593bd7e25")
+	)
+	(text "A_10C:definePushButton(\"CMSP_ARW1\", 4, 3001, 352, \"CMSP\", \"SET Button 1\")\nA_10C:definePushButton(\"CMSP_ARW2\", 4, 3002, 353, \"CMSP\", \"SET Button 2\")\nA_10C:definePushButton(\"CMSP_ARW3\", 4, 3003, 354, \"CMSP\", \"SET Button 3\")\nA_10C:definePushButton(\"CMSP_ARW4\", 4, 3004, 355, \"CMSP\", \"SET Button 4\")\nA_10C:defineRockerSwitch(\"CMSP_UPDN\", 4, 3005, 3005, 3006, 3006, 356, \"CMSP\", \"Cycle Program or Value Up/Down\")\nA_10C:definePushButton(\"CMSP_RTN\", 4, 3007, 357, \"CMSP\", \"RTN\")\nA_10C:defineToggleSwitch(\"CMSP_JTSN\", 4, 3008, 358, \"CMSP\", \"JTSN / OFF\")\nA_10C:definePotentiometer(\"CMSP_BRT\", 4, 3009, 359, { 0.15, 0.85 }, \"CMSP\", \"Brightness\")\n\nA_10C:defineCMSPSwitch(\"CMSP_MWS\", 4, 3010, 3011, 360, \"CMSP\", \"Missile Warning System OFF - ON - (MENU)\")\nA_10C:defineCMSPSwitch(\"CMSP_JMR\", 4, 3012, 3013, 361, \"CMSP\", \"Jammer OFF - ON - (MENU)\")\nA_10C:defineCMSPSwitch(\"CMSP_RWR\", 4, 3014, 3015, 362, \"CMSP\", \"Radar Warning Receiver OFF - ON - (MENU)\")\nA_10C:defineCMSPSwitch(\"CMSP_DISP\", 4, 3016, 3017, 363, \"CMSP\", \"Countermeasure Dispenser OFF - ON - (MENU)\")\nA_10C:defineTumb(\"CMSP_MODE\", 4, 3018, 364, 0.1, { 0, 0.4 }, nil, false, \"CMSP\", \"CMSP Mode Select\")\n\nA_10C:definePushButton(\"CMSC_JMR\", 5, 3001, 365, \"CMSC\", \"Select Jammer Program\")\nA_10C:definePushButton(\"CMSC_MWS\", 5, 3002, 366, \"CMSC\", \"Select MWS Programs (No Function)\")\nA_10C:definePushButton(\"CMSC_PRI\", 5, 3003, 369, \"CMSC\", \"Toggle between 5 and 16 Priority Threats Displayed\")\nA_10C:definePushButton(\"CMSC_SEP\", 5, 3004, 370, \"CMSC\", \"Separate RWR Symbols\")\nA_10C:definePotentiometer(\"CMSC_BRT\", 5, 3006, 367, { 0.15, 0.85 }, \"CMSC\", \"Adjust Display Brightness\")\nA_10C:definePotentiometer(\"CMSC_RWR_VOL\", 5, 3007, 368, nil, \"CMSC\", \"Adjust RWR Volume\")"
+		(exclude_from_sim no)
+		(at 22.352 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "07187e4f-c9b7-4e03-9b26-749542d4675a")
+	)
+	(label "ROW2"
+		(at 228.854 104.648 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "003ef0a2-94d3-4f96-b4d5-9bcf4a697399")
+	)
+	(label "COL5"
+		(at 96.012 98.806 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "04f17544-fc91-4887-9a52-9d62f8cc1f8c")
+	)
+	(label "ANALOG_5V"
+		(at 139.446 126.746 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0569d502-27e1-4b18-818c-9b04b6cbba00")
+	)
+	(label "COL7"
+		(at 185.166 72.644 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "06ac329c-beae-4bb5-910c-6181c41a6b57")
+	)
+	(label "COL5"
+		(at 63.5 98.806 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0df2aa93-f500-4b53-9fc3-9f205c886bcc")
+	)
+	(label "ROW2"
+		(at 261.366 58.166 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0dfe0322-16e0-4522-9396-99e7e7118c75")
+	)
+	(label "ROW6"
+		(at 113.792 98.806 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "12691f83-a2f7-40cf-91cf-6cae9892c56f")
+	)
+	(label "ROW7"
+		(at 202.946 72.644 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "230df91a-46c7-4abe-ac81-dd4b207180ae")
+	)
+	(label "ROW7"
+		(at 218.694 38.608 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2486cd6e-0a27-439a-8c22-2a912b072e47")
+	)
+	(label "EW_BRIGHT"
+		(at 143.256 130.556 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2d017169-8550-4e52-8391-9dae20eb7bd4")
+	)
+	(label "ROW7"
+		(at 145.034 99.06 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "310f11c7-54d4-4f81-bf58-a2f035cd4afd")
+	)
+	(label "ANALOG_GND"
+		(at 168.148 132.08 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3c64d473-7122-4c50-8fd9-c1848dff99b5")
+	)
+	(label "ROW5"
+		(at 80.772 112.014 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3c90a244-63d8-430e-bec0-76df89294691")
+	)
+	(label "COL7"
+		(at 214.63 97.028 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3f488c22-b723-40ab-957e-289e10c71c1c")
+	)
+	(label "COL6"
+		(at 200.914 38.608 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "405e7df6-79f8-45a1-89f8-e71a2a5a1584")
+	)
+	(label "COL6"
+		(at 261.112 40.132 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "54b3ffe9-c31e-4215-b116-a12384332e63")
+	)
+	(label "ROW3"
+		(at 228.854 107.188 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "570beecb-a608-40ca-acfe-4034ddf522f2")
+	)
+	(label "ROW1"
+		(at 113.284 112.014 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "58733b4b-d7dd-447c-a976-6efa3037abc2")
+	)
+	(label "ROW5"
+		(at 261.366 65.786 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5eb117f0-748f-493c-b512-1791d9c34cf9")
+	)
+	(label "ROW6"
+		(at 229.616 64.516 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "61ea1427-31b9-4b89-b283-38995fde1990")
+	)
+	(label "ROW4"
+		(at 80.772 106.934 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "655db3d2-afa7-4ffb-b98e-0170d35b67fe")
+	)
+	(label "ROW5"
+		(at 186.69 106.934 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "71b50baf-f4b9-4ae0-8e87-62eaa6ef5c7a")
+	)
+	(label "COL7"
+		(at 184.912 59.436 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "728080b7-bced-4900-acad-cd4c37f114e7")
+	)
+	(label "ROW1"
+		(at 228.854 102.108 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "77a585e2-1a63-441b-8d9d-b4b6607b0512")
+	)
+	(label "ANALOG_GND"
+		(at 139.446 134.366 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "78cddf19-6054-4dd8-be8f-992039a83c47")
+	)
+	(label "ROW4"
+		(at 228.854 109.728 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7d939fec-aafc-4a14-a291-16fad7a34440")
+	)
+	(label "COL6"
+		(at 127.508 109.728 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7f945bd5-1a6c-46bd-9a54-14a234c1c56a")
+	)
+	(label "COL6"
+		(at 169.418 98.806 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "81596d21-7bfd-449e-a1e1-cd18a1a4f52e")
+	)
+	(label "ANALOG_5V"
+		(at 168.148 127 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8230902a-1d3d-4fd2-a9f5-cacc451bb6c3")
+	)
+	(label "COL6"
+		(at 169.672 109.474 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "841d5baf-6db6-4fc3-9189-0fd36ed91be4")
+	)
+	(label "COL7"
+		(at 261.112 42.672 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9284794d-d8bb-414e-9aa6-2e0d7779b7d5")
+	)
+	(label "ROW4"
+		(at 187.198 98.806 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9a5fe4b9-f65f-4e9d-b3db-956e3eb2132d")
+	)
+	(label "ROW3"
+		(at 261.366 60.706 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9e79da29-9f13-4da3-9113-a573345b0e3a")
+	)
+	(label "COL7"
+		(at 211.836 64.516 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a10aedbb-338c-4e0d-8c14-b6d8672005d5")
+	)
+	(label "ROW0"
+		(at 113.284 106.934 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "adcd8c8d-22ca-439c-9082-4f1e168f1f95")
+	)
+	(label "COL5"
+		(at 127.254 99.06 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b5514e6e-76f8-4822-b322-9c89cfb428ff")
+	)
+	(label "ROW6"
+		(at 261.366 68.326 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bda14853-098b-444a-a7e5-62516b07ed4a")
+	)
+	(label "ROW4"
+		(at 261.366 63.246 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c8d3b303-7efd-4e32-a4e7-fab0b07527ef")
+	)
+	(label "EW_BRIGHT"
+		(at 168.148 129.54 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ceb347e7-b402-4800-8596-2bec25c8df2e")
+	)
+	(label "ROW2"
+		(at 144.526 107.188 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d133b0e4-9d1b-4f7f-ac08-fcf008e34a6b")
+	)
+	(label "COL5"
+		(at 261.112 37.592 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d4c9a5f9-64d2-4359-bf40-80f8aedd03cb")
+	)
+	(label "ROW5"
+		(at 202.692 59.436 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d6e7eee7-1385-489f-ae2d-238be7e7affe")
+	)
+	(label "ROW6"
+		(at 186.69 112.014 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "dddc4ee9-9247-4a15-af98-d5b54fd4db10")
+	)
+	(label "COL6"
+		(at 96.266 109.474 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e39a1b6b-4740-4ed5-acc4-bbb778f9d4d5")
+	)
+	(label "ROW3"
+		(at 144.526 112.268 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e54ed200-49f9-4061-b991-0f477fb7385f")
+	)
+	(label "ROW0"
+		(at 228.854 99.568 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e68fdfe2-db2c-43d0-869c-21bf8b8cb5d4")
+	)
+	(label "ROW7"
+		(at 261.366 70.866 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e8124abd-1395-41f6-8be5-45d975160c9b")
+	)
+	(label "ROW3"
+		(at 81.28 98.806 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "eede5618-c19e-4b09-b596-121105d978f7")
+	)
+	(label "ROW1"
+		(at 261.366 55.626 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f6f4bb90-ff85-470e-b9c3-d96febf1b03a")
+	)
+	(label "COL5"
+		(at 63.754 109.474 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fa48bb60-b40c-4e68-a6b7-ff1e68a55772")
+	)
+	(label "ROW0"
+		(at 261.366 53.086 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fcc59951-b3f6-4140-a5d0-e734de85cbba")
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 108.712 98.806 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "07ef7f07-cbdd-450c-8da6-3fcd5150d7a0")
+		(property "Reference" "SW4"
+			(at 108.712 91.7407 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "JMR"
+			(at 108.712 94.1649 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 108.712 93.726 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 108.712 93.726 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 108.712 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "58f0102d-3c7f-4683-868a-baf2b5b7bf85")
+		)
+		(pin "2"
+			(uuid "8ec89123-492e-49f0-97f4-7b3e6e9048c7")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW4")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW35")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Potentiometer_US")
+		(at 139.446 130.556 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0f795882-d042-4853-9c54-c17721f28427")
+		(property "Reference" "RV1"
+			(at 137.795 129.7213 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "EW_BRIGHT"
+			(at 137.795 132.2582 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 139.446 130.556 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 139.446 130.556 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 139.446 130.556 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "50501fbf-9743-41ea-81d3-14d5dd5dc0a2")
+		)
+		(pin "2"
+			(uuid "682aafb1-8979-4fb8-bbe7-c2b0ae8bc6c8")
+		)
+		(pin "3"
+			(uuid "1e4aff0d-1980-4821-a575-f2815077e35c")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "RV1")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "RV?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 76.2 98.806 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "12a75a7d-3962-4fd8-9bf7-7a234dd9ed33")
+		(property "Reference" "SW2"
+			(at 76.2 91.7407 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "MWS"
+			(at 76.2 94.1649 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 76.2 93.726 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 76.2 93.726 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 76.2 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "92e39e02-5cd1-4f39-9e0c-efaab687d21a")
+		)
+		(pin "2"
+			(uuid "1c1ab91d-ae9f-49db-932a-b89759a85daf")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW2")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW33")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 99.822 98.806 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "289d7c61-d2fc-4c78-b0a5-9760073ee777")
+		(property "Reference" "D3"
+			(at 99.822 93.3196 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 99.822 95.631 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 99.822 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 99.822 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 99.822 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "baae7420-5029-49b3-84da-7260fcd1a6bb")
+		)
+		(pin "2"
+			(uuid "aa5f81b3-1286-4aa6-a2a9-cfc3f9116e34")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D3")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D37")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT_MSM")
+		(at 108.204 109.474 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2c58c221-e09b-4d23-bdbc-c7178bee8a7e")
+		(property "Reference" "SW3"
+			(at 108.204 102.235 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "JMR"
+			(at 108.204 104.5464 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 108.204 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 108.204 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 108.204 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b905309e-840a-4069-beb7-a4f72b0719c4")
+		)
+		(pin "2"
+			(uuid "da50b8c6-7655-49d2-9722-02c32439e188")
+		)
+		(pin "3"
+			(uuid "5844e80d-c112-490a-a2cc-e408067bea0f")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW3")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW34")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x04_Socket")
+		(at 110.998 59.69 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3a2b8846-5078-48ed-ad69-821fcbb22b8f")
+		(property "Reference" "J1"
+			(at 110.2868 59.7479 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "OLED"
+			(at 110.2868 62.1721 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
+			(at 110.998 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 110.998 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 110.998 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "947ac199-a759-4874-83d8-8b3ae4a39252")
+		)
+		(pin "3"
+			(uuid "3c1f8826-cdb3-4ebc-87fb-c66c7199701a")
+		)
+		(pin "2"
+			(uuid "041c592e-7f72-489b-a8a9-73c4d33bd27d")
+		)
+		(pin "4"
+			(uuid "b84cd093-5ce6-4ef5-aa36-5813ba1e29ae")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 218.44 97.028 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4755b404-31bd-401e-a9ec-1774a5a0335b")
+		(property "Reference" "D13"
+			(at 218.44 91.5416 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 218.44 93.853 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 218.44 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 218.44 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 218.44 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cad65c85-9acc-4172-96be-fc3a6b0cc2e9")
+		)
+		(pin "2"
+			(uuid "c02d3994-2e5e-41fa-b3ae-eef2e9b5a233")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D13")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D47")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 197.866 72.644 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4c4dd056-5fa9-40ff-9748-8287728db7a5")
+		(property "Reference" "SW10"
+			(at 197.866 66.0232 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SEL DOWN"
+			(at 197.866 68.5601 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 197.866 67.564 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 197.866 67.564 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 197.866 72.644 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "18e9f01e-5597-4389-9354-655e37285dff")
+		)
+		(pin "2"
+			(uuid "ebfb0de8-64a5-4bd7-8ff2-911513d8a30d")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW10")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW41")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 224.536 64.516 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5c0768f4-009d-4a67-8616-edf382df3ee3")
+		(property "Reference" "SW12"
+			(at 224.536 57.8952 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "END"
+			(at 224.536 60.4321 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 224.536 59.436 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 224.536 59.436 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 224.536 64.516 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c2edcf5a-fcd4-487f-a73b-c8e42acab36e")
+		)
+		(pin "2"
+			(uuid "03f275b0-c135-42f4-8aeb-33daeebf37f7")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW12")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW43")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 197.612 59.436 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5ec032c6-4819-4b0a-8b4c-4f0f92647c05")
+		(property "Reference" "SW9"
+			(at 197.612 52.8152 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SEL UP"
+			(at 197.612 55.3521 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 197.612 54.356 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 197.612 54.356 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 197.612 59.436 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "853c4f01-8d99-4270-baeb-fe6e25ea62e9")
+		)
+		(pin "2"
+			(uuid "e1fcc18b-c245-47c1-b605-907dd1090389")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW9")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW40")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 126.238 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5ef57338-f14e-4c3f-98bb-bb915feb0734")
+		(property "Reference" "J3"
+			(at 126.9492 45.7779 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BKLGHT"
+			(at 126.9492 48.2021 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 126.238 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 126.238 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 126.238 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3435b8a7-1620-4ce0-a009-b4edf578846a")
+		)
+		(pin "2"
+			(uuid "e76e017a-9879-4824-afc9-e78e7774383c")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "J3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Female")
+		(at 173.228 129.54 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "614223ea-58f9-45ac-b4f5-c5672ef777b6")
+		(property "Reference" "J5"
+			(at 173.9392 128.7053 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "EW_ANALOG"
+			(at 173.9392 131.2422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 173.228 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 173.228 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 173.228 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "149ae6f9-0e18-4ff6-b060-3125f474cddc")
+		)
+		(pin "2"
+			(uuid "0d55a55a-50a5-4b41-9d24-5cc04b232788")
+		)
+		(pin "3"
+			(uuid "db1f8a2b-9c4c-46f2-a7f7-f8cab6ae2d17")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "J5")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "J?")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x08_Female")
+		(at 266.446 60.706 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "62474ba5-fba8-4d50-8ae5-3ffba680b8ec")
+		(property "Reference" "J8"
+			(at 267.1572 61.1413 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "EWC ROW"
+			(at 267.1572 63.6782 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical"
+			(at 266.446 60.706 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 266.446 60.706 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 266.446 60.706 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7399a3cc-c9af-47e0-9620-8cc9551f41b8")
+		)
+		(pin "2"
+			(uuid "93abd266-eb38-4d6c-9690-cc1f32eb4182")
+		)
+		(pin "3"
+			(uuid "23009d76-6d89-4104-8318-27291dff6be9")
+		)
+		(pin "4"
+			(uuid "425d6dd3-7e0c-4713-a6ec-d84f96c6dc2c")
+		)
+		(pin "5"
+			(uuid "c1890470-428a-4da7-b742-3acb495f0f6a")
+		)
+		(pin "6"
+			(uuid "7843535e-e820-4c7b-ac44-6a5e7ce2abec")
+		)
+		(pin "7"
+			(uuid "f6e98994-4c17-4ef6-8736-f5212b6600dd")
+		)
+		(pin "8"
+			(uuid "fb93866a-fe2e-4703-93bf-9f8a8b2b1960")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "J8")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "J27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 67.564 109.474 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "64245d91-34e4-4a0c-b820-ae2a16a0518f")
+		(property "Reference" "D2"
+			(at 67.564 103.9876 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 67.564 106.299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 67.564 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 67.564 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 67.564 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "441fada8-8057-415c-8dcf-288a58134624")
+		)
+		(pin "2"
+			(uuid "4c7438a0-62e2-4ed5-9e83-e0e7c9df43e6")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D36")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 173.228 98.806 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6f88cad7-2b37-4b67-a012-0f8665cec3bc")
+		(property "Reference" "D7"
+			(at 173.228 93.3196 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 173.228 95.631 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 173.228 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 173.228 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 173.228 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7358743c-fb98-4263-b42a-9e0e68c96543")
+		)
+		(pin "2"
+			(uuid "fbe7ed8a-ea1b-4ab8-bcf7-8969802d77db")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D7")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D41")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x04_Socket")
+		(at 126.238 59.69 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "77c7ae97-ff5d-4585-9cad-59ce6d53883f")
+		(property "Reference" "J4"
+			(at 126.9492 59.7479 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "OLED"
+			(at 126.9492 62.1721 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
+			(at 126.238 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 126.238 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 126.238 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bddba259-f03f-40af-afea-3e1256426b18")
+		)
+		(pin "3"
+			(uuid "57482e97-189c-447b-9d60-430c8e839b4f")
+		)
+		(pin "2"
+			(uuid "a7ac9fc0-4c00-4a14-b29a-cc68af4ad310")
+		)
+		(pin "4"
+			(uuid "1a258cdc-fb24-4dd3-a8f6-03031abbe36e")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "J4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 112.014 45.72 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "848dde33-deb7-4843-844f-139d386de765")
+		(property "Reference" "J2"
+			(at 111.3028 45.7779 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BKLGHT"
+			(at 111.3028 48.2021 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 112.014 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 112.014 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 112.014 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1c2297f3-3341-4517-bd4c-d06ecbb11bb9")
+		)
+		(pin "2"
+			(uuid "712987a6-eb16-4f57-97f5-31fc3d8b701b")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "J2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT_MSM")
+		(at 181.61 109.474 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "864a70f2-6ed9-4f65-93d0-e9618df0ef17")
+		(property "Reference" "SW7"
+			(at 181.61 102.235 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "DISP"
+			(at 181.61 104.5464 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 181.61 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 181.61 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 181.61 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8a322362-bbb5-4053-b8ab-ad235e27fad0")
+		)
+		(pin "2"
+			(uuid "7861e353-266b-4dac-b901-3f0c540541d3")
+		)
+		(pin "3"
+			(uuid "124c012f-0211-4fa3-b786-c1e43e461d22")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW7")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW38")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 131.064 99.06 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "913d6e90-bf8c-449a-b16c-82c8f9b8475d")
+		(property "Reference" "D5"
+			(at 131.064 93.5736 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 131.064 95.885 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 131.064 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 131.064 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 131.064 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "53b01684-4629-425b-ae4c-0023d3b89297")
+		)
+		(pin "2"
+			(uuid "db09873b-2184-46ab-9bad-650761a703c6")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D5")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D39")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 188.722 59.436 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a0617a22-b095-4ad2-9854-6e305c59ef93")
+		(property "Reference" "D9"
+			(at 188.722 53.9496 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 188.722 56.261 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 188.722 59.436 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 188.722 59.436 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 188.722 59.436 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "02ec5cee-01e0-4a77-88a4-7d900f85c1e3")
+		)
+		(pin "2"
+			(uuid "cae983eb-4c3b-4723-83a1-297f1c81c881")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D9")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D43")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 213.614 38.608 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a1ed36c5-3f31-4510-acf0-6ad315834a86")
+		(property "Reference" "SW11"
+			(at 213.614 33.2572 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "JTSN"
+			(at 213.614 35.7941 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 213.614 38.608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 213.614 38.608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 213.614 38.608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6dd5deb0-56d4-4668-88dc-ff07d1b4e058")
+		)
+		(pin "2"
+			(uuid "3099ec8c-96c5-4695-a36d-d98d1a80db50")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW11")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW42")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x06_Female")
+		(at 233.934 102.108 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "acb1026f-fe29-45c6-aac8-bf1ebba8f141")
+		(property "Reference" "J6"
+			(at 234.6452 102.5433 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MODE"
+			(at 228.854 92.964 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
+			(at 233.934 102.108 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 233.934 102.108 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 233.934 102.108 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1833bc8a-e2c9-40c4-9ad7-1d262d696dfc")
+		)
+		(pin "2"
+			(uuid "4a38eec9-9148-4610-ad7c-4a2c940d2411")
+		)
+		(pin "3"
+			(uuid "03d41435-e7db-4c04-9d50-e9afa304e6de")
+		)
+		(pin "4"
+			(uuid "317c36b2-a5d1-42e3-9119-d16577dca752")
+		)
+		(pin "5"
+			(uuid "bb76f9fc-3d6c-4464-af79-5decb858a04b")
+		)
+		(pin "6"
+			(uuid "9b7859a0-c547-4e7f-a2fc-951bd0e7b416")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "J6")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "J25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 204.724 38.608 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ae46d3b3-98c0-4e08-b52e-7b60b3136c82")
+		(property "Reference" "D11"
+			(at 204.724 33.1216 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 204.724 35.433 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 204.724 38.608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 204.724 38.608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 204.724 38.608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3e5d77dd-0726-4667-aa68-ed513065101f")
+		)
+		(pin "2"
+			(uuid "948f8721-8e8e-482d-9257-1a80f3712220")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D11")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D45")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 215.646 64.516 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bc781822-b517-402d-8fa8-798fb4fa44c3")
+		(property "Reference" "D12"
+			(at 215.646 59.0296 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 215.646 61.341 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 215.646 64.516 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 215.646 64.516 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 215.646 64.516 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "953e51f0-74e6-47e9-9c73-fe291524d130")
+		)
+		(pin "2"
+			(uuid "741c4569-95c4-4f3a-926c-35489364af99")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D12")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D46")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT_MSM")
+		(at 75.692 109.474 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c2309c56-b1a9-4a3d-a899-594759dfe3a8")
+		(property "Reference" "SW1"
+			(at 75.692 102.235 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "MWS"
+			(at 75.692 104.5464 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 75.692 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 75.692 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 75.692 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6943e417-2678-482a-8d35-9404ecb57d53")
+		)
+		(pin "2"
+			(uuid "16249d3b-66fc-488b-9edd-752153ba900d")
+		)
+		(pin "3"
+			(uuid "f5554944-09fc-4127-a066-204ace1ebfc7")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW1")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW32")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 173.482 109.474 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c4479b95-61f3-4df5-9c8d-623dfb82e233")
+		(property "Reference" "D8"
+			(at 173.482 103.9876 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 173.482 106.299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 173.482 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 173.482 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 173.482 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "767913de-3b33-482a-89fb-dd3ea03e19db")
+		)
+		(pin "2"
+			(uuid "773d5f00-78ea-46ce-8a44-a86f2ba45104")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D8")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D42")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 182.118 98.806 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c9d4a775-3fe0-4cd1-9157-e67f0610c8fb")
+		(property "Reference" "SW8"
+			(at 182.118 92.1852 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "DISP"
+			(at 182.118 94.7221 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 182.118 93.726 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 182.118 93.726 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 182.118 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fcac540f-8e34-4989-806c-e746f4729a63")
+		)
+		(pin "2"
+			(uuid "1194dcf3-8859-47cc-91db-15deb0700929")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW8")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW39")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT_MSM")
+		(at 139.446 109.728 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "caed65c3-691e-4809-bd87-594b62e39122")
+		(property "Reference" "SW5"
+			(at 139.446 102.489 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "RWR"
+			(at 139.446 104.8004 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 139.446 109.728 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 139.446 109.728 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 139.446 109.728 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9de8601c-7bd2-4f6c-987b-16ff36eb265f")
+		)
+		(pin "2"
+			(uuid "80142fd6-afa2-4e0d-9836-ee63d90ea371")
+		)
+		(pin "3"
+			(uuid "ff8852fe-6c93-4e18-9c90-4aa2fecf5477")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW5")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW36")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 131.318 109.728 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d4b4e4d1-8a74-4216-9471-acfd2aa5d056")
+		(property "Reference" "D6"
+			(at 131.318 104.2416 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 131.318 106.553 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 131.318 109.728 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 131.318 109.728 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 131.318 109.728 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "973112cc-4bbc-4466-be8e-5b784bf857b6")
+		)
+		(pin "2"
+			(uuid "0f5f6b32-eaea-4b77-ba46-a62e5bebccc0")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D6")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D40")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Female")
+		(at 266.192 40.132 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d6940abb-92b3-45d6-b8d7-c4f28b432956")
+		(property "Reference" "J7"
+			(at 266.9032 39.2973 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "EWC COL"
+			(at 266.9032 41.8342 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 266.192 40.132 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 266.192 40.132 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 266.192 40.132 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b7314ae0-7db6-4e8b-84f2-3f63e4d74ef0")
+		)
+		(pin "2"
+			(uuid "f305b327-3ef2-4f7e-adcb-0a1d0381db2b")
+		)
+		(pin "3"
+			(uuid "cc626619-3f37-4e35-810e-d3043f71049f")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "J7")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "J26")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 100.076 109.474 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dae0ca93-f41c-4129-ab9a-cfb565249fa0")
+		(property "Reference" "D4"
+			(at 100.076 103.9876 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 100.076 106.299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 100.076 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 100.076 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 100.076 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b902365b-b490-48d0-a08c-61b10f0a1c6f")
+		)
+		(pin "2"
+			(uuid "2822e4a8-5d81-41ec-8a9e-185cc926d443")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D4")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D38")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 139.954 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e0092d8e-bf7e-4bb8-b50f-f657880028f7")
+		(property "Reference" "SW6"
+			(at 139.954 92.4392 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "RWR"
+			(at 139.954 94.9761 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 139.954 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 139.954 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 139.954 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e54a75d9-eb45-411e-9c00-a0b85f44b1a0")
+		)
+		(pin "2"
+			(uuid "2d4516a4-d445-4fc2-9fcf-c8c91d33fac5")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW6")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "SW37")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 188.976 72.644 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f7c181b6-370a-4c66-9781-fb84052094de")
+		(property "Reference" "D10"
+			(at 188.976 67.1576 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 188.976 69.469 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 188.976 72.644 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 188.976 72.644 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 188.976 72.644 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d9cf7b10-38ea-4c31-8fb1-507c09796f04")
+		)
+		(pin "2"
+			(uuid "314e2a28-78b6-4c8d-afca-1c25556d8197")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D10")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D44")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 67.31 98.806 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f8c46803-ccbb-4751-b20a-ca42b716427d")
+		(property "Reference" "D1"
+			(at 67.31 93.3196 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 67.31 95.631 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 67.31 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 67.31 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 67.31 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f826625b-53a8-43e4-adf4-584c6fd0f779")
+		)
+		(pin "2"
+			(uuid "d9c0cf5e-867f-4245-bcb8-bd094063123f")
+		)
+		(instances
+			(project "EWS"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+			(project "Right Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/36024831-9004-47e8-adc2-e12ea68172d0"
+					(reference "D35")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
 )
