@@ -1,10 +1,12 @@
 {
   "board": {
-    "active_layer": 37,
+    "active_layer": 44,
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [],
-    "hidden_nets": [],
+    "hidden_nets": [
+      "/TX2{slash}16"
+    ],
     "high_contrast_mode": 0,
     "net_color_mode": 1,
     "opacity": {
@@ -73,7 +75,7 @@
     "ssh_key": ""
   },
   "meta": {
-    "filename": "Left Console Input and Output with Rotary.kicad_prl",
+    "filename": "Forward Console Input.kicad_prl",
     "version": 3
   },
   "project": {

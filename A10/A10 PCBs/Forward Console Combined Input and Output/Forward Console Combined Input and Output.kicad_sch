@@ -8875,12 +8875,13 @@
 		)
 		(uuid "c364973a-9a67-4667-8185-a3a5c6c6cbdf")
 	)
-	(text "PORT REQUIREMENTS\nDONE - 10 LAMPS FROM NMSP\nDONE - 1 LAMP FROM UFC CAUTION LAMP\nDONE - 4 Digital outs to Relay Board for 28V lights\nDONE - 4 * 2003 out for SAS\nDONE 1 * 2003 for Gear Anti Skid\nWhat steppers are missing\nCompass, AOA, Flaps, G Meter\nAirspeed, Altitude\n\n\nLed Requirements \nTake Off Trim\n"
+	(text "PORT REQUIREMENTS\nNeed Ports for AOA Indexer\n"
 		(exclude_from_sim no)
-		(at 162.56 43.688 0)
+		(at 152.4 38.1 0)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 255 0 0 1)
 			)
 			(justify left bottom)
 		)
