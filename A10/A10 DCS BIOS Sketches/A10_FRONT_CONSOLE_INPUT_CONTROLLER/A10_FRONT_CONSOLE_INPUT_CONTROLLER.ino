@@ -623,8 +623,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("AHCP_JTRS", "0");
           break;
         case 70:
+          sendToDcsBiosMessage("CMSC_PRI", "0");
           break;
         case 71:
+          sendToDcsBiosMessage("CMSC_SEP", "0");
           break;
         // Release
         case 72:
@@ -652,6 +654,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("AHCP_IFFCC", "1");
           break;
         case 81:
+          sendToDcsBiosMessage("CMSC_UNK", "0");
           break;
         case 82:
           break;
@@ -681,8 +684,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 92:
+          sendToDcsBiosMessage("NMSP_HARS_BTN", "0");
           break;
         case 93:
+          sendToDcsBiosMessage("NMSP_ABLE_STOW", "0");
           break;
         case 94:
           break;
@@ -708,9 +713,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 102:
           break;
         case 103:
+          sendToDcsBiosMessage("NMSP_STEERPT_BTN", "0");
           break;
         // Release
         case 104:
+          sendToDcsBiosMessage("NMSP_ANCHR_BTN", "0");
           break;
         case 105:
           break;
@@ -737,8 +744,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FIRE_EXT_DISCH", "1");
           break;
         case 114:
+          sendToDcsBiosMessage("NMSP_EGI_BTN", "0");
           break;
         case 115:
+          sendToDcsBiosMessage("NMSP_TCN_BTN", "0");
           break;
         // Release
         case 116:
@@ -764,8 +773,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FIRE_EXT_DISCH", "1");
           break;
         case 125:
+          sendToDcsBiosMessage("NMSP_TISL_BTN", "0");
           break;
         case 126:
+          sendToDcsBiosMessage("NMSP_ILS_BTN", "0");
           break;
         case 127:
           break;
@@ -1098,8 +1109,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("AHCP_JTRS", "1");
           break;
         case 70:
+          sendToDcsBiosMessage("CMSC_PRI", "1");
           break;
         case 71:
+          sendToDcsBiosMessage("CMSC_SEP", "1");
           break;
         // Close
         case 72:
@@ -1128,6 +1141,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("AHCP_IFFCC", "2");
           break;
         case 81:
+          sendToDcsBiosMessage("CMSC_UNK", "1");
           break;
         case 82:
           break;
@@ -1157,8 +1171,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("AHCP_IFFCC", "0");
           break;
         case 92:
+          sendToDcsBiosMessage("NMSP_HARS_BTN", "1");
           break;
         case 93:
+          sendToDcsBiosMessage("NMSP_ABLE_STOW", "1");
           break;
         // Close
         case 94:
@@ -1185,9 +1201,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 102:
           break;
         case 103:
+          sendToDcsBiosMessage("NMSP_STEERPT_BTN", "1");
           break;
         // Close
         case 104:
+          sendToDcsBiosMessage("NMSP_ANCHR_BTN", "1");
           break;
         case 105:
           break;
@@ -1213,8 +1231,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FIRE_EXT_DISCH", "2");
           break;
         case 114:
+          sendToDcsBiosMessage("NMSP_EGI_BTN", "1");
           break;
         case 115:
+          sendToDcsBiosMessage("NMSP_TCN_BTN", "1");
           break;
         // Close
         case 116:
@@ -1240,8 +1260,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FIRE_EXT_DISCH", "0");
           break;
         case 125:
+          sendToDcsBiosMessage("NMSP_TISL_BTN", "1");
           break;
         case 126:
+        sendToDcsBiosMessage("NMSP_ILS_BTN", "1");
           break;
         case 127:
           break;
