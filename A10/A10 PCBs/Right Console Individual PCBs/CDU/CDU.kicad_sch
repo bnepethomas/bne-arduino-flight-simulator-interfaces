@@ -1534,6 +1534,26 @@
 		(at 187.706 129.54)
 		(uuid "2e82ecb4-44c5-4b98-adaf-c3357028f2cd")
 	)
+	(text "CDU Push buttons do not have any\nanti-ghosting diodes, so any\nrows and columns used cannot be used\non other panels"
+		(exclude_from_sim no)
+		(at 222.25 109.474 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "c1ca9a6c-13aa-47d5-ae68-b78379b62521")
+	)
+	(text "CDU Dimmer - the potentiometer\nonly has two legs connected, so\nwill need another resistor on PCB"
+		(exclude_from_sim no)
+		(at 153.67 140.97 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "e83681da-6db5-4cde-8bc7-2597af3b873a")
+	)
 	(global_label "ANALOG_5V"
 		(shape input)
 		(at 187.706 138.938 180)
