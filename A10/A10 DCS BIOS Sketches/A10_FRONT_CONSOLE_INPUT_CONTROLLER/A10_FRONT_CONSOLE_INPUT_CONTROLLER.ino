@@ -275,7 +275,6 @@ void setup() {
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
   SendDebug("Setup Complete");
-
 }
 
 
@@ -611,13 +610,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 65:
           break;
         case 66:
+          sendToDcsBiosMessage("AHCP_MASTER_ARM", "1");
           break;
         case 67:
+          sendToDcsBiosMessage("AHCP_GUNPAC", "1");
           break;
         // Release
         case 68:
+          sendToDcsBiosMessage("AHCP_ALT_SCE", "1");
           break;
         case 69:
+          sendToDcsBiosMessage("AHCP_JTRS", "0");
           break;
         case 70:
           break;
@@ -636,13 +639,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 76:
           break;
         case 77:
+          sendToDcsBiosMessage("AHCP_MASTER_ARM", "1");
           break;
         case 78:
+          sendToDcsBiosMessage("AHCP_GUNPAC", "1");
           break;
         case 79:
+          sendToDcsBiosMessage("AHCP_ALT_SCE", "1");
           break;
         // Release
         case 80:
+          sendToDcsBiosMessage("AHCP_IFFCC", "1");
           break;
         case 81:
           break;
@@ -661,12 +668,16 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 88:
+          sendToDcsBiosMessage("AHCP_LASER_ARM", "1");
           break;
         case 89:
+          sendToDcsBiosMessage("AHCP_TGP", "0");
           break;
         case 90:
+          sendToDcsBiosMessage("AHCP_HUD_MODE", "1");
           break;
         case 91:
+          sendToDcsBiosMessage("AHCP_IFFCC", "1");
           break;
         // Release
         case 92:
@@ -685,11 +696,14 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:
           break;
         case 99:
+          sendToDcsBiosMessage("AHCP_LASER_ARM", "1");
           break;
         // Release
         case 100:
+          sendToDcsBiosMessage("AHCP_HUD_DAYNIGHT", "0");
           break;
         case 101:
+          sendToDcsBiosMessage("AHCP_CICU", "0");
           break;
         case 102:
           break;
@@ -717,8 +731,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 112:
+          sendToDcsBiosMessage("FIRE_LENG_PULL", "0");
           break;
         case 113:
+          sendToDcsBiosMessage("FIRE_EXT_DISCH", "1");
           break;
         case 114:
           break;
@@ -741,9 +757,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 122:
           break;
         case 123:
+          sendToDcsBiosMessage("FIRE_APU_PULL", "0");
           break;
         // Release
         case 124:
+          sendToDcsBiosMessage("FIRE_EXT_DISCH", "1");
           break;
         case 125:
           break;
@@ -768,6 +786,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CANOPY_OPEN", "1");
           break;
         case 134:
+          sendToDcsBiosMessage("FIRE_RENG_PULL", "0");
           break;
         case 135:
           break;
@@ -795,6 +814,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           // Release
           break;
         case 145:
+          sendToDcsBiosMessage("EXT_STORES_JETTISON", "0");
           break;
         case 146:
           break;
@@ -846,6 +866,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 166:
           break;
         case 167:
+          sendToDcsBiosMessage("CMSC_JMR", "0");
           break;
         // Release
         case 168:
@@ -1064,13 +1085,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 65:
           break;
         case 66:
+          sendToDcsBiosMessage("AHCP_MASTER_ARM", "0");
           break;
         case 67:
+          sendToDcsBiosMessage("AHCP_GUNPAC", "2");
           break;
         // Close
         case 68:
+          sendToDcsBiosMessage("AHCP_ALT_SCE", "2");
           break;
         case 69:
+          sendToDcsBiosMessage("AHCP_JTRS", "1");
           break;
         case 70:
           break;
@@ -1089,14 +1114,18 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 76:
           break;
         case 77:
+          sendToDcsBiosMessage("AHCP_MASTER_ARM", "2");
           break;
         case 78:
+          sendToDcsBiosMessage("AHCP_GUNPAC", "0");
           break;
         case 79:
+          sendToDcsBiosMessage("AHCP_ALT_SCE", "0");
           // Close
           break;
         // Close
         case 80:
+          sendToDcsBiosMessage("AHCP_IFFCC", "2");
           break;
         case 81:
           break;
@@ -1115,13 +1144,17 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 88:
+          sendToDcsBiosMessage("AHCP_LASER_ARM", "0");
           break;
         case 89:
+          sendToDcsBiosMessage("AHCP_TGP", "1");
           break;
         case 90:
+          sendToDcsBiosMessage("AHCP_HUD_MODE", "0");
           break;
         // Close
         case 91:
+          sendToDcsBiosMessage("AHCP_IFFCC", "0");
           break;
         case 92:
           break;
@@ -1140,11 +1173,14 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:
           break;
         case 99:
+          sendToDcsBiosMessage("AHCP_LASER_ARM", "2");
           break;
         // Close
         case 100:
+          sendToDcsBiosMessage("AHCP_HUD_DAYNIGHT", "1");
           break;
         case 101:
+          sendToDcsBiosMessage("AHCP_CICU", "1");
           break;
         case 102:
           break;
@@ -1171,8 +1207,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 112:
+          sendToDcsBiosMessage("FIRE_LENG_PULL", "1");
           break;
         case 113:
+          sendToDcsBiosMessage("FIRE_EXT_DISCH", "2");
           break;
         case 114:
           break;
@@ -1195,9 +1233,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 122:
           break;
         case 123:
+          sendToDcsBiosMessage("FIRE_APU_PULL", "1");
           break;
         // Close
         case 124:
+          sendToDcsBiosMessage("FIRE_EXT_DISCH", "0");
           break;
         case 125:
           break;
@@ -1222,6 +1262,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CANOPY_OPEN", "2");
           break;
         case 134:
+          sendToDcsBiosMessage("FIRE_RENG_PULL", "1");
           break;
         case 135:
           break;
@@ -1249,6 +1290,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           // Close
           break;
         case 145:
+          sendToDcsBiosMessage("EXT_STORES_JETTISON", "1");
           break;
         case 146:
           break;
@@ -1300,6 +1342,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 166:
           break;
         case 167:
+          sendToDcsBiosMessage("CMSC_JMR", "1");
           break;
         // Close
         case 168:
@@ -1481,8 +1524,6 @@ void loop() {
 
 
   currentMillis = millis();
-
-
 }
 
 void CaseTemplate() {
