@@ -116,7 +116,8 @@ EthernetUDP udp;
 EthernetUDP debugUDP;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
-
+const unsigned long delayBeforeSendingPacket = 2000;
+unsigned long ethernetStartTime = 0;
 
 
 void SendDebug(String MessageToSend) {
@@ -131,8 +132,10 @@ void SendDebug(String MessageToSend) {
 // THE LED PORTS WILL CHANGE FROM THE V1.1 PCB TO THE FOLLOWING
 #define RED_STATUS_LED_PORT 12
 #define GREEN_STATUS_LED_PORT 13
+#define Check_LED_R 12
+#define Check_LED_G 13
 
-#define FLASH_TIME 3000
+#define FLASH_TIME 300
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
@@ -142,7 +145,7 @@ unsigned long timeSinceRedLedChanged = 0;
 
 
 #define NUM_BUTTONS 256
-#define BUTTONS_USED_ON_PCB 176
+#define BUTTONS_USED_ON_PCB 192
 #define NUM_AXES 8  // 8 axes, X, Y, Z, etc
 
 
@@ -218,6 +221,31 @@ void setup() {
   digitalWrite(RED_STATUS_LED_PORT, false);
   delay(FLASH_TIME);
 
+  if (Ethernet_In_Use == 1) {
+
+    // Reset Ethernet Module
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
+    Ethernet.begin(mac, ip);
+    udp.begin(localport);
+
+    // As it takes a couple of seconds before the Ethernet Stack is operational
+    // Flash leds until time period has completed
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, false);
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, true);
+    }
+
+    SendDebug("Ethernet Started");
+    SendDebug("A10 FORDWARD CONSOLE INPUT");
+  }
+
   // Set the output ports to output
   for (int portId = 22; portId < 38; portId++) {
     pinMode(portId, OUTPUT);
@@ -246,43 +274,8 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  // Check what configuration options we are using
-  // Enable/Disable Ethernet  - this overrides the global setting
-  // which enables testing without an ethernet board active
-  // Red Led stays hard on if ethernet is disabled
+  SendDebug("Setup Complete");
 
-
-
-
-
-
-
-
-  if (Ethernet_In_Use == 1) {
-
-    // Using manual reset instead of tying to Arduino Reset
-    pinMode(ES1_RESET_PIN, OUTPUT);
-    digitalWrite(ES1_RESET_PIN, LOW);
-    delay(2);
-    digitalWrite(ES1_RESET_PIN, HIGH);
-
-    Ethernet.begin(mac, ip);
-    udp.begin(localport);
-
-    if (Reflector_In_Use == 1) {
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.println("INIT FRONT INPUT - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      udp.endPacket();
-    }
-
-    // Used to remotely enable Debug and Reflector
-    debugUDP.begin(localdebugport);
-    NEXT_STATUS_TOGGLE_TIMER = millis();
-    GREEN_LED_STATE = true;
-    RED_LED_STATE = false;
-    digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
-    digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
-  }
 }
 
 
@@ -772,7 +765,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LANDING_LIGHTS", "1");
           break;
         case 133:
-        sendToDcsBiosMessage("CANOPY_OPEN", "1");
+          sendToDcsBiosMessage("CANOPY_OPEN", "1");
           break;
         case 134:
           break;
@@ -798,7 +791,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LANDING_LIGHTS", "1");
           break;
         case 144:
-        sendToDcsBiosMessage("CANOPY_OPEN", "1");
+          sendToDcsBiosMessage("CANOPY_OPEN", "1");
           // Release
           break;
         case 145:
@@ -1252,7 +1245,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LANDING_LIGHTS", "0");
           break;
         case 144:
-        sendToDcsBiosMessage("CANOPY_OPEN", "0");
+          sendToDcsBiosMessage("CANOPY_OPEN", "0");
           // Close
           break;
         case 145:
@@ -1368,6 +1361,14 @@ DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerC
 
 void loop() {
 
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+    RED_LED_STATE = !RED_LED_STATE;
+
+    digitalWrite(Check_LED_G, RED_LED_STATE);
+    digitalWrite(Check_LED_R, !RED_LED_STATE);
+    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first
@@ -1458,37 +1459,30 @@ void loop() {
 
   FindInputChanges();
 
-  if (Ethernet_In_Use == 1) {
+  // if (Ethernet_In_Use == 1) {
 
-    // Check to see if a debug or reflector command has been received
+  //   // Check to see if a debug or reflector command has been received
 
-    packetSize = debugUDP.parsePacket();
-    debugLen = debugUDP.read(packetBuffer, 999);
+  //   packetSize = debugUDP.parsePacket();
+  //   debugLen = debugUDP.read(packetBuffer, 999);
 
-    if (debugLen > 0) {
-      // Zero end the payload
-      packetBuffer[debugLen] = 0;
+  //   if (debugLen > 0) {
+  //     // Zero end the payload
+  //     packetBuffer[debugLen] = 0;
 
-      Reflector_In_Use = 1;
+  //     Reflector_In_Use = 1;
 
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.println("Debug Front Input - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      udp.endPacket();
-    }
-  }
+  //     udp.beginPacket(reflectorIP, reflectorport);
+  //     udp.println("Debug Front Input - " + strMyIP + " " + String(millis()) + "mS since reset.");
+  //     udp.endPacket();
+  //   }
+  // }
 
 
 
   currentMillis = millis();
 
-  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
-    GREEN_LED_STATE = !GREEN_LED_STATE;
-    RED_LED_STATE = !RED_LED_STATE;
-    digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
-    digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
 
-    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
-  }
 }
 
 void CaseTemplate() {
