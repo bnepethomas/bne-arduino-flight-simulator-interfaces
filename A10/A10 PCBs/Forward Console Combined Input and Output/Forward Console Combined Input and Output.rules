@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 142)
+    (start_pass_no 886)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -85,6 +85,7 @@
     D39 D44 D35 D25 D24 D22 D32 D26
     D41 "Net-(D7-K)" "Net-(D8-K)" "Net-(D22-K)" "Net-(D23-K)" "Net-(D24-K)" "Net-(J57-Pin_4)" "Net-(J57-Pin_3)"
     "Net-(J58-Pin_4)" "Net-(J58-Pin_3)" "Net-(J56-Pin_3)" "Net-(J56-Pin_4)" "Net-(J56-Pin_2)" "unconnected-(J55-Pin_6-Pad6)" "Net-(D25-K)" "Net-(D28-K)"
+    "unconnected-(J8-Pin_4-Pad4)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

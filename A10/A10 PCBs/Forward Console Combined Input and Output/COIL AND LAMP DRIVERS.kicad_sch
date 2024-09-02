@@ -4,6 +4,9 @@
 	(generator_version "8.0")
 	(uuid "94900c47-a98e-4988-80bf-1dbb18d12b7f")
 	(paper "A4")
+	(title_block
+		(rev "1.2")
+	)
 	(lib_symbols
 		(symbol "+12V_1"
 			(power)

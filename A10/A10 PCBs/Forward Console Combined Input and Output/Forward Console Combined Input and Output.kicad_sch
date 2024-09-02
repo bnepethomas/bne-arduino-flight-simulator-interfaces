@@ -5,7 +5,8 @@
 	(uuid "e63e39d7-6ac0-4ffd-8aa3-1841a4541b55")
 	(paper "A4")
 	(title_block
-		(date "mar. 31 mars 2015")
+		(date "2024-09-02")
+		(rev "1.2")
 	)
 	(lib_symbols
 		(symbol "Connector:Conn_01x02_Female"
@@ -35426,8 +35427,8 @@
 		(at 108.458 24.384 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
+		(in_bom yes)
+		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a84d0e99-0415-4104-9eb5-63b4e502db7c")

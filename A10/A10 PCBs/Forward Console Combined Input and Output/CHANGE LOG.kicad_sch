@@ -4,8 +4,11 @@
 	(generator_version "8.0")
 	(uuid "a2309e55-f7aa-4404-9a61-dddb41b1d9d7")
 	(paper "A4")
+	(title_block
+		(rev "1.2")
+	)
 	(lib_symbols)
-	(text "20231105 V 1.1\nShifted LEDs from D5 and D6 to D12 and D13"
+	(text "20231105 V 1.1\nShifted LEDs from D5 and D6 to D12 and D13\n20240902 V1.2\nRemoved excluded from BOM for CWS"
 		(exclude_from_sim no)
 		(at 35.306 32.258 0)
 		(effects
