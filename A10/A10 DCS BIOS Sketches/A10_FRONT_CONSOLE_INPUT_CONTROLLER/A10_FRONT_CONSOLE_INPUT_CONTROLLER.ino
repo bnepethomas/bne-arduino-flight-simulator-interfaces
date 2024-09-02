@@ -187,8 +187,6 @@ unsigned long previousMillis = 0;
 
 
 
-
-
 // Note Pin 4 and Pin 10 cannot be used for other purposes.
 //Arduino communicates with both the W5500 and SD card using the SPI bus (through the ICSP header).
 //This is on digital pins 10, 11, 12, and 13 on the Uno and pins 50, 51, and 52 on the Mega.
@@ -208,6 +206,11 @@ const int RadarMoveTime = 300;
 bool RadarPushFollowupTask = false;
 long TimeRadarOff = 0;
 
+#define O_LEFT_FIRE 54
+#define O_APU_FIRE 55
+#define O_RIGHT_FIRE 56
+#define O_PRI_LAMP 59
+#define O_MISSLE_LAMP 61
 
 
 void setup() {
@@ -273,6 +276,31 @@ void setup() {
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
+
+
+  SendDebug("LAMP TEST START");
+
+  pinMode(O_PRI_LAMP, OUTPUT);
+  pinMode(O_MISSLE_LAMP, OUTPUT);
+  pinMode(O_LEFT_FIRE, OUTPUT);
+  pinMode(O_APU_FIRE, OUTPUT);
+  pinMode(O_RIGHT_FIRE, OUTPUT);
+
+
+  digitalWrite(O_PRI_LAMP, 1);
+  digitalWrite(O_MISSLE_LAMP, 1);
+  digitalWrite(O_LEFT_FIRE, 1);
+  // digitalWrite(O_APU_FIRE, 1);
+  digitalWrite(O_RIGHT_FIRE, 1);
+  delay(8000);
+  digitalWrite(O_PRI_LAMP, 0);
+  digitalWrite(O_MISSLE_LAMP, 0);
+  digitalWrite(O_LEFT_FIRE, 0);
+  digitalWrite(O_APU_FIRE, 0);
+  digitalWrite(O_RIGHT_FIRE, 0);
+
+  SendDebug("LAMP TEST END");
+
 
   SendDebug("Setup Complete");
 }
@@ -853,6 +881,8 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("ANTI_SKID_SWITCH", "0");
           break;
         case 156:
+          sendToDcsBiosMessage("LAMP_TEST_BTN", "0");
+          sendToDcsBiosMessage("ALCP_FDBA_TEST", "0");
           break;
         case 157:
           break;
@@ -1342,6 +1372,8 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 156:
+          sendToDcsBiosMessage("LAMP_TEST_BTN", "1");
+          sendToDcsBiosMessage("ALCP_FDBA_TEST", "1");
           break;
         case 157:
           break;
@@ -1420,6 +1452,25 @@ DcsBios::RotaryEncoder altSetPressure("ALT_SET_PRESSURE", "-3200", "+3200", 20, 
 
 
 
+void onCmscPrioChange(unsigned int newValue) {
+  SendDebug("PRIORITY LAMP :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_PRI_LAMP, 1);
+  } else {
+    digitalWrite(O_PRI_LAMP, 0);
+  }
+}
+DcsBios::IntegerBuffer cmscPrioBuffer(0x1012, 0x0200, 9, onCmscPrioChange);
+
+void onCmscLaunchChange(unsigned int newValue) {
+  SendDebug("MISSLE LAMP :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_MISSLE_LAMP, 1);
+  } else {
+    digitalWrite(O_MISSLE_LAMP, 0);
+  }
+}
+DcsBios::IntegerBuffer cmscLaunchBuffer(0x1012, 0x0100, 8, onCmscLaunchChange);
 
 void loop() {
 
