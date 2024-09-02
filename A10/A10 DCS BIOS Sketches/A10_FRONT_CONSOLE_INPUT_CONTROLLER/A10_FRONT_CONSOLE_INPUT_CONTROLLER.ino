@@ -731,8 +731,6 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 109:
           break;
         case 110:
-          sendToDcsBiosMessage("FLAPS_SWITCH", "1");
-
           break;
         case 111:
           break;
@@ -762,6 +760,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 120:
           break;
         case 121:
+        sendToDcsBiosMessage("FLAPS_SWITCH", "1");
           break;
         case 122:
           break;
@@ -1249,6 +1248,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 120:
           break;
         case 121:
+          sendToDcsBiosMessage("FLAPS_SWITCH", "2");
           break;
         case 122:
           break;
@@ -1263,7 +1263,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("NMSP_TISL_BTN", "1");
           break;
         case 126:
-        sendToDcsBiosMessage("NMSP_ILS_BTN", "1");
+          sendToDcsBiosMessage("NMSP_ILS_BTN", "1");
           break;
         case 127:
           break;
