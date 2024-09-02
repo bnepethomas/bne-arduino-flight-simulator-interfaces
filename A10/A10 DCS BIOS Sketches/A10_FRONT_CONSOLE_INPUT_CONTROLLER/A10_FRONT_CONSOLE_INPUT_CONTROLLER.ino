@@ -760,7 +760,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 120:
           break;
         case 121:
-        sendToDcsBiosMessage("FLAPS_SWITCH", "1");
+          sendToDcsBiosMessage("FLAPS_SWITCH", "1");
           break;
         case 122:
           break;
@@ -827,6 +827,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("EXT_STORES_JETTISON", "0");
           break;
         case 146:
+          // Altimeter Push
           break;
         case 147:
           break;
@@ -1315,6 +1316,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("EXT_STORES_JETTISON", "1");
           break;
         case 146:
+          // Altimeter Push
           break;
         case 147:
           break;
@@ -1414,12 +1416,7 @@ void onConsolesDimmerChange(unsigned int newValue) {
 DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerChange);
 
 
-//KY58 PANEL
-// DcsBios::PotentiometerEWMA<5, 128, 5> ky58Volume("KY58_VOLUME", 10);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-
-//DcsBios::RotarySyncingPotentiometer radaltHeight("RADALT_HEIGHT", 11, 0x7518, 0xffff, 0, HornetRadaltMapper);
-
-
+DcsBios::RotaryEncoder altSetPressure("ALT_SET_PRESSURE", "-3200", "+3200", 20, 19);
 
 
 
