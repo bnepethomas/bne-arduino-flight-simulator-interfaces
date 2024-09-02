@@ -209,8 +209,20 @@ long TimeRadarOff = 0;
 #define O_LEFT_FIRE 54
 #define O_APU_FIRE 55
 #define O_RIGHT_FIRE 56
+#define O_GEAR_HANDLE 57
+#define O_CAUTION_LAMP 58
 #define O_PRI_LAMP 59
+#define O_SEP_LAMP 60
 #define O_MISSLE_LAMP 61
+#define O_HARS_LAMP 62
+#define O_EGI_LAMP 63
+#define O_TISL_LAMP 64
+#define O_STR_PT_LAMP 65
+#define O_ANCHR_LAMP 66
+#define O_TCN_LAMP 67
+#define O_ILS_LAMP 68
+#define O_ANTI_SKID 69
+
 
 
 void setup() {
@@ -280,24 +292,65 @@ void setup() {
 
   SendDebug("LAMP TEST START");
 
-  pinMode(O_PRI_LAMP, OUTPUT);
-  pinMode(O_MISSLE_LAMP, OUTPUT);
+
   pinMode(O_LEFT_FIRE, OUTPUT);
   pinMode(O_APU_FIRE, OUTPUT);
   pinMode(O_RIGHT_FIRE, OUTPUT);
+  pinMode(O_GEAR_HANDLE, OUTPUT);
+  pinMode(O_CAUTION_LAMP, OUTPUT);
+  pinMode(O_PRI_LAMP, OUTPUT);
+  pinMode(O_SEP_LAMP, OUTPUT);
+  pinMode(O_MISSLE_LAMP, OUTPUT);
+  pinMode(O_HARS_LAMP, OUTPUT);
+  pinMode(O_EGI_LAMP, OUTPUT);
+  pinMode(O_TISL_LAMP, OUTPUT);
+  pinMode(O_STR_PT_LAMP, OUTPUT);
+  pinMode(O_ANCHR_LAMP, OUTPUT);
+  pinMode(O_TCN_LAMP, OUTPUT);
+  pinMode(O_ILS_LAMP, OUTPUT);
+  pinMode(O_ANTI_SKID, OUTPUT);
 
 
-  digitalWrite(O_PRI_LAMP, 1);
-  digitalWrite(O_MISSLE_LAMP, 1);
+
+
+
   digitalWrite(O_LEFT_FIRE, 1);
-  // digitalWrite(O_APU_FIRE, 1);
+  digitalWrite(O_APU_FIRE, 1);
   digitalWrite(O_RIGHT_FIRE, 1);
+  digitalWrite(O_GEAR_HANDLE, 1);
+  digitalWrite(O_CAUTION_LAMP, 1);
+  digitalWrite(O_PRI_LAMP, 1);
+  digitalWrite(O_SEP_LAMP, 1);
+  digitalWrite(O_MISSLE_LAMP, 1);
+  digitalWrite(O_HARS_LAMP, 1);
+  digitalWrite(O_EGI_LAMP, 1);
+  digitalWrite(O_TISL_LAMP, 1);
+  digitalWrite(O_STR_PT_LAMP, 1);
+  digitalWrite(O_ANCHR_LAMP, 1);
+  digitalWrite(O_TCN_LAMP, 1);
+  digitalWrite(O_ILS_LAMP, 1);
+  digitalWrite(O_ANTI_SKID, 1);
+ 
+
   delay(8000);
-  digitalWrite(O_PRI_LAMP, 0);
-  digitalWrite(O_MISSLE_LAMP, 0);
+
+
   digitalWrite(O_LEFT_FIRE, 0);
   digitalWrite(O_APU_FIRE, 0);
   digitalWrite(O_RIGHT_FIRE, 0);
+  digitalWrite(O_GEAR_HANDLE, 0);
+  digitalWrite(O_CAUTION_LAMP, 0);
+  digitalWrite(O_PRI_LAMP, 0);
+  digitalWrite(O_SEP_LAMP, 0);
+  digitalWrite(O_MISSLE_LAMP, 0);
+  digitalWrite(O_HARS_LAMP, 0);
+  digitalWrite(O_EGI_LAMP, 0);
+  digitalWrite(O_TISL_LAMP, 0);
+  digitalWrite(O_STR_PT_LAMP, 0);
+  digitalWrite(O_ANCHR_LAMP, 0);
+  digitalWrite(O_TCN_LAMP, 0);
+  digitalWrite(O_ILS_LAMP, 0);
+  digitalWrite(O_ANTI_SKID, 0);
 
   SendDebug("LAMP TEST END");
 
