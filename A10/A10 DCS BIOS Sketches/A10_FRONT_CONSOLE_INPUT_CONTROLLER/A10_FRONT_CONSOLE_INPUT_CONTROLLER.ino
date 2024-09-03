@@ -1551,6 +1551,18 @@ void onREngFireChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rEngFireBuffer(0x10da, 0x0020, 5, onREngFireChange);
 
+
+void onMasterCautionChange(unsigned int newValue) {
+  SendDebug("MASTER CAUTION :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_CAUTION_LAMP, 1);
+  } else {
+    digitalWrite(O_CAUTION_LAMP, 0);
+  }
+}
+DcsBios::IntegerBuffer masterCautionBuffer(0x1012, 0x0800, 11, onMasterCautionChange);
+
+
 void onCmscPrioChange(unsigned int newValue) {
   SendDebug("PRIORITY LAMP :" + String(newValue));
   if (newValue == 1) {
@@ -1560,6 +1572,7 @@ void onCmscPrioChange(unsigned int newValue) {
   }
 }
 DcsBios::IntegerBuffer cmscPrioBuffer(0x1012, 0x0200, 9, onCmscPrioChange);
+
 
 void onCmscLaunchChange(unsigned int newValue) {
   SendDebug("MISSLE LAMP :" + String(newValue));
