@@ -330,7 +330,7 @@ void setup() {
   digitalWrite(O_TCN_LAMP, 1);
   digitalWrite(O_ILS_LAMP, 1);
   digitalWrite(O_ANTI_SKID, 1);
- 
+
 
   delay(8000);
 
@@ -1504,6 +1504,52 @@ DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerC
 DcsBios::RotaryEncoder altSetPressure("ALT_SET_PRESSURE", "-3200", "+3200", 20, 19);
 
 
+// digitalWrite(O_LEFT_FIRE, 1);
+// digitalWrite(O_APU_FIRE, 1);
+// digitalWrite(O_RIGHT_FIRE, 1);
+// digitalWrite(O_GEAR_HANDLE, 1);
+// digitalWrite(O_CAUTION_LAMP, 1);
+// digitalWrite(O_PRI_LAMP, 1);
+// digitalWrite(O_SEP_LAMP, 1);
+// digitalWrite(O_MISSLE_LAMP, 1);
+// digitalWrite(O_HARS_LAMP, 1);
+// digitalWrite(O_EGI_LAMP, 1);
+// digitalWrite(O_TISL_LAMP, 1);
+// digitalWrite(O_STR_PT_LAMP, 1);
+// digitalWrite(O_ANCHR_LAMP, 1);
+// digitalWrite(O_TCN_LAMP, 1);
+// digitalWrite(O_ILS_LAMP, 1);
+// digitalWrite(O_ANTI_SKID, 1);
+
+void onLEngFireChange(unsigned int newValue){
+  SendDebug("LEFT ENGINE FIRE :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_LEFT_FIRE, 1);
+  } else {
+    digitalWrite(O_LEFT_FIRE, 0);
+  }
+} 
+DcsBios::IntegerBuffer lEngFireBuffer(0x10da, 0x0008, 3, onLEngFireChange);
+
+void onApuFireChange(unsigned int newValue) {
+  SendDebug("APU FIRE :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_APU_FIRE, 1);
+  } else {
+    digitalWrite(O_APU_FIRE, 0);
+  }
+}
+DcsBios::IntegerBuffer apuFireBuffer(0x10da, 0x0010, 4, onApuFireChange);
+
+void onREngFireChange(unsigned int newValue) {
+  SendDebug("RIGHT ENGINE FIRE :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_RIGHT_FIRE, 1);
+  } else {
+    digitalWrite(O_RIGHT_FIRE, 0);
+  }
+}
+DcsBios::IntegerBuffer rEngFireBuffer(0x10da, 0x0020, 5, onREngFireChange);
 
 void onCmscPrioChange(unsigned int newValue) {
   SendDebug("PRIORITY LAMP :" + String(newValue));
@@ -1524,6 +1570,17 @@ void onCmscLaunchChange(unsigned int newValue) {
   }
 }
 DcsBios::IntegerBuffer cmscLaunchBuffer(0x1012, 0x0100, 8, onCmscLaunchChange);
+
+void onHandleGearWarningChange(unsigned int newValue) {
+  SendDebug("LANDING GEAR WARNING :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_GEAR_HANDLE, 1);
+  } else {
+    digitalWrite(O_GEAR_HANDLE, 0);
+  }
+}
+DcsBios::IntegerBuffer handleGearWarningBuffer(0x1026, 0x4000, 14, onHandleGearWarningChange);
+
 
 void loop() {
 
