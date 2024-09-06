@@ -206,6 +206,17 @@ const int RadarMoveTime = 300;
 bool RadarPushFollowupTask = false;
 long TimeRadarOff = 0;
 
+
+
+#define O_REFUEL_READY_LED 4
+#define O_REFUEL_LATCHED_LED 5
+#define O_REFUEL_DISC_LED 6
+#define O_STEER_LED 8
+#define O_GUN_READY_LED 7
+#define O_MARKER_BEACON_LED 9
+#define O_CANOPY_LED 11
+
+
 #define O_LEFT_FIRE 54
 #define O_APU_FIRE 55
 #define O_RIGHT_FIRE 56
@@ -290,7 +301,7 @@ void setup() {
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
 
-  SendDebug("LAMP TEST START");
+  SendDebug("LAMP AND LED TEST START");
 
 
   pinMode(O_LEFT_FIRE, OUTPUT);
@@ -310,7 +321,13 @@ void setup() {
   pinMode(O_ILS_LAMP, OUTPUT);
   pinMode(O_ANTI_SKID, OUTPUT);
 
-
+  pinMode(O_REFUEL_READY_LED, OUTPUT);
+  pinMode(O_REFUEL_LATCHED_LED, OUTPUT);
+  pinMode(O_REFUEL_DISC_LED, OUTPUT);
+  pinMode(O_STEER_LED, OUTPUT);
+  pinMode(O_GUN_READY_LED, OUTPUT);
+  pinMode(O_MARKER_BEACON_LED, OUTPUT);
+  pinMode(O_CANOPY_LED, OUTPUT);
 
 
 
@@ -331,6 +348,13 @@ void setup() {
   digitalWrite(O_ILS_LAMP, 1);
   digitalWrite(O_ANTI_SKID, 1);
 
+  digitalWrite(O_REFUEL_READY_LED, 0);
+  digitalWrite(O_REFUEL_LATCHED_LED, 0);
+  digitalWrite(O_REFUEL_DISC_LED, 0);
+  digitalWrite(O_STEER_LED, 0);
+  digitalWrite(O_GUN_READY_LED, 0);
+  digitalWrite(O_MARKER_BEACON_LED, 0);
+  digitalWrite(O_CANOPY_LED, 0);
 
   delay(8000);
 
@@ -352,7 +376,15 @@ void setup() {
   digitalWrite(O_ILS_LAMP, 0);
   digitalWrite(O_ANTI_SKID, 0);
 
-  SendDebug("LAMP TEST END");
+  digitalWrite(O_REFUEL_READY_LED, 1);
+  digitalWrite(O_REFUEL_LATCHED_LED, 1);
+  digitalWrite(O_REFUEL_DISC_LED, 1);
+  digitalWrite(O_STEER_LED, 1);
+  digitalWrite(O_GUN_READY_LED, 1);
+  digitalWrite(O_MARKER_BEACON_LED, 1);
+  digitalWrite(O_CANOPY_LED, 1);
+
+  SendDebug("LAMP AND LED TEST END");
 
 
   SendDebug("Setup Complete");
@@ -1521,14 +1553,14 @@ DcsBios::RotaryEncoder altSetPressure("ALT_SET_PRESSURE", "-3200", "+3200", 20, 
 // digitalWrite(O_ILS_LAMP, 1);
 // digitalWrite(O_ANTI_SKID, 1);
 
-void onLEngFireChange(unsigned int newValue){
+void onLEngFireChange(unsigned int newValue) {
   SendDebug("LEFT ENGINE FIRE :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_LEFT_FIRE, 1);
   } else {
     digitalWrite(O_LEFT_FIRE, 0);
   }
-} 
+}
 DcsBios::IntegerBuffer lEngFireBuffer(0x10da, 0x0008, 3, onLEngFireChange);
 
 void onApuFireChange(unsigned int newValue) {
@@ -1594,6 +1626,84 @@ void onHandleGearWarningChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer handleGearWarningBuffer(0x1026, 0x4000, 14, onHandleGearWarningChange);
 
+
+  // digitalWrite(O_REFUEL_READY_LED, 1);
+  // digitalWrite(O_REFUEL_LATCHED_LED, 1);
+  // digitalWrite(O_REFUEL_DISC_LED, 1);
+  // digitalWrite(O_STEER_LED, 1);
+  // digitalWrite(O_GUN_READY_LED, 1);
+  // digitalWrite(O_MARKER_BEACON_LED, 1);
+  // digitalWrite(O_CANOPY_LED, 1);
+
+void onAirRefuelReadyChange(unsigned int newValue) {
+  SendDebug("REFUEL READY :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_REFUEL_READY_LED, 0);
+  } else {
+    digitalWrite(O_REFUEL_READY_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer airRefuelReadyBuffer(0x1012, 0x8000, 15, onAirRefuelReadyChange);
+
+void onAirRefuelLatchedChange(unsigned int newValue) {
+  SendDebug("REFUEL LATCHED :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_REFUEL_LATCHED_LED, 0);
+  } else {
+    digitalWrite(O_REFUEL_LATCHED_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer airRefuelLatchedBuffer(0x1026, 0x0100, 8, onAirRefuelLatchedChange);
+
+void onAirRefuelDisconnectChange(unsigned int newValue) {
+  SendDebug("REFUEL DISC :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_REFUEL_DISC_LED, 0);
+  } else {
+    digitalWrite(O_REFUEL_DISC_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer airRefuelDisconnectBuffer(0x1026, 0x0200, 9, onAirRefuelDisconnectChange);
+
+void onNosewheelSteeringChange(unsigned int newValue) {
+  SendDebug("NOSE WHEEL STEER :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_STEER_LED, 0);
+  } else {
+    digitalWrite(O_STEER_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer nosewheelSteeringBuffer(0x10da, 0x0001, 0, onNosewheelSteeringChange);
+
+void onGunReadyChange(unsigned int newValue) {
+  SendDebug("GUN READY :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_GUN_READY_LED, 0);
+  } else {
+    digitalWrite(O_GUN_READY_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer gunReadyBuffer(0x1026, 0x8000, 15, onGunReadyChange);
+
+void onMarkerBeaconChange(unsigned int newValue) {
+  SendDebug("MARKER BEACON :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_MARKER_BEACON_LED, 0);
+  } else {
+    digitalWrite(O_MARKER_BEACON_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer markerBeaconBuffer(0x10da, 0x0002, 1, onMarkerBeaconChange);
+
+void onCanopyUnlockedChange(unsigned int newValue) {
+  SendDebug("CANOPY UNLOCKED :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_CANOPY_LED, 0);
+  } else {
+    digitalWrite(O_CANOPY_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer canopyUnlockedBuffer(0x10da, 0x0004, 2, onCanopyUnlockedChange);
 
 void loop() {
 
