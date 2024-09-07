@@ -227,8 +227,8 @@ long TimeRadarOff = 0;
 #define O_MISSLE_LAMP 61
 #define O_HARS_LAMP 62
 #define O_EGI_LAMP 63
-#define O_TISL_LAMP 64
-#define O_STR_PT_LAMP 65
+#define O_STR_PT_LAMP 64
+#define O_TISL_LAMP 65
 #define O_ANCHR_LAMP 66
 #define O_TCN_LAMP 67
 #define O_ILS_LAMP 68
@@ -1626,6 +1626,78 @@ void onHandleGearWarningChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer handleGearWarningBuffer(0x1026, 0x4000, 14, onHandleGearWarningChange);
 
+
+
+void onNmspHarsLedChange(unsigned int newValue) {
+  SendDebug("NMSP HARS :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_HARS_LAMP, 1);
+  } else {
+    digitalWrite(O_HARS_LAMP, 0);
+  }
+}
+DcsBios::IntegerBuffer nmspHarsLedBuffer(A_10C_NMSP_HARS_LED, onNmspHarsLedChange);
+
+void onNmspEgiLedChange(unsigned int newValue) {
+  SendDebug("NMSP EGI :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_EGI_LAMP, 1);
+  } else {
+    digitalWrite(O_EGI_LAMP, 0);
+  }
+}
+DcsBios::IntegerBuffer nmspEgiLedBuffer(A_10C_NMSP_EGI_LED, onNmspEgiLedChange);
+
+void onNmspTislLedChange(unsigned int newValue) {
+  SendDebug("NMSP TISL :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_TISL_LAMP, 1);
+  } else {
+    digitalWrite(O_TISL_LAMP, 0);
+  }
+}
+DcsBios::IntegerBuffer nmspTislLedBuffer(A_10C_NMSP_TISL_LED, onNmspTislLedChange);
+
+void onNmspSteerptLedChange(unsigned int newValue) {
+  SendDebug("NMSP STEER POINT :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_STR_PT_LAMP, 1);
+  } else {
+    digitalWrite(O_STR_PT_LAMP, 0);
+  }
+}
+DcsBios::IntegerBuffer nmspSteerptLedBuffer(A_10C_NMSP_STEERPT_LED, onNmspSteerptLedChange);
+
+
+void onNmspAnchrLedChange(unsigned int newValue) {
+  SendDebug("NMSP ANCHR :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_ANCHR_LAMP, 1);
+  } else {
+    digitalWrite(O_ANCHR_LAMP, 0);
+  }
+}
+DcsBios::IntegerBuffer nmspAnchrLedBuffer(A_10C_NMSP_ANCHR_LED, onNmspAnchrLedChange);
+
+void onNmspTcnLedChange(unsigned int newValue) {
+  SendDebug("NMSP TACAN :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_TCN_LAMP, 1);
+  } else {
+    digitalWrite(O_TCN_LAMP, 0);
+  }
+}
+DcsBios::IntegerBuffer nmspTcnLedBuffer(A_10C_NMSP_TCN_LED, onNmspTcnLedChange);
+
+void onNmspIlsLedChange(unsigned int newValue) {
+  SendDebug("NMSP ILS :" + String(newValue));
+  if (newValue == 1) {
+    digitalWrite(O_ILS_LAMP, 1);
+  } else {
+    digitalWrite(O_ILS_LAMP, 0);
+  }
+}
+DcsBios::IntegerBuffer nmspIlsLedBuffer(A_10C_NMSP_ILS_LED, onNmspIlsLedChange);
 
   // digitalWrite(O_REFUEL_READY_LED, 1);
   // digitalWrite(O_REFUEL_LATCHED_LED, 1);
