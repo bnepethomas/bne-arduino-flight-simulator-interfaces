@@ -470,6 +470,7 @@ void onVviChange(unsigned int newValue) {
 DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
 
 
+// ################################### START FLAPS ##############################################
 #define FlapsMaxDegrees 200
 // DcsBios::Switch3Pos flapsSwitch("FLAPS_SWITCH", PIN_A, PIN_B);
 void setFlaps(unsigned int TargetDegrees) {
@@ -480,13 +481,44 @@ void setFlaps(unsigned int TargetDegrees) {
   //
   FlapsStepper.moveTo(-signedTargetDegrees);
 }
-
 void onFlapPosChange(unsigned int newValue) {
   setFlaps((map(newValue, 0, 65535, 0, FlapsMaxDegrees * 0.7)));
 }
 DcsBios::IntegerBuffer flapPosBuffer(A_10C_FLAP_POS, onFlapPosChange);
+// ################################### END FLAPS ##############################################
+
+
+
+// ################################### START AIRSPEED CURRENT ##############################################
+#define currentAirspeedMaxSteps 200
+void setCurrentAirspeed(long TargetCurrentAirSpeed) {
+  SendDebug("Airspeed = " + String(TargetCurrentAirSpeed)); 
+  SpeedCurrentstepper.moveTo(TargetCurrentAirSpeed);
+}
+void onAirspeedNeedleChange(unsigned int newValue) {
+  SendDebug("onAirspeedDialChange = " + String(newValue)); 
+  setCurrentAirspeed((map(newValue, 0, 65535, 0, DUAL_STEPS + (5 * 16))));
+}
+DcsBios::IntegerBuffer airspeedNeedleBuffer(A_10C_AIRSPEED_NEEDLE, onAirspeedNeedleChange);
+
+// ################################### START AIRSPEED CURRENT ##############################################
+
+
+
+// ################################### START AIRSPEED MAX ##############################################
+void onAirspeedMaxIasChange(unsigned int newValue) {
+    /* your code here */
+}
+DcsBios::IntegerBuffer airspeedMaxIasBuffer(A_10C_AIRSPEED_MAX_IAS, onAirspeedMaxIasChange);
+
+// ################################### START AIRSPEED MAX ##############################################
+
 
 void updateSteppers() {
+  VSIstepper.run();
+  ALTstepper.run();
+  SpeedCurrentstepper.run();
+  SpeedMaxstepper.run();
   FlapsStepper.run();
 }
 
