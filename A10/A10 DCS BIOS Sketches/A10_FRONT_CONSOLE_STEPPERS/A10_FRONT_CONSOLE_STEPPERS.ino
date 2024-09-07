@@ -176,11 +176,17 @@ const int VSIstepPin = 46;
 const int VSIdirectionPin = 48;
 #define VSIoffset 60
 
+const int ALTstepPin = 42;
+const int ALTdirectionPin = 44;
+
+const int SpeedCurrentstepPin = 42;
+const int SpeedCurrentdirectionPin = 44;
+
 #define STEPS 10080
 #define STEPS 315 * 16
 AccelStepper VSIstepper(AccelStepper::DRIVER, VSIstepPin, VSIdirectionPin);
-
-
+AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
+AccelStepper SpeedCurrentstepper(AccelStepper::DRIVER, SpeedCurrentstepPin, SpeedCurrentdirectionPin);
 // ########################### END STEPPERS #########################################
 
 
@@ -217,7 +223,6 @@ void setup() {
     }
 
     SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
-
   }
 
 
@@ -242,14 +247,19 @@ void setup() {
 
   VSIstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   VSIstepper.setAcceleration(STEPPER_ACCELERATION);
+  ALTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  ALTstepper.setAcceleration(STEPPER_ACCELERATION);
+
 
   digitalWrite(AllstepperEnablePin, false);
+
+  // ################# Start VSI Startup #########################
+  SendDebug("Start VSI");
   for (int i = 1; i <= 3; i++) {
     SendDebug("Loop :" + String(i));
     VSIstepper.moveTo(-STEPS * 1);
     while (VSIstepper.distanceToGo() != 0) {
       VSIstepper.run();
-      // SendDebug("Step Speed: " + String(STEPPER_1.speed()));
     }
     delay(200);
 
@@ -261,12 +271,68 @@ void setup() {
   }
   // Move VSI to zero position
 
-  VSIstepper.moveTo((-STEPS / 2) - VSIoffset );
+  VSIstepper.moveTo((-STEPS / 2) - VSIoffset);
   while (VSIstepper.distanceToGo() != 0) {
     VSIstepper.run();
   }
 
-  SendDebug("STEPPER INITIALISATION STARTED");
+  SendDebug("End VSI");
+  // ################# End VSI Startup #########################
+
+
+  // ################# Start ALT Startup #########################
+  SendDebug("Start ALT");
+  for (int i = 1; i <= 3; i++) {
+    SendDebug("Loop :" + String(i));
+    ALTstepper.moveTo(-STEPS * 1);
+    while (ALTstepper.distanceToGo() != 0) {
+      ALTstepper.run();
+    }
+    delay(200);
+
+    ALTstepper.moveTo(0);
+    while (ALTstepper.distanceToGo() != 0) {
+      ALTstepper.run();
+    }
+    delay(200);
+  }
+  // Move ALT to zero position - need to monitor zero sense
+
+  ALTstepper.moveTo((-STEPS / 2));
+  while (ALTstepper.distanceToGo() != 0) {
+    ALTstepper.run();
+  }
+
+  SendDebug("End ALT");
+  // ################# End ALT Startup #########################
+
+  // ################# Start Speed Current Startup #########################
+  SendDebug("Start SpeedCurrentstepper");
+  for (int i = 1; i <= 3; i++) {
+    SendDebug("Loop :" + String(i));
+    SpeedCurrentstepper.moveTo(-STEPS * 1);
+    while (SpeedCurrentstepper.distanceToGo() != 0) {
+      SpeedCurrentstepper.run();
+    }
+    delay(200);
+
+    SpeedCurrentstepper.moveTo(0);
+    while (SpeedCurrentstepper.distanceToGo() != 0) {
+      SpeedCurrentstepper.run();
+    }
+    delay(200);
+  }
+  // Move ALT to zero position - need to monitor zero sense
+
+  SpeedCurrentstepper.moveTo((-STEPS / 2) - VSIoffset);
+  while (SpeedCurrentstepper.distanceToGo() != 0) {
+    SpeedCurrentstepper.run();
+  }
+
+  SendDebug("End SpeedCurrentstepper");
+  // ################# End Speed Current Startup #########################
+
+  SendDebug("STEPPER INITIALISATION COMPLETE");
 
   SendDebug("Setup Complete");
 }
