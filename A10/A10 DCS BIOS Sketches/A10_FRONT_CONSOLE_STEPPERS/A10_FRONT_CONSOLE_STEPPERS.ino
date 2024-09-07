@@ -174,7 +174,7 @@ const int AllstepperEnablePin = 56;
 
 const int VSIstepPin = 46;
 const int VSIdirectionPin = 48;
-#define VSIoffset 60
+#define VSIoffset 130
 
 const int ALTstepPin = 42;
 const int ALTdirectionPin = 44;
@@ -185,12 +185,21 @@ const int SpeedCurrentdirectionPin = 36;
 const int SpeedMaxstepPin = 38;
 const int SpeedMaxdirectionPin = 40;
 
+#define COIL_FLAPS_A 2
+#define COIL_FLAPS_B 3
+#define COIL_FLAPS_C 4
+#define COIL_FLAPS_D 5
+
 #define STEPS 10080
-#define STEPS 315 * 16
+#define STEPS 315 * 16       // The 16 is the default divisors when no pins are tied together on the driver module \
+                            // For an unmodified Vid series there are 315 steps
+#define DUAL_STEPS 315 * 16  // The Dual stepper seems to have fewer steps between stops
+#define FLAPS_STEP 315 * 2   // As flaps is direct driven don't need a multiplier
 AccelStepper VSIstepper(AccelStepper::DRIVER, VSIstepPin, VSIdirectionPin);
 AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
 AccelStepper SpeedCurrentstepper(AccelStepper::DRIVER, SpeedCurrentstepPin, SpeedCurrentdirectionPin);
 AccelStepper SpeedMaxstepper(AccelStepper::DRIVER, SpeedMaxstepPin, SpeedMaxdirectionPin);
+AccelStepper FlapsStepper(AccelStepper::FULL4WIRE, COIL_FLAPS_A, COIL_FLAPS_B, COIL_FLAPS_C, COIL_FLAPS_D);
 // ########################### END STEPPERS #########################################
 
 
@@ -252,50 +261,40 @@ void setup() {
   SpeedCurrentstepper.setAcceleration(STEPPER_ACCELERATION);
   SpeedMaxstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   SpeedMaxstepper.setAcceleration(STEPPER_ACCELERATION);
+  FlapsStepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  FlapsStepper.setAcceleration(STEPPER_ACCELERATION);
+
 
   digitalWrite(AllstepperEnablePin, false);
 
   // ################# Start VSI Startup #########################
   SendDebug("Start VSI");
-  for (int i = 1; i <= 3; i++) {
+
+  VSIstepper.runToNewPosition(-STEPS * 1.1);
+  VSIstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= 1; i++) {
     SendDebug("Loop :" + String(i));
-    VSIstepper.moveTo(-STEPS * 1);
-    while (VSIstepper.distanceToGo() != 0) {
-      VSIstepper.run();
-    }
+    VSIstepper.runToNewPosition(STEPS);
     delay(200);
-
-    VSIstepper.moveTo(0);
-    while (VSIstepper.distanceToGo() != 0) {
-      VSIstepper.run();
-    }
+    VSIstepper.runToNewPosition(0);
     delay(200);
   }
-  // Move VSI to zero position
 
-  VSIstepper.moveTo((-STEPS / 2) - VSIoffset);
-  while (VSIstepper.distanceToGo() != 0) {
-    VSIstepper.run();
-  }
-
+  // Move VSI to zero position and set
+  VSIstepper.runToNewPosition((STEPS / 2) - VSIoffset);
+  VSIstepper.setCurrentPosition(0);
   SendDebug("End VSI");
   // ################# End VSI Startup #########################
 
 
   // ################# Start ALT Startup #########################
   SendDebug("Start ALT");
-  for (int i = 1; i <= 3; i++) {
+  for (int i = 1; i <= 1; i++) {
     SendDebug("Loop :" + String(i));
-    ALTstepper.moveTo(-STEPS * 1);
-    while (ALTstepper.distanceToGo() != 0) {
-      ALTstepper.run();
-    }
+    ALTstepper.runToNewPosition(-STEPS * 1);
     delay(200);
-
-    ALTstepper.moveTo(0);
-    while (ALTstepper.distanceToGo() != 0) {
-      ALTstepper.run();
-    }
+    ALTstepper.runToNewPosition(0);
     delay(200);
   }
   // Move ALT to zero position - need to monitor zero sense
@@ -310,57 +309,50 @@ void setup() {
 
   // ################# Start Speed Current Startup #########################
   SendDebug("Start SpeedCurrentstepper");
+  SpeedCurrentstepper.runToNewPosition(-DUAL_STEPS * 1.1);
+  SpeedCurrentstepper.setCurrentPosition(0);
 
   for (int i = 1; i <= 3; i++) {
     SendDebug("Loop :" + String(i));
-    SpeedCurrentstepper.moveTo(-STEPS * 1);
-    while (SpeedCurrentstepper.distanceToGo() != 0) {
-      SpeedCurrentstepper.run();
-    }
+    SpeedCurrentstepper.runToNewPosition(DUAL_STEPS * 1);
     delay(200);
-
-    SpeedCurrentstepper.moveTo(0);
-    while (SpeedCurrentstepper.distanceToGo() != 0) {
-      SpeedCurrentstepper.run();
-    }
+    SpeedCurrentstepper.runToNewPosition(0);
     delay(200);
   }
-  // Move ALT to zero position - need to monitor zero sense
-
-  SpeedCurrentstepper.moveTo((-STEPS / 2) - VSIoffset);
-  while (SpeedCurrentstepper.distanceToGo() != 0) {
-    SpeedCurrentstepper.run();
-  }
-
   SendDebug("End SpeedCurrentstepper");
- //  ################ #End Speed Current Startup######################## #
+  //  ################ #End Speed Current Startup######################## #
 
-    // ################# Start Speed Max Startup #########################
-    SendDebug("Start SpeedMaxstepper");
-  delay(1000);
+
+  // ################# Start Speed Max Startup #########################
+  SendDebug("Start SpeedMaxstepper");
+  SpeedMaxstepper.runToNewPosition(-DUAL_STEPS * 1.1);
+  SpeedMaxstepper.setCurrentPosition(0);
+  delay(4000);
   for (int i = 1; i <= 3; i++) {
     SendDebug("Loop :" + String(i));
-    SpeedMaxstepper.moveTo(-STEPS * 1);
-    while (SpeedMaxstepper.distanceToGo() != 0) {
-      SpeedMaxstepper.run();
-    }
+    SpeedMaxstepper.runToNewPosition(DUAL_STEPS * 1);
     delay(200);
-
-    SpeedMaxstepper.moveTo(0);
-    while (SpeedMaxstepper.distanceToGo() != 0) {
-      SpeedMaxstepper.run();
-    }
+    SpeedMaxstepper.runToNewPosition(0);
     delay(200);
   }
-  // Move ALT to zero position - need to monitor zero sense
-
-  SpeedMaxstepper.moveTo((-STEPS / 2) - VSIoffset);
-  while (SpeedMaxstepper.distanceToGo() != 0) {
-    SpeedMaxstepper.run();
-  }
-
+  SpeedMaxstepper.runToNewPosition((DUAL_STEPS * 0.8));
   SendDebug("End SpeedMaxstepper");
   //  ################# End Speed Max Startup #########################
+
+
+  // ################# Start Flaps Startup #########################
+  SendDebug("Start FlapsStepper");
+  delay(1000);
+  for (int i = 1; i <= 1; i++) {
+    SendDebug("Loop :" + String(i));
+    FlapsStepper.runToNewPosition(-FLAPS_STEP * 1);
+    FlapsStepper.runToNewPosition(0);
+    delay(200);
+  }
+  SendDebug("End FlapsStepper");
+  //  ################# End Faps Startup #########################
+
+
 
   SendDebug("STEPPER INITIALISATION COMPLETE");
 
