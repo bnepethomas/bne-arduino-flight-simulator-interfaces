@@ -299,10 +299,7 @@ void setup() {
   }
   // Move ALT to zero position - need to monitor zero sense
 
-  ALTstepper.moveTo((-STEPS / 2));
-  while (ALTstepper.distanceToGo() != 0) {
-    ALTstepper.run();
-  }
+
 
   SendDebug("End ALT");
   // ################# End ALT Startup #########################
@@ -312,7 +309,7 @@ void setup() {
   SpeedCurrentstepper.runToNewPosition(-DUAL_STEPS * 1.1);
   SpeedCurrentstepper.setCurrentPosition(0);
 
-  for (int i = 1; i <= 3; i++) {
+  for (int i = 1; i <= 1; i++) {
     SendDebug("Loop :" + String(i));
     SpeedCurrentstepper.runToNewPosition(DUAL_STEPS * 1);
     delay(200);
@@ -327,28 +324,30 @@ void setup() {
   SendDebug("Start SpeedMaxstepper");
   SpeedMaxstepper.runToNewPosition(-DUAL_STEPS * 1.1);
   SpeedMaxstepper.setCurrentPosition(0);
-  delay(4000);
-  for (int i = 1; i <= 3; i++) {
+  for (int i = 1; i <= 1; i++) {
     SendDebug("Loop :" + String(i));
     SpeedMaxstepper.runToNewPosition(DUAL_STEPS * 1);
     delay(200);
     SpeedMaxstepper.runToNewPosition(0);
     delay(200);
   }
-  SpeedMaxstepper.runToNewPosition((DUAL_STEPS * 0.8));
+  SpeedMaxstepper.runToNewPosition((DUAL_STEPS * 0.95));
   SendDebug("End SpeedMaxstepper");
   //  ################# End Speed Max Startup #########################
 
 
   // ################# Start Flaps Startup #########################
   SendDebug("Start FlapsStepper");
-  delay(1000);
+  FlapsStepper.runToNewPosition(FLAPS_STEP * 1);
+  FlapsStepper.setCurrentPosition(0);
   for (int i = 1; i <= 1; i++) {
     SendDebug("Loop :" + String(i));
     FlapsStepper.runToNewPosition(-FLAPS_STEP * 1);
     FlapsStepper.runToNewPosition(0);
     delay(200);
   }
+  FlapsStepper.runToNewPosition(-100);
+  SendDebug("Flaps Current = " + String(FlapsStepper.currentPosition()));
   SendDebug("End FlapsStepper");
   //  ################# End Faps Startup #########################
 
@@ -470,6 +469,27 @@ void onVviChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
 
+
+#define FlapsMaxDegrees 200
+// DcsBios::Switch3Pos flapsSwitch("FLAPS_SWITCH", PIN_A, PIN_B);
+void setFlaps(unsigned int TargetDegrees) {
+
+  int signedTargetDegrees = TargetDegrees;
+  SendDebug("Flaps = " + String(signedTargetDegrees) + " Current = " + String(FlapsStepper.currentPosition()));
+  if (signedTargetDegrees >= FlapsMaxDegrees) signedTargetDegrees = FlapsMaxDegrees;
+  //
+  FlapsStepper.moveTo(-signedTargetDegrees);
+}
+
+void onFlapPosChange(unsigned int newValue) {
+  setFlaps((map(newValue, 0, 65535, 0, FlapsMaxDegrees * 0.7)));
+}
+DcsBios::IntegerBuffer flapPosBuffer(A_10C_FLAP_POS, onFlapPosChange);
+
+void updateSteppers() {
+  FlapsStepper.run();
+}
+
 // ################################ END STEPPERS ##############################
 
 void loop() {
@@ -483,7 +503,7 @@ void loop() {
   }
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
-
+  updateSteppers();
 
   currentMillis = millis();
 }
