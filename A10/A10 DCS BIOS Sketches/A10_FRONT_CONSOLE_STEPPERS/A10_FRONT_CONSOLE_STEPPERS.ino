@@ -168,8 +168,10 @@ unsigned long previousMillis = 0;
 #define STEPPER_ACCELERATION 9000
 
 const int AllstepperEnablePin = 56;
+
 const int VSIstepPin = 46;
 const int VSIdirectionPin = 48;
+#define VSIoffset 60
 
 #define STEPS 10080
 #define STEPS 315 * 16
@@ -240,7 +242,7 @@ void setup() {
   VSIstepper.setAcceleration(STEPPER_ACCELERATION);
 
   digitalWrite(AllstepperEnablePin, false);
-  for (int i = 1; i <= 4; i++) {
+  for (int i = 1; i <= 3; i++) {
     SendDebug("Loop :" + String(i));
     VSIstepper.moveTo(-STEPS * 1);
     while (VSIstepper.distanceToGo() != 0) {
@@ -254,6 +256,12 @@ void setup() {
       VSIstepper.run();
     }
     delay(200);
+  }
+  // Move VSI to zero position
+
+  VSIstepper.moveTo((-STEPS / 2) - VSIoffset );
+  while (VSIstepper.distanceToGo() != 0) {
+    VSIstepper.run();
   }
 
   SendDebug("STEPPER INITIALISATION STARTED");
@@ -336,29 +344,35 @@ void sendToDcsBiosMessage(const char *msg, const char *arg) {
   sendDcsBiosMessage(msg, arg);
 }
 
-
-void onIntEngInstLBrightChange(unsigned int newValue) {
-  int outvalue = 0;
-  outvalue = map(newValue, 0, 65534, 0, 255);
-  SendDebug("Eng Inst Brightness=" + String(outvalue));
-}
-DcsBios::IntegerBuffer intEngInstLBrightBuffer(0x12f0, 0xffff, 0, onIntEngInstLBrightChange);
+// ################################ BEGIN LIGHTING ##############################
 
 void onIntFltInstLBrightChange(unsigned int newValue) {
   int outvalue = 0;
   outvalue = map(newValue, 0, 65534, 0, 255);
-  SendDebug("Flight Inst Brightness=");
+  SendDebug("Eng Inst Brightness=" + String(outvalue));
+  analogWrite(BACKLIGHTING, outvalue);
 }
-DcsBios::IntegerBuffer intFltInstLBrightBuffer(0x12f2, 0xffff, 0, onIntFltInstLBrightChange);
+DcsBios::IntegerBuffer intFltInstLBrightBuffer(A_10C_INT_FLT_INST_L_BRIGHT, onIntFltInstLBrightChange);
+
+
 
 void onIntFloodLBrightChange(unsigned int newValue) {
   int floodoutvalue = 0;
   floodoutvalue = map(newValue, 0, 65534, 0, 255);
-  //SendDebug("Flood Brightness=" + String(floodoutvalue));
-  SendDebug("Flood Brightness = ");
+  SendDebug("Flood Brightness=" + String(floodoutvalue));
 }
-DcsBios::IntegerBuffer intFloodLBrightBuffer(0x12f6, 0xffff, 0, onIntFloodLBrightChange);
+DcsBios::IntegerBuffer intFloodLBrightBuffer(A_10C_INT_FLOOD_L_BRIGHT, onIntFloodLBrightChange);
 
+// ################################ END LIGHTING ##############################
+
+// ################################ BEGIN STEPPERS ##############################
+
+void onVviChange(unsigned int newValue) {
+  /* your code here */
+}
+DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
+
+// ################################ END STEPPERS ##############################
 
 void loop() {
 
