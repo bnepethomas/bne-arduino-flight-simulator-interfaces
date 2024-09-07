@@ -84,6 +84,8 @@ int Reflector_In_Use = 1;
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
 
+String BoardName = "A10 Forward Input";
+
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 byte mac[] = { 0xA8, 0x61, 0x0A, 0x64, 0x83, 0x03 };
@@ -269,8 +271,8 @@ void setup() {
       digitalWrite(Check_LED_G, true);
     }
 
-    SendDebug("A10 FORWARD CONSOLE INPUT Ethernet Started " + strMyIP + " " + sMac);
-    SendDebug("A10 FORDWARD CONSOLE INPUT");
+    SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
+
   }
 
   // Set the output ports to output
@@ -428,7 +430,7 @@ void FindInputChanges() {
 
         if (Reflector_In_Use == 1) {
           udp.beginPacket(reflectorIP, reflectorport);
-          udp.println("Right Input - " + String(ind) + ":" + String(joyReport.button[ind]));
+          udp.print(BoardName + " - " + String(ind) + ":" + String(joyReport.button[ind]));
           udp.endPacket();
         }
       }
@@ -501,7 +503,7 @@ void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
   if (Reflector_In_Use == 1) {
     udp.beginPacket(reflectorIP, reflectorport);
-    udp.println("Right Input - " + String(msg) + ":" + String(arg));
+    udp.print(BoardName + " " + String(msg) + ":" + String(arg));
     udp.endPacket();
   }
 
