@@ -1,11 +1,11 @@
 
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
-//||               FUNCTION = A10 FRONT CONSOLE INPUT CONTROLLER      ||\\
-//||              LOCATION IN THE PIT = FRONT                         ||\\
+//||               FUNCTION = A10 FORWARD STEPPER CONTROLLER          ||\\
+//||              LOCATION IN THE PIT = FRONT CENTER                  ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
-//||      ARDUINO CHIP SERIAL NUMBER = SN -      ||\\
-//||                    CONNECTED COM PORT = COM x                    ||\\
+//||      ARDUINO CHIP SERIAL NUMBER = SN -                           ||\\
+//||                    CONNECTED COM PORT = COM 3                    ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -68,9 +68,6 @@ int Reflector_In_Use = 1;
 #define DCSBIOS_In_Use 1
 #define MSFS_In_Use 0  // Used to interface into MSFS - set to 0 if not in use
 
-// Used to Distinguish between the left, front, and right inputs
-// Left=0, Front=1, Right=2
-#define INPUT_MODULE_NUMBER 2
 
 #define DCSBIOS_IRQ_SERIAL
 #include <DcsBios.h>
@@ -86,9 +83,10 @@ int Reflector_In_Use = 1;
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x03 };
-IPAddress ip(172, 16, 1, 103);
-String strMyIP = "172.16.1.103";
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x65, 0x83, 0x03 };
+String sMac = "A8:61:0A:65:83:03";
+IPAddress ip(172, 16, 1, 101);
+String strMyIP = "172.16.1.101";
 
 // Reflector
 IPAddress reflectorIP(172, 16, 1, 10);
@@ -119,11 +117,14 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 const unsigned long delayBeforeSendingPacket = 2000;
 unsigned long ethernetStartTime = 0;
 
+// Used to Distinguish between the left, front, and right inputs
+// Left=0, Front=1, Right=2
+#define INPUT_MODULE_NUMBER 2
 
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
-    udp.println(MessageToSend);
+    udp.print(MessageToSend);
     udp.endPacket();
   }
 }
@@ -213,8 +214,8 @@ void setup() {
       digitalWrite(Check_LED_G, true);
     }
 
-    SendDebug("Ethernet Started");
-    SendDebug("A10 FORDWARD STEPPER INPUT");
+    SendDebug("A10 FORWARD STEPPER Ethernet Started " + strMyIP + " " + sMac);
+    SendDebug("A10 FORWARD STEPPER");
   }
 
 
@@ -226,10 +227,9 @@ void setup() {
   pinMode(BACKLIGHTING, OUTPUT);
   digitalWrite(BACKLIGHTING, true);
   delay(3000);
-  for (int i = 80; i >= 0; i--) {
+  for (int i = 150; i >= 0; i--) {
     analogWrite(BACKLIGHTING, i);
-    SendDebug("Dimming : " + String(i));
-    delay(1);
+    delay(30);
   }
   digitalWrite(BACKLIGHTING, false);
   SendDebug("LAMP AND LED TEST END");

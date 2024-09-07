@@ -2,10 +2,10 @@
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 //||               FUNCTION = A10 FRONT CONSOLE INPUT CONTROLLER      ||\\
-//||              LOCATION IN THE PIT = FRONT                         ||\\
+//||              LOCATION IN THE PIT = FRONT PORT                     ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN -      ||\\
-//||                    CONNECTED COM PORT = COM x                    ||\\
+//||                    CONNECTED COM PORT = COM 4                    ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -86,9 +86,10 @@ int Reflector_In_Use = 1;
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x03 };
-IPAddress ip(172, 16, 1, 103);
-String strMyIP = "172.16.1.103";
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x64, 0x83, 0x03 };
+String sMac = "A8:61:0A:64:83:03";
+IPAddress ip(172, 16, 1, 100);
+String strMyIP = "172.16.1.100";
 
 // Reflector
 IPAddress reflectorIP(172, 16, 1, 10);
@@ -123,7 +124,7 @@ unsigned long ethernetStartTime = 0;
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
-    udp.println(MessageToSend);
+    udp.print(MessageToSend);
     udp.endPacket();
   }
 }
@@ -268,7 +269,7 @@ void setup() {
       digitalWrite(Check_LED_G, true);
     }
 
-    SendDebug("Ethernet Started");
+    SendDebug("A10 FORWARD CONSOLE INPUT Ethernet Started " + strMyIP + " " + sMac);
     SendDebug("A10 FORDWARD CONSOLE INPUT");
   }
 
