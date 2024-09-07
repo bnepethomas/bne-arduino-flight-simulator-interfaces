@@ -5,7 +5,7 @@
 //||              LOCATION IN THE PIT = FRONT CENTER                  ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN -                           ||\\
-//||                    CONNECTED COM PORT = COM 3                    ||\\
+//||                    CONNECTED COM PORT = COM 5                    ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -179,14 +179,18 @@ const int VSIdirectionPin = 48;
 const int ALTstepPin = 42;
 const int ALTdirectionPin = 44;
 
-const int SpeedCurrentstepPin = 42;
-const int SpeedCurrentdirectionPin = 44;
+const int SpeedCurrentstepPin = 34;
+const int SpeedCurrentdirectionPin = 36;
+
+const int SpeedMaxstepPin = 38;
+const int SpeedMaxdirectionPin = 40;
 
 #define STEPS 10080
 #define STEPS 315 * 16
 AccelStepper VSIstepper(AccelStepper::DRIVER, VSIstepPin, VSIdirectionPin);
 AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
 AccelStepper SpeedCurrentstepper(AccelStepper::DRIVER, SpeedCurrentstepPin, SpeedCurrentdirectionPin);
+AccelStepper SpeedMaxstepper(AccelStepper::DRIVER, SpeedMaxstepPin, SpeedMaxdirectionPin);
 // ########################### END STEPPERS #########################################
 
 
@@ -233,13 +237,8 @@ void setup() {
   SendDebug("LAMP AND LED TEST START");
   pinMode(BACKLIGHTING, OUTPUT);
   digitalWrite(BACKLIGHTING, true);
-  delay(3000);
-  for (int i = 150; i >= 0; i--) {
-    analogWrite(BACKLIGHTING, i);
-    delay(30);
-  }
-  digitalWrite(BACKLIGHTING, false);
-  SendDebug("LAMP AND LED TEST END");
+
+
 
   SendDebug("STEPPER INITIALISATION STARTED");
 
@@ -249,7 +248,10 @@ void setup() {
   VSIstepper.setAcceleration(STEPPER_ACCELERATION);
   ALTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   ALTstepper.setAcceleration(STEPPER_ACCELERATION);
-
+  SpeedCurrentstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  SpeedCurrentstepper.setAcceleration(STEPPER_ACCELERATION);
+  SpeedMaxstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  SpeedMaxstepper.setAcceleration(STEPPER_ACCELERATION);
 
   digitalWrite(AllstepperEnablePin, false);
 
@@ -308,6 +310,7 @@ void setup() {
 
   // ################# Start Speed Current Startup #########################
   SendDebug("Start SpeedCurrentstepper");
+
   for (int i = 1; i <= 3; i++) {
     SendDebug("Loop :" + String(i));
     SpeedCurrentstepper.moveTo(-STEPS * 1);
@@ -330,9 +333,44 @@ void setup() {
   }
 
   SendDebug("End SpeedCurrentstepper");
-  // ################# End Speed Current Startup #########################
+ //  ################ #End Speed Current Startup######################## #
+
+    // ################# Start Speed Max Startup #########################
+    SendDebug("Start SpeedMaxstepper");
+  delay(1000);
+  for (int i = 1; i <= 3; i++) {
+    SendDebug("Loop :" + String(i));
+    SpeedMaxstepper.moveTo(-STEPS * 1);
+    while (SpeedMaxstepper.distanceToGo() != 0) {
+      SpeedMaxstepper.run();
+    }
+    delay(200);
+
+    SpeedMaxstepper.moveTo(0);
+    while (SpeedMaxstepper.distanceToGo() != 0) {
+      SpeedMaxstepper.run();
+    }
+    delay(200);
+  }
+  // Move ALT to zero position - need to monitor zero sense
+
+  SpeedMaxstepper.moveTo((-STEPS / 2) - VSIoffset);
+  while (SpeedMaxstepper.distanceToGo() != 0) {
+    SpeedMaxstepper.run();
+  }
+
+  SendDebug("End SpeedMaxstepper");
+  //  ################# End Speed Max Startup #########################
 
   SendDebug("STEPPER INITIALISATION COMPLETE");
+
+  for (int i = 150; i >= 0; i--) {
+    analogWrite(BACKLIGHTING, i);
+    delay(30);
+  }
+  digitalWrite(BACKLIGHTING, false);
+  SendDebug("LAMP AND LED TEST END");
+
 
   SendDebug("Setup Complete");
 }
