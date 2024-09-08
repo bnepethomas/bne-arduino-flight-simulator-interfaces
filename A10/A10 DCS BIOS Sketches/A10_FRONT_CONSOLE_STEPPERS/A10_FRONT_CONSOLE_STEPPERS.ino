@@ -170,20 +170,22 @@ unsigned long previousMillis = 0;
 #define STEPPER_ZERO_SEEK_SPEED 600
 #define STEPPER_ACCELERATION 9000
 
-const int AllstepperEnablePin = 56;
+#define AllstepperEnablePin  56
 
-const int VSIstepPin = 46;
-const int VSIdirectionPin = 48;
+#define VSIstepPin 46
+#define VSIdirectionPin 48
 #define VSIoffset 130
 
-const int ALTstepPin = 42;
-const int ALTdirectionPin = 44;
+#define ALTstepPin 42
+#define ALTdirectionPin 44
+#define ALTzeroSensePin 54
+ 
 
-const int SpeedCurrentstepPin = 34;
-const int SpeedCurrentdirectionPin = 36;
+#define SpeedCurrentstepPin 34
+#define SpeedCurrentdirectionPin 36
 
-const int SpeedMaxstepPin = 38;
-const int SpeedMaxdirectionPin = 40;
+#define SpeedMaxstepPin 38
+#define SpeedMaxdirectionPin 40
 
 #define COIL_FLAPS_A 2
 #define COIL_FLAPS_B 3
@@ -252,6 +254,7 @@ void setup() {
   SendDebug("STEPPER INITIALISATION STARTED");
 
   pinMode(AllstepperEnablePin, OUTPUT);
+  pinMode(ALTzeroSensePin, INPUT);
 
   VSIstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   VSIstepper.setAcceleration(STEPPER_ACCELERATION);
@@ -292,10 +295,24 @@ void setup() {
   SendDebug("Start ALT");
   for (int i = 1; i <= 1; i++) {
     SendDebug("Loop :" + String(i));
-    ALTstepper.runToNewPosition(-STEPS * 1);
+    ALTstepper.moveTo(-STEPS * 2);
+    while (ALTstepper.distanceToGo() != 0) {
+      if (digitalRead(ALTzeroSensePin) != true) {
+        SendDebug("Found Alt Zero Position");
+        ALTstepper.setCurrentPosition(0);
+        break;
+      }
+      ALTstepper.run();
+      
+    }
+    delay(500);
+    SendDebug("Send Alt Round 40 times");
+    long SendAAltForATrip = 5760 * 3;
+    // 5760 steps per loop
+    ALTstepper.runToNewPosition(SendAAltForATrip);
     delay(200);
+    SendDebug("Return Alt to 0");
     ALTstepper.runToNewPosition(0);
-    delay(200);
   }
   // Move ALT to zero position - need to monitor zero sense
 
@@ -537,8 +554,24 @@ void onVviChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
 
-// ################################### START VSI ##############################################
+// ################################### END VSI ##############################################
 
+
+// ################################### BEGIN ALT ##############################################
+
+
+void onAltMslFtChange(unsigned int newValue) {
+  // Max Value of feet is 65535
+  // 5760 Steps per 1000 feet
+  // So 5.76 steps foot - need float as long doesn't do decimal
+  float ALTtargetSteps = newValue;
+  ALTtargetSteps = ALTtargetSteps * 5.76;
+  long longAlttargetSteps = long(ALTtargetSteps);
+   ALTstepper.moveTo(longAlttargetSteps);
+}
+DcsBios::IntegerBuffer altMslFtBuffer(CommonData_ALT_MSL_FT, onAltMslFtChange);
+
+// ################################### END ALT ##############################################
 
 void updateSteppers() {
   VSIstepper.run();
