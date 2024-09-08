@@ -19,9 +19,10 @@
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
 
-byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x06 };
-IPAddress ip(172, 16, 1, 106);
-String strMyIP = "172.16.1.106";
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x66, 0x83, 0x03 };
+String sMac = "A8:61:0A:66:83:03";
+IPAddress ip(172, 16, 1, 102);
+String strMyIP = "172.16.1.102";
 
 // Reflector
 IPAddress reflectorIP(172, 16, 1, 10);

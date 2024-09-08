@@ -81,7 +81,7 @@ int Reflector_In_Use = 1;
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
 
-String BoardName = "A10 Forward Input";
+String BoardName = "A10 Forward Steppers";
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
