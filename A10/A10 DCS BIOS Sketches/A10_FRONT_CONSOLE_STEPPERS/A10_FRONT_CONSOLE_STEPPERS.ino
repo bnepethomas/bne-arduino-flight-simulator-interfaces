@@ -357,7 +357,7 @@ void setup() {
 
   for (int i = 150; i >= 0; i--) {
     analogWrite(BACKLIGHTING, i);
-    delay(30);
+    delay(15);
   }
   digitalWrite(BACKLIGHTING, false);
   SendDebug("LAMP AND LED TEST END");
@@ -464,10 +464,6 @@ DcsBios::IntegerBuffer intFloodLBrightBuffer(A_10C_INT_FLOOD_L_BRIGHT, onIntFloo
 
 // ################################ BEGIN STEPPERS ##############################
 
-void onVviChange(unsigned int newValue) {
-  /* your code here */
-}
-DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
 
 
 // ################################### START FLAPS ##############################################
@@ -490,13 +486,12 @@ DcsBios::IntegerBuffer flapPosBuffer(A_10C_FLAP_POS, onFlapPosChange);
 
 
 // ################################### START AIRSPEED CURRENT ##############################################
-#define currentAirspeedMaxSteps 200
 void setCurrentAirspeed(long TargetCurrentAirSpeed) {
-  SendDebug("Airspeed = " + String(TargetCurrentAirSpeed)); 
+  // SendDebug("Airspeed = " + String(TargetCurrentAirSpeed));
   SpeedCurrentstepper.moveTo(TargetCurrentAirSpeed);
 }
 void onAirspeedNeedleChange(unsigned int newValue) {
-  SendDebug("onAirspeedDialChange = " + String(newValue)); 
+  // SendDebug("onAirspeedDialChange = " + String(newValue));
   setCurrentAirspeed((map(newValue, 0, 65535, 0, DUAL_STEPS + (5 * 16))));
 }
 DcsBios::IntegerBuffer airspeedNeedleBuffer(A_10C_AIRSPEED_NEEDLE, onAirspeedNeedleChange);
@@ -506,12 +501,43 @@ DcsBios::IntegerBuffer airspeedNeedleBuffer(A_10C_AIRSPEED_NEEDLE, onAirspeedNee
 
 
 // ################################### START AIRSPEED MAX ##############################################
+void setMaxAirspeed(long TargetMaxAirSpeed) {
+  // SendDebug("Max Airspeed = " + String(TargetMaxxAirSpeed));
+  SpeedMaxstepper.moveTo(TargetMaxAirSpeed);
+}
 void onAirspeedMaxIasChange(unsigned int newValue) {
-    /* your code here */
+  // SendDebug("onAirspeedMaxIasChange = " + String(newValue));
+  setMaxAirspeed((map(newValue, 0, 65535, 0, DUAL_STEPS + (5 * 16))));
 }
 DcsBios::IntegerBuffer airspeedMaxIasBuffer(A_10C_AIRSPEED_MAX_IAS, onAirspeedMaxIasChange);
 
 // ################################### START AIRSPEED MAX ##############################################
+
+// ################################### START VSI ##############################################
+
+
+#define VSIMaxSteps 2400
+void setVSI(long TargetVSI) {
+  if (TargetVSI > VSIMaxSteps) {
+    TargetVSI = VSIMaxSteps;
+  } else if (TargetVSI < -VSIMaxSteps) {
+    TargetVSI = -VSIMaxSteps;
+  }
+  // SendDebug("VSI = " + String(TargetVSI));
+  VSIstepper.moveTo(TargetVSI);
+}
+
+
+void onVviChange(unsigned int newValue) {
+  
+  long VSI = newValue;
+  VSI = VSI - 32767;
+  // SendDebug("onVviChange = " + String(newValue) + " long VSI = " + String(VSI));
+  setVSI(map(VSI, -32767, 32767, -VSIMaxSteps, VSIMaxSteps));
+}
+DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
+
+// ################################### START VSI ##############################################
 
 
 void updateSteppers() {
