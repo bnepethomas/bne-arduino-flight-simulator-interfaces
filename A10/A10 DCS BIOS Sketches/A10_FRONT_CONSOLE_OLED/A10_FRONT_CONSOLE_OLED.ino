@@ -121,6 +121,7 @@
 
 #define BARO_OLED_Port 1
 #define ALT_OLED_Port 2
+#define CMSC_OLED_Port 3
 
 
 #define Opt_OLED_Port_1 3
@@ -272,6 +273,8 @@ bool AltCounterUpdated = true;
 
 char* ptrtopass;
 
+String txtChaffFlare = "S240s120";
+
 void tcaselect(uint8_t i) {
   if (i > 7) return;
 
@@ -303,8 +306,8 @@ void tcaselect(uint8_t i) {
 
 void initCharOLED() {
   // *** I2C initial *** //
-  tcaselect(3);
-  delay(100);
+  tcaselect(CMSC_OLED_Port);
+  delay(10);
   sendCommand(0x2A);  // **** Set "RE"=1	00101010B
   sendCommand(0x71);
   sendCommand(0x5C);
@@ -472,9 +475,8 @@ void setup() {
   u8g2_ALT.setFont(u8g2_font_logisoso32_tn);
   u8g2_ALT.sendBuffer();
   tcaselect(ALT_OLED_Port);
-  updateALT("2","0");
-  // TESTALT("000");
-  //UpdateAltimeterDigits(0);
+  updateALT("0", "0");
+
 
 
 
@@ -988,12 +990,27 @@ void onAcftNameChange(char* newValue) {
 }
 DcsBios::StringBuffer<24> AcftNameBuffer(0x0000, onAcftNameChange);
 
+void onCmscTxtChaffFlareChange(char* newValue) {
 
-// Hornet
-DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", "-3200", "+3200", 24, 22);
+ txtChaffFlare =  String(newValue);
+ updateCMSC();
 
-// A10
-DcsBios::RotaryEncoder altSetPressure("ALT_SET_PRESSURE", "-3200", "+3200", 24, 22);
+}
+DcsBios::StringBuffer<8> cmscTxtChaffFlareBuffer(0x108e, onCmscTxtChaffFlareChange);
+
+
+void updateCMSC() {
+  tcaselect(CMSC_OLED_Port);
+  sendCommand(cmd_CLS);
+  send_string(txtChaffFlare.c_str());
+  sendCommand(cmd_NewLine);
+  send_string("CCCC");
+}
+
+
+
+
+
 
 void loop() {
 
