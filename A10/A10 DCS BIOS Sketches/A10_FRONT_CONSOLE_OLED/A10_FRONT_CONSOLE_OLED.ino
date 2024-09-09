@@ -7,7 +7,7 @@
 // Left Console
 // *************************************************************
 // *************************************************************
-// Current COM 11 - Check S/N First - Before any new Uploads
+// Current COM 7 - Check S/N First - Before any new Uploads
 // *************************************************************
 // *************************************************************
 //
@@ -120,7 +120,7 @@
 //#define Opt_OLED_Port_5 7
 
 #define BARO_OLED_Port 1
-#define ALTIMETER_HEIGHT_TCA_PORT 2
+#define ALT_OLED_Port 2
 
 
 #define Opt_OLED_Port_1 3
@@ -245,6 +245,8 @@ char buffer[20];  //plenty of space for the value of millis() plus a zero termin
 // which maps to 8.92857 feet per pressure unit with 2992 as reference
 // so delta is (pressure reading - 2992) * 8.92857
 #define feetDeltaPerPressureUnit 8.92857
+
+
 int iLastAltitudeValue = 0;
 int iAltitudeDelta = 0;
 int iBaro = 2992;
@@ -258,30 +260,15 @@ String BaroHundreds = String(iBaroHundreds);
 String BaroThousands = String(iBaroThousands);
 bool BaroUpdated = true;
 
+// Altimeter
+unsigned long nextAltimeterUpdate = 0;
+int updateAltimeterInterval = 100;
 
-String strOpt1 = "";
-String strOpt2 = "";
-String strOpt3 = "";
-String strOpt4 = "";
-String strOpt5 = "";
-String strComm1 = "";
-String strComm2 = "";
-String strScratchString1 = "";
-String strScratchString2 = "";
-String strScratchNumber = "";
-String CombinedScratchString = "";
-
-String LaststrOpt1 = "";
-String LaststrOpt2 = "";
-String LaststrOpt3 = "";
-String LaststrOpt4 = "";
-String LaststrOpt5 = "";
-String LaststrComm1 = "";
-String LaststrComm2 = "";
-String LaststrScratchString1 = "";
-String LaststrScratchString2 = "";
-String LaststrScratchNumber = "";
-String LastCombinedScratchString = "";
+String Alt1000s = "0";
+int LastAlt1000s = 0;
+String Alt10000s = "0";
+int LastAlt10000s = 0;
+bool AltCounterUpdated = true;
 
 char* ptrtopass;
 
@@ -479,13 +466,14 @@ void setup() {
   updateBARO("2992");
 
 
-  tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
+  tcaselect(ALT_OLED_Port);
   u8g2_ALT.begin();
   u8g2_ALT.clearBuffer();
   u8g2_ALT.setFont(u8g2_font_logisoso32_tn);
   u8g2_ALT.sendBuffer();
-  tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
-  TESTALT("2992");
+  tcaselect(ALT_OLED_Port);
+  updateALT("2","0");
+  // TESTALT("000");
   //UpdateAltimeterDigits(0);
 
 
@@ -539,7 +527,7 @@ void setContrast(int contr) {
 void TESTALT(String strnewValue) {
 
   const char* newValue = strnewValue.c_str();
-  tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
+  tcaselect(ALT_OLED_Port);
   u8g2_ALT.setFontMode(0);
   u8g2_ALT.setDrawColor(0);
 
@@ -556,7 +544,7 @@ void TESTALT(String strnewValue) {
   u8g2_ALT.setFontDirection(0);
 
 
-  u8g2_ALT.drawStr(45, 32, newValue);
+  u8g2_ALT.drawStr(60, 32, newValue);
   u8g2_ALT.sendBuffer();
 }
 
@@ -703,6 +691,70 @@ int lastTenThousandsValue = 0;
 int lastThousandsCharacterOffset = 0;
 int lastHundredsCharacterOffset = 0;
 
+void updateALT(String strTenThousands, String strnewThousands) {
+
+  const char* newTenThousandsValue = strTenThousands.c_str();
+  const char* newThousandsValue = strnewThousands.c_str();
+  int End_X_Pos = 46;
+  int End_Y_Pos = 28;
+  int Start_Y_Pos = 13;
+  int Start_X_Pos = 27;
+  int Box_Width = 20;
+  tcaselect(ALT_OLED_Port);
+  u8g2_ALT.setFontMode(0);
+  u8g2_ALT.setDrawColor(0);
+  u8g2_ALT.drawBox(0, 0, 128, 32);
+  u8g2_ALT.setDrawColor(1);
+  //u8g2_ALT.drawStr(5, 32, newValue);
+
+  if (strTenThousands == "0") {
+    u8g2_ALT.setDrawColor(1);
+
+    u8g2_ALT.drawBox(Start_X_Pos, 13, Box_Width, 20);
+    u8g2_ALT.setDrawColor(0);
+
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos, End_X_Pos, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 1, End_X_Pos - 1, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 2, End_X_Pos - 2, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 3, End_X_Pos - 3, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 4, End_X_Pos - 4, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 5, End_X_Pos - 5, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 6, End_X_Pos - 6, 32);
+
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 11, End_X_Pos - 11, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 12, End_X_Pos - 12, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 13, End_X_Pos - 13, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 14, End_X_Pos - 14, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 15, End_X_Pos - 15, 32);
+
+    u8g2_ALT.drawLine(Start_X_Pos + 4, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos + 1);
+    u8g2_ALT.drawLine(Start_X_Pos + 5, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos);
+    u8g2_ALT.drawLine(Start_X_Pos + 6, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 1);
+    u8g2_ALT.drawLine(Start_X_Pos + 7, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 2);
+    u8g2_ALT.drawLine(Start_X_Pos + 8, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 3);
+    u8g2_ALT.drawLine(Start_X_Pos + 9, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 4);
+    u8g2_ALT.drawLine(Start_X_Pos + 10, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 5);
+
+    u8g2_ALT.drawLine(Start_X_Pos + 15, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 10);
+    u8g2_ALT.drawLine(Start_X_Pos + 16, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 11);
+    u8g2_ALT.drawLine(Start_X_Pos + 17, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 12);
+    u8g2_ALT.drawLine(Start_X_Pos + 18, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 13);
+    u8g2_ALT.drawLine(Start_X_Pos + 19, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 14);
+
+    u8g2_ALT.setDrawColor(1);
+
+
+  } else {
+    u8g2_ALT.drawStr(32, 32, newTenThousandsValue);
+  }
+
+  u8g2_ALT.drawStr(65, 32, newThousandsValue);
+  u8g2_ALT.sendBuffer();
+
+  AltCounterUpdated = false;
+}
+
+
 void UpdateAltimeterDigits(long height) {
 
   SendDebug("Aircraft Name : " + sAircraftName);
@@ -781,7 +833,7 @@ void UpdateAltimeterDigits(long height) {
   if ((iThousandsValue != lastThousandsValue) || (iTenThousandsValue != lastTenThousandsValue) || (iThousandsCharacterOffset != lastThousandsCharacterOffset)
       || (iHundredsValue != lastHundredsValue) || (iHundredsCharacterOffset != lastHundredsCharacterOffset)) {
 
-    tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
+    tcaselect(ALT_OLED_Port);
 
     lastHundredsValue = iHundredsValue;
     lastThousandsValue = iThousandsValue;
