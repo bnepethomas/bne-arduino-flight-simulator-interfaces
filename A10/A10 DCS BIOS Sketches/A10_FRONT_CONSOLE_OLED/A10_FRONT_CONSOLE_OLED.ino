@@ -473,7 +473,7 @@ void setup() {
 
   u8g2_BARO.begin();
   u8g2_BARO.clearBuffer();
-  u8g2_BARO.setFont(u8g2_font_logisoso16_tn);
+  u8g2_BARO.setFont(u8g2_font_logisoso16_tf);
   u8g2_BARO.sendBuffer();
   tcaselect(BARO_OLED_Port);
   updateBARO("2992");
@@ -482,7 +482,7 @@ void setup() {
   tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
   u8g2_ALT.begin();
   u8g2_ALT.clearBuffer();
-  u8g2_ALT.setFont(u8g2_font_logisoso16_tn);
+  u8g2_ALT.setFont(u8g2_font_logisoso32_tn);
   u8g2_ALT.sendBuffer();
   tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
   TESTALT("2992");
@@ -541,13 +541,12 @@ void TESTALT(String strnewValue) {
   const char* newValue = strnewValue.c_str();
   tcaselect(ALTIMETER_HEIGHT_TCA_PORT);
   u8g2_ALT.setFontMode(0);
-  u8g2_ALT.setDrawColor(1);
+  u8g2_ALT.setDrawColor(0);
 
-  for (int x = 0; x <= 64; x++) {
-    u8g2_ALT.drawBox(0, 0, 80, x);
-    u8g2_ALT.sendBuffer();
-    delay(5);
-  }
+
+  u8g2_ALT.drawBox(0, 0, 128, 64);
+  u8g2_ALT.sendBuffer();
+
 
   // full range with with U8G2_SSD1309_128X64_NONAME2_F_HW_I2C
   // u8g2_BARO.drawBox(0, 1, 80, 64); with U8G2_SSD1309_128X64_NONAME2_2_HW_I2C
@@ -557,7 +556,7 @@ void TESTALT(String strnewValue) {
   u8g2_ALT.setFontDirection(0);
 
 
-  u8g2_ALT.drawStr(80, 16, newValue);
+  u8g2_ALT.drawStr(45, 32, newValue);
   u8g2_ALT.sendBuffer();
 }
 
@@ -567,13 +566,13 @@ void updateBARO(String strnewValue) {
   const char* newValue = strnewValue.c_str();
   tcaselect(BARO_OLED_Port);
   u8g2_BARO.setFontMode(0);
-  u8g2_BARO.setDrawColor(1);
+  u8g2_BARO.setDrawColor(0);
 
-  for (int x = 0; x <= 64; x++) {
-    u8g2_BARO.drawBox(0, 0, 80, x);
-    u8g2_BARO.sendBuffer();
-    delay(5);
-  }
+
+  u8g2_BARO.drawBox(0, 0, 128, 64);
+  u8g2_BARO.sendBuffer();
+
+
 
   // full range with with U8G2_SSD1309_128X64_NONAME2_F_HW_I2C
   // u8g2_BARO.drawBox(0, 1, 80, 64); with U8G2_SSD1309_128X64_NONAME2_2_HW_I2C
@@ -583,7 +582,7 @@ void updateBARO(String strnewValue) {
   u8g2_BARO.setFontDirection(0);
 
 
-  u8g2_BARO.drawStr(80, 16, newValue);
+  u8g2_BARO.drawStr(65, 16, newValue);
   u8g2_BARO.sendBuffer();
 }
 
