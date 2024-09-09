@@ -5,7 +5,8 @@
 	(uuid "e63e39d7-6ac0-4ffd-8aa3-1841a4541b55")
 	(paper "A4")
 	(title_block
-		(date "mar. 31 mars 2015")
+		(date "2024-09-10")
+		(rev "1.1")
 	)
 	(lib_symbols
 		(symbol "Connector:Conn_01x04_Female"
@@ -4494,6 +4495,10 @@
 		(at 156.972 157.734)
 		(uuid "eadee0dd-18c9-4376-b489-9ac871afa90b")
 	)
+	(no_connect
+		(at 69.596 105.664)
+		(uuid "f20c568e-2ca4-4a8c-808f-c501334a11c7")
+	)
 	(wire
 		(pts
 			(xy 108.966 175.006) (xy 117.856 175.006)
@@ -4556,6 +4561,16 @@
 	)
 	(wire
 		(pts
+			(xy 81.026 103.124) (xy 86.36 103.124)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "05d6e0e9-9096-4170-b4ef-b6621fe7cda6")
+	)
+	(wire
+		(pts
 			(xy 94.996 175.006) (xy 94.996 177.546)
 		)
 		(stroke
@@ -4593,6 +4608,16 @@
 			(type default)
 		)
 		(uuid "071c427a-07c3-4033-b36f-bde5f8666bc4")
+	)
+	(wire
+		(pts
+			(xy 69.596 100.584) (xy 73.406 100.584)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "079b9640-e6f2-4532-95bf-847f7a6814c4")
 	)
 	(wire
 		(pts
@@ -4913,6 +4938,16 @@
 			(type default)
 		)
 		(uuid "2aabda7a-79e3-4c56-b34f-2bdef86ab33f")
+	)
+	(wire
+		(pts
+			(xy 81.026 100.584) (xy 86.36 100.584)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b7d1fb9-bc3d-4c9a-8796-f6b866624d26")
 	)
 	(wire
 		(pts
@@ -6076,6 +6111,16 @@
 	)
 	(wire
 		(pts
+			(xy 69.596 103.124) (xy 73.406 103.124)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b113cafe-59fa-4d4f-95b4-579e6cac05da")
+	)
+	(wire
+		(pts
 			(xy 255.524 83.058) (xy 268.224 83.058)
 		)
 		(stroke
@@ -7175,6 +7220,17 @@
 		)
 		(uuid "4519579d-cb88-422d-864e-c158f65b019a")
 	)
+	(label "FM"
+		(at 84.836 103.124 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4623cb01-e188-42bb-92b6-4b163dd18eec")
+	)
 	(label "RED_LED"
 		(at 35.052 142.24 0)
 		(fields_autoplaced yes)
@@ -7185,6 +7241,17 @@
 			(justify left bottom)
 		)
 		(uuid "48be28c6-6eaf-4f4f-8d8e-5d4a1a4683cb")
+	)
+	(label "AM"
+		(at 84.836 100.584 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "493a15d5-480f-4ce2-becc-32c813de412e")
 	)
 	(label "~{RESET}"
 		(at 212.344 34.798 0)
@@ -8959,6 +9026,50 @@
 		(uuid "3c41044e-2e4a-48e3-8279-aa31f4f3155b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 240.284 104.2287 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "D5"
+		(shape input)
+		(at 86.36 103.124 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "429e6158-c9d9-4dd1-bd7a-bd643facc85c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 91.9198 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "D6"
+		(shape input)
+		(at 86.36 100.584 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "436b46dd-59b0-4f05-95ef-7a54bf2af4f9")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 91.9198 100.584 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18092,6 +18203,442 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_US")
+		(at 77.216 100.584 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "48523544-a985-4714-9b4a-2162f2e0e968")
+		(property "Reference" "R29"
+			(at 81.28 97.028 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "150"
+			(at 77.216 97.9748 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 77.47 99.568 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "category" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L1" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L2" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L3" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey description" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "footprint url" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "height" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "lead free" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "library id" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser description" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of channels" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "package" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rohs" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rthja max" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "standoff height" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" ""
+			(at 77.216 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "4997e961-843a-4973-af13-3624fd1c03cd")
+		)
+		(pin "1"
+			(uuid "9ff0d0e9-6e9d-47b1-b84f-2fcf23fd46ad")
+		)
+		(instances
+			(project "Forward OLED"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R29")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 105.156 169.926 90)
 		(unit 1)
@@ -19458,6 +20005,443 @@
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_US")
+		(at 77.216 103.124 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5bf38203-59ab-4e95-9de3-1ca725fb5699")
+		(property "Reference" "R30"
+			(at 73.152 101.854 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "150"
+			(at 72.644 104.394 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
+			(at 77.47 102.108 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, US symbol"
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "category" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L1" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L2" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L3" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey description" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "footprint url" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "height" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "lead free" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "library id" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser description" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of channels" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "package" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rohs" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rthja max" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "standoff height" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" ""
+			(at 77.216 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "754bf3cb-b3e5-40a7-949c-91a65b563ed0")
+		)
+		(pin "1"
+			(uuid "17cb5936-c4bd-4998-b8d1-7bb1b9e959ba")
+		)
+		(instances
+			(project "Forward OLED"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "R30")
 					(unit 1)
 				)
 			)
@@ -26397,6 +27381,70 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+5V")
+		(at 69.596 98.044 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bafbb2e7-6933-45e8-bd54-50204446363c")
+		(property "Reference" "#PWR013"
+			(at 69.596 101.854 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 69.9516 94.996 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 69.596 98.044 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 69.596 98.044 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 69.596 98.044 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bec0e756-cf42-421a-bb4d-052b223b4b3b")
+		)
+		(instances
+			(project "Forward OLED"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR013")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_US")
 		(at 84.582 51.308 90)
 		(unit 1)
@@ -27717,6 +28765,451 @@
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x04_Female")
+		(at 64.516 100.584 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d3363644-81cf-4234-8734-e0ed49053514")
+		(property "Reference" "J6"
+			(at 63.8048 100.6419 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "FM AM LEDs"
+			(at 63.8048 103.0661 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "category" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L1" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L2" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L3" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey description" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "footprint url" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "height" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "lead free" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "library id" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser description" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of channels" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "package" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rohs" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rthja max" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "standoff height" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" ""
+			(at 64.516 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a20b2e75-380d-42b7-bd4c-d3da115d55e1")
+		)
+		(pin "2"
+			(uuid "137bf84c-5f6e-414b-8e16-8009768dff50")
+		)
+		(pin "3"
+			(uuid "033d6f14-3c08-416d-b1fb-405ee19c94d8")
+		)
+		(pin "4"
+			(uuid "574b546e-d92b-49fc-afa4-d3becb8e3d70")
+		)
+		(instances
+			(project "Forward OLED"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J6")
 					(unit 1)
 				)
 			)
