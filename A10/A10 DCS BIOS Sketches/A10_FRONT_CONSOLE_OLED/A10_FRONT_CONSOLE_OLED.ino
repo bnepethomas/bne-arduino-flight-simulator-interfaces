@@ -201,6 +201,11 @@ unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
 
+#define O_LEFT_GEAR_LED 4
+#define O_NOSE_GEAR_LED 3
+#define O_RIGHT_GEAR_LED 2
+
+
 String sAircraftName = "";
 
 // Scratch Pad OLED
@@ -274,6 +279,9 @@ bool AltCounterUpdated = true;
 char* ptrtopass;
 
 String txtChaffFlare = "S240s120";
+String txtJMRstatus = "SBY AIR ";
+String txtMWSstatus = "ACTIVE ";
+
 
 void tcaselect(uint8_t i) {
   if (i > 7) return;
@@ -434,11 +442,19 @@ void setup() {
     SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
   }
 
+  pinMode(O_LEFT_GEAR_LED, OUTPUT);
+  pinMode(O_NOSE_GEAR_LED, OUTPUT);
+  pinMode(O_RIGHT_GEAR_LED, OUTPUT);
+
+  digitalWrite(O_LEFT_GEAR_LED, 0);
+  digitalWrite(O_NOSE_GEAR_LED, 0);
+  digitalWrite(O_RIGHT_GEAR_LED, 0);
 
   delay(500);
   Wire.begin();
 
   initCharOLED();
+  updateCMSC();
 
 
 
@@ -477,8 +493,9 @@ void setup() {
   tcaselect(ALT_OLED_Port);
   updateALT("0", "0");
 
-
-
+  digitalWrite(O_LEFT_GEAR_LED, 1);
+  digitalWrite(O_NOSE_GEAR_LED, 1);
+  digitalWrite(O_RIGHT_GEAR_LED, 1);
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
@@ -992,20 +1009,63 @@ DcsBios::StringBuffer<24> AcftNameBuffer(0x0000, onAcftNameChange);
 
 void onCmscTxtChaffFlareChange(char* newValue) {
 
- txtChaffFlare =  String(newValue);
- updateCMSC();
-
+  txtChaffFlare = String(newValue);
+  updateCMSC();
 }
 DcsBios::StringBuffer<8> cmscTxtChaffFlareBuffer(0x108e, onCmscTxtChaffFlareChange);
 
+
+
+void onCmscTxtJmrChange(char* newValue) {
+  txtJMRstatus = String(newValue);
+  updateCMSC();
+}
+DcsBios::StringBuffer<8> cmscTxtJmrBuffer(0x1096, onCmscTxtJmrChange);
+
+void onCmscTxtMwsChange(char* newValue) {
+  txtMWSstatus = String(newValue);
+  updateCMSC();
+}
+DcsBios::StringBuffer<8> cmscTxtMwsBuffer(0x133c, onCmscTxtMwsChange);
 
 void updateCMSC() {
   tcaselect(CMSC_OLED_Port);
   sendCommand(cmd_CLS);
   send_string(txtChaffFlare.c_str());
   sendCommand(cmd_NewLine);
-  send_string("CCCC");
+  String workstring = txtJMRstatus + " " + txtMWSstatus;
+  send_string(workstring.c_str());
 }
+
+
+
+
+void onGearLSafeChange(unsigned int newValue) {
+  if (newValue == 1) {
+    digitalWrite(O_LEFT_GEAR_LED, 0);
+  } else {
+    digitalWrite(O_LEFT_GEAR_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer gearLSafeBuffer(0x1026, 0x1000, 12, onGearLSafeChange);
+
+void onGearNSafeChange(unsigned int newValue) {
+  if (newValue == 1) {
+    digitalWrite(O_NOSE_GEAR_LED, 0);
+  } else {
+    digitalWrite(O_NOSE_GEAR_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer gearNSafeBuffer(0x1026, 0x0800, 11, onGearNSafeChange);
+
+void onGearRSafeChange(unsigned int newValue) {
+  if (newValue == 1) {
+    digitalWrite(O_RIGHT_GEAR_LED, 0);
+  } else {
+    digitalWrite(O_RIGHT_GEAR_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer gearRSafeBuffer(0x1026, 0x2000, 13, onGearRSafeChange);
 
 
 
