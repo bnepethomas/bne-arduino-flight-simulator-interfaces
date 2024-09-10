@@ -201,9 +201,17 @@ unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
 
-#define O_LEFT_GEAR_LED 4
-#define O_NOSE_GEAR_LED 3
+
+
 #define O_RIGHT_GEAR_LED 2
+#define O_NOSE_GEAR_LED 3
+#define O_LEFT_GEAR_LED 4
+#define O_VHF_AM_LED 5
+#define O_VHF_AM_LED 6
+#define O_AOA_BELOW_LED 7
+#define O_AOA_ON_LED 8
+#define O_AOA_ABOVE_LED 9
+
 
 
 String sAircraftName = "";
@@ -445,12 +453,25 @@ void setup() {
   pinMode(O_LEFT_GEAR_LED, OUTPUT);
   pinMode(O_NOSE_GEAR_LED, OUTPUT);
   pinMode(O_RIGHT_GEAR_LED, OUTPUT);
+  pinMode(O_VHF_AM_LED, OUTPUT);
+  pinMode(O_VHF_AM_LED, OUTPUT);
+  pinMode(O_AOA_BELOW_LED, OUTPUT);
+  pinMode(O_AOA_ON_LED, OUTPUT);
+  pinMode(O_AOA_ABOVE_LED, OUTPUT);
+
+
 
   digitalWrite(O_LEFT_GEAR_LED, 0);
   digitalWrite(O_NOSE_GEAR_LED, 0);
   digitalWrite(O_RIGHT_GEAR_LED, 0);
+  digitalWrite(O_VHF_AM_LED, 0);
+  digitalWrite(O_VHF_AM_LED, 0);
+  digitalWrite(O_AOA_BELOW_LED, 0);
+  digitalWrite(O_AOA_ON_LED, 0);
+  digitalWrite(O_AOA_ABOVE_LED, 0)
 
-  delay(500);
+
+    delay(500);
   Wire.begin();
 
   initCharOLED();
@@ -496,9 +517,13 @@ void setup() {
   digitalWrite(O_LEFT_GEAR_LED, 1);
   digitalWrite(O_NOSE_GEAR_LED, 1);
   digitalWrite(O_RIGHT_GEAR_LED, 1);
+  digitalWrite(O_VHF_AM_LED, 1);
+  digitalWrite(O_VHF_AM_LED, 1);
+  digitalWrite(O_AOA_BELOW_LED, 1);
+  digitalWrite(O_AOA_ON_LED, 1);
+  digitalWrite(O_AOA_ABOVE_LED, 1)
 
-
-  if (DCSBIOS_In_Use == 1) DcsBios::setup();
+    if (DCSBIOS_In_Use == 1) DcsBios::setup();
 }
 
 
