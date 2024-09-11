@@ -4731,6 +4731,16 @@
 	)
 	(wire
 		(pts
+			(xy 77.216 98.044) (xy 80.264 98.044)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0312ee8b-0aa1-4290-aa6e-87eff1bf4802")
+	)
+	(wire
+		(pts
 			(xy 220.472 57.658) (xy 227.584 57.658)
 		)
 		(stroke
@@ -4808,16 +4818,6 @@
 			(type default)
 		)
 		(uuid "071c427a-07c3-4033-b36f-bde5f8666bc4")
-	)
-	(wire
-		(pts
-			(xy 69.596 100.584) (xy 73.406 100.584)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "079b9640-e6f2-4532-95bf-847f7a6814c4")
 	)
 	(wire
 		(pts
@@ -5148,16 +5148,6 @@
 			(type default)
 		)
 		(uuid "2aabda7a-79e3-4c56-b34f-2bdef86ab33f")
-	)
-	(wire
-		(pts
-			(xy 81.026 100.584) (xy 86.36 100.584)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2b7d1fb9-bc3d-4c9a-8796-f6b866624d26")
 	)
 	(wire
 		(pts
@@ -6228,6 +6218,16 @@
 			(type default)
 		)
 		(uuid "9ebdfb14-9703-4f35-bfab-b8958fa5aebc")
+	)
+	(wire
+		(pts
+			(xy 69.596 100.584) (xy 88.138 100.584)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a0cd072f-417c-47d9-96ec-70b9fd7d9907")
 	)
 	(polyline
 		(pts
@@ -7515,7 +7515,7 @@
 		(uuid "48be28c6-6eaf-4f4f-8d8e-5d4a1a4683cb")
 	)
 	(label "AM"
-		(at 84.836 100.584 180)
+		(at 78.486 98.044 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9386,7 +9386,7 @@
 	)
 	(global_label "D6"
 		(shape input)
-		(at 86.36 100.584 0)
+		(at 80.264 98.044 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9396,7 +9396,7 @@
 		)
 		(uuid "436b46dd-59b0-4f05-95ef-7a54bf2af4f9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 91.9198 100.584 0)
+			(at 85.8238 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19456,7 +19456,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_US")
-		(at 77.216 100.584 90)
+		(at 73.406 98.044 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19464,7 +19464,7 @@
 		(dnp no)
 		(uuid "48523544-a985-4714-9b4a-2162f2e0e968")
 		(property "Reference" "R29"
-			(at 81.28 97.028 90)
+			(at 77.47 94.488 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19472,7 +19472,7 @@
 			)
 		)
 		(property "Value" "150"
-			(at 77.216 97.9748 90)
+			(at 73.406 95.4348 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19480,7 +19480,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical"
-			(at 77.47 99.568 90)
+			(at 73.66 97.028 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19489,7 +19489,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19498,7 +19498,7 @@
 			)
 		)
 		(property "Description" "Resistor, US symbol"
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19507,7 +19507,7 @@
 			)
 		)
 		(property "automotive" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19516,7 +19516,7 @@
 			)
 		)
 		(property "category" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19525,7 +19525,7 @@
 			)
 		)
 		(property "continuous drain current" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19534,7 +19534,7 @@
 			)
 		)
 		(property "depletion mode" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19543,7 +19543,7 @@
 			)
 		)
 		(property "device class L1" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19552,7 +19552,7 @@
 			)
 		)
 		(property "device class L2" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19561,7 +19561,7 @@
 			)
 		)
 		(property "device class L3" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19570,7 +19570,7 @@
 			)
 		)
 		(property "digikey description" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19579,7 +19579,7 @@
 			)
 		)
 		(property "digikey part number" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19588,7 +19588,7 @@
 			)
 		)
 		(property "drain to source breakdown voltage" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19597,7 +19597,7 @@
 			)
 		)
 		(property "drain to source resistance" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19606,7 +19606,7 @@
 			)
 		)
 		(property "drain to source voltage" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19615,7 +19615,7 @@
 			)
 		)
 		(property "footprint url" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19624,7 +19624,7 @@
 			)
 		)
 		(property "gate charge at vgs" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19633,7 +19633,7 @@
 			)
 		)
 		(property "gate to source voltage" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19642,7 +19642,7 @@
 			)
 		)
 		(property "height" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19651,7 +19651,7 @@
 			)
 		)
 		(property "input capacitace at vds" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19660,7 +19660,7 @@
 			)
 		)
 		(property "ipc land pattern name" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19669,7 +19669,7 @@
 			)
 		)
 		(property "lead free" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19678,7 +19678,7 @@
 			)
 		)
 		(property "library id" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19687,7 +19687,7 @@
 			)
 		)
 		(property "manufacturer" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19696,7 +19696,7 @@
 			)
 		)
 		(property "max forward diode voltage" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19705,7 +19705,7 @@
 			)
 		)
 		(property "max junction temp" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19714,7 +19714,7 @@
 			)
 		)
 		(property "mouser description" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19723,7 +19723,7 @@
 			)
 		)
 		(property "mouser part number" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19732,7 +19732,7 @@
 			)
 		)
 		(property "number of N channels" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19741,7 +19741,7 @@
 			)
 		)
 		(property "number of channels" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19750,7 +19750,7 @@
 			)
 		)
 		(property "package" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19759,7 +19759,7 @@
 			)
 		)
 		(property "power dissipation" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19768,7 +19768,7 @@
 			)
 		)
 		(property "pulse drain current" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19777,7 +19777,7 @@
 			)
 		)
 		(property "reverse recovery charge" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19786,7 +19786,7 @@
 			)
 		)
 		(property "reverse recovery time" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19795,7 +19795,7 @@
 			)
 		)
 		(property "rohs" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19804,7 +19804,7 @@
 			)
 		)
 		(property "rthja max" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19813,7 +19813,7 @@
 			)
 		)
 		(property "standoff height" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19822,7 +19822,7 @@
 			)
 		)
 		(property "temperature range high" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19831,7 +19831,7 @@
 			)
 		)
 		(property "temperature range low" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19840,7 +19840,7 @@
 			)
 		)
 		(property "threshold vgs max" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19849,7 +19849,7 @@
 			)
 		)
 		(property "threshold vgs min" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19858,7 +19858,7 @@
 			)
 		)
 		(property "turn off delay time" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19867,7 +19867,7 @@
 			)
 		)
 		(property "turn on delay time" ""
-			(at 77.216 100.584 0)
+			(at 73.406 98.044 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22305,6 +22305,70 @@
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 88.138 100.584 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "65a8eee6-4766-41b8-b5f9-1d3f3a79659f")
+		(property "Reference" "#PWR013"
+			(at 88.138 104.394 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 88.4936 97.536 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 88.138 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 88.138 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 88.138 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "54b6583c-e1a7-4c8b-bd53-8a2228afea60")
+		)
+		(instances
+			(project "Forward OLED"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR013")
 					(unit 1)
 				)
 			)
@@ -29063,70 +29127,6 @@
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R28")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+5V")
-		(at 69.596 98.044 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "bafbb2e7-6933-45e8-bd54-50204446363c")
-		(property "Reference" "#PWR013"
-			(at 69.596 101.854 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 69.9516 94.996 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 69.596 98.044 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 69.596 98.044 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 69.596 98.044 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "bec0e756-cf42-421a-bb4d-052b223b4b3b")
-		)
-		(instances
-			(project "Forward OLED"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR013")
 					(unit 1)
 				)
 			)
