@@ -170,7 +170,7 @@ unsigned long previousMillis = 0;
 #define STEPPER_ZERO_SEEK_SPEED 600
 #define STEPPER_ACCELERATION 9000
 
-#define AllstepperEnablePin  56
+#define AllstepperEnablePin 56
 
 #define VSIstepPin 46
 #define VSIdirectionPin 48
@@ -179,13 +179,20 @@ unsigned long previousMillis = 0;
 #define ALTstepPin 42
 #define ALTdirectionPin 44
 #define ALTzeroSensePin 54
- 
+
 
 #define SpeedCurrentstepPin 34
 #define SpeedCurrentdirectionPin 36
 
 #define SpeedMaxstepPin 38
 #define SpeedMaxdirectionPin 40
+
+#define AOAstepPin 22
+#define AOAdirectionPin 24
+
+#define GForcestepPin 26
+#define GForcedirectionPin 28
+
 
 #define COIL_FLAPS_A 2
 #define COIL_FLAPS_B 3
@@ -202,7 +209,10 @@ AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
 AccelStepper SpeedCurrentstepper(AccelStepper::DRIVER, SpeedCurrentstepPin, SpeedCurrentdirectionPin);
 AccelStepper SpeedMaxstepper(AccelStepper::DRIVER, SpeedMaxstepPin, SpeedMaxdirectionPin);
 AccelStepper FlapsStepper(AccelStepper::FULL4WIRE, COIL_FLAPS_A, COIL_FLAPS_B, COIL_FLAPS_C, COIL_FLAPS_D);
+AccelStepper AOAstepper(AccelStepper::DRIVER, AOAstepPin, AOAdirectionPin);
+AccelStepper GForcestepper(AccelStepper::DRIVER, GForcestepPin, GForcedirectionPin);
 // ########################### END STEPPERS #########################################
+
 
 
 void setup() {
@@ -266,6 +276,10 @@ void setup() {
   SpeedMaxstepper.setAcceleration(STEPPER_ACCELERATION);
   FlapsStepper.setMaxSpeed(STEPPER_MAX_SPEED);
   FlapsStepper.setAcceleration(STEPPER_ACCELERATION);
+  AOAstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  AOAstepper.setAcceleration(STEPPER_ACCELERATION);
+  GForcestepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  GForcestepper.setAcceleration(STEPPER_ACCELERATION);
 
 
   digitalWrite(AllstepperEnablePin, false);
@@ -303,7 +317,6 @@ void setup() {
         break;
       }
       ALTstepper.run();
-      
     }
     delay(500);
     SendDebug("Send Alt Round 40 times");
@@ -367,6 +380,44 @@ void setup() {
   SendDebug("Flaps Current = " + String(FlapsStepper.currentPosition()));
   SendDebug("End FlapsStepper");
   //  ################# End Faps Startup #########################
+
+  // ################# Start AOA Startup #########################
+  SendDebug("Start AOAStepper");
+#define AOAZeroOffSet 200
+#define AOAMaxSteps 4200
+  AOAstepper.runToNewPosition(-STEPS * 1);
+  AOAstepper.setCurrentPosition(0);
+  AOAstepper.runToNewPosition(AOAZeroOffSet);
+  AOAstepper.setCurrentPosition(0);
+  for (int i = 1; i <= 1; i++) {
+    SendDebug("Loop :" + String(i));
+    AOAstepper.runToNewPosition(AOAMaxSteps);
+    AOAstepper.runToNewPosition(0);
+    delay(200);
+  }
+
+  SendDebug("End AOAStepper");
+  //  ################# End AOA Startup #########################
+
+  // ################# Start GForce Startup #########################
+  SendDebug("Start GForcestepper");
+#define GForceZeroOffSet 0
+#define GForceMaxSteps 4800
+  GForcestepper.runToNewPosition(-STEPS * 1);
+  GForcestepper.setCurrentPosition(0);
+  GForcestepper.runToNewPosition(GForceZeroOffSet);
+  GForcestepper.setCurrentPosition(0);
+  for (int i = 1; i <= 1; i++) {
+    SendDebug("Loop :" + String(i));
+    GForcestepper.runToNewPosition(GForceMaxSteps);
+    GForcestepper.runToNewPosition(0);
+    delay(200);
+  }
+
+GForcestepper.runToNewPosition(2030);
+
+  SendDebug("End GForcestepper");
+  //  ################# End GForce Startup #########################
 
 
 
@@ -546,7 +597,7 @@ void setVSI(long TargetVSI) {
 
 
 void onVviChange(unsigned int newValue) {
-  
+
   long VSI = newValue;
   VSI = VSI - 32767;
   // SendDebug("onVviChange = " + String(newValue) + " long VSI = " + String(VSI));
@@ -555,6 +606,22 @@ void onVviChange(unsigned int newValue) {
 DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
 
 // ################################### END VSI ##############################################
+
+
+// ################################### BEGIN AOA ##############################################
+
+void setAOA(long TargetAOA) {
+  // SendDebug("AOA = " + String(TargetMaxxAirSpeed));
+  AOAstepper.moveTo(TargetAOA);
+}
+
+void onAoaUnitsChange(unsigned int newValue) {
+  long AOA = newValue;
+  // SendDebug("onAoaUnitsChange = " + String(AOA));
+  setAOA(map(AOA, 0, 65535, 0, AOAMaxSteps));
+}
+DcsBios::IntegerBuffer aoaUnitsBuffer(0x1078, 0xffff, 0, onAoaUnitsChange);
+// ################################### END AOA ##############################################
 
 
 // ################################### BEGIN ALT ##############################################
@@ -567,11 +634,28 @@ void onAltMslFtChange(unsigned int newValue) {
   float ALTtargetSteps = newValue;
   ALTtargetSteps = ALTtargetSteps * 5.76;
   long longAlttargetSteps = long(ALTtargetSteps);
-   ALTstepper.moveTo(longAlttargetSteps);
+  ALTstepper.moveTo(longAlttargetSteps);
 }
 DcsBios::IntegerBuffer altMslFtBuffer(CommonData_ALT_MSL_FT, onAltMslFtChange);
 
 // ################################### END ALT ##############################################
+
+// ################################### BEGIN GForce ##############################################
+void setGForce(long TargetGForce) {
+  // SendDebug("GForce = " + String(TargetGForce));
+  GForcestepper.moveTo(TargetGForce);
+}
+
+
+void onAccelGChange(unsigned int newValue) {
+  long GForce = newValue;
+  // SendDebug("onAoaUnitsChange = " + String(AOA));
+  setGForce(map(GForce, 0, 65535, 0, STEPS));
+}
+DcsBios::IntegerBuffer accelGBuffer(0x1070, 0xffff, 0, onAccelGChange);
+
+// ################################### END GForce ##############################################
+
 
 void updateSteppers() {
   VSIstepper.run();
@@ -579,6 +663,8 @@ void updateSteppers() {
   SpeedCurrentstepper.run();
   SpeedMaxstepper.run();
   FlapsStepper.run();
+  AOAstepper.run();
+  GForcestepper.run();
 }
 
 // ################################ END STEPPERS ##############################

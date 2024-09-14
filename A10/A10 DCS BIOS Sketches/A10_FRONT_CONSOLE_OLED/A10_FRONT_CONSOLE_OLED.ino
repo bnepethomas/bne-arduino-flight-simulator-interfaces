@@ -208,9 +208,9 @@ unsigned long timeSinceRedLedChanged = 0;
 #define O_LEFT_GEAR_LED 4
 #define O_VHF_AM_LED 5
 #define O_VHF_FM_LED 6
-#define O_AOA_BELOW_LED 7
+#define O_AOA_BELOW_LED 9
 #define O_AOA_ON_LED 8
-#define O_AOA_ABOVE_LED 9
+#define O_AOA_ABOVE_LED 7
 
 
 
@@ -1095,8 +1095,32 @@ DcsBios::IntegerBuffer gearRSafeBuffer(0x1026, 0x2000, 13, onGearRSafeChange);
 
 
 
+void onAoaIndexerHighChange(unsigned int newValue) {
+  if (newValue == 1) {
+    digitalWrite(O_AOA_ABOVE_LED, 0);
+  } else {
+    digitalWrite(O_AOA_ABOVE_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer aoaIndexerHighBuffer(0x1012, 0x1000, 12, onAoaIndexerHighChange);
 
+void onAoaIndexerNormalChange(unsigned int newValue) {
+  if (newValue == 1) {
+    digitalWrite(O_AOA_ON_LED, 0);
+  } else {
+    digitalWrite(O_AOA_ON_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer aoaIndexerNormalBuffer(0x1012, 0x2000, 13, onAoaIndexerNormalChange);
 
+void onAoaIndexerLowChange(unsigned int newValue) {
+  if (newValue == 1) {
+    digitalWrite(O_AOA_BELOW_LED, 0);
+  } else {
+    digitalWrite(O_AOA_BELOW_LED, 1);
+  }
+}
+DcsBios::IntegerBuffer aoaIndexerLowBuffer(0x1012, 0x4000, 14, onAoaIndexerLowChange);
 
 void loop() {
 
