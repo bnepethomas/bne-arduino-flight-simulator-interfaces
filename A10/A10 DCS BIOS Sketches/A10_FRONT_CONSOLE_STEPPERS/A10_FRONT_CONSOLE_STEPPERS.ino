@@ -174,6 +174,8 @@ unsigned long previousMillis = 0;
 
 #define VSIstepPin 46
 #define VSIdirectionPin 48
+// #define VSIstepPin 30
+// #define VSIdirectionPin 32
 #define VSIoffset 130
 
 #define ALTstepPin 42
