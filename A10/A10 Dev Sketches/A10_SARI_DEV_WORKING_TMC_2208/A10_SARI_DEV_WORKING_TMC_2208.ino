@@ -125,7 +125,7 @@ AccelStepper VSIstepper(AccelStepper::DRIVER, VSIstepPin, VSIdirectionPin);
 //////SARI - TEST - BEN --------------------------------------------------------------------------------------------------------------
 //----------ROLL SERVO----------
 //DcsBios::ServoOutput saiPitch(0x74e4, 9, 2400, 544);
-DcsBios::ServoOutput saiPitch(0x1028, 9, 544, 2400);
+DcsBios::ServoOutput saiPitch(0x1028, 9, 2400, 544);
 
 //----------ROLL STEPPER----------
 
@@ -204,7 +204,11 @@ public:
       // move off zero if already there so we always get movement on reset
       // (to verify that the stepper is working)
       if (SARIzeroDetected()) {
-
+        SendDebug("SARI moving off zero sense");
+        stepper.move(-300);
+        while (stepper.distanceToGo() != 0) {
+          stepper.run();
+        }
 
         stepper.runSpeed();
       } else {
@@ -253,7 +257,6 @@ public:
 
 
     if (initState == 99) {  // Timed out looking for zero do nothing
-      
     }
 
     //    digitalWrite(enablePin, HIGH);
@@ -321,7 +324,7 @@ AccelStepper SARIstepperRoll(AccelStepper::DRIVER, SARIstepPin, SARIdirectionPin
 
 // Hornet Address - 0x74e6
 // A10 Address - 0x102a
-Nema8Stepper SARIRoll(0x102a ,             // address of stepper data
+Nema8Stepper SARIRoll(0x102a,             // address of stepper data
                       SARIstepperRoll,    // name of AccelStepper instance
                       SARIstepperConfig,  // SARIStepperConfig struct instance
                       55,                 // IR Detector Pin (must be LOW in zero position)
