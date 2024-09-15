@@ -156,12 +156,12 @@ void zInitSARIStepper() {
   // Microstepping - 16 steps
   // 42HK40 1.8 degrees per step, so 200 steps per turn without microstepping
   // 3200 steps with microstepping
-  zSARIstepperRoll.moveTo(-1600 * 10);
+  zSARIstepperRoll.moveTo(-1600 * 3);
   while (zSARIstepperRoll.distanceToGo() != 0) {
     zSARIstepperRoll.run();
   }
   SendDebug("Quick loop complete");
-  delay(1000);
+
 
   zSARIzeroPosSearchStartTime = millis();
 
@@ -177,6 +177,7 @@ void zInitSARIStepper() {
   SendDebug("zSARI initState finding zero point");
   zSARIstepperRoll.setMaxSpeed(zmaxSpeed);
   zSARIstepperRoll.setAcceleration(zSARIacceleration);
+
 
   int zCurrentPos = 0;
   while (!zSARIzeroDetected()) {
@@ -197,20 +198,20 @@ void zInitSARIStepper() {
 void zSARIStepperLoop() {
 
 
-  // recalibrate when passing through zero position
-  bool zSARIcurrentZeroDetectState = zSARIzeroDetected();
-  if (!zSARIlastZeroDetectState && zSARIcurrentZeroDetectState && zSARImovingForward) {
-    // we have moved from left to right into the 'zero detect window'
-    // and are now at position 0
-    zSARIlastAccelStepperPosition = zSARIstepperRoll.currentPosition();
-    zSARIcurrentStepperPosition = zSARInormalizeStepperPosition(zSARIzeroOffset);
-  } else if (zSARIlastZeroDetectState && !zSARIcurrentZeroDetectState && !zSARImovingForward) {
-    // we have moved from right to left out of the 'zero detect window'
-    // and are now at position (SARImaxSteps-1)
-    zSARIlastAccelStepperPosition = zSARIstepperRoll.currentPosition();
-    zSARIcurrentStepperPosition = zSARInormalizeStepperPosition(zSARImaxSteps + zSARIzeroOffset);
-  }
-  zSARIlastZeroDetectState = zSARIcurrentZeroDetectState;
+  // // recalibrate when passing through zero position
+  // bool zSARIcurrentZeroDetectState = zSARIzeroDetected();
+  // if (!zSARIlastZeroDetectState && zSARIcurrentZeroDetectState && zSARImovingForward) {
+  //   // we have moved from left to right into the 'zero detect window'
+  //   // and are now at position 0
+  //   zSARIlastAccelStepperPosition = zSARIstepperRoll.currentPosition();
+  //   zSARIcurrentStepperPosition = zSARInormalizeStepperPosition(zSARIzeroOffset);
+  // } else if (zSARIlastZeroDetectState && !zSARIcurrentZeroDetectState && !zSARImovingForward) {
+  //   // we have moved from right to left out of the 'zero detect window'
+  //   // and are now at position (SARImaxSteps-1)
+  //   zSARIlastAccelStepperPosition = zSARIstepperRoll.currentPosition();
+  //   zSARIcurrentStepperPosition = zSARInormalizeStepperPosition(zSARImaxSteps + zSARIzeroOffset);
+  // }
+  // zSARIlastZeroDetectState = zSARIcurrentZeroDetectState;
 
   zSARIstepperRoll.run();
 }
@@ -219,6 +220,7 @@ void zSARIStepperLoop() {
 
 void zsetSARIStepper(long targetPosition) {
 
+  SendDebug("zSARI Rollvalue = " + String(targetPosition));
   zupdateSARIcurrentStepperPosition();
 
   long delta = targetPosition - zSARIcurrentStepperPosition;
@@ -230,9 +232,13 @@ void zsetSARIStepper(long targetPosition) {
 
   zSARImovingForward = (delta >= 0);
 
-  zSARIstepperRoll.move(delta);
-  
-  zSARIstepperRoll.run();
+  SendDebug("zSARI Roll delta = " + String(delta));
+
+
+  zSARIstepperRoll.runToNewPosition(delta);
+  delay(1000);
+
+  //zSARIstepperRoll.run();
 }
 
 void onSaiBankChange(unsigned int newValue) {
