@@ -83,9 +83,12 @@ long NEXT_STATUS_TOGGLE_TIMER = 0;
 #define Check_LED_R 12
 #define Check_LED_G 13
 
-int DCS_On = 0;
+
 int previous_DCS_State = 0;
 int DCS_State = 0;
+#define DCSIdleDelay 1000  // Delay before considering DCS is sleeping/paused/not running
+bool DCS_On = false;
+bool waitingForDCSIdle = true;
 
 long dcsMillis;
 
@@ -107,12 +110,35 @@ void sendToDcsBiosMessage(const char* msg, const char* arg) {
 }
 
 
+
+
+
 void onUpdateCounterChange(unsigned int newValue) {
   DCS_State = newValue;
 }
 DcsBios::IntegerBuffer UpdateCounterBuffer(0xfffe, 0x00ff, 0, onUpdateCounterChange);
 
 
+void checkDCSActive() {
+
+  if (DCS_State != previous_DCS_State) {
+    //restart the TIMER
+    dcsMillis = millis();
+    if ( DCS_On == false) {
+      SendDebug("DCS Moving to Active");
+    }
+    previous_DCS_State = DCS_State;
+    waitingForDCSIdle = true;
+  }
+
+
+  if (millis() - dcsMillis >= (DCSIdleDelay))  // 1 SECOND DELAY BEFORE POWER OFF STEPPERS
+  {
+    SendDebug("DCS Idle Timeout");
+    DCS_On = false;
+    waitingForDCSIdle = false;
+  }
+}
 
 
 void setup() {
@@ -164,7 +190,7 @@ void setup() {
 }
 
 
-String targetString = " 4";
+String targetString = "12";
 String currentReadingString = "";
 #define selector1Size 13
 char* selector1[] = { " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15" };
@@ -200,8 +226,8 @@ void loop() {
     bool foundCurrent = false;
     bool foundTarget = false;
     for (int i = 0; i < selector1Size; i++) {
-       SendDebug("Walking Array for current :" + String(i));
-       SendDebug(String(selector1[i]) + ":" + currentReadingString );
+      SendDebug("Walking Array for current :" + String(i));
+      SendDebug(String(selector1[i]) + ":" + currentReadingString);
       if (String(selector1[i]) == currentReadingString) {
         SendDebug("currentRadingString Postion in array :" + String(i));
         currentPos = i;
@@ -289,4 +315,5 @@ void loop() {
 
 
   DcsBios::loop();
+  checkDCSActive();
 }
