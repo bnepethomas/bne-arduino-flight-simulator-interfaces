@@ -88,7 +88,7 @@ long NEXT_STATUS_TOGGLE_TIMER = 0;
 #define DCS_CheckInterval 500  // Delay before considering DCS is sleeping/paused/not running
 bool DCS_On = false;
 long nextDCSmillisCheck = 0;
-unsigned int DCS_Counter; 
+unsigned int DCS_Counter;
 unsigned int last_DCS_Counter;
 
 
@@ -139,12 +139,12 @@ void checkDCSActive() {
         SendDebug("DCS has become inactive");
         digitalWrite(Check_LED_G, true);
       }
-      DCS_On == false;
+      DCS_On = false;
     }
 
+    last_DCS_Counter = DCS_Counter;
     nextDCSmillisCheck = millis() + DCS_CheckInterval;
   }
-  
 }
 
 void setup() {
@@ -220,55 +220,56 @@ void loop() {
 
 
 
+  if (DCS_On == true) {
+    if (currentReadingString != targetString) {
+      SendDebug("Incrementing VHF FM Frequency");
 
-  if (currentReadingString != targetString) {
-    SendDebug("Incrementing VHF FM Frequency");
+      SendDebug("Current Reading " + currentReadingString);
 
-    SendDebug("Current Reading " + currentReadingString);
-
-    int currentPos = 0;
-    int targetPos = 0;
-    int deltaPos = 0;
-    bool foundCurrent = false;
-    bool foundTarget = false;
-    for (int i = 0; i < selector1Size; i++) {
-      SendDebug("Walking Array for current :" + String(i));
-      SendDebug(String(selector1[i]) + ":" + currentReadingString);
-      if (String(selector1[i]) == currentReadingString) {
-        SendDebug("currentRadingString Postion in array :" + String(i));
-        currentPos = i;
-        foundCurrent = true;
-        break;
+      int currentPos = 0;
+      int targetPos = 0;
+      int deltaPos = 0;
+      bool foundCurrent = false;
+      bool foundTarget = false;
+      for (int i = 0; i < selector1Size; i++) {
+        SendDebug("Walking Array for current :" + String(i));
+        SendDebug(String(selector1[i]) + ":" + currentReadingString);
+        if (String(selector1[i]) == currentReadingString) {
+          SendDebug("currentRadingString Postion in array :" + String(i));
+          currentPos = i;
+          foundCurrent = true;
+          break;
+        }
       }
-    }
 
-    for (int i = 0; i < selector1Size; i++) {
-      // SendDebug("Walking Array for target :" + String(i));
-      // SendDebug(String(selector1[i]) + ":" + currentReadingString );
-      if (String(selector1[i]) == targetString) {
-        // SendDebug("targetString Postion in array :" + String(i));
-        targetPos = i;
-        foundTarget = true;
-        break;
+      for (int i = 0; i < selector1Size; i++) {
+        // SendDebug("Walking Array for target :" + String(i));
+        // SendDebug(String(selector1[i]) + ":" + currentReadingString );
+        if (String(selector1[i]) == targetString) {
+          // SendDebug("targetString Postion in array :" + String(i));
+          targetPos = i;
+          foundTarget = true;
+          break;
+        }
       }
-    }
 
-    if (foundCurrent == false) {
-      SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY");
-    }
-    if (foundTarget == false) {
-      SendDebug("WARNING UNABLE TO FIND TARGET POSITION IN ARRAY");
-    }
+      if (foundCurrent == false) {
+        SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY");
+      }
+      if (foundTarget == false) {
+        SendDebug("WARNING UNABLE TO FIND TARGET POSITION IN ARRAY");
+      }
 
-    deltaPos = targetPos - currentPos;
+      deltaPos = targetPos - currentPos;
 
-    if (deltaPos > 0) {
-      sendToDcsBiosMessage("VHFFM_FREQ1", "INC");
-    } else {
-      sendToDcsBiosMessage("VHFFM_FREQ1", "DEC");
+      if (deltaPos > 0) {
+        sendToDcsBiosMessage("VHFFM_FREQ1", "INC");
+      } else {
+        sendToDcsBiosMessage("VHFFM_FREQ1", "DEC");
+      }
+
+      SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
     }
-
-    SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
   }
   // put your main code here, to run repeatedly:
 
