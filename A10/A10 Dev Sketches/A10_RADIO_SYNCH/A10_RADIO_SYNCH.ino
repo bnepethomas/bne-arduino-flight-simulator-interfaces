@@ -84,11 +84,13 @@ long NEXT_STATUS_TOGGLE_TIMER = 0;
 #define Check_LED_G 13
 
 
-int previous_DCS_State = 0;
-int DCS_State = 0;
-#define DCSIdleDelay 1000  // Delay before considering DCS is sleeping/paused/not running
+
+#define DCS_CheckInterval 500  // Delay before considering DCS is sleeping/paused/not running
 bool DCS_On = false;
-bool waitingForDCSIdle = true;
+long nextDCSmillisCheck = 0;
+unsigned int DCS_Counter; 
+unsigned int last_DCS_Counter;
+
 
 long dcsMillis;
 
@@ -114,32 +116,36 @@ void sendToDcsBiosMessage(const char* msg, const char* arg) {
 
 
 void onUpdateCounterChange(unsigned int newValue) {
-  DCS_State = newValue;
+  DCS_Counter = newValue;
 }
 DcsBios::IntegerBuffer UpdateCounterBuffer(0xfffe, 0x00ff, 0, onUpdateCounterChange);
 
 
 void checkDCSActive() {
 
-  if (DCS_State != previous_DCS_State) {
-    //restart the TIMER
-    dcsMillis = millis();
-    if ( DCS_On == false) {
-      SendDebug("DCS Moving to Active");
+  if (millis() >= nextDCSmillisCheck) {
+
+    // onUpdateCounterChange is updaed by DCS BIOS in onUpdateCounterChange
+    if (DCS_Counter != last_DCS_Counter) {
+      // Counter has changed so DCS is alive
+      if (DCS_On == false) {
+        // We have had a transition
+        SendDebug("DCS has become active");
+        digitalWrite(Check_LED_G, false);
+      }
+      DCS_On = true;
+    } else {
+      if (DCS_On == true) {
+        SendDebug("DCS has become inactive");
+        digitalWrite(Check_LED_G, true);
+      }
+      DCS_On == false;
     }
-    previous_DCS_State = DCS_State;
-    waitingForDCSIdle = true;
-  }
 
-
-  if (millis() - dcsMillis >= (DCSIdleDelay))  // 1 SECOND DELAY BEFORE POWER OFF STEPPERS
-  {
-    SendDebug("DCS Idle Timeout");
-    DCS_On = false;
-    waitingForDCSIdle = false;
+    nextDCSmillisCheck = millis() + DCS_CheckInterval;
   }
+  
 }
-
 
 void setup() {
 
