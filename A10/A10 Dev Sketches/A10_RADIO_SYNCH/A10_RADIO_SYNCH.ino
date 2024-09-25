@@ -196,6 +196,27 @@ void setup() {
 }
 
 
+/*
+"VHFAM_PRESET", { -0.01, 0.01 }, 137, 0.01, { 0, 0.20 }, { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }, "VHF AM Radio", "Preset Channel Selector")
+"VHFAM_FREQ1",  { -0.1, 0.1 }, 143, 0.05, { 0.15, 0.80 }, { " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15" }, "VHF AM Radio", "Frequency Selector 1")
+"VHFAM_FREQ3",  { -0.1, 0.1 }, 145, 0.1, { 0, 1 }, nil, "VHF AM Radio", "Frequency Selector 3")
+"VHFAM_FREQ4", { -0.25, 0.25 }, 146, 0.25, { 0, 1 }, { "00", "25", "50", "75" }, "VHF AM Radio", "Frequency Selector 4")
+"VHFFM_PRESET", { -0.01, 0.01 }, 151, 0.01, { 0, 0.20 }, { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }, "VHF FM Radio", "Preset Channel Selector")
+"VHFFM_FREQ1", { -0.1, 0.1 }, 157, 0.05, { 0.15, 0.80 }, { " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15" }, "VHF FM Radio", "Frequency Selector 1")
+"VHFFM_FREQ2", { -0.1, 0.1 }, 158, 0.1, { 0, 1 }, nil, "VHF FM Radio", "Frequency Selector 2")
+"VHFFM_FREQ3", { -0.1, 0.1 }, 159, 0.1, { 0, 1 }, nil, "VHF FM Radio", "Frequency Selector 3")
+"VHFFM_FREQ4", { -0.25, 0.25 }, 160, 0.25, { 0, 1 }, { "00", "25", "50", "75" }, "VHF FM Radio", "Frequency Selector 4")
+
+
+"UHF_PRESET_SEL", { 0, 1 }, { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }, false, "UHF Radio", "UHF Preset Channel Selector")
+"UHF_100MHZ_SEL", { 0, 0.2 }, { "2", "3", "A" }, false, "UHF Radio", "UHF 100MHz Selector")
+"UHF_10MHZ_SEL", { 0, 0.9 }, nil, false, "UHF Radio", "UHF 10MHz Selector")
+"UHF_1MHZ_SEL", { 0, 0.9 }, nil, false, "UHF Radio", "UHF 1MHz Selector")
+"UHF_POINT1MHZ_SEL", { 0, 0.9 }, nil, false, "UHF Radio", "UHF 0.1MHz Selector")
+"UHF_POINT25_SEL", { 0, 0.3 }, { "00", "25", "50", "75" }, false, "UHF Radio", "UHF 0.25MHz Selector")
+
+*/
+
 String targetString = "12";
 String currentReadingString = "";
 #define selector1Size 13
