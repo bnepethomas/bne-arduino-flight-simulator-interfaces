@@ -85,7 +85,7 @@ long NEXT_STATUS_TOGGLE_TIMER = 0;
 
 
 
-#define DCS_CheckInterval 500  // Delay before considering DCS is sleeping/paused/not running
+#define DCS_CheckInterval 100  // Delay before considering DCS is sleeping/paused/not running
 bool DCS_On = false;
 long nextDCSmillisCheck = 0;
 unsigned int DCS_Counter;
