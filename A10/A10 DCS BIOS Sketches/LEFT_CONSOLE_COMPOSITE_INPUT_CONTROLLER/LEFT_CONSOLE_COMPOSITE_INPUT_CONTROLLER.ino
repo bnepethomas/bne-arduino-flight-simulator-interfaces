@@ -501,6 +501,7 @@ void setup() {
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
+  digitalWrite(Check_LED_G, false);
 }
 
 
@@ -606,6 +607,43 @@ void sendToDcsBiosMessage(const char *msg, const char *arg) {
 }
 
 
+#define DCS_CheckInterval 100  // Delay before considering DCS is sleeping/paused/not running
+bool DCS_On = false;
+long nextDCSmillisCheck = 0;
+unsigned int DCS_Counter;
+unsigned int last_DCS_Counter;
+
+void onUpdateCounterChange(unsigned int newValue) {
+  DCS_Counter = newValue;
+}
+DcsBios::IntegerBuffer UpdateCounterBuffer(0xfffe, 0x00ff, 0, onUpdateCounterChange);
+
+
+void checkDCSActive() {
+
+  if (millis() >= nextDCSmillisCheck) {
+
+    // onUpdateCounterChange is updaed by DCS BIOS in onUpdateCounterChange
+    if (DCS_Counter != last_DCS_Counter) {
+      // Counter has changed so DCS is alive
+      if (DCS_On == false) {
+        // We have had a transition
+        SendDebug("DCS has become active");
+        digitalWrite(Check_LED_G, true);
+      }
+      DCS_On = true;
+    } else {
+      if (DCS_On == true) {
+        SendDebug("DCS has become inactive");
+        digitalWrite(Check_LED_G, false);
+      }
+      DCS_On = false;
+    }
+
+    last_DCS_Counter = DCS_Counter;
+    nextDCSmillisCheck = millis() + DCS_CheckInterval;
+  }
+}
 
 int CurrentVHFPreset = 1;
 int LastVHFPresetSwitchPos = 1;
@@ -634,7 +672,7 @@ void setVHFPreset(int PresetSwitchPos) {
     IncrementPos = true;
   } else if (LastVHFPresetSwitchPos == 1 && PresetSwitchPos == 6) {
     DecrementPos = true;
-  // Now deal with general cases
+    // Now deal with general cases
   } else if (PresetSwitchPos > LastVHFPresetSwitchPos) {
     IncrementPos = true;
   } else if (PresetSwitchPos < LastVHFPresetSwitchPos) {
@@ -650,8 +688,95 @@ void setVHFPreset(int PresetSwitchPos) {
   update_VHF_AM_PRESET(String(CurrentVHFPreset));
 }
 
+/*
+"VHFAM_PRESET", { -0.01, 0.01 }, 137, 0.01, { 0, 0.20 }, { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }, "VHF AM Radio", "Preset Channel Selector")
+"VHFAM_FREQ1",  { -0.1, 0.1 }, 143, 0.05, { 0.15, 0.80 }, { " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15" }, "VHF AM Radio", "Frequency Selector 1")
+where is freq2?
+"VHFAM_FREQ3",  { -0.1, 0.1 }, 145, 0.1, { 0, 1 }, nil, "VHF AM Radio", "Frequency Selector 3")
+"VHFAM_FREQ4", { -0.25, 0.25 }, 146, 0.25, { 0, 1 }, { "00", "25", "50", "75" }, "VHF AM Radio", "Frequency Selector 4")
+"VHFFM_PRESET", { -0.01, 0.01 }, 151, 0.01, { 0, 0.20 }, { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }, "VHF FM Radio", "Preset Channel Selector")
+"VHFFM_FREQ1", { -0.1, 0.1 }, 157, 0.05, { 0.15, 0.80 }, { " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15" }, "VHF FM Radio", "Frequency Selector 1")
+"VHFFM_FREQ2", { -0.1, 0.1 }, 158, 0.1, { 0, 1 }, nil, "VHF FM Radio", "Frequency Selector 2")
+"VHFFM_FREQ3", { -0.1, 0.1 }, 159, 0.1, { 0, 1 }, nil, "VHF FM Radio", "Frequency Selector 3")
+"VHFFM_FREQ4", { -0.25, 0.25 }, 160, 0.25, { 0, 1 }, { "00", "25", "50", "75" }, "VHF FM Radio", "Frequency Selector 4")
 
 
+"UHF_PRESET_SEL", { 0, 1 }, { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }, false, "UHF Radio", "UHF Preset Channel Selector")
+"UHF_100MHZ_SEL", { 0, 0.2 }, { "2", "3", "A" }, false, "UHF Radio", "UHF 100MHz Selector")
+"UHF_10MHZ_SEL", { 0, 0.9 }, nil, false, "UHF Radio", "UHF 10MHz Selector")
+"UHF_1MHZ_SEL", { 0, 0.9 }, nil, false, "UHF Radio", "UHF 1MHz Selector")
+"UHF_POINT1MHZ_SEL", { 0, 0.9 }, nil, false, "UHF Radio", "UHF 0.1MHz Selector")
+"UHF_POINT25_SEL", { 0, 0.3 }, { "00", "25", "50", "75" }, false, "UHF Radio", "UHF 0.25MHz Selector")
+
+*/
+
+String targetVhffmFreq1String = "12";
+String currentVhffmFreq1String = "";
+#define selectorVhffmFreq1SIZE 13
+char *selectorVhffmFreq1[] = { " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15" };
+
+void onVhffmFreq1Change(char *newValue) {
+  SendDebug("VHF FM Frequency Change");
+  currentVhffmFreq1String = String(newValue);
+
+}
+DcsBios::StringBuffer<2> vhffmFreq1StrBuffer(0x119a, onVhffmFreq1Change);
+
+void checkVHFFMFreq1() {
+  if (currentVhffmFreq1String != targetVhffmFreq1String) {
+    SendDebug("Incrementing VHF FM Frequency");
+
+    SendDebug("Current currentVhffmFreq1String " + currentVhffmFreq1String);
+
+    int currentPos = 0;
+    int targetPos = 0;
+    int deltaPos = 0;
+    bool foundCurrent = false;
+    bool foundTarget = false;
+    for (int i = 0; i < selectorVhffmFreq1SIZE; i++) {
+      SendDebug("Walking Array for current :" + String(i));
+      SendDebug(String(selectorVhffmFreq1[i]) + ":" + currentVhffmFreq1String);
+      if (String(selectorVhffmFreq1[i]) == currentVhffmFreq1String) {
+        SendDebug("currentRadingString Postion in array :" + String(i));
+        currentPos = i;
+        foundCurrent = true;
+        break;
+      }
+    }
+
+    for (int i = 0; i < selectorVhffmFreq1SIZE; i++) {
+      // SendDebug("Walking Array for target :" + String(i));
+      // SendDebug(String(selectorVhffmFreq1[i]) + ":" + currentVhffmFreq1String );
+      if (String(selectorVhffmFreq1[i]) == targetVhffmFreq1String) {
+        // SendDebug("targetVhffmFreq1String Postion in array :" + String(i));
+        targetPos = i;
+        foundTarget = true;
+        break;
+      }
+    }
+
+    if (foundCurrent == false) {
+      SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY");
+    }
+    if (foundTarget == false) {
+      SendDebug("WARNING UNABLE TO FIND TARGET POSITION IN ARRAY");
+    }
+
+    deltaPos = targetPos - currentPos;
+
+    if (deltaPos > 0) {
+      sendToDcsBiosMessage("VHFFM_FREQ1", "INC");
+    } else {
+      sendToDcsBiosMessage("VHFFM_FREQ1", "DEC");
+    }
+
+    SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
+  }
+}
+
+void checkRadios() {
+  checkVHFFMFreq1();
+}
 
 void createDcsBiosMessage(int ind, int state) {
 
@@ -660,8 +785,11 @@ void createDcsBiosMessage(int ind, int state) {
     case 1:
       switch (ind) {
         case 0:
+          SendDebug("VHF first switch");
+          sendToDcsBiosMessage("VHFFM_FREQ1", "5");
           break;
         case 1:
+          targetVhffmFreq1String = " 8";
           break;
         case 2:
           break;
@@ -687,8 +815,11 @@ void createDcsBiosMessage(int ind, int state) {
         case 11:
           break;
         case 12:
+          SendDebug("VHF second switch");
+          sendDcsBiosMessage("VHFFM_FREQ1", "6");
           break;
         case 13:
+          targetVhffmFreq1String = " 9";
           break;
         case 14:
           break;
@@ -717,6 +848,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 25:
+          targetVhffmFreq1String = "10";
           break;
         case 26:
           break;
@@ -1531,7 +1663,7 @@ void loop() {
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     RED_LED_STATE = !RED_LED_STATE;
-    digitalWrite(Check_LED_G, RED_LED_STATE);
+    // digitalWrite(Check_LED_G, RED_LED_STATE);
     digitalWrite(Check_LED_R, !RED_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
@@ -1642,7 +1774,13 @@ void loop() {
     }
   }
 
+
+  if (DCS_On == true) {
+    checkRadios();
+  }
+
   currentMillis = millis();
+  checkDCSActive();
 }
 
 void CaseTemplate() {

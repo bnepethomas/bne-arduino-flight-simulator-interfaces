@@ -131,13 +131,13 @@ void checkDCSActive() {
       if (DCS_On == false) {
         // We have had a transition
         SendDebug("DCS has become active");
-        digitalWrite(Check_LED_G, false);
+        digitalWrite(Check_LED_G, true);
       }
       DCS_On = true;
     } else {
       if (DCS_On == true) {
         SendDebug("DCS has become inactive");
-        digitalWrite(Check_LED_G, true);
+        digitalWrite(Check_LED_G, false);
       }
       DCS_On = false;
     }
@@ -178,7 +178,7 @@ void setup() {
     }
 
     SendDebug("Ethernet Started");
-    SendDebug("A10_RADIO_SYNCH 20240727");
+    SendDebug("A10_RADIO_SYNCH 20240927");
   }
 
 
@@ -193,12 +193,14 @@ void setup() {
   SendDebug("DCS BIOS Setup Started");
   DcsBios::setup();
   SendDebug("DCS BIOS Setup Complete");
+  digitalWrite(Check_LED_G, false);
 }
 
 
 /*
 "VHFAM_PRESET", { -0.01, 0.01 }, 137, 0.01, { 0, 0.20 }, { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }, "VHF AM Radio", "Preset Channel Selector")
 "VHFAM_FREQ1",  { -0.1, 0.1 }, 143, 0.05, { 0.15, 0.80 }, { " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15" }, "VHF AM Radio", "Frequency Selector 1")
+where is freq2?
 "VHFAM_FREQ3",  { -0.1, 0.1 }, 145, 0.1, { 0, 1 }, nil, "VHF AM Radio", "Frequency Selector 3")
 "VHFAM_FREQ4", { -0.25, 0.25 }, 146, 0.25, { 0, 1 }, { "00", "25", "50", "75" }, "VHF AM Radio", "Frequency Selector 4")
 "VHFFM_PRESET", { -0.01, 0.01 }, 151, 0.01, { 0, 0.20 }, { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" }, "VHF FM Radio", "Preset Channel Selector")
