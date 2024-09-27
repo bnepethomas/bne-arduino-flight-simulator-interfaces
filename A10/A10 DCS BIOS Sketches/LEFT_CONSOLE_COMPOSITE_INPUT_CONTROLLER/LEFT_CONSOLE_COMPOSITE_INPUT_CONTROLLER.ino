@@ -273,9 +273,10 @@ void tcaselect(uint8_t i) {
 // U8G2_SSD1309_128X64_NONAME2_F_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
 // Working 0.96" inch OLED display - ALSO WORKS WITH SSD1309 2.42" DISPLAY
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2_VHF_AM_PRESET(U8G2_R0, U8X8_PIN_NONE);
-
+U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2_VHF_FM_PRESET(U8G2_R0, U8X8_PIN_NONE);
 
 #define VHF_AM_OLED_Port 2
+#define VHF_FM_OLED_Port 3
 
 // ############################### END GRAPHIC OLED RELATED ####################################################
 
@@ -397,6 +398,21 @@ void update_VHF_AM_PRESET_OLED(String strnewValue) {
   u8g2_VHF_AM_PRESET.sendBuffer();
 }
 
+void update_VHF_FM_PRESET_OLED(String strnewValue) {
+
+  const char *newValue = strnewValue.c_str();
+  tcaselect(VHF_FM_OLED_Port);
+
+  // Clear existing text by drawing a black box
+  u8g2_VHF_FM_PRESET.setFontMode(0);
+  u8g2_VHF_FM_PRESET.setDrawColor(0);
+  u8g2_VHF_FM_PRESET.drawBox(0, 0, 127, 63);
+
+  u8g2_VHF_FM_PRESET.setDrawColor(1);
+  u8g2_VHF_FM_PRESET.setFontDirection(0);
+  u8g2_VHF_FM_PRESET.drawStr(0, 60, newValue);
+  u8g2_VHF_FM_PRESET.sendBuffer();
+}
 
 
 void SendDebug(String MessageToSend) {
@@ -471,7 +487,17 @@ void setup() {
   // u8g2_VHF_AM_PRESET.setFont(u8g2_font_7Segments_26x42);
   u8g2_VHF_AM_PRESET.sendBuffer();
   tcaselect(VHF_AM_OLED_Port);
-  update_VHF_AM_PRESET_OLED("10");
+  update_VHF_AM_PRESET_OLED("1");
+
+  tcaselect(VHF_FM_OLED_Port);
+  u8g2_VHF_FM_PRESET.begin();
+  u8g2_VHF_FM_PRESET.clearBuffer();
+  //u8g2_VHF_FM_PRESET.setFont(u8g2_font_logisoso16_tn);
+  u8g2_VHF_FM_PRESET.setFont(u8g2_font_logisoso58_tn);
+  // u8g2_VHF_FM_PRESET.setFont(u8g2_font_7Segments_26x42);
+  u8g2_VHF_FM_PRESET.sendBuffer();
+  tcaselect(VHF_FM_OLED_Port);
+  update_VHF_FM_PRESET_OLED("2");
 
 
   // Set the output ports to output
@@ -689,6 +715,53 @@ void setVHFAMPreset(int PresetSwitchPos) {
   update_VHF_AM_PRESET_OLED(String(CurrentVHFAMPreset));
   update_VHF_AM_PRESET_TARGET(CurrentVHFAMPreset);
   // targetVhffmPresetString = String(CurrentVHFAMPreset);
+}
+
+
+int CurrentVHFFMPreset = 1;
+int LastVHFFMPresetSwitchPos = 1;
+
+void setVHFFMPreset(int PresetSwitchPos) {
+
+  /*
+  VHF Preset in the A10 has positions 1 to 24. To give a similar
+  feel, the 12 position rotary switch has had its stop removed
+  so it can rotate with stops.  The logic takes the positions
+  3,15,27,39,52,63 and provides an encoder like experience. These
+  map to positions 1 to 6
+
+  Once the preset value hits the limits it will no longer
+  decrement or increment.
+
+  LastVHFAMPresetSwitchPos is the physical 'encoder' position
+  as opposed to the CurrentVHFAMPreset which is the Sims position
+
+  */
+
+  bool IncrementPos = false;
+  bool DecrementPos = false;
+
+  // First deal with exceptions
+  if (LastVHFFMPresetSwitchPos == 6 && PresetSwitchPos == 1) {
+    IncrementPos = true;
+  } else if (LastVHFFMPresetSwitchPos == 1 && PresetSwitchPos == 6) {
+    DecrementPos = true;
+    // Now deal with general cases
+  } else if (PresetSwitchPos > LastVHFFMPresetSwitchPos) {
+    IncrementPos = true;
+  } else if (PresetSwitchPos < LastVHFFMPresetSwitchPos) {
+    DecrementPos = true;
+  }
+  LastVHFFMPresetSwitchPos = PresetSwitchPos;
+
+  if (CurrentVHFFMPreset < 20 && IncrementPos == true)
+    CurrentVHFFMPreset++;
+  else if ((CurrentVHFFMPreset > 1 && DecrementPos == true))
+    CurrentVHFFMPreset--;
+
+  update_VHF_FM_PRESET_OLED(String(CurrentVHFFMPreset));
+  update_VHF_FM_PRESET_TARGET(CurrentVHFFMPreset);
+
 }
 
 /*
@@ -1249,7 +1322,7 @@ void checkVHFAMFreq3() {
 // ##################################################################################################
 
 // ##################################################################################################
-String targetVhfamFreq4String = "00";
+String targetVhfamFreq4String = "0";
 String currentVhfamFreq4String = "";
 #define selectorVhfamFreq4SIZE 4
 char *selectorVhfamFreq4[] = { "0", "1", "2", "3" };
@@ -1317,7 +1390,7 @@ void checkVHFAMFreq4() {
 
 
 // ##################################################################################################
-String targetVhfamPresetString = "10";
+String targetVhfamPresetString = " 1";
 String currentVhfamPresetString = "";
 #define selectorVhfamPresetSIZE 20
 char *selectorVhfamPreset[] = { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" };
@@ -1402,6 +1475,14 @@ void update_VHF_AM_PRESET_TARGET(int target) {
     targetVhfamPresetString = " " + String(target);
   } else {
     targetVhfamPresetString = String(target);
+  }
+}
+
+void update_VHF_FM_PRESET_TARGET(int target) {
+  if (target <= 9) {
+    targetVhffmPresetString = " " + String(target);
+  } else {
+    targetVhffmPresetString = String(target);
   }
 }
 
