@@ -723,7 +723,7 @@ DcsBios::StringBuffer<2> vhffmFreq1StrBuffer(0x119a, onVhffmFreq1Change);
 
 void checkVHFFMFreq1() {
   if (currentVhffmFreq1String != targetVhffmFreq1String) {
-    SendDebug("Incrementing VHF FM Frequency");
+    SendDebug("Incrementing currentVhffmFreq1Stringy");
 
     SendDebug("Current currentVhffmFreq1String " + currentVhffmFreq1String);
 
@@ -773,8 +773,73 @@ void checkVHFFMFreq1() {
   }
 }
 
+
+String targetVhffmFreq2String = "0";
+String currentVhffmFreq2String = "";
+#define selectorVhffmFreq2SIZE 10
+char *selectorVhffmFreq2[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+
+void onVhffmFreq2Change(unsigned int newValue) {
+  SendDebug("VHF FM Frequency 2 Change");
+  currentVhffmFreq2String = String(newValue);
+  }DcsBios::IntegerBuffer vhffmFreq2Buffer(0x119c, 0x000f, 0, onVhffmFreq2Change);
+
+void checkVHFFMFreq2() {
+  if (currentVhffmFreq2String != targetVhffmFreq2String) {
+    SendDebug("Incrementing currentVhffmFreq2Stringy");
+
+    SendDebug("Current currentVhffmFreq2String " + currentVhffmFreq2String);
+
+    int currentPos = 0;
+    int targetPos = 0;
+    int deltaPos = 0;
+    bool foundCurrent = false;
+    bool foundTarget = false;
+    for (int i = 0; i < selectorVhffmFreq2SIZE; i++) {
+      SendDebug("Walking Array for current :" + String(i));
+      SendDebug(String(selectorVhffmFreq2[i]) + ":" + currentVhffmFreq2String);
+      if (String(selectorVhffmFreq2[i]) == currentVhffmFreq2String) {
+        SendDebug("currentRadingString Postion in array :" + String(i));
+        currentPos = i;
+        foundCurrent = true;
+        break;
+      }
+    }
+
+    for (int i = 0; i < selectorVhffmFreq2SIZE; i++) {
+      // SendDebug("Walking Array for target :" + String(i));
+      // SendDebug(String(selectorVhffmFreq1[i]) + ":" + currentVhffmFreq2String );
+      if (String(selectorVhffmFreq2[i]) == targetVhffmFreq2String) {
+        // SendDebug("targetVhffmFreq2String Postion in array :" + String(i));
+        targetPos = i;
+        foundTarget = true;
+        break;
+      }
+    }
+
+    if (foundCurrent == false) {
+      SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY");
+    }
+    if (foundTarget == false) {
+      SendDebug("WARNING UNABLE TO FIND TARGET POSITION IN ARRAY");
+    }
+
+    deltaPos = targetPos - currentPos;
+
+    if (deltaPos > 0) {
+      sendToDcsBiosMessage("VHFFM_FREQ2", "INC");
+    } else {
+      sendToDcsBiosMessage("VHFFM_FREQ2", "DEC");
+    }
+
+    SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
+  }
+}
+
 void checkRadios() {
   checkVHFFMFreq1();
+  checkVHFFMFreq2();
 }
 
 void createDcsBiosMessage(int ind, int state) {
@@ -787,6 +852,7 @@ void createDcsBiosMessage(int ind, int state) {
           targetVhffmFreq1String = " 3";
           break;
         case 1:
+        targetVhffmFreq2String = "0";
           break;
         case 2:
           break;
@@ -815,6 +881,7 @@ void createDcsBiosMessage(int ind, int state) {
           targetVhffmFreq1String = " 4";
           break;
         case 13:
+        targetVhffmFreq2String = "1";
           break;
         case 14:
           break;
@@ -844,6 +911,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 25:
+        targetVhffmFreq2String = "2";
           break;
         case 26:
           break;
