@@ -381,7 +381,7 @@ void send_string(const char *String) {
 
 
 
-void update_VHF_AM_PRESET(String strnewValue) {
+void update_VHF_AM_PRESET_OLED(String strnewValue) {
 
   const char *newValue = strnewValue.c_str();
   tcaselect(VHF_AM_OLED_Port);
@@ -471,7 +471,7 @@ void setup() {
   // u8g2_VHF_AM_PRESET.setFont(u8g2_font_7Segments_26x42);
   u8g2_VHF_AM_PRESET.sendBuffer();
   tcaselect(VHF_AM_OLED_Port);
-  update_VHF_AM_PRESET("10");
+  update_VHF_AM_PRESET_OLED("10");
 
 
   // Set the output ports to output
@@ -680,12 +680,14 @@ void setVHFPreset(int PresetSwitchPos) {
   }
   LastVHFPresetSwitchPos = PresetSwitchPos;
 
-  if (CurrentVHFPreset < 24 && IncrementPos == true)
+  if (CurrentVHFPreset < 20 && IncrementPos == true)
     CurrentVHFPreset++;
   else if ((CurrentVHFPreset > 1 && DecrementPos == true))
     CurrentVHFPreset--;
 
-  update_VHF_AM_PRESET(String(CurrentVHFPreset));
+  update_VHF_AM_PRESET_OLED(String(CurrentVHFPreset));
+  update_VHF_AM_PRESET_TARGET(CurrentVHFPreset);
+  // targetVhffmPresetString = String(CurrentVHFPreset);
 }
 
 /*
@@ -919,7 +921,8 @@ char *selectorVhffmFreq4[] = { "0", "1", "2", "3" };
 void onVhffmFreq4Change(unsigned int newValue) {
   SendDebug("VHF FM Frequency 4 Change");
   currentVhffmFreq4String = String(newValue);
-}DcsBios::IntegerBuffer vhffmFreq4Buffer(0x119c, 0x0300, 8, onVhffmFreq4Change);
+}
+DcsBios::IntegerBuffer vhffmFreq4Buffer(0x119c, 0x0300, 8, onVhffmFreq4Change);
 
 
 void checkVHFFMFreq4() {
@@ -976,15 +979,16 @@ void checkVHFFMFreq4() {
 
 
 // ##################################################################################################
-String targetVhffmPresetString = " 4";
+String targetVhffmPresetString = " 1";
 String currentVhffmPresetString = "";
 #define selectorVhffmPresetSIZE 20
 char *selectorVhffmPreset[] = { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" };
 
-void onVhffmPresetChange(char* newValue) {
+void onVhffmPresetChange(char *newValue) {
   currentVhffmPresetString = String(newValue);
   SendDebug("VHF FM Preset Change :" + currentVhffmPresetString);
-}DcsBios::StringBuffer<2> vhffmPresetStrBuffer(0x1196, onVhffmPresetChange);
+}
+DcsBios::StringBuffer<2> vhffmPresetStrBuffer(0x1196, onVhffmPresetChange);
 
 void checkVHFFMPreset() {
   if (currentVhffmPresetString != targetVhffmPresetString) {
@@ -1016,7 +1020,7 @@ void checkVHFFMPreset() {
       }
     }
 
-   if (foundCurrent == false) {
+    if (foundCurrent == false) {
       SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY TARGET IS :" + targetVhffmPresetString);
     }
     if (foundTarget == false) {
@@ -1027,8 +1031,10 @@ void checkVHFFMPreset() {
 
     if (deltaPos > 0) {
       sendToDcsBiosMessage("VHFFM_PRESET", "INC");
+      delay(50);
     } else {
       sendToDcsBiosMessage("VHFFM_PRESET", "DEC");
+      delay(50);
     }
 
     SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
@@ -1045,6 +1051,15 @@ void checkRadios() {
   checkVHFFMFreq4();
   checkVHFFMPreset();
 }
+
+void update_VHF_AM_PRESET_TARGET(int target) {
+  if (target <= 9) {
+    targetVhffmPresetString = " " + String(target);
+  } else {
+    targetVhffmPresetString =  String(target);
+  }
+}
+
 
 void createDcsBiosMessage(int ind, int state) {
 
@@ -1408,7 +1423,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 143:
           break;
         case 144:
-        targetVhffmFreq4String = "0";
+          targetVhffmFreq4String = "0";
           break;
         case 145:
           break;
@@ -1435,7 +1450,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 155:
           break;
         case 156:
-        targetVhffmFreq4String = "1";
+          targetVhffmFreq4String = "1";
           break;
         case 157:
           break;
@@ -1462,7 +1477,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 167:
           break;
         case 168:
-        targetVhffmFreq4String = "2";
+          targetVhffmFreq4String = "2";
           break;
         case 169:
           break;
@@ -1490,7 +1505,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 180:
-        targetVhffmFreq4String = "3";
+          targetVhffmFreq4String = "3";
           break;
         case 181:
           break;
