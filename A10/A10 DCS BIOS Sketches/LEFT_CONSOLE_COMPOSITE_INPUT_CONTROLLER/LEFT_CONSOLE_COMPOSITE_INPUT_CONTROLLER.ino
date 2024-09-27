@@ -718,7 +718,6 @@ char *selectorVhffmFreq1[] = { " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "
 void onVhffmFreq1Change(char *newValue) {
   SendDebug("VHF FM Frequency Change");
   currentVhffmFreq1String = String(newValue);
-
 }
 DcsBios::StringBuffer<2> vhffmFreq1StrBuffer(0x119a, onVhffmFreq1Change);
 
@@ -785,11 +784,9 @@ void createDcsBiosMessage(int ind, int state) {
     case 1:
       switch (ind) {
         case 0:
-          SendDebug("VHF first switch");
-          sendToDcsBiosMessage("VHFFM_FREQ1", "5");
+          targetVhffmFreq1String = " 3";
           break;
         case 1:
-          targetVhffmFreq1String = " 8";
           break;
         case 2:
           break;
@@ -815,11 +812,9 @@ void createDcsBiosMessage(int ind, int state) {
         case 11:
           break;
         case 12:
-          SendDebug("VHF second switch");
-          sendDcsBiosMessage("VHFFM_FREQ1", "6");
+          targetVhffmFreq1String = " 4";
           break;
         case 13:
-          targetVhffmFreq1String = " 9";
           break;
         case 14:
           break;
@@ -845,10 +840,10 @@ void createDcsBiosMessage(int ind, int state) {
         case 23:
           break;
         case 24:
+          targetVhffmFreq1String = " 5";
           break;
         // CLOSE
         case 25:
-          targetVhffmFreq1String = "10";
           break;
         case 26:
           break;
@@ -874,6 +869,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 35:
           break;
         case 36:
+          targetVhffmFreq1String = " 6";
           break;
         case 37:
           break;
@@ -901,6 +897,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 47:
           break;
         case 48:
+          targetVhffmFreq1String = " 7";
           break;
         case 49:
           break;
@@ -930,6 +927,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 60:
+          targetVhffmFreq1String = " 8";
           break;
         case 61:
           break;
@@ -957,6 +955,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 71:
           break;
         case 72:
+          targetVhffmFreq1String = " 9";
           break;
         case 73:
           break;
@@ -983,6 +982,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 83:
           break;
         case 84:
+          targetVhffmFreq1String = "10";
           break;
         // CLOSE
         case 85:
@@ -1010,6 +1010,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 95:
           break;
         case 96:
+          targetVhffmFreq1String = "11";
           break;
         case 97:
           break;
@@ -1036,6 +1037,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 107:
           break;
         case 108:
+          targetVhffmFreq1String = "12";
           break;
         case 109:
           break;
@@ -1063,6 +1065,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 120:
+          targetVhffmFreq1String = "13";
           break;
         case 121:
           break;
@@ -1089,6 +1092,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 131:
           break;
         case 132:
+          targetVhffmFreq1String = "14";
           break;
         case 133:
           break;
