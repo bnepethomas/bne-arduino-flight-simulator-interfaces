@@ -645,8 +645,8 @@ void checkDCSActive() {
   }
 }
 
-int CurrentVHFPreset = 1;
-int LastVHFPresetSwitchPos = 1;
+int CurrentVHFAMPreset = 1;
+int LastVHFAMPresetSwitchPos = 1;
 
 void setVHFAMPreset(int PresetSwitchPos) {
 
@@ -660,8 +660,8 @@ void setVHFAMPreset(int PresetSwitchPos) {
   Once the preset value hits the limits it will no longer
   decrement or increment.
 
-  LastVHFPresetSwitchPos is the physical 'encoder' position
-  as opposed to the CurrentVHFPreset which is the Sims position
+  LastVHFAMPresetSwitchPos is the physical 'encoder' position
+  as opposed to the CurrentVHFAMPreset which is the Sims position
 
   */
 
@@ -669,26 +669,26 @@ void setVHFAMPreset(int PresetSwitchPos) {
   bool DecrementPos = false;
 
   // First deal with exceptions
-  if (LastVHFPresetSwitchPos == 6 && PresetSwitchPos == 1) {
+  if (LastVHFAMPresetSwitchPos == 6 && PresetSwitchPos == 1) {
     IncrementPos = true;
-  } else if (LastVHFPresetSwitchPos == 1 && PresetSwitchPos == 6) {
+  } else if (LastVHFAMPresetSwitchPos == 1 && PresetSwitchPos == 6) {
     DecrementPos = true;
     // Now deal with general cases
-  } else if (PresetSwitchPos > LastVHFPresetSwitchPos) {
+  } else if (PresetSwitchPos > LastVHFAMPresetSwitchPos) {
     IncrementPos = true;
-  } else if (PresetSwitchPos < LastVHFPresetSwitchPos) {
+  } else if (PresetSwitchPos < LastVHFAMPresetSwitchPos) {
     DecrementPos = true;
   }
-  LastVHFPresetSwitchPos = PresetSwitchPos;
+  LastVHFAMPresetSwitchPos = PresetSwitchPos;
 
-  if (CurrentVHFPreset < 20 && IncrementPos == true)
-    CurrentVHFPreset++;
-  else if ((CurrentVHFPreset > 1 && DecrementPos == true))
-    CurrentVHFPreset--;
+  if (CurrentVHFAMPreset < 20 && IncrementPos == true)
+    CurrentVHFAMPreset++;
+  else if ((CurrentVHFAMPreset > 1 && DecrementPos == true))
+    CurrentVHFAMPreset--;
 
-  update_VHF_AM_PRESET_OLED(String(CurrentVHFPreset));
-  update_VHF_AM_PRESET_TARGET(CurrentVHFPreset);
-  // targetVhffmPresetString = String(CurrentVHFPreset);
+  update_VHF_AM_PRESET_OLED(String(CurrentVHFAMPreset));
+  update_VHF_AM_PRESET_TARGET(CurrentVHFAMPreset);
+  // targetVhffmPresetString = String(CurrentVHFAMPreset);
 }
 
 /*
@@ -712,6 +712,8 @@ where is freq2?
 "UHF_POINT25_SEL", { 0, 0.3 }, { "00", "25", "50", "75" }, false, "UHF Radio", "UHF 0.25MHz Selector")
 
 */
+
+#define delayAfterSendingInstruction 50
 
 String targetVhffmFreq1String = "12";
 String currentVhffmFreq1String = "";
@@ -912,7 +914,7 @@ void checkVHFFMFreq3() {
 // ##################################################################################################
 
 // ##################################################################################################
-String targetVhffmFreq4String = "00";
+String targetVhffmFreq4String = "0";
 String currentVhffmFreq4String = "";
 #define selectorVhffmFreq4SIZE 4
 char *selectorVhffmFreq4[] = { "0", "1", "2", "3" };
@@ -920,8 +922,9 @@ char *selectorVhffmFreq4[] = { "0", "1", "2", "3" };
 
 
 void onVhffmFreq4Change(unsigned int newValue) {
-  SendDebug("VHF FM Frequency 4 Change");
+
   currentVhffmFreq4String = String(newValue);
+  SendDebug("VHF FM Frequency 4 Change :" + currentVhffmFreq4String);
 }
 DcsBios::IntegerBuffer vhffmFreq4Buffer(0x119c, 0x0300, 8, onVhffmFreq4Change);
 
@@ -967,8 +970,10 @@ void checkVHFFMFreq4() {
 
     if (deltaPos > 0) {
       sendToDcsBiosMessage("VHFFM_FREQ4", "INC");
+      delay(delayAfterSendingInstruction);
     } else {
       sendToDcsBiosMessage("VHFFM_FREQ4", "DEC");
+      delay(delayAfterSendingInstruction);
     }
 
     SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
@@ -1032,10 +1037,10 @@ void checkVHFFMPreset() {
 
     if (deltaPos > 0) {
       sendToDcsBiosMessage("VHFFM_PRESET", "INC");
-      delay(50);
+      delay(delayAfterSendingInstruction);
     } else {
       sendToDcsBiosMessage("VHFFM_PRESET", "DEC");
-      delay(50);
+      delay(delayAfterSendingInstruction);
     }
 
     SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
@@ -1045,19 +1050,358 @@ void checkVHFFMPreset() {
 // ##################################################################################################
 
 
+String targetVhfamFreq1String = "12";
+String currentVhfamFreq1String = "";
+#define selectorVhfamFreq1SIZE 13
+char *selectorVhfamFreq1[] = { " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15" };
+
+void onVhfamFreq1Change(char *newValue) {
+  SendDebug("VHF AM Frequency Change");
+  currentVhfamFreq1String = String(newValue);
+}
+DcsBios::StringBuffer<2> vhfamFreq1StrBuffer(0x1190, onVhfamFreq1Change);
+
+void checkVHFAMFreq1() {
+  if (currentVhfamFreq1String != targetVhfamFreq1String) {
+    SendDebug("Incrementing currentVhfamFreq1String");
+
+    SendDebug("Current currentVhfamFreq1String " + currentVhfamFreq1String);
+
+    int currentPos = 0;
+    int targetPos = 0;
+    int deltaPos = 0;
+    bool foundCurrent = false;
+    bool foundTarget = false;
+    for (int i = 0; i < selectorVhfamFreq1SIZE; i++) {
+      SendDebug("Walking Array for current :" + String(i));
+      SendDebug(String(selectorVhfamFreq1[i]) + ":" + currentVhfamFreq1String);
+      if (String(selectorVhfamFreq1[i]) == currentVhfamFreq1String) {
+        SendDebug("currentRadingString Postion in array :" + String(i));
+        currentPos = i;
+        foundCurrent = true;
+        break;
+      }
+    }
+
+    for (int i = 0; i < selectorVhfamFreq1SIZE; i++) {
+      // SendDebug("Walking Array for target :" + String(i));
+      // SendDebug(String(selectorVhfamFreq1[i]) + ":" + currentVhfamFreq1String );
+      if (String(selectorVhfamFreq1[i]) == targetVhfamFreq1String) {
+        // SendDebug("targetVhfamFreq1String Postion in array :" + String(i));
+        targetPos = i;
+        foundTarget = true;
+        break;
+      }
+    }
+
+    if (foundCurrent == false) {
+      SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY");
+    }
+    if (foundTarget == false) {
+      SendDebug("WARNING UNABLE TO FIND TARGET POSITION IN ARRAY");
+    }
+
+    deltaPos = targetPos - currentPos;
+
+    if (deltaPos > 0) {
+      sendToDcsBiosMessage("VHFAM_FREQ1", "INC");
+    } else {
+      sendToDcsBiosMessage("VHFAM_FREQ1", "DEC");
+    }
+
+    SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
+  }
+}
+
+// ##################################################################################################
+String targetVhfamFreq2String = "0";
+String currentVhfamFreq2String = "";
+#define selectorVhfamFreq2SIZE 10
+char *selectorVhfamFreq2[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+
+void onVhfamFreq2Change(unsigned int newValue) {
+  SendDebug("VHF FM Frequency 2 Change");
+  currentVhfamFreq2String = String(newValue);
+}
+DcsBios::IntegerBuffer vhfamFreq2Buffer(0x118e, 0x00f0, 4, onVhfamFreq2Change);
+
+void checkVHFAMFreq2() {
+  if (currentVhfamFreq2String != targetVhfamFreq2String) {
+    SendDebug("Incrementing currentVhfamFreq2String");
+
+    SendDebug("Current currentVhfamFreq2String " + currentVhfamFreq2String);
+
+    int currentPos = 0;
+    int targetPos = 0;
+    int deltaPos = 0;
+    bool foundCurrent = false;
+    bool foundTarget = false;
+    for (int i = 0; i < selectorVhfamFreq2SIZE; i++) {
+      SendDebug("Walking Array for current :" + String(i));
+      SendDebug(String(selectorVhfamFreq2[i]) + ":" + currentVhfamFreq2String);
+      if (String(selectorVhfamFreq2[i]) == currentVhfamFreq2String) {
+        SendDebug("currentRadingString Postion in array :" + String(i));
+        currentPos = i;
+        foundCurrent = true;
+        break;
+      }
+    }
+
+    for (int i = 0; i < selectorVhfamFreq2SIZE; i++) {
+      // SendDebug("Walking Array for target :" + String(i));
+      // SendDebug(String(selectorVhfamFreq1[i]) + ":" + currentVhfamFreq2String );
+      if (String(selectorVhfamFreq2[i]) == targetVhfamFreq2String) {
+        // SendDebug("targetVhfamFreq2String Postion in array :" + String(i));
+        targetPos = i;
+        foundTarget = true;
+        break;
+      }
+    }
+
+    if (foundCurrent == false) {
+      SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY");
+    }
+    if (foundTarget == false) {
+      SendDebug("WARNING UNABLE TO FIND TARGET POSITION IN ARRAY");
+    }
+
+    deltaPos = targetPos - currentPos;
+
+    if (deltaPos > 0) {
+      sendToDcsBiosMessage("VHFAM_FREQ2", "INC");
+    } else {
+      sendToDcsBiosMessage("VHFAM_FREQ2", "DEC");
+    }
+
+    SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
+  }
+}
+
+// ##################################################################################################
+
+// ##################################################################################################
+String targetVhfamFreq3String = "0";
+String currentVhfamFreq3String = "";
+#define selectorVhfamFreq3SIZE 10
+char *selectorVhfamFreq3[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
+
+void onVhfamFreq3Change(unsigned int newValue) {
+  SendDebug("VHF FM Frequency 3 Change");
+  currentVhfamFreq3String = String(newValue);
+}
+DcsBios::IntegerBuffer vhfamFreq3Buffer(0x118e, 0x0f00, 8, onVhfamFreq3Change);
+
+
+void checkVHFAMFreq3() {
+  if (currentVhfamFreq3String != targetVhfamFreq3String) {
+    SendDebug("Incrementing currentVhfamFreq3String");
+
+    SendDebug("Current currentVhfamFreq3String " + currentVhfamFreq3String);
+
+    int currentPos = 0;
+    int targetPos = 0;
+    int deltaPos = 0;
+    bool foundCurrent = false;
+    bool foundTarget = false;
+    for (int i = 0; i < selectorVhfamFreq3SIZE; i++) {
+      SendDebug("Walking Array for current :" + String(i));
+      SendDebug(String(selectorVhfamFreq3[i]) + ":" + currentVhfamFreq3String);
+      if (String(selectorVhfamFreq3[i]) == currentVhfamFreq3String) {
+        SendDebug("currentRadingString Postion in array :" + String(i));
+        currentPos = i;
+        foundCurrent = true;
+        break;
+      }
+    }
+
+    for (int i = 0; i < selectorVhfamFreq3SIZE; i++) {
+      // SendDebug("Walking Array for target :" + String(i));
+      // SendDebug(String(selectorVhfamFreq1[i]) + ":" + currentVhfamFreq3String );
+      if (String(selectorVhfamFreq3[i]) == targetVhfamFreq3String) {
+        // SendDebug("targetVhfamFreq3String Postion in array :" + String(i));
+        targetPos = i;
+        foundTarget = true;
+        break;
+      }
+    }
+
+    if (foundCurrent == false) {
+      SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY");
+    }
+    if (foundTarget == false) {
+      SendDebug("WARNING UNABLE TO FIND TARGET POSITION IN ARRAY");
+    }
+
+    deltaPos = targetPos - currentPos;
+
+    if (deltaPos > 0) {
+      sendToDcsBiosMessage("VHFAM_FREQ3", "INC");
+    } else {
+      sendToDcsBiosMessage("VHFAM_FREQ3", "DEC");
+    }
+
+    SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
+  }
+}
+
+// ##################################################################################################
+
+// ##################################################################################################
+String targetVhfamFreq4String = "00";
+String currentVhfamFreq4String = "";
+#define selectorVhfamFreq4SIZE 4
+char *selectorVhfamFreq4[] = { "0", "1", "2", "3" };
+
+
+
+void onVhfamFreq4Change(unsigned int newValue) {
+  SendDebug("VHF FM Frequency 4 Change");
+  currentVhfamFreq4String = String(newValue);
+}
+DcsBios::IntegerBuffer vhfamFreq4Buffer(0x118e, 0x3000, 12, onVhfamFreq4Change);
+
+
+void checkVHFAMFreq4() {
+  if (currentVhfamFreq4String != targetVhfamFreq4String) {
+    SendDebug("Incrementing currentVhfamFreq4String");
+
+    SendDebug("Current currentVhfamFreq4String " + currentVhfamFreq4String);
+
+    int currentPos = 0;
+    int targetPos = 0;
+    int deltaPos = 0;
+    bool foundCurrent = false;
+    bool foundTarget = false;
+    for (int i = 0; i < selectorVhfamFreq4SIZE; i++) {
+      SendDebug("Walking Array for current :" + String(i));
+      SendDebug(String(selectorVhfamFreq4[i]) + ":" + currentVhfamFreq4String);
+      if (String(selectorVhfamFreq4[i]) == currentVhfamFreq4String) {
+        SendDebug("currentRadingString Postion in array :" + String(i));
+        currentPos = i;
+        foundCurrent = true;
+        break;
+      }
+    }
+
+    for (int i = 0; i < selectorVhfamFreq4SIZE; i++) {
+      if (String(selectorVhfamFreq4[i]) == targetVhfamFreq4String) {
+        targetPos = i;
+        foundTarget = true;
+        break;
+      }
+    }
+
+    if (foundCurrent == false) {
+      SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY");
+    }
+    if (foundTarget == false) {
+      SendDebug("WARNING UNABLE TO FIND TARGET POSITION IN ARRAY");
+    }
+
+    deltaPos = targetPos - currentPos;
+
+    if (deltaPos > 0) {
+      sendToDcsBiosMessage("VHFAM_FREQ4", "INC");
+    } else {
+      sendToDcsBiosMessage("VHFAM_FREQ4", "DEC");
+    }
+
+    SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
+  }
+}
+
+
+// ##################################################################################################
+
+
+// ##################################################################################################
+String targetVhfamPresetString = "10";
+String currentVhfamPresetString = "";
+#define selectorVhfamPresetSIZE 20
+char *selectorVhfamPreset[] = { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", " 9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20" };
+
+void onVhfamPresetChange(char *newValue) {
+  currentVhfamPresetString = String(newValue);
+  SendDebug("VHF AM Preset Change :" + currentVhfamPresetString);
+}
+
+DcsBios::StringBuffer<2> vhfamPresetStrBuffer(0x118a, onVhfamPresetChange);
+
+void checkVHFAMPreset() {
+  if (currentVhfamPresetString != targetVhfamPresetString) {
+    SendDebug("Incrementing currentVhfamPresetString");
+
+    SendDebug("Current currentVhfamPresetString " + currentVhfamPresetString);
+
+    int currentPos = 0;
+    int targetPos = 0;
+    int deltaPos = 0;
+    bool foundCurrent = false;
+    bool foundTarget = false;
+    for (int i = 0; i < selectorVhfamPresetSIZE; i++) {
+      SendDebug("Walking Array for current :" + String(i));
+      SendDebug(String(selectorVhfamPreset[i]) + ":" + currentVhfamPresetString);
+      if (String(selectorVhfamPreset[i]) == currentVhfamPresetString) {
+        SendDebug("currentRadingString Postion in array :" + String(i));
+        currentPos = i;
+        foundCurrent = true;
+        break;
+      }
+    }
+
+    for (int i = 0; i < selectorVhfamPresetSIZE; i++) {
+      if (String(selectorVhfamPreset[i]) == targetVhfamPresetString) {
+        targetPos = i;
+        foundTarget = true;
+        break;
+      }
+    }
+
+    if (foundCurrent == false) {
+      SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY TARGET IS :" + targetVhfamPresetString);
+    }
+    if (foundTarget == false) {
+      SendDebug("WARNING UNABLE TO FIND CURRENT POSITION IN ARRAY TARGET IS :" + targetVhfamPresetString);
+    }
+
+    deltaPos = targetPos - currentPos;
+
+    if (deltaPos > 0) {
+      sendToDcsBiosMessage("VHFAM_PRESET", "INC");
+      delay(delayAfterSendingInstruction);
+    } else {
+      sendToDcsBiosMessage("VHFAM_PRESET", "DEC");
+      delay(delayAfterSendingInstruction);
+    }
+
+    SendDebug("Current (" + String(currentPos) + ") and target (" + String(targetPos) + ") Delta :" + String(currentPos - targetPos));
+  }
+}
+
+// ##################################################################################################
+
+
+
 void checkRadios() {
   checkVHFFMFreq1();
   checkVHFFMFreq2();
   checkVHFFMFreq3();
   checkVHFFMFreq4();
   checkVHFFMPreset();
+  checkVHFAMFreq1();
+  checkVHFAMFreq2();
+  checkVHFAMFreq3();
+  checkVHFAMFreq4();
+  checkVHFAMPreset();
 }
 
 void update_VHF_AM_PRESET_TARGET(int target) {
   if (target <= 9) {
-    targetVhffmPresetString = " " + String(target);
+    targetVhfamPresetString = " " + String(target);
   } else {
-    targetVhffmPresetString =  String(target);
+    targetVhfamPresetString = String(target);
   }
 }
 
@@ -1069,13 +1413,13 @@ void createDcsBiosMessage(int ind, int state) {
     case 1:
       switch (ind) {
         case 0:
-          targetVhffmFreq1String = " 3";
+          targetVhfamFreq1String = " 3";
           break;
         case 1:
-          targetVhffmFreq2String = "0";
+          targetVhfamFreq2String = "0";
           break;
         case 2:
-          targetVhffmFreq3String = "0";
+          targetVhfamFreq3String = "0";
           break;
         case 3:
           setVHFAMPreset(1);
@@ -1099,13 +1443,13 @@ void createDcsBiosMessage(int ind, int state) {
         case 11:
           break;
         case 12:
-          targetVhffmFreq1String = " 4";
+          targetVhfamFreq1String = " 4";
           break;
         case 13:
-          targetVhffmFreq2String = "1";
+          targetVhfamFreq2String = "1";
           break;
         case 14:
-          targetVhffmFreq3String = "1";
+          targetVhfamFreq3String = "1";
           break;
         // CLOSE
         case 15:
@@ -1129,14 +1473,14 @@ void createDcsBiosMessage(int ind, int state) {
         case 23:
           break;
         case 24:
-          targetVhffmFreq1String = " 5";
+          targetVhfamFreq1String = " 5";
           break;
         // CLOSE
         case 25:
-          targetVhffmFreq2String = "2";
+          targetVhfamFreq2String = "2";
           break;
         case 26:
-          targetVhffmFreq3String = "2";
+          targetVhfamFreq3String = "2";
           break;
         case 27:
           setVHFAMPreset(3);
@@ -1160,13 +1504,13 @@ void createDcsBiosMessage(int ind, int state) {
         case 35:
           break;
         case 36:
-          targetVhffmFreq1String = " 6";
+          targetVhfamFreq1String = " 6";
           break;
         case 37:
-          targetVhffmFreq2String = "3";
+          targetVhfamFreq2String = "3";
           break;
         case 38:
-          targetVhffmFreq3String = "3";
+          targetVhfamFreq3String = "3";
           break;
         case 39:
           setVHFAMPreset(4);
@@ -1190,14 +1534,14 @@ void createDcsBiosMessage(int ind, int state) {
         case 47:
           break;
         case 48:
-          targetVhffmFreq1String = " 7";
+          targetVhfamFreq1String = " 7";
           break;
         case 49:
-          targetVhffmFreq2String = "4";
+          targetVhfamFreq2String = "4";
           break;
         // CLOSE
         case 50:
-          targetVhffmFreq3String = "4";
+          targetVhfamFreq3String = "4";
           break;
         case 51:
           setVHFAMPreset(5);
@@ -1222,13 +1566,13 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 60:
-          targetVhffmFreq1String = " 8";
+          targetVhfamFreq1String = " 8";
           break;
         case 61:
-          targetVhffmFreq2String = "5";
+          targetVhfamFreq2String = "5";
           break;
         case 62:
-          targetVhffmFreq3String = "5";
+          targetVhfamFreq3String = "5";
           break;
         case 63:
           setVHFAMPreset(6);
@@ -1252,13 +1596,13 @@ void createDcsBiosMessage(int ind, int state) {
         case 71:
           break;
         case 72:
-          targetVhffmFreq1String = " 9";
+          targetVhfamFreq1String = " 9";
           break;
         case 73:
-          targetVhffmFreq2String = "6";
+          targetVhfamFreq2String = "6";
           break;
         case 74:
-          targetVhffmFreq3String = "6";
+          targetVhfamFreq3String = "6";
           break;
         // CLOSE
         case 75:
@@ -1281,14 +1625,14 @@ void createDcsBiosMessage(int ind, int state) {
         case 83:
           break;
         case 84:
-          targetVhffmFreq1String = "10";
+          targetVhfamFreq1String = "10";
           break;
         // CLOSE
         case 85:
-          targetVhffmFreq2String = "7";
+          targetVhfamFreq2String = "7";
           break;
         case 86:
-          targetVhffmFreq3String = "7";
+          targetVhfamFreq3String = "7";
           break;
         case 87:
           break;
@@ -1311,13 +1655,13 @@ void createDcsBiosMessage(int ind, int state) {
         case 95:
           break;
         case 96:
-          targetVhffmFreq1String = "11";
+          targetVhfamFreq1String = "11";
           break;
         case 97:
-          targetVhffmFreq2String = "8";
+          targetVhfamFreq2String = "8";
           break;
         case 98:
-          targetVhffmFreq3String = "8";
+          targetVhfamFreq3String = "8";
           break;
         case 99:
           break;
@@ -1340,14 +1684,14 @@ void createDcsBiosMessage(int ind, int state) {
         case 107:
           break;
         case 108:
-          targetVhffmFreq1String = "12";
+          targetVhfamFreq1String = "12";
           break;
         case 109:
-          targetVhffmFreq2String = "9";
+          targetVhfamFreq2String = "9";
           break;
         // CLOSE
         case 110:
-          targetVhffmFreq3String = "9";
+          targetVhfamFreq3String = "9";
           break;
         case 111:
           break;
@@ -1370,7 +1714,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 120:
-          targetVhffmFreq1String = "13";
+          targetVhfamFreq1String = "13";
           break;
         case 121:
           break;
@@ -1397,7 +1741,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 131:
           break;
         case 132:
-          targetVhffmFreq1String = "14";
+          targetVhfamFreq1String = "14";
           break;
         case 133:
           break;
@@ -1424,7 +1768,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 143:
           break;
         case 144:
-          targetVhffmFreq4String = "0";
+          targetVhfamFreq4String = "0";
           break;
         case 145:
           break;
@@ -1451,7 +1795,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 155:
           break;
         case 156:
-          targetVhffmFreq4String = "1";
+          targetVhfamFreq4String = "1";
           break;
         case 157:
           break;
@@ -1478,7 +1822,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 167:
           break;
         case 168:
-          targetVhffmFreq4String = "2";
+          targetVhfamFreq4String = "2";
           break;
         case 169:
           break;
@@ -1506,7 +1850,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 180:
-          targetVhffmFreq4String = "3";
+          targetVhfamFreq4String = "3";
           break;
         case 181:
           break;
