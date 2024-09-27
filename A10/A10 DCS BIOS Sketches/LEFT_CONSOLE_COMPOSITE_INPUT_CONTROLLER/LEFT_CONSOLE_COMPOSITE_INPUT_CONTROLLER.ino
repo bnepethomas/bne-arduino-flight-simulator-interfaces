@@ -647,7 +647,8 @@ void checkDCSActive() {
 
 int CurrentVHFPreset = 1;
 int LastVHFPresetSwitchPos = 1;
-void setVHFPreset(int PresetSwitchPos) {
+
+void setVHFAMPreset(int PresetSwitchPos) {
 
   /*
   VHF Preset in the A10 has positions 1 to 24. To give a similar
@@ -1077,7 +1078,7 @@ void createDcsBiosMessage(int ind, int state) {
           targetVhffmFreq3String = "0";
           break;
         case 3:
-          setVHFPreset(1);
+          setVHFAMPreset(1);
           break;
         case 4:
           break;
@@ -1108,7 +1109,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 15:
-          setVHFPreset(2);
+          setVHFAMPreset(2);
           break;
         case 16:
           break;
@@ -1138,7 +1139,7 @@ void createDcsBiosMessage(int ind, int state) {
           targetVhffmFreq3String = "2";
           break;
         case 27:
-          setVHFPreset(3);
+          setVHFAMPreset(3);
           break;
         case 28:
           break;
@@ -1168,7 +1169,7 @@ void createDcsBiosMessage(int ind, int state) {
           targetVhffmFreq3String = "3";
           break;
         case 39:
-          setVHFPreset(4);
+          setVHFAMPreset(4);
           break;
         // CLOSE
         case 40:
@@ -1199,7 +1200,7 @@ void createDcsBiosMessage(int ind, int state) {
           targetVhffmFreq3String = "4";
           break;
         case 51:
-          setVHFPreset(5);
+          setVHFAMPreset(5);
           break;
         case 52:
 
@@ -1230,7 +1231,7 @@ void createDcsBiosMessage(int ind, int state) {
           targetVhffmFreq3String = "5";
           break;
         case 63:
-          setVHFPreset(6);
+          setVHFAMPreset(6);
           break;
         case 64:
           break;
