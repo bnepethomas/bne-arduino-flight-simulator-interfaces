@@ -275,9 +275,10 @@ void tcaselect(uint8_t i) {
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2_VHF_AM_PRESET(U8G2_R0, U8X8_PIN_NONE);
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2_VHF_FM_PRESET(U8G2_R0, U8X8_PIN_NONE);
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2_UHF_PRESET(U8G2_R0, U8X8_PIN_NONE);
+U8G2_SSD1309_128X64_NONAME2_F_HW_I2C u8g2_UHF_FREQUENCY(U8G2_R0, U8X8_PIN_NONE);
 
 #define UHF_PRESET_OLED_Port 0
-#define UHF_CHANNEL_OLED_Port 1
+#define UHF_FREQUENCY_OLED_Port 1
 #define VHF_AM_OLED_Port 2
 #define VHF_FM_OLED_Port 3
 
@@ -440,6 +441,29 @@ void onUhfPresetChange(char *newValue) {
 DcsBios::StringBuffer<2> uhfPresetBuffer(0x1188, onUhfPresetChange);
 
 
+
+void update_UHF_FREQUENCY_OLED(String strnewValue) {
+
+  const char *newValue = strnewValue.c_str();
+  tcaselect(UHF_FREQUENCY_OLED_Port);
+
+  // Clear existing text by drawing a black box
+  u8g2_UHF_FREQUENCY.setFontMode(0);
+  u8g2_UHF_FREQUENCY.setDrawColor(0);
+  u8g2_UHF_FREQUENCY.drawBox(0, 0, 127, 63);
+
+  u8g2_UHF_FREQUENCY.setDrawColor(1);
+  u8g2_UHF_FREQUENCY.setFontDirection(0);
+  u8g2_UHF_FREQUENCY.drawStr(0, 60, newValue);
+  u8g2_UHF_FREQUENCY.sendBuffer();
+}
+
+void onUhfFrequencyChange(char* newValue) {
+  String wrkstring = newValue;
+  update_UHF_FREQUENCY_OLED(wrkstring);
+}
+DcsBios::StringBuffer<7> uhfFrequencyBuffer(0x1180, onUhfFrequencyChange);
+
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
@@ -533,6 +557,20 @@ void setup() {
   u8g2_UHF_PRESET.sendBuffer();
   tcaselect(UHF_PRESET_OLED_Port);
   update_UHF_PRESET_OLED("3");
+
+
+  tcaselect(UHF_FREQUENCY_OLED_Port);
+  u8g2_UHF_FREQUENCY.begin();
+  u8g2_UHF_FREQUENCY.clearBuffer();
+  //u8g2_VHF_FM_PRESET.setFont(u8g2_font_logisoso16_tn);
+  u8g2_UHF_FREQUENCY.setFont(u8g2_font_logisoso58_tn);
+  // u8g2_VHF_FM_PRESET.setFont(u8g2_font_7Segments_26x42);
+  u8g2_UHF_FREQUENCY.sendBuffer();
+  tcaselect(UHF_FREQUENCY_OLED_Port);
+  update_UHF_FREQUENCY_OLED("4");
+
+#define UHF_PRESET_OLED_Port 0
+#define UHF_FREQUENCY_OLED_Port 1
 
 
   // Set the output ports to output
