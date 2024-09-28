@@ -1521,13 +1521,17 @@ void createDcsBiosMessage(int ind, int state) {
           setVHFFMPreset(1);
           break;
         case 7:
+          sendToDcsBiosMessage("UHF_100MHZ_SEL", "0");
           break;
         case 8:
+          sendToDcsBiosMessage("UHF_10MHZ_SEL", "0");
           break;
         case 9:
+          sendToDcsBiosMessage("UHF_1MHZ_SEL", "0");
           break;
         // CLOSE
         case 10:
+          sendToDcsBiosMessage("UHF_POINT1MHZ_SEL", "0");
           break;
         case 11:
           break;
@@ -1555,13 +1559,17 @@ void createDcsBiosMessage(int ind, int state) {
           setVHFFMPreset(2);
           break;
         case 19:
+          sendToDcsBiosMessage("UHF_100MHZ_SEL", "1");
           break;
         // CLOSE
         case 20:
+          sendToDcsBiosMessage("UHF_10MHZ_SEL", "1");
           break;
         case 21:
+          sendToDcsBiosMessage("UHF_1MHZ_SEL", "1");
           break;
         case 22:
+          sendToDcsBiosMessage("UHF_POINT1MHZ_SEL", "1");
           break;
         case 23:
           break;
@@ -1590,12 +1598,17 @@ void createDcsBiosMessage(int ind, int state) {
           setVHFFMPreset(3);
           break;
         case 31:
+          sendToDcsBiosMessage("UHF_100MHZ_SEL", "2");
+
           break;
         case 32:
+          sendToDcsBiosMessage("UHF_10MHZ_SEL", "2");
           break;
         case 33:
+          sendToDcsBiosMessage("UHF_1MHZ_SEL", "2");
           break;
         case 34:
+          sendToDcsBiosMessage("UHF_POINT1MHZ_SEL", "2");
           break;
         // CLOSE
         case 35:
@@ -1624,13 +1637,17 @@ void createDcsBiosMessage(int ind, int state) {
           setVHFFMPreset(4);
           break;
         case 43:
+          sendToDcsBiosMessage("UHF_POINT25_SEL", "0");
           break;
         case 44:
+          sendToDcsBiosMessage("UHF_10MHZ_SEL", "3");
           break;
         // CLOSE
         case 45:
+          sendToDcsBiosMessage("UHF_1MHZ_SEL", "3");
           break;
         case 46:
+          sendToDcsBiosMessage("UHF_POINT1MHZ_SEL", "3");
           break;
         case 47:
           break;
@@ -1659,12 +1676,16 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 55:
+          sendToDcsBiosMessage("UHF_POINT25_SEL", "1");
           break;
         case 56:
+          sendToDcsBiosMessage("UHF_10MHZ_SEL", "4");
           break;
         case 57:
+          sendToDcsBiosMessage("UHF_1MHZ_SEL", "4");
           break;
         case 58:
+          sendToDcsBiosMessage("UHF_POINT1MHZ_SEL", "4");
           break;
         case 59:
           break;
@@ -1693,13 +1714,17 @@ void createDcsBiosMessage(int ind, int state) {
           setVHFFMPreset(6);
           break;
         case 67:
+          sendToDcsBiosMessage("UHF_POINT25_SEL", "2");
           break;
         case 68:
+          sendToDcsBiosMessage("UHF_10MHZ_SEL", "5");
           break;
         case 69:
+          sendToDcsBiosMessage("UHF_1MHZ_SEL", "5");
           break;
         // CLOSE
         case 70:
+          sendToDcsBiosMessage("UHF_POINT1MHZ_SEL", "5");
           break;
         case 71:
           break;
@@ -1725,13 +1750,17 @@ void createDcsBiosMessage(int ind, int state) {
         case 78:
           break;
         case 79:
+          sendToDcsBiosMessage("UHF_POINT25_SEL", "3");
           break;
         // CLOSE
         case 80:
+          sendToDcsBiosMessage("UHF_10MHZ_SEL", "6");
           break;
         case 81:
+          sendToDcsBiosMessage("UHF_1MHZ_SEL", "6");
           break;
         case 82:
+          sendToDcsBiosMessage("UHF_POINT1MHZ_SEL", "6");
           break;
         case 83:
           break;
@@ -1758,12 +1787,16 @@ void createDcsBiosMessage(int ind, int state) {
         case 90:
           break;
         case 91:
+          sendToDcsBiosMessage("UHF_FUNCTION", "0");
           break;
         case 92:
+          sendToDcsBiosMessage("UHF_10MHZ_SEL", "7");
           break;
         case 93:
+          sendToDcsBiosMessage("UHF_1MHZ_SEL", "7");
           break;
         case 94:
+          sendToDcsBiosMessage("UHF_POINT1MHZ_SEL", "7");
           break;
         // CLOSE
         case 95:
@@ -1790,13 +1823,17 @@ void createDcsBiosMessage(int ind, int state) {
         case 102:
           break;
         case 103:
+          sendToDcsBiosMessage("UHF_FUNCTION", "1");
           break;
         case 104:
+          sendToDcsBiosMessage("UHF_10MHZ_SEL", "8");
           break;
         // CLOSE
         case 105:
+          sendToDcsBiosMessage("UHF_1MHZ_SEL", "8");
           break;
         case 106:
+          sendToDcsBiosMessage("UHF_POINT1MHZ_SEL", "8");
           break;
         case 107:
           break;
@@ -1823,12 +1860,16 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 115:
+          sendToDcsBiosMessage("UHF_FUNCTION", "2");
           break;
         case 116:
+          sendToDcsBiosMessage("UHF_10MHZ_SEL", "9");
           break;
         case 117:
+          sendToDcsBiosMessage("UHF_1MHZ_SEL", "9");
           break;
         case 118:
+          sendToDcsBiosMessage("UHF_POINT1MHZ_SEL", "9");
           break;
         case 119:
           break;
@@ -1855,8 +1896,10 @@ void createDcsBiosMessage(int ind, int state) {
         case 126:
           break;
         case 127:
+          sendToDcsBiosMessage("UHF_FUNCTION", "3");
           break;
         case 128:
+          sendToDcsBiosMessage("UHF_MODE", "0");
           break;
         case 129:
           break;
@@ -1890,6 +1933,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 140:
+          sendToDcsBiosMessage("UHF_MODE", "1");
           break;
         case 141:
           break;
@@ -1921,6 +1965,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 151:
           break;
         case 152:
+          sendToDcsBiosMessage("UHF_MODE", "2");
           break;
         case 153:
           break;
