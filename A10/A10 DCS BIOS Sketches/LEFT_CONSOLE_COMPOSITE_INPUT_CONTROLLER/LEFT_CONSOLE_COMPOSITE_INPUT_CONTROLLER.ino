@@ -191,7 +191,7 @@ int packetSize;
 int debugLen;
 EthernetUDP udp;
 EthernetUDP debugUDP;
-char packetBuffer[1000];     //buffer to store the incoming data
+// char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 const unsigned long delayBeforeSendingPacket = 2000;
@@ -274,7 +274,10 @@ void tcaselect(uint8_t i) {
 // Working 0.96" inch OLED display - ALSO WORKS WITH SSD1309 2.42" DISPLAY
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2_VHF_AM_PRESET(U8G2_R0, U8X8_PIN_NONE);
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2_VHF_FM_PRESET(U8G2_R0, U8X8_PIN_NONE);
+U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2_UHF_PRESET(U8G2_R0, U8X8_PIN_NONE);
 
+#define UHF_PRESET_OLED_Port 0
+#define UHF_CHANNEL_OLED_Port 1
 #define VHF_AM_OLED_Port 2
 #define VHF_FM_OLED_Port 3
 
@@ -414,6 +417,28 @@ void update_VHF_FM_PRESET_OLED(String strnewValue) {
   u8g2_VHF_FM_PRESET.sendBuffer();
 }
 
+void update_UHF_PRESET_OLED(String strnewValue) {
+
+  const char *newValue = strnewValue.c_str();
+  tcaselect(UHF_PRESET_OLED_Port);
+
+  // Clear existing text by drawing a black box
+  u8g2_UHF_PRESET.setFontMode(0);
+  u8g2_UHF_PRESET.setDrawColor(0);
+  u8g2_UHF_PRESET.drawBox(0, 0, 127, 63);
+
+  u8g2_UHF_PRESET.setDrawColor(1);
+  u8g2_UHF_PRESET.setFontDirection(0);
+  u8g2_UHF_PRESET.drawStr(0, 60, newValue);
+  u8g2_UHF_PRESET.sendBuffer();
+}
+
+void onUhfPresetChange(char *newValue) {
+  String wrkstring = newValue;
+  update_UHF_PRESET_OLED(wrkstring);
+}
+DcsBios::StringBuffer<2> uhfPresetBuffer(0x1188, onUhfPresetChange);
+
 
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
@@ -498,6 +523,16 @@ void setup() {
   u8g2_VHF_FM_PRESET.sendBuffer();
   tcaselect(VHF_FM_OLED_Port);
   update_VHF_FM_PRESET_OLED("2");
+
+  tcaselect(UHF_PRESET_OLED_Port);
+  u8g2_UHF_PRESET.begin();
+  u8g2_UHF_PRESET.clearBuffer();
+  //u8g2_VHF_FM_PRESET.setFont(u8g2_font_logisoso16_tn);
+  u8g2_UHF_PRESET.setFont(u8g2_font_logisoso58_tn);
+  // u8g2_VHF_FM_PRESET.setFont(u8g2_font_7Segments_26x42);
+  u8g2_UHF_PRESET.sendBuffer();
+  tcaselect(UHF_PRESET_OLED_Port);
+  update_UHF_PRESET_OLED("3");
 
 
   // Set the output ports to output
@@ -761,6 +796,54 @@ void setVHFFMPreset(int PresetSwitchPos) {
 
   update_VHF_FM_PRESET_OLED(String(CurrentVHFFMPreset));
   update_VHF_FM_PRESET_TARGET(CurrentVHFFMPreset);
+}
+
+
+int CurrentUHFPreset = 1;
+int LastUHFPresetSwitchPos = 1;
+
+void setUHFPreset(int PresetSwitchPos) {
+
+  /*
+  UHF Preset in the A10 has positions 1 to 24. To give a similar
+  feel, the 12 position rotary switch has had its stop removed
+  so it can rotate with stops.  The logic takes the positions
+  3,15,27,39,52,63 and provides an encoder like experience. These
+  map to positions 1 to 6
+
+  Once the preset value hits the limits it will no longer
+  decrement or increment.
+
+  LastVHFAMPresetSwitchPos is the physical 'encoder' position
+  as opposed to the CurrentVHFAMPreset which is the Sims position
+
+  */
+
+  bool IncrementPos = false;
+  bool DecrementPos = false;
+
+  // First deal with exceptions
+  if (LastUHFPresetSwitchPos == 6 && PresetSwitchPos == 1) {
+    IncrementPos = true;
+  } else if (LastUHFPresetSwitchPos == 1 && PresetSwitchPos == 6) {
+    DecrementPos = true;
+    // Now deal with general cases
+  } else if (PresetSwitchPos > LastUHFPresetSwitchPos) {
+    IncrementPos = true;
+  } else if (PresetSwitchPos < LastUHFPresetSwitchPos) {
+    DecrementPos = true;
+  }
+  LastUHFPresetSwitchPos = PresetSwitchPos;
+
+  if (CurrentUHFPreset < 20 && IncrementPos == true)
+    CurrentUHFPreset++;
+  else if ((CurrentUHFPreset > 0 && DecrementPos == true))
+    CurrentUHFPreset--;
+
+
+  String strCurrentUHFPreset = String(CurrentUHFPreset);
+  SendDebug("UHF Preset :" + strCurrentUHFPreset);
+  sendToDcsBiosMessage("UHF_PRESET_SEL", strCurrentUHFPreset.c_str());
 }
 
 /*
@@ -1905,6 +1988,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 130:
+          setUHFPreset(1);
           break;
         case 131:
           break;
@@ -1938,6 +2022,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 141:
           break;
         case 142:
+        setUHFPreset(2);
           break;
         case 143:
           break;
@@ -1970,6 +2055,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 153:
           break;
         case 154:
+        setUHFPreset(3);
           break;
         // CLOSE
         case 155:
@@ -2003,6 +2089,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 165:
           break;
         case 166:
+        setUHFPreset(4);
           break;
         case 167:
           break;
@@ -2033,6 +2120,7 @@ void createDcsBiosMessage(int ind, int state) {
         case 177:
           break;
         case 178:
+        setUHFPreset(5);
           break;
         case 179:
           break;
@@ -2065,6 +2153,7 @@ void createDcsBiosMessage(int ind, int state) {
           break;
         // CLOSE
         case 190:
+        setUHFPreset(6);
           break;
         case 191:
           break;
@@ -2612,22 +2701,7 @@ void loop() {
   FindInputChanges();
 
 
-  if (Ethernet_In_Use == 1) {
 
-    // Check to see if a debug or reflector command has been received
-
-    packetSize = debugUDP.parsePacket();
-    debugLen = debugUDP.read(packetBuffer, 999);
-
-    if (debugLen > 0) {
-      // Zero end the payload
-      packetBuffer[debugLen] = 0;
-
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.println("Debug Left Composite Input - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      udp.endPacket();
-    }
-  }
 
 
   if (DCS_On == true) {
