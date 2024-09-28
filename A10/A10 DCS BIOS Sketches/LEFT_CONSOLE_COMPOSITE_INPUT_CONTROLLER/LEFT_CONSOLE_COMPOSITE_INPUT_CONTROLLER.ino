@@ -563,11 +563,11 @@ void setup() {
   u8g2_UHF_FREQUENCY.begin();
   u8g2_UHF_FREQUENCY.clearBuffer();
   //u8g2_VHF_FM_PRESET.setFont(u8g2_font_logisoso16_tn);
-  u8g2_UHF_FREQUENCY.setFont(u8g2_font_logisoso58_tn);
-  // u8g2_VHF_FM_PRESET.setFont(u8g2_font_7Segments_26x42);
+  u8g2_UHF_FREQUENCY.setFont(u8g2_font_logisoso30_tf);
+  //u8g2_VHF_FM_PRESET.setFont(u8g2_font_7Segments_26x42);
   u8g2_UHF_FREQUENCY.sendBuffer();
   tcaselect(UHF_FREQUENCY_OLED_Port);
-  update_UHF_FREQUENCY_OLED("4");
+  update_UHF_FREQUENCY_OLED("888.888");
 
 #define UHF_PRESET_OLED_Port 0
 #define UHF_FREQUENCY_OLED_Port 1
