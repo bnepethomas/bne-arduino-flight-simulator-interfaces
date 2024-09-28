@@ -1486,6 +1486,10 @@ void update_VHF_FM_PRESET_TARGET(int target) {
 }
 
 
+//DcsBios::Potentiometer vhffmVol("VHFFM_VOL", 0);
+// DcsBios::PotentiometerEWMA<5, 128, 5> formationDimmer("FORMATION_DIMMER", 8);
+//DcsBios::PotentiometerEWMA<5, 128, 5> vhffmVol("VHFFM_VOL", 0);
+
 void createDcsBiosMessage(int ind, int state) {
 
   switch (state) {
