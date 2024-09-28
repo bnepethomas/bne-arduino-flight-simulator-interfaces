@@ -6658,6 +6658,16 @@
 	)
 	(wire
 		(pts
+			(xy 185.42 90.932) (xy 189.738 90.932)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "19a6d70a-e7b0-4865-bfc6-09e8d1205063")
+	)
+	(wire
+		(pts
 			(xy 120.904 92.964) (xy 124.46 92.964)
 		)
 		(stroke
@@ -6745,6 +6755,16 @@
 			(type default)
 		)
 		(uuid "20f03b07-d4fe-49da-904d-babcad6282f1")
+	)
+	(wire
+		(pts
+			(xy 185.42 94.234) (xy 187.96 94.234)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21980047-201a-420c-b3c0-f9f92c2b19bc")
 	)
 	(wire
 		(pts
@@ -8398,16 +8418,6 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 90.932) (xy 189.738 90.932)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dd5e16e0-7d85-4120-a2a2-71125907b932")
-	)
-	(wire
-		(pts
 			(xy 36.068 35.814) (xy 38.1 35.814)
 		)
 		(stroke
@@ -8828,17 +8838,6 @@
 			(justify left bottom)
 		)
 		(uuid "09fdf47d-3808-4c64-8ab5-1bca4e7118f6")
-	)
-	(label "ANALOG_5V"
-		(at 187.96 90.932 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "0a3ebdbb-0fca-42e5-b2b8-ec17ae2309e8")
 	)
 	(label "A10"
 		(at 167.64 146.558 0)
@@ -10479,17 +10478,6 @@
 		)
 		(uuid "eab32ddf-9d4a-4536-9b23-419bd01aec67")
 	)
-	(label "ANALOG_GND"
-		(at 187.96 94.234 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "eb490c92-66c6-4883-865f-c8a420e08f36")
-	)
 	(label "COL3"
 		(at 113.792 154.94 180)
 		(fields_autoplaced yes)
@@ -11711,6 +11699,28 @@
 			)
 		)
 	)
+	(global_label "ANALOG_5V"
+		(shape input)
+		(at 185.42 90.932 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9ffe1d59-96c0-412d-a7fa-86a6f3c23802")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 172.0328 90.932 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "VHF_AM_PRESET_B"
 		(shape input)
 		(at 220.726 100.838 180)
@@ -12169,6 +12179,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "ANALOG_GND"
+		(shape input)
+		(at 185.42 94.234 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "fb1df8e2-1c73-4f7c-aabc-e574784d4e47")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 170.4604 94.234 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
