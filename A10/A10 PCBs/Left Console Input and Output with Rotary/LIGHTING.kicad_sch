@@ -1759,18 +1759,7 @@
 		)
 		(uuid "faa07279-3cf8-45e4-ac00-1aee81119f5c")
 	)
-	(label "BACKLIGHT_-V"
-		(at 127.508 43.18 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "22aaafde-7d44-44d1-9cf7-28cb2a6b5a57")
-	)
-	(label "BACKLIGHT_-V"
+	(label "FLOOD_-V"
 		(at 121.412 83.566 0)
 		(fields_autoplaced yes)
 		(effects
@@ -1821,6 +1810,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "BACKLIGHT_-V"
+		(shape input)
+		(at 127.508 43.18 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "82cb6bc1-64fb-4f3d-81a3-5d83c0f9cd5e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 144.2214 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
