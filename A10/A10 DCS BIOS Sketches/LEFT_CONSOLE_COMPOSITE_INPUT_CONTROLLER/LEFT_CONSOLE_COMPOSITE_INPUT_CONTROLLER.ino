@@ -464,6 +464,32 @@ void onUhfFrequencyChange(char *newValue) {
 }
 DcsBios::StringBuffer<7> uhfFrequencyBuffer(0x1180, onUhfFrequencyChange);
 
+
+// Pinouts for Version 4 PCB
+#define MAP_LIGHTS 9
+#define NVG_LIGHTS 9
+#define FLOOD_LIGHTS 9
+#define FORMATION_LIGHTS 11
+#define STROBE_LIGHTS 8
+#define NAVIGATION_LIGHTS 7
+#define BACK_LIGHTS 9
+
+void onExtFormationLightsChange(unsigned int newValue) {
+  analogWrite(FLOOD_LIGHTS, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer extFormationLightsBuffer(0x1352, 0xffff, 0, onExtFormationLightsChange);
+
+
+void onExtStrobeLeftChange(unsigned int newValue) {
+  digitalWrite(STROBE_LIGHTS,newValue);  
+}
+DcsBios::IntegerBuffer extStrobeLeftBuffer(A_10C_EXT_STROBE_LEFT, onExtStrobeLeftChange);
+
+void onExtPositionLightRightChange(unsigned int newValue) {
+  digitalWrite(NAVIGATION_LIGHTS,newValue); 
+}
+DcsBios::IntegerBuffer extPositionLightRightBuffer(A_10C_EXT_POSITION_LIGHT_RIGHT, onExtPositionLightRightChange);
+
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
@@ -482,6 +508,19 @@ void setup() {
   pinMode(Check_LED_R, OUTPUT);
   digitalWrite(Check_LED_R, true);
 
+  // Initialise Exterior Lights
+  pinMode(STROBE_LIGHTS, OUTPUT);
+  pinMode(NAVIGATION_LIGHTS, OUTPUT);
+  pinMode(FORMATION_LIGHTS, OUTPUT);
+  pinMode(BACK_LIGHTS, OUTPUT);
+  pinMode(FLOOD_LIGHTS, OUTPUT);
+
+  digitalWrite(STROBE_LIGHTS, LOW);
+  digitalWrite(NAVIGATION_LIGHTS, LOW);
+  digitalWrite(FORMATION_LIGHTS, LOW);
+  digitalWrite(BACK_LIGHTS, LOW);
+  digitalWrite(FLOOD_LIGHTS, LOW);
+
   if (Ethernet_In_Use == 1) {
     Ethernet.begin(myMac, myIP);
     udp.begin(localport);
@@ -496,6 +535,47 @@ void setup() {
     }
 
     SendDebug("Ethernet Started");
+
+    // Turn Everything on for 5 Seconds
+    digitalWrite(STROBE_LIGHTS, HIGH);
+    digitalWrite(NAVIGATION_LIGHTS, HIGH);
+    digitalWrite(FORMATION_LIGHTS, HIGH);
+    digitalWrite(BACK_LIGHTS, HIGH);
+    digitalWrite(FLOOD_LIGHTS, HIGH);
+    digitalWrite(NVG_LIGHTS, HIGH);
+
+    delay(2000);
+
+    // Turn Everything off for 2 Seconds
+
+    digitalWrite(STROBE_LIGHTS, LOW);
+    digitalWrite(NAVIGATION_LIGHTS, LOW);
+    digitalWrite(FORMATION_LIGHTS, LOW);
+    digitalWrite(BACK_LIGHTS, LOW);
+    digitalWrite(FLOOD_LIGHTS, LOW);
+    digitalWrite(NVG_LIGHTS, LOW);
+    delay(1000);
+
+    // Turn Everything on
+    digitalWrite(STROBE_LIGHTS, HIGH);
+    digitalWrite(NAVIGATION_LIGHTS, HIGH);
+    digitalWrite(FORMATION_LIGHTS, HIGH);
+    digitalWrite(BACK_LIGHTS, HIGH);
+    digitalWrite(FLOOD_LIGHTS, HIGH);
+    digitalWrite(NVG_LIGHTS, HIGH);
+
+    delay(2000);
+
+    // Turn Everything off for 2 Seconds
+
+    digitalWrite(STROBE_LIGHTS, LOW);
+    digitalWrite(NAVIGATION_LIGHTS, LOW);
+    digitalWrite(FORMATION_LIGHTS, LOW);
+    digitalWrite(BACK_LIGHTS, LOW);
+    digitalWrite(FLOOD_LIGHTS, LOW);
+    digitalWrite(NVG_LIGHTS, LOW);
+
+
     SendDebug("A10 INPUT TEST");
 
 
