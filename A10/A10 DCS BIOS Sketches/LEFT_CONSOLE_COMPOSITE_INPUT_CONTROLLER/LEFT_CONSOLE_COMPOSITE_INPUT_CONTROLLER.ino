@@ -430,7 +430,18 @@ void update_UHF_PRESET_OLED(String strnewValue) {
 
   u8g2_UHF_PRESET.setDrawColor(1);
   u8g2_UHF_PRESET.setFontDirection(0);
-  u8g2_UHF_PRESET.drawStr(0, 60, newValue);
+  SendDebug("UHF Preset Charar array length :" + String(strnewValue.length()));
+  // Handle Test Message
+  if (strnewValue.length() == 3) {
+    u8g2_UHF_PRESET.drawStr(20, 90, newValue);
+  } else {
+    if (strnewValue.length() == 1) {
+      u8g2_UHF_PRESET.drawStr(40, 60, newValue);
+    } else {
+      u8g2_UHF_PRESET.drawStr(20, 60, newValue);
+    }
+  }
+
   u8g2_UHF_PRESET.sendBuffer();
 }
 
@@ -553,7 +564,7 @@ void setup() {
     digitalWrite(FORMATION_LIGHTS, HIGH);
     digitalWrite(BACK_LIGHTS, HIGH);
     digitalWrite(FLOOD_LIGHTS, HIGH);
- 
+
 
     delay(2000);
 
@@ -573,7 +584,7 @@ void setup() {
     digitalWrite(FORMATION_LIGHTS, HIGH);
     digitalWrite(BACK_LIGHTS, HIGH);
     digitalWrite(FLOOD_LIGHTS, HIGH);
-  
+
 
     delay(2000);
 
@@ -647,7 +658,9 @@ void setup() {
   // u8g2_VHF_FM_PRESET.setFont(u8g2_font_7Segments_26x42);
   u8g2_UHF_PRESET.sendBuffer();
   tcaselect(UHF_PRESET_OLED_Port);
-  update_UHF_PRESET_OLED("3");
+  //update_UHF_PRESET_OLED("3");
+  //delay(4000);
+  update_UHF_PRESET_OLED("*.*");
 
 
   tcaselect(UHF_FREQUENCY_OLED_Port);
