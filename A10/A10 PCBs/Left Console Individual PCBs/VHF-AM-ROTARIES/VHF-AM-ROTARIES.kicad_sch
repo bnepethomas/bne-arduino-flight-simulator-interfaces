@@ -10188,7 +10188,7 @@
 		)
 		(uuid "b6fe15ca-164a-4191-9c74-813470610149")
 	)
-	(text "V 1.x removed column 3 and added column 11"
+	(text "V 1.x removed column 3 and added column 11\n\nBEFORE SOLDERING ALLPINs\nCut shafts to length\nRemove stop from Preset roatry\nSolder centre pin\nTest\n"
 		(exclude_from_sim no)
 		(at 184.15 144.272 0)
 		(effects
