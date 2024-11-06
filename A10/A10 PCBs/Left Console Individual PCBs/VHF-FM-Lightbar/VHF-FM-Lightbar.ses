@@ -1,0 +1,172 @@
+
+(session "VHF-FM-Lightbar.ses"
+  (base_design "VHF-FM-Lightbar.dsn")
+  (placement
+    (resolution um 10)
+    (component "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
+      (place J1 574500 -617000 back 0)
+    )
+    (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Vertical
+      (place R2 1274000 -620750 front 0)
+      (place R1 687100 -626250 front 0)
+    )
+    (component LED_THT:LED_D3.0mm_FlatTop
+      (place D4 1361750 -627000 front 0)
+      (place D3 1061500 -626750 front 0)
+      (place D2 762750 -627000 front 0)
+      (place D1 462250 -626750 front 0)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version 8.0.5)
+    )
+    (library_out 
+      (padstack "Via[0-1]_600:300_um"
+        (shape
+          (circle F.Cu 6000 0 0)
+        )
+        (shape
+          (circle B.Cu 6000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net "Net-(D1-K)"
+        (wire
+          (path F.Cu 2000
+            474251 -626750
+            474251 -630500
+            506614 -662863
+            752287 -662863
+            788150 -627000
+          )
+        )
+        (wire
+          (path F.Cu 2000
+            462250 -626750
+            474251 -626750
+          )
+        )
+      )
+      (net "Net-(D1-A)"
+        (wire
+          (path B.Cu 2000
+            487650 -626750
+            520042 -659142
+            655947 -659142
+            687100 -627989
+            687100 -626250
+          )
+        )
+      )
+      (net GND
+        (wire
+          (path F.Cu 2000
+            549500 -617000
+            561001 -617000
+          )
+        )
+        (wire
+          (path F.Cu 2000
+            762750 -627000
+            750749 -627000
+          )
+        )
+        (wire
+          (path F.Cu 2000
+            750749 -627000
+            750749 -627750
+            719638 -658861
+            593978 -658861
+            561001 -625884
+            561001 -617000
+          )
+        )
+        (wire
+          (path B.Cu 2000
+            1061500 -626750
+            1049499 -626750
+          )
+        )
+        (wire
+          (path B.Cu 2000
+            762750 -627000
+            774751 -627000
+          )
+        )
+        (wire
+          (path B.Cu 2000
+            774751 -627000
+            774751 -630750
+            803385 -659384
+            1016865 -659384
+            1049499 -626750
+          )
+        )
+      )
+      (net "Net-(D3-A)"
+        (wire
+          (path B.Cu 2000
+            1361750 -627000
+            1349749 -627000
+          )
+        )
+        (wire
+          (path B.Cu 2000
+            1086900 -626750
+            1121203 -661053
+            1315696 -661053
+            1349749 -627000
+          )
+        )
+      )
+      (net "Net-(D4-A)"
+        (wire
+          (path B.Cu 2000
+            1387150 -627000
+            1370870 -610716
+            1284030 -610716
+            1274000 -620750
+          )
+          (type protect)
+        )
+      )
+      (net "Net-(J1-Pin_1)"
+        (wire
+          (path F.Cu 2000
+            1324800 -620750
+            1314799 -620750
+          )
+        )
+        (wire
+          (path F.Cu 2000
+            737900 -626250
+            783839 -580311
+            1274360 -580311
+            1314799 -620750
+          )
+        )
+        (wire
+          (path B.Cu 2000
+            574500 -617000
+            607998 -583502
+            685151 -583502
+            727899 -626250
+          )
+        )
+        (wire
+          (path B.Cu 2000
+            737900 -626250
+            727899 -626250
+          )
+        )
+      )
+    )
+  )
+)
