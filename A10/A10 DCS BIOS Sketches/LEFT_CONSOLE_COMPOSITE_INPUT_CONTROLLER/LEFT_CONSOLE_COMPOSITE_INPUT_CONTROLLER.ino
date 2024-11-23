@@ -398,7 +398,7 @@ void update_VHF_AM_PRESET_OLED(String strnewValue) {
 
   u8g2_VHF_AM_PRESET.setDrawColor(1);
   u8g2_VHF_AM_PRESET.setFontDirection(0);
-  u8g2_VHF_AM_PRESET.drawStr(0, 60, newValue);
+  u8g2_VHF_AM_PRESET.drawStr(20, 60, newValue);
   u8g2_VHF_AM_PRESET.sendBuffer();
 }
 
@@ -1289,7 +1289,7 @@ char *selectorVhffmPreset[] = { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", 
 
 void onVhffmPresetChange(char *newValue) {
   currentVhffmPresetString = String(newValue);
-  SendDebug("VHF FM Preset Change :" + currentVhffmPresetString);
+  // SendDebug("VHF FM Preset Change :" + currentVhffmPresetString);
 }
 DcsBios::StringBuffer<2> vhffmPresetStrBuffer(0x1196, onVhffmPresetChange);
 
@@ -2285,6 +2285,8 @@ void createDcsBiosMessage(int ind, int state) {
           targetVhfamFreq4String = "3";
           break;
         case 181:
+          // Tone
+          // Currently it isn't moving to desired position
           sendToDcsBiosMessage("VHFAM_SQUELCH", "2");
           break;
         case 182:
