@@ -1718,6 +1718,11 @@ DcsBios::Potentiometer vhfamVol("VHFAM_VOL", A0);
 // DcsBios::PotentiometerEWMA<5, 128, 5> formationDimmer("FORMATION_DIMMER", 8);
 //DcsBios::PotentiometerEWMA<5, 128, 5> vhffmVol("VHFFM_VOL", 0);
 
+DcsBios::LED saspPitchSasR(0x1108, 0x2000, 2);
+DcsBios::LED saspPitchSasL(0x1108, 0x1000, 3);
+DcsBios::LED saspYawSasR(0x1108, 0x0800, 4);
+DcsBios::LED saspYawSasL(0x1108, 0x0400, 5);
+
 void createDcsBiosMessage(int ind, int state) {
 
   switch (state) {
