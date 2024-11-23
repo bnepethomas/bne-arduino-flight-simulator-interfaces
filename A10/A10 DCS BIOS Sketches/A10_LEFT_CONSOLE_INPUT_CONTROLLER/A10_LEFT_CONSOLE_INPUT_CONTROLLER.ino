@@ -2,7 +2,7 @@
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 //||               FUNCTION = A10 RIGHT CONSOLE INPUT CONTROLLER      ||\\
-//||              LOCATION IN THE PIT = LIP RIGHTHAND SIDE            ||\\
+//||              LOCATION IN THE PIT = LEFT HAND SIDE                ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN -      ||\\
 //||                    CONNECTED COM PORT = COM x                    ||\\
@@ -83,10 +83,12 @@ int Reflector_In_Use = 1;
 
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
+String BoardName = "A10 Left Input";
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x03 };
+String sMac = "A8:61:0A:64:83:03";
 IPAddress ip(172, 16, 1, 103);
 String strMyIP = "172.16.1.103";
 
@@ -110,6 +112,9 @@ const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
 const unsigned int MSFSport = 7791;
 
+const unsigned long delayBeforeSendingPacket = 2000;
+unsigned long ethernetStartTime = 0;
+
 int packetSize;
 int debugLen;
 EthernetUDP udp;
@@ -129,10 +134,13 @@ void SendDebug(String MessageToSend) {
 // ###################################### End Ethernet Related #############################
 
 // THE LED PORTS WILL CHANGE FROM THE V1.1 PCB TO THE FOLLOWING
-#define RED_STATUS_LED_PORT 6
-#define GREEN_STATUS_LED_PORT 5
 
-#define FLASH_TIME 3000
+#define RED_STATUS_LED_PORT 12
+#define GREEN_STATUS_LED_PORT 13
+#define Check_LED_R 12
+#define Check_LED_G 13
+
+#define FLASH_TIME 500
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
@@ -215,8 +223,31 @@ void setup() {
   digitalWrite(RED_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
   digitalWrite(GREEN_STATUS_LED_PORT, false);
-  digitalWrite(RED_STATUS_LED_PORT, false);
   delay(FLASH_TIME);
+
+  if (Ethernet_In_Use == 1) {
+
+    // Reset Ethernet Module
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
+    Ethernet.begin(mac, ip);
+    udp.begin(localport);
+
+    // As it takes a couple of seconds before the Ethernet Stack is operational
+    // Flash leds until time period has completed
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, false);
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, true);
+    }
+
+    SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
+  }
 
   // Set the output ports to output
   for (int portId = 22; portId < 38; portId++) {
@@ -246,38 +277,8 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  // Check what configuration options we are using
-  // Enable/Disable Ethernet  - this overrides the global setting
-  // which enables testing without an ethernet board active
-  // Red Led stays hard on if ethernet is disabled
-
-
-
-
-
-
-
-
-  if (Ethernet_In_Use == 1) {
-
-    // Using manual reset instead of tying to Arduino Reset
-    pinMode(ES1_RESET_PIN, OUTPUT);
-    digitalWrite(ES1_RESET_PIN, LOW);
-    delay(2);
-    digitalWrite(ES1_RESET_PIN, HIGH);
-
-    Ethernet.begin(mac, ip);
-    udp.begin(localport);
-
-    if (Reflector_In_Use == 1) {
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.println("INIT RIGHT INPUT - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      udp.endPacket();
-    }
-
-    // Used to remotely enable Debug and Reflector
-    debugUDP.begin(localdebugport);
-  }
+  NEXT_STATUS_TOGGLE_TIMER = millis();
+  SendDebug("Setup Complete");
 }
 
 
@@ -317,7 +318,7 @@ void FindInputChanges() {
 
         if (Reflector_In_Use == 1) {
           udp.beginPacket(reflectorIP, reflectorport);
-          udp.println("Right Input - " + String(ind) + ":" + String(joyReport.button[ind]));
+          udp.println("Left Input - " + String(ind) + ":" + String(joyReport.button[ind]));
           udp.endPacket();
         }
       }
@@ -373,7 +374,6 @@ void SendLedString(String LedCommandToSend) {
   }
 }
 
-
 void UpdateRedStatusLed() {
   if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME))) {
     digitalWrite(RED_STATUS_LED_PORT, true);
@@ -382,48 +382,7 @@ void UpdateRedStatusLed() {
   }
 }
 
-// ################################ BEGIN TACAN ##############################
 
-int TACAN_XY_STATE = 0;
-void onTacanXyChange(unsigned int newValue) {
-  TACAN_XY_STATE = newValue;
-}
-DcsBios::IntegerBuffer tacanXyBuffer(0x1168, 0x0001, 0, onTacanXyChange);
-
-DcsBios::RotaryEncoder tacan10("TACAN_10", "DEC", "INC", 14, 15);
-DcsBios::RotaryEncoder tacan1("TACAN_1", "DEC", "INC", 17, 16);
-
-DcsBios::Potentiometer tacanVol("TACAN_VOL", 5);
-
-// ################################ END TACAN   ##############################
-
-
-// ################################ BEGIN ILS   ##############################
-
-int ILS_STATE = 0;
-void onIlsPwrChange(unsigned int newValue) {
-  ILS_STATE = newValue;
-}
-DcsBios::IntegerBuffer ilsPwrBuffer(0x1168, 0x0010, 4, onIlsPwrChange);
-
-DcsBios::RotaryEncoder ilsKhz("ILS_KHZ", "DEC", "INC", 18, 19);
-DcsBios::RotaryEncoder ilsMhz("ILS_MHZ", "DEC", "INC", 21, 20);
-
-
-DcsBios::Potentiometer ilsVol("ILS_VOL", 6);
-
-// ################################ END ILS     ##############################
-
-// ################### BEGIN LIGHTING CONTROL PANEL    #######################
-
-
-DcsBios::Potentiometer lcpFlood("LCP_FLOOD", 0);
-DcsBios::Potentiometer lcpConsole("LCP_CONSOLE", 1);
-DcsBios::Potentiometer lcpEngInst("LCP_ENG_INST", 2);
-DcsBios::Potentiometer lcpAuxInst("LCP_AUX_INST", 3);
-DcsBios::Potentiometer lcpFormation("LCP_FORMATION", 4);
-
-// ###################  END LIGHTING CONTROL PANEL     #######################
 
 
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
@@ -1341,6 +1300,14 @@ DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerC
 
 void loop() {
 
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+    RED_LED_STATE = !RED_LED_STATE;
+
+    digitalWrite(Check_LED_G, RED_LED_STATE);
+    digitalWrite(Check_LED_R, !RED_LED_STATE);
+    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first
@@ -1431,37 +1398,6 @@ void loop() {
 
   FindInputChanges();
 
-  if (Ethernet_In_Use == 1) {
-
-    // Check to see if a debug or reflector command has been received
-
-    packetSize = debugUDP.parsePacket();
-    debugLen = debugUDP.read(packetBuffer, 999);
-
-    if (debugLen > 0) {
-      // Zero end the payload
-      packetBuffer[debugLen] = 0;
-
-      Reflector_In_Use = 1;
-
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.println("Debug Left Input - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      udp.endPacket();
-    }
-  }
-
-
-
-  currentMillis = millis();
-
-  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
-    GREEN_LED_STATE = !GREEN_LED_STATE;
-    RED_LED_STATE = !RED_LED_STATE;
-    digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
-    digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
-
-    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
-  }
 }
 
 void CaseTemplate() {
