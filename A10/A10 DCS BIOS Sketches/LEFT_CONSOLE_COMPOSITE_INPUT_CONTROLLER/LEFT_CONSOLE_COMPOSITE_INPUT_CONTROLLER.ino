@@ -398,7 +398,7 @@ void update_VHF_AM_PRESET_OLED(String strnewValue) {
 
   u8g2_VHF_AM_PRESET.setDrawColor(1);
   u8g2_VHF_AM_PRESET.setFontDirection(0);
-  u8g2_VHF_AM_PRESET.drawStr(0, 60, newValue);
+  u8g2_VHF_AM_PRESET.drawStr(20, 60, newValue);
   u8g2_VHF_AM_PRESET.sendBuffer();
 }
 
@@ -414,7 +414,7 @@ void update_VHF_FM_PRESET_OLED(String strnewValue) {
 
   u8g2_VHF_FM_PRESET.setDrawColor(1);
   u8g2_VHF_FM_PRESET.setFontDirection(0);
-  u8g2_VHF_FM_PRESET.drawStr(0, 60, newValue);
+  u8g2_VHF_FM_PRESET.drawStr(20, 60, newValue);
   u8g2_VHF_FM_PRESET.sendBuffer();
 }
 
@@ -1289,7 +1289,7 @@ char *selectorVhffmPreset[] = { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", 
 
 void onVhffmPresetChange(char *newValue) {
   currentVhffmPresetString = String(newValue);
-  SendDebug("VHF FM Preset Change :" + currentVhffmPresetString);
+  // SendDebug("VHF FM Preset Change :" + currentVhffmPresetString);
 }
 DcsBios::StringBuffer<2> vhffmPresetStrBuffer(0x1196, onVhffmPresetChange);
 
@@ -1717,6 +1717,14 @@ DcsBios::Potentiometer vhffmVol("VHFFM_VOL", A1);
 DcsBios::Potentiometer vhfamVol("VHFAM_VOL", A0);
 // DcsBios::PotentiometerEWMA<5, 128, 5> formationDimmer("FORMATION_DIMMER", 8);
 //DcsBios::PotentiometerEWMA<5, 128, 5> vhffmVol("VHFFM_VOL", 0);
+
+DcsBios::LED saspPitchSasR(0x1108, 0x2000, 2);
+DcsBios::LED saspPitchSasL(0x1108, 0x1000, 3);
+DcsBios::LED saspYawSasR(0x1108, 0x0800, 4);
+DcsBios::LED saspYawSasL(0x1108, 0x0400, 5);
+
+DcsBios::LED saspToTrim_1(0x110c, 0x0001, 14);
+DcsBios::LED saspToTrim_2(0x110c, 0x0001, 15);
 
 void createDcsBiosMessage(int ind, int state) {
 
@@ -2285,6 +2293,8 @@ void createDcsBiosMessage(int ind, int state) {
           targetVhfamFreq4String = "3";
           break;
         case 181:
+          // Tone
+          // Currently it isn't moving to desired position
           sendToDcsBiosMessage("VHFAM_SQUELCH", "2");
           break;
         case 182:
