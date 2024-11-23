@@ -390,7 +390,7 @@ void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
   if (Reflector_In_Use == 1) {
     udp.beginPacket(reflectorIP, reflectorport);
-    udp.println("Right Input - " + String(msg) + ":" + String(arg));
+    udp.println("Left Input - " + String(msg) + ":" + String(arg));
     udp.endPacket();
   }
 
@@ -456,8 +456,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
+        sendToDcsBiosMessage("SASP_YAW_SAS_L", "0");
           break;
         case 10:
+        sendToDcsBiosMessage("SASP_PITCH_SAS_L", "0");
           break;
         case 11:
           break;
@@ -481,8 +483,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 20:
+        sendToDcsBiosMessage("SASP_YAW_SAS_R", "0");
           break;
         case 21:
+        sendToDcsBiosMessage("SASP_PITCH_SAS_R", "0");
           break;
         case 22:
           break;
@@ -505,9 +509,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 30:
           break;
         case 31:
+          sendToDcsBiosMessage("SASP_MONITOR_TEST", "1");
           break;
         // Release
         case 32:
+        sendToDcsBiosMessage("SASP_TO_TRIM", "0");
           break;
         case 33:
           break;
@@ -530,6 +536,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 41:
           break;
         case 42:
+        sendToDcsBiosMessage("SASP_MONITOR_TEST", "1");
           break;
         case 43:
           break;
@@ -877,8 +884,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
+        sendToDcsBiosMessage("SASP_YAW_SAS_L", "1");
           break;
         case 10:
+        sendToDcsBiosMessage("SASP_PITCH_SAS_L", "1");
           break;
         case 11:
           break;
@@ -902,8 +911,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 20:
+        sendToDcsBiosMessage("SASP_YAW_SAS_R", "1");
           break;
         case 21:
+        sendToDcsBiosMessage("SASP_PITCH_SAS_R", "1");
           break;
         case 22:
           break;
@@ -926,9 +937,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 30:
           break;
         case 31:
+          sendToDcsBiosMessage("SASP_MONITOR_TEST", "0");
           break;
         // Close
         case 32:
+        sendToDcsBiosMessage("SASP_TO_TRIM", "1");
           break;
         case 33:
           break;
@@ -951,6 +964,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 41:
           break;
         case 42:
+          sendToDcsBiosMessage("SASP_MONITOR_TEST", "2");
           break;
         case 43:
           break;
@@ -1397,7 +1411,6 @@ void loop() {
 
 
   FindInputChanges();
-
 }
 
 void CaseTemplate() {
