@@ -128,126 +128,6 @@
 				)
 			)
 		)
-		(symbol "+5V_1"
-			(power)
-			(pin_numbers hide)
-			(pin_names
-				(offset 0) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "+5V"
-				(at 0 3.556 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Power symbol creates a global label with name \"+5V\""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "global power"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "+5V_1_0_1"
-				(polyline
-					(pts
-						(xy -0.762 1.27) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 2.54)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "+5V_1_1_1"
-				(pin power_in line
-					(at 0 0 90)
-					(length 0)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "Connector:Conn_01x02_Female"
 			(pin_names
 				(offset 1.016) hide)
@@ -6279,6 +6159,10 @@
 		(uuid "26ace4d9-6560-4015-818d-4dfc5049de7d")
 	)
 	(no_connect
+		(at 268.224 72.898)
+		(uuid "3e2a7e79-78d4-4630-85d6-2bcc093389d2")
+	)
+	(no_connect
 		(at 156.972 165.354)
 		(uuid "4031c566-511e-4f3d-b7a5-2d93714f5e95")
 	)
@@ -6315,10 +6199,6 @@
 		(uuid "7d1aacf1-a373-48c1-85fa-68ca43fb9432")
 	)
 	(no_connect
-		(at 268.224 85.598)
-		(uuid "7d346150-fc25-4d93-9432-fb61a79a1358")
-	)
-	(no_connect
 		(at 156.972 137.414)
 		(uuid "81ca7b22-1c14-4d98-a1ba-3625fea48a9f")
 	)
@@ -6329,6 +6209,10 @@
 	(no_connect
 		(at 156.972 150.114)
 		(uuid "8887bf0c-329b-4eea-a12b-00aad8c73b17")
+	)
+	(no_connect
+		(at 268.224 75.438)
+		(uuid "8f32992a-0a26-4936-ac89-40c99a474ec0")
 	)
 	(no_connect
 		(at 220.726 70.358)
@@ -6381,10 +6265,6 @@
 	(no_connect
 		(at 101.092 40.64)
 		(uuid "f1333724-6b7f-466b-8847-43ad5079239d")
-	)
-	(no_connect
-		(at 268.224 83.058)
-		(uuid "f76b84cf-eb95-4356-a2c7-5754d88a9523")
 	)
 	(wire
 		(pts
@@ -6515,16 +6395,6 @@
 			(type default)
 		)
 		(uuid "0c808d2e-46a4-49fe-b5d6-971cb3cc9466")
-	)
-	(wire
-		(pts
-			(xy 45.212 119.126) (xy 45.212 123.952)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0c9af09b-2440-4cd6-81c4-f694f11255bd")
 	)
 	(wire
 		(pts
@@ -8675,6 +8545,16 @@
 			(type default)
 		)
 		(uuid "fb32cb76-9464-453c-a0ef-06b0763fe8a2")
+	)
+	(wire
+		(pts
+			(xy 45.212 123.952) (xy 45.212 131.826)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb5bcdcf-3aa8-4d02-8fcc-67818504797f")
 	)
 	(wire
 		(pts
@@ -10953,7 +10833,7 @@
 	)
 	(global_label "TO_LED_1"
 		(shape input)
-		(at 268.224 72.898 0)
+		(at 268.224 83.058 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10963,7 +10843,7 @@
 		)
 		(uuid "38b1ba98-d660-4234-8f65-e097e3b05676")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 280.1942 72.898 0)
+			(at 280.1942 83.058 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11019,7 +10899,7 @@
 	)
 	(global_label "TO_LED_2"
 		(shape input)
-		(at 268.224 75.438 0)
+		(at 268.224 85.598 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11029,7 +10909,7 @@
 		)
 		(uuid "3d3100a9-3c7a-4c7f-993b-5b3a1461603c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 280.1942 75.438 0)
+			(at 280.1942 85.598 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16125,73 +16005,6 @@
 		)
 	)
 	(symbol
-		(lib_name "+5V_1")
-		(lib_id "power:+5V")
-		(at 45.212 119.126 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7b38e011-cc75-4229-9066-fb7d12ea32dc")
-		(property "Reference" "#PWR035"
-			(at 45.212 122.936 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 45.212 114.9929 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 45.212 119.126 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 45.212 119.126 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 45.212 119.126 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "aa7b7ea7-dc67-4571-abde-97dbabee3a40")
-		)
-		(instances
-			(project "Left Console Input and Output with Rotary"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR035")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 143.764 89.154 0)
 		(unit 1)
@@ -17910,6 +17723,71 @@
 			(project "Left Console Input and Output with Rotary"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J39")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 45.212 131.826 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d925033b-08cf-4d5c-98d2-050b96b1b59d")
+		(property "Reference" "#PWR073"
+			(at 45.212 138.176 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 45.339 136.2202 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.212 131.826 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 45.212 131.826 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 45.212 131.826 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "79335287-4dd7-439b-8624-d1068e017863")
+		)
+		(instances
+			(project "Left Console Input and Output with Rotary"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR073")
 					(unit 1)
 				)
 			)
