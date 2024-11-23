@@ -1723,6 +1723,9 @@ DcsBios::LED saspPitchSasL(0x1108, 0x1000, 3);
 DcsBios::LED saspYawSasR(0x1108, 0x0800, 4);
 DcsBios::LED saspYawSasL(0x1108, 0x0400, 5);
 
+DcsBios::LED saspToTrim_1(0x110c, 0x0001, 14);
+DcsBios::LED saspToTrim_2(0x110c, 0x0001, 15);
+
 void createDcsBiosMessage(int ind, int state) {
 
   switch (state) {
