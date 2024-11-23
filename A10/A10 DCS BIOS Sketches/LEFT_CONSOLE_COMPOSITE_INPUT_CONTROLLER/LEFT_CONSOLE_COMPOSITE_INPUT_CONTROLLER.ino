@@ -414,7 +414,7 @@ void update_VHF_FM_PRESET_OLED(String strnewValue) {
 
   u8g2_VHF_FM_PRESET.setDrawColor(1);
   u8g2_VHF_FM_PRESET.setFontDirection(0);
-  u8g2_VHF_FM_PRESET.drawStr(0, 60, newValue);
+  u8g2_VHF_FM_PRESET.drawStr(20, 60, newValue);
   u8g2_VHF_FM_PRESET.sendBuffer();
 }
 
