@@ -409,7 +409,89 @@ DcsBios::Potentiometer intAimVol("INT_AIM_VOL", A10);
 DcsBios::Potentiometer intIffVol("INT_IFF_VOL", A11);
 DcsBios::Potentiometer intTcnVol("INT_TCN_VOL", A12);
 DcsBios::Potentiometer intVol("INT_VOL", A13);
-DcsBios::Potentiometer intIlsVol("INT_ILS_VOL", A4); // Using VHF_FM_VOL input as 1.1 board din't hve ILS connector
+DcsBios::Potentiometer intIlsVol("INT_ILS_VOL", A4);  // Using VHF_FM_VOL input as 1.1 board din't hve ILS connector
+
+bool HM_MUTE = false;
+void Toggle_HM() {
+  HM_MUTE = !HM_MUTE;
+  if (HM_MUTE)
+    sendToDcsBiosMessage("INT_HM", "0");
+  else
+    sendToDcsBiosMessage("INT_HM", "1");
+}
+
+bool INT_MUTE = false;
+void Toggle_INT() {
+  INT_MUTE = !INT_MUTE;
+  if (INT_MUTE)
+    sendToDcsBiosMessage("INT_INT_UNMUTE", "0");
+  else
+    sendToDcsBiosMessage("INT_INT_UNMUTE", "1");
+}
+
+bool FM_MUTE = false;
+void Toggle_FM() {
+  FM_MUTE = !FM_MUTE;
+  if (FM_MUTE)
+    sendToDcsBiosMessage("INT_FM_UNMUTE", "0");
+  else
+    sendToDcsBiosMessage("INT_FM_UNMUTE", "1");
+}
+
+bool UHF_MUTE = false;
+void Toggle_UHF() {
+  UHF_MUTE = !UHF_MUTE;
+  if (UHF_MUTE)
+    sendToDcsBiosMessage("INT_UHF_UNMUTE", "0");
+  else
+    sendToDcsBiosMessage("INT_UHF_UNMUTE", "1");
+}
+
+bool VHF_MUTE = false;
+void Toggle_VHF() {
+  VHF_MUTE = !VHF_MUTE;
+  if (VHF_MUTE)
+    sendToDcsBiosMessage("INT_VHF_UNMUTE", "0");
+  else
+    sendToDcsBiosMessage("INT_VHF_UNMUTE", "1");
+}
+
+bool AIM_MUTE = false;
+void Toggle_AIM() {
+  AIM_MUTE = !AIM_MUTE;
+  if (AIM_MUTE)
+    sendToDcsBiosMessage("INT_AIM_UNMUTE", "0");
+  else
+    sendToDcsBiosMessage("INT_AIM_UNMUTE", "1");
+}
+
+bool IFF_MUTE = false;
+void Toggle_IFF() {
+  IFF_MUTE = !IFF_MUTE;
+  if (IFF_MUTE)
+    sendToDcsBiosMessage("INT_IFF_UNMUTE", "0");
+  else
+    sendToDcsBiosMessage("INT_IFF_UNMUTE", "1");
+}
+
+bool ILS_MUTE = false;
+void Toggle_ILS() {
+  ILS_MUTE = !ILS_MUTE;
+  if (ILS_MUTE)
+    sendToDcsBiosMessage("INT_ILS_UNMUTE", "0");
+  else
+    sendToDcsBiosMessage("INT_ILS_UNMUTE", "1");
+}
+
+bool TCN_MUTE = false;
+void Toggle_TCN() {
+  TCN_MUTE = !TCN_MUTE;
+  if (TCN_MUTE)
+    sendToDcsBiosMessage("INT_TCN_UNMUTE", "0");
+  else
+    sendToDcsBiosMessage("INT_TCN_UNMUTE", "1");
+}
+
 
 void CreateDcsBiosMessage(int ind, int state) {
 
@@ -1087,14 +1169,18 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 76:
           break;
         case 77:
+          sendToDcsBiosMessage("INT_MODE", "0");
           break;
         case 78:
+          Toggle_INT();
           break;
         case 79:
+          Toggle_AIM();
           // Close
           break;
         // Close
         case 80:
+          Toggle_HM();
           break;
         case 81:
           break;
@@ -1113,10 +1199,13 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 88:
+          sendToDcsBiosMessage("INT_MODE", "1");
           break;
         case 89:
+          Toggle_FM();
           break;
         case 90:
+          Toggle_IFF();
           break;
         // Close
         case 91:
@@ -1138,11 +1227,14 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:
           break;
         case 99:
+          sendToDcsBiosMessage("INT_MODE", "2");
           break;
         // Close
         case 100:
+          Toggle_UHF();
           break;
         case 101:
+          Toggle_ILS();
           break;
         case 102:
           break;
@@ -1163,11 +1255,14 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 109:
           break;
         case 110:
+          sendToDcsBiosMessage("INT_MODE", "3");
           break;
         case 111:
+          Toggle_VHF();
           break;
         // Close
         case 112:
+          Toggle_TCN();
           break;
         case 113:
           break;
