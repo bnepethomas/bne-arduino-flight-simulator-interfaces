@@ -397,7 +397,8 @@ void sendToDcsBiosMessage(const char *msg, const char *arg) {
   sendDcsBiosMessage(msg, arg);
 }
 
-
+DcsBios::Potentiometer saspYawTrim("SASP_YAW_TRIM", A2);
+DcsBios::Potentiometer alcpRcvrLts("ALCP_RCVR_LTS", A1);
 
 void CreateDcsBiosMessage(int ind, int state) {
 
@@ -456,10 +457,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
-        sendToDcsBiosMessage("SASP_YAW_SAS_L", "0");
+          sendToDcsBiosMessage("SASP_YAW_SAS_L", "0");
           break;
         case 10:
-        sendToDcsBiosMessage("SASP_PITCH_SAS_L", "0");
+          sendToDcsBiosMessage("SASP_PITCH_SAS_L", "0");
           break;
         case 11:
           break;
@@ -483,10 +484,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 20:
-        sendToDcsBiosMessage("SASP_YAW_SAS_R", "0");
+          sendToDcsBiosMessage("SASP_YAW_SAS_R", "0");
           break;
         case 21:
-        sendToDcsBiosMessage("SASP_PITCH_SAS_R", "0");
+          sendToDcsBiosMessage("SASP_PITCH_SAS_R", "0");
           break;
         case 22:
           break;
@@ -513,7 +514,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 32:
-        sendToDcsBiosMessage("SASP_TO_TRIM", "0");
+          sendToDcsBiosMessage("SASP_TO_TRIM", "0");
           break;
         case 33:
           break;
@@ -536,7 +537,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 41:
           break;
         case 42:
-        sendToDcsBiosMessage("SASP_MONITOR_TEST", "1");
+          sendToDcsBiosMessage("SASP_MONITOR_TEST", "1");
           break;
         case 43:
           break;
@@ -563,28 +564,34 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LMFD_PWR", "0");
           break;
         case 53:
-          sendToDcsBiosMessage("LAMP_TEST_BTN", "0");
           break;
         case 54:
-          sendToDcsBiosMessage("ALCP_HARSSAS", "1");
           break;
         case 55:
+          sendToDcsBiosMessage("FSCP_EXT_TANKS_WING", "0");
           break;
         // Release
         case 56:
+          sendToDcsBiosMessage("FSCP_TK_GATE", "0");
           break;
         case 57:
+          sendToDcsBiosMessage("FSCP_EXT_TANKS_FUS", "0");
           break;
         case 58:
+          sendToDcsBiosMessage("FSCP_CROSSFEED", "0");
           break;
         case 59:
+          sendToDcsBiosMessage("FSCP_BOOST_WING_L", "0");
           break;
         // Release
         case 60:
+          sendToDcsBiosMessage("FSCP_BOOST_WING_R", "0");
           break;
         case 61:
+          sendToDcsBiosMessage("FSCP_BOOST_MAIN_L", "0");
           break;
         case 62:
+          sendToDcsBiosMessage("FSCP_RCVR_LEVER", "1");
           break;
         case 63:
           sendToDcsBiosMessage("RMFD_PWR", "0");
@@ -596,20 +603,25 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 65:
           break;
         case 66:
+          sendToDcsBiosMessage("FSCP_BOOST_MAIN_R", "0");
           break;
         case 67:
           break;
         // Release
         case 68:
+          sendToDcsBiosMessage("FSCP_FD_WING_L", "1");
           break;
         case 69:
+          sendToDcsBiosMessage("FSCP_FD_MAIN_L", "1");
           break;
         case 70:
+          sendToDcsBiosMessage("FSCP_FD_WING_R", "1");
           break;
         case 71:
           break;
         // Release
         case 72:
+          sendToDcsBiosMessage("FSCP_FD_MAIN_R", "1");
           break;
         case 73:
           break;
@@ -884,10 +896,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
-        sendToDcsBiosMessage("SASP_YAW_SAS_L", "1");
+          sendToDcsBiosMessage("SASP_YAW_SAS_L", "1");
           break;
         case 10:
-        sendToDcsBiosMessage("SASP_PITCH_SAS_L", "1");
+          sendToDcsBiosMessage("SASP_PITCH_SAS_L", "1");
           break;
         case 11:
           break;
@@ -911,10 +923,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 20:
-        sendToDcsBiosMessage("SASP_YAW_SAS_R", "1");
+          sendToDcsBiosMessage("SASP_YAW_SAS_R", "1");
           break;
         case 21:
-        sendToDcsBiosMessage("SASP_PITCH_SAS_R", "1");
+          sendToDcsBiosMessage("SASP_PITCH_SAS_R", "1");
           break;
         case 22:
           break;
@@ -941,7 +953,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 32:
-        sendToDcsBiosMessage("SASP_TO_TRIM", "1");
+          sendToDcsBiosMessage("SASP_TO_TRIM", "1");
           break;
         case 33:
           break;
@@ -991,28 +1003,36 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LMFD_PWR", "2");
           break;
         case 53:
-          sendToDcsBiosMessage("LAMP_TEST_BTN", "1");
+
           break;
         case 54:
-          sendToDcsBiosMessage("ALCP_HARSSAS", "0");
+
           break;
         case 55:
+          sendToDcsBiosMessage("FSCP_EXT_TANKS_WING", "1");
           break;
         // Close
         case 56:
+          sendToDcsBiosMessage("FSCP_TK_GATE", "1");
           break;
         case 57:
+          sendToDcsBiosMessage("FSCP_EXT_TANKS_FUS", "1");
           break;
         case 58:
+          sendToDcsBiosMessage("FSCP_CROSSFEED", "1");
           break;
         case 59:
+          sendToDcsBiosMessage("FSCP_BOOST_WING_L", "1");
           break;
         // Close
         case 60:
+          sendToDcsBiosMessage("FSCP_BOOST_WING_R", "1");
           break;
         case 61:
+          sendToDcsBiosMessage("FSCP_BOOST_MAIN_L", "1");
           break;
         case 62:
+          sendToDcsBiosMessage("FSCP_RCVR_LEVER", "0");
           break;
         case 63:
           sendToDcsBiosMessage("RMFD_PWR", "2");
@@ -1024,20 +1044,25 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 65:
           break;
         case 66:
+          sendToDcsBiosMessage("FSCP_BOOST_MAIN_R", "1");
           break;
         case 67:
           break;
         // Close
         case 68:
+          sendToDcsBiosMessage("FSCP_FD_WING_L", "0");
           break;
         case 69:
+          sendToDcsBiosMessage("FSCP_FD_MAIN_L", "0");
           break;
         case 70:
+          sendToDcsBiosMessage("FSCP_FD_WING_R", "0");
           break;
         case 71:
           break;
         // Close
         case 72:
+          sendToDcsBiosMessage("FSCP_FD_MAIN_R", "0");
           break;
         case 73:
           break;
