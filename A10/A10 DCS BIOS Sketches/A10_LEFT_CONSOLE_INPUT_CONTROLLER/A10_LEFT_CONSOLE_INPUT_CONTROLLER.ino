@@ -397,8 +397,19 @@ void sendToDcsBiosMessage(const char *msg, const char *arg) {
   sendDcsBiosMessage(msg, arg);
 }
 
-DcsBios::Potentiometer saspYawTrim("SASP_YAW_TRIM", A2);
+DcsBios::Potentiometer alcpWpnsta("ALCP_WPNSTA", A0);
 DcsBios::Potentiometer alcpRcvrLts("ALCP_RCVR_LTS", A1);
+DcsBios::Potentiometer saspYawTrim("SASP_YAW_TRIM", A2);
+
+DcsBios::Potentiometer intIntVol("INT_INT_VOL", A6);
+DcsBios::Potentiometer intFmVol("INT_FM_VOL", A7);
+DcsBios::Potentiometer intUhfVol("INT_UHF_VOL", A8);
+DcsBios::Potentiometer intVhfVol("INT_VHF_VOL", A9);
+DcsBios::Potentiometer intAimVol("INT_AIM_VOL", A10);
+DcsBios::Potentiometer intIffVol("INT_IFF_VOL", A11);
+DcsBios::Potentiometer intTcnVol("INT_TCN_VOL", A12);
+DcsBios::Potentiometer intVol("INT_VOL", A13);
+DcsBios::Potentiometer intIlsVol("INT_ILS_VOL", A4); // Using VHF_FM_VOL input as 1.1 board din't hve ILS connector
 
 void CreateDcsBiosMessage(int ind, int state) {
 
@@ -564,8 +575,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LMFD_PWR", "0");
           break;
         case 53:
+          sendToDcsBiosMessage("LAMP_TEST_BTN", "0");
           break;
         case 54:
+          sendToDcsBiosMessage("ALCP_HARSSAS", "1");
           break;
         case 55:
           sendToDcsBiosMessage("FSCP_EXT_TANKS_WING", "0");
@@ -1003,10 +1016,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LMFD_PWR", "2");
           break;
         case 53:
-
+          sendToDcsBiosMessage("LAMP_TEST_BTN", "1");
           break;
         case 54:
-
+          sendToDcsBiosMessage("ALCP_HARSSAS", "0");
           break;
         case 55:
           sendToDcsBiosMessage("FSCP_EXT_TANKS_WING", "1");
