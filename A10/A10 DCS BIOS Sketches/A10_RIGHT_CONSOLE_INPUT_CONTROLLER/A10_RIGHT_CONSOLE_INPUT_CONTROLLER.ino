@@ -110,6 +110,9 @@ const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
 const unsigned int MSFSport = 7791;
 
+const unsigned long delayBeforeSendingPacket = 2000;
+unsigned long ethernetStartTime = 0;
+
 int packetSize;
 int debugLen;
 EthernetUDP udp;
@@ -129,10 +132,13 @@ void SendDebug(String MessageToSend) {
 // ###################################### End Ethernet Related #############################
 
 // THE LED PORTS WILL CHANGE FROM THE V1.1 PCB TO THE FOLLOWING
+
 #define RED_STATUS_LED_PORT 6
 #define GREEN_STATUS_LED_PORT 5
+#define Check_LED_R 6
+#define Check_LED_G 5
 
-#define FLASH_TIME 3000
+#define FLASH_TIME 500
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
@@ -215,8 +221,36 @@ void setup() {
   digitalWrite(RED_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
   digitalWrite(GREEN_STATUS_LED_PORT, false);
-  digitalWrite(RED_STATUS_LED_PORT, false);
   delay(FLASH_TIME);
+
+  if (Ethernet_In_Use == 1) {
+
+    // Using manual reset instead of tying to Arduino Reset
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
+    Ethernet.begin(mac, ip);
+    udp.begin(localport);
+
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, false);
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, true);
+    }
+
+    if (Reflector_In_Use == 1) {
+      udp.beginPacket(reflectorIP, reflectorport);
+      udp.println("INIT RIGHT INPUT - " + strMyIP + " " + String(millis()) + "mS since reset.");
+      udp.endPacket();
+    }
+
+    // Used to remotely enable Debug and Reflector
+    debugUDP.begin(localdebugport);
+  }
 
   // Set the output ports to output
   for (int portId = 22; portId < 38; portId++) {
@@ -250,34 +284,6 @@ void setup() {
   // Enable/Disable Ethernet  - this overrides the global setting
   // which enables testing without an ethernet board active
   // Red Led stays hard on if ethernet is disabled
-
-
-
-
-
-
-
-
-  if (Ethernet_In_Use == 1) {
-
-    // Using manual reset instead of tying to Arduino Reset
-    pinMode(ES1_RESET_PIN, OUTPUT);
-    digitalWrite(ES1_RESET_PIN, LOW);
-    delay(2);
-    digitalWrite(ES1_RESET_PIN, HIGH);
-
-    Ethernet.begin(mac, ip);
-    udp.begin(localport);
-
-    if (Reflector_In_Use == 1) {
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.println("INIT RIGHT INPUT - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      udp.endPacket();
-    }
-
-    // Used to remotely enable Debug and Reflector
-    debugUDP.begin(localdebugport);
-  }
 }
 
 
@@ -493,6 +499,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 5:
           break;
         case 6:
+          sendToDcsBiosMessage("CMSP_JMR", "1");
           break;
         case 7:
           break;
@@ -522,6 +529,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 16:
           break;
         case 17:
+          sendToDcsBiosMessage("CMSP_JMR", "1");
           break;
         case 18:
           break;
@@ -550,6 +558,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 27:
           break;
         case 28:
+        sendToDcsBiosMessage("CMSP_RWR", "1");
           break;
         case 29:
           break;
@@ -575,8 +584,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 37:
           break;
         case 38:
+          sendToDcsBiosMessage("CMSP_ARW1", "0");
           break;
         case 39:
+        sendToDcsBiosMessage("CMSP_RWR", "1");
           break;
         // Release
         case 40:
@@ -601,8 +612,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 48:
           break;
         case 49:
+          sendToDcsBiosMessage("CMSP_MWS", "1");
           break;
         case 50:
+          sendToDcsBiosMessage("CMSP_ARW4", "0");
           break;
         case 51:
           break;
@@ -625,10 +638,12 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FQIS_TEST", "0");
           break;
         case 60:
+          sendToDcsBiosMessage("CMSP_MWS", "1");
           break;
         case 61:
           break;
         case 62:
+          sendToDcsBiosMessage("CMSP_UPDN", "1");
           break;
         case 63:
           break;
@@ -648,11 +663,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 70:
           break;
         case 71:
+          sendToDcsBiosMessage("CMSP_ARW2", "0");
           break;
         // Release
         case 72:
           break;
         case 73:
+          sendToDcsBiosMessage("CMSP_RTN", "0");
           break;
         case 74:
           break;
@@ -672,10 +689,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 81:
           break;
         case 82:
+          sendToDcsBiosMessage("CMSP_ARW3", "0");
           break;
         case 83:
+          sendToDcsBiosMessage("CMSP_JTSN", "0");
           break;
         case 84:
+          sendToDcsBiosMessage("CMSP_UPDN", "1");
           break;
         case 85:
           break;
@@ -1050,6 +1070,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 5:
           break;
         case 6:
+          sendToDcsBiosMessage("CMSP_JMR", "0");
           break;
         case 7:
           break;
@@ -1090,6 +1111,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 16:
           break;
         case 17:
+          sendToDcsBiosMessage("CMSP_JMR", "2");
           break;
         case 18:
           break;
@@ -1121,6 +1143,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 27:
           break;
         case 28:
+        sendToDcsBiosMessage("CMSP_RWR", "2");
           break;
         case 29:
           break;
@@ -1149,8 +1172,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FQIS_SELECT", "0");
           break;
         case 38:
+          sendToDcsBiosMessage("CMSP_ARW1", "1");
           break;
         case 39:
+        sendToDcsBiosMessage("CMSP_RWR", "0");
           break;
         // Close
         case 40:
@@ -1178,8 +1203,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FQIS_SELECT", "4");
           break;
         case 49:
+          sendToDcsBiosMessage("CMSP_MWS", "2");
           break;
         case 50:
+          sendToDcsBiosMessage("CMSP_ARW4", "1");
           break;
         case 51:
           break;
@@ -1211,10 +1238,12 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FQIS_TEST", "1");
           break;
         case 60:
+          sendToDcsBiosMessage("CMSP_MWS", "0");
           break;
         case 61:
           break;
         case 62:
+          sendToDcsBiosMessage("CMSP_UPDN", "2");
           break;
         case 63:
           break;
@@ -1238,11 +1267,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 70:
           break;
         case 71:
+          sendToDcsBiosMessage("CMSP_ARW2", "1");
           break;
         // Close
         case 72:
           break;
         case 73:
+          sendToDcsBiosMessage("CMSP_RTN", "1");
           break;
         case 74:
           break;
@@ -1266,10 +1297,14 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 81:
           break;
         case 82:
+          sendToDcsBiosMessage("CMSP_ARW3", "1");
           break;
         case 83:
+
+          sendToDcsBiosMessage("CMSP_JTSN", "1");
           break;
         case 84:
+          sendToDcsBiosMessage("CMSP_UPDN", "0");
           break;
         case 85:
           break;
@@ -1656,6 +1691,14 @@ DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerC
 
 void loop() {
 
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+    RED_LED_STATE = !RED_LED_STATE;
+
+    digitalWrite(Check_LED_G, RED_LED_STATE);
+    digitalWrite(Check_LED_R, !RED_LED_STATE);
+    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first
@@ -1768,15 +1811,6 @@ void loop() {
 
 
   currentMillis = millis();
-
-  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
-    GREEN_LED_STATE = !GREEN_LED_STATE;
-    RED_LED_STATE = !RED_LED_STATE;
-    digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
-    digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
-
-    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
-  }
 }
 
 void CaseTemplate() {
