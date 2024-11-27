@@ -491,8 +491,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("TACAN_TEST_BTN", "0");
           break;
         case 2:
+          sendToDcsBiosMessage("OXY_EMERGENCY", "1");
           break;
         case 3:
+          sendToDcsBiosMessage("OXY_DILUTER", "0");
           break;
         case 4:
           break;
@@ -520,6 +522,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           // TACAN - XY
           break;
         case 13:
+          sendToDcsBiosMessage("OXY_EMERGENCY", "1");
           break;
         case 14:
           break;
@@ -550,8 +553,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 24:
+        sendToDcsBiosMessage("ENVCP_TEMP_PRESS", "2");
           break;
         case 25:
+          sendToDcsBiosMessage("ENVCP_PITOT_HEAT", "0");
           break;
         case 26:
           break;
@@ -578,8 +583,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 34:
           break;
         case 35:
+        sendToDcsBiosMessage("ENVCP_AIR_SUPPLY", "0");
           break;
         case 36:
+        sendToDcsBiosMessage("ENVCP_BLEED_AIR", "0");
           break;
         case 37:
           break;
@@ -607,6 +614,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 46:
           break;
         case 47:
+          sendToDcsBiosMessage("ENVCP_OXY_TEST", "0");
           break;
         // Release
         case 48:
@@ -641,7 +649,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_MWS", "1");
           break;
         case 61:
-        sendToDcsBiosMessage("CMSP_DISP", "1");
+          sendToDcsBiosMessage("CMSP_DISP", "1");
           break;
         case 62:
           sendToDcsBiosMessage("CMSP_UPDN", "1");
@@ -668,7 +676,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 72:
-        sendToDcsBiosMessage("CMSP_DISP", "1");
+          sendToDcsBiosMessage("CMSP_DISP", "1");
           break;
         case 73:
           sendToDcsBiosMessage("CMSP_RTN", "0");
@@ -957,7 +965,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CDU_LSK_3R", "0");
           break;
         case 154:
-        sendToDcsBiosMessage("LCP_NOSE_ILLUM", "0");
+          sendToDcsBiosMessage("LCP_NOSE_ILLUM", "0");
           break;
         case 155:
           // LCP_ACCEL_COMP
@@ -1064,8 +1072,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("TACAN_TEST_BTN", "1");
           break;
         case 2:
+          sendToDcsBiosMessage("OXY_EMERGENCY", "2");
           break;
         case 3:
+          sendToDcsBiosMessage("OXY_DILUTER", "1");
           break;
         case 4:
           sendToDcsBiosMessage("FQIS_SELECT", "3");
@@ -1076,7 +1086,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_JMR", "0");
           break;
         case 7:
-        sendToDcsBiosMessage("CMSP_MODE", "0");
+          sendToDcsBiosMessage("CMSP_MODE", "0");
           break;
         // Close
         case 8:
@@ -1105,8 +1115,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           }
           break;
         case 13:
+          sendToDcsBiosMessage("OXY_EMERGENCY", "0");
           break;
         case 14:
+
           break;
         case 15:
           sendToDcsBiosMessage("FQIS_SELECT", "2");
@@ -1118,7 +1130,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_JMR", "2");
           break;
         case 18:
-        sendToDcsBiosMessage("CMSP_MODE", "1");
+          sendToDcsBiosMessage("CMSP_MODE", "1");
           break;
         case 19:
           // EPP_BATTERY_PWR
@@ -1139,8 +1151,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 24:
+        sendToDcsBiosMessage("ENVCP_TEMP_PRESS", "0");
           break;
         case 25:
+          sendToDcsBiosMessage("ENVCP_PITOT_HEAT", "1");
           break;
         case 26:
           sendToDcsBiosMessage("FQIS_SELECT", "1");
@@ -1151,7 +1165,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_RWR", "2");
           break;
         case 29:
-        sendToDcsBiosMessage("CMSP_MODE", "2");
+          sendToDcsBiosMessage("CMSP_MODE", "2");
           break;
         case 30:
           // EPP_AC_GEN_PWR_L
@@ -1171,8 +1185,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 34:
           break;
         case 35:
+        sendToDcsBiosMessage("ENVCP_AIR_SUPPLY", "1");
           break;
         case 36:
+          sendToDcsBiosMessage("ENVCP_BLEED_AIR", "1");
           break;
         case 37:
           sendToDcsBiosMessage("FQIS_SELECT", "0");
@@ -1185,7 +1201,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 40:
-        sendToDcsBiosMessage("CMSP_MODE", "3");
+          sendToDcsBiosMessage("CMSP_MODE", "3");
           break;
         case 41:
           // EPP_AC_GEN_PWR_R
@@ -1204,6 +1220,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 46:
           break;
         case 47:
+          sendToDcsBiosMessage("ENVCP_OXY_TEST", "1");
           break;
         // Close
         case 48:
@@ -1216,7 +1233,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_ARW4", "1");
           break;
         case 51:
-        sendToDcsBiosMessage("CMSP_MODE", "4");
+          sendToDcsBiosMessage("CMSP_MODE", "4");
           break;
         case 52:
           break;
@@ -1582,7 +1599,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CDU_LSK_3R", "1");
           break;
         case 154:
-        sendToDcsBiosMessage("LCP_NOSE_ILLUM", "1");
+          sendToDcsBiosMessage("LCP_NOSE_ILLUM", "1");
           break;
         case 155:
           // LCP_ACCEL_COMP
