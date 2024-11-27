@@ -994,7 +994,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 161:
           // CDU_E
-          sendToDcsBiosMessage("CDU_EX", "0");
+          sendToDcsBiosMessage("CDU_E", "0");
           break;
         case 162:
           break;
