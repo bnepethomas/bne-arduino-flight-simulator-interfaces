@@ -558,7 +558,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 27:
           break;
         case 28:
-        sendToDcsBiosMessage("CMSP_RWR", "1");
+          sendToDcsBiosMessage("CMSP_RWR", "1");
           break;
         case 29:
           break;
@@ -587,7 +587,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_ARW1", "0");
           break;
         case 39:
-        sendToDcsBiosMessage("CMSP_RWR", "1");
+          sendToDcsBiosMessage("CMSP_RWR", "1");
           break;
         // Release
         case 40:
@@ -641,6 +641,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_MWS", "1");
           break;
         case 61:
+        sendToDcsBiosMessage("CMSP_DISP", "1");
           break;
         case 62:
           sendToDcsBiosMessage("CMSP_UPDN", "1");
@@ -667,6 +668,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Release
         case 72:
+        sendToDcsBiosMessage("CMSP_DISP", "1");
           break;
         case 73:
           sendToDcsBiosMessage("CMSP_RTN", "0");
@@ -955,6 +957,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CDU_LSK_3R", "0");
           break;
         case 154:
+        sendToDcsBiosMessage("LCP_NOSE_ILLUM", "0");
           break;
         case 155:
           // LCP_ACCEL_COMP
@@ -1073,6 +1076,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_JMR", "0");
           break;
         case 7:
+        sendToDcsBiosMessage("CMSP_MODE", "0");
           break;
         // Close
         case 8:
@@ -1114,6 +1118,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_JMR", "2");
           break;
         case 18:
+        sendToDcsBiosMessage("CMSP_MODE", "1");
           break;
         case 19:
           // EPP_BATTERY_PWR
@@ -1143,9 +1148,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 27:
           break;
         case 28:
-        sendToDcsBiosMessage("CMSP_RWR", "2");
+          sendToDcsBiosMessage("CMSP_RWR", "2");
           break;
         case 29:
+        sendToDcsBiosMessage("CMSP_MODE", "2");
           break;
         case 30:
           // EPP_AC_GEN_PWR_L
@@ -1175,10 +1181,11 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_ARW1", "1");
           break;
         case 39:
-        sendToDcsBiosMessage("CMSP_RWR", "0");
+          sendToDcsBiosMessage("CMSP_RWR", "0");
           break;
         // Close
         case 40:
+        sendToDcsBiosMessage("CMSP_MODE", "3");
           break;
         case 41:
           // EPP_AC_GEN_PWR_R
@@ -1209,6 +1216,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_ARW4", "1");
           break;
         case 51:
+        sendToDcsBiosMessage("CMSP_MODE", "4");
           break;
         case 52:
           break;
@@ -1241,6 +1249,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSP_MWS", "0");
           break;
         case 61:
+          sendToDcsBiosMessage("CMSP_DISP", "2");
           break;
         case 62:
           sendToDcsBiosMessage("CMSP_UPDN", "2");
@@ -1271,6 +1280,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 72:
+          sendToDcsBiosMessage("CMSP_DISP", "0");
           break;
         case 73:
           sendToDcsBiosMessage("CMSP_RTN", "1");
@@ -1572,6 +1582,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CDU_LSK_3R", "1");
           break;
         case 154:
+        sendToDcsBiosMessage("LCP_NOSE_ILLUM", "1");
           break;
         case 155:
           // LCP_ACCEL_COMP
