@@ -1421,7 +1421,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.274 61.214) (xy 27.686 61.214)
+			(xy 45.466 57.912) (xy 39.878 57.912)
 		)
 		(stroke
 			(width 0)
@@ -1431,7 +1431,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 49.276) (xy 129.286 49.276)
+			(xy 131.572 45.974) (xy 141.478 45.974)
 		)
 		(stroke
 			(width 0)
@@ -1441,7 +1441,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.274 71.374) (xy 27.686 71.374)
+			(xy 45.466 68.072) (xy 39.878 68.072)
 		)
 		(stroke
 			(width 0)
@@ -1451,7 +1451,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.274 63.754) (xy 27.686 63.754)
+			(xy 45.466 60.452) (xy 39.878 60.452)
 		)
 		(stroke
 			(width 0)
@@ -1461,7 +1461,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.698 110.998) (xy 129.286 110.998)
+			(xy 135.89 107.696) (xy 141.478 107.696)
 		)
 		(stroke
 			(width 0)
@@ -1471,7 +1471,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.952 141.732) (xy 129.54 141.732)
+			(xy 136.144 138.43) (xy 141.732 138.43)
 		)
 		(stroke
 			(width 0)
@@ -1481,7 +1481,7 @@
 	)
 	(wire
 		(pts
-			(xy 178.054 57.404) (xy 180.848 57.404)
+			(xy 190.246 54.102) (xy 193.04 54.102)
 		)
 		(stroke
 			(width 0)
@@ -1491,7 +1491,7 @@
 	)
 	(wire
 		(pts
-			(xy 178.054 59.944) (xy 180.848 59.944)
+			(xy 190.246 56.642) (xy 193.04 56.642)
 		)
 		(stroke
 			(width 0)
@@ -1501,7 +1501,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.274 66.294) (xy 27.686 66.294)
+			(xy 45.466 62.992) (xy 39.878 62.992)
 		)
 		(stroke
 			(width 0)
@@ -1511,7 +1511,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.274 58.674) (xy 27.686 58.674)
+			(xy 45.466 55.372) (xy 39.878 55.372)
 		)
 		(stroke
 			(width 0)
@@ -1521,7 +1521,7 @@
 	)
 	(wire
 		(pts
-			(xy 33.274 68.834) (xy 27.686 68.834)
+			(xy 45.466 65.532) (xy 39.878 65.532)
 		)
 		(stroke
 			(width 0)
@@ -1531,7 +1531,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.206 65.786) (xy 129.286 65.786)
+			(xy 136.398 62.484) (xy 141.478 62.484)
 		)
 		(stroke
 			(width 0)
@@ -1541,7 +1541,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.952 96.266) (xy 129.286 96.266)
+			(xy 136.144 92.964) (xy 141.478 92.964)
 		)
 		(stroke
 			(width 0)
@@ -1551,7 +1551,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.698 80.772) (xy 129.286 80.772)
+			(xy 135.89 77.47) (xy 141.478 77.47)
 		)
 		(stroke
 			(width 0)
@@ -1561,7 +1561,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.444 126.492) (xy 129.286 126.492)
+			(xy 135.636 123.19) (xy 141.478 123.19)
 		)
 		(stroke
 			(width 0)
@@ -1571,7 +1571,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 98.806) (xy 129.286 98.806)
+			(xy 131.572 95.504) (xy 141.478 95.504)
 		)
 		(stroke
 			(width 0)
@@ -1581,7 +1581,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.514 52.324) (xy 180.848 52.324)
+			(xy 187.706 49.022) (xy 193.04 49.022)
 		)
 		(stroke
 			(width 0)
@@ -1591,7 +1591,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 34.036) (xy 129.286 34.036)
+			(xy 131.572 30.734) (xy 141.478 30.734)
 		)
 		(stroke
 			(width 0)
@@ -1601,7 +1601,7 @@
 	)
 	(wire
 		(pts
-			(xy 178.054 62.484) (xy 180.848 62.484)
+			(xy 190.246 59.182) (xy 193.04 59.182)
 		)
 		(stroke
 			(width 0)
@@ -1611,7 +1611,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.634 144.272) (xy 129.54 144.272)
+			(xy 131.826 140.97) (xy 141.732 140.97)
 		)
 		(stroke
 			(width 0)
@@ -1621,7 +1621,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 83.312) (xy 129.286 83.312)
+			(xy 131.572 80.01) (xy 141.478 80.01)
 		)
 		(stroke
 			(width 0)
@@ -1631,7 +1631,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 129.032) (xy 129.286 129.032)
+			(xy 131.572 125.73) (xy 141.478 125.73)
 		)
 		(stroke
 			(width 0)
@@ -1641,7 +1641,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 113.538) (xy 129.286 113.538)
+			(xy 131.572 110.236) (xy 141.478 110.236)
 		)
 		(stroke
 			(width 0)
@@ -1651,7 +1651,7 @@
 	)
 	(wire
 		(pts
-			(xy 119.38 68.326) (xy 129.286 68.326)
+			(xy 131.572 65.024) (xy 141.478 65.024)
 		)
 		(stroke
 			(width 0)
@@ -1661,7 +1661,7 @@
 	)
 	(wire
 		(pts
-			(xy 178.054 65.024) (xy 180.848 65.024)
+			(xy 190.246 61.722) (xy 193.04 61.722)
 		)
 		(stroke
 			(width 0)
@@ -1671,7 +1671,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.514 54.864) (xy 180.848 54.864)
+			(xy 187.706 51.562) (xy 193.04 51.562)
 		)
 		(stroke
 			(width 0)
@@ -1680,7 +1680,7 @@
 		(uuid "fffeeb1d-ff73-4b2c-8923-a53b8358773a")
 	)
 	(label "SD2"
-		(at 85.852 58.674 0)
+		(at 98.044 55.372 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1691,7 +1691,7 @@
 		(uuid "049ee390-9b11-4fd1-9f64-7e8392eb454b")
 	)
 	(label "SDA"
-		(at 65.532 48.514 180)
+		(at 77.724 45.212 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1702,7 +1702,7 @@
 		(uuid "08768a34-52ee-444c-8043-db2ebe2ba144")
 	)
 	(label "SCL"
-		(at 65.532 45.974 180)
+		(at 77.724 42.672 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1713,7 +1713,7 @@
 		(uuid "0b6e0a69-be74-47c0-9a30-4ded9f943853")
 	)
 	(label "SC4"
-		(at 85.852 66.294 0)
+		(at 98.044 62.992 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1724,7 +1724,7 @@
 		(uuid "0fc66b48-d64c-45a3-98e2-08886b73e422")
 	)
 	(label "SC3"
-		(at 129.286 85.852 180)
+		(at 141.478 82.55 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1735,7 +1735,7 @@
 		(uuid "10e646f5-351c-4d8c-ba5b-81d6c12c43c2")
 	)
 	(label "SD4"
-		(at 129.286 103.886 180)
+		(at 141.478 100.584 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1746,7 +1746,7 @@
 		(uuid "139acefb-d365-4ef6-a657-6027eba91dd7")
 	)
 	(label "I2C_SEL_A0"
-		(at 65.532 71.374 180)
+		(at 77.724 68.072 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1757,7 +1757,7 @@
 		(uuid "1c0c7ded-0c71-4ac1-98f9-5ad6a18b1065")
 	)
 	(label "SC0"
-		(at 85.852 45.974 0)
+		(at 98.044 42.672 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1768,7 +1768,7 @@
 		(uuid "210d1331-435d-469a-9e26-a34c4d6257d7")
 	)
 	(label "SC1"
-		(at 129.286 51.816 180)
+		(at 141.478 48.514 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1779,7 +1779,7 @@
 		(uuid "21b94a34-abc1-40c6-af96-2102741c74ff")
 	)
 	(label "SC6"
-		(at 129.286 131.572 180)
+		(at 141.478 128.27 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1790,7 +1790,7 @@
 		(uuid "24a9166f-5fa5-437c-87ba-26e7d2e6fa31")
 	)
 	(label "SD6"
-		(at 129.286 134.112 180)
+		(at 141.478 130.81 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1801,7 +1801,7 @@
 		(uuid "254d17d0-0970-47c5-935a-fc48803c8680")
 	)
 	(label "SC6"
-		(at 85.852 76.454 0)
+		(at 98.044 73.152 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1812,7 +1812,7 @@
 		(uuid "3441900c-0bea-465d-8e23-c8403ac5e982")
 	)
 	(label "SC4"
-		(at 129.286 101.346 180)
+		(at 141.478 98.044 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1823,7 +1823,7 @@
 		(uuid "3d1d02f5-a55e-48a8-bed6-e5d652534a7d")
 	)
 	(label "SC0"
-		(at 129.286 36.576 180)
+		(at 141.478 33.274 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1834,7 +1834,7 @@
 		(uuid "3dfeeae4-db76-4339-948c-070cce27c59b")
 	)
 	(label "SD6"
-		(at 85.852 78.994 0)
+		(at 98.044 75.692 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1845,7 +1845,7 @@
 		(uuid "4a94275d-eaf4-4118-8b62-934909f90bb0")
 	)
 	(label "SC1"
-		(at 85.852 51.054 0)
+		(at 98.044 47.752 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1856,7 +1856,7 @@
 		(uuid "4b3912f3-633c-4c28-8bcd-f9eccbd00263")
 	)
 	(label "SD3"
-		(at 85.852 63.754 0)
+		(at 98.044 60.452 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1867,7 +1867,7 @@
 		(uuid "5d9ad53a-c5ce-4abe-b1c7-d52db376af9a")
 	)
 	(label "SD7"
-		(at 129.54 149.352 180)
+		(at 141.732 146.05 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1878,7 +1878,7 @@
 		(uuid "73bcb7d6-c1e2-4882-9038-825b714981da")
 	)
 	(label "SD1"
-		(at 129.286 54.356 180)
+		(at 141.478 51.054 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1889,7 +1889,7 @@
 		(uuid "74d97a76-7d61-452d-a687-f9696b7ebc06")
 	)
 	(label "SD4"
-		(at 85.852 68.834 0)
+		(at 98.044 65.532 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1900,7 +1900,7 @@
 		(uuid "8216b951-6f8f-4d4d-9148-bd1fd887c55b")
 	)
 	(label "SD3"
-		(at 129.286 88.392 180)
+		(at 141.478 85.09 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1911,7 +1911,7 @@
 		(uuid "8273718c-e29c-4379-a29c-a13d70f2d78e")
 	)
 	(label "I2C_SEL_RESET"
-		(at 65.532 58.674 180)
+		(at 77.724 55.372 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1922,7 +1922,7 @@
 		(uuid "85f2224b-6d6c-46c0-8b34-eab98a359b81")
 	)
 	(label "SC1"
-		(at 178.054 62.484 180)
+		(at 190.246 59.182 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1933,7 +1933,7 @@
 		(uuid "86921a83-979f-4872-b7d9-e8a26ed82c91")
 	)
 	(label "I2C_SEL_A1"
-		(at 65.532 73.914 180)
+		(at 77.724 70.612 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1944,7 +1944,7 @@
 		(uuid "87376454-6c05-481f-be3c-45e682e5af13")
 	)
 	(label "SC5"
-		(at 85.852 71.374 0)
+		(at 98.044 68.072 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1955,7 +1955,7 @@
 		(uuid "88592e05-3455-4768-9c7f-918a3b22dbb1")
 	)
 	(label "SC2"
-		(at 178.054 57.404 180)
+		(at 190.246 54.102 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1966,7 +1966,7 @@
 		(uuid "9220e60c-eca5-40ea-a9c8-dc5cbdef8859")
 	)
 	(label "SD1"
-		(at 178.054 65.024 180)
+		(at 190.246 61.722 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1977,7 +1977,7 @@
 		(uuid "a4aeaa3d-9943-4f9a-a6dd-6c300bc4bf3d")
 	)
 	(label "SC7"
-		(at 85.852 81.534 0)
+		(at 98.044 78.232 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1988,7 +1988,7 @@
 		(uuid "ae54d7f5-3db0-4294-ab73-b0cf8890f774")
 	)
 	(label "SD5"
-		(at 85.852 73.914 0)
+		(at 98.044 70.612 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1999,7 +1999,7 @@
 		(uuid "b301ec5f-2ce9-47db-bb76-2d05389ec743")
 	)
 	(label "SC3"
-		(at 85.852 61.214 0)
+		(at 98.044 57.912 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2010,7 +2010,7 @@
 		(uuid "b66dc992-5d32-43f1-8a3d-bf2a1f877be3")
 	)
 	(label "SD5"
-		(at 129.286 118.618 180)
+		(at 141.478 115.316 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2021,7 +2021,7 @@
 		(uuid "b9726f80-bc33-41ad-8cad-a3741e611983")
 	)
 	(label "SC5"
-		(at 129.286 116.078 180)
+		(at 141.478 112.776 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2032,7 +2032,7 @@
 		(uuid "bbeee3b4-84b7-46f6-8704-cf545c158f8f")
 	)
 	(label "SC2"
-		(at 85.852 56.134 0)
+		(at 98.044 52.832 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2043,7 +2043,7 @@
 		(uuid "bccaaf29-18f7-441a-85d6-b971b1337ec4")
 	)
 	(label "SD1"
-		(at 85.852 53.594 0)
+		(at 98.044 50.292 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2054,7 +2054,7 @@
 		(uuid "c0bf2655-c171-4b74-83f2-32ddde1fd61c")
 	)
 	(label "SD0"
-		(at 85.852 48.514 0)
+		(at 98.044 45.212 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2065,7 +2065,7 @@
 		(uuid "d1dbe105-1baf-4c17-bea7-7f6e6c2aefaf")
 	)
 	(label "SD2"
-		(at 129.286 73.406 180)
+		(at 141.478 70.104 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2076,7 +2076,7 @@
 		(uuid "d601378c-5a07-4aee-b103-e40a326c35e5")
 	)
 	(label "I2C_SEL_A2"
-		(at 65.532 76.454 180)
+		(at 77.724 73.152 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2087,7 +2087,7 @@
 		(uuid "e56072b8-3c34-4e3d-9171-1a84694b673a")
 	)
 	(label "SD0"
-		(at 129.286 39.116 180)
+		(at 141.478 35.814 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2098,7 +2098,7 @@
 		(uuid "e83b39d1-7e11-4490-b629-dd7e190be980")
 	)
 	(label "SC2"
-		(at 129.286 70.866 180)
+		(at 141.478 67.564 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2109,7 +2109,7 @@
 		(uuid "eb5a99fa-e95d-4244-adfd-918868a9bda7")
 	)
 	(label "SD7"
-		(at 85.852 84.074 0)
+		(at 98.044 80.772 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2120,7 +2120,7 @@
 		(uuid "f0c2da6a-4ca5-4291-a21c-d55d33cfc137")
 	)
 	(label "SD2"
-		(at 178.054 59.944 180)
+		(at 190.246 56.642 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2131,7 +2131,7 @@
 		(uuid "f7d5dace-e7d4-4bcf-94c5-5c0cb4d748cb")
 	)
 	(label "SC7"
-		(at 129.54 146.812 180)
+		(at 141.732 143.51 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2143,7 +2143,7 @@
 	)
 	(global_label "D17"
 		(shape input)
-		(at 27.686 61.214 180)
+		(at 39.878 57.912 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2153,7 +2153,7 @@
 		)
 		(uuid "08940623-cdd3-4837-8af8-f05a25c4a9ce")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 20.9167 61.214 0)
+			(at 33.1087 57.912 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2165,7 +2165,7 @@
 	)
 	(global_label "D19"
 		(shape input)
-		(at 27.686 66.294 180)
+		(at 39.878 62.992 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2175,7 +2175,7 @@
 		)
 		(uuid "24cbb337-829d-42fb-a19f-d9d93e7ff6ae")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 20.9167 66.294 0)
+			(at 33.1087 62.992 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2187,7 +2187,7 @@
 	)
 	(global_label "SDA"
 		(shape input)
-		(at 33.274 68.834 0)
+		(at 45.466 65.532 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2197,7 +2197,7 @@
 		)
 		(uuid "4990deed-b375-400d-a0d6-5ec8ed4d76b1")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 39.9224 68.834 0)
+			(at 52.1144 65.532 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2209,7 +2209,7 @@
 	)
 	(global_label "D16"
 		(shape input)
-		(at 27.686 58.674 180)
+		(at 39.878 55.372 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2219,7 +2219,7 @@
 		)
 		(uuid "62b834eb-8300-4f77-b842-f4a67b350e88")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 20.9167 58.674 0)
+			(at 33.1087 55.372 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2231,7 +2231,7 @@
 	)
 	(global_label "D21 SCL"
 		(shape input)
-		(at 27.686 71.374 180)
+		(at 39.878 68.072 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2241,7 +2241,7 @@
 		)
 		(uuid "a653337a-3824-45a9-b8d7-2d92c0050884")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 16.4415 71.374 0)
+			(at 28.6335 68.072 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2253,7 +2253,7 @@
 	)
 	(global_label "I2C_SEL_A2"
 		(shape input)
-		(at 33.274 66.294 0)
+		(at 45.466 62.992 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2263,7 +2263,7 @@
 		)
 		(uuid "a67e87ea-013d-40e3-8851-7335273f12a9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 47.0585 66.294 0)
+			(at 59.2505 62.992 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2275,7 +2275,7 @@
 	)
 	(global_label "SCL"
 		(shape input)
-		(at 33.274 71.374 0)
+		(at 45.466 68.072 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2285,7 +2285,7 @@
 		)
 		(uuid "b4822e38-fed2-4b1f-b075-9f04bc9bdfdd")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 39.8619 71.374 0)
+			(at 52.0539 68.072 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2297,7 +2297,7 @@
 	)
 	(global_label "I2C_SEL_A1"
 		(shape input)
-		(at 33.274 63.754 0)
+		(at 45.466 60.452 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2307,7 +2307,7 @@
 		)
 		(uuid "b6277b78-d620-4d8a-a785-8c9cc9f025f9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 47.0585 63.754 0)
+			(at 59.2505 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2319,7 +2319,7 @@
 	)
 	(global_label "I2C_SEL_A0"
 		(shape input)
-		(at 33.274 61.214 0)
+		(at 45.466 57.912 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2329,7 +2329,7 @@
 		)
 		(uuid "d53dbe5b-6a90-4d70-b4a6-effc108935f3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 47.0585 61.214 0)
+			(at 59.2505 57.912 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2341,7 +2341,7 @@
 	)
 	(global_label "D20 SDA"
 		(shape input)
-		(at 27.686 68.834 180)
+		(at 39.878 65.532 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2351,7 +2351,7 @@
 		)
 		(uuid "deb90958-6a35-47c7-b2d2-074067bc9de2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 16.381 68.834 0)
+			(at 28.573 65.532 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2363,7 +2363,7 @@
 	)
 	(global_label "D18"
 		(shape input)
-		(at 27.686 63.754 180)
+		(at 39.878 60.452 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2373,7 +2373,7 @@
 		)
 		(uuid "e8488ae3-4502-4695-a284-37941aa20a9b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 20.9167 63.754 0)
+			(at 33.1087 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2385,7 +2385,7 @@
 	)
 	(global_label "I2C_SEL_RESET"
 		(shape input)
-		(at 33.274 58.674 0)
+		(at 45.466 55.372 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2395,7 +2395,7 @@
 		)
 		(uuid "fecc92b1-7ba0-4f86-80b3-ef767e4357be")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 50.5055 58.674 0)
+			(at 62.6975 55.372 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2407,7 +2407,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 134.366 129.032 0)
+		(at 146.558 125.73 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2415,8 +2415,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0119b159-c0b4-4ec6-ac32-86806e95db1d")
-		(property "Reference" "J59"
-			(at 135.0772 129.0899 0)
+		(property "Reference" "J?"
+			(at 147.2692 125.7879 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2425,7 +2425,7 @@
 			)
 		)
 		(property "Value" "TACAN_OLED"
-			(at 135.0772 131.5141 0)
+			(at 147.2692 128.2121 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2434,7 +2434,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2443,7 +2443,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2452,7 +2452,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2461,7 +2461,7 @@
 			)
 		)
 		(property "automotive" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2470,7 +2470,7 @@
 			)
 		)
 		(property "category" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2479,7 +2479,7 @@
 			)
 		)
 		(property "continuous drain current" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2488,7 +2488,7 @@
 			)
 		)
 		(property "depletion mode" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2497,7 +2497,7 @@
 			)
 		)
 		(property "device class L1" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2506,7 +2506,7 @@
 			)
 		)
 		(property "device class L2" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2515,7 +2515,7 @@
 			)
 		)
 		(property "device class L3" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2524,7 +2524,7 @@
 			)
 		)
 		(property "digikey description" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2533,7 +2533,7 @@
 			)
 		)
 		(property "digikey part number" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2542,7 +2542,7 @@
 			)
 		)
 		(property "drain to source breakdown voltage" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2551,7 +2551,7 @@
 			)
 		)
 		(property "drain to source resistance" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2560,7 +2560,7 @@
 			)
 		)
 		(property "drain to source voltage" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2569,7 +2569,7 @@
 			)
 		)
 		(property "footprint url" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2578,7 +2578,7 @@
 			)
 		)
 		(property "gate charge at vgs" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2587,7 +2587,7 @@
 			)
 		)
 		(property "gate to source voltage" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2596,7 +2596,7 @@
 			)
 		)
 		(property "height" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2605,7 +2605,7 @@
 			)
 		)
 		(property "input capacitace at vds" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2614,7 +2614,7 @@
 			)
 		)
 		(property "ipc land pattern name" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2623,7 +2623,7 @@
 			)
 		)
 		(property "lead free" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2632,7 +2632,7 @@
 			)
 		)
 		(property "library id" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2641,7 +2641,7 @@
 			)
 		)
 		(property "manufacturer" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2650,7 +2650,7 @@
 			)
 		)
 		(property "max forward diode voltage" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2659,7 +2659,7 @@
 			)
 		)
 		(property "max junction temp" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2668,7 +2668,7 @@
 			)
 		)
 		(property "mouser description" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2677,7 +2677,7 @@
 			)
 		)
 		(property "mouser part number" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2686,7 +2686,7 @@
 			)
 		)
 		(property "number of N channels" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2695,7 +2695,7 @@
 			)
 		)
 		(property "number of channels" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2704,7 +2704,7 @@
 			)
 		)
 		(property "package" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2713,7 +2713,7 @@
 			)
 		)
 		(property "power dissipation" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2722,7 +2722,7 @@
 			)
 		)
 		(property "pulse drain current" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2731,7 +2731,7 @@
 			)
 		)
 		(property "reverse recovery charge" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2740,7 +2740,7 @@
 			)
 		)
 		(property "reverse recovery time" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2749,7 +2749,7 @@
 			)
 		)
 		(property "rohs" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2758,7 +2758,7 @@
 			)
 		)
 		(property "rthja max" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2767,7 +2767,7 @@
 			)
 		)
 		(property "standoff height" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2776,7 +2776,7 @@
 			)
 		)
 		(property "temperature range high" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2785,7 +2785,7 @@
 			)
 		)
 		(property "temperature range low" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2794,7 +2794,7 @@
 			)
 		)
 		(property "threshold vgs max" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2803,7 +2803,7 @@
 			)
 		)
 		(property "threshold vgs min" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2812,7 +2812,7 @@
 			)
 		)
 		(property "turn off delay time" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2821,7 +2821,7 @@
 			)
 		)
 		(property "turn on delay time" ""
-			(at 134.366 129.032 0)
+			(at 146.558 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2842,6 +2842,12 @@
 			(uuid "841b8eb7-8e82-4c62-83cb-d164ff05fc8b")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "J?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "J59")
@@ -2852,15 +2858,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 119.38 68.326 0)
+		(at 131.572 65.024 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "08e084a3-2ad0-4d53-b985-c61b3e906cf9")
-		(property "Reference" "#PWR079"
-			(at 119.38 74.676 0)
+		(property "Reference" "#PWR?"
+			(at 131.572 71.374 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2869,7 +2875,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 119.38 72.136 0)
+			(at 131.572 68.834 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2877,7 +2883,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 68.326 0)
+			(at 131.572 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2885,7 +2891,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 68.326 0)
+			(at 131.572 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2893,7 +2899,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 119.38 68.326 0)
+			(at 131.572 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2905,6 +2911,12 @@
 			(uuid "33aeb191-f999-43c9-871e-85e0fd9843dc")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR079")
@@ -2915,7 +2927,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 134.366 49.276 0)
+		(at 146.558 45.974 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2923,8 +2935,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0cafd51b-1c35-4b5a-8629-e6b11fc5719e")
-		(property "Reference" "J36"
-			(at 135.382 49.2759 0)
+		(property "Reference" "J?"
+			(at 147.574 45.9739 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2933,7 +2945,7 @@
 			)
 		)
 		(property "Value" "ALTIMETER-OLED"
-			(at 135.382 51.8159 0)
+			(at 147.574 48.5139 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2942,7 +2954,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2951,7 +2963,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2960,7 +2972,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2969,7 +2981,7 @@
 			)
 		)
 		(property "automotive" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2978,7 +2990,7 @@
 			)
 		)
 		(property "category" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2987,7 +2999,7 @@
 			)
 		)
 		(property "continuous drain current" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2996,7 +3008,7 @@
 			)
 		)
 		(property "depletion mode" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3005,7 +3017,7 @@
 			)
 		)
 		(property "device class L1" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3014,7 +3026,7 @@
 			)
 		)
 		(property "device class L2" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3023,7 +3035,7 @@
 			)
 		)
 		(property "device class L3" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3032,7 +3044,7 @@
 			)
 		)
 		(property "digikey description" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3041,7 +3053,7 @@
 			)
 		)
 		(property "digikey part number" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3050,7 +3062,7 @@
 			)
 		)
 		(property "drain to source breakdown voltage" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3059,7 +3071,7 @@
 			)
 		)
 		(property "drain to source resistance" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3068,7 +3080,7 @@
 			)
 		)
 		(property "drain to source voltage" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3077,7 +3089,7 @@
 			)
 		)
 		(property "footprint url" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3086,7 +3098,7 @@
 			)
 		)
 		(property "gate charge at vgs" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3095,7 +3107,7 @@
 			)
 		)
 		(property "gate to source voltage" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3104,7 +3116,7 @@
 			)
 		)
 		(property "height" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3113,7 +3125,7 @@
 			)
 		)
 		(property "input capacitace at vds" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3122,7 +3134,7 @@
 			)
 		)
 		(property "ipc land pattern name" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3131,7 +3143,7 @@
 			)
 		)
 		(property "lead free" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3140,7 +3152,7 @@
 			)
 		)
 		(property "library id" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3149,7 +3161,7 @@
 			)
 		)
 		(property "manufacturer" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3158,7 +3170,7 @@
 			)
 		)
 		(property "max forward diode voltage" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3167,7 +3179,7 @@
 			)
 		)
 		(property "max junction temp" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3176,7 +3188,7 @@
 			)
 		)
 		(property "mouser description" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3185,7 +3197,7 @@
 			)
 		)
 		(property "mouser part number" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3194,7 +3206,7 @@
 			)
 		)
 		(property "number of N channels" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3203,7 +3215,7 @@
 			)
 		)
 		(property "number of channels" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3212,7 +3224,7 @@
 			)
 		)
 		(property "package" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3221,7 +3233,7 @@
 			)
 		)
 		(property "power dissipation" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3230,7 +3242,7 @@
 			)
 		)
 		(property "pulse drain current" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3239,7 +3251,7 @@
 			)
 		)
 		(property "reverse recovery charge" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3248,7 +3260,7 @@
 			)
 		)
 		(property "reverse recovery time" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3257,7 +3269,7 @@
 			)
 		)
 		(property "rohs" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3266,7 +3278,7 @@
 			)
 		)
 		(property "rthja max" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3275,7 +3287,7 @@
 			)
 		)
 		(property "standoff height" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3284,7 +3296,7 @@
 			)
 		)
 		(property "temperature range high" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3293,7 +3305,7 @@
 			)
 		)
 		(property "temperature range low" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3302,7 +3314,7 @@
 			)
 		)
 		(property "threshold vgs max" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3311,7 +3323,7 @@
 			)
 		)
 		(property "threshold vgs min" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3320,7 +3332,7 @@
 			)
 		)
 		(property "turn off delay time" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3329,7 +3341,7 @@
 			)
 		)
 		(property "turn on delay time" ""
-			(at 134.366 49.276 0)
+			(at 146.558 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3350,6 +3362,12 @@
 			(uuid "b6d74095-25b7-450b-84b5-740c796df8fe")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "J?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "J36")
@@ -3360,15 +3378,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 75.692 89.154 0)
+		(at 87.884 85.852 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "1cae0cec-1b97-4d29-a98a-b7846061f08f")
-		(property "Reference" "#PWR074"
-			(at 75.692 95.504 0)
+		(property "Reference" "#PWR?"
+			(at 87.884 92.202 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3377,7 +3395,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 75.692 92.964 0)
+			(at 87.884 89.662 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3385,7 +3403,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 75.692 89.154 0)
+			(at 87.884 85.852 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3393,7 +3411,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 75.692 89.154 0)
+			(at 87.884 85.852 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3401,7 +3419,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 75.692 89.154 0)
+			(at 87.884 85.852 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3413,6 +3431,12 @@
 			(uuid "82c8c8c2-abeb-481f-89b1-2e4b1e08ab2d")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR074")
@@ -3423,15 +3447,15 @@
 	)
 	(symbol
 		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 123.698 80.772 0)
+		(at 135.89 77.47 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "39ab6f0f-c937-4dee-8e03-8bd0780f9f99")
-		(property "Reference" "#PWR08"
-			(at 123.698 84.582 0)
+		(property "Reference" "#PWR?"
+			(at 135.89 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3440,7 +3464,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 124.079 77.5208 90)
+			(at 136.271 74.2188 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3449,7 +3473,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 123.698 80.772 0)
+			(at 135.89 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3458,7 +3482,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 123.698 80.772 0)
+			(at 135.89 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3467,7 +3491,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 123.698 80.772 0)
+			(at 135.89 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3479,6 +3503,12 @@
 			(uuid "09a33546-3a4a-467c-b70e-c77a987d5263")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR08")
@@ -3489,15 +3519,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 119.38 113.538 0)
+		(at 131.572 110.236 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "5102d411-d537-4b93-91a7-4073af9fea3d")
-		(property "Reference" "#PWR082"
-			(at 119.38 119.888 0)
+		(property "Reference" "#PWR?"
+			(at 131.572 116.586 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3506,7 +3536,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 119.38 117.348 0)
+			(at 131.572 114.046 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3514,7 +3544,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 113.538 0)
+			(at 131.572 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3522,7 +3552,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 113.538 0)
+			(at 131.572 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3530,7 +3560,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 119.38 113.538 0)
+			(at 131.572 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3542,6 +3572,12 @@
 			(uuid "a655de04-9fb7-4292-9315-f074adad6d74")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR082")
@@ -3552,15 +3588,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 119.634 144.272 0)
+		(at 131.826 140.97 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "561515ea-85ca-4db8-b7b3-7f444c9d28fb")
-		(property "Reference" "#PWR084"
-			(at 119.634 150.622 0)
+		(property "Reference" "#PWR?"
+			(at 131.826 147.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3569,7 +3605,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 119.634 148.082 0)
+			(at 131.826 144.78 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3577,7 +3613,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.634 144.272 0)
+			(at 131.826 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3585,7 +3621,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.634 144.272 0)
+			(at 131.826 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3593,7 +3629,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 119.634 144.272 0)
+			(at 131.826 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3605,6 +3641,12 @@
 			(uuid "8f385a94-10c9-47e1-8e40-5ee223f70950")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR084")
@@ -3615,15 +3657,15 @@
 	)
 	(symbol
 		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 123.952 96.266 0)
+		(at 136.144 92.964 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "616e4646-b1ba-49af-a02c-33205128c27e")
-		(property "Reference" "#PWR09"
-			(at 123.952 100.076 0)
+		(property "Reference" "#PWR?"
+			(at 136.144 96.774 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3632,7 +3674,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 124.333 93.0148 90)
+			(at 136.525 89.7128 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3641,7 +3683,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 123.952 96.266 0)
+			(at 136.144 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3650,7 +3692,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 123.952 96.266 0)
+			(at 136.144 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3659,7 +3701,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 123.952 96.266 0)
+			(at 136.144 92.964 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3671,6 +3713,12 @@
 			(uuid "3329b3e5-2685-434c-a897-5bdd406fcf28")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR09")
@@ -3681,15 +3729,15 @@
 	)
 	(symbol
 		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 129.286 31.496 0)
+		(at 141.478 28.194 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "635e0868-d924-4118-b06f-5d2eb9870503")
-		(property "Reference" "#PWR05"
-			(at 129.286 35.306 0)
+		(property "Reference" "#PWR?"
+			(at 141.478 32.004 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3698,7 +3746,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 129.667 28.2448 90)
+			(at 141.859 24.9428 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3707,7 +3755,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.286 31.496 0)
+			(at 141.478 28.194 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3716,7 +3764,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.286 31.496 0)
+			(at 141.478 28.194 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3725,7 +3773,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 129.286 31.496 0)
+			(at 141.478 28.194 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3737,6 +3785,12 @@
 			(uuid "738dd22a-cb15-45d8-b4a5-834883015268")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR05")
@@ -3747,15 +3801,15 @@
 	)
 	(symbol
 		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 123.444 126.492 0)
+		(at 135.636 123.19 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "6678ac7b-48a5-4404-a431-dd0386c704d1")
-		(property "Reference" "#PWR011"
-			(at 123.444 130.302 0)
+		(property "Reference" "#PWR?"
+			(at 135.636 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3764,7 +3818,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 123.825 123.2408 90)
+			(at 136.017 119.9388 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3773,7 +3827,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 123.444 126.492 0)
+			(at 135.636 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3782,7 +3836,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 123.444 126.492 0)
+			(at 135.636 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3791,7 +3845,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 123.444 126.492 0)
+			(at 135.636 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3803,6 +3857,12 @@
 			(uuid "799ed955-4b99-405e-b3e8-f2ebdd16e759")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR011")
@@ -3813,15 +3873,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 175.514 52.324 270)
+		(at 187.706 49.022 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "71e19417-a1be-407a-a8f7-f36c09421181")
-		(property "Reference" "#PWR03"
-			(at 169.164 52.324 0)
+		(property "Reference" "#PWR?"
+			(at 181.356 49.022 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3830,7 +3890,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 172.2628 52.451 90)
+			(at 184.4548 49.149 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3839,7 +3899,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 175.514 52.324 0)
+			(at 187.706 49.022 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3848,7 +3908,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 175.514 52.324 0)
+			(at 187.706 49.022 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3857,7 +3917,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 175.514 52.324 0)
+			(at 187.706 49.022 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3869,6 +3929,12 @@
 			(uuid "bd10ca3e-e1f3-4cef-88ab-22b61c675da3")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR03")
@@ -3879,15 +3945,15 @@
 	)
 	(symbol
 		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 123.952 141.732 0)
+		(at 136.144 138.43 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "7c4bfed2-c8a2-453e-ad67-ab919819aa99")
-		(property "Reference" "#PWR012"
-			(at 123.952 145.542 0)
+		(property "Reference" "#PWR?"
+			(at 136.144 142.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3896,7 +3962,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 124.333 138.4808 90)
+			(at 136.525 135.1788 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3905,7 +3971,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 123.952 141.732 0)
+			(at 136.144 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3914,7 +3980,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 123.952 141.732 0)
+			(at 136.144 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3923,7 +3989,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 123.952 141.732 0)
+			(at 136.144 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3935,6 +4001,12 @@
 			(uuid "2a8c040b-ee29-4ec1-9cff-392755a348a2")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR012")
@@ -3945,15 +4017,15 @@
 	)
 	(symbol
 		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 175.514 54.864 90)
+		(at 187.706 51.562 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "8ee1c232-49d8-4560-82c7-0c75bdae1ced")
-		(property "Reference" "#PWR04"
-			(at 179.324 54.864 0)
+		(property "Reference" "#PWR?"
+			(at 191.516 51.562 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3962,7 +4034,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 172.2628 54.483 90)
+			(at 184.4548 51.181 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3971,7 +4043,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 175.514 54.864 0)
+			(at 187.706 51.562 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3980,7 +4052,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 175.514 54.864 0)
+			(at 187.706 51.562 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3989,7 +4061,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 175.514 54.864 0)
+			(at 187.706 51.562 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4001,6 +4073,12 @@
 			(uuid "6974c76f-6c65-40a0-9c65-c193eb973bbd")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR04")
@@ -4011,7 +4089,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 134.366 98.806 0)
+		(at 146.558 95.504 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4019,8 +4097,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9589c255-8699-4af7-810e-509af3f2da83")
-		(property "Reference" "J57"
-			(at 135.0772 98.8639 0)
+		(property "Reference" "J?"
+			(at 147.2692 95.5619 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4029,7 +4107,7 @@
 			)
 		)
 		(property "Value" "CMSP_OLED"
-			(at 135.0772 101.2881 0)
+			(at 147.2692 97.9861 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4038,7 +4116,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4047,7 +4125,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4056,7 +4134,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4065,7 +4143,7 @@
 			)
 		)
 		(property "automotive" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4074,7 +4152,7 @@
 			)
 		)
 		(property "category" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4083,7 +4161,7 @@
 			)
 		)
 		(property "continuous drain current" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4092,7 +4170,7 @@
 			)
 		)
 		(property "depletion mode" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4101,7 +4179,7 @@
 			)
 		)
 		(property "device class L1" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4110,7 +4188,7 @@
 			)
 		)
 		(property "device class L2" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4119,7 +4197,7 @@
 			)
 		)
 		(property "device class L3" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4128,7 +4206,7 @@
 			)
 		)
 		(property "digikey description" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4137,7 +4215,7 @@
 			)
 		)
 		(property "digikey part number" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4146,7 +4224,7 @@
 			)
 		)
 		(property "drain to source breakdown voltage" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4155,7 +4233,7 @@
 			)
 		)
 		(property "drain to source resistance" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4164,7 +4242,7 @@
 			)
 		)
 		(property "drain to source voltage" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4173,7 +4251,7 @@
 			)
 		)
 		(property "footprint url" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4182,7 +4260,7 @@
 			)
 		)
 		(property "gate charge at vgs" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4191,7 +4269,7 @@
 			)
 		)
 		(property "gate to source voltage" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4200,7 +4278,7 @@
 			)
 		)
 		(property "height" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4209,7 +4287,7 @@
 			)
 		)
 		(property "input capacitace at vds" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4218,7 +4296,7 @@
 			)
 		)
 		(property "ipc land pattern name" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4227,7 +4305,7 @@
 			)
 		)
 		(property "lead free" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4236,7 +4314,7 @@
 			)
 		)
 		(property "library id" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4245,7 +4323,7 @@
 			)
 		)
 		(property "manufacturer" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4254,7 +4332,7 @@
 			)
 		)
 		(property "max forward diode voltage" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4263,7 +4341,7 @@
 			)
 		)
 		(property "max junction temp" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4272,7 +4350,7 @@
 			)
 		)
 		(property "mouser description" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4281,7 +4359,7 @@
 			)
 		)
 		(property "mouser part number" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4290,7 +4368,7 @@
 			)
 		)
 		(property "number of N channels" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4299,7 +4377,7 @@
 			)
 		)
 		(property "number of channels" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4308,7 +4386,7 @@
 			)
 		)
 		(property "package" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4317,7 +4395,7 @@
 			)
 		)
 		(property "power dissipation" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4326,7 +4404,7 @@
 			)
 		)
 		(property "pulse drain current" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4335,7 +4413,7 @@
 			)
 		)
 		(property "reverse recovery charge" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4344,7 +4422,7 @@
 			)
 		)
 		(property "reverse recovery time" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4353,7 +4431,7 @@
 			)
 		)
 		(property "rohs" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4362,7 +4440,7 @@
 			)
 		)
 		(property "rthja max" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4371,7 +4449,7 @@
 			)
 		)
 		(property "standoff height" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4380,7 +4458,7 @@
 			)
 		)
 		(property "temperature range high" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4389,7 +4467,7 @@
 			)
 		)
 		(property "temperature range low" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4398,7 +4476,7 @@
 			)
 		)
 		(property "threshold vgs max" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4407,7 +4485,7 @@
 			)
 		)
 		(property "threshold vgs min" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4416,7 +4494,7 @@
 			)
 		)
 		(property "turn off delay time" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4425,7 +4503,7 @@
 			)
 		)
 		(property "turn on delay time" ""
-			(at 134.366 98.806 0)
+			(at 146.558 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4446,6 +4524,12 @@
 			(uuid "ad5c9672-5450-4474-9d50-01d21c8ffa9a")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "J?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "J57")
@@ -4456,7 +4540,7 @@
 	)
 	(symbol
 		(lib_id "Interface_Expansion:TCA9548APWR")
-		(at 75.692 63.754 0)
+		(at 87.884 60.452 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4464,8 +4548,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9c0b9fd9-66f5-48e9-a7ef-f6b96e851ee4")
-		(property "Reference" "U4"
-			(at 77.8861 39.2897 0)
+		(property "Reference" "U?"
+			(at 90.0781 35.9877 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4474,7 +4558,7 @@
 			)
 		)
 		(property "Value" "TCA9548APWR"
-			(at 77.8861 41.7139 0)
+			(at 90.0781 38.4119 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4483,7 +4567,7 @@
 			)
 		)
 		(property "Footprint" "Package_DIP:DIP-24_TCA9548A"
-			(at 75.692 89.154 0)
+			(at 87.884 85.852 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4492,7 +4576,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tca9548a.pdf"
-			(at 75.692 37.084 0)
+			(at 87.884 33.782 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4501,7 +4585,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4510,7 +4594,7 @@
 			)
 		)
 		(property "automotive" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4519,7 +4603,7 @@
 			)
 		)
 		(property "category" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4528,7 +4612,7 @@
 			)
 		)
 		(property "continuous drain current" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4537,7 +4621,7 @@
 			)
 		)
 		(property "depletion mode" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4546,7 +4630,7 @@
 			)
 		)
 		(property "device class L1" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4555,7 +4639,7 @@
 			)
 		)
 		(property "device class L2" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4564,7 +4648,7 @@
 			)
 		)
 		(property "device class L3" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4573,7 +4657,7 @@
 			)
 		)
 		(property "digikey description" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4582,7 +4666,7 @@
 			)
 		)
 		(property "digikey part number" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4591,7 +4675,7 @@
 			)
 		)
 		(property "drain to source breakdown voltage" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4600,7 +4684,7 @@
 			)
 		)
 		(property "drain to source resistance" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4609,7 +4693,7 @@
 			)
 		)
 		(property "drain to source voltage" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4618,7 +4702,7 @@
 			)
 		)
 		(property "footprint url" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4627,7 +4711,7 @@
 			)
 		)
 		(property "gate charge at vgs" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4636,7 +4720,7 @@
 			)
 		)
 		(property "gate to source voltage" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4645,7 +4729,7 @@
 			)
 		)
 		(property "height" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4654,7 +4738,7 @@
 			)
 		)
 		(property "input capacitace at vds" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4663,7 +4747,7 @@
 			)
 		)
 		(property "ipc land pattern name" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4672,7 +4756,7 @@
 			)
 		)
 		(property "lead free" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4681,7 +4765,7 @@
 			)
 		)
 		(property "library id" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4690,7 +4774,7 @@
 			)
 		)
 		(property "manufacturer" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4699,7 +4783,7 @@
 			)
 		)
 		(property "max forward diode voltage" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4708,7 +4792,7 @@
 			)
 		)
 		(property "max junction temp" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4717,7 +4801,7 @@
 			)
 		)
 		(property "mouser description" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4726,7 +4810,7 @@
 			)
 		)
 		(property "mouser part number" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4735,7 +4819,7 @@
 			)
 		)
 		(property "number of N channels" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4744,7 +4828,7 @@
 			)
 		)
 		(property "number of channels" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4753,7 +4837,7 @@
 			)
 		)
 		(property "package" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4762,7 +4846,7 @@
 			)
 		)
 		(property "power dissipation" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4771,7 +4855,7 @@
 			)
 		)
 		(property "pulse drain current" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4780,7 +4864,7 @@
 			)
 		)
 		(property "reverse recovery charge" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4789,7 +4873,7 @@
 			)
 		)
 		(property "reverse recovery time" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4798,7 +4882,7 @@
 			)
 		)
 		(property "rohs" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4807,7 +4891,7 @@
 			)
 		)
 		(property "rthja max" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4816,7 +4900,7 @@
 			)
 		)
 		(property "standoff height" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4825,7 +4909,7 @@
 			)
 		)
 		(property "temperature range high" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4834,7 +4918,7 @@
 			)
 		)
 		(property "temperature range low" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4843,7 +4927,7 @@
 			)
 		)
 		(property "threshold vgs max" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4852,7 +4936,7 @@
 			)
 		)
 		(property "threshold vgs min" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4861,7 +4945,7 @@
 			)
 		)
 		(property "turn off delay time" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4870,7 +4954,7 @@
 			)
 		)
 		(property "turn on delay time" ""
-			(at 75.692 63.754 0)
+			(at 87.884 60.452 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4951,6 +5035,12 @@
 			(uuid "1b3dce63-fe66-422c-b272-bb72a5a7355b")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "U?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "U4")
@@ -4961,7 +5051,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 134.62 144.272 0)
+		(at 146.812 140.97 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4969,8 +5059,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9e20b4dd-4e8c-4942-8dd6-e40859328e81")
-		(property "Reference" "J60"
-			(at 135.3312 144.3299 0)
+		(property "Reference" "J?"
+			(at 147.5232 141.0279 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4979,7 +5069,7 @@
 			)
 		)
 		(property "Value" "SPARE_OLED"
-			(at 135.3312 146.7541 0)
+			(at 147.5232 143.4521 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4988,7 +5078,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4997,7 +5087,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5006,7 +5096,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5015,7 +5105,7 @@
 			)
 		)
 		(property "automotive" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5024,7 +5114,7 @@
 			)
 		)
 		(property "category" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5033,7 +5123,7 @@
 			)
 		)
 		(property "continuous drain current" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5042,7 +5132,7 @@
 			)
 		)
 		(property "depletion mode" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5051,7 +5141,7 @@
 			)
 		)
 		(property "device class L1" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5060,7 +5150,7 @@
 			)
 		)
 		(property "device class L2" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5069,7 +5159,7 @@
 			)
 		)
 		(property "device class L3" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5078,7 +5168,7 @@
 			)
 		)
 		(property "digikey description" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5087,7 +5177,7 @@
 			)
 		)
 		(property "digikey part number" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5096,7 +5186,7 @@
 			)
 		)
 		(property "drain to source breakdown voltage" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5105,7 +5195,7 @@
 			)
 		)
 		(property "drain to source resistance" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5114,7 +5204,7 @@
 			)
 		)
 		(property "drain to source voltage" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5123,7 +5213,7 @@
 			)
 		)
 		(property "footprint url" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5132,7 +5222,7 @@
 			)
 		)
 		(property "gate charge at vgs" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5141,7 +5231,7 @@
 			)
 		)
 		(property "gate to source voltage" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5150,7 +5240,7 @@
 			)
 		)
 		(property "height" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5159,7 +5249,7 @@
 			)
 		)
 		(property "input capacitace at vds" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5168,7 +5258,7 @@
 			)
 		)
 		(property "ipc land pattern name" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5177,7 +5267,7 @@
 			)
 		)
 		(property "lead free" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5186,7 +5276,7 @@
 			)
 		)
 		(property "library id" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5195,7 +5285,7 @@
 			)
 		)
 		(property "manufacturer" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5204,7 +5294,7 @@
 			)
 		)
 		(property "max forward diode voltage" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5213,7 +5303,7 @@
 			)
 		)
 		(property "max junction temp" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5222,7 +5312,7 @@
 			)
 		)
 		(property "mouser description" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5231,7 +5321,7 @@
 			)
 		)
 		(property "mouser part number" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5240,7 +5330,7 @@
 			)
 		)
 		(property "number of N channels" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5249,7 +5339,7 @@
 			)
 		)
 		(property "number of channels" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5258,7 +5348,7 @@
 			)
 		)
 		(property "package" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5267,7 +5357,7 @@
 			)
 		)
 		(property "power dissipation" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5276,7 +5366,7 @@
 			)
 		)
 		(property "pulse drain current" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5285,7 +5375,7 @@
 			)
 		)
 		(property "reverse recovery charge" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5294,7 +5384,7 @@
 			)
 		)
 		(property "reverse recovery time" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5303,7 +5393,7 @@
 			)
 		)
 		(property "rohs" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5312,7 +5402,7 @@
 			)
 		)
 		(property "rthja max" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5321,7 +5411,7 @@
 			)
 		)
 		(property "standoff height" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5330,7 +5420,7 @@
 			)
 		)
 		(property "temperature range high" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5339,7 +5429,7 @@
 			)
 		)
 		(property "temperature range low" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5348,7 +5438,7 @@
 			)
 		)
 		(property "threshold vgs max" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5357,7 +5447,7 @@
 			)
 		)
 		(property "threshold vgs min" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5366,7 +5456,7 @@
 			)
 		)
 		(property "turn off delay time" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5375,7 +5465,7 @@
 			)
 		)
 		(property "turn on delay time" ""
-			(at 134.62 144.272 0)
+			(at 146.812 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5396,6 +5486,12 @@
 			(uuid "b208c95b-6363-46db-a369-f32051cb2754")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "J?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "J60")
@@ -5406,15 +5502,15 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 75.692 40.894 0)
+		(at 87.884 37.592 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "9f703727-411e-4d25-bc01-160a93829b25")
-		(property "Reference" "#PWR073"
-			(at 75.692 44.704 0)
+		(property "Reference" "#PWR?"
+			(at 87.884 41.402 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5423,7 +5519,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 76.073 37.846 90)
+			(at 88.265 34.544 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5432,7 +5528,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 75.692 40.894 0)
+			(at 87.884 37.592 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5440,7 +5536,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 75.692 40.894 0)
+			(at 87.884 37.592 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5448,7 +5544,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 75.692 40.894 0)
+			(at 87.884 37.592 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5460,6 +5556,12 @@
 			(uuid "5d5191d3-760b-405d-a8c8-7ba2fc46dd4b")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR073")
@@ -5470,7 +5572,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 134.366 83.312 0)
+		(at 146.558 80.01 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5478,8 +5580,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "a452bd51-5818-4d5a-bf46-3ead725348ba")
-		(property "Reference" "J56"
-			(at 135.0772 83.3699 0)
+		(property "Reference" "J?"
+			(at 147.2692 80.0679 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5488,7 +5590,7 @@
 			)
 		)
 		(property "Value" "MWS_OLED"
-			(at 135.0772 85.7941 0)
+			(at 147.2692 82.4921 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5497,7 +5599,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5506,7 +5608,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5515,7 +5617,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5524,7 +5626,7 @@
 			)
 		)
 		(property "automotive" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5533,7 +5635,7 @@
 			)
 		)
 		(property "category" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5542,7 +5644,7 @@
 			)
 		)
 		(property "continuous drain current" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5551,7 +5653,7 @@
 			)
 		)
 		(property "depletion mode" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5560,7 +5662,7 @@
 			)
 		)
 		(property "device class L1" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5569,7 +5671,7 @@
 			)
 		)
 		(property "device class L2" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5578,7 +5680,7 @@
 			)
 		)
 		(property "device class L3" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5587,7 +5689,7 @@
 			)
 		)
 		(property "digikey description" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5596,7 +5698,7 @@
 			)
 		)
 		(property "digikey part number" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5605,7 +5707,7 @@
 			)
 		)
 		(property "drain to source breakdown voltage" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5614,7 +5716,7 @@
 			)
 		)
 		(property "drain to source resistance" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5623,7 +5725,7 @@
 			)
 		)
 		(property "drain to source voltage" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5632,7 +5734,7 @@
 			)
 		)
 		(property "footprint url" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5641,7 +5743,7 @@
 			)
 		)
 		(property "gate charge at vgs" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5650,7 +5752,7 @@
 			)
 		)
 		(property "gate to source voltage" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5659,7 +5761,7 @@
 			)
 		)
 		(property "height" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5668,7 +5770,7 @@
 			)
 		)
 		(property "input capacitace at vds" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5677,7 +5779,7 @@
 			)
 		)
 		(property "ipc land pattern name" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5686,7 +5788,7 @@
 			)
 		)
 		(property "lead free" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5695,7 +5797,7 @@
 			)
 		)
 		(property "library id" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5704,7 +5806,7 @@
 			)
 		)
 		(property "manufacturer" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5713,7 +5815,7 @@
 			)
 		)
 		(property "max forward diode voltage" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5722,7 +5824,7 @@
 			)
 		)
 		(property "max junction temp" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5731,7 +5833,7 @@
 			)
 		)
 		(property "mouser description" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5740,7 +5842,7 @@
 			)
 		)
 		(property "mouser part number" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5749,7 +5851,7 @@
 			)
 		)
 		(property "number of N channels" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5758,7 +5860,7 @@
 			)
 		)
 		(property "number of channels" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5767,7 +5869,7 @@
 			)
 		)
 		(property "package" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5776,7 +5878,7 @@
 			)
 		)
 		(property "power dissipation" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5785,7 +5887,7 @@
 			)
 		)
 		(property "pulse drain current" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5794,7 +5896,7 @@
 			)
 		)
 		(property "reverse recovery charge" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5803,7 +5905,7 @@
 			)
 		)
 		(property "reverse recovery time" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5812,7 +5914,7 @@
 			)
 		)
 		(property "rohs" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5821,7 +5923,7 @@
 			)
 		)
 		(property "rthja max" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5830,7 +5932,7 @@
 			)
 		)
 		(property "standoff height" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5839,7 +5941,7 @@
 			)
 		)
 		(property "temperature range high" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5848,7 +5950,7 @@
 			)
 		)
 		(property "temperature range low" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5857,7 +5959,7 @@
 			)
 		)
 		(property "threshold vgs max" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5866,7 +5968,7 @@
 			)
 		)
 		(property "threshold vgs min" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5875,7 +5977,7 @@
 			)
 		)
 		(property "turn off delay time" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5884,7 +5986,7 @@
 			)
 		)
 		(property "turn on delay time" ""
-			(at 134.366 83.312 0)
+			(at 146.558 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5905,6 +6007,12 @@
 			(uuid "11c313b4-72f5-4163-a5b9-c9571865b9da")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "J?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "J56")
@@ -5915,15 +6023,15 @@
 	)
 	(symbol
 		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 129.286 46.736 0)
+		(at 141.478 43.434 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "b490cd16-50c6-4515-8958-c3aa167e383c")
-		(property "Reference" "#PWR06"
-			(at 129.286 50.546 0)
+		(property "Reference" "#PWR?"
+			(at 141.478 47.244 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5932,7 +6040,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 129.667 43.4848 90)
+			(at 141.859 40.1828 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5941,7 +6049,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 129.286 46.736 0)
+			(at 141.478 43.434 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5950,7 +6058,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 129.286 46.736 0)
+			(at 141.478 43.434 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5959,7 +6067,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 129.286 46.736 0)
+			(at 141.478 43.434 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5971,6 +6079,12 @@
 			(uuid "bfcb60ef-7bda-4ac9-93d1-b5ceff16794a")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR06")
@@ -5981,7 +6095,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 134.366 34.036 0)
+		(at 146.558 30.734 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5989,8 +6103,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b6951bd0-d448-4692-9af0-6c3ffc60c540")
-		(property "Reference" "J21"
-			(at 135.382 34.0359 0)
+		(property "Reference" "J?"
+			(at 147.574 30.7339 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5999,7 +6113,7 @@
 			)
 		)
 		(property "Value" "CLOCK-OLED"
-			(at 135.382 36.5759 0)
+			(at 147.574 33.2739 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6008,7 +6122,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6017,7 +6131,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6026,7 +6140,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6035,7 +6149,7 @@
 			)
 		)
 		(property "automotive" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6044,7 +6158,7 @@
 			)
 		)
 		(property "category" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6053,7 +6167,7 @@
 			)
 		)
 		(property "continuous drain current" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6062,7 +6176,7 @@
 			)
 		)
 		(property "depletion mode" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6071,7 +6185,7 @@
 			)
 		)
 		(property "device class L1" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6080,7 +6194,7 @@
 			)
 		)
 		(property "device class L2" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6089,7 +6203,7 @@
 			)
 		)
 		(property "device class L3" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6098,7 +6212,7 @@
 			)
 		)
 		(property "digikey description" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6107,7 +6221,7 @@
 			)
 		)
 		(property "digikey part number" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6116,7 +6230,7 @@
 			)
 		)
 		(property "drain to source breakdown voltage" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6125,7 +6239,7 @@
 			)
 		)
 		(property "drain to source resistance" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6134,7 +6248,7 @@
 			)
 		)
 		(property "drain to source voltage" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6143,7 +6257,7 @@
 			)
 		)
 		(property "footprint url" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6152,7 +6266,7 @@
 			)
 		)
 		(property "gate charge at vgs" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6161,7 +6275,7 @@
 			)
 		)
 		(property "gate to source voltage" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6170,7 +6284,7 @@
 			)
 		)
 		(property "height" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6179,7 +6293,7 @@
 			)
 		)
 		(property "input capacitace at vds" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6188,7 +6302,7 @@
 			)
 		)
 		(property "ipc land pattern name" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6197,7 +6311,7 @@
 			)
 		)
 		(property "lead free" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6206,7 +6320,7 @@
 			)
 		)
 		(property "library id" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6215,7 +6329,7 @@
 			)
 		)
 		(property "manufacturer" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6224,7 +6338,7 @@
 			)
 		)
 		(property "max forward diode voltage" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6233,7 +6347,7 @@
 			)
 		)
 		(property "max junction temp" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6242,7 +6356,7 @@
 			)
 		)
 		(property "mouser description" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6251,7 +6365,7 @@
 			)
 		)
 		(property "mouser part number" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6260,7 +6374,7 @@
 			)
 		)
 		(property "number of N channels" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6269,7 +6383,7 @@
 			)
 		)
 		(property "number of channels" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6278,7 +6392,7 @@
 			)
 		)
 		(property "package" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6287,7 +6401,7 @@
 			)
 		)
 		(property "power dissipation" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6296,7 +6410,7 @@
 			)
 		)
 		(property "pulse drain current" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6305,7 +6419,7 @@
 			)
 		)
 		(property "reverse recovery charge" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6314,7 +6428,7 @@
 			)
 		)
 		(property "reverse recovery time" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6323,7 +6437,7 @@
 			)
 		)
 		(property "rohs" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6332,7 +6446,7 @@
 			)
 		)
 		(property "rthja max" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6341,7 +6455,7 @@
 			)
 		)
 		(property "standoff height" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6350,7 +6464,7 @@
 			)
 		)
 		(property "temperature range high" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6359,7 +6473,7 @@
 			)
 		)
 		(property "temperature range low" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6368,7 +6482,7 @@
 			)
 		)
 		(property "threshold vgs max" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6377,7 +6491,7 @@
 			)
 		)
 		(property "threshold vgs min" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6386,7 +6500,7 @@
 			)
 		)
 		(property "turn off delay time" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6395,7 +6509,7 @@
 			)
 		)
 		(property "turn on delay time" ""
-			(at 134.366 34.036 0)
+			(at 146.558 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6416,6 +6530,12 @@
 			(uuid "abfcadff-9aa7-425c-8da4-55d5fe6c32e5")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "J?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "J21")
@@ -6426,15 +6546,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 119.38 49.276 0)
+		(at 131.572 45.974 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "b9c59815-4552-49b9-827f-723644f3bfb1")
-		(property "Reference" "#PWR026"
-			(at 119.38 55.626 0)
+		(property "Reference" "#PWR?"
+			(at 131.572 52.324 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6443,7 +6563,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 119.38 53.086 0)
+			(at 131.572 49.784 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6451,7 +6571,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 49.276 0)
+			(at 131.572 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6459,7 +6579,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 49.276 0)
+			(at 131.572 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6467,7 +6587,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 119.38 49.276 0)
+			(at 131.572 45.974 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6479,6 +6599,12 @@
 			(uuid "8dfd7023-6625-43fc-8e85-aa21e56e4d42")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR026")
@@ -6489,15 +6615,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 119.38 34.036 0)
+		(at 131.572 30.734 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "bc13c7c9-50d6-4cc8-8917-27512b3f93df")
-		(property "Reference" "#PWR024"
-			(at 119.38 40.386 0)
+		(property "Reference" "#PWR?"
+			(at 131.572 37.084 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6506,7 +6632,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 119.38 37.846 0)
+			(at 131.572 34.544 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6514,7 +6640,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 34.036 0)
+			(at 131.572 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6522,7 +6648,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 34.036 0)
+			(at 131.572 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6530,7 +6656,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 119.38 34.036 0)
+			(at 131.572 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6542,6 +6668,12 @@
 			(uuid "c0b5f734-332f-46f3-8918-7d22325a8310")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR024")
@@ -6552,7 +6684,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x06_Female")
-		(at 185.928 57.404 0)
+		(at 198.12 54.102 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6560,8 +6692,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bc9fc511-ac4b-4762-94f1-658d087245ff")
-		(property "Reference" "J5"
-			(at 186.6392 57.4618 0)
+		(property "Reference" "J?"
+			(at 198.8312 54.1598 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6570,7 +6702,7 @@
 			)
 		)
 		(property "Value" "ALTIMETER CDB OLED"
-			(at 186.6392 59.8861 0)
+			(at 198.8312 56.5841 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6579,7 +6711,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
-			(at 185.928 57.404 0)
+			(at 198.12 54.102 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6588,7 +6720,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 185.928 57.404 0)
+			(at 198.12 54.102 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6597,7 +6729,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 185.928 57.404 0)
+			(at 198.12 54.102 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6624,6 +6756,12 @@
 			(uuid "de507931-a49b-4caf-9680-c650d193691b")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "J?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "J5")
@@ -6634,15 +6772,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 119.38 83.312 0)
+		(at 131.572 80.01 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "bcc1da89-25b1-434c-9604-f5a8aa7ab36b")
-		(property "Reference" "#PWR080"
-			(at 119.38 89.662 0)
+		(property "Reference" "#PWR?"
+			(at 131.572 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6651,7 +6789,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 119.38 87.122 0)
+			(at 131.572 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6659,7 +6797,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 83.312 0)
+			(at 131.572 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6667,7 +6805,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 83.312 0)
+			(at 131.572 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6675,7 +6813,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 119.38 83.312 0)
+			(at 131.572 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6687,6 +6825,12 @@
 			(uuid "b052c038-53a9-4e42-9868-9ae7f355e014")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR080")
@@ -6697,15 +6841,15 @@
 	)
 	(symbol
 		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 123.698 110.998 0)
+		(at 135.89 107.696 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "c4abe974-81e2-46e5-b5d4-7e7045d9cf99")
-		(property "Reference" "#PWR010"
-			(at 123.698 114.808 0)
+		(property "Reference" "#PWR?"
+			(at 135.89 111.506 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6714,7 +6858,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 124.079 107.7468 90)
+			(at 136.271 104.4448 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6723,7 +6867,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 123.698 110.998 0)
+			(at 135.89 107.696 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6732,7 +6876,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 123.698 110.998 0)
+			(at 135.89 107.696 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6741,7 +6885,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 123.698 110.998 0)
+			(at 135.89 107.696 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6753,6 +6897,12 @@
 			(uuid "5c9a9714-057a-4533-8a6c-bba30aa73c0c")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR010")
@@ -6763,15 +6913,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 119.38 129.032 0)
+		(at 131.572 125.73 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "d379d430-5b64-43ca-9e46-95b2f8037012")
-		(property "Reference" "#PWR083"
-			(at 119.38 135.382 0)
+		(property "Reference" "#PWR?"
+			(at 131.572 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6780,7 +6930,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 119.38 132.842 0)
+			(at 131.572 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6788,7 +6938,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 129.032 0)
+			(at 131.572 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6796,7 +6946,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 129.032 0)
+			(at 131.572 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6804,7 +6954,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 119.38 129.032 0)
+			(at 131.572 125.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6816,6 +6966,12 @@
 			(uuid "833fbd48-87d0-4532-b69c-12881a9235fe")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR083")
@@ -6826,7 +6982,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 134.366 113.538 0)
+		(at 146.558 110.236 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6834,8 +6990,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d40b9fa6-e291-443d-bb1f-6475859999fe")
-		(property "Reference" "J58"
-			(at 135.0772 113.5959 0)
+		(property "Reference" "J?"
+			(at 147.2692 110.2939 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6844,7 +7000,7 @@
 			)
 		)
 		(property "Value" "ILS_OLED"
-			(at 135.0772 116.0201 0)
+			(at 147.2692 112.7181 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6853,7 +7009,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6862,7 +7018,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6871,7 +7027,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6880,7 +7036,7 @@
 			)
 		)
 		(property "automotive" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6889,7 +7045,7 @@
 			)
 		)
 		(property "category" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6898,7 +7054,7 @@
 			)
 		)
 		(property "continuous drain current" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6907,7 +7063,7 @@
 			)
 		)
 		(property "depletion mode" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6916,7 +7072,7 @@
 			)
 		)
 		(property "device class L1" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6925,7 +7081,7 @@
 			)
 		)
 		(property "device class L2" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6934,7 +7090,7 @@
 			)
 		)
 		(property "device class L3" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6943,7 +7099,7 @@
 			)
 		)
 		(property "digikey description" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6952,7 +7108,7 @@
 			)
 		)
 		(property "digikey part number" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6961,7 +7117,7 @@
 			)
 		)
 		(property "drain to source breakdown voltage" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6970,7 +7126,7 @@
 			)
 		)
 		(property "drain to source resistance" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6979,7 +7135,7 @@
 			)
 		)
 		(property "drain to source voltage" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6988,7 +7144,7 @@
 			)
 		)
 		(property "footprint url" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6997,7 +7153,7 @@
 			)
 		)
 		(property "gate charge at vgs" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7006,7 +7162,7 @@
 			)
 		)
 		(property "gate to source voltage" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7015,7 +7171,7 @@
 			)
 		)
 		(property "height" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7024,7 +7180,7 @@
 			)
 		)
 		(property "input capacitace at vds" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7033,7 +7189,7 @@
 			)
 		)
 		(property "ipc land pattern name" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7042,7 +7198,7 @@
 			)
 		)
 		(property "lead free" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7051,7 +7207,7 @@
 			)
 		)
 		(property "library id" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7060,7 +7216,7 @@
 			)
 		)
 		(property "manufacturer" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7069,7 +7225,7 @@
 			)
 		)
 		(property "max forward diode voltage" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7078,7 +7234,7 @@
 			)
 		)
 		(property "max junction temp" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7087,7 +7243,7 @@
 			)
 		)
 		(property "mouser description" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7096,7 +7252,7 @@
 			)
 		)
 		(property "mouser part number" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7105,7 +7261,7 @@
 			)
 		)
 		(property "number of N channels" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7114,7 +7270,7 @@
 			)
 		)
 		(property "number of channels" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7123,7 +7279,7 @@
 			)
 		)
 		(property "package" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7132,7 +7288,7 @@
 			)
 		)
 		(property "power dissipation" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7141,7 +7297,7 @@
 			)
 		)
 		(property "pulse drain current" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7150,7 +7306,7 @@
 			)
 		)
 		(property "reverse recovery charge" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7159,7 +7315,7 @@
 			)
 		)
 		(property "reverse recovery time" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7168,7 +7324,7 @@
 			)
 		)
 		(property "rohs" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7177,7 +7333,7 @@
 			)
 		)
 		(property "rthja max" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7186,7 +7342,7 @@
 			)
 		)
 		(property "standoff height" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7195,7 +7351,7 @@
 			)
 		)
 		(property "temperature range high" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7204,7 +7360,7 @@
 			)
 		)
 		(property "temperature range low" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7213,7 +7369,7 @@
 			)
 		)
 		(property "threshold vgs max" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7222,7 +7378,7 @@
 			)
 		)
 		(property "threshold vgs min" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7231,7 +7387,7 @@
 			)
 		)
 		(property "turn off delay time" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7240,7 +7396,7 @@
 			)
 		)
 		(property "turn on delay time" ""
-			(at 134.366 113.538 0)
+			(at 146.558 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7261,6 +7417,12 @@
 			(uuid "ea40c9c6-6577-4676-a34c-feba9df6bb5c")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "J?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "J58")
@@ -7271,15 +7433,15 @@
 	)
 	(symbol
 		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 124.206 65.786 0)
+		(at 136.398 62.484 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "d84a6b45-ec70-482a-b3b2-38713b0503fd")
-		(property "Reference" "#PWR07"
-			(at 124.206 69.596 0)
+		(property "Reference" "#PWR?"
+			(at 136.398 66.294 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7288,7 +7450,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 124.587 62.5348 90)
+			(at 136.779 59.2328 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7297,7 +7459,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 124.206 65.786 0)
+			(at 136.398 62.484 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7306,7 +7468,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 124.206 65.786 0)
+			(at 136.398 62.484 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7315,7 +7477,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 124.206 65.786 0)
+			(at 136.398 62.484 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7327,6 +7489,12 @@
 			(uuid "5244fdc4-7ce8-4eb1-a3fd-386897e3ac33")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR07")
@@ -7337,15 +7505,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 119.38 98.806 0)
+		(at 131.572 95.504 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "de08c066-8e06-4b2a-a730-1d2f93a0f147")
-		(property "Reference" "#PWR081"
-			(at 119.38 105.156 0)
+		(property "Reference" "#PWR?"
+			(at 131.572 101.854 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7354,7 +7522,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 119.38 102.616 0)
+			(at 131.572 99.314 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7362,7 +7530,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 119.38 98.806 0)
+			(at 131.572 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7370,7 +7538,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 119.38 98.806 0)
+			(at 131.572 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7378,7 +7546,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 119.38 98.806 0)
+			(at 131.572 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7390,6 +7558,12 @@
 			(uuid "d9756f0c-5952-4ffb-abb3-75b9dfc03435")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "#PWR?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "#PWR081")
@@ -7400,7 +7574,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
-		(at 134.366 68.326 0)
+		(at 146.558 65.024 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7408,8 +7582,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "efa88c36-02cf-49ae-93a1-7be76e31b7f5")
-		(property "Reference" "J55"
-			(at 135.128 68.3259 0)
+		(property "Reference" "J?"
+			(at 147.32 65.0239 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7418,7 +7592,7 @@
 			)
 		)
 		(property "Value" "BARO-OLED"
-			(at 135.128 70.8659 0)
+			(at 147.32 67.5639 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7427,7 +7601,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7436,7 +7610,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7445,7 +7619,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7454,7 +7628,7 @@
 			)
 		)
 		(property "automotive" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7463,7 +7637,7 @@
 			)
 		)
 		(property "category" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7472,7 +7646,7 @@
 			)
 		)
 		(property "continuous drain current" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7481,7 +7655,7 @@
 			)
 		)
 		(property "depletion mode" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7490,7 +7664,7 @@
 			)
 		)
 		(property "device class L1" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7499,7 +7673,7 @@
 			)
 		)
 		(property "device class L2" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7508,7 +7682,7 @@
 			)
 		)
 		(property "device class L3" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7517,7 +7691,7 @@
 			)
 		)
 		(property "digikey description" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7526,7 +7700,7 @@
 			)
 		)
 		(property "digikey part number" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7535,7 +7709,7 @@
 			)
 		)
 		(property "drain to source breakdown voltage" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7544,7 +7718,7 @@
 			)
 		)
 		(property "drain to source resistance" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7553,7 +7727,7 @@
 			)
 		)
 		(property "drain to source voltage" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7562,7 +7736,7 @@
 			)
 		)
 		(property "footprint url" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7571,7 +7745,7 @@
 			)
 		)
 		(property "gate charge at vgs" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7580,7 +7754,7 @@
 			)
 		)
 		(property "gate to source voltage" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7589,7 +7763,7 @@
 			)
 		)
 		(property "height" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7598,7 +7772,7 @@
 			)
 		)
 		(property "input capacitace at vds" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7607,7 +7781,7 @@
 			)
 		)
 		(property "ipc land pattern name" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7616,7 +7790,7 @@
 			)
 		)
 		(property "lead free" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7625,7 +7799,7 @@
 			)
 		)
 		(property "library id" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7634,7 +7808,7 @@
 			)
 		)
 		(property "manufacturer" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7643,7 +7817,7 @@
 			)
 		)
 		(property "max forward diode voltage" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7652,7 +7826,7 @@
 			)
 		)
 		(property "max junction temp" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7661,7 +7835,7 @@
 			)
 		)
 		(property "mouser description" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7670,7 +7844,7 @@
 			)
 		)
 		(property "mouser part number" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7679,7 +7853,7 @@
 			)
 		)
 		(property "number of N channels" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7688,7 +7862,7 @@
 			)
 		)
 		(property "number of channels" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7697,7 +7871,7 @@
 			)
 		)
 		(property "package" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7706,7 +7880,7 @@
 			)
 		)
 		(property "power dissipation" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7715,7 +7889,7 @@
 			)
 		)
 		(property "pulse drain current" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7724,7 +7898,7 @@
 			)
 		)
 		(property "reverse recovery charge" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7733,7 +7907,7 @@
 			)
 		)
 		(property "reverse recovery time" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7742,7 +7916,7 @@
 			)
 		)
 		(property "rohs" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7751,7 +7925,7 @@
 			)
 		)
 		(property "rthja max" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7760,7 +7934,7 @@
 			)
 		)
 		(property "standoff height" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7769,7 +7943,7 @@
 			)
 		)
 		(property "temperature range high" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7778,7 +7952,7 @@
 			)
 		)
 		(property "temperature range low" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7787,7 +7961,7 @@
 			)
 		)
 		(property "threshold vgs max" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7796,7 +7970,7 @@
 			)
 		)
 		(property "threshold vgs min" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7805,7 +7979,7 @@
 			)
 		)
 		(property "turn off delay time" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7814,7 +7988,7 @@
 			)
 		)
 		(property "turn on delay time" ""
-			(at 134.366 68.326 0)
+			(at 146.558 65.024 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7835,12 +8009,23 @@
 			(uuid "80b0a113-80ce-4f06-a11d-c45ee48aa45a")
 		)
 		(instances
+			(project "OLED"
+				(path "/13855649-b4af-4d41-9517-4081a90aa079"
+					(reference "J?")
+					(unit 1)
+				)
+			)
 			(project "Forward OLED"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/7d31f841-b69d-44a0-86af-224d73f0aaf8"
 					(reference "J55")
 					(unit 1)
 				)
 			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
 		)
 	)
 )
