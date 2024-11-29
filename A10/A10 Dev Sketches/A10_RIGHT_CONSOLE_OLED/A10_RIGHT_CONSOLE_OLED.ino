@@ -1,4 +1,4 @@
-// PLACEHOLDER UNTIL COMBINED PCB ARRIVES THEN MOVE TO R IGHT CONSOLE OUTPUT 
+// PLACEHOLDER UNTIL COMBINED PCB ARRIVES THEN MOVE TO R IGHT CONSOLE OUTPUT
 // A10_RIGHT_OLED
 // *************************************************************
 // *************************************************************
@@ -12,101 +12,16 @@
 // *************************************************************
 // *************************************************************
 //
-//
-// As a number of the same OLEDs are used, which the same target I2C addresses an I2C multiplexor is used, TCA9548A.
-// The TCA9548A is an 8 Channel I2C switch.  It is possible for different devices to share a common host I2C bus.
-// https://e2e.ti.com/blogs_/b/analogwire/archive/2015/10/15/how-to-simplify-i2c-tree-when-connecting-multiple-slaves-to-an-i2c-master
-//
-//
-// The initial test OLEDs have addresses of 0x3C - despite being labelled - 0x78 or 0x7A - selectable by soldering a jumper.
-// Can validate what addresses are on the bus by using I2C scanner
-
-// The following OLEDs where sourced from ebay
-// OLED for top  2.2" 128 * 32 SSD1305 (not 1306)
-// This OLED does require resistors to be set (R3 & R5 Short)(the others open)
-// Pin 16 tied to specific reset for module (ie not general Arduino reset
-// It does support 3.3V, but works ok on 5V
-// 1 Gnd
-// 2 +5V
-// 4 Gnd
-// 7 SCL
-// 8 & 9 SDA
-// 16 Reset
-
-/* PCB CONNECTIONS
-    I2C - 0 = 
-    I2C - 1 = ALT
-    I2C - 2 = ALT
-    I2C - 3 = MWS Character OLED
-    I2C - 4 = 
-    I2C - 5 = 
-    I2C - 6 = 
-    I2C - 7 = 
-*/
-// NBeed to ground unused pins otherwise random stuff happens - see the following
-// https://www.buydisplay.com/arduino/Interfacing_ER-OLEDM023-1_to_Arduino.pdf
-
-// Useful reference for troubleshooting OLEDs
-
-// Finding a matching class in UG82 can be trail and error for non name brand OLEDs
-// Start with short text say at x=8 y=8
-// Once that is displaying sanely then try drawing a box from 0,0 to the full area
-// Commonly find classes truncate at 8 or 16 rows
-// Also if no change is appearing power cycle as you may no longer be on correct I2C address
-// Search in the U8g2lib.h using the oled chip name and its resolution
-// noting the entries with 2nd I2C are probably for the alternate I2C address
-// the SW I2C entries use a software driver so ignore those unless really needed
-// Monitor the I2C initalisation tests to validate OLED is present
-
-// OLED for 5 Right hand side digits 0.91" 128*32 SSD1306
-// https://www.ebay.com/itm/0-91-Inch-128x32-IIC-I2c-White-Blue-OLED-LCD-Display-Module-3-3-5v-For-Arduino/392552169768?ssPageName=STRK%3AMEBIDX%3AIT&var=661536491479&_trksid=p2057872.m2749.l2649
-
-
-//  OLED for Small Digits 0.66" SSD1306 64 * 48
-// https://www.ebay.com/itm/0-66-inch-White-64x48-OLED-Display-Module-SPI-I2C-3-3-5V-for-Arduino-AVR-STM32/192332990775?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649
-// I2C 0x3C - validate by running scanner
-
-// When using U8G2 library use this constructor for 64x48 display (assuming pin is used for reset which will need to
-// change with NW shield is attached
-// U8G2_SSD1306_64X48_ER_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ 4);
-//
-//
-// When using a 2.42 inch SSD1309 (128*64) this is used U8G2_SSD1309_128X64_NONAME2_F_HW_I2C
-// other SSD1309 classes only displayed down to row 8 or 16
-// https://www.ebay.com.au/itm/355105747286 White I2C
-// Port 2 VHF_AM OLED
-//
-//The data format of U8G2 fonts is based on the BDF font format. Its glyph bitmaps are compressed with a
-//run-length-encoding algorithm and its header data are designed with variable bit field width to
-//minimize flash memory footprint.
-
-//http://oleddisplay.squix.ch/#/home
-//<3.0.0 is Thiele with packed bitmaps (and special gotcha)
-//>=3.0.0 has a Jump table with aligned bitmaps (and really special gotcha)
-//Adafruit_GFX has missing bitmap and glyph entry for 0x7E (tilde)
-
-// https://rop.nl/truetype2gfx/
-
-// FontForge
-// https://learn.adafruit.com/custom-fonts-for-pyportal-circuitpython-display/conversion
 
 // I2C Addresses
 // I2C 60 for OLED
 // I2C 112 for TCA9548A
-
-// Premade 4 way JST Colour code
-// 1: Black +V
-// 2: Green GND
-// 3: White SCL
-// 4: Red   SDA
 
 
 // Basic logic
 // Initialise I2C Bus (wire)
 // Iterate through each port on the Mux and list connected devices to serial port (simple troubleshooting aid), may use UDP later
 // Initialise each display
-// Wait for UDP updates
-// during timeout grab and smooth analo 0 and get brightness for all displays
 
 #define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
@@ -121,23 +36,8 @@
 #define CMSP_OLED_Port 4
 
 
-#define ScratchPad_Vertical_Pos 30
-#define ScratchPad_String1_Pos 0
-#define ScratchPad_String2_Pos 35
-#define ScratchPad_Number_Pos 45
-
-#define COM1_XPOS 20
-#define COM1_YPOS 33
-#define COM2_XPOS 20
-#define COM2_YPOS 33
-
-
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
-
-//#include <Arduino.h>
-#include <U8g2lib.h>
-#include "hornet_font.h"
 
 
 #include <SPI.h>
@@ -184,13 +84,9 @@ unsigned long ethernetStartTime = 0;
 
 #define FLASH_TIME 300
 
-
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
-
-
-
 
 String sAircraftName = "";
 
@@ -209,32 +105,6 @@ int Brightness = 0;
 char buffer[20];  //plenty of space for the value of millis() plus a zero terminator
 
 
-// Altimeter delta 1000 feet for 112 pressure units
-// which maps to 8.92857 feet per pressure unit with 2992 as reference
-// so delta is (pressure reading - 2992) * 8.92857
-#define feetDeltaPerPressureUnit 8.92857
-
-
-int iLastAltitudeValue = 0;
-int iAltitudeDelta = 0;
-int iBaro = 2992;
-int iBaroOnes = 2;
-int iBaroTens = 9;
-int iBaroHundreds = 9;
-int iBaroThousands = 2;
-String BaroOnes = String(iBaroOnes);
-String BaroTens = String(iBaroTens);
-String BaroHundreds = String(iBaroHundreds);
-String BaroThousands = String(iBaroThousands);
-bool BaroUpdated = true;
-
-
-
-char* ptrtopass;
-
-String txtChaffFlare = "S240s120";
-String txtJMRstatus = "SBY AIR ";
-String txtMWSstatus = "ACTIVE ";
 
 
 void tcaselect(uint8_t i) {
@@ -266,9 +136,9 @@ void tcaselect(uint8_t i) {
 // Clear screen as used in Jet Ranger
 //  sendCommand(cmd_CLS);              // Clear Display
 
-void initCharOLED() {
+void initCharOLED(int PortNo) {
   // *** I2C initial *** //
-  tcaselect(CMSP_OLED_Port);
+  tcaselect(PortNo);
   delay(10);
   sendCommand(0x2A);  // **** Set "RE"=1	00101010B
   sendCommand(0x71);
@@ -323,7 +193,8 @@ void initCharOLED() {
 
   send_string("Character OLED");
   sendCommand(cmd_NewLine);
-  send_string("TEST");
+  String wrkstr = "TEST " + String(PortNo);
+  send_string(wrkstr.c_str());
 }
 
 void sendData(unsigned char data) {
@@ -397,14 +268,7 @@ void setup() {
   }
 
 
-
-
-  delay(500);
   Wire.begin();
-
-  initCharOLED();
-
-
 
 
   for (uint8_t t = 0; t < 8; t++) {
@@ -424,7 +288,9 @@ void setup() {
   // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
   SendDebug("I2C scan complete");
 
-
+  for (int oledptr = 0; oledptr < 8; oledptr++) {
+    initCharOLED(oledptr);
+  }
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
@@ -465,16 +331,8 @@ void setContrast(int contr) {
       break;
   }
 
-  //    display.ssd1306_command(SSD1306_SETPRECHARGE);
-  //    display.ssd1306_command(prech);
-  //    display.ssd1306_command(SSD1306_SETCONTRAST);
-  //    display.ssd1306_command(brigh);
+
 }
-
-
-
-
-
 
 
 
@@ -489,33 +347,11 @@ DcsBios::StringBuffer<24> AcftNameBuffer(0x0000, onAcftNameChange);
 
 void onCmscTxtChaffFlareChange(char* newValue) {
 
-  txtChaffFlare = String(newValue);
-  updateCMSC();
+  // txtChaffFlare = String(newValue);
+  //updateCMSC();
 }
 DcsBios::StringBuffer<8> cmscTxtChaffFlareBuffer(0x108e, onCmscTxtChaffFlareChange);
 
-
-
-void onCmscTxtJmrChange(char* newValue) {
-  txtJMRstatus = String(newValue);
-  updateCMSC();
-}
-DcsBios::StringBuffer<8> cmscTxtJmrBuffer(0x1096, onCmscTxtJmrChange);
-
-void onCmscTxtMwsChange(char* newValue) {
-  txtMWSstatus = String(newValue);
-  updateCMSC();
-}
-DcsBios::StringBuffer<8> cmscTxtMwsBuffer(0x133c, onCmscTxtMwsChange);
-
-void updateCMSC() {
-  tcaselect(CMSP_OLED_Port);
-  sendCommand(cmd_CLS);
-  send_string(txtChaffFlare.c_str());
-  sendCommand(cmd_NewLine);
-  String workstring = txtJMRstatus + " " + txtMWSstatus;
-  send_string(workstring.c_str());
-}
 
 
 void loop() {
@@ -531,14 +367,4 @@ void loop() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
-
-
-  // for (long i = 12000; i >= 0; i--) {
-  //   UpdateAltimeterDigits(i);
-  // }
-  // for (long i = 0; i <= 64000; i++) {
-  //   UpdateAltimeterDigits(i);
-  // }
-
-  // delay(1000);
 }
