@@ -28,12 +28,15 @@
 #define Reflector_In_Use 1
 
 
+#define CMSP_OLED_PORT 0
+#define FUEL_OLED_Port 1
+#define ILS_OLED_Port 2
+#define TACAN_OLED_Port 3
 
-
-#define BARO_OLED_Port 1
-#define ALT_OLED_Port 2
-#define CMSC_OLED_Port 3
-#define CMSP_OLED_Port 4
+int lastFuel100s = 0;
+int lastFuel1000s = 0;
+String CMSP1 = "";
+String CMSP2 = "";
 
 
 #define DCSBIOS_IRQ_SERIAL
@@ -273,7 +276,7 @@ void setup() {
     SendDebug("TCA Port #" + String(t));
 
     for (uint8_t addr = 0; addr <= 127; addr++) {
-       uint8_t data;
+      uint8_t data;
       if (!twi_writeTo(addr, &data, 0, 1, 1)) {
         SendDebug("Found I2C " + String(addr));
       }
@@ -285,6 +288,22 @@ void setup() {
   for (int oledptr = 0; oledptr < 8; oledptr++) {
     initCharOLED(oledptr);
   }
+
+  delay(500);
+
+  tcaselect(CMSP_OLED_PORT);
+  OLED_CLS();
+  send_string("CMSP");
+  tcaselect(FUEL_OLED_Port);
+  OLED_CLS();
+  send_string("   00000");
+  tcaselect(ILS_OLED_Port);
+  OLED_CLS();
+  send_string("     108.95");
+  tcaselect(TACAN_OLED_Port);
+  OLED_CLS();
+
+  send_string("     067X");
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
@@ -324,8 +343,6 @@ void setContrast(int contr) {
       brigh = 255;
       break;
   }
-
-
 }
 
 
@@ -340,11 +357,105 @@ void onAcftNameChange(char* newValue) {
 DcsBios::StringBuffer<24> AcftNameBuffer(0x0000, onAcftNameChange);
 
 void onCmscTxtChaffFlareChange(char* newValue) {
-
+  tcaselect(0);
   // txtChaffFlare = String(newValue);
   //updateCMSC();
 }
 DcsBios::StringBuffer<8> cmscTxtChaffFlareBuffer(0x108e, onCmscTxtChaffFlareChange);
+
+// #define CMSP_OLED_PORT 0
+// #define FUEL_OLED_Port 1
+// #define ILS_OLED_Port 2
+// #define TACAN_OLED_Port 3
+
+void OLED_CLS() {
+  sendCommand(0x01);
+  // DEL - CLS
+  sendCommand(0x80);  // Home Pos
+  // DEL - CLS
+  sendCommand(0xC0);
+}
+
+void onTacanChannelChange(char* newValue) {
+  tcaselect(TACAN_OLED_Port);
+  OLED_CLS();
+  String wrkstr = "     " + String(newValue);
+  send_string(wrkstr.c_str());
+}
+DcsBios::StringBuffer<4> tacanChannelBuffer(0x1162, onTacanChannelChange);
+
+
+void onIlsFrequencySChange(char* newValue) {
+  SendDebug("ILS Channel Change");
+  tcaselect(ILS_OLED_Port);
+  OLED_CLS();
+  String wrkstr = "     " + String(newValue);
+  send_string(wrkstr.c_str());
+}
+DcsBios::StringBuffer<6> ilsFrequencySBuffer(0x135a, onIlsFrequencySChange);
+
+
+void updateFuelDisplay() {
+  String wrkstr = "";
+  tcaselect(FUEL_OLED_Port);
+  OLED_CLS();
+  if (lastFuel1000s > 9) {
+    wrkstr = "   " + String(String(lastFuel1000s) + String(lastFuel100s) + "00");
+  } else {
+    wrkstr = "   0" + String(String(lastFuel1000s) + String(lastFuel100s) + "00");
+  }
+  send_string(wrkstr.c_str());
+}
+
+
+void onFuelQty100Change(unsigned int newValue) {
+  String wrkstr = String(newValue);
+  SendDebug("Fuel Quantity 100s " + wrkstr);
+  float flt100s = float(newValue);
+  int int100s = int(flt100s * 10 / 0xFFFF);
+  if (lastFuel100s != int100s) {
+    lastFuel100s = int100s;
+    updateFuelDisplay();
+  }
+  SendDebug("Converted Fuel Quantity 100s " + String(int100s));
+}
+DcsBios::IntegerBuffer fuelQty100Buffer(0x10d2, 0xffff, 0, onFuelQty100Change);
+
+
+void onFuelQty1000Change(unsigned int newValue) {
+  String wrkstr = String(newValue);
+  SendDebug("Fuel Quantity 1000s " + wrkstr);
+  float flt1000s = float(newValue);
+  int int1000s = int(flt1000s * 10 / 0xFFFF);
+  if (lastFuel1000s != int1000s) {
+    lastFuel1000s = int1000s;
+    updateFuelDisplay();
+  }
+  SendDebug("Converted Fuel Quantity 100s " + String(int1000s));
+}
+DcsBios::IntegerBuffer fuelQty1000Buffer(0x10d0, 0xffff, 0, onFuelQty1000Change);
+
+
+void updateCMSPDisplay() {
+
+  tcaselect(CMSP_OLED_PORT);
+  sendCommand(0x80);
+  send_string(CMSP1.c_str());
+  sendCommand(cmd_NewLine);
+  send_string(CMSP2.c_str());
+}
+
+void onCmsp1Change(char* newValue) {
+  CMSP1 = String(newValue);
+  updateCMSPDisplay();
+}
+DcsBios::StringBuffer<19> cmsp1Buffer(0x1000, onCmsp1Change);
+
+void onCmsp2Change(char* newValue) {
+  CMSP2 = String(newValue);
+  updateCMSPDisplay();
+}
+DcsBios::StringBuffer<19> cmsp2Buffer(0x1014, onCmsp2Change);
 
 
 
@@ -360,5 +471,4 @@ void loop() {
   }
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
-
 }
