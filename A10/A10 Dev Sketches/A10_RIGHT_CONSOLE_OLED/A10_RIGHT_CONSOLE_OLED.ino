@@ -90,8 +90,6 @@ unsigned long timeSinceRedLedChanged = 0;
 
 String sAircraftName = "";
 
-
-
 extern "C" {
 #include "utility/twi.h"  // from Wire library, so we can do bus scanning
 }
@@ -103,8 +101,6 @@ extern "C" {
 int CurrentDisplay = 0;
 int Brightness = 0;
 char buffer[20];  //plenty of space for the value of millis() plus a zero terminator
-
-
 
 
 void tcaselect(uint8_t i) {
@@ -277,9 +273,7 @@ void setup() {
     SendDebug("TCA Port #" + String(t));
 
     for (uint8_t addr = 0; addr <= 127; addr++) {
-      //if (addr == TCAADDR) continue;
-
-      uint8_t data;
+       uint8_t data;
       if (!twi_writeTo(addr, &data, 0, 1, 1)) {
         SendDebug("Found I2C " + String(addr));
       }
