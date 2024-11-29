@@ -529,7 +529,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "MANFACTURING/",
       "pos_files": "",
       "specctra_dsn": "Right Console Output.dsn",
       "step": "",

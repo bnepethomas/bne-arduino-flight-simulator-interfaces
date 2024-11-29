@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 3668)
+    (start_pass_no 478)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -27,11 +27,9 @@
   )
   (rule
     (width 250.0)
-    (clearance 200.2)
-    (clearance 125.0 (type smd_to_turn_gap))
-    (clearance 50.0 (type smd))
-    (clearance 200.2 (type "kicad_default"))
-    (clearance 200.2 (type POWER))
+    (clear 200.0)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
   )
   (padstack "Via[0-1]_600:400_um"
     (shape
@@ -61,19 +59,6 @@
     POWER "Via[0-1]_600:400_um-POWER"
   )
   (class default
-    SCLK "ES1_RST" MISO MOSI /*44 /*45 /42 /43
-    /40 /41 /38 /39 /36 /37 /35 /32
-    /33 /30 /31 /28 /29 /26 /27 /24
-    /25 /22 /23 +5V /IOREF /A0 /A1 /A2
-    /A3 /A4 /A5 /A6 /A7 /A8 /A9 /A10
-    /A11 /A12 /A13 /A14 /A15 /AREF /*13 /*12
-    /*11 /*9 /*8 /*7 /*6 /*5 /*4 /*3
-    +3V3 /*2 CLK LOAD VCC DIN SS "/MAX7219A/DIG_A0"
-    "/MAX7219A/DIG_A1" "/MAX7219A/DIG_A2" "/MAX7219A/DIG_A3" /34 "/MAX7219A/DIG_A4" "/MAX7219A/DIG_A5" "/MAX7219A/DIG_A6" "/MAX7219A/DIG_A7"
-    "/MAX7219A/SEG_A0" "/MAX7219A/SEG_B0" "/MAX7219A/SEG_C0" "/MAX7219A/SEG_D0" "/MAX7219A/SEG_E0" "/MAX7219A/SEG_F0" "/MAX7219A/SEG_G0" "/MAX7219A/SEG_DP0"
-    "/MAX7219A/DIG_B0" "/MAX7219A/DIG_B1" "/MAX7219A/DIG_B2" "/MAX7219A/DIG_B3" "/MAX7219A/SEG_A1" "/MAX7219A/SEG_B1" "/MAX7219A/SEG_C1" "/MAX7219A/SEG_D1"
-    "/MAX7219A/SEG_E1" "/MAX7219A/SEG_F1" "/MAX7219A/SEG_G1" "/MAX7219A/SEG_DP1" "/MAX7219A/DIG_B4" "/MAX7219A/DIG_B5" "/MAX7219A/DIG_B6" "/MAX7219A/DIG_B7"
-    "/MAX7219A/A-DOUT-B-DIN" "/MAX7219A/B-DOUT-C-DIN" /49 /48 /47 /*46
     (clearance_class default)
     (via_rule default)
     (rule
@@ -84,13 +69,26 @@
     )
   )
   (class "kicad_default"
-    /TX0{slash}1 /RX0{slash}0 "Net-(D1-A)" "Net-(D2-A)" /RX2{slash}17 /~{RESET} "Net-(J10-Pin_1)" /TX1{slash}18
-    /RX1{slash}19 /SDA{slash}20 /SCL{slash}21 "Net-(J10-Pin_2)" "Net-(J10-Pin_3)" "Net-(J10-Pin_4)" "Net-(J11-Pin_1)" "Net-(J11-Pin_2)"
-    "Net-(J11-Pin_3)" "Net-(J11-Pin_4)" "Net-(J11-Pin_5)" "Net-(J11-Pin_6)" "Net-(J11-Pin_7)" "Net-(J11-Pin_8)" "unconnected-(J21-Pin_4-Pad4)" "unconnected-(J23-Pin_4-Pad4)"
-    "unconnected-(J27-Pin_4-Pad4)" "unconnected-(J28-Pin_4-Pad4)" "unconnected-(J29-Pin_4-Pad4)" "unconnected-(J30-Pin_4-Pad4)" "unconnected-(J31-Pin_4-Pad4)" "unconnected-(J41-Pin_1-Pad1)" "unconnected-(J42-Pin_1-Pad1)" "Net-(Q1-G)"
-    "Net-(U1-INT)" "Net-(U2-ISET)" "Net-(U3-ISET)" "unconnected-(U1-NC-PadB4)"
+    SCLK "ES1_RST" MISO MOSI /*44 /*45 /42 /43
+    /40 /41 /38 /39 /36 /37 /35 /32
+    /33 /30 /31 /28 /29 /26 /27 /24
+    /25 /22 /23 +5V /IOREF /A0 /A1 /A2
+    /A3 /A4 /A5 /A6 /A7 /A8 /A9 /A10
+    /A11 /A12 /A13 /A14 /A15 /AREF /*13 /*12
+    /*9 /*8 /*7 /*6 /*5 /*4 /*3 /TX0{slash}1
+    /RX0{slash}0 +3V3 "Net-(D1-A)" "Net-(D2-A)" /*2 CLK LOAD VCC
+    /~{RESET} DIN SS "/MAX7219A/DIG_A0" "/MAX7219A/DIG_A1" "/MAX7219A/DIG_A2" "/MAX7219A/DIG_A3" /34
+    "/MAX7219A/DIG_A4" "/MAX7219A/DIG_A5" "/MAX7219A/DIG_A6" "/MAX7219A/DIG_A7" "/MAX7219A/SEG_A0" "/MAX7219A/SEG_B0" "/MAX7219A/SEG_C0" "/MAX7219A/SEG_D0"
+    "/MAX7219A/SEG_E0" "/MAX7219A/SEG_F0" "/MAX7219A/SEG_G0" "/MAX7219A/SEG_DP0" "/MAX7219A/DIG_B0" "/MAX7219A/DIG_B1" "/MAX7219A/DIG_B2" "/MAX7219A/DIG_B3"
+    "/MAX7219A/SEG_A1" "/MAX7219A/SEG_B1" "/MAX7219A/SEG_C1" "/MAX7219A/SEG_D1" "/MAX7219A/SEG_E1" "/MAX7219A/SEG_F1" "/MAX7219A/SEG_G1" "/MAX7219A/SEG_DP1"
+    "/MAX7219A/DIG_B4" "/MAX7219A/DIG_B5" "/MAX7219A/DIG_B6" "/MAX7219A/DIG_B7" "/MAX7219A/A-DOUT-B-DIN" "/MAX7219A/B-DOUT-C-DIN" /49 /48
+    /47 /*46 "Net-(J1-Pin_2)" "Net-(J4-Pin_2)" "Net-(Q3-G)" "Net-(Q4-G)" "unconnected-(J41-Pin_1-Pad1)" "unconnected-(J42-Pin_1-Pad1)"
+    "Net-(Q1-G)" "Net-(U1-INT)" "Net-(U2-ISET)" "Net-(U3-ISET)" "unconnected-(U1-NC-PadB4)" /OLED/SC0 /OLED/SD0 /OLED/SC1
+    /OLED/SD1 /OLED/SC2 /OLED/SD2 /OLED/SD3 /OLED/SC3 /OLED/SC4 /OLED/SD4 /OLED/SD5
+    /OLED/SC5 /OLED/SC6 /OLED/SD6 /OLED/SC7 /OLED/SD7 D16 D18 "D20 SDA"
+    D17 "D21 SCL" D19 D11 "/FLOODLIGHT_-V" "Net-(Q2-G)"
     (clearance_class "kicad_default")
-    (via_rule "kicad_default")
+    (via_rule kicad_default)
     (rule
       (width 250.0)
     )
