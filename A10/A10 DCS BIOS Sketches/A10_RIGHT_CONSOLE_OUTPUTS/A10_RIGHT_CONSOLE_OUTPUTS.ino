@@ -759,13 +759,13 @@ void SetBrightness(int Brightness) {
 // #define COIL_RIGHT_HYD_A4 29
 
 #define COIL_LEFT_FUEL_A1 30
-#define COIL_LEFT_FUEL_A2 34
-#define COIL_LEFT_FUEL_A3 32
+#define COIL_LEFT_FUEL_A2 32
+#define COIL_LEFT_FUEL_A3 34
 #define COIL_LEFT_FUEL_A4 36
 
 #define COIL_RIGHT_FUEL_A1 31
-#define COIL_RIGHT_FUEL_A2 35
-#define COIL_RIGHT_FUEL_A3 33
+#define COIL_RIGHT_FUEL_A2 33
+#define COIL_RIGHT_FUEL_A3 35
 #define COIL_RIGHT_FUEL_A4 37
 
 #define COIL_OXY_REG_A1 38
@@ -946,7 +946,7 @@ void setup() {
     while (STEPPER_LEFT_FUEL.distanceToGo() != 0) {
       STEPPER_LEFT_FUEL.run();
     }
-        STEPPER_LEFT_FUEL.move(640);
+    STEPPER_LEFT_FUEL.move(640);
     while (STEPPER_LEFT_FUEL.distanceToGo() != 0) {
       STEPPER_LEFT_FUEL.run();
     }
@@ -957,15 +957,23 @@ void setup() {
     SendDebug("End Stepper Left Fuel");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper Right Fuel");
     STEPPER_RIGHT_FUEL.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_RIGHT_FUEL.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_RIGHT_FUEL.move(4000);
+    STEPPER_RIGHT_FUEL.move(640);
     while (STEPPER_RIGHT_FUEL.distanceToGo() != 0) {
       STEPPER_RIGHT_FUEL.run();
     }
-    STEPPER_RIGHT_FUEL.move(-4000);
+    STEPPER_RIGHT_FUEL.move(-640);
+    while (STEPPER_RIGHT_FUEL.distanceToGo() != 0) {
+      STEPPER_RIGHT_FUEL.run();
+    }
+    STEPPER_RIGHT_FUEL.move(640);
+    while (STEPPER_RIGHT_FUEL.distanceToGo() != 0) {
+      STEPPER_RIGHT_FUEL.run();
+    }
+    STEPPER_RIGHT_FUEL.move(-640);
     while (STEPPER_RIGHT_FUEL.distanceToGo() != 0) {
       STEPPER_RIGHT_FUEL.run();
     }
@@ -1021,15 +1029,16 @@ void setup() {
 
   SendDebug("End Motor Initialisation");
 
-  Ledcycle();
+  // Ledcycle();
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
+  SendDebug("End Setup");
 }
 
 /*
 STEPPER_LEFT_HYD
 
 STEPPER_LEFT_FUEL
-STEPPER_RIGHT_FUEL
+
 STEPPER_OXY_REG
 STEPPER_LOX
 STEPPER_CABIN_PRESS
@@ -1041,29 +1050,58 @@ void setLeftHyd(long TargetLeftHyd) {
 }
 void onLHydPressChange(unsigned int newValue) {
   long LeftHyd = newValue;
-  // SendDebug("onLHydPressChange = " + String(LeftHyd));
+  SendDebug("onLHydPressChange = " + String(LeftHyd));
   setLeftHyd(map(LeftHyd, 0, 65535, 0, STEPS));
 }
 DcsBios::IntegerBuffer lHydPressBuffer(0x10c2, 0xffff, 0, onLHydPressChange);
 
 
 void setRightHyd(long TargetRightHyd) {
-  // SendDebug("Target Right Hyd = " + String(TargetRightHyd));
-  STEPPER_LEFT_HYD.moveTo(TargetRightHyd);
+  //SendDebug("Target Right Hyd = " + String(TargetRightHyd));
+  STEPPER_RIGHT_HYD.moveTo(TargetRightHyd);
 }
 
 void onRHydPressChange(unsigned int newValue) {
   long RightHyd = newValue;
-  // SendDebug("onLHydPressChange = " + String(RightHyd));
+  SendDebug("onRHydPressChange = " + String(RightHyd));
   setRightHyd(map(RightHyd, 0, 65535, 0, STEPS));
 }
 DcsBios::IntegerBuffer rHydPressBuffer(0x10c4, 0xffff, 0, onRHydPressChange);
+
+
+void setLeftFuel(long TargetLeftFuel) {
+  //SendDebug("Target Left Fuel = " + String(TargetLeftFuel));
+  STEPPER_LEFT_FUEL.moveTo(TargetLeftFuel);
+}
+void onFuelQtyLChange(unsigned int newValue) {
+  long LeftFuel = newValue;
+  SendDebug("onFuelQtyLChange = " + String(LeftFuel));
+  // Needle not fully rotating so reduce number of steps
+  setLeftFuel(map(LeftFuel, 0, 65535, 0, STEPS / 2.4));
+}
+DcsBios::IntegerBuffer fuelQtyLBuffer(0x10ca, 0xffff, 0, onFuelQtyLChange);
+
+void setRightFuel(long TargetRightFuel) {
+  //SendDebug("Target Right Fuel = " + String(TargetRightFuel));
+  STEPPER_RIGHT_FUEL.moveTo(TargetRightFuel);
+}
+void onFuelQtyRChange(unsigned int newValue) {
+  long RightFuel = newValue;
+  SendDebug("onFuelQtyRChange = " + String(RightFuel));
+  // Needle not fully rotating so reduce number of steps
+  setRightFuel(map(RightFuel, 0, 65535, 0, STEPS / 2.4));
+}
+DcsBios::IntegerBuffer fuelQtyRBuffer(0x10cc, 0xffff, 0, onFuelQtyRChange);
+
+
 
 
 void updateSteppers() {
 
   STEPPER_LEFT_HYD.run();
   STEPPER_RIGHT_HYD.run();
+  STEPPER_LEFT_FUEL.run();
+  STEPPER_RIGHT_FUEL.run();
 }
 
 
