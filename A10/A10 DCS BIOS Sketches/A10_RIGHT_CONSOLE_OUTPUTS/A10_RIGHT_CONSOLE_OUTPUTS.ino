@@ -3,6 +3,9 @@
 const int Serial_In_Use = 0;
 #define Reflector_In_Use 1
 
+#define DCSBIOS_In_Use 1
+#define DCSBIOS_IRQ_SERIAL
+#include <DcsBios.h>
 
 // ###################################### Begin Ethernet Related #############################
 #include <SPI.h>
@@ -712,7 +715,7 @@ void SetBrightness(int Brightness) {
 
 // Holding current per coil is 14mA, which gives 28mA per stepper
 // Mega absolute max is 40mA per pin, with a total max of 200mA
-// Gives a total 
+// Gives a total
 
 
 // Works but slow max speed of 30
@@ -998,8 +1001,41 @@ void setup() {
   SendDebug("End Motor Initialisation");
 
   Ledcycle();
-  
+  if (DCSBIOS_In_Use == 1) DcsBios::setup();
 }
+
+/*
+STEPPER_LEFT_HYD
+STEPPER_RIGHT_HYD
+STEPPER_LEFT_FUEL
+STEPPER_RIGHT_FUEL
+STEPPER_OXY_REG
+STEPPER_LOX
+STEPPER_CABIN_PRESS
+*/
+
+void setLeftHyd(long TargetLeftHyd) {
+  // SendDebug("GForce = " + String(TargetLeftHyd));
+  STEPPER_LEFT_HYD.moveTo(TargetLeftHyd);
+}
+
+void onLHydPressChange(unsigned int newValue) {
+  long LeftHyd = newValue;
+  SendDebug("onLHydPressChange = " + String(LeftHyd));
+  setLeftHyd(map(LeftHyd, 0, 65535, 0, STEPS));
+}
+DcsBios::IntegerBuffer lHydPressBuffer(0x10c2, 0xffff, 0, onLHydPressChange);
+
+void onRHydPressChange(unsigned int newValue) {
+}
+DcsBios::IntegerBuffer rHydPressBuffer(0x10c4, 0xffff, 0, onRHydPressChange);
+
+
+void updateSteppers() {
+
+  STEPPER_LEFT_HYD.run();
+}
+
 
 void loop() {
 
@@ -1010,4 +1046,8 @@ void loop() {
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
+
+
+  if (DCSBIOS_In_Use == 1) DcsBios::loop();
+  updateSteppers();
 }
