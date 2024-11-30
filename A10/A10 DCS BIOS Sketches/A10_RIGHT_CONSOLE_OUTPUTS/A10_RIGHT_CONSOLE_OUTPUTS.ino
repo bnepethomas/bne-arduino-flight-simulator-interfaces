@@ -18,6 +18,7 @@ const int Serial_In_Use = 0;
 #define ES1_RESET_PIN 53
 
 byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x06 };
+String sMac = "A8:61:0A:65:83:06";
 IPAddress ip(172, 16, 1, 106);
 String strMyIP = "172.16.1.106";
 
@@ -37,9 +38,11 @@ const unsigned int MSFSport = 13136;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
+const unsigned long delayBeforeSendingPacket = 2000;
+unsigned long ethernetStartTime = 0;
 
 String DebugString = "";
-
+String BoardName = "A10 Right Console Output";
 // Packet Length
 int max7219packetsize;
 int max7219Len;
@@ -78,6 +81,8 @@ void SendDebug(String MessageToSend) {
 // #define GREEN_STATUS_LED_PORT 13
 #define RED_STATUS_LED_PORT 6
 #define GREEN_STATUS_LED_PORT 5
+#define Check_LED_G 5
+#define Check_LED_R 6
 #define FLASH_TIME 300
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
@@ -769,20 +774,20 @@ void SetBrightness(int Brightness) {
 #define COIL_RIGHT_FUEL_A4 37
 
 #define COIL_OXY_REG_A1 38
-#define COIL_OXY_REG_A2 42
-#define COIL_OXY_REG_A3 40
+#define COIL_OXY_REG_A2 40
+#define COIL_OXY_REG_A3 42
 #define COIL_OXY_REG_A4 44
 
 #define COIL_LOX_A1 39
-#define COIL_LOX_A2 43
-#define COIL_LOX_A3 41
+#define COIL_LOX_A2 41
+#define COIL_LOX_A3 43
 #define COIL_LOX_A4 45
 
 // Pins are slighty Reversed when compared to steppers on Expansion connection
-#define COIL_CABIN_PRESS_A1 9
+#define COIL_CABIN_PRESS_A1 6
 #define COIL_CABIN_PRESS_A2 7
 #define COIL_CABIN_PRESS_A3 8
-#define COIL_CABIN_PRESS_A4 6
+#define COIL_CABIN_PRESS_A4 9
 
 
 // #define STEPPER_MAX_SPEED 900
@@ -818,17 +823,28 @@ void setup() {
 
   if (Ethernet_In_Use == 1) {
 
-    // Using manual reset instead of tying to Arduino Reset
+    // Reset Ethernet Module
     pinMode(ES1_RESET_PIN, OUTPUT);
     digitalWrite(ES1_RESET_PIN, LOW);
     delay(2);
     digitalWrite(ES1_RESET_PIN, HIGH);
 
     Ethernet.begin(mac, ip);
-
-
     udp.begin(localport);
+
+    // As it takes a couple of seconds before the Ethernet Stack is operational
+    // Flash leds until time period has completed
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, false);
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, true);
+    }
+
+    SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
   }
+
 
 
 
@@ -883,7 +899,7 @@ void setup() {
 
   SendDebug("Starting Motor Initialisation");
 
-  if (true) {
+  if (false) {
     STEPPER_RIGHT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_RIGHT_HYD.setAcceleration(STEPPER_ACCELERATION);
     STEPPER_RIGHT_HYD.move(630);
@@ -907,7 +923,7 @@ void setup() {
     SendDebug("End Stepper Right Hyd");
   }
 
-  if (true) {
+  if (false) {
     SendDebug("Start Stepper Left Hyd");
     STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
@@ -934,7 +950,7 @@ void setup() {
     SendDebug("End Stepper Left Hyd");
   }
 
-  if (true) {
+  if (false) {
     SendDebug("Start Stepper Left Fuel");
     STEPPER_LEFT_FUEL.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_FUEL.setAcceleration(STEPPER_ACCELERATION);
@@ -957,7 +973,7 @@ void setup() {
     SendDebug("End Stepper Left Fuel");
   }
 
-  if (true) {
+  if (false) {
     SendDebug("Start Stepper Right Fuel");
     STEPPER_RIGHT_FUEL.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_RIGHT_FUEL.setAcceleration(STEPPER_ACCELERATION);
@@ -980,30 +996,46 @@ void setup() {
     SendDebug("End Stepper Right Fuel");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper OXY REG");
     STEPPER_OXY_REG.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_OXY_REG.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_OXY_REG.move(4000);
+    STEPPER_OXY_REG.move(640);
     while (STEPPER_OXY_REG.distanceToGo() != 0) {
       STEPPER_OXY_REG.run();
     }
-    STEPPER_OXY_REG.move(-4000);
+    STEPPER_OXY_REG.move(-640);
+    while (STEPPER_OXY_REG.distanceToGo() != 0) {
+      STEPPER_OXY_REG.run();
+    }
+    STEPPER_OXY_REG.move(640);
+    while (STEPPER_OXY_REG.distanceToGo() != 0) {
+      STEPPER_OXY_REG.run();
+    }
+    STEPPER_OXY_REG.move(-640);
     while (STEPPER_OXY_REG.distanceToGo() != 0) {
       STEPPER_OXY_REG.run();
     }
     SendDebug("End Stepper OXY REG");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper LOX");
     STEPPER_LOX.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LOX.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_LOX.move(4000);
+    STEPPER_LOX.move(640);
     while (STEPPER_LOX.distanceToGo() != 0) {
       STEPPER_LOX.run();
     }
-    STEPPER_LOX.move(-4000);
+    STEPPER_LOX.move(-640);
+    while (STEPPER_LOX.distanceToGo() != 0) {
+      STEPPER_LOX.run();
+    }
+        STEPPER_LOX.move(640);
+    while (STEPPER_LOX.distanceToGo() != 0) {
+      STEPPER_LOX.run();
+    }
+    STEPPER_LOX.move(-640);
     while (STEPPER_LOX.distanceToGo() != 0) {
       STEPPER_LOX.run();
     }
@@ -1011,15 +1043,23 @@ void setup() {
   }
 
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper Cabin Press");
     STEPPER_CABIN_PRESS.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_CABIN_PRESS.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_CABIN_PRESS.move(4000);
+    STEPPER_CABIN_PRESS.move(640);
     while (STEPPER_CABIN_PRESS.distanceToGo() != 0) {
       STEPPER_CABIN_PRESS.run();
     }
-    STEPPER_CABIN_PRESS.move(-4000);
+    STEPPER_CABIN_PRESS.move(-640);
+    while (STEPPER_CABIN_PRESS.distanceToGo() != 0) {
+      STEPPER_CABIN_PRESS.run();
+    }
+    STEPPER_CABIN_PRESS.move(640);
+    while (STEPPER_CABIN_PRESS.distanceToGo() != 0) {
+      STEPPER_CABIN_PRESS.run();
+    }
+    STEPPER_CABIN_PRESS.move(-640);
     while (STEPPER_CABIN_PRESS.distanceToGo() != 0) {
       STEPPER_CABIN_PRESS.run();
     }
@@ -1035,13 +1075,11 @@ void setup() {
 }
 
 /*
-STEPPER_LEFT_HYD
 
-STEPPER_LEFT_FUEL
 
 STEPPER_OXY_REG
-STEPPER_LOX
-STEPPER_CABIN_PRESS
+
+
 */
 
 void setLeftHyd(long TargetLeftHyd) {
@@ -1095,6 +1133,42 @@ DcsBios::IntegerBuffer fuelQtyRBuffer(0x10cc, 0xffff, 0, onFuelQtyRChange);
 
 
 
+void setOxPressure(long TargetOxPressure) {
+  //SendDebug("Target OxPressure = " + String(TargetOxPressure));
+  STEPPER_OXY_REG.moveTo(TargetOxPressure);
+}
+void onOxyPressChange(unsigned int newValue) {
+  long OxPressure = newValue;
+  SendDebug("onOxyPressChange = " + String(OxPressure));
+  setOxPressure(map(OxPressure, 0, 65535, 0, STEPS /2));
+}
+DcsBios::IntegerBuffer oxyPressBuffer(0x1130, 0xffff, 0, onOxyPressChange);
+
+
+void setOxQty(long TargetOxQty) {
+  //SendDebug("Target TargetOxQty = " + String(TargetOxQty));
+  STEPPER_LOX.moveTo(TargetOxQty);
+}
+void onOxyVolumeChange(unsigned int newValue) {
+   long OxQty = newValue;
+  SendDebug("onOxyVolumeChange = " + String(OxQty));
+  setOxQty(map(OxQty, 0, 65535, 0, STEPS /2)); 
+}
+DcsBios::IntegerBuffer oxyVolumeBuffer(0x1132, 0xffff, 0, onOxyVolumeChange);
+
+void setCabinPressure(long TargetCabinPressure) {
+  //SendDebug("Target CabinPressure = " + String(TargetRightFuel));
+  STEPPER_CABIN_PRESS.moveTo(TargetCabinPressure);
+}
+void onCabinPressAltChange(unsigned int newValue) {
+  long CabinPressure = newValue;
+  SendDebug("onCabinPressAltChange = " + String(CabinPressure));
+  setCabinPressure(map(CabinPressure, 0, 65535, 0, STEPS));
+}
+DcsBios::IntegerBuffer cabinPressAltBuffer(0x1134, 0xffff, 0, onCabinPressAltChange);
+
+
+
 
 void updateSteppers() {
 
@@ -1102,6 +1176,10 @@ void updateSteppers() {
   STEPPER_RIGHT_HYD.run();
   STEPPER_LEFT_FUEL.run();
   STEPPER_RIGHT_FUEL.run();
+  STEPPER_OXY_REG.run();
+  STEPPER_LOX.run();
+  STEPPER_CABIN_PRESS.run();
+
 }
 
 
@@ -1109,9 +1187,9 @@ void loop() {
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;
-    RED_LED_STATE = !RED_LED_STATE;
+    RED_LED_STATE = !GREEN_LED_STATE;
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
-
+    digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
