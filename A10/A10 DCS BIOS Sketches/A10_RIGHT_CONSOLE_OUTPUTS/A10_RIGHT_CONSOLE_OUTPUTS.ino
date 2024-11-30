@@ -148,6 +148,11 @@ void setLEDEngStartcycle(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, ENG_START_CYCLE_COL_A, ENG_START_CYCLE_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, ENG_START_CYCLE_COL_B, ENG_START_CYCLE_ROW_B, newValue);
 }
+void onClA1Change(unsigned int newValue) {
+  setLEDEngStartcycle(newValue);
+}
+DcsBios::IntegerBuffer clA1Buffer(0x10d4, 0x0001, 0, onClA1Change);
+
 
 #define L_HYD_PRESS_COL_A 0
 #define L_HYD_PRESS_ROW_A 3
@@ -157,6 +162,11 @@ void setLEDLeftHydPress(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, L_HYD_PRESS_COL_A, L_HYD_PRESS_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, L_HYD_PRESS_COL_B, L_HYD_PRESS_ROW_B, newValue);
 }
+void onClA2Change(unsigned int newValue) {
+  setLEDLeftHydPress(newValue);
+}
+DcsBios::IntegerBuffer clA2Buffer(0x10d4, 0x0002, 1, onClA2Change);
+
 
 #define R_HYD_PRESS_COL_A 0
 #define R_HYD_PRESS_ROW_A 5
@@ -166,6 +176,11 @@ void setLEDRightHydPress(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, R_HYD_PRESS_COL_A, R_HYD_PRESS_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, R_HYD_PRESS_COL_B, R_HYD_PRESS_ROW_B, newValue);
 }
+void onClA3Change(unsigned int newValue) {
+  setLEDRightHydPress(newValue);
+}
+DcsBios::IntegerBuffer clA3Buffer(0x10d4, 0x0004, 2, onClA3Change);
+
 
 #define GUN_UNSAFE_COL_A 0
 #define GUN_UNSAFE_ROW_A 7
@@ -175,6 +190,11 @@ void setLEDGunUnsafe(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, GUN_UNSAFE_COL_A, GUN_UNSAFE_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, GUN_UNSAFE_COL_B, GUN_UNSAFE_ROW_B, newValue);
 }
+void onClA4Change(unsigned int newValue) {
+  setLEDGunUnsafe(newValue);
+}
+DcsBios::IntegerBuffer clA4Buffer(0x10d4, 0x0008, 3, onClA4Change);
+
 
 #define ANTI_SKID_COL_A 1
 #define ANTI_SKID_ROW_A 1
@@ -184,6 +204,10 @@ void setLEDAntiSkid(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, ANTI_SKID_COL_A, ANTI_SKID_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, ANTI_SKID_COL_B, ANTI_SKID_ROW_B, newValue);
 }
+void onClB1Change(unsigned int newValue) {
+  setLEDAntiSkid(newValue);
+}
+DcsBios::IntegerBuffer clB1Buffer(0x10d4, 0x0010, 4, onClB1Change);
 
 #define L_HYD_RES_COL_A 1
 #define L_HYD_RES_ROW_A 3
@@ -193,6 +217,10 @@ void setLEDLHydRes(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, L_HYD_RES_COL_A, L_HYD_RES_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, L_HYD_RES_COL_B, L_HYD_RES_ROW_B, newValue);
 }
+void onClB2Change(unsigned int newValue) {
+  setLEDLHydRes(newValue);
+}
+DcsBios::IntegerBuffer clB2Buffer(0x10d4, 0x0020, 5, onClB2Change);
 
 #define R_HYD_RES_COL_A 1
 #define R_HYD_RES_ROW_A 5
@@ -202,6 +230,11 @@ void setLEDRHydRes(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, R_HYD_RES_COL_A, R_HYD_RES_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, R_HYD_RES_COL_B, R_HYD_RES_ROW_B, newValue);
 }
+void onClB3Change(unsigned int newValue) {
+  setLEDRHydRes(newValue);
+}
+DcsBios::IntegerBuffer clB3Buffer(0x10d4, 0x0040, 6, onClB3Change);
+
 
 #define OXY_LOW_COL_A 1
 #define OXY_LOW_ROW_A 7
@@ -211,6 +244,11 @@ void setLEDOxyLow(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, OXY_LOW_COL_A, OXY_LOW_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, OXY_LOW_COL_B, OXY_LOW_ROW_B, newValue);
 }
+void onClB4Change(unsigned int newValue) {
+  setLEDOxyLow(newValue);
+}
+DcsBios::IntegerBuffer clB4Buffer(0x10d4, 0x0080, 7, onClB4Change);
+
 
 #define ELEV_DISENG_COL_A 2
 #define ELEV_DISENG_ROW_A 1
@@ -220,6 +258,11 @@ void setLEDElevDiseng(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, ELEV_DISENG_COL_A, ELEV_DISENG_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, ELEV_DISENG_COL_B, ELEV_DISENG_ROW_B, newValue);
 }
+void onClC1Change(unsigned int newValue) {
+  setLEDElevDiseng(newValue);
+}
+DcsBios::IntegerBuffer clC1Buffer(0x10d4, 0x0100, 8, onClC1Change);
+
 
 #define SEAT_NOT_ARMED_COL_A 2
 #define SEAT_NOT_ARMED_ROW_A 5
@@ -229,6 +272,11 @@ void setLEDSeatNotArmed(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, SEAT_NOT_ARMED_COL_A, SEAT_NOT_ARMED_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, SEAT_NOT_ARMED_COL_B, SEAT_NOT_ARMED_ROW_B, newValue);
 }
+void onClC3Change(unsigned int newValue) {
+  setLEDSeatNotArmed(newValue);
+}
+DcsBios::IntegerBuffer clC3Buffer(0x10d4, 0x0400, 10, onClC3Change);
+
 
 #define BLEED_AIR_LEAK_COL_A 2
 #define BLEED_AIR_LEAK_ROW_A 7
@@ -238,6 +286,11 @@ void setLEDBleedAirLeak(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, BLEED_AIR_LEAK_COL_A, BLEED_AIR_LEAK_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, BLEED_AIR_LEAK_COL_B, BLEED_AIR_LEAK_ROW_B, newValue);
 }
+void onClC4Change(unsigned int newValue) {
+  setLEDBleedAirLeak(newValue);
+}
+DcsBios::IntegerBuffer clC4Buffer(0x10d4, 0x0800, 11, onClC4Change);
+
 
 #define AIL_DISENG_COL_A 3
 #define AIL_DISENG_ROW_A 1
@@ -247,6 +300,11 @@ void setLEDAilDiseng(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, AIL_DISENG_COL_A, AIL_DISENG_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, AIL_DISENG_COL_B, AIL_DISENG_ROW_B, newValue);
 }
+void onClD1Change(unsigned int newValue) {
+  setLEDAilDiseng(newValue);
+}
+DcsBios::IntegerBuffer clD1Buffer(0x10d4, 0x1000, 12, onClD1Change);
+
 
 #define L_AIL_TAB_COL_A 3
 #define L_AIL_TAB_ROW_A 3
@@ -256,6 +314,10 @@ void setLEDLAilTab(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, L_AIL_TAB_COL_A, L_AIL_TAB_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, L_AIL_TAB_COL_B, L_AIL_TAB_ROW_B, newValue);
 }
+void onClD2Change(unsigned int newValue) {
+  setLEDLAilTab(newValue);
+}
+DcsBios::IntegerBuffer clD2Buffer(0x10d4, 0x2000, 13, onClD2Change);
 
 #define R_AIL_TAB_COL_A 3
 #define R_AIL_TAB_ROW_A 5
@@ -265,6 +327,10 @@ void setLEDRAilTab(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, R_AIL_TAB_COL_A, R_AIL_TAB_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, R_AIL_TAB_COL_B, R_AIL_TAB_ROW_B, newValue);
 }
+void onClD3Change(unsigned int newValue) {
+  setLEDRAilTab(newValue);
+}
+DcsBios::IntegerBuffer clD3Buffer(0x10d4, 0x4000, 14, onClD3Change);
 
 #define SERVICE_AIR_HOT_COL_A 3
 #define SERVICE_AIR_HOT_ROW_A 7
@@ -274,6 +340,10 @@ void setLEDServiceAirHot(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, SERVICE_AIR_HOT_COL_A, SERVICE_AIR_HOT_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, SERVICE_AIR_HOT_COL_B, SERVICE_AIR_HOT_ROW_B, newValue);
 }
+void onClD4Change(unsigned int newValue) {
+  setLEDServiceAirHot(newValue);
+}
+DcsBios::IntegerBuffer clD4Buffer(0x10d4, 0x8000, 15, onClD4Change);
 
 #define PITCH_SAS_COL_A 4
 #define PITCH_SAS_ROW_A 1
@@ -283,6 +353,10 @@ void setLEDPitchSas(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, PITCH_SAS_COL_A, PITCH_SAS_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, PITCH_SAS_COL_B, PITCH_SAS_ROW_B, newValue);
 }
+void onClE1Change(unsigned int newValue) {
+  setLEDPitchSas(newValue);
+}
+DcsBios::IntegerBuffer clE1Buffer(0x10d6, 0x0001, 0, onClE1Change);
 
 #define L_ENG_HOT_COL_A 4
 #define L_ENG_HOT_ROW_A 3
@@ -292,6 +366,10 @@ void setLEDLEngHot(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, L_ENG_HOT_COL_A, L_ENG_HOT_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, L_ENG_HOT_COL_B, L_ENG_HOT_ROW_B, newValue);
 }
+void onClE2Change(unsigned int newValue) {
+  setLEDLEngHot(newValue);
+}
+DcsBios::IntegerBuffer clE2Buffer(0x10d6, 0x0002, 1, onClE2Change);
 
 #define R_ENG_HOT_COL_A 4
 #define R_ENG_HOT_ROW_A 5
@@ -301,6 +379,11 @@ void setLEDREngHot(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, R_ENG_HOT_COL_A, R_ENG_HOT_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, R_ENG_HOT_COL_B, R_ENG_HOT_ROW_B, newValue);
 }
+void onClE3Change(unsigned int newValue) {
+  setLEDREngHot(newValue);
+}
+DcsBios::IntegerBuffer clE3Buffer(0x10d6, 0x0004, 2, onClE3Change);
+
 
 #define WINDSCREEN_HOT_COL_A 4
 #define WINDSCREEN_HOT_ROW_A 7
@@ -310,6 +393,10 @@ void setLEDWindscreenHot(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, WINDSCREEN_HOT_COL_A, WINDSCREEN_HOT_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, WINDSCREEN_HOT_COL_B, WINDSCREEN_HOT_ROW_B, newValue);
 }
+void onClE4Change(unsigned int newValue) {
+  setLEDWindscreenHot(newValue);
+}
+DcsBios::IntegerBuffer clE4Buffer(0x10d6, 0x0008, 3, onClE4Change);
 
 #define YAW_SAS_COL_A 5
 #define YAW_SAS_ROW_A 1
@@ -319,6 +406,11 @@ void setLEDYawSas(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, YAW_SAS_COL_A, YAW_SAS_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, YAW_SAS_COL_B, YAW_SAS_ROW_B, newValue);
 }
+void onClF1Change(unsigned int newValue) {
+  setLEDYawSas(newValue);
+}
+DcsBios::IntegerBuffer clF1Buffer(0x10d6, 0x0010, 4, onClF1Change);
+
 
 #define L_ENG_OIL_PRESS_COL_A 5
 #define L_ENG_OIL_PRESS_ROW_A 3
@@ -328,6 +420,11 @@ void setLEDLEngOilPress(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, L_ENG_OIL_PRESS_COL_A, L_ENG_OIL_PRESS_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, L_ENG_OIL_PRESS_COL_B, L_ENG_OIL_PRESS_ROW_B, newValue);
 }
+void onClF2Change(unsigned int newValue) {
+  setLEDLEngOilPress(newValue);
+}
+DcsBios::IntegerBuffer clF2Buffer(0x10d6, 0x0020, 5, onClF2Change);
+
 
 #define R_ENG_OIL_PRESS_COL_A 5
 #define R_ENG_OIL_PRESS_ROW_A 5
@@ -337,6 +434,10 @@ void setLEDREngOilPress(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, R_ENG_OIL_PRESS_COL_A, R_ENG_OIL_PRESS_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, R_ENG_OIL_PRESS_COL_B, R_ENG_OIL_PRESS_ROW_B, newValue);
 }
+void onClF3Change(unsigned int newValue) {
+  setLEDREngOilPress(newValue);
+}
+DcsBios::IntegerBuffer clF3Buffer(0x10d6, 0x0040, 6, onClF3Change);
 
 
 #define CICU_COL_A 5
@@ -347,6 +448,11 @@ void setLEDCicu(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, CICU_COL_A, CICU_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, CICU_COL_B, CICU_ROW_B, newValue);
 }
+void onClF4Change(unsigned int newValue) {
+  setLEDCicu(newValue);
+}
+DcsBios::IntegerBuffer clF4Buffer(0x10d6, 0x0080, 7, onClF4Change);
+
 
 #define GCAS_COL_A 6
 #define GCAS_ROW_A 1
@@ -356,6 +462,11 @@ void setLEDGcas(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, GCAS_COL_A, GCAS_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, GCAS_COL_B, GCAS_ROW_B, newValue);
 }
+void onClG1Change(unsigned int newValue) {
+  setLEDGcas(newValue);
+}
+DcsBios::IntegerBuffer clG1Buffer(0x10d6, 0x0100, 8, onClG1Change);
+
 
 #define L_MAIN_PUMP_COL_A 6
 #define L_MAIN_PUMP_ROW_A 3
@@ -365,6 +476,12 @@ void setLEDLMainPump(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, L_MAIN_PUMP_COL_A, L_MAIN_PUMP_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, L_MAIN_PUMP_COL_B, L_MAIN_PUMP_ROW_B, newValue);
 }
+void onClG2Change(unsigned int newValue) {
+  setLEDLMainPump(newValue);
+}
+DcsBios::IntegerBuffer clG2Buffer(0x10d6, 0x0200, 9, onClG2Change);
+
+
 
 #define R_MAIN_PUMP_COL_A 6
 #define R_MAIN_PUMP_ROW_A 5
@@ -374,6 +491,10 @@ void setLEDRMainPump(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, R_MAIN_PUMP_COL_A, R_MAIN_PUMP_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, R_MAIN_PUMP_COL_B, R_MAIN_PUMP_ROW_B, newValue);
 }
+void onClG3Change(unsigned int newValue) {
+  setLEDRMainPump(newValue);
+}
+DcsBios::IntegerBuffer clG3Buffer(0x10d6, 0x0400, 10, onClG3Change);
 
 #define L_AIL_COL_A 6
 #define L_AIL_ROW_A 7
@@ -383,6 +504,10 @@ void setLEDLAil(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, L_AIL_COL_A, L_AIL_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, L_AIL_COL_B, L_AIL_ROW_B, newValue);
 }
+void onClG4Change(unsigned int newValue) {
+  setLEDLAil(newValue);
+}
+DcsBios::IntegerBuffer clG4Buffer(0x10d6, 0x0800, 11, onClG4Change);
 
 
 #define LASTE_COL_A 7
@@ -393,6 +518,10 @@ void setLEDLaste(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, LASTE_COL_A, LASTE_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, LASTE_COL_B, LASTE_ROW_B, newValue);
 }
+void onClH1Change(unsigned int newValue) {
+  setLEDLaste(newValue);
+}
+DcsBios::IntegerBuffer clH1Buffer(0x10d6, 0x1000, 12, onClH1Change);
 
 
 #define L_WING_PUMP_COL_A 7
@@ -403,6 +532,12 @@ void setLEDLWingPump(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, L_WING_PUMP_COL_A, L_WING_PUMP_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, L_WING_PUMP_COL_B, L_WING_PUMP_ROW_B, newValue);
 }
+void onClH2Change(unsigned int newValue) {
+  setLEDLWingPump(newValue);
+}
+DcsBios::IntegerBuffer clH2Buffer(0x10d6, 0x2000, 13, onClH2Change);
+
+
 
 #define R_WING_PUMP_COL_A 7
 #define R_WING_PUMP_ROW_A 5
@@ -412,6 +547,12 @@ void setLEDRWingPump(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, R_WING_PUMP_COL_A, R_WING_PUMP_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, R_WING_PUMP_COL_B, R_WING_PUMP_ROW_B, newValue);
 }
+void onClH3Change(unsigned int newValue) {
+  setLEDRWingPump(newValue);
+}
+DcsBios::IntegerBuffer clH3Buffer(0x10d6, 0x4000, 14, onClH3Change);
+
+
 
 #define HARS_COL_A 7
 #define HARS_ROW_A 7
@@ -421,6 +562,10 @@ void setLEDHars(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, HARS_COL_A, HARS_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, HARS_COL_B, HARS_ROW_B, newValue);
 }
+void onClH4Change(unsigned int newValue) {
+  setLEDHars(newValue);
+}
+DcsBios::IntegerBuffer clH4Buffer(0x10d6, 0x8000, 15, onClH4Change);
 
 #define IFF_MODE_4_COL_A 0
 #define IFF_MODE_4_ROW_A 1
@@ -430,6 +575,11 @@ void setLEDIffMode4(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, IFF_MODE_4_COL_A, IFF_MODE_4_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, IFF_MODE_4_COL_B, IFF_MODE_4_ROW_B, newValue);
 }
+void onClI1Change(unsigned int newValue) {
+  setLEDIffMode4(newValue);
+}
+DcsBios::IntegerBuffer clI1Buffer(0x10d8, 0x0001, 0, onClI1Change);
+
 
 #define L_MAIN_FUEL_LOW_COL_A 0
 #define L_MAIN_FUEL_LOW_ROW_A 3
@@ -439,6 +589,11 @@ void setLEDLMainFuelLow(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, L_MAIN_FUEL_LOW_COL_A, L_MAIN_FUEL_LOW_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, L_MAIN_FUEL_LOW_COL_B, L_MAIN_FUEL_LOW_ROW_B, newValue);
 }
+void onClI2Change(unsigned int newValue) {
+  setLEDLMainFuelLow(newValue);
+}
+DcsBios::IntegerBuffer clI2Buffer(0x10d8, 0x0002, 1, onClI2Change);
+
 
 #define R_MAIN_FUEL_LOW_COL_A 0
 #define R_MAIN_FUEL_LOW_ROW_A 5
@@ -448,6 +603,10 @@ void setLEDRMainFuelLow(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, R_MAIN_FUEL_LOW_COL_A, R_MAIN_FUEL_LOW_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, R_MAIN_FUEL_LOW_COL_B, R_MAIN_FUEL_LOW_ROW_B, newValue);
 }
+void onClI3Change(unsigned int newValue) {
+  setLEDRMainFuelLow(newValue);
+}
+DcsBios::IntegerBuffer clI3Buffer(0x10d8, 0x0004, 2, onClI3Change);
 
 #define L_R_TKS_UNEQUAL_COL_A 0
 #define L_R_TKS_UNEQUAL_ROW_A 7
@@ -457,6 +616,10 @@ void setLEDLRTksUnequal(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, L_R_TKS_UNEQUAL_COL_A, L_R_TKS_UNEQUAL_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, L_R_TKS_UNEQUAL_COL_B, L_R_TKS_UNEQUAL_ROW_B, newValue);
 }
+void onClI4Change(unsigned int newValue) {
+  setLEDLRTksUnequal(newValue);
+}
+DcsBios::IntegerBuffer clI4Buffer(0x10d8, 0x0008, 3, onClI4Change);
 
 #define EAC_COL_A 1
 #define EAC_ROW_A 1
@@ -466,6 +629,11 @@ void setLEDEac(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, EAC_COL_A, EAC_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, EAC_COL_B, EAC_ROW_B, newValue);
 }
+void onClJ1Change(unsigned int newValue) {
+  setLEDEac(newValue);
+}
+DcsBios::IntegerBuffer clJ1Buffer(0x10d8, 0x0010, 4, onClJ1Change);
+
 
 #define L_FUEL_PRESS_COL_A 1
 #define L_FUEL_PRESS_ROW_A 3
@@ -475,6 +643,10 @@ void setLEDLFuelPress(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, L_FUEL_PRESS_COL_A, L_FUEL_PRESS_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, L_FUEL_PRESS_COL_B, L_FUEL_PRESS_ROW_B, newValue);
 }
+void onClJ2Change(unsigned int newValue) {
+  setLEDLFuelPress(newValue);
+}
+DcsBios::IntegerBuffer clJ2Buffer(0x10d8, 0x0020, 5, onClJ2Change);
 
 #define R_FUEL_PRESS_COL_A 1
 #define R_FUEL_PRESS_ROW_A 5
@@ -484,6 +656,10 @@ void setLEDRFuelPress(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, R_FUEL_PRESS_COL_A, R_FUEL_PRESS_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, R_FUEL_PRESS_COL_B, R_FUEL_PRESS_ROW_B, newValue);
 }
+void onClJ3Change(unsigned int newValue) {
+  setLEDRFuelPress(newValue);
+}
+DcsBios::IntegerBuffer clJ3Buffer(0x10d8, 0x0040, 6, onClJ3Change);
 
 #define NAV_COL_A 1
 #define NAV_ROW_A 7
@@ -493,6 +669,9 @@ void setLEDNav(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, NAV_COL_A, NAV_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, NAV_COL_B, NAV_ROW_B, newValue);
 }
+void onClJ4Change(unsigned int newValue) {
+  setLEDNav(newValue);
+}DcsBios::IntegerBuffer clJ4Buffer(0x10d8, 0x0080, 7, onClJ4Change);
 
 #define STALL_SYS_COL_A 2
 #define STALL_SYS_ROW_A 1
@@ -502,6 +681,9 @@ void setLEDStallSys(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, STALL_SYS_COL_A, STALL_SYS_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, STALL_SYS_COL_B, STALL_SYS_ROW_B, newValue);
 }
+void onClK1Change(unsigned int newValue) {
+ setLEDStallSys(newValue); 
+}DcsBios::IntegerBuffer clK1Buffer(0x10d8, 0x0100, 8, onClK1Change);
 
 #define L_CONV_COL_A 2
 #define L_CONV_ROW_A 3
@@ -511,6 +693,9 @@ void setLEDLConv(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, L_CONV_COL_A, L_CONV_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, L_CONV_COL_B, L_CONV_ROW_B, newValue);
 }
+void onClK2Change(unsigned int newValue) {
+  setLEDLConv(newValue);
+}DcsBios::IntegerBuffer clK2Buffer(0x10d8, 0x0200, 9, onClK2Change);
 
 #define R_CONV_COL_A 2
 #define R_CONV_ROW_A 5
@@ -520,7 +705,9 @@ void setLEDRConv(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, R_CONV_COL_A, R_CONV_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, R_CONV_COL_B, R_CONV_ROW_B, newValue);
 }
-
+void onClK3Change(unsigned int newValue) {
+  setLEDRConv(newValue);
+}DcsBios::IntegerBuffer clK3Buffer(0x10d8, 0x0400, 10, onClK3Change);
 
 #define CADC_COL_A 2
 #define CADC_ROW_A 7
@@ -530,6 +717,9 @@ void setLEDCadc(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, CADC_COL_A, CADC_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, CADC_COL_B, CADC_ROW_B, newValue);
 }
+void onClK4Change(unsigned int newValue) {
+ setLEDCadc(newValue); 
+}DcsBios::IntegerBuffer clK4Buffer(0x10d8, 0x0800, 11, onClK4Change);
 
 #define APU_GEN_COL_A 3
 #define APU_GEN_ROW_A 1
@@ -539,6 +729,9 @@ void setLEDApuGen(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, APU_GEN_COL_A, APU_GEN_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, APU_GEN_COL_B, APU_GEN_ROW_B, newValue);
 }
+void onClL1Change(unsigned int newValue) {
+  setLEDApuGen(newValue);
+}DcsBios::IntegerBuffer clL1Buffer(0x10d8, 0x1000, 12, onClL1Change);
 
 #define L_GEN_COL_A 3
 #define L_GEN_ROW_A 3
@@ -548,6 +741,9 @@ void setLEDLGen(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, L_GEN_COL_A, L_GEN_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, L_GEN_COL_B, L_GEN_ROW_B, newValue);
 }
+void onClL2Change(unsigned int newValue) {
+ setLEDLGen(newValue); 
+}DcsBios::IntegerBuffer clL2Buffer(0x10d8, 0x2000, 13, onClL2Change);
 
 #define R_GEN_COL_A 3
 #define R_GEN_ROW_A 5
@@ -557,6 +753,9 @@ void setLEDRGen(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, R_GEN_COL_A, R_GEN_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, R_GEN_COL_B, R_GEN_ROW_B, newValue);
 }
+void onClL3Change(unsigned int newValue) {
+ setLEDRGen(newValue); 
+}DcsBios::IntegerBuffer clL3Buffer(0x10d8, 0x4000, 14, onClL3Change);
 
 #define INST_INV_COL_A 3
 #define INST_INV_ROW_A 7
@@ -566,7 +765,23 @@ void setLEDInstInv(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, INST_INV_COL_A, INST_INV_ROW_A, newValue);
   lc.setLed(LOWER_CAUTION_PANEL, INST_INV_COL_B, INST_INV_ROW_B, newValue);
 }
+void onClL4Change(unsigned int newValue) {
+  setLEDInstInv(newValue);
+}DcsBios::IntegerBuffer clL4Buffer(0x10d8, 0x8000, 15, onClL4Change);
 
+#define OXY_FLOW_ROW 1
+#define OXY_FLOW_COL 4
+void onOxyFlowChange(unsigned int newValue) {
+  lc.setLed(LOWER_CAUTION_PANEL, OXY_FLOW_COL, OXY_FLOW_ROW, newValue);
+}
+DcsBios::IntegerBuffer oxyFlowBuffer(0x112a, 0x0800, 11, onOxyFlowChange);
+
+#define TACAN_TEST_ROW 2
+#define TACAN_TEST_COL 4
+void onTacanTestChange(unsigned int newValue) {
+  lc.setLed(LOWER_CAUTION_PANEL, TACAN_TEST_COL, TACAN_TEST_ROW, newValue);
+}
+DcsBios::IntegerBuffer tacanTestBuffer(0x10da, 0x0400, 10, onTacanTestChange);
 
 void Ledcycle() {
   setLEDInstInv(1);
@@ -861,7 +1076,7 @@ void setup() {
       lc.clearDisplay(address);
     }
 
-
+    SendDebug("All Leds on");
     AllOn();
     delay(1000);
 
@@ -882,6 +1097,7 @@ void setup() {
     // Turn off All Leds and set to mid brightness
     AllOff();
     SetBrightness(8);
+    SendDebug("Led test complete");
   }
 
 
@@ -996,7 +1212,7 @@ void setup() {
     SendDebug("End Stepper Right Fuel");
   }
 
-  if (true) {
+  if (false) {
     SendDebug("Start Stepper OXY REG");
     STEPPER_OXY_REG.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_OXY_REG.setAcceleration(STEPPER_ACCELERATION);
@@ -1019,7 +1235,7 @@ void setup() {
     SendDebug("End Stepper OXY REG");
   }
 
-  if (true) {
+  if (false) {
     SendDebug("Start Stepper LOX");
     STEPPER_LOX.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LOX.setAcceleration(STEPPER_ACCELERATION);
@@ -1031,7 +1247,7 @@ void setup() {
     while (STEPPER_LOX.distanceToGo() != 0) {
       STEPPER_LOX.run();
     }
-        STEPPER_LOX.move(640);
+    STEPPER_LOX.move(640);
     while (STEPPER_LOX.distanceToGo() != 0) {
       STEPPER_LOX.run();
     }
@@ -1043,7 +1259,7 @@ void setup() {
   }
 
 
-  if (true) {
+  if (false) {
     SendDebug("Start Stepper Cabin Press");
     STEPPER_CABIN_PRESS.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_CABIN_PRESS.setAcceleration(STEPPER_ACCELERATION);
@@ -1140,7 +1356,7 @@ void setOxPressure(long TargetOxPressure) {
 void onOxyPressChange(unsigned int newValue) {
   long OxPressure = newValue;
   SendDebug("onOxyPressChange = " + String(OxPressure));
-  setOxPressure(map(OxPressure, 0, 65535, 0, STEPS /2));
+  setOxPressure(map(OxPressure, 0, 65535, 0, STEPS / 2));
 }
 DcsBios::IntegerBuffer oxyPressBuffer(0x1130, 0xffff, 0, onOxyPressChange);
 
@@ -1150,9 +1366,9 @@ void setOxQty(long TargetOxQty) {
   STEPPER_LOX.moveTo(TargetOxQty);
 }
 void onOxyVolumeChange(unsigned int newValue) {
-   long OxQty = newValue;
+  long OxQty = newValue;
   SendDebug("onOxyVolumeChange = " + String(OxQty));
-  setOxQty(map(OxQty, 0, 65535, 0, STEPS /2)); 
+  setOxQty(map(OxQty, 0, 65535, 0, STEPS / 2));
 }
 DcsBios::IntegerBuffer oxyVolumeBuffer(0x1132, 0xffff, 0, onOxyVolumeChange);
 
@@ -1179,8 +1395,8 @@ void updateSteppers() {
   STEPPER_OXY_REG.run();
   STEPPER_LOX.run();
   STEPPER_CABIN_PRESS.run();
-
 }
+
 
 
 void loop() {
