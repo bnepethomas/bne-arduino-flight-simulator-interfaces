@@ -748,10 +748,10 @@ void SetBrightness(int Brightness) {
 // #define COIL_LEFT_HYD_A3 24
 // #define COIL_LEFT_HYD_A4 28
 
-#define COIL_RIGHT_HYD_A1 23
-#define COIL_RIGHT_HYD_A2 25
-#define COIL_RIGHT_HYD_A3 27
-#define COIL_RIGHT_HYD_A4 29
+#define COIL_RIGHT_HYD_A1 27
+#define COIL_RIGHT_HYD_A2 29
+#define COIL_RIGHT_HYD_A3 25
+#define COIL_RIGHT_HYD_A4 23
 
 // #define COIL_RIGHT_HYD_A1 23
 // #define COIL_RIGHT_HYD_A2 27
@@ -883,15 +883,24 @@ void setup() {
 
   SendDebug("Starting Motor Initialisation");
 
-  if (false) {
+  if (true) {
     STEPPER_RIGHT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_RIGHT_HYD.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_RIGHT_HYD.move(4000);
+    STEPPER_RIGHT_HYD.move(630);
     SendDebug("Start Stepper Right Hyd");
     while (STEPPER_RIGHT_HYD.distanceToGo() != 0) {
       STEPPER_RIGHT_HYD.run();
     }
-    STEPPER_RIGHT_HYD.move(-4000);
+    STEPPER_RIGHT_HYD.move(-630);
+    while (STEPPER_RIGHT_HYD.distanceToGo() != 0) {
+      STEPPER_RIGHT_HYD.run();
+    }
+    STEPPER_RIGHT_HYD.move(630);
+    SendDebug("Start Stepper Right Hyd");
+    while (STEPPER_RIGHT_HYD.distanceToGo() != 0) {
+      STEPPER_RIGHT_HYD.run();
+    }
+    STEPPER_RIGHT_HYD.move(-630);
     while (STEPPER_RIGHT_HYD.distanceToGo() != 0) {
       STEPPER_RIGHT_HYD.run();
     }
@@ -902,11 +911,6 @@ void setup() {
     SendDebug("Start Stepper Left Hyd");
     STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
-    // STEPPER_LEFT_HYD.move(-630);
-
-    // while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
-    //   STEPPER_LEFT_HYD.run();
-    // }
 
     STEPPER_LEFT_HYD.move(630);
 
@@ -917,19 +921,36 @@ void setup() {
     while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
       STEPPER_LEFT_HYD.run();
     }
-    STEPPER_LEFT_HYD.disableOutputs();
+    STEPPER_LEFT_HYD.move(630);
+
+    while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
+      STEPPER_LEFT_HYD.run();
+    }
+    STEPPER_LEFT_HYD.move(-630);
+    while (STEPPER_LEFT_HYD.distanceToGo() != 0) {
+      STEPPER_LEFT_HYD.run();
+    }
+
     SendDebug("End Stepper Left Hyd");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper Left Fuel");
     STEPPER_LEFT_FUEL.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_FUEL.setAcceleration(STEPPER_ACCELERATION);
-    STEPPER_LEFT_FUEL.move(4000);
+    STEPPER_LEFT_FUEL.move(640);
     while (STEPPER_LEFT_FUEL.distanceToGo() != 0) {
       STEPPER_LEFT_FUEL.run();
     }
-    STEPPER_LEFT_FUEL.move(-4000);
+    STEPPER_LEFT_FUEL.move(-640);
+    while (STEPPER_LEFT_FUEL.distanceToGo() != 0) {
+      STEPPER_LEFT_FUEL.run();
+    }
+        STEPPER_LEFT_FUEL.move(640);
+    while (STEPPER_LEFT_FUEL.distanceToGo() != 0) {
+      STEPPER_LEFT_FUEL.run();
+    }
+    STEPPER_LEFT_FUEL.move(-640);
     while (STEPPER_LEFT_FUEL.distanceToGo() != 0) {
       STEPPER_LEFT_FUEL.run();
     }
@@ -1006,7 +1027,7 @@ void setup() {
 
 /*
 STEPPER_LEFT_HYD
-STEPPER_RIGHT_HYD
+
 STEPPER_LEFT_FUEL
 STEPPER_RIGHT_FUEL
 STEPPER_OXY_REG
@@ -1015,18 +1036,26 @@ STEPPER_CABIN_PRESS
 */
 
 void setLeftHyd(long TargetLeftHyd) {
-  // SendDebug("GForce = " + String(TargetLeftHyd));
+  // SendDebug("Target Right Hyd = " + String(TargetLeftHyd));
   STEPPER_LEFT_HYD.moveTo(TargetLeftHyd);
 }
-
 void onLHydPressChange(unsigned int newValue) {
   long LeftHyd = newValue;
-  SendDebug("onLHydPressChange = " + String(LeftHyd));
+  // SendDebug("onLHydPressChange = " + String(LeftHyd));
   setLeftHyd(map(LeftHyd, 0, 65535, 0, STEPS));
 }
 DcsBios::IntegerBuffer lHydPressBuffer(0x10c2, 0xffff, 0, onLHydPressChange);
 
+
+void setRightHyd(long TargetRightHyd) {
+  // SendDebug("Target Right Hyd = " + String(TargetRightHyd));
+  STEPPER_LEFT_HYD.moveTo(TargetRightHyd);
+}
+
 void onRHydPressChange(unsigned int newValue) {
+  long RightHyd = newValue;
+  // SendDebug("onLHydPressChange = " + String(RightHyd));
+  setRightHyd(map(RightHyd, 0, 65535, 0, STEPS));
 }
 DcsBios::IntegerBuffer rHydPressBuffer(0x10c4, 0xffff, 0, onRHydPressChange);
 
@@ -1034,6 +1063,7 @@ DcsBios::IntegerBuffer rHydPressBuffer(0x10c4, 0xffff, 0, onRHydPressChange);
 void updateSteppers() {
 
   STEPPER_LEFT_HYD.run();
+  STEPPER_RIGHT_HYD.run();
 }
 
 
