@@ -499,7 +499,7 @@
       "plot": "MANUFACTURING/",
       "pos_files": "",
       "specctra_dsn": "Left Console Input and Output with Rotary.dsn",
-      "step": "",
+      "step": "Left Console Input and Output with Rotary.step",
       "svg": "",
       "vrml": ""
     },

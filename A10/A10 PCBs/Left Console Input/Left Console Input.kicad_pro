@@ -499,7 +499,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "Left Console Input.dsn",
-      "step": "",
+      "step": "Left Console Input.step",
       "svg": "",
       "vrml": ""
     },
