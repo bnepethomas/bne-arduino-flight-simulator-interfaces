@@ -13726,7 +13726,7 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "VERSION 1.0"
+	(gr_text "VERSION 1.1"
 		(at 65.37 78.34 0)
 		(layer "B.SilkS")
 		(uuid "da4fcd8c-07f7-40c2-8917-3e656cedaae1")
@@ -13793,7 +13793,7 @@
 			)
 		)
 	)
-	(gr_text "VERSION 1.0"
+	(gr_text "VERSION 1.1"
 		(at 65.28 78.26 0)
 		(layer "F.SilkS")
 		(uuid "7f354871-4ed7-4793-bf0b-d4b0fefdaa89")
