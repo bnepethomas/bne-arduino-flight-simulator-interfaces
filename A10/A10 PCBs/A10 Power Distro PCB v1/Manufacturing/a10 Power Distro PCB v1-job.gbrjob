@@ -5,7 +5,7 @@
       "Application": "Pcbnew",
       "Version": "8.0.3"
     },
-    "CreationDate": "2024-12-02T19:38:21+10:00"
+    "CreationDate": "2024-12-03T05:52:04+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -50,6 +50,16 @@
       "Path": "a10 Power Distro PCB v1-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
+    },
+    {
+      "Path": "a10 Power Distro PCB v1-F_Mask.gbr",
+      "FileFunction": "SolderMask,Top",
+      "FilePolarity": "Negative"
+    },
+    {
+      "Path": "a10 Power Distro PCB v1-B_Mask.gbr",
+      "FileFunction": "SolderMask,Bot",
+      "FilePolarity": "Negative"
     },
     {
       "Path": "a10 Power Distro PCB v1-Edge_Cuts.gbr",
