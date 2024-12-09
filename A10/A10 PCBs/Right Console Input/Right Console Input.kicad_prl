@@ -1,6 +1,6 @@
 {
   "board": {
-    "active_layer": 0,
+    "active_layer": 43,
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [],
@@ -42,6 +42,7 @@
       9,
       10,
       11,
+      12,
       13,
       14,
       15,
@@ -64,8 +65,14 @@
       37,
       38
     ],
-    "visible_layers": "fffffff_ffffffff",
+    "visible_layers": "ffc1020_7ffffffe",
     "zone_display_mode": 0
+  },
+  "git": {
+    "repo_password": "",
+    "repo_type": "",
+    "repo_username": "",
+    "ssh_key": ""
   },
   "meta": {
     "filename": "Right Console Input.kicad_prl",
