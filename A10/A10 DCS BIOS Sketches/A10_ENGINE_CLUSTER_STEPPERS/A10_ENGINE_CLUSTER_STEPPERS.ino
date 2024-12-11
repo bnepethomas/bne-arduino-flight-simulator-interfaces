@@ -1,4 +1,20 @@
-// Development test framework to determine max number of steppers that
+// A10_ENGINE_CLUSTER_STEPPERS
+
+// Drives Engine Steppers on Front Panel
+
+// Stepper 1 - Left Engine PSI
+// Stepper 2 - Right Engine PSI
+// Stepper 3 - APU RPM
+// Stepper 4 - APU EGT
+// Stepper 5 - Left Engine RPM
+// Stepper 6 - Right Engine RPM
+// Stepper 7 - Left Engine Fuel Flow
+// Stepper 8 - Right Engine Fuel Flow
+// Stepper 9 - Left Engine Temp
+// Stepper 10 - Right Engine Temp
+// Stepper 11 - Left Engine Fan RPM
+// Stepper 12 - Right Engine Fan RPM
+
 // can safely be driven off an Arduino without the use of drivers
 // Absoultely Max current is 200mA
 
@@ -52,6 +68,7 @@
 #define ES1_RESET_PIN 53
 
 byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x02 };
+String sMac = "A8:61:0A:67:83:02";
 IPAddress ip(172, 16, 1, 102);
 String strMyIP = "172.16.1.102";
 

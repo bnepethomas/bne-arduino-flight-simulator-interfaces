@@ -1,4 +1,4 @@
-
+/*
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 //||               FUNCTION = A10 FRONT CONSOLE INPUT CONTROLLER      ||\\
@@ -10,9 +10,36 @@
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
-/*
- *  */
-/*
+A10_FRONT_CONSOLE_INPUT_CONTROLLER
+
+In addition to providing inputs for the front cnsole this module also
+drives LEDs, Fire handle Outputs, TISL Lamps and the Anti-skid Meg switch
+
+O_REFUEL_READY_LED
+O_REFUEL_LATCHED_LED
+O_REFUEL_DISC_LED
+O_STEER_LED
+O_GUN_READY_LED
+O_MARKER_BEACON_LED 
+O_CANOPY_LED 
+
+O_LEFT_FIRE 
+O_APU_FIRE
+O_RIGHT_FIRE
+O_GEAR_HANDLE
+O_CAUTION_LAMP
+O_PRI_LAMP
+O_SEP_LAMP
+O_MISSLE_LAMP
+O_HARS_LAMP
+O_EGI_LAMP
+O_STR_PT_LAMP
+O_TISL_LAMP
+O_ANCHR_LAMP
+O_TCN_LAMP
+O_ILS_LAMP
+O_ANTI_SKID
+
 
   This Superceedes udp_input_controller
   Split from udp_input_controller_2 20200802
@@ -56,8 +83,6 @@
   Add a comment for in the case number for the action associated with the input number
   Copy variable names from the aircraft LUA eg A-10C.lua or from BORT
   Switch
-
-
 
 */
 
