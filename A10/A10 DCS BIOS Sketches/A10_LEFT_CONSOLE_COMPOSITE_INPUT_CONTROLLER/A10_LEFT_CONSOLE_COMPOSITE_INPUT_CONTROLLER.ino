@@ -163,9 +163,10 @@ unsigned long timeSinceRedLedChanged = 0;
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 
-byte myMac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x00 };
-IPAddress myIP(172, 16, 1, 100);
-String strMyIP = "172.16.1.100";
+byte myMac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x05 };
+String sMac = "A8:61:0A:67:83:05";
+IPAddress myIP(172, 16, 1, 105);
+String strMyIP = "172.16.1.105";
 
 // Reflector
 IPAddress reflectorIP(172, 16, 1, 10);

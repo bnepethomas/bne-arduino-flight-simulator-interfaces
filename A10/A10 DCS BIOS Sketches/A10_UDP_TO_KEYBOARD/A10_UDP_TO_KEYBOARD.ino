@@ -1,4 +1,6 @@
-// UPDATED TO DSCS-BIOS FP EDITION FOR OPEN HORNET
+// THIS WORKS ON A LEONARDO BOARD NOT A MEGA
+// IF YOU SEE ERRORS IN COMPILING THAT REFERENCE KEYBOARD
+// IT IS LIKELY THE INCORRECT BOARD MODEL IS SELECTED
 
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -108,8 +110,9 @@ int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it
 #include <Ethernet.h>
 #include <EthernetUdp.h>
 
-8:61:0A:67:83:0A
+
 byte myMac[] = {0xA8, 0x61, 0x0A, 0x67, 0x83, 0x0A};
+String sMac = "A8:61:0A:67:83:0A";
 IPAddress myIP(172, 16, 1, 110);
 String strMyIP = "172.16.1.110  ";
 

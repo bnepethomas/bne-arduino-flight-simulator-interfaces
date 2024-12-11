@@ -88,8 +88,8 @@ String BoardName = "A10 Forward Input";
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = { 0xA8, 0x61, 0x0A, 0x64, 0x83, 0x03 };
-String sMac = "A8:61:0A:64:83:03";
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x00 };
+String sMac = "A8:61:0A:67:83:00";
 IPAddress ip(172, 16, 1, 100);
 String strMyIP = "172.16.1.100";
 

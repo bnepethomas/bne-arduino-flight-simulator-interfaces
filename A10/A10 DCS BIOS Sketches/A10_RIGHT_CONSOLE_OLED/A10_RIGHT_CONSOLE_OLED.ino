@@ -54,10 +54,10 @@ String CMSP2 = "";
 String BoardName = "A10 RIGHT OLED";
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = { 0xA8, 0x61, 0x0A, 0x65, 0x83, 0x03 };
-String sMac = "A8:61:0A:65:83:03";
-IPAddress ip(172, 16, 1, 101);
-String strMyIP = "172.16.1.101";
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x09 };
+String sMac = "A8:61:0A:67:83:09";
+IPAddress ip(172, 16, 1, 109);
+String strMyIP = "172.16.1.109";
 
 // Raspberry Pi is Target
 IPAddress targetIP(172, 16, 1, 2);
