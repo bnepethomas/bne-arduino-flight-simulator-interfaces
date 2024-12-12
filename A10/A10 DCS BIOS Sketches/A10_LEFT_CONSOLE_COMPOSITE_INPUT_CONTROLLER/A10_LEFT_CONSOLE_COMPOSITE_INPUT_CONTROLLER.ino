@@ -1,3 +1,31 @@
+/*
+A10_LEFT_CONSOLE_COMPOSITE_INPUT_CONTROLLER
+
+Drives
+
+UHF_PRESET_OLED_Port 0
+UHF_FREQUENCY_OLED_Port 1
+VHF_AM_OLED_Port 2
+VHF_FM_OLED_Port 3
+
+FLOOD_LIGHTS 9
+FORMATION_LIGHTS 11
+STROBE_LIGHTS 8
+NAVIGATION_LIGHTS 7
+BACK_LIGHTS 11
+DcsBios::LED saspToTrim_1
+DcsBios::LED saspToTrim_2
+
+MAG SWITCHES
+DcsBios::LED saspPitchSasR
+DcsBios::LED saspPitchSasL
+DcsBios::LED saspYawSasR
+DcsBios::LED saspYawSasL
+
+
+
+*/
+
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 //||               FUNCTION = HORNET LEFT INPUT                       ||\\
 //||              LOCATION IN THE PIT = LEFTHAND SIDE                 ||\\

@@ -1,5 +1,16 @@
-// PLACEHOLDER UNTIL COMBINED PCB ARRIVES THEN MOVE TO R IGHT CONSOLE OUTPUT
-// A10_RIGHT_OLED
+/*
+A10_RIGHT_CONSOLE_OLED
+
+PLACEHOLDER UNTIL COMBINED PCB ARRIVES THEN MOVE TO RIGHT CONSOLE OUTPUT
+
+Drives
+CMSP_OLED_PORT 0
+FUEL_OLED_Port 1
+ILS_OLED_Port 2
+TACAN_OLED_Port 3
+
+
+*/
 // *************************************************************
 // *************************************************************
 // Board MEGA 256

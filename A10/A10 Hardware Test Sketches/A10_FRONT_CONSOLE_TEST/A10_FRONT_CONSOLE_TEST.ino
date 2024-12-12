@@ -1,4 +1,6 @@
+/* A10_FRONT_CONSOLE_test
 
+*/
 #define Ethernet_In_Use 1
 const int Serial_In_Use = 0;
 #define Reflector_In_Use 1

@@ -1,3 +1,20 @@
+/*
+A10_FRONT_CONSOLE_STEPPERS
+
+Drives:
+
+SARI
+AccelStepper VSIstepper
+AccelStepper ALTstepper
+AccelStepper SpeedCurrentstepper
+AccelStepper SpeedMaxstepper
+AccelStepper FlapsStepper
+AccelStepper AOAstepper
+AccelStepper GForcestepper
+
+Backlighting
+
+*/
 
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\

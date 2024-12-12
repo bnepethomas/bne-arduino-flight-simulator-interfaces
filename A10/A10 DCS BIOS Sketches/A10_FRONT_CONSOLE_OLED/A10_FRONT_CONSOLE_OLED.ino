@@ -1,4 +1,21 @@
-//  A10_LEFT_OLED
+/*  A10_FRONT_CONSOLE_OLED
+
+Drives
+BARO_OLED_Port 1
+ALT_OLED_Port 2
+CMSC_OLED_Port 3
+
+O_RIGHT_GEAR_LED 2
+O_NOSE_GEAR_LED 3
+O_LEFT_GEAR_LED 4
+O_VHF_AM_LED 5
+O_VHF_FM_LED 6
+O_AOA_BELOW_LED 9
+O_AOA_ON_LED 8
+O_AOA_ABOVE_LED 7
+
+*/
+
 // *************************************************************
 // *************************************************************
 // Board MEGA 256
