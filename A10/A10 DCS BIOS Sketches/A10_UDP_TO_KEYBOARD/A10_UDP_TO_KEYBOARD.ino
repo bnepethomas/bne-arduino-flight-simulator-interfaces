@@ -101,8 +101,8 @@ String readString;
 
 
 
-int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
-#define Reflector_In_Use 0
+int Ethernet_In_Use = 1;  // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
+#define Reflector_In_Use 1
 #define Serial_In_Use 0
 
 // Ethernet Related
@@ -111,7 +111,7 @@ int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it
 #include <EthernetUdp.h>
 
 
-byte myMac[] = {0xA8, 0x61, 0x0A, 0x67, 0x83, 0x0A};
+byte myMac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x0A };
 String sMac = "A8:61:0A:67:83:0A";
 IPAddress myIP(172, 16, 1, 110);
 String strMyIP = "172.16.1.110  ";
@@ -127,7 +127,9 @@ const unsigned int ledport = 7789;
 const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
 
-#define EthernetStartupDelay 100
+
+const unsigned long delayBeforeSendingPacket = 2000;
+unsigned long ethernetStartTime = 0;
 
 // Packet Length
 int trimPacketSize;
@@ -136,19 +138,19 @@ int keyboardpacketSize;
 int keyboardLen;
 
 
-EthernetUDP senderudp;                   //Left and Right Consoles
-EthernetUDP keyboardudp;              // Keyboard
+EthernetUDP senderudp;    //Left and Right Consoles
+EthernetUDP keyboardudp;  // Keyboard
 
-char trimpacketBuffer[1000];                //buffer to store trim data
-char keyboardpacketBuffer[1000];            //buffer to store keyboard data
-
-
+char trimpacketBuffer[1000];      //buffer to store trim data
+char keyboardpacketBuffer[1000];  //buffer to store keyboard data
 
 
+String BoardName = "A10 UDP to Keyboard Converter";
 
 
-#define RED_STATUS_LED_PORT 5                 // RED LED is used for monitoring ethernet
-#define GREEN_STATUS_LED_PORT 13              // RED LED is used for monitoring ethernet
+
+#define RED_STATUS_LED_PORT 5     // RED LED is used for monitoring ethernet
+#define GREEN_STATUS_LED_PORT 13  // RED LED is used for monitoring ethernet
 #define FLASH_TIME 1000
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
@@ -158,7 +160,7 @@ unsigned long timeSinceRedLedChanged = 0;
 
 bool Debug_Display = false;
 bool KEYBOARD_INITIALISED = false;
-#define DELAY_BEFORE_INITALISING_KEYBOARD 180000   // Number of milliseconds before attempting to initalise keyboard - need PC booted 
+#define DELAY_BEFORE_INITALISING_KEYBOARD 180000  // Number of milliseconds before attempting to initalise keyboard - need PC booted
 
 
 // ###################################### Begin Keyboard Related #############################
@@ -177,10 +179,10 @@ bool rCtrlInUse = false;
 bool lWinInUse = false;
 bool rWinInUse = false;
 
-const int delayBetweenRelease = 200;          // How long is a key held down for - WARNING THIS CURRENTLY BLOCKS THE RUNNING OF OTHER CODE
+const int delayBetweenRelease = 200;  // How long is a key held down for - WARNING THIS CURRENTLY BLOCKS THE RUNNING OF OTHER CODE
 // This could be optimised to set a flag and clear during the loop
 unsigned long timeBeforeReleaseAllKeys = 0;
-bool  releaseKeysNeeded = false;
+bool releaseKeysNeeded = false;
 
 // ###################################### End Keyboard Related #############################
 
@@ -217,9 +219,9 @@ void SendCharactersToKeyboard(int packetLength) {
 
   bool bLocalDebug = false;
 
-  if (Debug_Display || bLocalDebug ) SendIPDebug("Packet Received");
-  if (Debug_Display || bLocalDebug ) SendIPDebug("Len is ");
-  if (Debug_Display || bLocalDebug ) SendIPDebug(String((packetLength)));
+  if (Debug_Display || bLocalDebug) SendIPDebug("Packet Received");
+  if (Debug_Display || bLocalDebug) SendIPDebug("Len is ");
+  if (Debug_Display || bLocalDebug) SendIPDebug(String((packetLength)));
 
   if (Reflector_In_Use == 1) {
     keyboardudp.beginPacket(reflectorIP, reflectorport);
@@ -228,7 +230,7 @@ void SendCharactersToKeyboard(int packetLength) {
   }
 
   String thisSet = "";
-  for (int characterPtr = 0; characterPtr < packetLength ; characterPtr++ ) {
+  for (int characterPtr = 0; characterPtr < packetLength; characterPtr++) {
     //Serial.print(packetBuffer[characterPtr]);
 
     // Build Out Modifier list
@@ -241,47 +243,37 @@ void SendCharactersToKeyboard(int packetLength) {
     if (String(keyboardpacketBuffer[characterPtr]) == " ") {
       if (thisElement == "LALT") {
         leftAltInUse = true;
-        if (Debug_Display || bLocalDebug ) SendIPDebug("Left Alt in Use");
-      }
-      else if (thisElement == "RALT") {
+        if (Debug_Display || bLocalDebug) SendIPDebug("Left Alt in Use");
+      } else if (thisElement == "RALT") {
         rightAltInUse = true;
-        if (Debug_Display || bLocalDebug ) SendIPDebug("Right Alt in Use");
-      }
-      else if (thisElement == "ALT") {
+        if (Debug_Display || bLocalDebug) SendIPDebug("Right Alt in Use");
+      } else if (thisElement == "ALT") {
         altInUse = true;
-        if (Debug_Display || bLocalDebug )  SendIPDebug("Alt in Use");
-      }
-      else if (thisElement == "CTRL") {
+        if (Debug_Display || bLocalDebug) SendIPDebug("Alt in Use");
+      } else if (thisElement == "CTRL") {
         ctrlInUse = true;
-        if (Debug_Display || bLocalDebug ) SendIPDebug("Right Alt in Use");
-      }
-      else if (thisElement == "SHIFT") {
+        if (Debug_Display || bLocalDebug) SendIPDebug("Right Alt in Use");
+      } else if (thisElement == "SHIFT") {
         shiftInUse = true;
-        if (Debug_Display || bLocalDebug )  SendIPDebug("Shift in Use");
-      }
-      else if (thisElement == "LSHIFT") {
+        if (Debug_Display || bLocalDebug) SendIPDebug("Shift in Use");
+      } else if (thisElement == "LSHIFT") {
         lShiftInUse = true;
-        if (Debug_Display || bLocalDebug )  SendIPDebug("Left Shift in Use");
-      }
-      else if (thisElement == "RSHIFT") {
+        if (Debug_Display || bLocalDebug) SendIPDebug("Left Shift in Use");
+      } else if (thisElement == "RSHIFT") {
         rShiftInUse = true;
-        if (Debug_Display || bLocalDebug ) SendIPDebug("Right Shift in Use");
-      }
-      else if (thisElement == "LCTRL") {
+        if (Debug_Display || bLocalDebug) SendIPDebug("Right Shift in Use");
+      } else if (thisElement == "LCTRL") {
         lCtrlInUse = true;
-        if (Debug_Display || bLocalDebug )  SendIPDebug("Left Controlin Use");
-      }
-      else if (thisElement == "RCTRL") {
+        if (Debug_Display || bLocalDebug) SendIPDebug("Left Controlin Use");
+      } else if (thisElement == "RCTRL") {
         rCtrlInUse = true;
-        if (Debug_Display || bLocalDebug )  SendIPDebug("Right Control in Use");
-      }
-      else if (thisElement == "LWIN") {
+        if (Debug_Display || bLocalDebug) SendIPDebug("Right Control in Use");
+      } else if (thisElement == "LWIN") {
         lWinInUse = true;
-        if (Debug_Display || bLocalDebug ) SendIPDebug("Left Windows in Use");
-      }
-      else if (thisElement == "RWIN") {
+        if (Debug_Display || bLocalDebug) SendIPDebug("Left Windows in Use");
+      } else if (thisElement == "RWIN") {
         rWinInUse = true;
-        if (Debug_Display || bLocalDebug )  SendIPDebug("Right Windows in Use");
+        if (Debug_Display || bLocalDebug) SendIPDebug("Right Windows in Use");
       }
       thisElement = "";
     }
@@ -289,9 +281,8 @@ void SendCharactersToKeyboard(int packetLength) {
     else {
       thisElement = thisElement + String(keyboardpacketBuffer[characterPtr]);
     }
-
   }
-  if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+  if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
 
 
 
@@ -329,7 +320,7 @@ void SendCharactersToKeyboard(int packetLength) {
   // This can occur while sending test strings
 
   if (thisElement[thisElement.length() - 1] == 0x0A) {
-    if (Debug_Display || bLocalDebug ) SendIPDebug("Found trailing CR - removing it");
+    if (Debug_Display || bLocalDebug) SendIPDebug("Found trailing CR - removing it");
     thisElement.remove(thisElement.length() - 1);
   }
 
@@ -338,61 +329,49 @@ void SendCharactersToKeyboard(int packetLength) {
 
   if (thisElement.length() == 1) {
     // We are hitting a single character to send
-    if (Debug_Display || bLocalDebug ) SendIPDebug("Correct length of Element - Sending");
-    if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    if (Debug_Display || bLocalDebug) SendIPDebug("Correct length of Element - Sending");
+    if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
     thisElement.toCharArray(keyToPress, 2);
 
     Keyboard.press(keyToPress[0]);
 
-  } else
-  {
+  } else {
     // Function Keys
     if (thisElement == "F1") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F1);
-    }
-    else if (thisElement == "F2") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "F2") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F2);
-    }
-    else if (thisElement == "F3") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "F3") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F3);
-    }
-    else if (thisElement == "F4") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "F4") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F4);
-    }
-    else if (thisElement == "F5") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "F5") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F5);
-    }
-    else if (thisElement == "F6") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "F6") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F6);
-    }
-    else if (thisElement == "F7") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "F7") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F7);
-    }
-    else if (thisElement == "F8") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "F8") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F8);
-    }
-    else if (thisElement == "F9") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "F9") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F9);
-    }
-    else if (thisElement == "F10") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "F10") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F10);
-    }
-    else if (thisElement == "F11") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "F11") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F11);
-    }
-    else if (thisElement == "F12") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "F12") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_F12);
     }
 
@@ -411,27 +390,22 @@ void SendCharactersToKeyboard(int packetLength) {
     // 224 '\340' Keypad ENTER
 
     else if (thisElement == "KEYPAD/") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(220);
-    }
-    else if (thisElement == "KEYPAD*") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "KEYPAD*") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(233);
-    }
-    else if (thisElement == "KEYPAD-") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "KEYPAD-") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(233);
-    }
-    else if (thisElement == "KEYPAD+") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "KEYPAD+") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(233);
-    }
-    else if (thisElement == "KEYPADENTER") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "KEYPADENTER") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(233);
-    }
-    else if (thisElement == "ESC") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "ESC") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(KEY_ESC);
     }
 
@@ -449,50 +423,41 @@ void SendCharactersToKeyboard(int packetLength) {
     // 235 '\353' Keypad . and Delete
 
     else if (thisElement == "NUM0") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(234);
-    }
-    else if (thisElement == "NUM1") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "NUM1") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(225);
-    }
-    else if (thisElement == "NUM2") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "NUM2") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(226);
-    }
-    else if (thisElement == "NUM3") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "NUM3") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(227);
-    }
-    else if (thisElement == "NUM4") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "NUM4") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(228);
-    }
-    else if (thisElement == "NUM5") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "NUM5") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(229);
-    }
-    else if (thisElement == "NUM6") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "NUM6") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(230);
-    }
-    else if (thisElement == "NUM7") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "NUM7") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(231);
-    }
-    else if (thisElement == "NUM8") {
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+    } else if (thisElement == "NUM8") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(232);
-    }
-    else if (thisElement == "NUM9") {
-      if (Debug_Display || bLocalDebug )  SendIPDebug(thisElement);
+    } else if (thisElement == "NUM9") {
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
       Keyboard.press(233);
     }
 
 
     else {
-      if (Debug_Display || bLocalDebug ) SendIPDebug("Incorrect length of Element");
-      if (Debug_Display || bLocalDebug ) SendIPDebug(thisElement);
+      if (Debug_Display || bLocalDebug) SendIPDebug("Incorrect length of Element");
+      if (Debug_Display || bLocalDebug) SendIPDebug(thisElement);
     }
   }
 
@@ -519,15 +484,13 @@ void SendCharactersToKeyboard(int packetLength) {
 
   releaseKeysNeeded = true;
   timeBeforeReleaseAllKeys = millis() + delayBetweenRelease;
-
-
 }
 
 
 // ************* End Keyboard Area *****************************
 
 
-void SendIPDebug( String DebugToSend) {
+void SendIPDebug(String DebugToSend) {
   if (Reflector_In_Use == 1) {
     senderudp.beginPacket(reflectorIP, reflectorport);
     senderudp.print(DebugToSend);
@@ -537,11 +500,10 @@ void SendIPDebug( String DebugToSend) {
 
 
 void UpdateRedStatusLed() {
-  if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME ) )) {
-    digitalWrite( RED_STATUS_LED_PORT, true);
+  if ((RED_LED_STATE == false) && (millis() >= (timeSinceRedLedChanged + FLASH_TIME))) {
+    digitalWrite(RED_STATUS_LED_PORT, true);
     RED_LED_STATE = true;
     timeSinceRedLedChanged = millis();
-
   }
 }
 
@@ -564,9 +526,7 @@ void CHECK_KEYBOARD_INITIALISED() {
     }
 
     KEYBOARD_INITIALISED = true;
-
   }
-
 }
 
 
@@ -575,36 +535,44 @@ void CHECK_KEYBOARD_INITIALISED() {
 void setup() {
 
 
-  pinMode( RED_STATUS_LED_PORT,  OUTPUT);
-  pinMode( GREEN_STATUS_LED_PORT,  OUTPUT);
+  pinMode(RED_STATUS_LED_PORT, OUTPUT);
+  pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
 
-  digitalWrite( RED_STATUS_LED_PORT, true);
-  digitalWrite( GREEN_STATUS_LED_PORT, true);
+  digitalWrite(RED_STATUS_LED_PORT, true);
+  digitalWrite(GREEN_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
-  digitalWrite( RED_STATUS_LED_PORT, false);
-  digitalWrite( GREEN_STATUS_LED_PORT, false);
+  digitalWrite(RED_STATUS_LED_PORT, false);
+  digitalWrite(GREEN_STATUS_LED_PORT, false);
 
   delay(FLASH_TIME);
 
 
 
-  Ethernet.begin( myMac, myIP);
+  Ethernet.begin(myMac, myIP);
   keyboardudp.begin(keyboardport);
   senderudp.begin(ledport);
 
-  // Let Ethernet Settle
-  delay(EthernetStartupDelay);
 
-  digitalWrite( RED_STATUS_LED_PORT, true);
-  digitalWrite( GREEN_STATUS_LED_PORT, true);
+  digitalWrite(RED_STATUS_LED_PORT, true);
+  digitalWrite(GREEN_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
-  digitalWrite( RED_STATUS_LED_PORT, false);
-  digitalWrite( GREEN_STATUS_LED_PORT, false);
+  digitalWrite(RED_STATUS_LED_PORT, false);
+  digitalWrite(GREEN_STATUS_LED_PORT, false);
 
   delay(FLASH_TIME);
+  // As it takes a couple of seconds before the Ethernet Stack is operational
+  // Flash leds until time period has completed
+  ethernetStartTime = millis() + delayBeforeSendingPacket;
+  while (millis() <= ethernetStartTime) {
+    delay(FLASH_TIME);
+    digitalWrite(GREEN_STATUS_LED_PORT, false);
+    delay(FLASH_TIME);
+    digitalWrite(GREEN_STATUS_LED_PORT, true);
+  }
 
   if (Reflector_In_Use == 1) {
     keyboardudp.beginPacket(reflectorIP, reflectorport);
+    SendIPDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
     keyboardudp.println("Init UDP to Keyboard - version:" + String(ProgramVersion) + " " + strMyIP + " " + String(millis()) + "mS since reset.");
     keyboardudp.endPacket();
   }
@@ -620,17 +588,15 @@ void setup() {
     keyboardudp.endPacket();
   }
 
-  // Let Ethernet Settle
-  delay(EthernetStartupDelay);
 
-  digitalWrite( RED_STATUS_LED_PORT, true);
-  digitalWrite( GREEN_STATUS_LED_PORT, true);
+
+  digitalWrite(RED_STATUS_LED_PORT, true);
+  digitalWrite(GREEN_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
-  digitalWrite( RED_STATUS_LED_PORT, false);
-  digitalWrite( GREEN_STATUS_LED_PORT, false);
+  digitalWrite(RED_STATUS_LED_PORT, false);
+  digitalWrite(GREEN_STATUS_LED_PORT, false);
 
   delay(FLASH_TIME);
-
 }
 
 
@@ -653,14 +619,13 @@ void loop() {
     }
 
     KEYBOARD_INITIALISED = true;
-
   }
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;
     RED_LED_STATE = !RED_LED_STATE;
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
-    digitalWrite( RED_STATUS_LED_PORT, RED_LED_STATE);
+    digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
@@ -681,11 +646,11 @@ void loop() {
 
 
   // ****************** Begin Keyboard Loop Area *******************
-  if ((releaseKeysNeeded == true)  && (millis() >= timeBeforeReleaseAllKeys)) {
+  if ((releaseKeysNeeded == true) && (millis() >= timeBeforeReleaseAllKeys)) {
 
     Keyboard.releaseAll();
 
-    if (Serial_In_Use == 1)  {
+    if (Serial_In_Use == 1) {
       SendIPDebug("Keys Released");
     }
     releaseKeysNeeded = false;
@@ -707,6 +672,4 @@ void loop() {
   }
 
   // ****************** End Keyboard Loop Area *******************
-
-
 }

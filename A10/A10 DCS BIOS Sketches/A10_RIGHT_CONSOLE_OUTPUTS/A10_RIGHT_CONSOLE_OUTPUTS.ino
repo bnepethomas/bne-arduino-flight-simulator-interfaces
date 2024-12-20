@@ -1024,11 +1024,11 @@ void SetBrightness(int Brightness) {
 #define COIL_LOX_A4 45
 
 // Pins are slighty Reversed when compared to steppers on Expansion connection
-#define COIL_CABIN_PRESS_A1 6
-#define COIL_CABIN_PRESS_A2 7
-#define COIL_CABIN_PRESS_A3 8
-#define COIL_CABIN_PRESS_A4 9
 
+#define COIL_CABIN_PRESS_A1 8
+#define COIL_CABIN_PRESS_A2 9
+#define COIL_CABIN_PRESS_A3 6
+#define COIL_CABIN_PRESS_A4 7
 
 // #define STEPPER_MAX_SPEED 900
 #define STEPPER_MAX_SPEED 8300
@@ -1140,7 +1140,7 @@ void setup() {
 
   SendDebug("Starting Motor Initialisation");
 
-  if (false) {
+  if (true) {
     STEPPER_RIGHT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_RIGHT_HYD.setAcceleration(STEPPER_ACCELERATION);
     STEPPER_RIGHT_HYD.move(630);
@@ -1164,7 +1164,7 @@ void setup() {
     SendDebug("End Stepper Right Hyd");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper Left Hyd");
     STEPPER_LEFT_HYD.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_HYD.setAcceleration(STEPPER_ACCELERATION);
@@ -1191,7 +1191,7 @@ void setup() {
     SendDebug("End Stepper Left Hyd");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper Left Fuel");
     STEPPER_LEFT_FUEL.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LEFT_FUEL.setAcceleration(STEPPER_ACCELERATION);
@@ -1214,7 +1214,7 @@ void setup() {
     SendDebug("End Stepper Left Fuel");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper Right Fuel");
     STEPPER_RIGHT_FUEL.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_RIGHT_FUEL.setAcceleration(STEPPER_ACCELERATION);
@@ -1237,7 +1237,7 @@ void setup() {
     SendDebug("End Stepper Right Fuel");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper OXY REG");
     STEPPER_OXY_REG.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_OXY_REG.setAcceleration(STEPPER_ACCELERATION);
@@ -1260,7 +1260,7 @@ void setup() {
     SendDebug("End Stepper OXY REG");
   }
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper LOX");
     STEPPER_LOX.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_LOX.setAcceleration(STEPPER_ACCELERATION);
@@ -1284,7 +1284,7 @@ void setup() {
   }
 
 
-  if (false) {
+  if (true) {
     SendDebug("Start Stepper Cabin Press");
     STEPPER_CABIN_PRESS.setMaxSpeed(STEPPER_MAX_SPEED);
     STEPPER_CABIN_PRESS.setAcceleration(STEPPER_ACCELERATION);
