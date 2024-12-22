@@ -303,8 +303,14 @@ void setup() {
   delay(500);
 
   tcaselect(CMSP_OLED_PORT);
-  OLED_CLS();
-  send_string("CMSP");
+  sendCommand(0x01);
+  // DEL - CLS
+  sendCommand(0x80);  // Home Pos
+
+  send_string("OFF RDY RDY RDY");
+  sendCommand(cmd_NewLine);
+  send_string("MWS JMR RWR DISP");
+  //send_string("999 999 999 999");
   tcaselect(FUEL_OLED_Port);
   OLED_CLS();
   send_string("   00000");
