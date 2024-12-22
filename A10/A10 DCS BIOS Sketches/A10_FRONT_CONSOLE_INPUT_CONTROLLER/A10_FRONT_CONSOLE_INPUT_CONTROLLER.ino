@@ -241,8 +241,8 @@ long TimeRadarOff = 0;
 #define O_REFUEL_DISC_LED 6
 #define O_STEER_LED 8
 #define O_GUN_READY_LED 7
-#define O_MARKER_BEACON_LED 9
-#define O_CANOPY_LED 11
+#define O_MARKER_BEACON_LED 11
+#define O_CANOPY_LED 9
 
 
 #define O_LEFT_FIRE 54
