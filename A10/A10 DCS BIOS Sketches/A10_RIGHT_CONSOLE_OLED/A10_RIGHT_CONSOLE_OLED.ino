@@ -427,7 +427,7 @@ void updateFuelDisplay() {
 
 void onFuelQty100Change(unsigned int newValue) {
   String wrkstr = String(newValue);
-  SendDebug("Fuel Quantity 100s " + wrkstr);
+  // SendDebug("Fuel Quantity 100s " + wrkstr);
   float flt100s = float(newValue);
   int int100s = int(flt100s * 10 / 0xFFFF);
   if (lastFuel100s != int100s) {
@@ -441,14 +441,14 @@ DcsBios::IntegerBuffer fuelQty100Buffer(0x10d2, 0xffff, 0, onFuelQty100Change);
 
 void onFuelQty1000Change(unsigned int newValue) {
   String wrkstr = String(newValue);
-  SendDebug("Fuel Quantity 1000s " + wrkstr);
+  // SendDebug("Fuel Quantity 1000s " + wrkstr);
   float flt1000s = float(newValue);
   int int1000s = int(flt1000s * 10 / 0xFFFF);
   if (lastFuel1000s != int1000s) {
     lastFuel1000s = int1000s;
     updateFuelDisplay();
   }
-  SendDebug("Converted Fuel Quantity 100s " + String(int1000s));
+  // SendDebug("Converted Fuel Quantity 100s " + String(int1000s));
 }
 DcsBios::IntegerBuffer fuelQty1000Buffer(0x10d0, 0xffff, 0, onFuelQty1000Change);
 
