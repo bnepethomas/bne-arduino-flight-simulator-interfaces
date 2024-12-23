@@ -1279,7 +1279,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 62:
           // 
-          sendToDcsBiosMessage("CMSP_MWS", "1");
+          sendToDcsBiosMessage("CMSP_MWS", "0");
           break;
         case 63:
           break;

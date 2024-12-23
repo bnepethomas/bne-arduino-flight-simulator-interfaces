@@ -1329,7 +1329,7 @@ void setLeftHyd(long TargetLeftHyd) {
 }
 void onLHydPressChange(unsigned int newValue) {
   long LeftHyd = newValue;
-  SendDebug("onLHydPressChange = " + String(LeftHyd));
+  //SendDebug("onLHydPressChange = " + String(LeftHyd));
   setLeftHyd(map(LeftHyd, 0, 65535, 0, STEPS));
 }
 DcsBios::IntegerBuffer lHydPressBuffer(0x10c2, 0xffff, 0, onLHydPressChange);
@@ -1342,7 +1342,7 @@ void setRightHyd(long TargetRightHyd) {
 
 void onRHydPressChange(unsigned int newValue) {
   long RightHyd = newValue;
-  SendDebug("onRHydPressChange = " + String(RightHyd));
+  // SendDebug("onRHydPressChange = " + String(RightHyd));
   setRightHyd(map(RightHyd, 0, 65535, 0, STEPS));
 }
 DcsBios::IntegerBuffer rHydPressBuffer(0x10c4, 0xffff, 0, onRHydPressChange);
@@ -1354,7 +1354,7 @@ void setLeftFuel(long TargetLeftFuel) {
 }
 void onFuelQtyLChange(unsigned int newValue) {
   long LeftFuel = newValue;
-  SendDebug("onFuelQtyLChange = " + String(LeftFuel));
+  // SendDebug("onFuelQtyLChange = " + String(LeftFuel));
   // Needle not fully rotating so reduce number of steps
   setLeftFuel(map(LeftFuel, 0, 65535, 0, STEPS / 2.4));
 }
@@ -1366,7 +1366,7 @@ void setRightFuel(long TargetRightFuel) {
 }
 void onFuelQtyRChange(unsigned int newValue) {
   long RightFuel = newValue;
-  SendDebug("onFuelQtyRChange = " + String(RightFuel));
+  // SendDebug("onFuelQtyRChange = " + String(RightFuel));
   // Needle not fully rotating so reduce number of steps
   setRightFuel(map(RightFuel, 0, 65535, 0, STEPS / 2.4));
 }
@@ -1380,7 +1380,7 @@ void setOxPressure(long TargetOxPressure) {
 }
 void onOxyPressChange(unsigned int newValue) {
   long OxPressure = newValue;
-  SendDebug("onOxyPressChange = " + String(OxPressure));
+  // SendDebug("onOxyPressChange = " + String(OxPressure));
   setOxPressure(map(OxPressure, 0, 65535, 0, STEPS / 2));
 }
 DcsBios::IntegerBuffer oxyPressBuffer(0x1130, 0xffff, 0, onOxyPressChange);
@@ -1392,7 +1392,7 @@ void setOxQty(long TargetOxQty) {
 }
 void onOxyVolumeChange(unsigned int newValue) {
   long OxQty = newValue;
-  SendDebug("onOxyVolumeChange = " + String(OxQty));
+  // SendDebug("onOxyVolumeChange = " + String(OxQty));
   setOxQty(map(OxQty, 0, 65535, 0, STEPS / 2));
 }
 DcsBios::IntegerBuffer oxyVolumeBuffer(0x1132, 0xffff, 0, onOxyVolumeChange);
@@ -1403,7 +1403,7 @@ void setCabinPressure(long TargetCabinPressure) {
 }
 void onCabinPressAltChange(unsigned int newValue) {
   long CabinPressure = newValue;
-  SendDebug("onCabinPressAltChange = " + String(CabinPressure));
+  //SendDebug("onCabinPressAltChange = " + String(CabinPressure));
   setCabinPressure(map(CabinPressure, 0, 65535, 0, STEPS));
 }
 DcsBios::IntegerBuffer cabinPressAltBuffer(0x1134, 0xffff, 0, onCabinPressAltChange);

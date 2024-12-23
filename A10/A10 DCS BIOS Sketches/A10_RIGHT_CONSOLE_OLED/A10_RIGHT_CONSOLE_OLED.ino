@@ -434,7 +434,7 @@ void onFuelQty100Change(unsigned int newValue) {
     lastFuel100s = int100s;
     updateFuelDisplay();
   }
-  SendDebug("Converted Fuel Quantity 100s " + String(int100s));
+  // SendDebug("Converted Fuel Quantity 100s " + String(int100s));
 }
 DcsBios::IntegerBuffer fuelQty100Buffer(0x10d2, 0xffff, 0, onFuelQty100Change);
 
