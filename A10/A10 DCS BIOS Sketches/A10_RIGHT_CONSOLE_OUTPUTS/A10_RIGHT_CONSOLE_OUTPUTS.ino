@@ -262,9 +262,9 @@ DcsBios::IntegerBuffer clB3Buffer(0x10d4, 0x0040, 6, onClB3Change);
 
 
 #define OXY_LOW_COL_A 1
-#define OXY_LOW_ROW_A 7
+#define OXY_LOW_ROW_A 0
 #define OXY_LOW_COL_B 1
-#define OXY_LOW_ROW_B 8
+#define OXY_LOW_ROW_B 7
 void setLEDOxyLow(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, OXY_LOW_COL_A, OXY_LOW_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, OXY_LOW_COL_B, OXY_LOW_ROW_B, newValue);
@@ -304,9 +304,9 @@ DcsBios::IntegerBuffer clC3Buffer(0x10d4, 0x0400, 10, onClC3Change);
 
 
 #define BLEED_AIR_LEAK_COL_A 2
-#define BLEED_AIR_LEAK_ROW_A 7
+#define BLEED_AIR_LEAK_ROW_A 0
 #define BLEED_AIR_LEAK_COL_B 2
-#define BLEED_AIR_LEAK_ROW_B 0
+#define BLEED_AIR_LEAK_ROW_B 7
 void setLEDBleedAirLeak(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, BLEED_AIR_LEAK_COL_A, BLEED_AIR_LEAK_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, BLEED_AIR_LEAK_COL_B, BLEED_AIR_LEAK_ROW_B, newValue);
@@ -358,9 +358,9 @@ void onClD3Change(unsigned int newValue) {
 DcsBios::IntegerBuffer clD3Buffer(0x10d4, 0x4000, 14, onClD3Change);
 
 #define SERVICE_AIR_HOT_COL_A 3
-#define SERVICE_AIR_HOT_ROW_A 7
+#define SERVICE_AIR_HOT_ROW_A 0
 #define SERVICE_AIR_HOT_COL_B 3
-#define SERVICE_AIR_HOT_ROW_B 0
+#define SERVICE_AIR_HOT_ROW_B 7
 void setLEDServiceAirHot(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, SERVICE_AIR_HOT_COL_A, SERVICE_AIR_HOT_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, SERVICE_AIR_HOT_COL_B, SERVICE_AIR_HOT_ROW_B, newValue);
@@ -411,9 +411,9 @@ DcsBios::IntegerBuffer clE3Buffer(0x10d6, 0x0004, 2, onClE3Change);
 
 
 #define WINDSCREEN_HOT_COL_A 4
-#define WINDSCREEN_HOT_ROW_A 7
+#define WINDSCREEN_HOT_ROW_A 0
 #define WINDSCREEN_HOT_COL_B 4
-#define WINDSCREEN_HOT_ROW_B 0
+#define WINDSCREEN_HOT_ROW_B 7
 void setLEDWindscreenHot(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, WINDSCREEN_HOT_COL_A, WINDSCREEN_HOT_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, WINDSCREEN_HOT_COL_B, WINDSCREEN_HOT_ROW_B, newValue);
@@ -466,9 +466,9 @@ DcsBios::IntegerBuffer clF3Buffer(0x10d6, 0x0040, 6, onClF3Change);
 
 
 #define CICU_COL_A 5
-#define CICU_ROW_A 7
+#define CICU_ROW_A 0
 #define CICU_COL_B 5
-#define CICU_ROW_B 0
+#define CICU_ROW_B 7
 void setLEDCicu(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, CICU_COL_A, CICU_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, CICU_COL_B, CICU_ROW_B, newValue);
@@ -522,9 +522,9 @@ void onClG3Change(unsigned int newValue) {
 DcsBios::IntegerBuffer clG3Buffer(0x10d6, 0x0400, 10, onClG3Change);
 
 #define L_AIL_COL_A 6
-#define L_AIL_ROW_A 7
+#define L_AIL_ROW_A 0
 #define L_AIL_COL_B 6
-#define L_AIL_ROW_B 0
+#define L_AIL_ROW_B 7
 void setLEDLAil(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, L_AIL_COL_A, L_AIL_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, L_AIL_COL_B, L_AIL_ROW_B, newValue);
@@ -580,9 +580,9 @@ DcsBios::IntegerBuffer clH3Buffer(0x10d6, 0x4000, 14, onClH3Change);
 
 
 #define HARS_COL_A 7
-#define HARS_ROW_A 7
+#define HARS_ROW_A 0
 #define HARS_COL_B 7
-#define HARS_ROW_B 0
+#define HARS_ROW_B 7
 void setLEDHars(unsigned int newValue) {
   lc.setLed(UPPER_CAUTION_PANEL, HARS_COL_A, HARS_ROW_A, newValue);
   lc.setLed(UPPER_CAUTION_PANEL, HARS_COL_B, HARS_ROW_B, newValue);
@@ -794,15 +794,15 @@ void onClL4Change(unsigned int newValue) {
   setLEDInstInv(newValue);
 }DcsBios::IntegerBuffer clL4Buffer(0x10d8, 0x8000, 15, onClL4Change);
 
-#define OXY_FLOW_ROW 1
 #define OXY_FLOW_COL 4
+#define OXY_FLOW_ROW 1
 void onOxyFlowChange(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, OXY_FLOW_COL, OXY_FLOW_ROW, newValue);
 }
 DcsBios::IntegerBuffer oxyFlowBuffer(0x112a, 0x0800, 11, onOxyFlowChange);
 
-#define TACAN_TEST_ROW 2
 #define TACAN_TEST_COL 4
+#define TACAN_TEST_ROW 2
 void onTacanTestChange(unsigned int newValue) {
   lc.setLed(LOWER_CAUTION_PANEL, TACAN_TEST_COL, TACAN_TEST_ROW, newValue);
 }

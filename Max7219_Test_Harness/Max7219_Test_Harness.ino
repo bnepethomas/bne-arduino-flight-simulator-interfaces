@@ -14,7 +14,9 @@
 //LedControl lc=LedControl(9,8,7,1);  
 
 //Two Max7219
-LedControl lc=LedControl(9,8,7,4); 
+//LedControl lc=LedControl(9,8,7,4); //
+// A10 Right Output
+LedControl lc=LedControl(16, 14, 15, 2);
 
 char receivedChar;
 boolean newData = false;
