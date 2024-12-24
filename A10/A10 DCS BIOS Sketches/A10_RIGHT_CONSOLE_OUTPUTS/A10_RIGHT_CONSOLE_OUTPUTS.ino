@@ -1126,19 +1126,6 @@ void setup() {
     delay(5000);
   }
 
-SendDebug("Oxy Flow Test start");
-onOxyFlowChange(1);
-delay(5000);
-onOxyFlowChange(0);
-delay(5000);
-SendDebug("Oxy Flow Test end");
-
-SendDebug("Stall Test start");
-setLEDStallSys(1);
-delay(5000);
-setLEDStallSys(0);
-delay(5000);
-SendDebug("Stall Test end");
 
   digitalWrite(RED_STATUS_LED_PORT, true);
   digitalWrite(GREEN_STATUS_LED_PORT, true);
