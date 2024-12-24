@@ -29,54 +29,7 @@ Backlighting
 
 /*
  *  */
-/*
 
-  This Superceedes udp_input_controller
-  Split from udp_input_controller_2 20200802
-
-  Heavily based on
-  https://github.com/calltherain/ArduinoUSBJoystick
-
-  Interface for DCS BIOS
-
-  Mega2560 R3,
-  digital Pin 22~37 used as rows. 0-15, 16 Rows
-  digital pin 38~48 used as columns. 0-10, 11 Columns
-
-  it's a 16 * 11  matrix, due to the loss of pins/Columns used by the Ethernet and SD Card Shield, Digital I/O 50 through 53 are not available.
-  Pin 49 is available but isn't used. This gives a total number of usable Inputs as 176 (remember numbering starts at 0 - so 0-175)
-
-  The code pulls down a row and reads values from the Columns.
-  Row 0 - Col 0 = Digit 0
-  Row 0 - Col 10 = Digit 10
-  Row 15 - Col 0 = Digit 165
-  Row 15 = Col 10 = Digit 175
-
-  So - Digit = Row * 11 + Col
-
-  The sendIPstring is used to throw strings at a Leonardo to convert to keystrokes for the PC
-
-
-  Confgiuring the Commands
-  Copy the empty template with Open and Release Cases
-  Start DCS, Kicad, Bort and UDP_Reflector.py (in Python HW Link)
-
-  Verify all input changes are reflected in Python HW Link
-
-  Select the panel of interest in Bort, Select Show Arduino Scaffold Code
-  Select a input device eg Switch, Rotary Switch
-  
-  For Rotarys we are generally interested just in Close (the second case statement), 
-  whereas for Toggles we will need to configure Close and Release.
-
-  Using Python HW Link note the input numbers associated with the switch. 
-  Add a comment for in the case number for the action associated with the input number
-  Copy variable names from the aircraft LUA eg A-10C.lua or from BORT
-  Switch
-
-
-
-*/
 
 
 
@@ -926,6 +879,10 @@ void updateSteppers() {
   GForcestepper.run();
 }
 
+void onIntConsoleLBrightChange(unsigned int newValue) {
+  analogWrite(BACKLIGHTING, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer intConsoleLBrightBuffer(A_10C_INT_CONSOLE_L_BRIGHT, onIntConsoleLBrightChange);
 
 
 

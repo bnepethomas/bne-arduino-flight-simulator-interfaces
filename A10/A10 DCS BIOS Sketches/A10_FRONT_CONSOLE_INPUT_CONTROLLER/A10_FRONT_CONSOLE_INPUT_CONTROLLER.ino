@@ -1,5 +1,8 @@
 /*
 
+Antiskid code will look something like this - DcsBios::LED saspPitchSasR(0x1108, 0x2000, 2);
+
+
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 //||               FUNCTION = A10 FRONT CONSOLE INPUT CONTROLLER      ||\\
 //||              LOCATION IN THE PIT = FRONT PORT                     ||\\
