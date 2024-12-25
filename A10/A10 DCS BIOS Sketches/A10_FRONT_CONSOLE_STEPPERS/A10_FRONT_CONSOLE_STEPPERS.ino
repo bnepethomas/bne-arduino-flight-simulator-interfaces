@@ -229,7 +229,13 @@ void setup() {
 
   SendDebug("LAMP AND LED TEST START");
   pinMode(BACKLIGHTING, OUTPUT);
-  digitalWrite(BACKLIGHTING, true);
+  analogWrite(BACKLIGHTING,255);
+  SendDebug("Dimming Leds");
+  for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
+    analogWrite(BACKLIGHTING, map(Local_Brightness, 0, 15, 0, 255));
+    SendDebug("Led Brightness " + String(Local_Brightness));
+    delay(500);
+  }
 
 
 
@@ -386,7 +392,7 @@ void setup() {
     delay(200);
   }
 
-GForcestepper.runToNewPosition(2030);
+  GForcestepper.runToNewPosition(2030);
 
   SendDebug("End GForcestepper");
   //  ################# End GForce Startup #########################
@@ -402,7 +408,7 @@ GForcestepper.runToNewPosition(2030);
   digitalWrite(BACKLIGHTING, false);
   SendDebug("LAMP AND LED TEST END");
 
-
+analogWrite(BACKLIGHTING,125);
   SendDebug("Setup Complete");
 }
 
@@ -469,7 +475,7 @@ void UpdateRedStatusLed() {
 // ################################ BEGIN TACAN ##############################
 
 
-void sendToDcsBiosMessage(const char *msg, const char *arg) {
+void sendToDcsBiosMessage(const char* msg, const char* arg) {
 
 
   if (Reflector_In_Use == 1) {

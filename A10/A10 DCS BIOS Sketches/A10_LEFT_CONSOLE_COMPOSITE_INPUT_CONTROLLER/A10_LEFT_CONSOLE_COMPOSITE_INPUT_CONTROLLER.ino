@@ -595,35 +595,20 @@ void setup() {
     digitalWrite(FLOOD_LIGHTS, HIGH);
 
 
-    delay(2000);
 
-    // Turn Everything off for 2 Seconds
-
-    digitalWrite(STROBE_LIGHTS, LOW);
-    digitalWrite(NAVIGATION_LIGHTS, LOW);
-    digitalWrite(FORMATION_LIGHTS, LOW);
-    digitalWrite(BACK_LIGHTS, LOW);
-    digitalWrite(FLOOD_LIGHTS, LOW);
-
-    delay(1000);
-
-    // Turn Everything on
-    digitalWrite(STROBE_LIGHTS, HIGH);
-    digitalWrite(NAVIGATION_LIGHTS, HIGH);
-    digitalWrite(FORMATION_LIGHTS, HIGH);
-    digitalWrite(BACK_LIGHTS, HIGH);
-    digitalWrite(FLOOD_LIGHTS, HIGH);
+    SendDebug("Dimming Leds");
+    for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
+      analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      analogWrite(FORMATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      analogWrite(FLOOD_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+      SendDebug("Led Brightness " + String(Local_Brightness));
+      delay(500);
+    }
 
 
-    delay(2000);
 
-    // Turn Everything off for 2 Seconds
-
-    digitalWrite(STROBE_LIGHTS, LOW);
-    digitalWrite(NAVIGATION_LIGHTS, LOW);
-    digitalWrite(FORMATION_LIGHTS, LOW);
-    digitalWrite(BACK_LIGHTS, LOW);
-    digitalWrite(FLOOD_LIGHTS, LOW);
 
 
 
@@ -734,6 +719,12 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
   digitalWrite(Check_LED_G, false);
+
+  analogWrite(STROBE_LIGHTS, 125);
+  analogWrite(NAVIGATION_LIGHTS, 125);
+  analogWrite(FORMATION_LIGHTS, 125);
+  analogWrite(BACK_LIGHTS, 125);
+  analogWrite(FLOOD_LIGHTS, 125);
 }
 
 

@@ -292,9 +292,7 @@ void setup() {
   pinMode(FLOOD_LIGHTS, OUTPUT);
   pinMode(BACK_LIGHTS, OUTPUT);
   pinMode(STROBE_LIGHTS, OUTPUT);
-   SendDebug("Backlight hard on");
-  digitalWrite(BACK_LIGHTS,1);
-  delay(5000);
+
     SendDebug("Dimming Leds");
   for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
     analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
@@ -351,7 +349,7 @@ void setup() {
   send_string("     067X");
 
 
-  analogWrite(BACK_LIGHTS, 255);
+  analogWrite(BACK_LIGHTS, 125);
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 }
