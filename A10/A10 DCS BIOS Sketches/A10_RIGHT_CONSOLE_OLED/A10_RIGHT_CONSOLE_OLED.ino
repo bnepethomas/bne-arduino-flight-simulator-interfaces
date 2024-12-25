@@ -293,7 +293,7 @@ void setup() {
   pinMode(BACK_LIGHTS, OUTPUT);
   pinMode(STROBE_LIGHTS, OUTPUT);
 
-    SendDebug("Dimming Leds");
+  SendDebug("Dimming Leds");
   for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
     analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     analogWrite(FLOOD_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
@@ -301,7 +301,7 @@ void setup() {
     analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     //SetBrightness(Local_Brightness);
     SendDebug("Led Brightness " + String(Local_Brightness));
-    delay(1000);
+    delay(500);
   }
 
   Wire.begin();
@@ -350,6 +350,9 @@ void setup() {
 
 
   analogWrite(BACK_LIGHTS, 125);
+  analogWrite(STROBE_LIGHTS, 125);
+  analogWrite(FLOOD_LIGHTS, 125);
+
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 }
@@ -510,6 +513,16 @@ void onIntConsoleLBrightChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer intConsoleLBrightBuffer(A_10C_INT_CONSOLE_L_BRIGHT, onIntConsoleLBrightChange);
 
+void onIntEngInstLBrightChange(unsigned int newValue) {
+  analogWrite(STROBE_LIGHTS, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer intEngInstLBrightBuffer(0x1372, 0xffff, 0, onIntEngInstLBrightChange);
+
+
+void onIntFloodLBrightChange(unsigned int newValue) {
+  analogWrite(FLOOD_LIGHTS, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer intFloodLBrightBuffer(0x1378, 0xffff, 0, onIntFloodLBrightChange);
 
 void loop() {
 

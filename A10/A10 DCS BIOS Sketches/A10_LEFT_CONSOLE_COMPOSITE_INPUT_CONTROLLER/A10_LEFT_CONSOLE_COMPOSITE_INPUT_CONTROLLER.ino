@@ -519,6 +519,7 @@ void onIntConsoleLBrightChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer intConsoleLBrightBuffer(A_10C_INT_CONSOLE_L_BRIGHT, onIntConsoleLBrightChange);
 
+
 void onIntFloodLBrightChange(unsigned int newValue) {
   analogWrite(FLOOD_LIGHTS, map(newValue, 0, 65535, 0, 255));
 }
