@@ -1,6 +1,5 @@
 /*
 
-Antiskid code will look something like this - DcsBios::LED saspPitchSasR(0x1108, 0x2000, 2);
 
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -1807,6 +1806,8 @@ void onCanopyUnlockedChange(unsigned int newValue) {
   }
 }
 DcsBios::IntegerBuffer canopyUnlockedBuffer(0x10da, 0x0004, 2, onCanopyUnlockedChange);
+
+DcsBios::LED antiSkidSwitch(0x1110, 0x0080, 69);
 
 void loop() {
 
