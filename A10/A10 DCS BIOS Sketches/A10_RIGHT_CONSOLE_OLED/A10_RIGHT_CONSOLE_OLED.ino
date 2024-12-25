@@ -38,14 +38,12 @@ TACAN_OLED_Port 3
 #define DCSBIOS_In_Use 1
 #define Reflector_In_Use 1
 
-// Pinouts for Version 4 PCB
-#define MAP_LIGHTS 6
-#define NVG_LIGHTS 6
-#define FLOOD_LIGHTS 7
-#define FORMATION_LIGHTS 8
-#define STROBE_LIGHTS 44
-#define NAVIGATION_LIGHTS 45
-#define BACK_LIGHTS 46
+
+#define BACK_LIGHTS 2
+#define FLOOD_LIGHTS 3
+#define STROBE_LIGHTS 4
+#define NAVIGATION_LIGHTS 5
+
 
 
 #define CMSP_OLED_PORT 0
@@ -289,9 +287,8 @@ void setup() {
   // Slowly Dim the Leds
 
 
-  pinMode(FORMATION_LIGHTS, OUTPUT);
+
   pinMode(NAVIGATION_LIGHTS, OUTPUT);
-  pinMode(NVG_LIGHTS, OUTPUT);
   pinMode(FLOOD_LIGHTS, OUTPUT);
   pinMode(BACK_LIGHTS, OUTPUT);
   pinMode(STROBE_LIGHTS, OUTPUT);
@@ -300,9 +297,7 @@ void setup() {
   delay(5000);
     SendDebug("Dimming Leds");
   for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
-    analogWrite(FORMATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-    analogWrite(NVG_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     analogWrite(FLOOD_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
