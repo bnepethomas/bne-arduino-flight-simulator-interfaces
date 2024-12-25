@@ -1023,12 +1023,10 @@ void SetBrightness(int Brightness) {
 #define COIL_LOX_A3 43
 #define COIL_LOX_A4 45
 
-// Pins are slighty Reversed when compared to steppers on Expansion connection
-
-#define COIL_CABIN_PRESS_A1 8
-#define COIL_CABIN_PRESS_A2 9
-#define COIL_CABIN_PRESS_A3 6
-#define COIL_CABIN_PRESS_A4 7
+#define COIL_CABIN_PRESS_A1 6
+#define COIL_CABIN_PRESS_A2 7
+#define COIL_CABIN_PRESS_A3 8
+#define COIL_CABIN_PRESS_A4 9
 
 // #define STEPPER_MAX_SPEED 900
 #define STEPPER_MAX_SPEED 8300
