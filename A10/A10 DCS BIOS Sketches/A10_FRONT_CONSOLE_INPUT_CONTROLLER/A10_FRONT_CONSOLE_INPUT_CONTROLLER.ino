@@ -252,16 +252,16 @@ long TimeRadarOff = 0;
 #define O_RIGHT_FIRE 56
 #define O_GEAR_HANDLE 57
 #define O_CAUTION_LAMP 58
-#define O_PRI_LAMP 59
-#define O_SEP_LAMP 60
-#define O_MISSLE_LAMP 61
-#define O_HARS_LAMP 62
-#define O_EGI_LAMP 63
-#define O_STR_PT_LAMP 64
-#define O_TISL_LAMP 65
-#define O_ANCHR_LAMP 66
-#define O_TCN_LAMP 67
-#define O_ILS_LAMP 68
+#define O_PRI_LAMP 65
+#define O_SEP_LAMP 64
+#define O_MISSLE_LAMP 66
+#define O_HARS_LAMP 67
+#define O_EGI_LAMP 68
+#define O_STR_PT_LAMP 60
+#define O_TISL_LAMP 59
+#define O_ANCHR_LAMP 61
+#define O_TCN_LAMP 62
+#define O_ILS_LAMP 63
 #define O_ANTI_SKID 69
 
 
@@ -417,7 +417,7 @@ void setup() {
   SendDebug("LAMP AND LED TEST END");
 
 
-  SendDebug("Setup Complete");
+  SendDebug("Forward Input Setup Complete");
 }
 
 
@@ -1584,7 +1584,7 @@ DcsBios::RotaryEncoder altSetPressure("ALT_SET_PRESSURE", "-3200", "+3200", 20, 
 // digitalWrite(O_ANTI_SKID, 1);
 
 void onLEngFireChange(unsigned int newValue) {
-  SendDebug("LEFT ENGINE FIRE :" + String(newValue));
+ // SendDebug("LEFT ENGINE FIRE :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_LEFT_FIRE, 1);
   } else {
@@ -1594,7 +1594,7 @@ void onLEngFireChange(unsigned int newValue) {
 DcsBios::IntegerBuffer lEngFireBuffer(0x10da, 0x0008, 3, onLEngFireChange);
 
 void onApuFireChange(unsigned int newValue) {
-  SendDebug("APU FIRE :" + String(newValue));
+  //SendDebug("APU FIRE :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_APU_FIRE, 1);
   } else {
@@ -1604,7 +1604,7 @@ void onApuFireChange(unsigned int newValue) {
 DcsBios::IntegerBuffer apuFireBuffer(0x10da, 0x0010, 4, onApuFireChange);
 
 void onREngFireChange(unsigned int newValue) {
-  SendDebug("RIGHT ENGINE FIRE :" + String(newValue));
+  // SendDebug("RIGHT ENGINE FIRE :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_RIGHT_FIRE, 1);
   } else {
@@ -1615,7 +1615,7 @@ DcsBios::IntegerBuffer rEngFireBuffer(0x10da, 0x0020, 5, onREngFireChange);
 
 
 void onMasterCautionChange(unsigned int newValue) {
-  SendDebug("MASTER CAUTION :" + String(newValue));
+  // SendDebug("MASTER CAUTION :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_CAUTION_LAMP, 1);
   } else {
@@ -1626,7 +1626,7 @@ DcsBios::IntegerBuffer masterCautionBuffer(0x1012, 0x0800, 11, onMasterCautionCh
 
 
 void onCmscPrioChange(unsigned int newValue) {
-  SendDebug("PRIORITY LAMP :" + String(newValue));
+  // SendDebug("PRIORITY LAMP :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_PRI_LAMP, 1);
   } else {
@@ -1637,7 +1637,7 @@ DcsBios::IntegerBuffer cmscPrioBuffer(0x1012, 0x0200, 9, onCmscPrioChange);
 
 
 void onCmscLaunchChange(unsigned int newValue) {
-  SendDebug("MISSLE LAMP :" + String(newValue));
+ // SendDebug("MISSLE LAMP :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_MISSLE_LAMP, 1);
   } else {
@@ -1647,7 +1647,7 @@ void onCmscLaunchChange(unsigned int newValue) {
 DcsBios::IntegerBuffer cmscLaunchBuffer(0x1012, 0x0100, 8, onCmscLaunchChange);
 
 void onHandleGearWarningChange(unsigned int newValue) {
-  SendDebug("LANDING GEAR WARNING :" + String(newValue));
+  // SendDebug("LANDING GEAR WARNING :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_GEAR_HANDLE, 1);
   } else {
@@ -1669,7 +1669,7 @@ void onNmspHarsLedChange(unsigned int newValue) {
 DcsBios::IntegerBuffer nmspHarsLedBuffer(A_10C_NMSP_HARS_LED, onNmspHarsLedChange);
 
 void onNmspEgiLedChange(unsigned int newValue) {
-  SendDebug("NMSP EGI :" + String(newValue));
+  // SendDebug("NMSP EGI :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_EGI_LAMP, 1);
   } else {
@@ -1710,7 +1710,7 @@ void onNmspAnchrLedChange(unsigned int newValue) {
 DcsBios::IntegerBuffer nmspAnchrLedBuffer(A_10C_NMSP_ANCHR_LED, onNmspAnchrLedChange);
 
 void onNmspTcnLedChange(unsigned int newValue) {
-  SendDebug("NMSP TACAN :" + String(newValue));
+  //SendDebug("NMSP TACAN :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_TCN_LAMP, 1);
   } else {
@@ -1738,7 +1738,7 @@ DcsBios::IntegerBuffer nmspIlsLedBuffer(A_10C_NMSP_ILS_LED, onNmspIlsLedChange);
   // digitalWrite(O_CANOPY_LED, 1);
 
 void onAirRefuelReadyChange(unsigned int newValue) {
-  SendDebug("REFUEL READY :" + String(newValue));
+  // SendDebug("REFUEL READY :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_REFUEL_READY_LED, 0);
   } else {
@@ -1748,7 +1748,7 @@ void onAirRefuelReadyChange(unsigned int newValue) {
 DcsBios::IntegerBuffer airRefuelReadyBuffer(0x1012, 0x8000, 15, onAirRefuelReadyChange);
 
 void onAirRefuelLatchedChange(unsigned int newValue) {
-  SendDebug("REFUEL LATCHED :" + String(newValue));
+  // SendDebug("REFUEL LATCHED :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_REFUEL_LATCHED_LED, 0);
   } else {
@@ -1758,7 +1758,7 @@ void onAirRefuelLatchedChange(unsigned int newValue) {
 DcsBios::IntegerBuffer airRefuelLatchedBuffer(0x1026, 0x0100, 8, onAirRefuelLatchedChange);
 
 void onAirRefuelDisconnectChange(unsigned int newValue) {
-  SendDebug("REFUEL DISC :" + String(newValue));
+ //  SendDebug("REFUEL DISC :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_REFUEL_DISC_LED, 0);
   } else {
@@ -1768,7 +1768,7 @@ void onAirRefuelDisconnectChange(unsigned int newValue) {
 DcsBios::IntegerBuffer airRefuelDisconnectBuffer(0x1026, 0x0200, 9, onAirRefuelDisconnectChange);
 
 void onNosewheelSteeringChange(unsigned int newValue) {
-  SendDebug("NOSE WHEEL STEER :" + String(newValue));
+  // SendDebug("NOSE WHEEL STEER :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_STEER_LED, 0);
   } else {
@@ -1778,7 +1778,7 @@ void onNosewheelSteeringChange(unsigned int newValue) {
 DcsBios::IntegerBuffer nosewheelSteeringBuffer(0x10da, 0x0001, 0, onNosewheelSteeringChange);
 
 void onGunReadyChange(unsigned int newValue) {
-  SendDebug("GUN READY :" + String(newValue));
+  // SendDebug("GUN READY :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_GUN_READY_LED, 0);
   } else {
@@ -1788,7 +1788,7 @@ void onGunReadyChange(unsigned int newValue) {
 DcsBios::IntegerBuffer gunReadyBuffer(0x1026, 0x8000, 15, onGunReadyChange);
 
 void onMarkerBeaconChange(unsigned int newValue) {
-  SendDebug("MARKER BEACON :" + String(newValue));
+  // SendDebug("MARKER BEACON :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_MARKER_BEACON_LED, 0);
   } else {
@@ -1798,7 +1798,7 @@ void onMarkerBeaconChange(unsigned int newValue) {
 DcsBios::IntegerBuffer markerBeaconBuffer(0x10da, 0x0002, 1, onMarkerBeaconChange);
 
 void onCanopyUnlockedChange(unsigned int newValue) {
-  SendDebug("CANOPY UNLOCKED :" + String(newValue));
+  // SendDebug("CANOPY UNLOCKED :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_CANOPY_LED, 0);
   } else {

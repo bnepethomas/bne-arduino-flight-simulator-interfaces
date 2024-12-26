@@ -1642,7 +1642,8 @@ char *selectorVhfamPreset[] = { " 1", " 2", " 3", " 4", " 5", " 6", " 7", " 8", 
 
 void onVhfamPresetChange(char *newValue) {
   currentVhfamPresetString = String(newValue);
-  SendDebug("VHF AM Preset Change :" + currentVhfamPresetString);
+  // This was creating a lot of noise so disabled debug
+  // SendDebug("VHF AM Preset Change :" + currentVhfamPresetString);
 }
 
 DcsBios::StringBuffer<2> vhfamPresetStrBuffer(0x118a, onVhfamPresetChange);

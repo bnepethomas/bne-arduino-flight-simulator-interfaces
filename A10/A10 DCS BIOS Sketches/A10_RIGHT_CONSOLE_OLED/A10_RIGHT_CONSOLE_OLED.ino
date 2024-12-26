@@ -520,8 +520,14 @@ void onIntEngInstLBrightChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer intEngInstLBrightBuffer(0x1372, 0xffff, 0, onIntEngInstLBrightChange);
 
+
+void onExtPositionLightRightChange(unsigned int newValue) {
+  digitalWrite(NAVIGATION_LIGHTS, newValue);
+}
+DcsBios::IntegerBuffer extPositionLightRightBuffer(A_10C_EXT_POSITION_LIGHT_RIGHT, onExtPositionLightRightChange);
+
 DcsBios::LED extStrobeRight(0x11bc, 0x8000, STROBE_LIGHTS);
-DcsBios::LED extPositionLightRight(0x11bc, 0x1000, NAVIGATION_LIGHTS);
+
 
 // Using FLood Light Port to drive Engine Cluster
 // Starboard Flood lights driven from Port

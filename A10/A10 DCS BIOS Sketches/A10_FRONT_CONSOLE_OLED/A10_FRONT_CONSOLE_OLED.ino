@@ -819,7 +819,8 @@ void updateALT(String strTenThousands, String strnewThousands) {
 
 void UpdateAltimeterDigits(long height) {
 
-  SendDebug("Aircraft Name : " + sAircraftName);
+  // 
+  //SendDebug("Aircraft Name : " + sAircraftName);
   // SendDebug("Raw Height : " + String(height));
   // Adjust for Baro offset
   height = height + iAltitudeDelta;
@@ -834,7 +835,7 @@ void UpdateAltimeterDigits(long height) {
   int iHundredsBelowDigit = 0;
   int iHundredsValue = ((height % 1000) / 100);
   String sHundredsValue = String(iHundredsValue);
-  SendDebug("Hundreds Value : " + sHundredsValue);
+  // SendDebug("Hundreds Value : " + sHundredsValue);
   if (iHundredsValue == 9) {
     iHundredsAboveDigit = 0;
   } else {
@@ -887,9 +888,9 @@ void UpdateAltimeterDigits(long height) {
   int CharacterHeightSpacer = 38;
 
   int iHundredsCharacterOffset = ((height % 100) / 3.2);
-  SendDebug("heigh calc :" + String(height % 100));
+  // SendDebug("heigh calc :" + String(height % 100));
   int iThousandsCharacterOffset = ((height % 1000) / 32);
-  SendDebug("Character Offset : " + String(iHundredsCharacterOffset));
+  // SendDebug("Character Offset : " + String(iHundredsCharacterOffset));
 
   // Only attempt to draw of something has changed that will impact display
   if ((iThousandsValue != lastThousandsValue) || (iTenThousandsValue != lastTenThousandsValue) || (iThousandsCharacterOffset != lastThousandsCharacterOffset)
@@ -944,7 +945,7 @@ void UpdateAltimeterDigits(long height) {
 void onAltMslFtChange(unsigned int newValue) {
   if (newValue <= 0) newValue = 0;
   iLastAltitudeValue = newValue;
-  SendDebug("Height Update : " + String(newValue));
+  // SendDebug("Height Update : " + String(newValue));
   UpdateAltimeterDigits(newValue);
 }
 DcsBios::IntegerBuffer altMslFtBuffer(0x0434, 0xffff, 0, onAltMslFtChange);
@@ -956,7 +957,7 @@ void ProcessPressureChange() {
   // SendDebug("Calc delta :" + String(int((iBaro - 2992) * feetDeltaPerPressureUnit)));
   iAltitudeDelta = int((iBaro - 2992) * feetDeltaPerPressureUnit);
 
-  SendDebug("iBaro :" + String(iBaro) + "  Alt :" + String(iLastAltitudeValue) + "   Delta : " + String(iAltitudeDelta));
+   // SendDebug("iBaro :" + String(iBaro) + "  Alt :" + String(iLastAltitudeValue) + "   Delta : " + String(iAltitudeDelta));
   if (sAircraftName == "FA-18C_hornet") {
     BaroThousands = "2";
     BaroHundreds = "9";
@@ -1046,7 +1047,7 @@ DcsBios::IntegerBuffer altPressure3Buffer(0x108c, 0xffff, 0, onAltPressure3Chang
 
 void onAcftNameChange(char* newValue) {
   sAircraftName = String(newValue);
-  SendDebug("Aircraft Name : " + sAircraftName);
+  // SendDebug("Aircraft Name : " + sAircraftName);
 }
 DcsBios::StringBuffer<24> AcftNameBuffer(0x0000, onAcftNameChange);
 
