@@ -40,7 +40,7 @@ TACAN_OLED_Port 3
 
 
 #define BACK_LIGHTS 2
-#define FLOOD_LIGHTS 3
+#define ENGINE_CLUSTER_LIGHTS 3
 #define STROBE_LIGHTS 4
 #define NAVIGATION_LIGHTS 5
 
@@ -289,14 +289,14 @@ void setup() {
 
 
   pinMode(NAVIGATION_LIGHTS, OUTPUT);
-  pinMode(FLOOD_LIGHTS, OUTPUT);
+  pinMode(ENGINE_CLUSTER_LIGHTS, OUTPUT);
   pinMode(BACK_LIGHTS, OUTPUT);
   pinMode(STROBE_LIGHTS, OUTPUT);
 
   SendDebug("Dimming Leds");
   for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
     analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-    analogWrite(FLOOD_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(ENGINE_CLUSTER_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     //SetBrightness(Local_Brightness);
@@ -351,7 +351,9 @@ void setup() {
 
   analogWrite(BACK_LIGHTS, 125);
   analogWrite(STROBE_LIGHTS, 125);
-  analogWrite(FLOOD_LIGHTS, 125);
+  analogWrite(ENGINE_CLUSTER_LIGHTS, 125);
+  analogWrite(NAVIGATION_LIGHTS, 125);
+  
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
@@ -514,15 +516,20 @@ void onIntConsoleLBrightChange(unsigned int newValue) {
 DcsBios::IntegerBuffer intConsoleLBrightBuffer(A_10C_INT_CONSOLE_L_BRIGHT, onIntConsoleLBrightChange);
 
 void onIntEngInstLBrightChange(unsigned int newValue) {
-  analogWrite(STROBE_LIGHTS, map(newValue, 0, 65535, 0, 255));
+  analogWrite(ENGINE_CLUSTER_LIGHTS, map(newValue, 0, 65535, 0, 255));
 }
 DcsBios::IntegerBuffer intEngInstLBrightBuffer(0x1372, 0xffff, 0, onIntEngInstLBrightChange);
 
+DcsBios::LED extStrobeRight(0x11bc, 0x8000, STROBE_LIGHTS);
+DcsBios::LED extPositionLightRight(0x11bc, 0x1000, NAVIGATION_LIGHTS);
 
-void onIntFloodLBrightChange(unsigned int newValue) {
-  analogWrite(FLOOD_LIGHTS, map(newValue, 0, 65535, 0, 255));
-}
-DcsBios::IntegerBuffer intFloodLBrightBuffer(0x1378, 0xffff, 0, onIntFloodLBrightChange);
+// Using FLood Light Port to drive Engine Cluster
+// Starboard Flood lights driven from Port
+
+// void onIntFloodLBrightChange(unsigned int newValue) {
+//   analogWrite(FLOOD_LIGHTS, map(newValue, 0, 65535, 0, 255));
+// }
+// DcsBios::IntegerBuffer intFloodLBrightBuffer(0x1378, 0xffff, 0, onIntFloodLBrightChange);
 
 void loop() {
 
