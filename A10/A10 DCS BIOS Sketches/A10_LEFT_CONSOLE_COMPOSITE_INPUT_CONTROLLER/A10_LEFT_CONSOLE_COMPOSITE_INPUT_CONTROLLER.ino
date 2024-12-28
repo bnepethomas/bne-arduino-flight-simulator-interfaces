@@ -574,19 +574,6 @@ void setup() {
   digitalWrite(RED_STATUS_LED_PORT, false);
   delay(FLASH_TIME);
 
-  // Initialise Exterior Lights
-  pinMode(STROBE_LIGHTS, OUTPUT);
-  pinMode(NAVIGATION_LIGHTS, OUTPUT);
-  pinMode(FORMATION_LIGHTS, OUTPUT);
-  pinMode(BACK_LIGHTS, OUTPUT);
-  pinMode(FLOOD_LIGHTS, OUTPUT);
-
-  digitalWrite(STROBE_LIGHTS, LOW);
-  digitalWrite(NAVIGATION_LIGHTS, LOW);
-  digitalWrite(FORMATION_LIGHTS, LOW);
-  digitalWrite(BACK_LIGHTS, LOW);
-  digitalWrite(FLOOD_LIGHTS, LOW);
-
   if (Ethernet_In_Use == 1) {
 
     // Reset Ethernet Module
@@ -607,17 +594,23 @@ void setup() {
       delay(FLASH_TIME);
       digitalWrite(Check_LED_G, true);
     }
-
     SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
 
-    // Turn Everything on for 5 Seconds
-    digitalWrite(STROBE_LIGHTS, HIGH);
-    digitalWrite(NAVIGATION_LIGHTS, HIGH);
-    digitalWrite(FORMATION_LIGHTS, HIGH);
-    digitalWrite(BACK_LIGHTS, HIGH);
-    digitalWrite(FLOOD_LIGHTS, HIGH);
 
-    delay(3000);
+    // Initialise Exterior Lights
+    pinMode(STROBE_LIGHTS, OUTPUT);
+    pinMode(NAVIGATION_LIGHTS, OUTPUT);
+    pinMode(FORMATION_LIGHTS, OUTPUT);
+    pinMode(BACK_LIGHTS, OUTPUT);
+    pinMode(FLOOD_LIGHTS, OUTPUT);
+    // Turn Everything on for 3 Seconds
+    analogWrite(STROBE_LIGHTS, 255);
+    analogWrite(NAVIGATION_LIGHTS, 255);
+    analogWrite(FORMATION_LIGHTS, 255);
+    analogWrite(BACK_LIGHTS, 255);
+    analogWrite(FLOOD_LIGHTS, 255);
+
+
 
     SendDebug("Dimming Leds");
     for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {

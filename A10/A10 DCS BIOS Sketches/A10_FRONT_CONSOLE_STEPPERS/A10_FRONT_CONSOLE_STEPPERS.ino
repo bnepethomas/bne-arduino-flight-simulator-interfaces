@@ -218,26 +218,25 @@ void setup() {
       delay(FLASH_TIME);
       digitalWrite(Check_LED_G, true);
     }
-
     SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
   }
 
 
-
-
-
-
-  SendDebug("LAMP AND LED TEST START");
   pinMode(BACK_LIGHTS, OUTPUT);
   analogWrite(BACK_LIGHTS, 255);
+
+  delay(3000);
+
   SendDebug("Dimming Leds");
-  for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
-    analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-    SendDebug("Led Brightness " + String(Local_Brightness));
-    delay(500);
+  for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
+    analogWrite(BACK_LIGHTS, Local_Brightness);
+    // SendDebug("Led Brightness " + String(Local_Brightness));
+    delay(15);
   }
 
+#define BrightnessWhileRunningSetup 128
 
+  analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
 
   SendDebug("STEPPER INITIALISATION STARTED");
 
@@ -398,20 +397,15 @@ void setup() {
   //  ################# End GForce Startup #########################
 
 
-
   SendDebug("STEPPER INITIALISATION COMPLETE");
 
-  for (int i = 150; i >= 0; i--) {
-    analogWrite(BACK_LIGHTS, i);
-    delay(15);
-  }
-  digitalWrite(BACK_LIGHTS, false);
-  SendDebug("LAMP AND LED TEST END");
-
-  analogWrite(BACK_LIGHTS, 125);
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
-  SendDebug("Setup Complete");
+
+  #define BrightnessPostSetup 65
+  analogWrite(BACK_LIGHTS, BrightnessPostSetup);
+
+  SendDebug(BoardName + " - " + strMyIP + " Setup Complete. " + String(millis()) + "mS since reset.");
 }
 
 

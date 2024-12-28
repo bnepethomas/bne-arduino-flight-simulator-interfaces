@@ -294,15 +294,22 @@ void setup() {
   pinMode(STROBE_LIGHTS, OUTPUT);
 
   SendDebug("Dimming Leds");
-  for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
-    analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-    analogWrite(ENGINE_CLUSTER_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-    analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-    analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-    //SetBrightness(Local_Brightness);
-    SendDebug("Led Brightness " + String(Local_Brightness));
-    delay(500);
+  for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
+    analogWrite(NAVIGATION_LIGHTS, Local_Brightness);
+    analogWrite(ENGINE_CLUSTER_LIGHTS, Local_Brightness);
+    analogWrite(BACK_LIGHTS, Local_Brightness);
+    analogWrite(STROBE_LIGHTS, Local_Brightness);
+    //SendDebug("Led Brightness " + String(Local_Brightness));
+    delay(15);
   }
+
+#define BrightnessWhileRunningSetup 128
+
+  analogWrite(NAVIGATION_LIGHTS, BrightnessWhileRunningSetup);
+  analogWrite(ENGINE_CLUSTER_LIGHTS, BrightnessWhileRunningSetup);
+  analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
+  analogWrite(STROBE_LIGHTS, BrightnessWhileRunningSetup);
+
 
   Wire.begin();
 
@@ -353,10 +360,20 @@ void setup() {
   analogWrite(STROBE_LIGHTS, 125);
   analogWrite(ENGINE_CLUSTER_LIGHTS, 125);
   analogWrite(NAVIGATION_LIGHTS, 125);
-  
+
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
+
+#define BrightnessPostSetup 65
+
+  analogWrite(NAVIGATION_LIGHTS, BrightnessPostSetup);
+  analogWrite(ENGINE_CLUSTER_LIGHTS, BrightnessPostSetup);
+  analogWrite(BACK_LIGHTS, BrightnessPostSetup);
+  analogWrite(STROBE_LIGHTS, BrightnessPostSetup);
+
+SendDebug(BoardName + " - " + strMyIP + " Setup Complete. " + String(millis()) + "mS since reset.");
+
 }
 
 
