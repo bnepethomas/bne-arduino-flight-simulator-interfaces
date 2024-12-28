@@ -978,8 +978,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 1:
           break;
         case 2:
+        SendIPString("3");   
           break;
         case 3:
+        SendIPString("ESC"); 
           break;
         // Close
         case 4:
@@ -1006,6 +1008,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 12:
           break;
         case 13:
+        SendIPString("6");   
           break;
         case 14:
           break;
@@ -1034,6 +1037,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // Close
         case 24:
+        SendIPString("9");   
           break;
         case 25:
           break;
