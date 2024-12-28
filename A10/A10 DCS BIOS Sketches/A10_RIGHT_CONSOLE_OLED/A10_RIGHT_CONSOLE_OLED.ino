@@ -340,9 +340,9 @@ void setup() {
   // DEL - CLS
   sendCommand(0x80);  // Home Pos
 
-  send_string("OFF RDY RDY RDY");
+  send_string(" OFF RDY RDY RDY");
   sendCommand(cmd_NewLine);
-  send_string("MWS JMR RWR DISP");
+  send_string(" MWS JMR RWR DISP");
   //send_string("999 999 999 999");
   tcaselect(FUEL_OLED_Port);
   OLED_CLS();
@@ -507,8 +507,10 @@ void updateCMSPDisplay() {
 
   tcaselect(CMSP_OLED_PORT);
   sendCommand(0x80);
+  CMSP1 = " " + CMSP1;
   send_string(CMSP1.c_str());
   sendCommand(cmd_NewLine);
+  CMSP2 = " " + CMSP1;
   send_string(CMSP2.c_str());
 }
 
