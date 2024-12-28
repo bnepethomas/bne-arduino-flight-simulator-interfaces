@@ -178,9 +178,13 @@ unsigned long timeSinceRedLedChanged = 0;
 #define BUTTONS_USED_ON_PCB 192
 #define NUM_AXES 8  // 8 axes, X, Y, Z, etc
 
+// ########################################### BEGIN KEYSTROKE HANDLING ############################
 
+long millisToSendHideCockpit = 0;
+#define delayBeforeSendingHideCockpit 200
+bool awaitingToSendHideCockpit = false;
 
-
+// ########################################### END KEYSTROKE HANDLING ############################
 //
 struct joyReport_t {
   int button[NUM_BUTTONS];  // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
@@ -1288,6 +1292,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CMSC_UNK", "1");
           break;
         case 82:
+          // Missle Launch button
+          awaitingToSendHideCockpit = true;
+          millisToSendHideCockpit = millis() + delayBeforeSendingHideCockpit;
+          SendIPString("ESC");
           break;
         case 83:
           break;
@@ -1926,6 +1934,13 @@ void loop() {
   //     udp.endPacket();
   //   }
   // }
+  if (awaitingToSendHideCockpit == true) {
+    if (millis () >= millisToSendHideCockpit) {
+        SendDebug("Sending Hide Cockpit");
+        awaitingToSendHideCockpit = false;
+        SendIPString("ALT F1");
+      }
+  }
 
 
 
