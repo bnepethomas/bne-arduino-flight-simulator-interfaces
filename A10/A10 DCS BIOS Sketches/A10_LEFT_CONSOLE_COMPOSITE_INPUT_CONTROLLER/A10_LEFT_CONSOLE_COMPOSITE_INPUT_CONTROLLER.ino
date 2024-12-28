@@ -325,6 +325,8 @@ U8G2_SSD1309_128X64_NONAME2_F_HW_I2C u8g2_UHF_FREQUENCY(U8G2_R0, U8X8_PIN_NONE);
 
 // ############################################# BEGIN CHARACTER OLED ##########################################
 
+#define INTERCOMM_OLED_Port 7
+
 #define OLED_Address 0x3c
 #define OLED_Command_Mode 0x80
 #define OLED_Data_Mode 0x40
@@ -344,10 +346,10 @@ U8G2_SSD1309_128X64_NONAME2_F_HW_I2C u8g2_UHF_FREQUENCY(U8G2_R0, U8X8_PIN_NONE);
 //  sendCommand(cmd_CLS);              // Clear Display
 
 
-void initCharOLED() {
+void initCharOLED(int PortNo) {
   // *** I2C initial *** //
-  tcaselect(4);
-  delay(100);
+  tcaselect(PortNo);
+  delay(10);
   sendCommand(0x2A);  // **** Set "RE"=1	00101010B
   sendCommand(0x71);
   sendCommand(0x5C);
@@ -393,7 +395,8 @@ void initCharOLED() {
 
   send_string("Character OLED");
   sendCommand(cmd_NewLine);
-  send_string("TEST");
+  String wrkstr = "TEST " + String(PortNo);
+  send_string(wrkstr.c_str());
 }
 
 void sendData(unsigned char data) {
@@ -419,8 +422,33 @@ void send_string(const char *String) {
   }
 }
 
+void OLED_CLS() {
+  sendCommand(0x01);
+  // DEL - CLS
+  sendCommand(0x80);  // Home Pos
+  // DEL - CLS
+  sendCommand(0xC0);
+}
 
-// ############################################# BEGIN CHARACTER OLED ##########################################
+String INT_Status = "INT ";
+String FM_Status = "FM  ";
+String UHF_Status = "UHF ";
+String VHF_Status = "VHF ";
+String AIM_Status = "AIM ";
+String IFF_Status = "IFF ";
+String ILS_Status = "ILS ";
+String TCN_Status = "TCN ";
+
+void updateIntercomm() {
+  tcaselect(INTERCOMM_OLED_Port);
+  sendCommand(cmd_CLS);
+  String workString = INT_Status + FM_Status + UHF_Status + VHF_Status;
+  send_string(workString.c_str());
+  sendCommand(cmd_NewLine);
+  workString = AIM_Status + IFF_Status + ILS_Status + TCN_Status;
+  send_string(workString.c_str());
+}
+// ############################################# END CHARACTER OLED ##########################################
 
 
 
@@ -644,7 +672,7 @@ void setup() {
 
   Wire.begin();
 
-  initCharOLED();
+  //initCharOLED();
   SendDebug("Scanning I2C Bus");
 
   for (uint8_t t = 0; t < 8; t++) {
@@ -660,6 +688,12 @@ void setup() {
     }
   }
   SendDebug("I2C scan complete");
+
+
+  initCharOLED(INTERCOMM_OLED_Port);
+  delay(500);
+  updateIntercomm();
+
 
   tcaselect(VHF_AM_OLED_Port);
   u8g2_VHF_AM_PRESET.begin();
