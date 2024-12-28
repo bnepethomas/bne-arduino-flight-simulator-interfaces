@@ -975,11 +975,13 @@ void CreateDcsBiosMessage(int ind, int state) {
       switch (ind) {
           // Close
         case 0:
+        SendIPString("F1");
           break;
         case 1:
+        SendIPString("F2");
           break;
         case 2:
-        SendIPString("3");   
+        SendIPString("F3");   
           break;
         case 3:
         SendIPString("ESC"); 
@@ -1004,12 +1006,14 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("SASP_PITCH_SAS_L", "1");
           break;
         case 11:
+        SendIPString("F4");
           break;
         // Close
         case 12:
+        SendIPString("F5");
           break;
         case 13:
-        SendIPString("6");   
+        SendIPString("F6");   
           break;
         case 14:
           break;
@@ -1033,12 +1037,14 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("SASP_PITCH_SAS_R", "1");
           break;
         case 22:
+        SendIPString("F7");
           break;
         case 23:
+        SendIPString("F8");
           break;
         // Close
         case 24:
-        SendIPString("9");   
+        SendIPString("F9");   
           break;
         case 25:
           break;
@@ -1062,13 +1068,17 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("SASP_TO_TRIM", "1");
           break;
         case 33:
+        SendIPString("F10");
           break;
         case 34:
+        SendIPString("F11");
           break;
         case 35:
+        SendIPString("F12");
           break;
         // Close
         case 36:
+        SendIPString("\\");
           break;
         case 37:
           break;
