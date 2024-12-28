@@ -430,24 +430,144 @@ void OLED_CLS() {
   sendCommand(0xC0);
 }
 
-String INT_Status = "INT ";
-String FM_Status = "FM  ";
-String UHF_Status = "UHF ";
-String VHF_Status = "VHF ";
-String AIM_Status = "AIM ";
-String IFF_Status = "IFF ";
-String ILS_Status = "ILS ";
-String TCN_Status = "TCN ";
+bool INT_Status = true;
+bool FM_Status = false;
+bool UHF_Status = false;
+bool VHF_Status = true;
+bool AIM_Status = false;
+bool IFF_Status = false;
+bool ILS_Status = false;
+// TACAN is muted by default
+bool TCN_Status = false;
+
+
 
 void updateIntercomm() {
+  // Ran out of RAM whenpreforming string operation so using Bool
+  SendDebug("Updating Intercomm a");
   tcaselect(INTERCOMM_OLED_Port);
-  sendCommand(cmd_CLS);
-  String workString = INT_Status + FM_Status + UHF_Status + VHF_Status;
-  send_string(workString.c_str());
+  delay(5);
+  sendCommand(0x80);
+  //workString = INT_Status + FM_Status + UHF_Status + VHF_Status;
+  if (INT_Status == true)
+    send_string("INT ");
+  else
+    send_string("    ");
+
+  if (FM_Status == true)
+    send_string("FM  ");
+  else
+    send_string("    ");
+
+  if (UHF_Status == true)
+    send_string("UHF ");
+  else
+    send_string("    ");
+  if (VHF_Status == true)
+    send_string("VHF ");
+  else
+    send_string("    ");
+
   sendCommand(cmd_NewLine);
-  workString = AIM_Status + IFF_Status + ILS_Status + TCN_Status;
-  send_string(workString.c_str());
+
+  if (AIM_Status == true)
+    send_string("AIM ");
+  else
+    send_string("    ");
+
+  if (IFF_Status == true)
+    send_string("IFF ");
+  else
+    send_string("    ");
+
+  if (ILS_Status == true)
+    send_string("ILS ");
+  else
+    send_string("    ");
+
+  if (TCN_Status == true)
+
+    send_string("TCN ");
+  else
+    send_string("    ");
+
+
+  SendDebug("Updating Intercomm Complete");
 }
+
+void onIntIntUnmuteChange(unsigned int newValue) {
+  if (newValue == 1)
+    INT_Status = true;
+  else
+    INT_Status = false;
+  updateIntercomm();
+}
+DcsBios::IntegerBuffer intIntUnmuteBuffer(0x1194, 0x8000, 15, onIntIntUnmuteChange);
+
+void onIntFmUnmuteChange(unsigned int newValue) {
+  if (newValue == 1)
+    FM_Status = true;
+  else
+    FM_Status = false;
+  updateIntercomm();
+}
+DcsBios::IntegerBuffer intFmUnmuteBuffer(0x119c, 0x8000, 15, onIntFmUnmuteChange);
+
+void onIntUhfUnmuteChange(unsigned int newValue) {
+  if (newValue == 1)
+    UHF_Status = true;
+  else
+    UHF_Status = false;
+  updateIntercomm();
+  }
+  DcsBios::IntegerBuffer intUhfUnmuteBuffer(0x11a6, 0x0002, 1, onIntUhfUnmuteChange);
+
+void onIntVhfUnmuteChange(unsigned int newValue) {
+  if (newValue == 1)
+    VHF_Status = true;
+  else
+    VHF_Status = false;
+  updateIntercomm();
+  }
+  DcsBios::IntegerBuffer intVhfUnmuteBuffer(0x11a6, 0x0001, 0, onIntVhfUnmuteChange);
+
+
+void onIntAimUnmuteChange(unsigned int newValue) {
+  if (newValue == 1)
+    AIM_Status = true;
+  else
+    AIM_Status = false;
+  updateIntercomm();
+}
+DcsBios::IntegerBuffer intAimUnmuteBuffer(0x11a6, 0x0004, 2, onIntAimUnmuteChange);
+
+void onIntIffUnmuteChange(unsigned int newValue) {
+  if (newValue == 1)
+    IFF_Status = true;
+  else
+    IFF_Status = false;
+  updateIntercomm();
+}
+DcsBios::IntegerBuffer intIffUnmuteBuffer(0x11a6, 0x0008, 3, onIntIffUnmuteChange);
+
+void onIntIlsUnmuteChange(unsigned int newValue) {
+  if (newValue == 1)
+    ILS_Status = true;
+  else
+    ILS_Status = false;
+  updateIntercomm();
+}
+DcsBios::IntegerBuffer intIlsUnmuteBuffer(0x11a6, 0x0010, 4, onIntIlsUnmuteChange);
+
+void onIntTcnUnmuteChange(unsigned int newValue) {
+  if (newValue == 1)
+    TCN_Status = true;
+  else
+    TCN_Status = false;
+  updateIntercomm();
+}
+DcsBios::IntegerBuffer intTcnUnmuteBuffer(0x11a6, 0x0020, 5, onIntTcnUnmuteChange);
+
 // ############################################# END CHARACTER OLED ##########################################
 
 
@@ -691,8 +811,8 @@ void setup() {
 
 
   initCharOLED(INTERCOMM_OLED_Port);
-  delay(500);
   updateIntercomm();
+
 
 
   tcaselect(VHF_AM_OLED_Port);
@@ -2857,7 +2977,8 @@ void loop() {
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     RED_LED_STATE = !RED_LED_STATE;
     // digitalWrite(Check_LED_G, RED_LED_STATE);
-    digitalWrite(Check_LED_R, !RED_LED_STATE);
+    digitalWrite(Check_LED_R, RED_LED_STATE);
+    digitalWrite(Check_LED_G, !RED_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
