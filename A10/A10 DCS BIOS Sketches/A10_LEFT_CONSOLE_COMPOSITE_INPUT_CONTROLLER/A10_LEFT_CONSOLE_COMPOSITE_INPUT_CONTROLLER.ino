@@ -167,6 +167,10 @@ DcsBios::LED saspYawSasL
 
 #define Check_LED_R 12
 #define Check_LED_G 13
+
+#define RED_STATUS_LED_PORT 12
+#define GREEN_STATUS_LED_PORT 13
+
 #define FLASH_TIME 300
 
 long NEXT_STATUS_TOGGLE_TIMER = 0;
@@ -187,6 +191,11 @@ unsigned long timeSinceRedLedChanged = 0;
 #include <SPI.h>
 #include <Ethernet.h>
 #include <EthernetUdp.h>
+
+#define EthernetStartupDelay 500
+#define ES1_RESET_PIN 53
+
+String BoardName = "A10 Forward Input";
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
@@ -555,10 +564,15 @@ void SendDebug(String MessageToSend) {
 
 void setup() {
 
-  pinMode(Check_LED_G, OUTPUT);
-  digitalWrite(Check_LED_G, true);
-  pinMode(Check_LED_R, OUTPUT);
-  digitalWrite(Check_LED_R, true);
+
+  pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
+  pinMode(RED_STATUS_LED_PORT, OUTPUT);
+  digitalWrite(GREEN_STATUS_LED_PORT, true);
+  digitalWrite(RED_STATUS_LED_PORT, true);
+  delay(FLASH_TIME);
+  digitalWrite(GREEN_STATUS_LED_PORT, false);
+  digitalWrite(RED_STATUS_LED_PORT, false);
+  delay(FLASH_TIME);
 
   // Initialise Exterior Lights
   pinMode(STROBE_LIGHTS, OUTPUT);
@@ -574,6 +588,14 @@ void setup() {
   digitalWrite(FLOOD_LIGHTS, LOW);
 
   if (Ethernet_In_Use == 1) {
+
+    // Reset Ethernet Module
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
+
     Ethernet.begin(myMac, myIP);
     udp.begin(localport);
     // As it takes a couple of seconds before the Ethernet Stack is operational
@@ -586,7 +608,7 @@ void setup() {
       digitalWrite(Check_LED_G, true);
     }
 
-    SendDebug("Ethernet Started");
+    SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
 
     // Turn Everything on for 5 Seconds
     digitalWrite(STROBE_LIGHTS, HIGH);
@@ -595,25 +617,26 @@ void setup() {
     digitalWrite(BACK_LIGHTS, HIGH);
     digitalWrite(FLOOD_LIGHTS, HIGH);
 
-
+    delay(3000);
 
     SendDebug("Dimming Leds");
-    for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
-      analogWrite(STROBE_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      analogWrite(NAVIGATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      analogWrite(FORMATION_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      analogWrite(FLOOD_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
-      SendDebug("Led Brightness " + String(Local_Brightness));
-      delay(500);
+    for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
+      analogWrite(STROBE_LIGHTS, Local_Brightness);
+      analogWrite(NAVIGATION_LIGHTS, Local_Brightness);
+      analogWrite(FORMATION_LIGHTS, Local_Brightness);
+      analogWrite(BACK_LIGHTS, Local_Brightness);
+      analogWrite(FLOOD_LIGHTS, Local_Brightness);
+      // SendDebug("Led Brightness " + String(Local_Brightness));
+      delay(15);
     }
 
+#define BrightnessWhileRunningSetup 128
+    analogWrite(STROBE_LIGHTS, BrightnessWhileRunningSetup);
+    analogWrite(NAVIGATION_LIGHTS, BrightnessWhileRunningSetup);
+    analogWrite(FORMATION_LIGHTS, BrightnessWhileRunningSetup);
+    analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
+    analogWrite(FLOOD_LIGHTS, BrightnessWhileRunningSetup);
 
-
-
-
-
-    SendDebug("A10 INPUT TEST");
 
 
     if (Reflector_In_Use == 1) {
@@ -719,13 +742,17 @@ void setup() {
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
-  digitalWrite(Check_LED_G, false);
 
-  analogWrite(STROBE_LIGHTS, 125);
-  analogWrite(NAVIGATION_LIGHTS, 125);
-  analogWrite(FORMATION_LIGHTS, 125);
-  analogWrite(BACK_LIGHTS, 125);
-  analogWrite(FLOOD_LIGHTS, 125);
+#define BrightnessPostSetup 65
+
+  analogWrite(STROBE_LIGHTS, BrightnessPostSetup);
+  analogWrite(NAVIGATION_LIGHTS, BrightnessPostSetup);
+  analogWrite(FORMATION_LIGHTS, BrightnessPostSetup);
+  analogWrite(BACK_LIGHTS, BrightnessPostSetup);
+  analogWrite(FLOOD_LIGHTS, BrightnessPostSetup);
+
+
+  SendDebug(BoardName + " - " + strMyIP + " Setup Complete. " + String(millis()) + "mS since reset.");
 }
 
 

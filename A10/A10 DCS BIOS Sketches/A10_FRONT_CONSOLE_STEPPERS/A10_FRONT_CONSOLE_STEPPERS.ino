@@ -12,7 +12,7 @@ AccelStepper FlapsStepper
 AccelStepper AOAstepper
 AccelStepper GForcestepper
 
-Backlighting
+BACK_LIGHTS
 
 */
 
@@ -131,7 +131,7 @@ unsigned long previousMillis = 0;
 //On the Mega, the hardware SS pin, 53, is not used to select either the W5500 or the SD card,
 //but it must be kept as an output or the SPI interface won't work.
 
-#define BACKLIGHTING 8
+#define BACK_LIGHTS 8
 
 // ########################## BEGIN STEPPERS ########################################
 #include <AccelStepper.h>
@@ -224,15 +224,15 @@ void setup() {
 
 
 
-  if (DCSBIOS_In_Use == 1) DcsBios::setup();
+
 
 
   SendDebug("LAMP AND LED TEST START");
-  pinMode(BACKLIGHTING, OUTPUT);
-  analogWrite(BACKLIGHTING,255);
+  pinMode(BACK_LIGHTS, OUTPUT);
+  analogWrite(BACK_LIGHTS, 255);
   SendDebug("Dimming Leds");
   for (int Local_Brightness = 15; Local_Brightness >= 0; Local_Brightness--) {
-    analogWrite(BACKLIGHTING, map(Local_Brightness, 0, 15, 0, 255));
+    analogWrite(BACK_LIGHTS, map(Local_Brightness, 0, 15, 0, 255));
     SendDebug("Led Brightness " + String(Local_Brightness));
     delay(500);
   }
@@ -402,13 +402,15 @@ void setup() {
   SendDebug("STEPPER INITIALISATION COMPLETE");
 
   for (int i = 150; i >= 0; i--) {
-    analogWrite(BACKLIGHTING, i);
+    analogWrite(BACK_LIGHTS, i);
     delay(15);
   }
-  digitalWrite(BACKLIGHTING, false);
+  digitalWrite(BACK_LIGHTS, false);
   SendDebug("LAMP AND LED TEST END");
 
-analogWrite(BACKLIGHTING,125);
+  analogWrite(BACK_LIGHTS, 125);
+
+  if (DCSBIOS_In_Use == 1) DcsBios::setup();
   SendDebug("Setup Complete");
 }
 
@@ -493,7 +495,7 @@ void onIntFltInstLBrightChange(unsigned int newValue) {
   int outvalue = 0;
   outvalue = map(newValue, 0, 65534, 0, 255);
   SendDebug("Eng Inst Brightness=" + String(outvalue));
-  analogWrite(BACKLIGHTING, outvalue);
+  analogWrite(BACK_LIGHTS, outvalue);
 }
 DcsBios::IntegerBuffer intFltInstLBrightBuffer(A_10C_INT_FLT_INST_L_BRIGHT, onIntFltInstLBrightChange);
 
@@ -886,7 +888,7 @@ void updateSteppers() {
 }
 
 void onIntConsoleLBrightChange(unsigned int newValue) {
-  analogWrite(BACKLIGHTING, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACK_LIGHTS, map(newValue, 0, 65535, 0, 255));
 }
 DcsBios::IntegerBuffer intConsoleLBrightBuffer(A_10C_INT_CONSOLE_L_BRIGHT, onIntConsoleLBrightChange);
 

@@ -299,7 +299,6 @@ void setup() {
     }
 
     SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
-
   }
 
   // Set the output ports to output
@@ -328,7 +327,7 @@ void setup() {
   }
 
 
-  if (DCSBIOS_In_Use == 1) DcsBios::setup();
+
 
 
   SendDebug("LAMP AND LED TEST START");
@@ -416,7 +415,7 @@ void setup() {
 
   SendDebug("LAMP AND LED TEST END");
 
-
+  if (DCSBIOS_In_Use == 1) DcsBios::setup();
   SendDebug("Forward Input Setup Complete");
 }
 
@@ -1584,7 +1583,7 @@ DcsBios::RotaryEncoder altSetPressure("ALT_SET_PRESSURE", "-3200", "+3200", 20, 
 // digitalWrite(O_ANTI_SKID, 1);
 
 void onLEngFireChange(unsigned int newValue) {
- // SendDebug("LEFT ENGINE FIRE :" + String(newValue));
+  // SendDebug("LEFT ENGINE FIRE :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_LEFT_FIRE, 1);
   } else {
@@ -1637,7 +1636,7 @@ DcsBios::IntegerBuffer cmscPrioBuffer(0x1012, 0x0200, 9, onCmscPrioChange);
 
 
 void onCmscLaunchChange(unsigned int newValue) {
- // SendDebug("MISSLE LAMP :" + String(newValue));
+  // SendDebug("MISSLE LAMP :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_MISSLE_LAMP, 1);
   } else {
@@ -1729,13 +1728,13 @@ void onNmspIlsLedChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer nmspIlsLedBuffer(A_10C_NMSP_ILS_LED, onNmspIlsLedChange);
 
-  // digitalWrite(O_REFUEL_READY_LED, 1);
-  // digitalWrite(O_REFUEL_LATCHED_LED, 1);
-  // digitalWrite(O_REFUEL_DISC_LED, 1);
-  // digitalWrite(O_STEER_LED, 1);
-  // digitalWrite(O_GUN_READY_LED, 1);
-  // digitalWrite(O_MARKER_BEACON_LED, 1);
-  // digitalWrite(O_CANOPY_LED, 1);
+// digitalWrite(O_REFUEL_READY_LED, 1);
+// digitalWrite(O_REFUEL_LATCHED_LED, 1);
+// digitalWrite(O_REFUEL_DISC_LED, 1);
+// digitalWrite(O_STEER_LED, 1);
+// digitalWrite(O_GUN_READY_LED, 1);
+// digitalWrite(O_MARKER_BEACON_LED, 1);
+// digitalWrite(O_CANOPY_LED, 1);
 
 void onAirRefuelReadyChange(unsigned int newValue) {
   // SendDebug("REFUEL READY :" + String(newValue));
@@ -1758,7 +1757,7 @@ void onAirRefuelLatchedChange(unsigned int newValue) {
 DcsBios::IntegerBuffer airRefuelLatchedBuffer(0x1026, 0x0100, 8, onAirRefuelLatchedChange);
 
 void onAirRefuelDisconnectChange(unsigned int newValue) {
- //  SendDebug("REFUEL DISC :" + String(newValue));
+  //  SendDebug("REFUEL DISC :" + String(newValue));
   if (newValue == 1) {
     digitalWrite(O_REFUEL_DISC_LED, 0);
   } else {

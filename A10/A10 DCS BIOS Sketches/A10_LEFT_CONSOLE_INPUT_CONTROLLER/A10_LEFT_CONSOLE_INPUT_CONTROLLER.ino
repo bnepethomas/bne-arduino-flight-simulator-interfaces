@@ -140,7 +140,7 @@ void SendDebug(String MessageToSend) {
 #define Check_LED_R 12
 #define Check_LED_G 13
 
-#define FLASH_TIME 500
+#define FLASH_TIME 300
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = false;
@@ -223,6 +223,7 @@ void setup() {
   digitalWrite(RED_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
   digitalWrite(GREEN_STATUS_LED_PORT, false);
+  digitalWrite(RED_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
 
   if (Ethernet_In_Use == 1) {
