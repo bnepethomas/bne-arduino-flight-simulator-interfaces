@@ -1,11 +1,11 @@
-%TF.GenerationSoftware,KiCad,Pcbnew,8.0.3*%
-%TF.CreationDate,2024-12-03T05:52:04+10:00*%
+%TF.GenerationSoftware,KiCad,Pcbnew,8.0.5*%
+%TF.CreationDate,2025-01-01T08:30:29+10:00*%
 %TF.ProjectId,a10 Power Distro PCB v1,61313020-506f-4776-9572-204469737472,rev?*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Profile,NP*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 8.0.3) date 2024-12-03 05:52:04*
+G04 Created by KiCad (PCBNEW 8.0.5) date 2025-01-01 08:30:29*
 %MOMM*%
 %LPD*%
 G01*

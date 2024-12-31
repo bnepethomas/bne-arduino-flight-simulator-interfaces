@@ -558,6 +558,10 @@
       {
         "netclass": "LED POWER",
         "pattern": "/LEDGND"
+      },
+      {
+        "netclass": "LED POWER",
+        "pattern": "/3V3_CDU_BACKLIGHT"
       }
     ]
   },

@@ -1,9 +1,9 @@
-(pcb "/Users/pethomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/A10/A10 PCBs/Right Console Input/Right Console Input.dsn"
+(pcb "/Users/peterthomas/Public/GitHub/bne-arduino-flight-simulator-interfaces/A10/A10 PCBs/Right Console Input/Right Console Input.dsn"
   (parser
     (string_quote ")
     (space_in_quoted_tokens on)
     (host_cad "KiCad's Pcbnew")
-    (host_version "8.0.7")
+    (host_version "8.0.5")
   )
   (resolution um 10)
   (unit um)
@@ -969,7 +969,7 @@
       (pins J31-32 J3-5 J9-6 J7-6 J11-4 J6-6 J2-4)
     )
     (net /22
-      (pins J3-2 J9-3 J7-3 J11-1 J6-3 J2-1)
+      (pins J31-33 J3-2 J9-3 J7-3 J11-1 J6-3 J2-1)
     )
     (net /23
       (pins J31-34 J3-3 J9-4 J7-4 J11-2 J6-4 J2-2)
@@ -1194,9 +1194,6 @@
     (net "unconnected-(U1-NC-PadB4)"
       (pins U1-B4)
     )
-    (net "unconnected-(J31-Pin_33-Pad33)"
-      (pins J31-33)
-    )
     (class kicad_default "" +3V3 +5V /*11 /*12 /*13 /*2 /*3 /*4 /*44 /*45
       /*46 /*5 /*6 /*7 /*8 /*9 /22 /23 /24 /25 /26 /27 /28 /29 /30 /31 /32
       /33 /34 /35 /36 /37 /38 /39 /40 /41 /42 /43 /47 /48 /49 /A0 /A1 /A10
@@ -1209,8 +1206,8 @@
       "Net-(J24-Pin_5)" "Net-(J24-Pin_6)" "Net-(J24-Pin_7)" "Net-(J24-Pin_8)"
       "Net-(J24-Pin_9)" "Net-(U1-INT)" SCLK SS VCC "unconnected-(J13-Pin_6-Pad6)"
       "unconnected-(J14-Pin_3-Pad3)" "unconnected-(J27-Pin_1-Pad1)" "unconnected-(J28-Pin_1-Pad1)"
-      "unconnected-(J3-Pin_8-Pad8)" "unconnected-(J31-Pin_33-Pad33)" "unconnected-(J4-Pin_10-Pad10)"
-      "unconnected-(J7-Pin_8-Pad8)" "unconnected-(J9-Pin_8-Pad8)" "unconnected-(U1-NC-PadB4)"
+      "unconnected-(J3-Pin_8-Pad8)" "unconnected-(J4-Pin_10-Pad10)" "unconnected-(J7-Pin_8-Pad8)"
+      "unconnected-(J9-Pin_8-Pad8)" "unconnected-(U1-NC-PadB4)"
       (circuit
         (use_via Via[0-1]_600:400_um)
       )

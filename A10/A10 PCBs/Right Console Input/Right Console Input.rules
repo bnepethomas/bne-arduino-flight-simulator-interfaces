@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 161)
+    (start_pass_no 1943)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -76,7 +76,7 @@
     "/ILS_R_B" "/ILS_R_A" "unconnected-(J13-Pin_6-Pad6)" "unconnected-(J14-Pin_3-Pad3)" /34 "Net-(J24-Pin_1)" "Net-(J24-Pin_2)" "Net-(J24-Pin_3)"
     "Net-(J24-Pin_4)" "Net-(J24-Pin_5)" "Net-(J24-Pin_6)" "Net-(J24-Pin_7)" "Net-(J24-Pin_8)" "Net-(J24-Pin_9)" "Net-(J24-Pin_10)" "Net-(J24-Pin_11)"
     "Net-(J24-Pin_12)" "Net-(J24-Pin_13)" "Net-(J24-Pin_14)" "Net-(J24-Pin_15)" "Net-(J24-Pin_16)" "unconnected-(J27-Pin_1-Pad1)" "unconnected-(J28-Pin_1-Pad1)" "Net-(U1-INT)"
-    "unconnected-(U1-NC-PadB4)" "unconnected-(J31-Pin_33-Pad33)"
+    "unconnected-(U1-NC-PadB4)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
