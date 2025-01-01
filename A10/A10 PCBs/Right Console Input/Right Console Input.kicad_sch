@@ -366,6 +366,210 @@
 				)
 			)
 		)
+		(symbol "Connector:Conn_01x03_Socket"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x03_Socket"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x03, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x03_Socket_1_1"
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy -0.508 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 3.048)
+					(mid -0.5058 2.54)
+					(end 0 2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Connector:Conn_01x04_Female"
 			(pin_names
 				(offset 1.016) hide)
@@ -5041,6 +5245,151 @@
 				)
 			)
 		)
+		(symbol "Device:D"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "D"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "D_0_1"
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy -1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "D_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:LED"
 			(pin_numbers hide)
 			(pin_names
@@ -6091,7 +6440,7 @@
 		(uuid "087736c1-53c2-4beb-b512-110ad02104ee")
 	)
 	(no_connect
-		(at 30.988 111.506)
+		(at 42.418 108.204)
 		(uuid "16c99a89-8212-4b1e-a8cf-2cd65f654172")
 	)
 	(no_connect
@@ -6347,6 +6696,16 @@
 			(type solid)
 		)
 		(uuid "09480ba4-37da-45e3-b9fe-6beebf876349")
+	)
+	(wire
+		(pts
+			(xy 31.496 103.124) (xy 42.418 103.124)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c6e8490-d9d9-415f-9986-bfed55486156")
 	)
 	(wire
 		(pts
@@ -6730,6 +7089,16 @@
 	)
 	(wire
 		(pts
+			(xy 98.552 94.488) (xy 109.22 94.488)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "39a0cbd9-af5f-4d73-ada7-8aac0ab40b08")
+	)
+	(wire
+		(pts
 			(xy 101.854 68.072) (xy 114.046 68.072)
 		)
 		(stroke
@@ -7020,6 +7389,16 @@
 	)
 	(wire
 		(pts
+			(xy 31.496 92.964) (xy 42.418 92.964)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "61bc7898-9bdd-408d-b34f-7299ac7f29eb")
+	)
+	(wire
+		(pts
 			(xy 232.664 110.998) (xy 232.664 117.348)
 		)
 		(stroke
@@ -7257,6 +7636,16 @@
 			(type default)
 		)
 		(uuid "7c2bbe32-b580-4e22-95fc-d88620700e10")
+	)
+	(wire
+		(pts
+			(xy 31.496 98.044) (xy 42.418 98.044)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ca819cf-2a90-466d-ae4c-c6b1d3b730a0")
 	)
 	(wire
 		(pts
@@ -8080,6 +8469,16 @@
 	)
 	(wire
 		(pts
+			(xy 31.496 87.884) (xy 42.418 87.884)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e3e8ca46-8ccc-45c6-8943-252972bf051c")
+	)
+	(wire
+		(pts
 			(xy 255.524 27.178) (xy 268.224 27.178)
 		)
 		(stroke
@@ -8376,7 +8775,7 @@
 		(uuid "027a6988-0935-4bb8-90f0-8af92f58cf97")
 	)
 	(label "COL3"
-		(at 30.988 91.186 180)
+		(at 23.876 87.884 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8387,7 +8786,7 @@
 		(uuid "02aea8d4-84c6-4c5d-a710-580e6904e4e3")
 	)
 	(label "COL10"
-		(at 30.988 108.966 180)
+		(at 34.798 105.664 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8431,7 +8830,7 @@
 		(uuid "040b5c11-e898-4271-8e63-a1978f1a3ac3")
 	)
 	(label "ROW12"
-		(at 32.258 128.016 180)
+		(at 31.75 124.968 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8673,7 +9072,7 @@
 		(uuid "11ad93ef-43e0-4faa-be00-1282383b49cd")
 	)
 	(label "COL9"
-		(at 30.988 106.426 180)
+		(at 23.876 103.124 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8848,6 +9247,17 @@
 		)
 		(uuid "1dbd18cf-0fd6-4655-af77-ad634685356d")
 	)
+	(label "ROW4"
+		(at 98.552 94.488 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1e22d5cd-add9-4c4c-a9bb-91e9fba3a677")
+	)
 	(label "COL5"
 		(at 113.792 160.02 180)
 		(fields_autoplaced yes)
@@ -8992,7 +9402,7 @@
 		(uuid "270b82c9-7818-4b33-a404-bdb80b484d16")
 	)
 	(label "COL4"
-		(at 30.988 93.726 180)
+		(at 34.798 90.424 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9157,7 +9567,7 @@
 		(uuid "312a2f7e-6d0c-420a-8753-068439de9029")
 	)
 	(label "COL7"
-		(at 30.988 101.346 180)
+		(at 23.876 98.044 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10004,7 +10414,7 @@
 		(uuid "7a3d3d81-6a28-4d5e-b1a9-65adfed4b260")
 	)
 	(label "ROW11"
-		(at 32.258 125.476 180)
+		(at 31.75 122.428 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10245,6 +10655,17 @@
 		)
 		(uuid "91555ac3-091f-42a7-9d61-d632b1aa485e")
 	)
+	(label "COL8"
+		(at 101.6 91.948 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "92c89cb1-16c7-429e-80c9-da55ccb879f5")
+	)
 	(label "RX2{slash}17"
 		(at 152.908 181.864 180)
 		(fields_autoplaced yes)
@@ -10312,7 +10733,7 @@
 		(uuid "9964058a-18a8-422a-83c2-2c24b3f637f3")
 	)
 	(label "COL6"
-		(at 30.988 98.806 180)
+		(at 34.798 95.504 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10334,7 +10755,7 @@
 		(uuid "9ad5a781-2469-4c8f-8abf-a1c3586f7cb7")
 	)
 	(label "COL2"
-		(at 30.988 88.646 180)
+		(at 34.798 85.344 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10389,7 +10810,7 @@
 		(uuid "9ec982a0-654f-4a26-94fd-1c9e7ded064a")
 	)
 	(label "ROW9"
-		(at 32.258 120.396 180)
+		(at 31.75 117.348 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10422,7 +10843,7 @@
 		(uuid "a41fd19d-a639-49ba-a699-268b3b69c75a")
 	)
 	(label "ROW8"
-		(at 32.258 117.856 180)
+		(at 31.75 114.808 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10444,7 +10865,7 @@
 		(uuid "a4c73ea3-c7f3-4f20-9737-c5175a4f13ea")
 	)
 	(label "ROW14"
-		(at 32.258 133.096 180)
+		(at 31.75 130.048 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11071,7 +11492,7 @@
 		(uuid "cd297460-7510-4e43-a1ed-62a53f219525")
 	)
 	(label "COL5"
-		(at 30.988 96.266 180)
+		(at 23.876 92.964 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11104,7 +11525,7 @@
 		(uuid "cf39edc6-ec3c-41df-9a06-eaa85f99b8da")
 	)
 	(label "ROW15"
-		(at 32.258 135.636 180)
+		(at 31.75 132.588 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11124,6 +11545,17 @@
 			(justify right bottom)
 		)
 		(uuid "d19df32a-1d66-47a2-93a9-52901cc05840")
+	)
+	(label "COL9"
+		(at 101.6 97.028 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d1c960da-eea3-4adb-ae81-b56f078e7869")
 	)
 	(label "TX2{slash}16"
 		(at 263.652 88.138 180)
@@ -11247,7 +11679,7 @@
 		(uuid "d8f8f57a-ee15-49a0-882c-2ecde38580ef")
 	)
 	(label "COL8"
-		(at 30.988 103.886 180)
+		(at 34.798 100.584 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11401,7 +11833,7 @@
 		(uuid "e15c257a-0fa7-4872-a8ac-f4ea26770ee6")
 	)
 	(label "ROW10"
-		(at 32.258 122.936 180)
+		(at 31.75 119.888 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11577,7 +12009,7 @@
 		(uuid "ee937297-15f1-49e5-ad80-01c6894e8cec")
 	)
 	(label "ROW13"
-		(at 32.258 130.556 180)
+		(at 31.75 127.508 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13446,6 +13878,75 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:D")
+		(at 38.608 95.504 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0ff9653d-4c5b-4427-a729-9096a420425e")
+		(property "Reference" "D5"
+			(at 35.814 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 38.608 92.329 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 38.608 95.504 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 38.608 95.504 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 38.608 95.504 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4b057214-1a89-4b63-96c1-b8e8200a8e19")
+		)
+		(pin "2"
+			(uuid "bcb48266-27bb-45b0-aeb8-da1ffa96815d")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_US")
 		(at 68.58 142.494 0)
 		(unit 1)
@@ -13597,6 +14098,75 @@
 			(project "Right Console Input"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 27.686 92.964 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "14c851ee-1d3c-4a1f-94f7-c371cad0a139")
+		(property "Reference" "D11"
+			(at 24.384 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 27.686 89.789 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 27.686 92.964 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 27.686 92.964 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 27.686 92.964 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2cbacaae-1e6a-4d48-ae0b-dd29e0bb874b")
+		)
+		(pin "2"
+			(uuid "5f724d68-98ed-4e32-b152-c89399b1cce3")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D11")
 					(unit 1)
 				)
 			)
@@ -14333,6 +14903,75 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:D")
+		(at 27.686 87.884 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3987d578-09ff-40ab-8d8a-d458b3cf1edd")
+		(property "Reference" "D10"
+			(at 24.384 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 27.686 84.709 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 27.686 87.884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 27.686 87.884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 27.686 87.884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "20de93d1-514a-42a5-8874-e1b2e216ff2a")
+		)
+		(pin "2"
+			(uuid "d85c5ab8-ac81-41cd-9bb2-3bc04dc462c1")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x06_Female")
 		(at 149.86 36.576 0)
 		(unit 1)
@@ -14497,6 +15136,75 @@
 			(project "Right Console Input"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 105.41 91.948 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4a676662-d31a-4661-bd29-8be2f2a23649")
+		(property "Reference" "D8"
+			(at 102.87 92.964 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 105.41 88.773 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 105.41 91.948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 105.41 91.948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 105.41 91.948 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "238b2a90-1c4f-46b3-82f7-3ee555cdb960")
+		)
+		(pin "2"
+			(uuid "a0c8b7a6-4d6a-4e63-9d53-3d84b869f715")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D8")
 					(unit 1)
 				)
 			)
@@ -14706,6 +15414,75 @@
 			(project "Right Console Input"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 27.686 98.044 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5b0ce518-021d-4a65-9ad9-913ca2922fae")
+		(property "Reference" "D12"
+			(at 24.384 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 27.686 94.869 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 27.686 98.044 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 27.686 98.044 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 27.686 98.044 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "74477e36-e763-4c20-9979-7d43df1823f0")
+		)
+		(pin "2"
+			(uuid "eb407eb6-6f79-414e-b1af-52cbc8b5ab69")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D12")
 					(unit 1)
 				)
 			)
@@ -15045,6 +15822,75 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:D")
+		(at 38.608 100.584 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "65ab39b7-4b3d-4528-98a4-217e943a3acc")
+		(property "Reference" "D6"
+			(at 36.068 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 38.608 97.409 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 38.608 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 38.608 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 38.608 100.584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9e8d2624-be0e-49b1-bd91-5de76596033e")
+		)
+		(pin "2"
+			(uuid "0616cc76-d5ac-403b-a46a-c42ca3e54309")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector_Generic:Conn_01x08")
 		(at 176.784 149.098 0)
 		(unit 1)
@@ -15327,6 +16173,75 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:D")
+		(at 38.608 90.424 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7290832a-49f3-4f95-94f1-a334558c0e66")
+		(property "Reference" "D4"
+			(at 35.814 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 38.608 87.249 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 38.608 90.424 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 38.608 90.424 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 38.608 90.424 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ac7baf62-afba-4c26-b4a5-6200136f61d7")
+		)
+		(pin "2"
+			(uuid "5cf3f389-2468-44c9-81ef-079ea224ccde")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 166.37 24.892 0)
 		(unit 1)
@@ -15451,6 +16366,144 @@
 			(project "Right Console Input"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 38.608 105.664 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7ab72161-0449-4de7-943e-23ab61ccdac0")
+		(property "Reference" "D7"
+			(at 35.814 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 38.608 102.489 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 38.608 105.664 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 38.608 105.664 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 38.608 105.664 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "19fbcfd9-3495-4046-be59-a5567b99c1e1")
+		)
+		(pin "2"
+			(uuid "84c87f5b-4ef1-4d43-9138-c7a8e96e3818")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 27.686 103.124 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7bf18075-1b9b-444c-b97f-417d1f279106")
+		(property "Reference" "D13"
+			(at 24.384 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 27.686 99.949 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 27.686 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 27.686 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 27.686 103.124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b9c18e26-9563-461f-8223-0853d7b82b0f")
+		)
+		(pin "2"
+			(uuid "288eba1b-9b84-4972-88e8-1a40fd59438b")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D13")
 					(unit 1)
 				)
 			)
@@ -15663,7 +16716,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x10_Female")
-		(at 36.068 98.806 0)
+		(at 47.498 95.504 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15672,7 +16725,7 @@
 		(fields_autoplaced yes)
 		(uuid "88547dfa-4cc1-4d58-b095-80c3844a1385")
 		(property "Reference" "J4"
-			(at 36.7792 99.2413 0)
+			(at 48.2092 95.9393 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15681,7 +16734,7 @@
 			)
 		)
 		(property "Value" "CDU COLUMNS"
-			(at 36.7792 101.7782 0)
+			(at 48.2092 98.4762 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15690,7 +16743,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-10A_1x10_P2.54mm_Vertical"
-			(at 36.068 98.806 0)
+			(at 47.498 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15699,7 +16752,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 36.068 98.806 0)
+			(at 47.498 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15708,7 +16761,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 36.068 98.806 0)
+			(at 47.498 95.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15867,7 +16920,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x08_Female")
-		(at 37.338 125.476 0)
+		(at 36.83 122.428 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15876,7 +16929,7 @@
 		(fields_autoplaced yes)
 		(uuid "8ef9a931-d535-419a-a801-bb05f8a42901")
 		(property "Reference" "J5"
-			(at 38.0492 125.9113 0)
+			(at 37.5412 122.8633 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15885,7 +16938,7 @@
 			)
 		)
 		(property "Value" "CDU ROWS"
-			(at 38.0492 128.4482 0)
+			(at 37.5412 125.4002 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15894,7 +16947,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical"
-			(at 37.338 125.476 0)
+			(at 36.83 122.428 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15903,7 +16956,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 37.338 125.476 0)
+			(at 36.83 122.428 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15912,7 +16965,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 37.338 125.476 0)
+			(at 36.83 122.428 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16036,6 +17089,75 @@
 			(project "Right Console Input"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 105.41 97.028 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "952bc0a0-3b51-49d4-a566-0a72131809a4")
+		(property "Reference" "D9"
+			(at 102.616 98.044 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 105.41 93.853 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 105.41 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 105.41 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 105.41 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "42eb9959-69ee-4b69-a671-e06ad340e636")
+		)
+		(pin "2"
+			(uuid "eeb3e700-6f9e-4b59-9353-079a189aadf4")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D9")
 					(unit 1)
 				)
 			)
@@ -16193,6 +17315,79 @@
 			(project "Right Console Input"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "J22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Socket")
+		(at 114.3 94.488 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a83cf3d8-8004-4980-b90c-70f77932ea71")
+		(property "Reference" "J36"
+			(at 115.0112 93.2758 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "CDU BRIGHTNESS"
+			(at 115.0112 95.7001 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 114.3 94.488 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 114.3 94.488 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x03, script generated"
+			(at 114.3 94.488 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "f736d86a-2f11-4b60-9731-687e1be18e78")
+		)
+		(pin "1"
+			(uuid "a9123a64-edde-444a-98c6-cce168848f90")
+		)
+		(pin "3"
+			(uuid "881a5cf0-a353-4a0c-9df4-1c5f5f7d5129")
+		)
+		(instances
+			(project ""
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "J36")
 					(unit 1)
 				)
 			)
@@ -16712,6 +17907,75 @@
 			(project "Right Console Input"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 38.608 85.344 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "be105dd7-e143-4513-9e43-c9c4958d9853")
+		(property "Reference" "D3"
+			(at 35.814 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 38.608 82.169 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 38.608 85.344 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 38.608 85.344 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 38.608 85.344 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "381c7fdb-c9c1-4bb8-afc7-2774c1fabc84")
+		)
+		(pin "2"
+			(uuid "94611af4-39fb-4792-9336-ed4c31d19019")
+		)
+		(instances
+			(project "Right Console Input"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "D3")
 					(unit 1)
 				)
 			)
