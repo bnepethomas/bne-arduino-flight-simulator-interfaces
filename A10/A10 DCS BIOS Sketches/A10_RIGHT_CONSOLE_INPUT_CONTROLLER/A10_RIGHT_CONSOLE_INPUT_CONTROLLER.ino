@@ -435,7 +435,7 @@ DcsBios::Potentiometer lcpFormation("LCP_FORMATION", 4);
 // CDU Brightness
 // A little bit of an oddball as the real CDU just has a rocker switch
 // withnvalues moving between 0 and 100
-DcsBios::AnalogMultiPos cduBrt("CDU_BRT", 9, 8);
+// DcsBios::AnalogMultiPos cduBrt("CDU_BRT", 9, 8);
 // 
 
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
