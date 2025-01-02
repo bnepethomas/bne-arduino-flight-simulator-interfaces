@@ -1,0 +1,146 @@
+// Framework for Arduinos
+
+int Ethernet_In_Use = 1;
+int Reflector_In_Use = 1;
+
+#define MSFS_In_Use 0  // Used to interface into MSFS - set to 0 if not in use
+
+// Used to Distinguish between the left, front, and right inputs
+// Left=0, Front=1, Right=2
+#define INPUT_MODULE_NUMBER 2
+
+#define DCSBIOS_In_Use 1
+#define DCSBIOS_IRQ_SERIAL
+#include <DcsBios.h>
+
+// ###################################### Begin Ethernet Related #############################
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+
+#define EthernetStartupDelay 500
+#define ES1_RESET_PIN 53
+
+// These local Mac and IP Address will be reassigned early in startup based on
+// the device ID as set by address pins
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x08 };
+String sMac = "A8:61:0A:67:83:08";
+IPAddress ip(172, 16, 1, 108);
+String strMyIP = "172.16.1.108";
+
+// Reflector
+IPAddress reflectorIP(172, 16, 1, 10);
+String strReflectorIP = "X.X.X.X";
+
+// Arduino Due for Keystroke translation and Pixel Led driving
+IPAddress targetIP(172, 16, 1, 110);
+String strTargetIP = "X.X.X.X";
+
+// Computer Running MSFS
+IPAddress MSFSIP(172, 16, 1, 10);
+String strMSFSIP = "X.X.X.X";
+
+const unsigned int localport = 7788;
+const unsigned int localdebugport = 7795;
+const unsigned int keyboardport = 7788;
+const unsigned int ledport = 7789;
+const unsigned int remoteport = 7790;
+const unsigned int reflectorport = 27000;
+const unsigned int MSFSport = 7791;
+
+const unsigned long delayBeforeSendingPacket = 2000;
+unsigned long ethernetStartTime = 0;
+
+int packetSize;
+int debugLen;
+EthernetUDP udp;
+EthernetUDP debugUDP;
+char packetBuffer[1000];     //buffer to store the incoming data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
+String DebugString = "";
+String BoardName = "A10 Right Console Output";
+
+
+void SendDebug(String MessageToSend) {
+  if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
+    udp.beginPacket(reflectorIP, reflectorport);
+    udp.println(MessageToSend);
+    udp.endPacket();
+  }
+}
+// ###################################### End Ethernet Related #############################
+
+// THE LED PORTS WILL CHANGE FROM THE V1.1 PCB TO THE FOLLOWING
+
+#define RED_STATUS_LED_PORT 6
+#define GREEN_STATUS_LED_PORT 5
+#define Check_LED_R 6
+#define Check_LED_G 5
+#define FLASH_TIME 300
+
+unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
+bool GREEN_LED_STATE = false;
+bool RED_LED_STATE = false;
+unsigned long timeSinceRedLedChanged = 0;
+
+
+void setup() {
+
+  pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
+  pinMode(RED_STATUS_LED_PORT, OUTPUT);
+  digitalWrite(GREEN_STATUS_LED_PORT, true);
+  digitalWrite(RED_STATUS_LED_PORT, true);
+  delay(FLASH_TIME);
+  digitalWrite(GREEN_STATUS_LED_PORT, false);
+  delay(FLASH_TIME);
+
+  if (Ethernet_In_Use == 1) {
+
+    // Using manual reset instead of tying to Arduino Reset
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
+    Ethernet.begin(mac, ip);
+    udp.begin(localport);
+
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, false);
+      delay(FLASH_TIME);
+      digitalWrite(Check_LED_G, true);
+    }
+	
+	
+  SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
+
+
+SendDebug(BoardName + " End Setup");
+
+
+
+void sendToDcsBiosMessage(const char *msg, const char *arg) {
+
+
+  if (Reflector_In_Use == 1) {
+    udp.beginPacket(reflectorIP, reflectorport);
+    udp.print(BoardName + String(msg) + ":" + String(arg));
+    udp.endPacket();
+  }
+
+  sendDcsBiosMessage(msg, arg);
+}
+
+loop() {
+
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+    GREEN_LED_STATE = !GREEN_LED_STATE;
+    RED_LED_STATE = !GREEN_LED_STATE;
+    digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
+    digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
+    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
+
