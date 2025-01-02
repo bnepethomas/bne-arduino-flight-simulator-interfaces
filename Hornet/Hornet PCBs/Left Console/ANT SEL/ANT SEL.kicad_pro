@@ -41,20 +41,19 @@
           "height": 1.524,
           "width": 1.524
         },
-        "silk_line_width": 0.12,
+        "silk_line_width": 0.1,
         "silk_text_italic": false,
         "silk_text_size_h": 1.0,
         "silk_text_size_v": 1.0,
-        "silk_text_thickness": 0.15,
+        "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.508
+          "min_clearance": 0.0
         }
       },
       "diff_pair_dimensions": [],
       "drc_exclusions": [],
       "meta": {
-        "filename": "board_design_settings.json",
         "version": 2
       },
       "rule_severities": {
@@ -112,7 +111,7 @@
         "max_error": 0.005,
         "min_clearance": 0.0,
         "min_connection": 0.0,
-        "min_copper_edge_clearance": 0.025,
+        "min_copper_edge_clearance": 0.5,
         "min_hole_clearance": 0.25,
         "min_hole_to_hole": 0.25,
         "min_microvia_diameter": 0.2,
@@ -122,10 +121,10 @@
         "min_text_height": 0.8,
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.3,
-        "min_track_width": 0.2,
+        "min_track_width": 0.0,
         "min_via_annular_width": 0.1,
-        "min_via_diameter": 0.4,
-        "solder_mask_to_copper_clearance": 0.0,
+        "min_via_diameter": 0.5,
+        "solder_mask_to_copper_clearance": 0.005,
         "use_height_for_length_calcs": true
       },
       "teardrop_options": [
@@ -431,7 +430,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "OH - Left Console - Input Distribution.kicad_pro",
+    "filename": "ANT SEL.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -448,9 +447,9 @@
         "name": "Default",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
         "schematic_color": "rgba(0, 0, 0, 0.000)",
-        "track_width": 0.25,
-        "via_diameter": 0.8,
-        "via_drill": 0.4,
+        "track_width": 0.2,
+        "via_diameter": 0.6,
+        "via_drill": 0.3,
         "wire_width": 6
       }
     ],
@@ -459,270 +458,17 @@
     },
     "net_colors": null,
     "netclass_assignments": null,
-    "netclass_patterns": [
-      {
-        "netclass": "Default",
-        "pattern": "/A1"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/A10"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/A2"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/A3"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/A4"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/A5"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/A6"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/A7"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/A8"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/A9"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ANALOG_5V"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ANALOG_GND"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/B1"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/B10"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/B2"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/B3"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/B4"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/B5"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/B6"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/B7"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/B8"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/B9"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL0"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL1"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL10"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL2"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL3"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL4"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL5"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL6"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL7"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL8"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COL9"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COM_AUX"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COM_ICS"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COM_MIDS_A"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COM_MIDS_B"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COM_RWR"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COM_TACAN"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COM_VOX"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/COM_WPN"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/FORMATION_DIMMER"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/OXY_FLOW"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/POSITION_DIMMER"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW0"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW1"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW10"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW11"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW12"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW13"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW14"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW15"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW2"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW3"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW4"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW5"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW6"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW7"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW8"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/ROW9"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "/RUD_TRIM"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(D1-Pad2)"
-      },
-      {
-        "netclass": "Default",
-        "pattern": "Net-(D2-Pad2)"
-      }
-    ]
+    "netclass_patterns": []
   },
   "pcbnew": {
     "last_paths": {
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "../JLC-PCB/",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "ANT SEL.step",
       "svg": "",
       "vrml": ""
     },
@@ -801,24 +547,23 @@
       "intersheets_ref_show": false,
       "intersheets_ref_suffix": "",
       "junction_size_choice": 3,
-      "label_size_ratio": 0.25,
+      "label_size_ratio": 0.375,
       "operating_point_overlay_i_precision": 3,
       "operating_point_overlay_i_range": "~A",
       "operating_point_overlay_v_precision": 3,
       "operating_point_overlay_v_range": "~V",
       "overbar_offset_ratio": 1.23,
-      "pin_symbol_size": 0.0,
-      "text_offset_ratio": 0.08
+      "pin_symbol_size": 25.0,
+      "text_offset_ratio": 0.15
     },
     "legacy_lib_dir": "",
     "legacy_lib_list": [],
     "meta": {
       "version": 1
     },
-    "net_format_name": "Pcbnew",
+    "net_format_name": "",
     "page_layout_descr_file": "",
     "plot_directory": "",
-    "spice_adjust_passive_values": false,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
     "spice_model_current_sheet_as_root": true,
@@ -828,6 +573,11 @@
     "subpart_first_id": 65,
     "subpart_id_separator": 0
   },
-  "sheets": [],
+  "sheets": [
+    [
+      "3658ed32-0ce5-4166-ba57-e506005e986a",
+      "Root"
+    ]
+  ],
   "text_variables": {}
 }

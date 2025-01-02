@@ -94,6 +94,16 @@ bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
 
 
+// ################################### BEGIN LIGHTING ##################################
+#define BACK_LIGHTS 11
+
+void onConsoleIntLtChange(unsigned int newValue) {
+  SendDebug("Console Lights : " + String(newValue));
+  analogWrite(BACK_LIGHTS, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer consoleIntLtBuffer(FA_18C_hornet_CONSOLE_INT_LT, onConsoleIntLtChange);
+
+// ################################### END LIGHTING ##################################
 
 
 //************************************************RUDDER TRIM************************************************
@@ -429,10 +439,31 @@ void setup() {
     SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
   }
 
+  // Lights
+  pinMode(BACK_LIGHTS, OUTPUT);
+  analogWrite(BACK_LIGHTS, 255); 
+  delay(3000);
+
+  SendDebug("Dimming Leds");
+  for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
+    // analogWrite(STROBE_LIGHTS, Local_Brightness);
+    // analogWrite(NAVIGATION_LIGHTS, Local_Brightness);
+    // analogWrite(FORMATION_LIGHTS, Local_Brightness);
+    analogWrite(BACK_LIGHTS, Local_Brightness);
+    // analogWrite(FLOOD_LIGHTS, Local_Brightness);
+    // SendDebug("Led Brightness " + String(Local_Brightness));
+    delay(15);
+  }
+
+#define BrightnessWhileRunningSetup 128
+  // analogWrite(STROBE_LIGHTS, BrightnessWhileRunningSetup);
+  // analogWrite(NAVIGATION_LIGHTS, BrightnessWhileRunningSetup);
+  // analogWrite(FORMATION_LIGHTS, BrightnessWhileRunningSetup);
+  analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
+  // analogWrite(FLOOD_LIGHTS, BrightnessWhileRunningSetup);
 
 
-
-
+  // Motors and Mag Switches
   pinMode(apuMag, OUTPUT);
   pinMode(engLeftMag, OUTPUT);
   pinMode(engRightMag, OUTPUT);
@@ -473,6 +504,15 @@ void setup() {
 
   DcsBios::setup();
   SetTrimPosition();
+
+#define BrightnessPostSetup 65
+
+  // analogWrite(STROBE_LIGHTS, BrightnessPostSetup);
+  // analogWrite(NAVIGATION_LIGHTS, BrightnessPostSetup);
+  // analogWrite(FORMATION_LIGHTS, BrightnessPostSetup);
+  analogWrite(BACK_LIGHTS, BrightnessPostSetup);
+  // analogWrite(FLOOD_LIGHTS, BrightnessPostSetup);
+
   SendDebug(BoardName + " End Setup");
 
 }
@@ -544,6 +584,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 5:
           break;
+        // RELEASE
         case 6:
           break;
         case 7:
@@ -563,6 +604,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 13:
           sendToDcsBiosMessage("COM_COMM_RELAY_SW", "1");
           break;
+        // RELEASE
         case 14:
           break;
         case 15:
@@ -578,6 +620,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 20:
           sendToDcsBiosMessage("STROBE_SW", "1"); // STROBE "NORMAL"
           break;
+        // RELEASE
         case 21:
           // Gen Tie
           sendToDcsBiosMessage("GEN_TIE_SW", "0");
@@ -598,6 +641,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           // BM CODE
           sendToDcsBiosMessage("LDG_TAXI_SW", "0"); // LIGHTS "ON"
           break;
+        // RELEASE
         case 27:
           // BM ADDED "SELECT JETT KNOB"
           //No Relese Required
@@ -632,7 +676,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           // delay(5);
           // sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
 
-
+          // RELEASE
           break;
           // BM ADDED "SELECT JETT KNOB"
           //No Relese Required
@@ -655,6 +699,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("GAIN_SWITCH_COVER", "0");
           break;
         case 43:
+        // RELEASE
         case 44:  //ILS - ROTARY NO RELEASE
           break;
         case 45:  //ILS - ROTARY NO RELEASE
@@ -686,7 +731,9 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "0");
           break;
         case 53:
+          sendToDcsBiosMessage("MC_SW", "1");
           break;
+        // RELEASE
         case 54:
           sendToDcsBiosMessage("OBOGS_SW", "0"); // OBOGS "ON"
           break;
@@ -697,6 +744,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 57:
           sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
           break;
+        // RELEASE
         case 58:
           sendToDcsBiosMessage("FLAP_SW", "1"); // FLAPS "AUTO"
           break;
@@ -714,10 +762,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 62:
           break;
         case 63:
-          sendToDcsBiosMessage("MC_SW", "1");
+
           break;
         case 64:
-          sendToDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "0");
+          sendToDcsBiosMessage("MC_SW", "1");
           break;
         case 65:
           sendToDcsBiosMessage("OXY_FLOW", "0"); // OXY FLOW "ON"
@@ -1151,11 +1199,13 @@ void CreateDcsBiosMessage(int ind, int state) {
           apuSw = HIGH;
           break;
         case 52:
-        sendToDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "1");
+          sendToDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "1");
           // sendToDcsBiosMessage("MC_SW", "0");
           break;
         case 53:
+          sendToDcsBiosMessage("MC_SW", "2");
           break;
+        // CLOSE
         case 54:
           sendToDcsBiosMessage("OBOGS_SW", "1");
           break;
@@ -1189,7 +1239,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("MC_SW", "2");
           break;
         case 64:
-          sendToDcsBiosMessage("HYD_ISOLATE_OVERRIDE_SW", "1");
+          sendToDcsBiosMessage("MC_SW", "0");
           break;
         case 65:
           sendToDcsBiosMessage("OXY_FLOW", "65535");
@@ -1200,6 +1250,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 67:
           sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "7"); // COMMS PANEL ILS ROTARY SW
           break;
+        // CLOSE
         case 68:
           sendToDcsBiosMessage("COM_IFF_MASTER_SW", "0");
           break;
