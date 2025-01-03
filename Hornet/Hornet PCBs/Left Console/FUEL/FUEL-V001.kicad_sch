@@ -3493,7 +3493,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "150"
 			(at 185.928 52.07 90)
 			(effects
 				(font
@@ -3958,15 +3958,15 @@
 		(fields_autoplaced yes)
 		(uuid "8fb7f760-f9f2-49bd-845f-176e2b5ef55a")
 		(property "Reference" "R2"
-			(at 185.928 23.114 90)
+			(at 185.928 22.86 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "R"
-			(at 185.928 25.654 90)
+		(property "Value" "150"
+			(at 185.928 25.4 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4171,7 +4171,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "150"
 			(at 184.15 77.47 90)
 			(effects
 				(font
@@ -4593,7 +4593,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "150"
 			(at 185.42 40.64 90)
 			(effects
 				(font
@@ -5177,7 +5177,7 @@
 				)
 			)
 		)
-		(property "Value" "R"
+		(property "Value" "150"
 			(at 185.42 66.04 90)
 			(effects
 				(font
