@@ -1,0 +1,5 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+"D1, D2, D3, D4",LED_D3.0mm_FlatTop,4,LED,
+J1,IDC-Header_2x03_P2.54mm_Vertical,1,FIRE,
+"R1, R2",R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal,2,R,
+SW1,Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical,1,FIRE,
