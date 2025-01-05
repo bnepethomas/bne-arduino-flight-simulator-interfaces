@@ -188,7 +188,9 @@ int WarnCautionDimmerValue = 0;
 #define STEPPER_MAX_SPEED 8300
 #define STEPPER_ACCELERATION 2000
 
-Stepper stepperRA(STEPS, COILRA1, COILRA2, COILRA3, COILRA4);  // RAD ALT
+// Stepper stepperRA(STEPS, COILRA1, COILRA2, COILRA3, COILRA4);  // RAD ALT
+AccelStepper stepperRA(AccelStepper::FULL4WIRE, COILRA1, COILRA2, COILRA3, COILRA4);
+//AccelStepper stepperRA(AccelStepper::FULL4WIRE, COILRA1, COILRA4, COILRA2, COILRA3);
 
 Stepper stepperCA(STEPS, COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
 
@@ -216,8 +218,8 @@ int StepSteps = 720;
 
 void onRadaltAltPtrChange(unsigned int newValueRA) {  //2620
 
-  if (newValueRA <= 56000) RAD_ALT = map(newValueRA, 56000, 0, 0, 580);
-  else if (newValueRA >= 56000) RAD_ALT = map(newValueRA, 56001, 65535, 581, 720);
+  if (newValueRA <= 56000) stepperRA.moveTo(map(newValueRA, 56000, 0, 0, 580));
+  else if (newValueRA >= 56000) stepperRA.moveTo(map(newValueRA, 56001, 65535, 581, 720));
 }
 DcsBios::IntegerBuffer radaltAltPtrBuffer(0x751a, 0xffff, 0, onRadaltAltPtrChange);
 
@@ -393,10 +395,16 @@ void setup() {
 
     //###########################################################################################
     /// RADAR ALT WORKING ======> SET RADAR ALT STEPPER TO 0 FEET
-    stepperRA.setSpeed(40);
-    stepperRA.step(-720);  //Reset FULL ON Position
-    stepperRA.step(720);   //Reset FULL OFF Position
-    posRA = 0;
+    SendDebug(BoardName + " Start Cycling Radio Altimeter");
+        stepperRA.setMaxSpeed(1000);
+    stepperRA.setAcceleration(400);
+    stepperRA.runToNewPosition(-630);
+    stepperRA.setCurrentPosition(0);
+    // stepperRA.runToNewPosition(BrakePressureZeroPoint);
+    // stepperRA.setCurrentPosition(0);
+    stepperRA.runToNewPosition(630);
+    stepperRA.runToNewPosition(0);
+
     //  RAD_ALT = map(0, 0, 65535, 720, 0);   //RAD_ALT = map(newValueRA, 0, 65500, 720, 0);
 
     /// RADAR ALT WORKING ======< SET RADAR ALT STEPPER TO 0 FEET
@@ -513,17 +521,7 @@ void loop() {
 
   // **************************** Handle Steppers
 
-  valRA = RAD_ALT;
-  if (abs(valRA - posRA) > 2) {  //if diference is greater than 2 steps.
-    if ((valRA - posRA) > 0) {
-      stepperRA.step(-1);  // move one step to the left.
-      posRA++;
-    }
-    if ((valRA - posRA) < 0) {
-      stepperRA.step(1);  // move one step to the right.
-      posRA--;
-    }
-  }
+stepperRA.run();
 
   /// RADAR ALT LOOP WORKING ======<
   //###########################################################################################
