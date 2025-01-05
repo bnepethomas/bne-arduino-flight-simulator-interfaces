@@ -122,15 +122,8 @@ SendDebug(BoardName + " End Setup");
 
 
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
-
-
-  if (Reflector_In_Use == 1) {
-    udp.beginPacket(reflectorIP, reflectorport);
-    udp.print(BoardName + String(msg) + ":" + String(arg));
-    udp.endPacket();
-  }
-
   sendDcsBiosMessage(msg, arg);
+  SendDebug(BoardName + String(msg) + ":" + String(arg));
 }
 
 loop() {
