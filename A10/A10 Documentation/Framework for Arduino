@@ -64,7 +64,7 @@ String BoardName = "A10 Right Console Output";
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
-    udp.println(MessageToSend);
+    udp.print(MessageToSend);
     udp.endPacket();
   }
 }

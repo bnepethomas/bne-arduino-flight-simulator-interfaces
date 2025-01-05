@@ -110,6 +110,7 @@ Servo RAD_ALT_servo;
 #define RAD_ALT_servo_Hidden_Pos 50  // OFF FLAG NOT SHOWN
 
 #include <Stepper.h>
+#include <AccelStepper.h>
 #define STEPS 720  // steps per revolution (limited to 315°)
 
 #define COILRA1 2  // RA = RAD ALT
@@ -183,23 +184,29 @@ int posHYDPR = 0;
 
 int WarnCautionDimmerValue = 0;
 
+
+#define STEPPER_MAX_SPEED 8300
+#define STEPPER_ACCELERATION 2000
+
 Stepper stepperRA(STEPS, COILRA1, COILRA2, COILRA3, COILRA4);  // RAD ALT
 
 Stepper stepperCA(STEPS, COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
 
-Stepper stepperBP(STEPS, COILBP1, COILBP2, COILBP3, COILBP4);  // BRAKE PRESSURE
-#define BrakePressureZeroPoint 0
+
+AccelStepper stepperBP(AccelStepper::FULL4WIRE, COILBP3, COILBP4, COILBP1, COILBP2);
+#define BrakePressureZeroPoint 30
 #define BrakePressureMaxPoint 150
 
-Stepper stepperBT1(STEPS, COILBT1_1, COILBT1_2, COILBT1_3, COILBT1_4);  // BATTERY 1
-#define Battery_1_ZeroPoint 0
-#define Battery_1_ZeroPoint 150
-Stepper stepperBT2(STEPS, COILBT2_1, COILBT2_2, COILBT2_3, COILBT2_4);  // BATTERY 2
-#define Battery_2_ZeroPoint 0
-#define Battery_2_ZeroPoint 150
+AccelStepper stepperBT1(AccelStepper::FULL4WIRE, COILBT1_1, COILBT1_2, COILBT1_3, COILBT1_4);  // BATTERY 1
+#define stepperBT1MaxPoint 250
 
-Stepper stepperHPL(STEPS, COILHPL_1, COILHPL_2, COILHPL_3, COILHPL_4);  // HYD PRESSURE L
-Stepper stepperHPR(STEPS, COILHPR_1, COILHPR_2, COILHPR_3, COILHPR_4);  // HYD PRESSURE R
+AccelStepper stepperBT2(AccelStepper::FULL4WIRE, COILBT2_1, COILBT2_2, COILBT2_3, COILBT2_4);  // BATTERY 2
+#define stepperBT2MaxPoint 250
+
+// Stepper stepperHPL(STEPS, COILHPL_1, COILHPL_2, COILHPL_3, COILHPL_4);  // HYD PRESSURE L
+AccelStepper stepperHPL(AccelStepper::FULL4WIRE, COILHPL_1, COILHPL_2, COILHPL_3, COILHPL_4);  // HYD PRESSURE L
+// Stepper stepperHPR(STEPS, COILHPR_1, COILHPR_2, COILHPR_3, COILHPR_4);  // HYD PRESSURE R
+AccelStepper stepperHPR(AccelStepper::FULL4WIRE, COILHPR_1, COILHPR_2, COILHPR_3, COILHPR_4);  // HYD PRESSURE R
 
 int MaxDCSBios = 65535;
 int MinDCSBios = 0;
@@ -223,27 +230,27 @@ DcsBios::IntegerBuffer pressureAltBuffer(0x7514, 0xffff, 0, onPressureAltChange)
 
 
 void onHydIndBrakeChange(unsigned int newValueBP) {
-  BRAKE_PRESSURE = map(newValueBP, 0, 65535, BrakePressureZeroPoint, BrakePressureMaxPoint);
+  stepperBP.moveTo(map(newValueBP, 0, 65535, BrakePressureZeroPoint, BrakePressureMaxPoint));
 }
 DcsBios::IntegerBuffer hydIndBrakeBuffer(0x7506, 0xffff, 0, onHydIndBrakeChange);
 
 void onHydIndLeftChange(unsigned int newValueHL) {
-  HYDPL = map(newValueHL, 0, 65535, 0, -720);
+  stepperHPL.moveTo(map(newValueHL, 0, 65535, 0, 600));
 }
 DcsBios::IntegerBuffer hydIndLeftBuffer(0x751e, 0xffff, 0, onHydIndLeftChange);
 
 void onHydIndRightChange(unsigned int newValueHR) {
-  HYDPR = map(newValueHR, 0, 65535, 0, -720);
+  stepperHPR.moveTo(map(newValueHR, 0, 65535, 0, 600));
 }
 DcsBios::IntegerBuffer hydIndRightBuffer(0x7520, 0xffff, 0, onHydIndRightChange);
 
 void onVoltEChange(unsigned int newValueB1) {
-  BATT1 = map(newValueB1, 0, 65535, 0, 250);
+  stepperBT1.moveTo(map(newValueB1, 0, 65535, 0, stepperBT1MaxPoint));
 }
 DcsBios::IntegerBuffer voltEBuffer(0x753e, 0xffff, 0, onVoltEChange);
 
 void onVoltUChange(unsigned int newValueB2) {
-  BATT2 = map(newValueB2, 0, 65535, 0, 250);
+  stepperBT2.moveTo(map(newValueB2, 0, 65535, 0, stepperBT2MaxPoint));
 }
 DcsBios::IntegerBuffer voltUBuffer(0x753c, 0xffff, 0, onVoltUChange);
 
@@ -371,83 +378,104 @@ void setup() {
     digitalWrite(RAD_GN, HIGH);
     digitalWrite(RAD_RD, HIGH);
 
-    RAD_ALT_servo.attach(RadarAltServoPin);
-    delay(1000);
-    RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
-    // RAD_ALT_servo.detach();
-    delay(1000);
-    // RAD_ALT_servo.attach(RadarAltServoPin);
-    RAD_ALT_servo.write(RAD_ALT_servo_Hidden_Pos);  // set servo to min
-    delay(1000);
-    RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
-    // RAD_ALT_servo.detach();
-    delay(1000);
-    RAD_ALT_servo.detach();
-    //analogWrite(5, LOW);
+    if (false) {
+      RAD_ALT_servo.attach(RadarAltServoPin);
+      delay(1000);
+      RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
+      // RAD_ALT_servo.detach();
+      delay(1000);
+      // RAD_ALT_servo.attach(RadarAltServoPin);
+      RAD_ALT_servo.write(RAD_ALT_servo_Hidden_Pos);  // set servo to min
+      delay(1000);
+      RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
+      // RAD_ALT_servo.detach();
+      delay(1000);
+      RAD_ALT_servo.detach();
+      //analogWrite(5, LOW);
 
-    //###########################################################################################
-    /// RADAR ALT WORKING ======> SET RADAR ALT STEPPER TO 0 FEET
-    stepperRA.setSpeed(40);
-    stepperRA.step(-720);  //Reset FULL ON Position
-    stepperRA.step(720);   //Reset FULL OFF Position
-    posRA = 0;
-    //  RAD_ALT = map(0, 0, 65535, 720, 0);   //RAD_ALT = map(newValueRA, 0, 65500, 720, 0);
+      //###########################################################################################
+      /// RADAR ALT WORKING ======> SET RADAR ALT STEPPER TO 0 FEET
+      stepperRA.setSpeed(40);
+      stepperRA.step(-720);  //Reset FULL ON Position
+      stepperRA.step(720);   //Reset FULL OFF Position
+      posRA = 0;
+      //  RAD_ALT = map(0, 0, 65535, 720, 0);   //RAD_ALT = map(newValueRA, 0, 65500, 720, 0);
 
-    /// RADAR ALT WORKING ======< SET RADAR ALT STEPPER TO 0 FEET
+      /// RADAR ALT WORKING ======< SET RADAR ALT STEPPER TO 0 FEET
 
-    /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
-    stepperCA.setSpeed(40);
-    stepperCA.step(700);   //Reset FULL ON Position
-    stepperCA.step(-720);  //Reset FULL OFF Position
-    stepperCA.step(30);    //Reset FULL OFF Position
-    posCA = 0;
-    CAB_ALT = map(0, 0, 65535, 40, 720);
-    /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
+      /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
+      stepperCA.setSpeed(40);
+      stepperCA.step(700);   //Reset FULL ON Position
+      stepperCA.step(-720);  //Reset FULL OFF Position
+      stepperCA.step(30);    //Reset FULL OFF Position
+      posCA = 0;
+      CAB_ALT = map(0, 0, 65535, 40, 720);
+      /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
+    }
 
     // BRAKE PRESSURE
     SendDebug(BoardName + " Start Cycling Brake Pressure");
-    stepperBP.setSpeed(40);
-    stepperBP.step(300);
-    delay(2000);
-    stepperBP.
-    // stepperBP.step(BrakePressureMaxPoint);  //Reset FULL ON Position
-    // delay(500);
-    // stepperBP.step(-(BrakePressureMaxPoint + 100));  //Reset FULL OFF Position
-    // posBP = 0;
-    // BRAKE_PRESSURE = map(0, 0, 65535, BrakePressureZeroPoint, BrakePressureMaxPoint);
+    stepperBP.setMaxSpeed(STEPPER_MAX_SPEED);
+    stepperBP.setAcceleration(STEPPER_ACCELERATION);
+    stepperBP.runToNewPosition(-200);
+    stepperBP.setCurrentPosition(0);
+    stepperBP.runToNewPosition(BrakePressureZeroPoint);
+    stepperBP.setCurrentPosition(0);
+    stepperBP.runToNewPosition(BrakePressureMaxPoint);
+    stepperBP.runToNewPosition(0);
+
+
+    // BRAKE_PRESSURE = map(0, 0, 65535, 0, BrakePressureMaxPoint);
     SendDebug(BoardName + " End Cycling Brake Pressure");
     /// BRAKE PRESSURE
 
     // HYD PRESSURE LEFT
-    stepperHPL.setSpeed(50);
-    stepperHPL.step(720);   //Reset FULL ON Position
-    stepperHPL.step(-720);  //Reset FULL OFF Position
-    posHYDPL = 0;
-    // HYDPL = map(0, 0, 65535, 720, 0);
+    SendDebug(BoardName + " Start Cycling Hyd Pressure Left");
+    stepperHPL.setMaxSpeed(STEPPER_MAX_SPEED);
+    stepperHPL.setAcceleration(STEPPER_ACCELERATION);
+    stepperHPL.runToNewPosition(-650);
+    stepperHPL.setCurrentPosition(0);
+    stepperHPL.runToNewPosition(80);
+    stepperHPL.setCurrentPosition(0);
+    stepperHPL.runToNewPosition(600);
+    stepperHPL.runToNewPosition(0);
 
-    stepperHPR.setSpeed(50);
-    stepperHPR.step(720);   //Reset FULL ON Position
-    stepperHPR.step(-720);  //Reset FULL OFF Position
+
+    SendDebug(BoardName + " Start Cycling Hyd Pressure Right");
+    stepperHPR.setMaxSpeed(STEPPER_MAX_SPEED);
+    stepperHPR.setAcceleration(STEPPER_ACCELERATION);
+    stepperHPR.runToNewPosition(-650);
+    stepperHPR.setCurrentPosition(0);
+    stepperHPR.runToNewPosition(600);
+    stepperHPR.runToNewPosition(0);
+
     posHYDPR = 0;
     // HYDPR = map(0, 0, 65535, 720, 0);
 
     // BATT 1 E
-    stepperBT1.setSpeed(50);
-    stepperBT1.step(720);   //Reset FULL ON Position
-    stepperBT1.step(-720);  //Reset FULL OFF Position
-    stepperBT1.step(560);   //BATT "16V" POSITION E
-                            //stepperBT1.step(-250);       //BATT "30V" POSITION E
-    posBATT1 = 0;
-    // BATT1 = map(0, 0, 65535, 400, 0);
+
+    SendDebug(BoardName + " Start Cycling Batttery 1");
+    stepperBT1.setMaxSpeed(STEPPER_MAX_SPEED);
+    stepperBT1.setAcceleration(STEPPER_ACCELERATION);
+    stepperBT1.runToNewPosition(-400);
+    stepperBT1.setCurrentPosition(0);
+    stepperBT1.runToNewPosition(stepperBT1MaxPoint);
+    stepperBT1.runToNewPosition(0);
+    // stepperBT1.step(560);   //BATT "16V" POSITION E
+
 
     // BATT 2 U
-    stepperBT2.setSpeed(50);
-    stepperBT2.step(-720);  //Reset FULL ON Position
-    stepperBT2.step(720);   //Reset FULL OFF Position
-    stepperBT2.step(-60);   //BATT "16V" POSITION U
-                            //stepperBT2.step(250);       //BATT "30V" POSITION U
-    posBATT2 = 0;
-    //BATT2 = map(0, 0, 65535, 720, 0);
+
+
+    SendDebug(BoardName + " Start Cycling Batttery 2");
+    stepperBT2.setMaxSpeed(STEPPER_MAX_SPEED);
+    stepperBT2.setAcceleration(STEPPER_ACCELERATION);
+    stepperBT2.runToNewPosition(-400);
+    stepperBT2.setCurrentPosition(0);
+
+    stepperBT2.runToNewPosition(stepperBT1MaxPoint);
+    stepperBT2.runToNewPosition(0);
+
 
 
     delay(500);
@@ -520,75 +548,11 @@ void loop() {
 
   /// BRAKE PRESSURE
   //###########################################################################################
-  {
-    valBP = BRAKE_PRESSURE;
-    //
-    if (abs(valBP - posBP) > 2) {  //if diference is greater than 2 steps.
-      if ((valBP - posBP) > 0) {
-        stepperBP.step(1);  // move one step to the left.
-        posBP++;
-      }
-      if ((valBP - posBP) < 0) {
-        stepperBP.step(-1);  // move one step to the right.
-        posBP--;
-      }
-    }
-  }
-
-
-  valHYDPL = HYDPL;
-  if (abs(valHYDPL - posHYDPL) > 2) {  //if diference is greater than 2 steps.
-    if ((valHYDPL - posHYDPL) > 0) {
-      stepperHPL.step(-1);  // move one step to the left.
-      posHYDPL++;
-    }
-    if ((valHYDPL - posHYDPL) < 0) {
-      stepperHPL.step(1);  // move one step to the right.
-      posHYDPL--;
-    }
-  }
-
-  valHYDPR = HYDPR;
-  if (abs(valHYDPR - posHYDPR) > 2) {  //if diference is greater than 2 steps.
-    if ((valHYDPR - posHYDPR) > 0) {
-      stepperHPR.step(-1);  // move one step to the left.
-      posHYDPR++;
-    }
-    if ((valHYDPR - posHYDPR) < 0) {
-      stepperHPR.step(1);  // move one step to the right.
-      posHYDPR--;
-    }
-  }
-
-
-
-  valBATT1 = BATT1;
-  if (abs(valBATT1 - posBATT1) > 2) {  //if diference is greater than 2 steps.
-    if ((valBATT1 - posBATT1) > 0) {
-      stepperBT1.step(-1);  // move one step to the left.
-      posBATT1++;
-    }
-    if ((valBATT1 - posBATT1) < 0) {
-      stepperBT1.step(1);  // move one step to the right.
-      posBATT1--;
-    }
-  }
-
-
-  valBATT2 = BATT2;
-  if (abs(valBATT2 - posBATT2) > 2) {  //if diference is greater than 2 steps.
-    if ((valBATT2 - posBATT2) > 0) {
-      stepperBT2.step(-1);  // move one step to the left.
-      posBATT2++;
-    }
-    if ((valBATT2 - posBATT2) < 0) {
-      stepperBT2.step(1);  // move one step to the right.
-      posBATT2--;
-    }
-  }
-
-
-
+  stepperBP.run();
+  stepperHPL.run();
+  stepperHPR.run();
+  stepperBT1.run();
+  stepperBT2.run();
 
   DcsBios::loop();
 }
