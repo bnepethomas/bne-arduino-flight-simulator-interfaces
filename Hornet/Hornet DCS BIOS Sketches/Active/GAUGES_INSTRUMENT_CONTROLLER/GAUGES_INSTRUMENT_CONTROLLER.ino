@@ -199,13 +199,11 @@ AccelStepper stepperBP(AccelStepper::FULL4WIRE, COILBP3, COILBP4, COILBP1, COILB
 
 AccelStepper stepperBT1(AccelStepper::FULL4WIRE, COILBT1_1, COILBT1_2, COILBT1_3, COILBT1_4);  // BATTERY 1
 #define stepperBT1MaxPoint 250
-
 AccelStepper stepperBT2(AccelStepper::FULL4WIRE, COILBT2_1, COILBT2_2, COILBT2_3, COILBT2_4);  // BATTERY 2
 #define stepperBT2MaxPoint 250
 
-// Stepper stepperHPL(STEPS, COILHPL_1, COILHPL_2, COILHPL_3, COILHPL_4);  // HYD PRESSURE L
+
 AccelStepper stepperHPL(AccelStepper::FULL4WIRE, COILHPL_1, COILHPL_2, COILHPL_3, COILHPL_4);  // HYD PRESSURE L
-// Stepper stepperHPR(STEPS, COILHPR_1, COILHPR_2, COILHPR_3, COILHPR_4);  // HYD PRESSURE R
 AccelStepper stepperHPR(AccelStepper::FULL4WIRE, COILHPR_1, COILHPR_2, COILHPR_3, COILHPR_4);  // HYD PRESSURE R
 
 int MaxDCSBios = 65535;
@@ -378,40 +376,40 @@ void setup() {
     digitalWrite(RAD_GN, HIGH);
     digitalWrite(RAD_RD, HIGH);
 
-    if (false) {
-      RAD_ALT_servo.attach(RadarAltServoPin);
-      delay(1000);
-      RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
-      // RAD_ALT_servo.detach();
-      delay(1000);
-      // RAD_ALT_servo.attach(RadarAltServoPin);
-      RAD_ALT_servo.write(RAD_ALT_servo_Hidden_Pos);  // set servo to min
-      delay(1000);
-      RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
-      // RAD_ALT_servo.detach();
-      delay(1000);
-      RAD_ALT_servo.detach();
-      //analogWrite(5, LOW);
 
-      //###########################################################################################
-      /// RADAR ALT WORKING ======> SET RADAR ALT STEPPER TO 0 FEET
-      stepperRA.setSpeed(40);
-      stepperRA.step(-720);  //Reset FULL ON Position
-      stepperRA.step(720);   //Reset FULL OFF Position
-      posRA = 0;
-      //  RAD_ALT = map(0, 0, 65535, 720, 0);   //RAD_ALT = map(newValueRA, 0, 65500, 720, 0);
+    RAD_ALT_servo.attach(RadarAltServoPin);
+    delay(1000);
+    RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
+    // RAD_ALT_servo.detach();
+    delay(1000);
+    // RAD_ALT_servo.attach(RadarAltServoPin);
+    RAD_ALT_servo.write(RAD_ALT_servo_Hidden_Pos);  // set servo to min
+    delay(1000);
+    RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
+    // RAD_ALT_servo.detach();
+    delay(1000);
+    RAD_ALT_servo.detach();
+    //analogWrite(5, LOW);
 
-      /// RADAR ALT WORKING ======< SET RADAR ALT STEPPER TO 0 FEET
+    //###########################################################################################
+    /// RADAR ALT WORKING ======> SET RADAR ALT STEPPER TO 0 FEET
+    stepperRA.setSpeed(40);
+    stepperRA.step(-720);  //Reset FULL ON Position
+    stepperRA.step(720);   //Reset FULL OFF Position
+    posRA = 0;
+    //  RAD_ALT = map(0, 0, 65535, 720, 0);   //RAD_ALT = map(newValueRA, 0, 65500, 720, 0);
 
-      /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
-      stepperCA.setSpeed(40);
-      stepperCA.step(700);   //Reset FULL ON Position
-      stepperCA.step(-720);  //Reset FULL OFF Position
-      stepperCA.step(30);    //Reset FULL OFF Position
-      posCA = 0;
-      CAB_ALT = map(0, 0, 65535, 40, 720);
-      /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
-    }
+    /// RADAR ALT WORKING ======< SET RADAR ALT STEPPER TO 0 FEET
+
+    /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
+    stepperCA.setSpeed(40);
+    stepperCA.step(700);   //Reset FULL ON Position
+    stepperCA.step(-720);  //Reset FULL OFF Position
+    stepperCA.step(30);    //Reset FULL OFF Position
+    posCA = 0;
+    CAB_ALT = map(0, 0, 65535, 40, 720);
+    /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
+
 
     // BRAKE PRESSURE
     SendDebug(BoardName + " Start Cycling Brake Pressure");
