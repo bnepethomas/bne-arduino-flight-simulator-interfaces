@@ -105,7 +105,7 @@ unsigned long timeSinceRedLedChanged = 0;
 #define RAD_RD 8
 
 Servo RAD_ALT_servo;
-#define RadarAltServoPin 5
+#define RadarAltServoPin 7
 #define RAD_ALT_servo_Off_Pos 90     // OFF FLAG IN WINDOW
 #define RAD_ALT_servo_Hidden_Pos 50  // OFF FLAG NOT SHOWN
 
@@ -113,10 +113,11 @@ Servo RAD_ALT_servo;
 #include <AccelStepper.h>
 #define STEPS 720  // steps per revolution (limited to 315°)
 
-#define COILRA1 2  // RA = RAD ALT
-#define COILRA2 3
-#define COILRA3 5
-#define COILRA4 6
+
+#define COILRA1 5  // RA = RAD ALT
+#define COILRA2 6
+#define COILRA3 2
+#define COILRA4 3
 
 #define COILBT1_1 22  // BT_1 = BATTERY 1
 #define COILBT1_2 23
@@ -216,10 +217,13 @@ int RAStepSteps = 144;
 int StepSteps = 720;
 //###########################################################################################
 
-void onRadaltAltPtrChange(unsigned int newValueRA) {  //2620
-
-  if (newValueRA <= 56000) stepperRA.moveTo(map(newValueRA, 56000, 0, 0, 580));
-  else if (newValueRA >= 56000) stepperRA.moveTo(map(newValueRA, 56001, 65535, 581, 720));
+void onRadaltAltPtrChange(unsigned int newValue) {  //2620
+SendDebug("Radio Alt=" + String(newValue));
+// suspect 0 position in the sim is the needle hidden
+if (newValue >=  3440) newValue = newValue - 3440;
+  stepperRA.moveTo(map(newValue, 0, 65535, 0, 720));
+// if (newValueRA <= 56000) stepperRA.moveTo(map(newValueRA, 56000, 0, 0, 580));
+// else if (newValueRA >= 56000) stepperRA.moveTo(map(newValueRA, 56001, 65535, 581, 720));
 }
 DcsBios::IntegerBuffer radaltAltPtrBuffer(0x751a, 0xffff, 0, onRadaltAltPtrChange);
 
@@ -335,7 +339,7 @@ int HornetRadaltMapper(unsigned int controlPosition, unsigned int dcsPosition) {
 DcsBios::RotarySyncingPotentiometer radaltHeight("RADALT_HEIGHT", A2, 0x7518, 0xffff, 0, HornetRadaltMapper);
 
 
-DcsBios::Switch2Pos radaltTestSw("RADALT_TEST_SW", 6);
+DcsBios::Switch2Pos radaltTestSw("RADALT_TEST_SW", A13);
 
 void setup() {
 
@@ -396,16 +400,12 @@ void setup() {
     //###########################################################################################
     /// RADAR ALT WORKING ======> SET RADAR ALT STEPPER TO 0 FEET
     SendDebug(BoardName + " Start Cycling Radio Altimeter");
-        stepperRA.setMaxSpeed(1000);
+    stepperRA.setMaxSpeed(1000);
     stepperRA.setAcceleration(400);
     stepperRA.runToNewPosition(-630);
     stepperRA.setCurrentPosition(0);
-    // stepperRA.runToNewPosition(BrakePressureZeroPoint);
-    // stepperRA.setCurrentPosition(0);
     stepperRA.runToNewPosition(630);
     stepperRA.runToNewPosition(0);
-
-    //  RAD_ALT = map(0, 0, 65535, 720, 0);   //RAD_ALT = map(newValueRA, 0, 65500, 720, 0);
 
     /// RADAR ALT WORKING ======< SET RADAR ALT STEPPER TO 0 FEET
 
@@ -521,7 +521,7 @@ void loop() {
 
   // **************************** Handle Steppers
 
-stepperRA.run();
+  stepperRA.run();
 
   /// RADAR ALT LOOP WORKING ======<
   //###########################################################################################
