@@ -73,7 +73,7 @@ String BoardName = "Hornet gauges Instrument Controller";
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
-    udp.println(MessageToSend);
+    udp.print(MessageToSend);
     udp.endPacket();
   }
 }
@@ -106,7 +106,7 @@ unsigned long timeSinceRedLedChanged = 0;
 
 Servo RAD_ALT_servo;
 #define RadarAltServoPin 7
-#define RAD_ALT_servo_Off_Pos 90     // OFF FLAG IN WINDOW
+#define RAD_ALT_servo_Off_Pos 125     // OFF FLAG IN WINDOW
 #define RAD_ALT_servo_Hidden_Pos 50  // OFF FLAG NOT SHOWN
 
 #include <Stepper.h>
@@ -154,34 +154,12 @@ Servo RAD_ALT_servo;
 #define COILCP3 48
 #define COILCP4 49
 
-int RAD_ALT = 0;
-int valRA = 0;
-int posRA = 0;
+
 
 int CAB_ALT;
 int valCA = 0;
 int CurCABALT = 0;
 int posCA = 0;
-
-int BRAKE_PRESSURE = 0;
-int valBP = 0;
-int posBP = 0;
-
-int BATT1 = 0;
-int valBATT1 = 0;
-int posBATT1 = 0;
-
-int BATT2 = 0;
-int valBATT2 = 0;
-int posBATT2 = 0;
-
-int HYDPL = 0;
-int valHYDPL = 0;
-int posHYDPL = 0;
-
-int HYDPR = 0;
-int valHYDPR = 0;
-int posHYDPR = 0;
 
 int WarnCautionDimmerValue = 0;
 
@@ -189,12 +167,9 @@ int WarnCautionDimmerValue = 0;
 #define STEPPER_MAX_SPEED 8300
 #define STEPPER_ACCELERATION 2000
 
-// Stepper stepperRA(STEPS, COILRA1, COILRA2, COILRA3, COILRA4);  // RAD ALT
 AccelStepper stepperRA(AccelStepper::FULL4WIRE, COILRA1, COILRA2, COILRA3, COILRA4);
-//AccelStepper stepperRA(AccelStepper::FULL4WIRE, COILRA1, COILRA4, COILRA2, COILRA3);
 
 Stepper stepperCA(STEPS, COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
-
 
 AccelStepper stepperBP(AccelStepper::FULL4WIRE, COILBP3, COILBP4, COILBP1, COILBP2);
 #define BrakePressureZeroPoint 30
@@ -214,16 +189,21 @@ int MinDCSBios = 0;
 int RadAltChange = 14500;
 int RAStepVal = 2620;
 int RAStepSteps = 144;
-int StepSteps = 720;
+int StepperSteps = 720;
 //###########################################################################################
 
 void onRadaltAltPtrChange(unsigned int newValue) {  //2620
-SendDebug("Radio Alt=" + String(newValue));
-// suspect 0 position in the sim is the needle hidden
-if (newValue >=  3440) newValue = newValue - 3440;
-  stepperRA.moveTo(map(newValue, 0, 65535, 0, 720));
-// if (newValueRA <= 56000) stepperRA.moveTo(map(newValueRA, 56000, 0, 0, 580));
-// else if (newValueRA >= 56000) stepperRA.moveTo(map(newValueRA, 56001, 65535, 581, 720));
+  // SendDebug("Radio Alt=" + String(newValue));
+  // suspect 0 position in the sim is the needle hidden
+  if (newValue >= 3440) {
+    newValue = newValue - 3440;
+    stepperRA.moveTo(map(newValue, 0, 65535, 0, StepperSteps));
+  } else {
+    // Below 3400 hide the needle
+    stepperRA.moveTo(720);
+  }
+  // if (newValueRA <= 56000) stepperRA.moveTo(map(newValueRA, 56000, 0, 0, 580));
+  // else if (newValueRA >= 56000) stepperRA.moveTo(map(newValueRA, 56001, 65535, 581, 720));
 }
 DcsBios::IntegerBuffer radaltAltPtrBuffer(0x751a, 0xffff, 0, onRadaltAltPtrChange);
 
@@ -263,12 +243,12 @@ void onRadaltOffFlagChange(unsigned int newValue) {
   if (newValue == 0) {  // ANYTHING ABOVE "0" IS OFF
     RAD_ALT_servo.attach(RadarAltServoPin);
     RAD_ALT_servo.write(RAD_ALT_servo_Hidden_Pos);  // set servo to "Off Point"
-    delay(500);
+    delay(300);
     RAD_ALT_servo.detach();
   } else {
     RAD_ALT_servo.attach(RadarAltServoPin);
     RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to min
-    delay(500);
+    delay(300);
     RAD_ALT_servo.detach();
   }
 }
@@ -383,23 +363,26 @@ void setup() {
     digitalWrite(RAD_RD, HIGH);
 
 
+    SendDebug(BoardName + " Start Cycling Radio Altimeter Servo");
     RAD_ALT_servo.attach(RadarAltServoPin);
-    delay(1000);
+    SendDebug(BoardName + " Servo Flag Visible");
     RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
     // RAD_ALT_servo.detach();
-    delay(1000);
+    delay(3000);
     // RAD_ALT_servo.attach(RadarAltServoPin);
+    SendDebug(BoardName + " Servo Flag Hidden");
     RAD_ALT_servo.write(RAD_ALT_servo_Hidden_Pos);  // set servo to min
-    delay(1000);
+    delay(3000);
+    SendDebug(BoardName + " Servo Flag Visible");
     RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
     // RAD_ALT_servo.detach();
-    delay(1000);
+    delay(3000);
     RAD_ALT_servo.detach();
     //analogWrite(5, LOW);
 
     //###########################################################################################
     /// RADAR ALT WORKING ======> SET RADAR ALT STEPPER TO 0 FEET
-    SendDebug(BoardName + " Start Cycling Radio Altimeter");
+    SendDebug(BoardName + " Start Cycling Radio Altimeter Stepper");
     stepperRA.setMaxSpeed(1000);
     stepperRA.setAcceleration(400);
     stepperRA.runToNewPosition(-630);
@@ -454,9 +437,6 @@ void setup() {
     stepperHPR.setCurrentPosition(0);
     stepperHPR.runToNewPosition(600);
     stepperHPR.runToNewPosition(0);
-
-    posHYDPR = 0;
-    // HYDPR = map(0, 0, 65535, 720, 0);
 
     // BATT 1 E
 
