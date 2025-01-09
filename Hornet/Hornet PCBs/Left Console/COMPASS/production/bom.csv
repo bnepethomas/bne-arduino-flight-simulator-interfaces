@@ -1,0 +1,4 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+"D3, D4, D5, D6",0805,4,LED,
+J1,PinSocket_1x02_P2.54mm_Vertical,1,Conn_01x02,
+"R1, R2",0805,2,R,
