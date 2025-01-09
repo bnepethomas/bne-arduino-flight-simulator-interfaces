@@ -169,7 +169,9 @@ int WarnCautionDimmerValue = 0;
 
 AccelStepper stepperRA(AccelStepper::FULL4WIRE, COILRA1, COILRA2, COILRA3, COILRA4);
 
-Stepper stepperCA(STEPS, COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
+// Stepper stepperCA(STEPS, COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
+AccelStepper stepperCA(AccelStepper::FULL4WIRE,COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
+#define CabinAltMaxPoint 600
 
 AccelStepper stepperBP(AccelStepper::FULL4WIRE, COILBP3, COILBP4, COILBP1, COILBP2);
 #define BrakePressureZeroPoint 30
@@ -208,7 +210,7 @@ void onRadaltAltPtrChange(unsigned int newValue) {  //2620
 DcsBios::IntegerBuffer radaltAltPtrBuffer(0x751a, 0xffff, 0, onRadaltAltPtrChange);
 
 void onPressureAltChange(unsigned int newValueCA) {
-  CAB_ALT = map(newValueCA, 0, 65535, 45, 720);
+  stepperCA.moveTo(map(newValueCA, 0, 65535, 0, CabinAltMaxPoint));
 }
 DcsBios::IntegerBuffer pressureAltBuffer(0x7514, 0xffff, 0, onPressureAltChange);
 
@@ -368,15 +370,15 @@ void setup() {
     SendDebug(BoardName + " Servo Flag Visible");
     RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
     // RAD_ALT_servo.detach();
-    delay(3000);
+    delay(1000);
     // RAD_ALT_servo.attach(RadarAltServoPin);
     SendDebug(BoardName + " Servo Flag Hidden");
     RAD_ALT_servo.write(RAD_ALT_servo_Hidden_Pos);  // set servo to min
-    delay(3000);
+    delay(1000);
     SendDebug(BoardName + " Servo Flag Visible");
     RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
     // RAD_ALT_servo.detach();
-    delay(3000);
+    delay(1000);
     RAD_ALT_servo.detach();
     //analogWrite(5, LOW);
 
@@ -393,12 +395,14 @@ void setup() {
     /// RADAR ALT WORKING ======< SET RADAR ALT STEPPER TO 0 FEET
 
     /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
-    stepperCA.setSpeed(40);
-    stepperCA.step(700);   //Reset FULL ON Position
-    stepperCA.step(-720);  //Reset FULL OFF Position
-    stepperCA.step(30);    //Reset FULL OFF Position
-    posCA = 0;
-    CAB_ALT = map(0, 0, 65535, 40, 720);
+    SendDebug(BoardName + " Start Cycling Cabin Altimeter Stepper");
+    stepperCA.setMaxSpeed(1000);
+    stepperCA.setAcceleration(400);
+    stepperCA.runToNewPosition(-720);
+    stepperCA.setCurrentPosition(0);
+    stepperCA.runToNewPosition(CabinAltMaxPoint);
+    stepperCA.runToNewPosition(0);
+    SendDebug(BoardName + " End Cycling Cabin Altimeter Stepper");
     /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
 
 
@@ -412,9 +416,6 @@ void setup() {
     stepperBP.setCurrentPosition(0);
     stepperBP.runToNewPosition(BrakePressureMaxPoint);
     stepperBP.runToNewPosition(0);
-
-
-    // BRAKE_PRESSURE = map(0, 0, 65535, 0, BrakePressureMaxPoint);
     SendDebug(BoardName + " End Cycling Brake Pressure");
     /// BRAKE PRESSURE
 
@@ -451,14 +452,11 @@ void setup() {
 
 
     // BATT 2 U
-
-
     SendDebug(BoardName + " Start Cycling Batttery 2");
     stepperBT2.setMaxSpeed(STEPPER_MAX_SPEED);
     stepperBT2.setAcceleration(STEPPER_ACCELERATION);
     stepperBT2.runToNewPosition(-400);
     stepperBT2.setCurrentPosition(0);
-
     stepperBT2.runToNewPosition(stepperBT1MaxPoint);
     stepperBT2.runToNewPosition(0);
 
@@ -500,30 +498,8 @@ void loop() {
 
 
   // **************************** Handle Steppers
-
   stepperRA.run();
-
-  /// RADAR ALT LOOP WORKING ======<
-  //###########################################################################################
-  {
-    valCA = CAB_ALT;
-    //
-    if (abs(valCA - posCA) > 2) {  //if diference is greater than 2 steps.
-      if ((valCA - posCA) > 0) {
-        stepperCA.step(1);  // move one step to the left.
-        posCA++;
-      }
-      if ((valCA - posCA) < 0) {
-        stepperCA.step(-1);  // move one step to the right.
-        posCA--;
-      }
-      /// CABIN ALT LOOP WORKING ======<
-      //###########################################################################################
-    }
-  }
-
-  /// BRAKE PRESSURE
-  //###########################################################################################
+  stepperCA.run();
   stepperBP.run();
   stepperHPL.run();
   stepperHPR.run();
