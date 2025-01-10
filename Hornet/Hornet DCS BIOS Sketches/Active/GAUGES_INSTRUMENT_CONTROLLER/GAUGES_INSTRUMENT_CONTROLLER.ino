@@ -168,6 +168,8 @@ int WarnCautionDimmerValue = 0;
 #define STEPPER_ACCELERATION 2000
 
 AccelStepper stepperRA(AccelStepper::FULL4WIRE, COILRA1, COILRA2, COILRA3, COILRA4);
+// AccelStepper stepper(AccelStepper::FULL4WIRE, 46, 47, 48, 49);
+// AccelStepper stepperRA(AccelStepper::FULL4WIRE, 46, 47, 48, 49);
 
 // Stepper stepperCA(STEPS, COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
 AccelStepper stepperCA(AccelStepper::FULL4WIRE,COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
@@ -389,10 +391,12 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
       if (initState == 1) {
         // move off zero if already there so we always get movement on reset
         // (to verify that the stepper is working)
+        SendDebug(BoardName +"Compass initState 1" );
         if (zeroDetected()) {
           stepper.runSpeed();
         } else {
           initState = 2;
+          SendDebug(BoardName +"Compass initState 2" );
         }
       }
 
@@ -404,6 +408,7 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
           if (millis() >= (zeroTimeout + zeroPosSearchStartTime)) {
             stepper.disableOutputs();
             initState == 99;
+            SendDebug(BoardName +"Compass initState 99 - timeout finding zero point" );
           }
           else
             stepper.runSpeed();
@@ -422,6 +427,7 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
 
           lastZeroDetectState = true;
           initState = 3;
+          SendDebug(BoardName +"Compass initState 3 - normal running" );
         }
       }
       if (initState == 3) { // running normally
@@ -491,7 +497,7 @@ Vid60Stepper standbyCompass(0x0436,          // address of stepper data
                             stepper,         // name of AccelStepper instance
                             stepperConfig,   // StepperConfig struct instance
                             16,              // IR Detector Pin (must be LOW in zero position)
-                            0,               // zero offset
+                            220,               // zero offset
 [](unsigned int newValue) -> unsigned int {
   /* this function needs to map newValue to the correct number of steps */
 
