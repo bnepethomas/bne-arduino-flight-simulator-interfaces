@@ -1116,7 +1116,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           // PT CODE  sendToDcsBiosMessage("LAUNCH_BAR_SW", "0");
           break;
         case 27:
-          sendToDcsBiosMessage("SEL_JETT_KNOB", "4");  // KNOB "STORES"
+          sendToDcsBiosMessage("SEL_JETT_KNOB", "0");  // KNOB "STORES"
           break;
         case 28:
           sendToDcsBiosMessage("CMSD_DISPENSE_BTN", "1");
@@ -1155,7 +1155,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 38:
           // BM ADDED "SELECT JETT KNOB"
-          sendToDcsBiosMessage("SEL_JETT_KNOB", "3");  // KNOB "RACK LCHR"
+          sendToDcsBiosMessage("SEL_JETT_KNOB", "1");  // KNOB "RACK LCHR"
           break;
         case 39:
           sendToDcsBiosMessage("CB_FCS_CHAN1", "0");
@@ -1230,7 +1230,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 60:
           // BM ADDED "SELECT JETT KNOB"
-          sendToDcsBiosMessage("SEL_JETT_KNOB", "1");  // KNOB "SAFE"
+          sendToDcsBiosMessage("SEL_JETT_KNOB", "3");  // KNOB "SAFE"
           break;
         // PRESS - CLOSE
         case 61:
@@ -1269,7 +1269,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         // PRESS - CLOSE
         case 71:
           // BM ADDED "SELECT JETT KNOB"
-          sendToDcsBiosMessage("SEL_JETT_KNOB", "0");  // KNOB "LFUS MSL"
+          sendToDcsBiosMessage("SEL_JETT_KNOB", "4");  // KNOB "LFUS MSL"
           break;
         case 72:
           break;
