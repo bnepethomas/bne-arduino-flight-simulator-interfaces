@@ -713,6 +713,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
           break;
         case 47:
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
           break;
         case 48:
           //BM CODE
@@ -1184,6 +1185,9 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "0");
           break;
         case 47:
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "2");
+          DcsBios::loop();
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
           break;
         case 48:
           //BM CODE
