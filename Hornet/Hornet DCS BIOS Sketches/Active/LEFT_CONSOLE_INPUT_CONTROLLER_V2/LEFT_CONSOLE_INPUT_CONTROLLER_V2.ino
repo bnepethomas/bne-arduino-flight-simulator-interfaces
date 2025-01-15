@@ -1041,10 +1041,10 @@ void CreateDcsBiosMessage(int ind, int state) {
       // PRESS - CLOSE
       switch (ind) {
         case 0:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "18");  // COMMS PANEL ILS ROTARY SW"
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "1");  // COMMS PANEL ILS ROTARY SW"
           break;
         case 1:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "1");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "2");  // COMMS PANEL ILS ROTARY SW
           break;
         case 2:
           sendToDcsBiosMessage("COM_COMM_RELAY_SW", "0");
@@ -1069,10 +1069,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 11:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "2");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "3");  // COMMS PANEL ILS ROTARY SW
           break;
         case 12:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "11");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "4");  // COMMS PANEL ILS ROTARY SW
           break;
         case 13:
           sendToDcsBiosMessage("COM_COMM_RELAY_SW", "2");
@@ -1100,10 +1100,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           timeGenTieOn = millis() + ToggleSwitchCoverMoveTime;
           break;
         case 22:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "12");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "5");  // COMMS PANEL ILS ROTARY SW
           break;
         case 23:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "3");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "6");  // COMMS PANEL ILS ROTARY SW
           break;
         case 24:
           sendToDcsBiosMessage("COM_CRYPTO_SW", "0");
@@ -1137,10 +1137,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           SetTrimPosition();
           break;
         case 33:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "4");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "7");  // COMMS PANEL ILS ROTARY SW
           break;
         case 34:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "13");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "8");  // COMMS PANEL ILS ROTARY SW
           break;
         case 35:
           sendToDcsBiosMessage("COM_CRYPTO_SW", "2");
@@ -1176,10 +1176,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 43:
           break;
         case 44:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "14");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "9");  // COMMS PANEL ILS ROTARY SW
           break;
         case 45:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "5");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "10");  // COMMS PANEL ILS ROTARY SW
           break;
         case 46:
           sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "0");
@@ -1219,10 +1219,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("OBOGS_SW", "1");
           break;
         case 55:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "6");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "11");  // COMMS PANEL ILS ROTARY SW
           break;
         case 56:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "15");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "12");  // COMMS PANEL ILS ROTARY SW
           break;
         case 57:
           sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "2");
@@ -1254,10 +1254,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("OXY_FLOW", "65535");
           break;
         case 66:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "16");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "13");  // COMMS PANEL ILS ROTARY SW
           break;
         case 67:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "7");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "14");  // COMMS PANEL ILS ROTARY SW
           break;
         // CLOSE
         case 68:
@@ -1286,10 +1286,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 76:
           break;
         case 77:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "8");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "15");  // COMMS PANEL ILS ROTARY SW
           break;
         case 78:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "17");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "16");  // COMMS PANEL ILS ROTARY SW
           break;
         case 79:
           sendToDcsBiosMessage("COM_IFF_MODE4_SW", "0");  //"OFF"
@@ -1313,10 +1313,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 87:
           break;
         case 88:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "18");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "17");  // COMMS PANEL ILS ROTARY SW
           break;
         case 89:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "9");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "18");  // COMMS PANEL ILS ROTARY SW
           break;
         case 90:
           sendToDcsBiosMessage("COM_ILS_UFC_MAN_SW", "0");
@@ -1341,10 +1341,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:
           break;
         case 99:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "10");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "19");  // COMMS PANEL ILS ROTARY SW
           break;
         case 100:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "19");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "20");  // COMMS PANEL ILS ROTARY SW
           break;
         // PRESS - CLOSE
         case 101:
