@@ -644,7 +644,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 26:
           // BM CODE
-          sendToDcsBiosMessage("LDG_TAXI_SW", "0");  // LIGHTS "ON"
+          sendToDcsBiosMessage("LDG_TAXI_SW", "1");  // LIGHTS "ON"
           break;
         // RELEASE
         case 27:
@@ -713,7 +713,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
           break;
         case 47:
-          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "2");
           break;
         case 48:
           //BM CODE
@@ -755,6 +755,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FLAP_SW", "1");  // FLAPS "AUTO"
           break;
         case 59:
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "1");
           break;
         case 60:
           // BM ADDED "SELECT JETT KNOB"
@@ -1113,7 +1114,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("SEL_JETT_BTN", "1");  // "JETT" BUTTON
           break;
         case 26:
-          sendToDcsBiosMessage("LDG_TAXI_SW", "1");
+          sendToDcsBiosMessage("LDG_TAXI_SW", "0");
           // PT CODE  sendToDcsBiosMessage("LAUNCH_BAR_SW", "0");
           break;
         case 27:
@@ -1137,7 +1138,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           SetTrimPosition();
           break;
         case 33:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "7");  // COMMS PANEL ILS ROTARY SW
+          // sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "7");  // COMMS PANEL ILS ROTARY SW
           break;
         case 34:
           sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "8");  // COMMS PANEL ILS ROTARY SW
@@ -1176,7 +1177,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 43:
           break;
         case 44:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "9");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "7");  // COMMS PANEL ILS ROTARY SW
           break;
         case 45:
           sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "10");  // COMMS PANEL ILS ROTARY SW
@@ -1185,9 +1186,9 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "0");
           break;
         case 47:
-          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "2");
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
           DcsBios::loop();
-          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
+          // sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
           break;
         case 48:
           //BM CODE
@@ -1219,7 +1220,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("OBOGS_SW", "1");
           break;
         case 55:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "11");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "9");  // COMMS PANEL ILS ROTARY SW
           break;
         case 56:
           sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "12");  // COMMS PANEL ILS ROTARY SW
@@ -1231,6 +1232,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FLAP_SW", "2");  // FLAPS "AUTO"
           break;
         case 59:
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
           break;
         case 60:
           // BM ADDED "SELECT JETT KNOB"
@@ -1254,7 +1256,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("OXY_FLOW", "65535");
           break;
         case 66:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "13");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "11");  // COMMS PANEL ILS ROTARY SW
           break;
         case 67:
           sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "14");  // COMMS PANEL ILS ROTARY SW
@@ -1286,7 +1288,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 76:
           break;
         case 77:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "15");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "13");  // COMMS PANEL ILS ROTARY SW
           break;
         case 78:
           sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "16");  // COMMS PANEL ILS ROTARY SW
@@ -1313,7 +1315,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 87:
           break;
         case 88:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "17");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "15");  // COMMS PANEL ILS ROTARY SW
           break;
         case 89:
           sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "18");  // COMMS PANEL ILS ROTARY SW
@@ -1341,10 +1343,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:
           break;
         case 99:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "19");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "17");  // COMMS PANEL ILS ROTARY SW
           break;
         case 100:
-          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "20");  // COMMS PANEL ILS ROTARY SW
+          sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "19");  // COMMS PANEL ILS ROTARY SW
           break;
         // PRESS - CLOSE
         case 101:
@@ -1412,7 +1414,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("GEAR_LEVER", "0");
           break;
         case 126:
-          sendToDcsBiosMessage("EMERGENCY_GEAR_ROTATE", "0");
+          sendToDcsBiosMessage("EMERGENCY_GEAR_ROTATE", "2");
           break;
         case 127:
           break;
