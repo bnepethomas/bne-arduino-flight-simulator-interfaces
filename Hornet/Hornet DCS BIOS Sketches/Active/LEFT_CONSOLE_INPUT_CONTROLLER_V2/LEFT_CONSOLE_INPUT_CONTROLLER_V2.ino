@@ -391,6 +391,11 @@ unsigned long previousMillis = 0;
 char stringind[5];
 String outString;
 
+bool ParkingFollowupTaskPart1 = false;
+bool ParkingFollowupTaskPart2 = false;
+long timeParkingBrakeRelease = 0;
+const int ParkingBrakeMoveTime = 500;
+
 
 bool FCSGainFollowupTask = false;
 long timeFCSGainOn = 0;
@@ -713,7 +718,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "1");
           break;
         case 47:
-          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "2");
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "1");
           break;
         case 48:
           //BM CODE
@@ -755,7 +760,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FLAP_SW", "1");  // FLAPS "AUTO"
           break;
         case 59:
-          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "1");
+          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "2");
+
+          timeParkingBrakeRelease = millis() + ParkingBrakeMoveTime;
+          ParkingFollowupTaskPart1 = true;
           break;
         case 60:
           // BM ADDED "SELECT JETT KNOB"
@@ -1150,9 +1158,6 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LAUNCH_BAR_SW", "1");
           break;
         case 37:
-
-          sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "2");
-
           sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
           break;
         case 38:
@@ -1187,8 +1192,6 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 47:
           sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
-          DcsBios::loop();
-          // sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
           break;
         case 48:
           //BM CODE
@@ -1664,6 +1667,25 @@ void loop() {
 
   FindInputChanges();
 
+
+  // Parking Brake
+  if (ParkingFollowupTaskPart1 == true) {
+    if (millis() >= timeParkingBrakeRelease) {
+      SendDebug("Clearing Park Brake Part 1");
+      sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "1");
+      ParkingFollowupTaskPart1 = false;
+      ParkingFollowupTaskPart2 = true;
+      timeParkingBrakeRelease = millis() + ParkingBrakeMoveTime;
+    }
+  }
+
+  if (ParkingFollowupTaskPart2 == true) {
+    if (millis() >= timeParkingBrakeRelease) {
+      SendDebug("Clearing Park Brake Part 2");
+      sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "1");
+      ParkingFollowupTaskPart2 = false;
+    }
+  }
 
   // Handle Switches with Safety covers
   if (FCSGainFollowupTask == true) {
