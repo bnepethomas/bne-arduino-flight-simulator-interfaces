@@ -101,7 +101,7 @@ void onConsoleIntLtChange(unsigned int newValue) {
   SendDebug("Console Lights : " + String(newValue));
   analogWrite(BACK_LIGHTS, map(newValue, 0, 65535, 0, 255));
 }
-DcsBios::IntegerBuffer consoleIntLtBuffer(FA_18C_hornet_CONSOLE_INT_LT, onConsoleIntLtChange);
+DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
 
 // ################################### END LIGHTING ##################################
 
