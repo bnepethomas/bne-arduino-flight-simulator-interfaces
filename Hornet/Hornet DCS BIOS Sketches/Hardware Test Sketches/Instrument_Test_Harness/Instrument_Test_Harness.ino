@@ -84,12 +84,17 @@ unsigned long ethernetStartTime = 0;
 // ############################### End Ethernet Related ####################################
 
 
+int globalBrightness = 0;
+#define BACKLIGHT_CAB_ALT_PWM 2
+#define BACKLIGHT_BAT_HYD_PWM 3
+#define BACKLIGHT_BRK_PRESS_PWM 6 
+#define BACKLIGHT_RAD_ALT_PWM 7 
+#define BACKLIGHT_COMPASS_PWM 12
 
 
 
-
-
-void setup() {
+  void
+  setup() {
 
 
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
@@ -125,8 +130,14 @@ void setup() {
 
 
     // // Initialise Exterior Lights
-    // pinMode(STROBE_LIGHTS, OUTPUT);
-    // pinMode(NAVIGATION_LIGHTS, OUTPUT);
+    pinMode(BACKLIGHT_CAB_ALT_PWM, OUTPUT);
+    pinMode(BACKLIGHT_BAT_HYD_PWM, OUTPUT);
+    pinMode(BACKLIGHT_BRK_PRESS_PWM, OUTPUT);
+    pinMode(BACKLIGHT_RAD_ALT_PWM, OUTPUT);
+    pinMode(BACKLIGHT_COMPASS_PWM, OUTPUT);
+    
+    
+  
     // pinMode(FORMATION_LIGHTS, OUTPUT);
     // pinMode(BACK_LIGHTS, OUTPUT);
     // pinMode(FLOOD_LIGHTS, OUTPUT);
@@ -150,12 +161,12 @@ void setup() {
     //   delay(15);
     // }
 
-// #define BrightnessWhileRunningSetup 128
-//     analogWrite(STROBE_LIGHTS, BrightnessWhileRunningSetup);
-//     analogWrite(NAVIGATION_LIGHTS, BrightnessWhileRunningSetup);
-//     analogWrite(FORMATION_LIGHTS, BrightnessWhileRunningSetup);
-//     analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
-//     analogWrite(FLOOD_LIGHTS, BrightnessWhileRunningSetup);
+    // #define BrightnessWhileRunningSetup 128
+    //     analogWrite(STROBE_LIGHTS, BrightnessWhileRunningSetup);
+    //     analogWrite(NAVIGATION_LIGHTS, BrightnessWhileRunningSetup);
+    //     analogWrite(FORMATION_LIGHTS, BrightnessWhileRunningSetup);
+    //     analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
+    //     analogWrite(FLOOD_LIGHTS, BrightnessWhileRunningSetup);
 
 
 
@@ -169,7 +180,7 @@ void setup() {
     debugUDP.begin(localdebugport);
   }
 
-  
+
 
   SendDebug(BoardName + " - " + strMyIP + " Setup Complete. " + String(millis()) + "mS since reset.");
 }
@@ -192,10 +203,16 @@ void loop() {
     RED_LED_STATE = !RED_LED_STATE;
     // digitalWrite(Check_LED_G, RED_LED_STATE);
     digitalWrite(Check_LED_R, RED_LED_STATE);
-    digitalWrite(Check_LED_G, !RED_LED_STATE);
+    // digitalWrite(Check_LED_G, !RED_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+
+    globalBrightness = globalBrightness + 10;
+    if (globalBrightness >= 255) globalBrightness = 0;
+    analogWrite(Check_LED_G, globalBrightness);
+    analogWrite(BACKLIGHT_CAB_ALT_PWM, globalBrightness);
+    analogWrite(BACKLIGHT_BAT_HYD_PWM, globalBrightness);
+    analogWrite(BACKLIGHT_BRK_PRESS_PWM, globalBrightness);
+    analogWrite(BACKLIGHT_RAD_ALT_PWM, globalBrightness);
+    analogWrite(BACKLIGHT_COMPASS_PWM, globalBrightness);
   }
-
-
 }
-
