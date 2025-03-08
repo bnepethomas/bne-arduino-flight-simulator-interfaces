@@ -1,9 +1,9 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 //||               FUNCTION = LEFT CONSOLE INPUT                      ||\\
-//||              LOCATION IN THE PIT = LIP LEFTHAND SIDE             ||\\
+//||              LOCATION IN THE PIT = LEFTHAND SIDE CONSOLE         ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN - xxxxxxxxxxxxxxxxxxxx      ||\\
-//||                    CONNECTED COM PORT = COM XX                   ||\\
+//||                    CONNECTED COM PORT = COM 3                    ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -96,6 +96,7 @@ unsigned long timeSinceRedLedChanged = 0;
 
 // ################################### BEGIN LIGHTING ##################################
 #define BACK_LIGHTS 11
+#define LANDINIG_GEAR_HANDLE_LIGHT 12
 
 void onConsoleIntLtChange(unsigned int newValue) {
   SendDebug("Console Lights : " + String(newValue));
@@ -411,6 +412,8 @@ void onConsolesDimmerChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerChange);
 
+DcsBios::LED landingGearHandleLt(0x747e, 0x0800, LANDINIG_GEAR_HANDLE_LIGHT);
+
 void setup() {
 
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
@@ -446,12 +449,14 @@ void setup() {
 
   // Lights
   pinMode(BACK_LIGHTS, OUTPUT);
+  pinMode(LANDINIG_GEAR_HANDLE_LIGHT, OUTPUT);
   analogWrite(BACK_LIGHTS, 255);
+  analogWrite(LANDINIG_GEAR_HANDLE_LIGHT, 255);
   delay(3000);
 
   SendDebug("Dimming Leds");
   for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
-    // analogWrite(STROBE_LIGHTS, Local_Brightness);
+    analogWrite(LANDINIG_GEAR_HANDLE_LIGHT, Local_Brightness);
     // analogWrite(NAVIGATION_LIGHTS, Local_Brightness);
     // analogWrite(FORMATION_LIGHTS, Local_Brightness);
     analogWrite(BACK_LIGHTS, Local_Brightness);
@@ -461,7 +466,7 @@ void setup() {
   }
 
 #define BrightnessWhileRunningSetup 128
-  // analogWrite(STROBE_LIGHTS, BrightnessWhileRunningSetup);
+  //analogWrite(LANDINIG_GEAR_HANDLE_LIGHT, BrightnessWhileRunningSetup);
   // analogWrite(NAVIGATION_LIGHTS, BrightnessWhileRunningSetup);
   // analogWrite(FORMATION_LIGHTS, BrightnessWhileRunningSetup);
   analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
