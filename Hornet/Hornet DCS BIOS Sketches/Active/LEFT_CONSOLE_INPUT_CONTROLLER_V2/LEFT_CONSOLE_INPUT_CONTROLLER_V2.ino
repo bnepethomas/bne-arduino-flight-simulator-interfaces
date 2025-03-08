@@ -779,6 +779,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           engLeftSw = LOW;
           engRightSw = LOW;
           break;
+          // RELEASE
         case 62:
           break;
         case 63:
@@ -826,8 +827,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("COM_IFF_MODE4_SW", "1");
           break;
         case 80:
+          sendToDcsBiosMessage("SEAT_HEIGHT_SW", "1");
           break;
         case 81:
+          sendToDcsBiosMessage("EJECTION_HANDLE_SW", "0");
           break;
         case 82:
           sendToDcsBiosMessage("FIRE_TEST_SW", "1");
@@ -850,7 +853,9 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("COM_ILS_UFC_MAN_SW", "1");
           break;
         case 91:
+          sendToDcsBiosMessage("SEAT_HEIGHT_SW", "1");
           break;
+          // RELEASE
         case 92:
           sendToDcsBiosMessage("EJECTION_SEAT_ARMED", "1");
           break;
@@ -1165,6 +1170,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 37:
           sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_PULL", "0");
           break;
+          // PRESS - CLOSE
         case 38:
           // BM ADDED "SELECT JETT KNOB"
           sendToDcsBiosMessage("SEL_JETT_KNOB", "1");  // KNOB "RACK LCHR"
@@ -1195,6 +1201,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 46:
           sendToDcsBiosMessage("COM_COMM_G_XMT_SW", "0");
           break;
+          // PRESS - CLOSE
         case 47:
           sendToDcsBiosMessage("EMERGENCY_PARKING_BRAKE_ROTATE", "0");
           break;
@@ -1263,6 +1270,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 65:
           sendToDcsBiosMessage("OXY_FLOW", "65535");
           break;
+          // PRESS - CLOSE
         case 66:
           sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "11");  // COMMS PANEL ILS ROTARY SW
           break;
@@ -1305,9 +1313,11 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("COM_IFF_MODE4_SW", "0");  //"OFF"
           break;
         case 80:
+          sendToDcsBiosMessage("SEAT_HEIGHT_SW", "0");
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 81:
+          sendToDcsBiosMessage("EJECTION_HANDLE_SW", "1");
           break;
         case 82:
           sendToDcsBiosMessage("FIRE_TEST_SW", "0");
@@ -1333,6 +1343,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 91:
+          sendToDcsBiosMessage("SEAT_HEIGHT_SW", "2");
           break;
         case 92:
           sendToDcsBiosMessage("EJECTION_SEAT_ARMED", "0");

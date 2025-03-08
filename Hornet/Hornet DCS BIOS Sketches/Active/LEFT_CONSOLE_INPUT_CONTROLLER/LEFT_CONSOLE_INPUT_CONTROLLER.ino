@@ -1,3 +1,11 @@
+// 20250308 
+// This sketch is current for the Left Console original design
+// input that was dedicatred to inputs only.  It is now superceeded
+// by the hybrid sktch for the left console that supports bth inputs and ouputs
+// This sketch will be useful for Mitch
+//
+//
+
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 //||               FUNCTION = HORNET LEFT INPUT                       ||\\
 //||              LOCATION IN THE PIT = LEFTHAND SIDE                 ||\\
