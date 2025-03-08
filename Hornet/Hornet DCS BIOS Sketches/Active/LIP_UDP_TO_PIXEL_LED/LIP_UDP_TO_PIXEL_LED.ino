@@ -642,7 +642,7 @@ void loop() {
     if (startUpBrightness == 0) {
       // SetBacklightingColour();
       FastLED.setBrightness(MAX_MASTER_BRIGHTNESS);
-      consoleBrightness = 0;
+      consoleBrightness = 65;
       warningBrightness = 100;
       SetBacklighting();
       SetWarningLighting();

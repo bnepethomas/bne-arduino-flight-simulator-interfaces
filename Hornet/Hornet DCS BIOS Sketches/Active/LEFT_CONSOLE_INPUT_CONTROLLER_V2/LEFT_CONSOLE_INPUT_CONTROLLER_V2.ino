@@ -233,6 +233,7 @@ void onApuControlSwChange(unsigned int newValue) {
 DcsBios::IntegerBuffer apuControlSwBuffer(0x74c2, 0x0100, 8, onApuControlSwChange);
 
 DcsBios::LED apuReadyLt(0x74c2, 0x0800, apuLED);
+
 void onApuReadyLtChange(unsigned int newValue) {
 
   bool apuAvailable = newValue;
