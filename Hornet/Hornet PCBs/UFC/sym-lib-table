@@ -1,4 +1,5 @@
 (sym_lib_table
-  (lib (name KiCadCustomLib)(type Legacy)(uri ${KIPRJMOD}/../../../lib/KiCAD_Libraries/KiCadCustomLib.lib)(options "")(descr ""))
-  (lib (name UFC-rescue)(type Legacy)(uri ${KIPRJMOD}/UFC-rescue.lib)(options "")(descr ""))
+  (version 7)
+  (lib (name "KiCadCustomLib")(type "Legacy")(uri "${KIPRJMOD}/../../../lib/KiCAD_Libraries/KiCadCustomLib.lib")(options "")(descr ""))
+  (lib (name "UFC-rescue")(type "KiCad")(uri "${KIPRJMOD}/UFC-rescue.kicad_sym")(options "")(descr ""))
 )
