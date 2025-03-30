@@ -95,8 +95,7 @@ repeat until we have reached the lat expected pin.
 #define COM2_YPOS 33
 
 
-#define DCSBIOS_IRQ_SERIAL
-#include "DcsBios.h"
+
 
 //#include <Arduino.h>
 #include <U8g2lib.h>
@@ -224,16 +223,13 @@ void tcaselect(uint8_t i) {
 }
 
 void SendDebug(String MessageToSend) {
-  if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
-    udp.beginPacket(reflectorIP, reflectorport);
-    udp.println(MessageToSend);
-    udp.endPacket();
-  }
+  Serial.println(MessageToSend);
 }
 
 void setup() {
-  //Serial.begin(115200);
-
+  Serial.begin(115200);
+  Serial.write("Cable Tester Start");
+  SendDebug("hello");
   pinMode(STATUS_LED_PORT, OUTPUT);
 
 ;
@@ -269,8 +265,10 @@ void setup() {
   u8g2_BARO.clearBuffer();
   u8g2_BARO.setFont(u8g2_font_logisoso16_tn);
   u8g2_BARO.sendBuffer();
-  tcaselect(BARO_OLED_Port);
   updateBARO("2992");
+  delay(1000);
+  updateBARO("737");
+
 
 
 }
@@ -329,7 +327,7 @@ void updateBARO(String strnewValue) {
   u8g2_BARO.drawBox(0, 0, 128, 32);
   u8g2_BARO.setDrawColor(1);
   u8g2_BARO.setFontDirection(0);
-  u8g2_BARO.drawStr(65, 16, newValue);
+  u8g2_BARO.drawStr(0, 16, newValue);
   u8g2_BARO.sendBuffer();
 }
 
