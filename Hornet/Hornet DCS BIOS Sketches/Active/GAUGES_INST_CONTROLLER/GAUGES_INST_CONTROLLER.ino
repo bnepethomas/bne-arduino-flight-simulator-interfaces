@@ -98,7 +98,12 @@ unsigned long timeSinceRedLedChanged = 0;
 
 #define ASH_DDI_PWM_5V 46
 #define BACK_LIGHTS 11
-#define MAP 4
+#define BAT_HYD_DIM 3
+#define BRK_PRESS_DIM 5
+#define CAB_ALT_DIM 2
+#define COMPASS_DIM 12
+#define MAP_DIM 4
+#define RADAR_ALTIMETER_DIM 6
 #define SPARE_DIM 45
 
 void onConsoleIntLtChange(unsigned int newValue) {
@@ -173,23 +178,40 @@ void setup() {
   }
 
   // Lights
-  pinMode(BACK_LIGHTS, OUTPUT);
 
   pinMode(ASH_DDI_PWM_5V, OUTPUT);
-  pinMode(MAP, OUTPUT);
+  pinMode(BACK_LIGHTS, OUTPUT);
+  pinMode(BAT_HYD_DIM, OUTPUT);
+  pinMode(BRK_PRESS_DIM, OUTPUT);
+  pinMode(CAB_ALT_DIM, OUTPUT);
+  pinMode(COMPASS_DIM, OUTPUT);
+  pinMode(MAP_DIM, OUTPUT);
+  pinMode(RADAR_ALTIMETER_DIM, OUTPUT);
+  pinMode(SPARE_DIM, OUTPUT);
 
   SendDebug("Leds On");
-  analogWrite(BACK_LIGHTS, 255);
-  analogWrite(ASH_DDI_PWM_5V, 255);
-  analogWrite(MAP, 255);
 
+  analogWrite(ASH_DDI_PWM_5V, 255);
+  analogWrite(BACK_LIGHTS, 255);
+  analogWrite(BAT_HYD_DIM, 255);
+  analogWrite(BRK_PRESS_DIM, 255);
+  analogWrite(CAB_ALT_DIM, 255);
+  analogWrite(COMPASS_DIM, 255);
+  analogWrite(MAP_DIM, 255);
+  analogWrite(RADAR_ALTIMETER_DIM, 255);
+  analogWrite(SPARE_DIM, 255);
   delay(3000);
 
   SendDebug("Dimming Leds");
   for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
     analogWrite(ASH_DDI_PWM_5V, Local_Brightness);
     analogWrite(BACK_LIGHTS, Local_Brightness);
-    analogWrite(MAP, Local_Brightness);
+    analogWrite(BAT_HYD_DIM, Local_Brightness);
+    analogWrite(BRK_PRESS_DIM, Local_Brightness);
+    analogWrite(CAB_ALT_DIM, Local_Brightness);
+    analogWrite(COMPASS_DIM, Local_Brightness);
+    analogWrite(MAP_DIM, Local_Brightness);
+    analogWrite(RADAR_ALTIMETER_DIM, Local_Brightness);
     analogWrite(SPARE_DIM, Local_Brightness);
     // SendDebug("Led Brightness " + String(Local_Brightness));
     delay(15);
@@ -199,7 +221,12 @@ void setup() {
 #define BrightnessWhileRunningSetup 128
   analogWrite(ASH_DDI_PWM_5V, BrightnessWhileRunningSetup);
   analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
-  analogWrite(MAP, BrightnessWhileRunningSetup);
+  analogWrite(BAT_HYD_DIM, BrightnessWhileRunningSetup);
+  analogWrite(BRK_PRESS_DIM, BrightnessWhileRunningSetup);
+  analogWrite(CAB_ALT_DIM, BrightnessWhileRunningSetup);
+  analogWrite(COMPASS_DIM, BrightnessWhileRunningSetup);
+  analogWrite(MAP_DIM, BrightnessWhileRunningSetup);
+  analogWrite(RADAR_ALTIMETER_DIM, BrightnessWhileRunningSetup);
   analogWrite(SPARE_DIM, BrightnessWhileRunningSetup);
 
   DcsBios::setup();
@@ -209,7 +236,12 @@ void setup() {
 
   analogWrite(ASH_DDI_PWM_5V, BrightnessPostSetup);
   analogWrite(BACK_LIGHTS, BrightnessPostSetup);
-  analogWrite(MAP, BrightnessPostSetup);
+  analogWrite(BAT_HYD_DIM, BrightnessPostSetup);
+  analogWrite(BRK_PRESS_DIM, BrightnessPostSetup);
+  analogWrite(CAB_ALT_DIM, BrightnessPostSetup);
+  analogWrite(COMPASS_DIM, BrightnessPostSetup);
+  analogWrite(MAP_DIM, BrightnessPostSetup);
+  analogWrite(RADAR_ALTIMETER_DIM, BrightnessPostSetup);
   analogWrite(SPARE_DIM, BrightnessPostSetup);
 
   SendDebug(BoardName + " End Setup");
