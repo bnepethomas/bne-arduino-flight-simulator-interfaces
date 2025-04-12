@@ -519,7 +519,7 @@ Vid60Stepper standbyCompass(0x0436,         // address of stepper data
                             stepper,        // name of AccelStepper instance
                             stepperConfig,  // StepperConfig struct instance
                             16,             // IR Detector Pin (must be LOW in zero position)
-                            420,            // zero offset
+                            440,            // zero offset
                             [](unsigned int newValue) -> unsigned int {
                               /* this function needs to map newValue to the correct number of steps */
 
