@@ -100,7 +100,21 @@ unsigned long timeSinceRedLedChanged = 0;
 
 #include <Servo.h>
 
-#define DIMMER 11
+// ################################### BEGIN LIGHTING ##################################
+#define BrightnessWhileRunningSetup 128
+#define BrightnessPostSetup 65
+
+#define ASH_DDI_PWM_5V 46
+#define BACK_LIGHTS 11
+#define BAT_HYD_DIM 3
+#define BRK_PRESS_DIM 5
+#define CAB_ALT_DIM 2
+#define COMPASS_DIM 12
+#define MAP_DIM 4
+#define RADAR_ALTIMETER_DIM 6
+#define SPARE_DIM 45
+
+
 #define RAD_GN 9
 #define RAD_RD 8
 
@@ -114,10 +128,10 @@ Servo RAD_ALT_servo;
 #define STEPS 720  // steps per revolution (limited to 315°)
 
 
-#define COILRA1 5  // RA = RAD ALT
-#define COILRA2 6
-#define COILRA3 2
-#define COILRA4 3
+#define COILRA1 A4  // RA = RAD ALT
+#define COILRA2 A5
+#define COILRA3 A6
+#define COILRA4 A7
 
 #define COILBT1_1 22  // BT_1 = BATTERY 1
 #define COILBT1_2 23
@@ -144,15 +158,15 @@ Servo RAD_ALT_servo;
 #define COILCA3 40
 #define COILCA4 41
 
-#define COILBP1 42  // BP = BRAKE PRESSURE
-#define COILBP2 43
-#define COILBP3 44
-#define COILBP4 45
+#define COILBP1 A8  // BP = BRAKE PRESSURE
+#define COILBP2 A9
+#define COILBP3 A10
+#define COILBP4 A11
 
-#define COILCP1 46  // CP = COMPASS
-#define COILCP2 47
-#define COILCP3 48
-#define COILCP4 49
+#define COILCP1 A12  // CP = COMPASS
+#define COILCP2 A13
+#define COILCP3 A14
+#define COILCP4 A15
 
 
 
@@ -265,7 +279,17 @@ void onConsoleIntLtChange(unsigned int newValue) {
   int ConsolesDimmerValue = 0;
 
   ConsolesDimmerValue = map(newValue, 0, 65535, 5, 255);
-  analogWrite(DIMMER, ConsolesDimmerValue);
+  analogWrite(ASH_DDI_PWM_5V, ConsolesDimmerValue);
+  analogWrite(BACK_LIGHTS, ConsolesDimmerValue);
+  analogWrite(BAT_HYD_DIM, ConsolesDimmerValue);
+  analogWrite(BRK_PRESS_DIM, ConsolesDimmerValue);
+  analogWrite(CAB_ALT_DIM, ConsolesDimmerValue);
+  analogWrite(COMPASS_DIM, ConsolesDimmerValue);
+  analogWrite(MAP_DIM, ConsolesDimmerValue);
+  analogWrite(RADAR_ALTIMETER_DIM, ConsolesDimmerValue);
+  analogWrite(SPARE_DIM, ConsolesDimmerValue);
+
+
 }
 
 DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
@@ -320,10 +344,10 @@ int HornetRadaltMapper(unsigned int controlPosition, unsigned int dcsPosition) {
 // BEN
 
 
-DcsBios::RotarySyncingPotentiometer radaltHeight("RADALT_HEIGHT", A2, 0x7518, 0xffff, 0, HornetRadaltMapper);
+DcsBios::RotarySyncingPotentiometer radaltHeight("RADALT_HEIGHT", A0, 0x7518, 0xffff, 0, HornetRadaltMapper);
 
 
-DcsBios::Switch2Pos radaltTestSw("RADALT_TEST_SW", A13);
+DcsBios::Switch2Pos radaltTestSw("RADALT_TEST_SW", A1);
 
 // ************************************ End Exterior and Interior Lights Block
 
@@ -486,7 +510,7 @@ struct StepperConfig stepperConfig = {
 
 
 // define AccelStepper instance
-AccelStepper stepper(AccelStepper::FULL4WIRE, 46, 47, 48, 49);
+AccelStepper stepper(AccelStepper::FULL4WIRE, A12, A13, A14, A15);
 
 // define Vid60Stepper class that uses the AccelStepper instance defined in the line above
 //           v-- arbitrary name
@@ -495,7 +519,7 @@ Vid60Stepper standbyCompass(0x0436,         // address of stepper data
                             stepper,        // name of AccelStepper instance
                             stepperConfig,  // StepperConfig struct instance
                             16,             // IR Detector Pin (must be LOW in zero position)
-                            220,            // zero offset
+                            420,            // zero offset
                             [](unsigned int newValue) -> unsigned int {
                               /* this function needs to map newValue to the correct number of steps */
 
@@ -546,14 +570,63 @@ void setup() {
 
     SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
 
-
-
-    pinMode(DIMMER, OUTPUT);
     pinMode(RAD_GN, OUTPUT);
     pinMode(RAD_RD, OUTPUT);
-    digitalWrite(DIMMER, HIGH);
+
     digitalWrite(RAD_GN, HIGH);
     digitalWrite(RAD_RD, HIGH);
+
+    // Lights
+
+    pinMode(ASH_DDI_PWM_5V, OUTPUT);
+    pinMode(BACK_LIGHTS, OUTPUT);
+    pinMode(BAT_HYD_DIM, OUTPUT);
+    pinMode(BRK_PRESS_DIM, OUTPUT);
+    pinMode(CAB_ALT_DIM, OUTPUT);
+    pinMode(COMPASS_DIM, OUTPUT);
+    pinMode(MAP_DIM, OUTPUT);
+    pinMode(RADAR_ALTIMETER_DIM, OUTPUT);
+    pinMode(SPARE_DIM, OUTPUT);
+
+    SendDebug(BoardName + "Leds On");
+
+    analogWrite(ASH_DDI_PWM_5V, 255);
+    analogWrite(BACK_LIGHTS, 255);
+    analogWrite(BAT_HYD_DIM, 255);
+    analogWrite(BRK_PRESS_DIM, 255);
+    analogWrite(CAB_ALT_DIM, 255);
+    analogWrite(COMPASS_DIM, 255);
+    analogWrite(MAP_DIM, 255);
+    analogWrite(RADAR_ALTIMETER_DIM, 255);
+    analogWrite(SPARE_DIM, 255);
+    delay(3000);
+
+    SendDebug(BoardName + "Dimming Leds");
+    for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
+      analogWrite(ASH_DDI_PWM_5V, Local_Brightness);
+      analogWrite(BACK_LIGHTS, Local_Brightness);
+      analogWrite(BAT_HYD_DIM, Local_Brightness);
+      analogWrite(BRK_PRESS_DIM, Local_Brightness);
+      analogWrite(CAB_ALT_DIM, Local_Brightness);
+      analogWrite(COMPASS_DIM, Local_Brightness);
+      analogWrite(MAP_DIM, Local_Brightness);
+      analogWrite(RADAR_ALTIMETER_DIM, Local_Brightness);
+      analogWrite(SPARE_DIM, Local_Brightness);
+      // SendDebug("Led Brightness " + String(Local_Brightness));
+      delay(15);
+    }
+
+    SendDebug(BoardName + "Leds Brightness to Setup Level");
+
+    analogWrite(ASH_DDI_PWM_5V, BrightnessWhileRunningSetup);
+    analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
+    analogWrite(BAT_HYD_DIM, BrightnessWhileRunningSetup);
+    analogWrite(BRK_PRESS_DIM, BrightnessWhileRunningSetup);
+    analogWrite(CAB_ALT_DIM, BrightnessWhileRunningSetup);
+    analogWrite(COMPASS_DIM, BrightnessWhileRunningSetup);
+    analogWrite(MAP_DIM, BrightnessWhileRunningSetup);
+    analogWrite(RADAR_ALTIMETER_DIM, BrightnessWhileRunningSetup);
+    analogWrite(SPARE_DIM, BrightnessWhileRunningSetup);
 
 
     SendDebug(BoardName + " Start Cycling Radio Altimeter Servo");
@@ -654,7 +727,19 @@ void setup() {
 
 
     delay(500);
-    digitalWrite(DIMMER, LOW);
+    SendDebug(BoardName + "Leds Brightness to Post Setup Level");
+
+    analogWrite(ASH_DDI_PWM_5V, BrightnessPostSetup);
+    analogWrite(BACK_LIGHTS, BrightnessPostSetup);
+    analogWrite(BAT_HYD_DIM, BrightnessPostSetup);
+    analogWrite(BRK_PRESS_DIM, BrightnessPostSetup);
+    analogWrite(CAB_ALT_DIM, BrightnessPostSetup);
+    analogWrite(COMPASS_DIM, BrightnessPostSetup);
+    analogWrite(MAP_DIM, BrightnessPostSetup);
+    analogWrite(RADAR_ALTIMETER_DIM, BrightnessPostSetup);
+    analogWrite(SPARE_DIM, BrightnessPostSetup);
+
+
     digitalWrite(RAD_GN, LOW);
     digitalWrite(RAD_RD, LOW);
 
@@ -662,11 +747,6 @@ void setup() {
 
 
     DcsBios::setup();
-
-#define BrightnessPostSetup 65
-
-    analogWrite(DIMMER, BrightnessPostSetup);
-
   }
 }
 
