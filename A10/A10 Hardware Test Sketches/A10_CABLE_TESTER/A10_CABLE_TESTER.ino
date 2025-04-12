@@ -60,19 +60,20 @@ repeat until we have reached the lat expected pin.
 
 #define STATUS_LED_PORT LED_BUILTIN
 #define FLASH_TIME 500
+#define START_TEST_BUTTON 54
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
 
-U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_DISPLAY(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 
 
-extern "C" {
-#include "utility/twi.h"  // from Wire library, so we can do bus scanning
-}
+// extern "C" {
+// #include "utility/twi.h"  // from Wire library, so we can do bus scanning
+// }
 
-#define TCAADDR 0x70
+// #define TCAADDR 0x70
 
 
 int CurrentDisplay = 0;
@@ -101,8 +102,8 @@ void SetupPins() {
   txPin[13] = 13;
   txPin[14] = 14;
   txPin[15] = 15;
-  txPin[16] = 69;  //A15
-  txPin[17] = 68;  //14
+  txPin[16] = A15;  //A15
+  txPin[17] = A14;  //A14 68
   txPin[18] = 18;
   txPin[19] = 19;
   txPin[20] = 20;
@@ -157,22 +158,16 @@ void txPinsToFloat() {
 
 void AllPinsLow() {
   for (int i = 1; i <= 26; i++) {
+    pinMode(txPin[i], OUTPUT);
     digitalWrite(txPin[i], LOW);
   }
 }
 
 void AllPinsHigh() {
   for (int i = 1; i <= 26; i++) {
+    pinMode(txPin[i], OUTPUT);
     digitalWrite(txPin[i], HIGH);
   }
-}
-
-void tcaselect(uint8_t i) {
-  if (i > 7) return;
-
-  Wire.beginTransmission(TCAADDR);
-  Wire.write(1 << i);
-  Wire.endTransmission();
 }
 
 void SendDebug(String MessageToSend) {
@@ -181,41 +176,17 @@ void SendDebug(String MessageToSend) {
 
 
 void setup() {
-  // Serial.begin(115200);
-  // Serial.write("Cable Tester Start");
-  // SendDebug("hello");
-  pinMode(54, INPUT_PULLUP);
+
+  pinMode(START_TEST_BUTTON, INPUT_PULLUP);
 
 
   Wire.begin();
 
-
-  // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-  //Serial.println("\nScanning I2C Bus");
-
-  for (uint8_t t = 0; t < 8; t++) {
-    tcaselect(t);
-    // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-    SendDebug("TCA Port #" + String(t));
-
-    for (uint8_t addr = 0; addr <= 127; addr++) {
-      //if (addr == TCAADDR) continue;
-
-      uint8_t data;
-      if (!twi_writeTo(addr, &data, 0, 1, 1)) {
-        // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-        SendDebug("Found I2C 0x" + String(addr));
-      }
-    }
-  }
-  // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-  SendDebug("I2C scan complete");
-
-  u8g2_BARO.begin();
-  u8g2_BARO.clearBuffer();
-  u8g2_BARO.setFont(u8g2_font_logisoso16_tf);
-  u8g2_BARO.sendBuffer();
-  updateBARO("CABLE TEST INIT");
+  u8g2_DISPLAY.begin();
+  u8g2_DISPLAY.clearBuffer();
+  u8g2_DISPLAY.setFont(u8g2_font_logisoso16_tf);
+  u8g2_DISPLAY.sendBuffer();
+  DisplayUpdate("CABLE TEST INIT");
 
 
   SetupPins();
@@ -223,25 +194,28 @@ void setup() {
 
 
 
-void updateBARO(String strnewValue) {
+void DisplayUpdate(String strnewValue) {
 
+
+  Wire.begin();
   const char* newValue = strnewValue.c_str();
 
-  u8g2_BARO.setFontMode(0);
-  u8g2_BARO.setDrawColor(0);
-  u8g2_BARO.drawBox(0, 0, 128, 32);
-  u8g2_BARO.setDrawColor(1);
-  u8g2_BARO.setFontDirection(0);
-  u8g2_BARO.drawStr(0, 16, newValue);
-  u8g2_BARO.sendBuffer();
+  u8g2_DISPLAY.setFontMode(0);
+  u8g2_DISPLAY.setDrawColor(0);
+  u8g2_DISPLAY.drawBox(0, 0, 128, 32);
+  u8g2_DISPLAY.setDrawColor(1);
+  u8g2_DISPLAY.setFontDirection(0);
+  u8g2_DISPLAY.drawStr(0, 16, newValue);
+  u8g2_DISPLAY.sendBuffer();
+  Wire.end();
 }
 
 
 
 void loop() {
-  if (digitalRead(54) == LOW) {
+  if (digitalRead(START_TEST_BUTTON) == LOW) {
     bool errorEncountered = false;
-    updateBARO("Test Start");
+    DisplayUpdate("Test Start");
     delay(300);
 
 
@@ -251,51 +225,52 @@ void loop() {
     AllPinsHigh();
     for (int i = 1; i <= 26; i++) {
       if (digitalRead(rxPin[i]) != HIGH) {
-        updateBARO("Pin " + String(i) + " not HIGH");
+        DisplayUpdate("Pin " + String(i) + " not HIGH");
         delay(5000);
         errorEncountered = true;
       };
     }
 
-    updateBARO("All High");
-    delay(500);
+    DisplayUpdate("All High");
+    delay(200);
     AllPinsLow();
-    updateBARO("All Low");
-    delay(500);
+    DisplayUpdate("All Low");
+    delay(200);
 
     // Find last connected pin
     SendDebug("Finding last connected pin");
     int LastConnectedPin = 0;
     txPinsToFloat();
     for (int i = 1; i <= 26; i++) {
-      updateBARO("Pin " + String(i));
+      DisplayUpdate("Pin " + String(i));
       //SendDebug("Setting Low Pin " + String(txPin[i]) + " Reading Pin " + String(rxPin[i]));
       pinMode(txPin[i], OUTPUT);
       digitalWrite(txPin[i], LOW);
       delay(50);
       if (digitalRead(rxPin[i]) == LOW) {
-        SendDebug("Pin " + String(rxPin[i]) + " LOW");
         LastConnectedPin = i;
       };
       pinMode(txPin[i], INPUT);
     }
     if (LastConnectedPin == 0) {
-      updateBARO("No cable connected");
+      DisplayUpdate("No cable connected");
       errorEncountered = true;
     } else
-      updateBARO("Testing to " + String(LastConnectedPin));
+      DisplayUpdate("Testing to " + String(LastConnectedPin));
     delay(500);
+
+
 
     // Test that only a single pin changes
     if (errorEncountered != true) {
       for (int i = 1; i <= LastConnectedPin; i++) {
-        updateBARO("Short Test " + String(txPin[i]));
-        delay(500);
+        DisplayUpdate("Short Test " + String(txPin[i]));
+        delay(100);
         txPinsToFloat();
         pinMode(txPin[i], OUTPUT);
         digitalWrite(txPin[i], LOW);
-        for (int j = 1; i <= LastConnectedPin; i++) {
-          
+        for (int j = 1; j <= LastConnectedPin; j++) {
+
           if (errorEncountered == true)
             break;
           if (j != i) {
@@ -304,9 +279,19 @@ void loop() {
               // We have a different pin to what we expect going low
               errorEncountered = true;
 
-              updateBARO("Short " + String(i) + ":" + String(j));
+              DisplayUpdate("Short " + String(i) + ":" + String(j));
               txPinsToFloat();
-              delay(10000);
+              delay(3000);
+              break;
+            }
+          } else {
+            // Check continuity for pin
+            if (digitalRead(rxPin[j]) != LOW) {
+              errorEncountered = true;
+
+              DisplayUpdate("Open " + String(i) + ":" + String(j));
+              txPinsToFloat();
+              delay(3000);
               break;
             }
           }
@@ -316,8 +301,8 @@ void loop() {
     }
 
     if (errorEncountered == true)
-      updateBARO("Test Failed");
+      DisplayUpdate("Test Failed");
     else
-      updateBARO("Pass to : " + String(LastConnectedPin));
+      DisplayUpdate("Pass to : " + String(LastConnectedPin));
   }
 }
