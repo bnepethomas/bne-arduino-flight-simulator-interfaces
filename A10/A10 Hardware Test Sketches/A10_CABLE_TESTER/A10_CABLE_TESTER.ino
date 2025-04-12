@@ -264,7 +264,7 @@ void loop() {
     // Test that only a single pin changes
     if (errorEncountered != true) {
       for (int i = 1; i <= LastConnectedPin; i++) {
-        DisplayUpdate("Short Test " + String(txPin[i]));
+        DisplayUpdate("Short Test " + String(i));
         delay(100);
         txPinsToFloat();
         pinMode(txPin[i], OUTPUT);
