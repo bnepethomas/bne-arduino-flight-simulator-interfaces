@@ -304,6 +304,38 @@ void onWarnCautionDimmerChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionDimmerChange);
 
+
+void onAoaIndexerHighChange(unsigned int newValue) {
+  if (newValue == 1) {
+    digitalWrite(AOA_TOP, 0);
+  } else {
+    digitalWrite(AOA_TOP, 1);
+  }
+}
+DcsBios::IntegerBuffer aoaIndexerHighBuffer(FA_18C_hornet_AOA_INDEXER_HIGH, onAoaIndexerHighChange);
+
+
+
+void onAoaIndexerLowChange(unsigned int newValue) {
+  if (newValue == 1) {
+    digitalWrite(AOA_BOT, 0);
+  } else {
+    digitalWrite(AOA_BOT, 1);
+  }
+}
+DcsBios::IntegerBuffer aoaIndexerLowBuffer(FA_18C_hornet_AOA_INDEXER_LOW, onAoaIndexerLowChange);
+
+void onAoaIndexerNormalChange(unsigned int newValue) {
+  if (newValue == 1) {
+    digitalWrite(AOA_BALL, 0);
+  } else {
+    digitalWrite(AOA_BALL, 1);
+  }
+}
+DcsBios::IntegerBuffer aoaIndexerNormalBuffer(FA_18C_hornet_AOA_INDEXER_NORMAL, onAoaIndexerNormalChange);
+
+
+
 void onRadaltGreenLampChange(unsigned int newValue) {
   if (newValue == 1) {
     analogWrite(RAD_GN, WarnCautionDimmerValue);
@@ -321,6 +353,8 @@ void onLowAltWarnLtChange(unsigned int newValue) {
   }
 }
 DcsBios::IntegerBuffer lowAltWarnLtBuffer(0x749c, 0x8000, 15, onLowAltWarnLtChange);
+
+
 
 
 // controlPosition: 0 to 65,535 value representing the analog, real world control value
@@ -756,7 +790,7 @@ void setup() {
     digitalWrite(RAD_GN, LOW);
     digitalWrite(RAD_RD, LOW);
 
-      // AOA has common +5V so inverse logic applies
+    // AOA has common +5V so inverse logic applies
     digitalWrite(AOA_TOP, HIGH);
     digitalWrite(AOA_BALL, HIGH);
     digitalWrite(AOA_BOT, HIGH);
