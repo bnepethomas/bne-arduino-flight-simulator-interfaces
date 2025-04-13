@@ -67,7 +67,7 @@ EthernetUDP debugUDP;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 String DebugString = "";
-String BoardName = "Hornet gauges Instrument Controller";
+String BoardName = "Hornet Gauges Instrument Controller";
 
 
 void SendDebug(String MessageToSend) {
@@ -113,6 +113,10 @@ unsigned long timeSinceRedLedChanged = 0;
 #define MAP_DIM 4
 #define RADAR_ALTIMETER_DIM 6
 #define SPARE_DIM 45
+
+#define AOA_TOP 47
+#define AOA_BALL 48
+#define AOA_BOT 49
 
 
 #define RAD_GN 9
@@ -288,8 +292,6 @@ void onConsoleIntLtChange(unsigned int newValue) {
   analogWrite(MAP_DIM, ConsolesDimmerValue);
   analogWrite(RADAR_ALTIMETER_DIM, ConsolesDimmerValue);
   analogWrite(SPARE_DIM, ConsolesDimmerValue);
-
-
 }
 
 DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
@@ -573,8 +575,19 @@ void setup() {
     pinMode(RAD_GN, OUTPUT);
     pinMode(RAD_RD, OUTPUT);
 
+    pinMode(AOA_TOP, OUTPUT);
+    pinMode(AOA_BALL, OUTPUT);
+    pinMode(AOA_BOT, OUTPUT);
+
+
     digitalWrite(RAD_GN, HIGH);
     digitalWrite(RAD_RD, HIGH);
+
+    // AOA has common +5V so inverse logic applies
+    digitalWrite(AOA_TOP, LOW);
+    digitalWrite(AOA_BALL, LOW);
+    digitalWrite(AOA_BOT, LOW);
+
 
     // Lights
 
@@ -628,23 +641,23 @@ void setup() {
     analogWrite(RADAR_ALTIMETER_DIM, BrightnessWhileRunningSetup);
     analogWrite(SPARE_DIM, BrightnessWhileRunningSetup);
 
-
     SendDebug(BoardName + " Start Cycling Radio Altimeter Servo");
     RAD_ALT_servo.attach(RadarAltServoPin);
     SendDebug(BoardName + " Servo Flag Visible");
     RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
     // RAD_ALT_servo.detach();
-    delay(1000);
+    delay(5000);
     // RAD_ALT_servo.attach(RadarAltServoPin);
     SendDebug(BoardName + " Servo Flag Hidden");
     RAD_ALT_servo.write(RAD_ALT_servo_Hidden_Pos);  // set servo to min
-    delay(1000);
+    delay(5000);
     SendDebug(BoardName + " Servo Flag Visible");
     RAD_ALT_servo.write(RAD_ALT_servo_Off_Pos);  // set servo to "Off Point"
     // RAD_ALT_servo.detach();
-    delay(1000);
+    delay(5000);
     RAD_ALT_servo.detach();
     //analogWrite(5, LOW);
+
 
     //###########################################################################################
     /// RADAR ALT WORKING ======> SET RADAR ALT STEPPER TO 0 FEET
@@ -742,6 +755,11 @@ void setup() {
 
     digitalWrite(RAD_GN, LOW);
     digitalWrite(RAD_RD, LOW);
+
+      // AOA has common +5V so inverse logic applies
+    digitalWrite(AOA_TOP, HIGH);
+    digitalWrite(AOA_BALL, HIGH);
+    digitalWrite(AOA_BOT, HIGH);
 
     SendDebug(BoardName + " End Setup");
 
