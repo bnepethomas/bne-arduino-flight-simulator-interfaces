@@ -1336,6 +1336,14 @@ void loop() {
     RED_LED_STATE = !GREEN_LED_STATE;
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
+
+    // Testing digital outputs
+
+    // digitalWrite(BLEED_AIR_SOL_PORT, RED_LED_STATE);
+    // digitalWrite(PITOT_HEAT_PORT, RED_LED_STATE);
+    // digitalWrite(LASER_ARM_PORT, RED_LED_STATE);
+    // digitalWrite(CANOPY_MAG_PORT, RED_LED_STATE);
+
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
