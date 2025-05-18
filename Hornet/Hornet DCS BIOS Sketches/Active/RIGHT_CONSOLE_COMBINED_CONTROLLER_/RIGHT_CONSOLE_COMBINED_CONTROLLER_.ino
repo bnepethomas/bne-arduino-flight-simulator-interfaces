@@ -1390,15 +1390,16 @@ void loop() {
     delayMicroseconds(ScanDelay);
 
     int colResult[numberofColumns];
-    for (int colid = 0; colid < (numberofColumns - 1); colid++) {
+    for (int colid = 0; colid < (numberofColumns); colid++) {
       colResult[colid] = digitalRead(startingColumnPin + colid);
-      SendDebug("Check for column 10");
-      delay(5000);
+      //SendDebug("Column:Row:Value " + String(colid) + ":" + String(rowid) + ":" + String(colResult[colid]));
+
+      
       
     }
+    // delay(5000);
 
-
-    for (int colid = 0; colid < (numberofColumns - 1); colid++) {
+    for (int colid = 0; colid < numberofColumns; colid++) {
       if (colResult[colid] == 0) {
         joyReport.button[(rowid * numberofColumns) + colid] = 1;
       } else {
