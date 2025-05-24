@@ -117,6 +117,8 @@ void SendDebug(String MessageToSend) {
 
 // ********************************* Begin Digital ***************************************************
 
+#define HOOK_LED 4
+
 #define BLEED_AIR_SOL_PORT A12
 #define PITOT_HEAT_PORT A13
 #define LASER_ARM_PORT A14
@@ -273,7 +275,8 @@ void setup() {
 
 
 
-
+  pinMode(HOOK_LED, OUTPUT);
+  digitalWrite(HOOK_LED, true);
 
   pinMode(BLEED_AIR_SOL_PORT, OUTPUT);
   digitalWrite(BLEED_AIR_SOL_PORT, false);
@@ -1361,8 +1364,11 @@ void loop() {
 
     GREEN_LED_STATE = !GREEN_LED_STATE;
     RED_LED_STATE = !GREEN_LED_STATE;
+
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
+
+    digitalWrite(HOOK_LED, RED_LED_STATE);
 
     // Testing digital outputs
 
@@ -1393,9 +1399,6 @@ void loop() {
     for (int colid = 0; colid < (numberofColumns); colid++) {
       colResult[colid] = digitalRead(startingColumnPin + colid);
       //SendDebug("Column:Row:Value " + String(colid) + ":" + String(rowid) + ":" + String(colResult[colid]));
-
-      
-      
     }
     // delay(5000);
 
