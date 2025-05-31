@@ -268,9 +268,14 @@ void allMax7219Off() {
 
 // ######################## BEGIN RWR ########################
 
-// RWR ANALOG INPUTS
-DcsBios::Potentiometer rwrDmrCtrl("RWR_DMR_CTRL", A0);
-DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A1);
+// Note Pots are currently inversed
+DcsBios::PotentiometerEWMA<5, 128, 5> rwrDmrCtrl("RWR_DMR_CTRL", A1);
+DcsBios::PotentiometerEWMA<5, 128, 5> rwrAudioCtrl("RWR_AUDIO_CTRL", A0);
+
+//DcsBios::Potentiometer rwrDmrCtrl("RWR_DMR_CTRL", A0);
+//DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A1);
+//DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", 9);    //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+
 
 bool RWR_POWER_BUTTON_STATE = false;  // Used to latch the RWR Power Switch
 void onRwrPowerBtnChange(unsigned int newValue) {
@@ -298,37 +303,107 @@ void setRWRPwrLed(bool newValue) {
   lc.setLed(0, 0, 1, newValue);
 }
 
+void onRwrLowerLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setRWRPwrLed(true);
+  else
+    setRWRPwrLed(false);
+}
+DcsBios::IntegerBuffer rwrLowerLtBuffer(FA_18C_hornet_RWR_LOWER_LT, onRwrLowerLtChange);
+
 void setRWRLimitLed(bool newValue) {
   lc.setLed(0, 0, 2, newValue);
 }
+
+void onRwrLimitLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setRWRLimitLed(true);
+  else
+    setRWRLimitLed(false);
+}
+DcsBios::IntegerBuffer rwrLimitLtBuffer(FA_18C_hornet_RWR_LIMIT_LT, onRwrLimitLtChange);
 
 void setRWRDisplayLed(bool newValue) {
   lc.setLed(0, 0, 3, newValue);
 }
 
+void onRwrDisplayLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setRWRDisplayLed(true);
+  else
+    setRWRDisplayLed(false);
+}
+DcsBios::IntegerBuffer rwrDisplayLtBuffer(FA_18C_hornet_RWR_DISPLAY_LT, onRwrDisplayLtChange);
+
 void setRWRSpecialEnableLed(bool newValue) {
   lc.setLed(0, 1, 1, newValue);
 }
 
+void onRwrSpecialEnLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setRWRSpecialEnableLed(true);
+  else
+    setRWRSpecialEnableLed(false);
+}
+DcsBios::IntegerBuffer rwrSpecialEnLtBuffer(FA_18C_hornet_RWR_SPECIAL_EN_LT, onRwrSpecialEnLtChange);
+
 void setRWRSpecialLed(bool newValue) {
   lc.setLed(0, 1, 2, newValue);
 }
+void onRwrSpecialLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setRWRSpecialLed(true);
+  else
+    setRWRSpecialLed(false);
+}
+DcsBios::IntegerBuffer rwrSpecialLtBuffer(FA_18C_hornet_RWR_SPECIAL_LT, onRwrSpecialLtChange);
 
 void setRWROffsetEnableLed(bool newValue) {
   lc.setLed(0, 1, 3, newValue);
 }
+void onRwrEnableLtChange(unsigned int newValue) {
+    if (newValue == 1)
+    setRWROffsetEnableLed(true);
+  else
+    setRWROffsetEnableLed(false);
+}
+DcsBios::IntegerBuffer rwrEnableLtBuffer(FA_18C_hornet_RWR_ENABLE_LT, onRwrEnableLtChange);
 
 void setRWROffsetLed(bool newValue) {
   lc.setLed(0, 2, 1, newValue);
 }
+void onRwrOffsetLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setRWROffsetLed(true);
+  else
+    setRWROffsetLed(false);
+}
+DcsBios::IntegerBuffer rwrOffsetLtBuffer(FA_18C_hornet_RWR_OFFSET_LT, onRwrOffsetLtChange);
 
 void setRWRFailLed(bool newValue) {
   lc.setLed(0, 2, 2, newValue);
 }
+void onRwrFailLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setRWRFailLed(true);
+  else
+    setRWRFailLed(false);
+}
+DcsBios::IntegerBuffer rwrFailLtBuffer(FA_18C_hornet_RWR_FAIL_LT, onRwrFailLtChange);
+
 
 void setRWRTestLed(bool newValue) {
   lc.setLed(0, 2, 3, newValue);
 }
+void onRwrBitLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setRWRTestLed(true);
+  else
+    setRWRTestLed(false);
+  }
+DcsBios::IntegerBuffer rwrBitLtBuffer(FA_18C_hornet_RWR_BIT_LT, onRwrBitLtChange);
+
+
 
 // ######################## END RWR ########################
 
@@ -422,7 +497,7 @@ void setup() {
   }
 
 
-  while (millis() <= 12000) {
+  while (millis() <= 6000) {
     delay(FLASH_TIME);
     digitalWrite(GREEN_STATUS_LED_PORT, false);
     delay(FLASH_TIME);
@@ -493,6 +568,7 @@ void SendMSFSMessage(int ind, int state) {
   //  udp.endPacket();
 }
 
+
 void SendIPString(String KeysToSend) {
   // Used to Send Desired Keystrokes to Due acting as Keyboard
 
@@ -507,6 +583,7 @@ void SendIPString(String KeysToSend) {
   }
 }
 
+
 void SendLedString(String LedCommandToSend) {
 
   if (Ethernet_In_Use == 1) {
@@ -517,8 +594,6 @@ void SendLedString(String LedCommandToSend) {
 }
 
 
-
-
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
 
@@ -527,7 +602,6 @@ void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
   sendDcsBiosMessage(msg, arg);
 }
-
 
 
 void CreateDcsBiosMessage(int ind, int state) {
@@ -1005,7 +1079,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - CLOSE
         case 26:
-          break;        
+          break;
         case 27:
           break;
         case 28:
@@ -1223,6 +1297,12 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 124:
           break;
         case 125:
+
+          if (RWR_POWER_BUTTON_STATE == true) {
+            sendToDcsBiosMessage("RWR_POWER_BTN", "0");
+          } else {
+            sendToDcsBiosMessage("RWR_POWER_BTN", "1");
+          }
           break;
           // PRESS - CLOSE
         case 126:
@@ -1352,61 +1432,6 @@ void CreateDcsBiosMessage(int ind, int state) {
   }
 }
 
-//ECS PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> cabinTemp("CABIN_TEMP", 8);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", 9);    //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-
-//INTR LTS PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3);               //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> consolesDimmer("CONSOLES_DIMMER", 0);         //set //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> floodDimmer("FLOOD_DIMMER", 2);               //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> instPnlDimmer("INST_PNL_DIMMER", 1);          //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> warnCautionDimmer("WARN_CAUTION_DIMMER", 4);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-
-
-
-void onConsolesDimmerChange(unsigned int newValue) {
-  int outvalue = 0;
-  outvalue = map(newValue, 0, 65534, 0, 255);
-  SendLedString("Brightness=" + String(outvalue));
-}
-DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerChange);
-
-//DE-FOG PANEL (INTR LTS)
-
-DcsBios::PotentiometerEWMA<5, 128, 5> defogHandle("DEFOG_HANDLE", 5);  //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
-
-//KY58 PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> ky58Volume("KY58_VOLUME", 10);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-
-// controlPosition: 0 to 65,535 value representing the analog, real world control value
-// dcsPosition: 0 to 65,535 value reported from DCS for the provided address
-// return: −32,768 to 32,767 signed integer to be sent to the DCS rotary control.  0 will not be sent.
-int HornetRadaltMapper(unsigned int controlPosition, unsigned int dcsPosition) {
-  unsigned int a = map(controlPosition, 0, 65530, 161000, 1800);  // Silly right now, but to reduce the range if your analog pot doesn't reach max deflection, reduce the first 65535 number
-  unsigned int b = map(dcsPosition, 0, 64355, 0, 65535);          // Observationally, in DCS the max value for RADALT_HEIGHT is 64355
-
-  // Careful here since we are on 16 bit microcontrollers and doing some signed v unsigned maths.  Probably a better way to do this, but this works.
-  unsigned int delta = (a >= b) ? a - b : b - a;
-
-  const unsigned int MAX_ROTATION = 20000;  // Always keep less than 32767
-  if (delta > MAX_ROTATION)
-    delta = MAX_ROTATION;
-
-  if (a >= b)
-    return (int)delta;
-  else
-    return -1 * (int)delta;
-}
-
-// BEN
-
-
-//DcsBios::RotarySyncingPotentiometer radaltHeight("RADALT_HEIGHT", 11, 0x7518, 0xffff, 0, HornetRadaltMapper);
-
-
-
-
 
 
 void loop() {
@@ -1425,7 +1450,7 @@ void loop() {
   }
 
 
-  // if (DCSBIOS_In_Use == 1) DcsBios::loop();
+  if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first
   for (int rowid = 0; rowid < 16; rowid++) {
@@ -1997,7 +2022,7 @@ void CaseTemplate(int ind, int state) {
           break;
           // PRESS - CLOSE
         case 26:
-          break;        
+          break;
         case 27:
           break;
         case 28:
@@ -2343,4 +2368,3 @@ void CaseTemplate(int ind, int state) {
       }
   }
 }
-
