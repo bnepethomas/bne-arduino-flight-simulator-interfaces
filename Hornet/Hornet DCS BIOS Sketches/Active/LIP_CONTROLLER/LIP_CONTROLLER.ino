@@ -1,10 +1,10 @@
 
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
-//||               FUNCTION = HORNET LED OUTPUT MAX 7219              ||\\
-//||              LOCATION IN THE PIT = LIP RIGHTHAND SIDE            ||\\
+//||               FUNCTION = HORNET LOWER INSTRUMENT PANEL           ||\\
+//||              LOCATION IN THE PIT = LIP.                          ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
-//||      ARDUINO CHIP SERIAL NUMBER = SN - 75834353230351013181     ||\\
+//||      ARDUINO CHIP SERIAL NUMBER = SN - 75834353230351013181      ||\\
 //||                    CONNECTED COM PORT = COM 4                    ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
@@ -105,6 +105,7 @@ char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 void SendDebug(String MessageToSend) {
+  MessageToSend = BoardName + MessageToSend;
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
     udp.print(MessageToSend);
@@ -117,12 +118,7 @@ void SendDebug(String MessageToSend) {
 
 // ********************************* Begin Digital ***************************************************
 
-#define HOOK_LED 4
 
-#define BLEED_AIR_SOL_PORT A12
-#define PITOT_HEAT_PORT A13
-#define LASER_ARM_PORT A14
-#define CANOPY_MAG_PORT A15
 
 // ********************************* End Digital ***************************************************
 
@@ -231,6 +227,66 @@ void turnOnAllBacklights() {
   digitalWrite(BACKLIGHT_JET_BUT_PWM, HIGH);
 }
 
+// ######################## BEGIN MAX7219 ########################
+#include "LedControl.h"
+LedControl lc = LedControl(A11, A10, A9, 1);
+
+void allOn() {
+  for (int displayunit = 0; displayunit < 1; displayunit++) {
+    for (int row = 0; row < 8; row++) {
+      for (int col = 0; col < 8; col++) {
+        if (col != 9 && col != 9 && col != 9)
+          lc.setLed(displayunit, row, col, true);
+      }
+    }
+  }
+}
+
+void debugAllOn() {
+  for (int displayunit = 0; displayunit < 1; displayunit++) {
+    for (int row = 0; row < 3; row++) {
+      for (int col = 0; col < 4; col++) {
+        if (col != 9 && col != 9 && col != 9)
+        SendDebug(String(row) + ":" + String(col));
+          lc.setLed(displayunit, row, col, true);
+          delay(1000);
+      }
+    }
+  }
+}
+
+void allOff() {
+  for (int displayunit = 0; displayunit < 1; displayunit++) {
+    for (int row = 0; row < 8; row++) {
+      for (int col = 0; col < 8; col++) {
+        if (col != 9 && col != 9 && col != 9)
+          lc.setLed(displayunit, row, col, false);
+      }
+    }
+  }
+}
+
+// ######################## BEGIN RWR ########################
+
+// RWR ANALOG INPUTS
+DcsBios::Potentiometer rwrDmrCtrl("RWR_DMR_CTRL", A0);      
+DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A1);  
+
+bool RWR_POWER_BUTTON_STATE = false;  // Used to latch the RWR Power Switch
+void onRwrPowerBtnChange(unsigned int newValue) {
+  if (newValue == 1) {
+    RWR_POWER_BUTTON_STATE = true;
+  } else {
+    RWR_POWER_BUTTON_STATE = false;
+  }
+}
+DcsBios::IntegerBuffer rwrPowerBtnBuffer(0x7488, 0x1000, 12, onRwrPowerBtnChange);
+
+
+
+
+// ######################## END RWR ########################
+
 // ######################## SETUP ########################
 
 
@@ -265,7 +321,7 @@ void setup() {
     }
 
 
-    SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
+    SendDebug("Ethernet Started " + strMyIP + " " + sMac);
   }
 
   pinMode(MAP_LIGHTS, OUTPUT);
@@ -280,7 +336,19 @@ void setup() {
 
   turnOnAllBacklights();
 
-  
+
+
+
+  /*The MAX72XX is in power-saving mode on startup*/
+  lc.shutdown(0, false);
+  /* Set the brightness to a medium values */
+  lc.setIntensity(0, 15);
+  /* and clear the display */
+  lc.clearDisplay(0);
+
+  debugAllOn();
+
+
 
   // Set the output ports to output
   for (int portId = 22; portId < 38; portId++) {
@@ -309,18 +377,20 @@ void setup() {
   }
 
 
-    while (millis() <= 12000) {
-      delay(FLASH_TIME);
-      digitalWrite(GREEN_STATUS_LED_PORT, false);
-      delay(FLASH_TIME);
-      digitalWrite(GREEN_STATUS_LED_PORT, true);
-    }
+  while (millis() <= 12000) {
+    delay(FLASH_TIME);
+    digitalWrite(GREEN_STATUS_LED_PORT, false);
+    delay(FLASH_TIME);
+    digitalWrite(GREEN_STATUS_LED_PORT, true);
+  }
+  allOff();
   turnOffAllBacklights();
+
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  SendDebug(BoardName + " Setup Complete");
+  SendDebug("BoardName + " "Setup Complete");
 }
 
 
@@ -347,12 +417,12 @@ void FindInputChanges() {
           outString = outString + "1";
           if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 1);
           if (MSFS_In_Use == 1) SendMSFSMessage(ind, 1);
-          SendDebug(BoardName + String(ind) + ":1");
+          SendDebug(String(ind) + ":1");
         } else {
           outString = outString + "0";
           if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 0);
           if (MSFS_In_Use == 1) SendMSFSMessage(ind, 0);
-          SendDebug(BoardName + String(ind) + ":0");
+          SendDebug(String(ind) + ":0");
         }
 
 
@@ -407,7 +477,7 @@ void SendLedString(String LedCommandToSend) {
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
 
-  SendDebug(BoardName + String(msg) + ":" + String(arg));
+  SendDebug(String(msg) + ":" + String(arg));
 
 
   sendDcsBiosMessage(msg, arg);
@@ -1398,14 +1468,6 @@ void loop() {
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
 
-    digitalWrite(HOOK_LED, RED_LED_STATE);
-
-    // Testing digital outputs
-
-    // digitalWrite(BLEED_AIR_SOL_PORT, RED_LED_STATE);
-    // digitalWrite(PITOT_HEAT_PORT, RED_LED_STATE);
-    // digitalWrite(LASER_ARM_PORT, RED_LED_STATE);
-    // digitalWrite(CANOPY_MAG_PORT, RED_LED_STATE);
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
@@ -1413,7 +1475,7 @@ void loop() {
 
   // if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
- //turn off all rows first
+  //turn off all rows first
   for (int rowid = 0; rowid < 16; rowid++) {
     //turn on the current row
     // why differentiate? rows
