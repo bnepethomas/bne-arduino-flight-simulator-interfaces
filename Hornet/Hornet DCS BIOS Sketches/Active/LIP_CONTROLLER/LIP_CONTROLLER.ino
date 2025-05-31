@@ -362,7 +362,7 @@ void setRWROffsetEnableLed(bool newValue) {
   lc.setLed(0, 1, 3, newValue);
 }
 void onRwrEnableLtChange(unsigned int newValue) {
-    if (newValue == 1)
+  if (newValue == 1)
     setRWROffsetEnableLed(true);
   else
     setRWROffsetEnableLed(false);
@@ -400,7 +400,7 @@ void onRwrBitLtChange(unsigned int newValue) {
     setRWRTestLed(true);
   else
     setRWRTestLed(false);
-  }
+}
 DcsBios::IntegerBuffer rwrBitLtBuffer(FA_18C_hornet_RWR_BIT_LT, onRwrBitLtChange);
 
 
@@ -987,6 +987,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 168:
           break;
         case 169:
+          sendToDcsBiosMessage("RWR_BIT_BTN", "0");
           break;
         case 170:
           break;
@@ -1400,6 +1401,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 168:
           break;
         case 169:
+          sendToDcsBiosMessage("RWR_BIT_BTN", "1");
           break;
         case 170:
           break;
