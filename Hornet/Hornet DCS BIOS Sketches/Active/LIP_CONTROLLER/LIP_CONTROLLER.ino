@@ -231,7 +231,7 @@ void turnOnAllBacklights() {
 #include "LedControl.h"
 LedControl lc = LedControl(A11, A10, A9, 1);
 
-void allOn() {
+void allMax7219On() {
   for (int displayunit = 0; displayunit < 1; displayunit++) {
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8; col++) {
@@ -242,20 +242,20 @@ void allOn() {
   }
 }
 
-void debugAllOn() {
+void debugAllMax7219On() {
   for (int displayunit = 0; displayunit < 1; displayunit++) {
     for (int row = 0; row < 3; row++) {
       for (int col = 0; col < 4; col++) {
         if (col != 9 && col != 9 && col != 9)
-        SendDebug(String(row) + ":" + String(col));
-          lc.setLed(displayunit, row, col, true);
-          delay(1000);
+          SendDebug(String(row) + ":" + String(col));
+        lc.setLed(displayunit, row, col, true);
+        delay(1000);
       }
     }
   }
 }
 
-void allOff() {
+void allMax7219Off() {
   for (int displayunit = 0; displayunit < 1; displayunit++) {
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8; col++) {
@@ -269,8 +269,8 @@ void allOff() {
 // ######################## BEGIN RWR ########################
 
 // RWR ANALOG INPUTS
-DcsBios::Potentiometer rwrDmrCtrl("RWR_DMR_CTRL", A0);      
-DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A1);  
+DcsBios::Potentiometer rwrDmrCtrl("RWR_DMR_CTRL", A0);
+DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A1);
 
 bool RWR_POWER_BUTTON_STATE = false;  // Used to latch the RWR Power Switch
 void onRwrPowerBtnChange(unsigned int newValue) {
@@ -282,8 +282,53 @@ void onRwrPowerBtnChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rwrPowerBtnBuffer(0x7488, 0x1000, 12, onRwrPowerBtnChange);
 
+void setAllRWRLed(bool newValue) {
+  setRWRPwrLed(newValue);
+  setRWRLimitLed(newValue);
+  setRWRDisplayLed(newValue);
+  setRWRSpecialEnableLed(newValue);
+  setRWRSpecialLed(newValue);
+  setRWROffsetEnableLed(newValue);
+  setRWROffsetLed(newValue);
+  setRWRFailLed(newValue);
+  setRWRTestLed(newValue);
+}
 
+void setRWRPwrLed(bool newValue) {
+  lc.setLed(0, 0, 1, newValue);
+}
 
+void setRWRLimitLed(bool newValue) {
+  lc.setLed(0, 0, 2, newValue);
+}
+
+void setRWRDisplayLed(bool newValue) {
+  lc.setLed(0, 0, 3, newValue);
+}
+
+void setRWRSpecialEnableLed(bool newValue) {
+  lc.setLed(0, 1, 1, newValue);
+}
+
+void setRWRSpecialLed(bool newValue) {
+  lc.setLed(0, 1, 2, newValue);
+}
+
+void setRWROffsetEnableLed(bool newValue) {
+  lc.setLed(0, 1, 3, newValue);
+}
+
+void setRWROffsetLed(bool newValue) {
+  lc.setLed(0, 2, 1, newValue);
+}
+
+void setRWRFailLed(bool newValue) {
+  lc.setLed(0, 2, 2, newValue);
+}
+
+void setRWRTestLed(bool newValue) {
+  lc.setLed(0, 2, 3, newValue);
+}
 
 // ######################## END RWR ########################
 
@@ -346,7 +391,7 @@ void setup() {
   /* and clear the display */
   lc.clearDisplay(0);
 
-  debugAllOn();
+  setAllRWRLed(true);
 
 
 
@@ -383,14 +428,14 @@ void setup() {
     delay(FLASH_TIME);
     digitalWrite(GREEN_STATUS_LED_PORT, true);
   }
-  allOff();
+  setAllRWRLed(false);
   turnOffAllBacklights();
 
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  SendDebug("BoardName + " "Setup Complete");
+  SendDebug("Setup Complete");
 }
 
 
