@@ -532,7 +532,8 @@ void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
 void CreateDcsBiosMessage(int ind, int state) {
 
-
+  // sendToDcsBiosMessage("R_GEN_SW", "1");
+  // SendIPString("LWIN F1");
   switch (state) {
 
     // RELEASE
@@ -540,22 +541,19 @@ void CreateDcsBiosMessage(int ind, int state) {
       switch (ind) {
 
         case 0:
-          sendToDcsBiosMessage("FLIR_SW", "1");
           break;
+          // PRESS - OPEN
         case 1:
           break;
         case 2:
           break;
         case 3:
-          SendIPString("LCTRL LSHIFT P");
           break;
         case 4:
-          // Needed to Toggle HUD only view off
-          SendIPString("LALT F1");
           break;
         case 5:
-          SendIPString("LSHIFT Z");
           break;
+          // PRESS - OPEN
         case 6:
           break;
         case 7:
@@ -563,23 +561,21 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
-          sendToDcsBiosMessage("HOOK_LEVER", "1");
           break;
         case 10:
-          sendToDcsBiosMessage("WING_FOLD_ROTATE", "1");
           break;
+          // PRESS - OPEN
         case 11:
-          sendToDcsBiosMessage("FLIR_SW", "1");
           break;
         case 12:
           break;
         case 13:
           break;
         case 14:
-          SendIPString("ESC");
           break;
         case 15:
           break;
+          // PRESS - OPEN
         case 16:
           break;
         case 17:
@@ -589,13 +585,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 19:
           break;
         case 20:
-          sendToDcsBiosMessage("WING_FOLD_ROTATE", "1");
           break;
+          // PRESS - OPEN
         case 21:
-          sendToDcsBiosMessage("AV_COOL_SW", "1");
           break;
         case 22:
-          sendToDcsBiosMessage("LTD_R_SW", "2");
           break;
         case 23:
           break;
@@ -603,6 +597,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 25:
           break;
+          // PRESS - OPEN
         case 26:
           break;
         case 27:
@@ -613,21 +608,18 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 30:
           break;
+          // PRESS - OPEN
         case 31:
-          sendToDcsBiosMessage("WING_FOLD_PULL", "1");
           break;
         case 32:
           break;
         case 33:
-          sendToDcsBiosMessage("LST_NFLR_SW", "0");
           break;
         case 34:
-          sendToDcsBiosMessage("RADAR_SW_PULL", "1");
-          TimeRadarOn = millis() + RadarMoveTime;
-          RadarPushFollowupTask = true;
           break;
         case 35:
           break;
+          // PRESS - OPEN
         case 36:
           break;
         case 37:
@@ -638,22 +630,21 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 40:
           break;
+          // PRESS - OPEN
         case 41:
           break;
         case 42:
-          sendToDcsBiosMessage("L_GEN_SW", "1");  //1
           break;
         case 43:
-          sendToDcsBiosMessage("BATTERY_SW", "1");
           break;
         case 44:
           break;
         case 45:
           break;
+          // PRESS - OPEN
         case 46:
           break;
         case 47:
-          SendIPString("LWIN F1");
           break;
         case 48:
           break;
@@ -661,29 +652,29 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 50:
           break;
+          // PRESS - OPEN
         case 51:
           break;
         case 52:
           break;
         case 53:
-          sendToDcsBiosMessage("R_GEN_SW", "1");
           break;
         case 54:
-          sendToDcsBiosMessage("BATTERY_SW", "1");
           break;
         case 55:
           break;
+          // PRESS - OPEN
         case 56:
           break;
         case 57:
           break;
         case 58:
-          SendIPString("LWIN F1");
           break;
         case 59:
           break;
         case 60:
           break;
+          // PRESS - OPEN
         case 61:
           break;
         case 62:
@@ -694,6 +685,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 65:
           break;
+          // PRESS - OPEN
         case 66:
           break;
         case 67:
@@ -704,6 +696,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 70:
           break;
+          // PRESS - OPEN
         case 71:
           break;
         case 72:
@@ -714,6 +707,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 75:
           break;
+          // PRESS - OPEN
         case 76:
           break;
         case 77:
@@ -724,6 +718,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 80:
           break;
+          // PRESS - OPEN
         case 81:
           break;
         case 82:
@@ -734,33 +729,29 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 85:
           break;
+          // PRESS - OPEN
         case 86:
           break;
         case 87:
           break;
         case 88:
-          sendToDcsBiosMessage("LIGHTS_TEST_SW", "0");
           break;
         case 89:
-          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
           break;
         case 90:
-          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "1");
           break;
+          // PRESS - OPEN
         case 91:
-          sendToDcsBiosMessage("ECS_MODE_SW", "1");
           break;
         case 92:
-          sendToDcsBiosMessage("CABIN_PRESS_SW", "1");
           break;
         case 93:
-          sendToDcsBiosMessage("PITOT_HEAT_SW", "0");
           break;
         case 94:
           break;
         case 95:
-          sendToDcsBiosMessage("RADALT_TEST_SW", "0");
           break;
+          // PRESS - OPEN
         case 96:
           break;
         case 97:
@@ -770,21 +761,19 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 99:
           break;
         case 100:
-          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
           break;
+          // PRESS - OPEN
         case 101:
-          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "1");
           break;
         case 102:
-          sendToDcsBiosMessage("ECS_MODE_SW", "1");
           break;
         case 103:
-          sendToDcsBiosMessage("CABIN_PRESS_SW", "1");
           break;
         case 104:
           break;
         case 105:
           break;
+          // PRESS - OPEN
         case 106:
           break;
         case 107:
@@ -794,20 +783,19 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 109:
           break;
         case 110:
-          sendToDcsBiosMessage("CANOPY_SW", "1");
           break;
+          // PRESS - OPEN
         case 111:
-          sendToDcsBiosMessage("CB_HOOOK", "1");
           break;
         case 112:
           break;
         case 113:
-          sendToDcsBiosMessage("ENG_ANTIICE_SW", "1");
           break;
         case 114:
           break;
         case 115:
           break;
+          // PRESS - OPEN
         case 116:
           break;
         case 117:
@@ -818,19 +806,18 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 120:
           break;
+          // PRESS - OPEN
         case 121:
-          sendToDcsBiosMessage("CANOPY_SW", "1");
           break;
         case 122:
-          sendToDcsBiosMessage("CB_FCS_CHAN4", "1");
           break;
         case 123:
           break;
         case 124:
-          sendToDcsBiosMessage("ENG_ANTIICE_SW", "1");
           break;
         case 125:
           break;
+          // PRESS - OPEN
         case 126:
           break;
         case 127:
@@ -841,19 +828,18 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 130:
           break;
+          // PRESS - OPEN
         case 131:
           break;
         case 132:
-          sendToDcsBiosMessage("CB_FCS_CHAN3", "1");
           break;
         case 133:
-          sendToDcsBiosMessage("FCS_BIT_SW", "0");
           break;
         case 134:
-          sendToDcsBiosMessage("CB_LG", "1");
           break;
         case 135:
           break;
+          // PRESS - OPEN
         case 136:
           break;
         case 137:
@@ -864,6 +850,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 140:
           break;
+          // PRESS - OPEN
         case 141:
           break;
         case 142:
@@ -874,6 +861,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 145:
           break;
+          // PRESS - OPEN
         case 146:
           break;
         case 147:
@@ -884,6 +872,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 150:
           break;
+          // PRESS - OPEN
         case 151:
           break;
         case 152:
@@ -894,6 +883,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 155:
           break;
+          // PRESS - OPEN
         case 156:
           break;
         case 157:
@@ -904,6 +894,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 160:
           break;
+          // PRESS - OPEN
         case 161:
           break;
         case 162:
@@ -914,6 +905,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 165:
           break;
+          // PRESS - OPEN
         case 166:
           break;
         case 167:
@@ -924,6 +916,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 170:
           break;
+          // PRESS - OPEN
         case 171:
           break;
         case 172:
@@ -934,6 +927,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 175:
           break;
+          // PRESS - OPEN
         case 176:
           break;
         case 177:
@@ -954,184 +948,136 @@ void CreateDcsBiosMessage(int ind, int state) {
       // PRESS - CLOSE
       switch (ind) {
         case 0:
-          sendToDcsBiosMessage("FLIR_SW", "2");
           break;
         case 1:
-          sendToDcsBiosMessage("RADAR_SW", "0");
           break;
         case 2:
-          sendToDcsBiosMessage("INS_SW", "0");  //OFF
           break;
         case 3:
-          SendIPString("LCTRL LSHIFT P");
           break;
         case 4:
-          SendIPString("LALT F1");
           break;
         case 5:
-          SendIPString("LCTRL Z");
           break;
+          // PRESS - CLOSE
         case 6:
           break;
         case 7:
-          sendToDcsBiosMessage("KY58_MODE_SELECT", "0");
           break;
         case 8:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "10");
           break;
         case 9:
-          sendToDcsBiosMessage("HOOK_LEVER", "0");
           break;
         case 10:
-          sendToDcsBiosMessage("WING_FOLD_ROTATE", "2");
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 11:
-          sendToDcsBiosMessage("FLIR_SW", "0");
           break;
         case 12:
-          sendToDcsBiosMessage("RADAR_SW", "1");
           break;
         case 13:
-          sendToDcsBiosMessage("INS_SW", "1");  //CV
           break;
         case 14:
-          SendIPString("ESC");
           break;
         case 15:
-          SendIPString("F10");
           break;
+          // PRESS - CLOSE
         case 16:
           break;
         case 17:
           break;
         case 18:
-          sendToDcsBiosMessage("KY58_MODE_SELECT", "1");
           break;
         case 19:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "0");
           break;
         case 20:
-          sendToDcsBiosMessage("WING_FOLD_ROTATE", "0");
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 21:
-          sendToDcsBiosMessage("AV_COOL_SW", "0");
           break;
         case 22:
-          // Special Case for Magnetic Switches LTD/R
-          if (Ethernet_In_Use == 1) {
-            SendIPString("LCTRL LSHIFT F3");
-          } else {
-            sendToDcsBiosMessage("LTD_R_SW", "0");
-          }
-
-
-
           break;
         case 23:
-          sendToDcsBiosMessage("RADAR_SW", "2");
           break;
         case 24:
-          sendToDcsBiosMessage("INS_SW", "2");  //GND
           break;
         case 25:
           break;
+          // PRESS - CLOSE
         case 26:
-          SendIPString("F1");
-          break;
+          break;        
         case 27:
           break;
         case 28:
           break;
         case 29:
-          sendToDcsBiosMessage("KY58_MODE_SELECT", "2");
           break;
         case 30:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "1");
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 31:
-          sendToDcsBiosMessage("WING_FOLD_PULL", "0");
           break;
         case 32:
           break;
         case 33:
-          sendToDcsBiosMessage("LST_NFLR_SW", "1");
           break;
         case 34:
-          sendToDcsBiosMessage("RADAR_SW_PULL", "1");
-          RadarFollowupTask = true;
-          TimeRadarOn = millis() + RadarMoveTime;
           break;
         case 35:
-          sendToDcsBiosMessage("INS_SW", "3");  //NAV
           break;
+          // PRESS - CLOSE
         case 36:
           break;
         case 37:
-          SendIPString("LCTRL F4");
           break;
         case 38:
           break;
         case 39:
           break;
         case 40:
-          sendToDcsBiosMessage("KY58_MODE_SELECT", "3");
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 41:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "2");
           break;
         case 42:
-          sendToDcsBiosMessage("L_GEN_SW", "0");  //0
           break;
         case 43:
-          sendToDcsBiosMessage("BATTERY_SW", "2");
-
           break;
         case 44:
           break;
         case 45:
           break;
+          // PRESS - CLOSE
         case 46:
-          sendToDcsBiosMessage("INS_SW", "4");  //IFA
           break;
         case 47:
           break;
         case 48:
-          SendIPString("F2");
           break;
         case 49:
           break;
         case 50:
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 51:
-          sendToDcsBiosMessage("KY58_POWER_SELECT", "0");
           break;
         case 52:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "3");
           break;
         case 53:
-
-          sendToDcsBiosMessage("R_GEN_SW", "0");
           break;
         case 54:
-          sendToDcsBiosMessage("BATTERY_SW", "0");
           break;
         case 55:
           break;
+          // PRESS - CLOSE
         case 56:
           break;
+
         case 57:
-          sendToDcsBiosMessage("INS_SW", "5");  //GYRO
           break;
         case 58:
-          SendIPString("NUM5");
           break;
         case 59:
-          SendIPString("F3");
           break;
         case 60:
           break;
@@ -1139,40 +1085,36 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 61:
           break;
         case 62:
-          sendToDcsBiosMessage("KY58_POWER_SELECT", "1");
           break;
         case 63:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "4");
           break;
         case 64:
           break;
         case 65:
           break;
+          // PRESS - CLOSE
         case 66:
           break;
         case 67:
           break;
         case 68:
-          sendToDcsBiosMessage("INS_SW", "6");  //GB
           break;
         case 69:
           break;
         case 70:
-          SendIPString("F6");
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 71:
           break;
         case 72:
           break;
         case 73:
-          sendToDcsBiosMessage("KY58_POWER_SELECT", "2");
           break;
         case 74:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "5");
           break;
         case 75:
           break;
+          // PRESS - CLOSE
         case 76:
           break;
         case 77:
@@ -1180,14 +1122,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 78:
           break;
         case 79:
-          sendToDcsBiosMessage("INS_SW", "7");  //TEST
           break;
         case 80:
-          SendIPString("LSHIFT F10");
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 81:
-          SendIPString("LCTRL F5");
           break;
         case 82:
           break;
@@ -1196,42 +1135,30 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 84:
           break;
         case 85:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "6");
           break;
+          // PRESS - CLOSE
         case 86:
           break;
         case 87:
           break;
         case 88:
-          sendToDcsBiosMessage("LIGHTS_TEST_SW", "1");
           break;
         case 89:
-          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "2");
           break;
         case 90:
-          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "2");
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 91:
-          sendToDcsBiosMessage("ECS_MODE_SW", "2");
           break;
         case 92:
-          sendToDcsBiosMessage("CABIN_PRESS_SW", "0");
           break;
         case 93:
-          // Special Case for Magnetic Switches Pitot
-          if (Ethernet_In_Use == 1) {
-            SendIPString("LCTRL LSHIFT F2");
-          } else {
-            sendToDcsBiosMessage("PITOT_HEAT_SW", "1");
-          }
           break;
         case 94:
-          sendToDcsBiosMessage("BLEED_AIR_KNOB", "3");
           break;
         case 95:
-          sendToDcsBiosMessage("RADALT_TEST_SW", "1");
           break;
+          // PRESS - CLOSE
         case 96:
           break;
         case 97:
@@ -1241,86 +1168,66 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 99:
           break;
         case 100:
-          sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "0");
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 101:
-          sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "0");
           break;
         case 102:
-          sendToDcsBiosMessage("ECS_MODE_SW", "0");
           break;
         case 103:
-          sendToDcsBiosMessage("CABIN_PRESS_SW", "2");
           break;
         case 104:
           break;
         case 105:
-          sendToDcsBiosMessage("BLEED_AIR_KNOB", "2");
           break;
+          // PRESS - CLOSE
         case 106:
           break;
         case 107:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "7");
           break;
         case 108:
           break;
         case 109:
           break;
         case 110:
-          // Special Case for Magnetic Switches Canopy Open
-          if (Ethernet_In_Use == 1) {
-            SendIPString("LCTRL LSHIFT F9");
-          } else {
-            sendToDcsBiosMessage("CANOPY_SW", "2");
-          }
-
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 111:
-          sendToDcsBiosMessage("CB_HOOOK", "0");
           break;
         case 112:
           break;
         case 113:
-          sendToDcsBiosMessage("ENG_ANTIICE_SW", "2");
           break;
         case 114:
           break;
         case 115:
           break;
+          // PRESS - CLOSE
         case 116:
-          sendToDcsBiosMessage("BLEED_AIR_KNOB", "1");
           break;
         case 117:
           break;
         case 118:
-          sendToDcsBiosMessage("KY58_FILL_SELECT", "8");
           break;
         case 119:
           break;
         case 120:
-          // PRESS - CLOSE
           break;
+          // PRESS - CLOSE
         case 121:
-          // On canopy down must hold switch even though it is a magnetic switch
-          sendToDcsBiosMessage("CANOPY_SW", "0");
-
           break;
         case 122:
-          sendToDcsBiosMessage("CB_FCS_CHAN4", "0");
           break;
         case 123:
           break;
         case 124:
-          sendToDcsBiosMessage("ENG_ANTIICE_SW", "0");
           break;
         case 125:
           break;
+          // PRESS - CLOSE
         case 126:
           break;
         case 127:
-          sendToDcsBiosMessage("BLEED_AIR_KNOB", "0");
           break;
         case 128:
           break;
@@ -1328,22 +1235,18 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 130:
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 131:
           break;
         case 132:
-          sendToDcsBiosMessage("CB_FCS_CHAN3", "0");
-
           break;
         case 133:
-          sendToDcsBiosMessage("FCS_BIT_SW", "1");
           break;
         case 134:
-          sendToDcsBiosMessage("CB_LG", "0");
-
           break;
         case 135:
           break;
+          // PRESS - CLOSE
         case 136:
           break;
         case 137:
@@ -1354,7 +1257,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 140:
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 141:
           break;
         case 142:
@@ -1365,6 +1268,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 145:
           break;
+          // PRESS - CLOSE
         case 146:
           break;
         case 147:
@@ -1375,7 +1279,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 150:
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 151:
           break;
         case 152:
@@ -1386,6 +1290,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 155:
           break;
+          // PRESS - CLOSE
         case 156:
           break;
         case 157:
@@ -1396,7 +1301,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 160:
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 161:
           break;
         case 162:
@@ -1407,6 +1312,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 165:
           break;
+          // PRESS - CLOSE
         case 166:
           break;
         case 167:
@@ -1417,7 +1323,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 170:
           break;
-        // PRESS - CLOSE
+          // PRESS - CLOSE
         case 171:
           break;
         case 172:
@@ -1428,6 +1334,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 175:
           break;
+          // PRESS - CLOSE
         case 176:
           break;
         case 177:
@@ -1614,367 +1521,826 @@ void loop() {
   currentMillis = millis();
 }
 
-void CaseTemplate() {
+
+void CaseTemplate(int ind, int state) {
+
+  // sendToDcsBiosMessage("R_GEN_SW", "1");
+  // SendIPString("LWIN F1");
+  switch (state) {
+
+    // RELEASE
+    case 0:
+      switch (ind) {
+
+        case 0:
+          break;
+          // PRESS - OPEN
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        case 5:
+          break;
+          // PRESS - OPEN
+        case 6:
+          break;
+        case 7:
+          break;
+        case 8:
+          break;
+        case 9:
+          break;
+        case 10:
+          break;
+          // PRESS - OPEN
+        case 11:
+          break;
+        case 12:
+          break;
+        case 13:
+          break;
+        case 14:
+          break;
+        case 15:
+          break;
+          // PRESS - OPEN
+        case 16:
+          break;
+        case 17:
+          break;
+        case 18:
+          break;
+        case 19:
+          break;
+        case 20:
+          break;
+          // PRESS - OPEN
+        case 21:
+          break;
+        case 22:
+          break;
+        case 23:
+          break;
+        case 24:
+          break;
+        case 25:
+          break;
+          // PRESS - OPEN
+        case 26:
+          break;
+        case 27:
+          break;
+        case 28:
+          break;
+        case 29:
+          break;
+        case 30:
+          break;
+          // PRESS - OPEN
+        case 31:
+          break;
+        case 32:
+          break;
+        case 33:
+          break;
+        case 34:
+          break;
+        case 35:
+          break;
+          // PRESS - OPEN
+        case 36:
+          break;
+        case 37:
+          break;
+        case 38:
+          break;
+        case 39:
+          break;
+        case 40:
+          break;
+          // PRESS - OPEN
+        case 41:
+          break;
+        case 42:
+          break;
+        case 43:
+          break;
+        case 44:
+          break;
+        case 45:
+          break;
+          // PRESS - OPEN
+        case 46:
+          break;
+        case 47:
+          break;
+        case 48:
+          break;
+        case 49:
+          break;
+        case 50:
+          break;
+          // PRESS - OPEN
+        case 51:
+          break;
+        case 52:
+          break;
+        case 53:
+          break;
+        case 54:
+          break;
+        case 55:
+          break;
+          // PRESS - OPEN
+        case 56:
+          break;
+        case 57:
+          break;
+        case 58:
+          break;
+        case 59:
+          break;
+        case 60:
+          break;
+          // PRESS - OPEN
+        case 61:
+          break;
+        case 62:
+          break;
+        case 63:
+          break;
+        case 64:
+          break;
+        case 65:
+          break;
+          // PRESS - OPEN
+        case 66:
+          break;
+        case 67:
+          break;
+        case 68:
+          break;
+        case 69:
+          break;
+        case 70:
+          break;
+          // PRESS - OPEN
+        case 71:
+          break;
+        case 72:
+          break;
+        case 73:
+          break;
+        case 74:
+          break;
+        case 75:
+          break;
+          // PRESS - OPEN
+        case 76:
+          break;
+        case 77:
+          break;
+        case 78:
+          break;
+        case 79:
+          break;
+        case 80:
+          break;
+          // PRESS - OPEN
+        case 81:
+          break;
+        case 82:
+          break;
+        case 83:
+          break;
+        case 84:
+          break;
+        case 85:
+          break;
+          // PRESS - OPEN
+        case 86:
+          break;
+        case 87:
+          break;
+        case 88:
+          break;
+        case 89:
+          break;
+        case 90:
+          break;
+          // PRESS - OPEN
+        case 91:
+          break;
+        case 92:
+          break;
+        case 93:
+          break;
+        case 94:
+          break;
+        case 95:
+          break;
+          // PRESS - OPEN
+        case 96:
+          break;
+        case 97:
+          break;
+        case 98:
+          break;
+        case 99:
+          break;
+        case 100:
+          break;
+          // PRESS - OPEN
+        case 101:
+          break;
+        case 102:
+          break;
+        case 103:
+          break;
+        case 104:
+          break;
+        case 105:
+          break;
+          // PRESS - OPEN
+        case 106:
+          break;
+        case 107:
+          break;
+        case 108:
+          break;
+        case 109:
+          break;
+        case 110:
+          break;
+          // PRESS - OPEN
+        case 111:
+          break;
+        case 112:
+          break;
+        case 113:
+          break;
+        case 114:
+          break;
+        case 115:
+          break;
+          // PRESS - OPEN
+        case 116:
+          break;
+        case 117:
+          break;
+        case 118:
+          break;
+        case 119:
+          break;
+        case 120:
+          break;
+          // PRESS - OPEN
+        case 121:
+          break;
+        case 122:
+          break;
+        case 123:
+          break;
+        case 124:
+          break;
+        case 125:
+          break;
+          // PRESS - OPEN
+        case 126:
+          break;
+        case 127:
+          break;
+        case 128:
+          break;
+        case 129:
+          break;
+        case 130:
+          break;
+          // PRESS - OPEN
+        case 131:
+          break;
+        case 132:
+          break;
+        case 133:
+          break;
+        case 134:
+          break;
+        case 135:
+          break;
+          // PRESS - OPEN
+        case 136:
+          break;
+        case 137:
+          break;
+        case 138:
+          break;
+        case 139:
+          break;
+        case 140:
+          break;
+          // PRESS - OPEN
+        case 141:
+          break;
+        case 142:
+          break;
+        case 143:
+          break;
+        case 144:
+          break;
+        case 145:
+          break;
+          // PRESS - OPEN
+        case 146:
+          break;
+        case 147:
+          break;
+        case 148:
+          break;
+        case 149:
+          break;
+        case 150:
+          break;
+          // PRESS - OPEN
+        case 151:
+          break;
+        case 152:
+          break;
+        case 153:
+          break;
+        case 154:
+          break;
+        case 155:
+          break;
+          // PRESS - OPEN
+        case 156:
+          break;
+        case 157:
+          break;
+        case 158:
+          break;
+        case 159:
+          break;
+        case 160:
+          break;
+          // PRESS - OPEN
+        case 161:
+          break;
+        case 162:
+          break;
+        case 163:
+          break;
+        case 164:
+          break;
+        case 165:
+          break;
+          // PRESS - OPEN
+        case 166:
+          break;
+        case 167:
+          break;
+        case 168:
+          break;
+        case 169:
+          break;
+        case 170:
+          break;
+          // PRESS - OPEN
+        case 171:
+          break;
+        case 172:
+          break;
+        case 173:
+          break;
+        case 174:
+          break;
+        case 175:
+          break;
+          // PRESS - OPEN
+        case 176:
+          break;
+        case 177:
+          break;
+        case 178:
+          break;
+        case 179:
+          break;
+        default:
+          break;
+      }
+      break;
 
 
-  //        case 0:
-  //          break;
-  //        case 1:
-  //          break;
-  //        case 2:
-  //          break;
-  //        case 3:
-  //          break;
-  //        case 4:
-  //          break;
-  //        case 5:
-  //          break;
-  //        case 6:
-  //          break;
-  //        case 7:
-  //          break;
-  //        case 8:
-  //          break;
-  //        case 9:
-  //          break;
-  //        case 10:
-  //          break;
-  //        case 11:
-  //          break;
-  //        case 12:
-  //          break;
-  //        case 13:
-  //          break;
-  //        case 14:
-  //          break;
-  //        case 15:
-  //          break;
-  //        case 16:
-  //          break;
-  //        case 17:
-  //          break;
-  //        case 18:
-  //          break;
-  //        case 19:
-  //          break;
-  //        case 20:
-  //          break;
-  //        case 21:
-  //          break;
-  //        case 22:
-  //          break;
-  //        case 23:
-  //          break;
-  //        case 24:
-  //          break;
-  //        case 25:
-  //          break;
-  //        case 26:
-  //          break;
-  //        case 27:
-  //          break;
-  //        case 28:
-  //          break;
-  //        case 29:
-  //          break;
-  //        case 30:
-  //          break;
-  //        case 31:
-  //          break;
-  //        case 32:
-  //          break;
-  //        case 33:
-  //          break;
-  //        case 34:
-  //          break;
-  //        case 35:
-  //          break;
-  //        case 36:
-  //          break;
-  //        case 37:
-  //          break;
-  //        case 38:
-  //          break;
-  //        case 39:
-  //          break;
-  //        case 40:
-  //          break;
-  //        case 41:
-  //          break;
-  //        case 42:
-  //          break;
-  //        case 43:
-  //          break;
-  //        case 44:
-  //          break;
-  //        case 45:
-  //          break;
-  //        case 46:
-  //          break;
-  //        case 47:
-  //          break;
-  //        case 48:
-  //          break;
-  //        case 49:
-  //          break;
-  //        case 50:
-  //          break;
-  //        case 51:
-  //          break;
-  //        case 52:
-  //          break;
-  //        case 53:
-  //          break;
-  //        case 54:
-  //          break;
-  //        case 55:
-  //          break;
-  //        case 56:
-  //          break;
-  //        case 57:
-  //          break;
-  //        case 58:
-  //          break;
-  //        case 59:
-  //          break;
-  //        case 60:
-  //          break;
-  //        case 61:
-  //          break;
-  //        case 62:
-  //          break;
-  //        case 63:
-  //          break;
-  //        case 64:
-  //          break;
-  //        case 65:
-  //          break;
-  //        case 66:
-  //          break;
-  //        case 67:
-  //          break;
-  //        case 68:
-  //          break;
-  //        case 69:
-  //          break;
-  //        case 70:
-  //          break;
-  //        case 71:
-  //          break;
-  //        case 72:
-  //          break;
-  //        case 73:
-  //          break;
-  //        case 74:
-  //          break;
-  //        case 75:
-  //          break;
-  //        case 76:
-  //          break;
-  //        case 77:
-  //          break;
-  //        case 78:
-  //          break;
-  //        case 79:
-  //          break;
-  //        case 80:
-  //          break;
-  //        case 81:
-  //          break;
-  //        case 82:
-  //          break;
-  //        case 83:
-  //          break;
-  //        case 84:
-  //          break;
-  //        case 85:
-  //          break;
-  //        case 86:
-  //          break;
-  //        case 87:
-  //          break;
-  //        case 88:
-  //          break;
-  //        case 89:
-  //          break;
-  //        case 90:
-  //          break;
-  //        case 91:
-  //          break;
-  //        case 92:
-  //          break;
-  //        case 93:
-  //          break;
-  //        case 94:
-  //          break;
-  //        case 95:
-  //          break;
-  //        case 96:
-  //          break;
-  //        case 97:
-  //          break;
-  //        case 98:
-  //          break;
-  //        case 99:
-  //          break;
-  //        case 100:
-  //          break;
-  //        case 101:
-  //          break;
-  //        case 102:
-  //          break;
-  //        case 103:
-  //          break;
-  //        case 104:
-  //          break;
-  //        case 105:
-  //          break;
-  //        case 106:
-  //          break;
-  //        case 107:
-  //          break;
-  //        case 108:
-  //          break;
-  //        case 109:
-  //          break;
-  //        case 110:
-  //          break;
-  //        case 111:
-  //          break;
-  //        case 112:
-  //          break;
-  //        case 113:
-  //          break;
-  //        case 114:
-  //          break;
-  //        case 115:
-  //          break;
-  //        case 116:
-  //          break;
-  //        case 117:
-  //          break;
-  //        case 118:
-  //          break;
-  //        case 119:
-  //          break;
-  //        case 120:
-  //          break;
-  //        case 121:
-  //          break;
-  //        case 122:
-  //          break;
-  //        case 123:
-  //          break;
-  //        case 124:
-  //          break;
-  //        case 125:
-  //          break;
-  //        case 126:
-  //          break;
-  //        case 127:
-  //          break;
-  //        case 128:
-  //          break;
-  //        case 129:
-  //          break;
-  //        case 130:
-  //          break;
-  //        case 131:
-  //          break;
-  //        case 132:
-  //          break;
-  //        case 133:
-  //          break;
-  //        case 134:
-  //          break;
-  //        case 135:
-  //          break;
-  //        case 136:
-  //          break;
-  //        case 137:
-  //          break;
-  //        case 138:
-  //          break;
-  //        case 139:
-  //          break;
-  //        case 140:
-  //          break;
-  //        case 141:
-  //          break;
-  //        case 142:
-  //          break;
-  //        case 143:
-  //          break;
-  //        case 144:
-  //          break;
-  //        case 145:
-  //          break;
-  //        case 146:
-  //          break;
-  //        case 147:
-  //          break;
-  //        case 148:
-  //          break;
-  //        case 149:
-  //          break;
-  //        case 150:
-  //          break;
-  //        case 151:
-  //          break;
-  //        case 152:
-  //          break;
-  //        case 153:
-  //          break;
-  //        case 154:
-  //          break;
-  //        case 155:
-  //          break;
-  //        case 156:
-  //          break;
-  //        case 157:
-  //          break;
-  //        case 158:
-  //          break;
-  //        case 159:
-  //          break;
-  //        case 160:
-  //          break;
-  //        case 161:
-  //          break;
-  //        case 162:
-  //          break;
-  //        case 163:
-  //          break;
-  //        case 164:
-  //          break;
-  //        case 165:
-  //          break;
-  //        case 166:
-  //          break;
-  //        case 167:
-  //          break;
-  //        case 168:
-  //          break;
-  //        case 169:
-  //          break;
-  //        case 170:
-  //          break;
-  //        case 171:
-  //          break;
-  //        case 172:
-  //          break;
-  //        case 173:
-  //          break;
-  //        case 174:
-  //          break;
-  //        case 175:
-  //          break;
-  //        case 176:
-  //          break;
-  //        case 177:
-  //          break;
-  //        case 178:
-  //          break;
-  //        case 179:
-  //          break;
+
+    case 1:
+
+      // PRESS - CLOSE
+      switch (ind) {
+        case 0:
+          break;
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        case 5:
+          break;
+          // PRESS - CLOSE
+        case 6:
+          break;
+        case 7:
+          break;
+        case 8:
+          break;
+        case 9:
+          break;
+        case 10:
+          break;
+          // PRESS - CLOSE
+        case 11:
+          break;
+        case 12:
+          break;
+        case 13:
+          break;
+        case 14:
+          break;
+        case 15:
+          break;
+          // PRESS - CLOSE
+        case 16:
+          break;
+        case 17:
+          break;
+        case 18:
+          break;
+        case 19:
+          break;
+        case 20:
+          break;
+          // PRESS - CLOSE
+        case 21:
+          break;
+        case 22:
+          break;
+        case 23:
+          break;
+        case 24:
+          break;
+        case 25:
+          break;
+          // PRESS - CLOSE
+        case 26:
+          break;        
+        case 27:
+          break;
+        case 28:
+          break;
+        case 29:
+          break;
+        case 30:
+          break;
+          // PRESS - CLOSE
+        case 31:
+          break;
+        case 32:
+          break;
+        case 33:
+          break;
+        case 34:
+          break;
+        case 35:
+          break;
+          // PRESS - CLOSE
+        case 36:
+          break;
+        case 37:
+          break;
+        case 38:
+          break;
+        case 39:
+          break;
+        case 40:
+          break;
+          // PRESS - CLOSE
+        case 41:
+          break;
+        case 42:
+          break;
+        case 43:
+          break;
+        case 44:
+          break;
+        case 45:
+          break;
+          // PRESS - CLOSE
+        case 46:
+          break;
+        case 47:
+          break;
+        case 48:
+          break;
+        case 49:
+          break;
+        case 50:
+          break;
+          // PRESS - CLOSE
+        case 51:
+          break;
+        case 52:
+          break;
+        case 53:
+          break;
+        case 54:
+          break;
+        case 55:
+          break;
+          // PRESS - CLOSE
+        case 56:
+          break;
+
+        case 57:
+          break;
+        case 58:
+          break;
+        case 59:
+          break;
+        case 60:
+          break;
+        // PRESS - CLOSE
+        case 61:
+          break;
+        case 62:
+          break;
+        case 63:
+          break;
+        case 64:
+          break;
+        case 65:
+          break;
+          // PRESS - CLOSE
+        case 66:
+          break;
+        case 67:
+          break;
+        case 68:
+          break;
+        case 69:
+          break;
+        case 70:
+          break;
+          // PRESS - CLOSE
+        case 71:
+          break;
+        case 72:
+          break;
+        case 73:
+          break;
+        case 74:
+          break;
+        case 75:
+          break;
+          // PRESS - CLOSE
+        case 76:
+          break;
+        case 77:
+          break;
+        case 78:
+          break;
+        case 79:
+          break;
+        case 80:
+          break;
+          // PRESS - CLOSE
+        case 81:
+          break;
+        case 82:
+          break;
+        case 83:
+          break;
+        case 84:
+          break;
+        case 85:
+          break;
+          // PRESS - CLOSE
+        case 86:
+          break;
+        case 87:
+          break;
+        case 88:
+          break;
+        case 89:
+          break;
+        case 90:
+          break;
+          // PRESS - CLOSE
+        case 91:
+          break;
+        case 92:
+          break;
+        case 93:
+          break;
+        case 94:
+          break;
+        case 95:
+          break;
+          // PRESS - CLOSE
+        case 96:
+          break;
+        case 97:
+          break;
+        case 98:
+          break;
+        case 99:
+          break;
+        case 100:
+          break;
+          // PRESS - CLOSE
+        case 101:
+          break;
+        case 102:
+          break;
+        case 103:
+          break;
+        case 104:
+          break;
+        case 105:
+          break;
+          // PRESS - CLOSE
+        case 106:
+          break;
+        case 107:
+          break;
+        case 108:
+          break;
+        case 109:
+          break;
+        case 110:
+          break;
+          // PRESS - CLOSE
+        case 111:
+          break;
+        case 112:
+          break;
+        case 113:
+          break;
+        case 114:
+          break;
+        case 115:
+          break;
+          // PRESS - CLOSE
+        case 116:
+          break;
+        case 117:
+          break;
+        case 118:
+          break;
+        case 119:
+          break;
+        case 120:
+          break;
+          // PRESS - CLOSE
+        case 121:
+          break;
+        case 122:
+          break;
+        case 123:
+          break;
+        case 124:
+          break;
+        case 125:
+          break;
+          // PRESS - CLOSE
+        case 126:
+          break;
+        case 127:
+          break;
+        case 128:
+          break;
+        case 129:
+          break;
+        case 130:
+          break;
+          // PRESS - CLOSE
+        case 131:
+          break;
+        case 132:
+          break;
+        case 133:
+          break;
+        case 134:
+          break;
+        case 135:
+          break;
+          // PRESS - CLOSE
+        case 136:
+          break;
+        case 137:
+          break;
+        case 138:
+          break;
+        case 139:
+          break;
+        case 140:
+          break;
+          // PRESS - CLOSE
+        case 141:
+          break;
+        case 142:
+          break;
+        case 143:
+          break;
+        case 144:
+          break;
+        case 145:
+          break;
+          // PRESS - CLOSE
+        case 146:
+          break;
+        case 147:
+          break;
+        case 148:
+          break;
+        case 149:
+          break;
+        case 150:
+          break;
+          // PRESS - CLOSE
+        case 151:
+          break;
+        case 152:
+          break;
+        case 153:
+          break;
+        case 154:
+          break;
+        case 155:
+          break;
+          // PRESS - CLOSE
+        case 156:
+          break;
+        case 157:
+          break;
+        case 158:
+          break;
+        case 159:
+          break;
+        case 160:
+          break;
+          // PRESS - CLOSE
+        case 161:
+          break;
+        case 162:
+          break;
+        case 163:
+          break;
+        case 164:
+          break;
+        case 165:
+          break;
+          // PRESS - CLOSE
+        case 166:
+          break;
+        case 167:
+          break;
+        case 168:
+          break;
+        case 169:
+          break;
+        case 170:
+          break;
+          // PRESS - CLOSE
+        case 171:
+          break;
+        case 172:
+          break;
+        case 173:
+          break;
+        case 174:
+          break;
+        case 175:
+          break;
+          // PRESS - CLOSE
+        case 176:
+          break;
+        case 177:
+          break;
+        case 178:
+          break;
+        case 179:
+          break;
+
+        default:
+          // PRESS - CLOSE
+          break;
+          break;
+      }
+  }
 }
+
