@@ -274,7 +274,6 @@ void setConsoleLights(unsigned int newValue) {
   analogWrite(BACKLIGHT_AMPCD_BUT_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_ECM_JET_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_SEL_JET_PWM, map(newValue, 0, 65535, 0, 255));
-
 }
 
 // ################################### END LIGHTING ##################################
@@ -460,6 +459,13 @@ DcsBios::IntegerBuffer rwrBitLtBuffer(FA_18C_hornet_RWR_BIT_LT, onRwrBitLtChange
 
 
 // ######################## END RWR ########################
+
+
+// ######################## END IFEI ########################
+DcsBios::PotentiometerEWMA<5, 128, 5> ifei("IFEI", A3);
+
+// ######################## END IFEI ########################
+
 
 // ######################## SETUP ########################
 
@@ -1019,13 +1025,16 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 142:
           break;
         case 143:
+          sendToDcsBiosMessage("IFEI_MODE_BTN", "0");
           break;
         case 144:
+          sendToDcsBiosMessage("IFEI_DWN_BTN", "0");
           break;
         case 145:
           break;
           // PRESS - OPEN
         case 146:
+          sendToDcsBiosMessage("MODE_SELECTOR_SW", "1");
           break;
         case 147:
           sendToDcsBiosMessage("RWR_SPECIAL_BTN", "0");
@@ -1044,13 +1053,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 153:
           break;
         case 154:
+          sendToDcsBiosMessage("IFEI_QTY_BTN", "0");
           break;
         case 155:
+          sendToDcsBiosMessage("IFEI_ZONE_BTN", "0");
           break;
           // PRESS - OPEN
         case 156:
+        sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "1");
           break;
         case 157:
+          sendToDcsBiosMessage("MODE_SELECTOR_SW", "1");
           break;
         case 158:
           sendToDcsBiosMessage("RWR_OFFSET_BTN", "0");
@@ -1069,9 +1082,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 164:
           break;
         case 165:
+          sendToDcsBiosMessage("IFEI_UP_BTN", "0");
           break;
           // PRESS - OPEN
         case 166:
+          sendToDcsBiosMessage("IFEI_ET_BTN", "0");
           break;
         case 167:
           break;
@@ -1436,13 +1451,16 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 142:
           break;
         case 143:
+          sendToDcsBiosMessage("IFEI_MODE_BTN", "1");
           break;
         case 144:
+          sendToDcsBiosMessage("IFEI_DWN_BTN", "1");
           break;
         case 145:
           break;
           // PRESS - CLOSE
         case 146:
+          sendToDcsBiosMessage("MODE_SELECTOR_SW", "2");
           break;
         case 147:
           sendToDcsBiosMessage("RWR_SPECIAL_BTN", "1");
@@ -1461,13 +1479,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 153:
           break;
         case 154:
+          sendToDcsBiosMessage("IFEI_QTY_BTN", "1");
           break;
         case 155:
+          sendToDcsBiosMessage("IFEI_ZONE_BTN", "1");
           break;
           // PRESS - CLOSE
         case 156:
+        sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "0");
           break;
         case 157:
+          sendToDcsBiosMessage("MODE_SELECTOR_SW", "0");
           break;
         case 158:
           sendToDcsBiosMessage("RWR_OFFSET_BTN", "1");
@@ -1486,9 +1508,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 164:
           break;
         case 165:
+          sendToDcsBiosMessage("IFEI_UP_BTN", "1");
           break;
           // PRESS - CLOSE
         case 166:
+          sendToDcsBiosMessage("IFEI_ET_BTN", "1");
           break;
         case 167:
           break;
