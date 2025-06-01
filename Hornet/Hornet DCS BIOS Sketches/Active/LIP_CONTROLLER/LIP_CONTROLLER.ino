@@ -182,16 +182,36 @@ unsigned long previousMillis = 0;
 char stringind[5];
 String outString;
 
+// ################################### BEGIN STEPPERS ##################################
 
-bool RadarFollowupTask = false;
-long TimeRadarOn = 0;
-const int RadarMoveTime = 300;
+#include <Stepper.h>
+#include <AccelStepper.h>
+#define STEPS 720  // steps per revolution (limited to 315°)
 
-bool RadarPushFollowupTask = false;
-long TimeRadarOff = 0;
+#define STEPPER_MAX_SPEED 8300
+#define STEPPER_ACCELERATION 2000
 
-// #################### EXTERIOR LIGHTS #################
+#define COILCA1 A12  // CA = CAB ALT
+#define COILCA2 A13
+#define COILCA3 A14
+#define COILCA4 A15
 
+int CAB_ALT;
+int valCA = 0;
+int CurCABALT = 0;
+int posCA = 0;
+AccelStepper stepperCA(AccelStepper::FULL4WIRE, COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
+#define CabinAltMaxPoint 600
+
+void onPressureAltChange(unsigned int newValueCA) {
+  stepperCA.moveTo(map(newValueCA, 0, 65535, 0, CabinAltMaxPoint));
+}
+DcsBios::IntegerBuffer pressureAltBuffer(0x7514, 0xffff, 0, onPressureAltChange);
+
+
+// ################################### END STEPPERS ##################################
+
+// ################################### BEGIN LIGHTING ##################################
 
 #define MAP_LIGHTS 2
 #define BACKLIGHT_RWR_PWM 3
@@ -201,7 +221,10 @@ long TimeRadarOff = 0;
 #define BACKLIGHT_AMPCD_PWM 7
 #define BACKLIGHT_AMPCD_BUT_PWM 8
 #define BACKLIGHT_COMPASS_PWM 9
-#define BACKLIGHT_JET_BUT_PWM 12
+#define BACKLIGHT_ECM_JET_PWM 12
+#define BACKLIGHT_SEL_JET_PWM 13
+
+
 
 void turnOffAllBacklights() {
   digitalWrite(MAP_LIGHTS, LOW);
@@ -212,7 +235,8 @@ void turnOffAllBacklights() {
   digitalWrite(BACKLIGHT_AMPCD_PWM, LOW);
   digitalWrite(BACKLIGHT_AMPCD_BUT_PWM, LOW);
   digitalWrite(BACKLIGHT_COMPASS_PWM, LOW);
-  digitalWrite(BACKLIGHT_JET_BUT_PWM, LOW);
+  digitalWrite(BACKLIGHT_ECM_JET_PWM, LOW);
+  digitalWrite(BACKLIGHT_SEL_JET_PWM, LOW);
 }
 
 void turnOnAllBacklights() {
@@ -224,26 +248,56 @@ void turnOnAllBacklights() {
   digitalWrite(BACKLIGHT_AMPCD_PWM, HIGH);
   digitalWrite(BACKLIGHT_AMPCD_BUT_PWM, HIGH);
   digitalWrite(BACKLIGHT_COMPASS_PWM, HIGH);
-  digitalWrite(BACKLIGHT_JET_BUT_PWM, HIGH);
+  digitalWrite(BACKLIGHT_ECM_JET_PWM, HIGH);
+  digitalWrite(BACKLIGHT_SEL_JET_PWM, HIGH);
 }
+
+
+
+
+void onConsoleIntLtChange(unsigned int newValue) {
+  SendDebug("Console Lights : " + String(newValue));
+  analogWrite(BACKLIGHT_RWR_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_CAB_ALT_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_AMPCD_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_AMPCD_BUT_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_ECM_JET_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_SEL_JET_PWM, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
+
+void setConsoleLights(unsigned int newValue) {
+  SendDebug("Console Lights : " + String(newValue));
+  analogWrite(BACKLIGHT_RWR_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_CAB_ALT_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_AMPCD_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_AMPCD_BUT_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_ECM_JET_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_SEL_JET_PWM, map(newValue, 0, 65535, 0, 255));
+
+}
+
+// ################################### END LIGHTING ##################################
+
 
 // ######################## BEGIN MAX7219 ########################
 #include "LedControl.h"
-LedControl lc = LedControl(A11, A10, A9, 1);
+LedControl lc = LedControl(A11, A10, A9, 3);
 
 void allMax7219On() {
-  for (int displayunit = 0; displayunit < 1; displayunit++) {
+  for (int displayunit = 0; displayunit < 3; displayunit++) {
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8; col++) {
         if (col != 9 && col != 9 && col != 9)
           lc.setLed(displayunit, row, col, true);
+        SendDebug(String(displayunit) + ":" + String(row) + ":" + String(col));
       }
     }
   }
 }
 
 void debugAllMax7219On() {
-  for (int displayunit = 0; displayunit < 1; displayunit++) {
+  for (int displayunit = 0; displayunit < 3; displayunit++) {
     for (int row = 0; row < 3; row++) {
       for (int col = 0; col < 4; col++) {
         if (col != 9 && col != 9 && col != 9)
@@ -256,7 +310,7 @@ void debugAllMax7219On() {
 }
 
 void allMax7219Off() {
-  for (int displayunit = 0; displayunit < 1; displayunit++) {
+  for (int displayunit = 0; displayunit < 3; displayunit++) {
     for (int row = 0; row < 8; row++) {
       for (int col = 0; col < 8; col++) {
         if (col != 9 && col != 9 && col != 9)
@@ -452,7 +506,9 @@ void setup() {
   pinMode(BACKLIGHT_AMPCD_PWM, OUTPUT);
   pinMode(BACKLIGHT_AMPCD_BUT_PWM, OUTPUT);
   pinMode(BACKLIGHT_COMPASS_PWM, OUTPUT);
-  pinMode(BACKLIGHT_JET_BUT_PWM, OUTPUT);
+  pinMode(BACKLIGHT_ECM_JET_PWM, OUTPUT);
+  pinMode(BACKLIGHT_SEL_JET_PWM, OUTPUT);
+
 
   turnOnAllBacklights();
 
@@ -461,12 +517,21 @@ void setup() {
 
   /*The MAX72XX is in power-saving mode on startup*/
   lc.shutdown(0, false);
+  lc.shutdown(1, false);
+  lc.shutdown(2, false);
   /* Set the brightness to a medium values */
   lc.setIntensity(0, 15);
+  lc.setIntensity(1, 15);
+  lc.setIntensity(2, 15);
   /* and clear the display */
   lc.clearDisplay(0);
+  lc.clearDisplay(1);
+  lc.clearDisplay(2);
 
   setAllRWRLed(true);
+  // allMax7219On();
+
+
 
 
 
@@ -497,6 +562,18 @@ void setup() {
   }
 
 
+  /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
+  SendDebug("Start Cycling Cabin Altimeter Stepper");
+  stepperCA.setMaxSpeed(1000);
+  stepperCA.setAcceleration(400);
+  stepperCA.runToNewPosition(-720);
+  stepperCA.setCurrentPosition(0);
+  stepperCA.runToNewPosition(CabinAltMaxPoint);
+  stepperCA.runToNewPosition(0);
+  SendDebug("End Cycling Cabin Altimeter Stepper");
+  /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
+
+
   while (millis() <= 6000) {
     delay(FLASH_TIME);
     digitalWrite(GREEN_STATUS_LED_PORT, false);
@@ -506,9 +583,20 @@ void setup() {
   setAllRWRLed(false);
   turnOffAllBacklights();
 
+  // Set Console lights to a mid level for start of game
+  setConsoleLights(16000);
+
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
+
+  // for (int i = 0; i <= 100; i++) {
+  //   allMax7219Off();
+  //   delay(1000);
+  //   allMax7219On();
+  //   delay(1000);
+  // }
+
 
   SendDebug("Setup Complete");
 }
@@ -915,6 +1003,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - OPEN
         case 136:
+          sendToDcsBiosMessage("RWR_DISPLAY_BTN", "0");
           break;
         case 137:
           break;
@@ -939,6 +1028,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 146:
           break;
         case 147:
+          sendToDcsBiosMessage("RWR_SPECIAL_BTN", "0");
           break;
         case 148:
           break;
@@ -963,6 +1053,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 157:
           break;
         case 158:
+          sendToDcsBiosMessage("RWR_OFFSET_BTN", "0");
           break;
         case 159:
           break;
@@ -1329,6 +1420,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - CLOSE
         case 136:
+          sendToDcsBiosMessage("RWR_DISPLAY_BTN", "1");
           break;
         case 137:
           break;
@@ -1353,6 +1445,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 146:
           break;
         case 147:
+          sendToDcsBiosMessage("RWR_SPECIAL_BTN", "1");
           break;
         case 148:
           break;
@@ -1377,6 +1470,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 157:
           break;
         case 158:
+          sendToDcsBiosMessage("RWR_OFFSET_BTN", "1");
           break;
         case 159:
           break;
@@ -1544,6 +1638,7 @@ void loop() {
   FindInputChanges();
 
 
+  stepperCA.run();
 
   currentMillis = millis();
 }
