@@ -105,6 +105,7 @@ char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 void SendDebug(String MessageToSend) {
+  MessageToSend = BoardName + ": " + MessageToSend;
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
     udp.print(MessageToSend);
@@ -125,6 +126,254 @@ void SendDebug(String MessageToSend) {
 #define CANOPY_MAG_PORT A15
 
 // ********************************* End Digital ***************************************************
+
+
+// ######################## BEGIN MAX7219 ########################
+#include "LedControl.h"
+LedControl lc = LedControl(A11, A10, A9, 1);
+
+void allMax7219On() {
+  for (int displayunit = 0; displayunit < 2; displayunit++) {
+    for (int row = 0; row < 8; row++) {
+      for (int col = 0; col < 8; col++) {
+        if (col != 9 && col != 9 && col != 9)
+          lc.setLed(displayunit, row, col, true);
+        SendDebug(String(displayunit) + ":" + String(row) + ":" + String(col));
+      }
+    }
+  }
+}
+
+void debugAllMax7219On() {
+  for (int displayunit = 0; displayunit < 2; displayunit++) {
+    for (int row = 0; row < 9; row++) {
+      for (int col = 0; col < 9; col++) {
+        if (col != 9 && col != 9 && col != 9) {
+          allMax7219Off();
+          SendDebug(String(row) + ":" + String(col));
+          lc.setLed(displayunit, row, col, true);
+          delay(10000);
+        }
+      }
+    }
+  }
+}
+
+void allMax7219Off() {
+  for (int displayunit = 0; displayunit < 2; displayunit++) {
+    for (int row = 0; row < 8; row++) {
+      for (int col = 0; col < 8; col++) {
+        if (col != 9 && col != 9 && col != 9)
+          lc.setLed(displayunit, row, col, false);
+      }
+    }
+  }
+}
+
+// ######################## BEGIN MAX7219 ########################
+
+// ######################## BEGIN CAUTION PANEL ##################
+
+void setAllCautionLed(bool newValue) {
+  setClipApuAccLt(newValue);
+  setClipBattSwLt(newValue);
+  setClipCkSeatLt(newValue);
+  setClipFcesLt(newValue);
+  setClipFcsHotLt(newValue);
+  setClipFuelLoLt(newValue);
+  setClipGenTieLt(newValue);
+  setClipLGenLt(newValue);
+  setClipRGenLt(newValue);
+  setClipSpareCtn1Lt(newValue);
+  setClipSpareCtn2Lt(newValue);
+  setClipSpareCtn3Lt(newValue);
+}
+
+
+/*
+0:0 CK seat
+0:1 ch sea
+
+0:2 APU
+0:3 APU
+
+0:4 Batt
+0:5 Batt
+
+1:0 FCS HOT
+1:1 FCS HOT
+
+1:2 GEN TIE
+1:3 Gen tie
+
+1:4 Spare 1
+1:5 Spare 1
+
+2:0 Fuel Low
+2:1 Fuel Low
+
+2:2 FCES
+2:3 FCES
+
+2:4 Spare 2
+2:5 Spare 5
+
+3:0 L GEN
+3:1 L GEN
+
+3:2 R GEN
+3:3 R GEN
+
+3:4 Spare 3
+3:5 Spare 3
+*/
+
+void setClipApuAccLt(bool newValue) {
+  lc.setLed(0, 0, 2, newValue);
+  lc.setLed(0, 0, 3, newValue);
+}
+void onClipApuAccLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipApuAccLt(true);
+  else
+    setClipApuAccLt(false);
+}
+DcsBios::IntegerBuffer clipApuAccLtBuffer(FA_18C_hornet_CLIP_APU_ACC_LT, onClipApuAccLtChange);
+
+void setClipBattSwLt(bool newValue) {
+  lc.setLed(0, 0, 4, newValue);
+  lc.setLed(0, 0, 5, newValue);
+}
+void onClipBattSwLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipBattSwLt(true);
+  else
+    setClipBattSwLt(false);
+}
+DcsBios::IntegerBuffer clipBattSwLtBuffer(FA_18C_hornet_CLIP_BATT_SW_LT, onClipBattSwLtChange);
+
+void setClipCkSeatLt(bool newValue) {
+  lc.setLed(0, 0, 0, newValue);
+  lc.setLed(0, 0, 1, newValue);
+}
+void onClipCkSeatLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipCkSeatLt(true);
+  else
+    setClipCkSeatLt(false);
+}
+DcsBios::IntegerBuffer clipCkSeatLtBuffer(FA_18C_hornet_CLIP_CK_SEAT_LT, onClipCkSeatLtChange);
+
+void setClipFcesLt(bool newValue) {
+  lc.setLed(0, 2, 2, newValue);
+  lc.setLed(0, 2, 3, newValue);
+}
+void onClipFcesLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipFcesLt(true);
+  else
+    setClipFcesLt(false);
+}
+DcsBios::IntegerBuffer clipFcesLtBuffer(FA_18C_hornet_CLIP_FCES_LT, onClipFcesLtChange);
+
+void setClipFcsHotLt(bool newValue) {
+  lc.setLed(0, 1, 0, newValue);
+  lc.setLed(0, 1, 1, newValue);
+}
+void onClipFcsHotLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipFcsHotLt(true);
+  else
+    setClipFcsHotLt(false);
+}
+DcsBios::IntegerBuffer clipFcsHotLtBuffer(FA_18C_hornet_CLIP_FCS_HOT_LT, onClipFcsHotLtChange);
+
+void setClipFuelLoLt(bool newValue) {
+  lc.setLed(0, 2, 0, newValue);
+  lc.setLed(0, 2, 1, newValue);
+}
+void onClipFuelLoLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipFuelLoLt(true);
+  else
+    setClipFuelLoLt(false);
+}
+DcsBios::IntegerBuffer clipFuelLoLtBuffer(FA_18C_hornet_CLIP_FUEL_LO_LT, onClipFuelLoLtChange);
+
+void setClipGenTieLt(bool newValue) {
+  lc.setLed(0, 1, 2, newValue);
+  lc.setLed(0, 1, 3, newValue);
+}
+void onClipGenTieLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipGenTieLt(true);
+  else
+    setClipGenTieLt(false);
+}
+DcsBios::IntegerBuffer clipGenTieLtBuffer(FA_18C_hornet_CLIP_GEN_TIE_LT, onClipGenTieLtChange);
+
+void setClipLGenLt(bool newValue) {
+  lc.setLed(0, 3, 0, newValue);
+  lc.setLed(0, 3, 1, newValue);
+}
+void onClipLGenLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipLGenLt(true);
+  else
+    setClipLGenLt(false);
+}
+DcsBios::IntegerBuffer clipLGenLtBuffer(FA_18C_hornet_CLIP_L_GEN_LT, onClipLGenLtChange);
+
+void setClipRGenLt(bool newValue) {
+  lc.setLed(0, 3, 2, newValue);
+   lc.setLed(0, 3, 3, newValue);
+}
+void onClipRGenLtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipRGenLt(true);
+  else
+    setClipRGenLt(false);
+}
+DcsBios::IntegerBuffer clipRGenLtBuffer(FA_18C_hornet_CLIP_R_GEN_LT, onClipRGenLtChange);
+
+void setClipSpareCtn1Lt(bool newValue) {
+  lc.setLed(0, 1, 4, newValue);
+  lc.setLed(0, 1, 5, newValue);
+}
+void onClipSpareCtn1LtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipSpareCtn1Lt(true);
+  else
+    setClipSpareCtn1Lt(false);
+}
+DcsBios::IntegerBuffer clipSpareCtn1LtBuffer(FA_18C_hornet_CLIP_SPARE_CTN1_LT, onClipSpareCtn1LtChange);
+
+void setClipSpareCtn2Lt(bool newValue) {
+  lc.setLed(0, 2, 4, newValue);
+  lc.setLed(0, 2, 5, newValue);
+}
+void onClipSpareCtn2LtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipSpareCtn2Lt(true);
+  else
+    setClipSpareCtn2Lt(false);
+}
+DcsBios::IntegerBuffer clipSpareCtn2LtBuffer(FA_18C_hornet_CLIP_SPARE_CTN2_LT, onClipSpareCtn2LtChange);
+
+void setClipSpareCtn3Lt(bool newValue) {
+  lc.setLed(0, 3, 4, newValue);
+  lc.setLed(0, 3, 5, newValue);
+}
+
+void onClipSpareCtn3LtChange(unsigned int newValue) {
+  if (newValue == 1)
+    setClipSpareCtn3Lt(true);
+  else
+    setClipSpareCtn3Lt(false);
+}
+DcsBios::IntegerBuffer clipSpareCtn3LtBuffer(FA_18C_hornet_CLIP_SPARE_CTN3_LT, onClipSpareCtn3LtChange);
+
+// ######################## END CAUTION PANEL ####################
 
 #define NUM_BUTTONS 256
 #define BUTTONS_USED_ON_PCB 176
@@ -170,8 +419,6 @@ bool bFirstTime = false;
 
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
-
-
 
 
 
@@ -227,8 +474,9 @@ void setup() {
     }
 
 
-    SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
+    SendDebug("Ethernet Started " + strMyIP + " " + sMac);
   }
+
 
   /*
   // Begin Original Code
@@ -278,7 +526,17 @@ void setup() {
   pinMode(HOOK_LED, OUTPUT);
   digitalWrite(HOOK_LED, true);
 
-  pinMode(BLEED_AIR_SOL_PORT, OUTPUT);
+  /*The MAX72XX is in power-saving mode on startup*/
+  lc.shutdown(0, false);
+  /* Set the brightness to a medium values */
+  lc.setIntensity(0, 15);
+
+  /* and clear the display */
+  lc.clearDisplay(0);
+
+  setAllCautionLed(true);
+
+   pinMode(BLEED_AIR_SOL_PORT, OUTPUT);
   digitalWrite(BLEED_AIR_SOL_PORT, false);
   pinMode(PITOT_HEAT_PORT, OUTPUT);
   digitalWrite(PITOT_HEAT_PORT, false);
@@ -290,7 +548,18 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  SendDebug(BoardName + " Setup Complete");
+  while (millis() <= 9000) {
+    delay(FLASH_TIME);
+    digitalWrite(GREEN_STATUS_LED_PORT, false);
+    delay(FLASH_TIME);
+    digitalWrite(GREEN_STATUS_LED_PORT, true);
+  }
+
+  setAllCautionLed(false);
+
+
+
+  SendDebug("Setup Complete");
 }
 
 
@@ -317,12 +586,12 @@ void FindInputChanges() {
           outString = outString + "1";
           if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 1);
           if (MSFS_In_Use == 1) SendMSFSMessage(ind, 1);
-          SendDebug(BoardName + String(ind) + ":1");
+          SendDebug(String(ind) + ":1");
         } else {
           outString = outString + "0";
           if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 0);
           if (MSFS_In_Use == 1) SendMSFSMessage(ind, 0);
-          SendDebug(BoardName + String(ind) + ":0");
+          SendDebug(String(ind) + ":0");
         }
 
 
@@ -377,7 +646,7 @@ void SendLedString(String LedCommandToSend) {
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
 
-  SendDebug(BoardName + String(msg) + ":" + String(arg));
+  SendDebug(String(msg) + ":" + String(arg));
 
 
   sendDcsBiosMessage(msg, arg);
