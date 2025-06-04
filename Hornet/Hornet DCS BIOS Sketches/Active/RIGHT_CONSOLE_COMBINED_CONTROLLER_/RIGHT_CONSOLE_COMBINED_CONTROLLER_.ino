@@ -127,6 +127,32 @@ void SendDebug(String MessageToSend) {
 
 // ********************************* End Digital ***************************************************
 
+// ################################### BEGIN LIGHTING ##################################
+
+
+#define BACKLIGHT_PWM 6
+
+void onConsoleIntLtChange(unsigned int newValue) {
+  SendDebug("Console Lights : " + String(newValue));
+  analogWrite(BACKLIGHT_PWM, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
+
+void setConsoleLights(unsigned int newValue) {
+  SendDebug("Console Lights : " + String(newValue));
+  analogWrite(BACKLIGHT_PWM, map(newValue, 0, 65535, 0, 255));
+}
+
+void turnOffAllBacklights() {
+  digitalWrite(BACKLIGHT_PWM, LOW);
+}
+
+void turnOnAllBacklights() {
+  digitalWrite(BACKLIGHT_PWM, HIGH);
+}
+
+// ################################### END LIGHTING ##################################
+
 
 // ######################## BEGIN MAX7219 ########################
 #include "LedControl.h"
@@ -189,44 +215,6 @@ void setAllCautionLed(bool newValue) {
   setClipSpareCtn3Lt(newValue);
 }
 
-
-/*
-0:0 CK seat
-0:1 ch sea
-
-0:2 APU
-0:3 APU
-
-0:4 Batt
-0:5 Batt
-
-1:0 FCS HOT
-1:1 FCS HOT
-
-1:2 GEN TIE
-1:3 Gen tie
-
-1:4 Spare 1
-1:5 Spare 1
-
-2:0 Fuel Low
-2:1 Fuel Low
-
-2:2 FCES
-2:3 FCES
-
-2:4 Spare 2
-2:5 Spare 5
-
-3:0 L GEN
-3:1 L GEN
-
-3:2 R GEN
-3:3 R GEN
-
-3:4 Spare 3
-3:5 Spare 3
-*/
 
 void setClipApuAccLt(bool newValue) {
   lc.setLed(0, 0, 2, newValue);
@@ -326,7 +314,7 @@ DcsBios::IntegerBuffer clipLGenLtBuffer(FA_18C_hornet_CLIP_L_GEN_LT, onClipLGenL
 
 void setClipRGenLt(bool newValue) {
   lc.setLed(0, 3, 2, newValue);
-   lc.setLed(0, 3, 3, newValue);
+  lc.setLed(0, 3, 3, newValue);
 }
 void onClipRGenLtChange(unsigned int newValue) {
   if (newValue == 1)
@@ -378,8 +366,8 @@ DcsBios::IntegerBuffer clipSpareCtn3LtBuffer(FA_18C_hornet_CLIP_SPARE_CTN3_LT, o
 #define NUM_BUTTONS 256
 #define BUTTONS_USED_ON_PCB 176
 #define NUM_AXES 8  // 8 axes, X, Y, Z, etc
-#define GREEN_STATUS_LED_PORT 21
-#define RED_STATUS_LED_PORT 20  // RED LED is used for monitoring ethernet
+#define GREEN_STATUS_LED_PORT 14
+#define RED_STATUS_LED_PORT 15  // RED LED is used for monitoring ethernet
 #define FLASH_TIME 300
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
@@ -478,7 +466,7 @@ void setup() {
   }
 
 
-  /*
+
   // Begin Original Code
   // Set the output ports to output
   for (int portId = 22; portId < 38; portId++) {
@@ -490,24 +478,8 @@ void setup() {
     pinMode(portId, INPUT_PULLUP);
   }
   // End Original Code
-*/
-// Begin Controller v2 Code
-// Set the output ports to output
-#define startingRowPin 22
-#define endingRowPin 34
-#define numberofRows 13
-  for (int portId = startingRowPin; portId < (endingRowPin + 1); portId++) {
-    pinMode(portId, OUTPUT);
-  }
-#define startingColumnPin 35
-#define endingColumnPin 45
-#define numberofColumns 11
-  // Set the input ports to input - port 50-53 used by Ethernet Shield
-  for (int portId = startingColumnPin; portId < (endingColumnPin + 1); portId++) {
-    // Even though we've already got 10K external pullups
-    pinMode(portId, INPUT_PULLUP);
-  }
-  // End Controller v2 Code
+
+
 
 
   // Initialise all arrays
@@ -522,9 +494,12 @@ void setup() {
   }
 
 
-
   pinMode(HOOK_LED, OUTPUT);
+  pinMode(BACKLIGHT_PWM, OUTPUT);
+
   digitalWrite(HOOK_LED, true);
+
+  turnOnAllBacklights();
 
   /*The MAX72XX is in power-saving mode on startup*/
   lc.shutdown(0, false);
@@ -536,7 +511,7 @@ void setup() {
 
   setAllCautionLed(true);
 
-   pinMode(BLEED_AIR_SOL_PORT, OUTPUT);
+  pinMode(BLEED_AIR_SOL_PORT, OUTPUT);
   digitalWrite(BLEED_AIR_SOL_PORT, false);
   pinMode(PITOT_HEAT_PORT, OUTPUT);
   digitalWrite(PITOT_HEAT_PORT, false);
@@ -548,13 +523,19 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  while (millis() <= 9000) {
+  while (millis() <= 90000) {
     delay(FLASH_TIME);
     digitalWrite(GREEN_STATUS_LED_PORT, false);
     delay(FLASH_TIME);
     digitalWrite(GREEN_STATUS_LED_PORT, true);
   }
 
+
+
+  turnOffAllBacklights();
+
+  // Set Console lights to a mid level for start of game
+  setConsoleLights(16000);
   setAllCautionLed(false);
 
 
@@ -1655,8 +1636,21 @@ void loop() {
   //turn off all rows first
   for (int rowid = 0; rowid < 16; rowid++) {
     //turn on the current row
+    // why differentiate? rows
 
-    digitalWrite(startingRowPin + rowid, 0);
+
+    if (rowid == 0)
+      PORTC = 0xFF;
+    if (rowid == 8)
+      PORTA = 0xFF;
+
+    if (rowid < 8) {
+      // Shift 1 right  - this is actually pulling port down
+      PORTA = ~(0x1 << rowid);
+    } else {
+      PORTC = ~(0x1 << (15 - rowid));
+    }
+
 
 
     //we must have such a delay so the digital pin output can go LOW steadily,
@@ -1664,24 +1658,65 @@ void loop() {
     //so check the first column pin's value will return incorrect result.
     delayMicroseconds(ScanDelay);
 
-    int colResult[numberofColumns];
-    for (int colid = 0; colid < (numberofColumns); colid++) {
-      colResult[colid] = digitalRead(startingColumnPin + colid);
-      //SendDebug("Column:Row:Value " + String(colid) + ":" + String(rowid) + ":" + String(colResult[colid]));
-    }
-    // delay(5000);
+    int colResult[16];
+    // Reading upper pins
+    //pin 38, PD7
+    colResult[0] = (PIND & B10000000) == 0 ? 0 : 1;
+    //pin 39, PG2
+    colResult[1] = (PING & B00000100) == 0 ? 0 : 1;
+    //pin 40, PG1
+    colResult[2] = (PING & B00000010) == 0 ? 0 : 1;
+    //pin 41, PG0
+    colResult[3] = (PING & B00000001) == 0 ? 0 : 1;
 
-    for (int colid = 0; colid < numberofColumns; colid++) {
+    //pin 42, PL7
+    colResult[4] = (PINL & B10000000) == 0 ? 0 : 1;
+    //pin 43, PL6
+    colResult[5] = (PINL & B01000000) == 0 ? 0 : 1;
+    //pin 44, PL5
+    colResult[6] = (PINL & B00100000) == 0 ? 0 : 1;
+    //pin 45, PL4
+    colResult[7] = (PINL & B00010000) == 0 ? 0 : 1;
+
+    //pin 46, PL3
+    colResult[8] = (PINL & B00001000) == 0 ? 0 : 1;
+    //pin 47, PL2
+    colResult[9] = (PINL & B00000100) == 0 ? 0 : 1;
+    //pin 48, PL1
+    colResult[10] = (PINL & B00000010) == 0 ? 0 : 1;
+    //pin 49, PL0
+    //pin 49 is not used on the PCB design - more a mistake than anything else as it is available for us
+    //colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
+    colResult[11] = 1;
+
+    // Unable to use pins 50-53 per the following
+    //This is on digital pins 10, 11, 12, and 13 on the Uno and pins 50, 51, and 52 on the Mega.
+    //On both boards, pin 10 is used to select the W5500 and pin 4 for the SD card. These pins cannot be used for general I/O.
+    //On the Mega, the hardware SS pin, 53, is not used to select either the W5500 or the SD card,
+    //pin 50, PB3
+    //colResult[12] =(PINB & B00001000) == 0 ? 0 : 1;
+    colResult[12] = 1;
+    //pin 51, PB2
+    //colResult[13] =(PINB & B00000100) == 0 ? 0 : 0;
+    colResult[13] = 1;
+    //pin 52, PB1
+    //colResult[14] =(PINB & B00000010) == 0 ? 0 : 0;
+    colResult[14] = 1;
+    //pin 53, PB0
+    //colResult[15] =(PINB & B00000001) == 0 ? 0 : 1;
+    colResult[15] = 1;
+
+
+    // There are 11 Columns per row - gives a total of 176 possible inputs
+    // Have left the arrays dimensioned as per original code - if CPU or Memory becomes scarce reduce array
+    for (int colid = 0; colid < 16; colid++) {
       if (colResult[colid] == 0) {
-        joyReport.button[(rowid * numberofColumns) + colid] = 1;
+        joyReport.button[(rowid * 11) + colid] = 1;
       } else {
-        joyReport.button[(rowid * numberofColumns) + colid] = 0;
+        joyReport.button[(rowid * 11) + colid] = 0;
       }
     }
-
-    digitalWrite(startingRowPin + rowid, 1);
   }
-
 
   FindInputChanges();
 
@@ -1705,367 +1740,824 @@ void loop() {
   currentMillis = millis();
 }
 
-void CaseTemplate() {
+void CaseTemplate(int ind, int state) {
+
+  // sendToDcsBiosMessage("R_GEN_SW", "1");
+  // SendIPString("LWIN F1");
+  switch (state) {
+
+    // RELEASE
+    case 0:
+      switch (ind) {
+
+        case 0:
+          break;
+          // PRESS - OPEN
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        case 5:
+          break;
+          // PRESS - OPEN
+        case 6:
+          break;
+        case 7:
+          break;
+        case 8:
+          break;
+        case 9:
+          break;
+        case 10:
+          break;
+          // PRESS - OPEN
+        case 11:
+          break;
+        case 12:
+          break;
+        case 13:
+          break;
+        case 14:
+          break;
+        case 15:
+          break;
+          // PRESS - OPEN
+        case 16:
+          break;
+        case 17:
+          break;
+        case 18:
+          break;
+        case 19:
+          break;
+        case 20:
+          break;
+          // PRESS - OPEN
+        case 21:
+          break;
+        case 22:
+          break;
+        case 23:
+          break;
+        case 24:
+          break;
+        case 25:
+          break;
+          // PRESS - OPEN
+        case 26:
+          break;
+        case 27:
+          break;
+        case 28:
+          break;
+        case 29:
+          break;
+        case 30:
+          break;
+          // PRESS - OPEN
+        case 31:
+          break;
+        case 32:
+          break;
+        case 33:
+          break;
+        case 34:
+          break;
+        case 35:
+          break;
+          // PRESS - OPEN
+        case 36:
+          break;
+        case 37:
+          break;
+        case 38:
+          break;
+        case 39:
+          break;
+        case 40:
+          break;
+          // PRESS - OPEN
+        case 41:
+          break;
+        case 42:
+          break;
+        case 43:
+          break;
+        case 44:
+          break;
+        case 45:
+          break;
+          // PRESS - OPEN
+        case 46:
+          break;
+        case 47:
+          break;
+        case 48:
+          break;
+        case 49:
+          break;
+        case 50:
+          break;
+          // PRESS - OPEN
+        case 51:
+          break;
+        case 52:
+          break;
+        case 53:
+          break;
+        case 54:
+          break;
+        case 55:
+          break;
+          // PRESS - OPEN
+        case 56:
+          break;
+        case 57:
+          break;
+        case 58:
+          break;
+        case 59:
+          break;
+        case 60:
+          break;
+          // PRESS - OPEN
+        case 61:
+          break;
+        case 62:
+          break;
+        case 63:
+          break;
+        case 64:
+          break;
+        case 65:
+          break;
+          // PRESS - OPEN
+        case 66:
+          break;
+        case 67:
+          break;
+        case 68:
+          break;
+        case 69:
+          break;
+        case 70:
+          break;
+          // PRESS - OPEN
+        case 71:
+          break;
+        case 72:
+          break;
+        case 73:
+          break;
+        case 74:
+          break;
+        case 75:
+          break;
+          // PRESS - OPEN
+        case 76:
+          break;
+        case 77:
+          break;
+        case 78:
+          break;
+        case 79:
+          break;
+        case 80:
+          break;
+          // PRESS - OPEN
+        case 81:
+          break;
+        case 82:
+          break;
+        case 83:
+          break;
+        case 84:
+          break;
+        case 85:
+          break;
+          // PRESS - OPEN
+        case 86:
+          break;
+        case 87:
+          break;
+        case 88:
+          break;
+        case 89:
+          break;
+        case 90:
+          break;
+          // PRESS - OPEN
+        case 91:
+          break;
+        case 92:
+          break;
+        case 93:
+          break;
+        case 94:
+          break;
+        case 95:
+          break;
+          // PRESS - OPEN
+        case 96:
+          break;
+        case 97:
+          break;
+        case 98:
+          break;
+        case 99:
+          break;
+        case 100:
+          break;
+          // PRESS - OPEN
+        case 101:
+          break;
+        case 102:
+          break;
+        case 103:
+          break;
+        case 104:
+          break;
+        case 105:
+          break;
+          // PRESS - OPEN
+        case 106:
+          break;
+        case 107:
+          break;
+        case 108:
+          break;
+        case 109:
+          break;
+        case 110:
+          break;
+          // PRESS - OPEN
+        case 111:
+          break;
+        case 112:
+          break;
+        case 113:
+          break;
+        case 114:
+          break;
+        case 115:
+          break;
+          // PRESS - OPEN
+        case 116:
+          break;
+        case 117:
+          break;
+        case 118:
+          break;
+        case 119:
+          break;
+        case 120:
+          break;
+          // PRESS - OPEN
+        case 121:
+          break;
+        case 122:
+          break;
+        case 123:
+          break;
+        case 124:
+          break;
+        case 125:
+          break;
+          // PRESS - OPEN
+        case 126:
+          break;
+        case 127:
+          break;
+        case 128:
+          break;
+        case 129:
+          break;
+        case 130:
+          break;
+          // PRESS - OPEN
+        case 131:
+          break;
+        case 132:
+          break;
+        case 133:
+          break;
+        case 134:
+          break;
+        case 135:
+          break;
+          // PRESS - OPEN
+        case 136:
+          break;
+        case 137:
+          break;
+        case 138:
+          break;
+        case 139:
+          break;
+        case 140:
+          break;
+          // PRESS - OPEN
+        case 141:
+          break;
+        case 142:
+          break;
+        case 143:
+          break;
+        case 144:
+          break;
+        case 145:
+          break;
+          // PRESS - OPEN
+        case 146:
+          break;
+        case 147:
+          break;
+        case 148:
+          break;
+        case 149:
+          break;
+        case 150:
+          break;
+          // PRESS - OPEN
+        case 151:
+          break;
+        case 152:
+          break;
+        case 153:
+          break;
+        case 154:
+          break;
+        case 155:
+          break;
+          // PRESS - OPEN
+        case 156:
+          break;
+        case 157:
+          break;
+        case 158:
+          break;
+        case 159:
+          break;
+        case 160:
+          break;
+          // PRESS - OPEN
+        case 161:
+          break;
+        case 162:
+          break;
+        case 163:
+          break;
+        case 164:
+          break;
+        case 165:
+          break;
+          // PRESS - OPEN
+        case 166:
+          break;
+        case 167:
+          break;
+        case 168:
+          break;
+        case 169:
+          break;
+        case 170:
+          break;
+          // PRESS - OPEN
+        case 171:
+          break;
+        case 172:
+          break;
+        case 173:
+          break;
+        case 174:
+          break;
+        case 175:
+          break;
+          // PRESS - OPEN
+        case 176:
+          break;
+        case 177:
+          break;
+        case 178:
+          break;
+        case 179:
+          break;
+        default:
+          break;
+      }
+      break;
 
 
-  //        case 0:
-  //          break;
-  //        case 1:
-  //          break;
-  //        case 2:
-  //          break;
-  //        case 3:
-  //          break;
-  //        case 4:
-  //          break;
-  //        case 5:
-  //          break;
-  //        case 6:
-  //          break;
-  //        case 7:
-  //          break;
-  //        case 8:
-  //          break;
-  //        case 9:
-  //          break;
-  //        case 10:
-  //          break;
-  //        case 11:
-  //          break;
-  //        case 12:
-  //          break;
-  //        case 13:
-  //          break;
-  //        case 14:
-  //          break;
-  //        case 15:
-  //          break;
-  //        case 16:
-  //          break;
-  //        case 17:
-  //          break;
-  //        case 18:
-  //          break;
-  //        case 19:
-  //          break;
-  //        case 20:
-  //          break;
-  //        case 21:
-  //          break;
-  //        case 22:
-  //          break;
-  //        case 23:
-  //          break;
-  //        case 24:
-  //          break;
-  //        case 25:
-  //          break;
-  //        case 26:
-  //          break;
-  //        case 27:
-  //          break;
-  //        case 28:
-  //          break;
-  //        case 29:
-  //          break;
-  //        case 30:
-  //          break;
-  //        case 31:
-  //          break;
-  //        case 32:
-  //          break;
-  //        case 33:
-  //          break;
-  //        case 34:
-  //          break;
-  //        case 35:
-  //          break;
-  //        case 36:
-  //          break;
-  //        case 37:
-  //          break;
-  //        case 38:
-  //          break;
-  //        case 39:
-  //          break;
-  //        case 40:
-  //          break;
-  //        case 41:
-  //          break;
-  //        case 42:
-  //          break;
-  //        case 43:
-  //          break;
-  //        case 44:
-  //          break;
-  //        case 45:
-  //          break;
-  //        case 46:
-  //          break;
-  //        case 47:
-  //          break;
-  //        case 48:
-  //          break;
-  //        case 49:
-  //          break;
-  //        case 50:
-  //          break;
-  //        case 51:
-  //          break;
-  //        case 52:
-  //          break;
-  //        case 53:
-  //          break;
-  //        case 54:
-  //          break;
-  //        case 55:
-  //          break;
-  //        case 56:
-  //          break;
-  //        case 57:
-  //          break;
-  //        case 58:
-  //          break;
-  //        case 59:
-  //          break;
-  //        case 60:
-  //          break;
-  //        case 61:
-  //          break;
-  //        case 62:
-  //          break;
-  //        case 63:
-  //          break;
-  //        case 64:
-  //          break;
-  //        case 65:
-  //          break;
-  //        case 66:
-  //          break;
-  //        case 67:
-  //          break;
-  //        case 68:
-  //          break;
-  //        case 69:
-  //          break;
-  //        case 70:
-  //          break;
-  //        case 71:
-  //          break;
-  //        case 72:
-  //          break;
-  //        case 73:
-  //          break;
-  //        case 74:
-  //          break;
-  //        case 75:
-  //          break;
-  //        case 76:
-  //          break;
-  //        case 77:
-  //          break;
-  //        case 78:
-  //          break;
-  //        case 79:
-  //          break;
-  //        case 80:
-  //          break;
-  //        case 81:
-  //          break;
-  //        case 82:
-  //          break;
-  //        case 83:
-  //          break;
-  //        case 84:
-  //          break;
-  //        case 85:
-  //          break;
-  //        case 86:
-  //          break;
-  //        case 87:
-  //          break;
-  //        case 88:
-  //          break;
-  //        case 89:
-  //          break;
-  //        case 90:
-  //          break;
-  //        case 91:
-  //          break;
-  //        case 92:
-  //          break;
-  //        case 93:
-  //          break;
-  //        case 94:
-  //          break;
-  //        case 95:
-  //          break;
-  //        case 96:
-  //          break;
-  //        case 97:
-  //          break;
-  //        case 98:
-  //          break;
-  //        case 99:
-  //          break;
-  //        case 100:
-  //          break;
-  //        case 101:
-  //          break;
-  //        case 102:
-  //          break;
-  //        case 103:
-  //          break;
-  //        case 104:
-  //          break;
-  //        case 105:
-  //          break;
-  //        case 106:
-  //          break;
-  //        case 107:
-  //          break;
-  //        case 108:
-  //          break;
-  //        case 109:
-  //          break;
-  //        case 110:
-  //          break;
-  //        case 111:
-  //          break;
-  //        case 112:
-  //          break;
-  //        case 113:
-  //          break;
-  //        case 114:
-  //          break;
-  //        case 115:
-  //          break;
-  //        case 116:
-  //          break;
-  //        case 117:
-  //          break;
-  //        case 118:
-  //          break;
-  //        case 119:
-  //          break;
-  //        case 120:
-  //          break;
-  //        case 121:
-  //          break;
-  //        case 122:
-  //          break;
-  //        case 123:
-  //          break;
-  //        case 124:
-  //          break;
-  //        case 125:
-  //          break;
-  //        case 126:
-  //          break;
-  //        case 127:
-  //          break;
-  //        case 128:
-  //          break;
-  //        case 129:
-  //          break;
-  //        case 130:
-  //          break;
-  //        case 131:
-  //          break;
-  //        case 132:
-  //          break;
-  //        case 133:
-  //          break;
-  //        case 134:
-  //          break;
-  //        case 135:
-  //          break;
-  //        case 136:
-  //          break;
-  //        case 137:
-  //          break;
-  //        case 138:
-  //          break;
-  //        case 139:
-  //          break;
-  //        case 140:
-  //          break;
-  //        case 141:
-  //          break;
-  //        case 142:
-  //          break;
-  //        case 143:
-  //          break;
-  //        case 144:
-  //          break;
-  //        case 145:
-  //          break;
-  //        case 146:
-  //          break;
-  //        case 147:
-  //          break;
-  //        case 148:
-  //          break;
-  //        case 149:
-  //          break;
-  //        case 150:
-  //          break;
-  //        case 151:
-  //          break;
-  //        case 152:
-  //          break;
-  //        case 153:
-  //          break;
-  //        case 154:
-  //          break;
-  //        case 155:
-  //          break;
-  //        case 156:
-  //          break;
-  //        case 157:
-  //          break;
-  //        case 158:
-  //          break;
-  //        case 159:
-  //          break;
-  //        case 160:
-  //          break;
-  //        case 161:
-  //          break;
-  //        case 162:
-  //          break;
-  //        case 163:
-  //          break;
-  //        case 164:
-  //          break;
-  //        case 165:
-  //          break;
-  //        case 166:
-  //          break;
-  //        case 167:
-  //          break;
-  //        case 168:
-  //          break;
-  //        case 169:
-  //          break;
-  //        case 170:
-  //          break;
-  //        case 171:
-  //          break;
-  //        case 172:
-  //          break;
-  //        case 173:
-  //          break;
-  //        case 174:
-  //          break;
-  //        case 175:
-  //          break;
-  //        case 176:
-  //          break;
-  //        case 177:
-  //          break;
-  //        case 178:
-  //          break;
-  //        case 179:
-  //          break;
+
+    case 1:
+
+      // PRESS - CLOSE
+      switch (ind) {
+        case 0:
+          break;
+        case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        case 5:
+          break;
+          // PRESS - CLOSE
+        case 6:
+          break;
+        case 7:
+          break;
+        case 8:
+          break;
+        case 9:
+          break;
+        case 10:
+          break;
+          // PRESS - CLOSE
+        case 11:
+          break;
+        case 12:
+          break;
+        case 13:
+          break;
+        case 14:
+          break;
+        case 15:
+          break;
+          // PRESS - CLOSE
+        case 16:
+          break;
+        case 17:
+          break;
+        case 18:
+          break;
+        case 19:
+          break;
+        case 20:
+          break;
+          // PRESS - CLOSE
+        case 21:
+          break;
+        case 22:
+          break;
+        case 23:
+          break;
+        case 24:
+          break;
+        case 25:
+          break;
+          // PRESS - CLOSE
+        case 26:
+          break;
+        case 27:
+          break;
+        case 28:
+          break;
+        case 29:
+          break;
+        case 30:
+          break;
+          // PRESS - CLOSE
+        case 31:
+          break;
+        case 32:
+          break;
+        case 33:
+          break;
+        case 34:
+          break;
+        case 35:
+          break;
+          // PRESS - CLOSE
+        case 36:
+          break;
+        case 37:
+          break;
+        case 38:
+          break;
+        case 39:
+          break;
+        case 40:
+          break;
+          // PRESS - CLOSE
+        case 41:
+          break;
+        case 42:
+          break;
+        case 43:
+          break;
+        case 44:
+          break;
+        case 45:
+          break;
+          // PRESS - CLOSE
+        case 46:
+          break;
+        case 47:
+          break;
+        case 48:
+          break;
+        case 49:
+          break;
+        case 50:
+          break;
+          // PRESS - CLOSE
+        case 51:
+          break;
+        case 52:
+          break;
+        case 53:
+          break;
+        case 54:
+          break;
+        case 55:
+          break;
+          // PRESS - CLOSE
+        case 56:
+          break;
+
+        case 57:
+          break;
+        case 58:
+          break;
+        case 59:
+          break;
+        case 60:
+          break;
+        // PRESS - CLOSE
+        case 61:
+          break;
+        case 62:
+          break;
+        case 63:
+          break;
+        case 64:
+          break;
+        case 65:
+          break;
+          // PRESS - CLOSE
+        case 66:
+          break;
+        case 67:
+          break;
+        case 68:
+          break;
+        case 69:
+          break;
+        case 70:
+          break;
+          // PRESS - CLOSE
+        case 71:
+          break;
+        case 72:
+          break;
+        case 73:
+          break;
+        case 74:
+          break;
+        case 75:
+          break;
+          // PRESS - CLOSE
+        case 76:
+          break;
+        case 77:
+          break;
+        case 78:
+          break;
+        case 79:
+          break;
+        case 80:
+          break;
+          // PRESS - CLOSE
+        case 81:
+          break;
+        case 82:
+          break;
+        case 83:
+          break;
+        case 84:
+          break;
+        case 85:
+          break;
+          // PRESS - CLOSE
+        case 86:
+          break;
+        case 87:
+          break;
+        case 88:
+          break;
+        case 89:
+          break;
+        case 90:
+          break;
+          // PRESS - CLOSE
+        case 91:
+          break;
+        case 92:
+          break;
+        case 93:
+          break;
+        case 94:
+          break;
+        case 95:
+          break;
+          // PRESS - CLOSE
+        case 96:
+          break;
+        case 97:
+          break;
+        case 98:
+          break;
+        case 99:
+          break;
+        case 100:
+          break;
+          // PRESS - CLOSE
+        case 101:
+          break;
+        case 102:
+          break;
+        case 103:
+          break;
+        case 104:
+          break;
+        case 105:
+          break;
+          // PRESS - CLOSE
+        case 106:
+          break;
+        case 107:
+          break;
+        case 108:
+          break;
+        case 109:
+          break;
+        case 110:
+          break;
+          // PRESS - CLOSE
+        case 111:
+          break;
+        case 112:
+          break;
+        case 113:
+          break;
+        case 114:
+          break;
+        case 115:
+          break;
+          // PRESS - CLOSE
+        case 116:
+          break;
+        case 117:
+          break;
+        case 118:
+          break;
+        case 119:
+          break;
+        case 120:
+          break;
+          // PRESS - CLOSE
+        case 121:
+          break;
+        case 122:
+          break;
+        case 123:
+          break;
+        case 124:
+          break;
+        case 125:
+          break;
+          // PRESS - CLOSE
+        case 126:
+          break;
+        case 127:
+          break;
+        case 128:
+          break;
+        case 129:
+          break;
+        case 130:
+          break;
+          // PRESS - CLOSE
+        case 131:
+          break;
+        case 132:
+          break;
+        case 133:
+          break;
+        case 134:
+          break;
+        case 135:
+          break;
+          // PRESS - CLOSE
+        case 136:
+          break;
+        case 137:
+          break;
+        case 138:
+          break;
+        case 139:
+          break;
+        case 140:
+          break;
+          // PRESS - CLOSE
+        case 141:
+          break;
+        case 142:
+          break;
+        case 143:
+          break;
+        case 144:
+          break;
+        case 145:
+          break;
+          // PRESS - CLOSE
+        case 146:
+          break;
+        case 147:
+          break;
+        case 148:
+          break;
+        case 149:
+          break;
+        case 150:
+          break;
+          // PRESS - CLOSE
+        case 151:
+          break;
+        case 152:
+          break;
+        case 153:
+          break;
+        case 154:
+          break;
+        case 155:
+          break;
+          // PRESS - CLOSE
+        case 156:
+          break;
+        case 157:
+          break;
+        case 158:
+          break;
+        case 159:
+          break;
+        case 160:
+          break;
+          // PRESS - CLOSE
+        case 161:
+          break;
+        case 162:
+          break;
+        case 163:
+          break;
+        case 164:
+          break;
+        case 165:
+          break;
+          // PRESS - CLOSE
+        case 166:
+          break;
+        case 167:
+          break;
+        case 168:
+          break;
+        case 169:
+          break;
+        case 170:
+          break;
+          // PRESS - CLOSE
+        case 171:
+          break;
+        case 172:
+          break;
+        case 173:
+          break;
+        case 174:
+          break;
+        case 175:
+          break;
+          // PRESS - CLOSE
+        case 176:
+          break;
+        case 177:
+          break;
+        case 178:
+          break;
+        case 179:
+          break;
+
+        default:
+          // PRESS - CLOSE
+          break;
+          break;
+      }
+  }
 }
