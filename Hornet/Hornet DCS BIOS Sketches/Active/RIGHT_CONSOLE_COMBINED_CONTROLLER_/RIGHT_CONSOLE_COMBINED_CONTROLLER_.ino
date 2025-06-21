@@ -11,7 +11,9 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
 /*
- *  */
+TO DO  
+- Add Scotts Mag switch support code for LTD
+*/
 /*
 
   This Superceedes udp_input_controller
@@ -523,7 +525,9 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  while (millis() <= 90000) {
+  // Synchronise end of setup scripts across the pit so panel lights dim togehter
+  // while (millis() <= 90000) {
+  while (millis() <= 0) {
     delay(FLASH_TIME);
     digitalWrite(GREEN_STATUS_LED_PORT, false);
     delay(FLASH_TIME);
@@ -661,6 +665,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 5:
           SendIPString("LSHIFT Z");
           break;
+        // RELEASE
         case 6:
           break;
         case 7:
@@ -673,6 +678,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 10:
           sendToDcsBiosMessage("WING_FOLD_ROTATE", "1");
           break;
+        // RELEASE
         case 11:
           sendToDcsBiosMessage("FLIR_SW", "1");
           break;
@@ -693,6 +699,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 19:
           break;
+        // RELEASE
         case 20:
           sendToDcsBiosMessage("WING_FOLD_ROTATE", "1");
           break;
@@ -700,12 +707,13 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("AV_COOL_SW", "1");
           break;
         case 22:
-          sendToDcsBiosMessage("LTD_R_SW", "2");
+          sendToDcsBiosMessage("LTD_R_SW", "0");
           break;
         case 23:
           break;
         case 24:
           break;
+        // RELEASE
         case 25:
           break;
         case 26:
@@ -716,6 +724,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 29:
           break;
+        // RELEASE
         case 30:
           break;
         case 31:
@@ -731,6 +740,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           TimeRadarOn = millis() + RadarMoveTime;
           RadarPushFollowupTask = true;
           break;
+        // RELEASE
         case 35:
           break;
         case 36:
@@ -741,6 +751,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 39:
           break;
+        // RELEASE
         case 40:
           break;
         case 41:
@@ -753,6 +764,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 44:
           break;
+        // RELEASE
         case 45:
           break;
         case 46:
@@ -764,6 +776,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 49:
           break;
+        // RELEASE
         case 50:
           break;
         case 51:
@@ -776,6 +789,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 54:
           sendToDcsBiosMessage("BATTERY_SW", "1");
           break;
+        // RELEASE
         case 55:
           break;
         case 56:
@@ -787,6 +801,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 59:
           break;
+        // RELEASE
         case 60:
           break;
         case 61:
@@ -797,6 +812,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 64:
           break;
+        // RELEASE
         case 65:
           break;
         case 66:
@@ -807,6 +823,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 69:
           break;
+        // RELEASE
         case 70:
           break;
         case 71:
@@ -817,6 +834,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 74:
           break;
+        // RELEASE
         case 75:
           break;
         case 76:
@@ -827,6 +845,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 79:
           break;
+        // RELEASE
         case 80:
           break;
         case 81:
@@ -837,6 +856,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 84:
           break;
+        // RELEASE
         case 85:
           break;
         case 86:
@@ -849,6 +869,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 89:
           sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
           break;
+        // RELEASE
         case 90:
           sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "1");
           break;
@@ -863,6 +884,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 94:
           break;
+        // RELEASE
         case 95:
           sendToDcsBiosMessage("RADALT_TEST_SW", "0");
           break;
@@ -874,6 +896,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 99:
           break;
+        // RELEASE
         case 100:
           sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
           break;
@@ -888,6 +911,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 104:
           break;
+        // RELEASE
         case 105:
           break;
         case 106:
@@ -898,6 +922,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 109:
           break;
+        // RELEASE
         case 110:
           sendToDcsBiosMessage("CANOPY_SW", "1");
           break;
@@ -911,6 +936,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 114:
           break;
+        // RELEASE
         case 115:
           break;
         case 116:
@@ -921,6 +947,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 119:
           break;
+        // RELEASE
         case 120:
           break;
         case 121:
@@ -934,6 +961,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 124:
           sendToDcsBiosMessage("ENG_ANTIICE_SW", "1");
           break;
+        // RELEASE
         case 125:
           break;
         case 126:
@@ -944,6 +972,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 129:
           break;
+        // RELEASE
         case 130:
           break;
         case 131:
@@ -957,6 +986,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 134:
           sendToDcsBiosMessage("CB_LG", "1");
           break;
+        // RELEASE
         case 135:
           break;
         case 136:
@@ -967,6 +997,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 139:
           break;
+        // RELEASE
         case 140:
           break;
         case 141:
@@ -977,6 +1008,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 144:
           break;
+        // RELEASE
         case 145:
           break;
         case 146:
@@ -987,6 +1019,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 149:
           break;
+        // RELEASE
         case 150:
           break;
         case 151:
@@ -997,6 +1030,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 154:
           break;
+        // RELEASE
         case 155:
           break;
         case 156:
@@ -1007,6 +1041,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 159:
           break;
+        // RELEASE
         case 160:
           break;
         case 161:
@@ -1017,6 +1052,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 164:
           break;
+        // RELEASE
         case 165:
           break;
         case 166:
@@ -1027,6 +1063,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 169:
           break;
+        // RELEASE
         case 170:
           break;
         case 171:
@@ -1037,6 +1074,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 174:
           break;
+        // RELEASE
         case 175:
           break;
         case 176:
@@ -1047,6 +1085,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 179:
           break;
+        // RELEASE
         default:
           break;
       }
@@ -1059,7 +1098,7 @@ void CreateDcsBiosMessage(int ind, int state) {
       // PRESS - CLOSE
       switch (ind) {
         case 0:
-          sendToDcsBiosMessage("FLIR_SW", "2");
+          sendToDcsBiosMessage("FLIR_SW", "0");
           break;
         case 1:
           sendToDcsBiosMessage("RADAR_SW", "0");
@@ -1073,6 +1112,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 4:
           SendIPString("LALT F1");
           break;
+        // PRESS - CLOSE
         case 5:
           SendIPString("LCTRL Z");
           break;
@@ -1092,7 +1132,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 11:
-          sendToDcsBiosMessage("FLIR_SW", "0");
+          sendToDcsBiosMessage("FLIR_SW", "2");
           break;
         case 12:
           sendToDcsBiosMessage("RADAR_SW", "1");
@@ -1103,6 +1143,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 14:
           SendIPString("ESC");
           break;
+        // PRESS - CLOSE
         case 15:
           SendIPString("F10");
           break;
@@ -1116,6 +1157,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 19:
           sendToDcsBiosMessage("KY58_FILL_SELECT", "0");
           break;
+        // PRESS - CLOSE
         case 20:
           sendToDcsBiosMessage("WING_FOLD_ROTATE", "0");
           break;
@@ -1125,11 +1167,11 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 22:
           // Special Case for Magnetic Switches LTD/R
-          if (Ethernet_In_Use == 1) {
-            SendIPString("LCTRL LSHIFT F3");
-          } else {
-            sendToDcsBiosMessage("LTD_R_SW", "0");
-          }
+          // if (Ethernet_In_Use == 1) {
+          //   SendIPString("LCTRL LSHIFT F3");
+          // } else {
+          sendToDcsBiosMessage("LTD_R_SW", "1");
+          //}
 
 
 
@@ -1140,6 +1182,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 24:
           sendToDcsBiosMessage("INS_SW", "2");  //GND
           break;
+        // PRESS - CLOSE
         case 25:
           break;
         case 26:
@@ -1152,6 +1195,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 29:
           sendToDcsBiosMessage("KY58_MODE_SELECT", "2");
           break;
+        // PRESS - CLOSE
         case 30:
           sendToDcsBiosMessage("KY58_FILL_SELECT", "1");
           break;
@@ -1169,6 +1213,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           RadarFollowupTask = true;
           TimeRadarOn = millis() + RadarMoveTime;
           break;
+        // PRESS - CLOSE
         case 35:
           sendToDcsBiosMessage("INS_SW", "3");  //NAV
           break;
@@ -1197,6 +1242,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 44:
           break;
+        // PRESS - CLOSE
         case 45:
           break;
         case 46:
@@ -1225,6 +1271,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 54:
           sendToDcsBiosMessage("BATTERY_SW", "0");
           break;
+        // PRESS - CLOSE
         case 55:
           break;
         case 56:
@@ -1251,6 +1298,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 64:
           break;
+        // PRESS - CLOSE
         case 65:
           break;
         case 66:
@@ -1262,6 +1310,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 69:
           break;
+        // PRESS - CLOSE
         case 70:
           SendIPString("F6");
           break;
@@ -1276,6 +1325,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 74:
           sendToDcsBiosMessage("KY58_FILL_SELECT", "5");
           break;
+        // PRESS - CLOSE
         case 75:
           break;
         case 76:
@@ -1300,6 +1350,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 84:
           break;
+        // PRESS - CLOSE
         case 85:
           sendToDcsBiosMessage("KY58_FILL_SELECT", "6");
           break;
@@ -1313,6 +1364,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 89:
           sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "2");
           break;
+        // PRESS - CLOSE
         case 90:
           sendToDcsBiosMessage("WSHIELD_ANTI_ICE_SW", "2");
           break;
@@ -1334,6 +1386,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 94:
           sendToDcsBiosMessage("BLEED_AIR_KNOB", "3");
           break;
+        // PRESS - CLOSE
         case 95:
           sendToDcsBiosMessage("RADALT_TEST_SW", "1");
           break;
@@ -1360,6 +1413,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 104:
           break;
+        // PRESS - CLOSE
         case 105:
           sendToDcsBiosMessage("BLEED_AIR_KNOB", "2");
           break;
@@ -1372,6 +1426,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 109:
           break;
+        // PRESS - CLOSE
         case 110:
           // Special Case for Magnetic Switches Canopy Open
           if (Ethernet_In_Use == 1) {
@@ -1392,6 +1447,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 114:
           break;
+        // PRESS - CLOSE
         case 115:
           break;
         case 116:
@@ -1420,6 +1476,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 124:
           sendToDcsBiosMessage("ENG_ANTIICE_SW", "0");
           break;
+        // PRESS - CLOSE
         case 125:
           break;
         case 126:
@@ -1447,6 +1504,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CB_LG", "0");
 
           break;
+        // PRESS - CLOSE
         case 135:
           break;
         case 136:
@@ -1468,6 +1526,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 144:
           break;
+        // PRESS - CLOSE
         case 145:
           break;
         case 146:
@@ -1489,6 +1548,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 154:
           break;
+        // PRESS - CLOSE
         case 155:
           break;
         case 156:
@@ -1510,6 +1570,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 164:
           break;
+        // PRESS - CLOSE
         case 165:
           break;
         case 166:
@@ -1531,6 +1592,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 174:
           break;
+        // PRESS - CLOSE
         case 175:
           break;
         case 176:
