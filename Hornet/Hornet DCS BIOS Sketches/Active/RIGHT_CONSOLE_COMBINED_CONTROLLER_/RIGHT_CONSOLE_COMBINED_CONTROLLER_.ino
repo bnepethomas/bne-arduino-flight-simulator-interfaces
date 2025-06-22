@@ -866,7 +866,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 87:
           break;
         case 88:
-          sendToDcsBiosMessage("LIGHTS_TEST_SW", "0");
+          sendToDcsBiosMessage("LIGHTS_TEST_SW", "1");
           break;
         case 89:
           sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "1");
@@ -1242,7 +1242,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("L_GEN_SW", "0");  //0
           break;
         case 43:
-          sendToDcsBiosMessage("BATTERY_SW", "2");
+          sendToDcsBiosMessage("BATTERY_SW", "0");
 
           break;
         case 44:
@@ -1274,7 +1274,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("R_GEN_SW", "0");
           break;
         case 54:
-          sendToDcsBiosMessage("BATTERY_SW", "0");
+          sendToDcsBiosMessage("BATTERY_SW", "2");
           break;
         // PRESS - CLOSE
         case 55:
@@ -1364,7 +1364,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 87:
           break;
         case 88:
-          sendToDcsBiosMessage("LIGHTS_TEST_SW", "1");
+          sendToDcsBiosMessage("LIGHTS_TEST_SW", "0");
           break;
         case 89:
           sendToDcsBiosMessage("COCKKPIT_LIGHT_MODE_SW", "2");
@@ -1623,7 +1623,8 @@ DcsBios::PotentiometerEWMA<5, 128, 5> cabinTemp("CABIN_TEMP", A6);  //"YYY" = DC
 DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", A7);    //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //INTR LTS PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3);               //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::Potentiometer chartDimmer("CHART_DIMMER", 3);  
+//DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3);               //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
 DcsBios::PotentiometerEWMA<5, 128, 5> consolesDimmer("CONSOLES_DIMMER", 0);         //set //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 DcsBios::PotentiometerEWMA<5, 128, 5> floodDimmer("FLOOD_DIMMER", 2);               //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 DcsBios::PotentiometerEWMA<5, 128, 5> instPnlDimmer("INST_PNL_DIMMER", 1);          //"YYY" = DCS_BIOS INPUT NAME and X = PIN
