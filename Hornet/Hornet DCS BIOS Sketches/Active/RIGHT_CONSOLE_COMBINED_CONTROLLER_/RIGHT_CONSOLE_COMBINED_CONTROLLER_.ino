@@ -13,6 +13,8 @@
 /*
 TO DO  
 - Add Scotts Mag switch support code for LTD
+- Suit temp and Cabin Temp not moving A6 and A7
+- Bleed Air R-off is not registering a number on scan - work around applied using open on 117 and 105
 */
 /*
 
@@ -913,6 +915,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // RELEASE
         case 105:
+          sendToDcsBiosMessage("BLEED_AIR_KNOB", "3");
           break;
         case 106:
           break;
@@ -938,6 +941,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // RELEASE
         case 115:
+          sendToDcsBiosMessage("BLEED_AIR_PULL", "0");
           break;
         case 116:
           break;
@@ -967,6 +971,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 126:
           break;
         case 127:
+          sendToDcsBiosMessage("BLEED_AIR_KNOB", "3");
           break;
         case 128:
           break;
@@ -1373,15 +1378,15 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("ECS_MODE_SW", "2");
           break;
         case 92:
-          sendToDcsBiosMessage("CABIN_PRESS_SW", "0");
+          sendToDcsBiosMessage("CABIN_PRESS_SW", "2");
           break;
         case 93:
           // Special Case for Magnetic Switches Pitot
-          if (Ethernet_In_Use == 1) {
-            SendIPString("LCTRL LSHIFT F2");
-          } else {
-            sendToDcsBiosMessage("PITOT_HEAT_SW", "1");
-          }
+          // if (Ethernet_In_Use == 1) {
+          //   SendIPString("LCTRL LSHIFT F2");
+          // } else {
+          sendToDcsBiosMessage("PITOT_HEAT_SW", "1");
+          //}
           break;
         case 94:
           sendToDcsBiosMessage("BLEED_AIR_KNOB", "3");
@@ -1409,13 +1414,13 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("ECS_MODE_SW", "0");
           break;
         case 103:
-          sendToDcsBiosMessage("CABIN_PRESS_SW", "2");
+          sendToDcsBiosMessage("CABIN_PRESS_SW", "0");
           break;
         case 104:
           break;
         // PRESS - CLOSE
         case 105:
-          sendToDcsBiosMessage("BLEED_AIR_KNOB", "2");
+          sendToDcsBiosMessage("BLEED_AIR_KNOB", "0");
           break;
         case 106:
           break;
@@ -1443,12 +1448,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 112:
           break;
         case 113:
-          sendToDcsBiosMessage("ENG_ANTIICE_SW", "2");
+          sendToDcsBiosMessage("ENG_ANTIICE_SW", "0");
           break;
         case 114:
           break;
         // PRESS - CLOSE
         case 115:
+          sendToDcsBiosMessage("BLEED_AIR_PULL", "1");
           break;
         case 116:
           sendToDcsBiosMessage("BLEED_AIR_KNOB", "1");
@@ -1474,7 +1480,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 123:
           break;
         case 124:
-          sendToDcsBiosMessage("ENG_ANTIICE_SW", "0");
+          sendToDcsBiosMessage("ENG_ANTIICE_SW", "2");
           break;
         // PRESS - CLOSE
         case 125:
@@ -1482,7 +1488,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 126:
           break;
         case 127:
-          sendToDcsBiosMessage("BLEED_AIR_KNOB", "0");
+          sendToDcsBiosMessage("BLEED_AIR_KNOB", "2");
           break;
         case 128:
           break;
@@ -1613,8 +1619,8 @@ void CreateDcsBiosMessage(int ind, int state) {
 }
 
 //ECS PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> cabinTemp("CABIN_TEMP", 8);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", 9);    //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> cabinTemp("CABIN_TEMP", A6);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", A7);    //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //INTR LTS PANEL
 DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3);               //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
