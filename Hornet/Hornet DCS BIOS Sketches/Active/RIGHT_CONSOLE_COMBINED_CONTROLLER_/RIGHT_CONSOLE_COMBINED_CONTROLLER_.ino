@@ -1625,7 +1625,7 @@ DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", A7);    //"YYY" = DC
 //INTR LTS PANEL
 DcsBios::Potentiometer chartDimmer("CHART_DIMMER", 3);  
 //DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3);               //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> consolesDimmer("CONSOLES_DIMMER", 60);         //set //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> consolesDimmer("CONSOLES_DIMMER", 0);         //set //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 DcsBios::PotentiometerEWMA<5, 128, 5> floodDimmer("FLOOD_DIMMER", 2);               //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 DcsBios::PotentiometerEWMA<5, 128, 5> instPnlDimmer("INST_PNL_DIMMER", 1);          //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 DcsBios::PotentiometerEWMA<5, 128, 5> warnCautionDimmer("WARN_CAUTION_DIMMER", 4);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
@@ -1700,7 +1700,7 @@ void loop() {
   }
 
 
-  // if (DCSBIOS_In_Use == 1) DcsBios::loop();
+  if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first
   for (int rowid = 0; rowid < 16; rowid++) {
