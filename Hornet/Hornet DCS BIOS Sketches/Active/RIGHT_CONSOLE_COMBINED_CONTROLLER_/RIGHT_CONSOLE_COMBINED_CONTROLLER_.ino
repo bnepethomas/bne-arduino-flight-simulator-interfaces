@@ -122,12 +122,34 @@ void SendDebug(String MessageToSend) {
 
 // ********************************* Begin Digital ***************************************************
 
-#define HOOK_LED 4
+#define HOOK_LED 13
 
 #define BLEED_AIR_SOL_PORT A12
 #define PITOT_HEAT_PORT A13
 #define LASER_ARM_PORT A14
 #define CANOPY_MAG_PORT A15
+
+
+void setMagBleedAir(bool newValue) {
+  digitalWrite(BLEED_AIR_SOL_PORT, newValue);
+}
+
+void setMagPitotHeat(bool newValue) {
+  digitalWrite(PITOT_HEAT_PORT, newValue);
+}
+void setMagLaserArm(bool newValue) {
+  digitalWrite(LASER_ARM_PORT, newValue);
+}
+void setMagCanopy(bool newValue) {
+  digitalWrite(CANOPY_MAG_PORT, newValue);
+}
+
+void setAllMags(bool newValue) {
+  setMagBleedAir(newValue);
+  setMagPitotHeat(newValue);
+  setMagLaserArm(newValue);
+  setMagCanopy(newValue);
+}
 
 // ********************************* End Digital ***************************************************
 
@@ -441,10 +463,10 @@ void setup() {
   pinMode(RED_STATUS_LED_PORT, OUTPUT);
   digitalWrite(GREEN_STATUS_LED_PORT, true);
   digitalWrite(RED_STATUS_LED_PORT, true);
-  delay(FLASH_TIME);
-  digitalWrite(GREEN_STATUS_LED_PORT, false);
-  digitalWrite(RED_STATUS_LED_PORT, false);
-  delay(FLASH_TIME);
+  // delay(FLASH_TIME);
+  // digitalWrite(GREEN_STATUS_LED_PORT, false);
+  // digitalWrite(RED_STATUS_LED_PORT, false);
+  // delay(FLASH_TIME);
 
   if (Ethernet_In_Use == 1) {
 
@@ -524,12 +546,14 @@ void setup() {
   pinMode(CANOPY_MAG_PORT, OUTPUT);
   digitalWrite(CANOPY_MAG_PORT, false);
 
+  setAllMags(true);
+
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
   // Synchronise end of setup scripts across the pit so panel lights dim togehter
-  // while (millis() <= 90000) {
-  while (millis() <= 0) {
+  while (millis() <= 15000) {
+  //while (millis() <= 0) {
     delay(FLASH_TIME);
     digitalWrite(GREEN_STATUS_LED_PORT, false);
     delay(FLASH_TIME);
@@ -538,6 +562,7 @@ void setup() {
 
 
 
+  setAllMags(false);
   turnOffAllBacklights();
 
   // Set Console lights to a mid level for start of game
@@ -1623,7 +1648,7 @@ DcsBios::PotentiometerEWMA<5, 128, 5> cabinTemp("CABIN_TEMP", A6);  //"YYY" = DC
 DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", A7);    //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //INTR LTS PANEL
-DcsBios::Potentiometer chartDimmer("CHART_DIMMER", 3);  
+DcsBios::Potentiometer chartDimmer("CHART_DIMMER", 3);
 //DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3);               //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
 DcsBios::PotentiometerEWMA<5, 128, 5> consolesDimmer("CONSOLES_DIMMER", 0);         //set //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 DcsBios::PotentiometerEWMA<5, 128, 5> floodDimmer("FLOOD_DIMMER", 2);               //"YYY" = DCS_BIOS INPUT NAME and X = PIN
@@ -1633,9 +1658,10 @@ DcsBios::PotentiometerEWMA<5, 128, 5> warnCautionDimmer("WARN_CAUTION_DIMMER", 4
 
 
 void onConsolesDimmerChange(unsigned int newValue) {
-  int outvalue = 0;
-  outvalue = map(newValue, 0, 65534, 0, 255);
-  SendLedString("Brightness=" + String(outvalue));
+  // Probably no longer needed as each board has its own controlller - - don't delete until last of 2812s has been removed
+  // int outvalue = 0;
+  // outvalue = map(newValue, 0, 65534, 0, 255);
+  // SendLedString("Brightness=" + String(outvalue));
 }
 DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerChange);
 
@@ -1644,7 +1670,7 @@ DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerC
 DcsBios::PotentiometerEWMA<5, 128, 5> defogHandle("DEFOG_HANDLE", 5);  //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //KY58 PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> ky58Volume("KY58_VOLUME", 10);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 128, 5> ky58Volume("KY58_VOLUME", 8);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 // controlPosition: 0 to 65,535 value representing the analog, real world control value
 // dcsPosition: 0 to 65,535 value reported from DCS for the provided address
