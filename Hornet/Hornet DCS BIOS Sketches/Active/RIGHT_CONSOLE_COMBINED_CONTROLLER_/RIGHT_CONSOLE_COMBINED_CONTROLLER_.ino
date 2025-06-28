@@ -151,6 +151,15 @@ void setAllMags(bool newValue) {
   setMagCanopy(newValue);
 }
 
+void onArrestingHookLtChange(unsigned int newValue) {
+  if (newValue == 0) {
+    digitalWrite(HOOK_LED, false);
+  } else {
+    digitalWrite(HOOK_LED, true);
+  }
+}
+DcsBios::IntegerBuffer arrestingHookLtBuffer(FA_18C_hornet_ARRESTING_HOOK_LT, onArrestingHookLtChange);
+
 // ********************************* End Digital ***************************************************
 
 // ################################### BEGIN LIGHTING ##################################
@@ -553,7 +562,7 @@ void setup() {
 
   // Synchronise end of setup scripts across the pit so panel lights dim togehter
   while (millis() <= 15000) {
-  //while (millis() <= 0) {
+    //while (millis() <= 0) {
     delay(FLASH_TIME);
     digitalWrite(GREEN_STATUS_LED_PORT, false);
     delay(FLASH_TIME);
@@ -563,6 +572,7 @@ void setup() {
 
 
   setAllMags(false);
+  digitalWrite(HOOK_LED, false);
   turnOffAllBacklights();
 
   // Set Console lights to a mid level for start of game
@@ -1713,7 +1723,6 @@ void loop() {
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
 
-    digitalWrite(HOOK_LED, RED_LED_STATE);
 
     // Testing digital outputs
 
