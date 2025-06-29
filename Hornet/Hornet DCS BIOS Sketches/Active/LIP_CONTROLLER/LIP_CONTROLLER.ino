@@ -1413,6 +1413,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - CLOSE
         case 126:
+        sendToDcsBiosMessage("RWR_DIS_TYPE_SW","4");
           break;
         case 127:
           break;
@@ -1438,6 +1439,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RWR_DISPLAY_BTN", "1");
           break;
         case 137:
+        sendToDcsBiosMessage("RWR_DIS_TYPE_SW","3");
           break;
         case 138:
           break;
@@ -1466,6 +1468,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RWR_SPECIAL_BTN", "1");
           break;
         case 148:
+        sendToDcsBiosMessage("RWR_DIS_TYPE_SW","2");
           break;
         case 149:
           break;
@@ -1495,6 +1498,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RWR_OFFSET_BTN", "1");
           break;
         case 159:
+        sendToDcsBiosMessage("RWR_DIS_TYPE_SW","1");
           break;
         case 160:
           break;
@@ -1522,6 +1526,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RWR_BIT_BTN", "1");
           break;
         case 170:
+        sendToDcsBiosMessage("RWR_DIS_TYPE_SW","0");
           break;
           // PRESS - CLOSE
         case 171:
