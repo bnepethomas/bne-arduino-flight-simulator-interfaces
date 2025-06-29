@@ -222,7 +222,7 @@ DcsBios::IntegerBuffer pressureAltBuffer(0x7514, 0xffff, 0, onPressureAltChange)
 #define BACKLIGHT_AMPCD_BUT_PWM 8
 #define BACKLIGHT_COMPASS_PWM 9
 #define BACKLIGHT_ECM_JET_PWM 12
-#define BACKLIGHT_SEL_JET_PWM 13
+
 
 
 
@@ -236,7 +236,7 @@ void turnOffAllBacklights() {
   digitalWrite(BACKLIGHT_AMPCD_BUT_PWM, LOW);
   digitalWrite(BACKLIGHT_COMPASS_PWM, LOW);
   digitalWrite(BACKLIGHT_ECM_JET_PWM, LOW);
-  digitalWrite(BACKLIGHT_SEL_JET_PWM, LOW);
+
 }
 
 void turnOnAllBacklights() {
@@ -249,7 +249,7 @@ void turnOnAllBacklights() {
   digitalWrite(BACKLIGHT_AMPCD_BUT_PWM, HIGH);
   digitalWrite(BACKLIGHT_COMPASS_PWM, HIGH);
   digitalWrite(BACKLIGHT_ECM_JET_PWM, HIGH);
-  digitalWrite(BACKLIGHT_SEL_JET_PWM, HIGH);
+
 }
 
 
@@ -262,7 +262,6 @@ void onConsoleIntLtChange(unsigned int newValue) {
   analogWrite(BACKLIGHT_AMPCD_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_AMPCD_BUT_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_ECM_JET_PWM, map(newValue, 0, 65535, 0, 255));
-  analogWrite(BACKLIGHT_SEL_JET_PWM, map(newValue, 0, 65535, 0, 255));
 }
 DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
 
@@ -273,7 +272,6 @@ void setConsoleLights(unsigned int newValue) {
   analogWrite(BACKLIGHT_AMPCD_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_AMPCD_BUT_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_ECM_JET_PWM, map(newValue, 0, 65535, 0, 255));
-  analogWrite(BACKLIGHT_SEL_JET_PWM, map(newValue, 0, 65535, 0, 255));
 }
 
 // ################################### END LIGHTING ##################################
@@ -467,6 +465,24 @@ DcsBios::PotentiometerEWMA<5, 128, 5> ifei("IFEI", A3);
 // ######################## END IFEI ########################
 
 
+// ######################## END ECM ########################
+#define ECM_SEL_LED 13
+
+void setSelJetLed(bool newValue) {
+  digitalWrite(ECM_SEL_LED, newValue);
+}
+
+void onCmsdJetSelLChange(unsigned int newValue) {
+  if (newValue == 1) {
+    setSelJetLed(true);
+  } else {
+    setSelJetLed(false);
+  }
+}
+DcsBios::IntegerBuffer cmsdJetSelLBuffer(FA_18C_hornet_CMSD_JET_SEL_L, onCmsdJetSelLChange);
+// ######################## END ECM ########################
+
+
 // ######################## SETUP ########################
 
 
@@ -478,8 +494,6 @@ void setup() {
   digitalWrite(RED_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
   digitalWrite(GREEN_STATUS_LED_PORT, false);
-  digitalWrite(RED_STATUS_LED_PORT, false);
-  delay(FLASH_TIME);
 
   if (Ethernet_In_Use == 1) {
 
@@ -513,8 +527,10 @@ void setup() {
   pinMode(BACKLIGHT_AMPCD_BUT_PWM, OUTPUT);
   pinMode(BACKLIGHT_COMPASS_PWM, OUTPUT);
   pinMode(BACKLIGHT_ECM_JET_PWM, OUTPUT);
-  pinMode(BACKLIGHT_SEL_JET_PWM, OUTPUT);
 
+
+
+  pinMode(ECM_SEL_LED, OUTPUT);
 
   turnOnAllBacklights();
 
@@ -535,6 +551,7 @@ void setup() {
   lc.clearDisplay(2);
 
   setAllRWRLed(true);
+  setSelJetLed(true);
   // allMax7219On();
 
 
@@ -587,6 +604,7 @@ void setup() {
     digitalWrite(GREEN_STATUS_LED_PORT, true);
   }
   setAllRWRLed(false);
+  setSelJetLed(false);
   turnOffAllBacklights();
 
   // Set Console lights to a mid level for start of game
@@ -896,6 +914,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 84:
           break;
         case 85:
+          sendToDcsBiosMessage("CMSD_DISPENSE_SW", "1");
           break;
           // PRESS - OPEN
         case 86:
@@ -921,6 +940,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - OPEN
         case 96:
+          sendToDcsBiosMessage("CMSD_DISPENSE_SW", "1");
           break;
         case 97:
           break;
@@ -945,6 +965,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 106:
           break;
         case 107:
+          sendToDcsBiosMessage("AUX_REL_SW", "0");
           break;
         case 108:
           break;
@@ -969,6 +990,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 117:
           break;
         case 118:
+          sendToDcsBiosMessage("CMSD_JET_SEL_BTN", "0");
           break;
         case 119:
           break;
@@ -1060,7 +1082,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - OPEN
         case 156:
-        sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "1");
+          sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "1");
           break;
         case 157:
           sendToDcsBiosMessage("MODE_SELECTOR_SW", "1");
@@ -1316,9 +1338,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 84:
           break;
         case 85:
+          sendToDcsBiosMessage("CMSD_DISPENSE_SW", "2");
           break;
           // PRESS - CLOSE
         case 86:
+          sendToDcsBiosMessage("ECM_MODE_SW", "4");
           break;
         case 87:
           break;
@@ -1341,8 +1365,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - CLOSE
         case 96:
+          sendToDcsBiosMessage("CMSD_DISPENSE_SW", "0");
           break;
         case 97:
+          sendToDcsBiosMessage("ECM_MODE_SW", "0");
           break;
         case 98:
           break;
@@ -1365,8 +1391,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 106:
           break;
         case 107:
+          sendToDcsBiosMessage("AUX_REL_SW", "1");
           break;
         case 108:
+          sendToDcsBiosMessage("ECM_MODE_SW", "1");
           break;
         case 109:
           break;
@@ -1389,8 +1417,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 117:
           break;
         case 118:
+          sendToDcsBiosMessage("CMSD_JET_SEL_BTN", "1");
           break;
         case 119:
+          sendToDcsBiosMessage("ECM_MODE_SW", "2");
           break;
         case 120:
           break;
@@ -1413,7 +1443,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - CLOSE
         case 126:
-        sendToDcsBiosMessage("RWR_DIS_TYPE_SW","4");
+          sendToDcsBiosMessage("RWR_DIS_TYPE_SW", "4");
           break;
         case 127:
           break;
@@ -1422,6 +1452,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 129:
           break;
         case 130:
+          sendToDcsBiosMessage("ECM_MODE_SW", "3");
           break;
           // PRESS - CLOSE
         case 131:
@@ -1439,7 +1470,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RWR_DISPLAY_BTN", "1");
           break;
         case 137:
-        sendToDcsBiosMessage("RWR_DIS_TYPE_SW","3");
+          sendToDcsBiosMessage("RWR_DIS_TYPE_SW", "3");
           break;
         case 138:
           break;
@@ -1468,7 +1499,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RWR_SPECIAL_BTN", "1");
           break;
         case 148:
-        sendToDcsBiosMessage("RWR_DIS_TYPE_SW","2");
+          sendToDcsBiosMessage("RWR_DIS_TYPE_SW", "2");
           break;
         case 149:
           break;
@@ -1489,7 +1520,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - CLOSE
         case 156:
-        sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "0");
+          sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "0");
           break;
         case 157:
           sendToDcsBiosMessage("MODE_SELECTOR_SW", "0");
@@ -1498,7 +1529,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RWR_OFFSET_BTN", "1");
           break;
         case 159:
-        sendToDcsBiosMessage("RWR_DIS_TYPE_SW","1");
+          sendToDcsBiosMessage("RWR_DIS_TYPE_SW", "1");
           break;
         case 160:
           break;
@@ -1526,7 +1557,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RWR_BIT_BTN", "1");
           break;
         case 170:
-        sendToDcsBiosMessage("RWR_DIS_TYPE_SW","0");
+          sendToDcsBiosMessage("RWR_DIS_TYPE_SW", "0");
           break;
           // PRESS - CLOSE
         case 171:
