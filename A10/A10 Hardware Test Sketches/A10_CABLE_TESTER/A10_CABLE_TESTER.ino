@@ -106,8 +106,8 @@ void SetupPins() {
   txPin[17] = A14;  //A14 68
   txPin[18] = 18;
   txPin[19] = 19;
-  txPin[20] = 20;
-  txPin[21] = 21;
+  txPin[20] = A1;
+  txPin[21] = A2;
   txPin[22] = 22;
   txPin[23] = 23;
   txPin[24] = 24;
