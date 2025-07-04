@@ -457,11 +457,17 @@ DcsBios::IntegerBuffer rwrBitLtBuffer(FA_18C_hornet_RWR_BIT_LT, onRwrBitLtChange
 // ######################## END RWR ########################
 
 
-// ######################## END IFEI ########################
+// ######################## BEGIN IFEI ########################
 DcsBios::PotentiometerEWMA<5, 128, 5> ifei("IFEI", A3);
 
 // ######################## END IFEI ########################
 
+
+// ######################## BEGIN AMPCD ########################
+
+DcsBios::PotentiometerEWMA<5, 128, 5> ampcdBrtCtl("AMPCD_BRT_CTL", 2);
+
+// ######################## END AMPCD ########################
 
 // ######################## END ECM ########################
 #define ECM_SEL_LED 13
@@ -846,9 +852,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 54:
           break;
         case 55:
+          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "1");
           break;
           // PRESS - OPEN
         case 56:
+          sendToDcsBiosMessage("AMPCD_SYM_SW", "1");
           break;
         case 57:
           sendToDcsBiosMessage("AMPCD_CONT_SW", "1");
@@ -873,8 +881,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - OPEN
         case 66:
+          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "1");
           break;
         case 67:
+          sendToDcsBiosMessage("AMPCD_SYM_SW", "1");
           break;
         case 68:
           sendToDcsBiosMessage("AMPCD_CONT_SW", "1");
@@ -1293,9 +1303,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 54:
           break;
         case 55:
+          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "0");
           break;
           // PRESS - CLOSE
         case 56:
+          sendToDcsBiosMessage("AMPCD_SYM_SW", "2");
           break;
         case 57:
           sendToDcsBiosMessage("AMPCD_CONT_SW", "2");
@@ -1320,8 +1332,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - CLOSE
         case 66:
+          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "2");
           break;
         case 67:
+          sendToDcsBiosMessage("AMPCD_SYM_SW", "0");
           break;
         case 68:
           sendToDcsBiosMessage("AMPCD_CONT_SW", "0");
