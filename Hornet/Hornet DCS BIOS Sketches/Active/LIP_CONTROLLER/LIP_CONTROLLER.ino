@@ -751,8 +751,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
+        sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
           break;
         case 10:
+        sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
           break;
           // PRESS - OPEN
         case 11:
@@ -775,9 +777,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 19:
           break;
         case 20:
+        sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
           break;
           // PRESS - OPEN
         case 21:
+        sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
           break;
         case 22:
           break;
@@ -1202,8 +1206,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
+        sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "0");
           break;
         case 10:
+        sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "0");
           break;
           // PRESS - CLOSE
         case 11:
@@ -1226,9 +1232,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 19:
           break;
         case 20:
+        sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "2");
           break;
           // PRESS - CLOSE
         case 21:
+        sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "2");
           break;
         case 22:
           break;
