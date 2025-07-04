@@ -236,7 +236,6 @@ void turnOffAllBacklights() {
   digitalWrite(BACKLIGHT_AMPCD_BUT_PWM, LOW);
   digitalWrite(BACKLIGHT_COMPASS_PWM, LOW);
   digitalWrite(BACKLIGHT_ECM_JET_PWM, LOW);
-
 }
 
 void turnOnAllBacklights() {
@@ -249,7 +248,6 @@ void turnOnAllBacklights() {
   digitalWrite(BACKLIGHT_AMPCD_BUT_PWM, HIGH);
   digitalWrite(BACKLIGHT_COMPASS_PWM, HIGH);
   digitalWrite(BACKLIGHT_ECM_JET_PWM, HIGH);
-
 }
 
 
@@ -853,8 +851,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 56:
           break;
         case 57:
+          sendToDcsBiosMessage("AMPCD_CONT_SW", "1");
           break;
         case 58:
+          sendToDcsBiosMessage("AMPCD_GAIN_SW", "1");
           break;
         case 59:
           break;
@@ -877,8 +877,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 67:
           break;
         case 68:
+          sendToDcsBiosMessage("AMPCD_CONT_SW", "1");
           break;
         case 69:
+          sendToDcsBiosMessage("AMPCD_GAIN_SW", "1");
           break;
         case 70:
           break;
@@ -897,12 +899,16 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 76:
           break;
         case 77:
+          sendToDcsBiosMessage("AMPCD_PB_06", "0");
           break;
         case 78:
+          sendToDcsBiosMessage("AMPCD_PB_11", "0");
           break;
         case 79:
+          sendToDcsBiosMessage("AMPCD_PB_16", "0");
           break;
         case 80:
+          sendToDcsBiosMessage("AMPCD_PB_01", "0");
           break;
           // PRESS - OPEN
         case 81:
@@ -922,13 +928,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 87:
           break;
         case 88:
+          sendToDcsBiosMessage("AMPCD_PB_07", "0");
           break;
         case 89:
+          sendToDcsBiosMessage("AMPCD_PB_12", "0");
           break;
         case 90:
+          sendToDcsBiosMessage("AMPCD_PB_17", "0");
           break;
           // PRESS - OPEN
         case 91:
+          sendToDcsBiosMessage("AMPCD_PB_02", "0");
           break;
         case 92:
           break;
@@ -947,13 +957,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:
           break;
         case 99:
+          sendToDcsBiosMessage("AMPCD_PB_08", "0");
           break;
         case 100:
+          sendToDcsBiosMessage("AMPCD_PB_13", "0");
           break;
           // PRESS - OPEN
         case 101:
+          sendToDcsBiosMessage("AMPCD_PB_18", "0");
           break;
         case 102:
+          sendToDcsBiosMessage("AMPCD_PB_03", "0");
           break;
         case 103:
           break;
@@ -972,13 +986,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 109:
           break;
         case 110:
+          sendToDcsBiosMessage("AMPCD_PB_09", "0");
           break;
           // PRESS - OPEN
         case 111:
+          sendToDcsBiosMessage("AMPCD_PB_14", "0");
           break;
         case 112:
+          sendToDcsBiosMessage("AMPCD_PB_19", "0");
           break;
         case 113:
+          sendToDcsBiosMessage("AMPCD_PB_04", "0");
           break;
         case 114:
           break;
@@ -998,12 +1016,16 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - OPEN
         case 121:
+          sendToDcsBiosMessage("AMPCD_PB_10", "0");
           break;
         case 122:
+          sendToDcsBiosMessage("AMPCD_PB_15", "0");
           break;
         case 123:
+          sendToDcsBiosMessage("AMPCD_PB_20", "0");
           break;
         case 124:
+          sendToDcsBiosMessage("AMPCD_PB_05", "0");
           break;
         case 125:
           break;
@@ -1275,10 +1297,11 @@ void CreateDcsBiosMessage(int ind, int state) {
           // PRESS - CLOSE
         case 56:
           break;
-
         case 57:
+          sendToDcsBiosMessage("AMPCD_CONT_SW", "2");
           break;
         case 58:
+          sendToDcsBiosMessage("AMPCD_GAIN_SW", "0");
           break;
         case 59:
           break;
@@ -1301,8 +1324,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 67:
           break;
         case 68:
+          sendToDcsBiosMessage("AMPCD_CONT_SW", "0");
           break;
         case 69:
+          sendToDcsBiosMessage("AMPCD_GAIN_SW", "2");
           break;
         case 70:
           break;
@@ -1321,12 +1346,16 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 76:
           break;
         case 77:
+          sendToDcsBiosMessage("AMPCD_PB_06", "1");
           break;
         case 78:
+          sendToDcsBiosMessage("AMPCD_PB_11", "1");
           break;
         case 79:
+          sendToDcsBiosMessage("AMPCD_PB_16", "1");
           break;
         case 80:
+          sendToDcsBiosMessage("AMPCD_PB_01", "1");
           break;
           // PRESS - CLOSE
         case 81:
@@ -1347,13 +1376,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 87:
           break;
         case 88:
+          sendToDcsBiosMessage("AMPCD_PB_07", "1");
           break;
         case 89:
+          sendToDcsBiosMessage("AMPCD_PB_12", "1");
           break;
         case 90:
+          sendToDcsBiosMessage("AMPCD_PB_17", "1");
           break;
           // PRESS - CLOSE
         case 91:
+          sendToDcsBiosMessage("AMPCD_PB_02", "1");
           break;
         case 92:
           break;
@@ -1373,13 +1406,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:
           break;
         case 99:
+          sendToDcsBiosMessage("AMPCD_PB_08", "1");
           break;
         case 100:
+          sendToDcsBiosMessage("AMPCD_PB_13", "1");
           break;
           // PRESS - CLOSE
         case 101:
+          sendToDcsBiosMessage("AMPCD_PB_18", "1");
           break;
         case 102:
+          sendToDcsBiosMessage("AMPCD_PB_03", "1");
           break;
         case 103:
           break;
@@ -1399,13 +1436,17 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 109:
           break;
         case 110:
+          sendToDcsBiosMessage("AMPCD_PB_09", "1");
           break;
           // PRESS - CLOSE
         case 111:
+          sendToDcsBiosMessage("AMPCD_PB_14", "1");
           break;
         case 112:
+          sendToDcsBiosMessage("AMPCD_PB_19", "1");
           break;
         case 113:
+          sendToDcsBiosMessage("AMPCD_PB_04", "1");
           break;
         case 114:
           break;
@@ -1426,12 +1467,16 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - CLOSE
         case 121:
+          sendToDcsBiosMessage("AMPCD_PB_10", "1");
           break;
         case 122:
+          sendToDcsBiosMessage("AMPCD_PB_15", "1");
           break;
         case 123:
+          sendToDcsBiosMessage("AMPCD_PB_20", "1");
           break;
         case 124:
+          sendToDcsBiosMessage("AMPCD_PB_05", "1");
           break;
         case 125:
 
