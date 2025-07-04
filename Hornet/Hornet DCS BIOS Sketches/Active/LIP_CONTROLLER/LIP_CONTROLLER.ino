@@ -293,16 +293,19 @@ void allMax7219On() {
 
 void debugAllMax7219On() {
   for (int displayunit = 0; displayunit < 3; displayunit++) {
-    for (int row = 0; row < 3; row++) {
-      for (int col = 0; col < 4; col++) {
+    for (int row = 0; row < 8; row++) {
+      for (int col = 0; col < 8; col++) {
         if (col != 9 && col != 9 && col != 9)
-          SendDebug(String(row) + ":" + String(col));
+          SendDebug("LED " + String(row) + ":" + String(col));
         lc.setLed(displayunit, row, col, true);
         delay(1000);
       }
     }
   }
 }
+
+// Half 0:6
+// Left 0:7
 
 void allMax7219Off() {
   for (int displayunit = 0; displayunit < 3; displayunit++) {
@@ -556,7 +559,34 @@ void setup() {
 
   setAllRWRLed(true);
   setSelJetLed(true);
-  // allMax7219On();
+
+
+  // Ranges lc.setLed(0, 1-7, 4-7, true); // Flaps Warning - left
+
+  lc.setLed(0, 3, 7, true);  // 
+
+  // lc.setLed(0, 1, 5, true); // Flaps Half - left
+
+  //lc.setLed(0, 1, 4, true); // Flaps Full - right
+  //lc.setLed(0, 2, 4, true); // Flaps Full - left
+  //lc.setLed(0, 3, 5, true); // Flaps Warning - left
+  //lc.setLed(0, 2, 5, true); // Flaps Warning - right
+
+
+  //lc.setLed(0, 2, 7, true); // Nose Gear - left
+  //lc.setLed(0, 1, 7, true); // Nose Gear - right
+  //lc.setLed(0, 1, 6, true); // Left Gear - left
+
+  //lc.setLed(0, 2, 6, true); // Right Gear - right
+  //lc.setLed(0, 3, 6, true); // Right Gear - left
+
+
+  //lc.setLed(0, 4, 4, true); // CTR
+  //lc.setLed(0, 4, 5, true); // LO
+  //lc.setLed(0, 5, 5, true); // RO
+
+
+  //  debugAllMax7219On();
 
 
 
@@ -751,10 +781,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
-        sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
+          sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
           break;
         case 10:
-        sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
+          sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
           break;
           // PRESS - OPEN
         case 11:
@@ -777,11 +807,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 19:
           break;
         case 20:
-        sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
+          sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "1");
           break;
           // PRESS - OPEN
         case 21:
-        sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
+          sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
           break;
         case 22:
           break;
@@ -1206,10 +1236,10 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 8:
           break;
         case 9:
-        sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "0");
+          sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "0");
           break;
         case 10:
-        sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "0");
+          sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "0");
           break;
           // PRESS - CLOSE
         case 11:
@@ -1232,11 +1262,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 19:
           break;
         case 20:
-        sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "2");
+          sendToDcsBiosMessage("LEFT_DDI_CRS_SW", "2");
           break;
           // PRESS - CLOSE
         case 21:
-        sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "2");
+          sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "2");
           break;
         case 22:
           break;
