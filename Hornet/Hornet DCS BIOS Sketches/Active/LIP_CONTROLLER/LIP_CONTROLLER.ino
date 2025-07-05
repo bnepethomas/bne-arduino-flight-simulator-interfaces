@@ -260,8 +260,11 @@ void onConsoleIntLtChange(unsigned int newValue) {
   SendDebug("Console Lights : " + String(newValue));
   analogWrite(BACKLIGHT_RWR_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_CAB_ALT_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_IEFI_PANEL_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_IEFI_BUTTONS_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_AMPCD_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_AMPCD_BUT_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_COMPASS_PWM, map(newValue, 0, 65535, 0, 255)); 
   analogWrite(BACKLIGHT_ECM_JET_PWM, map(newValue, 0, 65535, 0, 255));
 }
 DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
@@ -270,8 +273,11 @@ void setConsoleLights(unsigned int newValue) {
   SendDebug("Console Lights : " + String(newValue));
   analogWrite(BACKLIGHT_RWR_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_CAB_ALT_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_IEFI_PANEL_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_IEFI_BUTTONS_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_AMPCD_PWM, map(newValue, 0, 65535, 0, 255));
   analogWrite(BACKLIGHT_AMPCD_BUT_PWM, map(newValue, 0, 65535, 0, 255));
+  analogWrite(BACKLIGHT_COMPASS_PWM, map(newValue, 0, 65535, 0, 255)); 
   analogWrite(BACKLIGHT_ECM_JET_PWM, map(newValue, 0, 65535, 0, 255));
 }
 
