@@ -298,7 +298,8 @@ void debugAllMax7219On() {
         if (col != 9 && col != 9 && col != 9)
           SendDebug("LED " + String(row) + ":" + String(col));
         lc.setLed(displayunit, row, col, true);
-        delay(1000);
+        delay(3000);
+        lc.setLed(displayunit, row, col, false);
       }
     }
   }
@@ -456,7 +457,6 @@ void onRwrBitLtChange(unsigned int newValue) {
 DcsBios::IntegerBuffer rwrBitLtBuffer(FA_18C_hornet_RWR_BIT_LT, onRwrBitLtChange);
 
 
-
 // ######################## END RWR ########################
 
 
@@ -489,6 +489,114 @@ void onCmsdJetSelLChange(unsigned int newValue) {
 DcsBios::IntegerBuffer cmsdJetSelLBuffer(FA_18C_hornet_CMSD_JET_SEL_L, onCmsdJetSelLChange);
 // ######################## END ECM ########################
 
+// ######################## END SEL JET ########################
+
+
+void setSelJetCTR(bool newValue) {
+  lc.setLed(0, 4, 4, newValue);  // CTR
+}
+void onSjCtrLtChange(unsigned int newValue) {
+  setSelJetCTR(newValue);
+}
+DcsBios::IntegerBuffer sjCtrLtBuffer(FA_18C_hornet_SJ_CTR_LT, onSjCtrLtChange);
+
+
+void setSelJetLI(bool newValue) {
+  lc.setLed(0, 5, 4, newValue);  // LI
+}
+void onSjLiLtChange(unsigned int newValue) {
+  setSelJetLI(newValue);
+}
+DcsBios::IntegerBuffer sjLiLtBuffer(FA_18C_hornet_SJ_LI_LT, onSjLiLtChange);
+
+
+void setSelJetRI(bool newValue) {
+  lc.setLed(0, 6, 4, newValue);  // RI
+}
+void onSjRiLtChange(unsigned int newValue) {
+  setSelJetRI(newValue);
+}
+DcsBios::IntegerBuffer sjRiLtBuffer(FA_18C_hornet_SJ_RI_LT, onSjRiLtChange);
+
+
+void setSelJetLO(bool newValue) {
+  lc.setLed(0, 4, 5, newValue);  // LO
+}
+void onSjLoLtChange(unsigned int newValue) {
+  setSelJetLO(newValue);
+}
+DcsBios::IntegerBuffer sjLoLtBuffer(FA_18C_hornet_SJ_LO_LT, onSjLoLtChange);
+
+
+void setSelJetRO(bool newValue) {
+  lc.setLed(0, 5, 5, newValue);  // RO
+}
+void onSjRoLtChange(unsigned int newValue) {
+  setSelJetRO(newValue);
+}
+DcsBios::IntegerBuffer sjRoLtBuffer(FA_18C_hornet_SJ_RO_LT, onSjRoLtChange);
+
+
+void setNoseGear(bool newValue) {
+  lc.setLed(0, 2, 7, newValue);  // Nose Gear - left
+  lc.setLed(0, 1, 7, newValue);  // Nose Gear - right
+}
+void onFlpLgNoseGearLtChange(unsigned int newValue) {
+  setNoseGear(newValue);
+}
+DcsBios::IntegerBuffer flpLgNoseGearLtBuffer(FA_18C_hornet_FLP_LG_NOSE_GEAR_LT, onFlpLgNoseGearLtChange);
+
+
+void setLeftGear(bool newValue) {
+  lc.setLed(0, 1, 6, newValue);  // Left Gear - left
+  lc.setLed(0, 0, 6, newValue);  // Left Gear - right
+}
+void onFlpLgLeftGearLtChange(unsigned int newValue) {
+  setLeftGear(newValue);
+}
+DcsBios::IntegerBuffer flpLgLeftGearLtBuffer(FA_18C_hornet_FLP_LG_LEFT_GEAR_LT, onFlpLgLeftGearLtChange);
+
+
+void setRightGear(bool newValue) {
+  lc.setLed(0, 2, 6, newValue);  // Right Gear - right
+  lc.setLed(0, 3, 6, newValue);  // Right Gear - left
+}
+void onFlpLgRightGearLtChange(unsigned int newValue) {
+  setRightGear(newValue);
+}
+DcsBios::IntegerBuffer flpLgRightGearLtBuffer(FA_18C_hornet_FLP_LG_RIGHT_GEAR_LT, onFlpLgRightGearLtChange);
+
+
+void setFlapsHalf(bool newValue) {
+  lc.setLed(0, 1, 5, newValue);  // Flaps Half - left
+  lc.setLed(0, 0, 5, newValue);  // Flaps Half - right
+}
+void onFlpLgHalfFlapsLtChange(unsigned int newValue) {
+  setFlapsHalf(newValue);
+}
+DcsBios::IntegerBuffer flpLgHalfFlapsLtBuffer(FA_18C_hornet_FLP_LG_HALF_FLAPS_LT, onFlpLgHalfFlapsLtChange);
+
+
+void setFlapsFull(bool newValue) {
+  lc.setLed(0, 1, 4, newValue);  // Flaps Full - right
+  lc.setLed(0, 2, 4, newValue);  // Flaps Full - left
+}
+void onFlpLgFullFlapsLtChange(unsigned int newValue) {
+  setFlapsFull(newValue);
+}
+DcsBios::IntegerBuffer flpLgFullFlapsLtBuffer(FA_18C_hornet_FLP_LG_FULL_FLAPS_LT, onFlpLgFullFlapsLtChange);
+
+
+void setFlapsWarn(bool newValue) {
+  lc.setLed(0, 3, 5, newValue);  // Flaps Warning - left
+  lc.setLed(0, 2, 5, newValue);  // Flaps Warning - right
+}
+void onFlpLgFlapsLtChange(unsigned int newValue) {
+  setFlapsWarn(newValue);
+}
+DcsBios::IntegerBuffer flpLgFlapsLtBuffer(FA_18C_hornet_FLP_LG_FLAPS_LT, onFlpLgFlapsLtChange);
+
+// ######################## END SEL JET ########################
 
 // ######################## SETUP ########################
 
@@ -559,37 +667,17 @@ void setup() {
 
   setAllRWRLed(true);
   setSelJetLed(true);
-
-
-  // Ranges lc.setLed(0, 1-7, 4-7, true); // Flaps Warning - left
-
-  lc.setLed(0, 3, 7, true);  // 
-
-  // lc.setLed(0, 1, 5, true); // Flaps Half - left
-
-  //lc.setLed(0, 1, 4, true); // Flaps Full - right
-  //lc.setLed(0, 2, 4, true); // Flaps Full - left
-  //lc.setLed(0, 3, 5, true); // Flaps Warning - left
-  //lc.setLed(0, 2, 5, true); // Flaps Warning - right
-
-
-  //lc.setLed(0, 2, 7, true); // Nose Gear - left
-  //lc.setLed(0, 1, 7, true); // Nose Gear - right
-  //lc.setLed(0, 1, 6, true); // Left Gear - left
-
-  //lc.setLed(0, 2, 6, true); // Right Gear - right
-  //lc.setLed(0, 3, 6, true); // Right Gear - left
-
-
-  //lc.setLed(0, 4, 4, true); // CTR
-  //lc.setLed(0, 4, 5, true); // LO
-  //lc.setLed(0, 5, 5, true); // RO
-
-
-  //  debugAllMax7219On();
-
-
-
+  setSelJetCTR(true);
+  setSelJetLI(true);
+  setSelJetRI(true);
+  setSelJetLO(true);
+  setSelJetRO(true);
+  setNoseGear(true);
+  setLeftGear(true);
+  setRightGear(true);
+  setFlapsHalf(true);
+  setFlapsFull(true);
+  setFlapsWarn(true);
 
 
   // Set the output ports to output
@@ -637,8 +725,20 @@ void setup() {
     delay(FLASH_TIME);
     digitalWrite(GREEN_STATUS_LED_PORT, true);
   }
+
   setAllRWRLed(false);
   setSelJetLed(false);
+  setSelJetCTR(false);
+  setSelJetLI(false);
+  setSelJetRI(false);
+  setSelJetLO(false);
+  setSelJetRO(false);
+  setNoseGear(false);
+  setLeftGear(false);
+  setRightGear(false);
+  setFlapsHalf(false);
+  setFlapsFull(false);
+  setFlapsWarn(false);
   turnOffAllBacklights();
 
   // Set Console lights to a mid level for start of game
@@ -648,12 +748,7 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  // for (int i = 0; i <= 100; i++) {
-  //   allMax7219Off();
-  //   delay(1000);
-  //   allMax7219On();
-  //   delay(1000);
-  // }
+
 
 
   SendDebug("Setup Complete");
@@ -801,6 +896,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 16:
           break;
         case 17:
+          sendToDcsBiosMessage("SJ_CTR", "0");
           break;
         case 18:
           break;
@@ -827,6 +923,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 27:
           break;
         case 28:
+          sendToDcsBiosMessage("SJ_LI", "0");
           break;
         case 29:
           break;
@@ -851,6 +948,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 38:
           break;
         case 39:
+        sendToDcsBiosMessage("SJ_RI", "0");
           break;
         case 40:
           break;
@@ -875,6 +973,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 49:
           break;
         case 50:
+        sendToDcsBiosMessage("SJ_RO", "0");
           break;
           // PRESS - OPEN
         case 51:
@@ -904,6 +1003,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
           // PRESS - OPEN
         case 61:
+        sendToDcsBiosMessage("SJ_LO", "0");
           break;
         case 62:
           break;
@@ -1256,6 +1356,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 16:
           break;
         case 17:
+          sendToDcsBiosMessage("SJ_CTR", "1");
           break;
         case 18:
           break;
@@ -1282,6 +1383,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 27:
           break;
         case 28:
+          sendToDcsBiosMessage("SJ_LI", "1");
           break;
         case 29:
           break;
@@ -1306,6 +1408,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 38:
           break;
         case 39:
+        sendToDcsBiosMessage("SJ_RI", "1");
           break;
         case 40:
           break;
@@ -1330,6 +1433,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 49:
           break;
         case 50:
+        sendToDcsBiosMessage("SJ_RO", "1");
           break;
           // PRESS - CLOSE
         case 51:
@@ -1359,6 +1463,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         // PRESS - CLOSE
         case 61:
+        sendToDcsBiosMessage("SJ_LO", "1");
           break;
         case 62:
           break;
