@@ -11,7 +11,10 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
 /*
- *  */
+TO DO 
+Add latching code for CTR, LI, LO, RI, RO
+/*
+*/
 /*
 
   This Superceedes udp_input_controller
