@@ -41,7 +41,7 @@
 #define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
 
-int Reflector_In_Use = 0;
+int Reflector_In_Use = 1;
 
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"

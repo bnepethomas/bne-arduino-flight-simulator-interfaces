@@ -200,10 +200,6 @@ char *ParameterValuePtr;
 
 void setup() {
 
-  if (Serial_In_Use) {
-    Serial.begin(250000);
-    Serial.println("UDP to Pixel Startup");
-  }
 
 
   if (Ethernet_In_Use == 1) {
@@ -245,12 +241,13 @@ void setup() {
   // fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
   // fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
   // // Fix up the Standby Gauges as they use a different approach to colour
-  for (ledptr = STANDBY_START_POS;
+
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
+    for (ledptr = STANDBY_START_POS;
        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
     UIP_CONSOLE_LED[ledptr] = CHSV(CHSVRed, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // GREEN
   }
-  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
 
   FastLED.show();
   delay(2000);
