@@ -18,7 +18,7 @@
 */
 #define Ethernet_In_Use 1
 const int Serial_In_Use = 0;
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 
 
 
@@ -50,7 +50,7 @@ int startUpBrightness = 50;        // LED Brightness 0 = Off, 255 = 100%.
 
 #define LEFT_CONSOLE_LED_COUNT 500
 #define RIGHT_CONSOLE_LED_COUNT 500
-const int LIP_CONSOLE_LED_COUNT = ECM_JETT_LED_COUNT + STANDBY_LED_COUNT + VIDEO_RECORD_LED_COUNT + PLACARD_LED_COUNT;
+const int LIP_CONSOLE_LED_COUNT =  STANDBY_LED_COUNT;
 const int UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT + SPIN_RECOVERY_LED_COUNT + STANDBY_LED_COUNT;
 
 // Defining what data pin each backlighting connector is connected to.
@@ -124,7 +124,7 @@ const int PLACARD_LED_START_POS = VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT;
 const int MASTER_ARM_START_POS = 0;
 const int HUD_CONTROL_START_POS = MASTER_ARM_LED_COUNT;
 const int SPIN_RECOVERY_START_POS = HUD_CONTROL_START_POS + HUD_CONTROL_LED_COUNT;
-const int STANDBY_START_POS = SPIN_RECOVERY_START_POS + SPIN_RECOVERY_LED_COUNT;
+const int STANDBY_START_POS = 0;
 
 // Special Led Positions on LIP and UIP Panels
 #define MASTER_ARM_READY_1 0
@@ -245,27 +245,27 @@ void setup() {
   fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
   // // Fix up the Standby Gauges as they use a different approach to colour
-
-  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
   for (ledptr = STANDBY_START_POS;
        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    UIP_CONSOLE_LED[ledptr] = CHSV(CHSVRed, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // GREEN
+    LIP_CONSOLE_LED[ledptr] = CHSV(CHSVRed, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // GREEN
   }
-  
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
+
+
   FastLED.show();
   delay(2000);
 
   fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Red);
   fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Red);
   fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Red);
-
-  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
   for (ledptr = STANDBY_START_POS;
        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
     UIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // Red
   }
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Red);
+
   FastLED.show();
   delay(2000);
 
@@ -292,13 +292,13 @@ void setup() {
   fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
- 
-  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
-    for (ledptr = STANDBY_START_POS;
+  for (ledptr = STANDBY_START_POS;
        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
     UIP_CONSOLE_LED[ledptr] = CHSV(CHSVRed, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // GREEN
   }
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
+
   FastLED.show();
   delay(1000);
 
@@ -338,11 +338,7 @@ void SetBacklighting() {
   // LIP
   // ECM
 
-  for (ledptr = ECM_JET_START_POS;
-       ledptr <= (ECM_JET_START_POS + ECM_JETT_LED_COUNT - 1); ledptr++) {
-    if (ledptr != ECM_JETT_1 && ledptr != ECM_JETT_2 && ledptr != ECM_JETT_3 && ledptr != ECM_JETT_4)
-      LIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
-  }
+
 
   for (ledptr = STANDBY_START_POS;
        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
@@ -350,19 +346,7 @@ void SetBacklighting() {
     LIP_CONSOLE_LED[ledptr] = CHSV(CHSVRed, 255, consoleBrightness * (STANDBY_BRIGHTNESS_MULTIPLIER / 2));  // GREEN
   }
 
-  // Video Record
-  for (ledptr = VID_RECORD_START_POS;
-       ledptr <= (VID_RECORD_START_POS + VIDEO_RECORD_LED_COUNT - 1); ledptr++) {
-    // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
-  }
 
-  // Placard
-  for (ledptr = PLACARD_LED_START_POS;
-       ledptr <= (PLACARD_LED_START_POS + PLACARD_LED_COUNT - 1); ledptr++) {
-    // There are no special function leds - so no check needed
-    LIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, consoleBrightness);
-  }
 
 
   // ******************************************************************************
