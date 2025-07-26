@@ -2930,8 +2930,11 @@ void setup() {
   }
 }
 
-DcsBios::ActionButton masterModeAaToggle("MASTER_MODE_AA", "TOGGLE", A2);
-DcsBios::ActionButton masterModeAgToggle("MASTER_MODE_AG", "TOGGLE", A1);
+DcsBios::Switch2Pos masterModeAa("MASTER_MODE_AA", A2);
+DcsBios::Switch2Pos masterModeAg("MASTER_MODE_AG", A1);
+DcsBios::Switch2Pos fireExtBtn("FIRE_EXT_BTN", A0);
+// DcsBios::ActionButton masterModeAaToggle("MASTER_MODE_AA", A2);
+// DcsBios::ActionButton masterModeAgToggle("MASTER_MODE_AG", A1);
 
 void loop() {
   DcsBios::loop();
