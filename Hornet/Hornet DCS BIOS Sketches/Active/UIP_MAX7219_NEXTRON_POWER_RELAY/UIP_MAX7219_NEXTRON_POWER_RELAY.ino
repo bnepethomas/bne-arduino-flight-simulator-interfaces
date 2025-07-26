@@ -2930,6 +2930,9 @@ void setup() {
   }
 }
 
+DcsBios::ActionButton masterModeAaToggle("MASTER_MODE_AA", "TOGGLE", A2);
+DcsBios::ActionButton masterModeAgToggle("MASTER_MODE_AG", "TOGGLE", A1);
+
 void loop() {
   DcsBios::loop();
 
