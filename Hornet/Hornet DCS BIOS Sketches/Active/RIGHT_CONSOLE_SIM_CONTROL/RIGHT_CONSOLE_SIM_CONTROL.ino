@@ -1,10 +1,11 @@
+// Board Arduino Micro
 //#include "NexTouch.h"
 
 // Download Library from https://github.com/itead/ITEADLIB_Arduino_Nextion
 // Add ZIP file to project ITEADLIB_Arduino_Nextion-master
 
 
-// Serial2 cimpiles errors
+// Serial2 compiles errors
 // ref https://itead.cc/nextion/nextion-tutorial-based-on-nextion-arduino-library/?srsltid=AfmBOoqjr-2KySzelSjjfIg4BWQui5Hna7WOrQw9ph1gyDOVRar7Zqva
 /*
 
@@ -12,6 +13,8 @@
 Comment out debug serial. #define DEBUG_SERIAL_ENABLE —> //#define DEBUG_SERIAL_ENABLE
 Modify the definition of serial 2 as the default serial. #define nexSerial Serial2 —> #define nexSerial Serial
 */
+
+// C:\Users\bnepe\Documents\Arduino\libraries\ITEADLIB_Arduino_Nextion-master\
 
 #include <Nextion.h>  // Nextion Library
 #include <Keypad.h>
