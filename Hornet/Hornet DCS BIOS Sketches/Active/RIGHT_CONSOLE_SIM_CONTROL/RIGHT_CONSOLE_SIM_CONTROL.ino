@@ -29,12 +29,73 @@ Modify the definition of serial 2 as the default serial. #define nexSerial Seria
 #define NEXTION Serial1  // Use Serial1 for Micro
 #define nexSerial Serial1
 
-
-//#include "NexTouch.h"
-//#include "Nextion.h"
-#include "NexButton.h"
 #include "NexButton.h"
 #include "NexText.h"
+
+#define FLASH_TIME 300
+
+int Ethernet_In_Use = 0;  
+int Reflector_In_Use = 0;
+// ********************************* Begin Ethernet ***************************************************
+// Ethernet Related
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+
+#define EthernetStartupDelay 500
+#define ES1_RESET_PIN 12
+
+const unsigned long delayBeforeSendingPacket = 3000;
+unsigned long ethernetStartTime = 0;
+String BoardName = "Hornet Sim Controller: ";
+
+// These local Mac and IP Address will be reassigned early in startup based on
+// the device ID as set by address pins
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x74 };
+String sMac = "A8:61:0A:67:83:115";
+IPAddress ip(172, 16, 1, 116);
+String strMyIP = "172.16.1.116";
+
+// Reflector
+IPAddress reflectorIP(172, 16, 1, 10);
+String strReflectorIP = "X.X.X.X";
+
+// Arduino Due for Keystroke translation and Pixel Led driving
+IPAddress targetIP(172, 16, 1, 110);
+String strTargetIP = "X.X.X.X";
+
+// Computer Running MSFS
+IPAddress MSFSIP(172, 16, 1, 10);
+String strMSFSIP = "X.X.X.X";
+
+const unsigned int localport = 7788;
+const unsigned int localdebugport = 7795;
+const unsigned int keyboardport = 7788;
+const unsigned int ledport = 7789;
+const unsigned int remoteport = 7790;
+const unsigned int reflectorport = 27000;
+const unsigned int MSFSport = 7791;
+
+int packetSize;
+int debugLen;
+EthernetUDP udp;
+EthernetUDP debugUDP;
+char packetBuffer[1000];     //buffer to store the incoming data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+void SendDebug(String MessageToSend) {
+  MessageToSend = BoardName + MessageToSend;
+  if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
+    udp.beginPacket(reflectorIP, reflectorport);
+    udp.print(MessageToSend);
+    udp.endPacket();
+  }
+}
+
+// ********************************* End Ethernet ***************************************************
+
+
+
 
 
 int VolPot = A4;  //Volume
@@ -654,9 +715,38 @@ void p_PCOFFReleaseCallback(void *ptr) {  //release
 
 
 void setup() {
+
+ if (Ethernet_In_Use == 1) {
+
+    // Using manual reset instead of tying to Arduino Reset
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
+    Ethernet.begin(mac, ip);
+    udp.begin(localport);
+
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(LED_BUILTIN, false);
+      delay(FLASH_TIME);
+      digitalWrite(LED_BUILTIN, true);
+    }
+
+
+    SendDebug("Ethernet Started " + strMyIP + " " + sMac);
+  }
+
   Keyboard.begin();
   Consumer.begin();  //initialize computer connection
   delay(250);        //wait for computer to connect
+
+
+
+
+
   for (int a = 0; a < 52; a++) {
     Consumer.write(MEDIA_VOLUME_UP);  //set the volume to 0
     delay(2);
