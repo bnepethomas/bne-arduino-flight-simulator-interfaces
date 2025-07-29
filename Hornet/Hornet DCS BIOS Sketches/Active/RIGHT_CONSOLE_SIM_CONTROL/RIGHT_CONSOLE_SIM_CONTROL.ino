@@ -34,7 +34,8 @@ Modify the definition of serial 2 as the default serial. #define nexSerial Seria
 
 #define FLASH_TIME 300
 
-int Ethernet_In_Use = 0;  
+int Serial_In_Use = 0;
+int Ethernet_In_Use = 0;
 int Reflector_In_Use = 0;
 // ********************************* Begin Ethernet ***************************************************
 // Ethernet Related
@@ -90,6 +91,10 @@ void SendDebug(String MessageToSend) {
     udp.print(MessageToSend);
     udp.endPacket();
   }
+
+  if (Serial_In_Use == 1) {
+    Serial.println(MessageToSend);
+  }
 }
 
 // ********************************* End Ethernet ***************************************************
@@ -122,11 +127,11 @@ byte colPins[COLS] = { 4, 5, 6, 7, 8, 9, 10, 11 };  //MATRIX COLS
 // Keymap with unique characters per button
 char keys[ROWS][COLS] = {
   { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' },  // Row 0 PUSH BUTTONS x 7 BUTTONS NOTE - PB8 NOT USED
-  { '1', '2', '3', '4', '5', '6', '7', '8' }  // Row 1 ROTARY SWITCH x 8 INPUTS
+  { '1', '2', '3', '4', '5', '6', '7', '8' }   // Row 1 ROTARY SWITCH x 8 INPUTS
   ///// PHYSICAL BUTTONS ABOVE - SOFT KEYS FROM ARDUINO ALSO INCLUDED IN SERIAL
 };
 // Set up keypad
-Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+Keypad keypad = Keypad(makeKeymap(keys),  colPins,rowPins, COLS, ROWS);
 
 // Create keypad object
 
@@ -158,7 +163,7 @@ void pressMappedKey(char key) {
       delay(10);
       Keyboard.releaseAll();
       break;
-    case 'd':                       // SW5 //WARP
+    case 'd':                         // SW5 //WARP
       Keyboard.press(KEY_LEFT_CTRL);  // FOR YOU TO SET PER YOUR SHORT CUT
       delay(10);
       Keyboard.press(KEY_F4);  // FOR YOU TO SET PER YOUR SHORT CUT
@@ -716,7 +721,12 @@ void p_PCOFFReleaseCallback(void *ptr) {  //release
 
 void setup() {
 
- if (Ethernet_In_Use == 1) {
+  if (Serial_In_Use == 1) {
+    Serial.begin(115200);
+    Serial.println("Serial Started");
+  }
+
+  if (Ethernet_In_Use == 1) {
 
     // Using manual reset instead of tying to Arduino Reset
     pinMode(ES1_RESET_PIN, OUTPUT);
@@ -857,9 +867,12 @@ void setup() {
 
 void loop() {
   char key = keypad.getKey();
-  if (key) {
+  if (key != 0) {
+    SendDebug("Keypressed");
     pressMappedKey(key);
   }
+
+
   valVol = analogRead(VolPot);            //read potentiometer value
   valVol = map(valVol, 0, 1023, 0, 101);  //map it to 102 steps
   if (REVERSED) {
