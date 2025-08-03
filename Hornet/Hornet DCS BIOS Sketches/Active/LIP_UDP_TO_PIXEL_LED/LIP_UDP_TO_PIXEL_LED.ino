@@ -128,13 +128,20 @@ const int STANDBY_START_POS = 0;
 
 // Special Led Positions on LIP and UIP Panels
 #define MASTER_ARM_READY_1 0
-#define MASTER_ARM_READY_2 2
-#define MASTER_ARM_DISCH_1 1
+#define MASTER_ARM_READY_2 1
+#define MASTER_ARM_DISCH_1 2
 #define MASTER_ARM_DISCH_2 3
-#define MASTER_ARM_AA_1 25
-#define MASTER_ARM_AA_2 26
-#define MASTER_ARM_AG_1 27
-#define MASTER_ARM_AG_2 28
+
+#define MASTER_ARM_AA_1 27
+#define MASTER_ARM_AA_2 28
+#define MASTER_ARM_AG_1 25
+#define MASTER_ARM_AG_2 26
+
+
+// #define MASTER_ARM_AA_1 25
+// #define MASTER_ARM_AA_2 26
+// #define MASTER_ARM_AG_1 27
+// #define MASTER_ARM_AG_2 28
 
 
 // ECM Testing
@@ -308,6 +315,17 @@ void setup() {
 
   FastLED.show();
   delay(1000);
+
+
+
+  MASTER_ARM_AA == false;
+  Update_MASTER_ARM_AA();
+  MASTER_ARM_AG == false;
+  Update_MASTER_ARM_AG();
+  MASTER_ARM_DISCH_READY == false;
+  Update_MASTER_ARM_DISCH_READY();
+  FastLED.show();
+
 
   NEXT_LED_UPDATE = millis() + 1000;
 }
