@@ -50,7 +50,7 @@ int startUpBrightness = 50;        // LED Brightness 0 = Off, 255 = 100%.
 
 #define LEFT_CONSOLE_LED_COUNT 500
 #define RIGHT_CONSOLE_LED_COUNT 500
-const int LIP_CONSOLE_LED_COUNT =  STANDBY_LED_COUNT;
+const int LIP_CONSOLE_LED_COUNT = STANDBY_LED_COUNT;
 const int UIP_CONSOLE_LED_COUNT = MASTER_ARM_LED_COUNT + HUD_CONTROL_LED_COUNT + SPIN_RECOVERY_LED_COUNT + STANDBY_LED_COUNT;
 
 // Defining what data pin each backlighting connector is connected to.
@@ -187,6 +187,15 @@ EthernetUDP ledudp;  //Left and Right Consoles
 char ledpacketBuffer[1000];  //buffer to store led data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
+void SendDebug(String MessageToSend) {
+  MessageToSend = "LIP_UDP_TO_PIXEL_LED" + MessageToSend;
+  if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
+    ledudp.beginPacket(reflectorIP, reflectorport);
+    ledudp.print(MessageToSend);
+    ledudp.endPacket();
+  }
+}
+
 
 // ###################################### End Ethernet Related #############################
 
@@ -214,9 +223,7 @@ void setup() {
 
 
     if (Reflector_In_Use == 1) {
-      ledudp.beginPacket(reflectorIP, reflectorport);
-      ledudp.println("Init UDP Pixel Led - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      ledudp.endPacket();
+      SendDebug("Init UDP Pixel Led - " + strMyIP + " " + String(millis()) + "mS since reset.");
     }
   }
 
@@ -423,6 +430,14 @@ void Update_MASTER_ARM_DISCH() {
 }
 
 void Update_MASTER_ARM_AA() {
+
+  String AA_State = "Off";
+
+  if (MASTER_ARM_AA == true) {
+    SendDebug("Updating Master ARM AA to On");
+  } else {
+    SendDebug("Updating Master ARM AA to Off");
+  }
 
   if (MASTER_ARM_AA == true) {
     UIP_CONSOLE_LED[MASTER_ARM_START_POS + MASTER_ARM_AA_1] = CHSV(CHSVGreen, 255, warningBrightness);
