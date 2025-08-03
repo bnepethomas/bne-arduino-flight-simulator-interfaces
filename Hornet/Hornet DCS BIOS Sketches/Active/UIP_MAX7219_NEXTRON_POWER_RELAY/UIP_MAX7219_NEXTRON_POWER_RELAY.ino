@@ -38,7 +38,7 @@ const int Serial_In_Use = 0;
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 #define EthernetStartupDelay 500
-byte mac[] = {0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x06};
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x06 };
 IPAddress ip(172, 16, 1, 106);
 String strMyIP = "172.16.1.106";
 
@@ -46,11 +46,17 @@ String strMyIP = "172.16.1.106";
 IPAddress reflectorIP(172, 16, 1, 10);
 String strReflectorIP = "X.X.X.X";
 
+// Arduino Due for Keystroke translation and Pixel Led driving
+IPAddress ledTargetIP(172, 16, 1, 105);
+String strLedTargetIP = "172.16.1.105";
+
+
 const unsigned int max7219port = 7788;
 const unsigned int remoteport = 49000;
 const unsigned int reflectorport = 27000;
 
 const unsigned int MSFSport = 13136;
+const unsigned int ledport = 7789;
 
 // Packet Length
 int max7219packetsize;
@@ -59,15 +65,16 @@ int max7219Len;
 int MSFSpacketsize;
 int MSFSLen;
 
-EthernetUDP max7219udp;              // Max7219
-EthernetUDP MSFSudp;                 // Listens to MSFS light commands
+EthernetUDP max7219udp;  // Max7219
+EthernetUDP MSFSudp;     // Listens to MSFS light commands
+EthernetUDP senderudp;
 
-char max7219packetBuffer[1000];      //buffer to store packet data for both Max7219 and MSFS data
-char outpacketBuffer[1000];           //buffer to store the outgoing data
+char max7219packetBuffer[1000];  //buffer to store packet data for both Max7219 and MSFS data
+char outpacketBuffer[1000];      //buffer to store the outgoing data
 
 bool Debug_Display = false;
-char *ParameterNamePtr;
-char *ParameterValuePtr;
+char* ParameterNamePtr;
+char* ParameterValuePtr;
 // ###################################### End Ethernet Related #############################
 
 
@@ -81,20 +88,20 @@ char *ParameterValuePtr;
 // Master
 // CHIP U1 (C)
 #define SELECT_JET_PANEL 2
-#define AOA 2 // NOT DONE
+#define AOA 2  // NOT DONE
 #define MASTER_ARM 2
 
 // CHIP U2 (A)
 #define LEFT_EWI 0
 #define UFC_PANEL 0
 #define BIT_LED 0
-#define LEFT_DIS 0 // CHECK IF NEEDED 
-#define Bit_led 0 // Bit Test Ledt HUD BOX   
+#define LEFT_DIS 0  // CHECK IF NEEDED
+#define Bit_led 0   // Bit Test Ledt HUD BOX
 
 // CHIP U3 (D)
 #define CAUTION_PANEL 3
 #define LOCK_SHOOT 3
-#define RIGHT_DIS 3 //CHECK IF NEEDED
+#define RIGHT_DIS 3  //CHECK IF NEEDED
 
 // CHIP U5 (B)
 #define RIGHT_EWI 1
@@ -453,11 +460,11 @@ char *ParameterValuePtr;
 // ######################## RIGHT  DIS ########################
 #define HOOK_COL_A 5
 #define HOOK_ROW_A 1
-#define HOOK_COL_B 5 //6
-#define HOOK_ROW_B 0 //1
+#define HOOK_COL_B 5  //6
+#define HOOK_ROW_B 0  //1
 
-#define RAD_ALT_R_COL_A 6 //5
-#define RAD_ALT_R_ROW_A 1 //0
+#define RAD_ALT_R_COL_A 6  //5
+#define RAD_ALT_R_ROW_A 1  //0
 #define RAD_ALT_G_COL_A 6
 #define RAD_ALT_G_ROW_A 0
 
@@ -640,8 +647,7 @@ void onUfcOptionCueing1Change(char* newValue) {
   if (newValue[0] == ':') {
     lc.setLed(UFC_PANEL, UFC_OPT1_COL_A, UFC_OPT1_ROW_A, 1);
     lc.setLed(UFC_PANEL, UFC_OPT1_COL_B, UFC_OPT1_ROW_B, 1);
-  }
-  else {
+  } else {
     lc.setLed(UFC_PANEL, UFC_OPT1_COL_A, UFC_OPT1_ROW_A, 0);
     lc.setLed(UFC_PANEL, UFC_OPT1_COL_B, UFC_OPT1_ROW_B, 0);
   }
@@ -653,8 +659,7 @@ void onUfcOptionCueing2Change(char* newValue) {
   if (newValue[0] == ':') {
     lc.setLed(UFC_PANEL, UFC_OPT2_COL_A, UFC_OPT2_ROW_A, 1);
     lc.setLed(UFC_PANEL, UFC_OPT2_COL_B, UFC_OPT2_ROW_B, 1);
-  }
-  else {
+  } else {
     lc.setLed(UFC_PANEL, UFC_OPT2_COL_A, UFC_OPT2_ROW_A, 0);
     lc.setLed(UFC_PANEL, UFC_OPT2_COL_B, UFC_OPT2_ROW_B, 0);
   }
@@ -666,8 +671,7 @@ void onUfcOptionCueing3Change(char* newValue) {
   if (newValue[0] == ':') {
     lc.setLed(UFC_PANEL, UFC_OPT3_COL_A, UFC_OPT3_ROW_A, 1);
     lc.setLed(UFC_PANEL, UFC_OPT3_COL_B, UFC_OPT3_ROW_B, 1);
-  }
-  else {
+  } else {
     lc.setLed(UFC_PANEL, UFC_OPT3_COL_A, UFC_OPT3_ROW_A, 0);
     lc.setLed(UFC_PANEL, UFC_OPT3_COL_B, UFC_OPT3_ROW_B, 0);
   }
@@ -679,8 +683,7 @@ void onUfcOptionCueing4Change(char* newValue) {
   if (newValue[0] == ':') {
     lc.setLed(UFC_PANEL, UFC_OPT4_COL_A, UFC_OPT4_ROW_A, 1);
     lc.setLed(UFC_PANEL, UFC_OPT4_COL_B, UFC_OPT4_ROW_B, 1);
-  }
-  else {
+  } else {
     lc.setLed(UFC_PANEL, UFC_OPT4_COL_A, UFC_OPT4_ROW_A, 0);
     lc.setLed(UFC_PANEL, UFC_OPT4_COL_B, UFC_OPT4_ROW_B, 0);
   }
@@ -691,8 +694,7 @@ DcsBios::StringBuffer<1> ufcOptionCueing4Buffer(0x742e, onUfcOptionCueing4Change
 void onUfcOptionCueing5Change(char* newValue) {
   if (newValue[0] == ':') {
     lc.setLed(UFC_PANEL, UFC_OPT5_COL_A, UFC_OPT5_ROW_A, 1);
-  }
-  else {
+  } else {
     lc.setLed(UFC_PANEL, UFC_OPT5_COL_A, UFC_OPT5_ROW_A, 0);
   }
 }
@@ -1106,13 +1108,17 @@ void onWarnCautionDimmerChange(unsigned int newValue) {
 
   WARN_CAUTION_DIMMER_VALUE = map(newValue, 0, 65000, 0, 15);
   updateBrightness();
+
+  int WarnCautionDimmerValue = 0;
+
+  WarnCautionDimmerValue = map(newValue, 0, 65000, 0, 255);
+  SendIPString("WarningBrightness=" + String(WarnCautionDimmerValue)); /* your code here */
 }
 DcsBios::IntegerBuffer warnCautionDimmerBuffer(0x754c, 0xffff, 0, onWarnCautionDimmerChange);
 
 void onHudAoaIndexerChange(unsigned int newValue) {
 
   //  AOA_DIMMER_VALUE = map(newValue, 0, 65000, 0, 15);
-
 }
 DcsBios::IntegerBuffer hudAoaIndexerBuffer(0x745e, 0xffff, 0, onHudAoaIndexerChange);
 
@@ -1129,20 +1135,18 @@ void onCockkpitLightModeSwChangeMax7219(unsigned int newValue) {
     DAY_NIGHT_SWITCH_MODE = DAY_MODE;
   }
   updateBrightness();
-
-
 }
 
 
 void updateBrightness() {
 
-  if (Reflector_In_Use == 1)  {
+  if (Reflector_In_Use == 1) {
     max7219udp.beginPacket(reflectorIP, reflectorport);
     max7219udp.println("Entering update brightness");
     max7219udp.endPacket();
   }
 
-  if (Reflector_In_Use == 1)  {
+  if (Reflector_In_Use == 1) {
     max7219udp.beginPacket(reflectorIP, reflectorport);
     max7219udp.println("Procssing Dimmer Packet: " + String(AOA_DIMMER_VALUE));
     max7219udp.endPacket();
@@ -1166,7 +1170,6 @@ void updateBrightness() {
     } else {
       lc.setIntensity(address, (AOA_DIMMER_VALUE));
     }
-
   }
 }
 
@@ -1175,7 +1178,7 @@ void updateBrightness() {
 void AllOn() {
   for (int displayunit = 0; displayunit < 9; displayunit++) {
     for (int row = 0; row < 8; row++) {
-      for (int col = 0; col < 8 ; col++) {
+      for (int col = 0; col < 8; col++) {
         if (col != 9 && col != 9 && col != 9)
           lc.setLed(displayunit, row, col, true);
       }
@@ -1210,14 +1213,14 @@ void SetBrightness(int Brightness) {
 #include <Nextion.h>
 #define PetesTxPort 19
 #define PetesRxPrt 18
-SoftwareSerial nextion(PetesTxPort, PetesRxPrt); // SETS SERIAL TO PINS  18/19
+SoftwareSerial nextion(PetesTxPort, PetesRxPrt);  // SETS SERIAL TO PINS  18/19
 
 
-int potPin = A4; // DIRECT IEFI DIMING
+int potPin = A4;  // DIRECT IEFI DIMING
 int valPin = 0;
 int brightness;
-int RPML; // RPM LEFT
-int RPMR; // RPM RIGHT
+int RPML;  // RPM LEFT
+int RPMR;  // RPM RIGHT
 int NOZL;
 int NOZR;
 int FFXL;
@@ -1234,7 +1237,7 @@ int FLLW;
 int CODESBIT;
 int SPBIT;
 int OCOFFBIT;
-int ifeiCol; //IFEI Colour (Green or White)
+int ifeiCol;  //IFEI Colour (Green or White)
 
 //################## RPM LEFT ##################Y
 void onIfeiRpmLChange(char* newValue) {
@@ -1243,7 +1246,6 @@ void onIfeiRpmLChange(char* newValue) {
   nextion.print(RPML);
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
-
 }
 DcsBios::StringBuffer<3> ifeiRpmLBuffer(0x749e, onIfeiRpmLChange);
 
@@ -1326,26 +1328,22 @@ void onIfeiFuelDownChange(char* newValue) {
     nextion.print(newValue);
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (newValue[3] == 32) {
+  } else if (newValue[3] == 32) {
     nextion.print("t9.txt=\"   ");
     nextion.print(newValue);
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (newValue[4] == 32) {
+  } else if (newValue[4] == 32) {
     nextion.print("t9.txt=\"  ");
     nextion.print(newValue);
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (newValue[5] == 32) {
+  } else if (newValue[5] == 32) {
     nextion.print("t9.txt=\" ");
     nextion.print(newValue);
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else {
+  } else {
     nextion.print("t9.txt=\"");
     nextion.print(newValue);
     nextion.print("\"");
@@ -1361,26 +1359,22 @@ void onIfeiFuelUpChange(char* newValue) {
     nextion.print(newValue);
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (newValue[3] == 32) {
+  } else if (newValue[3] == 32) {
     nextion.print("t8.txt=\"   ");
     nextion.print(newValue);
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (newValue[4] == 32) {
+  } else if (newValue[4] == 32) {
     nextion.print("t8.txt=\"  ");
     nextion.print(newValue);
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (newValue[5] == 32) {
+  } else if (newValue[5] == 32) {
     nextion.print("t8.txt=\" ");
     nextion.print(newValue);
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else {
+  } else {
     nextion.print("t8.txt=\"");
     nextion.print(newValue);
     nextion.print("\"");
@@ -1510,8 +1504,7 @@ void onIfeiBingoTextureChange(char* newValue) {
     nextion.print(" ");
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if ((strcmp(newValue, "0") == 0) && (SPBIT == HIGH) && (OCOFFBIT == HIGH)) {
+  } else if ((strcmp(newValue, "0") == 0) && (SPBIT == HIGH) && (OCOFFBIT == HIGH)) {
     nextion.print("t19.txt=\"");
     nextion.print("      ");
     nextion.print("\"");
@@ -1524,8 +1517,7 @@ void onIfeiBingoTextureChange(char* newValue) {
     nextion.print(" ");
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if ((strcmp(newValue, "0") == 0) && (SPBIT == HIGH) && (OCOFFBIT == LOW)) {
+  } else if ((strcmp(newValue, "0") == 0) && (SPBIT == HIGH) && (OCOFFBIT == LOW)) {
     nextion.print("t19.txt=\"");
     nextion.print("      ");
     nextion.print("\"");
@@ -1538,8 +1530,7 @@ void onIfeiBingoTextureChange(char* newValue) {
     nextion.print(" ");
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if ((strcmp(newValue, "0") == 0) && (SPBIT == LOW)) {
+  } else if ((strcmp(newValue, "0") == 0) && (SPBIT == LOW)) {
     nextion.print("t19.txt=\"");
     nextion.print("      ");
     nextion.print("\"");
@@ -1560,7 +1551,7 @@ DcsBios::StringBuffer<1> ifeiBingoTextureBuffer(0x74c6, onIfeiBingoTextureChange
 // ************** SP (CODES) ***************************
 void onIfeiSpChange(char* newValue) {
 
-  if (newValue[0] == 83) { // Letter = "S"
+  if (newValue[0] == 83) {  // Letter = "S"
     nextion.print("t3.txt=\"");
     nextion.print(newValue);
     nextion.print("\"");
@@ -1578,8 +1569,7 @@ void onIfeiSpChange(char* newValue) {
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
     SPBIT = HIGH;
-  }
-  else  if (newValue[0] != 83) {
+  } else if (newValue[0] != 83) {
     nextion.print("t3.txt=\"");
     nextion.print(newValue);
     nextion.print("\"");
@@ -1597,8 +1587,7 @@ void onIfeiCodesChange(char* newValue) {
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
     CODESBIT = HIGH;
-  }
-  else
+  } else
     nextion.print("t2.txt=\"");
   nextion.print(newValue);
   nextion.print("\"");
@@ -1615,14 +1604,12 @@ void onIfeiFfTextureChange(char* newValue) {
     nextion.println("x100");
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (strcmp(newValue, "0") == 0) {
+  } else if (strcmp(newValue, "0") == 0) {
     nextion.print("t15.txt=\"");
     nextion.println(" ");
     nextion.println(" ");
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-
   }
 }
 DcsBios::StringBuffer<1> ifeiFfTextureBuffer(0x74c0, onIfeiFfTextureChange);
@@ -1633,7 +1620,7 @@ void onExtNozzlePosLChange(unsigned int newValue) {
   //if (NOZOFF == HIGH){
   NOZL = map(newValue, 0, 65535, 0, 100);
   if (ifeiCol != 2) {
-    switch (NOZL) { // NOZ LEFT POSITION IFEI
+    switch (NOZL) {  // NOZ LEFT POSITION IFEI
       case 0 ... 9: nextion.print("p0.pic=0"); break;
       case 10 ... 19: nextion.print("p0.pic=1"); break;
       case 20 ... 29: nextion.print("p0.pic=2"); break;
@@ -1647,9 +1634,8 @@ void onExtNozzlePosLChange(unsigned int newValue) {
       case 96 ... 100: nextion.print("p0.pic=10"); break;
     }
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (ifeiCol == 2) {
-    switch (NOZL) { // NOZ RIGHT POSITION IFEI
+  } else if (ifeiCol == 2) {
+    switch (NOZL) {  // NOZ RIGHT POSITION IFEI
       case 0 ... 9: nextion.print("p0.pic=26"); break;
       case 10 ... 19: nextion.print("p0.pic=27"); break;
       case 20 ... 29: nextion.print("p0.pic=28"); break;
@@ -1673,7 +1659,7 @@ DcsBios::IntegerBuffer extNozzlePosLBuffer(0x757a, 0xffff, 0, onExtNozzlePosLCha
 void onExtNozzlePosRChange(unsigned int newValue) {
   NOZR = map(newValue, 0, 65535, 0, 100);
   if (ifeiCol != 2) {
-    switch (NOZR) { // NOZ RIGHT POSITION IFEI
+    switch (NOZR) {  // NOZ RIGHT POSITION IFEI
       case 0 ... 9: nextion.print("p1.pic=11"); break;
       case 10 ... 19: nextion.print("p1.pic=12"); break;
       case 20 ... 29: nextion.print("p1.pic=13"); break;
@@ -1687,9 +1673,8 @@ void onExtNozzlePosRChange(unsigned int newValue) {
       case 96 ... 100: nextion.print("p1.pic=21"); break;
     }
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (ifeiCol == 2) {
-    switch (NOZR) { // NOZ RIGHT POSITION IFEI
+  } else if (ifeiCol == 2) {
+    switch (NOZR) {  // NOZ RIGHT POSITION IFEI
       case 0 ... 9: nextion.print("p1.pic=37"); break;
       case 10 ... 19: nextion.print("p1.pic=38"); break;
       case 20 ... 29: nextion.print("p1.pic=39"); break;
@@ -1717,11 +1702,10 @@ void onIfeiOilTextureChange(char* newValue) {
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
     nextion.print("t21.txt=\"");
-    nextion.print("NOZ"); //NOZ LABLE
+    nextion.print("NOZ");  //NOZ LABLE
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (strcmp(newValue, "0") == 0) {
+  } else if (strcmp(newValue, "0") == 0) {
     nextion.print("t16.txt=\"");
     nextion.print("    ");
     nextion.print("\"");
@@ -1741,8 +1725,7 @@ void onIfeiRpmTextureChange(char* newValue) {
     nextion.print("RPM");
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (strcmp(newValue, "0") == 0) {
+  } else if (strcmp(newValue, "0") == 0) {
     nextion.print("t13.txt=\"");
     nextion.print("      ");
     nextion.print("\"");
@@ -1758,8 +1741,7 @@ void onIfeiTempTextureChange(char* newValue) {
     nextion.print("TEMP");
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (strcmp(newValue, "0") == 0) {
+  } else if (strcmp(newValue, "0") == 0) {
     nextion.print("t14.txt=\"");
     nextion.print("      ");
     nextion.print("\"");
@@ -1775,8 +1757,7 @@ void onIfeiZTextureChange(char* newValue) {
     nextion.print("Z");
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else if (strcmp(newValue, "0") == 0) {
+  } else if (strcmp(newValue, "0") == 0) {
     nextion.print("t32.txt=\"");
     nextion.print(" ");
     nextion.print("\"");
@@ -1794,8 +1775,7 @@ void onIfeiRpointerTextureChange(char* newValue) {
     nextion.write("\xFF\xFF\xFF");
     nextion.print("p1.pic=11");
     nextion.write("\xFF\xFF\xFF");
-  }
-  else {
+  } else {
     NOZOFF = LOW;
     nextion.print("p0.pic=22");
     nextion.write("\xFF\xFF\xFF");
@@ -1867,9 +1847,7 @@ void onIfeiRpointerTextureChange(char* newValue) {
     nextion.print("");
     nextion.print("\"");
     nextion.write("\xFF\xFF\xFF");
-
   }
-
 }
 DcsBios::StringBuffer<1> ifeiRpointerTextureBuffer(0x74da, onIfeiRpointerTextureChange);
 
@@ -2030,7 +2008,6 @@ void onIfeiChange(unsigned int newValue) {
   brightness = bright;
   nextion.print(dim.c_str());
   nextion.write("\xFF\xFF\xFF");
-
 }
 DcsBios::IntegerBuffer ifeiBuffer(0x74de, 0xffff, 0, onIfeiChange);
 
@@ -2052,7 +2029,7 @@ DcsBios::IntegerBuffer chartIntLtBuffer(0x755e, 0xffff, 0, onChartIntLtChange);
 
 
 void onLGenSwChange(unsigned int newValue) {
-  if (newValue != 0 ) {
+  if (newValue != 0) {
     LEFT_GEN_SWITCH_STATE = true;
   } else {
     LEFT_GEN_SWITCH_STATE = false;
@@ -2062,7 +2039,7 @@ void onLGenSwChange(unsigned int newValue) {
 DcsBios::IntegerBuffer lGenSwBuffer(0x74c4, 0x2000, 13, onLGenSwChange);
 
 void onRGenSwChange(unsigned int newValue) {
-  if (newValue != 0 ) {
+  if (newValue != 0) {
     RIGHT_GEN_SWITCH_STATE = true;
   } else {
     RIGHT_GEN_SWITCH_STATE = false;
@@ -2073,7 +2050,7 @@ DcsBios::IntegerBuffer rGenSwBuffer(0x74c4, 0x4000, 14, onRGenSwChange);
 
 
 void onBatterySwChange(unsigned int newValue) {
-  if (newValue != 1 ) {
+  if (newValue != 1) {
     BATTERY_SWITCH_STATE = true;
   } else {
     BATTERY_SWITCH_STATE = false;
@@ -2094,7 +2071,7 @@ DcsBios::IntegerBuffer batterySwBuffer(0x74c4, 0x1800, 11, onBatterySwChange);
 
 void CheckLeftAndAMPCDScreenPowerState() {
 
-  if ((LEFT_GEN_SWITCH_STATE == true) || ( BATTERY_SWITCH_STATE == true)) {
+  if ((LEFT_GEN_SWITCH_STATE == true) || (BATTERY_SWITCH_STATE == true)) {
     digitalWrite(LEFT_AND_AMPCD_SCREENS_RELAY_PORT, true);
   } else {
     // Not powering down monitors as this causes Windows to disconnect them
@@ -2104,7 +2081,7 @@ void CheckLeftAndAMPCDScreenPowerState() {
 
 void CheckRightScreenPowerState() {
 
-  if ((RIGHT_GEN_SWITCH_STATE == true) || ( BATTERY_SWITCH_STATE == true)) {
+  if ((RIGHT_GEN_SWITCH_STATE == true) || (BATTERY_SWITCH_STATE == true)) {
     digitalWrite(RIGHT_SCREEN_RELAY_PORT, true);
   } else {
     // Not powering down monitors as this causes Windows to disconnect them
@@ -2180,6 +2157,10 @@ void onConsoleIntLtChange(unsigned int newValue) {
     // analogWrite(BACK_LIGHTS, map(newValue, 7000, 65535, 0, 255));
     analogWrite(BACK_LIGHTS, map(newValue, 7000, 65535, 0, 40));
   }
+
+  int ConsolesDimmerValue = 0;
+  ConsolesDimmerValue = map(newValue, 0, 65000, 0, 100);
+  SendIPString("ConsoleBrightness=" + String(ConsolesDimmerValue));
 }
 DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
 
@@ -2212,133 +2193,131 @@ struct StepperConfig {
 const long zeroTimeout = 30000;
 
 class Vid60Stepper : public DcsBios::Int16Buffer {
-  private:
-    AccelStepper& stepper;
-    StepperConfig& stepperConfig;
-    inline bool zeroDetected() {
-      return digitalRead(irDetectorPin) == 0;
+private:
+  AccelStepper& stepper;
+  StepperConfig& stepperConfig;
+  inline bool zeroDetected() {
+    return digitalRead(irDetectorPin) == 0;
+  }
+  unsigned int (*map_function)(unsigned int);
+  unsigned char initState;
+  long currentStepperPosition;
+  long lastAccelStepperPosition;
+  unsigned char irDetectorPin;
+  long zeroOffset;
+  bool movingForward;
+  bool lastZeroDetectState;
+
+  long zeroPosSearchStartTime = 0;
+
+  long normalizeStepperPosition(long pos) {
+    if (pos < 0) return pos + stepperConfig.maxSteps;
+    if (pos >= stepperConfig.maxSteps) return pos - stepperConfig.maxSteps;
+    return pos;
+  }
+
+  void updateCurrentStepperPosition() {
+    // adjust currentStepperPosition to include the distance our stepper motor
+    // was moved since we last updated it
+    long movementSinceLastUpdate = stepper.currentPosition() - lastAccelStepperPosition;
+    currentStepperPosition = normalizeStepperPosition(currentStepperPosition + movementSinceLastUpdate);
+    lastAccelStepperPosition = stepper.currentPosition();
+  }
+public:
+  Vid60Stepper(unsigned int address, AccelStepper& stepper, StepperConfig& stepperConfig, unsigned char irDetectorPin, long zeroOffset, unsigned int (*map_function)(unsigned int))
+    : Int16Buffer(address), stepper(stepper), stepperConfig(stepperConfig), irDetectorPin(irDetectorPin), zeroOffset(zeroOffset), map_function(map_function), initState(0), currentStepperPosition(0), lastAccelStepperPosition(0) {
+  }
+
+  virtual void loop() {
+    if (initState == 0) {  // not initialized yet
+      pinMode(irDetectorPin, INPUT);
+      stepper.setMaxSpeed(stepperConfig.maxSpeed);
+      stepper.setSpeed(400);
+
+      initState = 1;
+      zeroPosSearchStartTime = millis();
     }
-    unsigned int (*map_function)(unsigned int);
-    unsigned char initState;
-    long currentStepperPosition;
-    long lastAccelStepperPosition;
-    unsigned char irDetectorPin;
-    long zeroOffset;
-    bool movingForward;
-    bool lastZeroDetectState;
 
-    long zeroPosSearchStartTime = 0;
-
-    long normalizeStepperPosition(long pos) {
-      if (pos < 0) return pos + stepperConfig.maxSteps;
-      if (pos >= stepperConfig.maxSteps) return pos - stepperConfig.maxSteps;
-      return pos;
-    }
-
-    void updateCurrentStepperPosition() {
-      // adjust currentStepperPosition to include the distance our stepper motor
-      // was moved since we last updated it
-      long movementSinceLastUpdate = stepper.currentPosition() - lastAccelStepperPosition;
-      currentStepperPosition = normalizeStepperPosition(currentStepperPosition + movementSinceLastUpdate);
-      lastAccelStepperPosition = stepper.currentPosition();
-    }
-  public:
-    Vid60Stepper(unsigned int address, AccelStepper& stepper, StepperConfig& stepperConfig, unsigned char irDetectorPin, long zeroOffset, unsigned int (*map_function)(unsigned int))
-      : Int16Buffer(address), stepper(stepper), stepperConfig(stepperConfig), irDetectorPin(irDetectorPin), zeroOffset(zeroOffset), map_function(map_function), initState(0), currentStepperPosition(0), lastAccelStepperPosition(0) {
-    }
-
-    virtual void loop() {
-      if (initState == 0) { // not initialized yet
-        pinMode(irDetectorPin, INPUT);
-        stepper.setMaxSpeed(stepperConfig.maxSpeed);
-        stepper.setSpeed(400);
-
-        initState = 1;
-        zeroPosSearchStartTime = millis();
+    if (initState == 1) {
+      // move off zero if already there so we always get movement on reset
+      // (to verify that the stepper is working)
+      if (zeroDetected()) {
+        stepper.runSpeed();
+      } else {
+        initState = 2;
       }
+    }
 
-      if (initState == 1) {
-        // move off zero if already there so we always get movement on reset
-        // (to verify that the stepper is working)
-        if (zeroDetected()) {
+    if (initState == 2) {  // zeroing
+      if (!zeroDetected()) {
+        // Currently this safety check isn't working
+        // Add Ethernet card for more troubleshooting
+        // Need to check IP addresses of PC secondary nic
+        if (millis() >= (zeroTimeout + zeroPosSearchStartTime)) {
+          stepper.disableOutputs();
+          initState == 99;
+        } else
           stepper.runSpeed();
-        } else {
-          initState = 2;
-        }
-      }
-
-      if (initState == 2) { // zeroing
-        if (!zeroDetected()) {
-          // Currently this safety check isn't working
-          // Add Ethernet card for more troubleshooting
-          // Need to check IP addresses of PC secondary nic
-          if (millis() >= (zeroTimeout + zeroPosSearchStartTime)) {
-            stepper.disableOutputs();
-            initState == 99;
-          }
-          else
-            stepper.runSpeed();
 
 
 
-        } else {
-          stepper.setAcceleration(stepperConfig.acceleration);
-          stepper.runToNewPosition(stepper.currentPosition() + zeroOffset);
-          // tell the AccelStepper library that we are at position zero
-          stepper.setCurrentPosition(0);
-          lastAccelStepperPosition = 0;
-          // set stepper acceleration in steps per second per second
-          // (default is zero)
-          stepper.setAcceleration(stepperConfig.acceleration);
+      } else {
+        stepper.setAcceleration(stepperConfig.acceleration);
+        stepper.runToNewPosition(stepper.currentPosition() + zeroOffset);
+        // tell the AccelStepper library that we are at position zero
+        stepper.setCurrentPosition(0);
+        lastAccelStepperPosition = 0;
+        // set stepper acceleration in steps per second per second
+        // (default is zero)
+        stepper.setAcceleration(stepperConfig.acceleration);
 
-          lastZeroDetectState = true;
-          initState = 3;
-        }
-      }
-      if (initState == 3) { // running normally
-
-        // recalibrate when passing through zero position
-        bool currentZeroDetectState = zeroDetected();
-        if (!lastZeroDetectState && currentZeroDetectState && movingForward) {
-          // we have moved from left to right into the 'zero detect window'
-          // and are now at position 0
-          lastAccelStepperPosition = stepper.currentPosition();
-          currentStepperPosition = normalizeStepperPosition(zeroOffset);
-        } else if (lastZeroDetectState && !currentZeroDetectState && !movingForward) {
-          // we have moved from right to left out of the 'zero detect window'
-          // and are now at position (maxSteps-1)
-          lastAccelStepperPosition = stepper.currentPosition();
-          currentStepperPosition = normalizeStepperPosition(stepperConfig.maxSteps + zeroOffset);
-        }
-        lastZeroDetectState = currentZeroDetectState;
-
-
-        if (hasUpdatedData()) {
-          // convert data from DCS to a target position expressed as a number of steps
-          long targetPosition = (long)map_function(getData());
-
-          updateCurrentStepperPosition();
-
-          long delta = targetPosition - currentStepperPosition;
-
-          // if we would move more than 180 degree counterclockwise, move clockwise instead
-          if (delta < -((long)(stepperConfig.maxSteps / 2))) delta += stepperConfig.maxSteps;
-          // if we would move more than 180 degree clockwise, move counterclockwise instead
-          if (delta > (stepperConfig.maxSteps / 2)) delta -= (long)stepperConfig.maxSteps;
-
-          movingForward = (delta >= 0);
-
-          // tell AccelStepper to move relative to the current position
-          stepper.move(delta);
-
-        }
-        stepper.run();
-      }
-
-      if (initState == 99) { // Timed out looking for zero do nothing
-        stepper.disableOutputs();
+        lastZeroDetectState = true;
+        initState = 3;
       }
     }
+    if (initState == 3) {  // running normally
+
+      // recalibrate when passing through zero position
+      bool currentZeroDetectState = zeroDetected();
+      if (!lastZeroDetectState && currentZeroDetectState && movingForward) {
+        // we have moved from left to right into the 'zero detect window'
+        // and are now at position 0
+        lastAccelStepperPosition = stepper.currentPosition();
+        currentStepperPosition = normalizeStepperPosition(zeroOffset);
+      } else if (lastZeroDetectState && !currentZeroDetectState && !movingForward) {
+        // we have moved from right to left out of the 'zero detect window'
+        // and are now at position (maxSteps-1)
+        lastAccelStepperPosition = stepper.currentPosition();
+        currentStepperPosition = normalizeStepperPosition(stepperConfig.maxSteps + zeroOffset);
+      }
+      lastZeroDetectState = currentZeroDetectState;
+
+
+      if (hasUpdatedData()) {
+        // convert data from DCS to a target position expressed as a number of steps
+        long targetPosition = (long)map_function(getData());
+
+        updateCurrentStepperPosition();
+
+        long delta = targetPosition - currentStepperPosition;
+
+        // if we would move more than 180 degree counterclockwise, move clockwise instead
+        if (delta < -((long)(stepperConfig.maxSteps / 2))) delta += stepperConfig.maxSteps;
+        // if we would move more than 180 degree clockwise, move counterclockwise instead
+        if (delta > (stepperConfig.maxSteps / 2)) delta -= (long)stepperConfig.maxSteps;
+
+        movingForward = (delta >= 0);
+
+        // tell AccelStepper to move relative to the current position
+        stepper.move(delta);
+      }
+      stepper.run();
+    }
+
+    if (initState == 99) {  // Timed out looking for zero do nothing
+      stepper.disableOutputs();
+    }
+  }
 };
 
 /* modify below this line */
@@ -2347,8 +2326,8 @@ class Vid60Stepper : public DcsBios::Int16Buffer {
    multiple Vid60Stepper instances can share the same StepperConfig object */
 struct StepperConfig stepperConfig = {
   720,  // maxSteps
-  200, // maxSpeed
-  50 // acceleration
+  200,  // maxSpeed
+  50    // acceleration
 };
 
 
@@ -2358,32 +2337,31 @@ AccelStepper stepper(AccelStepper::FULL4WIRE, 2, 11, 3, 12);
 // define Vid60Stepper class that uses the AccelStepper instance defined in the line above
 //           v-- arbitrary name
 // Vid60Stepper alt100ftPointer(0x107e,          // address of stepper data
-Vid60Stepper standbyCompass(0x0436,          // address of stepper data
-                            stepper,         // name of AccelStepper instance
-                            stepperConfig,   // StepperConfig struct instance
+Vid60Stepper standbyCompass(0x0436,         // address of stepper data
+                            stepper,        // name of AccelStepper instance
+                            stepperConfig,  // StepperConfig struct instance
                             9,              // IR Detector Pin (must be LOW in zero position)
-                            0,               // zero offset
-[](unsigned int newValue) -> unsigned int {
-  /* this function needs to map newValue to the correct number of steps */
+                            0,              // zero offset
+                            [](unsigned int newValue) -> unsigned int {
+                              /* this function needs to map newValue to the correct number of steps */
 
-  // For most guages this map will do
-  //return map(newValue, 0, 65535, 0, stepperConfig.maxSteps - 1);
+                              // For most guages this map will do
+                              //return map(newValue, 0, 65535, 0, stepperConfig.maxSteps - 1);
 
-  // For the compass we only has 360 degrees and need to exclude upper part
-  // of 16 bit value
-  //Output Type: integer Address: 0x0436 Mask: 0x01ff Shift By: 0 Max. Value: 360 Description: Heading (Degrees)
-  // so instead of 0 to 65000 its 0 to 360. Need to exclude upper part of 16 bit value
-  newValue = newValue & 0x01ff;
-  return map(newValue, 0, 360, 0, stepperConfig.maxSteps - 1);
-});
+                              // For the compass we only has 360 degrees and need to exclude upper part
+                              // of 16 bit value
+                              //Output Type: integer Address: 0x0436 Mask: 0x01ff Shift By: 0 Max. Value: 360 Description: Heading (Degrees)
+                              // so instead of 0 to 65000 its 0 to 360. Need to exclude upper part of 16 bit value
+                              newValue = newValue & 0x01ff;
+                              return map(newValue, 0, 360, 0, stepperConfig.maxSteps - 1);
+                            });
 
 
 // ************************************ Begin Compass Block
 
 
 
-void ProcessReceivedString()
-{
+void ProcessReceivedString() {
 
   // Reading values from led packetBuffer which is global
   // All received values are strings for readability
@@ -2392,27 +2370,26 @@ void ProcessReceivedString()
   bool bLocalDebug = true;
   int tempVar = 0;
 
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Processing Max7219 Packet");
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Processing Max7219 Packet");
 
 
   String sWrkStr = "";
-  const char *delim  = "=";
+  const char* delim = "=";
 
 
   ParameterNamePtr = strtok(max7219packetBuffer, delim);
   String ParameterNameString(ParameterNamePtr);
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Name " + ParameterNameString);
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Parameter Name " + ParameterNameString);
 
-  ParameterValuePtr   = strtok(NULL, delim);
+  ParameterValuePtr = strtok(NULL, delim);
   String ParameterValue(ParameterValuePtr);
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use)  Serial.println("Parameter Value " + ParameterValue);
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Parameter Value " + ParameterValue);
 
 
-  if ((Debug_Display || bLocalDebug ) && Serial_In_Use) Serial.println("Found AOA Brightness");
+  if ((Debug_Display || bLocalDebug) && Serial_In_Use) Serial.println("Found AOA Brightness");
   AOA_DIMMER_VALUE = ParameterValue.toInt();
 
   updateBrightness();
-
 }
 
 
@@ -2422,8 +2399,7 @@ void ProcessReceivedString()
 
 // ****************************** Start May 28
 
-void ProcessReceivedMSFSString()
-{
+void ProcessReceivedMSFSString() {
 
   // Reading values from packetBuffer which is global
   // All received values are strings for readability
@@ -2443,7 +2419,7 @@ void ProcessReceivedMSFSString()
   String sWrkStr = "";
 
   // const char *delim  = "=";
-  const char *delim  = ",";
+  const char* delim = ",";
 
   // Break the received packet into a series of tokens
   // If there is no match the pointer will be null, other points to first parameter
@@ -2464,13 +2440,12 @@ void ProcessReceivedMSFSString()
 
   //if (Debug_Display || bLocalDebug )
   //if (ParameterNamePtr != NULL) Serial.println("First Value is: " + String(ParameterNamePtr));
-  if (ParameterNameString[0] == 'D')
-  {
+  if (ParameterNameString[0] == 'D') {
     //Handling a Data Packet
     //if (Debug_Display || bLocalDebug ) Serial.println("Handling a Data Packet");
     ParameterNamePtr = strtok(NULL, delim);
 
-    while ( ParameterNamePtr != NULL ) {
+    while (ParameterNamePtr != NULL) {
       //if (Debug_Display || bLocalDebug ) Serial.println( "Processing " + String(ParameterNamePtr) );
 
       wrkstring = String(ParameterNamePtr);
@@ -2482,15 +2457,13 @@ void ProcessReceivedMSFSString()
 
     return;
     // End Handling a Data Packet
-  }
-  else if (ParameterNameString[0] == 'C')
-  {
+  } else if (ParameterNameString[0] == 'C') {
     // Handling a Control Packet
     //if (Debug_Display || bLocalDebug ) Serial.println("Handling a Control Packet");
 
     ParameterNamePtr = strtok(NULL, delim);
 
-    while ( ParameterNamePtr != NULL ) {
+    while (ParameterNamePtr != NULL) {
       //if (Debug_Display || bLocalDebug )Serial.println( "Processing " + String(ParameterNamePtr) );
 
       wrkstring = String(ParameterNamePtr);
@@ -2503,19 +2476,15 @@ void ProcessReceivedMSFSString()
     return;
 
     // Handling a Control Packet
-  }
-  else
-  {
+  } else {
     // Unknown Packet Type
     //if (Debug_Display || bLocalDebug ) Serial.println("Unknown Packet Type - ignoring packet");
     return;
   }
-
 }
 
 
-void HandleOutputValuePair( String str)
-{
+void HandleOutputValuePair(String str) {
 
   // We are expected a LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
   bool bLocalDebug = false;
@@ -2545,12 +2514,9 @@ void HandleOutputValuePair( String str)
 
   delimeterlocation = str.indexOf(':');
 
-  if (delimeterlocation == 0)
-  {
+  if (delimeterlocation == 0) {
     //if (Debug_Display || bLocalDebug ) Serial.println("**** WARNING no delimiter passed ****** Looking for :");
-  }
-  else
-  {
+  } else {
     //if (Debug_Display || bLocalDebug ) Serial.println("Delimiter is located a position " + String(delimeterlocation));
     lednumber = getValue(str, ':', 0);
     //if (Debug_Display || bLocalDebug ) Serial.println("lednumber is " + lednumber);
@@ -2576,12 +2542,12 @@ void HandleOutputValuePair( String str)
 
 
     // Check we are only have numberic characters
-    if ( ! isValidNumber(lednumber) ) {
+    if (!isValidNumber(lednumber)) {
       //if (Debug_Display || bLocalDebug ) Serial.println("lednumber is not a number " + lednumber);
       return;
     }
 
-    if ( ! isValidNumber(ledvalue) ) {
+    if (!isValidNumber(ledvalue)) {
       //if (Debug_Display || bLocalDebug ) Serial.println("ledvalue is not a number " + ledvalue);
       return;
     }
@@ -2633,30 +2599,23 @@ void HandleOutputValuePair( String str)
 
 
 
-    SendReflectorMessage("Set Led " + String(i7219UnitNumber) + ":" + String(iledRow) + ":" +
-                         String(iledColumn) + ":" + String(iledValue));
+    SendReflectorMessage("Set Led " + String(i7219UnitNumber) + ":" + String(iledRow) + ":" + String(iledColumn) + ":" + String(iledValue));
 
     // Have Now Validated payload - set the led
-    if (iledValue == 0)
-    {
+    if (iledValue == 0) {
       //if (Debug_Display || bLocalDebug ) Serial.println("Clearing - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
       lc.setLed(i7219UnitNumber, iledColumn, iledRow, false);
 
-    }
-    else
-    {
+    } else {
       //if (Debug_Display || bLocalDebug ) Serial.println("Lighting - Row:" + String(iledRow) + " Column:" +  String(iledColumn));
       lc.setLed(i7219UnitNumber, iledColumn, iledRow, true);
     }
-
   }
   return;
-
 }
 
 
-void HandleControlString( String str)
-{
+void HandleControlString(String str) {
   bool bLocalDebug = false;
   //if (Debug_Display || bLocalDebug ) Serial.println("Handling Control String :" + str);
 
@@ -2669,12 +2628,9 @@ void HandleControlString( String str)
 
   delimeterlocation = str.indexOf(':');
 
-  if (delimeterlocation == 0)
-  {
+  if (delimeterlocation == 0) {
     //if (Debug_Display || bLocalDebug ) Serial.println("**** WARNING no delimiter passed ****** Looking for :");
-  }
-  else
-  {
+  } else {
     //if (Debug_Display || bLocalDebug ) Serial.println("Delimiter is located a position " + String(delimeterlocation));
     command = getValue(str, ':', 0);
     //if (Debug_Display || bLocalDebug ) Serial.println("command is :" + command);
@@ -2684,8 +2640,7 @@ void HandleControlString( String str)
     int isetting = setting.toInt();
 
     if (command == "B")
-      if (isetting >= 0 && isetting <= 15)
-      {
+      if (isetting >= 0 && isetting <= 15) {
         lc.setIntensity(0, isetting);
         /////// Begin Backlight test
         analogWrite(NVG_LIGHTS, map(isetting, 0, 15, 0, 255));
@@ -2695,11 +2650,9 @@ void HandleControlString( String str)
   }
 
   return;
-
 }
 
-String getValue(String data, char separator, int index)
-{
+String getValue(String data, char separator, int index) {
   int found = 0;
   int strIndex[] = { 0, -1 };
   int maxIndex = data.length() - 1;
@@ -2714,27 +2667,93 @@ String getValue(String data, char separator, int index)
   return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
 }
 
-boolean isValidNumber(String str)
-{
+boolean isValidNumber(String str) {
   boolean isNum = false;
   if (!(str.charAt(0) == '+' || str.charAt(0) == '-' || isDigit(str.charAt(0)))) return false;
 
-  for (byte i = 1; i < str.length(); i++)
-  {
+  for (byte i = 1; i < str.length(); i++) {
     if (!(isDigit(str.charAt(i)) || str.charAt(i) == '.')) return false;
   }
   return true;
 }
 
-void SendReflectorMessage(String messageString)
-{
+void SendReflectorMessage(String messageString) {
   if (Reflector_In_Use == 1) {
     max7219udp.beginPacket(reflectorIP, reflectorport);
-    max7219udp.println(messageString + " " +  String(millis()) + "mS since reset.");
+    max7219udp.println(messageString + " " + String(millis()) + "mS since reset.");
     max7219udp.endPacket();
   }
 }
 // ****************************** End May 28
+
+// ****************************** Start 2025 August 3rd
+
+void onMcReadyChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("MASTER_ARM_DISCH_READY=1");
+  } else {
+    SendIPString("MASTER_ARM_DISCH_READY=0");
+  }
+}
+DcsBios::IntegerBuffer mcReadyBuffer(0x740c, 0x8000, 15, onMcReadyChange);
+
+void onMcDischChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("MASTER_ARM_DISCH=1");
+  } else {
+    SendIPString("MASTER_ARM_DISCH=0");
+  }
+}
+DcsBios::IntegerBuffer mcDischBuffer(0x740c, 0x4000, 14, onMcDischChange);
+
+void onMasterModeAaLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("MASTER_ARM_AA=1");
+  } else {
+    SendIPString("MASTER_ARM_AA=0");
+  }
+}
+DcsBios::IntegerBuffer masterModeAaLtBuffer(0x740c, 0x0200, 9, onMasterModeAaLtChange);
+
+
+void onMasterModeAgLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("MASTER_ARM_AG=1");
+  } else {
+    SendIPString("MASTER_ARM_AG=0");
+  }
+}
+DcsBios::IntegerBuffer masterModeAgLtBuffer(0x740c, 0x0400, 10, onMasterModeAgLtChange);
+
+
+void onSpinLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SendIPString("SPIN=1");
+  } else {
+    SendIPString("SPIN=0");
+  }
+}
+DcsBios::IntegerBuffer spinLtBuffer(0x742a, 0x0800, 11, onSpinLtChange);
+
+
+
+
+void SendIPString(String LedToSend) {
+  // Used to Send Desired Keystrokes to Due acting as Keyboard
+  if (Ethernet_In_Use == 1) {
+
+    if (Reflector_In_Use == 1) {
+      senderudp.beginPacket(reflectorIP, reflectorport);
+      senderudp.print("LED instructions " + LedToSend);
+      senderudp.endPacket();
+    }
+    senderudp.beginPacket(ledTargetIP, ledport);
+    senderudp.print(LedToSend);
+    senderudp.endPacket();
+  }
+}
+
+// ****************************** End 2025 August 3rd
 
 void setup() {
 
@@ -2744,10 +2763,10 @@ void setup() {
   // So it is a ouble negative - turn the port on which leaves the relay unactivated
   // which leaves devices powered.
 
-  pinMode( RELAY_PORT_1,  OUTPUT);
-  pinMode( RELAY_PORT_2,  OUTPUT);
-  pinMode( RELAY_PORT_3,  OUTPUT);
-  pinMode( RELAY_PORT_4,  OUTPUT);
+  pinMode(RELAY_PORT_1, OUTPUT);
+  pinMode(RELAY_PORT_2, OUTPUT);
+  pinMode(RELAY_PORT_3, OUTPUT);
+  pinMode(RELAY_PORT_4, OUTPUT);
 
   digitalWrite(RELAY_PORT_1, true);
   digitalWrite(RELAY_PORT_2, true);
@@ -2770,10 +2789,11 @@ void setup() {
 
   if (Ethernet_In_Use == 1) {
     delay(EthernetStartupDelay);
-    Ethernet.begin( mac, ip);
+    Ethernet.begin(mac, ip);
 
-    max7219udp.begin( max7219port );
-    MSFSudp.begin( MSFSport );
+    max7219udp.begin(max7219port);
+    MSFSudp.begin(MSFSport);
+    senderudp.begin(ledport);
 
 
 
@@ -2835,14 +2855,14 @@ void setup() {
 
   //################## IFEI TEST SETUP ##################Y
   // COUNT DOWN -TEST- - 05 - 04 - 03 - 02 - 01 - GO
-  delay(50); // delay test allow for NEXTION BOOT UP
+  delay(50);  // delay test allow for NEXTION BOOT UP
   nextion.print("t0.txt=\"");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
   nextion.print("t1.txt=\"");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
-  delay(100); // delay test allow for NEXTION BOOT UP
+  delay(100);  // delay test allow for NEXTION BOOT UP
   nextion.print("t0.txt=\"");
   nextion.print("TE");
   nextion.print("\"");
@@ -2852,7 +2872,7 @@ void setup() {
   nextion.print("ST");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
-  delay (1000);
+  delay(1000);
   nextion.print("t0.txt=\"");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
@@ -2860,27 +2880,27 @@ void setup() {
   nextion.print("05");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
-  delay (1000);
+  delay(1000);
   nextion.print("t1.txt=\"");
   nextion.print("04");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
-  delay (1000);
+  delay(1000);
   nextion.print("t1.txt=\"");
   nextion.print("03");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
-  delay (1000);
+  delay(1000);
   nextion.print("t1.txt=\"");
   nextion.print("02");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
-  delay (1000);
+  delay(1000);
   nextion.print("t1.txt=\"");
   nextion.print("01");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
-  delay (1000);
+  delay(1000);
   nextion.print("t0.txt=\"");
   nextion.print("GO");
   nextion.print("\"");
@@ -2890,7 +2910,7 @@ void setup() {
   nextion.print("GO");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
-  delay (1000);
+  delay(1000);
   nextion.print("t0.txt=\"");
   nextion.print("\"");
   nextion.write("\xFF\xFF\xFF");
@@ -2964,8 +2984,5 @@ void loop() {
       ProcessReceivedMSFSString();
       SendReflectorMessage("Exiting MSFS Processing");
     }
-
   }
-
-
 }
