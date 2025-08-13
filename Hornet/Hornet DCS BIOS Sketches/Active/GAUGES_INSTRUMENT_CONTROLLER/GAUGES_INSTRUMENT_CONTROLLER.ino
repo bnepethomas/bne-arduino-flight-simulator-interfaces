@@ -157,10 +157,7 @@ Servo RAD_ALT_servo;
 #define COILHPR_3 36
 #define COILHPR_4 37
 
-#define COILCA1 38  // CA = CAB ALT
-#define COILCA2 39
-#define COILCA3 40
-#define COILCA4 41
+
 
 #define COILBP1 A8  // BP = BRAKE PRESSURE
 #define COILBP2 A9
@@ -189,9 +186,7 @@ AccelStepper stepperRA(AccelStepper::FULL4WIRE, COILRA1, COILRA2, COILRA3, COILR
 // AccelStepper stepper(AccelStepper::FULL4WIRE, 46, 47, 48, 49);
 // AccelStepper stepperRA(AccelStepper::FULL4WIRE, 46, 47, 48, 49);
 
-// Stepper stepperCA(STEPS, COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
-AccelStepper stepperCA(AccelStepper::FULL4WIRE, COILCA1, COILCA2, COILCA3, COILCA4);  // CAB ALT
-#define CabinAltMaxPoint 600
+
 
 AccelStepper stepperBP(AccelStepper::FULL4WIRE, COILBP3, COILBP4, COILBP1, COILBP2);
 #define BrakePressureZeroPoint 30
@@ -229,10 +224,7 @@ void onRadaltAltPtrChange(unsigned int newValue) {  //2620
 }
 DcsBios::IntegerBuffer radaltAltPtrBuffer(0x751a, 0xffff, 0, onRadaltAltPtrChange);
 
-void onPressureAltChange(unsigned int newValueCA) {
-  stepperCA.moveTo(map(newValueCA, 0, 65535, 0, CabinAltMaxPoint));
-}
-DcsBios::IntegerBuffer pressureAltBuffer(0x7514, 0xffff, 0, onPressureAltChange);
+
 
 
 void onHydIndBrakeChange(unsigned int newValueBP) {
@@ -287,7 +279,6 @@ void onConsoleIntLtChange(unsigned int newValue) {
   analogWrite(BACK_LIGHTS, ConsolesDimmerValue);
   analogWrite(BAT_HYD_DIM, ConsolesDimmerValue);
   analogWrite(BRK_PRESS_DIM, ConsolesDimmerValue);
-  analogWrite(CAB_ALT_DIM, ConsolesDimmerValue);
   analogWrite(COMPASS_DIM, ConsolesDimmerValue);
   analogWrite(MAP_DIM, ConsolesDimmerValue);
   analogWrite(RADAR_ALTIMETER_DIM, ConsolesDimmerValue);
@@ -312,8 +303,7 @@ void onAoaIndexerHighChange(unsigned int newValue) {
     digitalWrite(AOA_TOP, 1);
   }
 }
-DcsBios::IntegerBuffer aoaIndexerHighBuffer(FA_18C_hornet_AOA_INDEXER_HIGH, onAoaIndexerHighChange);
-
+DcsBios::IntegerBuffer aoaIndexerHighBuffer(0x7408, 0x0008, 3, onAoaIndexerHighChange);
 
 
 void onAoaIndexerLowChange(unsigned int newValue) {
@@ -323,7 +313,7 @@ void onAoaIndexerLowChange(unsigned int newValue) {
     digitalWrite(AOA_BOT, 1);
   }
 }
-DcsBios::IntegerBuffer aoaIndexerLowBuffer(FA_18C_hornet_AOA_INDEXER_LOW, onAoaIndexerLowChange);
+DcsBios::IntegerBuffer aoaIndexerLowBuffer(0x7408, 0x0020, 5, onAoaIndexerLowChange);
 
 void onAoaIndexerNormalChange(unsigned int newValue) {
   if (newValue == 1) {
@@ -332,8 +322,7 @@ void onAoaIndexerNormalChange(unsigned int newValue) {
     digitalWrite(AOA_BALL, 1);
   }
 }
-DcsBios::IntegerBuffer aoaIndexerNormalBuffer(FA_18C_hornet_AOA_INDEXER_NORMAL, onAoaIndexerNormalChange);
-
+DcsBios::IntegerBuffer aoaIndexerNormalBuffer(0x7408, 0x0010, 4, onAoaIndexerNormalChange);
 
 
 void onRadaltGreenLampChange(unsigned int newValue) {
@@ -467,8 +456,12 @@ public:
         // Need to check IP addresses of PC secondary nic
         if (millis() >= (zeroTimeout + zeroPosSearchStartTime)) {
           stepper.disableOutputs();
+          if (initState != 99) {
+            // Send warning message only once
+            SendDebug(BoardName + "Compass initState 99 - timeout finding zero point");
+          }
           initState == 99;
-          SendDebug(BoardName + "Compass initState 99 - timeout finding zero point");
+
         } else
           stepper.runSpeed();
 
@@ -705,16 +698,7 @@ void setup() {
 
     /// RADAR ALT WORKING ======< SET RADAR ALT STEPPER TO 0 FEET
 
-    /// CABIN ALT WORKING ======> SET CABIN ALT STEPPER TO 0 FEET
-    SendDebug(BoardName + " Start Cycling Cabin Altimeter Stepper");
-    stepperCA.setMaxSpeed(1000);
-    stepperCA.setAcceleration(400);
-    stepperCA.runToNewPosition(-720);
-    stepperCA.setCurrentPosition(0);
-    stepperCA.runToNewPosition(CabinAltMaxPoint);
-    stepperCA.runToNewPosition(0);
-    SendDebug(BoardName + " End Cycling Cabin Altimeter Stepper");
-    /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
+
 
 
     // BRAKE PRESSURE
@@ -827,7 +811,6 @@ void loop() {
 
   // **************************** Handle Steppers
   stepperRA.run();
-  stepperCA.run();
   stepperBP.run();
   stepperHPL.run();
   stepperHPR.run();
