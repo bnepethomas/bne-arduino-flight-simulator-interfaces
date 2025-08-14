@@ -158,7 +158,7 @@ void onArrestingHookLtChange(unsigned int newValue) {
     digitalWrite(HOOK_LED, true);
   }
 }
-DcsBios::IntegerBuffer arrestingHookLtBuffer(FA_18C_hornet_ARRESTING_HOOK_LT, onArrestingHookLtChange);
+DcsBios::IntegerBuffer arrestingHookLtBuffer(0x74a0, 0x0400, 10, onArrestingHookLtChange);
 
 // ********************************* End Digital ***************************************************
 
@@ -261,7 +261,7 @@ void onClipApuAccLtChange(unsigned int newValue) {
   else
     setClipApuAccLt(false);
 }
-DcsBios::IntegerBuffer clipApuAccLtBuffer(FA_18C_hornet_CLIP_APU_ACC_LT, onClipApuAccLtChange);
+DcsBios::IntegerBuffer clipApuAccLtBuffer(0x74a4, 0x0100, 8, onClipApuAccLtChange);
 
 void setClipBattSwLt(bool newValue) {
   lc.setLed(0, 0, 4, newValue);
@@ -273,7 +273,7 @@ void onClipBattSwLtChange(unsigned int newValue) {
   else
     setClipBattSwLt(false);
 }
-DcsBios::IntegerBuffer clipBattSwLtBuffer(FA_18C_hornet_CLIP_BATT_SW_LT, onClipBattSwLtChange);
+DcsBios::IntegerBuffer clipBattSwLtBuffer(0x74a4, 0x0200, 9, onClipBattSwLtChange);
 
 void setClipCkSeatLt(bool newValue) {
   lc.setLed(0, 0, 0, newValue);
@@ -285,7 +285,7 @@ void onClipCkSeatLtChange(unsigned int newValue) {
   else
     setClipCkSeatLt(false);
 }
-DcsBios::IntegerBuffer clipCkSeatLtBuffer(FA_18C_hornet_CLIP_CK_SEAT_LT, onClipCkSeatLtChange);
+DcsBios::IntegerBuffer clipCkSeatLtBuffer(0x74a0, 0x8000, 15, onClipCkSeatLtChange);
 
 void setClipFcesLt(bool newValue) {
   lc.setLed(0, 2, 2, newValue);
@@ -297,7 +297,7 @@ void onClipFcesLtChange(unsigned int newValue) {
   else
     setClipFcesLt(false);
 }
-DcsBios::IntegerBuffer clipFcesLtBuffer(FA_18C_hornet_CLIP_FCES_LT, onClipFcesLtChange);
+DcsBios::IntegerBuffer clipFcesLtBuffer(0x74a4, 0x4000, 14, onClipFcesLtChange);
 
 void setClipFcsHotLt(bool newValue) {
   lc.setLed(0, 1, 0, newValue);
@@ -309,7 +309,7 @@ void onClipFcsHotLtChange(unsigned int newValue) {
   else
     setClipFcsHotLt(false);
 }
-DcsBios::IntegerBuffer clipFcsHotLtBuffer(FA_18C_hornet_CLIP_FCS_HOT_LT, onClipFcsHotLtChange);
+DcsBios::IntegerBuffer clipFcsHotLtBuffer(0x74a4, 0x0400, 10, onClipFcsHotLtChange);
 
 void setClipFuelLoLt(bool newValue) {
   lc.setLed(0, 2, 0, newValue);
@@ -321,7 +321,7 @@ void onClipFuelLoLtChange(unsigned int newValue) {
   else
     setClipFuelLoLt(false);
 }
-DcsBios::IntegerBuffer clipFuelLoLtBuffer(FA_18C_hornet_CLIP_FUEL_LO_LT, onClipFuelLoLtChange);
+DcsBios::IntegerBuffer clipFuelLoLtBuffer(0x74a4, 0x2000, 13, onClipFuelLoLtChange);
 
 void setClipGenTieLt(bool newValue) {
   lc.setLed(0, 1, 2, newValue);
@@ -333,7 +333,7 @@ void onClipGenTieLtChange(unsigned int newValue) {
   else
     setClipGenTieLt(false);
 }
-DcsBios::IntegerBuffer clipGenTieLtBuffer(FA_18C_hornet_CLIP_GEN_TIE_LT, onClipGenTieLtChange);
+DcsBios::IntegerBuffer clipGenTieLtBuffer(0x74a4, 0x0800, 11, onClipGenTieLtChange);
 
 void setClipLGenLt(bool newValue) {
   lc.setLed(0, 3, 0, newValue);
@@ -345,7 +345,7 @@ void onClipLGenLtChange(unsigned int newValue) {
   else
     setClipLGenLt(false);
 }
-DcsBios::IntegerBuffer clipLGenLtBuffer(FA_18C_hornet_CLIP_L_GEN_LT, onClipLGenLtChange);
+DcsBios::IntegerBuffer clipLGenLtBuffer(0x74a8, 0x0100, 8, onClipLGenLtChange);
 
 void setClipRGenLt(bool newValue) {
   lc.setLed(0, 3, 2, newValue);
@@ -357,7 +357,7 @@ void onClipRGenLtChange(unsigned int newValue) {
   else
     setClipRGenLt(false);
 }
-DcsBios::IntegerBuffer clipRGenLtBuffer(FA_18C_hornet_CLIP_R_GEN_LT, onClipRGenLtChange);
+DcsBios::IntegerBuffer clipRGenLtBuffer(0x74a8, 0x0200, 9, onClipRGenLtChange);
 
 void setClipSpareCtn1Lt(bool newValue) {
   lc.setLed(0, 1, 4, newValue);
@@ -369,7 +369,7 @@ void onClipSpareCtn1LtChange(unsigned int newValue) {
   else
     setClipSpareCtn1Lt(false);
 }
-DcsBios::IntegerBuffer clipSpareCtn1LtBuffer(FA_18C_hornet_CLIP_SPARE_CTN1_LT, onClipSpareCtn1LtChange);
+DcsBios::IntegerBuffer clipSpareCtn1LtBuffer(0x74a4, 0x1000, 12, onClipSpareCtn1LtChange);
 
 void setClipSpareCtn2Lt(bool newValue) {
   lc.setLed(0, 2, 4, newValue);
@@ -381,7 +381,7 @@ void onClipSpareCtn2LtChange(unsigned int newValue) {
   else
     setClipSpareCtn2Lt(false);
 }
-DcsBios::IntegerBuffer clipSpareCtn2LtBuffer(FA_18C_hornet_CLIP_SPARE_CTN2_LT, onClipSpareCtn2LtChange);
+DcsBios::IntegerBuffer clipSpareCtn2LtBuffer(0x74a4, 0x8000, 15, onClipSpareCtn2LtChange);
 
 void setClipSpareCtn3Lt(bool newValue) {
   lc.setLed(0, 3, 4, newValue);
@@ -394,7 +394,7 @@ void onClipSpareCtn3LtChange(unsigned int newValue) {
   else
     setClipSpareCtn3Lt(false);
 }
-DcsBios::IntegerBuffer clipSpareCtn3LtBuffer(FA_18C_hornet_CLIP_SPARE_CTN3_LT, onClipSpareCtn3LtChange);
+DcsBios::IntegerBuffer clipSpareCtn3LtBuffer(0x74a8, 0x0400, 10, onClipSpareCtn3LtChange);
 
 // ######################## END CAUTION PANEL ####################
 
@@ -993,9 +993,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CANOPY_SW", "1");
           break;
         case 122:
-          sendToDcsBiosMessage("CB_FCS_CHAN4", "1");
+          sendToDcsBiosMessage("FCS_BIT_SW", "0");
           break;
         case 123:
+          sendToDcsBiosMessage("CB_FCS_CHAN4", "1");
           break;
         case 124:
           sendToDcsBiosMessage("ENG_ANTIICE_SW", "1");
@@ -1021,7 +1022,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("CB_FCS_CHAN3", "1");
           break;
         case 133:
-          sendToDcsBiosMessage("FCS_BIT_SW", "0");
+
           break;
         case 134:
           sendToDcsBiosMessage("CB_LG", "1");
@@ -1469,11 +1470,12 @@ void CreateDcsBiosMessage(int ind, int state) {
         // PRESS - CLOSE
         case 110:
           // Special Case for Magnetic Switches Canopy Open
-          if (Ethernet_In_Use == 1) {
-            SendIPString("LCTRL LSHIFT F9");
-          } else {
-            sendToDcsBiosMessage("CANOPY_SW", "2");
-          }
+          sendToDcsBiosMessage("CANOPY_SW", "2");
+          // if (Ethernet_In_Use == 1) {
+          //   SendIPString("LCTRL LSHIFT F9");
+          // } else {
+          //   sendToDcsBiosMessage("CANOPY_SW", "2");
+          // }
 
           break;
         // PRESS - CLOSE
@@ -1510,9 +1512,10 @@ void CreateDcsBiosMessage(int ind, int state) {
 
           break;
         case 122:
-          sendToDcsBiosMessage("CB_FCS_CHAN4", "0");
+          sendToDcsBiosMessage("FCS_BIT_SW", "1");
           break;
         case 123:
+          sendToDcsBiosMessage("CB_FCS_CHAN4", "0");
           break;
         case 124:
           sendToDcsBiosMessage("ENG_ANTIICE_SW", "2");
@@ -1539,7 +1542,7 @@ void CreateDcsBiosMessage(int ind, int state) {
 
           break;
         case 133:
-          sendToDcsBiosMessage("FCS_BIT_SW", "1");
+
           break;
         case 134:
           sendToDcsBiosMessage("CB_LG", "0");

@@ -29,8 +29,8 @@ int Reflector_In_Use = 1;
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x00 };
-String sMac = "A8:61:0A:67:83:00";
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x6D };
+String sMac = "A8:61:0A:67:83:6D";
 IPAddress ip(172, 16, 1, 109);
 String strMyIP = "172.16.1.109";
 
@@ -663,13 +663,14 @@ void CreateDcsBiosMessage(int ind, int state) {
           //No Relese Required
           break;
         case 28:
-          sendToDcsBiosMessage("CMSD_DISPENSE_BTN", "0");
+          sendToDcsBiosMessage("CB_FCS_CHAN1", "1");
+
           break;
         case 29:
-          sendToDcsBiosMessage("CB_FCS_CHAN2", "1");
+          sendToDcsBiosMessage("CB_SPD_BRK", "1");
           break;
         case 30:
-          sendToDcsBiosMessage("CB_LAUNCH_BAR", "1");
+
           break;
         case 31:
           sendToDcsBiosMessage("FCS_RESET_BTN", "0");
@@ -698,12 +699,13 @@ void CreateDcsBiosMessage(int ind, int state) {
           //No Relese Required
           break;
         case 39:
-          sendToDcsBiosMessage("CB_FCS_CHAN1", "1");
+          sendToDcsBiosMessage("CMSD_DISPENSE_BTN", "0");
           break;
         case 40:
-          sendToDcsBiosMessage("CB_SPD_BRK", "1");
+          sendToDcsBiosMessage("CB_FCS_CHAN2", "1");
           break;
         case 41:
+          sendToDcsBiosMessage("CB_LAUNCH_BAR", "1");
           break;
         case 42:
           // Release is shifting toggle to Norm Position
@@ -1140,13 +1142,13 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("SEL_JETT_KNOB", "0");  // KNOB "STORES"
           break;
         case 28:
-          sendToDcsBiosMessage("CMSD_DISPENSE_BTN", "1");
+          sendToDcsBiosMessage("CB_FCS_CHAN1", "0");
           break;
         case 29:
-          sendToDcsBiosMessage("CB_FCS_CHAN2", "0");
+          sendToDcsBiosMessage("CB_SPD_BRK", "0");
           break;
         case 30:
-          sendToDcsBiosMessage("CB_LAUNCH_BAR", "0");
+
           break;
         // PRESS - CLOSE
         case 31:
@@ -1177,13 +1179,14 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("SEL_JETT_KNOB", "1");  // KNOB "RACK LCHR"
           break;
         case 39:
-          sendToDcsBiosMessage("CB_FCS_CHAN1", "0");
+          sendToDcsBiosMessage("CMSD_DISPENSE_BTN", "1");
           break;
         case 40:
-          sendToDcsBiosMessage("CB_SPD_BRK", "0");
+          sendToDcsBiosMessage("CB_FCS_CHAN2", "0");
           break;
         // PRESS - CLOSE
         case 41:
+          sendToDcsBiosMessage("CB_LAUNCH_BAR", "0");
           break;
         case 42:
           // Press is shifting toggle to Override Position
