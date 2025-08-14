@@ -2,9 +2,6 @@
 echo Testing PC
 ping 172.16.1.10 -n 2
 echo .
-echo UFC Inputs
-ping 172.16.1.100 -n 2
-echo .
 echo Upper Inputs
 ping 172.16.1.101 -n 2
 echo .
