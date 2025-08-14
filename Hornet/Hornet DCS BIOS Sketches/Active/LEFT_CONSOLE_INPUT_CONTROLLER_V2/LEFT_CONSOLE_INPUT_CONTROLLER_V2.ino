@@ -31,8 +31,8 @@ int Reflector_In_Use = 1;
 // the device ID as set by address pins
 byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x00 };
 String sMac = "A8:61:0A:67:83:00";
-IPAddress ip(172, 16, 1, 100);
-String strMyIP = "172.16.1.100";
+IPAddress ip(172, 16, 1, 109);
+String strMyIP = "172.16.1.109";
 
 // Reflector
 IPAddress reflectorIP(172, 16, 1, 10);
