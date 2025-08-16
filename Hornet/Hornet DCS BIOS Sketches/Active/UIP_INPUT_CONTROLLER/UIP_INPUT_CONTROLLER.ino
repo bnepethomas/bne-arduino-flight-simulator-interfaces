@@ -1391,7 +1391,7 @@ DcsBios::Potentiometer rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A14);
 DcsBios::Potentiometer rightDdiContCtl("RIGHT_DDI_CONT_CTL", A13);
 
 // AMPCD
-DcsBios::Potentiometer ampcdBrtCtl("AMPCD_BRT_CTL", A15);
+//DcsBios::Potentiometer ampcdBrtCtl("AMPCD_BRT_CTL", A15);
 
 // || \\ ENCODERS // || \\
 // AMPCD
