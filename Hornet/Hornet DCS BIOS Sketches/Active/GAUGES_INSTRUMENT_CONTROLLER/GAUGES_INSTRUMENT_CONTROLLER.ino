@@ -132,10 +132,15 @@ Servo RAD_ALT_servo;
 #define STEPS 720  // steps per revolution (limited to 315°)
 
 
-#define COILRA1 A4  // RA = RAD ALT
-#define COILRA2 A5
-#define COILRA3 A6
-#define COILRA4 A7
+#define COILRA1 A6  // RA = RAD ALT
+#define COILRA2 A7
+#define COILRA3 A4
+#define COILRA4 A5
+
+// #define COILRA1 A4  // RA = RAD ALT
+// #define COILRA2 A5
+// #define COILRA3 A6
+// #define COILRA4 A7
 
 #define COILBT1_1 22  // BT_1 = BATTERY 1
 #define COILBT1_2 23

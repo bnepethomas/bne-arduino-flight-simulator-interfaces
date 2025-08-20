@@ -485,16 +485,16 @@ void setup() {
   pinMode(RudderTrimMotorEn, OUTPUT);
   digitalWrite(RudderTrimMotorEn, 0);
 
-  SendDebug("Motor Clockwise for 2 sec");
-  StartMotorClockwise();
-  delay(2000);
-  StopMotor();
-  SendDebug("Motor Counter Clockwise for 2 sec");
-  StartMotorCounterClockwise();
-  delay(2000);
-  StopMotor();
-  SendDebug("Motor stopped");
-  delay(5000);
+  // SendDebug("Motor Clockwise for 2 sec");
+  // StartMotorClockwise();
+  // delay(2000);
+  // StopMotor();
+  // SendDebug("Motor Counter Clockwise for 2 sec");
+  // StartMotorCounterClockwise();
+  // delay(2000);
+  // StopMotor();
+  // SendDebug("Motor stopped");
+  // delay(5000);
 
 
 
@@ -526,7 +526,7 @@ void setup() {
 
 
   DcsBios::setup();
-  SetTrimPosition();
+  // SetTrimPosition();
 
 #define BrightnessPostSetup 65
 
@@ -1155,8 +1155,8 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FCS_RESET_BTN", "1");
           break;
         case 32:
-          sendToDcsBiosMessage("TO_TRIM_BTN", "1");
-          SetTrimPosition();
+          // sendToDcsBiosMessage("TO_TRIM_BTN", "1");
+          // SetTrimPosition();
           break;
         case 33:
           // sendToDcsBiosMessage("COM_ILS_CHANNEL_SW", "7");  // COMMS PANEL ILS ROTARY SW
