@@ -6,6 +6,7 @@ from SimConnect import SimConnect, AircraftRequests, AircraftEvents  # or from p
 from SimConnect import *
 
 def connect():
+    global ae
     """
     Try to establish a connection to MSFS SimConnect, retrying on failure.
     Returns sim, aq (AircraftRequests), ae (AircraftEvents)
@@ -22,6 +23,7 @@ def connect():
             time.sleep(5)  # wait 5 seconds then retry
 
 def get_battery_voltage(aq, battery_name="Battery_1"):
+    global ae
     """
     Get the battery voltage for named battery (if supported).
     Returns float voltage in volts, or None if unavailable.
@@ -29,9 +31,27 @@ def get_battery_voltage(aq, battery_name="Battery_1"):
     try:
         # Using SimVar: (A:ELECTRICAL BATTERY VOLTAGE:'Battery_1'_n, Volts)
         # Replace 'Battery_1' with the correct component name or index
-        print("Getting Battery Voltage.")
-        simvar_name = f"ELECTRICAL BATTERY VOLTAGE:'{battery_name}'_n"
+        # print("Getting Battery Voltage.")
+        #simvar_name = ("PLANE_LATITUDE")
+        #simvar_name = ("ELECTRICAL_BATTERY_VOLTAGE")
+        #simvar_name = ("ELECTRICAL_MAIN_BUS_VOLTAGE")
+        #simvar_name = ("ROTOR_RPM_PCT")
+        #simvar_name = ("COLLECTIVE_POSITION")
+        #simvar_name = ("GENERAL_ENG_THROTTLE_LEVER_POSITION:1")
+        # Throttle position reports 0 against stop
+        #simvar_name = ("GENERAL_ENG_EXHAUST_GAS_TEMPERATURE:1")
+        
+        simvar_name = ("AVIONICS_MASTER_SWITCH")
+
+        
         voltage = aq.get(simvar_name)
+        print(simvar_name + " : " +  str(voltage))
+
+        if voltage == 0: 
+            print("Avonics off")
+            #event_to_trigger = ae.find("TOGGLE_AVIONICS_MASTER")
+            event_to_trigger = ae.find("AVIONICS_MASTER_SET","1")
+            event_to_trigger()
         return voltage
     except Exception as e:
         print(f"Error getting battery voltage: {e}")
@@ -49,17 +69,10 @@ def monitor_loop(battery_name="Battery_1", pump_index=1, voltage_threshold=10.0)
             if voltage is None:
                 # maybe aircraft doesn’t have battery by that name, or variable unavailable
                 print("Battery voltage unavailable.")
-            else:
-                # Debug
-                # print(f"Battery voltage: {voltage:.2f} V")
-                if voltage > voltage_threshold:
-                    pump_off = is_fuel_pump_off(aq, pump_index)
-                    if pump_off is None:
-                        print("Fuel pump status unavailable.")
-                    elif pump_off:
-                        send_warning(ae)
+
+
             # Sleep for 200 ms
-            time.sleep(0.2)
+            time.sleep(1)
         except Exception as e:
             print(f"Error in monitor loop: {e}")
             # Perhaps connection lost; try to reconnect
