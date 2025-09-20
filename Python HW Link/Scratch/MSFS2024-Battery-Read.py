@@ -49,8 +49,12 @@ def get_battery_voltage(aq, battery_name="Battery_1"):
 
         if voltage == 0: 
             print("Avonics off")
-            #event_to_trigger = ae.find("TOGGLE_AVIONICS_MASTER")
-            event_to_trigger = ae.find("AVIONICS_MASTER_SET","1")
+            event_to_trigger = ae.find("TOGGLE_AVIONICS_MASTER")
+            #event_to_trigger = ae.find("MASTER_BATTERY_OFF")
+            #AVIONICS = ae.Avionics.AVIONICS_MASTER_SET
+            #AVIONICS.value = 1
+
+
             event_to_trigger()
         return voltage
     except Exception as e:
