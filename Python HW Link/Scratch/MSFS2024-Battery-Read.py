@@ -1,3 +1,12 @@
+# It looks like a number of events either aren't natively supported in the Simconnect python SDK
+# or not supported in MSFS. eg NAV_LIGHTS_ON
+# The good news is these are easily added
+# Edit (after saving a copy) EventList.py
+# C:\Users\admin\AppData\Local\Programs\Python\Python37\Lib\site-packages\SimConnect
+# Added turn on Taxi Lights
+#(b'TOGGLE_NAV_LIGHTS', "Toggle navigation lights", "All aircraft"),
+#(b'NAV_LIGHTS_ON', "Turn on navigation lights", "All aircraft"),
+
 import time
 import threading
 from SimConnect import SimConnect, AircraftRequests, AircraftEvents  # or from pysimconnect
@@ -49,12 +58,29 @@ def get_battery_voltage(aq, battery_name="Battery_1"):
 
         if voltage == 0: 
             print("Avonics off")
-            event_to_trigger = ae.find("TOGGLE_AVIONICS_MASTER")
+            #event_to_trigger = ae.find("TOGGLE_AVIONICS_MASTER")
             #event_to_trigger = ae.find("MASTER_BATTERY_OFF")
-            #AVIONICS = ae.Avionics.AVIONICS_MASTER_SET
-            #AVIONICS.value = 1
+            #event_to_trigger = ae.find("MASTER_BATTERY_ON")
+            #event_to_trigger = ae.find("ALTERNATOR_ON")
+            #event_to_trigger = ae.find("ALTERNATOR_OFF")
+            #event_to_trigger = ae.find("AVIONICS_MASTER_1_ON")
+            #event_to_trigger = ae.find("AVIONICS_MASTER_1_OFF")
+            #event_to_trigger = ae.find("STROBES_ON")
+            #event_to_trigger = ae.find("STROBES_OFF")
+            #event_to_trigger = ae.find("NAV_LIGHTS_ON")
+            event_to_trigger = ae.find("NAV_LIGHTS_OFF")
 
 
+##  Read value of indicator - needed to do as FS only provides a toggle option
+##            print("Getting Turn indicator state")
+##            turn_indicator_switch_state = aq.get("TURN_INDICATOR_SWITCH")
+##            print("Turn indicator state is :" + str(turn_indicator_switch_state))
+##            if turn_indicator_switch_state == 1:
+##                event_to_trigger = ae.find("TOGGLE_TURN_INDICATOR_SWITCH")
+##                event_to_trigger()
+
+            event_to_trigger()    
+            event_to_trigger = ae.find("TOGGLE_AVIONICS_MASTER")
             event_to_trigger()
         return voltage
     except Exception as e:
