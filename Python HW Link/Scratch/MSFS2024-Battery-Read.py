@@ -82,22 +82,11 @@ def get_battery_voltage(aq, battery_name="Battery_1"):
             #event_to_trigger = ae.find("MASTER_WARNING_TOGGLE")
             #event_to_trigger = ae.find("ELT_ON")
             #event_to_trigger = ae.find("ELT_OFF")
-
-
-
-            fuel_valve_switch_state = aq.get("FUEL_TANK_CENTER_LEVEL")
-            print("FUEL VALVE 1 State is :" + str(fuel_valve_switch_state))
-            if fuel_valve_switch_state == 0:
-                event_to_trigger = ae.find("TOGGLE_FUEL_VALVE_ENG1")
-                event_to_trigger()
-                
-
-
-
-
+            #event_to_trigger = ae.find("LANDING_LIGHTS_OFF")
+            event_to_trigger = ae.find("LANDING_LIGHTS_ON")
 
             
-            #event_to_trigger()
+            event_to_trigger()
 
 
 ##  Read value of indicator - needed to do as FS only provides a toggle option
@@ -114,7 +103,14 @@ def get_battery_voltage(aq, battery_name="Battery_1"):
 ##            if starter_switch_state == 0:
 ##                event_to_trigger = ae.find("TOGGLE_STARTER1")
 ##                event_to_trigger()
-            
+
+
+# Currently unable to find a sensible variable
+##            fuel_valve_switch_state = aq.get("NEW_FUEL_SYSTEM")
+##            print("FUEL VALVE 1 State is :" + str(fuel_valve_switch_state))
+##            if fuel_valve_switch_state == 0:
+##                event_to_trigger = ae.find("TOGGLE_FUEL_VALVE_ENG1")
+##                event_to_trigger()        
             
             #event_to_trigger = ae.find("TOGGLE_AVIONICS_MASTER")
             #event_to_trigger()
