@@ -7,6 +7,10 @@
 #(b'TOGGLE_NAV_LIGHTS', "Toggle navigation lights", "All aircraft"),
 #(b'NAV_LIGHTS_ON', "Turn on navigation lights", "All aircraft"),
 
+# Check here https://docs.flightsimulator.com/html/Introduction/Introduction.htm
+# https://docs.flightsimulator.com/html/Programming_Tools/Event_IDs/Aircraft_Misc_Events.htm#MASTER_CAUTION_TOGGLE
+# https://docs.flightsimulator.com/html/Programming_Tools/Event_IDs/Event_IDs.htm
+
 import time
 import threading
 from SimConnect import SimConnect, AircraftRequests, AircraftEvents  # or from pysimconnect
@@ -68,7 +72,32 @@ def get_battery_voltage(aq, battery_name="Battery_1"):
             #event_to_trigger = ae.find("STROBES_ON")
             #event_to_trigger = ae.find("STROBES_OFF")
             #event_to_trigger = ae.find("NAV_LIGHTS_ON")
-            event_to_trigger = ae.find("NAV_LIGHTS_OFF")
+            #event_to_trigger = ae.find("NAV_LIGHTS_OFF")
+            #event_to_trigger = ae.find("PITOT_HEAT_ON")
+            #event_to_trigger = ae.find("PITOT_HEAT_OFF")
+            #event_to_trigger = ae.find("ANTI_ICE_ON")
+            #event_to_trigger = ae.find("ANTI_ICE_OFF")
+            #As per notes in 206 Dcoument - Hyd bindings aren't working
+            #event_to_trigger = ae.find("HYDRAULIC_SWITCH_TOGGLE")
+            #event_to_trigger = ae.find("MASTER_WARNING_TOGGLE")
+            #event_to_trigger = ae.find("ELT_ON")
+            #event_to_trigger = ae.find("ELT_OFF")
+
+
+
+            fuel_valve_switch_state = aq.get("FUEL_TANK_CENTER_LEVEL")
+            print("FUEL VALVE 1 State is :" + str(fuel_valve_switch_state))
+            if fuel_valve_switch_state == 0:
+                event_to_trigger = ae.find("TOGGLE_FUEL_VALVE_ENG1")
+                event_to_trigger()
+                
+
+
+
+
+
+            
+            #event_to_trigger()
 
 
 ##  Read value of indicator - needed to do as FS only provides a toggle option
@@ -79,9 +108,16 @@ def get_battery_voltage(aq, battery_name="Battery_1"):
 ##                event_to_trigger = ae.find("TOGGLE_TURN_INDICATOR_SWITCH")
 ##                event_to_trigger()
 
-            event_to_trigger()    
-            event_to_trigger = ae.find("TOGGLE_AVIONICS_MASTER")
-            event_to_trigger()
+
+##            starter_switch_state = aq.get("GENERAL_ENG_STARTER:1")
+##            print("Starter1 state is :" + str(starter_switch_state))
+##            if starter_switch_state == 0:
+##                event_to_trigger = ae.find("TOGGLE_STARTER1")
+##                event_to_trigger()
+            
+            
+            #event_to_trigger = ae.find("TOGGLE_AVIONICS_MASTER")
+            #event_to_trigger()
         return voltage
     except Exception as e:
         print(f"Error getting battery voltage: {e}")

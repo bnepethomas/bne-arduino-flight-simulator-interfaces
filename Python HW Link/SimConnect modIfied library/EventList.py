@@ -330,6 +330,7 @@ class AircraftEvents():
 			(b'TOGGLE_AFTERBURNER3', "Toggles engine 3 afterburner", "Shared Cockpit"),
 			(b'TOGGLE_AFTERBURNER4', "Toggles engine 4 afterburner", "Shared Cockpit"),
 			(b'ENGINE', "Sets engines for 1,2,3,4 selection (to be followed by SELECT_n),", "Shared Cockpit"),
+            (b'GENERAL_ENGINE_STARTER:1', "Set the starter button.", "Shared Cockpit"),
 		]
 
 	class __Flight_Controls(EventHelper):
@@ -889,7 +890,13 @@ class AircraftEvents():
             (b'AVIONICS_MASTER_1_OFF', "Toggles main alternator/generator switch", "All aircraft"),     
             (b'NAV_LIGHTS_ON', "Toggle navigation lights", "All aircraft"),   
             (b'NAV_LIGHTS_OFF', "Toggle navigation lights", "All aircraft"),    
+            (b'HYDRAULIC_SWITCH_ON', "Turn the hydraulic switch on or off.", "Shared Cockpit"),
+            (b'HYDRAULIC_SWITCH_OFF', "Turn the hydraulic switch on or off.", "Shared Cockpit"),
+            (b'MASTER_WARNING_TOGGLE', "Turn the hydraulic switch on or off.", "Shared Cockpit"),
+            (b'ELT_ON', "Turn the hydraulic switch on or off.", "Shared Cockpit"),
+            (b'ELT_OFF', "Turn the hydraulic switch on or off.", "Shared Cockpit"),
 
+            
            
 			
 		]
