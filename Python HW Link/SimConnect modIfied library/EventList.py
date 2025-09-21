@@ -895,6 +895,8 @@ class AircraftEvents():
             (b'MASTER_WARNING_TOGGLE', "Turn the hydraulic switch on or off.", "Shared Cockpit"),
             (b'ELT_ON', "Turn the hydraulic switch on or off.", "Shared Cockpit"),
             (b'ELT_OFF', "Turn the hydraulic switch on or off.", "Shared Cockpit"),
+            (b'TAXI_LIGHTS_ON', "Turn landing lights on", "All aircraft"),
+            (b'TAXI_LIGHTS_OFF', "Turn landing lights on", "All aircraft"),
 
             
            

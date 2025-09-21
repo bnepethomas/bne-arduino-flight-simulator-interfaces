@@ -48,19 +48,35 @@ def get_battery_voltage(aq, battery_name="Battery_1"):
         #simvar_name = ("PLANE_LATITUDE")
         #simvar_name = ("ELECTRICAL_BATTERY_VOLTAGE")
         #simvar_name = ("ELECTRICAL_MAIN_BUS_VOLTAGE")
-        #simvar_name = ("ROTOR_RPM_PCT")
+
         #simvar_name = ("COLLECTIVE_POSITION")
         #simvar_name = ("GENERAL_ENG_THROTTLE_LEVER_POSITION:1")
         # Throttle position reports 0 against stop
         #simvar_name = ("GENERAL_ENG_EXHAUST_GAS_TEMPERATURE:1")
+        #simvar_name = ("AVIONICS_MASTER_SWITCH")
         
-        simvar_name = ("AVIONICS_MASTER_SWITCH")
+        # BELOW 60% FIRE ENGINE OUT
+        #simvar_name = ("TURB_ENG_N1:1")
+        #simvar_name = ("TURB_ENG_N2:1")
+        #simvar_name = ("ROTOR_RPM_PCT")
+
+        # FUEL PRESSURE ALIGNS WITH GUAGE
+        #simvar_name = ("GENERAL_ENG_FUEL_PRESSURE:1")
+        # Total DC load = multiple by 0.7 to roughly align percentage
+        #simvar_name = ("ELECTRICAL_TOTAL_LOAD_AMPS")
+        # Still hunting for correct exhaust temp
+        #Torque is a very rough follow divide by 1.5
+        simvar_name = ("ENG_TORQUE:1")
+
+
+
+
 
         
         voltage = aq.get(simvar_name)
         print(simvar_name + " : " +  str(voltage))
 
-        if voltage == 0: 
+        if voltage == 99.9: 
             print("Avonics off")
             #event_to_trigger = ae.find("TOGGLE_AVIONICS_MASTER")
             #event_to_trigger = ae.find("MASTER_BATTERY_OFF")
@@ -83,10 +99,12 @@ def get_battery_voltage(aq, battery_name="Battery_1"):
             #event_to_trigger = ae.find("ELT_ON")
             #event_to_trigger = ae.find("ELT_OFF")
             #event_to_trigger = ae.find("LANDING_LIGHTS_OFF")
-            event_to_trigger = ae.find("LANDING_LIGHTS_ON")
+            #event_to_trigger = ae.find("LANDING_LIGHTS_ON")
+            #event_to_trigger = ae.find("TAXI_LIGHTS_ON")
+            #event_to_trigger = ae.find("TAXI_LIGHTS_OFF")
 
             
-            event_to_trigger()
+            #event_to_trigger()
 
 
 ##  Read value of indicator - needed to do as FS only provides a toggle option
