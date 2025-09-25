@@ -1,8 +1,8 @@
 
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
-//||               FUNCTION = HORNET LED OUTPUT MAX 7219              ||\\
-//||              LOCATION IN THE PIT = LIP RIGHTHAND SIDE            ||\\
+//||               FUNCTION = UIP COMBINED CONTROLLER.               ||\\
+//||              LOCATION IN THE PIT = UIP.                         ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN - 75834353230351013181     ||\\
 //||                    CONNECTED COM PORT = COM 4                    ||\\

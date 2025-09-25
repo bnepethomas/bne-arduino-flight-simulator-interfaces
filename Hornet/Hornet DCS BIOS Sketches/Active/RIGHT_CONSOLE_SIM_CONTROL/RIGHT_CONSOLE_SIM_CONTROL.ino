@@ -48,7 +48,7 @@ int Reflector_In_Use = 0;
 
 const unsigned long delayBeforeSendingPacket = 3000;
 unsigned long ethernetStartTime = 0;
-String BoardName = "Hornet Sim Controller: ";
+String BoardName = "UIP Controller: ";
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
