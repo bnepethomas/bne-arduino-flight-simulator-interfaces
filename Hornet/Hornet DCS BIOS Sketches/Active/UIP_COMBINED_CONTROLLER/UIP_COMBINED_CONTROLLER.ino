@@ -32,11 +32,22 @@
 
   So - Digit = Row * 11 + Col
 
-
-  20230610 Adding Code to dynamicaly enable debugging
-
 */
 
+
+/*
+Issues
+Right DDI - SW6 to SW15 no action
+
+*/
+#define GREEN_STATUS_LED_PORT 14
+#define RED_STATUS_LED_PORT 15  // RED LED is used for monitoring ethernet
+#define FLASH_TIME 300
+
+unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
+bool RED_LED_STATE = false;
+bool GREEN_LED_STATE = true;
+unsigned long timeSinceRedLedChanged = 0;
 
 #define Ethernet_In_Use 1
 #define DCSBIOS_In_Use 1
@@ -173,6 +184,34 @@ bool RWR_POWER_BUTTON_STATE = false;  // Used to latch the RWR Power Switch
 
 void setup() {
 
+  pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
+  pinMode(RED_STATUS_LED_PORT, OUTPUT);
+  digitalWrite(GREEN_STATUS_LED_PORT, true);
+  digitalWrite(RED_STATUS_LED_PORT, true);
+
+  if (Ethernet_In_Use == 1) {
+
+    // Using manual reset instead of tying to Arduino Reset
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
+    Ethernet.begin(mac, ip);
+    udp.begin(localport);
+
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(LED_BUILTIN, false);
+      delay(FLASH_TIME);
+      digitalWrite(LED_BUILTIN, true);
+    }
+
+    SendDebug("Ethernet Started " + strMyIP + " " + sMac);
+  }
+
+
   // Set the output ports to output
   for (int portId = 22; portId < 38; portId++) {
     pinMode(portId, OUTPUT);
@@ -197,36 +236,14 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  if (Ethernet_In_Use == 1) {
-
-    // Using manual reset instead of tying to Arduino Reset
-    pinMode(ES1_RESET_PIN, OUTPUT);
-    digitalWrite(ES1_RESET_PIN, LOW);
-    delay(2);
-    digitalWrite(ES1_RESET_PIN, HIGH);
-
-    Ethernet.begin(mac, ip);
-    udp.begin(localport);
-
-    ethernetStartTime = millis() + delayBeforeSendingPacket;
-    while (millis() <= ethernetStartTime) {
-      delay(FLASH_TIME);
-      digitalWrite(LED_BUILTIN, false);
-      delay(FLASH_TIME);
-      digitalWrite(LED_BUILTIN, true);
-    }
-
-    SendDebug("Ethernet Started " + strMyIP + " " + sMac);
-
-    // Used to remotely enable Debug and Reflector
-    debugUDP.begin(localdebugport);
-  }
 
   //  Prime the Analog reading for AOA Indexer
   for (int i = 0; i <= 10; i++) {
     rawAnalog = analogRead(AOAIndexAnalogPin);
     AOAIndexerFiltered = AnalogAOAIndexer.filter(rawAnalog);
   }
+
+  SendDebug("Setup Complete");
 }
 
 void FindInputChanges() {
@@ -1450,6 +1467,24 @@ DcsBios::IntegerBuffer rwrPowerBtnBuffer(0x7488, 0x1000, 12, onRwrPowerBtnChange
 
 void loop() {
 
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+    GREEN_LED_STATE = !GREEN_LED_STATE;
+    RED_LED_STATE = !GREEN_LED_STATE;
+
+    digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
+    digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
+
+
+    // Testing digital outputs
+
+    // digitalWrite(BLEED_AIR_SOL_PORT, RED_LED_STATE);
+    // digitalWrite(PITOT_HEAT_PORT, RED_LED_STATE);
+    // digitalWrite(LASER_ARM_PORT, RED_LED_STATE);
+    // digitalWrite(CANOPY_MAG_PORT, RED_LED_STATE);
+
+    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first
@@ -1533,6 +1568,7 @@ void loop() {
     }
   }
 
+
   FindInputChanges();
   // Handle Switches with Safety covers
   //SPIN COVER
@@ -1556,43 +1592,5 @@ void loop() {
       RFBCFollowupTask = false;
     }
   }
-
-
-  if (Ethernet_In_Use == 1) {
-    if (millis() >= (AOAIndexerLastUpdate + AOAIndexerUpdateInterval)) {
-
-      rawAnalog = analogRead(AOAIndexAnalogPin);
-      AOAIndexerFiltered = AnalogAOAIndexer.filter(rawAnalog);
-      AOAIndexerMapped = map(AOAIndexerFiltered, 0, 1000, 0, 15);
-
-      if (AOAIndexerMapped != AOAIndexerBrightnessOut) {
-        AOAIndexerBrightnessOut = AOAIndexerMapped;
-        SendAOABrightness(AOAIndexerBrightnessOut);
-      }
-
-      AOAIndexerLastUpdate = millis() + AOAIndexerUpdateInterval;
-      // Convert this to 0 to 15 value and compare against the last one
-    }
-
-    // Check to see if a debug or reflector command has been received
-
-    packetSize = debugUDP.parsePacket();
-    debugLen = debugUDP.read(packetBuffer, 999);
-
-    if (debugLen > 0) {
-      // Zero end the payload
-      packetBuffer[debugLen] = 0;
-
-      Reflector_In_Use = 1;
-
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.println("Debug Front Input - " + strMyIP + " " + String(millis()) + "mS since reset.");
-      udp.endPacket();
-    }
-  }
-
-
-
-
   // END CODE
 }
