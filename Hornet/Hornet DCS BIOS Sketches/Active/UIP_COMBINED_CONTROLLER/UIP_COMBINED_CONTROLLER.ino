@@ -148,27 +148,28 @@ int AOAIndexerMapped = 0;
 // ########################## BEGIN STEPPERS ########################################
 #include <AccelStepper.h>
 
+// Currently the stepper forward resever is mapped to Master ARM A/A A/G
+bool HUD_STEPPER_ENABLED = false;
+bool HUD_STEPPER_FORWARD = false;
+bool HUD_STEPPER_REVERSE = false;
+
 #define STEPPER_MAX_SPEED 9000
 #define STEPPER_ZERO_SEEK_SPEED 600
 #define STEPPER_ACCELERATION 9000
 
 #define AllstepperEnablePin 19
 
-#define VSIstepPin 18
-#define VSIdirectionPin 17
-#define VSIoffset 130
-
+#define HUDstepPin 18
+#define HUDdirectionPin 17
 
 
 #define STEPS 10080
-#define STEPS 315 * 16       // The 16 is the default divisors when no pins are tied together on the driver module \
-                            // For an unmodified Vid series there are 315 steps
-#define DUAL_STEPS 315 * 16  // The Dual stepper seems to have fewer steps between stops
+#define STEPS 315 * 16  // The 16 is the default divisors when no pins are tied together on the driver module \
 
-AccelStepper VSIstepper(AccelStepper::DRIVER, VSIstepPin, VSIdirectionPin);
+AccelStepper HUDStepper(AccelStepper::DRIVER, HUDstepPin, HUDdirectionPin);
 
 void updateSteppers() {
-  VSIstepper.run();
+  HUDStepper.run();
 }
 
 // ########################### END STEPPERS #########################################
@@ -346,32 +347,31 @@ void setup() {
   pinMode(AllstepperEnablePin, OUTPUT);
   digitalWrite(AllstepperEnablePin, false);
 
-  VSIstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  VSIstepper.setAcceleration(STEPPER_ACCELERATION);
+  HUDStepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  HUDStepper.setAcceleration(STEPPER_ACCELERATION);
 
 
 
 
 
-  // ################# Start VSI Startup #########################
-  SendDebug("Start VSI");
+  // ################# Start HUD Startup #########################
+  SendDebug("Stepper movement on startup will be disabled once testing is complete");
+  SendDebug("Start HUD Stepper");
 
-  VSIstepper.runToNewPosition(-STEPS * 1.1);
-  VSIstepper.setCurrentPosition(0);
+  HUDStepper.runToNewPosition(-STEPS * 1.1);
+  HUDStepper.setCurrentPosition(0);
 
   for (int i = 1; i <= 1; i++) {
     SendDebug("Loop :" + String(i));
-    VSIstepper.runToNewPosition(STEPS);
+    HUDStepper.runToNewPosition(STEPS);
     delay(200);
-    VSIstepper.runToNewPosition(0);
+    HUDStepper.runToNewPosition(0);
     delay(200);
   }
 
-  // Move VSI to zero position and set
-  VSIstepper.runToNewPosition((STEPS / 2) - VSIoffset);
-  VSIstepper.setCurrentPosition(0);
-  SendDebug("End VSI");
-  // ################# End VSI Startup #########################
+  HUDStepper.setCurrentPosition(0);
+  SendDebug("End HUD Stepper");
+  // ################# End HUD Startup #########################
 
 
 
@@ -808,10 +808,11 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 115:
           sendToDcsBiosMessage("HUD_VIDEO_BIT", "0");
           break;
-        case 116:
-          break;
-        case 117:  //FA-18C_hornet/MASTER_MODE_AA
+        case 116:  //FA-18C_hornet/MASTER_MODE_AA
           sendToDcsBiosMessage("MASTER_MODE_AA", "0");
+          HUD_STEPPER_FORWARD = false;
+          break;
+        case 117:
           break;
         case 118:  // USED BELOW
           break;
@@ -840,6 +841,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 127:  //FA-18C_hornet/MASTER_MODE_AG
           sendToDcsBiosMessage("MASTER_MODE_AG", "0");
+          HUD_STEPPER_REVERSE = false;
           break;
         case 128:  //FA-18C_hornet/FIRE_EXT_BTN
           sendToDcsBiosMessage("FIRE_EXT_BTN", "0");
@@ -1342,9 +1344,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("HUD_VIDEO_BIT", "1");
           break;
         case 116:
-          break;
-        case 117:
           sendToDcsBiosMessage("MASTER_MODE_AA", "1");
+          HUD_STEPPER_FORWARD = true;
+          break;
+        case 117:;
           break;
         case 118:
           sendToDcsBiosMessage("ECM_MODE_SW", "3");  // REC
@@ -1375,8 +1378,8 @@ void CreateDcsBiosMessage(int ind, int state) {
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 127:
-
           sendToDcsBiosMessage("MASTER_MODE_AG", "1");
+          HUD_STEPPER_REVERSE = true;
           break;
         case 128:
           sendToDcsBiosMessage("FIRE_EXT_BTN", "1");
@@ -1609,6 +1612,28 @@ void loop() {
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   updateSteppers();
+
+  if ((HUD_STEPPER_FORWARD == true) || (HUD_STEPPER_REVERSE == true)) {
+    if (HUD_STEPPER_ENABLED == false) {
+      HUD_STEPPER_ENABLED = true;
+      SendDebug("Enabling Hud Stepper");
+      digitalWrite(AllstepperEnablePin, false);
+      if (HUD_STEPPER_FORWARD == true) {
+        HUDStepper.runToNewPosition(200);
+      } else {
+        HUDStepper.runToNewPosition(-200);
+      }
+    }
+
+  } else if ((HUD_STEPPER_FORWARD == false) && (HUD_STEPPER_REVERSE == false)) {
+    if (HUD_STEPPER_ENABLED == true) {
+      HUD_STEPPER_ENABLED = false;
+      digitalWrite(AllstepperEnablePin, false);
+      HUDStepper.setCurrentPosition(0);
+      SendDebug("Disabling Hud Stepper");
+    }
+  }
+
 
   //turn off all rows first
   for (int rowid = 0; rowid < 16; rowid++) {
