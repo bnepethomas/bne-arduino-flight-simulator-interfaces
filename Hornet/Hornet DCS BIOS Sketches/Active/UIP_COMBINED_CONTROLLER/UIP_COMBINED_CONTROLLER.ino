@@ -39,20 +39,22 @@
 To test
 DDI Analogs
 
-Issues
-Spare 1 is col 6
-Spare 2 is col 7
-Master ArmA/A A/G and Ready Discharge
-Needed to rotate D5 and D14
 
 
 Passed
-Left DDI - all buttons
+Left and Right DDI - all buttons
+
+Resolved Issues
+Spare 1 is col 6
+Spare 2 is col 7
+Master Arm A/A A/G and Ready Discharge
+Needed to rotate D5 and D14
+
 
 */
 #define GREEN_STATUS_LED_PORT 14
 #define RED_STATUS_LED_PORT 15  // RED LED is used for monitoring ethernet
-#define FLASH_TIME 300
+#define FLASH_TIME 3000
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool RED_LED_STATE = false;
@@ -157,7 +159,8 @@ LOAD -> A9  -> D63
 CLOCK -> A10 -> D64
 DIN -> A11 -> D65
 */
-LedControl lc = LedControl(A11, A10, A9, 1);
+//LedControl lc = LedControl(A11, A10, A9, 1);
+LedControl lc = LedControl(65, 64, 63, 1);
 
 void Max7219_ALL_ON() {
   SendDebug("Max7219 On");
@@ -183,7 +186,7 @@ void Max7219_ALL_OFF() {
 #define BUTTONS_USED_ON_PCB 176
 #define NUM_AXES 8  // 8 axes, X, Y, Z, etc
 #define STATUS_LED_PORT 7
-#define FLASH_TIME 200
+#define FLASH_TIME 1000
 
 //
 struct joyReport_t {
