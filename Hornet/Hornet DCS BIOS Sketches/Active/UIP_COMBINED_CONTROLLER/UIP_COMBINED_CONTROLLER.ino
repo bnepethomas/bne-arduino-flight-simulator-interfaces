@@ -45,10 +45,16 @@ Passed
 Left and Right DDI - all buttons
 
 Resolved Issues
+Controller
 Spare 1 is col 6
 Spare 2 is col 7
+R5 had CAP in its place remove 3 stray labels on silkscreen
+
+Master ARM
 Master Arm A/A A/G and Ready Discharge
 Needed to rotate D5 and D14
+Change indicator leds from series to parallel
+Swap location of D7 and D9 so they are paired with same switch
 
 
 */
@@ -180,6 +186,29 @@ void Max7219_ALL_OFF() {
   }
 }
 
+void MASTER_ARM_DISCHARGE_READY(bool ledstate) {
+  // Led location
+  // Cathode -1, Anode
+  lc.setLed(0, 4, 1, ledstate);
+}
+
+void MASTER_ARM_DISCHARGE_DONE(bool ledstate) {
+  // Led location
+  // Cathode -1, Anode
+  lc.setLed(0, 5, 1, ledstate);
+}
+
+void MASTER_ARM_AA(bool ledstate) {
+  // Led location
+  // Cathode -1, Anode
+  lc.setLed(0, 5, 2, ledstate);
+}
+
+void MASTER_ARM_AG(bool ledstate) {
+  // Led location
+  // Cathode -1, Anode
+  lc.setLed(0, 4, 2, ledstate);
+}
 // ********************* End Max7219 ********************
 
 #define NUM_BUTTONS 256
@@ -1520,9 +1549,9 @@ void loop() {
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
 
     if (RED_LED_STATE == true) {
-      Max7219_ALL_ON();
+      MASTER_ARM_AG(true);
     } else {
-      Max7219_ALL_OFF();
+      MASTER_ARM_AG(false);
     }
 
 
