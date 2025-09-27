@@ -57,6 +57,9 @@ Change indicator leds from series to parallel
 Swap location of D7 and D9 so they are paired with same switch
 
 
+Code ToDo's - add check that DCS is active to enable stepper driver
+
+
 */
 #define GREEN_STATUS_LED_PORT 14
 #define RED_STATUS_LED_PORT 15  // RED LED is used for monitoring ethernet
@@ -141,6 +144,35 @@ int AOAIndexerFiltered = 0;
 int AOAIndexerMapped = 0;
 
 // ********************* End Smoothing Filter *************
+
+// ########################## BEGIN STEPPERS ########################################
+#include <AccelStepper.h>
+
+#define STEPPER_MAX_SPEED 9000
+#define STEPPER_ZERO_SEEK_SPEED 600
+#define STEPPER_ACCELERATION 9000
+
+#define AllstepperEnablePin 19
+
+#define VSIstepPin 18
+#define VSIdirectionPin 17
+#define VSIoffset 130
+
+
+
+#define STEPS 10080
+#define STEPS 315 * 16       // The 16 is the default divisors when no pins are tied together on the driver module \
+                            // For an unmodified Vid series there are 315 steps
+#define DUAL_STEPS 315 * 16  // The Dual stepper seems to have fewer steps between stops
+
+AccelStepper VSIstepper(AccelStepper::DRIVER, VSIstepPin, VSIdirectionPin);
+
+void updateSteppers() {
+  VSIstepper.run();
+}
+
+// ########################### END STEPPERS #########################################
+
 
 // ********************* Begin Spin Leds ******************
 
@@ -308,6 +340,43 @@ void setup() {
   Max7219_ALL_OFF();
   delay(1000);
 
+
+
+  SendDebug("STEPPER INITIALISATION STARTED");
+  pinMode(AllstepperEnablePin, OUTPUT);
+  digitalWrite(AllstepperEnablePin, false);
+
+  VSIstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  VSIstepper.setAcceleration(STEPPER_ACCELERATION);
+
+
+
+
+
+  // ################# Start VSI Startup #########################
+  SendDebug("Start VSI");
+
+  VSIstepper.runToNewPosition(-STEPS * 1.1);
+  VSIstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= 1; i++) {
+    SendDebug("Loop :" + String(i));
+    VSIstepper.runToNewPosition(STEPS);
+    delay(200);
+    VSIstepper.runToNewPosition(0);
+    delay(200);
+  }
+
+  // Move VSI to zero position and set
+  VSIstepper.runToNewPosition((STEPS / 2) - VSIoffset);
+  VSIstepper.setCurrentPosition(0);
+  SendDebug("End VSI");
+  // ################# End VSI Startup #########################
+
+
+
+
+  SendDebug("STEPPER INITIALISATION COMPLETE");
 
 
   // Set the output ports to output
@@ -1508,26 +1577,6 @@ DcsBios::Potentiometer hmdOffBrt("HMD_OFF_BRT", A8);
 DcsBios::Potentiometer rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A14);
 DcsBios::Potentiometer rightDdiContCtl("RIGHT_DDI_CONT_CTL", A13);
 
-// AMPCD
-//DcsBios::Potentiometer ampcdBrtCtl("AMPCD_BRT_CTL", A15);
-
-// || \\ ENCODERS // || \\
-// AMPCD
-//DcsBios::RotaryEncoder ufcComm1ChannelSelect("UFC_COMM1_CHANNEL_SELECT", "DEC", "INC", 21, 20);
-//DcsBios::RotaryEncoder ufcComm2ChannelSelect("UFC_COMM2_CHANNEL_SELECT", "DEC", "INC", 19, 18);
-DcsBios::RotaryEncoder ufcComm1ChannelSelect("UFC_COMM1_CHANNEL_SELECT", "DEC", "INC", 19, 18);
-DcsBios::RotaryEncoder ufcComm2ChannelSelect("UFC_COMM2_CHANNEL_SELECT", "DEC", "INC", 21, 20);
-//STANDBY INST
-DcsBios::RotaryEncoder saiSet("SAI_SET", " - 3200", " + 3200", 15, 14);
-DcsBios::RotaryEncoder stbyPressAlt("STBY_PRESS_ALT", " - 3200", " + 3200", 16, 17);
-////||||\\\\ Investigate issue on Bens Pit ////||||\\\\
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// UFC MOVED TO RIGHT CONSOLE
-//DcsBios::PotentiometerEWMA<5, 128, 5> ufcComm1Vol("UFC_COMM1_VOL", 8);
-//DcsBios::PotentiometerEWMA<5, 128, 5> ufcComm2Vol("UFC_COMM2_VOL", 9);
-//DcsBios::PotentiometerEWMA<5, 128, 5> ufcBrt("UFC_BRT", 10);
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 void onRwrPowerBtnChange(unsigned int newValue) {
   if (newValue == 1) {
@@ -1554,18 +1603,12 @@ void loop() {
       MASTER_ARM_AG(false);
     }
 
-
-    // Testing digital outputs
-
-    // digitalWrite(BLEED_AIR_SOL_PORT, RED_LED_STATE);
-    // digitalWrite(PITOT_HEAT_PORT, RED_LED_STATE);
-    // digitalWrite(LASER_ARM_PORT, RED_LED_STATE);
-    // digitalWrite(CANOPY_MAG_PORT, RED_LED_STATE);
-
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
+
+  updateSteppers();
 
   //turn off all rows first
   for (int rowid = 0; rowid < 16; rowid++) {
