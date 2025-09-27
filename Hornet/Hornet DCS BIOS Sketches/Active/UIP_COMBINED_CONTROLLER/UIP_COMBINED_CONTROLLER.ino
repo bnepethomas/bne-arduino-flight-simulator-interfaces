@@ -36,8 +36,18 @@
 
 
 /*
+To test
+DDI Analogs
+
 Issues
-Right DDI - SW6 to SW15 no action
+Spare 1 is col 6
+Spare 2 is col 7
+Master ArmA/A A/G and Ready Discharge
+Needed to rotate D5 and D14
+
+
+Passed
+Left DDI - all buttons
 
 */
 #define GREEN_STATUS_LED_PORT 14
@@ -127,6 +137,19 @@ int AOAIndexerMapped = 0;
 
 // ********************* End Smoothing Filter *************
 
+// ********************* Spin Leds ************************
+
+#define SPIN_LED_PIN 13
+
+void SPIN_LED_ON() {
+  digitalWrite(SPIN_LED_PIN, HIGH);
+}
+
+void SPIN_LED_OFF() {
+  digitalWrite(SPIN_LED_PIN, LOW);
+}
+
+// ********************* END SPIN Leds ********************
 
 #define NUM_BUTTONS 256
 #define BUTTONS_USED_ON_PCB 176
@@ -211,6 +234,10 @@ void setup() {
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
   }
 
+  // Spin Leds
+    pinMode(SPIN_LED_PIN, OUTPUT);
+    SPIN_LED_ON();
+
 
   // Set the output ports to output
   for (int portId = 22; portId < 38; portId++) {
@@ -243,6 +270,8 @@ void setup() {
     AOAIndexerFiltered = AnalogAOAIndexer.filter(rawAnalog);
   }
 
+  delay(1000);
+  SPIN_LED_OFF();
   SendDebug("Setup Complete");
 }
 
