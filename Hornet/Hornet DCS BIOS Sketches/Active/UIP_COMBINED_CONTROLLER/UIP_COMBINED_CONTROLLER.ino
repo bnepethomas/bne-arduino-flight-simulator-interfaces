@@ -84,17 +84,14 @@ String strMyIP = "172.16.1.101";
 IPAddress reflectorIP(172, 16, 1, 10);
 String strreflectorIP = "X.X.X.X";
 
-// Arduino Mega holding Max7219
-IPAddress max7219IP(172, 16, 1, 106);
-String strMax7219IP = "172.16.1.106";
 
 
 
 const unsigned int localport = 7788;
 const unsigned int localdebugport = 7795;
-const unsigned int remoteport = 26027;
+
 const unsigned int reflectorport = 27000;
-const unsigned int max7219port = 7788;
+
 
 int packetSize;
 int debugLen;
@@ -102,7 +99,7 @@ EthernetUDP udp;
 EthernetUDP debugUDP;
 
 #define EthernetStartupDelay 500
-#define ES1_RESET_PIN 12
+#define ES1_RESET_PIN 53
 
 const unsigned long delayBeforeSendingPacket = 3000;
 unsigned long ethernetStartTime = 0;
@@ -137,7 +134,7 @@ int AOAIndexerMapped = 0;
 
 // ********************* End Smoothing Filter *************
 
-// ********************* Spin Leds ************************
+// ********************* Begin Spin Leds ******************
 
 #define SPIN_LED_PIN 13
 
@@ -149,7 +146,38 @@ void SPIN_LED_OFF() {
   digitalWrite(SPIN_LED_PIN, LOW);
 }
 
-// ********************* END SPIN Leds ********************
+// ********************* End SpinLeds ********************
+
+// ********************** Begin Max7219 ******************
+
+#include "LedControl.h"
+
+/*
+LOAD -> A9  -> D63
+CLOCK -> A10 -> D64
+DIN -> A11 -> D65
+*/
+LedControl lc = LedControl(A11, A10, A9, 1);
+
+void Max7219_ALL_ON() {
+  SendDebug("Max7219 On");
+  for (int row = 0; row < 8; row++) {
+    for (int col = 0; col < 8; col++) {
+      lc.setLed(0, row, col, true);
+    }
+  }
+}
+
+void Max7219_ALL_OFF() {
+  SendDebug("Max7219 Off");
+  for (int row = 0; row < 8; row++) {
+    for (int col = 0; col < 8; col++) {
+      lc.setLed(0, row, col, false);
+    }
+  }
+}
+
+// ********************* End Max7219 ********************
 
 #define NUM_BUTTONS 256
 #define BUTTONS_USED_ON_PCB 176
@@ -235,8 +263,19 @@ void setup() {
   }
 
   // Spin Leds
-    pinMode(SPIN_LED_PIN, OUTPUT);
-    SPIN_LED_ON();
+  pinMode(SPIN_LED_PIN, OUTPUT);
+  SPIN_LED_ON();
+
+  lc.shutdown(0, false);
+  lc.setIntensity(0, 8);
+  lc.clearDisplay(0);
+  Max7219_ALL_OFF();
+  delay(1000);
+  Max7219_ALL_ON();
+  delay(1000);
+  Max7219_ALL_OFF();
+  delay(1000);
+
 
 
   // Set the output ports to output
@@ -308,43 +347,17 @@ void FindInputChanges() {
         prevjoyReport.button[ind] = joyReport.button[ind];
 
 
-        if (Reflector_In_Use == 1) {
-          udp.beginPacket(reflectorIP, reflectorport);
-          udp.println("Front Input - " + String(ind) + ":" + String(joyReport.button[ind]));
-          udp.endPacket();
-        }
+        SendDebug("Front Input - " + String(ind) + ":" + String(joyReport.button[ind]));
       }
     }
 }
 
 
 
-void SendAOABrightness(int AOA_DIMMER_VALUE) {
 
-  String outString;
-  outString = "AOA_DIMMER_VALUE = " + String(AOA_DIMMER_VALUE);
-
-  if (Ethernet_In_Use == 1) {
-    if (Reflector_In_Use == 1) {
-      udp.beginPacket(reflectorIP, reflectorport);
-      udp.print(outString);
-      udp.endPacket();
-    }
-    udp.beginPacket(max7219IP, max7219port);
-    udp.print(outString);
-    udp.endPacket();
-  }
-}
 
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
-
-
-  if (Reflector_In_Use == 1) {
-    udp.beginPacket(reflectorIP, reflectorport);
-    udp.println("Front Input - " + String(msg) + ":" + String(arg));
-    udp.endPacket();
-  }
-
+  SendDebug("Front Input - " + String(msg) + ":" + String(arg));
   sendDcsBiosMessage(msg, arg);
 }
 
@@ -1450,14 +1463,14 @@ DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A5);  // CHECK OWN PIT
 DcsBios::Potentiometer hmdOffBrt("HMD_OFF_BRT", A8);
 
 // IFEI BRIGHTNESS
-DcsBios::Potentiometer ifei("IFEI", A9);
+//DcsBios::Potentiometer ifei("IFEI", A9);
 
 // RWR BRIGHTNESS (STANDBY PANEL)
-DcsBios::Potentiometer rwrRwrIntesity("RWR_RWR_INTESITY", A10);
+//DcsBios::Potentiometer rwrRwrIntesity("RWR_RWR_INTESITY", A10);
 
 // LEFT DDI
-DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A12);
-DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A11);
+//DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A12);
+//DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A11);
 
 // RIGHT DDI
 DcsBios::Potentiometer rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A14);
@@ -1502,6 +1515,12 @@ void loop() {
 
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
+
+    if (RED_LED_STATE == true) {
+      Max7219_ALL_ON();
+    } else {
+      Max7219_ALL_OFF();
+    }
 
 
     // Testing digital outputs
