@@ -215,7 +215,7 @@ void MASTER_ARM_AG(bool ledstate) {
 #define BUTTONS_USED_ON_PCB 176
 #define NUM_AXES 8  // 8 axes, X, Y, Z, etc
 #define STATUS_LED_PORT 7
-#define FLASH_TIME 1000
+#define FLASH_TIME 300
 
 //
 struct joyReport_t {
