@@ -36,7 +36,7 @@
 
 
 /*
-
+Current AoA seems back to front to circuit diagram
 
 Resolved Issues
 Controller
