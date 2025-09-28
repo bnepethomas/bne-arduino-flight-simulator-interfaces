@@ -189,6 +189,15 @@ void SPIN_LED_OFF() {
   digitalWrite(SPIN_LED_PIN, LOW);
 }
 
+void onSpinLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    SPIN_LED_ON();
+  } else {
+    SPIN_LED_OFF();
+  }
+}
+DcsBios::IntegerBuffer spinLtBuffer(0x742a, 0x0800, 11, onSpinLtChange);
+
 // ********************* End SpinLeds ********************
 
 // ********************** Begin Max7219 ******************
@@ -1599,11 +1608,11 @@ void CreateDcsBiosMessage(int ind, int state) {
 //         PINS = 6 TOTAL          \\
 
 // HUD ANALOG INPUTS
-DcsBios::Potentiometer hudSymBrt("HUD_SYM_BRT", A0);
+DcsBios::Potentiometer hudSymBrt("HUD_SYM_BRT", A5);
 // 20220227 Bug in FP DCS-BIOS stops indiexer updates if AoA indexer below 50% - sending over IP
-//DcsBios::Potentiometer hudAoaIndexer("HUD_AOA_INDEXER", A1);
-DcsBios::Potentiometer hudBlackLvl("HUD_BLACK_LVL", A2);
-DcsBios::Potentiometer hudBalance("HUD_BALANCE", A3);
+DcsBios::Potentiometer hudAoaIndexer("HUD_AOA_INDEXER", A6);
+DcsBios::Potentiometer hudBlackLvl("HUD_BLACK_LVL", A7);
+DcsBios::Potentiometer hudBalance("HUD_BALANCE", A8);
 
 // RWR ANALOG INPUTS
 DcsBios::Potentiometer rwrDmrCtrl("RWR_DMR_CTRL", A4);      // CHECK OWN PIT
@@ -1613,7 +1622,7 @@ DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A5);  // CHECK OWN PIT
 //         PINS = 8 TOTAL          \\
 
 // SPIN (HMD) KNOB
-DcsBios::Potentiometer hmdOffBrt("HMD_OFF_BRT", A8);
+DcsBios::Potentiometer hmdOffBrt("HMD_OFF_BRT", A4);
 
 // IFEI BRIGHTNESS
 //DcsBios::Potentiometer ifei("IFEI", A9);
@@ -1622,12 +1631,12 @@ DcsBios::Potentiometer hmdOffBrt("HMD_OFF_BRT", A8);
 //DcsBios::Potentiometer rwrRwrIntesity("RWR_RWR_INTESITY", A10);
 
 // LEFT DDI
-//DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A12);
-//DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A11);
+DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A0);
+DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A1);
 
 // RIGHT DDI
-DcsBios::Potentiometer rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A14);
-DcsBios::Potentiometer rightDdiContCtl("RIGHT_DDI_CONT_CTL", A13);
+DcsBios::Potentiometer rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A2);
+DcsBios::Potentiometer rightDdiContCtl("RIGHT_DDI_CONT_CTL", A3);
 
 
 void onRwrPowerBtnChange(unsigned int newValue) {
