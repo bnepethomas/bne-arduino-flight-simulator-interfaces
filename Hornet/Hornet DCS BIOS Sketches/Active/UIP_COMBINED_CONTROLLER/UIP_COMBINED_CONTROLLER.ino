@@ -36,10 +36,7 @@
 
 
 /*
-Issue - Right DDI Constrast causes all pots to move - possibly impacting rail?
 
-Passed
-Left and Right DDI - all buttons
 
 Resolved Issues
 Controller
@@ -47,7 +44,11 @@ Spare 1 is col 6
 Spare 2 is col 7
 R5 had CAP in its place remove 3 stray labels on silkscreen
 Tie MS2 on both motor drivers to high so only half stepping is used (not 8th when MS1 low and MS2 low)
-
+Issue - Right DDI Bright causes all pots to move - possibly impacting rail?
+  Measure 8.5ohms rail short with leds dimming
+  When plugged in - wiper is tied to +5V
+  Root cause J14 Pins 5 and 6 mapped to Right DDI Bright, Pin 6 should be Right DDI contrast
+  This issue validates approach of setting all pots to center position before conntecting for testing
 
 Master ARM
 Master Arm A/A A/G and Ready Discharge
