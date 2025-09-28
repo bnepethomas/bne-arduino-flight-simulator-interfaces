@@ -49,6 +49,8 @@ Controller
 Spare 1 is col 6
 Spare 2 is col 7
 R5 had CAP in its place remove 3 stray labels on silkscreen
+Tie MS2 on both motor drivers to high so only half stepping is used (not 8th when low low)
+
 
 Master ARM
 Master Arm A/A A/G and Ready Discharge
@@ -153,8 +155,7 @@ bool HUD_STEPPER_ENABLED = false;
 bool HUD_STEPPER_FORWARD = false;
 bool HUD_STEPPER_REVERSE = false;
 
-#define STEPPER_MAX_SPEED 9000
-#define STEPPER_ZERO_SEEK_SPEED 600
+#define STEPPER_MAX_SPEED 90000
 #define STEPPER_ACCELERATION 9000
 
 #define AllstepperEnablePin 19
@@ -337,9 +338,9 @@ void setup() {
   Max7219_ALL_OFF();
   delay(1000);
   Max7219_ALL_ON();
-  delay(1000);
-  Max7219_ALL_OFF();
-  delay(1000);
+
+
+
 
 
 
@@ -412,12 +413,16 @@ void setup() {
 
   delay(1000);
   SPIN_LED_OFF();
+  Max7219_ALL_OFF();
   SendDebug("Setup Complete");
 }
 
 void FindInputChanges() {
 
   for (int ind = 0; ind < NUM_BUTTONS; ind++)
+
+
+
     if (bFirstTime) {
 
       bFirstTime = false;
@@ -451,6 +456,7 @@ void FindInputChanges() {
         SendDebug("Front Input - " + String(ind) + ":" + String(joyReport.button[ind]));
       }
     }
+  updateSteppers();
 }
 
 
@@ -1619,9 +1625,9 @@ void loop() {
       SendDebug("Enabling Hud Stepper");
       digitalWrite(AllstepperEnablePin, false);
       if (HUD_STEPPER_FORWARD == true) {
-        HUDStepper.runToNewPosition(200);
+        HUDStepper.move(20000);
       } else {
-        HUDStepper.runToNewPosition(-200);
+        HUDStepper.move(-20000);
       }
     }
 
@@ -1639,6 +1645,8 @@ void loop() {
   for (int rowid = 0; rowid < 16; rowid++) {
     //turn on the current row
     // why differentiate? rows
+
+    updateSteppers();
 
     if (rowid == 0)
       PORTC = 0xFF;
