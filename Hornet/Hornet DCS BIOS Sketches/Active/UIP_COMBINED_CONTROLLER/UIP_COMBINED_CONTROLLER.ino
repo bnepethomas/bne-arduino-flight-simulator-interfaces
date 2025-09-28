@@ -36,10 +36,7 @@
 
 
 /*
-To test
-DDI Analogs
-
-
+Issue - Right DDI Constrast causes all pots to move - possibly impacting rail?
 
 Passed
 Left and Right DDI - all buttons
@@ -49,7 +46,7 @@ Controller
 Spare 1 is col 6
 Spare 2 is col 7
 R5 had CAP in its place remove 3 stray labels on silkscreen
-Tie MS2 on both motor drivers to high so only half stepping is used (not 8th when low low)
+Tie MS2 on both motor drivers to high so only half stepping is used (not 8th when MS1 low and MS2 low)
 
 
 Master ARM
@@ -132,26 +129,16 @@ void SendDebug(String MessageToSend) {
 }
 
 // ********************** Added Smoothing Filter for AOA Indexer Brightness
+// Not used in UIP combined controller
 // From https://github.com/jonnieZG/EWMA
 #include <Ewma.h>
-
-#define AOAIndexerUpdateInterval 10  // Time between pot reads 100 times per second
-#define AOAIndexAnalogPin A1
-
-Ewma AnalogAOAIndexer(0.1);
-
-unsigned long AOAIndexerLastUpdate = 0;
-int AOAIndexerBrightnessOut = 15;  // Valid values 0 to 15
-int rawAnalog = 0;
-int AOAIndexerFiltered = 0;
-int AOAIndexerMapped = 0;
 
 // ********************* End Smoothing Filter *************
 
 // ########################## BEGIN STEPPERS ########################################
 #include <AccelStepper.h>
 
-// Currently the stepper forward resever is mapped to Master ARM A/A A/G
+// Currently the stepper forward reverse is mapped to Master ARM A/A A/G
 bool HUD_STEPPER_ENABLED = false;
 bool HUD_STEPPER_FORWARD = false;
 bool HUD_STEPPER_REVERSE = false;
@@ -453,13 +440,6 @@ void setup() {
   }
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
-
-
-  //  Prime the Analog reading for AOA Indexer
-  for (int i = 0; i <= 10; i++) {
-    rawAnalog = analogRead(AOAIndexAnalogPin);
-    AOAIndexerFiltered = AnalogAOAIndexer.filter(rawAnalog);
-  }
 
   delay(1000);
   SPIN_LED_OFF();
@@ -1604,31 +1584,8 @@ void CreateDcsBiosMessage(int ind, int state) {
   }
 }
 
-// || \\ ANALOG A INPUT PLUG // || \\
-//         PINS = 6 TOTAL          \\
 
-// HUD ANALOG INPUTS
-DcsBios::Potentiometer hudSymBrt("HUD_SYM_BRT", A5);
-// 20220227 Bug in FP DCS-BIOS stops indiexer updates if AoA indexer below 50% - sending over IP
-DcsBios::Potentiometer hudAoaIndexer("HUD_AOA_INDEXER", A6);
-DcsBios::Potentiometer hudBlackLvl("HUD_BLACK_LVL", A7);
-DcsBios::Potentiometer hudBalance("HUD_BALANCE", A8);
 
-// RWR ANALOG INPUTS
-DcsBios::Potentiometer rwrDmrCtrl("RWR_DMR_CTRL", A4);      // CHECK OWN PIT
-DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A5);  // CHECK OWN PIT
-
-// || \\ ANALOG B INPUT PLUG // || \\
-//         PINS = 8 TOTAL          \\
-
-// SPIN (HMD) KNOB
-DcsBios::Potentiometer hmdOffBrt("HMD_OFF_BRT", A4);
-
-// IFEI BRIGHTNESS
-//DcsBios::Potentiometer ifei("IFEI", A9);
-
-// RWR BRIGHTNESS (STANDBY PANEL)
-//DcsBios::Potentiometer rwrRwrIntesity("RWR_RWR_INTESITY", A10);
 
 // LEFT DDI
 DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A0);
@@ -1638,15 +1595,16 @@ DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A1);
 DcsBios::Potentiometer rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A2);
 DcsBios::Potentiometer rightDdiContCtl("RIGHT_DDI_CONT_CTL", A3);
 
+// SPIN (HMD) KNOB
+DcsBios::Potentiometer hmdOffBrt("HMD_OFF_BRT", A4);
 
-void onRwrPowerBtnChange(unsigned int newValue) {
-  if (newValue == 1) {
-    RWR_POWER_BUTTON_STATE = true;
-  } else {
-    RWR_POWER_BUTTON_STATE = false;
-  }
-}
-DcsBios::IntegerBuffer rwrPowerBtnBuffer(0x7488, 0x1000, 12, onRwrPowerBtnChange);
+// HUD ANALOG INPUTS
+DcsBios::Potentiometer hudSymBrt("HUD_SYM_BRT", A5);
+// 20220227 Bug in FP DCS-BIOS stops indiexer updates if AoA indexer below 50% - sending over IP
+DcsBios::Potentiometer hudAoaIndexer("HUD_AOA_INDEXER", A6);
+DcsBios::Potentiometer hudBlackLvl("HUD_BLACK_LVL", A7);
+DcsBios::Potentiometer hudBalance("HUD_BALANCE", A8);
+
 
 
 void loop() {
