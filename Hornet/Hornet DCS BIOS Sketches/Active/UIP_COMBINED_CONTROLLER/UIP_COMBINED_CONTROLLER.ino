@@ -57,6 +57,7 @@ Master Arm A/A A/G and Ready Discharge
 Needed to rotate D5 and D14
 Change indicator leds from series to parallel
 Swap location of D7 and D9 so they are paired with same switch
+Possible incorrect colours for Discharge upper should be orange - lower green
 
 
 Code ToDo's - add check that DCS is active to enable stepper driver
@@ -220,11 +221,23 @@ void Max7219_ALL_OFF() {
   }
 }
 
+
 void MASTER_ARM_DISCHARGE_READY(bool ledstate) {
   // Led location
   // Cathode -1, Anode
   lc.setLed(0, 4, 1, ledstate);
 }
+
+void onMcReadyChange(unsigned int newValue) {
+  if (newValue == 1) {
+    MASTER_ARM_DISCHARGE_READY(true);
+  } else {
+    MASTER_ARM_DISCHARGE_READY(false);
+  }
+}
+DcsBios::IntegerBuffer mcReadyBuffer(0x740c, 0x8000, 15, onMcReadyChange);
+
+
 
 void MASTER_ARM_DISCHARGE_DONE(bool ledstate) {
   // Led location
@@ -232,17 +245,45 @@ void MASTER_ARM_DISCHARGE_DONE(bool ledstate) {
   lc.setLed(0, 5, 1, ledstate);
 }
 
+void onMcDischChange(unsigned int newValue) {
+  if (newValue == 1) {
+    MASTER_ARM_DISCHARGE_DONE(true);
+  } else {
+    MASTER_ARM_DISCHARGE_DONE(false);
+  }
+}
+DcsBios::IntegerBuffer mcDischBuffer(0x740c, 0x4000, 14, onMcDischChange);
+
 void MASTER_ARM_AA(bool ledstate) {
   // Led location
   // Cathode -1, Anode
   lc.setLed(0, 5, 2, ledstate);
 }
 
+void onMasterModeAaLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    MASTER_ARM_AA(true);
+  } else {
+    MASTER_ARM_AA(false);
+  }
+}
+DcsBios::IntegerBuffer masterModeAaLtBuffer(0x740c, 0x0200, 9, onMasterModeAaLtChange);
+
 void MASTER_ARM_AG(bool ledstate) {
   // Led location
   // Cathode -1, Anode
   lc.setLed(0, 4, 2, ledstate);
 }
+
+void onMasterModeAgLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    MASTER_ARM_AG(true);
+  } else {
+    MASTER_ARM_AG(false);
+  }
+}
+DcsBios::IntegerBuffer masterModeAgLtBuffer(0x740c, 0x0400, 10, onMasterModeAgLtChange);
+
 // ********************* End Max7219 ********************
 
 #define NUM_BUTTONS 256
@@ -818,7 +859,8 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("MASTER_MODE_AA", "0");
           HUD_STEPPER_FORWARD = false;
           break;
-        case 117:
+        case 117:  //FA-18C_hornet/FIRE_EXT_BTN
+          sendToDcsBiosMessage("FIRE_EXT_BTN", "0");
           break;
         case 118:  // USED BELOW
           break;
@@ -849,8 +891,8 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("MASTER_MODE_AG", "0");
           HUD_STEPPER_REVERSE = false;
           break;
-        case 128:  //FA-18C_hornet/FIRE_EXT_BTN
-          sendToDcsBiosMessage("FIRE_EXT_BTN", "0");
+        case 128:
+
           // USED BELOW
           break;
         case 129:  // USED BELOW
@@ -1353,7 +1395,8 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("MASTER_MODE_AA", "1");
           HUD_STEPPER_FORWARD = true;
           break;
-        case 117:;
+        case 117:
+          sendToDcsBiosMessage("FIRE_EXT_BTN", "1");
           break;
         case 118:
           sendToDcsBiosMessage("ECM_MODE_SW", "3");  // REC
@@ -1388,7 +1431,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           HUD_STEPPER_REVERSE = true;
           break;
         case 128:
-          sendToDcsBiosMessage("FIRE_EXT_BTN", "1");
+
           break;
         case 129:
           sendToDcsBiosMessage("ECM_MODE_SW", "4");  // XMIT
@@ -1606,11 +1649,11 @@ void loop() {
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
 
-    if (RED_LED_STATE == true) {
-      MASTER_ARM_AG(true);
-    } else {
-      MASTER_ARM_AG(false);
-    }
+    // if (RED_LED_STATE == true) {
+    //   MASTER_ARM_AG(true);
+    // } else {
+    //   MASTER_ARM_AG(false);
+    // }
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
