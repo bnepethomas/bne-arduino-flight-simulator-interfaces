@@ -281,6 +281,57 @@ void onMasterModeAgLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer masterModeAgLtBuffer(0x740c, 0x0400, 10, onMasterModeAgLtChange);
 
+void AOA_ABOVE(bool ledstate) {
+  lc.setLed(0, 6, 5, ledstate);
+}
+
+void AOA_ON(bool ledstate) {
+  lc.setLed(0, 7, 5, ledstate);
+}
+
+void AOA_BELOW(bool ledstate) {
+  lc.setLed(0, 7, 4, ledstate);
+}
+
+void BIT_LED_A(bool ledstate) {
+  lc.setLed(0, 4, 7, ledstate);
+}
+
+void BIT_LED_B(bool ledstate) {
+  lc.setLed(0, 5, 7, ledstate);
+}
+
+void LOCKSHOOT_A(bool ledstate) {
+  lc.setLed(0, 4, 4, ledstate);
+}
+
+void LOCKSHOOT_B(bool ledstate) {
+  lc.setLed(0, 4, 5, ledstate);
+}
+
+void LOCKSHOOT_C(bool ledstate) {
+  lc.setLed(0, 4, 6, ledstate);
+}
+
+void LOCKSHOOT_D(bool ledstate) {
+  lc.setLed(0, 5, 4, ledstate);
+}
+
+void LOCKSHOOT_E(bool ledstate) {
+  lc.setLed(0, 5, 5, ledstate);
+}
+
+void LOCKSHOOT_F(bool ledstate) {
+  lc.setLed(0, 5, 6, ledstate);
+}
+void testled(bool ledstate) {
+  int row = 5;
+  int col = 6;
+  SendDebug("Prod row :" + String(row) + " col :" + String(col));
+  lc.setLed(0, row, col, ledstate);
+}
+
+
 // ********************* End Max7219 ********************
 
 #define NUM_BUTTONS 256
@@ -378,7 +429,14 @@ void setup() {
   Max7219_ALL_ON();
 
 
-
+  // for (int i = 0; i < 4; i++) {
+  //   SendDebug("TestLed off");
+  //   testled(false);
+  //   delay(2000);
+  //   SendDebug("TestLed on");
+  //   testled(true);
+  //   delay(2000);
+  // }
 
 
 
