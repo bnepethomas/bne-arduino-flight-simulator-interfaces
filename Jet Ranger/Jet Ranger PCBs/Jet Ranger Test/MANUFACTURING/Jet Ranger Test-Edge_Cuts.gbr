@@ -1,0 +1,23 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,9.0.4*%
+%TF.CreationDate,2025-10-04T10:08:01+10:00*%
+%TF.ProjectId,Jet Ranger Test,4a657420-5261-46e6-9765-722054657374,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,Profile,NP*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 9.0.4) date 2025-10-04 10:08:01*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,Profile*%
+%ADD10C,0.200000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+X113500000Y-30000000D02*
+X191000000Y-30000000D01*
+X191000000Y-115000000D01*
+X113500000Y-115000000D01*
+X113500000Y-30000000D01*
+M02*

@@ -576,7 +576,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "MANUFACTURING/",
       "pos_files": "",
       "specctra_dsn": "Jet Ranger Test.dsn",
       "step": "",
