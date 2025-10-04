@@ -1,0 +1,117 @@
+
+(rules PCB Jet Ranger Test
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 1389)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.1)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.9)
+    )
+  )
+  (rule
+    (width 200.0)
+    (clear 203.2)
+    (clear 100.0 (type smd_to_turn_gap))
+    (clear 50.8 (type smd_smd))
+  )
+  (padstack "Via[0-1]_600:300_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (padstack "Via[0-1]_914.4:609.6_um"
+    (shape
+      (circle F.Cu 914.4 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 914.4 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_600:300_um" "Via[0-1]_600:300_um" default
+  )
+  (via 
+    "Via[0-1]_914.4:609.6_um" "Via[0-1]_914.4:609.6_um" default
+  )
+  (via 
+    "Via[0-1]_600:300_um-kicad_default" "Via[0-1]_600:300_um" "kicad_default"
+  )
+  (via 
+    "Via[0-1]_914.4:609.6_um-kicad_default" "Via[0-1]_914.4:609.6_um" "kicad_default"
+  )
+  (via 
+    "Via[0-1]_600:300_um-power" "Via[0-1]_600:300_um" power
+  )
+  (via 
+    "Via[0-1]_914.4:609.6_um-power" "Via[0-1]_914.4:609.6_um" power
+  )
+  (via_rule
+    default "Via[0-1]_600:300_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_600:300_um-kicad_default"
+  )
+  (via_rule
+    power "Via[0-1]_914.4:609.6_um-power"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 200.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    "unconnected-(J1-Pin_1-Pad1)" /IOREF /A0 /A1 /A2 /A3 /AREF /8
+    /7 /4 /2 /*6 /*5 /*3 VCC /~{RESET}
+    MOSI MISO "unconnected-(J5-Pin_5-Pad5)" "Net-(U2-INT)" SS SCLK "ES1_RST" "unconnected-(U2-NC-PadB4)"
+    /12 /13 /*9 /A4 /COL2 /COL1 "unconnected-(J17-Pin_1-Pad1)" "Net-(D1-A)"
+    /A5 "Net-(D2-A)" "Net-(J20-Pin_4)" "Net-(J20-Pin_2)" "Net-(J20-Pin_3)" "Net-(J20-Pin_1)" "Net-(J22-Pin_2)" "Net-(J22-Pin_1)"
+    "Net-(J22-Pin_4)" "Net-(J22-Pin_3)" "Net-(J24-Pin_6)" "Net-(J24-Pin_2)" "Net-(J24-Pin_4)" "Net-(J24-Pin_7)" "Net-(J24-Pin_3)" "Net-(J24-Pin_1)"
+    "Net-(J24-Pin_5)" "Net-(J24-Pin_8)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 200.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class power
+    GND +5V +3V3
+    (clearance_class power)
+    (via_rule power)
+    (rule
+      (width 254.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

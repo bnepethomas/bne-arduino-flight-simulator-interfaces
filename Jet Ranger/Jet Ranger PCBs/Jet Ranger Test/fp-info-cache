@@ -1,4 +1,4 @@
-26119641340795172
+26124919929176479
 Arduino_MountingHole
 MountingHole_1.2mm
 Mounting Hole 2.1mm, no annular
@@ -72960,6 +72960,27 @@ DIL DIP PDIP 2.54mm 7.62mm 300mil
 0
 4
 4
+PTLibrary
+AllieExpress_TCA9548A
+
+
+0
+24
+24
+PTLibrary
+DIP-24_TCA9548A
+
+
+0
+24
+24
+PTLibrary
+USRES1
+USR-ES1-1
+Integrated Circuit
+0
+12
+12
 Package_BGA
 Alliance_TFBGA-36_6x8mm_Layout6x8_P0.75mm
 Alliance TFBGA-36, NSMD, 6.0x8.0mm, 36 Ball, 6x8 Layout, 0.75mm Pitch, generated with kicad-footprint-generator ipc_bga_generator.py, https://www.alliancememory.com/wp-content/uploads/pdf/AS6C1008_Mar_2023V1.2.pdf#page=13
