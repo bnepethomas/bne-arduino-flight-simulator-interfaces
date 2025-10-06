@@ -285,13 +285,43 @@ void AOA_ABOVE(bool ledstate) {
   lc.setLed(0, 6, 5, ledstate);
 }
 
+void onAoaIndexerHighChange(unsigned int newValue) {
+  if (newValue == 1) {
+    AOA_ABOVE(true);
+  } else {
+    AOA_ABOVE(false);
+  }
+}
+DcsBios::IntegerBuffer aoaIndexerHighBuffer(0x7408, 0x0008, 3, onAoaIndexerHighChange);
+
+
 void AOA_ON(bool ledstate) {
   lc.setLed(0, 7, 5, ledstate);
 }
 
+void onAoaIndexerNormalChange(unsigned int newValue) {
+  if (newValue == 1) {
+    AOA_ON(true);
+  } else {
+    AOA_ON(false);
+  }
+}
+DcsBios::IntegerBuffer aoaIndexerNormalBuffer(0x7408, 0x0010, 4, onAoaIndexerNormalChange);
+
+
 void AOA_BELOW(bool ledstate) {
   lc.setLed(0, 7, 4, ledstate);
 }
+
+void onAoaIndexerLowChange(unsigned int newValue) {
+  if (newValue == 1) {
+    AOA_BELOW(true);
+  } else {
+    AOA_BELOW(false);
+  }
+}
+DcsBios::IntegerBuffer aoaIndexerLowBuffer(0x7408, 0x0020, 5, onAoaIndexerLowChange);
+
 
 void BIT_LED_A(bool ledstate) {
   lc.setLed(0, 4, 7, ledstate);
@@ -301,32 +331,54 @@ void BIT_LED_B(bool ledstate) {
   lc.setLed(0, 5, 7, ledstate);
 }
 
-void LOCKSHOOT_A(bool ledstate) {
-  lc.setLed(0, 4, 4, ledstate);
-}
-
-void LOCKSHOOT_B(bool ledstate) {
-  lc.setLed(0, 4, 5, ledstate);
-}
-
-void LOCKSHOOT_C(bool ledstate) {
-  lc.setLed(0, 4, 6, ledstate);
-}
-
-void LOCKSHOOT_D(bool ledstate) {
-  lc.setLed(0, 5, 4, ledstate);
-}
-
-void LOCKSHOOT_E(bool ledstate) {
+void LOCKSHOOT_SHOOT(bool ledstate) {
+  lc.setLed(0, 5, 6, ledstate);
   lc.setLed(0, 5, 5, ledstate);
 }
 
-void LOCKSHOOT_F(bool ledstate) {
-  lc.setLed(0, 5, 6, ledstate);
+void onLsShootChange(unsigned int newValue) {
+  if (newValue == 1) {
+    LOCKSHOOT_SHOOT(true);
+  } else {
+    LOCKSHOOT_SHOOT(false);
+  }
 }
+DcsBios::IntegerBuffer lsShootBuffer(0x7408, 0x0002, 1, onLsShootChange);
+
+
+void LOCKSHOOT_STROBE(bool ledstate) {
+  lc.setLed(0, 4, 5, ledstate);
+  lc.setLed(0, 5, 4, ledstate);
+}
+
+void onLsShootStrobeChange(unsigned int newValue) {
+  if (newValue == 1) {
+    LOCKSHOOT_STROBE(true);
+  } else {
+    LOCKSHOOT_STROBE(false);
+  }
+}
+DcsBios::IntegerBuffer lsShootStrobeBuffer(0x7408, 0x0004, 2, onLsShootStrobeChange);
+
+void LOCKSHOOT_LOCK(bool ledstate) {
+  lc.setLed(0, 4, 6, ledstate);
+  lc.setLed(0, 4, 6, ledstate);
+}
+
+void onLsLockChange(unsigned int newValue) {
+  if (newValue == 1) {
+    LOCKSHOOT_LOCK(true);
+  } else {
+    LOCKSHOOT_LOCK(false);
+  }
+}
+DcsBios::IntegerBuffer lsLockBuffer(0x7408, 0x0001, 0, onLsLockChange);
+
+
+
 void testled(bool ledstate) {
-  int row = 5;
-  int col = 6;
+  int row = 4;
+  int col = 4;
   SendDebug("Prod row :" + String(row) + " col :" + String(col));
   lc.setLed(0, row, col, ledstate);
 }
@@ -429,14 +481,14 @@ void setup() {
   Max7219_ALL_ON();
 
 
-  // for (int i = 0; i < 4; i++) {
-  //   SendDebug("TestLed off");
-  //   testled(false);
-  //   delay(2000);
-  //   SendDebug("TestLed on");
-  //   testled(true);
-  //   delay(2000);
-  // }
+  for (int i = 0; i < 4; i++) {
+    SendDebug("TestLed off");
+    testled(false);
+    delay(2000);
+    SendDebug("TestLed on");
+    testled(true);
+    delay(2000);
+  }
 
 
 
@@ -504,6 +556,7 @@ void setup() {
   SPIN_LED_OFF();
   Max7219_ALL_OFF();
   SendDebug("Setup Complete");
+  SendDebug("Need to uncomment potentiometer mappings");
 }
 
 void FindInputChanges() {
@@ -1645,7 +1698,7 @@ void CreateDcsBiosMessage(int ind, int state) {
 
 
 
-
+/*
 // LEFT DDI
 DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A0);
 DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A1);
@@ -1659,11 +1712,11 @@ DcsBios::Potentiometer hmdOffBrt("HMD_OFF_BRT", A4);
 
 // HUD ANALOG INPUTS
 DcsBios::Potentiometer hudSymBrt("HUD_SYM_BRT", A5);
-// 20220227 Bug in FP DCS-BIOS stops indiexer updates if AoA indexer below 50% - sending over IP
+// 20220227 Bug in FP DCS-BIOS stops indexer updates if AoA indexer below 50% - sending over IP
 DcsBios::Potentiometer hudAoaIndexer("HUD_AOA_INDEXER", A6);
 DcsBios::Potentiometer hudBlackLvl("HUD_BLACK_LVL", A7);
 DcsBios::Potentiometer hudBalance("HUD_BALANCE", A8);
-
+*/
 
 
 void loop() {
