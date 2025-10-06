@@ -386,6 +386,240 @@ void testled(bool ledstate) {
 
 // ********************* End Max7219 ********************
 
+// ********************* Begin PWM  ********************
+
+#define MAP_LIGHT 2
+#define DDI_BACKLIGHT 3
+#define COMPASS_BACKLIGHT 4
+#define GENERAL_BACKLIGHT 5
+
+void setPWMLights(int newValue) {
+  analogWrite(MAP_LIGHT, newValue);
+  analogWrite(DDI_BACKLIGHT, newValue);
+  analogWrite(COMPASS_BACKLIGHT, newValue);
+  analogWrite(GENERAL_BACKLIGHT, newValue);
+}
+
+
+void onConsoleIntLtChange(unsigned int newValue) {
+  analogWrite(MAP_LIGHT, map(newValue, 0, 65535, 0, 255));
+  analogWrite(DDI_BACKLIGHT, map(newValue, 0, 65535, 0, 255));
+  analogWrite(COMPASS_BACKLIGHT, map(newValue, 0, 65535, 0, 255));
+  analogWrite(GENERAL_BACKLIGHT, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
+
+void onFloodIntLtChange(unsigned int newValue) {
+}
+DcsBios::IntegerBuffer floodIntLtBuffer(0x755a, 0xffff, 0, onFloodIntLtChange);
+
+void onNvgFloodIntLtChange(unsigned int newValue) {
+}
+DcsBios::IntegerBuffer nvgFloodIntLtBuffer(0x755c, 0xffff, 0, onNvgFloodIntLtChange);
+
+// ********************* End PWM  ********************
+
+// ********************* Begin Compass ***************
+#define COILCP1 A12  // CP = COMPASS
+#define COILCP2 A13
+#define COILCP3 A14
+#define COILCP4 A15
+
+// Source
+// https://gist.github.com/jboecker/1084b3768c735b164c34d6087d537c18
+// the Warthog Project Video on the compass build
+// https://www.youtube.com/watch?v=ZN9glqgp9TY&t=332s
+
+
+#include <AccelStepper.h>
+struct StepperConfig {
+  unsigned int maxSteps;
+  unsigned int acceleration;
+  unsigned int maxSpeed;
+};
+
+const long zeroTimeout = 30000;
+
+class Vid60Stepper : public DcsBios::Int16Buffer {
+private:
+  AccelStepper& stepper;
+  StepperConfig& stepperConfig;
+  inline bool zeroDetected() {
+    return digitalRead(irDetectorPin) == 0;
+  }
+  unsigned int (*map_function)(unsigned int);
+  unsigned char initState;
+  long currentStepperPosition;
+  long lastAccelStepperPosition;
+  unsigned char irDetectorPin;
+  long zeroOffset;
+  bool movingForward;
+  bool lastZeroDetectState;
+
+  long zeroPosSearchStartTime = 0;
+
+  long normalizeStepperPosition(long pos) {
+    if (pos < 0) return pos + stepperConfig.maxSteps;
+    if (pos >= stepperConfig.maxSteps) return pos - stepperConfig.maxSteps;
+    return pos;
+  }
+
+  void updateCurrentStepperPosition() {
+    // adjust currentStepperPosition to include the distance our stepper motor
+    // was moved since we last updated it
+    long movementSinceLastUpdate = stepper.currentPosition() - lastAccelStepperPosition;
+    currentStepperPosition = normalizeStepperPosition(currentStepperPosition + movementSinceLastUpdate);
+    lastAccelStepperPosition = stepper.currentPosition();
+  }
+public:
+  Vid60Stepper(unsigned int address, AccelStepper& stepper, StepperConfig& stepperConfig, unsigned char irDetectorPin, long zeroOffset, unsigned int (*map_function)(unsigned int))
+    : Int16Buffer(address), stepper(stepper), stepperConfig(stepperConfig), irDetectorPin(irDetectorPin), zeroOffset(zeroOffset), map_function(map_function), initState(0), currentStepperPosition(0), lastAccelStepperPosition(0) {
+  }
+
+  virtual void loop() {
+    if (initState == 0) {  // not initialized yet
+      pinMode(irDetectorPin, INPUT);
+      stepper.setMaxSpeed(stepperConfig.maxSpeed);
+      stepper.setSpeed(400);
+
+      initState = 1;
+      zeroPosSearchStartTime = millis();
+    }
+
+    if (initState == 1) {
+      // move off zero if already there so we always get movement on reset
+      // (to verify that the stepper is working)
+      SendDebug(BoardName + "Compass initState 1");
+      if (zeroDetected()) {
+        stepper.runSpeed();
+      } else {
+        initState = 2;
+        SendDebug(BoardName + "Compass initState 2");
+      }
+    }
+
+    if (initState == 2) {  // zeroing
+      if (!zeroDetected()) {
+        // Currently this safety check isn't working
+        // Add Ethernet card for more troubleshooting
+        // Need to check IP addresses of PC secondary nic
+        if (millis() >= (zeroTimeout + zeroPosSearchStartTime)) {
+          stepper.disableOutputs();
+          if (initState != 99) {
+            // Send warning message only once
+            SendDebug(BoardName + "Compass initState 99 - timeout finding zero point");
+          }
+          initState == 99;
+
+        } else
+          stepper.runSpeed();
+
+
+
+      } else {
+        stepper.setAcceleration(stepperConfig.acceleration);
+        stepper.runToNewPosition(stepper.currentPosition() + zeroOffset);
+        // tell the AccelStepper library that we are at position zero
+        stepper.setCurrentPosition(0);
+        lastAccelStepperPosition = 0;
+        // set stepper acceleration in steps per second per second
+        // (default is zero)
+        stepper.setAcceleration(stepperConfig.acceleration);
+
+        lastZeroDetectState = true;
+        initState = 3;
+        SendDebug(BoardName + "Compass initState 3 - normal running");
+      }
+    }
+    if (initState == 3) {  // running normally
+
+      // recalibrate when passing through zero position
+      bool currentZeroDetectState = zeroDetected();
+      if (!lastZeroDetectState && currentZeroDetectState && movingForward) {
+        // we have moved from left to right into the 'zero detect window'
+        // and are now at position 0
+        lastAccelStepperPosition = stepper.currentPosition();
+        currentStepperPosition = normalizeStepperPosition(zeroOffset);
+      } else if (lastZeroDetectState && !currentZeroDetectState && !movingForward) {
+        // we have moved from right to left out of the 'zero detect window'
+        // and are now at position (maxSteps-1)
+        lastAccelStepperPosition = stepper.currentPosition();
+        currentStepperPosition = normalizeStepperPosition(stepperConfig.maxSteps + zeroOffset);
+      }
+      lastZeroDetectState = currentZeroDetectState;
+
+
+      if (hasUpdatedData()) {
+        // convert data from DCS to a target position expressed as a number of steps
+        long targetPosition = (long)map_function(getData());
+
+        updateCurrentStepperPosition();
+
+        long delta = targetPosition - currentStepperPosition;
+
+        // if we would move more than 180 degree counterclockwise, move clockwise instead
+        if (delta < -((long)(stepperConfig.maxSteps / 2))) delta += stepperConfig.maxSteps;
+        // if we would move more than 180 degree clockwise, move counterclockwise instead
+        if (delta > (stepperConfig.maxSteps / 2)) delta -= (long)stepperConfig.maxSteps;
+
+        movingForward = (delta >= 0);
+
+        // tell AccelStepper to move relative to the current position
+        stepper.move(delta);
+      }
+      stepper.run();
+    }
+
+    if (initState == 99) {  // Timed out looking for zero do nothing
+      stepper.disableOutputs();
+    }
+  }
+};
+
+/* modify below this line */
+
+/* define stepper parameters
+   multiple Vid60Stepper instances can share the same StepperConfig object */
+struct StepperConfig stepperConfig = {
+  720,  // maxSteps
+  200,  // maxSpeed
+  50    // acceleration
+};
+
+
+// define AccelStepper instance
+AccelStepper stepper(AccelStepper::FULL4WIRE, A12, A13, A14, A15);
+
+// define Vid60Stepper class that uses the AccelStepper instance defined in the line above
+//           v-- arbitrary name
+// Vid60Stepper alt100ftPointer(0x107e,          // address of stepper data
+Vid60Stepper standbyCompass(0x0436,         // address of stepper data
+                            stepper,        // name of AccelStepper instance
+                            stepperConfig,  // StepperConfig struct instance
+                            16,             // IR Detector Pin (must be LOW in zero position)
+                            440,            // zero offset
+                            [](unsigned int newValue) -> unsigned int {
+                              /* this function needs to map newValue to the correct number of steps */
+
+                              // For most guages this map will do
+                              //return map(newValue, 0, 65535, 0, stepperConfig.maxSteps - 1);
+
+                              // For the compass we only has 360 degrees and need to exclude upper part
+                              // of 16 bit value
+                              //Output Type: integer Address: 0x0436 Mask: 0x01ff Shift By: 0 Max. Value: 360 Description: Heading (Degrees)
+                              // so instead of 0 to 65000 its 0 to 360. Need to exclude upper part of 16 bit value
+                              newValue = newValue & 0x01ff;
+                              return map(newValue, 0, 360, 0, stepperConfig.maxSteps - 1);
+                            });
+
+
+// ************************************ Begin Compass Block
+
+
+
+
+// ********************* End Compass ***************
+
 #define NUM_BUTTONS 256
 #define BUTTONS_USED_ON_PCB 176
 #define NUM_AXES 8  // 8 axes, X, Y, Z, etc
@@ -480,15 +714,28 @@ void setup() {
   delay(1000);
   Max7219_ALL_ON();
 
-
-  for (int i = 0; i < 4; i++) {
-    SendDebug("TestLed off");
-    testled(false);
-    delay(2000);
-    SendDebug("TestLed on");
-    testled(true);
-    delay(2000);
+  SendDebug("Start Cycling PWM");
+  for (int i = 0; i < 254; i++) {
+    setPWMLights(i);
+    // SendDebug("PWM Level :" + String(i));
+    delay(20);
   }
+  for (int i = 254; i >= 0; i--) {
+    setPWMLights(i);
+    // SendDebug("PWM Level :" + String(i));
+    delay(20);
+  }
+  SendDebug("End Cycling PWM");
+  setPWMLights(128);
+
+  // for (int i = 0; i < 4; i++) {
+  //   SendDebug("TestLed off");
+  //   testled(false);
+  //   delay(2000);
+  //   SendDebug("TestLed on");
+  //   testled(true);
+  //   delay(2000);
+  // }
 
 
 
@@ -554,6 +801,7 @@ void setup() {
 
   delay(1000);
   SPIN_LED_OFF();
+  setPWMLights(0);
   Max7219_ALL_OFF();
   SendDebug("Setup Complete");
   SendDebug("Need to uncomment potentiometer mappings");
