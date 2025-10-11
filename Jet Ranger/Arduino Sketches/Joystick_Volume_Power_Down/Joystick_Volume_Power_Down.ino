@@ -2,20 +2,20 @@
 #include <HID-Settings.h>
 
 // === Pin Definitions ===
-const int powerButtonPin = 2;   // Power Down button
-const int wakeButtonPin  = 4;   // Wake Up button
-const int ledPin         = 13;  // Status LED
-const int volumePin      = A0;  // Analog input for volume control
-const int joyXPin        = A1;  // Joystick X-axis
-const int joyYPin        = A2;  // Joystick Y-axis
+const int powerButtonPin = 2;  // Power Down button
+const int wakeButtonPin = 4;   // Wake Up button
+const int ledPin = 13;         // Status LED
+const int volumePin = A0;      // Analog input for volume control
+const int joyXPin = A1;        // Joystick X-axis
+const int joyYPin = A2;        // Joystick Y-axis
 
-const int joyButtonPins[] = {8, 9, 10, 11}; // Joystick buttons (D8–D11)
+const int joyButtonPins[] = { 8, 9, 10, 11 };  // Joystick buttons (D8–D11)
 const int numJoyButtons = sizeof(joyButtonPins) / sizeof(joyButtonPins[0]);
 
 // === State Tracking ===
 bool lastPowerState = HIGH;
-bool lastWakeState  = HIGH;
-bool lastJoyButtonState[4] = {HIGH, HIGH, HIGH, HIGH};
+bool lastWakeState = HIGH;
+bool lastJoyButtonState[4] = { HIGH, HIGH, HIGH, HIGH };
 
 unsigned long debounceDelay = 50;
 
@@ -26,16 +26,16 @@ bool ledState = LOW;
 
 // Volume tracking
 int lastVolumeLevel = -1;
-const int volumeStep = 5; // Minimum change before volume update (0–100 scale)
+const int volumeStep = 5;  // Minimum change before volume update (0–100 scale)
 
 // Joystick tracking
 int lastX = -1;
 int lastY = -1;
-const int joyDeadzone = 4; // Minimum change before joystick update
+const int joyDeadzone = 4;  // Minimum change before joystick update
 
 void setup() {
   pinMode(powerButtonPin, INPUT_PULLUP);
-  pinMode(wakeButtonPin,  INPUT_PULLUP);
+  pinMode(wakeButtonPin, INPUT_PULLUP);
   pinMode(ledPin, OUTPUT);
 
   // Joystick buttons as inputs
@@ -44,9 +44,9 @@ void setup() {
   }
 
   // Initialize all HID interfaces
-  System.begin();     // Power/Sleep/Wake
-  Consumer.begin();   // Volume control
-  Gamepad.begin();    // Joystick
+  System.begin();    // Power/Sleep/Wake
+  Consumer.begin();  // Volume control
+  Gamepad.begin();   // Joystick
 }
 
 void loop() {
@@ -80,7 +80,7 @@ void loop() {
   }
 
   lastPowerState = powerState;
-  lastWakeState  = wakeState;
+  lastWakeState = wakeState;
 
   // === Volume Control (A0) ===
   int rawValue = analogRead(volumePin);
