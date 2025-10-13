@@ -254,10 +254,26 @@ DcsBios::IntegerBuffer apuReadyLtBuffer(0x74c2, 0x0800, 11, onApuReadyLtChange);
    ================================================================== */
 DcsBios::Switch3Pos engineCrankSw("ENGINE_CRANK_SW", engRightSw, engLeftSw);
 
+
+void shutdownEngineCrankMagSwitch() {
+  SendDebug(" Engine Crank to Center/off");
+  digitalWrite(engRightMag, LOW);
+  digitalWrite(engLeftMag, LOW);
+}
+
 void onEngineCrankSwChange(unsigned int newValue) {
+
+  // This does not appear to capture switch being powered off
+  // Added additional check in Switch Case Statement
   int gameState = newValue;
   int engLeftSwPos = engLeftSw;
   int engRightSwPos = engRightSw;
+
+  if (newValue == 1) {
+    SendDebug(" Engine Crank to Center/off");
+    digitalWrite(engRightMag, LOW);
+    digitalWrite(engLeftMag, LOW);
+  }
 
   if (aircraftPowerAvailable == true) {
     switch (gameState) {
@@ -269,6 +285,7 @@ void onEngineCrankSwChange(unsigned int newValue) {
         break;
 
       case 1:
+        SendDebug(" Engine Crank to Center/off");
         digitalWrite(engRightMag, LOW);
         digitalWrite(engLeftMag, LOW);
         break;
@@ -740,6 +757,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("ENGINE_CRANK_SW", "1");  // ENG CRANK OFF
           engLeftSw = LOW;
           engRightSw = LOW;
+          shutdownEngineCrankMagSwitch();
           break;
         case 51:
           sendToDcsBiosMessage("APU_CONTROL_SW", "0");  // APU "ON"
@@ -781,6 +799,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("ENGINE_CRANK_SW", "1");  // ENG CRANK OFF
           engLeftSw = LOW;
           engRightSw = LOW;
+          shutdownEngineCrankMagSwitch();
           break;
           // RELEASE
         case 62:
