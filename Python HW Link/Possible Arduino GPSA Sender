@@ -1,0 +1,139 @@
+#include <WiFi.h>          // For ESP32/ESP8266 WiFi UDP
+#include <WiFiUdp.h>       // UDP Support
+
+// -----------------------------------------------------------------------------
+// WiFi Configuration
+// -----------------------------------------------------------------------------
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
+
+// -----------------------------------------------------------------------------
+// UDP Configuration
+// -----------------------------------------------------------------------------
+WiFiUDP udp;
+unsigned int localUdpPort = 13136;  // Same port as Python version
+char incomingPacket[1500];
+
+// -----------------------------------------------------------------------------
+// GPS / NMEA Output Configuration
+// -----------------------------------------------------------------------------
+HardwareSerial& gpsSerial = Serial1;   // Use Serial1 for GPS out (or Serial if only one port)
+#define GPS_BAUD 4800                  // Common NMEA baud rate
+
+// -----------------------------------------------------------------------------
+// State Variables
+// -----------------------------------------------------------------------------
+unsigned long lastPacketTime = 0;
+unsigned long keepAliveInterval = 5000;  // 5 seconds
+unsigned long lastKeepAlive = 0;
+
+// Example simulator data structure
+float latitude = -37.814;   // Default Melbourne lat
+float longitude = 144.963;  // Default Melbourne lon
+float altitude = 100.0;
+float groundSpeed = 0.0;
+float trackAngle = 0.0;
+
+// -----------------------------------------------------------------------------
+// Helper: Generate NMEA Checksum
+// -----------------------------------------------------------------------------
+byte nmeaChecksum(const char *sentence) {
+  byte checksum = 0;
+  for (int i = 1; sentence[i] != '*' && sentence[i] != '\0'; i++) {
+    checksum ^= sentence[i];
+  }
+  return checksum;
+}
+
+// -----------------------------------------------------------------------------
+// Helper: Format NMEA Sentence (RMC + GGA basic examples)
+// -----------------------------------------------------------------------------
+void sendNMEASentences() {
+  char buffer[100];
+
+  // Example UTC time/date
+  int hour = 12, minute = 34, second = 56;
+  int day = 14, month = 10, year = 25; // 2025-10-14
+
+  // Convert lat/lon to NMEA DDDMM.MMMM format
+  float latAbs = fabs(latitude);
+  int latDeg = (int)latAbs;
+  float latMin = (latAbs - latDeg) * 60.0;
+
+  float lonAbs = fabs(longitude);
+  int lonDeg = (int)lonAbs;
+  float lonMin = (lonAbs - lonDeg) * 60.0;
+
+  char latDir = (latitude >= 0) ? 'N' : 'S';
+  char lonDir = (longitude >= 0) ? 'E' : 'W';
+
+  // $GPGGA - Fix Data
+  sprintf(buffer, "$GPGGA,%02d%02d%02d,%02d%07.4f,%c,%03d%07.4f,%c,1,08,0.9,%.1f,M,0.0,M,,",
+          hour, minute, second,
+          latDeg, latMin, latDir,
+          lonDeg, lonMin, lonDir,
+          altitude);
+  byte chk = nmeaChecksum(buffer);
+  gpsSerial.printf("%s*%02X\r\n", buffer, chk);
+
+  // $GPRMC - Recommended Minimum
+  sprintf(buffer, "$GPRMC,%02d%02d%02d,A,%02d%07.4f,%c,%03d%07.4f,%c,%.1f,%.1f,%02d%02d%02d,0.0,E",
+          hour, minute, second,
+          latDeg, latMin, latDir,
+          lonDeg, lonMin, lonDir,
+          groundSpeed * 1.94384,  // m/s → knots
+          trackAngle,
+          day, month, year);
+  chk = nmeaChecksum(buffer);
+  gpsSerial.printf("%s*%02X\r\n", buffer, chk);
+}
+
+// -----------------------------------------------------------------------------
+// Setup
+// -----------------------------------------------------------------------------
+void setup() {
+  Serial.begin(115200);
+  gpsSerial.begin(GPS_BAUD);
+  WiFi.begin(ssid, password);
+
+  Serial.println("Connecting to WiFi...");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi connected!");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+
+  udp.begin(localUdpPort);
+  Serial.printf("Listening on UDP port %d\n", localUdpPort);
+}
+
+// -----------------------------------------------------------------------------
+// Loop
+// -----------------------------------------------------------------------------
+void loop() {
+  int packetSize = udp.parsePacket();
+  if (packetSize) {
+    int len = udp.read(incomingPacket, sizeof(incomingPacket) - 1);
+    if (len > 0) incomingPacket[len] = '\0';
+
+    Serial.printf("Received %d bytes: %s\n", len, incomingPacket);
+    lastPacketTime = millis();
+
+    // TODO: parse incomingPacket to update latitude/longitude/altitude/speed
+    // For now, this is a dummy example:
+    latitude += 0.0001;
+    longitude += 0.0001;
+    groundSpeed = 60.0;
+    trackAngle = 90.0;
+
+    sendNMEASentences();
+  }
+
+  // Keep-alive: send last position if no packet received for 5s
+  if (millis() - lastPacketTime > keepAliveInterval && millis() - lastKeepAlive > keepAliveInterval) {
+    sendNMEASentences();
+    lastKeepAlive = millis();
+  }
+}
