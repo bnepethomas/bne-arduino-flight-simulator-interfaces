@@ -96,7 +96,7 @@ unsigned long timeSinceRedLedChanged = 0;
 
 // ################################### BEGIN LIGHTING ##################################
 #define BACK_LIGHTS 11
-#define LANDINIG_GEAR_HANDLE_LIGHT 12
+#define LANDINIG_GEAR_HANDLE_LIGHT 4
 
 void onConsoleIntLtChange(unsigned int newValue) {
   SendDebug("Console Lights : " + String(newValue));
@@ -1586,7 +1586,7 @@ void CreateDcsBiosMessage(int ind, int state) {
 
 
 // Ext Lights Pots
-DcsBios::PotentiometerEWMA<5, 128, 5> formationDimmer("FORMATION_DIMMER", A8);
+DcsBios::PotentiometerEWMA<5, 128, 5> formationDimmer("FORMATION_DIMMER", A10);
 DcsBios::PotentiometerEWMA<5, 128, 5> positionDimmer("POSITION_DIMMER", A15);
 
 // RUDDER TRIM
