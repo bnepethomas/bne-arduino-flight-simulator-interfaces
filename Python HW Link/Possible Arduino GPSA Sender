@@ -1,0 +1,184 @@
+#include <WiFi.h>
+#include <WiFiUdp.h>
+#include <math.h>
+
+// -----------------------------------------------------------------------------
+// WiFi Configuration
+// -----------------------------------------------------------------------------
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
+
+// -----------------------------------------------------------------------------
+// UDP Configuration
+// -----------------------------------------------------------------------------
+WiFiUDP udp;
+unsigned int localUdpPort = 13136;  // SimConnect / X-Plane port
+char incomingPacket[1500];
+
+// -----------------------------------------------------------------------------
+// GPS / NMEA Output Configuration
+// -----------------------------------------------------------------------------
+HardwareSerial& gpsSerial = Serial1;  // Use Serial1 for GPS out, or Serial if only one port
+#define GPS_BAUD 4800                 // NMEA baud rate
+
+// -----------------------------------------------------------------------------
+// Telemetry Variables
+// -----------------------------------------------------------------------------
+float latitude = -37.814;    // Default (Melbourne)
+float longitude = 144.963;
+float altitude = 100.0;
+float groundSpeed = 0.0;     // m/s
+float trackAngle = 0.0;      // degrees
+int fixQuality = 1;          // 1 = GPS fix
+int satellites = 8;
+float hdop = 0.9;
+
+unsigned long lastPacketTime = 0;
+unsigned long lastKeepAlive = 0;
+unsigned long keepAliveInterval = 5000;  // 5 seconds
+
+// -----------------------------------------------------------------------------
+// Helper: NMEA Checksum
+// -----------------------------------------------------------------------------
+byte nmeaChecksum(const char *sentence) {
+  byte checksum = 0;
+  for (int i = 1; sentence[i] != '*' && sentence[i] != '\0'; i++) {
+    checksum ^= sentence[i];
+  }
+  return checksum;
+}
+
+// -----------------------------------------------------------------------------
+// Helper: Format Coordinates for NMEA (DD -> DDDMM.MMMM)
+// -----------------------------------------------------------------------------
+void formatNMEACoords(float lat, float lon, char* latStr, char* latDir, char* lonStr, char* lonDir) {
+  float latAbs = fabs(lat);
+  int latDeg = (int)latAbs;
+  float latMin = (latAbs - latDeg) * 60.0;
+  sprintf(latStr, "%02d%07.4f", latDeg, latMin);
+  *latDir = (lat >= 0) ? 'N' : 'S';
+
+  float lonAbs = fabs(lon);
+  int lonDeg = (int)lonAbs;
+  float lonMin = (lonAbs - lonDeg) * 60.0;
+  sprintf(lonStr, "%03d%07.4f", lonDeg, lonMin);
+  *lonDir = (lon >= 0) ? 'E' : 'W';
+}
+
+// -----------------------------------------------------------------------------
+// NMEA Sentence Generator
+// -----------------------------------------------------------------------------
+void sendNMEASentences() {
+  char buffer[120];
+  char latStr[16], lonStr[16];
+  char latDir, lonDir;
+  formatNMEACoords(latitude, longitude, latStr, &latDir, lonStr, &lonDir);
+
+  // Example UTC time/date
+  int hour = 12, minute = 34, second = 56;
+  int day = 14, month = 10, year = 25;
+
+  // --- GPGGA: Fix Data ---
+  sprintf(buffer,
+          "$GPGGA,%02d%02d%02d,%s,%c,%s,%c,%d,%02d,%.1f,%.1f,M,0.0,M,,",
+          hour, minute, second,
+          latStr, latDir,
+          lonStr, lonDir,
+          fixQuality, satellites, hdop,
+          altitude);
+  byte chk = nmeaChecksum(buffer);
+  gpsSerial.printf("%s*%02X\r\n", buffer, chk);
+
+  // --- GPRMC: Recommended Minimum ---
+  sprintf(buffer,
+          "$GPRMC,%02d%02d%02d,A,%s,%c,%s,%c,%.1f,%.1f,%02d%02d%02d,0.0,E",
+          hour, minute, second,
+          latStr, latDir,
+          lonStr, lonDir,
+          groundSpeed * 1.94384, // m/s → knots
+          trackAngle,
+          day, month, year);
+  chk = nmeaChecksum(buffer);
+  gpsSerial.printf("%s*%02X\r\n", buffer, chk);
+
+  // --- GPGSA: DOP & Active Satellites ---
+  sprintf(buffer, "$GPGSA,A,3,01,02,03,04,05,06,07,08,,,,,,%.1f,%.1f,%.1f",
+          hdop, 1.5, 2.5);
+  chk = nmeaChecksum(buffer);
+  gpsSerial.printf("%s*%02X\r\n", buffer, chk);
+
+  // --- GPGSV: Satellites in View (example static data) ---
+  sprintf(buffer, "$GPGSV,1,1,08,01,40,083,42,02,17,308,45,03,22,176,43,04,30,230,41");
+  chk = nmeaChecksum(buffer);
+  gpsSerial.printf("%s*%02X\r\n", buffer, chk);
+}
+
+// -----------------------------------------------------------------------------
+// Parse Simulator UDP Packet
+// -----------------------------------------------------------------------------
+void parseUDPData(const char* data) {
+  // Example 1: X-Plane packet format
+  // "LAT:-37.814,LON:144.963,ALT:150.2,SPD:72.0,HDG:90.0"
+  float lat, lon, alt, spd, hdg;
+  if (sscanf(data, "LAT:%f,LON:%f,ALT:%f,SPD:%f,HDG:%f", &lat, &lon, &alt, &spd, &hdg) == 5) {
+    latitude = lat;
+    longitude = lon;
+    altitude = alt;
+    groundSpeed = spd;
+    trackAngle = hdg;
+    return;
+  }
+
+  // Example 2: SimConnect string (generic comma-separated)
+  // "lat,lon,alt,speed,heading"
+  if (sscanf(data, "%f,%f,%f,%f,%f", &lat, &lon, &alt, &spd, &hdg) == 5) {
+    latitude = lat;
+    longitude = lon;
+    altitude = alt;
+    groundSpeed = spd;
+    trackAngle = hdg;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// Setup
+// -----------------------------------------------------------------------------
+void setup() {
+  Serial.begin(115200);
+  gpsSerial.begin(GPS_BAUD);
+
+  WiFi.begin(ssid, password);
+  Serial.println("Connecting to WiFi...");
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\nWiFi connected!");
+  Serial.print("IP: ");
+  Serial.println(WiFi.localIP());
+
+  udp.begin(localUdpPort);
+  Serial.printf("Listening for UDP packets on port %d\n", localUdpPort);
+}
+
+// -----------------------------------------------------------------------------
+// Main Loop
+// -----------------------------------------------------------------------------
+void loop() {
+  int packetSize = udp.parsePacket();
+  if (packetSize) {
+    int len = udp.read(incomingPacket, sizeof(incomingPacket) - 1);
+    if (len > 0) incomingPacket[len] = '\0';
+    Serial.printf("UDP packet: %s\n", incomingPacket);
+
+    parseUDPData(incomingPacket);
+    sendNMEASentences();
+    lastPacketTime = millis();
+  }
+
+  // Send keep-alive if no packet received recently
+  if (millis() - lastPacketTime > keepAliveInterval && millis() - lastKeepAlive > keepAliveInterval) {
+    sendNMEASentences();
+    lastKeepAlive = millis();
+  }
+}
