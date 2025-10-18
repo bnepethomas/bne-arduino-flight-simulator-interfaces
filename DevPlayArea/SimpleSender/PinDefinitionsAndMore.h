@@ -136,15 +136,15 @@
 || defined(__AVR_ATmega1281__) || defined(__AVR_ATmega2561__) \
 || defined(__AVR_ATmega8515__) || defined(__AVR_ATmega162__)
 #define IR_RECEIVE_PIN      2
-#define IR_SEND_PIN        9
+#define IR_SEND_PIN        8
 #define TONE_PIN            4
 #define APPLICATION_PIN     5
 #define ALTERNATIVE_IR_FEEDBACK_LED_PIN 6 // E.g. used for examples which use LED_BUILDIN for example output.
 #define _IR_TIMING_TEST_PIN 7
 
 #  else // Default as for ATmega328 like on Uno, Nano, Leonardo, Teensy 2.0 etc.
-#define IR_RECEIVE_PIN      8 // To be compatible with interrupt example, pin 2 is chosen here.
-#define IR_SEND_PIN         3
+#define IR_RECEIVE_PIN      2 // To be compatible with interrupt example, pin 2 is chosen here.
+#define IR_SEND_PIN         13
 #define TONE_PIN            4
 #define APPLICATION_PIN     5
 #define ALTERNATIVE_IR_FEEDBACK_LED_PIN 6 // E.g. used for examples which use LED_BUILDIN for example output.
