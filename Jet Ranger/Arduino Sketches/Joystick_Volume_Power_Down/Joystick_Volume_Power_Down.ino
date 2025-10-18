@@ -66,13 +66,13 @@ void SendDebug(String MessageToSend) {
 
 // === Pin Definitions ===
 const int powerButtonPin = 2;  // Power Down button
-const int wakeButtonPin = 4;   // Wake Up button
+const int wakeButtonPin = 3;   // Wake Up button
 const int ledPin = 13;         // Status LED
 const int volumePin = A0;      // Analog input for volume control
 const int joyXPin = A1;        // Joystick X-axis
 const int joyYPin = A2;        // Joystick Y-axis
 
-const int joyButtonPins[] = { 8, 9, 10, 11 };  // Joystick buttons (D8–D11)
+const int joyButtonPins[] = { 3, 4, 5, 6 };  // Joystick buttons (D8–D11)
 const int numJoyButtons = sizeof(joyButtonPins) / sizeof(joyButtonPins[0]);
 
 // === State Tracking ===
@@ -99,11 +99,11 @@ const int joyDeadzone = 4;  // Minimum change before joystick update
 #define RED_STATUS_LED_PORT 13
 #define FLASH_TIME 300
 
-// #include <IRremote.h>
+#include <IRremote.h>
 
-// int RECV_PIN = 8;
-// IRrecv irrecv(RECV_PIN);
-// decode_results results;
+int RECV_PIN = 8;
+IRrecv irrecv(RECV_PIN);
+decode_results results;
 
 void setup() {
   pinMode(powerButtonPin, INPUT_PULLUP);
@@ -143,15 +143,20 @@ void setup() {
 
 
 
+  SendDebug(BoardName + " Start Joystick Pins Allocation");
   // Joystick buttons as inputs
   for (int i = 0; i < numJoyButtons; i++) {
     pinMode(joyButtonPins[i], INPUT_PULLUP);
   }
+  SendDebug(BoardName + " Joystick Pins Allocated");
 
   // Initialize all HID interfaces
-  System.begin();    // Power/Sleep/Wake
+  System.begin();  // Power/Sleep/Wake
+  SendDebug(BoardName + " System Started");
   Consumer.begin();  // Volume control
-  Gamepad.begin();   // Joystick
+  SendDebug(BoardName + " Volume Started");
+  Gamepad.begin();  // Joystick
+  SendDebug(BoardName + " Joystick Started");
 
   // irrecv.enableIRIn();
 
