@@ -192,7 +192,7 @@ void onIfeiRpmRChange(char* newValue) {
     rightStarterAvailable = false;
     return rightStarterAvailable;
   } else {
-    rightStarterAvailable = false;
+    rightStarterAvailable = true;
     return rightStarterAvailable;
   }
 }
