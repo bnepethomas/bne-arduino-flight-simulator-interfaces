@@ -94,6 +94,7 @@ bool RED_LED_STATE = false;
 unsigned long timeSinceRedLedChanged = 0;
 
 
+
 // ################################### BEGIN LIGHTING ##################################
 #define BACK_LIGHTS 11
 #define LANDINIG_GEAR_HANDLE_LIGHT 4
@@ -256,7 +257,7 @@ DcsBios::Switch3Pos engineCrankSw("ENGINE_CRANK_SW", engRightSw, engLeftSw);
 
 
 void shutdownEngineCrankMagSwitch() {
-  SendDebug(" Engine Crank to Center/off");
+  //SendDebug(" Engine Crank to Center/off");
   digitalWrite(engRightMag, LOW);
   digitalWrite(engLeftMag, LOW);
 }
@@ -470,6 +471,8 @@ void setup() {
   pinMode(LANDINIG_GEAR_HANDLE_LIGHT, OUTPUT);
   analogWrite(BACK_LIGHTS, 255);
   analogWrite(LANDINIG_GEAR_HANDLE_LIGHT, 255);
+  pinMode(apuLED, OUTPUT);
+  digitalWrite(apuLED, HIGH);
   delay(3000);
 
   SendDebug("Dimming Leds");
@@ -552,6 +555,8 @@ void setup() {
   // analogWrite(FORMATION_LIGHTS, BrightnessPostSetup);
   analogWrite(BACK_LIGHTS, BrightnessPostSetup);
   // analogWrite(FLOOD_LIGHTS, BrightnessPostSetup);
+
+  digitalWrite(apuLED, LOW);
 
   SendDebug(BoardName + " End Setup");
 }
@@ -1602,6 +1607,14 @@ DcsBios::Potentiometer comTacan("COM_TACAN", A5);
 DcsBios::Potentiometer comVox("COM_VOX", A0);
 DcsBios::Potentiometer comWpn("COM_WPN", A13);
 
+int DCS_On = 0;
+int previous_DCS_State = 0;
+int DCS_State = 0;
+
+void onUpdateCounterChange(unsigned int newValue) {
+  DCS_State = newValue;
+}
+DcsBios::IntegerBuffer UpdateCounterBuffer(0xfffe, 0x00ff, 0, onUpdateCounterChange);
 
 
 
@@ -1747,5 +1760,24 @@ void loop() {
     if (RudderTrimPosition != RudderTrimLastPosition) {
       RudderTrimLastPosition = RudderTrimPosition;
     }
+  }
+
+
+  //******************************************************************************************************************************************
+  //         STEPPER SAFETY CHECK CODE, WILL NOT TUNR STEPPERS ON IF DCS BIOS NOT RUNNING, OR IF GAME PAUSED AFTER 1 SECOND   \\
+
+  if (DCS_State != previous_DCS_State) {
+    //restart the TIMER
+    dcsMillis = millis();
+    previous_DCS_State = DCS_State;
+  }
+
+
+  if (millis() - dcsMillis >= (1000))  // 1 SECOND DELAY BEFORE POWER OFF STEPPERS
+  {
+    // disableAllPointers();
+    shutdownEngineCrankMagSwitch();
+    digitalWrite(apuMag, LOW);
+    digitalWrite(apuLED, LOW);
   }
 }
