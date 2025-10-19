@@ -97,13 +97,30 @@ int RECV_PIN = 3;
 //decode_results results;
 
 void sendShiftLeft() {
-  uint8_t sCommand = 0xE;
+  uint8_t sCommand = 0x14;
   uint8_t sRepeats = 0;
 
   SendDebug("Send now: address=0x00, command=0x" + String(sCommand, HEX)  + " repeat " + String(sRepeats));
   SendDebug("Send standard NEC with 8 bit address");
 
 
+  // Receiver output for the first loop must be: Protocol=NEC Address=0x102 Command=0x34 Raw-Data=0xCB340102 (32 bits)
+  IrSender.sendNEC(0x00, sCommand, sRepeats);
+
+  SendDebug("Waiting 35 Seconds");
+  delay(35000);
+
+  sCommand = 0xE;
+  SendDebug("Send now: address=0x00, command=0x" + String(sCommand, HEX)  + " repeat " + String(sRepeats));
+  SendDebug("Send standard NEC with 8 bit address");
+  // Receiver output for the first loop must be: Protocol=NEC Address=0x102 Command=0x34 Raw-Data=0xCB340102 (32 bits)
+  IrSender.sendNEC(0x00, sCommand, sRepeats);
+
+  delay(1000);
+
+  sCommand = 0x7;
+  SendDebug("Send now: address=0x00, command=0x" + String(sCommand, HEX)  + " repeat " + String(sRepeats));
+  SendDebug("Send standard NEC with 8 bit address");
   // Receiver output for the first loop must be: Protocol=NEC Address=0x102 Command=0x34 Raw-Data=0xCB340102 (32 bits)
   IrSender.sendNEC(0x00, sCommand, sRepeats);
 
