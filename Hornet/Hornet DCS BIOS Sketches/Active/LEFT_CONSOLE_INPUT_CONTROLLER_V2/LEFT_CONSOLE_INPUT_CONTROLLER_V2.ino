@@ -271,7 +271,7 @@ void onEngineCrankSwChange(unsigned int newValue) {
   int engRightSwPos = engRightSw;
 
   if (newValue == 1) {
-    SendDebug(" Engine Crank to Center/off");
+    //SendDebug(" Engine Crank to Center/off");
     digitalWrite(engRightMag, LOW);
     digitalWrite(engLeftMag, LOW);
   }
@@ -280,7 +280,7 @@ void onEngineCrankSwChange(unsigned int newValue) {
     switch (gameState) {
       case 0:
         if (leftStarterAvailable == true) {
-          digitalWrite(engRightMag, LOW);
+          digitalWrite(engRightMag, HIGH);
           digitalWrite(engLeftMag, HIGH);
         }
         break;
@@ -294,7 +294,7 @@ void onEngineCrankSwChange(unsigned int newValue) {
       case 2:
         if (rightStarterAvailable == true) {
           digitalWrite(engRightMag, HIGH);
-          digitalWrite(engLeftMag, LOW);
+          digitalWrite(engLeftMag, HIGH);
         }
         break;
     }
