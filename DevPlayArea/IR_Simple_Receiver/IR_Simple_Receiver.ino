@@ -86,7 +86,7 @@ void setup() {
 }
 
 void displayreceivedvalue(int commandcode, String description) {
-  String wkrString = "Received: " + description + " 0x" + String(commandcode, HEX);
+  String wkrString =  String(millis()) + ": Received: " + description + " 0x" + String(commandcode, HEX);
   Serial.println(wkrString);
 }
 

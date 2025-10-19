@@ -50,7 +50,7 @@ void setup() {
  * and a variable 8 bit command.
  * There are exceptions like Sony and Denon, which have 5 bit address.
  */
-uint8_t sCommand = 0x34;
+uint8_t sCommand = 0xE;
 uint8_t sRepeats = 0;
 
 void loop() {
