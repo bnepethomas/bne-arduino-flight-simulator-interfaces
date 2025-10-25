@@ -254,7 +254,8 @@ DcsBios::IntegerBuffer mcDischBuffer(0x740c, 0x4000, 14, onMcDischChange);
 void MASTER_ARM_AA(bool ledstate) {
   // Led location
   // Cathode -1, Anode
-  lc.setLed(0, 5, 2, ledstate);
+  lc.setLed(0, 4, 2, ledstate);
+
 }
 
 void onMasterModeAaLtChange(unsigned int newValue) {
@@ -269,7 +270,7 @@ DcsBios::IntegerBuffer masterModeAaLtBuffer(0x740c, 0x0200, 9, onMasterModeAaLtC
 void MASTER_ARM_AG(bool ledstate) {
   // Led location
   // Cathode -1, Anode
-  lc.setLed(0, 4, 2, ledstate);
+  lc.setLed(0, 5, 2, ledstate);
 }
 
 void onMasterModeAgLtChange(unsigned int newValue) {
@@ -414,12 +415,56 @@ void EWI_SAM(bool ledstate) {
   lc.setLed(0, 2, 4, ledstate);
 }
 
-void EWI_SAM(bool ledstate) {
+void EWI_AAA(bool ledstate) {
   lc.setLed(0, 2, 5, ledstate);
 }
 
+void EWI_NOGO(bool ledstate) {
+  lc.setLed(0, 1, 1, ledstate);
+}
+
+void EWI_R_BLEED(bool ledstate) {
+  lc.setLed(0, 1, 2, ledstate);
+}
+
+void EWI_STBY(bool ledstate) {
+  lc.setLed(0, 1, 3, ledstate);
+}
+
+void EWI_REC(bool ledstate) {
+  lc.setLed(0, 1, 4, ledstate);
+}
+
+void EWI_XMIT(bool ledstate) {
+  lc.setLed(0, 1, 5, ledstate);
+}
+
+void EWI_ASPJ(bool ledstate) {
+  lc.setLed(0, 1, 6, ledstate);
+}
+
+void EWI_GO(bool ledstate) {
+  lc.setLed(0, 0, 1, ledstate);
+}
+
+void EWI_L_BLEED(bool ledstate) {
+  lc.setLed(0, 0, 2, ledstate);
+}
+
+void EWI_SPD_BRK(bool ledstate) {
+  lc.setLed(0, 0, 3, ledstate);
+}
+
+void EWI_L_BAR_RED(bool ledstate) {
+  lc.setLed(0, 0, 4, ledstate);
+}
+
+void EWI_L_BAR_GREEN(bool ledstate) {
+  lc.setLed(0, 0, 5, ledstate);
+}
+
 void testled(bool ledstate) {
-  int row = 2;
+  int row = 0;
   int col = 5;
   SendDebug("Prod row :" + String(row) + " col :" + String(col));
   lc.setLed(0, row, col, ledstate);
@@ -776,9 +821,11 @@ void setup() {
   for (int i = 0; i < 4; i++) {
     SendDebug("TestLed off");
     testled(false);
+    MASTER_ARM_AG(false);
     delay(2000);
     SendDebug("TestLed on");
     testled(true);
+    MASTER_ARM_AG(true);
     delay(2000);
   }
 
