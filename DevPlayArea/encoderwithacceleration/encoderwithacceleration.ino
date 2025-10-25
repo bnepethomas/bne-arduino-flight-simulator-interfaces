@@ -1,5 +1,16 @@
 // Rotary Encoder Sketch with Interrupts and Acceleration
 // Designed for Arduino UNO/Nano/Mega
+
+//Interrupt Number	Arduino Pin
+// 0	Pin 2
+// 1	Pin 3
+// 2	Pin 21
+// 3	Pin 20
+// 4	Pin 19
+// 5	Pin 18
+
+//The Arduino Due supports the most interrupt pins by far because its microcontroller (the Atmel SAM3X8E, which uses an ARM Cortex-M3 core) 
+// allows all 54 digital pins and all 12 analog pins to be used as external interrupt sources.
 float smoothedoutput = 0;
 
 #include "LedControl.h"
