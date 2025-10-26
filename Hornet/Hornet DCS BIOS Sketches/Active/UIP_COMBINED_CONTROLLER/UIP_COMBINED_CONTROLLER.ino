@@ -419,6 +419,21 @@ void EWI_AAA(bool ledstate) {
   lc.setLed(0, 2, 5, ledstate);
 }
 
+void EWI_RIGHT_FIRE(bool ledstate) {
+  lc.setLed(0, 2, 6, ledstate);
+}
+
+void EWI_RIGHT_APU(bool ledstate) {
+  lc.setLed(0, 2, 7, ledstate);
+}
+
+void testled(bool ledstate) {
+  int row = 2;
+  int col = 7;
+  SendDebug("Prod row :" + String(row) + " col :" + String(col));
+  lc.setLed(0, row, col, ledstate);
+}
+
 void EWI_NOGO(bool ledstate) {
   lc.setLed(0, 1, 1, ledstate);
 }
@@ -463,12 +478,15 @@ void EWI_L_BAR_GREEN(bool ledstate) {
   lc.setLed(0, 0, 5, ledstate);
 }
 
-void testled(bool ledstate) {
-  int row = 0;
-  int col = 5;
-  SendDebug("Prod row :" + String(row) + " col :" + String(col));
-  lc.setLed(0, row, col, ledstate);
+void EWI_L_FIRE(bool ledstate) {
+  lc.setLed(0, 0, 6, ledstate);
 }
+
+void EWI_L_CAUTION(bool ledstate) {
+  lc.setLed(0, 0, 7, ledstate);
+}
+
+
 
 
 // ********************* End Max7219 ********************
@@ -818,16 +836,14 @@ void setup() {
     setPWMLights(128);
   }
 
-  for (int i = 0; i < 4; i++) {
-    SendDebug("TestLed off");
-    testled(false);
-    MASTER_ARM_AG(false);
-    delay(2000);
-    SendDebug("TestLed on");
-    testled(true);
-    MASTER_ARM_AG(true);
-    delay(2000);
-  }
+  // for (int i = 0; i < 4; i++) {
+  //   SendDebug("TestLed off");
+  //   testled(false);
+  //   delay(2000);
+  //   SendDebug("TestLed on");
+  //   testled(true);
+  //   delay(2000);
+  // }
 
 
 
@@ -1971,6 +1987,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 161:  //FA-18C_hornet/IR_COOL_SW
           sendToDcsBiosMessage("IR_COOL_SW", "2");
+          break;
         case 162:  //FA-18C_hornet/HUD_ALT_SW
           sendToDcsBiosMessage("HUD_ALT_SW", "1");
           break;
