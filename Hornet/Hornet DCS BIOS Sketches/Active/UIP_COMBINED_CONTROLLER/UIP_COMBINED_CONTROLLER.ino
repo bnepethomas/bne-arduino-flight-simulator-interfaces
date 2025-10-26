@@ -1,13 +1,17 @@
 /*
 
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
-  //||                  FUNCTION = HORNET FORWARD INPUT                 ||\\
-  //||              LOCATION IN THE PIT = LIP LEFTHAND SIDE             ||\\
+  //||                  FUNCTION = UIP COMBINED                        ||\\
+  //||              LOCATION IN THE PIT = UIP                          ||\\
   //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
   //||      ARDUINO CHIP SERIAL NUMBER = SN -       ||\\
   //||                    CONNECTED COM PORT = COM 25                    ||\\
   //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
+
+Todos
+
+Hud Motor Controller - currently looking at delta between TMC2208 and TMC2209
 
   This Superceedes udp_input_controller
   Split from udp_input_controller_2 20200802
@@ -313,7 +317,6 @@ DcsBios::IntegerBuffer aoaIndexerNormalBuffer(0x7408, 0x0010, 4, onAoaIndexerNor
 void AOA_BELOW(bool ledstate) {
   lc.setLed(0, 7, 4, ledstate);
 }
-
 void onAoaIndexerLowChange(unsigned int newValue) {
   if (newValue == 1) {
     AOA_BELOW(true);
@@ -328,15 +331,16 @@ void BIT_LED_A(bool ledstate) {
   lc.setLed(0, 4, 7, ledstate);
 }
 
+
 void BIT_LED_B(bool ledstate) {
   lc.setLed(0, 5, 7, ledstate);
 }
+
 
 void LOCKSHOOT_SHOOT(bool ledstate) {
   lc.setLed(0, 5, 6, ledstate);
   lc.setLed(0, 5, 5, ledstate);
 }
-
 void onLsShootChange(unsigned int newValue) {
   if (newValue == 1) {
     LOCKSHOOT_SHOOT(true);
@@ -351,7 +355,6 @@ void LOCKSHOOT_STROBE(bool ledstate) {
   lc.setLed(0, 4, 5, ledstate);
   lc.setLed(0, 5, 4, ledstate);
 }
-
 void onLsShootStrobeChange(unsigned int newValue) {
   if (newValue == 1) {
     LOCKSHOOT_STROBE(true);
@@ -361,11 +364,11 @@ void onLsShootStrobeChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer lsShootStrobeBuffer(0x7408, 0x0004, 2, onLsShootStrobeChange);
 
+
 void LOCKSHOOT_LOCK(bool ledstate) {
   lc.setLed(0, 4, 6, ledstate);
   lc.setLed(0, 4, 6, ledstate);
 }
-
 void onLsLockChange(unsigned int newValue) {
   if (newValue == 1) {
     LOCKSHOOT_LOCK(true);
@@ -374,6 +377,7 @@ void onLsLockChange(unsigned int newValue) {
   }
 }
 DcsBios::IntegerBuffer lsLockBuffer(0x7408, 0x0001, 0, onLsLockChange);
+
 
 void EWI_RCDR_ON(bool ledstate) {
   lc.setLed(0, 3, 1, ledstate);
@@ -387,6 +391,7 @@ void onRhAdvRcdrOnChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvRcdrOnBuffer(FA_18C_hornet_RH_ADV_RCDR_ON, onRhAdvRcdrOnChange);
 
+
 void R_EWI_SPARE_1(bool ledstate) {
   lc.setLed(0, 3, 2, ledstate);
 }
@@ -398,6 +403,7 @@ void onRhAdvSpareRh1Change(unsigned int newValue) {
   }
 }
 DcsBios::IntegerBuffer rhAdvSpareRh1Buffer(FA_18C_hornet_RH_ADV_SPARE_RH1, onRhAdvSpareRh1Change);
+
 
 void R_EWI_SPARE_2(bool ledstate) {
   lc.setLed(0, 3, 3, ledstate);
@@ -411,6 +417,7 @@ void onRhAdvSpareRh2Change(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvSpareRh2Buffer(FA_18C_hornet_RH_ADV_SPARE_RH2, onRhAdvSpareRh2Change);
 
+
 void R_EWI_SPARE_3(bool ledstate) {
   lc.setLed(0, 3, 4, ledstate);
 }
@@ -422,6 +429,7 @@ void onRhAdvSpareRh3Change(unsigned int newValue) {
   }
 }
 DcsBios::IntegerBuffer rhAdvSpareRh3Buffer(FA_18C_hornet_RH_ADV_SPARE_RH3, onRhAdvSpareRh3Change);
+
 
 void EWI_AI(bool ledstate) {
   lc.setLed(0, 3, 5, ledstate);
@@ -435,6 +443,7 @@ void onRhAdvAiChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvAiBuffer(FA_18C_hornet_RH_ADV_AI, onRhAdvAiChange);
 
+
 void EWI_CW(bool ledstate) {
   lc.setLed(0, 3, 6, ledstate);
 }
@@ -446,6 +455,7 @@ void onRhAdvCwChange(unsigned int newValue) {
   }
 }
 DcsBios::IntegerBuffer rhAdvCwBuffer(FA_18C_hornet_RH_ADV_CW, onRhAdvCwChange);
+
 
 void EWI_DISP(bool ledstate) {
   lc.setLed(0, 2, 1, ledstate);
@@ -459,13 +469,32 @@ void onRhAdvDispChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvDispBuffer(FA_18C_hornet_RH_ADV_DISP, onRhAdvDispChange);
 
+
 void R_EWI_SPARE_4(bool ledstate) {
   lc.setLed(0, 2, 2, ledstate);
 }
+void onRhAdvSpareRh4Change(unsigned int newValue) {
+  if (newValue == 1) {
+    R_EWI_SPARE_4(true);
+  } else {
+    R_EWI_SPARE_4(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvSpareRh4Buffer(FA_18C_hornet_RH_ADV_SPARE_RH4, onRhAdvSpareRh4Change);
+
 
 void R_EWI_SPARE_5(bool ledstate) {
   lc.setLed(0, 2, 3, ledstate);
 }
+void onRhAdvSpareRh5Change(unsigned int newValue) {
+  if (newValue == 1) {
+    R_EWI_SPARE_5(true);
+  } else {
+    R_EWI_SPARE_5(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvSpareRh5Buffer(FA_18C_hornet_RH_ADV_SPARE_RH5, onRhAdvSpareRh5Change);
+
 
 void EWI_SAM(bool ledstate) {
   lc.setLed(0, 2, 4, ledstate);
@@ -479,10 +508,10 @@ void onRhAdvSamChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvSamBuffer(FA_18C_hornet_RH_ADV_SAM, onRhAdvSamChange);
 
+
 void EWI_AAA(bool ledstate) {
   lc.setLed(0, 2, 5, ledstate);
 }
-
 void onRhAdvAaaChange(unsigned int newValue) {
   if (newValue == 1) {
     EWI_AAA(true);
@@ -492,13 +521,201 @@ void onRhAdvAaaChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer rhAdvAaaBuffer(FA_18C_hornet_RH_ADV_AAA, onRhAdvAaaChange);
 
+
 void EWI_RIGHT_FIRE(bool ledstate) {
   lc.setLed(0, 2, 6, ledstate);
 }
+void onFireRightLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_RIGHT_FIRE(true);
+  } else {
+    EWI_RIGHT_FIRE(false);
+  }
+}
+DcsBios::IntegerBuffer fireRightLtBuffer(FA_18C_hornet_FIRE_RIGHT_LT, onFireRightLtChange);
+
 
 void EWI_RIGHT_APU(bool ledstate) {
   lc.setLed(0, 2, 7, ledstate);
 }
+void onFireApuLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_RIGHT_APU(true);
+  } else {
+    EWI_RIGHT_APU(false);
+  }
+}
+DcsBios::IntegerBuffer fireApuLtBuffer(FA_18C_hornet_FIRE_APU_LT, onFireApuLtChange);
+
+
+void EWI_NOGO(bool ledstate) {
+  lc.setLed(0, 1, 1, ledstate);
+}
+void onLhAdvNoGoChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_NOGO(true);
+  } else {
+    EWI_NOGO(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvNoGoBuffer(FA_18C_hornet_LH_ADV_NO_GO, onLhAdvNoGoChange);
+
+
+void EWI_R_BLEED(bool ledstate) {
+  lc.setLed(0, 1, 2, ledstate);
+}
+void onLhAdvRBleedChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_R_BLEED(true);
+  } else {
+    EWI_R_BLEED(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvRBleedBuffer(FA_18C_hornet_LH_ADV_R_BLEED, onLhAdvRBleedChange);
+
+
+void EWI_STBY(bool ledstate) {
+  lc.setLed(0, 1, 3, ledstate);
+}
+void onLhAdvStbyChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_STBY(true);
+  } else {
+    EWI_STBY(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvStbyBuffer(FA_18C_hornet_LH_ADV_STBY, onLhAdvStbyChange);
+
+
+void EWI_REC(bool ledstate) {
+  lc.setLed(0, 1, 4, ledstate);
+}
+void onLhAdvRecChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_REC(true);
+  } else {
+    EWI_REC(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvRecBuffer(FA_18C_hornet_LH_ADV_REC, onLhAdvRecChange);
+
+
+void EWI_XMIT(bool ledstate) {
+  lc.setLed(0, 1, 5, ledstate);
+}
+void onLhAdvXmitChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_XMIT(true);
+  } else {
+    EWI_XMIT(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvXmitBuffer(FA_18C_hornet_LH_ADV_XMIT, onLhAdvXmitChange);
+
+
+void EWI_ASPJ(bool ledstate) {
+  lc.setLed(0, 1, 6, ledstate);
+}
+void onLhAdvAspjOhChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_ASPJ(true);
+  } else {
+    EWI_ASPJ(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvAspjOhBuffer(FA_18C_hornet_LH_ADV_ASPJ_OH, onLhAdvAspjOhChange);
+
+
+void EWI_GO(bool ledstate) {
+  lc.setLed(0, 0, 1, ledstate);
+}
+void onLhAdvGoChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_GO(true);
+  } else {
+    EWI_GO(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvGoBuffer(FA_18C_hornet_LH_ADV_GO, onLhAdvGoChange);
+
+
+void EWI_L_BLEED(bool ledstate) {
+  lc.setLed(0, 0, 2, ledstate);
+}
+void onLhAdvLBleedChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_L_BLEED(true);
+  } else {
+    EWI_L_BLEED(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvLBleedBuffer(FA_18C_hornet_LH_ADV_L_BLEED, onLhAdvLBleedChange);
+
+
+void EWI_SPD_BRK(bool ledstate) {
+  lc.setLed(0, 0, 3, ledstate);
+}
+void onLhAdvSpdBrkChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_SPD_BRK(true);
+  } else {
+    EWI_SPD_BRK(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvSpdBrkBuffer(FA_18C_hornet_LH_ADV_SPD_BRK, onLhAdvSpdBrkChange);
+
+
+void EWI_L_BAR_RED(bool ledstate) {
+  lc.setLed(0, 0, 4, ledstate);
+}
+void onLhAdvLBarRedChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_L_BAR_RED(true);
+  } else {
+    EWI_L_BAR_RED(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvLBarRedBuffer(FA_18C_hornet_LH_ADV_L_BAR_RED, onLhAdvLBarRedChange);
+
+
+void EWI_L_BAR_GREEN(bool ledstate) {
+  lc.setLed(0, 0, 5, ledstate);
+}
+void onLhAdvLBarGreenChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_L_BAR_GREEN(true);
+  } else {
+    EWI_L_BAR_GREEN(false);
+  }
+}
+DcsBios::IntegerBuffer lhAdvLBarGreenBuffer(FA_18C_hornet_LH_ADV_L_BAR_GREEN, onLhAdvLBarGreenChange);
+
+
+void EWI_L_FIRE(bool ledstate) {
+  lc.setLed(0, 0, 6, ledstate);
+}
+void onFireLeftLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_L_FIRE(true);
+  } else {
+    EWI_L_FIRE(false);
+  }
+}
+DcsBios::IntegerBuffer fireLeftLtBuffer(FA_18C_hornet_FIRE_LEFT_LT, onFireLeftLtChange);
+
+
+void EWI_L_CAUTION(bool ledstate) {
+  lc.setLed(0, 0, 7, ledstate);
+}
+void onMasterCautionLtChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_L_CAUTION(true);
+  } else {
+    EWI_L_CAUTION(false);
+  }
+}
+DcsBios::IntegerBuffer masterCautionLtBuffer(FA_18C_hornet_MASTER_CAUTION_LT, onMasterCautionLtChange);
+
 
 void testled(bool ledstate) {
   int row = 2;
@@ -506,60 +723,6 @@ void testled(bool ledstate) {
   SendDebug("Prod row :" + String(row) + " col :" + String(col));
   lc.setLed(0, row, col, ledstate);
 }
-
-void EWI_NOGO(bool ledstate) {
-  lc.setLed(0, 1, 1, ledstate);
-}
-
-void EWI_R_BLEED(bool ledstate) {
-  lc.setLed(0, 1, 2, ledstate);
-}
-
-void EWI_STBY(bool ledstate) {
-  lc.setLed(0, 1, 3, ledstate);
-}
-
-void EWI_REC(bool ledstate) {
-  lc.setLed(0, 1, 4, ledstate);
-}
-
-void EWI_XMIT(bool ledstate) {
-  lc.setLed(0, 1, 5, ledstate);
-}
-
-void EWI_ASPJ(bool ledstate) {
-  lc.setLed(0, 1, 6, ledstate);
-}
-
-void EWI_GO(bool ledstate) {
-  lc.setLed(0, 0, 1, ledstate);
-}
-
-void EWI_L_BLEED(bool ledstate) {
-  lc.setLed(0, 0, 2, ledstate);
-}
-
-void EWI_SPD_BRK(bool ledstate) {
-  lc.setLed(0, 0, 3, ledstate);
-}
-
-void EWI_L_BAR_RED(bool ledstate) {
-  lc.setLed(0, 0, 4, ledstate);
-}
-
-void EWI_L_BAR_GREEN(bool ledstate) {
-  lc.setLed(0, 0, 5, ledstate);
-}
-
-void EWI_L_FIRE(bool ledstate) {
-  lc.setLed(0, 0, 6, ledstate);
-}
-
-void EWI_L_CAUTION(bool ledstate) {
-  lc.setLed(0, 0, 7, ledstate);
-}
-
-
 
 
 // ********************* End Max7219 ********************
