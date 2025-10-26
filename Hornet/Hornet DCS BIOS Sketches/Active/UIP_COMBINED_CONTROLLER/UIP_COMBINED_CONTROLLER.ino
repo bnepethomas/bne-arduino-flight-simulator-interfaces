@@ -254,7 +254,8 @@ DcsBios::IntegerBuffer mcDischBuffer(0x740c, 0x4000, 14, onMcDischChange);
 void MASTER_ARM_AA(bool ledstate) {
   // Led location
   // Cathode -1, Anode
-  lc.setLed(0, 5, 2, ledstate);
+  lc.setLed(0, 4, 2, ledstate);
+
 }
 
 void onMasterModeAaLtChange(unsigned int newValue) {
@@ -269,7 +270,7 @@ DcsBios::IntegerBuffer masterModeAaLtBuffer(0x740c, 0x0200, 9, onMasterModeAaLtC
 void MASTER_ARM_AG(bool ledstate) {
   // Led location
   // Cathode -1, Anode
-  lc.setLed(0, 4, 2, ledstate);
+  lc.setLed(0, 5, 2, ledstate);
 }
 
 void onMasterModeAgLtChange(unsigned int newValue) {
@@ -374,14 +375,118 @@ void onLsLockChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer lsLockBuffer(0x7408, 0x0001, 0, onLsLockChange);
 
+void RCDR_ON(bool ledstate) {
+  lc.setLed(0, 3, 1, ledstate);
+}
 
+void R_EWI_SPARE_1(bool ledstate) {
+  lc.setLed(0, 3, 2, ledstate);
+}
+
+void R_EWI_SPARE_2(bool ledstate) {
+  lc.setLed(0, 3, 3, ledstate);
+}
+
+void R_EWI_SPARE_3(bool ledstate) {
+  lc.setLed(0, 3, 4, ledstate);
+}
+
+void EWI_AI(bool ledstate) {
+  lc.setLed(0, 3, 5, ledstate);
+}
+
+void EWI_CW(bool ledstate) {
+  lc.setLed(0, 3, 6, ledstate);
+}
+
+void EWI_DISP(bool ledstate) {
+  lc.setLed(0, 2, 1, ledstate);
+}
+
+void R_EWI_SPARE_4(bool ledstate) {
+  lc.setLed(0, 2, 2, ledstate);
+}
+
+void R_EWI_SPARE_5(bool ledstate) {
+  lc.setLed(0, 2, 3, ledstate);
+}
+
+void EWI_SAM(bool ledstate) {
+  lc.setLed(0, 2, 4, ledstate);
+}
+
+void EWI_AAA(bool ledstate) {
+  lc.setLed(0, 2, 5, ledstate);
+}
+
+void EWI_RIGHT_FIRE(bool ledstate) {
+  lc.setLed(0, 2, 6, ledstate);
+}
+
+void EWI_RIGHT_APU(bool ledstate) {
+  lc.setLed(0, 2, 7, ledstate);
+}
 
 void testled(bool ledstate) {
-  int row = 4;
-  int col = 4;
+  int row = 2;
+  int col = 7;
   SendDebug("Prod row :" + String(row) + " col :" + String(col));
   lc.setLed(0, row, col, ledstate);
 }
+
+void EWI_NOGO(bool ledstate) {
+  lc.setLed(0, 1, 1, ledstate);
+}
+
+void EWI_R_BLEED(bool ledstate) {
+  lc.setLed(0, 1, 2, ledstate);
+}
+
+void EWI_STBY(bool ledstate) {
+  lc.setLed(0, 1, 3, ledstate);
+}
+
+void EWI_REC(bool ledstate) {
+  lc.setLed(0, 1, 4, ledstate);
+}
+
+void EWI_XMIT(bool ledstate) {
+  lc.setLed(0, 1, 5, ledstate);
+}
+
+void EWI_ASPJ(bool ledstate) {
+  lc.setLed(0, 1, 6, ledstate);
+}
+
+void EWI_GO(bool ledstate) {
+  lc.setLed(0, 0, 1, ledstate);
+}
+
+void EWI_L_BLEED(bool ledstate) {
+  lc.setLed(0, 0, 2, ledstate);
+}
+
+void EWI_SPD_BRK(bool ledstate) {
+  lc.setLed(0, 0, 3, ledstate);
+}
+
+void EWI_L_BAR_RED(bool ledstate) {
+  lc.setLed(0, 0, 4, ledstate);
+}
+
+void EWI_L_BAR_GREEN(bool ledstate) {
+  lc.setLed(0, 0, 5, ledstate);
+}
+
+void EWI_L_FIRE(bool ledstate) {
+  lc.setLed(0, 0, 6, ledstate);
+}
+
+void EWI_L_CAUTION(bool ledstate) {
+  lc.setLed(0, 0, 7, ledstate);
+}
+
+
 
 
 // ********************* End Max7219 ********************
@@ -714,19 +819,22 @@ void setup() {
   delay(1000);
   Max7219_ALL_ON();
 
-  SendDebug("Start Cycling PWM");
-  for (int i = 0; i < 254; i++) {
-    setPWMLights(i);
-    // SendDebug("PWM Level :" + String(i));
-    delay(20);
+  // 20251026 Comments out for testing
+  if (false) {
+    SendDebug("Start Cycling PWM");
+    for (int i = 0; i < 254; i++) {
+      setPWMLights(i);
+      // SendDebug("PWM Level :" + String(i));
+      delay(20);
+    }
+    for (int i = 254; i >= 0; i--) {
+      setPWMLights(i);
+      // SendDebug("PWM Level :" + String(i));
+      delay(20);
+    }
+    SendDebug("End Cycling PWM");
+    setPWMLights(128);
   }
-  for (int i = 254; i >= 0; i--) {
-    setPWMLights(i);
-    // SendDebug("PWM Level :" + String(i));
-    delay(20);
-  }
-  SendDebug("End Cycling PWM");
-  setPWMLights(128);
 
   // for (int i = 0; i < 4; i++) {
   //   SendDebug("TestLed off");
@@ -853,7 +961,7 @@ void FindInputChanges() {
 
 
 
-void sendToDcsBiosMessage(const char *msg, const char *arg) {
+void sendToDcsBiosMessage(const char* msg, const char* arg) {
   SendDebug("Front Input - " + String(msg) + ":" + String(arg));
   sendDcsBiosMessage(msg, arg);
 }
@@ -1879,6 +1987,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 161:  //FA-18C_hornet/IR_COOL_SW
           sendToDcsBiosMessage("IR_COOL_SW", "2");
+          break;
         case 162:  //FA-18C_hornet/HUD_ALT_SW
           sendToDcsBiosMessage("HUD_ALT_SW", "1");
           break;
