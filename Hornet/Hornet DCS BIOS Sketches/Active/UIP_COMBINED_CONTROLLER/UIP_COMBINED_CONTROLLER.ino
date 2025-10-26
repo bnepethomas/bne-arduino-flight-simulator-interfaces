@@ -375,33 +375,89 @@ void onLsLockChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer lsLockBuffer(0x7408, 0x0001, 0, onLsLockChange);
 
-void RCDR_ON(bool ledstate) {
+void EWI_RCDR_ON(bool ledstate) {
   lc.setLed(0, 3, 1, ledstate);
 }
+void onRhAdvRcdrOnChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_RCDR_ON(true);
+  } else {
+    EWI_RCDR_ON(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvRcdrOnBuffer(FA_18C_hornet_RH_ADV_RCDR_ON, onRhAdvRcdrOnChange);
 
 void R_EWI_SPARE_1(bool ledstate) {
   lc.setLed(0, 3, 2, ledstate);
 }
+void onRhAdvSpareRh1Change(unsigned int newValue) {
+  if (newValue == 1) {
+    R_EWI_SPARE_1(true);
+  } else {
+    R_EWI_SPARE_1(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvSpareRh1Buffer(FA_18C_hornet_RH_ADV_SPARE_RH1, onRhAdvSpareRh1Change);
 
 void R_EWI_SPARE_2(bool ledstate) {
   lc.setLed(0, 3, 3, ledstate);
 }
+void onRhAdvSpareRh2Change(unsigned int newValue) {
+  if (newValue == 1) {
+    R_EWI_SPARE_2(true);
+  } else {
+    R_EWI_SPARE_2(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvSpareRh2Buffer(FA_18C_hornet_RH_ADV_SPARE_RH2, onRhAdvSpareRh2Change);
 
 void R_EWI_SPARE_3(bool ledstate) {
   lc.setLed(0, 3, 4, ledstate);
 }
+void onRhAdvSpareRh3Change(unsigned int newValue) {
+  if (newValue == 1) {
+    R_EWI_SPARE_3(true);
+  } else {
+    R_EWI_SPARE_3(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvSpareRh3Buffer(FA_18C_hornet_RH_ADV_SPARE_RH3, onRhAdvSpareRh3Change);
 
 void EWI_AI(bool ledstate) {
   lc.setLed(0, 3, 5, ledstate);
 }
+void onRhAdvAiChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_AI(true);
+  } else {
+    EWI_AI(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvAiBuffer(FA_18C_hornet_RH_ADV_AI, onRhAdvAiChange);
 
 void EWI_CW(bool ledstate) {
   lc.setLed(0, 3, 6, ledstate);
 }
+void onRhAdvCwChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_CW(true);
+  } else {
+    EWI_CW(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvCwBuffer(FA_18C_hornet_RH_ADV_CW, onRhAdvCwChange);
 
 void EWI_DISP(bool ledstate) {
   lc.setLed(0, 2, 1, ledstate);
 }
+void onRhAdvDispChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_DISP(true);
+  } else {
+    EWI_DISP(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvDispBuffer(FA_18C_hornet_RH_ADV_DISP, onRhAdvDispChange);
 
 void R_EWI_SPARE_4(bool ledstate) {
   lc.setLed(0, 2, 2, ledstate);
@@ -414,10 +470,27 @@ void R_EWI_SPARE_5(bool ledstate) {
 void EWI_SAM(bool ledstate) {
   lc.setLed(0, 2, 4, ledstate);
 }
+void onRhAdvSamChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_SAM(true);
+  } else {
+    EWI_SAM(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvSamBuffer(FA_18C_hornet_RH_ADV_SAM, onRhAdvSamChange);
 
 void EWI_AAA(bool ledstate) {
   lc.setLed(0, 2, 5, ledstate);
 }
+
+void onRhAdvAaaChange(unsigned int newValue) {
+  if (newValue == 1) {
+    EWI_AAA(true);
+  } else {
+    EWI_AAA(false);
+  }
+}
+DcsBios::IntegerBuffer rhAdvAaaBuffer(FA_18C_hornet_RH_ADV_AAA, onRhAdvAaaChange);
 
 void EWI_RIGHT_FIRE(bool ledstate) {
   lc.setLed(0, 2, 6, ledstate);
@@ -2084,12 +2157,6 @@ void loop() {
 
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
-
-    // if (RED_LED_STATE == true) {
-    //   MASTER_ARM_AG(true);
-    // } else {
-    //   MASTER_ARM_AG(false);
-    // }
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
