@@ -7794,14 +7794,6 @@
 		(uuid "566328a1-0324-4d10-bfa2-ac39cc22e18e")
 	)
 	(no_connect
-		(at 284.48 46.99)
-		(uuid "a2a07ac1-af39-4d25-8350-4530246a4d86")
-	)
-	(no_connect
-		(at 284.48 49.53)
-		(uuid "ba3b4464-87cd-464f-8a9a-59f908600717")
-	)
-	(no_connect
 		(at 350.52 176.53)
 		(uuid "de158e02-b6af-4c26-841b-e3ec2cbfd029")
 	)
@@ -10083,16 +10075,6 @@
 		)
 		(uuid "252628e4-1b64-4f00-afdd-83e53f4c2fd9")
 	)
-	(label "SDA"
-		(at 284.48 46.99 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "26026903-3ec1-40a8-9e1c-d60bd6967b4f")
-	)
 	(label "ANNODE_04"
 		(at 350.52 166.37 0)
 		(effects
@@ -10123,16 +10105,6 @@
 		)
 		(uuid "275dd72e-a6cb-4467-b10f-4e716b298597")
 	)
-	(label "SPARE_02"
-		(at 350.52 46.99 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "27fecff6-ecc6-474c-bfbd-f131431b405b")
-	)
 	(label "COL10"
 		(at 350.52 118.11 0)
 		(effects
@@ -10142,16 +10114,6 @@
 			(justify left bottom)
 		)
 		(uuid "29230f9b-95be-45ee-91cd-aab9459926a7")
-	)
-	(label "RIGHT_DDI_BRT"
-		(at 284.48 59.69 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "2a3439ba-4ff7-490b-bd12-c0880d36893b")
 	)
 	(label "VIN"
 		(at 254 115.57 0)
@@ -10183,26 +10145,6 @@
 		)
 		(uuid "2e3287f2-c0d2-4c4d-a637-ea8a964e6b47")
 	)
-	(label "HUD-AOA"
-		(at 284.48 69.85 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "2e60b6db-4879-41ff-9585-f6fa5bcfab89")
-	)
-	(label "SHOOT"
-		(at 350.52 34.29 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "33530670-44ff-454b-83c7-3aa1a5239397")
-	)
 	(label "ANNODE_05"
 		(at 350.52 168.91 0)
 		(effects
@@ -10222,16 +10164,6 @@
 			(justify left bottom)
 		)
 		(uuid "34ab944b-d48a-47bd-8015-52d3230630cf")
-	)
-	(label "SPIN-ANALOG"
-		(at 284.48 64.77 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "39833c0a-4a5e-4f5d-a349-372c28d2ea8e")
 	)
 	(label "CATHODE_05"
 		(at 350.52 189.23 0)
@@ -10273,16 +10205,6 @@
 		)
 		(uuid "4210cef6-7253-4071-9cc2-28fb21f8eb2c")
 	)
-	(label "LEFT_DDI_BRT"
-		(at 284.48 54.61 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "44a337a3-a295-4776-b74d-1cb385e6e363")
-	)
 	(label "+3V3"
 		(at 254 105.41 0)
 		(effects
@@ -10292,16 +10214,6 @@
 			(justify left bottom)
 		)
 		(uuid "45b90552-a851-403b-98f9-b236f2f71c8b")
-	)
-	(label "SCL"
-		(at 284.48 49.53 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "46fb33b2-78be-4456-8418-a146be435d0a")
 	)
 	(label "COL7"
 		(at 222.25 91.44 0)
@@ -10373,16 +10285,6 @@
 		)
 		(uuid "50e262ea-52ab-46e6-8793-bb9f065d8efe")
 	)
-	(label "STEPPER_EN"
-		(at 284.48 26.67 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "533172b6-50da-4129-95be-85fcb4044e17")
-	)
 	(label "RIGHT_DDI_CONT"
 		(at 110.744 85.09 90)
 		(effects
@@ -10392,16 +10294,6 @@
 			(justify left bottom)
 		)
 		(uuid "53edf351-7925-42cc-a46c-ad9431efbd45")
-	)
-	(label "SPARE_01"
-		(at 350.52 44.45 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "56de966e-1a53-4868-b2f5-7d22938083c7")
 	)
 	(label "SD6"
 		(at 142.24 155.448 180)
@@ -10432,16 +10324,6 @@
 			(justify left bottom)
 		)
 		(uuid "5c1d9247-717a-4d5a-b003-fb5e0743131e")
-	)
-	(label "LEFT_DDI_CONT"
-		(at 284.48 57.15 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "5e5db803-9768-40fa-9b5c-b108a3778ba9")
 	)
 	(label "IORF"
 		(at 284.48 102.87 180)
@@ -10483,28 +10365,6 @@
 			(justify right bottom)
 		)
 		(uuid "678c6a9a-3b46-4b05-a260-e951d88cb5e5")
-	)
-	(label "LS-STROBE"
-		(at 350.52 36.83 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-				(italic yes)
-				(color 0 0 0 1)
-			)
-			(justify left bottom)
-		)
-		(uuid "6835ab83-407f-43be-b71d-54aefa422c91")
-	)
-	(label "LOCK"
-		(at 350.52 31.75 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "6b4b55ee-1644-40ba-bea0-45ec021bf132")
 	)
 	(label "ROW11"
 		(at 350.52 80.01 0)
@@ -10556,16 +10416,6 @@
 		)
 		(uuid "7238c610-855d-490e-bbdb-15f48d6c772e")
 	)
-	(label "HUD_STEP"
-		(at 284.48 29.21 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "72cc8953-1ac5-427a-9507-2cf4a2553f15")
-	)
 	(label "COL8"
 		(at 350.52 113.03 0)
 		(effects
@@ -10606,16 +10456,6 @@
 		)
 		(uuid "77c27527-9912-488b-8962-a98a0ef5f5af")
 	)
-	(label "HUD-BAL"
-		(at 284.48 74.93 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "7a92f36e-74fe-4c77-af5b-d4f725db2045")
-	)
 	(label "AREF"
 		(at 381 54.61 180)
 		(effects
@@ -10625,16 +10465,6 @@
 			(justify right bottom)
 		)
 		(uuid "7b8f6501-be86-46ad-b33d-3890c23f3096")
-	)
-	(label "Compass_Stepper_B"
-		(at 284.48 87.63 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "7bc53883-80e0-40e0-87a2-3c8f780740d5")
 	)
 	(label "ROW9"
 		(at 350.52 74.93 0)
@@ -10665,16 +10495,6 @@
 			(justify left bottom)
 		)
 		(uuid "7caa1b0b-e8fb-4713-aa26-1623394f5ab7")
-	)
-	(label "RIGHT_DDI_CONT"
-		(at 284.48 62.23 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "7d20c0c6-a20c-4b61-a13a-74b4368048f9")
 	)
 	(label "COL4"
 		(at 222.25 83.82 0)
@@ -10786,16 +10606,6 @@
 		)
 		(uuid "92bac2d1-3516-47d7-ab1e-d1047ea86a40")
 	)
-	(label "BLK-LVL"
-		(at 284.48 72.39 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "92bd670b-832a-407b-9357-0bed7bdee77b")
-	)
 	(label "ROW5"
 		(at 350.52 64.77 0)
 		(effects
@@ -10855,16 +10665,6 @@
 			(justify right bottom)
 		)
 		(uuid "98f4edc1-21ee-4444-afc8-f5473ed5ea07")
-	)
-	(label "Compass_Stepper_C"
-		(at 284.48 90.17 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "99eb7374-26c2-4de3-9044-0696350a8dd7")
 	)
 	(label "SC6"
 		(at 80.518 153.162 0)
@@ -10926,16 +10726,6 @@
 		)
 		(uuid "9e236103-ea8e-4f33-bbd0-637e071c5b7a")
 	)
-	(label "MAP_PWM"
-		(at 350.52 21.59 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "9e922e5b-ccfd-4577-926e-eb1fd2b1ffb6")
-	)
 	(label "GND"
 		(at 396.24 81.28 0)
 		(effects
@@ -10996,16 +10786,6 @@
 		)
 		(uuid "ac689615-af8e-4af3-b6c3-fe49368bf637")
 	)
-	(label "BACKLIGHT_COMPASS-PWM"
-		(at 350.52 26.67 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "addf44fe-d589-473b-a58a-475ec8551859")
-	)
 	(label "COL6"
 		(at 222.25 88.9 0)
 		(effects
@@ -11055,26 +10835,6 @@
 			(justify left bottom)
 		)
 		(uuid "b4c3035a-c836-4d3e-86a5-512d5f0f1120")
-	)
-	(label "HUD-BRT"
-		(at 284.48 67.31 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "b4fa7421-70f3-439a-ba89-2e15bc477c6e")
-	)
-	(label "HUD_DIR"
-		(at 284.48 31.75 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "b637826a-af63-42c6-a2a5-1d899701cc20")
 	)
 	(label "CATHODE_08"
 		(at 350.52 196.85 0)
@@ -11197,26 +10957,6 @@
 		)
 		(uuid "d2baa770-c25c-4776-86f3-9b43c6548608")
 	)
-	(label "BACKLIGHT_DDI-PWM"
-		(at 350.52 24.13 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d34671d6-d93d-430b-8c5a-93ac0a38f5c4")
-	)
-	(label "Compass_Stepper_A"
-		(at 284.48 85.09 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "d4008bdd-e629-4f4f-a78b-4948e8101d53")
-	)
 	(label "SPIN-ANALOG"
 		(at 156.21 85.09 90)
 		(effects
@@ -11258,16 +10998,6 @@
 		)
 		(uuid "dbe191ee-7511-4e30-ae50-2fac2ca0a7c3")
 	)
-	(label "Compass_Stepper_D"
-		(at 284.48 92.71 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "dcfb544c-b90b-4936-a0fa-d7eda76f194a")
-	)
 	(label "RESET"
 		(at 254 102.87 0)
 		(effects
@@ -11308,16 +11038,6 @@
 			(justify right bottom)
 		)
 		(uuid "e52cb2bb-8289-44fd-8ba0-2c96f6d94581")
-	)
-	(label "SPIN_LEDS"
-		(at 350.52 49.53 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "e5b83455-c575-4b6f-b238-933d88ed9d33")
 	)
 	(label "COL1"
 		(at 350.52 95.25 0)
@@ -11410,16 +11130,6 @@
 			(justify left bottom)
 		)
 		(uuid "f5e14095-2a97-4c35-ae76-1972699478d4")
-	)
-	(label "BACKLIGHT-PWM"
-		(at 350.52 29.21 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "f772b4d1-59bd-4ab0-b85d-0dadbcc49132")
 	)
 	(label "+12v-IN"
 		(at 82.55 19.05 270)
@@ -11713,6 +11423,28 @@
 			)
 		)
 	)
+	(global_label "SCL"
+		(shape input)
+		(at 284.48 49.53 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "7bd043b3-c342-49d2-99ea-48ddb37f1087")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 277.8921 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "VHF_FM_OLED_SC"
 		(shape input)
 		(at 80.518 137.922 0)
@@ -11913,6 +11645,28 @@
 	)
 	(global_label "SDA"
 		(shape input)
+		(at 284.48 46.99 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c7783ef9-d039-484a-afd7-1651038b8acb")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 277.8316 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "SDA"
+		(shape input)
 		(at 60.198 125.222 180)
 		(fields_autoplaced yes)
 		(effects
@@ -12054,6 +11808,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 248.92 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 248.92 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 248.92 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "b7ecdf9b-43f8-4699-9aeb-300f2ad613a2")
 		)
@@ -12114,7 +11895,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
 			(at 119.0752 92.71 0)
 			(effects
 				(font
@@ -12133,6 +11914,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 118.11 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 118.11 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 118.11 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 118.11 88.9 0)
 			(effects
 				(font
@@ -12181,7 +11989,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 98.298 90)
 			(effects
 				(font
@@ -12201,6 +12009,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 96.52 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 96.52 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 96.52 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12442,7 +12277,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+		(property "Footprint" "LED_THT:LED_D3.0mm"
 			(at 88.9 46.99 0)
 			(effects
 				(font
@@ -12461,6 +12296,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 88.9 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 88.9 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 88.9 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 88.9 46.99 0)
 			(effects
 				(font
@@ -12509,7 +12371,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 88.138 90)
 			(effects
 				(font
@@ -12529,6 +12391,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 86.36 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 86.36 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 86.36 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12597,6 +12486,33 @@
 			)
 		)
 		(property "Description" "Darlington Transistor Arrays, SOIC18/DIP18"
+			(at 133.604 220.472 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 133.604 220.472 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 133.604 220.472 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 133.604 220.472 0)
 			(effects
 				(font
@@ -12723,6 +12639,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 147.574 165.608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 147.574 165.608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 147.574 165.608 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "37d278b5-2091-45b6-8cc8-d6d75a123acb")
 		)
@@ -12834,7 +12777,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+		(property "Footprint" "LED_THT:LED_D3.0mm"
 			(at 152.4 46.99 0)
 			(effects
 				(font
@@ -12853,6 +12796,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 152.4 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 152.4 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 152.4 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 152.4 46.99 0)
 			(effects
 				(font
@@ -12901,7 +12871,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 100.838 90)
 			(effects
 				(font
@@ -12921,6 +12891,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 99.06 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 99.06 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 99.06 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12968,7 +12965,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 95.758 90)
 			(effects
 				(font
@@ -12988,6 +12985,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 93.98 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 93.98 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 93.98 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13037,7 +13061,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 38.354 30.734 90)
 			(effects
 				(font
@@ -13056,6 +13080,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 38.1 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 38.1 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 38.1 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 38.1 31.75 0)
 			(effects
 				(font
@@ -13124,6 +13175,33 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
+			(at 36.83 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 36.83 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 36.83 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 36.83 21.59 0)
 			(effects
 				(font
@@ -13392,6 +13470,33 @@
 			)
 		)
 		(property "Description" "8-Digit LED Display Driver"
+			(at 340.36 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 340.36 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 340.36 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 340.36 179.07 0)
 			(effects
 				(font
@@ -13912,6 +14017,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 36.576 51.562 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 36.576 51.562 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 36.576 51.562 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "bf8dd3ad-9ae1-4cc7-b019-ca77c1d7bfa0")
 		)
@@ -14017,7 +14149,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+		(property "Footprint" "Capacitor_THT:C_Radial_D8.0mm_H7.0mm_P3.50mm"
 			(at 315.9252 158.75 0)
 			(effects
 				(font
@@ -14036,6 +14168,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 314.96 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 314.96 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 314.96 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 314.96 154.94 0)
 			(effects
 				(font
@@ -14152,7 +14311,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Footprint Library:DIP-24_TCA9548A"
+		(property "Footprint" "PTLibrary:AllieExpress_TCA9548A"
 			(at 70.358 165.862 0)
 			(effects
 				(font
@@ -14171,6 +14330,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 70.358 140.462 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 70.358 140.462 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 70.358 140.462 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 70.358 140.462 0)
 			(effects
 				(font
@@ -14285,7 +14471,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+		(property "Footprint" "LED_THT:LED_D3.0mm"
 			(at 161.29 46.99 0)
 			(effects
 				(font
@@ -14304,6 +14490,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 161.29 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 161.29 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 161.29 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 161.29 46.99 0)
 			(effects
 				(font
@@ -14371,6 +14584,33 @@
 			)
 		)
 		(property "Description" "Shield for Arduino Mega 2560 R3"
+			(at 317.5 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 317.5 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 317.5 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 317.5 76.2 0)
 			(effects
 				(font
@@ -14697,6 +14937,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 391.16 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 391.16 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 391.16 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "03857255-007d-46c0-9c65-b043e8d02578")
 		)
@@ -14782,6 +15049,33 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 248.92 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 248.92 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 248.92 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 248.92 31.75 0)
 			(effects
 				(font
@@ -14915,7 +15209,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
 			(at 141.9352 92.71 0)
 			(effects
 				(font
@@ -14934,6 +15228,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 140.97 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 140.97 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 140.97 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 140.97 88.9 0)
 			(effects
 				(font
@@ -15067,6 +15388,33 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 391.16 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 391.16 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 391.16 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 391.16 68.58 0)
 			(effects
 				(font
@@ -15380,6 +15728,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 325.12 227.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 325.12 227.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 325.12 227.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "A1"
 			(uuid "51829929-96cc-4297-b209-26d3f3ad5f07")
 		)
@@ -15453,7 +15828,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.5mm"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 397.51 237.49 0)
 			(effects
 				(font
@@ -15472,6 +15847,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 397.51 237.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 397.51 237.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 397.51 237.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 397.51 237.49 0)
 			(effects
 				(font
@@ -15517,7 +15919,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 305.562 236.22 90)
 			(effects
 				(font
@@ -15536,6 +15938,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 307.34 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 307.34 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 307.34 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 307.34 236.22 0)
 			(effects
 				(font
@@ -15652,7 +16081,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.5mm"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 387.35 243.84 0)
 			(effects
 				(font
@@ -15671,6 +16100,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 387.35 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 387.35 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 387.35 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 387.35 243.84 0)
 			(effects
 				(font
@@ -15780,7 +16236,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 162.306 39.624 90)
 			(effects
 				(font
@@ -15799,6 +16255,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 161.29 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 161.29 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 161.29 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 161.29 39.37 0)
 			(effects
 				(font
@@ -15849,7 +16332,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 81.026 39.624 90)
 			(effects
 				(font
@@ -15868,6 +16351,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 80.01 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 80.01 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 80.01 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 80.01 39.37 0)
 			(effects
 				(font
@@ -15937,6 +16447,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 44.196 41.402 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 44.196 41.402 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 44.196 41.402 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 44.196 41.402 0)
 			(effects
 				(font
@@ -16052,7 +16589,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
 			(at 157.1752 92.71 0)
 			(effects
 				(font
@@ -16071,6 +16608,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 156.21 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 156.21 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 156.21 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 156.21 88.9 0)
 			(effects
 				(font
@@ -16121,7 +16685,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
 			(at 134.3152 92.71 0)
 			(effects
 				(font
@@ -16140,6 +16704,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 133.35 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 133.35 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 133.35 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 133.35 88.9 0)
 			(effects
 				(font
@@ -16256,7 +16847,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 263.906 235.204 90)
 			(effects
 				(font
@@ -16275,6 +16866,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 264.16 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 264.16 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 264.16 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 264.16 236.22 0)
 			(effects
 				(font
@@ -16325,7 +16943,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 153.416 39.624 90)
 			(effects
 				(font
@@ -16344,6 +16962,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 152.4 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 152.4 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 152.4 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 152.4 39.37 0)
 			(effects
 				(font
@@ -16457,7 +17102,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 75.438 90)
 			(effects
 				(font
@@ -16477,6 +17122,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 73.66 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 73.66 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16524,7 +17196,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+		(property "Footprint" "LED_THT:LED_D3.0mm"
 			(at 71.12 46.99 0)
 			(effects
 				(font
@@ -16543,6 +17215,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 71.12 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 71.12 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 71.12 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 71.12 46.99 0)
 			(effects
 				(font
@@ -16621,6 +17320,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 45.466 51.562 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 45.466 51.562 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 45.466 51.562 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9cbc361d-72fb-4241-b8e6-142722532318")
 		)
@@ -16661,7 +17387,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+		(property "Footprint" "LED_THT:LED_D3.0mm"
 			(at 80.01 46.99 0)
 			(effects
 				(font
@@ -16680,6 +17406,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 80.01 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 80.01 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 80.01 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 80.01 46.99 0)
 			(effects
 				(font
@@ -16857,7 +17610,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 90.678 90)
 			(effects
 				(font
@@ -16877,6 +17630,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 88.9 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 88.9 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 88.9 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16926,7 +17706,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
 			(at 149.5552 92.71 0)
 			(effects
 				(font
@@ -16945,6 +17725,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 148.59 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 148.59 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 148.59 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 148.59 88.9 0)
 			(effects
 				(font
@@ -17059,7 +17866,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 85.598 90)
 			(effects
 				(font
@@ -17079,6 +17886,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 83.82 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 83.82 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 83.82 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17129,7 +17963,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.5mm"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 387.35 236.22 0)
 			(effects
 				(font
@@ -17148,6 +17982,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 387.35 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 387.35 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 387.35 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 387.35 236.22 0)
 			(effects
 				(font
@@ -17192,7 +18053,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
 			(at 103.8352 92.71 0)
 			(effects
 				(font
@@ -17211,6 +18072,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 102.87 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 102.87 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 102.87 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 102.87 88.9 0)
 			(effects
 				(font
@@ -17482,6 +18370,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 391.16 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 391.16 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 391.16 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2e9d771d-2180-475a-ad90-db1fa49bb0d6")
 		)
@@ -17522,7 +18437,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 83.058 90)
 			(effects
 				(font
@@ -17542,6 +18457,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 81.28 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 81.28 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 81.28 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17612,6 +18554,33 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x08, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 391.16 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 391.16 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 391.16 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 391.16 24.13 0)
 			(effects
 				(font
@@ -17742,7 +18711,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 93.218 90)
 			(effects
 				(font
@@ -17762,6 +18731,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 91.44 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 91.44 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 91.44 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17874,7 +18870,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 89.916 39.624 90)
 			(effects
 				(font
@@ -17893,6 +18889,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 88.9 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 88.9 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 88.9 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 88.9 39.37 0)
 			(effects
 				(font
@@ -17969,6 +18992,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 391.16 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 391.16 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 391.16 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "e6217710-01ff-420c-8492-d60a67bffc21")
 		)
@@ -18011,7 +19061,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
 			(at 96.4692 92.71 0)
 			(effects
 				(font
@@ -18030,6 +19080,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 95.504 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 95.504 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 95.504 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 95.504 88.9 0)
 			(effects
 				(font
@@ -18278,7 +19355,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_2.5mm"
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 397.51 243.84 0)
 			(effects
 				(font
@@ -18297,6 +19374,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 397.51 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 397.51 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 397.51 243.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 397.51 243.84 0)
 			(effects
 				(font
@@ -18497,6 +19601,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 248.92 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 248.92 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 248.92 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "9abd2008-1c0f-4b06-bd12-619a49e63da9")
 		)
@@ -18623,7 +19754,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 72.136 39.624 90)
 			(effects
 				(font
@@ -18642,6 +19773,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 71.12 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 71.12 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 71.12 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 71.12 39.37 0)
 			(effects
 				(font
@@ -18759,7 +19917,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 271.526 239.776 90)
 			(effects
 				(font
@@ -18778,6 +19936,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 270.51 240.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 270.51 240.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 270.51 240.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 270.51 240.03 0)
 			(effects
 				(font
@@ -18828,7 +20013,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
 			(at 126.6952 92.71 0)
 			(effects
 				(font
@@ -18847,6 +20032,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 125.73 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 125.73 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 125.73 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 125.73 88.9 0)
 			(effects
 				(font
@@ -18925,6 +20137,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 248.92 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 248.92 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 248.92 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "5dba4743-a648-4915-8930-fc6a580115b4")
 		)
@@ -18985,7 +20224,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
 			(at 305.7652 158.75 0)
 			(effects
 				(font
@@ -19004,6 +20243,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 304.8 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 304.8 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 304.8 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 304.8 154.94 0)
 			(effects
 				(font
@@ -19213,6 +20479,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 147.32 150.368 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 147.32 150.368 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 147.32 150.368 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "06967281-6f48-43fb-a903-0aa0df64e41c")
 		)
@@ -19262,7 +20555,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+		(property "Footprint" "Package_TO_SOT_THT:TO-220-3_Vertical"
 			(at 283.21 233.68 0)
 			(effects
 				(font
@@ -19667,6 +20960,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 278.13 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 278.13 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 278.13 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "de469e20-8923-4003-bd70-d210b461c826")
 		)
@@ -19732,6 +21052,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 147.32 120.142 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 147.32 120.142 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 147.32 120.142 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 147.32 120.142 0)
 			(effects
 				(font
@@ -19852,7 +21199,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 80.518 90)
 			(effects
 				(font
@@ -19872,6 +21219,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 78.74 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20053,7 +21427,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 329.184 154.686 90)
 			(effects
 				(font
@@ -20072,6 +21446,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 330.2 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 330.2 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 330.2 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 330.2 154.94 0)
 			(effects
 				(font
@@ -20120,7 +21521,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical"
 			(at 200.66 77.978 90)
 			(effects
 				(font
@@ -20140,6 +21541,33 @@
 		)
 		(property "Description" ""
 			(at 200.66 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 200.66 76.2 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 200.66 76.2 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 200.66 76.2 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20217,6 +21645,33 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" ""
+			(at 147.32 134.874 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 147.32 134.874 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 147.32 134.874 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "e7158863-2fe3-4b25-ac64-9aacfc46ad00")
 		)
@@ -20265,7 +21720,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
 			(at 111.7092 92.71 0)
 			(effects
 				(font
@@ -20284,6 +21739,33 @@
 			)
 		)
 		(property "Description" ""
+			(at 110.744 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 110.744 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 110.744 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" ""
 			(at 110.744 88.9 0)
 			(effects
 				(font

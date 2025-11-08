@@ -14,7 +14,7 @@
 float smoothedoutput = 0;
 
 #include "LedControl.h"
-LedControl lc = LedControl(12, 11, 10, 1);
+LedControl lc = LedControl(12, 11, 9, 1);
 #define DEVICE_ADDRESS 0
 
 
@@ -100,7 +100,7 @@ void setup() {
   // --- PIN SETUP ---
   pinMode(ENCODER_CLK_PIN, INPUT_PULLUP);
   pinMode(ENCODER_DT_PIN, INPUT_PULLUP);
-  pinMode(ENCODER_SW_PIN, INPUT_PULLUP);  // Button pin
+  //pinMode(ENCODER_SW_PIN, INPUT_PULLUP);  // Button pin
 
   // --- INTERRUPT SETUP ---
   // Attach the ISR to the two data pins (CLK and DT)
@@ -117,7 +117,7 @@ void setup() {
   lc.setIntensity(0, 8);
   /* and clear the display */
   lc.clearDisplay(0);
-  displayFloat(118.25, 3);
+  displayFloat(118.25, 2);
 }
 
 
@@ -136,7 +136,7 @@ void loop() {
   if (currentPos != lastReportedPos) {
 
     smoothedoutput = 118 + 0.05 * int(currentPos / 3);
-    displayFloat(smoothedoutput, 3);
+    displayFloat(smoothedoutput, 2);
     Serial.print("Position: ");
     Serial.print(currentPos);
     Serial.print(" (Change: ");
@@ -145,28 +145,28 @@ void loop() {
     lastReportedPos = currentPos;
   }
 
-  // --- BUTTON HANDLING (Non-interrupt based debounce) ---
+  // // --- BUTTON HANDLING (Non-interrupt based debounce) ---
 
-  // The button is active LOW due to INPUT_PULLUP
-  int buttonState = digitalRead(ENCODER_SW_PIN);
+  // // The button is active LOW due to INPUT_PULLUP
+  // int buttonState = digitalRead(ENCODER_SW_PIN);
 
-  if (buttonState == LOW) {
-    // Check if enough time has passed since the last reported press
-    if ((millis() - buttonPressTime) > DEBOUNCE_DELAY_MS) {
-      Serial.println("--- BUTTON PRESSED (Reset Position) ---");
+  // if (buttonState == LOW) {
+  //   // Check if enough time has passed since the last reported press
+  //   if ((millis() - buttonPressTime) > DEBOUNCE_DELAY_MS) {
+  //     Serial.println("--- BUTTON PRESSED (Reset Position) ---");
 
-      // Reset position
-      noInterrupts();
-      encoderPos = 0;
-      interrupts();
-      lastReportedPos = 0;
+  //     // Reset position
+  //     noInterrupts();
+  //     encoderPos = 0;
+  //     interrupts();
+  //     lastReportedPos = 0;
 
-      buttonPressTime = millis();  // Update time of press
-    }
-  } else {
-    // If the button is released, reset the debounce timer reference
-    buttonPressTime = 0;
-  }
+  //     buttonPressTime = millis();  // Update time of press
+  //   }
+  // } else {
+  //   // If the button is released, reset the debounce timer reference
+  //   buttonPressTime = 0;
+  // }
 }
 
 void displayFloat(float number, int numDecimals) {
