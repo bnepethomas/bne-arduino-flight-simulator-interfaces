@@ -1,5 +1,5 @@
 
-(rules PCB VHF-AM
+(rules PCB Jet Ranger COM and NAV
   (snap_angle 
     fortyfive_degree
   )
@@ -11,23 +11,23 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 228)
+    (start_pass_no 1057)
     (layer_rule F.Cu
       (active on)
       (preferred_direction vertical)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 2.4)
+      (against_preferred_direction_trace_costs 2.1)
     )
     (layer_rule B.Cu
       (active on)
       (preferred_direction horizontal)
       (preferred_direction_trace_costs 1.0)
-      (against_preferred_direction_trace_costs 1.7)
+      (against_preferred_direction_trace_costs 1.9)
     )
   )
   (rule
     (width 250.0)
-    (clear 200.2)
+    (clear 200.0)
     (clear 125.0 (type smd_to_turn_gap))
     (clear 50.0 (type smd_smd))
   )
@@ -63,11 +63,10 @@
     )
   )
   (class "kicad_default"
-    "Net-(D1-K)" /COL5 "Net-(D2-K)" "Net-(D3-K)" "Net-(D4-K)" /COL4 "Net-(J3-Pin_1)" "Net-(J3-Pin_2)"
-    "Net-(J3-Pin_3)" "Net-(J3-Pin_4)" "Net-(J4-Pin_1)" "Net-(J4-Pin_2)" "/ANALOG_5V" "/ANALOG_GND" /ROW0 /ROW1
-    /ROW2 /ROW3 /ROW4 GND "/VHF__AM_ENC_4_A" "/VHF__AM_ENC_4_B" "/VHF__AM_PRESET_A" "/VHF__AM_PRESET_B"
-    "unconnected-(J8-Pin_6-Pad6)" "unconnected-(J9-Pin_6-Pad6)" "/VHF__AM_ENC_1_A" "/VHF__AM_ENC_1_B" "/VHF__AM_ENC_2_A" "/VHF__AM_ENC_2_B" "/VHF__AM_ENC_3_A" "/VHF__AM_ENC_3_B"
-    "unconnected-(J7-Pin_8-Pad8)" "/VHF_AM_VOL" "unconnected-(J12-Pin_8-Pad8)"
+    "Net-(D1-K)" COL0 "Net-(D2-K)" "Net-(D3-K)" "Net-(D4-K)" "COMM_OLED_SD" "COMM_OLED_SC" "/COMM1_VOL"
+    "/NAV2_VOL" "/COMM2_VOL" GND "/NAV1_B" ROW0 ROW1 "NAV_OLED_SD" "NAV_OLED_SC"
+    "/COMM1_B" +3.3V ROW2 "/COMM2_A" "/NAV2_A" ROW3 "/COMM1_A" "/COMM2_B"
+    "/BACKLIGHT_PANELS" "/NAV2_B" "/+12v-IN" "/NAV1_A" "/NAV1_VOL" "unconnected-(J2-Pin_26-Pad26)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
