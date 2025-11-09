@@ -433,7 +433,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "UHF-ROTARIES.kicad_pro",
+    "filename": "Jet Ranger COM and NAV.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -471,8 +471,8 @@
       "netlist": "",
       "plot": "MANUFACTURING/",
       "pos_files": "",
-      "specctra_dsn": "UHF-ROTARIES.dsn",
-      "step": "UHF-ROTARIES.step",
+      "specctra_dsn": "Jet Ranger COM and NAV.dsn",
+      "step": "Jet Ranger COM and NAV.step",
       "svg": "",
       "vrml": ""
     },
