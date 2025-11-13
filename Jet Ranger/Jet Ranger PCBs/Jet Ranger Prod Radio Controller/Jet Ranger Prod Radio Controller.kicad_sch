@@ -12823,6 +12823,16 @@
 		)
 		(uuid "054c5207-ac7c-4f33-9002-c667c192c143")
 	)
+	(label "I2C_SEL_A1"
+		(at 369.57 24.13 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0a466a1a-53c8-433a-9866-6a611a20935e")
+	)
 	(label "COMM1_A"
 		(at 350.52 87.63 0)
 		(effects
@@ -12983,6 +12993,16 @@
 		)
 		(uuid "1abf8fcd-2879-45e9-b89e-13fa562b834c")
 	)
+	(label "Keypad Row 2"
+		(at 359.41 36.83 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1b83ada6-1b89-4279-b24d-def484acd1d4")
+	)
 	(label "VS_A"
 		(at 350.52 72.39 0)
 		(effects
@@ -13053,6 +13073,16 @@
 		)
 		(uuid "1f6ef48b-45ed-41b5-8565-75ea77dfdd44")
 	)
+	(label "Keypad Col 1"
+		(at 158.75 195.58 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "20a3c60d-e4cd-4d8a-95c4-10bd16b88588")
+	)
 	(label "NAV2_VOL"
 		(at 118.11 85.09 90)
 		(effects
@@ -13092,6 +13122,16 @@
 			(justify left bottom)
 		)
 		(uuid "262a901a-a432-41d3-8600-a362ac288c2b")
+	)
+	(label "Keypad Col 0"
+		(at 158.75 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "26696250-7e46-4c81-8643-ac8dadd4019d")
 	)
 	(label "+5v_IN"
 		(at 396.24 68.58 0)
@@ -13192,6 +13232,16 @@
 			(justify right bottom)
 		)
 		(uuid "37f20604-4d87-4d3c-9f02-2ddd19bce158")
+	)
+	(label "Keypad Row 0"
+		(at 158.75 180.34 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "382e9e94-dcbd-4b42-bf4c-e4b07d38f9de")
 	)
 	(label "D5_OUT"
 		(at 160.782 140.716 180)
@@ -13313,6 +13363,16 @@
 		)
 		(uuid "45b90552-a851-403b-98f9-b236f2f71c8b")
 	)
+	(label "I2C_SEL_A2"
+		(at 369.57 21.59 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "471d044e-62b5-4cc0-91e4-835e041900c8")
+	)
 	(label "SCL"
 		(at 381 59.69 180)
 		(effects
@@ -13322,6 +13382,16 @@
 			(justify right bottom)
 		)
 		(uuid "4a24047f-140a-40bb-8108-38a9fb4e26d0")
+	)
+	(label "I2C_SEL_A2"
+		(at 60.198 148.082 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4cbe86b7-fcfc-4e49-98e8-2694d09985ad")
 	)
 	(label "AREF"
 		(at 284.48 95.25 180)
@@ -13744,6 +13814,36 @@
 		)
 		(uuid "8459d02c-13bb-4905-993d-d6414e04ebe0")
 	)
+	(label "Keypad Row 3"
+		(at 158.75 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "853bf10c-1818-4d24-9074-590fe9aa8861")
+	)
+	(label "Keypad Col 0"
+		(at 359.41 44.45 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8566803a-47ca-4d1b-a420-b21dc68d90e0")
+	)
+	(label "I2C_SEL_A0"
+		(at 60.198 153.162 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8638653c-e84c-42f0-b448-78ada1a76e18")
+	)
 	(label "SD3"
 		(at 80.518 140.462 0)
 		(effects
@@ -13753,6 +13853,16 @@
 			(justify left bottom)
 		)
 		(uuid "86609789-c791-46af-ad5f-63dd6e8528f1")
+	)
+	(label "Keypad Row 1"
+		(at 158.75 182.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "86a59f2a-8447-42fc-b0a7-3ea6bc8c4896")
 	)
 	(label "NAV1_VOL"
 		(at 206.756 240.284 180)
@@ -13813,6 +13923,16 @@
 			(justify right bottom)
 		)
 		(uuid "904cf7b1-9cba-4c5f-b623-019fa0f6e295")
+	)
+	(label "Keypad Col 2"
+		(at 359.41 49.53 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "91c619a8-d562-46cf-84cb-293dcb8b76f9")
 	)
 	(label "ANNODE_00"
 		(at 352.298 158.75 0)
@@ -13903,6 +14023,16 @@
 			(justify right bottom)
 		)
 		(uuid "9a9c9f72-957c-4cc2-b1cc-6e4498163c1a")
+	)
+	(label "Keypad Row 1"
+		(at 359.41 34.29 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9b85d897-f16e-4421-82ef-c163f1661f2e")
 	)
 	(label "NAV1_A"
 		(at 350.52 97.79 0)
@@ -14124,6 +14254,16 @@
 		)
 		(uuid "b5bb414f-8670-4b92-b11d-7f6914c958d6")
 	)
+	(label "Keypad Row 0"
+		(at 359.41 31.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b90e8e78-260f-4e99-8147-bdc416399ce0")
+	)
 	(label "D6_OUT"
 		(at 160.782 143.256 180)
 		(effects
@@ -14234,6 +14374,16 @@
 		)
 		(uuid "c9bd0165-c811-45dd-b6ab-24219258ae5c")
 	)
+	(label "SS"
+		(at 377.19 41.91 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cb04cb2c-ecf0-4a5a-bc47-edaa9c6039dc")
+	)
 	(label "RESET"
 		(at 41.91 21.59 0)
 		(effects
@@ -14284,6 +14434,16 @@
 			(justify left bottom)
 		)
 		(uuid "d20760a8-df3f-4fc5-b8bb-98d3fd2e8360")
+	)
+	(label "Keypad Row 2"
+		(at 158.75 185.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d2390d88-7493-4680-9376-793e02520d07")
 	)
 	(label "GREEN_LED"
 		(at 152.4 35.56 90)
@@ -14355,6 +14515,16 @@
 			(justify right bottom)
 		)
 		(uuid "da9a6d82-8c35-4483-bf69-8d8b44c8b29c")
+	)
+	(label "Keypad Col 2"
+		(at 158.75 198.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "dbf4031a-ad03-4db7-9848-a928ba14433c")
 	)
 	(label "HDG_A"
 		(at 350.52 67.31 0)
@@ -14549,6 +14719,16 @@
 		)
 		(uuid "f59d2d69-642d-42cd-b4c9-dc806af32a73")
 	)
+	(label "Keypad Col 1"
+		(at 359.41 46.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f7853ca5-c6e6-46b2-87e8-33320a5f7f8a")
+	)
 	(label "D0_OUT"
 		(at 278.13 64.77 180)
 		(effects
@@ -14558,6 +14738,16 @@
 			(justify right bottom)
 		)
 		(uuid "f7ab8cff-1b71-4c59-9d54-0004c6c520ee")
+	)
+	(label "Keypad Row 3"
+		(at 359.41 39.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f827535b-0da8-41ce-a313-8d44546f4005")
 	)
 	(label "+12v-IN"
 		(at 82.55 19.05 270)
@@ -14599,6 +14789,16 @@
 		)
 		(uuid "fb1b0bb2-c2ee-49c4-ae7b-26b91ca4c4da")
 	)
+	(label "I2C_SEL_A0"
+		(at 369.57 26.67 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fd0dde86-9690-48f8-9ba5-60363e20eda5")
+	)
 	(label "RED_LED"
 		(at 161.29 35.56 90)
 		(effects
@@ -14639,6 +14839,16 @@
 		)
 		(uuid "ff95c07f-8aac-4d0a-b6ad-d0d35bc6ec98")
 	)
+	(label "I2C_SEL_A1"
+		(at 60.198 150.622 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ffe74e0f-3b25-415c-9e3d-91289c1007f7")
+	)
 	(global_label "COL0"
 		(shape input)
 		(at 228.092 237.744 0)
@@ -14674,72 +14884,6 @@
 		(uuid "10eb5667-2bef-406a-aa14-07c97acde4b4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 236.3386 232.664 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "I2C_SEL_A2"
-		(shape input)
-		(at 369.57 21.59 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "1ccb1a0a-70c0-40aa-b671-976ea15e86b6")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 383.3545 21.59 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "I2C_SEL_A1"
-		(shape input)
-		(at 60.198 150.622 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "27b3255a-2249-4eb1-b9af-5ae3e9d7a976")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 46.4135 150.622 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "SS"
-		(shape input)
-		(at 377.19 41.91 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "27de83b7-779c-4a5f-bed4-2aa505ad6625")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 381.9332 41.8306 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14991,28 +15135,6 @@
 			)
 		)
 	)
-	(global_label "I2C_SEL_A2"
-		(shape input)
-		(at 60.198 148.082 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "894bd596-1cb5-4ab4-95ce-04cf8bf2403c")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 46.4135 148.082 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "MISO"
 		(shape input)
 		(at 355.6 240.03 0)
@@ -15026,28 +15148,6 @@
 		(uuid "8b084ba1-24ee-4503-b0f9-c89f7046691a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 362.5204 239.9506 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "I2C_SEL_A1"
-		(shape input)
-		(at 369.57 24.13 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9fb5c928-7f1f-4337-b3b3-5b13fdde5add")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 383.3545 24.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15079,28 +15179,6 @@
 			)
 		)
 	)
-	(global_label "I2C_SEL_A0"
-		(shape input)
-		(at 60.198 153.162 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "a5492106-40cd-491b-b6fb-d15dace67652")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 46.4135 153.162 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "ES1_RST"
 		(shape input)
 		(at 377.19 130.81 0)
@@ -15114,28 +15192,6 @@
 		(uuid "a63404d9-6998-4400-95cb-0540ef4352b2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 387.5037 130.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "I2C_SEL_A0"
-		(shape input)
-		(at 369.57 26.67 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a6db01b8-8977-43a7-82ce-270021a3d20d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 383.3545 26.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
