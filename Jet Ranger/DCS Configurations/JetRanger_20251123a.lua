@@ -4,25 +4,33 @@ description = 'JetRanger'
 PrmaryWidth = 1920
 PrimaryHeight = 1080
 Viewports = {
-  P1 = {
+  LEFT = {
     x = 0;
     y = 0;
     width = 1920;
     height = 1080;
     aspect = 1.77777777777778;
     dx = 0;
-    dy = 0
+    dy = 0;
+	viewDx = -1.56;
+	viewDy = 0;
+	useAsoluteAnglesShift = true;
   },
-  P2 = {
+  CHIN = {
 		x = 1920;
 		y = 1080;
 		width = 1920;
 		height = 1080;
 		aspect = 1.777778;
 		dx = 0;
-		dy = 0
+		dy = 0;
+		viewDx = 0.3;
+		viewDy = -0.785;
+		useAsoluteAnglesShift = true;
+		useAbsoluteFOV = true;
+		FOV = 1.56 ;
 	},
-	  P3 = {
+	  CENTER = {
 		x = 1920;
 		y = 0;
 		width = 1920;
@@ -31,14 +39,17 @@ Viewports = {
 		dx = 0;
 		dy = 0
 	},
-	P4 = {
+	RIGHT = {
 		x = 3840;
 		y = 0;
 		width = 1920;
 		height = 1080;
 		aspect = 1.777778;
 		dx = 0;
-		dy = 0
+		dy = 0;
+		viewDx = 0.785;
+		viewDy = 0;
+		useAsoluteAnglesShift = true;
 	},
 }
 
