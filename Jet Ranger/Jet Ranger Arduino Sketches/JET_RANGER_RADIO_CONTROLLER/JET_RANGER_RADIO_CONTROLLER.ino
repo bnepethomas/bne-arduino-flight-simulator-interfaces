@@ -216,6 +216,22 @@ void send_string(const char* String) {
   }
 }
 
+#define NAV_OLED_Port 0
+#define COMM_OLED_Port 1
+
+void updateNAV() {
+  tcaselect(NAV_OLED_Port);
+  sendCommand(cmd_CLS);
+  String workstring = "Hello Nav";
+  send_string(workstring.c_str());
+}
+
+void updateCOMM() {
+  tcaselect(COMM_OLED_Port);
+  sendCommand(cmd_CLS);
+  String workstring = "Hello Comm";
+  send_string(workstring.c_str());
+}
 
 // ############################################# BEGIN CHARACTER OLED ##########################################
 
@@ -253,8 +269,7 @@ void setup() {
 
   Wire.begin();
 
-  initCharOLED(0);
-  initCharOLED(1);
+
 
 
 
@@ -275,6 +290,11 @@ void setup() {
   // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
   SendDebug("I2C scan complete");
 
+  initCharOLED(0);
+  initCharOLED(1);
+  delay(1000);
+  updateNAV();
+  updateCOMM();
 
   SendDebug("Setup Complete");
 }
