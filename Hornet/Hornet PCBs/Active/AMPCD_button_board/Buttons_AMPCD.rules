@@ -1,0 +1,86 @@
+
+(rules PCB Buttons_AMPCD
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 6997)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.1)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.9)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.2)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_800:400_um"
+    (shape
+      (circle F.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 800.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_800:400_um" "Via[0-1]_800:400_um" default
+  )
+  (via 
+    "Via[0-1]_800:400_um-kicad_default" "Via[0-1]_800:400_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-1]_800:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_800:400_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    "Net-(DL_rocker1-Pad5)" "Net-(DL_rocker2-Pad6)" "Net-(DL_rocker2-Pad5)" "Net-(DL_rocker3-Pad6)" "Net-(DL_rocker3-Pad5)" "Net-(DL_rocker4-Pad6)" "Net-(DL_rocker5-Pad6)" "Net-(DL_rocker5-Pad5)"
+    "Net-(DL_rocker7-Pad5)" "Net-(DL_rocker8-Pad5)" "Net-(SW1-Pad6)" "Net-(SW2-Pad6)" "Net-(SW4-Pad6)" "Net-(SW6-Pad6)" "Net-(SW8-Pad6)" "Net-(SW10-Pad5)"
+    "Net-(SW12-Pad6)" "Net-(SW13-Pad6)" "Net-(SW16-Pad6)" "Net-(SW17-Pad6)" "Net-(SW19-Pad6)" /Col0 "Net-(D1-Pad1)" "Net-(D2-Pad1)"
+    "Net-(D3-Pad1)" "Net-(D4-Pad1)" "Net-(D5-Pad1)" "Net-(D6-Pad1)" "Net-(D7-Pad1)" /Col1 "Net-(D8-Pad1)" "Net-(D9-Pad1)"
+    "Net-(D10-Pad1)" "Net-(D11-Pad1)" "Net-(D12-Pad1)" "Net-(D13-Pad1)" "Net-(D14-Pad1)" /Col2 "Net-(D15-Pad1)" "Net-(D16-Pad1)"
+    "Net-(D17-Pad1)" "Net-(D18-Pad1)" "Net-(D19-Pad1)" "Net-(D20-Pad1)" "Net-(D21-Pad1)" /Col3 "Net-(D22-Pad1)" "Net-(D23-Pad1)"
+    "Net-(D24-Pad1)" "Net-(D25-Pad1)" "Net-(D26-Pad1)" "Net-(D27-Pad1)" "Net-(D28-Pad1)" GND /Row5 /Row6
+    /Row4 /Row3 /Row2 /Row1 /Row0 /Backlight+12V "Net-(R1-Pad2)" "Net-(R2-Pad2)"
+    "Net-(R4-Pad2)" "Net-(R6-Pad2)" "Net-(R7-Pad2)" "Net-(R8-Pad2)" "Net-(R9-Pad2)" "Net-(DL_rocker6-Pad3)" "Net-(DL_rocker6-Pad1)" "Net-(DL_rocker7-Pad3)"
+    "Net-(DL_rocker7-Pad1)" "Net-(SW19-Pad1)" "Net-(SW20-Pad3)" "Net-(SW20-Pad1)" "Net-(DL_rocker8-Pad4)" "Net-(DL_rocker8-Pad2)" "Net-(D29-Pad1)" /Row7
+    "Net-(J5-Pad3)" "Net-(J5-Pad2)" "Net-(J5-Pad1)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

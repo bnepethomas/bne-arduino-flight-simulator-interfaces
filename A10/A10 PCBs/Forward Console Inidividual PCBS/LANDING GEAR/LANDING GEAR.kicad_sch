@@ -1,0 +1,4535 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "ba068193-7bb0-423e-abdc-eab4181ba329")
+	(paper "A4")
+	(lib_symbols
+		(symbol "Connector:Conn_01x02_Socket"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02_Socket"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x02_Socket_1_1"
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector:Conn_01x04_Female"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x04_Female"
+				(at 0 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x04_Female_1_1"
+				(arc
+					(start 0 -4.572)
+					(mid -0.5058 -5.08)
+					(end 0 -5.588)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -5.08) (xy -0.508 -5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy -0.508 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 3.048)
+					(mid -0.5058 2.54)
+					(end 0 2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector:Conn_01x08_Socket"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x08_Socket"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x08, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x08_Socket_1_1"
+				(arc
+					(start 0 -9.652)
+					(mid -0.5058 -10.16)
+					(end 0 -10.668)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -7.112)
+					(mid -0.5058 -7.62)
+					(end 0 -8.128)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -4.572)
+					(mid -0.5058 -5.08)
+					(end 0 -5.588)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -10.16) (xy -0.508 -10.16)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -7.62) (xy -0.508 -7.62)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -5.08) (xy -0.508 -5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy -0.508 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 5.08) (xy -0.508 5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 7.62) (xy -0.508 7.62)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 3.048)
+					(mid -0.5058 2.54)
+					(end 0 2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 5.588)
+					(mid -0.5058 5.08)
+					(end 0 4.572)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 8.128)
+					(mid -0.5058 7.62)
+					(end 0 7.112)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 7.62 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 5.08 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -7.62 0)
+					(length 3.81)
+					(name "Pin_7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -10.16 0)
+					(length 3.81)
+					(name "Pin_8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:D"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "D"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "D_0_1"
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy -1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "D_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:LED"
+			(pin_numbers hide)
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "LED"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Light emitting diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "LED diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "LED* LED_SMD:* LED_THT:*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "LED_0_1"
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "LED_1_1"
+				(pin passive line
+					(at -3.81 0 0)
+					(length 2.54)
+					(name "K"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 3.81 0 180)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:Lamp"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.0254) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "LA"
+				(at 0.635 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "Lamp"
+				(at 0.635 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 2.54 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 2.54 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Lamp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "lamp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Lamp_0_1"
+				(polyline
+					(pts
+						(xy -1.778 1.778) (xy 1.778 -1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.778 1.778) (xy -1.778 -1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 0)
+					(radius 2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Lamp_1_1"
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 5.08 270)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Relay:ADW11"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "K"
+				(at 11.43 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "ADW11"
+				(at 13.97 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Relay_THT:Relay_1P1T_NO_10x24x18.8mm_Panasonic_ADW11xxxxW_THT"
+				(at 33.655 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.panasonic-electric-works.com/pew/es/downloads/ds_dw_hl_en.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Panasonic, 8A/16A, Small Polarized Latching Power Relays, Single coil, 1 Form A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "SPST 1P1T"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Relay*1P1T*NO*Panasonic*ADW11xxxxW*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "ADW11_1_1"
+				(rectangle
+					(start -10.16 5.08)
+					(end 10.16 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(rectangle
+					(start -8.255 1.905)
+					(end -1.905 -1.905)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -7.62 -1.905) (xy -2.54 1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 -5.08) (xy -5.08 -1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy -5.08 1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 0) (xy -1.27 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.635 0) (xy 0 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 0) (xy 1.27 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.905 0) (xy 2.54 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.175 0) (xy 3.81 0)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.08 -2.54) (xy 3.175 3.81)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 5.08 -2.54) (xy 5.08 -5.08)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 3.81) (xy 7.62 5.08)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 3.81) (xy 7.62 2.54) (xy 6.985 3.175) (xy 7.62 3.81)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(text "R+"
+					(at -3.048 -3.556 0)
+					(effects
+						(font
+							(size 1.016 1.016)
+						)
+					)
+				)
+				(text "S+"
+					(at -3.048 3.556 0)
+					(effects
+						(font
+							(size 1.016 1.016)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 7.62 270)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 7.62 270)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -7.62 90)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -7.62 90)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Switch:SW_SPDT_MSM"
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_SPDT_MSM"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Switch, single pole double throw, center OFF position"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch spdt single-pole double-throw ON-OFF-ON"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_SPDT_MSM_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.127) (xy 1.778 1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 -2.54)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPDT_MSM_0_1"
+				(circle
+					(center 2.032 2.54)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.286 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPDT_MSM_1_1"
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 2.54)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(junction
+		(at 115.57 100.33)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "04ebf368-7b4f-4a2b-90f2-f0f5aebd9977")
+	)
+	(junction
+		(at 91.44 115.062)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "05195c56-30b0-4592-9178-45b6f5559232")
+	)
+	(junction
+		(at 78.486 104.14)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "06a54da4-c723-4cbf-a725-9eac7b8eb656")
+	)
+	(junction
+		(at 173.482 110.998)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "496b1033-122d-470e-a7b2-622cd1f929d0")
+	)
+	(junction
+		(at 173.482 106.172)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "80d0e4bb-092a-4399-b8cf-21a923c7c6f0")
+	)
+	(junction
+		(at 113.03 117.602)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "954e5f4b-cc6f-4630-9bc0-685e2d20b129")
+	)
+	(junction
+		(at 78.486 115.062)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9ff67b86-fc18-40b8-a6a1-23d0e33e879e")
+	)
+	(junction
+		(at 102.87 116.586)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b1f5a89a-a85f-4b79-91b6-e35ceae3f921")
+	)
+	(junction
+		(at 91.44 104.14)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f8454790-a8ca-49dc-ba38-96dc79fe0c7c")
+	)
+	(wire
+		(pts
+			(xy 91.44 104.14) (xy 78.486 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0568b56e-e9ad-4458-b1ca-1cd31b065286")
+	)
+	(wire
+		(pts
+			(xy 91.44 116.586) (xy 91.44 115.062)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "05ea1ea7-b189-4ef1-90ce-91a05e0e8f83")
+	)
+	(wire
+		(pts
+			(xy 131.826 109.474) (xy 131.826 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "173c6e3e-65cd-43cb-8c03-60d0b51f8499")
+	)
+	(wire
+		(pts
+			(xy 185.928 119.634) (xy 185.928 113.792)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1bdb02fd-631e-4061-9bbf-d65e9691654b")
+	)
+	(wire
+		(pts
+			(xy 183.896 107.95) (xy 183.896 108.712)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2f503fbb-146f-49a4-9d2e-92b6aa1bf347")
+	)
+	(wire
+		(pts
+			(xy 183.896 108.712) (xy 191.262 108.712)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "494d9b4a-7c33-440a-bfff-57ca428391bb")
+	)
+	(wire
+		(pts
+			(xy 91.44 104.14) (xy 91.44 105.156)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5746d2fa-4fbc-4abf-b1c7-06dd6d838493")
+	)
+	(wire
+		(pts
+			(xy 91.44 115.062) (xy 78.486 115.062)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "69f45c4b-dd65-4c5e-b779-42688a33e082")
+	)
+	(wire
+		(pts
+			(xy 131.826 100.33) (xy 115.57 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c6e6b4a-760f-43b3-85af-4a9708f01021")
+	)
+	(wire
+		(pts
+			(xy 181.102 102.108) (xy 181.102 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6ee343ed-34f0-4fc5-b415-68fe701860e7")
+	)
+	(wire
+		(pts
+			(xy 181.102 110.998) (xy 191.262 110.998)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "777ff428-b2ea-4097-920d-c430131996d5")
+	)
+	(wire
+		(pts
+			(xy 162.56 55.118) (xy 162.56 58.928)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "807361ae-7e66-4bfb-90a1-4702f6ef022d")
+	)
+	(wire
+		(pts
+			(xy 102.87 101.346) (xy 91.44 101.346)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "81518641-4f74-4656-9731-e0a02d5ae94e")
+	)
+	(wire
+		(pts
+			(xy 78.486 104.14) (xy 78.486 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8da6d960-18b1-4523-bd17-54ac18d5a2cb")
+	)
+	(wire
+		(pts
+			(xy 162.56 65.278) (xy 162.56 61.468)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8dd8e2e9-00a4-4eb3-8f35-763fb7e16948")
+	)
+	(wire
+		(pts
+			(xy 169.164 65.278) (xy 162.56 65.278)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "980b4851-fc00-4156-acbf-75e0336a72e5")
+	)
+	(wire
+		(pts
+			(xy 191.262 110.998) (xy 191.262 111.252)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a7bd91b0-2d30-46c3-bece-be4aa994b7ef")
+	)
+	(wire
+		(pts
+			(xy 173.482 102.108) (xy 173.482 106.172)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8643367-84b0-43dc-9fd4-5631e65694a7")
+	)
+	(wire
+		(pts
+			(xy 91.44 115.062) (xy 91.44 112.776)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a865f028-eb53-4c47-9825-4a37283b866b")
+	)
+	(wire
+		(pts
+			(xy 91.44 101.346) (xy 91.44 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a9a2c932-b4b3-4433-988a-b2d143ecae00")
+	)
+	(wire
+		(pts
+			(xy 54.102 107.95) (xy 54.102 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aa8b892e-daf0-4d89-90ee-46050990043d")
+	)
+	(wire
+		(pts
+			(xy 115.57 100.33) (xy 115.57 101.346)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aaf3ae59-fcf9-4579-9821-17e7403e0b5f")
+	)
+	(wire
+		(pts
+			(xy 173.482 110.998) (xy 173.482 119.634)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "adc4bb5b-8883-4df1-8c60-e350936f4a4c")
+	)
+	(wire
+		(pts
+			(xy 78.486 115.062) (xy 78.486 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b1d8aa64-b1fb-498c-a702-35d6044d2bd2")
+	)
+	(wire
+		(pts
+			(xy 54.102 104.14) (xy 78.486 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b5ca970c-5974-4231-8d46-1676faf3a798")
+	)
+	(wire
+		(pts
+			(xy 113.03 117.602) (xy 113.03 116.586)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7d98f9d-93d9-4179-9fce-6a10ff3aa306")
+	)
+	(wire
+		(pts
+			(xy 131.826 117.602) (xy 113.03 117.602)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba6803e3-0fb4-4e9a-86d9-948abe349b99")
+	)
+	(wire
+		(pts
+			(xy 173.482 106.172) (xy 173.482 110.998)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bc164837-7cf5-4303-a3ce-44251bf74e5b")
+	)
+	(wire
+		(pts
+			(xy 54.102 110.49) (xy 54.102 115.062)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c5bd3ef0-0831-49dc-a5f9-5f12089ccf4d")
+	)
+	(wire
+		(pts
+			(xy 105.156 58.42) (xy 104.394 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cacfbcae-a922-420a-872e-0cf282b4fe6c")
+	)
+	(wire
+		(pts
+			(xy 70.104 78.74) (xy 69.342 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc4290d5-b51b-484a-98b2-a9e88aaedd2f")
+	)
+	(wire
+		(pts
+			(xy 181.102 119.634) (xy 185.928 119.634)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d0a6b8a9-cbfb-4a38-be29-ba128d7f143a")
+	)
+	(wire
+		(pts
+			(xy 69.85 58.166) (xy 69.088 58.166)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d2804c22-cacb-41e8-a8fd-be5077882a17")
+	)
+	(wire
+		(pts
+			(xy 54.102 115.062) (xy 78.486 115.062)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3395c41-b1c9-49d3-bf95-61ddfd82db3d")
+	)
+	(wire
+		(pts
+			(xy 102.87 116.586) (xy 102.87 119.888)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3539e64-e724-4a09-aa39-19c10d6c196c")
+	)
+	(wire
+		(pts
+			(xy 115.57 98.806) (xy 115.57 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d683b89b-1899-4530-b9f9-a056d09f4085")
+	)
+	(wire
+		(pts
+			(xy 173.482 106.172) (xy 191.262 106.172)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ddf82ff8-00bd-4283-ae99-49104d340f76")
+	)
+	(wire
+		(pts
+			(xy 131.826 112.014) (xy 131.826 117.602)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "de5311cb-e49b-4d3f-bb26-b74985217646")
+	)
+	(wire
+		(pts
+			(xy 102.87 116.586) (xy 91.44 116.586)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed9f8dcb-334d-4351-961a-5c4ad03ddc67")
+	)
+	(wire
+		(pts
+			(xy 185.928 113.792) (xy 191.262 113.792)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f735e057-ee05-4aaf-b7c8-1b89d3573f31")
+	)
+	(wire
+		(pts
+			(xy 113.03 118.872) (xy 113.03 117.602)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fd5896ad-1ba5-4e80-b722-c7edd76bbceb")
+	)
+	(wire
+		(pts
+			(xy 169.164 55.118) (xy 162.56 55.118)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fdd86536-16c4-496b-bdee-d13aaa8dfc1a")
+	)
+	(wire
+		(pts
+			(xy 181.102 107.95) (xy 183.896 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ffe355fd-8b1b-4857-b3be-e767c057dc61")
+	)
+	(label "COL0"
+		(at 155.448 78.486 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "01136c4d-ee2e-4340-a655-31cad126e170")
+	)
+	(label "ROW11"
+		(at 79.248 60.706 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0b738a95-05c9-4fb2-8a44-a10d3cd0ccdb")
+	)
+	(label "COIL_ANTI_SKID"
+		(at 102.87 119.888 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1d1dbfdc-cb86-4036-b788-376eb54dd495")
+	)
+	(label "COL1"
+		(at 97.536 58.42 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2c6ea707-2c3b-4b17-bbc5-4eeec532158c")
+	)
+	(label "ROW14"
+		(at 214.63 76.454 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "32cf4fc6-0b9b-4539-80d3-f34206e3ce3c")
+	)
+	(label "ROW15"
+		(at 214.63 78.994 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "52ec4b0f-6fbb-46db-a62f-d6e26d858774")
+	)
+	(label "COL1"
+		(at 113.03 126.492 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5b162c38-89bb-4cc0-b255-713d6035912b")
+	)
+	(label "ROW15"
+		(at 173.228 81.026 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "618fcb77-9992-4730-afaa-cc682a88ba08")
+	)
+	(label "COL0"
+		(at 214.63 61.214 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7b43ec06-4946-4dbf-a4bb-4ecccc9521e8")
+	)
+	(label "ROW14"
+		(at 115.57 98.806 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7b96bd5c-f78c-45da-a504-722e0310d53b")
+	)
+	(label "ROW10"
+		(at 214.63 66.294 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7f85ba24-1fba-4ceb-925b-d443b2a98ef7")
+	)
+	(label "ROW12"
+		(at 116.586 76.708 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "824714d0-5d94-43c0-9fa0-320a2f65fbc5")
+	)
+	(label "COL0"
+		(at 62.23 58.166 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8de4b32e-b05a-4cb3-87cc-63594528177b")
+	)
+	(label "ROW10"
+		(at 114.554 55.88 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9cab4c5c-df24-46fe-9c07-db30efa2c38d")
+	)
+	(label "COL1"
+		(at 214.63 63.754 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ac42d559-9437-41a0-ac9d-63d1e49f9bc7")
+	)
+	(label "ROW11"
+		(at 214.63 68.834 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b9850295-6cf7-42a0-b531-d846c582950f")
+	)
+	(label "COL1"
+		(at 98.806 79.248 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b9ce8ca7-78a6-41f9-a213-f02934f3bc3e")
+	)
+	(label "ROW12"
+		(at 79.502 76.2 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bc0247f8-2b01-48a8-b6ee-4a53624b4881")
+	)
+	(label "ROW11"
+		(at 114.554 60.96 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "be95f793-4e37-4805-bf7b-a634bf9c4ea7")
+	)
+	(label "ROW13"
+		(at 116.586 81.788 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cc007c66-9f34-4f0c-9e7d-9a69f0ba39e0")
+	)
+	(label "ROW14"
+		(at 173.228 75.946 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d2a4469d-9aad-4dd5-9806-f3326847e90a")
+	)
+	(label "COIL_28V"
+		(at 91.44 101.346 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "dbfad0e9-8ad8-4e86-b876-24085fd1cb05")
+	)
+	(label "ROW12"
+		(at 214.63 71.374 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "e4f081dc-5c56-44af-8b88-7124f099fde4")
+	)
+	(label "ROW10"
+		(at 79.248 55.626 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e6616f34-e534-497d-966d-8e2a0cb54e42")
+	)
+	(label "ROW13"
+		(at 214.63 73.914 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ed42cdf5-b09e-4faa-8460-553301ef66f3")
+	)
+	(label "ROW13"
+		(at 79.502 81.28 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f32df1a7-75d7-4172-b532-d994439583da")
+	)
+	(label "COL0"
+		(at 62.484 78.74 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fea75618-1d7f-470d-a556-29beea56e9f3")
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT_MSM")
+		(at 74.422 78.74 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1867ad42-abfd-4dd9-b845-93b5c5c6894c")
+		(property "Reference" "SW2"
+			(at 74.422 71.501 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LANDING LIGHTS"
+			(at 74.422 73.8124 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 74.422 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 74.422 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 74.422 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e546dfb0-2b40-4b6d-b943-407bf080ff3b")
+		)
+		(pin "2"
+			(uuid "26f52a56-fc40-4f9c-8adf-3099216a52ff")
+		)
+		(pin "3"
+			(uuid "c8e6c36d-dd54-4157-9ac0-3b7b659baa1a")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "SW2")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "SW2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 101.346 58.42 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1daf8542-e9d6-43be-8781-145ff39e8e4d")
+		(property "Reference" "D4"
+			(at 101.346 52.9336 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 101.346 55.245 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 101.346 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 101.346 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.346 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5161e009-6e68-4056-ae96-08adf521bfb2")
+		)
+		(pin "2"
+			(uuid "a1158dd0-423c-4c8f-b169-8d701f3bf546")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "D4")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 66.294 78.74 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "253ed40a-14bf-4572-b89c-5ce35cda887c")
+		(property "Reference" "D2"
+			(at 66.294 73.2536 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 66.294 75.565 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 66.294 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 66.294 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 66.294 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b348b354-07db-4366-a7fb-1e562acc43c9")
+		)
+		(pin "2"
+			(uuid "e9a09fbb-39e8-420a-9a85-ccecc0db28ee")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 73.406 107.95 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3c6c1377-8884-47d4-9662-a0e8e118390f")
+		(property "Reference" "J1"
+			(at 72.6948 108.0079 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ANTI-SKID-COIL"
+			(at 72.6948 110.4321 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 73.406 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 73.406 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 73.406 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "97d94442-5a0f-4a87-9ecd-b5391bb52636")
+		)
+		(pin "2"
+			(uuid "4b72f5dd-10d3-4d1a-8625-72186a6d7d3c")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "J1")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "J13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 66.04 58.166 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4dfa6321-21a5-423e-9e40-1d98ec29e59a")
+		(property "Reference" "D1"
+			(at 66.04 52.6796 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 66.04 54.991 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 66.04 58.166 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 66.04 58.166 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 66.04 58.166 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "711e3079-884c-4fb0-97b0-9ff10b15d070")
+		)
+		(pin "2"
+			(uuid "74cda6c4-2841-4282-8275-35ae5d9d9098")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 102.616 79.248 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "550df862-a97f-4b9b-842e-0d9f2633886f")
+		(property "Reference" "D5"
+			(at 102.616 73.7616 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 102.616 76.073 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 102.616 79.248 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 102.616 79.248 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 102.616 79.248 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "267aa5bf-0167-4686-9c3b-74250c418f94")
+		)
+		(pin "2"
+			(uuid "09d8602b-0ad0-4fb1-9d6b-ac900f8e52ff")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "D5")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "D5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 117.348 142.748 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "55136b47-1de4-4b94-aba3-373c096ef3cf")
+		(property "Reference" "J8"
+			(at 116.6368 142.8059 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BACKLIGHT"
+			(at 116.6368 145.2301 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 117.348 142.748 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 117.348 142.748 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 117.348 142.748 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bf61463f-72ab-4a87-a39e-cca1e28c2979")
+		)
+		(pin "2"
+			(uuid "a761d1af-e51d-4055-af4b-a0f5c588471b")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "J8")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "J12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 113.03 122.682 90)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "569e4881-6149-445c-927c-c5c8f1e377d1")
+		(property "Reference" "D6"
+			(at 107.5436 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 109.855 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 113.03 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 113.03 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 113.03 122.682 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b54e911e-cf70-4b3c-8fe8-05c979f80c5e")
+		)
+		(pin "2"
+			(uuid "1024d813-7016-4456-afab-13145038bd33")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "D6")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "D6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT_MSM")
+		(at 168.148 78.486 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "56d7919e-437c-49f5-8dd8-ab3b11d4a76a")
+		(property "Reference" "SW5"
+			(at 168.148 71.247 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LANDING GEAR"
+			(at 168.148 73.5584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 168.148 78.486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 168.148 78.486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 168.148 78.486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fb918793-f7a5-42f0-bbce-7c650fffe373")
+		)
+		(pin "2"
+			(uuid "adcf7206-a7e1-4534-8e60-ebb48919e690")
+		)
+		(pin "3"
+			(uuid "fec34cc6-9a52-423a-a2ca-23e23cc76871")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "SW5")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "SW65")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Lamp")
+		(at 169.164 60.198 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "58ed0147-db10-439e-b6b8-340c0b505352")
+		(property "Reference" "LA1"
+			(at 172.339 58.9859 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "28V GEAR HANDLE"
+			(at 172.339 61.4101 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 169.164 62.738 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 169.164 62.738 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 169.164 60.198 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "700f26b7-8a20-4661-8f55-41010ce46aa6")
+		)
+		(pin "2"
+			(uuid "1ef5f691-f8a6-4b6d-9e1c-456c6b8df282")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "LA1")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "LA4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 177.292 110.998 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5ac4b867-5ace-452d-a6c0-ee5aecb4454e")
+		(property "Reference" "D9"
+			(at 178.8795 104.6947 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "LEFT"
+			(at 178.8795 107.1189 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 177.292 110.998 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 177.292 110.998 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 177.292 110.998 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6d7597b1-6a92-4e46-a3c8-141f756f1563")
+		)
+		(pin "2"
+			(uuid "e904758b-7bbc-46af-ab59-9e18e7a4bee7")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "D9")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "D9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 91.44 108.966 90)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
+		(dnp no)
+		(uuid "5b5be73e-903d-43d5-8eaa-ad4dea55408d")
+		(property "Reference" "D3"
+			(at 85.9536 108.966 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 88.265 108.966 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 91.44 108.966 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 91.44 108.966 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 91.44 108.966 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "70a80cce-4810-4655-b1e9-76e61db71dd4")
+		)
+		(pin "2"
+			(uuid "494b6c75-7b9c-4575-a67e-57bb42eb4c79")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "D3")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "D3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 177.292 102.108 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5ce91658-da80-4c3e-94fa-0ecf0cd743dc")
+		(property "Reference" "D8"
+			(at 178.8795 95.8047 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "NOSE"
+			(at 178.8795 98.2289 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 177.292 102.108 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 177.292 102.108 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 177.292 102.108 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "5182c8b5-51a3-4802-9211-85ef62895b07")
+		)
+		(pin "2"
+			(uuid "fc59e6c9-bde4-4803-9f51-8b4924794688")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "D8")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "D8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x04_Female")
+		(at 196.342 108.712 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "604b3251-6591-4205-b56b-c59981970de8")
+		(property "Reference" "J4"
+			(at 197.0532 108.7699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LANDING GEAR LEDS"
+			(at 197.0532 111.1941 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
+			(at 196.342 108.712 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 196.342 108.712 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 196.342 108.712 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "145e7fd2-5c0c-44c5-8a0c-3785db914004")
+		)
+		(pin "2"
+			(uuid "f8481627-8245-47fe-85f4-178a24b3a25b")
+		)
+		(pin "3"
+			(uuid "258fb3e1-2ffa-4f24-8068-8ea29e268748")
+		)
+		(pin "4"
+			(uuid "8a31e521-4699-4eba-b833-f67b62b9283b")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "J4")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 157.48 58.928 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "66ac7a08-5a12-482c-94c2-b22549f35a67")
+		(property "Reference" "J3"
+			(at 156.7688 58.9859 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "GEAR-HANDLE-LAMP"
+			(at 156.7688 61.4101 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 157.48 58.928 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 157.48 58.928 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 157.48 58.928 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "2fc03091-095f-4a49-8a40-490b8a2082b6")
+		)
+		(pin "1"
+			(uuid "cb84ff8f-ed44-4382-be9c-3e3ff9f0865b")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "J3")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "J14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:LED")
+		(at 177.292 119.634 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7c94302a-1aba-4331-bd81-2dd1948f2148")
+		(property "Reference" "D10"
+			(at 178.8795 113.3307 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "RIGHT"
+			(at 178.8795 115.7549 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 177.292 119.634 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 177.292 119.634 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 177.292 119.634 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "74fc3e54-cd5f-4cfa-b43d-099cad48c6a8")
+		)
+		(pin "2"
+			(uuid "4bc4a7f3-64b6-469d-a4e3-b5788791dbcc")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "D10")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "D10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT_MSM")
+		(at 74.168 58.166 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8cca5f30-2288-461b-af57-80ce0563aa76")
+		(property "Reference" "SW1"
+			(at 74.168 50.927 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "FLAPS"
+			(at 74.168 53.2384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 74.168 58.166 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 74.168 58.166 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 74.168 58.166 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "058991f0-4689-4453-95a8-4be8b044331e")
+		)
+		(pin "2"
+			(uuid "4d18abb5-443f-4a57-af31-8cd93a63e031")
+		)
+		(pin "3"
+			(uuid "ac283332-63f5-4906-b122-5efc464b9629")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "SW1")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "SW1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 49.022 107.95 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8dc9f3d4-a0c4-40da-a30a-4b2a11fb0c00")
+		(property "Reference" "J6"
+			(at 48.3108 108.0079 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ANTI-SKID-COIL"
+			(at 48.3108 110.4321 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 49.022 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 49.022 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 49.022 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b3aad7fe-8844-4945-83e3-69c71f25ad19")
+		)
+		(pin "2"
+			(uuid "f79c2f45-2808-4da8-8204-3ce02de82965")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "J6")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "J13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 127.508 142.748 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8f418bf1-e9d1-4b60-99a6-1abd7d18536f")
+		(property "Reference" "J7"
+			(at 128.2192 142.8059 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BACKLIGHT"
+			(at 128.2192 145.2301 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 127.508 142.748 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 127.508 142.748 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 127.508 142.748 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "de31c80c-8df9-4c5b-9b80-73e6ebb5f47a")
+		)
+		(pin "2"
+			(uuid "9cea2c48-a5cc-46e7-86e5-662dc5af04fa")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "J7")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "J12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT_MSM")
+		(at 111.506 79.248 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9f9bb51d-74e1-43a8-ac38-ee0baebffee0")
+		(property "Reference" "SW4"
+			(at 111.506 72.009 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "CANOPY"
+			(at 111.506 74.3204 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 111.506 79.248 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.506 79.248 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 111.506 79.248 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e0a8b8da-edfb-44f5-97f6-421e94886665")
+		)
+		(pin "2"
+			(uuid "ab356d4d-128e-43ea-86b4-b199a9d11c81")
+		)
+		(pin "3"
+			(uuid "349a000f-2818-4838-80be-5174ac4bb50b")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "SW4")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "SW4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 136.906 109.474 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b0a8b021-6a89-40d3-9187-30c9a14dbefb")
+		(property "Reference" "J2"
+			(at 137.6172 109.5319 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ANTI-SKID"
+			(at 137.6172 111.9561 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 136.906 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 136.906 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 136.906 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "47c8d366-2931-4c93-8ce7-badfd4cd4b58")
+		)
+		(pin "2"
+			(uuid "e80968e8-53fa-4f3a-8b63-b20f5307a2e9")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "J2")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "J12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x08_Socket")
+		(at 219.71 68.834 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b1b05068-3e3e-49af-ab75-d6a308f3cd2a")
+		(property "Reference" "J5"
+			(at 220.4212 68.8919 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "LANDING GEAR"
+			(at 220.4212 71.3161 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-08A_1x08_P2.54mm_Vertical"
+			(at 219.71 68.834 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 219.71 68.834 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 219.71 68.834 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "8"
+			(uuid "982149da-18ad-4402-9eb4-e5574b4e5fcc")
+		)
+		(pin "5"
+			(uuid "aede9afa-bedb-4a53-9226-6886c689ac11")
+		)
+		(pin "3"
+			(uuid "b6011545-894d-4b7e-a581-f4385ed480b8")
+		)
+		(pin "1"
+			(uuid "1cb7e2ab-054e-49da-afc0-3c8736dcd1fe")
+		)
+		(pin "7"
+			(uuid "77ff651b-24ec-4824-9f3b-0b7ae74a1658")
+		)
+		(pin "2"
+			(uuid "3f383352-114d-4dd4-9751-44012451dff1")
+		)
+		(pin "4"
+			(uuid "3fe464d3-13a6-492f-96b1-b1dbed4066ca")
+		)
+		(pin "6"
+			(uuid "1683fa72-8f63-4b84-a2e4-1ded7e86a66d")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "J5")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "J15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPDT_MSM")
+		(at 109.474 58.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cd95f0d1-43b8-421a-adbf-6af90a040282")
+		(property "Reference" "SW3"
+			(at 109.474 51.181 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BRAKE"
+			(at 109.474 53.4924 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical"
+			(at 109.474 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 109.474 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 109.474 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "91fbc074-b190-4a06-8087-da68f20ea70f")
+		)
+		(pin "2"
+			(uuid "4beeb846-c2bb-44d7-9492-b13f8743b300")
+		)
+		(pin "3"
+			(uuid "9d6fb247-04f3-4012-9681-46aee2735267")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "SW3")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "SW3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 159.258 78.486 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f757fc6a-af43-4a44-8e05-af72a91f9ac5")
+		(property "Reference" "D7"
+			(at 159.258 72.9996 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 159.258 75.311 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P2.54mm_Vertical_AnodeUp"
+			(at 159.258 78.486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 159.258 78.486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 159.258 78.486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a90f3e6f-7cf8-40ca-aaf1-8e035d50a3dd")
+		)
+		(pin "2"
+			(uuid "26bcdef8-3724-42b7-b5ec-68186b186152")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "D7")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "D111")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Relay:ADW11")
+		(at 107.95 108.966 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fe16e7fb-e27f-4609-ab89-471baefd243b")
+		(property "Reference" "K1"
+			(at 118.872 107.7539 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ANTI-SKID"
+			(at 118.872 110.1781 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Relay_THT:Relay_1P1T_NO_10x24x18.8mm_Panasonic_ADW11xxxxW_THT"
+			(at 141.605 110.236 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.panasonic-electric-works.com/pew/es/downloads/ds_dw_hl_en.pdf"
+			(at 107.95 108.966 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 107.95 108.966 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3cbf431c-21de-4d00-b816-1822fc0b3d72")
+		)
+		(pin "3"
+			(uuid "b5450f3f-339c-40a8-8dbc-1ad494084c26")
+		)
+		(pin "5"
+			(uuid "ae224e0b-acba-4014-bc9c-2e26626a9579")
+		)
+		(pin "6"
+			(uuid "2b029651-2748-4cc7-8b26-5cec7d767a6d")
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(reference "K1")
+					(unit 1)
+				)
+			)
+			(project "Forward Console Overview"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/76d83e99-ed6f-4224-acbf-f2f4f0170bca"
+					(reference "K1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 35.306 180.848)
+		(size 12.7 3.81)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "992d346b-ffe7-4a44-b75e-53864283d557")
+		(property "Sheetname" "CHANGE LOG"
+			(at 35.306 180.1364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "CHANGE LOG.kicad_sch"
+			(at 35.306 185.2426 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(property "Field2" ""
+			(at 35.306 180.848 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Field3" ""
+			(at 35.306 180.848 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "LANDING GEAR"
+				(path "/ba068193-7bb0-423e-abdc-eab4181ba329"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

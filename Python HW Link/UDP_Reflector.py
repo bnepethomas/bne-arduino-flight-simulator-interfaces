@@ -24,7 +24,25 @@ logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
  
+MIN_VERSION_PY3 = 5    # min. 3.x version
+if (sys.version_info[0] < 3):
+        Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3) 
+        print('')
+        logging.critical(Warning_Message)
+        print('')
+        print('Invalid Version of Python running')
+        print('Running Python earlier than Python 3.0! ' + sys.version)
+        sys.exit(Warning_Message)
 
+elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
+        Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3)           
+        print('')
+        logging.critical(Warning_Message)  
+        print('')
+        print('Invalid Version of Python running')
+        print('Running Python ' + sys.version)
+        sys.exit(Warning_Message)
+        
 
 # Used for command line parsing
 from optparse import OptionParser
@@ -52,7 +70,7 @@ def CleanUpAndExit():
 debugging = False
 config_file = 'UDP_Reflector_config.py'
 filterString = ''
-secondsBetweenKeepAlives = 5
+secondsBetweenKeepAlives = 60
 
 # Initialise keepalive indicator
 last_time_display = time.time()
@@ -109,7 +127,7 @@ try:
     parser.add_option("-w","--wh", dest="opt_W_Host",
                       help="Wireshark Target IP Address",metavar="opt_W_Host")    
     parser.add_option("-u","--wp", dest="opt_W_Port",
-                      help="Wireshark Target Port. 27001 is used if not explicity specified",
+                      help="Wireshark Target Port. 27001 is used if not explicitly specified",
                       metavar="opt_W_Port") 
     (options, args) = parser.parse_args()
 
@@ -224,8 +242,9 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             
             ReceivedUDPString = str(ReceivedUDPString)
             logging.debug("From: " + Source_IP + " " + Source_Port)
-            logging.debug('Payload: ' + ReceivedUDPString)
+            logging.info('Payload: ' + ReceivedUDPString)
             Send_String = Source_IP + ':' + Source_Port + '---' + ReceivedUDPString
+
             
             # Is Wireshark target address set - if so throw a copy of the packet in its direction
             if wireshark_IP_Address != None:

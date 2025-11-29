@@ -1,37 +1,212 @@
-{ 
-    
-    "15": {
-        "IP": "127.0.0.1:2000",
-        "Field": "25", 
-        "Description": "Bulb 15" 
-        
-    }, 
-    "16": {
-        "IP": "127.0.0.1:2000",
-        "Field": "25", 
-        "Description": "Bulb 16" 
+{
+    "LIGHT_TAXI": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "26",
+        "IP": "172.16.1.21:13135"
     },
-    "17": {   
-	"Description": ""       
-    }, 
-
+    "GEAR_LEFT_POSITION": {
+        "Description": "Left Gear Position",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "3",
+        "IP": "172.16.1.21:13135"
+    },
+    "ENG_ON_FIRE_2": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "20",
+        "IP": "172.16.1.21:13135"
+    },
+    "GENERAL_ENG_MASTER_ALTERNATOR_1": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "6",
+        "IP": "172.16.1.21:13135"
+    },
+    "LIGHT_NAV": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "25",
+        "IP": "172.16.1.21:13135"
+    },
+    "GENERAL_ENG_OIL_PRESSURE_2": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "18",
+        "IP": "172.16.1.21:13135"
+    },
+    "GENERAL_ENG_FUEL_VALVE_1": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "13",
+        "IP": "172.16.1.21:13135"
+    },
+    "BRAKE_PARKING_INDICATOR": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "12",
+        "IP": "172.16.1.21:13135"
+    },
     "ALT": {
-        "IP": "127.0.0.1:2003",
-        "Field": "2", 
-        "Description": "Altimeter" 
-        
-    }, 
-    "Airspeed": {
-        "IP": "127.0.0.1:2004",
-        "Field": "1", 
-        "Description": "Airspeed" 
-        
-    }, 
+        "Description": "Altimeter",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "2",
+        "IP": "127.0.0.1:2003"
+    },
+    "GENERAL_ENG_STARTER_1": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "15",
+        "IP": "172.16.1.21:13135"
+    },
+    "ELEVATOR_TRIM_PCT": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "11",
+        "IP": "172.16.1.21:13135"
+    },
+    "ENG_ON_FIRE_1": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "19",
+        "IP": "172.16.1.21:13135"
+    },
+    "TRAILING_EDGE_FLAPS_LEFT_ANGLE": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "8",
+        "IP": "172.16.1.21:13135"
+    },
+    "ELECTRICAL_MASTER_BATTERY": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "22",
+        "IP": "172.16.1.21:13135"
+    },
+    "INNER_MARKER": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "27",
+        "IP": "172.16.1.21:13135"
+    },
+    "TRAILING_EDGE_FLAPS_LEFT_PERCENT": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "9",
+        "IP": "172.16.1.21:13135"
+    },
+    "SPOILERS_LEFT_POSITION": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "10",
+        "IP": "172.16.1.21:13135"
+    },
+    "LIGHT_CABIN": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "23",
+        "IP": "172.16.1.21:13135"
+    },
     "VS": {
-        "IP": "127.0.0.1:2006",
-	"Datatype": "str",
-        "Field": "1", 
-        "Description": "Vertical Speed" 
-        
+        "Description": "Vertical Speed",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "1",
+        "IP": "127.0.0.1:2006"
+    },
+    "Airspeed": {
+        "Description": "Airspeed",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "1",
+        "IP": "127.0.0.1:2004"
+    },
+    "GENERAL_ENG_STARTER_2": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "16",
+        "IP": "172.16.1.21:13135"
+    },
+    "GEAR_CENTER_POSITION": {
+        "Description": "Centre Gear Position",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "2",
+        "IP": "172.16.1.21:13135"
+    },
+    "GEAR_RIGHT_POSITION": {
+        "Description": "Right Gear Positon",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "4",
+        "IP": "172.16.1.21:13135"
+    },
+    "MIDDLE_MARKER": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "28",
+        "IP": "172.16.1.21:13135"
+    },
+    "GENERAL_ENG_OIL_PRESSURE_1": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "17",
+        "IP": "172.16.1.21:13135"
+    },
+    "STALL_WARNING": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "21",
+        "IP": "172.16.1.21:13135"
+    },
+    "GENERAL_ENG_FUEL_VALVE_2": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "14",
+        "IP": "172.16.1.21:13135"
+    },
+    "OUTER_MARKER": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "29",
+        "IP": "172.16.1.21:13135"
+    },
+    "GENERAL_ENG_MASTER_ALTERNATOR_2": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "7",
+        "IP": "172.16.1.21:13135"
+    },
+    "LIGHT_STROBE": {
+        "Description": "",
+        "ManuallyCalcValue": "False",
+        "Datatype": "str",
+        "Field": "24",
+        "IP": "172.16.1.21:13135"
     }
 }

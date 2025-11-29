@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "AV-COOL-PCB-V2-rescue")(type "Legacy")(uri "${KIPRJMOD}/OZ-WING_FOLD-rescue.lib")(options "")(descr ""))
+)

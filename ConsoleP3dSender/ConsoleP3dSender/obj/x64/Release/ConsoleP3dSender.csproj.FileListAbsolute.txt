@@ -1,0 +1,17 @@
+D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\bin\x64\Release\ConsoleP3dSender.exe.config
+D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\bin\x64\Release\ConsoleP3dSender.exe
+D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\bin\x64\Release\ConsoleP3dSender.pdb
+D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\bin\x64\Release\LockheedMartin.Prepar3D.SimConnect.dll
+D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Release\ConsoleP3dSender.csprojAssemblyReference.cache
+D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Release\ConsoleP3dSender.csproj.CoreCompileInputs.cache
+D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Release\ConsoleP3dSender.csproj.CopyComplete
+D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Release\ConsoleP3dSender.exe
+D:\Development\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Release\ConsoleP3dSender.pdb
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\bin\x64\Release\ConsoleP3dSender.exe.config
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\bin\x64\Release\ConsoleP3dSender.exe
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\bin\x64\Release\ConsoleP3dSender.pdb
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Release\ConsoleP3dSender.csproj.AssemblyReference.cache
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Release\ConsoleP3dSender.csproj.CoreCompileInputs.cache
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Release\ConsoleP3dSender.csproj.CopyComplete
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Release\ConsoleP3dSender.exe
+C:\Users\bnepe\Documents\GitHub\bne-arduino-flight-simulator-interfaces\ConsoleP3dSender\ConsoleP3dSender\obj\x64\Release\ConsoleP3dSender.pdb

@@ -1,0 +1,82 @@
+
+(rules PCB INTERCOMM BACKLIGHT VALIDATION
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 648)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.2)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_800:400_um"
+    (shape
+      (circle F.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 800.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_800:400_um" "Via[0-1]_800:400_um" default
+  )
+  (via 
+    "Via[0-1]_800:400_um-kicad_default" "Via[0-1]_800:400_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-1]_800:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_800:400_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    "Net-(D1-K)" "Net-(D2-K)" "Net-(D3-K)" "/ANALOG_5V" "/ANALOG_GND" /COL1 /COL2 "Net-(D3-A)"
+    "Net-(D10-A)" "Net-(D4-A)" "Net-(D11-A)" "Net-(D5-A)" "Net-(D12-A)" "Net-(D6-A)" "Net-(D13-A)" "Net-(D7-A)"
+    "Net-(D14-A)" "Net-(D8-A)" "Net-(D15-A)" "Net-(D10-K)" "Net-(D11-K)" "Net-(D12-K)" "Net-(D13-K)" "Net-(D14-K)"
+    "/BACKLIGHT_GND" "Net-(D21-K)" "Net-(D22-K)" "Net-(D23-K)" "Net-(D24-K)" "Net-(D26-K)" /COL3 "Net-(D27-K)"
+    "Net-(D28-K)" "Net-(D29-K)" /COL0 "/BACKLIGHT_+12V" /ROW7 /ROW8 /ROW9 /ROW10
+    "unconnected-(J3-Pin_6-Pad6)" "Net-(D25-K)" "/INT_VOL" "/ILS_VOL" "/AIM_VOL" "/IFF_VOL" "/FM_VOL" "/MASTER_VOL"
+    "/UHF_VOL" "/TACAN_VOL" "/VHF_VOL"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

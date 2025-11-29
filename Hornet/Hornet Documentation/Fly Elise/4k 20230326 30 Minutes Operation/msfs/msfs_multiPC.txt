@@ -1,0 +1,34 @@
+Export for MultiPC (single channel per PC)
+Locate the plane folder in the MSFS packages directory
+Example: packages\Official\Steam\asobo-aircraft-c172sp-classic\SimObjects\Airplanes\Asobo_C172sp_classic
+Locate and create a copy of the cameras.cfg
+Locate the [CAMERADEFINITION.x] for Origin = "Virtual Cockpit"
+Edit the camerss.cfg file and add/modify the InitialZoom and InitialPbh lines as indicated below
+
+------------------
+Set the ZoomPercentage in MSFS GUI to 42.0656
+Channel = 1
+ProjectorName = Projector1
+Enter the following values in the cameras.cfg file
+InitialZoom = 1.0
+InitialPbh = 9.8967, 0, -66.0839
+------------------
+
+------------------
+Set the ZoomPercentage in MSFS GUI to 20.2342
+Channel = 2
+ProjectorName = Projector2
+Enter the following values in the cameras.cfg file
+InitialZoom = 1.0
+InitialPbh = 9.75862, 0, -4.70305
+------------------
+
+------------------
+Set the ZoomPercentage in MSFS GUI to 39.3367
+Channel = 3
+ProjectorName = Projector3
+Enter the following values in the cameras.cfg file
+InitialZoom = 1.0
+InitialPbh = 12.1747, 0, 70.8311
+------------------
+

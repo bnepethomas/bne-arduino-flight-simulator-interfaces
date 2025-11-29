@@ -1,0 +1,141 @@
+
+(session "BRAKE-PRES-V01.ses"
+  (base_design "BRAKE-PRES-V01.dsn")
+  (placement
+    (resolution um 10)
+    (component Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical
+      (place J1 1061500 -806000 front 45)
+    )
+    (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical
+      (place R1 1153101 -767101 front 315)
+    )
+    (component "ben:VID29-02"
+      (place M1 1099000 -771000 front 45)
+    )
+    (component LED_THT:LED_D3.0mm_Clear
+      (place D1 981516 -636984 back 45)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version 7.0.9)
+    )
+    (library_out 
+      (padstack "Via[0-1]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net "Net-(D1-Pad1)"
+        (wire
+          (path F.Cu 2500
+            1166536 -780536
+            1159286 -787786
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            981516 -636984
+            990180 -645648
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            990180 -645648
+            990180 -716011
+            1074236 -800067
+            1085394 -800067
+            1097675 -787786
+            1159286 -787786
+          )
+        )
+      )
+      (net "/LED-12V"
+        (wire
+          (path B.Cu 2500
+            1115382 -823961
+            1123693 -815650
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1153101 -767101
+            1123692 -796510
+            1123692 -815650
+            1123693 -815650
+          )
+        )
+      )
+      (net /LED+12V
+        (wire
+          (path B.Cu 2500
+            1097421 -841921
+            1089111 -833610
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            963555 -654945
+            963555 -690093
+            1091692 -818230
+            1091692 -831029
+            1089111 -833610
+          )
+        )
+      )
+      (net "/STEPPER-1-1"
+        (wire
+          (path F.Cu 2500
+            989823 -825730
+            1041770 -825730
+            1061500 -806000
+          )
+        )
+      )
+      (net "/STEPPER-1-2"
+        (wire
+          (path B.Cu 2500
+            1044270 -880177
+            1044270 -859152
+            1079461 -823961
+          )
+        )
+      )
+      (net "/STEPPER-1-3"
+        (wire
+          (path F.Cu 2500
+            1205844 -718603
+            1148897 -718603
+            1079461 -788039
+          )
+        )
+      )
+      (net "/STEPPER-1-4"
+        (wire
+          (path B.Cu 2500
+            1097421 -806000
+            1105732 -797689
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1151397 -664156
+            1105731 -709822
+            1105731 -797689
+            1105732 -797689
+          )
+        )
+      )
+    )
+  )
+)

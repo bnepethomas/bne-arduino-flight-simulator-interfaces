@@ -1,3 +1,6 @@
+# Currently cleaning up transition with hatches leaving trails
+
+
 # Altimeter OLED code - used in conjunction with Arduino for driving stepper  
 # https://github.com/bnepethomas/bne-arduino-flight-simulator-interfaces/tree/master/Hornet%20Altimeter
 
@@ -7,6 +10,10 @@
 #   https://learn.adafruit.com/ssd1306-oled-displays-with-raspberry-pi-and-beaglebone-black/overview
 #   Then use this code.
 
+
+
+
+
 # Font used in Arduino build is FreeMonoBold  which is basically Courier
 #   As the same font wasn't easily found, used 'monofonto.ttf' from
 #       http://www.dafont.com/bitmap.php
@@ -15,7 +22,14 @@
 
 # This code assumes used on the SPI interface, which must be enabled in the pi
 #   To validate the SPI interface is active 'ls /dev/*spi*'. This should
-#   return 'spidev0.0  spidev0.1'. 
+#   return 'spidev0.0  spidev0.1'.
+# On Pi3B+ despite SI enabled in UI, unable to see any SPI devices. Unsure why - enabled through raspi-config
+# Reloaded and ultimately it started 
+
+# pip install Adafruit_GPIO
+# pip3 install Adafruit_SSD1306
+
+
 
 # Currently only the Altitude is used, received as a string in a UDP packet
 #   In future should
@@ -52,6 +66,9 @@ import socket
 # Do not need short timeout for UDP packet as display is refreshed in one hit
 #   (unlike stepper motors which need to move to new position
 UDP_IP_ADDRESS = "192.168.3.101"
+
+# Using local addresses while testing
+UDP_IP_ADDRESS = "172.16.1.2"
 UDP_PORT_NO = 15151
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.settimeout(1)
@@ -103,7 +120,7 @@ Kollsman_List_Entry = 1
 def DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue,vertical_character_offset):
     # Only called if below 10,000 ft
   
-    # Check to see if ready to roll the hatch between 90900 and 10,000 
+    # Check to see if ready to roll the hatch between 9900 and 10,000 
     if ((alt_HundredsValue==9) & (alt_TenThousandsValue==0) & (alt_ThousandsValue==9)):
         hatch_Top = 2 - hatch_height + vertical_character_offset
     else:
@@ -165,9 +182,10 @@ def DrawThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, al
     draw.rectangle((thousand_Column_Pos, 0, thousand_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
 
 
+
     if ((alt_HundredsValue==9) ):
-        draw.text((thousand_Column_Pos, top_row + vertical_character_offset),str((alt_ThousandsValue) % 10),  font=font, fill=colour_white)
-        draw.text((thousand_Column_Pos, middle_row + vertical_character_offset),str((alt_ThousandsValue+1) % 10),  font=font, fill=colour_white)
+        draw.text((thousand_Column_Pos, top_row + vertical_character_offset),str(int(alt_ThousandsValue % 10)),  font=font, fill=colour_white)
+        draw.text((thousand_Column_Pos, middle_row + vertical_character_offset),str(int(alt_ThousandsValue+1) % 10),  font=font, fill=colour_white)
         draw.rectangle((thousand_Column_Pos, top_row, thousand_Column_Pos + column_Spacing, top_row + hatch_height ), outline=colour_black, fill=colour_black)
         draw.rectangle((thousand_Column_Pos, bottom_row + 10, thousand_Column_Pos + column_Spacing, bottom_row + hatch_height + 10 ), outline=colour_black, fill=colour_black)
 
@@ -186,9 +204,9 @@ def DrawHundreds(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt
     # Large Rectangle to cover all three rows
     draw.rectangle((hundred_Column_Pos, 0, hundred_Column_Pos + column_Spacing, 64), outline=colour_black, fill=colour_black)
 
-    draw.text((hundred_Column_Pos, top_hidden_row + vertical_character_offset ), str((alt_HundredsValue+9) % 10), font=font, fill=colour_white)
-    draw.text((hundred_Column_Pos, top_row + vertical_character_offset),str((alt_HundredsValue) % 10),  font=font, fill=colour_white)
-    draw.text((hundred_Column_Pos, middle_row + vertical_character_offset), str((alt_HundredsValue+1) % 10), font=font, fill=colour_white)
+    draw.text((hundred_Column_Pos, top_hidden_row + vertical_character_offset ), str(int(alt_HundredsValue+9) % 10), font=font, fill=colour_white)
+    draw.text((hundred_Column_Pos, top_row + vertical_character_offset),str(int(alt_HundredsValue % 10)),  font=font, fill=colour_white)
+    draw.text((hundred_Column_Pos, middle_row + vertical_character_offset), str(int(alt_HundredsValue+1) % 10), font=font, fill=colour_white)
     # the following rows aren't needed with large 
     #draw.text((hundred_Column_Pos, bottom_row + vertical_character_offset ), str((alt_HundredsValue+2) % 10), font=font, fill=colour_white)
     #draw.text((hundred_Column_Pos, bottom_hidden_row + vertical_character_offset ), str((alt_HundredsValue+3) % 10), font=font, fill=colour_white)
@@ -198,17 +216,24 @@ def DrawHundreds(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt
 
 def DrawAltitude(altitude):
 
-    alt_TenThousandsValue = (altitude/10000) % 10
-    alt_ThousandsValue = (altitude/1000) % 10
-    alt_HundredsValue = (altitude/100) % 10
-    alt_TensValue = (altitude/10) % 10
-    alt_OnesValue = altitude % 10
+    alt_TenThousandsValue = int((altitude/10000) % 10)
+    alt_ThousandsValue = int((altitude/1000) % 10)
+    alt_HundredsValue = int((altitude/100) % 10)
+    alt_TensValue = int((altitude/10) % 10)
+    alt_OnesValue = int(altitude % 10)
 
 
     #vertical_character_offset is used to determine the offset for rolling characters
     vertical_character_offset = ((alt_OnesValue * cursor_Multiplier * -0.1) + (alt_TensValue * cursor_Multiplier * -1)) + vertical_offset
-    
-    DrawTenThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset )
+
+
+    #DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset )
+
+    if (alt_TenThousandsValue == 0):
+        DrawHatch(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset )
+    else:
+        DrawTenThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset )
+
     DrawThousands(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset)
     DrawHundreds(alt_TenThousandsValue,alt_ThousandsValue,alt_HundredsValue, alt_TensValue, alt_OnesValue, vertical_character_offset)
 
@@ -223,8 +248,9 @@ def DrawPressure(Pressure):
     draw.rectangle((70, 0, 128, 20 ), outline=colour_black, fill=colour_black)
     font = ImageFont.truetype('monofonto.ttf', 20)
     draw.text((80, -5),str(Pressure),  font=font, fill=colour_white)
-    
 
+    
+print("init")
 # Raspberry Pi pin configuration:
 RST = 24
 DC = 23
@@ -268,39 +294,48 @@ draw.text((ten_Column_Pos, middle_row),'0', font=font, fill=colour_white)
 draw.text((one_Column_Pos, middle_row),'0', font=font, fill=colour_white)
 
 # Start with a zero display for a second
-DrawAltitude(0)
+#DrawAltitude(0)
+
 time.sleep(1)
-
+print("init done")
 while True:
+
+
+    for k in range(9800, 10100,10):
+        
+        
+        DrawAltitude(k)
+        time.sleep(1)
+
+
+    for k in range(10100,9800,-10):
+        DrawAltitude(k)
+        time.sleep(1)
+
+
+
+
+    print("Finished")
+
     
-    try:
-        data, addr = serverSock.recvfrom(1024)
-        s = data.decode("utf-8")
-        receivedValues = s.split(",")
-
-        if (receivedValues[Altitude_List_Entry ].isdigit):
-            w = int(receivedValues[Altitude_List_Entry])
-            font = ImageFont.truetype('monofonto.ttf', 45)
-            DrawAltitude(w)
-
-        if (receivedValues[Kollsman_List_Entry].isdigit):
-            w = int(receivedValues[Kollsman_List_Entry])            
-            DrawPressure(w)
-                                          
-    except socket.timeout:
-        # Don't panic that packet hasn't arrived
-        a=0
-
-
-##for k in range(0,30050,10):
-##    DrawAltitude(k)
+##    try:
+##        data, addr = serverSock.recvfrom(1024)
+##        s = data.decode("utf-8")
+##        receivedValues = s.split(",")
 ##
-##for k in range(10050,0,-1):
-##    DrawAltitude(k)
-##
-##
-##DrawAltitude(0)
-##
-##print("Finished")
+####        if (receivedValues[Altitude_List_Entry ].isdigit):
+####            w = int(receivedValues[Altitude_List_Entry])
+####            font = ImageFont.truetype('monofonto.ttf', 45)
+####            DrawAltitude(w)
+####
+####        if (receivedValues[Kollsman_List_Entry].isdigit):
+####            w = int(receivedValues[Kollsman_List_Entry])            
+####            DrawPressure(w)
+##                                          
+##    except socket.timeout:
+##        # Don't panic that packet hasn't arrived
+##        a=0
+
+
 
 

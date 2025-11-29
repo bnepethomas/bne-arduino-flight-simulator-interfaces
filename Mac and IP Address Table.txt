@@ -9,6 +9,17 @@ IPAddress ip(192,168,3,107);
 
 Input Mega 1
   0xA9,0xE7,0x3E,0xCA,0x35,0x01
+Output Mega 1
+  0xA9,0xE7,0x3E,0xCA,0x35,0x02
+
+
+Small Platform
+Front Input Arduino 172.16.1.11
+0xA9,0xE7,0x3E,0xCA,0x35,0x02
+Front Led Arduino 172.16.1.21
+0xA9,0xE7,0x3E,0xCA,0x35,0x03
+
+
 
 Ports 
 7784 		Huey Caution Receiver
@@ -17,6 +28,7 @@ Ports
 13135		737-Overhead-Arduino
 13135		UDP OLED A10
 13135		Fuel Stepper A10
+13136		GPS_UDP_Serial_Convertor
 
 IP Addresses
 
@@ -24,7 +36,12 @@ IP Addresses
 192.168.1.105	Fuel Stepper A10
 192.168.1.106	UDP OLED A10
 192.168.1.107	Compass A10
+192.168.1.144	Pi Eth0
+192.168.1.145 	Pi Wlan0
 192.168.2.205	737-Overhead-Arduino
 192.168.2.206   737-MIP-Stickshaker
+192.168.3.100	PI HW Interface
 192.168.3.101	Input 1
-192.168.3.107  Altimeter
+192.168.3.107   Altimeter
+192.168.3.108	GPS_UDP_Serial_Convertor
+

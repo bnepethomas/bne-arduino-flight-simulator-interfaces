@@ -1,0 +1,144 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid e63e39d7-6ac0-4ffd-8aa3-1841a4541b55)
+
+  (paper "A4")
+
+  (title_block
+    (date "mar. 31 mars 2015")
+  )
+
+  (lib_symbols
+  )
+
+
+  (text "ADD LED DISTRIBUTION BOARD" (at 93.726 80.518 0)
+    (effects (font (size 3 3)) (justify left bottom))
+    (uuid 54ff57ff-7ede-49ac-b3da-e5953b46f740)
+  )
+  (text "Use a common PCB for left and right inputs?\nHoles to hold the Mega to larger PCB\nAdd Ethernet Module\ngo for 99*99mm board\nAnalog and encoders add\nDual Max 7219 for caution panel"
+    (at 44.45 48.26 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 752ba352-c13f-434d-9e1b-27ca6eed2b36)
+  )
+  (text "* Indicates a PWM-capable pin" (at 177.8 180.34 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid c364973a-9a67-4667-8185-a3a5c6c6cbdf)
+  )
+  (text "CHECK FOR SEAT INPUTS - MAY ADD TO LEFT CONSOLE INPUT"
+    (at 45.974 88.646 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid caaa20a5-71b3-4fe3-9879-815a4196c9e9)
+  )
+  (text "PCB CHECKLIST\nCOMPARE AGAINST MANUAL IMAGE\nBLOCK ALLOCATED IN SPREADSHEET\nSWITCH, ROTARY AND ANALOG\nLED RELAY/HIGH VOLTAGE\nEDESIGN READINESS CHECKS\nCONNECTORS SYNCHED WITH PRIMARY PCB\n"
+    (at 188.976 67.564 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid e4102214-2ad0-4645-90fd-74c8cd84233a)
+  )
+
+  (sheet (at 105.41 134.366) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 2a70b098-1f9b-40d3-95ba-631cf24db553)
+    (property "Sheetname" "MASTER ARM" (at 105.41 133.6544 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "MASTER ARM.kicad_sch" (at 105.41 138.7606 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Forward Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "3"))
+      )
+    )
+  )
+
+  (sheet (at 138.684 114.046) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 5bd33fc4-a0d0-478b-b9ab-56fd65116cec)
+    (property "Sheetname" "JAMMER" (at 138.684 113.3344 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "JAMMER.kicad_sch" (at 138.684 118.4406 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Forward Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "7"))
+      )
+    )
+  )
+
+  (sheet (at 67.564 134.366) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 76d83e99-ed6f-4224-acbf-f2f4f0170bca)
+    (property "Sheetname" "LANDING GEAR" (at 67.564 133.6544 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "LANDING GEAR.kicad_sch" (at 67.564 138.7606 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Forward Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "2"))
+      )
+    )
+  )
+
+  (sheet (at 67.564 113.792) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 8fedf5f3-aed2-4709-bee2-c084199d4472)
+    (property "Sheetname" "FIRE HANDLES" (at 67.564 113.0804 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "FIRE HANDLES.kicad_sch" (at 67.564 118.1866 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Forward Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "6"))
+      )
+    )
+  )
+
+  (sheet (at 105.664 113.792) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid b3d4d52b-2b3e-4dbb-8e5e-8d372b4215e3)
+    (property "Sheetname" "UFC" (at 105.664 113.0804 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "UFC.kicad_sch" (at 105.664 118.1866 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Forward Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "5"))
+      )
+    )
+  )
+
+  (sheet (at 138.684 134.366) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid c9891372-43c1-4b01-ab69-dd6292bfb766)
+    (property "Sheetname" "NMSP CMSP" (at 138.684 133.6544 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "NMSP CMSP.kicad_sch" (at 138.684 138.7606 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Forward Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "4"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)

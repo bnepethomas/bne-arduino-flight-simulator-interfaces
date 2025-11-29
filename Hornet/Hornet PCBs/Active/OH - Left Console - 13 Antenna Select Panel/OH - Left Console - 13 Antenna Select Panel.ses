@@ -1,0 +1,197 @@
+
+(session "OH - Left Console - 13 Antenna Select Panel.ses"
+  (base_design "OH - Left Console - 13 Antenna Select Panel.dsn")
+  (placement
+    (resolution um 10)
+    (component MountingHole:MountingHole_4.3mm_M4
+      (place H4 990500 -751680 front 0)
+      (place H3 990500 -891680 front 0)
+      (place H2 1390500 -876680 front 0)
+      (place H1 1390500 -751680 front 0)
+    )
+    (component PT_Library_v001:Molex_1x03_P2.54mm_Vertical
+      (place SW2 1256030 -767080 front 0)
+      (place SW1 1257300 -863600 front 0)
+    )
+    (component PT_Library_v001:Molex_1x04_P2.54mm_Vertical
+      (place J1 1076960 -863600 front 0)
+    )
+    (component PT_Library_v001:D_Signal_P7.62mm_Horizontal
+      (place D2 1078410 -743190 front 0)
+      (place D1 1079500 -772160 front 0)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version "(5.1.5-0-10_14)")
+    )
+    (library_out 
+      (padstack "Via[0-1]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net /Col1
+        (wire
+          (path B.Cu 2500
+            1155700 -772160
+            1155700 -783413
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1155700 -783413
+            1076960 -862153
+            1076960 -863600
+          )
+        )
+      )
+      (net "Net-(D1-Pad1)"
+        (wire
+          (path F.Cu 2500
+            1079500 -772160
+            1090753 -772160
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1282700 -863600
+            1270747 -863600
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1270747 -863600
+            1270747 -853888
+            1200272 -783413
+            1102006 -783413
+            1090753 -772160
+          )
+        )
+      )
+      (net /Col2
+        (wire
+          (path B.Cu 2500
+            1102360 -863600
+            1114313 -863600
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1154610 -743190
+            1154610 -754443
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1154610 -754443
+            1166979 -766812
+            1166979 -798981
+            1114313 -851647
+            1114313 -863600
+          )
+        )
+      )
+      (net "Net-(D2-Pad1)"
+        (wire
+          (path F.Cu 2500
+            1281430 -767080
+            1269477 -767080
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1078410 -743190
+            1089663 -743190
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1089663 -743190
+            1101311 -754838
+            1236021 -754838
+            1238051 -752808
+            1264917 -752808
+            1269477 -757368
+            1269477 -767080
+          )
+        )
+      )
+      (net /Row2
+        (wire
+          (path B.Cu 2500
+            1308100 -863600
+            1308100 -849347
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1308100 -849347
+            1306830 -848077
+            1306830 -767080
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1308100 -863600
+            1296147 -863600
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1153160 -863600
+            1165113 -863600
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1165113 -863600
+            1179621 -878108
+            1287615 -878108
+            1296147 -869576
+            1296147 -863600
+          )
+        )
+      )
+      (net /Row1
+        (wire
+          (path B.Cu 2500
+            1242611 -848911
+            1257300 -863600
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1139713 -863600
+            1139713 -857623
+            1148425 -848911
+            1242611 -848911
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1242611 -848911
+            1242611 -780499
+            1256030 -767080
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1127760 -863600
+            1139713 -863600
+          )
+        )
+      )
+    )
+  )
+)

@@ -1,0 +1,89 @@
+
+(rules PCB Left Console Input
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 6453)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.2)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_600:400_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_600:400_um" "Via[0-1]_600:400_um" default
+  )
+  (via 
+    "Via[0-1]_600:400_um-kicad_default" "Via[0-1]_600:400_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-1]_600:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_600:400_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    GND SCLK "ES1_RST" MISO MOSI /48 /49 /*46
+    /47 /*45 /42 /43 /40 /41 /38 /39
+    /A3 /37 /35 /32 /33 /30 /31 /28
+    /29 /26 /27 /24 /22 /23 "Net-(D1-A)" +5V
+    /IOREF /A0 /A1 /A2 "Net-(D2-A)" /A4 /A5 /A6
+    /A7 /25 /A9 /A10 /A11 /A12 /A13 /A14
+    /A15 /AREF /*13 /*12 /*11 /*9 /*8 /*7
+    /*6 /*5 /*4 /*3 /*2 /TX0{slash}1 /RX0{slash}0 +3V3
+    "unconnected-(J1-Pin_8-Pad8)" /RX3{slash}15 "unconnected-(J2-Pin_6-Pad6)" /RX2{slash}17 /*44 /TX3{slash}14 /TX2{slash}16 VCC
+    /~{RESET} "unconnected-(J8-Pin_6-Pad6)" SS "unconnected-(J13-Pin_8-Pad8)" /36 /SCL{slash}21 /SDA{slash}20 /TX1{slash}18
+    "unconnected-(J14-Pin_6-Pad6)" /RX1{slash}19 /34 "unconnected-(J16-Pin_8-Pad8)" "unconnected-(J17-Pin_8-Pad8)" "unconnected-(J21-Pin_8-Pad8)" "unconnected-(J22-Pin_8-Pad8)" "unconnected-(J23-Pin_6-Pad6)"
+    "Net-(J31-Pin_1)" "Net-(J31-Pin_2)" "Net-(J31-Pin_3)" "Net-(J31-Pin_4)" "Net-(J31-Pin_5)" "Net-(J31-Pin_6)" "Net-(J31-Pin_7)" "Net-(J31-Pin_8)"
+    "Net-(J31-Pin_9)" "Net-(J31-Pin_10)" "Net-(J31-Pin_11)" "Net-(J31-Pin_12)" "Net-(J31-Pin_13)" "Net-(J31-Pin_14)" "Net-(J31-Pin_15)" "Net-(J31-Pin_16)"
+    "unconnected-(J33-Pin_1-Pad1)" "unconnected-(J34-Pin_1-Pad1)" "Net-(U1-INT)" "unconnected-(U1-NC-PadB4)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

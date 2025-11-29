@@ -1,0 +1,20 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 028b791f-7185-4661-a0e8-a47e52648c22)
+
+  (paper "A4")
+
+  (title_block
+    (rev "2.0")
+  )
+
+  (lib_symbols
+  )
+
+
+  (text "V2.0 rotated connector so it connects direct to PCB"
+    (at 26.162 23.114 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid ebb016c1-485d-4204-8bb7-401b77a9ebb6)
+  )
+)

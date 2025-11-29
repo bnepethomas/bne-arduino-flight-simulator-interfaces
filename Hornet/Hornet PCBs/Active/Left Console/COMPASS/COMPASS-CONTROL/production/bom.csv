@@ -1,0 +1,5 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+J1,Molex_KK-254_AE-6410-03A_1x03_P2.54mm_Vertical,1,Conn_01x03_Socket,
+J3,IDC-Header_2x05_P2.54mm_Vertical,1,Conn_02x05_Counter_Clockwise,
+J4,Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical,1,Conn_01x02_Socket,
+M1,X27-168,1,X27 168,

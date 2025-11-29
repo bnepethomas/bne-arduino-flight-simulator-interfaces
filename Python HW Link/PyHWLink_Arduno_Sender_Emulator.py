@@ -36,7 +36,24 @@ import time
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
 
+MIN_VERSION_PY3 = 5    # min. 3.x version
+if (sys.version_info[0] < 3):
+        Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3) 
+        print('')
+        logging.critical(Warning_Message)
+        print('')
+        print('Invalid Version of Python running')
+        print('Running Python earlier than Python 3.0! ' + sys.version)
+        sys.exit(Warning_Message)
 
+elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
+        Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3)           
+        print('')
+        logging.critical(Warning_Message)  
+        print('')
+        print('Invalid Version of Python running')
+        print('Running Python ' + sys.version)
+        sys.exit(Warning_Message)
 
 
 # Global Variables
@@ -46,15 +63,17 @@ total_entries = 10
 
 max_packet_size = 150
 
-#likelihood_of_change = 0.5005
-likelihood_of_change = 0.8
+likelihood_of_change = 0.5005
+#likelihood_of_change = 0.8
 #likelihood_of_change = 0
 # 0.0.0.0 will listen on all addresses, other specify desired source address
 
 command_string = ''
 
-UDP_IP = "0.0.0.0"
+
 UDP_PORT = 7788
+UDP_IP = "127.0.0.1"
+TX_UDP_PORT = 26027
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
 
@@ -85,17 +104,19 @@ logging.debug(switch_array)
 
 
 def Send_UDP_Command(command_to_send):
-    UDP_IP = "127.0.0.1"
-    TX_UDP_PORT = 26027
+    
+    global UDP_IP
+    global TX_UDP_PORT
+	
 
     global UDP_Reflector_IP, UDP_Reflector_Port, SOCK
 
-    logging.debug ("IP target address:" + str(TX_UDP_PORT))
+    logging.debug ("IP target address:" + str(UDP_IP))
     logging.debug ("UDP target port:" + str(TX_UDP_PORT))
 
 
-    sock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
-    sock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))
+    sock.sendto(command_to_send.encode('utf-8'), (UDP_IP, TX_UDP_PORT))
+    sock.sendto(command_to_send.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
 
 # When doing a bulk send - group commands into packets with an approx size of 1000 bytes
 def Add_UDP_Command(command_to_add):
@@ -176,7 +197,7 @@ while True:
 
                         
 
-                print "received message:", data
+                print('received message:'), data
                 if data == 'CQ':
                    SendAllSwitchStates()
               

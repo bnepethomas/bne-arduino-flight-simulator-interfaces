@@ -1,0 +1,134 @@
+30201929654342
+PT_Library_v001
+Adafruit_TCA9548A
+
+
+0
+24
+24
+PT_Library_v001
+D_Signal_P7.62mm_Horizontal
+Diode, DO-35_SOD27 series, Axial, Horizontal, pin pitch=7.62mm, , length*diameter=4*2mm^2, , http://www.diodes.com/_files/packages/DO-35.pdf
+Diode DO-35_SOD27 series Axial Horizontal pin pitch 7.62mm  length 4mm diameter 2mm
+0
+2
+2
+PT_Library_v001
+LED_D8.0mm-LargePins
+LED, diameter 8.0mm, 2 pins, diameter 8.0mm, 3 pins
+LED diameter 8.0mm 2 pins diameter 8.0mm 3 pins
+0
+2
+2
+PT_Library_v001
+Molex_1x02_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-02A example for new part number: 22-27-2021, 2 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+2
+2
+PT_Library_v001
+Molex_1x03_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-03A example for new part number: 22-27-2031, 3 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+3
+3
+PT_Library_v001
+Molex_1x04_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-04A example for new part number: 22-27-2041, 4 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+4
+4
+PT_Library_v001
+Molex_1x06_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-06A example for new part number: 22-27-2061, 6 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+6
+6
+PT_Library_v001
+Molex_1x08_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-08A example for new part number: 22-27-2081, 8 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+8
+8
+PT_Library_v001
+Molex_1x10_P2.54mm_Vertical
+Molex KK-254 Interconnect System, old/engineering part number: AE-6410-10A example for new part number: 22-27-2101, 10 Pins (http://www.molex.com/pdm_docs/sd/022272021_sd.pdf), generated with kicad-footprint-generator
+connector Molex KK-254 side entry
+0
+10
+10
+PT_Library_v001
+PT_CP_Radial_D8.0mm_P2.50mm
+CP, Radial series, Radial, pin pitch=2.50mm, , diameter=8mm, Electrolytic Capacitor
+CP Radial series Radial pin pitch 2.50mm  diameter 8mm Electrolytic Capacitor
+0
+2
+2
+PT_Library_v001
+PT_Ethernet_Shield_v001
+
+
+0
+28
+28
+PT_Library_v001
+PT_General_PCB_Outline
+
+
+0
+0
+0
+PT_Library_v001
+PT_One_Hole
+
+
+0
+1
+1
+PT_Library_v001
+PT_PinHeader_1x04_P2.54mm_Vertical
+Through hole straight pin header, 1x06, 2.54mm pitch, single row
+Through hole pin header THT 1x06 2.54mm single row
+0
+4
+4
+PT_Library_v001
+PT_PinHeader_1x06_P2.54mm_Vertical
+Through hole straight pin header, 1x06, 2.54mm pitch, single row
+Through hole pin header THT 1x06 2.54mm single row
+0
+6
+6
+PT_Library_v001
+PT_PinHeader_1x08_P2.54mm_Vertical
+Through hole straight pin header, 1x06, 2.54mm pitch, single row
+Through hole pin header THT 1x06 2.54mm single row
+0
+8
+8
+PT_Library_v001
+PT_R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical
+Resistor, Axial_DIN0204 series, Axial, Vertical, pin pitch=2.54mm, 0.167W, length*diameter=3.6*1.6mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf
+Resistor Axial_DIN0204 series Axial Vertical pin pitch 2.54mm 0.167W length 3.6mm diameter 1.6mm
+0
+2
+2
+PT_Library_v001
+PT_Small_Tactile_Switch_With_LED
+
+
+0
+6
+6
+PT_Library_v001
+R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal
+Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=7.62mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf
+Resistor Axial_DIN0207 series Axial Horizontal pin pitch 7.62mm 0.25W = 1/4W length 6.3mm diameter 2.5mm
+0
+2
+2

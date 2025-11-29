@@ -1,4 +1,8 @@
 /* 
+
+Superceeded by UDP_INPUT_CONTROLLER_V2 March 2020
+
+TO DO - when repsonding to CQ - first send 0 values and then one values to address issue with 3 position toggle switch
 Heavily based on 
 https://github.com/calltherain/ArduinoUSBJoystick
 
@@ -26,7 +30,8 @@ struct joyReport_t {
    int button[NUM_BUTTONS]; // 1 Button per byte - was originally one bit per byte - but we have plenty of storage space
 };
 
-const  int ScanDelay = 40;
+const  int ScanDelay = 80;
+const int DebounceDelay = 20;
 
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
@@ -40,17 +45,36 @@ bool bFirstTime = false;
 #include <Ethernet.h>
 #include <EthernetUdp.h>
 
-// Need to check if this manually assigned Mac has been used elsewhere
-byte mac[] = { 
-  0xA9,0xE7,0x3E,0xCA,0x35,0x01};
-IPAddress ip(192,168,3,101);
 
-IPAddress targetIP (192,168,3,100);
+// Unique Setting area for each input controller
+
+
+// Uncomment for Left Board
+byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x02};
+IPAddress ip(172,16,1,10);
+const String deviceID = "01";
+
+// Uncomment for Front Board
+//byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x03};
+//IPAddress ip(172,16,1,11);
+//const String deviceID = "02";
+
+// Uncomment for Right Board
+//byte mac[] = {0x00,0xDD,0x3E,0xCA,0x35,0x04};
+//IPAddress ip(172,16,1,12);
+//const String deviceID = "03";
+
+
+// Raspberry Pi is Target
+IPAddress targetIP(172,16,1,2);
+//Test
+//IPAddress targetIP(192,168,1,127);
+
+
 const unsigned int localport = 7788;
 const unsigned int remoteport = 26027;
 const unsigned int reflectorport = 27000;
 
-const String deviceID = "01";
 
 EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
@@ -94,10 +118,16 @@ void setup()
   
 
   Serial.println("Starting IP Stack");
+  Serial.print("IP = ");
+  Serial.println(ip);
   Ethernet.begin( mac, ip);
+
+  Serial.println("Waiting 5 seconds for link to negotiate");
+  delay(5000);
+  Serial.println("Completed Arbitary wait");
+
+  
   udp.begin( localport );
-
-
   udp.beginPacket(targetIP, reflectorport);
   udp.println("Init UDP");
   udp.endPacket();
@@ -128,7 +158,8 @@ void FindInputChanges()
 //        Serial.print(" changed to ");
 
         
-        sprintf(stringind, "%03d", ind);
+        // Whilst internal array is zero based - sending data 1 based.
+        sprintf(stringind, "%03d", ind + 1);
  
 
 
@@ -149,8 +180,7 @@ void FindInputChanges()
           outString = outString + "1"; 
         }
 
-//y
-y
+//
         //outData = "D01:100:1";
         udp.beginPacket(targetIP, reflectorport);
         udp.print(outString);
@@ -162,6 +192,10 @@ y
         udp.endPacket();
         
         prevjoyReport.button[ind] = joyReport.button[ind]; 
+
+
+        // Do a little debounce
+        delay(DebounceDelay);
       }
       
     }
@@ -210,55 +244,57 @@ void loop()
     int colResult[16];
     // Reading upper pins
     //pin 38, PD7
-    colResult[0] = (PIND & B10000000)== 0 ? 1 : 0;
+    colResult[0] = (PIND & B10000000)== 0 ? 0 : 1;
     //pin 39, PG2
-    colResult[1] = (PING & B00000100)== 0 ? 1 : 0;
+    colResult[1] = (PING & B00000100)== 0 ? 0 : 1;
     //pin 40, PG1
-    colResult[2] = (PING & B00000010)== 0 ? 1 : 0;
+    colResult[2] = (PING & B00000010)== 0 ? 0 : 1;
     //pin 41, PG0
-    colResult[3] = (PING & B00000001)== 0 ? 1 : 0;
+    colResult[3] = (PING & B00000001)== 0 ? 0 : 1;
 
     //pin 42, PL7
-    colResult[4] = (PINL & B10000000)== 0 ? 1 : 0;
+    colResult[4] = (PINL & B10000000)== 0 ? 0 : 1;
     //pin 43, PL6
-    colResult[5] = (PINL & B01000000)== 0 ? 1 : 0;
+    colResult[5] = (PINL & B01000000)== 0 ? 0 : 1;
     //pin 44, PL5
-    colResult[6] = (PINL & B00100000)== 0 ? 1 : 0;
+    colResult[6] = (PINL & B00100000)== 0 ? 0 : 1;
     //pin 45, PL4
-    colResult[7] = (PINL & B00010000)== 0 ? 1 : 0;
+    colResult[7] = (PINL & B00010000)== 0 ? 0 : 1;
 
     //pin 46, PL3
-    colResult[8] = (PINL & B00001000)== 0 ? 1 : 0;
+    colResult[8] = (PINL & B00001000)== 0 ? 0 : 1;
     //pin 47, PL2
-    colResult[9] = (PINL & B00000100)== 0 ? 1 : 0;
+    colResult[9] = (PINL & B00000100)== 0 ? 0 : 1;
     //pin 48, PL1
-    colResult[10] =(PINL & B00000010) == 0 ? 1 : 0;
+    colResult[10] =(PINL & B00000010) == 0 ? 0 : 1;
     //pin 49, PL0
-    colResult[11] =(PINL & B00000001) == 0 ? 1 : 0;
+    colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
 
     //pin 50, PB3
-    colResult[12] =(PINB & B00001000) == 0 ? 1 : 0;
+    colResult[12] =(PINB & B00001000) == 0 ? 0 : 1;
     //pin 51, PB2
     
     
-    //colResult[13] =(PINB & B00000100) == 0 ? 1 : 0;
+    //colResult[13] =(PINB & B00000100) == 0 ? 0 : 0;
     colResult[13] = 0;
     //pin 52, PB1
-    //colResult[14] =(PINB & B00000010) == 0 ? 1 : 0;
+    //colResult[14] =(PINB & B00000010) == 0 ? 0 : 0;
     colResult[14] = 0;
     
     //pin 53, PB0
-    colResult[15] =(PINB & B00000001) == 0 ? 1 : 0;
+    colResult[15] =(PINB & B00000001) == 0 ? 0 : 1;
 
+    
+    // There are 11 Columns per row - gives a total of 176 possible inputs
     for ( int colid = 0; colid < 16; colid ++ )
     {
       if ( colResult[ colid ] == 1 )
       {
-        joyReport.button[ (rowid * 16) + colid ] =  1;
+        joyReport.button[ (rowid * 11) + colid ] =  1;
       }
       else
       {
-        joyReport.button[ (rowid * 16) + colid ] =  0;
+        joyReport.button[ (rowid * 11) + colid ] =  0;
       }
     }
   }
@@ -322,4 +358,3 @@ void loop()
   FindInputChanges();
   //delay(10);
 }
-

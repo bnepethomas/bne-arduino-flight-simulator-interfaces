@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "util_photoswitch-rescue")(type "KiCad")(uri "${KIPRJMOD}/util_photoswitch-rescue.kicad_sym")(options "")(descr ""))
+)

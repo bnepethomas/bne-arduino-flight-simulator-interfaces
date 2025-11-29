@@ -1,0 +1,192 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector:Conn_01x02_Female J5
+U 1 1 5F81535B
+P 5450 3050
+F 0 "J5" H 5400 3300 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 5300 3200 50  0000 L CNN
+F 2 "" H 5450 3050 50  0001 C CNN
+F 3 "~" H 5450 3050 50  0001 C CNN
+	1    5450 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J4
+U 1 1 5F815EBB
+P 5450 1950
+F 0 "J4" H 5400 2150 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 5400 2050 50  0000 L CNN
+F 2 "" H 5450 1950 50  0001 C CNN
+F 3 "~" H 5450 1950 50  0001 C CNN
+	1    5450 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J3
+U 1 1 5F817205
+P 4600 1950
+F 0 "J3" H 4492 2135 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 4492 2044 50  0000 C CNN
+F 2 "" H 4600 1950 50  0001 C CNN
+F 3 "~" H 4600 1950 50  0001 C CNN
+	1    4600 1950
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J6
+U 1 1 5F8179FC
+P 5450 3650
+F 0 "J6" H 5400 3400 50  0000 L CNN
+F 1 "Conn_01x02_Female" H 5200 3300 50  0000 L CNN
+F 2 "" H 5450 3650 50  0001 C CNN
+F 3 "~" H 5450 3650 50  0001 C CNN
+	1    5450 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J1
+U 1 1 5F817D8D
+P 4250 3050
+F 0 "J1" H 4142 3235 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 4142 3144 50  0000 C CNN
+F 2 "" H 4250 3050 50  0001 C CNN
+F 3 "~" H 4250 3050 50  0001 C CNN
+	1    4250 3050
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J2
+U 1 1 5F8184E6
+P 4250 3450
+F 0 "J2" H 4142 3635 50  0000 C CNN
+F 1 "Conn_01x02_Female" H 4142 3544 50  0000 C CNN
+F 2 "" H 4250 3450 50  0001 C CNN
+F 3 "~" H 4250 3450 50  0001 C CNN
+	1    4250 3450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 1950 4800 1950
+Wire Wire Line
+	5250 2050 4800 2050
+Wire Wire Line
+	5250 3050 4450 3050
+Wire Wire Line
+	5250 3150 5050 3150
+Wire Wire Line
+	5050 3150 5050 3400
+Wire Wire Line
+	5050 3400 4650 3400
+Wire Wire Line
+	4650 3400 4650 3450
+Wire Wire Line
+	4650 3450 4450 3450
+Connection ~ 5050 3400
+Wire Wire Line
+	5250 3650 5250 3300
+Wire Wire Line
+	5250 3300 4800 3300
+Wire Wire Line
+	4800 3300 4800 3150
+Wire Wire Line
+	4800 3150 4450 3150
+Text Notes 4650 2300 0    50   ~ 0
+Switch Pass-through
+$Comp
+L Device:LED D2
+U 1 1 5F819631
+P 6650 3150
+F 0 "D2" V 6689 3033 50  0000 R CNN
+F 1 "LED" V 6598 3033 50  0000 R CNN
+F 2 "" H 6650 3150 50  0001 C CNN
+F 3 "~" H 6650 3150 50  0001 C CNN
+	1    6650 3150
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:LED D1
+U 1 1 5F819DA4
+P 6350 3700
+F 0 "D1" V 6389 3583 50  0000 R CNN
+F 1 "LED" V 6298 3583 50  0000 R CNN
+F 2 "" H 6350 3700 50  0001 C CNN
+F 3 "~" H 6350 3700 50  0001 C CNN
+	1    6350 3700
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5250 3750 5050 3750
+Wire Wire Line
+	5050 3400 5050 3750
+Wire Wire Line
+	6650 3000 5800 3000
+Wire Wire Line
+	5800 3000 5800 3050
+Wire Wire Line
+	5800 3050 5650 3050
+Wire Wire Line
+	6650 3300 6500 3300
+Wire Wire Line
+	6500 3300 6500 3150
+Wire Wire Line
+	6500 3150 5650 3150
+Wire Wire Line
+	6350 3550 5800 3550
+Wire Wire Line
+	5800 3550 5800 3650
+Wire Wire Line
+	5800 3650 5650 3650
+Wire Wire Line
+	6350 3850 6200 3850
+Wire Wire Line
+	6200 3850 6200 3750
+Wire Wire Line
+	6200 3750 5650 3750
+$Comp
+L Switch:SW_SPDT SW1
+U 1 1 5F81DB5D
+P 6450 1950
+F 0 "SW1" H 6450 2235 50  0000 C CNN
+F 1 "SW_SPDT" H 6450 2144 50  0000 C CNN
+F 2 "" H 6450 1950 50  0001 C CNN
+F 3 "~" H 6450 1950 50  0001 C CNN
+	1    6450 1950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6250 1950 5600 1950
+Wire Wire Line
+	6650 2050 6650 2250
+Wire Wire Line
+	6650 2250 5800 2250
+Wire Wire Line
+	5800 2250 5800 2050
+Wire Wire Line
+	5800 2050 5600 2050
+Text Notes 6350 2900 0    50   ~ 0
+Go - Green Led
+Text Notes 6350 3500 0    50   ~ 0
+No Go - White LED
+Text Notes 4000 2650 0    50   ~ 0
+To Led Matrix Board
+Text Notes 4200 2800 0    50   ~ 0
+Anodes
+Text Notes 4050 3700 0    50   ~ 0
+Common Cathode
+Text Notes 6150 2450 0    50   ~ 0
+BIT Push to Test
+$EndSCHEMATC

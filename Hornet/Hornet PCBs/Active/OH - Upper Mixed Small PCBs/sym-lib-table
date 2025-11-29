@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "OH - Upper Mixed Small PCBs-rescue")(type "KiCad")(uri "${KIPRJMOD}/OH - Upper Mixed Small PCBs-rescue.kicad_sym")(options "")(descr ""))
+)

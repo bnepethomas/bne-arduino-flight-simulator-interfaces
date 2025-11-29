@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HeliosProfile>
+  <Version>3</Version>
+  <Monitors>
+    <Monitor>
+      <Location>0,0</Location>
+      <Size>1920,1080</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_DEFAULT</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children />
+    </Monitor>
+    <Monitor>
+      <Location>0,1080</Location>
+      <Size>1920,1080</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_DEFAULT</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children />
+    </Monitor>
+    <Monitor>
+      <Location>1920,0</Location>
+      <Size>1024,600</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_DEFAULT</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children>
+        <Control TypeIdentifier="Helios.Base.ViewportExtent" Name="LEFT_MFCD" SnapTarget="True" Locked="False">
+          <FillBackground>True</FillBackground>
+          <BackgroundColor>#8081D42F</BackgroundColor>
+          <FontColor>#FFFFFFFF</FontColor>
+          <Font>
+            <FontFamily>Franklin Gothic</FontFamily>
+            <FontStyle>Normal</FontStyle>
+            <FontWeight>Normal</FontWeight>
+            <FontSize>12</FontSize>
+            <HorizontalAlignment>Center</HorizontalAlignment>
+            <VerticalAlignment>Center</VerticalAlignment>
+            <Padding>
+              <Left>0</Left>
+              <Top>0</Top>
+              <Right>0</Right>
+              <Bottom>0</Bottom>
+            </Padding>
+          </Font>
+          <Text>LEFT_MFCD</Text>
+          <Location>22,25</Location>
+          <Size>560,590</Size>
+          <Hidden>False</Hidden>
+          <ViewportName>LEFT_MFCD</ViewportName>
+          <Children />
+        </Control>
+      </Children>
+    </Monitor>
+    <Monitor>
+      <Location>1920,600</Location>
+      <Size>600,1024</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_90</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children>
+        <Control TypeIdentifier="Helios.Base.ViewportExtent" Name="F/A18C CENTER_MFCD" SnapTarget="True" Locked="False">
+          <FillBackground>True</FillBackground>
+          <BackgroundColor>#8081D42F</BackgroundColor>
+          <FontColor>#FFFFFFFF</FontColor>
+          <Font>
+            <FontFamily>Franklin Gothic</FontFamily>
+            <FontStyle>Normal</FontStyle>
+            <FontWeight>Normal</FontWeight>
+            <FontSize>12</FontSize>
+            <HorizontalAlignment>Center</HorizontalAlignment>
+            <VerticalAlignment>Center</VerticalAlignment>
+            <Padding>
+              <Left>0</Left>
+              <Top>0</Top>
+              <Right>0</Right>
+              <Bottom>0</Bottom>
+            </Padding>
+          </Font>
+          <Text>CENTER_MFCD</Text>
+          <Location>0,371</Location>
+          <Size>595,655</Size>
+          <Hidden>False</Hidden>
+          <ViewportName>CENTER_MFCD</ViewportName>
+          <Children />
+        </Control>
+        <Control TypeIdentifier="Helios.Base.ViewportExtent" Name="F18_UFC" SnapTarget="True" Locked="False">
+          <FillBackground>True</FillBackground>
+          <BackgroundColor>#8081D42F</BackgroundColor>
+          <FontColor>#FFFFFFFF</FontColor>
+          <Font>
+            <FontFamily>Franklin Gothic</FontFamily>
+            <FontStyle>Normal</FontStyle>
+            <FontWeight>Normal</FontWeight>
+            <FontSize>12</FontSize>
+            <HorizontalAlignment>Center</HorizontalAlignment>
+            <VerticalAlignment>Center</VerticalAlignment>
+            <Padding>
+              <Left>0</Left>
+              <Top>0</Top>
+              <Right>0</Right>
+              <Bottom>0</Bottom>
+            </Padding>
+          </Font>
+          <Text>F18_UFC</Text>
+          <Location>57,28</Location>
+          <Size>2,2</Size>
+          <Hidden>False</Hidden>
+          <ViewportName>F18_UFC</ViewportName>
+          <Children />
+        </Control>
+        <Control TypeIdentifier="Helios.Base.ViewportExtent" Name="F18_IFEI" SnapTarget="True" Locked="False">
+          <FillBackground>True</FillBackground>
+          <BackgroundColor>#8081D42F</BackgroundColor>
+          <FontColor>#FFFFFFFF</FontColor>
+          <Font>
+            <FontFamily>Franklin Gothic</FontFamily>
+            <FontStyle>Normal</FontStyle>
+            <FontWeight>Normal</FontWeight>
+            <FontSize>12</FontSize>
+            <HorizontalAlignment>Center</HorizontalAlignment>
+            <VerticalAlignment>Center</VerticalAlignment>
+            <Padding>
+              <Left>0</Left>
+              <Top>0</Top>
+              <Right>0</Right>
+              <Bottom>0</Bottom>
+            </Padding>
+          </Font>
+          <Text>F18_IFEI</Text>
+          <Location>50,28</Location>
+          <Size>1,1</Size>
+          <Hidden>False</Hidden>
+          <ViewportName>F18_IFEI</ViewportName>
+          <Children />
+        </Control>
+      </Children>
+    </Monitor>
+    <Monitor>
+      <Location>2944,0</Location>
+      <Size>1024,600</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_DEFAULT</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children>
+        <Control TypeIdentifier="Helios.Base.ViewportExtent" Name="RIGHT_MFCD" SnapTarget="True" Locked="False">
+          <FillBackground>True</FillBackground>
+          <BackgroundColor>#8081D42F</BackgroundColor>
+          <FontColor>#FFFFFFFF</FontColor>
+          <Font>
+            <FontFamily>Franklin Gothic</FontFamily>
+            <FontStyle>Normal</FontStyle>
+            <FontWeight>Normal</FontWeight>
+            <FontSize>12</FontSize>
+            <HorizontalAlignment>Center</HorizontalAlignment>
+            <VerticalAlignment>Center</VerticalAlignment>
+            <Padding>
+              <Left>0</Left>
+              <Top>0</Top>
+              <Right>0</Right>
+              <Bottom>0</Bottom>
+            </Padding>
+          </Font>
+          <Text>RIGHT_MFCD</Text>
+          <Location>461,16</Location>
+          <Size>560,580</Size>
+          <Hidden>False</Hidden>
+          <ViewportName>RIGHT_MFCD</ViewportName>
+          <Children />
+        </Control>
+      </Children>
+    </Monitor>
+    <Monitor>
+      <Location>2944,600</Location>
+      <Size>1024,600</Size>
+      <Hidden>False</Hidden>
+      <Orientation>DMDO_DEFAULT</Orientation>
+      <AlwaysOnTop>True</AlwaysOnTop>
+      <Background />
+      <Children>
+        <Control TypeIdentifier="Helios.FA18C.Instruments.BAltimeter" Name="Barometric Altimeter" SnapTarget="True" Locked="False">
+          <Location>497,455</Location>
+          <Size>190,140</Size>
+          <Hidden>False</Hidden>
+          <Children />
+        </Control>
+        <Control TypeIdentifier="Helios.FA18C.IAS" Name="IAS" SnapTarget="True" Locked="False">
+          <Location>176,450</Location>
+          <Size>198,152</Size>
+          <Hidden>False</Hidden>
+          <Children />
+        </Control>
+        <Control TypeIdentifier="Helios.FA18C.VVI" Name="VVI" SnapTarget="True" Locked="False">
+          <Location>797,430</Location>
+          <Size>223,189</Size>
+          <Hidden>False</Hidden>
+          <Children />
+        </Control>
+        <Control TypeIdentifier="Helios.FA18C.ADI" Name="ADI" SnapTarget="True" Locked="False">
+          <Location>252,18</Location>
+          <Size>297,296</Size>
+          <Hidden>False</Hidden>
+          <Children />
+        </Control>
+        <Control TypeIdentifier="Helios.Base.ViewportExtent" Name="F/A18C RWR" SnapTarget="True" Locked="False">
+          <FillBackground>True</FillBackground>
+          <BackgroundColor>#8081D42F</BackgroundColor>
+          <FontColor>#FFFFFFFF</FontColor>
+          <Font>
+            <FontFamily>Franklin Gothic</FontFamily>
+            <FontStyle>Normal</FontStyle>
+            <FontWeight>Normal</FontWeight>
+            <FontSize>12</FontSize>
+            <HorizontalAlignment>Center</HorizontalAlignment>
+            <VerticalAlignment>Center</VerticalAlignment>
+            <Padding>
+              <Left>0</Left>
+              <Top>0</Top>
+              <Right>0</Right>
+              <Bottom>0</Bottom>
+            </Padding>
+          </Font>
+          <Text>F18_RWR</Text>
+          <Location>650,18</Location>
+          <Size>270,270</Size>
+          <Hidden>False</Hidden>
+          <ViewportName>F18_RWR</ViewportName>
+          <Children />
+        </Control>
+      </Children>
+    </Monitor>
+  </Monitors>
+  <Interfaces>
+    <Interface TypeIdentifier="Helios.Base.Keyboard" Name="Keyboard">
+      <KeyDelay>30</KeyDelay>
+    </Interface>
+    <Interface TypeIdentifier="Helios.Base.ProfileInterface" Name="Profile" />
+    <Interface TypeIdentifier="Helios.FA18C" Name="DCS F/A-18C" />
+    <Interface TypeIdentifier="Patching.DCS.MonitorSetup" Name="DCS Monitor Setup" />
+  </Interfaces>
+  <Bindings>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Standby Baro Altimeter AAU-52/A.Altitude.changed" />
+      <Action Target="Visual;Monitor 6.Barometric Altimeter;Helios.FA18C.Instruments.BAltimeter;Barometric Altimeter" Name="set.altitude" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Standby Baro Altimeter AAU-52/A.Pressure.changed" />
+      <Action Target="Visual;Monitor 6.Barometric Altimeter;Helios.FA18C.Instruments.BAltimeter;Barometric Altimeter" Name="set.air pressure" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Simulator Telemetry.indicated airspeed.changed" />
+      <Action Target="Visual;Monitor 6.IAS;Helios.FA18C.IAS;IAS" Name="set.indicated airspeed" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="Simulator Telemetry.vertical velocity.changed" />
+      <Action Target="Visual;Monitor 6.VVI;Helios.FA18C.VVI;VVI" Name="set.vertical velocity" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Slip Ball.changed" />
+      <Action Target="Visual;Monitor 6.ADI;Helios.FA18C.ADI;ADI" Name="set.Slip Ball Offset" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Warning Flag.changed" />
+      <Action Target="Visual;Monitor 6.ADI;Helios.FA18C.ADI;ADI" Name="set.Off Flag" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Pitch.changed" />
+      <Action Target="Visual;Monitor 6.ADI;Helios.FA18C.ADI;ADI" Name="set.Pitch" />
+      <TriggerValue />
+    </Binding>
+    <Binding BypassCascadingTriggers="True">
+      <Trigger Source="Interface;;Helios.FA18C;DCS F/A-18C" Name="SAI.Bank.changed" />
+      <Action Target="Visual;Monitor 6.ADI;Helios.FA18C.ADI;ADI" Name="set.Bank" />
+      <TriggerValue />
+    </Binding>
+  </Bindings>
+</HeliosProfile>

@@ -1,0 +1,203 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid e63e39d7-6ac0-4ffd-8aa3-1841a4541b55)
+
+  (paper "A4")
+
+  (title_block
+    (date "mar. 31 mars 2015")
+  )
+
+  (lib_symbols
+  )
+
+
+  (text "Use a common PCB for left and right inputs?\nHoles to hold the Mega to larger PCB\nAdd Ethernet Module\ngo for 99*99mm board\nAnalog and encoders add\nDual Max 7219 for caution panel"
+    (at 44.45 48.26 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 752ba352-c13f-434d-9e1b-27ca6eed2b36)
+  )
+  (text "* Indicates a PWM-capable pin" (at 177.8 180.34 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid c364973a-9a67-4667-8185-a3a5c6c6cbdf)
+  )
+  (text "PCB CHECKLIST\nCOMPARE AGAINST MANUAL IMAGE\nBLOCK ALLOCATED IN SPREADSHEET\nSWITCH, ROTARY AND ANALOG\nLED RELAY/HIGH VOLTAGE\nEDESIGN READINESS CHECKS\nCONNECTORS SYNCHED WITH PRIMARY PCB\n"
+    (at 188.976 67.564 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid e4102214-2ad0-4645-90fd-74c8cd84233a)
+  )
+
+  (sheet (at 106.172 126.492) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 05a64cc9-fc2f-4bd1-a464-3b0e549ec975)
+    (property "Sheetname" "INTERCOMM" (at 106.172 125.7804 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "INTERCOMM.kicad_sch" (at 106.172 130.8866 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Left Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "10"))
+      )
+    )
+  )
+
+  (sheet (at 137.16 113.03) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 0ee730a0-b302-4e1a-83ce-1194eaa9a6a3)
+    (property "Sheetname" "VHF_FM" (at 137.16 112.3184 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "VHF_FM.kicad_sch" (at 137.16 117.4246 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Left Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "8"))
+      )
+    )
+  )
+
+  (sheet (at 136.906 58.166) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 23ecc1a5-1f7f-4289-ad8e-d84882446410)
+    (property "Sheetname" "FUEL" (at 136.906 57.4544 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "FUEL.kicad_sch" (at 136.906 62.5606 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Left Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "2"))
+      )
+    )
+  )
+
+  (sheet (at 105.41 113.284) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 3d35c10d-0c7f-4a68-8d53-2f3d5edc83b7)
+    (property "Sheetname" "UHF" (at 105.41 112.5724 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "UHF.kicad_sch" (at 105.41 117.6786 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Left Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "7"))
+      )
+    )
+  )
+
+  (sheet (at 106.172 87.63) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid a7d8c833-64e5-470d-8773-68bb12b4ae81)
+    (property "Sheetname" "EAC" (at 106.172 86.9184 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "EAC.kicad_sch" (at 106.172 92.0246 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Left Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "5"))
+      )
+    )
+  )
+
+  (sheet (at 137.414 124.206) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid ba20fa06-a269-44d1-bfd1-ac09e6be8fd4)
+    (property "Sheetname" "VHF_AM" (at 137.414 123.4944 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "VHF_AM.kicad_sch" (at 137.414 128.6006 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Left Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "9"))
+      )
+    )
+  )
+
+  (sheet (at 137.414 138.938) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid e1f4e057-24c1-4cbb-b368-30b1f66d6dcf)
+    (property "Sheetname" "AUDIO_KEYPAD" (at 137.414 138.2264 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "AUDIO_KEYPAD.kicad_sch" (at 137.414 143.3326 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Left Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "11"))
+      )
+    )
+  )
+
+  (sheet (at 105.156 67.564) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid ed06a1a0-cff2-4015-8741-6cfacbcf7921)
+    (property "Sheetname" "SAS" (at 105.156 66.8524 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "SAS.kicad_sch" (at 105.156 71.9586 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Left Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "3"))
+      )
+    )
+  )
+
+  (sheet (at 105.41 100.584) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid ee8e38f8-62f7-46f3-8592-152f983362ab)
+    (property "Sheetname" "HSI" (at 105.41 99.8724 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "HSI.kicad_sch" (at 105.41 104.9786 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Left Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "6"))
+      )
+    )
+  )
+
+  (sheet (at 104.394 57.404) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid f23058ed-beb9-49f7-9b45-ffc0992a43a3)
+    (property "Sheetname" "AUX_LIGHT" (at 104.394 56.6924 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "AUX_LIGHT.kicad_sch" (at 104.394 61.7986 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "Left Console Overview"
+        (path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55" (page "4"))
+      )
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+  )
+)

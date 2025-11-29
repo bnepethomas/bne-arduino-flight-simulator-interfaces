@@ -1,0 +1,2 @@
+cd /home/pi/Documents/bne-arduino-flight-simulator-interfaces/Python\ HW\ Link
+python3 pyHWLink_GPS_Serial.py

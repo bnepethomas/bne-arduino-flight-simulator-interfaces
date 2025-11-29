@@ -1,0 +1,22 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "c1144080-ed26-4517-b8c1-bacf662206e3")
+	(paper "A4")
+	(title_block
+		(date "2024-08-06")
+	)
+	(lib_symbols)
+	(text "V 1.0 Joined Analog and digital rails. Add column 11 to AM to remove matrix overlap\nFlood and Backlight -V's split - accidentally joined\nMade backlight negative on lighting global was missing connection to board connectors\nT/O Trim was c onnected to 0 and 1 ports which are active when DCS BIOS is running - moved to 14 and 15"
+		(exclude_from_sim no)
+		(at 32.258 27.686 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "45a6aad1-cacd-4330-b3cc-2450146cf688")
+	)
+)

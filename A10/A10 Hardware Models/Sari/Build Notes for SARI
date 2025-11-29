@@ -1,0 +1,34 @@
+Build Notes for SARI
+
+Roll Servo - https://core-electronics.com.au/9g-270-metal-servo-with-analog-feedback-1-5kg.html
+AU$12
+
+Th Roll Servo has a single horn connected to it.  
+A bolt is needed to carry the extra length. It is 6mm long
+If the horn is pressed down it will lock the servo in place
+Use test code to position the servo at its mid-point (90 degrees).  The horn arm can be shortned a little. Attach the horn
+so that points to the inside mounting bolt of the servo. This means at 90 degrees the ball presents a centre 
+line.
+
+
+The brown position lead is not used. So it should be removed to improve cable flexibility
+
+Screw the ball together using the three small countersunk screws.
+Leave some sloop of cable in the ball and cable tie the cable to theinside of the arm (there is a slot provided)
+
+The arms need to be spread to install the ball.
+
+Run a test cycle of the servo to ensure it freely rotates - SARI_SERVO_HW_TEST
+
+Assemble OptoSensor PCB (OpenHornet UTIL_PHOTOSWITCH) and test using OPTOSENSOR_HW_TEST Sketch
+Monunt OptoSensor PCB and Mnount Ball and test OptoSensor senses roll interruptor
+
+A possible consideration for PCB redesign is duplicating the number of conductors used
+to carry roll motor current.
+
+The Roll Stepper was purchased from AliExpress
+https://vi.aliexpress.com/item/4000199720558.html
+It is a NEMA 8 Hollow Shaft 3.9V 0.6A Stepper
+1.8 degrees per step so 200 steps per revolution
+
+With supply of 3.3V and 600mA stepper motor temp was 36 degrees.

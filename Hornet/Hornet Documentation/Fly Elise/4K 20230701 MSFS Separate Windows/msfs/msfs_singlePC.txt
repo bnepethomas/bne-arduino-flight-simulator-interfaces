@@ -1,0 +1,55 @@
+Export for SinglePC (reuse main MSFS view/window)
+Locate the plane folder in the MSFS packages directory
+Example: packages\Official\Steam\asobo-aircraft-c172sp-classic\SimObjects\Airplanes\Asobo_C172sp_classic
+Locate and create a copy of the cameras.cfg
+Locate the [CAMERADEFINITION.x] for Origin = "Virtual Cockpit"
+Edit the camerss.cfg file and add/modify the InitialZoom and InitialPbh lines as indicated below
+
+------------------
+Set the ZoomPercentage in MSFS GUI to 2.49609
+Channel = 1
+ProjectorName = Projector1
+Enter the following values in the cameras.cfg file
+InitialZoom = 1.0
+InitialPbh = 2.03035, 0, -70.504
+------------------
+
+------------------
+Channel = 2
+ProjectorName = Projector2
+Create a new view with the following rotations:
+Lateral rotation offset = 45.7437
+Vertical rotation offset = 0.143374
+Roll rotation offset = 1.89439
+------------------
+
+------------------
+Channel = 3
+ProjectorName = Projector3
+Create a new view with the following rotations:
+Lateral rotation offset = 95.0173
+Vertical rotation offset = 1.89268
+Roll rotation offset = 1.22053
+------------------
+
+
+Or
+---------- Paste the following lines in UserCfg.opt file ----------
+	WindowCustom0.Monitor 1
+	WindowCustom0.Windowed 1
+	WindowCustom0.FullscreenBorderless 1
+	WindowCustom0.WindowActive 1
+	WindowCustom0.Resolution 3840 2160
+	WindowCustom0.FullScreenResolution 3840 2160
+	WindowCustom0.PosX 0
+	WindowCustom0.PosY 0
+	WindowCustom0.CameraDegRotationAdd 0.143374 45.7437 1.89439
+	WindowCustom1.Monitor 2
+	WindowCustom1.Windowed 1
+	WindowCustom1.FullscreenBorderless 1
+	WindowCustom1.WindowActive 1
+	WindowCustom1.Resolution 3840 2160
+	WindowCustom1.FullScreenResolution 3840 2160
+	WindowCustom1.PosX 0
+	WindowCustom1.PosY 0
+	WindowCustom1.CameraDegRotationAdd 1.89268 95.0173 1.22053

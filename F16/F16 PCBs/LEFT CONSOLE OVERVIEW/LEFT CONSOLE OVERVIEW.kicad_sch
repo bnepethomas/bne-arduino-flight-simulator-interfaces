@@ -1,0 +1,245 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid 5afc249d-f476-4da3-ac91-086c12132e13)
+
+  (paper "A4")
+
+  (title_block
+    (title "F16-LHS-REAR")
+    (date "2023-09-17")
+  )
+
+  (lib_symbols
+  )
+
+
+  (text "Checklist\nPicture of Panel \nUse CAPS and hyphens for naming\nUnique Row Columns prefixed by Panel Name\n12V backlighting - 4 connectors\nServos, steppers\nPopulate Spreadsheet\nGet DCS-BIOS variable\nMounting holes\nName on PCB\nVersion on title block and PCB\n"
+    (at 220.345 84.455 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 58a50635-5a48-42aa-9b4d-0f466c47ea00)
+  )
+
+  (sheet (at 37.592 155.956) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 1349dc03-b36b-48f4-9b9a-2e4615f7fb5b)
+    (property "Sheet name" "Test" (id 0) (at 37.592 155.2444 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "Test.kicad_sch" (id 1) (at 37.592 160.3506 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 140.462 64.262) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 671a2bb8-6643-4b54-b216-63c9c09df70e)
+    (property "Sheet name" "MANUAL-TRIM" (id 0) (at 140.462 63.5504 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "MANUAL-TRIM.kicad_sch" (id 1) (at 140.462 68.6566 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 69.977 155.321) (size 14.605 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 93c6e81e-bb16-43e1-af30-16c142ac2247)
+    (property "Sheet name" "FLIGHT-CONTROL" (id 0) (at 69.977 154.6094 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "FLIGHT-CONTROL.kicad_sch" (id 1) (at 69.977 159.7156 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 37.338 23.114) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid c68ee87d-1f9d-4b21-a23f-cb5b3892be88)
+    (property "Sheet name" "MANUAL PITCH" (id 0) (at 37.338 22.4024 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "MANUAL PITCH.kicad_sch" (id 1) (at 37.338 27.5086 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b" (page "2"))
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247" (page "3"))
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e" (page "4"))
+    (path "/c68ee87d-1f9d-4b21-a23f-cb5b3892be88" (page "5"))
+  )
+
+  (symbol_instances
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/2a4edc3a-8fe3-4eee-b88c-4e99e2930a48"
+      (reference "D1") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/e5de93b7-29ff-4b6c-8c10-6f45e8553169"
+      (reference "D2") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/1f0c6c72-a5be-4c87-ba00-8b35dd00fc1e"
+      (reference "D3") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/5c839adc-0673-4498-89e2-b6dad878cf82"
+      (reference "D4") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/741027c7-2fbe-4ee5-9bf3-8c542815a48b"
+      (reference "D5") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/57c9d257-0a03-451d-bf68-e6ae9480ee70"
+      (reference "D6") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/43588b8d-045a-4aa7-80c3-30df3fd4f35a"
+      (reference "D7") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/8438d890-d94d-472e-a60e-6874c7728106"
+      (reference "D8") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/2edaad4b-7cf6-4349-909d-cd2036a797f4"
+      (reference "D9") (unit 1) (value "L-C") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/4ac151a9-356b-4cd9-8aff-421db0ffaff7"
+      (reference "D10") (unit 1) (value "R-A") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/48973a0a-a315-4483-9ee9-58319f57904d"
+      (reference "D11") (unit 1) (value "R-A") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/3d6ae09a-72db-4293-8eb0-04267d29643f"
+      (reference "D12") (unit 1) (value "R-B") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/7f1efb56-240e-4fa8-8629-157d0726fc3b"
+      (reference "D13") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/aa8808bc-b8e4-45ad-9361-4ea7d9a2367a"
+      (reference "D14") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/a1ad5cab-0d7d-45d8-90ed-0fc0e45a491d"
+      (reference "D15") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/f18594e4-7619-46a3-90e9-68c0d94834d1"
+      (reference "D16") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/6342c01a-fa49-4cbc-95b8-3e99e741e9cb"
+      (reference "D17") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/35a9c99d-3a57-4e66-87c6-cd26ce616cc2"
+      (reference "D18") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/6f8a143b-2996-4cd6-8238-e6ca1f4dfb2d"
+      (reference "D19") (unit 1) (value "RUN") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/89fa2dfa-dd31-44e9-8b95-be0d2faecd33"
+      (reference "D20") (unit 1) (value "FAIL") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/c68ee87d-1f9d-4b21-a23f-cb5b3892be88/1bd5cbd6-a2f4-4175-af22-791eb42243a7"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/cc818cd8-8115-45a4-9305-f55599a746b3"
+      (reference "D?") (unit 1) (value "D") (footprint "PT_Library_v001:D_Signal_P7.62mm_Horizontal")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/f879ac3e-9ed7-48ea-93dc-949c66fd51fb"
+      (reference "H1") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/fa3e9ea6-3352-45fb-b85c-f1b3c465096b"
+      (reference "H2") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/f777603c-04fb-4a30-b0c8-28272ad0197a"
+      (reference "H3") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/22da7294-a777-46bd-bdc2-d6ecfe485a33"
+      (reference "H4") (unit 1) (value "MountingHole") (footprint "MountingHole:MountingHole_3.2mm_M3")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/fce64ea3-6ad3-462f-b29d-c9820ed63921"
+      (reference "J1") (unit 1) (value "TEST INPUTS") (footprint "PT_Library_v001:Molex_1x06_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/3cc59ef1-fd59-4651-af05-7a90ddd9219e"
+      (reference "J2") (unit 1) (value "TEST LEDS") (footprint "PT_Library_v001:Molex_1x04_P2.54mm_Vertical")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/2199be2e-83db-4356-a297-1f71ad5146b3"
+      (reference "J3") (unit 1) (value "FLT-CTL-INPUT") (footprint "PT_Library_v001:Molex_1x06_P2.54mm_Vertical")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/ebeffbdd-c72b-47c7-9f89-70e60af36a51"
+      (reference "J4") (unit 1) (value "TEST LEDS") (footprint "PT_Library_v001:Molex_1x04_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/2150cb9c-3c9c-4a40-ac7c-c393ba5a8c8d"
+      (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/2647c0a5-9bac-4a15-8437-c30ff8bd4ec0"
+      (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/583989ce-283c-419b-ac0b-c21da56c2f06"
+      (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/8c17da62-8980-41ae-9949-a5b6248e6dff"
+      (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/98662793-8f5f-41a3-bcf4-8783f28973e3"
+      (reference "J?") (unit 1) (value "BKLGT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/c68ee87d-1f9d-4b21-a23f-cb5b3892be88/e3acb2cf-89a2-471a-8ed4-3e2bc59c7258"
+      (reference "J?") (unit 1) (value "MANUAL PITCH") (footprint "")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/3858811f-e6ff-40d6-9bbd-38e682ebab62"
+      (reference "M?") (unit 1) (value "Stepper_Motor_bipolar") (footprint "PT_Library_v001:Molex_1x04_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/3e7268f0-3593-49a4-bdad-34235fe1391d"
+      (reference "M?") (unit 1) (value "Stepper_Motor_bipolar") (footprint "PT_Library_v001:Molex_1x04_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/934a5f41-84d1-42e7-9be7-6b927559e5be"
+      (reference "RV?") (unit 1) (value "PITCH-TRIM") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/9e4c57d4-9eb0-4938-94a6-a2c035dcf2aa"
+      (reference "RV?") (unit 1) (value "YAW-TRIM") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/ae113a77-6eb1-40e0-9587-96eea7e5c539"
+      (reference "RV?") (unit 1) (value "ROLL-TRIM") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/87bf78b8-63d5-4e29-8248-24fcdd9a55f6"
+      (reference "SW1") (unit 1) (value "FIRE & OH DETECT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/516d16c3-e3bf-4468-b043-e63aa4e3d934"
+      (reference "SW2") (unit 1) (value "FLCS-TEST") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/dc7a051b-db17-4801-82e8-6ca74af052fc"
+      (reference "SW3") (unit 1) (value "OXY QTY") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/f247b1f1-2b01-4ba7-b9e5-307617cfdbc1"
+      (reference "SW4") (unit 1) (value "MAL & IND LTS") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/e9a6e315-1bb4-49ff-a73c-d36a01e61af3"
+      (reference "SW5") (unit 1) (value "PROBE HEAT") (footprint "PT_Library_v001:Molex_1x03_P2.54mm_Vertical")
+    )
+    (path "/1349dc03-b36b-48f4-9b9a-2e4615f7fb5b/63e4f084-be23-4502-9583-f6719179a659"
+      (reference "SW6") (unit 1) (value "EPU GEN") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/ac20db8f-1339-4a50-85a9-35cfa5897402"
+      (reference "SW7") (unit 1) (value "DIGITAL-BACKUP") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/910ebc18-2285-4b8d-a4f3-3d4aaf936184"
+      (reference "SW8") (unit 1) (value "ALT-FLAPS") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/2092aa9d-206f-4781-b5f2-e6b6dfa57287"
+      (reference "SW9") (unit 1) (value "MANUAL-TF") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/be8209db-34d5-41c9-b906-6b837f171c73"
+      (reference "SW10") (unit 1) (value "LE-FLAPS") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/18725754-49f5-47ba-8274-d7d5ca508791"
+      (reference "SW11") (unit 1) (value "FLCS-RESET") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/93c6e81e-bb16-43e1-af30-16c142ac2247/220468a9-8258-494b-b402-0cdf263e75d0"
+      (reference "SW12") (unit 1) (value "BIT") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/671a2bb8-6643-4b54-b216-63c9c09df70e/02c06b8f-95c7-4493-97ac-956a6b22537a"
+      (reference "SW?") (unit 1) (value "AP-DISC") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+    (path "/c68ee87d-1f9d-4b21-a23f-cb5b3892be88/a6f5c254-eb12-4e0a-871c-c7725c381457"
+      (reference "SW?") (unit 1) (value "MANUAL PITCH") (footprint "PT_Library_v001:Molex_1x02_P2.54mm_Vertical")
+    )
+  )
+)

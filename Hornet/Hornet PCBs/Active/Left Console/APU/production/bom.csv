@@ -1,0 +1,10 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+"D1, D11, D12, D13, D14, D2, D3, D4, D5, D6",LED_D3.0mm_FlatTop,10,LED,
+"D10, D9",D_A-405_P7.62mm_Horizontal-SIGNAL,2,D,
+"D7, D8",D_DO-41_SOD81_P7.62mm_Horizontal,2,D,
+J1,IDC-Header_2x07_P2.54mm_Vertical,1,Conn_02x07_Top_Bottom,
+L1,JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,1,APU Coil,
+L2,JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,1,Crank Coil,
+"R1, R2, R3, R4",R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal,4,R,
+SW1,JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical,1,ENG CRANK,
+SW2,JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,1,APU,

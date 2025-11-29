@@ -4,22 +4,62 @@
 
 # Receives AV pairs from input devices and translates to AV pairs for the sim
 
+# TODO Normalise analog input for where it isn't a full 0 to 1023
+# TODO Add optional element to input json which lists partner switch.
+#  If this is present whilst dealing with a CQ repsonse. Know we are delaing
+#  with a CQ repsonse as we've receive one from the Sim and then set a timer
+#  say 5 seconds
+#  - add a member
+#  to a temporary array - after first checking that it isn't already there
+#  if it is there compare the results if both are open then we know the
+#  switch is in a center position.  Note we only create the entry if the
+#  first member is open - it is closed we already know the switch
+#  position.  One it is determined then remove member from array
+#  remove all entries for a given device once we hit the last array member
+
+
 
 from collections import OrderedDict
+import binascii
 import json
 import logging
 import os
 import socket
+import struct
 import sys
 import time
+from datetime import datetime
+from datetime import timedelta
+
 
 
 
 from optparse import OptionParser
 
-logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
-#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
+#logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.INFO)
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s',level=logging.DEBUG)
 #logging.basicConfig(format='%(asctime)s:%(levelname)s:%(message)s')
+
+
+
+MIN_VERSION_PY3 = 5    # min. 3.x version
+if (sys.version_info[0] < 3):
+        Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3) 
+        print('')
+        logging.critical(Warning_Message)
+        print('')
+        print('Invalid Version of Python running')
+        print('Running Python earlier than Python 3.0! ' + sys.version)
+        sys.exit(Warning_Message)
+
+elif (sys.version_info[0] == 3 and sys.version_info[1] < MIN_VERSION_PY3):
+        Warning_Message = "ERROR: This script requires a minimum of Python 3." + str(MIN_VERSION_PY3)           
+        print('')
+        logging.critical(Warning_Message)  
+        print('')
+        print('Invalid Version of Python running')
+        print('Running Python ' + sys.version)
+        sys.exit(Warning_Message)
 
 
 
@@ -40,6 +80,7 @@ else:
         
         print('Learning Mode: ' + str(learning))
         print('Aircraft is: ' + AircraftType)
+        print('Simulator is: ' + FlightSim)
 
 
     except Exception as other:
@@ -82,15 +123,34 @@ except:
     print('AircraftType not assigned - using defaults')
     AircraftType = 'default'
 
+try:
+    test = FlightSim
+except:
+    print('FlightSim not assigned - using defaults')
+    FlightSim = 'default'
 
-# UDP_IP_ADDRESS = "127.0.0.1"
-UDP_IP_ADDRESS = "0"
+
+# Windows was unable tobind to 0 - checking firewall
+# Windows had to turn firewall off
+#UDP_IP_ADDRESS = "127.0.0.1"
+UDP_IP_ADDRESS = "172.16.1.2"
+#  When running Pi use address of 0 - as it listens to traffic from everything
+# UDP_IP_ADDRESS = "0"
 UDP_PORT_NO = 26027
-DCS_IP_ADDRESS = "127.0.0.1"
-DCS_PORT_NO = 26026
+SIM_API_IP_ADDRESS = "172.16.1.3"
+# Given X Plane 11 uses a standard API port - will use it for all Sims
+# as other Sims use external interface
+SIM_API_PORT_NO = 49000
+SIM_KB_IP_ADDRESS = "172.16.1.3"
+SIM_KB_PORT_NO = 7790
+
+# Arudino listen port to CQ to 
+ARDUINO_PORT_NO = 7788
 
 UDP_Reflector_IP = "127.0.0.1"
 UDP_Reflector_Port = 27000
+
+
 
 serverSock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 serverSock.settimeout(0.0001)
@@ -99,11 +159,28 @@ serverSock.bind((UDP_IP_ADDRESS, UDP_PORT_NO))
 input_assignments_file = 'input_assignments.json'
 temp_input_assignments_file = 'temp_input_assignments.json'
 
+input_devices_IP_Addresses_file = 'input_IP_Addresses.json'
+
 
 input_assignments = None
-send_string = None
+API_send_string = None
+KB_send_string = None
+
+
+# We haven't yet received a CQ so end time is now/passed
+CQ_End_Time = datetime.now()
+# Assume that we will have received all CQ responses within 3 seconds
+CQ_Seconds_To_Process = 3
+# Flag to indicate we are processing CQ response
+CQ_Processing = False
+# Holds Toggle Entrties that are awaiting a neighbour, using a list as only single value
+CQ_Awaiting_Toggle_Neighbour = []
+
 
 def ReceivePacket():
+
+    global CQ_Processing
+    global CQ_End_Time
 
     # a is used to track the number of timeouts between packets
     # throws a keepalive message to indicate we are still alive
@@ -113,8 +190,14 @@ def ReceivePacket():
         try:
             data, addr = serverSock.recvfrom(1500)
             
-            logging.debug("Message: " + str(data))
-            ReceivedPacket = data
+            ReceivedPacket = data.decode('utf-8')
+            logging.debug("Message: " + ReceivedPacket)
+
+            # Clear CQ_Processing Flag is time has been exceeded
+            if CQ_Processing == True and datetime.now() > CQ_End_Time:
+                logging.debug('Clearing CQ_Processing Flag')
+                CQ_Processing = False
+                
             ProcessReceivedString(str(ReceivedPacket))
             
 
@@ -123,14 +206,14 @@ def ReceivePacket():
                                               
         except socket.timeout:
             a=a+1
-            if (a > 100000):
+            if (a > 1000):
                 logging.info("Long Receive Timeout")
                 a=0
             continue
 
         
         except Exception as other:
-            logging.critical("Error in RecevePacket: " + str(other)) 
+            logging.critical("Error in ReceivePacket: " + str(other)) 
 
  
 
@@ -165,11 +248,11 @@ def updateDescription(workingkey):
 
     
     print('In learning mode - time to update the description for: '  + str(workingkey))
-    updaterecord = raw_input('Update Description? [y/n]: ')
+    updaterecord = input('Update Description? [y/n]: ')
     if updaterecord.upper() == 'Y':
 
         try:
-            wrkstring = raw_input('Please provide a description for: "' + str(workingkey) +  '" ')
+            wrkstring = input('Please provide a description for: "' + str(workingkey) +  '" ')
             if wrkstring != '':
 
                 input_assignments[workingkey]['Description'] = wrkstring
@@ -182,123 +265,277 @@ def updateDescription(workingkey):
 
 
 
-def updateOpenAction(workingkey):
+def updateAPIOpenAction(workingkey):
     global input_assignments
 
     
-    print('In learning mode - time to update the Open Action for: ' + str(workingkey) + ' / '
+    print('In learning mode - time to update the API Open Action for: ' + str(workingkey) + ' / '
           + input_assignments[workingkey]['Description'] + ' ' )
-    updaterecord = raw_input('Update Action? [y/n]: ')
+    updaterecord = input('Update API Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
 
         try:
-            wrkstring = raw_input('Please provide a Open Action for: "' + str(workingkey) +  '" "'
+            wrkstring = input('Please provide an API Open Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['Open'] = wrkstring
+            input_assignments[workingkey]['API_Open'] = wrkstring
 
             save_and_reload_assignments()
                 
         except Exception as other:
-            logging.critical("Error in updateOpenAction: " + str(other))
+            logging.critical("Error in updateAPIOpenAction: " + str(other))
 
-
-
-def updateCloseAction(workingkey):
+def updateKBOpenAction(workingkey):
     global input_assignments
 
     
-    print('In learning mode - time to update the Close Action for: ' + str(workingkey) + ' '
+    print('In learning mode - time to update the Keyboard Open Action for: ' + str(workingkey) + ' / '
+          + input_assignments[workingkey]['Description'] + ' ' )
+    updaterecord = input('Update KB Action? [y/n]: ')
+    if updaterecord.upper() == 'Y':
+
+        try:
+            wrkstring = input('Please provide an Keyboard Open Action for: "' + str(workingkey) +  '" "'
+                                  + input_assignments[workingkey]['Description'] + '" :')
+
+            # Upper case the input as Send Keystrokes modifers as in upper
+            input_assignments[workingkey]['Keyboard_Open'] = wrkstring.upper()
+
+            save_and_reload_assignments()
+                
+        except Exception as other:
+            logging.critical("Error in updateKBOpenAction: " + str(other))
+
+def updateAPICloseAction(workingkey):
+    global input_assignments
+
+    
+    print('In learning mode - time to update the API Close Action for: ' + str(workingkey) + ' '
           + input_assignments[workingkey]['Description'])
-    updaterecord = raw_input('Update Action? [y/n]: ')
+    updaterecord = input('Update API Action? [y/n]: ')
     if updaterecord.upper() == 'Y':
         
         try:
-            wrkstring = raw_input('Please provide a Close Action for: "' + str(workingkey) +  '" "'
+            wrkstring = input('Please provide an API Close Action for: "' + str(workingkey) +  '" "'
                                   + input_assignments[workingkey]['Description'] + '" :')
 
-            input_assignments[workingkey]['Close'] = wrkstring
+            input_assignments[workingkey]['API_Close'] = wrkstring
 
             save_and_reload_assignments()
                 
         except Exception as other:
-            logging.critical("Error in updateCloseAction: " + str(other))
+            logging.critical("Error in updateAPICloseAction: " + str(other))
                 
 
- 
+def updateKBCloseAction(workingkey):
+    global input_assignments
 
-def Send_Value():
+    
+    print('In learning mode - time to update the Keyboard Close Action for: ' + str(workingkey) + ' '
+          + input_assignments[workingkey]['Description'])
+    updaterecord = input('Update KB Action? [y/n]: ')
+    if updaterecord.upper() == 'Y':
+        
+        try:
+            wrkstring = input('Please provide an Keyboard Close Action for: "' + str(workingkey) +  '" "'
+                                  + input_assignments[workingkey]['Description'] + '" :')
 
-    global send_string
+            # Upper case the input as Send Keystrokes modifers as in upper
+            input_assignments[workingkey]['Keyboard_Close'] = wrkstring.upper()
+
+            save_and_reload_assignments()
+                
+        except Exception as other:
+            logging.critical("Error in updateKBCloseAction: " + str(other)) 
+
+def API_Send_Value():
+
+    global API_send_string
+    global serverSock
+
+
+    logging.debug("UDP target port:" + str(SIM_API_PORT_NO))
+    if (FlightSim.upper() != 'XPLANE'):
+        try:
+
+            
+
+            serverSock.sendto(API_send_string.encode('utf-8'), (SIM_API_IP_ADDRESS, SIM_API_PORT_NO))
+            serverSock.sendto(API_send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
+
+            API_send_string = ""
+
+        except Exception as other:
+                logging.critical("Error in API_Send_Value - non-XPlane: " + str(other))
+
+    else:       # XPlane - needs special treatment
+
+        try:
+
+            values = ('CMND'.encode('utf-8'), 0, API_send_string.encode('utf-8'))
+            packerstring = '4s B ' + str(len(API_send_string) + 2) + 's'
+            print('Packer String is ' + packerstring)
+            
+
+            packer = struct.Struct(packerstring)
+            packed_data = packer.pack(*values)
+
+
+            print('UDP Daata to be sent: ' + API_send_string)
+            print('UDP target IP:', SIM_API_IP_ADDRESS)
+            print('UDP target port:', SIM_API_PORT_NO)
+            print('sending "%s"' % binascii.hexlify(packed_data), values)
+            
+
+            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # UDP
+            sock.sendto((packed_data), (SIM_API_IP_ADDRESS, SIM_API_PORT_NO))
+
+            serverSock.sendto(API_send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
+
+            API_send_string = ""
+
+        except Exception as other:
+                logging.critical("Error in API_Send_Value - Xplane: " + str(other))
+
+        
+
+def KB_Send_Value():
+
+    global KB_send_string
     global serverSock
 
 
     try:
 
-        logging.debug("UDP target port:" + str(DCS_PORT_NO))
+        logging.debug("UDP target port:" + str(SIM_KB_PORT_NO))
 
-        serverSock.sendto(send_string, (DCS_IP_ADDRESS, DCS_PORT_NO))
-        serverSock.sendto(send_string, (UDP_Reflector_IP, UDP_Reflector_Port))
+        serverSock.sendto(KB_send_string.encode('utf-8'), (SIM_KB_IP_ADDRESS, SIM_KB_PORT_NO))
+        serverSock.sendto(KB_send_string.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
 
-        send_string = ""
+        KB_send_string = ""
 
     except Exception as other:
-        logging.critical("Error in Send_Value: " + str(other))
-        
+        logging.critical("Error in KB_Send_Value: " + str(other))
               
 
-def addValueToSend(valueToAdd):
+def addAPIValueToSend(valueToAdd):
 
-    global send_string
+# Currently allowing building out of longer string
+# This may be introducing latency will monitor and may use direct send
+
+    global API_send_string
               
 
     try:
-        logging.debug('Send String is ' + str(len(send_string)) + ' characters long')
-        logging.debug('Before ' + send_string)
+        logging.debug('Send String is ' + str(len(API_send_string)) + ' characters long')
+        logging.debug('Before ' + API_send_string)
 
 
-        if len(send_string) == 0:
-            send_string = valueToAdd
+        if len(API_send_string) == 0:
+            API_send_string = valueToAdd
         else:
-            send_string = send_string + ',' + valueToAdd
+            API_send_string = API_send_string + ',' + valueToAdd
              
-        if len(send_string) > 40:
+        if len(API_send_string) > 40:
             
             logging.debug('Send String Now !!!!!')
-            Send_Value()
+            API_Send_Value()
             
         
-        logging.debug('After ' + send_string)
+        logging.debug('After ' + API_send_string)
 
     except Exception as other:
-        logging.critical("Error in addValueToSend: " + str(other))
+        logging.critical("Error in addAPIValueToSend: " + str(other))
 
 
-def Send_Remaining_Commands():
+def addKBValueToSend(valueToAdd):
+
+# Currently allowing building out of longer string
+# This may be introducing latency will monitor and may use direct send
+
+    global KB_send_string
+              
+
+    try:
+        logging.debug('Send String is ' + str(len(KB_send_string)) + ' characters long')
+        logging.debug('Before ' + KB_send_string)
+
+
+        if len(KB_send_string) == 0:
+            KB_send_string = valueToAdd
+        else:
+            KB_send_string = KB_send_string + ',' + valueToAdd
+             
+        if len(KB_send_string) > 40:
+            
+            logging.debug('Send String Now !!!!!')
+            KB_Send_Value()
+            
+        
+        logging.debug('After ' + KB_send_string)
+
+    except Exception as other:
+        logging.critical("Error in addKBValueToSend: " + str(other))
+
+
+def Send_Remaining_API_Commands():
     
-    global send_string
+    global API_send_string
 
-    if send_string != '':
-         Send_Value()       
-    send_string = ''
+    if API_send_string != '':
+         API_Send_Value()       
+    API_send_string = ''
     
+def Send_Remaining_KB_Commands():
+    
+    global KB_send_string
 
+    if KB_send_string != '':
+         KB_Send_Value()       
+    KB_send_string = ''
 
 def ProcessReceivedString(ReceivedUDPString):
     global input_assignments
-    global send_string
+    global dict_input_devices_IP_Addresses
+    global API_send_string
+    global KB_send_string
     global learning
+    global CQ_Processing
+    global CQ_End_Time
+    global CQ_Awaiting_Toggle_Neighbour
     
     logging.debug('Processing UDP String')
 
-    send_string = ""
+    API_send_string = ""
+    KB_send_string = ""
     
     try:
+
+        # Have received a CQ request pass on to all input nodes
+        if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'C':
+            print('Sending CQ request to all configured input devices')
+            CQ_End_Time = datetime.now() + timedelta(seconds=CQ_Seconds_To_Process)
+            
+            CQ_Processing = True
+            CQ_Awaiting_Toggle_Neighbour = []
+            CQ_Awaiting_Toggle_Neighbour.append("XX")
+            print('Initialise Array of Open Switches')
+            print('Walk through array of IP Addresses of input devices')
+            print('This should be done at Start')
+            for indexPtr in dict_input_devices_IP_Addresses:
+                CQ_Target_IP = dict_input_devices_IP_Addresses[indexPtr]['IP_Address']    
+                print('Sending CQ to :' + CQ_Target_IP)
+                serverSock.sendto("CQ".encode('utf-8'), (CQ_Target_IP, ARDUINO_PORT_NO))
+            
+            
+
+        # Normal packet process of info from Arduinos            
         if len(ReceivedUDPString) > 0 and ReceivedUDPString[0] == 'D':
             
             logging.debug('Stage 1 Processing: ' + str(ReceivedUDPString))
-            # Remove leading D
-            ReceivedUDPString = str(ReceivedUDPString[1:])
+            # Remove leading DXX,
+            # eg from Input board ID 6 we should receive 'D06,' and then the data        
+            ReceivedUDPString = str(ReceivedUDPString[4:])
             logging.debug('Checking for correct format :')
 
             
@@ -321,16 +558,23 @@ def ProcessReceivedString(ReceivedUDPString):
                     logging.warn('')
                     logging.warn('WARNING - There are an incorrect number of fields in: ' + str(workingFields))
                     logging.warn('')
-                elif str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
+                    # For Digital Inputs should either be a 1 or a 0
+                elif str(workingFields[1]).find('A') == -1 and str(workingFields[2]) != '0' and str(workingFields[2]) != '1':
                     logging.warn('')
-                    logging.warn('WARNING - Invalid 3rd parameter: ' + str(workingFields[2]))
-                    logging.warn('')                   
+                    logging.warn('WARNING - Invalid Digital 3rd parameter: ' + str(workingFields[2]))
+                    logging.warn('')
+                    # For Analog inputs expected range 0 to 1023
+                elif str(workingFields[1]).find('A') != -1 and (int(workingFields[2]) < 0 or int(workingFields[2]) > 1023):    
+                    logging.warn('')
+                    logging.warn('WARNING - Invalid Analog 3rd parameter: ' + str(workingFields[2]))
+                    logging.warn('')
                 else:
                     logging.debug('Stage 2 Processing: ' + str(workingFields))
 
                     try:
                         workingkey = workingFields[0] + ':' + workingFields[1]
                         logging.debug('Working key is: ' + workingkey)
+
                         
                         logging.debug('Working Fields for working key are: ' +
                               str(input_assignments[workingkey]))
@@ -341,38 +585,183 @@ def ProcessReceivedString(ReceivedUDPString):
 
                         if learning and input_assignments[workingkey]['Description'] == None:
                                 updateDescription(workingkey)
-                        print('Value for Description is : ' +
+                        if not CQ_Processing:        
+                            print('Value for Description is : ' +
                               str (input_assignments[workingkey]['Description']))
 
-                        # Switch is Closed
-                        if str(workingFields[2]) == '1':
-                            if learning and input_assignments[workingkey]['Close'] == None:
-                                updateCloseAction(workingkey)
-                            print('Value for Close is : ' +
-                              str (input_assignments[workingkey]['Close']))
-                            if input_assignments[workingkey]['Close'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Close']))
+                        # Switch is Closed and not an Analog value
+                        if str(workingFields[2]) == '1' and str(workingFields[1]).find('A') == -1:
 
-                        # Switch is Opened
-                        if str(workingFields[2]) == '0':
-                            if learning and input_assignments[workingkey]['Open'] == None:
-                                updateOpenAction(workingkey)
-                            print('Value for Open is : ' +
-                                  str (input_assignments[workingkey]['Open']))
-                            if input_assignments[workingkey]['Open'] != None:
-                                addValueToSend(str (input_assignments[workingkey]['Open']))
+
+                                
+                            # API Action    
+                            if learning and input_assignments[workingkey]['API_Close'] == None:
+                                updateAPICloseAction(workingkey)
+                            if not CQ_Processing:
+                                print('Value for API Close is : ' +
+                                    str (input_assignments[workingkey]['API_Close']))
+                            if input_assignments[workingkey]['API_Close'] != None:
+                                addAPIValueToSend(str (input_assignments[workingkey]['API_Close']))
+
+                            # Keyboard action 
+                            if learning and input_assignments[workingkey]['Keyboard_Close'] == None:
+                                updateKBCloseAction(workingkey)
+                            if not CQ_Processing:
+                                print('Value for Keyboard Close is : ' +
+                                    str (input_assignments[workingkey]['Keyboard_Close']))
+                            if input_assignments[workingkey]['Keyboard_Close'] != None:
+                                addKBValueToSend(str (input_assignments[workingkey]['Keyboard_Close']))
+
+
+                        # Switch is Opened and not an Analog value
+                        if str(workingFields[2]) == '0' and str(workingFields[1]).find('A') == -1:
+                            # API Action
+
+                            # the ok_To_Send flag is used to determine later if open action
+                            # can be sent while CQ Processing. It gets set to false as soon
+                            # as we see there control has a neighbour.  But if we've already
+                            # processed the neighbour and it was open then set to True so
+                            # we'll send the open action (which should be the same for both neighbours)
+                            ok_To_Send = True
+                            if CQ_Processing:
+                                #print('START DEVELOPMENT')
+                                #print('CQ Processing')
+                                #print('Working Key :' + str(workingkey))
+                                #print(input_assignments[workingkey])
+
+                                try:
+                                    ToggleNeighbour = input_assignments[workingkey].get('ToggleNeighbour',"")
+                                    if ToggleNeighbour != "":
+
+                                        # Hold sending anything and check to see if we've seen the neighbour
+                                        ok_ToSend = False
+                                        
+                                        # We have a ToggleNeighbour now see if a entry has been
+                                        # already created.  One will exist if neighbour is in open position
+                                        print('Neighbour is : ' + ToggleNeighbour)
+                                        print('Working Key is: ' + workingkey)
+                                        print('Count is : ' + str(len(CQ_Awaiting_Toggle_Neighbour)))
+
+                                        # Add the key to the open Neighbour table
+                                        # This may seem a little wasteful - but in reality there are
+                                        # only a small number of switches with neighbours
+                                        # And we erase the list everything we start CQ processing
+                                        print('Adding Awaiting Neighbour Key')
+                                        CQ_Awaiting_Toggle_Neighbour.append(str(workingkey))
+                                        print('Neighbour Key Added')
+                                        
+                                        # As the index function on a list returns a value error if the
+                                        # Target it not foud - need to catch it.
+                                        # Probably move to Dict and use get as it has a nicer way of dealing with this
+                                        try:
+                                            ToggleNeighbourIndex = CQ_Awaiting_Toggle_Neighbour.index(ToggleNeighbour)    
+                                            print('Position is : ' + str(ToggleNeighbourIndex))
+                                            ok_To_Send = True
+                                            print('Found a neighbour - therefor do the open action')
+ 
+                                        except ValueError:
+                                            print('Neighbour not found add entry as it could be found later')    
+                                        print('Made it to here')
+
+                                    
+                                except KeyError:
+                                    print("There is no ToogleNeighbour for :" + workingkey)
+                                except:
+                                    e = sys.exc_info()[0]
+                                    print( "Error in Neighbour Check: %s" % e )
+
                             
-                        
+
+                                
+                                # print('END DEVELOPMENT')
+                            # End CQ Processing
+                            if ok_To_Send and learning and input_assignments[workingkey]['API_Open'] == None:
+                                updateAPIOpenAction(workingkey)
+
+                            # Reduce GUI Noise by only displaying the action when not doing a CQ    
+                            if not CQ_Processing:
+                                print('Value for API Open is : ' +
+                                  str (input_assignments[workingkey]['API_Open']))
+
+                                
+                            if ok_To_Send and input_assignments[workingkey]['API_Open'] != None:
+                                addAPIValueToSend(str (input_assignments[workingkey]['API_Open']))
+
+                            # Keyboard action  
+                            if ok_To_Send and learning and input_assignments[workingkey]['Keyboard_Open'] == None:
+                                updateKBOpenAction(workingkey)
+                            if not CQ_Processing:
+                                print('Value for Keyboard Open is : ' +
+                                  str (input_assignments[workingkey]['Keyboard_Open']))
+                            if ok_To_Send and input_assignments[workingkey]['Keyboard_Open'] != None:
+                                addKBValueToSend(str (input_assignments[workingkey]['Keyboard_Open']))
+
+                            print('Control to Send is :' +  input_assignments[workingkey]['API_Close'])   
+
+
+
+
+                        # Processing an analog value
+                        # The item that is associated wih the analog control - basically panel device number with a trailing comma
+                        # "Analog_Control": "C38,3013,",
+                        #
+                        # Is it a zero centred pot like trim or a normal pot like volume "01"
+                        # "Analog_Style": "-101"
+
+                        # Currently analog needs minimal preposting - that will change it non-full-rotation is needed
+                        #    eg for Throttle, Joysticks or Rudders
+
+                        print('CQ Processing what about analog')
+                        if str(workingFields[1]).find('A') != -1:
+
+
+                            print('Analog Control to Send is :' +  input_assignments[workingkey]['Analog_Control'])
+                            print('Analog Type is :' +  input_assignments[workingkey]['Analog_Style'])
+                            print('Analog Value Received is :' + workingFields[2])
+                                
+                            # First lets clean up the analog value a little to ensure we get both min and max eg 0 and 1023
+                            # Which may be stopped by dejitter code on Arduino
+                            if int(workingFields[2]) < 3:
+                                workingFields[2] = 0
+                            elif int(workingFields[2]) > 1021:
+                                workingFields[2] = 1023
+
+                            # Now deal with different types of Potentometers = some a zero centred so -1 to 0 to 1
+                            # others are simply 0 to 1.
+                            # DCS appears to be happy to take a precision of five so divide by a 1000
+                            
+                            # Need to r
+
+                            if input_assignments[workingkey]['Analog_Style'] == "-101":
+                                print('Working with Centred Pot -1 0 1')
+                                
+                                potValueToSend = ((int(workingFields[2]) - 511) / 511)
+                                if potValueToSend > 1:
+                                    potValueToSend = 1
+                                elif potValueToSend < -1:
+                                    potValueToSend = -1
+                                print( potValueToSend)
+                                print ('%.3f'%potValueToSend) 
+                                addAPIValueToSend(str (input_assignments[workingkey]['Analog_Control'] + str(potValueToSend)))
+                            elif input_assignments[workingkey]['API_Open'] == "01":
+                                print('Working with normal pot 0 1')
+                            else:
+                                print('Unable opt type found in working assignments. Type returned is :' + input_assignments[workingkey]['Analog_Control'])
+                            
+                            
     
                     except Exception as other:
-                        logging.critical('')
-                        logging.critical('WARNING - Unable to read record of interest in ProcessReceivedString')
-                        logging.critical('WARNING - Record name is: "' + workingkey + '"')
-                        logging.critical('')
-                        logging.critical("Error in ProcessReceivedString: " + str(other))
-                
+                        # Reduce noise form unmapped Switches when repsonding to CQ
+                        if not CQ_Processing:    
+                            logging.critical('')
+                            logging.critical('WARNING - Unable to read record of interest in ProcessReceivedString')
+                            logging.critical('WARNING - Record name is: "' + workingkey + '"')
+                            logging.critical('')
+                            logging.critical("Error in ProcessReceivedString: " + str(other))
+                        
 
-            Send_Remaining_Commands()
+            Send_Remaining_API_Commands()
+            Send_Remaining_KB_Commands()
             logging.debug('Continuing on')
             
 
@@ -523,8 +912,9 @@ def LoadDCSParameterFile():
 # Maximum inputs per module is 256
 # Unless explicitly asked via a command request, the sending unit only sends deltas
 # The format is AV pairs indicating new switch status, eg a switch moving to the off position will reflect as switch_no:0
-# Packets from input nodes will have the format of DX:A=V:A1=V1, where X is the input node number.
-# The Node number is only indicated in the front of the packet, not at the individual AV pair.
+# Packets from input nodes will have the format of DXX,A=V:A1=V1, where X is the input node number.
+# The Node number is only on all AV pairs - a little redundant D01,01:134:1
+# For analog packets D01,01:A15:452
 
 # If an AV pair is not known it will be silently discarded unless the Primary node is in learning mode.
 # If in learning mode it will ask the operator what task should be assigned to the unknown AV pair. Switch description will
@@ -540,6 +930,8 @@ def LoadDCSParameterFile():
 #   2: SwitchDescription
 #   3: OnSwitchAction
 #   4: OffSwitchAction
+#   5: OnKeyboardAction
+#   6: OffKeyboardAction
 
 
 # Empty dictionary
@@ -562,8 +954,13 @@ if not (os.path.isfile(input_assignments_file)):
         while counter < 256:
             dictInner = {}
             dictInner['Description'] = None
-            dictInner['Open'] = None
-            dictInner['Close'] = None
+            dictInner['API_Open'] = None
+            dictInner['API_Close'] = None
+            dictInner['Keyboard_Open'] = None
+            dictInner['Keyboard_Close'] = None
+            dictInner['Analog_Control'] = None
+            dictInner['Analog_Style'] = None
+
 
             #dictOuter[str(outercounter) + ":" + str(counter)] = dictInner
             dictOuter[ '%.2d' % (outercounter) + ":" + '%.3d' % (counter)] = dictInner
@@ -588,6 +985,52 @@ except Exception as other:
 
     serverSock.close()
     sys.exit(0)
+
+
+
+# Load IP Addresses
+dict_input_devices_IP_Addresses = {}
+input_devices_IP_Addresses_file = 'input_IP_Addresses.json'
+
+
+if not (os.path.isfile(input_devices_IP_Addresses_file)):
+    
+    logging.critical('Unable to find "' + input_devices_IP_Addresses_file + '"')
+    logging.info('Creating default Input Device IPAddresses in: ' + input_devices_IP_Addresses_file)
+
+    # Create three entries by default for left, front, and right input devices    
+    dictOuter = {}
+    dictInner = {}
+    outercounter = 0
+    while outercounter < 3:
+
+        dictInner = {}
+        dictInner['IP_Address'] = "172.16.1.1" + str(outercounter)     
+        dictOuter[ outercounter ] = dictInner           
+        outercounter = outercounter + 1
+
+    json.dump(dictOuter, fp=open(input_devices_IP_Addresses_file,'w'),indent=4)
+
+    logging.info('Created Input Assignments file: "' + input_devices_IP_Addresses_file + '"')
+
+print('Loading Input Device Addrresses from: "' + input_devices_IP_Addresses_file +'"')              
+
+try:
+    dict_input_devices_IP_Addresses = json.load(open(input_devices_IP_Addresses_file))
+                             
+except Exception as other:
+    logging.critical("Unexpected error while reading file:" + str(other))         
+
+    serverSock.close()
+    sys.exit(0)
+
+
+print('Will send CQ to the following Addresses:')
+for indexPtr in dict_input_devices_IP_Addresses:
+    print(dict_input_devices_IP_Addresses[indexPtr]['IP_Address'])
+    
+
+# End Load IP Addresses
 
 
 

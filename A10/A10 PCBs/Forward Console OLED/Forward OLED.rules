@@ -1,0 +1,111 @@
+
+(rules PCB Forward OLED
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 148)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.0)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_600:400_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_600:400_um" "Via[0-1]_600:400_um" default
+  )
+  (via 
+    "Via[0-1]_600:400_um-kicad_default" "Via[0-1]_600:400_um" "kicad_default"
+  )
+  (via 
+    "Via[0-1]_600:400_um-POWER" "Via[0-1]_600:400_um" POWER
+  )
+  (via_rule
+    default "Via[0-1]_600:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_600:400_um-kicad_default"
+  )
+  (via_rule
+    POWER "Via[0-1]_600:400_um-POWER"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    SCLK "ES1_RST" MISO MOSI +5V /IOREF /AREF /*13
+    /*12 /TX0{slash}1 /RX0{slash}0 +3V3 "Net-(D1-A)" "Net-(D2-A)" VCC /~{RESET}
+    SS "D21 SCL" "D20 SDA" BACKLIGHT "unconnected-(J41-Pin_1-Pad1)" "unconnected-(J42-Pin_1-Pad1)" "Net-(U1-INT)" D14
+    "unconnected-(U1-NC-PadB4)" D17 D15 D18 D16 D19 D11 D9
+    D8 D6 D3 /OLED/SD7 /OLED/SD5 /OLED/SC1 /OLED/SC2 /OLED/SD1
+    /OLED/SD0 /OLED/SC7 /OLED/SD2 /OLED/SD3 /OLED/SC6 /OLED/SC3 /OLED/SC0 /OLED/SD4
+    /OLED/SD6 /OLED/SC5 /OLED/SC4 D5 D7 D4 "A7 D61" "A3 D57"
+    "A6 D60" "A4 D58" "A2 D56" "A0 D54" "A1 D55" "A5 D59" "A14 D68" "A10 D64"
+    "A15 D69" "A13 D67" "A11 D65" "A8 D62" "A9 D63" "A12 D66" D47 D30
+    D48 D36 D31 D43 D28 D29 D33 D45
+    D46 D27 D38 D23 D42 D37 D49 D40
+    D34 D39 D44 D35 D25 D24 D22 D32
+    D26 D41 "Net-(J35-Pin_12)" "Net-(J35-Pin_4)" "Net-(J35-Pin_6)" "Net-(J35-Pin_7)" "Net-(J35-Pin_3)" "Net-(J35-Pin_5)"
+    "Net-(J35-Pin_2)" "Net-(J35-Pin_10)" "Net-(J35-Pin_8)" "Net-(J35-Pin_11)" "Net-(J35-Pin_1)" "Net-(J35-Pin_9)" "Net-(J38-Pin_1)" "Net-(J38-Pin_8)"
+    "Net-(J38-Pin_3)" "Net-(J38-Pin_11)" "Net-(J38-Pin_12)" "Net-(J38-Pin_10)" "Net-(J38-Pin_16)" "Net-(J38-Pin_9)" "Net-(J38-Pin_6)" "Net-(J38-Pin_14)"
+    "Net-(J38-Pin_5)" "Net-(J38-Pin_13)" "Net-(J38-Pin_15)" "Net-(J38-Pin_2)" "Net-(J38-Pin_7)" "Net-(J38-Pin_4)" "Net-(J40-Pin_15)" "Net-(J40-Pin_3)"
+    "Net-(J40-Pin_2)" "Net-(J40-Pin_14)" "Net-(J40-Pin_6)" "Net-(J40-Pin_11)" "Net-(J40-Pin_9)" "Net-(J40-Pin_8)" "Net-(J40-Pin_12)" "Net-(J40-Pin_1)"
+    "Net-(J40-Pin_7)" "Net-(J40-Pin_16)" "Net-(J40-Pin_5)" "Net-(J40-Pin_10)" "Net-(J40-Pin_13)" "Net-(J40-Pin_4)" "Net-(J3-Pin_4)" "Net-(J3-Pin_3)"
+    "Net-(J3-Pin_2)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class POWER
+    GND
+    (clearance_class POWER)
+    (via_rule POWER)
+    (rule
+      (width 400.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

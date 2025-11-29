@@ -1,0 +1,3 @@
+(sym_lib_table
+  (lib (name MFD-rescue)(type Legacy)(uri ${KIPRJMOD}/MFD-rescue.lib)(options "")(descr ""))
+)

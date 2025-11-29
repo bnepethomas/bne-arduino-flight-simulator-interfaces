@@ -1,0 +1,55 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP PT_Conn_01x04
+D Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP PT_Conn_01x06
+D Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)
+K connector
+F ~
+$ENDCMP
+#
+$CMP SW_Rotary10
+D rotary switch with 10 positions
+K rotary switch
+F http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf
+$ENDCMP
+#
+$CMP SW_Rotary12
+D rotary switch with 12 positions
+K rotary switch
+F http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf
+$ENDCMP
+#
+$CMP SW_Rotary3
+D rotary switch with 3 positions
+K rotary switch
+$ENDCMP
+#
+$CMP SW_Rotary4
+D rotary switch with 4 positions
+K rotary switch
+$ENDCMP
+#
+$CMP SW_Rotary5
+D rotary switch with 5 positions
+K rotary switch
+F http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf
+$ENDCMP
+#
+$CMP SW_Rotary6
+D rotary switch with 6 positions
+K rotary switch
+F http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf
+$ENDCMP
+#
+$CMP SW_Rotary8
+D rotary switch with 8 positions
+K rotary switch
+F http://cdn-reichelt.de/documents/datenblatt/C200/DS-Serie%23LOR.pdf
+$ENDCMP
+#
+#End Doc Library

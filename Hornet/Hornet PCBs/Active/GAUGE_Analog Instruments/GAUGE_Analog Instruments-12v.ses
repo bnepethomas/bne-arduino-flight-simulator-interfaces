@@ -1,0 +1,176 @@
+
+(session "GAUGE_Analog Instruments-12v.ses"
+  (base_design "GAUGE_Analog Instruments-12v.dsn")
+  (placement
+    (resolution um 10)
+    (component MountingHole:MountingHole_2.5mm
+      (place H3 1799378 -784846 front 0)
+      (place H1 1593843 -1068680 front 0)
+      (place H2 2004913 -1068680 front 0)
+    )
+    (component "KiCAD Libraries:VID29-02"
+      (place M1 1801028 -968680 front 0)
+    )
+    (component Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical
+      (place J2 1855305 -777176 front 0)
+    )
+    (component Connector_PinHeader_2.54mm:PinHeader_2x01_P2.54mm_Vertical
+      (place J1 1956905 -1057896 front 270)
+    )
+    (component Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P5.08mm_Horizontal
+      (place R1 1697755 -799346 front 0)
+    )
+    (component LED_THT:LED_D3.0mm
+      (place D1 1607155 -785846 back 0)
+    )
+    (component LED_THT:LED_D3.0mm::1
+      (place D2 2024265 -786846 back 0)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version "(6.0.7-1)-1")
+    )
+    (library_out 
+      (padstack "Via[0-1]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net /COIL2
+        (wire
+          (path F.Cu 2500
+            1855305 -802576
+            1855305 -837003
+            1685128 -1007180
+          )
+        )
+      )
+      (net /COIL1
+        (wire
+          (path F.Cu 2500
+            1685128 -930180
+            1730852 -930180
+            1843552 -817480
+            1843552 -797008
+            1851631 -788929
+            1855305 -788929
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1855305 -777176
+            1855305 -788929
+          )
+        )
+      )
+      (net /COIL4
+        (wire
+          (path B.Cu 2500
+            1880705 -777176
+            1880705 -788929
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1880705 -788929
+            1884378 -788929
+            1913628 -818179
+            1913628 -930180
+          )
+        )
+      )
+      (net /COIL3
+        (wire
+          (path B.Cu 2500
+            1880705 -802576
+            1880705 -974257
+            1913628 -1007180
+          )
+        )
+      )
+      (net "Net-(D1-Pad2)"
+        (wire
+          (path F.Cu 2500
+            2024265 -786846
+            2012012 -786846
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            2012012 -786846
+            2012012 -782251
+            1995183 -765422
+            1845457 -765422
+            1834789 -776090
+            1834789 -819874
+            1832442 -822221
+            1696230 -822221
+            1674355 -800346
+            1596255 -800346
+            1581755 -785846
+          )
+        )
+      )
+      (net /LED+12V
+        (wire
+          (path F.Cu 2500
+            1956905 -1057896
+            1945152 -1057896
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1998865 -786846
+            1902309 -883402
+            1902309 -1015053
+            1945152 -1057896
+          )
+        )
+      )
+      (net "/LED-12V"
+        (wire
+          (path B.Cu 2500
+            1956905 -1083296
+            1956905 -1071543
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1697755 -799346
+            1708859 -799346
+            1780334 -870821
+            1780334 -903052
+            1948825 -1071543
+            1956905 -1071543
+          )
+        )
+      )
+      (net "Net-(D1-Pad1)"
+        (wire
+          (path F.Cu 2500
+            1748555 -799346
+            1738302 -799346
+          )
+        )
+        (wire
+          (path F.Cu 2500
+            1607155 -785846
+            1724802 -785846
+            1738302 -799346
+          )
+        )
+      )
+    )
+  )
+)

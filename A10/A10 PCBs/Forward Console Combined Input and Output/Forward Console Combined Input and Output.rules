@@ -1,0 +1,109 @@
+
+(rules PCB Forward Console Combined Input and Output
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 886)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.0)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_600:400_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_600:400_um" "Via[0-1]_600:400_um" default
+  )
+  (via 
+    "Via[0-1]_600:400_um-kicad_default" "Via[0-1]_600:400_um" "kicad_default"
+  )
+  (via 
+    "Via[0-1]_600:400_um-POWER" "Via[0-1]_600:400_um" POWER
+  )
+  (via_rule
+    default "Via[0-1]_600:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_600:400_um-kicad_default"
+  )
+  (via_rule
+    POWER "Via[0-1]_600:400_um-POWER"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    SCLK "ES1_RST" MISO MOSI +5V /IOREF /AREF /*13
+    /*12 "/COIL AND LAMP DRIVERS/B_GEAR HANDLE" D0 +3V3 "Net-(D1-A)" "Net-(D2-A)" VCC /~{RESET}
+    SS "Net-(J10-Pin_1)" "D21 SCL" "D20 SDA" "/COIL AND LAMP DRIVERS/CAUTION_LAMP-" "Net-(J10-Pin_2)" "Net-(J10-Pin_3)" "Net-(J10-Pin_4)"
+    "unconnected-(J41-Pin_1-Pad1)" "unconnected-(J42-Pin_1-Pad1)" "Net-(U1-INT)" D14 "unconnected-(U1-NC-PadB4)" D17 D15 D18
+    D16 D19 D11 D9 D8 "/COIL AND LAMP DRIVERS/B_APU_FIRE" +24V "/COIL AND LAMP DRIVERS/B_RIGHT_FIRE"
+    "/COIL AND LAMP DRIVERS/B_LEFT_FIRE" "/COIL AND LAMP DRIVERS/TISL" "/COIL AND LAMP DRIVERS/EGI" "/COIL AND LAMP DRIVERS/HARS" "/COIL AND LAMP DRIVERS/MISSLE LAUNCH" "/COIL AND LAMP DRIVERS/SEP" "/COIL AND LAMP DRIVERS/PRI" "unconnected-(U3-O7-Pad10)"
+    "unconnected-(U3-O6-Pad11)" D6 "/COIL AND LAMP DRIVERS/ILS" "/COIL AND LAMP DRIVERS/TCN" "/COIL AND LAMP DRIVERS/ANCHR" "/COIL AND LAMP DRIVERS/STR PT" "unconnected-(U5-O7-Pad10)" "unconnected-(U5-O6-Pad11)"
+    "/COIL AND LAMP DRIVERS/COIL_ANTI_SKID" D3 D2 "unconnected-(J36-Pin_6-Pad6)" "unconnected-(J57-Pin_2-Pad2)" "unconnected-(J58-Pin_2-Pad2)" "unconnected-(J21-Pin_8-Pad8)" D1
+    D5 "unconnected-(U5-O5-Pad12)" "unconnected-(U5-I5-Pad5)" D7 D4 "A7 D61" "A3 D57" "A6 D60"
+    "A4 D58" "A2 D56" "A0 D54" "A1 D55" "A5 D59" "A14 D68" "A10 D64" "A15 D69"
+    "A13 D67" "A11 D65" "A8 D62" "A9 D63" "A12 D66" D47 D30 D48
+    D36 D31 D43 D28 D29 D33 D45 D46
+    D27 D38 D23 D42 D37 D49 D40 D34
+    D39 D44 D35 D25 D24 D22 D32 D26
+    D41 "Net-(D7-K)" "Net-(D8-K)" "Net-(D22-K)" "Net-(D23-K)" "Net-(D24-K)" "Net-(J57-Pin_4)" "Net-(J57-Pin_3)"
+    "Net-(J58-Pin_4)" "Net-(J58-Pin_3)" "Net-(J56-Pin_3)" "Net-(J56-Pin_4)" "Net-(J56-Pin_2)" "unconnected-(J55-Pin_6-Pad6)" "Net-(D25-K)" "Net-(D28-K)"
+    "unconnected-(J8-Pin_4-Pad4)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class POWER
+    GND +12V
+    (clearance_class POWER)
+    (via_rule POWER)
+    (rule
+      (width 400.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

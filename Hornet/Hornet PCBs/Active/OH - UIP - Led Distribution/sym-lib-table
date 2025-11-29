@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "Max7219-rescue")(type "Legacy")(uri "${KIPRJMOD}/Max7219-rescue.lib")(options "")(descr ""))
+  (lib (name "OH---UIP---Led-Distribution-rescue")(type "Legacy")(uri "${KIPRJMOD}/OH - UIP - Led Distribution-rescue.lib")(options "")(descr ""))
+)

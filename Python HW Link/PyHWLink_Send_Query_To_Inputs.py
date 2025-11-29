@@ -40,9 +40,9 @@ def Send_UDP_Command(command_to_send):
 
     
 
-    txsock.sendto(command_to_send, (UDP_IP, TX_UDP_PORT))
+    txsock.sendto(command_to_send.encode('utf-8'), (UDP_IP, TX_UDP_PORT))
     # Copy of packet to reflector
-    txsock.sendto(command_to_send, (UDP_Reflector_IP, UDP_Reflector_Port))
+    txsock.sendto(command_to_send.encode('utf-8'), (UDP_Reflector_IP, UDP_Reflector_Port))
 
     print( 'Query Sent to ' + UDP_IP + ':' + str(TX_UDP_PORT))
 
@@ -58,7 +58,7 @@ def main():
     while True:
         try:
            while True:
-              a = raw_input('Press Enter to send trigger packet:')
+              a = input('Press Enter to send trigger packet:')
               print(time.asctime()) 
               Send_UDP_Command('CQ')        
 

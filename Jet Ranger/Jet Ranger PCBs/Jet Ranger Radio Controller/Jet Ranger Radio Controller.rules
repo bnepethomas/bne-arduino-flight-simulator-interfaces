@@ -1,0 +1,95 @@
+
+(rules PCB Jet Ranger Radio Controller
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 778)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.0)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_600:400_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_600:400_um" "Via[0-1]_600:400_um" default
+  )
+  (via 
+    "Via[0-1]_600:400_um-kicad_default" "Via[0-1]_600:400_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-1]_600:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_600:400_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    "Net-(D1-A)" GND "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "/+5v_IN" "/+12v-IN" "/MAX_7219-LOAD"
+    "/MAX_7219-DIN" "/INT_5V" SCLK "Net-(J10-Pin_1)" SDA SCL "Net-(J45-Pin_2)" "/D0_OUT"
+    "Net-(J10-Pin_3)" "/PIN_20" "ES1_RST" "/D1_OUT" ROW3 MISO /COL1 "/MAX_7219-CLOCK"
+    /RESET MOSI "/GREEN_LED" "/RED_LED" SS "/D4_OUT" "/D7_OUT" "Net-(U1-INT)"
+    "unconnected-(U1-NC-PadB4)" "/BACKLIGHT_PWM" /SC5 +3V3 /D1 /D0 /VIN "unconnected-(J40-Pin_1-Pad1)"
+    /AREF "/RESET_pin" "Net-(D8-A)" "/D2_OUT" "Net-(Q5-G)" COL0 "Net-(J10-Pin_2)" /IORF
+    "/D5_OUT" "/CATHODE_01" "Net-(U2-ISET)" /ROW9 "/D3_OUT" /COL7 "/ANNODE_01" "/D6_OUT"
+    "Net-(J10-Pin_5)" /COL3 "/ANNODE_03" "/CATHODE_03" "/CATHODE_02" "/ANNODE_02" /SD5 "/CATHODE_06"
+    "/CATHODE_05" "/ANNODE_04" "/CATHODE_07" /SC4 "Net-(J7-Pin_1)" /COL5 /ROW5 /COL9
+    "/PIN_21" "/COMM1_VOL" /ROW7 "Net-(J10-Pin_4)" /SD4 /SC6 "/CATHODE_08" /SD6
+    /COL6 /COL4 "Net-(A1-D16{slash}TX2)" /ROW4 /COL8 /ROW8 /COL2 "/ANNODE_00"
+    "Net-(J8-Pin_4)" "Net-(J8-Pin_7)" /ROW6 /COL10 "/NAV2_VOL" "/NAV1_VOL" "Net-(J8-Pin_3)" "/ANNODE_07"
+    "/ANNODE_05" "/ANNODE_06" "/CATHODE_04" "unconnected-(U2-DOUT-Pad24)" /SD7 /SC7 "Net-(J8-Pin_2)" "Net-(J8-Pin_8)"
+    "Net-(J8-Pin_6)" "Net-(J8-Pin_5)" /SC3 /SC2 /SD2 /SD3 "Net-(J8-Pin_9)" "/GPS_TX"
+    "I2C_SEL_A2" "I2C_SEL_A1" "/COMM2_VOL" "I2C_SEL_A0" ROW0 ROW2 "Net-(J44-Pin_7)" "Net-(A1-D17{slash}RX2)"
+    "Net-(A1-D19{slash}RX1)" ROW1 "Net-(J44-Pin_8)" "Net-(U5-C1-)" "Net-(J45-Pin_4)" "Net-(U5-C1+)" "Net-(U5-C2-)" "Net-(U5-C2+)"
+    "Net-(J42-Pin_5)" "Net-(J45-Pin_1)" "Net-(J45-Pin_5)" "Net-(U5-VS-)" "Net-(U5-VS+)" "Net-(J45-Pin_6)" "/NAV2_A" "NAV_OLED_SC"
+    "/COMM1_B" "/COMM1_A" "/BACKLIGHT_PANELS" "/NAV1_A" "COMM_OLED_SD" "unconnected-(J5-Pin_26-Pad26)" "/NAV2_B" "/COMM2_B"
+    "/NAV1_B" "COMM_OLED_SC" "NAV_OLED_SD" "/COMM2_A" "unconnected-(U5-R1OUT-Pad12)" "unconnected-(U5-R1IN-Pad13)" "unconnected-(U5-R2OUT-Pad9)" "unconnected-(U5-R2IN-Pad8)"
+    "Net-(J3-Pin_1)" "unconnected-(U5-T2OUT-Pad7)" "unconnected-(U5-T2IN-Pad10)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

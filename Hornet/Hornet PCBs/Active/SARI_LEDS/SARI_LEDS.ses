@@ -1,0 +1,146 @@
+
+(session SARI_LEDS.ses
+  (base_design SARI_LEDS.dsn)
+  (placement
+    (resolution um 10)
+    (component "LED_THT:LED_D5.0mm-4_RGB"
+      (place D1 1051000 -595000 front 0)
+    )
+    (component "LED_THT:LED_D5.0mm-4_RGB::1"
+      (place D2 1137000 -593500 front 0)
+    )
+    (component Connector_PinHeader_1.27mm:PinHeader_1x04_P1.27mm_Vertical
+      (place J1 1052500 -569500 back 90)
+    )
+    (component Connector_PinHeader_1.27mm:PinHeader_1x04_P1.27mm_Vertical::1
+      (place J2 1137500 -572500 back 90)
+    )
+  )
+  (was_is
+  )
+  (routes 
+    (resolution um 10)
+    (parser
+      (host_cad "KiCad's Pcbnew")
+      (host_version "(6.0.7-1)-1")
+    )
+    (library_out 
+      (padstack "Via[0-1]_800:400_um"
+        (shape
+          (circle F.Cu 8000 0 0)
+        )
+        (shape
+          (circle B.Cu 8000 0 0)
+        )
+        (attach off)
+      )
+    )
+    (network_out 
+      (net /GND_L
+        (wire
+          (path B.Cu 2500
+            1063700 -595000
+            1063700 -582747
+            1065200 -581247
+            1065200 -569500
+          )
+          (type protect)
+        )
+      )
+      (net /VDD_L
+        (wire
+          (path B.Cu 2500
+            1077900 -569500
+            1077900 -577753
+            1076400 -579253
+            1076400 -595000
+          )
+          (type protect)
+        )
+      )
+      (net "/DATA_IN-L"
+        (wire
+          (path B.Cu 2500
+            1090600 -569500
+            1090600 -577753
+            1089100 -579253
+            1089100 -595000
+          )
+          (type protect)
+        )
+      )
+      (net "/DATA_OUT-R"
+        (wire
+          (path B.Cu 2500
+            1137000 -593500
+            1137000 -581247
+            1137010 -581247
+            1137500 -580753
+            1137500 -572500
+          )
+          (type protect)
+        )
+      )
+      (net /GND_R
+        (wire
+          (path B.Cu 2500
+            1150200 -572500
+            1150200 -580753
+            1150190 -580753
+            1149700 -581247
+            1149700 -593500
+          )
+          (type protect)
+        )
+      )
+      (net /VDD_R
+        (wire
+          (path B.Cu 2500
+            1162400 -593500
+            1162400 -581247
+            1162410 -581247
+            1162900 -580753
+            1162900 -572500
+          )
+          (type protect)
+        )
+      )
+      (net "/DATA_OUT-L"
+        (wire
+          (path B.Cu 2500
+            1052500 -569500
+            1052500 -577753
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1052500 -577753
+            1051000 -579253
+            1051000 -595000
+          )
+        )
+      )
+      (net "/DATA_IN-R"
+        (wire
+          (path B.Cu 2500
+            1175100 -593500
+            1175100 -581247
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1175600 -572500
+            1175600 -580753
+          )
+        )
+        (wire
+          (path B.Cu 2500
+            1175600 -580753
+            1175106 -581247
+            1175100 -581247
+          )
+        )
+      )
+    )
+  )
+)

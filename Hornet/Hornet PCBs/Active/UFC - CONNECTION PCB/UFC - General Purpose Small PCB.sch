@@ -1,0 +1,698 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Connector:Conn_01x03_Female J5
+U 1 1 61C0C582
+P 4500 1750
+F 0 "J5" H 4392 2035 50  0000 C CNN
+F 1 "UFC LED COL IN" H 4392 1944 50  0000 C CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 4500 1750 50  0001 C CNN
+F 3 "~" H 4500 1750 50  0001 C CNN
+	1    4500 1750
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J13
+U 1 1 61C0D7B7
+P 5150 1750
+F 0 "J13" H 5178 1776 50  0000 L CNN
+F 1 "UFC LED COL OUT" H 5178 1685 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 5150 1750 50  0001 C CNN
+F 3 "~" H 5150 1750 50  0001 C CNN
+	1    5150 1750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4700 1650 4950 1650
+Wire Wire Line
+	4950 1750 4700 1750
+Wire Wire Line
+	4700 1850 4950 1850
+Wire Wire Line
+	4950 2400 4700 2400
+Wire Wire Line
+	4950 2300 4700 2300
+Wire Wire Line
+	4950 2200 4700 2200
+Wire Wire Line
+	4950 2100 4700 2100
+$Comp
+L Connector:Conn_01x04_Female J6
+U 1 1 61C4CC96
+P 4500 2200
+F 0 "J6" H 4392 2485 50  0000 C CNN
+F 1 "UFC LED ROW IN" H 4392 2394 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 4500 2200 50  0001 C CNN
+F 3 "~" H 4500 2200 50  0001 C CNN
+	1    4500 2200
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J14
+U 1 1 61C4CC9C
+P 5150 2200
+F 0 "J14" H 5178 2176 50  0000 L CNN
+F 1 "UFC LED ROW OUT" H 5178 2085 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 5150 2200 50  0001 C CNN
+F 3 "~" H 5150 2200 50  0001 C CNN
+	1    5150 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J15
+U 1 1 61C530F0
+P 5150 2800
+F 0 "J15" H 5178 2776 50  0000 L CNN
+F 1 "UFC ROW OUT" H 5178 2685 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 5150 2800 50  0001 C CNN
+F 3 "~" H 5150 2800 50  0001 C CNN
+	1    5150 2800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4700 3100 4950 3100
+Wire Wire Line
+	4700 3000 4950 3000
+Wire Wire Line
+	4700 2900 4950 2900
+Wire Wire Line
+	4700 2800 4950 2800
+Wire Wire Line
+	4700 2700 4950 2700
+Wire Wire Line
+	4700 2600 4950 2600
+$Comp
+L Connector:Conn_01x06_Female J7
+U 1 1 61C530FC
+P 4500 2800
+F 0 "J7" H 4800 2950 50  0000 C CNN
+F 1 "UFC ROW IN" H 4800 2800 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 4500 2800 50  0001 C CNN
+F 3 "~" H 4500 2800 50  0001 C CNN
+	1    4500 2800
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4700 4300 4950 4300
+Wire Wire Line
+	4700 4200 4950 4200
+Wire Wire Line
+	4700 4100 4950 4100
+Wire Wire Line
+	4700 4000 4950 4000
+Wire Wire Line
+	4700 3900 4950 3900
+Wire Wire Line
+	4700 3800 4950 3800
+Wire Wire Line
+	4950 3600 4700 3600
+Wire Wire Line
+	4950 3500 4700 3500
+Wire Wire Line
+	4950 3400 4700 3400
+Wire Wire Line
+	4950 3300 4700 3300
+$Comp
+L Connector:Conn_01x04_Female J8
+U 1 1 61C6A54D
+P 4500 3400
+F 0 "J8" H 4800 3300 50  0000 C CNN
+F 1 "UFC COL IN" H 4850 3400 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 4500 3400 50  0001 C CNN
+F 3 "~" H 4500 3400 50  0001 C CNN
+	1    4500 3400
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x04_Female J16
+U 1 1 61C6A553
+P 5150 3400
+F 0 "J16" H 5178 3376 50  0000 L CNN
+F 1 "UFC COL OUT" H 5178 3285 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x04_P2.54mm_Vertical" H 5150 3400 50  0001 C CNN
+F 3 "~" H 5150 3400 50  0001 C CNN
+	1    5150 3400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J10
+U 1 1 61C5D486
+P 4500 4700
+F 0 "J10" H 4800 4850 50  0000 C CNN
+F 1 "UFC L ENC IN" H 4800 4700 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 4500 4700 50  0001 C CNN
+F 3 "~" H 4500 4700 50  0001 C CNN
+	1    4500 4700
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4700 4500 4950 4500
+Wire Wire Line
+	4700 4600 4950 4600
+Wire Wire Line
+	4700 4700 4950 4700
+Wire Wire Line
+	4700 4800 4950 4800
+Wire Wire Line
+	4700 4900 4950 4900
+Wire Wire Line
+	4700 5000 4950 5000
+$Comp
+L Connector:Conn_01x06_Female J18
+U 1 1 61C5D47A
+P 5150 4700
+F 0 "J18" H 5178 4676 50  0000 L CNN
+F 1 "UFC L ENC OUT" H 5178 4585 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 5150 4700 50  0001 C CNN
+F 3 "~" H 5150 4700 50  0001 C CNN
+	1    5150 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J9
+U 1 1 61C577AB
+P 4500 4000
+F 0 "J9" H 4800 4150 50  0000 C CNN
+F 1 "UFC R ENC IN" H 4800 4000 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 4500 4000 50  0001 C CNN
+F 3 "~" H 4500 4000 50  0001 C CNN
+	1    4500 4000
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J17
+U 1 1 61C5779F
+P 5150 4000
+F 0 "J17" H 5178 3976 50  0000 L CNN
+F 1 "UFC R ENC OUT" H 5178 3885 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 5150 4000 50  0001 C CNN
+F 3 "~" H 5150 4000 50  0001 C CNN
+	1    5150 4000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x06_Female J11
+U 1 1 61C7E656
+P 4500 5450
+F 0 "J11" H 4800 5600 50  0000 C CNN
+F 1 "UFC ANALOG IN" H 4800 5450 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 4500 5450 50  0001 C CNN
+F 3 "~" H 4500 5450 50  0001 C CNN
+	1    4500 5450
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	4700 5250 4950 5250
+Wire Wire Line
+	4700 5350 4950 5350
+Wire Wire Line
+	4700 5450 4950 5450
+Wire Wire Line
+	4700 5550 4950 5550
+Wire Wire Line
+	4700 5650 4950 5650
+Wire Wire Line
+	4700 5750 4950 5750
+$Comp
+L Connector:Conn_01x06_Female J19
+U 1 1 61C7E662
+P 5150 5450
+F 0 "J19" H 5178 5426 50  0000 L CNN
+F 1 "UFC ANALOG OUT" H 5178 5335 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 5150 5450 50  0001 C CNN
+F 3 "~" H 5150 5450 50  0001 C CNN
+	1    5150 5450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4950 6200 4850 6200
+Wire Wire Line
+	4950 6100 4800 6100
+$Comp
+L Connector:Conn_01x02_Female J12
+U 1 1 61C99B5F
+P 4500 6100
+F 0 "J12" H 4392 6285 50  0000 C CNN
+F 1 "BACKLIGHT IN" H 4392 6194 50  0000 C CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 4500 6100 50  0001 C CNN
+F 3 "~" H 4500 6100 50  0001 C CNN
+	1    4500 6100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J20
+U 1 1 61C99B65
+P 5150 6100
+F 0 "J20" H 5178 6076 50  0000 L CNN
+F 1 "UFC BL OUT" H 5178 5985 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5150 6100 50  0001 C CNN
+F 3 "~" H 5150 6100 50  0001 C CNN
+	1    5150 6100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J21
+U 1 1 61C99B6B
+P 5150 6350
+F 0 "J21" H 5178 6326 50  0000 L CNN
+F 1 "AP BL OUT" H 5178 6235 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5150 6350 50  0001 C CNN
+F 3 "~" H 5150 6350 50  0001 C CNN
+	1    5150 6350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 6100 4800 6350
+Wire Wire Line
+	4800 6350 4950 6350
+Connection ~ 4800 6100
+Wire Wire Line
+	4800 6100 4700 6100
+Wire Wire Line
+	4850 6200 4850 6450
+Wire Wire Line
+	4850 6450 4950 6450
+Connection ~ 4850 6200
+Wire Wire Line
+	4850 6200 4700 6200
+$Comp
+L Mechanical:MountingHole H1
+U 1 1 604D4B6F
+P 1650 4100
+F 0 "H1" H 1750 4146 50  0000 L CNN
+F 1 "MountingHole" H 1750 4055 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 1650 4100 50  0001 C CNN
+F 3 "~" H 1650 4100 50  0001 C CNN
+	1    1650 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H2
+U 1 1 604D50C8
+P 1650 4300
+F 0 "H2" H 1750 4346 50  0000 L CNN
+F 1 "MountingHole" H 1750 4255 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 1650 4300 50  0001 C CNN
+F 3 "~" H 1650 4300 50  0001 C CNN
+	1    1650 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H3
+U 1 1 604D550A
+P 1650 4500
+F 0 "H3" H 1750 4546 50  0000 L CNN
+F 1 "MountingHole" H 1750 4455 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 1650 4500 50  0001 C CNN
+F 3 "~" H 1650 4500 50  0001 C CNN
+	1    1650 4500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H4
+U 1 1 604D596A
+P 1650 4700
+F 0 "H4" H 1750 4746 50  0000 L CNN
+F 1 "MountingHole" H 1750 4655 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 1650 4700 50  0001 C CNN
+F 3 "~" H 1650 4700 50  0001 C CNN
+	1    1650 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J3
+U 1 1 61A38C87
+P 2750 1200
+F 0 "J3" H 2778 1226 50  0000 L CNN
+F 1 "AP COL OUT" H 2778 1135 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 2750 1200 50  0001 C CNN
+F 3 "~" H 2750 1200 50  0001 C CNN
+	1    2750 1200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2550 1100 2250 1100
+Wire Wire Line
+	2550 1200 2250 1200
+Wire Wire Line
+	2550 1300 2250 1300
+$Comp
+L Connector:Conn_01x03_Female J4
+U 1 1 61A44B70
+P 2750 1750
+F 0 "J4" H 2778 1776 50  0000 L CNN
+F 1 "AP ROW OUT" H 2778 1685 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 2750 1750 50  0001 C CNN
+F 3 "~" H 2750 1750 50  0001 C CNN
+	1    2750 1750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J2
+U 1 1 61A44B7A
+P 2050 1750
+F 0 "J2" H 1942 2035 50  0000 C CNN
+F 1 "AP ROW IN" H 1942 1944 50  0000 C CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 2050 1750 50  0001 C CNN
+F 3 "~" H 2050 1750 50  0001 C CNN
+	1    2050 1750
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	2550 1650 2250 1650
+Wire Wire Line
+	2550 1750 2250 1750
+Wire Wire Line
+	2550 1850 2250 1850
+$Comp
+L Connector:Conn_01x03_Female J1
+U 1 1 61A3C009
+P 2050 1200
+F 0 "J1" H 1942 1485 50  0000 C CNN
+F 1 "AP COL IN" H 1942 1394 50  0000 C CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 2050 1200 50  0001 C CNN
+F 3 "~" H 2050 1200 50  0001 C CNN
+	1    2050 1200
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x02_Female J24
+U 1 1 61A2FFBD
+P 7650 1500
+F 0 "J24" H 7678 1476 50  0000 L CNN
+F 1 "5V POWER IN" H 7678 1385 50  0000 L CNN
+F 2 "Connector_BarrelJack:BarrelJack_Horizontal" H 7650 1500 50  0001 C CNN
+F 3 "~" H 7650 1500 50  0001 C CNN
+	1    7650 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J26
+U 1 1 61A30EA1
+P 8700 1950
+F 0 "J26" H 8728 1976 50  0000 L CNN
+F 1 "PIXEL LED OUT 1" H 8728 1885 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 8700 1950 50  0001 C CNN
+F 3 "~" H 8700 1950 50  0001 C CNN
+	1    8700 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J27
+U 1 1 61A33797
+P 8700 2350
+F 0 "J27" H 8728 2376 50  0000 L CNN
+F 1 "PIXEL LED OUT 2" H 8728 2285 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 8700 2350 50  0001 C CNN
+F 3 "~" H 8700 2350 50  0001 C CNN
+	1    8700 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J28
+U 1 1 61A3445B
+P 8700 2800
+F 0 "J28" H 8728 2826 50  0000 L CNN
+F 1 "PIXEL LED OUT 3" H 8728 2735 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 8700 2800 50  0001 C CNN
+F 3 "~" H 8700 2800 50  0001 C CNN
+	1    8700 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J25
+U 1 1 61A34465
+P 8650 3550
+F 0 "J25" H 8678 3576 50  0000 L CNN
+F 1 "PIXEL LED OUT 4" H 8678 3485 50  0000 L CNN
+F 2 "Molex_1x03_P2.54mm_Vertical" H 8650 3550 50  0001 C CNN
+F 3 "~" H 8650 3550 50  0001 C CNN
+	1    8650 3550
+	1    0    0    -1  
+$EndComp
+Text Label 8500 1850 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 8500 1950 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 8500 2050 2    50   ~ 0
+PIXEL_LED_IN_1
+Text Label 8500 2250 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 8500 2350 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 8500 2450 2    50   ~ 0
+PIXEL_LED_IN_2
+Text Label 8500 2700 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 8500 2800 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 8500 2900 2    50   ~ 0
+PIXEL_LED_IN_3
+Text Label 8450 3450 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 8450 3550 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 8450 3650 2    50   ~ 0
+PIXEL_LED_IN_4
+$Comp
+L Connector:Conn_01x06_Female J29
+U 1 1 61A3BAB1
+P 8700 4100
+F 0 "J29" H 8728 4076 50  0000 L CNN
+F 1 "PIXEL LED IN" H 8728 3985 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x06_P2.54mm_Vertical" H 8700 4100 50  0001 C CNN
+F 3 "~" H 8700 4100 50  0001 C CNN
+	1    8700 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:Conn_01x03_Female J23
+U 1 1 61A3DBC0
+P 7300 4200
+F 0 "J23" H 7328 4226 50  0000 L CNN
+F 1 "POWER SELECT" H 7328 4135 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical" H 7300 4200 50  0001 C CNN
+F 3 "~" H 7300 4200 50  0001 C CNN
+	1    7300 4200
+	1    0    0    -1  
+$EndComp
+Text Label 7100 4200 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 8500 3900 2    50   ~ 0
+ARDUINO_5V
+Text Label 8500 4000 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 7100 4100 2    50   ~ 0
+ARDUINO_5V
+Text Label 8500 4100 2    50   ~ 0
+PIXEL_LED_IN_1
+Text Label 8500 4200 2    50   ~ 0
+PIXEL_LED_IN_2
+Text Label 8500 4300 2    50   ~ 0
+PIXEL_LED_IN_3
+Text Label 8500 4400 2    50   ~ 0
+PIXEL_LED_IN_4
+Text Label 7450 1500 2    50   ~ 0
+RAW_5V
+Text Label 7100 4300 2    50   ~ 0
+RAW_5V
+Text Label 7450 1600 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 4800 6300 2    50   ~ 0
+BACKLIGHT_+12V
+Text Label 4850 6450 2    50   ~ 0
+BACKLIGHT_GND
+$Comp
+L Connector:Conn_01x04_Female J33
+U 1 1 61A38760
+P 10150 3500
+F 0 "J33" H 10178 3476 50  0000 L CNN
+F 1 "PIXEL LED OUT 4" H 10178 3385 50  0000 L CNN
+F 2 "Molex_Mini-Fit_Jr_5566-04A_2x02_P4.20mm_Vertical" H 10150 3500 50  0001 C CNN
+F 3 "~" H 10150 3500 50  0001 C CNN
+	1    10150 3500
+	1    0    0    -1  
+$EndComp
+Text Label 9950 3400 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 9950 3500 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 9950 3600 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 9950 3700 2    50   ~ 0
+PIXEL_LED_IN_4
+$Comp
+L Connector:Conn_01x04_Female J32
+U 1 1 61A3992B
+P 10150 3000
+F 0 "J32" H 10178 2976 50  0000 L CNN
+F 1 "PIXEL LED OUT 3" H 10178 2885 50  0000 L CNN
+F 2 "Molex_Mini-Fit_Jr_5566-04A_2x02_P4.20mm_Vertical" H 10150 3000 50  0001 C CNN
+F 3 "~" H 10150 3000 50  0001 C CNN
+	1    10150 3000
+	1    0    0    -1  
+$EndComp
+Text Label 9950 2900 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 9950 3000 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 9950 3100 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 9950 3200 2    50   ~ 0
+PIXEL_LED_IN_3
+$Comp
+L Connector:Conn_01x04_Female J31
+U 1 1 61A3C2B9
+P 10150 2500
+F 0 "J31" H 10178 2476 50  0000 L CNN
+F 1 "PIXEL LED OUT 2" H 10178 2385 50  0000 L CNN
+F 2 "Molex_Mini-Fit_Jr_5566-04A_2x02_P4.20mm_Vertical" H 10150 2500 50  0001 C CNN
+F 3 "~" H 10150 2500 50  0001 C CNN
+	1    10150 2500
+	1    0    0    -1  
+$EndComp
+Text Label 9950 2400 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 9950 2500 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 9950 2600 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 9950 2700 2    50   ~ 0
+PIXEL_LED_IN_1
+$Comp
+L Connector:Conn_01x04_Female J30
+U 1 1 61A3E763
+P 10150 1950
+F 0 "J30" H 10178 1926 50  0000 L CNN
+F 1 "PIXEL LED OUT 1" H 10178 1835 50  0000 L CNN
+F 2 "Molex_Mini-Fit_Jr_5566-04A_2x02_P4.20mm_Vertical" H 10150 1950 50  0001 C CNN
+F 3 "~" H 10150 1950 50  0001 C CNN
+	1    10150 1950
+	1    0    0    -1  
+$EndComp
+Text Label 9950 1850 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 9950 1950 2    50   ~ 0
+PIXEL_LED_5V
+Text Label 9950 2050 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 9950 2150 2    50   ~ 0
+PIXEL_LED_IN_1
+$Comp
+L Mechanical:MountingHole H5
+U 1 1 61A4083E
+P 9800 4350
+F 0 "H5" H 9900 4396 50  0000 L CNN
+F 1 "MountingHole" H 9900 4305 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9800 4350 50  0001 C CNN
+F 3 "~" H 9800 4350 50  0001 C CNN
+	1    9800 4350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H6
+U 1 1 61A40848
+P 9800 4550
+F 0 "H6" H 9900 4596 50  0000 L CNN
+F 1 "MountingHole" H 9900 4505 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9800 4550 50  0001 C CNN
+F 3 "~" H 9800 4550 50  0001 C CNN
+	1    9800 4550
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H7
+U 1 1 61A40852
+P 9800 4750
+F 0 "H7" H 9900 4796 50  0000 L CNN
+F 1 "MountingHole" H 9900 4705 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9800 4750 50  0001 C CNN
+F 3 "~" H 9800 4750 50  0001 C CNN
+	1    9800 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Mechanical:MountingHole H8
+U 1 1 61A4085C
+P 9800 4950
+F 0 "H8" H 9900 4996 50  0000 L CNN
+F 1 "MountingHole" H 9900 4905 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9800 4950 50  0001 C CNN
+F 3 "~" H 9800 4950 50  0001 C CNN
+	1    9800 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:LED D1
+U 1 1 61A7DA81
+P 8850 5300
+F 0 "D1" V 8889 5183 50  0000 R CNN
+F 1 "LED" V 8798 5183 50  0000 R CNN
+F 2 "LED_THT:LED_D5.0mm" H 8850 5300 50  0001 C CNN
+F 3 "~" H 8850 5300 50  0001 C CNN
+	1    8850 5300
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R_US R1
+U 1 1 61A7E720
+P 8850 4900
+F 0 "R1" H 8918 4946 50  0000 L CNN
+F 1 "1K" H 8918 4855 50  0000 L CNN
+F 2 "PT_Library_v001:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 8890 4890 50  0001 C CNN
+F 3 "~" H 8850 4900 50  0001 C CNN
+	1    8850 4900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8850 5050 8850 5150
+Text Label 8850 5450 2    50   ~ 0
+PIXEL_LED_GND
+Text Label 8850 4750 2    50   ~ 0
+PIXEL_LED_5V
+$Comp
+L Connector:Conn_01x02_Female J22
+U 1 1 61A82290
+P 5150 6650
+F 0 "J22" H 5178 6626 50  0000 L CNN
+F 1 "SPARE BL OUT" H 5178 6535 50  0000 L CNN
+F 2 "PT_Library_v001:Molex_1x02_P2.54mm_Vertical" H 5150 6650 50  0001 C CNN
+F 3 "~" H 5150 6650 50  0001 C CNN
+	1    5150 6650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4850 6450 4850 6750
+Wire Wire Line
+	4850 6750 4950 6750
+Connection ~ 4850 6450
+Wire Wire Line
+	4800 6350 4800 6650
+Wire Wire Line
+	4800 6650 4950 6650
+Connection ~ 4800 6350
+$Comp
+L Mechanical:MountingHole H9
+U 1 1 61ABDF1C
+P 9800 5200
+F 0 "H9" H 9900 5246 50  0000 L CNN
+F 1 "MountingHole" H 9900 5155 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3" H 9800 5200 50  0001 C CNN
+F 3 "~" H 9800 5200 50  0001 C CNN
+	1    9800 5200
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

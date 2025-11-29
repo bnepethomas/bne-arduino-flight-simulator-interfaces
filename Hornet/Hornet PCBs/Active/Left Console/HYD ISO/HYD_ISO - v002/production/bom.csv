@@ -1,0 +1,8 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+"D1, D2, D3",D_A-405_P7.62mm_Horizontal-SIGNAL,3,D,
+"D10, D11, D12, D4, D5, D6, D7, D8, D9",LED_D3.0mm_FlatTop,9,LED,
+J2,IDC-Header_2x05_P2.54mm_Vertical,1,Conn_02x05_Top_Bottom,
+"R1, R2, R3",R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal,3,R,
+SW1,JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,1,HYD_ISOLATE_OVERRIDE_SW,
+SW2,JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical,1,Nuclear_SW,
+SW3,JST_XH_B3B-XH-A_1x03_P2.50mm_Vertical,1,MC_SW,
