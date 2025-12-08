@@ -47,7 +47,38 @@ void TransmissionTemperature(int temperature) {
   myservo.write(val);
 }
 
+void EnginePressure(int pressure) {
+  int val = map(pressure, 0, 150, 560, 864);
+  myservo.write(val);
+}
+
+void EngineTemperature(int temperature) {
+  int val = map(temperature, 0, 150, 310, 20);
+  myservo.write(val);
+}
+
 void GasProducer(int gaspercentage) {
   int val = map(gaspercentage, 0, 106, 57, 848);
   myservo.write(val);
+}
+ 
+void FuelLevel(int Level) {
+  // Note Fuel tank is 75 Gallons
+  // So multiplying by 10
+  int val = map(Level, 0, 75, 124, 736);
+  myservo.write(val);
+}
+
+void VSI(int FPM) {
+  /*
+  -6000 10
+  -4000 105
+  -2000 268
+  -1000 388
+  0     498
+  1000  620
+  2000  728
+  4000  866
+  6000  952
+  */
 }
