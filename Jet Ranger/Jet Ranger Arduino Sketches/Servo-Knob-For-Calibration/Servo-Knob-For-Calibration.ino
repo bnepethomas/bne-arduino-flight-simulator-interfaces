@@ -61,7 +61,18 @@ void GasProducer(int gaspercentage) {
   int val = map(gaspercentage, 0, 106, 57, 848);
   myservo.write(val);
 }
- 
+
+
+void FuelPressure(int pressure) {
+  int val = map(pressure, 0, 30, 280, 73);
+  myservo.write(val);
+}
+
+void ElectricalLoad(int load) {
+  int val = map(load, 0, 100, 527, 740);
+  myservo.write(val);
+}
+
 void FuelLevel(int Level) {
   // Note Fuel tank is 75 Gallons
   // So multiplying by 10
