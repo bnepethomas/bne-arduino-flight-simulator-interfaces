@@ -254,6 +254,171 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector:Conn_01x02_Socket"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02_Socket"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x02_Socket_1_1"
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -0.508)
+					(mid -0.5058 0)
+					(end 0 0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -3.048)
+					(mid -0.5058 -2.54)
+					(end 0 -2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector:Conn_01x03_Pin"
 			(pin_names
 				(offset 1.016)
@@ -2209,351 +2374,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector_Generic:Conn_01x09"
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "J"
-				(at 0 12.7 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Conn_01x09"
-				(at 0 -12.7 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Generic connector, single row, 01x09, script generated (kicad-library-utils/schlib/autogen/connector/)"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "connector"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Connector*:*_1x??_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Conn_01x09_1_1"
-				(rectangle
-					(start -1.27 11.43)
-					(end 1.27 -11.43)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(rectangle
-					(start -1.27 10.287)
-					(end 0 10.033)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 7.747)
-					(end 0 7.493)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 5.207)
-					(end 0 4.953)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 2.667)
-					(end 0 2.413)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 -2.413)
-					(end 0 -2.667)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 -4.953)
-					(end 0 -5.207)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 -7.493)
-					(end 0 -7.747)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 -10.033)
-					(end 0 -10.287)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -5.08 10.16 0)
-					(length 3.81)
-					(name "Pin_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 7.62 0)
-					(length 3.81)
-					(name "Pin_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 5.08 0)
-					(length 3.81)
-					(name "Pin_3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 2.54 0)
-					(length 3.81)
-					(name "Pin_4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 3.81)
-					(name "Pin_5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -2.54 0)
-					(length 3.81)
-					(name "Pin_6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -5.08 0)
-					(length 3.81)
-					(name "Pin_7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -7.62 0)
-					(length 3.81)
-					(name "Pin_8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -5.08 -10.16 0)
-					(length 3.81)
-					(name "Pin_9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Connector_Generic:Conn_01x10"
 			(pin_names
 				(offset 1.016)
@@ -2918,145 +2738,6 @@
 						)
 					)
 					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:C"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "C"
-				(at 0.635 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "C"
-				(at 0.635 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0.9652 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Unpolarized capacitor"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "cap capacitor"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "C_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "C_0_1"
-				(polyline
-					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "C_1_1"
-				(pin passive line
-					(at 0 3.81 270)
-					(length 2.794)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 2.794)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4086,6 +3767,118 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "GNDD_2"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "GNDD"
+				(at 0 -3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GNDD_2_0_1"
+				(rectangle
+					(start -1.27 -1.524)
+					(end 1.27 -2.032)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GNDD_2_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Mechanical:MountingHole"
 			(pin_names
 				(offset 1.016)
@@ -4302,6 +4095,142 @@
 					(at 5.08 0 180)
 					(length 2.54)
 					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Switch:SW_SPST"
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SW_SPST"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Single Pole Single Throw (SPST) switch"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch lever"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_SPST_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.254) (xy 1.524 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SW_SPST_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -7778,7 +7707,7 @@
 	)
 	(text "LEDCONTROL \nIc_2=LEDCONTROL(49,48,47,X);\n49 - DATA IN\n48 - CLK\n47 - LOAD/CS\n\nDigits = Columns = Cathodes - \"\"-\"\"\nSegments = Rows = Anodes - \"\"+\"\""
 		(exclude_from_sim no)
-		(at -38.1 166.116 0)
+		(at 54.356 112.014 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -7882,12 +7811,6 @@
 		(uuid "0c297dca-b8a3-432e-bf22-bec0d8bfc66a")
 	)
 	(junction
-		(at 114.3 92.71)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "1822075b-dc5f-4620-9b6c-86ad2fea1409")
-	)
-	(junction
 		(at 284.48 120.65)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7942,16 +7865,16 @@
 		(uuid "4b0c493a-7f14-42c4-834a-47c33ad80a6e")
 	)
 	(junction
+		(at 115.57 215.9)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4c472e47-e171-4719-8272-4e8404006f1c")
+	)
+	(junction
 		(at 30.48 46.99)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "59c929d1-024e-4d5d-9d3a-93db9cc3a8c0")
-	)
-	(junction
-		(at 102.87 92.71)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "660df0da-5d42-4ade-8d9f-7af945bb8cc9")
 	)
 	(junction
 		(at 284.48 128.27)
@@ -7972,25 +7895,7 @@
 		(uuid "73b3cd37-e255-4031-867e-3d0d2bcc996c")
 	)
 	(junction
-		(at 110.744 92.71)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "836adbd5-4334-42e7-b23b-6f842e0b742a")
-	)
-	(junction
-		(at 181.102 125.476)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "86fa7818-4d30-4ac9-b94d-a417e58440c1")
-	)
-	(junction
-		(at 181.61 170.18)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "879c83c3-61de-47da-9c03-aa7d3558d6b0")
-	)
-	(junction
-		(at 137.16 213.36)
+		(at 81.28 215.9)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9838dc3d-4dad-4770-a65a-4c81bfff19d5")
@@ -8044,12 +7949,6 @@
 		(uuid "d902ef2d-5195-4b78-8c38-95cc8512588f")
 	)
 	(junction
-		(at 83.82 213.36)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f2d308f1-7e47-491f-a2b7-ecefae078184")
-	)
-	(junction
 		(at 190.5 81.28)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -8062,40 +7961,96 @@
 		(uuid "fa56118f-1f67-4ecb-a52e-1b120fcab85c")
 	)
 	(no_connect
-		(at 222.25 88.9)
-		(uuid "06ded8eb-b4ae-4527-9b02-b8fa14680e44")
+		(at 96.52 218.44)
+		(uuid "01d236e8-3fb2-4a30-9e4e-faf5f0765b36")
 	)
 	(no_connect
-		(at 222.25 99.06)
-		(uuid "2743884f-7d37-4717-a534-0a229d748d3e")
+		(at 96.52 243.84)
+		(uuid "042a296b-6179-41cc-9888-9e670f4ff57d")
 	)
 	(no_connect
-		(at 401.32 57.15)
-		(uuid "2dfa0c3c-7a23-42a6-a245-ed5e6bba2cc6")
+		(at 350.52 59.69)
+		(uuid "1065d5c1-be9d-4732-afa0-5756c9bd2a39")
 	)
 	(no_connect
-		(at 222.25 83.82)
-		(uuid "32f1ace6-bde4-4e7a-9482-a491afb87cd3")
+		(at 350.52 87.63)
+		(uuid "2755bf0b-6c64-487b-ba2e-5f82a0a99e38")
 	)
 	(no_connect
-		(at 222.25 93.98)
-		(uuid "51c76854-e28b-4b02-b307-54fd52c75cdc")
+		(at 350.52 100.33)
+		(uuid "3eed8f50-bd7f-4a96-89d5-a00f801604fd")
+	)
+	(no_connect
+		(at 182.88 189.23)
+		(uuid "44a13d92-3828-445e-9ccb-d93ecdabf5e9")
+	)
+	(no_connect
+		(at 162.56 189.23)
+		(uuid "4e6592d3-def7-48c4-8089-623c4534bd34")
+	)
+	(no_connect
+		(at 350.52 92.71)
+		(uuid "556bd8b5-3c01-4ed5-bc1d-be18221f82ac")
+	)
+	(no_connect
+		(at 350.52 90.17)
+		(uuid "564516f7-9dcb-4cfc-81a7-0fdc75f9b44a")
 	)
 	(no_connect
 		(at 254 97.79)
 		(uuid "566328a1-0324-4d10-bfa2-ac39cc22e18e")
 	)
 	(no_connect
-		(at 222.25 96.52)
-		(uuid "d6246e1d-d020-4ffd-8c78-dc707496f7f8")
+		(at 96.52 246.38)
+		(uuid "695f5fc8-c6bb-4a7f-b47d-bd75784ae1c5")
 	)
 	(no_connect
-		(at 222.25 86.36)
-		(uuid "d83961da-8628-4766-92dc-035d1236a8eb")
+		(at 350.52 54.61)
+		(uuid "7ea062a5-42e6-4698-9ddc-7fe1bc32ff75")
 	)
 	(no_connect
-		(at 222.25 91.44)
-		(uuid "ee0f5b20-916a-4e05-a71d-eef15790689b")
+		(at 350.52 102.87)
+		(uuid "807170d2-7c5e-42a1-8b93-af189005fb48")
+	)
+	(no_connect
+		(at 350.52 97.79)
+		(uuid "8b43d178-e083-44e4-b7fb-ad7fafb0ad19")
+	)
+	(no_connect
+		(at 350.52 52.07)
+		(uuid "987140e8-29d6-49e6-9bf5-0c1cb08bbac4")
+	)
+	(no_connect
+		(at 350.52 80.01)
+		(uuid "a750b064-2e30-45a1-96f6-b0c28e4dffc0")
+	)
+	(no_connect
+		(at 96.52 233.68)
+		(uuid "aafa3f98-2697-4f81-a020-5c9b0a688316")
+	)
+	(no_connect
+		(at 350.52 82.55)
+		(uuid "b7907a80-ed7e-4ed0-b475-205e3b63fd93")
+	)
+	(no_connect
+		(at 350.52 85.09)
+		(uuid "bc3c4d2e-ebb6-4b21-a5cb-554db016a712")
+	)
+	(no_connect
+		(at 350.52 77.47)
+		(uuid "d6298baa-5abe-4ad8-9e0e-9c19f47be0b8")
+	)
+	(no_connect
+		(at 350.52 57.15)
+		(uuid "da4b73c6-b611-431d-813a-59dd23d1a4d9")
+	)
+	(no_connect
+		(at 96.52 228.6)
+		(uuid "f45a8d14-8be8-4633-b23c-3103acb3e78d")
+	)
+	(no_connect
+		(at 350.52 95.25)
+		(uuid "f75116a9-a3a1-42dc-b40d-1c2561ffb16a")
 	)
 	(wire
 		(pts
@@ -8119,7 +8074,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 213.36) (xy 152.4 213.36)
+			(xy 81.28 215.9) (xy 96.52 215.9)
 		)
 		(stroke
 			(width 0)
@@ -8209,7 +8164,7 @@
 	)
 	(wire
 		(pts
-			(xy 181.61 164.592) (xy 181.61 170.18)
+			(xy 182.88 163.322) (xy 182.88 168.91)
 		)
 		(stroke
 			(width 0)
@@ -8266,16 +8221,6 @@
 			(type default)
 		)
 		(uuid "1a5d94de-f3db-4f94-8a11-35fc50ec3a2d")
-	)
-	(wire
-		(pts
-			(xy 83.82 213.36) (xy 99.06 213.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1d694ad6-03b3-470f-9c5d-37712ea5d155")
 	)
 	(wire
 		(pts
@@ -8569,7 +8514,7 @@
 	)
 	(wire
 		(pts
-			(xy 181.356 119.888) (xy 181.102 119.888)
+			(xy 181.864 120.142) (xy 181.61 120.142)
 		)
 		(stroke
 			(width 0)
@@ -8679,16 +8624,6 @@
 	)
 	(wire
 		(pts
-			(xy 110.744 92.71) (xy 114.3 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5df45a79-dc98-4263-8cc3-b3bdb7d5d5f2")
-	)
-	(wire
-		(pts
 			(xy 196.85 91.44) (xy 190.5 91.44)
 		)
 		(stroke
@@ -8769,7 +8704,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 208.28) (xy 152.4 208.28)
+			(xy 81.28 210.82) (xy 96.52 210.82)
 		)
 		(stroke
 			(width 0)
@@ -8819,7 +8754,7 @@
 	)
 	(wire
 		(pts
-			(xy 181.864 164.592) (xy 181.61 164.592)
+			(xy 183.134 163.322) (xy 182.88 163.322)
 		)
 		(stroke
 			(width 0)
@@ -8849,7 +8784,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 208.28) (xy 137.16 213.36)
+			(xy 81.28 210.82) (xy 81.28 215.9)
 		)
 		(stroke
 			(width 0)
@@ -8999,7 +8934,7 @@
 	)
 	(wire
 		(pts
-			(xy 181.102 119.888) (xy 181.102 125.476)
+			(xy 181.61 120.142) (xy 181.61 125.73)
 		)
 		(stroke
 			(width 0)
@@ -9109,6 +9044,16 @@
 	)
 	(wire
 		(pts
+			(xy 115.57 215.9) (xy 138.43 215.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "980ae93a-e2e3-4444-916d-069752dd579e")
+	)
+	(wire
+		(pts
 			(xy 190.5 86.36) (xy 190.5 88.9)
 		)
 		(stroke
@@ -9116,16 +9061,6 @@
 			(type default)
 		)
 		(uuid "9c2a2881-a998-446c-b259-10440b122dfb")
-	)
-	(wire
-		(pts
-			(xy 95.504 92.71) (xy 102.87 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a7076da1-5229-4e33-9f09-ce0ac9764620")
 	)
 	(wire
 		(pts
@@ -9189,7 +9124,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 208.28) (xy 83.82 213.36)
+			(xy 115.57 210.82) (xy 115.57 215.9)
 		)
 		(stroke
 			(width 0)
@@ -9359,7 +9294,7 @@
 	)
 	(wire
 		(pts
-			(xy 83.82 208.28) (xy 99.06 208.28)
+			(xy 115.57 210.82) (xy 138.43 210.82)
 		)
 		(stroke
 			(width 0)
@@ -9369,7 +9304,7 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 213.36) (xy 137.16 215.9)
+			(xy 81.28 215.9) (xy 81.28 218.44)
 		)
 		(stroke
 			(width 0)
@@ -9469,26 +9404,6 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 92.71) (xy 118.11 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ecd081bd-a3eb-47a8-b8f8-a84898befe98")
-	)
-	(wire
-		(pts
-			(xy 102.87 92.71) (xy 110.744 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f9537aad-959c-4f03-a9ef-9b2beb5dc066")
-	)
-	(wire
-		(pts
 			(xy 377.19 128.27) (xy 350.52 128.27)
 		)
 		(stroke
@@ -9537,15 +9452,15 @@
 		)
 		(uuid "fed8e44b-c682-4801-997b-ffda08d81fba")
 	)
-	(label "D3_OUT"
-		(at 160.782 135.636 180)
+	(label "BACKLIGHT_PANELS"
+		(at 215.9 255.27 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "01ff9892-5acd-4572-b223-e954d0112ac4")
+		(uuid "0181169a-dde0-4cb7-b878-c805f8a0e23e")
 	)
 	(label "IORF"
 		(at 254 100.33 0)
@@ -9556,6 +9471,16 @@
 			(justify left bottom)
 		)
 		(uuid "043ac507-f0fa-4998-b8df-b61809403453")
+	)
+	(label "D_AFT_Fuel_Filter"
+		(at 279.4 85.09 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "053e04aa-a774-4b8e-a864-ffd595a58246")
 	)
 	(label "VIN"
 		(at 284.48 107.95 180)
@@ -9577,8 +9502,28 @@
 		)
 		(uuid "054cbc05-0a7a-415f-aeee-22be737f1fd9")
 	)
+	(label "+12v-IN"
+		(at 251.46 252.73 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0652cadc-f805-46a8-b257-3f763978f1e5")
+	)
+	(label "D_Rotor_RPM_Low"
+		(at 279.4 57.15 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "06c8379c-b427-43e9-9b16-b0df7a271ef0")
+	)
 	(label "+5v_SERVO"
-		(at 384.81 191.77 180)
+		(at 370.84 191.77 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9597,8 +9542,38 @@
 		)
 		(uuid "08f76c44-1edf-426f-b664-41c71714535e")
 	)
+	(label "T{slash}R_Chip"
+		(at 182.88 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "090c16dc-24ca-433b-8e7b-f087827e224b")
+	)
+	(label "+12v-IN"
+		(at 215.9 271.78 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "091b671c-d90e-45b1-95d4-ec37cfefefa7")
+	)
+	(label "D_Trans_Oil_Temp"
+		(at 279.4 64.77 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0928409f-b2e4-4126-973a-4befe103ba8e")
+	)
 	(label "12V"
-		(at 99.06 228.6 180)
+		(at 138.43 231.14 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9608,7 +9583,7 @@
 		(uuid "0b41a013-60b6-453e-8654-7a30077ee6a7")
 	)
 	(label "+5v_SERVO"
-		(at 384.81 160.02 180)
+		(at 370.84 160.02 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9617,8 +9592,8 @@
 		)
 		(uuid "0dbf0eb6-8e5e-46f9-ae35-1d8f55f2682a")
 	)
-	(label "GroupA10"
-		(at 99.06 238.76 180)
+	(label "Baggage_Door"
+		(at 138.43 241.3 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9627,8 +9602,18 @@
 		)
 		(uuid "0e0d20fc-fd70-4efa-b422-0521bc121eff")
 	)
+	(label "D_Baggage_Door"
+		(at 279.4 74.93 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0e2afaa0-29d3-4117-ae12-8200d45d0fae")
+	)
 	(label "12V"
-		(at 99.06 233.68 180)
+		(at 138.43 236.22 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9647,6 +9632,16 @@
 		)
 		(uuid "0f7e4484-641b-488f-ab44-86fb6ce04761")
 	)
+	(label "D_Gen_Fail"
+		(at 279.4 87.63 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1045ad94-4d3e-4e72-a0a8-0d58efdb66aa")
+	)
 	(label "RED_LED"
 		(at 284.48 36.83 180)
 		(effects
@@ -9657,8 +9652,8 @@
 		)
 		(uuid "11798e97-be74-4769-84ed-57948016bb0e")
 	)
-	(label "GroupB4"
-		(at 152.4 220.98 180)
+	(label "Gen_Fail"
+		(at 96.52 223.52 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9667,15 +9662,15 @@
 		)
 		(uuid "124d34da-2b25-4ef2-b7a5-11ddf35d7d6a")
 	)
-	(label "D3_OUT"
-		(at 278.13 72.39 180)
+	(label "Low_Fuel"
+		(at 182.88 184.15 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "1356d7e5-7cd6-4e21-a479-1aeaa9ca5269")
+		(uuid "13f9268b-66c9-4c1a-a3f8-1e0d5ff8a275")
 	)
 	(label "GND"
 		(at 29.21 57.15 180)
@@ -9707,6 +9702,16 @@
 		)
 		(uuid "17b7567c-343a-43b2-a766-2bba3a126e96")
 	)
+	(label "+12v-IN"
+		(at 251.46 265.43 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "186cbccc-ae78-4e30-b091-0f6839c9cc9a")
+	)
 	(label "INT_5V"
 		(at 254 107.95 0)
 		(effects
@@ -9717,18 +9722,18 @@
 		)
 		(uuid "188468e7-73d9-4e42-9299-4d9a32583b52")
 	)
-	(label "D2_OUT"
-		(at 278.13 69.85 180)
+	(label "BACKLIGHT_PANELS"
+		(at 251.46 280.67 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "1895be96-668c-465b-9275-2050a8762d99")
+		(uuid "18a2cfea-eda5-4144-b12b-f1eaf350aa95")
 	)
 	(label "GroupB5"
-		(at 152.4 226.06 180)
+		(at 96.52 228.6 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9738,7 +9743,7 @@
 		(uuid "1a7c97cc-2ffc-4aad-b725-a19e54ec5bad")
 	)
 	(label "GroupB8"
-		(at 152.4 241.3 180)
+		(at 96.52 243.84 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9746,6 +9751,26 @@
 			(justify right bottom)
 		)
 		(uuid "1a8061e1-97c0-4a59-bd98-9509ceb74ff5")
+	)
+	(label "Trans_Chip"
+		(at 181.61 143.51 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1bcb80bc-0faf-458f-8018-078bc1121a50")
+	)
+	(label "BACKLIGHT_PANELS"
+		(at 251.46 274.32 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1cb6b19c-03ce-41ff-9886-d7ef79ed0a82")
 	)
 	(label "INT_5V"
 		(at 71.12 35.56 90)
@@ -9787,18 +9812,8 @@
 		)
 		(uuid "1f6ef48b-45ed-41b5-8565-75ea77dfdd44")
 	)
-	(label "NAV2_VOL"
-		(at 118.11 85.09 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "216485cc-0a78-4938-a52e-53814d8261c4")
-	)
-	(label "GroupB7"
-		(at 152.4 236.22 180)
+	(label "Low_Fuel"
+		(at 96.52 238.76 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9816,6 +9831,36 @@
 			(justify left bottom)
 		)
 		(uuid "22c312d5-53bb-47e5-8595-4e5f4e835736")
+	)
+	(label "D_Engine_Chip"
+		(at 162.56 171.45 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2386b72c-b447-49c5-8d79-bc8c4a19cffc")
+	)
+	(label "SW_FUEL_VALVE"
+		(at 73.66 166.37 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "23c5c9ac-fd0a-4346-a308-65f60279043b")
+	)
+	(label "+12v-IN"
+		(at 251.46 278.13 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "247d98e9-e94f-4cbd-b717-ca0e68dffe03")
 	)
 	(label "INT_5V"
 		(at 34.29 31.75 180)
@@ -9837,15 +9882,25 @@
 		)
 		(uuid "25969cec-3bc3-489c-9755-10d9e7c2bea5")
 	)
-	(label "D0_OUT"
-		(at 161.29 172.72 180)
+	(label "BACKLIGHT_PANELS"
+		(at 215.9 261.62 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "26420bfd-40d6-4bbe-bbeb-447ad3ec0845")
+		(uuid "25a84083-38e4-468a-869c-663dd01f18c5")
+	)
+	(label "D_Battery_Temp"
+		(at 279.4 67.31 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "2617e8ad-6e71-47e8-a1ee-71a0ce0964c6")
 	)
 	(label "+5v_IN"
 		(at 396.24 68.58 0)
@@ -9857,8 +9912,18 @@
 		)
 		(uuid "26cdb892-4b0f-4c81-816c-a2a35ec86902")
 	)
+	(label "D_Baggage_Door"
+		(at 161.29 146.05 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "282e4ac7-35f0-4b9d-b0e7-ed736ee2c16e")
+	)
 	(label "+5v_SERVO"
-		(at 314.96 143.51 180)
+		(at 280.67 143.51 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9867,8 +9932,8 @@
 		)
 		(uuid "296532cf-9ae9-4247-9696-3ea5732f7c21")
 	)
-	(label "GroupA2"
-		(at 99.06 210.82 180)
+	(label "Engine_Out"
+		(at 138.43 213.36 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9887,15 +9952,15 @@
 		)
 		(uuid "2b447db0-225e-4a8b-9106-9840e72ea164")
 	)
-	(label "D4_OUT"
-		(at 278.13 74.93 180)
+	(label "COL10"
+		(at 350.52 102.87 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "2c0781c3-291a-470c-bb37-a2a1797eec8b")
+		(uuid "2bcc94e2-0008-4271-bb37-eadf73c134ec")
 	)
 	(label "PWM_ENG_OIL_PRESS"
 		(at 351.79 49.53 0)
@@ -9908,7 +9973,7 @@
 		(uuid "2dedf53c-3468-42d8-95cd-a5a4c619bd8f")
 	)
 	(label "+5v_SERVO"
-		(at 314.96 160.02 180)
+		(at 280.67 160.02 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9927,8 +9992,8 @@
 		)
 		(uuid "2e3287f2-c0d2-4c4d-a637-ea8a964e6b47")
 	)
-	(label "GroupA8"
-		(at 99.06 241.3 180)
+	(label "Engine_Chip"
+		(at 138.43 243.84 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9937,8 +10002,8 @@
 		)
 		(uuid "2ff4ea72-c3f6-4c75-8ac8-5222efe3cb1f")
 	)
-	(label "GroupB10"
-		(at 152.4 238.76 180)
+	(label "GroupB9"
+		(at 96.52 246.38 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9947,8 +10012,8 @@
 		)
 		(uuid "308e4f5d-f512-4415-bf44-ff3e88bfc7dd")
 	)
-	(label "GroupA1"
-		(at 99.06 205.74 180)
+	(label "Rotor_RPM_Low"
+		(at 138.43 208.28 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9957,28 +10022,8 @@
 		)
 		(uuid "3341c5be-a8e1-4248-b06b-50fd22fcd7d5")
 	)
-	(label "D5_OUT"
-		(at 160.782 140.716 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "38cfbd1d-dcb5-4c9f-97e7-914e1604bb73")
-	)
-	(label "D4_OUT"
-		(at 160.782 138.176 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "390b65ab-af16-41a4-ba4d-995c422c9156")
-	)
 	(label "PWM_GAS_PRODUCER"
-		(at 384.81 146.05 180)
+		(at 370.84 146.05 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9987,15 +10032,15 @@
 		)
 		(uuid "39a21b01-b6bd-4060-86f9-c94a36d62906")
 	)
-	(label "D0_OUT"
-		(at 160.782 128.016 180)
+	(label "D_T{slash}R_Chip"
+		(at 279.4 80.01 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "39f147c6-698d-4e35-8152-aab01bbb8f99")
+		(uuid "3a8950db-c359-449f-9487-48fc5ca33e8c")
 	)
 	(label "+5v_IN"
 		(at 26.67 43.18 180)
@@ -10007,8 +10052,28 @@
 		)
 		(uuid "3b478eb6-137d-4591-b4d5-d01ddbe277ff")
 	)
+	(label "D_Trans_Chip"
+		(at 279.4 72.39 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3b862a6a-f108-496d-be94-a64e2aba9b60")
+	)
+	(label "SW_WARNING_MUTE"
+		(at 104.14 153.67 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3b891273-27a3-4f1f-8660-6e748c46595f")
+	)
 	(label "+5v_SERVO"
-		(at 314.96 175.26 180)
+		(at 280.67 175.26 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10016,16 +10081,6 @@
 			(justify right bottom)
 		)
 		(uuid "3ba6227b-ef1e-4eaa-9504-519411ca5270")
-	)
-	(label "D7_OUT"
-		(at 161.29 190.5 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "3c436640-4883-498b-bd01-3cf5085e3c7c")
 	)
 	(label "COL10"
 		(at 222.25 99.06 0)
@@ -10038,7 +10093,7 @@
 		(uuid "3d27f7e7-df42-4e1e-af81-7a87505a015c")
 	)
 	(label "PWM_EGT"
-		(at 283.21 162.56 180)
+		(at 233.68 162.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10048,7 +10103,7 @@
 		(uuid "403be815-7a47-40e2-8a12-569fc91cb360")
 	)
 	(label "+5v_SERVO"
-		(at 283.21 175.26 180)
+		(at 233.68 175.26 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10058,7 +10113,7 @@
 		(uuid "419d942b-ca9e-488c-9114-c6e136380b24")
 	)
 	(label "PWM_FUEL_LEVEL"
-		(at 351.79 177.8 180)
+		(at 326.39 177.8 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10066,6 +10121,36 @@
 			(justify right bottom)
 		)
 		(uuid "43038bf1-d19e-41c6-9331-129c3c27c090")
+	)
+	(label "D_Battery_Hot"
+		(at 161.29 140.97 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "43ce362d-da25-4423-a7b4-3fb16b6de399")
+	)
+	(label "D_Trans_Chip"
+		(at 161.29 143.51 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "43db06d9-ac74-44ad-824a-d303ef48569c")
+	)
+	(label "Rotor_RPM_Low"
+		(at 181.61 128.27 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "443411f1-5b16-4d52-9c7a-dc54a5bceded")
 	)
 	(label "+3V3"
 		(at 254 105.41 0)
@@ -10097,6 +10182,16 @@
 		)
 		(uuid "4952a680-2a61-4acf-8a36-28cd0e7b6564")
 	)
+	(label "D_Engine_Chip"
+		(at 279.4 77.47 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "49546370-2f6a-48b8-8a4f-319ea7b0e7d5")
+	)
 	(label "SCL"
 		(at 381 59.69 180)
 		(effects
@@ -10116,6 +10211,16 @@
 			(justify right bottom)
 		)
 		(uuid "4ec86094-b65d-41d9-ac65-7234ea91f97f")
+	)
+	(label "D_Fuel_Pump"
+		(at 162.56 176.53 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "4f3020c6-3b30-4c66-8757-41edbe9f751e")
 	)
 	(label "ROW0"
 		(at 350.52 52.07 0)
@@ -10137,18 +10242,18 @@
 		)
 		(uuid "509dd7ce-9aaa-42c2-999a-b5985415b95e")
 	)
-	(label "D1_OUT"
-		(at 161.29 175.26 180)
+	(label "+12v-IN"
+		(at 215.9 278.13 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "52670b52-1cb9-44da-bd1e-926e5174e3c7")
+		(uuid "53bfb057-c07b-4a0e-b610-bf00d86a6a90")
 	)
 	(label "PWM_RADAR_ALT"
-		(at 314.96 146.05 180)
+		(at 280.67 146.05 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10157,18 +10262,8 @@
 		)
 		(uuid "55c98ac0-1d25-4029-b979-f1ce49c0dcb2")
 	)
-	(label "D5_OUT"
-		(at 278.13 77.47 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "567865ae-29d8-485a-b08e-49849e294a59")
-	)
 	(label "+5v_SERVO"
-		(at 283.21 160.02 180)
+		(at 233.68 160.02 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10176,6 +10271,16 @@
 			(justify right bottom)
 		)
 		(uuid "58e7faa7-f73c-4ecd-b426-953458abaea4")
+	)
+	(label "D_Battery_Temp"
+		(at 161.29 138.43 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5b15877e-41f9-4aa8-9968-9631da4c74ee")
 	)
 	(label "12v_GND"
 		(at 30.48 60.96 180)
@@ -10187,15 +10292,35 @@
 		)
 		(uuid "5bb4a18d-6de6-40a5-b63d-9dd4828fbda4")
 	)
-	(label "D4_OUT"
-		(at 161.29 182.88 180)
+	(label "SW_WARNING_MUTE"
+		(at 350.52 115.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5f43d9a1-c8c8-491f-abc6-56df9155909d")
+	)
+	(label "BACKLIGHT_PANELS"
+		(at 251.46 267.97 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "5ef47bc7-a5a9-4c56-8726-ee3c8f2f493d")
+		(uuid "5f4d532a-af09-4e66-9465-b25ad1f2f2b5")
+	)
+	(label "D_Trans_Oil_Temp"
+		(at 161.29 135.89 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6035e1d4-4b82-4cf9-87f6-b85d554cdff3")
 	)
 	(label "IORF"
 		(at 284.48 102.87 180)
@@ -10228,16 +10353,6 @@
 		)
 		(uuid "660a0200-e566-47d7-b888-0d689ab8293e")
 	)
-	(label "D5_OUT"
-		(at 161.29 185.42 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "66184cee-2c6e-4243-8d9c-056597b3b25b")
-	)
 	(label "+12v-IN"
 		(at 26.924 53.086 180)
 		(effects
@@ -10249,7 +10364,7 @@
 		(uuid "678c6a9a-3b46-4b05-a260-e951d88cb5e5")
 	)
 	(label "PWM_VVI"
-		(at 351.79 146.05 180)
+		(at 326.39 146.05 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10257,6 +10372,16 @@
 			(justify right bottom)
 		)
 		(uuid "683ac52c-6b63-4423-9ee7-fd00812bd4b9")
+	)
+	(label "D_Rotor_RPM_Low"
+		(at 161.29 128.27 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "697187db-eda4-451f-97aa-c0cf6f72ebae")
 	)
 	(label "INT_5V"
 		(at 62.23 19.05 270)
@@ -10268,6 +10393,16 @@
 		)
 		(uuid "6c7c0dfe-405d-40ff-aa1d-93eef1a6a26e")
 	)
+	(label "SC_Fail"
+		(at 182.88 186.69 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6cac81ff-d4df-4e90-94c9-4ecd2f54f201")
+	)
 	(label "GND"
 		(at 284.48 133.35 180)
 		(effects
@@ -10278,8 +10413,8 @@
 		)
 		(uuid "6d060181-a2eb-4d02-b6df-16ee3c1c1833")
 	)
-	(label "GroupB9"
-		(at 152.4 243.84 180)
+	(label "SC_Fail"
+		(at 96.52 241.3 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10288,15 +10423,25 @@
 		)
 		(uuid "6e4011ac-c3b2-4ca5-b156-a27d5acddde6")
 	)
-	(label "D7_OUT"
-		(at 278.13 82.55 180)
+	(label "D_SC_Fail"
+		(at 162.56 186.69 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "6f721cfd-01ac-481c-be82-0a6efd9206e7")
+		(uuid "705a124b-51a3-4edd-9d20-7cee79f16243")
+	)
+	(label "+12v-IN"
+		(at 215.9 259.08 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7131c822-7ae0-4a96-b206-389a9d5e92d0")
 	)
 	(label "COL1"
 		(at 222.25 76.2 0)
@@ -10318,28 +10463,28 @@
 		)
 		(uuid "7238c610-855d-490e-bbdb-15f48d6c772e")
 	)
-	(label "D6_OUT"
-		(at 278.13 80.01 180)
+	(label "+12v-IN"
+		(at 251.46 259.08 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "72af7c29-bf55-4683-9f5b-06bf216eb9c5")
+		(uuid "74c46315-b15d-4888-8617-66435e6c118c")
 	)
-	(label "D1_OUT"
-		(at 278.13 67.31 180)
+	(label "+12v-IN"
+		(at 215.9 252.73 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "754ec82d-8a44-4e38-abf8-b0d829613a29")
+		(uuid "74d60f5f-bed8-42b1-b301-971f2844d550")
 	)
 	(label "PWM_ENG_OIL_TEMP"
-		(at 351.79 162.56 180)
+		(at 326.39 162.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10348,8 +10493,8 @@
 		)
 		(uuid "76e08993-da55-47c7-8e6c-099181ff7fc3")
 	)
-	(label "GroupA5"
-		(at 99.06 226.06 180)
+	(label "Battery_Temp"
+		(at 138.43 228.6 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10357,6 +10502,16 @@
 			(justify right bottom)
 		)
 		(uuid "77a0de46-3699-452f-a2e2-710128db0ca7")
+	)
+	(label "D_Trans_Oil_Pressure"
+		(at 161.29 133.35 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "77a5d539-cd1c-4100-b182-33873346ef42")
 	)
 	(label "INT_5V"
 		(at 396.24 88.9 0)
@@ -10367,6 +10522,16 @@
 			(justify left bottom)
 		)
 		(uuid "77c27527-9912-488b-8962-a98a0ef5f5af")
+	)
+	(label "BACKLIGHT_PANELS"
+		(at 251.46 261.62 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7a3cf61c-fae8-4d4e-b263-c34d0853a8b6")
 	)
 	(label "AREF"
 		(at 381 54.61 180)
@@ -10398,8 +10563,18 @@
 		)
 		(uuid "7c43517c-5842-44bb-b248-3fd3db141552")
 	)
+	(label "D_Battery_Hot"
+		(at 279.4 69.85 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7c52d137-51a8-42b2-8b1b-3f4cd027fa7e")
+	)
 	(label "+5v_SERVO"
-		(at 351.79 160.02 180)
+		(at 326.39 160.02 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10458,16 +10633,6 @@
 		)
 		(uuid "81e3039d-f369-4401-85ac-9d8e26f70bf9")
 	)
-	(label "D3_OUT"
-		(at 161.29 180.34 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "832afeb9-c6ff-4590-b76e-132c4c2e538f")
-	)
 	(label "GNDD"
 		(at 41.91 19.05 0)
 		(effects
@@ -10489,7 +10654,7 @@
 		(uuid "849780da-9984-4b1e-b520-1b17a4a50f05")
 	)
 	(label "12V"
-		(at 152.4 223.52 180)
+		(at 96.52 226.06 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10497,6 +10662,36 @@
 			(justify right bottom)
 		)
 		(uuid "84aa5014-3096-4163-8d27-32d1dd5cef9e")
+	)
+	(label "Battery_Hot"
+		(at 181.61 140.97 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8895a7be-b703-4d11-9bfc-020e2e94589e")
+	)
+	(label "Engine_Chip"
+		(at 182.88 171.45 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "8acdd031-f111-4fb2-b2c5-f913adbfe865")
+	)
+	(label "D_T{slash}R_Chip"
+		(at 162.56 173.99 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8c6a3305-0a7a-4c83-9e0d-d8eb8b4cf184")
 	)
 	(label "INT_5V"
 		(at 396.24 78.74 0)
@@ -10508,8 +10703,8 @@
 		)
 		(uuid "8cbfdf99-2ec0-4729-8e9d-c3b4e64000ad")
 	)
-	(label "GroupB1"
-		(at 152.4 205.74 180)
+	(label "Fuel_Pump"
+		(at 96.52 208.28 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10518,8 +10713,18 @@
 		)
 		(uuid "8e0e3e2d-2f1f-43ee-a4bb-107ef97dd8d3")
 	)
+	(label "BACKLIGHT_PANELS"
+		(at 215.9 280.67 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8fac4f4d-0b0a-4ec8-8987-8402e645fcd3")
+	)
 	(label "PWM_ENG_TORQUE"
-		(at 314.96 162.56 180)
+		(at 280.67 162.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10527,16 +10732,6 @@
 			(justify right bottom)
 		)
 		(uuid "904b6c36-63dc-4a67-bb50-458477dd1b8a")
-	)
-	(label "D2_OUT"
-		(at 160.782 133.096 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "904cf7b1-9cba-4c5f-b623-019fa0f6e295")
 	)
 	(label "ROW7"
 		(at 350.52 69.85 0)
@@ -10568,6 +10763,16 @@
 		)
 		(uuid "94945b55-396e-4ad1-b6ff-b43e846868d7")
 	)
+	(label "COL9"
+		(at 350.52 100.33 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "94e08080-3945-45bf-934a-5ba06d5b755e")
+	)
 	(label "COL3"
 		(at 222.25 81.28 0)
 		(effects
@@ -10578,6 +10783,16 @@
 		)
 		(uuid "96d61eca-1439-462c-a331-a91f318a9318")
 	)
+	(label "Battery_Temp"
+		(at 181.61 138.43 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "96e982a9-ed1d-4f40-8d9e-ad615d242010")
+	)
 	(label "PWM_AIRSPEED"
 		(at 351.79 21.59 0)
 		(effects
@@ -10587,6 +10802,16 @@
 			(justify left bottom)
 		)
 		(uuid "9a76d536-bd88-4bd7-9ea3-85e7a64bd4e9")
+	)
+	(label "D_Engine_Out"
+		(at 279.4 59.69 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9b3dba05-43f3-4783-ab5a-7f939ccfe01e")
 	)
 	(label "PWM_TURBINE_SPEED"
 		(at 351.79 36.83 0)
@@ -10628,6 +10853,16 @@
 		)
 		(uuid "9ed93efd-c2b5-44cb-b7e9-2f233395b6a5")
 	)
+	(label "D_Low_Fuel"
+		(at 279.4 90.17 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "9f493955-1781-46ab-a3fc-7669dfc36ec6")
+	)
 	(label "GND"
 		(at 396.24 81.28 0)
 		(effects
@@ -10638,8 +10873,18 @@
 		)
 		(uuid "9f7363f6-6451-4f5e-b6ee-95496c5df6f2")
 	)
+	(label "AFT_Fuel_Filter"
+		(at 182.88 179.07 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a043f87e-8ecb-4a2d-a7e8-dae521cc6feb")
+	)
 	(label "PWM_AIRSPEED"
-		(at 283.21 146.05 180)
+		(at 233.68 146.05 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10649,7 +10894,7 @@
 		(uuid "a10ffbf5-3a31-4ec4-a1d7-da841a4339c7")
 	)
 	(label "+12v-IN"
-		(at 181.864 164.592 0)
+		(at 183.134 163.322 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10657,6 +10902,36 @@
 			(justify left bottom)
 		)
 		(uuid "a1f61198-9c8b-4d2a-8f9d-dce49f4aaef2")
+	)
+	(label "BACKLIGHT_PANELS"
+		(at 215.9 267.97 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a3ae3178-891e-4dc7-a93e-5e333a87fb53")
+	)
+	(label "+5v_SERVO"
+		(at 80.01 35.56 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a53369a6-6c0a-4e4e-8393-b9c37aa0bc9f")
+	)
+	(label "D_Gen_Fail"
+		(at 162.56 181.61 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a56ac181-d1fe-45c0-852f-9ebeee248faa")
 	)
 	(label "COL5"
 		(at 222.25 86.36 0)
@@ -10678,8 +10953,8 @@
 		)
 		(uuid "a5b75d61-cb9d-40f1-85e3-bea3b8a1b9b7")
 	)
-	(label "GroupA7"
-		(at 99.06 236.22 180)
+	(label "Trans_Chip"
+		(at 138.43 238.76 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10698,26 +10973,6 @@
 		)
 		(uuid "a7338db6-f34e-467a-b1c0-b69cb51a6741")
 	)
-	(label "D1_OUT"
-		(at 160.782 130.556 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a936b330-3376-4861-8b4c-7f03c4b42882")
-	)
-	(label "D7_OUT"
-		(at 160.782 145.796 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "ac3fbd68-cc96-4d5a-90f4-28903a0d8c24")
-	)
 	(label "ROW2"
 		(at 350.52 57.15 0)
 		(effects
@@ -10729,7 +10984,7 @@
 		(uuid "ac689615-af8e-4af3-b6c3-fe49368bf637")
 	)
 	(label "PB_GND"
-		(at 99.06 218.44 180)
+		(at 138.43 220.98 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10748,6 +11003,26 @@
 		)
 		(uuid "adfdb65f-e149-4f37-ade8-106f9eda6d39")
 	)
+	(label "Trans_Oil_Pressure"
+		(at 181.61 133.35 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "aebd220d-79df-47f2-8bf1-11815ecd8312")
+	)
+	(label "D_Trans_Oil_Pressure"
+		(at 279.4 62.23 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "af63703a-c577-42b3-89b3-6b45b384fef3")
+	)
 	(label "COL6"
 		(at 222.25 88.9 0)
 		(effects
@@ -10758,18 +11033,18 @@
 		)
 		(uuid "af9c82a6-75b7-4e54-992b-1ab78beb149e")
 	)
-	(label "+5v_IN"
-		(at 80.01 35.56 90)
+	(label "COL8"
+		(at 350.52 97.79 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "afaa76a7-be7e-416b-99f7-e0a3b25fa929")
+		(uuid "b18341a6-94ea-4ebf-9963-b3d096735146")
 	)
-	(label "GroupA6"
-		(at 99.06 231.14 180)
+	(label "Battery_Hot"
+		(at 138.43 233.68 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10798,18 +11073,68 @@
 		)
 		(uuid "b5bb414f-8670-4b92-b11d-7f6914c958d6")
 	)
-	(label "D6_OUT"
-		(at 160.782 143.256 180)
+	(label "D_Engine_Out"
+		(at 161.29 130.81 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "ba3fb048-2ade-4de1-bb22-56af7f968a24")
+		(uuid "bd443f1a-45c2-4334-8786-ed9db547efd7")
 	)
-	(label "GroupA3"
-		(at 99.06 215.9 180)
+	(label "COL4"
+		(at 350.52 87.63 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bdb9365a-c56a-489b-afdd-64acd8a9c61e")
+	)
+	(label "+12v-IN"
+		(at 215.9 265.43 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "be4ee484-27dc-425f-9a58-fc09a64283d6")
+	)
+	(label "SW_TOT_CLEAR"
+		(at 350.52 105.41 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bf5d69a7-843c-4981-9098-b06ffb8497ad")
+	)
+	(label "Gen_Fail"
+		(at 182.88 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bfaab188-a085-4f2a-a915-c76c7d429e42")
+	)
+	(label "+12v-IN"
+		(at 251.46 271.78 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c2dfe0c5-b9dc-469c-adca-8445e034fedf")
+	)
+	(label "Trans_Oil_Pressure"
+		(at 138.43 218.44 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10817,6 +11142,26 @@
 			(justify right bottom)
 		)
 		(uuid "c69081c0-ae4f-47a0-83f6-23c279441bd7")
+	)
+	(label "D_Fuel_Pump"
+		(at 279.4 82.55 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c82ed1b5-f874-4a9a-8fdf-04b47bb27865")
+	)
+	(label "SW_FUEL_VALVE"
+		(at 350.52 118.11 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c82f52e2-7eeb-471a-ba06-58a03a89bdff")
 	)
 	(label "+5v_IN"
 		(at 396.24 91.44 0)
@@ -10829,7 +11174,7 @@
 		(uuid "c83777d6-c897-46b1-b3b9-428aba1f24fe")
 	)
 	(label "+5v_SERVO"
-		(at 283.21 143.51 180)
+		(at 233.68 143.51 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10849,7 +11194,7 @@
 		(uuid "c98aff37-9b3d-4aad-8da6-661ea66a54a7")
 	)
 	(label "GroupB3"
-		(at 152.4 215.9 180)
+		(at 96.52 218.44 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10870,7 +11215,7 @@
 		(uuid "cb49fa07-21f7-4a7b-be33-1b567985547d")
 	)
 	(label "12V"
-		(at 152.4 228.6 180)
+		(at 96.52 231.14 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10879,8 +11224,28 @@
 		)
 		(uuid "cb7cef55-81a5-4a98-b197-edaa88606cfe")
 	)
+	(label "COL5"
+		(at 350.52 90.17 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ccbde615-02da-43ee-ba3d-d09810aa5455")
+	)
+	(label "Baggage_Door"
+		(at 181.61 146.05 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "cd52eccb-5916-4bd5-a232-f7c2932e179a")
+	)
 	(label "12V"
-		(at 152.4 233.68 180)
+		(at 96.52 236.22 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10889,8 +11254,8 @@
 		)
 		(uuid "ce8810b0-a8eb-49c3-a901-4faf14a15786")
 	)
-	(label "GroupA4"
-		(at 99.06 220.98 180)
+	(label "Trans_Oil_Temp"
+		(at 138.43 223.52 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10919,15 +11284,15 @@
 		)
 		(uuid "d045ae49-7d78-44cf-a7e2-65ce435b42bb")
 	)
-	(label "COMM2_VOL"
-		(at 102.87 85.09 90)
+	(label "D_Low_Fuel"
+		(at 162.56 184.15 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
-		(uuid "d20760a8-df3f-4fc5-b8bb-98d3fd2e8360")
+		(uuid "d1708dcd-4c87-42a7-bfd8-d1a368c4c494")
 	)
 	(label "GREEN_LED"
 		(at 152.4 35.56 90)
@@ -10940,7 +11305,7 @@
 		(uuid "d2baa770-c25c-4776-86f3-9b43c6548608")
 	)
 	(label "12V"
-		(at 99.06 223.52 180)
+		(at 138.43 226.06 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10950,7 +11315,7 @@
 		(uuid "d5094f9d-3282-44ca-be92-d3c4b3839314")
 	)
 	(label "+12v-IN"
-		(at 181.356 119.888 0)
+		(at 181.61 120.65 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10959,8 +11324,18 @@
 		)
 		(uuid "d5fc2f3a-717e-427e-92ea-d9e8a8d547a7")
 	)
+	(label "BACKLIGHT_PANELS"
+		(at 215.9 274.32 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d666fe07-dda0-496b-87f0-588ba9380fda")
+	)
 	(label "PB_GND"
-		(at 152.4 218.44 180)
+		(at 96.52 220.98 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10970,7 +11345,7 @@
 		(uuid "d6b1ec48-df50-4d2b-af52-a6375eda093c")
 	)
 	(label "+5v_SERVO"
-		(at 351.79 175.26 180)
+		(at 326.39 175.26 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11001,7 +11376,7 @@
 		(uuid "d8590df4-cef0-4bc7-9058-d4387e4044ad")
 	)
 	(label "+5v_SERVO"
-		(at 384.81 175.26 180)
+		(at 370.84 175.26 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11010,8 +11385,8 @@
 		)
 		(uuid "d8b03d93-be8b-4e6c-a11c-cfa9c0c3ef25")
 	)
-	(label "GroupA9"
-		(at 99.06 243.84 180)
+	(label "T{slash}R_Chip"
+		(at 138.43 246.38 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11019,16 +11394,6 @@
 			(justify right bottom)
 		)
 		(uuid "d8dbc3d8-fc0f-4139-b21b-800f9a87b8a2")
-	)
-	(label "NAV1_VOL"
-		(at 110.744 85.09 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d91fa700-b007-4dc9-9f09-d94966089d3b")
 	)
 	(label "ROW8"
 		(at 350.52 72.39 0)
@@ -11040,18 +11405,18 @@
 		)
 		(uuid "dbe191ee-7511-4e30-ae50-2fac2ca0a7c3")
 	)
-	(label "COMM1_VOL"
-		(at 95.504 85.09 90)
+	(label "Engine_Out"
+		(at 181.61 130.81 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left bottom)
 		)
-		(uuid "ddd52ac5-b29b-4f6d-b7e3-fdf02a373a2e")
+		(uuid "dc7ad470-fbbc-432d-a3b0-2b3253e0f1cc")
 	)
 	(label "PWM_XMSN_OIL_TEMP"
-		(at 384.81 177.8 180)
+		(at 370.84 177.8 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11059,6 +11424,16 @@
 			(justify right bottom)
 		)
 		(uuid "e259e337-29ab-4a6b-b6fa-fcde96ff5a42")
+	)
+	(label "COL7"
+		(at 350.52 95.25 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e3a7980c-c846-46ab-9d0c-475dcf7f93b8")
 	)
 	(label "RESET"
 		(at 254 102.87 0)
@@ -11081,16 +11456,6 @@
 		)
 		(uuid "e49628a2-13c4-4c69-bdb4-bc58aa1cd109")
 	)
-	(label "D6_OUT"
-		(at 161.29 187.96 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "e4bf4b9b-59dc-46fa-b173-9eef437e1457")
-	)
 	(label "BACKLIGHT_PANELS"
 		(at 280.67 227.33 0)
 		(effects
@@ -11102,7 +11467,7 @@
 		(uuid "e4cb49aa-70a9-4f3d-b2f8-8594179eb4c7")
 	)
 	(label "PWM_ENG_OIL_PRESS"
-		(at 384.81 162.56 180)
+		(at 370.84 162.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11131,8 +11496,18 @@
 		)
 		(uuid "e7d681b3-734c-4d88-8770-8e6bdb767472")
 	)
+	(label "SW_TOT_CLEAR"
+		(at 73.66 153.67 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "edb7f5aa-9c58-4334-a50e-a2081b84e3b4")
+	)
 	(label "PWM_ROTOR_SPEED"
-		(at 314.96 177.8 180)
+		(at 280.67 177.8 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11173,8 +11548,8 @@
 		)
 		(uuid "eef6c2bc-c073-42c4-923c-cfbdb7bb6ff6")
 	)
-	(label "GroupB2"
-		(at 152.4 210.82 180)
+	(label "AFT_Fuel_Filter"
+		(at 96.52 213.36 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11193,8 +11568,18 @@
 		)
 		(uuid "f065dee9-2794-46e9-a13a-fe0aa2d9ef77")
 	)
+	(label "COL6"
+		(at 350.52 92.71 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f1863c64-56f9-48ae-9817-5c5efa2e5ea4")
+	)
 	(label "+5v_SERVO"
-		(at 351.79 143.51 180)
+		(at 326.39 143.51 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11203,15 +11588,15 @@
 		)
 		(uuid "f1c253a4-ccee-4f1b-a60d-eb68ed090ff8")
 	)
-	(label "D2_OUT"
-		(at 161.29 177.8 180)
+	(label "BACKLIGHT_PANELS"
+		(at 251.46 255.27 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "f1f865e0-1edb-44df-8d99-c6a375c77f55")
+		(uuid "f41fbf18-f65e-48c5-9c80-1b8f2ece4d81")
 	)
 	(label "PWM_ROTOR_SPEED"
 		(at 351.79 39.37 0)
@@ -11223,8 +11608,38 @@
 		)
 		(uuid "f444ed1e-a47f-4f5d-b417-6031d3f3cb79")
 	)
+	(label "Fuel_Pump"
+		(at 182.88 176.53 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f4910b33-12af-43ee-bb20-6fd485f79b29")
+	)
+	(label "D_SC_Fail"
+		(at 279.4 92.71 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f4dac773-265b-4e57-9433-d6680bcb3ffb")
+	)
+	(label "D_AFT_Fuel_Filter"
+		(at 162.56 179.07 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "f578088d-d9a9-4b4e-b23d-d51c5de20c17")
+	)
 	(label "+5v_SERVO"
-		(at 384.81 143.51 180)
+		(at 370.84 143.51 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11234,7 +11649,7 @@
 		(uuid "f5865c79-fee0-4a85-a7e8-cc1c4ea84c4f")
 	)
 	(label "GroupB6"
-		(at 152.4 231.14 180)
+		(at 96.52 233.68 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11243,15 +11658,15 @@
 		)
 		(uuid "f6855421-da23-415f-81f2-35601545a1bd")
 	)
-	(label "D0_OUT"
-		(at 278.13 64.77 180)
+	(label "Trans_Oil_Temp"
+		(at 181.61 135.89 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
-		(uuid "f7ab8cff-1b71-4c59-9d54-0004c6c520ee")
+		(uuid "f7a709b2-1632-4e4a-a628-672b7fd723ef")
 	)
 	(label "+12v-IN"
 		(at 82.55 19.05 270)
@@ -11274,7 +11689,7 @@
 		(uuid "fa8add02-6ac3-4358-bdcb-34b0f0415bf0")
 	)
 	(label "PWM_XMSN_OIL_PRESSURE"
-		(at 384.81 194.31 180)
+		(at 370.84 194.31 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11284,7 +11699,7 @@
 		(uuid "faa6ad6d-9b85-4efc-b80c-bdf60c9265f0")
 	)
 	(label "PWM_TURBINE_SPEED"
-		(at 283.21 177.8 180)
+		(at 233.68 177.8 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11609,7 +12024,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "01bb8c4b-ec4d-4721-ae8d-fd5b6d58bacd")
-		(property "Reference" "J41"
+		(property "Reference" "J12"
 			(at 246.38 62.2299 0)
 			(effects
 				(font
@@ -11708,104 +12123,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J41")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 118.11 88.9 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "02c5c99d-8c0f-43a4-bf81-1adf59067d37")
-		(property "Reference" "C2"
-			(at 118.872 84.0486 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 118.872 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
-			(at 119.0752 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 118.11 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 118.11 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" ""
-			(at 118.11 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 118.11 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 118.11 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "4c9a24ab-9383-4677-bcce-e8987cdf1f4f")
-		)
-		(pin "2"
-			(uuid "8199fd64-1253-4526-880f-5f7bdf7513f6")
-		)
-		(instances
-			(project "LIP CONTROLLER V004"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "C2")
+					(reference "J12")
 					(unit 1)
 				)
 			)
@@ -11813,7 +12131,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 320.04 146.05 0)
+		(at 285.75 146.05 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11821,8 +12139,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "04b97882-af0c-4901-a519-a08337960557")
-		(property "Reference" "J10"
-			(at 321.31 144.7799 0)
+		(property "Reference" "J23"
+			(at 287.02 144.7799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11830,8 +12148,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 321.31 147.3199 0)
+		(property "Value" "RADAR_ALT"
+			(at 287.02 147.3199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11840,7 +12158,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 320.04 146.05 0)
+			(at 285.75 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11849,7 +12167,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 320.04 146.05 0)
+			(at 285.75 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11858,7 +12176,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 320.04 146.05 0)
+			(at 285.75 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11878,7 +12196,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J10")
+					(reference "J23")
 					(unit 1)
 				)
 			)
@@ -11886,7 +12204,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 356.87 146.05 0)
+		(at 331.47 146.05 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11894,8 +12212,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0673e4ed-38b8-4dda-bd17-ed1ced6fa0d9")
-		(property "Reference" "J1"
-			(at 358.14 144.7799 0)
+		(property "Reference" "J26"
+			(at 332.74 144.7799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11903,8 +12221,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 358.14 147.3199 0)
+		(property "Value" "VVI"
+			(at 332.74 147.3199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11913,7 +12231,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 356.87 146.05 0)
+			(at 331.47 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11922,7 +12240,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 356.87 146.05 0)
+			(at 331.47 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11931,7 +12249,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 356.87 146.05 0)
+			(at 331.47 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11951,7 +12269,77 @@
 		(instances
 			(project ""
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J1")
+					(reference "J26")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 220.98 271.78 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "07910bb6-e002-4f20-99b7-5641cbfe53f4")
+		(property "Reference" "J9"
+			(at 222.25 271.7799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BK_LIGHT"
+			(at 222.25 274.3199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 220.98 271.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 220.98 271.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 220.98 271.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "e9088d9a-9165-4c71-9fed-ad22d1403c94")
+		)
+		(pin "1"
+			(uuid "212b337a-57f0-4878-929d-c593d451ed12")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J9")
 					(unit 1)
 				)
 			)
@@ -11960,7 +12348,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 384.81 165.1 0)
+		(at 370.84 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11968,8 +12356,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0bb92dac-892d-4bdd-90da-a5fb5c3b4785")
-		(property "Reference" "#PWR034"
-			(at 384.81 171.45 0)
+		(property "Reference" "#PWR037"
+			(at 370.84 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11978,7 +12366,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 384.81 168.91 0)
+			(at 370.84 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11986,7 +12374,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 384.81 165.1 0)
+			(at 370.84 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11995,7 +12383,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 384.81 165.1 0)
+			(at 370.84 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12004,7 +12392,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 384.81 165.1 0)
+			(at 370.84 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12018,7 +12406,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR034")
+					(reference "#PWR037")
 					(unit 1)
 				)
 			)
@@ -12026,16 +12414,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 83.82 213.36 0)
+		(at 115.57 215.9 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "0c3088e3-7074-4fb0-954b-31b4fb37e548")
-		(property "Reference" "#PWR024"
-			(at 83.82 219.71 0)
+		(property "Reference" "#PWR011"
+			(at 115.57 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12044,7 +12431,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 83.82 218.44 0)
+			(at 115.57 220.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12052,7 +12439,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 83.82 213.36 0)
+			(at 115.57 215.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12061,7 +12448,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 83.82 213.36 0)
+			(at 115.57 215.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12070,7 +12457,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 83.82 213.36 0)
+			(at 115.57 215.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12084,7 +12471,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR024")
+					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -12099,7 +12486,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1051b352-7d68-4d3f-8161-048aa20a0578")
-		(property "Reference" "R37"
+		(property "Reference" "R16"
 			(at 195.58 95.25 90)
 			(effects
 				(font
@@ -12178,7 +12565,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R37")
+					(reference "R16")
 					(unit 1)
 				)
 			)
@@ -12194,7 +12581,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "138dd970-194a-40c1-9563-56178090b444")
-		(property "Reference" "#PWR018"
+		(property "Reference" "#PWR033"
 			(at 351.79 229.87 0)
 			(effects
 				(font
@@ -12245,7 +12632,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR018")
+					(reference "#PWR033")
 					(unit 1)
 				)
 			)
@@ -12260,7 +12647,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1746df0c-96c1-4cab-968b-eb4c3d8e8f22")
-		(property "Reference" "D2"
+		(property "Reference" "D3"
 			(at 87.63 58.42 0)
 			(effects
 				(font
@@ -12339,7 +12726,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "D2")
+					(reference "D3")
 					(unit 1)
 				)
 			)
@@ -12354,7 +12741,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "19483b13-3672-4855-bb8d-64c6d7857a3c")
-		(property "Reference" "R30"
+		(property "Reference" "R12"
 			(at 195.58 85.09 90)
 			(effects
 				(font
@@ -12433,7 +12820,75 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R30")
+					(reference "R12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_SPST")
+		(at 78.74 166.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "19d71786-afbb-4e06-8705-02157053bdde")
+		(property "Reference" "SW2"
+			(at 78.74 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "FUEL_VALVE"
+			(at 78.74 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 78.74 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 78.74 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Single Pole Single Throw (SPST) switch"
+			(at 78.74 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3cebb781-cff1-4f34-82f9-7516bca1a19d")
+		)
+		(pin "2"
+			(uuid "6148154f-4cf9-4929-8220-87d65b43fa95")
+		)
+		(instances
+			(project ""
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "SW2")
 					(unit 1)
 				)
 			)
@@ -12442,7 +12897,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 384.81 196.85 0)
+		(at 370.84 196.85 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12450,8 +12905,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1bd092cf-3ccb-4c8f-a5cf-afb239cb04fb")
-		(property "Reference" "#PWR043"
-			(at 384.81 203.2 0)
+		(property "Reference" "#PWR039"
+			(at 370.84 203.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12460,7 +12915,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 384.81 200.66 0)
+			(at 370.84 200.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12468,7 +12923,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 384.81 196.85 0)
+			(at 370.84 196.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12477,7 +12932,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 384.81 196.85 0)
+			(at 370.84 196.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12486,7 +12941,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 384.81 196.85 0)
+			(at 370.84 196.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12500,124 +12955,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR043")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x09")
-		(at 186.69 180.34 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "1bddad41-6450-4bad-9f75-a37dae720e4c")
-		(property "Reference" "J18"
-			(at 192.278 180.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "DOUT"
-			(at 192.278 182.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical"
-			(at 186.69 180.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 186.69 180.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x09, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 186.69 180.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" ""
-			(at 186.69 180.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 186.69 180.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 186.69 180.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "ee40c02b-c985-4a5f-910c-c243c3d36243")
-		)
-		(pin "6"
-			(uuid "02ede29a-c2fe-4981-8613-edac9139beab")
-		)
-		(pin "1"
-			(uuid "853bcb05-38c3-4319-99fb-afed258ef2bd")
-		)
-		(pin "7"
-			(uuid "305895b3-34c1-4e26-9c60-72f0ba95072d")
-		)
-		(pin "4"
-			(uuid "78fca9e7-fb08-4265-a458-ef7e87343fb7")
-		)
-		(pin "3"
-			(uuid "a3f09598-4fd8-4d63-bddf-753c65d1ceb5")
-		)
-		(pin "8"
-			(uuid "22b52fe4-d801-4943-8225-de2ffbe84f4a")
-		)
-		(pin "5"
-			(uuid "d1ee3053-dce6-47b0-943f-74f981df54b9")
-		)
-		(pin "9"
-			(uuid "cd8e298b-d862-4c36-bfe7-e353b93667ac")
-		)
-		(instances
-			(project "Jet Ranger Front Panel Servo"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J18")
+					(reference "#PWR039")
 					(unit 1)
 				)
 			)
@@ -12625,7 +12963,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_Array:ULN2803A")
-		(at 170.942 133.096 0)
+		(at 171.45 133.35 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12633,8 +12971,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "23291e36-920a-46e9-bccd-804b17b83866")
-		(property "Reference" "U4"
-			(at 170.942 118.364 0)
+		(property "Reference" "U1"
+			(at 171.45 118.618 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12642,7 +12980,7 @@
 			)
 		)
 		(property "Value" "ULN2803A"
-			(at 170.942 120.904 0)
+			(at 171.45 121.158 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12650,7 +12988,7 @@
 			)
 		)
 		(property "Footprint" "Package_DIP:DIP-18_W7.62mm"
-			(at 172.212 149.606 0)
+			(at 172.72 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12660,7 +12998,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/uln2803a.pdf"
-			(at 173.482 138.176 0)
+			(at 173.99 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12669,7 +13007,7 @@
 			)
 		)
 		(property "Description" "Darlington Transistor Arrays, SOIC18/DIP18"
-			(at 170.942 133.096 0)
+			(at 171.45 133.35 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12678,7 +13016,7 @@
 			)
 		)
 		(property "LCSC" ""
-			(at 170.942 133.096 0)
+			(at 171.45 133.35 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12687,7 +13025,7 @@
 			)
 		)
 		(property "Sim.Device" ""
-			(at 170.942 133.096 0)
+			(at 171.45 133.35 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12696,7 +13034,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 170.942 133.096 0)
+			(at 171.45 133.35 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12761,7 +13099,7 @@
 		(instances
 			(project ""
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "U4")
+					(reference "U1")
 					(unit 1)
 				)
 			)
@@ -12776,7 +13114,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "26d4044a-86af-458c-970f-5f6fa1a29490")
-		(property "Reference" "D3"
+		(property "Reference" "D4"
 			(at 151.13 58.674 0)
 			(effects
 				(font
@@ -12855,7 +13193,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "D3")
+					(reference "D4")
 					(unit 1)
 				)
 			)
@@ -12870,7 +13208,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "288709de-c265-4787-aed2-6eb6ba87238c")
-		(property "Reference" "R38"
+		(property "Reference" "R17"
 			(at 195.58 97.79 90)
 			(effects
 				(font
@@ -12949,7 +13287,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R38")
+					(reference "R17")
 					(unit 1)
 				)
 			)
@@ -12964,7 +13302,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "2c1ceb46-12e4-421d-becb-feed63f14e30")
-		(property "Reference" "R36"
+		(property "Reference" "R15"
 			(at 195.58 92.71 90)
 			(effects
 				(font
@@ -13043,7 +13381,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R36")
+					(reference "R15")
 					(unit 1)
 				)
 			)
@@ -13052,7 +13390,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 283.21 180.34 0)
+		(at 233.68 180.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13060,8 +13398,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2cc9763c-832f-4204-93eb-df5821a96a77")
-		(property "Reference" "#PWR035"
-			(at 283.21 186.69 0)
+		(property "Reference" "#PWR023"
+			(at 233.68 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13070,7 +13408,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 283.21 184.15 0)
+			(at 233.68 184.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13078,7 +13416,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 283.21 180.34 0)
+			(at 233.68 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13087,7 +13425,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 283.21 180.34 0)
+			(at 233.68 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13096,7 +13434,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 283.21 180.34 0)
+			(at 233.68 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13110,7 +13448,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR035")
+					(reference "#PWR023")
 					(unit 1)
 				)
 			)
@@ -13118,7 +13456,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 320.04 177.8 0)
+		(at 285.75 177.8 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13126,8 +13464,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "2ffabdcc-2e12-48fd-829f-03f453dbc20f")
-		(property "Reference" "J19"
-			(at 321.31 176.5299 0)
+		(property "Reference" "J25"
+			(at 287.02 176.5299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13135,8 +13473,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 321.31 179.0699 0)
+		(property "Value" "ROTOR_SPEED"
+			(at 287.02 179.0699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13145,7 +13483,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 320.04 177.8 0)
+			(at 285.75 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13154,7 +13492,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 320.04 177.8 0)
+			(at 285.75 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13163,7 +13501,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 320.04 177.8 0)
+			(at 285.75 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13183,7 +13521,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J19")
+					(reference "J25")
 					(unit 1)
 				)
 			)
@@ -13198,7 +13536,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "30277abb-ad30-413a-a92a-803d0ec36dbc")
-		(property "Reference" "R11"
+		(property "Reference" "R1"
 			(at 36.9316 30.0228 0)
 			(effects
 				(font
@@ -13279,7 +13617,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R11")
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -13295,7 +13633,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "30f39d74-451b-4032-b25c-dce5ab1cad1e")
-		(property "Reference" "J2"
+		(property "Reference" "J1"
 			(at 37.465 13.97 0)
 			(effects
 				(font
@@ -13377,7 +13715,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J2")
+					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -13393,7 +13731,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "3157447a-096e-427e-be83-2105720f70ce")
-		(property "Reference" "J9"
+		(property "Reference" "J29"
 			(at 364.49 67.3099 0)
 			(effects
 				(font
@@ -13402,7 +13740,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Conn_01x06_Socket"
+		(property "Value" "Utility"
 			(at 364.49 69.8499 0)
 			(effects
 				(font
@@ -13459,7 +13797,7 @@
 		(instances
 			(project ""
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J9")
+					(reference "J29")
 					(unit 1)
 				)
 			)
@@ -13474,7 +13812,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "353f4565-60e5-4dce-a69e-7c2e58889861")
-		(property "Reference" "#PWR028"
+		(property "Reference" "#PWR017"
 			(at 270.51 250.19 0)
 			(effects
 				(font
@@ -13524,7 +13862,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR028")
+					(reference "#PWR017")
 					(unit 1)
 				)
 			)
@@ -13605,7 +13943,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "404afa18-b25f-4aff-87f7-47d56758a2b8")
-		(property "Reference" "F1"
+		(property "Reference" "F2"
 			(at 32.258 52.324 90)
 			(effects
 				(font
@@ -13621,7 +13959,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Fuse:Fuse_1206_3216Metric"
+		(property "Footprint" "Fuse:Fuse_Bourns_MF-RG400"
 			(at 41.91 52.07 0)
 			(effects
 				(font
@@ -14063,7 +14401,77 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "F1")
+					(reference "F2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 256.54 265.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "409e2a50-0550-425d-bec5-05ca37b086c2")
+		(property "Reference" "J17"
+			(at 257.81 265.4299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BK_LIGHT"
+			(at 257.81 267.9699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 256.54 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 256.54 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 256.54 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "81ba9b1a-9c79-431f-8898-2d61859f5009")
+		)
+		(pin "1"
+			(uuid "94024403-5c0d-4cf0-8361-6df8370d69f1")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J17")
 					(unit 1)
 				)
 			)
@@ -14072,7 +14480,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 351.79 165.1 0)
+		(at 326.39 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14080,8 +14488,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "413e2505-2704-4f50-a686-94cb82c67b8d")
-		(property "Reference" "#PWR033"
-			(at 351.79 171.45 0)
+		(property "Reference" "#PWR031"
+			(at 326.39 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14090,7 +14498,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 351.79 168.91 0)
+			(at 326.39 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14098,7 +14506,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 351.79 165.1 0)
+			(at 326.39 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14107,7 +14515,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 351.79 165.1 0)
+			(at 326.39 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14116,7 +14524,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 351.79 165.1 0)
+			(at 326.39 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14130,23 +14538,42 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR033")
+					(reference "#PWR031")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:GNDD")
-		(at 114.3 92.71 0)
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 256.54 252.73 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "4291ffa0-3a38-4b6c-8996-af34b98e1df1")
-		(property "Reference" "#PWR013"
-			(at 114.3 99.06 0)
+		(fields_autoplaced yes)
+		(uuid "46f757f1-c810-4623-b3a6-11c241974b23")
+		(property "Reference" "J15"
+			(at 257.81 252.7299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BK_LIGHT"
+			(at 257.81 255.2699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 256.54 252.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14154,16 +14581,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "GNDD"
-			(at 114.4016 96.647 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 114.3 92.71 0)
+		(property "Datasheet" "~"
+			(at 256.54 252.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14171,8 +14590,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 114.3 92.71 0)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 256.54 252.73 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14180,22 +14599,16 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 114.3 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
+		(pin "2"
+			(uuid "24c17188-3d88-4e8d-9ca3-09a2b5cf2011")
 		)
 		(pin "1"
-			(uuid "23cb27b4-6605-439c-8ee1-53fac7cc0eb1")
+			(uuid "3445be9f-70c9-4593-9b80-be50f936165e")
 		)
 		(instances
-			(project "LIP CONTROLLER V004"
+			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR013")
+					(reference "J15")
 					(unit 1)
 				)
 			)
@@ -14210,7 +14623,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "483ccedd-c915-4966-b011-0877a40703ef")
-		(property "Reference" "D4"
+		(property "Reference" "D5"
 			(at 160.02 58.42 0)
 			(effects
 				(font
@@ -14289,7 +14702,77 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "D4")
+					(reference "D5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 256.54 271.78 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "4da67a94-9840-4520-922c-f733e707e681")
+		(property "Reference" "J18"
+			(at 257.81 271.7799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BK_LIGHT"
+			(at 257.81 274.3199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 256.54 271.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 256.54 271.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 256.54 271.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "fb00d23b-9553-4c2e-a1a2-a2f333997a22")
+		)
+		(pin "1"
+			(uuid "c24921f2-dcba-4361-a432-11c6d5e04f2d")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J18")
 					(unit 1)
 				)
 			)
@@ -14641,7 +15124,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 283.21 148.59 0)
+		(at 233.68 148.59 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14650,7 +15133,7 @@
 		(fields_autoplaced yes)
 		(uuid "51a0f565-2b39-4ae3-937c-83c0eebe93de")
 		(property "Reference" "#PWR021"
-			(at 283.21 154.94 0)
+			(at 233.68 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14659,7 +15142,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 283.21 152.4 0)
+			(at 233.68 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14667,7 +15150,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 283.21 148.59 0)
+			(at 233.68 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14676,7 +15159,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 283.21 148.59 0)
+			(at 233.68 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14685,7 +15168,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 283.21 148.59 0)
+			(at 233.68 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14714,7 +15197,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "552ba16f-d1ce-4071-95fb-cc04107d073c")
-		(property "Reference" "J45"
+		(property "Reference" "J35"
 			(at 400.558 43.1801 0)
 			(effects
 				(font
@@ -14819,7 +15302,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J45")
+					(reference "J35")
 					(unit 1)
 				)
 			)
@@ -14834,7 +15317,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5721c8b6-38cf-4710-8c09-0bdaed6ff142")
-		(property "Reference" "J43"
+		(property "Reference" "J11"
 			(at 243.332 31.75 0)
 			(effects
 				(font
@@ -14933,7 +15416,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J43")
+					(reference "J11")
 					(unit 1)
 				)
 			)
@@ -14948,7 +15431,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "58123c55-8804-47ad-a7f6-6c8c88c61f4f")
-		(property "Reference" "#PWR014"
+		(property "Reference" "#PWR012"
 			(at 152.4 57.15 0)
 			(effects
 				(font
@@ -14998,7 +15481,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR014")
+					(reference "#PWR012")
 					(unit 1)
 				)
 			)
@@ -15013,7 +15496,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "59068838-a65b-4150-902d-d06c98daf7c7")
-		(property "Reference" "#PWR037"
+		(property "Reference" "#PWR09"
 			(at 92.71 25.4 0)
 			(effects
 				(font
@@ -15063,7 +15546,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR037")
+					(reference "#PWR09")
 					(unit 1)
 				)
 			)
@@ -15079,7 +15562,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5eeef34a-ceff-4afe-820a-cbe7a8338bdb")
-		(property "Reference" "J50"
+		(property "Reference" "J36"
 			(at 383.032 67.31 0)
 			(effects
 				(font
@@ -15158,7 +15641,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J50")
+					(reference "J36")
 					(unit 1)
 				)
 			)
@@ -15173,7 +15656,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5f1fc886-46c6-4633-8f22-c578bf62ccc5")
-		(property "Reference" "#PWR015"
+		(property "Reference" "#PWR013"
 			(at 161.29 57.15 0)
 			(effects
 				(font
@@ -15223,7 +15706,119 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR015")
+					(reference "#PWR013")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x16_Socket")
+		(at 97.79 91.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5fd72f0f-bf7d-4d15-9991-bdc9756e0b49")
+		(property "Reference" "J39"
+			(at 99.06 91.4399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PATCH1"
+			(at 99.06 93.9799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x16_P2.54mm_Vertical"
+			(at 97.79 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x16, script generated"
+			(at 97.79 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2ba93d27-55f2-4aa1-95f8-db8200a159ee")
+		)
+		(pin "2"
+			(uuid "e45be79e-1e2b-475e-a4de-e4ef7332ace9")
+		)
+		(pin "3"
+			(uuid "b103d039-f0fd-4ba9-9678-51c492dc52de")
+		)
+		(pin "4"
+			(uuid "a59fc4e7-c85a-4e1b-8317-6b8144433d9a")
+		)
+		(pin "5"
+			(uuid "c771dd45-bfc3-4612-937e-3824539e9644")
+		)
+		(pin "6"
+			(uuid "2545f3c2-ed04-40a2-a1f9-e868c62cf3eb")
+		)
+		(pin "7"
+			(uuid "28e24665-d274-4dcd-87ad-1be1470ea180")
+		)
+		(pin "8"
+			(uuid "cbcfdd99-d9b5-4fce-a118-25573488db5d")
+		)
+		(pin "9"
+			(uuid "3cf839d7-44dd-4f50-8675-c9d2354a1b11")
+		)
+		(pin "10"
+			(uuid "faf75be8-8bd6-43aa-be26-57eb7007652c")
+		)
+		(pin "11"
+			(uuid "f8b504d9-7914-48c1-8ef3-1ccc275a3102")
+		)
+		(pin "12"
+			(uuid "cfbd8acc-3f8b-4b6a-9429-7f47f26787e4")
+		)
+		(pin "13"
+			(uuid "1f8ac45e-1ca3-4d7e-8067-a3247930ada8")
+		)
+		(pin "14"
+			(uuid "cf8f9537-95fd-4602-a6ab-fe4b031c5244")
+		)
+		(pin "15"
+			(uuid "23710672-752b-4832-b455-4ec2cf868e82")
+		)
+		(pin "16"
+			(uuid "2248d1ac-fafd-44a6-be81-ae6ef7fcebdb")
+		)
+		(instances
+			(project ""
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J39")
 					(unit 1)
 				)
 			)
@@ -15304,7 +15899,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "60c2f7be-3c62-4bc4-8f8e-06e575e56970")
-		(property "Reference" "F2"
+		(property "Reference" "F1"
 			(at 28.448 37.084 90)
 			(effects
 				(font
@@ -15320,7 +15915,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Fuse:Fuse_1206_3216Metric"
+		(property "Footprint" "Fuse:Fuse_Bourns_MF-RG400"
 			(at 38.1 36.83 0)
 			(effects
 				(font
@@ -15762,7 +16357,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "F2")
+					(reference "F1")
 					(unit 1)
 				)
 			)
@@ -15770,15 +16365,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 171.45 195.58 0)
+		(at 172.72 194.31 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "66cbc2e2-f6b0-489b-97d8-895e5a8c8a6c")
-		(property "Reference" "#PWR036"
-			(at 171.45 201.93 0)
+		(property "Reference" "#PWR015"
+			(at 172.72 200.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15787,7 +16382,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 171.577 199.9742 0)
+			(at 172.847 198.7042 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15795,7 +16390,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 171.45 195.58 0)
+			(at 172.72 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15804,7 +16399,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 171.45 195.58 0)
+			(at 172.72 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15813,7 +16408,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 171.45 195.58 0)
+			(at 172.72 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15826,7 +16421,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR036")
+					(reference "#PWR015")
 					(unit 1)
 				)
 			)
@@ -15842,7 +16437,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6b38f57d-7957-4ccc-a4d7-4f41853432ec")
-		(property "Reference" "U1"
+		(property "Reference" "U3"
 			(at 340.36 216.0164 0)
 			(effects
 				(font
@@ -16057,7 +16652,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "U1")
+					(reference "U3")
 					(unit 1)
 				)
 			)
@@ -16073,7 +16668,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6c337762-8f07-4007-bda3-20cc39df2a78")
-		(property "Reference" "H1"
+		(property "Reference" "H3"
 			(at 400.05 236.2199 0)
 			(effects
 				(font
@@ -16148,7 +16743,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "H1")
+					(reference "H3")
 					(unit 1)
 				)
 			)
@@ -16164,7 +16759,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6e155b3e-80ac-499c-9c99-a6b139d07d29")
-		(property "Reference" "R9"
+		(property "Reference" "R20"
 			(at 309.118 235.3853 0)
 			(effects
 				(font
@@ -16245,7 +16840,74 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R9")
+					(reference "R20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "GNDD_2")
+		(lib_id "power:GNDD")
+		(at 114.3 153.67 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "70fa33f4-9574-416c-a1da-8b80453b8559")
+		(property "Reference" "#PWR010"
+			(at 114.3 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GNDD"
+			(at 114.3 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 114.3 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 114.3 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
+			(at 114.3 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6b877909-0a8a-420a-aa8f-70fd00bd45fc")
+		)
+		(instances
+			(project ""
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -16253,7 +16915,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 389.89 162.56 0)
+		(at 375.92 162.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16261,8 +16923,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7136846f-2901-4fea-beaf-3db80a185175")
-		(property "Reference" "J16"
-			(at 391.16 161.2899 0)
+		(property "Reference" "J31"
+			(at 377.19 161.2899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16270,8 +16932,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 391.16 163.8299 0)
+		(property "Value" "ENG_OIL_PRESSURE"
+			(at 377.19 163.8299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16280,7 +16942,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 389.89 162.56 0)
+			(at 375.92 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16289,7 +16951,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 389.89 162.56 0)
+			(at 375.92 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16298,7 +16960,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 389.89 162.56 0)
+			(at 375.92 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16318,7 +16980,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J16")
+					(reference "J31")
 					(unit 1)
 				)
 			)
@@ -16326,7 +16988,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x16_Socket")
-		(at 157.48 223.52 0)
+		(at 101.6 226.06 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16334,8 +16996,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "76d30cac-2f10-42d6-81c6-c5b9fb8b0e49")
-		(property "Reference" "J3"
-			(at 158.75 223.5199 0)
+		(property "Reference" "J4"
+			(at 102.87 226.0599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16344,7 +17006,7 @@
 			)
 		)
 		(property "Value" "LHS_ANNUC"
-			(at 158.75 226.0599 0)
+			(at 102.87 228.5999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16352,8 +17014,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 157.48 223.52 0)
+		(property "Footprint" "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical"
+			(at 101.6 226.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16362,7 +17024,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 157.48 223.52 0)
+			(at 101.6 226.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16371,7 +17033,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x16, script generated"
-			(at 157.48 223.52 0)
+			(at 101.6 226.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16430,7 +17092,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J3")
+					(reference "J4")
 					(unit 1)
 				)
 			)
@@ -16445,7 +17107,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "77625f21-82b8-4d6a-9351-b179645276db")
-		(property "Reference" "#PWR020"
+		(property "Reference" "#PWR019"
 			(at 274.32 130.81 0)
 			(effects
 				(font
@@ -16495,7 +17157,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR020")
+					(reference "#PWR019")
 					(unit 1)
 				)
 			)
@@ -16504,7 +17166,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 314.96 180.34 0)
+		(at 280.67 180.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16512,8 +17174,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "77b0af9b-1da5-4028-a25e-dd7496fb2ed0")
-		(property "Reference" "#PWR038"
-			(at 314.96 186.69 0)
+		(property "Reference" "#PWR028"
+			(at 280.67 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16522,7 +17184,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 314.96 184.15 0)
+			(at 280.67 184.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16530,7 +17192,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 314.96 180.34 0)
+			(at 280.67 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16539,7 +17201,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 314.96 180.34 0)
+			(at 280.67 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16548,7 +17210,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 314.96 180.34 0)
+			(at 280.67 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16562,7 +17224,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR038")
+					(reference "#PWR028")
 					(unit 1)
 				)
 			)
@@ -16570,7 +17232,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 137.16 215.9 0)
+		(at 81.28 218.44 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16578,8 +17240,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7863d44b-f0b4-45b7-9402-6ee77a4fa439")
-		(property "Reference" "#PWR06"
-			(at 137.16 222.25 0)
+		(property "Reference" "#PWR05"
+			(at 81.28 224.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16588,7 +17250,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 137.16 220.98 0)
+			(at 81.28 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16596,7 +17258,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 137.16 215.9 0)
+			(at 81.28 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16605,7 +17267,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 137.16 215.9 0)
+			(at 81.28 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16614,7 +17276,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 137.16 215.9 0)
+			(at 81.28 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16628,7 +17290,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR06")
+					(reference "#PWR05")
 					(unit 1)
 				)
 			)
@@ -16644,7 +17306,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7aed9974-9dd2-4676-a5a8-3522ed939d65")
-		(property "Reference" "H4"
+		(property "Reference" "H2"
 			(at 389.89 242.5699 0)
 			(effects
 				(font
@@ -16719,23 +17381,25 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "H4")
+					(reference "H2")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 170.942 150.876 0)
+		(lib_name "GNDD_2")
+		(lib_id "power:GNDD")
+		(at 83.82 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "89952647-9320-4975-a567-924d85bcfee4")
-		(property "Reference" "#PWR01"
-			(at 170.942 157.226 0)
+		(fields_autoplaced yes)
+		(uuid "81f2cc02-62ab-4f28-9bdb-fca956f0286e")
+		(property "Reference" "#PWR07"
+			(at 83.82 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16743,8 +17407,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "GND"
-			(at 171.069 155.2702 0)
+		(property "Value" "GNDD"
+			(at 83.82 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16752,7 +17416,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 170.942 150.876 0)
+			(at 83.82 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16761,7 +17425,72 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 170.942 150.876 0)
+			(at 83.82 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
+			(at 83.82 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fab2f67f-19c1-4e25-bf24-95a5fc6fc333")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 171.45 151.13 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "89952647-9320-4975-a567-924d85bcfee4")
+		(property "Reference" "#PWR014"
+			(at 171.45 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 171.577 155.5242 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 171.45 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16770,7 +17499,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 170.942 150.876 0)
+			(at 171.45 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16783,7 +17512,7 @@
 		(instances
 			(project "Jet Ranger Radio Controller"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR01")
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -16798,7 +17527,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8a89573b-4d87-4ae6-93e9-8e3b8ef914be")
-		(property "Reference" "#PWR030"
+		(property "Reference" "#PWR020"
 			(at 280.67 247.65 0)
 			(effects
 				(font
@@ -16848,7 +17577,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR030")
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -16863,7 +17592,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8b8564a1-4b0a-41e7-b156-0aa93ef30977")
-		(property "Reference" "R8"
+		(property "Reference" "R6"
 			(at 163.0172 38.2016 0)
 			(effects
 				(font
@@ -16944,7 +17673,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R8")
+					(reference "R6")
 					(unit 1)
 				)
 			)
@@ -16959,7 +17688,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8e88ffcb-308b-45fc-9749-7abdeeb45f95")
-		(property "Reference" "R1"
+		(property "Reference" "R3"
 			(at 81.7372 38.2016 0)
 			(effects
 				(font
@@ -17040,7 +17769,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R1")
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -17049,7 +17778,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 384.81 148.59 0)
+		(at 370.84 148.59 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17057,8 +17786,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "90004ae8-0104-42b9-b972-70dc61867d12")
-		(property "Reference" "#PWR016"
-			(at 384.81 154.94 0)
+		(property "Reference" "#PWR036"
+			(at 370.84 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17067,7 +17796,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 384.81 152.4 0)
+			(at 370.84 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17075,7 +17804,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 384.81 148.59 0)
+			(at 370.84 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17084,7 +17813,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 384.81 148.59 0)
+			(at 370.84 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17093,7 +17822,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 384.81 148.59 0)
+			(at 370.84 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17107,7 +17836,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR016")
+					(reference "#PWR036")
 					(unit 1)
 				)
 			)
@@ -17122,7 +17851,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "901557f7-c586-4e2a-874f-289ab7d38e9a")
-		(property "Reference" "J4"
+		(property "Reference" "J2"
 			(at 45.1612 43.7896 0)
 			(effects
 				(font
@@ -17203,7 +17932,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J4")
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -17218,7 +17947,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "91e03950-15cc-453d-b5ea-a93a02852e0c")
-		(property "Reference" "#PWR011"
+		(property "Reference" "#PWR02"
 			(at 34.29 63.5 0)
 			(effects
 				(font
@@ -17268,7 +17997,189 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR011")
+					(reference "#PWR02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x16_Socket")
+		(at 119.38 91.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "932707b9-6692-4c6a-850c-cc3d71f36524")
+		(property "Reference" "J40"
+			(at 120.65 91.4399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PATCH2"
+			(at 120.65 93.9799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x16_P2.54mm_Vertical"
+			(at 119.38 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 119.38 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x16, script generated"
+			(at 119.38 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6553097e-c329-4b03-ace1-c0e9eecb9fd3")
+		)
+		(pin "2"
+			(uuid "e908f6d6-0148-45bf-b6f8-6520f5e87f66")
+		)
+		(pin "3"
+			(uuid "1858a440-7a91-4190-9b76-cb5b41c8550f")
+		)
+		(pin "4"
+			(uuid "a5e21a20-a0a6-47c6-8357-954dbc6f09e4")
+		)
+		(pin "5"
+			(uuid "a56e8a9e-b434-47f2-b897-f8e14053754c")
+		)
+		(pin "6"
+			(uuid "9ad8c618-2204-4a8d-85a7-71b9b41a7134")
+		)
+		(pin "7"
+			(uuid "f6e8442b-7da9-4e15-9a9e-57b6d7e619ef")
+		)
+		(pin "8"
+			(uuid "5ce3acb4-3323-466e-91a6-9cd8512c8530")
+		)
+		(pin "9"
+			(uuid "9ab45b55-dcfb-4f96-86a2-501a5e3defa7")
+		)
+		(pin "10"
+			(uuid "3ba166c9-a996-4d61-8700-2158de927ca7")
+		)
+		(pin "11"
+			(uuid "cff1ce1e-854f-4901-8cf4-62b9a9d80164")
+		)
+		(pin "12"
+			(uuid "318f00bc-50ed-4a45-b3bf-b2f7a6dd715b")
+		)
+		(pin "13"
+			(uuid "839770e4-e746-498f-af41-7c85edbeef60")
+		)
+		(pin "14"
+			(uuid "4e20b684-4a5a-47bd-bced-5bc5ecdcda66")
+		)
+		(pin "15"
+			(uuid "af7b0924-175d-48cb-bb6b-898f7b2fba52")
+		)
+		(pin "16"
+			(uuid "de88cc76-7d59-44bf-837f-48face197496")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J40")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 220.98 278.13 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "94736b6a-7b1d-435c-a8bb-c28c49c4a711")
+		(property "Reference" "J10"
+			(at 222.25 278.1299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BK_LIGHT"
+			(at 222.25 280.6699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 220.98 278.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 220.98 278.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 220.98 278.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "27c06de6-2a6e-4de5-a816-7f01f6ec9638")
+		)
+		(pin "1"
+			(uuid "2850f014-5ffd-47e0-9651-3403e7d1ad60")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J10")
 					(unit 1)
 				)
 			)
@@ -17277,7 +18188,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 314.96 148.59 0)
+		(at 280.67 148.59 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17285,8 +18196,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "95f51651-c5ce-4e42-b50c-88864d738953")
-		(property "Reference" "#PWR023"
-			(at 314.96 154.94 0)
+		(property "Reference" "#PWR026"
+			(at 280.67 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17295,7 +18206,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 314.96 152.4 0)
+			(at 280.67 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17303,7 +18214,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 314.96 148.59 0)
+			(at 280.67 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17312,7 +18223,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 314.96 148.59 0)
+			(at 280.67 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17321,7 +18232,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 314.96 148.59 0)
+			(at 280.67 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17335,7 +18246,259 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR023")
+					(reference "#PWR026")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 220.98 265.43 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "961cb46c-01ca-4214-a92f-51b964693350")
+		(property "Reference" "J8"
+			(at 222.25 265.4299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BK_LIGHT"
+			(at 222.25 267.9699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 220.98 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 220.98 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 220.98 265.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "2c73d55b-4508-4e53-a60e-b0c102ebec26")
+		)
+		(pin "1"
+			(uuid "50b14073-34b3-47ac-92ef-0364db5db1dc")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 220.98 252.73 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "985e8f1b-4144-456a-b296-bf306590333d")
+		(property "Reference" "J6"
+			(at 222.25 252.7299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BK_LIGHT"
+			(at 222.25 255.2699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 220.98 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 220.98 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 220.98 252.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "ae7cbd98-b5f9-4414-b394-5732a50ed67b")
+		)
+		(pin "1"
+			(uuid "62ff887c-4766-47bc-a931-9d769dc55b60")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x16_Socket")
+		(at 139.7 91.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9902f96b-0558-4a42-acd3-906a3524e3a6")
+		(property "Reference" "J41"
+			(at 140.97 91.4399 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PATCH3"
+			(at 140.97 93.9799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x16_P2.54mm_Vertical"
+			(at 139.7 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 139.7 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x16, script generated"
+			(at 139.7 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3f855886-c345-4b41-8a0c-c7f003777475")
+		)
+		(pin "2"
+			(uuid "72e7056d-6a4e-4471-92ec-6d824cf28d65")
+		)
+		(pin "3"
+			(uuid "e193844a-a19a-4f73-a3d4-dd83c7fa7e6f")
+		)
+		(pin "4"
+			(uuid "4a9c3240-904a-4b59-a2c1-822380f6123b")
+		)
+		(pin "5"
+			(uuid "48b1a6ed-e489-48cd-9655-efac5be0071e")
+		)
+		(pin "6"
+			(uuid "7bf98f24-2d46-46b4-bf41-973660176cf3")
+		)
+		(pin "7"
+			(uuid "9effbe34-081e-4e28-ab6f-4a29a272dc39")
+		)
+		(pin "8"
+			(uuid "cf89a81e-bf9d-49df-8067-4deebd67af9d")
+		)
+		(pin "9"
+			(uuid "e7d38133-25a2-4e61-b33e-c1e59aa09a45")
+		)
+		(pin "10"
+			(uuid "827001cd-5323-4b16-80aa-a5421f591880")
+		)
+		(pin "11"
+			(uuid "7a285baf-0f32-4371-bb24-3c2ee091a838")
+		)
+		(pin "12"
+			(uuid "e02e3931-fd57-406b-8fe6-a034a7888f37")
+		)
+		(pin "13"
+			(uuid "c00aca0c-1231-4d81-b65d-011774c0df39")
+		)
+		(pin "14"
+			(uuid "1b1e9c97-55fe-4f3e-bca8-0f72d33c68f2")
+		)
+		(pin "15"
+			(uuid "34d574fb-50d3-4c11-851e-203906c6e010")
+		)
+		(pin "16"
+			(uuid "9a1147f0-2d22-4db6-99c4-0c547c3a2bf1")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J41")
 					(unit 1)
 				)
 			)
@@ -17344,7 +18507,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 351.79 180.34 0)
+		(at 326.39 180.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17352,8 +18515,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9b0be915-15d6-419d-be20-feeb79b588d6")
-		(property "Reference" "#PWR040"
-			(at 351.79 186.69 0)
+		(property "Reference" "#PWR032"
+			(at 326.39 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17362,7 +18525,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 351.79 184.15 0)
+			(at 326.39 184.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17370,7 +18533,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 351.79 180.34 0)
+			(at 326.39 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17379,7 +18542,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 351.79 180.34 0)
+			(at 326.39 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17388,7 +18551,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 351.79 180.34 0)
+			(at 326.39 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17402,7 +18565,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR040")
+					(reference "#PWR032")
 					(unit 1)
 				)
 			)
@@ -17411,7 +18574,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 384.81 180.34 0)
+		(at 370.84 180.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17419,8 +18582,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9d38a901-fe7e-41e3-af68-0cdcec330f04")
-		(property "Reference" "#PWR042"
-			(at 384.81 186.69 0)
+		(property "Reference" "#PWR038"
+			(at 370.84 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17429,7 +18592,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 384.81 184.15 0)
+			(at 370.84 184.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17437,7 +18600,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 384.81 180.34 0)
+			(at 370.84 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17446,7 +18609,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 384.81 180.34 0)
+			(at 370.84 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17455,7 +18618,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 384.81 180.34 0)
+			(at 370.84 180.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17469,7 +18632,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR042")
+					(reference "#PWR038")
 					(unit 1)
 				)
 			)
@@ -17484,7 +18647,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9d5eb513-b2c5-4d50-a6db-0375fa1363b7")
-		(property "Reference" "#PWR022"
+		(property "Reference" "#PWR024"
 			(at 278.13 120.65 0)
 			(effects
 				(font
@@ -17534,7 +18697,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR022")
+					(reference "#PWR024")
 					(unit 1)
 				)
 			)
@@ -17550,7 +18713,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9dacd5c7-0ea1-495d-aa77-3c4b2579909c")
-		(property "Reference" "R19"
+		(property "Reference" "R18"
 			(at 265.3284 234.4928 0)
 			(effects
 				(font
@@ -17631,7 +18794,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R19")
+					(reference "R18")
 					(unit 1)
 				)
 			)
@@ -17646,7 +18809,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9fb4dce1-2b6b-46ae-95b7-389ce6a4e565")
-		(property "Reference" "R7"
+		(property "Reference" "R5"
 			(at 154.1272 38.2016 0)
 			(effects
 				(font
@@ -17727,7 +18890,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R7")
+					(reference "R5")
 					(unit 1)
 				)
 			)
@@ -17742,7 +18905,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a26b393e-4fa4-4f79-b280-c32b2d88defb")
-		(property "Reference" "R25"
+		(property "Reference" "R7"
 			(at 195.58 72.39 90)
 			(effects
 				(font
@@ -17821,7 +18984,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R25")
+					(reference "R7")
 					(unit 1)
 				)
 			)
@@ -17836,7 +18999,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a284bbe4-4044-42ce-8f00-81fd1e2687bf")
-		(property "Reference" "D8"
+		(property "Reference" "D1"
 			(at 69.85 58.42 0)
 			(effects
 				(font
@@ -17915,7 +19078,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "D8")
+					(reference "D1")
 					(unit 1)
 				)
 			)
@@ -17930,7 +19093,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "a74b0e48-0f97-4463-bc32-28aced98e03e")
-		(property "Reference" "J7"
+		(property "Reference" "J3"
 			(at 46.4312 53.9496 0)
 			(effects
 				(font
@@ -18012,7 +19175,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J7")
+					(reference "J3")
 					(unit 1)
 				)
 			)
@@ -18044,7 +19207,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
 			(at 78.74 148.59 0)
 			(effects
 				(font
@@ -18095,7 +19258,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ad381013-9409-470d-a11f-cfef1e2ced0b")
-		(property "Reference" "D1"
+		(property "Reference" "D2"
 			(at 78.74 58.42 0)
 			(effects
 				(font
@@ -18174,7 +19337,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "D1")
+					(reference "D2")
 					(unit 1)
 				)
 			)
@@ -18255,7 +19418,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b5602fbc-000f-4fe2-b723-60cf1e7c9de2")
-		(property "Reference" "R34"
+		(property "Reference" "R13"
 			(at 195.58 87.63 90)
 			(effects
 				(font
@@ -18334,7 +19497,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R34")
+					(reference "R13")
 					(unit 1)
 				)
 			)
@@ -18342,7 +19505,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 288.29 162.56 0)
+		(at 238.76 162.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18350,8 +19513,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b8aac151-79fe-4861-ba5c-b2fb3739cfd5")
-		(property "Reference" "J12"
-			(at 289.56 161.2899 0)
+		(property "Reference" "J21"
+			(at 240.03 161.2899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18359,8 +19522,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 289.56 163.8299 0)
+		(property "Value" "EGT"
+			(at 240.03 163.8299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18369,7 +19532,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 288.29 162.56 0)
+			(at 238.76 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18378,7 +19541,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 288.29 162.56 0)
+			(at 238.76 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18387,7 +19550,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 288.29 162.56 0)
+			(at 238.76 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18407,7 +19570,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J12")
+					(reference "J21")
 					(unit 1)
 				)
 			)
@@ -18423,7 +19586,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "bb6b8914-1014-40e5-932c-d64e83a299a9")
-		(property "Reference" "#PWR08"
+		(property "Reference" "#PWR035"
 			(at 370.84 234.95 0)
 			(effects
 				(font
@@ -18473,7 +19636,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR08")
+					(reference "#PWR035")
 					(unit 1)
 				)
 			)
@@ -18488,7 +19651,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "bdbbf115-fe33-4634-9dce-6b9fc5671fa2")
-		(property "Reference" "R29"
+		(property "Reference" "R11"
 			(at 195.58 82.55 90)
 			(effects
 				(font
@@ -18567,7 +19730,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R29")
+					(reference "R11")
 					(unit 1)
 				)
 			)
@@ -18583,7 +19746,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "be44811f-17f1-4159-af34-094149414e61")
-		(property "Reference" "H5"
+		(property "Reference" "H1"
 			(at 389.89 234.9499 0)
 			(effects
 				(font
@@ -18658,220 +19821,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "H5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 102.87 88.9 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "bf042d66-c6a1-447e-bb5b-ae22f97b585b")
-		(property "Reference" "C11"
-			(at 103.632 84.0486 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 103.632 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
-			(at 103.8352 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 102.87 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 102.87 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" ""
-			(at 102.87 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 102.87 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 102.87 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7010fc9f-0e6e-4131-9c6c-40b6288f4433")
-		)
-		(pin "2"
-			(uuid "1c1beec3-53d1-4879-baa6-99cae510028f")
-		)
-		(instances
-			(project "UIP CONTROLLER"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "C11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector_Generic:Conn_01x09")
-		(at 186.182 135.636 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c061f120-bfe6-4054-8428-acc63e5197a5")
-		(property "Reference" "J8"
-			(at 191.77 135.636 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "DOUT"
-			(at 191.77 138.176 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical"
-			(at 186.182 135.636 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 186.182 135.636 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x09, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 186.182 135.636 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" ""
-			(at 186.182 135.636 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 186.182 135.636 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 186.182 135.636 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "a8f53be7-2f5a-4bcd-8837-0dcd28822557")
-		)
-		(pin "6"
-			(uuid "004e3270-9d61-41af-a452-e11de9c74334")
-		)
-		(pin "1"
-			(uuid "63788cf2-6bfd-4198-8bfa-b4f7646b9b57")
-		)
-		(pin "7"
-			(uuid "e7a48b2c-bb81-4235-9837-1e95bedad296")
-		)
-		(pin "4"
-			(uuid "597d5908-074c-4e9f-a66d-00ba17682057")
-		)
-		(pin "3"
-			(uuid "54d9f015-92d2-4294-a916-4f380a455398")
-		)
-		(pin "8"
-			(uuid "8064adb8-e291-481e-bc3f-b0efd1c2aad8")
-		)
-		(pin "5"
-			(uuid "276dd020-9621-4fac-8867-0c05dd2aa42f")
-		)
-		(pin "9"
-			(uuid "14884a2a-bfd0-4e48-8edb-5d49cbccadd0")
-		)
-		(instances
-			(project "Jet Ranger Radio Controller"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J8")
+					(reference "H1")
 					(unit 1)
 				)
 			)
@@ -18887,7 +19837,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c318196a-ee76-407a-bab3-d0669354b96a")
-		(property "Reference" "#PWR017"
+		(property "Reference" "#PWR018"
 			(at 280.67 118.11 0)
 			(effects
 				(font
@@ -18938,24 +19888,24 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR017")
+					(reference "#PWR018")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Connector:Conn_01x03_Socket")
-		(at 389.89 146.05 0)
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 256.54 259.08 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "c3e65de8-9b1a-4007-bf3d-7621f905993b")
-		(property "Reference" "J5"
-			(at 391.16 144.7799 0)
+		(uuid "c347a796-576c-4406-847b-5f9f1689f471")
+		(property "Reference" "J16"
+			(at 257.81 259.0799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18963,8 +19913,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 391.16 147.3199 0)
+		(property "Value" "BK_LIGHT"
+			(at 257.81 261.6199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18972,8 +19922,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 389.89 146.05 0)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 256.54 259.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18982,7 +19932,77 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 389.89 146.05 0)
+			(at 256.54 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 256.54 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "51a09362-48f2-4407-88e6-5c9df3b5c947")
+		)
+		(pin "1"
+			(uuid "d989c3c8-b47b-4513-96e9-938adad1f634")
+		)
+		(instances
+			(project ""
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Socket")
+		(at 375.92 146.05 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c3e65de8-9b1a-4007-bf3d-7621f905993b")
+		(property "Reference" "J30"
+			(at 377.19 144.7799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "GAS_PRODUCER"
+			(at 377.19 147.3199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
+			(at 375.92 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 375.92 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18991,7 +20011,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 389.89 146.05 0)
+			(at 375.92 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19011,7 +20031,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J5")
+					(reference "J30")
 					(unit 1)
 				)
 			)
@@ -19019,7 +20039,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 288.29 146.05 0)
+		(at 238.76 146.05 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19027,8 +20047,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c6146a77-0e73-43ca-b06c-159b74b72354")
-		(property "Reference" "J6"
-			(at 289.56 144.7799 0)
+		(property "Reference" "J20"
+			(at 240.03 144.7799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19036,8 +20056,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 289.56 147.3199 0)
+		(property "Value" "AIRSPEED"
+			(at 240.03 147.3199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19046,7 +20066,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 288.29 146.05 0)
+			(at 238.76 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19055,7 +20075,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 288.29 146.05 0)
+			(at 238.76 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19064,7 +20084,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 288.29 146.05 0)
+			(at 238.76 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19084,7 +20104,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J6")
+					(reference "J20")
 					(unit 1)
 				)
 			)
@@ -19100,7 +20120,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c681dd63-8e1f-44ae-a75f-970d821f7351")
-		(property "Reference" "J51"
+		(property "Reference" "J37"
 			(at 382.778 77.724 0)
 			(effects
 				(font
@@ -19179,7 +20199,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J51")
+					(reference "J37")
 					(unit 1)
 				)
 			)
@@ -19194,7 +20214,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c6a2c51d-30e8-4b75-952e-f3a365081d6e")
-		(property "Reference" "R28"
+		(property "Reference" "R10"
 			(at 195.58 80.01 90)
 			(effects
 				(font
@@ -19273,7 +20293,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R28")
+					(reference "R10")
 					(unit 1)
 				)
 			)
@@ -19288,7 +20308,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c75bf993-c6ba-412a-b52d-f70f9c2edcce")
-		(property "Reference" "J44"
+		(property "Reference" "J34"
 			(at 396.748 24.13 0)
 			(effects
 				(font
@@ -19389,7 +20409,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J44")
+					(reference "J34")
 					(unit 1)
 				)
 			)
@@ -19397,7 +20417,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 356.87 162.56 0)
+		(at 331.47 162.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19405,8 +20425,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c895566b-d6d7-463a-a9ce-d30073cff5c5")
-		(property "Reference" "J14"
-			(at 358.14 161.2899 0)
+		(property "Reference" "J27"
+			(at 332.74 161.2899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19414,8 +20434,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 358.14 163.8299 0)
+		(property "Value" "ENG_OIL_TEMP"
+			(at 332.74 163.8299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19424,7 +20444,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 356.87 162.56 0)
+			(at 331.47 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19433,7 +20453,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 356.87 162.56 0)
+			(at 331.47 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19442,7 +20462,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 356.87 162.56 0)
+			(at 331.47 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19462,7 +20482,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J14")
+					(reference "J27")
 					(unit 1)
 				)
 			)
@@ -19470,7 +20490,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 389.89 177.8 0)
+		(at 375.92 177.8 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19478,8 +20498,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "c997d7f8-fec9-4def-aa9b-49e346285b64")
-		(property "Reference" "J23"
-			(at 391.16 176.5299 0)
+		(property "Reference" "J32"
+			(at 377.19 176.5299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19487,8 +20507,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 391.16 179.0699 0)
+		(property "Value" "XMSN_OIL_TEMP"
+			(at 377.19 179.0699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19497,7 +20517,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 389.89 177.8 0)
+			(at 375.92 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19506,7 +20526,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 389.89 177.8 0)
+			(at 375.92 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19515,7 +20535,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 389.89 177.8 0)
+			(at 375.92 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19535,7 +20555,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J23")
+					(reference "J32")
 					(unit 1)
 				)
 			)
@@ -19550,7 +20570,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ca231fec-8e95-4868-8df8-cb62387377d1")
-		(property "Reference" "R35"
+		(property "Reference" "R14"
 			(at 195.58 90.17 90)
 			(effects
 				(font
@@ -19629,7 +20649,74 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R35")
+					(reference "R14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_name "GNDD_2")
+		(lib_id "power:GNDD")
+		(at 83.82 153.67 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "cb876465-8fce-4673-bef6-9093cd62a870")
+		(property "Reference" "#PWR06"
+			(at 83.82 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GNDD"
+			(at 83.82 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 83.82 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 83.82 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
+			(at 83.82 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e9f2746a-5364-4c62-beff-b394308f7e3e")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR06")
 					(unit 1)
 				)
 			)
@@ -19644,7 +20731,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "cc035d26-48db-461f-a370-581026eb3434")
-		(property "Reference" "R2"
+		(property "Reference" "R4"
 			(at 90.6272 38.2016 0)
 			(effects
 				(font
@@ -19725,7 +20812,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R2")
+					(reference "R4")
 					(unit 1)
 				)
 			)
@@ -19734,7 +20821,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 283.21 165.1 0)
+		(at 233.68 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19742,8 +20829,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "cc527f23-0add-4098-b66a-e5d83ed9deb7")
-		(property "Reference" "#PWR026"
-			(at 283.21 171.45 0)
+		(property "Reference" "#PWR022"
+			(at 233.68 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19752,7 +20839,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 283.21 168.91 0)
+			(at 233.68 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19760,7 +20847,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 283.21 165.1 0)
+			(at 233.68 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19769,7 +20856,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 283.21 165.1 0)
+			(at 233.68 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19778,7 +20865,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 283.21 165.1 0)
+			(at 233.68 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19792,7 +20879,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR026")
+					(reference "#PWR022")
 					(unit 1)
 				)
 			)
@@ -19808,7 +20895,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "cc98f78e-cabc-415e-88a1-e294032aa369")
-		(property "Reference" "J15"
+		(property "Reference" "J38"
 			(at 382.778 87.884 0)
 			(effects
 				(font
@@ -19887,103 +20974,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J15")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 95.504 88.9 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "ccdcd481-a646-41d1-80a0-93115364f0d1")
-		(property "Reference" "C10"
-			(at 96.266 84.0486 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 96.266 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
-			(at 96.4692 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 95.504 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 95.504 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" ""
-			(at 95.504 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 95.504 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 95.504 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ff7749f3-378a-40d1-a36c-936cb2f4178b")
-		)
-		(pin "2"
-			(uuid "96e13343-cb46-4299-bffc-4a8a57791ae6")
-		)
-		(instances
-			(project "UIP CONTROLLER"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "C10")
+					(reference "J38")
 					(unit 1)
 				)
 			)
@@ -19992,7 +20983,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 314.96 165.1 0)
+		(at 280.67 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20001,7 +20992,7 @@
 		(fields_autoplaced yes)
 		(uuid "cd727371-018b-49dc-a31a-963398f6748b")
 		(property "Reference" "#PWR027"
-			(at 314.96 171.45 0)
+			(at 280.67 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20010,7 +21001,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 314.96 168.91 0)
+			(at 280.67 168.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20018,7 +21009,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 314.96 165.1 0)
+			(at 280.67 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20027,7 +21018,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 314.96 165.1 0)
+			(at 280.67 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20036,7 +21027,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 314.96 165.1 0)
+			(at 280.67 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20065,7 +21056,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "cff729e9-389f-4665-a93d-8a8ba3fe55ac")
-		(property "Reference" "#PWR04"
+		(property "Reference" "#PWR016"
 			(at 260.35 110.49 0)
 			(effects
 				(font
@@ -20115,7 +21106,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR04")
+					(reference "#PWR016")
 					(unit 1)
 				)
 			)
@@ -20197,7 +21188,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d07b8e74-3dbe-4c7e-9e8e-0f30d9d8ce9e")
-		(property "Reference" "#PWR03"
+		(property "Reference" "#PWR029"
 			(at 314.96 233.68 0)
 			(effects
 				(font
@@ -20247,7 +21238,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR03")
+					(reference "#PWR029")
 					(unit 1)
 				)
 			)
@@ -20263,7 +21254,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d124a7a2-72e9-405b-93a0-2874bb596f25")
-		(property "Reference" "H2"
+		(property "Reference" "H4"
 			(at 400.05 242.5699 0)
 			(effects
 				(font
@@ -20338,7 +21329,77 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "H2")
+					(reference "H4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 220.98 259.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d27214cc-480f-4f4e-b5eb-9bf33d8d91cf")
+		(property "Reference" "J7"
+			(at 222.25 259.0799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "BK_LIGHT"
+			(at 222.25 261.6199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 220.98 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 220.98 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 220.98 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "b5b46588-dff3-468f-9952-a08d054c0f17")
+		)
+		(pin "1"
+			(uuid "0c947e61-98ce-4666-ac46-03bb05c5d8b4")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J7")
 					(unit 1)
 				)
 			)
@@ -20353,7 +21414,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d2846111-f12e-4852-acf6-3de598b10a0a")
-		(property "Reference" "#PWR09"
+		(property "Reference" "#PWR04"
 			(at 80.01 57.15 0)
 			(effects
 				(font
@@ -20403,7 +21464,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR09")
+					(reference "#PWR04")
 					(unit 1)
 				)
 			)
@@ -20419,7 +21480,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d74d7cea-2203-47a8-bc42-07b8387f2580")
-		(property "Reference" "J42"
+		(property "Reference" "J13"
 			(at 246.38 82.5499 0)
 			(effects
 				(font
@@ -20518,7 +21579,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J42")
+					(reference "J13")
 					(unit 1)
 				)
 			)
@@ -20534,7 +21595,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d821ae6e-6af1-4b4b-a3ff-7e850d9aeb69")
-		(property "Reference" "#PWR02"
+		(property "Reference" "#PWR025"
 			(at 307.34 236.22 0)
 			(effects
 				(font
@@ -20584,24 +21645,24 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR02")
+					(reference "#PWR025")
 					(unit 1)
 				)
 			)
 		)
 	)
 	(symbol
-		(lib_id "Connector:Conn_01x16_Socket")
-		(at 104.14 223.52 0)
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 256.54 278.13 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "dad90c22-d6ff-46d2-88d5-3fe4f91f80a7")
-		(property "Reference" "J11"
-			(at 105.41 223.5199 0)
+		(uuid "d9101279-b55a-4cc0-9db9-ef56ab770b91")
+		(property "Reference" "J19"
+			(at 257.81 278.1299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20609,8 +21670,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "RHS_ANNUC"
-			(at 105.41 226.0599 0)
+		(property "Value" "BK_LIGHT"
+			(at 257.81 280.6699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20618,8 +21679,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 104.14 223.52 0)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 256.54 278.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20628,7 +21689,77 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 104.14 223.52 0)
+			(at 256.54 278.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 256.54 278.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "7c8d072c-5870-4ac0-8c15-6333faf6b161")
+		)
+		(pin "1"
+			(uuid "e07538eb-54c5-460d-98d9-239d91de9a83")
+		)
+		(instances
+			(project "Jet Ranger Front Panel Servo"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x16_Socket")
+		(at 143.51 226.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dad90c22-d6ff-46d2-88d5-3fe4f91f80a7")
+		(property "Reference" "J5"
+			(at 144.78 226.0599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "RHS_ANNUC"
+			(at 144.78 228.5999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical"
+			(at 143.51 226.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 143.51 226.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20637,7 +21768,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x16, script generated"
-			(at 104.14 223.52 0)
+			(at 143.51 226.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20696,7 +21827,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J11")
+					(reference "J5")
 					(unit 1)
 				)
 			)
@@ -20704,7 +21835,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 288.29 177.8 0)
+		(at 238.76 177.8 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20712,8 +21843,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "db1adf3c-04f7-4dcd-b181-a60830dee1df")
-		(property "Reference" "J17"
-			(at 289.56 176.5299 0)
+		(property "Reference" "J22"
+			(at 240.03 176.5299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20721,8 +21852,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 289.56 179.0699 0)
+		(property "Value" "TURBINE_SPEED"
+			(at 240.03 179.0699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20731,7 +21862,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 288.29 177.8 0)
+			(at 238.76 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20740,7 +21871,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 288.29 177.8 0)
+			(at 238.76 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20749,7 +21880,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 288.29 177.8 0)
+			(at 238.76 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20769,7 +21900,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J17")
+					(reference "J22")
 					(unit 1)
 				)
 			)
@@ -20784,7 +21915,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "dbd62777-a145-4418-bbee-26d459837859")
-		(property "Reference" "R12"
+		(property "Reference" "R2"
 			(at 72.8472 38.2016 0)
 			(effects
 				(font
@@ -20865,7 +21996,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R12")
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -20880,7 +22011,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "dc5c52ce-6cc4-46f8-995c-319b45a9598f")
-		(property "Reference" "#PWR07"
+		(property "Reference" "#PWR01"
 			(at 33.02 53.34 0)
 			(effects
 				(font
@@ -20931,7 +22062,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR07")
+					(reference "#PWR01")
 					(unit 1)
 				)
 			)
@@ -20939,7 +22070,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 320.04 162.56 0)
+		(at 285.75 162.56 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -20947,8 +22078,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "dd583cc7-4f2f-4d1b-9fa7-8a50bc7051c4")
-		(property "Reference" "J13"
-			(at 321.31 161.2899 0)
+		(property "Reference" "J24"
+			(at 287.02 161.2899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20956,8 +22087,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 321.31 163.8299 0)
+		(property "Value" "ENG_TORQUE"
+			(at 287.02 163.8299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20966,7 +22097,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 320.04 162.56 0)
+			(at 285.75 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20975,7 +22106,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 320.04 162.56 0)
+			(at 285.75 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20984,7 +22115,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 320.04 162.56 0)
+			(at 285.75 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21004,7 +22135,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J13")
+					(reference "J24")
 					(unit 1)
 				)
 			)
@@ -21020,7 +22151,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "de927b73-ae39-4328-9896-00107ac8f579")
-		(property "Reference" "R21"
+		(property "Reference" "R19"
 			(at 272.2372 241.1984 0)
 			(effects
 				(font
@@ -21101,7 +22232,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R21")
+					(reference "R19")
 					(unit 1)
 				)
 			)
@@ -21117,7 +22248,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e3992448-6e59-4edc-b135-df9447d20709")
-		(property "Reference" "J40"
+		(property "Reference" "J14"
 			(at 246.38 105.4099 0)
 			(effects
 				(font
@@ -21216,7 +22347,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J40")
+					(reference "J14")
 					(unit 1)
 				)
 			)
@@ -21232,7 +22363,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e4e0ff89-0b87-4a52-8010-a294484464d1")
-		(property "Reference" "#PWR029"
+		(property "Reference" "#PWR040"
 			(at 379.73 52.07 0)
 			(effects
 				(font
@@ -21282,7 +22413,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR029")
+					(reference "#PWR040")
 					(unit 1)
 				)
 			)
@@ -21297,7 +22428,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e5d10c5c-2c13-4179-9110-120f6def996e")
-		(property "Reference" "#PWR010"
+		(property "Reference" "#PWR08"
 			(at 88.9 57.15 0)
 			(effects
 				(font
@@ -21347,7 +22478,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR010")
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -21363,7 +22494,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ea9cf4a6-a97e-456c-9626-86301684f0d1")
-		(property "Reference" "Q5"
+		(property "Reference" "Q1"
 			(at 284.48 234.9499 0)
 			(effects
 				(font
@@ -21825,7 +22956,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "Q5")
+					(reference "Q1")
 					(unit 1)
 				)
 			)
@@ -21906,7 +23037,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ef4b6bad-a002-42b2-a158-5014d28d98ed")
-		(property "Reference" "R27"
+		(property "Reference" "R9"
 			(at 195.58 77.47 90)
 			(effects
 				(font
@@ -21985,7 +23116,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R27")
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -22001,7 +23132,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f02d3105-3566-4740-9a24-da2b4ddab38f")
-		(property "Reference" "#PWR05"
+		(property "Reference" "#PWR034"
 			(at 351.79 232.41 0)
 			(effects
 				(font
@@ -22052,7 +23183,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR05")
+					(reference "#PWR034")
 					(unit 1)
 				)
 			)
@@ -22060,7 +23191,7 @@
 	)
 	(symbol
 		(lib_id "Switch:SW_Push")
-		(at 105.41 153.67 0)
+		(at 109.22 153.67 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -22068,8 +23199,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f1733494-9fc2-4f9c-b87d-77324d2c2b90")
-		(property "Reference" "SW2"
-			(at 105.41 146.05 0)
+		(property "Reference" "SW3"
+			(at 109.22 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22077,15 +23208,15 @@
 			)
 		)
 		(property "Value" "WARNING_MUTE"
-			(at 105.41 148.59 0)
+			(at 109.22 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 105.41 148.59 0)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-02A_1x02_P2.54mm_Vertical"
+			(at 109.22 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22094,7 +23225,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 105.41 148.59 0)
+			(at 109.22 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22103,7 +23234,7 @@
 			)
 		)
 		(property "Description" "Push button switch, generic, two pins"
-			(at 105.41 153.67 0)
+			(at 109.22 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22120,7 +23251,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "SW2")
+					(reference "SW3")
 					(unit 1)
 				)
 			)
@@ -22128,7 +23259,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_Array:ULN2803A")
-		(at 171.45 177.8 0)
+		(at 172.72 176.53 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -22137,7 +23268,7 @@
 		(fields_autoplaced yes)
 		(uuid "f479563e-5d8b-4534-9cd6-bf6dc5f9bf71")
 		(property "Reference" "U2"
-			(at 171.45 163.068 0)
+			(at 172.72 161.798 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22145,7 +23276,7 @@
 			)
 		)
 		(property "Value" "ULN2803A"
-			(at 171.45 165.608 0)
+			(at 172.72 164.338 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22153,7 +23284,7 @@
 			)
 		)
 		(property "Footprint" "Package_DIP:DIP-18_W7.62mm"
-			(at 172.72 194.31 0)
+			(at 173.99 193.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22163,7 +23294,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/uln2803a.pdf"
-			(at 173.99 182.88 0)
+			(at 175.26 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22172,7 +23303,7 @@
 			)
 		)
 		(property "Description" "Darlington Transistor Arrays, SOIC18/DIP18"
-			(at 171.45 177.8 0)
+			(at 172.72 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22181,7 +23312,7 @@
 			)
 		)
 		(property "LCSC" ""
-			(at 171.45 177.8 0)
+			(at 172.72 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22190,7 +23321,7 @@
 			)
 		)
 		(property "Sim.Device" ""
-			(at 171.45 177.8 0)
+			(at 172.72 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22199,7 +23330,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 171.45 177.8 0)
+			(at 172.72 176.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22279,7 +23410,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f4f77f74-dcc8-4381-beb1-fc59bcf8ede5")
-		(property "Reference" "#PWR019"
+		(property "Reference" "#PWR03"
 			(at 71.12 57.15 0)
 			(effects
 				(font
@@ -22329,7 +23460,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR019")
+					(reference "#PWR03")
 					(unit 1)
 				)
 			)
@@ -22344,7 +23475,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f99685e4-7e8b-4416-82c4-a6621ecc4b51")
-		(property "Reference" "R26"
+		(property "Reference" "R8"
 			(at 195.58 74.93 90)
 			(effects
 				(font
@@ -22423,103 +23554,7 @@
 		(instances
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "R26")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C")
-		(at 110.744 88.9 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "fdadbdfa-85e7-4e85-9901-06e2625ee7f6")
-		(property "Reference" "C1"
-			(at 111.506 84.0486 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "0.1uF"
-			(at 111.506 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D3.0mm_W2.0mm_P2.50mm"
-			(at 111.7092 92.71 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 110.744 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 110.744 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" ""
-			(at 110.744 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 110.744 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 110.744 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1c77b800-9734-4b12-a727-2cc7eb438f5b")
-		)
-		(pin "2"
-			(uuid "a5b14134-785b-40c4-a8a8-9e140730d2d8")
-		)
-		(instances
-			(project "LIP CONTROLLER V004"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "C1")
+					(reference "R8")
 					(unit 1)
 				)
 			)
@@ -22527,7 +23562,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 356.87 177.8 0)
+		(at 331.47 177.8 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -22535,8 +23570,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fe48dd11-f2b9-4686-9338-2f5e9bf574bb")
-		(property "Reference" "J21"
-			(at 358.14 176.5299 0)
+		(property "Reference" "J28"
+			(at 332.74 176.5299 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22544,8 +23579,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 358.14 179.0699 0)
+		(property "Value" "FUEL_LEVEL"
+			(at 332.74 179.0699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22554,7 +23589,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 356.87 177.8 0)
+			(at 331.47 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22563,7 +23598,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 356.87 177.8 0)
+			(at 331.47 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22572,7 +23607,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 356.87 177.8 0)
+			(at 331.47 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22592,7 +23627,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J21")
+					(reference "J28")
 					(unit 1)
 				)
 			)
@@ -22600,7 +23635,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 389.89 194.31 0)
+		(at 375.92 194.31 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -22608,8 +23643,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ff284c9b-c2dd-4b84-a9f7-e7876aaffdfa")
-		(property "Reference" "J24"
-			(at 391.16 193.0399 0)
+		(property "Reference" "J33"
+			(at 377.19 193.0399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22617,8 +23652,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "CON"
-			(at 391.16 195.5799 0)
+		(property "Value" "XMSN_OIL_PRESSURE"
+			(at 377.19 195.5799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22627,7 +23662,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 389.89 194.31 0)
+			(at 375.92 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22636,7 +23671,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 389.89 194.31 0)
+			(at 375.92 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22645,7 +23680,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 389.89 194.31 0)
+			(at 375.92 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22665,7 +23700,7 @@
 		(instances
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "J24")
+					(reference "J33")
 					(unit 1)
 				)
 			)
@@ -22674,7 +23709,7 @@
 	(symbol
 		(lib_name "GNDD_1")
 		(lib_id "power:GNDD")
-		(at 351.79 148.59 0)
+		(at 326.39 148.59 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -22682,8 +23717,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "ffaf3f58-1d02-4de3-8912-decdaaf9419d")
-		(property "Reference" "#PWR012"
-			(at 351.79 154.94 0)
+		(property "Reference" "#PWR030"
+			(at 326.39 154.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22692,7 +23727,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 351.79 152.4 0)
+			(at 326.39 152.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22700,7 +23735,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 351.79 148.59 0)
+			(at 326.39 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22709,7 +23744,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 351.79 148.59 0)
+			(at 326.39 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22718,7 +23753,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
-			(at 351.79 148.59 0)
+			(at 326.39 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22732,7 +23767,7 @@
 		(instances
 			(project ""
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR012")
+					(reference "#PWR030")
 					(unit 1)
 				)
 			)

@@ -1,5 +1,5 @@
 
-(rules PCB Jet Ranger Radio Controller
+(rules PCB Jet Ranger Front Panel Servo
   (snap_angle 
     fortyfive_degree
   )
@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 778)
+    (start_pass_no 983)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,26 +63,27 @@
     )
   )
   (class "kicad_default"
-    "Net-(D1-A)" GND "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "/+5v_IN" "/+12v-IN" "/MAX_7219-LOAD"
-    "/MAX_7219-DIN" "/INT_5V" SCLK "Net-(J10-Pin_1)" SDA SCL "Net-(J45-Pin_2)" "/D0_OUT"
-    "Net-(J10-Pin_3)" "/PIN_20" "ES1_RST" "/D1_OUT" ROW3 MISO /COL1 "/MAX_7219-CLOCK"
-    /RESET MOSI "/GREEN_LED" "/RED_LED" SS "/D4_OUT" "/D7_OUT" "Net-(U1-INT)"
-    "unconnected-(U1-NC-PadB4)" "/BACKLIGHT_PWM" /SC5 +3V3 /D1 /D0 /VIN "unconnected-(J40-Pin_1-Pad1)"
-    /AREF "/RESET_pin" "Net-(D8-A)" "/D2_OUT" "Net-(Q5-G)" COL0 "Net-(J10-Pin_2)" /IORF
-    "/D5_OUT" "/CATHODE_01" "Net-(U2-ISET)" /ROW9 "/D3_OUT" /COL7 "/ANNODE_01" "/D6_OUT"
-    "Net-(J10-Pin_5)" /COL3 "/ANNODE_03" "/CATHODE_03" "/CATHODE_02" "/ANNODE_02" /SD5 "/CATHODE_06"
-    "/CATHODE_05" "/ANNODE_04" "/CATHODE_07" /SC4 "Net-(J7-Pin_1)" /COL5 /ROW5 /COL9
-    "/PIN_21" "/COMM1_VOL" /ROW7 "Net-(J10-Pin_4)" /SD4 /SC6 "/CATHODE_08" /SD6
-    /COL6 /COL4 "Net-(A1-D16{slash}TX2)" /ROW4 /COL8 /ROW8 /COL2 "/ANNODE_00"
-    "Net-(J8-Pin_4)" "Net-(J8-Pin_7)" /ROW6 /COL10 "/NAV2_VOL" "/NAV1_VOL" "Net-(J8-Pin_3)" "/ANNODE_07"
-    "/ANNODE_05" "/ANNODE_06" "/CATHODE_04" "unconnected-(U2-DOUT-Pad24)" /SD7 /SC7 "Net-(J8-Pin_2)" "Net-(J8-Pin_8)"
-    "Net-(J8-Pin_6)" "Net-(J8-Pin_5)" /SC3 /SC2 /SD2 /SD3 "Net-(J8-Pin_9)" "/GPS_TX"
-    "I2C_SEL_A2" "I2C_SEL_A1" "/COMM2_VOL" "I2C_SEL_A0" ROW0 ROW2 "Net-(J44-Pin_7)" "Net-(A1-D17{slash}RX2)"
-    "Net-(A1-D19{slash}RX1)" ROW1 "Net-(J44-Pin_8)" "Net-(U5-C1-)" "Net-(J45-Pin_4)" "Net-(U5-C1+)" "Net-(U5-C2-)" "Net-(U5-C2+)"
-    "Net-(J42-Pin_5)" "Net-(J45-Pin_1)" "Net-(J45-Pin_5)" "Net-(U5-VS-)" "Net-(U5-VS+)" "Net-(J45-Pin_6)" "/NAV2_A" "NAV_OLED_SC"
-    "/COMM1_B" "/COMM1_A" "/BACKLIGHT_PANELS" "/NAV1_A" "COMM_OLED_SD" "unconnected-(J5-Pin_26-Pad26)" "/NAV2_B" "/COMM2_B"
-    "/NAV1_B" "COMM_OLED_SC" "NAV_OLED_SD" "/COMM2_A" "unconnected-(U5-R1OUT-Pad12)" "unconnected-(U5-R1IN-Pad13)" "unconnected-(U5-R2OUT-Pad9)" "unconnected-(U5-R2IN-Pad8)"
-    "Net-(J3-Pin_1)" "unconnected-(U5-T2OUT-Pad7)" "unconnected-(U5-T2IN-Pad10)"
+    "Net-(D1-A)" GND "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "/+5v_IN" "/+12v-IN" "/PWM_GAS_PRODUCER"
+    "/PWM_XMSN_OIL_TEMP" "/INT_5V" SCLK /ROW3 SDA SCL "/PWM_AIRSPEED" "/PWM_EGT"
+    "/PWM_ROTOR_SPEED" "/PIN_20" "ES1_RST" "/D_Trans_Oil_Temp" "Net-(J12-Pin_1)" MISO /COL1 "/PWM_FUEL_LEVEL"
+    /RESET MOSI "/GREEN_LED" "/RED_LED" SS "/D_Battery_Temp" "/D_Baggage_Door" "/PWM_ENG_TORQUE"
+    "/PWM_RADAR_ALT" "/BACKLIGHT_PWM" "/D_Fuel_Pump" +3V3 /D1 /D0 /VIN "/D_Battery_Hot"
+    /AREF "/RESET_pin" "/PWM_XMSN_OIL_PRESSURE" "/D_SC_Fail" "/D_Trans_Oil_Pressure" "/D_Engine_Out" "/D_AFT_Fuel_Filter" /IORF
+    "/PWM_TURBINE_SPEED" "/PWM_ENG_OIL_TEMP" /COL0 /ROW9 "/D_Engine_Chip" /COL7 "/D_Rotor_RPM_Low" "/SW_TOT_CLEAR"
+    "/D_Trans_Chip" /COL3 "/D_T{slash}R_Chip" "/SW_FUEL_VALVE" "/SW_WARNING_MUTE" "/D_Low_Fuel" "/PWM_ENG_OIL_PRESS" /ROW0
+    /ROW2 /ROW1 "/PWM_VVI" "/D_Gen_Fail" /COL5 /ROW5 /COL9 "/PIN_21"
+    "Net-(D5-A)" /ROW7 "/+5v_SERVO" "/SC_Fail" /12V /GroupB9 "/PB_GND" /COL6
+    /COL4 "Net-(A1-D16{slash}TX2)" /ROW4 /COL8 /ROW8 /COL2 "/Low_Fuel" /GroupB6
+    "/Gen_Fail" /ROW6 /COL10 /GroupB3 /GroupB5 /GroupB8 "/AFT_Fuel_Filter" "/Fuel_Pump"
+    "/T{slash}R_Chip" "/Trans_Oil_Temp" "/Battery_Hot" "/Trans_Oil_Pressure" "/Engine_Chip" "/Trans_Chip" "/Engine_Out" "/Baggage_Door"
+    "/Battery_Temp" "/Rotor_RPM_Low" "unconnected-(J14-Pin_1-Pad1)" "Net-(Q1-G)" "Net-(U3-INT)" "unconnected-(U2-I8-Pad8)" "/GPS_TX" "unconnected-(U2-O8-Pad11)"
+    "unconnected-(U3-NC-PadB4)" "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" "/BACKLIGHT_PANELS" "Net-(J3-Pin_1)" "unconnected-(J39-Pin_6-Pad6)" "unconnected-(J39-Pin_7-Pad7)" "unconnected-(J39-Pin_3-Pad3)"
+    "unconnected-(J39-Pin_2-Pad2)" "unconnected-(J39-Pin_11-Pad11)" "unconnected-(J39-Pin_12-Pad12)" "unconnected-(J39-Pin_5-Pad5)" "unconnected-(J39-Pin_4-Pad4)" "unconnected-(J39-Pin_8-Pad8)" "unconnected-(J39-Pin_15-Pad15)" "unconnected-(J39-Pin_16-Pad16)"
+    "unconnected-(J39-Pin_10-Pad10)" "unconnected-(J39-Pin_9-Pad9)" "unconnected-(J39-Pin_14-Pad14)" "unconnected-(J39-Pin_1-Pad1)" "unconnected-(J39-Pin_13-Pad13)" "unconnected-(J40-Pin_4-Pad4)" "unconnected-(J40-Pin_11-Pad11)" "unconnected-(J40-Pin_2-Pad2)"
+    "unconnected-(J40-Pin_5-Pad5)" "unconnected-(J40-Pin_7-Pad7)" "unconnected-(J40-Pin_16-Pad16)" "unconnected-(J40-Pin_6-Pad6)" "unconnected-(J40-Pin_3-Pad3)" "unconnected-(J40-Pin_13-Pad13)" "unconnected-(J40-Pin_12-Pad12)" "unconnected-(J40-Pin_14-Pad14)"
+    "unconnected-(J40-Pin_15-Pad15)" "unconnected-(J40-Pin_10-Pad10)" "unconnected-(J40-Pin_9-Pad9)" "unconnected-(J40-Pin_1-Pad1)" "unconnected-(J40-Pin_8-Pad8)" "unconnected-(J41-Pin_16-Pad16)" "unconnected-(J41-Pin_4-Pad4)" "unconnected-(J41-Pin_8-Pad8)"
+    "unconnected-(J41-Pin_7-Pad7)" "unconnected-(J41-Pin_10-Pad10)" "unconnected-(J41-Pin_11-Pad11)" "unconnected-(J41-Pin_14-Pad14)" "unconnected-(J41-Pin_9-Pad9)" "unconnected-(J41-Pin_3-Pad3)" "unconnected-(J41-Pin_15-Pad15)" "unconnected-(J41-Pin_5-Pad5)"
+    "unconnected-(J41-Pin_6-Pad6)" "unconnected-(J41-Pin_1-Pad1)" "unconnected-(J41-Pin_12-Pad12)" "unconnected-(J41-Pin_13-Pad13)" "unconnected-(J41-Pin_2-Pad2)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
