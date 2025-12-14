@@ -1,5 +1,5 @@
 
-(rules PCB Jet Ranger Prod Radio Controller
+(rules PCB Jet Ranger Upper Controller
   (snap_angle 
     fortyfive_degree
   )
@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 972)
+    (start_pass_no 1424)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,26 +63,24 @@
     )
   )
   (class "kicad_default"
-    "Net-(D1-A)" GND "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "/+5v_IN" "/+12v-IN" "/MAX_7219-LOAD"
-    "/MAX_7219-DIN" "/INT_5V" SCLK "/CRS_A" SDA SCL "Net-(J45-Pin_2)" "/D0_OUT"
-    COL1 "/PIN_20" "ES1_RST" "/D1_OUT" ROW3 MISO "/IAS_B" "/MAX_7219-CLOCK"
-    /RESET MOSI "/GREEN_LED" "/RED_LED" SS "/D4_OUT" "/D7_OUT" "Net-(U1-INT)"
-    "unconnected-(U1-NC-PadB4)" "/BACKLIGHT_PWM" /SC5 +3V3 /D1 /D0 /VIN "unconnected-(J40-Pin_1-Pad1)"
-    /AREF "/RESET_pin" "Net-(D8-A)" "/D2_OUT" "Net-(Q5-G)" COL0 "/ALT_A" /IORF
-    "/D5_OUT" "/CATHODE_01" "Net-(U2-ISET)" "/VS_A" "/D3_OUT" "/ANNODE_01" "/D6_OUT" "/VS_B"
-    /COL3 "/ANNODE_03" "/CATHODE_03" "/CATHODE_02" "/ANNODE_02" /SD5 "/CATHODE_06" "/CATHODE_05"
-    "/ANNODE_04" "/CATHODE_07" /SC4 "Net-(J7-Pin_1)" "/CRS_B" "/PIN_21" "/COMM1_VOL" COL2
-    "/HDG_A" /SD4 /SC6 "/IAS_A" /SD6 "Net-(A1-D16{slash}TX2)" "unconnected-(A1-PadD48)" "/ALT_B"
-    "/HDG_B" "/ANNODE_00" "Net-(J8-Pin_4)" "Net-(J8-Pin_7)" "/CATHODE_00" "/NAV2_VOL" "/NAV1_VOL" "Net-(J8-Pin_3)"
-    "/ANNODE_07" "/ANNODE_05" "/ANNODE_06" "/CATHODE_04" "unconnected-(U2-DOUT-Pad24)" /SD7 /SC7 "/AP_MAG_SWITCH_COIL"
-    "Net-(J8-Pin_8)" "Net-(J8-Pin_6)" "Net-(J8-Pin_5)" /SC3 "/AP_OLED_SC" "unconnected-(J12-Pin_30-Pad30)" /SD3 "Net-(J8-Pin_9)"
-    "/GPS_TX" "I2C_SEL_A2" "I2C_SEL_A1" "/COMM2_VOL" "I2C_SEL_A0" ROW0 ROW2 "Net-(J44-Pin_7)"
-    "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" ROW1 "Net-(J44-Pin_8)" "Net-(U5-C1-)" "Net-(J45-Pin_4)" "Net-(U5-C1+)" "Net-(U5-C2-)"
-    "Net-(U5-C2+)" "Net-(J42-Pin_5)" "Net-(J45-Pin_1)" "Net-(J45-Pin_5)" "Net-(U5-VS-)" "Net-(U5-VS+)" "Net-(J45-Pin_6)" "/NAV2_A"
-    "NAV_OLED_SC" "/COMM1_B" "/COMM1_A" "/BACKLIGHT_PANELS" "/NAV1_A" "COMM_OLED_SD" "unconnected-(J5-Pin_26-Pad26)" "/NAV2_B"
-    "/COMM2_B" "/NAV1_B" "COMM_OLED_SC" "NAV_OLED_SD" "/COMM2_A" "unconnected-(U5-R1OUT-Pad12)" "unconnected-(U5-R1IN-Pad13)" "unconnected-(U5-R2OUT-Pad9)"
-    "unconnected-(U5-R2IN-Pad8)" "Net-(J3-Pin_1)" "unconnected-(U5-T2OUT-Pad7)" "unconnected-(U5-T2IN-Pad10)" "unconnected-(J12-Pin_31-Pad31)" "unconnected-(J12-Pin_34-Pad34)" "unconnected-(J12-Pin_32-Pad32)" "/AP_OLED_SD"
-    "unconnected-(J12-Pin_33-Pad33)"
+    "Net-(D1-A)" GND "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "/+5v_IN" "/+12v-IN" /COL6
+    /ROW13 "/INT_5V" SCLK /ROW11 SDA SCL "Net-(J45-Pin_2)" /COL4
+    /ROW3 "/PIN_20" "ES1_RST" /COL1 "Net-(A1-D2_INT0)" MISO /COL0 "Net-(J41-Pin_5)"
+    /RESET MOSI "/GREEN_LED" "/RED_LED" SS /ROW4 "Net-(J41-Pin_1)" "Net-(U1-INT)"
+    "unconnected-(U1-NC-PadB4)" "/BACKLIGHT_PWM" /COL8 +3V3 /D1 /D0 /VIN "unconnected-(J40-Pin_1-Pad1)"
+    /AREF "/RESET_pin" "Net-(D8-A)" "Net-(J41-Pin_6)" "Net-(Q5-G)" "Net-(J42-Pin_1)" /ROW8 /IORF
+    /ROW9 "Net-(A1-D3_INT1)" "/KEYPAD_3" "Net-(J41-Pin_7)" /COL7 "/KEYPAD_7" "Net-(J41-Pin_4)" "Net-(J41-Pin_3)"
+    /COL3 /COL2 /ROW14 /ROW10 "/KEYPAD_1" "Net-(J41-Pin_2)" /ROW12 /ROW6
+    /COL5 /ROW5 "Net-(J41-Pin_8)" "Net-(J7-Pin_1)" "/KEYPAD_2" "/PIN_21" /COL10 /COL9
+    "/KEYPAD_6" /ROW0 /ROW2 /ROW1 "Net-(J44-Pin_5)" "Net-(A1-D16{slash}TX2)" "/KEYPAD_5" /ROW7
+    /ROW15 "/GPS_TX" "Net-(J44-Pin_7)" "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" "Net-(J44-Pin_8)" "Net-(J45-Pin_4)" "unconnected-(J6-Pin_8-Pad8)"
+    "Net-(J45-Pin_1)" "Net-(J45-Pin_5)" "Net-(J45-Pin_6)" "/BACKLIGHT_PANELS" "Net-(J8-Pin_6)" "Net-(J8-Pin_5)" "Net-(J8-Pin_9)" "Net-(J8-Pin_2)"
+    "Net-(J8-Pin_8)" "Net-(J8-Pin_4)" "Net-(J8-Pin_11)" "Net-(J8-Pin_10)" "Net-(J8-Pin_3)" "Net-(J8-Pin_1)" "Net-(J8-Pin_12)" "Net-(J8-Pin_7)"
+    "Net-(J10-Pin_5)" "Net-(J10-Pin_6)" "Net-(J10-Pin_4)" "Net-(J10-Pin_2)" "Net-(J10-Pin_12)" "Net-(J10-Pin_7)" "Net-(J10-Pin_9)" "Net-(J10-Pin_11)"
+    "Net-(J10-Pin_8)" "Net-(J10-Pin_10)" "Net-(J10-Pin_1)" "Net-(J10-Pin_3)" "Net-(J12-Pin_18)" "Net-(J12-Pin_21)" "Net-(J12-Pin_17)" "Net-(J12-Pin_9)"
+    "Net-(J12-Pin_7)" "Net-(J12-Pin_24)" "Net-(J12-Pin_20)" "Net-(J12-Pin_8)" "Net-(J12-Pin_2)" "Net-(J12-Pin_6)" "Net-(J12-Pin_10)" "Net-(J12-Pin_13)"
+    "Net-(J12-Pin_3)" "Net-(J12-Pin_19)" "Net-(J12-Pin_12)" "Net-(J12-Pin_16)" "Net-(J12-Pin_1)" "Net-(J12-Pin_23)" "Net-(J12-Pin_11)" "Net-(J12-Pin_14)"
+    "Net-(J12-Pin_22)" "Net-(J12-Pin_4)" "Net-(J12-Pin_15)" "Net-(J12-Pin_5)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
