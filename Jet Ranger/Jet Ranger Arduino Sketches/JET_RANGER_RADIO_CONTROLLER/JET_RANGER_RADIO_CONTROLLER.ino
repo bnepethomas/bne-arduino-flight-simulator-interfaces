@@ -9,7 +9,10 @@
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
 Todos
-
+// Issues when using Due connected to USB closest to Power Socket
+// Apears to get further when connected to socket next to reset switch
+// Currently Stalls when Ethernet is enabled
+// LCD Does started
 
 */
 #define GREEN_STATUS_LED_PORT 14
@@ -22,13 +25,15 @@ bool GREEN_LED_STATE = true;
 unsigned long timeSinceRedLedChanged = 0;
 
 #define Ethernet_In_Use 1
-#define DCSBIOS_In_Use 1
 
-int Reflector_In_Use = 1;
 
+int Reflector_In_Use = 0;
+
+// When Using Arduino Due this is not supported
+/*
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
-
+*/
 
 // Ethernet Related
 #include <SPI.h>
@@ -89,10 +94,12 @@ void SendDebug(String MessageToSend) {
 // ############################################# BEGIN I2C FRAMEWORK ##########################################
 #include <Wire.h>
 
+// When Using Arduino Due this is not supported
+/*
 extern "C" {
 #include "utility/twi.h"  // from Wire library, so we can do bus scanning
 }
-
+*/
 #define TCAADDR 0x70
 
 
@@ -243,7 +250,7 @@ void setup() {
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
   pinMode(RED_STATUS_LED_PORT, OUTPUT);
   digitalWrite(GREEN_STATUS_LED_PORT, true);
-  digitalWrite(RED_STATUS_LED_PORT, true);
+  digitalWrite(RED_STATUS_LED_PORT, false);
 
   if (Ethernet_In_Use == 1) {
 
@@ -259,9 +266,9 @@ void setup() {
     ethernetStartTime = millis() + delayBeforeSendingPacket;
     while (millis() <= ethernetStartTime) {
       delay(FLASH_TIME);
-      digitalWrite(LED_BUILTIN, false);
+      digitalWrite(RED_STATUS_LED_PORT, false);
       delay(FLASH_TIME);
-      digitalWrite(LED_BUILTIN, true);
+      digitalWrite(RED_STATUS_LED_PORT, true);
     }
 
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
@@ -272,7 +279,8 @@ void setup() {
 
 
 
-
+// When Using Arduino Due this is not supported
+/*
   for (uint8_t t = 0; t < 8; t++) {
     tcaselect(t);
     // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
@@ -289,6 +297,7 @@ void setup() {
   }
   // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
   SendDebug("I2C scan complete");
+  */
 
   initCharOLED(0);
   initCharOLED(1);

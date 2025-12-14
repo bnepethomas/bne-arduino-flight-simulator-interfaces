@@ -1,0 +1,141 @@
+#include <SPI.h>       // Required for Ethernet shield communication
+#include <Ethernet.h>    // For Ethernet connection
+#include <EthernetUdp.h> // For UDP communication over Ethernet
+#include <ArduinoJson.h> // For JSON parsing
+#include <Servo.h>       // For servo control
+
+// --- Ethernet Configuration ---
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED }; // Unique MAC address for your Ethernet shield
+// If you have a sticker on your shield with a MAC address, use that.
+// Otherwise, generate one, but ensure it's unique on your network.
+
+// Set the static IP address for the Arduino
+IPAddress ip(192, 168, 1, 177);    // <--- CHANGE THIS to an available IP on your network
+IPAddress gateway(192, 168, 1, 1); // <--- CHANGE THIS to your router's IP address
+IPAddress subnet(255, 255, 255, 0); // <--- CHANGE THIS to your network's subnet mask
+// IPAddress dns(8, 8, 8, 8); // Optional: Google's DNS server
+
+// --- UDP Configuration ---
+const unsigned int localUdpPort = 5005; // Local port to listen on (must match Python script's UDP_PORT)
+char incomingPacket[256];               // Buffer for incoming UDP packets
+EthernetUDP Udp;
+
+// --- Servo Configuration ---
+Servo myServo;                 // Create a servo object
+const int servoPin = 8;        // Digital pin for servo signal (e.g., Pin 8 on Mega)
+const int servoMinAngle = 0;   // Minimum angle for the servo
+const int servoMaxAngle = 180; // Maximum angle for the servo
+
+// --- Instrument Value to Servo Mapping ---
+// Example: Airspeed in Knots (0-250) mapped to servo angle (0-180)
+const float instrumentMinVal = 0.0;   // Minimum expected airspeed (Knots)
+const float instrumentMaxVal = 250.0; // Maximum expected airspeed (Knots)
+const char* targetInstrumentKey = "Airspeed Indicator"; // Key from the JSON to control the servo
+
+void setup() {
+  Serial.begin(115200);
+
+  // --- Initialize Ethernet connection ---
+  Serial.println("Initializing Ethernet...");
+  // Use DHCP to get an IP address
+  // if (Ethernet.begin(mac) == 0) {
+  //   Serial.println("Failed to configure Ethernet using DHCP");
+  //   // Try to configure Ethernet using a static IP address
+  //   Ethernet.begin(mac, ip, dns, gateway, subnet);
+  // } else {
+  //   Serial.print("  DHCP assigned IP ");
+  //   Serial.println(Ethernet.localIP());
+  // }
+
+  // Or, use a static IP address (recommended for fixed setups)
+  Ethernet.begin(mac, ip, gateway, subnet); // If you have a DNS server, add it here: Ethernet.begin(mac, ip, dns, gateway, subnet);
+
+  // Give the Ethernet shield a second to initialize
+  delay(1000);
+  Serial.print("Arduino IP address: ");
+  Serial.println(Ethernet.localIP());
+
+  // --- Start UDP Listener ---
+  Udp.begin(localUdpPort);
+  Serial.print("Listening for UDP packets on port ");
+  Serial.println(localUdpPort);
+
+  // --- Attach Servo ---
+  myServo.attach(servoPin);
+  myServo.write(90); // Set servo to center position initially
+  Serial.print("Servo attached to pin ");
+  Serial.println(servoPin);
+}
+
+void loop() {
+  // Check for incoming UDP packets
+  int packetSize = Udp.parsePacket();
+  if (packetSize) {
+    // Read the UDP packet
+    int len = Udp.read(incomingPacket, sizeof(incomingPacket) - 1);
+    incomingPacket[len] = 0; // Null-terminate the string
+
+    Serial.print("Received packet from ");
+    IPAddress remoteIp = Udp.remoteIP();
+    for (int i = 0; i < 4; i++) {
+      Serial.print(remoteIp[i]);
+      if (i < 3) Serial.print(".");
+    }
+    Serial.print(":");
+    Serial.print(Udp.remotePort());
+    Serial.print(", length ");
+    Serial.println(len);
+    Serial.print("Contents: ");
+    Serial.println(incomingPacket);
+
+    // --- JSON Parsing ---
+    // Use a StaticJsonDocument for fixed-size memory allocation.
+    // Adjust the size (e.g., 256) based on the expected JSON payload size.
+    StaticJsonDocument<256> doc; // Size might need adjustment if your JSON payload is larger
+
+    DeserializationError error = deserializeJson(doc, incomingPacket);
+
+    if (error) {
+      Serial.print(F("deserializeJson() failed: "));
+      Serial.println(error.f_str());
+      return; // Exit if JSON parsing fails
+    }
+
+    // --- Extract and Process Instrument Value ---
+    if (doc.containsKey(targetInstrumentKey)) {
+      JsonVariant value = doc[targetInstrumentKey];
+
+      if (value.is<float>()) {
+        float instrumentValue = value.as<float>();
+        Serial.print(targetInstrumentKey);
+        Serial.print(": ");
+        Serial.println(instrumentValue);
+
+        // Map the instrument value to a servo angle
+        int servoAngle = map(instrumentValue, instrumentMinVal, instrumentMaxVal, servoMinAngle, servoMaxAngle);
+
+        // Constrain the angle to ensure it's within the servo's physical limits
+        servoAngle = constrain(servoAngle, servoMinAngle, servoMaxAngle);
+
+        Serial.print("Mapped to servo angle: ");
+        Serial.println(servoAngle);
+
+        // Drive the servo
+        myServo.write(servoAngle);
+      } else if (value.is<const char*>() && strcmp(value.as<const char*>(), "N/A") == 0) {
+        Serial.print(targetInstrumentKey);
+        Serial.println(": N/A (Skipping servo update)");
+      } else {
+        Serial.print("Unexpected data type for ");
+        Serial.print(targetInstrumentKey);
+        Serial.println(". Expected float or 'N/A'.");
+      }
+    } else {
+      Serial.print("Key '");
+      Serial.print(targetInstrumentKey);
+      Serial.println("' not found in JSON data.");
+    }
+  }
+  // No delay needed here as parsePacket() handles non-blocking checks,
+  // and the loop will naturally wait for the next packet.
+}
