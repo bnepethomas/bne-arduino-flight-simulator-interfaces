@@ -27,7 +27,7 @@ unsigned long timeSinceRedLedChanged = 0;
 #define Ethernet_In_Use 1
 
 
-int Reflector_In_Use = 0;
+int Reflector_In_Use = 1;
 
 // When Using Arduino Due this is not supported
 /*
