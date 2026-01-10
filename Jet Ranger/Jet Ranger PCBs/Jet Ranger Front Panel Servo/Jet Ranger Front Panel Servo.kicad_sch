@@ -9523,7 +9523,7 @@
 		(uuid "06c8379c-b427-43e9-9b16-b0df7a271ef0")
 	)
 	(label "+5v_SERVO"
-		(at 370.84 191.77 180)
+		(at 370.84 194.31 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9583,7 +9583,7 @@
 		(uuid "0b41a013-60b6-453e-8654-7a30077ee6a7")
 	)
 	(label "+5v_SERVO"
-		(at 370.84 160.02 180)
+		(at 370.84 162.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9923,7 +9923,7 @@
 		(uuid "282e4ac7-35f0-4b9d-b0e7-ed736ee2c16e")
 	)
 	(label "+5v_SERVO"
-		(at 280.67 143.51 180)
+		(at 280.67 146.05 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9973,7 +9973,7 @@
 		(uuid "2dedf53c-3468-42d8-95cd-a5a4c619bd8f")
 	)
 	(label "+5v_SERVO"
-		(at 280.67 160.02 180)
+		(at 280.67 162.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10023,7 +10023,7 @@
 		(uuid "3341c5be-a8e1-4248-b06b-50fd22fcd7d5")
 	)
 	(label "PWM_GAS_PRODUCER"
-		(at 370.84 146.05 180)
+		(at 370.84 143.51 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10073,7 +10073,7 @@
 		(uuid "3b891273-27a3-4f1f-8660-6e748c46595f")
 	)
 	(label "+5v_SERVO"
-		(at 280.67 175.26 180)
+		(at 280.67 177.8 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10093,7 +10093,7 @@
 		(uuid "3d27f7e7-df42-4e1e-af81-7a87505a015c")
 	)
 	(label "PWM_EGT"
-		(at 233.68 162.56 180)
+		(at 233.68 160.02 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10103,7 +10103,7 @@
 		(uuid "403be815-7a47-40e2-8a12-569fc91cb360")
 	)
 	(label "+5v_SERVO"
-		(at 233.68 175.26 180)
+		(at 233.68 177.8 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10113,7 +10113,7 @@
 		(uuid "419d942b-ca9e-488c-9114-c6e136380b24")
 	)
 	(label "PWM_FUEL_LEVEL"
-		(at 326.39 177.8 180)
+		(at 326.39 175.26 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10253,7 +10253,7 @@
 		(uuid "53bfb057-c07b-4a0e-b610-bf00d86a6a90")
 	)
 	(label "PWM_RADAR_ALT"
-		(at 280.67 146.05 180)
+		(at 280.67 143.51 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10263,7 +10263,7 @@
 		(uuid "55c98ac0-1d25-4029-b979-f1ce49c0dcb2")
 	)
 	(label "+5v_SERVO"
-		(at 233.68 160.02 180)
+		(at 233.68 162.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10364,7 +10364,7 @@
 		(uuid "678c6a9a-3b46-4b05-a260-e951d88cb5e5")
 	)
 	(label "PWM_VVI"
-		(at 326.39 146.05 180)
+		(at 326.39 143.51 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10484,7 +10484,7 @@
 		(uuid "74d60f5f-bed8-42b1-b301-971f2844d550")
 	)
 	(label "PWM_ENG_OIL_TEMP"
-		(at 326.39 162.56 180)
+		(at 326.39 160.02 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10574,7 +10574,7 @@
 		(uuid "7c52d137-51a8-42b2-8b1b-3f4cd027fa7e")
 	)
 	(label "+5v_SERVO"
-		(at 326.39 160.02 180)
+		(at 326.39 162.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10724,7 +10724,7 @@
 		(uuid "8fac4f4d-0b0a-4ec8-8987-8402e645fcd3")
 	)
 	(label "PWM_ENG_TORQUE"
-		(at 280.67 162.56 180)
+		(at 280.67 160.02 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10884,7 +10884,7 @@
 		(uuid "a043f87e-8ecb-4a2d-a7e8-dae521cc6feb")
 	)
 	(label "PWM_AIRSPEED"
-		(at 233.68 146.05 180)
+		(at 233.68 143.51 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11174,7 +11174,7 @@
 		(uuid "c83777d6-c897-46b1-b3b9-428aba1f24fe")
 	)
 	(label "+5v_SERVO"
-		(at 233.68 143.51 180)
+		(at 233.68 146.05 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11345,7 +11345,7 @@
 		(uuid "d6b1ec48-df50-4d2b-af52-a6375eda093c")
 	)
 	(label "+5v_SERVO"
-		(at 326.39 175.26 180)
+		(at 326.39 177.8 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11376,7 +11376,7 @@
 		(uuid "d8590df4-cef0-4bc7-9058-d4387e4044ad")
 	)
 	(label "+5v_SERVO"
-		(at 370.84 175.26 180)
+		(at 370.84 177.8 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11416,7 +11416,7 @@
 		(uuid "dc7ad470-fbbc-432d-a3b0-2b3253e0f1cc")
 	)
 	(label "PWM_XMSN_OIL_TEMP"
-		(at 370.84 177.8 180)
+		(at 370.84 175.26 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11467,7 +11467,7 @@
 		(uuid "e4cb49aa-70a9-4f3d-b2f8-8594179eb4c7")
 	)
 	(label "PWM_ENG_OIL_PRESS"
-		(at 370.84 162.56 180)
+		(at 370.84 160.02 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11507,7 +11507,7 @@
 		(uuid "edb7f5aa-9c58-4334-a50e-a2081b84e3b4")
 	)
 	(label "PWM_ROTOR_SPEED"
-		(at 280.67 177.8 180)
+		(at 280.67 175.26 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11579,7 +11579,7 @@
 		(uuid "f1863c64-56f9-48ae-9817-5c5efa2e5ea4")
 	)
 	(label "+5v_SERVO"
-		(at 326.39 143.51 180)
+		(at 326.39 146.05 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11639,7 +11639,7 @@
 		(uuid "f578088d-d9a9-4b4e-b23d-d51c5de20c17")
 	)
 	(label "+5v_SERVO"
-		(at 370.84 143.51 180)
+		(at 370.84 146.05 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11689,7 +11689,7 @@
 		(uuid "fa8add02-6ac3-4358-bdcb-34b0f0415bf0")
 	)
 	(label "PWM_XMSN_OIL_PRESSURE"
-		(at 370.84 194.31 180)
+		(at 370.84 191.77 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11699,7 +11699,7 @@
 		(uuid "faa6ad6d-9b85-4efc-b80c-bdf60c9265f0")
 	)
 	(label "PWM_TURBINE_SPEED"
-		(at 233.68 177.8 180)
+		(at 233.68 175.26 180)
 		(effects
 			(font
 				(size 1.27 1.27)

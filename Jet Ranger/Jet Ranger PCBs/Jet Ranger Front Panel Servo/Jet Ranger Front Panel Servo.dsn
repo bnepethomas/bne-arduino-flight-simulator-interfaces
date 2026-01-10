@@ -1,9 +1,9 @@
-(pcb "/Users/pethomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/Jet Ranger/Jet Ranger PCBs/Jet Ranger Front Panel Servo/Jet Ranger Front Panel Servo.dsn"
+(pcb "/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/Jet Ranger/Jet Ranger PCBs/Jet Ranger Front Panel Servo/Jet Ranger Front Panel Servo.dsn"
   (parser
     (string_quote ")
     (space_in_quoted_tokens on)
     (host_cad "KiCad's Pcbnew")
-    (host_version "9.0.4")
+    (host_version "9.0.5")
   )
   (resolution um 10)
   (unit um)
@@ -1365,10 +1365,10 @@
         J15-1)
     )
     (net /PWM_GAS_PRODUCER
-      (pins J30-2 J34-7 A1-D6)
+      (pins J30-1 J34-7 A1-D6)
     )
     (net /PWM_XMSN_OIL_TEMP
-      (pins J32-2 A1-D44)
+      (pins J32-1 A1-D44)
     )
     (net /INT_5V
       (pins R14-1 R8-1 R9-1 R7-1 R10-1 R2-1 R17-1 J14-5 R13-1 J38-1 R11-1 R12-1 R1-1
@@ -1387,13 +1387,13 @@
       (pins J35-10 A1-SCL)
     )
     (net /PWM_AIRSPEED
-      (pins J20-2 J34-3 A1-D2)
+      (pins J20-1 J34-3 A1-D2)
     )
     (net /PWM_EGT
-      (pins J21-2 J34-8 A1-D7)
+      (pins J21-1 J34-8 A1-D7)
     )
     (net /PWM_ROTOR_SPEED
-      (pins J25-2 J35-2 A1-D9)
+      (pins J25-1 J35-2 A1-D9)
     )
     (net /PIN_20
       (pins J11-7 A1-D20)
@@ -1414,7 +1414,7 @@
       (pins R8-2 A1-D33)
     )
     (net /PWM_FUEL_LEVEL
-      (pins J28-2 A1-D46)
+      (pins J28-1 A1-D46)
     )
     (net /RESET
       (pins J1-2 J14-3 R1-2 A1-RST1)
@@ -1438,10 +1438,10 @@
       (pins J13-1 U1-8 A1-A8)
     )
     (net /PWM_ENG_TORQUE
-      (pins J24-2 J35-4 A1-D11)
+      (pins J24-1 J35-4 A1-D11)
     )
     (net /PWM_RADAR_ALT
-      (pins J23-2 J34-4 A1-D3)
+      (pins J23-1 J34-4 A1-D3)
     )
     (net /BACKLIGHT_PWM
       (pins R18-2 J34-6 A1-D5)
@@ -1471,7 +1471,7 @@
       (pins J1-3 A1-D49)
     )
     (net /PWM_XMSN_OIL_PRESSURE
-      (pins J33-2 A1-D45)
+      (pins J33-1 A1-D45)
     )
     (net /D_SC_Fail
       (pins J13-8 U2-7 A1-A15)
@@ -1489,10 +1489,10 @@
       (pins J14-2 A1-IORF)
     )
     (net /PWM_TURBINE_SPEED
-      (pins J22-2 J35-1 A1-D8)
+      (pins J22-1 J35-1 A1-D8)
     )
     (net /PWM_ENG_OIL_TEMP
-      (pins J35-5 J27-2 A1-D12)
+      (pins J35-5 J27-1 A1-D12)
     )
     (net /COL0
       (pins R7-2 A1-D32)
@@ -1531,7 +1531,7 @@
       (pins J13-7 U2-6 A1-A14)
     )
     (net /PWM_ENG_OIL_PRESS
-      (pins J31-2 J35-6 A1-D13)
+      (pins J31-1 J35-6 A1-D13)
     )
     (net /ROW0
       (pins A1-D22)
@@ -1543,7 +1543,7 @@
       (pins A1-D23)
     )
     (net /PWM_VVI
-      (pins J26-2 J34-5 A1-D4)
+      (pins J26-1 J34-5 A1-D4)
     )
     (net /D_Gen_Fail
       (pins J13-6 U2-5 A1-A13)
@@ -1567,8 +1567,8 @@
       (pins J29-4 A1-D29)
     )
     (net /+5v_SERVO
-      (pins J26-1 J33-1 J23-1 J21-1 J24-1 F1-1 R3-1 J25-1 J20-1 J22-1 J28-1 J30-1
-        J31-1 J32-1 J27-1)
+      (pins J26-2 J33-2 J23-2 J21-2 J24-2 F1-1 R3-1 J25-2 J20-2 J22-2 J28-2 J30-2
+        J31-2 J32-2 J27-2)
     )
     (net /SC_Fail
       (pins U2-12 J4-14)
