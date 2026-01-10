@@ -1,0 +1,6 @@
+Jet Ranger Servo Changes
+
+20251212	Original Build
+
+20260111	Corrected Servo Pin - was +5V In GND -> IN +5V GND
+		General tidy up of board layout V1.2
