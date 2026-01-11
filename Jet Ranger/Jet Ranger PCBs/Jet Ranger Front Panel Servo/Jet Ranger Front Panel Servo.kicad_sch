@@ -9720,7 +9720,7 @@
 		)
 		(uuid "0928409f-b2e4-4126-973a-4befe103ba8e")
 	)
-	(label "12V"
+	(label "+12v-IN"
 		(at 138.43 231.14 180)
 		(effects
 			(font
@@ -9760,7 +9760,7 @@
 		)
 		(uuid "0e2afaa0-29d3-4117-ae12-8200d45d0fae")
 	)
-	(label "12V"
+	(label "+12v-IN"
 		(at 138.43 236.22 180)
 		(effects
 			(font
@@ -10801,7 +10801,7 @@
 		)
 		(uuid "849780da-9984-4b1e-b520-1b17a4a50f05")
 	)
-	(label "12V"
+	(label "+12v-IN"
 		(at 96.52 226.06 180)
 		(effects
 			(font
@@ -11362,7 +11362,7 @@
 		)
 		(uuid "cb49fa07-21f7-4a7b-be33-1b567985547d")
 	)
-	(label "12V"
+	(label "+12v-IN"
 		(at 96.52 231.14 180)
 		(effects
 			(font
@@ -11392,7 +11392,7 @@
 		)
 		(uuid "cd52eccb-5916-4bd5-a232-f7c2932e179a")
 	)
-	(label "12V"
+	(label "+12v-IN"
 		(at 96.52 236.22 180)
 		(effects
 			(font
@@ -11452,7 +11452,7 @@
 		)
 		(uuid "d2baa770-c25c-4776-86f3-9b43c6548608")
 	)
-	(label "12V"
+	(label "+12v-IN"
 		(at 138.43 226.06 180)
 		(effects
 			(font

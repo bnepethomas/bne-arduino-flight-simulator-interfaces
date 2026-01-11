@@ -127,7 +127,52 @@ void setup() {
 #define ENG_OIL_TEMP_PORT 13
 #define ENG_TORQUE_PORT 11
 #define AIRSPEED_PORT 2
-#define GAS_PRODUCER_PORT 
+#define GAS_PRODUCER_PORT
+
+
+#define D_Rotor_RPM_Low A1
+#define D_Engine_Out A2
+#define D_Trans_Oil_Pressure A3
+#define D_Trans_Oil_Temp A4
+#define D_Battery_Temp A5
+#define D_Battery_Hot A6
+#define D_Trans_Chip A7
+#define D_Baggage_Door A8
+#define D_Engine_Chip A9
+#define D_TR_Chip A10
+#define D_Fuel_Pump A11
+#define D_AFT_Fuel_Filter A12
+#define D_Gen_Fail A13
+#define D_Low_Fuel A14
+#define D_SC_Fail A15
+
+
+void setWarningLightAll(bool State) {
+  digitalWrite(D_Rotor_RPM_Low, State);
+  digitalWrite(D_Engine_Out, State);
+  digitalWrite(D_Trans_Oil_Pressure, State);
+  digitalWrite(D_Trans_Oil_Temp, State);
+  digitalWrite(D_Battery_Temp, State);
+  digitalWrite(D_Battery_Hot, State);
+  digitalWrite(D_Trans_Chip, State);
+  digitalWrite(D_Baggage_Door, State);
+  digitalWrite(D_Engine_Chip, State);
+  digitalWrite(D_TR_Chip, State);
+  digitalWrite(D_Fuel_Pump, State);
+  digitalWrite(D_AFT_Fuel_Filter, State);
+  digitalWrite(D_Gen_Fail, State);
+  digitalWrite(D_Low_Fuel, State);
+  digitalWrite(D_SC_Fail, State);
+}
+
+
+void allOff() {
+  setWarningLightAll(false);
+}
+
+void allOn() {
+  setWarningLightAll(true);
+}
 
 void loop() {
 
@@ -137,6 +182,8 @@ void loop() {
 
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
+
+    setWarningLightAll(GREEN_LED_STATE);
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
