@@ -301,20 +301,20 @@
   )
   (library
     (image "Fuse:Fuse_Bourns_MF-RG400"
-      (outline (path signal 120  -2500 1000  -838 1000))
       (outline (path signal 120  -2500 -2200  -2500 1000))
-      (outline (path signal 120  838 1000  7600 1000))
       (outline (path signal 120  4262 -2200  -2500 -2200))
-      (outline (path signal 120  7600 1000  7600 -2200))
       (outline (path signal 120  7600 -2200  5938 -2200))
-      (outline (path signal 50  -2650 1150  -2650 -2350))
+      (outline (path signal 120  -2500 1000  -838 1000))
+      (outline (path signal 120  838 1000  7600 1000))
+      (outline (path signal 120  7600 1000  7600 -2200))
       (outline (path signal 50  -2650 -2350  7750 -2350))
-      (outline (path signal 50  7750 1150  -2650 1150))
       (outline (path signal 50  7750 -2350  7750 1150))
-      (outline (path signal 100  -2400 900  -2400 -2100))
+      (outline (path signal 50  -2650 1150  -2650 -2350))
+      (outline (path signal 50  7750 1150  -2650 1150))
       (outline (path signal 100  -2400 -2100  7500 -2100))
-      (outline (path signal 100  7500 900  -2400 900))
       (outline (path signal 100  7500 -2100  7500 900))
+      (outline (path signal 100  -2400 900  -2400 -2100))
+      (outline (path signal 100  7500 900  -2400 900))
       (pin Round[A]Pad_2010.000000_um 1 0 0)
       (pin Round[A]Pad_2010.000000_um 2 5100 -1200)
     )
@@ -1411,7 +1411,7 @@
       (pins J44-4 A1-D3)
     )
     (net /KEYPAD_3
-      (pins J42-4 J42-5 J6-3 J6-4 A1-A11 A1-A12)
+      (pins J42-4 J6-3 A1-A11)
     )
     (net "Net-(J41-Pin_7)"
       (pins J41-7 A1-A6)
@@ -1680,12 +1680,15 @@
     (net "Net-(J12-Pin_5)"
       (pins J12-5 J13-5)
     )
+    (net /KEYPAD_4
+      (pins J42-5 J6-4 A1-A12)
+    )
     (class kicad_default +3V3 "/+12v-IN" /+5v_IN /AREF /BACKLIGHT_PANELS /BACKLIGHT_PWM
       /COL0 /COL1 /COL10 /COL2 /COL3 /COL4 /COL5 /COL6 /COL7 /COL8 /COL9 /D0
-      /D1 /GPS_TX /GREEN_LED /INT_5V /IORF /KEYPAD_1 /KEYPAD_2 /KEYPAD_3 /KEYPAD_5
-      /KEYPAD_6 /KEYPAD_7 /PIN_20 /PIN_21 /RED_LED /RESET /RESET_pin /ROW0
-      /ROW1 /ROW10 /ROW11 /ROW12 /ROW13 /ROW14 /ROW15 /ROW2 /ROW3 /ROW4 /ROW5
-      /ROW6 /ROW7 /ROW8 /ROW9 /VIN ES1_RST GND MISO MOSI "Net-(A1-D16{slash}TX2)"
+      /D1 /GPS_TX /GREEN_LED /INT_5V /IORF /KEYPAD_1 /KEYPAD_2 /KEYPAD_3 /KEYPAD_4
+      /KEYPAD_5 /KEYPAD_6 /KEYPAD_7 /PIN_20 /PIN_21 /RED_LED /RESET /RESET_pin
+      /ROW0 /ROW1 /ROW10 /ROW11 /ROW12 /ROW13 /ROW14 /ROW15 /ROW2 /ROW3 /ROW4
+      /ROW5 /ROW6 /ROW7 /ROW8 /ROW9 /VIN ES1_RST GND MISO MOSI "Net-(A1-D16{slash}TX2)"
       "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" "Net-(A1-D2_INT0)"
       "Net-(A1-D3_INT1)" "Net-(D1-A)" "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)"
       "Net-(D8-A)" "Net-(J10-Pin_1)" "Net-(J10-Pin_10)" "Net-(J10-Pin_11)"
@@ -1717,6 +1720,5 @@
     )
   )
   (wiring
-    (wire (path F.Cu 500  120000 -106208  113492 -106208  109550 -110150)(net "Net-(J7-Pin_1)")(type route))
   )
 )

@@ -1,4 +1,6 @@
 Jet Ranger Upper Controller Changes
 
 20251214C	Original Build
+20260111	V1.1 Keypad 3 was duplicated across pins A11 and A12, with Keypad4 missing.
+		Corrected
 

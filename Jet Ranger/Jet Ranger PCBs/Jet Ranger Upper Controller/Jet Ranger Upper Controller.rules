@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1424)
+    (start_pass_no 1827)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -80,7 +80,7 @@
     "Net-(J10-Pin_8)" "Net-(J10-Pin_10)" "Net-(J10-Pin_1)" "Net-(J10-Pin_3)" "Net-(J12-Pin_18)" "Net-(J12-Pin_21)" "Net-(J12-Pin_17)" "Net-(J12-Pin_9)"
     "Net-(J12-Pin_7)" "Net-(J12-Pin_24)" "Net-(J12-Pin_20)" "Net-(J12-Pin_8)" "Net-(J12-Pin_2)" "Net-(J12-Pin_6)" "Net-(J12-Pin_10)" "Net-(J12-Pin_13)"
     "Net-(J12-Pin_3)" "Net-(J12-Pin_19)" "Net-(J12-Pin_12)" "Net-(J12-Pin_16)" "Net-(J12-Pin_1)" "Net-(J12-Pin_23)" "Net-(J12-Pin_11)" "Net-(J12-Pin_14)"
-    "Net-(J12-Pin_22)" "Net-(J12-Pin_4)" "Net-(J12-Pin_15)" "Net-(J12-Pin_5)"
+    "Net-(J12-Pin_22)" "Net-(J12-Pin_4)" "Net-(J12-Pin_15)" "Net-(J12-Pin_5)" "/KEYPAD_4"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

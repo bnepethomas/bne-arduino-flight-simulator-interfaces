@@ -5,7 +5,8 @@
 	(uuid "8a00b1ca-e561-4386-9590-9730de0281a4")
 	(paper "A3")
 	(title_block
-		(date "2025-11-06")
+		(date "2026-01-11")
+		(rev "1.2")
 	)
 	(lib_symbols
 		(symbol "Arduino_NW_Template-rescue:GND-power"
@@ -10488,7 +10489,7 @@
 		)
 		(uuid "37834493-1267-4a4e-b315-6fed82fb0ffb")
 	)
-	(label "KEYPAD_3"
+	(label "KEYPAD_4"
 		(at 148.59 138.43 0)
 		(effects
 			(font
@@ -10648,7 +10649,7 @@
 		)
 		(uuid "5d5dbbc1-fccf-42ff-bb0f-47aca2a8fb82")
 	)
-	(label "KEYPAD_3"
+	(label "KEYPAD_4"
 		(at 262.89 85.09 0)
 		(effects
 			(font
