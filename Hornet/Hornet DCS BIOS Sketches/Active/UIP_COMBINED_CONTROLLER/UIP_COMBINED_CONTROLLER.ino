@@ -1095,22 +1095,22 @@ void setup() {
 
 
   // ################# Start HUD Startup #########################
-  SendDebug("Stepper movement on startup will be disabled once testing is complete");
-  SendDebug("Start HUD Stepper");
+  // SendDebug("Stepper movement on startup will be disabled once testing is complete");
+  // SendDebug("Start HUD Stepper");
 
-  HUDStepper.runToNewPosition(-STEPS * 1.1);
-  HUDStepper.setCurrentPosition(0);
+  // HUDStepper.runToNewPosition(-STEPS * 1.1);
+  // HUDStepper.setCurrentPosition(0);
 
-  for (int i = 1; i <= 1; i++) {
-    SendDebug("Loop :" + String(i));
-    HUDStepper.runToNewPosition(STEPS);
-    delay(200);
-    HUDStepper.runToNewPosition(0);
-    delay(200);
-  }
+  // for (int i = 1; i <= 1; i++) {
+  //   SendDebug("Loop :" + String(i));
+  //   HUDStepper.runToNewPosition(STEPS);
+  //   delay(200);
+  //   HUDStepper.runToNewPosition(0);
+  //   delay(200);
+  // }
 
-  HUDStepper.setCurrentPosition(0);
-  SendDebug("End HUD Stepper");
+  // HUDStepper.setCurrentPosition(0);
+  // SendDebug("End HUD Stepper");
   // ################# End HUD Startup #########################
 
 

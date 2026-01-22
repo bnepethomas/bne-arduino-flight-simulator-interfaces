@@ -4,12 +4,16 @@ Description = 'Exported configuration with 3 projectors'
 
 -- First value is top left corner of the screen
 
-CENTER_MFCD = { x = 11545 , y = 36 , width = 727, height = 750  }
-LEFT_MFCD = { x = 12363, y = 0 + 35 + 35 , width = 498, height = 538 }
-RIGHT_MFCD = { x = 11991, y = 829 + 35, width = 498 + 30, height = 538 }
-F18_RWR = { x = 11520+1024 + 25, y = 800 - 130 , width = 430, height = 450 }
-F18_UFC = { x = 11522  , y = 0, width = 2, height = 2 }
-F18_IFEI = { x = 11520-480, y = 1430, width = 1480, height = 595 }
+CENTER_MFCD = { x = 1600 ; y = 2160; width = 727; height = 750;}
+DDIOFFSET = 10
+LEFT_MFCD = { x = 0+DDIOFFSET; y = 2160; width = 755; height = 755;}
+RIGHT_MFCD = { x = 800+DDIOFFSET; y = 2160; width = 755; height = 755; }
+--F18_RWR = { x = 11520+1024 + 25, y = 800 - 130 , width = 430, height = 450 }
+--F18_UFC = { x = 11522  , y = 2160, width = 2, height = 2 }
+--F18_IFEI = { x = 3480; y = 2160; width = 1480; height = 595; }
+F18_IFEI = { x = 3005; y = 2180; width = 1480; height = 595; }
+HUDOFFSET=140
+F18_HUD = { x = 2400+HUDOFFSET; y = 2160; width = 800; height = 800*1.4;}
 
 Viewports =
 {
