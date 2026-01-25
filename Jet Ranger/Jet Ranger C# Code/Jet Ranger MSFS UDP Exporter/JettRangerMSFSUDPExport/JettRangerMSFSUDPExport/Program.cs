@@ -13,7 +13,7 @@ namespace SimConnectUdpSender
     class Program
     {
         // --- SimConnect Configuration ---
-        private SimConnect? simConnect = null;
+        SimConnect simConnect = null;
         private bool isConnected = false;
         private Timer reconnectTimer; // Timer to periodically attempt reconnection
 
@@ -128,26 +128,34 @@ namespace SimConnectUdpSender
 
         private void TryConnectSimConnect(object state)
         {
-            if (isConnected) return; // Already connected
+            if (isConnected)
+            {
+                Console.WriteLine("Already Connected Returning");
+                return; // Already connected
+            }
 
             Console.WriteLine("Attempting to connect to SimConnect...");
+            Console.WriteLine("Really");
             try
             {
                 // Dispose previous SimConnect instance if it exists to ensure a clean reconnect
                 if (simConnect != null)
                 {
+                    Console.WriteLine("Disposing of SimConnect Instance");
                     simConnect.Dispose();
                     simConnect = default!;
                 }
 
                 // Create a new SimConnect instance
-                simConnect = new SimConnect("SimConnect UDP Sender", IntPtr.Zero, 0, null, 0);
+                Console.WriteLine("Firing API SimConnect");
+                simConnect = new SimConnect("SimConnectUDPSender", IntPtr.Zero, 0, null, 0);
+                Console.WriteLine("API SimConnect Called");
 
                 // Register event handlers
-                simConnect.OnRecvOpen += new SimConnect.RecvOpenEventHandler(simConnect_OnRecvOpen);
-                simConnect.OnRecvQuit += new SimConnect.RecvQuitEventHandler(simConnect_OnRecvQuit);
-                simConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(simConnect_OnRecvException);
-                simConnect.OnRecvSimobjectDataBytype += new SimConnect.RecvSimobjectDataBytypeEventHandler(simConnect_OnRecvSimobjectDataBytype);
+                simConnect.OnRecvOpen += SimConnect.RecvOpenEventHandler(simConnect_OnRecvOpen);
+                //simConnect.OnRecvQuit += new SimConnect.RecvQuitEventHandler(simConnect_OnRecvQuit);
+                //simConnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(simConnect_OnRecvException);
+                //simConnect.OnRecvSimobjectDataBytype += new SimConnect.RecvSimobjectDataBytypeEventHandler(simConnect_OnRecvSimobjectDataBytype);
 
                 // If connection is successful, SetupDataDefinitionsAndRequests will be called in OnRecvOpen
                 // We don't set isConnected to true here directly, as OnRecvOpen confirms the connection.
@@ -188,12 +196,13 @@ namespace SimConnectUdpSender
         }
 
         // --- SimConnect Event Handlers ---
-        private void simConnect_OnRecvOpen(SimConnect sender, SIMCONNECT_RECV_OPEN data)
+        private static void simConnect_OnRecvOpen(SimConnect sender, SIMCONNECT_RECV_OPEN data)
         {
+            Console.WriteLine("Hey we are connected");
             Console.WriteLine("SimConnect: Connected to " + data.szApplicationName);
             isConnected = true;
-            SetupDataDefinitionsAndRequests(); // Set up definitions and requests after connection
-            udpSendTimer.Change(0, UdpSendIntervalMs); // Start UDP sending immediately, then every 100ms
+            //SetupDataDefinitionsAndRequests(); // Set up definitions and requests after connection
+            //udpSendTimer.Change(0, UdpSendIntervalMs); // Start UDP sending immediately, then every 100ms
         }
 
         private void simConnect_OnRecvQuit(SimConnect sender, SIMCONNECT_RECV data)

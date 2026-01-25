@@ -16,3 +16,4 @@ C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# 
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\JettRangerMSFSUDPExport\JettRangerMSFSUDPExport\obj\x64\Debug\net10.0\JettRangerMSFSUDPExport.pdb
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\JettRangerMSFSUDPExport\JettRangerMSFSUDPExport\obj\x64\Debug\net10.0\JettRangerMSFSUDPExport.genruntimeconfig.cache
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\JettRangerMSFSUDPExport\JettRangerMSFSUDPExport\obj\x64\Debug\net10.0\ref\JettRangerMSFSUDPExport.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\JettRangerMSFSUDPExport\JettRangerMSFSUDPExport\bin\x64\Debug\net10.0\SimConnect.dll

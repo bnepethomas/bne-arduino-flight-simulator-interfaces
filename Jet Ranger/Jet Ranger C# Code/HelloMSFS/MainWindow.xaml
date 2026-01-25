@@ -1,0 +1,30 @@
+﻿<Window x:Class="HelloMSFS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HelloMSFS"
+        mc:Ignorable="d"
+        Title="Hello MSFS" SizeToContent="WidthAndHeight" Topmost="True">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="100"/>
+            <ColumnDefinition MinWidth="100"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="25"/>
+            <RowDefinition MinHeight="25"/>
+            <RowDefinition MinHeight="25"/>
+        </Grid.RowDefinitions>
+
+        <Label x:Name="label" Content="Altimeter:" VerticalContentAlignment="Center" Margin="5" />
+        <Label x:Name="label1" Content="Barometer:" Grid.Row="1" VerticalContentAlignment="Center" Margin="5"/>
+
+        <TextBox x:Name="altimeterTextBox" TextWrapping="Wrap" Text="1000" Grid.Column="1" VerticalContentAlignment="Center" Margin="5" IsReadOnly="True"/>
+        <TextBox x:Name="barometerTextBox" TextWrapping="Wrap" Text="29.92" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" Margin="5" IsReadOnly="True"/>
+
+        <Button x:Name="connectButton" Content="Connect" Grid.Row="2" Click="connectButton_Click" />
+        <Button x:Name="disconnectButton" Content="Disconnect" Grid.Row="2" Grid.Column="1" Click="disconnectButton_Click" IsEnabled="False"/>
+    </Grid>
+</Window>
