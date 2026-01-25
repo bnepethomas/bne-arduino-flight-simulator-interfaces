@@ -13,3 +13,9 @@ C:\Users\admin\Documents\Visual Studio 2010\Projects\udp sender\udp_sender\obj\x
 C:\Users\admin\Documents\Visual Studio 2010\Projects\udp sender\udp_sender\bin\Debug\udp_sender.exe
 C:\Users\admin\Documents\Visual Studio 2010\Projects\udp sender\udp_sender\bin\Debug\udp_sender.pdb
 C:\Users\admin\Documents\Visual Studio 2010\Projects\udp sender\udp_sender\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\V1 C# Projects\udp sender\udp_sender\bin\Debug\udp_sender.exe
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\V1 C# Projects\udp sender\udp_sender\bin\Debug\udp_sender.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\V1 C# Projects\udp sender\udp_sender\obj\x86\Debug\udp_sender.csproj.AssemblyReference.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\V1 C# Projects\udp sender\udp_sender\obj\x86\Debug\udp_sender.csproj.CoreCompileInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\V1 C# Projects\udp sender\udp_sender\obj\x86\Debug\udp_sender.exe
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\V1 C# Projects\udp sender\udp_sender\obj\x86\Debug\udp_sender.pdb

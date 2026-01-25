@@ -1,0 +1,17 @@
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\bin\x64\Debug\net10.0-windows\WinFormsApp1.exe
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\bin\x64\Debug\net10.0-windows\WinFormsApp1.deps.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\bin\x64\Debug\net10.0-windows\WinFormsApp1.runtimeconfig.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\bin\x64\Debug\net10.0-windows\WinFormsApp1.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\bin\x64\Debug\net10.0-windows\WinFormsApp1.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\WinFormsApp1.Form1.resources
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\WinFormsApp1.csproj.GenerateResource.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\WinFormsApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\WinFormsApp1.AssemblyInfoInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\WinFormsApp1.AssemblyInfo.cs
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\WinFormsApp1.csproj.CoreCompileInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\WinFormsApp1.sourcelink.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\WinFormsApp1.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\refint\WinFormsApp1.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\WinFormsApp1.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\WinFormsApp1.genruntimeconfig.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\Jet Ranger MSFS UDP Exporter\WinFormsApp1\WinFormsApp1\obj\x64\Debug\net10.0-windows\ref\WinFormsApp1.dll

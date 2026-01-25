@@ -1,0 +1,52 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\Jet Ranger MSFS UDP Exporter\\JettRangerMSFSUDPExport\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DF7E8BA6-295C-8117-B426-0872939E3C8E}|JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\jet ranger msfs udp exporter\\jettrangermsfsudpexport\\jettrangermsfsudpexport\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DF7E8BA6-295C-8117-B426-0872939E3C8E}|JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport.csproj|solutionrelative:jettrangermsfsudpexport\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DF7E8BA6-295C-8117-B426-0872939E3C8E}|JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\jet ranger msfs udp exporter\\jettrangermsfsudpexport\\jettrangermsfsudpexport\\jettrangermsfsudpexport.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{DF7E8BA6-295C-8117-B426-0872939E3C8E}|JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport.csproj|solutionrelative:jettrangermsfsudpexport\\jettrangermsfsudpexport.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "JettRangerMSFSUDPExport",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\Jet Ranger MSFS UDP Exporter\\JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport.csproj",
+              "RelativeDocumentMoniker": "JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport.csproj",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\Jet Ranger MSFS UDP Exporter\\JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport.csproj",
+              "RelativeToolTip": "JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-24T23:24:48.018Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\Jet Ranger MSFS UDP Exporter\\JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport\\Program.cs",
+              "RelativeDocumentMoniker": "JettRangerMSFSUDPExport\\Program.cs",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\Jet Ranger MSFS UDP Exporter\\JettRangerMSFSUDPExport\\JettRangerMSFSUDPExport\\Program.cs*",
+              "RelativeToolTip": "JettRangerMSFSUDPExport\\Program.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-24T20:01:28.418Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
