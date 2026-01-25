@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JettRangerMSFSUDPExport")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+34367617dd858e59decc6cf7b469dff708070bcd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b9b6d4684903eaf7ab4980b9379908e6ec851600")]
 [assembly: System.Reflection.AssemblyProductAttribute("JettRangerMSFSUDPExport")]
 [assembly: System.Reflection.AssemblyTitleAttribute("JettRangerMSFSUDPExport")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
