@@ -168,7 +168,7 @@ namespace SimConnectUdpSender
 
                 // Add data definition: This tells SimConnect what variable to read.
                 simConnect.AddToDataDefinition(
-                    defId, simVarName, unit, SIMCONNECT_DATATYPE.FLOAT64);
+                    defId, simVarName, unit, SIMCONNECT_DATATYPE.FLOAT64, 0.0f,2);
 
                 // Request data on SimObject: This tells SimConnect to send the data.
                 // We request data every second (SIMCONNECT_PERIOD.SECOND) but with an update rate of 10.

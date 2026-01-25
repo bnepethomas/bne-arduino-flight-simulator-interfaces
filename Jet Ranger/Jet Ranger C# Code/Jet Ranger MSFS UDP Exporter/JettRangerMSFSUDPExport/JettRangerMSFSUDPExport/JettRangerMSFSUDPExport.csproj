@@ -9,12 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="LockheedMartin.Prepar3D.SimConnect">
-      <HintPath>..\..\..\..\..\SimConnectExtractor\WindowsFormsApp2\bin\Debug\LockheedMartin.Prepar3D.SimConnect.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.FlightSimulator.SimConnect">
-      <HintPath>..\..\..\..\..\..\..\..\MSFS 2024 SDK\SimConnect SDK\lib\managed\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
+      <HintPath>C:\MSFS 2024 SDK\SimConnect SDK\lib\managed\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
   </ItemGroup>
+  
+  <ItemGroup>
+  <None Include="C:\MSFS 2024 SDK\SimConnect SDK\lib\SimConnect.dll">
+    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
+
+<PropertyGroup>
+  <PlatformTarget>x64</PlatformTarget>
+</PropertyGroup>
 
 </Project>
