@@ -99,8 +99,9 @@ namespace WindowsFormsApp2
             public double longitude;
             public double altitude;
             public double PLANE_ALT_ABOVE_GROUND;
+            public double VERTICAL_SPEED;
             public double airspeed;
-
+            public double ELECTRICAL_MASTER_BATTERY;
             public double elapsedsimtime;
             public double zulu_time;
             public Int32 time_zone_offset;
@@ -124,7 +125,7 @@ namespace WindowsFormsApp2
             public double ENG_ON_FIRE_1;
             public double ENG_ON_FIRE_2;
             public double STALL_WARNING;
-            public double ELECTRICAL_MASTER_BATTERY;
+            
             public double LIGHT_CABIN;
             public double LIGHT_STROBE;
             public double LIGHT_NAV;
@@ -224,7 +225,9 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Longitude", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Altitude", "feet", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "PLANE ALT ABOVE GROUND", "feet", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "VERTICAL SPEED", "feet per minute", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Airspeed True", "knots", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Sim Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Zulu Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Time Zone Offset", "hours", SIMCONNECT_DATATYPE.INT32, 0.0f, SimConnect.SIMCONNECT_UNUSED);
@@ -242,7 +245,6 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "BRAKE PARKING INDICATOR", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG FUEL VALVE:1", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG FUEL VALVE:2", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG STARTER:1", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED); 
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG STARTER:2", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG OIL PRESSURE:1", "Psf", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
@@ -361,12 +363,14 @@ namespace WindowsFormsApp2
                 case DATA_REQUESTS.REQUEST_1:
                     Struct1 s1 = (Struct1)data.dwData[0];
 
-                    displayText("titles:             " + s1.title);
+                    displayText("Aircraft Model:    " + s1.title);
                     displayText("Lat:               " + s1.latitude);
                     displayText("Lon:               " + s1.longitude);
                     displayText("Alt:               " + s1.altitude);
                     displayText("Radar Alt:         " + s1.PLANE_ALT_ABOVE_GROUND);
+                    displayText("Vertical Speed:    " + s1.VERTICAL_SPEED);
                     displayText("Airspeed           " + s1.airspeed);
+                    displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY);
                     displayText("Sim Time           " + s1.elapsedsimtime);
                     displayText("Zulu Time          " + s1.zulu_time);
                     displayText("Time Zone Offset   " + s1.time_zone_offset);
@@ -389,11 +393,11 @@ namespace WindowsFormsApp2
                     displayText("ENG ON FIRE:2               " + s1.ENG_ON_FIRE_1);
                     displayText("ENG ON FIRE:2               " + s1.ENG_ON_FIRE_2);
                     displayText("STALL WARNING               " + s1.STALL_WARNING);
-                    displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY);
-                    displayText("LIGHT CABIN                 " + s1.LIGHT_CABIN);
-                    displayText("LIGHT STROBE                " + s1.LIGHT_STROBE);
-                    displayText("LIGHT NAV                   " + s1.LIGHT_NAV);
-                    displayText("LIGHT TAXI                  " + s1.LIGHT_TAXI);
+                    
+                    //displayText("LIGHT CABIN                 " + s1.LIGHT_CABIN);
+                    //displayText("LIGHT STROBE                " + s1.LIGHT_STROBE);
+                    //displayText("LIGHT NAV                   " + s1.LIGHT_NAV);
+                    //displayText("LIGHT TAXI                  " + s1.LIGHT_TAXI);
 
                     //displayText("INNER MARKER                " + s1.INNER_MARKER);
                     //displayText("MIDDLE MARKER               " + s1.MIDDLE_MARKER);
@@ -402,7 +406,7 @@ namespace WindowsFormsApp2
                     //displayText("GEAR LEFT POSITION          " + s1.GEAR_LEFT_POSITION);
                     //displayText("GEAR RIGHT POSITION         " + s1.GEAR_RIGHT_POSITION);
 
-                    displayText("Zulu Time 2        " + s1.zulu_time);
+                    //displayText("Zulu Time 2        " + s1.zulu_time);
 
                     UDP_Playload = "latitude:" + s1.latitude;
                     UDP_Playload = UDP_Playload + ",longitude:" + s1.longitude.ToString();
