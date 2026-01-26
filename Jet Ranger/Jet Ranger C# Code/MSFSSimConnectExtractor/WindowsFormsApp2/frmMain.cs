@@ -1,23 +1,23 @@
 ﻿// Original based on P3d sample code, modifying for MSFS2024
 
 
+// SimConnect Services
+// using LockheedMartin.Prepar3D.SimConnect;
+using Microsoft.FlightSimulator.SimConnect;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Net;
 using System.Net.Sockets;
-using System.Timers;
-
-// SimConnect Services
-// using LockheedMartin.Prepar3D.SimConnect;
-using Microsoft.FlightSimulator.SimConnect;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using System.Timers;
+using System.Windows.Forms;
 
 
 //      
@@ -106,8 +106,17 @@ namespace WindowsFormsApp2
             public double ROTOR_RPM_PCT_1;
             public double GENERAL_ENG_PCT_MAX_RPM_1;
             public double ENG_TORQUE_PERCENT_1;
+            public double ELECTRICAL_TOTAL_LOAD_AMPS;
+            public double TURB_ENG_ITT_1;
+            public double ENG_OIL_TEMPERATURE_1;
+            public double FUEL_TOTAL_QUANTITY;
+            public double TURB_ENG_CORRECTED_N1_1;
+            public double ENG_OIL_PRESSURE_1;
+            public double ENG_TRANSMISSION_PRESSURE_1;
+            public double ENG_TRANSMISSION_TEMPERATURE_1;
             public double ELECTRICAL_MASTER_BATTERY;
-            
+            public double Avionics_Master_Switch;
+
 
 
             public double elapsedsimtime;
@@ -240,7 +249,16 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ROTOR RPM PCT:1", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG PCT MAX RPM:1", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG TORQUE PERCENT:1", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL TOTAL LOAD AMPS", "Amps", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "TURB ENG ITT:1", "Celsius", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG OIL TEMPERATURE:1", "Celsius", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "FUEL TOTAL QUANTITY", "Gallons", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "TURB ENG CORRECTED N1:1", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG OIL PRESSURE:1", "psi", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG TRANSMISSION PRESSURE:1", "psi", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG TRANSMISSION TEMPERATURE:1", "Celsius", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Avionics Master Switch", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
 
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Sim Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
@@ -390,8 +408,20 @@ namespace WindowsFormsApp2
                     displayText("ROTOR RPM          " + s1.ROTOR_RPM_PCT_1);
                     displayText("ENG ROTOR RPM      " + s1.GENERAL_ENG_PCT_MAX_RPM_1);
                     displayText("ENG TORQUE PERCENT " + s1.ENG_TORQUE_PERCENT_1 * 4 /9);
+                    displayText("ELECTRICAL TOTAL LOAD AMPS " + s1.ELECTRICAL_TOTAL_LOAD_AMPS * 40/56);
+                    // ENG EXHAUST is in Rankine need to convert to Celsius - TOT not directly available
+                    // So some more calculations needed - for now just send ITT
+                    displayText("TURBINE ENG ITT    " + s1.TURB_ENG_ITT_1);
+                    displayText("ENG OIL TEMP       " + s1.ENG_OIL_TEMPERATURE_1); 
+                    displayText("FUEL TOTAL QUANTITY        " + s1.FUEL_TOTAL_QUANTITY);
+                    displayText("TURB ENG N1        " + s1.TURB_ENG_CORRECTED_N1_1);
+                    displayText("ENG OIL PRESSURE   " + s1.ENG_OIL_PRESSURE_1);
+                    displayText("ENG TRANSMISSION PRESSURE  " + s1.ENG_TRANSMISSION_PRESSURE_1);
+                    displayText("ENG TRANSMISSION TEMPERATURE " + s1.ENG_TRANSMISSION_TEMPERATURE_1);
                     displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY);
-                    
+                    displayText("Avionics Master Switch      " + s1.Avionics_Master_Switch);
+
+
                     displayText("Sim Time           " + s1.elapsedsimtime);
                     displayText("Zulu Time          " + s1.zulu_time);
                     displayText("Time Zone Offset   " + s1.time_zone_offset);
