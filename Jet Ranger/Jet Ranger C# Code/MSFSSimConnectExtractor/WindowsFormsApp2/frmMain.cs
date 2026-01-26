@@ -114,6 +114,10 @@ namespace WindowsFormsApp2
             public double ENG_OIL_PRESSURE_1;
             public double ENG_TRANSMISSION_PRESSURE_1;
             public double ENG_TRANSMISSION_TEMPERATURE_1;
+            public double com1ActiveFrequency;
+            public double com2ActiveFrequency;
+            public double com1StandbyFrequency;
+            public double com2StandbyFrequency; 
             public double ELECTRICAL_MASTER_BATTERY;
             public double Avionics_Master_Switch;
 
@@ -257,6 +261,10 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG OIL PRESSURE:1", "psi", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG TRANSMISSION PRESSURE:1", "psi", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG TRANSMISSION TEMPERATURE:1", "Celsius", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "COM ACTIVE FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "COM ACTIVE FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);  
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "COM STANDBY FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "COM STANDBY FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED); 
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Avionics Master Switch", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
@@ -418,6 +426,10 @@ namespace WindowsFormsApp2
                     displayText("ENG OIL PRESSURE   " + s1.ENG_OIL_PRESSURE_1);
                     displayText("ENG TRANSMISSION PRESSURE  " + s1.ENG_TRANSMISSION_PRESSURE_1);
                     displayText("ENG TRANSMISSION TEMPERATURE " + s1.ENG_TRANSMISSION_TEMPERATURE_1);
+                    displayText("COM1 Active Freq   " + s1.com1ActiveFrequency);
+                    displayText("COM2 Active Freq   " + s1.com2ActiveFrequency);
+                    displayText("COM1 Standby Freq  " + s1.com1StandbyFrequency);
+                    displayText("COM2 Standby Freq  " + s1.com2StandbyFrequency);
                     displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY);
                     displayText("Avionics Master Switch      " + s1.Avionics_Master_Switch);
 
