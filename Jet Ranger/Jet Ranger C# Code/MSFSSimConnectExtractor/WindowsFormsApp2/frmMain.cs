@@ -3,6 +3,7 @@
 
 // SimConnect Services
 // using LockheedMartin.Prepar3D.SimConnect;
+//using LockheedMartin.Prepar3D.SimConnect;
 using Microsoft.FlightSimulator.SimConnect;
 using System;
 using System.Collections.Generic;
@@ -70,12 +71,19 @@ namespace WindowsFormsApp2
         enum DEFINITIONS
         {
             Struct1,
+            ComStruct,
+            Com1Standby,
         }
 
         enum DATA_REQUESTS
         {
             REQUEST_1,
         };
+
+        enum EVENTS
+        {
+            COM1_STBY_RADIO_SET,
+        }
 
         string UDP_Playload;
         string Output_Payload;
@@ -163,13 +171,19 @@ namespace WindowsFormsApp2
         };
 
 
-    //{ "ABSOLUTE TIME",              "Seconds",              SIMCONNECT_DATATYPE_FLOAT64},
-   
-    //{ "ZULU DAY OF YEAR",           "Number",               SIMCONNECT_DATATYPE_INT32       },
-    //{ "ZULU YEAR",                  "Number",               SIMCONNECT_DATATYPE_INT32       },
-    //{ "ZULU MONTH OF YEAR",         "Number",               SIMCONNECT_DATATYPE_INT32       },
-    //{ "ZULU DAY OF MONTH",          "Number",               SIMCONNECT_DATATYPE_INT32       },
-    //{ "ZULU DAY OF WEEK",           "Number",               SIMCONNECT_DATATYPE_INT32       },
+        [StructLayout(LayoutKind.Sequential, Pack = 1)]
+        struct ComData
+        {
+            public double com1StandbyFrequency;
+        };
+
+        //{ "ABSOLUTE TIME",              "Seconds",              SIMCONNECT_DATATYPE_FLOAT64},
+
+        //{ "ZULU DAY OF YEAR",           "Number",               SIMCONNECT_DATATYPE_INT32       },
+        //{ "ZULU YEAR",                  "Number",               SIMCONNECT_DATATYPE_INT32       },
+        //{ "ZULU MONTH OF YEAR",         "Number",               SIMCONNECT_DATATYPE_INT32       },
+        //{ "ZULU DAY OF MONTH",          "Number",               SIMCONNECT_DATATYPE_INT32       },
+        //{ "ZULU DAY OF WEEK",           "Number",               SIMCONNECT_DATATYPE_INT32       },
 
 
         public frmMain()
@@ -650,6 +664,42 @@ namespace WindowsFormsApp2
 
         private void richResponse_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //simconnect.AddToDataDefinition(DEFINITIONS.ComStruct, "COM STANDBY FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+            //simconnect.RegisterDataDefineStruct<ComData>(DEFINITIONS.ComStruct);
+            //ComData data = new ComData { com1StandbyFrequency = 122800000 };
+            //simconnect.SetDataOnSimObject(DEFINITIONS.ComStruct, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_DATA_SET_FLAG.DEFAULT, data); 
+
+
+            // Use SimCOnnect Inspector to find the correct variable name and units
+            // Connect and then selecte managed data request
+            // Initial open doesn't recognise Sim Time
+            // Setting COM1 resulots in EXCEPTION_INVALID_DATA_SIZE
+            // Define COM1 standby frequency (in Hz)
+            simconnect.AddToDataDefinition(
+                DEFINITIONS.Com1Standby,
+                "COM STANDBY FREQUENCY:1",
+                "Hz",
+                SIMCONNECT_DATATYPE.FLOAT64,
+                0.0f,
+                SimConnect.SIMCONNECT_UNUSED
+            );
+
+            simconnect.RegisterDataDefineStruct<double>(DEFINITIONS.Com1Standby);
+
+            // 118.50 MHz = 121,500,000 Hz
+            double com1StandbyHz = 121_500_000;
+
+            simconnect.SetDataOnSimObject(
+                DEFINITIONS.Com1Standby,
+                SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                SIMCONNECT_DATA_SET_FLAG.DEFAULT,
+                (uint)com1StandbyHz
+            );
 
         }
     }

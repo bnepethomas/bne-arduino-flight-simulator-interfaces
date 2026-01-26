@@ -39,6 +39,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.btn_SendUDP = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_Set_Standby_Com1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -134,11 +135,22 @@
             this.label1.Text = "Connect and then Subscribe";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
+            // btn_Set_Standby_Com1
+            // 
+            this.btn_Set_Standby_Com1.Location = new System.Drawing.Point(474, 188);
+            this.btn_Set_Standby_Com1.Name = "btn_Set_Standby_Com1";
+            this.btn_Set_Standby_Com1.Size = new System.Drawing.Size(75, 23);
+            this.btn_Set_Standby_Com1.TabIndex = 9;
+            this.btn_Set_Standby_Com1.Text = "Set Standby Com1";
+            this.btn_Set_Standby_Com1.UseVisualStyleBackColor = true;
+            this.btn_Set_Standby_Com1.Click += new System.EventHandler(this.button4_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 625);
+            this.Controls.Add(this.btn_Set_Standby_Com1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_SendUDP);
             this.Controls.Add(this.button3);
@@ -168,6 +180,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btn_SendUDP;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btn_Set_Standby_Com1;
     }
 }
 
