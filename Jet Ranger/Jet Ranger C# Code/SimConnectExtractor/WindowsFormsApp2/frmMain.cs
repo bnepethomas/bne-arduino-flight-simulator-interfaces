@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Original based on P3d sample code, modifying for MSFS2024
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,11 +20,14 @@ using Microsoft.FlightSimulator.SimConnect;
 using System.Runtime.InteropServices;
 
 
+//      
+
 
 //      Based on C# in SDK - which is also found here
 //
 //
 //      Useful URLS
+//          https://docs.flightsimulator.com/html/Programming_Tools/SimVars/Aircraft_SimVars/Aircraft_Misc_Variables.htm
 //          https://www.prepar3d.com/SDKv4/sdk/simconnect_api/managed_simconnect_projects.html
 //  
 //          Variables
@@ -92,7 +98,9 @@ namespace WindowsFormsApp2
             public double latitude;
             public double longitude;
             public double altitude;
+            public double PLANE_ALT_ABOVE_GROUND;
             public double airspeed;
+
             public double elapsedsimtime;
             public double zulu_time;
             public Int32 time_zone_offset;
@@ -214,7 +222,8 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "title", null, SIMCONNECT_DATATYPE.STRING256, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Latitude", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Longitude", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Altitude", "meters", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Altitude", "feet", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "PLANE ALT ABOVE GROUND", "feet", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Airspeed True", "knots", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Sim Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Zulu Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
@@ -356,6 +365,7 @@ namespace WindowsFormsApp2
                     displayText("Lat:               " + s1.latitude);
                     displayText("Lon:               " + s1.longitude);
                     displayText("Alt:               " + s1.altitude);
+                    displayText("Radar Alt:         " + s1.PLANE_ALT_ABOVE_GROUND);
                     displayText("Airspeed           " + s1.airspeed);
                     displayText("Sim Time           " + s1.elapsedsimtime);
                     displayText("Zulu Time          " + s1.zulu_time);
@@ -385,12 +395,12 @@ namespace WindowsFormsApp2
                     displayText("LIGHT NAV                   " + s1.LIGHT_NAV);
                     displayText("LIGHT TAXI                  " + s1.LIGHT_TAXI);
 
-                    displayText("INNER MARKER                " + s1.INNER_MARKER);
-                    displayText("MIDDLE MARKER               " + s1.MIDDLE_MARKER);
-                    displayText("OUTER MARKER                " + s1.OUTER_MARKER);
-                    displayText("GEAR CENTRE POSITION        " + s1.GEAR_CENTER_POSITION);
-                    displayText("GEAR LEFT POSITION          " + s1.GEAR_LEFT_POSITION);
-                    displayText("GEAR RIGHT POSITION         " + s1.GEAR_RIGHT_POSITION);
+                    //displayText("INNER MARKER                " + s1.INNER_MARKER);
+                    //displayText("MIDDLE MARKER               " + s1.MIDDLE_MARKER);
+                    //displayText("OUTER MARKER                " + s1.OUTER_MARKER);
+                    //displayText("GEAR CENTRE POSITION        " + s1.GEAR_CENTER_POSITION);
+                    //displayText("GEAR LEFT POSITION          " + s1.GEAR_LEFT_POSITION);
+                    //displayText("GEAR RIGHT POSITION         " + s1.GEAR_RIGHT_POSITION);
 
                     displayText("Zulu Time 2        " + s1.zulu_time);
 
