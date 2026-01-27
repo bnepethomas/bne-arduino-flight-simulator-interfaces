@@ -725,7 +725,7 @@ namespace WindowsFormsApp2
                 simconnect.TransmitClientEvent(
                     SimConnect.SIMCONNECT_OBJECT_ID_USER,
                     EVENTS.KEY_MASTER_BATTERY_SET,
-                    0,
+                    1,
                     GROUP_ID.GROUP0,
                     SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
                 );
