@@ -40,6 +40,7 @@
             this.btn_SendUDP = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Set_Standby_Com1 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -145,11 +146,22 @@
             this.btn_Set_Standby_Com1.UseVisualStyleBackColor = true;
             this.btn_Set_Standby_Com1.Click += new System.EventHandler(this.button4_Click);
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(474, 239);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 10;
+            this.button4.Text = "newStandby";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 625);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.btn_Set_Standby_Com1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_SendUDP);
@@ -181,6 +193,7 @@
         private System.Windows.Forms.Button btn_SendUDP;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_Set_Standby_Com1;
+        private System.Windows.Forms.Button button4;
     }
 }
 

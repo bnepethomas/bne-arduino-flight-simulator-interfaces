@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using Microsoft.FlightSimulator.SimConnect;
 
-namespace SimConnectBatteryControl
+namespace SimConnectFlightControl
 {
     class Program
     {
@@ -10,6 +10,7 @@ namespace SimConnectBatteryControl
         enum EVENTS
         {
             KEY_MASTER_BATTERY_SET,
+            KEY_COM_STBY_RADIO_SET
         }
 
         enum GROUP_ID
@@ -25,22 +26,27 @@ namespace SimConnectBatteryControl
             try
             {
                 // 1. Initialize SimConnect
-                // Note: In a WinForms/WPF app, use the window handle. 
-                // In a console app, this is more complex as you need a message loop.
-                simconnect = new SimConnect("Battery Controller", IntPtr.Zero, WM_USER_SIMCONNECT, null, 0);
+                simconnect = new SimConnect("Flight Controller", IntPtr.Zero, WM_USER_SIMCONNECT, null, 0);
 
-                // 2. Map the Client Event to the Simulation Event
-                // MASTER_BATTERY_SET allows us to pass 1 for ON and 0 for OFF
+                // 2. Map the Client Events
+                // Battery Event
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
 
-                Console.WriteLine("Connected to Simulator. Press 'O' to turn OFF Master Battery.");
+                // COM1 Standby Event
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET, "COM_STBY_RADIO_SET");
+
+                Console.WriteLine("Connected. Press 'B' to turn OFF Battery, 'C' to set COM1 Standby to 121.50.");
 
                 while (true)
                 {
                     var key = Console.ReadKey(true).Key;
-                    if (key == ConsoleKey.O)
+                    if (key == ConsoleKey.B)
                     {
                         TurnOffBattery();
+                    }
+                    else if (key == ConsoleKey.C)
+                    {
+                        SetCom1Standby();
                     }
                     else if (key == ConsoleKey.Escape)
                     {
@@ -58,8 +64,7 @@ namespace SimConnectBatteryControl
         {
             if (simconnect != null)
             {
-                // 3. Transmit the event
-                // Parameter: 0 = Off, 1 = On
+                // Parameter 0 = Off
                 simconnect.TransmitClientEvent(
                     SimConnect.SIMCONNECT_OBJECT_ID_USER,
                     EVENTS.KEY_MASTER_BATTERY_SET,
@@ -67,8 +72,26 @@ namespace SimConnectBatteryControl
                     GROUP_ID.GROUP0,
                     SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
                 );
-
                 Console.WriteLine("Command Sent: Master Battery OFF");
+            }
+        }
+
+        static void SetCom1Standby()
+        {
+            if (simconnect != null)
+            {
+                // Frequency 121.50 MHz in BCD is 0x2150
+                // We use uint to ensure the hex value is passed correctly
+                uint frequencyBCD = 0x2150;
+
+                simconnect.TransmitClientEvent(
+                    SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                    EVENTS.KEY_COM_STBY_RADIO_SET,
+                    frequencyBCD,
+                    GROUP_ID.GROUP0,
+                    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+                );
+                Console.WriteLine("Command Sent: COM1 Standby set to 121.50 MHz");
             }
         }
     }

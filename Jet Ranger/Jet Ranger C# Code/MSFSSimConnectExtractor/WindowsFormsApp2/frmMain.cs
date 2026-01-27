@@ -83,6 +83,13 @@ namespace WindowsFormsApp2
         enum EVENTS
         {
             COM1_STBY_RADIO_SET,
+            KEY_MASTER_BATTERY_SET,
+            KEY_COM_STBY_RADIO_SET
+        }
+
+        enum GROUP_ID
+        {
+            GROUP0,
         }
 
         string UDP_Playload;
@@ -701,6 +708,40 @@ namespace WindowsFormsApp2
                 (uint)com1StandbyHz
             );
 
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+
+            if (simconnect != null)
+            {
+                // Battery Event
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
+
+                // COM1 Standby Event
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET, "COM_STBY_RADIO_SET");
+
+                // Parameter 0 = Off
+                simconnect.TransmitClientEvent(
+                    SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                    EVENTS.KEY_MASTER_BATTERY_SET,
+                    0,
+                    GROUP_ID.GROUP0,
+                    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+                );
+
+                // Frequency 121.50 MHz in BCD is 0x2150
+                // We use uint to ensure the hex value is passed correctly
+                uint frequencyBCD = 0x2150;
+
+                simconnect.TransmitClientEvent(
+                    SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                    EVENTS.KEY_COM_STBY_RADIO_SET,
+                    frequencyBCD,
+                    GROUP_ID.GROUP0,
+                    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+                );
+            }
         }
     }
 

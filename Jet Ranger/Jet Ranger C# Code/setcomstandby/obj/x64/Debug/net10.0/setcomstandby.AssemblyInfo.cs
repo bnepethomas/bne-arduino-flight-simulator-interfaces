@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("setcomstandby")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5cf376034026453165c0d6fc57f32fe3b492e916")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3f5b0b82170dd5ff83f9c75e6d732c5ac611091b")]
 [assembly: System.Reflection.AssemblyProductAttribute("setcomstandby")]
 [assembly: System.Reflection.AssemblyTitleAttribute("setcomstandby")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -9,6 +9,9 @@
     {
       "AbsoluteMoniker": "D:0:0:{4FAA51A1-3B14-B7B5-4370-1284B3212729}|setcomstandby.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\setcomstandby\\setcomstandby.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{4FAA51A1-3B14-B7B5-4370-1284B3212729}|setcomstandby.csproj|solutionrelative:setcomstandby.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,8 +21,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "frmMain.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs",
+              "RelativeDocumentMoniker": "..\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs",
+              "RelativeToolTip": "..\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T06:38:44.529Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -28,7 +44,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\setcomstandby\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAC8AAAAAAAAAAAAQwDgAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-27T06:31:05.116Z",
               "EditorCaption": ""
