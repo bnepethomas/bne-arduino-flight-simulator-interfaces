@@ -2,119 +2,74 @@
 using System.Runtime.InteropServices;
 using Microsoft.FlightSimulator.SimConnect;
 
-namespace SimConnectConsole
+namespace SimConnectBatteryControl
 {
     class Program
     {
-        static SimConnect simConnect;
-        static IntPtr hWnd;
-
-        const int WM_USER_SIMCONNECT = 0x0402;
-
-        enum DEFINITIONS
+        // User-defined enums for SimConnect tracking
+        enum EVENTS
         {
-            Com1Standby
+            KEY_MASTER_BATTERY_SET,
         }
+
+        enum GROUP_ID
+        {
+            GROUP0,
+        }
+
+        static SimConnect simconnect = null;
+        const int WM_USER_SIMCONNECT = 0x0402;
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Starting SimConnect console app...");
-
-            // Create a hidden message window
-            hWnd = CreateMessageWindow();
-
-            if (hWnd == IntPtr.Zero)
-            {
-                Console.WriteLine("Failed to create message window.");
-                return;
-            }
-
             try
             {
-                simConnect = new SimConnect(
-                    "COM1 Standby Console",
-                    hWnd,
-                    WM_USER_SIMCONNECT,
-                    null,
-                    0
-                );
+                // 1. Initialize SimConnect
+                // Note: In a WinForms/WPF app, use the window handle. 
+                // In a console app, this is more complex as you need a message loop.
+                simconnect = new SimConnect("Battery Controller", IntPtr.Zero, WM_USER_SIMCONNECT, null, 0);
 
-                Console.WriteLine("SimConnect connected.");
+                // 2. Map the Client Event to the Simulation Event
+                // MASTER_BATTERY_SET allows us to pass 1 for ON and 0 for OFF
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
 
-                // Define COM1 standby frequency (Hz)
-                simConnect.AddToDataDefinition(
-                    DEFINITIONS.Com1Standby,
-                    "COM STANDBY FREQUENCY:1",
-                    "Hz",
-                    SIMCONNECT_DATATYPE.FLOAT64,
-                    0,
-                    SimConnect.SIMCONNECT_UNUSED
-                );
+                Console.WriteLine("Connected to Simulator. Press 'O' to turn OFF Master Battery.");
 
-                simConnect.RegisterDataDefineStruct<double>(DEFINITIONS.Com1Standby);
-
-                // 118.50 MHz = 120,500,000 Hz
-                double com1StandbyHz = 124500000;
-
-                simConnect.SetDataOnSimObject(
-                    DEFINITIONS.Com1Standby,
-                    SimConnect.SIMCONNECT_OBJECT_ID_USER,
-                    SIMCONNECT_DATA_SET_FLAG.DEFAULT,
-                    com1StandbyHz
-                );
-
-                Console.WriteLine("COM1 standby set to " + com1StandbyHz);
+                while (true)
+                {
+                    var key = Console.ReadKey(true).Key;
+                    if (key == ConsoleKey.O)
+                    {
+                        TurnOffBattery();
+                    }
+                    else if (key == ConsoleKey.Escape)
+                    {
+                        break;
+                    }
+                }
             }
             catch (COMException ex)
             {
-                Console.WriteLine("SimConnect COM error:");
-                Console.WriteLine(ex);
+                Console.WriteLine("Connection failed: " + ex.Message);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("General error:");
-                Console.WriteLine(ex);
-            }
-
-            Console.WriteLine("Press ENTER to exit.");
-            Console.ReadLine();
-
-            simConnect?.Dispose();
         }
 
-        // -----------------------------
-        // Win32 message-only window
-        // -----------------------------
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]
-        static extern IntPtr CreateWindowEx(
-            int dwExStyle,
-            string lpClassName,
-            string lpWindowName,
-            int dwStyle,
-            int x,
-            int y,
-            int nWidth,
-            int nHeight,
-            IntPtr hWndParent,
-            IntPtr hMenu,
-            IntPtr hInstance,
-            IntPtr lpParam
-        );
-
-        static IntPtr CreateMessageWindow()
+        static void TurnOffBattery()
         {
-            return CreateWindowEx(
-                0,
-                "STATIC",
-                "",
-                0,
-                0, 0, 0, 0,
-                IntPtr.Zero,
-                IntPtr.Zero,
-                IntPtr.Zero,
-                IntPtr.Zero
-            );
+            if (simconnect != null)
+            {
+                // 3. Transmit the event
+                // Parameter: 0 = Off, 1 = On
+                simconnect.TransmitClientEvent(
+                    SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                    EVENTS.KEY_MASTER_BATTERY_SET,
+                    0,
+                    GROUP_ID.GROUP0,
+                    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+                );
+
+                Console.WriteLine("Command Sent: Master Battery OFF");
+            }
         }
     }
 }

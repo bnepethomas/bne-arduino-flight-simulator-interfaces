@@ -678,7 +678,7 @@ namespace WindowsFormsApp2
             // Use SimCOnnect Inspector to find the correct variable name and units
             // Connect and then selecte managed data request
             // Initial open doesn't recognise Sim Time
-            // Setting COM1 resulots in EXCEPTION_INVALID_DATA_SIZE
+            // Setting COM1 results in EXCEPTION_INVALID_DATA_SIZE
             // Define COM1 standby frequency (in Hz)
             simconnect.AddToDataDefinition(
                 DEFINITIONS.Com1Standby,
