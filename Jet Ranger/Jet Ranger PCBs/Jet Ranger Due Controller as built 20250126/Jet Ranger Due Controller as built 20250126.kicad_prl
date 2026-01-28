@@ -48,7 +48,7 @@
       "drc_warnings",
       "shapes"
     ],
-    "visible_layers": "00000000_00000000_0ffffff5_ffffff7a",
+    "visible_layers": "00000000_00000000_0fffffff_ffffff7f",
     "zone_display_mode": 0
   },
   "git": {
@@ -58,7 +58,7 @@
     "ssh_key": ""
   },
   "meta": {
-    "filename": "Jet Ranger Front Panel Servo.kicad_prl",
+    "filename": "Jet Ranger Due Controller as built 20250126.kicad_prl",
     "version": 5
   },
   "net_inspector_panel": {
@@ -96,7 +96,7 @@
       91,
       71,
       91,
-      10
+      91
     ],
     "custom_group_rules": [],
     "expanded_rows": [],
