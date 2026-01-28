@@ -300,10 +300,10 @@ void setup() {
   */
 
   initCharOLED(0);
-  initCharOLED(1);
+  //initCharOLED(1);
   delay(1000);
   updateNAV();
-  updateCOMM();
+  //updateCOMM();
 
   SendDebug("Setup Complete");
 }

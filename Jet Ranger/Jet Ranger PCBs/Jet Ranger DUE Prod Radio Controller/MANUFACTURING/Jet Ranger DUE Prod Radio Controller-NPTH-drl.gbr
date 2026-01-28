@@ -1,0 +1,27 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,9.0.7*%
+%TF.CreationDate,2026-01-29T05:12:34+10:00*%
+%TF.ProjectId,Jet Ranger DUE Prod Radio Controller,4a657420-5261-46e6-9765-722044554520,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,NonPlated,1,2,NPTH,Drill*%
+%TF.FilePolarity,Positive*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 9.0.7) date 2026-01-29 05:12:34*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,ComponentDrill*%
+%ADD10C,3.200000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+%TO.C,H1*%
+X32300000Y-39000000D03*
+%TO.C,H4*%
+X33851800Y-130929500D03*
+%TO.C,H5*%
+X125101000Y-130612200D03*
+%TO.C,H2*%
+X126589800Y-39032100D03*
+M02*
