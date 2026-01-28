@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 440)
+    (start_pass_no 1922)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,26 +63,26 @@
     )
   )
   (class "kicad_default"
-    "/Keypad Row 0" GND "/Keypad Row 1" "/Keypad Row 3" "unconnected-(A1-PadD50)" "/+5v_IN" "/+12v-IN" "/MAX_7219-LOAD"
-    "/MAX_7219-DIN" "/INT_5V" SCLK "/CRS_A" SDA SCL "/Keypad Col 0" "/D0_OUT"
-    COL1 "/PIN_20" "ES1_RST" "/D1_OUT" ROW3 MISO "/IAS_B" "/MAX_7219-CLOCK"
-    /RESET MOSI "/GREEN_LED" "/RED_LED" SS "/D4_OUT" "/D7_OUT" "Net-(U1-INT)"
-    "unconnected-(U1-NC-PadB4)" "/BACKLIGHT_PWM" /SC5 +3V3 /D1 /D0 /VIN "unconnected-(J40-Pin_1-Pad1)"
-    /AREF "/RESET_pin" "unconnected-(A1-D52_CS2-PadD52)" "/D2_OUT" "Net-(Q5-G)" COL0 "/ALT_A" /IORF
-    "/D5_OUT" "/CATHODE_01" "Net-(U2-ISET)" "/VS_A" "/D3_OUT" "/ANNODE_01" "/D6_OUT" "/VS_B"
-    /COL3 "/ANNODE_03" "/CATHODE_03" "/CATHODE_02" "/ANNODE_02" /SD5 "/CATHODE_06" "/CATHODE_05"
-    "/ANNODE_04" "/CATHODE_07" /SC4 "Net-(J7-Pin_1)" "/CRS_B" "/PIN_21" "/COMM1_VOL" COL2
-    "/HDG_A" /SD4 /SC6 "/IAS_A" /SD6 "Net-(A1-D16{slash}TX2)" "unconnected-(A1-PadD48)" "/ALT_B"
-    "/HDG_B" "/ANNODE_00" "Net-(J8-Pin_4)" "Net-(J8-Pin_7)" "/CATHODE_00" "/NAV2_VOL" "/NAV1_VOL" "Net-(J8-Pin_3)"
-    "/ANNODE_07" "/ANNODE_05" "/ANNODE_06" "/CATHODE_04" "unconnected-(U2-DOUT-Pad24)" /SD7 /SC7 "/AP_MAG_SWITCH_COIL"
-    "Net-(J8-Pin_8)" "Net-(J8-Pin_6)" "Net-(J8-Pin_5)" /SC3 "/AP_OLED_SC" "unconnected-(J12-Pin_30-Pad30)" /SD3 "Net-(J8-Pin_9)"
-    "/GPS_TX" "/COMM2_VOL" ROW0 ROW2 "/Keypad Row 2" "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" ROW1
-    "/Keypad Col 1" "Net-(U5-C1-)" "/Keypad Col 2" "Net-(U5-C1+)" "Net-(U5-C2-)" "Net-(U5-C2+)" "unconnected-(A1-PadD51)" "unconnected-(A1-SPI_5V-Pad5V2)"
-    "unconnected-(A1-SPI_RESET-PadRST2)" "Net-(U5-VS-)" "Net-(U5-VS+)" "unconnected-(A1-SPI_GND-PadGND4)" "/NAV2_A" "NAV_OLED_SC" "/COMM1_B" "/COMM1_A"
-    "/BACKLIGHT_PANELS" "/NAV1_A" "COMM_OLED_SD" "unconnected-(J5-Pin_26-Pad26)" "/NAV2_B" "/COMM2_B" "/NAV1_B" "COMM_OLED_SC"
-    "NAV_OLED_SD" "/COMM2_A" "unconnected-(U5-R1OUT-Pad12)" "unconnected-(U5-R1IN-Pad13)" "unconnected-(U5-R2OUT-Pad9)" "unconnected-(U5-R2IN-Pad8)" "Net-(J3-Pin_1)" "unconnected-(U5-T2OUT-Pad7)"
-    "unconnected-(U5-T2IN-Pad10)" "unconnected-(J12-Pin_31-Pad31)" "unconnected-(J12-Pin_34-Pad34)" "unconnected-(J12-Pin_32-Pad32)" "/AP_OLED_SD" "unconnected-(J12-Pin_33-Pad33)" "Net-(D1-A)" "Net-(D2-A)"
-    "Net-(J41-Pin_3)" "Net-(A1-CANTX)" "Net-(J41-Pin_4)" "Net-(A1-CANRX)" "Net-(D3-A)" "Net-(D4-A)" "Net-(D8-A)" "unconnected-(J9-Pin_8-Pad8)"
+    "/Keypad Row 0" GND "/Keypad Row 1" "/Keypad Row 3" "/+5v_IN" "/+12v-IN" "/MAX_7219-LOAD" "/MAX_7219-DIN"
+    "/INT_5V" SCLK "/CRS_A" SDA SCL "/Keypad Col 0" "/D0_OUT" COL1
+    "/PIN_20" "ES1_RST" "/D1_OUT" ROW3 MISO "/IAS_B" "/MAX_7219-CLOCK" /RESET
+    MOSI "/GREEN_LED" "/RED_LED" SS "/D4_OUT" "/D7_OUT" "Net-(U1-INT)" "unconnected-(U1-NC-PadB4)"
+    "/BACKLIGHT_PWM" /SC5 +3V3 /D1 /D0 /VIN "unconnected-(J40-Pin_1-Pad1)" /AREF
+    "/RESET_pin" "/D2_OUT" "Net-(Q5-G)" COL0 "/ALT_A" /IORF "/D5_OUT" "/CATHODE_01"
+    "Net-(U2-ISET)" "/VS_A" "/D3_OUT" "/ANNODE_01" "/D6_OUT" "/VS_B" /COL3 "/ANNODE_03"
+    "/CATHODE_03" "/CATHODE_02" "/ANNODE_02" /SD5 "/CATHODE_06" "/CATHODE_05" "/ANNODE_04" "/CATHODE_07"
+    /SC4 "Net-(J7-Pin_1)" "/CRS_B" "/PIN_21" "/COMM1_VOL" COL2 "/HDG_A" /SD4
+    /SC6 "/IAS_A" /SD6 "Net-(A1-D16{slash}TX2)" "unconnected-(A1-PadD48)" "/ALT_B" "/HDG_B" "/ANNODE_00"
+    "Net-(J8-Pin_4)" "Net-(J8-Pin_7)" "/CATHODE_00" "/NAV2_VOL" "/NAV1_VOL" "Net-(J8-Pin_3)" "/ANNODE_07" "/ANNODE_05"
+    "/ANNODE_06" "/CATHODE_04" "unconnected-(U2-DOUT-Pad24)" /SD7 /SC7 "/AP_MAG_SWITCH_COIL" "Net-(J8-Pin_8)" "Net-(J8-Pin_6)"
+    "Net-(J8-Pin_5)" /SC3 "/AP_OLED_SC" "unconnected-(J12-Pin_30-Pad30)" /SD3 "Net-(J8-Pin_9)" "/GPS_TX" "/COMM2_VOL"
+    ROW0 ROW2 "/Keypad Row 2" "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" ROW1 "/Keypad Col 1" "Net-(U5-C1-)"
+    "/Keypad Col 2" "Net-(U5-C1+)" "Net-(U5-C2-)" "Net-(U5-C2+)" "unconnected-(A1-SPI_5V-Pad5V2)" "unconnected-(A1-SPI_RESET-PadRST2)" "Net-(U5-VS-)" "Net-(U5-VS+)"
+    "unconnected-(A1-SPI_GND-PadGND4)" "/NAV2_A" "NAV_OLED_SC" "/COMM1_B" "/COMM1_A" "/BACKLIGHT_PANELS" "/NAV1_A" "COMM_OLED_SD"
+    "unconnected-(J5-Pin_26-Pad26)" "/NAV2_B" "/COMM2_B" "/NAV1_B" "COMM_OLED_SC" "NAV_OLED_SD" "/COMM2_A" "unconnected-(U5-R1OUT-Pad12)"
+    "unconnected-(U5-R1IN-Pad13)" "unconnected-(U5-R2OUT-Pad9)" "unconnected-(U5-R2IN-Pad8)" "Net-(J3-Pin_1)" "unconnected-(U5-T2OUT-Pad7)" "unconnected-(U5-T2IN-Pad10)" "unconnected-(J12-Pin_31-Pad31)" "unconnected-(J12-Pin_34-Pad34)"
+    "unconnected-(J12-Pin_32-Pad32)" "/AP_OLED_SD" "unconnected-(J12-Pin_33-Pad33)" "Net-(D1-A)" "Net-(D2-A)" "Net-(J41-Pin_3)" "Net-(A1-CANTX)" "Net-(J41-Pin_4)"
+    "Net-(A1-CANRX)" "Net-(D3-A)" "Net-(D4-A)" "Net-(D8-A)" "unconnected-(J9-Pin_8-Pad8)" "/I2C_SEL_A2" "/I2C_SEL_A1" "/I2C_SEL_A0"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
