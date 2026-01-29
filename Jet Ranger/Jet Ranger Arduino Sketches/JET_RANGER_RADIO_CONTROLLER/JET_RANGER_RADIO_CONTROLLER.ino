@@ -205,6 +205,11 @@ void sendData(unsigned char data) {
   Wire.write(OLED_Data_Mode);            // **** Set OLED Data mode
   Wire.write(data);
   Wire.endTransmission();  // **** End I2C
+
+  Wire1.beginTransmission(OLED_Address);  // **** Start I2C
+  Wire1.write(OLED_Data_Mode);            // **** Set OLED Data mode
+  Wire1.write(data);
+  Wire1.endTransmission();  // **** End I2C
 }
 
 void sendCommand(unsigned char command) {
@@ -212,6 +217,11 @@ void sendCommand(unsigned char command) {
   Wire.write(OLED_Command_Mode);         // **** Set OLED Command mode
   Wire.write(command);
   Wire.endTransmission();  // **** End I2C
+
+  Wire1.beginTransmission(OLED_Address);  // **** Start I2C
+  Wire1.write(OLED_Command_Mode);         // **** Set OLED Command mode
+  Wire1.write(command);
+  Wire1.endTransmission(); 
                            //delay(10);
 }
 
@@ -275,12 +285,12 @@ void setup() {
   }
 
   Wire.begin();
+  Wire1.begin();
 
 
 
-
-// When Using Arduino Due this is not supported
-/*
+  // When Using Arduino Due this is not supported
+  /*
   for (uint8_t t = 0; t < 8; t++) {
     tcaselect(t);
     // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
@@ -300,10 +310,10 @@ void setup() {
   */
 
   initCharOLED(0);
-  //initCharOLED(1);
+  initCharOLED(1);
   delay(1000);
   updateNAV();
-  //updateCOMM();
+  // updateCOMM();
 
   SendDebug("Setup Complete");
 }
