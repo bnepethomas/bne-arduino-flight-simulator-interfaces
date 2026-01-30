@@ -3,9 +3,8 @@
 
 // Define the pins for each rotary encoder (A and B phases)
 // The Arduino Due supports interrupts on ALL digital pins.
-// Choose distinct digital pins for each encoder.
-const int ENCODER_PINS_A[NUM_ENCODERS] = {2, 4, 6, 8, 10, 12};
-const int ENCODER_PINS_B[NUM_ENCODERS] = {3, 5, 7, 9, 11, 13};
+const int ENCODER_PINS_A[NUM_ENCODERS] = { 36, 38, 40, 42, 44, 46 };
+const int ENCODER_PINS_B[NUM_ENCODERS] = { 37, 39, 41, 43, 45, 47 };
 
 // Volatile variables for interrupt handling for each encoder
 // These arrays store the state for each of the NUM_ENCODERS.
