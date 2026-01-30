@@ -3,8 +3,8 @@
 
 // Define the pins for each rotary encoder (A and B phases)
 // The Arduino Due supports interrupts on ALL digital pins.
-const int ENCODER_PINS_A[NUM_ENCODERS] = { 36, 38, 40, 42, 44, 46 };
-const int ENCODER_PINS_B[NUM_ENCODERS] = { 37, 39, 41, 43, 45, 47 };
+const int ENCODER_PINS_A[NUM_ENCODERS] = { 3, 38, 40, 42, 44, 46 };
+const int ENCODER_PINS_B[NUM_ENCODERS] = { 4, 39, 41, 43, 45, 47 };
 
 // Volatile variables for interrupt handling for each encoder
 // These arrays store the state for each of the NUM_ENCODERS.
@@ -13,8 +13,8 @@ volatile unsigned long lastEncoderChangeTimes[NUM_ENCODERS] = {0}; // Stores the
 volatile int encoderDirections[NUM_ENCODERS] = {0}; // 1 for CW, -1 for CCW, 0 for no change detected by ISR
 
 // Debounce and acceleration parameters (shared across all encoders for simplicity)
-const unsigned long DEBOUNCE_DELAY_US = 500; // Microseconds to debounce (adjust as needed)
-const unsigned long FAST_TURN_THRESHOLD_US = 5000; // If step takes less than this, consider it a fast turn
+const unsigned long DEBOUNCE_DELAY_US = 5000; // Microseconds to debounce (adjust as needed)
+const unsigned long FAST_TURN_THRESHOLD_US = 50000; // If step takes less than this, consider it a fast turn
 const int ACCELERATION_MULTIPLIER = 5; // How much to multiply the step by during fast turns
 
 // --- ISRs for each encoder ---
