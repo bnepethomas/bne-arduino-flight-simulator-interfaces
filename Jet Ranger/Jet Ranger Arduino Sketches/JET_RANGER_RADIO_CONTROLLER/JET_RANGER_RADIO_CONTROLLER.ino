@@ -234,11 +234,21 @@ void updateNAV(int Channel) {
   send_string(workstring.c_str());
 }
 
-void updateCOMM() {
+void updateCOMM( char *COMM1_ACTIVE, char  *COMM1_STANDBY, char *COMM2_ACTIVE, char *COMM2_STANDBY) {
+  // Strings need to be preformatted to 6 characters long
   tcaselect(COMM_OLED_Port);
-  sendCommand(cmd_CLS);
-  String workstring = "Hello Comm";
-  send_string(workstring.c_str());
+  sendCommand(0x80);
+  //sendCommand(cmd_CLS);
+  String workstring1 = String(COMM1_ACTIVE).substring(0,3) + "." + String(COMM1_ACTIVE).substring(3,5);
+  workstring1 =  workstring1 +  "   " + String(COMM2_ACTIVE).substring(0,3) + "." + String(COMM2_ACTIVE).substring(3,5);
+  //String workstring2 = COMM1_STANDBY + "   " +  COMM2_STANDBY;
+  String workstring2 = String(COMM1_STANDBY).substring(0,3) + "." + String(COMM1_STANDBY).substring(3,5);
+  workstring2 =  workstring2 +  "   " + String(COMM2_STANDBY).substring(0,3) + "." + String(COMM2_STANDBY).substring(3,5);
+  //send_string(COMM1_ACTIVE.c_str() + " " + COMM1_STANDBY.c_str() + " " +  COMM2_ACTIVE.c_str() + " " +  COMM2_STANDBY.c_str());
+
+  send_string(workstring1.c_str());
+  sendCommand(cmd_NewLine);
+  send_string(workstring2.c_str());
 }
 
 // ############################################# END CHARACTER OLED ##########################################
@@ -248,8 +258,8 @@ void updateCOMM() {
 
 // Can use ANY pins on Mega (no interrupt limitation!)
 // Create 4 encoders for X, Y, Z, and Menu control
-RotaryEncoder encoderX(36, 37, -1000, 1000);
-RotaryEncoder encoderY(38, 39, -1000, 1000);
+RotaryEncoder encoderX(36, 37, 0, 1000);
+RotaryEncoder encoderY(38, 39, 0, 1000);
 // RotaryEncoder encoderZ(6, 7, -1000, 1000);
 // RotaryEncoder encoderMenu(8, 9, 0, 10);
 
@@ -314,8 +324,8 @@ void setup() {
   initCharOLED(0);
   initCharOLED(1);
   delay(1000);
-  updateNAV(100);
-  // updateCOMM();
+  // updateNAV(100);
+  //updateCOMM( "118.50", "119.50", "120.50", "121.50");
 
   SendDebug("Start Encoders");
   encoderX.begin();
@@ -354,7 +364,11 @@ void loop() {
   // Print if any encoder changed
   if (x != lastX || y != lastY) {
     SendDebug("X:" + String(x) + " Y: " + String(y));
+    char buffer[5];
+    int convertedchann = int (x/3) * 5 + 11800;
+    sprintf(buffer, "%05d", convertedchann);
 
+    updateCOMM(buffer,buffer,buffer,buffer);
     lastX = x;
     lastY = y;
   }
