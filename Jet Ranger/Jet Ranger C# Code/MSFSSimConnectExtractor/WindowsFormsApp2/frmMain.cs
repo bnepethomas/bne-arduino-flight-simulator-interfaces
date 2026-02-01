@@ -21,6 +21,11 @@ using System.Timers;
 using System.Windows.Forms;
 
 
+
+
+
+
+
 //      
 
 
@@ -59,8 +64,12 @@ namespace WindowsFormsApp2
 {
 
 
+
     public partial class frmMain : Form
     {
+
+        private UdpClient udpServer;
+        private const int listenPort = 27001;
 
         // User-defined win32 event 
         const int WM_USER_SIMCONNECT = 0x0402;
@@ -193,9 +202,42 @@ namespace WindowsFormsApp2
         //{ "ZULU DAY OF WEEK",           "Number",               SIMCONNECT_DATATYPE_INT32       },
 
 
+
+        private void StartListener()
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    // Create UdpClient on the specified port
+                    using (udpServer = new UdpClient(listenPort))
+                    {
+                        while (true)
+                        {
+                            // Wait for incoming data
+                            UdpReceiveResult result = await udpServer.ReceiveAsync();
+                            string receivedData = Encoding.ASCII.GetString(result.Buffer);
+
+                            // Update UI with received data (use Invoke to reach UI thread)
+                            this.Invoke(new Action(() => {
+                                listBoxLogs.Items.Add($"Received: {receivedData} from {result.RemoteEndPoint}");
+                            }));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle socket exceptions (e.g., if port is already in use)
+                    Console.WriteLine(ex.Message);
+                }
+            });
+        }
+
+
         public frmMain()
         {
             InitializeComponent();
+            StartListener();
 
 
             setButtons(true, false, false);

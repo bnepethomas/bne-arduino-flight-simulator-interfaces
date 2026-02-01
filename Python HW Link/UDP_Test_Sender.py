@@ -84,17 +84,17 @@ def main():
     try:
         print('UDP_Test_Sender - ctl-c at anytime to exit')
         print('')
-        target_IP = input('Enter Target IP Address [172.16.1.110]: ')
+        target_IP = input('Enter Target IP Address [172.16.1.10]: ')
         if len(target_IP) == 0:
-            target_IP = '172.16.1.110'
+            target_IP = '172.16.1.10'
 
 
 
         target_Port = ''
         while not isinstance(target_Port, int):
-            target_Port = input('Enter Target Port [7789]: ')
+            target_Port = input('Enter Target Port [27001]: ')
             if len(target_Port) == 0:
-                target_Port = 7789
+                target_Port = 27001
             try:
                 target_Port = int(target_Port)
                 
@@ -102,33 +102,37 @@ def main():
                 target_Port = ''
                 print('Target Port needs to be an integer between 1 and 65535')
 
-        run_LED_tests = input(
-            'Would you like Run LEDs Test [N]: ')
-        if run_LED_tests.upper() != 'Y':
-            run_LED_tests = False
-        else:
-            run_LED_tests = True    
+##        run_LED_tests = input(
+##            'Would you like Run LEDs Test [N]: ')
+##        if run_LED_tests.upper() != 'Y':
+##            run_LED_tests = False
+##        else:
+##            run_LED_tests = True    
+##        
+##
+##        run_DigitalOutput_tests = input(
+##            'Would you like Run Digital Outputs Test [N]: ')
+##        if run_DigitalOutput_tests.upper() != 'Y':
+##            run_DigitalOutput_tests = False
+##        else:
+##            run_DigitalOutput_tests = True
+##
+##
+##        run_Servo_tests = input(
+##            'Would you like Run Servos Test [N]: ')
+##        if run_Servo_tests.upper() != 'Y':
+##            run_Servo_tests = False
+##        else:
+##            run_Servo_tests = True
+
+        run_LED_tests = False
+        run_DigitalOutput_tests = False
+        run_Servo_tests = False
         
-
-        run_DigitalOutput_tests = input(
-            'Would you like Run Digital Outputs Test [N]: ')
-        if run_DigitalOutput_tests.upper() != 'Y':
-            run_DigitalOutput_tests = False
-        else:
-            run_DigitalOutput_tests = True
-
-
-        run_Servo_tests = input(
-            'Would you like Run Servos Test [N]: ')
-        if run_Servo_tests.upper() != 'Y':
-            run_Servo_tests = False
-        else:
-            run_Servo_tests = True
-            
-
+        
         if (run_LED_tests == False) and (run_DigitalOutput_tests == False) and (run_Servo_tests == False) :
             prefix_with_D = input(
-                'Would you like all commands to be prefix with a D [Y]: ')
+                'Would you like all commands to be prefix with a D [N]: ')
             if prefix_with_D.upper() != 'Y':
                 prefix_with_D = False
             else:

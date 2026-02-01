@@ -41,6 +41,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Set_Standby_Com1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.listBoxLogs = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -77,7 +78,7 @@
             // 
             this.richResponse.Location = new System.Drawing.Point(53, 66);
             this.richResponse.Name = "richResponse";
-            this.richResponse.Size = new System.Drawing.Size(369, 537);
+            this.richResponse.Size = new System.Drawing.Size(369, 346);
             this.richResponse.TabIndex = 3;
             this.richResponse.Text = "";
             this.richResponse.TextChanged += new System.EventHandler(this.richResponse_TextChanged);
@@ -156,11 +157,20 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click_1);
             // 
+            // listBoxLogs
+            // 
+            this.listBoxLogs.FormattingEnabled = true;
+            this.listBoxLogs.Location = new System.Drawing.Point(53, 450);
+            this.listBoxLogs.Name = "listBoxLogs";
+            this.listBoxLogs.Size = new System.Drawing.Size(368, 108);
+            this.listBoxLogs.TabIndex = 11;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 625);
+            this.Controls.Add(this.listBoxLogs);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.btn_Set_Standby_Com1);
             this.Controls.Add(this.label1);
@@ -194,6 +204,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_Set_Standby_Com1;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ListBox listBoxLogs;
     }
 }
 

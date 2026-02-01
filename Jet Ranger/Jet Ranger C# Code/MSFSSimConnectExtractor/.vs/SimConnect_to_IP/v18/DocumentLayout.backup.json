@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|solutionrelative:windowsformsapp2\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\windowsformsapp2\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|solutionrelative:windowsformsapp2\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\windowsformsapp2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|solutionrelative:windowsformsapp2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\windowsformsapp2\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|solutionrelative:windowsformsapp2\\frmmain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\windowsformsapp2\\frmmain.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,19 +38,21 @@
               "RelativeToolTip": "WindowsFormsApp2\\frmMain.Designer.cs",
               "ViewState": "AgIAAH4AAAAAAAAAAAAnwJEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-26T11:39:56.522Z"
+              "WhenOpened": "2026-01-26T11:39:56.522Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\Program.cs",
               "RelativeDocumentMoniker": "WindowsFormsApp2\\Program.cs",
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\Program.cs",
               "RelativeToolTip": "WindowsFormsApp2\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T21:09:51.912Z"
+              "WhenOpened": "2026-01-25T21:09:51.912Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -60,21 +62,22 @@
               "RelativeDocumentMoniker": "WindowsFormsApp2\\frmMain.cs",
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs*",
               "RelativeToolTip": "WindowsFormsApp2\\frmMain.cs*",
-              "ViewState": "AgIAAMICAAAAAAAAAAAEwNcCAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAEcAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-25T00:02:05.565Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "frmMain.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs",
               "RelativeDocumentMoniker": "WindowsFormsApp2\\frmMain.cs",
-              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs [Design]",
-              "RelativeToolTip": "WindowsFormsApp2\\frmMain.cs [Design]",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs [Design]*",
+              "RelativeToolTip": "WindowsFormsApp2\\frmMain.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T00:02:02.008Z"
+              "WhenOpened": "2026-01-25T00:02:02.008Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }
