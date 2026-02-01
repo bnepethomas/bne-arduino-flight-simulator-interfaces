@@ -1,4 +1,4 @@
-26648068789422387
+26649833373419393
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -70657,6 +70657,13 @@ ESP8266 WiFi microcontroller
 0
 20
 20
+Module
+Arduino_Due_Shield
+https://docs.arduino.cc/hardware/due
+
+0
+92
+91
 Module
 Arduino_Nano
 Arduino Nano, http://www.mouser.com/pdfdocs/Gravitech_Arduino_Nano3_0.pdf
