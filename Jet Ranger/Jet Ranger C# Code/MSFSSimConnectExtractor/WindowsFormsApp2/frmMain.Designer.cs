@@ -41,6 +41,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.listBoxLogs = new System.Windows.Forms.ListBox();
+            this.lblStandbyFrequency = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -154,11 +156,33 @@
             this.listBoxLogs.Size = new System.Drawing.Size(368, 108);
             this.listBoxLogs.TabIndex = 11;
             // 
+            // lblStandbyFrequency
+            // 
+            this.lblStandbyFrequency.AutoSize = true;
+            this.lblStandbyFrequency.Location = new System.Drawing.Point(428, 298);
+            this.lblStandbyFrequency.Name = "lblStandbyFrequency";
+            this.lblStandbyFrequency.Size = new System.Drawing.Size(40, 13);
+            this.lblStandbyFrequency.TabIndex = 12;
+            this.lblStandbyFrequency.Text = "NotSet";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(428, 285);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Standby Frequency";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 625);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblStandbyFrequency);
             this.Controls.Add(this.listBoxLogs);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label1);
@@ -192,6 +216,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ListBox listBoxLogs;
+        private System.Windows.Forms.Label lblStandbyFrequency;
+        private System.Windows.Forms.Label label2;
     }
 }
 

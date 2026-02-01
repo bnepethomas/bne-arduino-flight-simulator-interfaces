@@ -218,11 +218,17 @@ namespace WindowsFormsApp2
                             UdpReceiveResult result = await udpServer.ReceiveAsync();
                             string receivedData = Encoding.ASCII.GetString(result.Buffer);
 
+                            
+
                             // Update UI with received data (use Invoke to reach UI thread)
                             this.Invoke(new Action(() => {
                                 listBoxLogs.Items.Add($"Received: {receivedData} from {result.RemoteEndPoint}");
                             }));
-                            UpdateRadios(receivedData);
+
+                            this.Invoke(new Action(() =>
+                            {
+                                UpdateRadios(receivedData);
+                            }));
 
 
                         }
@@ -235,6 +241,40 @@ namespace WindowsFormsApp2
                 }
             });
         }
+
+        public static byte[] IntToBcd(int value)
+        {
+            // Input validation (assuming a max of 8 BCD digits, i.e., up to 99,999,999)
+            if (value < 0 || value > 99999999)
+            {
+                throw new ArgumentOutOfRangeException(nameof(value), "Value must be between 0 and 99,999,999.");
+            }
+
+            // A BCD number stores two decimal digits per byte
+            byte[] bcdArray = new byte[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                // Get the least significant digit (LSD) using modulo 10
+                int lsd = value % 10;
+                bcdArray[i] = (byte)lsd;
+                // Remove the LSD from the value
+                value /= 10;
+
+                // Get the next least significant digit
+                int msd = value % 10;
+                // Shift the MSD 4 bits to the left to place it in the high nibble, then combine with the LSD
+                bcdArray[i] |= (byte)(msd << 4);
+                // Remove the MSD from the value
+                value /= 10;
+
+                // Optimization: if value is 0, we can stop
+                if (value == 0) break;
+            }
+
+            return bcdArray;
+        }
+
 
 
         public frmMain()
@@ -394,13 +434,13 @@ namespace WindowsFormsApp2
 
         void simconnect_OnRecvOpen(SimConnect sender, SIMCONNECT_RECV_OPEN data)
         {
-            displayText("Connected to Prepar3D");
+            displayText("Connected to MSFS");
         }
 
         // The case where the user closes Prepar3D 
         void simconnect_OnRecvQuit(SimConnect sender, SIMCONNECT_RECV data)
         {
-            displayText("Prepar3D has exited");
+            displayText("MSFS has exited");
             closeConnection();
         }
 
@@ -479,19 +519,19 @@ namespace WindowsFormsApp2
                     displayText("Airspeed           " + s1.airspeed);
                     displayText("Bank Degrees       " + s1.ATTITUDE_INDICATOR_BANK_DEGREES);
                     displayText("Pitch Degrees      " + s1.ATTITUDE_INDICATOR_PITCH_DEGREES);
-                    displayText("ROTOR RPM          " + s1.ROTOR_RPM_PCT_1);
-                    displayText("ENG ROTOR RPM      " + s1.GENERAL_ENG_PCT_MAX_RPM_1);
-                    displayText("ENG TORQUE PERCENT " + s1.ENG_TORQUE_PERCENT_1 * 4 /9);
-                    displayText("ELECTRICAL TOTAL LOAD AMPS " + s1.ELECTRICAL_TOTAL_LOAD_AMPS * 40/56);
+                    //displayText("ROTOR RPM          " + s1.ROTOR_RPM_PCT_1);
+                    //displayText("ENG ROTOR RPM      " + s1.GENERAL_ENG_PCT_MAX_RPM_1);
+                    //displayText("ENG TORQUE PERCENT " + s1.ENG_TORQUE_PERCENT_1 * 4 /9);
+                    //displayText("ELECTRICAL TOTAL LOAD AMPS " + s1.ELECTRICAL_TOTAL_LOAD_AMPS * 40/56);
                     // ENG EXHAUST is in Rankine need to convert to Celsius - TOT not directly available
                     // So some more calculations needed - for now just send ITT
-                    displayText("TURBINE ENG ITT    " + s1.TURB_ENG_ITT_1);
-                    displayText("ENG OIL TEMP       " + s1.ENG_OIL_TEMPERATURE_1); 
-                    displayText("FUEL TOTAL QUANTITY        " + s1.FUEL_TOTAL_QUANTITY);
-                    displayText("TURB ENG N1        " + s1.TURB_ENG_CORRECTED_N1_1);
-                    displayText("ENG OIL PRESSURE   " + s1.ENG_OIL_PRESSURE_1);
-                    displayText("ENG TRANSMISSION PRESSURE  " + s1.ENG_TRANSMISSION_PRESSURE_1);
-                    displayText("ENG TRANSMISSION TEMPERATURE " + s1.ENG_TRANSMISSION_TEMPERATURE_1);
+                    //displayText("TURBINE ENG ITT    " + s1.TURB_ENG_ITT_1);
+                    //displayText("ENG OIL TEMP       " + s1.ENG_OIL_TEMPERATURE_1); 
+                    //displayText("FUEL TOTAL QUANTITY        " + s1.FUEL_TOTAL_QUANTITY);
+                    //displayText("TURB ENG N1        " + s1.TURB_ENG_CORRECTED_N1_1);
+                    //displayText("ENG OIL PRESSURE   " + s1.ENG_OIL_PRESSURE_1);
+                    //displayText("ENG TRANSMISSION PRESSURE  " + s1.ENG_TRANSMISSION_PRESSURE_1);
+                    //displayText("ENG TRANSMISSION TEMPERATURE " + s1.ENG_TRANSMISSION_TEMPERATURE_1);
                     displayText("COM1 Active Freq   " + s1.com1ActiveFrequency);
                     displayText("COM2 Active Freq   " + s1.com2ActiveFrequency);
                     displayText("COM1 Standby Freq  " + s1.com1StandbyFrequency);
@@ -500,28 +540,28 @@ namespace WindowsFormsApp2
                     displayText("Avionics Master Switch      " + s1.Avionics_Master_Switch);
 
 
-                    displayText("Sim Time           " + s1.elapsedsimtime);
-                    displayText("Zulu Time          " + s1.zulu_time);
-                    displayText("Time Zone Offset   " + s1.time_zone_offset);
-                    displayText("Absolute Time      " + s1.absolute_time);
-                    displayText("Plane Heading True " + s1.plane_heading_degrees_true);
-                    displayText("Plane Heading Mag  " + s1.plane_heading_degrees_magnetic);
-                    displayText("GENERAL ENG MASTER ALTERNATOR:1  " + s1.GENERAL_ENG_MASTER_ALTERNATOR_1);
-                    displayText("GENERAL ENG MASTER ALTERNATOR:2  " + s1.GENERAL_ENG_MASTER_ALTERNATOR_2);
-                    displayText("TRAILING EDGE FLAPS LEFT ANGLE  " + s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE);
-                    displayText("TRAILING EDGE FLAPS LEFT PERCENT  " + s1.TRAILING_EDGE_FLAPS_LEFT_PERCENT);
-                    displayText("SPOILERS LEFT POSITION      " + s1.SPOILERS_LEFT_POSITION);
-                    displayText("ELEVATOR TRIM PCT           " + s1.ELEVATOR_TRIM_PCT);
-                    displayText("BRAKE PARKING INDICATOR     " + s1.BRAKE_PARKING_INDICATOR);
-                    displayText("GENERAL ENG FUEL VALVE:1    " + s1.GENERAL_ENG_FUEL_VALVE_1);
-                    displayText("GENERAL ENG FUEL VALVE:2    " + s1.GENERAL_ENG_FUEL_VALVE_2);
-                    displayText("GENERAL ENG STARTER:1       " + s1.GENERAL_ENG_STARTER_1);
-                    displayText("GENERAL ENG STARTER:2       " + s1.GENERAL_ENG_STARTER_2);
-                    displayText("GENERAL ENG OIL PRESSURE:1  " + s1.GENERAL_ENG_OIL_PRESSURE_1);
-                    displayText("GENERAL ENG OIL PRESSURE:2  " + s1.GENERAL_ENG_OIL_PRESSURE_2);
-                    displayText("ENG ON FIRE:2               " + s1.ENG_ON_FIRE_1);
-                    displayText("ENG ON FIRE:2               " + s1.ENG_ON_FIRE_2);
-                    displayText("STALL WARNING               " + s1.STALL_WARNING);
+                    //displayText("Sim Time           " + s1.elapsedsimtime);
+                    //displayText("Zulu Time          " + s1.zulu_time);
+                    //displayText("Time Zone Offset   " + s1.time_zone_offset);
+                    //displayText("Absolute Time      " + s1.absolute_time);
+                    //displayText("Plane Heading True " + s1.plane_heading_degrees_true);
+                    //displayText("Plane Heading Mag  " + s1.plane_heading_degrees_magnetic);
+                    //displayText("GENERAL ENG MASTER ALTERNATOR:1  " + s1.GENERAL_ENG_MASTER_ALTERNATOR_1);
+                    //displayText("GENERAL ENG MASTER ALTERNATOR:2  " + s1.GENERAL_ENG_MASTER_ALTERNATOR_2);
+                    //displayText("TRAILING EDGE FLAPS LEFT ANGLE  " + s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE);
+                    //displayText("TRAILING EDGE FLAPS LEFT PERCENT  " + s1.TRAILING_EDGE_FLAPS_LEFT_PERCENT);
+                    //displayText("SPOILERS LEFT POSITION      " + s1.SPOILERS_LEFT_POSITION);
+                    //displayText("ELEVATOR TRIM PCT           " + s1.ELEVATOR_TRIM_PCT);
+                    //displayText("BRAKE PARKING INDICATOR     " + s1.BRAKE_PARKING_INDICATOR);
+                    //displayText("GENERAL ENG FUEL VALVE:1    " + s1.GENERAL_ENG_FUEL_VALVE_1);
+                    //displayText("GENERAL ENG FUEL VALVE:2    " + s1.GENERAL_ENG_FUEL_VALVE_2);
+                    //displayText("GENERAL ENG STARTER:1       " + s1.GENERAL_ENG_STARTER_1);
+                    //displayText("GENERAL ENG STARTER:2       " + s1.GENERAL_ENG_STARTER_2);
+                    //displayText("GENERAL ENG OIL PRESSURE:1  " + s1.GENERAL_ENG_OIL_PRESSURE_1);
+                    //displayText("GENERAL ENG OIL PRESSURE:2  " + s1.GENERAL_ENG_OIL_PRESSURE_2);
+                    //displayText("ENG ON FIRE:2               " + s1.ENG_ON_FIRE_1);
+                    //displayText("ENG ON FIRE:2               " + s1.ENG_ON_FIRE_2);
+                    //displayText("STALL WARNING               " + s1.STALL_WARNING);
                     
                     //displayText("LIGHT CABIN                 " + s1.LIGHT_CABIN);
                     //displayText("LIGHT STROBE                " + s1.LIGHT_STROBE);
@@ -596,7 +636,7 @@ namespace WindowsFormsApp2
                 }
                 catch (COMException ex)
                 {
-                    displayText("Unable to connect to Prepar3D:\n\n" + ex.Message);
+                    displayText("Unable to connect to MSFS:\n\n" + ex.Message);
                 }
             }
             else
@@ -731,6 +771,9 @@ namespace WindowsFormsApp2
         {
             if (simconnect != null)
             {
+
+                //MessageBox.Show("Updating Radios");
+
                 // Battery Event
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
 
@@ -746,17 +789,58 @@ namespace WindowsFormsApp2
                     SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
                 );
 
-                if (STR_COMM1_STANDBYFREQUENCY == null) 
+
+                const float GOTO_FREQUENCY = 121.50F;
+                // Check to see if the received string is a number
+                float FLT_COMM1_STANDBY_FREQUENCY;
+
+                bool isNumeric = float.TryParse(STR_COMM1_STANDBYFREQUENCY, out FLT_COMM1_STANDBY_FREQUENCY);
+
+                if (!isNumeric)
                 {
+                    listBoxLogs.Items.Add($"'{STR_COMM1_STANDBYFREQUENCY}' is not a valid float. Value: {STR_COMM1_STANDBYFREQUENCY}");
                     STR_COMM1_STANDBYFREQUENCY = "121.50";
+                    FLT_COMM1_STANDBY_FREQUENCY = GOTO_FREQUENCY;
+
                 }
 
-                
+                // Should have a numberic value at this point
+                // Now check bounds
+                if (FLT_COMM1_STANDBY_FREQUENCY < 118.00 || FLT_COMM1_STANDBY_FREQUENCY > 136.975)
+                {
+                    FLT_COMM1_STANDBY_FREQUENCY = GOTO_FREQUENCY;
+                }
+
+
+                lblStandbyFrequency.Text = STR_COMM1_STANDBYFREQUENCY;
                 
                 listBoxLogs.Items.Add("Setting COM1 Standby Frequency to " + STR_COMM1_STANDBYFREQUENCY + " MHz");
+
+                // Convert frequency to BCD format
+                int intFrequency = (int)(FLT_COMM1_STANDBY_FREQUENCY * 100);
+
+                listBoxLogs.Items.Add("Converting in Int: " + intFrequency);
+                // Now subtract the 100MHz bit
+                intFrequency = intFrequency - 10000;
+                listBoxLogs.Items.Add("Less 10000 " + intFrequency);
+                //byte[] frequencyBCD = IntToBcd(intFrequency);
+
+                uint frequencyBCD = 0;
+                for (int i = 0; i < 4; i++) // Process up to 4 digits
+                {
+                    uint digit = (uint)(intFrequency % 10);
+                    frequencyBCD |= (digit << (i * 4)); // Shift digit into 4-bit nibble
+                    intFrequency /= 10;
+                }
+                listBoxLogs.Items.Add("BCD Frequency Derived: " + frequencyBCD.ToString("X"));
+
+
+
                 // Frequency 121.50 MHz in BCD is 0x2150
                 // We use uint to ensure the hex value is passed correctly
-                uint frequencyBCD = 0x2150;
+                //frequencyBCD = 0x2150;
+
+                listBoxLogs.Items.Add("BCD Frequency: " + frequencyBCD.ToString("X"));
 
                 simconnect.TransmitClientEvent(
                     SimConnect.SIMCONNECT_OBJECT_ID_USER,

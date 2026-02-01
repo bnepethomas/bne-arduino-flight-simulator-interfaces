@@ -196,7 +196,7 @@ void initCharOLED(uint8_t i2c_address) {
   delay(100);
   sendCommand(0x0C);  // **** Turn on Display
 
-  send_string("Character OLED");
+  send_string("XXX.XX   XXX.XX");
   sendCommand(cmd_NewLine);
   wrkString = "TEST " + String(i2c_address);
   send_string(wrkString.c_str());
@@ -216,7 +216,7 @@ void sendCommand(unsigned char command) {
   Wire.endTransmission();  // **** End I2C
 }
 
-void send_string(const char* String) {
+void send_string(const char *String) {
   unsigned char i = 0;
   while (String[i]) {
     sendData(String[i]);  // *** Show String to OLED
@@ -234,16 +234,16 @@ void updateNAV(int Channel) {
   send_string(workstring.c_str());
 }
 
-void updateCOMM( char *COMM1_ACTIVE, char  *COMM1_STANDBY, char *COMM2_ACTIVE, char *COMM2_STANDBY) {
+void updateCOMM(char *COMM1_ACTIVE, char *COMM1_STANDBY, char *COMM2_ACTIVE, char *COMM2_STANDBY) {
   // Strings need to be preformatted to 6 characters long
   tcaselect(COMM_OLED_Port);
   sendCommand(0x80);
   //sendCommand(cmd_CLS);
-  String workstring1 = String(COMM1_ACTIVE).substring(0,3) + "." + String(COMM1_ACTIVE).substring(3,5);
-  workstring1 =  workstring1 +  "   " + String(COMM2_ACTIVE).substring(0,3) + "." + String(COMM2_ACTIVE).substring(3,5);
+  String workstring1 = String(COMM1_ACTIVE).substring(0, 3) + "." + String(COMM1_ACTIVE).substring(3, 5);
+  workstring1 = workstring1 + "   " + String(COMM2_ACTIVE).substring(0, 3) + "." + String(COMM2_ACTIVE).substring(3, 5);
   //String workstring2 = COMM1_STANDBY + "   " +  COMM2_STANDBY;
-  String workstring2 = String(COMM1_STANDBY).substring(0,3) + "." + String(COMM1_STANDBY).substring(3,5);
-  workstring2 =  workstring2 +  "   " + String(COMM2_STANDBY).substring(0,3) + "." + String(COMM2_STANDBY).substring(3,5);
+  String workstring2 = String(COMM1_STANDBY).substring(0, 3) + "." + String(COMM1_STANDBY).substring(3, 5);
+  workstring2 = workstring2 + "   " + String(COMM2_STANDBY).substring(0, 3) + "." + String(COMM2_STANDBY).substring(3, 5);
   //send_string(COMM1_ACTIVE.c_str() + " " + COMM1_STANDBY.c_str() + " " +  COMM2_ACTIVE.c_str() + " " +  COMM2_STANDBY.c_str());
 
   send_string(workstring1.c_str());
@@ -365,12 +365,17 @@ void loop() {
   if (x != lastX || y != lastY) {
     SendDebug("X:" + String(x) + " Y: " + String(y));
     char buffer[5];
-    int convertedchann = int (x/3) * 5 + 11800;
+    int convertedchann = int(x / 3) * 5 + 11800;
     sprintf(buffer, "%05d", convertedchann);
 
-    updateCOMM(buffer,buffer,buffer,buffer);
+    if (Ethernet_In_Use == 1) {
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print(String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 5));
+      udp.endPacket();
+    }
+
+    updateCOMM(buffer, buffer, buffer, buffer);
     lastX = x;
     lastY = y;
   }
-
 }
