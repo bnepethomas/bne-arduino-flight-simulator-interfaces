@@ -13103,15 +13103,15 @@
 		(dnp no)
 		(uuid "1746df0c-96c1-4cab-968b-eb4c3d8e8f22")
 		(property "Reference" "D2"
-			(at 87.63 58.42 0)
+			(at 88.646 56.896 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "YELLOW"
-			(at 90.17 58.42 0)
+		(property "Value" "YELLOW 12V"
+			(at 89.662 59.944 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17960,15 +17960,15 @@
 		(dnp no)
 		(uuid "a284bbe4-4044-42ce-8f00-81fd1e2687bf")
 		(property "Reference" "D8"
-			(at 69.85 58.42 0)
+			(at 70.866 56.896 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "RED"
-			(at 72.39 58.42 0)
+		(property "Value" "RED USB 5V"
+			(at 70.358 59.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18215,15 +18215,15 @@
 		(dnp no)
 		(uuid "ad381013-9409-470d-a11f-cfef1e2ced0b")
 		(property "Reference" "D1"
-			(at 78.74 58.42 0)
+			(at 79.756 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "BLUE"
-			(at 81.28 58.42 0)
+		(property "Value" "BLUE EXT 5V"
+			(at 80.264 61.976 90)
 			(effects
 				(font
 					(size 1.27 1.27)
