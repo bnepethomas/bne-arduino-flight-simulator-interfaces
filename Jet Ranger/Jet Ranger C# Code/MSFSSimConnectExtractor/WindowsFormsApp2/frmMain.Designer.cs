@@ -39,7 +39,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.btn_SendUDP = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_Set_Standby_Com1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.listBoxLogs = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
@@ -137,16 +136,6 @@
             this.label1.Text = "Connect and then Subscribe";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // btn_Set_Standby_Com1
-            // 
-            this.btn_Set_Standby_Com1.Location = new System.Drawing.Point(474, 188);
-            this.btn_Set_Standby_Com1.Name = "btn_Set_Standby_Com1";
-            this.btn_Set_Standby_Com1.Size = new System.Drawing.Size(75, 23);
-            this.btn_Set_Standby_Com1.TabIndex = 9;
-            this.btn_Set_Standby_Com1.Text = "Set Standby Com1";
-            this.btn_Set_Standby_Com1.UseVisualStyleBackColor = true;
-            this.btn_Set_Standby_Com1.Click += new System.EventHandler(this.button4_Click);
-            // 
             // button4
             // 
             this.button4.Location = new System.Drawing.Point(474, 239);
@@ -172,7 +161,6 @@
             this.ClientSize = new System.Drawing.Size(594, 625);
             this.Controls.Add(this.listBoxLogs);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.btn_Set_Standby_Com1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btn_SendUDP);
             this.Controls.Add(this.button3);
@@ -202,7 +190,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btn_SendUDP;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btn_Set_Standby_Com1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ListBox listBoxLogs;
     }

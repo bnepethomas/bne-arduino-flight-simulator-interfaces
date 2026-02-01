@@ -222,6 +222,9 @@ namespace WindowsFormsApp2
                             this.Invoke(new Action(() => {
                                 listBoxLogs.Items.Add($"Received: {receivedData} from {result.RemoteEndPoint}");
                             }));
+                            UpdateRadios(receivedData);
+
+
                         }
                     }
                 }
@@ -716,45 +719,16 @@ namespace WindowsFormsApp2
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            //simconnect.AddToDataDefinition(DEFINITIONS.ComStruct, "COM STANDBY FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-            //simconnect.RegisterDataDefineStruct<ComData>(DEFINITIONS.ComStruct);
-            //ComData data = new ComData { com1StandbyFrequency = 122800000 };
-            //simconnect.SetDataOnSimObject(DEFINITIONS.ComStruct, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_DATA_SET_FLAG.DEFAULT, data); 
 
-
-            // Use SimCOnnect Inspector to find the correct variable name and units
-            // Connect and then selecte managed data request
-            // Initial open doesn't recognise Sim Time
-            // Setting COM1 results in EXCEPTION_INVALID_DATA_SIZE
-            // Define COM1 standby frequency (in Hz)
-            simconnect.AddToDataDefinition(
-                DEFINITIONS.Com1Standby,
-                "COM STANDBY FREQUENCY:1",
-                "Hz",
-                SIMCONNECT_DATATYPE.FLOAT64,
-                0.0f,
-                SimConnect.SIMCONNECT_UNUSED
-            );
-
-            simconnect.RegisterDataDefineStruct<double>(DEFINITIONS.Com1Standby);
-
-            // 118.50 MHz = 121,500,000 Hz
-            double com1StandbyHz = 121_500_000;
-
-            simconnect.SetDataOnSimObject(
-                DEFINITIONS.Com1Standby,
-                SimConnect.SIMCONNECT_OBJECT_ID_USER,
-                SIMCONNECT_DATA_SET_FLAG.DEFAULT,
-                (uint)com1StandbyHz
-            );
-
-        }
 
         private void button4_Click_1(object sender, EventArgs e)
         {
+            UpdateRadios( "119.99");
+        }
 
+
+        private void UpdateRadios( string STR_COMM1_STANDBYFREQUENCY)
+        {
             if (simconnect != null)
             {
                 // Battery Event
@@ -772,6 +746,14 @@ namespace WindowsFormsApp2
                     SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
                 );
 
+                if (STR_COMM1_STANDBYFREQUENCY == null) 
+                {
+                    STR_COMM1_STANDBYFREQUENCY = "121.50";
+                }
+
+                
+                
+                listBoxLogs.Items.Add("Setting COM1 Standby Frequency to " + STR_COMM1_STANDBYFREQUENCY + " MHz");
                 // Frequency 121.50 MHz in BCD is 0x2150
                 // We use uint to ensure the hex value is passed correctly
                 uint frequencyBCD = 0x2150;
@@ -784,7 +766,9 @@ namespace WindowsFormsApp2
                     SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
                 );
             }
+
         }
+
     }
 
 
