@@ -16,9 +16,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\windowsformsapp2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|solutionrelative:windowsformsapp2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7A6BD595-A6D4-476C-92B4-67834EFD62E9}|WindowsFormsApp2\\SimConnect_To_IP.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\msfssimconnectextractor\\windowsformsapp2\\||{B270807C-D8C6-49EB-8EBE-8E8D566637A1}|5e9a8ac2-4f34-4521-858f-4c248ba31532"
     }
   ],
   "DocumentGroupContainers": [
@@ -52,8 +49,7 @@
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\SimConnect_To_IP.csproj",
               "RelativeToolTip": "WindowsFormsApp2\\SimConnect_To_IP.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-02-01T02:58:59.556Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-01T02:58:59.556Z"
             },
             {
               "$type": "Document",
@@ -65,8 +61,7 @@
               "RelativeToolTip": "WindowsFormsApp2\\Program.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T21:09:51.912Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-25T21:09:51.912Z"
             },
             {
               "$type": "Document",
@@ -77,8 +72,7 @@
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs [Design]",
               "RelativeToolTip": "WindowsFormsApp2\\frmMain.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T00:02:02.008Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-01-25T00:02:02.008Z"
             }
           ]
         }
