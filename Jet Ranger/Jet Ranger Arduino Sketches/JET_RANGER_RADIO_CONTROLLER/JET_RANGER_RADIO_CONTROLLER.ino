@@ -57,7 +57,7 @@ String strreflectorIP = "X.X.X.X";
 
 
 const unsigned int localport = 7788;
-const unsigned int localdebugport = 7795;
+const unsigned int localdebugport = 7789;
 
 const unsigned int reflectorport = 27000;
 
@@ -386,16 +386,14 @@ void handleKeyPress(int row, int col, char key) {
       udp.print("COM1_RADIO_SWAP");
       udp.endPacket();
     }
-  }
-  else if(row == 3 && col == 0) {
+  } else if (row == 3 && col == 0) {
     SendDebug("COM2 Swap");
     if (Ethernet_In_Use == 1) {
       udp.beginPacket(reflectorIP, 27001);
       udp.print("COM2_RADIO_SWAP");
       udp.endPacket();
     }
-  }
-  else {
+  } else {
     switch (key) {
       case '1':
       case '2':
@@ -477,6 +475,7 @@ void setup() {
 
     Ethernet.begin(mac, ip);
     udp.begin(localport);
+    debugUDP.begin(localdebugport);
 
     ethernetStartTime = millis() + delayBeforeSendingPacket;
     while (millis() <= ethernetStartTime) {
@@ -576,4 +575,21 @@ void loop() {
   }
 
   scanMatrix();
+
+  // Check for MSFS Data Updates for COM Radios for staters
+  /*
+  int keyboardpacketSize;
+int keyboardLen;
+
+  keyboardpacketSize = keyboardudp.parsePacket();
+  keyboardLen = keyboardudp.read(keyboardpacketBuffer, 999);
+
+  if (keyboardLen > 0) {
+    keyboardpacketBuffer[keyboardLen] = 0;
+  }
+  if (keyboardpacketSize) {
+    CHECK_KEYBOARD_INITIALISED();
+    SendCharactersToKeyboard(keyboardLen);
+  }
+  */
 }
