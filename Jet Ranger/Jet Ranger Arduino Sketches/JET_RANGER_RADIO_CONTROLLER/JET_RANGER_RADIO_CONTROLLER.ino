@@ -321,25 +321,25 @@ void scanMatrix() {
     for (int i = 0; i < ROWS; i++) {
       digitalWrite(rowPins[i], (i == row) ? LOW : HIGH);
     }
-   
+
     // Small delay to allow signal to stabilize
     delayMicroseconds(10);
-   
+
     // Read all columns for this row
     for (int col = 0; col < COLS; col++) {
       bool reading = digitalRead(colPins[col]);
-     
+
       // Check if button state has changed
       if (reading != lastButtonState[row][col]) {
         lastDebounceTime[row][col] = millis();  // Reset debounce timer
       }
-     
+
       // Check if debounce time has elapsed
       if ((millis() - lastDebounceTime[row][col]) > DEBOUNCE_DELAY) {
         // If button state has changed after debounce period
         if (reading != buttonState[row][col]) {
           buttonState[row][col] = reading;
-         
+
           // Key press detection (LOW = pressed due to pull-up)
           if (buttonState[row][col] == LOW && !keyPressed[row][col]) {
             // Key was just pressed
@@ -352,11 +352,11 @@ void scanMatrix() {
           }
         }
       }
-     
+
       lastButtonState[row][col] = reading;
     }
   }
- 
+
   // Set all rows HIGH again
   for (int i = 0; i < ROWS; i++) {
     digitalWrite(rowPins[i], HIGH);
@@ -365,37 +365,58 @@ void scanMatrix() {
 
 // Callback function for key press events
 void onKeyPress(int row, int col) {
-  SendDebug("Key Pressed: Row " + String(row) + ", Col " + String(col) + " -> '" + String(keyMap[row][col]) +"'");
+  SendDebug("Key Pressed: Row " + String(row) + ", Col " + String(col) + " -> '" + String(keyMap[row][col]) + "'");
   // Add your custom key press handling here
   handleKeyPress(row, col, keyMap[row][col]);
 }
 
 // Callback function for key release events
 void onKeyRelease(int row, int col) {
-  SendDebug("Key Released: Row " + String(row) + ", Col " + String(col) + " -> '" + String(keyMap[row][col]) +"'");
+  SendDebug("Key Released: Row " + String(row) + ", Col " + String(col) + " -> '" + String(keyMap[row][col]) + "'");
   // Add your custom key release handling here
   handleKeyRelease(row, col, keyMap[row][col]);
 }
 
 // Custom key press handler - modify this for your application
 void handleKeyPress(int row, int col, char key) {
-  switch (key) {
-    case '1': case '2': case '3': case '4': case '5':
-    case '6': case '7': case '8': case '9': case '0':
-      SendDebug("Number key pressed: " + String(key));
-      break;
-    case 'A': case 'B': case 'C': case 'D':
-      SendDebug("Letter key pressed: " + String(key));
-      break;
-    case '*':
-      SendDebug("Star key pressed");
-      break;
-    case '#':
-      SendDebug("Hash key pressed");
-      break;
-    default:
-      SendDebug("Unknown key");
-      break;
+  if (row == 2 && col == 0) {
+    SendDebug("COM1 Swap");
+    if (Ethernet_In_Use == 1) {
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print("SWAP");
+      udp.endPacket();
+    }
+
+  } else {
+    switch (key) {
+      case '1':
+      case '2':
+      case '3':
+      case '4':
+      case '5':
+      case '6':
+      case '7':
+      case '8':
+      case '9':
+      case '0':
+        SendDebug("Number key pressed: " + String(key));
+        break;
+      case 'A':
+      case 'B':
+      case 'C':
+      case 'D':
+        SendDebug("Letter key pressed: " + String(key));
+        break;
+      case '*':
+        SendDebug("Star key pressed");
+        break;
+      case '#':
+        SendDebug("Hash key pressed");
+        break;
+      default:
+        SendDebug("Unknown key");
+        break;
+    }
   }
 }
 

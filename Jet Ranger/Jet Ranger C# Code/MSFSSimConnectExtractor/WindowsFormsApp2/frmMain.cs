@@ -767,12 +767,12 @@ namespace WindowsFormsApp2
         }
 
 
-        private void UpdateRadios( string STR_COMM1_STANDBYFREQUENCY)
+        private void UpdateRadios( string SIMCONNECT_COMMAND)
         {
             if (simconnect != null)
             {
 
-                //MessageBox.Show("Updating Radios");
+                // MessageBox.Show("Updating Radios");
 
                 // Battery Event
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
@@ -789,17 +789,29 @@ namespace WindowsFormsApp2
                     SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
                 );
 
+                if (SIMCONNECT_COMMAND.Contains("SWAP") == true)
+                {
+                    simconnect.TransmitClientEvent(
+                        SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                        EVENTS.KEY_MASTER_BATTERY_SET,
+                         0,
+                        GROUP_ID.GROUP0,
+                        SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+                     );
+
+                }
+
 
                 const float GOTO_FREQUENCY = 121.50F;
                 // Check to see if the received string is a number
                 float FLT_COMM1_STANDBY_FREQUENCY;
 
-                bool isNumeric = float.TryParse(STR_COMM1_STANDBYFREQUENCY, out FLT_COMM1_STANDBY_FREQUENCY);
+                bool isNumeric = float.TryParse(SIMCONNECT_COMMAND, out FLT_COMM1_STANDBY_FREQUENCY);
 
                 if (!isNumeric)
                 {
-                    listBoxLogs.Items.Add($"'{STR_COMM1_STANDBYFREQUENCY}' is not a valid float. Value: {STR_COMM1_STANDBYFREQUENCY}");
-                    STR_COMM1_STANDBYFREQUENCY = "121.50";
+                    listBoxLogs.Items.Add($"'{SIMCONNECT_COMMAND}' is not a valid float. Value: {SIMCONNECT_COMMAND}");
+                    SIMCONNECT_COMMAND = "121.50";
                     FLT_COMM1_STANDBY_FREQUENCY = GOTO_FREQUENCY;
 
                 }
@@ -812,9 +824,9 @@ namespace WindowsFormsApp2
                 }
 
 
-                lblStandbyFrequency.Text = STR_COMM1_STANDBYFREQUENCY;
+                lblStandbyFrequency.Text = SIMCONNECT_COMMAND;
                 
-                listBoxLogs.Items.Add("Setting COM1 Standby Frequency to " + STR_COMM1_STANDBYFREQUENCY + " MHz");
+                listBoxLogs.Items.Add("Setting COM1 Standby Frequency to " + SIMCONNECT_COMMAND + " MHz");
 
                 // Convert frequency to BCD format
                 int intFrequency = (int)(FLT_COMM1_STANDBY_FREQUENCY * 100);
