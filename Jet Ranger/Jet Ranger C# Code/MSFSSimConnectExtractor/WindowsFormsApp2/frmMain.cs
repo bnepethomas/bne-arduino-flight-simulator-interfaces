@@ -93,7 +93,10 @@ namespace WindowsFormsApp2
         {
             COM1_STBY_RADIO_SET,
             KEY_MASTER_BATTERY_SET,
-            KEY_COM_STBY_RADIO_SET
+            KEY_TOGGLE_AVIONICS_MASTER,
+            KEY_COM_STBY_RADIO_SET,
+            KEY_COM1_RADIO_SWAP,
+            KEY_COM2_RADIO_SWAP,
         }
 
         enum GROUP_ID
@@ -229,7 +232,6 @@ namespace WindowsFormsApp2
                             {
                                 UpdateRadios(receivedData);
                             }));
-
 
                         }
                     }
@@ -766,6 +768,20 @@ namespace WindowsFormsApp2
             UpdateRadios( "119.99");
         }
 
+        private void SendEvent( EVENTS EVENT_SEND_SEND, uint PARAMETER_TO_SEND ) {     
+            // Not sure if parameter should be signed int or unsigned int
+            if (simconnect != null)
+            {
+                simconnect.TransmitClientEvent(
+                    SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                    EVENT_SEND_SEND,
+                    PARAMETER_TO_SEND,
+                    GROUP_ID.GROUP0,
+                    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+                );
+            }
+        }
+
 
         private void UpdateRadios( string SIMCONNECT_COMMAND)
         {
@@ -774,11 +790,14 @@ namespace WindowsFormsApp2
 
                 // MessageBox.Show("Updating Radios");
 
-                // Battery Event
+                // Map Events - probably should move to routine where they are called or initiated
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
-
-                // COM1 Standby Event
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_TOGGLE_AVIONICS_MASTER, "TOGGLE_AVIONICS_MASTER");
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET, "COM_STBY_RADIO_SET");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
+
+
 
                 // Parameter 0 = Off
                 simconnect.TransmitClientEvent(
@@ -789,78 +808,82 @@ namespace WindowsFormsApp2
                     SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
                 );
 
-                if (SIMCONNECT_COMMAND.Contains("SWAP") == true)
+                if (SIMCONNECT_COMMAND.Contains("COM1_RADIO_SWAP") == true)
                 {
+                    SendEvent(EVENTS.KEY_COM1_RADIO_SWAP, 0);
+                } 
+                else if (SIMCONNECT_COMMAND.Contains("COM2_RADIO_SWAP") == true)
+                {
+                    SendEvent(EVENTS.KEY_COM2_RADIO_SWAP, 0);
+                }
+                else if (SIMCONNECT_COMMAND.Contains("TOGGLE_AVIONICS_MASTER") == true)
+                {
+                    SendEvent(EVENTS.KEY_TOGGLE_AVIONICS_MASTER, 0);
+                }
+                else
+                {
+
+
+                    const float GOTO_FREQUENCY = 121.50F;
+                    // Check to see if the received string is a number
+                    float FLT_COMM1_STANDBY_FREQUENCY;
+
+                    bool isNumeric = float.TryParse(SIMCONNECT_COMMAND, out FLT_COMM1_STANDBY_FREQUENCY);
+
+                    if (!isNumeric)
+                    {
+                        listBoxLogs.Items.Add($"'{SIMCONNECT_COMMAND}' is not a valid float. Value: {SIMCONNECT_COMMAND}");
+                        SIMCONNECT_COMMAND = "121.50";
+                        FLT_COMM1_STANDBY_FREQUENCY = GOTO_FREQUENCY;
+
+                    }
+
+                    // Should have a numberic value at this point
+                    // Now check bounds
+                    if (FLT_COMM1_STANDBY_FREQUENCY < 118.00 || FLT_COMM1_STANDBY_FREQUENCY > 136.975)
+                    {
+                        FLT_COMM1_STANDBY_FREQUENCY = GOTO_FREQUENCY;
+                    }
+
+
+                    lblStandbyFrequency.Text = SIMCONNECT_COMMAND;
+
+                    listBoxLogs.Items.Add("Setting COM1 Standby Frequency to " + SIMCONNECT_COMMAND + " MHz");
+
+                    // Convert frequency to BCD format
+                    int intFrequency = (int)(FLT_COMM1_STANDBY_FREQUENCY * 100);
+
+                    listBoxLogs.Items.Add("Converting in Int: " + intFrequency);
+                    // Now subtract the 100MHz bit
+                    intFrequency = intFrequency - 10000;
+                    listBoxLogs.Items.Add("Less 10000 " + intFrequency);
+                    //byte[] frequencyBCD = IntToBcd(intFrequency);
+
+                    uint frequencyBCD = 0;
+                    for (int i = 0; i < 4; i++) // Process up to 4 digits
+                    {
+                        uint digit = (uint)(intFrequency % 10);
+                        frequencyBCD |= (digit << (i * 4)); // Shift digit into 4-bit nibble
+                        intFrequency /= 10;
+                    }
+                    listBoxLogs.Items.Add("BCD Frequency Derived: " + frequencyBCD.ToString("X"));
+
+
+
+                    // Frequency 121.50 MHz in BCD is 0x2150
+                    // We use uint to ensure the hex value is passed correctly
+                    //frequencyBCD = 0x2150;
+
+                    listBoxLogs.Items.Add("BCD Frequency: " + frequencyBCD.ToString("X"));
+
                     simconnect.TransmitClientEvent(
                         SimConnect.SIMCONNECT_OBJECT_ID_USER,
-                        EVENTS.KEY_MASTER_BATTERY_SET,
-                         0,
+                        EVENTS.KEY_COM_STBY_RADIO_SET,
+                        frequencyBCD,
                         GROUP_ID.GROUP0,
                         SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
-                     );
-
+                    );
                 }
-
-
-                const float GOTO_FREQUENCY = 121.50F;
-                // Check to see if the received string is a number
-                float FLT_COMM1_STANDBY_FREQUENCY;
-
-                bool isNumeric = float.TryParse(SIMCONNECT_COMMAND, out FLT_COMM1_STANDBY_FREQUENCY);
-
-                if (!isNumeric)
-                {
-                    listBoxLogs.Items.Add($"'{SIMCONNECT_COMMAND}' is not a valid float. Value: {SIMCONNECT_COMMAND}");
-                    SIMCONNECT_COMMAND = "121.50";
-                    FLT_COMM1_STANDBY_FREQUENCY = GOTO_FREQUENCY;
-
-                }
-
-                // Should have a numberic value at this point
-                // Now check bounds
-                if (FLT_COMM1_STANDBY_FREQUENCY < 118.00 || FLT_COMM1_STANDBY_FREQUENCY > 136.975)
-                {
-                    FLT_COMM1_STANDBY_FREQUENCY = GOTO_FREQUENCY;
-                }
-
-
-                lblStandbyFrequency.Text = SIMCONNECT_COMMAND;
-                
-                listBoxLogs.Items.Add("Setting COM1 Standby Frequency to " + SIMCONNECT_COMMAND + " MHz");
-
-                // Convert frequency to BCD format
-                int intFrequency = (int)(FLT_COMM1_STANDBY_FREQUENCY * 100);
-
-                listBoxLogs.Items.Add("Converting in Int: " + intFrequency);
-                // Now subtract the 100MHz bit
-                intFrequency = intFrequency - 10000;
-                listBoxLogs.Items.Add("Less 10000 " + intFrequency);
-                //byte[] frequencyBCD = IntToBcd(intFrequency);
-
-                uint frequencyBCD = 0;
-                for (int i = 0; i < 4; i++) // Process up to 4 digits
-                {
-                    uint digit = (uint)(intFrequency % 10);
-                    frequencyBCD |= (digit << (i * 4)); // Shift digit into 4-bit nibble
-                    intFrequency /= 10;
-                }
-                listBoxLogs.Items.Add("BCD Frequency Derived: " + frequencyBCD.ToString("X"));
-
-
-
-                // Frequency 121.50 MHz in BCD is 0x2150
-                // We use uint to ensure the hex value is passed correctly
-                //frequencyBCD = 0x2150;
-
-                listBoxLogs.Items.Add("BCD Frequency: " + frequencyBCD.ToString("X"));
-
-                simconnect.TransmitClientEvent(
-                    SimConnect.SIMCONNECT_OBJECT_ID_USER,
-                    EVENTS.KEY_COM_STBY_RADIO_SET,
-                    frequencyBCD,
-                    GROUP_ID.GROUP0,
-                    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
-                );
             }
 
         }

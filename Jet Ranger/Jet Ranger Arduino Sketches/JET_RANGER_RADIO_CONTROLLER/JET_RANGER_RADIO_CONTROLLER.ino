@@ -383,11 +383,19 @@ void handleKeyPress(int row, int col, char key) {
     SendDebug("COM1 Swap");
     if (Ethernet_In_Use == 1) {
       udp.beginPacket(reflectorIP, 27001);
-      udp.print("SWAP");
+      udp.print("COM1_RADIO_SWAP");
       udp.endPacket();
     }
-
-  } else {
+  }
+  else if(row == 3 && col == 0) {
+    SendDebug("COM2 Swap");
+    if (Ethernet_In_Use == 1) {
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print("COM2_RADIO_SWAP");
+      udp.endPacket();
+    }
+  }
+  else {
     switch (key) {
       case '1':
       case '2':
