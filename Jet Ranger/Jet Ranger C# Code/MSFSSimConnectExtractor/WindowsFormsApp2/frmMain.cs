@@ -614,6 +614,17 @@ namespace WindowsFormsApp2
                     {
                         radioFrequencyChanged = true;
                         com1StandbyFrequency = s1.com1StandbyFrequency.ToString("F3");
+                    };
+                    if (com2ActiveFrequency != s1.com2ActiveFrequency.ToString("F3"))
+                    {
+                        radioFrequencyChanged = true;
+                        com2ActiveFrequency = s1.com2ActiveFrequency.ToString("F3");
+                    }
+                    ;
+                    if (com2StandbyFrequency != s1.com2StandbyFrequency.ToString("F3"))
+                    {
+                        radioFrequencyChanged = true;
+                        com2StandbyFrequency = s1.com2StandbyFrequency.ToString("F3");
                     }
                     ;
 
@@ -630,14 +641,26 @@ namespace WindowsFormsApp2
                         radioFrequencyChanged = false;
                         UDP_Playload = "D,C1A:" + com1ActiveFrequency;
                         UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
+                        UDP_Playload = UDP_Playload + ",C2A:" + com2ActiveFrequency;
+                        UDP_Playload = UDP_Playload + ",C2S:" + com2StandbyFrequency;
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
 
-                        //senddata = Encoding.ASCII.GetBytes(Output_Payload);
-                        //OutputClient.Send(senddata, senddata.Length);
 
                         TimeLastPacketSent = DateTime.Now;
-                    }   
+                    }
+                    // if its bveen a while since changes send an update anyways
+                    if (mS >= 20000)
+
+                    {
+                        radioFrequencyChanged = false;
+                        UDP_Playload = "D,C1A:" + com1ActiveFrequency;
+                        UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
+                        Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
+                        udpClient.Send(senddata, senddata.Length);
+
+                        TimeLastPacketSent = DateTime.Now;
+                    }
                     break;
 
                 default:

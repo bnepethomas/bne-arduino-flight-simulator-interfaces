@@ -595,7 +595,7 @@ void HandleOutputValuePair(String str) {
     if (ParameterName == "C1A") {
       //SendDebug("Received COM1 Active Frequency: " + ParameterValue);
       if (com1ActiveFrequency != ParameterValue) {
-        SendDebug("COM1 Frequency changed");
+        SendDebug("COM1 Active Frequency changed");
         com1ActiveFrequency = ParameterValue;
         radioFrequencyChanged = true;
       };
@@ -609,9 +609,29 @@ void HandleOutputValuePair(String str) {
         }
         radioFrequencyChanged = true;
       };
+    } else if (ParameterName == "C2A") {
+      //SendDebug("Received COM2 Standby Frequency: " + ParameterValue);
+      if (com2ActiveFrequency != ParameterValue) {
+        SendDebug("COM2 Active Frequency changed");
+        // Only set if it has been more 500mS since last update from local encoder
+        if ((millis() - lastEncoderUpdate) >= 500) {
+          com2ActiveFrequency = ParameterValue;
+        }
+        radioFrequencyChanged = true;
+      };
+    } else if (ParameterName == "C2S") {
+      //SendDebug("Received COM2 Standby Frequency: " + ParameterValue);
+      if (com2StandbyFrequency != ParameterValue) {
+        SendDebug("COM2 Standby Frequency changed");
+        // Only set if it has been more 500mS since last update from local encoder
+        if ((millis() - lastEncoderUpdate) >= 500) {
+          com2StandbyFrequency = ParameterValue;
+        }
+        radioFrequencyChanged = true;
+      };
     }
+    return;
   }
-  return;
 }
 
 
