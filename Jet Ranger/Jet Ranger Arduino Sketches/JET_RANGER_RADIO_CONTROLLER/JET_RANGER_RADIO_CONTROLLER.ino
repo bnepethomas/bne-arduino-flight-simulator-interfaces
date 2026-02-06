@@ -19,10 +19,12 @@ Todos
 // Master flag for throwing debug messages
 bool Debug_Display = false;
 
-String com1ActiveFrequency = "";
-String com2ActiveFrequency = "";
-String com1StandbyFrequency = "";
-String com2StandbyFrequency = "";
+unsigned long lastEncoderUpdate = millis();
+bool radioFrequencyChanged = false;
+String com1ActiveFrequency = "119.000";
+String com2ActiveFrequency = "120.000";
+String com1StandbyFrequency = "121.000";
+String com2StandbyFrequency = "122.000";
 
 #include "RotaryEncoder_Mega_Polling.h"
 
@@ -247,17 +249,12 @@ void updateNAV(int Channel) {
   send_string(workstring.c_str());
 }
 
-void updateCOMM(char *COMM1_ACTIVE, char *COMM1_STANDBY, char *COMM2_ACTIVE, char *COMM2_STANDBY) {
-  // Strings need to be preformatted to 6 characters long
+void updateCOMM() {
   tcaselect(COMM_OLED_Port);
   sendCommand(0x80);
   //sendCommand(cmd_CLS);
-  String workstring1 = String(COMM1_ACTIVE).substring(0, 3) + "." + String(COMM1_ACTIVE).substring(3, 5);
-  workstring1 = workstring1 + "   " + String(COMM2_ACTIVE).substring(0, 3) + "." + String(COMM2_ACTIVE).substring(3, 5);
-  //String workstring2 = COMM1_STANDBY + "   " +  COMM2_STANDBY;
-  String workstring2 = String(COMM1_STANDBY).substring(0, 3) + "." + String(COMM1_STANDBY).substring(3, 5);
-  workstring2 = workstring2 + "   " + String(COMM2_STANDBY).substring(0, 3) + "." + String(COMM2_STANDBY).substring(3, 5);
-  //send_string(COMM1_ACTIVE.c_str() + " " + COMM1_STANDBY.c_str() + " " +  COMM2_ACTIVE.c_str() + " " +  COMM2_STANDBY.c_str());
+  String workstring1 = com1ActiveFrequency + "  " + com2ActiveFrequency;
+  String workstring2 = com1StandbyFrequency + "  " + com2StandbyFrequency;
 
   send_string(workstring1.c_str());
   sendCommand(cmd_NewLine);
@@ -490,7 +487,7 @@ void ProcessReceivedMSFSString() {
   char *ParameterValuePtr;
 
   //if (Debug_Display || bLocalDebug ) SendDebug("Processing Packet :" + String(millis()));
-  SendDebug("Processing MSFS Packet");
+  // SendDebug("Processing MSFS Packet");
 
   bLocalDebug = false;
 
@@ -506,7 +503,7 @@ void ProcessReceivedMSFSString() {
 
   String ParameterNameString(ParameterNamePtr);
   //if (Debug_Display || bLocalDebug ) SendDebug("Parameter Name " + String(ParameterNameString));
-  SendDebug("Parameter Name " + String(ParameterNameString));
+  //SendDebug("Parameter Name " + String(ParameterNameString));
   // Print all of the values received as a outer loop
   // and then split inner values
   /* get the first token */
@@ -532,6 +529,11 @@ void ProcessReceivedMSFSString() {
       ParameterNamePtr = strtok(NULL, delim);
     }
 
+
+    if (radioFrequencyChanged == true) {
+      updateCOMM();
+      radioFrequencyChanged = false;
+    }
     return;
     // End Handling a Data Packet
   } else if (ParameterNameString[0] == 'C') {
@@ -590,8 +592,23 @@ void HandleOutputValuePair(String str) {
     // As the value could contain the null at the end of the string trim it out
     ParameterValue.trim();
 
-    if (ParameterName = "C1A") {
-      SendDebug("Received COM1 Active Frequency: " + ParameterValue);
+    if (ParameterName == "C1A") {
+      //SendDebug("Received COM1 Active Frequency: " + ParameterValue);
+      if (com1ActiveFrequency != ParameterValue) {
+        SendDebug("COM1 Frequency changed");
+        com1ActiveFrequency = ParameterValue;
+        radioFrequencyChanged = true;
+      };
+    } else if (ParameterName == "C1S") {
+      //SendDebug("Received COM1 Standby Frequency: " + ParameterValue);
+      if (com1StandbyFrequency != ParameterValue) {
+        SendDebug("COM1 Standby Frequency changed");
+        // Only set if it has been more 500mS since last update from local encoder
+        if ((millis() - lastEncoderUpdate) >= 500) {
+          com1StandbyFrequency = ParameterValue;
+        }
+        radioFrequencyChanged = true;
+      };
     }
   }
   return;
@@ -764,19 +781,21 @@ void loop() {
   // Print if any encoder changed
   if (x != lastX || y != lastY) {
     SendDebug("X:" + String(x) + " Y: " + String(y));
-    char buffer[5];
-    int convertedchann = int(x / 3) * 5 + 11800;
-    sprintf(buffer, "%05d", convertedchann);
+
+    long convertedchann = int(x / 3) * 50 + 118000;
+    SendDebug("Converted Chan: " + String(convertedchann));
+    com1StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
     if (Ethernet_In_Use == 1) {
       udp.beginPacket(reflectorIP, 27001);
-      udp.print(String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 5));
+      udp.print(com1StandbyFrequency);
       udp.endPacket();
     }
 
-    updateCOMM(buffer, buffer, buffer, buffer);
+    updateCOMM();
     lastX = x;
     lastY = y;
+    lastEncoderUpdate = millis();
   }
 
   scanMatrix();
@@ -784,16 +803,17 @@ void loop() {
   // Check for MSFS Data Updates for COM Radios for staters
   MSFSpacketsize = MSFSudp.parsePacket();
   if (MSFSpacketsize > 0) {
-    SendDebug("Received a MSFS Packet");
-  }
-  MSFSLen = MSFSudp.read(packetBuffer, 999);
+    // SendDebug("Received a MSFS Packet");
 
-  if (MSFSLen > 0) {
-    packetBuffer[MSFSLen] = 0;
-  }
-  if (MSFSpacketsize) {
+    MSFSLen = MSFSudp.read(packetBuffer, 999);
 
-    ProcessReceivedMSFSString();
-    SendDebug("Exiting MSFS Processing");
+    if (MSFSLen > 0) {
+      packetBuffer[MSFSLen] = 0;
+    }
+    if (MSFSpacketsize) {
+
+      ProcessReceivedMSFSString();
+      //SendDebug("Exiting MSFS Processing");
+    }
   }
 }

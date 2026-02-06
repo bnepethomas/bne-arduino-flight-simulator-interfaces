@@ -72,6 +72,7 @@ namespace WindowsFormsApp2
         private const int listenPort = 27001;
 
         // Variables to hold radio frequencies
+        bool radioFrequencyChanged = false;
         private String com1ActiveFrequency = "";
         private String com2ActiveFrequency = "";
         private String com1StandbyFrequency = "";
@@ -588,7 +589,7 @@ namespace WindowsFormsApp2
 
                     //displayText("Zulu Time 2        " + s1.zulu_time);
 
-                    UDP_Playload = "D,C1A:" + s1.com1ActiveFrequency.ToString();
+                    //UDP_Playload = "D,C1A:" + s1.com1ActiveFrequency.ToString("F3");
                     //UDP_Playload = UDP_Playload + ",longitude:" + s1.longitude.ToString();
                     //UDP_Playload = UDP_Playload + ",altitude:" + s1.altitude.ToString();
                     //UDP_Playload = UDP_Playload + ",airspeed:" + s1.airspeed.ToString();
@@ -604,13 +605,31 @@ namespace WindowsFormsApp2
                     //Output_Payload = Output_Payload + ",GEAR_RIGHT_POSITION:" + Math.Floor(s1.GEAR_RIGHT_POSITION/100);
                     //Output_Payload = Output_Payload + ",BRAKE_PARKING_INDICATOR:" + Math.Floor(s1.BRAKE_PARKING_INDICATOR);
 
+                    if (com1ActiveFrequency != s1.com1ActiveFrequency.ToString("F3"))
+                    {
+                        radioFrequencyChanged = true;
+                        com1ActiveFrequency = s1.com1ActiveFrequency.ToString("F3");
+                    };
+                    if (com1StandbyFrequency != s1.com1StandbyFrequency.ToString("F3"))
+                    {
+                        radioFrequencyChanged = true;
+                        com1StandbyFrequency = s1.com1StandbyFrequency.ToString("F3");
+                    }
+                    ;
+
+                    //private String com2ActiveFrequency = "";
+                    //rivate String com1StandbyFrequency = "";
+                    //private String com2StandbyFrequency = "";
 
                     span = DateTime.Now - TimeLastPacketSent;
                     mS = (int)span.TotalMilliseconds;
                     displayText("Its been this many mS since sending last packet: " + mS.ToString());
 
-                    if (mS >= 1000)
-                    { 
+                    if (mS >= 200 && radioFrequencyChanged == true)
+                    {
+                        radioFrequencyChanged = false;
+                        UDP_Playload = "D,C1A:" + com1ActiveFrequency;
+                        UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
 
