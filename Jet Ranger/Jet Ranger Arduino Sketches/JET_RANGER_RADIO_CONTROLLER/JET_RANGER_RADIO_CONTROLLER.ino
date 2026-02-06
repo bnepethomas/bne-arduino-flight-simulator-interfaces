@@ -782,7 +782,10 @@ void loop() {
   scanMatrix();
 
   // Check for MSFS Data Updates for COM Radios for staters
-  MSFSpacketsize = udp.parsePacket();
+  MSFSpacketsize = MSFSudp.parsePacket();
+  if (MSFSpacketsize > 0) {
+    SendDebug("Received a MSFS Packet");
+  }
   MSFSLen = MSFSudp.read(packetBuffer, 999);
 
   if (MSFSLen > 0) {

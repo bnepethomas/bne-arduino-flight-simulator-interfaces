@@ -588,7 +588,7 @@ namespace WindowsFormsApp2
 
                     //displayText("Zulu Time 2        " + s1.zulu_time);
 
-                    UDP_Playload = "C1A:" + s1.com1ActiveFrequency.ToString();
+                    UDP_Playload = "D,C1A:" + s1.com1ActiveFrequency.ToString();
                     //UDP_Playload = UDP_Playload + ",longitude:" + s1.longitude.ToString();
                     //UDP_Playload = UDP_Playload + ",altitude:" + s1.altitude.ToString();
                     //UDP_Playload = UDP_Playload + ",airspeed:" + s1.airspeed.ToString();
@@ -609,7 +609,7 @@ namespace WindowsFormsApp2
                     mS = (int)span.TotalMilliseconds;
                     displayText("Its been this many mS since sending last packet: " + mS.ToString());
 
-                    if (mS >= 10000)
+                    if (mS >= 1000)
                     { 
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
