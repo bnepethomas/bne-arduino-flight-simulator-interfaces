@@ -15,6 +15,15 @@ Todos
 // LCD Does started
 
 */
+
+// Master flag for throwing debug messages
+bool Debug_Display = false;
+
+String com1ActiveFrequency = "";
+String com2ActiveFrequency = "";
+String com1StandbyFrequency = "";
+String com2StandbyFrequency = "";
+
 #include "RotaryEncoder_Mega_Polling.h"
 
 #define GREEN_STATUS_LED_PORT 14
@@ -27,8 +36,6 @@ bool GREEN_LED_STATE = true;
 unsigned long timeSinceRedLedChanged = 0;
 
 #define Ethernet_In_Use 1
-
-
 int Reflector_In_Use = 1;
 
 // When Using Arduino Due this is not supported
@@ -58,7 +65,7 @@ String strreflectorIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
 const unsigned int localdebugport = 7789;
-
+const unsigned int MSFSport = 13136;
 const unsigned int reflectorport = 27000;
 
 
@@ -66,6 +73,12 @@ int packetSize;
 int debugLen;
 EthernetUDP udp;
 EthernetUDP debugUDP;
+
+int MSFSpacketsize;
+int MSFSLen;
+
+EthernetUDP max7219udp;  // Max7219
+EthernetUDP MSFSudp;     // Listens to MSFS light commands
 
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
@@ -458,6 +471,197 @@ char getCurrentKey() {
 
 // ############################################# END MATRIX SCANNER  ##########################################
 
+// ########################################## BEGIN MSFS DATA RECEIVER ########################################
+
+// This code is based on UIP_MAX7219_NEXTRON_POWER_RELAY in the Hornet Project
+
+
+void ProcessReceivedMSFSString() {
+
+
+  // Reading values from packetBuffer which is global
+  // All received values are strings for readability
+  // NHandles multiple attribute Values in a single packet
+  //    D,1:0,2:1,3:1,4:1,5:0,6:0,7:0,8:0,9:1,10:1
+
+
+  bool bLocalDebug = true;
+  char *ParameterNamePtr;
+  char *ParameterValuePtr;
+
+  //if (Debug_Display || bLocalDebug ) SendDebug("Processing Packet :" + String(millis()));
+  SendDebug("Processing MSFS Packet");
+
+  bLocalDebug = false;
+
+  String sWrkStr = "";
+
+  const char *delim = ",";
+
+  // Break the received packet into a series of tokens
+  // If there is no match the pointer will be null, other points to first parameter
+  ParameterNamePtr = strtok(packetBuffer, delim);
+
+
+
+  String ParameterNameString(ParameterNamePtr);
+  //if (Debug_Display || bLocalDebug ) SendDebug("Parameter Name " + String(ParameterNameString));
+  SendDebug("Parameter Name " + String(ParameterNameString));
+  // Print all of the values received as a outer loop
+  // and then split inner values
+  /* get the first token */
+
+  /* walk through other tokens */
+
+  String wrkstring = "";
+
+  //if (Debug_Display || bLocalDebug )
+  //if (ParameterNamePtr != NULL) SendDebug("First Value is: " + String(ParameterNamePtr));
+  if (ParameterNameString[0] == 'D') {
+    //Handling a Data Packet
+    //if (Debug_Display || bLocalDebug ) SendDebug("Handling a Data Packet");
+    ParameterNamePtr = strtok(NULL, delim);
+
+    while (ParameterNamePtr != NULL) {
+      //if (Debug_Display || bLocalDebug ) SendDebug( "Processing " + String(ParameterNamePtr) );
+
+      wrkstring = String(ParameterNamePtr);
+      HandleOutputValuePair(wrkstring);
+
+
+      ParameterNamePtr = strtok(NULL, delim);
+    }
+
+    return;
+    // End Handling a Data Packet
+  } else if (ParameterNameString[0] == 'C') {
+    // Handling a Control Packet
+    //if (Debug_Display || bLocalDebug ) SendDebug("Handling a Control Packet");
+
+    ParameterNamePtr = strtok(NULL, delim);
+
+    while (ParameterNamePtr != NULL) {
+      //if (Debug_Display || bLocalDebug )SendDebug( "Processing " + String(ParameterNamePtr) );
+
+      wrkstring = String(ParameterNamePtr);
+      HandleControlString(wrkstring);
+
+      ParameterNamePtr = strtok(NULL, delim);
+    }
+
+
+    return;
+
+    // Handling a Control Packet
+  } else {
+    // Unknown Packet Type
+    //if (Debug_Display || bLocalDebug ) SendDebug("Unknown Packet Type - ignoring packet");
+    return;
+  }
+}
+
+void HandleOutputValuePair(String str) {
+
+  // We are expected a LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
+  bool bLocalDebug = false;
+
+
+  //if (Debug_Display || bLocalDebug ) SendDebug("Handling " + str);
+  SendDebug("Handling " + str);
+
+  int delimeterlocation = 0;
+  String workstring = "";
+  String ParameterName = "";
+  String ParameterValue = "";
+
+
+
+  delimeterlocation = str.indexOf(':');
+
+  if (delimeterlocation == 0) {
+    if (Debug_Display || bLocalDebug) SendDebug("**** WARNING no delimiter passed ****** Looking for :");
+  } else {
+    //if (Debug_Display || bLocalDebug ) SendDebug("Delimiter is located a position " + String(delimeterlocation));
+    ParameterName = getValue(str, ':', 0);
+    //if (Debug_Display || bLocalDebug ) SendDebug("lednumber is " + lednumber);
+    ParameterValue = getValue(str, ':', 1);
+    //if (Debug_Display || bLocalDebug ) SendDebug("ledvalue is " + ledvalue);
+
+    // As the value could contain the null at the end of the string trim it out
+    ParameterValue.trim();
+
+    if (ParameterName = "C1A") {
+      SendDebug("Received COM1 Active Frequency: " + ParameterValue);
+    }
+  }
+  return;
+}
+
+
+void HandleControlString(String str) {
+  bool bLocalDebug = false;
+  //if (Debug_Display || bLocalDebug ) SendDebug("Handling Control String :" + str);
+
+  // Currnetly just handling Brightness - eg C,B:3
+
+  int delimeterlocation = 0;
+  String command = "";
+  String setting = "";
+
+
+  delimeterlocation = str.indexOf(':');
+
+  if (delimeterlocation == 0) {
+    //if (Debug_Display || bLocalDebug ) SendDebug("**** WARNING no delimiter passed ****** Looking for :");
+  } else {
+    //if (Debug_Display || bLocalDebug ) SendDebug("Delimiter is located a position " + String(delimeterlocation));
+    command = getValue(str, ':', 0);
+    //if (Debug_Display || bLocalDebug ) SendDebug("command is :" + command);
+    setting = getValue(str, ':', 1);
+    //if (Debug_Display || bLocalDebug ) SendDebug("setting is :" + setting);
+
+    int isetting = setting.toInt();
+
+    // Backlighting and Flood ligghting
+    if (command == "B")
+      if (isetting >= 0 && isetting <= 15) {
+        //analogWrite(FLOOD_LIGHTS, map(isetting, 0, 15, 0, 255));
+      }
+    //else if (Debug_Display || bLocalDebug ) SendDebug("Invalid Brightness value passed. Value is :" + String(setting));
+  }
+
+  return;
+}
+
+String getValue(String data, char separator, int index) {
+  int found = 0;
+  int strIndex[] = { 0, -1 };
+  int maxIndex = data.length() - 1;
+
+  for (int i = 0; i <= maxIndex && found <= index; i++) {
+    if (data.charAt(i) == separator || i == maxIndex) {
+      found++;
+      strIndex[0] = strIndex[1] + 1;
+      strIndex[1] = (i == maxIndex) ? i + 1 : i;
+    }
+  }
+  return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
+}
+
+boolean isValidNumber(String str) {
+  boolean isNum = false;
+  if (!(str.charAt(0) == '+' || str.charAt(0) == '-' || isDigit(str.charAt(0)))) return false;
+
+  for (byte i = 1; i < str.length(); i++) {
+    if (!(isDigit(str.charAt(i)) || str.charAt(i) == '.')) return false;
+  }
+  return true;
+}
+
+
+// ############################################## END DATA RECEIVER ###########################################
+
+
 void setup() {
 
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
@@ -476,6 +680,7 @@ void setup() {
     Ethernet.begin(mac, ip);
     udp.begin(localport);
     debugUDP.begin(localdebugport);
+    MSFSudp.begin(MSFSport);
 
     ethernetStartTime = millis() + delayBeforeSendingPacket;
     while (millis() <= ethernetStartTime) {
@@ -577,19 +782,15 @@ void loop() {
   scanMatrix();
 
   // Check for MSFS Data Updates for COM Radios for staters
-  /*
-  int keyboardpacketSize;
-int keyboardLen;
+  MSFSpacketsize = udp.parsePacket();
+  MSFSLen = MSFSudp.read(packetBuffer, 999);
 
-  keyboardpacketSize = keyboardudp.parsePacket();
-  keyboardLen = keyboardudp.read(keyboardpacketBuffer, 999);
+  if (MSFSLen > 0) {
+    packetBuffer[MSFSLen] = 0;
+  }
+  if (MSFSpacketsize) {
 
-  if (keyboardLen > 0) {
-    keyboardpacketBuffer[keyboardLen] = 0;
+    ProcessReceivedMSFSString();
+    SendDebug("Exiting MSFS Processing");
   }
-  if (keyboardpacketSize) {
-    CHECK_KEYBOARD_INITIALISED();
-    SendCharactersToKeyboard(keyboardLen);
-  }
-  */
 }

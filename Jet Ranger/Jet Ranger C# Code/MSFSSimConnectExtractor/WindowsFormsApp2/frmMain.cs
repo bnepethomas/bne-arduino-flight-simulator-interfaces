@@ -71,6 +71,15 @@ namespace WindowsFormsApp2
         private UdpClient udpServer;
         private const int listenPort = 27001;
 
+        // Variables to hold radio frequencies
+        private String com1ActiveFrequency = "";
+        private String com2ActiveFrequency = "";
+        private String com1StandbyFrequency = "";
+        private String com2StandbyFrequency = "";
+
+        // Constants for COM messages
+
+
         // User-defined win32 event 
         const int WM_USER_SIMCONNECT = 0x0402;
 
@@ -286,7 +295,7 @@ namespace WindowsFormsApp2
 
 
             setButtons(true, false, false);
-            udpClient.Connect("172.16.1.2", 13136);
+            udpClient.Connect("172.16.1.101", 13136);
             OutputClient.Connect("172.16.1.2", 26028);
             TimeLastPacketSent = DateTime.Now;
 
@@ -579,34 +588,34 @@ namespace WindowsFormsApp2
 
                     //displayText("Zulu Time 2        " + s1.zulu_time);
 
-                    UDP_Playload = "latitude:" + s1.latitude;
-                    UDP_Playload = UDP_Playload + ",longitude:" + s1.longitude.ToString();
-                    UDP_Playload = UDP_Playload + ",altitude:" + s1.altitude.ToString();
-                    UDP_Playload = UDP_Playload + ",airspeed:" + s1.airspeed.ToString();
-                    UDP_Playload = UDP_Playload + ",zulutime:" + s1.zulu_time.ToString();
-                    UDP_Playload = UDP_Playload + ",timezoneoffset:" + s1.time_zone_offset.ToString();
-                    UDP_Playload = UDP_Playload + ",trueheading:" + s1.plane_heading_degrees_true.ToString();
-                    UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
+                    UDP_Playload = "C1A:" + s1.com1ActiveFrequency.ToString();
+                    //UDP_Playload = UDP_Playload + ",longitude:" + s1.longitude.ToString();
+                    //UDP_Playload = UDP_Playload + ",altitude:" + s1.altitude.ToString();
+                    //UDP_Playload = UDP_Playload + ",airspeed:" + s1.airspeed.ToString();
+                    //UDP_Playload = UDP_Playload + ",zulutime:" + s1.zulu_time.ToString();
+                    //UDP_Playload = UDP_Playload + ",timezoneoffset:" + s1.time_zone_offset.ToString();
+                    //UDP_Playload = UDP_Playload + ",trueheading:" + s1.plane_heading_degrees_true.ToString();
+                    //UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
 
                     Output_Payload = "TRAILING_EDGE_FLAPS_LEFT_ANGLE:" + Math.Floor(s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE * 100);
-                    Output_Payload = Output_Payload + ",SPOILERS_LEFT_POSITION:" + Math.Floor(s1.SPOILERS_LEFT_POSITION * 100);
-                    Output_Payload = Output_Payload + ",GEAR_CENTER_POSITION:" + Math.Floor(s1.GEAR_CENTER_POSITION/100);
-                    Output_Payload = Output_Payload + ",GEAR_LEFT_POSITION:" + Math.Floor(s1.GEAR_LEFT_POSITION/100);
-                    Output_Payload = Output_Payload + ",GEAR_RIGHT_POSITION:" + Math.Floor(s1.GEAR_RIGHT_POSITION/100);
-                    Output_Payload = Output_Payload + ",BRAKE_PARKING_INDICATOR:" + Math.Floor(s1.BRAKE_PARKING_INDICATOR);
+                    //Output_Payload = Output_Payload + ",SPOILERS_LEFT_POSITION:" + Math.Floor(s1.SPOILERS_LEFT_POSITION * 100);
+                    //Output_Payload = Output_Payload + ",GEAR_CENTER_POSITION:" + Math.Floor(s1.GEAR_CENTER_POSITION/100);
+                    //Output_Payload = Output_Payload + ",GEAR_LEFT_POSITION:" + Math.Floor(s1.GEAR_LEFT_POSITION/100);
+                    //Output_Payload = Output_Payload + ",GEAR_RIGHT_POSITION:" + Math.Floor(s1.GEAR_RIGHT_POSITION/100);
+                    //Output_Payload = Output_Payload + ",BRAKE_PARKING_INDICATOR:" + Math.Floor(s1.BRAKE_PARKING_INDICATOR);
 
 
                     span = DateTime.Now - TimeLastPacketSent;
                     mS = (int)span.TotalMilliseconds;
                     displayText("Its been this many mS since sending last packet: " + mS.ToString());
 
-                    if (mS >= 200)
+                    if (mS >= 10000)
                     { 
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
 
-                        senddata = Encoding.ASCII.GetBytes(Output_Payload);
-                        OutputClient.Send(senddata, senddata.Length);
+                        //senddata = Encoding.ASCII.GetBytes(Output_Payload);
+                        //OutputClient.Send(senddata, senddata.Length);
 
                         TimeLastPacketSent = DateTime.Now;
                     }   
@@ -744,11 +753,6 @@ namespace WindowsFormsApp2
 
         private void btn_SendUDP_Click(object sender, EventArgs e)
         {
-
-
-
-
-
         }
 
         private void label1_Click(object sender, EventArgs e)
