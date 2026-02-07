@@ -106,8 +106,15 @@ namespace WindowsFormsApp2
             KEY_KEY_AVIONICS_MASTER_1_SET,
             KEY_AVIONICS_MASTER_2_SET,
             KEY_ALTERNATOR_SET,
-            ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET,
-
+            KEY_ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET,
+            KEY_COM_RADIO_SET_HZ,
+            KEY_COM2_RADIO_SET_HZ,
+            KEY_COM_STBY_RADIO_SET_HZ,
+            KEY_COM2_STBY_RADIO_SET_HZ,
+            KEY_NAV1_RADIO_SET_HZ,
+            KEY_NAV2_RADIO_SET_HZ,
+            KEY_NAV1_STBY_SET_HZ,
+            KEY_NAV2_STBY_SET_HZ,
         }
 
         enum GROUP_ID
@@ -777,6 +784,12 @@ namespace WindowsFormsApp2
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
+            StartSimConnect();
+        }
+
+        private void StartSimConnect()
+        {
+            
             if (simconnect == null)
             {
                 try
@@ -794,6 +807,9 @@ namespace WindowsFormsApp2
                 catch (COMException ex)
                 {
                     displayText("Unable to connect to MSFS:\n\n" + ex.Message);
+                    // Failed to connect - start timer to try again in 5 seconds
+                    timer1.Interval = 5000;
+                    timer1.Enabled = true;
                 }
             }
             else
@@ -802,6 +818,10 @@ namespace WindowsFormsApp2
                 closeConnection();
 
                 setButtons(true, false, false);
+
+                // Failed to connect - start timer to try again in 5 seconds
+                timer1.Interval = 5000;
+                timer1.Enabled = true;
             }
         }
 
@@ -896,16 +916,20 @@ namespace WindowsFormsApp2
                 simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 1, 0);
                 simconnect.RequestDataOnSimObject(DATA_REQUESTS.RADIOS, DEFINITIONS.structRadio, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 20, 0);
 
-                // Map Events - probably should move to routine where they are called or initiated
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_AVIONICS_MASTER_SET, "AVIONICS_MASTER_SET");
+               
+                //simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
+               //simconnect.MapClientEventToSimEvent(EVENTS.KEY_AVIONICS_MASTER_SET, "AVIONICS_MASTER_SET");
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_AVIONICS_MASTER_2_SET, "AVIONICS_MASTER_2_SET");
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET, "COM_STBY_RADIO_SET");
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_ALTERNATOR_SET, "ALTERNATOR_SET");
                 // Electrical Bus 1 to Avionics Bus 1 set
-                simconnect.MapClientEventToSimEvent(EVENTS.ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET, "ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET, "ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET_HZ, "COM_STBY_RADIO_SET_HZ");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM2_STBY_RADIO_SET_HZ, "COM2_STBY_RADIO_SET_HZ");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_AVIONICS_MASTER_SET, "AVIONICS_MASTER_SET");
             }
             catch
             {
@@ -1106,10 +1130,20 @@ namespace WindowsFormsApp2
 
                     listBoxLogs.Items.Add("BCD Frequency: " + frequencyBCD.ToString("X"));
 
+                    //simconnect.TransmitClientEvent(
+                    //    SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                    //    EVENTS.KEY_COM_STBY_RADIO_SET,
+                    //    frequencyBCD,
+                    //    GROUP_ID.GROUP0,
+                    //    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+                    //);
+
+                    uint frequencyHz = 118000000; // 118 MHz in Hz
+                    frequencyHz = (uint)(FLT_COMM1_STANDBY_FREQUENCY * 1000000);
                     simconnect.TransmitClientEvent(
                         SimConnect.SIMCONNECT_OBJECT_ID_USER,
-                        EVENTS.KEY_COM_STBY_RADIO_SET,
-                        frequencyBCD,
+                        EVENTS.KEY_COM_STBY_RADIO_SET_HZ,
+                        frequencyHz,
                         GROUP_ID.GROUP0,
                         SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
                     );
@@ -1121,6 +1155,12 @@ namespace WindowsFormsApp2
         private void button5_Click(object sender, EventArgs e)
         {
             this.listBoxLogs.Items.Clear();
+        }
+
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            StartSimConnect();
         }
     }
 
