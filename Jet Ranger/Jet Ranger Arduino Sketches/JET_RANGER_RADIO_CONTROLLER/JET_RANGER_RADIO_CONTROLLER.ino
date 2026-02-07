@@ -21,10 +21,13 @@ bool Debug_Display = false;
 
 unsigned long lastEncoderUpdate = millis();
 bool radioFrequencyChanged = false;
+bool powerAvailable = true;
 String com1ActiveFrequency = "119.000";
 String com2ActiveFrequency = "120.000";
 String com1StandbyFrequency = "121.000";
 String com2StandbyFrequency = "122.000";
+String mainBusVoltage = "";
+
 
 #include "RotaryEncoder_Mega_Polling.h"
 
@@ -252,13 +255,17 @@ void updateNAV(int Channel) {
 void updateCOMM() {
   tcaselect(COMM_OLED_Port);
   sendCommand(0x80);
-  //sendCommand(cmd_CLS);
-  String workstring1 = com1ActiveFrequency + "  " + com2ActiveFrequency;
-  String workstring2 = com1StandbyFrequency + "  " + com2StandbyFrequency;
 
-  send_string(workstring1.c_str());
-  sendCommand(cmd_NewLine);
-  send_string(workstring2.c_str());
+  if (powerAvailable == true) {
+    //sendCommand(cmd_CLS);
+    String workstring1 = com1ActiveFrequency + "  " + com2ActiveFrequency;
+    String workstring2 = com1StandbyFrequency + "  " + com2StandbyFrequency;
+
+    send_string(workstring1.c_str());
+    sendCommand(cmd_NewLine);
+    send_string(workstring2.c_str());
+  } else
+    sendCommand(cmd_CLS);
 }
 
 // ############################################# END CHARACTER OLED ##########################################
@@ -268,8 +275,8 @@ void updateCOMM() {
 
 // Can use ANY pins on Mega (no interrupt limitation!)
 // Create 4 encoders for X, Y, Z, and Menu control
-RotaryEncoder encoderX(36, 37, 0, 17*3,1);
-RotaryEncoder encoderY(38, 39, 0, 199*3,1);
+RotaryEncoder encoderX(36, 37, 0, 17 * 3, 1);
+RotaryEncoder encoderY(38, 39, 0, 199 * 3, 1);
 
 // RotaryEncoder encoderZ(6, 7, -1000, 1000);
 // RotaryEncoder encoderMenu(8, 9, 0, 10);
@@ -404,7 +411,36 @@ void handleKeyPress(int row, int col, char key) {
       udp.print("COM2_RADIO_SWAP");
       udp.endPacket();
       udp.beginPacket(reflectorIP, 27001);
-      udp.print("TOGGLE_AVIONICS_MASTER");
+      udp.print("AVIONICS_MASTER_SET");
+      udp.endPacket();
+    }
+  } else if (row == 0 && col == 0) {
+    SendDebug("MASTER_BATTERY_ON");
+    if (Ethernet_In_Use == 1) {
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print("MASTER_BATTERY_ON");
+      udp.endPacket();
+    }
+  } else if (row == 1 && col == 0) {
+    SendDebug("MASTER_BATTERY_OFF");
+    if (Ethernet_In_Use == 1) {
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print("MASTER_BATTERY_OFF");
+      udp.endPacket();
+    }
+  }
+  if (row == 0 && col == 0) {
+    SendDebug("ALTERNATOR_ON");
+    if (Ethernet_In_Use == 1) {
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print("ALTERNATOR_ON");
+      udp.endPacket();
+    }
+  } else if (row == 1 && col == 0) {
+    SendDebug("ALTERNATOR_OFF");
+    if (Ethernet_In_Use == 1) {
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print("ALTERNATOR_OFF");
       udp.endPacket();
     }
   } else {
@@ -633,11 +669,23 @@ void HandleOutputValuePair(String str) {
         }
         radioFrequencyChanged = true;
       };
+    } else if (ParameterName == "MAINBUS") {
+      //SendDebug("Received COM2 Standby Frequency: " + ParameterValue);
+      if (mainBusVoltage != ParameterValue) {
+        SendDebug("Main Bus Voltage Changed");
+        // Only set if it has been more 500mS since last update from local encoder
+        mainBusVoltage = ParameterValue;
+        if (mainBusVoltage == "0.0")
+          powerAvailable = false;
+        else
+          powerAvailable = true;
+
+        radioFrequencyChanged = true;
+      };
+      return;
     }
-    return;
   }
 }
-
 
 void HandleControlString(String str) {
   bool bLocalDebug = false;
@@ -806,7 +854,7 @@ void loop() {
   if (x != lastX || y != lastY) {
     SendDebug("X:" + String(x) + " Y: " + String(y));
 
-    long convertedchann = 118000 + int(x / 3) * 1000 + int(y / 3) * 5 ;
+    long convertedchann = 118000 + int(x / 3) * 1000 + int(y / 3) * 5;
     SendDebug("Converted Chan: " + String(convertedchann));
     com1StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 

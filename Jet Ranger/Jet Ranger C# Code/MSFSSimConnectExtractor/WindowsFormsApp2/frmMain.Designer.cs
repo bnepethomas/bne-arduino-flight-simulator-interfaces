@@ -41,6 +41,7 @@
             this.listBoxLogs = new System.Windows.Forms.ListBox();
             this.lblStandbyFrequency = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.button5 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonConnect
@@ -170,11 +171,22 @@
             this.label2.Text = "Standby Frequency";
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(452, 468);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 14;
+            this.button5.Text = "Clear Logs";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(594, 625);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblStandbyFrequency);
             this.Controls.Add(this.listBoxLogs);
@@ -211,6 +223,7 @@
         private System.Windows.Forms.ListBox listBoxLogs;
         private System.Windows.Forms.Label lblStandbyFrequency;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button button5;
     }
 }
 
