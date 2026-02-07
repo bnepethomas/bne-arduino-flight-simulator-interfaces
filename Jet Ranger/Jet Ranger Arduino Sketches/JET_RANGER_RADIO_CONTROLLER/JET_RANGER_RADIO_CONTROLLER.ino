@@ -268,8 +268,9 @@ void updateCOMM() {
 
 // Can use ANY pins on Mega (no interrupt limitation!)
 // Create 4 encoders for X, Y, Z, and Menu control
-RotaryEncoder encoderX(36, 37, 0, 1000);
-RotaryEncoder encoderY(38, 39, 0, 1000);
+RotaryEncoder encoderX(36, 37, 0, 17*3,1);
+RotaryEncoder encoderY(38, 39, 0, 199*3,1);
+
 // RotaryEncoder encoderZ(6, 7, -1000, 1000);
 // RotaryEncoder encoderMenu(8, 9, 0, 10);
 
@@ -766,9 +767,9 @@ void setup() {
   encoderY.begin();
   // Configure each encoder
   encoderX.setAccelerationParams(5, 80, 3, 3);
-  // encoderY.setAccelerationParams(5, 80, 3, 3);
+  encoderY.setAccelerationParams(5, 80, 10, 10);
   encoderX.enableAcceleration(true);
-  // encoderY.enableAcceleration(true);
+  encoderY.enableAcceleration(true);
 
   SendDebug("Start Matrix");
   initMatrixScanner();
@@ -802,7 +803,7 @@ void loop() {
   if (x != lastX || y != lastY) {
     SendDebug("X:" + String(x) + " Y: " + String(y));
 
-    long convertedchann = int(x / 3) * 50 + 118000;
+    long convertedchann = 118000 + int(x / 3) * 1000 + int(y / 3) * 5 ;
     SendDebug("Converted Chan: " + String(convertedchann));
     com1StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 

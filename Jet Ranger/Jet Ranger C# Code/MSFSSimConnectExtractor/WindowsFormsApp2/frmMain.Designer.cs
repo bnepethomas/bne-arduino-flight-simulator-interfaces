@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.buttonConnect = new System.Windows.Forms.Button();
             this.buttonDisconnect = new System.Windows.Forms.Button();
             this.buttonRequestData = new System.Windows.Forms.Button();
             this.richResponse = new System.Windows.Forms.RichTextBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -83,10 +81,6 @@
             this.richResponse.TabIndex = 3;
             this.richResponse.Text = "";
             this.richResponse.TextChanged += new System.EventHandler(this.richResponse_TextChanged);
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // button1
             // 
@@ -208,7 +202,6 @@
         private System.Windows.Forms.Button buttonDisconnect;
         private System.Windows.Forms.Button buttonRequestData;
         private System.Windows.Forms.RichTextBox richResponse;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;

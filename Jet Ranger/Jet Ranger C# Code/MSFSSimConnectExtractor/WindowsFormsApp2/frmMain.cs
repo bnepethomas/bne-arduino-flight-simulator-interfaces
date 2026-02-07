@@ -90,13 +90,13 @@ namespace WindowsFormsApp2
         enum DEFINITIONS
         {
             Struct1,
-            ComStruct,
-            Com1Standby,
+            structRadio,
         }
 
         enum DATA_REQUESTS
         {
             REQUEST_1,
+            RADIOS,
         };
 
         enum EVENTS
@@ -200,11 +200,20 @@ namespace WindowsFormsApp2
         };
 
 
-        [StructLayout(LayoutKind.Sequential, Pack = 1)]
-        struct ComData
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+        struct StructRadio
         {
+            // this is how you declare a fixed size string 
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+            public String title;
+            public double com1ActiveFrequency;
+            public double com2ActiveFrequency;
             public double com1StandbyFrequency;
+            public double com2StandbyFrequency;
+            public double zulu_time_2; // Used to validate we have all data
         };
+
+
 
         //{ "ABSOLUTE TIME",              "Seconds",              SIMCONNECT_DATATYPE_FLOAT64},
 
@@ -324,7 +333,7 @@ namespace WindowsFormsApp2
         int response = 1;
 
         // Output text - display a maximum of X lines 
-        string output = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+        string output = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 
         private void setButtons(bool bConnect, bool bGet, bool bDisconnect)
         {
@@ -422,16 +431,18 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GEAR CENTER POSITION", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GEAR LEFT POSITION", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GEAR RIGHT POSITION", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-
-
-
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Zulu Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
-
+                simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "title", null, SIMCONNECT_DATATYPE.STRING256, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM ACTIVE FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM ACTIVE FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM STANDBY FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM STANDBY FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
                 // IMPORTANT: register it with the simconnect managed wrapper marshaller 
                 // if you skip this step, you will only receive a uint in the .dwData field. 
                 simconnect.RegisterDataDefineStruct<Struct1>(DEFINITIONS.Struct1);
+                simconnect.RegisterDataDefineStruct<StructRadio>(DEFINITIONS.structRadio);
 
                 // catch a simobject data request 
                 simconnect.OnRecvSimobjectDataBytype += new SimConnect.RecvSimobjectDataBytypeEventHandler(simconnect_OnRecvSimobjectDataBytype);
@@ -516,9 +527,73 @@ namespace WindowsFormsApp2
         {
 
             
-
+            
+            this.richResponse.Clear();
+            //output = "";
             switch ((DATA_REQUESTS)data.dwRequestID)
             {
+                case DATA_REQUESTS.RADIOS:
+                    StructRadio sRadio = (StructRadio)data.dwData[0];
+
+
+                    if (com1ActiveFrequency != sRadio.com1ActiveFrequency.ToString("F3"))
+                    {
+                        radioFrequencyChanged = true;
+                        com1ActiveFrequency = sRadio.com1ActiveFrequency.ToString("F3");
+                    };
+                                      
+                    if (com1StandbyFrequency != sRadio.com1StandbyFrequency.ToString("F3"))
+                    {
+                        radioFrequencyChanged = true;
+                        com1StandbyFrequency = sRadio.com1StandbyFrequency.ToString("F3");
+                    };
+                    
+                    if (com2ActiveFrequency != sRadio.com2ActiveFrequency.ToString("F3"))
+                    {
+                        radioFrequencyChanged = true;
+                        com2ActiveFrequency = sRadio.com2ActiveFrequency.ToString("F3");
+                    };
+                    
+                    if (com2StandbyFrequency != sRadio.com2StandbyFrequency.ToString("F3"))
+                    {
+                        radioFrequencyChanged = true;
+                        com2StandbyFrequency = sRadio.com2StandbyFrequency.ToString("F3");
+                    };
+
+
+
+                    span = DateTime.Now - TimeLastPacketSent;
+                    mS = (int)span.TotalMilliseconds;
+                    displayText("Its been this many mS since sending last packet: " + mS.ToString());
+
+                    if (mS >= 200 && radioFrequencyChanged == true)
+                    {
+                        radioFrequencyChanged = false;
+                        UDP_Playload = "D,C1A:" + com1ActiveFrequency;
+                        UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
+                        UDP_Playload = UDP_Playload + ",C2A:" + com2ActiveFrequency;
+                        UDP_Playload = UDP_Playload + ",C2S:" + com2StandbyFrequency;
+                        Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
+                        udpClient.Send(senddata, senddata.Length);
+
+                        TimeLastPacketSent = DateTime.Now;
+                    }
+                    // if its been a while since changes send an update anyways
+                    if (mS >= 20000)
+
+                    {
+                        radioFrequencyChanged = false;
+                        UDP_Playload = "D,C1A:" + com1ActiveFrequency;
+                        UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
+                        Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
+                        udpClient.Send(senddata, senddata.Length);
+
+                        TimeLastPacketSent = DateTime.Now;
+                    }
+
+
+                    break;
+
                 case DATA_REQUESTS.REQUEST_1:
                     Struct1 s1 = (Struct1)data.dwData[0];
 
@@ -605,6 +680,8 @@ namespace WindowsFormsApp2
                     //Output_Payload = Output_Payload + ",GEAR_RIGHT_POSITION:" + Math.Floor(s1.GEAR_RIGHT_POSITION/100);
                     //Output_Payload = Output_Payload + ",BRAKE_PARKING_INDICATOR:" + Math.Floor(s1.BRAKE_PARKING_INDICATOR);
 
+                    /*
+
                     if (com1ActiveFrequency != s1.com1ActiveFrequency.ToString("F3"))
                     {
                         radioFrequencyChanged = true;
@@ -628,9 +705,7 @@ namespace WindowsFormsApp2
                     }
                     ;
 
-                    //private String com2ActiveFrequency = "";
-                    //rivate String com1StandbyFrequency = "";
-                    //private String com2StandbyFrequency = "";
+
 
                     span = DateTime.Now - TimeLastPacketSent;
                     mS = (int)span.TotalMilliseconds;
@@ -661,6 +736,8 @@ namespace WindowsFormsApp2
 
                         TimeLastPacketSent = DateTime.Now;
                     }
+
+                    */
                     break;
 
                 default:
@@ -757,12 +834,12 @@ namespace WindowsFormsApp2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.timer1.Enabled = true;
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.timer1.Enabled = false;
+
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -783,7 +860,8 @@ namespace WindowsFormsApp2
                 // To assist in reducing range of pps set upper limit of Sim FPS tp 50 under Graphic Target FPS
                 // Interestingly - with a target FPS of 50, seeing 100pps 
 
-                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 2, 0);
+                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 5, 0);
+                simconnect.RequestDataOnSimObject(DATA_REQUESTS.RADIOS, DEFINITIONS.structRadio, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 20, 0);
             }
             catch
             {
