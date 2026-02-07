@@ -72,6 +72,7 @@ String strreflectorIP = "X.X.X.X";
 const unsigned int localport = 7788;
 const unsigned int localdebugport = 7789;
 const unsigned int MSFSport = 13136;
+const unsigned int aliveport = 13137;
 const unsigned int reflectorport = 27000;
 
 
@@ -85,10 +86,13 @@ int MSFSLen;
 
 EthernetUDP max7219udp;  // Max7219
 EthernetUDP MSFSudp;     // Listens to MSFS light commands
+EthernetUDP aliveudp;    // Sends keepalives to monitoring application
 
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
 
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
 const unsigned long delayBeforeSendingPacket = 3000;
 unsigned long ethernetStartTime = 0;
 String BoardName = "Jet Ranger Radio: ";
@@ -785,6 +789,7 @@ void setup() {
     udp.begin(localport);
     debugUDP.begin(localdebugport);
     MSFSudp.begin(MSFSport);
+    aliveudp.begin(aliveport);
 
     ethernetStartTime = millis() + delayBeforeSendingPacket;
     while (millis() <= ethernetStartTime) {
@@ -855,6 +860,16 @@ void loop() {
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
+
+  if ((millis() - lastalivesent) >= aliveinterval) {
+    if (Ethernet_In_Use == 1) {
+      aliveudp.beginPacket(reflectorIP, aliveport);
+      aliveudp.print("CommNav");
+      aliveudp.endPacket();
+    }
+    lastalivesent = millis();  
+  }
+
 
   encoderX.poll();
   encoderY.poll();

@@ -1100,43 +1100,6 @@ namespace WindowsFormsApp2
                     }
 
 
-                    //lblStandbyFrequency.Text = SIMCONNECT_COMMAND;
-
-                    listBoxLogs.Items.Add("Setting COM1 Standby Frequency to " + SIMCONNECT_COMMAND + " MHz");
-
-                    // Convert frequency to BCD format
-                    int intFrequency = (int)(FLT_COMM1_STANDBY_FREQUENCY * 100);
-
-                    listBoxLogs.Items.Add("Converting in Int: " + intFrequency);
-                    // Now subtract the 100MHz bit
-                    intFrequency = intFrequency - 10000;
-                    listBoxLogs.Items.Add("Less 10000 " + intFrequency);
-                    //byte[] frequencyBCD = IntToBcd(intFrequency);
-
-                    uint frequencyBCD = 0;
-                    for (int i = 0; i < 4; i++) // Process up to 5 digits
-                    {
-                        uint digit = (uint)(intFrequency % 10);
-                        frequencyBCD |= (digit << (i * 4)); // Shift digit into 4-bit nibble
-                        intFrequency /= 10;
-                    }
-                    listBoxLogs.Items.Add("BCD Frequency Derived: " + frequencyBCD.ToString("X"));
-
-
-
-                    // Frequency 121.50 MHz in BCD is 0x2150
-                    // We use uint to ensure the hex value is passed correctly
-                    //frequencyBCD = 0x2150;
-
-                    listBoxLogs.Items.Add("BCD Frequency: " + frequencyBCD.ToString("X"));
-
-                    //simconnect.TransmitClientEvent(
-                    //    SimConnect.SIMCONNECT_OBJECT_ID_USER,
-                    //    EVENTS.KEY_COM_STBY_RADIO_SET,
-                    //    frequencyBCD,
-                    //    GROUP_ID.GROUP0,
-                    //    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
-                    //);
 
                     uint frequencyHz = 118000000; // 118 MHz in Hz
                     frequencyHz = (uint)(FLT_COMM1_STANDBY_FREQUENCY * 1000000);
