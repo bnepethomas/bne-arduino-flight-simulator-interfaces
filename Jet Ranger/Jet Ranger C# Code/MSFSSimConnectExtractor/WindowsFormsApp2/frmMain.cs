@@ -72,6 +72,7 @@ namespace WindowsFormsApp2
         private String com1StandbyFrequency = "";
         private String com2StandbyFrequency = "";
         private String MainBusVoltage = "";
+        private String CIRCUIT_NAVCOM1_ON = "";
 
         // Constants for COM messages
 
@@ -105,6 +106,7 @@ namespace WindowsFormsApp2
             KEY_KEY_AVIONICS_MASTER_1_SET,
             KEY_AVIONICS_MASTER_2_SET,
             KEY_ALTERNATOR_SET,
+            ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET,
 
         }
 
@@ -159,6 +161,8 @@ namespace WindowsFormsApp2
             public double airspeed_2;
             public double ELECTRICAL_AVIONICS_BUS_VOLTAGE;
             public double ELECTRICAL_MAIN_BUS_VOLTAGE;
+            public double CIRCUIT_AVIONICS_ON; 
+            public double CIRCUIT_NAVCOM1_ON;
             public double ELECTRICAL_MASTER_BATTERY_2;
             //public double ELECTRICAL_BATTERY_BUS_VOLTAGE;
 
@@ -216,6 +220,7 @@ namespace WindowsFormsApp2
             public double com1StandbyFrequency;
             public double com2StandbyFrequency;
             public double ELECTRICAL_MAIN_BUS_VOLTAGE;
+            public double CIRCUIT_NAVCOM1_ON;
             public double zulu_time_2; // Used to validate we have all data
         };
 
@@ -372,8 +377,25 @@ namespace WindowsFormsApp2
                 simconnect.OnRecvException += new SimConnect.RecvExceptionEventHandler(simconnect_OnRecvException);
 
                 // define a data structure 
+                // This data structure will be used to receive data from the sim.
+                // The two data structures defined in this example are Struct1 and StructRadio.
+                // Struct1 is used to receive a wide variety of data from the sim including position, attitude,
+                // engine performance, electrical system status, and more.
+                // StructRadio is used to receive radio frequency and electrical bus voltage data.
+                // It is important to note that the names of the variables in the structure do not need to match the sim variable names,
+                // but they do need to be in the same order as the sim variables are added to the data definition and they need to be of the same type.
                 // Variable Reference https://www.prepar3d.com/SDKv4/sdk/references/variables/simulation_variables.html
-                // Unless the Units column in the following table identifies the units as a structure or a string, the data will be returned by default in a signed 64 bit floating point value
+                // Unless the Units column in the following table identifies the units as a structure or a string,
+                // the data will be returned by default in a signed 64 bit floating point value
+
+
+                // Different aircraft support present the electrical systems differently
+                // The Flyside Jet Ranger presents the main bus voltage as "ELECTRICAL MAIN BUS VOLTAGE" with good providing 28V
+                // The Aboso Cargo 172 returns 0V when "ELECTRICAL MAIN BUS VOLTAGE" is used
+                // The Cowasim JetRanger also presents electical bus 
+                // CIRCUIT NAVCOM1 ON is a smple boolean that alo can be used, it is alwas set to one in the 172 but is more likely to be supported across a wider variety of aircraft.
+
+
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "title", null, SIMCONNECT_DATATYPE.STRING256, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Latitude", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Longitude", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
@@ -402,7 +424,9 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Avionics Master Switch", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Airspeed True", "knots", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL AVIONICS BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MAIN BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MAIN BUS VOLTAGE:1", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "CIRCUIT AVIONICS ON", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "CIRCUIT NAVCOM1 ON", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 // simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL AVIONICS BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);  
                 // simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MAIN BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
@@ -453,6 +477,7 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM STANDBY FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM STANDBY FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "ELECTRICAL MAIN BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "CIRCUIT NAVCOM1 ON", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
                 // IMPORTANT: register it with the simconnect managed wrapper marshaller 
                 // if you skip this step, you will only receive a uint in the .dwData field. 
@@ -536,12 +561,22 @@ namespace WindowsFormsApp2
                     {
                         radioFrequencyChanged = true;
                         MainBusVoltage = sRadio.ELECTRICAL_MAIN_BUS_VOLTAGE.ToString("F1");
-                    }
-                    ;
+                    };
+
+                    if (MainBusVoltage != sRadio.ELECTRICAL_MAIN_BUS_VOLTAGE.ToString("F1"))
+                    {
+                        radioFrequencyChanged = true;
+                        MainBusVoltage = sRadio.ELECTRICAL_MAIN_BUS_VOLTAGE.ToString("F1");
+                    };
+                    if (CIRCUIT_NAVCOM1_ON != sRadio.CIRCUIT_NAVCOM1_ON.ToString())
+                    {
+                        radioFrequencyChanged = true;
+                        CIRCUIT_NAVCOM1_ON = sRadio.CIRCUIT_NAVCOM1_ON.ToString();
+                    };
+                    
 
 
-
-                    span = DateTime.Now - TimeLastPacketSent;
+        span = DateTime.Now - TimeLastPacketSent;
                     mS = (int)span.TotalMilliseconds;
                     // displayText("Its been this many mS since sending last packet: " + mS.ToString());
 
@@ -553,21 +588,25 @@ namespace WindowsFormsApp2
                         UDP_Playload = UDP_Playload + ",C2A:" + com2ActiveFrequency;
                         UDP_Playload = UDP_Playload + ",C2S:" + com2StandbyFrequency;
                         UDP_Playload = UDP_Playload + ",MAINBUS:" + MainBusVoltage;
+                        UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON; 
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
 
                         TimeLastPacketSent = DateTime.Now;
                     }
                     // if its been a while since changes send an update anyways
-                    if (mS >= 20000)
+                    if (mS >= 5000)
 
                     {
                         radioFrequencyChanged = false;
                         UDP_Playload = "D,C1A:" + com1ActiveFrequency;
                         UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
+                        UDP_Playload = UDP_Playload + ",C2A:" + com2ActiveFrequency;
+                        UDP_Playload = UDP_Playload + ",C2S:" + com2StandbyFrequency;
+                        UDP_Playload = UDP_Playload + ",MAINBUS:" + MainBusVoltage;
+                        UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
-
                         TimeLastPacketSent = DateTime.Now;
                     }
 
@@ -578,14 +617,14 @@ namespace WindowsFormsApp2
                     Struct1 s1 = (Struct1)data.dwData[0];
 
                     displayText("Aircraft Model:    " + s1.title);
-                    displayText("Lat:               " + s1.latitude);
-                    displayText("Lon:               " + s1.longitude);
-                    displayText("Alt:               " + s1.altitude);
-                    displayText("Radar Alt:         " + s1.PLANE_ALT_ABOVE_GROUND);
-                    displayText("Vertical Speed:    " + s1.VERTICAL_SPEED);
-                    displayText("Airspeed           " + s1.airspeed);
-                    displayText("Bank Degrees       " + s1.ATTITUDE_INDICATOR_BANK_DEGREES);
-                    displayText("Pitch Degrees      " + s1.ATTITUDE_INDICATOR_PITCH_DEGREES);
+                    displayText("Lat:               " + s1.latitude.ToString("F4"));
+                    displayText("Lon:               " + s1.longitude.ToString("F4"));
+                    displayText("Alt:               " + s1.altitude.ToString("F0"));
+                    displayText("Radar Alt:         " + s1.PLANE_ALT_ABOVE_GROUND.ToString("F0"));
+                    displayText("Vertical Speed:    " + s1.VERTICAL_SPEED.ToString("F0"));
+                    displayText("Airspeed           " + s1.airspeed.ToString("F0"));
+                    displayText("Bank Degrees       " + s1.ATTITUDE_INDICATOR_BANK_DEGREES.ToString("F3"));
+                    displayText("Pitch Degrees      " + s1.ATTITUDE_INDICATOR_PITCH_DEGREES.ToString("F3"));
                     //displayText("ROTOR RPM          " + s1.ROTOR_RPM_PCT_1);
                     //displayText("ENG ROTOR RPM      " + s1.GENERAL_ENG_PCT_MAX_RPM_1);
                     //displayText("ENG TORQUE PERCENT " + s1.ENG_TORQUE_PERCENT_1 * 4 /9);
@@ -606,9 +645,11 @@ namespace WindowsFormsApp2
                     displayText("COM2 Standby Freq  " + s1.com2StandbyFrequency);
                     displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY);
                     displayText("Avionics Master Switch      " + s1.Avionics_Master_Switch);
-                    displayText("Airspeed 2          " + s1.airspeed_2);
-                    displayText("ELECTRICAL AVIONICS BUS VOLTAGE " + s1.ELECTRICAL_AVIONICS_BUS_VOLTAGE);
-                    displayText("ELECTRICAL MAIN BUS VOLTAGE  " + s1.ELECTRICAL_MAIN_BUS_VOLTAGE);
+                    displayText("Airspeed 2          " + s1.airspeed_2.ToString("F0"));
+                    displayText("ELECTRICAL AVIONICS BUS VOLTAGE " + s1.ELECTRICAL_AVIONICS_BUS_VOLTAGE.ToString("F2"));
+                    displayText("ELECTRICAL MAIN BUS VOLTAGE  " + s1.ELECTRICAL_MAIN_BUS_VOLTAGE.ToString("F2"));
+                    displayText("CIRCUIT AVIONICS ON " + s1.CIRCUIT_AVIONICS_ON);
+                    displayText("CIRCUIT NAVCOM1 ON  " + s1.CIRCUIT_NAVCOM1_ON);
                     displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY_2);
 
                     //displayText("Sim Time           " + s1.elapsedsimtime);
@@ -747,6 +788,8 @@ namespace WindowsFormsApp2
 
                     initDataRequest();
 
+                    Setup_DataRequests();
+
                 }
                 catch (COMException ex)
                 {
@@ -828,6 +871,12 @@ namespace WindowsFormsApp2
 
         private void button3_Click(object sender, EventArgs e)
         {
+            Setup_DataRequests();
+
+        }
+
+        private void Setup_DataRequests()
+        {
 
             displayText("Pleading for data...");
             //m_scConnection.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.PERIODIQUE, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 0, 0);
@@ -855,12 +904,14 @@ namespace WindowsFormsApp2
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_ALTERNATOR_SET, "ALTERNATOR_SET");
+                // Electrical Bus 1 to Avionics Bus 1 set
+                simconnect.MapClientEventToSimEvent(EVENTS.ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET, "ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET");
             }
             catch
             {
                 displayText("Unhandled error in data plead ...");
             }
-            
+
 
         }
 

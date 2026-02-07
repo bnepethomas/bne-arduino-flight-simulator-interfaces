@@ -27,6 +27,7 @@ String com2ActiveFrequency = "120.000";
 String com1StandbyFrequency = "121.000";
 String com2StandbyFrequency = "122.000";
 String mainBusVoltage = "";
+String navCom1Status = "";
 
 
 #include "RotaryEncoder_Mega_Polling.h"
@@ -669,8 +670,8 @@ void HandleOutputValuePair(String str) {
         }
         radioFrequencyChanged = true;
       };
-    } else if (ParameterName == "MAINBUS") {
-      //SendDebug("Received COM2 Standby Frequency: " + ParameterValue);
+    } else if (ParameterName == "NOTMAINBUS") {
+      SendDebug("Received MAINBUS: " + ParameterValue);
       if (mainBusVoltage != ParameterValue) {
         SendDebug("Main Bus Voltage Changed");
         // Only set if it has been more 500mS since last update from local encoder
@@ -681,7 +682,21 @@ void HandleOutputValuePair(String str) {
           powerAvailable = true;
 
         radioFrequencyChanged = true;
+      }
+    } else if (ParameterName == "NAVCOM1") {
+      SendDebug("Received NAVCOM1: " + ParameterValue);
+      if (navCom1Status != ParameterValue) {
+        SendDebug("NAVCOM1 Status Changed");
+        // Only set if it has been more 500mS since last update from local encoder
+        navCom1Status = ParameterValue;
+        if (navCom1Status == "0")
+          powerAvailable = false;
+        else
+          powerAvailable = true;
+
+        radioFrequencyChanged = true;
       };
+
       return;
     }
   }
