@@ -72,11 +72,14 @@ namespace WindowsFormsApp2
         private const int listenPort = 27001;
 
         // Variables to hold radio frequencies
+        // Need to add new variables here as well as in the structure and the request and the display
+        // Using StructRadio 
         bool radioFrequencyChanged = false;
         private String com1ActiveFrequency = "";
         private String com2ActiveFrequency = "";
         private String com1StandbyFrequency = "";
         private String com2StandbyFrequency = "";
+        private String avionicsBusVoltage = "";
 
         // Constants for COM messages
 
@@ -151,12 +154,15 @@ namespace WindowsFormsApp2
             public double ENG_OIL_PRESSURE_1;
             public double ENG_TRANSMISSION_PRESSURE_1;
             public double ENG_TRANSMISSION_TEMPERATURE_1;
+            public double ELECTRICAL_MASTER_BATTERY;
             public double com1ActiveFrequency;
             public double com2ActiveFrequency;
             public double com1StandbyFrequency;
             public double com2StandbyFrequency; 
-            public double ELECTRICAL_MASTER_BATTERY;
+            public double ELECTRICAL_MASTER_BATTERY_2;
             public double Avionics_Master_Switch;
+            //public double ELECTRICAL_AVIONICS_BUS_VOLTAGE;
+            //public double ELECTRICAL_BATTERY_BUS_VOLTAGE;
 
 
 
@@ -210,6 +216,7 @@ namespace WindowsFormsApp2
             public double com2ActiveFrequency;
             public double com1StandbyFrequency;
             public double com2StandbyFrequency;
+            public double AVIONICS_BUS_VOLTAGE;
             public double zulu_time_2; // Used to validate we have all data
         };
 
@@ -388,12 +395,16 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG OIL PRESSURE:1", "psi", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG TRANSMISSION PRESSURE:1", "psi", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ENG TRANSMISSION TEMPERATURE:1", "Celsius", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "COM ACTIVE FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "COM ACTIVE FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);  
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "COM STANDBY FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "COM STANDBY FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED); 
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Avionics Master Switch", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                // simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "AVIONICS BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                // simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL AVIONICS BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);  
+                // simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MAIN BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
 
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Sim Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
@@ -438,6 +449,7 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM ACTIVE FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM STANDBY FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM STANDBY FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "ELECTRICAL AVIONICS BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
                 // IMPORTANT: register it with the simconnect managed wrapper marshaller 
                 // if you skip this step, you will only receive a uint in the .dwData field. 
@@ -528,14 +540,12 @@ namespace WindowsFormsApp2
 
             
             
-            this.richResponse.Clear();
-            //output = "";
             switch ((DATA_REQUESTS)data.dwRequestID)
             {
                 case DATA_REQUESTS.RADIOS:
                     StructRadio sRadio = (StructRadio)data.dwData[0];
 
-
+                    this.lblStandbyFrequency.Text = sRadio.AVIONICS_BUS_VOLTAGE.ToString();
                     if (com1ActiveFrequency != sRadio.com1ActiveFrequency.ToString("F3"))
                     {
                         radioFrequencyChanged = true;
@@ -560,11 +570,18 @@ namespace WindowsFormsApp2
                         com2StandbyFrequency = sRadio.com2StandbyFrequency.ToString("F3");
                     };
 
+                    if (avionicsBusVoltage != sRadio.AVIONICS_BUS_VOLTAGE.ToString("F1"))
+                    {
+                        radioFrequencyChanged = true;
+                        avionicsBusVoltage = sRadio.AVIONICS_BUS_VOLTAGE.ToString("F1");
+                    }
+                    ;
+
 
 
                     span = DateTime.Now - TimeLastPacketSent;
                     mS = (int)span.TotalMilliseconds;
-                    displayText("Its been this many mS since sending last packet: " + mS.ToString());
+                    // displayText("Its been this many mS since sending last packet: " + mS.ToString());
 
                     if (mS >= 200 && radioFrequencyChanged == true)
                     {
@@ -573,6 +590,7 @@ namespace WindowsFormsApp2
                         UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
                         UDP_Playload = UDP_Playload + ",C2A:" + com2ActiveFrequency;
                         UDP_Playload = UDP_Playload + ",C2S:" + com2StandbyFrequency;
+                        UDP_Playload = UDP_Playload + ",AVBUS:" + avionicsBusVoltage;
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
 
@@ -619,13 +637,16 @@ namespace WindowsFormsApp2
                     //displayText("ENG OIL PRESSURE   " + s1.ENG_OIL_PRESSURE_1);
                     //displayText("ENG TRANSMISSION PRESSURE  " + s1.ENG_TRANSMISSION_PRESSURE_1);
                     //displayText("ENG TRANSMISSION TEMPERATURE " + s1.ENG_TRANSMISSION_TEMPERATURE_1);
+                    displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY);
                     displayText("COM1 Active Freq   " + s1.com1ActiveFrequency);
                     displayText("COM2 Active Freq   " + s1.com2ActiveFrequency);
                     displayText("COM1 Standby Freq  " + s1.com1StandbyFrequency);
                     displayText("COM2 Standby Freq  " + s1.com2StandbyFrequency);
-                    displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY);
+                    displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY_2);
                     displayText("Avionics Master Switch      " + s1.Avionics_Master_Switch);
-
+                    //displayText("ELECTRICAL AVIONICS BUS VOLTAGE " + s1.ELECTRICAL_AVIONICS_BUS_VOLTAGE);
+                    //displayText("ELECTRICAL BATTERY BUS VOLTAGE  " + s1.ELECTRICAL_BATTERY_BUS_VOLTAGE);
+                    //displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY);
 
                     //displayText("Sim Time           " + s1.elapsedsimtime);
                     //displayText("Zulu Time          " + s1.zulu_time);
@@ -649,7 +670,7 @@ namespace WindowsFormsApp2
                     //displayText("ENG ON FIRE:2               " + s1.ENG_ON_FIRE_1);
                     //displayText("ENG ON FIRE:2               " + s1.ENG_ON_FIRE_2);
                     //displayText("STALL WARNING               " + s1.STALL_WARNING);
-                    
+
                     //displayText("LIGHT CABIN                 " + s1.LIGHT_CABIN);
                     //displayText("LIGHT STROBE                " + s1.LIGHT_STROBE);
                     //displayText("LIGHT NAV                   " + s1.LIGHT_NAV);
@@ -860,7 +881,7 @@ namespace WindowsFormsApp2
                 // To assist in reducing range of pps set upper limit of Sim FPS tp 50 under Graphic Target FPS
                 // Interestingly - with a target FPS of 50, seeing 100pps 
 
-                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 5, 0);
+                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 1, 0);
                 simconnect.RequestDataOnSimObject(DATA_REQUESTS.RADIOS, DEFINITIONS.structRadio, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 20, 0);
             }
             catch
@@ -939,6 +960,7 @@ namespace WindowsFormsApp2
                 else if (SIMCONNECT_COMMAND.Contains("COM2_RADIO_SWAP") == true)
                 {
                     SendEvent(EVENTS.KEY_COM2_RADIO_SWAP, 0);
+                    SendEvent(EVENTS.KEY_TOGGLE_AVIONICS_MASTER, 1);
                 }
                 else if (SIMCONNECT_COMMAND.Contains("TOGGLE_AVIONICS_MASTER") == true)
                 {
@@ -970,7 +992,7 @@ namespace WindowsFormsApp2
                     }
 
 
-                    lblStandbyFrequency.Text = SIMCONNECT_COMMAND;
+                    //lblStandbyFrequency.Text = SIMCONNECT_COMMAND;
 
                     listBoxLogs.Items.Add("Setting COM1 Standby Frequency to " + SIMCONNECT_COMMAND + " MHz");
 
