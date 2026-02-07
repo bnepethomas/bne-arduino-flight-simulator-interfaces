@@ -110,6 +110,7 @@ namespace WindowsFormsApp2
             KEY_COM_STBY_RADIO_SET,
             KEY_COM1_RADIO_SWAP,
             KEY_COM2_RADIO_SWAP,
+            AVIONICS_MASTER_1_SET
         }
 
         enum GROUP_ID
@@ -163,6 +164,7 @@ namespace WindowsFormsApp2
             public double Avionics_Master_Switch;
             //public double ELECTRICAL_AVIONICS_BUS_VOLTAGE;
             //public double ELECTRICAL_BATTERY_BUS_VOLTAGE;
+            public double airspeed_2;
 
 
 
@@ -216,7 +218,7 @@ namespace WindowsFormsApp2
             public double com2ActiveFrequency;
             public double com1StandbyFrequency;
             public double com2StandbyFrequency;
-            public double AVIONICS_BUS_VOLTAGE;
+            public double ELECTRICAL_MASTER_BATTERY;
             public double zulu_time_2; // Used to validate we have all data
         };
 
@@ -402,6 +404,7 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "COM STANDBY FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED); 
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Avionics Master Switch", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Airspeed True", "knots", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 // simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "AVIONICS BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 // simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL AVIONICS BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);  
                 // simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MAIN BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
@@ -449,15 +452,15 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM ACTIVE FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM STANDBY FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM STANDBY FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-                simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "ELECTRICAL AVIONICS BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-
+                simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+               
                 // IMPORTANT: register it with the simconnect managed wrapper marshaller 
                 // if you skip this step, you will only receive a uint in the .dwData field. 
                 simconnect.RegisterDataDefineStruct<Struct1>(DEFINITIONS.Struct1);
                 simconnect.RegisterDataDefineStruct<StructRadio>(DEFINITIONS.structRadio);
 
                 // catch a simobject data request 
-                simconnect.OnRecvSimobjectDataBytype += new SimConnect.RecvSimobjectDataBytypeEventHandler(simconnect_OnRecvSimobjectDataBytype);
+                // Simconnect.OnRecvSimobjectDataBytype += new SimConnect.RecvSimobjectDataBytypeEventHandler(simconnect_OnRecvSimobjectDataBytype);
 
                 simconnect.OnRecvSimobjectData += new SimConnect.RecvSimobjectDataEventHandler(simconnect_OnRecvSimobjectData);
             }
@@ -490,48 +493,7 @@ namespace WindowsFormsApp2
             closeConnection();
         }
 
-        void simconnect_OnRecvSimobjectDataBytype(SimConnect sender, SIMCONNECT_RECV_SIMOBJECT_DATA_BYTYPE data)
-        {
 
-            switch ((DATA_REQUESTS)data.dwRequestID)
-            {
-                case DATA_REQUESTS.REQUEST_1:
-                    Struct1 s1 = (Struct1)data.dwData[0];
-
-                    richResponse.Clear();
-
-                    displayText("title:             " + s1.title);
-                    displayText("Lat:               " + s1.latitude);
-                    displayText("Lon:               " + s1.longitude);
-                    displayText("Alt:               " + s1.altitude);
-                    displayText("Airspeed           " + s1.airspeed);
-                    displayText("Sim Time           " + s1.elapsedsimtime);
-                    displayText("Zulu Time          " + s1.zulu_time);
-                    displayText("Time Zone Offset   " + s1.time_zone_offset);
-                    displayText("Absolute Time      " + s1.absolute_time);
-                    displayText("Heading True " + s1.plane_heading_degrees_true);
-                    displayText("Heading Mag  " + s1.plane_heading_degrees_magnetic);
-                    
-
-                    UDP_Playload = "latitude:" + s1.latitude;
-                    UDP_Playload = UDP_Playload + ",longitude:" + s1.longitude.ToString();
-                    UDP_Playload = UDP_Playload + ",altitude:" + s1.altitude.ToString();
-                    UDP_Playload = UDP_Playload + ",airspeed:" + s1.airspeed.ToString();
-                    UDP_Playload = UDP_Playload + ",zulutime:" + s1.zulu_time.ToString();
-                    UDP_Playload = UDP_Playload + ",timezoneoffset:" + s1.time_zone_offset.ToString();
-                    UDP_Playload = UDP_Playload + ",trueheading:" + s1.plane_heading_degrees_true.ToString();
-                    UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
-
- 
-
-
-                    break;
-
-                default:
-                    displayText("Unknown request ID: " + data.dwRequestID);
-                    break;
-            }
-        }
 
 
         // This is the one receiving streaming data
@@ -545,7 +507,7 @@ namespace WindowsFormsApp2
                 case DATA_REQUESTS.RADIOS:
                     StructRadio sRadio = (StructRadio)data.dwData[0];
 
-                    this.lblStandbyFrequency.Text = sRadio.AVIONICS_BUS_VOLTAGE.ToString();
+                    this.lblStandbyFrequency.Text = sRadio.com1StandbyFrequency.ToString("F3");
                     if (com1ActiveFrequency != sRadio.com1ActiveFrequency.ToString("F3"))
                     {
                         radioFrequencyChanged = true;
@@ -570,10 +532,10 @@ namespace WindowsFormsApp2
                         com2StandbyFrequency = sRadio.com2StandbyFrequency.ToString("F3");
                     };
 
-                    if (avionicsBusVoltage != sRadio.AVIONICS_BUS_VOLTAGE.ToString("F1"))
+                    if (avionicsBusVoltage != sRadio.ELECTRICAL_MASTER_BATTERY.ToString("F1"))
                     {
                         radioFrequencyChanged = true;
-                        avionicsBusVoltage = sRadio.AVIONICS_BUS_VOLTAGE.ToString("F1");
+                        avionicsBusVoltage = sRadio.ELECTRICAL_MASTER_BATTERY.ToString("F1");
                     }
                     ;
 
@@ -644,6 +606,7 @@ namespace WindowsFormsApp2
                     displayText("COM2 Standby Freq  " + s1.com2StandbyFrequency);
                     displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY_2);
                     displayText("Avionics Master Switch      " + s1.Avionics_Master_Switch);
+                    displayText("Airspeed 2          " + s1.airspeed_2);
                     //displayText("ELECTRICAL AVIONICS BUS VOLTAGE " + s1.ELECTRICAL_AVIONICS_BUS_VOLTAGE);
                     //displayText("ELECTRICAL BATTERY BUS VOLTAGE  " + s1.ELECTRICAL_BATTERY_BUS_VOLTAGE);
                     //displayText("ELECTRICAL MASTER BATTERY   " + s1.ELECTRICAL_MASTER_BATTERY);
@@ -937,21 +900,21 @@ namespace WindowsFormsApp2
 
                 // Map Events - probably should move to routine where they are called or initiated
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_TOGGLE_AVIONICS_MASTER, "TOGGLE_AVIONICS_MASTER");
+                simconnect.MapClientEventToSimEvent(EVENTS.AVIONICS_MASTER_1_SET, "AVIONICS_MASTER_1_SET"); 
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET, "COM_STBY_RADIO_SET");
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
                 simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
 
 
 
-                // Parameter 0 = Off
-                simconnect.TransmitClientEvent(
-                    SimConnect.SIMCONNECT_OBJECT_ID_USER,
-                    EVENTS.KEY_MASTER_BATTERY_SET,
-                    1,
-                    GROUP_ID.GROUP0,
-                    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
-                );
+                //// Parameter 0 = Off
+                //simconnect.TransmitClientEvent(
+                //    SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                //    EVENTS.KEY_MASTER_BATTERY_SET,
+                //    1,
+                //    GROUP_ID.GROUP0,
+                //    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+                //);
 
                 if (SIMCONNECT_COMMAND.Contains("COM1_RADIO_SWAP") == true)
                 {
@@ -960,11 +923,28 @@ namespace WindowsFormsApp2
                 else if (SIMCONNECT_COMMAND.Contains("COM2_RADIO_SWAP") == true)
                 {
                     SendEvent(EVENTS.KEY_COM2_RADIO_SWAP, 0);
-                    SendEvent(EVENTS.KEY_TOGGLE_AVIONICS_MASTER, 1);
+
                 }
                 else if (SIMCONNECT_COMMAND.Contains("TOGGLE_AVIONICS_MASTER") == true)
+
                 {
-                    SendEvent(EVENTS.KEY_TOGGLE_AVIONICS_MASTER, 0);
+                    //SendEvent(EVENTS.AVIONICS_MASTER_1_SET, 1);
+
+                    simconnect.TransmitClientEvent(
+                        SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                        EVENTS.AVIONICS_MASTER_1_SET,
+                        0,
+                        GROUP_ID.GROUP0,
+                        SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+                     );
+
+                    simconnect.TransmitClientEvent(
+                        SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                        EVENTS.KEY_MASTER_BATTERY_SET,
+                        0,
+                        GROUP_ID.GROUP0,
+                        SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+                    );
                 }
                 else
                 {
@@ -1006,7 +986,7 @@ namespace WindowsFormsApp2
                     //byte[] frequencyBCD = IntToBcd(intFrequency);
 
                     uint frequencyBCD = 0;
-                    for (int i = 0; i < 4; i++) // Process up to 4 digits
+                    for (int i = 0; i < 4; i++) // Process up to 5 digits
                     {
                         uint digit = (uint)(intFrequency % 10);
                         frequencyBCD |= (digit << (i * 4)); // Shift digit into 4-bit nibble

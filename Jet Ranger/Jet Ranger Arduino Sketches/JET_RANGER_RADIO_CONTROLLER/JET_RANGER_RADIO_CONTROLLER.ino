@@ -403,6 +403,9 @@ void handleKeyPress(int row, int col, char key) {
       udp.beginPacket(reflectorIP, 27001);
       udp.print("COM2_RADIO_SWAP");
       udp.endPacket();
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print("TOGGLE_AVIONICS_MASTER");
+      udp.endPacket();
     }
   } else {
     switch (key) {
