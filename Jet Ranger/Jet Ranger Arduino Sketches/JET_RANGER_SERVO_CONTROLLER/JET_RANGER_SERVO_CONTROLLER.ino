@@ -9,8 +9,10 @@
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
 
-
 */
+// Master flag for throwing debug messages
+bool Debug_Display = false;
+
 #define GREEN_STATUS_LED_PORT 14
 #define RED_STATUS_LED_PORT 15  // RED LED is used for monitoring ethernet
 #define FLASH_TIME 200
@@ -20,6 +22,8 @@ bool RED_LED_STATE = false;
 bool GREEN_LED_STATE = true;
 unsigned long timeSinceRedLedChanged = 0;
 
+
+// ################################ BEGIN ETHERNET #######################################
 #define Ethernet_In_Use 1
 
 
@@ -39,9 +43,9 @@ int Reflector_In_Use = 1;
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x01 };
-String sMac = "A8:61:0A:9E:83:01";
-IPAddress ip(172, 16, 1, 101);
-String strMyIP = "172.16.1.101";
+String sMac = "A8:61:0A:9E:83:02";
+IPAddress ip(172, 16, 1, 102);
+String strMyIP = "172.16.1.102";
 
 // Raspberry Pi is Target
 IPAddress reflectorIP(172, 16, 1, 10);
@@ -52,7 +56,8 @@ String strreflectorIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
 const unsigned int localdebugport = 7795;
-
+const unsigned int MSFSport = 13136;
+const unsigned int aliveport = 13137;
 const unsigned int reflectorport = 27000;
 
 
@@ -60,6 +65,16 @@ int packetSize;
 int debugLen;
 EthernetUDP udp;
 EthernetUDP debugUDP;
+EthernetUDP max7219udp;  // Max7219
+EthernetUDP MSFSudp;     // Listens to MSFS light commands
+EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+
+int MSFSpacketsize;
+int MSFSLen;
+
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
+
 
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
@@ -80,6 +95,9 @@ void SendDebug(String MessageToSend) {
   }
 }
 
+// ################################ END ETHERNET #######################################
+
+
 // ********************** Added Smoothing Filter for AOA Indexer Brightness
 // Not used in UIP combined controller
 // From https://github.com/jonnieZG/EWMA
@@ -88,48 +106,13 @@ void SendDebug(String MessageToSend) {
 // ********************* End Smoothing Filter *************
 
 
-void setup() {
-
-  pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
-  pinMode(RED_STATUS_LED_PORT, OUTPUT);
-  digitalWrite(GREEN_STATUS_LED_PORT, true);
-  digitalWrite(RED_STATUS_LED_PORT, false);
-
-  if (Ethernet_In_Use == 1) {
-
-    // Using manual reset instead of tying to Arduino Reset
-    pinMode(ES1_RESET_PIN, OUTPUT);
-    digitalWrite(ES1_RESET_PIN, LOW);
-    delay(2);
-    digitalWrite(ES1_RESET_PIN, HIGH);
-
-    Ethernet.begin(mac, ip);
-    udp.begin(localport);
-
-    ethernetStartTime = millis() + delayBeforeSendingPacket;
-    while (millis() <= ethernetStartTime) {
-      delay(FLASH_TIME);
-      digitalWrite(RED_STATUS_LED_PORT, false);
-      delay(FLASH_TIME);
-      digitalWrite(RED_STATUS_LED_PORT, true);
-    }
-
-    SendDebug("Ethernet Started " + strMyIP + " " + sMac);
-  }
-
-
-
-
-  SendDebug("Setup Complete");
-}
-
 #define ENG_OIL_TEMP_PORT 12
 #define ENG_OIL_TEMP_PORT 13
 #define ENG_TORQUE_PORT 11
 #define AIRSPEED_PORT 2
 #define GAS_PRODUCER_PORT
 
-
+// ################################ BEGIN WARNING LIGHTS #######################################
 #define D_Rotor_RPM_Low A1
 #define D_Engine_Out A2
 #define D_Trans_Oil_Pressure A3
@@ -174,6 +157,435 @@ void allOn() {
   setWarningLightAll(true);
 }
 
+// ################################ END WARNING LIGHTS #######################################
+
+
+
+// ################################ BEGIN SERVO #######################################
+
+
+bool frontPanelDataChanged = false;
+
+String ALTITUDE = "";                          // ALT
+String AIRSPEED = "";                          // IAS
+String VERTICAL_SPEED = "";                    // VSI
+String PLANE_ALT_ABOVE_GROUND = "";            // AGL
+String ATTITUDE_INDICATOR_BANK_DEGREES = "";   // BANK
+String ATTITUDE_INDICATOR_PITCH_DEGREES = "";  // PITCH
+String ROTOR_RPM_PCT_1 = "";                   // RPMR
+String GENERAL_ENG_PCT_MAX_RPM_1 = "";         // RPME
+String ENG_TORQUE_PERCENT_1 = "";              // TQ
+String ELECTRICAL_TOTAL_LOAD_AMPS = "";        // AMPS
+String TURB_ENG_ITT_1 = "";                    // ITT
+String ENG_OIL_TEMPERATURE_1 = "";             // OILT
+String FUEL_TOTAL_QUANTITY = "";               // FUEL
+String TURB_ENG_CORRECTED_N1_1 = "";           // N1
+String ENG_OIL_PRESSURE_1 = "";                // OILP
+String ENG_TRANSMISSION_PRESSURE_1 = "";       // XMSNP
+String ENG_TRANSMISSION_TEMPERATURE_1 = "";    // XMSNT
+String ELECTRICAL_MASTER_BATTERY = "";         // BATSW
+String AIRSPEED_2 = "";
+
+#include <Servo.h>
+Servo myservo;
+
+#define ENG_OIL_TEMP_PORT 12
+#define ENG_OIL_TEMP_PORT 13
+#define ENG_TORQUE_PORT 11
+#define AIRSPEED_PORT 2
+#define GAS_PRODUCER_PORT
+
+void EngineTorque(int torque) {
+  int val = map(torque, 0, 120, 33, 809);
+  myservo.write(val);
+}
+
+void TransmissionPressure(int pressure) {
+  int val = map(pressure, 0, 150, 9, 288);
+  myservo.write(val);
+}
+
+void TransmissionTemperature(int temperature) {
+  int val = map(temperature, 0, 150, 424, 107);
+  myservo.write(val);
+}
+
+void EnginePressure(int pressure) {
+  int val = map(pressure, 0, 150, 560, 864);
+  myservo.write(val);
+}
+
+void EngineTemperature(int temperature) {
+  int val = map(temperature, 0, 150, 310, 20);
+  myservo.write(val);
+}
+
+void GasProducer(int gaspercentage) {
+  int val = map(gaspercentage, 0, 106, 57, 848);
+  myservo.write(val);
+}
+
+void EGT(int temperature) {
+  int val = 0;
+
+  if (temperature <= 600) {
+    val = map(temperature, 0, 600, 121, 256);
+  } else if (temperature <= 700) {
+    val = map(temperature, 600, 700, 256, 442);
+  } else if (temperature <= 800) {
+    val = map(temperature, 700, 800, 442, 656);
+  } else {
+    val = map(temperature, 800, 910, 656, 802);
+  }
+
+  myservo.write(val);
+}
+
+void FuelPressure(int pressure) {
+  int val = map(pressure, 0, 30, 280, 73);
+  myservo.write(val);
+}
+
+void ElectricalLoad(int load) {
+  int val = map(load, 0, 100, 527, 740);
+  myservo.write(val);
+}
+
+void FuelLevel(int Level) {
+  // Note Fuel tank is 75 Gallons
+  // So multiplying by 10
+  int val = map(Level, 0, 75, 124, 736);
+  myservo.write(val);
+}
+
+void VSI(int FPM) {
+  /*
+  -6000 10
+  -4000 105
+  -2000 268
+  -1000 388
+  0     498
+  1000  620
+  2000  728
+  4000  866
+  6000  952
+  */
+}
+
+void TurbineSpeed(int Speed) {
+  int val = map(Speed, 0, 120, 242, 986);
+  myservo.write(val);
+}
+
+void RotorSpeed(int Speed) {
+  int val = map(Speed, 0, 120, 28, 895);
+  myservo.write(val);
+}
+
+
+void Airspeed(int AirSpeed) {
+  int val = 0;
+  if (AirSpeed <= 20) {
+    val = map(AirSpeed, 0, 20, 44, 70);
+  } else if (AirSpeed <= 80) {
+    val = map(AirSpeed, 20, 80, 70, 531);
+  } else if (AirSpeed <= 100) {
+    val = map(AirSpeed, 80, 100, 531, 654);
+  } else {
+    val = map(AirSpeed, 100, 150, 654, 955);
+  }
+
+  myservo.write(val);
+}
+
+// ################################ END SERVO #######################################
+
+// ########################################## BEGIN MSFS DATA RECEIVER ########################################
+
+// This code is based on UIP_MAX7219_NEXTRON_POWER_RELAY in the Hornet Project
+
+
+void ProcessReceivedMSFSString() {
+
+
+  // Reading values from packetBuffer which is global
+  // All received values are strings for readability
+  // NHandles multiple attribute Values in a single packet
+  //    D,1:0,2:1,3:1,4:1,5:0,6:0,7:0,8:0,9:1,10:1
+
+
+  bool bLocalDebug = true;
+  char *ParameterNamePtr;
+  char *ParameterValuePtr;
+
+  //if (Debug_Display || bLocalDebug ) SendDebug("Processing Packet :" + String(millis()));
+  // SendDebug("Processing MSFS Packet");
+
+  bLocalDebug = false;
+
+  String sWrkStr = "";
+
+  const char *delim = ",";
+
+  // Break the received packet into a series of tokens
+  // If there is no match the pointer will be null, other points to first parameter
+  ParameterNamePtr = strtok(packetBuffer, delim);
+
+
+
+  String ParameterNameString(ParameterNamePtr);
+  //if (Debug_Display || bLocalDebug ) SendDebug("Parameter Name " + String(ParameterNameString));
+  //SendDebug("Parameter Name " + String(ParameterNameString));
+  // Print all of the values received as a outer loop
+  // and then split inner values
+  /* get the first token */
+
+  /* walk through other tokens */
+
+  String wrkstring = "";
+
+  //if (Debug_Display || bLocalDebug )
+  //if (ParameterNamePtr != NULL) SendDebug("First Value is: " + String(ParameterNamePtr));
+  if (ParameterNameString[0] == 'D') {
+    //Handling a Data Packet
+    //if (Debug_Display || bLocalDebug ) SendDebug("Handling a Data Packet");
+    ParameterNamePtr = strtok(NULL, delim);
+
+    while (ParameterNamePtr != NULL) {
+      //if (Debug_Display || bLocalDebug ) SendDebug( "Processing " + String(ParameterNamePtr) );
+
+      wrkstring = String(ParameterNamePtr);
+      HandleOutputValuePair(wrkstring);
+
+
+      ParameterNamePtr = strtok(NULL, delim);
+    }
+
+
+
+    return;
+    // End Handling a Data Packet
+  } else if (ParameterNameString[0] == 'C') {
+    // Handling a Control Packet
+    //if (Debug_Display || bLocalDebug ) SendDebug("Handling a Control Packet");
+
+    ParameterNamePtr = strtok(NULL, delim);
+
+    while (ParameterNamePtr != NULL) {
+      //if (Debug_Display || bLocalDebug )SendDebug( "Processing " + String(ParameterNamePtr) );
+
+      wrkstring = String(ParameterNamePtr);
+      HandleControlString(wrkstring);
+
+      ParameterNamePtr = strtok(NULL, delim);
+    }
+
+
+    return;
+
+    // Handling a Control Packet
+  } else {
+    // Unknown Packet Type
+    //if (Debug_Display || bLocalDebug ) SendDebug("Unknown Packet Type - ignoring packet");
+    return;
+  }
+}
+
+void HandleOutputValuePair(String str) {
+
+  // We are expected a LedNumber which has XRRCC where X = Max7219 Unit, RR Row, CC Column
+  bool bLocalDebug = false;
+
+
+  //if (Debug_Display || bLocalDebug ) SendDebug("Handling " + str);
+  SendDebug("Handling " + str);
+
+  int delimeterlocation = 0;
+  String workstring = "";
+  String ParameterName = "";
+  String ParameterValue = "";
+
+
+
+  delimeterlocation = str.indexOf(':');
+
+  if (delimeterlocation == 0) {
+    if (Debug_Display || bLocalDebug) SendDebug("**** WARNING no delimiter passed ****** Looking for :");
+  } else {
+    //if (Debug_Display || bLocalDebug ) SendDebug("Delimiter is located a position " + String(delimeterlocation));
+    ParameterName = getValue(str, ':', 0);
+    //if (Debug_Display || bLocalDebug ) SendDebug("lednumber is " + lednumber);
+    ParameterValue = getValue(str, ':', 1);
+    //if (Debug_Display || bLocalDebug ) SendDebug("ledvalue is " + ledvalue);
+
+    // As the value could contain the null at the end of the string trim it out
+    ParameterValue.trim();
+
+    if (ParameterName == "ALT") {
+      //SendDebug("Received COM1 Active Frequency: " + ParameterValue);
+      if (ALTITUDE != ParameterValue) {
+        SendDebug("Altitude changed");
+        ALTITUDE = ParameterValue;
+      };
+    } else if (ParameterName == "IAS") {
+      //SendDebug("Airspeed: " + ParameterValue);
+      if (AIRSPEED != ParameterValue) {
+        SendDebug("Airspeed changed");
+        AIRSPEED = ParameterValue;
+      };
+    } else if (ParameterName == "VSI") {
+      //SendDebug("Received Vertical Speed: " + ParameterValue);
+      if (VERTICAL_SPEED != ParameterValue) {
+        SendDebug("Vertical Speed changed");
+        VERTICAL_SPEED = ParameterValue;
+      };
+    } else if (ParameterName == "AGL") {
+      //SendDebug("Received Radar Altitude: " + ParameterValue);
+      if (PLANE_ALT_ABOVE_GROUND != ParameterValue) {
+        SendDebug("Radar Altitude changed");
+        PLANE_ALT_ABOVE_GROUND = ParameterValue;
+      };
+    } else if (ParameterName == "BANK") {
+      //SendDebug("Received Bank: " + ParameterValue);
+      if (ATTITUDE_INDICATOR_BANK_DEGREES != ParameterValue) {
+        SendDebug("Bank changed");
+        ATTITUDE_INDICATOR_BANK_DEGREES = ParameterValue;
+      };
+    } else if (ParameterName == "PITCH") {
+      //SendDebug("Received Pitch: " + ParameterValue);
+      if (ATTITUDE_INDICATOR_PITCH_DEGREES != ParameterValue) {
+        SendDebug("Pitch changed");
+        ATTITUDE_INDICATOR_PITCH_DEGREES = ParameterValue;
+      };
+    } else if (ParameterName == "RPMR") {
+      //SendDebug("Received Rotor RPM: " + ParameterValue);
+      if (ROTOR_RPM_PCT_1 != ParameterValue) {
+        SendDebug("Rotor RPM changed");
+        ROTOR_RPM_PCT_1 = ParameterValue;
+      };
+    } /* else if (ParameterName == "NAVCOM1") {
+      SendDebug("Received NAVCOM1: " + ParameterValue);
+      if (navCom1Status != ParameterValue) {
+        SendDebug("NAVCOM1 Status Changed");
+        // Only set if it has been more 500mS since last update from local encoder
+        navCom1Status = ParameterValue;
+        if (navCom1Status == "0")
+          powerAvailable = false;
+        else
+          powerAvailable = true;
+
+        radioFrequencyChanged = true;
+      };
+      */
+    return;
+  }
+}
+
+
+void HandleControlString(String str) {
+  bool bLocalDebug = false;
+  //if (Debug_Display || bLocalDebug ) SendDebug("Handling Control String :" + str);
+
+  // Currnetly just handling Brightness - eg C,B:3
+
+  int delimeterlocation = 0;
+  String command = "";
+  String setting = "";
+
+
+  delimeterlocation = str.indexOf(':');
+
+  if (delimeterlocation == 0) {
+    //if (Debug_Display || bLocalDebug ) SendDebug("**** WARNING no delimiter passed ****** Looking for :");
+  } else {
+    //if (Debug_Display || bLocalDebug ) SendDebug("Delimiter is located a position " + String(delimeterlocation));
+    command = getValue(str, ':', 0);
+    //if (Debug_Display || bLocalDebug ) SendDebug("command is :" + command);
+    setting = getValue(str, ':', 1);
+    //if (Debug_Display || bLocalDebug ) SendDebug("setting is :" + setting);
+
+    int isetting = setting.toInt();
+
+    // Backlighting and Flood ligghting
+    if (command == "B")
+      if (isetting >= 0 && isetting <= 15) {
+        //analogWrite(FLOOD_LIGHTS, map(isetting, 0, 15, 0, 255));
+      }
+    //else if (Debug_Display || bLocalDebug ) SendDebug("Invalid Brightness value passed. Value is :" + String(setting));
+  }
+
+  return;
+}
+
+String getValue(String data, char separator, int index) {
+  int found = 0;
+  int strIndex[] = { 0, -1 };
+  int maxIndex = data.length() - 1;
+
+  for (int i = 0; i <= maxIndex && found <= index; i++) {
+    if (data.charAt(i) == separator || i == maxIndex) {
+      found++;
+      strIndex[0] = strIndex[1] + 1;
+      strIndex[1] = (i == maxIndex) ? i + 1 : i;
+    }
+  }
+  return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
+}
+
+boolean isValidNumber(String str) {
+  boolean isNum = false;
+  if (!(str.charAt(0) == '+' || str.charAt(0) == '-' || isDigit(str.charAt(0)))) return false;
+
+  for (byte i = 1; i < str.length(); i++) {
+    if (!(isDigit(str.charAt(i)) || str.charAt(i) == '.')) return false;
+  }
+  return true;
+}
+
+
+// ########################################## END MSFS DATA RECEIVER ########################################
+
+// ################################ BEGIN SETUP #######################################
+
+void setup() {
+
+  pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
+  pinMode(RED_STATUS_LED_PORT, OUTPUT);
+  digitalWrite(GREEN_STATUS_LED_PORT, true);
+  digitalWrite(RED_STATUS_LED_PORT, false);
+
+  if (Ethernet_In_Use == 1) {
+
+    // Using manual reset instead of tying to Arduino Reset
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
+    Ethernet.begin(mac, ip);
+    udp.begin(localport);
+    MSFSudp.begin(MSFSport);
+    aliveudp.begin(aliveport);
+
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(RED_STATUS_LED_PORT, false);
+      delay(FLASH_TIME);
+      digitalWrite(RED_STATUS_LED_PORT, true);
+    }
+
+    SendDebug("Ethernet Started " + strMyIP + " " + sMac);
+  }
+
+
+  SendDebug("Setup Complete");
+}
+
+// ################################ END SETUP #######################################
+
+
+
 void loop() {
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
@@ -186,5 +598,30 @@ void loop() {
     setWarningLightAll(GREEN_LED_STATE);
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
+  if ((millis() - lastalivesent) >= aliveinterval) {
+    if (Ethernet_In_Use == 1) {
+      aliveudp.beginPacket(reflectorIP, aliveport);
+      aliveudp.print("CommNav");
+      aliveudp.endPacket();
+    }
+    lastalivesent = millis();
+  }
+
+  MSFSpacketsize = MSFSudp.parsePacket();
+  if (MSFSpacketsize > 0) {
+    // SendDebug("Received a MSFS Packet");
+
+    MSFSLen = MSFSudp.read(packetBuffer, 999);
+
+    if (MSFSLen > 0) {
+      packetBuffer[MSFSLen] = 0;
+    }
+    if (MSFSpacketsize) {
+
+      ProcessReceivedMSFSString();
+      //SendDebug("Exiting MSFS Processing");
+    }
   }
 }
