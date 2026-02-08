@@ -22,8 +22,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "frmMain.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs",
+              "RelativeDocumentMoniker": "WindowsFormsApp2\\frmMain.cs",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs",
+              "RelativeToolTip": "WindowsFormsApp2\\frmMain.cs",
+              "ViewState": "AgIAAH8DAAAAAAAAAAAYwJYDAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-01T03:15:25.447Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -34,21 +47,7 @@
               "RelativeToolTip": "WindowsFormsApp2\\frmMain.Designer.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAASwFQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-07T00:40:54.86Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "frmMain.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs",
-              "RelativeDocumentMoniker": "WindowsFormsApp2\\frmMain.cs",
-              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs",
-              "RelativeToolTip": "WindowsFormsApp2\\frmMain.cs",
-              "ViewState": "AgIAALQDAAAAAAAAAAArwM0DAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-01T03:15:25.447Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-07T00:40:54.86Z"
             },
             {
               "$type": "Document",
@@ -59,8 +58,7 @@
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MSFSSimConnectExtractor\\WindowsFormsApp2\\frmMain.cs [Design]",
               "RelativeToolTip": "WindowsFormsApp2\\frmMain.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-25T00:02:02.008Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-01-25T00:02:02.008Z"
             }
           ]
         }

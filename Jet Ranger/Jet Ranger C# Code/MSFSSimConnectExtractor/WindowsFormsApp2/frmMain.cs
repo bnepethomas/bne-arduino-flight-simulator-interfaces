@@ -12,15 +12,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-
-
-
-
-
-
-//      
-
-
 //      Based on C# in SDK - which is also found here
 //
 //
@@ -74,7 +65,28 @@ namespace WindowsFormsApp2
         private String MainBusVoltage = "";
         private String CIRCUIT_NAVCOM1_ON = "";
 
-        // Constants for COM messages
+        // Variables to hold front panel data
+        // Using StructFrontPanel
+        bool frontPanelDataChanged = false;
+        private String ALTITUDE = "";                           // ALT
+        private String AIRSPEED = "";                           // IAS
+        private String VERTICAL_SPEED = "";                     // VSI
+        private String PLANE_ALT_ABOVE_GROUND = "";             // AGL
+        private String ATTITUDE_INDICATOR_BANK_DEGREES = "";   // BANK
+        private String ATTITUDE_INDICATOR_PITCH_DEGREES = "";  // PITCH
+        private String ROTOR_RPM_PCT_1 = "";                    // RPMR
+        private String GENERAL_ENG_PCT_MAX_RPM_1 = "";          // RPME
+        private String ENG_TORQUE_PERCENT_1 = "";               // TQ
+        private String ELECTRICAL_TOTAL_LOAD_AMPS = "";         // AMPS
+        private String TURB_ENG_ITT_1 = "";                     // ITT
+        private String ENG_OIL_TEMPERATURE_1 = "";              // OILT
+        private String FUEL_TOTAL_QUANTITY = "";                // FUEL
+        private String TURB_ENG_CORRECTED_N1_1 = "";            // N1
+        private String ENG_OIL_PRESSURE_1 = "";                 // OILP 
+        private String ENG_TRANSMISSION_PRESSURE_1 = "";        // XMSNP
+        private String ENG_TRANSMISSION_TEMPERATURE_1 = "";    // XMSNT
+        private String ELECTRICAL_MASTER_BATTERY = "";          // BATSW
+        private String AIRSPEED_2 = "";
 
 
         // User-defined win32 event 
@@ -87,12 +99,14 @@ namespace WindowsFormsApp2
         {
             Struct1,
             structRadio,
+            StructFrontPanel,
         }
 
         enum DATA_REQUESTS
         {
             REQUEST_1,
             RADIOS,
+            REQUEST_FRONTPANEL,
         };
 
         enum EVENTS
@@ -126,8 +140,10 @@ namespace WindowsFormsApp2
         string UDP_Playload;
         string Output_Payload;
         UdpClient udpClient = new UdpClient();
+        UdpClient frontPanelClient = new UdpClient();
         UdpClient OutputClient = new UdpClient();
-        DateTime TimeLastPacketSent;
+        DateTime RadioTimeLastPacketSent;
+        DateTime FrontPanelTimeLastPacketSent;
         TimeSpan span;
         int mS;
 
@@ -232,15 +248,34 @@ namespace WindowsFormsApp2
             public double zulu_time_2; // Used to validate we have all data
         };
 
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
+        struct StructFrontPanel
+        {
+            // this is how you declare a fixed size string 
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+            public String title;
+            public double ALTITUDE;                                     // ALT
+            public double AIRSPEED;                                     // IAS
+            public double VERTICAL_SPEED;                               // VSI
+            public double PLANE_ALT_ABOVE_GROUND;                       // AGL
+            public double ATTITUDE_INDICATOR_BANK_DEGREES;              // BANK
+            public double ATTITUDE_INDICATOR_PITCH_DEGREES;             // PITCH
+            public double ROTOR_RPM_PCT_1;                              // RPMR
+            public double GENERAL_ENG_PCT_MAX_RPM_1;                    // RPME
+            public double ENG_TORQUE_PERCENT_1;                         // TQ
+            public double ELECTRICAL_TOTAL_LOAD_AMPS;                   // AMPS
+            public double TURB_ENG_ITT_1;                               // ITT
+            public double ENG_OIL_TEMPERATURE_1;                        // OILT
+            public double FUEL_TOTAL_QUANTITY;                          // FUEL
+            public double TURB_ENG_CORRECTED_N1_1;                      // N1
+            public double ENG_OIL_PRESSURE_1;                           // OILP 
+            public double ENG_TRANSMISSION_PRESSURE_1;                  // XMSNP
+            public double ENG_TRANSMISSION_TEMPERATURE_1;               // XMSNT
+            public double ELECTRICAL_MASTER_BATTERY;                    // BATSW
+            public double AIRSPEED_2;                                   // IAS
+        };
 
 
-        //{ "ABSOLUTE TIME",              "Seconds",              SIMCONNECT_DATATYPE_FLOAT64},
-
-        //{ "ZULU DAY OF YEAR",           "Number",               SIMCONNECT_DATATYPE_INT32       },
-        //{ "ZULU YEAR",                  "Number",               SIMCONNECT_DATATYPE_INT32       },
-        //{ "ZULU MONTH OF YEAR",         "Number",               SIMCONNECT_DATATYPE_INT32       },
-        //{ "ZULU DAY OF MONTH",          "Number",               SIMCONNECT_DATATYPE_INT32       },
-        //{ "ZULU DAY OF WEEK",           "Number",               SIMCONNECT_DATATYPE_INT32       },
 
 
 
@@ -325,8 +360,9 @@ namespace WindowsFormsApp2
 
             setButtons(true, false, false);
             udpClient.Connect("172.16.1.101", 13136);
+            frontPanelClient.Connect("172.16.1.102", 13136);
             OutputClient.Connect("172.16.1.2", 26028);
-            TimeLastPacketSent = DateTime.Now;
+            RadioTimeLastPacketSent = DateTime.Now;
 
 
         }
@@ -391,8 +427,10 @@ namespace WindowsFormsApp2
                 // To assist in reducing range of pps set upper limit of Sim FPS tp 50 under Graphic Target FPS
                 // Interestingly - with a target FPS of 50, seeing 100pps 
 
-                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 1, 0);
-                simconnect.RequestDataOnSimObject(DATA_REQUESTS.RADIOS, DEFINITIONS.structRadio, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 20, 0);
+
+                //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 1, 0);
+                //simconnect.RequestDataOnSimObject(DATA_REQUESTS.RADIOS, DEFINITIONS.structRadio, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 20, 0);
+                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_FRONTPANEL, DEFINITIONS.StructFrontPanel, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 10, 0);
 
 
                 //simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
@@ -484,18 +522,14 @@ namespace WindowsFormsApp2
                 // simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "ELECTRICAL MAIN BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
 
-
-
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Sim Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Zulu Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Time Zone Offset", "hours", SIMCONNECT_DATATYPE.INT32, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Absolute Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Heading Degrees True", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Plane Heading Degrees Magnetic", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG MASTER ALTERNATOR:1", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GENERAL ENG MASTER ALTERNATOR:2", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
-
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "TRAILING EDGE FLAPS LEFT ANGLE", "Radians", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "TRAILING EDGE FLAPS LEFT PERCENT", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "SPOILERS LEFT POSITION", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
@@ -523,6 +557,9 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "GEAR RIGHT POSITION", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.Struct1, "Zulu Time", "seconds", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
+
+
+                // The StructRadio data definition is focused on radio frequencies and electrical bus voltage, which are critical for avionics operation.
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "title", null, SIMCONNECT_DATATYPE.STRING256, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM ACTIVE FREQUENCY:1", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "COM ACTIVE FREQUENCY:2", "MHz", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
@@ -531,10 +568,59 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "ELECTRICAL MAIN BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.structRadio, "CIRCUIT NAVCOM1 ON", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
+
+                //ALTITUDE;                           // ALT
+                //AIRSPEED;                           // IAS
+                //VERTICAL_SPEED;                     // VSI
+                //PLANE_ALT_ABOVE_GROUND;             // AGL
+                //ATTITUDE_INDICATOR_BANK_DEGREES;   // BANK
+                //ATTITUDE_INDICATOR_PITCH_DEGREES;  // PITCH
+                //ROTOR_RPM_PCT_1;                    // RPMR
+                //GENERAL_ENG_PCT_MAX_RPM_1;          // RPME
+                //ENG_TORQUE_PERCENT_1;               // TQ
+                //ELECTRICAL_TOTAL_LOAD_AMPS;         // AMPS
+                //TURB_ENG_ITT_1;                     // ITT
+                //ENG_OIL_TEMPERATURE_1;              // OILT
+                //FUEL_TOTAL_QUANTITY;                // FUEL
+                //TURB_ENG_CORRECTED_N1_1;            // N1
+                //ENG_OIL_PRESSURE_1;                 // OILP 
+                //ENG_TRANSMISSION_PRESSURE_1;        // XMSNP
+                //ENG_TRANSMISSION_TEMPERATURE_1;    // XMSNT
+                //ELECTRICAL_MASTER_BATTERY;          // BATSW
+                //AIRSPEED;                           // IAS
+
+                //  The StructFrontPanel data definition is designed to capture a comprehensive set of flight parameters that
+                //  are typically displayed on the aircraft's front panel. This includes critical flight information such as
+                //  altitude, airspeed, vertical speed, attitude, engine performance metrics, and electrical system status.
+                //  By defining this data structure, we can efficiently receive and process a wide range of flight data from the simulator,
+                //  which can be used for various applications such as telemetry, flight analysis, or custom instrumentation.
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "title", null, SIMCONNECT_DATATYPE.STRING256, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "Plane Altitude", "feet", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "Airspeed True", "knots", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "VERTICAL SPEED", "feet per minute", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "PLANE ALT ABOVE GROUND", "feet", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ATTITUDE INDICATOR BANK DEGREES", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ATTITUDE INDICATOR PITCH DEGREES", "degrees", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ROTOR RPM PCT:1", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "GENERAL ENG PCT MAX RPM:1", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ENG TORQUE PERCENT:1", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ELECTRICAL TOTAL LOAD AMPS", "Amps", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "TURB ENG ITT:1", "Celsius", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ENG OIL TEMPERATURE:1", "Celsius", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "FUEL TOTAL QUANTITY", "Gallons", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "TURB ENG CORRECTED N1:1", "Percent", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ENG OIL PRESSURE:1", "psi", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ENG TRANSMISSION PRESSURE:1", "psi", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ENG TRANSMISSION TEMPERATURE:1", "Celsius", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "Airspeed True", "knots", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+
+
                 // IMPORTANT: register it with the simconnect managed wrapper marshaller 
                 // if you skip this step, you will only receive a uint in the .dwData field. 
                 simconnect.RegisterDataDefineStruct<Struct1>(DEFINITIONS.Struct1);
                 simconnect.RegisterDataDefineStruct<StructRadio>(DEFINITIONS.structRadio);
+                simconnect.RegisterDataDefineStruct<StructFrontPanel>(DEFINITIONS.StructFrontPanel);
 
                 // catch a simobject data request 
                 // Simconnect.OnRecvSimobjectDataBytype += new SimConnect.RecvSimobjectDataBytypeEventHandler(simconnect_OnRecvSimobjectDataBytype);
@@ -584,7 +670,7 @@ namespace WindowsFormsApp2
                 case DATA_REQUESTS.RADIOS:
                     StructRadio sRadio = (StructRadio)data.dwData[0];
 
-                    this.lblStandbyFrequency.Text = sRadio.com1StandbyFrequency.ToString("F3");
+
                     if (com1ActiveFrequency != sRadio.com1ActiveFrequency.ToString("F3"))
                     {
                         radioFrequencyChanged = true;
@@ -628,7 +714,7 @@ namespace WindowsFormsApp2
                     
 
 
-        span = DateTime.Now - TimeLastPacketSent;
+                    span = DateTime.Now - RadioTimeLastPacketSent;
                     mS = (int)span.TotalMilliseconds;
                     // displayText("Its been this many mS since sending last packet: " + mS.ToString());
 
@@ -644,7 +730,7 @@ namespace WindowsFormsApp2
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
 
-                        TimeLastPacketSent = DateTime.Now;
+                        RadioTimeLastPacketSent = DateTime.Now;
                     }
                     // if its been a while since changes send an update anyways
                     if (mS >= 5000)
@@ -659,7 +745,198 @@ namespace WindowsFormsApp2
                         UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
-                        TimeLastPacketSent = DateTime.Now;
+                        RadioTimeLastPacketSent = DateTime.Now;
+                    }
+
+
+                    break;
+
+
+                case DATA_REQUESTS.REQUEST_FRONTPANEL:
+
+                    // Cowasim has most of these variables working ok
+                    // Fly Inside missing Rotor RPM and others
+                    StructFrontPanel sFrontPanel = (StructFrontPanel)data.dwData[0];
+
+                    displayText("Aircraft Model:    " + sFrontPanel.title);
+                    displayText("Alt:               " + sFrontPanel.ALTITUDE.ToString("F0"));
+                    displayText("Radar Alt:         " + sFrontPanel.PLANE_ALT_ABOVE_GROUND.ToString("F0"));
+                    displayText("Vertical Speed:    " + sFrontPanel.VERTICAL_SPEED.ToString("F0"));
+                    displayText("Airspeed           " + sFrontPanel.AIRSPEED.ToString("F0"));
+                    displayText("Bank Degrees       " + sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES.ToString("F3"));
+                    displayText("Pitch Degrees      " + sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES.ToString("F3"));
+                    displayText("ROTOR RPM          " + sFrontPanel.ROTOR_RPM_PCT_1);
+                    displayText("ENG ROTOR RPM      " + sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1);
+                    displayText("ENG TORQUE PERCENT " + sFrontPanel.ENG_TORQUE_PERCENT_1 * 4 / 9);
+                    displayText("ELECTRICAL TOTAL LOAD AMPS " + sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS * 40 / 56);
+                    // ENG EXHAUST is in Rankine need to convert to Celsius - TOT not directly available
+                    // So some more calculations needed - for now just send ITT
+                    displayText("TURBINE ENG ITT    " + sFrontPanel.TURB_ENG_ITT_1);
+                    displayText("ENG OIL TEMP       " + sFrontPanel.ENG_OIL_TEMPERATURE_1);
+                    displayText("FUEL TOTAL QUANTITY        " + sFrontPanel.FUEL_TOTAL_QUANTITY);
+                    displayText("TURB ENG N1        " + sFrontPanel.TURB_ENG_CORRECTED_N1_1);
+                    displayText("ENG OIL PRESSURE   " + sFrontPanel.ENG_OIL_PRESSURE_1);
+                    displayText("ENG TRANSMISSION PRESSURE  " + sFrontPanel.ENG_TRANSMISSION_PRESSURE_1);
+                    displayText("ENG TRANSMISSION TEMPERATURE " + sFrontPanel.ENG_TRANSMISSION_TEMPERATURE_1);
+                    displayText("ELECTRICAL MASTER BATTERY   " + sFrontPanel.ELECTRICAL_MASTER_BATTERY);
+                    displayText("Airspeed           " + sFrontPanel.AIRSPEED_2.ToString("F0"));
+
+                    if (ALTITUDE != sFrontPanel.ALTITUDE.ToString("F0")) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ALTITUDE = sFrontPanel.ALTITUDE.ToString("F0");
+                    }
+                    ;
+                    if (AIRSPEED != sFrontPanel.AIRSPEED.ToString("F0")) ;
+                    {
+                        frontPanelDataChanged = true;
+                        AIRSPEED = sFrontPanel.AIRSPEED.ToString("F0");
+                    }
+                    ;
+                    if (VERTICAL_SPEED != sFrontPanel.VERTICAL_SPEED.ToString("F0")) ;
+                    {
+                        frontPanelDataChanged = true;
+                        VERTICAL_SPEED = sFrontPanel.VERTICAL_SPEED.ToString("F0");
+                    }
+                    ;
+                    if (PLANE_ALT_ABOVE_GROUND != sFrontPanel.PLANE_ALT_ABOVE_GROUND.ToString("F0")) ;
+                    {
+                        frontPanelDataChanged = true;
+                        PLANE_ALT_ABOVE_GROUND = sFrontPanel.PLANE_ALT_ABOVE_GROUND.ToString("F0");
+                    }
+                    ;
+                    if (ATTITUDE_INDICATOR_BANK_DEGREES != sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES.ToString("F3")) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ATTITUDE_INDICATOR_BANK_DEGREES = sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES.ToString("F3");
+                    }
+                    ;
+                    if (ATTITUDE_INDICATOR_PITCH_DEGREES != sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES.ToString("F3")) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ATTITUDE_INDICATOR_PITCH_DEGREES = sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES.ToString("F3");
+                    }
+                    ;
+                    if (ROTOR_RPM_PCT_1 != sFrontPanel.ROTOR_RPM_PCT_1.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ROTOR_RPM_PCT_1 = sFrontPanel.ROTOR_RPM_PCT_1.ToString();
+                    }
+                    ;
+                    if (GENERAL_ENG_PCT_MAX_RPM_1 != sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        GENERAL_ENG_PCT_MAX_RPM_1 = sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString();
+                    }
+                    ;
+                    if (ENG_TORQUE_PERCENT_1 != (sFrontPanel.ENG_TORQUE_PERCENT_1 * 4 / 9).ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ENG_TORQUE_PERCENT_1 = (sFrontPanel.ENG_TORQUE_PERCENT_1 * 4 / 9).ToString();
+                    }
+                    ;
+                    if (ELECTRICAL_TOTAL_LOAD_AMPS != (sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS * 40 / 56).ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ELECTRICAL_TOTAL_LOAD_AMPS = (sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS * 40 / 56).ToString();
+                    }
+                    ;
+                    if (TURB_ENG_ITT_1 != sFrontPanel.TURB_ENG_ITT_1.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        TURB_ENG_ITT_1 = sFrontPanel.TURB_ENG_ITT_1.ToString();
+                    }
+                    ;
+                    if (ENG_OIL_TEMPERATURE_1 != sFrontPanel.ENG_OIL_TEMPERATURE_1.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ENG_OIL_TEMPERATURE_1 = sFrontPanel.ENG_OIL_TEMPERATURE_1.ToString();
+                    }
+                    ;
+                    if (FUEL_TOTAL_QUANTITY != sFrontPanel.FUEL_TOTAL_QUANTITY.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        FUEL_TOTAL_QUANTITY = sFrontPanel.FUEL_TOTAL_QUANTITY.ToString();
+                    }
+                    ;
+                    if (TURB_ENG_CORRECTED_N1_1 != sFrontPanel.TURB_ENG_CORRECTED_N1_1.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        TURB_ENG_CORRECTED_N1_1 = sFrontPanel.TURB_ENG_CORRECTED_N1_1.ToString();
+                    }
+                    ;
+                    if (ENG_OIL_PRESSURE_1 != sFrontPanel.ENG_OIL_PRESSURE_1.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ENG_OIL_PRESSURE_1 = sFrontPanel.ENG_OIL_PRESSURE_1.ToString();
+                    }
+                    ;
+                    if (ENG_TRANSMISSION_PRESSURE_1 != sFrontPanel.ENG_TRANSMISSION_PRESSURE_1.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ENG_TRANSMISSION_PRESSURE_1 = sFrontPanel.ENG_TRANSMISSION_PRESSURE_1.ToString();
+                    }
+                    ;
+                    if (ENG_TRANSMISSION_TEMPERATURE_1 != sFrontPanel.ENG_TRANSMISSION_TEMPERATURE_1.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ENG_TRANSMISSION_TEMPERATURE_1 = sFrontPanel.ENG_TRANSMISSION_TEMPERATURE_1.ToString();
+                    }
+                    ;
+                    if (ELECTRICAL_MASTER_BATTERY != sFrontPanel.ELECTRICAL_MASTER_BATTERY.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        ELECTRICAL_MASTER_BATTERY = sFrontPanel.ELECTRICAL_MASTER_BATTERY.ToString();
+                    }
+                    ;
+
+
+                    span = DateTime.Now - FrontPanelTimeLastPacketSent;
+                    mS = (int)span.TotalMilliseconds;
+                    // displayText("Its been this many mS since sending last packet: " + mS.ToString());
+
+                    if (mS >= 200 && frontPanelDataChanged == true)
+                    {
+                        frontPanelDataChanged = false;
+                        UDP_Playload = "D,ALT:" + ALTITUDE;
+                        UDP_Playload = UDP_Playload + ",IAS:" + AIRSPEED;
+                        UDP_Playload = UDP_Playload + ",VSI:" + VERTICAL_SPEED;
+                        UDP_Playload = UDP_Playload + ",AGL:" + PLANE_ALT_ABOVE_GROUND;
+                        UDP_Playload = UDP_Playload + ",BANK:" + ATTITUDE_INDICATOR_BANK_DEGREES;
+                        UDP_Playload = UDP_Playload + ",PITCH:" + ATTITUDE_INDICATOR_PITCH_DEGREES;
+                        UDP_Playload = UDP_Playload + ",RPMR:" + ROTOR_RPM_PCT_1;
+                        UDP_Playload = UDP_Playload + ",RPME:" + GENERAL_ENG_PCT_MAX_RPM_1;
+                        UDP_Playload = UDP_Playload + ",TQ:" + ENG_TORQUE_PERCENT_1;
+                        UDP_Playload = UDP_Playload + ",AMPS:" + ELECTRICAL_TOTAL_LOAD_AMPS;
+                        UDP_Playload = UDP_Playload + ",ITT:" + TURB_ENG_ITT_1;
+                        UDP_Playload = UDP_Playload + ",OILT:" + ENG_OIL_TEMPERATURE_1;
+                        UDP_Playload = UDP_Playload + ",FUEL:" + FUEL_TOTAL_QUANTITY;
+                        UDP_Playload = UDP_Playload + ",N1:" + TURB_ENG_CORRECTED_N1_1;
+                        UDP_Playload = UDP_Playload + ",OILP:" + ENG_OIL_PRESSURE_1;
+                        UDP_Playload = UDP_Playload + ",XMSNP:" + ENG_TRANSMISSION_PRESSURE_1;
+                        UDP_Playload = UDP_Playload + ",XMSNT:" + ENG_TRANSMISSION_TEMPERATURE_1;
+                        UDP_Playload = UDP_Playload + ",BATSW:" + ELECTRICAL_MASTER_BATTERY;
+
+
+                        Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
+                        frontPanelClient.Send(senddata, senddata.Length);
+
+                        FrontPanelTimeLastPacketSent = DateTime.Now;
+                    }
+                    // if its been a while since changes send an update anyways
+                    if (mS >= 5000)
+
+                    {
+                        frontPanelDataChanged = false;
+                        UDP_Playload = "D,C1A:" + com1ActiveFrequency;
+                        UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
+                        UDP_Playload = UDP_Playload + ",C2A:" + com2ActiveFrequency;
+                        UDP_Playload = UDP_Playload + ",C2S:" + com2StandbyFrequency;
+                        UDP_Playload = UDP_Playload + ",MAINBUS:" + MainBusVoltage;
+                        UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
+                        Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
+                        udpClient.Send(senddata, senddata.Length);
+                        FrontPanelTimeLastPacketSent = DateTime.Now;
                     }
 
 
@@ -668,6 +945,7 @@ namespace WindowsFormsApp2
                 case DATA_REQUESTS.REQUEST_1:
                     Struct1 s1 = (Struct1)data.dwData[0];
 
+                    /*
                     displayText("Aircraft Model:    " + s1.title);
                     displayText("Lat:               " + s1.latitude.ToString("F4"));
                     displayText("Lon:               " + s1.longitude.ToString("F4"));
@@ -750,70 +1028,12 @@ namespace WindowsFormsApp2
                     //UDP_Playload = UDP_Playload + ",trueheading:" + s1.plane_heading_degrees_true.ToString();
                     //UDP_Playload = UDP_Playload + ",magheading:" + s1.plane_heading_degrees_magnetic.ToString();
 
-                    Output_Payload = "TRAILING_EDGE_FLAPS_LEFT_ANGLE:" + Math.Floor(s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE * 100);
+                    //Output_Payload = "TRAILING_EDGE_FLAPS_LEFT_ANGLE:" + Math.Floor(s1.TRAILING_EDGE_FLAPS_LEFT_ANGLE * 100);
                     //Output_Payload = Output_Payload + ",SPOILERS_LEFT_POSITION:" + Math.Floor(s1.SPOILERS_LEFT_POSITION * 100);
                     //Output_Payload = Output_Payload + ",GEAR_CENTER_POSITION:" + Math.Floor(s1.GEAR_CENTER_POSITION/100);
                     //Output_Payload = Output_Payload + ",GEAR_LEFT_POSITION:" + Math.Floor(s1.GEAR_LEFT_POSITION/100);
                     //Output_Payload = Output_Payload + ",GEAR_RIGHT_POSITION:" + Math.Floor(s1.GEAR_RIGHT_POSITION/100);
                     //Output_Payload = Output_Payload + ",BRAKE_PARKING_INDICATOR:" + Math.Floor(s1.BRAKE_PARKING_INDICATOR);
-
-                    /*
-
-                    if (com1ActiveFrequency != s1.com1ActiveFrequency.ToString("F3"))
-                    {
-                        radioFrequencyChanged = true;
-                        com1ActiveFrequency = s1.com1ActiveFrequency.ToString("F3");
-                    };
-                    if (com1StandbyFrequency != s1.com1StandbyFrequency.ToString("F3"))
-                    {
-                        radioFrequencyChanged = true;
-                        com1StandbyFrequency = s1.com1StandbyFrequency.ToString("F3");
-                    };
-                    if (com2ActiveFrequency != s1.com2ActiveFrequency.ToString("F3"))
-                    {
-                        radioFrequencyChanged = true;
-                        com2ActiveFrequency = s1.com2ActiveFrequency.ToString("F3");
-                    }
-                    ;
-                    if (com2StandbyFrequency != s1.com2StandbyFrequency.ToString("F3"))
-                    {
-                        radioFrequencyChanged = true;
-                        com2StandbyFrequency = s1.com2StandbyFrequency.ToString("F3");
-                    }
-                    ;
-
-
-
-                    span = DateTime.Now - TimeLastPacketSent;
-                    mS = (int)span.TotalMilliseconds;
-                    displayText("Its been this many mS since sending last packet: " + mS.ToString());
-
-                    if (mS >= 200 && radioFrequencyChanged == true)
-                    {
-                        radioFrequencyChanged = false;
-                        UDP_Playload = "D,C1A:" + com1ActiveFrequency;
-                        UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
-                        UDP_Playload = UDP_Playload + ",C2A:" + com2ActiveFrequency;
-                        UDP_Playload = UDP_Playload + ",C2S:" + com2StandbyFrequency;
-                        Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
-                        udpClient.Send(senddata, senddata.Length);
-
-
-                        TimeLastPacketSent = DateTime.Now;
-                    }
-                    // if its bveen a while since changes send an update anyways
-                    if (mS >= 20000)
-
-                    {
-                        radioFrequencyChanged = false;
-                        UDP_Playload = "D,C1A:" + com1ActiveFrequency;
-                        UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
-                        Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
-                        udpClient.Send(senddata, senddata.Length);
-
-                        TimeLastPacketSent = DateTime.Now;
-                    }
-
                     */
                     break;
 
