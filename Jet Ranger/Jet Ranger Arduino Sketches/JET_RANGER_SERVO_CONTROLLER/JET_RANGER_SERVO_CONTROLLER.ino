@@ -184,7 +184,10 @@ String ENG_OIL_PRESSURE_1 = "";                // OILP
 String ENG_TRANSMISSION_PRESSURE_1 = "";       // XMSNP
 String ENG_TRANSMISSION_TEMPERATURE_1 = "";    // XMSNT
 String ELECTRICAL_MASTER_BATTERY = "";         // BATSW
+String navCom1Status = "";                     // NAVCOMM1
 String AIRSPEED_2 = "";
+
+bool powerAvailable = true;
 
 #include <Servo.h>
 Servo myservo;
@@ -297,6 +300,8 @@ void Airspeed(int AirSpeed) {
 
   myservo.write(val);
 }
+
+
 
 // ################################ END SERVO #######################################
 
@@ -463,7 +468,67 @@ void HandleOutputValuePair(String str) {
         SendDebug("Rotor RPM changed");
         ROTOR_RPM_PCT_1 = ParameterValue;
       };
-    } /* else if (ParameterName == "NAVCOM1") {
+    } else if (ParameterName == "RPME") {
+      //SendDebug("Received Engine RPM: " + ParameterValue);
+      if (GENERAL_ENG_PCT_MAX_RPM_1 != ParameterValue) {
+        SendDebug("Engine RPM changed");
+        GENERAL_ENG_PCT_MAX_RPM_1 = ParameterValue;
+      };
+    } else if (ParameterName == "TQ") {
+      //SendDebug("Received Torque: " + ParameterValue);
+      if (ENG_TORQUE_PERCENT_1 != ParameterValue) {
+        SendDebug("Torque changed");
+        ENG_TORQUE_PERCENT_1 = ParameterValue;
+      };
+    } else if (ParameterName == "AMPS") {
+      //SendDebug("Received Amps: " + ParameterValue);
+      if (ELECTRICAL_TOTAL_LOAD_AMPS != ParameterValue) {
+        SendDebug("Amps changed");
+        ELECTRICAL_TOTAL_LOAD_AMPS = ParameterValue;
+      };
+    } else if (ParameterName == "ITT") {
+      //SendDebug("Received ITT: " + ParameterValue);
+      if (TURB_ENG_ITT_1 != ParameterValue) {
+        SendDebug("ITT changed");
+        TURB_ENG_ITT_1 = ParameterValue;
+      };
+    } else if (ParameterName == "OILT") {
+      //SendDebug("Received il Temp: " + ParameterValue);
+      if (ENG_OIL_TEMPERATURE_1 != ParameterValue) {
+        SendDebug("Oil Temp changed");
+        ENG_OIL_TEMPERATURE_1 = ParameterValue;
+      };
+    } else if (ParameterName == "FUEL") {
+      //SendDebug("Received Fuel: " + ParameterValue);
+      if (FUEL_TOTAL_QUANTITY != ParameterValue) {
+        SendDebug("Fuel changed");
+        FUEL_TOTAL_QUANTITY = ParameterValue;
+      };
+    } else if (ParameterName == "N1") {
+      //SendDebug("Received N1: " + ParameterValue);
+      if (TURB_ENG_CORRECTED_N1_1 != ParameterValue) {
+        SendDebug("N1 changed");
+        TURB_ENG_CORRECTED_N1_1 = ParameterValue;
+      };
+    } else if (ParameterName == "OILP") {
+      //SendDebug("Received Oil Pressure: " + ParameterValue);
+      if (ENG_OIL_PRESSURE_1 != ParameterValue) {
+        SendDebug("Oil Pressure changed");
+        ENG_OIL_PRESSURE_1 = ParameterValue;
+      };
+    } else if (ParameterName == "XMSNP") {
+      //SendDebug("Received Transmission Pressure: " + ParameterValue);
+      if (ENG_TRANSMISSION_PRESSURE_1 != ParameterValue) {
+        SendDebug("Transmission Pressure changed");
+        ENG_TRANSMISSION_PRESSURE_1 = ParameterValue;
+      };
+    } else if (ParameterName == "XMSNT") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (ENG_TRANSMISSION_TEMPERATURE_1 != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        ENG_TRANSMISSION_TEMPERATURE_1 = ParameterValue;
+      };
+    } else if (ParameterName == "NAVCOM1") {
       SendDebug("Received NAVCOM1: " + ParameterValue);
       if (navCom1Status != ParameterValue) {
         SendDebug("NAVCOM1 Status Changed");
@@ -474,9 +539,8 @@ void HandleOutputValuePair(String str) {
         else
           powerAvailable = true;
 
-        radioFrequencyChanged = true;
       };
-      */
+    }
     return;
   }
 }

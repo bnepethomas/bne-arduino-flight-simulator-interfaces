@@ -272,6 +272,7 @@ namespace WindowsFormsApp2
             public double ENG_TRANSMISSION_PRESSURE_1;                  // XMSNP
             public double ENG_TRANSMISSION_TEMPERATURE_1;               // XMSNT
             public double ELECTRICAL_MASTER_BATTERY;                    // BATSW
+            public double CIRCUIT_NAVCOM1_ON;                           //NAVCOM1
             public double AIRSPEED_2;                                   // IAS
         };
 
@@ -613,6 +614,7 @@ namespace WindowsFormsApp2
                 simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ENG TRANSMISSION PRESSURE:1", "psi", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ENG TRANSMISSION TEMPERATURE:1", "Celsius", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ELECTRICAL MASTER BATTERY", "Bool", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
+                simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "ELECTRICAL MAIN BUS VOLTAGE", "Volts", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
                 simconnect.AddToDataDefinition(DEFINITIONS.StructFrontPanel, "Airspeed True", "knots", SIMCONNECT_DATATYPE.FLOAT64, 0.0f, SimConnect.SIMCONNECT_UNUSED);
 
 
@@ -779,6 +781,7 @@ namespace WindowsFormsApp2
                     displayText("ENG TRANSMISSION PRESSURE  " + sFrontPanel.ENG_TRANSMISSION_PRESSURE_1);
                     displayText("ENG TRANSMISSION TEMPERATURE " + sFrontPanel.ENG_TRANSMISSION_TEMPERATURE_1);
                     displayText("ELECTRICAL MASTER BATTERY   " + sFrontPanel.ELECTRICAL_MASTER_BATTERY);
+                    displayText("CIRCUIT_NAVCOM1_ON          " + sFrontPanel.CIRCUIT_NAVCOM1_ON);
                     displayText("Airspeed           " + sFrontPanel.AIRSPEED_2.ToString("F0"));
 
                     if (ALTITUDE != sFrontPanel.ALTITUDE.ToString("F0")) ;
@@ -889,6 +892,11 @@ namespace WindowsFormsApp2
                         ELECTRICAL_MASTER_BATTERY = sFrontPanel.ELECTRICAL_MASTER_BATTERY.ToString();
                     }
                     ;
+                    if (CIRCUIT_NAVCOM1_ON != sFrontPanel.CIRCUIT_NAVCOM1_ON.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        CIRCUIT_NAVCOM1_ON = sFrontPanel.CIRCUIT_NAVCOM1_ON.ToString();
+                    }
 
 
                     span = DateTime.Now - FrontPanelTimeLastPacketSent;
@@ -916,6 +924,7 @@ namespace WindowsFormsApp2
                         UDP_Playload = UDP_Playload + ",XMSNP:" + ENG_TRANSMISSION_PRESSURE_1;
                         UDP_Playload = UDP_Playload + ",XMSNT:" + ENG_TRANSMISSION_TEMPERATURE_1;
                         UDP_Playload = UDP_Playload + ",BATSW:" + ELECTRICAL_MASTER_BATTERY;
+                        UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
 
 
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
