@@ -1966,16 +1966,6 @@
 		(uuid "0d241a7e-7fe7-4693-9259-9bddb8c04fb3")
 	)
 	(label "12VDC"
-		(at 231.648 48.006 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "101f8510-ee14-44ca-8cea-04a0ddffa474")
-	)
-	(label "12VDC"
 		(at 119.38 102.87 0)
 		(effects
 			(font
@@ -1984,16 +1974,6 @@
 			(justify left bottom)
 		)
 		(uuid "103a67e8-3f8c-45fe-90ce-f812ea17b7f5")
-	)
-	(label "12VDC"
-		(at 232.664 65.786 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "146a17a8-7f0a-49e7-ad18-46342d11e71f")
 	)
 	(label "5VDC"
 		(at 106.68 118.11 180)
@@ -2054,16 +2034,6 @@
 			(justify right bottom)
 		)
 		(uuid "21593f32-3ce0-4772-aee4-597a1f8b25c4")
-	)
-	(label "GND"
-		(at 231.648 40.386 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "280a0ca0-1858-4d88-966f-e41020d6a752")
 	)
 	(label "12VDC"
 		(at 191.77 87.63 0)
@@ -2165,16 +2135,6 @@
 		)
 		(uuid "52eb39ec-aae3-4c99-b338-a03c6f9116c2")
 	)
-	(label "5VDC"
-		(at 232.664 60.706 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5431b1cc-ab74-4037-91a2-1e4d03d0f333")
-	)
 	(label "GND"
 		(at 176.53 100.33 180)
 		(effects
@@ -2224,16 +2184,6 @@
 			(justify left bottom)
 		)
 		(uuid "68d42526-c0ab-46d2-bd25-d3da5c1e5c01")
-	)
-	(label "5VDC"
-		(at 231.648 42.926 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "6a18ed50-182b-4748-ae63-19783ee4d8a0")
 	)
 	(label "3.3VDC"
 		(at 67.31 73.66 180)
@@ -2316,16 +2266,6 @@
 		(uuid "8360b968-5e99-43c5-8eb1-dc046182a8fc")
 	)
 	(label "GND"
-		(at 232.664 68.326 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "842dbe36-4c2c-4231-ada5-a5dc51bf919f")
-	)
-	(label "GND"
 		(at 176.53 76.2 180)
 		(effects
 			(font
@@ -2364,16 +2304,6 @@
 			(justify right bottom)
 		)
 		(uuid "8f46b29d-b1ef-4337-96d0-a79e61842769")
-	)
-	(label "GND"
-		(at 232.664 58.166 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "9177387c-cace-4cbd-89cf-b8c593ec8041")
 	)
 	(label "5VDC"
 		(at 232.41 77.47 0)
@@ -2565,16 +2495,6 @@
 		)
 		(uuid "ef2569c8-b34d-4aea-89d4-19fc330b3e22")
 	)
-	(label "GND"
-		(at 231.648 50.546 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ef98a002-d20e-4ec1-8e8a-9e3a874b123c")
-	)
 	(label "5VDC"
 		(at 106.68 102.87 180)
 		(effects
@@ -2617,19 +2537,21 @@
 		(fields_autoplaced yes)
 		(uuid "03cb2a36-c220-497a-a8d9-492bc7a623a8")
 		(property "Reference" "J6"
-			(at 227.965 77.47 0)
+			(at 226.06 82.5499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "12V"
-			(at 227.965 80.01 0)
+		(property "Value" "Conn_01x02_Socket"
+			(at 226.06 85.0899 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
@@ -2685,19 +2607,21 @@
 		(fields_autoplaced yes)
 		(uuid "0a7b526b-3ab4-4c70-ba14-4b786bde8131")
 		(property "Reference" "J2"
-			(at 227.965 69.85 0)
+			(at 226.06 77.4701 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "5V"
-			(at 227.965 72.39 0)
+		(property "Value" "Conn_01x02_Socket"
+			(at 226.06 74.9301 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
@@ -2911,75 +2835,6 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x02_Socket")
-		(at 227.584 65.786 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "4618685f-8d0f-4f5c-88b9-e207637ed7c6")
-		(property "Reference" "J14"
-			(at 228.219 60.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "12V"
-			(at 228.219 63.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
-			(at 227.584 65.786 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 227.584 65.786 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 227.584 65.786 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "1bb6c3ec-83ce-439d-87fe-aa7236599d47")
-		)
-		(pin "2"
-			(uuid "b85f3c54-dd93-4677-9407-4c1206a800d1")
-		)
-		(instances
-			(project "OZ-HORNET-POWER-MAIN"
-				(path "/44d9ce59-9906-4f5a-9dfe-1c37b39b5eab"
-					(reference "J14")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
 		(at 227.33 101.6 0)
 		(mirror y)
 		(unit 1)
@@ -2990,19 +2845,21 @@
 		(fields_autoplaced yes)
 		(uuid "52e22c76-d10c-4387-a3fa-ac494c87061a")
 		(property "Reference" "J4"
-			(at 227.965 96.52 0)
+			(at 226.06 101.5999 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "12V"
-			(at 227.965 99.06 0)
+		(property "Value" "Conn_01x02_Socket"
+			(at 226.06 104.1399 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
@@ -3042,74 +2899,6 @@
 			(project "OZ-HORNET-POWER-MAIN"
 				(path "/44d9ce59-9906-4f5a-9dfe-1c37b39b5eab"
 					(reference "J4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
-		(at 226.568 42.926 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "53b17841-c0ec-4942-8ae7-286d214f0cd8")
-		(property "Reference" "J16"
-			(at 227.203 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "5V"
-			(at 227.203 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
-			(at 226.568 42.926 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 226.568 42.926 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 226.568 42.926 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "182ff0ba-521a-4b28-a17e-84293a81014e")
-		)
-		(pin "2"
-			(uuid "381df07b-7008-41a2-9d7a-c7baa7538747")
-		)
-		(instances
-			(project "OZ-HORNET-POWER-MAIN"
-				(path "/44d9ce59-9906-4f5a-9dfe-1c37b39b5eab"
-					(reference "J16")
 					(unit 1)
 				)
 			)
@@ -3460,19 +3249,21 @@
 		(fields_autoplaced yes)
 		(uuid "6c7901b0-99f5-40c8-8d32-71eaa4d7c02a")
 		(property "Reference" "J5"
-			(at 227.965 105.41 0)
+			(at 226.06 113.0301 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "5V"
-			(at 227.965 107.95 0)
+		(property "Value" "Conn_01x02_Socket"
+			(at 226.06 110.4901 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
@@ -3528,19 +3319,21 @@
 		(fields_autoplaced yes)
 		(uuid "80e9fd30-d7bd-4716-ba7f-91487a68befd")
 		(property "Reference" "J1"
-			(at 227.965 88.9 0)
+			(at 226.06 96.5201 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "5V"
-			(at 227.965 91.44 0)
+		(property "Value" "Conn_01x02_Socket"
+			(at 226.06 93.9801 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
@@ -3580,74 +3373,6 @@
 			(project "OZ-HORNET-POWER-MAIN"
 				(path "/44d9ce59-9906-4f5a-9dfe-1c37b39b5eab"
 					(reference "J1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
-		(at 227.584 60.706 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a200ce25-1f8b-4229-bf33-6141a6b96436")
-		(property "Reference" "J13"
-			(at 228.219 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "5V"
-			(at 228.219 55.88 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
-			(at 227.584 60.706 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 227.584 60.706 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 227.584 60.706 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e809c446-078d-4204-b18b-87fc7e49fce6")
-		)
-		(pin "2"
-			(uuid "67a9c4b9-4f5b-4cb3-9897-17333fa55828")
-		)
-		(instances
-			(project "OZ-HORNET-POWER-MAIN"
-				(path "/44d9ce59-9906-4f5a-9dfe-1c37b39b5eab"
-					(reference "J13")
 					(unit 1)
 				)
 			)
@@ -3851,75 +3576,6 @@
 			(project "POWER-MAIN-OZ-HORNET"
 				(path "/44d9ce59-9906-4f5a-9dfe-1c37b39b5eab"
 					(reference "J15")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
-		(at 226.568 48.006 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c232fab1-ad6b-4436-b9de-7b84085a3800")
-		(property "Reference" "J17"
-			(at 227.203 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "12V"
-			(at 227.203 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
-			(at 226.568 48.006 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 226.568 48.006 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 226.568 48.006 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "35e233f9-cb6f-4df8-b866-c089a3d5e9e0")
-		)
-		(pin "2"
-			(uuid "f837645c-dad6-47c3-b3e4-a490e9adaa64")
-		)
-		(instances
-			(project "OZ-HORNET-POWER-MAIN"
-				(path "/44d9ce59-9906-4f5a-9dfe-1c37b39b5eab"
-					(reference "J17")
 					(unit 1)
 				)
 			)
@@ -4202,19 +3858,21 @@
 		(fields_autoplaced yes)
 		(uuid "f1633328-42a2-421f-bd4b-f5e40ae23cb6")
 		(property "Reference" "J7"
-			(at 227.965 113.03 0)
+			(at 226.06 118.1099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Value" "12V"
-			(at 227.965 115.57 0)
+		(property "Value" "Conn_01x02_Socket"
+			(at 226.06 120.6499 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" "Connector_BarrelJack:BarrelJack_Horizontal"
