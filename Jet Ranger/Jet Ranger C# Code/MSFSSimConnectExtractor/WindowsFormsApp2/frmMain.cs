@@ -115,6 +115,7 @@ namespace WindowsFormsApp2
             KEY_NAV2_RADIO_SET_HZ,
             KEY_NAV1_STBY_SET_HZ,
             KEY_NAV2_STBY_SET_HZ,
+            KEY_GPS_DIRECTTO_BUTTON,
         }
 
         enum GROUP_ID
@@ -372,6 +373,50 @@ namespace WindowsFormsApp2
         }
 
         // Set up all the SimConnect related data definitions and event handlers 
+        private void Setup_DataRequests()
+        {
+
+            displayText("Pleading for data...");
+            //m_scConnection.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.PERIODIQUE, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 0, 0);
+            //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 1, 0);
+
+            //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 0, 0);
+            try
+            {
+                // working for a once off
+                //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.ONCE, 0, 0, 0, 0);
+
+                //  The second to last parameter is the number of frames iterated before a data packet is sent. There isn't a parameter
+                //  which maps to events per second so this will variable with frame rate of sim which could range from 15fpc to north of 100fps.
+                // To assist in reducing range of pps set upper limit of Sim FPS tp 50 under Graphic Target FPS
+                // Interestingly - with a target FPS of 50, seeing 100pps 
+
+                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 1, 0);
+                simconnect.RequestDataOnSimObject(DATA_REQUESTS.RADIOS, DEFINITIONS.structRadio, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 20, 0);
+
+
+                //simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
+                //simconnect.MapClientEventToSimEvent(EVENTS.KEY_AVIONICS_MASTER_SET, "AVIONICS_MASTER_SET");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_AVIONICS_MASTER_2_SET, "AVIONICS_MASTER_2_SET");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET, "COM_STBY_RADIO_SET");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_ALTERNATOR_SET, "ALTERNATOR_SET");
+                // Electrical Bus 1 to Avionics Bus 1 set
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET, "ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET_HZ, "COM_STBY_RADIO_SET_HZ");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM2_STBY_RADIO_SET_HZ, "COM2_STBY_RADIO_SET_HZ");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_AVIONICS_MASTER_SET, "AVIONICS_MASTER_SET");
+                simconnect.MapClientEventToSimEvent(EVENTS.KEY_GPS_DIRECTTO_BUTTON, "GPS_DIRECTTO_BUTTON");
+            }
+            catch
+            {
+                displayText("Unhandled error in data plead ...");
+            }
+
+
+        }
         private void initDataRequest()
         {
             try
@@ -895,49 +940,7 @@ namespace WindowsFormsApp2
 
         }
 
-        private void Setup_DataRequests()
-        {
 
-            displayText("Pleading for data...");
-            //m_scConnection.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.PERIODIQUE, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 0, 0);
-            //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 1, 0);
-
-            //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, SIMCONNECT_DATA_REQUEST_FLAG.DEFAULT, 0, 0, 0);
-            try
-            {
-                // working for a once off
-                //simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.ONCE, 0, 0, 0, 0);
-
-                //  The second to last parameter is the number of frames iterated before a data packet is sent. There isn't a parameter
-                //  which maps to events per second so this will variable with frame rate of sim which could range from 15fpc to north of 100fps.
-                // To assist in reducing range of pps set upper limit of Sim FPS tp 50 under Graphic Target FPS
-                // Interestingly - with a target FPS of 50, seeing 100pps 
-
-                simconnect.RequestDataOnSimObject(DATA_REQUESTS.REQUEST_1, DEFINITIONS.Struct1, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 1, 0);
-                simconnect.RequestDataOnSimObject(DATA_REQUESTS.RADIOS, DEFINITIONS.structRadio, SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SIM_FRAME, 0, 0, 20, 0);
-
-               
-                //simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
-               //simconnect.MapClientEventToSimEvent(EVENTS.KEY_AVIONICS_MASTER_SET, "AVIONICS_MASTER_SET");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_AVIONICS_MASTER_2_SET, "AVIONICS_MASTER_2_SET");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET, "COM_STBY_RADIO_SET");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_ALTERNATOR_SET, "ALTERNATOR_SET");
-                // Electrical Bus 1 to Avionics Bus 1 set
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET, "ELECTRICAL_BUS_1_AVIONICS_BUS_1_SET");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET_HZ, "COM_STBY_RADIO_SET_HZ");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM2_STBY_RADIO_SET_HZ, "COM2_STBY_RADIO_SET_HZ");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
-                simconnect.MapClientEventToSimEvent(EVENTS.KEY_AVIONICS_MASTER_SET, "AVIONICS_MASTER_SET");
-            }
-            catch
-            {
-                displayText("Unhandled error in data plead ...");
-            }
-
-
-        }
 
         private void btn_SendUDP_Click(object sender, EventArgs e)
         {
@@ -957,7 +960,21 @@ namespace WindowsFormsApp2
 
         private void button4_Click_1(object sender, EventArgs e)
         {
-            UpdateRadios( "119.99");
+            simconnect.TransmitClientEvent(
+                SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                EVENTS.KEY_GPS_DIRECTTO_BUTTON,
+                0,
+                GROUP_ID.GROUP0,
+                SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+            );
+
+            simconnect.TransmitClientEvent(
+                SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                EVENTS.KEY_MASTER_BATTERY_SET,
+                1,
+                GROUP_ID.GROUP0,
+                SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
+            );
         }
 
         private void SendEvent( EVENTS EVENT_SEND_SEND, uint PARAMETER_TO_SEND ) {     
@@ -980,25 +997,6 @@ namespace WindowsFormsApp2
             if (simconnect != null)
             {
 
-                // MessageBox.Show("Updating Radios");
-
-                //// Map Events - probably should move to routine where they are called or initiated
-                //simconnect.MapClientEventToSimEvent(EVENTS.KEY_MASTER_BATTERY_SET, "MASTER_BATTERY_SET");
-                //simconnect.MapClientEventToSimEvent(EVENTS.AVIONICS_MASTER_1_SET, "AVIONICS_MASTER_1_SET"); 
-                //simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM_STBY_RADIO_SET, "COM_STBY_RADIO_SET");
-                //simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM1_RADIO_SWAP, "COM1_RADIO_SWAP");
-                //simconnect.MapClientEventToSimEvent(EVENTS.KEY_COM2_RADIO_SWAP, "COM2_RADIO_SWAP");
-
-
-
-                //// Parameter 0 = Off
-                //simconnect.TransmitClientEvent(
-                //    SimConnect.SIMCONNECT_OBJECT_ID_USER,
-                //    EVENTS.KEY_MASTER_BATTERY_SET,
-                //    1,
-                //    GROUP_ID.GROUP0,
-                //    SIMCONNECT_EVENT_FLAG.GROUPID_IS_PRIORITY
-                //);
 
                 if (SIMCONNECT_COMMAND.Contains("COM1_RADIO_SWAP") == true)
                 {
