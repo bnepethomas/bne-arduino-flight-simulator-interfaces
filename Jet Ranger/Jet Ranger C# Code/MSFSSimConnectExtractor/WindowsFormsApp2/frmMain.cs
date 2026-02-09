@@ -89,6 +89,22 @@ namespace WindowsFormsApp2
         private String AIRSPEED_2 = "";
 
 
+        private bool Rotor_RPM_Low = false;         //RLOW
+        private bool Engine_Out = false;            //EOUT
+        private bool Trans_Oil_Pressure = false;    //TOPW
+        private bool Trans_Oil_Temp = false;        //TOTW
+        private bool Battery_Temp = false;          //BTMP
+        private bool Battery_Hot = false;           //BHOT
+        private bool Trans_Chip = false;            //TC
+        private bool Baggage_Door = false;          //BD
+        private bool Engine_Chip = false;           //EC
+        private bool TR_Chip = false;               //TRC
+        private bool Fuel_Pump = false;             //FPMP
+        private bool AFT_Fuel_Filter = false;       //FFLTR
+        private bool Gen_Fail = false;              //GENF
+        private bool Low_Fuel = false;              //LOWF
+        private bool SC_Fail = false;				//SCF
+
         // User-defined win32 event 
         const int WM_USER_SIMCONNECT = 0x0402;
 
@@ -925,6 +941,22 @@ namespace WindowsFormsApp2
                         UDP_Playload = UDP_Playload + ",XMSNT:" + ENG_TRANSMISSION_TEMPERATURE_1;
                         UDP_Playload = UDP_Playload + ",BATSW:" + ELECTRICAL_MASTER_BATTERY;
                         UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
+                        UDP_Playload = UDP_Playload + ",RLOW:" + Rotor_RPM_Low.ToString();
+                        UDP_Playload = UDP_Playload + ",EOUT:" + Engine_Out.ToString();
+                        UDP_Playload = UDP_Playload + ",TOPW:" + Trans_Oil_Pressure.ToString();
+                        UDP_Playload = UDP_Playload + ",TOWT:" + Trans_Oil_Temp.ToString();
+                        UDP_Playload = UDP_Playload + ",BTMP:" + Battery_Temp.ToString();
+                        UDP_Playload = UDP_Playload + ",BHOT:" + Battery_Hot.ToString();
+                        UDP_Playload = UDP_Playload + ",TC:" + Trans_Chip.ToString();
+                        UDP_Playload = UDP_Playload + ",BD:" + Baggage_Door.ToString();
+                        UDP_Playload = UDP_Playload + ",EC:" + Engine_Chip.ToString();
+                        UDP_Playload = UDP_Playload + ",TRC:" + TR_Chip.ToString();
+                        UDP_Playload = UDP_Playload + ",FPMP:" + Fuel_Pump.ToString();
+                        UDP_Playload = UDP_Playload + ",FFLTR:" + AFT_Fuel_Filter.ToString();
+                        UDP_Playload = UDP_Playload + ",GENF:" + Gen_Fail.ToString();
+                        UDP_Playload = UDP_Playload + ",LOWF:" + Low_Fuel.ToString(); 
+                        UDP_Playload = UDP_Playload + ",SCF:" + SC_Fail.ToString(); 
+
 
 
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);

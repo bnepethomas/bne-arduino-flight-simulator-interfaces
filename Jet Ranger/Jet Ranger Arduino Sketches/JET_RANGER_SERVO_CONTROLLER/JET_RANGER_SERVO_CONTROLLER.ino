@@ -113,6 +113,23 @@ void SendDebug(String MessageToSend) {
 #define GAS_PRODUCER_PORT
 
 // ################################ BEGIN WARNING LIGHTS #######################################
+
+String Rotor_RPM_Low = "0";			//RLOW
+String Engine_Out = "0";			//EOUT
+String Trans_Oil_Pressure = "0";	//TOPW
+String Trans_Oil_Temp = "0";;		//TOTW
+String Battery_Temp = "0";			//BTMP
+String Battery_Hot = "0";		//BHOT
+String Trans_Chip = "0";			//TC
+String Baggage_Door = "0";			//BD
+String Engine_Chip = "0";			//EC
+String TR_Chip = "0";				//TRC
+String Fuel_Pump = "0";				//FPMP
+String AFT_Fuel_Filter = "0";		//FFLTR
+String Gen_Fail = "0";				//GENF
+String Low_Fuel = "0";				//LOWF
+String SC_Fail = "0";				//SCF
+
 #define D_Rotor_RPM_Low A1
 #define D_Engine_Out A2
 #define D_Trans_Oil_Pressure A3
@@ -528,6 +545,96 @@ void HandleOutputValuePair(String str) {
         SendDebug("Transmission Temperature changed");
         ENG_TRANSMISSION_TEMPERATURE_1 = ParameterValue;
       };
+    } else if (ParameterName == "RLOW") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Rotor_RPM_Low != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Rotor_RPM_Low = ParameterValue;
+      };
+    } else if (ParameterName == "EOUT") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Engine_Out != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Engine_Out = ParameterValue;
+      };
+    } else if (ParameterName == "TOPW") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Trans_Oil_Pressure != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Trans_Oil_Pressure = ParameterValue;
+      };
+    } else if (ParameterName == "TOTW") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Trans_Oil_Temp != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Trans_Oil_Temp = ParameterValue;
+      };
+    } else if (ParameterName == "BTMP") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Battery_Temp != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Battery_Temp = ParameterValue;
+      };
+    } else if (ParameterName == "BHOT") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Battery_Hot != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Battery_Hot = ParameterValue;
+      };
+    } else if (ParameterName == "TC") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Trans_Chip != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Trans_Chip = ParameterValue;
+      };
+    } else if (ParameterName == "BD") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Baggage_Door != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Baggage_Door = ParameterValue;
+      };
+    } else if (ParameterName == "EC") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Engine_Chip != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Engine_Chip = ParameterValue;
+      };
+    } else if (ParameterName == "TRC") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (TR_Chip != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        TR_Chip = ParameterValue;
+      };
+    } else if (ParameterName == "FPMP") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Fuel_Pump != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Fuel_Pump = ParameterValue;
+      };
+    } else if (ParameterName == "FFLTR") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (AFT_Fuel_Filter != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        AFT_Fuel_Filter = ParameterValue;
+      };
+    } else if (ParameterName == "GENF") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Gen_Fail != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Gen_Fail = ParameterValue;
+      };
+    } else if (ParameterName == "LOWF") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (Low_Fuel != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        Low_Fuel = ParameterValue;
+      };
+    } else if (ParameterName == "SCF") {
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      if (SC_Fail != ParameterValue) {
+        SendDebug("Transmission Temperature changed");
+        SC_Fail = ParameterValue;
+      };
     } else if (ParameterName == "NAVCOM1") {
       SendDebug("Received NAVCOM1: " + ParameterValue);
       if (navCom1Status != ParameterValue) {
@@ -538,7 +645,6 @@ void HandleOutputValuePair(String str) {
           powerAvailable = false;
         else
           powerAvailable = true;
-
       };
     }
     return;
