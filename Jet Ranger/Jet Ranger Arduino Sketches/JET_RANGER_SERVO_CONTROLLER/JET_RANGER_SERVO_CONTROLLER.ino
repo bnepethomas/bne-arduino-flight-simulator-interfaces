@@ -215,33 +215,52 @@ Servo myservo;
 #define AIRSPEED_PORT 2
 #define GAS_PRODUCER_PORT
 
+void Airspeed(int AirSpeed) {
+  int val = 0;
+  if (AirSpeed <= 20) {
+    val = map(AirSpeed, 0, 20, 44, 70);
+  } else if (AirSpeed <= 80) {
+    val = map(AirSpeed, 20, 80, 70, 531);
+  } else if (AirSpeed <= 100) {
+    val = map(AirSpeed, 80, 100, 531, 654);
+  } else {
+    val = map(AirSpeed, 100, 150, 654, 955);
+  }
+
+  myservo.write(val);
+}
+
+void VSI(int FPM) {
+  /*
+  -6000 10
+  -4000 105
+  -2000 268
+  -1000 388
+  0     498
+  1000  620
+  2000  728
+  4000  866
+  6000  952
+  */
+}
+
+void RotorSpeed(int Speed) {
+  int val = map(Speed, 0, 120, 28, 895);
+  myservo.write(val);
+}
+
+void TurbineSpeed(int Speed) {
+  int val = map(Speed, 0, 120, 242, 986);
+  myservo.write(val);
+}
+
 void EngineTorque(int torque) {
   int val = map(torque, 0, 120, 33, 809);
   myservo.write(val);
 }
 
-void TransmissionPressure(int pressure) {
-  int val = map(pressure, 0, 150, 9, 288);
-  myservo.write(val);
-}
-
-void TransmissionTemperature(int temperature) {
-  int val = map(temperature, 0, 150, 424, 107);
-  myservo.write(val);
-}
-
-void EnginePressure(int pressure) {
-  int val = map(pressure, 0, 150, 560, 864);
-  myservo.write(val);
-}
-
-void EngineTemperature(int temperature) {
-  int val = map(temperature, 0, 150, 310, 20);
-  myservo.write(val);
-}
-
-void GasProducer(int gaspercentage) {
-  int val = map(gaspercentage, 0, 106, 57, 848);
+void ElectricalLoad(int load) {
+  int val = map(load, 0, 100, 527, 740);
   myservo.write(val);
 }
 
@@ -261,13 +280,8 @@ void EGT(int temperature) {
   myservo.write(val);
 }
 
-void FuelPressure(int pressure) {
-  int val = map(pressure, 0, 30, 280, 73);
-  myservo.write(val);
-}
-
-void ElectricalLoad(int load) {
-  int val = map(load, 0, 100, 527, 740);
+void EngineTemperature(int temperature) {
+  int val = map(temperature, 0, 150, 310, 20);
   myservo.write(val);
 }
 
@@ -278,45 +292,48 @@ void FuelLevel(int Level) {
   myservo.write(val);
 }
 
-void VSI(int FPM) {
-  /*
-  -6000 10
-  -4000 105
-  -2000 268
-  -1000 388
-  0     498
-  1000  620
-  2000  728
-  4000  866
-  6000  952
-  */
-}
-
-void TurbineSpeed(int Speed) {
-  int val = map(Speed, 0, 120, 242, 986);
-  myservo.write(val);
-}
-
-void RotorSpeed(int Speed) {
-  int val = map(Speed, 0, 120, 28, 895);
+void EnginePressure(int pressure) {
+  int val = map(pressure, 0, 150, 560, 864);
   myservo.write(val);
 }
 
 
-void Airspeed(int AirSpeed) {
-  int val = 0;
-  if (AirSpeed <= 20) {
-    val = map(AirSpeed, 0, 20, 44, 70);
-  } else if (AirSpeed <= 80) {
-    val = map(AirSpeed, 20, 80, 70, 531);
-  } else if (AirSpeed <= 100) {
-    val = map(AirSpeed, 80, 100, 531, 654);
-  } else {
-    val = map(AirSpeed, 100, 150, 654, 955);
-  }
-
+void TransmissionPressure(int pressure) {
+  int val = map(pressure, 0, 150, 9, 288);
   myservo.write(val);
 }
+
+void TransmissionTemperature(int temperature) {
+  int val = map(temperature, 0, 150, 424, 107);
+  myservo.write(val);
+}
+
+
+
+
+void GasProducer(int gaspercentage) {
+  int val = map(gaspercentage, 0, 106, 57, 848);
+  myservo.write(val);
+}
+
+
+
+void FuelPressure(int pressure) {
+  int val = map(pressure, 0, 30, 280, 73);
+  myservo.write(val);
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

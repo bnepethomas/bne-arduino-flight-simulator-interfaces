@@ -163,6 +163,37 @@ namespace WindowsFormsApp2
         TimeSpan span;
         int mS;
 
+        // Will calaculate the position of the servo based on the value received from simconnect and the min and max positions defined for each servo.
+        // instead of asking the Mega to do that.  This is because the servos have different ranges and it is easier to manage that in code than on the Mega.
+        // The ServoZeroPosition array is to deal with gauges such as VSI and Pitch and Bank which have a zero position in the middle of the range.
+        // This allows the code to calculate the position of the servo based on the value received from simconnect and the min and max positions defined
+        // for each servo, as well as the zero position for those servos that have a zero position in the middle of the range.
+        enum Servos
+        { 
+            AirSpeed,
+            VerticalSpeed,
+            AttitudeIndicatorBankDegrees,
+            AttitudeIndicatorPitchDegrees,
+            RotorRpmPct1,
+            GeneralEngPctMaxRpm1,
+            EngTorquePercent1,
+            ElectricalTotalLoadAmps,
+            TurbEngItt1,
+            EngOilTemperature1,
+            FuelTotalQuantity,
+            TurbEngCorrectedN11,
+            EngOilPressure1,
+            EngTransmissionPressure1,
+            EngTransmissionTemperature1,
+            PlaneAltAboveGround,
+        }
+
+        //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
+        long[] ServMinPosition  = new long[] {044, 010, 444, 555, 028, 242, 033, 527, 121, 310, 124, 121, 560, 009, 424, 222 };
+        long[] ServMaxPosition  = new long[] {955, 952, 444, 555, 895, 986, 809, 740, 802, 020, 736, 000, 864, 288, 107, 222 };
+        long[] ServZeroPosition = new long[] {044, 498, 444, 555, 028, 242, 033, 527, 121, 310, 124, 121, 560, 009, 424, 222 };
+
+
 
         // this is how you declare a data structure so that 
         // simconnect knows how to fill it/read it. 
@@ -406,6 +437,28 @@ namespace WindowsFormsApp2
 
         // Output text - display a maximum of X lines 
         string output = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+
+
+        private long Mapper(long value, long fromLow, long fromHigh, long toLow, long toHigh)
+        {
+            /// <summary>
+            /// Re-maps a number from one range to another, similar to the Arduino map() function.
+            /// </summary>
+            /// <param name="value">The input value to map.</param>
+            /// <param name="fromLow">The lower bound of the value's current range.</param>
+            /// <param name="fromHigh">The upper bound of the value's current range.</param>
+            /// <param name="toLow">The lower bound of the value's target range.</param>
+            /// <param name="toHigh">The upper bound of the value's target range.</param>
+            /// <returns>The mapped value in the target range.</returns>
+
+
+            // The formula for the Arduino map() function
+            // Need to check how this handles the from being higher than the to range
+            // and whether it handles values outside the from range.
+            // It should handle both of those cases but need to test that.
+            return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+
+        }
 
         private void setButtons(bool bConnect, bool bGet, bool bDisconnect)
         {
@@ -800,6 +853,37 @@ namespace WindowsFormsApp2
                     displayText("CIRCUIT_NAVCOM1_ON          " + sFrontPanel.CIRCUIT_NAVCOM1_ON);
                     displayText("Airspeed           " + sFrontPanel.AIRSPEED_2.ToString("F0"));
 
+                    // Clear the UDP payload
+                    UDP_Playload = "";
+
+                    if (CIRCUIT_NAVCOM1_ON != sFrontPanel.CIRCUIT_NAVCOM1_ON.ToString()) ;
+                    {
+                        frontPanelDataChanged = true;
+                        CIRCUIT_NAVCOM1_ON = sFrontPanel.CIRCUIT_NAVCOM1_ON.ToString();
+                        if (CIRCUIT_NAVCOM1_ON == "False")
+                        {
+                            displayText("NAVCOM1 is OFF");
+                            // Need to turn off all Warning indicators and select instruments that are powered by NAVCOM1
+                            // Known exclusions are AirSpeed, Altitude and possibly VSI
+
+                            UDP_Playload = UDP_Playload + ",RLOW:0";
+                            UDP_Playload = UDP_Playload + ",EOUT:0";
+                            UDP_Playload = UDP_Playload + ",TOPW:0";
+                            UDP_Playload = UDP_Playload + ",TOWT:0";
+                            UDP_Playload = UDP_Playload + ",BTMP0:";
+                            UDP_Playload = UDP_Playload + ",BHOT0";
+                            UDP_Playload = UDP_Playload + ",TC:0";
+                            UDP_Playload = UDP_Playload + ",BD0:";
+                            UDP_Playload = UDP_Playload + ",EC:0";
+                            UDP_Playload = UDP_Playload + ",TRC:0"; ;
+                            UDP_Playload = UDP_Playload + ",FPMP:0";
+                            UDP_Playload = UDP_Playload + ",FFLTR:0";
+                            UDP_Playload = UDP_Playload + ",GENF0:";
+                            UDP_Playload = UDP_Playload + ",LOWF:0";
+                            UDP_Playload = UDP_Playload + ",SCF:0";
+                        }
+
+                    }
                     if (ALTITUDE != sFrontPanel.ALTITUDE.ToString("F0")) ;
                     {
                         frontPanelDataChanged = true;
@@ -821,7 +905,13 @@ namespace WindowsFormsApp2
                     if (PLANE_ALT_ABOVE_GROUND != sFrontPanel.PLANE_ALT_ABOVE_GROUND.ToString("F0")) ;
                     {
                         frontPanelDataChanged = true;
-                        PLANE_ALT_ABOVE_GROUND = sFrontPanel.PLANE_ALT_ABOVE_GROUND.ToString("F0");
+                        if (CIRCUIT_NAVCOM1_ON == "True")
+                        {
+
+                            PLANE_ALT_ABOVE_GROUND = sFrontPanel.PLANE_ALT_ABOVE_GROUND.ToString("F0");
+                        }  else { 
+                            PLANE_ALT_ABOVE_GROUND = "0";
+                        };
                     }
                     ;
                     if (ATTITUDE_INDICATOR_BANK_DEGREES != sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES.ToString("F3")) ;
@@ -908,11 +998,7 @@ namespace WindowsFormsApp2
                         ELECTRICAL_MASTER_BATTERY = sFrontPanel.ELECTRICAL_MASTER_BATTERY.ToString();
                     }
                     ;
-                    if (CIRCUIT_NAVCOM1_ON != sFrontPanel.CIRCUIT_NAVCOM1_ON.ToString()) ;
-                    {
-                        frontPanelDataChanged = true;
-                        CIRCUIT_NAVCOM1_ON = sFrontPanel.CIRCUIT_NAVCOM1_ON.ToString();
-                    }
+
 
 
                     span = DateTime.Now - FrontPanelTimeLastPacketSent;
@@ -955,19 +1041,23 @@ namespace WindowsFormsApp2
                         UDP_Playload = UDP_Playload + ",FFLTR:" + AFT_Fuel_Filter.ToString();
                         UDP_Playload = UDP_Playload + ",GENF:" + Gen_Fail.ToString();
                         UDP_Playload = UDP_Playload + ",LOWF:" + Low_Fuel.ToString(); 
-                        UDP_Playload = UDP_Playload + ",SCF:" + SC_Fail.ToString(); 
+                        UDP_Playload = UDP_Playload + ",SCF:" + SC_Fail.ToString();
 
 
+                        if (UDP_Playload != "")
+                        {
+                            // Something has changed so send it
+                            Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
+                            frontPanelClient.Send(senddata, senddata.Length);
+                            FrontPanelTimeLastPacketSent = DateTime.Now;
+                        }
 
-                        Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
-                        frontPanelClient.Send(senddata, senddata.Length);
-
-                        FrontPanelTimeLastPacketSent = DateTime.Now;
                     }
                     // if its been a while since changes send an update anyways
                     if (mS >= 5000)
 
                     {
+                        // Check if NAVCOM1 is 0 
                         frontPanelDataChanged = false;
                         UDP_Playload = "D,C1A:" + com1ActiveFrequency;
                         UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
