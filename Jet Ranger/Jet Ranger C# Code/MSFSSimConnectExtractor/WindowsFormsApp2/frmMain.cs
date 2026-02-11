@@ -6,6 +6,7 @@
 //using LockheedMartin.Prepar3D.SimConnect;
 using Microsoft.FlightSimulator.SimConnect;
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -68,6 +69,9 @@ namespace WindowsFormsApp2
         // Variables to hold front panel data
         // Using StructFrontPanel
         bool frontPanelDataChanged = false;
+        // Used to determine if we need tp update certain elements are power has become available.
+        bool CIRCUIT_NAVCOM1_CHANGED_ON = false;
+
         private String ALTITUDE = "";                           // ALT
         private String AIRSPEED = "";                           // IAS
         private String VERTICAL_SPEED = "";                     // VSI
@@ -192,7 +196,7 @@ namespace WindowsFormsApp2
         long[] ServMinPosition  = new long[] {044, 010, 444, 555, 028, 242, 033, 527, 121, 310, 124, 121, 560, 009, 424, 222 };
         long[] ServMaxPosition  = new long[] {955, 952, 444, 555, 895, 986, 809, 740, 802, 020, 736, 000, 864, 288, 107, 222 };
         long[] ServZeroPosition = new long[] {044, 498, 444, 555, 028, 242, 033, 527, 121, 310, 124, 121, 560, 009, 424, 222 };
-
+        long[] ServoPosition    = new long[] {000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 
 
         // this is how you declare a data structure so that 
@@ -411,6 +415,14 @@ namespace WindowsFormsApp2
             frontPanelClient.Connect("172.16.1.102", 13136);
             OutputClient.Connect("172.16.1.2", 26028);
             RadioTimeLastPacketSent = DateTime.Now;
+
+            // Initialise the arrays
+            // Set them the zero position (not min position as ww have some like VSI
+            for (int i = 0; i < ServoPosition.Length; i++)
+            {
+                ServoPosition[i] = ServZeroPosition[i];
+            }
+
 
 
         }
@@ -854,11 +866,12 @@ namespace WindowsFormsApp2
                     displayText("Airspeed           " + sFrontPanel.AIRSPEED_2.ToString("F0"));
 
                     // Clear the UDP payload
-                    UDP_Playload = "";
-
+                    UDP_Playload = "D";
+                    CIRCUIT_NAVCOM1_CHANGED_ON = false;
                     if (CIRCUIT_NAVCOM1_ON != sFrontPanel.CIRCUIT_NAVCOM1_ON.ToString()) ;
                     {
                         frontPanelDataChanged = true;
+                        UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
                         CIRCUIT_NAVCOM1_ON = sFrontPanel.CIRCUIT_NAVCOM1_ON.ToString();
                         if (CIRCUIT_NAVCOM1_ON == "False")
                         {
@@ -882,120 +895,204 @@ namespace WindowsFormsApp2
                             UDP_Playload = UDP_Playload + ",LOWF:0";
                             UDP_Playload = UDP_Playload + ",SCF:0";
                         }
+                        else
+                        {
+                            // Need to update impac ted instruments with current values which would not
+                            // have ben updated as the instrument itself did not change value
+                            CIRCUIT_NAVCOM1_CHANGED_ON = true;
+                        }
+                    }  //end if NAVCOM1 state changed
 
-                    }
+
                     if (ALTITUDE != sFrontPanel.ALTITUDE.ToString("F0")) ;
                     {
                         frontPanelDataChanged = true;
                         ALTITUDE = sFrontPanel.ALTITUDE.ToString("F0");
+                        UDP_Playload = "D,ALT:" + ALTITUDE;
                     }
                     ;
+
                     if (AIRSPEED != sFrontPanel.AIRSPEED.ToString("F0")) ;
                     {
                         frontPanelDataChanged = true;
                         AIRSPEED = sFrontPanel.AIRSPEED.ToString("F0");
+                        UDP_Playload = UDP_Playload + ",IAS:" + AIRSPEED;
                     }
                     ;
                     if (VERTICAL_SPEED != sFrontPanel.VERTICAL_SPEED.ToString("F0")) ;
                     {
                         frontPanelDataChanged = true;
                         VERTICAL_SPEED = sFrontPanel.VERTICAL_SPEED.ToString("F0");
+                        UDP_Playload = UDP_Playload + ",VSI:" + VERTICAL_SPEED;
                     }
-                    ;
-                    if (PLANE_ALT_ABOVE_GROUND != sFrontPanel.PLANE_ALT_ABOVE_GROUND.ToString("F0")) ;
+                    ; 
+
+
+                    if (PLANE_ALT_ABOVE_GROUND != sFrontPanel.PLANE_ALT_ABOVE_GROUND.ToString("F0")
+                        || CIRCUIT_NAVCOM1_CHANGED_ON == true) ;
+                    // Radar Altitude is affected by NAVCOM1 power state as the radar altimeter is powered by NAVCOM1. If NAVCOM1 was turned on then we need to update the radar altitude value even if it did not change
+                    // as it would not have been updated while NAVCOM1 was off
                     {
                         frontPanelDataChanged = true;
                         if (CIRCUIT_NAVCOM1_ON == "True")
                         {
 
                             PLANE_ALT_ABOVE_GROUND = sFrontPanel.PLANE_ALT_ABOVE_GROUND.ToString("F0");
+
                         }  else { 
                             PLANE_ALT_ABOVE_GROUND = "0";
                         };
+                        UDP_Playload = UDP_Playload + ",AGL:" + PLANE_ALT_ABOVE_GROUND;
                     }
                     ;
+                    
                     if (ATTITUDE_INDICATOR_BANK_DEGREES != sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES.ToString("F3")) ;
                     {
                         frontPanelDataChanged = true;
                         ATTITUDE_INDICATOR_BANK_DEGREES = sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES.ToString("F3");
+                        UDP_Playload = UDP_Playload + ",BANK:" + ATTITUDE_INDICATOR_BANK_DEGREES;
                     }
                     ;
                     if (ATTITUDE_INDICATOR_PITCH_DEGREES != sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES.ToString("F3")) ;
                     {
                         frontPanelDataChanged = true;
                         ATTITUDE_INDICATOR_PITCH_DEGREES = sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES.ToString("F3");
+                        UDP_Playload = UDP_Playload + ",PITCH:" + ATTITUDE_INDICATOR_PITCH_DEGREES;
                     }
                     ;
-                    if (ROTOR_RPM_PCT_1 != sFrontPanel.ROTOR_RPM_PCT_1.ToString()) ;
+                    if (ROTOR_RPM_PCT_1 != sFrontPanel.ROTOR_RPM_PCT_1.ToString()
+                        || CIRCUIT_NAVCOM1_CHANGED_ON == true);
+                    //While Rotor RPM is not directly affected by NAVCOM1 power state, need to updae the warning indicator state
                     {
                         frontPanelDataChanged = true;
                         ROTOR_RPM_PCT_1 = sFrontPanel.ROTOR_RPM_PCT_1.ToString();
+                        UDP_Playload = UDP_Playload + ",RPMR:" + ROTOR_RPM_PCT_1;
+
+                        if (sFrontPanel.ROTOR_RPM_PCT_1 <= 95)
+                        {
+                            UDP_Playload = UDP_Playload + ",RLOW:0";
+                            Rotor_RPM_Low = false;
+                        }
+                        else
+                        {
+                            UDP_Playload = UDP_Playload + ",RLOW:1";
+                            Rotor_RPM_Low = true;
+                        }
                     }
-                    ;
-                    if (GENERAL_ENG_PCT_MAX_RPM_1 != sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString()) ;
+                    ; // End Rotor RPM 
+                    
+
+                    if (GENERAL_ENG_PCT_MAX_RPM_1 != sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString()
+                        || CIRCUIT_NAVCOM1_CHANGED_ON == true);
                     {
                         frontPanelDataChanged = true;
                         GENERAL_ENG_PCT_MAX_RPM_1 = sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString();
+                        UDP_Playload = UDP_Playload + ",RPME:" + GENERAL_ENG_PCT_MAX_RPM_1;
+
+
+                        if (sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1 >= 60)
+                        {
+                            UDP_Playload = UDP_Playload + ",EOUT:0";
+                            Engine_Out = false;
+                        }
+                        else
+                        {
+                            UDP_Playload = UDP_Playload + ",EOUT:1";
+                            Engine_Out = true;
+                        }
                     }
                     ;
+
                     if (ENG_TORQUE_PERCENT_1 != (sFrontPanel.ENG_TORQUE_PERCENT_1 * 4 / 9).ToString()) ;
                     {
                         frontPanelDataChanged = true;
                         ENG_TORQUE_PERCENT_1 = (sFrontPanel.ENG_TORQUE_PERCENT_1 * 4 / 9).ToString();
+                        UDP_Playload = UDP_Playload + ",TQ:" + ENG_TORQUE_PERCENT_1;
                     }
                     ;
+
                     if (ELECTRICAL_TOTAL_LOAD_AMPS != (sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS * 40 / 56).ToString()) ;
                     {
                         frontPanelDataChanged = true;
                         ELECTRICAL_TOTAL_LOAD_AMPS = (sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS * 40 / 56).ToString();
+                        UDP_Playload = UDP_Playload + ",AMPS:" + ELECTRICAL_TOTAL_LOAD_AMPS;
                     }
                     ;
+
                     if (TURB_ENG_ITT_1 != sFrontPanel.TURB_ENG_ITT_1.ToString()) ;
                     {
                         frontPanelDataChanged = true;
                         TURB_ENG_ITT_1 = sFrontPanel.TURB_ENG_ITT_1.ToString();
+                        UDP_Playload = UDP_Playload + ",ITT:" + TURB_ENG_ITT_1;
                     }
                     ;
+
                     if (ENG_OIL_TEMPERATURE_1 != sFrontPanel.ENG_OIL_TEMPERATURE_1.ToString()) ;
                     {
                         frontPanelDataChanged = true;
                         ENG_OIL_TEMPERATURE_1 = sFrontPanel.ENG_OIL_TEMPERATURE_1.ToString();
+                        UDP_Playload = UDP_Playload + ",OILT:" + ENG_OIL_TEMPERATURE_1;
                     }
                     ;
-                    if (FUEL_TOTAL_QUANTITY != sFrontPanel.FUEL_TOTAL_QUANTITY.ToString()) ;
+
+                    if (FUEL_TOTAL_QUANTITY != sFrontPanel.FUEL_TOTAL_QUANTITY.ToString()
+                        || CIRCUIT_NAVCOM1_CHANGED_ON == true);
                     {
                         frontPanelDataChanged = true;
                         FUEL_TOTAL_QUANTITY = sFrontPanel.FUEL_TOTAL_QUANTITY.ToString();
+                        UDP_Playload = UDP_Playload + ",FUEL:" + FUEL_TOTAL_QUANTITY;
+                        UDP_Playload = UDP_Playload + ",LOWF:" + Low_Fuel.ToString();
+                        
+                        if (sFrontPanel.FUEL_TOTAL_QUANTITY <= 17)
+                        {
+                            Low_Fuel = true;
+                            UDP_Playload = UDP_Playload + ",LOWF:1";
+                        }
+                        else
+                        {
+                            Low_Fuel = false;
+                            UDP_Playload = UDP_Playload + ",LOWF:0";
+                        }
                     }
                     ;
+
                     if (TURB_ENG_CORRECTED_N1_1 != sFrontPanel.TURB_ENG_CORRECTED_N1_1.ToString()) ;
                     {
                         frontPanelDataChanged = true;
                         TURB_ENG_CORRECTED_N1_1 = sFrontPanel.TURB_ENG_CORRECTED_N1_1.ToString();
+                        UDP_Playload = UDP_Playload + ",N1:" + TURB_ENG_CORRECTED_N1_1;
                     }
                     ;
+
                     if (ENG_OIL_PRESSURE_1 != sFrontPanel.ENG_OIL_PRESSURE_1.ToString()) ;
                     {
                         frontPanelDataChanged = true;
                         ENG_OIL_PRESSURE_1 = sFrontPanel.ENG_OIL_PRESSURE_1.ToString();
+                        UDP_Playload = UDP_Playload + ",OILP:" + ENG_OIL_PRESSURE_1;
                     }
                     ;
+
                     if (ENG_TRANSMISSION_PRESSURE_1 != sFrontPanel.ENG_TRANSMISSION_PRESSURE_1.ToString()) ;
                     {
                         frontPanelDataChanged = true;
                         ENG_TRANSMISSION_PRESSURE_1 = sFrontPanel.ENG_TRANSMISSION_PRESSURE_1.ToString();
+                        UDP_Playload = UDP_Playload + ",XMSNP:" + ENG_TRANSMISSION_PRESSURE_1;
                     }
                     ;
+
                     if (ENG_TRANSMISSION_TEMPERATURE_1 != sFrontPanel.ENG_TRANSMISSION_TEMPERATURE_1.ToString()) ;
                     {
                         frontPanelDataChanged = true;
                         ENG_TRANSMISSION_TEMPERATURE_1 = sFrontPanel.ENG_TRANSMISSION_TEMPERATURE_1.ToString();
+                        UDP_Playload = UDP_Playload + ",XMSNT:" + ENG_TRANSMISSION_TEMPERATURE_1;
                     }
                     ;
+
                     if (ELECTRICAL_MASTER_BATTERY != sFrontPanel.ELECTRICAL_MASTER_BATTERY.ToString()) ;
                     {
                         frontPanelDataChanged = true;
                         ELECTRICAL_MASTER_BATTERY = sFrontPanel.ELECTRICAL_MASTER_BATTERY.ToString();
+                        UDP_Playload = UDP_Playload + ",BATSW:" + ELECTRICAL_MASTER_BATTERY;
                     }
                     ;
 
@@ -1008,27 +1105,9 @@ namespace WindowsFormsApp2
                     if (mS >= 200 && frontPanelDataChanged == true)
                     {
                         frontPanelDataChanged = false;
-                        UDP_Playload = "D,ALT:" + ALTITUDE;
-                        UDP_Playload = UDP_Playload + ",IAS:" + AIRSPEED;
-                        UDP_Playload = UDP_Playload + ",VSI:" + VERTICAL_SPEED;
-                        UDP_Playload = UDP_Playload + ",AGL:" + PLANE_ALT_ABOVE_GROUND;
-                        UDP_Playload = UDP_Playload + ",BANK:" + ATTITUDE_INDICATOR_BANK_DEGREES;
-                        UDP_Playload = UDP_Playload + ",PITCH:" + ATTITUDE_INDICATOR_PITCH_DEGREES;
-                        UDP_Playload = UDP_Playload + ",RPMR:" + ROTOR_RPM_PCT_1;
-                        UDP_Playload = UDP_Playload + ",RPME:" + GENERAL_ENG_PCT_MAX_RPM_1;
-                        UDP_Playload = UDP_Playload + ",TQ:" + ENG_TORQUE_PERCENT_1;
-                        UDP_Playload = UDP_Playload + ",AMPS:" + ELECTRICAL_TOTAL_LOAD_AMPS;
-                        UDP_Playload = UDP_Playload + ",ITT:" + TURB_ENG_ITT_1;
-                        UDP_Playload = UDP_Playload + ",OILT:" + ENG_OIL_TEMPERATURE_1;
-                        UDP_Playload = UDP_Playload + ",FUEL:" + FUEL_TOTAL_QUANTITY;
-                        UDP_Playload = UDP_Playload + ",N1:" + TURB_ENG_CORRECTED_N1_1;
-                        UDP_Playload = UDP_Playload + ",OILP:" + ENG_OIL_PRESSURE_1;
-                        UDP_Playload = UDP_Playload + ",XMSNP:" + ENG_TRANSMISSION_PRESSURE_1;
-                        UDP_Playload = UDP_Playload + ",XMSNT:" + ENG_TRANSMISSION_TEMPERATURE_1;
-                        UDP_Playload = UDP_Playload + ",BATSW:" + ELECTRICAL_MASTER_BATTERY;
-                        UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
-                        UDP_Playload = UDP_Playload + ",RLOW:" + Rotor_RPM_Low.ToString();
-                        UDP_Playload = UDP_Playload + ",EOUT:" + Engine_Out.ToString();
+                   
+
+                        
                         UDP_Playload = UDP_Playload + ",TOPW:" + Trans_Oil_Pressure.ToString();
                         UDP_Playload = UDP_Playload + ",TOWT:" + Trans_Oil_Temp.ToString();
                         UDP_Playload = UDP_Playload + ",BTMP:" + Battery_Temp.ToString();
@@ -1040,11 +1119,11 @@ namespace WindowsFormsApp2
                         UDP_Playload = UDP_Playload + ",FPMP:" + Fuel_Pump.ToString();
                         UDP_Playload = UDP_Playload + ",FFLTR:" + AFT_Fuel_Filter.ToString();
                         UDP_Playload = UDP_Playload + ",GENF:" + Gen_Fail.ToString();
-                        UDP_Playload = UDP_Playload + ",LOWF:" + Low_Fuel.ToString(); 
+                         
                         UDP_Playload = UDP_Playload + ",SCF:" + SC_Fail.ToString();
 
 
-                        if (UDP_Playload != "")
+                        if (UDP_Playload != "D")
                         {
                             // Something has changed so send it
                             Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
@@ -1057,7 +1136,7 @@ namespace WindowsFormsApp2
                     if (mS >= 5000)
 
                     {
-                        // Check if NAVCOM1 is 0 
+                        // NEED TO REBUILD THIS LIST FOR FRONT PANEL OR FIND ANOTHER WAY TO FLAG A MAJOR CHANGE
                         frontPanelDataChanged = false;
                         UDP_Playload = "D,C1A:" + com1ActiveFrequency;
                         UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
