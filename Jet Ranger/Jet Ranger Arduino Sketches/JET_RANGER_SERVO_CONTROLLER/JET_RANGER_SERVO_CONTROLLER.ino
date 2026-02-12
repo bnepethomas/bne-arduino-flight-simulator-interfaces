@@ -74,6 +74,8 @@ int MSFSLen;
 
 const unsigned long aliveinterval = 10000;
 long lastalivesent = 0;
+const unsigned long incomingcheckinterval = 5;
+long lastincomingpacketcheck = 0;
 
 
 #define EthernetStartupDelay 500
@@ -239,7 +241,7 @@ enum Servos {
 
 //                          ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
 long aServMaxPosition[] = { 955, 952, 444, 555, 895, 986, 809, 740, 802, 020, 736, 000, 864, 288, 107, 222 };
-long aServZeroPosition[] = { 044, 498, 444, 555,  28, 242,  33, 527, 121, 310, 124, 121, 560,   9, 424, 222 };
+long aServZeroPosition[] = { 044, 498, 444, 555, 28, 242, 33, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 long aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 
 
@@ -779,7 +781,8 @@ void setup() {
 
 
     ENG_TORQUE_SERVO.attach(11);
-    ENG_TORQUE_SERVO.write(100);
+    ENG_TORQUE_SERVO.write(120);
+
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
   }
 
@@ -815,19 +818,26 @@ void loop() {
     lastalivesent = millis();
   }
 
-  MSFSpacketsize = MSFSudp.parsePacket();
-  if (MSFSpacketsize > 0) {
-    // SendDebug("Received a MSFS Packet");
 
-    MSFSLen = MSFSudp.read(packetBuffer, 999);
+  if ((millis() - lastincomingpacketcheck) >= incomingcheckinterval) {
 
-    if (MSFSLen > 0) {
-      packetBuffer[MSFSLen] = 0;
+    MSFSpacketsize = MSFSudp.parsePacket();
+    if (MSFSpacketsize > 0) {
+      SendDebug("Received a MSFS Packet");
+
+      MSFSLen = MSFSudp.read(packetBuffer, 1000);
+
+      if (MSFSLen > 0) {
+        packetBuffer[MSFSLen] = 0;
+      }
+      if (MSFSpacketsize) {
+
+        ProcessReceivedMSFSString();
+        //SendDebug("Exiting MSFS Processing");
+      }
     }
-    if (MSFSpacketsize) {
-
-      ProcessReceivedMSFSString();
-      //SendDebug("Exiting MSFS Processing");
-    }
+    lastincomingpacketcheck = millis();
   }
+
+
 }
