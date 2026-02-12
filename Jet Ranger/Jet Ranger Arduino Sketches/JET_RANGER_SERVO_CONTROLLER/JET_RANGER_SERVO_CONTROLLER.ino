@@ -114,21 +114,22 @@ void SendDebug(String MessageToSend) {
 
 // ################################ BEGIN WARNING LIGHTS #######################################
 
-String Rotor_RPM_Low = "0";			//RLOW
-String Engine_Out = "0";			//EOUT
-String Trans_Oil_Pressure = "0";	//TOPW
-String Trans_Oil_Temp = "0";;		//TOTW
-String Battery_Temp = "0";			//BTMP
-String Battery_Hot = "0";		//BHOT
-String Trans_Chip = "0";			//TC
-String Baggage_Door = "0";			//BD
-String Engine_Chip = "0";			//EC
-String TR_Chip = "0";				//TRC
-String Fuel_Pump = "0";				//FPMP
-String AFT_Fuel_Filter = "0";		//FFLTR
-String Gen_Fail = "0";				//GENF
-String Low_Fuel = "0";				//LOWF
-String SC_Fail = "0";				//SCF
+String Rotor_RPM_Low = "0";       //RLOW
+String Engine_Out = "0";          //EOUT
+String Trans_Oil_Pressure = "0";  //TOPW
+String Trans_Oil_Temp = "0";
+;                              //TOTW
+String Battery_Temp = "0";     //BTMP
+String Battery_Hot = "0";      //BHOT
+String Trans_Chip = "0";       //TC
+String Baggage_Door = "0";     //BD
+String Engine_Chip = "0";      //EC
+String TR_Chip = "0";          //TRC
+String Fuel_Pump = "0";        //FPMP
+String AFT_Fuel_Filter = "0";  //FFLTR
+String Gen_Fail = "0";         //GENF
+String Low_Fuel = "0";         //LOWF
+String SC_Fail = "0";          //SCF
 
 #define D_Rotor_RPM_Low A1
 #define D_Engine_Out A2
@@ -207,13 +208,41 @@ String AIRSPEED_2 = "";
 bool powerAvailable = true;
 
 #include <Servo.h>
+Servo ENG_TORQUE_SERVO;
 Servo myservo;
+
 
 #define ENG_OIL_TEMP_PORT 12
 #define ENG_OIL_TEMP_PORT 13
 #define ENG_TORQUE_PORT 11
 #define AIRSPEED_PORT 2
-#define GAS_PRODUCER_PORT
+#define GAS_PRODUCER_PORT 12
+
+enum Servos {
+  AirSpeed,
+  VerticalSpeed,
+  AttitudeIndicatorBankDegrees,
+  AttitudeIndicatorPitchDegrees,
+  RotorRpmPct1,
+  GeneralEngPctMaxRpm1,
+  EngTorquePercent1,
+  ElectricalTotalLoadAmps,
+  TurbEngItt1,
+  EngOilTemperature1,
+  FuelTotalQuantity,
+  TurbEngCorrectedN11,
+  EngOilPressure1,
+  EngTransmissionPressure1,
+  EngTransmissionTemperature1,
+  PlaneAltAboveGround,
+};
+
+//                          ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
+long aServMaxPosition[] = { 955, 952, 444, 555, 895, 986, 809, 740, 802, 020, 736, 000, 864, 288, 107, 222 };
+long aServZeroPosition[] = { 044, 498, 444, 555,  28, 242,  33, 527, 121, 310, 124, 121, 560,   9, 424, 222 };
+long aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
+
+
 
 void Airspeed(int AirSpeed) {
   int val = 0;
@@ -322,22 +351,8 @@ void FuelPressure(int pressure) {
   int val = map(pressure, 0, 30, 280, 73);
   myservo.write(val);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // ################################ END SERVO #######################################
+
 
 // ########################################## BEGIN MSFS DATA RECEIVER ########################################
 
@@ -762,6 +777,9 @@ void setup() {
       digitalWrite(RED_STATUS_LED_PORT, true);
     }
 
+
+    ENG_TORQUE_SERVO.attach(11);
+    ENG_TORQUE_SERVO.write(100);
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
   }
 
@@ -789,8 +807,9 @@ void loop() {
 
   if ((millis() - lastalivesent) >= aliveinterval) {
     if (Ethernet_In_Use == 1) {
+      SendDebug("Keepalive Sent");
       aliveudp.beginPacket(reflectorIP, aliveport);
-      aliveudp.print("CommNav");
+      aliveudp.print("SERVO");
       aliveudp.endPacket();
     }
     lastalivesent = millis();

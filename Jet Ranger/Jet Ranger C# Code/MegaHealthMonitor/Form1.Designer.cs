@@ -33,6 +33,7 @@
             lblCommNav = new Label();
             tmrHealthCheck = new System.Windows.Forms.Timer(components);
             cmdToggleLogs = new Button();
+            lblServo = new Label();
             SuspendLayout();
             // 
             // listBoxLogs
@@ -71,11 +72,24 @@
             cmdToggleLogs.UseVisualStyleBackColor = true;
             cmdToggleLogs.Click += cmdToggleLogs_Click;
             // 
+            // lblServo
+            // 
+            lblServo.AutoSize = true;
+            lblServo.BackColor = Color.White;
+            lblServo.ForeColor = SystemColors.ControlText;
+            lblServo.Location = new Point(86, 9);
+            lblServo.Name = "lblServo";
+            lblServo.Size = new Size(36, 23);
+            lblServo.TabIndex = 3;
+            lblServo.Text = "Servo";
+
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(465, 282);
+            Controls.Add(lblServo);
             Controls.Add(cmdToggleLogs);
             Controls.Add(lblCommNav);
             Controls.Add(listBoxLogs);
@@ -92,5 +106,6 @@
         private Label lblCommNav;
         private System.Windows.Forms.Timer tmrHealthCheck;
         private Button cmdToggleLogs;
+        private Label lblServo;
     }
 }

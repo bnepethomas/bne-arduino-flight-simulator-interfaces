@@ -14,6 +14,7 @@ namespace MegaHealthMonitor
         UdpClient udpClient = new UdpClient();
 
         DateTime CommNavLastReceived = DateTime.Now;
+        DateTime ServoLastReceived = DateTime.Now;
 
         bool loggingActive = true;
 
@@ -32,23 +33,51 @@ namespace MegaHealthMonitor
                             UdpReceiveResult result = await udpServer.ReceiveAsync();
                             string receivedData = Encoding.ASCII.GetString(result.Buffer);
 
+                            //if (loggingActive)
+                            //{
+                            //    this.Invoke(new Action(() =>
+                            //    {
+                            //        listBoxLogs.Items.Add($" Received: {receivedData} from {result.RemoteEndPoint}");
 
-                            CommNavLastReceived = DateTime.Now;
-                            // Update UI with received data (use Invoke to reach UI thread)
-                            if (loggingActive)
+                            //    }));
+                            //}
+
+                            if (receivedData.StartsWith("COMM_NAV"))
                             {
+                                CommNavLastReceived = DateTime.Now;
+                                // Update UI with received data (use Invoke to reach UI thread)
+                                if (loggingActive)
+                                {
+                                    this.Invoke(new Action(() =>
+                                    {
+                                        listBoxLogs.Items.Add(CommNavLastReceived.Hour + ":" + CommNavLastReceived.Minute + ":" + CommNavLastReceived.Second + $" Received: {receivedData} from {result.RemoteEndPoint}");
+
+                                    }));
+                                }
+
                                 this.Invoke(new Action(() =>
                                 {
-                                listBoxLogs.Items.Add(CommNavLastReceived.Hour + ":" + CommNavLastReceived.Minute + ":" + CommNavLastReceived.Second + $" Received: {receivedData} from {result.RemoteEndPoint}");
-
+                                    lblCommNav.BackColor = Color.Green;
                                 }));
                             }
-
-                            this.Invoke(new Action(() =>
+                            else if (receivedData.StartsWith("SERVO"))
                             {
-                                lblCommNav.BackColor = Color.Green;
-                            }));
+                                ServoLastReceived = DateTime.Now;
+                                // Update UI with received data (use Invoke to reach UI thread)
 
+                                if (loggingActive)
+                                {
+                                    this.Invoke(new Action(() =>
+                                    {
+                                        listBoxLogs.Items.Add(ServoLastReceived.Hour + ":" + ServoLastReceived.Minute + ":" + ServoLastReceived.Second + $" Received: {receivedData} from {result.RemoteEndPoint}");
+                                    }));
+                                }
+                                this.Invoke(new Action(() =>
+                                {
+                                    lblServo.BackColor = Color.Green;
+                                }));
+
+                            }
                         }
                     }
                 }
@@ -74,7 +103,7 @@ namespace MegaHealthMonitor
                     AddLog("CommNav connection lost.");
                 }
                 lblCommNav.BackColor = Color.Red;
-                
+
             }
             else if (mS >= 15000)
             {
@@ -84,6 +113,30 @@ namespace MegaHealthMonitor
                 }
                 lblCommNav.BackColor = Color.Orange;
             }
+
+            span = DateTime.Now - ServoLastReceived;
+            mS = (int)span.TotalMilliseconds;
+            // displayText("Its been this many mS since sending last packet: " + mS.ToString());
+
+            if (mS >= 30000)
+            {
+                if (lblServo.BackColor != Color.Red)
+                {
+                    AddLog("Servo connection lost.");
+                }
+                lblServo.BackColor = Color.Red;
+
+            }
+            else if (mS >= 15000)
+            {
+                if (lblServo.BackColor != Color.Orange)
+                {
+                    AddLog("Servo connection warning.");
+                }
+                lblServo.BackColor = Color.Orange;
+            }
+
+
         }
 
         private void AddLog(string logMessage)
@@ -123,7 +176,8 @@ namespace MegaHealthMonitor
                 cmdToggleLogs.Text = "Show Logs";
                 this.Height = this.Height - listBoxLogs.Size.Height - 20;
                 this.Width = this.Width - 300;
-            
+            }
+
             else
             {
                 listBoxLogs.Visible = true;
@@ -132,6 +186,7 @@ namespace MegaHealthMonitor
                 this.Width = this.Width + 300;
 
             }
+            }
         }
+
     }
-}
