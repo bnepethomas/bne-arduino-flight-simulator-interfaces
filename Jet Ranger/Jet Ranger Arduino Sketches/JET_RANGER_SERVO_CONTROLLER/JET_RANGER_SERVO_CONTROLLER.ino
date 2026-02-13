@@ -477,8 +477,11 @@ void HandleOutputValuePair(String str) {
     // As the value could contain the null at the end of the string trim it out
     ParameterValue.trim();
 
-    if (ParameterName == "ALT") {
-      //SendDebug("Received COM1 Active Frequency: " + ParameterValue);
+    if (ParameterName == "TQ") {
+      SendDebug("Received Engine Torque: " + ParameterValue);
+
+      ENG_TORQUE_SERVO.write(ParameterValue.toInt());
+
       if (ALTITUDE != ParameterValue) {
         SendDebug("Altitude changed");
         ALTITUDE = ParameterValue;
@@ -780,7 +783,22 @@ void setup() {
     }
 
 
+
     ENG_TORQUE_SERVO.attach(11);
+    delay(100);
+    for (long i = 1000; i >= 0; i--) {
+      SendDebug("I: " + String(i) + " Max: " + String(aServZeroPosition[EngTorquePercent1])
+                + " Min: " + String(aServMaxPosition[EngTorquePercent1]));
+      if ((i >= aServZeroPosition[EngTorquePercent1]) && (i <= aServMaxPosition[EngTorquePercent1])) {
+        //SendDebug("Servo Pos: " + String(i) + " Max: " + String(aServZeroPosition[EngTorquePercent1]) +
+        //  " Min: " + String(aServMaxPosition[EngTorquePercent1]));
+        ENG_TORQUE_SERVO.write(int(i));
+        delay(20);
+        SendDebug("Servo Pos: " + String(i) + " Max: " + String(aServZeroPosition[EngTorquePercent1]) + " Min: " + String(aServMaxPosition[EngTorquePercent1]));
+        delay(20);
+      }
+    }
+
     ENG_TORQUE_SERVO.write(120);
 
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
@@ -838,6 +856,4 @@ void loop() {
     }
     lastincomingpacketcheck = millis();
   }
-
-
 }
