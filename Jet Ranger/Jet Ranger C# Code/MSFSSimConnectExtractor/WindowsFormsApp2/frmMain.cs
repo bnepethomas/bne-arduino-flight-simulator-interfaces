@@ -205,7 +205,7 @@ namespace WindowsFormsApp2
         UdpClient frontPanelClient = new UdpClient();
         UdpClient OutputClient = new UdpClient();
         DateTime RadioTimeLastPacketSent;
-        DateTime FrontPanelTimeLastPacketSent;
+        DateTime FrontPanelTimeLastPacketSent = DateTime.Now;
         TimeSpan span;
         int mS;
 
@@ -351,7 +351,7 @@ namespace WindowsFormsApp2
             public double AIRSPEED_2;                                   // IAS
         };
 
-        private int TQ_Process(long newValue)
+        private int TQ_Process(int newValue)
         {
             // If the short code is TQ then we need to convert the value from a percentage to the corresponding value for the front panel
             // The front panel expects a value between 37 and 176 for the torque servo, which corresponds to 0% and 100% respectively.
@@ -1008,8 +1008,11 @@ namespace WindowsFormsApp2
                     {
                         frontPanelDataChanged = true;
                         ENG_TORQUE_PERCENT_1 = (sFrontPanel.ENG_TORQUE_PERCENT_1 * 4 / 9).ToString();
-                        UDP_Playload = UDP_Playload + ",TQ:" + ENG_TORQUE_PERCENT_1;
-                    }
+                        int a = (int)(sFrontPanel.ENG_TORQUE_PERCENT_1 * 4 / 9);
+
+                        UDP_Playload = UDP_Playload + ",TQ:" +TQ_Process(a);
+;
+    }
                     ;
 
                     if (ELECTRICAL_TOTAL_LOAD_AMPS != (sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS * 40 / 56).ToString()) ;
