@@ -3,7 +3,6 @@ C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# 
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\bin\Release\net10.0-windows\ServoTuner.runtimeconfig.json
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\bin\Release\net10.0-windows\ServoTuner.dll
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\bin\Release\net10.0-windows\ServoTuner.pdb
-C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\obj\Release\net10.0-windows\ServoTuner.Form1.resources
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\obj\Release\net10.0-windows\ServoTuner.csproj.GenerateResource.cache
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\obj\Release\net10.0-windows\ServoTuner.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\obj\Release\net10.0-windows\ServoTuner.AssemblyInfoInputs.cache
@@ -15,3 +14,4 @@ C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# 
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\obj\Release\net10.0-windows\ServoTuner.pdb
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\obj\Release\net10.0-windows\ServoTuner.genruntimeconfig.cache
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\obj\Release\net10.0-windows\ref\ServoTuner.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\ServoTuner\obj\Release\net10.0-windows\ServoTuner.frmMain.resources

@@ -240,10 +240,12 @@ enum Servos {
 };
 
 //                          ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-long aServMaxPosition[] = { 955, 952, 444, 555, 895, 986, 809, 740, 802, 020, 736, 000, 864, 288, 107, 222 };
-long aServZeroPosition[] = { 044, 498, 444, 555, 28, 242, 33, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
-long aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
-
+long aServMinPosition[] = { 44, 10, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+long aServMaxPosition[] = { 955, 952, 444, 555, 895, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
+long aServZeroPosition[] = { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
+long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
+bool aServoIdle[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 
 void Airspeed(int AirSpeed) {
@@ -285,9 +287,14 @@ void TurbineSpeed(int Speed) {
   myservo.write(val);
 }
 
-void EngineTorque(int torque) {
-  int val = map(torque, 0, 120, 33, 809);
-  myservo.write(val);
+void SetEngineTorque(int torque) {
+  if (ENG_TORQUE_SERVO.attached() == false) {
+    ENG_TORQUE_SERVO.attach(ENG_TORQUE_PORT);
+  }
+  aServoLastupdate[EngTorquePercent1] = millis();
+  aServoIdle[EngTorquePercent1] = false;
+
+  ENG_TORQUE_SERVO.write(torque);
 }
 
 void ElectricalLoad(int load) {
@@ -353,6 +360,24 @@ void FuelPressure(int pressure) {
   int val = map(pressure, 0, 30, 280, 73);
   myservo.write(val);
 }
+
+int ServoIdleTime  = 1000;
+
+void CheckServoIdleTime() {
+  if (aServoIdle[EngTorquePercent1] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[EngTorquePercent1]) >= ServoIdleTime) 
+    {
+      if (ENG_TORQUE_SERVO.attached() == true) {
+        ENG_TORQUE_SERVO.detach();
+      }
+      aServoIdle[EngTorquePercent1] = true;
+      SendDebug("Detaching Engine Torque Servo");
+    }
+  };
+}
+
+
 // ################################ END SERVO #######################################
 
 
@@ -480,7 +505,7 @@ void HandleOutputValuePair(String str) {
     if (ParameterName == "TQ") {
       SendDebug("Received Engine Torque: " + ParameterValue);
 
-      ENG_TORQUE_SERVO.write(ParameterValue.toInt());
+      SetEngineTorque(ParameterValue.toInt());
 
       if (ALTITUDE != ParameterValue) {
         SendDebug("Altitude changed");
@@ -782,26 +807,36 @@ void setup() {
       digitalWrite(RED_STATUS_LED_PORT, true);
     }
 
+    SendDebug("Ethernet Started " + strMyIP + " " + sMac);
 
+    SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
+    // ENG_TORQUE_SERVO.attach(11);
+    // ENG_TORQUE_SERVO.write(aServZeroPosition[EngTorquePercent1]);
+    delay(20);
+    // for (int i = 1000; i >= 0; i--) {
+    //   SendDebug("I: " + String(i) + " Zero: " + String(aServZeroPosition[EngTorquePercent1])
+    //             + " Max: " + String(aServMaxPosition[EngTorquePercent1]));
+    //   if ((i < aServZeroPosition[EngTorquePercent1]) && (i > aServMaxPosition[EngTorquePercent1])) {
 
-    ENG_TORQUE_SERVO.attach(11);
-    delay(100);
-    for (long i = 1000; i >= 0; i--) {
-      SendDebug("I: " + String(i) + " Max: " + String(aServZeroPosition[EngTorquePercent1])
-                + " Min: " + String(aServMaxPosition[EngTorquePercent1]));
-      if ((i >= aServZeroPosition[EngTorquePercent1]) && (i <= aServMaxPosition[EngTorquePercent1])) {
-        //SendDebug("Servo Pos: " + String(i) + " Max: " + String(aServZeroPosition[EngTorquePercent1]) +
-        //  " Min: " + String(aServMaxPosition[EngTorquePercent1]));
-        ENG_TORQUE_SERVO.write(int(i));
-        delay(20);
-        SendDebug("Servo Pos: " + String(i) + " Max: " + String(aServZeroPosition[EngTorquePercent1]) + " Min: " + String(aServMaxPosition[EngTorquePercent1]));
-        delay(20);
-      }
+    //     ENG_TORQUE_SERVO.write(int(i));
+    //     delay(5);
+    //     SendDebug("Servo Pos: " + String(i) + " Max: " + String(aServZeroPosition[EngTorquePercent1]) + " Min: " + String(aServMaxPosition[EngTorquePercent1]));
+    //     delay(10);
+    //   }
+    // }
+
+    SendDebug("Using Map command");
+    for (int i = 0; i <= 120; i++) {
+      SetEngineTorque((map(i, 0, 120, aServZeroPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1])));
+      delay(10);
+    }
+    for (int i = 120; i >= 0; i--) {
+      SetEngineTorque((map(i, 0, 120, aServZeroPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1])));
+      delay(10);
     }
 
-    ENG_TORQUE_SERVO.write(120);
+    SetEngineTorque((int(aServZeroPosition[EngTorquePercent1])));
 
-    SendDebug("Ethernet Started " + strMyIP + " " + sMac);
   }
 
 
@@ -828,7 +863,6 @@ void loop() {
 
   if ((millis() - lastalivesent) >= aliveinterval) {
     if (Ethernet_In_Use == 1) {
-      SendDebug("Keepalive Sent");
       aliveudp.beginPacket(reflectorIP, aliveport);
       aliveudp.print("SERVO");
       aliveudp.endPacket();
@@ -856,4 +890,6 @@ void loop() {
     }
     lastincomingpacketcheck = millis();
   }
+
+  CheckServoIdleTime();
 }

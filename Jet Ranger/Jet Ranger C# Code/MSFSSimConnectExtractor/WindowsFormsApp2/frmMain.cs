@@ -214,9 +214,9 @@ namespace WindowsFormsApp2
         }
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-        long[] ServMinPosition  = new long[] {044, 010, 444, 555, 028, 242, 033, 527, 121, 310, 124, 121, 560, 009, 424, 222 };
-        long[] ServMaxPosition  = new long[] {955, 952, 444, 555, 895, 986, 809, 740, 802, 020, 736, 000, 864, 288, 107, 222 };
-        long[] ServZeroPosition = new long[] {044, 498, 444, 555, 028, 242, 033, 527, 121, 310, 124, 121, 560, 009, 424, 222 };
+        long[] ServMinPosition  = new long[] { 44,  10, 444, 555,  28, 242, 176, 527, 121, 310, 124, 121, 560,   9, 424, 222 };
+        long[] ServMaxPosition  = new long[] {955, 952, 444, 555, 895, 986,  37, 740, 802,  20, 736, 000, 864, 288, 107, 222 };
+        long[] ServZeroPosition = new long[] { 44, 498, 444, 555,  28, 242, 176, 527, 121, 310, 124, 121, 560,   9, 424, 222 };
         long[] ServoPosition    = new long[] {000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 
 

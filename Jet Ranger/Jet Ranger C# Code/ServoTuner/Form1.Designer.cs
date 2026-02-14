@@ -1,6 +1,6 @@
 ﻿namespace ServoTuner
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         ///  Required designer variable.
@@ -34,6 +34,12 @@
             lblShortCode = new Label();
             label2 = new Label();
             label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            lblMinValue = new Label();
+            lblMaxValue = new Label();
+            textBox1 = new TextBox();
+            button1 = new Button();
             SuspendLayout();
             // 
             // vScrollBar1
@@ -80,7 +86,6 @@
             label2.Size = new Size(69, 15);
             label2.TabIndex = 5;
             label2.Text = "Short Code:";
-            label2.Click += label2_Click;
             // 
             // label3
             // 
@@ -92,18 +97,80 @@
             label3.Text = "Value to send:";
             label3.TextAlign = ContentAlignment.TopRight;
             // 
-            // Form1
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(227, 54);
+            label4.Name = "label4";
+            label4.Size = new Size(64, 15);
+            label4.TabIndex = 7;
+            label4.Text = "Max Value:";
+            label4.TextAlign = ContentAlignment.TopRight;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(93, 54);
+            label5.Name = "label5";
+            label5.Size = new Size(62, 15);
+            label5.TabIndex = 8;
+            label5.Text = "Min Value:";
+            label5.TextAlign = ContentAlignment.TopRight;
+            // 
+            // lblMinValue
+            // 
+            lblMinValue.AutoSize = true;
+            lblMinValue.Location = new Point(157, 54);
+            lblMinValue.Name = "lblMinValue";
+            lblMinValue.Size = new Size(68, 15);
+            lblMinValue.TabIndex = 9;
+            lblMinValue.Text = "Unassigned";
+            // 
+            // lblMaxValue
+            // 
+            lblMaxValue.AutoSize = true;
+            lblMaxValue.Location = new Point(297, 54);
+            lblMaxValue.Name = "lblMaxValue";
+            lblMaxValue.Size = new Size(68, 15);
+            lblMaxValue.TabIndex = 10;
+            lblMaxValue.Text = "Unassigned";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(236, 368);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 11;
+            textBox1.Text = "0";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(157, 366);
+            button1.Name = "button1";
+            button1.Size = new Size(61, 25);
+            button1.TabIndex = 12;
+            button1.Text = "Send";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(566, 450);
+            Controls.Add(button1);
+            Controls.Add(textBox1);
+            Controls.Add(lblMaxValue);
+            Controls.Add(lblMinValue);
+            Controls.Add(label5);
+            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(lblShortCode);
             Controls.Add(lstServos);
             Controls.Add(label1);
             Controls.Add(vScrollBar1);
-            Name = "Form1";
+            Name = "frmMain";
             Text = "Servo Tuner";
             Load += Form1_Load;
             ResumeLayout(false);
@@ -117,5 +184,11 @@
         private Label lblShortCode;
         private Label label2;
         private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label lblMinValue;
+        private Label lblMaxValue;
+        private TextBox textBox1;
+        private Button button1;
     }
 }

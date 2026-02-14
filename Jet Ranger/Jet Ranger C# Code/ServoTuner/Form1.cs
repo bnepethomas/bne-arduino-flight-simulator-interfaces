@@ -1,17 +1,10 @@
-
-
-using System;
-using System.Diagnostics.Eventing.Reader;
-using System.Drawing;
+using Microsoft.VisualBasic;
 using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ServoTuner
 {
-    public partial class Form1 : Form
+    public partial class frmMain : Form
     {
 
 
@@ -60,13 +53,76 @@ namespace ServoTuner
             AGL,
         }
 
+
+        //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
+        long[] ServMinPosition = new long[] { 44, 10, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+        long[] ServMaxPosition = new long[] { 955, 952, 444, 555, 895, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
+        long[] ServZeroPosition = new long[] { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+
+
         private void SendToFrontPanel(string message)
         {
             byte[] sendBytes = Encoding.ASCII.GetBytes(message);
             frontPanelClient.Send(sendBytes, sendBytes.Length);
         }
 
-        public Form1()
+        private long Mapper(long value, long fromLow, long fromHigh, long toLow, long toHigh)
+        {
+            /// <summary>
+            /// Re-maps a number from one range to another, similar to the Arduino map() function.
+            /// </summary>
+            /// <param name="value">The input value to map.</param>
+            /// <param name="fromLow">The lower bound of the value's current range.</param>
+            /// <param name="fromHigh">The upper bound of the value's current range.</param>
+            /// <param name="toLow">The lower bound of the value's target range.</param>
+            /// <param name="toHigh">The upper bound of the value's target range.</param>
+            /// <returns>The mapped value in the target range.</returns>
+
+
+            // The formula for the Arduino map() function
+            // Need to check how this handles the from being higher than the to range
+            // and whether it handles values outside the from range.
+            // It should handle both of those cases but need to test that.
+            return (value - fromLow) * (toHigh - toLow) / (fromHigh - fromLow) + toLow;
+
+        }
+
+        private void UpdateLabels()
+        {
+            lblShortCode.Text = $"{((ServoShortCodes)lstServos.SelectedIndex).ToString()}";
+            lblMinValue.Text = $"Min: {ServMinPosition[lstServos.SelectedIndex]}";
+            lblMaxValue.Text = $"Max: {ServMaxPosition[lstServos.SelectedIndex]}";
+        }
+
+        private void SendManualValue()
+
+        {
+
+            // Need to check if the value is within the min and max for the selected servo before sending it to the front panel
+            long localMin = 0;
+            long localMax = 1000;
+            if (ServMinPosition[lstServos.SelectedIndex] > ServMaxPosition[lstServos.SelectedIndex])
+            {
+                localMax = ServMinPosition[lstServos.SelectedIndex];
+                localMin = ServMaxPosition[lstServos.SelectedIndex];
+            }
+            else
+            {
+                localMin = ServMinPosition[lstServos.SelectedIndex];
+                localMax = ServMaxPosition[lstServos.SelectedIndex];
+            }
+
+
+            if (long.TryParse(textBox1.Text, out long newValue))
+            {
+                if (newValue >= localMin && newValue <= localMax)
+                {
+                    SendToFrontPanel("D," + lblShortCode.Text + ":" + newValue.ToString());
+                }
+            }
+        }
+
+        public frmMain()
         {
             InitializeComponent();
 
@@ -76,21 +132,41 @@ namespace ServoTuner
                 lstServos.Items.Add($"{servoName}");
             }
             lstServos.SelectedItem = "EngTorquePercent1";
-            lblShortCode.Text = $"{((ServoShortCodes)lstServos.SelectedIndex).ToString()}";
+            UpdateLabels();
 
             frontPanelClient.Connect("172.16.1.102", 13136);
-            SendToFrontPanel("D,TQ:150");
         }
 
         private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
-            this.label1.Text = "Value: " + e.NewValue.ToString();
-            SendToFrontPanel("D," +  lblShortCode.Text + ":" + e.NewValue.ToString());
+            // Need to check if the value is within the min and max for the selected servo before sending it to the front panel
+            long localMin = 0;
+            long localMax = 1000;
+            if (ServMinPosition[lstServos.SelectedIndex] > ServMaxPosition[lstServos.SelectedIndex])
+            {
+                localMax = ServMinPosition[lstServos.SelectedIndex];
+                localMin = ServMaxPosition[lstServos.SelectedIndex];
+            }
+            else
+            {
+                localMin = ServMinPosition[lstServos.SelectedIndex];
+                localMax = ServMaxPosition[lstServos.SelectedIndex];
+            }
+
+            if (e.NewValue >= localMin && e.NewValue <= localMax)
+            {
+                lblMinValue.Text = $"Min: {ServMinPosition[lstServos.SelectedIndex]}";
+                lblMaxValue.Text = $"Max: {ServMaxPosition[lstServos.SelectedIndex]}";
+                this.label1.Text = "Value: " + e.NewValue.ToString();
+                SendToFrontPanel("D," + lblShortCode.Text + ":" + e.NewValue.ToString());
+            }
+
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
             this.vScrollBar1.Value = 120;
             this.label1.Text = "Value: " + this.vScrollBar1.Value.ToString();
         }
@@ -106,12 +182,12 @@ namespace ServoTuner
 
         private void lstServos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblShortCode.Text = $"{((ServoShortCodes)lstServos.SelectedIndex).ToString()}";
+            UpdateLabels();
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            SendManualValue();
         }
     }
 }
