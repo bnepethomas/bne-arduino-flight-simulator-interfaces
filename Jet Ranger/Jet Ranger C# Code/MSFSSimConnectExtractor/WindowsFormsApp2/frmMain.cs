@@ -12,6 +12,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 //      Based on C# in SDK - which is also found here
 //
@@ -190,6 +191,26 @@ namespace WindowsFormsApp2
             EngTransmissionPressure1,
             EngTransmissionTemperature1,
             PlaneAltAboveGround,
+        }
+
+        enum ServoShortCodes
+        {
+            IAS,
+            VSI,
+            BANK,
+            PITCH,
+            RPMR,
+            RPME,
+            TQ,
+            AMPS,
+            ITT,
+            OILT,
+            FUEL,
+            N1,
+            OILP,
+            XMSNP,
+            XMSNT,
+            AGL,
         }
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
