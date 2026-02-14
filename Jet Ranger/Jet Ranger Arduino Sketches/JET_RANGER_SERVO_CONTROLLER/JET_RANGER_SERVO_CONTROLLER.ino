@@ -213,6 +213,7 @@ bool powerAvailable = true;
 
 #include <Servo.h>
 Servo ENG_TORQUE_SERVO;
+Servo AIRSPEED_SERVO;
 Servo myservo;
 
 
@@ -243,9 +244,9 @@ enum Servos {
 };
 
 //                            ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-long aServMinPosition[] = { 44, 10, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
-long aServMaxPosition[] = { 955, 952, 444, 555, 895, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
-long aServZeroPosition[] = { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+int aServMinPosition[] = { 44, 10, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+int aServMaxPosition[] = { 900, 952, 444, 555, 895, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
+int aServZeroPosition[] = { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 int aTargetServoPosition[] = { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
@@ -299,6 +300,16 @@ void SetEngineTorque(int torque) {
   aServoIdle[EngTorquePercent1] = false;
 
   ENG_TORQUE_SERVO.write(torque);
+}
+
+void SetAirSpeed(int TargetAirSpeed) {
+  if (AIRSPEED_SERVO.attached() == false) {
+    AIRSPEED_SERVO.attach(AIRSPEED_PORT);
+  }
+  aServoLastupdate[AirSpeed] = millis();
+  aServoIdle[AirSpeed] = false;
+
+  AIRSPEED_SERVO.write(TargetAirSpeed);
 }
 
 void ElectricalLoad(int load) {
@@ -369,6 +380,8 @@ void FuelPressure(int pressure) {
 
 void UpdateServoPos() {
   bool positionUpdated = false;
+
+  // Walk though all Servos and see if we need to update a servo location
   for (int i = 0; i < Number_of_Servos; i++) {
     positionUpdated = false;
 
@@ -382,12 +395,14 @@ void UpdateServoPos() {
 
     if (positionUpdated == true) {
       if (i == EngTorquePercent1) SetEngineTorque(aServoPosition[EngTorquePercent1]);
+      if (i == AirSpeed) SetAirSpeed(aServoPosition[AirSpeed]);
     }
   }
 }
 
 int ServoIdleTime = 1000;
 void CheckServoIdleTime() {
+  // Engine Torque
   if (aServoIdle[EngTorquePercent1] == false) {
     //Need to see if we have hit time to detach
     if ((millis() - aServoLastupdate[EngTorquePercent1]) >= ServoIdleTime) {
@@ -396,7 +411,18 @@ void CheckServoIdleTime() {
       }
       aServoIdle[EngTorquePercent1] = true;
       SendDebug("Detaching Engine Torque Servo");
-    }
+    }     
+  };
+  // AirSpeed
+  if (aServoIdle[AirSpeed] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[AirSpeed]) >= ServoIdleTime) {
+      if (AIRSPEED_SERVO.attached() == true) {
+        AIRSPEED_SERVO.detach();
+      }
+      aServoIdle[AirSpeed] = true;
+      SendDebug("Detaching Air Speed Servo");
+    }     
   };
 }
 
@@ -529,16 +555,11 @@ void HandleOutputValuePair(String str) {
       SendDebug("Received Engine Torque: " + ParameterValue);
       aTargetServoPosition[EngTorquePercent1] = ParameterValue.toInt();
 
-      if (ALTITUDE != ParameterValue) {
-        SendDebug("Altitude changed");
-        ALTITUDE = ParameterValue;
-      };
     } else if (ParameterName == "IAS") {
-      //SendDebug("Airspeed: " + ParameterValue);
-      if (AIRSPEED != ParameterValue) {
-        SendDebug("Airspeed changed");
-        AIRSPEED = ParameterValue;
-      };
+
+      SendDebug("ReceivedAir Speed: " + ParameterValue);
+      aTargetServoPosition[AirSpeed] = ParameterValue.toInt();
+
     } else if (ParameterName == "VSI") {
       //SendDebug("Received Vertical Speed: " + ParameterValue);
       if (VERTICAL_SPEED != ParameterValue) {
@@ -831,26 +852,39 @@ void setup() {
 
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
 
+    // Engine Torque
     SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
-
     delay(20);
-
-    SendDebug("Using Map command");
     for (int i = 0; i <= 120; i++) {
-      SetEngineTorque((map(i, 0, 120, aServZeroPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1])));
+      SetEngineTorque((int(map(i, 0, 120, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1]))));
       delay(10);
     }
     for (int i = 120; i >= 0; i--) {
-      SetEngineTorque((map(i, 0, 120, aServZeroPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1])));
+      SetEngineTorque((int(map(i, 0, 120, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1]))));
       delay(10);
     }
 
-    SetEngineTorque((int(aServZeroPosition[EngTorquePercent1])));
-
+    // Air Speed
+    SetAirSpeed(aServZeroPosition[AirSpeed]);
+    delay(20);
+    int tempAirSpeed = 0;
+    for (int i = 0; i <= 150; i++) {
+      SendDebug(String(i) + " " + String(long(aServMinPosition[AirSpeed])) + ":" + String(long(aServMaxPosition[AirSpeed])));
+      SendDebug(String(map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
+      tempAirSpeed = int(map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed])));
+      SetAirSpeed(tempAirSpeed);
+      //SetAirSpeed(int(map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
+      delay(100);
+    }
+    for (int i = 150; i >= 0; i--) {
+      //SetAirSpeed((map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
+      delay(10);
+    }
+    
 
     for (int i = 0; i < Number_of_Servos; i++) {
-      aServoPosition[i] = aServZeroPosition[EngTorquePercent1];
-      aTargetServoPosition[i] = aServZeroPosition[EngTorquePercent1];
+      aServoPosition[i] = aServZeroPosition[i];
+      aTargetServoPosition[i] = aServZeroPosition[i];
     }
   }
 

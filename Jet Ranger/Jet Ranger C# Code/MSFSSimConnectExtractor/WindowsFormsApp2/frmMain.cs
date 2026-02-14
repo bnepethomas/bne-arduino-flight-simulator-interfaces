@@ -1,5 +1,94 @@
 ﻿// Original based on P3d sample code, modifying for MSFS2024
 
+// Workflow for adding new variables to receive from simconnect and send to the front panel
+// 1. Identify the sim variable you want to receive from the sim. Use the SDK documentation to find the variable name and units.
+// 2. Add a new variable to the appropriate structure (Struct1, StructRadio, or StructFrontPanel) to
+//    hold the value of the sim variable. Make sure to use the correct data type and units.
+// 3. Add the sim variable to the data definition in the Setup_DataRequests() method. Make sure to add
+//    it in the same order as it is defined in the structure.
+// 4. Add a new variable to hold the value of the sim variable in the frmMain class. This variable will
+//    be used to store the value received from simconnect and to send to the front panel.
+// 5. Add code to the simconnect_OnRecvSimobjectDataBytype event handler to update the value of the new
+//    variable with the value received from simconnect.
+// 6. Add code to the UpdateFrontPanel() method to include the new variable in the payload sent to the
+//    front panel. Make sure to format the value correctly based on the units of the sim variable.
+// 7. Test the changes by running the application and verifying that the new variable is being received from
+//    simconnect and sent to the front panel correctly.
+// 8. If necessary, add code to handle any special cases for the new variable, such as mapping the value to a
+//    specific range for a servo or handling boolean values for indicators.
+
+// Outside of this target infrastructure needs to be added to the Arudino project to receive the new variable and
+// update the corresponding servo or indicator on the front panel. This will involve adding a new case to the switch
+// statement that processes incoming data from the PC and updating the code that controls the servos and indicators
+// based on the value of the new variable.
+// 1. Use Kicad to determine which pin on the Arduino the new variable will be connected to and connect servo. 
+//      Jet Ranger DUE Prod Radio Controller for Radios 
+//      Jet Ranger Front Panel Servo for Instruments and Indicators
+// 2. The constant should be suffixed with _PORT eg AIRPSEED_PORT
+// 3. The Variable should be been updated in the enum Servos and have an entry in the ServoMinPosition, ServoMaxPosition,
+//    and ServoZeroPosition arrays if it is a servo. The master location for these arrays should be the Servo Tuner project
+//    so that they can be easily updated and the values will be consistent across both the PC application and the Arduino code.
+//    Note they Arduino code does not accept the native C# definitions so a little modification is needed for the arrays.
+// 4. As the mapping of SimConnect to Servo position is done in the PC application, no mapping is needed in the Arduino code.
+// 5. Create the Servo variable with a suffix of _SERVO.
+//          Servo ENG_TORQUE_SERVO;
+// 6. Create a routine which is prefix with Set eg SetEgnineTorque which receives an integer value. It checks to see if the
+//    servo is attached and if not it attaches it. It then updates the last update time for the servo and sets the idle status
+//    to false before writing the value to the servo.
+
+//      void SetEngineTorque(int torque) {
+//           if (ENG_TORQUE_SERVO.attached() == false){
+//               ENG_TORQUE_SERVO.attach(ENG_TORQUE_PORT);
+//           }
+//           aServoLastupdate[EngTorquePercent1] = millis();
+//           aServoIdle[EngTorquePercent1] = false;
+
+//           ENG_TORQUE_SERVO.write(torque);
+//         }
+// 7.  Add entry to UpdateServoPos(). Which walks through all Servo to see if a movement is needed
+//          if (i == EngTorquePercent1) SetEngineTorque(aServoPosition[EngTorquePercent1]);
+//
+// 8.  Add Entry to CheckServoIdelTimeout() which checks to see if the servo has been idle for a certain amount of time and if so,
+//     detaches the servo to prevent it jittering and reduces power demand.
+//          void CheckServoIdleTime() {
+//             if (aServoIdle[EngTorquePercent1] == false)
+//             {
+//                //Need to see if we have hit time to detach
+//                if ((millis() - aServoLastupdate[EngTorquePercent1]) >= ServoIdleTime)
+//                {
+//                    if (ENG_TORQUE_SERVO.attached() == true)
+//                    {
+//                        ENG_TORQUE_SERVO.detach();
+//                    }
+//                    aServoIdle[EngTorquePercent1] = true;
+//                    SendDebug("Detaching Engine Torque Servo");
+//                }
+//            }
+//
+// 9.  Add Entry to HandleOutputValuePair
+//            if (ParameterName == "TQ")
+//            {
+//                SendDebug("Received Engine Torque: " + ParameterValue);
+//                aTargetServoPosition[EngTorquePercent1] = ParameterValue.toInt();
+//            } 
+//
+// 10. Add Entry to swing new Servo in setup.
+//            SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
+//            delay(20);
+//            for (int i = 0; i <= 120; i++)
+//            {
+//                SetEngineTorque((map(i, 0, 120, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1])));
+//                delay(10);
+//            }
+//            for (int i = 120; i >= 0; i--)
+//            {
+//                SetEngineTorque((map(i, 0, 120, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1])));
+//                delay(10);
+//            }
+//
+// 11. Compile and upload and then Test with Servo Tuner            
+
+
 
 // SimConnect Services
 // using LockheedMartin.Prepar3D.SimConnect;
