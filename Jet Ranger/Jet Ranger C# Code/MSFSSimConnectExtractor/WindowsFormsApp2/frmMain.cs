@@ -153,28 +153,8 @@ namespace WindowsFormsApp2
             KEY_GPS_DIRECTTO_BUTTON,
         }
 
-        enum GROUP_ID
-        {
-            GROUP0,
-        }
-
-        string UDP_Playload;
-        string Output_Payload;
-        UdpClient udpClient = new UdpClient();
-        UdpClient frontPanelClient = new UdpClient();
-        UdpClient OutputClient = new UdpClient();
-        DateTime RadioTimeLastPacketSent;
-        DateTime FrontPanelTimeLastPacketSent;
-        TimeSpan span;
-        int mS;
-
-        // Will calaculate the position of the servo based on the value received from simconnect and the min and max positions defined for each servo.
-        // instead of asking the Mega to do that.  This is because the servos have different ranges and it is easier to manage that in code than on the Mega.
-        // The ServoZeroPosition array is to deal with gauges such as VSI and Pitch and Bank which have a zero position in the middle of the range.
-        // This allows the code to calculate the position of the servo based on the value received from simconnect and the min and max positions defined
-        // for each servo, as well as the zero position for those servos that have a zero position in the middle of the range.
         enum Servos
-        { 
+        {
             AirSpeed,
             VerticalSpeed,
             AttitudeIndicatorBankDegrees,
@@ -212,6 +192,29 @@ namespace WindowsFormsApp2
             XMSNT,
             AGL,
         }
+        enum GROUP_ID
+        {
+            GROUP0,
+        }
+
+
+
+        string UDP_Playload;
+        string Output_Payload;
+        UdpClient udpClient = new UdpClient();
+        UdpClient frontPanelClient = new UdpClient();
+        UdpClient OutputClient = new UdpClient();
+        DateTime RadioTimeLastPacketSent;
+        DateTime FrontPanelTimeLastPacketSent;
+        TimeSpan span;
+        int mS;
+
+        // Will calaculate the position of the servo based on the value received from simconnect and the min and max positions defined for each servo.
+        // instead of asking the Mega to do that.  This is because the servos have different ranges and it is easier to manage that in code than on the Mega.
+        // The ServoZeroPosition array is to deal with gauges such as VSI and Pitch and Bank which have a zero position in the middle of the range.
+        // This allows the code to calculate the position of the servo based on the value received from simconnect and the min and max positions defined
+        // for each servo, as well as the zero position for those servos that have a zero position in the middle of the range.
+
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
         long[] ServMinPosition  = new long[] { 44,  10, 444, 555,  28, 242, 176, 527, 121, 310, 124, 121, 560,   9, 424, 222 };
@@ -348,7 +351,15 @@ namespace WindowsFormsApp2
             public double AIRSPEED_2;                                   // IAS
         };
 
-
+        private int TQ_Process(long newValue)
+        {
+            // If the short code is TQ then we need to convert the value from a percentage to the corresponding value for the front panel
+            // The front panel expects a value between 37 and 176 for the torque servo, which corresponds to 0% and 100% respectively.
+            // So we need to map the input value (0-100) to the range of 37-176.
+            int mappedvalue = (int)Mapper(newValue, 0, 120,
+                ServMinPosition[(int)Servos.EngTorquePercent1], ServMaxPosition[(int)Servos.EngTorquePercent1]);
+            return mappedvalue;
+        }
 
 
 
@@ -390,39 +401,7 @@ namespace WindowsFormsApp2
             });
         }
 
-        public static byte[] IntToBcd(int value)
-        {
-            // Input validation (assuming a max of 8 BCD digits, i.e., up to 99,999,999)
-            if (value < 0 || value > 99999999)
-            {
-                throw new ArgumentOutOfRangeException(nameof(value), "Value must be between 0 and 99,999,999.");
-            }
-
-            // A BCD number stores two decimal digits per byte
-            byte[] bcdArray = new byte[4];
-
-            for (int i = 0; i < 4; i++)
-            {
-                // Get the least significant digit (LSD) using modulo 10
-                int lsd = value % 10;
-                bcdArray[i] = (byte)lsd;
-                // Remove the LSD from the value
-                value /= 10;
-
-                // Get the next least significant digit
-                int msd = value % 10;
-                // Shift the MSD 4 bits to the left to place it in the high nibble, then combine with the LSD
-                bcdArray[i] |= (byte)(msd << 4);
-                // Remove the MSD from the value
-                value /= 10;
-
-                // Optimization: if value is 0, we can stop
-                if (value == 0) break;
-            }
-
-            return bcdArray;
-        }
-
+  
 
 
         public frmMain()
@@ -443,7 +422,7 @@ namespace WindowsFormsApp2
             {
                 ServoPosition[i] = ServZeroPosition[i];
             }
-
+            
 
 
         }
@@ -734,6 +713,7 @@ namespace WindowsFormsApp2
             catch (COMException ex)
             {
                 displayText(ex.Message);
+
             }
         }
 
@@ -826,11 +806,11 @@ namespace WindowsFormsApp2
                     {
                         radioFrequencyChanged = false;
                         UDP_Playload = "D,C1A:" + com1ActiveFrequency;
-                        UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
-                        UDP_Playload = UDP_Playload + ",C2A:" + com2ActiveFrequency;
-                        UDP_Playload = UDP_Playload + ",C2S:" + com2StandbyFrequency;
-                        UDP_Playload = UDP_Playload + ",MAINBUS:" + MainBusVoltage;
-                        UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON; 
+                        UDP_Playload += ",C1S:" + com1StandbyFrequency;
+                        UDP_Playload += ",C2A:" + com2ActiveFrequency;
+                        UDP_Playload += ",C2S:" + com2StandbyFrequency;
+                        UDP_Playload += ",MAINBUS:" + MainBusVoltage;
+                        UDP_Playload += ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON; 
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
 
@@ -842,11 +822,11 @@ namespace WindowsFormsApp2
                     {
                         radioFrequencyChanged = false;
                         UDP_Playload = "D,C1A:" + com1ActiveFrequency;
-                        UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
-                        UDP_Playload = UDP_Playload + ",C2A:" + com2ActiveFrequency;
-                        UDP_Playload = UDP_Playload + ",C2S:" + com2StandbyFrequency;
-                        UDP_Playload = UDP_Playload + ",MAINBUS:" + MainBusVoltage;
-                        UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
+                        UDP_Playload += ",C1S:" + com1StandbyFrequency;
+                        UDP_Playload += ",C2A:" + com2ActiveFrequency;
+                        UDP_Playload += ",C2S:" + com2StandbyFrequency;
+                        UDP_Playload += ",MAINBUS:" + MainBusVoltage;
+                        UDP_Playload += ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
                         RadioTimeLastPacketSent = DateTime.Now;
@@ -900,21 +880,21 @@ namespace WindowsFormsApp2
                             // Need to turn off all Warning indicators and select instruments that are powered by NAVCOM1
                             // Known exclusions are AirSpeed, Altitude and possibly VSI
 
-                            UDP_Playload = UDP_Playload + ",RLOW:0";
-                            UDP_Playload = UDP_Playload + ",EOUT:0";
-                            UDP_Playload = UDP_Playload + ",TOPW:0";
-                            UDP_Playload = UDP_Playload + ",TOWT:0";
-                            UDP_Playload = UDP_Playload + ",BTMP0:";
-                            UDP_Playload = UDP_Playload + ",BHOT0";
-                            UDP_Playload = UDP_Playload + ",TC:0";
-                            UDP_Playload = UDP_Playload + ",BD0:";
-                            UDP_Playload = UDP_Playload + ",EC:0";
-                            UDP_Playload = UDP_Playload + ",TRC:0"; ;
-                            UDP_Playload = UDP_Playload + ",FPMP:0";
-                            UDP_Playload = UDP_Playload + ",FFLTR:0";
-                            UDP_Playload = UDP_Playload + ",GENF0:";
-                            UDP_Playload = UDP_Playload + ",LOWF:0";
-                            UDP_Playload = UDP_Playload + ",SCF:0";
+                            UDP_Playload += ",RLOW:0";
+                            UDP_Playload += ",EOUT:0";
+                            UDP_Playload += ",TOPW:0";
+                            UDP_Playload += ",TOWT:0";
+                            UDP_Playload += ",BTMP0:";
+                            UDP_Playload += ",BHOT0";
+                            UDP_Playload += ",TC:0";
+                            UDP_Playload += ",BD0:";
+                            UDP_Playload += ",EC:0";
+                            UDP_Playload += ",TRC:0"; ;
+                            UDP_Playload += ",FPMP:0";
+                            UDP_Playload += ",FFLTR:0";
+                            UDP_Playload += ",GENF0:";
+                            UDP_Playload += ",LOWF:0";
+                            UDP_Playload += ",SCF:0";
                         }
                         else
                         {
@@ -1129,19 +1109,19 @@ namespace WindowsFormsApp2
                    
 
                         
-                        UDP_Playload = UDP_Playload + ",TOPW:" + Trans_Oil_Pressure.ToString();
-                        UDP_Playload = UDP_Playload + ",TOWT:" + Trans_Oil_Temp.ToString();
-                        UDP_Playload = UDP_Playload + ",BTMP:" + Battery_Temp.ToString();
-                        UDP_Playload = UDP_Playload + ",BHOT:" + Battery_Hot.ToString();
-                        UDP_Playload = UDP_Playload + ",TC:" + Trans_Chip.ToString();
-                        UDP_Playload = UDP_Playload + ",BD:" + Baggage_Door.ToString();
-                        UDP_Playload = UDP_Playload + ",EC:" + Engine_Chip.ToString();
-                        UDP_Playload = UDP_Playload + ",TRC:" + TR_Chip.ToString();
-                        UDP_Playload = UDP_Playload + ",FPMP:" + Fuel_Pump.ToString();
-                        UDP_Playload = UDP_Playload + ",FFLTR:" + AFT_Fuel_Filter.ToString();
-                        UDP_Playload = UDP_Playload + ",GENF:" + Gen_Fail.ToString();
+                        UDP_Playload += ",TOPW:" + Trans_Oil_Pressure.ToString();
+                        UDP_Playload += ",TOWT:" + Trans_Oil_Temp.ToString();
+                        UDP_Playload += ",BTMP:" + Battery_Temp.ToString();
+                        UDP_Playload += ",BHOT:" + Battery_Hot.ToString();
+                        UDP_Playload += ",TC:" + Trans_Chip.ToString();
+                        UDP_Playload += ",BD:" + Baggage_Door.ToString();
+                        UDP_Playload += ",EC:" + Engine_Chip.ToString();
+                        UDP_Playload += ",TRC:" + TR_Chip.ToString();
+                        UDP_Playload += ",FPMP:" + Fuel_Pump.ToString();
+                        UDP_Playload += ",FFLTR:" + AFT_Fuel_Filter.ToString();
+                        UDP_Playload += ",GENF:" + Gen_Fail.ToString();
                          
-                        UDP_Playload = UDP_Playload + ",SCF:" + SC_Fail.ToString();
+                        UDP_Playload += ",SCF:" + SC_Fail.ToString();
 
 
                         if (UDP_Playload != "D")
@@ -1160,11 +1140,11 @@ namespace WindowsFormsApp2
                         // NEED TO REBUILD THIS LIST FOR FRONT PANEL OR FIND ANOTHER WAY TO FLAG A MAJOR CHANGE
                         frontPanelDataChanged = false;
                         UDP_Playload = "D,C1A:" + com1ActiveFrequency;
-                        UDP_Playload = UDP_Playload + ",C1S:" + com1StandbyFrequency;
-                        UDP_Playload = UDP_Playload + ",C2A:" + com2ActiveFrequency;
-                        UDP_Playload = UDP_Playload + ",C2S:" + com2StandbyFrequency;
-                        UDP_Playload = UDP_Playload + ",MAINBUS:" + MainBusVoltage;
-                        UDP_Playload = UDP_Playload + ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
+                        UDP_Playload += ",C1S:" + com1StandbyFrequency;
+                        UDP_Playload += ",C2A:" + com2ActiveFrequency;
+                        UDP_Playload += ",C2S:" + com2StandbyFrequency;
+                        UDP_Playload += ",MAINBUS:" + MainBusVoltage;
+                        UDP_Playload += ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         udpClient.Send(senddata, senddata.Length);
                         FrontPanelTimeLastPacketSent = DateTime.Now;

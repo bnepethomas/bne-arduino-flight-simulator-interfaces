@@ -158,11 +158,13 @@
             // 
             // txtConvertedInput
             // 
+            txtConvertedInput.CausesValidation = false;
             txtConvertedInput.Location = new Point(236, 397);
             txtConvertedInput.Name = "txtConvertedInput";
             txtConvertedInput.Size = new Size(100, 23);
             txtConvertedInput.TabIndex = 13;
-            txtConvertedInput.Enter += txtConvertedInput_Enter;
+            txtConvertedInput.TextChanged += txtConvertedInput_TextChanged;
+            txtConvertedInput.KeyDown += txtConvertedInput_KeyDown;
             // 
             // butSendConv
             // 
@@ -173,7 +175,6 @@
             butSendConv.Text = "Send Conv";
             butSendConv.UseVisualStyleBackColor = true;
             butSendConv.Click += button2_Click;
-
             // 
             // lblConvertedValue
             // 

@@ -1,6 +1,7 @@
 using Microsoft.VisualBasic;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows.Input;
 
 namespace ServoTuner
 {
@@ -126,6 +127,37 @@ namespace ServoTuner
             }
         }
 
+        private void SendConvertedValue()
+        {
+            // This is for testing the conversion of the input value to the corresponding value
+            // for the front panel, without sending it to the front panel
+
+            if (long.TryParse(txtConvertedInput.Text, out long newValue))
+            {
+                int valueToSend = 0;
+                if (lblShortCode.Text == "TQ") valueToSend = TQ_Process(newValue);
+
+
+                lblConvertedValue.Text = $"Converted Value: {valueToSend}";
+                SendToFrontPanel("D," + lblShortCode.Text + ":" + valueToSend.ToString());
+            }
+            else
+            {
+                MessageBox.Show($"Value must be a number");
+
+            }
+        }
+
+        private int TQ_Process(long newValue)
+        {
+            // If the short code is TQ then we need to convert the value from a percentage to the corresponding value for the front panel
+            // The front panel expects a value between 37 and 176 for the torque servo, which corresponds to 0% and 100% respectively.
+            // So we need to map the input value (0-100) to the range of 37-176.
+            int mappedvalue = (int)Mapper(newValue, 0, 120,
+                ServMinPosition[lstServos.SelectedIndex], ServMaxPosition[lstServos.SelectedIndex]);
+            return mappedvalue;
+        }
+
         public frmMain()
         {
             InitializeComponent();
@@ -196,26 +228,27 @@ namespace ServoTuner
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (long.TryParse(txtConvertedInput.Text, out long newValue))
+            SendConvertedValue();
+        }
+
+
+        private void txtConvertedInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
             {
-                int mappedvalue = (int)Mapper(newValue, 0, 120,
-                    ServMinPosition[lstServos.SelectedIndex], ServMaxPosition[lstServos.SelectedIndex]);
-                lblConvertedValue.Text = $"Converted Value: {mappedvalue}";
-                SendToFrontPanel("D," + lblShortCode.Text + ":" + mappedvalue.ToString());
+                case Keys.Enter:
+                    {
+                        SendConvertedValue();
+                        break;
+                    }
+                default:
+                    break;
             }
-
         }
 
-        private void label6_Click(object sender, EventArgs e)
+        private void txtConvertedInput_TextChanged(object sender, EventArgs e)
         {
 
         }
-
-        private void txtConvertedInput_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-
     }
 }
