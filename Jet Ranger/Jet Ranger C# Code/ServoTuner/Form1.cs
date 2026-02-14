@@ -113,11 +113,15 @@ namespace ServoTuner
             }
 
 
-            if (long.TryParse(textBox1.Text, out long newValue))
+            if (long.TryParse(txtRawInput.Text, out long newValue))
             {
                 if (newValue >= localMin && newValue <= localMax)
                 {
                     SendToFrontPanel("D," + lblShortCode.Text + ":" + newValue.ToString());
+                }
+                else
+                {
+                    MessageBox.Show($"Value must be between {localMin} and {localMax}");
                 }
             }
         }
@@ -189,5 +193,29 @@ namespace ServoTuner
         {
             SendManualValue();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (long.TryParse(txtConvertedInput.Text, out long newValue))
+            {
+                int mappedvalue = (int)Mapper(newValue, 0, 120,
+                    ServMinPosition[lstServos.SelectedIndex], ServMaxPosition[lstServos.SelectedIndex]);
+                lblConvertedValue.Text = $"Converted Value: {mappedvalue}";
+                SendToFrontPanel("D," + lblShortCode.Text + ":" + mappedvalue.ToString());
+            }
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtConvertedInput_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

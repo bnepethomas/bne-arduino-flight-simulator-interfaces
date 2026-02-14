@@ -38,8 +38,11 @@
             label5 = new Label();
             lblMinValue = new Label();
             lblMaxValue = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
+            txtRawInput = new TextBox();
+            butSendRaw = new Button();
+            txtConvertedInput = new TextBox();
+            butSendConv = new Button();
+            lblConvertedValue = new Label();
             SuspendLayout();
             // 
             // vScrollBar1
@@ -135,31 +138,62 @@
             lblMaxValue.TabIndex = 10;
             lblMaxValue.Text = "Unassigned";
             // 
-            // textBox1
+            // txtRawInput
             // 
-            textBox1.Location = new Point(236, 368);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 11;
-            textBox1.Text = "0";
+            txtRawInput.Location = new Point(236, 368);
+            txtRawInput.Name = "txtRawInput";
+            txtRawInput.Size = new Size(100, 23);
+            txtRawInput.TabIndex = 11;
+            txtRawInput.Text = "0";
             // 
-            // button1
+            // butSendRaw
             // 
-            button1.Location = new Point(157, 366);
-            button1.Name = "button1";
-            button1.Size = new Size(61, 25);
-            button1.TabIndex = 12;
-            button1.Text = "Send";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            butSendRaw.Location = new Point(126, 366);
+            butSendRaw.Name = "butSendRaw";
+            butSendRaw.Size = new Size(92, 25);
+            butSendRaw.TabIndex = 12;
+            butSendRaw.Text = "Send Raw";
+            butSendRaw.UseVisualStyleBackColor = true;
+            butSendRaw.Click += button1_Click;
+            // 
+            // txtConvertedInput
+            // 
+            txtConvertedInput.Location = new Point(236, 397);
+            txtConvertedInput.Name = "txtConvertedInput";
+            txtConvertedInput.Size = new Size(100, 23);
+            txtConvertedInput.TabIndex = 13;
+            txtConvertedInput.Enter += txtConvertedInput_Enter;
+            // 
+            // butSendConv
+            // 
+            butSendConv.Location = new Point(126, 395);
+            butSendConv.Name = "butSendConv";
+            butSendConv.Size = new Size(92, 25);
+            butSendConv.TabIndex = 14;
+            butSendConv.Text = "Send Conv";
+            butSendConv.UseVisualStyleBackColor = true;
+            butSendConv.Click += button2_Click;
+
+            // 
+            // lblConvertedValue
+            // 
+            lblConvertedValue.AutoSize = true;
+            lblConvertedValue.Location = new Point(348, 402);
+            lblConvertedValue.Name = "lblConvertedValue";
+            lblConvertedValue.Size = new Size(68, 15);
+            lblConvertedValue.TabIndex = 15;
+            lblConvertedValue.Text = "Unassigned";
             // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(566, 450);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(lblConvertedValue);
+            Controls.Add(butSendConv);
+            Controls.Add(txtConvertedInput);
+            Controls.Add(butSendRaw);
+            Controls.Add(txtRawInput);
             Controls.Add(lblMaxValue);
             Controls.Add(lblMinValue);
             Controls.Add(label5);
@@ -188,7 +222,10 @@
         private Label label5;
         private Label lblMinValue;
         private Label lblMaxValue;
-        private TextBox textBox1;
-        private Button button1;
+        private TextBox txtRawInput;
+        private Button butSendRaw;
+        private TextBox txtConvertedInput;
+        private Button butSendConv;
+        private Label lblConvertedValue;
     }
 }

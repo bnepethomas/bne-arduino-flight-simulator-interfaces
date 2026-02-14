@@ -185,6 +185,8 @@ void allOn() {
 
 
 bool frontPanelDataChanged = false;
+const unsigned long servoCheckInterval = 5;
+long lastServoCheck = 0;
 
 String ALTITUDE = "";                          // ALT
 String AIRSPEED = "";                          // IAS
@@ -237,13 +239,15 @@ enum Servos {
   EngTransmissionPressure1,
   EngTransmissionTemperature1,
   PlaneAltAboveGround,
+  Number_of_Servos
 };
 
-//                          ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
+//                            ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
 long aServMinPosition[] = { 44, 10, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 long aServMaxPosition[] = { 955, 952, 444, 555, 895, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
 long aServZeroPosition[] = { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
+int aTargetServoPosition[] = { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 bool aServoIdle[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
@@ -361,13 +365,32 @@ void FuelPressure(int pressure) {
   myservo.write(val);
 }
 
-int ServoIdleTime  = 1000;
 
+
+void UpdateServoPos() {
+  bool positionUpdated = false;
+  for (int i = 0; i < Number_of_Servos; i++) {
+    positionUpdated = false;
+
+    if (aTargetServoPosition[i] > aServoPosition[i]) {
+      aServoPosition[i]++;
+      positionUpdated = true;
+    } else if (aTargetServoPosition[i] < aServoPosition[i]) {
+      aServoPosition[i]--;
+      positionUpdated = true;
+    }
+
+    if (positionUpdated == true) {
+      if (i == EngTorquePercent1) SetEngineTorque(aServoPosition[EngTorquePercent1]);
+    }
+  }
+}
+
+int ServoIdleTime = 1000;
 void CheckServoIdleTime() {
   if (aServoIdle[EngTorquePercent1] == false) {
     //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[EngTorquePercent1]) >= ServoIdleTime) 
-    {
+    if ((millis() - aServoLastupdate[EngTorquePercent1]) >= ServoIdleTime) {
       if (ENG_TORQUE_SERVO.attached() == true) {
         ENG_TORQUE_SERVO.detach();
       }
@@ -504,8 +527,7 @@ void HandleOutputValuePair(String str) {
 
     if (ParameterName == "TQ") {
       SendDebug("Received Engine Torque: " + ParameterValue);
-
-      SetEngineTorque(ParameterValue.toInt());
+      aTargetServoPosition[EngTorquePercent1] = ParameterValue.toInt();
 
       if (ALTITUDE != ParameterValue) {
         SendDebug("Altitude changed");
@@ -810,20 +832,8 @@ void setup() {
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
 
     SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
-    // ENG_TORQUE_SERVO.attach(11);
-    // ENG_TORQUE_SERVO.write(aServZeroPosition[EngTorquePercent1]);
-    delay(20);
-    // for (int i = 1000; i >= 0; i--) {
-    //   SendDebug("I: " + String(i) + " Zero: " + String(aServZeroPosition[EngTorquePercent1])
-    //             + " Max: " + String(aServMaxPosition[EngTorquePercent1]));
-    //   if ((i < aServZeroPosition[EngTorquePercent1]) && (i > aServMaxPosition[EngTorquePercent1])) {
 
-    //     ENG_TORQUE_SERVO.write(int(i));
-    //     delay(5);
-    //     SendDebug("Servo Pos: " + String(i) + " Max: " + String(aServZeroPosition[EngTorquePercent1]) + " Min: " + String(aServMaxPosition[EngTorquePercent1]));
-    //     delay(10);
-    //   }
-    // }
+    delay(20);
 
     SendDebug("Using Map command");
     for (int i = 0; i <= 120; i++) {
@@ -837,6 +847,11 @@ void setup() {
 
     SetEngineTorque((int(aServZeroPosition[EngTorquePercent1])));
 
+
+    for (int i = 0; i < Number_of_Servos; i++) {
+      aServoPosition[i] = aServZeroPosition[EngTorquePercent1];
+      aTargetServoPosition[i] = aServZeroPosition[EngTorquePercent1];
+    }
   }
 
 
@@ -891,5 +906,10 @@ void loop() {
     lastincomingpacketcheck = millis();
   }
 
-  CheckServoIdleTime();
+
+  if ((millis() - lastServoCheck) >= servoCheckInterval) {
+    UpdateServoPos();
+    CheckServoIdleTime();
+    lastServoCheck = millis();
+  }
 }
