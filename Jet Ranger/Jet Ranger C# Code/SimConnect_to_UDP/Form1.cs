@@ -169,9 +169,9 @@ namespace SimConnect_to_UDP
 
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-        long[] ServMinPosition = new long[] { 173,  10, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
-        long[] ServMaxPosition = new long[] {  10, 952, 444, 555,  23,   6,  37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
-        long[] ServZeroPosition = new long[] { 173, 498, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+        long[] ServMinPosition = new long[] { 173,  10, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560, 9, 424, 222 };
+        long[] ServMaxPosition = new long[] {  10, 952, 444, 555,  23,   6,  37, 740, 802,  20,  51,   0, 864, 288, 107, 222 };
+        long[] ServZeroPosition = new long[] {173, 498, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560, 9, 424, 222 };
         long[] ServoPosition = new long[] { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 
         // this is how you declare a data structure so that 
@@ -395,6 +395,13 @@ namespace SimConnect_to_UDP
             // So we need to map the input value (0-100) to the range of 37-176.
             int mappedvalue = (int)Mapper(newValue, 0, 120,
                 ServMinPosition[(uint)(Servos.GeneralEngPctMaxRpm1)], ServMaxPosition[(uint)(Servos.GeneralEngPctMaxRpm1)]);
+            return mappedvalue;
+        }
+
+        private int FUEL_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, 0, 75,
+                ServMinPosition[(uint)(Servos.FuelTotalQuantity)], ServMaxPosition[(uint)(Servos.FuelTotalQuantity)]);
             return mappedvalue;
         }
 
@@ -940,8 +947,30 @@ namespace SimConnect_to_UDP
                             Engine_Out = true;
                         }
                     }
-                    ;
+                    ;  // End Engine RPM
 
+
+                    if (FUEL_TOTAL_QUANTITY != sFrontPanel.FUEL_TOTAL_QUANTITY.ToString()
+                        || CIRCUIT_NAVCOM1_CHANGED_ON == true) ;
+                    {
+                        frontPanelDataChanged = true;
+                        FUEL_TOTAL_QUANTITY = sFrontPanel.FUEL_TOTAL_QUANTITY.ToString();
+                        int a = (int)(sFrontPanel.FUEL_TOTAL_QUANTITY);
+                        UDP_Playload = UDP_Playload + ",FUEL:" + FUEL_Process(a).ToString();
+                        UDP_Playload = UDP_Playload + ",LOWF:" + Low_Fuel.ToString();
+
+                        if (sFrontPanel.FUEL_TOTAL_QUANTITY <= 17)
+                        {
+                            Low_Fuel = true;
+                            UDP_Playload = UDP_Playload + ",LOWF:1";
+                        }
+                        else
+                        {
+                            Low_Fuel = false;
+                            UDP_Playload = UDP_Playload + ",LOWF:0";
+                        }
+                    }
+                    ;
 
                     if (VERTICAL_SPEED != sFrontPanel.VERTICAL_SPEED.ToString("F0")) ;
                     {
@@ -1024,26 +1053,7 @@ namespace SimConnect_to_UDP
                     }
                     ;
 
-                    if (FUEL_TOTAL_QUANTITY != sFrontPanel.FUEL_TOTAL_QUANTITY.ToString()
-                        || CIRCUIT_NAVCOM1_CHANGED_ON == true) ;
-                    {
-                        frontPanelDataChanged = true;
-                        FUEL_TOTAL_QUANTITY = sFrontPanel.FUEL_TOTAL_QUANTITY.ToString();
-                        UDP_Playload = UDP_Playload + ",FUEL:" + FUEL_TOTAL_QUANTITY;
-                        UDP_Playload = UDP_Playload + ",LOWF:" + Low_Fuel.ToString();
 
-                        if (sFrontPanel.FUEL_TOTAL_QUANTITY <= 17)
-                        {
-                            Low_Fuel = true;
-                            UDP_Playload = UDP_Playload + ",LOWF:1";
-                        }
-                        else
-                        {
-                            Low_Fuel = false;
-                            UDP_Playload = UDP_Playload + ",LOWF:0";
-                        }
-                    }
-                    ;
 
                     if (TURB_ENG_CORRECTED_N1_1 != sFrontPanel.TURB_ENG_CORRECTED_N1_1.ToString()) ;
                     {

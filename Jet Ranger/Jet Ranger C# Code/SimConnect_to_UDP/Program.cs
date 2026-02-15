@@ -72,19 +72,7 @@
 //                aTargetServoPosition[EngTorquePercent1] = ParameterValue.toInt();
 //            } 
 //
-// 10. Add Entry to swing new Servo in setup.
-//            SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
-//            delay(20);
-//            for (int i = 0; i <= 120; i++)
-//            {
-//                SetEngineTorque((map(i, 0, 120, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1])));
-//                delay(10);
-//            }
-//            for (int i = 120; i >= 0; i--)
-//            {
-//                SetEngineTorque((map(i, 0, 120, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1])));
-//                delay(10);
-//            }
+// 10. Start up cycle no added in step 16
 //
 // 11. Compile and upload 
 // 12. Update Servo Tuner, add call for the Instrument
@@ -101,6 +89,19 @@
 //                if (lblShortCode.Text == "TQ") valueToSend = TQ_Process(newValue); 
 // 14. Check Min/Maxs and if needed introduce ranges if gauge is not linear in the instrument Specific Code     
 // 15. Copy the call to SimConnect_to_IP 
+// 16. Update Min/Max in Arduino and add startup cycle
+//            SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
+//            delay(20);
+//            for (int i = 0; i <= 100; i++)
+//            {
+//                SetEngineTorque((map(i, 0, 100, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1])));
+//                delay(10);
+//            }
+//            for (int i = 100; i >= 0; i--)
+//            {
+//                SetEngineTorque((map(i, 0, 100, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1])));
+//                delay(10);
+//            }
 
 // SimConnect Services
 // using LockheedMartin.Prepar3D.SimConnect;

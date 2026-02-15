@@ -260,9 +260,9 @@ enum Servos {
 };
 
 //                         ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-int aServMinPosition[] = { 173,  10, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
-int aServMaxPosition[] = {  12, 952, 444, 555,  23,   6, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
-int aServZeroPosition[] ={ 173, 498, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+int aServMinPosition[] = { 173,  10, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560, 9, 424, 222 };
+int aServMaxPosition[] = {  12, 952, 444, 555,  23,   6,  37, 740, 802,  20,  51, 000, 864, 288, 107, 222 };
+int aServZeroPosition[] ={ 173, 498, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560, 9, 424, 222 };
 int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 int aTargetServoPosition[] = { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
@@ -975,13 +975,24 @@ void setup() {
     }
 
     // Engine RPM
-    SetRPMR(aServMinPosition[RotorRpmPct1]);
+    SetRPME(aServMinPosition[RotorRpmPct1]);
     for (int i = 0; i <= 100; i++) {
       SetRPME(int(map(i, 0, 100, long(aServMinPosition[GeneralEngPctMaxRpm1]), long(aServMaxPosition[GeneralEngPctMaxRpm1]))));
       delay(10);
     }
     for (int i = 100; i >= 0; i--) {
       SetRPME((map(i, 0, 100, long(aServMinPosition[GeneralEngPctMaxRpm1]), long(aServMaxPosition[GeneralEngPctMaxRpm1]))));
+      delay(10);
+    }
+
+    // Engine RPM
+    SetFUEL(aServMinPosition[FuelTotalQuantity]);
+    for (int i = 0; i <= 100; i++) {
+      SetFUEL(int(map(i, 0, 100, long(aServMinPosition[FuelTotalQuantity]), long(aServMaxPosition[FuelTotalQuantity]))));
+      delay(10);
+    }
+    for (int i = 100; i >= 0; i--) {
+      SetFUEL((map(i, 0, 100, long(aServMinPosition[FuelTotalQuantity]), long(aServMaxPosition[FuelTotalQuantity]))));
       delay(10);
     }
 
