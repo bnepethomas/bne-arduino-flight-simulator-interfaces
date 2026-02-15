@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnect_to_UDP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{01A4653C-FC98-40BB-83C1-4927AC572679}|SimConnect_to_UDP.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnect_to_udp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01A4653C-FC98-40BB-83C1-4927AC572679}|SimConnect_to_UDP.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{983C006C-D343-8CE5-0BFF-7036167601FA}|SimConnect_to_UDP.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnect_to_udp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{983C006C-D343-8CE5-0BFF-7036167601FA}|SimConnect_to_UDP.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{01A4653C-FC98-40BB-83C1-4927AC572679}|SimConnect_to_UDP.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnect_to_udp\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{01A4653C-FC98-40BB-83C1-4927AC572679}|SimConnect_to_UDP.csproj|C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnect_to_UDP\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{01A4653C-FC98-40BB-83C1-4927AC572679}|SimConnect_to_UDP.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{01A4653C-FC98-40BB-83C1-4927AC572679}|SimConnect_to_UDP.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnect_to_udp\\simconnect_to_udp.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{01A4653C-FC98-40BB-83C1-4927AC572679}|SimConnect_to_UDP.csproj|solutionrelative:simconnect_to_udp.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+      "AbsoluteMoniker": "D:0:0:{983C006C-D343-8CE5-0BFF-7036167601FA}|SimConnect_to_UDP.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnect_to_udp\\simconnect_to_udp.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{983C006C-D343-8CE5-0BFF-7036167601FA}|SimConnect_to_UDP.csproj|solutionrelative:simconnect_to_udp.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{01A4653C-FC98-40BB-83C1-4927AC572679}|SimConnect_to_UDP.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnect_to_udp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01A4653C-FC98-40BB-83C1-4927AC572679}|SimConnect_to_UDP.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{983C006C-D343-8CE5-0BFF-7036167601FA}|SimConnect_to_UDP.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnect_to_udp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{983C006C-D343-8CE5-0BFF-7036167601FA}|SimConnect_to_UDP.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -40,7 +40,7 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnect_to_UDP\\Form1.cs*",
               "RelativeToolTip": "Form1.cs*",
-              "ViewState": "AgIAAMQEAAAAAAAAAAA0wOEEAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAF0DAAAAAAAAAAAnwGsDAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-15T00:49:42.091Z",
               "EditorCaption": ""
@@ -54,8 +54,7 @@
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnect_to_UDP\\SimConnect_to_UDP.csproj",
               "RelativeToolTip": "SimConnect_to_UDP.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-02-15T00:37:16.41Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T00:37:16.41Z"
             },
             {
               "$type": "Document",
@@ -67,8 +66,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAF0AAAAAAAAAAAAYwHEAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T00:31:44.667Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T00:31:44.667Z"
             },
             {
               "$type": "Document",
@@ -76,11 +74,10 @@
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnect_to_UDP\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnect_to_UDP\\Form1.cs [Design]*",
-              "RelativeToolTip": "Form1.cs [Design]*",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnect_to_UDP\\Form1.cs [Design]",
+              "RelativeToolTip": "Form1.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T00:29:42.32Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-02-15T00:29:42.32Z"
             }
           ]
         }

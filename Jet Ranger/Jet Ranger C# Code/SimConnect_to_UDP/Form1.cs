@@ -872,9 +872,11 @@ namespace SimConnect_to_UDP
                     {
                         frontPanelDataChanged = true;
                         AIRSPEED = sFrontPanel.AIRSPEED.ToString("F0");
-                        UDP_Playload = UDP_Playload + ",IAS:" + AIRSPEED;
+                        int a = (int)(sFrontPanel.AIRSPEED);
+                        UDP_Playload = UDP_Playload + ",IAS:" + IAS_Process(a).ToString();
                     }
                     ;
+
                     if (VERTICAL_SPEED != sFrontPanel.VERTICAL_SPEED.ToString("F0")) ;
                     {
                         frontPanelDataChanged = true;
