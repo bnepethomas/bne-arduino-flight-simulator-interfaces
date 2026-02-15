@@ -169,9 +169,9 @@ namespace SimConnect_to_UDP
 
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-        long[] ServMinPosition = new long[] { 44, 10, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
-        long[] ServMaxPosition = new long[] { 955, 952, 444, 555, 895, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
-        long[] ServZeroPosition = new long[] { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+        long[] ServMinPosition = new long[] { 173,  10, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+        long[] ServMaxPosition = new long[] {  10, 952, 444, 555,  23,   6,  37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
+        long[] ServZeroPosition = new long[] { 173, 498, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
         long[] ServoPosition = new long[] { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 
         // this is how you declare a data structure so that 
@@ -376,6 +376,26 @@ namespace SimConnect_to_UDP
                     return 10; ;
 
             }
+        }
+
+        private int RPMR_Process(long newValue)
+        {
+            // If the short code is TQ then we need to convert the value from a percentage to the corresponding value for the front panel
+            // The front panel expects a value between 37 and 176 for the torque servo, which corresponds to 0% and 100% respectively.
+            // So we need to map the input value (0-100) to the range of 37-176.
+            int mappedvalue = (int)Mapper(newValue, 0, 120,
+                ServMinPosition[(uint)(Servos.RotorRpmPct1)], ServMaxPosition[(uint)(Servos.RotorRpmPct1)]);
+            return mappedvalue;
+        }
+
+        private int RPME_Process(long newValue)
+        {
+            // If the short code is TQ then we need to convert the value from a percentage to the corresponding value for the front panel
+            // The front panel expects a value between 37 and 176 for the torque servo, which corresponds to 0% and 100% respectively.
+            // So we need to map the input value (0-100) to the range of 37-176.
+            int mappedvalue = (int)Mapper(newValue, 0, 120,
+                ServMinPosition[(uint)(Servos.GeneralEngPctMaxRpm1)], ServMaxPosition[(uint)(Servos.GeneralEngPctMaxRpm1)]);
+            return mappedvalue;
         }
 
         private void StartListener()
@@ -877,6 +897,52 @@ namespace SimConnect_to_UDP
                     }
                     ;
 
+                    if (ROTOR_RPM_PCT_1 != sFrontPanel.ROTOR_RPM_PCT_1.ToString()
+                        || CIRCUIT_NAVCOM1_CHANGED_ON == true) ;
+                    //While Rotor RPM is not directly affected by NAVCOM1 power state, need to updae the warning indicator state
+                    {
+                        frontPanelDataChanged = true;
+                        ROTOR_RPM_PCT_1 = sFrontPanel.ROTOR_RPM_PCT_1.ToString();
+                        int a = (int)(sFrontPanel.ROTOR_RPM_PCT_1);
+                        UDP_Playload = UDP_Playload + ",RPMR:" + RPMR_Process(a).ToString();
+
+                        if (sFrontPanel.ROTOR_RPM_PCT_1 <= 95)
+                        {
+                            UDP_Playload = UDP_Playload + ",RLOW:0";
+                            Rotor_RPM_Low = false;
+                        }
+                        else
+                        {
+                            UDP_Playload = UDP_Playload + ",RLOW:1";
+                            Rotor_RPM_Low = true;
+                        }
+                    }
+                    ; // End Rotor RPM 
+
+
+                    if (GENERAL_ENG_PCT_MAX_RPM_1 != sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString()
+                        || CIRCUIT_NAVCOM1_CHANGED_ON == true) ;
+                    {
+                        frontPanelDataChanged = true;
+                        GENERAL_ENG_PCT_MAX_RPM_1 = sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString();
+                        int a = (int)(sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1);
+                        UDP_Playload = UDP_Playload + ",RPME:" + RPME_Process(a).ToString();
+
+
+                        if (sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1 >= 60)
+                        {
+                            UDP_Playload = UDP_Playload + ",EOUT:0";
+                            Engine_Out = false;
+                        }
+                        else
+                        {
+                            UDP_Playload = UDP_Playload + ",EOUT:1";
+                            Engine_Out = true;
+                        }
+                    }
+                    ;
+
+
                     if (VERTICAL_SPEED != sFrontPanel.VERTICAL_SPEED.ToString("F0")) ;
                     {
                         frontPanelDataChanged = true;
@@ -921,48 +987,7 @@ namespace SimConnect_to_UDP
                         UDP_Playload = UDP_Playload + ",PITCH:" + ATTITUDE_INDICATOR_PITCH_DEGREES;
                     }
                     ;
-                    if (ROTOR_RPM_PCT_1 != sFrontPanel.ROTOR_RPM_PCT_1.ToString()
-                        || CIRCUIT_NAVCOM1_CHANGED_ON == true) ;
-                    //While Rotor RPM is not directly affected by NAVCOM1 power state, need to updae the warning indicator state
-                    {
-                        frontPanelDataChanged = true;
-                        ROTOR_RPM_PCT_1 = sFrontPanel.ROTOR_RPM_PCT_1.ToString();
-                        UDP_Playload = UDP_Playload + ",RPMR:" + ROTOR_RPM_PCT_1;
 
-                        if (sFrontPanel.ROTOR_RPM_PCT_1 <= 95)
-                        {
-                            UDP_Playload = UDP_Playload + ",RLOW:0";
-                            Rotor_RPM_Low = false;
-                        }
-                        else
-                        {
-                            UDP_Playload = UDP_Playload + ",RLOW:1";
-                            Rotor_RPM_Low = true;
-                        }
-                    }
-                    ; // End Rotor RPM 
-
-
-                    if (GENERAL_ENG_PCT_MAX_RPM_1 != sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString()
-                        || CIRCUIT_NAVCOM1_CHANGED_ON == true) ;
-                    {
-                        frontPanelDataChanged = true;
-                        GENERAL_ENG_PCT_MAX_RPM_1 = sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString();
-                        UDP_Playload = UDP_Playload + ",RPME:" + GENERAL_ENG_PCT_MAX_RPM_1;
-
-
-                        if (sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1 >= 60)
-                        {
-                            UDP_Playload = UDP_Playload + ",EOUT:0";
-                            Engine_Out = false;
-                        }
-                        else
-                        {
-                            UDP_Playload = UDP_Playload + ",EOUT:1";
-                            Engine_Out = true;
-                        }
-                    }
-                    ;
 
                     if (ENG_TORQUE_PERCENT_1 != (sFrontPanel.ENG_TORQUE_PERCENT_1 * 4 / 9).ToString()) ;
                     {

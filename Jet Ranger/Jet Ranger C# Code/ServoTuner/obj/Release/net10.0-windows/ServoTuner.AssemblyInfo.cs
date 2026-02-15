@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ServoTuner")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2990fe1a888150227ac505e152ae17054aa1a892")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c60ba899f28be0185ef2bd98213c21154c68ba31")]
 [assembly: System.Reflection.AssemblyProductAttribute("ServoTuner")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ServoTuner")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
