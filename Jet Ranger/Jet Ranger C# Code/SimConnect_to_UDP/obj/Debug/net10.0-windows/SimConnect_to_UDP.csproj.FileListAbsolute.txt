@@ -1,0 +1,17 @@
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\bin\Debug\net10.0-windows\SimConnect_to_UDP.exe
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\bin\Debug\net10.0-windows\SimConnect_to_UDP.deps.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\bin\Debug\net10.0-windows\SimConnect_to_UDP.runtimeconfig.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\bin\Debug\net10.0-windows\SimConnect_to_UDP.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\bin\Debug\net10.0-windows\SimConnect_to_UDP.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\SimConnect_to_UDP.frmMain.resources
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\SimConnect_to_UDP.csproj.GenerateResource.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\SimConnect_to_UDP.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\SimConnect_to_UDP.AssemblyInfoInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\SimConnect_to_UDP.AssemblyInfo.cs
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\SimConnect_to_UDP.csproj.CoreCompileInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\SimConnect_to_UDP.sourcelink.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\SimConnect_to_UDP.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\refint\SimConnect_to_UDP.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\SimConnect_to_UDP.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\SimConnect_to_UDP.genruntimeconfig.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnect_to_UDP\obj\Debug\net10.0-windows\ref\SimConnect_to_UDP.dll

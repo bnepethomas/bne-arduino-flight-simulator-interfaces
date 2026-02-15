@@ -86,7 +86,21 @@
 //                delay(10);
 //            }
 //
-// 11. Compile and upload and then Test with Servo Tuner            
+// 11. Compile and upload 
+// 12. Update Servo Tuner, add call for the Instrument
+//           private int TQ_Process(long newValue)
+//           {
+//               // If the short code is TQ then we need to convert the value from a percentage to the corresponding value for the front panel
+//               // The front panel expects a value between 37 and 176 for the torque servo, which corresponds to 0% and 100% respectively.
+//               // So we need to map the input value (0-100) to the range of 37-176.
+//               int mappedvalue = (int)Mapper(newValue, 0, 120,
+//                   ServMinPosition[lstServos.SelectedIndex], ServMaxPosition[lstServos.SelectedIndex]);
+//               return mappedvalue;
+//           }   
+// 13. Add entry in SendConverted Value
+//                if (lblShortCode.Text == "TQ") valueToSend = TQ_Process(newValue); 
+// 14. Check Min/Maxs and if needed introduce ranges if gauge is not linear in the instrument Specific Code     
+// 15. Copy the call to SimConnect_to_IP 
 
 
 
@@ -450,7 +464,49 @@ namespace WindowsFormsApp2
             return mappedvalue;
         }
 
+        private int IAS_Process(long newValue)
+        {
+            // 0  - 173
+            // 20 - 165
+            // 40 - 142
+            // 60 - 115
+            // 80 - 84
+            // 90 - 74
+            //100 - 55
+            //110 - 50
+            //120 - 40
+            //130 - 29
+            //140 - 22
+            //150 - 10
+            switch (newValue)
+            {
+                case 20:
+                    return (int)Mapper(newValue, 0, 20, 173, 165);
+                case 40:
+                    return (int)Mapper(newValue, 20, 40, 165, 142);
+                case 60:
+                    return (int)Mapper(newValue, 40, 60, 142, 115);
+                case 80:
+                    return (int)Mapper(newValue, 60, 80, 115, 84);
+                case 90:
+                    return (int)Mapper(newValue, 80, 90, 84, 74);
+                case 100:
+                    return (int)Mapper(newValue, 90, 100, 74, 55);
+                case 110:
+                    return (int)Mapper(newValue, 100, 110, 55, 50);
+                case 120:
+                    return (int)Mapper(newValue, 110, 120, 50, 40);
+                case 130:
+                    return (int)Mapper(newValue, 120, 130, 40, 29);
+                case 140:
+                    return (int)Mapper(newValue, 130, 140, 29, 22);
+                case 150:
+                    return (int)Mapper(newValue, 140, 150, 22, 10);
+                default:
+                    return 50; ;
 
+            }
+        }
 
         private void StartListener()
         {
@@ -519,20 +575,20 @@ namespace WindowsFormsApp2
         // a packet to process. ReceiveMessage must be called to 
         // trigger the events. This model keeps simconnect processing on the main thread. 
 
-        protected override void DefWndProc(ref Message m)
-        {
-            if (m.Msg == WM_USER_SIMCONNECT)
-            {
-                if (simconnect != null)
-                {
-                    simconnect.ReceiveMessage();
-                }
-            }
-            else
-            {
-                base.DefWndProc(ref m);
-            }
-        }
+        //protected override void DefWndProc(ref Message m)
+        //{
+        //    if (m.Msg == WM_USER_SIMCONNECT)
+        //    {
+        //        if (simconnect != null)
+        //        {
+        //            simconnect.ReceiveMessage();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        base.DefWndProc(ref m);
+        //    }
+        //}
 
         int response = 1;
 

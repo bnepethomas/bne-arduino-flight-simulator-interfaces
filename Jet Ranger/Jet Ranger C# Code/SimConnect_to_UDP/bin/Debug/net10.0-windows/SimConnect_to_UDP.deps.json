@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "SimConnect_to_UDP/1.0.0": {
+        "runtime": {
+          "SimConnect_to_UDP.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SimConnect_to_UDP/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -244,11 +244,11 @@ enum Servos {
 };
 
 //                            ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-int aServMinPosition[] = { 44, 10, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
-int aServMaxPosition[] = { 900, 952, 444, 555, 895, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
-int aServZeroPosition[] = { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+int aServMinPosition[] = { 173, 10, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+int aServMaxPosition[] = { 12, 952, 444, 555, 895, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
+int aServZeroPosition[] = { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
-int aTargetServoPosition[] = { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+int aTargetServoPosition[] = { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 bool aServoIdle[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
@@ -854,8 +854,7 @@ void setup() {
 
     // Engine Torque
     SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
-    delay(20);
-    for (int i = 0; i <= 120; i++) {
+     for (int i = 0; i <= 120; i++) {
       SetEngineTorque((int(map(i, 0, 120, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1]))));
       delay(10);
     }
@@ -866,18 +865,12 @@ void setup() {
 
     // Air Speed
     SetAirSpeed(aServZeroPosition[AirSpeed]);
-    delay(20);
-    int tempAirSpeed = 0;
     for (int i = 0; i <= 150; i++) {
-      SendDebug(String(i) + " " + String(long(aServMinPosition[AirSpeed])) + ":" + String(long(aServMaxPosition[AirSpeed])));
-      SendDebug(String(map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
-      tempAirSpeed = int(map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed])));
-      SetAirSpeed(tempAirSpeed);
-      //SetAirSpeed(int(map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
-      delay(100);
+      SetAirSpeed(int(map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
+      delay(10);
     }
     for (int i = 150; i >= 0; i--) {
-      //SetAirSpeed((map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
+      SetAirSpeed((map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
       delay(10);
     }
     

@@ -56,9 +56,9 @@ namespace ServoTuner
 
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-        long[] ServMinPosition = new long[] { 44, 10, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
-        long[] ServMaxPosition = new long[] { 955, 952, 444, 555, 895, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
-        long[] ServZeroPosition = new long[] { 44, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+        long[] ServMinPosition = new long[] { 173, 10, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+        long[] ServMaxPosition = new long[] { 10, 952, 444, 555, 895, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
+        long[] ServZeroPosition = new long[] { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 
 
         private void SendToFrontPanel(string message)
@@ -136,6 +136,7 @@ namespace ServoTuner
             {
                 int valueToSend = 0;
                 if (lblShortCode.Text == "TQ") valueToSend = TQ_Process(newValue);
+                if (lblShortCode.Text == "IAS") valueToSend = IAS_Process(newValue);
 
 
                 lblConvertedValue.Text = $"Converted Value: {valueToSend}";
@@ -157,6 +158,55 @@ namespace ServoTuner
                 ServMinPosition[lstServos.SelectedIndex], ServMaxPosition[lstServos.SelectedIndex]);
             return mappedvalue;
         }
+
+        private int IAS_Process(long newValue)
+        {
+            // 0  - 173
+            // 20 - 165
+            // 40 - 142
+            // 60 - 115
+            // 80 - 84
+            // 90 - 74
+            //100 - 55
+            //110 - 50
+            //120 - 40
+            //130 - 29
+            //140 - 22
+            //150 - 10
+            switch (newValue)
+            {
+                case <= 20:
+                    return (int)Mapper(newValue, 0, 20, 173, 165);
+                case <= 40:
+                    return (int)Mapper(newValue, 20, 40, 165, 142);
+                case <= 60:
+                    return (int)Mapper(newValue, 40, 60, 142, 115);
+                case <=80:
+                    return (int)Mapper(newValue, 60, 80, 115, 84);
+                case <=90:
+                    return (int)Mapper(newValue, 80, 90, 84, 74);
+                case <=100:
+                    return (int)Mapper(newValue, 90, 100, 74, 55);
+                case <=110:
+                    return (int)Mapper(newValue, 100, 110, 55, 50);
+                case <= 120:
+                    return (int)Mapper(newValue, 110, 120, 50, 40);
+                case <=130:
+                    return (int)Mapper(newValue, 120, 130, 40, 29);
+                case <=140:
+                    return (int)Mapper(newValue, 130, 140, 29, 22);
+                case <= 150:
+                    return (int)Mapper(newValue, 140, 150, 22, 10);
+                case > 150:
+                    return 10;
+
+                default:
+                    int mappedvalue = (int)Mapper(newValue, 0, 150,
+                        ServMinPosition[(uint)(Servos.AirSpeed)], ServMaxPosition[(uint)(Servos.AirSpeed)]);
+                    return mappedvalue;
+            }
+        }
+
 
         public frmMain()
         {
