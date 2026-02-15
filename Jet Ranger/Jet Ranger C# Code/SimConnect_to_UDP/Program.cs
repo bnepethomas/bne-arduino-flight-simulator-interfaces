@@ -36,19 +36,19 @@
 //    servo is attached and if not it attaches it. It then updates the last update time for the servo and sets the idle status
 //    to false before writing the value to the servo.
 
-//      void SetEngineTorque(int torque) {
+//      void SetEngineTorque(int TargetValue) {
 //           if (ENG_TORQUE_SERVO.attached() == false){
 //               ENG_TORQUE_SERVO.attach(ENG_TORQUE_PORT);
 //           }
 //           aServoLastupdate[EngTorquePercent1] = millis();
 //           aServoIdle[EngTorquePercent1] = false;
 
-//           ENG_TORQUE_SERVO.write(torque);
+//           ENG_TORQUE_SERVO.write(TargetValue);
 //         }
 // 7.  Add entry to UpdateServoPos(). Which walks through all Servo to see if a movement is needed
 //          if (i == EngTorquePercent1) SetEngineTorque(aServoPosition[EngTorquePercent1]);
 //
-// 8.  Add Entry to CheckServoIdelTimeout() which checks to see if the servo has been idle for a certain amount of time and if so,
+// 8.  Add Entry to CheckServoIdleTime() which checks to see if the servo has been idle for a certain amount of time and if so,
 //     detaches the servo to prevent it jittering and reduces power demand.
 //          void CheckServoIdleTime() {
 //             if (aServoIdle[EngTorquePercent1] == false)

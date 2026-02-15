@@ -56,9 +56,9 @@ namespace ServoTuner
 
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-        long[] ServMinPosition = new long[] { 173,  10, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
-        long[] ServMaxPosition = new long[] {  10, 952, 444, 555,  23,   6, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
-        long[] ServZeroPosition = new long[]{ 173, 498, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+        long[] ServMinPosition = new long[] { 173,  10, 444, 555, 177, 137, 176, 527, 121, 310,   0, 121, 560,   9, 424, 222 };
+        long[] ServMaxPosition = new long[] {  10, 952, 444, 555,  23,   6,  37, 740, 802,  20, 900, 000, 864, 288, 107, 222 };
+        long[] ServZeroPosition = new long[]{ 173, 498, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560,   9, 424, 222 };
 
 
         private void SendToFrontPanel(string message)

@@ -214,24 +214,30 @@ String AIRSPEED_2 = "";
 bool powerAvailable = true;
 
 #include <Servo.h>
-Servo ENG_TORQUE_SERVO;
 Servo AIRSPEED_SERVO;
+Servo ENG_TORQUE_SERVO;
+Servo FUEL_SERVO;
 Servo RPMR_SERVO;
 Servo RPME_SERVO;
 Servo myservo;
+Servo XMSNP_SERVO;
+Servo XMSNT_SERVO;
 
 
 #define AIRSPEED_PORT 2
 #define EGT_PORT 7
 #define ENG_OIL_TEMP_PORT 12
-#define ENG_OIL_TEMP_PORT 13
+#define ENG_OIL_PRESS_PORT 13
 #define ENG_TORQUE_PORT 11
+#define FUEL_PORT 46
 #define GAS_PRODUCER_PORT 6
 #define RADAR_ALT_PORT 3
 #define RPME_PORT 8
 #define RPMR_PORT 9
 #define GAS_PRODUCER_PORT 12
 #define VSI_PORT 4
+#define XMSNP_PORT 45
+#define XMSNT_PORT 44
 
 enum Servos {
   AirSpeed,
@@ -254,9 +260,9 @@ enum Servos {
 };
 
 //                         ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-int aServMinPosition[] = { 173,  10, 444, 555, 177, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
-int aServMaxPosition[] = {  12, 952, 444, 555, 21, 986, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
-int aServZeroPosition[] ={ 173, 498, 444, 555, 177, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+int aServMinPosition[] = { 173,  10, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
+int aServMaxPosition[] = {  12, 952, 444, 555,  23,   6, 37, 740, 802, 20, 736, 000, 864, 288, 107, 222 };
+int aServZeroPosition[] ={ 173, 498, 444, 555, 177, 137, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 int aTargetServoPosition[] = { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
@@ -322,8 +328,6 @@ void SetAirSpeed(int TargetValue) {
   AIRSPEED_SERVO.write(TargetValue);
 }
 
-
-
 // Rotor RPM
 void SetRPMR(int TargetValue) {
   if (RPMR_SERVO.attached() == false) {
@@ -346,6 +350,16 @@ void SetRPME(int TargetValue) {
   RPME_SERVO.write(TargetValue);
 }
 
+// Fuel Qantity
+void SetFUEL(int TargetValue) {
+  if (FUEL_SERVO.attached() == false) {
+    FUEL_SERVO.attach(FUEL_PORT);
+  }
+  aServoLastupdate[FuelTotalQuantity] = millis();
+  aServoIdle[FuelTotalQuantity] = false;
+
+  FUEL_SERVO.write(TargetValue);
+}
 
 void ElectricalLoad(int load) {
   int val = map(load, 0, 100, 527, 740);
@@ -442,6 +456,9 @@ void UpdateServoPos() {
         case GeneralEngPctMaxRpm1:
           SetRPME(aServoPosition[GeneralEngPctMaxRpm1]);
           break;
+        case FuelTotalQuantity:
+          SetFUEL(aServoPosition[FuelTotalQuantity]);
+          break;
         default:
           break;
       }
@@ -495,6 +512,18 @@ void CheckServoIdleTime() {
       SendDebug("Detaching Engine RPM Servo");
     }
   };
+  // Fuel Quantity
+  if (aServoIdle[FuelTotalQuantity] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[FuelTotalQuantity]) >= ServoIdleTime) {
+      if (FUEL_SERVO.attached() == true) {
+        FUEL_SERVO.detach();
+      }
+      aServoIdle[FuelTotalQuantity] = true;
+      SendDebug("Detaching Fuel Servo");
+    }
+  };
+
 }
 
 
@@ -623,20 +652,20 @@ void HandleOutputValuePair(String str) {
     ParameterValue.trim();
 
     if (ParameterName == "TQ") {
-      SendDebug("Received Engine Torque: " + ParameterValue);
+      //SendDebug("Received Engine Torque: " + ParameterValue);
       aTargetServoPosition[EngTorquePercent1] = ParameterValue.toInt();
-
     } else if (ParameterName == "IAS") {
-      SendDebug("Received Air Speed: " + ParameterValue);
+      //SendDebug("Received Air Speed: " + ParameterValue);
       aTargetServoPosition[AirSpeed] = ParameterValue.toInt();
     } else if (ParameterName == "RPMR") {
       //SendDebug("Received Rotor RPM: " + ParameterValue);
-      SendDebug("Received Rotor RPM: " + ParameterValue);
       aTargetServoPosition[RotorRpmPct1] = ParameterValue.toInt();
     } else if (ParameterName == "RPME") {
-      SendDebug("Received Engine RPM: " + ParameterValue);
+      //SendDebug("Received Engine RPM: " + ParameterValue);
       aTargetServoPosition[GeneralEngPctMaxRpm1] = ParameterValue.toInt();
-
+    } else if (ParameterName == "FUEL") {
+      SendDebug("Received Fuel Quantity: " + ParameterValue);
+      aTargetServoPosition[FuelTotalQuantity] = ParameterValue.toInt();
     } else if (ParameterName == "VSI") {
       //SendDebug("Received Vertical Speed: " + ParameterValue);
       if (VERTICAL_SPEED != ParameterValue) {
@@ -685,12 +714,7 @@ void HandleOutputValuePair(String str) {
         SendDebug("Oil Temp changed");
         ENG_OIL_TEMPERATURE_1 = ParameterValue;
       };
-    } else if (ParameterName == "FUEL") {
-      //SendDebug("Received Fuel: " + ParameterValue);
-      if (FUEL_TOTAL_QUANTITY != ParameterValue) {
-        SendDebug("Fuel changed");
-        FUEL_TOTAL_QUANTITY = ParameterValue;
-      };
+
     } else if (ParameterName == "N1") {
       //SendDebug("Received N1: " + ParameterValue);
       if (TURB_ENG_CORRECTED_N1_1 != ParameterValue) {
@@ -918,7 +942,7 @@ void setup() {
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
 
     // Engine Torque
-    SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
+    SetEngineTorque(aServMinPosition[EngTorquePercent1]);
     for (int i = 0; i <= 120; i++) {
       SetEngineTorque((int(map(i, 0, 120, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1]))));
       delay(10);
@@ -929,13 +953,35 @@ void setup() {
     }
 
     // Air Speed
-    SetAirSpeed(aServZeroPosition[AirSpeed]);
+    SetAirSpeed(aServMinPosition[AirSpeed]);
     for (int i = 0; i <= 150; i++) {
       SetAirSpeed(int(map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
       delay(10);
     }
     for (int i = 150; i >= 0; i--) {
       SetAirSpeed((map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
+      delay(10);
+    }
+
+    // Rotor RPM
+    SetRPMR(aServMinPosition[RotorRpmPct1]);
+    for (int i = 0; i <= 100; i++) {
+      SetRPMR(int(map(i, 0, 100, long(aServMinPosition[RotorRpmPct1]), long(aServMaxPosition[RotorRpmPct1]))));
+      delay(10);
+    }
+    for (int i = 100; i >= 0; i--) {
+      SetRPMR((map(i, 0, 100, long(aServMinPosition[RotorRpmPct1]), long(aServMaxPosition[RotorRpmPct1]))));
+      delay(10);
+    }
+
+    // Engine RPM
+    SetRPMR(aServMinPosition[RotorRpmPct1]);
+    for (int i = 0; i <= 100; i++) {
+      SetRPME(int(map(i, 0, 100, long(aServMinPosition[GeneralEngPctMaxRpm1]), long(aServMaxPosition[GeneralEngPctMaxRpm1]))));
+      delay(10);
+    }
+    for (int i = 100; i >= 0; i--) {
+      SetRPME((map(i, 0, 100, long(aServMinPosition[GeneralEngPctMaxRpm1]), long(aServMaxPosition[GeneralEngPctMaxRpm1]))));
       delay(10);
     }
 
