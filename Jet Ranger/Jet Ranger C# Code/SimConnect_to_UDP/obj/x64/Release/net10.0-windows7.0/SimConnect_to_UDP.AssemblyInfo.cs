@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SimConnect_to_UDP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c84e1731744f7d60f63d59cc9b148dc133ca9833")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5adf33dc44fe15ac8874a2c0c44566040d3ccee")]
 [assembly: System.Reflection.AssemblyProductAttribute("SimConnect_to_UDP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SimConnect_to_UDP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

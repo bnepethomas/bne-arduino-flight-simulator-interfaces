@@ -108,13 +108,7 @@ void SendDebug(String MessageToSend) {
 // ********************* End Smoothing Filter *************
 
 
-#define AIRSPEED_PORT 2
-#define ENG_OIL_TEMP_PORT 12
-#define ENG_OIL_TEMP_PORT 13
-#define ENG_TORQUE_PORT 11
-#define GAS_PRODUCER_PORT 6
-#define TURBINE_SPEED_PORT 8
-#define ROTOR_SPEED_PORT 9
+
 
 // ################################ BEGIN WARNING LIGHTS #######################################
 
@@ -220,8 +214,10 @@ Servo FUEL_SERVO;
 Servo RPMR_SERVO;
 Servo RPME_SERVO;
 Servo myservo;
+Servo VSI_SERVO;
 Servo XMSNP_SERVO;
 Servo XMSNT_SERVO;
+
 
 
 #define AIRSPEED_PORT 2
@@ -260,9 +256,9 @@ enum Servos {
 };
 
 //                         ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-int aServMinPosition[] = { 173,  10, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560, 9, 424, 222 };
-int aServMaxPosition[] = {  12, 952, 444, 555,  23,   6,  37, 740, 802,  20,  51, 000, 864, 288, 107, 222 };
-int aServZeroPosition[] ={ 173, 498, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560, 9, 424, 222 };
+int aServMinPosition[] = { 173, 178, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560, 9, 424, 222 };
+int aServMaxPosition[] = {  12,  14, 444, 555, 23, 6, 37, 740, 802, 20, 51, 000, 864, 288, 107, 222 };
+int aServZeroPosition[] = {173,  93, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560, 9, 424, 222 };
 int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 int aTargetServoPosition[] = { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
@@ -359,6 +355,17 @@ void SetFUEL(int TargetValue) {
   aServoIdle[FuelTotalQuantity] = false;
 
   FUEL_SERVO.write(TargetValue);
+}
+
+// VSI
+void SetVSI(int TargetValue) {
+  if (VSI_SERVO.attached() == false) {
+    VSI_SERVO.attach(VSI_PORT);
+  }
+  aServoLastupdate[VerticalSpeed] = millis();
+  aServoIdle[VerticalSpeed] = false;
+
+  VSI_SERVO.write(TargetValue);
 }
 
 void ElectricalLoad(int load) {
@@ -459,6 +466,9 @@ void UpdateServoPos() {
         case FuelTotalQuantity:
           SetFUEL(aServoPosition[FuelTotalQuantity]);
           break;
+        case VerticalSpeed:
+          SetVSI(aServoPosition[VerticalSpeed]);
+          break;
         default:
           break;
       }
@@ -524,6 +534,17 @@ void CheckServoIdleTime() {
     }
   };
 
+  // VSI
+  if (aServoIdle[VerticalSpeed] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[VerticalSpeed]) >= ServoIdleTime) {
+      if (VSI_SERVO.attached() == true) {
+        VSI_SERVO.detach();
+      }
+      aServoIdle[VerticalSpeed] = true;
+      SendDebug("Detaching VSI Servo");
+    }
+  };
 }
 
 
@@ -664,14 +685,11 @@ void HandleOutputValuePair(String str) {
       //SendDebug("Received Engine RPM: " + ParameterValue);
       aTargetServoPosition[GeneralEngPctMaxRpm1] = ParameterValue.toInt();
     } else if (ParameterName == "FUEL") {
-      SendDebug("Received Fuel Quantity: " + ParameterValue);
+      //SendDebug("Received Fuel Quantity: " + ParameterValue);
       aTargetServoPosition[FuelTotalQuantity] = ParameterValue.toInt();
     } else if (ParameterName == "VSI") {
       //SendDebug("Received Vertical Speed: " + ParameterValue);
-      if (VERTICAL_SPEED != ParameterValue) {
-        SendDebug("Vertical Speed changed");
-        VERTICAL_SPEED = ParameterValue;
-      };
+      aTargetServoPosition[VerticalSpeed] = ParameterValue.toInt();
     } else if (ParameterName == "AGL") {
       //SendDebug("Received Radar Altitude: " + ParameterValue);
       if (PLANE_ALT_ABOVE_GROUND != ParameterValue) {
@@ -714,7 +732,6 @@ void HandleOutputValuePair(String str) {
         SendDebug("Oil Temp changed");
         ENG_OIL_TEMPERATURE_1 = ParameterValue;
       };
-
     } else if (ParameterName == "N1") {
       //SendDebug("Received N1: " + ParameterValue);
       if (TURB_ENG_CORRECTED_N1_1 != ParameterValue) {
@@ -985,7 +1002,7 @@ void setup() {
       delay(10);
     }
 
-    // Engine RPM
+    // Fuel
     SetFUEL(aServMinPosition[FuelTotalQuantity]);
     for (int i = 0; i <= 100; i++) {
       SetFUEL(int(map(i, 0, 100, long(aServMinPosition[FuelTotalQuantity]), long(aServMaxPosition[FuelTotalQuantity]))));
@@ -996,9 +1013,20 @@ void setup() {
       delay(10);
     }
 
+    // VSI
+    SetVSI(aServMinPosition[VerticalSpeed]);
+    for (int i = 0; i <= 100; i++) {
+      SetVSI(int(map(i, 0, 100, long(aServMinPosition[VerticalSpeed]), long(aServMaxPosition[VerticalSpeed]))));
+      delay(10);
+    }
+    for (int i = 100; i >= 0; i--) {
+      SetVSI((map(i, 0, 100, long(aServMinPosition[VerticalSpeed]), long(aServMaxPosition[VerticalSpeed]))));
+      delay(10);
+    }
+
 
     for (int i = 0; i < Number_of_Servos; i++) {
-      aServoPosition[i] = aServZeroPosition[i];
+      //aServoPosition[i] = aServZeroPosition[i];
       aTargetServoPosition[i] = aServZeroPosition[i];
     }
   }

@@ -56,9 +56,9 @@ namespace ServoTuner
 
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-        long[] ServMinPosition = new long[] { 173,  10, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222 };
-        long[] ServMaxPosition = new long[] {  10, 952, 444, 555,  23,   6,  37, 740, 802,  20,  51, 000, 864, 288, 107, 222 };
-        long[] ServZeroPosition = new long[]{ 173, 498, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222 };
+        long[] ServMinPosition = new long[] { 173, 178, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222 };
+        long[] ServMaxPosition = new long[] {  10,  14, 444, 555,  23,   6,  37, 740, 802,  20,  51, 000, 864, 288, 107, 222 };
+        long[] ServZeroPosition = new long[]{ 173,  93, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222 };
 
 
         private void SendToFrontPanel(string message)
@@ -140,6 +140,7 @@ namespace ServoTuner
                 if (lblShortCode.Text == "RPMR") valueToSend = RPMR_Process(newValue);
                 if (lblShortCode.Text == "RPME") valueToSend = RPME_Process(newValue);
                 if (lblShortCode.Text == "FUEL") valueToSend = FUEL_Process(newValue);
+                if (lblShortCode.Text == "VSI") valueToSend = VSI_Process(newValue);
 
 
                 lblConvertedValue.Text = $"Converted Value: {valueToSend}";
@@ -230,6 +231,47 @@ namespace ServoTuner
             int mappedvalue = (int)Mapper(newValue, 0, 75,
                 ServMinPosition[(uint)(Servos.FuelTotalQuantity)], ServMaxPosition[(uint)(Servos.FuelTotalQuantity)]);
             return mappedvalue;
+        }
+
+        private int VSI_Process(long newValue)
+        {
+            //-6000 - 178
+            //-4000 - 161
+            //-2000 - 134
+            //-1000 - 115
+            // 0    - 93
+            // 1000 - 70
+            // 2000 - 52
+            // 4000 - 28
+            // 6000 - 15
+            switch (newValue)
+            {
+                case <= -6000:
+                    return 178;
+                case <= -4000:
+                    return (int)Mapper(newValue, -6000, -4000, 178, 161);
+                case <= -2000:
+                    return (int)Mapper(newValue, -4000, -2000, 161, 134);
+                case <= -1000:
+                    return (int)Mapper(newValue, -2000, -1000, 134, 115);
+                case <= 0:
+                    return (int)Mapper(newValue, -1000, 0, 115, 93);
+                case <= 1000:
+                    return (int)Mapper(newValue, 0, 1000, 93, 70);
+                case <= 2000:
+                    return (int)Mapper(newValue, 1000, 2000, 70, 52);
+                case <= 4000:
+                    return (int)Mapper(newValue, 2000, 4000, 52, 28);
+                case <= 6000:
+                    return (int)Mapper(newValue, 4000, 6000, 28, 15);
+                    case > 6000:
+                    return 15;
+
+                default:
+                    return 93;
+            }
+
+            
         }
 
         public frmMain()
