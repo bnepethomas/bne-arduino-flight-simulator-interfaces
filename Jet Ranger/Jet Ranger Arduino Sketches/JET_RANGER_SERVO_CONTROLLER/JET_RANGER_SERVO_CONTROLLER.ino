@@ -211,6 +211,8 @@ bool powerAvailable = true;
 Servo AIRSPEED_SERVO;
 Servo ENG_TORQUE_SERVO;
 Servo FUEL_SERVO;
+Servo OILP_SERVO;
+Servo OILT_SERVO;
 Servo RPMR_SERVO;
 Servo RPME_SERVO;
 Servo myservo;
@@ -222,8 +224,8 @@ Servo XMSNT_SERVO;
 
 #define AIRSPEED_PORT 2
 #define EGT_PORT 7
-#define ENG_OIL_TEMP_PORT 12
-#define ENG_OIL_PRESS_PORT 13
+#define OILT_PORT 12
+#define OILP_PORT 13
 #define ENG_TORQUE_PORT 11
 #define FUEL_PORT 46
 #define GAS_PRODUCER_PORT 6
@@ -368,6 +370,28 @@ void SetVSI(int TargetValue) {
   VSI_SERVO.write(TargetValue);
 }
 
+// OILP
+void SetOILP(int TargetValue) {
+  if (OILP_SERVO.attached() == false) {
+    OILP_SERVO.attach(OILP_PORT);
+  }
+  aServoLastupdate[EngOilPressure1] = millis();
+  aServoIdle[EngOilPressure1] = false;
+
+  OILP_SERVO.write(TargetValue);
+}
+
+// OILT
+void SetOILT(int TargetValue) {
+  if (OILT_SERVO.attached() == false) {
+    OILT_SERVO.attach(OILT_PORT);
+  }
+  aServoLastupdate[EngOilTemperature1] = millis();
+  aServoIdle[EngOilTemperature1] = false;
+
+  OILT_SERVO.write(TargetValue);
+}
+
 void ElectricalLoad(int load) {
   int val = map(load, 0, 100, 527, 740);
   myservo.write(val);
@@ -469,6 +493,12 @@ void UpdateServoPos() {
         case VerticalSpeed:
           SetVSI(aServoPosition[VerticalSpeed]);
           break;
+        case EngOilPressure1:
+          SetOILP(aServoPosition[EngOilPressure1]);
+          break;
+        case EngOilTemperature1:
+          SetOILT(aServoPosition[EngTransmissionTemperature1]);
+          break;
         default:
           break;
       }
@@ -543,6 +573,30 @@ void CheckServoIdleTime() {
       }
       aServoIdle[VerticalSpeed] = true;
       SendDebug("Detaching VSI Servo");
+    }
+  };
+
+    // OILP
+  if (aServoIdle[EngOilPressure1] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[EngOilPressure1]) >= ServoIdleTime) {
+      if (OILP_SERVO.attached() == true) {
+        OILP_SERVO.detach();
+      }
+      aServoIdle[EngOilPressure1] = true;
+      SendDebug("Detaching OILP Servo");
+    }
+  };
+
+    // OILT
+  if (aServoIdle[EngTransmissionTemperature1] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[EngTransmissionTemperature1]) >= ServoIdleTime) {
+      if (OILT_SERVO.attached() == true) {
+        OILT_SERVO.detach();
+      }
+      aServoIdle[EngTransmissionTemperature1] = true;
+      SendDebug("Detaching OILT Servo");
     }
   };
 }
@@ -690,6 +744,12 @@ void HandleOutputValuePair(String str) {
     } else if (ParameterName == "VSI") {
       //SendDebug("Received Vertical Speed: " + ParameterValue);
       aTargetServoPosition[VerticalSpeed] = ParameterValue.toInt();
+    } else if (ParameterName == "OILP") {
+      SendDebug("Received Oil Pressure: " + ParameterValue);
+      aTargetServoPosition[EngOilPressure1] = ParameterValue.toInt();
+    } else if (ParameterName == "OILT") {
+      SendDebug("Received Oil Temp: " + ParameterValue);
+      aTargetServoPosition[EngOilTemperature1] = ParameterValue.toInt();
     } else if (ParameterName == "AGL") {
       //SendDebug("Received Radar Altitude: " + ParameterValue);
       if (PLANE_ALT_ABOVE_GROUND != ParameterValue) {
@@ -737,12 +797,6 @@ void HandleOutputValuePair(String str) {
       if (TURB_ENG_CORRECTED_N1_1 != ParameterValue) {
         SendDebug("N1 changed");
         TURB_ENG_CORRECTED_N1_1 = ParameterValue;
-      };
-    } else if (ParameterName == "OILP") {
-      //SendDebug("Received Oil Pressure: " + ParameterValue);
-      if (ENG_OIL_PRESSURE_1 != ParameterValue) {
-        SendDebug("Oil Pressure changed");
-        ENG_OIL_PRESSURE_1 = ParameterValue;
       };
     } else if (ParameterName == "XMSNP") {
       //SendDebug("Received Transmission Pressure: " + ParameterValue);

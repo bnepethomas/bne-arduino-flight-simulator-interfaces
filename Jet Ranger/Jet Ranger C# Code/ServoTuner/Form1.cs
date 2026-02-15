@@ -56,9 +56,9 @@ namespace ServoTuner
 
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-        long[] ServMinPosition = new long[] { 173, 178, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222 };
-        long[] ServMaxPosition = new long[] {  10,  14, 444, 555,  23,   6,  37, 740, 802,  20,  51, 000, 864, 288, 107, 222 };
-        long[] ServZeroPosition = new long[]{ 173,  93, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222 };
+        long[] ServMinPosition = new long[] { 173, 178, 444, 555, 177, 137, 176, 527, 121,   0, 159, 121,   0,   9, 424, 222 };
+        long[] ServMaxPosition = new long[] {  10,  14, 444, 555,  23,   6,  37, 740, 802, 990,  51, 000, 990, 288, 107, 222 };
+        long[] ServZeroPosition = new long[]{ 173,  93, 444, 555, 177, 137, 176, 527, 121,   0, 159, 121, 560,   9, 424, 222 };
 
 
         private void SendToFrontPanel(string message)
@@ -141,6 +141,8 @@ namespace ServoTuner
                 if (lblShortCode.Text == "RPME") valueToSend = RPME_Process(newValue);
                 if (lblShortCode.Text == "FUEL") valueToSend = FUEL_Process(newValue);
                 if (lblShortCode.Text == "VSI") valueToSend = VSI_Process(newValue);
+                if (lblShortCode.Text == "OILP") valueToSend = OILP_Process(newValue);
+                if (lblShortCode.Text == "OILT") valueToSend = OILt_Process(newValue);  
 
 
                 lblConvertedValue.Text = $"Converted Value: {valueToSend}";
@@ -273,6 +275,20 @@ namespace ServoTuner
 
             
         }
+
+        private int OILP_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, 0, 150,
+                ServMinPosition[(uint)(Servos.EngOilPressure1)], ServMaxPosition[(uint)(Servos.EngOilPressure1)]);
+            return mappedvalue;
+        }
+        private int OILt_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, 0, 150,
+                ServMinPosition[(uint)(Servos.EngOilTemperature1)], ServMaxPosition[(uint)(Servos.EngOilTemperature1)]);
+            return mappedvalue;
+        }
+
 
         public frmMain()
         {
