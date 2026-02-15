@@ -258,9 +258,9 @@ enum Servos {
 };
 
 //                         ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-int aServMinPosition[] = { 173, 178, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560, 9, 424, 222 };
-int aServMaxPosition[] = {  12,  14, 444, 555, 23, 6, 37, 740, 802, 20, 51, 000, 864, 288, 107, 222 };
-int aServZeroPosition[] = {173,  93, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560, 9, 424, 222 };
+int aServMinPosition[] = { 173, 178, 444, 555, 177, 137, 176, 527, 121, 124, 159, 121,  82,   9, 424, 222 };
+int aServMaxPosition[] = {  12,  14, 444, 555,  23,   6,  37, 740, 802, 175,  51, 000, 834, 288, 107, 222 };
+int aServZeroPosition[] = {173,  93, 444, 555, 177, 137, 176, 527, 121, 124, 159, 121,  82,   9, 424, 222 };
 int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 int aTargetServoPosition[] = { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
@@ -392,6 +392,28 @@ void SetOILT(int TargetValue) {
   OILT_SERVO.write(TargetValue);
 }
 
+// Transmission Oil Pressure
+void SetXMSNP(int TargetValue) {
+  if (XMSNP_SERVO.attached() == false) {
+    XMSNP_SERVO.attach(XMSNP_PORT);
+  }
+  aServoLastupdate[EngTransmissionPressure1] = millis();
+  aServoIdle[EngTransmissionPressure1] = false;
+
+  XMSNP_SERVO.write(TargetValue);
+}
+
+// Transmission Oil Temperature
+void SetXMSNT(int TargetValue) {
+  if (XMSNT_SERVO.attached() == false) {
+    XMSNT_SERVO.attach(XMSNT_PORT);
+  }
+  aServoLastupdate[EngTransmissionTemperature1] = millis();
+  aServoIdle[EngTransmissionTemperature1] = false;
+
+  XMSNT_SERVO.write(TargetValue);
+}
+
 void ElectricalLoad(int load) {
   int val = map(load, 0, 100, 527, 740);
   myservo.write(val);
@@ -497,7 +519,13 @@ void UpdateServoPos() {
           SetOILP(aServoPosition[EngOilPressure1]);
           break;
         case EngOilTemperature1:
-          SetOILT(aServoPosition[EngTransmissionTemperature1]);
+          SetOILT(aServoPosition[EngOilTemperature1]);
+          break;
+        case EngTransmissionPressure1:
+          SetXMSNP(aServoPosition[EngTransmissionPressure1]);
+          break;
+        case EngTransmissionTemperature1:
+          SetXMSNT(aServoPosition[EngTransmissionTemperature1]);
           break;
         default:
           break;
@@ -584,19 +612,43 @@ void CheckServoIdleTime() {
         OILP_SERVO.detach();
       }
       aServoIdle[EngOilPressure1] = true;
-      SendDebug("Detaching OILP Servo");
+      SendDebug("Detaching Engine Oil Pressure Servo");
     }
   };
 
-    // OILT
-  if (aServoIdle[EngTransmissionTemperature1] == false) {
+  // OILT
+  if (aServoIdle[EngOilTemperature1] == false) {
     //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[EngTransmissionTemperature1]) >= ServoIdleTime) {
+    if ((millis() - aServoLastupdate[EngOilTemperature1]) >= ServoIdleTime) {
       if (OILT_SERVO.attached() == true) {
         OILT_SERVO.detach();
       }
+      aServoIdle[EngOilTemperature1] = true;
+      SendDebug("Detaching Engine Oil Temperature Servo");
+    }
+  };
+
+  //Transmission Oil Pressure
+  if (aServoIdle[EngTransmissionPressure1] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[EngTransmissionPressure1]) >= ServoIdleTime) {
+      if (XMSNP_SERVO.attached() == true) {
+        XMSNP_SERVO.detach();
+      }
+      aServoIdle[EngTransmissionPressure1] = true;
+      SendDebug("Detaching Transmission Oil Pressure Servo");
+    }
+  };
+
+  // Transmission Oil Temperature
+  if (aServoIdle[EngTransmissionTemperature1] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[EngTransmissionTemperature1]) >= ServoIdleTime) {
+      if (XMSNT_SERVO.attached() == true) {
+        XMSNT_SERVO.detach();
+      }
       aServoIdle[EngTransmissionTemperature1] = true;
-      SendDebug("Detaching OILT Servo");
+      SendDebug("Detaching Transmission Oil Temperature Servo");
     }
   };
 }
@@ -750,6 +802,12 @@ void HandleOutputValuePair(String str) {
     } else if (ParameterName == "OILT") {
       SendDebug("Received Oil Temp: " + ParameterValue);
       aTargetServoPosition[EngOilTemperature1] = ParameterValue.toInt();
+    } else if (ParameterName == "XMSNP") {
+      SendDebug("Received Transmission Pressure: " + ParameterValue);
+      aTargetServoPosition[EngTransmissionPressure1] = ParameterValue.toInt();
+    } else if (ParameterName == "XMSNT") {
+      SendDebug("Received Transmission Temperature: " + ParameterValue);
+      aTargetServoPosition[EngTransmissionTemperature1] = ParameterValue.toInt();
     } else if (ParameterName == "AGL") {
       //SendDebug("Received Radar Altitude: " + ParameterValue);
       if (PLANE_ALT_ABOVE_GROUND != ParameterValue) {
@@ -768,12 +826,7 @@ void HandleOutputValuePair(String str) {
         SendDebug("Pitch changed");
         ATTITUDE_INDICATOR_PITCH_DEGREES = ParameterValue;
       };
-    } else if (ParameterName == "TQ") {
-      //SendDebug("Received Torque: " + ParameterValue);
-      if (ENG_TORQUE_PERCENT_1 != ParameterValue) {
-        SendDebug("Torque changed");
-        ENG_TORQUE_PERCENT_1 = ParameterValue;
-      };
+
     } else if (ParameterName == "AMPS") {
       //SendDebug("Received Amps: " + ParameterValue);
       if (ELECTRICAL_TOTAL_LOAD_AMPS != ParameterValue) {
@@ -786,30 +839,15 @@ void HandleOutputValuePair(String str) {
         SendDebug("ITT changed");
         TURB_ENG_ITT_1 = ParameterValue;
       };
-    } else if (ParameterName == "OILT") {
-      //SendDebug("Received il Temp: " + ParameterValue);
-      if (ENG_OIL_TEMPERATURE_1 != ParameterValue) {
-        SendDebug("Oil Temp changed");
-        ENG_OIL_TEMPERATURE_1 = ParameterValue;
-      };
+
     } else if (ParameterName == "N1") {
       //SendDebug("Received N1: " + ParameterValue);
       if (TURB_ENG_CORRECTED_N1_1 != ParameterValue) {
         SendDebug("N1 changed");
         TURB_ENG_CORRECTED_N1_1 = ParameterValue;
       };
-    } else if (ParameterName == "XMSNP") {
-      //SendDebug("Received Transmission Pressure: " + ParameterValue);
-      if (ENG_TRANSMISSION_PRESSURE_1 != ParameterValue) {
-        SendDebug("Transmission Pressure changed");
-        ENG_TRANSMISSION_PRESSURE_1 = ParameterValue;
-      };
-    } else if (ParameterName == "XMSNT") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
-      if (ENG_TRANSMISSION_TEMPERATURE_1 != ParameterValue) {
-        SendDebug("Transmission Temperature changed");
-        ENG_TRANSMISSION_TEMPERATURE_1 = ParameterValue;
-      };
+
+
     } else if (ParameterName == "RLOW") {
       //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (Rotor_RPM_Low != ParameterValue) {
@@ -1078,9 +1116,30 @@ void setup() {
       delay(10);
     }
 
+    // OIL Temp
+    SetOILT(aServMinPosition[EngOilTemperature1]);
+    for (int i = 0; i <= 100; i++) {
+      SetOILT(int(map(i, 0, 100, long(aServMinPosition[EngOilTemperature1]), long(aServMaxPosition[EngOilTemperature1]))));
+      delay(10);
+    }
+    for (int i = 100; i >= 0; i--) {
+      SetOILT((map(i, 0, 100, long(aServMinPosition[EngOilTemperature1]), long(aServMaxPosition[EngOilTemperature1]))));
+      delay(10);
+    }
+
+    // Oil Pressure
+    SetOILP(aServMinPosition[EngOilPressure1]);
+    for (int i = 0; i <= 100; i++) {
+      SetOILP(int(map(i, 0, 100, long(aServMinPosition[EngOilPressure1]), long(aServMaxPosition[EngOilPressure1]))));
+      delay(10);
+    }
+    for (int i = 100; i >= 0; i--) {
+      SetOILP((map(i, 0, 100, long(aServMinPosition[EngOilPressure1]), long(aServMaxPosition[EngOilPressure1]))));
+      delay(10);
+    }   
 
     for (int i = 0; i < Number_of_Servos; i++) {
-      //aServoPosition[i] = aServZeroPosition[i];
+      aServoPosition[i] = aServZeroPosition[i];
       aTargetServoPosition[i] = aServZeroPosition[i];
     }
   }
