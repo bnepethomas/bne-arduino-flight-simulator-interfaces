@@ -219,6 +219,9 @@ Servo myservo;
 Servo VSI_SERVO;
 Servo XMSNP_SERVO;
 Servo XMSNT_SERVO;
+Servo EGT_SERVO;
+Servo ROLL_SERVO;
+Servo PITCH_SERVO;
 
 
 
@@ -232,10 +235,11 @@ Servo XMSNT_SERVO;
 #define RADAR_ALT_PORT 3
 #define RPME_PORT 8
 #define RPMR_PORT 9
-#define GAS_PRODUCER_PORT 12
 #define VSI_PORT 4
 #define XMSNP_PORT 45
 #define XMSNT_PORT 44
+#define PITCH_PORT 6  // Using Gas Producer Port for the moment
+#define ROLL_PORT 3   // Using Radar Alt Port for the moment
 
 enum Servos {
   AirSpeed,
@@ -256,11 +260,11 @@ enum Servos {
   PlaneAltAboveGround,
   Number_of_Servos
 };
-
+                                
 //                         ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-int aServMinPosition[] = { 173, 178, 444, 555, 177, 137, 176, 527, 121, 124, 159, 121,  82,   9, 424, 222 };
-int aServMaxPosition[] = {  12,  14, 444, 555,  23,   6,  37, 740, 802, 175,  51, 000, 834, 288, 107, 222 };
-int aServZeroPosition[] = {173,  93, 444, 555, 177, 137, 176, 527, 121, 124, 159, 121,  82,   9, 424, 222 };
+int aServMinPosition[] = { 173, 178, 444, 555, 177, 137, 176, 527, 121, 124, 159, 121,  82, 178, 114, 222 };
+int aServMaxPosition[] = {  12,  14, 444, 555,  23,   6,  37, 740, 802, 175,  51, 000, 834, 128, 168, 222 };
+int aServZeroPosition[] = {173,  93, 444, 555, 177, 137, 176, 527, 121, 124, 159, 121,  82, 178, 114, 222 };
 int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 int aTargetServoPosition[] = { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222 };
 long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
@@ -414,6 +418,40 @@ void SetXMSNT(int TargetValue) {
   XMSNT_SERVO.write(TargetValue);
 }
 
+// Gas Producer
+void SetEGT(int TargetValue) {
+  if (EGT_SERVO.attached() == false) {
+    EGT_SERVO.attach(EGT_PORT);
+  }
+  aServoLastupdate[TurbEngItt1] = millis();
+  aServoIdle[TurbEngItt1] = false;
+
+  EGT_SERVO.write(TargetValue);
+}
+
+// Pitch
+void SetPITCH(int TargetValue) {
+  if (PITCH_SERVO.attached() == false) {
+    PITCH_SERVO.attach(PITCH_PORT);
+  }
+  aServoLastupdate[AttitudeIndicatorPitchDegrees] = millis();
+  aServoIdle[AttitudeIndicatorPitchDegrees] = false;
+
+  PITCH_SERVO.write(TargetValue);
+}
+
+// Roll
+void SetROLL(int TargetValue) {
+  if (ROLL_SERVO.attached() == false) {
+    ROLL_SERVO.attach(ROLL_PORT);
+  }
+  aServoLastupdate[AttitudeIndicatorBankDegrees] = millis();
+  aServoIdle[AttitudeIndicatorBankDegrees] = false;
+
+  ROLL_SERVO.write(TargetValue);
+}
+
+
 void ElectricalLoad(int load) {
   int val = map(load, 0, 100, 527, 740);
   myservo.write(val);
@@ -526,6 +564,15 @@ void UpdateServoPos() {
           break;
         case EngTransmissionTemperature1:
           SetXMSNT(aServoPosition[EngTransmissionTemperature1]);
+          break;
+        case TurbEngItt1:
+          SetEGT(aServoPosition[TurbEngItt1]);
+          break;
+        case AttitudeIndicatorPitchDegrees:
+          SetPITCH(aServoPosition[AttitudeIndicatorPitchDegrees]);
+          break;
+        case AttitudeIndicatorBankDegrees:
+          SetROLL(aServoPosition[AttitudeIndicatorBankDegrees]);
           break;
         default:
           break;
@@ -649,6 +696,42 @@ void CheckServoIdleTime() {
       }
       aServoIdle[EngTransmissionTemperature1] = true;
       SendDebug("Detaching Transmission Oil Temperature Servo");
+    }
+  };
+
+  // EGT
+    if (aServoIdle[TurbEngItt1] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[TurbEngItt1]) >= ServoIdleTime) {
+      if (EGT_SERVO.attached() == true) {
+        EGT_SERVO.detach();
+      }
+      aServoIdle[TurbEngItt1] = true;
+      SendDebug("Detaching EGT Servo");
+    }
+  };
+
+  // PITCH
+      if (aServoIdle[AttitudeIndicatorPitchDegrees] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[AttitudeIndicatorPitchDegrees]) >= ServoIdleTime) {
+      if (PITCH_SERVO.attached() == true) {
+        PITCH_SERVO.detach();
+      }
+      aServoIdle[TurbEngItt1] = true;
+      SendDebug("Detaching Pitch Servo");
+    }
+  };
+
+  // ROLL
+      if (aServoIdle[AttitudeIndicatorBankDegrees] == false) {
+    //Need to see if we have hit time to detach
+    if ((millis() - aServoLastupdate[AttitudeIndicatorBankDegrees]) >= ServoIdleTime) {
+      if (ROLL_SERVO.attached() == true) {
+        ROLL_SERVO.detach();
+      }
+      aServoIdle[AttitudeIndicatorBankDegrees] = true;
+      SendDebug("Detaching Roll Servo");
     }
   };
 }
@@ -808,25 +891,21 @@ void HandleOutputValuePair(String str) {
     } else if (ParameterName == "XMSNT") {
       SendDebug("Received Transmission Temperature: " + ParameterValue);
       aTargetServoPosition[EngTransmissionTemperature1] = ParameterValue.toInt();
+    } else if (ParameterName == "EGT") {
+      SendDebug("Received EGT: " + ParameterValue);
+      aTargetServoPosition[TurbEngItt1] = ParameterValue.toInt();
+    } else if (ParameterName == "BANK") {
+      SendDebug("Received Bank: " + ParameterValue);
+      aTargetServoPosition[AttitudeIndicatorBankDegrees] = ParameterValue.toInt();
+    } else if (ParameterName == "PITCH") {
+      SendDebug("Received Pitch: " + ParameterValue);
+      aTargetServoPosition[AttitudeIndicatorPitchDegrees] = ParameterValue.toInt();
     } else if (ParameterName == "AGL") {
       //SendDebug("Received Radar Altitude: " + ParameterValue);
       if (PLANE_ALT_ABOVE_GROUND != ParameterValue) {
         SendDebug("Radar Altitude changed");
         PLANE_ALT_ABOVE_GROUND = ParameterValue;
       };
-    } else if (ParameterName == "BANK") {
-      //SendDebug("Received Bank: " + ParameterValue);
-      if (ATTITUDE_INDICATOR_BANK_DEGREES != ParameterValue) {
-        SendDebug("Bank changed");
-        ATTITUDE_INDICATOR_BANK_DEGREES = ParameterValue;
-      };
-    } else if (ParameterName == "PITCH") {
-      //SendDebug("Received Pitch: " + ParameterValue);
-      if (ATTITUDE_INDICATOR_PITCH_DEGREES != ParameterValue) {
-        SendDebug("Pitch changed");
-        ATTITUDE_INDICATOR_PITCH_DEGREES = ParameterValue;
-      };
-
     } else if (ParameterName == "AMPS") {
       //SendDebug("Received Amps: " + ParameterValue);
       if (ELECTRICAL_TOTAL_LOAD_AMPS != ParameterValue) {
@@ -1050,6 +1129,10 @@ void setup() {
 
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
 
+    // Deal with special case as this servo is attached to indicator led which flashes during upload
+    SetOILP(aSeroZeroPosition[EngOilPressure1]);
+    OILP_SERVO.write(aServZeroPosition[EngOilPressure1]);
+
     // Engine Torque
     SetEngineTorque(aServMinPosition[EngTorquePercent1]);
     for (int i = 0; i <= 120; i++) {
@@ -1115,6 +1198,7 @@ void setup() {
       SetVSI((map(i, 0, 100, long(aServMinPosition[VerticalSpeed]), long(aServMaxPosition[VerticalSpeed]))));
       delay(10);
     }
+    SetVSI(aServZeroPosition[VerticalSpeed]);
 
     // OIL Temp
     SetOILT(aServMinPosition[EngOilTemperature1]);
@@ -1137,6 +1221,28 @@ void setup() {
       SetOILP((map(i, 0, 100, long(aServMinPosition[EngOilPressure1]), long(aServMaxPosition[EngOilPressure1]))));
       delay(10);
     }   
+
+    // Transmission Pressure
+    SetXMSNP(aServMinPosition[EngTransmissionPressure1]);
+    for (int i = 0; i <= 100; i++) {
+      SetXMSNP(int(map(i, 0, 100, long(aServMinPosition[EngTransmissionPressure1]), long(aServMaxPosition[EngTransmissionPressure1]))));
+      delay(10);
+    }
+    for (int i = 100; i >= 0; i--) {
+      SetXMSNP((map(i, 0, 100, long(aServMinPosition[EngTransmissionPressure1]), long(aServMaxPosition[EngTransmissionPressure1]))));
+      delay(10);
+    } 
+
+    // Transmission Temperature
+    SetXMSNT(aServMinPosition[EngTransmissionTemperature1]);
+    for (int i = 0; i <= 100; i++) {
+      SetXMSNT(int(map(i, 0, 100, long(aServMinPosition[EngTransmissionTemperature1]), long(aServMaxPosition[EngTransmissionTemperature1]))));
+      delay(10);
+    }
+    for (int i = 100; i >= 0; i--) {
+      SetXMSNT((map(i, 0, 100, long(aServMinPosition[EngTransmissionTemperature1]), long(aServMaxPosition[EngTransmissionTemperature1]))));
+      delay(10);
+    } 
 
     for (int i = 0; i < Number_of_Servos; i++) {
       aServoPosition[i] = aServZeroPosition[i];
