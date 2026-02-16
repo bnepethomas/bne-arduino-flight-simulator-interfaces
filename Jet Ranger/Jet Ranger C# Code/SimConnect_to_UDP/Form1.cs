@@ -445,6 +445,72 @@ namespace SimConnect_to_UDP
 
 
         }
+
+        private int OILP_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, 0, 150,
+                ServMinPosition[(uint)(Servos.EngOilPressure1)], ServMaxPosition[(uint)(Servos.EngOilPressure1)]);
+            return mappedvalue;
+        }
+        private int OILT_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, 0, 150,
+                ServMinPosition[(uint)(Servos.EngOilTemperature1)], ServMaxPosition[(uint)(Servos.EngOilTemperature1)]);
+            return mappedvalue;
+        }
+
+        private int XMSNP_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, 0, 150,
+                ServMinPosition[(uint)(Servos.EngTransmissionPressure1)], ServMaxPosition[(uint)(Servos.EngTransmissionPressure1)]);
+            return mappedvalue;
+        }
+        private int XMSNT_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, 0, 150,
+                ServMinPosition[(uint)(Servos.EngTransmissionTemperature1)], ServMaxPosition[(uint)(Servos.EngTransmissionTemperature1)]);
+            return mappedvalue;
+        }
+
+        private int ITT_Process(long newValue)
+        {
+            // 0 - 159
+            // 1 - 159
+            // 600 - 134
+            // 700 - 101
+            // 800 - 65
+            // 900 - 44
+            switch (newValue)
+            {
+                case <= 100:
+                    return (int)(159);
+                case <= 600:
+                    return (int)(Mapper(newValue, 100, 600, 159, 134));
+                case <= 700:
+                    return (int)(Mapper(newValue, 600, 700, 134, 101));
+                case <= 800:
+                    return (int)(Mapper(newValue, 700, 800, 101, 65));
+                case <= 900:
+                    return (int)(Mapper(newValue, 800, 900, 65, 44));
+                default:
+                    return (int)(44);
+            }
+
+        }
+        private int PITCH_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, -90, +90,
+                ServMinPosition[(uint)(Servos.AttitudeIndicatorPitchDegrees)], ServMaxPosition[(uint)(Servos.AttitudeIndicatorPitchDegrees)]);
+            return mappedvalue;
+        }
+
+        private int ROLL_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, -90, 90,
+                ServMinPosition[(uint)(Servos.AttitudeIndicatorBankDegrees)], ServMaxPosition[(uint)(Servos.AttitudeIndicatorBankDegrees)]);
+            return mappedvalue;
+        }
+
         private void StartListener()
         {
             Task.Run(async () =>
@@ -1047,14 +1113,16 @@ namespace SimConnect_to_UDP
                     {
                         frontPanelDataChanged = true;
                         ATTITUDE_INDICATOR_BANK_DEGREES = sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES.ToString("F3");
-                        UDP_Playload = UDP_Playload + ",BANK:" + ATTITUDE_INDICATOR_BANK_DEGREES;
+                        int a = (int)(sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES);
+                        UDP_Playload = UDP_Playload + ",BANK:" + ROLL_Process(a).ToString();
                     }
                     ;
                     if (ATTITUDE_INDICATOR_PITCH_DEGREES != sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES.ToString("F3")) ;
                     {
                         frontPanelDataChanged = true;
                         ATTITUDE_INDICATOR_PITCH_DEGREES = sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES.ToString("F3");
-                        UDP_Playload = UDP_Playload + ",PITCH:" + ATTITUDE_INDICATOR_PITCH_DEGREES;
+                        int a = (int)(sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES);
+                        UDP_Playload = UDP_Playload + ",PITCH:" + PITCH_Process(a).ToString();
                     }
                     ;
 
@@ -1082,7 +1150,8 @@ namespace SimConnect_to_UDP
                     {
                         frontPanelDataChanged = true;
                         TURB_ENG_ITT_1 = sFrontPanel.TURB_ENG_ITT_1.ToString();
-                        UDP_Playload = UDP_Playload + ",ITT:" + TURB_ENG_ITT_1;
+                        int a = (int)(sFrontPanel.TURB_ENG_ITT_1);
+                        UDP_Playload = UDP_Playload + ",ITT:" + ITT_Process(a).ToString();
                     }
                     ;
 
@@ -1090,7 +1159,8 @@ namespace SimConnect_to_UDP
                     {
                         frontPanelDataChanged = true;
                         ENG_OIL_TEMPERATURE_1 = sFrontPanel.ENG_OIL_TEMPERATURE_1.ToString();
-                        UDP_Playload = UDP_Playload + ",OILT:" + ENG_OIL_TEMPERATURE_1;
+                        int a = (int)(sFrontPanel.ENG_OIL_TEMPERATURE_1);
+                        UDP_Playload = UDP_Playload + ",OILT:" + OILT_Process(a).ToString();
                     }
                     ;
 
@@ -1100,6 +1170,8 @@ namespace SimConnect_to_UDP
                     {
                         frontPanelDataChanged = true;
                         TURB_ENG_CORRECTED_N1_1 = sFrontPanel.TURB_ENG_CORRECTED_N1_1.ToString();
+                        int a = (int)(sFrontPanel.TURB_ENG_CORRECTED_N1_1);
+                        // UDP_Playload = UDP_Playload + ",N1:" + N1_Process(a).ToString();
                         UDP_Playload = UDP_Playload + ",N1:" + TURB_ENG_CORRECTED_N1_1;
                     }
                     ;
@@ -1108,7 +1180,8 @@ namespace SimConnect_to_UDP
                     {
                         frontPanelDataChanged = true;
                         ENG_OIL_PRESSURE_1 = sFrontPanel.ENG_OIL_PRESSURE_1.ToString();
-                        UDP_Playload = UDP_Playload + ",OILP:" + ENG_OIL_PRESSURE_1;
+                        int a = (int)(sFrontPanel.ENG_OIL_PRESSURE_1);
+                        UDP_Playload = UDP_Playload + ",OILP:" + OILP_Process(a).ToString();
                     }
                     ;
 
@@ -1116,7 +1189,8 @@ namespace SimConnect_to_UDP
                     {
                         frontPanelDataChanged = true;
                         ENG_TRANSMISSION_PRESSURE_1 = sFrontPanel.ENG_TRANSMISSION_PRESSURE_1.ToString();
-                        UDP_Playload = UDP_Playload + ",XMSNP:" + ENG_TRANSMISSION_PRESSURE_1;
+                        int a = (int)(sFrontPanel.ENG_TRANSMISSION_PRESSURE_1);
+                        UDP_Playload = UDP_Playload + ",XMSNP:" + XMSNP_Process(a).ToString();   
                     }
                     ;
 
@@ -1124,7 +1198,8 @@ namespace SimConnect_to_UDP
                     {
                         frontPanelDataChanged = true;
                         ENG_TRANSMISSION_TEMPERATURE_1 = sFrontPanel.ENG_TRANSMISSION_TEMPERATURE_1.ToString();
-                        UDP_Playload = UDP_Playload + ",XMSNT:" + ENG_TRANSMISSION_TEMPERATURE_1;
+                        int a = (int)(sFrontPanel.ENG_TRANSMISSION_TEMPERATURE_1);
+                        UDP_Playload = UDP_Playload + ",XMSNT:" + XMSNT_Process(a).ToString();
                     }
                     ;
 

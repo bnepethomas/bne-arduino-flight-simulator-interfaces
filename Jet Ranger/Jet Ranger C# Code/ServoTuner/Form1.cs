@@ -56,9 +56,9 @@ namespace ServoTuner
 
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-        long[] ServMinPosition = new long[] { 173, 178, 444, 555, 177, 137, 176, 527, 121, 124, 159, 121,  82, 178, 114, 222 };
-        long[] ServMaxPosition = new long[] {  10,  14, 444, 555,  23,   6,  37, 740, 802, 175,  51, 000,  34, 128, 168, 222 };
-        long[] ServZeroPosition = new long[]{ 173,  93, 444, 555, 177, 137, 176, 527, 121, 124, 159, 121,  82, 178, 114, 222 };
+        long[] ServMinPosition = new long[] { 173, 178,   5, 166, 177, 137, 176, 527, 159, 124, 159, 121,  82, 178, 114, 222 };
+        long[] ServMaxPosition = new long[] {  10,  14, 179,  70,  23,   6,  37, 740,  44, 175,  51, 000,  34, 128, 168, 222 };
+        long[] ServZeroPosition = new long[]{ 173,  93,  91, 113, 177, 137, 176, 527, 159, 124, 159, 121,  82, 178, 114, 222 };
 
 
         private void SendToFrontPanel(string message)
@@ -145,6 +145,9 @@ namespace ServoTuner
                 if (lblShortCode.Text == "OILT") valueToSend = OILT_Process(newValue);  
                 if (lblShortCode.Text == "XMSNP") valueToSend = XMSNP_Process(newValue);
                 if (lblShortCode.Text == "XMSNT") valueToSend = XMSNT_Process(newValue);
+                if (lblShortCode.Text == "ITT") valueToSend = ITT_Process(newValue);
+                if (lblShortCode.Text == "PITCH") valueToSend = PITCH_Process(newValue);
+                if (lblShortCode.Text == "ROLL") valueToSend = ROLL_Process(newValue);
 
 
                 lblConvertedValue.Text = $"Converted Value: {valueToSend}";
@@ -301,6 +304,44 @@ namespace ServoTuner
         {
             int mappedvalue = (int)Mapper(newValue, 0, 150,
                 ServMinPosition[(uint)(Servos.EngTransmissionTemperature1)], ServMaxPosition[(uint)(Servos.EngTransmissionTemperature1)]);
+            return mappedvalue;
+        }
+
+        private int ITT_Process(long newValue)
+        {
+            // 0 - 159
+            // 1 - 159
+            // 600 - 134
+            // 700 - 101
+            // 800 - 65
+            // 900 - 44
+            switch (newValue) { 
+                case <= 100:
+                    return (int)(159);
+                case <= 600:
+                    return (int)(Mapper(newValue, 100, 600, 159, 134));
+                case <= 700:
+                    return (int)(Mapper(newValue, 600, 700, 134, 101));
+                case <= 800:
+                    return (int)(Mapper(newValue, 700, 800, 101, 65));
+                case <= 900:
+                    return (int)(Mapper(newValue, 800, 900, 65, 44));
+                default:
+                    return (int)(44);
+            }
+
+        }
+        private int PITCH_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, -90, +90,
+                ServMinPosition[(uint)(Servos.AttitudeIndicatorPitchDegrees)], ServMaxPosition[(uint)(Servos.AttitudeIndicatorPitchDegrees)]);
+            return mappedvalue;
+        }
+
+        private int ROLL_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, -90, 90,
+                ServMinPosition[(uint)(Servos.AttitudeIndicatorBankDegrees)], ServMaxPosition[(uint)(Servos.AttitudeIndicatorBankDegrees)]);
             return mappedvalue;
         }
 
