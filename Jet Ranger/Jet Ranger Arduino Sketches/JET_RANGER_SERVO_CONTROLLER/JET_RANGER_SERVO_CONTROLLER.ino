@@ -222,6 +222,9 @@ Servo XMSNT_SERVO;
 Servo EGT_SERVO;
 Servo ROLL_SERVO;
 Servo PITCH_SERVO;
+Servo FUEL_LOAD_SERVO;
+Servo ELEC_LAD_SERVO;
+Servo GAS_PRODUCER_SERVO;
 
 
 
@@ -238,8 +241,11 @@ Servo PITCH_SERVO;
 #define VSI_PORT 4
 #define XMSNP_PORT 45
 #define XMSNT_PORT 44
-#define PITCH_PORT 6  // Using Gas Producer Port for the moment
-#define ROLL_PORT 3   // Using Radar Alt Port for the moment
+#define PITCH_PORT 26  // Using Gas Producer Port for the moment
+#define ROLL_PORT 27   // Using Radar Alt Port for the moment
+#define ELEC_LOAD_PORT 28
+#define FUEL_LOAD_PORT 29 
+#
 
 enum Servos {
   AirSpeed,
@@ -258,6 +264,8 @@ enum Servos {
   EngTransmissionPressure1,
   EngTransmissionTemperature1,
   PlaneAltAboveGround,
+  Fuel_Load,
+  Electrical_Load,
   Number_of_Servos
 };
                                 
@@ -450,6 +458,19 @@ void SetROLL(int TargetValue) {
 
   ROLL_SERVO.write(TargetValue);
 }
+
+
+// Fuel Load
+void SetFUEL_LOAD(int TargetValue) {
+  if (FUEL_LOAD_SERVO.attached() == false) {
+    FUEL_LOAD_SERVO.attach(FUEL_LOAD_PORT);
+  }
+  aServoLastupdate[AttitudeIndicatorBankDegrees] = millis();
+  aServoIdle[AttitudeIndicatorBankDegrees] = false;
+
+  FUEL_LOAD_SERVO.write(TargetValue);
+}
+
 
 
 void ElectricalLoad(int load) {

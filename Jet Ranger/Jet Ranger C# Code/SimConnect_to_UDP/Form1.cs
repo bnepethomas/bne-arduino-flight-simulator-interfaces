@@ -125,6 +125,9 @@ namespace SimConnect_to_UDP
             EngTransmissionPressure1,
             EngTransmissionTemperature1,
             PlaneAltAboveGround,
+            Fuel_Load,
+            Electrical_Load,
+            Number_Of_Servos,
         }
 
         enum ServoShortCodes
@@ -145,6 +148,8 @@ namespace SimConnect_to_UDP
             XMSNP,
             XMSNT,
             AGL,
+            FLOAD,
+            ELOAD,
         }
         enum GROUP_ID
         {
@@ -168,11 +173,11 @@ namespace SimConnect_to_UDP
         // for each servo, as well as the zero position for those servos that have a zero position in the middle of the range.
 
 
-        //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL
-        long[] ServMinPosition = new long[]  { 173, 178, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222 };
-        long[] ServMaxPosition = new long[]  {  10,  14, 444, 555,  23,   6,  37, 740, 802,  20,  51,   0, 864, 288, 107, 222 };
-        long[] ServZeroPosition = new long[] { 173,  93, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222 };
-        long[] ServoPosition = new long[]    {000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
+        //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT  AGL FLOAD ELOAD
+        long[] ServMinPosition = new long[]  { 173, 178, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222, 222, 222 };
+        long[] ServMaxPosition = new long[]  {  10,  14, 444, 555,  23,   6,  37, 740, 802,  20,  51,   0, 864, 288, 107, 222, 222, 222 };
+        long[] ServZeroPosition = new long[] { 173,  93, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222, 222, 222 };
+        long[] ServoPosition = new long[]    { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 
         // this is how you declare a data structure so that 
         // simconnect knows how to fill it/read it. 
