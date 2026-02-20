@@ -43,7 +43,9 @@ namespace SimConnect_to_UDP
         private String TURB_ENG_CORRECTED_N1_1 = "";            // N1
         private String ENG_OIL_PRESSURE_1 = "";                 // OILP 
         private String ENG_TRANSMISSION_PRESSURE_1 = "";        // XMSNP
-        private String ENG_TRANSMISSION_TEMPERATURE_1 = "";    // XMSNT
+        private String ENG_TRANSMISSION_TEMPERATURE_1 = "";     // XMSNT
+        private String FUEL_LOAD = "";                          // FLOAD
+        private String ELECTRICAL_LOAD = "";                    // ELOAD
         private String ELECTRICAL_MASTER_BATTERY = "";          // BATSW
         private String AIRSPEED_2 = "";
 
@@ -125,8 +127,8 @@ namespace SimConnect_to_UDP
             EngTransmissionPressure1,
             EngTransmissionTemperature1,
             PlaneAltAboveGround,
-            Fuel_Load,
-            Electrical_Load,
+            FuelLoad,
+            ElectricalLoad,
             Number_Of_Servos,
         }
 
@@ -174,9 +176,9 @@ namespace SimConnect_to_UDP
 
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT  AGL FLOAD ELOAD
-        long[] ServMinPosition = new long[]  { 173, 178, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222, 222, 222 };
-        long[] ServMaxPosition = new long[]  {  10,  14, 444, 555,  23,   6,  37, 740, 802,  20,  51,   0, 864, 288, 107, 222, 222, 222 };
-        long[] ServZeroPosition = new long[] { 173,  93, 444, 555, 177, 137, 176, 527, 121, 310, 159, 121, 560,   9, 424, 222, 222, 222 };
+        long[] ServMinPosition = new long[]  { 173, 178, 444, 555, 177, 137, 176, 527, 121, 310, 159,   0, 560,   9, 424, 222, 222, 222 };
+        long[] ServMaxPosition = new long[]  {  10,  14, 444, 555,  23,   6,  37, 740, 802,  20,  51, 999, 864, 288, 107, 222, 222, 222 };
+        long[] ServZeroPosition = new long[] { 173,  93, 444, 555, 177, 137, 176, 527, 121, 310, 159,   0, 560,   9, 424, 222, 222, 222 };
         long[] ServoPosition = new long[]    { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 
         // this is how you declare a data structure so that 
@@ -516,6 +518,26 @@ namespace SimConnect_to_UDP
             return mappedvalue;
         }
 
+        private int N1_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, 0, 105,
+                ServMinPosition[(uint)(Servos.TurbEngCorrectedN11)], ServMaxPosition[(uint)(Servos.TurbEngCorrectedN11)]);
+            return mappedvalue;
+        }
+
+        private int FLOAD_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, 0, 30,
+                ServMinPosition[(uint)(Servos.FuelLoad)], ServMaxPosition[(uint)(Servos.FuelLoad)]);
+            return mappedvalue;
+        }
+
+        private int ELOAD_Process(long newValue)
+        {
+            int mappedvalue = (int)Mapper(newValue, 0, 100,
+                ServMinPosition[(uint)(Servos.ElectricalLoad)], ServMaxPosition[(uint)(Servos.ElectricalLoad)]);
+            return mappedvalue;
+        }
         private void StartListener()
         {
             Task.Run(async () =>
@@ -1176,8 +1198,8 @@ namespace SimConnect_to_UDP
                         frontPanelDataChanged = true;
                         TURB_ENG_CORRECTED_N1_1 = sFrontPanel.TURB_ENG_CORRECTED_N1_1.ToString();
                         int a = (int)(sFrontPanel.TURB_ENG_CORRECTED_N1_1);
-                        // UDP_Playload = UDP_Playload + ",N1:" + N1_Process(a).ToString();
-                        UDP_Playload = UDP_Playload + ",N1:" + TURB_ENG_CORRECTED_N1_1;
+                        UDP_Playload = UDP_Playload + ",N1:" + N1_Process(a).ToString();
+
                     }
                     ;
 
