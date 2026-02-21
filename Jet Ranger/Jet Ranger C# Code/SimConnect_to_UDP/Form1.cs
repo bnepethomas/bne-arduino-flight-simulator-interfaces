@@ -519,6 +519,7 @@ namespace SimConnect_to_UDP
         }
         private int PITCH_Process(long newValue)
         {
+            newValue = newValue * -1;
             int mappedvalue = (int)Mapper(newValue, -90, +90,
                 ServMinPosition[(uint)(Servos.AttitudeIndicatorPitchDegrees)], ServMaxPosition[(uint)(Servos.AttitudeIndicatorPitchDegrees)]);
             return mappedvalue;

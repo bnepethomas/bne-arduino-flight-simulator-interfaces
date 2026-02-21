@@ -531,6 +531,9 @@ void UpdateServoPos() {
         case TurbEngItt1:
           SetEGT(aServoPosition[TurbEngItt1]);
           break;
+        case AttitudeIndicatorBankDegrees:
+          SetROLL(aServoPosition[AttitudeIndicatorBankDegrees]);
+          break;
         case AttitudeIndicatorPitchDegrees:
           SetPITCH(aServoPosition[AttitudeIndicatorPitchDegrees]);
           break;
@@ -901,7 +904,7 @@ void HandleOutputValuePair(String str) {
       SendDebug("Received ITT: " + ParameterValue);
       aTargetServoPosition[TurbEngItt1] = ParameterValue.toInt();
     } else if (ParameterName == "BANK") {
-      //SendDebug("Received Bank: " + ParameterValue);
+      SendDebug("Received Bank: " + ParameterValue);
       aTargetServoPosition[AttitudeIndicatorBankDegrees] = ParameterValue.toInt();
     } else if (ParameterName == "PITCH") {
       //SendDebug("Received Pitch: " + ParameterValue);
