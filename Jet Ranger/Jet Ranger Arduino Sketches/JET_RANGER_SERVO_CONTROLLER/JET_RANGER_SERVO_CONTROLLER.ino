@@ -129,22 +129,45 @@ String Gen_Fail = "0";         //GENF
 String Low_Fuel = "0";         //LOWF
 String SC_Fail = "0";          //SCF
 
-#define D_Rotor_RPM_Low A1
-#define D_Engine_Out A2
+#define D_Rotor_RPM_Low A2
+#define D_Engine_Out A1
 #define D_Trans_Oil_Pressure A3
 #define D_Trans_Oil_Temp A4
-#define D_Battery_Temp A5
-#define D_Battery_Hot A6
-#define D_Trans_Chip A7
-#define D_Baggage_Door A8
-#define D_Engine_Chip A9
-#define D_TR_Chip A10
-#define D_Fuel_Pump A11
-#define D_AFT_Fuel_Filter A12
+#define D_Battery_Temp A6
+#define D_Battery_Hot A5
+#define D_Trans_Chip A9
+#define D_Baggage_Door A10
+#define D_Engine_Chip A7
+#define D_TR_Chip A8
+#define D_Fuel_Pump A12
+#define D_AFT_Fuel_Filter A11
 #define D_Gen_Fail A13
 #define D_Low_Fuel A14
 #define D_SC_Fail A15
+#define SPARE1 XX
+#define SPARE2 XX
+#define SPARE3 XX
 
+void InitialiseWarningLights() {
+  pinMode(D_Rotor_RPM_Low, OUTPUT);
+  pinMode(D_Engine_Out, OUTPUT); 
+  pinMode( D_Trans_Oil_Pressure, OUTPUT); 
+  pinMode(D_Trans_Oil_Temp , OUTPUT);
+  pinMode(D_Battery_Temp, OUTPUT); 
+  pinMode( D_Battery_Hot, OUTPUT); 
+  pinMode(D_Trans_Chip, OUTPUT); 
+  pinMode(D_Baggage_Door, OUTPUT); 
+  pinMode(D_Engine_Chip, OUTPUT);
+  pinMode( D_TR_Chip , OUTPUT);
+  pinMode(D_Fuel_Pump , OUTPUT);
+  pinMode(D_AFT_Fuel_Filter, OUTPUT);
+  pinMode(D_Gen_Fail, OUTPUT);
+  pinMode(D_Low_Fuel, OUTPUT);
+  pinMode( D_SC_Fail, OUTPUT);
+
+  allOn();
+
+}
 
 void setWarningLightAll(bool State) {
   digitalWrite(D_Rotor_RPM_Low, State);
@@ -1093,6 +1116,8 @@ void setup() {
   digitalWrite(GREEN_STATUS_LED_PORT, true);
   digitalWrite(RED_STATUS_LED_PORT, false);
 
+  InitialiseWarningLights();
+
   if (Ethernet_In_Use == 1) {
 
     // Using manual reset instead of tying to Arduino Reset
@@ -1179,6 +1204,11 @@ void setup() {
       delay(10);
     } 
 
+
+    digitalWrite(D_SC_Fail, false);
+
+  
+
     // OIL Temp
     SetOILT(aServMinPosition[EngOilTemperature1]);
     for (int i = 0; i <= 100; i++) {
@@ -1189,6 +1219,10 @@ void setup() {
       SetOILT((map(i, 0, 100, long(aServMinPosition[EngOilTemperature1]), long(aServMaxPosition[EngOilTemperature1]))));
       delay(10);
     }
+    
+    digitalWrite(D_Low_Fuel, false);
+
+  
 
     // Engine Torque
     SetEngineTorque(aServMinPosition[EngTorquePercent1]);
@@ -1201,6 +1235,9 @@ void setup() {
       delay(10);
     }
 
+    digitalWrite(D_Gen_Fail, false);
+  
+
     // Air Speed
     SetAirSpeed(aServMinPosition[AirSpeed]);
     for (int i = 0; i <= 150; i++) {
@@ -1212,6 +1249,11 @@ void setup() {
       delay(10);
     }
 
+    digitalWrite(D_Fuel_Pump, false);
+
+
+  
+  
 
     // Transmission Pressure
     SetXMSNP(aServMinPosition[EngTransmissionPressure1]);
@@ -1224,6 +1266,8 @@ void setup() {
       delay(10);
     } 
 
+    digitalWrite(D_AFT_Fuel_Filter, false);
+
     // Transmission Temperature
     SetXMSNT(aServMinPosition[EngTransmissionTemperature1]);
     for (int i = 0; i <= 100; i++) {
@@ -1234,6 +1278,8 @@ void setup() {
       SetXMSNT((map(i, 0, 100, long(aServMinPosition[EngTransmissionTemperature1]), long(aServMaxPosition[EngTransmissionTemperature1]))));
       delay(10);
     } 
+
+    digitalWrite(D_TR_Chip, false);
 
     // ITT
     SetEGT(aServMinPosition[TurbEngItt1]);
@@ -1246,6 +1292,12 @@ void setup() {
       delay(10);
     } 
 
+    digitalWrite(D_Baggage_Door, false);
+
+
+  
+  
+  
 
     // Rotor RPM
     SetRPMR(aServMinPosition[RotorRpmPct1]);
@@ -1258,6 +1310,8 @@ void setup() {
       delay(10);
     }
 
+    digitalWrite(D_Trans_Chip, false);
+
     // Engine RPM
     SetRPME(aServMinPosition[RotorRpmPct1]);
     for (int i = 0; i <= 100; i++) {
@@ -1268,6 +1322,8 @@ void setup() {
       SetRPME((map(i, 0, 100, long(aServMinPosition[GeneralEngPctMaxRpm1]), long(aServMaxPosition[GeneralEngPctMaxRpm1]))));
       delay(10);
     }
+
+    digitalWrite(D_Engine_Chip, false);
 
     // Fuel
     SetFUEL(aServMinPosition[FuelTotalQuantity]);
@@ -1280,6 +1336,9 @@ void setup() {
       delay(10);
     }
 
+    digitalWrite(D_Battery_Temp, false);
+
+
     // Gas Producer
     SetGAS_PRODUCER(aServMinPosition[TurbEngCorrectedN11]);
     for (int i = 0; i <= 100; i++) {
@@ -1291,6 +1350,8 @@ void setup() {
       delay(10);
     } 
 
+    digitalWrite(D_Battery_Hot, false);
+
     // Elec Load
     SetELEC_LOAD(aServMinPosition[Fuel_Load]);
     for (int i = 0; i <= 100; i++) {
@@ -1301,6 +1362,10 @@ void setup() {
       SetELEC_LOAD((map(i, 0, 100, long(aServMinPosition[Electrical_Load]), long(aServMaxPosition[Electrical_Load]))));
       delay(10);
     }
+
+
+    digitalWrite(D_Trans_Oil_Temp, false);
+  
 
     // Fuel Load
     SetFUEL_LOAD(aServMinPosition[Fuel_Load]);
@@ -1314,6 +1379,7 @@ void setup() {
     }
   
 
+    digitalWrite(D_Trans_Oil_Pressure, false);
 
 
     // Pitch
@@ -1330,6 +1396,8 @@ void setup() {
     // Give the pitch a little time to settle before rolling
     delay(300);
 
+    digitalWrite(D_Rotor_RPM_Low, false);
+
     // Roll
     SetROLL(aServMinPosition[AttitudeIndicatorBankDegrees]);
     for (int i = 0; i <= 100; i++) {
@@ -1342,10 +1410,9 @@ void setup() {
     } 
     SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
 
-    for (int i = 0; i < Number_of_Servos; i++) {
-      aServoPosition[i] = aServZeroPosition[i];
-      aTargetServoPosition[i] = aServZeroPosition[i];
-    }
+    digitalWrite(D_Engine_Out, false);
+
+
 
         // VSI
     SetVSI(aServMinPosition[VerticalSpeed]);
@@ -1359,7 +1426,10 @@ void setup() {
     }
     SetVSI(aServZeroPosition[VerticalSpeed]);
 
-
+    for (int i = 0; i < Number_of_Servos; i++) {
+      aServoPosition[i] = aServZeroPosition[i];
+      aTargetServoPosition[i] = aServZeroPosition[i];
+    }
 
   }
 
@@ -1379,8 +1449,6 @@ void loop() {
 
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
-
-    setWarningLightAll(GREEN_LED_STATE);
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }

@@ -7961,16 +7961,12 @@
 		(uuid "fa56118f-1f67-4ecb-a52e-1b120fcab85c")
 	)
 	(no_connect
-		(at 95.25 219.71)
-		(uuid "01d236e8-3fb2-4a30-9e4e-faf5f0765b36")
-	)
-	(no_connect
-		(at 95.25 245.11)
-		(uuid "042a296b-6179-41cc-9888-9e670f4ff57d")
-	)
-	(no_connect
 		(at 349.25 60.96)
 		(uuid "1065d5c1-be9d-4732-afa0-5756c9bd2a39")
+	)
+	(no_connect
+		(at 95.25 242.57)
+		(uuid "212d2c5c-df2a-46c1-8ad5-7be20ae3a966")
 	)
 	(no_connect
 		(at 181.61 190.5)
@@ -7985,10 +7981,6 @@
 		(uuid "566328a1-0324-4d10-bfa2-ac39cc22e18e")
 	)
 	(no_connect
-		(at 95.25 247.65)
-		(uuid "695f5fc8-c6bb-4a7f-b47d-bd75784ae1c5")
-	)
-	(no_connect
 		(at 349.25 55.88)
 		(uuid "7ea062a5-42e6-4698-9ddc-7fe1bc32ff75")
 	)
@@ -7997,8 +7989,16 @@
 		(uuid "987140e8-29d6-49e6-9bf5-0c1cb08bbac4")
 	)
 	(no_connect
+		(at 95.25 224.79)
+		(uuid "aad37a08-3dbc-4cc9-b93f-2556b707f56d")
+	)
+	(no_connect
 		(at 95.25 234.95)
 		(uuid "aafa3f98-2697-4f81-a020-5c9b0a688316")
+	)
+	(no_connect
+		(at 95.25 240.03)
+		(uuid "cf40afa3-8e66-4754-a183-db290b288b21")
 	)
 	(no_connect
 		(at 349.25 58.42)
@@ -9589,7 +9589,7 @@
 		(uuid "11798e97-be74-4769-84ed-57948016bb0e")
 	)
 	(label "Gen_Fail"
-		(at 95.25 224.79 180)
+		(at 95.25 219.71 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9679,7 +9679,7 @@
 		(uuid "1a7c97cc-2ffc-4aad-b725-a19e54ec5bad")
 	)
 	(label "GroupB8"
-		(at 95.25 245.11 180)
+		(at 95.25 240.03 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9749,7 +9749,7 @@
 		(uuid "1f6ef48b-45ed-41b5-8565-75ea77dfdd44")
 	)
 	(label "Low_Fuel"
-		(at 95.25 240.03 180)
+		(at 95.25 245.11 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9959,7 +9959,7 @@
 		(uuid "2ff4ea72-c3f6-4c75-8ac8-5222efe3cb1f")
 	)
 	(label "GroupB9"
-		(at 95.25 247.65 180)
+		(at 95.25 242.57 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10410,7 +10410,7 @@
 		(uuid "6d060181-a2eb-4d02-b6df-16ee3c1c1833")
 	)
 	(label "SC_Fail"
-		(at 95.25 242.57 180)
+		(at 95.25 247.65 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -10700,7 +10700,7 @@
 		(uuid "8cbfdf99-2ec0-4729-8e9d-c3b4e64000ad")
 	)
 	(label "Fuel_Pump"
-		(at 95.25 209.55 180)
+		(at 95.25 214.63 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11230,7 +11230,7 @@
 		(uuid "c98aff37-9b3d-4aad-8da6-661ea66a54a7")
 	)
 	(label "GroupB3"
-		(at 95.25 219.71 180)
+		(at 95.25 224.79 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11361,7 +11361,7 @@
 		(uuid "d5094f9d-3282-44ca-be92-d3c4b3839314")
 	)
 	(label "+12v-IN"
-		(at 180.34 121.92 0)
+		(at 180.34 120.65 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11595,7 +11595,7 @@
 		(uuid "eef6c2bc-c073-42c4-923c-cfbdb7bb6ff6")
 	)
 	(label "AFT_Fuel_Filter"
-		(at 95.25 214.63 180)
+		(at 95.25 209.55 180)
 		(effects
 			(font
 				(size 1.27 1.27)
