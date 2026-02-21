@@ -176,9 +176,13 @@ namespace SimConnect_to_UDP
 
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT  AGL FLOAD ELOAD
-        long[] ServMinPosition = new long[]  { 173, 178, 444, 555, 177, 137, 176, 527, 121, 310, 159,   0, 560,   9, 424, 222, 222, 222 };
-        long[] ServMaxPosition = new long[]  {  10,  14, 444, 555,  23,   6,  37, 740, 802,  20,  51, 999, 864, 288, 107, 222, 222, 222 };
-        long[] ServZeroPosition = new long[] { 173,  93, 444, 555, 177, 137, 176, 527, 121, 310, 159,   0, 560,   9, 424, 222, 222, 222 };
+
+        //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL FLOAD ELOAD
+        long[] ServMinPosition = new long[] { 173, 178,   5, 166, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
+        long[] ServMaxPosition = new long[] {  10,  14, 179,  70,  23,   6,  37, 740,  44, 175,  51,  30, 34, 128, 168, 222, 167, 46 };
+        long[] ServZeroPosition = new long[] { 173,  93, 91, 113, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
+
+
         long[] ServoPosition = new long[]    { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 
         // this is how you declare a data structure so that 
@@ -468,12 +472,14 @@ namespace SimConnect_to_UDP
 
         private int XMSNP_Process(long newValue)
         {
+            newValue = 150;
             int mappedvalue = (int)Mapper(newValue, 0, 150,
                 ServMinPosition[(uint)(Servos.EngTransmissionPressure1)], ServMaxPosition[(uint)(Servos.EngTransmissionPressure1)]);
             return mappedvalue;
         }
         private int XMSNT_Process(long newValue)
         {
+            newValue = 0;
             int mappedvalue = (int)Mapper(newValue, 0, 150,
                 ServMinPosition[(uint)(Servos.EngTransmissionTemperature1)], ServMaxPosition[(uint)(Servos.EngTransmissionTemperature1)]);
             return mappedvalue;
@@ -489,7 +495,7 @@ namespace SimConnect_to_UDP
             // 900 - 44
             float myvalue = (float)(newValue);
             myvalue -= 491;
-            myvalue = (float)(myvalue * (5.0 / 9.0));
+            myvalue = (float)(myvalue * (3.8 / 9.0));
             myvalue = (int)(myvalue);
             newValue = (long)myvalue;
             displayText(" converted ITT: " + myvalue.ToString());
@@ -527,7 +533,7 @@ namespace SimConnect_to_UDP
 
         private int N1_Process(long newValue)
         {
-            int mappedvalue = (int)Mapper(newValue, 0, 1300,
+            int mappedvalue = (int)Mapper(newValue, 0, 100,
                 ServMinPosition[(uint)(Servos.TurbEngCorrectedN11)], ServMaxPosition[(uint)(Servos.TurbEngCorrectedN11)]);
             return mappedvalue;
         }
@@ -541,6 +547,7 @@ namespace SimConnect_to_UDP
 
         private int ELOAD_Process(long newValue)
         {
+            newValue = newValue * -1;
             int mappedvalue = (int)Mapper(newValue, 0, 100,
                 ServMinPosition[(uint)(Servos.ElectricalLoad)], ServMaxPosition[(uint)(Servos.ElectricalLoad)]);
             return mappedvalue;
@@ -1169,6 +1176,16 @@ namespace SimConnect_to_UDP
 
                         UDP_Playload = UDP_Playload + ",TQ:" + TQ_Process(a);
                         ;
+                    }
+                    ;
+
+                    if (ELECTRICAL_TOTAL_LOAD_AMPS != (sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS * 40 / 56).ToString());
+                    {
+                        frontPanelDataChanged = true;
+                        ELECTRICAL_TOTAL_LOAD_AMPS = (sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS * 40 / 56).ToString();
+                        //UDP_Playload = UDP_Playload + ",AMPS:" + ELECTRICAL_TOTAL_LOAD_AMPS;
+                        int a = (int)(sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS);
+                        UDP_Playload = UDP_Playload + ",ELOAD:" + ELOAD_Process(a).ToString();
                     }
                     ;
 
