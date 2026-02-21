@@ -487,6 +487,13 @@ namespace SimConnect_to_UDP
             // 700 - 101
             // 800 - 65
             // 900 - 44
+            float myvalue = (float)(newValue);
+            myvalue -= 491;
+            myvalue = (float)(myvalue * (5.0 / 9.0));
+            myvalue = (int)(myvalue);
+            newValue = (long)myvalue;
+            displayText(" converted ITT: " + myvalue.ToString());
+            //myvalue = (myvalue − 491) *(5 / 9));
             switch (newValue)
             {
                 case <= 100:
@@ -520,7 +527,7 @@ namespace SimConnect_to_UDP
 
         private int N1_Process(long newValue)
         {
-            int mappedvalue = (int)Mapper(newValue, 0, 105,
+            int mappedvalue = (int)Mapper(newValue, 0, 1300,
                 ServMinPosition[(uint)(Servos.TurbEngCorrectedN11)], ServMaxPosition[(uint)(Servos.TurbEngCorrectedN11)]);
             return mappedvalue;
         }

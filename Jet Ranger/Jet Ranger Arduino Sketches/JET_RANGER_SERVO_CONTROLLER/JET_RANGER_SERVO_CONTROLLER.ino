@@ -844,7 +844,7 @@ void HandleOutputValuePair(String str) {
 
 
   //if (Debug_Display || bLocalDebug ) SendDebug("Handling " + str);
-  SendDebug("Handling " + str);
+  //SendDebug("Handling " + str);
 
   int delimeterlocation = 0;
   String workstring = "";
@@ -886,31 +886,31 @@ void HandleOutputValuePair(String str) {
       //SendDebug("Received Vertical Speed: " + ParameterValue);
       aTargetServoPosition[VerticalSpeed] = ParameterValue.toInt();
     } else if (ParameterName == "OILP") {
-      SendDebug("Received Oil Pressure: " + ParameterValue);
+      //SendDebug("Received Oil Pressure: " + ParameterValue);
       aTargetServoPosition[EngOilPressure1] = ParameterValue.toInt();
     } else if (ParameterName == "OILT") {
-      SendDebug("Received Oil Temp: " + ParameterValue);
+      //SendDebug("Received Oil Temp: " + ParameterValue);
       aTargetServoPosition[EngOilTemperature1] = ParameterValue.toInt();
     } else if (ParameterName == "XMSNP") {
-      SendDebug("Received Transmission Pressure: " + ParameterValue);
+      //SendDebug("Received Transmission Pressure: " + ParameterValue);
       aTargetServoPosition[EngTransmissionPressure1] = ParameterValue.toInt();
     } else if (ParameterName == "XMSNT") {
-      SendDebug("Received Transmission Temperature: " + ParameterValue);
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       aTargetServoPosition[EngTransmissionTemperature1] = ParameterValue.toInt();
     } else if (ParameterName == "ITT") {
       SendDebug("Received ITT: " + ParameterValue);
       aTargetServoPosition[TurbEngItt1] = ParameterValue.toInt();
     } else if (ParameterName == "BANK") {
-      SendDebug("Received Bank: " + ParameterValue);
+      //SendDebug("Received Bank: " + ParameterValue);
       aTargetServoPosition[AttitudeIndicatorBankDegrees] = ParameterValue.toInt();
     } else if (ParameterName == "PITCH") {
-      SendDebug("Received Pitch: " + ParameterValue);
+      //SendDebug("Received Pitch: " + ParameterValue);
       aTargetServoPosition[AttitudeIndicatorPitchDegrees] = ParameterValue.toInt();
     } else if (ParameterName == "FLOAD") {
-      SendDebug("Received Fuel Load: " + ParameterValue);
+      //SendDebug("Received Fuel Load: " + ParameterValue);
       aTargetServoPosition[Fuel_Load] = ParameterValue.toInt();
     } else if (ParameterName == "ELOAD") {
-      SendDebug("Received Electrical Load: " + ParameterValue);
+      //SendDebug("Received Electrical Load: " + ParameterValue);
       aTargetServoPosition[Electrical_Load] = ParameterValue.toInt();
     } else if (ParameterName == "N1") {
       SendDebug("Received N1 Gas / Producer Load: " + ParameterValue);
