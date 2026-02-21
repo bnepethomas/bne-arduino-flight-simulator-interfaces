@@ -941,16 +941,29 @@ void HandleOutputValuePair(String str) {
 
 
     } else if (ParameterName == "RLOW") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      SendDebug("Received Rotor Low Warning: " + ParameterValue);
       if (Rotor_RPM_Low != ParameterValue) {
-        SendDebug("Transmission Temperature changed");
+        SendDebug("Rotor Low RPM changed");
         Rotor_RPM_Low = ParameterValue;
+        if ( Rotor_RPM_Low == "1") {
+          digitalWrite(D_Rotor_RPM_Low,true);
+        }
+        else {
+          digitalWrite(D_Rotor_RPM_Low, false);
+        }
       };
     } else if (ParameterName == "EOUT") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      //SendDebug("Received Engine Out: " + ParameterValue);
       if (Engine_Out != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         Engine_Out = ParameterValue;
+        if ( Engine_Out == "1") {
+          digitalWrite(D_Engine_Out,true);
+        }
+        else {
+          digitalWrite(D_Engine_Out, false);
+        }
+
       };
     } else if (ParameterName == "TOPW") {
       //SendDebug("Received Transmission Temperature: " + ParameterValue);

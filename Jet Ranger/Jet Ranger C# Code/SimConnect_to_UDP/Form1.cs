@@ -999,6 +999,7 @@ namespace SimConnect_to_UDP
                     // Clear the UDP payload
                     UDP_Playload = "D";
                     CIRCUIT_NAVCOM1_CHANGED_ON = false;
+                    /*
                     if (CIRCUIT_NAVCOM1_ON != sFrontPanel.CIRCUIT_NAVCOM1_ON.ToString()) ;
                     {
                         frontPanelDataChanged = true;
@@ -1033,7 +1034,7 @@ namespace SimConnect_to_UDP
                             CIRCUIT_NAVCOM1_CHANGED_ON = true;
                         }
                     }  //end if NAVCOM1 state changed
-
+                    */
 
                     if (ALTITUDE != sFrontPanel.ALTITUDE.ToString("F0")) ;
                     {
@@ -1063,12 +1064,12 @@ namespace SimConnect_to_UDP
 
                         if (sFrontPanel.ROTOR_RPM_PCT_1 <= 95)
                         {
-                            UDP_Playload = UDP_Playload + ",RLOW:0";
+                            UDP_Playload = UDP_Playload + ",RLOW:1";
                             Rotor_RPM_Low = false;
                         }
                         else
                         {
-                            UDP_Playload = UDP_Playload + ",RLOW:1";
+                            UDP_Playload = UDP_Playload + ",RLOW:0";
                             Rotor_RPM_Low = true;
                         }
                     }
@@ -1275,19 +1276,18 @@ namespace SimConnect_to_UDP
 
 
 
-                        UDP_Playload += ",TOPW:" + Trans_Oil_Pressure.ToString();
-                        UDP_Playload += ",TOWT:" + Trans_Oil_Temp.ToString();
-                        UDP_Playload += ",BTMP:" + Battery_Temp.ToString();
-                        UDP_Playload += ",BHOT:" + Battery_Hot.ToString();
-                        UDP_Playload += ",TC:" + Trans_Chip.ToString();
-                        UDP_Playload += ",BD:" + Baggage_Door.ToString();
-                        UDP_Playload += ",EC:" + Engine_Chip.ToString();
-                        UDP_Playload += ",TRC:" + TR_Chip.ToString();
-                        UDP_Playload += ",FPMP:" + Fuel_Pump.ToString();
-                        UDP_Playload += ",FFLTR:" + AFT_Fuel_Filter.ToString();
-                        UDP_Playload += ",GENF:" + Gen_Fail.ToString();
-
-                        UDP_Playload += ",SCF:" + SC_Fail.ToString();
+                        //UDP_Playload += ",TOPW:" + Trans_Oil_Pressure.ToString();
+                        //UDP_Playload += ",TOWT:" + Trans_Oil_Temp.ToString();
+                        //UDP_Playload += ",BTMP:" + Battery_Temp.ToString();
+                        //UDP_Playload += ",BHOT:" + Battery_Hot.ToString();
+                        //UDP_Playload += ",TC:" + Trans_Chip.ToString();
+                        //UDP_Playload += ",BD:" + Baggage_Door.ToString();
+                        //UDP_Playload += ",EC:" + Engine_Chip.ToString();
+                        //UDP_Playload += ",TRC:" + TR_Chip.ToString();
+                        //UDP_Playload += ",FPMP:" + Fuel_Pump.ToString();
+                        //UDP_Playload += ",FFLTR:" + AFT_Fuel_Filter.ToString();
+                        //UDP_Playload += ",GENF:" + Gen_Fail.ToString();
+                        //UDP_Playload += ",SCF:" + SC_Fail.ToString();
 
 
                         if (UDP_Playload != "D")
