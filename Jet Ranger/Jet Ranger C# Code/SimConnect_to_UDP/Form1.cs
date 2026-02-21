@@ -1,3 +1,11 @@
+// 20260222 Both Flyinside and CowaSim reporting Transmission pressure and temp of 0
+// Fly Inside Turbine RPM reporting 75% when it is at 100 in pit
+// Flyinside reporting ITT looks to be in degree Celsuius
+// Flyinside Rotor RPM reporting 99% and Engine Torque 31% at all times
+// Use Dev Mode -> Debug -> Aircraft -> Engines to monitor values.
+// There is no wear and tear for FlyInside
+
+
 using Microsoft.FlightSimulator.SimConnect;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
