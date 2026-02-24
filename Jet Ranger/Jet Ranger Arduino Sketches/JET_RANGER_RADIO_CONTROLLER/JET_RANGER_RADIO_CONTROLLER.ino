@@ -280,8 +280,16 @@ void updateCOMM() {
 
 // Can use ANY pins on Mega (no interrupt limitation!)
 // Create 4 encoders for X, Y, Z, and Menu control
-RotaryEncoder encoderX(36, 37, 0, 17 * 3, 1);
-RotaryEncoder encoderY(38, 39, 0, 199 * 3, 1);
+/*
+// Comm1 Major Minor
+RotaryEncoder encoderX(31, 30, 0, 17 * 3, 1);
+RotaryEncoder encoderY(33, 32, 0, 199 * 3, 1);
+*/
+
+// Issue with Comm2 Major
+// Comm2 
+RotaryEncoder encoderX(34, 35, 0, 17 * 3, 1);
+RotaryEncoder encoderY(36, 37, 0, 199 * 3, 1);
 
 // RotaryEncoder encoderZ(6, 7, -1000, 1000);
 // RotaryEncoder encoderMenu(8, 9, 0, 10);
@@ -294,7 +302,7 @@ RotaryEncoder encoderY(38, 39, 0, 199 * 3, 1);
 
 // Pin definitions
 const int rowPins[4] = { 22, 23, 24, 25 };  // Row pins D22-D25
-const int colPins[4] = { 32, 33, 34, 35 };  // Column pins D32-D35
+const int colPins[4] = { 26, 27, 28, 29 };  // Column pins D32-D35
 
 // Matrix configuration
 const int ROWS = 4;
