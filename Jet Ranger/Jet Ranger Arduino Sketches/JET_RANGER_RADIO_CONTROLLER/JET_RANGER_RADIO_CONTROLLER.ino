@@ -280,16 +280,17 @@ void updateCOMM() {
 
 // Can use ANY pins on Mega (no interrupt limitation!)
 // Create 4 encoders for X, Y, Z, and Menu control
-/*
-// Comm1 Major Minor
+/// Comm1 Major Minor
 RotaryEncoder encoderX(31, 30, 0, 17 * 3, 1);
 RotaryEncoder encoderY(33, 32, 0, 199 * 3, 1);
-*/
 
+
+/*
 // Issue with Comm2 Major
 // Comm2 
 RotaryEncoder encoderX(34, 35, 0, 17 * 3, 1);
 RotaryEncoder encoderY(36, 37, 0, 199 * 3, 1);
+*/
 
 // RotaryEncoder encoderZ(6, 7, -1000, 1000);
 // RotaryEncoder encoderMenu(8, 9, 0, 10);
@@ -872,7 +873,7 @@ void loop() {
   if ((millis() - lastalivesent) >= aliveinterval) {
     if (Ethernet_In_Use == 1) {
       aliveudp.beginPacket(reflectorIP, aliveport);
-      aliveudp.print("CommNav");
+      aliveudp.print("COMM_NAV");
       aliveudp.endPacket();
     }
     lastalivesent = millis();  

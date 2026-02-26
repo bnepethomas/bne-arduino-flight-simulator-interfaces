@@ -7612,6 +7612,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "Pin 34 open"
+		(exclude_from_sim no)
+		(at 322.2268 82.9742 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "009449a0-1594-42fe-a7fe-4ffe29ad968d")
+	)
 	(text "MAX 2 AMPS"
 		(exclude_from_sim no)
 		(at 276.098 229.87 0)

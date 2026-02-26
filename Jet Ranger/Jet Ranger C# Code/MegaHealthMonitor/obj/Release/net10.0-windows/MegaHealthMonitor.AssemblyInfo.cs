@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MegaHealthMonitor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+91f1d7199485c457b039e91b25554afb10bbc8a1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2535c0fce820632134ad76754aed11f70602b4bc")]
 [assembly: System.Reflection.AssemblyProductAttribute("MegaHealthMonitor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MegaHealthMonitor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
