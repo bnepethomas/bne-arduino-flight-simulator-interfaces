@@ -281,15 +281,31 @@ void updateCOMM() {
 // Can use ANY pins on Mega (no interrupt limitation!)
 // Create 4 encoders for X, Y, Z, and Menu control
 /// Comm1 Major Minor
+
 RotaryEncoder encoderX(31, 30, 0, 17 * 3, 1);
 RotaryEncoder encoderY(33, 32, 0, 199 * 3, 1);
 
-
 /*
-// Issue with Comm2 Major
+
 // Comm2 
+// Comm2 Major 
 RotaryEncoder encoderX(34, 35, 0, 17 * 3, 1);
-RotaryEncoder encoderY(36, 37, 0, 199 * 3, 1);
+// Comm2 Minor
+RotaryEncoder encoderY(37, 36, 0, 199 * 3, 1);
+
+
+// Nav1 
+// Nav1 Major
+RotaryEncoder encoderX(38, 39, 0, 17 * 3, 1);
+// Nav1 Minor
+RotaryEncoder encoderY(41, 40, 0, 199 * 3, 1);
+
+
+// Nav2 
+// Nav2 Major
+RotaryEncoder encoderX(42, 43, 0, 17 * 3, 1);
+// Nav2 Minor
+RotaryEncoder encoderY(45, 44, 0, 199 * 3, 1);
 */
 
 // RotaryEncoder encoderZ(6, 7, -1000, 1000);
