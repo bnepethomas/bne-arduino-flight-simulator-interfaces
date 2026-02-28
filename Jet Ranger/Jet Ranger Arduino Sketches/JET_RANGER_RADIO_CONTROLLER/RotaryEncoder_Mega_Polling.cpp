@@ -122,10 +122,7 @@ inline int16_t RotaryEncoder::getChange() {
   return change;
 }
 
-inline void RotaryEncoder::setPosition(int16_t value) {
-  position = constrain(value, minValue, maxValue);
-  lastPosition = position;
-}
+
 
 inline void RotaryEncoder::reset() {
   position = 0;

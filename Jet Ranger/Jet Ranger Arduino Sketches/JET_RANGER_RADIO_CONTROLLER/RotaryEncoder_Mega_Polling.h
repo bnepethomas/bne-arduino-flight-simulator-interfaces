@@ -73,7 +73,7 @@ public:
   inline uint8_t getCurrentMultiplier() const;
 
   // Setters
-  inline void setPosition(int16_t value);
+ 
   inline void reset();
   inline void setDebounceDelay(uint8_t delayMs) {
     debounceDelay = delayMs;
@@ -87,6 +87,10 @@ public:
   inline void enableAcceleration(bool enable) {
     accelerationEnabled = enable;
   }
+  inline void RotaryEncoder::setPosition(int16_t value) {
+  position = constrain(value, minValue, maxValue);
+  lastPosition = position;
+}
 };
 
 #endif

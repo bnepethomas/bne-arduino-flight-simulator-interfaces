@@ -278,12 +278,24 @@ void updateCOMM() {
 // ############################################# BEGIN ENCODER ##########################################
 
 
+// Encoder(PinA, PinB, MinVal, MaxVal, tba)
+// 
+#define  ClicksPerIncrement 3
+
 // Can use ANY pins on Mega (no interrupt limitation!)
 // Create 4 encoders for X, Y, Z, and Menu control
 /// Comm1 Major Minor
 
-RotaryEncoder encoderX(31, 30, 0, 17 * 3, 1);
-RotaryEncoder encoderY(33, 32, 0, 199 * 3, 1);
+
+// For Comm Major the range is 118 to 135 - 17 steps
+// For Comm Minor the range is 0 to 995
+// But we want to roll underneath and over the top so add three steps at top and bottom
+// that as soon as they are hit we move to the other end of the scale before any processing
+int EncoderXMaxValue = 17 * ClicksPerIncrement;
+int EncoderYMaxValue = 201 * ClicksPerIncrement;
+RotaryEncoder encoderX(31, 30, 0, EncoderXMaxValue, 1);
+// For COmm Minor the range is 0 to 995 with 5KHz spacing so 199
+RotaryEncoder encoderY(33, 32, 0, EncoderYMaxValue, 1);
 
 /*
 
@@ -866,6 +878,10 @@ void setup() {
   encoderY.setAccelerationParams(5, 80, 10, 10);
   encoderX.enableAcceleration(true);
   encoderY.enableAcceleration(true);
+  encoderX.setPosition(0);
+  encoderY.setPosition(3);
+   
+
 
   SendDebug("Start Matrix");
   initMatrixScanner();
@@ -909,7 +925,17 @@ void loop() {
   if (x != lastX || y != lastY) {
     SendDebug("X:" + String(x) + " Y: " + String(y));
 
-    long convertedchann = 118000 + int(x / 3) * 1000 + int(y / 3) * 5;
+    // Roll back to top if at deired zero point
+    if (y <= 2) {
+        encoderY.setPosition(EncoderYMaxValue -1);
+        y = encoderY.getPosition();
+    } else if (y >= (EncoderYMaxValue)) {
+        encoderY.setPosition(4);
+        y = encoderY.getPosition();
+    }
+
+
+    long convertedchann = 118000 + int(x / 3) * 1000 + int((y-3) / 3) * 5;
     SendDebug("Converted Chan: " + String(convertedchann));
     com1StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
