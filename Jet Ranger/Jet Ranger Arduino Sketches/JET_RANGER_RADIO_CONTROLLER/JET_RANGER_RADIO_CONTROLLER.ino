@@ -1,3 +1,4 @@
+Need to get Nav minor rolling up stops at 990 
 /*
 
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -26,6 +27,10 @@ String com1ActiveFrequency = "119.000";
 String com2ActiveFrequency = "120.000";
 String com1StandbyFrequency = "121.000";
 String com2StandbyFrequency = "122.000";
+String Nav1ActiveFrequency = "109.000";
+String Nav2ActiveFrequency = "110.000";
+String Nav1StandbyFrequency = "111.000";
+String Nav2StandbyFrequency = "112.000";
 String mainBusVoltage = "";
 String navCom1Status = "";
 
@@ -250,11 +255,20 @@ void send_string(const char *String) {
 #define NAV_OLED_Port 0
 #define COMM_OLED_Port 1
 
-void updateNAV(int Channel) {
+void updateNAV() {
   tcaselect(NAV_OLED_Port);
-  sendCommand(cmd_CLS);
-  String workstring = "Channel " + String(Channel);
-  send_string(workstring.c_str());
+  sendCommand(0x80);
+
+  if (powerAvailable == true) {
+    //sendCommand(cmd_CLS);
+    String workstring1 = Nav1ActiveFrequency + "  " + Nav2ActiveFrequency;
+    String workstring2 = Nav1StandbyFrequency + "  " + Nav2StandbyFrequency;
+
+    send_string(workstring1.c_str());
+    sendCommand(cmd_NewLine);
+    send_string(workstring2.c_str());
+  } else
+    sendCommand(cmd_CLS);
 }
 
 void updateCOMM() {
@@ -291,34 +305,34 @@ void updateCOMM() {
 // For Comm Minor the range is 0 to 995
 // But we want to roll underneath and over the top so add three steps at top and bottom
 // that as soon as they are hit we move to the other end of the scale before any processing
-int EncoderXMaxValue = 17 * ClicksPerIncrement;
+int Comm1MajorEncoderMaxValue = 17 * ClicksPerIncrement;
 int EncoderYMaxValue = 201 * ClicksPerIncrement;
-RotaryEncoder encoderX(31, 30, 0, EncoderXMaxValue, 1);
+RotaryEncoder Comm1MajorEncoder(31, 30, 0, Comm1MajorEncoderMaxValue, 1);
 // For COmm Minor the range is 0 to 995 with 5KHz spacing so 199
-RotaryEncoder encoderY(33, 32, 0, EncoderYMaxValue, 1);
+RotaryEncoder Comm1MinorEncoder(33, 32, 0, EncoderYMaxValue, 1);
 
-/*
+
 
 // Comm2 
 // Comm2 Major 
-RotaryEncoder encoderX(34, 35, 0, 17 * 3, 1);
+RotaryEncoder Comm2MajorEncoder(34, 35, 0, 17 * 3, 1);
 // Comm2 Minor
-RotaryEncoder encoderY(37, 36, 0, 199 * 3, 1);
+RotaryEncoder Comm2MinorEncoder(37, 36, 0, 199 * 3, 1);
 
 
 // Nav1 
 // Nav1 Major
-RotaryEncoder encoderX(38, 39, 0, 17 * 3, 1);
+RotaryEncoder Nav1MajorEncoder(38, 39, 0, 9 * 3, 1);
 // Nav1 Minor
-RotaryEncoder encoderY(41, 40, 0, 199 * 3, 1);
+RotaryEncoder Nav1MinorEncoder(41, 40, 0, 199 * 3, 1);
 
 
 // Nav2 
 // Nav2 Major
-RotaryEncoder encoderX(42, 43, 0, 17 * 3, 1);
+RotaryEncoder Nav2MajorEncoder(42, 43, 0, 9 * 3, 1);
 // Nav2 Minor
-RotaryEncoder encoderY(45, 44, 0, 199 * 3, 1);
-*/
+RotaryEncoder Nav2MinorEncoder(45, 44, 0, 199 * 3, 1);
+
 
 // RotaryEncoder encoderZ(6, 7, -1000, 1000);
 // RotaryEncoder encoderMenu(8, 9, 0, 10);
@@ -871,17 +885,39 @@ void setup() {
   //updateCOMM( "118.50", "119.50", "120.50", "121.50");
 
   SendDebug("Start Encoders");
-  encoderX.begin();
-  encoderY.begin();
+  Comm1MajorEncoder.begin();
+  Comm1MinorEncoder.begin();
+  Comm2MajorEncoder.begin();
+  Comm2MinorEncoder.begin();
+  Nav1MajorEncoder.begin();
+  Nav1MinorEncoder.begin();
+  Nav2MajorEncoder.begin();
+  Nav2MinorEncoder.begin();
   // Configure each encoder
-  encoderX.setAccelerationParams(5, 80, 3, 3);
-  encoderY.setAccelerationParams(5, 80, 10, 10);
-  encoderX.enableAcceleration(true);
-  encoderY.enableAcceleration(true);
-  encoderX.setPosition(0);
-  encoderY.setPosition(3);
-   
-
+  Comm1MajorEncoder.setAccelerationParams(5, 80, 3, 3);
+  Comm1MinorEncoder.setAccelerationParams(5, 80, 10, 10);
+  Comm2MajorEncoder.setAccelerationParams(5, 80, 3, 3);
+  Comm2MinorEncoder.setAccelerationParams(5, 80, 10, 10);
+  Nav1MajorEncoder.setAccelerationParams(5, 80, 3, 3);
+  Nav1MinorEncoder.setAccelerationParams(5, 80, 10, 10);
+  Nav2MajorEncoder.setAccelerationParams(5, 80, 3, 3);
+  Nav2MinorEncoder.setAccelerationParams(5, 80, 10, 10);
+  Comm1MajorEncoder.enableAcceleration(true);
+  Comm1MinorEncoder.enableAcceleration(true);
+  Comm2MajorEncoder.enableAcceleration(true);
+  Comm2MinorEncoder.enableAcceleration(true);
+  Nav1MajorEncoder.enableAcceleration(true);
+  Nav1MinorEncoder.enableAcceleration(true);
+  Nav2MajorEncoder.enableAcceleration(true);
+  Nav2MinorEncoder.enableAcceleration(true);
+  Comm1MajorEncoder.setPosition(0);
+  Comm1MinorEncoder.setPosition(3);
+  Comm2MajorEncoder.setPosition(0);
+  Comm2MinorEncoder.setPosition(3);  
+  Nav1MajorEncoder.setPosition(0);
+  Nav1MinorEncoder.setPosition(3);
+  Nav2MajorEncoder.setPosition(0);
+  Nav2MinorEncoder.setPosition(3);
 
   SendDebug("Start Matrix");
   initMatrixScanner();
@@ -912,30 +948,43 @@ void loop() {
   }
 
 
-  encoderX.poll();
-  encoderY.poll();
-  static int16_t lastX = 0, lastY = 0, lastZ = 0, lastMenu = 0;
+  Comm1MajorEncoder.poll();
+  Comm1MinorEncoder.poll();
+  Comm2MajorEncoder.poll();
+  Comm2MinorEncoder.poll();
+  Nav1MajorEncoder.poll();
+  Nav1MinorEncoder.poll();
+  Nav2MajorEncoder.poll();
+  Nav2MinorEncoder.poll();
+  static int16_t LastComm1MajorEncoderPos = 0, LastComm1MinorEncoderPos = 0, lastZ = 0, lastMenu = 0;
+  static int16_t LastComm2MajorEncoderPos = 0, LastComm2MinorEncoderPos = 0;
+  static int16_t LastNav1MajorEncoderPos = 0, LastNav1MinorEncoderPos = 0;
+  static int16_t LastNav2MajorEncoderPos = 0, LastNav2MinorEncoderPos = 0;
 
-  int16_t x = encoderX.getPosition();
-  int16_t y = encoderY.getPosition();
-
-
+  int16_t Comm1MajorEncoderPos = Comm1MajorEncoder.getPosition();
+  int16_t Comm1MinorEncoderPos = Comm1MinorEncoder.getPosition();
+  int16_t Comm2MajorEncoderPos = Comm2MajorEncoder.getPosition();
+  int16_t Comm2MinorEncoderPos = Comm2MinorEncoder.getPosition();
+  int16_t Nav1MajorEncoderPos = Nav1MajorEncoder.getPosition();
+  int16_t Nav1MinorEncoderPos = Nav1MinorEncoder.getPosition();
+  int16_t Nav2MajorEncoderPos = Nav2MajorEncoder.getPosition();
+  int16_t Nav2MinorEncoderPos = Nav2MinorEncoder.getPosition();
 
   // Print if any encoder changed
-  if (x != lastX || y != lastY) {
-    SendDebug("X:" + String(x) + " Y: " + String(y));
+  if (Comm1MajorEncoderPos != LastComm1MajorEncoderPos || Comm1MinorEncoderPos != LastComm1MinorEncoderPos) {
+    SendDebug("Comm1MajorEncoderPos:" + String(Comm1MajorEncoderPos) + " Comm1MinorEncoderPos: " + String(Comm1MinorEncoderPos));
 
     // Roll back to top if at deired zero point
-    if (y <= 2) {
-        encoderY.setPosition(EncoderYMaxValue -1);
-        y = encoderY.getPosition();
-    } else if (y >= (EncoderYMaxValue)) {
-        encoderY.setPosition(4);
-        y = encoderY.getPosition();
+    if (Comm1MinorEncoderPos <= 2) {
+        Comm1MinorEncoder.setPosition(EncoderYMaxValue -1);
+        Comm1MinorEncoderPos = Comm1MinorEncoder.getPosition();
+    } else if (Comm1MinorEncoderPos >= (EncoderYMaxValue)) {
+        Comm1MinorEncoder.setPosition(4);
+        Comm1MinorEncoderPos = Comm1MinorEncoder.getPosition();
     }
 
 
-    long convertedchann = 118000 + int(x / 3) * 1000 + int((y-3) / 3) * 5;
+    long convertedchann = 118000 + int(Comm1MajorEncoderPos / 3) * 1000 + int((Comm1MinorEncoderPos-3) / 3) * 5;
     SendDebug("Converted Chan: " + String(convertedchann));
     com1StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
@@ -946,10 +995,110 @@ void loop() {
     }
 
     updateCOMM();
-    lastX = x;
-    lastY = y;
+    LastComm1MajorEncoderPos = Comm1MajorEncoderPos;
+    LastComm1MinorEncoderPos = Comm1MinorEncoderPos;
+
+
+
     lastEncoderUpdate = millis();
-  }
+  } // End Comm1 Processing
+
+  if (Comm2MajorEncoderPos != LastComm2MajorEncoderPos || Comm2MinorEncoderPos != LastComm2MinorEncoderPos) {
+    SendDebug("Comm2MajorEncoderPos:" + String(Comm2MajorEncoderPos) + " Comm2MinorEncoderPos: " + String(Comm2MinorEncoderPos));
+
+    // Roll back to top if at deired zero point
+    if (Comm2MinorEncoderPos <= 2) {
+        Comm2MinorEncoder.setPosition(EncoderYMaxValue -1);
+        Comm2MinorEncoderPos = Comm2MinorEncoder.getPosition();
+    } else if (Comm2MinorEncoderPos >= (EncoderYMaxValue)) {
+        Comm2MinorEncoder.setPosition(4);
+        Comm2MinorEncoderPos = Comm2MinorEncoder.getPosition();
+    }
+
+
+    long convertedchann = 118000 + int(Comm2MajorEncoderPos / 3) * 1000 + int((Comm2MinorEncoderPos-3) / 3) * 5;
+    SendDebug("Converted Chan: " + String(convertedchann));
+    com2StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
+
+    if (Ethernet_In_Use == 1) {
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print(com2StandbyFrequency);
+      udp.endPacket();
+    }
+
+    updateCOMM();
+    LastComm2MajorEncoderPos = Comm2MajorEncoderPos;
+    LastComm2MinorEncoderPos = Comm2MinorEncoderPos;
+
+
+
+    lastEncoderUpdate = millis();
+  }  // End Comm2 Processing
+
+  if (Nav1MajorEncoderPos != LastNav1MajorEncoderPos || Nav1MinorEncoderPos != LastNav1MinorEncoderPos) {
+    SendDebug("Nav1MajorEncoderPos:" + String(Nav1MajorEncoderPos) + " Nav1MinorEncoderPos: " + String(Nav1MinorEncoderPos));
+
+    // Roll back to top if at deired zero point
+    if (Nav1MinorEncoderPos <= 2) {
+        Nav1MinorEncoder.setPosition(EncoderYMaxValue -1);
+        Nav1MinorEncoderPos = Nav1MinorEncoder.getPosition();
+    } else if (Nav1MinorEncoderPos >= (EncoderYMaxValue)) {
+        Nav1MinorEncoder.setPosition(4);
+        Nav1MinorEncoderPos = Nav1MinorEncoder.getPosition();
+    }
+
+
+    long convertedchann = 108000 + int(Nav1MajorEncoderPos / 3) * 1000 + int((Nav1MinorEncoderPos-3) / 3) * 5;
+    SendDebug("Converted Chan: " + String(convertedchann));
+    Nav1StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
+
+    if (Ethernet_In_Use == 1) {
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print(com1StandbyFrequency);
+      udp.endPacket();
+    }
+
+    updateNAV();
+    LastNav1MajorEncoderPos = Nav1MajorEncoderPos;
+    LastNav1MinorEncoderPos = Nav1MinorEncoderPos;
+
+
+
+    lastEncoderUpdate = millis();
+  } // End Nav1 Processing
+
+  if (Nav2MajorEncoderPos != LastNav2MajorEncoderPos || Nav2MinorEncoderPos != LastNav2MinorEncoderPos) {
+    SendDebug("Nav2MajorEncoderPos:" + String(Nav2MajorEncoderPos) + " Nav2MinorEncoderPos: " + String(Nav2MinorEncoderPos));
+
+    // Roll back to top if at deired zero point
+    if (Nav2MinorEncoderPos <= 2) {
+        Nav2MinorEncoder.setPosition(EncoderYMaxValue -1);
+        Nav2MinorEncoderPos = Nav2MinorEncoder.getPosition();
+    } else if (Nav2MinorEncoderPos >= (EncoderYMaxValue)) {
+        Nav2MinorEncoder.setPosition(4);
+        Nav2MinorEncoderPos = Nav2MinorEncoder.getPosition();
+    }
+
+
+    long convertedchann = 108000 + int(Nav2MajorEncoderPos / 3) * 1000 + int((Nav2MinorEncoderPos-3) / 3) * 5;
+    SendDebug("Converted Chan: " + String(convertedchann));
+    Nav2StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
+
+    if (Ethernet_In_Use == 1) {
+      udp.beginPacket(reflectorIP, 27001);
+      udp.print(com2StandbyFrequency);
+      udp.endPacket();
+    }
+
+    updateNAV();
+    LastNav2MajorEncoderPos = Nav2MajorEncoderPos;
+    LastNav2MinorEncoderPos = Nav2MinorEncoderPos;
+
+
+
+    lastEncoderUpdate = millis();
+  }  // End Nav2 Processing
+
 
   scanMatrix();
 
