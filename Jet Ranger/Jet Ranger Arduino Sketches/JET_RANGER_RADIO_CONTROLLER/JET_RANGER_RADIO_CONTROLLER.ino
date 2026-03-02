@@ -1,4 +1,3 @@
-Need to get Nav minor rolling up stops at 990 
 /*
 
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -306,10 +305,10 @@ void updateCOMM() {
 // But we want to roll underneath and over the top so add three steps at top and bottom
 // that as soon as they are hit we move to the other end of the scale before any processing
 int Comm1MajorEncoderMaxValue = 17 * ClicksPerIncrement;
-int EncoderYMaxValue = 201 * ClicksPerIncrement;
+int MinorEncoderMaxValue = 201 * ClicksPerIncrement;
 RotaryEncoder Comm1MajorEncoder(31, 30, 0, Comm1MajorEncoderMaxValue, 1);
 // For COmm Minor the range is 0 to 995 with 5KHz spacing so 199
-RotaryEncoder Comm1MinorEncoder(33, 32, 0, EncoderYMaxValue, 1);
+RotaryEncoder Comm1MinorEncoder(33, 32, 0, MinorEncoderMaxValue, 1);
 
 
 
@@ -317,21 +316,21 @@ RotaryEncoder Comm1MinorEncoder(33, 32, 0, EncoderYMaxValue, 1);
 // Comm2 Major 
 RotaryEncoder Comm2MajorEncoder(34, 35, 0, 17 * 3, 1);
 // Comm2 Minor
-RotaryEncoder Comm2MinorEncoder(37, 36, 0, 199 * 3, 1);
+RotaryEncoder Comm2MinorEncoder(37, 36, 0, MinorEncoderMaxValue, 1);
 
 
 // Nav1 
 // Nav1 Major
 RotaryEncoder Nav1MajorEncoder(38, 39, 0, 9 * 3, 1);
 // Nav1 Minor
-RotaryEncoder Nav1MinorEncoder(41, 40, 0, 199 * 3, 1);
+RotaryEncoder Nav1MinorEncoder(41, 40, 0, MinorEncoderMaxValue, 1);
 
 
 // Nav2 
 // Nav2 Major
 RotaryEncoder Nav2MajorEncoder(42, 43, 0, 9 * 3, 1);
 // Nav2 Minor
-RotaryEncoder Nav2MinorEncoder(45, 44, 0, 199 * 3, 1);
+RotaryEncoder Nav2MinorEncoder(45, 44, 0, MinorEncoderMaxValue, 1);
 
 
 // RotaryEncoder encoderZ(6, 7, -1000, 1000);
@@ -976,9 +975,9 @@ void loop() {
 
     // Roll back to top if at deired zero point
     if (Comm1MinorEncoderPos <= 2) {
-        Comm1MinorEncoder.setPosition(EncoderYMaxValue -1);
+        Comm1MinorEncoder.setPosition(MinorEncoderMaxValue -1);
         Comm1MinorEncoderPos = Comm1MinorEncoder.getPosition();
-    } else if (Comm1MinorEncoderPos >= (EncoderYMaxValue)) {
+    } else if (Comm1MinorEncoderPos >= (MinorEncoderMaxValue)) {
         Comm1MinorEncoder.setPosition(4);
         Comm1MinorEncoderPos = Comm1MinorEncoder.getPosition();
     }
@@ -1008,9 +1007,9 @@ void loop() {
 
     // Roll back to top if at deired zero point
     if (Comm2MinorEncoderPos <= 2) {
-        Comm2MinorEncoder.setPosition(EncoderYMaxValue -1);
+        Comm2MinorEncoder.setPosition(MinorEncoderMaxValue -1);
         Comm2MinorEncoderPos = Comm2MinorEncoder.getPosition();
-    } else if (Comm2MinorEncoderPos >= (EncoderYMaxValue)) {
+    } else if (Comm2MinorEncoderPos >= (MinorEncoderMaxValue)) {
         Comm2MinorEncoder.setPosition(4);
         Comm2MinorEncoderPos = Comm2MinorEncoder.getPosition();
     }
@@ -1040,9 +1039,9 @@ void loop() {
 
     // Roll back to top if at deired zero point
     if (Nav1MinorEncoderPos <= 2) {
-        Nav1MinorEncoder.setPosition(EncoderYMaxValue -1);
+        Nav1MinorEncoder.setPosition(MinorEncoderMaxValue -1);
         Nav1MinorEncoderPos = Nav1MinorEncoder.getPosition();
-    } else if (Nav1MinorEncoderPos >= (EncoderYMaxValue)) {
+    } else if (Nav1MinorEncoderPos >= (MinorEncoderMaxValue)) {
         Nav1MinorEncoder.setPosition(4);
         Nav1MinorEncoderPos = Nav1MinorEncoder.getPosition();
     }
@@ -1072,9 +1071,9 @@ void loop() {
 
     // Roll back to top if at deired zero point
     if (Nav2MinorEncoderPos <= 2) {
-        Nav2MinorEncoder.setPosition(EncoderYMaxValue -1);
+        Nav2MinorEncoder.setPosition(MinorEncoderMaxValue -1);
         Nav2MinorEncoderPos = Nav2MinorEncoder.getPosition();
-    } else if (Nav2MinorEncoderPos >= (EncoderYMaxValue)) {
+    } else if (Nav2MinorEncoderPos >= (MinorEncoderMaxValue)) {
         Nav2MinorEncoder.setPosition(4);
         Nav2MinorEncoderPos = Nav2MinorEncoder.getPosition();
     }
