@@ -1,0 +1,171 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj",
+        "projectName": "SimConnectCrossPlatform.WinFormsApp",
+        "projectPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows": {
+            "framework": "net8.0-windows7.0",
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {
+              "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform\\SimConnectCrossPlatform.csproj": {
+                "projectPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform\\SimConnectCrossPlatform.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.200"
+      },
+      "frameworks": {
+        "net8.0-windows": {
+          "framework": "net8.0-windows7.0",
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WindowsForms": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform\\SimConnectCrossPlatform.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform\\SimConnectCrossPlatform.csproj",
+        "projectName": "SimConnectCrossPlatform",
+        "projectPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform\\SimConnectCrossPlatform.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows": {
+            "framework": "net8.0-windows7.0",
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "10.0.200"
+      },
+      "frameworks": {
+        "net8.0-windows": {
+          "framework": "net8.0-windows7.0",
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.26, 8.0.26]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.26, 8.0.26]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.26, 8.0.26]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

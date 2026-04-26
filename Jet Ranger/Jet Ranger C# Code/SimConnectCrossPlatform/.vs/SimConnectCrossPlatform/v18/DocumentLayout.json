@@ -1,0 +1,92 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D66E718C-91B0-409D-9F8F-6F7D06375E51}|src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnectcrossplatform\\src\\simconnectcrossplatform.winformsapp\\simconnectcrossplatform.winformsapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D66E718C-91B0-409D-9F8F-6F7D06375E51}|src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj|solutionrelative:src\\simconnectcrossplatform.winformsapp\\simconnectcrossplatform.winformsapp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D66E718C-91B0-409D-9F8F-6F7D06375E51}|src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnectcrossplatform\\src\\simconnectcrossplatform.winformsapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D66E718C-91B0-409D-9F8F-6F7D06375E51}|src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj|solutionrelative:src\\simconnectcrossplatform.winformsapp\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D66E718C-91B0-409D-9F8F-6F7D06375E51}|src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnectcrossplatform\\src\\simconnectcrossplatform.winformsapp\\logging\\textboxlogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D66E718C-91B0-409D-9F8F-6F7D06375E51}|src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj|solutionrelative:src\\simconnectcrossplatform.winformsapp\\logging\\textboxlogger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D66E718C-91B0-409D-9F8F-6F7D06375E51}|src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\jet ranger c# code\\simconnectcrossplatform\\src\\simconnectcrossplatform.winformsapp\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D66E718C-91B0-409D-9F8F-6F7D06375E51}|src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj|solutionrelative:src\\simconnectcrossplatform.winformsapp\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "SimConnectCrossPlatform.WinFormsApp",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj",
+              "RelativeDocumentMoniker": "src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj",
+              "RelativeToolTip": "src\\SimConnectCrossPlatform.WinFormsApp\\SimConnectCrossPlatform.WinFormsApp.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-04-26T04:36:03.824Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TextBoxLogger.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\Logging\\TextBoxLogger.cs",
+              "RelativeDocumentMoniker": "src\\SimConnectCrossPlatform.WinFormsApp\\Logging\\TextBoxLogger.cs",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\Logging\\TextBoxLogger.cs",
+              "RelativeToolTip": "src\\SimConnectCrossPlatform.WinFormsApp\\Logging\\TextBoxLogger.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T04:34:27.808Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainForm.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\MainForm.Designer.cs",
+              "RelativeDocumentMoniker": "src\\SimConnectCrossPlatform.WinFormsApp\\MainForm.Designer.cs",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\MainForm.Designer.cs",
+              "RelativeToolTip": "src\\SimConnectCrossPlatform.WinFormsApp\\MainForm.Designer.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAowAcAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T04:33:27.009Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\MainForm.cs",
+              "RelativeDocumentMoniker": "src\\SimConnectCrossPlatform.WinFormsApp\\MainForm.cs",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\SimConnectCrossPlatform\\src\\SimConnectCrossPlatform.WinFormsApp\\MainForm.cs",
+              "RelativeToolTip": "src\\SimConnectCrossPlatform.WinFormsApp\\MainForm.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAqwA0AAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T04:32:25.266Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

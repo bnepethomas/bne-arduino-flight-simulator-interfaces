@@ -1,0 +1,6 @@
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnectCrossPlatform\obj\x64\Debug\net8.0-windows\SimConnectCrossPlatform.csproj.AssemblyReference.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnectCrossPlatform\obj\x64\Debug\net8.0-windows\SimConnectCrossPlatform.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnectCrossPlatform\obj\x64\Debug\net8.0-windows\SimConnectCrossPlatform.AssemblyInfoInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnectCrossPlatform\obj\x64\Debug\net8.0-windows\SimConnectCrossPlatform.AssemblyInfo.cs
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnectCrossPlatform\obj\x64\Debug\net8.0-windows\SimConnectCrossPlatform.csproj.CoreCompileInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\SimConnectCrossPlatform\obj\x64\Debug\net8.0-windows\SimConnectCrossPlatform.sourcelink.json

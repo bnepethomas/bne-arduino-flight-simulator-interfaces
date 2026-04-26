@@ -10,7 +10,6 @@
     <Platforms>x64</Platforms>
     <RootNamespace>SimConnectCrossPlatform.WinFormsApp</RootNamespace>
     <AssemblyName>SimConnectCrossPlatform.WinFormsApp</AssemblyName>
-    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
