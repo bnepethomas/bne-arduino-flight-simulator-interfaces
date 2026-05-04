@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Cross-platform SimConnect abstraction for MSFS2024 and Prepar3D")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+783f5110ca6c7dd06edefe81a514f1f4a3be9150")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ee2dd7c208bd85a189467b7043ef8ffa2b369c03")]
 [assembly: System.Reflection.AssemblyProductAttribute("SimConnectCrossPlatform")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SimConnectCrossPlatform")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
