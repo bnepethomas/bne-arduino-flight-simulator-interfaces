@@ -1647,14 +1647,14 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 150:  //FA-18C_hornet/IR_COOL_SW
           sendToDcsBiosMessage("IR_COOL_SW", "1");
           break;
-        case 151:                                   //FA-18C_hornet/HUD_ATT_SW
-          sendToDcsBiosMessage("HUD_ATT_SW", "1");  //1 FOR OFF
+        case 151:                                             //FA-18C_hornet/HUD_ATT_SW
+          sendToDcsBiosMessage("HUD_ATT_SW", "1");            //1 FOR OFF
           break;
         case 152:                                             //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
           sendToDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
           break;
-        case 153:                                       //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendToDcsBiosMessage("HUD_SYM_REJ_SW", "1");  //1 FOR OFF
+        case 153:                                             //FA-18C_hornet/HUD_SYM_REJ_SW
+          sendToDcsBiosMessage("HUD_SYM_REJ_SW", "1");        //1 FOR OFF
           break;
         case 154:  //FA-18C_hornet/IFEI_QTY_BTN
           sendToDcsBiosMessage("IFEI_QTY_BTN", "0");
@@ -1665,8 +1665,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 156:                                             //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
           sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "0");  // NEEDS WORK
           break;
-        case 157:                                         //FA-18C_hornet/MODE_SELECTOR_SW
-          sendToDcsBiosMessage("MODE_SELECTOR_SW", "1");  //1 FOR OFF
+        case 157:                                             //FA-18C_hornet/MODE_SELECTOR_SW
+          sendToDcsBiosMessage("MODE_SELECTOR_SW", "1");      //1 FOR OFF
           break;
         case 158:
           sendToDcsBiosMessage("RWR_DISPLAY_BTN", "0");
