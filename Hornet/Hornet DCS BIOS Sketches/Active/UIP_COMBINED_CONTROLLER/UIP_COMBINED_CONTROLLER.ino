@@ -2334,9 +2334,9 @@ void loop() {
       SendDebug("Enabling Hud Stepper");
       digitalWrite(AllstepperEnablePin, false);
       if (HUD_STEPPER_FORWARD == true) {
-        HUDStepper.move(20000);
+        HUDStepper.move(200);
       } else {
-        HUDStepper.move(-20000);
+        HUDStepper.move(-200);
       }
     }
 
