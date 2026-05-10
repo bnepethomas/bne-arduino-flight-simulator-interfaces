@@ -8,7 +8,7 @@ IPAddress ip(172, 16, 1, 11);
 #define GREEN_STATUS_LED_PORT 13  // RED LED is used for monitoring ethernet
 #define FLASH_TIME 300
 
-#define Delay_Between_Sends 100
+#define Delay_Between_Sends 500
 
 //#define PROJECTOR_BRAND "OPTOMA"
 #define PROJECTOR_BRAND "BENQ"
@@ -89,6 +89,18 @@ void loop() {
         delay(Delay_Between_Sends);
 
       } else {
+        Serial1.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
+        Serial2.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
+        Serial3.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
+        Serial1.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
+        Serial2.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
+        Serial3.print("\r*POW=OFF#\r");
+        delay(Delay_Between_Sends);
         Serial1.print("\r*POW=OFF#\r");
         delay(Delay_Between_Sends);
         Serial2.print("\r*POW=OFF#\r");
