@@ -830,7 +830,7 @@ public:
     if (initState == 1) {
       // move off zero if already there so we always get movement on reset
       // (to verify that the stepper is working)
-      // Needed to add delay between status messages as when PC is still starting this would 
+      // Needed to add delay between status messages as when PC is still starting this would
       //  impact timing
       if (millis() >= nextInit1StatusUpdate) {
         SendDebug(BoardName + "Compass initState 1");
@@ -1335,11 +1335,11 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RIGHT_DDI_PB_07", "0");
           break;
         case 42:
-          sendToDcsBiosMessage("MASTER_CAUTION_RESET_SW", "0");
-          break;
-        case 43:
           sendToDcsBiosMessage("LEFT_FIRE_BTN", "0");
           sendToDcsBiosMessage("LEFT_FIRE_BTN_COVER", "0");
+          break;
+        case 43:
+          sendToDcsBiosMessage("MASTER_CAUTION_RESET_SW", "0");
           break;
         case 44:
           sendToDcsBiosMessage("LEFT_DDI_PB_01", "0");
@@ -1369,11 +1369,11 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RIGHT_DDI_PB_06", "0");
           break;
         case 53:
-          sendToDcsBiosMessage("APU_FIRE_BTN", "0");
-          break;
-        case 54:
           sendToDcsBiosMessage("RIGHT_FIRE_BTN", "0");
           sendToDcsBiosMessage("RIGHT_FIRE_BTN_COVER", "0");
+          break;
+        case 54:
+          sendToDcsBiosMessage("APU_FIRE_BTN", "0");
           break;
         case 55:
           sendToDcsBiosMessage("AMPCD_PB_05", "0");
@@ -1866,12 +1866,12 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RIGHT_DDI_PB_07", "1");
           break;
         case 42:
-          sendToDcsBiosMessage("MASTER_CAUTION_RESET_SW", "1");
-          break;
-        case 43:
-          sendToDcsBiosMessage("LEFT_FIRE_BTN_COVER", "1");
+        sendToDcsBiosMessage("LEFT_FIRE_BTN_COVER", "1");
           LFBCFollowupTask = true;
           timeLFBCOn = millis() + ToggleSwitchCoverMoveTime;
+          break;
+        case 43:
+          sendToDcsBiosMessage("MASTER_CAUTION_RESET_SW", "1");
           break;
         case 44:
           sendToDcsBiosMessage("LEFT_DDI_PB_01", "1");
@@ -1901,12 +1901,12 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RIGHT_DDI_PB_06", "1");
           break;
         case 53:
-          sendToDcsBiosMessage("APU_FIRE_BTN", "1");
-          break;
-        case 54:
           sendToDcsBiosMessage("RIGHT_FIRE_BTN_COVER", "1");
           RFBCFollowupTask = true;
           timeRFBCOn = millis() + ToggleSwitchCoverMoveTime;
+          break;
+        case 54:
+          sendToDcsBiosMessage("APU_FIRE_BTN", "1");
           break;
         case 55:
           sendToDcsBiosMessage("AMPCD_PB_05", "1");
