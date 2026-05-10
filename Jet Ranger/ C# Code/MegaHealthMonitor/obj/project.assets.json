@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MegaHealthMonitor\\MegaHealthMonitor.csproj",
+      "projectUniqueName": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\MegaHealthMonitor\\MegaHealthMonitor.csproj",
       "projectName": "MegaHealthMonitor",
-      "projectPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MegaHealthMonitor\\MegaHealthMonitor.csproj",
+      "projectPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\MegaHealthMonitor\\MegaHealthMonitor.csproj",
       "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\Jet Ranger C# Code\\MegaHealthMonitor\\obj\\",
+      "outputPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\MegaHealthMonitor\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -32,6 +32,7 @@
       },
       "frameworks": {
         "net10.0-windows7.0": {
+          "framework": "net10.0-windows7.0",
           "targetAlias": "net10.0-windows",
           "projectReferences": {}
         }
@@ -46,10 +47,11 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net10.0-windows7.0": {
+        "framework": "net10.0-windows7.0",
         "targetAlias": "net10.0-windows",
         "imports": [
           "net461",
@@ -70,7 +72,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.103/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

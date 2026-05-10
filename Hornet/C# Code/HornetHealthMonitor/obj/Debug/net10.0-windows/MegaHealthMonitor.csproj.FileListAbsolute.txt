@@ -1,0 +1,17 @@
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\bin\Debug\net10.0-windows\MegaHealthMonitor.exe
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\bin\Debug\net10.0-windows\MegaHealthMonitor.deps.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\bin\Debug\net10.0-windows\MegaHealthMonitor.runtimeconfig.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\bin\Debug\net10.0-windows\MegaHealthMonitor.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\bin\Debug\net10.0-windows\MegaHealthMonitor.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\MegaHealthMonitor.frmMain.resources
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\MegaHealthMonitor.csproj.GenerateResource.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\MegaHealthMonitor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\MegaHealthMonitor.AssemblyInfoInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\MegaHealthMonitor.AssemblyInfo.cs
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\MegaHealthMonitor.csproj.CoreCompileInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\MegaHealthMonitor.sourcelink.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\MegaHealthMonitor.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\refint\MegaHealthMonitor.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\MegaHealthMonitor.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\MegaHealthMonitor.genruntimeconfig.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\Jet Ranger C# Code\MegaHealthMonitor\obj\Debug\net10.0-windows\ref\MegaHealthMonitor.dll

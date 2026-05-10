@@ -1,0 +1,17 @@
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\bin\x64\Release\net10.0-windows\HornetHealthMonitor.exe
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\bin\x64\Release\net10.0-windows\HornetHealthMonitor.deps.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\bin\x64\Release\net10.0-windows\HornetHealthMonitor.runtimeconfig.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\bin\x64\Release\net10.0-windows\HornetHealthMonitor.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\bin\x64\Release\net10.0-windows\HornetHealthMonitor.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\MegaHealthMonitor.frmMain.resources
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\HornetHealthMonitor.csproj.GenerateResource.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\HornetHealthMonitor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\HornetHealthMonitor.AssemblyInfoInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\HornetHealthMonitor.AssemblyInfo.cs
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\HornetHealthMonitor.csproj.CoreCompileInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\HornetHealthMonitor.sourcelink.json
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\HornetHealthMonitor.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\refint\HornetHealthMonitor.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\HornetHealthMonitor.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\HornetHealthMonitor.genruntimeconfig.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\obj\x64\Release\net10.0-windows\ref\HornetHealthMonitor.dll
