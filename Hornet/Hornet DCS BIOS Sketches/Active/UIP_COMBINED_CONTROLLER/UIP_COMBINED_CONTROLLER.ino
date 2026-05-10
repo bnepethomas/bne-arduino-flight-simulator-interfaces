@@ -259,7 +259,6 @@ void MASTER_ARM_AA(bool ledstate) {
   // Led location
   // Cathode -1, Anode
   lc.setLed(0, 4, 2, ledstate);
-
 }
 
 void onMasterModeAaLtChange(unsigned int newValue) {
@@ -779,7 +778,7 @@ struct StepperConfig {
   unsigned int maxSpeed;
 };
 
-const long zeroTimeout = 30000;
+const long zeroTimeout = 300000;
 
 class Vid60Stepper : public DcsBios::Int16Buffer {
 private:
@@ -798,6 +797,7 @@ private:
   bool lastZeroDetectState;
 
   long zeroPosSearchStartTime = 0;
+  long nextInit1StatusUpdate = 0;
 
   long normalizeStepperPosition(long pos) {
     if (pos < 0) return pos + stepperConfig.maxSteps;
@@ -830,7 +830,12 @@ public:
     if (initState == 1) {
       // move off zero if already there so we always get movement on reset
       // (to verify that the stepper is working)
-      SendDebug(BoardName + "Compass initState 1");
+      // Needed to add delay between status messages as when PC is still starting this would 
+      //  impact timing
+      if (millis() >= nextInit1StatusUpdate) {
+        SendDebug(BoardName + "Compass initState 1");
+        nextInit1StatusUpdate = millis() + 1000;
+      }
       if (zeroDetected()) {
         stepper.runSpeed();
       } else {
@@ -1550,7 +1555,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 116:  //FA-18C_hornet/MASTER_MODE_AA
           sendToDcsBiosMessage("MASTER_MODE_AA", "0");
-          HUD_STEPPER_FORWARD = false;
+          // HUD_STEPPER_FORWARD = false;
           break;
         case 117:  //FA-18C_hornet/FIRE_EXT_BTN
           sendToDcsBiosMessage("FIRE_EXT_BTN", "0");
@@ -1582,7 +1587,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 127:  //FA-18C_hornet/MASTER_MODE_AG
           sendToDcsBiosMessage("MASTER_MODE_AG", "0");
-          HUD_STEPPER_REVERSE = false;
+          // HUD_STEPPER_REVERSE = false;
           break;
         case 128:
 
@@ -1647,14 +1652,14 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 150:  //FA-18C_hornet/IR_COOL_SW
           sendToDcsBiosMessage("IR_COOL_SW", "1");
           break;
-        case 151:                                             //FA-18C_hornet/HUD_ATT_SW
-          sendToDcsBiosMessage("HUD_ATT_SW", "1");            //1 FOR OFF
+        case 151:                                   //FA-18C_hornet/HUD_ATT_SW
+          sendToDcsBiosMessage("HUD_ATT_SW", "1");  //1 FOR OFF
           break;
         case 152:                                             //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
           sendToDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "1");  //1 FOR OFF
           break;
-        case 153:                                             //FA-18C_hornet/HUD_SYM_REJ_SW
-          sendToDcsBiosMessage("HUD_SYM_REJ_SW", "1");        //1 FOR OFF
+        case 153:                                       //FA-18C_hornet/HUD_SYM_REJ_SW
+          sendToDcsBiosMessage("HUD_SYM_REJ_SW", "1");  //1 FOR OFF
           break;
         case 154:  //FA-18C_hornet/IFEI_QTY_BTN
           sendToDcsBiosMessage("IFEI_QTY_BTN", "0");
@@ -1665,8 +1670,8 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 156:                                             //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
           sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "0");  // NEEDS WORK
           break;
-        case 157:                                             //FA-18C_hornet/MODE_SELECTOR_SW
-          sendToDcsBiosMessage("MODE_SELECTOR_SW", "1");      //1 FOR OFF
+        case 157:                                         //FA-18C_hornet/MODE_SELECTOR_SW
+          sendToDcsBiosMessage("MODE_SELECTOR_SW", "1");  //1 FOR OFF
           break;
         case 158:
           sendToDcsBiosMessage("RWR_DISPLAY_BTN", "0");
@@ -2086,7 +2091,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 116:
           sendToDcsBiosMessage("MASTER_MODE_AA", "1");
-          HUD_STEPPER_FORWARD = true;
+          // HUD_STEPPER_FORWARD = true;
           break;
         case 117:
           sendToDcsBiosMessage("FIRE_EXT_BTN", "1");
@@ -2121,7 +2126,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 127:
           sendToDcsBiosMessage("MASTER_MODE_AG", "1");
-          HUD_STEPPER_REVERSE = true;
+          // HUD_STEPPER_REVERSE = true;
           break;
         case 128:
 
@@ -2334,16 +2339,16 @@ void loop() {
       SendDebug("Enabling Hud Stepper");
       digitalWrite(AllstepperEnablePin, false);
       if (HUD_STEPPER_FORWARD == true) {
-        HUDStepper.move(200);
+        HUDStepper.move(2000);
       } else {
-        HUDStepper.move(-200);
+        HUDStepper.move(-2000);
       }
     }
 
   } else if ((HUD_STEPPER_FORWARD == false) && (HUD_STEPPER_REVERSE == false)) {
     if (HUD_STEPPER_ENABLED == true) {
       HUD_STEPPER_ENABLED = false;
-      digitalWrite(AllstepperEnablePin, false);
+      digitalWrite(AllstepperEnablePin, true);
       HUDStepper.setCurrentPosition(0);
       SendDebug("Disabling Hud Stepper");
     }
