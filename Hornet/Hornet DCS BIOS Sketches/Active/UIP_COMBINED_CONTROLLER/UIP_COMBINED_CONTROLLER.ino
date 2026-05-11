@@ -105,14 +105,18 @@ String strreflectorIP = "X.X.X.X";
 
 const unsigned int localport = 7788;
 const unsigned int localdebugport = 7795;
-
 const unsigned int reflectorport = 27000;
-
+const unsigned int aliveport = 13137;
 
 int packetSize;
 int debugLen;
 EthernetUDP udp;
 EthernetUDP debugUDP;
+
+EthernetUDP aliveudp;  // Sends keepalives to monitoring application
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
+
 
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
@@ -1047,6 +1051,8 @@ void setup() {
     }
 
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
+
+    aliveudp.begin(aliveport);
   }
 
   // Spin Leds
@@ -1866,7 +1872,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RIGHT_DDI_PB_07", "1");
           break;
         case 42:
-        sendToDcsBiosMessage("LEFT_FIRE_BTN_COVER", "1");
+          sendToDcsBiosMessage("LEFT_FIRE_BTN_COVER", "1");
           LFBCFollowupTask = true;
           timeLFBCOn = millis() + ToggleSwitchCoverMoveTime;
           break;
@@ -2327,6 +2333,17 @@ void loop() {
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
+  if (Ethernet_In_Use == 1) {
+    if ((millis() - lastalivesent) >= aliveinterval) {
+      if (Ethernet_In_Use == 1) {
+        aliveudp.beginPacket(reflectorIP, aliveport);
+        aliveudp.print("COMM_NAV");
+        aliveudp.endPacket();
+      }
+      lastalivesent = millis();
+    }
   }
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();

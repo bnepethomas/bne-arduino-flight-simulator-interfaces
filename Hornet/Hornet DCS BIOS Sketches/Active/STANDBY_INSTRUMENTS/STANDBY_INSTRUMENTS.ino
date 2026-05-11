@@ -72,6 +72,10 @@ EthernetUDP udp;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
+const unsigned int aliveport = 13137;
+EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
 
 String DebugString = "";
 
@@ -587,6 +591,8 @@ void setup() {
       udp.println("Init I2C Test rig - " + strMyIP + " " + String(millis()) + "mS since reset.");
       udp.endPacket();
     }
+
+    aliveudp.begin(aliveport);
   }
 
 
@@ -1322,6 +1328,16 @@ int CalculateVVIPosition(int newValue) {
 
 void loop() {
 
+  if (Ethernet_In_Use == 1) {
+    if ((millis() - lastalivesent) >= aliveinterval) {
+      if (Ethernet_In_Use == 1) {
+        aliveudp.beginPacket(reflectorIP, aliveport);
+        aliveudp.print("COMM_NAV");
+        aliveudp.endPacket();
+      }
+      lastalivesent = millis();
+    }
+  }
 
   DcsBios::loop();
 

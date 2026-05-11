@@ -66,6 +66,13 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 String DebugString = "";
 String BoardName = "Hornet Left Console Combined ";
 
+const unsigned int aliveport = 13137;
+EthernetUDP aliveudp;       // Sends keepalives to monitoring application
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
+
+
+
 
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
@@ -464,6 +471,8 @@ void setup() {
 
 
     SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
+
+    aliveudp.begin(aliveport);
   }
 
   // Lights
@@ -1628,6 +1637,16 @@ void loop() {
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
+  if (Ethernet_In_Use == 1) {
+    if ((millis() - lastalivesent) >= aliveinterval) {
+      if (Ethernet_In_Use == 1) {
+        aliveudp.beginPacket(reflectorIP, aliveport);
+        aliveudp.print("COMM_NAV");
+        aliveudp.endPacket();
+      }
+      lastalivesent = millis();
+    }
+  }
 
   DcsBios::loop();
 

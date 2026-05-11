@@ -73,6 +73,8 @@ const unsigned long delayBeforeSendingPacket = 3000;
 unsigned long ethernetStartTime = 0;
 String BoardName = "Hornet LIP CONTROLLER: ";
 
+
+
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
 byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x73 };
@@ -106,6 +108,11 @@ EthernetUDP udp;
 EthernetUDP debugUDP;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+const unsigned int aliveport = 13137;
+EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
 
 void SendDebug(String MessageToSend) {
   MessageToSend = BoardName + MessageToSend;
@@ -640,6 +647,8 @@ void setup() {
 
 
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
+
+    aliveudp.begin(aliveport);
   }
 
   pinMode(MAP_LIGHTS, OUTPUT);
@@ -1816,7 +1825,17 @@ void loop() {
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
-
+  if (Ethernet_In_Use == 1) {
+    if ((millis() - lastalivesent) >= aliveinterval) {
+      if (Ethernet_In_Use == 1) {
+        aliveudp.beginPacket(reflectorIP, aliveport);
+        aliveudp.print("COMM_NAV");
+        aliveudp.endPacket();
+      }
+      lastalivesent = millis();
+    }
+  }
+  
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   //turn off all rows first

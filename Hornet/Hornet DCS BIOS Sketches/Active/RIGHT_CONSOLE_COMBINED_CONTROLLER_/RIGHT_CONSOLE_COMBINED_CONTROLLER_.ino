@@ -100,6 +100,7 @@ const unsigned int ledport = 7789;
 const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
 const unsigned int MSFSport = 7791;
+const unsigned int aliveport = 13137;
 
 int packetSize;
 int debugLen;
@@ -107,6 +108,11 @@ EthernetUDP udp;
 EthernetUDP debugUDP;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
+
 
 void SendDebug(String MessageToSend) {
   MessageToSend = BoardName + ": " + MessageToSend;
@@ -498,6 +504,8 @@ void setup() {
 
 
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
+
+    aliveudp.begin(aliveport);
   }
 
 
@@ -1737,6 +1745,16 @@ void loop() {
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
+  if (Ethernet_In_Use == 1) {
+    if ((millis() - lastalivesent) >= aliveinterval) {
+      if (Ethernet_In_Use == 1) {
+        aliveudp.beginPacket(reflectorIP, aliveport);
+        aliveudp.print("COMM_NAV");
+        aliveudp.endPacket();
+      }
+      lastalivesent = millis();
+    }
+  }
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
