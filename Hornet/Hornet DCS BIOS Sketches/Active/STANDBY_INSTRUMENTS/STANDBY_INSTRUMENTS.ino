@@ -78,7 +78,7 @@ const unsigned long aliveinterval = 10000;
 long lastalivesent = 0;
 
 String DebugString = "";
-
+String BoardName = "Hornet Standy Instruments: ";
 
 unsigned long nextupdate = 0;
 bool outputstate;
@@ -1332,7 +1332,7 @@ void loop() {
     if ((millis() - lastalivesent) >= aliveinterval) {
       if (Ethernet_In_Use == 1) {
         aliveudp.beginPacket(reflectorIP, aliveport);
-        aliveudp.print("COMM_NAV");
+        aliveudp.print(BoardName);
         aliveudp.endPacket();
       }
       lastalivesent = millis();

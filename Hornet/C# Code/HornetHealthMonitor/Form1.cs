@@ -45,7 +45,7 @@ namespace MegaHealthMonitor
                             //    }));
                             //}
 
-                            if (receivedData.StartsWith("LEFT_CONSOLE"))
+                            if (receivedData.Contains("Hornet Left Console Combined"))
                             {
                                 LeftConsoleLastReceived = DateTime.Now;
                                 // Update UI with received data (use Invoke to reach UI thread)
@@ -63,7 +63,7 @@ namespace MegaHealthMonitor
                                     lblLeftConsole.BackColor = Color.Green;
                                 }));
                             }
-                            else if (receivedData.StartsWith("UIP"))
+                            else if (receivedData.Contains("UIP Combined Controller"))
                             {
                                 UIPLastReceived = DateTime.Now;
                                 // Update UI with received data (use Invoke to reach UI thread)
@@ -81,7 +81,7 @@ namespace MegaHealthMonitor
                                 }));
 
                             }
-                            else if (receivedData.StartsWith("LIP"))
+                            else if (receivedData.Contains("Hornet LIP CONTROLLER"))
                             {
                                 LIPLastReceived = DateTime.Now;
                                 // Update UI with received data (use Invoke to reach UI thread)
@@ -97,7 +97,7 @@ namespace MegaHealthMonitor
                                     lblLIP.BackColor = Color.Green;
                                 }));
                             }
-                            else if (receivedData.StartsWith("LOWER_INST"))
+                            else if (receivedData.Contains("Hornet Standy Instruments"))
                             {
                                 LowerInstLastReceived = DateTime.Now;
                                 // Update UI with received data (use Invoke to reach UI thread)
@@ -113,7 +113,7 @@ namespace MegaHealthMonitor
                                     lblLowerInst.BackColor = Color.Green;
                                 }));
                             }
-                            else if (receivedData.StartsWith("RIGHT_CONSOLE"))
+                            else if (receivedData.Contains("Hornet Right Combined"))
                             {
                                 RightConsoleLastReceived = DateTime.Now;
                                 // Update UI with received data (use Invoke to reach UI thread)

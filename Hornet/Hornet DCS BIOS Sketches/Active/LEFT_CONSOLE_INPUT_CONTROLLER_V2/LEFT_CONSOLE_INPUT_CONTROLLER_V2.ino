@@ -64,7 +64,7 @@ EthernetUDP debugUDP;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 String DebugString = "";
-String BoardName = "Hornet Left Console Combined ";
+String BoardName = "Hornet Left Console Combined: ";
 
 const unsigned int aliveport = 13137;
 EthernetUDP aliveudp;       // Sends keepalives to monitoring application
@@ -1641,7 +1641,7 @@ void loop() {
     if ((millis() - lastalivesent) >= aliveinterval) {
       if (Ethernet_In_Use == 1) {
         aliveudp.beginPacket(reflectorIP, aliveport);
-        aliveudp.print("COMM_NAV");
+        aliveudp.print(BoardName);
         aliveudp.endPacket();
       }
       lastalivesent = millis();
