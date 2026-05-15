@@ -3,7 +3,7 @@
 //||              LOCATION IN THE PIT = LEFTHAND SIDE CONSOLE         ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN - xxxxxxxxxxxxxxxxxxxx      ||\\
-//||                    CONNECTED COM PORT = COM 3                    ||\\
+//||                    CONNECTED COM PORT = COM 8                    ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\

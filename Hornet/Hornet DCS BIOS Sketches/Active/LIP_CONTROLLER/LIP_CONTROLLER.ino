@@ -5,7 +5,7 @@
 //||              LOCATION IN THE PIT = LIP.                          ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN - 75834353230351013181      ||\\
-//||                    CONNECTED COM PORT = COM 4                    ||\\
+//||                    CONNECTED COM PORT = COM 9                    ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -1829,7 +1829,7 @@ void loop() {
     if ((millis() - lastalivesent) >= aliveinterval) {
       if (Ethernet_In_Use == 1) {
         aliveudp.beginPacket(reflectorIP, aliveport);
-        aliveudp.print("COMM_NAV");
+        aliveudp.print(BoardName);
         aliveudp.endPacket();
       }
       lastalivesent = millis();

@@ -5,7 +5,7 @@
 //||              LOCATION IN THE PIT = UIP.                         ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN - 75834353230351013181     ||\\
-//||                    CONNECTED COM PORT = COM 4                    ||\\
+//||                    CONNECTED COM PORT = COM 6                    ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\

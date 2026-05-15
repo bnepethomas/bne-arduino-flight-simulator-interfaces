@@ -6,7 +6,7 @@
 //||              LOCATION IN THE PIT = LIP LEFT SIDE                ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega                 ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN -       ||\\
-//||            PROGRAM PORT CONNECTED COM PORT = COM XX              ||\\
+//||            PROGRAM PORT CONNECTED COM PORT = COM 4              ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
@@ -67,7 +67,7 @@ EthernetUDP debugUDP;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 String DebugString = "";
-String BoardName = "Hornet Gauges Instrument Controller";
+String BoardName = "Hornet Gauges Instrument Controller: ";
 
 const unsigned int aliveport = 13137;
 EthernetUDP aliveudp;    // Sends keepalives to monitoring application
@@ -776,7 +776,7 @@ void setup() {
     analogWrite(ASH_DDI_PWM_5V, BrightnessPostSetup);
     analogWrite(BACK_LIGHTS, BrightnessPostSetup);
     analogWrite(BAT_HYD_DIM, BrightnessPostSetup);
-    analogWrite(BRK_PRESS_DIM, BrightnessPostSetup); v8p-0[]
+    analogWrite(BRK_PRESS_DIM, BrightnessPostSetup); 
     analogWrite(CAB_ALT_DIM, BrightnessPostSetup);
     analogWrite(COMPASS_DIM, BrightnessPostSetup);
     analogWrite(MAP_DIM, BrightnessPostSetup);
@@ -825,7 +825,7 @@ void loop() {
     if ((millis() - lastalivesent) >= aliveinterval) {
       if (Ethernet_In_Use == 1) {
         aliveudp.beginPacket(reflectorIP, aliveport);
-        aliveudp.print("COMM_NAV");
+        aliveudp.print(BoardName);
         aliveudp.endPacket();
       }
       lastalivesent = millis();

@@ -1,3 +1,12 @@
+
+////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
+//||               FUNCTION = GUAGE CONTROLLER                       ||\\
+//||              LOCATION IN THE PIT = LIP LEFT SIDE                ||\\
+//||            ARDUINO PROCESSOR TYPE = Arduino Mega                 ||\\
+//||      ARDUINO CHIP SERIAL NUMBER = SN -       ||\\
+//||            PROGRAM PORT CONNECTED COM PORT = COM 10              ||\\
+//||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
+////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 // Source
 // https://gist.github.com/jboecker/1084b3768c735b164c34d6087d537c18
 
