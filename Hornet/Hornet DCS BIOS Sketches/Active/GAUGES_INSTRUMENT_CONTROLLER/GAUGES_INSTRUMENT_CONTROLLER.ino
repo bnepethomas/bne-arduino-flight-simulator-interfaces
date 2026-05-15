@@ -69,6 +69,13 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 String DebugString = "";
 String BoardName = "Hornet Gauges Instrument Controller";
 
+const unsigned int aliveport = 13137;
+EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
+
+
+
 
 void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
@@ -549,24 +556,24 @@ AccelStepper stepper(AccelStepper::FULL4WIRE, A12, A13, A14, A15);
 // define Vid60Stepper class that uses the AccelStepper instance defined in the line above
 //           v-- arbitrary name
 // Vid60Stepper alt100ftPointer(0x107e,          // address of stepper data
-Vid60Stepper standbyCompass(0x0436,         // address of stepper data
-                            stepper,        // name of AccelStepper instance
-                            stepperConfig,  // StepperConfig struct instance
-                            16,             // IR Detector Pin (must be LOW in zero position)
-                            440,            // zero offset
-                            [](unsigned int newValue) -> unsigned int {
-                              /* this function needs to map newValue to the correct number of steps */
+// Vid60Stepper standbyCompass(0x0436,         // address of stepper data
+//                             stepper,        // name of AccelStepper instance
+//                             stepperConfig,  // StepperConfig struct instance
+//                             16,             // IR Detector Pin (must be LOW in zero position)
+//                             440,            // zero offset
+//                             [](unsigned int newValue) -> unsigned int {
+//                               /* this function needs to map newValue to the correct number of steps */
 
-                              // For most guages this map will do
-                              //return map(newValue, 0, 65535, 0, stepperConfig.maxSteps - 1);
+//                               // For most guages this map will do
+//                               //return map(newValue, 0, 65535, 0, stepperConfig.maxSteps - 1);
 
-                              // For the compass we only has 360 degrees and need to exclude upper part
-                              // of 16 bit value
-                              //Output Type: integer Address: 0x0436 Mask: 0x01ff Shift By: 0 Max. Value: 360 Description: Heading (Degrees)
-                              // so instead of 0 to 65000 its 0 to 360. Need to exclude upper part of 16 bit value
-                              newValue = newValue & 0x01ff;
-                              return map(newValue, 0, 360, 0, stepperConfig.maxSteps - 1);
-                            });
+//                               // For the compass we only has 360 degrees and need to exclude upper part
+//                               // of 16 bit value
+//                               //Output Type: integer Address: 0x0436 Mask: 0x01ff Shift By: 0 Max. Value: 360 Description: Heading (Degrees)
+//                               // so instead of 0 to 65000 its 0 to 360. Need to exclude upper part of 16 bit value
+//                               newValue = newValue & 0x01ff;
+//                               return map(newValue, 0, 360, 0, stepperConfig.maxSteps - 1);
+//                             });
 
 
 // ************************************ Begin Compass Block
@@ -603,6 +610,7 @@ void setup() {
 
 
     SendDebug(BoardName + " Ethernet Started " + strMyIP + " " + sMac);
+    aliveudp.begin(aliveport);
 
     pinMode(RAD_GN, OUTPUT);
     pinMode(RAD_RD, OUTPUT);
@@ -768,7 +776,7 @@ void setup() {
     analogWrite(ASH_DDI_PWM_5V, BrightnessPostSetup);
     analogWrite(BACK_LIGHTS, BrightnessPostSetup);
     analogWrite(BAT_HYD_DIM, BrightnessPostSetup);
-    analogWrite(BRK_PRESS_DIM, BrightnessPostSetup);
+    analogWrite(BRK_PRESS_DIM, BrightnessPostSetup); v8p-0[]
     analogWrite(CAB_ALT_DIM, BrightnessPostSetup);
     analogWrite(COMPASS_DIM, BrightnessPostSetup);
     analogWrite(MAP_DIM, BrightnessPostSetup);
@@ -813,6 +821,16 @@ void loop() {
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
+  if (Ethernet_In_Use == 1) {
+    if ((millis() - lastalivesent) >= aliveinterval) {
+      if (Ethernet_In_Use == 1) {
+        aliveudp.beginPacket(reflectorIP, aliveport);
+        aliveudp.print("COMM_NAV");
+        aliveudp.endPacket();
+      }
+      lastalivesent = millis();
+    }
+  }
 
   // **************************** Handle Steppers
   stepperRA.run();
