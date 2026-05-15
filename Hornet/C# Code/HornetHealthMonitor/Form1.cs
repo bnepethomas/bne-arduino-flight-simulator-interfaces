@@ -20,6 +20,7 @@ namespace MegaHealthMonitor
         DateTime RightConsoleLastReceived = DateTime.Now;
         DateTime GaugesLastReceived = DateTime.Now;
         DateTime UDPToKeyboardLastReceived = DateTime.Now;
+        DateTime UDPToPixelLEDLastReceived = DateTime.Now;
 
         bool loggingActive = true;
 
@@ -162,6 +163,23 @@ namespace MegaHealthMonitor
                                 {
                                     lblUDPToKeyboard.BackColor = Color.Green;
                                 }));
+                            }
+                            else if (receivedData.Contains("Hornet Pixel LED"))
+                            {
+                                UDPToPixelLEDLastReceived = DateTime.Now;
+                                // Update UI with received data (use Invoke to reach UI thread)
+                                if (loggingActive)
+                                {
+                                    this.Invoke(new Action(() =>
+                                    {
+                                        listBoxLogs.Items.Add(UDPToPixelLEDLastReceived.Hour + ":" + UDPToPixelLEDLastReceived.Minute + ":" + UDPToPixelLEDLastReceived.Second + $" Received: {receivedData} from {result.RemoteEndPoint}");
+                                    }));
+                                }
+                                this.Invoke(new Action(() =>
+                                {
+                                    lblUDPToPixelLed.BackColor = Color.Green;
+                                }));
+
                             }
                             else
                             {
@@ -332,6 +350,25 @@ namespace MegaHealthMonitor
                 lblUDPToKeyboard.BackColor = Color.Orange;
             }
 
+            span = DateTime.Now - UDPToPixelLEDLastReceived;
+            mS = (int)span.TotalMilliseconds;
+
+            if (mS >= 30000)
+            {
+                if (lblUDPToPixelLed.BackColor != Color.Red)
+                {
+                    AddLog("UDP To Pixel Led connection lost.");
+                }
+                lblUDPToPixelLed.BackColor = Color.Red;
+            }
+            else if (mS >= 15000)
+            {
+                if (lblUDPToPixelLed.BackColor != Color.Orange)
+                {
+                    AddLog("UDP To Pixel Led connection warning.");
+                }
+                lblUDPToPixelLed.BackColor = Color.Orange;
+            }
 
         }
 
@@ -366,29 +403,23 @@ namespace MegaHealthMonitor
                 listBoxLogs.Items.Clear();
                 listBoxLogs.Visible = false;
                 cmdToggleLogs.Text = "Show Logs";
-                this.Height = this.Height - listBoxLogs.Size.Height - 20;
-                this.Width = this.Width - 300;
+                this.Height = this.Height - listBoxLogs.Size.Height - 18;
+                //this.Width = this.Width - 300;
             }
 
             else
             {
                 listBoxLogs.Visible = true;
                 cmdToggleLogs.Text = "Hide Logs";
-                this.Height = this.Height + listBoxLogs.Size.Height + 20;
-                this.Width = this.Width + 300;
+                this.Height = this.Height + listBoxLogs.Size.Height + 18;
+                //this.Width = this.Width + 300;
 
             }
         }
 
-        private void label1_Click_1(object sender, EventArgs e)
-        {
 
-        }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
     }
 
 }

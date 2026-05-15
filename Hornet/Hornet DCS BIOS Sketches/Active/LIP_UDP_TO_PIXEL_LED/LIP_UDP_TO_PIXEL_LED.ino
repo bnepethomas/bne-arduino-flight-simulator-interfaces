@@ -194,8 +194,17 @@ EthernetUDP ledudp;  //Left and Right Consoles
 char ledpacketBuffer[1000];  //buffer to store led data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 
+String BoardName = "Hornet Pixel LED";
+
+EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+const unsigned int aliveport = 13137;
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
+
+
+
 void SendDebug(String MessageToSend) {
-  MessageToSend = "LIP_UDP_TO_PIXEL_LED" + MessageToSend;
+  MessageToSend = BoardName + ": " + MessageToSend;
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     ledudp.beginPacket(reflectorIP, reflectorport);
     ledudp.print(MessageToSend);
@@ -232,6 +241,8 @@ void setup() {
     if (Reflector_In_Use == 1) {
       SendDebug("Init UDP Pixel Led - " + strMyIP + " " + String(millis()) + "mS since reset.");
     }
+
+    aliveudp.begin(aliveport);
   }
 
   // Activate Backlights
@@ -646,6 +657,17 @@ void ProcessReceivedString() {
 
 
 void loop() {
+
+  if (Ethernet_In_Use == 1) {
+    if ((millis() - lastalivesent) >= aliveinterval) {
+      if (Ethernet_In_Use == 1) {
+        aliveudp.beginPacket(reflectorIP, aliveport);
+        aliveudp.print(BoardName);
+        aliveudp.endPacket();
+      }
+      lastalivesent = millis();
+    }
+  }
 
 
   // slowly Dim Leds off after initial start up in setup
