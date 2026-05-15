@@ -4,9 +4,9 @@
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 //||               FUNCTION = FRONT OUTPUT                           ||\\
 //||              LOCATION IN THE PIT = LIP LEFT HAND SIDE             ||\\
-//||            ARDUINO PROCESSOR TYPE = Arduino Due               ||\\
+//||            ARDUINO PROCESSOR TYPE = Arduino Leonardo               ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN - 95433343733351201290    ||\\
-//||            PROGRAM PORT CONNECTED COM PORT = COM 6 NATIVE          ||\\
+//||            PROGRAM PORT CONNECTED COM PORT = COM 5 NATIVE          ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
@@ -100,7 +100,7 @@ String readString;
 
 
 int Ethernet_In_Use = 1;            // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
-#define Reflector_In_Use 0
+#define Reflector_In_Use 1
 #define Serial_In_Use 0
 
 // Ethernet Related
@@ -137,9 +137,14 @@ EthernetUDP keyboardudp;              // Keyboard
 
 char trimpacketBuffer[1000];                //buffer to store trim data
 char keyboardpacketBuffer[1000];            //buffer to store keyboard data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
 
+const unsigned int aliveport = 13137;
+EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
 
-
+String BoardName = "Hornet UDP to Keyboard: ";
 
 
 
@@ -591,6 +596,8 @@ void setup() {
   // Let Ethernet Settle
   delay(EthernetStartupDelay);
 
+  aliveudp.begin(aliveport);
+
   digitalWrite( RED_STATUS_LED_PORT, true);
   digitalWrite( GREEN_STATUS_LED_PORT, true);
   delay(FLASH_TIME);
@@ -654,10 +661,21 @@ void loop() {
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;
-    RED_LED_STATE = !RED_LED_STATE;
+    RED_LED_STATE = !GREEN_LED_STATE;
     digitalWrite(GREEN_STATUS_LED_PORT, GREEN_LED_STATE);
     digitalWrite( RED_STATUS_LED_PORT, RED_LED_STATE);
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
+   if (Ethernet_In_Use == 1) {
+    if ((millis() - lastalivesent) >= aliveinterval) {
+      if (Ethernet_In_Use == 1) {
+        aliveudp.beginPacket(reflectorIP, aliveport);
+        aliveudp.print(BoardName);
+        aliveudp.endPacket();
+      }
+      lastalivesent = millis();
+    }
   }
 
   //  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
