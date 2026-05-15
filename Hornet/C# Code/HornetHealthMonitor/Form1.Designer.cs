@@ -38,6 +38,7 @@
             lblLowerInst = new Label();
             lblRightConsole = new Label();
             lblGauges = new Label();
+            lblUDPToKeyboard = new Label();
             SuspendLayout();
             // 
             // listBoxLogs
@@ -131,11 +132,23 @@
             lblGauges.Text = "Gauges";
             lblGauges.Click += label1_Click;
             // 
+            // lblUDPToKeyboard
+            // 
+            lblUDPToKeyboard.AutoSize = true;
+            lblUDPToKeyboard.BackColor = Color.White;
+            lblUDPToKeyboard.ForeColor = SystemColors.ControlText;
+            lblUDPToKeyboard.Location = new Point(352, 9);
+            lblUDPToKeyboard.Name = "lblUDPToKeyboard";
+            lblUDPToKeyboard.Size = new Size(97, 15);
+            lblUDPToKeyboard.TabIndex = 9;
+            lblUDPToKeyboard.Text = "UDP to Keyboard";
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(465, 282);
+            Controls.Add(lblUDPToKeyboard);
             Controls.Add(lblGauges);
             Controls.Add(lblRightConsole);
             Controls.Add(lblLowerInst);
@@ -162,5 +175,6 @@
         private Label lblLowerInst;
         private Label lblRightConsole;
         private Label lblGauges;
+        private Label lblUDPToKeyboard;
     }
 }

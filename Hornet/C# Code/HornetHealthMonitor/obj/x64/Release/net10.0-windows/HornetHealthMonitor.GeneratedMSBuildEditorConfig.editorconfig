@@ -14,6 +14,7 @@ build_property.ProjectTypeGuids =
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EntryPointFilePath = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = HornetHealthMonitor
 build_property.ProjectDir = C:\Users\admin\bne-arduino-flight-simulator-interfaces\Hornet\C# Code\HornetHealthMonitor\

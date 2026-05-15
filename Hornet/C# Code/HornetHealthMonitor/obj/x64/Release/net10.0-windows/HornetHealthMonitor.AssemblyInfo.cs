@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HornetHealthMonitor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+394dedf240584ac0a21ca46150ac713d495b5853")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97cf4e9e182923ea4a3c73a5ea2857b9fe12554c")]
 [assembly: System.Reflection.AssemblyProductAttribute("HornetHealthMonitor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HornetHealthMonitor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

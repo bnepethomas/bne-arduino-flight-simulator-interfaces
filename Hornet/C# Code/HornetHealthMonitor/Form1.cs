@@ -19,6 +19,7 @@ namespace MegaHealthMonitor
         DateTime LowerInstLastReceived = DateTime.Now;
         DateTime RightConsoleLastReceived = DateTime.Now;
         DateTime GaugesLastReceived = DateTime.Now;
+        DateTime UDPToKeyboardLastReceived = DateTime.Now;
 
         bool loggingActive = true;
 
@@ -144,6 +145,22 @@ namespace MegaHealthMonitor
                                 this.Invoke(new Action(() =>
                                 {
                                     lblGauges.BackColor = Color.Green;
+                                }));
+                            }
+                            else if (receivedData.Contains("Hornet UDP to Keyboard"))
+                            {
+                                UDPToKeyboardLastReceived = DateTime.Now;
+                                // Update UI with received data (use Invoke to reach UI thread)
+                                if (loggingActive)
+                                {
+                                    this.Invoke(new Action(() =>
+                                    {
+                                        listBoxLogs.Items.Add(UDPToKeyboardLastReceived.Hour + ":" + UDPToKeyboardLastReceived.Minute + ":" + UDPToKeyboardLastReceived.Second + $" Received: {receivedData} from {result.RemoteEndPoint}");
+                                    }));
+                                }
+                                this.Invoke(new Action(() =>
+                                {
+                                    lblUDPToKeyboard.BackColor = Color.Green;
                                 }));
                             }
                             else
@@ -293,6 +310,26 @@ namespace MegaHealthMonitor
                     AddLog("Gauges connection warning.");
                 }
                 lblGauges.BackColor = Color.Orange;
+            }
+
+            span = DateTime.Now - UDPToKeyboardLastReceived;
+            mS = (int)span.TotalMilliseconds;
+
+            if (mS >= 30000)
+            {
+                if (lblUDPToKeyboard.BackColor != Color.Red)
+                {
+                    AddLog("UDP To Keyboard connection lost.");
+                }
+                lblUDPToKeyboard.BackColor = Color.Red;
+            }
+            else if (mS >= 15000)
+            {
+                if (lblUDPToKeyboard.BackColor != Color.Orange)
+                {
+                    AddLog("UDP To Keyboard connection warning.");
+                }
+                lblUDPToKeyboard.BackColor = Color.Orange;
             }
 
 
