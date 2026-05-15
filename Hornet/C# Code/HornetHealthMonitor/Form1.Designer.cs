@@ -37,6 +37,7 @@
             lblLIP = new Label();
             lblLowerInst = new Label();
             lblRightConsole = new Label();
+            lblGauges = new Label();
             SuspendLayout();
             // 
             // listBoxLogs
@@ -118,11 +119,24 @@
             lblRightConsole.TabIndex = 6;
             lblRightConsole.Text = "Right Console";
             // 
+            // lblGauges
+            // 
+            lblGauges.AutoSize = true;
+            lblGauges.BackColor = Color.White;
+            lblGauges.ForeColor = SystemColors.ControlText;
+            lblGauges.Location = new Point(300, 9);
+            lblGauges.Name = "lblGauges";
+            lblGauges.Size = new Size(46, 15);
+            lblGauges.TabIndex = 8;
+            lblGauges.Text = "Gauges";
+            lblGauges.Click += label1_Click;
+            // 
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(465, 282);
+            Controls.Add(lblGauges);
             Controls.Add(lblRightConsole);
             Controls.Add(lblLowerInst);
             Controls.Add(lblLIP);
@@ -147,5 +161,6 @@
         private Label lblLIP;
         private Label lblLowerInst;
         private Label lblRightConsole;
+        private Label lblGauges;
     }
 }

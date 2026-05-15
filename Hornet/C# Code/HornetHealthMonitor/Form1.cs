@@ -18,6 +18,7 @@ namespace MegaHealthMonitor
         DateTime LIPLastReceived = DateTime.Now;
         DateTime LowerInstLastReceived = DateTime.Now;
         DateTime RightConsoleLastReceived = DateTime.Now;
+        DateTime GaugesLastReceived = DateTime.Now;
 
         bool loggingActive = true;
 
@@ -128,6 +129,33 @@ namespace MegaHealthMonitor
                                 {
                                     lblRightConsole.BackColor = Color.Green;
                                 }));
+                            }
+                            else if (receivedData.Contains("Hornet Gauges Instrument Controller"))
+                            {
+                                GaugesLastReceived = DateTime.Now;
+                                // Update UI with received data (use Invoke to reach UI thread)
+                                if (loggingActive)
+                                {
+                                    this.Invoke(new Action(() =>
+                                    {
+                                        listBoxLogs.Items.Add(GaugesLastReceived.Hour + ":" + GaugesLastReceived.Minute + ":" + GaugesLastReceived.Second + $" Received: {receivedData} from {result.RemoteEndPoint}");
+                                    }));
+                                }
+                                this.Invoke(new Action(() =>
+                                {
+                                    lblGauges.BackColor = Color.Green;
+                                }));
+                            }
+                            else
+                            {
+                                // If the received data doesn't match any known type, you can log it or ignore it
+                                if (loggingActive)
+                                {
+                                    this.Invoke(new Action(() =>
+                                    {
+                                        listBoxLogs.Items.Add($" Received unknown data: {receivedData} from {result.RemoteEndPoint}");
+                                    }));
+                                }
                             }
                         }
                     }
@@ -247,6 +275,26 @@ namespace MegaHealthMonitor
                 lblRightConsole.BackColor = Color.Orange;
             }
 
+            span = DateTime.Now - GaugesLastReceived;
+            mS = (int)span.TotalMilliseconds;
+
+            if (mS >= 30000)
+            {
+                if (lblGauges.BackColor != Color.Red)
+                {
+                    AddLog("Gauges connection lost.");
+                }
+                lblGauges.BackColor = Color.Red;
+            }
+            else if (mS >= 15000)
+            {
+                if (lblGauges.BackColor != Color.Orange)
+                {
+                    AddLog("Gauges connection warning.");
+                }
+                lblGauges.BackColor = Color.Orange;
+            }
+
 
         }
 
@@ -296,6 +344,11 @@ namespace MegaHealthMonitor
         }
 
         private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

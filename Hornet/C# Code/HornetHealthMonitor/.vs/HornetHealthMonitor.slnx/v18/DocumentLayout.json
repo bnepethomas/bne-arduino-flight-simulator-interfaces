@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{F53CE6C5-7D01-7BEF-D3BB-9C49165BECF1}|HornetHealthMonitor.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F53CE6C5-7D01-7BEF-D3BB-9C49165BECF1}|HornetHealthMonitor.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\hornet\\c# code\\hornethealthmonitor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F53CE6C5-7D01-7BEF-D3BB-9C49165BECF1}|HornetHealthMonitor.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F53CE6C5-7D01-7BEF-D3BB-9C49165BECF1}|HornetHealthMonitor.csproj|C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Hornet\\C# Code\\HornetHealthMonitor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{F53CE6C5-7D01-7BEF-D3BB-9C49165BECF1}|HornetHealthMonitor.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F53CE6C5-7D01-7BEF-D3BB-9C49165BECF1}|HornetHealthMonitor.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\hornet\\c# code\\hornethealthmonitor\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{F53CE6C5-7D01-7BEF-D3BB-9C49165BECF1}|HornetHealthMonitor.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{F53CE6C5-7D01-7BEF-D3BB-9C49165BECF1}|HornetHealthMonitor.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\hornet\\c# code\\hornethealthmonitor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F53CE6C5-7D01-7BEF-D3BB-9C49165BECF1}|HornetHealthMonitor.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -36,14 +36,14 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Hornet\\C# Code\\HornetHealthMonitor\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAFIAAAAAAAAAAAAgwGMAAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAABIBAAAAAAAAAAAowCcBAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-13T21:08:18.68Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Hornet\\C# Code\\HornetHealthMonitor\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -51,12 +51,11 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-13T21:07:54.95Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-13T21:07:54.95Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Hornet\\C# Code\\HornetHealthMonitor\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
