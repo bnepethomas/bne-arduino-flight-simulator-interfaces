@@ -21,6 +21,78 @@
 
 #define REVERSED true
 
+#define FLASH_TIME 500
+unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
+bool GREEN_LED_STATE = true;
+
+// ********************************* Begin Ethernet ***************************************************
+// Ethernet Related
+
+int Ethernet_In_Use = 1;  // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
+int Reflector_In_Use = 0;
+
+
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+
+#define EthernetStartupDelay 500
+#define ES1_RESET_PIN 12
+
+const unsigned long delayBeforeSendingPacket = 3000;
+unsigned long ethernetStartTime = 0;
+String BoardName = "Hornet Sim Controller: ";
+
+// These local Mac and IP Address will be reassigned early in startup based on
+// the device ID as set by address pins
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x03 };
+String sMac = "A8:61:0A:67:83:03";
+IPAddress ip(172, 16, 1, 123);
+String strMyIP = "172.16.1.123";
+
+// Reflector
+IPAddress reflectorIP(172, 16, 1, 10);
+String strReflectorIP = "X.X.X.X";
+
+// Arduino Due for Keystroke translation and Pixel Led driving
+IPAddress targetIP(172, 16, 1, 110);
+String strTargetIP = "X.X.X.X";
+
+// Computer Running MSFS
+IPAddress MSFSIP(172, 16, 1, 10);
+String strMSFSIP = "X.X.X.X";
+
+const unsigned int localport = 7788;
+const unsigned int localdebugport = 7795;
+const unsigned int keyboardport = 7788;
+const unsigned int ledport = 7789;
+const unsigned int remoteport = 7790;
+const unsigned int reflectorport = 27000;
+const unsigned int MSFSport = 7791;
+const unsigned int aliveport = 13137;
+
+int packetSize;
+int debugLen;
+EthernetUDP udp;
+EthernetUDP debugUDP;
+char packetBuffer[1000];     //buffer to store the incoming data
+char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+EthernetUDP aliveudp;  // Sends keepalives to monitoring application
+const unsigned long aliveinterval = 10000;
+long lastalivesent = 0;
+
+
+void SendDebug(String MessageToSend) {
+  MessageToSend = BoardName + ": " + MessageToSend;
+  if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
+    udp.beginPacket(reflectorIP, reflectorport);
+    udp.print(MessageToSend);
+    udp.endPacket();
+  }
+}
+
+// ********************************* End Ethernet ***************************************************
 
 
 // ------------------------------------------------------------
@@ -225,6 +297,34 @@ void pressMappedKey(char key) {
 }
 
 void setup() {
+
+  
+ if (Ethernet_In_Use == 1) {
+
+    // Using manual reset instead of tying to Arduino Reset
+    pinMode(ES1_RESET_PIN, OUTPUT);
+    digitalWrite(ES1_RESET_PIN, LOW);
+    delay(2);
+    digitalWrite(ES1_RESET_PIN, HIGH);
+
+    Ethernet.begin(mac, ip);
+    udp.begin(localport);
+
+    ethernetStartTime = millis() + delayBeforeSendingPacket;
+    while (millis() <= ethernetStartTime) {
+      delay(FLASH_TIME);
+      digitalWrite(LED_BUILTIN, false);
+      delay(FLASH_TIME);
+      digitalWrite(LED_BUILTIN, true);
+    }
+
+
+    SendDebug("Ethernet Started " + strMyIP + " " + sMac);
+
+    aliveudp.begin(aliveport);
+  }
+  
+  
   Keyboard.begin();
   Consumer.begin();
 
@@ -237,13 +337,24 @@ void setup() {
   }
 
   Keyboard.releaseAll();
-
+  
 }
 // ============================================================
 // LOOP
 // ============================================================
 
 void loop() {
+
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+
+    GREEN_LED_STATE = !GREEN_LED_STATE;
+
+
+    digitalWrite(LED_BUILTIN, GREEN_LED_STATE);
+    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
+  
   // Physical keypad
   char key = keypad.getKey();
 
@@ -275,6 +386,7 @@ void loop() {
       delay(2);
     }
   }
+  
 }
 
 
