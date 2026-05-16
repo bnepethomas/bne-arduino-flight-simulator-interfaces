@@ -4,7 +4,8 @@ Description = 'Exported configuration with 3 projectors'
 
 -- First value is top left corner of the screen
 
-CENTER_MFCD = { x = 1600 ; y = 2160; width = 727; height = 750;}
+CENTER_MFCD = { x = 1570 ; y = 2190; width = 775; height = 765;}
+-- CENTER_MFCD = { x = 1570 ; y = 2190; width = 775; height = 765;}                   
 DDIOFFSET = 10
 LEFT_MFCD = { x = 0+DDIOFFSET; y = 2160; width = 755; height = 755;}
 RIGHT_MFCD = { x = 800+DDIOFFSET; y = 2160; width = 755; height = 755; }
