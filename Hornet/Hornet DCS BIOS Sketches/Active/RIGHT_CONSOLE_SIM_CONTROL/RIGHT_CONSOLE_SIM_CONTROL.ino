@@ -21,14 +21,14 @@
 
 #define REVERSED true
 
-#define FLASH_TIME 500
+#define FLASH_TIME 5000
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = true;
 
 // ********************************* Begin Ethernet ***************************************************
 // Ethernet Related
 
-int Ethernet_In_Use = 1;  // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
+int Ethernet_In_Use = 0;  // Check to see if jumper is present - if it is disable Ethernet calls. Used for Testing
 int Reflector_In_Use = 0;
 
 
@@ -298,8 +298,8 @@ void pressMappedKey(char key) {
 
 void setup() {
 
-  
- if (Ethernet_In_Use == 1) {
+
+  if (Ethernet_In_Use == 1) {
 
     // Using manual reset instead of tying to Arduino Reset
     pinMode(ES1_RESET_PIN, OUTPUT);
@@ -323,8 +323,23 @@ void setup() {
 
     aliveudp.begin(aliveport);
   }
-  
-  
+
+  Serial.begin(9600);
+  while (!Serial) {
+    ;  // wait for serial port to connect. Needed for native USB port only
+    if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+
+      GREEN_LED_STATE = !GREEN_LED_STATE;
+
+
+      digitalWrite(LED_BUILTIN, GREEN_LED_STATE);
+      NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+    }
+  }
+
+  // prints title with ending line break
+  Serial.println(BoardName);
+
   Keyboard.begin();
   Consumer.begin();
 
@@ -337,7 +352,6 @@ void setup() {
   }
 
   Keyboard.releaseAll();
-  
 }
 // ============================================================
 // LOOP
@@ -351,15 +365,22 @@ void loop() {
 
 
     digitalWrite(LED_BUILTIN, GREEN_LED_STATE);
+    Serial.println(BoardName + " keepalive");
+    // Keyboard.press('f');
+    // delay(50);
+    // Keyboard.releaseAll();
+
+
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
-  
+
   // Physical keypad
   char key = keypad.getKey();
 
   if (key) {
-    pressMappedKey(key);
+    Serial.println("A button has been pressed");
+    //pressMappedKey(key);
   }
 
   // Volume pot
@@ -386,7 +407,6 @@ void loop() {
       delay(2);
     }
   }
-  
 }
 
 
