@@ -9,10 +9,12 @@ DDIOFFSET = 10
 LEFT_MFCD = { x = 0+DDIOFFSET; y = 2200; width = 715; height = 745;}
 RIGHT_MFCD = { x = 775+DDIOFFSET; y = 2190; width = 735; height = 755; }
 --F18_RWR = { x = 11520+1024 + 25, y = 800 - 130 , width = 430, height = 450 }
---F18_UFC = { x = 11522  , y = 2160, width = 2, height = 2 }
+F18_UFC = { x = 11522  , y = 2160, width = 2, height = 2 }
 F18_IFEI = { x = 3005; y = 2180; width = 1480; height = 595; }
 HUDOFFSET=140
 F18_HUD = { x = 2400+HUDOFFSET; y = 2160; width = 800; height = 800*1.4;}
+--HUDOFFSET=140
+--F18_HUD = { x = 2400+HUDOFFSET; y = 2160; width = 800; height = 800*1.4;}
 
 Viewports =
 {
