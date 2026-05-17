@@ -1,0 +1,12 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+"C10, C11",0805,2,0.1uF,
+D8,0805,1,LED,
+"H1, H5",MountingHole_2.5mm,2,H1,
+"H2, H4",MountingHole_2.5mm,2,H2,
+J1,IDC-Header_2x20_P2.54mm_Vertical,1,Conn_02x20_Top_Bottom,
+J28,IDC-Header_2x05_P2.54mm_Vertical,1,DDI I/O,
+J3,Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical,1,AOA - SEP DIM,
+J31,IDC-Header_2x03_P2.54mm_Vertical,1,DDI DIM/ANA,
+J5,IDC-Header_2x07_P2.54mm_Vertical,1,MASTER ARM,
+J6,IDC-Header_2x07_P2.54mm_Vertical,1,EWI,
+R12,0805,1,5K,

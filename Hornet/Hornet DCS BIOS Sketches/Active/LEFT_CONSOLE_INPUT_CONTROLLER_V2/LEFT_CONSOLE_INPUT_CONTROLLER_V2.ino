@@ -1188,7 +1188,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("FCS_RESET_BTN", "1");
           break;
         case 32:
-          // sendToDcsBiosMessage("TO_TRIM_BTN", "1");
+          sendToDcsBiosMessage("TO_TRIM_BTN", "1");
           // SetTrimPosition();
           break;
         case 33:
@@ -1357,7 +1357,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("EJECTION_HANDLE_SW", "1");
           break;
         case 82:
-          sendToDcsBiosMessage("FIRE_TEST_SW", "0");
+          sendToDcsBiosMessage("FIRE_TEST_SW", "2");
           break;
         case 83:
           break;
@@ -1386,7 +1386,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("EJECTION_SEAT_ARMED", "0");
           break;
         case 93:
-          sendToDcsBiosMessage("FIRE_TEST_SW", "2");
+          sendToDcsBiosMessage("FIRE_TEST_SW", "0");
           break;
         case 94:
           break;

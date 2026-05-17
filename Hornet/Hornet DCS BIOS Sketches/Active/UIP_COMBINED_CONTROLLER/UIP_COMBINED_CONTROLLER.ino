@@ -5,7 +5,7 @@
   //||              LOCATION IN THE PIT = UIP                          ||\\
   //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
   //||      ARDUINO CHIP SERIAL NUMBER = SN -       ||\\
-  //||                    CONNECTED COM PORT = COM 25                    ||\\
+  //||                    CONNECTED COM PORT = COM 3                    ||\\
   //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
   ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
 
@@ -947,7 +947,7 @@ Vid60Stepper standbyCompass(0x0436,         // address of stepper data
                             stepper,        // name of AccelStepper instance
                             stepperConfig,  // StepperConfig struct instance
                             16,             // IR Detector Pin (must be LOW in zero position)
-                            440,            // zero offset
+                            585,            // zero offset
                             [](unsigned int newValue) -> unsigned int {
                               /* this function needs to map newValue to the correct number of steps */
 
@@ -1651,9 +1651,13 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 148:  // USED BELOW
           break;
         case 149:  //FA-18C_hornet/SPIN_RECOVERY_SW
-          sendToDcsBiosMessage("SPIN_RECOVERY_SW", "0");
+
+          sendToDcsBiosMessage("SPIN_RECOVERY_COVER", "1");
+          SpinFollowupTask = true;
+          timeSpinOn = millis() + ToggleSwitchCoverMoveTime;
           //FA-18C_hornet/SPIN_RECOVERY_COVER
-          sendToDcsBiosMessage("SPIN_RECOVERY_COVER", "0");
+
+
           break;
         case 150:  //FA-18C_hornet/IR_COOL_SW
           sendToDcsBiosMessage("IR_COOL_SW", "1");
@@ -2167,7 +2171,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("MASTER_ARM_SW", "1");
           break;
         case 140:                                   //FA-18C_hornet/HUD_ATT_SW
-          sendToDcsBiosMessage("HUD_ATT_SW", "2");  //1 FOR OFF
+          sendToDcsBiosMessage("HUD_ATT_SW", "0");  //1 FOR OFF
           break;
         case 141:                                             //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
           sendToDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "0");  //1 FOR OFF
@@ -2194,16 +2198,16 @@ void CreateDcsBiosMessage(int ind, int state) {
           // CHECK INDIVIDUAL ASSIGNMENTS PER PIT
           break;
         case 149:  //FA-18C_hornet/SPIN_RECOVERY_SW
-          sendToDcsBiosMessage("SPIN_RECOVERY_COVER", "1");
-          SpinFollowupTask = true;
-          timeSpinOn = millis() + ToggleSwitchCoverMoveTime;
+          sendToDcsBiosMessage("SPIN_RECOVERY_SW", "0");
           //FA-18C_hornet/SPIN_RECOVERY_COVER
+          sendToDcsBiosMessage("SPIN_RECOVERY_COVER", "0");
+
           break;
         case 150:  //FA-18C_hornet/IR_COOL_SW
-          sendToDcsBiosMessage("IR_COOL_SW", "0");
+          sendToDcsBiosMessage("IR_COOL_SW", "2");
           break;
         case 151:                                   //FA-18C_hornet/HUD_ATT_SW
-          sendToDcsBiosMessage("HUD_ATT_SW", "0");  //1 FOR OFF
+          sendToDcsBiosMessage("HUD_ATT_SW", "2");  //1 FOR OFF
           break;
         case 152:                                             //FA-18C_hornet/HUD_VIDEO_CONTROL_SW
           sendToDcsBiosMessage("HUD_VIDEO_CONTROL_SW", "2");  //1 FOR OFF
@@ -2233,7 +2237,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 160:  // SPIN, IS THIS USED
           break;
         case 161:  //FA-18C_hornet/IR_COOL_SW
-          sendToDcsBiosMessage("IR_COOL_SW", "2");
+          sendToDcsBiosMessage("IR_COOL_SW", "0");
           break;
         case 162:  //FA-18C_hornet/HUD_ALT_SW
           sendToDcsBiosMessage("HUD_ALT_SW", "1");
@@ -2302,7 +2306,7 @@ void CreateDcsBiosMessage(int ind, int state) {
 
 
 
-/*
+
 // LEFT DDI
 DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A0);
 DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A1);
@@ -2320,7 +2324,7 @@ DcsBios::Potentiometer hudSymBrt("HUD_SYM_BRT", A5);
 DcsBios::Potentiometer hudAoaIndexer("HUD_AOA_INDEXER", A6);
 DcsBios::Potentiometer hudBlackLvl("HUD_BLACK_LVL", A7);
 DcsBios::Potentiometer hudBalance("HUD_BALANCE", A8);
-*/
+
 
 
 void loop() {
