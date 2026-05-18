@@ -21,9 +21,11 @@
 
 #define REVERSED true
 
-#define FLASH_TIME 5000
+#define FLASH_TIME 1000
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = true;
+
+bool SerialDebug = true;
 
 // ********************************* Begin Ethernet ***************************************************
 // Ethernet Related
@@ -42,6 +44,7 @@ int Reflector_In_Use = 0;
 const unsigned long delayBeforeSendingPacket = 3000;
 unsigned long ethernetStartTime = 0;
 String BoardName = "Hornet Sim Controller: ";
+bool firstLoop = true;
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
@@ -84,7 +87,14 @@ long lastalivesent = 0;
 
 
 void SendDebug(String MessageToSend) {
+
+
   MessageToSend = BoardName + ": " + MessageToSend;
+
+  if (SerialDebug) {
+    Serial.println(MessageToSend);
+  }
+
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
     udp.print(MessageToSend);
@@ -137,7 +147,7 @@ Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
 #define SafetyTimeOut 10000
 #define WaitOneHour 3600000
 long GlobalLastkeyPressed = WaitOneHour;
-
+String msg;
 
 // ============================================================
 // PHYSICAL KEYPAD MAPPING
@@ -231,6 +241,7 @@ void pressMappedKey(char key) {
       break;
 
     case '1':
+      SendDebug("Pressing Key F1");
       Keyboard.press(KEY_F1);
       delay(50);
       Keyboard.releaseAll();
@@ -324,16 +335,19 @@ void setup() {
     aliveudp.begin(aliveport);
   }
 
-  Serial.begin(9600);
-  while (!Serial) {
-    ;  // wait for serial port to connect. Needed for native USB port only
-    if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+  if (SerialDebug) {
 
-      GREEN_LED_STATE = !GREEN_LED_STATE;
+    Serial.begin(9600);
+    while (!Serial) {
+      ;  // wait for serial port to connect. Needed for native USB port only
+      if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+
+        GREEN_LED_STATE = !GREEN_LED_STATE;
 
 
-      digitalWrite(LED_BUILTIN, GREEN_LED_STATE);
-      NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+        digitalWrite(LED_BUILTIN, GREEN_LED_STATE);
+        NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+      }
     }
   }
 
@@ -352,6 +366,7 @@ void setup() {
   }
 
   Keyboard.releaseAll();
+  msg = "";
 }
 // ============================================================
 // LOOP
@@ -362,26 +377,40 @@ void loop() {
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
 
     GREEN_LED_STATE = !GREEN_LED_STATE;
-
-
     digitalWrite(LED_BUILTIN, GREEN_LED_STATE);
-    Serial.println(BoardName + " keepalive");
-    // Keyboard.press('f');
-    // delay(50);
-    // Keyboard.releaseAll();
-
-
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
-
-  // Physical keypad
-  char key = keypad.getKey();
-
-  if (key) {
-    Serial.println("A button has been pressed");
-    //pressMappedKey(key);
+  if (keypad.getKeys()) {
+    for (int i = 0; i < LIST_MAX; i++)  // Scan the whole key list.
+    {
+      if (keypad.key[i].stateChanged)  // Only find keys that have changed state.
+      {
+        switch (keypad.key[i].kstate) {  // Report active key state : IDLE, PRESSED, HOLD, or RELEASED
+          case PRESSED:
+            msg = " PRESSED.";
+            // Don't send any keystrokes first time around
+            if (!firstLoop) {
+              pressMappedKey(keypad.key[i].kchar);
+            }
+            break;
+          case HOLD:
+            msg = " HOLD.";
+            break;
+          case RELEASED:
+            msg = " RELEASED.";
+            break;
+          case IDLE:
+            msg = " IDLE.";
+        }
+        SendDebug("keypad ");
+        SendDebug(String(keypad.key[i].kchar));
+        SendDebug(msg);
+      }
+    }
   }
+
+  firstLoop = false;
 
   // Volume pot
   valVol = analogRead(VolPot);
