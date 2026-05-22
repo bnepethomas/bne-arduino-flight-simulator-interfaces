@@ -25,7 +25,7 @@
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool GREEN_LED_STATE = true;
 
-bool SerialDebug = true;
+bool SerialDebug = false;
 
 // ********************************* Begin Ethernet ***************************************************
 // Ethernet Related
