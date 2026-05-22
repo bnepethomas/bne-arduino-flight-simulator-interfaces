@@ -67,7 +67,7 @@ String DebugString = "";
 String BoardName = "Hornet Left Console Combined: ";
 
 const unsigned int aliveport = 13137;
-EthernetUDP aliveudp;       // Sends keepalives to monitoring application
+EthernetUDP aliveudp;  // Sends keepalives to monitoring application
 const unsigned long aliveinterval = 10000;
 long lastalivesent = 0;
 
@@ -102,9 +102,109 @@ unsigned long timeSinceRedLedChanged = 0;
 
 
 
-// ################################### BEGIN LIGHTING ##################################
+#define LANDING_GEAR_HANDLE_LIGHT 4
+
+
+// ************************************ Begin Exterior and Interior Lights Block
+
+
+
+#define MAP_LIGHTS 3
+#define NVG_LIGHTS 8
+#define FLOOD_LIGHTS 9
+#define FORMATION_LIGHTS 2
+#define STROBE_LIGHTS 5
+#define NAVIGATION_LIGHTS 2
 #define BACK_LIGHTS 11
-#define LANDINIG_GEAR_HANDLE_LIGHT 4
+
+#define DAY_MODE 0
+#define NIGHT_MODE 1
+#define NVG_MODE 2
+#define FULL_BRIGHTNESS 15
+
+#define STROBE_BRIGHT 2
+#define STROBE_DIM 0
+#define STROBE_BRIGHT_LEVEL 255
+#define STROBE_DIM_LEVEL 20
+
+
+int WARN_CAUTION_DIMMER_VALUE = 15;
+int AOA_DIMMER_VALUE = 15;
+int DAY_NIGHT_SWITCH_MODE = DAY_MODE;
+int NEW_AOA_DIMMER_VALUE = 15;
+int STROBE_BRIGHT_SWITCH_POS = STROBE_BRIGHT;
+long POSITION_BRIGHT_POT_POS = 65534;
+bool POSITION_LIGHTS_STATUS = true;
+
+// FORMATION LIGHTS
+void onExtFormationLightsChange(unsigned int newValue) {
+  analogWrite(FORMATION_LIGHTS, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer extFormationLightsBuffer(0x7576, 0xffff, 0, onExtFormationLightsChange);
+
+// POSITION/NAVIGATION LIGHTS
+void onPositionDimmerChange(unsigned int newValue) {
+  POSITION_BRIGHT_POT_POS = newValue;
+  if (POSITION_LIGHTS_STATUS == true)
+    analogWrite(NAVIGATION_LIGHTS, map(POSITION_BRIGHT_POT_POS, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer positionDimmerBuffer(0x7524, 0xffff, 0, onPositionDimmerChange);
+
+void onExtPositionLightLeftChange(unsigned int newValue) {
+  if (newValue != 0) {
+    analogWrite(NAVIGATION_LIGHTS, map(POSITION_BRIGHT_POT_POS, 0, 65535, 0, 255));
+    POSITION_LIGHTS_STATUS = true;
+  } else {
+    digitalWrite(NAVIGATION_LIGHTS, LOW);
+  }
+}
+DcsBios::IntegerBuffer extPositionLightLeftBuffer(0x74d6, 0x0400, 10, onExtPositionLightLeftChange);
+
+// STROBE LIGHTS
+
+// Strobe Switch Positions
+// Bright 2
+// Off    1
+// Dim    0
+//POSITION_BRIGHT_POT_POS
+
+void onExtStrobeLightsChange(unsigned int newValue) {
+  if (newValue != 0) {
+    if (STROBE_BRIGHT_SWITCH_POS == STROBE_BRIGHT)
+      analogWrite(STROBE_LIGHTS, STROBE_BRIGHT_LEVEL);
+    else
+      analogWrite(STROBE_LIGHTS, STROBE_DIM_LEVEL);
+  } else {
+    digitalWrite(STROBE_LIGHTS, LOW);
+  }
+}
+DcsBios::IntegerBuffer extStrobeLightsBuffer(0x74d6, 0x2000, 13, onExtStrobeLightsChange);
+
+
+void onStrobeSwChange(unsigned int newValue) {
+  STROBE_BRIGHT_SWITCH_POS = newValue;
+}
+DcsBios::IntegerBuffer strobeSwBuffer(0x74b0, 0x3000, 12, onStrobeSwChange);
+
+void onFloodIntLtChange(unsigned int newValue) {
+  analogWrite(FLOOD_LIGHTS, map(newValue, 0, 65535, 0, 255));
+}
+DcsBios::IntegerBuffer floodIntLtBuffer(0x755a, 0xffff, 0, onFloodIntLtChange);
+
+// void onConsoleIntLtChange(unsigned int newValue) {
+//   if (newValue <= 20000) {
+//     analogWrite(BACK_LIGHTS, 0);
+//   } else {
+//     // analogWrite(BACK_LIGHTS, map(newValue, 7000, 65535, 0, 255));
+//     analogWrite(BACK_LIGHTS, map(newValue, 7000, 65535, 0, 40));
+//   }
+
+//   int ConsolesDimmerValue = 0;
+//   ConsolesDimmerValue = map(newValue, 0, 65000, 0, 100);
+//   //SendIPString("ConsoleBrightness=" + String(ConsolesDimmerValue));
+// }
+// DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
+
 
 void onConsoleIntLtChange(unsigned int newValue) {
   SendDebug("Console Lights : " + String(newValue));
@@ -112,7 +212,18 @@ void onConsoleIntLtChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer consoleIntLtBuffer(0x7558, 0xffff, 0, onConsoleIntLtChange);
 
-// ################################### END LIGHTING ##################################
+void onNvgFloodIntLtChange(unsigned int newValue) {
+  if (newValue <= 7000) {
+    analogWrite(NVG_LIGHTS, 0);
+  } else {
+    analogWrite(NVG_LIGHTS, map(newValue, 7000, 65535, 0, 255));
+  }
+}
+DcsBios::IntegerBuffer nvgFloodIntLtBuffer(0x755c, 0xffff, 0, onNvgFloodIntLtChange);
+
+
+
+// ************************************ End Exterior and Interior Lights Block
 
 
 //************************************************RUDDER TRIM************************************************
@@ -438,7 +549,7 @@ void onConsolesDimmerChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerChange);
 
-DcsBios::LED landingGearHandleLt(0x747e, 0x0800, LANDINIG_GEAR_HANDLE_LIGHT);
+DcsBios::LED landingGearHandleLt(0x747e, 0x0800, LANDING_GEAR_HANDLE_LIGHT);
 
 void setup() {
 
@@ -449,6 +560,20 @@ void setup() {
   delay(FLASH_TIME);
   digitalWrite(GREEN_STATUS_LED_PORT, false);
   delay(FLASH_TIME);
+
+    // Initialise Exterior Lights
+  pinMode(STROBE_LIGHTS, OUTPUT);
+  pinMode(NAVIGATION_LIGHTS, OUTPUT);
+  pinMode(FORMATION_LIGHTS, OUTPUT);
+  pinMode(BACK_LIGHTS, OUTPUT);
+  pinMode(FLOOD_LIGHTS, OUTPUT);
+
+  digitalWrite(STROBE_LIGHTS, LOW);
+  digitalWrite(NAVIGATION_LIGHTS, LOW);
+  digitalWrite(FORMATION_LIGHTS, LOW);
+  digitalWrite(BACK_LIGHTS, LOW);
+  digitalWrite(FLOOD_LIGHTS, LOW);
+
 
   if (Ethernet_In_Use == 1) {
 
@@ -477,30 +602,30 @@ void setup() {
 
   // Lights
   pinMode(BACK_LIGHTS, OUTPUT);
-  pinMode(LANDINIG_GEAR_HANDLE_LIGHT, OUTPUT);
+  pinMode(LANDING_GEAR_HANDLE_LIGHT, OUTPUT);
   analogWrite(BACK_LIGHTS, 255);
-  analogWrite(LANDINIG_GEAR_HANDLE_LIGHT, 255);
+  analogWrite(LANDING_GEAR_HANDLE_LIGHT, 255);
   pinMode(apuLED, OUTPUT);
   digitalWrite(apuLED, HIGH);
   delay(3000);
 
   SendDebug("Dimming Leds");
   for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
-    analogWrite(LANDINIG_GEAR_HANDLE_LIGHT, Local_Brightness);
-    // analogWrite(NAVIGATION_LIGHTS, Local_Brightness);
-    // analogWrite(FORMATION_LIGHTS, Local_Brightness);
+    analogWrite(LANDING_GEAR_HANDLE_LIGHT, Local_Brightness);
+    analogWrite(NAVIGATION_LIGHTS, Local_Brightness);
+    analogWrite(FORMATION_LIGHTS, Local_Brightness);
     analogWrite(BACK_LIGHTS, Local_Brightness);
-    // analogWrite(FLOOD_LIGHTS, Local_Brightness);
+    analogWrite(FLOOD_LIGHTS, Local_Brightness);
     // SendDebug("Led Brightness " + String(Local_Brightness));
     delay(15);
   }
 
 #define BrightnessWhileRunningSetup 128
-  //analogWrite(LANDINIG_GEAR_HANDLE_LIGHT, BrightnessWhileRunningSetup);
-  // analogWrite(NAVIGATION_LIGHTS, BrightnessWhileRunningSetup);
-  // analogWrite(FORMATION_LIGHTS, BrightnessWhileRunningSetup);
+  analogWrite(LANDING_GEAR_HANDLE_LIGHT, BrightnessWhileRunningSetup);
+  analogWrite(NAVIGATION_LIGHTS, BrightnessWhileRunningSetup);
+  analogWrite(FORMATION_LIGHTS, BrightnessWhileRunningSetup);
   analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
-  // analogWrite(FLOOD_LIGHTS, BrightnessWhileRunningSetup);
+  analogWrite(FLOOD_LIGHTS, BrightnessWhileRunningSetup);
 
 
   // Motors and Mag Switches
