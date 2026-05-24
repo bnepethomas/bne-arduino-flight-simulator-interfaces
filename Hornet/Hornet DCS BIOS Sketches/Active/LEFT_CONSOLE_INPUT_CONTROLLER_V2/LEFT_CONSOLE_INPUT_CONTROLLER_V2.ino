@@ -1725,21 +1725,21 @@ void CreateDcsBiosMessage(int ind, int state) {
 
 
 // Ext Lights Pots
-DcsBios::PotentiometerEWMA<5, 128, 5> formationDimmer("FORMATION_DIMMER", A10);
-DcsBios::PotentiometerEWMA<5, 128, 5> positionDimmer("POSITION_DIMMER", A15);
+DcsBios::PotentiometerEWMA<5, 512, 10> formationDimmer("FORMATION_DIMMER", A10);
+DcsBios::PotentiometerEWMA<5, 512, 10> positionDimmer("POSITION_DIMMER", A15);
 
 // RUDDER TRIM
-DcsBios::PotentiometerEWMA<5, 128, 5> rudTrim("RUD_TRIM", A14);
+DcsBios::PotentiometerEWMA<5, 512, 10> rudTrim("RUD_TRIM", A14);
 
 // Com Aux
-DcsBios::Potentiometer comAux("COM_AUX", A12);
-DcsBios::Potentiometer comIcs("COM_ICS", A1);
-DcsBios::Potentiometer comMidsA("COM_MIDS_A", A3);
-DcsBios::Potentiometer comMidsB("COM_MIDS_B", A4);
-DcsBios::Potentiometer comRwr("COM_RWR", A2);
-DcsBios::Potentiometer comTacan("COM_TACAN", A5);
-DcsBios::Potentiometer comVox("COM_VOX", A0);
-DcsBios::Potentiometer comWpn("COM_WPN", A13);
+DcsBios::PotentiometerEWMA<5, 512, 10> comAux("COM_AUX", A12);
+DcsBios::PotentiometerEWMA<5, 512, 10> comIcs("COM_ICS", A1);
+DcsBios::PotentiometerEWMA<5, 512, 10> comMidsA("COM_MIDS_A", A3);
+DcsBios::PotentiometerEWMA<5, 512, 10> comMidsB("COM_MIDS_B", A4);
+DcsBios::PotentiometerEWMA<5, 512, 10> comRwr("COM_RWR", A2);
+DcsBios::PotentiometerEWMA<5, 512, 10> comTacan("COM_TACAN", A5);
+DcsBios::PotentiometerEWMA<5, 512, 10> comVox("COM_VOX", A0);
+DcsBios::PotentiometerEWMA<5, 512, 10> comWpn("COM_WPN", A13);
 
 int DCS_On = 0;
 int previous_DCS_State = 0;

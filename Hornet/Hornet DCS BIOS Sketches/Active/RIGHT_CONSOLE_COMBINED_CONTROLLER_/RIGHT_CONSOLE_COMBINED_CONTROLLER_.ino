@@ -1786,16 +1786,16 @@ void CreateDcsBiosMessage(int ind, int state) {
 }
 
 //ECS PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> cabinTemp("CABIN_TEMP", A6);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> suitTemp("SUIT_TEMP", A7);    //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 512, 10> cabinTemp("CABIN_TEMP", A6);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 512, 10> suitTemp("SUIT_TEMP", A7);    //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //INTR LTS PANEL
-DcsBios::Potentiometer chartDimmer("CHART_DIMMER", 3);
+DcsBios::PotentiometerEWMA<5, 512, 10> chartDimmer("CHART_DIMMER", 3);
 //DcsBios::PotentiometerEWMA<5, 128, 5> chartDimmer("CHART_DIMMER", 3);               //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> consolesDimmer("CONSOLES_DIMMER", 0);         //set //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> floodDimmer("FLOOD_DIMMER", 2);               //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> instPnlDimmer("INST_PNL_DIMMER", 1);          //"YYY" = DCS_BIOS INPUT NAME and X = PIN
-DcsBios::PotentiometerEWMA<5, 128, 5> warnCautionDimmer("WARN_CAUTION_DIMMER", 4);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 512, 10> consolesDimmer("CONSOLES_DIMMER", 0);         //set //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 512, 10> floodDimmer("FLOOD_DIMMER", 2);               //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 512, 10> instPnlDimmer("INST_PNL_DIMMER", 1);          //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 512, 10> warnCautionDimmer("WARN_CAUTION_DIMMER", 4);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 
 
@@ -1809,10 +1809,10 @@ DcsBios::IntegerBuffer consolesDimmerBuffer(0x7544, 0xffff, 0, onConsolesDimmerC
 
 //DE-FOG PANEL (INTR LTS)
 
-DcsBios::PotentiometerEWMA<5, 128, 5> defogHandle("DEFOG_HANDLE", 5);  //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 512, 10> defogHandle("DEFOG_HANDLE", 5);  //set//"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 //KY58 PANEL
-DcsBios::PotentiometerEWMA<5, 128, 5> ky58Volume("KY58_VOLUME", 8);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
+DcsBios::PotentiometerEWMA<5, 512, 10> ky58Volume("KY58_VOLUME", 8);  //"YYY" = DCS_BIOS INPUT NAME and X = PIN
 
 // controlPosition: 0 to 65,535 value representing the analog, real world control value
 // dcsPosition: 0 to 65,535 value reported from DCS for the provided address

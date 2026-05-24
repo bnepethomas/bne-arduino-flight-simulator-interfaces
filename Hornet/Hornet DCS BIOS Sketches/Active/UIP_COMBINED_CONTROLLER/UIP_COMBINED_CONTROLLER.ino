@@ -2308,22 +2308,22 @@ void CreateDcsBiosMessage(int ind, int state) {
 
 
 // LEFT DDI
-DcsBios::Potentiometer leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A0);
-DcsBios::Potentiometer leftDdiContCtl("LEFT_DDI_CONT_CTL", A1);
+DcsBios::PotentiometerEWMA<5, 512, 10> leftDdiBrtCtl("LEFT_DDI_BRT_CTL", A0);
+DcsBios::PotentiometerEWMA<5, 512, 10> leftDdiContCtl("LEFT_DDI_CONT_CTL", A1);
 
 // RIGHT DDI
-DcsBios::Potentiometer rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A2);
-DcsBios::Potentiometer rightDdiContCtl("RIGHT_DDI_CONT_CTL", A3);
+DcsBios::PotentiometerEWMA<5, 512, 10> rightDdiBrtCtl("RIGHT_DDI_BRT_CTL", A2);
+DcsBios::PotentiometerEWMA<5, 512, 10> rightDdiContCtl("RIGHT_DDI_CONT_CTL", A3);
 
 // SPIN (HMD) KNOB
-DcsBios::Potentiometer hmdOffBrt("HMD_OFF_BRT", A4);
+DcsBios::PotentiometerEWMA<5, 512, 10> hmdOffBrt("HMD_OFF_BRT", A4);
 
 // HUD ANALOG INPUTS
-DcsBios::Potentiometer hudSymBrt("HUD_SYM_BRT", A5);
+DcsBios::PotentiometerEWMA<5, 512, 10> hudSymBrt("HUD_SYM_BRT", A5);
 // 20220227 Bug in FP DCS-BIOS stops indexer updates if AoA indexer below 50% - sending over IP
-DcsBios::Potentiometer hudAoaIndexer("HUD_AOA_INDEXER", A6);
-DcsBios::Potentiometer hudBlackLvl("HUD_BLACK_LVL", A7);
-DcsBios::Potentiometer hudBalance("HUD_BALANCE", A8);
+DcsBios::PotentiometerEWMA<5, 512, 10> hudAoaIndexer("HUD_AOA_INDEXER", A6);
+DcsBios::PotentiometerEWMA<5, 512, 10> hudBlackLvl("HUD_BLACK_LVL", A7);
+DcsBios::PotentiometerEWMA<5, 512, 10> hudBalance("HUD_BALANCE", A8);
 
 
 

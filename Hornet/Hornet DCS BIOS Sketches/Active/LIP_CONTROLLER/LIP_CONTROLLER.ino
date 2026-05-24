@@ -338,8 +338,8 @@ void allMax7219Off() {
 // ######################## BEGIN RWR ########################
 
 // Note Pots are currently inversed
-DcsBios::PotentiometerEWMA<5, 128, 5> rwrDmrCtrl("RWR_DMR_CTRL", A1);
-DcsBios::PotentiometerEWMA<5, 128, 5> rwrAudioCtrl("RWR_AUDIO_CTRL", A0);
+DcsBios::PotentiometerEWMA<5, 512, 10> rwrDmrCtrl("RWR_DMR_CTRL", A1, 1023, 0);
+DcsBios::PotentiometerEWMA<5, 512, 10> rwrAudioCtrl("RWR_AUDIO_CTRL", A0, 1023, 0);
 
 //DcsBios::Potentiometer rwrDmrCtrl("RWR_DMR_CTRL", A0);
 //DcsBios::Potentiometer rwrAudioCtrl("RWR_AUDIO_CTRL", A1);
@@ -477,14 +477,14 @@ DcsBios::IntegerBuffer rwrBitLtBuffer(FA_18C_hornet_RWR_BIT_LT, onRwrBitLtChange
 
 
 // ######################## BEGIN IFEI ########################
-DcsBios::PotentiometerEWMA<5, 128, 5> ifei("IFEI", A3);
+DcsBios::PotentiometerEWMA<5, 512, 10> ifei("IFEI", A3);
 
 // ######################## END IFEI ########################
 
 
 // ######################## BEGIN AMPCD ########################
 
-DcsBios::PotentiometerEWMA<5, 128, 5> ampcdBrtCtl("AMPCD_BRT_CTL", 2);
+DcsBios::PotentiometerEWMA<5, 512, 10> ampcdBrtCtl("AMPCD_BRT_CTL", 2);
 
 // ######################## END AMPCD ########################
 
