@@ -166,15 +166,18 @@ void pressMappedKey(char key) {
       break;
 
     case 'b':
-      // Active Pause: Left Shift + Left Windows/GUI + Pause
-      Keyboard.press(KEY_LEFT_SHIFT);
+      // Warp / custom shortcut
+      Keyboard.press(KEY_LEFT_CTRL);
       delay(10);
-      Keyboard.press(KEY_LEFT_GUI);
+      Keyboard.press(KEY_LEFT_ALT);
       delay(10);
-      Keyboard.press(KEY_PAUSE);
+      Keyboard.press(KEY_F7);
       delay(50);
       Keyboard.releaseAll();
+
+      delay(20);
       GlobalLastkeyPressed = millis();
+
       break;
 
     case 'c':
@@ -192,22 +195,28 @@ void pressMappedKey(char key) {
       break;
 
     case 'd':
-      // Warp / custom shortcut
-      Keyboard.press(KEY_LEFT_CTRL);
+
+      // Active Pause: Left Shift + Left Windows/GUI + Pause
+      Keyboard.press(KEY_LEFT_SHIFT);
       delay(10);
-      Keyboard.press(KEY_F4);
-      delay(50);
-      Keyboard.releaseAll();
-
-      delay(20);
-
-      Keyboard.press(KEY_F1);  // Return to cockpit
+      Keyboard.press(KEY_LEFT_GUI);
+      delay(10);
+      Keyboard.press(KEY_PAUSE);
       delay(50);
       Keyboard.releaseAll();
       GlobalLastkeyPressed = millis();
       break;
 
     case 'e':
+      // ATC
+      Keyboard.press('\\');
+      delay(50);
+      Keyboard.releaseAll();
+      GlobalLastkeyPressed = millis();
+
+      break;
+
+    case 'f':
       // Virtual cockpit on/off
       Keyboard.press(KEY_LEFT_ALT);
       delay(10);
@@ -215,14 +224,7 @@ void pressMappedKey(char key) {
       delay(50);
       Keyboard.releaseAll();
       GlobalLastkeyPressed = millis();
-      break;
 
-    case 'f':
-      // ATC
-      Keyboard.press('\\');
-      delay(50);
-      Keyboard.releaseAll();
-      GlobalLastkeyPressed = millis();
       break;
 
     case 'g':
@@ -264,7 +266,7 @@ void pressMappedKey(char key) {
 
     case '4':
       Keyboard.press(KEY_LEFT_CTRL);
-      delay(10);
+      delay(50);
       Keyboard.press(KEY_F4);
       delay(50);
       Keyboard.releaseAll();
@@ -272,7 +274,7 @@ void pressMappedKey(char key) {
       break;
 
     case '5':
-      Keyboard.press('f');
+      Keyboard.press('KEY_F2');
       delay(50);
       Keyboard.releaseAll();
       GlobalLastkeyPressed = millis();
