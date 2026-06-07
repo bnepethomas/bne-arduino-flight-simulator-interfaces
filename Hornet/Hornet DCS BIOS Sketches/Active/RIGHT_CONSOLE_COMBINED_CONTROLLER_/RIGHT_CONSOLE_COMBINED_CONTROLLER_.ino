@@ -63,7 +63,7 @@ int Reflector_In_Use = 1;
 
 #define SYNCH_BACKLIGHT_AT_START 1
 #define STARTUP_BACKLIGHT_END 90000  //Keep Backlight on until all panels have completed testing
-#define BACKLIGHT_END_LEVEL 50        // Percentage Backlight Level at end of startup
+#define BACKLIGHT_END_LEVEL 50       // Percentage Backlight Level at end of startup
 
 
 
@@ -115,7 +115,7 @@ EthernetUDP debugUDP;
 char packetBuffer[300];     //buffer to store the incoming data
 char outpacketBuffer[300];  //buffer to store the outgoing data
 
-EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+EthernetUDP aliveudp;  // Sends keepalives to monitoring application
 const unsigned long aliveinterval = 10000;
 long lastalivesent = 0;
 
@@ -598,7 +598,7 @@ void setup() {
   // digitalWrite(RED_STATUS_LED_PORT, false);
   // delay(FLASH_TIME);
 
-    // Initialise Exterior Lights
+  // Initialise Exterior Lights
   pinMode(STROBE_LIGHTS, OUTPUT);
   pinMode(NAVIGATION_LIGHTS, OUTPUT);
   pinMode(FORMATION_LIGHTS, OUTPUT);
@@ -609,7 +609,7 @@ void setup() {
   digitalWrite(NAVIGATION_LIGHTS, LOW);
   digitalWrite(FORMATION_LIGHTS, LOW);
   digitalWrite(BACK_LIGHTS, LOW);
-  digitalWrite(FLOOD_LIGHTS, LOW);  
+  digitalWrite(FLOOD_LIGHTS, LOW);
 
   if (Ethernet_In_Use == 1) {
 
@@ -696,27 +696,21 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  // Synchronise end of setup scripts across the pit so panel lights dim togehter
-  while (millis() <= 15000) {
-    //while (millis() <= 0) {
-    delay(FLASH_TIME);
-    digitalWrite(GREEN_STATUS_LED_PORT, false);
-    delay(FLASH_TIME);
-    digitalWrite(GREEN_STATUS_LED_PORT, true);
-  }
 
 
 
   setAllMags(false);
-  digitalWrite(HOOK_LED, false);
+
+  digitalWrite(FLOOD_LIGHTS, HIGH);
+  SendDebug("Pausing until Synch");
 
   if (SYNCH_BACKLIGHT_AT_START == 1) {
     while (millis() <= STARTUP_BACKLIGHT_END) {
-       if (DCSBIOS_In_Use == 1) DcsBios::loop();
+      if (DCSBIOS_In_Use == 1) DcsBios::loop();
     }
   }
   for (int i = 254; i >= BACKLIGHT_END_LEVEL; i--) {
-    analogWrite(BACK_LIGHTS,(i));
+    analogWrite(BACK_LIGHTS, (i));
     // SendDebug("PWM Level :" + String(i));
     delay(20);
   }
@@ -724,7 +718,7 @@ void setup() {
   // Set Console lights to a mid level for start of game
   setAllCautionLed(false);
 
-
+  digitalWrite(HOOK_LED, false);
 
   SendDebug("Setup Complete");
 }
