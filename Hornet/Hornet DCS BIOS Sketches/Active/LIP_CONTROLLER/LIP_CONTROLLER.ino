@@ -60,6 +60,12 @@ int Reflector_In_Use = 1;
 #define DCSBIOS_IRQ_SERIAL
 #include <DcsBios.h>
 
+#define SYNCH_BACKLIGHT_AT_START 1
+#define STARTUP_BACKLIGHT_END 90000  //Keep Backlight on until all panels have completed testing
+#define BACKLIGHT_END_LEVEL 32000        // Percentage Backlight Level at end of startup
+
+
+
 // ********************************* Begin Ethernet ***************************************************
 // Ethernet Related
 #include <SPI.h>
@@ -737,12 +743,23 @@ void setup() {
   /// CABIN ALT WORKING ======< SET CABIN ALT STEPPER TO 0 FEET
 
 
-  while (millis() <= 6000) {
-    delay(FLASH_TIME);
-    digitalWrite(GREEN_STATUS_LED_PORT, false);
-    delay(FLASH_TIME);
-    digitalWrite(GREEN_STATUS_LED_PORT, true);
+
+  SendDebug("Pausing until Synch is complete");
+
+
+  if (SYNCH_BACKLIGHT_AT_START == 1) {
+    while (millis() <= STARTUP_BACKLIGHT_END) {
+
+    }
   }
+  for (int i = 65000; i >= BACKLIGHT_END_LEVEL; i--) {
+    setConsoleLights(i);
+    // SendDebug("PWM Level :" + String(i));
+    delay(20);
+  }
+
+
+
 
   setAllRWRLed(false);
   setSelJetLed(false);
@@ -757,7 +774,7 @@ void setup() {
   setFlapsHalf(false);
   setFlapsFull(false);
   setFlapsWarn(false);
-  turnOffAllBacklights();
+
 
   // Set Console lights to a mid level for start of game
   setConsoleLights(16000);

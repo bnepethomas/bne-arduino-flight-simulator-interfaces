@@ -61,6 +61,12 @@ int Reflector_In_Use = 1;
 #define DCSBIOS_IRQ_SERIAL
 #include <DcsBios.h>
 
+#define SYNCH_BACKLIGHT_AT_START 1
+#define STARTUP_BACKLIGHT_END 90000  //Keep Backlight on until all panels have completed testing
+#define BACKLIGHT_END_LEVEL 50        // Percentage Backlight Level at end of startup
+
+
+
 // ********************************* Begin Ethernet ***************************************************
 // Ethernet Related
 #include <SPI.h>
@@ -106,8 +112,8 @@ int packetSize;
 int debugLen;
 EthernetUDP udp;
 EthernetUDP debugUDP;
-char packetBuffer[1000];     //buffer to store the incoming data
-char outpacketBuffer[1000];  //buffer to store the outgoing data
+char packetBuffer[300];     //buffer to store the incoming data
+char outpacketBuffer[300];  //buffer to store the outgoing data
 
 EthernetUDP aliveudp;    // Sends keepalives to monitoring application
 const unsigned long aliveinterval = 10000;
@@ -703,7 +709,17 @@ void setup() {
 
   setAllMags(false);
   digitalWrite(HOOK_LED, false);
-  turnOffAllBacklights();
+
+  if (SYNCH_BACKLIGHT_AT_START == 1) {
+    while (millis() <= STARTUP_BACKLIGHT_END) {
+       if (DCSBIOS_In_Use == 1) DcsBios::loop();
+    }
+  }
+  for (int i = 254; i >= BACKLIGHT_END_LEVEL; i--) {
+    analogWrite(BACK_LIGHTS,(i));
+    // SendDebug("PWM Level :" + String(i));
+    delay(20);
+  }
 
   // Set Console lights to a mid level for start of game
   setAllCautionLed(false);

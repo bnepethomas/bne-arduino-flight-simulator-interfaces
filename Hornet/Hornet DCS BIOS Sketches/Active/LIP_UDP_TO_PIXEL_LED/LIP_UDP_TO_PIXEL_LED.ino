@@ -20,6 +20,10 @@
 const int Serial_In_Use = 0;
 #define Reflector_In_Use 1
 
+#define SYNCH_BACKLIGHT_AT_START 1
+#define STARTUP_BACKLIGHT_END 90000  //Keep Backlight on until all panels have completed testing
+#define BACKLIGHT_END_LEVEL 50       // Percentage Backlight Level at end of startup
+
 
 
 // ###################################### Begin Pixel Led Related #############################
@@ -196,7 +200,7 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 
 String BoardName = "Hornet Pixel LED";
 
-EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+EthernetUDP aliveudp;  // Sends keepalives to monitoring application
 const unsigned int aliveport = 13137;
 const unsigned long aliveinterval = 10000;
 long lastalivesent = 0;
@@ -266,6 +270,7 @@ void setup() {
 
 
   // Now apply everything we just told it about the setup.
+  SendDebug("Green");
   fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
@@ -280,7 +285,7 @@ void setup() {
 
   FastLED.show();
   delay(2000);
-
+  SendDebug("Red");
   fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Red);
   fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Red);
   fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Red);
@@ -296,6 +301,7 @@ void setup() {
 
 
   // Now apply everything we just told it about the setup.
+  SendDebug("Yellow");
   fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Yellow);
   fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Yellow);
   fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Yellow);
@@ -303,7 +309,7 @@ void setup() {
 
   FastLED.show();
   delay(2000);
-
+  SendDebug("Black");
   fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Black);
   fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Black);
   fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Black);
@@ -314,15 +320,17 @@ void setup() {
 
 
   // Now apply everything we just told it about the setup.
+  SendDebug("Red");
   fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
   fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
   for (ledptr = STANDBY_START_POS;
        ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
     // There are no special function leds - so no check needed
-    UIP_CONSOLE_LED[ledptr] = CHSV(CHSVRed, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // GREEN
+    UIP_CONSOLE_LED[ledptr] = CHSV(CHSVGreen, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // Red
   }
-  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
+
 
   FastLED.show();
   delay(1000);
@@ -339,6 +347,40 @@ void setup() {
 
 
   NEXT_LED_UPDATE = millis() + 1000;
+  SendDebug("Green");
+  fill_solid(LEFT_CONSOLE_LED, LEFT_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid(RIGHT_CONSOLE_LED, RIGHT_CONSOLE_LED_COUNT, CRGB::Green);
+  fill_solid(LIP_CONSOLE_LED, LIP_CONSOLE_LED_COUNT, CRGB::Green);
+  // // Fix up the Standby Gauges as they use a different approach to colour
+  for (ledptr = STANDBY_START_POS;
+       ledptr <= (STANDBY_START_POS + STANDBY_LED_COUNT - 1); ledptr++) {
+    // There are no special function leds - so no check needed
+    LIP_CONSOLE_LED[ledptr] = CHSV(CHSVRed, 255, startUpBrightness * STANDBY_BRIGHTNESS_MULTIPLIER);  // GREEN
+  }
+  fill_solid(UIP_CONSOLE_LED, UIP_CONSOLE_LED_COUNT, CRGB::Green);
+
+
+  FastLED.show();
+
+  SendDebug("Pausing until synch complete");
+  if (SYNCH_BACKLIGHT_AT_START == 1) {
+    while (millis() <= STARTUP_BACKLIGHT_END) {
+    }
+  }
+  for (int i = 254; i >= BACKLIGHT_END_LEVEL; i--) {
+    consoleBrightness = i;
+    warningBrightness = i;
+    SetBacklighting();
+    FastLED.show();
+    // SendDebug("PWM Level :" + String(i));
+    delay(20);
+  }
+
+
+
+
+  SendDebug("Setup Complete");
+  delay(3000);
 }
 
 
@@ -670,26 +712,26 @@ void loop() {
   }
 
 
-  // slowly Dim Leds off after initial start up in setup
-  if ((millis() >= NEXT_LED_UPDATE) && (startUpBrightness != 0)) {
-    NEXT_LED_UPDATE = millis() + 10;
+  // // slowly Dim Leds off after initial start up in setup
+  // if ((millis() >= NEXT_LED_UPDATE) && (startUpBrightness != 0)) {
+  //   NEXT_LED_UPDATE = millis() + 10;
 
-    startUpBrightness--;
-    FastLED.setBrightness(startUpBrightness);
-    FastLED.show();
+  //   startUpBrightness--;
+  //   FastLED.setBrightness(startUpBrightness);
+  //   FastLED.show();
 
-    // If we've completed the startup dimming - set master level
-    // And then set console leds to 0;
-    if (startUpBrightness == 0) {
-      // SetBacklightingColour();
-      FastLED.setBrightness(MAX_MASTER_BRIGHTNESS);
-      consoleBrightness = 65;
-      warningBrightness = 100;
-      SetBacklighting();
-      SetWarningLighting();
-      FastLED.show();
-    }
-  }
+  //   // If we've completed the startup dimming - set master level
+  //   // And then set console leds to 0;
+  //   if (startUpBrightness == 0) {
+  //     // SetBacklightingColour();
+  //     FastLED.setBrightness(MAX_MASTER_BRIGHTNESS);
+  //     consoleBrightness = 65;
+  //     warningBrightness = 100;
+  //     SetBacklighting();
+  //     SetWarningLighting();
+  //     FastLED.show();
+  //   }
+  // }
 
 
 

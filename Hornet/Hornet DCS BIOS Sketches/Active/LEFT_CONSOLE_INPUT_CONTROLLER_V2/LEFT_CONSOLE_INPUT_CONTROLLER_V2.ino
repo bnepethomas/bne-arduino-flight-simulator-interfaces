@@ -19,6 +19,10 @@ int Reflector_In_Use = 1;
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
 
+#define SYNCH_BACKLIGHT_AT_START 1
+#define STARTUP_BACKLIGHT_END 90000  //Keep Backlight on until all panels have completed testing
+#define BACKLIGHT_END_LEVEL 50       // Percentage Backlight Level at end of startup
+
 // ###################################### Begin Ethernet Related #############################
 #include <SPI.h>
 #include <Ethernet.h>
@@ -561,7 +565,7 @@ void setup() {
   digitalWrite(GREEN_STATUS_LED_PORT, false);
   delay(FLASH_TIME);
 
-    // Initialise Exterior Lights
+  // Initialise Exterior Lights
   pinMode(STROBE_LIGHTS, OUTPUT);
   pinMode(NAVIGATION_LIGHTS, OUTPUT);
   pinMode(FORMATION_LIGHTS, OUTPUT);
@@ -620,7 +624,7 @@ void setup() {
     delay(15);
   }
 
-#define BrightnessWhileRunningSetup 128
+#define BrightnessWhileRunningSetup 255
   analogWrite(LANDING_GEAR_HANDLE_LIGHT, BrightnessWhileRunningSetup);
   analogWrite(NAVIGATION_LIGHTS, BrightnessWhileRunningSetup);
   analogWrite(FORMATION_LIGHTS, BrightnessWhileRunningSetup);
@@ -682,15 +686,27 @@ void setup() {
   DcsBios::setup();
   // SetTrimPosition();
 
-#define BrightnessPostSetup 65
 
+
+  if (SYNCH_BACKLIGHT_AT_START == 1) {
+    while (millis() <= STARTUP_BACKLIGHT_END) {
+      if (DCSBIOS_In_Use == 1) DcsBios::loop();
+    }
+  }
+  for (int i = 254; i >= BACKLIGHT_END_LEVEL; i--) {
+    analogWrite(BACK_LIGHTS, BACKLIGHT_END_LEVEL);
+    delay(20);
+  }
+
+  //#define BrightnessPostSetup 65
   // analogWrite(STROBE_LIGHTS, BrightnessPostSetup);
   // analogWrite(NAVIGATION_LIGHTS, BrightnessPostSetup);
   // analogWrite(FORMATION_LIGHTS, BrightnessPostSetup);
-  analogWrite(BACK_LIGHTS, BrightnessPostSetup);
+  // analogWrite(BACK_LIGHTS, BrightnessPostSetup);
   // analogWrite(FLOOD_LIGHTS, BrightnessPostSetup);
 
   digitalWrite(apuLED, LOW);
+  digitalWrite(LANDING_GEAR_HANDLE_LIGHT, 0);
 
   SendDebug(BoardName + " End Setup");
 }

@@ -69,6 +69,9 @@ Code ToDo's - add check that DCS is active to enable stepper driver
 #define GREEN_STATUS_LED_PORT 14
 #define RED_STATUS_LED_PORT 15  // RED LED is used for monitoring ethernet
 #define FLASH_TIME 3000
+#define SYNCH_BACKLIGHT_AT_START 1
+#define STARTUP_BACKLIGHT_END 90000  //Keep Backlight on until all panels have completed testing
+#define BACKLIGHT_END_LEVEL 50       // Percentage Backlight Level at end of startup
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
 bool RED_LED_STATE = false;
@@ -1065,6 +1068,7 @@ void setup() {
   Max7219_ALL_OFF();
   delay(1000);
   Max7219_ALL_ON();
+  setPWMLights(255);
 
   // 20251026 Comments out for testing
   if (false) {
@@ -1154,12 +1158,23 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  delay(1000);
+
+  if (SYNCH_BACKLIGHT_AT_START == 1) {
+    while (millis() <= STARTUP_BACKLIGHT_END) {
+       if (DCSBIOS_In_Use == 1) DcsBios::loop();
+    }
+  }
+  for (int i = 254; i >= BACKLIGHT_END_LEVEL; i--) {
+    setPWMLights(i);
+    // SendDebug("PWM Level :" + String(i));
+    delay(20);
+  }
   SPIN_LED_OFF();
-  setPWMLights(0);
+ // setPWMLights(BACKLIGHT_END_LEVEL);
   Max7219_ALL_OFF();
+
+
   SendDebug("Setup Complete");
-  SendDebug("Need to uncomment potentiometer mappings");
 }
 
 void FindInputChanges() {

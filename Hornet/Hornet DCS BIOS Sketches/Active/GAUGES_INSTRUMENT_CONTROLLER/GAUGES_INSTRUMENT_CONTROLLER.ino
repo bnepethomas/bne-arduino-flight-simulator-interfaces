@@ -22,6 +22,12 @@ int Reflector_In_Use = 1;
 #define DCSBIOS_IRQ_SERIAL
 #include <DcsBios.h>
 
+#define SYNCH_BACKLIGHT_AT_START 1
+#define STARTUP_BACKLIGHT_END 90000  //Keep Backlight on until all panels have completed testing
+#define BACKLIGHT_END_LEVEL 50       // Percentage Backlight Level at end of startup
+
+
+
 // ###################################### Begin Ethernet Related #############################
 #include <SPI.h>
 #include <Ethernet.h>
@@ -70,7 +76,7 @@ String DebugString = "";
 String BoardName = "Hornet Gauges Instrument Controller: ";
 
 const unsigned int aliveport = 13137;
-EthernetUDP aliveudp;    // Sends keepalives to monitoring application
+EthernetUDP aliveudp;  // Sends keepalives to monitoring application
 const unsigned long aliveinterval = 10000;
 long lastalivesent = 0;
 
@@ -770,18 +776,18 @@ void setup() {
 
 
 
-    delay(500);
-    SendDebug(BoardName + "Leds Brightness to Post Setup Level");
+    // delay(500);
+    // SendDebug(BoardName + "Leds Brightness to Post Setup Level");
 
-    analogWrite(ASH_DDI_PWM_5V, BrightnessPostSetup);
-    analogWrite(BACK_LIGHTS, BrightnessPostSetup);
-    analogWrite(BAT_HYD_DIM, BrightnessPostSetup);
-    analogWrite(BRK_PRESS_DIM, BrightnessPostSetup); 
-    analogWrite(CAB_ALT_DIM, BrightnessPostSetup);
-    analogWrite(COMPASS_DIM, BrightnessPostSetup);
-    analogWrite(MAP_DIM, BrightnessPostSetup);
-    analogWrite(RADAR_ALTIMETER_DIM, BrightnessPostSetup);
-    analogWrite(SPARE_DIM, BrightnessPostSetup);
+    // analogWrite(ASH_DDI_PWM_5V, BrightnessPostSetup);
+    // analogWrite(BACK_LIGHTS, BrightnessPostSetup);
+    // analogWrite(BAT_HYD_DIM, BrightnessPostSetup);
+    // analogWrite(BRK_PRESS_DIM, BrightnessPostSetup);
+    // analogWrite(CAB_ALT_DIM, BrightnessPostSetup);
+    // analogWrite(COMPASS_DIM, BrightnessPostSetup);
+    // analogWrite(MAP_DIM, BrightnessPostSetup);
+    // analogWrite(RADAR_ALTIMETER_DIM, BrightnessPostSetup);
+    // analogWrite(SPARE_DIM, BrightnessPostSetup);
 
 
     digitalWrite(RAD_GN, LOW);
@@ -791,6 +797,29 @@ void setup() {
     digitalWrite(AOA_TOP, HIGH);
     digitalWrite(AOA_BALL, HIGH);
     digitalWrite(AOA_BOT, HIGH);
+
+
+
+    SendDebug("Pausing until Synch Complete");
+
+    if (SYNCH_BACKLIGHT_AT_START == 1) {
+      while (millis() <= STARTUP_BACKLIGHT_END) {
+        if (DCSBIOS_In_Use == 1) DcsBios::loop();
+      }
+    }
+    for (int i = 254; i >= BACKLIGHT_END_LEVEL; i--) {
+      analogWrite(ASH_DDI_PWM_5V, i);
+      analogWrite(BACK_LIGHTS, i);
+      analogWrite(BAT_HYD_DIM, i);
+      analogWrite(BRK_PRESS_DIM, i);
+      analogWrite(CAB_ALT_DIM, i);
+      analogWrite(COMPASS_DIM, i);
+      analogWrite(MAP_DIM, i);
+      analogWrite(RADAR_ALTIMETER_DIM, i);
+      analogWrite(SPARE_DIM, i);
+      // SendDebug("PWM Level :" + String(i));
+      delay(20);
+    }
 
     SendDebug(BoardName + " End Setup");
 
