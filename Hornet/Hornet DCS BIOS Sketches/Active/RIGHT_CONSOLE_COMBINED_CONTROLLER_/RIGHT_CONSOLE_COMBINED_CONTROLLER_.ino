@@ -616,12 +616,14 @@ void setup() {
   pinMode(FORMATION_LIGHTS, OUTPUT);
   pinMode(BACK_LIGHTS, OUTPUT);
   pinMode(FLOOD_LIGHTS, OUTPUT);
+  pinMode(NVG_LIGHTS, OUTPUT);
 
   digitalWrite(STROBE_LIGHTS, LOW);
   digitalWrite(NAVIGATION_LIGHTS, LOW);
   digitalWrite(FORMATION_LIGHTS, LOW);
   digitalWrite(BACK_LIGHTS, LOW);
   digitalWrite(FLOOD_LIGHTS, LOW);
+  digitalWrite(NVG_LIGHTS, LOW);
 
   if (Ethernet_In_Use == 1) {
 
@@ -725,6 +727,8 @@ void setup() {
   }
   for (int i = 254; i >= BACKLIGHT_END_LEVEL; i--) {
     analogWrite(BACK_LIGHTS, (i));
+    analogWrite(NVG_LIGHTS, (i));
+    analogWrite(FLOOD_LIGHTS, (i));
     // SendDebug("PWM Level :" + String(i));
     delay(20);
   }

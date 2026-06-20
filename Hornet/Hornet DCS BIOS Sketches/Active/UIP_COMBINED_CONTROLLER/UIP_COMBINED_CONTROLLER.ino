@@ -133,8 +133,8 @@ const unsigned long delayBeforeSendingPacket = 3000;
 unsigned long ethernetStartTime = 0;
 String BoardName = "UIP Combined Controller: ";
 
-char packetBuffer[1000];     //buffer to store the incoming data
-char outpacketBuffer[1000];  //buffer to store the outgoing data
+char packetBuffer[500];     //buffer to store the incoming data
+char outpacketBuffer[500];  //buffer to store the outgoing data
 
 void SendDebug(String MessageToSend) {
   MessageToSend = BoardName + MessageToSend;
@@ -978,7 +978,8 @@ Vid60Stepper standbyCompass(0x0436,         // address of stepper data
 
 // ********************* End Compass ***************
 
-#define NUM_BUTTONS 256
+//#define NUM_BUTTONS 256
+#define NUM_BUTTONS 176
 #define BUTTONS_USED_ON_PCB 176
 #define NUM_AXES 8  // 8 axes, X, Y, Z, etc
 #define STATUS_LED_PORT 7
@@ -1190,6 +1191,8 @@ void setup() {
   UpdateAoaIndexerBrightness();
 
   if (SYNCH_BACKLIGHT_AT_START == 1) {
+    
+  SendDebug("Lights until on all panels have completed self test");
     while (millis() <= STARTUP_BACKLIGHT_END) {
        if (DCSBIOS_In_Use == 1) DcsBios::loop();
     }
