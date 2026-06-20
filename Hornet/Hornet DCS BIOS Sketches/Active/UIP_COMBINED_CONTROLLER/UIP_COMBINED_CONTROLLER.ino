@@ -86,6 +86,11 @@ int Reflector_In_Use = 1;
 #define DCSBIOS_IRQ_SERIAL
 #include "DcsBios.h"
 
+// Forward declarations: the bounded AOA brightness handler is implemented
+// alongside the other HUD analogue controls near the end of this sketch.
+void UpdateAoaIndexerBrightness();
+void MaintainAoaIndexerBrightness();
+
 
 // Ethernet Related
 #include <SPI.h>
@@ -991,17 +996,38 @@ struct joyReport_t {
 int LoopsBeforeSendingAllowed = 40;
 bool SendingAllowed = false;
 
-const int ScanDelay = 80;
-const int DebounceDelay = 20;
+// Matrix reliability settings.
+// UIP is predominantly momentary push buttons. Only known maintained switches
+// receive the longer confirmation and one DCS-only resend.
+const unsigned int MATRIX_ROWS = 16;
+const unsigned int MATRIX_COLS = 11;  // Physical matrix columns: pins 38-48 only.
+const unsigned int ROW_SETTLE_US = 80;
+const unsigned long MOMENTARY_STABLE_MS = 20;
+const unsigned long MAINTAINED_STABLE_MS = 50;
+const bool SEND_INITIAL_MATRIX_STATES = false;  // Learn physical startup state; do not command DCS at boot.
+const bool RESEND_MAINTAINED_CONFIRMED_STATE = true;
+const unsigned long MAINTAINED_RESEND_MS = 100;
 
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
 
-unsigned long joyEndDebounce[NUM_BUTTONS];  // Holds the time we'll look at any more changes in a given input
+// Retained for compatibility/diagnostics. The confirmed-state debounce below
+// uses candidateButton[] and candidateChangedAt[] instead of a lockout timer.
+unsigned long joyEndDebounce[NUM_BUTTONS];
+
+int candidateButton[NUM_BUTTONS];
+unsigned long candidateChangedAt[NUM_BUTTONS];
+bool resendPending[NUM_BUTTONS];
+int resendState[NUM_BUTTONS];
+unsigned long resendDueAt[NUM_BUTTONS];
+
+// The resend is deliberately DCS-only. Suppress only the duplicate debug
+// line that it would otherwise create; normal debug remains untouched.
+bool suppressMatrixResendDebug = false;
 
 long prevLEDTransition = millis();
 int cButtonID[16];
-bool bFirstTime = false;
+bool bFirstTime = true;
 
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
@@ -1145,19 +1171,23 @@ void setup() {
     pinMode(portId, INPUT_PULLUP);
   }
 
-  // Initialise all arrays
+  // Initialise all matrix state arrays.
   for (int ind = 0; ind < NUM_BUTTONS; ind++) {
-
-    // Clear current and last values to 0 for button inputs
     joyReport.button[ind] = 0;
     prevjoyReport.button[ind] = 0;
-
-    // Set the end
     joyEndDebounce[ind] = 0;
+    candidateButton[ind] = 0;
+    candidateChangedAt[ind] = millis();
+    resendPending[ind] = false;
+    resendState[ind] = 0;
+    resendDueAt[ind] = 0;
   }
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
+  // Send the first bounded AOA indexer brightness value immediately after
+  // DCS-BIOS initialisation. The normal 100 ms refresh is maintained in loop().
+  UpdateAoaIndexerBrightness();
 
   if (SYNCH_BACKLIGHT_AT_START == 1) {
     while (millis() <= STARTUP_BACKLIGHT_END) {
@@ -1177,45 +1207,245 @@ void setup() {
   SendDebug("Setup Complete");
 }
 
+// UIP scope reduction (revision 2):
+// AMPCD, UFC and IFEI are now hosted elsewhere in the pit. Their physical matrix
+// addresses remain in this controller so the 16 x 11 matrix numbering and wiring are
+// unchanged, but their DCS-BIOS command paths below are intentionally disabled.
+
+bool IsDisabledInput(int ind) {
+  // These physical input positions remain part of the scanned 16 x 11 matrix
+  // so all remaining address assignments stay unchanged. They are intentionally
+  // inert in this UIP revision: no DCS-BIOS command, reflector/debug line, or
+  // maintained-state resend is produced for AMPCD, UFC or IFEI inputs.
+  switch (ind) {
+    // UFC: ILS, COMM pulls, keypad, option selects and function keys.
+    case 32: case 37: case 48:
+    case 59: case 60: case 61: case 62: case 63: case 64: case 65:
+    case 70: case 71: case 72: case 73: case 74: case 75: case 76:
+    case 81: case 82: case 83: case 84:
+    case 92: case 93: case 94: case 95:
+    case 103: case 104: case 105: case 106:
+    case 114:
+
+    // AMPCD: PB 1-20 and its five selector/brightness controls.
+    case 55: case 56: case 57: case 58:
+    case 66: case 67: case 68: case 69:
+    case 77: case 78: case 79: case 80:
+    case 88: case 89: case 90: case 91:
+    case 99: case 100: case 101: case 102:
+    case 110: case 111: case 112: case 113:
+    case 121: case 122: case 123: case 124:
+    case 132:
+
+    // IFEI.
+    case 143: case 144:
+    case 154: case 155:
+    case 165: case 166:
+      return true;
+
+    default:
+      return false;
+  }
+}
+
+bool IsMomentaryInput(int ind) {
+  // UIP is mostly push buttons. This default grouping prevents a DCS resend
+  // from turning a press into a second press.
+  switch (ind) {
+    // Left and right DDI push buttons.
+    case 0: case 1: case 2: case 3:
+    case 5: case 6: case 7: case 8:
+    case 11: case 12: case 13: case 14:
+    case 16: case 17: case 18: case 19:
+    case 22: case 23: case 24: case 25:
+    case 27: case 28: case 29: case 30:
+    case 33: case 34: case 35: case 36:
+    case 38: case 39: case 40: case 41:
+    case 42: case 43:  // Left fire and Master Caution (validated mapping retained).
+    case 44: case 45: case 46: case 47:
+    case 49: case 50: case 51: case 52:
+    case 53: case 54:  // Right fire and APU fire (validated mapping retained).
+
+    // Other active momentary panel buttons.
+    case 115: case 116: case 117:
+    case 119: case 120:
+    case 125:
+    case 136: case 138:
+    case 147:
+    case 158:
+    case 169:
+    case 171: case 172: case 173: case 174: case 175:  // Select Jett push buttons.
+      return true;
+
+    default:
+      return false;
+  }
+}
+
+bool IsMaintainedInput(int ind) {
+  // Only known maintained switches/toggles are eligible for the safe 100 ms
+  // DCS-only resend. Unknown controls are deliberately treated as momentary.
+  switch (ind) {
+    // DDI brightness/contrast and directional selector switches.
+    case 4: case 9: case 10: case 15: case 20: case 21: case 26: case 31:
+
+    // ECM selector switches. AMPCD positions are intentionally excluded because
+    // AMPCD commands have been removed from this controller.
+    case 85: case 96: case 107: case 108:
+    case 118: case 126: case 129: case 137: case 148:
+    case 159: case 170:
+
+    // HUD, master arm, mode and other maintained controls.
+    case 139:
+    case 140: case 141: case 142:
+    case 146:
+    case 150: case 151: case 152: case 153:
+    case 156: case 157:
+    case 161: case 162: case 164:
+    case 167: case 168:
+      return true;
+
+    default:
+      return false;
+  }
+}
+
+unsigned long StableTimeForInput(int ind) {
+  return IsMaintainedInput(ind) ? MAINTAINED_STABLE_MS : MOMENTARY_STABLE_MS;
+}
+
+int ReadMatrixColumn(unsigned int colid) {
+  switch (colid) {
+    case 0:  return (PIND & B10000000) == 0 ? 0 : 1; // pin 38, PD7
+    case 1:  return (PING & B00000100) == 0 ? 0 : 1; // pin 39, PG2
+    case 2:  return (PING & B00000010) == 0 ? 0 : 1; // pin 40, PG1
+    case 3:  return (PING & B00000001) == 0 ? 0 : 1; // pin 41, PG0
+    case 4:  return (PINL & B10000000) == 0 ? 0 : 1; // pin 42, PL7
+    case 5:  return (PINL & B01000000) == 0 ? 0 : 1; // pin 43, PL6
+    case 6:  return (PINL & B00100000) == 0 ? 0 : 1; // pin 44, PL5
+    case 7:  return (PINL & B00010000) == 0 ? 0 : 1; // pin 45, PL4
+    case 8:  return (PINL & B00001000) == 0 ? 0 : 1; // pin 46, PL3
+    case 9:  return (PINL & B00000100) == 0 ? 0 : 1; // pin 47, PL2
+    case 10: return (PINL & B00000010) == 0 ? 0 : 1; // pin 48, PL1
+    default: return 1;
+  }
+}
+
+void AllMatrixRowsOff() {
+  PORTA = 0xFF;
+  PORTC = 0xFF;
+}
+
+void SelectMatrixRow(unsigned int rowid) {
+  AllMatrixRowsOff();
+
+  if (rowid < 8) {
+    PORTA = ~(0x1 << rowid);
+  } else {
+    PORTC = ~(0x1 << (15 - rowid));
+  }
+}
+
+void ScanMatrix() {
+  for (unsigned int rowid = 0; rowid < MATRIX_ROWS; rowid++) {
+    updateSteppers();
+
+    SelectMatrixRow(rowid);
+    delayMicroseconds(ROW_SETTLE_US);
+
+    for (unsigned int colid = 0; colid < MATRIX_COLS; colid++) {
+      int rawColumn = ReadMatrixColumn(colid);
+      int inputIndex = (rowid * MATRIX_COLS) + colid;
+
+      // Matrix inputs are active LOW due to INPUT_PULLUP.
+      joyReport.button[inputIndex] = (rawColumn == 0) ? 1 : 0;
+    }
+  }
+
+  AllMatrixRowsOff();
+}
+
 void FindInputChanges() {
+  unsigned long now = millis();
 
-  for (int ind = 0; ind < NUM_BUTTONS; ind++)
-
-
-
-    if (bFirstTime) {
-
-      bFirstTime = false;
-      // Just Copy Array and perform no actions - this may change in the future
+  // First complete scan: learn all current physical positions without
+  // generating startup DCS, Ethernet or debug traffic.
+  if (bFirstTime) {
+    for (int ind = 0; ind < BUTTONS_USED_ON_PCB; ind++) {
       prevjoyReport.button[ind] = joyReport.button[ind];
-    } else {
-      // Not the first time - see if there is a difference from last time
-      // If there is perform action and update prev array BUT only if we past the end of the debounce period
-      if (prevjoyReport.button[ind] != joyReport.button[ind] && millis() > joyEndDebounce[ind]) {
+      candidateButton[ind] = joyReport.button[ind];
+      candidateChangedAt[ind] = now;
+      resendPending[ind] = false;
 
-        // First things first - set a new debounce period
-        joyEndDebounce[ind] = millis() + DebounceDelay;
-
-        sprintf(stringind, "%03d", ind);
-
-
-
-        if (prevjoyReport.button[ind] == 0) {
-          outString = outString + "1";
-
-          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 1);
-
-        } else {
-          outString = outString + "0";
-          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 0);
-        }
-
-        prevjoyReport.button[ind] = joyReport.button[ind];
-
-
-        SendDebug("Front Input - " + String(ind) + ":" + String(joyReport.button[ind]));
+      if (SEND_INITIAL_MATRIX_STATES && DCSBIOS_In_Use == 1) {
+        CreateDcsBiosMessage(ind, prevjoyReport.button[ind]);
       }
     }
+
+    bFirstTime = false;
+    updateSteppers();
+    return;
+  }
+
+  for (int ind = 0; ind < BUTTONS_USED_ON_PCB; ind++) {
+    int rawState = joyReport.button[ind];
+
+    // Retired AMPCD/UFC/IFEI positions remain physically scanned so the matrix
+    // index map is unchanged, but are fully silent at the application layer.
+    if (IsDisabledInput(ind)) {
+      prevjoyReport.button[ind] = rawState;
+      candidateButton[ind] = rawState;
+      candidateChangedAt[ind] = now;
+      resendPending[ind] = false;
+      continue;
+    }
+
+    // Any raw movement starts/restarts the stability timer.
+    if (rawState != candidateButton[ind]) {
+      candidateButton[ind] = rawState;
+      candidateChangedAt[ind] = now;
+      resendPending[ind] = false;
+      continue;
+    }
+
+    // Only accept a new physical state once it has remained stable long enough.
+    if ((candidateButton[ind] != prevjoyReport.button[ind]) &&
+        ((now - candidateChangedAt[ind]) >= StableTimeForInput(ind))) {
+      int confirmedState = candidateButton[ind];
+      prevjoyReport.button[ind] = confirmedState;
+      joyEndDebounce[ind] = now + StableTimeForInput(ind);
+
+      sprintf(stringind, "%03d", ind);
+      outString = outString + String(confirmedState);
+
+      if (DCSBIOS_In_Use == 1) {
+        CreateDcsBiosMessage(ind, confirmedState);
+      }
+
+      SendDebug("Front Input - " + String(ind) + ":" + String(confirmedState));
+
+      // Only known maintained controls get one DCS-only confirmation resend.
+      if (IsMaintainedInput(ind) &&
+          RESEND_MAINTAINED_CONFIRMED_STATE &&
+          DCSBIOS_In_Use == 1) {
+        resendPending[ind] = true;
+        resendState[ind] = confirmedState;
+        resendDueAt[ind] = now + MAINTAINED_RESEND_MS;
+      }
+    }
+
+    // DCS-only resend. It deliberately bypasses duplicate debug output; all
+    // original normal command, IP and debug behaviour remains as before.
+    if (resendPending[ind] &&
+        now >= resendDueAt[ind] &&
+        prevjoyReport.button[ind] == resendState[ind]) {
+      suppressMatrixResendDebug = true;
+      CreateDcsBiosMessage(ind, resendState[ind]);
+      suppressMatrixResendDebug = false;
+      resendPending[ind] = false;
+    }
+  }
+
   updateSteppers();
 }
 
@@ -1224,7 +1454,11 @@ void FindInputChanges() {
 
 
 void sendToDcsBiosMessage(const char* msg, const char* arg) {
-  SendDebug("Front Input - " + String(msg) + ":" + String(arg));
+  // Normal debug behaviour is unchanged. Suppress only the intentional
+  // DCS-only resend of a confirmed maintained switch state.
+  if (!suppressMatrixResendDebug) {
+    SendDebug("Front Input - " + String(msg) + ":" + String(arg));
+  }
   sendDcsBiosMessage(msg, arg);
 }
 
@@ -1325,7 +1559,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 31:  // USED BELOW
           break;
         case 32:
-          sendToDcsBiosMessage("UFC_ILS", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_ILS", "0");
           break;
         case 33:
           sendToDcsBiosMessage("LEFT_DDI_PB_02", "0");
@@ -1340,7 +1574,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LEFT_DDI_PB_07", "0");
           break;
         case 37:
-          sendToDcsBiosMessage("UFC_COMM1_PULL", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_COMM1_PULL", "0");
           //sendToDcsBiosMessage("UFC_COMM2_PULL", "0");
           break;
         case 38:
@@ -1375,7 +1609,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LEFT_DDI_PB_06", "0");
           break;
         case 48:
-          sendToDcsBiosMessage("UFC_COMM2_PULL", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_COMM2_PULL", "0");
           break;
         case 49:
           sendToDcsBiosMessage("RIGHT_DDI_PB_01", "0");
@@ -1397,94 +1631,94 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("APU_FIRE_BTN", "0");
           break;
         case 55:
-          sendToDcsBiosMessage("AMPCD_PB_05", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_05", "0");
           break;
         case 56:
-          sendToDcsBiosMessage("AMPCD_PB_20", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_20", "0");
           break;
         case 57:
-          sendToDcsBiosMessage("AMPCD_PB_15", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_15", "0");
           break;
         case 58:
-          sendToDcsBiosMessage("AMPCD_PB_10", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_10", "0");
           break;
         case 59:
-          sendToDcsBiosMessage("UFC_1", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_1", "0");
           break;
         case 60:
-          sendToDcsBiosMessage("UFC_2", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_2", "0");
           break;
         case 61:
-          sendToDcsBiosMessage("UFC_3", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_3", "0");
           break;
         case 62:
-          sendToDcsBiosMessage("UFC_OS2", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_OS2", "0");
           break;
         case 63:
-          sendToDcsBiosMessage("UFC_AP", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_AP", "0");
           break;
         case 64:
-          sendToDcsBiosMessage("UFC_IFF", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_IFF", "0");
           break;
         case 65:
-          sendToDcsBiosMessage("UFC_TCN", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_TCN", "0");
           break;
         case 66:
-          sendToDcsBiosMessage("AMPCD_PB_04", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_04", "0");
           break;
         case 67:
-          sendToDcsBiosMessage("AMPCD_PB_19", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_19", "0");
           break;
         case 68:
-          sendToDcsBiosMessage("AMPCD_PB_14", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_14", "0");
           break;
         case 69:
-          sendToDcsBiosMessage("AMPCD_PB_09", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_09", "0");
           break;
         case 70:
-          sendToDcsBiosMessage("UFC_4", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_4", "0");
           break;
         case 71:
-          sendToDcsBiosMessage("UFC_5", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_5", "0");
           break;
         case 72:
-          sendToDcsBiosMessage("UFC_6", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_6", "0");
           break;
         case 73:
-          sendToDcsBiosMessage("UFC_OS3", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_OS3", "0");
           break;
         case 74:
-          sendToDcsBiosMessage("UFC_ONOFF", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_ONOFF", "0");
           break;
         case 75:
-          sendToDcsBiosMessage("UFC_BCN", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_BCN", "0");
           break;
         case 76:
-          sendToDcsBiosMessage("UFC_DL", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_DL", "0");
           break;
         case 77:
-          sendToDcsBiosMessage("AMPCD_PB_03", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_03", "0");
           break;
         case 78:
-          sendToDcsBiosMessage("AMPCD_PB_18", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_18", "0");
           break;
         case 79:
-          sendToDcsBiosMessage("AMPCD_PB_13", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_13", "0");
           break;
         case 80:
-          sendToDcsBiosMessage("AMPCD_PB_08", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_08", "0");
           break;
         case 81:
-          sendToDcsBiosMessage("UFC_7", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_7", "0");
           break;
         case 82:
-          sendToDcsBiosMessage("UFC_8", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_8", "0");
           break;
         case 83:
-          sendToDcsBiosMessage("UFC_9", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_9", "0");
           break;
         case 84:
-          sendToDcsBiosMessage("UFC_OS4", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_OS4", "0");
           break;
         case 85:  // USED BELOW
           break;
@@ -1494,28 +1728,28 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 87:  // EMC, IS THIS USED
           break;
         case 88:
-          sendToDcsBiosMessage("AMPCD_PB_02", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_02", "0");
           break;
         case 89:
-          sendToDcsBiosMessage("AMPCD_PB_17", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_17", "0");
           break;
         case 90:
-          sendToDcsBiosMessage("AMPCD_PB_12", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_12", "0");
           break;
         case 91:
-          sendToDcsBiosMessage("AMPCD_PB_07", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_07", "0");
           break;
         case 92:
-          sendToDcsBiosMessage("UFC_CLR", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_CLR", "0");
           break;
         case 93:
-          sendToDcsBiosMessage("UFC_0", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_0", "0");
           break;
         case 94:
-          sendToDcsBiosMessage("UFC_ENT", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_ENT", "0");
           break;
         case 95:
-          sendToDcsBiosMessage("UFC_OS5", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_OS5", "0");
           break;
         case 96:  // USED BELOW
           break;
@@ -1525,28 +1759,28 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:  // EMC, IS THIS USED
           break;
         case 99:
-          sendToDcsBiosMessage("AMPCD_PB_01", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_01", "0");
           break;
         case 100:
-          sendToDcsBiosMessage("AMPCD_PB_16", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_16", "0");
           break;
         case 101:
-          sendToDcsBiosMessage("AMPCD_PB_11", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_11", "0");
           break;
         case 102:
-          sendToDcsBiosMessage("AMPCD_PB_06", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_06", "0");
           break;
         case 103:
-          sendToDcsBiosMessage("UFC_ADF", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_ADF", "1");
           break;
         case 104:
-          sendToDcsBiosMessage("UFC_IP", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_IP", "0");
           break;
         case 105:
-          sendToDcsBiosMessage("UFC_OS1", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_OS1", "0");
           break;
         case 106:
-          sendToDcsBiosMessage("UFC_EMCON", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_EMCON", "0");
           break;
         case 107:  // USED BELOW
           break;
@@ -1557,19 +1791,19 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("SAI_TEST_BTN", "0");
           break;
         case 110:
-          sendToDcsBiosMessage("AMPCD_GAIN_SW", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_GAIN_SW", "1");
           break;
         case 111:
-          sendToDcsBiosMessage("AMPCD_CONT_SW", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_CONT_SW", "1");
           break;
         case 112:
-          sendToDcsBiosMessage("AMPCD_SYM_SW", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_SYM_SW", "1");
           break;
         case 113:
-          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "1");
           break;
         case 114:
-          sendToDcsBiosMessage("UFC_ADF", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_ADF", "1");
           break;
         case 115:
           sendToDcsBiosMessage("HUD_VIDEO_BIT", "0");
@@ -1590,16 +1824,16 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("SAI_CAGE", "0");
           break;
         case 121:
-          sendToDcsBiosMessage("AMPCD_GAIN_SW", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_GAIN_SW", "1");
           break;
         case 122:
-          sendToDcsBiosMessage("AMPCD_CONT_SW", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_CONT_SW", "1");
           break;
         case 123:
-          sendToDcsBiosMessage("AMPCD_SYM_SW", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_SYM_SW", "1");
           break;
         case 124:
-          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "1");
           break;
         case 125:
           sendToDcsBiosMessage("RWR_BIT_BTN", "0");
@@ -1621,7 +1855,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 131:  // NOT USED
           break;
         case 132:
-          sendToDcsBiosMessage("AMPCD_BRT_CTL", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_BRT_CTL", "1");
           break;
         case 133:  // AMPCD, IS THIS USED
           break;
@@ -1650,10 +1884,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("HUD_SYM_REJ_SW", "1");  //1 FOR OFF
           break;
         case 143:  //FA-18C_hornet/IFEI_MODE_BTN
-          sendToDcsBiosMessage("IFEI_MODE_BTN", "0");
+          // UIP removed - sendToDcsBiosMessage("IFEI_MODE_BTN", "0");
           break;
         case 144:  //FA-18C_hornet/IFEI_DWN_BTN
-          sendToDcsBiosMessage("IFEI_DWN_BTN", "0");
+          // UIP removed - sendToDcsBiosMessage("IFEI_DWN_BTN", "0");
           break;
         case 145:  //IFEI, IS THIS USED
           break;
@@ -1687,10 +1921,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("HUD_SYM_REJ_SW", "1");  //1 FOR OFF
           break;
         case 154:  //FA-18C_hornet/IFEI_QTY_BTN
-          sendToDcsBiosMessage("IFEI_QTY_BTN", "0");
+          // UIP removed - sendToDcsBiosMessage("IFEI_QTY_BTN", "0");
           break;
         case 155:  //FA-18C_hornet/IFEI_ZONE_BTN
-          sendToDcsBiosMessage("IFEI_ZONE_BTN", "0");
+          // UIP removed - sendToDcsBiosMessage("IFEI_ZONE_BTN", "0");
           break;
         case 156:                                             //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
           sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "0");  // NEEDS WORK
@@ -1717,10 +1951,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("HUD_SYM_BRT_SELECT", "0");
           break;
         case 165:  //FA-18C_hornet/IFEI_UP_BTN
-          sendToDcsBiosMessage("IFEI_UP_BTN", "0");
+          // UIP removed - sendToDcsBiosMessage("IFEI_UP_BTN", "0");
           break;
         case 166:  //FA-18C_hornet/IFEI_ET_BTN
-          sendToDcsBiosMessage("IFEI_ET_BTN", "0");
+          // UIP removed - sendToDcsBiosMessage("IFEI_ET_BTN", "0");
           break;
         case 167:
           sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "1");
@@ -1860,7 +2094,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("RIGHT_DDI_BRT_SELECT", "2");
           break;
         case 32:
-          sendToDcsBiosMessage("UFC_ILS", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_ILS", "1");
           break;
         case 33:
           sendToDcsBiosMessage("LEFT_DDI_PB_02", "1");
@@ -1875,7 +2109,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LEFT_DDI_PB_07", "1");
           break;
         case 37:
-          sendToDcsBiosMessage("UFC_COMM1_PULL", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_COMM1_PULL", "1");
           //sendToDcsBiosMessage("UFC_COMM2_PULL", "1");
           break;
         case 38:
@@ -1911,7 +2145,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("LEFT_DDI_PB_06", "1");
           break;
         case 48:
-          sendToDcsBiosMessage("UFC_COMM2_PULL", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_COMM2_PULL", "1");
           break;
         case 49:
           sendToDcsBiosMessage("RIGHT_DDI_PB_01", "1");
@@ -1934,94 +2168,94 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("APU_FIRE_BTN", "1");
           break;
         case 55:
-          sendToDcsBiosMessage("AMPCD_PB_05", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_05", "1");
           break;
         case 56:
-          sendToDcsBiosMessage("AMPCD_PB_20", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_20", "1");
           break;
         case 57:
-          sendToDcsBiosMessage("AMPCD_PB_15", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_15", "1");
           break;
         case 58:
-          sendToDcsBiosMessage("AMPCD_PB_10", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_10", "1");
           break;
         case 59:
-          sendToDcsBiosMessage("UFC_1", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_1", "1");
           break;
         case 60:
-          sendToDcsBiosMessage("UFC_2", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_2", "1");
           break;
         case 61:
-          sendToDcsBiosMessage("UFC_3", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_3", "1");
           break;
         case 62:
-          sendToDcsBiosMessage("UFC_OS2", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_OS2", "1");
           break;
         case 63:
-          sendToDcsBiosMessage("UFC_AP", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_AP", "1");
           break;
         case 64:
-          sendToDcsBiosMessage("UFC_IFF", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_IFF", "1");
           break;
         case 65:
-          sendToDcsBiosMessage("UFC_TCN", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_TCN", "1");
           break;
         case 66:
-          sendToDcsBiosMessage("AMPCD_PB_04", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_04", "1");
           break;
         case 67:
-          sendToDcsBiosMessage("AMPCD_PB_19", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_19", "1");
           break;
         case 68:
-          sendToDcsBiosMessage("AMPCD_PB_14", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_14", "1");
           break;
         case 69:
-          sendToDcsBiosMessage("AMPCD_PB_09", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_09", "1");
           break;
         case 70:
-          sendToDcsBiosMessage("UFC_4", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_4", "1");
           break;
         case 71:
-          sendToDcsBiosMessage("UFC_5", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_5", "1");
           break;
         case 72:
-          sendToDcsBiosMessage("UFC_6", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_6", "1");
           break;
         case 73:
-          sendToDcsBiosMessage("UFC_OS3", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_OS3", "1");
           break;
         case 74:
-          sendToDcsBiosMessage("UFC_ONOFF", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_ONOFF", "1");
           break;
         case 75:
-          sendToDcsBiosMessage("UFC_BCN", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_BCN", "1");
           break;
         case 76:
-          sendToDcsBiosMessage("UFC_DL", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_DL", "1");
           break;
         case 77:
-          sendToDcsBiosMessage("AMPCD_PB_03", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_03", "1");
           break;
         case 78:
-          sendToDcsBiosMessage("AMPCD_PB_18", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_18", "1");
           break;
         case 79:
-          sendToDcsBiosMessage("AMPCD_PB_13", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_13", "1");
           break;
         case 80:
-          sendToDcsBiosMessage("AMPCD_PB_08", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_08", "1");
           break;
         case 81:
-          sendToDcsBiosMessage("UFC_7", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_7", "1");
           break;
         case 82:
-          sendToDcsBiosMessage("UFC_8", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_8", "1");
           break;
         case 83:
-          sendToDcsBiosMessage("UFC_9", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_9", "1");
           break;
         case 84:
-          sendToDcsBiosMessage("UFC_OS4", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_OS4", "1");
           break;
         case 85:
           sendToDcsBiosMessage("ECM_MODE_SW", "0");  // OFF
@@ -2032,28 +2266,28 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 87:  // ECM, IS THIS USED
           break;
         case 88:
-          sendToDcsBiosMessage("AMPCD_PB_02", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_02", "1");
           break;
         case 89:
-          sendToDcsBiosMessage("AMPCD_PB_17", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_17", "1");
           break;
         case 90:
-          sendToDcsBiosMessage("AMPCD_PB_12", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_12", "1");
           break;
         case 91:
-          sendToDcsBiosMessage("AMPCD_PB_07", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_07", "1");
           break;
         case 92:
-          sendToDcsBiosMessage("UFC_CLR", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_CLR", "1");
           break;
         case 93:
-          sendToDcsBiosMessage("UFC_0", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_0", "1");
           break;
         case 94:
-          sendToDcsBiosMessage("UFC_ENT", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_ENT", "1");
           break;
         case 95:
-          sendToDcsBiosMessage("UFC_OS5", "2");
+          // UIP removed - sendToDcsBiosMessage("UFC_OS5", "2");
           break;
         case 96:
           sendToDcsBiosMessage("ECM_MODE_SW", "1");  // STBY
@@ -2064,28 +2298,28 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 98:  // EMC, IS THIS USED
           break;
         case 99:
-          sendToDcsBiosMessage("AMPCD_PB_01", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_01", "1");
           break;
         case 100:
-          sendToDcsBiosMessage("AMPCD_PB_16", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_16", "1");
           break;
         case 101:
-          sendToDcsBiosMessage("AMPCD_PB_11", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_11", "1");
           break;
         case 102:
-          sendToDcsBiosMessage("AMPCD_PB_06", "1");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_PB_06", "1");
           break;
         case 103:
-          sendToDcsBiosMessage("UFC_ADF", "2");
+          // UIP removed - sendToDcsBiosMessage("UFC_ADF", "2");
           break;
         case 104:
-          sendToDcsBiosMessage("UFC_IP", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_IP", "1");
           break;
         case 105:
-          sendToDcsBiosMessage("UFC_OS1", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_OS1", "1");
           break;
         case 106:
-          sendToDcsBiosMessage("UFC_EMCON", "1");
+          // UIP removed - sendToDcsBiosMessage("UFC_EMCON", "1");
           break;
         case 107:
           sendToDcsBiosMessage("ECM_MODE_SW", "2");  // BIT
@@ -2097,19 +2331,19 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("SAI_TEST_BTN", "1");
           break;
         case 110:
-          sendToDcsBiosMessage("AMPCD_GAIN_SW", "2");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_GAIN_SW", "2");
           break;
         case 111:
-          sendToDcsBiosMessage("AMPCD_CONT_SW", "2");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_CONT_SW", "2");
           break;
         case 112:
-          sendToDcsBiosMessage("AMPCD_SYM_SW", "2");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_SYM_SW", "2");
           break;
         case 113:
-          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "0");
           break;
         case 114:
-          sendToDcsBiosMessage("UFC_ADF", "0");
+          // UIP removed - sendToDcsBiosMessage("UFC_ADF", "0");
           break;
         case 115:
           sendToDcsBiosMessage("HUD_VIDEO_BIT", "1");
@@ -2131,16 +2365,16 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("SAI_CAGE", "1");
           break;
         case 121:
-          sendToDcsBiosMessage("AMPCD_GAIN_SW", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_GAIN_SW", "0");
           break;
         case 122:
-          sendToDcsBiosMessage("AMPCD_CONT_SW", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_CONT_SW", "0");
           break;
         case 123:
-          sendToDcsBiosMessage("AMPCD_SYM_SW", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_SYM_SW", "0");
           break;
         case 124:
-          sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "2");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_NIGHT_DAY", "2");
           break;
         case 125:
           sendToDcsBiosMessage("RWR_BIT_BTN", "1");
@@ -2164,7 +2398,7 @@ void CreateDcsBiosMessage(int ind, int state) {
         case 131:  // NOT USED
           break;
         case 132:
-          sendToDcsBiosMessage("AMPCD_BRT_CTL", "0");
+          // UIP removed - sendToDcsBiosMessage("AMPCD_BRT_CTL", "0");
           break;
         case 133:  // AMPCD, IS THIS USED
           break;
@@ -2195,10 +2429,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("HUD_SYM_REJ_SW", "0");  //1 FOR OFF
           break;
         case 143:  //FA-18C_hornet/IFEI_MODE_BTN
-          sendToDcsBiosMessage("IFEI_MODE_BTN", "1");
+          // UIP removed - sendToDcsBiosMessage("IFEI_MODE_BTN", "1");
           break;
         case 144:  //FA-18C_hornet/IFEI_DWN_BTN
-          sendToDcsBiosMessage("IFEI_DWN_BTN", "1");
+          // UIP removed - sendToDcsBiosMessage("IFEI_DWN_BTN", "1");
           break;
         case 145:  // IFEI, IS THIS USED
           break;
@@ -2231,10 +2465,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("HUD_SYM_REJ_SW", "2");  //1 FOR OFF
           break;
         case 154:  //FA-18C_hornet/IFEI_QTY_BTN
-          sendToDcsBiosMessage("IFEI_QTY_BTN", "1");
+          // UIP removed - sendToDcsBiosMessage("IFEI_QTY_BTN", "1");
           break;
         case 155:  //FA-18C_hornet/IFEI_ZONE_BTN
-          sendToDcsBiosMessage("IFEI_ZONE_BTN", "1");
+          // UIP removed - sendToDcsBiosMessage("IFEI_ZONE_BTN", "1");
           break;
         case 156:                                             //FA-18C_hornet/SELECT_HMD_LDDI_RDDI
           sendToDcsBiosMessage("SELECT_HMD_LDDI_RDDI", "1");  // NEEDS WORK
@@ -2263,10 +2497,10 @@ void CreateDcsBiosMessage(int ind, int state) {
           sendToDcsBiosMessage("HUD_SYM_BRT_SELECT", "1");
           break;
         case 165:  //FA-18C_hornet/IFEI_UP_BTN
-          sendToDcsBiosMessage("IFEI_UP_BTN", "1");
+          // UIP removed - sendToDcsBiosMessage("IFEI_UP_BTN", "1");
           break;
         case 166:  //FA-18C_hornet/IFEI_ET_BTN
-          sendToDcsBiosMessage("IFEI_ET_BTN", "1");
+          // UIP removed - sendToDcsBiosMessage("IFEI_ET_BTN", "1");
           break;
         case 167:
           sendToDcsBiosMessage("LEFT_DDI_HDG_SW", "2");
@@ -2335,8 +2569,46 @@ DcsBios::PotentiometerEWMA<5, 512, 10> hmdOffBrt("HMD_OFF_BRT", A4);
 
 // HUD ANALOG INPUTS
 DcsBios::PotentiometerEWMA<5, 512, 10> hudSymBrt("HUD_SYM_BRT", A5);
-// 20220227 Bug in FP DCS-BIOS stops indexer updates if AoA indexer below 50% - sending over IP
-DcsBios::PotentiometerEWMA<5, 512, 10> hudAoaIndexer("HUD_AOA_INDEXER", A6);
+
+// AOA indexer brightness - manual bounded implementation.
+// The original DcsBios::PotentiometerEWMA object could transmit 0 when the
+// A6 pot was at its low end, disconnected, or transiently read low. In DCS,
+// that can blank both the physical AOA indexer output and the in-game/video
+// AOA presentation. Preserve the pot direction, but clamp its output range
+// to 75%-100% of the DCS-BIOS 16-bit control range.
+const byte AOA_INDEXER_ANALOG_PIN = A6;
+const unsigned int AOA_INDEXER_MIN_BRIGHTNESS = 49152;  // 75% of 65535
+const unsigned int AOA_INDEXER_MAX_BRIGHTNESS = 65535;  // 100%
+const unsigned long AOA_INDEXER_REFRESH_MS = 100;
+unsigned long nextAoaIndexerBrightnessUpdate = 0;
+
+void UpdateAoaIndexerBrightness() {
+  const int raw = analogRead(AOA_INDEXER_ANALOG_PIN);
+  unsigned long mapped = map(raw, 0, 1023,
+                             AOA_INDEXER_MIN_BRIGHTNESS,
+                             AOA_INDEXER_MAX_BRIGHTNESS);
+
+  if (mapped < AOA_INDEXER_MIN_BRIGHTNESS) mapped = AOA_INDEXER_MIN_BRIGHTNESS;
+  if (mapped > AOA_INDEXER_MAX_BRIGHTNESS) mapped = AOA_INDEXER_MAX_BRIGHTNESS;
+
+  // Deliberately bypass sendToDcsBiosMessage(): this is a periodic analogue
+  // brightness update, not a matrix event, so it should not create reflector/debug traffic.
+  if (DCSBIOS_In_Use == 1) {
+    char aoaBrightnessArg[8];
+    ultoa(mapped, aoaBrightnessArg, 10);
+    sendDcsBiosMessage("HUD_AOA_INDEXER", aoaBrightnessArg);
+  }
+}
+
+void MaintainAoaIndexerBrightness() {
+  if (millis() >= nextAoaIndexerBrightnessUpdate) {
+    UpdateAoaIndexerBrightness();
+    nextAoaIndexerBrightnessUpdate = millis() + AOA_INDEXER_REFRESH_MS;
+  }
+}
+
+// Replaced by the bounded manual handler above.
+// DcsBios::PotentiometerEWMA<5, 512, 10> hudAoaIndexer("HUD_AOA_INDEXER", A6);
 DcsBios::PotentiometerEWMA<5, 512, 10> hudBlackLvl("HUD_BLACK_LVL", A7);
 DcsBios::PotentiometerEWMA<5, 512, 10> hudBalance("HUD_BALANCE", A8);
 
@@ -2367,6 +2639,9 @@ void loop() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
+  // A6 is mapped 0..1023 -> 75%..100%, so HUD_AOA_INDEXER cannot be sent as 0.
+  MaintainAoaIndexerBrightness();
+
   updateSteppers();
 
   if ((HUD_STEPPER_FORWARD == true) || (HUD_STEPPER_REVERSE == true)) {
@@ -2391,89 +2666,8 @@ void loop() {
   }
 
 
-  //turn off all rows first
-  for (int rowid = 0; rowid < 16; rowid++) {
-    //turn on the current row
-    // why differentiate? rows
-
-    updateSteppers();
-
-    if (rowid == 0)
-      PORTC = 0xFF;
-    if (rowid == 8)
-      PORTA = 0xFF;
-
-    if (rowid < 8) {
-      // Shift 1 right  - this is actually pulling port down
-      PORTA = ~(0x1 << rowid);
-    } else {
-      PORTC = ~(0x1 << (15 - rowid));
-    }
-
-    //we must have such a delay so the digital pin output can go LOW steadily,
-    //without this delay, the row PIN will not 100% at LOW during yet,
-    //so check the first column pin's value will return incorrect result.
-    delayMicroseconds(ScanDelay);
-
-    int colResult[16];
-    // Reading upper pins
-    //pin 38, PD7
-    colResult[0] = (PIND & B10000000) == 0 ? 0 : 1;
-    //pin 39, PG2
-    colResult[1] = (PING & B00000100) == 0 ? 0 : 1;
-    //pin 40, PG1
-    colResult[2] = (PING & B00000010) == 0 ? 0 : 1;
-    //pin 41, PG0
-    colResult[3] = (PING & B00000001) == 0 ? 0 : 1;
-
-    //pin 42, PL7
-    colResult[4] = (PINL & B10000000) == 0 ? 0 : 1;
-    //pin 43, PL6
-    colResult[5] = (PINL & B01000000) == 0 ? 0 : 1;
-    //pin 44, PL5
-    colResult[6] = (PINL & B00100000) == 0 ? 0 : 1;
-    //pin 45, PL4
-    colResult[7] = (PINL & B00010000) == 0 ? 0 : 1;
-
-    //pin 46, PL3
-    colResult[8] = (PINL & B00001000) == 0 ? 0 : 1;
-    //pin 47, PL2
-    colResult[9] = (PINL & B00000100) == 0 ? 0 : 1;
-    //pin 48, PL1
-    colResult[10] = (PINL & B00000010) == 0 ? 0 : 1;
-    //pin 49, PL0
-    //pin 49 is not used on the PCB design - more a mistake than anything else as it is available for us
-    //colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
-    colResult[11] = 1;
-
-    // Unable to use pins 50-53 per the following
-    //This is on digital pins 10, 11, 12, and 13 on the Uno and pins 50, 51, and 52 on the Mega.
-    //On both boards, pin 10 is used to select the W5500 and pin 4 for the SD card. These pins cannot be used for general I/O.
-    //On the Mega, the hardware SS pin, 53, is not used to select either the W5500 or the SD card,
-    //pin 50, PB3
-    //colResult[12] =(PINB & B00001000) == 0 ? 0 : 1;
-    colResult[12] = 1;
-    //pin 51, PB2
-    //colResult[13] =(PINB & B00000100) == 0 ? 0 : 0;
-    colResult[13] = 1;
-    //pin 52, PB1
-    //colResult[14] =(PINB & B00000010) == 0 ? 0 : 0;
-    colResult[14] = 1;
-    //pin 53, PB0
-    //colResult[15] =(PINB & B00000001) == 0 ? 0 : 1;
-    colResult[15] = 1;
-
-    // There are 11 Columns per row - gives a total of 176 possible inputs
-    // Have left the arrays dimensioned as per original code - if CPU or Memory becomes scarce reduce array
-    for (int colid = 0; colid < 16; colid++) {
-      if (colResult[colid] == 0) {
-        joyReport.button[(rowid * 11) + colid] = 1;
-      } else {
-        joyReport.button[(rowid * 11) + colid] = 0;
-      }
-    }
-  }
-
+  // Scan the physical 16 x 11 matrix only. Pins 49-53 are not matrix inputs.
+  ScanMatrix();
 
   FindInputChanges();
   // Handle Switches with Safety covers

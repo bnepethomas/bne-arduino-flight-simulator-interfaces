@@ -165,19 +165,33 @@ int LoopsBeforeSendingAllowed = 40;
 bool SendingAllowed = false;
 
 
-// Debounce delay was 20mS - but encountered longer bounces with Circuit Breakers, increased to 60mS 20210329
-const int ScanDelay = 80;      // This is in microseconds
-const int DebounceDelay = 60;  // In milliseconds
+// Matrix reliability settings. Keep the original 80 us settle time used by this controller.
+const byte MATRIX_ROWS = 16;
+const byte MATRIX_COLS = 11;  // Actual usable columns only: pins 38-48.
+const unsigned int ROW_SETTLE_US = 80;
+const unsigned long MOMENTARY_STABLE_MS = 20;  // AMPCD, IFEI and Select Jett push buttons.
+const unsigned long TOGGLE_STABLE_MS = 50;     // Maintained switches/toggles.
+const bool SEND_INITIAL_STATES = false;        // Learn physical startup state; do not command DCS at boot.
+const bool RESEND_CONFIRMED_TOGGLE_STATE = true;
+const unsigned long TOGGLE_RESEND_MS = 100;
 
 joyReport_t joyReport;
 joyReport_t prevjoyReport;
 
+unsigned long joyEndDebounce[NUM_BUTTONS];  // Retained for diagnostics/compatibility.
+int candidateButton[NUM_BUTTONS];
+unsigned long candidateChangedAt[NUM_BUTTONS];
+bool resendPending[NUM_BUTTONS];
+int resendState[NUM_BUTTONS];
+unsigned long resendDueAt[NUM_BUTTONS];
 
-unsigned long joyEndDebounce[NUM_BUTTONS];  // Holds the time we'll look at any more changes in a given input
+// Suppresses only the duplicate debug line created by the DCS-only toggle resend.
+// Normal IP/debug behaviour remains unchanged.
+bool suppressMatrixResendDebug = false;
 
 long prevLEDTransition = millis();
 int cButtonID[16];
-bool bFirstTime = false;
+bool bFirstTime = true;
 
 
 unsigned long currentMillis = 0;
@@ -728,6 +742,11 @@ void setup() {
 
     // Set the end
     joyEndDebounce[ind] = 0;
+    candidateButton[ind] = 0;
+    candidateChangedAt[ind] = millis();
+    resendPending[ind] = false;
+    resendState[ind] = 0;
+    resendDueAt[ind] = 0;
   }
 
 
@@ -790,43 +809,116 @@ void setup() {
 }
 
 
-void FindInputChanges() {
+bool IsMomentaryInput(int ind) {
+  switch (ind) {
+    // Select Jett: retain the existing press/release mapping and latching behaviour.
+    case 17:  // SJ_CTR
+    case 28:  // SJ_LI
+    case 39:  // SJ_RI
+    case 50:  // SJ_RO
+    case 61:  // SJ_LO
 
-  for (int ind = 0; ind < NUM_BUTTONS; ind++)
-    if (bFirstTime) {
+    // AMPCD push buttons PB 01-20.
+    case 77:
+    case 78:
+    case 79:
+    case 80:
+    case 88:
+    case 89:
+    case 90:
+    case 91:
+    case 99:
+    case 100:
+    case 101:
+    case 102:
+    case 110:
+    case 111:
+    case 112:
+    case 113:
+    case 121:
+    case 122:
+    case 123:
+    case 124:
 
-      bFirstTime = false;
-      // Just Copy Array and perform no actions - this may change in the future
-      prevjoyReport.button[ind] = joyReport.button[ind];
-    } else {
-      // Not the first time - see if there is a difference from last time
-      // If there is perform action and update prev array BUT only if we past the end of the debounce period
-      if (prevjoyReport.button[ind] != joyReport.button[ind] && millis() > joyEndDebounce[ind]) {
+    // IFEI push buttons.
+    case 143:  // IFEI_MODE_BTN
+    case 144:  // IFEI_DWN_BTN
+    case 154:  // IFEI_QTY_BTN
+    case 155:  // IFEI_ZONE_BTN
+    case 165:  // IFEI_UP_BTN
+    case 166:  // IFEI_ET_BTN
+      return true;
 
-        // First things first - set a new debounce period
-        joyEndDebounce[ind] = millis() + DebounceDelay;
-
-        sprintf(stringind, "%03d", ind);
-
-
-        if (prevjoyReport.button[ind] == 0) {
-          outString = outString + "1";
-          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 1);
-          if (MSFS_In_Use == 1) SendMSFSMessage(ind, 1);
-          SendDebug(String(ind) + ":1");
-        } else {
-          outString = outString + "0";
-          if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 0);
-          if (MSFS_In_Use == 1) SendMSFSMessage(ind, 0);
-          SendDebug(String(ind) + ":0");
-        }
-
-
-        prevjoyReport.button[ind] = joyReport.button[ind];
-      }
-    }
+    default:
+      return false;
+  }
 }
 
+void FindInputChanges() {
+  unsigned long now = millis();
+
+  // First completed matrix scan: learn every physical state without sending a
+  // startup burst of DCS, MSFS, IP or debug messages.
+  if (bFirstTime) {
+    for (int ind = 0; ind < BUTTONS_USED_ON_PCB; ind++) {
+      prevjoyReport.button[ind] = joyReport.button[ind];
+      candidateButton[ind] = joyReport.button[ind];
+      candidateChangedAt[ind] = now;
+      resendPending[ind] = false;
+
+      if (SEND_INITIAL_STATES) {
+        if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, joyReport.button[ind]);
+        if (MSFS_In_Use == 1) SendMSFSMessage(ind, joyReport.button[ind]);
+        SendDebug(String(ind) + ":" + String(joyReport.button[ind]));
+      }
+    }
+    bFirstTime = false;
+    return;
+  }
+
+  for (int ind = 0; ind < BUTTONS_USED_ON_PCB; ind++) {
+    bool isMomentary = IsMomentaryInput(ind);
+    unsigned long requiredStableMs = isMomentary ? MOMENTARY_STABLE_MS : TOGGLE_STABLE_MS;
+
+    // A raw change only starts/restarts the stability timer.
+    if (joyReport.button[ind] != candidateButton[ind]) {
+      candidateButton[ind] = joyReport.button[ind];
+      candidateChangedAt[ind] = now;
+      resendPending[ind] = false;
+      continue;
+    }
+
+    // Send only after the input has remained in the same new state long enough.
+    if (candidateButton[ind] != prevjoyReport.button[ind] &&
+        (now - candidateChangedAt[ind]) >= requiredStableMs) {
+      int confirmedState = candidateButton[ind];
+      prevjoyReport.button[ind] = confirmedState;
+      joyEndDebounce[ind] = now + requiredStableMs;
+
+      if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, confirmedState);
+      if (MSFS_In_Use == 1) SendMSFSMessage(ind, confirmedState);
+      SendDebug(String(ind) + ":" + String(confirmedState));
+
+      // Resend confirmed maintained-switch states once. Momentary push buttons,
+      // including Select Jett, never get a resend.
+      if (!isMomentary && RESEND_CONFIRMED_TOGGLE_STATE && DCSBIOS_In_Use == 1) {
+        resendPending[ind] = true;
+        resendState[ind] = confirmedState;
+        resendDueAt[ind] = now + TOGGLE_RESEND_MS;
+      }
+    }
+
+    // DCS-only resend: intentionally no MSFS/IP/debug duplicate packet/message.
+    if (!isMomentary && resendPending[ind] &&
+        now >= resendDueAt[ind] &&
+        prevjoyReport.button[ind] == resendState[ind]) {
+      suppressMatrixResendDebug = true;
+      CreateDcsBiosMessage(ind, resendState[ind]);
+      suppressMatrixResendDebug = false;
+      resendPending[ind] = false;
+    }
+  }
+}
 
 
 void SendMSFSMessage(int ind, int state) {
@@ -872,9 +964,11 @@ void SendLedString(String LedCommandToSend) {
 
 void sendToDcsBiosMessage(const char *msg, const char *arg) {
 
-
-  SendDebug(String(msg) + ":" + String(arg));
-
+  // Keep existing debug for every normal command. The one protected matrix resend
+  // is deliberately DCS-only so it does not create duplicate debug/IP traffic.
+  if (!suppressMatrixResendDebug) {
+    SendDebug(String(msg) + ":" + String(arg));
+  }
 
   sendDcsBiosMessage(msg, arg);
 }
@@ -1855,91 +1949,51 @@ void loop() {
   
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
-  //turn off all rows first
-  for (int rowid = 0; rowid < 16; rowid++) {
-    //turn on the current row
-    // why differentiate? rows
-
-
-    if (rowid == 0)
-      PORTC = 0xFF;
-    if (rowid == 8)
-      PORTA = 0xFF;
+  // Matrix scan: 16 rows x 11 actual columns.
+  // Explicitly release both row banks before selecting the next row.
+  for (int rowid = 0; rowid < MATRIX_ROWS; rowid++) {
+    PORTA = 0xFF;
+    PORTC = 0xFF;
 
     if (rowid < 8) {
-      // Shift 1 right  - this is actually pulling port down
       PORTA = ~(0x1 << rowid);
     } else {
       PORTC = ~(0x1 << (15 - rowid));
     }
 
+    delayMicroseconds(ROW_SETTLE_US);
 
-
-    //we must have such a delay so the digital pin output can go LOW steadily,
-    //without this delay, the row PIN will not 100% at LOW during yet,
-    //so check the first column pin's value will return incorrect result.
-    delayMicroseconds(ScanDelay);
-
-    int colResult[16];
-    // Reading upper pins
-    //pin 38, PD7
+    int colResult[MATRIX_COLS];
+    // pin 38, PD7
     colResult[0] = (PIND & B10000000) == 0 ? 0 : 1;
-    //pin 39, PG2
+    // pin 39, PG2
     colResult[1] = (PING & B00000100) == 0 ? 0 : 1;
-    //pin 40, PG1
+    // pin 40, PG1
     colResult[2] = (PING & B00000010) == 0 ? 0 : 1;
-    //pin 41, PG0
+    // pin 41, PG0
     colResult[3] = (PING & B00000001) == 0 ? 0 : 1;
-
-    //pin 42, PL7
+    // pin 42, PL7
     colResult[4] = (PINL & B10000000) == 0 ? 0 : 1;
-    //pin 43, PL6
+    // pin 43, PL6
     colResult[5] = (PINL & B01000000) == 0 ? 0 : 1;
-    //pin 44, PL5
+    // pin 44, PL5
     colResult[6] = (PINL & B00100000) == 0 ? 0 : 1;
-    //pin 45, PL4
+    // pin 45, PL4
     colResult[7] = (PINL & B00010000) == 0 ? 0 : 1;
-
-    //pin 46, PL3
+    // pin 46, PL3
     colResult[8] = (PINL & B00001000) == 0 ? 0 : 1;
-    //pin 47, PL2
+    // pin 47, PL2
     colResult[9] = (PINL & B00000100) == 0 ? 0 : 1;
-    //pin 48, PL1
+    // pin 48, PL1
     colResult[10] = (PINL & B00000010) == 0 ? 0 : 1;
-    //pin 49, PL0
-    //pin 49 is not used on the PCB design - more a mistake than anything else as it is available for us
-    //colResult[11] =(PINL & B00000001) == 0 ? 0 : 1;
-    colResult[11] = 1;
 
-    // Unable to use pins 50-53 per the following
-    //This is on digital pins 10, 11, 12, and 13 on the Uno and pins 50, 51, and 52 on the Mega.
-    //On both boards, pin 10 is used to select the W5500 and pin 4 for the SD card. These pins cannot be used for general I/O.
-    //On the Mega, the hardware SS pin, 53, is not used to select either the W5500 or the SD card,
-    //pin 50, PB3
-    //colResult[12] =(PINB & B00001000) == 0 ? 0 : 1;
-    colResult[12] = 1;
-    //pin 51, PB2
-    //colResult[13] =(PINB & B00000100) == 0 ? 0 : 0;
-    colResult[13] = 1;
-    //pin 52, PB1
-    //colResult[14] =(PINB & B00000010) == 0 ? 0 : 0;
-    colResult[14] = 1;
-    //pin 53, PB0
-    //colResult[15] =(PINB & B00000001) == 0 ? 0 : 1;
-    colResult[15] = 1;
-
-
-    // There are 11 Columns per row - gives a total of 176 possible inputs
-    // Have left the arrays dimensioned as per original code - if CPU or Memory becomes scarce reduce array
-    for (int colid = 0; colid < 16; colid++) {
-      if (colResult[colid] == 0) {
-        joyReport.button[(rowid * 11) + colid] = 1;
-      } else {
-        joyReport.button[(rowid * 11) + colid] = 0;
-      }
+    for (int colid = 0; colid < MATRIX_COLS; colid++) {
+      joyReport.button[(rowid * MATRIX_COLS) + colid] = (colResult[colid] == 0) ? 1 : 0;
     }
   }
 
+  PORTA = 0xFF;
+  PORTC = 0xFF;
 
 
   FindInputChanges();
