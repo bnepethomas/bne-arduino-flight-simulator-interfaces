@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <server name="192.168.2.200" />
+  <soundCard name="Speakers (Realtek High Definition Audio)" />
+  <startMinimized value="true" />
+  <audio name="Altitude alert" volume="100" />
+  <audio name="Approaching Minimums" volume="100" />
+  <audio name="Autopilot Disconnect" volume="100" />
+  <audio name="Bank angle" volume="100" />
+  <audio name="Cabin alt audio" volume="100" />
+  <audio name="Dont sink" volume="100" />
+  <audio name="Fire audio" volume="100" />
+  <audio name="Gear warning" volume="100" />
+  <audio name="Glideslope" volume="100" />
+  <audio name="GPWS 10" volume="100" />
+  <audio name="GPWS 100" volume="100" />
+  <audio name="GPWS 1000" volume="100" />
+  <audio name="GPWS 20" volume="100" />
+  <audio name="GPWS 200" volume="100" />
+  <audio name="GPWS 2500" volume="100" />
+  <audio name="GPWS 30" volume="100" />
+  <audio name="GPWS 300" volume="100" />
+  <audio name="GPWS 40" volume="100" />
+  <audio name="GPWS 400" volume="100" />
+  <audio name="GPWS 50" volume="100" />
+  <audio name="GPWS 500" volume="100" />
+  <audio name="Ground call" volume="100" />
+  <audio name="Minimums" volume="100" />
+  <audio name="No smoking Audio" volume="100" />
+  <audio name="Overspeed" volume="100" />
+  <audio name="Plus 100" volume="100" />
+  <audio name="Pullup" volume="100" />
+  <audio name="Seatbelt Audio" volume="100" />
+  <audio name="Sinkrate" volume="100" />
+  <audio name="Takeoff Config" volume="100" />
+  <audio name="TCAS Clear of conflict" volume="100" />
+  <audio name="TCAS Climb" volume="100" />
+  <audio name="TCAS Crossing Climb" volume="100" />
+  <audio name="TCAS Crossing Descend" volume="100" />
+  <audio name="TCAS Descend" volume="100" />
+  <audio name="TCAS Traffic" volume="100" />
+  <audio name="Too low flap" volume="100" />
+  <audio name="Too low gear" volume="100" />
+  <audio name="Too low terrain" volume="100" />
+  <audio name="Uplink chime" volume="100" />
+  <audio name="Windshear" volume="100" />
+  <audio name="_nav Captain NAV" volume="100" />
+</config>

@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <server name="192.168.2.200" />
+  <fullscreen value="false" />
+  <showLoad value="true" />
+  <multicore value="true" />
+  <highQuality value="true" />
+  <highQualityText value="true" />
+  <showBorder value="false" />
+  <allowShutdown value="true" />
+  <stayOnTop value="false" />
+  <screen>
+    <x>2382</x>
+    <y>-8</y>
+    <width>1382</width>
+    <height>744</height>
+  </screen>
+  <frame value="true" />
+  <photorealistic value="true" />
+  <terrain value="true" />
+  <frameRate value="30" />
+  <dataRate value="10" />
+  <containers>
+    <container name="F/O outboard">
+      <x>726</x>
+      <y>34</y>
+      <width>556</width>
+      <height>556</height>
+      <enabled>true</enabled>
+    </container>
+    <container name="F/O inboard">
+      <x>28</x>
+      <y>36</y>
+      <width>552</width>
+      <height>552</height>
+      <enabled>true</enabled>
+    </container>
+    <container name="Captain outboard">
+      <x>19</x>
+      <y>1</y>
+      <width>556</width>
+      <height>556</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Captain inboard">
+      <x>600</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Upper Eicas">
+      <x>1246</x>
+      <y>4</y>
+      <width>568</width>
+      <height>540</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Lower Eicas">
+      <x>1923</x>
+      <y>2</y>
+      <width>617</width>
+      <height>557</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Sys display">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Secondary engine indications">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Captain PFD">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Captain ND">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="F/O PFD">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="F/O ND">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Captain Outboard EFIS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Captain Inboard EFIS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="F/O Outboard EFIS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="F/O Inboard EFIS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Normal EICAS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="EFIS EICAS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="ISFD">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="ISFD framed">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Alt/Speed">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RMI">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RMI frameless">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Standby Attitude">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Flaps">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Brake pressure">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Wet compass">
+      <x>1114</x>
+      <y>32</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Yaw damper">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 1">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 2">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 1 Digital">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 2 Digital">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 1 Round">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 2 Round">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Sixpack Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>348</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Sixpack F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>348</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="VSI">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Alt Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Alt F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RMI Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RMI F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="ND Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="ND F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Speed Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Speed F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="EADI Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="EADI F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Engine instruments">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Fuel gauge left">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Fuel gauge right">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Fuel gauge center">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RDMI Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>724</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RDMI F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>724</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Fuel panel">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="FPT Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>338</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="FPT Center">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>338</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="FPT F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>338</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="FPT throttle">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>900</height>
+      <enabled>false</enabled>
+    </container>
+  </containers>
+  <colors enabled="false">
+    <green>0, 255, 61</green>
+    <gray>59, 58, 62</gray>
+    <orange>Orange</orange>
+    <blue>23, 149, 238</blue>
+    <red>227, 18, 0</red>
+    <attitudeSky>1, 114, 222</attitudeSky>
+    <attitudeGround>92, 54, 3</attitudeGround>
+    <magenta>255, 99, 255</magenta>
+    <gaugeGray>63, 70, 71</gaugeGray>
+    <gaugeLineGray>132, 138, 141</gaugeLineGray>
+    <tftBackground>0, 0, 0</tftBackground>
+  </colors>
+</config>

@@ -1,0 +1,1158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <server name="192.168.2.200" />
+  <fullscreen value="true" />
+  <showLoad value="true" />
+  <multicore value="true" />
+  <highQuality value="true" />
+  <highQualityText value="true" />
+  <showBorder value="false" />
+  <allowShutdown value="true" />
+  <stayOnTop value="false" />
+  <screen>
+    <x>-2390</x>
+    <y>-759</y>
+    <width>1081</width>
+    <height>551</height>
+  </screen>
+  <frame value="true" />
+  <photorealistic value="true" />
+  <terrain value="true" />
+  <frameRate value="30" />
+  <dataRate value="10" />
+  <containers>
+    <container name="Captain outboard">
+      <x>98</x>
+      <y>48</y>
+      <width>556</width>
+      <height>556</height>
+      <enabled>true</enabled>
+    </container>
+    <container name="Captain inboard">
+      <x>796</x>
+      <y>32</y>
+      <width>552</width>
+      <height>552</height>
+      <enabled>true</enabled>
+    </container>
+    <container name="Upper Eicas">
+      <x>1246</x>
+      <y>4</y>
+      <width>568</width>
+      <height>540</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Lower Eicas">
+      <x>1923</x>
+      <y>2</y>
+      <width>617</width>
+      <height>557</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="F/O inboard">
+      <x>638</x>
+      <y>30</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="F/O outboard">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Sys display">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Secondary engine indications">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Captain PFD">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Captain ND">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="F/O PFD">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="F/O ND">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Captain Outboard EFIS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Captain Inboard EFIS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="F/O Outboard EFIS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="F/O Inboard EFIS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Normal EICAS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="EFIS EICAS">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="ISFD">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="ISFD framed">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Alt/Speed">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RMI">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RMI frameless">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Standby Attitude">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Flaps">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Brake pressure">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Wet compass">
+      <x>1114</x>
+      <y>32</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Yaw damper">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 1">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 2">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 1 Digital">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 2 Digital">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 1 Round">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Chrono 2 Round">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Sixpack Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>348</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Sixpack F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>348</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="VSI">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Alt Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Alt F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RMI Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RMI F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="ND Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="ND F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Speed Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Speed F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="EADI Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="EADI F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Engine instruments">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Fuel gauge left">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Fuel gauge right">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Fuel gauge center">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RDMI Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>724</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="RDMI F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>724</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Fuel panel">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>600</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="FPT Captain">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>338</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="FPT Center">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>338</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="FPT F/O">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>338</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="FPT throttle">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>900</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Alpha Vane Heat L">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Alpha Vane Heat R">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator auxPitot Heat">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Capt Pitot Heat">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Copilot Pitot Heat">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Elev pitot Heat L">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Elev pitot Heat R">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator tempProbe Heat">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Window heat FWD L on">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Window heat FWD L overheat">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Window heat FWD R on">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Window heat FWD R overheat">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Window heat Side L on">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Window heat Side L overheat">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Window heat Side R on">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Window heat Side R overheat">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Anti skid INOP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Autobrake disarm">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Below GS CP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Below GS FO">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Brake Temp">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Cabin altitude indicator">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Flap load relief">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Gear left">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Gear left aft oh">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Gear left transit">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Gear nose">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Gear nose aft ovh">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Gear nose transit">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Gear right">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Gear right aft ovh">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Gear right transit">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator GPWS Inop">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator LE Flap Extend">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator LE Flap Transit">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Speed brake do not arm">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Spoiler Armed">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Spoiler Extend">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Takeoff config">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator APU FAULT">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator APU Low oil pressure">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator APU Overspeed">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Bat discharge">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Drive 1">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Drive 2">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator ELEC">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Source OFF 1">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Source OFF 2">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Standby pwr off">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator TR UNIT">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Transfer bus OFF 1">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Transfer bus OFF 2">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Bleed trip off 1">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Bleed trip off 2">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Cowl Anti-Ice L">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Cowl Anti-Ice R">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Dual bleed">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Lavatory smoke">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Off sched descent">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Pack L">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Pack R">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Pass oxy on">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Pressurization altn">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Pressurization auto fail">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Pressurization manual">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Wing-body overheat 1">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Wing-body overheat 2">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Zone temp AFT CAB">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Zone temp CONT CAB">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Zone temp FWD CAB">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Cargo fire detector fault">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Engine 1 overheat">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Engine 2 overheat">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Emerg Exit Lights not armed">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Feel Diff Press">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator FLT Control low pressure A">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator FLT Control low pressure B">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Hyd ELEC1 LP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Hyd ELEC1 OVHT">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Hyd ELEC2 LP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Hyd ELEC2 OVHT">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Hyd ENG1 LP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Hyd ENG2 LP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Hyd standby low pressure">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Hyd standby low quantity">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Filter Bypass L">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Filter Bypass R">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Fuel Center Left LP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Fuel Center Right LP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Fuel Left Aft LP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Fuel Left Fwd LP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Fuel Right Aft LP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Fuel Right Fwd LP">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator IRS left align">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator IRS left DC Fail">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator IRS left Fault">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator IRS left On DC">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator IRS right align">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator IRS right DC Fail">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator IRS right Fault">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator IRS right On DC">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+    <container name="Indicator Parking brake">
+      <x>0</x>
+      <y>0</y>
+      <width>600</width>
+      <height>250</height>
+      <enabled>false</enabled>
+    </container>
+  </containers>
+  <colors enabled="false">
+    <green>0, 255, 61</green>
+    <gray>59, 58, 62</gray>
+    <orange>Orange</orange>
+    <blue>23, 149, 238</blue>
+    <red>227, 18, 0</red>
+    <attitudeSky>1, 114, 222</attitudeSky>
+    <attitudeGround>92, 54, 3</attitudeGround>
+    <magenta>255, 99, 255</magenta>
+    <gaugeGray>63, 70, 71</gaugeGray>
+    <gaugeLineGray>132, 138, 141</gaugeLineGray>
+    <tftBackground>0, 0, 0</tftBackground>
+  </colors>
+</config>
