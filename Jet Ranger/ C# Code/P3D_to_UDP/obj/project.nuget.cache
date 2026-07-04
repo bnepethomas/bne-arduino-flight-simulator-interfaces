@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "FcCx4nAPnsc=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\P3D_to_UDP\\P3D_to_UDP.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.22000.57\\microsoft.windows.sdk.net.ref.10.0.22000.57.nupkg.sha512"
+  ],
+  "logs": []
+}

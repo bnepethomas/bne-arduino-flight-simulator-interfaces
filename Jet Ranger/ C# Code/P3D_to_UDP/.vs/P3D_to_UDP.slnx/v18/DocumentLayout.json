@@ -1,0 +1,73 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\P3D_to_UDP\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5D07760E-B6D9-2187-D642-44C90DC05710}|P3D_to_UDP.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\ c# code\\p3d_to_udp\\p3d_to_udp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5D07760E-B6D9-2187-D642-44C90DC05710}|P3D_to_UDP.csproj|solutionrelative:p3d_to_udp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5D07760E-B6D9-2187-D642-44C90DC05710}|P3D_to_UDP.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\ c# code\\p3d_to_udp\\p3d_to_udp.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{5D07760E-B6D9-2187-D642-44C90DC05710}|P3D_to_UDP.csproj|solutionrelative:p3d_to_udp.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\10.0.301\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Windows.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "P3D_to_UDP",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\P3D_to_UDP\\P3D_to_UDP.csproj",
+              "RelativeDocumentMoniker": "P3D_to_UDP.csproj",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\P3D_to_UDP\\P3D_to_UDP.csproj",
+              "RelativeToolTip": "P3D_to_UDP.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-04T01:56:21.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Microsoft.NET.Windows.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\10.0.301\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Windows.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\10.0.301\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Windows.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\10.0.301\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Windows.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\10.0.301\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.Windows.targets",
+              "ViewState": "AgIAALMAAAAAAAAAAAAAAMYAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2026-07-04T01:46:26.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "P3D_to_UDP",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\P3D_to_UDP\\P3D_to_UDP.csproj",
+              "RelativeDocumentMoniker": "P3D_to_UDP.csproj",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\P3D_to_UDP\\P3D_to_UDP.csproj",
+              "RelativeToolTip": "P3D_to_UDP.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-04T01:44:33.538Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
