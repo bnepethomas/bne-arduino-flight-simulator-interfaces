@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("P3D_to_UDP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7502f0c6bd0922d49d07b065f3c52bfbef9da58a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c90e58d3cbb9891c1714769c628712295c35076")]
 [assembly: System.Reflection.AssemblyProductAttribute("P3D_to_UDP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("P3D_to_UDP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

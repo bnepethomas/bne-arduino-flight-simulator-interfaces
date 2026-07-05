@@ -116,8 +116,8 @@
 
 // Incorrect SimConnect Version usually results in an error code of 5
 
-using Microsoft.FlightSimulator.SimConnect;
-//using LockheedMartin.Prepar3D.SimConnect;
+//using Microsoft.FlightSimulator.SimConnect;
+using LockheedMartin.Prepar3D.SimConnect;
 
 
 using System;

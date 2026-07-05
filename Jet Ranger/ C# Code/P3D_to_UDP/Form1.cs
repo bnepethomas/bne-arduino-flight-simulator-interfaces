@@ -6,7 +6,8 @@
 // There is no wear and tear for FlyInside
 
 
-using Microsoft.FlightSimulator.SimConnect;
+//using Microsoft.FlightSimulator.SimConnect;
+using LockheedMartin.Prepar3D.SimConnect;
 using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
