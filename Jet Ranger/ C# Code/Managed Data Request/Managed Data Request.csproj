@@ -56,12 +56,9 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Include="LockheedMartin.Prepar3D.SimConnect">
-      <HintPath>..\..\lib\SimConnect\managed\LockheedMartin.Prepar3D.SimConnect.dll</HintPath>
-    </Reference>
-    <Reference Include="LockheedMartin.Prepar3D.SimConnect.Debug, Version=6.1.0.0, Culture=neutral, processorArchitecture=AMD64">
+    <Reference Include="LockheedMartin.Prepar3D.SimConnect, Version=6.1.0.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files\Lockheed Martin\Prepar3D v6 SDK 6.1.10.31609\lib\SimConnect\managed\LockheedMartin.Prepar3D.SimConnect.Debug.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files\Lockheed Martin\Prepar3D v6 SDK 6.1.10.31609\lib\SimConnect\managed\LockheedMartin.Prepar3D.SimConnect.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=11.0.62651.3, Culture=neutral, PublicKeyToken=baf445ffb3a06b5c, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>

@@ -21,6 +21,6 @@ C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Manag
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\Managed Data Request.exe
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\Managed Data Request.pdb
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\obj\x64\Release\Managed .5BD84A49.Up2Date
-C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\LockheedMartin.Prepar3D.SimConnect.Debug.dll
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\Microsoft.FlightSimulator.SimConnect.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\LockheedMartin.Prepar3D.SimConnect.dll
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\SimConnect.dll

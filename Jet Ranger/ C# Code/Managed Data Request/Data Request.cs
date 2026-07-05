@@ -19,8 +19,8 @@ using System.Text;
 using System.Windows.Forms;
 
 // Add these two statements to all SimConnect clients
-using LockheedMartin.Prepar3D.SimConnect;
-//using Microsoft.FlightSimulator.SimConnect;
+//using LockheedMartin.Prepar3D.SimConnect;
+using Microsoft.FlightSimulator.SimConnect;
 using System.Runtime.InteropServices;
 
 namespace Managed_Data_Request
