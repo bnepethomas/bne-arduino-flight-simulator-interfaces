@@ -1,0 +1,26 @@
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\Managed Data Request.exe.config
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\Managed Data Request.exe
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\Managed Data Request.pdb
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\LockheedMartin.Prepar3D.SimConnect.Debug.dll
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\obj\x64\Release\Managed Data Request.csproj.AssemblyReference.cache
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\obj\x64\Release\Managed_Data_Request.Form1.resources
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\obj\x64\Release\Managed_Data_Request.Properties.Resources.resources
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\obj\x64\Release\Managed Data Request.csproj.GenerateResource.cache
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\obj\x64\Release\Managed Data Request.csproj.CoreCompileInputs.cache
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\obj\x64\Release\Managed .5BD84A49.Up2Date
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\obj\x64\Release\Managed Data Request.exe
+C:\Users\admin\Downloads\SimConnect Samples\Managed Data Request\obj\x64\Release\Managed Data Request.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\obj\x64\Release\Managed Data Request.csproj.AssemblyReference.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\obj\x64\Release\Managed_Data_Request.Form1.resources
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\obj\x64\Release\Managed_Data_Request.Properties.Resources.resources
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\obj\x64\Release\Managed Data Request.csproj.GenerateResource.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\obj\x64\Release\Managed Data Request.csproj.CoreCompileInputs.cache
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\obj\x64\Release\Managed Data Request.exe
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\obj\x64\Release\Managed Data Request.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\Managed Data Request.exe.config
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\Managed Data Request.exe
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\Managed Data Request.pdb
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\obj\x64\Release\Managed .5BD84A49.Up2Date
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\LockheedMartin.Prepar3D.SimConnect.Debug.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\Microsoft.FlightSimulator.SimConnect.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\Managed Data Request\Output\Release\SimConnect Samples\Managed Data Request\SimConnect.dll

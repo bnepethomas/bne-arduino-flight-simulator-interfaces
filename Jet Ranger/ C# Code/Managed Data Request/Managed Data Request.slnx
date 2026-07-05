@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/Solution Items/" />
+  <Project Path="Managed Data Request.csproj" Id="0be55256-5c24-465c-958b-9f876cca3194">
+    <Platform Project="x64" />
+  </Project>
+</Solution>

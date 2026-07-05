@@ -11,6 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="LockheedMartin.Prepar3D.SimConnect.Debug">
+      <HintPath>..\..\..\..\..\..\Program Files\Lockheed Martin\Prepar3D v6 SDK 6.1.10.31609\lib\SimConnect\managed\LockheedMartin.Prepar3D.SimConnect.Debug.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.FlightSimulator.SimConnect">
       <HintPath>..\..\..\..\..\..\MSFS 2024 SDK\SimConnect SDK\lib\managed\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
     </Reference>
@@ -21,7 +24,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="SimConnect.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

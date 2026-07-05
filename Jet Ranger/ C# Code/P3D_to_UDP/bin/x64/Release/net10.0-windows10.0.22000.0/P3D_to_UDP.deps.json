@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v10.0": {
       "P3D_to_UDP/1.0.0": {
         "dependencies": {
+          "LockheedMartin.Prepar3D.SimConnect.Debug": "6.1.0.0",
           "Microsoft.FlightSimulator.SimConnect": "12.2.0.0",
           "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.22000.57"
         },
@@ -24,6 +25,14 @@
           "WinRT.Runtime.dll": {
             "assemblyVersion": "2.2.0.0",
             "fileVersion": "2.2.0.48161"
+          }
+        }
+      },
+      "LockheedMartin.Prepar3D.SimConnect.Debug/6.1.0.0": {
+        "runtime": {
+          "LockheedMartin.Prepar3D.SimConnect.Debug.dll": {
+            "assemblyVersion": "6.1.0.0",
+            "fileVersion": "0.0.0.0"
           }
         }
       },
@@ -45,6 +54,11 @@
     },
     "runtimepack.Microsoft.Windows.SDK.NET.Ref/10.0.22000.57": {
       "type": "runtimepack",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LockheedMartin.Prepar3D.SimConnect.Debug/6.1.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },

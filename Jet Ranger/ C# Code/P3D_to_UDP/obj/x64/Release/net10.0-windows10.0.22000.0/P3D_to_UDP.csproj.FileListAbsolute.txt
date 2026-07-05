@@ -20,4 +20,4 @@ C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\P3D_t
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\P3D_to_UDP\obj\x64\Release\net10.0-windows10.0.22000.0\P3D_to_UDP.pdb
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\P3D_to_UDP\obj\x64\Release\net10.0-windows10.0.22000.0\P3D_to_UDP.genruntimeconfig.cache
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\P3D_to_UDP\obj\x64\Release\net10.0-windows10.0.22000.0\ref\P3D_to_UDP.dll
-C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\P3D_to_UDP\bin\x64\Release\net10.0-windows10.0.22000.0\SimConnect.dll
+C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\P3d_to_UDP\bin\x64\Release\net10.0-windows10.0.22000.0\LockheedMartin.Prepar3D.SimConnect.Debug.dll

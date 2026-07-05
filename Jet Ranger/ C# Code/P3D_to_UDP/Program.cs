@@ -105,7 +105,7 @@
 
 // SimConnect Services
 // using LockheedMartin.Prepar3D.SimConnect;
-//using LockheedMartin.Prepar3D.SimConnect;
+
 
 // To Use SimConnect in your project, you need to do the following:
 // 1. Set the project platform to x64, as SimConnect only works with 64-bit targets. You can do this in the Configuration Manager.
@@ -114,7 +114,12 @@
 //    In Visual Studio, right-click on your project in the Solution Explorer, select "Add" > "Reference...", and then
 //    browse to the "Microsoft.FlightSimulator.SimConnect.dll" file to add it as a reference.
 
+// Incorrect SimConnect Version usually results in an error code of 5
+
 using Microsoft.FlightSimulator.SimConnect;
+//using LockheedMartin.Prepar3D.SimConnect;
+
+
 using System;
 using System.Diagnostics.Eventing.Reader;
 using System.Net.Sockets;
