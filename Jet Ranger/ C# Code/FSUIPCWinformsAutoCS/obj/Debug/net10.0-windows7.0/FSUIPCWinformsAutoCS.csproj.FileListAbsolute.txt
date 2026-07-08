@@ -1,0 +1,7 @@
+C:\Users\admin\Downloads\FSUIPCTemplates_V2\Templates\ProjectTemplates\Visual C#\FSUIPC\FSUIPCWinformsAutoCS\obj\Debug\net10.0-windows7.0\FSUIPCWinformsAutoCS.csproj.AssemblyReference.cache
+C:\Users\admin\Downloads\FSUIPCTemplates_V2\Templates\ProjectTemplates\Visual C#\FSUIPC\FSUIPCWinformsAutoCS\obj\Debug\net10.0-windows7.0\safeprojectname.Form1.resources
+C:\Users\admin\Downloads\FSUIPCTemplates_V2\Templates\ProjectTemplates\Visual C#\FSUIPC\FSUIPCWinformsAutoCS\obj\Debug\net10.0-windows7.0\FSUIPCWinformsAutoCS.csproj.GenerateResource.cache
+C:\Users\admin\Downloads\FSUIPCTemplates_V2\Templates\ProjectTemplates\Visual C#\FSUIPC\FSUIPCWinformsAutoCS\obj\Debug\net10.0-windows7.0\FSUIPCWinformsAutoCS.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\admin\Downloads\FSUIPCTemplates_V2\Templates\ProjectTemplates\Visual C#\FSUIPC\FSUIPCWinformsAutoCS\obj\Debug\net10.0-windows7.0\FSUIPCWinformsAutoCS.AssemblyInfoInputs.cache
+C:\Users\admin\Downloads\FSUIPCTemplates_V2\Templates\ProjectTemplates\Visual C#\FSUIPC\FSUIPCWinformsAutoCS\obj\Debug\net10.0-windows7.0\FSUIPCWinformsAutoCS.AssemblyInfo.cs
+C:\Users\admin\Downloads\FSUIPCTemplates_V2\Templates\ProjectTemplates\Visual C#\FSUIPC\FSUIPCWinformsAutoCS\obj\Debug\net10.0-windows7.0\FSUIPCWinformsAutoCS.csproj.CoreCompileInputs.cache

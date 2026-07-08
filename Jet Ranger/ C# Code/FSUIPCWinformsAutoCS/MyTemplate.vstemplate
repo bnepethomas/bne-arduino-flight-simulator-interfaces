@@ -1,0 +1,28 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>FSUIPC WinForms Application (Auto Connection)</Name>
+    <LanguageTag>csharp</LanguageTag>
+    <PlatformTag>windows</PlatformTag>
+    <ProjectTypeTag>desktop</ProjectTypeTag>
+    <Description>A WinForms application for FSUIPC with automatic connection handling</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>FSUIPCWinformsAutoCS</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <CreateInPlace>true</CreateInPlace>
+    <Icon>__TemplateIcon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="FSUIPCWinformsAutoCS.csproj" File="FSUIPCWinformsAutoCS.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="Form1.cs">Form1.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Form1.Designer.cs">Form1.Designer.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Form1.resx">Form1.resx</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="Program.cs">Program.cs</ProjectItem>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

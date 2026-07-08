@@ -1,0 +1,64 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "FSUIPCClientDLL/3.3.6": {
+        "dependencies": {
+          "protobuf-net": "3.1.26"
+        },
+        "runtime": {
+          "lib/net7.0-windows7.0/fsuipcClient.dll": {
+            "assemblyVersion": "3.3.6.407",
+            "fileVersion": "3.3.6.407"
+          }
+        }
+      },
+      "protobuf-net/3.1.26": {
+        "dependencies": {
+          "protobuf-net.Core": "3.1.26"
+        },
+        "runtime": {
+          "lib/net6.0/protobuf-net.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.1.26.27931"
+          }
+        }
+      },
+      "protobuf-net.Core/3.1.26": {
+        "runtime": {
+          "lib/net6.0/protobuf-net.Core.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.1.26.27931"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FSUIPCClientDLL/3.3.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LCHiLP5Y4kgzLv/28/amvMI7DYF6c30kTJ5vz5dISinlLsPxEmOKcY0pKsoBcpunrR6nodkKrt/w6D5MDpQKTQ==",
+      "path": "fsuipcclientdll/3.3.6",
+      "hashPath": "fsuipcclientdll.3.3.6.nupkg.sha512"
+    },
+    "protobuf-net/3.1.26": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-iy+VROYtWZEqDvkUjS6FfzKZNpWRoVGc5h0cupGQT/37Ox0LxPblRKLnw6V0RT1MPclLo8nZp7E2M0f7PNn/Tw==",
+      "path": "protobuf-net/3.1.26",
+      "hashPath": "protobuf-net.3.1.26.nupkg.sha512"
+    },
+    "protobuf-net.Core/3.1.26": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fuKoDWgAf5ju+ixbJoasVFhnUaT0oWUgrWh1AZ5D0Y5keKHpA93vQB5g6aQNtB4zgeQ4hGEeh0MY9bIbAUPgEw==",
+      "path": "protobuf-net.core/3.1.26",
+      "hashPath": "protobuf-net.core.3.1.26.nupkg.sha512"
+    }
+  }
+}
