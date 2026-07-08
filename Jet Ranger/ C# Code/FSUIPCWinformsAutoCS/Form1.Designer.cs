@@ -38,6 +38,8 @@
             timerConnection = new System.Windows.Forms.Timer(components);
             label2 = new Label();
             txtGasProducer = new TextBox();
+            txtTurbineOut = new TextBox();
+            label3 = new Label();
             statusStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -100,7 +102,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(13, 89);
+            label2.Location = new Point(13, 120);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(90, 15);
@@ -109,18 +111,41 @@
             // 
             // txtGasProducer
             // 
-            txtGasProducer.Location = new Point(187, 81);
+            txtGasProducer.Location = new Point(187, 112);
             txtGasProducer.Margin = new Padding(4, 3, 4, 3);
             txtGasProducer.Name = "txtGasProducer";
             txtGasProducer.ReadOnly = true;
             txtGasProducer.Size = new Size(116, 23);
             txtGasProducer.TabIndex = 12;
             // 
+            // txtTurbineOut
+            // 
+            txtTurbineOut.Location = new Point(187, 82);
+            txtTurbineOut.Margin = new Padding(4, 3, 4, 3);
+            txtTurbineOut.Name = "txtTurbineOut";
+            txtTurbineOut.ReadOnly = true;
+            txtTurbineOut.Size = new Size(116, 23);
+            txtTurbineOut.TabIndex = 14;
+            txtTurbineOut.TextChanged += textBox1_TextChanged;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(13, 90);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(70, 15);
+            label3.TabIndex = 13;
+            label3.Text = "Turbine Out";
+
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(502, 366);
+            Controls.Add(txtTurbineOut);
+            Controls.Add(label3);
             Controls.Add(txtGasProducer);
             Controls.Add(label2);
             Controls.Add(statusStrip);
@@ -149,6 +174,8 @@
         private System.Windows.Forms.Timer timerConnection;
         private Label label2;
         private TextBox txtGasProducer;
+        private TextBox txtTurbineOut;
+        private Label label3;
     }
 }
 

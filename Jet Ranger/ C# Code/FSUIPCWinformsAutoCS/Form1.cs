@@ -18,7 +18,9 @@ namespace FSUIPCTest
         // =====================================
         private Offset<uint> airspeed = new Offset<uint>(0x02BC);
         private Offset<uint> avionicsMaster = new Offset<uint>(0x2E80);
+        private Offset<uint> turbineOut = new Offset<uint>(0x08F0);
         private Offset<uint> gasProducer = new Offset<uint>(0x0898);
+        
 
 
         public Form1()
@@ -67,9 +69,13 @@ namespace FSUIPCTest
                 // 2. Master Avionics
                 this.chkAvionicsMaster.Checked = avionicsMaster.Value > 0;
 
-                // 3. Gas Producer
-                double gasProducerPercent = (double)this.gasProducer.Value / 16384 *100;
-                this.txtGasProducer.Text =  gasProducerPercent.ToString("F1") + "%";
+                // Turbine Out
+                double turbineOutPercent = (double)this.turbineOut.Value / 16384;
+                this.txtTurbineOut.Text = turbineOutPercent.ToString("F1") + "%";
+
+                // Gas Producer
+                double gasProducerPercent = (double)this.gasProducer.Value / 16384 * 100;
+                this.txtGasProducer.Text = gasProducerPercent.ToString("F1") + "%";
             }
             catch (Exception ex)
             {
@@ -113,6 +119,9 @@ namespace FSUIPCTest
             FSUIPCConnection.Close();
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }
