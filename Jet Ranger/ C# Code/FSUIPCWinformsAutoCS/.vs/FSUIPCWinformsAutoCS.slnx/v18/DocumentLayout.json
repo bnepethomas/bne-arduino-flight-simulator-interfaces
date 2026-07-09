@@ -7,24 +7,12 @@
       "RelativeMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\ c# code\\fsuipcwinformsautocs\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\ c# code\\fsuipcwinformsautocs\\fsuipcwinformsautocs.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|solutionrelative:fsuipcwinformsautocs.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\ c# code\\fsuipcwinformsautocs\\form1.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
-      "RelativeMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|solutionrelative:form1.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\ c# code\\fsuipcwinformsautocs\\fsuipcwinformsautocs.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|solutionrelative:fsuipcwinformsautocs.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{B05F2B36-3C12-2F02-46DE-6EB6CB08FC52}|FSUIPCWinformsAutoCS.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,11 +22,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\Form1.cs",
+              "RelativeDocumentMoniker": "Form1.cs",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAAGMAAAAAAAAAAAAcwG8AAABKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T19:28:10.397Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -54,64 +55,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FSUIPCWinformsAutoCS.csproj",
-              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\FSUIPCWinformsAutoCS.csproj",
-              "RelativeDocumentMoniker": "FSUIPCWinformsAutoCS.csproj",
-              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\FSUIPCWinformsAutoCS.csproj",
-              "RelativeToolTip": "FSUIPCWinformsAutoCS.csproj",
-              "ViewState": "AgIAAAgAAAAAAAAAAABBwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-07-08T19:36:06.737Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Form1.resx",
-              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\Form1.resx",
-              "RelativeDocumentMoniker": "Form1.resx",
-              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\Form1.resx",
-              "RelativeToolTip": "Form1.resx",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-07-08T19:31:24.246Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Form1.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\Form1.Designer.cs",
-              "RelativeDocumentMoniker": "Form1.Designer.cs",
-              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\Form1.Designer.cs",
-              "RelativeToolTip": "Form1.Designer.cs",
-              "ViewState": "AgIAAHAAAAAAAAAAAAApwIsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-08T19:29:13.057Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\Form1.cs",
-              "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\Form1.cs",
-              "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAIA5wEgAAABQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-08T19:28:10.397Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "FSUIPCWinformsAutoCS",
               "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\FSUIPCWinformsAutoCS.csproj",
               "RelativeDocumentMoniker": "FSUIPCWinformsAutoCS.csproj",
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\FSUIPCWinformsAutoCS\\FSUIPCWinformsAutoCS.csproj",
               "RelativeToolTip": "FSUIPCWinformsAutoCS.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-07-08T19:27:27.662Z"
+              "WhenOpened": "2026-07-08T19:27:27.662Z",
+              "EditorCaption": ""
             }
           ]
         }

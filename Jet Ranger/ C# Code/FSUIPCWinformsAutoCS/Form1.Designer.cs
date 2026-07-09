@@ -40,13 +40,14 @@
             txtGasProducer = new TextBox();
             txtTurbineOut = new TextBox();
             label3 = new Label();
+            textBox1 = new TextBox();
             statusStrip.SuspendLayout();
             SuspendLayout();
             // 
             // statusStrip
             // 
             statusStrip.Items.AddRange(new ToolStripItem[] { lblConnectionStatus });
-            statusStrip.Location = new Point(0, 344);
+            statusStrip.Location = new Point(0, 397);
             statusStrip.Name = "statusStrip";
             statusStrip.Padding = new Padding(1, 0, 16, 0);
             statusStrip.Size = new Size(502, 22);
@@ -137,13 +138,21 @@
             label3.Size = new Size(70, 15);
             label3.TabIndex = 13;
             label3.Text = "Turbine Out";
-
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(22, 145);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(281, 249);
+            textBox1.TabIndex = 15;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(502, 366);
+            ClientSize = new Size(502, 419);
+            Controls.Add(textBox1);
             Controls.Add(txtTurbineOut);
             Controls.Add(label3);
             Controls.Add(txtGasProducer);
@@ -176,6 +185,7 @@
         private TextBox txtGasProducer;
         private TextBox txtTurbineOut;
         private Label label3;
+        private TextBox textBox1;
     }
 }
 
