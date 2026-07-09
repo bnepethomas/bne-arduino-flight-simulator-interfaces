@@ -19,7 +19,7 @@ namespace FSUIPCTest
         private Offset<uint> airspeed = new Offset<uint>(0x02BC);
         private Offset<uint> avionicsMaster = new Offset<uint>(0x2E80);
         private Offset<uint> turbineOut = new Offset<uint>(0x08F0);
-        private Offset<uint> gasProducer = new Offset<uint>(0x0898);
+        
 
         private Offset<UInt16> engOilPress = new Offset<UInt16>(0x08BA);
         private Offset<UInt16> engOilTemp = new Offset<UInt16>(0x08B8);
@@ -30,8 +30,15 @@ namespace FSUIPCTest
         private Offset<uint> fuelPercentQty = new Offset<uint>(0x0B74);
         private Offset<uint> fuelCapacity = new Offset<uint>(0x0B78);
 
-        private Offset<double> battLoadAmps = new Offset<double>(0x282C );
+        private Offset<double> battLoadAmps = new Offset<double>(0x282C);
 
+        private Offset<uint> torquePercent = new Offset<uint>(0x08F4);
+        private Offset<uint> turbineOutTemp = new Offset<uint>(0x08F0);
+
+        private Offset<uint> gasProducer = new Offset<uint>(0x0898);
+
+        private Offset<UInt16> rotorRPM = new Offset<UInt16>(0x0908);
+        private Offset<UInt16> engN2= new Offset<UInt16>(0x0896);
 
 
 
@@ -111,6 +118,18 @@ namespace FSUIPCTest
                 // Battery Load Amps   
                 double battLoadAmpsValue = (double)this.battLoadAmps.Value;
 
+                // Engine Torque
+                double torquePercentValue = (double)this.torquePercent.Value / 16384 * 100;
+
+                // Turbine Out Temperature
+                double turbineOutTempValue = (double)this.turbineOutTemp.Value / 16384;
+
+                // Rotor RPM
+                double rotorRPMValue = (double)this.rotorRPM.Value / 16384 * 100;
+
+                // Engine N2
+                double engN2Value = (double)this.engN2.Value / 16384 * 100;
+
 
 
 
@@ -121,7 +140,15 @@ namespace FSUIPCTest
                                    "Transmission Oil Pressure: " + transOilPressValue.ToString("F1") + " C" + Environment.NewLine +
                                    "Transmission Oil Temperature: " + transOilTempValue.ToString("F0") + " C" + Environment.NewLine +
                                    "Fuel Capacity: " + fuelCapacityGallons.ToString("F0") + " Gallons" + Environment.NewLine +
-                                   "Battery Load Amps: " + battLoadAmpsValue.ToString("F1") + " A" ;
+                                   "Battery Load Amps: " + battLoadAmpsValue.ToString("F1") + " A" + Environment.NewLine +
+                                   "Torque Percent: " + torquePercentValue.ToString("F1") + " %" + Environment.NewLine +
+                                   "Turbine Out Temperature: " + turbineOutTempValue.ToString("F1") + " C" + Environment.NewLine +
+                                   "Gas Producer: " + gasProducerPercent.ToString("F1") + "%" + Environment.NewLine +
+                                   "Air Speed: " + airspeedKnots.ToString("F0") + " Knots" + Environment.NewLine +
+                                   "Rotor RPM: " + rotorRPMValue.ToString("F1") + " %" + Environment.NewLine +
+                                   "Engine N2: " + engN2Value.ToString("F1") + " %" + Environment.NewLine;
+
+
 
 
                 this.textBox1.Text = outstring;
