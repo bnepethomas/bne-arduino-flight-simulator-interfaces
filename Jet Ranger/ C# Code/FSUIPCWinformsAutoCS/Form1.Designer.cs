@@ -80,7 +80,7 @@
             textBox1.Location = new Point(22, 46);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(281, 465);
+            textBox1.Size = new Size(281, 515);
             textBox1.TabIndex = 15;
             // 
             // Form1

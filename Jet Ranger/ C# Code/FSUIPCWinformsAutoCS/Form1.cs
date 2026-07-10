@@ -55,6 +55,23 @@ namespace FSUIPCTest
 
         private Offset<UInt16> comm1Frequency = new Offset<UInt16>(0x034E);
 
+        // Pulled Straight from the FSUIPC SDK documentation, these are the offsets for the radio stack.
+        private Offset<ushort> com1 = new Offset<ushort>("RadioStack", 0x034E);
+        private Offset<ushort> com1Standby = new Offset<ushort>("RadioStack", 0x311A);
+        private Offset<ushort> com2 = new Offset<ushort>("RadioStack", 0x3118);
+        private Offset<ushort> com2Standby = new Offset<ushort>("RadioStack", 0x311C);
+        private Offset<ushort> nav1 = new Offset<ushort>("RadioStack", 0x0350);
+        private Offset<ushort> nav1Standby = new Offset<ushort>("RadioStack", 0x311E);
+        private Offset<ushort> nav2 = new Offset<ushort>("RadioStack", 0x0352);
+        private Offset<ushort> nav2Standby = new Offset<ushort>("RadioStack", 0x3120);
+        private Offset<ushort> transponder = new Offset<ushort>("RadioStack", 0x0354);
+        // ADF frequencies are split over 2 offsets, the 'main' and 'extended'.
+        // Make sure you declare both.
+        private Offset<ushort> adf1Main = new Offset<ushort>("RadioStack", 0x034C);
+        private Offset<ushort> adf1Extended = new Offset<ushort>("RadioStack", 0x0356);
+
+
+
 
         // Bit index -> annunciator name (as documented for offset 0x2F28)
         private static readonly (int Bit, string Name)[] AnnunciatorBits =
@@ -190,11 +207,19 @@ namespace FSUIPCTest
                 // Avionics Bus Voltage - Drives Radio Stack and Avionics
                 double avionicsBusVoltageValue = (double)this.avionicsBusVoltage.Value;
 
-                // Comm1 Frequency
-                int comm1FrequencyValue = (int)this.comm1Frequency.Value;
 
 
-
+                FSUIPCConnection.Process("RadioStack");
+                FsFrequencyCOM com1Helper = new FsFrequencyCOM(this.com1.Value);
+                FsFrequencyCOM com1StandbyHelper = new FsFrequencyCOM(this.com1Standby.Value);
+                FsFrequencyCOM com2Helper = new FsFrequencyCOM(this.com2.Value);
+                FsFrequencyCOM com2StandbyHelper = new FsFrequencyCOM(this.com2Standby.Value);
+                FsFrequencyNAV nav1Helper = new FsFrequencyNAV(this.nav1.Value);
+                FsFrequencyNAV nav1StandbyHelper = new FsFrequencyNAV(this.nav1Standby.Value);
+                FsFrequencyNAV nav2Helper = new FsFrequencyNAV(this.nav2.Value);
+                FsFrequencyNAV nav2StandbyHelper = new FsFrequencyNAV(this.nav2Standby.Value);
+                FsFrequencyADF adf1Helper = new FsFrequencyADF(this.adf1Main.Value, this.adf1Extended.Value);
+                FsTransponderCode txHelper = new FsTransponderCode(this.transponder.Value);
 
 
                 string outstring = "Turbine Out: " + turbineOutPercent.ToString("F0") + " C" + Environment.NewLine +
@@ -219,7 +244,17 @@ namespace FSUIPCTest
                                    "Attitude Bank: " + attitudeBankValue.ToString("F2") + " Degrees" + Environment.NewLine +
                                    "Main Bus Voltage: " + mainBusVoltageValue.ToString("F1") + " V" + Environment.NewLine +
                                    "Avionics Bus Voltage: " + avionicsBusVoltageValue.ToString("F1") + " V" + Environment.NewLine +
-                                   "Comm1 Frequency: 1" + comm1FrequencyValue.ToString("X") + " MHz" + Environment.NewLine;
+                                   "Comm 1: " + com1Helper.ToString() + Environment.NewLine +
+                                   "Comm 1 Standby: " + com1StandbyHelper.ToString() + Environment.NewLine +
+                                   "Comm 2: " + com2Helper.ToString() + Environment.NewLine +
+                                   "Comm 2 Standby: " + com2StandbyHelper.ToString() + Environment.NewLine +
+                                   "NAV 1: " + nav1Helper.ToString() + Environment.NewLine +
+                                   "NAV 1 Standby: " + nav1StandbyHelper.ToString() + Environment.NewLine +
+                                   "NAV 2: " + nav2Helper.ToString() + Environment.NewLine +
+                                   "NAV 2 Standby: " + nav2StandbyHelper.ToString() + Environment.NewLine +
+                                   "ADF 1 : " + adf1Helper.ToString() + Environment.NewLine +
+                                   "Transponder: " + txHelper.ToString();
+                
 
 
                 this.textBox1.Text = outstring;
