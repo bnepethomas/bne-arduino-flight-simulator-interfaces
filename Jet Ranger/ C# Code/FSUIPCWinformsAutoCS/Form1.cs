@@ -24,13 +24,14 @@ namespace FSUIPCTest
         private Offset<UInt16> engOilPress = new Offset<UInt16>(0x08BA);
         private Offset<UInt16> engOilTemp = new Offset<UInt16>(0x08B8);
 
-        private Offset<UInt16> transOilPress = new Offset<UInt16>(0x08D0);
-        private Offset<UInt16> transOilTemp = new Offset<UInt16>(0x08D2);
+        private Offset<int> transOilPress = new Offset<int>(0x0900);
+        private Offset<uint> transOilTemp = new Offset<uint>(0x0904);
 
         private Offset<uint> fuelPercentQty = new Offset<uint>(0x0B74);
         private Offset<uint> fuelCapacity = new Offset<uint>(0x0B78);
 
         private Offset<double> battLoadAmps = new Offset<double>(0x282C);
+        private Offset<uint> fuelPressure = new Offset<uint>(0x08F8);
 
         private Offset<uint> torquePercent = new Offset<uint>(0x08F4);
         private Offset<uint> turbineOutTemp = new Offset<uint>(0x08F0);
@@ -39,6 +40,13 @@ namespace FSUIPCTest
 
         private Offset<UInt16> rotorRPM = new Offset<UInt16>(0x0908);
         private Offset<UInt16> engN2= new Offset<UInt16>(0x0896);
+
+        private Offset<UInt16> altitude = new Offset<UInt16>(0x3324);
+        private Offset<int> vSI = new Offset<int>(0x02C8);
+        private Offset<uint> radioAltimeter = new Offset<uint>(0x31E4);
+
+        private Offset<double> attitudePitch = new Offset<double>(0x2F70);
+        private Offset<double> attitudeBank = new Offset<double>(0x2F78);
 
 
 
@@ -98,15 +106,14 @@ namespace FSUIPCTest
 
                 // Engine Oil Pressure
                 double engOilPressValue = (double)this.engOilPress.Value / 16384 * 55;
-
                 // Engine Oil Temperature
-                double engOilTempValue = (double)this.engOilTemp.Value / 16384 * 140;
+                double engOilTempValue = (double)this.engOilTemp.Value / 16384 * 140 ;
 
 
                 // Transmission Oil Pressure
-                double transOilPressValue = (double)this.transOilPress.Value / 16384 * 55;
+                double transOilPressValue = (double)this.transOilPress.Value / 16384;
                 // Transmission Oil Temperature
-                double transOilTempValue = (double)this.transOilTemp.Value ;
+                double transOilTempValue = (double)this.transOilTemp.Value / 16384;
 
                 // Fuel Percent Quantity
                 double fuelPercentQtyPercent = (double)this.fuelPercentQty.Value / (65536 * 128);
@@ -117,6 +124,8 @@ namespace FSUIPCTest
 
                 // Battery Load Amps   
                 double battLoadAmpsValue = (double)this.battLoadAmps.Value;
+                // Fuel Pressure
+                double fuelPressureValue = (double)this.fuelPressure.Value / 144;
 
                 // Engine Torque
                 double torquePercentValue = (double)this.torquePercent.Value / 16384 * 100;
@@ -130,6 +139,20 @@ namespace FSUIPCTest
                 // Engine N2
                 double engN2Value = (double)this.engN2.Value / 16384 * 100;
 
+                // Altitude
+                double altitudeValue = (double)this.altitude.Value;
+                // Vertical Speed Indicator
+                double vSIValue = (double)this.vSI.Value * 60 * 3.28084 / 256;
+                // Radio Altimeter 
+                double radioAltimeterValue = (double)this.radioAltimeter.Value / 65536 * 3.28084;
+                // 65536 * 3.28084
+
+                // Attitude Pitch
+                double attitudePitchValue = (double)this.attitudePitch.Value;
+                // Attitude Bank
+                double attitudeBankValue = (double)this.attitudeBank.Value;
+
+
 
 
 
@@ -137,16 +160,22 @@ namespace FSUIPCTest
                                    "Gas Producer: " + gasProducerPercent.ToString("F1") + "%" + Environment.NewLine +
                                    "Engine Oil Pressure: " + engOilPressValue.ToString("F0") + "PSI " + Environment.NewLine +
                                    "Engine Oil Temperature: " + engOilTempValue.ToString("F0") + " C" + Environment.NewLine +
-                                   "Transmission Oil Pressure: " + transOilPressValue.ToString("F1") + " C" + Environment.NewLine +
+                                   "Transmission Oil Pressure: " + transOilPressValue.ToString("F1") + " PSI" + Environment.NewLine +
                                    "Transmission Oil Temperature: " + transOilTempValue.ToString("F0") + " C" + Environment.NewLine +
                                    "Fuel Capacity: " + fuelCapacityGallons.ToString("F0") + " Gallons" + Environment.NewLine +
                                    "Battery Load Amps: " + battLoadAmpsValue.ToString("F1") + " A" + Environment.NewLine +
+                                   "Fuel Pressure: " + fuelPressureValue.ToString("F1") + " PSI" + Environment.NewLine +
                                    "Torque Percent: " + torquePercentValue.ToString("F1") + " %" + Environment.NewLine +
                                    "Turbine Out Temperature: " + turbineOutTempValue.ToString("F1") + " C" + Environment.NewLine +
                                    "Gas Producer: " + gasProducerPercent.ToString("F1") + "%" + Environment.NewLine +
                                    "Air Speed: " + airspeedKnots.ToString("F0") + " Knots" + Environment.NewLine +
                                    "Rotor RPM: " + rotorRPMValue.ToString("F1") + " %" + Environment.NewLine +
-                                   "Engine N2: " + engN2Value.ToString("F1") + " %" + Environment.NewLine;
+                                   "Engine N2: " + engN2Value.ToString("F1") + " %" + Environment.NewLine +
+                                   "Altitude: " + altitudeValue.ToString("F0") + " Feet" + Environment.NewLine +
+                                   "Vertical Speed Indicator: " + vSIValue.ToString("F0") + " Feet/Minute" + Environment.NewLine +
+                                   "Radio Altimeter: " + radioAltimeterValue.ToString("F2") + " Feet" + Environment.NewLine +
+                                   "Attitude Pitch: " + attitudePitchValue.ToString("F2") + " Degrees" + Environment.NewLine +
+                                   "Attitude Bank: " + attitudeBankValue.ToString("F2") + " Degrees" + Environment.NewLine;
 
 
 

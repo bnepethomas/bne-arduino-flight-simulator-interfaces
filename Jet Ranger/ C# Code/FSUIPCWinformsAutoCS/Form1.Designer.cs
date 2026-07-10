@@ -47,7 +47,7 @@
             // statusStrip
             // 
             statusStrip.Items.AddRange(new ToolStripItem[] { lblConnectionStatus });
-            statusStrip.Location = new Point(0, 397);
+            statusStrip.Location = new Point(0, 564);
             statusStrip.Name = "statusStrip";
             statusStrip.Padding = new Padding(1, 0, 16, 0);
             statusStrip.Size = new Size(502, 22);
@@ -144,14 +144,14 @@
             textBox1.Location = new Point(22, 145);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(281, 249);
+            textBox1.Size = new Size(281, 366);
             textBox1.TabIndex = 15;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(502, 419);
+            ClientSize = new Size(502, 586);
             Controls.Add(textBox1);
             Controls.Add(txtTurbineOut);
             Controls.Add(label3);
