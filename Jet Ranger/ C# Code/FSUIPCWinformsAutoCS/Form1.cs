@@ -50,6 +50,12 @@ namespace FSUIPCTest
 
         private readonly Offset<long> _annunciators = new Offset<long>(0x2F28);
 
+        private Offset<double> mainBusVoltage = new Offset<double>(0x2840);
+        private Offset<double> avionicsBusVoltage = new Offset<double>(0x2850);
+
+        private Offset<UInt16> comm1Frequency = new Offset<UInt16>(0x034E);
+
+
         // Bit index -> annunciator name (as documented for offset 0x2F28)
         private static readonly (int Bit, string Name)[] AnnunciatorBits =
         {
@@ -121,18 +127,15 @@ namespace FSUIPCTest
 
                 // 1. Airspeed
                 double airspeedKnots = (double)this.airspeed.Value / 128d;
-                this.txtAirspeed.Text = airspeedKnots.ToString("F0");
 
                 // 2. Master Avionics
                 this.chkAvionicsMaster.Checked = avionicsMaster.Value > 0;
 
                 // Turbine Out
                 double turbineOutPercent = (double)this.turbineOut.Value / 16384;
-                this.txtTurbineOut.Text = turbineOutPercent.ToString("F0") + " C";
 
                 // Gas Producer
                 double gasProducerPercent = (double)this.gasProducer.Value / 16384 * 100;
-                this.txtGasProducer.Text = gasProducerPercent.ToString("F1") + "%";
 
                 // Engine Oil Pressure
                 double engOilPressValue = (double)this.engOilPress.Value / 16384 * 55;
@@ -182,6 +185,14 @@ namespace FSUIPCTest
                 // Attitude Bank
                 double attitudeBankValue = (double)this.attitudeBank.Value;
 
+                // Main Bus Voltage - Drives all Instruments
+                double mainBusVoltageValue = (double)this.mainBusVoltage.Value;
+                // Avionics Bus Voltage - Drives Radio Stack and Avionics
+                double avionicsBusVoltageValue = (double)this.avionicsBusVoltage.Value;
+
+                // Comm1 Frequency
+                int comm1FrequencyValue = (int)this.comm1Frequency.Value;
+
 
 
 
@@ -205,9 +216,10 @@ namespace FSUIPCTest
                                    "Vertical Speed Indicator: " + vSIValue.ToString("F0") + " Feet/Minute" + Environment.NewLine +
                                    "Radio Altimeter: " + radioAltimeterValue.ToString("F2") + " Feet" + Environment.NewLine +
                                    "Attitude Pitch: " + attitudePitchValue.ToString("F2") + " Degrees" + Environment.NewLine +
-                                   "Attitude Bank: " + attitudeBankValue.ToString("F2") + " Degrees" + Environment.NewLine;
-
-
+                                   "Attitude Bank: " + attitudeBankValue.ToString("F2") + " Degrees" + Environment.NewLine +
+                                   "Main Bus Voltage: " + mainBusVoltageValue.ToString("F1") + " V" + Environment.NewLine +
+                                   "Avionics Bus Voltage: " + avionicsBusVoltageValue.ToString("F1") + " V" + Environment.NewLine +
+                                   "Comm1 Frequency: 1" + comm1FrequencyValue.ToString("X") + " MHz" + Environment.NewLine;
 
 
                 this.textBox1.Text = outstring;
