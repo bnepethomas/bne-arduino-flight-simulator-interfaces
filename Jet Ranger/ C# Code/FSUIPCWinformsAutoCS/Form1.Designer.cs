@@ -50,7 +50,7 @@
             statusStrip.Location = new Point(0, 564);
             statusStrip.Name = "statusStrip";
             statusStrip.Padding = new Padding(1, 0, 16, 0);
-            statusStrip.Size = new Size(502, 22);
+            statusStrip.Size = new Size(767, 22);
             statusStrip.TabIndex = 6;
             statusStrip.Text = "statusStrip1";
             // 
@@ -151,7 +151,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(502, 586);
+            ClientSize = new Size(767, 586);
             Controls.Add(textBox1);
             Controls.Add(txtTurbineOut);
             Controls.Add(label3);
@@ -162,6 +162,7 @@
             Controls.Add(chkAvionicsMaster);
             Controls.Add(label1);
             Margin = new Padding(4, 3, 4, 3);
+            MinimumSize = new Size(783, 625);
             Name = "Form1";
             Text = "Main Form";
             FormClosing += frmMain_FormClosing;

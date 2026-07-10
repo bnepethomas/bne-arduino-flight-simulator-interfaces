@@ -48,12 +48,42 @@ namespace FSUIPCTest
         private Offset<double> attitudePitch = new Offset<double>(0x2F70);
         private Offset<double> attitudeBank = new Offset<double>(0x2F78);
 
+        private readonly Offset<long> _annunciators = new Offset<long>(0x2F28);
 
+        // Bit index -> annunciator name (as documented for offset 0x2F28)
+        private static readonly (int Bit, string Name)[] AnnunciatorBits =
+        {
+            (0,  "ENG_OUT"),                       // Validated
+            (1,  "TRANSMISSION_PRESSURE_FAIL"),    // Validated
+            (2,  "BATTERY_HOT"),                   // Validated
+            (3,  "ENGINE_CHIP"),                   // Validated
+            (4,  "BAGGAGE_DOOR"),                  // Validated
+            (5,  "SPARE_4"),
+            (6,  "GENERATOR_FAIL"),                // Validated
+            (7,  "SIMCONNECT_FAIL"),
+            (8,  "TRANSMISSION_TEMPERATURE_FAIL"),
+            (9,  "LOW_INLET_PRESSURE"),             // Validated
+            (10, "ROTOR_LOW"),                      // Validated
+            (11, "FUEL_FILTER_FAIL"),
+            (12, "BATTERY_WARM"),                   // Validated
+            (13, "TRANSMISSION_CHIP"),              // Validated
+            (14, "TAIL_ROTOR_CHIP"),                // Validated
+            (15, "FUEL_PUMP_FAIL"),                 // Validated
+            (16, "SPARE_2"),
+            (17, "SPARE_3"),
+            (18, "FUEL_LOW"),                       // Validated
+            (19, "SPARE_5"),
+            (20, "TURBINE_OVER_TEMP_LIGHT"),        // Validated
+        };
+
+        // A ListView or set of labels to show the light states
+        private ListView _lightList;
 
         public Form1()
         {
             InitializeComponent();
             configureForm();
+            BuildLightList();
             // Start the connection timer to look for a flight sim
             this.timerConnection.Start();
         }
@@ -181,6 +211,10 @@ namespace FSUIPCTest
 
 
                 this.textBox1.Text = outstring;
+
+                // --- Annunciator bit extraction ---
+                long bits = _annunciators.Value;
+                UpdateLights(bits);
             }
             catch (Exception ex)
             {
@@ -200,6 +234,57 @@ namespace FSUIPCTest
             // Update the FSUIPC offset with the new value (1 = Checked/On, 0 = Unchecked/Off)
             this.avionicsMaster.Value = (uint)(this.chkAvionicsMaster.Checked ? 1 : 0);
         }
+
+        private void BuildLightList()
+        {
+            _lightList = new ListView
+            {
+                View = View.Details,
+                Location = new System.Drawing.Point(320, 20),
+                Size = new System.Drawing.Size(300, 460),
+                FullRowSelect = true,
+                GridLines = true,
+                HeaderStyle = ColumnHeaderStyle.Nonclickable
+            };
+            _lightList.Columns.Add("Annunciator", 220);
+            _lightList.Columns.Add("State", 70);
+
+            // Pre-create one row per bit
+            foreach (var (bit, name) in AnnunciatorBits)
+            {
+                var item = new ListViewItem(name);
+                item.SubItems.Add("OFF");
+                item.Tag = bit;
+                _lightList.Items.Add(item);
+            }
+
+            this.Controls.Add(_lightList);
+            this.ClientSize = new System.Drawing.Size(330, 600);
+        }
+
+        private void UpdateLights(long bits)
+        {
+            _lightList.BeginUpdate();
+            foreach (ListViewItem item in _lightList.Items)
+            {
+                int bit = (int)item.Tag;
+                bool isOn = IsBitSet(bits, bit);
+
+                item.SubItems[1].Text = isOn ? "ON" : "OFF";
+                item.BackColor = isOn
+                    ? System.Drawing.Color.FromArgb(255, 90, 90)   // red-ish when active
+                    : System.Drawing.Color.White;
+            }
+
+            _lightList.EndUpdate();
+        }
+
+        /// <summary>Returns true if the given bit index (0-based) is set.</summary>
+        private static bool IsBitSet(long value, int bitIndex)
+        {
+            return (value & (1L << bitIndex)) != 0;
+        }
+
 
         // Configures the status label depending on if we're connected or not 
         private void configureForm()
