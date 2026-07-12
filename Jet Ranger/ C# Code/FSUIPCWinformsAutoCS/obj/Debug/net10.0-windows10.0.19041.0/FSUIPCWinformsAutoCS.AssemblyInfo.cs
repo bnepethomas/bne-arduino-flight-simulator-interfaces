@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FSUIPCWinformsAutoCS")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b5e7a4cf5deb985e278e3864e9fe6132504b5202")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+856db3fd5d1988dd4c40540e94ced93293f96312")]
 [assembly: System.Reflection.AssemblyProductAttribute("FSUIPCWinformsAutoCS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FSUIPCWinformsAutoCS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
