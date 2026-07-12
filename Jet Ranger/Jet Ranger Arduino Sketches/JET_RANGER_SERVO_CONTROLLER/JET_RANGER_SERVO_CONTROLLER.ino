@@ -872,6 +872,9 @@ void HandleOutputValuePair(String str) {
     if (ParameterName == "TQ") {
       //SendDebug("Received Engine Torque: " + ParameterValue);
       aTargetServoPosition[EngTorquePercent1] = ParameterValue.toInt();
+    } else if (ParameterName == "ITT") {
+      SendDebug("Received Turbine Temperature: " + ParameterValue);
+      aTargetServoPosition[TurbEngItt1] = ParameterValue.toInt();
     } else if (ParameterName == "IAS") {
       //SendDebug("Received Air Speed: " + ParameterValue);
       aTargetServoPosition[AirSpeed] = ParameterValue.toInt();
@@ -961,7 +964,7 @@ void HandleOutputValuePair(String str) {
       };
     } else if (ParameterName == "TOPW") {
       if (Trans_Oil_Pressure != ParameterValue) {
-        SendDebug("Transmission Pressure changed");
+        //SendDebug("Transmission Pressure changed");
         Trans_Oil_Pressure = ParameterValue;
         if (Trans_Oil_Pressure == "1") {
           digitalWrite(D_Trans_Oil_Pressure, true);
@@ -970,7 +973,7 @@ void HandleOutputValuePair(String str) {
         }
       };
     } else if (ParameterName == "TOTW") {
-      SendDebug("Received Transmission Temperature: " + ParameterValue);
+      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (Trans_Oil_Temp != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         Trans_Oil_Temp = ParameterValue;

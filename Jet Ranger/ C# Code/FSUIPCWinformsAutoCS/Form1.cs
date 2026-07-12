@@ -183,9 +183,9 @@ namespace FSUIPCTest
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT  AGL FLOAD ELOAD
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL FLOAD ELOAD
-        long[] ServMinPosition = new long[] { 173, 178, 5, 166, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
-        long[] ServMaxPosition = new long[] { 10, 14, 179, 70, 23, 6, 37, 740, 44, 175, 51, 30, 34, 128, 168, 222, 167, 46 };
-        long[] ServZeroPosition = new long[] { 173, 93, 91, 113, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
+        long[] ServMinPosition = new long[]  { 173,178,   5, 166, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
+        long[] ServMaxPosition = new long[]  { 10,  14, 179,  70,  23,   6,  37, 740,  44, 175,  51,  30, 34, 128, 168, 222, 167, 46 };
+        long[] ServZeroPosition = new long[] { 173, 93,  91, 113, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
 
 
         long[] ServoPosition = new long[] { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
@@ -537,7 +537,7 @@ namespace FSUIPCTest
                 {
                     frontPanelDataChanged = true;
                     ENG_TORQUE_PERCENT_1 = (sFrontPanel.ENG_TORQUE_PERCENT_1 * 4 / 9).ToString();
-                    int a = (int)(sFrontPanel.ENG_TORQUE_PERCENT_1 * 4 / 9);
+                    int a = (int)(sFrontPanel.ENG_TORQUE_PERCENT_1);
 
                     UDP_Playload = UDP_Playload + ",TQ:" + TQ_Process(a);
                     ;
@@ -562,7 +562,7 @@ namespace FSUIPCTest
                 }
                     ;
 
-                if (TURB_ENG_ITT_1 != sFrontPanel.TURB_ENG_ITT_1.ToString()) ;
+                if (1 + TURB_ENG_ITT_1 != sFrontPanel.TURB_ENG_ITT_1.ToString()) ;
                 {
                     frontPanelDataChanged = true;
                     TURB_ENG_ITT_1 = sFrontPanel.TURB_ENG_ITT_1.ToString();
@@ -954,12 +954,14 @@ namespace FSUIPCTest
             // 700 - 101
             // 800 - 65
             // 900 - 44
+
+            /*
             float myvalue = (float)(newValue);
             myvalue -= 491;
             myvalue = (float)(myvalue * (3.8 / 9.0));
             myvalue = (int)(myvalue);
             newValue = (long)myvalue;
-
+            */
             //myvalue = (myvalue − 491) *(5 / 9));
             switch (newValue)
             {
