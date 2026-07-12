@@ -81,30 +81,33 @@ namespace FSUIPCTest
 
 
         // Bit index -> annunciator name (as documented for offset 0x2F28)
-        private static readonly (int Bit, string Name)[] AnnunciatorBits =
+        private static readonly (int Bit, string Name, string ShortCode, bool CurrentState)[] AnnunciatorBits =
         {
-            (0,  "ENG_OUT"),                       // Validated
-            (1,  "TRANSMISSION_PRESSURE_FAIL"),    // Validated
-            (2,  "BATTERY_HOT"),                   // Validated
-            (3,  "ENGINE_CHIP"),                   // Validated
-            (4,  "BAGGAGE_DOOR"),                  // Validated
-            (5,  "SPARE_4"),
-            (6,  "GENERATOR_FAIL"),                // Validated
-            (7,  "SIMCONNECT_FAIL"),
-            (8,  "TRANSMISSION_TEMPERATURE_FAIL"),
-            (9,  "LOW_INLET_PRESSURE"),             // Validated
-            (10, "ROTOR_LOW"),                      // Validated
-            (11, "FUEL_FILTER_FAIL"),
-            (12, "BATTERY_WARM"),                   // Validated
-            (13, "TRANSMISSION_CHIP"),              // Validated
-            (14, "TAIL_ROTOR_CHIP"),                // Validated
-            (15, "FUEL_PUMP_FAIL"),                 // Validated
-            (16, "SPARE_2"),
-            (17, "SPARE_3"),
-            (18, "FUEL_LOW"),                       // Validated
-            (19, "SPARE_5"),
-            (20, "TURBINE_OVER_TEMP_LIGHT"),        // Validated
+            (0,  "ENGINE_OUT", "EOUT", false),                          // Validated     ENG_OUT
+            (1,  "TRANSMISSION_PRESSURE_FAIL", "TOPW", false),    // Validated
+            (2,  "BATTERY_HOT", "BHOT", false),                          // Validated     
+            (3,  "ENGINE_CHIP", "EC", false),             // Validated
+            (4,  "BAGGAGE_DOOR", "BD", false),                  // Validated
+            (5,  "SPARE_4", "SCF", false),
+            (6,  "GENERATOR_FAIL", "GENF", false),                // Validated
+            (7,  "SIMCONNECT_FAIL", "SCF", false),
+            (8,  "TRANSMISSION_TEMPERATURE_FAIL", "TOTW", false),  //TRANSMISSION_TEMPERATURE_FAIL   
+            (9,  "LOW_INLET_PRESSURE", "SCF", false),             // Validated
+            (10, "ROTOR_LOW", "RLOW", false),                      // Validated    ROTOR_LOW
+            (11, "FUEL_FILTER_FAIL", "FFLTR", false),
+            (12, "BATTERY_WARM", "BTMP", false),                           // Validated    
+            (13, "TRANSMISSION_CHIP", "TC", false),              // Validated    
+            (14, "TAIL_ROTOR_CHIP", "TRC", false),                // Validated
+            (15, "FUEL_PUMP_FAIL", "FPMP", false),                 // Validated
+            (16, "SPARE_2", "SCF", false),
+            (17, "SPARE_3", "SCF", false),
+            (18, "FUEL_LOW", "LOWF", false),                       // Validated
+            (19, "SPARE_5", "SCF", false),
+            (20, "TURBINE_OVER_TEMP_LIGHT", "TOT", false),        // Validated
         };
+
+
+
 
         // A ListView or set of labels to show the light states
         private ListView _lightList;
@@ -452,14 +455,11 @@ namespace FSUIPCTest
 
                 if (ROTOR_RPM_PCT_1 != sFrontPanel.ROTOR_RPM_PCT_1.ToString()
                     || sFrontPanel.MASTER_ELECTRICAL_BUS_POWERED == true) ;
-                //While Rotor RPM is not directly affected by NAVCOM1 power state, need to updae the warning indicator state
                 {
                     frontPanelDataChanged = true;
                     ROTOR_RPM_PCT_1 = sFrontPanel.ROTOR_RPM_PCT_1.ToString();
                     int a = (int)(sFrontPanel.ROTOR_RPM_PCT_1);
                     UDP_Playload = UDP_Playload + ",RPMR:" + RPMR_Process(a).ToString();
-
-
                 }
                     ; // End Rotor RPM 
 
@@ -471,18 +471,6 @@ namespace FSUIPCTest
                     GENERAL_ENG_PCT_MAX_RPM_1 = sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString();
                     int a = (int)(sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1);
                     UDP_Playload = UDP_Playload + ",RPME:" + RPME_Process(a).ToString();
-
-
-                    if (sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1 >= 60)
-                    {
-                        UDP_Playload = UDP_Playload + ",EOUT:0";
-                        Engine_Out = false;
-                    }
-                    else
-                    {
-                        UDP_Playload = UDP_Playload + ",EOUT:1";
-                        Engine_Out = true;
-                    }
                 }
                     ;  // End Engine RPM
 
@@ -494,18 +482,6 @@ namespace FSUIPCTest
                     FUEL_TOTAL_QUANTITY = sFrontPanel.FUEL_TOTAL_QUANTITY.ToString();
                     int a = (int)(sFrontPanel.FUEL_TOTAL_QUANTITY);
                     UDP_Playload = UDP_Playload + ",FUEL:" + FUEL_Process(a).ToString();
-                    UDP_Playload = UDP_Playload + ",LOWF:" + Low_Fuel.ToString();
-
-                    if (sFrontPanel.FUEL_TOTAL_QUANTITY <= 17)
-                    {
-                        Low_Fuel = true;
-                        UDP_Playload = UDP_Playload + ",LOWF:1";
-                    }
-                    else
-                    {
-                        Low_Fuel = false;
-                        UDP_Playload = UDP_Playload + ",LOWF:0";
-                    }
                 }
                     ;
                 
@@ -649,6 +625,22 @@ namespace FSUIPCTest
                     UDP_Playload = UDP_Playload + ",BATSW:" + ELECTRICAL_MASTER_BATTERY;
                 };
 
+                
+                for (int lightptr = 0; lightptr < _lightList.Items.Count; lightptr++)
+                {
+                    if (_lightList.Items[lightptr].SubItems[1].Text == "ON")
+                    {
+                        frontPanelDataChanged = true;
+                        UDP_Playload = UDP_Playload + "," + AnnunciatorBits[lightptr].ShortCode.ToString() + ":1";
+                    }
+                    else
+                    {
+                        frontPanelDataChanged = true;
+                        UDP_Playload = UDP_Playload + "," + AnnunciatorBits[lightptr].ShortCode.ToString() + ":0";
+                    }
+                }
+
+
                 span = DateTime.Now - FrontPanelTimeLastPacketSent;
                 mS = (int)span.TotalMilliseconds;
                 // displayText("Its been this many mS since sending last packet: " + mS.ToString());
@@ -719,7 +711,7 @@ namespace FSUIPCTest
             _lightList.Columns.Add("State", 70);
 
             // Pre-create one row per bit
-            foreach (var (bit, name) in AnnunciatorBits)
+            foreach (var (bit, name, abbreviation, ShortCode) in AnnunciatorBits)
             {
                 var item = new ListViewItem(name);
                 item.SubItems.Add("OFF");

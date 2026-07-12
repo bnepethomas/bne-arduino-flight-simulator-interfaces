@@ -150,23 +150,22 @@ String SC_Fail = "0";          //SCF
 
 void InitialiseWarningLights() {
   pinMode(D_Rotor_RPM_Low, OUTPUT);
-  pinMode(D_Engine_Out, OUTPUT); 
-  pinMode( D_Trans_Oil_Pressure, OUTPUT); 
-  pinMode(D_Trans_Oil_Temp , OUTPUT);
-  pinMode(D_Battery_Temp, OUTPUT); 
-  pinMode( D_Battery_Hot, OUTPUT); 
-  pinMode(D_Trans_Chip, OUTPUT); 
-  pinMode(D_Baggage_Door, OUTPUT); 
+  pinMode(D_Engine_Out, OUTPUT);
+  pinMode(D_Trans_Oil_Pressure, OUTPUT);
+  pinMode(D_Trans_Oil_Temp, OUTPUT);
+  pinMode(D_Battery_Temp, OUTPUT);
+  pinMode(D_Battery_Hot, OUTPUT);
+  pinMode(D_Trans_Chip, OUTPUT);
+  pinMode(D_Baggage_Door, OUTPUT);
   pinMode(D_Engine_Chip, OUTPUT);
-  pinMode( D_TR_Chip , OUTPUT);
-  pinMode(D_Fuel_Pump , OUTPUT);
+  pinMode(D_TR_Chip, OUTPUT);
+  pinMode(D_Fuel_Pump, OUTPUT);
   pinMode(D_AFT_Fuel_Filter, OUTPUT);
   pinMode(D_Gen_Fail, OUTPUT);
   pinMode(D_Low_Fuel, OUTPUT);
-  pinMode( D_SC_Fail, OUTPUT);
+  pinMode(D_SC_Fail, OUTPUT);
 
   allOn();
-
 }
 
 void setWarningLightAll(bool State) {
@@ -266,7 +265,7 @@ Servo GAS_PRODUCER_SERVO;
 #define PITCH_PORT 26  // Using Gas Producer Port for the moment
 #define ROLL_PORT 27   // Using Radar Alt Port for the moment
 #define ELEC_LOAD_PORT 28
-#define FUEL_LOAD_PORT 29 
+#define FUEL_LOAD_PORT 29
 #
 
 enum Servos {
@@ -290,15 +289,15 @@ enum Servos {
   Electrical_Load,
   Number_of_Servos
 };
-                                
+
 //                            ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL FLOAD ELOAD
-int aServMinPosition[] =    { 173, 178,   5, 166, 177, 137, 176, 527, 159, 124, 159, 170,  82, 178, 114, 222, 131,  89 };
-int aServMaxPosition[] =    {  12,  14, 179,  70,  23,   6,  37, 740,  44, 175,  51,  30,  34, 128, 168, 222, 167,  46 };
-int aServZeroPosition[] =   {173,   93,  91, 113, 177, 137, 176, 527, 159, 124, 159, 170,  82, 178, 114, 222, 131,  89 };
-int aServoPosition[] =      { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
-int aTargetServoPosition[] ={ 173, 498, 444, 555,  28, 242, 176, 527, 121, 310, 124, 121, 560,   9, 424, 222, 000, 000 };
-long aServoLastupdate[] =   { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
-bool aServoIdle[] =         {   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0 };
+int aServMinPosition[] = { 173, 178, 5, 166, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
+int aServMaxPosition[] = { 12, 14, 179, 70, 23, 6, 37, 740, 44, 175, 51, 30, 34, 128, 168, 222, 167, 46 };
+int aServZeroPosition[] = { 173, 93, 91, 113, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
+int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
+int aTargetServoPosition[] = { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222, 000, 000 };
+long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
+bool aServoIdle[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 
 
@@ -623,7 +622,7 @@ void CheckServoIdleTime() {
     }
   };
 
-    // OILP
+  // OILP
   if (aServoIdle[EngOilPressure1] == false) {
     //Need to see if we have hit time to detach
     if ((millis() - aServoLastupdate[EngOilPressure1]) >= ServoIdleTime) {
@@ -672,7 +671,7 @@ void CheckServoIdleTime() {
   };
 
   // EGT
-    if (aServoIdle[TurbEngItt1] == false) {
+  if (aServoIdle[TurbEngItt1] == false) {
     //Need to see if we have hit time to detach
     if ((millis() - aServoLastupdate[TurbEngItt1]) >= ServoIdleTime) {
       if (EGT_SERVO.attached() == true) {
@@ -901,10 +900,10 @@ void HandleOutputValuePair(String str) {
       //SendDebug("Received Transmission Temperature: " + ParameterValue);
       aTargetServoPosition[EngTransmissionTemperature1] = ParameterValue.toInt();
     } else if (ParameterName == "ITT") {
-      SendDebug("Received ITT: " + ParameterValue);
+      //SendDebug("Received ITT: " + ParameterValue);
       aTargetServoPosition[TurbEngItt1] = ParameterValue.toInt();
     } else if (ParameterName == "BANK") {
-      SendDebug("Received Bank: " + ParameterValue);
+      //SendDebug("Received Bank: " + ParameterValue);
       aTargetServoPosition[AttitudeIndicatorBankDegrees] = ParameterValue.toInt();
     } else if (ParameterName == "PITCH") {
       //SendDebug("Received Pitch: " + ParameterValue);
@@ -916,7 +915,7 @@ void HandleOutputValuePair(String str) {
       //SendDebug("Received Electrical Load: " + ParameterValue);
       aTargetServoPosition[Electrical_Load] = ParameterValue.toInt();
     } else if (ParameterName == "N1") {
-      SendDebug("Received N1 Gas / Producer Load: " + ParameterValue);
+      //SendDebug("Received N1 Gas / Producer Load: " + ParameterValue);
       aTargetServoPosition[TurbEngCorrectedN11] = ParameterValue.toInt();
     } else if (ParameterName == "AGL") {
       //SendDebug("Received Radar Altitude: " + ParameterValue);
@@ -941,107 +940,155 @@ void HandleOutputValuePair(String str) {
 
 
     } else if (ParameterName == "RLOW") {
-      SendDebug("Received Rotor Low Warning: " + ParameterValue);
       if (Rotor_RPM_Low != ParameterValue) {
-        SendDebug("Rotor Low RPM changed");
+        //SendDebug("Rotor Low RPM changed");
         Rotor_RPM_Low = ParameterValue;
-        if ( Rotor_RPM_Low == "1") {
-          digitalWrite(D_Rotor_RPM_Low,true);
-        }
-        else {
+        if (Rotor_RPM_Low == "1") {
+          digitalWrite(D_Rotor_RPM_Low, true);
+        } else {
           digitalWrite(D_Rotor_RPM_Low, false);
         }
       };
     } else if (ParameterName == "EOUT") {
-      //SendDebug("Received Engine Out: " + ParameterValue);
       if (Engine_Out != ParameterValue) {
-        SendDebug("Transmission Temperature changed");
+        //SendDebug("Transmission Temperature changed");
         Engine_Out = ParameterValue;
-        if ( Engine_Out == "1") {
-          digitalWrite(D_Engine_Out,true);
-        }
-        else {
+        if (Engine_Out == "1") {
+          digitalWrite(D_Engine_Out, true);
+        } else {
           digitalWrite(D_Engine_Out, false);
         }
-
       };
     } else if (ParameterName == "TOPW") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (Trans_Oil_Pressure != ParameterValue) {
-        SendDebug("Transmission Temperature changed");
+        SendDebug("Transmission Pressure changed");
         Trans_Oil_Pressure = ParameterValue;
+        if (Trans_Oil_Pressure == "1") {
+          digitalWrite(D_Trans_Oil_Pressure, true);
+        } else {
+          digitalWrite(D_Trans_Oil_Pressure, false);
+        }
       };
     } else if (ParameterName == "TOTW") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+      SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (Trans_Oil_Temp != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         Trans_Oil_Temp = ParameterValue;
+        if (Trans_Oil_Temp == "1") {
+          digitalWrite(D_Trans_Oil_Temp, true);
+        } else {
+          digitalWrite(D_Trans_Oil_Temp, false);
+        }
       };
     } else if (ParameterName == "BTMP") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (Battery_Temp != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         Battery_Temp = ParameterValue;
+        if (Battery_Temp == "1") {
+          digitalWrite(D_Battery_Temp, true);
+        } else {
+          digitalWrite(D_Battery_Temp, false);
+        }
       };
     } else if (ParameterName == "BHOT") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (Battery_Hot != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         Battery_Hot = ParameterValue;
+        if (Battery_Hot == "1") {
+          digitalWrite(D_Battery_Hot, true);
+        } else {
+          digitalWrite(D_Battery_Hot, false);
+        }
       };
     } else if (ParameterName == "TC") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (Trans_Chip != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         Trans_Chip = ParameterValue;
+        if (Trans_Chip == "1") {
+          digitalWrite(D_Trans_Chip, true);
+        } else {
+          digitalWrite(D_Trans_Chip, false);
+        }
       };
     } else if (ParameterName == "BD") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+
       if (Baggage_Door != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         Baggage_Door = ParameterValue;
+        if (Baggage_Door == "1") {
+          digitalWrite(D_Baggage_Door, true);
+        } else {
+          digitalWrite(D_Baggage_Door, false);
+        }
       };
     } else if (ParameterName == "EC") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
+
       if (Engine_Chip != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         Engine_Chip = ParameterValue;
+        if (Engine_Chip == "1") {
+          digitalWrite(D_Engine_Chip, true);
+        } else {
+          digitalWrite(D_Engine_Chip, false);
+        }
       };
     } else if (ParameterName == "TRC") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (TR_Chip != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         TR_Chip = ParameterValue;
+        if (TR_Chip == "1") {
+          digitalWrite(D_TR_Chip, true);
+        } else {
+          digitalWrite(D_TR_Chip, false);
+        }
       };
     } else if (ParameterName == "FPMP") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (Fuel_Pump != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         Fuel_Pump = ParameterValue;
+        if (Fuel_Pump == "1") {
+          digitalWrite(D_Fuel_Pump, true);
+        } else {
+          digitalWrite(D_Fuel_Pump, false);
+        }
       };
     } else if (ParameterName == "FFLTR") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (AFT_Fuel_Filter != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         AFT_Fuel_Filter = ParameterValue;
+        if (AFT_Fuel_Filter == "1") {
+          digitalWrite(D_AFT_Fuel_Filter, true);
+        } else {
+          digitalWrite(D_AFT_Fuel_Filter, false);
+        }
       };
     } else if (ParameterName == "GENF") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (Gen_Fail != ParameterValue) {
         SendDebug("Transmission Temperature changed");
         Gen_Fail = ParameterValue;
+        if (Gen_Fail == "1") {
+          digitalWrite(D_Gen_Fail, true);
+        } else {
+          digitalWrite(D_Gen_Fail, false);
+        }
       };
     } else if (ParameterName == "LOWF") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (Low_Fuel != ParameterValue) {
-        SendDebug("Transmission Temperature changed");
         Low_Fuel = ParameterValue;
+        if (Low_Fuel == "1") {
+          digitalWrite(D_Low_Fuel, true);
+        } else {
+          digitalWrite(D_Low_Fuel, false);
+        }
       };
     } else if (ParameterName == "SCF") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
       if (SC_Fail != ParameterValue) {
-        SendDebug("Transmission Temperature changed");
         SC_Fail = ParameterValue;
+        if (SC_Fail == "1") {
+          digitalWrite(D_SC_Fail, true);
+        } else {
+          digitalWrite(D_SC_Fail, false);
+        }
       };
     } else if (ParameterName == "NAVCOM1") {
       SendDebug("Received NAVCOM1: " + ParameterValue);
@@ -1157,7 +1204,7 @@ void setup() {
 
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
 
-  // Zero Servos
+    // Zero Servos
     SetOILP(aServZeroPosition[EngOilPressure1]);
     OILP_SERVO.write(aServZeroPosition[EngOilPressure1]);
 
@@ -1166,15 +1213,15 @@ void setup() {
 
     SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
     ENG_TORQUE_SERVO.write(aServZeroPosition[EngTorquePercent1]);
- 
+
     SetAirSpeed(aServZeroPosition[AirSpeed]);
     AIRSPEED_SERVO.write(aServZeroPosition[AirSpeed]);
 
     SetXMSNP(aServZeroPosition[EngTransmissionPressure1]);
-    XMSNP_SERVO.write(aServZeroPosition[EngTransmissionPressure1]);   
+    XMSNP_SERVO.write(aServZeroPosition[EngTransmissionPressure1]);
 
     SetXMSNT(aServZeroPosition[EngTransmissionTemperature1]);
-    XMSNT_SERVO.write(aServZeroPosition[EngTransmissionTemperature1]);   
+    XMSNT_SERVO.write(aServZeroPosition[EngTransmissionTemperature1]);
 
     SetEGT(aServZeroPosition[TurbEngItt1]);
     EGT_SERVO.write(aServZeroPosition[TurbEngItt1]);
@@ -1202,10 +1249,10 @@ void setup() {
 
     SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
     ROLL_SERVO.write(aServZeroPosition[AttitudeIndicatorBankDegrees]);
-  
+
     SetVSI(aServZeroPosition[VerticalSpeed]);
     VSI_SERVO.write(aServZeroPosition[VerticalSpeed]);
-  
+
 
 
 
@@ -1218,12 +1265,12 @@ void setup() {
     for (int i = 100; i >= 0; i--) {
       SetOILP((map(i, 0, 100, long(aServMinPosition[EngOilPressure1]), long(aServMaxPosition[EngOilPressure1]))));
       delay(10);
-    } 
+    }
 
 
     digitalWrite(D_SC_Fail, false);
 
-  
+
 
     // OIL Temp
     SetOILT(aServMinPosition[EngOilTemperature1]);
@@ -1235,10 +1282,10 @@ void setup() {
       SetOILT((map(i, 0, 100, long(aServMinPosition[EngOilTemperature1]), long(aServMaxPosition[EngOilTemperature1]))));
       delay(10);
     }
-    
+
     digitalWrite(D_Low_Fuel, false);
 
-  
+
 
     // Engine Torque
     SetEngineTorque(aServMinPosition[EngTorquePercent1]);
@@ -1252,7 +1299,7 @@ void setup() {
     }
 
     digitalWrite(D_Gen_Fail, false);
-  
+
 
     // Air Speed
     SetAirSpeed(aServMinPosition[AirSpeed]);
@@ -1268,8 +1315,8 @@ void setup() {
     digitalWrite(D_Fuel_Pump, false);
 
 
-  
-  
+
+
 
     // Transmission Pressure
     SetXMSNP(aServMinPosition[EngTransmissionPressure1]);
@@ -1280,7 +1327,7 @@ void setup() {
     for (int i = 100; i >= 0; i--) {
       SetXMSNP((map(i, 0, 100, long(aServMinPosition[EngTransmissionPressure1]), long(aServMaxPosition[EngTransmissionPressure1]))));
       delay(10);
-    } 
+    }
 
     digitalWrite(D_AFT_Fuel_Filter, false);
 
@@ -1293,7 +1340,7 @@ void setup() {
     for (int i = 100; i >= 0; i--) {
       SetXMSNT((map(i, 0, 100, long(aServMinPosition[EngTransmissionTemperature1]), long(aServMaxPosition[EngTransmissionTemperature1]))));
       delay(10);
-    } 
+    }
 
     digitalWrite(D_TR_Chip, false);
 
@@ -1306,14 +1353,14 @@ void setup() {
     for (int i = 100; i >= 0; i--) {
       SetEGT((map(i, 0, 100, long(aServMinPosition[TurbEngItt1]), long(aServMaxPosition[TurbEngItt1]))));
       delay(10);
-    } 
+    }
 
     digitalWrite(D_Baggage_Door, false);
 
 
-  
-  
-  
+
+
+
 
     // Rotor RPM
     SetRPMR(aServMinPosition[RotorRpmPct1]);
@@ -1364,7 +1411,7 @@ void setup() {
     for (int i = 100; i >= 0; i--) {
       SetGAS_PRODUCER((map(i, 0, 100, long(aServMinPosition[TurbEngCorrectedN11]), long(aServMaxPosition[TurbEngCorrectedN11]))));
       delay(10);
-    } 
+    }
 
     digitalWrite(D_Battery_Hot, false);
 
@@ -1381,7 +1428,7 @@ void setup() {
 
 
     digitalWrite(D_Trans_Oil_Temp, false);
-  
+
 
     // Fuel Load
     SetFUEL_LOAD(aServMinPosition[Fuel_Load]);
@@ -1393,7 +1440,7 @@ void setup() {
       SetFUEL_LOAD((map(i, 0, 100, long(aServMinPosition[Fuel_Load]), long(aServMaxPosition[Fuel_Load]))));
       delay(10);
     }
-  
+
 
     digitalWrite(D_Trans_Oil_Pressure, false);
 
@@ -1407,7 +1454,7 @@ void setup() {
     for (int i = 100; i >= 0; i--) {
       SetPITCH((map(i, 0, 100, long(aServMinPosition[AttitudeIndicatorPitchDegrees]), long(aServMaxPosition[AttitudeIndicatorPitchDegrees]))));
       delay(10);
-    } 
+    }
     SetPITCH(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
     // Give the pitch a little time to settle before rolling
     delay(300);
@@ -1423,14 +1470,14 @@ void setup() {
     for (int i = 100; i >= 0; i--) {
       SetROLL((map(i, 0, 100, long(aServMinPosition[AttitudeIndicatorBankDegrees]), long(aServMaxPosition[AttitudeIndicatorBankDegrees]))));
       delay(10);
-    } 
+    }
     SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
 
     digitalWrite(D_Engine_Out, false);
 
 
 
-        // VSI
+    // VSI
     SetVSI(aServMinPosition[VerticalSpeed]);
     for (int i = 0; i <= 100; i++) {
       SetVSI(int(map(i, 0, 100, long(aServMinPosition[VerticalSpeed]), long(aServMaxPosition[VerticalSpeed]))));
@@ -1446,7 +1493,6 @@ void setup() {
       aServoPosition[i] = aServZeroPosition[i];
       aTargetServoPosition[i] = aServZeroPosition[i];
     }
-
   }
 
 
