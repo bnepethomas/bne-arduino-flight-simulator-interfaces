@@ -41,7 +41,7 @@ namespace FSUIPCTest
         private Offset<UInt16> rotorRPM = new Offset<UInt16>(0x0908);
         private Offset<UInt16> engN2= new Offset<UInt16>(0x0896);
 
-        private Offset<UInt16> altitude = new Offset<UInt16>(0x3324);
+        private Offset<Int16> altitude = new Offset<Int16>(0x3324);
         private Offset<int> vSI = new Offset<int>(0x02C8);
         private Offset<uint> radioAltimeter = new Offset<uint>(0x31E4);
 
