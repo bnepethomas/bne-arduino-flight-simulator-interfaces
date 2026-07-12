@@ -34,9 +34,9 @@
               "Title": "Form1.cs",
               "DocumentMoniker": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\SimConnect_to_UDP\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
-              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\SimConnect_to_UDP\\Form1.cs*",
-              "RelativeToolTip": "Form1.cs*",
-              "ViewState": "AgIAAPkEAAAAAAAAAAAAAPwEAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\SimConnect_to_UDP\\Form1.cs",
+              "RelativeToolTip": "Form1.cs",
+              "ViewState": "AgIAAF0GAAAAAAAAAAApwGkGAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-15T00:49:42.091Z",
               "EditorCaption": ""
@@ -51,8 +51,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAJoAAAAAAAAAAAAAAEoAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-15T00:31:44.667Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T00:31:44.667Z"
             },
             {
               "$type": "Document",

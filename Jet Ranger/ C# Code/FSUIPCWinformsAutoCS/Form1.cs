@@ -418,6 +418,9 @@ namespace FSUIPCTest
                 long bits = _annunciators.Value;
                 UpdateLights(bits);
 
+
+                UDP_Playload = "D";
+                CIRCUIT_NAVCOM1_CHANGED_ON = false;
                 // Flag Power is available for guages through Master Electrical Bus 
                 if (mainBusVoltageValue >= 20)
                 {
@@ -686,7 +689,7 @@ namespace FSUIPCTest
             {
                 // An error occured. Tell the user and stop this timer.
                 this.timerMain.Stop();
-                //MessageBox.Show("Communication with FSUIPC Failed\n\n" + ex.Message, "FSUIPC", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Communication with FSUIPC Failed\n\n" + ex.Message, "FSUIPC", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 // Update the connection status
                 configureForm();
                 // start the connection timer

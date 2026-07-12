@@ -101,6 +101,11 @@
             ResumeLayout(false);
             PerformLayout();
 
+            udpClient.Connect("172.16.1.101", 13136);
+            frontPanelClient.Connect("172.16.1.102", 13136);
+            OutputClient.Connect("172.16.1.2", 26028);
+            RadioTimeLastPacketSent = DateTime.Now;
+
         }
 
         #endregion
