@@ -182,10 +182,10 @@ namespace FSUIPCTest
 
         //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT  AGL FLOAD ELOAD
 
-        //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL FLOAD ELOAD
-        long[] ServMinPosition = new long[]  { 173,178,   5, 166, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
-        long[] ServMaxPosition = new long[]  { 10,  14, 179,  70,  23,   6,  37, 740,  44, 175,  51,  30, 34, 128, 168, 222, 167, 46 };
-        long[] ServZeroPosition = new long[] { 173, 93,  91, 113, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
+        //                                    ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP XMNP XMNT AGL FLOAD ELOAD
+        long[] ServMinPosition = new long[]  { 173,178,   5, 166, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 134, 222, 131, 89 };
+        long[] ServMaxPosition = new long[]  { 10,  14, 179,  70,  23,   6,  37, 740,  44, 175,  51,  30, 34, 128, 180, 222, 167, 46 };
+        long[] ServZeroPosition = new long[] { 173, 93,  91, 113, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 134, 222, 131, 89 };
 
 
         long[] ServoPosition = new long[] { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
@@ -561,8 +561,17 @@ namespace FSUIPCTest
                     UDP_Playload = UDP_Playload + ",AMPS:" + ELECTRICAL_TOTAL_LOAD_AMPS;
                 }
                     ;
+                if ( FUEL_LOAD != sFrontPanel.FUEL_PRESSURE.ToString()) ;
+                {
+                    frontPanelDataChanged = true;
+                    FUEL_LOAD = sFrontPanel.FUEL_PRESSURE.ToString();
+                    int a = (int)(sFrontPanel.FUEL_PRESSURE);
+                    UDP_Playload = UDP_Playload + ",FLOAD:" + FLOAD_Process(a).ToString();
+                }
+                    ;
 
-                if (1 + TURB_ENG_ITT_1 != sFrontPanel.TURB_ENG_ITT_1.ToString()) ;
+
+                if (TURB_ENG_ITT_1 != sFrontPanel.TURB_ENG_ITT_1.ToString()) ;
                 {
                     frontPanelDataChanged = true;
                     TURB_ENG_ITT_1 = sFrontPanel.TURB_ENG_ITT_1.ToString();
@@ -933,15 +942,14 @@ namespace FSUIPCTest
 
         private int XMSNP_Process(long newValue)
         {
-            newValue = 150;
-            int mappedvalue = (int)Mapper(newValue, 0, 150,
+
+            int mappedvalue = (int)Mapper(newValue, 0, 110,
                 ServMinPosition[(uint)(Servos.EngTransmissionPressure1)], ServMaxPosition[(uint)(Servos.EngTransmissionPressure1)]);
             return mappedvalue;
         }
         private int XMSNT_Process(long newValue)
         {
-            newValue = 0;
-            int mappedvalue = (int)Mapper(newValue, 0, 150,
+            int mappedvalue = (int)Mapper(newValue, 0, 110,
                 ServMinPosition[(uint)(Servos.EngTransmissionTemperature1)], ServMaxPosition[(uint)(Servos.EngTransmissionTemperature1)]);
             return mappedvalue;
         }
@@ -1012,8 +1020,7 @@ namespace FSUIPCTest
 
         private int ELOAD_Process(long newValue)
         {
-            newValue = newValue * -1;
-            int mappedvalue = (int)Mapper(newValue, 0, 100,
+             int mappedvalue = (int)Mapper(newValue, 0, 100,
                 ServMinPosition[(uint)(Servos.ElectricalLoad)], ServMaxPosition[(uint)(Servos.ElectricalLoad)]);
             return mappedvalue;
         }

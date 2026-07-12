@@ -76,6 +76,7 @@ const unsigned long aliveinterval = 10000;
 long lastalivesent = 0;
 const unsigned long incomingcheckinterval = 5;
 long lastincomingpacketcheck = 0;
+bool servosZeroed = false;
 
 
 #define EthernetStartupDelay 500
@@ -290,10 +291,10 @@ enum Servos {
   Number_of_Servos
 };
 
-//                            ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL FLOAD ELOAD
-int aServMinPosition[] = { 173, 178, 5, 166, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
-int aServMaxPosition[] = { 12, 14, 179, 70, 23, 6, 37, 740, 44, 175, 51, 30, 34, 128, 168, 222, 167, 46 };
-int aServZeroPosition[] = { 173, 93, 91, 113, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 114, 222, 131, 89 };
+//                         ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL FLOAD ELOAD
+int aServMinPosition[] = { 173, 178, 5, 166, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 134, 222, 131, 89 };
+int aServMaxPosition[] = { 12, 14, 179, 70, 23, 6, 37, 740, 44, 175, 51, 30, 34, 128, 180, 222, 167, 46 };
+int aServZeroPosition[] = { 173, 93, 91, 113, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 134, 222, 131, 89 };
 int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
 int aTargetServoPosition[] = { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222, 000, 000 };
 long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
@@ -873,7 +874,7 @@ void HandleOutputValuePair(String str) {
       //SendDebug("Received Engine Torque: " + ParameterValue);
       aTargetServoPosition[EngTorquePercent1] = ParameterValue.toInt();
     } else if (ParameterName == "ITT") {
-      SendDebug("Received Turbine Temperature: " + ParameterValue);
+      //SendDebug("Received Turbine Temperature: " + ParameterValue);
       aTargetServoPosition[TurbEngItt1] = ParameterValue.toInt();
     } else if (ParameterName == "IAS") {
       //SendDebug("Received Air Speed: " + ParameterValue);
@@ -1544,10 +1545,72 @@ void loop() {
         ProcessReceivedMSFSString();
         //SendDebug("Exiting MSFS Processing");
       }
+      lastincomingpacketcheck = millis();
+      servosZeroed = false;
     }
-    lastincomingpacketcheck = millis();
   }
 
+  // if (millis() >= (lastincomingpacketcheck + 5000)) {
+
+  //   if (servosZeroed == false) {
+  //     // No traffic for a while zero the servos and disconnect
+  //     SendDebug("No Packets receives for a while returning to zero position");
+  //     // Zero Servos
+  //   // Zero Servos
+  //   SetOILP(aServZeroPosition[EngOilPressure1]);
+  //   OILP_SERVO.write(aServZeroPosition[EngOilPressure1]);
+
+  //   SetOILT(aServZeroPosition[EngOilTemperature1]);
+  //   OILT_SERVO.write(aServZeroPosition[EngOilTemperature1]);
+
+  //   SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
+  //   ENG_TORQUE_SERVO.write(aServZeroPosition[EngTorquePercent1]);
+
+  //   SetAirSpeed(aServZeroPosition[AirSpeed]);
+  //   AIRSPEED_SERVO.write(aServZeroPosition[AirSpeed]);
+
+  //   SetXMSNP(aServZeroPosition[EngTransmissionPressure1]);
+  //   XMSNP_SERVO.write(aServZeroPosition[EngTransmissionPressure1]);
+
+  //   SetXMSNT(aServZeroPosition[EngTransmissionTemperature1]);
+  //   XMSNT_SERVO.write(aServZeroPosition[EngTransmissionTemperature1]);
+
+  //   SetEGT(aServZeroPosition[TurbEngItt1]);
+  //   EGT_SERVO.write(aServZeroPosition[TurbEngItt1]);
+
+  //   SetRPMR(aServZeroPosition[RotorRpmPct1]);
+  //   RPMR_SERVO.write(aServZeroPosition[RotorRpmPct1]);
+
+  //   SetRPME(aServZeroPosition[GeneralEngPctMaxRpm1]);
+  //   RPME_SERVO.write(aServZeroPosition[GeneralEngPctMaxRpm1]);
+
+  //   SetFUEL(aServZeroPosition[FuelTotalQuantity]);
+  //   FUEL_SERVO.write(aServZeroPosition[FuelTotalQuantity]);
+
+  //   SetGAS_PRODUCER(aServZeroPosition[TurbEngCorrectedN11]);
+  //   GAS_PRODUCER_SERVO.write(aServZeroPosition[TurbEngCorrectedN11]);
+
+  //   SetELEC_LOAD(aServZeroPosition[Electrical_Load]);
+  //   ELEC_LOAD_SERVO.write(aServZeroPosition[Electrical_Load]);
+
+  //   SetFUEL_LOAD(aServZeroPosition[Fuel_Load]);
+  //   FUEL_LOAD_SERVO.write(aServZeroPosition[Fuel_Load]);
+
+  //   SetPITCH(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
+  //   PITCH_SERVO.write(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
+
+  //   SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
+  //   ROLL_SERVO.write(aServZeroPosition[AttitudeIndicatorBankDegrees]);
+
+  //   SetVSI(aServZeroPosition[VerticalSpeed]);
+  //   VSI_SERVO.write(aServZeroPosition[VerticalSpeed]);
+
+  //     setWarningLightAll(false);
+
+  //     servosZeroed = true;
+  //   }
+
+  // }
 
   if ((millis() - lastServoCheck) >= servoCheckInterval) {
     UpdateServoPos();
