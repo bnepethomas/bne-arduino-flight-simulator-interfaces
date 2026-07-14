@@ -1,0 +1,500 @@
+// This is an FSUIPC .evt Simconnect custom event definition file.
+// This file is specifically and only usable for the DodoSim 206 V2.
+// Manual installation:
+// To use, place in{ P3D / FSX } / Modules folder alongside FSUIPC.ini,
+// Add entry to FSUIPC.ini thus:
+// [EventFiles]
+// 0=DodoSim206
+// Automatic installation:
+// If this file has been generated since FSX/P3D was last started, it should be restarted
+before FSUIPC is able to use this file.
+// If this file is new to this directory then FSUIPC will detect it and add it into its .ini
+file the next time it loads.
+//
+// Events will then be listed in FSUPIC along with native sim events and available for
+button/key binding when FSX/P3D is next started.
+// Events ending in _SET require an integer parameter value.
+// Unless specified otherwise, use parameter of 1 for on, 0 for off for _SET events.
+// Events ending in _TRIGGER require no parameter are momentary buttons/switches. The state
+will revert when the event ceases to be received.
+// (Select 'Control to repeat while held' in FSUIPC to cause continued triggering.)
+// Events ending in _TOGGLE require no parameter and will alternate state.
+// Events that do not end in _SET or _TRIGGER are one-shot actions, requiring no parameter and
+no continued triggering while held.
+//
+// Note that since FSUIPC sort these entries internally alphabetically and then indexes as
+such.
+// Therefore, if this file is updated with new events as part of a future upgrade, the indexing inside FSUIPC.ini may become
+// out of step with the entries in this file and you may have to reset and re-map your bindings in order for them to trigger the correct events.
+//
+// Exported from DodoSim 206 V2, V2.0a (Build 11-05-19/1)
+// Copyright©2019 DodoSim. All Rights Reserved.
+[EVENTS]
+// Trigger rotor brake (no parameter)
+1=DS206.ROTOR_BRAKE_LEVER_TRIGGER
+// Set rotor brake % (param value 0 to 100)
+2=DS206.ROTOR_BRAKE_LEVER_SET
+// Press annunciator test button (no parameter)
+3=DS206.ANNUNCIATOR_TEST_BUTTON_TRIGGER
+// Set annunciator test button (param value 0 or 1)
+4=DS206.ANNUNCIATOR_TEST_BUTTON_SET
+// Press warning mute button (no parameter)
+5=DS206.WARNING_MUTE_BUTTON_TRIGGER
+// Set warning mute button (param value 0 or 1)
+6=DS206.WARNING_MUTE_BUTTON_SET
+// Trigger attitude indicator cage button (no parameter)
+7=DS206.AI_CAGE_KNOB_TRIGGER
+// Set attitude indicator cage button (param value 0 or 1)
+8=DS206.AI_CAGE_KNOB_SET
+// Increment AI pitch bars (no parameter)
+9=DS206.AI_PITCH_BARS_UP_TRIGGER
+// Decrement AI pitch bars (no parameter)
+10=DS206.AI_PITCH_BARS_DOWN_TRIGGER
+// Toggle Nav/GPS switch (no parameter)
+11=DS206.GPS_DRIVES_NAV1_SWITCH_TOGGLE
+// Sets Nav/GPS switch (param value 0 or 1)
+12=DS206.GPS_DRIVES_NAV1_SWITCH_SET
+// (no parameter)
+13=DS206.TOT_TEST_BUTTON_TRIGGER
+// Set turbine over temp test button (param value 0 or 1)
+14=DS206.TOT_TEST_BUTTON_SET
+// Press clock OAT button (no parameter)
+15=DS206.CLOCK_OAT_BUTTON
+// Press clock MODE button (no parameter)
+16=DS206.CLOCK_MODE_BUTTON
+// Press clock START/STOP button (no parameter)
+17=DS206.CLOCK_STSP_BUTTON
+// Press to mute radar altimeter audio (no parameter)
+18=DS206.RAD_ALT_MUTE_ALARM_BUTTON
+// Increment radar altimeter bug, (param is multiplier) (param value 1 to 10)
+19=DS206.RAD_ALT_BUG_INC_TRIGGER
+// Decrement radar altimeter bug, (param is multiplier) (param value 1 to 10)
+20=DS206.RAD_ALT_BUG_DEC_TRIGGER
+// Press to test radar altimeter (no parameter)
+21=DS206.RAD_ALT_TEST_BUTTON_TRIGGER
+// Set radar altimeter test button state (param value 0 or 1)
+22=DS206.RAD_ALT_TEST_BUTTON_SET
+// Rotate ADF card clockwise (no parameter)
+23=DS206.ADF_CARD_INC_TRIGGER
+// Rotate ADF card counter-clockwise (no parameter)
+24=DS206.ADF_CARD_DEC_TRIGGER
+// Set fuel valve switch (param value 0 or 1)
+25=DS206.FUEL_VALVE_SWITCH_SET
+// Toggle fuel valve switch (no parameter)
+26=DS206.FUEL_VALVE_SWITCH_TOGGLE
+// Increment altitude indicator Kohlsman setting (no parameter)
+27=DS206.ALTITUDE_KOHLSMAN_INC_TRIGGER
+// Increment VOR1 (HSI) OBS (no parameter)
+28=DS206.HSI_VOR1_OBS_INC_TRIGGER
+// Decrement VOR1 (HSI) OBS (no parameter)
+29=DS206.HSI_VOR1_OBS_DEC_TRIGGER
+// Increment VOR2 OBS (no parameter)
+30=DS206.VOR2_OBS_INC_TRIGGER
+// Decrement VOR2 OBS (no parameter)
+31=DS206.VOR2_OBS_DEC_TRIGGER
+// Increment HSI heading bug (no parameter)
+32=DS206.HSI_HDG_BUG_INC_TRIGGER
+// Decrement HSI heading bug (no parameter)
+33=DS206.HSI_HDG_BUG_DEC_TRIGGER
+// Toggle crew headphones mode (no parameter)
+34=DS206.CREW_HEADPHONES_TOGGLE
+// Set crew headphones mode (param value 0 or 1)
+35=DS206.CREW_HEADPHONES_SET
+// Toggle hoist power breaker (no parameter)
+36=DS206.HOIST_POWER_CB_TOGGLE
+// Set hoist power breaker (param value 0 or 1)
+37=DS206.HOIST_POWER_CB_SET
+// Toggle cable cut breaker (no parameter)
+38=DS206.CABLE_CUT_CB_TOGGLE
+// Set cable cut breaker (param value 0 or 1)
+39=DS206.CABLE_CUT_CB_SET
+// Toggle turn indicator breaker (no parameter)
+40=DS206.TURN_IND_CB_TOGGLE
+// Set turn indicator breaker (param value 0 or 1)
+41=DS206.TURN_IND_CB_SET
+// Toggle DME breaker (no parameter)
+42=DS206.DME_CB_TOGGLE
+// Set DME breaker (param value 0 or 1)
+43=DS206.DME_CB_SET
+// Toggle Transponder breaker (no parameter)
+44=DS206.XPNDR_CB_TOGGLE
+// Set Transponder breaker (param value 0 or 1)
+45=DS206.XPNDR_CB_SET
+// Toggle VHF 2 radio speaker breaker (no parameter)
+46=DS206.VHF2_CB_TOGGLE
+// Set VHF 2 radio speaker breaker (param value 0 or 1)
+47=DS206.VHF2_CB_SET
+// Toggle GPS breaker (no parameter)
+48=DS206.GPS_CB_TOGGLE
+// Set GPS breaker (param value 0 or 1)
+49=DS206.GPS_CB_SET
+// Toggle ADF breaker (no parameter)
+50=DS206.ADF_CB_TOGGLE
+// Set ADF breaker (param value 0 or 1)
+51=DS206.ADF_CB_SET
+// Toggle intercom speaker breaker (no parameter)
+52=DS206.ICS_SPKR_CB_TOGGLE
+// Set intercom speaker breaker (param value 0 or 1)
+53=DS206.ICS_SPKR_CB_SET
+// Toggle VHF 1 radio speaker breaker (no parameter)
+54=DS206.VHF1_CB_TOGGLE
+// Set VHF 1 radio speaker breaker (param value 0 or 1)
+55=DS206.VHF1_CB_SET
+// Toggle cargo hook breaker (no parameter)
+56=DS206.CARGO_HOOK_CB_TOGGLE
+// Set cargo hook breaker (param value 0 or 1)
+57=DS206.CARGO_HOOK_CB_SET
+// Toggle heater control breaker (no parameter)
+58=DS206.HTR_CTRL_CB_TOGGLE
+// Set heater control breaker (param value 0 or 1)
+59=DS206.HTR_CTRL_CB_SET
+// Toggle heater power breaker (no parameter)
+60=DS206.HTR_PWR_CB_TOGGLE
+// Set heater power breaker (param value 0 or 1)
+61=DS206.HTR_PWR_CB_SET
+// Toggle SAS power breaker (no parameter)
+62=DS206.SAS_CONT_CB_TOGGLE
+// Set SAS power breaker (param value 0 or 1)
+63=DS206.SAS_CONT_CB_SET
+// Toggle SAS inverter breaker (no parameter)
+64=DS206.SAS_INVTR_CB_TOGGLE
+// Set SAS inverter breaker (param value 0 or 1)
+65=DS206.SAS_INVTR_CB_SET
+// Toggle landing light breaker (no parameter)
+66=DS206.LDG_LT_CB_TOGGLE
+// Set landing light breaker (param value 0 or 1)
+67=DS206.LDG_LT_CB_SET
+// Toggle instrument light breaker (no parameter)
+68=DS206.COCKPIT_LT_CB_TOGGLE
+// Set instrument light breaker (param value 0 or 1)
+69=DS206.INST_LT_CB_SET
+// Toggle cockpit light breaker (no parameter)
+70=DS206.COCKPIT_LT_CB_SET
+// Set cockpit light breaker (param value 0 or 1)
+71=DS206.INST_LT_CB_SET
+// Toggle caution light breaker (no parameter)
+72=DS206.CAUTION_LT_CB_TOGGLE
+// Set caution light breaker (param value 0 or 1)
+73=DS206.CAUTION_LT_CB_SET
+// Toggle turbine-over-temp light breaker (no parameter)
+74=DS206.TOT_IND_CB_TOGGLE
+// Set turbine-over-temp light breaker (param value 0 or 1)
+75=DS206.TOT_IND_CB_SET
+// Toggle aft fuel pump breaker (no parameter)
+76=DS206.AFT_FUEL_PUMP_CB_TOGGLE
+// Set aft fuel pump breaker (param value 0 or 1)
+77=DS206.AFT_FUEL_PUMP_CB_SET
+// Toggle fore fuel pump breaker (no parameter)
+78=DS206.FORE_FUEL_PUMP_CB_TOGGLE
+// Set fore fuel pump breaker (param value 0 or 1)
+79=DS206.FORE_FUEL_PUMP_CB_SET
+// Toggle fuel quantity gauge breaker (no parameter)
+80=DS206.FUEL_QTY_CB_TOGGLE
+// Set fuel quantity gauge breaker (param value 0 or 1)
+81=DS206.FUEL_QTY_CB_SET
+// Toggle fuel valve gauge breaker (no parameter)
+82=DS206.FUEL_VALVE_CB_TOGGLE
+// Set fuel valve gauge breaker (param value 0 or 1)
+83=DS206.FUEL_VALVE_CB_SET
+// Toggle engine and transmission temp breaker (no parameter)
+84=DS206.ENG_XMSN_TEMP_CB_TOGGLE
+// Set engine and transmission temp breaker (param value 0 or 1)
+85=DS206.ENG_XMSN_TEMP_CB_SET
+// Toggle hydraulics boost breaker (no parameter)
+86=DS206.HYD_BOOST_CB_TOGGLE
+// Set hydraulics boost breaker (param value 0 or 1)
+87=DS206.HYD_BOOST_CB_SET
+// Toggle governor control breaker (no parameter)
+88=DS206.GOV_CONT_CB_TOGGLE
+// Set governor control breaker (param value 0 or 1)
+89=DS206.GOV_CONT_CB_SET
+// Toggle ignition breaker (no parameter)
+90=DS206.IGN_ENG_CB_TOGGLE
+// Set ignition breaker (param value 0 or 1)
+91=DS206.IGN_ENG_CB_SET
+// Toggle starter breaker (no parameter)
+92=DS206.START_ENG_CB_TOGGLE
+// Set starter breaker (param value 0 or 1)
+93=DS206.START_ENG_CB_SET
+// Toggle engine anti-icing heater breaker (no parameter)
+94=DS206.ENG_ANTI_ICE_CB_TOGGLE
+// Set engine anti-icing heater breaker (param value 0 or 1)
+95=DS206.ENG_ANTI_ICE_CB_SET
+// Toggle anti-collision lights (no parameter)
+96=DS206.COLLISION_LIGHTS_TOGGLE
+// Set anti-collision lights (param value 0 or 1)
+97=DS206.COLLISION_LIGHTS_SET
+// Toggle panel lights (no parameter)
+98=DS206.PANEL_LIGHTS_SWITCH_TOGGLE
+// Set panel lights (param value 0 or 1)
+99=DS206.PANEL_LIGHTS_SWITCH_SET
+// Toggle position lights (no parameter)
+100=DS206.POSITION_LIGHTS_TOGGLE
+// Set navigation (position) lights switch (param value 0 or 1)
+101=DS206.POSITION_LIGHTS_SET
+// Set difficulty rotary (param value 1 to 5)
+102=DS206.DIFFICULTY_LEVEL_ROTARY_SET
+// Inc difficulty rotary (no parameter)
+103=DS206.DIFFICULTY_LEVEL_ROTARY_INC
+// Dec difficulty rotary (no parameter)
+104=DS206.DIFFICULTY_LEVEL_ROTARY_DEC
+// Set heat/vent switch (param value 0 to 2)
+105=DS206.HEAT_VENT_SWITCH_SET
+// cycle heat/vent switch up (no parameter)
+106=DS206.HEAT_VENT_SWITCH_CYCLE
+// Toggle generator field breaker (no parameter)
+107=DS206.GENERATOR_FIELD_CB_TOGGLE
+// Toggle generator field breaker (param value 0 or 1)
+108=DS206.GENERATOR_FIELD_CB_SET
+// (no parameter)
+109=DS206.GENERATOR_RESET_CB_TOGGLE
+// Set generator reset breaker (param value 0 or 1)
+110=DS206.GENERATOR_RESET_CB_SET
+// Toggle directional gyro switch (no parameter)
+111=DS206.DIR_GYRO_SWITCH_TOGGLE
+// Set directional gyro switch (param value 0 or 1)
+112=DS206.DIR_GYRO_SWITCH_SET
+// Toggle pitot heating switch (no parameter)
+113=DS206.PITOT_HEAT_SWITCH_TOGGLE
+// Set pitot heating switch (param value 0 or 1)
+114=DS206.PITOT_HEAT_SWITCH_SET
+// Toggle master avionics switch (no parameter)
+115=DS206.AVIONICS_SWITCH_TOGGLE
+// Set master avionics switch (param value 0 or 1)
+116=DS206.AVIONICS_SWITCH_SET
+// Toggle master battery switch (no parameter)
+117=DS206.BATTERY_SWITCH_TOGGLE
+// Set master battery switch (param value 0 or 1)
+118=DS206.BATTERY_SWITCH_SET
+// Toggle generator switch (no parameter)
+119=DS206.GENERATOR_SWITCH_TOGGLE
+// Set generator switch (param value 0 or 1)
+120=DS206.GENERATOR_SWITCH_SET
+// (no parameter)
+121=DS206.CABIN_LIGHTS_SWITCH_TOGGLE
+// Set cockpit lights switch (param value 0 or 1)
+122=DS206.CABIN_LIGHTS_SWITCH_SET
+// Toggle engage/disengage SAS master mode (no parameter)
+123=DS206.SAS_MASTER_MODE_BUTTON
+// Toggle to engage/disengage SAS heading mode (no parameter)
+124=DS206.SAS_HDG_MODE_BUTTON
+// Toggle to engage/disengage SAS navigation mode (no parameter)
+125=DS206.SAS_NAV_MODE_BUTTON
+// Toggle to engage/disengage SAS speed mode (no parameter)
+126=DS206.SAS_SPD_MODE_BUTTON
+// Toggle to engage/disengage SAS altitude mode (no parameter)
+127=DS206.SAS_ALT_MODE_BUTTON
+// Toggle to engage/disengage SAS vertical approach mode (no parameter)
+128=DS206.SAS_VRT_MODE_BUTTON
+// Select Com 1 for transmit (no parameter)
+129=DS206.COM1_TX_SELECT_BUTTON
+// Select Com 2 for transmit (no parameter)
+130=DS206.COM2_TX_SELECT_BUTTON
+// Select both Com 1 and Com 2 for receive (no parameter)
+131=DS206.COM_RECEIVE_ALL_BUTTON
+// Set nav 1 ident sound switch (param value 0 or 1)
+132=DS206.NAV1_IDENT_SOUND_SWITCH_SET
+Toggle nav 1 sound switch (no parameter)
+133=DS206.NAV1_IDENT_SOUND_SWITCH_TOGGLE
+// Set nav 2 ident sound switch (param value 0 or 1)
+134=DS206.NAV2_IDENT_SOUND_SWITCH_SET
+// Toggle nav 2 sound switch (no parameter)
+135=DS206.NAV2_IDENT_SOUND_SWITCH_TOGGLE
+// Toggle ADF Id audio (no parameter)
+136=DS206.ADF_IDENT_SOUND_BUTTON
+// Toggle marker ident audio (no parameter)
+137=DS206.MARKER_IDENT_SOUND_BUTTON
+// Toggle speaker ident audio (no parameter)
+138=DS206.SPEAKER_IDENT_SOUND_BUTTON
+// Toggle DME Id audio (no parameter)
+139=DS206.DME_IDENT_SOUND_BUTTON
+// Swap com 1 active/standby frequency (no parameter)
+140=DS206.COM1_FREQ_SWAP_BUTTON
+// Swap nav 1 active/standby frequency (no parameter)
+141=DS206.NAV1_FREQ_SWAP_BUTTON
+// Swap com 2 active/standby frequency (no parameter)
+142=DS206.COM2_FREQ_SWAP_BUTTON
+// Swap nav 2 active/standby frequency (no parameter)
+143=DS206.NAV2_FREQ_SWAP_BUTTON
+// Com 1 frequency increment whole (no parameter)
+144=DS206.COM1_INC_WHOLE_TRIGGER
+// Com 1 frequency increment fraction (no parameter)
+145=DS206.COM1_INC_FRACT_TRIGGER
+// Com 1 frequency decrement whole (no parameter)
+146=DS206.COM1_DEC_WHOLE_TRIGGER
+// Com 1 frequency decrement fraction (no parameter)
+147=DS206.COM1_DEC_FRACT_TRIGGER
+// Nav 1 frequency increment whole (no parameter)
+148=DS206.NAV1_INC_WHOLE_TRIGGER
+// Nav 1 frequency increment fraction (no parameter)
+149=DS206.NAV1_INC_FRACT_TRIGGER
+// Nav 1 frequency decrement whole (no parameter)
+150=DS206.NAV1_DEC_WHOLE_TRIGGER
+// Nav 1 frequency decrement fraction (no parameter)
+151=DS206.NAV1_DEC_FRACT_TRIGGER
+// Com 2 frequency increment whole (no parameter)
+152=DS206.COM2_INC_WHOLE_TRIGGER
+// Com 2 frequency increment fraction (no parameter)
+153=DS206.COM2_INC_FRACT_TRIGGER
+// Com 2 frequency decrement whole (no parameter)
+154=DS206.COM2_DEC_WHOLE_TRIGGER
+// Com 2 frequency decrement fraction (no parameter)
+155=DS206.COM2_DEC_FRACT_TRIGGER
+// Nav 2 frequency increment whole (no parameter)
+156=DS206.NAV2_INC_WHOLE_TRIGGER
+// Nav 2 frequency increment fraction (no parameter)
+157=DS206.NAV2_INC_FRACT_TRIGGER
+// Nav 2 frequency decrement whole (no parameter)
+158=DS206.NAV2_DEC_WHOLE_TRIGGER
+// Nav 2 frequency decrement fraction (no parameter)
+159=DS206.NAV2_DEC_FRACT_TRIGGER
+// Com 1 frequency decrement with carry (no parameter)
+160=DS206.COM1_DEC_FRACT_CARRY_TRIGGER
+// Com 1 frequency increment with carry (no parameter)
+161=DS206.COM1_INC_FRACT_CARRY_TRIGGER
+// Toggle com 1 power switch (no parameter)
+162=DS206.COM1_POWER_SWITCH_TOGGLE
+// Set com 1 power switch (param value 0 or 1)
+163=DS206.COM1_POWER_SWITCH_SET
+// Com 2 frequency decrement with carry (no parameter)
+164=DS206.COM2_DEC_FRACT_CARRY_TRIGGER
+// Com 2 frequency increment with carry (no parameter)
+165=DS206.COM2_INC_FRACT_CARRY_TRIGGER
+// Toggle com 2 power switch (no parameter)
+166=DS206.COM2_POWER_SWITCH_TOGGLE
+// Set com 2 power switch (param value 0 or 1)
+167=DS206.COM2_POWER_SWITCH_SET
+// Nav 1 frequency decrement with carry (no parameter)
+168=DS206.NAV1_DEC_FRACT_CARRY_TRIGGER
+// Nav 1 frequency increment with carry (no parameter)
+169=DS206.NAV1_INC_FRACT_CARRY_TRIGGER
+// Nav 2 frequency decrement with carry (no parameter)
+170=DS206.NAV2_DEC_FRACT_CARRY_TRIGGER
+// Nav 2 frequency increment with carry (no parameter)
+171=DS206.NAV2_INC_FRACT_CARRY_TRIGGER
+// Start/stop ADF flight timer (no cockpit switch) (param value 0 or 1)
+172=DS206.ADF_FLT_TIMER_START_STOP_SET
+// Toggle ADF flight timer (no cockpit switch) (no parameter)
+173=DS206.ADF_FLT_TIMER_START_STOP_TOGGLE
+// Press ADF ADF/ANT button (no parameter)
+174=DS206.ADF_ADF_ANT_BUTTON
+// Press ADF BFO button (no parameter)
+175=DS206.ADF_BFO_BUTTON
+// Press ADF FREQ button (no parameter)
+176=DS206.ADF_FREQ_BUTTON
+// Press ADF FLT/ET button (no parameter)
+177=DS206.ADF_FLT_ET_BUTTON
+// Press/hold ADF SET/RESET button (no parameter)
+178=DS206.ADF_SET_RESET_BUTTON_SET_TRIGGER
+// Toggle ADF power switch (no parameter)
+179=DS206.ADF_POWER_SWITCH_TOGGLE
+// Set ADF power switch (param value 0 or 1)
+180=DS206.ADF_POWER_SWITCH_SET
+// Set ADF rotary decimal input mode (param value 0 or 1)
+181=DS206.ADF_INPUT_ROTARY_MODE_SET
+// Toggle ADF rotary decimal input mode (no parameter)
+182=DS206.ADF_INPUT_ROTARY_MODE_TOGGLE
+// Increment ADF rotary inner (no parameter)
+183=DS206.ADF_INC_ROTARY_INNER_TRIGGER
+// Decrement ADF rotary inner (no parameter)
+184=DS206.ADF_DEC_ROTARY_INNER_TRIGGER
+// Increment ADF rotary outer (no parameter)
+185=DS206.ADF_INC_ROTARY_OUTER_TRIGGER
+// Decrement ADF rotary outer (no parameter)
+186=DS206.ADF_DEC_ROTARY_OUTER_TRIGGER
+// Toggle DME power switch (no parameter)
+187=DS206.DME_POWER_SWITCH_TOGGLE
+// Set DME power switch (param value 0 or 1)
+188=DS206.DME_POWER_SWITCH_SET
+// Toggle DME nav radio input channel switch (no parameter)
+189=DS206.DME_CHANNEL_SWITCH_SET
+// Set DME nav radio input channel switch (param value 1 or 2)
+190=DS206.DME_CHANNEL_SWITCH_TOGGLE
+// Set DME mode switch (param value 0 to 2)
+191=DS206.DME_MODE_SWITCH_SET
+// Cycle DME mode switch (no parameter)
+192=DS206.DME_MODE_SWITCH_CYCLE
+// Turn Xpndr knob anti-clockwise (no parameter)
+193=DS206.XPNDR_KNOB_LEFT
+// Turn Xpndr knob clockwise (no parameter)
+194=DS206.XPNDR_KNOB_RIGHT
+// Set Xpndr knob position (param value 0 to 4)
+195=DS206.XPNDR_KNOB_SET
+// Cycle Xpndr knob position (no parameter)
+196=DS206.XPNDR_KNOB_CYCLE
+// Press Xpndr IDT button (no parameter)
+197=DS206.XPNDR_IDT_BUTTON
+// Press Xpndr 0 button (no parameter)
+198=DS206.XPNDR_0_BUTTON
+// Press Xpndr 1 button (no parameter)
+199=DS206.XPNDR_1_BUTTON
+// Press Xpndr 2 button (no parameter)
+200=DS206.XPNDR_2_BUTTON
+// Press Xpndr 3 button (no parameter)
+201=DS206.XPNDR_3_BUTTON
+// Press Xpndr 4 button (no parameter)
+202=DS206.XPNDR_4_BUTTON
+// Press Xpndr 5 button (no parameter)
+203=DS206.XPNDR_5_BUTTON
+// Press Xpndr 6 button (no parameter)
+204=DS206.XPNDR_6_BUTTON
+// Press Xpndr CLR button (no parameter)
+205=DS206.XPNDR_CLR_BUTTON
+// Press Xpndr VFR button (no parameter)
+206=DS206.XPNDR_VFR_BUTTON
+// Toggle inlet bypass switch (no parameter)
+207=DS206.INLET_BYPASS_SWITCH_TOGGLE
+// Set inlet bypass switch (param value 0 or 1)
+208=DS206.INLET_BYPASS_SWITCH_SET
+// Toggle caution light brightness switch (no parameter)
+209=DS206.CAUTION_LIGHT_SWITCH_TOGGLE
+// Set caution light brightness switch (param value 0 or 1)
+210=DS206.CAUTION_LIGHT_SWITCH_SET
+// Toggle anti-icing switch (no parameter)
+211=DS206.ANTI_ICE_SWITCH_TOGGLE
+// Set anti-icing switch (param value 0 or 1)
+212=DS206.ANTI_ICE_SWITCH_SET
+// Toggle hydraulics switch (no parameter)
+213=DS206.HYDRAULICS_SWITCH_TOGGLE
+// Set hydraulics switch (param value 0 or 1)
+214=DS206.HYDRAULICS_SWITCH_SET
+// Set force trim button/set new SAS attitude (param value 0 or 1)
+215=DS206.CYCLIC_TRIM_SAS_BUTTON_SET
+// Press force trim button/set new SAS attitude (no parameter)
+216=DS206.CYCLIC_TRIM_SAS_BUTTON_TRIGGER
+// Nudge force trim left (param value 0 to 10)
+217=DS206.CYCLIC_TRIM_LEFT_TRIGGER
+// Nudge force trim right (param value 0 to 10)
+218=DS206.CYCLIC_TRIM_RIGHT_TRIGGER
+// Nudge force trim forward (param value 0 to 10)
+219=DS206.CYCLIC_TRIM_FWD_TRIGGER
+// Nudge force trim aftward (param value 0 to 10)
+220=DS206.CYCLIC_TRIM_BACK_TRIGGER
+// Trigger reset force trim deflection (no parameter)
+221=DS206.CYCLIC_TRIM_SAS_RESET
+// Press to disconnect SAS (no parameter)
+222=DS206.SAS_DISCONNECT
+// Calibrate cyclic centre position (no parameter)
+223=DS206.CALIBRATE_CYCLIC_CENTRE
+// Cycle landing and taxi light switch (no parameter)
+224=DS206.LANDING_LIGHTS_SWITCH_CYCLE
+// Nudge landing and taxi light switch up (no parameter)
+225=DS206.LANDING_LIGHTS_SWITCH_UP
+// Nudge landing and taxi light switch down (no parameter)
+226=DS206.LANDING_LIGHTS_SWITCH_DOWN
+// Set landing light switch (param value 0 to 2)
+227=DS206.LANDING_LIGHT_SWITCH_SET
+// Trigger idle release latch (no parameter)
+228=DS206.IDLE_RELEASE_LATCH_TRIGGER
+// Press starter button (no parameter)
+229=DS206.STARTER_BUTTON_TRIGGER
+// Set starter button (param value 0 or 1)
+230=DS206.STARTER_BUTTON_SET
+// Inc engine governor (no parameter)
+231=DS206.GOV_BEEP_UP_SWITCH_TRIGGER
+// Dec engine governor (no parameter)
+232=DS206.GOV_BEEP_DOWN_SWITCH_TRIGGER
+// Toggle external power (no parameter)
+233=DS206.EXTERNAL_POWER_TOGGLE
+// Set external power (param value 0 or 1)
+234=DS206.EXTERNAL_POWER_SET
