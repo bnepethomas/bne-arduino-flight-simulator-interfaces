@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("cmdlineWarningMute")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+606f2e6c7d4f6039043612cc56941fdccf573ed2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e1f0357b360f8be3e6734dd6a68b5c729aa6cf2c")]
 [assembly: System.Reflection.AssemblyProductAttribute("cmdlineWarningMute")]
 [assembly: System.Reflection.AssemblyTitleAttribute("cmdlineWarningMute")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

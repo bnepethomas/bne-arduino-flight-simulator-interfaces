@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\cmdlineWarningMute\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F29C1DF7-1C90-467E-8CF1-0EF59185A36F}|cmdlineWarningMute.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\ c# code\\cmdlinewarningmute\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F29C1DF7-1C90-467E-8CF1-0EF59185A36F}|cmdlineWarningMute.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FB1F6A24-9780-C4D2-F0A4-32E09552763E}|cmdlineWarningMute.csproj|c:\\users\\admin\\bne-arduino-flight-simulator-interfaces\\jet ranger\\ c# code\\cmdlinewarningmute\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB1F6A24-9780-C4D2-F0A4-32E09552763E}|cmdlineWarningMute.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,11 +14,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
@@ -28,7 +32,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\cmdlineWarningMute\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAIwBgAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwAoAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-16T19:25:14.073Z",
               "EditorCaption": ""

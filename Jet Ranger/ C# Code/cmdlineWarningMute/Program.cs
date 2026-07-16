@@ -1,16 +1,14 @@
 ﻿using System;
-using FSUIPC; // Paul Henty's FSUIPCClient.dll (NuGet: FSUIPCClient)
+using FSUIPC;
 
 namespace DS206EventTrigger
 {
     class Program
     {
-        // Offsets FSUIPC uses to accept an FS control / custom event trigger
         private static readonly Offset<uint> ControlNumber = new Offset<uint>(0x3110);
         private static readonly Offset<int> ControlParam = new Offset<int>(0x3114);
 
-        // Confirmed via FSUIPC6.log: "FS Control Sent: Ctrl=32888 :DS206.GENERATOR_SWITCH_SET"
-        private const uint GENERATOR_SWITCH_SET_ID = 32888; // 0x00008078
+        private const uint GENERATOR_SWITCH_SET_ID = 32884; // confirmed via FSUIPC6.log
 
         static void Main(string[] args)
         {
@@ -21,9 +19,12 @@ namespace DS206EventTrigger
                 Log($"Connected. FSUIPC version: {FSUIPCConnection.FSUIPCVersion}, " +
                     $"Sim: {FSUIPCConnection.FlightSimVersionConnected}");
 
-                // Param 0 = off (per your file's comment: "param value 0 or 1")
-                SetCustomEvent(GENERATOR_SWITCH_SET_ID, 1);
+                SetCustomEvent(GENERATOR_SWITCH_SET_ID, 0);
+                Log("Generator switch set to ON.");
 
+                System.Threading.Thread.Sleep(2000);
+
+                SetCustomEvent(GENERATOR_SWITCH_SET_ID, 1);
                 Log("Generator switch set to OFF.");
             }
             catch (FSUIPCException ex)
@@ -39,13 +40,18 @@ namespace DS206EventTrigger
 
         static void SetCustomEvent(uint controlId, int param)
         {
-            Log($"--- Sending control {controlId} (0x{controlId:X4}) with param={param} ---");
+            Log($"--- Sending control {controlId} with param={param} ---");
 
+            // Write param FIRST and flush it on its own — guarantees it lands
+            // before the control number is written in a separate IPC call.
             ControlParam.Value = param;
-            ControlNumber.Value = controlId;
-
             FSUIPCConnection.Process();
-            Log("  Process() returned successfully — write reached FSUIPC.");
+            Log($"  Param {param} written and flushed to offset 0x3114.");
+
+            // Now trigger the control in its own call.
+            ControlNumber.Value = controlId;
+            FSUIPCConnection.Process();
+            Log($"  Control {controlId} written and flushed to offset 0x3110 — should fire now.");
         }
 
         static void Log(string message)
