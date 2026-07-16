@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "dgSpecHash": "8Q5Haueo7Fw=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\cmdlineWarningMute\\cmdlineWarningMute.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\admin\\.nuget\\packages\\fsuipcclientdll\\3.3.16\\fsuipcclientdll.3.3.16.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\protobuf-net\\3.2.45\\protobuf-net.3.2.45.nupkg.sha512",
+    "C:\\Users\\admin\\.nuget\\packages\\protobuf-net.core\\3.2.45\\protobuf-net.core.3.2.45.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "message": "Package 'FSUIPCClientDLL 3.3.16' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net10.0'. This package may not be fully compatible with your project.",
+      "projectPath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\cmdlineWarningMute\\cmdlineWarningMute.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\admin\\bne-arduino-flight-simulator-interfaces\\Jet Ranger\\ C# Code\\cmdlineWarningMute\\cmdlineWarningMute.csproj",
+      "libraryId": "FSUIPCClientDLL",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
+}

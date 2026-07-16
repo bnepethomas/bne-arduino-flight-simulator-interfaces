@@ -1,0 +1,77 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "cmdlineWarningMute/1.0.0": {
+        "dependencies": {
+          "FSUIPCClientDLL": "3.3.16"
+        },
+        "runtime": {
+          "cmdlineWarningMute.dll": {}
+        }
+      },
+      "FSUIPCClientDLL/3.3.16": {
+        "dependencies": {
+          "protobuf-net": "3.2.45"
+        },
+        "runtime": {
+          "lib/net462/fsuipcClient.dll": {
+            "assemblyVersion": "3.3.16.420",
+            "fileVersion": "3.3.16.420"
+          }
+        }
+      },
+      "protobuf-net/3.2.45": {
+        "dependencies": {
+          "protobuf-net.Core": "3.2.45"
+        },
+        "runtime": {
+          "lib/net6.0/protobuf-net.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.2.45.36865"
+          }
+        }
+      },
+      "protobuf-net.Core/3.2.45": {
+        "runtime": {
+          "lib/net6.0/protobuf-net.Core.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.2.45.36865"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "cmdlineWarningMute/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "FSUIPCClientDLL/3.3.16": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-veXGqMhLOWs5Nmva82zSSTR3E6pRcthp2mfiyaz+o8OpYbjVznBU84zxsyTQiOkkLKC5Sq8l0fKhfdIOclJNRQ==",
+      "path": "fsuipcclientdll/3.3.16",
+      "hashPath": "fsuipcclientdll.3.3.16.nupkg.sha512"
+    },
+    "protobuf-net/3.2.45": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-5UZ/ukUHcGbFSl7vNMrHsfjqdxusdd9w7w0fCEXzf3UUtsrGNVCzV5SmF+sCHAbnRV2qPcD1ixiDP7Aj8lX/HA==",
+      "path": "protobuf-net/3.2.45",
+      "hashPath": "protobuf-net.3.2.45.nupkg.sha512"
+    },
+    "protobuf-net.Core/3.2.45": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PMWatW2NrT1uTXD7etJ4VdQ0wWZLFrIfdRGppD2QX7nzZ0+kIzqhq551u6ZiXJHWJgG4hWFEkSnUnt2aB6posg==",
+      "path": "protobuf-net.core/3.2.45",
+      "hashPath": "protobuf-net.core.3.2.45.nupkg.sha512"
+    }
+  }
+}
