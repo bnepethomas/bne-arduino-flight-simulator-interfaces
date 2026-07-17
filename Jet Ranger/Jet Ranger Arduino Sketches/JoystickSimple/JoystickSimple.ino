@@ -35,6 +35,12 @@ IPAddress logHost(172, 16, 1, 10);
 unsigned int logPort = 27000;
 EthernetUDP LogUdp;
 
+// --- Heartbeat / keepalive target (JetRangerHealthMonitor) ---
+unsigned int aliveport = 13137;
+EthernetUDP aliveudp;
+const unsigned long aliveinterval = 10000;
+unsigned long lastalivesent = 0;
+
 // Helper: convert IPAddress to a printable String
 String ipToString(IPAddress addr) {
   return String(addr[0]) + "." + String(addr[1]) + "." + String(addr[2]) + "." + String(addr[3]);
@@ -56,11 +62,20 @@ void setup() {
 
   Udp.begin(localPort);
   LogUdp.begin(logPort); // local port for the logging socket (can reuse or pick another)
+  aliveudp.begin(aliveport);
 
   logMsg("Joystick controller booted. IP=" + ipToString(ip) + " listening on port " + String(localPort));
 }
 
 void loop() {
+  // --- Heartbeat to JetRangerHealthMonitor ---
+  if ((millis() - lastalivesent) >= aliveinterval) {
+    aliveudp.beginPacket(logHost, aliveport);
+    aliveudp.print("JOYSTICK");
+    aliveudp.endPacket();
+    lastalivesent = millis();
+  }
+
   // --- Local physical button (Button 0) ---
   int currentState = digitalRead(buttonPin);
   if (currentState != lastLocalState) {
