@@ -35,6 +35,7 @@
             cmdToggleLogs = new Button();
             lblServo = new Label();
             lblJoyStick = new Label();
+            lblUpperInput = new Label();
             SuspendLayout();
             // 
             // listBoxLogs
@@ -94,12 +95,24 @@
             lblJoyStick.Size = new Size(48, 15);
             lblJoyStick.TabIndex = 4;
             lblJoyStick.Text = "Joystick";
-            // 
+            //
+            // lblUpperInput
+            //
+            lblUpperInput.AutoSize = true;
+            lblUpperInput.BackColor = Color.White;
+            lblUpperInput.ForeColor = SystemColors.ControlText;
+            lblUpperInput.Location = new Point(186, 9);
+            lblUpperInput.Name = "lblUpperInput";
+            lblUpperInput.Size = new Size(72, 15);
+            lblUpperInput.TabIndex = 5;
+            lblUpperInput.Text = "Upper Input";
+            //
             // frmMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(465, 282);
+            Controls.Add(lblUpperInput);
             Controls.Add(lblJoyStick);
             Controls.Add(lblServo);
             Controls.Add(cmdToggleLogs);
@@ -120,5 +133,6 @@
         private Button cmdToggleLogs;
         private Label lblServo;
         private Label lblJoyStick;
+        private Label lblUpperInput;
     }
 }

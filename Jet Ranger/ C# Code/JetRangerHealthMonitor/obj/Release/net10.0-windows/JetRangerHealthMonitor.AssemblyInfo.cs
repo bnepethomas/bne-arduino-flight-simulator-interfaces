@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JetRangerHealthMonitor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c99c6f93f38c385f815126753a7121a93941ed85")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c516fc79946d62b9d0128d387f68fbefff95c28d")]
 [assembly: System.Reflection.AssemblyProductAttribute("JetRangerHealthMonitor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("JetRangerHealthMonitor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

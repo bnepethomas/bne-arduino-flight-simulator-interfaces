@@ -46,17 +46,26 @@ String strMyIP = "172.16.1.101";
 IPAddress reflectorIP(172, 16, 1, 10);
 String strreflectorIP = "X.X.X.X";
 
+// UDP_TO_HID board - receives button presses from the large row/column matrix
+IPAddress hidIP(172, 16, 1, 11);
+const unsigned int hidPort = 4210;
+
 
 
 
 const unsigned int localport = 7788;
 const unsigned int reflectorport = 27000;
+const unsigned int aliveport = 13137;
 
 
 int packetSize;
 int debugLen;
 EthernetUDP udp;
 EthernetUDP debugUDP;
+EthernetUDP aliveudp;  // Sends keepalives to monitoring application
+
+const unsigned long aliveinterval = 10000;
+unsigned long lastalivesent = 0;
 
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
@@ -73,6 +82,26 @@ void SendDebug(String MessageToSend) {
   if ((Reflector_In_Use == 1) && (Ethernet_In_Use == 1)) {
     udp.beginPacket(reflectorIP, reflectorport);
     udp.print(MessageToSend);
+    udp.endPacket();
+  }
+}
+
+// Forwards a button press/release from the row/column matrix to UDP_TO_HID,
+// which drives the corresponding virtual joystick button. Format: "idx,state".
+void SendButtonToHid(int idx, int state) {
+  if (Ethernet_In_Use == 1) {
+    udp.beginPacket(hidIP, hidPort);
+    udp.print(String(idx) + "," + String(state));
+    udp.endPacket();
+  }
+}
+
+// Forwards a keypad press/release from the small numeric keypad to UDP_TO_HID,
+// which types the matching key on its virtual keyboard. Format: "KEY,key,state".
+void SendKeyToHid(char key, int state) {
+  if (Ethernet_In_Use == 1) {
+    udp.beginPacket(hidIP, hidPort);
+    udp.print("KEY," + String(key) + "," + String(state));
     udp.endPacket();
   }
 }
@@ -132,10 +161,10 @@ const byte colPins[NUM_COLS] = { A9, A11, A13 };
 
 // Optional key map (for identification)
 char keymap[NUM_ROWS][NUM_COLS] = {
-  { '1', '2', '3' },
-  { '4', '5', '6' },
-  { '7', '8', '9' },
-  { 'A', 'B', 'C' }
+  { '2', '1', '3' },
+  { '0', '*', '#' },
+  { '8', '7', '9' },
+  { '5', '4', '6' }
 };
 
 void KeyPadInit() {
@@ -162,9 +191,13 @@ void scanMatrix() {
         SendDebug("Key pressed: ");
         SendDebug(String(keymap[r][c]));
 
+        SendKeyToHid(keymap[r][c], 1);
+
         // Simple debounce
         while (digitalRead(colPins[c]) == LOW);
         delay(20);
+
+        SendKeyToHid(keymap[r][c], 0);
       }
     }
 
@@ -194,6 +227,7 @@ void setup() {
 
     Ethernet.begin(mac, ip);
     udp.begin(localport);
+    aliveudp.begin(aliveport);
 
     ethernetStartTime = millis() + delayBeforeSendingPacket;
     while (millis() <= ethernetStartTime) {
@@ -261,10 +295,12 @@ void FindInputChanges() {
           outString = outString + "1";
 
           if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 1);
+          SendButtonToHid(ind, 1);
 
         } else {
           outString = outString + "0";
           if (DCSBIOS_In_Use == 1) CreateDcsBiosMessage(ind, 0);
+          SendButtonToHid(ind, 0);
         }
 
         prevjoyReport.button[ind] = joyReport.button[ind];
@@ -387,9 +423,9 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 4:
           break;
-        case 5:
+        case 5:  // Air Off
           break;
-        case 6:
+        case 6:  // Air Off
           break;
         case 7:
           break;
@@ -400,20 +436,20 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 10:
           break;
-        case 11:
+        case 11:  // CB Fuel Fwd Boost Off
           break;
-        case 12:
+        case 12:  // CB Fuel Aft Boost Off
           break;
-        case 13:
+        case 13:  // CB Gen Field - Off
           break;
-        case 14:
+        case 14:  // CB Gen Off
           break;
-        case 15:
+        case 15:  // Dir Gyro
           break;
         // Release
-        case 16:
+        case 16:  // Battery Off
           break;
-        case 17:
+        case 17:  // Gen Start
           break;
         case 18:
           break;
@@ -423,20 +459,20 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 21:
           break;
-        case 22:
+        case 22:  // LDG Light Off
           break;
-        case 23:
+        case 23:  // INST Light Off
           break;
         // Release
-        case 24:
+        case 24:  // CB Caut Light Off
           break;
-        case 25:
+        case 25:  // Anti Col Light Off
           break;
-        case 26:
+        case 26:  // Pos Light Off
           break;
-        case 27:
+        case 27:  // Pitot Head Off
           break;
-        case 28:
+        case 28:  // Avionics Off
           break;
         case 29:
           break;
@@ -459,7 +495,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 38:
           break;
-        case 39:
+        case 39:  // Strobe Light Off
           break;
         // Release
         case 40:
@@ -767,19 +803,19 @@ void CreateDcsBiosMessage(int ind, int state) {
       switch (ind) {
 
         // Close
-        case 0:
+        case 0:  // HTR 0
           break;
-        case 1:
+        case 1:  // HTR 1
           break;
-        case 2:
+        case 2:  // HTR 2
           break;
-        case 3:
+        case 3:  // HTR 3
           break;
-        case 4:
+        case 4:  // HTR 4
           break;
-        case 5:
+        case 5:  // Air Vent
           break;
-        case 6:
+        case 6:  // Air Heat
           break;
         case 7:
           break;
@@ -790,20 +826,20 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 10:
           break;
-        case 11:
+        case 11:  // CB Fuel Fwd Boost On
           break;
-        case 12:
+        case 12:  // CB Fuel Aft Boost On
           break;
-        case 13:
+        case 13:  // CB Gen Field on
           break;
-        case 14:
+        case 14:  // CB Gen On
           break;
-        case 15:
+        case 15:  // ATT IND
           break;
         // Close
-        case 16:
+        case 16:  // Battery On
           break;
-        case 17:
+        case 17:  // Gen On
           break;
         case 18:
           break;
@@ -813,20 +849,20 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 21:
           break;
-        case 22:
+        case 22:  // LDG Light On
           break;
-        case 23:
+        case 23:  // Inst Light On
           break;
         // Close
-        case 24:
+        case 24:  // CB Caut Light On
           break;
-        case 25:
+        case 25:  // Anti Col Light On
           break;
-        case 26:
+        case 26:  // Pos Light On
           break;
-        case 27:
+        case 27:  // Pitot Heat On
           break;
-        case 28:
+        case 28:  // Avionics On
           break;
         case 29:
           break;
@@ -849,7 +885,7 @@ void CreateDcsBiosMessage(int ind, int state) {
           break;
         case 38:
           break;
-        case 39:
+        case 39:  // Strobe Light On
           break;
         // Close
         case 40:
@@ -1169,6 +1205,15 @@ void loop() {
     digitalWrite(RED_STATUS_LED_PORT, RED_LED_STATE);
 
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
+  if ((millis() - lastalivesent) >= aliveinterval) {
+    if (Ethernet_In_Use == 1) {
+      aliveudp.beginPacket(reflectorIP, aliveport);
+      aliveudp.print("UPPER_INPUT");
+      aliveudp.endPacket();
+    }
+    lastalivesent = millis();
   }
 
   ScanInputs();
