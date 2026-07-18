@@ -172,6 +172,15 @@ namespace FSUIPCTest
         TimeSpan span;
         int mS;
 
+        // --- Radio interface state (ported from SimConnect_to_UDP's UpdateRadios/RADIOS handling) ---
+        private bool radioFrequencyChanged = false;
+        private String com1ActiveFrequency = "";
+        private String com1StandbyFrequency = "";
+        private String com2ActiveFrequency = "";
+        private String com2StandbyFrequency = "";
+        private String MainBusVoltage = "";
+        private String CIRCUIT_NAVCOM1_ON = "";
+
 
         // Will calaculate the position of the servo based on the value received from simconnect and the min and max positions defined for each servo.
         // instead of asking the Mega to do that.  This is because the servos have different ranges and it is easier to manage that in code than on the Mega.
@@ -243,6 +252,8 @@ namespace FSUIPCTest
             BuildLightList();
             // Start the connection timer to look for a flight sim
             this.timerConnection.Start();
+            // Start listening for radio/battery/alternator commands from the Radio/Upper controller boards
+            StartListener();
         }
 
         // This method is called every 1 second by the connection timer.
@@ -378,6 +389,63 @@ namespace FSUIPCTest
                 FsFrequencyADF adf1Helper = new FsFrequencyADF(this.adf1Main.Value, this.adf1Extended.Value);
                 FsTransponderCode txHelper = new FsTransponderCode(this.transponder.Value);
 
+                // --- Radio data to the Radio Controller board (172.16.1.101:13136) ---
+                // Ported from SimConnect_to_UDP's DATA_REQUESTS.RADIOS handling.
+                if (com1ActiveFrequency != com1Helper.ToString())
+                {
+                    radioFrequencyChanged = true;
+                    com1ActiveFrequency = com1Helper.ToString();
+                }
+
+                if (com1StandbyFrequency != com1StandbyHelper.ToString())
+                {
+                    radioFrequencyChanged = true;
+                    com1StandbyFrequency = com1StandbyHelper.ToString();
+                }
+
+                if (com2ActiveFrequency != com2Helper.ToString())
+                {
+                    radioFrequencyChanged = true;
+                    com2ActiveFrequency = com2Helper.ToString();
+                }
+
+                if (com2StandbyFrequency != com2StandbyHelper.ToString())
+                {
+                    radioFrequencyChanged = true;
+                    com2StandbyFrequency = com2StandbyHelper.ToString();
+                }
+
+                if (MainBusVoltage != mainBusVoltageValue.ToString("F1"))
+                {
+                    radioFrequencyChanged = true;
+                    MainBusVoltage = mainBusVoltageValue.ToString("F1");
+                }
+
+                // No discrete "circuit navcom1 on" offset is read in this project, so (as
+                // elsewhere in this file) main bus voltage >= 20V is used as the power-available proxy.
+                string navCom1OnFlag = (mainBusVoltageValue >= 20) ? "1" : "0";
+                if (CIRCUIT_NAVCOM1_ON != navCom1OnFlag)
+                {
+                    radioFrequencyChanged = true;
+                    CIRCUIT_NAVCOM1_ON = navCom1OnFlag;
+                }
+
+                span = DateTime.Now - RadioTimeLastPacketSent;
+                mS = (int)span.TotalMilliseconds;
+
+                if ((mS >= 200 && radioFrequencyChanged) || mS >= 5000)
+                {
+                    radioFrequencyChanged = false;
+                    string radioPayload = "D,C1A:" + com1ActiveFrequency;
+                    radioPayload += ",C1S:" + com1StandbyFrequency;
+                    radioPayload += ",C2A:" + com2ActiveFrequency;
+                    radioPayload += ",C2S:" + com2StandbyFrequency;
+                    radioPayload += ",MAINBUS:" + MainBusVoltage;
+                    radioPayload += ",NAVCOM1:" + CIRCUIT_NAVCOM1_ON;
+                    Byte[] radioSendData = Encoding.ASCII.GetBytes(radioPayload);
+                    udpClient.Send(radioSendData, radioSendData.Length);
+                    RadioTimeLastPacketSent = DateTime.Now;
+                }
 
                 string outstring = "Turbine Out: " + turbineOutPercent.ToString("F0") + " C" + Environment.NewLine +
                                    "Gas Producer: " + gasProducerPercent.ToString("F1") + "%" + Environment.NewLine +
@@ -695,6 +763,104 @@ namespace FSUIPCTest
                 configureForm();
                 // start the connection timer
                 this.timerConnection.Start();
+            }
+        }
+
+        // Listens for the radio/battery/alternator/standby-frequency commands the
+        // Radio/Upper controller boards send on UDP port 27001. Ported from
+        // SimConnect_to_UDP's StartListener().
+        private void StartListener()
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    using (udpServer = new UdpClient(listenPort))
+                    {
+                        while (true)
+                        {
+                            UdpReceiveResult result = await udpServer.ReceiveAsync();
+                            string receivedData = Encoding.ASCII.GetString(result.Buffer);
+
+                            System.Diagnostics.Debug.WriteLine($"Radio command received: {receivedData} from {result.RemoteEndPoint}");
+
+                            this.Invoke(new Action(() =>
+                            {
+                                UpdateRadios(receivedData);
+                            }));
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Handle socket exceptions (e.g., if port is already in use)
+                    Console.WriteLine(ex.Message);
+                }
+            });
+        }
+
+        // Ported from SimConnect_to_UDP's UpdateRadios(), but drives FSUIPC instead
+        // of SimConnect. COM1/COM2 swap and COM1 standby-frequency-set use the
+        // classic FS control IDs (FsControl.COM_STBY_RADIO_SWAP / COM2_RADIO_SWAP /
+        // COM_STBY_RADIO_SET) via FSUIPCConnection.SendControlToFS, which is the
+        // FSUIPC equivalent of SimConnect's TransmitClientEvent. Avionics master is
+        // set through the offset (0x2E80) already used elsewhere in this file for
+        // the on-screen checkbox, since that's a verified-working path rather than
+        // an unproven control ID.
+        //
+        // FSUIPC's classic control list has no direction-aware "set" for battery or
+        // alternator (only TOGGLE_MASTER_BATTERY / TOGGLE_MASTER_ALTERNATOR exist),
+        // so MASTER_BATTERY_ON/OFF are guarded against the main bus voltage already
+        // read every tick, to avoid toggling the wrong way. There's no equivalent
+        // offset read in this project to guard the alternator commands, so those
+        // remain a blind toggle and may need re-sending if they fire out of sync
+        // with the aircraft's actual state.
+        private void UpdateRadios(string command)
+        {
+            if (!FSUIPCConnection.IsOpen) return;
+
+            if (command.Contains("COM1_RADIO_SWAP"))
+            {
+                FSUIPCConnection.SendControlToFS(FsControl.COM_STBY_RADIO_SWAP, 0);
+            }
+            else if (command.Contains("COM2_RADIO_SWAP"))
+            {
+                FSUIPCConnection.SendControlToFS(FsControl.COM2_RADIO_SWAP, 0);
+            }
+            else if (command.Contains("AVIONICS_MASTER_SET"))
+            {
+                this.avionicsMaster.Value = 1u;
+            }
+            else if (command.Contains("MASTER_BATTERY_ON"))
+            {
+                if (this.mainBusVoltage.Value < 20)
+                    FSUIPCConnection.SendControlToFS(FsControl.TOGGLE_MASTER_BATTERY, 0);
+            }
+            else if (command.Contains("MASTER_BATTERY_OFF"))
+            {
+                if (this.mainBusVoltage.Value >= 20)
+                    FSUIPCConnection.SendControlToFS(FsControl.TOGGLE_MASTER_BATTERY, 0);
+            }
+            else if (command.Contains("ALTERNATOR_ON") || command.Contains("ALTERNATOR_OFF"))
+            {
+                FSUIPCConnection.SendControlToFS(FsControl.TOGGLE_MASTER_ALTERNATOR, 0);
+            }
+            else
+            {
+                const decimal GOTO_FREQUENCY = 121.50m;
+                decimal standbyFrequency;
+
+                if (!decimal.TryParse(command, out standbyFrequency))
+                {
+                    standbyFrequency = GOTO_FREQUENCY;
+                }
+                if (standbyFrequency < 118.00m || standbyFrequency > 136.975m)
+                {
+                    standbyFrequency = GOTO_FREQUENCY;
+                }
+
+                int bcdFrequency = new FsFrequencyCOM(standbyFrequency).ToBCD();
+                FSUIPCConnection.SendControlToFS(FsControl.COM_STBY_RADIO_SET, bcdFrequency);
             }
         }
 

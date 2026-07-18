@@ -5,9 +5,11 @@ memory offsets, typically used with FSX/P3D via the FSUIPC add-on) instead
 of SimConnect. Named `FSUIPCTest` internally — reads engine/electrical/
 radio/annunciator offsets and streams the same style of `"D,ALT:...,IAS:..."`
 UDP packet to the Servo Controller board that the SimConnect-based bridges
-send. Unlike those, its inbound command listener (port 27001) is declared
-but never started, so it currently only pushes data out — it can't relay
-radio-swap/battery/alternator commands from the panel back into the sim.
+send. It now also has the radio interface ported from `SimConnect_to_UDP`:
+it sends the `"D,C1A:...,MAINBUS:...,NAVCOM1:..."` radio packet to the Radio
+Controller board, and listens on port 27001 for radio-swap/battery/
+alternator/standby-frequency commands from the panel, acting on them
+through the FSUIPC API instead of SimConnect.
 
 ## Program flow
 
@@ -36,11 +38,38 @@ radio-swap/battery/alternator commands from the panel back into the sim.
      on/off state by short code.
    - Throttled to ≥200ms between sends, the accumulated payload is sent to
      the Servo Controller board.
-4. **`chkAvionicsMaster_CheckedChanged`**: writes back to the avionics
-   master FSUIPC offset when the operator toggles the checkbox — this is
-   the only two-way interaction in the app; there is no equivalent for
-   radio/battery/alternator commands coming from the physical panel.
-5. **`frmMain_FormClosing`** stops both timers and closes the FSUIPC
+   - Also tracks COM1/2 active+standby frequency and main bus voltage
+     (via the same `FsFrequencyCOM`/`FsFrequencyNAV` helpers used for the
+     on-screen text) and, throttled the same way (≥200ms if changed, or
+     every ≥5s regardless), sends a `"D,C1A:...,C1S:...,C2A:...,C2S:...,
+     MAINBUS:...,NAVCOM1:..."` packet to the Radio Controller board.
+4. **`StartListener`** (background task, started from the constructor):
+   binds to UDP port 27001 and passes every received string to
+   `UpdateRadios()`.
+5. **`UpdateRadios(command)`** — the FSUIPC port of `SimConnect_to_UDP`'s
+   `UpdateRadios()`:
+   - `COM1_RADIO_SWAP` / `COM2_RADIO_SWAP` → `FSUIPCConnection.SendControlToFS`
+     with `FsControl.COM_STBY_RADIO_SWAP` / `FsControl.COM2_RADIO_SWAP` —
+     FSUIPC's equivalent of a SimConnect `TransmitClientEvent`.
+   - `AVIONICS_MASTER_SET` → writes directly to the avionics-master offset
+     (`0x2E80`) already used by `chkAvionicsMaster_CheckedChanged`, rather
+     than an unverified control ID.
+   - `MASTER_BATTERY_ON` / `MASTER_BATTERY_OFF` → FSUIPC's classic control
+     list only exposes `TOGGLE_MASTER_BATTERY` (no direction-aware "set"),
+     so these are guarded against the main bus voltage already read every
+     tick, sending the toggle only when it would actually move the switch
+     the requested way.
+   - `ALTERNATOR_ON` / `ALTERNATOR_OFF` → `FsControl.TOGGLE_MASTER_ALTERNATOR`.
+     Unlike battery, no alternator-state offset is read in this project, so
+     this is an unconditional toggle and may need re-sending if it fires
+     out of sync with the aircraft's actual state.
+   - Anything else that parses as a float in 118.00–136.975 is treated as a
+     COM1 standby-frequency request: it's BCD-encoded via
+     `new FsFrequencyCOM(value).ToBCD()` and sent with
+     `FsControl.COM_STBY_RADIO_SET`.
+6. **`chkAvionicsMaster_CheckedChanged`**: writes back to the avionics
+   master FSUIPC offset when the operator toggles the checkbox.
+7. **`frmMain_FormClosing`** stops both timers and closes the FSUIPC
    connection.
 
 ## FSUIPC offsets read/written
@@ -70,13 +99,13 @@ radio-swap/battery/alternator commands from the panel back into the sim.
 
 | Setting | Value |
 |---|---|
-| Local listen port | 27001 declared (`listenPort`/`udpServer` fields exist) but **never bound or started** — no `StartListener()` call exists in this app, so it does not actually receive panel commands |
+| Local listen port | **27001** — bound in `StartListener()` (started from the constructor); receives radio/battery/alternator/standby-frequency commands from the Radio/Upper controller boards |
 
 ## Remote endpoints this app talks to
 
 | Target | Port | Purpose |
 |---|---|---|
-| `172.16.1.101` (Radio Controller) | 13136 | `udpClient` connected but no send code targets it in the reviewed flow |
+| `172.16.1.101` (Radio Controller) | 13136 | Radio/bus-voltage data packets (`udpClient.Send`) |
 | `172.16.1.102` (Servo Controller) | 13136 | Front-panel instrument + annunciator data packets (`frontPanelClient.Send`) |
 | `172.16.1.2` | 26028 | `OutputClient` — connected but unused |
 
@@ -87,12 +116,15 @@ radio-swap/battery/alternator commands from the panel back into the sim.
 
 ## Programs this communicates with
 
-- **FSUIPC** (must be installed/running, bridging to FSX/P3D) — data source.
+- **FSUIPC** (must be installed/running, bridging to FSX/P3D) — data source
+  and event/control sink (`SendControlToFS`, offset writes).
 - **[JET_RANGER_SERVO_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_SERVO_CONTROLLER/JET_RANGER_SERVO_CONTROLLER.ino)**
   (`172.16.1.102:13136`) — receives this app's instrument/annunciator data.
 - **[JET_RANGER_RADIO_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_RADIO_CONTROLLER/JET_RANGER_RADIO_CONTROLLER.ino)**
-  — a UDP client is connected to it but this app has no code path that
-  sends radio data, so in practice it does not drive the radio panel.
+  (`172.16.1.101:13136`) — receives radio/bus data; sends control commands
+  back to this app's port 27001.
+- **[JET_RANGER_UPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_UPPER_CONTROLLER/JET_RANGER_UPPER_CONTROLLER.ino)**
+  — also a possible sender of control commands to port 27001.
 - Alternative to the SimConnect-based bridges (**P3D_to_UDP** /
   **SimConnect_to_UDP** / **MSFSSimConnectExtractor**) for sims that only
   expose data via FSUIPC rather than SimConnect — only one bridge app
