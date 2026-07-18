@@ -37,10 +37,10 @@ int Reflector_In_Use = 1;
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x01 };
-String sMac = "A8:61:0A:9E:83:01";
-IPAddress ip(172, 16, 1, 101);
-String strMyIP = "172.16.1.101";
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x9E, 0x83, 0x03 };
+String sMac = "A8:61:0A:9E:83:03";
+IPAddress ip(172, 16, 1, 103);
+String strMyIP = "172.16.1.103";
 
 // Raspberry Pi is Target
 IPAddress reflectorIP(172, 16, 1, 10);
