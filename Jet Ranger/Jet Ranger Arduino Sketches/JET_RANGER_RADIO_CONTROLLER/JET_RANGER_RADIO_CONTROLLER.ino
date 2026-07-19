@@ -1053,7 +1053,7 @@ void loop() {
 
     if (Ethernet_In_Use == 1) {
       udp.beginPacket(reflectorIP, 27001);
-      udp.print(com1StandbyFrequency);
+      udp.print(Nav1StandbyFrequency);
       udp.endPacket();
     }
 
@@ -1085,7 +1085,7 @@ void loop() {
 
     if (Ethernet_In_Use == 1) {
       udp.beginPacket(reflectorIP, 27001);
-      udp.print(com2StandbyFrequency);
+      udp.print(Nav2StandbyFrequency);
       udp.endPacket();
     }
 
