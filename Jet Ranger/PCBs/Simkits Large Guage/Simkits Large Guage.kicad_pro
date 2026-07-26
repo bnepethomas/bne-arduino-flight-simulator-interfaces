@@ -491,7 +491,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "MANUFACTURING/",
       "pos_files": "",
       "specctra_dsn": "Simmeters Small Engine Replacement.dsn",
       "step": "GAUGE_Analog Instruments.stl",

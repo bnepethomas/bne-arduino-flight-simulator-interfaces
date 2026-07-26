@@ -1,0 +1,33 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,9.0.7*%
+%TF.CreationDate,2026-07-23T16:17:39+10:00*%
+%TF.ProjectId,Simkits Large Guage,53696d6b-6974-4732-904c-617267652047,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,NonPlated,1,2,NPTH,Drill*%
+%TF.FilePolarity,Positive*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 9.0.7) date 2026-07-23 16:17:39*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,ComponentDrill*%
+%ADD10C,2.200000*%
+%TD*%
+%TA.AperFunction,ComponentDrill*%
+%ADD11C,2.500000*%
+%TD*%
+%TA.AperFunction,ComponentDrill*%
+%ADD12C,3.800000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+%TO.C,M1*%
+X186395100Y-87194600D03*
+X186395100Y-114194600D03*
+D11*
+X195395100Y-91694600D03*
+X195395100Y-109969600D03*
+D12*
+X176395100Y-100694600D03*
+M02*
