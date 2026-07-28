@@ -49,6 +49,9 @@ namespace FSUIPCTest
         private Offset<UInt16> engN2= new Offset<UInt16>(0x0896);
 
         private Offset<Int16> altitude = new Offset<Int16>(0x3324);
+        // Altimeter pressure ("Kollsman window") setting, in hPa * 16 - the
+        // standard documented FSUIPC offset (see "FSUIPC for Programmers.pdf").
+        private Offset<UInt16> altimeterSetting = new Offset<UInt16>(0x0330);
         private Offset<int> vSI = new Offset<int>(0x02C8);
         private Offset<uint> radioAltimeter = new Offset<uint>(0x31E4);
 
@@ -167,6 +170,14 @@ namespace FSUIPCTest
         UdpClient udpClient = new UdpClient();
         UdpClient frontPanelClient = new UdpClient();
         UdpClient OutputClient = new UdpClient();
+        // JET_RANGER_STEPPER_CONTROLLER (172.16.1.105) and JET_RANGER_OLED_CONTROLLER
+        // (172.16.1.104) both listen on the same MSFSport (13136) as the Servo
+        // Controller and parse the same "D,CODE:value,..." payload, so they can
+        // share the same UDP_Playload string built below - each board just uses
+        // the fields it recognises (ALT/IAS for the stepper, ALT/BARO for the OLED)
+        // and ignores the rest.
+        UdpClient stepperClient = new UdpClient();
+        UdpClient oledClient = new UdpClient();
         DateTime RadioTimeLastPacketSent;
         DateTime FrontPanelTimeLastPacketSent = DateTime.Now;
         TimeSpan span;
@@ -209,6 +220,7 @@ namespace FSUIPCTest
 
         private String ALTITUDE = "";                           // ALT
         private String AIRSPEED = "";                           // IAS
+        private String BAROSetting = "";                        // BARO - altimeter/barometric setting for JET_RANGER_OLED_CONTROLLER
         private String VERTICAL_SPEED = "";                     // VSI
         private String PLANE_ALT_ABOVE_GROUND = "";             // AGL
         private String ATTITUDE_INDICATOR_BANK_DEGREES = "";   // BANK
@@ -511,7 +523,19 @@ namespace FSUIPCTest
                     UDP_Playload = "D,ALT:" + ALTITUDE;
                 };
 
-                
+                // Altimeter/barometric ("Kollsman") setting for JET_RANGER_OLED_CONTROLLER's
+                // BARO display, converted from FSUIPC's hPa*16 to the 4-digit
+                // inHg*100 form (e.g. 2992 = 29.92 inHg) already used by that
+                // sketch and by DCS-BIOS.
+                int baroSettingValue = (int)Math.Round(this.altimeterSetting.Value * 0.1845625);
+                if (BAROSetting != baroSettingValue.ToString())
+                {
+                    frontPanelDataChanged = true;
+                    BAROSetting = baroSettingValue.ToString();
+                    UDP_Playload = UDP_Playload + ",BARO:" + BAROSetting;
+                };
+
+
                 if (AIRSPEED != sFrontPanel.AIRSPEED.ToString("F0")) ;
                 {
                     frontPanelDataChanged = true;
@@ -747,6 +771,11 @@ namespace FSUIPCTest
                         // Something has changed so send it
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         frontPanelClient.Send(senddata, senddata.Length);
+                        // Same payload, fanned out to the Stepper (ALT/IAS) and
+                        // OLED (ALT/BARO) controllers - each ignores whatever
+                        // fields it doesn't recognise.
+                        stepperClient.Send(senddata, senddata.Length);
+                        oledClient.Send(senddata, senddata.Length);
                         FrontPanelTimeLastPacketSent = DateTime.Now;
                     }
 

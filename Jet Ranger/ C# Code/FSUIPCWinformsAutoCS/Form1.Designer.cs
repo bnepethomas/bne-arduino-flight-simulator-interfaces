@@ -104,6 +104,8 @@
             udpClient.Connect("172.16.1.101", 13136);
             frontPanelClient.Connect("172.16.1.102", 13136);
             OutputClient.Connect("172.16.1.2", 26028);
+            stepperClient.Connect("172.16.1.105", 13136);
+            oledClient.Connect("172.16.1.104", 13136);
             RadioTimeLastPacketSent = DateTime.Now;
 
         }

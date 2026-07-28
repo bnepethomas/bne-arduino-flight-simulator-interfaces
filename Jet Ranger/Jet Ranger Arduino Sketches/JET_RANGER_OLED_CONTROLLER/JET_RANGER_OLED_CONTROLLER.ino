@@ -180,10 +180,10 @@ O_AOA_ABOVE_LED 7
 String BoardName = "A10 Forward OLED";
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x03 };
-String sMac = "A8:61:0A:67:83:03";
-IPAddress ip(172, 16, 1, 103);
-String strMyIP = "172.16.1.103";
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x68 };
+String sMac = "A8:61:0A:67:83:68";
+IPAddress ip(172, 16, 1, 104);
+String strMyIP = "172.16.1.104";
 
 // Raspberry Pi is Target
 IPAddress targetIP(172, 16, 1, 2);
@@ -196,8 +196,19 @@ String strReflectorIP = "X.X.X.X";
 const unsigned int localport = 7788;
 const unsigned int remoteport = 26027;
 const unsigned int reflectorport = 27000;
+// Matches JET_RANGER_SERVO_CONTROLLER/JET_RANGER_STEPPER_CONTROLLER's MSFSport
+// so the same PC bridge app wire format ("D,CODE:value,...") can be reused.
+const unsigned int MSFSport = 13136;
 
 EthernetUDP udp;
+// Receives the same front-panel data packets JET_RANGER_SERVO_CONTROLLER
+// listens for; only ALT (altitude) and BARO (altimeter setting) are wired
+// up for now, driving the ALT and BARO OLEDs.
+EthernetUDP MSFSudp;
+int MSFSpacketsize;
+int MSFSLen;
+const unsigned long incomingcheckinterval = 5;
+long lastincomingpacketcheck = 0;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 const unsigned long delayBeforeSendingPacket = 2000;
@@ -453,6 +464,7 @@ void setup() {
 
     Ethernet.begin(mac, ip);
     udp.begin(localport);
+    MSFSudp.begin(MSFSport);
 
     // As it takes a couple of seconds before the Ethernet Stack is operational
     // Flash leds until time period has completed
@@ -1140,6 +1152,101 @@ void onAoaIndexerLowChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer aoaIndexerLowBuffer(0x1012, 0x4000, 14, onAoaIndexerLowChange);
 
+// ########################################## BEGIN MSFS DATA RECEIVER ########################################
+// Receives the same "D,CODE:value,CODE:value,..." UDP payload that
+// JET_RANGER_SERVO_CONTROLLER parses. Only ALT (altitude) and BARO
+// (altimeter/barometric setting) are wired up for now, driving the ALT and
+// BARO OLEDs; every other code is currently ignored.
+
+void ProcessReceivedMSFSString() {
+
+  char *ParameterNamePtr;
+  const char *delim = ",";
+
+  // Break the received packet into a series of tokens
+  ParameterNamePtr = strtok(packetBuffer, delim);
+  String ParameterNameString(ParameterNamePtr);
+
+  if (ParameterNameString[0] == 'D') {
+    // Handling a Data Packet
+    ParameterNamePtr = strtok(NULL, delim);
+
+    while (ParameterNamePtr != NULL) {
+      String wrkstring = String(ParameterNamePtr);
+      HandleOutputValuePair(wrkstring);
+      ParameterNamePtr = strtok(NULL, delim);
+    }
+    return;
+  } else if (ParameterNameString[0] == 'C') {
+    // Handling a Control Packet
+    ParameterNamePtr = strtok(NULL, delim);
+
+    while (ParameterNamePtr != NULL) {
+      String wrkstring = String(ParameterNamePtr);
+      HandleControlString(wrkstring);
+      ParameterNamePtr = strtok(NULL, delim);
+    }
+    return;
+  }
+  // Unknown Packet Type - ignore
+}
+
+void HandleOutputValuePair(String str) {
+
+  int delimeterlocation = str.indexOf(':');
+  if (delimeterlocation == 0) return;
+
+  String ParameterName = getValue(str, ':', 0);
+  String ParameterValue = getValue(str, ':', 1);
+  ParameterValue.trim();
+
+  if (ParameterName == "ALT") {
+    // ALT is sent as raw feet, matching what this sketch's own DCS-BIOS
+    // altitude callback already expects, so it can be reused directly.
+    onAltMslFtChange((unsigned int)ParameterValue.toInt());
+  } else if (ParameterName == "BARO") {
+    // BARO arrives as a 4-digit inHg*100 value (e.g. 2992 = 29.92 inHg),
+    // the same convention this sketch's DCS-BIOS pressure-digit callbacks
+    // build up one digit at a time - here we get all 4 digits at once.
+    int baroValue = ParameterValue.toInt();
+    if (baroValue < 0) baroValue = 0;
+    if (baroValue > 9999) baroValue = 9999;
+
+    iBaroThousands = (baroValue / 1000) % 10;
+    iBaroHundreds = (baroValue / 100) % 10;
+    iBaroTens = (baroValue / 10) % 10;
+    iBaroOnes = baroValue % 10;
+    BaroThousands = String(iBaroThousands);
+    BaroHundreds = String(iBaroHundreds);
+    BaroTens = String(iBaroTens);
+    BaroOnes = String(iBaroOnes);
+    PressureChanged = true;
+  }
+  // All other codes are currently ignored.
+}
+
+void HandleControlString(String str) {
+  // No control codes are handled yet (matches JET_RANGER_SERVO_CONTROLLER's
+  // brightness control, which is likewise received but not acted on).
+}
+
+String getValue(String data, char separator, int index) {
+  int found = 0;
+  int strIndex[] = { 0, -1 };
+  int maxIndex = data.length() - 1;
+
+  for (int i = 0; i <= maxIndex && found <= index; i++) {
+    if (data.charAt(i) == separator || i == maxIndex) {
+      found++;
+      strIndex[0] = strIndex[1] + 1;
+      strIndex[1] = (i == maxIndex) ? i + 1 : i;
+    }
+  }
+  return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
+}
+
+// ########################################## END MSFS DATA RECEIVER ########################################
+
 void loop() {
 
 
@@ -1154,6 +1261,20 @@ void loop() {
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
 
   if (PressureChanged == true) ProcessPressureChange();
+
+  if (Ethernet_In_Use == 1) {
+    if ((millis() - lastincomingpacketcheck) >= incomingcheckinterval) {
+      MSFSpacketsize = MSFSudp.parsePacket();
+      if (MSFSpacketsize > 0) {
+        MSFSLen = MSFSudp.read(packetBuffer, 999);
+        if (MSFSLen > 0) {
+          packetBuffer[MSFSLen] = 0;
+        }
+        ProcessReceivedMSFSString();
+      }
+      lastincomingpacketcheck = millis();
+    }
+  }
 
   // for (long i = 12000; i >= 0; i--) {
   //   UpdateAltimeterDigits(i);

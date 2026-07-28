@@ -5,11 +5,12 @@ memory offsets, typically used with FSX/P3D via the FSUIPC add-on) instead
 of SimConnect. Named `FSUIPCTest` internally — reads engine/electrical/
 radio/annunciator offsets and streams the same style of `"D,ALT:...,IAS:..."`
 UDP packet to the Servo Controller board that the SimConnect-based bridges
-send. It now also has the radio interface ported from `SimConnect_to_UDP`:
-it sends the `"D,C1A:...,MAINBUS:...,NAVCOM1:..."` radio packet to the Radio
-Controller board, and listens on port 27001 for radio-swap/battery/
-alternator/standby-frequency commands from the panel, acting on them
-through the FSUIPC API instead of SimConnect.
+send, and now **also** fans that same payload out to the Stepper and OLED
+Controller boards. It now also has the radio interface ported from
+`SimConnect_to_UDP`: it sends the `"D,C1A:...,MAINBUS:...,NAVCOM1:..."`
+radio packet to the Radio Controller board, and listens on port 27001 for
+radio-swap/battery/alternator/standby-frequency commands from the panel,
+acting on them through the FSUIPC API instead of SimConnect.
 
 ## Program flow
 
@@ -35,9 +36,15 @@ through the FSUIPC API instead of SimConnect.
      `<CODE>_Process()` mapping function (same formulas/tables as
      `JET_RANGER_SERVO_CONTROLLER`/`ServoTuner`/the SimConnect bridges) and
      appends it to a `"D,..."` payload, along with every annunciator's
-     on/off state by short code.
+     on/off state by short code. Also appends a `BARO` field: the
+     altimeter/"Kollsman" pressure-setting offset (`0x0330`, hPa×16) is
+     converted to the 4-digit inHg×100 form (e.g. `2992`) the OLED
+     Controller's BARO display and DCS-BIOS both already use.
    - Throttled to ≥200ms between sends, the accumulated payload is sent to
-     the Servo Controller board.
+     the Servo Controller board, and the same bytes are also fanned out to
+     the Stepper Controller (which reads `ALT`/`IAS` out of it) and the
+     OLED Controller (which reads `ALT`/`BARO` out of it) — each board
+     ignores whatever fields it doesn't recognise.
    - Also tracks COM1/2 active+standby frequency and main bus voltage
      (via the same `FsFrequencyCOM`/`FsFrequencyNAV` helpers used for the
      on-screen text) and, throttled the same way (≥200ms if changed, or
@@ -93,6 +100,7 @@ through the FSUIPC API instead of SimConnect.
 | `0x2F70` / `0x2F78` | Attitude pitch / bank |
 | `0x2F28` | 21-bit annunciator/warning-lamp bitfield |
 | `0x2840` / `0x2850` | Main bus voltage / avionics bus voltage |
+| `0x0330` | Altimeter/"Kollsman" pressure setting, hPa × 16 (documented FSUIPC offset — sent on as `BARO`, converted to inHg × 100) |
 | `RadioStack:0x034E/0x311A/0x3118/0x311C/0x0350/0x311E/0x0352/0x3120/0x0354/0x034C/0x0356` | COM1/2 active+standby, NAV1/2 active+standby, transponder, ADF |
 
 ## Local network configuration
@@ -107,9 +115,11 @@ through the FSUIPC API instead of SimConnect.
 |---|---|---|
 | `172.16.1.101` (Radio Controller) | 13136 | Radio/bus-voltage data packets (`udpClient.Send`) |
 | `172.16.1.102` (Servo Controller) | 13136 | Front-panel instrument + annunciator data packets (`frontPanelClient.Send`) |
+| `172.16.1.105` (Stepper Controller) | 13136 | Same payload as the Servo Controller (`stepperClient.Send`) — that board reads `ALT`/`IAS` out of it |
+| `172.16.1.104` (OLED Controller) | 13136 | Same payload as the Servo Controller (`oledClient.Send`) — that board reads `ALT`/`BARO` out of it |
 | `172.16.1.2` | 26028 | `OutputClient` — connected but unused |
 
-> Note: the three `.Connect(...)` calls that wire up these targets live in
+> Note: all five `.Connect(...)` calls that wire up these targets live in
 > `Form1.Designer.cs` rather than `Form1.cs`'s constructor — an unusual
 > location (that file is normally generated UI layout only) but functionally
 > equivalent since it still runs during `InitializeComponent()`.
@@ -125,6 +135,13 @@ through the FSUIPC API instead of SimConnect.
   back to this app's port 27001.
 - **[JET_RANGER_UPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_UPPER_CONTROLLER/JET_RANGER_UPPER_CONTROLLER.ino)**
   — also a possible sender of control commands to port 27001.
+- **[JET_RANGER_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_STEPPER_CONTROLLER/JET_RANGER_STEPPER_CONTROLLER.ino)**
+  (`172.16.1.105:13136`) — receives the same shared payload as the Servo
+  Controller; reads `ALT`/`IAS` out of it to drive its altimeter and
+  current-airspeed steppers.
+- **[JET_RANGER_OLED_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_CONTROLLER/JET_RANGER_OLED_CONTROLLER.ino)**
+  (`172.16.1.104:13136`) — also receives the shared payload; reads
+  `ALT`/`BARO` out of it to drive its ALT and BARO OLEDs.
 - Alternative to the SimConnect-based bridges (**P3D_to_UDP** /
   **SimConnect_to_UDP** / **MSFSSimConnectExtractor**) for sims that only
   expose data via FSUIPC rather than SimConnect — only one bridge app

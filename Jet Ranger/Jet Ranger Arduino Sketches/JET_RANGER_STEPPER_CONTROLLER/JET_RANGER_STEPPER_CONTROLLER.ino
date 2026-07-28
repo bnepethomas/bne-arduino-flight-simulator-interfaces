@@ -1,3 +1,4 @@
+
 /*
 A10_FRONT_CONSOLE_STEPPERS
 
@@ -55,10 +56,10 @@ String BoardName = "A10 Forward Steppers";
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
-byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x04 };
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x69 };
 String sMac = "A8:61:0A:67:83:03";
-IPAddress ip(172, 16, 1, 104);
-String strMyIP = "172.16.1.104";
+IPAddress ip(172, 16, 1, 105);
+String strMyIP = "172.16.1.105";
 
 // Reflector
 IPAddress reflectorIP(172, 16, 1, 10);
@@ -78,12 +79,21 @@ const unsigned int keyboardport = 7788;
 const unsigned int ledport = 7789;
 const unsigned int remoteport = 7790;
 const unsigned int reflectorport = 27000;
-const unsigned int MSFSport = 7791;
+// Matches JET_RANGER_SERVO_CONTROLLER's MSFSport so the same PC bridge app
+// wire format ("D,CODE:value,...") can be reused. Was previously 7791 and unused.
+const unsigned int MSFSport = 13136;
 
 int packetSize;
 int debugLen;
 EthernetUDP udp;
 EthernetUDP debugUDP;
+// Receives the same front-panel data packets JET_RANGER_SERVO_CONTROLLER
+// listens for; only IAS (airspeed) and ALT (altitude) are wired up for now.
+EthernetUDP MSFSudp;
+int MSFSpacketsize;
+int MSFSLen;
+const unsigned long incomingcheckinterval = 5;
+long lastincomingpacketcheck = 0;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
 const unsigned long delayBeforeSendingPacket = 2000;
@@ -208,6 +218,7 @@ void setup() {
 
     Ethernet.begin(mac, ip);
     udp.begin(localport);
+    MSFSudp.begin(MSFSport);
 
     // As it takes a couple of seconds before the Ethernet Stack is operational
     // Flash leds until time period has completed
@@ -890,6 +901,91 @@ DcsBios::IntegerBuffer intConsoleLBrightBuffer(A_10C_INT_CONSOLE_L_BRIGHT, onInt
 
 // ################################ END STEPPERS ##############################
 
+// ########################################## BEGIN MSFS DATA RECEIVER ########################################
+// Receives the same "D,CODE:value,CODE:value,..." UDP payload that
+// JET_RANGER_SERVO_CONTROLLER parses. Only IAS (airspeed) and ALT (altitude)
+// are wired up for now; every other code is currently ignored.
+
+void ProcessReceivedMSFSString() {
+
+  char *ParameterNamePtr;
+  const char *delim = ",";
+
+  // Break the received packet into a series of tokens
+  ParameterNamePtr = strtok(packetBuffer, delim);
+  String ParameterNameString(ParameterNamePtr);
+
+  if (ParameterNameString[0] == 'D') {
+    // Handling a Data Packet
+    ParameterNamePtr = strtok(NULL, delim);
+
+    while (ParameterNamePtr != NULL) {
+      String wrkstring = String(ParameterNamePtr);
+      HandleOutputValuePair(wrkstring);
+      ParameterNamePtr = strtok(NULL, delim);
+    }
+    return;
+  } else if (ParameterNameString[0] == 'C') {
+    // Handling a Control Packet
+    ParameterNamePtr = strtok(NULL, delim);
+
+    while (ParameterNamePtr != NULL) {
+      String wrkstring = String(ParameterNamePtr);
+      HandleControlString(wrkstring);
+      ParameterNamePtr = strtok(NULL, delim);
+    }
+    return;
+  }
+  // Unknown Packet Type - ignore
+}
+
+void HandleOutputValuePair(String str) {
+
+  int delimeterlocation = str.indexOf(':');
+  if (delimeterlocation == 0) return;
+
+  String ParameterName = getValue(str, ':', 0);
+  String ParameterValue = getValue(str, ':', 1);
+  ParameterValue.trim();
+
+  if (ParameterName == "IAS") {
+    // NOTE: JET_RANGER_SERVO_CONTROLLER's PC bridge apps send IAS already
+    // converted to a Bell 206 servo-position number (its IAS_Process()
+    // table), not raw knots and not an A-10 stepper step count. This is a
+    // straight pass-through for now - a proper map() will be needed here
+    // once this board's real airspeed calibration/range is known.
+    setCurrentAirspeed(ParameterValue.toInt());
+  } else if (ParameterName == "ALT") {
+    // ALT is sent as raw feet, matching the units this sketch's own
+    // DCS-BIOS altitude callback already expects, so its feet->steps
+    // conversion can be reused directly.
+    onAltMslFtChange((unsigned int)ParameterValue.toInt());
+  }
+  // All other codes are currently ignored.
+}
+
+void HandleControlString(String str) {
+  // No control codes are handled yet (matches JET_RANGER_SERVO_CONTROLLER's
+  // brightness control, which is likewise received but not acted on).
+}
+
+String getValue(String data, char separator, int index) {
+  int found = 0;
+  int strIndex[] = { 0, -1 };
+  int maxIndex = data.length() - 1;
+
+  for (int i = 0; i <= maxIndex && found <= index; i++) {
+    if (data.charAt(i) == separator || i == maxIndex) {
+      found++;
+      strIndex[0] = strIndex[1] + 1;
+      strIndex[1] = (i == maxIndex) ? i + 1 : i;
+    }
+  }
+  return found > index ? data.substring(strIndex[0], strIndex[1]) : "";
+}
+
+// ########################################## END MSFS DATA RECEIVER ########################################
+
 void loop() {
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
@@ -902,6 +998,20 @@ void loop() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::loop();
   updateSteppers();
+
+  if (Ethernet_In_Use == 1) {
+    if ((millis() - lastincomingpacketcheck) >= incomingcheckinterval) {
+      MSFSpacketsize = MSFSudp.parsePacket();
+      if (MSFSpacketsize > 0) {
+        MSFSLen = MSFSudp.read(packetBuffer, 999);
+        if (MSFSLen > 0) {
+          packetBuffer[MSFSLen] = 0;
+        }
+        ProcessReceivedMSFSString();
+      }
+      lastincomingpacketcheck = millis();
+    }
+  }
 
   currentMillis = millis();
 }
