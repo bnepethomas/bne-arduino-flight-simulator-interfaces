@@ -18,6 +18,24 @@ Two Arduino sketches live under this folder:
    — a separate 176-button matrix input controller for TACAN/ILS/electrical/
    CDU/AAP/lighting panels (see its own section below).
 
+## Build verification
+
+Both sketches in this folder were compiled with `arduino-cli` (target
+`arduino:avr:mega:cpu=atmega2560`) and build with **0 errors**:
+
+| Sketch | Flash | RAM |
+|---|---|---|
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 27,892 bytes (10%) | 3,246 bytes (39%) |
+| `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
+
+Library versions used for this verification: **Ethernet** 2.0.2,
+**AccelStepper** 1.64.0, **DCS-BIOS** 0.3.13 (Arduino Library Manager). The
+`dcs-bios-arduino-library-0.3.7.zip` bundled inside the
+`A10_LEFT_CONSOLE_INPUT_CONTROLLER_A` folder is an older release of the
+same library — the Library Manager's 0.3.13 was used for this check and
+compiled without needing any code changes, but the two haven't been
+diffed against each other line-for-line.
+
 ## JET_RANGER_STEPPER_CONTROLLER.ino — Program flow
 
 1. **Setup**
