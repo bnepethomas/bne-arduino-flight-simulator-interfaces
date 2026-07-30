@@ -17,9 +17,20 @@
   Nema8Stepper class) rather than a simple absolute step target, so it isn't
   a fit for this "type a number, see where it goes" style of tool.
 
-  No Ethernet, no DCS-BIOS - Serial only. Wire this board up exactly as it
-  would be for JET_RANGER_STEPPER_CONTROLLER.ino (same stepper drivers, same
-  pins) and upload this sketch instead while tuning.
+  No DCS-BIOS. Wire this board up exactly as it would be for
+  JET_RANGER_STEPPER_CONTROLLER.ino (same stepper drivers, same pins) and
+  upload this sketch instead while tuning. It uses that same sketch's
+  identity on the network (same static IP/MAC) since it's meant as a
+  drop-in stand-in for it during bench tuning, not something run alongside
+  it - every significant action is logged via SendDebug() to the reflector
+  host, the same "SendDebug -> 172.16.1.10:27000" pattern used throughout
+  the rest of the Jet Ranger fleet.
+
+  On every boot, VSI is automatically wound hard against its negative
+  mechanical end stop and zeroed there (see homeVSI()) before the menu
+  appears, the same way JET_RANGER_STEPPER_CONTROLLER.ino's own startup
+  sequence homes it. It can also be re-run on demand at any time (e.g. if
+  VSI has drifted or stalled) with the "h" command below.
 
   Serial Monitor usage (115200 baud, newline line ending):
     - On boot, and any time you send "m", the stepper menu is printed.
@@ -34,14 +45,63 @@
     - Send "z" to zero the CURRENTLY SELECTED stepper wherever it is
       sitting right now (sets that physical position to step 0) - handy for
       establishing a known reference point before searching for min/max.
+    - Send "h" while VSI is selected to re-home it on demand (same move as
+      the automatic boot-time homing above). Only implemented for VSI so far.
     - Send "m" at any time to see the menu again (this does not change
       which stepper is selected - use "sN" to actually switch).
 */
 
 #include <AccelStepper.h>
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EthernetUdp.h>
+
+// Same network identity as JET_RANGER_STEPPER_CONTROLLER.ino - this harness
+// stands in for that sketch on the bench, it isn't meant to run on the
+// network at the same time as it.
+#define ES1_RESET_PIN 53
+byte mac[] = { 0xA8, 0x61, 0x0A, 0x67, 0x83, 0x69 };
+IPAddress ip(172, 16, 1, 105);
+String strMyIP = "172.16.1.105";
+
+IPAddress reflectorIP(172, 16, 1, 10);
+const unsigned int localport = 7788;
+const unsigned int reflectorport = 27000;
+const unsigned long delayBeforeSendingPacket = 2000;
+unsigned long ethernetStartTime = 0;
+String BoardName = "Stepper Tuning Harness: ";
+
+EthernetUDP udp;
+
+// Same "SendDebug -> reflector:27000" logging pattern used throughout the
+// rest of the Jet Ranger fleet.
+void SendDebug(String MessageToSend) {
+  udp.beginPacket(reflectorIP, reflectorport);
+  udp.print(BoardName + MessageToSend);
+  udp.endPacket();
+}
+
+// Status LED heartbeat - ported as-is from JET_RANGER_STEPPER_CONTROLLER.ino
+#define RED_STATUS_LED_PORT 12
+#define GREEN_STATUS_LED_PORT 13
+#define Check_LED_R 12
+#define Check_LED_G 13
+
+#define FLASH_TIME 300
+
+unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
+bool GREEN_LED_STATE = false;
+bool RED_LED_STATE = false;
+unsigned long timeSinceRedLedChanged = 0;
 
 #define STEPPER_MAX_SPEED 9000
 #define STEPPER_ACCELERATION 9000
+
+// Steps for an unmodified Vid-series stepper/driver (matches
+// JET_RANGER_STEPPER_CONTROLLER.ino's STEPS). Used only for VSI homing
+// below - deliberately overshot by 10% to guarantee reaching the real
+// mechanical end stop regardless of exactly how many steps it actually is.
+#define STEPS (315 * 16)
 
 // Shared stepper-driver enable pin (matches JET_RANGER_STEPPER_CONTROLLER.ino)
 #define AllstepperEnablePin 56
@@ -96,6 +156,19 @@ const int NUM_STEPPERS = sizeof(steppers) / sizeof(steppers[0]);
 int selectedStepper = -1;
 String inputLine = "";
 
+// Winds VSI hard against its negative mechanical end stop and zeroes it
+// there - the same homing move JET_RANGER_STEPPER_CONTROLLER.ino's own
+// startup sequence performs for VSI. This blocks (via runToNewPosition())
+// until the move completes, same as that sketch's own homing.
+void homeVSI() {
+  Serial.println(F("Homing VSI: winding to its end stop..."));
+  SendDebug("Homing VSI - winding to end stop");
+  VSIstepper.runToNewPosition(-STEPS * 1.1);
+  VSIstepper.setCurrentPosition(0);
+  Serial.println(F("VSI end stop reached and zeroed (step 0)."));
+  SendDebug("VSI end stop reached, zeroed at step 0");
+}
+
 void printMenu() {
   Serial.println();
   Serial.println(F("=== Stepper Tuning Harness ==="));
@@ -115,12 +188,45 @@ void printMenu() {
     Serial.println(F(")"));
     Serial.println(F("Type a target step position (e.g. 1500 or -200) and press Enter to move it."));
     Serial.println(F("Type 'z' to zero it at its current physical position, or 'm' for this menu."));
+    if (selectedStepper == 0) {
+      Serial.println(F("Type 'h' to home it: wind fully to its end stop, then zero there."));
+    }
   }
 }
 
 void setup() {
   Serial.begin(115200);
   while (!Serial) { ; }
+
+  pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
+  pinMode(RED_STATUS_LED_PORT, OUTPUT);
+  digitalWrite(GREEN_STATUS_LED_PORT, true);
+  digitalWrite(RED_STATUS_LED_PORT, true);
+  delay(FLASH_TIME);
+  digitalWrite(GREEN_STATUS_LED_PORT, false);
+  digitalWrite(RED_STATUS_LED_PORT, false);
+  delay(FLASH_TIME);
+
+  // Reset Ethernet Module
+  pinMode(ES1_RESET_PIN, OUTPUT);
+  digitalWrite(ES1_RESET_PIN, LOW);
+  delay(2);
+  digitalWrite(ES1_RESET_PIN, HIGH);
+
+  Ethernet.begin(mac, ip);
+  udp.begin(localport);
+
+  // As it takes a couple of seconds before the Ethernet Stack is operational,
+  // flash the green LED until that time period has completed.
+  ethernetStartTime = millis() + delayBeforeSendingPacket;
+  while (millis() <= ethernetStartTime) {
+    delay(FLASH_TIME);
+    digitalWrite(Check_LED_G, false);
+    delay(FLASH_TIME);
+    digitalWrite(Check_LED_G, true);
+  }
+
+  SendDebug("Ethernet started " + strMyIP);
 
   pinMode(AllstepperEnablePin, OUTPUT);
   digitalWrite(AllstepperEnablePin, false);  // Enable stepper drivers
@@ -130,7 +236,10 @@ void setup() {
     steppers[i].stepper->setAcceleration(STEPPER_ACCELERATION);
   }
 
+  homeVSI();  // Wind VSI back to its end stop and zero it before the menu appears
+
   printMenu();
+  SendDebug("Setup Complete");
 }
 
 bool isIntegerToken(const String &s) {
@@ -158,6 +267,20 @@ void handleLine(String line) {
     Serial.print(F("Zeroed "));
     Serial.print(steppers[selectedStepper].name);
     Serial.println(F(" at its current physical position."));
+    SendDebug("Zeroed " + String(steppers[selectedStepper].name) + " at its current physical position");
+    return;
+  }
+
+  if (line.equalsIgnoreCase("h")) {
+    if (selectedStepper == 0) {  // menu index 0 = VSI
+      homeVSI();
+    } else if (selectedStepper < 0) {
+      Serial.println(F("Select VSI first ('s0') - homing is only implemented for VSI so far."));
+    } else {
+      Serial.print(F("Homing isn't implemented for "));
+      Serial.print(steppers[selectedStepper].name);
+      Serial.println(F(" yet - only VSI ('s0') supports 'h' right now."));
+    }
     return;
   }
 
@@ -170,6 +293,7 @@ void handleLine(String line) {
       Serial.print(F("Selected: "));
       Serial.println(steppers[selectedStepper].name);
       Serial.println(F("Type a target step position and press Enter. 'm' = menu, 'z' = zero here."));
+      SendDebug("Selected " + String(steppers[selectedStepper].name));
     } else {
       Serial.println(F("No such stepper number. Type 'm' to see the list."));
     }
@@ -194,9 +318,18 @@ void handleLine(String line) {
   Serial.print(steppers[selectedStepper].name);
   Serial.print(F(" to step "));
   Serial.println(target);
+  SendDebug(String(steppers[selectedStepper].name) + " target set to " + String(target));
 }
 
 void loop() {
+  if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
+    RED_LED_STATE = !RED_LED_STATE;
+
+    digitalWrite(Check_LED_G, RED_LED_STATE);
+    digitalWrite(Check_LED_R, !RED_LED_STATE);
+    NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
+  }
+
   while (Serial.available() > 0) {
     char c = Serial.read();
     if (c == '\n' || c == '\r') {
