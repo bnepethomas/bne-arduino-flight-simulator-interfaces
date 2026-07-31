@@ -473,7 +473,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Jet Ranger 12 Stepper.kicad_pro",
+    "filename": "Jet Ranger 13 Stepper.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -538,7 +538,7 @@
       "netlist": "../../../../../../../Applications/KiCad/",
       "plot": "MANUFACTURING/",
       "pos_files": "",
-      "specctra_dsn": "Jet Ranger 12 Stepper.dsn",
+      "specctra_dsn": "Jet Ranger 13 Stepper.dsn",
       "step": "SHIELD.step",
       "svg": "",
       "vrml": ""

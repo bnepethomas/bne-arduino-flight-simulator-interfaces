@@ -1,6 +1,6 @@
 {
   "board": {
-    "active_layer": 0,
+    "active_layer": 2,
     "active_layer_preset": "",
     "auto_track_width": false,
     "hidden_netclasses": [],
@@ -48,7 +48,7 @@
       "drc_warnings",
       "shapes"
     ],
-    "visible_layers": "00000000_00000000_0ffffff5_ffffff7f",
+    "visible_layers": "00000000_00000000_0fffffff_ffffff7f",
     "zone_display_mode": 0
   },
   "git": {
@@ -58,7 +58,7 @@
     "ssh_key": ""
   },
   "meta": {
-    "filename": "Jet Ranger 12 Stepper.kicad_prl",
+    "filename": "Jet Ranger 13 Stepper.kicad_prl",
     "version": 5
   },
   "net_inspector_panel": {
