@@ -4,15 +4,7 @@
     "active_layer_preset": "",
     "auto_track_width": false,
     "hidden_netclasses": [],
-    "hidden_nets": [
-      "/A0",
-      "/RX0{slash}0",
-      "/*2",
-      "Net-(U1-INT)",
-      "unconnected-(U1-NC-PadB4)",
-      "/STEPPER_5_A",
-      "STPPER_6_C"
-    ],
+    "hidden_nets": [],
     "high_contrast_mode": 0,
     "net_color_mode": 1,
     "opacity": {
@@ -29,7 +21,7 @@
       "footprints": true,
       "graphics": true,
       "keepouts": true,
-      "lockedItems": false,
+      "lockedItems": true,
       "otherItems": true,
       "pads": true,
       "text": true,
@@ -56,7 +48,7 @@
       "drc_warnings",
       "shapes"
     ],
-    "visible_layers": "00000000_00000000_0fffffff_ffffffff",
+    "visible_layers": "00000000_00000000_0ffffff5_ffffff7f",
     "zone_display_mode": 0
   },
   "git": {
@@ -66,7 +58,7 @@
     "ssh_key": ""
   },
   "meta": {
-    "filename": "Front Console 12 Stepper.kicad_prl",
+    "filename": "Jet Ranger 12 Stepper.kicad_prl",
     "version": 5
   },
   "net_inspector_panel": {
@@ -104,7 +96,7 @@
       91,
       71,
       91,
-      91
+      10
     ],
     "custom_group_rules": [],
     "expanded_rows": [],

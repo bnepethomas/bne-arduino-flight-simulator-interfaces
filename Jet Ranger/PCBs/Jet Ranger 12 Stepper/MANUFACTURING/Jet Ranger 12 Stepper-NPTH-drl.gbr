@@ -1,0 +1,27 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,9.0.5*%
+%TF.CreationDate,2026-01-11T12:05:40+10:00*%
+%TF.ProjectId,Jet Ranger Front Panel Servo,4a657420-5261-46e6-9765-722046726f6e,1.2*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,NonPlated,1,2,NPTH,Drill*%
+%TF.FilePolarity,Positive*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 9.0.5) date 2026-01-11 12:05:40*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,ComponentDrill*%
+%ADD10C,3.200000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+%TO.C,H3*%
+X32300000Y-38800000D03*
+%TO.C,H2*%
+X33851800Y-130929500D03*
+%TO.C,H1*%
+X125101000Y-130612200D03*
+%TO.C,H4*%
+X126589800Y-38832100D03*
+M02*

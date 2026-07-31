@@ -20,10 +20,21 @@ the Jet Ranger fleet.
    green LED while the link settles (same `delayBeforeSendingPacket`
    pattern as the rest of the fleet), then enables the shared stepper
    driver pin (`AllstepperEnablePin`, pin 56 — matches that sketch's wiring
-   exactly), sets every stepper's max speed/acceleration to the same
-   `9000`/`9000` values it uses, calls `homeVSI()` (below) to wind VSI back
-   to its end stop and zero it, prints the stepper menu, then sends a
-   `"Setup Complete"` debug log.
+   exactly), sets every stepper's max speed/acceleration (see caveat below
+   for how these currently compare to production), calls `homeVSI()` and
+   `homeFlaps()` (below) to wind VSI and Flaps back to their end stops and
+   zero them, prints the stepper menu, then sends a `"Setup Complete"`
+   debug log.
+
+> **Speed/acceleration diverge from production, and change during bench
+> tuning:** `JET_RANGER_STEPPER_CONTROLLER.ino` uses `9000`/`9000` for max
+> speed/acceleration. On the bench that acceleration value caused missed
+> steps (high acceleration demands more torque than the motor can supply,
+> so it loses sync), so expect these two `#define`s to be adjusted
+> experimentally while tuning — check the current values in the sketch
+> itself rather than trusting a specific number here. Whatever combination
+> turns out to be step-accurate is worth carrying back into
+> `JET_RANGER_STEPPER_CONTROLLER.ino` too.
 2. **Main loop** (`loop()`): toggles the red/green status LEDs every
    `FLASH_TIME` (300ms) as a heartbeat, exactly like the production
    sketch's own status-LED block. Then accumulates incoming Serial bytes
@@ -31,16 +42,48 @@ the Jet Ranger fleet.
    `handleLine()`; every iteration also calls `.run()` on all 7 steppers
    (not just the selected one), so a stepper mid-move when the operator
    switches selection still completes its move instead of freezing
-   part-way.
-3. **`homeVSI()`**: winds VSI hard against its negative mechanical end stop
-   (`-STEPS * 1.1`, deliberately overshooting so it reaches the real stop
-   regardless of exactly how many steps that is) and zeroes it there
-   (`setCurrentPosition(0)`) — the same homing move
-   `JET_RANGER_STEPPER_CONTROLLER.ino`'s own startup sequence performs for
-   VSI. Runs once automatically at boot (before the menu is printed), and
-   again on demand any time the `h` command is sent. Logs `"Homing VSI -
-   winding to end stop"` before and `"VSI end stop reached, zeroed at step
-   0"` after.
+   part-way. Finally, it checks `FlapsStepper.distanceToGo() == 0` (Flaps
+   has nothing left to move) and, the first loop iteration that's true
+   after a move, latches the Flaps DIR pin HIGH directly via
+   `digitalWrite()` — the same action as the manual `d` command below,
+   just automatic — logging `"Flaps DIR pin auto-forced HIGH (reached
+   target)"`. A `flapsDirLatchedHigh` flag edge-detects this so it fires
+   once per arrival rather than every idle iteration, and resets as soon
+   as Flaps is given a new target. AccelStepper still owns the pin the
+   moment Flaps actually steps again, so this only holds while Flaps is
+   sitting still. (This logic lives on whichever stepper is the
+   DRIVER/STEP-DIR one — only that interface has an actual DIR pin — and
+   that's now Flaps; see the VSI/Flaps hardware swap below.)
+3. **`homeVSI()`/`homeFlaps()`**: each winds its stepper hard against its
+   end stop and zeroes it there (`setCurrentPosition(0)`), the same two-line
+   pattern (`runToNewPosition()` then zero) for both, differing only in the
+   step count and sign used to reach the stop. VSI and Flaps swapped
+   AccelStepper interfaces/pins (see the hardware-swap note below), and the
+   step count/overshoot used by each homing function follows that hardware
+   rather than the function's name:
+   - `homeVSI()` now drives the direct-driven FULL4WIRE hardware (was
+     Flaps' pins/interface), so it uses `FULL4WIRE_HOMING_STEPS` with no
+     overshoot multiplier — matching that hardware's own homing style.
+     Direction is `-FULL4WIRE_HOMING_STEPS`, carried over unchanged from
+     what that same physical hardware needed as `homeFlaps()` before the
+     swap.
+   - `homeFlaps()` now drives the geared DRIVER/STEP-DIR hardware (was
+     VSI's pins/interface), so it uses `DRIVER_HOMING_STEPS * 1.1`
+     (deliberately overshooting by 10% so it reaches the real stop
+     regardless of exactly how many steps that is, matching `STEPS` in
+     `JET_RANGER_STEPPER_CONTROLLER.ino`) — matching that hardware's own
+     homing style. Direction is positive, carried over unchanged from what
+     that same physical hardware needed as `homeVSI()` before the swap.
+   > **Caution:** the +/- signs above are carried over from the
+   > corresponding physical hardware's previously-established homing
+   > direction, not independently re-verified under the new function
+   > names. Confirm on the bench that each still winds to (and stops
+   > cleanly at) the correct end stop before trusting it unattended.
+   Both run once automatically at boot (before the menu is printed), and
+   again on demand any time the `h` command is sent while that stepper
+   (`STEPPER_INDEX_VSI` = `s4`, `STEPPER_INDEX_FLAPS` = `s0`) is selected.
+   Each logs a `"Homing <name> - winding to end stop"` line before and
+   `"<name> end stop reached, zeroed at step 0"` after.
 4. **`handleLine(line)`** recognises five input forms (selection, zero, and
    move-to-target each also send a matching `SendDebug()` line):
    - `m` — reprints the stepper menu (does **not** change the current
@@ -51,24 +94,78 @@ the Jet Ranger fleet.
      moves the *current* stepper to step 5 rather than switching to
      stepper #5 — an ambiguity that would exist if selection and target
      entry both accepted plain numbers. Logs `"Selected <name>"`.
+     **Note:** menu slots 0 and 4 were swapped on request — `s0` now
+     selects **Flaps** and `s4` now selects **VSI** (the reverse of the
+     original layout). Only the `steppers[]` array order and
+     `STEPPER_INDEX_VSI`/`STEPPER_INDEX_FLAPS` (now `4`/`0`) changed here;
+     see the separate hardware swap below for the pins/interfaces
+     themselves.
+   > **Hardware swap (separate from the menu-slot swap above):** VSI and
+   > Flaps also swapped which physical pins/`AccelStepper` interface each
+   > one drives. VSI is now `AccelStepper::FULL4WIRE` on `COIL_VSI_A..D`
+   > (pins 2, 3, 4, 5 — was Flaps' coil pins). Flaps is now
+   > `AccelStepper::DRIVER` on `FlapsStepPin`/`FlapsDirectionPin` (pins 46,
+   > 48 — was VSI's step/dir pins). Everything downstream that's tied to
+   > "which interface type does this stepper have" follows the hardware,
+   > not the name: `homeVSI()`/`homeFlaps()`'s step count and overshoot
+   > (see above), each one's `displaySign` (see below), and the Flaps
+   > DIR-pin diagnostic (`d`/`e` and the automatic latch, see below) all
+   > moved with their hardware. The one thing that did **not** re-verify
+   > itself is the +/- homing direction sign for each function — see the
+   > caution note in the homing section above.
    - `z` — zeroes the currently selected stepper at wherever it is
      physically sitting right now (`setCurrentPosition(0)`), useful for
      establishing a known reference point before hunting for min/max. Logs
      `"Zeroed <name> at its current physical position"`.
-   - `h` — re-runs `homeVSI()` on demand, but only while VSI (`s0`) is
-     selected; prints a message explaining it isn't implemented for any
-     other stepper yet otherwise (not logged - `homeVSI()` logs its own
-     lines regardless of how it was triggered).
+   - `h` — re-runs `homeVSI()`/`homeFlaps()` on demand, but only while VSI
+     (`s4`) or Flaps (`s0`) is selected; prints a message explaining it
+     isn't implemented for any other stepper yet otherwise (not logged -
+     the homing functions log their own lines regardless of how they were
+     triggered).
    - Any other integer (optionally signed, e.g. `1500` or `-200`) — calls
      `.moveTo()` on the currently selected stepper. Can be sent as many
      times as needed; each one just updates the target. Logs `"<name>
      target set to <value>"`.
+   - `d` / `e` — diagnostic only, available regardless of what's selected:
+     drive the Flaps DIR pin (`FlapsDirectionPin`, pin 48) HIGH (`d`) or LOW
+     (`e`) directly via `digitalWrite()`, entirely bypassing AccelStepper.
+     Neither moves the stepper. Since AccelStepper owns that pin whenever
+     it actually steps, this only holds until Flaps' next move overwrites
+     it. Logs `"Flaps DIR pin forced HIGH"` / `"Flaps DIR pin forced LOW"`.
+     Moved here from VSI when VSI and Flaps swapped AccelStepper
+     interfaces/pins — only a DRIVER/STEP-DIR stepper has an actual DIR
+     pin, and that's Flaps now.
+5. **`toRawSteps()`/`toDisplaySteps()`**: AccelStepper's own native positive
+   direction isn't guaranteed to agree between steppers — VSI and Flaps use
+   different `AccelStepper` interface types (`FULL4WIRE` vs
+   `DRIVER`/STEP-DIR — see the hardware swap below), and both `homeVSI()`
+   and `homeFlaps()` already needed opposite raw-direction signs to reach
+   their end stops. So each `StepperEntry` carries its own `displaySign`
+   (`-1` for Flaps and every other stepper, `+1` for VSI — inherited from
+   the physical hardware each now drives, confirmed backwards on the bench
+   under its previous name), and the two helpers take that sign as a
+   parameter rather than applying one fixed flip to everyone. Regardless
+   of the per-stepper sign, the
+   operator-facing convention stays the same for every gauge: typing a
+   positive target moves it **clockwise**, negative counter-clockwise.
+   Every step count that crosses between "what the operator types/sees" and
+   "what AccelStepper actually tracks" goes through one of these two
+   (single-purpose, symmetric sign-flip) helpers: `toRawSteps()` before
+   `.moveTo()`, `toDisplaySteps()` when showing `currentPosition()` back in
+   the menu. `homeVSI()`/`homeFlaps()`'s own end-stop-seeking moves are raw
+   hardware directions, independent of this display convention, so neither
+   is passed through either helper.
 
 ## Pin usage
 
-Identical wiring to `JET_RANGER_STEPPER_CONTROLLER.ino`'s 7 "simple"
-`AccelStepper` gauges (the SARI roll stepper is intentionally not included
-— see below):
+Matches `JET_RANGER_STEPPER_CONTROLLER.ino`'s pin numbers for all 7
+"simple" `AccelStepper` gauges (the SARI roll stepper is intentionally not
+included — see below), **except VSI and Flaps**, which had their
+`AccelStepper` interfaces/pins swapped in this harness only (see the
+hardware-swap note above) — this harness's VSI is now that sketch's Flaps
+wiring and vice versa. Until `JET_RANGER_STEPPER_CONTROLLER.ino` gets the
+same correction (if it needs it), don't assume VSI/Flaps values found here
+carry straight over to it the way the other 5 steppers' do.
 
 | Pin(s) | Function |
 |---|---|
@@ -81,8 +178,8 @@ Identical wiring to `JET_RANGER_STEPPER_CONTROLLER.ino`'s 7 "simple"
 | 34, 36 | Current-airspeed stepper step/direction |
 | 38, 40 | Max-airspeed stepper step/direction |
 | 42, 44 | Altimeter stepper step/direction |
-| 46, 48 | VSI stepper step/direction |
-| 2, 3, 4, 5 | Flaps 4-wire stepper coils (`COIL_FLAPS_A..D`) |
+| 46, 48 | Flaps stepper step/direction (`FlapsStepPin`/`FlapsDirectionPin`) — was VSI's pins before the hardware swap |
+| 2, 3, 4, 5 | VSI 4-wire stepper coils (`COIL_VSI_A..D`) — was Flaps' pins before the hardware swap |
 
 > **Not included:** the SARI roll stepper (attitude-indicator roll axis).
 > It requires its own closed-loop IR-sensor homing/tracking state machine
@@ -110,13 +207,14 @@ Ethernet is send-only, for logging.
 
 | Target | Port | Purpose |
 |---|---|---|
-| `172.16.1.10` (reflector host) | 27000 | Debug/log messages (`SendDebug`) — Ethernet-started, setup-complete, VSI homing, stepper selection, zero, and move-to-target events |
+| `172.16.1.10` (reflector host) | 27000 | Debug/log messages (`SendDebug`) — Ethernet-started, setup-complete, VSI/Flaps homing, stepper selection, zero, and move-to-target events |
 
 ## Build verification
 
 Compiled clean with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`,
-**AccelStepper** 1.64.0, **Ethernet** 2.0.2): 20,344 bytes flash (8%),
-1,265 bytes RAM (15%).
+**AccelStepper** 1.64.0, **Ethernet** 2.0.2): 21,252 bytes flash (8%),
+1,456 bytes RAM (17%). Flashed to the Mega on COM4 and verified via avrdude
+(third attempt — first two hit a transient "unable to open port" error).
 
 ## C# / other programs this sketch communicates with
 
