@@ -7,29 +7,29 @@ namespace StepperVSITester
     {
         // JET_RANGER_STEPPER_CONTROLLER.ino's MSFSport - this tool stands in
         // for FSUIPCWinformsAutoCS's stepperClient while testing the
-        // stepper board's "VSI" UDP handler in isolation, without needing
-        // FSUIPC/a flight sim running.
+        // stepper board's "VSI"/"ALT" UDP handlers in isolation, without
+        // needing FSUIPC/a flight sim running.
         UdpClient stepperClient = new UdpClient();
 
-        private void SendVsiFpm(long fpm)
+        private void Send(string code, long value)
         {
-            byte[] sendBytes = Encoding.ASCII.GetBytes("D,VSI:" + fpm.ToString());
+            byte[] sendBytes = Encoding.ASCII.GetBytes("D," + code + ":" + value.ToString());
             stepperClient.Send(sendBytes, sendBytes.Length);
         }
 
-        private void SendManualValue()
+        private void SendManualValue(TrackBar trackBar, TextBox textBox, Label label, string code, string unit)
         {
-            if (long.TryParse(txtRawInput.Text, out long fpm))
+            if (long.TryParse(textBox.Text, out long value))
             {
-                if (fpm >= trkVsi.Minimum && fpm <= trkVsi.Maximum)
+                if (value >= trackBar.Minimum && value <= trackBar.Maximum)
                 {
-                    trkVsi.Value = (int)fpm;
-                    UpdateValueLabel(fpm);
-                    SendVsiFpm(fpm);
+                    trackBar.Value = (int)value;
+                    UpdateValueLabel(label, value, unit);
+                    Send(code, value);
                 }
                 else
                 {
-                    MessageBox.Show($"Value must be between {trkVsi.Minimum} and {trkVsi.Maximum}");
+                    MessageBox.Show($"Value must be between {trackBar.Minimum} and {trackBar.Maximum}");
                 }
             }
             else
@@ -38,9 +38,9 @@ namespace StepperVSITester
             }
         }
 
-        private void UpdateValueLabel(long fpm)
+        private void UpdateValueLabel(Label label, long value, string unit)
         {
-            lblValue.Text = $"Value: {fpm} fpm";
+            label.Text = $"Value: {value} {unit}";
         }
 
         public frmMain()
@@ -50,35 +50,67 @@ namespace StepperVSITester
             stepperClient.Connect("172.16.1.105", 13136);
 
             trkVsi.Value = 0;
-            UpdateValueLabel(0);
+            UpdateValueLabel(lblValue, 0, "fpm");
             txtRawInput.Text = "0";
+
+            trkAlt.Value = 0;
+            UpdateValueLabel(lblAltValue, 0, "ft");
+            txtAltInput.Text = "0";
         }
 
         private void trkVsi_Scroll(object sender, EventArgs e)
         {
-            UpdateValueLabel(trkVsi.Value);
+            UpdateValueLabel(lblValue, trkVsi.Value, "fpm");
             txtRawInput.Text = trkVsi.Value.ToString();
-            SendVsiFpm(trkVsi.Value);
+            Send("VSI", trkVsi.Value);
         }
 
         private void butZero_Click(object sender, EventArgs e)
         {
             trkVsi.Value = 0;
             txtRawInput.Text = "0";
-            UpdateValueLabel(0);
-            SendVsiFpm(0);
+            UpdateValueLabel(lblValue, 0, "fpm");
+            Send("VSI", 0);
         }
 
         private void butSendRaw_Click(object sender, EventArgs e)
         {
-            SendManualValue();
+            SendManualValue(trkVsi, txtRawInput, lblValue, "VSI", "fpm");
         }
 
         private void txtRawInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SendManualValue();
+                SendManualValue(trkVsi, txtRawInput, lblValue, "VSI", "fpm");
+            }
+        }
+
+        private void trkAlt_Scroll(object sender, EventArgs e)
+        {
+            UpdateValueLabel(lblAltValue, trkAlt.Value, "ft");
+            txtAltInput.Text = trkAlt.Value.ToString();
+            Send("ALT", trkAlt.Value);
+        }
+
+        private void butAltZero_Click(object sender, EventArgs e)
+        {
+            trkAlt.Value = 0;
+            txtAltInput.Text = "0";
+            UpdateValueLabel(lblAltValue, 0, "ft");
+            Send("ALT", 0);
+        }
+
+        private void butSendAlt_Click(object sender, EventArgs e)
+        {
+            SendManualValue(trkAlt, txtAltInput, lblAltValue, "ALT", "ft");
+        }
+
+        private void txtAltInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendManualValue(trkAlt, txtAltInput, lblAltValue, "ALT", "ft");
             }
         }
     }

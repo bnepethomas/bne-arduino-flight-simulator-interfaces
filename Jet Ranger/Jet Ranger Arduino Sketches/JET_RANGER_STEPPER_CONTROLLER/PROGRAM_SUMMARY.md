@@ -200,10 +200,10 @@ diffed against each other line-for-line.
 > data when `FSUIPCWinformsAutoCS` specifically is the bridge app running.
 >
 > **[StepperVSITester](../../%20C%23%20Code/StepperVSITester/PROGRAM_SUMMARY.md)**
-> can also send `"D,VSI:<fpm>"` straight to this board's `172.16.1.105:13136`
-> for testing/tuning VSI in isolation, without needing FSUIPC or a flight
-> sim running — meant to be run *instead of* `FSUIPCWinformsAutoCS` while
-> doing that, not alongside it.
+> can also send `"D,VSI:<fpm>"` and `"D,ALT:<feet>"` straight to this
+> board's `172.16.1.105:13136` for testing/tuning VSI or ALT in isolation,
+> without needing FSUIPC or a flight sim running — meant to be run
+> *instead of* `FSUIPCWinformsAutoCS` while doing that, not alongside it.
 
 > All three of the `SendIPMessage`/`SendMSFSMessage`/`SendIPString`/
 > `SendLedString` helper functions are copy-pasted from the button-matrix
