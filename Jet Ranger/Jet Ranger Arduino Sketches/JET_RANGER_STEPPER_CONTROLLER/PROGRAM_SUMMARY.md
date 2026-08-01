@@ -25,8 +25,18 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 27,892 bytes (10%) | 3,246 bytes (39%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 23,748 bytes (9%) | 2,805 bytes (34%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
+
+Flashed to the bench Mega on COM4 (the same physical board the
+`Stepper-Tuning-Harness` sketch uses as a drop-in stand-in) after the
+VSI/Flaps hardware-swap reanalysis below, again after adding `VSI` UDP
+support, and again after adding the `VSI_FPM_TABLE` calibration (see
+program flow below). The flash/RAM drop between the `VSI` UDP support
+commit and this one is a clean-build artifact (a stale incremental-build
+cache inflated the prior number — confirmed by re-running with
+`--clean`), not a functional regression; the diff between those two
+states is purely additive.
 
 Library versions used for this verification: **Ethernet** 2.0.2,
 **AccelStepper** 1.64.0, **DCS-BIOS** 0.3.13 (Arduino Library Manager). The
@@ -50,6 +60,27 @@ diffed against each other line-for-line.
      end, zero the position there, sweep through a test motion, and (for
      ALT specifically) home against a physical zero-sense switch
      (`ALTzeroSensePin`) rather than just a timed sweep.
+   > **VSI/Flaps hardware swap (reanalysis, current focus):** VSI moved
+   > from a geared `DRIVER`/STEP-DIR motor onto direct coils
+   > (`AccelStepper::FULL4WIRE`), and Flaps took over VSI's old
+   > `DRIVER`/STEP-DIR pins in exchange — a real wiring change on the
+   > bench, not a software-only swap. Pin `#define`s were renamed to match
+   > what they actually drive now (`VSIstepPin`/`VSIdirectionPin` →
+   > `FlapsStepPin`/`FlapsDirectionPin`; `COIL_FLAPS_A..D` →
+   > `COIL_VSI_A..D`) — the old names were actively misleading, including a
+   > comment claiming the DRIVER pins were "unused" when they're now
+   > Flaps'. VSI's homing sequence was switched from the geared `STEPS*1.1`
+   > (~5544 steps, calibrated for the old motor) to the direct-drive
+   > `FULL4WIRE_HOMING_STEPS` (315×2 = 630, no overshoot — renamed from
+   > `FLAPS_STEP`, since it's no longer Flaps-specific), matching the same
+   > FULL4WIRE-style homing already established for Flaps. **Not
+   > independently verified against the new physical motor:** the homing
+   > direction sign (kept unchanged from before the swap), and `VSIoffset`
+   > (130 → 16) / `VSIMaxSteps` (2400 → 300), which were scaled down by the
+   > same ~8× ratio as the step count as a rough estimate — confirm/
+   > recalibrate all three on the bench. A duplicate, dead `#define STEPS
+   > 10080` (shadowed by the real `STEPS 315*16` immediately after it, so
+   > it never actually took effect) was also removed as incidental cleanup.
    - Starts DCS-BIOS (`DcsBios::setup()`) and sets backlighting to its
      normal running brightness.
 2. **Main loop** (`loop()`)
@@ -87,7 +118,7 @@ diffed against each other line-for-line.
    path): `ProcessReceivedMSFSString()` parses the same
    `"D,CODE:value,CODE:value,..."` CSV payload as the Servo Controller
    (`HandleOutputValuePair`/`HandleControlString`/`getValue` are near-verbatim
-   ports of that sketch's versions). Only two codes are wired up for now:
+   ports of that sketch's versions). Three codes are wired up for now:
    - `IAS` → `setCurrentAirspeed(value)`, reusing the existing airspeed
      stepper mover. **Caveat:** the PC bridge apps
      (`P3D_to_UDP`/`SimConnect_to_UDP`/`FSUIPCWinformsAutoCS`) send `IAS`
@@ -100,8 +131,23 @@ diffed against each other line-for-line.
      *is* unit-correct as-is, since the PC bridge apps send `ALT` as raw,
      unconverted feet — the same units this sketch's DCS-BIOS altitude
      handler expects.
-   - Every other code in the payload (e.g. `TQ`, `RPMR`, `VSI`, the
-     warning-lamp bits, etc.) is currently parsed and silently ignored.
+   - `VSI` → `VSIstepper.moveTo(vsiFpmToSteps(value))`. **Unlike `IAS`,**
+     `FSUIPCWinformsAutoCS` sends this board **raw fpm** for `VSI`
+     specifically — its own front-panel/servo-controller payload still
+     carries the Bell 206 `VSI_Process()` servo-position number unchanged,
+     but builds a separate copy with the `VSI` field swapped to raw fpm
+     before sending to this board (see that project's `timerMain_Tick`
+     send block). `vsiFpmToSteps()` converts that raw fpm into a real step
+     target via `VSI_FPM_TABLE`, an 11-row hand-measured calibration table
+     (the same data as `Stepper-Tuning-Harness`'s `VSI_FT_TABLE` — that
+     harness's `f` command uses "ft" as informal shorthand for this
+     gauge's fpm units, not altitude), linearly interpolating between the
+     two nearest rows and clamping to whichever end is nearest for values
+     outside ±1750 fpm (never extrapolated). This bypasses `setVSI()`'s
+     separate `±VSIMaxSteps` clamp entirely — that clamp remains in use
+     only for the unrelated DCS-BIOS path (`onVviChange`).
+   - Every other code in the payload (e.g. `TQ`, `RPMR`, the warning-lamp
+     bits, etc.) is currently parsed and silently ignored.
 
 ## Pin usage (JET_RANGER_STEPPER_CONTROLLER.ino)
 
@@ -118,11 +164,11 @@ diffed against each other line-for-line.
 | 34, 36 | Current-airspeed stepper step/direction |
 | 38, 40 | Max-airspeed stepper step/direction |
 | 42, 44 | Altimeter stepper step/direction |
-| 46, 48 | VSI stepper step/direction |
+| 46, 48 | Flaps stepper step/direction (`FlapsStepPin`/`FlapsDirectionPin`) — was VSI's pins before the VSI/Flaps hardware swap above |
 | 54 | Altimeter zero-sense homing switch input (`ALTzeroSensePin`) |
 | 55 | SARI roll IR zero-detector input |
 | 56 | Shared stepper-driver enable pin (`AllstepperEnablePin`/`SARIenablePin`) |
-| 2, 3, 4, 5 | Flaps 4-wire stepper coils (`COIL_FLAPS_A..D`) |
+| 2, 3, 4, 5 | VSI 4-wire stepper coils (`COIL_VSI_A..D`) — was Flaps' pins before the VSI/Flaps hardware swap above |
 | Serial (USB) | DCS-BIOS `DCSBIOS_IRQ_SERIAL` link — the data source for every stepper/servo target |
 
 ## Local network configuration (JET_RANGER_STEPPER_CONTROLLER.ino)
@@ -144,13 +190,20 @@ diffed against each other line-for-line.
 | `172.16.1.10` (`MSFSIP`) | 7791 | `SendMSFSMessage()` helper exists but is never called in this sketch — also dead code (unrelated to the new `MSFSport` UDP *receiver*, which is inbound-only and doesn't use `MSFSIP`) |
 
 > **[FSUIPCWinformsAutoCS](../../%20C%23%20Code/FSUIPCWinformsAutoCS/PROGRAM_SUMMARY.md)**
-> now sends to `172.16.1.105:13136` (a new `stepperClient`, sending the
-> same shared front-panel payload it sends to the Servo and OLED
-> Controllers) — this board reads the `IAS`/`ALT` fields out of it and
-> ignores the rest. The other sim-bridge apps (`P3D_to_UDP` /
-> `SimConnect_to_UDP` / `MSFSSimConnectExtractor`) have **not** been
-> updated to do the same, so this board only receives UDP data when
-> `FSUIPCWinformsAutoCS` specifically is the bridge app running.
+> now sends to `172.16.1.105:13136` (a new `stepperClient`, sending mostly
+> the same shared front-panel payload it sends to the Servo and OLED
+> Controllers, except its `VSI` field is swapped for raw fpm before
+> sending here specifically) — this board reads the `IAS`/`ALT`/`VSI`
+> fields out of it and ignores the rest. The other sim-bridge apps
+> (`P3D_to_UDP` / `SimConnect_to_UDP` / `MSFSSimConnectExtractor`) have
+> **not** been updated to do the same, so this board only receives UDP
+> data when `FSUIPCWinformsAutoCS` specifically is the bridge app running.
+>
+> **[StepperVSITester](../../%20C%23%20Code/StepperVSITester/PROGRAM_SUMMARY.md)**
+> can also send `"D,VSI:<fpm>"` straight to this board's `172.16.1.105:13136`
+> for testing/tuning VSI in isolation, without needing FSUIPC or a flight
+> sim running — meant to be run *instead of* `FSUIPCWinformsAutoCS` while
+> doing that, not alongside it.
 
 > All three of the `SendIPMessage`/`SendMSFSMessage`/`SendIPString`/
 > `SendLedString` helper functions are copy-pasted from the button-matrix

@@ -152,11 +152,17 @@ unsigned long previousMillis = 0;
 
 #define AllstepperEnablePin 56
 
-#define VSIstepPin 46
-#define VSIdirectionPin 48
-// #define VSIstepPin 30
-// #define VSIdirectionPin 32
-#define VSIoffset 130
+
+// Swapped with VSI's coil pins below: VSI moved off this DRIVER/STEP-DIR
+// pair onto direct coils, and Flaps (below) took over this pair - it is
+// NOT unused, it now belongs to Flaps.
+#define FlapsStepPin 46
+#define FlapsDirectionPin 48
+// Scaled down by the same ~8x ratio as the VSI homing step count below
+// (FULL4WIRE_HOMING_STEPS / the old geared STEPS) since VSI's usable
+// range shrank when it moved to direct-drive coils - an unverified
+// estimate, NOT bench-measured. Confirm/recalibrate on real hardware.
+#define VSIoffset 1
 
 #define ALTstepPin 42
 #define ALTdirectionPin 44
@@ -176,21 +182,26 @@ unsigned long previousMillis = 0;
 #define GForcedirectionPin 28
 
 
-#define COIL_FLAPS_A 2
-#define COIL_FLAPS_B 3
-#define COIL_FLAPS_C 4
-#define COIL_FLAPS_D 5
+// Swapped with Flaps' step/dir pins above: Flaps moved onto this
+// DRIVER/STEP-DIR pair, and VSI (below) took over these coil pins - it is
+// NOT unused, it now belongs to VSI.
+#define COIL_VSI_A 2
+#define COIL_VSI_B 3
+#define COIL_VSI_C 4
+#define COIL_VSI_D 5
 
-#define STEPS 10080
 #define STEPS 315 * 16       // The 16 is the default divisors when no pins are tied together on the driver module \
                             // For an unmodified Vid series there are 315 steps
 #define DUAL_STEPS 315 * 16  // The Dual stepper seems to have fewer steps between stops
-#define FLAPS_STEP 315 * 2   // As flaps is direct driven don't need a multiplier
-AccelStepper VSIstepper(AccelStepper::DRIVER, VSIstepPin, VSIdirectionPin);
+// Direct-drive (FULL4WIRE) step count, no overshoot multiplier needed -
+// originally for Flaps, now also used by VSI's homing below since VSI
+// moved from a geared DRIVER motor onto direct coils.
+#define FULL4WIRE_HOMING_STEPS 315 * 2
+AccelStepper FlapsStepper(AccelStepper::DRIVER, FlapsStepPin, FlapsDirectionPin);
 AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
 AccelStepper SpeedCurrentstepper(AccelStepper::DRIVER, SpeedCurrentstepPin, SpeedCurrentdirectionPin);
 AccelStepper SpeedMaxstepper(AccelStepper::DRIVER, SpeedMaxstepPin, SpeedMaxdirectionPin);
-AccelStepper FlapsStepper(AccelStepper::FULL4WIRE, COIL_FLAPS_A, COIL_FLAPS_B, COIL_FLAPS_C, COIL_FLAPS_D);
+AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
 AccelStepper AOAstepper(AccelStepper::DRIVER, AOAstepPin, AOAdirectionPin);
 AccelStepper GForcestepper(AccelStepper::DRIVER, GForcestepPin, GForcedirectionPin);
 // ########################### END STEPPERS #########################################
@@ -275,19 +286,29 @@ void setup() {
   // ################# Start VSI Startup #########################
   SendDebug("Start VSI");
 
-  VSIstepper.runToNewPosition(-STEPS * 1.1);
+  // VSI is now a direct-driven FULL4WIRE stepper on coil pins (was a
+  // geared DRIVER motor on VSIstepPin/VSIdirectionPin, now Flaps' pins -
+  // see the pin swap above). Switched from STEPS*1.1 (geared, ~5544 steps
+  // with a 10% overshoot) to FULL4WIRE_HOMING_STEPS (315*2 = 630, no
+  // overshoot) to match - the same constant this sketch already defines
+  // for exactly this stepper type (previously FLAPS_STEP, for Flaps' own
+  // direct-drive homing). Direction sign kept as-is from before this
+  // hardware change - NOT re-verified against the new physical motor,
+  // confirm it actually winds to (and stops cleanly at) the real end stop
+  // before trusting it unattended.
+  VSIstepper.runToNewPosition(-FULL4WIRE_HOMING_STEPS);
   VSIstepper.setCurrentPosition(0);
 
   for (int i = 1; i <= 1; i++) {
     SendDebug("Loop :" + String(i));
-    VSIstepper.runToNewPosition(STEPS);
+    VSIstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
     delay(200);
     VSIstepper.runToNewPosition(0);
     delay(200);
   }
 
   // Move VSI to zero position and set
-  VSIstepper.runToNewPosition((STEPS / 2) - VSIoffset);
+  VSIstepper.runToNewPosition((FULL4WIRE_HOMING_STEPS / 2) - VSIoffset);
   VSIstepper.setCurrentPosition(0);
   SendDebug("End VSI");
   // ################# End VSI Startup #########################
@@ -322,90 +343,95 @@ void setup() {
   SendDebug("End ALT");
   // ################# End ALT Startup #########################
 
-  // ################# Start Speed Current Startup #########################
-  SendDebug("Start SpeedCurrentstepper");
-  SpeedCurrentstepper.runToNewPosition(-DUAL_STEPS * 1.1);
-  SpeedCurrentstepper.setCurrentPosition(0);
+//   // ################# Start Speed Current Startup #########################
+//   SendDebug("Start SpeedCurrentstepper");
+//   SpeedCurrentstepper.runToNewPosition(-DUAL_STEPS * 1.1);
+//   SpeedCurrentstepper.setCurrentPosition(0);
 
-  for (int i = 1; i <= 1; i++) {
-    SendDebug("Loop :" + String(i));
-    SpeedCurrentstepper.runToNewPosition(DUAL_STEPS * 1);
-    delay(200);
-    SpeedCurrentstepper.runToNewPosition(0);
-    delay(200);
-  }
-  SendDebug("End SpeedCurrentstepper");
-  //  ################ #End Speed Current Startup######################## #
-
-
-  // ################# Start Speed Max Startup #########################
-  SendDebug("Start SpeedMaxstepper");
-  SpeedMaxstepper.runToNewPosition(-DUAL_STEPS * 1.1);
-  SpeedMaxstepper.setCurrentPosition(0);
-  for (int i = 1; i <= 1; i++) {
-    SendDebug("Loop :" + String(i));
-    SpeedMaxstepper.runToNewPosition(DUAL_STEPS * 1);
-    delay(200);
-    SpeedMaxstepper.runToNewPosition(0);
-    delay(200);
-  }
-  SpeedMaxstepper.runToNewPosition((DUAL_STEPS * 0.95));
-  SendDebug("End SpeedMaxstepper");
-  //  ################# End Speed Max Startup #########################
+//   for (int i = 1; i <= 1; i++) {
+//     SendDebug("Loop :" + String(i));
+//     SpeedCurrentstepper.runToNewPosition(DUAL_STEPS * 1);
+//     delay(200);
+//     SpeedCurrentstepper.runToNewPosition(0);
+//     delay(200);
+//   }
+//   SendDebug("End SpeedCurrentstepper");
+//   //  ################ #End Speed Current Startup######################## #
 
 
-  // ################# Start Flaps Startup #########################
-  SendDebug("Start FlapsStepper");
-  FlapsStepper.runToNewPosition(FLAPS_STEP * 1);
-  FlapsStepper.setCurrentPosition(0);
-  for (int i = 1; i <= 1; i++) {
-    SendDebug("Loop :" + String(i));
-    FlapsStepper.runToNewPosition(-FLAPS_STEP * 1);
-    FlapsStepper.runToNewPosition(0);
-    delay(200);
-  }
-  FlapsStepper.runToNewPosition(-100);
-  SendDebug("Flaps Current = " + String(FlapsStepper.currentPosition()));
-  SendDebug("End FlapsStepper");
-  //  ################# End Faps Startup #########################
+//   // ################# Start Speed Max Startup #########################
+//   SendDebug("Start SpeedMaxstepper");
+//   SpeedMaxstepper.runToNewPosition(-DUAL_STEPS * 1.1);
+//   SpeedMaxstepper.setCurrentPosition(0);
+//   for (int i = 1; i <= 1; i++) {
+//     SendDebug("Loop :" + String(i));
+//     SpeedMaxstepper.runToNewPosition(DUAL_STEPS * 1);
+//     delay(200);
+//     SpeedMaxstepper.runToNewPosition(0);
+//     delay(200);
+//   }
+//   SpeedMaxstepper.runToNewPosition((DUAL_STEPS * 0.95));
+//   SendDebug("End SpeedMaxstepper");
+//   //  ################# End Speed Max Startup #########################
 
-  // ################# Start AOA Startup #########################
-  SendDebug("Start AOAStepper");
+
+//   // Already disabled before this reanalysis, and now additionally stale:
+//   // Flaps is DRIVER/geared now (was FULL4WIRE when this was written - see
+//   // the VSI/Flaps pin swap above), so if this is ever re-enabled it needs
+//   // STEPS-style geared homing (with overshoot), not the direct-drive
+//   // FULL4WIRE_HOMING_STEPS (ex-FLAPS_STEP) referenced below.
+//   // // ################# Start Flaps Startup #########################
+//   // SendDebug("Start FlapsStepper");
+//   // FlapsStepper.runToNewPosition(FULL4WIRE_HOMING_STEPS * 1);
+//   // FlapsStepper.setCurrentPosition(0);
+//   // for (int i = 1; i <= 1; i++) {
+//   //   SendDebug("Loop :" + String(i));
+//   //   FlapsStepper.runToNewPosition(-FULL4WIRE_HOMING_STEPS * 1);
+//   //   FlapsStepper.runToNewPosition(0);
+//   //   delay(200);
+//   // }
+//   // FlapsStepper.runToNewPosition(-100);
+//   // SendDebug("Flaps Current = " + String(FlapsStepper.currentPosition()));
+//   // SendDebug("End FlapsStepper");
+//   // //  ################# End Faps Startup #########################
+
+//   // ################# Start AOA Startup #########################
+//   SendDebug("Start AOAStepper");
 #define AOAZeroOffSet 200
 #define AOAMaxSteps 4200
-  AOAstepper.runToNewPosition(-STEPS * 1);
-  AOAstepper.setCurrentPosition(0);
-  AOAstepper.runToNewPosition(AOAZeroOffSet);
-  AOAstepper.setCurrentPosition(0);
-  for (int i = 1; i <= 1; i++) {
-    SendDebug("Loop :" + String(i));
-    AOAstepper.runToNewPosition(AOAMaxSteps);
-    AOAstepper.runToNewPosition(0);
-    delay(200);
-  }
+//   AOAstepper.runToNewPosition(-STEPS * 1);
+//   AOAstepper.setCurrentPosition(0);
+//   AOAstepper.runToNewPosition(AOAZeroOffSet);
+//   AOAstepper.setCurrentPosition(0);
+//   for (int i = 1; i <= 1; i++) {
+//     SendDebug("Loop :" + String(i));
+//     AOAstepper.runToNewPosition(AOAMaxSteps);
+//     AOAstepper.runToNewPosition(0);
+//     delay(200);
+//   }
 
-  SendDebug("End AOAStepper");
-  //  ################# End AOA Startup #########################
+//   SendDebug("End AOAStepper");
+//   //  ################# End AOA Startup #########################
 
-  // ################# Start GForce Startup #########################
-  SendDebug("Start GForcestepper");
-#define GForceZeroOffSet 0
-#define GForceMaxSteps 4800
-  GForcestepper.runToNewPosition(-STEPS * 1);
-  GForcestepper.setCurrentPosition(0);
-  GForcestepper.runToNewPosition(GForceZeroOffSet);
-  GForcestepper.setCurrentPosition(0);
-  for (int i = 1; i <= 1; i++) {
-    SendDebug("Loop :" + String(i));
-    GForcestepper.runToNewPosition(GForceMaxSteps);
-    GForcestepper.runToNewPosition(0);
-    delay(200);
-  }
+//   // ################# Start GForce Startup #########################
+//   SendDebug("Start GForcestepper");
+// #define GForceZeroOffSet 0
+// #define GForceMaxSteps 4800
+//   GForcestepper.runToNewPosition(-STEPS * 1);
+//   GForcestepper.setCurrentPosition(0);
+//   GForcestepper.runToNewPosition(GForceZeroOffSet);
+//   GForcestepper.setCurrentPosition(0);
+//   for (int i = 1; i <= 1; i++) {
+//     SendDebug("Loop :" + String(i));
+//     GForcestepper.runToNewPosition(GForceMaxSteps);
+//     GForcestepper.runToNewPosition(0);
+//     delay(200);
+//   }
 
-  GForcestepper.runToNewPosition(2030);
+//   GForcestepper.runToNewPosition(2030);
 
-  SendDebug("End GForcestepper");
-  //  ################# End GForce Startup #########################
+//   SendDebug("End GForcestepper");
+//   //  ################# End GForce Startup #########################
 
 
   SendDebug("STEPPER INITIALISATION COMPLETE");
@@ -519,22 +545,22 @@ DcsBios::IntegerBuffer intFloodLBrightBuffer(A_10C_INT_FLOOD_L_BRIGHT, onIntFloo
 
 
 
-// ################################### START FLAPS ##############################################
-#define FlapsMaxDegrees 200
-// DcsBios::Switch3Pos flapsSwitch("FLAPS_SWITCH", PIN_A, PIN_B);
-void setFlaps(unsigned int TargetDegrees) {
+// // ################################### START FLAPS ##############################################
+// #define FlapsMaxDegrees 200
+// // DcsBios::Switch3Pos flapsSwitch("FLAPS_SWITCH", PIN_A, PIN_B);
+// void setFlaps(unsigned int TargetDegrees) {
 
-  int signedTargetDegrees = TargetDegrees;
-  SendDebug("Flaps = " + String(signedTargetDegrees) + " Current = " + String(FlapsStepper.currentPosition()));
-  if (signedTargetDegrees >= FlapsMaxDegrees) signedTargetDegrees = FlapsMaxDegrees;
-  //
-  FlapsStepper.moveTo(-signedTargetDegrees);
-}
-void onFlapPosChange(unsigned int newValue) {
-  setFlaps((map(newValue, 0, 65535, 0, FlapsMaxDegrees * 0.7)));
-}
-DcsBios::IntegerBuffer flapPosBuffer(A_10C_FLAP_POS, onFlapPosChange);
-// ################################### END FLAPS ##############################################
+//   int signedTargetDegrees = TargetDegrees;
+//   SendDebug("Flaps = " + String(signedTargetDegrees) + " Current = " + String(FlapsStepper.currentPosition()));
+//   if (signedTargetDegrees >= FlapsMaxDegrees) signedTargetDegrees = FlapsMaxDegrees;
+//   //
+//   FlapsStepper.moveTo(-signedTargetDegrees);
+// }
+// void onFlapPosChange(unsigned int newValue) {
+//   setFlaps((map(newValue, 0, 65535, 0, FlapsMaxDegrees * 0.7)));
+// }
+// DcsBios::IntegerBuffer flapPosBuffer(A_10C_FLAP_POS, onFlapPosChange);
+// // ################################### END FLAPS ##############################################
 
 
 
@@ -569,7 +595,14 @@ DcsBios::IntegerBuffer airspeedMaxIasBuffer(A_10C_AIRSPEED_MAX_IAS, onAirspeedMa
 // ################################### START VSI ##############################################
 
 
-#define VSIMaxSteps 2400
+// Was 2400 for the old geared DRIVER motor. Scaled down by the same ~8x
+// ratio as the homing step count (FULL4WIRE_HOMING_STEPS / the old
+// geared STEPS) now that VSI is direct-driven on coils - an unverified
+// estimate, NOT bench-measured. Confirm/recalibrate on real hardware.
+// Still used to clamp the DCS-BIOS path (onVviChange) below - the UDP
+// path now uses the real VSI_FPM_TABLE calibration instead (see
+// vsiFpmToSteps()).
+#define VSIMaxSteps 300
 void setVSI(long TargetVSI) {
   if (TargetVSI > VSIMaxSteps) {
     TargetVSI = VSIMaxSteps;
@@ -578,6 +611,53 @@ void setVSI(long TargetVSI) {
   }
   // SendDebug("VSI = " + String(TargetVSI));
   VSIstepper.moveTo(TargetVSI);
+}
+
+// VSI fpm-to-step calibration table, hand-measured on the bench (same
+// data as Stepper-Tuning-Harness's VSI_FT_TABLE - that harness's "f"
+// command uses "ft" as informal shorthand for this gauge's fpm units,
+// not altitude). "step" is the raw step target for VSIstepper.moveTo();
+// 0 fpm maps to step 0. Sorted ascending by fpm - vsiFpmToSteps() below
+// relies on that order.
+struct FpmToStepEntry {
+  long fpm;
+  long step;
+};
+
+const FpmToStepEntry VSI_FPM_TABLE[] = {
+  { -1750, -311 },
+  { -1500, -280 },
+  { -1250, -219 },
+  { -1000, -161 },
+  { -500, -80 },
+  { 0, 0 },
+  { 500, 85 },
+  { 1000, 165 },
+  { 1250, 227 },
+  { 1500, 286 },
+  { 1750, 315 },
+};
+const int VSI_FPM_TABLE_SIZE = sizeof(VSI_FPM_TABLE) / sizeof(VSI_FPM_TABLE[0]);
+
+// Converts a requested VSI fpm value into a step target by linear
+// interpolation between the two nearest VSI_FPM_TABLE rows. A fpm value
+// outside the table's range is clamped to whichever end is nearest
+// rather than extrapolated, so a wildly out-of-range value can't fling
+// VSI past its calibrated range.
+long vsiFpmToSteps(long fpm) {
+  if (fpm <= VSI_FPM_TABLE[0].fpm) return VSI_FPM_TABLE[0].step;
+  if (fpm >= VSI_FPM_TABLE[VSI_FPM_TABLE_SIZE - 1].fpm) return VSI_FPM_TABLE[VSI_FPM_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < VSI_FPM_TABLE_SIZE - 1; i++) {
+    long fpmLo = VSI_FPM_TABLE[i].fpm;
+    long fpmHi = VSI_FPM_TABLE[i + 1].fpm;
+    if (fpm >= fpmLo && fpm <= fpmHi) {
+      long stepLo = VSI_FPM_TABLE[i].step;
+      long stepHi = VSI_FPM_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(fpm - fpmLo) * (stepHi - stepLo) / (double)(fpmHi - fpmLo));
+    }
+  }
+  return 0;  // unreachable - every fpm is covered by the clamps or the loop above
 }
 
 
@@ -860,19 +940,19 @@ const int SARIdirectionPin = 32;
 // define AccelStepper instance
 AccelStepper SARIstepperRoll(AccelStepper::DRIVER, SARIstepPin, SARIdirectionPin);
 
-// Hornet Address - 0x74e6
-// A10 Address - 0x102a
-Nema8Stepper SARIRoll(0x102a,             // address of stepper data
-                      SARIstepperRoll,    // name of AccelStepper instance
-                      SARIstepperConfig,  // SARIStepperConfig struct instance
-                      55,                 // IR Detector Pin (must be LOW in zero position)
-                      800,                // zero offset (SET TO 50% of MaX Steps) 1650 was 800
-                                          // WIngs Level = 1/2 Max Steps -> "Zero" = 1/2 Turn
-                                          // SARI will be upsidedown after Setup, this will correct in Bios
-                      [](unsigned int newValue) -> unsigned int {
-                        newValue = newValue & 0xffff;
-                        return map(newValue, 0, 65535, 0, SARIstepperConfig.SARImaxSteps - 1);
-                      });
+// // Hornet Address - 0x74e6
+// // A10 Address - 0x102a
+// Nema8Stepper SARIRoll(0x102a,             // address of stepper data
+//                       SARIstepperRoll,    // name of AccelStepper instance
+//                       SARIstepperConfig,  // SARIStepperConfig struct instance
+//                       55,                 // IR Detector Pin (must be LOW in zero position)
+//                       800,                // zero offset (SET TO 50% of MaX Steps) 1650 was 800
+//                                           // WIngs Level = 1/2 Max Steps -> "Zero" = 1/2 Turn
+//                                           // SARI will be upsidedown after Setup, this will correct in Bios
+//                       [](unsigned int newValue) -> unsigned int {
+//                         newValue = newValue & 0xffff;
+//                         return map(newValue, 0, 65535, 0, SARIstepperConfig.SARImaxSteps - 1);
+//                       });
 
 
 
@@ -960,6 +1040,16 @@ void HandleOutputValuePair(String str) {
     // DCS-BIOS altitude callback already expects, so its feet->steps
     // conversion can be reused directly.
     onAltMslFtChange((unsigned int)ParameterValue.toInt());
+  } else if (ParameterName == "VSI") {
+    // Unlike IAS (still a Bell 206 servo-position number), FSUIPCWinformsAutoCS
+    // now sends this board raw fpm specifically for VSI (its own front-panel/
+    // servo-controller payload still uses the Bell 206 VSI_Process() number,
+    // unchanged) - see its timerMain_Tick send block, which builds a
+    // separate stepperPayload with the VSI field swapped to raw fpm.
+    // Converted through the real VSI_FPM_TABLE calibration
+    // (vsiFpmToSteps()) rather than setVSI()'s placeholder +/-VSIMaxSteps
+    // clamp, which stays in use for the separate DCS-BIOS path only.
+    VSIstepper.moveTo(vsiFpmToSteps(ParameterValue.toInt()));
   }
   // All other codes are currently ignored.
 }

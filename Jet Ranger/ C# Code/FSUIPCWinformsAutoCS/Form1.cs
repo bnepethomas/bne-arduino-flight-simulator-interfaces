@@ -771,10 +771,20 @@ namespace FSUIPCTest
                         // Something has changed so send it
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         frontPanelClient.Send(senddata, senddata.Length);
-                        // Same payload, fanned out to the Stepper (ALT/IAS) and
-                        // OLED (ALT/BARO) controllers - each ignores whatever
-                        // fields it doesn't recognise.
-                        stepperClient.Send(senddata, senddata.Length);
+
+                        // Stepper board wants raw fpm for VSI, not the Bell-206
+                        // servo-position number (VSI_Process()) the front panel
+                        // gets - everything else in the payload stays identical,
+                        // the stepper board already ignores fields it doesn't
+                        // recognise (ALT/IAS/VSI are the only ones it reads).
+                        int vsiRawFpm = (int)sFrontPanel.VERTICAL_SPEED;
+                        string stepperPayload = UDP_Playload.Replace(
+                            ",VSI:" + VSI_Process(vsiRawFpm).ToString(),
+                            ",VSI:" + vsiRawFpm.ToString());
+                        Byte[] stepperSendData = Encoding.ASCII.GetBytes(stepperPayload);
+                        stepperClient.Send(stepperSendData, stepperSendData.Length);
+
+                        // OLED gets the same payload as the front panel (ALT/BARO).
                         oledClient.Send(senddata, senddata.Length);
                         FrontPanelTimeLastPacketSent = DateTime.Now;
                     }
