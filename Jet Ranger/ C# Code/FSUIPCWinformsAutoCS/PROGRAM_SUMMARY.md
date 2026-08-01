@@ -115,7 +115,7 @@ acting on them through the FSUIPC API instead of SimConnect.
 |---|---|---|
 | `172.16.1.101` (Radio Controller) | 13136 | Radio/bus-voltage data packets (`udpClient.Send`) |
 | `172.16.1.102` (Servo Controller) | 13136 | Front-panel instrument + annunciator data packets (`frontPanelClient.Send`) |
-| `172.16.1.105` (Stepper Controller) | 13136 | Mostly the same payload as the Servo Controller (`stepperClient.Send`), except its `VSI` field is swapped for raw fpm (`(int)sFrontPanel.VERTICAL_SPEED`) right before sending — the Servo Controller's own payload still gets the Bell 206 `VSI_Process()` servo-position number, unchanged. That board reads `ALT`/`IAS`/`VSI` out of it (`IAS` is still the Bell-206 number, same caveat as the Servo Controller's own copy) |
+| `172.16.1.105` (Stepper Controller) | 13136 | Its own minimal payload (`stepperClient.Send`), separate from the Servo Controller's — `ALT`, `VSI` (raw fpm, not the Servo Controller's Bell 206 `VSI_Process()` number), and `AGL` (radar altitude). Built fresh each tick from `ALTITUDE`/`vsiRawFpm`/`PLANE_ALT_ABOVE_GROUND` rather than derived from the shared front-panel payload. (`VSI` was dropped temporarily while diagnosing a reported ALT-needle reversal on real hardware — confirmed unrelated to VSI, root cause was the stepper driver electronics mishandling small step deltas; see `JET_RANGER_STEPPER_CONTROLLER`'s summary.) `IAS`/`RPMR`/annunciator bits/etc. were never part of this payload, since this board has no gauges for them |
 | `172.16.1.104` (OLED Controller) | 13136 | Same payload as the Servo Controller (`oledClient.Send`) — that board reads `ALT`/`BARO` out of it |
 | `172.16.1.2` | 26028 | `OutputClient` — connected but unused |
 

@@ -118,13 +118,18 @@ diffed against each other line-for-line.
    path): `ProcessReceivedMSFSString()` parses the same
    `"D,CODE:value,CODE:value,..."` CSV payload as the Servo Controller
    (`HandleOutputValuePair`/`HandleControlString`/`getValue` are near-verbatim
-   ports of that sketch's versions). Three codes are wired up for now:
+   ports of that sketch's versions). Three codes are wired up; a fourth
+   (`IAS`) is coded but currently unreachable:
    - `IAS` → `setCurrentAirspeed(value)`, reusing the existing airspeed
-     stepper mover. **Caveat:** the PC bridge apps
-     (`P3D_to_UDP`/`SimConnect_to_UDP`/`FSUIPCWinformsAutoCS`) send `IAS`
-     already converted to a *Bell 206 servo-position* number via their
-     `IAS_Process()` tables — not raw knots and not an A-10 stepper step
-     count — so this is currently a straight pass-through pending real
+     stepper mover. **`FSUIPCWinformsAutoCS` no longer sends this board an
+     `IAS` field at all** (its stepper-specific payload was narrowed to
+     `ALT`/`VSI`/`AGL` only, since this board has no gauges for anything
+     else), so this branch is currently dead code reachable only if some
+     other/future sender includes an `IAS` field. If it ever does: the
+     other PC bridge apps (`P3D_to_UDP`/`SimConnect_to_UDP`) still send
+     `IAS` already converted to a *Bell 206 servo-position* number via
+     their `IAS_Process()` tables — not raw knots and not an A-10 stepper
+     step count — so this would be a straight pass-through pending real
      calibration for this gauge.
    - `ALT` → `onAltMslFtChange(value)`, reusing the exact feet→steps
      conversion the DCS-BIOS altitude callback already uses. This one
@@ -146,8 +151,10 @@ diffed against each other line-for-line.
      outside ±1750 fpm (never extrapolated). This bypasses `setVSI()`'s
      separate `±VSIMaxSteps` clamp entirely — that clamp remains in use
      only for the unrelated DCS-BIOS path (`onVviChange`).
-   - Every other code in the payload (e.g. `TQ`, `RPMR`, the warning-lamp
-     bits, etc.) is currently parsed and silently ignored.
+   - Every other code is currently parsed and silently ignored, including
+     `AGL` (radar altitude) — `FSUIPCWinformsAutoCS` now sends it in every
+     stepper packet alongside `ALT`/`VSI`, but this board has no radar
+     altimeter gauge/stepper to drive with it yet.
 
 ## Pin usage (JET_RANGER_STEPPER_CONTROLLER.ino)
 
@@ -190,14 +197,35 @@ diffed against each other line-for-line.
 | `172.16.1.10` (`MSFSIP`) | 7791 | `SendMSFSMessage()` helper exists but is never called in this sketch — also dead code (unrelated to the new `MSFSport` UDP *receiver*, which is inbound-only and doesn't use `MSFSIP`) |
 
 > **[FSUIPCWinformsAutoCS](../../%20C%23%20Code/FSUIPCWinformsAutoCS/PROGRAM_SUMMARY.md)**
-> now sends to `172.16.1.105:13136` (a new `stepperClient`, sending mostly
-> the same shared front-panel payload it sends to the Servo and OLED
-> Controllers, except its `VSI` field is swapped for raw fpm before
-> sending here specifically) — this board reads the `IAS`/`ALT`/`VSI`
-> fields out of it and ignores the rest. The other sim-bridge apps
-> (`P3D_to_UDP` / `SimConnect_to_UDP` / `MSFSSimConnectExtractor`) have
-> **not** been updated to do the same, so this board only receives UDP
-> data when `FSUIPCWinformsAutoCS` specifically is the bridge app running.
+> sends to `172.16.1.105:13136` (a `stepperClient`, with its own minimal
+> payload built fresh each tick — no longer derived from the shared
+> front-panel payload) — `ALT`, `VSI` (raw fpm), and `AGL` (radar
+> altitude). This board reads `ALT`/`VSI` out of it and ignores `AGL` (no
+> gauge for it yet — see above) and everything else. `IAS` was dropped
+> from this payload earlier and isn't coming back — see the dead-code note
+> above. The other sim-bridge apps (`P3D_to_UDP` / `SimConnect_to_UDP` /
+> `MSFSSimConnectExtractor`) have **not** been updated to send anything to
+> this board, so it only receives UDP data when `FSUIPCWinformsAutoCS`
+> specifically is the bridge app running.
+>
+> **Known hardware limitation — ALT needle reversal (diagnosed, root
+> cause found):** on real hardware, `ALTstepper`'s needle was observed
+> moving clockwise-only when driven by live, frequent, small-increment
+> altitude updates from `FSUIPCWinformsAutoCS`, while moving correctly in
+> both directions when driven by large, deliberate jumps from
+> `StepperVSITester`/manual testing. VSI was suspected and ruled out (the
+> reversal persisted with VSI entirely removed from the stepper payload).
+> Root cause: **the stepper driver electronics don't reliably move the
+> needle backwards for very small step deltas** — live FSUIPC altitude
+> readings are noisy (±1-2 ft of jitter even at a steady altitude), and at
+> `onAltMslFtChange()`'s `5.76` steps/foot that's only a handful of steps
+> per update, apparently below whatever threshold this driver needs to
+> reverse direction reliably. This is a hardware/driver characteristic,
+> not a bug in this sketch's or the C# bridge's logic — worth checking for
+> the same symptom on any other stepper here that receives frequent,
+> fine-grained updates (VSI's `VSI_FPM_TABLE` conversion can also produce
+> small deltas for small fpm changes, though no reversal has been reported
+> there yet).
 >
 > **[StepperVSITester](../../%20C%23%20Code/StepperVSITester/PROGRAM_SUMMARY.md)**
 > can also send `"D,VSI:<fpm>"` and `"D,ALT:<feet>"` straight to this

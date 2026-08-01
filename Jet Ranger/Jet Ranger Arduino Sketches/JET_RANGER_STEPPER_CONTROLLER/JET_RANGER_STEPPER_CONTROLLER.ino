@@ -148,7 +148,7 @@ unsigned long previousMillis = 0;
 
 #define STEPPER_MAX_SPEED 9000
 #define STEPPER_ZERO_SEEK_SPEED 600
-#define STEPPER_ACCELERATION 9000
+#define STEPPER_ACCELERATION 1000
 
 #define AllstepperEnablePin 56
 
@@ -163,6 +163,8 @@ unsigned long previousMillis = 0;
 // range shrank when it moved to direct-drive coils - an unverified
 // estimate, NOT bench-measured. Confirm/recalibrate on real hardware.
 #define VSIoffset 1
+
+
 
 #define ALTstepPin 42
 #define ALTdirectionPin 44
@@ -245,16 +247,16 @@ void setup() {
 
 
   pinMode(BACK_LIGHTS, OUTPUT);
-  analogWrite(BACK_LIGHTS, 255);
+  // analogWrite(BACK_LIGHTS, 255);
 
-  delay(3000);
+  // delay(3000);
 
-  SendDebug("Dimming Leds");
-  for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
-    analogWrite(BACK_LIGHTS, Local_Brightness);
-    // SendDebug("Led Brightness " + String(Local_Brightness));
-    delay(15);
-  }
+  // SendDebug("Dimming Leds");
+  // for (int Local_Brightness = 255; Local_Brightness >= 0; Local_Brightness--) {
+  //   analogWrite(BACK_LIGHTS, Local_Brightness);
+  //   // SendDebug("Led Brightness " + String(Local_Brightness));
+  //   delay(15);
+  // }
 
 #define BrightnessWhileRunningSetup 128
 
@@ -699,7 +701,9 @@ void onAltMslFtChange(unsigned int newValue) {
   float ALTtargetSteps = newValue;
   ALTtargetSteps = ALTtargetSteps * 5.76;
   long longAlttargetSteps = long(ALTtargetSteps);
+  SendDebug("Altimeter target steps is :" + String(longAlttargetSteps));
   ALTstepper.moveTo(longAlttargetSteps);
+  SendDebug("Altimeter steps to go :" + String(ALTstepper.distanceToGo() ));
 }
 DcsBios::IntegerBuffer altMslFtBuffer(CommonData_ALT_MSL_FT, onAltMslFtChange);
 
@@ -1039,6 +1043,7 @@ void HandleOutputValuePair(String str) {
     // ALT is sent as raw feet, matching the units this sketch's own
     // DCS-BIOS altitude callback already expects, so its feet->steps
     // conversion can be reused directly.
+    SendDebug("Altitude is :" + String(ParameterValue.toInt()));
     onAltMslFtChange((unsigned int)ParameterValue.toInt());
   } else if (ParameterName == "VSI") {
     // Unlike IAS (still a Bell 206 servo-position number), FSUIPCWinformsAutoCS
@@ -1086,7 +1091,7 @@ void loop() {
     NEXT_STATUS_TOGGLE_TIMER = millis() + FLASH_TIME;
   }
 
-  if (DCSBIOS_In_Use == 1) DcsBios::loop();
+  //if (DCSBIOS_In_Use == 1) DcsBios::loop();
   updateSteppers();
 
   if (Ethernet_In_Use == 1) {
