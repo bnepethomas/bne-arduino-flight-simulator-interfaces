@@ -113,5 +113,52 @@ namespace StepperVSITester
                 SendManualValue(trkAlt, txtAltInput, lblAltValue, "ALT", "ft");
             }
         }
+
+        // Direct-step jog for the Altimeter: sends a signed relative step
+        // count and the delay (ms) to hold between each raw step pulse, for
+        // Jet_Ranger_Driver_Test.ino's jogAltimeterSteps(), which bit-bangs
+        // the ALT step/dir pins directly rather than going through
+        // AccelStepper's acceleration ramp - lets an operator find exact
+        // step timing on the bench. Packed as "<steps>/<intervalMs>" in a
+        // single "ASTEP" value since the board's "D,CODE:value" packet
+        // parser only reads one value per code.
+        private void SendAltJog(long steps, long intervalMs)
+        {
+            byte[] sendBytes = Encoding.ASCII.GetBytes($"D,ASTEP:{steps}/{intervalMs}");
+            stepperClient.Send(sendBytes, sendBytes.Length);
+        }
+
+        private void butJogSend_Click(object sender, EventArgs e)
+        {
+            if (!long.TryParse(txtJogSteps.Text, out long steps))
+            {
+                MessageBox.Show("Steps must be a whole number (e.g. 150 or -150)");
+                return;
+            }
+
+            if (!long.TryParse(txtJogInterval.Text, out long intervalMs) || intervalMs <= 0)
+            {
+                MessageBox.Show("Interval must be a positive number of milliseconds");
+                return;
+            }
+
+            SendAltJog(steps, intervalMs);
+        }
+
+        private void txtJogSteps_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                butJogSend_Click(sender, e);
+            }
+        }
+
+        private void txtJogInterval_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                butJogSend_Click(sender, e);
+            }
+        }
     }
 }

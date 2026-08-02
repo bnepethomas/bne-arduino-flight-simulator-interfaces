@@ -45,6 +45,12 @@ namespace StepperVSITester
             txtAltInput = new TextBox();
             butSendAlt = new Button();
             butAltZero = new Button();
+            lblJogHeader = new Label();
+            lblJogSteps = new Label();
+            txtJogSteps = new TextBox();
+            lblJogInterval = new Label();
+            txtJogInterval = new TextBox();
+            butJogSend = new Button();
             ((System.ComponentModel.ISupportInitialize)trkVsi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).BeginInit();
             SuspendLayout();
@@ -216,11 +222,73 @@ namespace StepperVSITester
             butAltZero.UseVisualStyleBackColor = true;
             butAltZero.Click += butAltZero_Click;
             //
+            // lblJogHeader
+            //
+            lblJogHeader.AutoSize = true;
+            lblJogHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblJogHeader.Location = new Point(12, 366);
+            lblJogHeader.Name = "lblJogHeader";
+            lblJogHeader.Size = new Size(300, 15);
+            lblJogHeader.TabIndex = 17;
+            lblJogHeader.Text = "ALT Direct Step Jog (raw, bypasses acceleration)";
+            //
+            // lblJogSteps
+            //
+            lblJogSteps.AutoSize = true;
+            lblJogSteps.Location = new Point(12, 391);
+            lblJogSteps.Name = "lblJogSteps";
+            lblJogSteps.Size = new Size(70, 15);
+            lblJogSteps.TabIndex = 18;
+            lblJogSteps.Text = "Steps (+/-):";
+            //
+            // txtJogSteps
+            //
+            txtJogSteps.Location = new Point(12, 409);
+            txtJogSteps.Name = "txtJogSteps";
+            txtJogSteps.Size = new Size(100, 23);
+            txtJogSteps.TabIndex = 19;
+            txtJogSteps.Text = "0";
+            txtJogSteps.KeyDown += txtJogSteps_KeyDown;
+            //
+            // lblJogInterval
+            //
+            lblJogInterval.AutoSize = true;
+            lblJogInterval.Location = new Point(118, 391);
+            lblJogInterval.Name = "lblJogInterval";
+            lblJogInterval.Size = new Size(80, 15);
+            lblJogInterval.TabIndex = 20;
+            lblJogInterval.Text = "Interval (ms):";
+            //
+            // txtJogInterval
+            //
+            txtJogInterval.Location = new Point(118, 409);
+            txtJogInterval.Name = "txtJogInterval";
+            txtJogInterval.Size = new Size(100, 23);
+            txtJogInterval.TabIndex = 21;
+            txtJogInterval.Text = "5";
+            txtJogInterval.KeyDown += txtJogInterval_KeyDown;
+            //
+            // butJogSend
+            //
+            butJogSend.Location = new Point(224, 408);
+            butJogSend.Name = "butJogSend";
+            butJogSend.Size = new Size(92, 25);
+            butJogSend.TabIndex = 22;
+            butJogSend.Text = "Jog";
+            butJogSend.UseVisualStyleBackColor = true;
+            butJogSend.Click += butJogSend_Click;
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(424, 366);
+            ClientSize = new Size(424, 450);
+            Controls.Add(butJogSend);
+            Controls.Add(txtJogInterval);
+            Controls.Add(lblJogInterval);
+            Controls.Add(txtJogSteps);
+            Controls.Add(lblJogSteps);
+            Controls.Add(lblJogHeader);
             Controls.Add(butAltZero);
             Controls.Add(butSendAlt);
             Controls.Add(txtAltInput);
@@ -265,5 +333,11 @@ namespace StepperVSITester
         private TextBox txtAltInput;
         private Button butSendAlt;
         private Button butAltZero;
+        private Label lblJogHeader;
+        private Label lblJogSteps;
+        private TextBox txtJogSteps;
+        private Label lblJogInterval;
+        private TextBox txtJogInterval;
+        private Button butJogSend;
     }
 }
