@@ -56,6 +56,10 @@ namespace StepperVSITester
             trkAlt.Value = 0;
             UpdateValueLabel(lblAltValue, 0, "ft");
             txtAltInput.Text = "0";
+
+            trkRadarAlt.Value = 0;
+            UpdateValueLabel(lblRadarAltValue, 0, "steps");
+            txtRadarAltInput.Text = "0";
         }
 
         private void trkVsi_Scroll(object sender, EventArgs e)
@@ -111,6 +115,38 @@ namespace StepperVSITester
             if (e.KeyCode == Keys.Enter)
             {
                 SendManualValue(trkAlt, txtAltInput, lblAltValue, "ALT", "ft");
+            }
+        }
+
+        // Radar Altimeter test frame: raw step pass-through, sent to the
+        // board's "RALT" UDP code (see setRadarAlt() in
+        // Jet_Ranger_Driver_Test.ino). No feet calibration exists yet for
+        // this gauge, so unlike ALT/VSI this sends the step count as-is.
+        private void trkRadarAlt_Scroll(object sender, EventArgs e)
+        {
+            UpdateValueLabel(lblRadarAltValue, trkRadarAlt.Value, "steps");
+            txtRadarAltInput.Text = trkRadarAlt.Value.ToString();
+            Send("RALT", trkRadarAlt.Value);
+        }
+
+        private void butRadarAltZero_Click(object sender, EventArgs e)
+        {
+            trkRadarAlt.Value = 0;
+            txtRadarAltInput.Text = "0";
+            UpdateValueLabel(lblRadarAltValue, 0, "steps");
+            Send("RALT", 0);
+        }
+
+        private void butSendRadarAlt_Click(object sender, EventArgs e)
+        {
+            SendManualValue(trkRadarAlt, txtRadarAltInput, lblRadarAltValue, "RALT", "steps");
+        }
+
+        private void txtRadarAltInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendManualValue(trkRadarAlt, txtRadarAltInput, lblRadarAltValue, "RALT", "steps");
             }
         }
 

@@ -45,6 +45,14 @@ namespace StepperVSITester
             txtAltInput = new TextBox();
             butSendAlt = new Button();
             butAltZero = new Button();
+            lblRadarAltHeader = new Label();
+            trkRadarAlt = new TrackBar();
+            lblRadarAltValue = new Label();
+            lblRadarAltMin = new Label();
+            lblRadarAltMax = new Label();
+            txtRadarAltInput = new TextBox();
+            butSendRadarAlt = new Button();
+            butRadarAltZero = new Button();
             lblJogHeader = new Label();
             lblJogSteps = new Label();
             txtJogSteps = new TextBox();
@@ -53,6 +61,7 @@ namespace StepperVSITester
             butJogSend = new Button();
             ((System.ComponentModel.ISupportInitialize)trkVsi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trkRadarAlt).BeginInit();
             SuspendLayout();
             //
             // lblTarget
@@ -222,58 +231,137 @@ namespace StepperVSITester
             butAltZero.UseVisualStyleBackColor = true;
             butAltZero.Click += butAltZero_Click;
             //
+            // lblRadarAltHeader
+            //
+            lblRadarAltHeader.AutoSize = true;
+            lblRadarAltHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblRadarAltHeader.Location = new Point(12, 366);
+            lblRadarAltHeader.Name = "lblRadarAltHeader";
+            lblRadarAltHeader.Size = new Size(140, 15);
+            lblRadarAltHeader.TabIndex = 17;
+            lblRadarAltHeader.Text = "Radar ALT (raw steps)";
+            //
+            // trkRadarAlt
+            //
+            trkRadarAlt.LargeChange = 60;
+            trkRadarAlt.Location = new Point(12, 412);
+            trkRadarAlt.Maximum = 630;
+            trkRadarAlt.Minimum = 0;
+            trkRadarAlt.Name = "trkRadarAlt";
+            trkRadarAlt.Size = new Size(400, 45);
+            trkRadarAlt.SmallChange = 10;
+            trkRadarAlt.TabIndex = 19;
+            trkRadarAlt.TickFrequency = 60;
+            trkRadarAlt.Scroll += trkRadarAlt_Scroll;
+            //
+            // lblRadarAltValue
+            //
+            lblRadarAltValue.AutoSize = true;
+            lblRadarAltValue.Location = new Point(12, 387);
+            lblRadarAltValue.Name = "lblRadarAltValue";
+            lblRadarAltValue.Size = new Size(80, 15);
+            lblRadarAltValue.TabIndex = 18;
+            lblRadarAltValue.Text = "Value: 0 steps";
+            //
+            // lblRadarAltMin
+            //
+            lblRadarAltMin.AutoSize = true;
+            lblRadarAltMin.Location = new Point(12, 460);
+            lblRadarAltMin.Name = "lblRadarAltMin";
+            lblRadarAltMin.Size = new Size(13, 15);
+            lblRadarAltMin.TabIndex = 20;
+            lblRadarAltMin.Text = "0";
+            //
+            // lblRadarAltMax
+            //
+            lblRadarAltMax.AutoSize = true;
+            lblRadarAltMax.Location = new Point(357, 460);
+            lblRadarAltMax.Name = "lblRadarAltMax";
+            lblRadarAltMax.Size = new Size(30, 15);
+            lblRadarAltMax.TabIndex = 21;
+            lblRadarAltMax.Text = "630";
+            //
+            // txtRadarAltInput
+            //
+            txtRadarAltInput.Location = new Point(12, 492);
+            txtRadarAltInput.Name = "txtRadarAltInput";
+            txtRadarAltInput.Size = new Size(100, 23);
+            txtRadarAltInput.TabIndex = 22;
+            txtRadarAltInput.Text = "0";
+            txtRadarAltInput.KeyDown += txtRadarAltInput_KeyDown;
+            //
+            // butSendRadarAlt
+            //
+            butSendRadarAlt.Location = new Point(118, 491);
+            butSendRadarAlt.Name = "butSendRadarAlt";
+            butSendRadarAlt.Size = new Size(92, 25);
+            butSendRadarAlt.TabIndex = 23;
+            butSendRadarAlt.Text = "Send";
+            butSendRadarAlt.UseVisualStyleBackColor = true;
+            butSendRadarAlt.Click += butSendRadarAlt_Click;
+            //
+            // butRadarAltZero
+            //
+            butRadarAltZero.Location = new Point(216, 491);
+            butRadarAltZero.Name = "butRadarAltZero";
+            butRadarAltZero.Size = new Size(92, 25);
+            butRadarAltZero.TabIndex = 24;
+            butRadarAltZero.Text = "Zero";
+            butRadarAltZero.UseVisualStyleBackColor = true;
+            butRadarAltZero.Click += butRadarAltZero_Click;
+            //
             // lblJogHeader
             //
             lblJogHeader.AutoSize = true;
             lblJogHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblJogHeader.Location = new Point(12, 366);
+            lblJogHeader.Location = new Point(12, 532);
             lblJogHeader.Name = "lblJogHeader";
             lblJogHeader.Size = new Size(300, 15);
-            lblJogHeader.TabIndex = 17;
+            lblJogHeader.TabIndex = 25;
             lblJogHeader.Text = "ALT Direct Step Jog (raw, bypasses acceleration)";
             //
             // lblJogSteps
             //
             lblJogSteps.AutoSize = true;
-            lblJogSteps.Location = new Point(12, 391);
+            lblJogSteps.Location = new Point(12, 557);
             lblJogSteps.Name = "lblJogSteps";
             lblJogSteps.Size = new Size(70, 15);
-            lblJogSteps.TabIndex = 18;
+            lblJogSteps.TabIndex = 26;
             lblJogSteps.Text = "Steps (+/-):";
             //
             // txtJogSteps
             //
-            txtJogSteps.Location = new Point(12, 409);
+            txtJogSteps.Location = new Point(12, 575);
             txtJogSteps.Name = "txtJogSteps";
             txtJogSteps.Size = new Size(100, 23);
-            txtJogSteps.TabIndex = 19;
+            txtJogSteps.TabIndex = 27;
             txtJogSteps.Text = "0";
             txtJogSteps.KeyDown += txtJogSteps_KeyDown;
             //
             // lblJogInterval
             //
             lblJogInterval.AutoSize = true;
-            lblJogInterval.Location = new Point(118, 391);
+            lblJogInterval.Location = new Point(118, 557);
             lblJogInterval.Name = "lblJogInterval";
             lblJogInterval.Size = new Size(80, 15);
-            lblJogInterval.TabIndex = 20;
+            lblJogInterval.TabIndex = 28;
             lblJogInterval.Text = "Interval (ms):";
             //
             // txtJogInterval
             //
-            txtJogInterval.Location = new Point(118, 409);
+            txtJogInterval.Location = new Point(118, 575);
             txtJogInterval.Name = "txtJogInterval";
             txtJogInterval.Size = new Size(100, 23);
-            txtJogInterval.TabIndex = 21;
+            txtJogInterval.TabIndex = 29;
             txtJogInterval.Text = "5";
             txtJogInterval.KeyDown += txtJogInterval_KeyDown;
             //
             // butJogSend
             //
-            butJogSend.Location = new Point(224, 408);
+            butJogSend.Location = new Point(224, 574);
             butJogSend.Name = "butJogSend";
             butJogSend.Size = new Size(92, 25);
-            butJogSend.TabIndex = 22;
+            butJogSend.TabIndex = 30;
             butJogSend.Text = "Jog";
             butJogSend.UseVisualStyleBackColor = true;
             butJogSend.Click += butJogSend_Click;
@@ -282,13 +370,21 @@ namespace StepperVSITester
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(424, 450);
+            ClientSize = new Size(424, 616);
             Controls.Add(butJogSend);
             Controls.Add(txtJogInterval);
             Controls.Add(lblJogInterval);
             Controls.Add(txtJogSteps);
             Controls.Add(lblJogSteps);
             Controls.Add(lblJogHeader);
+            Controls.Add(butRadarAltZero);
+            Controls.Add(butSendRadarAlt);
+            Controls.Add(txtRadarAltInput);
+            Controls.Add(lblRadarAltMax);
+            Controls.Add(lblRadarAltMin);
+            Controls.Add(trkRadarAlt);
+            Controls.Add(lblRadarAltValue);
+            Controls.Add(lblRadarAltHeader);
             Controls.Add(butAltZero);
             Controls.Add(butSendAlt);
             Controls.Add(txtAltInput);
@@ -310,6 +406,7 @@ namespace StepperVSITester
             Text = "Stepper VSI/ALT Tester";
             ((System.ComponentModel.ISupportInitialize)trkVsi).EndInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trkRadarAlt).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -333,6 +430,14 @@ namespace StepperVSITester
         private TextBox txtAltInput;
         private Button butSendAlt;
         private Button butAltZero;
+        private Label lblRadarAltHeader;
+        private TrackBar trkRadarAlt;
+        private Label lblRadarAltValue;
+        private Label lblRadarAltMin;
+        private Label lblRadarAltMax;
+        private TextBox txtRadarAltInput;
+        private Button butSendRadarAlt;
+        private Button butRadarAltZero;
         private Label lblJogHeader;
         private Label lblJogSteps;
         private TextBox txtJogSteps;
