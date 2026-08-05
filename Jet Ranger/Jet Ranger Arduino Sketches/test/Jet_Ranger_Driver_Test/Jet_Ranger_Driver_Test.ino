@@ -7,6 +7,7 @@ Drives:
 SARI
 AccelStepper VSIstepper
 AccelStepper ALTstepper
+AccelStepper RadarALTstepper
 AccelStepper SpeedCurrentstepper
 AccelStepper SpeedMaxstepper
 AccelStepper FlapsStepper
@@ -149,6 +150,13 @@ unsigned long previousMillis = 0;
 #define STEPPER_MAX_SPEED 9000
 #define STEPPER_ZERO_SEEK_SPEED 600
 #define STEPPER_ACCELERATION 9000
+#define VSI_MAX_SPEED 3000
+#define VSI_ACCELERATION 1000
+// RadarALTstepper is direct-driven FULL4WIRE on coil pins, same class of
+// motor as VSI - reuses VSI's speed/acceleration values as a starting
+// point since it hasn't been bench-tuned yet.
+#define RADAR_ALT_MAX_SPEED 3000
+#define RADAR_ALT_ACCELERATION 1000
 
 #define AllstepperEnablePin 56
 
@@ -162,7 +170,7 @@ unsigned long previousMillis = 0;
 // (FULL4WIRE_HOMING_STEPS / the old geared STEPS) since VSI's usable
 // range shrank when it moved to direct-drive coils - an unverified
 // estimate, NOT bench-measured. Confirm/recalibrate on real hardware.
-#define VSIoffset 1
+#define VSIoffset -10
 
 
 
@@ -203,7 +211,9 @@ AccelStepper FlapsStepper(AccelStepper::DRIVER, FlapsStepPin, FlapsDirectionPin)
 AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
 AccelStepper SpeedCurrentstepper(AccelStepper::DRIVER, SpeedCurrentstepPin, SpeedCurrentdirectionPin);
 AccelStepper SpeedMaxstepper(AccelStepper::DRIVER, SpeedMaxstepPin, SpeedMaxdirectionPin);
-AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
+// AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
+AccelStepper VSIstepper(AccelStepper::FULL4WIRE, SpeedMaxstepPin, SpeedMaxdirectionPin, AOAstepPin, AOAdirectionPin);
+AccelStepper RadarALTstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
 AccelStepper AOAstepper(AccelStepper::DRIVER, AOAstepPin, AOAdirectionPin);
 AccelStepper GForcestepper(AccelStepper::DRIVER, GForcestepPin, GForcedirectionPin);
 // ########################### END STEPPERS #########################################
@@ -267,8 +277,10 @@ void setup() {
   pinMode(AllstepperEnablePin, OUTPUT);
   pinMode(ALTzeroSensePin, INPUT);
 
-  VSIstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  VSIstepper.setAcceleration(STEPPER_ACCELERATION);
+  VSIstepper.setMaxSpeed(VSI_MAX_SPEED);
+  VSIstepper.setAcceleration(VSI_ACCELERATION);
+  RadarALTstepper.setMaxSpeed(RADAR_ALT_MAX_SPEED);
+  RadarALTstepper.setAcceleration(RADAR_ALT_ACCELERATION);
   ALTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   ALTstepper.setAcceleration(STEPPER_ACCELERATION);
   SpeedCurrentstepper.setMaxSpeed(STEPPER_MAX_SPEED);
@@ -316,6 +328,33 @@ void setup() {
   // ################# End VSI Startup #########################
 
 
+  // ################# Start Radar ALT Startup #########################
+  SendDebug("Start Radar ALT");
+
+  // No zero-sense pin exists for RadarALTstepper (unlike ALTstepper's
+  // ALTzeroSensePin) - homes blind against its mechanical end stop the
+  // same way VSI does, using the same FULL4WIRE_HOMING_STEPS constant
+  // since it's the same class of direct-driven coil motor. Direction sign
+  // and step count are NOT bench-verified for this gauge yet - confirm it
+  // actually reaches the end stop (and doesn't stall against it from the
+  // wrong side) before trusting it unattended.
+  RadarALTstepper.runToNewPosition(-FULL4WIRE_HOMING_STEPS);
+  RadarALTstepper.setCurrentPosition(0);
+
+  // Swing out and back once as a visual self-test at boot, same pattern
+  // as VSI's own startup swing.
+  for (int i = 1; i <= 1; i++) {
+    SendDebug("Loop :" + String(i));
+    RadarALTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+    delay(200);
+    RadarALTstepper.runToNewPosition(0);
+    delay(200);
+  }
+
+  SendDebug("End Radar ALT");
+  // ################# End Radar ALT Startup #########################
+
+
   // ################# Start ALT Startup #########################
   SendDebug("Start ALT");
   for (int i = 1; i <= 1; i++) {
@@ -324,7 +363,7 @@ void setup() {
     while (ALTstepper.distanceToGo() != 0) {
       if (digitalRead(ALTzeroSensePin) != true) {
         SendDebug("Found Alt Zero Position");
-        ALTstepper.setCurrentPosition(0);
+        ALTstepper.setCurrentPosition(-200);
         break;
       }
       ALTstepper.run();
@@ -361,20 +400,20 @@ void setup() {
 //   //  ################ #End Speed Current Startup######################## #
 
 
-//   // ################# Start Speed Max Startup #########################
-//   SendDebug("Start SpeedMaxstepper");
-//   SpeedMaxstepper.runToNewPosition(-DUAL_STEPS * 1.1);
-//   SpeedMaxstepper.setCurrentPosition(0);
-//   for (int i = 1; i <= 1; i++) {
-//     SendDebug("Loop :" + String(i));
-//     SpeedMaxstepper.runToNewPosition(DUAL_STEPS * 1);
-//     delay(200);
-//     SpeedMaxstepper.runToNewPosition(0);
-//     delay(200);
-//   }
-//   SpeedMaxstepper.runToNewPosition((DUAL_STEPS * 0.95));
-//   SendDebug("End SpeedMaxstepper");
-//   //  ################# End Speed Max Startup #########################
+  // ################# Start Speed Max Startup #########################
+  SendDebug("Start SpeedMaxstepper");
+  SpeedMaxstepper.runToNewPosition(-DUAL_STEPS * 1.1);
+  SpeedMaxstepper.setCurrentPosition(0);
+  for (int i = 1; i <= 1; i++) {
+    SendDebug("Loop :" + String(i));
+    SpeedMaxstepper.runToNewPosition(DUAL_STEPS * 1);
+    delay(200);
+    SpeedMaxstepper.runToNewPosition(0);
+    delay(200);
+  }
+  SpeedMaxstepper.runToNewPosition((DUAL_STEPS * 0.95));
+  SendDebug("End SpeedMaxstepper");
+  //  ################# End Speed Max Startup #########################
 
 
 //   // Already disabled before this reanalysis, and now additionally stale:
@@ -749,6 +788,20 @@ void jogAltimeterSteps(long steps, long intervalMs) {
 
 // ################################### END ALT ##############################################
 
+// ################################### BEGIN RADAR ALT ##############################################
+
+// Raw step pass-through test receiver - see the "RALT" case in
+// HandleOutputValuePair() below. No feet-to-steps calibration exists yet
+// for this gauge (RadarALTstepper is freshly wired and hasn't been
+// bench-measured), so unlike onAltMslFtChange() this just forwards the
+// raw step target directly, same placeholder style as IAS's straight
+// pass-through above pending its own real calibration.
+void setRadarAlt(long TargetSteps) {
+  RadarALTstepper.moveTo(TargetSteps);
+}
+
+// ################################### END RADAR ALT ##############################################
+
 // ################################### BEGIN GForce ##############################################
 void setGForce(long TargetGForce) {
   // SendDebug("GForce = " + String(TargetGForce));
@@ -1008,6 +1061,7 @@ AccelStepper SARIstepperRoll(AccelStepper::DRIVER, SARIstepPin, SARIdirectionPin
 
 void updateSteppers() {
   VSIstepper.run();
+  RadarALTstepper.run();
   ALTstepper.run();
   SpeedCurrentstepper.run();
   SpeedMaxstepper.run();
@@ -1085,6 +1139,11 @@ void HandleOutputValuePair(String str) {
     // conversion can be reused directly.
     SendDebug("Altitude is :" + String(ParameterValue.toInt()));
     onAltMslFtChange((unsigned int)ParameterValue.toInt());
+  } else if (ParameterName == "RALT") {
+    // Radar altimeter test receiver - see setRadarAlt() above. Raw step
+    // target, no unit conversion yet.
+    SendDebug("Radar Alt target steps is :" + String(ParameterValue.toInt()));
+    setRadarAlt(ParameterValue.toInt());
   } else if (ParameterName == "VSI") {
     // Unlike IAS (still a Bell 206 servo-position number), FSUIPCWinformsAutoCS
     // now sends this board raw fpm specifically for VSI (its own front-panel/
