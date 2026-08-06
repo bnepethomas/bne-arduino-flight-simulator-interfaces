@@ -8,19 +8,18 @@
   lands - the stepper equivalent of Servo-Knob-For-Calibration/ServoTuner,
   which do the same job for the Bell 206 servo gauges.
 
-  Wiring and max speed match JET_RANGER_STEPPER_CONTROLLER.ino exactly for
-  5 of the 7 steppers, so min/max/zero step values found with this harness
-  should carry straight over to that sketch for those. EXCEPTION: VSI and
-  Flaps had their AccelStepper interfaces/pins swapped in this harness only
-  (VSI is now FULL4WIRE on the pins that used to be Flaps' coils, Flaps is
-  now DRIVER/STEP-DIR on the pins that used to be VSI's step/dir) - this
-  harness no longer matches JET_RANGER_STEPPER_CONTROLLER.ino's own VSI/
-  Flaps pin assignments unless that sketch gets the same correction. Any
-  VSI/Flaps values found here should NOT be assumed to carry over to the
-  production sketch until that's confirmed. Acceleration was lowered from
-  that sketch's 9000 (see STEPPER_ACCELERATION below) after it caused
-  missed steps on the bench - worth carrying that reduction back into the
-  production sketch too if it turns out to need it there as well.
+  Wiring and max speed match JET_RANGER_STEPPER_CONTROLLER.ino exactly, so
+  min/max/zero step values found with this harness should carry straight
+  over to that sketch. (VSI and Flaps had their AccelStepper
+  interfaces/pins swapped here first - VSI is FULL4WIRE on the pins that
+  used to be Flaps' coils, Flaps is DRIVER/STEP-DIR on the pins that used
+  to be VSI's step/dir - and JET_RANGER_STEPPER_CONTROLLER.ino has since
+  received the matching real-world wiring change and the same correction,
+  so the two are back in sync for these two steppers too.) Acceleration
+  was lowered from that sketch's 9000 (see STEPPER_ACCELERATION below)
+  after it caused missed steps on the bench - worth carrying that
+  reduction back into the production sketch too if it turns out to need it
+  there as well.
 
   Not included: the SARI roll stepper. It uses its own closed-loop IR-sensor
   homing/tracking state machine (see JET_RANGER_STEPPER_CONTROLLER.ino's
@@ -39,8 +38,12 @@
   On every boot, VSI and Flaps are each automatically wound hard against
   their end stop and zeroed there (see homeVSI()/homeFlaps()) before the
   menu appears, the same way JET_RANGER_STEPPER_CONTROLLER.ino's own
-  startup sequence homes them. Either can also be re-run on demand at any
-  time (e.g. if it has drifted or stalled) with the "h" command below,
+  startup sequence homes them. VSI then moves an additional
+  VSI_ZERO_OFFSET_STEPS (317) off the end stop and re-zeroes there, so its
+  end stop sits at a negative position rather than at zero - letting typed
+  target steps for VSI go both positive and negative from its zero instead
+  of only away from the stop. Either homing routine can also be re-run on
+  demand at any time (e.g. if it has drifted or stalled) with the "h" command below,
   while that stepper is selected.
 
   Serial Monitor usage (115200 baud, newline line ending):
@@ -65,6 +68,12 @@
     - Send "h" while VSI or Flaps is selected to re-home it on demand (same
       move as the automatic boot-time homing above). Only implemented for
       those two so far.
+    - While VSI is selected, send "f" followed by a feet value (e.g.
+      "f1000" or "f-500") to move it using feet instead of a raw step
+      count - looked up/interpolated from the VSI_FT_TABLE calibration
+      table (see vsiFtToDisplaySteps()) built by hand on the bench. Values
+      outside the table's -1750..1750 ft range are clamped to whichever
+      end is nearest, not extrapolated.
     - Send "m" at any time to see the menu again (this does not change
       which stepper is selected - use "sN" to actually switch).
     - Send "d" at any time to force the Flaps DIR pin HIGH directly, or "e"
@@ -144,6 +153,13 @@ unsigned long timeSinceRedLedChanged = 0;
 // its equivalent constant, direct-drive doesn't need the 10% overshoot
 // DRIVER_HOMING_STEPS gets.
 #define FULL4WIRE_HOMING_STEPS (315 * 2)
+
+// After VSI reaches its end stop and zeroes there, it moves this many
+// steps off the stop and re-zeroes at that new position - see homeVSI().
+// That makes the end stop itself a negative position rather than zero, so
+// typed target steps can go both positive and negative from the new zero
+// instead of only away from the stop.
+#define VSI_ZERO_OFFSET_STEPS 317
 
 // Menu indices of the two steppers with homing support (must match their
 // position in the steppers[] table below). Swapped from the original 0/4 -
@@ -248,16 +264,69 @@ long toDisplaySteps(long rawSteps, int displaySign) {
   return displaySign * rawSteps;
 }
 
-// Winds VSI hard against its mechanical end stop and zeroes it there. VSI
-// is now the direct-driven FULL4WIRE hardware (was Flaps' pins/interface -
-// see the AccelStepper construct swap above), so this uses
-// FULL4WIRE_HOMING_STEPS with no overshoot, matching that hardware's own
-// homing style. The negative sign is carried over from what that same
-// physical hardware needed as homeFlaps() before the swap - NOT
-// re-verified on the bench under its new name, check it actually reaches
-// the end stop (and doesn't stall against it from the wrong side) before
-// trusting it. This blocks (via runToNewPosition()) until the move
-// completes.
+// VSI ft-to-step calibration table, hand-measured on the bench: "step" is
+// the display step target (same units as the plain-integer move command,
+// i.e. what goes into toRawSteps() below) that lands the needle at that
+// many feet, relative to the zero homeVSI() establishes. The 0 ft row is
+// step 0 to match that zero reference - not the raw 317-steps-from-the-
+// end-stop distance homeVSI() winds through to get there (that number is
+// VSI_ZERO_OFFSET_STEPS, a different thing). Sorted ascending by ft -
+// vsiFtToDisplaySteps() below relies on that order.
+struct FtToStepEntry {
+  long ft;
+  long step;
+};
+
+const FtToStepEntry VSI_FT_TABLE[] = {
+  { -1750, -311 },
+  { -1500, -280 },
+  { -1250, -219 },
+  { -1000, -161 },
+  { -500, -80 },
+  { 0, 0 },
+  { 500, 85 },
+  { 1000, 165 },
+  { 1250, 227 },
+  { 1500, 286 },
+  { 1750, 315 },
+};
+const int VSI_FT_TABLE_SIZE = sizeof(VSI_FT_TABLE) / sizeof(VSI_FT_TABLE[0]);
+
+// Converts a requested VSI feet value into a display step target by
+// linear interpolation between the two nearest VSI_FT_TABLE rows. A ft
+// value outside the table's range is clamped to whichever end is nearest
+// rather than extrapolated, so a wildly out-of-range value can't fling
+// VSI past its calibrated range.
+long vsiFtToDisplaySteps(long ft) {
+  if (ft <= VSI_FT_TABLE[0].ft) return VSI_FT_TABLE[0].step;
+  if (ft >= VSI_FT_TABLE[VSI_FT_TABLE_SIZE - 1].ft) return VSI_FT_TABLE[VSI_FT_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < VSI_FT_TABLE_SIZE - 1; i++) {
+    long ftLo = VSI_FT_TABLE[i].ft;
+    long ftHi = VSI_FT_TABLE[i + 1].ft;
+    if (ft >= ftLo && ft <= ftHi) {
+      long stepLo = VSI_FT_TABLE[i].step;
+      long stepHi = VSI_FT_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(ft - ftLo) * (stepHi - stepLo) / (double)(ftHi - ftLo));
+    }
+  }
+  return 0;  // unreachable - every ft is covered by the clamps or the loop above
+}
+
+// Winds VSI hard against its mechanical end stop, zeroes it there, then
+// moves VSI_ZERO_OFFSET_STEPS (317) off the stop and re-zeroes at that new
+// position. The end stop itself ends up at a negative position rather than
+// step 0, so afterwards typed target steps can go both positive and
+// negative from zero instead of only away from the stop. VSI is now the
+// direct-driven FULL4WIRE hardware (was Flaps' pins/interface - see the
+// AccelStepper construct swap above), so the initial approach to the stop
+// uses FULL4WIRE_HOMING_STEPS with no overshoot, matching that hardware's
+// own homing style. The negative sign for that first move is carried over
+// from what that same physical hardware needed as homeFlaps() before the
+// swap - NOT re-verified on the bench under its new name, check it
+// actually reaches the end stop (and doesn't stall against it from the
+// wrong side) before trusting it. Both moves block (via
+// runToNewPosition()) until they complete.
 void homeVSI() {
   Serial.println(F("Homing VSI: winding to its end stop..."));
   SendDebug("Homing VSI - winding to end stop");
@@ -265,6 +334,12 @@ void homeVSI() {
   VSIstepper.setCurrentPosition(0);
   Serial.println(F("VSI end stop reached and zeroed (step 0)."));
   SendDebug("VSI end stop reached, zeroed at step 0");
+
+  Serial.println(F("VSI moving off end stop to set zero reference..."));
+  VSIstepper.runToNewPosition(VSI_ZERO_OFFSET_STEPS);
+  VSIstepper.setCurrentPosition(0);
+  Serial.println(F("VSI zero reference set (317 steps off end stop)."));
+  SendDebug("VSI zero reference set, 317 steps off end stop");
 }
 
 // Winds Flaps to its mechanical end stop and zeroes it there. Flaps is now
@@ -306,6 +381,9 @@ void printMenu() {
     Serial.println(F("Type 'z' to zero it at its current physical position, or 'm' for this menu."));
     if (selectedStepper == STEPPER_INDEX_VSI || selectedStepper == STEPPER_INDEX_FLAPS) {
       Serial.println(F("Type 'h' to home it: wind fully to its end stop, then zero there."));
+    }
+    if (selectedStepper == STEPPER_INDEX_VSI) {
+      Serial.println(F("Type 'f' + a feet value (e.g. 'f1000' or 'f-500') to move VSI using feet instead of steps."));
     }
   }
 }
@@ -419,6 +497,27 @@ void handleLine(String line) {
       Serial.print(steppers[selectedStepper].name);
       Serial.println(F(" yet - only VSI ('s4') and Flaps ('s0') support 'h' right now."));
     }
+    return;
+  }
+
+  // "fN" (feet) - VSI only: converts a target feet value into a step
+  // position via the VSI_FT_TABLE calibration table (see
+  // vsiFtToDisplaySteps() above, linear interpolation between rows) and
+  // moves VSI there, same as typing the resulting step number directly.
+  if ((line.charAt(0) == 'f' || line.charAt(0) == 'F') && isIntegerToken(line.substring(1))) {
+    if (selectedStepper != STEPPER_INDEX_VSI) {
+      Serial.println(F("'f' (feet) is only supported for VSI - select it first ('s4')."));
+      return;
+    }
+    long ft = line.substring(1).toInt();
+    long displayStep = vsiFtToDisplaySteps(ft);
+    steppers[selectedStepper].stepper->moveTo(toRawSteps(displayStep, steppers[selectedStepper].displaySign));
+    Serial.print(F("Moving VSI to "));
+    Serial.print(ft);
+    Serial.print(F(" ft (step "));
+    Serial.print(displayStep);
+    Serial.println(F(")"));
+    SendDebug("VSI target set to " + String(ft) + " ft (step " + String(displayStep) + ")");
     return;
   }
 

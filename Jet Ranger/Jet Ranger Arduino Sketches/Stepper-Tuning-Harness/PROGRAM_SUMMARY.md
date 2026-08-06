@@ -66,7 +66,13 @@ the Jet Ranger fleet.
      overshoot multiplier — matching that hardware's own homing style.
      Direction is `-FULL4WIRE_HOMING_STEPS`, carried over unchanged from
      what that same physical hardware needed as `homeFlaps()` before the
-     swap.
+     swap. `homeVSI()` then does a **second** move: `VSI_ZERO_OFFSET_STEPS`
+     (317) further, and re-zeroes there. This puts the actual zero
+     reference 317 steps off the end stop instead of at the stop itself,
+     so typed target steps for VSI can go both positive (further from the
+     stop) and negative (back toward it) — the stop is no longer the only
+     usable direction from zero. `homeFlaps()` has no equivalent
+     second move.
    - `homeFlaps()` now drives the geared DRIVER/STEP-DIR hardware (was
      VSI's pins/interface), so it uses `DRIVER_HOMING_STEPS * 1.1`
      (deliberately overshooting by 10% so it reaches the real stop
@@ -83,7 +89,10 @@ the Jet Ranger fleet.
    again on demand any time the `h` command is sent while that stepper
    (`STEPPER_INDEX_VSI` = `s4`, `STEPPER_INDEX_FLAPS` = `s0`) is selected.
    Each logs a `"Homing <name> - winding to end stop"` line before and
-   `"<name> end stop reached, zeroed at step 0"` after.
+   `"<name> end stop reached, zeroed at step 0"` after; `homeVSI()`'s
+   second move additionally logs `"VSI moving off end stop to set zero
+   reference..."` before and `"VSI zero reference set, 317 steps off end
+   stop"` after.
 4. **`handleLine(line)`** recognises five input forms (selection, zero, and
    move-to-target each also send a matching `SendDebug()` line):
    - `m` — reprints the stepper menu (does **not** change the current
@@ -135,7 +144,32 @@ the Jet Ranger fleet.
      Moved here from VSI when VSI and Flaps swapped AccelStepper
      interfaces/pins — only a DRIVER/STEP-DIR stepper has an actual DIR
      pin, and that's Flaps now.
-5. **`toRawSteps()`/`toDisplaySteps()`**: AccelStepper's own native positive
+   - `fN` (e.g. `f1000`, `f-500`) — VSI only: converts a feet value into a
+     step target via `vsiFtToDisplaySteps()`/`VSI_FT_TABLE` (item 5 below)
+     and calls `.moveTo()` with it, same as typing the resulting step
+     number directly. Only valid while VSI (`s4`) is selected; prints a
+     message explaining it isn't supported for the other steppers
+     otherwise. Logs `"VSI target set to <ft> ft (step <value>)"`.
+5. **`VSI_FT_TABLE`/`vsiFtToDisplaySteps()`**: an 11-row ft-to-step
+   calibration table, hand-measured on the bench, that lets the `f`
+   command above accept feet instead of raw steps ("ft" here is this
+   harness's own informal shorthand for VSI's fpm units, not altitude —
+   see below). Each row's `step` value is a **display** step target (the
+   same units the plain-integer move command uses), with `0` ft mapped to
+   display step `0` to match the zero `homeVSI()` establishes — not the
+   raw 317-steps-from-the-end-stop distance homing winds through to reach
+   that zero (that number is `VSI_ZERO_OFFSET_STEPS`, a separate constant;
+   the two are numerically identical by design, since 317 is exactly how
+   far off the stop zero sits). `vsiFtToDisplaySteps()` linearly
+   interpolates between whichever two table rows bracket the requested ft
+   value; a value outside the table's -1750..1750 ft range is clamped to
+   whichever end is nearest, never extrapolated.
+   > **Same data now used in production:** `JET_RANGER_STEPPER_CONTROLLER.ino`
+   > carries this identical fpm→step table as `VSI_FPM_TABLE`/
+   > `vsiFpmToSteps()`, applied to the raw fpm values its `VSI` UDP handler
+   > now receives from `FSUIPCWinformsAutoCS`/`StepperVSITester`. Any
+   > future recalibration on the bench should be applied to both tables.
+6. **`toRawSteps()`/`toDisplaySteps()`**: AccelStepper's own native positive
    direction isn't guaranteed to agree between steppers — VSI and Flaps use
    different `AccelStepper` interface types (`FULL4WIRE` vs
    `DRIVER`/STEP-DIR — see the hardware swap below), and both `homeVSI()`
@@ -160,12 +194,11 @@ the Jet Ranger fleet.
 
 Matches `JET_RANGER_STEPPER_CONTROLLER.ino`'s pin numbers for all 7
 "simple" `AccelStepper` gauges (the SARI roll stepper is intentionally not
-included — see below), **except VSI and Flaps**, which had their
-`AccelStepper` interfaces/pins swapped in this harness only (see the
-hardware-swap note above) — this harness's VSI is now that sketch's Flaps
-wiring and vice versa. Until `JET_RANGER_STEPPER_CONTROLLER.ino` gets the
-same correction (if it needs it), don't assume VSI/Flaps values found here
-carry straight over to it the way the other 5 steppers' do.
+included — see below). VSI and Flaps had their `AccelStepper`
+interfaces/pins swapped here first (see the hardware-swap note above);
+`JET_RANGER_STEPPER_CONTROLLER.ino` has since received the matching
+real-world wiring change and the same code correction, so the two are back
+in sync for these two steppers as well as the other 5.
 
 | Pin(s) | Function |
 |---|---|
@@ -212,9 +245,8 @@ Ethernet is send-only, for logging.
 ## Build verification
 
 Compiled clean with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`,
-**AccelStepper** 1.64.0, **Ethernet** 2.0.2): 21,252 bytes flash (8%),
-1,456 bytes RAM (17%). Flashed to the Mega on COM4 and verified via avrdude
-(third attempt — first two hit a transient "unable to open port" error).
+**AccelStepper** 1.64.0, **Ethernet** 2.0.2): 22,680 bytes flash (8%),
+1,604 bytes RAM (19%). Flashed to the Mega on COM4 and verified via avrdude.
 
 ## C# / other programs this sketch communicates with
 

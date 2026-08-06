@@ -771,10 +771,28 @@ namespace FSUIPCTest
                         // Something has changed so send it
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         frontPanelClient.Send(senddata, senddata.Length);
-                        // Same payload, fanned out to the Stepper (ALT/IAS) and
-                        // OLED (ALT/BARO) controllers - each ignores whatever
-                        // fields it doesn't recognise.
-                        stepperClient.Send(senddata, senddata.Length);
+
+                        // Stepper board only gets ALT, VSI and AGL (radar altitude)
+                        // - a separate, minimal payload rather than the full shared
+                        // one, since it has no gauges for anything else in it. VSI
+                        // is raw fpm (not the Bell-206 servo-position number
+                        // VSI_Process() computes for the front panel); ALTITUDE and
+                        // PLANE_ALT_ABOVE_GROUND reuse the same already-rounded/
+                        // power-gated strings just computed above for the front
+                        // panel, so AGL still zeroes out per the same NAVCOM1/master-
+                        // bus logic instead of reporting a stale reading. (VSI was
+                        // temporarily dropped from this payload while diagnosing an
+                        // ALT-needle reversal - confirmed unrelated to VSI, root
+                        // cause was the stepper driver electronics mishandling small
+                        // step deltas; see JET_RANGER_STEPPER_CONTROLLER's summary.)
+                        int vsiRawFpm = (int)sFrontPanel.VERTICAL_SPEED;
+                        string stepperPayload = "D,ALT:" + ALTITUDE
+                            + ",VSI:" + vsiRawFpm.ToString()
+                            + ",AGL:" + PLANE_ALT_ABOVE_GROUND;
+                        Byte[] stepperSendData = Encoding.ASCII.GetBytes(stepperPayload);
+                        stepperClient.Send(stepperSendData, stepperSendData.Length);
+
+                        // OLED gets the same payload as the front panel (ALT/BARO).
                         oledClient.Send(senddata, senddata.Length);
                         FrontPanelTimeLastPacketSent = DateTime.Now;
                     }
