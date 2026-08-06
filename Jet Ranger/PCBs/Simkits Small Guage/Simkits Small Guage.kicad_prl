@@ -48,7 +48,7 @@
       "drc_warnings",
       "shapes"
     ],
-    "visible_layers": "00000000_00000000_0003feff_aa00a0a5",
+    "visible_layers": "00000000_00000000_0003feff_aa00a085",
     "zone_display_mode": 0
   },
   "git": {
@@ -57,7 +57,7 @@
     "ssh_key": ""
   },
   "meta": {
-    "filename": "Simmeters Small Engine Replacement.kicad_prl",
+    "filename": "Simkits Small Guage.kicad_prl",
     "version": 5
   },
   "net_inspector_panel": {
