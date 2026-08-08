@@ -506,7 +506,7 @@
       "plot": "MANUFACTURING/",
       "pos_files": "",
       "specctra_dsn": "Simkits Small Dual Gauge.dsn",
-      "step": "Simkits_Small_Gauge.step",
+      "step": "Simkits_Small_Dual_Gauge.step",
       "svg": "",
       "vrml": ""
     },

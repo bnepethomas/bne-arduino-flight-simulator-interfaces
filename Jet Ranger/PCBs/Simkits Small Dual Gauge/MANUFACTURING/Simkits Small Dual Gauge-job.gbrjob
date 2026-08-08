@@ -3,14 +3,14 @@
     "GenerationSoftware": {
       "Vendor": "KiCad",
       "Application": "Pcbnew",
-      "Version": "9.0.7"
+      "Version": "9.0.4"
     },
-    "CreationDate": "2026-08-07T05:45:33+10:00"
+    "CreationDate": "2026-08-08T19:49:52+10:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
-      "Name": "Simkits Small Guage",
-      "GUID": "53696d6b-6974-4732-9053-6d616c6c2047",
+      "Name": "Simkits Small Dual Gauge",
+      "GUID": "53696d6b-6974-4732-9053-6d616c6c2044",
       "Revision": "rev?"
     },
     "Size": {
@@ -32,37 +32,37 @@
   ],
   "FilesAttributes": [
     {
-      "Path": "Simkits Small Guage-F_Cu.gbr",
+      "Path": "Simkits Small Dual Gauge-F_Cu.gbr",
       "FileFunction": "Copper,L1,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Simkits Small Guage-B_Cu.gbr",
+      "Path": "Simkits Small Dual Gauge-B_Cu.gbr",
       "FileFunction": "Copper,L2,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Simkits Small Guage-F_Silkscreen.gbr",
+      "Path": "Simkits Small Dual Gauge-F_Silkscreen.gbr",
       "FileFunction": "Legend,Top",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Simkits Small Guage-B_Silkscreen.gbr",
+      "Path": "Simkits Small Dual Gauge-B_Silkscreen.gbr",
       "FileFunction": "Legend,Bot",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "Simkits Small Guage-F_Mask.gbr",
+      "Path": "Simkits Small Dual Gauge-F_Mask.gbr",
       "FileFunction": "SolderMask,Top",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Simkits Small Guage-B_Mask.gbr",
+      "Path": "Simkits Small Dual Gauge-B_Mask.gbr",
       "FileFunction": "SolderMask,Bot",
       "FilePolarity": "Negative"
     },
     {
-      "Path": "Simkits Small Guage-Edge_Cuts.gbr",
+      "Path": "Simkits Small Dual Gauge-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
     }
