@@ -608,6 +608,17 @@
 			)
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/VID29-02P v1.step"
+			(offset
+				(xyz 0 0 -5.2)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -180 -0 -0)
+			)
+		)
 	)
 	(footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P1.90mm_Vertical"
 		(layer "F.Cu")
@@ -1792,60 +1803,6 @@
 			)
 		)
 	)
-	(gr_line
-		(start 210.015515 130.984574)
-		(end 150.015515 70.984574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(layer "Dwgs.User")
-		(uuid "070ee311-520e-43c2-801e-5863f03bab36")
-	)
-	(gr_circle
-		(center 180.015515 101.044574)
-		(end 212.068005 101.044574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(fill no)
-		(locked yes)
-		(layer "Dwgs.User")
-		(uuid "0e7a4fb1-0009-4cc0-b8fa-88139b4dff2c")
-	)
-	(gr_line
-		(start 180.015515 68.484574)
-		(end 180.015515 73.484574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(locked yes)
-		(layer "Dwgs.User")
-		(uuid "1603c465-bbad-4c33-a005-0bb810141c05")
-	)
-	(gr_circle
-		(center 179.955515 101.039574)
-		(end 215.955515 101.039574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(fill no)
-		(layer "Dwgs.User")
-		(uuid "60b79cfa-cb3d-4737-bc34-0b2aa355ecf6")
-	)
-	(gr_line
-		(start 210.065515 120.814574)
-		(end 150.065515 81.174574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(layer "Dwgs.User")
-		(uuid "6bbf1ebf-f29d-42c8-8c93-f51b58537e03")
-	)
 	(gr_circle
 		(center 159.745515 80.604574)
 		(end 161.515515 80.604574)
@@ -1857,28 +1814,6 @@
 		(layer "Dwgs.User")
 		(uuid "7ef8ad6b-2661-42a7-96cf-adbda247b907")
 	)
-	(gr_rect
-		(start 161.515515 72.884574)
-		(end 198.515515 109.884574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(fill no)
-		(layer "Dwgs.User")
-		(uuid "9453ca02-9e63-4ae0-b921-4dd4ea9229d2")
-	)
-	(gr_rect
-		(start 150.015515 71.044574)
-		(end 210.015515 131.044574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(fill no)
-		(layer "Dwgs.User")
-		(uuid "a75ea394-d8b0-436a-a9bc-afa46b57fb19")
-	)
 	(gr_circle
 		(center 200.405515 80.684574)
 		(end 202.175515 80.684574)
@@ -1889,57 +1824,6 @@
 		(fill no)
 		(layer "Dwgs.User")
 		(uuid "a8f91bbf-d143-48d8-9fe0-467dcc081f32")
-	)
-	(gr_line
-		(start 160.055515 130.924574)
-		(end 200.045515 70.944574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(layer "Dwgs.User")
-		(uuid "b0df6550-5d56-4aab-85a4-6c1704f859d6")
-	)
-	(gr_line
-		(start 210.015515 70.984574)
-		(end 150.015515 130.984574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(layer "Dwgs.User")
-		(uuid "ba14009a-7a2c-4edb-9e8b-744b75e6fff9")
-	)
-	(gr_line
-		(start 199.885515 131.044574)
-		(end 159.785515 71.014574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(layer "Dwgs.User")
-		(uuid "c36c91a4-caa6-4a6b-ab42-e38c1ece9ff1")
-	)
-	(gr_line
-		(start 210.025515 81.414574)
-		(end 150.055515 119.974574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(layer "Dwgs.User")
-		(uuid "d48b17a2-acae-4b73-bacc-f6998a9efb09")
-	)
-	(gr_rect
-		(start 153.515515 74.234574)
-		(end 206.515515 127.234574)
-		(stroke
-			(width 0.12)
-			(type solid)
-		)
-		(fill no)
-		(layer "Dwgs.User")
-		(uuid "d76e9c7c-3bc1-411a-82c8-1e7ad09b3f53")
 	)
 	(gr_line
 		(start 199.915515 131.044574)
