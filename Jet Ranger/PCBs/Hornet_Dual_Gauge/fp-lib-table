@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "X40")(type "KiCad")(uri "/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/Jet Ranger/PCBs/Simkits Small Dual Gauge/X40.pretty")(options "")(descr ""))
+)
