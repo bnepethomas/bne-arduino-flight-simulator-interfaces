@@ -53,7 +53,7 @@ int Reflector_In_Use = 1;
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
 
-String BoardName = "A10 Forward Steppers";
+String BoardName = "Jet Ranger 13 Steppers";
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
@@ -113,10 +113,10 @@ void SendDebug(String MessageToSend) {
 }
 // ###################################### End Ethernet Related #############################
 
-#define RED_STATUS_LED_PORT 12
-#define GREEN_STATUS_LED_PORT 13
-#define Check_LED_R 12
-#define Check_LED_G 13
+#define RED_STATUS_LED_PORT 15
+#define GREEN_STATUS_LED_PORT 14
+#define Check_LED_R 15
+#define Check_LED_G 14
 
 #define FLASH_TIME 300
 
@@ -195,10 +195,23 @@ unsigned long previousMillis = 0;
 // Swapped with Flaps' step/dir pins above: Flaps moved onto this
 // DRIVER/STEP-DIR pair, and VSI (below) took over these coil pins - it is
 // NOT unused, it now belongs to VSI.
-#define COIL_VSI_A 2
-#define COIL_VSI_B 3
-#define COIL_VSI_C 4
-#define COIL_VSI_D 5
+
+#define STEPPER_VVI_A 7
+#define STEPPER_VVI_B 8
+#define STEPPER_VVI_C 9
+#define STEPPER_VVI_D 11
+
+#define STEPPER_RA_A 32
+#define STEPPER_RA_B 33
+#define STEPPER_RA_C 34
+#define STEPPER_RA_D 35
+
+
+
+#define STEPPER_GP_A 40
+#define STEPPER_GP_B 41
+#define STEPPER_GP_C 42
+#define STEPPER_GP_D 43
 
 #define STEPS 315 * 16       // The 16 is the default divisors when no pins are tied together on the driver module \
                             // For an unmodified Vid series there are 315 steps
@@ -212,8 +225,8 @@ AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
 AccelStepper SpeedCurrentstepper(AccelStepper::DRIVER, SpeedCurrentstepPin, SpeedCurrentdirectionPin);
 AccelStepper SpeedMaxstepper(AccelStepper::DRIVER, SpeedMaxstepPin, SpeedMaxdirectionPin);
 // AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
-AccelStepper VSIstepper(AccelStepper::FULL4WIRE, SpeedMaxstepPin, SpeedMaxdirectionPin, AOAstepPin, AOAdirectionPin);
-AccelStepper RadarALTstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
+AccelStepper VSIstepper(AccelStepper::FULL4WIRE, STEPPER_VVI_A, STEPPER_VVI_B, STEPPER_VVI_C, STEPPER_VVI_D);
+AccelStepper RadarALTstepper(AccelStepper::FULL4WIRE, STEPPER_RA_C, STEPPER_RA_D, STEPPER_RA_A, STEPPER_RA_B-);
 AccelStepper AOAstepper(AccelStepper::DRIVER, AOAstepPin, AOAdirectionPin);
 AccelStepper GForcestepper(AccelStepper::DRIVER, GForcestepPin, GForcedirectionPin);
 // ########################### END STEPPERS #########################################
