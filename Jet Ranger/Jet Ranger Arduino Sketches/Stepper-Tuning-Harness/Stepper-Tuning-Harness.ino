@@ -200,6 +200,16 @@ unsigned long timeSinceRedLedChanged = 0;
 #define COIL_VSI_C 4
 #define COIL_VSI_D 5
 
+#define STEPPER_SPD_A 12
+#define STEPPER_SPD_B 13
+#define STEPPER_SPD_C 22
+#define STEPPER_SPD_D 23
+
+
+
+
+
+
 // VSI and Flaps swapped AccelStepper interfaces/pins below: VSI is now the
 // direct-driven FULL4WIRE hardware (was Flaps' pins/interface), Flaps is
 // now the geared DRIVER/STEP-DIR hardware (was VSI's pins/interface).

@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "dual_needle_gauge-rescue")(type "Legacy")(uri "${KIPRJMOD}/Hornet_Dual_Gauge-rescue.lib")(options "")(descr ""))
+)
