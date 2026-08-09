@@ -6,7 +6,7 @@
 	(paper "A3")
 	(title_block
 		(date "2026-08-09")
-		(rev "1.0")
+		(rev "1.1")
 	)
 	(lib_symbols
 		(symbol "Arduino_NW_Template-rescue:GND-power"
@@ -7984,10 +7984,6 @@
 		(uuid "d902ef2d-5195-4b78-8c38-95cc8512588f")
 	)
 	(no_connect
-		(at 142.24 105.41)
-		(uuid "049a4a19-7c2a-4962-9899-940e70be7dda")
-	)
-	(no_connect
 		(at 142.24 125.73)
 		(uuid "28b8dcb9-f576-4229-afa3-32b13df0e46c")
 	)
@@ -8006,10 +8002,6 @@
 	(no_connect
 		(at 142.24 128.27)
 		(uuid "5825a124-732b-466c-a047-f6725aee0afb")
-	)
-	(no_connect
-		(at 142.24 107.95)
-		(uuid "654a059d-29ff-4cac-afc3-1e6264f2d261")
 	)
 	(no_connect
 		(at 142.24 110.49)
@@ -9184,6 +9176,16 @@
 			(type default)
 		)
 		(uuid "d2028825-09bd-4e07-8d31-6da52376d1b3")
+	)
+	(wire
+		(pts
+			(xy 91.44 158.75) (xy 101.6 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d21a790c-a55a-48b1-bf8b-2a0613f91e8b")
 	)
 	(wire
 		(pts
@@ -10556,6 +10558,16 @@
 		)
 		(uuid "91081dfb-8165-4ad3-b53f-f0ef00b0586c")
 	)
+	(label "SC3"
+		(at 101.6 161.29 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "91c51c6b-05a5-4950-9e16-23d490c457eb")
+	)
 	(label "SD4"
 		(at 142.24 113.03 0)
 		(effects
@@ -10765,6 +10777,16 @@
 			(justify right bottom)
 		)
 		(uuid "a5b75d61-cb9d-40f1-85e3-bea3b8a1b9b7")
+	)
+	(label "SD3"
+		(at 101.6 163.83 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a6751041-b2c1-443e-a2f6-ce4fc50075a2")
 	)
 	(label "5v_GND"
 		(at 25.4 48.26 180)
@@ -15029,6 +15051,69 @@
 			(project "Jet Ranger Front Panel Servo"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "F1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 91.44 158.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6af46a42-4e6c-492a-adb0-f1e0a7b3d214")
+		(property "Reference" "#PWR014"
+			(at 91.44 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 91.44 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 91.44 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 91.44 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 91.44 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2ab5729c-f741-46e1-b71f-5059d5b1e437")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -21461,6 +21546,72 @@
 		)
 	)
 	(symbol
+		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
+		(at 101.6 156.21 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f1a60522-e67a-44bb-91e1-0908482f19cd")
+		(property "Reference" "#PWR015"
+			(at 101.6 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 101.981 152.9588 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.6 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e07ec269-512e-4389-8391-fefd8ea77219")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR015")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GNDD")
 		(at 69.85 52.07 0)
 		(unit 1)
@@ -21585,6 +21736,451 @@
 			(project "Jet Ranger X Dual Stepper"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "#PWR031")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x04_Socket")
+		(at 106.68 158.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fb33676a-9359-4430-b666-6b71be9d5a45")
+		(property "Reference" "J18"
+			(at 107.95 158.7499 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "CLOCK-OLED"
+			(at 107.95 161.2899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-04A_1x04_P2.54mm_Vertical"
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "automotive" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "category" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "continuous drain current" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "depletion mode" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L1" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L2" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "device class L3" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey description" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "digikey part number" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source breakdown voltage" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source resistance" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "drain to source voltage" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "footprint url" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate charge at vgs" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "gate to source voltage" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "height" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "input capacitace at vds" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "ipc land pattern name" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "lead free" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "library id" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "manufacturer" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max forward diode voltage" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "max junction temp" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser description" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "mouser part number" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of N channels" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "number of channels" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "package" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "power dissipation" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "pulse drain current" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery charge" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "reverse recovery time" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rohs" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "rthja max" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "standoff height" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range high" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "temperature range low" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs max" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "threshold vgs min" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn off delay time" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "turn on delay time" ""
+			(at 106.68 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "20b89a19-919b-475e-861d-7a8719436b88")
+		)
+		(pin "2"
+			(uuid "3dbbdafe-6f25-4928-b7a3-8130a351f75a")
+		)
+		(pin "4"
+			(uuid "fe88d4a5-8366-46ce-adf4-4b450f6786e5")
+		)
+		(pin "1"
+			(uuid "2950e4b8-af53-4d6e-9d30-21f47b282999")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J18")
 					(unit 1)
 				)
 			)
@@ -21725,7 +22321,7 @@
 			)
 		)
 		(instances
-			(project "Jet Ranger X Dual Stepper"
+			(project "Jet Ranger OLED Dual Stepper"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(page "2")
 				)
