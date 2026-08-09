@@ -790,14 +790,47 @@ void jogAltimeterSteps(long steps, long intervalMs) {
 
 // ################################### BEGIN RADAR ALT ##############################################
 
-// Raw step pass-through test receiver - see the "RALT" case in
-// HandleOutputValuePair() below. No feet-to-steps calibration exists yet
-// for this gauge (RadarALTstepper is freshly wired and hasn't been
-// bench-measured), so unlike onAltMslFtChange() this just forwards the
-// raw step target directly, same placeholder style as IAS's straight
-// pass-through above pending its own real calibration.
 void setRadarAlt(long TargetSteps) {
   RadarALTstepper.moveTo(TargetSteps);
+}
+
+// Radar altimeter ft-to-step calibration table, hand-measured on the
+// bench. Two linear segments rather than one straight line across the
+// whole range: 0-500 ft climbs steeply (0 to 309 steps), then 500-2500 ft
+// (this gauge's max) climbs much more gradually (309 to 463 steps).
+// Sorted ascending by ft - radarAltFtToSteps() below relies on that
+// order.
+struct RadarAltFtToStepEntry {
+  long ft;
+  long step;
+};
+
+const RadarAltFtToStepEntry RADAR_ALT_FT_TABLE[] = {
+  { 0, 0 },
+  { 500, 309 },
+  { 2500, 463 },
+};
+const int RADAR_ALT_FT_TABLE_SIZE = sizeof(RADAR_ALT_FT_TABLE) / sizeof(RADAR_ALT_FT_TABLE[0]);
+
+// Converts a requested radar altitude in feet into a step target by
+// linear interpolation within whichever RADAR_ALT_FT_TABLE segment it
+// falls in (see vsiFpmToSteps() above for the same pattern applied to
+// VSI). A ft value outside the table's 0..2500 range is clamped to
+// whichever end is nearest rather than extrapolated.
+long radarAltFtToSteps(long ft) {
+  if (ft <= RADAR_ALT_FT_TABLE[0].ft) return RADAR_ALT_FT_TABLE[0].step;
+  if (ft >= RADAR_ALT_FT_TABLE[RADAR_ALT_FT_TABLE_SIZE - 1].ft) return RADAR_ALT_FT_TABLE[RADAR_ALT_FT_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < RADAR_ALT_FT_TABLE_SIZE - 1; i++) {
+    long ftLo = RADAR_ALT_FT_TABLE[i].ft;
+    long ftHi = RADAR_ALT_FT_TABLE[i + 1].ft;
+    if (ft >= ftLo && ft <= ftHi) {
+      long stepLo = RADAR_ALT_FT_TABLE[i].step;
+      long stepHi = RADAR_ALT_FT_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(ft - ftLo) * (stepHi - stepLo) / (double)(ftHi - ftLo));
+    }
+  }
+  return 0;  // unreachable - every ft is covered by the clamps or the loop above
 }
 
 // ################################### END RADAR ALT ##############################################
@@ -1140,10 +1173,14 @@ void HandleOutputValuePair(String str) {
     SendDebug("Altitude is :" + String(ParameterValue.toInt()));
     onAltMslFtChange((unsigned int)ParameterValue.toInt());
   } else if (ParameterName == "RALT") {
-    // Radar altimeter test receiver - see setRadarAlt() above. Raw step
-    // target, no unit conversion yet.
-    SendDebug("Radar Alt target steps is :" + String(ParameterValue.toInt()));
-    setRadarAlt(ParameterValue.toInt());
+    // Radar altimeter test receiver - value is feet, converted through
+    // RADAR_ALT_FT_TABLE (radarAltFtToSteps() above) now that this
+    // gauge's real calibration is known, same pattern as VSI's
+    // vsiFpmToSteps().
+    long radarAltFt = ParameterValue.toInt();
+    long radarAltSteps = radarAltFtToSteps(radarAltFt);
+    SendDebug("Radar Alt target is " + String(radarAltFt) + " ft (step " + String(radarAltSteps) + ")");
+    setRadarAlt(radarAltSteps);
   } else if (ParameterName == "VSI") {
     // Unlike IAS (still a Bell 206 servo-position number), FSUIPCWinformsAutoCS
     // now sends this board raw fpm specifically for VSI (its own front-panel/

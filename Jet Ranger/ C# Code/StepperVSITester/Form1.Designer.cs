@@ -237,21 +237,21 @@ namespace StepperVSITester
             lblRadarAltHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             lblRadarAltHeader.Location = new Point(12, 366);
             lblRadarAltHeader.Name = "lblRadarAltHeader";
-            lblRadarAltHeader.Size = new Size(140, 15);
+            lblRadarAltHeader.Size = new Size(90, 15);
             lblRadarAltHeader.TabIndex = 17;
-            lblRadarAltHeader.Text = "Radar ALT (raw steps)";
+            lblRadarAltHeader.Text = "Radar ALT (ft)";
             //
             // trkRadarAlt
             //
-            trkRadarAlt.LargeChange = 60;
+            trkRadarAlt.LargeChange = 250;
             trkRadarAlt.Location = new Point(12, 412);
-            trkRadarAlt.Maximum = 630;
+            trkRadarAlt.Maximum = 2500;
             trkRadarAlt.Minimum = 0;
             trkRadarAlt.Name = "trkRadarAlt";
             trkRadarAlt.Size = new Size(400, 45);
-            trkRadarAlt.SmallChange = 10;
+            trkRadarAlt.SmallChange = 50;
             trkRadarAlt.TabIndex = 19;
-            trkRadarAlt.TickFrequency = 60;
+            trkRadarAlt.TickFrequency = 250;
             trkRadarAlt.Scroll += trkRadarAlt_Scroll;
             //
             // lblRadarAltValue
@@ -259,9 +259,9 @@ namespace StepperVSITester
             lblRadarAltValue.AutoSize = true;
             lblRadarAltValue.Location = new Point(12, 387);
             lblRadarAltValue.Name = "lblRadarAltValue";
-            lblRadarAltValue.Size = new Size(80, 15);
+            lblRadarAltValue.Size = new Size(59, 15);
             lblRadarAltValue.TabIndex = 18;
-            lblRadarAltValue.Text = "Value: 0 steps";
+            lblRadarAltValue.Text = "Value: 0 ft";
             //
             // lblRadarAltMin
             //
@@ -279,7 +279,7 @@ namespace StepperVSITester
             lblRadarAltMax.Name = "lblRadarAltMax";
             lblRadarAltMax.Size = new Size(30, 15);
             lblRadarAltMax.TabIndex = 21;
-            lblRadarAltMax.Text = "630";
+            lblRadarAltMax.Text = "2500";
             //
             // txtRadarAltInput
             //
