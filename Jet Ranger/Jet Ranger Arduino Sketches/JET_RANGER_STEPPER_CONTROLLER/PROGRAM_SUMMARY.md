@@ -12,8 +12,9 @@
 Two Arduino sketches live under this folder:
 
 1. **`JET_RANGER_STEPPER_CONTROLLER.ino`** (this summary's main subject) —
-   drives 7 analogue stepper-motor gauges plus backlighting for an A-10C
-   front instrument panel.
+   drives 18 analogue stepper-motor gauges (7 original + 11 newly ported
+   from `Stepper-Tuning-Harness`, see below) plus backlighting for an
+   A-10C front instrument panel.
 2. **`A10_LEFT_CONSOLE_INPUT_CONTROLLER_A/A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino`**
    — a separate 176-button matrix input controller for TACAN/ILS/electrical/
    CDU/AAP/lighting panels (see its own section below).
@@ -25,7 +26,7 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 23,748 bytes (9%) | 2,805 bytes (34%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 25,038 bytes (9%) | 3,639 bytes (44%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
 Flashed to the bench Mega on COM4 (the same physical board the
@@ -37,6 +38,11 @@ commit and this one is a clean-build artifact (a stale incremental-build
 cache inflated the prior number — confirmed by re-running with
 `--clean`), not a functional regression; the diff between those two
 states is purely additive.
+
+> **Not flashed:** the 11 new gauges added in "New gauges ported from
+> Stepper-Tuning-Harness" below were only compile-checked — the bench
+> Mega wasn't connected when they were added, so this board is currently
+> running whatever was flashed before that change.
 
 Library versions used for this verification: **Ethernet** 2.0.2,
 **AccelStepper** 1.64.0, **DCS-BIOS** 0.3.13 (Arduino Library Manager). The
@@ -151,10 +157,75 @@ diffed against each other line-for-line.
      outside ±1750 fpm (never extrapolated). This bypasses `setVSI()`'s
      separate `±VSIMaxSteps` clamp entirely — that clamp remains in use
      only for the unrelated DCS-BIOS path (`onVviChange`).
+   - `RALT`, `EOT`, `XOT`, `XOP`, `EGT`, `TS`, `RS`, `FA`, `ET`, `GP`, `EOP`
+     *(new)* → raw step pass-through (`.moveTo(value)` directly, no
+     conversion) onto the 11 gauges ported from `Stepper-Tuning-Harness`
+     (see "New gauges ported from Stepper-Tuning-Harness" below). None of
+     these have a real calibration table yet. **`RALT` is not the same
+     code `FSUIPCWinformsAutoCS` sends for radar altitude** - that's
+     `AGL` (see below), which this board still doesn't read - so `RALT`
+     only ever fires from a manual test send (e.g.
+     `StepperVSITester`'s "Radar ALT" control), never from live flight
+     data, until one of the two is renamed to match the other.
    - Every other code is currently parsed and silently ignored, including
-     `AGL` (radar altitude) — `FSUIPCWinformsAutoCS` now sends it in every
-     stepper packet alongside `ALT`/`VSI`, but this board has no radar
-     altimeter gauge/stepper to drive with it yet.
+     `AGL` (radar altitude) — `FSUIPCWinformsAutoCS` sends it in every
+     stepper packet alongside `ALT`/`VSI`, and this board now *has* a
+     Radar Alt stepper (`RadarAltStepper`), but nothing wires `AGL` to it
+     yet - see the `RALT`/`AGL` naming mismatch just above.
+
+## New gauges ported from Stepper-Tuning-Harness
+
+Eleven more `AccelStepper` objects were added, all `FULL4WIRE`
+direct-drive, matching `Stepper-Tuning-Harness`'s pin assignments exactly
+(see that sketch's own summary for the full history of how it arrived at
+these pins): `RadarAltStepper`, `EOTstepper`, `XOTstepper`, `XOPstepper`,
+`EGTstepper`, `TSstepper`, `RSstepper`, `FAstepper`, `ETstepper`,
+`GPstepper`, `EOPstepper`. `RadarAltStepper`'s coil argument order (C, D,
+A, B rather than A, B, C, D) is carried over as-is from the harness,
+since that's whatever direction that sketch found to work on the bench.
+
+Added as bare declarations only:
+- Each gets `setMaxSpeed`/`setAcceleration` in `setup()` (same
+  `STEPPER_MAX_SPEED`/`STEPPER_ACCELERATION` as every other stepper here)
+  and a `.run()` call in `updateSteppers()`, so they're mechanically live.
+- **No homing or startup routine** was added for any of them - unlike
+  VSI/ALT/SpeedMax's elaborate wind-to-stop-and-sweep sequences in
+  `setup()`, none of these 11 have a bench-confirmed end stop, direction,
+  or zero reference yet.
+- **No DCS-BIOS binding** exists for any of them - they're reachable only
+  via the raw UDP test codes listed in the UDP data receiver section
+  above.
+
+`Current Airspeed` (`SpeedCurrentstepper`) and `VSI` already existed in
+this sketch under those names before this change, with different
+pins/interfaces than `Stepper-Tuning-Harness`'s rewired versions of the
+same two gauges (that harness moved both to `FULL4WIRE` on different
+pins - see its own summary) - this sketch's existing `SpeedCurrentstepper`
+(`DRIVER`, pins 34/36) and `VSIstepper` (`FULL4WIRE`, `COIL_VSI_A..D` =
+2/3/4/5) were **left untouched**, not resynced to the harness's newer
+wiring.
+
+> **Pin collisions (not resolved):** this sketch was never cleaned up the
+> way `Stepper-Tuning-Harness` was (`ALTstepper`, `SpeedMaxstepper`,
+> `FlapsStepper`, `AOAstepper`, `GForcestepper`, and
+> `AllstepperEnablePin` are all still active here), so several of the 11
+> new gauges' pins collide with them:
+>
+> | New gauge | Conflicting pin(s) | Collides with |
+> |---|---|---|
+> | Radar Alt | 34 | `SpeedCurrentstepPin` |
+> | EOT | 48, 54 (A0), 56 (A2) | `FlapsDirectionPin`, `ALTzeroSensePin`, `AllstepperEnablePin` |
+> | TS | 24, 26 | `AOAstepPin`, `GForcestepPin` |
+> | RS | 28 | `GForcedirectionPin` |
+> | FA | 2, 3, 4 | `COIL_VSI_A`/`COIL_VSI_B`/`COIL_VSI_C` |
+> | ET | 36, 38 | `SpeedCurrentdirectionPin`, `SpeedMaxstepPin` |
+> | GP | 40, 42 | `SpeedMaxdirectionPin`, `ALTstepPin` |
+> | EOP | 44, 46 | `ALTdirectionPin`, `FlapsStepPin` |
+>
+> XOT, XOP, and EGT (all on A3-A14) are the only new gauges clear of
+> every other pin in this sketch. None of this blocks compilation - it's
+> a real-hardware wiring conflict, only relevant once both sides of a
+> collision are physically wired at once.
 
 ## Pin usage (JET_RANGER_STEPPER_CONTROLLER.ino)
 
@@ -177,6 +248,17 @@ diffed against each other line-for-line.
 | 56 | Shared stepper-driver enable pin (`AllstepperEnablePin`/`SARIenablePin`) |
 | 2, 3, 4, 5 | VSI 4-wire stepper coils (`COIL_VSI_A..D`) — was Flaps' pins before the VSI/Flaps hardware swap above |
 | Serial (USB) | DCS-BIOS `DCSBIOS_IRQ_SERIAL` link — the data source for every stepper/servo target |
+| 32, 33, 34, 35 | Radar Alt 4-wire stepper coils (`RADAR_ALT_COIL_A..D`) — 34 collides with `SpeedCurrentstepPin` above |
+| 48, A0, A1, A2 (54/55/56) | EOT 4-wire stepper coils (`EOT_COIL_A..D`) — 48/54/56 collide with `FlapsDirectionPin`/`ALTzeroSensePin`/`AllstepperEnablePin` above |
+| A3, A4, A5, A6 (57-60) | XOT 4-wire stepper coils (`XOT_COIL_A..D`) — no collisions |
+| A7, A8, A9, A10 (61-64) | XOP 4-wire stepper coils (`XOP_COIL_A..D`) — no collisions |
+| A11, A12, A13, A14 (65-68) | EGT 4-wire stepper coils (`EGT_COIL_A..D`) — no collisions |
+| 24, 25, 26, 27 | TS 4-wire stepper coils (`TS_COIL_A..D`) — 24/26 collide with `AOAstepPin`/`GForcestepPin` above |
+| 28, 29, 30, 31 | RS 4-wire stepper coils (`RS_COIL_A..D`) — 28 collides with `GForcedirectionPin` above |
+| 2, 3, 4, 6 | FA 4-wire stepper coils (`FA_COIL_A..D`) — 2/3/4 collide with `COIL_VSI_A..C` above |
+| 36, 37, 38, 39 | ET 4-wire stepper coils (`ET_COIL_A..D`) — 36/38 collide with `SpeedCurrentdirectionPin`/`SpeedMaxstepPin` above |
+| 40, 41, 42, 43 | GP 4-wire stepper coils (`GP_COIL_A..D`) — 40/42 collide with `SpeedMaxdirectionPin`/`ALTstepPin` above |
+| 44, 45, 46, 47 | EOP 4-wire stepper coils (`EOP_COIL_A..D`) — 44/46 collide with `ALTdirectionPin`/`FlapsStepPin` above |
 
 ## Local network configuration (JET_RANGER_STEPPER_CONTROLLER.ino)
 

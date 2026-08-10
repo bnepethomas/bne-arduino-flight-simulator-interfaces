@@ -60,6 +60,9 @@ namespace StepperVSITester
             trkRadarAlt.Value = 0;
             UpdateValueLabel(lblRadarAltValue, 0, "ft");
             txtRadarAltInput.Text = "0";
+
+            cboNewGauge.SelectedIndex = 0;
+            txtNewGaugeSteps.Text = "0";
         }
 
         private void trkVsi_Scroll(object sender, EventArgs e)
@@ -147,7 +150,7 @@ namespace StepperVSITester
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SendManualValue(trkRadarAlt, txtRadarAltInput, lblRadarAltValue, "RALT", "steps");
+                SendManualValue(trkRadarAlt, txtRadarAltInput, lblRadarAltValue, "RALT", "ft");
             }
         }
 
@@ -195,6 +198,41 @@ namespace StepperVSITester
             if (e.KeyCode == Keys.Enter)
             {
                 butJogSend_Click(sender, e);
+            }
+        }
+
+        // Raw step pass-through test frame for the gauges ported into
+        // JET_RANGER_STEPPER_CONTROLLER.ino from Stepper-Tuning-Harness
+        // (EOT/XOT/XOP/EGT/TS/RS/FA/ET/GP/EOP - see that sketch's
+        // HandleOutputValuePair()). None of them have a real calibration
+        // yet, so this is one shared raw-step control with a dropdown to
+        // pick which gauge's UDP code to send, rather than ten
+        // near-identical trackbar sections - cheaper to keep in sync
+        // while none of these are calibrated, and easy to split into a
+        // dedicated section later once a gauge gets real units (the same
+        // way Radar ALT above graduated from raw steps to feet).
+        private void butNewGaugeSend_Click(object sender, EventArgs e)
+        {
+            if (!long.TryParse(txtNewGaugeSteps.Text, out long steps))
+            {
+                MessageBox.Show("Steps must be a whole number (e.g. 150 or -150)");
+                return;
+            }
+
+            Send(cboNewGauge.SelectedItem?.ToString() ?? "EOT", steps);
+        }
+
+        private void butNewGaugeZero_Click(object sender, EventArgs e)
+        {
+            txtNewGaugeSteps.Text = "0";
+            Send(cboNewGauge.SelectedItem?.ToString() ?? "EOT", 0);
+        }
+
+        private void txtNewGaugeSteps_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                butNewGaugeSend_Click(sender, e);
             }
         }
     }

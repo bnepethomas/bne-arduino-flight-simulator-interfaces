@@ -10,16 +10,11 @@
 
   Wiring and max speed match JET_RANGER_STEPPER_CONTROLLER.ino exactly, so
   min/max/zero step values found with this harness should carry straight
-  over to that sketch. (VSI and Flaps had their AccelStepper
-  interfaces/pins swapped here first - VSI is FULL4WIRE on the pins that
-  used to be Flaps' coils, Flaps is DRIVER/STEP-DIR on the pins that used
-  to be VSI's step/dir - and JET_RANGER_STEPPER_CONTROLLER.ino has since
-  received the matching real-world wiring change and the same correction,
-  so the two are back in sync for these two steppers too.) Acceleration
-  was lowered from that sketch's 9000 (see STEPPER_ACCELERATION below)
-  after it caused missed steps on the bench - worth carrying that
-  reduction back into the production sketch too if it turns out to need it
-  there as well.
+  over to that sketch. VSI is FULL4WIRE direct-drive on coil pins (see
+  COIL_VSI_A..D below). Acceleration was lowered from that sketch's 9000
+  (see STEPPER_ACCELERATION below) after it caused missed steps on the
+  bench - worth carrying that reduction back into the production sketch
+  too if it turns out to need it there as well.
 
   Not included: the SARI roll stepper. It uses its own closed-loop IR-sensor
   homing/tracking state machine (see JET_RANGER_STEPPER_CONTROLLER.ino's
@@ -35,39 +30,37 @@
   host, the same "SendDebug -> 172.16.1.10:27000" pattern used throughout
   the rest of the Jet Ranger fleet.
 
-  On every boot, VSI and Flaps are each automatically wound hard against
-  their end stop and zeroed there (see homeVSI()/homeFlaps()) before the
-  menu appears, the same way JET_RANGER_STEPPER_CONTROLLER.ino's own
-  startup sequence homes them. VSI then moves an additional
-  VSI_ZERO_OFFSET_STEPS (317) off the end stop and re-zeroes there, so its
-  end stop sits at a negative position rather than at zero - letting typed
-  target steps for VSI go both positive and negative from its zero instead
-  of only away from the stop. Either homing routine can also be re-run on
-  demand at any time (e.g. if it has drifted or stalled) with the "h" command below,
-  while that stepper is selected.
+  On every boot, VSI is automatically wound hard against its end stop and
+  zeroed there (see homeVSI()) before the menu appears, the same way
+  JET_RANGER_STEPPER_CONTROLLER.ino's own startup sequence homes it. VSI
+  then moves an additional VSI_ZERO_OFFSET_STEPS (317) off the end stop
+  and re-zeroes there, so its end stop sits at a negative position rather
+  than at zero - letting typed target steps for VSI go both positive and
+  negative from its zero instead of only away from the stop. This homing
+  routine can also be re-run on demand at any time (e.g. if it has drifted
+  or stalled) with the "h" command below, while VSI is selected.
 
   Serial Monitor usage (115200 baud, newline line ending):
     - On boot, and any time you send "m", the stepper menu is printed.
-    - Send "s" followed by a menu number to select that stepper, e.g. "s0"
-      selects Flaps, "s4" selects VSI.
+    - Send "s" followed by a menu number to select that stepper, e.g. "s1"
+      selects VSI.
     - With a stepper selected, send a plain integer target step position
       (e.g. "1500" or "-200") and press Enter to move it there - repeat as
       many times as you like while watching the gauge. Positive numbers
       move the gauge clockwise, negative numbers counter-clockwise (see
       toRawSteps()/toDisplaySteps() and each stepper's displaySign -
-      AccelStepper's own native direction isn't the same for every
-      stepper's wiring/interface type, so each one has its own sign flip
-      applied before/after touching the stepper; Flaps is inverted
-      relative to the rest). (Selection
+      AccelStepper's own native direction isn't guaranteed to agree across
+      every stepper's wiring, so each one has its own sign flip applied
+      before/after touching the stepper). (Selection
       uses the "sN" prefix specifically so a plain number always means
       "move here", never "reselect" - typing "5" moves the current stepper
       to step 5, it does not switch to stepper #5.)
     - Send "z" to zero the CURRENTLY SELECTED stepper wherever it is
       sitting right now (sets that physical position to step 0) - handy for
       establishing a known reference point before searching for min/max.
-    - Send "h" while VSI or Flaps is selected to re-home it on demand (same
-      move as the automatic boot-time homing above). Only implemented for
-      those two so far.
+    - Send "h" while VSI is selected to re-home it on demand (same move as
+      the automatic boot-time homing above). Only implemented for VSI so
+      far.
     - While VSI is selected, send "f" followed by a feet value (e.g.
       "f1000" or "f-500") to move it using feet instead of a raw step
       count - looked up/interpolated from the VSI_FT_TABLE calibration
@@ -76,16 +69,6 @@
       end is nearest, not extrapolated.
     - Send "m" at any time to see the menu again (this does not change
       which stepper is selected - use "sN" to actually switch).
-    - Send "d" at any time to force the Flaps DIR pin HIGH directly, or "e"
-      to force it LOW (diagnostic - bypasses AccelStepper entirely via
-      digitalWrite(), does not move the stepper). Note AccelStepper will
-      overwrite this the next time Flaps actually steps, so it only holds
-      until Flaps' next move. (Moved from VSI to Flaps when VSI and Flaps
-      swapped AccelStepper interfaces/pins - only a DRIVER/STEP-DIR
-      stepper has a DIR pin at all, and that's Flaps now.)
-    - This also happens automatically: as soon as Flaps finishes a move (or
-      is already sitting still) its DIR pin is latched HIGH on its own,
-      same as sending "d" by hand - no action needed to trigger it.
 */
 
 #include <AccelStepper.h>
@@ -118,11 +101,14 @@ void SendDebug(String MessageToSend) {
   udp.endPacket();
 }
 
-// Status LED heartbeat - ported as-is from JET_RANGER_STEPPER_CONTROLLER.ino
-#define RED_STATUS_LED_PORT 12
-#define GREEN_STATUS_LED_PORT 13
-#define Check_LED_R 12
-#define Check_LED_G 13
+// Status LED heartbeat - moved off pins 12/13 (JET_RANGER_STEPPER_CONTROLLER.ino's
+// originals) onto 14/15, since 12/13 are now SpeedCurrentstepper's coil
+// pins (STEPPER_SPD_A/B below) - resolves the LED/stepper pin collision
+// flagged when that stepper moved to FULL4WIRE.
+#define RED_STATUS_LED_PORT 15
+#define GREEN_STATUS_LED_PORT 14
+#define Check_LED_R 15
+#define Check_LED_G 14
 
 #define FLASH_TIME 300
 
@@ -139,19 +125,9 @@ unsigned long timeSinceRedLedChanged = 0;
 // movement feels sluggish once a gauge is confirmed step-accurate.
 #define STEPPER_ACCELERATION 9000
 
-// Steps for an unmodified Vid-series stepper/driver (matches
-// JET_RANGER_STEPPER_CONTROLLER.ino's STEPS). Used for whichever homing
-// function's stepper is geared/DRIVER-interfaced - deliberately overshot by
-// 10% to guarantee reaching the real mechanical end stop regardless of
-// exactly how many steps it actually is. This overshoot follows the
-// hardware, not a fixed name - see the VSI/Flaps AccelStepper construct
-// swap below.
-#define DRIVER_HOMING_STEPS (315 * 16)
-
 // Steps for whichever homing function's stepper is direct-driven
 // (FULL4WIRE) - matching JET_RANGER_STEPPER_CONTROLLER.ino's own comment on
-// its equivalent constant, direct-drive doesn't need the 10% overshoot
-// DRIVER_HOMING_STEPS gets.
+// its equivalent constant.
 #define FULL4WIRE_HOMING_STEPS (315 * 2)
 
 // After VSI reaches its end stop and zeroes there, it moves this many
@@ -161,105 +137,169 @@ unsigned long timeSinceRedLedChanged = 0;
 // instead of only away from the stop.
 #define VSI_ZERO_OFFSET_STEPS 317
 
-// Menu indices of the two steppers with homing support (must match their
-// position in the steppers[] table below). Swapped from the original 0/4 -
-// Flaps is now menu slot 0 ('s0') and VSI is menu slot 4 ('s4'); wiring/pins
-// are unchanged, only which menu number selects which gauge.
-#define STEPPER_INDEX_VSI 4
-#define STEPPER_INDEX_FLAPS 0
+// Menu index of the one stepper with homing support (must match its
+// position in the steppers[] table below). VSI shifted to slot 1 ('s1')
+// after Flaps (formerly slot 0) was removed.
+#define STEPPER_INDEX_VSI 1
 
-// Shared stepper-driver enable pin (matches JET_RANGER_STEPPER_CONTROLLER.ino)
-#define AllstepperEnablePin 56
+// Renamed from AOAstepPin/AOAdirectionPin (a DRIVER/STEP-DIR pair) - this
+// slot now drives a 4-wire direct-drive Radar Altimeter stepper instead
+// of AOA, so it needs 4 coil pins rather than a step/dir pair.
+#define RADAR_ALT_COIL_A 32
+#define RADAR_ALT_COIL_B 33
+#define RADAR_ALT_COIL_C 34
+#define RADAR_ALT_COIL_D 35
 
-// Swapped with VSI's coil pins below: this DRIVER-interface STEP/DIR pair
-// physically belongs to whichever hardware is now wired here, and that's
-// now Flaps rather than VSI.
-#define FlapsStepPin 46
-#define FlapsDirectionPin 48
+#define COIL_VSI_A 7
+#define COIL_VSI_B 8
+#define COIL_VSI_C 9
+#define COIL_VSI_D 11
 
-#define ALTstepPin 42
-#define ALTdirectionPin 44
-
-#define SpeedCurrentstepPin 34
-#define SpeedCurrentdirectionPin 36
-
-#define SpeedMaxstepPin 38
-#define SpeedMaxdirectionPin 40
-
-#define AOAstepPin 22
-#define AOAdirectionPin 24
-
-#define GForcestepPin 26
-#define GForcedirectionPin 28
-
-// Swapped with Flaps' step/dir pins above: these 4 coil pins physically
-// belong to whichever hardware is now wired here, and that's now VSI
-// rather than Flaps.
-#define COIL_VSI_A 2
-#define COIL_VSI_B 3
-#define COIL_VSI_C 4
-#define COIL_VSI_D 5
-
+// Current Airspeed's new 4-wire direct-drive coil pins - was DRIVER/
+// STEP-DIR on SpeedCurrentstepPin(34)/SpeedCurrentdirectionPin(36)
+// (removed above). Pins 12/13 used to collide with the status-LED
+// heartbeat (RED_STATUS_LED_PORT/GREEN_STATUS_LED_PORT) - resolved by
+// moving those LEDs to 15/14 above.
 #define STEPPER_SPD_A 12
 #define STEPPER_SPD_B 13
 #define STEPPER_SPD_C 22
 #define STEPPER_SPD_D 23
 
+// EOT's 4-wire direct-drive coil pins. Both former collisions here
+// (pin 48 vs. FlapsDirectionPin, A2/56 vs. AllstepperEnablePin) are
+// resolved now that Flaps and the shared enable pin are gone.
+#define EOT_COIL_A 48
+#define EOT_COIL_B A0
+#define EOT_COIL_C A1
+#define EOT_COIL_D A2
+
+// XOT, XOP, EGT: 4-wire direct-drive coil pins on the Mega's analog
+// pins used as digital I/O (A3..A14 = digital 57..68) - no collisions
+// with any other pin already defined in this sketch.
+#define XOT_COIL_A A3
+#define XOT_COIL_B A4
+#define XOT_COIL_C A5
+#define XOT_COIL_D A6
+
+#define XOP_COIL_A A7
+#define XOP_COIL_B A8
+#define XOP_COIL_C A9
+#define XOP_COIL_D A10
+
+#define EGT_COIL_A A11
+#define EGT_COIL_B A12
+#define EGT_COIL_C A13
+#define EGT_COIL_D A14
+
+// TS: no collisions with any other pin still defined in this sketch
+// (formerly collided with GForcestepPin, removed along with GForce).
+#define TS_COIL_A 24
+#define TS_COIL_B 25
+#define TS_COIL_C 26
+#define TS_COIL_D 27
+
+// RS: no collisions with any other pin still defined in this sketch
+// (formerly collided with GForcedirectionPin, removed along with GForce).
+#define RS_COIL_A 28
+#define RS_COIL_B 29
+#define RS_COIL_C 30
+#define RS_COIL_D 31
+
+// FA: no collisions with any other pin already defined in this sketch.
+#define FA_COIL_A 2
+#define FA_COIL_B 3
+#define FA_COIL_C 4
+#define FA_COIL_D 6
+
+// ET: no collisions with any other pin still defined in this sketch
+// (formerly collided with SpeedMaxstepPin, removed along with SpeedMax).
+#define ET_COIL_A 36
+#define ET_COIL_B 37
+#define ET_COIL_C 38
+#define ET_COIL_D 39
+
+// GP: no collisions with any other pin still defined in this sketch
+// (formerly collided with SpeedMaxdirectionPin and ALTstepPin, both
+// removed along with SpeedMax/Alt).
+#define GP_COIL_A 40
+#define GP_COIL_B 41
+#define GP_COIL_C 42
+#define GP_COIL_D 43
+
+// EOP: both former collisions here (pin 44 vs. ALTdirectionPin, pin 46
+// vs. FlapsStepPin) are resolved now that Alt and Flaps are gone.
+#define EOP_COIL_A 44
+#define EOP_COIL_B 45
+#define EOP_COIL_C 46
+#define EOP_COIL_D 47
 
 
 
 
 
-// VSI and Flaps swapped AccelStepper interfaces/pins below: VSI is now the
-// direct-driven FULL4WIRE hardware (was Flaps' pins/interface), Flaps is
-// now the geared DRIVER/STEP-DIR hardware (was VSI's pins/interface).
 AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
-AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
-AccelStepper SpeedCurrentstepper(AccelStepper::DRIVER, SpeedCurrentstepPin, SpeedCurrentdirectionPin);
-AccelStepper SpeedMaxstepper(AccelStepper::DRIVER, SpeedMaxstepPin, SpeedMaxdirectionPin);
-AccelStepper FlapsStepper(AccelStepper::DRIVER, FlapsStepPin, FlapsDirectionPin);
-AccelStepper AOAstepper(AccelStepper::DRIVER, AOAstepPin, AOAdirectionPin);
-AccelStepper GForcestepper(AccelStepper::DRIVER, GForcestepPin, GForcedirectionPin);
+// Renamed interface only (still SpeedCurrentstepper): was DRIVER/STEP-DIR
+// on SpeedCurrentstepPin/SpeedCurrentdirectionPin, now FULL4WIRE
+// direct-drive on STEPPER_SPD_A..D (see the pin-conflict note above them).
+AccelStepper SpeedCurrentstepper(AccelStepper::FULL4WIRE, STEPPER_SPD_A, STEPPER_SPD_B, STEPPER_SPD_C, STEPPER_SPD_D);
+// Renamed from AOAstepper: was DRIVER/STEP-DIR on AOAstepPin/
+// AOAdirectionPin, now FULL4WIRE direct-drive on RADAR_ALT_COIL_A..D.
+AccelStepper RadarAltStepper(AccelStepper::FULL4WIRE, RADAR_ALT_COIL_C, RADAR_ALT_COIL_D, RADAR_ALT_COIL_A, RADAR_ALT_COIL_B);
+AccelStepper EOTstepper(AccelStepper::FULL4WIRE, EOT_COIL_A, EOT_COIL_B, EOT_COIL_C, EOT_COIL_D);
+// New gauges below, all 4-wire direct-drive.
+AccelStepper XOTstepper(AccelStepper::FULL4WIRE, XOT_COIL_A, XOT_COIL_B, XOT_COIL_C, XOT_COIL_D);
+AccelStepper XOPstepper(AccelStepper::FULL4WIRE, XOP_COIL_A, XOP_COIL_B, XOP_COIL_C, XOP_COIL_D);
+AccelStepper EGTstepper(AccelStepper::FULL4WIRE, EGT_COIL_A, EGT_COIL_B, EGT_COIL_C, EGT_COIL_D);
+AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_A, TS_COIL_B, TS_COIL_C, TS_COIL_D);
+AccelStepper RSstepper(AccelStepper::FULL4WIRE, RS_COIL_A, RS_COIL_B, RS_COIL_C, RS_COIL_D);
+AccelStepper FAstepper(AccelStepper::FULL4WIRE, FA_COIL_A, FA_COIL_B, FA_COIL_C, FA_COIL_D);
+AccelStepper ETstepper(AccelStepper::FULL4WIRE, ET_COIL_A, ET_COIL_B, ET_COIL_C, ET_COIL_D);
+AccelStepper GPstepper(AccelStepper::FULL4WIRE, GP_COIL_A, GP_COIL_B, GP_COIL_C, GP_COIL_D);
+AccelStepper EOPstepper(AccelStepper::FULL4WIRE, EOP_COIL_A, EOP_COIL_B, EOP_COIL_C, EOP_COIL_D);
 
 struct StepperEntry {
   const char *name;
   AccelStepper *stepper;
   // +1 or -1: which way to flip typed/displayed step numbers for this
   // specific stepper so that positive always means clockwise (see
-  // toRawSteps()/toDisplaySteps() below). Steppers on different interface
-  // types (VSI's FULL4WIRE vs Flaps' DRIVER/STEP-DIR) don't necessarily
-  // share the same native direction, so this is per-stepper rather than
-  // one fixed sign for all of them.
+  // toRawSteps()/toDisplaySteps() below). AccelStepper's native direction
+  // isn't guaranteed to agree across every stepper's wiring, so this is
+  // per-stepper rather than one fixed sign for all of them.
   int displaySign;
 };
 
-// VSI and Flaps swapped menu slots (0 and 4) below - see STEPPER_INDEX_VSI/
-// STEPPER_INDEX_FLAPS above. displaySign values also swapped between them
-// to follow the AccelStepper construct/pin swap above - each sign is a
-// property of the physical hardware, not the name attached to it.
 StepperEntry steppers[] = {
-  { "Flaps", &FlapsStepper, -1 },  // now on the old VSI hardware/pins - inherits its sign
-  { "Altimeter", &ALTstepper, -1 },
+  // displaySign carried over from its old DRIVER wiring - not re-verified
+  // for the new FULL4WIRE interface, flip to 1 if it turns out reversed.
   { "Current Airspeed", &SpeedCurrentstepper, -1 },
-  { "Max Airspeed", &SpeedMaxstepper, -1 },
-  { "VSI", &VSIstepper, 1 },  // now on the old Flaps hardware/pins - inherits its sign (confirmed backwards on the bench)
-  { "AOA", &AOAstepper, -1 },
-  { "G-Force", &GForcestepper, -1 },
+  { "VSI", &VSIstepper, 1 },  // confirmed backwards on the bench
+  // displaySign not yet verified on the bench for this new FULL4WIRE
+  // wiring - defaulted to 1 (same starting guess VSI used before its own
+  // direction was confirmed backwards); flip to -1 if it turns out
+  // reversed.
+  { "Radar Alt", &RadarAltStepper, 1 },
+  // New gauge, direction not yet verified on the bench - defaulted to 1,
+  // same starting guess used for the other new FULL4WIRE steppers above.
+  { "EOT", &EOTstepper, 1 },
+  // New gauges below - same "direction not yet verified, defaulted to 1"
+  // caveat as EOT above applies to all of them.
+  { "XOT", &XOTstepper, 1 },
+  { "XOP", &XOPstepper, 1 },
+  { "EGT", &EGTstepper, 1 },
+  { "TS", &TSstepper, 1 },
+  { "RS", &RSstepper, 1 },
+  { "FA", &FAstepper, 1 },
+  { "ET", &ETstepper, 1 },
+  { "GP", &GPstepper, 1 },
+  { "EOP", &EOPstepper, 1 },
 };
 const int NUM_STEPPERS = sizeof(steppers) / sizeof(steppers[0]);
 
 int selectedStepper = -1;
 String inputLine = "";
 
-// Tracks whether the Flaps DIR pin has already been auto-latched HIGH for
-// the current stop, so the log message in loop() below fires once per
-// arrival rather than every iteration while Flaps sits idle at its target.
-// (Moved from VSI to Flaps along with the DRIVER/STEP-DIR interface itself.)
-bool flapsDirLatchedHigh = false;
-
 // AccelStepper's native positive direction depends on the stepper's
-// interface type (VSI's FULL4WIRE vs Flaps' DRIVER/STEP-DIR aren't
-// guaranteed to agree), but the harness's operator-facing numbers should
+// wiring, but the harness's operator-facing numbers should
 // always mean the same thing regardless: typing a positive target moves
 // the gauge clockwise. Each stepper's displaySign (see StepperEntry above)
 // records which way its own native direction needs flipping to achieve
@@ -327,15 +367,9 @@ long vsiFtToDisplaySteps(long ft) {
 // moves VSI_ZERO_OFFSET_STEPS (317) off the stop and re-zeroes at that new
 // position. The end stop itself ends up at a negative position rather than
 // step 0, so afterwards typed target steps can go both positive and
-// negative from zero instead of only away from the stop. VSI is now the
-// direct-driven FULL4WIRE hardware (was Flaps' pins/interface - see the
-// AccelStepper construct swap above), so the initial approach to the stop
-// uses FULL4WIRE_HOMING_STEPS with no overshoot, matching that hardware's
-// own homing style. The negative sign for that first move is carried over
-// from what that same physical hardware needed as homeFlaps() before the
-// swap - NOT re-verified on the bench under its new name, check it
-// actually reaches the end stop (and doesn't stall against it from the
-// wrong side) before trusting it. Both moves block (via
+// negative from zero instead of only away from the stop. VSI is
+// direct-driven FULL4WIRE hardware, so the initial approach to the stop
+// uses FULL4WIRE_HOMING_STEPS with no overshoot. Both moves block (via
 // runToNewPosition()) until they complete.
 void homeVSI() {
   Serial.println(F("Homing VSI: winding to its end stop..."));
@@ -352,21 +386,22 @@ void homeVSI() {
   SendDebug("VSI zero reference set, 317 steps off end stop");
 }
 
-// Winds Flaps to its mechanical end stop and zeroes it there. Flaps is now
-// the geared DRIVER/STEP-DIR hardware (was VSI's pins/interface - see the
-// AccelStepper construct swap above), so this uses DRIVER_HOMING_STEPS with
-// the 10% overshoot that hardware's own homing style needs. The positive
-// sign is carried over from what that same physical hardware needed as
-// homeVSI() before the swap - NOT re-verified on the bench under its new
-// name, check it actually reaches the end stop (and doesn't stall against
-// it from the wrong side) before trusting it.
-void homeFlaps() {
-  Serial.println(F("Homing Flaps: winding to its end stop..."));
-  SendDebug("Homing Flaps - winding to end stop");
-  FlapsStepper.runToNewPosition(DRIVER_HOMING_STEPS * 1.1);
-  FlapsStepper.setCurrentPosition(0);
-  Serial.println(F("Flaps end stop reached and zeroed (step 0)."));
-  SendDebug("Flaps end stop reached, zeroed at step 0");
+// Winds the Radar Altimeter hard against its mechanical end stop and
+// zeroes it there. Like VSI, it's direct-driven FULL4WIRE with no
+// zero-sense pin, so this is a blind wind (no sensor to confirm arrival)
+// using FULL4WIRE_HOMING_STEPS - same homing style as homeVSI(), minus
+// VSI's extra move off the stop (no equivalent offset established for
+// this gauge yet). Direction sign is an unverified guess, matching this
+// stepper's displaySign note in the steppers[] table - confirm it
+// actually reaches the end stop (and doesn't stall against it from the
+// wrong side) before trusting it unattended.
+void homeRadarAlt() {
+  Serial.println(F("Homing Radar Alt: winding to its end stop..."));
+  SendDebug("Homing Radar Alt - winding to end stop");
+  RadarAltStepper.runToNewPosition(-FULL4WIRE_HOMING_STEPS);
+  RadarAltStepper.setCurrentPosition(0);
+  Serial.println(F("Radar Alt end stop reached and zeroed (step 0)."));
+  SendDebug("Radar Alt end stop reached, zeroed at step 0");
 }
 
 void printMenu() {
@@ -379,7 +414,6 @@ void printMenu() {
     Serial.println(steppers[i].name);
   }
   Serial.println(F("Send 's' + a number (e.g. 's0') to select a stepper."));
-  Serial.println(F("Send 'd'/'e' to force the Flaps DIR pin HIGH/LOW directly (diagnostic, bypasses AccelStepper)."));
 
   if (selectedStepper >= 0) {
     Serial.print(F("Currently selected: "));
@@ -389,10 +423,8 @@ void printMenu() {
     Serial.println(F(")"));
     Serial.println(F("Type a target step position (e.g. 1500 or -200) and press Enter to move it."));
     Serial.println(F("Type 'z' to zero it at its current physical position, or 'm' for this menu."));
-    if (selectedStepper == STEPPER_INDEX_VSI || selectedStepper == STEPPER_INDEX_FLAPS) {
-      Serial.println(F("Type 'h' to home it: wind fully to its end stop, then zero there."));
-    }
     if (selectedStepper == STEPPER_INDEX_VSI) {
+      Serial.println(F("Type 'h' to home it: wind fully to its end stop, then zero there."));
       Serial.println(F("Type 'f' + a feet value (e.g. 'f1000' or 'f-500') to move VSI using feet instead of steps."));
     }
   }
@@ -432,16 +464,13 @@ void setup() {
 
   SendDebug("Ethernet started " + strMyIP);
 
-  pinMode(AllstepperEnablePin, OUTPUT);
-  digitalWrite(AllstepperEnablePin, false);  // Enable stepper drivers
-
   for (int i = 0; i < NUM_STEPPERS; i++) {
     steppers[i].stepper->setMaxSpeed(STEPPER_MAX_SPEED);
     steppers[i].stepper->setAcceleration(STEPPER_ACCELERATION);
   }
 
-  homeVSI();    // Wind VSI back to its end stop and zero it before the menu appears
-  homeFlaps();  // Same, for Flaps
+  homeVSI();      // Wind VSI back to its end stop and zero it before the menu appears
+  homeRadarAlt(); // Same, for the Radar Altimeter
 
   printMenu();
   SendDebug("Setup Complete");
@@ -476,36 +505,15 @@ void handleLine(String line) {
     return;
   }
 
-  // Diagnostic only: drives the Flaps DIR pin HIGH/LOW directly via
-  // digitalWrite(), bypassing AccelStepper entirely - does not move the
-  // stepper, and AccelStepper will overwrite the pin the next time Flaps
-  // actually steps. Moved here from VSI along with the DRIVER/STEP-DIR
-  // interface itself - only that interface has an actual DIR pin.
-  if (line.equalsIgnoreCase("d")) {
-    digitalWrite(FlapsDirectionPin, HIGH);
-    Serial.println(F("Flaps DIR pin forced HIGH."));
-    SendDebug("Flaps DIR pin forced HIGH");
-    return;
-  }
-
-  if (line.equalsIgnoreCase("e")) {
-    digitalWrite(FlapsDirectionPin, LOW);
-    Serial.println(F("Flaps DIR pin forced LOW."));
-    SendDebug("Flaps DIR pin forced LOW");
-    return;
-  }
-
   if (line.equalsIgnoreCase("h")) {
     if (selectedStepper == STEPPER_INDEX_VSI) {
       homeVSI();
-    } else if (selectedStepper == STEPPER_INDEX_FLAPS) {
-      homeFlaps();
     } else if (selectedStepper < 0) {
-      Serial.println(F("Select VSI or Flaps first ('s4' or 's0') - homing is only implemented for those so far."));
+      Serial.println(F("Select VSI first ('s1') - homing is only implemented for it so far."));
     } else {
       Serial.print(F("Homing isn't implemented for "));
       Serial.print(steppers[selectedStepper].name);
-      Serial.println(F(" yet - only VSI ('s4') and Flaps ('s0') support 'h' right now."));
+      Serial.println(F(" yet - only VSI ('s1') supports 'h' right now."));
     }
     return;
   }
@@ -516,7 +524,7 @@ void handleLine(String line) {
   // moves VSI there, same as typing the resulting step number directly.
   if ((line.charAt(0) == 'f' || line.charAt(0) == 'F') && isIntegerToken(line.substring(1))) {
     if (selectedStepper != STEPPER_INDEX_VSI) {
-      Serial.println(F("'f' (feet) is only supported for VSI - select it first ('s4')."));
+      Serial.println(F("'f' (feet) is only supported for VSI - select it first ('s1')."));
       return;
     }
     long ft = line.substring(1).toInt();
@@ -594,23 +602,5 @@ void loop() {
   // move and holds position correctly.
   for (int i = 0; i < NUM_STEPPERS; i++) {
     steppers[i].stepper->run();
-  }
-
-  // Once Flaps has finished moving (reached its target), latch its DIR pin
-  // HIGH directly via digitalWrite() - the same action as the manual 'd'
-  // command - rather than leaving it wherever its last step happened to
-  // set it. Edge-detected so this only fires once per arrival; it resets
-  // as soon as Flaps is given a new target (distanceToGo() != 0 again), and
-  // AccelStepper will overwrite the pin the moment Flaps actually steps.
-  // Moved here from VSI along with the DRIVER/STEP-DIR interface itself -
-  // only that interface has an actual DIR pin.
-  if (FlapsStepper.distanceToGo() == 0) {
-    if (!flapsDirLatchedHigh) {
-      digitalWrite(FlapsDirectionPin, HIGH);
-      flapsDirLatchedHigh = true;
-      SendDebug("Flaps DIR pin auto-forced HIGH (reached target)");
-    }
-  } else {
-    flapsDirLatchedHigh = false;
   }
 }

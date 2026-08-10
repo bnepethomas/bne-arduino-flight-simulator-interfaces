@@ -12,6 +12,17 @@ AccelStepper SpeedMaxstepper
 AccelStepper FlapsStepper
 AccelStepper AOAstepper
 AccelStepper GForcestepper
+AccelStepper RadarAltStepper
+AccelStepper EOTstepper
+AccelStepper XOTstepper
+AccelStepper XOPstepper
+AccelStepper EGTstepper
+AccelStepper TSstepper
+AccelStepper RSstepper
+AccelStepper FAstepper
+AccelStepper ETstepper
+AccelStepper GPstepper
+AccelStepper EOPstepper
 
 BACK_LIGHTS
 
@@ -192,6 +203,71 @@ unsigned long previousMillis = 0;
 #define COIL_VSI_C 4
 #define COIL_VSI_D 5
 
+// New gauges ported from Stepper-Tuning-Harness (same pin assignments as
+// that bench sketch, all 4-wire direct-drive FULL4WIRE). Added as bare
+// AccelStepper objects only - no homing/startup routine or DCS-BIOS
+// binding yet, since none of these are bench-verified (direction,
+// steps-per-unit, or even a real end stop location) on this hardware.
+// Reachable for now only via the raw step-passthrough UDP test codes in
+// HandleOutputValuePair() below. NOT checked for pin collisions against
+// this sketch's existing active pins (ALT/SpeedMax/Flaps/AOA/GForce/
+// AllstepperEnablePin, none of which were removed here the way they were
+// in the harness) - see the summary given alongside this change.
+#define RADAR_ALT_COIL_A 32
+#define RADAR_ALT_COIL_B 33
+#define RADAR_ALT_COIL_C 34
+#define RADAR_ALT_COIL_D 35
+
+#define EOT_COIL_A 48
+#define EOT_COIL_B A0
+#define EOT_COIL_C A1
+#define EOT_COIL_D A2
+
+#define XOT_COIL_A A3
+#define XOT_COIL_B A4
+#define XOT_COIL_C A5
+#define XOT_COIL_D A6
+
+#define XOP_COIL_A A7
+#define XOP_COIL_B A8
+#define XOP_COIL_C A9
+#define XOP_COIL_D A10
+
+#define EGT_COIL_A A11
+#define EGT_COIL_B A12
+#define EGT_COIL_C A13
+#define EGT_COIL_D A14
+
+#define TS_COIL_A 24
+#define TS_COIL_B 25
+#define TS_COIL_C 26
+#define TS_COIL_D 27
+
+#define RS_COIL_A 28
+#define RS_COIL_B 29
+#define RS_COIL_C 30
+#define RS_COIL_D 31
+
+#define FA_COIL_A 2
+#define FA_COIL_B 3
+#define FA_COIL_C 4
+#define FA_COIL_D 6
+
+#define ET_COIL_A 36
+#define ET_COIL_B 37
+#define ET_COIL_C 38
+#define ET_COIL_D 39
+
+#define GP_COIL_A 40
+#define GP_COIL_B 41
+#define GP_COIL_C 42
+#define GP_COIL_D 43
+
+#define EOP_COIL_A 44
+#define EOP_COIL_B 45
+#define EOP_COIL_C 46
+#define EOP_COIL_D 47
+
 #define STEPS 315 * 16       // The 16 is the default divisors when no pins are tied together on the driver module \
                             // For an unmodified Vid series there are 315 steps
 #define DUAL_STEPS 315 * 16  // The Dual stepper seems to have fewer steps between stops
@@ -206,6 +282,22 @@ AccelStepper SpeedMaxstepper(AccelStepper::DRIVER, SpeedMaxstepPin, SpeedMaxdire
 AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
 AccelStepper AOAstepper(AccelStepper::DRIVER, AOAstepPin, AOAdirectionPin);
 AccelStepper GForcestepper(AccelStepper::DRIVER, GForcestepPin, GForcedirectionPin);
+// New gauges below, ported from Stepper-Tuning-Harness - see the pin
+// defines above for the collision-check caveat. RadarAltStepper's coil
+// argument order (C, D, A, B rather than A, B, C, D) matches exactly what
+// the harness uses, carried over as-is rather than "corrected" to A..D,
+// since that order was whatever the harness found to work on the bench.
+AccelStepper RadarAltStepper(AccelStepper::FULL4WIRE, RADAR_ALT_COIL_C, RADAR_ALT_COIL_D, RADAR_ALT_COIL_A, RADAR_ALT_COIL_B);
+AccelStepper EOTstepper(AccelStepper::FULL4WIRE, EOT_COIL_A, EOT_COIL_B, EOT_COIL_C, EOT_COIL_D);
+AccelStepper XOTstepper(AccelStepper::FULL4WIRE, XOT_COIL_A, XOT_COIL_B, XOT_COIL_C, XOT_COIL_D);
+AccelStepper XOPstepper(AccelStepper::FULL4WIRE, XOP_COIL_A, XOP_COIL_B, XOP_COIL_C, XOP_COIL_D);
+AccelStepper EGTstepper(AccelStepper::FULL4WIRE, EGT_COIL_A, EGT_COIL_B, EGT_COIL_C, EGT_COIL_D);
+AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_A, TS_COIL_B, TS_COIL_C, TS_COIL_D);
+AccelStepper RSstepper(AccelStepper::FULL4WIRE, RS_COIL_A, RS_COIL_B, RS_COIL_C, RS_COIL_D);
+AccelStepper FAstepper(AccelStepper::FULL4WIRE, FA_COIL_A, FA_COIL_B, FA_COIL_C, FA_COIL_D);
+AccelStepper ETstepper(AccelStepper::FULL4WIRE, ET_COIL_A, ET_COIL_B, ET_COIL_C, ET_COIL_D);
+AccelStepper GPstepper(AccelStepper::FULL4WIRE, GP_COIL_A, GP_COIL_B, GP_COIL_C, GP_COIL_D);
+AccelStepper EOPstepper(AccelStepper::FULL4WIRE, EOP_COIL_A, EOP_COIL_B, EOP_COIL_C, EOP_COIL_D);
 // ########################### END STEPPERS #########################################
 
 
@@ -281,6 +373,29 @@ void setup() {
   AOAstepper.setAcceleration(STEPPER_ACCELERATION);
   GForcestepper.setMaxSpeed(STEPPER_MAX_SPEED);
   GForcestepper.setAcceleration(STEPPER_ACCELERATION);
+
+  RadarAltStepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  RadarAltStepper.setAcceleration(STEPPER_ACCELERATION);
+  EOTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  EOTstepper.setAcceleration(STEPPER_ACCELERATION);
+  XOTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  XOTstepper.setAcceleration(STEPPER_ACCELERATION);
+  XOPstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  XOPstepper.setAcceleration(STEPPER_ACCELERATION);
+  EGTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  EGTstepper.setAcceleration(STEPPER_ACCELERATION);
+  TSstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  TSstepper.setAcceleration(STEPPER_ACCELERATION);
+  RSstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  RSstepper.setAcceleration(STEPPER_ACCELERATION);
+  FAstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  FAstepper.setAcceleration(STEPPER_ACCELERATION);
+  ETstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  ETstepper.setAcceleration(STEPPER_ACCELERATION);
+  GPstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  GPstepper.setAcceleration(STEPPER_ACCELERATION);
+  EOPstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  EOPstepper.setAcceleration(STEPPER_ACCELERATION);
 
 
   digitalWrite(AllstepperEnablePin, false);
@@ -974,6 +1089,17 @@ void updateSteppers() {
   FlapsStepper.run();
   AOAstepper.run();
   GForcestepper.run();
+  RadarAltStepper.run();
+  EOTstepper.run();
+  XOTstepper.run();
+  XOPstepper.run();
+  EGTstepper.run();
+  TSstepper.run();
+  RSstepper.run();
+  FAstepper.run();
+  ETstepper.run();
+  GPstepper.run();
+  EOPstepper.run();
 }
 
 void onIntConsoleLBrightChange(unsigned int newValue) {
@@ -1055,6 +1181,40 @@ void HandleOutputValuePair(String str) {
     // (vsiFpmToSteps()) rather than setVSI()'s placeholder +/-VSIMaxSteps
     // clamp, which stays in use for the separate DCS-BIOS path only.
     VSIstepper.moveTo(vsiFpmToSteps(ParameterValue.toInt()));
+  } else if (ParameterName == "RALT") {
+    // Raw step pass-through test code for the new gauges below - no real
+    // calibration exists yet for any of them (direction/steps-per-unit
+    // unverified, see the AccelStepper construct comments above). NOTE:
+    // Jet_Ranger_Driver_Test.ino (the bench-test fork of this sketch)
+    // already uses "RALT" for its own Radar Altimeter, but as calibrated
+    // *feet* through a real RADAR_ALT_FT_TABLE, not raw steps - since the
+    // two sketches are never flashed to the board at the same time this
+    // doesn't collide in practice, but StepperVSITester's existing
+    // "Radar ALT (ft)" slider will drive raw steps instead of feet
+    // whenever this sketch (rather than the bench-test one) is what's
+    // currently on the board. Worth giving this its own calibration
+    // table and reconciling the two once this gauge is bench-measured.
+    RadarAltStepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "EOT") {
+    EOTstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "XOT") {
+    XOTstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "XOP") {
+    XOPstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "EGT") {
+    EGTstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "TS") {
+    TSstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "RS") {
+    RSstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "FA") {
+    FAstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "ET") {
+    ETstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "GP") {
+    GPstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "EOP") {
+    EOPstepper.moveTo(ParameterValue.toInt());
   }
   // All other codes are currently ignored.
 }

@@ -59,6 +59,13 @@ namespace StepperVSITester
             lblJogInterval = new Label();
             txtJogInterval = new TextBox();
             butJogSend = new Button();
+            lblNewGaugeHeader = new Label();
+            lblNewGaugeGauge = new Label();
+            cboNewGauge = new ComboBox();
+            lblNewGaugeSteps = new Label();
+            txtNewGaugeSteps = new TextBox();
+            butNewGaugeSend = new Button();
+            butNewGaugeZero = new Button();
             ((System.ComponentModel.ISupportInitialize)trkVsi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).BeginInit();
@@ -366,11 +373,84 @@ namespace StepperVSITester
             butJogSend.UseVisualStyleBackColor = true;
             butJogSend.Click += butJogSend_Click;
             //
+            // lblNewGaugeHeader
+            //
+            lblNewGaugeHeader.AutoSize = true;
+            lblNewGaugeHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblNewGaugeHeader.Location = new Point(12, 632);
+            lblNewGaugeHeader.Name = "lblNewGaugeHeader";
+            lblNewGaugeHeader.Size = new Size(220, 15);
+            lblNewGaugeHeader.TabIndex = 31;
+            lblNewGaugeHeader.Text = "New Gauges (raw steps, uncalibrated)";
+            //
+            // lblNewGaugeGauge
+            //
+            lblNewGaugeGauge.AutoSize = true;
+            lblNewGaugeGauge.Location = new Point(12, 657);
+            lblNewGaugeGauge.Name = "lblNewGaugeGauge";
+            lblNewGaugeGauge.Size = new Size(45, 15);
+            lblNewGaugeGauge.TabIndex = 32;
+            lblNewGaugeGauge.Text = "Gauge:";
+            //
+            // cboNewGauge
+            //
+            cboNewGauge.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboNewGauge.Items.AddRange(new object[] { "EOT", "XOT", "XOP", "EGT", "TS", "RS", "FA", "ET", "GP", "EOP" });
+            cboNewGauge.Location = new Point(12, 675);
+            cboNewGauge.Name = "cboNewGauge";
+            cboNewGauge.Size = new Size(100, 23);
+            cboNewGauge.TabIndex = 33;
+            //
+            // lblNewGaugeSteps
+            //
+            lblNewGaugeSteps.AutoSize = true;
+            lblNewGaugeSteps.Location = new Point(118, 657);
+            lblNewGaugeSteps.Name = "lblNewGaugeSteps";
+            lblNewGaugeSteps.Size = new Size(70, 15);
+            lblNewGaugeSteps.TabIndex = 34;
+            lblNewGaugeSteps.Text = "Steps (+/-):";
+            //
+            // txtNewGaugeSteps
+            //
+            txtNewGaugeSteps.Location = new Point(118, 675);
+            txtNewGaugeSteps.Name = "txtNewGaugeSteps";
+            txtNewGaugeSteps.Size = new Size(100, 23);
+            txtNewGaugeSteps.TabIndex = 35;
+            txtNewGaugeSteps.Text = "0";
+            txtNewGaugeSteps.KeyDown += txtNewGaugeSteps_KeyDown;
+            //
+            // butNewGaugeSend
+            //
+            butNewGaugeSend.Location = new Point(224, 674);
+            butNewGaugeSend.Name = "butNewGaugeSend";
+            butNewGaugeSend.Size = new Size(92, 25);
+            butNewGaugeSend.TabIndex = 36;
+            butNewGaugeSend.Text = "Send";
+            butNewGaugeSend.UseVisualStyleBackColor = true;
+            butNewGaugeSend.Click += butNewGaugeSend_Click;
+            //
+            // butNewGaugeZero
+            //
+            butNewGaugeZero.Location = new Point(322, 674);
+            butNewGaugeZero.Name = "butNewGaugeZero";
+            butNewGaugeZero.Size = new Size(92, 25);
+            butNewGaugeZero.TabIndex = 37;
+            butNewGaugeZero.Text = "Zero";
+            butNewGaugeZero.UseVisualStyleBackColor = true;
+            butNewGaugeZero.Click += butNewGaugeZero_Click;
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(424, 616);
+            ClientSize = new Size(424, 716);
+            Controls.Add(butNewGaugeZero);
+            Controls.Add(butNewGaugeSend);
+            Controls.Add(txtNewGaugeSteps);
+            Controls.Add(lblNewGaugeSteps);
+            Controls.Add(cboNewGauge);
+            Controls.Add(lblNewGaugeGauge);
+            Controls.Add(lblNewGaugeHeader);
             Controls.Add(butJogSend);
             Controls.Add(txtJogInterval);
             Controls.Add(lblJogInterval);
@@ -444,5 +524,12 @@ namespace StepperVSITester
         private Label lblJogInterval;
         private TextBox txtJogInterval;
         private Button butJogSend;
+        private Label lblNewGaugeHeader;
+        private Label lblNewGaugeGauge;
+        private ComboBox cboNewGauge;
+        private Label lblNewGaugeSteps;
+        private TextBox txtNewGaugeSteps;
+        private Button butNewGaugeSend;
+        private Button butNewGaugeZero;
     }
 }

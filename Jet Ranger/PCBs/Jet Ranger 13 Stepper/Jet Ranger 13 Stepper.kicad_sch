@@ -7522,7 +7522,7 @@
 		)
 		(uuid "0694ab0e-0384-4c6b-9c9f-40f1896145ad")
 	)
-	(label "STEPPER_FL_A"
+	(label "STEPPER_FA_A"
 		(at 350.52 22.86 0)
 		(effects
 			(font
@@ -11231,9 +11231,10 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
+		(fields_autoplaced yes)
 		(uuid "4ebe65f4-496b-4ac2-abaa-3a77405cdca8")
 		(property "Reference" "A1"
-			(at 316.23 139.7 0)
+			(at 316.23 13.97 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -11241,7 +11242,7 @@
 			)
 		)
 		(property "Value" "Arduino_Mega2560_R3_Shield"
-			(at 316.23 137.16 0)
+			(at 316.23 16.51 0)
 			(effects
 				(font
 					(size 1.524 1.524)
