@@ -66,9 +66,43 @@ namespace StepperVSITester
             txtNewGaugeSteps = new TextBox();
             butNewGaugeSend = new Button();
             butNewGaugeZero = new Button();
+            lblEgtHeader = new Label();
+            trkEgt = new TrackBar();
+            lblEgtValue = new Label();
+            lblEgtMin = new Label();
+            lblEgtMax = new Label();
+            txtEgtInput = new TextBox();
+            butSendEgt = new Button();
+            butEgtZero = new Button();
+            lblRealGaugesHeader = new Label();
+            lblEotRow = new Label();
+            txtEot = new TextBox();
+            butSendEot = new Button();
+            lblEopRow = new Label();
+            txtEop = new TextBox();
+            butSendEop = new Button();
+            lblXotRow = new Label();
+            txtXot = new TextBox();
+            butSendXot = new Button();
+            lblXopRow = new Label();
+            txtXop = new TextBox();
+            butSendXop = new Button();
+            lblTsRow = new Label();
+            txtTs = new TextBox();
+            butSendTs = new Button();
+            lblRsRow = new Label();
+            txtRs = new TextBox();
+            butSendRs = new Button();
+            lblGpRow = new Label();
+            txtGp = new TextBox();
+            butSendGp = new Button();
+            lblFaRow = new Label();
+            txtFa = new TextBox();
+            butSendFa = new Button();
             ((System.ComponentModel.ISupportInitialize)trkVsi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trkEgt).BeginInit();
             SuspendLayout();
             //
             // lblTarget
@@ -395,7 +429,7 @@ namespace StepperVSITester
             // cboNewGauge
             //
             cboNewGauge.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboNewGauge.Items.AddRange(new object[] { "EOT", "XOT", "XOP", "EGT", "TS", "RS", "FA", "ET", "GP", "EOP" });
+            cboNewGauge.Items.AddRange(new object[] { "TQ", "FLAPS", "AOA", "GFORCE", "SPDMAX" });
             cboNewGauge.Location = new Point(12, 675);
             cboNewGauge.Name = "cboNewGauge";
             cboNewGauge.Size = new Size(100, 23);
@@ -439,11 +473,359 @@ namespace StepperVSITester
             butNewGaugeZero.UseVisualStyleBackColor = true;
             butNewGaugeZero.Click += butNewGaugeZero_Click;
             //
+            // lblEgtHeader
+            //
+            lblEgtHeader.AutoSize = true;
+            lblEgtHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblEgtHeader.Location = new Point(12, 732);
+            lblEgtHeader.Name = "lblEgtHeader";
+            lblEgtHeader.Size = new Size(100, 15);
+            lblEgtHeader.TabIndex = 38;
+            lblEgtHeader.Text = "ITT / EGT (C)";
+            //
+            // trkEgt
+            //
+            trkEgt.LargeChange = 100;
+            trkEgt.Location = new Point(12, 778);
+            trkEgt.Maximum = 900;
+            trkEgt.Minimum = 0;
+            trkEgt.Name = "trkEgt";
+            trkEgt.Size = new Size(400, 45);
+            trkEgt.SmallChange = 25;
+            trkEgt.TabIndex = 40;
+            trkEgt.TickFrequency = 100;
+            trkEgt.Scroll += trkEgt_Scroll;
+            //
+            // lblEgtValue
+            //
+            lblEgtValue.AutoSize = true;
+            lblEgtValue.Location = new Point(12, 753);
+            lblEgtValue.Name = "lblEgtValue";
+            lblEgtValue.Size = new Size(60, 15);
+            lblEgtValue.TabIndex = 39;
+            lblEgtValue.Text = "Value: 0 C";
+            //
+            // lblEgtMin
+            //
+            lblEgtMin.AutoSize = true;
+            lblEgtMin.Location = new Point(12, 826);
+            lblEgtMin.Name = "lblEgtMin";
+            lblEgtMin.Size = new Size(13, 15);
+            lblEgtMin.TabIndex = 41;
+            lblEgtMin.Text = "0";
+            //
+            // lblEgtMax
+            //
+            lblEgtMax.AutoSize = true;
+            lblEgtMax.Location = new Point(357, 826);
+            lblEgtMax.Name = "lblEgtMax";
+            lblEgtMax.Size = new Size(24, 15);
+            lblEgtMax.TabIndex = 42;
+            lblEgtMax.Text = "900";
+            //
+            // txtEgtInput
+            //
+            txtEgtInput.Location = new Point(12, 858);
+            txtEgtInput.Name = "txtEgtInput";
+            txtEgtInput.Size = new Size(100, 23);
+            txtEgtInput.TabIndex = 43;
+            txtEgtInput.Text = "0";
+            txtEgtInput.KeyDown += txtEgtInput_KeyDown;
+            //
+            // butSendEgt
+            //
+            butSendEgt.Location = new Point(118, 857);
+            butSendEgt.Name = "butSendEgt";
+            butSendEgt.Size = new Size(92, 25);
+            butSendEgt.TabIndex = 44;
+            butSendEgt.Text = "Send";
+            butSendEgt.UseVisualStyleBackColor = true;
+            butSendEgt.Click += butSendEgt_Click;
+            //
+            // butEgtZero
+            //
+            butEgtZero.Location = new Point(216, 857);
+            butEgtZero.Name = "butEgtZero";
+            butEgtZero.Size = new Size(92, 25);
+            butEgtZero.TabIndex = 45;
+            butEgtZero.Text = "Zero";
+            butEgtZero.UseVisualStyleBackColor = true;
+            butEgtZero.Click += butEgtZero_Click;
+            //
+            // lblRealGaugesHeader
+            //
+            lblRealGaugesHeader.AutoSize = true;
+            lblRealGaugesHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblRealGaugesHeader.Location = new Point(12, 920);
+            lblRealGaugesHeader.Name = "lblRealGaugesHeader";
+            lblRealGaugesHeader.Size = new Size(300, 15);
+            lblRealGaugesHeader.TabIndex = 46;
+            lblRealGaugesHeader.Text = "Real-Value Gauges (uncalibrated linear scale)";
+            //
+            // lblEotRow
+            //
+            lblEotRow.AutoSize = true;
+            lblEotRow.Location = new Point(12, 952);
+            lblEotRow.Name = "lblEotRow";
+            lblEotRow.Size = new Size(200, 15);
+            lblEotRow.TabIndex = 47;
+            lblEotRow.Text = "OILT - Engine Oil Temp (C, 0-150):";
+            //
+            // txtEot
+            //
+            txtEot.Location = new Point(220, 948);
+            txtEot.Name = "txtEot";
+            txtEot.Size = new Size(80, 23);
+            txtEot.TabIndex = 48;
+            txtEot.Text = "0";
+            txtEot.KeyDown += txtEot_KeyDown;
+            //
+            // butSendEot
+            //
+            butSendEot.Location = new Point(306, 947);
+            butSendEot.Name = "butSendEot";
+            butSendEot.Size = new Size(70, 25);
+            butSendEot.TabIndex = 49;
+            butSendEot.Text = "Send";
+            butSendEot.UseVisualStyleBackColor = true;
+            butSendEot.Click += butSendEot_Click;
+            //
+            // lblEopRow
+            //
+            lblEopRow.AutoSize = true;
+            lblEopRow.Location = new Point(12, 986);
+            lblEopRow.Name = "lblEopRow";
+            lblEopRow.Size = new Size(200, 15);
+            lblEopRow.TabIndex = 50;
+            lblEopRow.Text = "OILP - Engine Oil Pressure (PSI, 0-150):";
+            //
+            // txtEop
+            //
+            txtEop.Location = new Point(220, 982);
+            txtEop.Name = "txtEop";
+            txtEop.Size = new Size(80, 23);
+            txtEop.TabIndex = 51;
+            txtEop.Text = "0";
+            txtEop.KeyDown += txtEop_KeyDown;
+            //
+            // butSendEop
+            //
+            butSendEop.Location = new Point(306, 981);
+            butSendEop.Name = "butSendEop";
+            butSendEop.Size = new Size(70, 25);
+            butSendEop.TabIndex = 52;
+            butSendEop.Text = "Send";
+            butSendEop.UseVisualStyleBackColor = true;
+            butSendEop.Click += butSendEop_Click;
+            //
+            // lblXotRow
+            //
+            lblXotRow.AutoSize = true;
+            lblXotRow.Location = new Point(12, 1020);
+            lblXotRow.Name = "lblXotRow";
+            lblXotRow.Size = new Size(200, 15);
+            lblXotRow.TabIndex = 53;
+            lblXotRow.Text = "XMSNT - Transmission Oil Temp (C, 0-150):";
+            //
+            // txtXot
+            //
+            txtXot.Location = new Point(220, 1016);
+            txtXot.Name = "txtXot";
+            txtXot.Size = new Size(80, 23);
+            txtXot.TabIndex = 54;
+            txtXot.Text = "0";
+            txtXot.KeyDown += txtXot_KeyDown;
+            //
+            // butSendXot
+            //
+            butSendXot.Location = new Point(306, 1015);
+            butSendXot.Name = "butSendXot";
+            butSendXot.Size = new Size(70, 25);
+            butSendXot.TabIndex = 55;
+            butSendXot.Text = "Send";
+            butSendXot.UseVisualStyleBackColor = true;
+            butSendXot.Click += butSendXot_Click;
+            //
+            // lblXopRow
+            //
+            lblXopRow.AutoSize = true;
+            lblXopRow.Location = new Point(12, 1054);
+            lblXopRow.Name = "lblXopRow";
+            lblXopRow.Size = new Size(200, 15);
+            lblXopRow.TabIndex = 56;
+            lblXopRow.Text = "XMSNP - Transmission Oil Pressure (PSI, 0-150):";
+            //
+            // txtXop
+            //
+            txtXop.Location = new Point(220, 1050);
+            txtXop.Name = "txtXop";
+            txtXop.Size = new Size(80, 23);
+            txtXop.TabIndex = 57;
+            txtXop.Text = "0";
+            txtXop.KeyDown += txtXop_KeyDown;
+            //
+            // butSendXop
+            //
+            butSendXop.Location = new Point(306, 1049);
+            butSendXop.Name = "butSendXop";
+            butSendXop.Size = new Size(70, 25);
+            butSendXop.TabIndex = 58;
+            butSendXop.Text = "Send";
+            butSendXop.UseVisualStyleBackColor = true;
+            butSendXop.Click += butSendXop_Click;
+            //
+            // lblTsRow
+            //
+            lblTsRow.AutoSize = true;
+            lblTsRow.Location = new Point(12, 1088);
+            lblTsRow.Name = "lblTsRow";
+            lblTsRow.Size = new Size(200, 15);
+            lblTsRow.TabIndex = 59;
+            lblTsRow.Text = "RPME - Turbine/Engine Speed (%, 0-120):";
+            //
+            // txtTs
+            //
+            txtTs.Location = new Point(220, 1084);
+            txtTs.Name = "txtTs";
+            txtTs.Size = new Size(80, 23);
+            txtTs.TabIndex = 60;
+            txtTs.Text = "0";
+            txtTs.KeyDown += txtTs_KeyDown;
+            //
+            // butSendTs
+            //
+            butSendTs.Location = new Point(306, 1083);
+            butSendTs.Name = "butSendTs";
+            butSendTs.Size = new Size(70, 25);
+            butSendTs.TabIndex = 61;
+            butSendTs.Text = "Send";
+            butSendTs.UseVisualStyleBackColor = true;
+            butSendTs.Click += butSendTs_Click;
+            //
+            // lblRsRow
+            //
+            lblRsRow.AutoSize = true;
+            lblRsRow.Location = new Point(12, 1122);
+            lblRsRow.Name = "lblRsRow";
+            lblRsRow.Size = new Size(200, 15);
+            lblRsRow.TabIndex = 62;
+            lblRsRow.Text = "RPMR - Rotor Speed (%, 0-120):";
+            //
+            // txtRs
+            //
+            txtRs.Location = new Point(220, 1118);
+            txtRs.Name = "txtRs";
+            txtRs.Size = new Size(80, 23);
+            txtRs.TabIndex = 63;
+            txtRs.Text = "0";
+            txtRs.KeyDown += txtRs_KeyDown;
+            //
+            // butSendRs
+            //
+            butSendRs.Location = new Point(306, 1117);
+            butSendRs.Name = "butSendRs";
+            butSendRs.Size = new Size(70, 25);
+            butSendRs.TabIndex = 64;
+            butSendRs.Text = "Send";
+            butSendRs.UseVisualStyleBackColor = true;
+            butSendRs.Click += butSendRs_Click;
+            //
+            // lblGpRow
+            //
+            lblGpRow.AutoSize = true;
+            lblGpRow.Location = new Point(12, 1156);
+            lblGpRow.Name = "lblGpRow";
+            lblGpRow.Size = new Size(200, 15);
+            lblGpRow.TabIndex = 65;
+            lblGpRow.Text = "N1 - Gas Producer (%, 0-105):";
+            //
+            // txtGp
+            //
+            txtGp.Location = new Point(220, 1152);
+            txtGp.Name = "txtGp";
+            txtGp.Size = new Size(80, 23);
+            txtGp.TabIndex = 66;
+            txtGp.Text = "0";
+            txtGp.KeyDown += txtGp_KeyDown;
+            //
+            // butSendGp
+            //
+            butSendGp.Location = new Point(306, 1151);
+            butSendGp.Name = "butSendGp";
+            butSendGp.Size = new Size(70, 25);
+            butSendGp.TabIndex = 67;
+            butSendGp.Text = "Send";
+            butSendGp.UseVisualStyleBackColor = true;
+            butSendGp.Click += butSendGp_Click;
+            //
+            // lblFaRow
+            //
+            lblFaRow.AutoSize = true;
+            lblFaRow.Location = new Point(12, 1190);
+            lblFaRow.Name = "lblFaRow";
+            lblFaRow.Size = new Size(200, 15);
+            lblFaRow.TabIndex = 68;
+            lblFaRow.Text = "FUEL - Fuel Available (gal, 0-75):";
+            //
+            // txtFa
+            //
+            txtFa.Location = new Point(220, 1186);
+            txtFa.Name = "txtFa";
+            txtFa.Size = new Size(80, 23);
+            txtFa.TabIndex = 69;
+            txtFa.Text = "0";
+            txtFa.KeyDown += txtFa_KeyDown;
+            //
+            // butSendFa
+            //
+            butSendFa.Location = new Point(306, 1185);
+            butSendFa.Name = "butSendFa";
+            butSendFa.Size = new Size(70, 25);
+            butSendFa.TabIndex = 70;
+            butSendFa.Text = "Send";
+            butSendFa.UseVisualStyleBackColor = true;
+            butSendFa.Click += butSendFa_Click;
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(424, 716);
+            AutoScroll = true;
+            AutoScrollMinSize = new Size(424, 1231);
+            ClientSize = new Size(444, 760);
+            Controls.Add(butSendFa);
+            Controls.Add(txtFa);
+            Controls.Add(lblFaRow);
+            Controls.Add(butSendGp);
+            Controls.Add(txtGp);
+            Controls.Add(lblGpRow);
+            Controls.Add(butSendRs);
+            Controls.Add(txtRs);
+            Controls.Add(lblRsRow);
+            Controls.Add(butSendTs);
+            Controls.Add(txtTs);
+            Controls.Add(lblTsRow);
+            Controls.Add(butSendXop);
+            Controls.Add(txtXop);
+            Controls.Add(lblXopRow);
+            Controls.Add(butSendXot);
+            Controls.Add(txtXot);
+            Controls.Add(lblXotRow);
+            Controls.Add(butSendEop);
+            Controls.Add(txtEop);
+            Controls.Add(lblEopRow);
+            Controls.Add(butSendEot);
+            Controls.Add(txtEot);
+            Controls.Add(lblEotRow);
+            Controls.Add(lblRealGaugesHeader);
+            Controls.Add(butEgtZero);
+            Controls.Add(butSendEgt);
+            Controls.Add(txtEgtInput);
+            Controls.Add(lblEgtMax);
+            Controls.Add(lblEgtMin);
+            Controls.Add(trkEgt);
+            Controls.Add(lblEgtValue);
+            Controls.Add(lblEgtHeader);
             Controls.Add(butNewGaugeZero);
             Controls.Add(butNewGaugeSend);
             Controls.Add(txtNewGaugeSteps);
@@ -487,6 +869,7 @@ namespace StepperVSITester
             ((System.ComponentModel.ISupportInitialize)trkVsi).EndInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).EndInit();
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trkEgt).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -531,5 +914,38 @@ namespace StepperVSITester
         private TextBox txtNewGaugeSteps;
         private Button butNewGaugeSend;
         private Button butNewGaugeZero;
+        private Label lblEgtHeader;
+        private TrackBar trkEgt;
+        private Label lblEgtValue;
+        private Label lblEgtMin;
+        private Label lblEgtMax;
+        private TextBox txtEgtInput;
+        private Button butSendEgt;
+        private Button butEgtZero;
+        private Label lblRealGaugesHeader;
+        private Label lblEotRow;
+        private TextBox txtEot;
+        private Button butSendEot;
+        private Label lblEopRow;
+        private TextBox txtEop;
+        private Button butSendEop;
+        private Label lblXotRow;
+        private TextBox txtXot;
+        private Button butSendXot;
+        private Label lblXopRow;
+        private TextBox txtXop;
+        private Button butSendXop;
+        private Label lblTsRow;
+        private TextBox txtTs;
+        private Button butSendTs;
+        private Label lblRsRow;
+        private TextBox txtRs;
+        private Button butSendRs;
+        private Label lblGpRow;
+        private TextBox txtGp;
+        private Button butSendGp;
+        private Label lblFaRow;
+        private TextBox txtFa;
+        private Button butSendFa;
     }
 }

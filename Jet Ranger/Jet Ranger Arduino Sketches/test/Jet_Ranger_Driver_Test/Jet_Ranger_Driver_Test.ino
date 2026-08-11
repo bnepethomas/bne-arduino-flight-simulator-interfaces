@@ -226,7 +226,7 @@ AccelStepper SpeedCurrentstepper(AccelStepper::DRIVER, SpeedCurrentstepPin, Spee
 AccelStepper SpeedMaxstepper(AccelStepper::DRIVER, SpeedMaxstepPin, SpeedMaxdirectionPin);
 // AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
 AccelStepper VSIstepper(AccelStepper::FULL4WIRE, STEPPER_VVI_A, STEPPER_VVI_B, STEPPER_VVI_C, STEPPER_VVI_D);
-AccelStepper RadarALTstepper(AccelStepper::FULL4WIRE, STEPPER_RA_C, STEPPER_RA_D, STEPPER_RA_A, STEPPER_RA_B-);
+AccelStepper RadarALTstepper(AccelStepper::FULL4WIRE, STEPPER_RA_C, STEPPER_RA_D, STEPPER_RA_A, STEPPER_RA_B);
 AccelStepper AOAstepper(AccelStepper::DRIVER, AOAstepPin, AOAdirectionPin);
 AccelStepper GForcestepper(AccelStepper::DRIVER, GForcestepPin, GForcedirectionPin);
 // ########################### END STEPPERS #########################################
@@ -1185,11 +1185,15 @@ void HandleOutputValuePair(String str) {
     // conversion can be reused directly.
     SendDebug("Altitude is :" + String(ParameterValue.toInt()));
     onAltMslFtChange((unsigned int)ParameterValue.toInt());
-  } else if (ParameterName == "RALT") {
-    // Radar altimeter test receiver - value is feet, converted through
+  } else if (ParameterName == "AGL") {
+    // Radar altimeter receiver - value is feet, converted through
     // RADAR_ALT_FT_TABLE (radarAltFtToSteps() above) now that this
     // gauge's real calibration is known, same pattern as VSI's
-    // vsiFpmToSteps().
+    // vsiFpmToSteps(). Renamed from "RALT" to "AGL" to match
+    // JET_RANGER_STEPPER_CONTROLLER.ino's own rename and
+    // FSUIPCWinformsAutoCS's actual stepper-payload code for this
+    // quantity, so both sketches (and StepperVSITester's "Radar ALT"
+    // control) agree on one code regardless of which is flashed.
     long radarAltFt = ParameterValue.toInt();
     long radarAltSteps = radarAltFtToSteps(radarAltFt);
     SendDebug("Radar Alt target is " + String(radarAltFt) + " ft (step " + String(radarAltSteps) + ")");

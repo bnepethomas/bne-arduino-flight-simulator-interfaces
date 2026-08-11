@@ -63,6 +63,19 @@ namespace StepperVSITester
 
             cboNewGauge.SelectedIndex = 0;
             txtNewGaugeSteps.Text = "0";
+
+            trkEgt.Value = 0;
+            UpdateValueLabel(lblEgtValue, 0, "C");
+            txtEgtInput.Text = "0";
+
+            txtEot.Text = "0";
+            txtEop.Text = "0";
+            txtXot.Text = "0";
+            txtXop.Text = "0";
+            txtTs.Text = "0";
+            txtRs.Text = "0";
+            txtGp.Text = "0";
+            txtFa.Text = "0";
         }
 
         private void trkVsi_Scroll(object sender, EventArgs e)
@@ -123,14 +136,18 @@ namespace StepperVSITester
 
         // Radar Altimeter test frame: sends feet, converted to steps on the
         // board's side by RADAR_ALT_FT_TABLE/radarAltFtToSteps() (see the
-        // "RALT" case in Jet_Ranger_Driver_Test.ino's
+        // "AGL" case in Jet_Ranger_Driver_Test.ino's
         // HandleOutputValuePair()) - same pattern as ALT above, now that
-        // this gauge's real 0/500/2500 ft calibration is known.
+        // this gauge's real 0/500/2500 ft calibration is known. Wire code
+        // renamed from "RALT" to "AGL" to match both
+        // JET_RANGER_STEPPER_CONTROLLER.ino and JET_RANGER_SERVO_CONTROLLER.ino
+        // (and what FSUIPCWinformsAutoCS actually sends) - control names
+        // here are unchanged.
         private void trkRadarAlt_Scroll(object sender, EventArgs e)
         {
             UpdateValueLabel(lblRadarAltValue, trkRadarAlt.Value, "ft");
             txtRadarAltInput.Text = trkRadarAlt.Value.ToString();
-            Send("RALT", trkRadarAlt.Value);
+            Send("AGL", trkRadarAlt.Value);
         }
 
         private void butRadarAltZero_Click(object sender, EventArgs e)
@@ -138,19 +155,19 @@ namespace StepperVSITester
             trkRadarAlt.Value = 0;
             txtRadarAltInput.Text = "0";
             UpdateValueLabel(lblRadarAltValue, 0, "ft");
-            Send("RALT", 0);
+            Send("AGL", 0);
         }
 
         private void butSendRadarAlt_Click(object sender, EventArgs e)
         {
-            SendManualValue(trkRadarAlt, txtRadarAltInput, lblRadarAltValue, "RALT", "ft");
+            SendManualValue(trkRadarAlt, txtRadarAltInput, lblRadarAltValue, "AGL", "ft");
         }
 
         private void txtRadarAltInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SendManualValue(trkRadarAlt, txtRadarAltInput, lblRadarAltValue, "RALT", "ft");
+                SendManualValue(trkRadarAlt, txtRadarAltInput, lblRadarAltValue, "AGL", "ft");
             }
         }
 
@@ -201,16 +218,18 @@ namespace StepperVSITester
             }
         }
 
-        // Raw step pass-through test frame for the gauges ported into
-        // JET_RANGER_STEPPER_CONTROLLER.ino from Stepper-Tuning-Harness
-        // (EOT/XOT/XOP/EGT/TS/RS/FA/ET/GP/EOP - see that sketch's
-        // HandleOutputValuePair()). None of them have a real calibration
-        // yet, so this is one shared raw-step control with a dropdown to
-        // pick which gauge's UDP code to send, rather than ten
-        // near-identical trackbar sections - cheaper to keep in sync
-        // while none of these are calibrated, and easy to split into a
-        // dedicated section later once a gauge gets real units (the same
-        // way Radar ALT above graduated from raw steps to feet).
+        // Raw step pass-through test frame giving JET_RANGER_STEPPER_CONTROLLER.ino's
+        // gauges the same "direct step target" capability Stepper-Tuning-Harness
+        // offers for every gauge over Serial (see that sketch's HandleOutputValuePair()):
+        // the 10 gauges ported from the harness (EOT/XOT/XOP/EGT/TS/RS/FA/ET/GP/EOP,
+        // none calibrated yet) plus FLAPS/AOA/GFORCE/SPDMAX, which had no UDP
+        // reachability at all before this. ALT/VSI/IAS already have their own codes
+        // (feet/fpm calibrated, or raw pass-through for IAS) so aren't duplicated here.
+        // One shared raw-step control with a dropdown rather than fourteen
+        // near-identical trackbar sections - cheaper to keep in sync while none of
+        // these are calibrated, and easy to split a gauge into its own dedicated
+        // section later once it gets real units (the same way Radar ALT graduated
+        // from raw steps to feet).
         private void butNewGaugeSend_Click(object sender, EventArgs e)
         {
             if (!long.TryParse(txtNewGaugeSteps.Text, out long steps))
@@ -235,5 +254,89 @@ namespace StepperVSITester
                 butNewGaugeSend_Click(sender, e);
             }
         }
+
+        // EGT (Exhaust Gas Temp), 0-900C: the first of the New Gauges to
+        // graduate from raw steps to a real value, now that its unit/range
+        // is known. Sends degrees C directly; the board converts to steps
+        // via a linear scale (setEGT()/egtCToSteps() in
+        // JET_RANGER_STEPPER_CONTROLLER.ino) since EGTstepper has no
+        // bench-measured calibration yet - same "good enough for a first
+        // pass" approach ALT's feet*5.76 conversion used before VSI/Radar
+        // ALT got real per-point tables. Wire code is "ITT" (not "EGT") to
+        // match JET_RANGER_SERVO_CONTROLLER.ino's existing code for this
+        // same real-world quantity - control names here are unchanged.
+        private void trkEgt_Scroll(object sender, EventArgs e)
+        {
+            UpdateValueLabel(lblEgtValue, trkEgt.Value, "C");
+            txtEgtInput.Text = trkEgt.Value.ToString();
+            Send("ITT", trkEgt.Value);
+        }
+
+        private void butEgtZero_Click(object sender, EventArgs e)
+        {
+            trkEgt.Value = 0;
+            txtEgtInput.Text = "0";
+            UpdateValueLabel(lblEgtValue, 0, "C");
+            Send("ITT", 0);
+        }
+
+        private void butSendEgt_Click(object sender, EventArgs e)
+        {
+            SendManualValue(trkEgt, txtEgtInput, lblEgtValue, "ITT", "C");
+        }
+
+        private void txtEgtInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendManualValue(trkEgt, txtEgtInput, lblEgtValue, "ITT", "C");
+            }
+        }
+
+        // Compact rows for 8 more real-value gauges (EOT/EOP/XOT/XOP/TS/RS/GP/FA)
+        // - no trackbar, just a value box + Send, since a full trackbar section
+        // per gauge (like VSI/ALT/Radar ALT/EGT above) would push the form well
+        // past a normal screen height. Each board-side conversion is the same
+        // "uncalibrated linear scale" placeholder as EGT's - see
+        // JET_RANGER_STEPPER_CONTROLLER.ino's setEOT()/setEOP()/etc.
+        private void SendRealValue(TextBox textBox, string code)
+        {
+            if (long.TryParse(textBox.Text, out long value))
+            {
+                Send(code, value);
+            }
+            else
+            {
+                MessageBox.Show("Value must be a number");
+            }
+        }
+
+        // Wire codes renamed to match JET_RANGER_SERVO_CONTROLLER.ino's existing
+        // codes for these same real-world quantities (OILT/OILP/XMSNT/XMSNP/
+        // RPME/RPMR/N1/FUEL) - control names here are unchanged (still
+        // txtEot/txtEop/etc.), only the string handed to Send() changed.
+        private void butSendEot_Click(object sender, EventArgs e) => SendRealValue(txtEot, "OILT");
+        private void txtEot_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtEot, "OILT"); }
+
+        private void butSendEop_Click(object sender, EventArgs e) => SendRealValue(txtEop, "OILP");
+        private void txtEop_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtEop, "OILP"); }
+
+        private void butSendXot_Click(object sender, EventArgs e) => SendRealValue(txtXot, "XMSNT");
+        private void txtXot_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtXot, "XMSNT"); }
+
+        private void butSendXop_Click(object sender, EventArgs e) => SendRealValue(txtXop, "XMSNP");
+        private void txtXop_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtXop, "XMSNP"); }
+
+        private void butSendTs_Click(object sender, EventArgs e) => SendRealValue(txtTs, "RPME");
+        private void txtTs_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtTs, "RPME"); }
+
+        private void butSendRs_Click(object sender, EventArgs e) => SendRealValue(txtRs, "RPMR");
+        private void txtRs_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtRs, "RPMR"); }
+
+        private void butSendGp_Click(object sender, EventArgs e) => SendRealValue(txtGp, "N1");
+        private void txtGp_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtGp, "N1"); }
+
+        private void butSendFa_Click(object sender, EventArgs e) => SendRealValue(txtFa, "FUEL");
+        private void txtFa_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtFa, "FUEL"); }
     }
 }

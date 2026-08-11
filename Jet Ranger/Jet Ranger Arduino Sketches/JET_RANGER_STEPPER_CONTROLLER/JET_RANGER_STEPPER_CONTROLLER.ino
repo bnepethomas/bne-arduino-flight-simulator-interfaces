@@ -123,10 +123,17 @@ void SendDebug(String MessageToSend) {
 }
 // ###################################### End Ethernet Related #############################
 
-#define RED_STATUS_LED_PORT 12
-#define GREEN_STATUS_LED_PORT 13
-#define Check_LED_R 12
-#define Check_LED_G 13
+// Aligned with Stepper-Tuning-Harness's LED pins (that sketch moved them
+// off 12/13 since those became SpeedCurrentstepper's coil pins there -
+// see that sketch's own summary). This sketch's SpeedCurrentstepper is
+// still on its original DRIVER pins (34/36), not 12/13, so there's no
+// equivalent collision here to resolve - this change is purely to match
+// the harness's wiring, since the two sketches are meant to be drop-in
+// stand-ins for each other on the same physical board.
+#define RED_STATUS_LED_PORT 15
+#define GREEN_STATUS_LED_PORT 14
+#define Check_LED_R 15
+#define Check_LED_G 14
 
 #define FLASH_TIME 300
 
@@ -842,6 +849,131 @@ DcsBios::IntegerBuffer accelGBuffer(0x1070, 0xffff, 0, onAccelGChange);
 
 // ################################### END GForce ##############################################
 
+// ################################### START EGT ##############################################
+
+// EGT (Exhaust Gas Temp) real-value UDP handler - see the "EGT" case in
+// HandleOutputValuePair() below, which now sends degrees C instead of a
+// raw step target (was a raw pass-through before this). Straight linear
+// scale across the gauge's real-world 0-900C range onto
+// FULL4WIRE_HOMING_STEPS (630) - the same generic full-scale step count
+// used for this stepper's still-unverified homing elsewhere in this
+// sketch, since EGTstepper has no bench-measured end stop/steps-per-degree
+// calibration yet. NOT a real per-point calibration table like
+// VSI_FPM_TABLE/RADAR_ALT_FT_TABLE - revisit with real bench-measured
+// points once EGTstepper's actual travel is known, the same way ALT's
+// simple feet*5.76 scale was good enough as a first pass before VSI/Radar
+// Alt graduated to real tables.
+#define EGT_MIN_C 0
+#define EGT_MAX_C 900
+
+long egtCToSteps(long tempC) {
+  if (tempC < EGT_MIN_C) tempC = EGT_MIN_C;
+  if (tempC > EGT_MAX_C) tempC = EGT_MAX_C;
+  return map(tempC, EGT_MIN_C, EGT_MAX_C, 0, FULL4WIRE_HOMING_STEPS);
+}
+
+void setEGT(long TargetC) {
+  EGTstepper.moveTo(egtCToSteps(TargetC));
+}
+
+// ################################### END EGT ##############################################
+
+// ################################### START EOT/EOP/XOT/XOP/TS/RS/GP/FA ##############################################
+
+// Real-value UDP handlers for 8 more gauges, same linear-scale-onto-
+// FULL4WIRE_HOMING_STEPS placeholder approach as setEGT()/egtCToSteps()
+// above (see that section's comment for the full rationale) - none of
+// these steppers have bench-measured calibration either.
+#define EOT_MIN_C 0
+#define EOT_MAX_C 150
+long eotCToSteps(long tempC) {
+  if (tempC < EOT_MIN_C) tempC = EOT_MIN_C;
+  if (tempC > EOT_MAX_C) tempC = EOT_MAX_C;
+  return map(tempC, EOT_MIN_C, EOT_MAX_C, 0, FULL4WIRE_HOMING_STEPS);
+}
+void setEOT(long TargetC) {
+  EOTstepper.moveTo(eotCToSteps(TargetC));
+}
+
+#define EOP_MIN_PSI 0
+#define EOP_MAX_PSI 150
+long eopPsiToSteps(long psi) {
+  if (psi < EOP_MIN_PSI) psi = EOP_MIN_PSI;
+  if (psi > EOP_MAX_PSI) psi = EOP_MAX_PSI;
+  return map(psi, EOP_MIN_PSI, EOP_MAX_PSI, 0, FULL4WIRE_HOMING_STEPS);
+}
+void setEOP(long TargetPsi) {
+  EOPstepper.moveTo(eopPsiToSteps(TargetPsi));
+}
+
+#define XOT_MIN_C 0
+#define XOT_MAX_C 150
+long xotCToSteps(long tempC) {
+  if (tempC < XOT_MIN_C) tempC = XOT_MIN_C;
+  if (tempC > XOT_MAX_C) tempC = XOT_MAX_C;
+  return map(tempC, XOT_MIN_C, XOT_MAX_C, 0, FULL4WIRE_HOMING_STEPS);
+}
+void setXOT(long TargetC) {
+  XOTstepper.moveTo(xotCToSteps(TargetC));
+}
+
+#define XOP_MIN_PSI 0
+#define XOP_MAX_PSI 150
+long xopPsiToSteps(long psi) {
+  if (psi < XOP_MIN_PSI) psi = XOP_MIN_PSI;
+  if (psi > XOP_MAX_PSI) psi = XOP_MAX_PSI;
+  return map(psi, XOP_MIN_PSI, XOP_MAX_PSI, 0, FULL4WIRE_HOMING_STEPS);
+}
+void setXOP(long TargetPsi) {
+  XOPstepper.moveTo(xopPsiToSteps(TargetPsi));
+}
+
+#define TS_MIN_PCT 0
+#define TS_MAX_PCT 120
+long tsPctToSteps(long pct) {
+  if (pct < TS_MIN_PCT) pct = TS_MIN_PCT;
+  if (pct > TS_MAX_PCT) pct = TS_MAX_PCT;
+  return map(pct, TS_MIN_PCT, TS_MAX_PCT, 0, FULL4WIRE_HOMING_STEPS);
+}
+void setTS(long TargetPct) {
+  TSstepper.moveTo(tsPctToSteps(TargetPct));
+}
+
+#define RS_MIN_PCT 0
+#define RS_MAX_PCT 120
+long rsPctToSteps(long pct) {
+  if (pct < RS_MIN_PCT) pct = RS_MIN_PCT;
+  if (pct > RS_MAX_PCT) pct = RS_MAX_PCT;
+  return map(pct, RS_MIN_PCT, RS_MAX_PCT, 0, FULL4WIRE_HOMING_STEPS);
+}
+void setRS(long TargetPct) {
+  RSstepper.moveTo(rsPctToSteps(TargetPct));
+}
+
+#define GP_MIN_PCT 0
+#define GP_MAX_PCT 105
+long gpPctToSteps(long pct) {
+  if (pct < GP_MIN_PCT) pct = GP_MIN_PCT;
+  if (pct > GP_MAX_PCT) pct = GP_MAX_PCT;
+  return map(pct, GP_MIN_PCT, GP_MAX_PCT, 0, FULL4WIRE_HOMING_STEPS);
+}
+void setGP(long TargetPct) {
+  GPstepper.moveTo(gpPctToSteps(TargetPct));
+}
+
+#define FA_MIN_GAL 0
+#define FA_MAX_GAL 75
+long faGalToSteps(long gal) {
+  if (gal < FA_MIN_GAL) gal = FA_MIN_GAL;
+  if (gal > FA_MAX_GAL) gal = FA_MAX_GAL;
+  return map(gal, FA_MIN_GAL, FA_MAX_GAL, 0, FULL4WIRE_HOMING_STEPS);
+}
+void setFA(long TargetGal) {
+  FAstepper.moveTo(faGalToSteps(TargetGal));
+}
+
+// ################################### END EOT/EOP/XOT/XOP/TS/RS/GP/FA ##############################################
+
 
 // SARI
 
@@ -1181,42 +1313,89 @@ void HandleOutputValuePair(String str) {
     // (vsiFpmToSteps()) rather than setVSI()'s placeholder +/-VSIMaxSteps
     // clamp, which stays in use for the separate DCS-BIOS path only.
     VSIstepper.moveTo(vsiFpmToSteps(ParameterValue.toInt()));
-  } else if (ParameterName == "RALT") {
-    // Raw step pass-through test code for the new gauges below - no real
-    // calibration exists yet for any of them (direction/steps-per-unit
-    // unverified, see the AccelStepper construct comments above). NOTE:
+  } else if (ParameterName == "AGL") {
+    // Raw step pass-through for Radar Altitude - no real calibration
+    // exists yet for this gauge (direction/steps-per-foot unverified, see
+    // the AccelStepper construct comments above). Renamed from "RALT" to
+    // "AGL" to match JET_RANGER_SERVO_CONTROLLER.ino's existing code for
+    // this same real-world quantity (also what FSUIPCWinformsAutoCS
+    // actually sends in its stepper payload), so this board can be driven
+    // by the same live data instead of a separate test-only code.
     // Jet_Ranger_Driver_Test.ino (the bench-test fork of this sketch)
-    // already uses "RALT" for its own Radar Altimeter, but as calibrated
-    // *feet* through a real RADAR_ALT_FT_TABLE, not raw steps - since the
-    // two sketches are never flashed to the board at the same time this
-    // doesn't collide in practice, but StepperVSITester's existing
-    // "Radar ALT (ft)" slider will drive raw steps instead of feet
-    // whenever this sketch (rather than the bench-test one) is what's
-    // currently on the board. Worth giving this its own calibration
-    // table and reconciling the two once this gauge is bench-measured.
+    // also uses "AGL" now (see that sketch), but with real calibrated
+    // *feet* through RADAR_ALT_FT_TABLE, not raw steps - since the two
+    // sketches are never flashed to the board at the same time this
+    // doesn't collide in practice, but StepperVSITester's "Radar ALT (ft)"
+    // slider will drive raw steps instead of feet whenever this sketch
+    // (rather than the bench-test one) is what's currently on the board.
+    // Worth giving this its own calibration table once bench-measured.
     RadarAltStepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "EOT") {
-    EOTstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "XOT") {
-    XOTstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "XOP") {
-    XOPstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "EGT") {
-    EGTstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "TS") {
-    TSstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "RS") {
-    RSstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "FA") {
-    FAstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "ET") {
+  } else if (ParameterName == "OILT") {
+    // Real degrees C now (Engine Oil Temperature, 0-150) - see setEOT()/
+    // eotCToSteps() above. Renamed from this sketch's original "EOT" to
+    // match JET_RANGER_SERVO_CONTROLLER.ino's existing code for the same
+    // real-world quantity, so both boards can be driven by the same UDP
+    // payload instead of needing a separate send under a different name.
+    setEOT(ParameterValue.toInt());
+  } else if (ParameterName == "XMSNT") {
+    // Real degrees C now (Transmission Oil Temperature, 0-150). Renamed
+    // from "XOT" to match JET_RANGER_SERVO_CONTROLLER.ino.
+    setXOT(ParameterValue.toInt());
+  } else if (ParameterName == "XMSNP") {
+    // Real PSI now (Transmission Oil Pressure, 0-150). Renamed from "XOP"
+    // to match JET_RANGER_SERVO_CONTROLLER.ino.
+    setXOP(ParameterValue.toInt());
+  } else if (ParameterName == "ITT") {
+    // Real degrees C now (see setEGT()/egtCToSteps() above) - no longer a
+    // raw step target like the other new-gauge codes below. Renamed from
+    // "EGT" to match JET_RANGER_SERVO_CONTROLLER.ino's code for the same
+    // real-world quantity (Bell 206 calls this ITT, not EGT).
+    setEGT(ParameterValue.toInt());
+  } else if (ParameterName == "RPME") {
+    // Real percent now (Turbine/Engine Speed, 0-120). Renamed from "TS"
+    // to match JET_RANGER_SERVO_CONTROLLER.ino's "RPME" (Engine RPM) -
+    // same real-world quantity.
+    setTS(ParameterValue.toInt());
+  } else if (ParameterName == "RPMR") {
+    // Real percent now (Rotor Speed, 0-120). Renamed from "RS" to match
+    // JET_RANGER_SERVO_CONTROLLER.ino.
+    setRS(ParameterValue.toInt());
+  } else if (ParameterName == "FUEL") {
+    // Real US gallons now (Fuel Available, 0-75). Renamed from "FA" to
+    // match JET_RANGER_SERVO_CONTROLLER.ino.
+    setFA(ParameterValue.toInt());
+  } else if (ParameterName == "TQ") {
+    // Raw step pass-through still (no real calibration requested for this
+    // one). Renamed from "ET" to match JET_RANGER_SERVO_CONTROLLER.ino's
+    // "TQ" (Torque) code for the same gauge.
     ETstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "GP") {
-    GPstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "EOP") {
-    EOPstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "N1") {
+    // Real percent now (Gas Producer, 0-105). Renamed from "GP" to match
+    // JET_RANGER_SERVO_CONTROLLER.ino's "N1" code for the same real-world
+    // quantity.
+    setGP(ParameterValue.toInt());
+  } else if (ParameterName == "OILP") {
+    // Real PSI now (Engine Oil Pressure, 0-150). Renamed from "EOP" to
+    // match JET_RANGER_SERVO_CONTROLLER.ino.
+    setEOP(ParameterValue.toInt());
+  } else if (ParameterName == "FLAPS") {
+    // Raw step pass-through, same style as the new-gauge codes above -
+    // gives Flaps the same "direct step target" capability
+    // Stepper-Tuning-Harness offers for every gauge over Serial. Flaps
+    // had no UDP reachability at all before this (DCS-BIOS binding is
+    // commented out in this sketch).
+    FlapsStepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "AOA") {
+    AOAstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "GFORCE") {
+    GForcestepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "SPDMAX") {
+    SpeedMaxstepper.moveTo(ParameterValue.toInt());
   }
-  // All other codes are currently ignored.
+  // ALT, VSI, and IAS already have their own UDP codes above (feet/fpm
+  // calibrated for ALT/VSI, raw pass-through for IAS/Current Airspeed),
+  // so they don't need a separate direct-step code here. Every other
+  // code is currently parsed and silently ignored.
 }
 
 void HandleControlString(String str) {
