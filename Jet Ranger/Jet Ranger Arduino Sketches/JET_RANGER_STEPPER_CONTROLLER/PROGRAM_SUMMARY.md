@@ -1,23 +1,27 @@
 # JET_RANGER_STEPPER_CONTROLLER — Program Summary
 
-> **Note:** as with `JET_RANGER_OLED_CONTROLLER`, this sketch's own header
-> identifies it as **`A10_FRONT_CONSOLE_STEPPERS`**, front-center of an
-> **A-10C Warthog** DCS World pit — not the Jet Ranger helicopter. Its data
-> source is **DCS-BIOS** (serial), not the Jet Ranger's `172.16.1.x`
-> UDP/CSV protocol. This folder also contains a second, unrelated-looking
-> sketch nested inside it (`A10_LEFT_CONSOLE_INPUT_CONTROLLER_A`, covered
-> below) — both look like they belong to the same A-10C pit build rather
-> than the Jet Ranger fleet, worth confirming with whoever filed them here.
+> **Board identity resolved:** this sketch's header and `BoardName` used
+> to identify it as `A10_FRONT_CONSOLE_STEPPERS`/"A10 Forward Steppers"
+> (an A-10C Warthog board), even though it's part of the Jet Ranger
+> fleet. That's since been fixed by hand: the header now says
+> `JET_RANGER_STEPPERS`/"JET RANGER STEPPER CONTROLLER" and `BoardName`
+> is `"Jet Ranger Steppers"`. Its data source is still a mix of DCS-BIOS
+> (serial, for the A-10C SimVars still wired up) and the Jet Ranger's
+> `172.16.1.x` UDP/CSV protocol.
 
 Two Arduino sketches live under this folder:
 
-1. **`JET_RANGER_STEPPER_CONTROLLER.ino`** (this summary's main subject) —
-   drives 18 analogue stepper-motor gauges (7 original + 11 newly ported
-   from `Stepper-Tuning-Harness`, see below) plus backlighting for an
-   A-10C front instrument panel.
+1. **`JET_RANGER_STEPPER_CONTROLLER.ino`** (this summary's main subject)
+   — drives 13 analogue stepper-motor gauges plus backlighting. Started
+   as an A-10C front instrument panel board with 7 gauges; has since had
+   5 of the original 7 (`ALT`, `Flaps`, `AOA`, `G-Force`, `Max Airspeed`)
+   removed/commented out by hand, `Current Airspeed` renamed to
+   `IASstepper` and rewired to match `Stepper-Tuning-Harness`, and 11 new
+   Bell 206-style gauges added (see below).
 2. **`A10_LEFT_CONSOLE_INPUT_CONTROLLER_A/A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino`**
    — a separate 176-button matrix input controller for TACAN/ILS/electrical/
-   CDU/AAP/lighting panels (see its own section below).
+   CDU/AAP/lighting panels (see its own section below). Untouched by any
+   of the changes described here.
 
 ## Build verification
 
@@ -26,23 +30,17 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 25,038 bytes (9%) | 3,639 bytes (44%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 24,396 bytes (9%) | 3,271 bytes (39%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
-Flashed to the bench Mega on COM4 (the same physical board the
-`Stepper-Tuning-Harness` sketch uses as a drop-in stand-in) after the
-VSI/Flaps hardware-swap reanalysis below, again after adding `VSI` UDP
-support, and again after adding the `VSI_FPM_TABLE` calibration (see
-program flow below). The flash/RAM drop between the `VSI` UDP support
-commit and this one is a clean-build artifact (a stale incremental-build
-cache inflated the prior number — confirmed by re-running with
-`--clean`), not a functional regression; the diff between those two
-states is purely additive.
-
-> **Not flashed:** the 11 new gauges added in "New gauges ported from
-> Stepper-Tuning-Harness" below were only compile-checked — the bench
-> Mega wasn't connected when they were added, so this board is currently
-> running whatever was flashed before that change.
+Flashed to the bench Mega on COM4 several times across this sketch's
+history; most recently after the real `IAS_KT_TABLE` calibration was
+added. `SendRetransmissionTimeout` note: `Ethernet.setRetransmissionTimeout(10)`
+was added right after `Ethernet.begin()` - the W5500's own ARP/send retry
+timeout (default 200ms × 8 retries = up to 1600ms blocked inside a UDP
+send that fails to get an ARP reply) is now capped at 10ms/retry
+(~80ms worst case), separate from the one-time boot-time
+`delayBeforeSendingPacket` wait (unchanged, still 2000ms).
 
 Library versions used for this verification: **Ethernet** 2.0.2,
 **AccelStepper** 1.64.0, **DCS-BIOS** 0.3.13 (Arduino Library Manager). The
@@ -52,274 +50,154 @@ same library — the Library Manager's 0.3.13 was used for this check and
 compiled without needing any code changes, but the two haven't been
 diffed against each other line-for-line.
 
+## Current stepper roster
+
+| Stepper | Interface/pins | Status |
+|---|---|---|
+| `VSIstepper` | FULL4WIRE, `COIL_VSI_A..D` (7/8/9/11, wired C,D,A,B) | Active - real `VSI_FPM_TABLE` calibration, boot homing (3 swing loops) |
+| `IASstepper` (renamed from `SpeedCurrentstepper`) | FULL4WIRE, `STEPPER_SPD_A..D` (12/13/22/23, wired C,D,A,B) | Active - real `IAS_KT_TABLE` calibration (see below); its own boot startup/swing exists but is wrapped in `if (false)` and currently **never runs** |
+| `RadarAltStepper` | FULL4WIRE, `RADAR_ALT_COIL_A..D` (32/33/34/35, wired C,D,A,B) | Active, raw steps only (`AGL` code) - no real calibration yet |
+| `EOTstepper`, `XOTstepper`, `XOPstepper`, `EGTstepper`, `TSstepper`, `RSstepper`, `FAstepper`, `GPstepper`, `EOPstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes (see table below), all still using the placeholder `FULL4WIRE_HOMING_STEPS` linear scale (see caution below), none bench-homed |
+| `ETstepper` | FULL4WIRE, `ET_COIL_A..D` (36/37/38/39) | Active, raw steps only (`TQ` code) |
+| `ALTstepper`, `SpeedMaxstepper`, `FlapsStepper`, `AOAstepper`, `GForcestepper` | — | **Removed.** Constructs, pin `#define`s (mostly), startup routines, DCS-BIOS bindings, and UDP codes for all five are commented out or deleted. `FlapsStepPin`/`FlapsDirectionPin` are the one pair of pin `#define`s left behind, now orphaned (nothing reads them). |
+| `SARIstepperRoll` | DRIVER, pins 30/32 | Declared and pin-claimed, but its `Nema8Stepper` binding is commented out - never `.run()`, never bound to DCS-BIOS. Still occupies pins 30/32 via its `AccelStepper` constructor. |
+| `saiPitch` (`DcsBios::ServoOutput`, pin 9) | — | Active - SAI pitch axis, plain hobby servo |
+
+> **Caution — `FULL4WIRE_HOMING_STEPS` redefined:** was `315 * 2` (630),
+> now `315 + 5` (320) — halves the effective step range every
+> still-uncalibrated gauge above (`EOT`/`XOT`/`XOP`/`EGT`/`TS`/`RS`/`GP`/`FA`)
+> scales its real-unit range onto, since none of them have their own
+> bench-measured ceiling yet. Their in-code comments hadn't been updated
+> to match until this pass.
+>
+> **Caution — VSI homing macro-precedence bug:** two new constants,
+> `X27_FULLWIRE_STEPS` (635) and `X27_FULLWIRE_HOMING_STEPS`
+> (`X27_FULLWIRE_STEPS + 5`, unparenthesized), now drive VSI's homing.
+> `VSIstepper.runToNewPosition(-X27_FULLWIRE_HOMING_STEPS)` expands to
+> `-635 + 5` = **-630**, not `-(635+5)` = -640 as the name implies - a
+> small (~1.5%) but real discrepancy between the code's apparent and
+> actual behavior.
+>
+> **Caution — `AllstepperEnablePin` pinMode vs digitalWrite:**
+> `pinMode(AllstepperEnablePin, OUTPUT)` is commented out in `setup()`,
+> but `digitalWrite(AllstepperEnablePin, false)` right after it is still
+> active. An Arduino pin defaults to `INPUT` at boot, so that
+> `digitalWrite()` likely just toggles the pin's internal pull-up rather
+> than actually driving it LOW as intended.
+
+## Newly surfaced pin collisions (SARI)
+
+Reviewing the current pin map turned up two collisions with the
+still-pin-claiming (if otherwise inactive) `SARIstepperRoll` that weren't
+caught in earlier passes:
+
+| Gauge pin | Collides with |
+|---|---|
+| `RS_COIL_C` (30) | `SARIstepPin` |
+| `RADAR_ALT_COIL_A` (32) | `SARIdirectionPin` |
+
+Removing `ALTstepper`/`SpeedMaxstepper`/`FlapsStepper`/`AOAstepper`/
+`GForcestepper` resolved every collision documented in earlier passes of
+this summary (their pin `#define`s are now mostly gone entirely, not
+just unused) — the one exception is `EOT_COIL_D` (A2/56), which still
+collides with `AllstepperEnablePin`.
+
 ## JET_RANGER_STEPPER_CONTROLLER.ino — Program flow
 
-1. **Setup**
-   - Flashes status LEDs, then (if `Ethernet_In_Use`) resets the W5500
-     shield, brings up Ethernet on the static IP, and opens the debug UDP
-     socket.
-   - Ramps the instrument backlighting (`BACK_LIGHTS`, PWM) from full
-     brightness down to off over ~4s, then back up to a working level.
-   - Runs an elaborate homing/self-test sequence for each of the 5
-     "simple" `AccelStepper` gauges (VSI, ALT, current airspeed, max
-     airspeed, flaps) and the AOA/G-Force gauges: drive hard against one
-     end, zero the position there, sweep through a test motion, and (for
-     ALT specifically) home against a physical zero-sense switch
-     (`ALTzeroSensePin`) rather than just a timed sweep.
-   > **VSI/Flaps hardware swap (reanalysis, current focus):** VSI moved
-   > from a geared `DRIVER`/STEP-DIR motor onto direct coils
-   > (`AccelStepper::FULL4WIRE`), and Flaps took over VSI's old
-   > `DRIVER`/STEP-DIR pins in exchange — a real wiring change on the
-   > bench, not a software-only swap. Pin `#define`s were renamed to match
-   > what they actually drive now (`VSIstepPin`/`VSIdirectionPin` →
-   > `FlapsStepPin`/`FlapsDirectionPin`; `COIL_FLAPS_A..D` →
-   > `COIL_VSI_A..D`) — the old names were actively misleading, including a
-   > comment claiming the DRIVER pins were "unused" when they're now
-   > Flaps'. VSI's homing sequence was switched from the geared `STEPS*1.1`
-   > (~5544 steps, calibrated for the old motor) to the direct-drive
-   > `FULL4WIRE_HOMING_STEPS` (315×2 = 630, no overshoot — renamed from
-   > `FLAPS_STEP`, since it's no longer Flaps-specific), matching the same
-   > FULL4WIRE-style homing already established for Flaps. **Not
-   > independently verified against the new physical motor:** the homing
-   > direction sign (kept unchanged from before the swap), and `VSIoffset`
-   > (130 → 16) / `VSIMaxSteps` (2400 → 300), which were scaled down by the
-   > same ~8× ratio as the step count as a rough estimate — confirm/
-   > recalibrate all three on the bench. A duplicate, dead `#define STEPS
-   > 10080` (shadowed by the real `STEPS 315*16` immediately after it, so
-   > it never actually took effect) was also removed as incidental cleanup.
-   - Starts DCS-BIOS (`DcsBios::setup()`) and sets backlighting to its
-     normal running brightness.
-2. **Main loop** (`loop()`)
-   - Toggles the status LEDs every `FLASH_TIME` (300ms).
-   - Pumps `DcsBios::loop()` — every gauge target still comes from DCS-BIOS
-     callbacks by default.
-   - Calls `updateSteppers()`, which calls `.run()` on all 7
-     `AccelStepper` objects every loop iteration (required by the
-     AccelStepper library to make non-blocking acceleration-controlled
-     moves progress).
-   - Every `incomingcheckinterval` (5ms), checks for an incoming UDP packet
-     on `MSFSport` and, if present, passes it to
-     `ProcessReceivedMSFSString()` — see below.
-3. **DCS-BIOS callbacks** map A-10C SimVars to stepper `moveTo()` targets:
-   `onFlapPosChange` (`A_10C_FLAP_POS`), `onAirspeedNeedleChange`
-   (`A_10C_AIRSPEED_NEEDLE`), `onAirspeedMaxIasChange`
-   (`A_10C_AIRSPEED_MAX_IAS`), `onVviChange` (`A_10C_VVI`, VSI),
-   `onAoaUnitsChange` (address `0x1078`), `onAltMslFtChange`
-   (`CommonData_ALT_MSL_FT`), `onAccelGChange` (address `0x1070`,
-   G-force). Two lighting callbacks (`onIntFltInstLBrightChange` /
-   `onIntConsoleLBrightChange`) drive `BACK_LIGHTS` PWM from DCS-BIOS
-   brightness values (a third, `onIntFloodLBrightChange`, computes a
-   brightness value but only logs it — no output pin is actually driven
-   for flood lighting in this sketch).
-4. **SARI roll stepper** — a custom `Nema8Stepper` class (extending
-   `DcsBios::Int16Buffer`) implements a full closed-loop homing/tracking
-   state machine for what's commonly the attitude-indicator "ball" roll
-   axis: it seeks a zero position using an IR detector pin, then tracks
-   DCS-BIOS position updates by computing the shortest angular delta
-   (wrapping around `SARImaxSteps`) each time new data arrives. A
-   companion `DcsBios::ServoOutput` (`saiPitch`, pin 9) drives the pitch
-   axis of the same instrument as a plain hobby servo.
-5. **UDP data receiver** (added to let this board also be driven the same
-   way as `JET_RANGER_SERVO_CONTROLLER`, alongside its existing DCS-BIOS
-   path): `ProcessReceivedMSFSString()` parses the same
-   `"D,CODE:value,CODE:value,..."` CSV payload as the Servo Controller
-   (`HandleOutputValuePair`/`HandleControlString`/`getValue` are near-verbatim
-   ports of that sketch's versions). Three codes are wired up; a fourth
-   (`IAS`) is coded but currently unreachable:
-   - `IAS` → `setCurrentAirspeed(value)`, reusing the existing airspeed
-     stepper mover. **`FSUIPCWinformsAutoCS` no longer sends this board an
-     `IAS` field at all** (its stepper-specific payload was narrowed to
-     `ALT`/`VSI`/`AGL` only, since this board has no gauges for anything
-     else), so this branch is currently dead code reachable only if some
-     other/future sender includes an `IAS` field. If it ever does: the
-     other PC bridge apps (`P3D_to_UDP`/`SimConnect_to_UDP`) still send
-     `IAS` already converted to a *Bell 206 servo-position* number via
-     their `IAS_Process()` tables — not raw knots and not an A-10 stepper
-     step count — so this would be a straight pass-through pending real
-     calibration for this gauge.
-   - `ALT` → `onAltMslFtChange(value)`, reusing the exact feet→steps
-     conversion the DCS-BIOS altitude callback already uses. This one
-     *is* unit-correct as-is, since the PC bridge apps send `ALT` as raw,
-     unconverted feet — the same units this sketch's DCS-BIOS altitude
-     handler expects.
-   - `VSI` → `VSIstepper.moveTo(vsiFpmToSteps(value))`. **Unlike `IAS`,**
-     `FSUIPCWinformsAutoCS` sends this board **raw fpm** for `VSI`
-     specifically — its own front-panel/servo-controller payload still
-     carries the Bell 206 `VSI_Process()` servo-position number unchanged,
-     but builds a separate copy with the `VSI` field swapped to raw fpm
-     before sending to this board (see that project's `timerMain_Tick`
-     send block). `vsiFpmToSteps()` converts that raw fpm into a real step
-     target via `VSI_FPM_TABLE`, an 11-row hand-measured calibration table
-     (the same data as `Stepper-Tuning-Harness`'s `VSI_FT_TABLE` — that
-     harness's `f` command uses "ft" as informal shorthand for this
-     gauge's fpm units, not altitude), linearly interpolating between the
-     two nearest rows and clamping to whichever end is nearest for values
-     outside ±1750 fpm (never extrapolated). This bypasses `setVSI()`'s
-     separate `±VSIMaxSteps` clamp entirely — that clamp remains in use
-     only for the unrelated DCS-BIOS path (`onVviChange`).
-   - `RALT`, `EOT`, `XOT`, `XOP`, `EGT`, `TS`, `RS`, `FA`, `ET`, `GP`, `EOP`
-     *(new)* → raw step pass-through (`.moveTo(value)` directly, no
-     conversion) onto the 11 gauges ported from `Stepper-Tuning-Harness`
-     (see "New gauges ported from Stepper-Tuning-Harness" below). None of
-     these have a real calibration table yet. **`RALT` is not the same
-     code `FSUIPCWinformsAutoCS` sends for radar altitude** - that's
-     `AGL` (see below), which this board still doesn't read - so `RALT`
-     only ever fires from a manual test send (e.g.
-     `StepperVSITester`'s "Radar ALT" control), never from live flight
-     data, until one of the two is renamed to match the other.
-   - Every other code is currently parsed and silently ignored, including
-     `AGL` (radar altitude) — `FSUIPCWinformsAutoCS` sends it in every
-     stepper packet alongside `ALT`/`VSI`, and this board now *has* a
-     Radar Alt stepper (`RadarAltStepper`), but nothing wires `AGL` to it
-     yet - see the `RALT`/`AGL` naming mismatch just above.
+1. **Setup**: flashes status LEDs, brings up Ethernet (static IP,
+   10ms retransmission timeout - see build verification above), ramps
+   `BACK_LIGHTS`. Homes VSI (blind wind via `X27_FULLWIRE_*`, 3 swing
+   loops - see the macro-precedence caution above). `IASstepper`'s own
+   startup/swing exists but is disabled (`if (false)`, see the roster
+   table above). `ALT`/`Flaps`/`AOA`/`G-Force` startup blocks are all
+   commented out. Starts DCS-BIOS, sets running-brightness backlighting.
+2. **Main loop** (`loop()`): toggles status LEDs; `DcsBios::loop()` is
+   commented out (DCS-BIOS callbacks are registered but never pumped, so
+   none fire from a live serial link in this build); `updateSteppers()`
+   calls `.run()` on `VSIstepper`, `IASstepper`, `RadarAltStepper`, and
+   the 9 newer FULL4WIRE gauges (`ALTstepper` etc. excluded, since they
+   no longer exist); polls `MSFSudp` every `incomingcheckinterval` (5ms).
+3. **DCS-BIOS callbacks** (registered, not pumped): `onAirspeedNeedleChange`
+   (`A_10C_AIRSPEED_NEEDLE`, still uses the old `0-65535 → 0..DUAL_STEPS+80`
+   linear map, not `IAS_KT_TABLE` - that table is UDP-path only) and
+   `onVviChange` (`A_10C_VVI`, VSI). The `ALT`/`Flaps`/`AOA`/`G-Force`
+   DCS-BIOS bindings are commented out along with their steppers. Two
+   lighting callbacks drive `BACK_LIGHTS` PWM.
+4. **SARI** — see the roster table above; fully inactive.
+5. **UDP data receiver** (`ProcessReceivedMSFSString`/`HandleOutputValuePair`,
+   same `"D,CODE:value,CODE:value,..."` format as `JET_RANGER_SERVO_CONTROLLER`):
 
-## New gauges ported from Stepper-Tuning-Harness
+   | Code | Real value | Board behaviour |
+   |---|---|---|
+   | `IAS` | knots, 0-140 | `setIAS()` → `iasKtToSteps()` via **`IAS_KT_TABLE`**, a 9-row hand-measured calibration table (linear interpolation, same pattern as `VSI_FPM_TABLE`). The `0kt→0 step` row is an assumed zero reference, not directly measured - worth confirming on the bench. |
+   | `IASRAW` | raw steps | Bypasses the table, direct `.moveTo()` |
+   | `VSI` | fpm, ±1750 | `vsiFpmToSteps()` via `VSI_FPM_TABLE` (unchanged) |
+   | `VSIRAW` | raw steps | Bypasses the table |
+   | `AGL` | raw steps | No real calibration yet (renamed from `RALT` to match `JET_RANGER_SERVO_CONTROLLER`/FSUIPCWinformsAutoCS's actual code) |
+   | `OILT`/`XMSNT`/`ITT` | °C | `setEOT`/`setXOT`/`setEGT` via the shared placeholder linear scale (see the `FULL4WIRE_HOMING_STEPS` caution above) |
+   | `OILP`/`XMSNP` | PSI | `setEOP`/`setXOP`, same placeholder scale |
+   | `RPME`/`RPMR`/`N1` | %, 0-120/120/105 | `setTS`/`setRS`/`setGP`, same placeholder scale |
+   | `FUEL` | US gal, 0-75 | `setFA`, same placeholder scale |
+   | `OILTRAW`/`OILPRAW`/`XMSNTRAW`/`XMSNPRAW`/`ITTRAW`/`RPMERAW`/`RPMRRAW`/`N1RAW`/`FUELRAW` | raw steps | Each bypasses its real-value sibling's conversion |
+   | `TQ` | raw steps | Renamed from `ET`, no real calibration requested |
+   | `FLAPS`, `AOA`, `GFORCE`, `SPDMAX` | — | **Removed.** These were added earlier to give `FlapsStepper`/`AOAstepper`/`GForcestepper`/`SpeedMaxstepper` UDP reachability; now that those steppers are gone, their `HandleOutputValuePair` cases are gone too. `StepperVSITester`'s dropdown still lists these codes — sending them is currently a silent no-op on the board. |
 
-Eleven more `AccelStepper` objects were added, all `FULL4WIRE`
-direct-drive, matching `Stepper-Tuning-Harness`'s pin assignments exactly
-(see that sketch's own summary for the full history of how it arrived at
-these pins): `RadarAltStepper`, `EOTstepper`, `XOTstepper`, `XOPstepper`,
-`EGTstepper`, `TSstepper`, `RSstepper`, `FAstepper`, `ETstepper`,
-`GPstepper`, `EOPstepper`. `RadarAltStepper`'s coil argument order (C, D,
-A, B rather than A, B, C, D) is carried over as-is from the harness,
-since that's whatever direction that sketch found to work on the bench.
-
-Added as bare declarations only:
-- Each gets `setMaxSpeed`/`setAcceleration` in `setup()` (same
-  `STEPPER_MAX_SPEED`/`STEPPER_ACCELERATION` as every other stepper here)
-  and a `.run()` call in `updateSteppers()`, so they're mechanically live.
-- **No homing or startup routine** was added for any of them - unlike
-  VSI/ALT/SpeedMax's elaborate wind-to-stop-and-sweep sequences in
-  `setup()`, none of these 11 have a bench-confirmed end stop, direction,
-  or zero reference yet.
-- **No DCS-BIOS binding** exists for any of them - they're reachable only
-  via the raw UDP test codes listed in the UDP data receiver section
-  above.
-
-`Current Airspeed` (`SpeedCurrentstepper`) and `VSI` already existed in
-this sketch under those names before this change, with different
-pins/interfaces than `Stepper-Tuning-Harness`'s rewired versions of the
-same two gauges (that harness moved both to `FULL4WIRE` on different
-pins - see its own summary) - this sketch's existing `SpeedCurrentstepper`
-(`DRIVER`, pins 34/36) and `VSIstepper` (`FULL4WIRE`, `COIL_VSI_A..D` =
-2/3/4/5) were **left untouched**, not resynced to the harness's newer
-wiring.
-
-> **Pin collisions (not resolved):** this sketch was never cleaned up the
-> way `Stepper-Tuning-Harness` was (`ALTstepper`, `SpeedMaxstepper`,
-> `FlapsStepper`, `AOAstepper`, `GForcestepper`, and
-> `AllstepperEnablePin` are all still active here), so several of the 11
-> new gauges' pins collide with them:
->
-> | New gauge | Conflicting pin(s) | Collides with |
-> |---|---|---|
-> | Radar Alt | 34 | `SpeedCurrentstepPin` |
-> | EOT | 48, 54 (A0), 56 (A2) | `FlapsDirectionPin`, `ALTzeroSensePin`, `AllstepperEnablePin` |
-> | TS | 24, 26 | `AOAstepPin`, `GForcestepPin` |
-> | RS | 28 | `GForcedirectionPin` |
-> | FA | 2, 3, 4 | `COIL_VSI_A`/`COIL_VSI_B`/`COIL_VSI_C` |
-> | ET | 36, 38 | `SpeedCurrentdirectionPin`, `SpeedMaxstepPin` |
-> | GP | 40, 42 | `SpeedMaxdirectionPin`, `ALTstepPin` |
-> | EOP | 44, 46 | `ALTdirectionPin`, `FlapsStepPin` |
->
-> XOT, XOP, and EGT (all on A3-A14) are the only new gauges clear of
-> every other pin in this sketch. None of this blocks compilation - it's
-> a real-hardware wiring conflict, only relevant once both sides of a
-> collision are physically wired at once.
+   Codes matching `JET_RANGER_SERVO_CONTROLLER.ino`'s naming
+   (`OILT`/`OILP`/`XMSNT`/`XMSNP`/`ITT`/`RPME`/`RPMR`/`N1`/`FUEL`/`TQ`/`AGL`)
+   are deliberate — see each case's in-code comment for the exact
+   quantity match, and `IAS`'s comment for the one case (Bell 206
+   servo-position number vs. real knots) where the two boards' same code
+   name means different units.
 
 ## Pin usage (JET_RANGER_STEPPER_CONTROLLER.ino)
 
 | Pin(s) | Function |
 |---|---|
-| 12 | Red status LED |
-| 13 | Green status LED |
+| 14 | Green status LED (moved from 13, matching `Stepper-Tuning-Harness`) |
+| 15 | Red status LED (moved from 12) |
 | 53 | W5500 Ethernet shield manual reset |
 | 8 | Backlighting PWM output (`BACK_LIGHTS`) |
 | 9 | SARI pitch servo (`DcsBios::ServoOutput saiPitch`) |
-| 22, 24 | AOA stepper step/direction |
-| 26, 28 | G-Force stepper step/direction |
-| 30, 32 | SARI roll stepper step/direction |
-| 34, 36 | Current-airspeed stepper step/direction |
-| 38, 40 | Max-airspeed stepper step/direction |
-| 42, 44 | Altimeter stepper step/direction |
-| 46, 48 | Flaps stepper step/direction (`FlapsStepPin`/`FlapsDirectionPin`) — was VSI's pins before the VSI/Flaps hardware swap above |
-| 54 | Altimeter zero-sense homing switch input (`ALTzeroSensePin`) |
-| 55 | SARI roll IR zero-detector input |
-| 56 | Shared stepper-driver enable pin (`AllstepperEnablePin`/`SARIenablePin`) |
-| 2, 3, 4, 5 | VSI 4-wire stepper coils (`COIL_VSI_A..D`) — was Flaps' pins before the VSI/Flaps hardware swap above |
-| Serial (USB) | DCS-BIOS `DCSBIOS_IRQ_SERIAL` link — the data source for every stepper/servo target |
-| 32, 33, 34, 35 | Radar Alt 4-wire stepper coils (`RADAR_ALT_COIL_A..D`) — 34 collides with `SpeedCurrentstepPin` above |
-| 48, A0, A1, A2 (54/55/56) | EOT 4-wire stepper coils (`EOT_COIL_A..D`) — 48/54/56 collide with `FlapsDirectionPin`/`ALTzeroSensePin`/`AllstepperEnablePin` above |
-| A3, A4, A5, A6 (57-60) | XOT 4-wire stepper coils (`XOT_COIL_A..D`) — no collisions |
-| A7, A8, A9, A10 (61-64) | XOP 4-wire stepper coils (`XOP_COIL_A..D`) — no collisions |
-| A11, A12, A13, A14 (65-68) | EGT 4-wire stepper coils (`EGT_COIL_A..D`) — no collisions |
-| 24, 25, 26, 27 | TS 4-wire stepper coils (`TS_COIL_A..D`) — 24/26 collide with `AOAstepPin`/`GForcestepPin` above |
-| 28, 29, 30, 31 | RS 4-wire stepper coils (`RS_COIL_A..D`) — 28 collides with `GForcedirectionPin` above |
-| 2, 3, 4, 6 | FA 4-wire stepper coils (`FA_COIL_A..D`) — 2/3/4 collide with `COIL_VSI_A..C` above |
-| 36, 37, 38, 39 | ET 4-wire stepper coils (`ET_COIL_A..D`) — 36/38 collide with `SpeedCurrentdirectionPin`/`SpeedMaxstepPin` above |
-| 40, 41, 42, 43 | GP 4-wire stepper coils (`GP_COIL_A..D`) — 40/42 collide with `SpeedMaxdirectionPin`/`ALTstepPin` above |
-| 44, 45, 46, 47 | EOP 4-wire stepper coils (`EOP_COIL_A..D`) — 44/46 collide with `ALTdirectionPin`/`FlapsStepPin` above |
+| 30, 32 | SARI roll stepper step/direction — collides with `RS_COIL_C`/`RADAR_ALT_COIL_A` below |
+| 56 | Shared stepper-driver enable pin (`AllstepperEnablePin`) — `pinMode` commented out, see caution above; collides with `EOT_COIL_D` below |
+| 7, 8, 9, 11 | VSI 4-wire stepper coils (`COIL_VSI_A..D`) |
+| 12, 13, 22, 23 | IAS (Current Airspeed) 4-wire stepper coils (`STEPPER_SPD_A..D`) |
+| 32, 33, 34, 35 | Radar Alt 4-wire stepper coils (`RADAR_ALT_COIL_A..D`) — 32 collides with `SARIdirectionPin` |
+| 48, A0, A1, A2 (54/55/56) | EOT 4-wire stepper coils (`EOT_COIL_A..D`) — A2/56 collides with `AllstepperEnablePin` |
+| A3, A4, A5, A6 (57-60) | XOT 4-wire stepper coils |
+| A7, A8, A9, A10 (61-64) | XOP 4-wire stepper coils |
+| A11, A12, A13, A14 (65-68) | EGT 4-wire stepper coils |
+| 24, 25, 26, 27 | TS 4-wire stepper coils |
+| 28, 29, 30, 31 | RS 4-wire stepper coils — 30 collides with `SARIstepPin` |
+| 2, 3, 4, 6 | FA 4-wire stepper coils |
+| 36, 37, 38, 39 | ET 4-wire stepper coils |
+| 40, 41, 42, 43 | GP 4-wire stepper coils |
+| 44, 45, 46, 47 | EOP 4-wire stepper coils |
+| 46, 48 | `FlapsStepPin`/`FlapsDirectionPin` — orphaned defines, no stepper reads them any more |
+| Serial (USB) | DCS-BIOS `DCSBIOS_IRQ_SERIAL` link (registered, not pumped — see program flow above) |
 
 ## Local network configuration (JET_RANGER_STEPPER_CONTROLLER.ino)
 
 | Setting | Value |
 |---|---|
 | Static IP | `172.16.1.105` |
-| MAC | `A8:61:0A:67:83:69` (string label `sMac` says `A8:61:0A:67:83:03`, which doesn't match the actual `mac[]` byte array — same kind of label/byte mismatch seen in other Jet Ranger sketches) |
-| Local port `localport`/`keyboardport` | 7788 (bound; also reused as `keyboardport`, though nothing in this sketch sends keyboard commands) |
-| Local port `localdebugport` | 7795 (declared, not bound in this sketch) |
-| Local port `MSFSport` | **13136** (listens for `D,IAS:...,ALT:...` front-panel data packets). Changed from an unused `7791` to match `JET_RANGER_SERVO_CONTROLLER`'s port exactly, so the same PC bridge apps could feed both boards. |
+| MAC | `A8:61:0A:67:83:69` (string label `sMac` still says `A8:61:0A:67:83:03`, a pre-existing mismatch) |
+| Local port `localport`/`keyboardport` | 7788 |
+| Local port `localdebugport` | 7795 (declared, not bound) |
+| Local port `MSFSport` | 13136 |
 
 ## Remote endpoints this sketch talks to
 
 | Target | Port | Purpose |
 |---|---|---|
-| `172.16.1.10` (reflector host) | 27000 | Debug/log messages — extensive step-by-step homing/self-test progress logging via `SendDebug()` |
-| `172.16.1.110` (`targetIP`, "Arduino Due for Keystroke translation and Pixel Led driving") | 7788 / 7789 | `SendIPString()`/`SendLedString()` helper functions exist for this, but neither is called anywhere in this sketch — dead code carried over from the input-controller sketches |
-| `172.16.1.10` (`MSFSIP`) | 7791 | `SendMSFSMessage()` helper exists but is never called in this sketch — also dead code (unrelated to the new `MSFSport` UDP *receiver*, which is inbound-only and doesn't use `MSFSIP`) |
+| `172.16.1.10` (reflector host) | 27000 | Debug/log messages via `SendDebug()` |
+| `172.16.1.110` (`targetIP`) | 7788 / 7789 | `SendIPString()`/`SendLedString()` — declared, no callers |
+| `172.16.1.10` (`MSFSIP`) | 7791 | `SendMSFSMessage()` — declared, no callers |
 
-> **[FSUIPCWinformsAutoCS](../../%20C%23%20Code/FSUIPCWinformsAutoCS/PROGRAM_SUMMARY.md)**
-> sends to `172.16.1.105:13136` (a `stepperClient`, with its own minimal
-> payload built fresh each tick — no longer derived from the shared
-> front-panel payload) — `ALT`, `VSI` (raw fpm), and `AGL` (radar
-> altitude). This board reads `ALT`/`VSI` out of it and ignores `AGL` (no
-> gauge for it yet — see above) and everything else. `IAS` was dropped
-> from this payload earlier and isn't coming back — see the dead-code note
-> above. The other sim-bridge apps (`P3D_to_UDP` / `SimConnect_to_UDP` /
-> `MSFSSimConnectExtractor`) have **not** been updated to send anything to
-> this board, so it only receives UDP data when `FSUIPCWinformsAutoCS`
-> specifically is the bridge app running.
->
-> **Known hardware limitation — ALT needle reversal (diagnosed, root
-> cause found):** on real hardware, `ALTstepper`'s needle was observed
-> moving clockwise-only when driven by live, frequent, small-increment
-> altitude updates from `FSUIPCWinformsAutoCS`, while moving correctly in
-> both directions when driven by large, deliberate jumps from
-> `StepperVSITester`/manual testing. VSI was suspected and ruled out (the
-> reversal persisted with VSI entirely removed from the stepper payload).
-> Root cause: **the stepper driver electronics don't reliably move the
-> needle backwards for very small step deltas** — live FSUIPC altitude
-> readings are noisy (±1-2 ft of jitter even at a steady altitude), and at
-> `onAltMslFtChange()`'s `5.76` steps/foot that's only a handful of steps
-> per update, apparently below whatever threshold this driver needs to
-> reverse direction reliably. This is a hardware/driver characteristic,
-> not a bug in this sketch's or the C# bridge's logic — worth checking for
-> the same symptom on any other stepper here that receives frequent,
-> fine-grained updates (VSI's `VSI_FPM_TABLE` conversion can also produce
-> small deltas for small fpm changes, though no reversal has been reported
-> there yet).
->
 > **[StepperVSITester](../../%20C%23%20Code/StepperVSITester/PROGRAM_SUMMARY.md)**
-> can also send `"D,VSI:<fpm>"` and `"D,ALT:<feet>"` straight to this
-> board's `172.16.1.105:13136` for testing/tuning VSI or ALT in isolation,
-> without needing FSUIPC or a flight sim running — meant to be run
-> *instead of* `FSUIPCWinformsAutoCS` while doing that, not alongside it.
-
-> All three of the `SendIPMessage`/`SendMSFSMessage`/`SendIPString`/
-> `SendLedString` helper functions are copy-pasted from the button-matrix
-> input-controller sketches (see below) but have no callers here, since
-> this sketch has no button matrix of its own — it only drives steppers
-> and a servo from DCS-BIOS.
+> can send every real-unit and `*RAW` code above straight to this board's
+> `172.16.1.105:13136` for bench testing without needing FSUIPC or a
+> flight sim running.
 
 ---
 

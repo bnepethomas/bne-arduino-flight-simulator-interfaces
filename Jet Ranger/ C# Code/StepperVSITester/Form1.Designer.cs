@@ -66,6 +66,8 @@ namespace StepperVSITester
             txtNewGaugeSteps = new TextBox();
             butNewGaugeSend = new Button();
             butNewGaugeZero = new Button();
+            butNewGaugeStepBack = new Button();
+            butNewGaugeStepFwd = new Button();
             lblEgtHeader = new Label();
             trkEgt = new TrackBar();
             lblEgtValue = new Label();
@@ -87,12 +89,6 @@ namespace StepperVSITester
             lblXopRow = new Label();
             txtXop = new TextBox();
             butSendXop = new Button();
-            lblTsRow = new Label();
-            txtTs = new TextBox();
-            butSendTs = new Button();
-            lblRsRow = new Label();
-            txtRs = new TextBox();
-            butSendRs = new Button();
             lblGpRow = new Label();
             txtGp = new TextBox();
             butSendGp = new Button();
@@ -107,11 +103,29 @@ namespace StepperVSITester
             txtIasInput = new TextBox();
             butSendIas = new Button();
             butIasZero = new Button();
+            lblRpmeHeader = new Label();
+            trkRpme = new TrackBar();
+            lblRpmeValue = new Label();
+            lblRpmeMin = new Label();
+            lblRpmeMax = new Label();
+            txtRpmeInput = new TextBox();
+            butSendRpme = new Button();
+            butRpmeZero = new Button();
+            lblRpmrHeader = new Label();
+            trkRpmr = new TrackBar();
+            lblRpmrValue = new Label();
+            lblRpmrMin = new Label();
+            lblRpmrMax = new Label();
+            txtRpmrInput = new TextBox();
+            butSendRpmr = new Button();
+            butRpmrZero = new Button();
             ((System.ComponentModel.ISupportInitialize)trkVsi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkEgt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkIas).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trkRpme).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trkRpmr).BeginInit();
             SuspendLayout();
             //
             // lblTarget
@@ -438,7 +452,7 @@ namespace StepperVSITester
             // cboNewGauge
             //
             cboNewGauge.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboNewGauge.Items.AddRange(new object[] { "TQ", "FLAPS", "AOA", "GFORCE", "SPDMAX", "IASRAW", "ALTRAW", "VSIRAW", "OILTRAW", "OILPRAW", "XMSNTRAW", "XMSNPRAW", "ITTRAW", "RPMERAW", "RPMRRAW", "N1RAW", "FUELRAW" });
+            cboNewGauge.Items.AddRange(new object[] { "AGLRAW", "TQ", "FLAPS", "AOA", "GFORCE", "SPDMAX", "IASRAW", "ALTRAW", "VSIRAW", "OILTRAW", "OILPRAW", "XMSNTRAW", "XMSNPRAW", "ITTRAW", "RPMERAW", "RPMRRAW", "N1RAW", "FUELRAW" });
             cboNewGauge.Location = new Point(12, 675);
             cboNewGauge.Name = "cboNewGauge";
             cboNewGauge.Size = new Size(100, 23);
@@ -481,6 +495,26 @@ namespace StepperVSITester
             butNewGaugeZero.Text = "Zero";
             butNewGaugeZero.UseVisualStyleBackColor = true;
             butNewGaugeZero.Click += butNewGaugeZero_Click;
+            //
+            // butNewGaugeStepBack
+            //
+            butNewGaugeStepBack.Location = new Point(420, 674);
+            butNewGaugeStepBack.Name = "butNewGaugeStepBack";
+            butNewGaugeStepBack.Size = new Size(85, 25);
+            butNewGaugeStepBack.TabIndex = 79;
+            butNewGaugeStepBack.Text = "-1 Step";
+            butNewGaugeStepBack.UseVisualStyleBackColor = true;
+            butNewGaugeStepBack.Click += butNewGaugeStepBack_Click;
+            //
+            // butNewGaugeStepFwd
+            //
+            butNewGaugeStepFwd.Location = new Point(511, 674);
+            butNewGaugeStepFwd.Name = "butNewGaugeStepFwd";
+            butNewGaugeStepFwd.Size = new Size(85, 25);
+            butNewGaugeStepFwd.TabIndex = 80;
+            butNewGaugeStepFwd.Text = "+1 Step";
+            butNewGaugeStepFwd.UseVisualStyleBackColor = true;
+            butNewGaugeStepFwd.Click += butNewGaugeStepFwd_Click;
             //
             // lblEgtHeader
             //
@@ -683,66 +717,10 @@ namespace StepperVSITester
             butSendXop.UseVisualStyleBackColor = true;
             butSendXop.Click += butSendXop_Click;
             //
-            // lblTsRow
-            //
-            lblTsRow.AutoSize = true;
-            lblTsRow.Location = new Point(12, 1088);
-            lblTsRow.Name = "lblTsRow";
-            lblTsRow.Size = new Size(200, 15);
-            lblTsRow.TabIndex = 59;
-            lblTsRow.Text = "RPME - Turbine/Engine Speed (%, 0-120):";
-            //
-            // txtTs
-            //
-            txtTs.Location = new Point(220, 1084);
-            txtTs.Name = "txtTs";
-            txtTs.Size = new Size(80, 23);
-            txtTs.TabIndex = 60;
-            txtTs.Text = "0";
-            txtTs.KeyDown += txtTs_KeyDown;
-            //
-            // butSendTs
-            //
-            butSendTs.Location = new Point(306, 1083);
-            butSendTs.Name = "butSendTs";
-            butSendTs.Size = new Size(70, 25);
-            butSendTs.TabIndex = 61;
-            butSendTs.Text = "Send";
-            butSendTs.UseVisualStyleBackColor = true;
-            butSendTs.Click += butSendTs_Click;
-            //
-            // lblRsRow
-            //
-            lblRsRow.AutoSize = true;
-            lblRsRow.Location = new Point(12, 1122);
-            lblRsRow.Name = "lblRsRow";
-            lblRsRow.Size = new Size(200, 15);
-            lblRsRow.TabIndex = 62;
-            lblRsRow.Text = "RPMR - Rotor Speed (%, 0-120):";
-            //
-            // txtRs
-            //
-            txtRs.Location = new Point(220, 1118);
-            txtRs.Name = "txtRs";
-            txtRs.Size = new Size(80, 23);
-            txtRs.TabIndex = 63;
-            txtRs.Text = "0";
-            txtRs.KeyDown += txtRs_KeyDown;
-            //
-            // butSendRs
-            //
-            butSendRs.Location = new Point(306, 1117);
-            butSendRs.Name = "butSendRs";
-            butSendRs.Size = new Size(70, 25);
-            butSendRs.TabIndex = 64;
-            butSendRs.Text = "Send";
-            butSendRs.UseVisualStyleBackColor = true;
-            butSendRs.Click += butSendRs_Click;
-            //
             // lblGpRow
             //
             lblGpRow.AutoSize = true;
-            lblGpRow.Location = new Point(12, 1156);
+            lblGpRow.Location = new Point(12, 1088);
             lblGpRow.Name = "lblGpRow";
             lblGpRow.Size = new Size(200, 15);
             lblGpRow.TabIndex = 65;
@@ -750,7 +728,7 @@ namespace StepperVSITester
             //
             // txtGp
             //
-            txtGp.Location = new Point(220, 1152);
+            txtGp.Location = new Point(220, 1084);
             txtGp.Name = "txtGp";
             txtGp.Size = new Size(80, 23);
             txtGp.TabIndex = 66;
@@ -759,7 +737,7 @@ namespace StepperVSITester
             //
             // butSendGp
             //
-            butSendGp.Location = new Point(306, 1151);
+            butSendGp.Location = new Point(306, 1083);
             butSendGp.Name = "butSendGp";
             butSendGp.Size = new Size(70, 25);
             butSendGp.TabIndex = 67;
@@ -770,7 +748,7 @@ namespace StepperVSITester
             // lblFaRow
             //
             lblFaRow.AutoSize = true;
-            lblFaRow.Location = new Point(12, 1190);
+            lblFaRow.Location = new Point(12, 1122);
             lblFaRow.Name = "lblFaRow";
             lblFaRow.Size = new Size(200, 15);
             lblFaRow.TabIndex = 68;
@@ -778,7 +756,7 @@ namespace StepperVSITester
             //
             // txtFa
             //
-            txtFa.Location = new Point(220, 1186);
+            txtFa.Location = new Point(220, 1118);
             txtFa.Name = "txtFa";
             txtFa.Size = new Size(80, 23);
             txtFa.TabIndex = 69;
@@ -787,7 +765,7 @@ namespace StepperVSITester
             //
             // butSendFa
             //
-            butSendFa.Location = new Point(306, 1185);
+            butSendFa.Location = new Point(306, 1117);
             butSendFa.Name = "butSendFa";
             butSendFa.Size = new Size(70, 25);
             butSendFa.TabIndex = 70;
@@ -799,7 +777,7 @@ namespace StepperVSITester
             //
             lblIasHeader.AutoSize = true;
             lblIasHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblIasHeader.Location = new Point(12, 1247);
+            lblIasHeader.Location = new Point(12, 1179);
             lblIasHeader.Name = "lblIasHeader";
             lblIasHeader.Size = new Size(120, 15);
             lblIasHeader.TabIndex = 71;
@@ -808,7 +786,7 @@ namespace StepperVSITester
             // trkIas
             //
             trkIas.LargeChange = 20;
-            trkIas.Location = new Point(12, 1293);
+            trkIas.Location = new Point(12, 1225);
             trkIas.Maximum = 140;
             trkIas.Minimum = 0;
             trkIas.Name = "trkIas";
@@ -821,7 +799,7 @@ namespace StepperVSITester
             // lblIasValue
             //
             lblIasValue.AutoSize = true;
-            lblIasValue.Location = new Point(12, 1268);
+            lblIasValue.Location = new Point(12, 1200);
             lblIasValue.Name = "lblIasValue";
             lblIasValue.Size = new Size(80, 15);
             lblIasValue.TabIndex = 72;
@@ -830,7 +808,7 @@ namespace StepperVSITester
             // lblIasMin
             //
             lblIasMin.AutoSize = true;
-            lblIasMin.Location = new Point(12, 1341);
+            lblIasMin.Location = new Point(12, 1273);
             lblIasMin.Name = "lblIasMin";
             lblIasMin.Size = new Size(13, 15);
             lblIasMin.TabIndex = 74;
@@ -839,7 +817,7 @@ namespace StepperVSITester
             // lblIasMax
             //
             lblIasMax.AutoSize = true;
-            lblIasMax.Location = new Point(357, 1341);
+            lblIasMax.Location = new Point(357, 1273);
             lblIasMax.Name = "lblIasMax";
             lblIasMax.Size = new Size(24, 15);
             lblIasMax.TabIndex = 75;
@@ -847,7 +825,7 @@ namespace StepperVSITester
             //
             // txtIasInput
             //
-            txtIasInput.Location = new Point(12, 1373);
+            txtIasInput.Location = new Point(12, 1305);
             txtIasInput.Name = "txtIasInput";
             txtIasInput.Size = new Size(100, 23);
             txtIasInput.TabIndex = 76;
@@ -856,7 +834,7 @@ namespace StepperVSITester
             //
             // butSendIas
             //
-            butSendIas.Location = new Point(118, 1372);
+            butSendIas.Location = new Point(118, 1304);
             butSendIas.Name = "butSendIas";
             butSendIas.Size = new Size(92, 25);
             butSendIas.TabIndex = 77;
@@ -866,7 +844,7 @@ namespace StepperVSITester
             //
             // butIasZero
             //
-            butIasZero.Location = new Point(216, 1372);
+            butIasZero.Location = new Point(216, 1304);
             butIasZero.Name = "butIasZero";
             butIasZero.Size = new Size(92, 25);
             butIasZero.TabIndex = 78;
@@ -874,13 +852,189 @@ namespace StepperVSITester
             butIasZero.UseVisualStyleBackColor = true;
             butIasZero.Click += butIasZero_Click;
             //
+            // lblRpmeHeader
+            //
+            lblRpmeHeader.AutoSize = true;
+            lblRpmeHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblRpmeHeader.Location = new Point(12, 1345);
+            lblRpmeHeader.Name = "lblRpmeHeader";
+            lblRpmeHeader.Size = new Size(230, 15);
+            lblRpmeHeader.TabIndex = 79;
+            lblRpmeHeader.Text = "RPME - Turbine/Engine Speed (%)";
+            //
+            // trkRpme
+            //
+            trkRpme.LargeChange = 20;
+            trkRpme.Location = new Point(12, 1391);
+            trkRpme.Maximum = 117;
+            trkRpme.Minimum = 0;
+            trkRpme.Name = "trkRpme";
+            trkRpme.Size = new Size(400, 45);
+            trkRpme.SmallChange = 5;
+            trkRpme.TabIndex = 81;
+            trkRpme.TickFrequency = 20;
+            trkRpme.Scroll += trkRpme_Scroll;
+            //
+            // lblRpmeValue
+            //
+            lblRpmeValue.AutoSize = true;
+            lblRpmeValue.Location = new Point(12, 1366);
+            lblRpmeValue.Name = "lblRpmeValue";
+            lblRpmeValue.Size = new Size(60, 15);
+            lblRpmeValue.TabIndex = 80;
+            lblRpmeValue.Text = "Value: 0 %";
+            //
+            // lblRpmeMin
+            //
+            lblRpmeMin.AutoSize = true;
+            lblRpmeMin.Location = new Point(12, 1439);
+            lblRpmeMin.Name = "lblRpmeMin";
+            lblRpmeMin.Size = new Size(13, 15);
+            lblRpmeMin.TabIndex = 82;
+            lblRpmeMin.Text = "0";
+            //
+            // lblRpmeMax
+            //
+            lblRpmeMax.AutoSize = true;
+            lblRpmeMax.Location = new Point(357, 1439);
+            lblRpmeMax.Name = "lblRpmeMax";
+            lblRpmeMax.Size = new Size(24, 15);
+            lblRpmeMax.TabIndex = 83;
+            lblRpmeMax.Text = "117";
+            //
+            // txtRpmeInput
+            //
+            txtRpmeInput.Location = new Point(12, 1471);
+            txtRpmeInput.Name = "txtRpmeInput";
+            txtRpmeInput.Size = new Size(100, 23);
+            txtRpmeInput.TabIndex = 84;
+            txtRpmeInput.Text = "0";
+            txtRpmeInput.KeyDown += txtRpmeInput_KeyDown;
+            //
+            // butSendRpme
+            //
+            butSendRpme.Location = new Point(118, 1470);
+            butSendRpme.Name = "butSendRpme";
+            butSendRpme.Size = new Size(92, 25);
+            butSendRpme.TabIndex = 85;
+            butSendRpme.Text = "Send";
+            butSendRpme.UseVisualStyleBackColor = true;
+            butSendRpme.Click += butSendRpme_Click;
+            //
+            // butRpmeZero
+            //
+            butRpmeZero.Location = new Point(216, 1470);
+            butRpmeZero.Name = "butRpmeZero";
+            butRpmeZero.Size = new Size(92, 25);
+            butRpmeZero.TabIndex = 86;
+            butRpmeZero.Text = "Zero";
+            butRpmeZero.UseVisualStyleBackColor = true;
+            butRpmeZero.Click += butRpmeZero_Click;
+            //
+            // lblRpmrHeader
+            //
+            lblRpmrHeader.AutoSize = true;
+            lblRpmrHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblRpmrHeader.Location = new Point(12, 1511);
+            lblRpmrHeader.Name = "lblRpmrHeader";
+            lblRpmrHeader.Size = new Size(150, 15);
+            lblRpmrHeader.TabIndex = 87;
+            lblRpmrHeader.Text = "RPMR - Rotor Speed (%)";
+            //
+            // trkRpmr
+            //
+            trkRpmr.LargeChange = 20;
+            trkRpmr.Location = new Point(12, 1557);
+            trkRpmr.Maximum = 117;
+            trkRpmr.Minimum = 0;
+            trkRpmr.Name = "trkRpmr";
+            trkRpmr.Size = new Size(400, 45);
+            trkRpmr.SmallChange = 5;
+            trkRpmr.TabIndex = 89;
+            trkRpmr.TickFrequency = 20;
+            trkRpmr.Scroll += trkRpmr_Scroll;
+            //
+            // lblRpmrValue
+            //
+            lblRpmrValue.AutoSize = true;
+            lblRpmrValue.Location = new Point(12, 1532);
+            lblRpmrValue.Name = "lblRpmrValue";
+            lblRpmrValue.Size = new Size(60, 15);
+            lblRpmrValue.TabIndex = 88;
+            lblRpmrValue.Text = "Value: 0 %";
+            //
+            // lblRpmrMin
+            //
+            lblRpmrMin.AutoSize = true;
+            lblRpmrMin.Location = new Point(12, 1605);
+            lblRpmrMin.Name = "lblRpmrMin";
+            lblRpmrMin.Size = new Size(13, 15);
+            lblRpmrMin.TabIndex = 90;
+            lblRpmrMin.Text = "0";
+            //
+            // lblRpmrMax
+            //
+            lblRpmrMax.AutoSize = true;
+            lblRpmrMax.Location = new Point(357, 1605);
+            lblRpmrMax.Name = "lblRpmrMax";
+            lblRpmrMax.Size = new Size(24, 15);
+            lblRpmrMax.TabIndex = 91;
+            lblRpmrMax.Text = "117";
+            //
+            // txtRpmrInput
+            //
+            txtRpmrInput.Location = new Point(12, 1637);
+            txtRpmrInput.Name = "txtRpmrInput";
+            txtRpmrInput.Size = new Size(100, 23);
+            txtRpmrInput.TabIndex = 92;
+            txtRpmrInput.Text = "0";
+            txtRpmrInput.KeyDown += txtRpmrInput_KeyDown;
+            //
+            // butSendRpmr
+            //
+            butSendRpmr.Location = new Point(118, 1636);
+            butSendRpmr.Name = "butSendRpmr";
+            butSendRpmr.Size = new Size(92, 25);
+            butSendRpmr.TabIndex = 93;
+            butSendRpmr.Text = "Send";
+            butSendRpmr.UseVisualStyleBackColor = true;
+            butSendRpmr.Click += butSendRpmr_Click;
+            //
+            // butRpmrZero
+            //
+            butRpmrZero.Location = new Point(216, 1636);
+            butRpmrZero.Name = "butRpmrZero";
+            butRpmrZero.Size = new Size(92, 25);
+            butRpmrZero.TabIndex = 94;
+            butRpmrZero.Text = "Zero";
+            butRpmrZero.UseVisualStyleBackColor = true;
+            butRpmrZero.Click += butRpmrZero_Click;
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            AutoScrollMinSize = new Size(424, 1418);
-            ClientSize = new Size(444, 760);
+            AutoScrollMinSize = new Size(610, 1680);
+            ClientSize = new Size(630, 760);
+            Controls.Add(butNewGaugeStepFwd);
+            Controls.Add(butNewGaugeStepBack);
+            Controls.Add(butRpmrZero);
+            Controls.Add(butSendRpmr);
+            Controls.Add(txtRpmrInput);
+            Controls.Add(lblRpmrMax);
+            Controls.Add(lblRpmrMin);
+            Controls.Add(trkRpmr);
+            Controls.Add(lblRpmrValue);
+            Controls.Add(lblRpmrHeader);
+            Controls.Add(butRpmeZero);
+            Controls.Add(butSendRpme);
+            Controls.Add(txtRpmeInput);
+            Controls.Add(lblRpmeMax);
+            Controls.Add(lblRpmeMin);
+            Controls.Add(trkRpme);
+            Controls.Add(lblRpmeValue);
+            Controls.Add(lblRpmeHeader);
             Controls.Add(butIasZero);
             Controls.Add(butSendIas);
             Controls.Add(txtIasInput);
@@ -895,12 +1049,6 @@ namespace StepperVSITester
             Controls.Add(butSendGp);
             Controls.Add(txtGp);
             Controls.Add(lblGpRow);
-            Controls.Add(butSendRs);
-            Controls.Add(txtRs);
-            Controls.Add(lblRsRow);
-            Controls.Add(butSendTs);
-            Controls.Add(txtTs);
-            Controls.Add(lblTsRow);
             Controls.Add(butSendXop);
             Controls.Add(txtXop);
             Controls.Add(lblXopRow);
@@ -967,6 +1115,8 @@ namespace StepperVSITester
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).EndInit();
             ((System.ComponentModel.ISupportInitialize)trkEgt).EndInit();
             ((System.ComponentModel.ISupportInitialize)trkIas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trkRpme).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trkRpmr).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1011,6 +1161,8 @@ namespace StepperVSITester
         private TextBox txtNewGaugeSteps;
         private Button butNewGaugeSend;
         private Button butNewGaugeZero;
+        private Button butNewGaugeStepBack;
+        private Button butNewGaugeStepFwd;
         private Label lblEgtHeader;
         private TrackBar trkEgt;
         private Label lblEgtValue;
@@ -1032,12 +1184,6 @@ namespace StepperVSITester
         private Label lblXopRow;
         private TextBox txtXop;
         private Button butSendXop;
-        private Label lblTsRow;
-        private TextBox txtTs;
-        private Button butSendTs;
-        private Label lblRsRow;
-        private TextBox txtRs;
-        private Button butSendRs;
         private Label lblGpRow;
         private TextBox txtGp;
         private Button butSendGp;
@@ -1052,5 +1198,21 @@ namespace StepperVSITester
         private TextBox txtIasInput;
         private Button butSendIas;
         private Button butIasZero;
+        private Label lblRpmeHeader;
+        private TrackBar trkRpme;
+        private Label lblRpmeValue;
+        private Label lblRpmeMin;
+        private Label lblRpmeMax;
+        private TextBox txtRpmeInput;
+        private Button butSendRpme;
+        private Button butRpmeZero;
+        private Label lblRpmrHeader;
+        private TrackBar trkRpmr;
+        private Label lblRpmrValue;
+        private Label lblRpmrMin;
+        private Label lblRpmrMax;
+        private TextBox txtRpmrInput;
+        private Button butSendRpmr;
+        private Button butRpmrZero;
     }
 }

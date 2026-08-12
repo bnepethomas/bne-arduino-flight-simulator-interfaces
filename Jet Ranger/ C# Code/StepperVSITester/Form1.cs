@@ -72,14 +72,20 @@ namespace StepperVSITester
             txtEop.Text = "0";
             txtXot.Text = "0";
             txtXop.Text = "0";
-            txtTs.Text = "0";
-            txtRs.Text = "0";
             txtGp.Text = "0";
             txtFa.Text = "0";
 
             trkIas.Value = 0;
             UpdateValueLabel(lblIasValue, 0, "kt");
             txtIasInput.Text = "0";
+
+            trkRpme.Value = 0;
+            UpdateValueLabel(lblRpmeValue, 0, "%");
+            txtRpmeInput.Text = "0";
+
+            trkRpmr.Value = 0;
+            UpdateValueLabel(lblRpmrValue, 0, "%");
+            txtRpmrInput.Text = "0";
         }
 
         private void trkVsi_Scroll(object sender, EventArgs e)
@@ -139,11 +145,17 @@ namespace StepperVSITester
         }
 
         // Radar Altimeter test frame: sends feet, converted to steps on the
-        // board's side by RADAR_ALT_FT_TABLE/radarAltFtToSteps() (see the
-        // "AGL" case in Jet_Ranger_Driver_Test.ino's
-        // HandleOutputValuePair()) - same pattern as ALT above, now that
-        // this gauge's real 0/500/2500 ft calibration is known. Wire code
-        // renamed from "RALT" to "AGL" to match both
+        // board's side - same pattern as ALT above. Both sketches now treat
+        // "AGL" as calibrated feet (previously only Jet_Ranger_Driver_Test.ino
+        // did; JET_RANGER_STEPPER_CONTROLLER.ino was raw steps until its own
+        // AGL_FT_TABLE was added), so this slider produces real feet
+        // regardless of which sketch is flashed - but the two sketches use
+        // separate, differently-measured tables (RADAR_ALT_FT_TABLE vs
+        // AGL_FT_TABLE), so the same typed feet value may land the needle
+        // at a different physical position depending on which is on the
+        // board. Raw-step testing for this gauge now goes through the
+        // "AGLRAW" entry in the Raw Step Test dropdown instead of this
+        // control. Wire code renamed from "RALT" to "AGL" to match both
         // JET_RANGER_STEPPER_CONTROLLER.ino and JET_RANGER_SERVO_CONTROLLER.ino
         // (and what FSUIPCWinformsAutoCS actually sends) - control names
         // here are unchanged.
@@ -228,16 +240,21 @@ namespace StepperVSITester
         // Two groups of codes live in this one dropdown:
         //  - TQ/FLAPS/AOA/GFORCE/SPDMAX: gauges with no real calibration at all yet,
         //    so raw steps is their only option.
-        //  - IASRAW/ALTRAW/VSIRAW/OILTRAW/OILPRAW/XMSNTRAW/XMSNPRAW/ITTRAW/RPMERAW/
+        //  - AGLRAW/IASRAW/ALTRAW/VSIRAW/OILTRAW/OILPRAW/XMSNTRAW/XMSNPRAW/ITTRAW/RPMERAW/
         //    RPMRRAW/N1RAW/FUELRAW: distinct raw-step siblings of gauges that DO have
-        //    a real-unit code/section elsewhere in this form (IAS/ALT/VSI trackbars,
-        //    the EGT/ITT trackbar, the OILT/OILP/XMSNT/XMSNP/RPME/RPMR/N1/FUEL rows) -
-        //    lets the operator bypass that gauge's unit conversion for bench testing
-        //    without losing the real-value control.
+        //    a real-unit code/section elsewhere in this form (the Radar ALT/IAS/ALT/VSI/
+        //    RPME/RPMR trackbars, the EGT/ITT trackbar, the OILT/OILP/XMSNT/XMSNP/N1/FUEL
+        //    rows) - lets the operator bypass that gauge's unit conversion for bench
+        //    testing without losing the real-value control.
         // One shared control with a dropdown rather than a duplicate raw-step
         // trackbar/row next to every calibrated gauge - cheaper to keep in sync, and
         // easy to give a gauge its own dedicated raw control later if that turns out
         // to be worth the extra screen space.
+        // Fallback for when nothing is selected yet - "EOT" doesn't exist in
+        // this dropdown any more (it graduated to its own row), so this
+        // matches cboNewGauge's actual first item instead of a stale one.
+        private string SelectedNewGaugeCode() => cboNewGauge.SelectedItem?.ToString() ?? "TQ";
+
         private void butNewGaugeSend_Click(object sender, EventArgs e)
         {
             if (!long.TryParse(txtNewGaugeSteps.Text, out long steps))
@@ -246,13 +263,13 @@ namespace StepperVSITester
                 return;
             }
 
-            Send(cboNewGauge.SelectedItem?.ToString() ?? "EOT", steps);
+            Send(SelectedNewGaugeCode(), steps);
         }
 
         private void butNewGaugeZero_Click(object sender, EventArgs e)
         {
             txtNewGaugeSteps.Text = "0";
-            Send(cboNewGauge.SelectedItem?.ToString() ?? "EOT", 0);
+            Send(SelectedNewGaugeCode(), 0);
         }
 
         private void txtNewGaugeSteps_KeyDown(object sender, KeyEventArgs e)
@@ -262,6 +279,27 @@ namespace StepperVSITester
                 butNewGaugeSend_Click(sender, e);
             }
         }
+
+        // Single-step jog buttons: since every raw code here is an absolute
+        // .moveTo() target on the board (not a relative move), "one step"
+        // means nudging the textbox's own value by +/-1 and resending it -
+        // only meaningful as a true single step if the stepper actually
+        // reached the last target sent (AccelStepper's acceleration ramp
+        // takes some time), so give it a moment between clicks.
+        private void StepNewGauge(long delta)
+        {
+            if (!long.TryParse(txtNewGaugeSteps.Text, out long steps))
+            {
+                steps = 0;
+            }
+
+            steps += delta;
+            txtNewGaugeSteps.Text = steps.ToString();
+            Send(SelectedNewGaugeCode(), steps);
+        }
+
+        private void butNewGaugeStepBack_Click(object sender, EventArgs e) => StepNewGauge(-1);
+        private void butNewGaugeStepFwd_Click(object sender, EventArgs e) => StepNewGauge(1);
 
         // EGT (Exhaust Gas Temp), 0-900C: the first of the New Gauges to
         // graduate from raw steps to a real value, now that its unit/range
@@ -301,12 +339,17 @@ namespace StepperVSITester
             }
         }
 
-        // Compact rows for 8 more real-value gauges (EOT/EOP/XOT/XOP/TS/RS/GP/FA)
-        // - no trackbar, just a value box + Send, since a full trackbar section
+        // Compact rows for 6 more real-value gauges (EOT/EOP/XOT/XOP/GP/FA) -
+        // no trackbar, just a value box + Send, since a full trackbar section
         // per gauge (like VSI/ALT/Radar ALT/EGT above) would push the form well
-        // past a normal screen height. Each board-side conversion is the same
-        // "uncalibrated linear scale" placeholder as EGT's - see
-        // JET_RANGER_STEPPER_CONTROLLER.ino's setEOT()/setEOP()/etc.
+        // past a normal screen height. Each board-side conversion is still the
+        // same "uncalibrated linear scale" placeholder as EGT's - see
+        // JET_RANGER_STEPPER_CONTROLLER.ino's setEOT()/setEOP()/etc. TS
+        // ("RPME")/RS ("RPMR") used to be compact rows here too, but graduated
+        // to full trackbar sections (below, near IAS) once real hand-measured
+        // TS_PCT_TABLE/RS_PCT_TABLE calibration existed for them - same
+        // "graduates once calibration is known" pattern EGT/IAS followed
+        // earlier.
         private void SendRealValue(TextBox textBox, string code)
         {
             if (long.TryParse(textBox.Text, out long value))
@@ -321,8 +364,11 @@ namespace StepperVSITester
 
         // Wire codes renamed to match JET_RANGER_SERVO_CONTROLLER.ino's existing
         // codes for these same real-world quantities (OILT/OILP/XMSNT/XMSNP/
-        // RPME/RPMR/N1/FUEL) - control names here are unchanged (still
-        // txtEot/txtEop/etc.), only the string handed to Send() changed.
+        // N1/FUEL) - control names here are unchanged (still txtEot/txtEop/
+        // etc.), only the string handed to Send() changed. RPME/RPMR followed
+        // this same rename but have since graduated to their own trackbar
+        // sections below (near IAS) - see SendRealValue's callers here for
+        // the remaining six.
         private void butSendEot_Click(object sender, EventArgs e) => SendRealValue(txtEot, "OILT");
         private void txtEot_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtEot, "OILT"); }
 
@@ -334,12 +380,6 @@ namespace StepperVSITester
 
         private void butSendXop_Click(object sender, EventArgs e) => SendRealValue(txtXop, "XMSNP");
         private void txtXop_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtXop, "XMSNP"); }
-
-        private void butSendTs_Click(object sender, EventArgs e) => SendRealValue(txtTs, "RPME");
-        private void txtTs_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtTs, "RPME"); }
-
-        private void butSendRs_Click(object sender, EventArgs e) => SendRealValue(txtRs, "RPMR");
-        private void txtRs_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtRs, "RPMR"); }
 
         private void butSendGp_Click(object sender, EventArgs e) => SendRealValue(txtGp, "N1");
         private void txtGp_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtGp, "N1"); }
@@ -380,6 +420,72 @@ namespace StepperVSITester
             if (e.KeyCode == Keys.Enter)
             {
                 SendManualValue(trkIas, txtIasInput, lblIasValue, "IAS", "kt");
+            }
+        }
+
+        // RPME (Turbine/Engine Speed), 0-117%: sends real percent directly;
+        // the board converts to steps via setTS()/tsPctToSteps() and its
+        // real hand-measured TS_PCT_TABLE in JET_RANGER_STEPPER_CONTROLLER.ino.
+        // Graduated here from a compact value-box row (see above) once that
+        // table existed - same trackbar layout as IAS/EGT.
+        private void trkRpme_Scroll(object sender, EventArgs e)
+        {
+            UpdateValueLabel(lblRpmeValue, trkRpme.Value, "%");
+            txtRpmeInput.Text = trkRpme.Value.ToString();
+            Send("RPME", trkRpme.Value);
+        }
+
+        private void butRpmeZero_Click(object sender, EventArgs e)
+        {
+            trkRpme.Value = 0;
+            txtRpmeInput.Text = "0";
+            UpdateValueLabel(lblRpmeValue, 0, "%");
+            Send("RPME", 0);
+        }
+
+        private void butSendRpme_Click(object sender, EventArgs e)
+        {
+            SendManualValue(trkRpme, txtRpmeInput, lblRpmeValue, "RPME", "%");
+        }
+
+        private void txtRpmeInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendManualValue(trkRpme, txtRpmeInput, lblRpmeValue, "RPME", "%");
+            }
+        }
+
+        // RPMR (Rotor Speed), 0-117%: sends real percent directly; the board
+        // converts to steps via setRS()/rsPctToSteps() and its real
+        // hand-measured RS_PCT_TABLE in JET_RANGER_STEPPER_CONTROLLER.ino.
+        // Graduated here from a compact value-box row (see above) once that
+        // table existed - same trackbar layout as IAS/EGT/RPME.
+        private void trkRpmr_Scroll(object sender, EventArgs e)
+        {
+            UpdateValueLabel(lblRpmrValue, trkRpmr.Value, "%");
+            txtRpmrInput.Text = trkRpmr.Value.ToString();
+            Send("RPMR", trkRpmr.Value);
+        }
+
+        private void butRpmrZero_Click(object sender, EventArgs e)
+        {
+            trkRpmr.Value = 0;
+            txtRpmrInput.Text = "0";
+            UpdateValueLabel(lblRpmrValue, 0, "%");
+            Send("RPMR", 0);
+        }
+
+        private void butSendRpmr_Click(object sender, EventArgs e)
+        {
+            SendManualValue(trkRpmr, txtRpmrInput, lblRpmrValue, "RPMR", "%");
+        }
+
+        private void txtRpmrInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendManualValue(trkRpmr, txtRpmrInput, lblRpmrValue, "RPMR", "%");
             }
         }
     }

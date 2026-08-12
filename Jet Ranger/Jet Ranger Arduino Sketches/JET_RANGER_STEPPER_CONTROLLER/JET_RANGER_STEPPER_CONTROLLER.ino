@@ -6,13 +6,10 @@ Drives:
 
 SARI
 AccelStepper VSIstepper
-AccelStepper ALTstepper
 AccelStepper IASstepper
-AccelStepper SpeedMaxstepper
-AccelStepper FlapsStepper
-AccelStepper AOAstepper
-AccelStepper GForcestepper
 AccelStepper RadarAltStepper
+(ALTstepper, SpeedMaxstepper, FlapsStepper, AOAstepper, GForcestepper -
+ all removed/commented out; no longer declared in this sketch)
 AccelStepper EOTstepper
 AccelStepper XOTstepper
 AccelStepper XOPstepper
@@ -123,12 +120,14 @@ void SendDebug(String MessageToSend) {
 // ###################################### End Ethernet Related #############################
 
 // Aligned with Stepper-Tuning-Harness's LED pins (that sketch moved them
-// off 12/13 since those became IASstepper's coil pins there -
-// see that sketch's own summary). This sketch's IASstepper is
-// still on its original DRIVER pins (34/36), not 12/13, so there's no
-// equivalent collision here to resolve - this change is purely to match
-// the harness's wiring, since the two sketches are meant to be drop-in
-// stand-ins for each other on the same physical board.
+// off 12/13 since those became the Current Airspeed stepper's coil pins
+// there - see that sketch's own summary). UPDATE: this was originally
+// just cosmetic consistency here, since this sketch's own Current
+// Airspeed stepper was still on its old DRIVER pins (34/36) at the time.
+// It's since been renamed IASstepper and moved onto the same FULL4WIRE
+// pins 12/13/22/23 (STEPPER_SPD_A..D) the harness uses - so the reason
+// for this LED move is now genuinely load-bearing here too, not just
+// precautionary.
 #define RED_STATUS_LED_PORT 15
 #define GREEN_STATUS_LED_PORT 14
 #define Check_LED_R 15
@@ -170,9 +169,11 @@ unsigned long previousMillis = 0;
 #define AllstepperEnablePin 56
 
 
-// Swapped with VSI's coil pins below: VSI moved off this DRIVER/STEP-DIR
-// pair onto direct coils, and Flaps (below) took over this pair - it is
-// NOT unused, it now belongs to Flaps.
+// STALE as of the Flaps removal below: no `FlapsStepper` object exists
+// in this sketch any more (its AccelStepper construct and startup block
+// are commented out further down), so these two defines are now
+// orphaned - nothing reads them. Left in place rather than deleted since
+// it wasn't asked for, but they no longer describe live pin usage.
 #define FlapsStepPin 46
 #define FlapsDirectionPin 48
 // Scaled down by the same ~8x ratio as the VSI homing step count below
@@ -265,10 +266,12 @@ unsigned long previousMillis = 0;
 // Direct-drive (FULL4WIRE) step count, no overshoot multiplier needed -
 // originally for Flaps, now also used by VSI's homing below since VSI
 // moved from a geared DRIVER motor onto direct coils.
-#define FULL4WIRE_HOMING_STEPS 315 * 1.1
+#define FULL4WIRE_HOMING_STEPS 315 + 5
+#define X27_FULLWIRE_STEPS 635
+#define X27_FULLWIRE_HOMING_STEPS X27_FULLWIRE_STEPS + 1
 //AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
 AccelStepper IASstepper(AccelStepper::FULL4WIRE, STEPPER_SPD_C, STEPPER_SPD_D, STEPPER_SPD_A, STEPPER_SPD_B);
-AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
+AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_C, COIL_VSI_D, COIL_VSI_A, COIL_VSI_B);
 
 // New gauges below, ported from Stepper-Tuning-Harness - see the pin
 // defines above for the collision-check caveat. RadarAltStepper's coil
@@ -280,8 +283,8 @@ AccelStepper EOTstepper(AccelStepper::FULL4WIRE, EOT_COIL_A, EOT_COIL_B, EOT_COI
 AccelStepper XOTstepper(AccelStepper::FULL4WIRE, XOT_COIL_A, XOT_COIL_B, XOT_COIL_C, XOT_COIL_D);
 AccelStepper XOPstepper(AccelStepper::FULL4WIRE, XOP_COIL_A, XOP_COIL_B, XOP_COIL_C, XOP_COIL_D);
 AccelStepper EGTstepper(AccelStepper::FULL4WIRE, EGT_COIL_A, EGT_COIL_B, EGT_COIL_C, EGT_COIL_D);
-AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_A, TS_COIL_B, TS_COIL_C, TS_COIL_D);
-AccelStepper RSstepper(AccelStepper::FULL4WIRE, RS_COIL_A, RS_COIL_B, RS_COIL_C, RS_COIL_D);
+AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_C, TS_COIL_D, TS_COIL_A, TS_COIL_B);
+AccelStepper RSstepper(AccelStepper::FULL4WIRE, RS_COIL_C, RS_COIL_D, RS_COIL_A, RS_COIL_B);
 AccelStepper FAstepper(AccelStepper::FULL4WIRE, FA_COIL_A, FA_COIL_B, FA_COIL_C, FA_COIL_D);
 AccelStepper ETstepper(AccelStepper::FULL4WIRE, ET_COIL_A, ET_COIL_B, ET_COIL_C, ET_COIL_D);
 AccelStepper GPstepper(AccelStepper::FULL4WIRE, GP_COIL_A, GP_COIL_B, GP_COIL_C, GP_COIL_D);
@@ -354,6 +357,15 @@ void setup() {
 
   //  pinMode(AllstepperEnablePin, OUTPUT);
   //  pinMode(ALTzeroSensePin, INPUT);
+  // CAUTION: pinMode(AllstepperEnablePin, OUTPUT) above is commented out,
+  // but the digitalWrite(AllstepperEnablePin, false) below is NOT - an
+  // Arduino digital pin defaults to INPUT at boot, and digitalWrite() on
+  // an INPUT pin just toggles its internal pull-up resistor rather than
+  // actually driving the pin LOW as a real output. If the stepper
+  // drivers' enable line depends on this pin being actively driven, it
+  // may not be enabling them the way this code implies. Worth confirming
+  // pinMode was meant to stay commented (enable now tied elsewhere/always
+  // on) or should be restored.
 
   VSIstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   VSIstepper.setAcceleration(STEPPER_ACCELERATION);
@@ -388,33 +400,40 @@ void setup() {
   digitalWrite(AllstepperEnablePin, false);
 
   // ################# Start VSI Startup #########################
-  SendDebug("Start VSI");
+  if (false) {
+    SendDebug("Start VSI");
 
-  // VSI is now a direct-driven FULL4WIRE stepper on coil pins (was a
-  // geared DRIVER motor on VSIstepPin/VSIdirectionPin, now Flaps' pins -
-  // see the pin swap above). Switched from STEPS*1.1 (geared, ~5544 steps
-  // with a 10% overshoot) to FULL4WIRE_HOMING_STEPS (315*2 = 630, no
-  // overshoot) to match - the same constant this sketch already defines
-  // for exactly this stepper type (previously FLAPS_STEP, for Flaps' own
-  // direct-drive homing). Direction sign kept as-is from before this
-  // hardware change - NOT re-verified against the new physical motor,
-  // confirm it actually winds to (and stops cleanly at) the real end stop
-  // before trusting it unattended.
-  VSIstepper.runToNewPosition(-FULL4WIRE_HOMING_STEPS);
-  VSIstepper.setCurrentPosition(0);
+    // VSI is a direct-driven FULL4WIRE stepper on coil pins (COIL_VSI_A..D,
+    // now 7/8/9/11, wired C,D,A,B - matches Stepper-Tuning-Harness's own
+    // VSI wiring exactly). Homes against an X27.168-style stepper's real
+    // travel: X27_FULLWIRE_STEPS (635) is that motor's full-scale step
+    // count, X27_FULLWIRE_HOMING_STEPS adds a small 5-step overshoot to
+    // guarantee reaching the physical end stop. CAUTION - macro-precedence
+    // bug: X27_FULLWIRE_HOMING_STEPS is #defined as "X27_FULLWIRE_STEPS + 5"
+    // (unparenthesized), so the "-X27_FULLWIRE_HOMING_STEPS" below expands
+    // to "-635 + 5" = -630, NOT -(635+5) = -640 as the name implies - a
+    // real (if minor, ~1.5%) discrepancy between what this homing move
+    // actually does and what it looks like it does. Direction sign is
+    // otherwise carried over unverified from this stepper's pre-X27
+    // homing - confirm it actually winds to (and stops cleanly at) the
+    // real end stop before trusting it unattended. Now does 3 swing loops
+    // (was 1) as a more thorough self-test.
+    VSIstepper.runToNewPosition(-X27_FULLWIRE_HOMING_STEPS);
+    VSIstepper.setCurrentPosition(0);
 
-  for (int i = 1; i <= 1; i++) {
-    SendDebug("Loop :" + String(i));
-    VSIstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
-    delay(200);
-    VSIstepper.runToNewPosition(0);
-    delay(200);
+    for (int i = 1; i <= 3; i++) {
+      SendDebug("Loop :" + String(i));
+      VSIstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      VSIstepper.runToNewPosition(0);
+      delay(200);
+    }
+
+    // Move VSI to zero position and set
+    VSIstepper.runToNewPosition((X27_FULLWIRE_STEPS / 2) - VSIoffset);
+    VSIstepper.setCurrentPosition(0);
+    SendDebug("End VSI");
   }
-
-  // Move VSI to zero position and set
-  VSIstepper.runToNewPosition((FULL4WIRE_HOMING_STEPS / 2) - VSIoffset);
-  VSIstepper.setCurrentPosition(0);
-  SendDebug("End VSI");
   // ################# End VSI Startup #########################
 
 
@@ -447,88 +466,134 @@ void setup() {
   SendDebug("End ALT");
   // ################# End ALT Startup #########################
 
-  // ################# Start Speed Current Startup #########################
-  SendDebug("Start IASstepper");
-  IASstepper.runToNewPosition(-FULL4WIRE_HOMING_STEPS * 1.1);
-  IASstepper.setCurrentPosition(0);
+  // ################# Start IAS (Current Airspeed) Startup #########################
+  // Renamed from "Speed Current" to match IASstepper. Wrapped in
+  // `if (false)` - present and compiled, but currently DISABLED: this
+  // whole homing/swing sequence never runs at boot. Also note: as
+  // written this does two full blocking moves back-to-back with no
+  // run()/delay() between them (wind to X27_FULLWIRE_HOMING_STEPS, then
+  // immediately wind to -X27_FULLWIRE_STEPS) before zeroing - a bigger
+  // back-and-forth swing than VSI's equivalent single approach move, not
+  // obviously intentional. Re-verify this sequence before flipping the
+  // `if` to true.
+  if (false) {
+    SendDebug("Start IASstepper");
+    IASstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    IASstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+    IASstepper.setCurrentPosition(0);
 
-  SendDebug("IAS Pause");
-  delay(2000);
+    for (int i = 1; i <= 3; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending IAS to Max");
+      IASstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning IAS to Zero");
+      IASstepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End IASstepper");
+  }
+  //  ################ #End Speed Current Startup######################## #
+
+  // ################# Start Radar Alt Startup #########################
+  // Same wind/zero/3-swing-loop pattern as the IAS block above, reusing
+  // the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see
+  // the macro-precedence caution on VSI's homing above - the same
+  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
+  // here too). RadarAltStepper had no startup routine at all before this
+  // - direction sign and step range are an unverified assumption carried
+  // over from IAS/VSI's X27-style homing, NOT bench-confirmed for this
+  // specific gauge. Unlike the IAS block above, this one is NOT wrapped
+  // in `if (false)` - it runs every boot. Confirm on the bench that it
+  // actually reaches the real end stop (and doesn't stall against it from
+  // the wrong side) before trusting it unattended.
+  if (false) {
+    SendDebug("Start RadarAltStepper");
+    RadarAltStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    RadarAltStepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+    RadarAltStepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= 3; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Radar Alt to Max");
+      RadarAltStepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Radar Alt to Zero");
+      RadarAltStepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End RadarAltStepper");
+  }
+  // ################# End Radar Alt Startup #########################
+
+  // ################# Start Turbine Speed Startup #########################
+  // Same wind/zero/3-swing-loop pattern as the IAS/Radar Alt blocks
+  // above, reusing the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS
+  // constants (see the macro-precedence caution on VSI's homing above -
+  // the same "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640"
+  // issue applies here too). TSstepper had no startup routine at all
+  // before this - direction sign is an unverified assumption carried
+  // over from IAS/VSI/Radar Alt's X27-style homing, NOT bench-confirmed
+  // for this specific gauge. UPDATE: TS_PCT_TABLE (below) now gives this
+  // gauge's real "RPME" UDP path a max of 630 steps at 117% - close to
+  // X27_FULLWIRE_STEPS (635), so this swing's step range is a reasonable
+  // match rather than the ~2x overshoot it was before that table
+  // existed. Not wrapped in `if (false)` - runs every boot. Confirm on
+  // the bench that it actually reaches the real end stop (and doesn't
+  // stall against it from the wrong side) before trusting it unattended.
+  SendDebug("Start TSstepper");
+  TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  TSstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+  TSstepper.setCurrentPosition(0);
 
   for (int i = 1; i <= 3; i++) {
     SendDebug("Loop :" + String(i));
-    SendDebug("Sending IAS to Max");
-    IASstepper.runToNewPosition(600);
-    delay(2000);
-    SendDebug("Returning IAS to Zero");
-    IASstepper.runToNewPosition(0);
-    
-    delay(2000);
+    SendDebug("Sending Turbine Speed to Max");
+    TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    SendDebug("Returning Turbine Speed to Zero");
+    TSstepper.runToNewPosition(0);
+    delay(200);
   }
-  SendDebug("End IASstepper");
-  delay(2000);
+  SendDebug("End TSstepper");
+  // ################# End Turbine Speed Startup #########################
 
-  //  ################ #End Speed Current Startup######################## #
+  // ################# Start Rotor Speed Startup #########################
+  // Same wind/zero/3-swing-loop pattern as the IAS/Radar Alt/Turbine Speed
+  // blocks above, reusing the same
+  // X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see the
+  // macro-precedence caution on VSI's homing above - the same
+  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
+  // here too). RSstepper had no startup routine at all before this -
+  // direction sign is an unverified assumption carried over from
+  // IAS/VSI/Radar Alt/Turbine Speed's X27-style homing, NOT bench-confirmed
+  // for this specific gauge. RS_PCT_TABLE (above) gives this gauge's real
+  // "RPMR" UDP path a max of 630 steps at 117% - close to X27_FULLWIRE_STEPS
+  // (635), same as Turbine Speed, so this swing's step range is a
+  // reasonable match rather than a big overshoot. Not wrapped in `if
+  // (false)` - runs every boot. Confirm on the bench that it actually
+  // reaches the real end stop (and doesn't stall against it from the wrong
+  // side) before trusting it unattended.
+  SendDebug("Start RSstepper");
+  RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  RSstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+  RSstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= 3; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Rotor Speed to Max");
+    RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    SendDebug("Returning Rotor Speed to Zero");
+    RSstepper.runToNewPosition(0);
+    delay(200);
+  }
+  SendDebug("End RSstepper");
+  // ################# End Rotor Speed Startup #########################
 
 
 
-//   // Already disabled before this reanalysis, and now additionally stale:
-//   // Flaps is DRIVER/geared now (was FULL4WIRE when this was written - see
-//   // the VSI/Flaps pin swap above), so if this is ever re-enabled it needs
-//   // STEPS-style geared homing (with overshoot), not the direct-drive
-//   // FULL4WIRE_HOMING_STEPS (ex-FLAPS_STEP) referenced below.
-//   // // ################# Start Flaps Startup #########################
-//   // SendDebug("Start FlapsStepper");
-//   // FlapsStepper.runToNewPosition(FULL4WIRE_HOMING_STEPS * 1);
-//   // FlapsStepper.setCurrentPosition(0);
-//   // for (int i = 1; i <= 1; i++) {
-//   //   SendDebug("Loop :" + String(i));
-//   //   FlapsStepper.runToNewPosition(-FULL4WIRE_HOMING_STEPS * 1);
-//   //   FlapsStepper.runToNewPosition(0);
-//   //   delay(200);
-//   // }
-//   // FlapsStepper.runToNewPosition(-100);
-//   // SendDebug("Flaps Current = " + String(FlapsStepper.currentPosition()));
-//   // SendDebug("End FlapsStepper");
-//   // //  ################# End Faps Startup #########################
 
-//   // ################# Start AOA Startup #########################
-//   SendDebug("Start AOAStepper");
-#define AOAZeroOffSet 200
-#define AOAMaxSteps 4200
-  //   AOAstepper.runToNewPosition(-STEPS * 1);
-  //   AOAstepper.setCurrentPosition(0);
-  //   AOAstepper.runToNewPosition(AOAZeroOffSet);
-  //   AOAstepper.setCurrentPosition(0);
-  //   for (int i = 1; i <= 1; i++) {
-  //     SendDebug("Loop :" + String(i));
-  //     AOAstepper.runToNewPosition(AOAMaxSteps);
-  //     AOAstepper.runToNewPosition(0);
-  //     delay(200);
-  //   }
-
-  //   SendDebug("End AOAStepper");
-  //   //  ################# End AOA Startup #########################
-
-  //   // ################# Start GForce Startup #########################
-  //   SendDebug("Start GForcestepper");
-  // #define GForceZeroOffSet 0
-  // #define GForceMaxSteps 4800
-  //   GForcestepper.runToNewPosition(-STEPS * 1);
-  //   GForcestepper.setCurrentPosition(0);
-  //   GForcestepper.runToNewPosition(GForceZeroOffSet);
-  //   GForcestepper.setCurrentPosition(0);
-  //   for (int i = 1; i <= 1; i++) {
-  //     SendDebug("Loop :" + String(i));
-  //     GForcestepper.runToNewPosition(GForceMaxSteps);
-  //     GForcestepper.runToNewPosition(0);
-  //     delay(200);
-  //   }
-
-  //   GForcestepper.runToNewPosition(2030);
-
-  //   SendDebug("End GForcestepper");
-  //   //  ################# End GForce Startup #########################
 
 
   SendDebug("STEPPER INITIALISATION COMPLETE");
@@ -674,19 +739,54 @@ DcsBios::IntegerBuffer airspeedNeedleBuffer(A_10C_AIRSPEED_NEEDLE, onAirspeedNee
 
 // Real-value UDP handler for Current Airspeed (see the "IAS" case in
 // HandleOutputValuePair() below) - knots now, rather than the raw step
-// pass-through this code used before. Unlike the placeholder linear
-// scale used for the newer, never-homed gauges (EGT/EOT/etc, which have
-// no established step range yet), this reuses the same step ceiling
-// (DUAL_STEPS + (5*16)) the DCS-BIOS path above already maps its own
-// 0-65535 needle value onto, since that's this stepper's real,
-// already-in-use mechanical range - not a fresh guess.
-#define IAS_MIN_KT 0
-#define IAS_MAX_KT 140
+// pass-through this code used before.
 
+// IAS knots-to-step calibration table, hand-measured on the bench (same
+// pattern as VSI_FPM_TABLE above). "step" is the raw step target for
+// SpeedCurrentstepper.moveTo(). The 0kt row is assumed (not directly
+// given) to match this stepper's homed zero, matching every other
+// calibration table in this sketch's own convention of 0 real-unit = 0
+// steps - confirm on the bench that IAS actually reads 0 (not just
+// clamped to the 20kt row) when the aircraft is stopped. Sorted
+// ascending by kt - iasKtToSteps() below relies on that order.
+struct KtToStepEntry {
+  long kt;
+  long step;
+};
+
+const KtToStepEntry IAS_KT_TABLE[] = {
+  { 0, 0 },
+  { 20, 24 },
+  { 40, 130 },
+  { 60, 250 },
+  { 80, 364 },
+  { 100, 457 },
+  { 110, 506 },
+  { 120, 543 },
+  { 130, 593 },
+  { 140, 635 },
+};
+const int IAS_KT_TABLE_SIZE = sizeof(IAS_KT_TABLE) / sizeof(IAS_KT_TABLE[0]);
+
+// Converts a requested airspeed in knots into a step target by linear
+// interpolation between the two nearest IAS_KT_TABLE rows (same pattern
+// as vsiFpmToSteps()/radarAltFtToSteps()). A kt value outside the
+// table's 0..140 range is clamped to whichever end is nearest rather
+// than extrapolated.
 long iasKtToSteps(long kt) {
-  if (kt < IAS_MIN_KT) kt = IAS_MIN_KT;
-  if (kt > IAS_MAX_KT) kt = IAS_MAX_KT;
-  return map(kt, IAS_MIN_KT, IAS_MAX_KT, 0, DUAL_STEPS + (5 * 16));
+  if (kt <= IAS_KT_TABLE[0].kt) return IAS_KT_TABLE[0].step;
+  if (kt >= IAS_KT_TABLE[IAS_KT_TABLE_SIZE - 1].kt) return IAS_KT_TABLE[IAS_KT_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < IAS_KT_TABLE_SIZE - 1; i++) {
+    long ktLo = IAS_KT_TABLE[i].kt;
+    long ktHi = IAS_KT_TABLE[i + 1].kt;
+    if (kt >= ktLo && kt <= ktHi) {
+      long stepLo = IAS_KT_TABLE[i].step;
+      long stepHi = IAS_KT_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(kt - ktLo) * (stepHi - stepLo) / (double)(ktHi - ktLo));
+    }
+  }
+  return 0;  // unreachable - every kt is covered by the clamps or the loop above
 }
 
 void setIAS(long TargetKt) {
@@ -802,18 +902,19 @@ DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
 
 // ################################### START EGT ##############################################
 
-// EGT (Exhaust Gas Temp) real-value UDP handler - see the "EGT" case in
-// HandleOutputValuePair() below, which now sends degrees C instead of a
-// raw step target (was a raw pass-through before this). Straight linear
-// scale across the gauge's real-world 0-900C range onto
-// FULL4WIRE_HOMING_STEPS (630) - the same generic full-scale step count
-// used for this stepper's still-unverified homing elsewhere in this
-// sketch, since EGTstepper has no bench-measured end stop/steps-per-degree
-// calibration yet. NOT a real per-point calibration table like
-// VSI_FPM_TABLE/RADAR_ALT_FT_TABLE - revisit with real bench-measured
-// points once EGTstepper's actual travel is known, the same way ALT's
-// simple feet*5.76 scale was good enough as a first pass before VSI/Radar
-// Alt graduated to real tables.
+// EGT (Exhaust Gas Temp) real-value UDP handler - see the "ITT" case in
+// HandleOutputValuePair() below (renamed from "EGT" to match
+// JET_RANGER_SERVO_CONTROLLER.ino), which sends degrees C instead of a
+// raw step target. Straight linear scale across the gauge's real-world
+// 0-900C range onto FULL4WIRE_HOMING_STEPS - CAUTION: that constant was
+// redefined from 315*2 (630) to 315+5 (320) elsewhere in this sketch
+// (see the pin/stepper section above), which halves this gauge's
+// effective step resolution without this comment (or EGTstepper's own
+// homing) having been updated to match - EGTstepper still has no actual
+// homing routine, so "FULL4WIRE_HOMING_STEPS" here is still a borrowed
+// placeholder ceiling, not a bench-measured one. NOT a real per-point
+// calibration table like VSI_FPM_TABLE/IAS_KT_TABLE - revisit with real
+// bench-measured points once EGTstepper's actual travel is known.
 #define EGT_MIN_C 0
 #define EGT_MAX_C 900
 
@@ -879,24 +980,109 @@ void setXOP(long TargetPsi) {
   XOPstepper.moveTo(xopPsiToSteps(TargetPsi));
 }
 
-#define TS_MIN_PCT 0
-#define TS_MAX_PCT 120
+// Turbine Speed (RPME) percent-to-step calibration table, hand-measured
+// on the bench (same pattern as VSI_FPM_TABLE/IAS_KT_TABLE/AGL_FT_TABLE
+// above). "step" is the raw step target for TSstepper.moveTo(). Unlike
+// those other tables, every row here was directly given - no assumed
+// 0-point needed. Sorted ascending by pct - tsPctToSteps() below relies
+// on that order. NOTE: this table's real max (117% -> 630 steps) is
+// close to X27_FULLWIRE_STEPS (635), resolving the over-travel concern
+// noted on TSstepper's startup swing above - that swing's blind
+// wind-to-635 now roughly matches this gauge's real full-scale range
+// instead of overshooting it by ~2x the way the previous placeholder
+// scale (0..320) would have suggested.
+struct PctToStepEntry {
+  long pct;
+  long step;
+};
+
+const PctToStepEntry TS_PCT_TABLE[] = {
+  { 0, 0 },
+  { 10, 59 },
+  { 20, 115 },
+  { 30, 165 },
+  { 40, 217 },
+  { 50, 272 },
+  { 60, 325 },
+  { 70, 380 },
+  { 80, 433 },
+  { 90, 486 },
+  { 100, 532 },
+  { 110, 598 },
+  { 117, 630 },
+};
+const int TS_PCT_TABLE_SIZE = sizeof(TS_PCT_TABLE) / sizeof(TS_PCT_TABLE[0]);
+
+// Converts a requested turbine speed in percent into a step target by
+// linear interpolation between the two nearest TS_PCT_TABLE rows (same
+// pattern as vsiFpmToSteps()/iasKtToSteps()/aglFtToSteps()). A pct value
+// outside the table's 0..117 range is clamped to whichever end is
+// nearest rather than extrapolated.
 long tsPctToSteps(long pct) {
-  if (pct < TS_MIN_PCT) pct = TS_MIN_PCT;
-  if (pct > TS_MAX_PCT) pct = TS_MAX_PCT;
-  return map(pct, TS_MIN_PCT, TS_MAX_PCT, 0, FULL4WIRE_HOMING_STEPS);
+  if (pct <= TS_PCT_TABLE[0].pct) return TS_PCT_TABLE[0].step;
+  if (pct >= TS_PCT_TABLE[TS_PCT_TABLE_SIZE - 1].pct) return TS_PCT_TABLE[TS_PCT_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < TS_PCT_TABLE_SIZE - 1; i++) {
+    long pctLo = TS_PCT_TABLE[i].pct;
+    long pctHi = TS_PCT_TABLE[i + 1].pct;
+    if (pct >= pctLo && pct <= pctHi) {
+      long stepLo = TS_PCT_TABLE[i].step;
+      long stepHi = TS_PCT_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(pct - pctLo) * (stepHi - stepLo) / (double)(pctHi - pctLo));
+    }
+  }
+  return 0;  // unreachable - every pct is covered by the clamps or the loop above
 }
+
 void setTS(long TargetPct) {
   TSstepper.moveTo(tsPctToSteps(TargetPct));
 }
 
-#define RS_MIN_PCT 0
-#define RS_MAX_PCT 120
+// Rotor Speed (RPMR) percent-to-step calibration table, hand-measured on
+// the bench - same values as TS_PCT_TABLE above (both gauges share the
+// same physical stepper/dial hardware and percent range), but kept as
+// its own table/function pair rather than reused, matching the
+// per-gauge pattern used throughout this file. "step" is the raw step
+// target for RSstepper.moveTo(). Sorted ascending by pct -
+// rsPctToSteps() below relies on that order.
+const PctToStepEntry RS_PCT_TABLE[] = {
+  { 0, 0 },
+  { 10, 59 },
+  { 20, 115 },
+  { 30, 165 },
+  { 40, 217 },
+  { 50, 272 },
+  { 60, 325 },
+  { 70, 380 },
+  { 80, 433 },
+  { 90, 486 },
+  { 100, 532 },
+  { 110, 598 },
+  { 117, 630 },
+};
+const int RS_PCT_TABLE_SIZE = sizeof(RS_PCT_TABLE) / sizeof(RS_PCT_TABLE[0]);
+
+// Converts a requested rotor speed in percent into a step target by
+// linear interpolation between the two nearest RS_PCT_TABLE rows (same
+// pattern as tsPctToSteps() above). A pct value outside the table's
+// 0..117 range is clamped to whichever end is nearest rather than
+// extrapolated.
 long rsPctToSteps(long pct) {
-  if (pct < RS_MIN_PCT) pct = RS_MIN_PCT;
-  if (pct > RS_MAX_PCT) pct = RS_MAX_PCT;
-  return map(pct, RS_MIN_PCT, RS_MAX_PCT, 0, FULL4WIRE_HOMING_STEPS);
+  if (pct <= RS_PCT_TABLE[0].pct) return RS_PCT_TABLE[0].step;
+  if (pct >= RS_PCT_TABLE[RS_PCT_TABLE_SIZE - 1].pct) return RS_PCT_TABLE[RS_PCT_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < RS_PCT_TABLE_SIZE - 1; i++) {
+    long pctLo = RS_PCT_TABLE[i].pct;
+    long pctHi = RS_PCT_TABLE[i + 1].pct;
+    if (pct >= pctLo && pct <= pctHi) {
+      long stepLo = RS_PCT_TABLE[i].step;
+      long stepHi = RS_PCT_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(pct - pctLo) * (stepHi - stepLo) / (double)(pctHi - pctLo));
+    }
+  }
+  return 0;  // unreachable - every pct is covered by the clamps or the loop above
 }
+
 void setRS(long TargetPct) {
   RSstepper.moveTo(rsPctToSteps(TargetPct));
 }
@@ -924,6 +1110,66 @@ void setFA(long TargetGal) {
 }
 
 // ################################### END EOT/EOP/XOT/XOP/TS/RS/GP/FA ##############################################
+
+// ################################### START AGL (Radar Altimeter) ##############################################
+
+// AGL feet-to-step calibration table, hand-measured on the bench (same
+// pattern as VSI_FPM_TABLE/IAS_KT_TABLE above). "step" is the raw step
+// target for RadarAltStepper.moveTo(). The 0ft row is assumed (not
+// directly given) to match this stepper's homed zero, same convention
+// as IAS_KT_TABLE's assumed 0kt row - confirm on the bench that AGL
+// actually reads 0 (not just clamped to the 50ft row) at ground level.
+// NOTE: this is a different table with different data points than
+// Jet_Ranger_Driver_Test.ino's own RADAR_ALT_FT_TABLE (0/500/2500ft) -
+// the two sketches are not sharing one calibration, worth reconciling if
+// they're meant to describe the same physical gauge. Sorted ascending by
+// ft - aglFtToSteps() below relies on that order.
+struct FtToStepEntry {
+  long ft;
+  long step;
+};
+
+const FtToStepEntry AGL_FT_TABLE[] = {
+  { 0, 0 },
+  { 50, 34 },
+  { 100, 63 },
+  { 200, 124 },
+  { 300, 186 },
+  { 400, 250 },
+  { 500, 310 },
+  { 1000, 351 },
+  { 1500, 389 },
+  { 2000, 428 },
+  { 2500, 469 },
+};
+const int AGL_FT_TABLE_SIZE = sizeof(AGL_FT_TABLE) / sizeof(AGL_FT_TABLE[0]);
+
+// Converts a requested radar altitude in feet into a step target by
+// linear interpolation between the two nearest AGL_FT_TABLE rows (same
+// pattern as vsiFpmToSteps()/iasKtToSteps()). A ft value outside the
+// table's 0..2500 range is clamped to whichever end is nearest rather
+// than extrapolated.
+long aglFtToSteps(long ft) {
+  if (ft <= AGL_FT_TABLE[0].ft) return AGL_FT_TABLE[0].step;
+  if (ft >= AGL_FT_TABLE[AGL_FT_TABLE_SIZE - 1].ft) return AGL_FT_TABLE[AGL_FT_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < AGL_FT_TABLE_SIZE - 1; i++) {
+    long ftLo = AGL_FT_TABLE[i].ft;
+    long ftHi = AGL_FT_TABLE[i + 1].ft;
+    if (ft >= ftLo && ft <= ftHi) {
+      long stepLo = AGL_FT_TABLE[i].step;
+      long stepHi = AGL_FT_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(ft - ftLo) * (stepHi - stepLo) / (double)(ftHi - ftLo));
+    }
+  }
+  return 0;  // unreachable - every ft is covered by the clamps or the loop above
+}
+
+void setAGL(long TargetFt) {
+  RadarAltStepper.moveTo(aglFtToSteps(TargetFt));
+}
+
+// ################################### END AGL (Radar Altimeter) ##############################################
 
 
 // SARI
@@ -1278,21 +1524,19 @@ void HandleOutputValuePair(String str) {
     // Distinct raw-step code, bypassing the VSI_FPM_TABLE lookup above.
     VSIstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "AGL") {
-    // Raw step pass-through for Radar Altitude - no real calibration
-    // exists yet for this gauge (direction/steps-per-foot unverified, see
-    // the AccelStepper construct comments above). Renamed from "RALT" to
-    // "AGL" to match JET_RANGER_SERVO_CONTROLLER.ino's existing code for
-    // this same real-world quantity (also what FSUIPCWinformsAutoCS
-    // actually sends in its stepper payload), so this board can be driven
-    // by the same live data instead of a separate test-only code.
-    // Jet_Ranger_Driver_Test.ino (the bench-test fork of this sketch)
-    // also uses "AGL" now (see that sketch), but with real calibrated
-    // *feet* through RADAR_ALT_FT_TABLE, not raw steps - since the two
-    // sketches are never flashed to the board at the same time this
-    // doesn't collide in practice, but StepperVSITester's "Radar ALT (ft)"
-    // slider will drive raw steps instead of feet whenever this sketch
-    // (rather than the bench-test one) is what's currently on the board.
-    // Worth giving this its own calibration table once bench-measured.
+    // Real feet now (Radar Altitude, 0-2500ft) - see setAGL()/
+    // aglFtToSteps() above, via the real AGL_FT_TABLE calibration. Was a
+    // raw step pass-through before this. Renamed from "RALT" to "AGL" to
+    // match JET_RANGER_SERVO_CONTROLLER.ino's existing code for this same
+    // real-world quantity (also what FSUIPCWinformsAutoCS actually sends
+    // in its stepper payload), so this board can be driven by the same
+    // live data. Jet_Ranger_Driver_Test.ino (the bench-test fork of this
+    // sketch) also uses "AGL" as calibrated feet now, but via its own
+    // separate RADAR_ALT_FT_TABLE with different data points - the two
+    // sketches' calibrations aren't unified, worth reconciling.
+    setAGL(ParameterValue.toInt());
+  } else if (ParameterName == "AGLRAW") {
+    // Distinct raw-step code, bypassing aglFtToSteps() above.
     RadarAltStepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "OILT") {
     // Real degrees C now (Engine Oil Temperature, 0-150) - see setEOT()/
@@ -1328,16 +1572,16 @@ void HandleOutputValuePair(String str) {
     // Distinct raw-step code, bypassing egtCToSteps() above.
     EGTstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "RPME") {
-    // Real percent now (Turbine/Engine Speed, 0-120). Renamed from "TS"
-    // to match JET_RANGER_SERVO_CONTROLLER.ino's "RPME" (Engine RPM) -
-    // same real-world quantity.
+    // Real percent now (Turbine/Engine Speed, 0-117 - see TS_PCT_TABLE
+    // above). Renamed from "TS" to match JET_RANGER_SERVO_CONTROLLER.ino's
+    // "RPME" (Engine RPM) - same real-world quantity.
     setTS(ParameterValue.toInt());
   } else if (ParameterName == "RPMERAW") {
     // Distinct raw-step code, bypassing tsPctToSteps() above.
     TSstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "RPMR") {
-    // Real percent now (Rotor Speed, 0-120). Renamed from "RS" to match
-    // JET_RANGER_SERVO_CONTROLLER.ino.
+    // Real percent now (Rotor Speed, 0-117 - see RS_PCT_TABLE above).
+    // Renamed from "RS" to match JET_RANGER_SERVO_CONTROLLER.ino.
     setRS(ParameterValue.toInt());
   } else if (ParameterName == "RPMRRAW") {
     // Distinct raw-step code, bypassing rsPctToSteps() above.
