@@ -1,13 +1,13 @@
 
 /*
-A10_FRONT_CONSOLE_STEPPERS
+JET_RANGER_STEPPERS
 
 Drives:
 
 SARI
 AccelStepper VSIstepper
 AccelStepper ALTstepper
-AccelStepper SpeedCurrentstepper
+AccelStepper IASstepper
 AccelStepper SpeedMaxstepper
 AccelStepper FlapsStepper
 AccelStepper AOAstepper
@@ -30,11 +30,10 @@ BACK_LIGHTS
 
 
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
-//||               FUNCTION = A10 FORWARD STEPPER CONTROLLER          ||\\
-//||              LOCATION IN THE PIT = FRONT CENTER                  ||\\
+//||               FUNCTION = JET RANGER STEPPER CONTROLLER           ||\\
 //||            ARDUINO PROCESSOR TYPE = Arduino Mega 2560            ||\\
 //||      ARDUINO CHIP SERIAL NUMBER = SN -                           ||\\
-//||                    CONNECTED COM PORT = COM 5                    ||\\
+//||                    CONNECTED COM PORT = tba                      ||\\
 //||               ****ADD ASSIGNED COM PORT NUMBER****               ||\\
 //||            ****DO CHECK S/N BEFORE UPLOAD NEW DATA****           ||\\
 ////////////////////---||||||||||********||||||||||---\\\\\\\\\\\\\\\\\\\\
@@ -63,7 +62,7 @@ int Reflector_In_Use = 1;
 #define EthernetStartupDelay 500
 #define ES1_RESET_PIN 53
 
-String BoardName = "A10 Forward Steppers";
+String BoardName = "Jet Ranger Steppers";
 
 // These local Mac and IP Address will be reassigned early in startup based on
 // the device ID as set by address pins
@@ -124,8 +123,8 @@ void SendDebug(String MessageToSend) {
 // ###################################### End Ethernet Related #############################
 
 // Aligned with Stepper-Tuning-Harness's LED pins (that sketch moved them
-// off 12/13 since those became SpeedCurrentstepper's coil pins there -
-// see that sketch's own summary). This sketch's SpeedCurrentstepper is
+// off 12/13 since those became IASstepper's coil pins there -
+// see that sketch's own summary). This sketch's IASstepper is
 // still on its original DRIVER pins (34/36), not 12/13, so there's no
 // equivalent collision here to resolve - this change is purely to match
 // the harness's wiring, since the two sketches are meant to be drop-in
@@ -182,33 +181,13 @@ unsigned long previousMillis = 0;
 // estimate, NOT bench-measured. Confirm/recalibrate on real hardware.
 #define VSIoffset 1
 
-
-
-#define ALTstepPin 42
-#define ALTdirectionPin 44
-#define ALTzeroSensePin 54
-
-
-#define SpeedCurrentstepPin 34
-#define SpeedCurrentdirectionPin 36
-
-#define SpeedMaxstepPin 38
-#define SpeedMaxdirectionPin 40
-
-#define AOAstepPin 22
-#define AOAdirectionPin 24
-
-#define GForcestepPin 26
-#define GForcedirectionPin 28
-
-
 // Swapped with Flaps' step/dir pins above: Flaps moved onto this
 // DRIVER/STEP-DIR pair, and VSI (below) took over these coil pins - it is
 // NOT unused, it now belongs to VSI.
-#define COIL_VSI_A 2
-#define COIL_VSI_B 3
-#define COIL_VSI_C 4
-#define COIL_VSI_D 5
+#define COIL_VSI_A 7
+#define COIL_VSI_B 8
+#define COIL_VSI_C 9
+#define COIL_VSI_D 11
 
 // New gauges ported from Stepper-Tuning-Harness (same pin assignments as
 // that bench sketch, all 4-wire direct-drive FULL4WIRE). Added as bare
@@ -275,20 +254,22 @@ unsigned long previousMillis = 0;
 #define EOP_COIL_C 46
 #define EOP_COIL_D 47
 
+#define STEPPER_SPD_A 12
+#define STEPPER_SPD_B 13
+#define STEPPER_SPD_C 22
+#define STEPPER_SPD_D 23
+
 #define STEPS 315 * 16       // The 16 is the default divisors when no pins are tied together on the driver module \
                             // For an unmodified Vid series there are 315 steps
 #define DUAL_STEPS 315 * 16  // The Dual stepper seems to have fewer steps between stops
 // Direct-drive (FULL4WIRE) step count, no overshoot multiplier needed -
 // originally for Flaps, now also used by VSI's homing below since VSI
 // moved from a geared DRIVER motor onto direct coils.
-#define FULL4WIRE_HOMING_STEPS 315 * 2
-AccelStepper FlapsStepper(AccelStepper::DRIVER, FlapsStepPin, FlapsDirectionPin);
-AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
-AccelStepper SpeedCurrentstepper(AccelStepper::DRIVER, SpeedCurrentstepPin, SpeedCurrentdirectionPin);
-AccelStepper SpeedMaxstepper(AccelStepper::DRIVER, SpeedMaxstepPin, SpeedMaxdirectionPin);
+#define FULL4WIRE_HOMING_STEPS 315 * 1.1
+//AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
+AccelStepper IASstepper(AccelStepper::FULL4WIRE, STEPPER_SPD_C, STEPPER_SPD_D, STEPPER_SPD_A, STEPPER_SPD_B);
 AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_A, COIL_VSI_B, COIL_VSI_C, COIL_VSI_D);
-AccelStepper AOAstepper(AccelStepper::DRIVER, AOAstepPin, AOAdirectionPin);
-AccelStepper GForcestepper(AccelStepper::DRIVER, GForcestepPin, GForcedirectionPin);
+
 // New gauges below, ported from Stepper-Tuning-Harness - see the pin
 // defines above for the collision-check caveat. RadarAltStepper's coil
 // argument order (C, D, A, B rather than A, B, C, D) matches exactly what
@@ -329,6 +310,14 @@ void setup() {
     digitalWrite(ES1_RESET_PIN, HIGH);
 
     Ethernet.begin(mac, ip);
+    // W5500's own ARP/send retry timeout, not the boot-time wait below -
+    // default is 200ms x 8 retries = up to 1600ms blocked inside
+    // udp.beginPacket()/endPacket() any time a send fails to get an ARP
+    // reply (e.g. destination host down). Cut to 10ms so a communications
+    // failure can't stall updateSteppers()'s .run() servicing and make
+    // the steppers stutter. Retry count left at its default (8), so worst
+    // case is now ~80ms instead of ~1600ms.
+    Ethernet.setRetransmissionTimeout(10);
     udp.begin(localport);
     MSFSudp.begin(MSFSport);
 
@@ -363,24 +352,15 @@ void setup() {
 
   SendDebug("STEPPER INITIALISATION STARTED");
 
-  pinMode(AllstepperEnablePin, OUTPUT);
-  pinMode(ALTzeroSensePin, INPUT);
+  //  pinMode(AllstepperEnablePin, OUTPUT);
+  //  pinMode(ALTzeroSensePin, INPUT);
 
   VSIstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   VSIstepper.setAcceleration(STEPPER_ACCELERATION);
-  ALTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  ALTstepper.setAcceleration(STEPPER_ACCELERATION);
-  SpeedCurrentstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  SpeedCurrentstepper.setAcceleration(STEPPER_ACCELERATION);
-  SpeedMaxstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  SpeedMaxstepper.setAcceleration(STEPPER_ACCELERATION);
-  FlapsStepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  FlapsStepper.setAcceleration(STEPPER_ACCELERATION);
-  AOAstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  AOAstepper.setAcceleration(STEPPER_ACCELERATION);
-  GForcestepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  GForcestepper.setAcceleration(STEPPER_ACCELERATION);
-
+  //ALTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  //ALTstepper.setAcceleration(STEPPER_ACCELERATION);
+  IASstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  IASstepper.setAcceleration(STEPPER_ACCELERATION);
   RadarAltStepper.setMaxSpeed(STEPPER_MAX_SPEED);
   RadarAltStepper.setAcceleration(STEPPER_ACCELERATION);
   EOTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
@@ -438,65 +418,58 @@ void setup() {
   // ################# End VSI Startup #########################
 
 
-  // ################# Start ALT Startup #########################
-  SendDebug("Start ALT");
-  for (int i = 1; i <= 1; i++) {
-    SendDebug("Loop :" + String(i));
-    ALTstepper.moveTo(-STEPS * 2);
-    while (ALTstepper.distanceToGo() != 0) {
-      if (digitalRead(ALTzeroSensePin) != true) {
-        SendDebug("Found Alt Zero Position");
-        ALTstepper.setCurrentPosition(0);
-        break;
-      }
-      ALTstepper.run();
-    }
-    delay(500);
-    SendDebug("Send Alt Round 40 times");
-    long SendAAltForATrip = 5760 * 3;
-    // 5760 steps per loop
-    ALTstepper.runToNewPosition(SendAAltForATrip);
-    delay(200);
-    SendDebug("Return Alt to 0");
-    ALTstepper.runToNewPosition(0);
-  }
-  // Move ALT to zero position - need to monitor zero sense
+  // // ################# Start ALT Startup #########################
+  // SendDebug("Start ALT");
+  // for (int i = 1; i <= 1; i++) {
+  //   SendDebug("Loop :" + String(i));
+  //   ALTstepper.moveTo(-STEPS * 2);
+  //   while (ALTstepper.distanceToGo() != 0) {
+  //     if (digitalRead(ALTzeroSensePin) != true) {
+  //       SendDebug("Found Alt Zero Position");
+  //       ALTstepper.setCurrentPosition(0);
+  //       break;
+  //     }
+  //     ALTstepper.run();
+  //   }
+  //   delay(500);
+  //   SendDebug("Send Alt Round 40 times");
+  //   long SendAAltForATrip = 5760 * 3;
+  //   // 5760 steps per loop
+  //   ALTstepper.runToNewPosition(SendAAltForATrip);
+  //   delay(200);
+  //   SendDebug("Return Alt to 0");
+  //   ALTstepper.runToNewPosition(0);
+  // }
+  // // Move ALT to zero position - need to monitor zero sense
 
 
 
   SendDebug("End ALT");
   // ################# End ALT Startup #########################
 
-//   // ################# Start Speed Current Startup #########################
-//   SendDebug("Start SpeedCurrentstepper");
-//   SpeedCurrentstepper.runToNewPosition(-DUAL_STEPS * 1.1);
-//   SpeedCurrentstepper.setCurrentPosition(0);
+  // ################# Start Speed Current Startup #########################
+  SendDebug("Start IASstepper");
+  IASstepper.runToNewPosition(-FULL4WIRE_HOMING_STEPS * 1.1);
+  IASstepper.setCurrentPosition(0);
 
-//   for (int i = 1; i <= 1; i++) {
-//     SendDebug("Loop :" + String(i));
-//     SpeedCurrentstepper.runToNewPosition(DUAL_STEPS * 1);
-//     delay(200);
-//     SpeedCurrentstepper.runToNewPosition(0);
-//     delay(200);
-//   }
-//   SendDebug("End SpeedCurrentstepper");
-//   //  ################ #End Speed Current Startup######################## #
+  SendDebug("IAS Pause");
+  delay(2000);
 
+  for (int i = 1; i <= 3; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending IAS to Max");
+    IASstepper.runToNewPosition(600);
+    delay(2000);
+    SendDebug("Returning IAS to Zero");
+    IASstepper.runToNewPosition(0);
+    
+    delay(2000);
+  }
+  SendDebug("End IASstepper");
+  delay(2000);
 
-//   // ################# Start Speed Max Startup #########################
-//   SendDebug("Start SpeedMaxstepper");
-//   SpeedMaxstepper.runToNewPosition(-DUAL_STEPS * 1.1);
-//   SpeedMaxstepper.setCurrentPosition(0);
-//   for (int i = 1; i <= 1; i++) {
-//     SendDebug("Loop :" + String(i));
-//     SpeedMaxstepper.runToNewPosition(DUAL_STEPS * 1);
-//     delay(200);
-//     SpeedMaxstepper.runToNewPosition(0);
-//     delay(200);
-//   }
-//   SpeedMaxstepper.runToNewPosition((DUAL_STEPS * 0.95));
-//   SendDebug("End SpeedMaxstepper");
-//   //  ################# End Speed Max Startup #########################
+  //  ################ #End Speed Current Startup######################## #
+
 
 
 //   // Already disabled before this reanalysis, and now additionally stale:
@@ -523,39 +496,39 @@ void setup() {
 //   SendDebug("Start AOAStepper");
 #define AOAZeroOffSet 200
 #define AOAMaxSteps 4200
-//   AOAstepper.runToNewPosition(-STEPS * 1);
-//   AOAstepper.setCurrentPosition(0);
-//   AOAstepper.runToNewPosition(AOAZeroOffSet);
-//   AOAstepper.setCurrentPosition(0);
-//   for (int i = 1; i <= 1; i++) {
-//     SendDebug("Loop :" + String(i));
-//     AOAstepper.runToNewPosition(AOAMaxSteps);
-//     AOAstepper.runToNewPosition(0);
-//     delay(200);
-//   }
+  //   AOAstepper.runToNewPosition(-STEPS * 1);
+  //   AOAstepper.setCurrentPosition(0);
+  //   AOAstepper.runToNewPosition(AOAZeroOffSet);
+  //   AOAstepper.setCurrentPosition(0);
+  //   for (int i = 1; i <= 1; i++) {
+  //     SendDebug("Loop :" + String(i));
+  //     AOAstepper.runToNewPosition(AOAMaxSteps);
+  //     AOAstepper.runToNewPosition(0);
+  //     delay(200);
+  //   }
 
-//   SendDebug("End AOAStepper");
-//   //  ################# End AOA Startup #########################
+  //   SendDebug("End AOAStepper");
+  //   //  ################# End AOA Startup #########################
 
-//   // ################# Start GForce Startup #########################
-//   SendDebug("Start GForcestepper");
-// #define GForceZeroOffSet 0
-// #define GForceMaxSteps 4800
-//   GForcestepper.runToNewPosition(-STEPS * 1);
-//   GForcestepper.setCurrentPosition(0);
-//   GForcestepper.runToNewPosition(GForceZeroOffSet);
-//   GForcestepper.setCurrentPosition(0);
-//   for (int i = 1; i <= 1; i++) {
-//     SendDebug("Loop :" + String(i));
-//     GForcestepper.runToNewPosition(GForceMaxSteps);
-//     GForcestepper.runToNewPosition(0);
-//     delay(200);
-//   }
+  //   // ################# Start GForce Startup #########################
+  //   SendDebug("Start GForcestepper");
+  // #define GForceZeroOffSet 0
+  // #define GForceMaxSteps 4800
+  //   GForcestepper.runToNewPosition(-STEPS * 1);
+  //   GForcestepper.setCurrentPosition(0);
+  //   GForcestepper.runToNewPosition(GForceZeroOffSet);
+  //   GForcestepper.setCurrentPosition(0);
+  //   for (int i = 1; i <= 1; i++) {
+  //     SendDebug("Loop :" + String(i));
+  //     GForcestepper.runToNewPosition(GForceMaxSteps);
+  //     GForcestepper.runToNewPosition(0);
+  //     delay(200);
+  //   }
 
-//   GForcestepper.runToNewPosition(2030);
+  //   GForcestepper.runToNewPosition(2030);
 
-//   SendDebug("End GForcestepper");
-//   //  ################# End GForce Startup #########################
+  //   SendDebug("End GForcestepper");
+  //   //  ################# End GForce Startup #########################
 
 
   SendDebug("STEPPER INITIALISATION COMPLETE");
@@ -563,7 +536,7 @@ void setup() {
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
-  #define BrightnessPostSetup 65
+#define BrightnessPostSetup 65
   analogWrite(BACK_LIGHTS, BrightnessPostSetup);
 
   SendDebug(BoardName + " - " + strMyIP + " Setup Complete. " + String(millis()) + "mS since reset.");
@@ -691,7 +664,7 @@ DcsBios::IntegerBuffer intFloodLBrightBuffer(A_10C_INT_FLOOD_L_BRIGHT, onIntFloo
 // ################################### START AIRSPEED CURRENT ##############################################
 void setCurrentAirspeed(long TargetCurrentAirSpeed) {
   // SendDebug("Airspeed = " + String(TargetCurrentAirSpeed));
-  SpeedCurrentstepper.moveTo(TargetCurrentAirSpeed);
+  IASstepper.moveTo(TargetCurrentAirSpeed);
 }
 void onAirspeedNeedleChange(unsigned int newValue) {
   // SendDebug("onAirspeedDialChange = " + String(newValue));
@@ -699,22 +672,31 @@ void onAirspeedNeedleChange(unsigned int newValue) {
 }
 DcsBios::IntegerBuffer airspeedNeedleBuffer(A_10C_AIRSPEED_NEEDLE, onAirspeedNeedleChange);
 
+// Real-value UDP handler for Current Airspeed (see the "IAS" case in
+// HandleOutputValuePair() below) - knots now, rather than the raw step
+// pass-through this code used before. Unlike the placeholder linear
+// scale used for the newer, never-homed gauges (EGT/EOT/etc, which have
+// no established step range yet), this reuses the same step ceiling
+// (DUAL_STEPS + (5*16)) the DCS-BIOS path above already maps its own
+// 0-65535 needle value onto, since that's this stepper's real,
+// already-in-use mechanical range - not a fresh guess.
+#define IAS_MIN_KT 0
+#define IAS_MAX_KT 140
+
+long iasKtToSteps(long kt) {
+  if (kt < IAS_MIN_KT) kt = IAS_MIN_KT;
+  if (kt > IAS_MAX_KT) kt = IAS_MAX_KT;
+  return map(kt, IAS_MIN_KT, IAS_MAX_KT, 0, DUAL_STEPS + (5 * 16));
+}
+
+void setIAS(long TargetKt) {
+  setCurrentAirspeed(iasKtToSteps(TargetKt));
+}
+
 // ################################### START AIRSPEED CURRENT ##############################################
 
 
 
-// ################################### START AIRSPEED MAX ##############################################
-void setMaxAirspeed(long TargetMaxAirSpeed) {
-  // SendDebug("Max Airspeed = " + String(TargetMaxxAirSpeed));
-  SpeedMaxstepper.moveTo(TargetMaxAirSpeed);
-}
-void onAirspeedMaxIasChange(unsigned int newValue) {
-  // SendDebug("onAirspeedMaxIasChange = " + String(newValue));
-  setMaxAirspeed((map(newValue, 0, 65535, 0, DUAL_STEPS + (5 * 16))));
-}
-DcsBios::IntegerBuffer airspeedMaxIasBuffer(A_10C_AIRSPEED_MAX_IAS, onAirspeedMaxIasChange);
-
-// ################################### START AIRSPEED MAX ##############################################
 
 // ################################### START VSI ##############################################
 
@@ -797,57 +779,26 @@ DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
 // ################################### END VSI ##############################################
 
 
-// ################################### BEGIN AOA ##############################################
-
-void setAOA(long TargetAOA) {
-  // SendDebug("AOA = " + String(TargetMaxxAirSpeed));
-  AOAstepper.moveTo(TargetAOA);
-}
-
-void onAoaUnitsChange(unsigned int newValue) {
-  long AOA = newValue;
-  // SendDebug("onAoaUnitsChange = " + String(AOA));
-  setAOA(map(AOA, 0, 65535, 0, AOAMaxSteps));
-}
-DcsBios::IntegerBuffer aoaUnitsBuffer(0x1078, 0xffff, 0, onAoaUnitsChange);
-// ################################### END AOA ##############################################
 
 
 // ################################### BEGIN ALT ##############################################
 
 
-void onAltMslFtChange(unsigned int newValue) {
-  // Max Value of feet is 65535
-  // 5760 Steps per 1000 feet
-  // So 5.76 steps foot - need float as long doesn't do decimal
-  float ALTtargetSteps = newValue;
-  ALTtargetSteps = ALTtargetSteps * 5.76;
-  long longAlttargetSteps = long(ALTtargetSteps);
-  SendDebug("Altimeter target steps is :" + String(longAlttargetSteps));
-  ALTstepper.moveTo(longAlttargetSteps);
-  SendDebug("Altimeter steps to go :" + String(ALTstepper.distanceToGo() ));
-}
-DcsBios::IntegerBuffer altMslFtBuffer(CommonData_ALT_MSL_FT, onAltMslFtChange);
+// void onAltMslFtChange(unsigned int newValue) {
+//   // Max Value of feet is 65535
+//   // 5760 Steps per 1000 feet
+//   // So 5.76 steps foot - need float as long doesn't do decimal
+//   float ALTtargetSteps = newValue;
+//   ALTtargetSteps = ALTtargetSteps * 5.76;
+//   long longAlttargetSteps = long(ALTtargetSteps);
+//   SendDebug("Altimeter target steps is :" + String(longAlttargetSteps));
+//   ALTstepper.moveTo(longAlttargetSteps);
+//   SendDebug("Altimeter steps to go :" + String(ALTstepper.distanceToGo() ));
+// }
+// DcsBios::IntegerBuffer altMslFtBuffer(CommonData_ALT_MSL_FT, onAltMslFtChange);
 
 // ################################### END ALT ##############################################
 
-// ################################### BEGIN GForce ##############################################
-void setGForce(long TargetGForce) {
-  // SendDebug("GForce = " + String(TargetGForce));
-  GForcestepper.moveTo(TargetGForce);
-}
-
-
-void onAccelGChange(unsigned int newValue) {
-  long GForce = newValue;
-  // SendDebug("onAoaUnitsChange = " + String(AOA));
-  setGForce(map(GForce, 0, 65535, 0, STEPS));
-}
-DcsBios::IntegerBuffer accelGBuffer(0x1070, 0xffff, 0, onAccelGChange);
-
-
-
-// ################################### END GForce ##############################################
 
 // ################################### START EGT ##############################################
 
@@ -1215,12 +1166,8 @@ AccelStepper SARIstepperRoll(AccelStepper::DRIVER, SARIstepPin, SARIdirectionPin
 
 void updateSteppers() {
   VSIstepper.run();
-  ALTstepper.run();
-  SpeedCurrentstepper.run();
-  SpeedMaxstepper.run();
-  FlapsStepper.run();
-  AOAstepper.run();
-  GForcestepper.run();
+  //ALTstepper.run();
+  IASstepper.run();
   RadarAltStepper.run();
   EOTstepper.run();
   XOTstepper.run();
@@ -1250,8 +1197,8 @@ DcsBios::IntegerBuffer intConsoleLBrightBuffer(A_10C_INT_CONSOLE_L_BRIGHT, onInt
 
 void ProcessReceivedMSFSString() {
 
-  char *ParameterNamePtr;
-  const char *delim = ",";
+  char* ParameterNamePtr;
+  const char* delim = ",";
 
   // Break the received packet into a series of tokens
   ParameterNamePtr = strtok(packetBuffer, delim);
@@ -1291,18 +1238,32 @@ void HandleOutputValuePair(String str) {
   ParameterValue.trim();
 
   if (ParameterName == "IAS") {
-    // NOTE: JET_RANGER_SERVO_CONTROLLER's PC bridge apps send IAS already
-    // converted to a Bell 206 servo-position number (its IAS_Process()
-    // table), not raw knots and not an A-10 stepper step count. This is a
-    // straight pass-through for now - a proper map() will be needed here
-    // once this board's real airspeed calibration/range is known.
-    setCurrentAirspeed(ParameterValue.toInt());
-  } else if (ParameterName == "ALT") {
-    // ALT is sent as raw feet, matching the units this sketch's own
-    // DCS-BIOS altitude callback already expects, so its feet->steps
-    // conversion can be reused directly.
-    SendDebug("Altitude is :" + String(ParameterValue.toInt()));
-    onAltMslFtChange((unsigned int)ParameterValue.toInt());
+    // Real knots now (Current Airspeed, 0-140kt) - see setIAS()/
+    // iasKtToSteps() above. CAUTION: this is a deliberate units choice,
+    // not what "IAS" means on JET_RANGER_SERVO_CONTROLLER.ino - that
+    // sketch's IAS is a pre-converted Bell 206 *servo-position* number
+    // (via its IAS_Process() table), not knots, so the two boards'
+    // "IAS" now have the same code but different units. Not a live
+    // conflict today: per this sketch's own notes, FSUIPCWinformsAutoCS's
+    // stepper-specific payload doesn't currently include IAS at all (only
+    // ALT/VSI/AGL) - but if IAS is ever added back to that payload for
+    // this board, it needs to send real knots, not a servo-position
+    // number, or this will misinterpret it.
+    setIAS(ParameterValue.toInt());
+  } else if (ParameterName == "IASRAW") {
+    // Distinct raw-step code so the real-units "IAS" code above doesn't
+    // have to be the only way to reach this stepper over UDP - bypasses
+    // iasKtToSteps() entirely, same as the other "*RAW" codes below.
+    IASstepper.moveTo(ParameterValue.toInt());
+    // } else if (ParameterName == "ALT") {
+    //   // ALT is sent as raw feet, matching the units this sketch's own
+    //   // DCS-BIOS altitude callback already expects, so its feet->steps
+    //   // conversion can be reused directly.
+    //   SendDebug("Altitude is :" + String(ParameterValue.toInt()));
+    //   onAltMslFtChange((unsigned int)ParameterValue.toInt());
+    // } else if (ParameterName == "ALTRAW") {
+    //   // Distinct raw-step code, bypassing the feet*5.76 conversion above.
+    //   ALTstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "VSI") {
     // Unlike IAS (still a Bell 206 servo-position number), FSUIPCWinformsAutoCS
     // now sends this board raw fpm specifically for VSI (its own front-panel/
@@ -1313,6 +1274,9 @@ void HandleOutputValuePair(String str) {
     // (vsiFpmToSteps()) rather than setVSI()'s placeholder +/-VSIMaxSteps
     // clamp, which stays in use for the separate DCS-BIOS path only.
     VSIstepper.moveTo(vsiFpmToSteps(ParameterValue.toInt()));
+  } else if (ParameterName == "VSIRAW") {
+    // Distinct raw-step code, bypassing the VSI_FPM_TABLE lookup above.
+    VSIstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "AGL") {
     // Raw step pass-through for Radar Altitude - no real calibration
     // exists yet for this gauge (direction/steps-per-foot unverified, see
@@ -1337,33 +1301,54 @@ void HandleOutputValuePair(String str) {
     // real-world quantity, so both boards can be driven by the same UDP
     // payload instead of needing a separate send under a different name.
     setEOT(ParameterValue.toInt());
+  } else if (ParameterName == "OILTRAW") {
+    // Distinct raw-step code, bypassing eotCToSteps() above.
+    EOTstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "XMSNT") {
     // Real degrees C now (Transmission Oil Temperature, 0-150). Renamed
     // from "XOT" to match JET_RANGER_SERVO_CONTROLLER.ino.
     setXOT(ParameterValue.toInt());
+  } else if (ParameterName == "XMSNTRAW") {
+    // Distinct raw-step code, bypassing xotCToSteps() above.
+    XOTstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "XMSNP") {
     // Real PSI now (Transmission Oil Pressure, 0-150). Renamed from "XOP"
     // to match JET_RANGER_SERVO_CONTROLLER.ino.
     setXOP(ParameterValue.toInt());
+  } else if (ParameterName == "XMSNPRAW") {
+    // Distinct raw-step code, bypassing xopPsiToSteps() above.
+    XOPstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "ITT") {
     // Real degrees C now (see setEGT()/egtCToSteps() above) - no longer a
     // raw step target like the other new-gauge codes below. Renamed from
     // "EGT" to match JET_RANGER_SERVO_CONTROLLER.ino's code for the same
     // real-world quantity (Bell 206 calls this ITT, not EGT).
     setEGT(ParameterValue.toInt());
+  } else if (ParameterName == "ITTRAW") {
+    // Distinct raw-step code, bypassing egtCToSteps() above.
+    EGTstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "RPME") {
     // Real percent now (Turbine/Engine Speed, 0-120). Renamed from "TS"
     // to match JET_RANGER_SERVO_CONTROLLER.ino's "RPME" (Engine RPM) -
     // same real-world quantity.
     setTS(ParameterValue.toInt());
+  } else if (ParameterName == "RPMERAW") {
+    // Distinct raw-step code, bypassing tsPctToSteps() above.
+    TSstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "RPMR") {
     // Real percent now (Rotor Speed, 0-120). Renamed from "RS" to match
     // JET_RANGER_SERVO_CONTROLLER.ino.
     setRS(ParameterValue.toInt());
+  } else if (ParameterName == "RPMRRAW") {
+    // Distinct raw-step code, bypassing rsPctToSteps() above.
+    RSstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "FUEL") {
     // Real US gallons now (Fuel Available, 0-75). Renamed from "FA" to
     // match JET_RANGER_SERVO_CONTROLLER.ino.
     setFA(ParameterValue.toInt());
+  } else if (ParameterName == "FUELRAW") {
+    // Distinct raw-step code, bypassing faGalToSteps() above.
+    FAstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "TQ") {
     // Raw step pass-through still (no real calibration requested for this
     // one). Renamed from "ET" to match JET_RANGER_SERVO_CONTROLLER.ino's
@@ -1374,28 +1359,23 @@ void HandleOutputValuePair(String str) {
     // JET_RANGER_SERVO_CONTROLLER.ino's "N1" code for the same real-world
     // quantity.
     setGP(ParameterValue.toInt());
+  } else if (ParameterName == "N1RAW") {
+    // Distinct raw-step code, bypassing gpPctToSteps() above.
+    GPstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "OILP") {
     // Real PSI now (Engine Oil Pressure, 0-150). Renamed from "EOP" to
     // match JET_RANGER_SERVO_CONTROLLER.ino.
     setEOP(ParameterValue.toInt());
-  } else if (ParameterName == "FLAPS") {
-    // Raw step pass-through, same style as the new-gauge codes above -
-    // gives Flaps the same "direct step target" capability
-    // Stepper-Tuning-Harness offers for every gauge over Serial. Flaps
-    // had no UDP reachability at all before this (DCS-BIOS binding is
-    // commented out in this sketch).
-    FlapsStepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "AOA") {
-    AOAstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "GFORCE") {
-    GForcestepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "SPDMAX") {
-    SpeedMaxstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "OILPRAW") {
+    // Distinct raw-step code, bypassing eopPsiToSteps() above.
+    EOPstepper.moveTo(ParameterValue.toInt());
+    // Every real-value gauge above (IAS/ALT/VSI/OILT/XMSNT/XMSNP/ITT/RPME/
+    // RPMR/N1/OILP/FUEL) also has a distinct "<CODE>RAW" code for sending a
+    // raw step target instead of a real-unit value, e.g. "IASRAW" alongside
+    // "IAS" - see each real-value case above for its matching *RAW sibling.
+    // AGL/TQ/FLAPS/AOA/GFORCE/SPDMAX don't need one since they're already
+    // raw-only. Every other code is currently parsed and silently ignored.
   }
-  // ALT, VSI, and IAS already have their own UDP codes above (feet/fpm
-  // calibrated for ALT/VSI, raw pass-through for IAS/Current Airspeed),
-  // so they don't need a separate direct-step code here. Every other
-  // code is currently parsed and silently ignored.
 }
 
 void HandleControlString(String str) {

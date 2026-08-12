@@ -99,10 +99,19 @@ namespace StepperVSITester
             lblFaRow = new Label();
             txtFa = new TextBox();
             butSendFa = new Button();
+            lblIasHeader = new Label();
+            trkIas = new TrackBar();
+            lblIasValue = new Label();
+            lblIasMin = new Label();
+            lblIasMax = new Label();
+            txtIasInput = new TextBox();
+            butSendIas = new Button();
+            butIasZero = new Button();
             ((System.ComponentModel.ISupportInitialize)trkVsi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkEgt).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trkIas).BeginInit();
             SuspendLayout();
             //
             // lblTarget
@@ -415,7 +424,7 @@ namespace StepperVSITester
             lblNewGaugeHeader.Name = "lblNewGaugeHeader";
             lblNewGaugeHeader.Size = new Size(220, 15);
             lblNewGaugeHeader.TabIndex = 31;
-            lblNewGaugeHeader.Text = "New Gauges (raw steps, uncalibrated)";
+            lblNewGaugeHeader.Text = "Raw Step Test (uncalibrated / bypass conversion)";
             //
             // lblNewGaugeGauge
             //
@@ -429,7 +438,7 @@ namespace StepperVSITester
             // cboNewGauge
             //
             cboNewGauge.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboNewGauge.Items.AddRange(new object[] { "TQ", "FLAPS", "AOA", "GFORCE", "SPDMAX" });
+            cboNewGauge.Items.AddRange(new object[] { "TQ", "FLAPS", "AOA", "GFORCE", "SPDMAX", "IASRAW", "ALTRAW", "VSIRAW", "OILTRAW", "OILPRAW", "XMSNTRAW", "XMSNPRAW", "ITTRAW", "RPMERAW", "RPMRRAW", "N1RAW", "FUELRAW" });
             cboNewGauge.Location = new Point(12, 675);
             cboNewGauge.Name = "cboNewGauge";
             cboNewGauge.Size = new Size(100, 23);
@@ -786,13 +795,100 @@ namespace StepperVSITester
             butSendFa.UseVisualStyleBackColor = true;
             butSendFa.Click += butSendFa_Click;
             //
+            // lblIasHeader
+            //
+            lblIasHeader.AutoSize = true;
+            lblIasHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblIasHeader.Location = new Point(12, 1247);
+            lblIasHeader.Name = "lblIasHeader";
+            lblIasHeader.Size = new Size(120, 15);
+            lblIasHeader.TabIndex = 71;
+            lblIasHeader.Text = "IAS (knots)";
+            //
+            // trkIas
+            //
+            trkIas.LargeChange = 20;
+            trkIas.Location = new Point(12, 1293);
+            trkIas.Maximum = 140;
+            trkIas.Minimum = 0;
+            trkIas.Name = "trkIas";
+            trkIas.Size = new Size(400, 45);
+            trkIas.SmallChange = 5;
+            trkIas.TabIndex = 73;
+            trkIas.TickFrequency = 20;
+            trkIas.Scroll += trkIas_Scroll;
+            //
+            // lblIasValue
+            //
+            lblIasValue.AutoSize = true;
+            lblIasValue.Location = new Point(12, 1268);
+            lblIasValue.Name = "lblIasValue";
+            lblIasValue.Size = new Size(80, 15);
+            lblIasValue.TabIndex = 72;
+            lblIasValue.Text = "Value: 0 kt";
+            //
+            // lblIasMin
+            //
+            lblIasMin.AutoSize = true;
+            lblIasMin.Location = new Point(12, 1341);
+            lblIasMin.Name = "lblIasMin";
+            lblIasMin.Size = new Size(13, 15);
+            lblIasMin.TabIndex = 74;
+            lblIasMin.Text = "0";
+            //
+            // lblIasMax
+            //
+            lblIasMax.AutoSize = true;
+            lblIasMax.Location = new Point(357, 1341);
+            lblIasMax.Name = "lblIasMax";
+            lblIasMax.Size = new Size(24, 15);
+            lblIasMax.TabIndex = 75;
+            lblIasMax.Text = "140";
+            //
+            // txtIasInput
+            //
+            txtIasInput.Location = new Point(12, 1373);
+            txtIasInput.Name = "txtIasInput";
+            txtIasInput.Size = new Size(100, 23);
+            txtIasInput.TabIndex = 76;
+            txtIasInput.Text = "0";
+            txtIasInput.KeyDown += txtIasInput_KeyDown;
+            //
+            // butSendIas
+            //
+            butSendIas.Location = new Point(118, 1372);
+            butSendIas.Name = "butSendIas";
+            butSendIas.Size = new Size(92, 25);
+            butSendIas.TabIndex = 77;
+            butSendIas.Text = "Send";
+            butSendIas.UseVisualStyleBackColor = true;
+            butSendIas.Click += butSendIas_Click;
+            //
+            // butIasZero
+            //
+            butIasZero.Location = new Point(216, 1372);
+            butIasZero.Name = "butIasZero";
+            butIasZero.Size = new Size(92, 25);
+            butIasZero.TabIndex = 78;
+            butIasZero.Text = "Zero";
+            butIasZero.UseVisualStyleBackColor = true;
+            butIasZero.Click += butIasZero_Click;
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            AutoScrollMinSize = new Size(424, 1231);
+            AutoScrollMinSize = new Size(424, 1418);
             ClientSize = new Size(444, 760);
+            Controls.Add(butIasZero);
+            Controls.Add(butSendIas);
+            Controls.Add(txtIasInput);
+            Controls.Add(lblIasMax);
+            Controls.Add(lblIasMin);
+            Controls.Add(trkIas);
+            Controls.Add(lblIasValue);
+            Controls.Add(lblIasHeader);
             Controls.Add(butSendFa);
             Controls.Add(txtFa);
             Controls.Add(lblFaRow);
@@ -870,6 +966,7 @@ namespace StepperVSITester
             ((System.ComponentModel.ISupportInitialize)trkAlt).EndInit();
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).EndInit();
             ((System.ComponentModel.ISupportInitialize)trkEgt).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trkIas).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -947,5 +1044,13 @@ namespace StepperVSITester
         private Label lblFaRow;
         private TextBox txtFa;
         private Button butSendFa;
+        private Label lblIasHeader;
+        private TrackBar trkIas;
+        private Label lblIasValue;
+        private Label lblIasMin;
+        private Label lblIasMax;
+        private TextBox txtIasInput;
+        private Button butSendIas;
+        private Button butIasZero;
     }
 }

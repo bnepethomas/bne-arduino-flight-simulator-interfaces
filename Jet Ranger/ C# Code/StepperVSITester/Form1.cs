@@ -76,6 +76,10 @@ namespace StepperVSITester
             txtRs.Text = "0";
             txtGp.Text = "0";
             txtFa.Text = "0";
+
+            trkIas.Value = 0;
+            UpdateValueLabel(lblIasValue, 0, "kt");
+            txtIasInput.Text = "0";
         }
 
         private void trkVsi_Scroll(object sender, EventArgs e)
@@ -220,16 +224,20 @@ namespace StepperVSITester
 
         // Raw step pass-through test frame giving JET_RANGER_STEPPER_CONTROLLER.ino's
         // gauges the same "direct step target" capability Stepper-Tuning-Harness
-        // offers for every gauge over Serial (see that sketch's HandleOutputValuePair()):
-        // the 10 gauges ported from the harness (EOT/XOT/XOP/EGT/TS/RS/FA/ET/GP/EOP,
-        // none calibrated yet) plus FLAPS/AOA/GFORCE/SPDMAX, which had no UDP
-        // reachability at all before this. ALT/VSI/IAS already have their own codes
-        // (feet/fpm calibrated, or raw pass-through for IAS) so aren't duplicated here.
-        // One shared raw-step control with a dropdown rather than fourteen
-        // near-identical trackbar sections - cheaper to keep in sync while none of
-        // these are calibrated, and easy to split a gauge into its own dedicated
-        // section later once it gets real units (the same way Radar ALT graduated
-        // from raw steps to feet).
+        // offers for every gauge over Serial (see that sketch's HandleOutputValuePair()).
+        // Two groups of codes live in this one dropdown:
+        //  - TQ/FLAPS/AOA/GFORCE/SPDMAX: gauges with no real calibration at all yet,
+        //    so raw steps is their only option.
+        //  - IASRAW/ALTRAW/VSIRAW/OILTRAW/OILPRAW/XMSNTRAW/XMSNPRAW/ITTRAW/RPMERAW/
+        //    RPMRRAW/N1RAW/FUELRAW: distinct raw-step siblings of gauges that DO have
+        //    a real-unit code/section elsewhere in this form (IAS/ALT/VSI trackbars,
+        //    the EGT/ITT trackbar, the OILT/OILP/XMSNT/XMSNP/RPME/RPMR/N1/FUEL rows) -
+        //    lets the operator bypass that gauge's unit conversion for bench testing
+        //    without losing the real-value control.
+        // One shared control with a dropdown rather than a duplicate raw-step
+        // trackbar/row next to every calibrated gauge - cheaper to keep in sync, and
+        // easy to give a gauge its own dedicated raw control later if that turns out
+        // to be worth the extra screen space.
         private void butNewGaugeSend_Click(object sender, EventArgs e)
         {
             if (!long.TryParse(txtNewGaugeSteps.Text, out long steps))
@@ -338,5 +346,41 @@ namespace StepperVSITester
 
         private void butSendFa_Click(object sender, EventArgs e) => SendRealValue(txtFa, "FUEL");
         private void txtFa_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtFa, "FUEL"); }
+
+        // IAS (Current Airspeed), 0-140kt: sends real knots directly; the
+        // board converts to steps via setIAS()/iasKtToSteps() in
+        // JET_RANGER_STEPPER_CONTROLLER.ino, reusing that stepper's
+        // existing DCS-BIOS-derived step range rather than a fresh
+        // placeholder. CAUTION: JET_RANGER_SERVO_CONTROLLER.ino's own
+        // "IAS" code means something different (a pre-converted Bell 206
+        // servo-position number, not knots) - see that sketch's comment on
+        // the "IAS" case for the full caveat.
+        private void trkIas_Scroll(object sender, EventArgs e)
+        {
+            UpdateValueLabel(lblIasValue, trkIas.Value, "kt");
+            txtIasInput.Text = trkIas.Value.ToString();
+            Send("IAS", trkIas.Value);
+        }
+
+        private void butIasZero_Click(object sender, EventArgs e)
+        {
+            trkIas.Value = 0;
+            txtIasInput.Text = "0";
+            UpdateValueLabel(lblIasValue, 0, "kt");
+            Send("IAS", 0);
+        }
+
+        private void butSendIas_Click(object sender, EventArgs e)
+        {
+            SendManualValue(trkIas, txtIasInput, lblIasValue, "IAS", "kt");
+        }
+
+        private void txtIasInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendManualValue(trkIas, txtIasInput, lblIasValue, "IAS", "kt");
+            }
+        }
     }
 }
