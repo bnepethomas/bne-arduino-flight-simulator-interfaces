@@ -48,17 +48,16 @@
       "drc_warnings",
       "shapes"
     ],
-    "visible_layers": "00000000_00000000_00000100_80000001",
+    "visible_layers": "00000000_00000000_0003feff_aa02002f",
     "zone_display_mode": 0
   },
   "git": {
-    "repo_password": "",
     "repo_type": "",
     "repo_username": "",
     "ssh_key": ""
   },
   "meta": {
-    "filename": "Simmeters Large Guage Replacement.kicad_prl",
+    "filename": "Jet Ranger X27 Small Stepper.kicad_prl",
     "version": 5
   },
   "net_inspector_panel": {

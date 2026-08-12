@@ -116,6 +116,7 @@
         "unconnected_items": "error",
         "unresolved_variable": "error",
         "via_dangling": "warning",
+        "zone_has_empty_net": "error",
         "zones_intersect": "error"
       },
       "rule_severitieslegacy_courtyards_overlap": true,
@@ -417,9 +418,9 @@
     "rule_severities": {
       "bus_definition_conflict": "error",
       "bus_entry_needed": "error",
+      "bus_label_syntax": "error",
       "bus_to_bus_conflict": "error",
       "bus_to_net_conflict": "error",
-      "conflicting_netclasses": "error",
       "different_unit_footprint": "error",
       "different_unit_net": "error",
       "duplicate_reference": "error",
@@ -466,7 +467,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Simmeters Large Guage Replacement.kicad_pro",
+    "filename": "Jet Ranger X27 Small Stepper.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -502,10 +503,10 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "MANUFACTURING/",
       "pos_files": "",
-      "specctra_dsn": "Simmeters Small Engine Replacement.dsn",
-      "step": "GAUGE_Analog Instruments.step",
+      "specctra_dsn": "Jet Ranger X27 Small Stepper.dsn",
+      "step": "Simkits_Small_Gauge.step",
       "svg": "",
       "vrml": ""
     },
@@ -649,7 +650,7 @@
   "sheets": [
     [
       "73b32b5d-03c1-4da0-86a6-bf0e6feee74d",
-      ""
+      "Root"
     ]
   ],
   "text_variables": {}

@@ -1,0 +1,32 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,9.0.7*%
+%TF.CreationDate,2026-08-13T02:01:20+10:00*%
+%TF.ProjectId,Jet Ranger X27 Small Stepper,4a657420-5261-46e6-9765-722058323720,rev?*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,NonPlated,1,2,NPTH,Drill*%
+%TF.FilePolarity,Positive*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 9.0.7) date 2026-08-13 02:01:20*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,ComponentDrill*%
+%ADD10C,2.200000*%
+%TD*%
+%TA.AperFunction,ComponentDrill*%
+%ADD11C,2.500000*%
+%TD*%
+%TA.AperFunction,ComponentDrill*%
+%ADD12C,3.800000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+%TO.C,M1*%
+X166350500Y-94011900D03*
+X193350500Y-94011900D03*
+D11*
+X170850500Y-85011900D03*
+D12*
+X179850500Y-104011900D03*
+M02*
