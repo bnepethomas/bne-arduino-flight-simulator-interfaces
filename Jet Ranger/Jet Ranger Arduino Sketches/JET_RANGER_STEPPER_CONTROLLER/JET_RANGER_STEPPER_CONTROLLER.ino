@@ -90,6 +90,16 @@ const unsigned int reflectorport = 27000;
 // wire format ("D,CODE:value,...") can be reused. Was previously 7791 and unused.
 const unsigned int MSFSport = 13136;
 
+// Health keepalive - same pattern as JET_RANGER_UPPER_CONTROLLER.ino's
+// aliveudp: a bare ASCII prefix string ("STEPPER", no delimiter/payload)
+// sent to reflectorIP (172.16.1.10, the JetRangerHealthMonitor host)
+// every aliveinterval, so that app can show this board's live/dead
+// status next to COMM_NAV/SERVO/UPPER_INPUT/JOYSTICK.
+const unsigned int aliveport = 13137;
+const unsigned long aliveinterval = 10000;
+unsigned long lastalivesent = 0;
+EthernetUDP aliveudp;
+
 int packetSize;
 int debugLen;
 EthernetUDP udp;
@@ -323,6 +333,7 @@ void setup() {
     Ethernet.setRetransmissionTimeout(10);
     udp.begin(localport);
     MSFSudp.begin(MSFSport);
+    aliveudp.begin(aliveport);
 
     // As it takes a couple of seconds before the Ethernet Stack is operational
     // Flash leds until time period has completed
@@ -1669,6 +1680,15 @@ void loop() {
       }
       lastincomingpacketcheck = millis();
     }
+  }
+
+  if ((millis() - lastalivesent) >= aliveinterval) {
+    if (Ethernet_In_Use == 1) {
+      aliveudp.beginPacket(reflectorIP, aliveport);
+      aliveudp.print("STEPPER");
+      aliveudp.endPacket();
+    }
+    lastalivesent = millis();
   }
 
   currentMillis = millis();

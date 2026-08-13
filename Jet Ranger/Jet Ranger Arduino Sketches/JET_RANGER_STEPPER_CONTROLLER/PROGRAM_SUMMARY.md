@@ -193,11 +193,17 @@ collides with `AllstepperEnablePin`.
 | `172.16.1.10` (reflector host) | 27000 | Debug/log messages via `SendDebug()` |
 | `172.16.1.110` (`targetIP`) | 7788 / 7789 | `SendIPString()`/`SendLedString()` — declared, no callers |
 | `172.16.1.10` (`MSFSIP`) | 7791 | `SendMSFSMessage()` — declared, no callers |
+| `reflectorIP` (172.16.1.10, `JetRangerHealthMonitor`'s host) | 13137 | Health keepalive — bare `"STEPPER"` string sent every 10s (`aliveinterval`) via `aliveudp`, same pattern as `JET_RANGER_UPPER_CONTROLLER.ino`'s `"UPPER_INPUT"` keepalive |
 
 > **[StepperVSITester](../../%20C%23%20Code/StepperVSITester/PROGRAM_SUMMARY.md)**
 > can send every real-unit and `*RAW` code above straight to this board's
 > `172.16.1.105:13136` for bench testing without needing FSUIPC or a
 > flight sim running.
+>
+> **[JetRangerHealthMonitor](../../%20C%23%20Code/JetRangerHealthMonitor/PROGRAM_SUMMARY.md)**
+> now shows this board's live/dead status (Stepper indicator) alongside
+> Comm/Nav, Servo, Joystick, and Upper Input, based on the `"STEPPER"`
+> keepalive above.
 
 ---
 

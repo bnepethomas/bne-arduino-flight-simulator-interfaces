@@ -17,6 +17,7 @@ namespace MegaHealthMonitor
         DateTime ServoLastReceived = DateTime.Now;
         DateTime JoyStickLastReceived = DateTime.Now;
         DateTime UpperInputLastReceived = DateTime.Now;
+        DateTime StepperLastReceived = DateTime.Now;
 
         bool loggingActive = true;
 
@@ -110,6 +111,22 @@ namespace MegaHealthMonitor
                                 this.Invoke(new Action(() =>
                                 {
                                     lblUpperInput.BackColor = Color.Green;
+                                }));
+                            }
+                            else if (receivedData.StartsWith("STEPPER"))
+                            {
+                                StepperLastReceived = DateTime.Now;
+                                // Update UI with received data (use Invoke to reach UI thread)
+                                if (loggingActive)
+                                {
+                                    this.Invoke(new Action(() =>
+                                    {
+                                        listBoxLogs.Items.Add(StepperLastReceived.ToString("HH:mm:ss") + $" Received: {receivedData} from {result.RemoteEndPoint}");
+                                    }));
+                                }
+                                this.Invoke(new Action(() =>
+                                {
+                                    lblStepper.BackColor = Color.Green;
                                 }));
                             }
                         }
@@ -208,6 +225,26 @@ namespace MegaHealthMonitor
                     AddLog("Upper Input connection warning.");
                 }
                 lblUpperInput.BackColor = Color.Orange;
+            }
+
+            span = DateTime.Now - StepperLastReceived;
+            mS = (int)span.TotalMilliseconds;
+
+            if (mS >= 30000)
+            {
+                if (lblStepper.BackColor != Color.Red)
+                {
+                    AddLog("Stepper connection lost.");
+                }
+                lblStepper.BackColor = Color.Red;
+            }
+            else if (mS >= 15000)
+            {
+                if (lblStepper.BackColor != Color.Orange)
+                {
+                    AddLog("Stepper connection warning.");
+                }
+                lblStepper.BackColor = Color.Orange;
             }
 
         }
