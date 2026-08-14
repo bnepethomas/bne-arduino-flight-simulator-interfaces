@@ -305,7 +305,7 @@ AccelStepper EOTstepper(AccelStepper::FULL4WIRE, EOT_COIL_A, EOT_COIL_B, EOT_COI
 AccelStepper XOTstepper(AccelStepper::FULL4WIRE, XOT_COIL_A, XOT_COIL_B, XOT_COIL_C, XOT_COIL_D);
 AccelStepper XOPstepper(AccelStepper::FULL4WIRE, XOP_COIL_A, XOP_COIL_B, XOP_COIL_C, XOP_COIL_D);
 AccelStepper EGTstepper(AccelStepper::FULL4WIRE, EGT_COIL_A, EGT_COIL_B, EGT_COIL_C, EGT_COIL_D);
-AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_C, TS_COIL_D, TS_COIL_A, TS_COIL_B);
+AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_A, TS_COIL_B, TS_COIL_C, TS_COIL_D);
 AccelStepper RSstepper(AccelStepper::FULL4WIRE, RS_COIL_C, RS_COIL_D, RS_COIL_A, RS_COIL_B);
 AccelStepper FAstepper(AccelStepper::FULL4WIRE, FA_COIL_A, FA_COIL_B, FA_COIL_C, FA_COIL_D);
 // EL_COIL_A..D are the same physical pins (36-39) the Torque stepper
@@ -571,7 +571,7 @@ void setup() {
   // stall against it from the wrong side) before trusting it unattended.
   SendDebug("Start TSstepper");
   TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-  TSstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+  TSstepper.runToNewPosition(0);
   TSstepper.setCurrentPosition(0);
 
   for (int i = 1; i <= 3; i++) {
@@ -604,7 +604,7 @@ void setup() {
   // side) before trusting it unattended.
   SendDebug("Start RSstepper");
   RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-  RSstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+  RSstepper.runToNewPosition(0);
   RSstepper.setCurrentPosition(0);
 
   for (int i = 1; i <= 3; i++) {
