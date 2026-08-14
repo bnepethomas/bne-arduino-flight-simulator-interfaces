@@ -37,6 +37,7 @@
             lblJoyStick = new Label();
             lblUpperInput = new Label();
             lblStepper = new Label();
+            lblDualStepper = new Label();
             SuspendLayout();
             // 
             // listBoxLogs
@@ -119,11 +120,23 @@
             lblStepper.TabIndex = 6;
             lblStepper.Text = "Stepper";
             //
+            // lblDualStepper
+            //
+            lblDualStepper.AutoSize = true;
+            lblDualStepper.BackColor = Color.White;
+            lblDualStepper.ForeColor = SystemColors.ControlText;
+            lblDualStepper.Location = new Point(330, 9);
+            lblDualStepper.Name = "lblDualStepper";
+            lblDualStepper.Size = new Size(80, 15);
+            lblDualStepper.TabIndex = 7;
+            lblDualStepper.Text = "Dual Stepper";
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(465, 282);
+            Controls.Add(lblDualStepper);
             Controls.Add(lblStepper);
             Controls.Add(lblUpperInput);
             Controls.Add(lblJoyStick);
@@ -148,5 +161,6 @@
         private Label lblJoyStick;
         private Label lblUpperInput;
         private Label lblStepper;
+        private Label lblDualStepper;
     }
 }

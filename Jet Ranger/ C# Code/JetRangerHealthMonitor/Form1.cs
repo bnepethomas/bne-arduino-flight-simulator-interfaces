@@ -18,6 +18,7 @@ namespace MegaHealthMonitor
         DateTime JoyStickLastReceived = DateTime.Now;
         DateTime UpperInputLastReceived = DateTime.Now;
         DateTime StepperLastReceived = DateTime.Now;
+        DateTime DualStepperLastReceived = DateTime.Now;
 
         bool loggingActive = true;
 
@@ -127,6 +128,22 @@ namespace MegaHealthMonitor
                                 this.Invoke(new Action(() =>
                                 {
                                     lblStepper.BackColor = Color.Green;
+                                }));
+                            }
+                            else if (receivedData.StartsWith("DUAL_STEPPER"))
+                            {
+                                DualStepperLastReceived = DateTime.Now;
+                                // Update UI with received data (use Invoke to reach UI thread)
+                                if (loggingActive)
+                                {
+                                    this.Invoke(new Action(() =>
+                                    {
+                                        listBoxLogs.Items.Add(DualStepperLastReceived.ToString("HH:mm:ss") + $" Received: {receivedData} from {result.RemoteEndPoint}");
+                                    }));
+                                }
+                                this.Invoke(new Action(() =>
+                                {
+                                    lblDualStepper.BackColor = Color.Green;
                                 }));
                             }
                         }
@@ -245,6 +262,26 @@ namespace MegaHealthMonitor
                     AddLog("Stepper connection warning.");
                 }
                 lblStepper.BackColor = Color.Orange;
+            }
+
+            span = DateTime.Now - DualStepperLastReceived;
+            mS = (int)span.TotalMilliseconds;
+
+            if (mS >= 30000)
+            {
+                if (lblDualStepper.BackColor != Color.Red)
+                {
+                    AddLog("Dual Stepper connection lost.");
+                }
+                lblDualStepper.BackColor = Color.Red;
+            }
+            else if (mS >= 15000)
+            {
+                if (lblDualStepper.BackColor != Color.Orange)
+                {
+                    AddLog("Dual Stepper connection warning.");
+                }
+                lblDualStepper.BackColor = Color.Orange;
             }
 
         }

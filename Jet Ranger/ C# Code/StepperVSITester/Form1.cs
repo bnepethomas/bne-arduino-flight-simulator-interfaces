@@ -11,10 +11,25 @@ namespace StepperVSITester
         // needing FSUIPC/a flight sim running.
         UdpClient stepperClient = new UdpClient();
 
+        // JET_RANGER_DUAL_STEPPER_CONTROLLER.ino's own address (172.16.1.106,
+        // distinct from the single-board sketch's 172.16.1.105 so both can be
+        // on the network at once) - a separate socket since this is a
+        // different physical board, not an alternate port on the same one.
+        // Only used for that board's Fuel Load / Electrical Load gauges
+        // (FUELLOAD/ELECTRICALLOAD), which don't exist on the single-board
+        // sketch at all.
+        UdpClient dualStepperClient = new UdpClient();
+
         private void Send(string code, long value)
         {
             byte[] sendBytes = Encoding.ASCII.GetBytes("D," + code + ":" + value.ToString());
             stepperClient.Send(sendBytes, sendBytes.Length);
+        }
+
+        private void SendDual(string code, long value)
+        {
+            byte[] sendBytes = Encoding.ASCII.GetBytes("D," + code + ":" + value.ToString());
+            dualStepperClient.Send(sendBytes, sendBytes.Length);
         }
 
         private void SendManualValue(TrackBar trackBar, TextBox textBox, Label label, string code, string unit)
@@ -38,6 +53,36 @@ namespace StepperVSITester
             }
         }
 
+        // Same as SendManualValue() above, but also broadcasts to
+        // dualStepperClient (172.16.1.106) - for RPME/RPMR, which both
+        // JET_RANGER_STEPPER_CONTROLLER.ino and
+        // JET_RANGER_DUAL_STEPPER_CONTROLLER.ino drive identically (same
+        // TS_PCT_TABLE/RS_PCT_TABLE calibration - Fuel Load/Electrical
+        // Load were the only steppers repurposed on the Dual Stepper
+        // board), so a single trackbar can drive both boards' Turbine/
+        // Rotor Speed gauges together on the bench.
+        private void SendManualValueBroadcast(TrackBar trackBar, TextBox textBox, Label label, string code, string unit)
+        {
+            if (long.TryParse(textBox.Text, out long value))
+            {
+                if (value >= trackBar.Minimum && value <= trackBar.Maximum)
+                {
+                    trackBar.Value = (int)value;
+                    UpdateValueLabel(label, value, unit);
+                    Send(code, value);
+                    SendDual(code, value);
+                }
+                else
+                {
+                    MessageBox.Show($"Value must be between {trackBar.Minimum} and {trackBar.Maximum}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Value must be a number");
+            }
+        }
+
         private void UpdateValueLabel(Label label, long value, string unit)
         {
             label.Text = $"Value: {value} {unit}";
@@ -48,6 +93,10 @@ namespace StepperVSITester
             InitializeComponent();
 
             stepperClient.Connect("172.16.1.105", 13136);
+            dualStepperClient.Connect("172.16.1.106", 13136);
+
+            txtFuelLoad.Text = "0";
+            txtElectricalLoad.Text = "0";
 
             trkVsi.Value = 0;
             UpdateValueLabel(lblValue, 0, "fpm");
@@ -362,6 +411,23 @@ namespace StepperVSITester
             }
         }
 
+        // Same as SendRealValue() above, but sent to dualStepperClient
+        // (172.16.1.106) instead of stepperClient (172.16.1.105) - for
+        // JET_RANGER_DUAL_STEPPER_CONTROLLER.ino's raw-step-only
+        // FUELLOAD/ELECTRICALLOAD codes, which don't exist on the
+        // single-board sketch.
+        private void SendDualRawValue(TextBox textBox, string code)
+        {
+            if (long.TryParse(textBox.Text, out long value))
+            {
+                SendDual(code, value);
+            }
+            else
+            {
+                MessageBox.Show("Value must be a number");
+            }
+        }
+
         // Wire codes renamed to match JET_RANGER_SERVO_CONTROLLER.ino's existing
         // codes for these same real-world quantities (OILT/OILP/XMSNT/XMSNP/
         // N1/FUEL) - control names here are unchanged (still txtEot/txtEop/
@@ -427,12 +493,15 @@ namespace StepperVSITester
         // the board converts to steps via setTS()/tsPctToSteps() and its
         // real hand-measured TS_PCT_TABLE in JET_RANGER_STEPPER_CONTROLLER.ino.
         // Graduated here from a compact value-box row (see above) once that
-        // table existed - same trackbar layout as IAS/EGT.
+        // table existed - same trackbar layout as IAS/EGT. Broadcasts to
+        // both stepperClient (172.16.1.105) and dualStepperClient
+        // (172.16.1.106) - see SendManualValueBroadcast() above for why.
         private void trkRpme_Scroll(object sender, EventArgs e)
         {
             UpdateValueLabel(lblRpmeValue, trkRpme.Value, "%");
             txtRpmeInput.Text = trkRpme.Value.ToString();
             Send("RPME", trkRpme.Value);
+            SendDual("RPME", trkRpme.Value);
         }
 
         private void butRpmeZero_Click(object sender, EventArgs e)
@@ -441,18 +510,19 @@ namespace StepperVSITester
             txtRpmeInput.Text = "0";
             UpdateValueLabel(lblRpmeValue, 0, "%");
             Send("RPME", 0);
+            SendDual("RPME", 0);
         }
 
         private void butSendRpme_Click(object sender, EventArgs e)
         {
-            SendManualValue(trkRpme, txtRpmeInput, lblRpmeValue, "RPME", "%");
+            SendManualValueBroadcast(trkRpme, txtRpmeInput, lblRpmeValue, "RPME", "%");
         }
 
         private void txtRpmeInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SendManualValue(trkRpme, txtRpmeInput, lblRpmeValue, "RPME", "%");
+                SendManualValueBroadcast(trkRpme, txtRpmeInput, lblRpmeValue, "RPME", "%");
             }
         }
 
@@ -460,12 +530,15 @@ namespace StepperVSITester
         // converts to steps via setRS()/rsPctToSteps() and its real
         // hand-measured RS_PCT_TABLE in JET_RANGER_STEPPER_CONTROLLER.ino.
         // Graduated here from a compact value-box row (see above) once that
-        // table existed - same trackbar layout as IAS/EGT/RPME.
+        // table existed - same trackbar layout as IAS/EGT/RPME. Broadcasts
+        // to both stepperClient (172.16.1.105) and dualStepperClient
+        // (172.16.1.106) - see SendManualValueBroadcast() above for why.
         private void trkRpmr_Scroll(object sender, EventArgs e)
         {
             UpdateValueLabel(lblRpmrValue, trkRpmr.Value, "%");
             txtRpmrInput.Text = trkRpmr.Value.ToString();
             Send("RPMR", trkRpmr.Value);
+            SendDual("RPMR", trkRpmr.Value);
         }
 
         private void butRpmrZero_Click(object sender, EventArgs e)
@@ -474,19 +547,32 @@ namespace StepperVSITester
             txtRpmrInput.Text = "0";
             UpdateValueLabel(lblRpmrValue, 0, "%");
             Send("RPMR", 0);
+            SendDual("RPMR", 0);
         }
 
         private void butSendRpmr_Click(object sender, EventArgs e)
         {
-            SendManualValue(trkRpmr, txtRpmrInput, lblRpmrValue, "RPMR", "%");
+            SendManualValueBroadcast(trkRpmr, txtRpmrInput, lblRpmrValue, "RPMR", "%");
         }
 
         private void txtRpmrInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SendManualValue(trkRpmr, txtRpmrInput, lblRpmrValue, "RPMR", "%");
+                SendManualValueBroadcast(trkRpmr, txtRpmrInput, lblRpmrValue, "RPMR", "%");
             }
         }
+
+        // Dual Stepper (172.16.1.106) raw-step test rows - FUELLOAD/
+        // ELECTRICALLOAD only exist on JET_RANGER_DUAL_STEPPER_CONTROLLER.ino
+        // (that board's Radar Alt/Torque steppers repurposed as Fuel Load/
+        // Electrical Load - see that sketch's PROGRAM_SUMMARY.md), so these
+        // go through SendDual()/dualStepperClient rather than the
+        // single-board Send()/stepperClient every other control here uses.
+        private void butSendFuelLoad_Click(object sender, EventArgs e) => SendDualRawValue(txtFuelLoad, "FUELLOAD");
+        private void txtFuelLoad_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendDualRawValue(txtFuelLoad, "FUELLOAD"); }
+
+        private void butSendElectricalLoad_Click(object sender, EventArgs e) => SendDualRawValue(txtElectricalLoad, "ELECTRICALLOAD");
+        private void txtElectricalLoad_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendDualRawValue(txtElectricalLoad, "ELECTRICALLOAD"); }
     }
 }

@@ -119,6 +119,13 @@ namespace StepperVSITester
             txtRpmrInput = new TextBox();
             butSendRpmr = new Button();
             butRpmrZero = new Button();
+            lblDualStepperHeader = new Label();
+            lblFuelLoadRow = new Label();
+            txtFuelLoad = new TextBox();
+            butSendFuelLoad = new Button();
+            lblElectricalLoadRow = new Label();
+            txtElectricalLoad = new TextBox();
+            butSendElectricalLoad = new Button();
             ((System.ComponentModel.ISupportInitialize)trkVsi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).BeginInit();
@@ -1010,15 +1017,88 @@ namespace StepperVSITester
             butRpmrZero.UseVisualStyleBackColor = true;
             butRpmrZero.Click += butRpmrZero_Click;
             //
+            // lblDualStepperHeader
+            //
+            lblDualStepperHeader.AutoSize = true;
+            lblDualStepperHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblDualStepperHeader.Location = new Point(12, 1699);
+            lblDualStepperHeader.Name = "lblDualStepperHeader";
+            lblDualStepperHeader.Size = new Size(300, 15);
+            lblDualStepperHeader.TabIndex = 95;
+            lblDualStepperHeader.Text = "Dual Stepper (172.16.1.106) Raw Test";
+            //
+            // lblFuelLoadRow
+            //
+            lblFuelLoadRow.AutoSize = true;
+            lblFuelLoadRow.Location = new Point(12, 1731);
+            lblFuelLoadRow.Name = "lblFuelLoadRow";
+            lblFuelLoadRow.Size = new Size(200, 15);
+            lblFuelLoadRow.TabIndex = 96;
+            lblFuelLoadRow.Text = "FUELLOAD - Fuel Load (raw steps):";
+            //
+            // txtFuelLoad
+            //
+            txtFuelLoad.Location = new Point(220, 1727);
+            txtFuelLoad.Name = "txtFuelLoad";
+            txtFuelLoad.Size = new Size(80, 23);
+            txtFuelLoad.TabIndex = 97;
+            txtFuelLoad.Text = "0";
+            txtFuelLoad.KeyDown += txtFuelLoad_KeyDown;
+            //
+            // butSendFuelLoad
+            //
+            butSendFuelLoad.Location = new Point(306, 1726);
+            butSendFuelLoad.Name = "butSendFuelLoad";
+            butSendFuelLoad.Size = new Size(70, 25);
+            butSendFuelLoad.TabIndex = 98;
+            butSendFuelLoad.Text = "Send";
+            butSendFuelLoad.UseVisualStyleBackColor = true;
+            butSendFuelLoad.Click += butSendFuelLoad_Click;
+            //
+            // lblElectricalLoadRow
+            //
+            lblElectricalLoadRow.AutoSize = true;
+            lblElectricalLoadRow.Location = new Point(12, 1765);
+            lblElectricalLoadRow.Name = "lblElectricalLoadRow";
+            lblElectricalLoadRow.Size = new Size(200, 15);
+            lblElectricalLoadRow.TabIndex = 99;
+            lblElectricalLoadRow.Text = "ELECTRICALLOAD - Electrical Load (raw steps):";
+            //
+            // txtElectricalLoad
+            //
+            txtElectricalLoad.Location = new Point(220, 1761);
+            txtElectricalLoad.Name = "txtElectricalLoad";
+            txtElectricalLoad.Size = new Size(80, 23);
+            txtElectricalLoad.TabIndex = 100;
+            txtElectricalLoad.Text = "0";
+            txtElectricalLoad.KeyDown += txtElectricalLoad_KeyDown;
+            //
+            // butSendElectricalLoad
+            //
+            butSendElectricalLoad.Location = new Point(306, 1760);
+            butSendElectricalLoad.Name = "butSendElectricalLoad";
+            butSendElectricalLoad.Size = new Size(70, 25);
+            butSendElectricalLoad.TabIndex = 101;
+            butSendElectricalLoad.Text = "Send";
+            butSendElectricalLoad.UseVisualStyleBackColor = true;
+            butSendElectricalLoad.Click += butSendElectricalLoad_Click;
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            AutoScrollMinSize = new Size(610, 1680);
+            AutoScrollMinSize = new Size(610, 1830);
             ClientSize = new Size(630, 760);
             Controls.Add(butNewGaugeStepFwd);
             Controls.Add(butNewGaugeStepBack);
+            Controls.Add(butSendElectricalLoad);
+            Controls.Add(txtElectricalLoad);
+            Controls.Add(lblElectricalLoadRow);
+            Controls.Add(butSendFuelLoad);
+            Controls.Add(txtFuelLoad);
+            Controls.Add(lblFuelLoadRow);
+            Controls.Add(lblDualStepperHeader);
             Controls.Add(butRpmrZero);
             Controls.Add(butSendRpmr);
             Controls.Add(txtRpmrInput);
@@ -1214,5 +1294,12 @@ namespace StepperVSITester
         private TextBox txtRpmrInput;
         private Button butSendRpmr;
         private Button butRpmrZero;
+        private Label lblDualStepperHeader;
+        private Label lblFuelLoadRow;
+        private TextBox txtFuelLoad;
+        private Button butSendFuelLoad;
+        private Label lblElectricalLoadRow;
+        private TextBox txtElectricalLoad;
+        private Button butSendElectricalLoad;
     }
 }

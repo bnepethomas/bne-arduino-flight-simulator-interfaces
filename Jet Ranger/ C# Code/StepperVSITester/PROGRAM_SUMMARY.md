@@ -100,15 +100,19 @@ unit to use.
     sends `"D,IAS:<value>"`. On the board this goes through a real
     hand-measured `IAS_KT_TABLE` (9 points), not a placeholder scale.
 13. **RPME trackbar (`trkRpme_Scroll`) + Send/Zero**: range `0..117` %,
-    sends `"D,RPME:<value>"` (Turbine/Engine Speed). On the board this goes
-    through a real hand-measured `TS_PCT_TABLE` (13 points), not a
-    placeholder scale — graduated here from a compact value-box row (see
-    #15 below) once that table existed, same as EGT/IAS did earlier.
+    sends `"D,RPME:<value>"` (Turbine/Engine Speed) to **both**
+    `stepperClient` (`172.16.1.105`) and `dualStepperClient`
+    (`172.16.1.106`) via `SendManualValueBroadcast()` - `JET_RANGER_STEPPER_CONTROLLER.ino`
+    and `JET_RANGER_DUAL_STEPPER_CONTROLLER.ino` both drive this gauge
+    identically (same `TS_PCT_TABLE`, since Turbine Speed wasn't one of
+    the Dual Stepper board's repurposed gauges), so one trackbar drives
+    both boards' Turbine Speed steppers together. Graduated here from a
+    compact value-box row (see #15 below) once the calibration table
+    existed, same as EGT/IAS did earlier.
 14. **RPMR trackbar (`trkRpmr_Scroll`) + Send/Zero**: range `0..117` %,
-    sends `"D,RPMR:<value>"` (Rotor Speed). On the board this goes through a
-    real hand-measured `RS_PCT_TABLE` (13 points, same values as
-    `TS_PCT_TABLE`), not a placeholder scale — same graduation as RPME
-    above.
+    sends `"D,RPMR:<value>"` (Rotor Speed) to **both** boards, same
+    broadcast pattern as RPME above (`RS_PCT_TABLE`, same values as
+    `TS_PCT_TABLE`, unchanged on the Dual Stepper board too).
 15. **Real-Value Gauges compact rows** (`butSendEot`/`butSendEop`/
     `butSendXot`/`butSendXop`/`butSendGp`/`butSendFa`, each with a matching
     `txt*`/Enter handler): six more gauges with known real-world units but
@@ -140,6 +144,20 @@ unit to use.
     relative move), "one step" only means one physical step if the
     stepper actually reached the previous target before the next click
     (`AccelStepper`'s acceleration ramp takes a moment).
+18. **Dual Stepper Raw Test rows** (`butSendFuelLoad`/`butSendElectricalLoad`,
+    each with a matching `txt*`/Enter handler): sends `FUELLOAD` and
+    `ELECTRICALLOAD` raw steps to a **second, separate socket**
+    (`dualStepperClient`, connected to `172.16.1.106:13136`) via
+    `SendDual()`/`SendDualRawValue()` - the only two codes sent
+    exclusively to `172.16.1.106` (RPME/RPMR above go to both boards; every
+    other control still targets `stepperClient`, `172.16.1.105:13136`,
+    only). These two codes only exist on
+    [`JET_RANGER_DUAL_STEPPER_CONTROLLER.ino`](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)
+    (a fork of the production sketch, its own board, its own IP) - that
+    sketch repurposed its Radar Alt and Torque steppers as Fuel Load and
+    Electrical Load respectively, so `FUELLOAD`/`ELECTRICALLOAD` have no
+    equivalent on `172.16.1.105`. No real calibration table exists yet for
+    either, so both are raw-step-only, matching the board side.
 
 No unit conversion happens in this tool for VSI/ALT/Radar ALT/EGT/IAS/
 RPME/RPMR — whatever value is shown is sent as-is. On the Arduino side,
@@ -161,7 +179,8 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 
 | Target | Port | Purpose |
 |---|---|---|
-| `172.16.1.105` (Stepper Controller) | 13136 | `"D,VSI:<fpm>"`, `"D,ALT:<feet>"`, `"D,AGL:<feet or steps>"`, `"D,ITT:<C>"`, `"D,IAS:<kt>"`, `"D,ASTEP:<steps>/<intervalMs>"`, `"D,<OILT\|OILP\|XMSNT\|XMSNP\|RPME\|RPMR\|N1\|FUEL>:<value>"`, and `"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"` test packets |
+| `172.16.1.105` (Stepper Controller, via `stepperClient`) | 13136 | `"D,VSI:<fpm>"`, `"D,ALT:<feet>"`, `"D,AGL:<feet or steps>"`, `"D,ITT:<C>"`, `"D,IAS:<kt>"`, `"D,RPME:<pct>"`, `"D,RPMR:<pct>"`, `"D,ASTEP:<steps>/<intervalMs>"`, `"D,<OILT\|OILP\|XMSNT\|XMSNP\|N1\|FUEL>:<value>"`, and `"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"` test packets |
+| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<steps>"`, `"D,ELECTRICALLOAD:<steps>"` (exclusive to this board), plus `"D,RPME:<pct>"`/`"D,RPMR:<pct>"` (broadcast alongside `172.16.1.105` - see `SendManualValueBroadcast()`) |
 
 ## Programs this communicates with
 
@@ -178,3 +197,9 @@ None locally bound — this tool only sends, it doesn't listen for anything.
   determines which of this tool's controls do anything. Production also
   has real-unit calibration (`IAS_KT_TABLE`) that the bench-test sketch
   doesn't share.
+- **[JET_RANGER_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)**
+  (`172.16.1.106:13136` — a distinct board/address, not mutually exclusive
+  with the two above) — the Dual Stepper Raw Test rows (`FUELLOAD`/
+  `ELECTRICALLOAD`) talk to this board exclusively, and the RPME/RPMR
+  trackbars broadcast to it alongside `172.16.1.105`; every other control
+  in this tool still targets `172.16.1.105` only.
