@@ -133,31 +133,36 @@ unit to use.
     `ALTRAW`/`VSIRAW`/`OILTRAW`/`OILPRAW`/`XMSNTRAW`/`XMSNPRAW`/`ITTRAW`/
     `RPMERAW`/`RPMRRAW`/`N1RAW`/`FUELRAW`), letting the operator bypass a
     gauge's unit conversion for bench testing without losing its
-    real-value control. `SelectedNewGaugeCode()` centralises the
-    dropdown-selection fallback (`"TQ"`, matching the dropdown's actual
-    first item - was a stale `"EOT"` fallback left over from before `EOT`
-    graduated to its own row).
+    real-value control. Every send from this panel goes to **both**
+    `stepperClient` (`172.16.1.105`) and `dualStepperClient`
+    (`172.16.1.106`) - `JET_RANGER_DUAL_STEPPER_CONTROLLER.ino` accepts
+    all of these except `AGLRAW`/`TQ` (that board's Radar Alt/Torque
+    steppers were repurposed - see #18 below), which are silent no-ops on
+    it, same as `FLAPS`/`AOA`/`GFORCE`/`SPDMAX` already are on both
+    boards. `SelectedNewGaugeCode()` centralises the dropdown-selection
+    fallback (`"TQ"`, matching the dropdown's actual first item - was a
+    stale `"EOT"` fallback left over from before `EOT` graduated to its
+    own row).
 17. **-1 Step / +1 Step buttons** (`butNewGaugeStepBack_Click`/
     `butNewGaugeStepFwd_Click`): nudge `txtNewGaugeSteps`'s value by ±1
-    and resend via the same `SelectedNewGaugeCode()` - since every code
-    in this panel is an absolute `.moveTo()` target on the board (not a
-    relative move), "one step" only means one physical step if the
-    stepper actually reached the previous target before the next click
-    (`AccelStepper`'s acceleration ramp takes a moment).
+    and resend via the same `SelectedNewGaugeCode()` (also broadcast to
+    both boards) - since every code in this panel is an absolute
+    `.moveTo()` target on the board (not a relative move), "one step"
+    only means one physical step if the stepper actually reached the
+    previous target before the next click (`AccelStepper`'s acceleration
+    ramp takes a moment).
 18. **Dual Stepper Raw Test rows** (`butSendFuelLoad`/`butSendElectricalLoad`,
     each with a matching `txt*`/Enter handler): sends `FUELLOAD` and
-    `ELECTRICALLOAD` raw steps to a **second, separate socket**
-    (`dualStepperClient`, connected to `172.16.1.106:13136`) via
-    `SendDual()`/`SendDualRawValue()` - the only two codes sent
-    exclusively to `172.16.1.106` (RPME/RPMR above go to both boards; every
-    other control still targets `stepperClient`, `172.16.1.105:13136`,
-    only). These two codes only exist on
+    `ELECTRICALLOAD` raw steps **exclusively** to `dualStepperClient`
+    (`172.16.1.106:13136`) via `SendDual()`/`SendDualRawValue()` - unlike
+    #16/#17 and RPME/RPMR above, these two are never sent to
+    `172.16.1.105`, since they have no equivalent there. These two codes
+    only exist on
     [`JET_RANGER_DUAL_STEPPER_CONTROLLER.ino`](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)
     (a fork of the production sketch, its own board, its own IP) - that
     sketch repurposed its Radar Alt and Torque steppers as Fuel Load and
-    Electrical Load respectively, so `FUELLOAD`/`ELECTRICALLOAD` have no
-    equivalent on `172.16.1.105`. No real calibration table exists yet for
-    either, so both are raw-step-only, matching the board side.
+    Electrical Load respectively. No real calibration table exists yet
+    for either, so both are raw-step-only, matching the board side.
 
 No unit conversion happens in this tool for VSI/ALT/Radar ALT/EGT/IAS/
 RPME/RPMR — whatever value is shown is sent as-is. On the Arduino side,
@@ -180,7 +185,7 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 | Target | Port | Purpose |
 |---|---|---|
 | `172.16.1.105` (Stepper Controller, via `stepperClient`) | 13136 | `"D,VSI:<fpm>"`, `"D,ALT:<feet>"`, `"D,AGL:<feet or steps>"`, `"D,ITT:<C>"`, `"D,IAS:<kt>"`, `"D,RPME:<pct>"`, `"D,RPMR:<pct>"`, `"D,ASTEP:<steps>/<intervalMs>"`, `"D,<OILT\|OILP\|XMSNT\|XMSNP\|N1\|FUEL>:<value>"`, and `"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"` test packets |
-| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<steps>"`, `"D,ELECTRICALLOAD:<steps>"` (exclusive to this board), plus `"D,RPME:<pct>"`/`"D,RPMR:<pct>"` (broadcast alongside `172.16.1.105` - see `SendManualValueBroadcast()`) |
+| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<steps>"`, `"D,ELECTRICALLOAD:<steps>"` (exclusive to this board); `"D,RPME:<pct>"`/`"D,RPMR:<pct>"` (broadcast alongside `172.16.1.105` - see `SendManualValueBroadcast()`); and every Raw Step Test panel code (`"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"`, also broadcast alongside `172.16.1.105` - `AGLRAW`/`TQ` are no-ops on this board) |
 
 ## Programs this communicates with
 
@@ -200,6 +205,8 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 - **[JET_RANGER_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)**
   (`172.16.1.106:13136` — a distinct board/address, not mutually exclusive
   with the two above) — the Dual Stepper Raw Test rows (`FUELLOAD`/
-  `ELECTRICALLOAD`) talk to this board exclusively, and the RPME/RPMR
-  trackbars broadcast to it alongside `172.16.1.105`; every other control
-  in this tool still targets `172.16.1.105` only.
+  `ELECTRICALLOAD`) talk to this board exclusively; the RPME/RPMR
+  trackbars and the entire Raw Step Test panel broadcast to it alongside
+  `172.16.1.105`. Only the VSI/ALT/Radar ALT/EGT/IAS trackbars, the six
+  remaining real-value compact rows (`OILT`/`OILP`/`XMSNT`/`XMSNP`/`N1`/
+  `FUEL`), and the ALT jog still target `172.16.1.105` only.

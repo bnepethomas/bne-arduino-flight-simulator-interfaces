@@ -7,7 +7,8 @@
 > sibling `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A` input-controller sketch
 > here. Despite the "Dual" name, no second/doubled gauge exists yet — so
 > far this is the same 13-gauge roster as the original, with two
-> steppers (previously Radar Alt and Torque) repurposed for new gauges.
+> steppers (previously Radar Alt and Torque) repurposed for new gauges,
+> and its own separately hand-measured RPME/RPMR calibration.
 
 ## What's different from `JET_RANGER_STEPPER_CONTROLLER.ino`
 
@@ -42,15 +43,34 @@
    - The `TQ` UDP code is gone. In its place: **`ELECTRICALLOAD`** — raw
      steps only, since (like Fuel Load) no real calibration table exists
      yet for this gauge.
+4. **`TS_PCT_TABLE`/`RS_PCT_TABLE` (RPME/RPMR) now use this board's own,
+   separately hand-measured calibration** - no longer identical to
+   `JET_RANGER_STEPPER_CONTROLLER.ino`'s tables. Only 4 points given
+   (vs. the original's 13), and the 0-point is *assumed* here (not
+   directly measured), same convention as `IAS_KT_TABLE`'s assumed 0kt
+   row:
+
+   | pct | step |
+   |---|---|
+   | 0 (assumed) | 0 |
+   | 55 | 300 |
+   | 100 | 535 |
+   | 110 | 600 |
+
+   Range is also now `0..110`, not `0..117` - values above 110% clamp to
+   600 steps rather than extrapolating. `tsPctToSteps()`/`rsPctToSteps()`
+   (the interpolation functions) are unchanged; only the table data
+   differs. The startup-swing comments referencing the old table's
+   "630 steps at 117%" were updated to this table's "600 steps at 110%".
 
 Everything else — VSI, IAS, the 9 `Stepper-Tuning-Harness`-ported gauges
 (`EOTstepper`/`XOTstepper`/`XOPstepper`/`EGTstepper`/`TSstepper`/
 `RSstepper`/`FAstepper`/`GPstepper`/`EOPstepper`), SARI, the health
-keepalive, and every real calibration table (`VSI_FPM_TABLE`,
-`IAS_KT_TABLE`, `TS_PCT_TABLE`, `RS_PCT_TABLE`) — is currently identical
-to the original sketch. See that sketch's own summary for the full
-program flow, roster, cautions, and pin/network tables; only the
-deltas above and the roster/UDP table changes below are called out here.
+keepalive, and the remaining real calibration tables (`VSI_FPM_TABLE`,
+`IAS_KT_TABLE`) — is currently identical to the original sketch. See
+that sketch's own summary for the full program flow, roster, cautions,
+and pin/network tables; only the deltas above and the roster/UDP table
+changes below are called out here.
 
 ## Build verification
 
@@ -59,10 +79,10 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_DUAL_STEPPER_CONTROLLER.ino` | 25,544 bytes (10%) | 3,600 bytes (43%) |
+| `JET_RANGER_DUAL_STEPPER_CONTROLLER.ino` | 25,532 bytes (10%) | 3,532 bytes (43%) |
 
-Not yet flashed to any board — this is a bench/design-time fork, not
-deployed hardware.
+Flashed to a Mega on **COM13** (first flash to real hardware - previous
+passes were compile-only).
 
 ## Current stepper roster (deltas only)
 
@@ -70,12 +90,13 @@ deployed hardware.
 |---|---|---|
 | `FuelLoadStepper` (was `RadarAltStepper`) | FULL4WIRE, `STEPPER_FL_COIL_A..D` (32/33/34/35, wired C,D,A,B — same physical pins the original sketch used for Radar Alt) | Raw steps only (`FUELLOAD` code) — no real calibration table yet. Boot startup/swing exists (X27-style, 3 loops) but is wrapped in `if (false)` — disabled, matching the original sketch's current Radar Alt swing state |
 | `ElectricalLoadStepper` (was `ETstepper`) | FULL4WIRE, `EL_COIL_A..D` (36/37/38/39 — same physical pins the original sketch used for Torque) | Raw steps only (`ELECTRICALLOAD` code) — no real calibration table yet, no startup swing (the original's `ETstepper` never had one either) |
+| `TSstepper` (`RPME`, Turbine/Engine Speed) | Unchanged pins/interface | Real calibration, but via **this board's own** 4-point `TS_PCT_TABLE` (0/55/100/110% → 0/300/535/600 steps) - diverges from the original sketch's 13-point table |
+| `RSstepper` (`RPMR`, Rotor Speed) | Unchanged pins/interface | Same divergence - this board's own 4-point `RS_PCT_TABLE`, identical values to this board's `TS_PCT_TABLE` |
 
 All other steppers (`VSIstepper`, `IASstepper`, `EOTstepper`,
-`XOTstepper`, `XOPstepper`, `EGTstepper`, `TSstepper`, `RSstepper`,
-`FAstepper`, `GPstepper`, `EOPstepper`, `SARIstepperRoll`, `saiPitch`)
-are unchanged from the original sketch — see its summary for their
-status.
+`XOTstepper`, `XOPstepper`, `EGTstepper`, `FAstepper`, `GPstepper`,
+`EOPstepper`, `SARIstepperRoll`, `saiPitch`) are unchanged from the
+original sketch — see its summary for their status.
 
 ## UDP codes (deltas only)
 
@@ -83,11 +104,13 @@ status.
 |---|---|---|
 | `FUELLOAD` | raw steps | `FuelLoadStepper.moveTo()` directly — no calibration table |
 | `ELECTRICALLOAD` | raw steps | `ElectricalLoadStepper.moveTo()` directly — no calibration table |
+| `RPME` | %, 0-110 (was 0-117) | `setTS()` via this board's own `TS_PCT_TABLE` (4 points, not 13) |
+| `RPMR` | %, 0-110 (was 0-117) | `setRS()` via this board's own `RS_PCT_TABLE` (4 points, not 13) |
 
 `AGL`/`AGLRAW` and `TQ` no longer exist on this board (see above). Every
 other code (`VSI`/`VSIRAW`, `IAS`/`IASRAW`, `OILT`/`OILP`/`XMSNT`/`XMSNP`/
-`ITT`/`RPME`/`RPMR`/`N1`/`FUEL` and their `*RAW` siblings) is unchanged
-from the original sketch.
+`ITT`/`N1`/`FUEL` and their `*RAW` siblings) is unchanged from the
+original sketch. `RPMERAW`/`RPMRRAW` (raw-step bypass) also unchanged.
 
 ## Local network configuration
 
@@ -122,4 +145,6 @@ this session:
   left behind by the `FuelLoadStepper` pin-define rename). `ET_COIL_A..D`
   was cleanly renamed rather than left orphaned, so no equivalent dead
   code exists for the Electrical Load conversion.
-- Not flashed to any physical board yet.
+- `TS_PCT_TABLE`/`RS_PCT_TABLE`'s 0-point is assumed, not directly
+  measured - not yet confirmed on the bench that RPME/RPMR actually read
+  0% at rest rather than clamping to the 55% row.

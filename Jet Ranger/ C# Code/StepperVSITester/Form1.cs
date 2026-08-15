@@ -299,6 +299,14 @@ namespace StepperVSITester
         // trackbar/row next to every calibrated gauge - cheaper to keep in sync, and
         // easy to give a gauge its own dedicated raw control later if that turns out
         // to be worth the extra screen space.
+        // Broadcasts to both stepperClient (172.16.1.105) and
+        // dualStepperClient (172.16.1.106) - JET_RANGER_DUAL_STEPPER_CONTROLLER.ino
+        // accepts every one of these codes too (it's a fork of the same
+        // sketch), except AGLRAW/TQ, which no longer exist there (that
+        // board's Radar Alt/Torque steppers were repurposed as Fuel
+        // Load/Electrical Load - see FUELLOAD/ELECTRICALLOAD below) and are
+        // silent no-ops on it, same as FLAPS/AOA/GFORCE/SPDMAX already are
+        // on both boards.
         // Fallback for when nothing is selected yet - "EOT" doesn't exist in
         // this dropdown any more (it graduated to its own row), so this
         // matches cboNewGauge's actual first item instead of a stale one.
@@ -313,12 +321,14 @@ namespace StepperVSITester
             }
 
             Send(SelectedNewGaugeCode(), steps);
+            SendDual(SelectedNewGaugeCode(), steps);
         }
 
         private void butNewGaugeZero_Click(object sender, EventArgs e)
         {
             txtNewGaugeSteps.Text = "0";
             Send(SelectedNewGaugeCode(), 0);
+            SendDual(SelectedNewGaugeCode(), 0);
         }
 
         private void txtNewGaugeSteps_KeyDown(object sender, KeyEventArgs e)
@@ -345,6 +355,7 @@ namespace StepperVSITester
             steps += delta;
             txtNewGaugeSteps.Text = steps.ToString();
             Send(SelectedNewGaugeCode(), steps);
+            SendDual(SelectedNewGaugeCode(), steps);
         }
 
         private void butNewGaugeStepBack_Click(object sender, EventArgs e) => StepNewGauge(-1);

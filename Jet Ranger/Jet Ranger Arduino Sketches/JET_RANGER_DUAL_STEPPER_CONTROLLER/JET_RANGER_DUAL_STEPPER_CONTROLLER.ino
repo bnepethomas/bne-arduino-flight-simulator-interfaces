@@ -284,8 +284,9 @@ unsigned long previousMillis = 0;
 // Direct-drive (FULL4WIRE) step count, no overshoot multiplier needed -
 // originally for Flaps, now also used by VSI's homing below since VSI
 // moved from a geared DRIVER motor onto direct coils.
-#define FULL4WIRE_HOMING_STEPS 315 + 5
-#define X27_FULLWIRE_STEPS 635
+#define FULL4WIRE_STEPS 315
+#define FULL4WIRE_HOMING_STEPS FULL4WIRE_STEPS + 1
+#define X27_FULLWIRE_STEPS 630
 #define X27_FULLWIRE_HOMING_STEPS X27_FULLWIRE_STEPS + 1
 //AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
 AccelStepper IASstepper(AccelStepper::FULL4WIRE, STEPPER_SPD_C, STEPPER_SPD_D, STEPPER_SPD_A, STEPPER_SPD_B);
@@ -305,7 +306,7 @@ AccelStepper EOTstepper(AccelStepper::FULL4WIRE, EOT_COIL_A, EOT_COIL_B, EOT_COI
 AccelStepper XOTstepper(AccelStepper::FULL4WIRE, XOT_COIL_A, XOT_COIL_B, XOT_COIL_C, XOT_COIL_D);
 AccelStepper XOPstepper(AccelStepper::FULL4WIRE, XOP_COIL_A, XOP_COIL_B, XOP_COIL_C, XOP_COIL_D);
 AccelStepper EGTstepper(AccelStepper::FULL4WIRE, EGT_COIL_A, EGT_COIL_B, EGT_COIL_C, EGT_COIL_D);
-AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_A, TS_COIL_B, TS_COIL_C, TS_COIL_D);
+AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_C, TS_COIL_D, TS_COIL_A, TS_COIL_B);
 AccelStepper RSstepper(AccelStepper::FULL4WIRE, RS_COIL_C, RS_COIL_D, RS_COIL_A, RS_COIL_B);
 AccelStepper FAstepper(AccelStepper::FULL4WIRE, FA_COIL_A, FA_COIL_B, FA_COIL_C, FA_COIL_D);
 // EL_COIL_A..D are the same physical pins (36-39) the Torque stepper
@@ -506,7 +507,7 @@ void setup() {
   if (false) {
     SendDebug("Start IASstepper");
     IASstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    IASstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+    IASstepper.runToNewPosition(0);
     IASstepper.setCurrentPosition(0);
 
     for (int i = 1; i <= 3; i++) {
@@ -562,11 +563,12 @@ void setup() {
   // issue applies here too). TSstepper had no startup routine at all
   // before this - direction sign is an unverified assumption carried
   // over from IAS/VSI/Radar Alt's X27-style homing, NOT bench-confirmed
-  // for this specific gauge. UPDATE: TS_PCT_TABLE (below) now gives this
-  // gauge's real "RPME" UDP path a max of 630 steps at 117% - close to
-  // X27_FULLWIRE_STEPS (635), so this swing's step range is a reasonable
-  // match rather than the ~2x overshoot it was before that table
-  // existed. Not wrapped in `if (false)` - runs every boot. Confirm on
+  // for this specific gauge. UPDATE: TS_PCT_TABLE (below, this board's
+  // own 4-point table) now gives this gauge's real "RPME" UDP path a max
+  // of 600 steps at 110% - close to X27_FULLWIRE_STEPS (635), so this
+  // swing's step range is a reasonable match rather than the ~2x
+  // overshoot it was before that table existed. Not wrapped in `if
+  // (false)` - runs every boot. Confirm on
   // the bench that it actually reaches the real end stop (and doesn't
   // stall against it from the wrong side) before trusting it unattended.
   SendDebug("Start TSstepper");
@@ -595,10 +597,11 @@ void setup() {
   // here too). RSstepper had no startup routine at all before this -
   // direction sign is an unverified assumption carried over from
   // IAS/VSI/Radar Alt/Turbine Speed's X27-style homing, NOT bench-confirmed
-  // for this specific gauge. RS_PCT_TABLE (above) gives this gauge's real
-  // "RPMR" UDP path a max of 630 steps at 117% - close to X27_FULLWIRE_STEPS
-  // (635), same as Turbine Speed, so this swing's step range is a
-  // reasonable match rather than a big overshoot. Not wrapped in `if
+  // for this specific gauge. RS_PCT_TABLE (above, this board's own
+  // 4-point table) gives this gauge's real "RPMR" UDP path a max of 600
+  // steps at 110% - close to X27_FULLWIRE_STEPS (635), same as Turbine
+  // Speed, so this swing's step range is a reasonable match rather than
+  // a big overshoot. Not wrapped in `if
   // (false)` - runs every boot. Confirm on the bench that it actually
   // reaches the real end stop (and doesn't stall against it from the wrong
   // side) before trusting it unattended.
@@ -1009,17 +1012,18 @@ void setXOP(long TargetPsi) {
 }
 
 // Turbine Speed (RPME) percent-to-step calibration table, hand-measured
-// on the bench (same pattern as VSI_FPM_TABLE/IAS_KT_TABLE above -
-// AGL_FT_TABLE doesn't exist on this board, see the Fuel Load section
-// below for why). "step" is the raw step target for TSstepper.moveTo(). Unlike
-// those other tables, every row here was directly given - no assumed
-// 0-point needed. Sorted ascending by pct - tsPctToSteps() below relies
-// on that order. NOTE: this table's real max (117% -> 630 steps) is
-// close to X27_FULLWIRE_STEPS (635), resolving the over-travel concern
-// noted on TSstepper's startup swing above - that swing's blind
-// wind-to-635 now roughly matches this gauge's real full-scale range
-// instead of overshooting it by ~2x the way the previous placeholder
-// scale (0..320) would have suggested.
+// on the bench specifically for this board (diverges from
+// JET_RANGER_STEPPER_CONTROLLER.ino's TS_PCT_TABLE, which still has its
+// own separate 13-point 0-117% table - the two are no longer identical).
+// "step" is the raw step target for TSstepper.moveTo(). The 0-point is
+// assumed (not directly given) to match this stepper's homed zero, same
+// convention as IAS_KT_TABLE's assumed 0kt row - confirm on the bench
+// that RPME actually reads 0 (not just clamped to the 55% row) at rest.
+// Sorted ascending by pct - tsPctToSteps() below relies on that order.
+// NOTE: this table's max (110% -> 600 steps) is close to
+// X27_FULLWIRE_STEPS (635), same reasoning as before for why TSstepper's
+// startup swing (above) isn't a large overshoot relative to this gauge's
+// real full-scale range.
 struct PctToStepEntry {
   long pct;
   long step;
@@ -1027,25 +1031,16 @@ struct PctToStepEntry {
 
 const PctToStepEntry TS_PCT_TABLE[] = {
   { 0, 0 },
-  { 10, 59 },
-  { 20, 115 },
-  { 30, 165 },
-  { 40, 217 },
-  { 50, 272 },
-  { 60, 325 },
-  { 70, 380 },
-  { 80, 433 },
-  { 90, 486 },
-  { 100, 532 },
-  { 110, 598 },
-  { 117, 630 },
+  { 55, 300 },
+  { 100, 535 },
+  { 110, 600 },
 };
 const int TS_PCT_TABLE_SIZE = sizeof(TS_PCT_TABLE) / sizeof(TS_PCT_TABLE[0]);
 
 // Converts a requested turbine speed in percent into a step target by
 // linear interpolation between the two nearest TS_PCT_TABLE rows (same
 // pattern as vsiFpmToSteps()/iasKtToSteps()). A pct value outside the
-// table's 0..117 range is clamped to whichever end is nearest rather
+// table's 0..110 range is clamped to whichever end is nearest rather
 // than extrapolated.
 long tsPctToSteps(long pct) {
   if (pct <= TS_PCT_TABLE[0].pct) return TS_PCT_TABLE[0].step;
@@ -1068,33 +1063,28 @@ void setTS(long TargetPct) {
 }
 
 // Rotor Speed (RPMR) percent-to-step calibration table, hand-measured on
-// the bench - same values as TS_PCT_TABLE above (both gauges share the
-// same physical stepper/dial hardware and percent range), but kept as
-// its own table/function pair rather than reused, matching the
-// per-gauge pattern used throughout this file. "step" is the raw step
-// target for RSstepper.moveTo(). Sorted ascending by pct -
+// the bench specifically for this board - same values as this board's
+// own TS_PCT_TABLE above (both gauges share the same physical
+// stepper/dial hardware and percent range), but kept as its own
+// table/function pair rather than reused, matching the per-gauge pattern
+// used throughout this file. Diverges from
+// JET_RANGER_STEPPER_CONTROLLER.ino's RS_PCT_TABLE, which still has its
+// own separate 13-point 0-117% table. "step" is the raw step target for
+// RSstepper.moveTo(). The 0-point is assumed (not directly given), same
+// convention as TS_PCT_TABLE's above. Sorted ascending by pct -
 // rsPctToSteps() below relies on that order.
 const PctToStepEntry RS_PCT_TABLE[] = {
   { 0, 0 },
-  { 10, 59 },
-  { 20, 115 },
-  { 30, 165 },
-  { 40, 217 },
-  { 50, 272 },
-  { 60, 325 },
-  { 70, 380 },
-  { 80, 433 },
-  { 90, 486 },
-  { 100, 532 },
-  { 110, 598 },
-  { 117, 630 },
+  { 55, 300 },
+  { 100, 535 },
+  { 110, 600 },
 };
 const int RS_PCT_TABLE_SIZE = sizeof(RS_PCT_TABLE) / sizeof(RS_PCT_TABLE[0]);
 
 // Converts a requested rotor speed in percent into a step target by
 // linear interpolation between the two nearest RS_PCT_TABLE rows (same
 // pattern as tsPctToSteps() above). A pct value outside the table's
-// 0..117 range is clamped to whichever end is nearest rather than
+// 0..110 range is clamped to whichever end is nearest rather than
 // extrapolated.
 long rsPctToSteps(long pct) {
   if (pct <= RS_PCT_TABLE[0].pct) return RS_PCT_TABLE[0].step;
@@ -1546,16 +1536,18 @@ void HandleOutputValuePair(String str) {
     // Distinct raw-step code, bypassing egtCToSteps() above.
     EGTstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "RPME") {
-    // Real percent now (Turbine/Engine Speed, 0-117 - see TS_PCT_TABLE
-    // above). Renamed from "TS" to match JET_RANGER_SERVO_CONTROLLER.ino's
+    // Real percent now (Turbine/Engine Speed, 0-110 - see this board's own
+    // TS_PCT_TABLE above, which diverges from the single-board sketch's
+    // table). Renamed from "TS" to match JET_RANGER_SERVO_CONTROLLER.ino's
     // "RPME" (Engine RPM) - same real-world quantity.
     setTS(ParameterValue.toInt());
   } else if (ParameterName == "RPMERAW") {
     // Distinct raw-step code, bypassing tsPctToSteps() above.
     TSstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "RPMR") {
-    // Real percent now (Rotor Speed, 0-117 - see RS_PCT_TABLE above).
-    // Renamed from "RS" to match JET_RANGER_SERVO_CONTROLLER.ino.
+    // Real percent now (Rotor Speed, 0-110 - see this board's own
+    // RS_PCT_TABLE above, which diverges from the single-board sketch's
+    // table). Renamed from "RS" to match JET_RANGER_SERVO_CONTROLLER.ino.
     setRS(ParameterValue.toInt());
   } else if (ParameterName == "RPMRRAW") {
     // Distinct raw-step code, bypassing rsPctToSteps() above.
