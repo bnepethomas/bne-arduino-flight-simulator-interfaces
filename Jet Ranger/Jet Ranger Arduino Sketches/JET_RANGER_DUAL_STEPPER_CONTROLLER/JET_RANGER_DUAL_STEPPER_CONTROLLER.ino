@@ -181,6 +181,9 @@ unsigned long previousMillis = 0;
 #define STEPPER_MAX_SPEED 9000
 #define STEPPER_ZERO_SEEK_SPEED 600
 #define STEPPER_ACCELERATION 1000
+#define ALT_STEPPER_MAX_SPEED 600
+#define ALT_STEPPER_ZERO_SEEK_SPEED 100
+#define ALT_STEPPER_ACCELERATION 600
 
 #define AllstepperEnablePin 56
 
@@ -263,15 +266,21 @@ unsigned long previousMillis = 0;
 #define EL_COIL_C 38
 #define EL_COIL_D 39
 
-#define GP_COIL_A 40
-#define GP_COIL_B 41
-#define GP_COIL_C 42
-#define GP_COIL_D 43
+// #define GP_COIL_A 40
+// #define GP_COIL_B 41
+// #define GP_COIL_C 42
+// #define GP_COIL_D 43
 
 #define EOP_COIL_A 44
 #define EOP_COIL_B 45
 #define EOP_COIL_C 46
 #define EOP_COIL_D 47
+
+#define STEPPER_ALT_A 40
+#define STEPPER_ALT_B 41
+#define STEPPER_ALT_C 42
+#define STEPPER_ALT_D 43
+#define ALTzeroSensePin A15
 
 #define STEPPER_SPD_A 12
 #define STEPPER_SPD_B 13
@@ -288,7 +297,7 @@ unsigned long previousMillis = 0;
 #define FULL4WIRE_HOMING_STEPS FULL4WIRE_STEPS + 1
 #define X27_FULLWIRE_STEPS 630
 #define X27_FULLWIRE_HOMING_STEPS X27_FULLWIRE_STEPS + 1
-//AccelStepper ALTstepper(AccelStepper::DRIVER, ALTstepPin, ALTdirectionPin);
+AccelStepper ALTstepper(AccelStepper::FULL4WIRE, STEPPER_ALT_A, STEPPER_ALT_B, STEPPER_ALT_C, STEPPER_ALT_D);
 AccelStepper IASstepper(AccelStepper::FULL4WIRE, STEPPER_SPD_C, STEPPER_SPD_D, STEPPER_SPD_A, STEPPER_SPD_B);
 AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_C, COIL_VSI_D, COIL_VSI_A, COIL_VSI_B);
 
@@ -314,7 +323,7 @@ AccelStepper FAstepper(AccelStepper::FULL4WIRE, FA_COIL_A, FA_COIL_B, FA_COIL_C,
 // repurposes that stepper as an Electrical Load gauge instead, so the
 // object is renamed to match (was ETstepper).
 AccelStepper ElectricalLoadStepper(AccelStepper::FULL4WIRE, EL_COIL_A, EL_COIL_B, EL_COIL_C, EL_COIL_D);
-AccelStepper GPstepper(AccelStepper::FULL4WIRE, GP_COIL_A, GP_COIL_B, GP_COIL_C, GP_COIL_D);
+// AccelStepper GPstepper(AccelStepper::FULL4WIRE, GP_COIL_A, GP_COIL_B, GP_COIL_C, GP_COIL_D);
 AccelStepper EOPstepper(AccelStepper::FULL4WIRE, EOP_COIL_A, EOP_COIL_B, EOP_COIL_C, EOP_COIL_D);
 // ########################### END STEPPERS #########################################
 
@@ -383,8 +392,8 @@ void setup() {
 
   SendDebug("STEPPER INITIALISATION STARTED");
 
-  //  pinMode(AllstepperEnablePin, OUTPUT);
-  //  pinMode(ALTzeroSensePin, INPUT);
+
+  pinMode(ALTzeroSensePin, INPUT);
   // CAUTION: pinMode(AllstepperEnablePin, OUTPUT) above is commented out,
   // but the digitalWrite(AllstepperEnablePin, false) below is NOT - an
   // Arduino digital pin defaults to INPUT at boot, and digitalWrite() on
@@ -397,8 +406,8 @@ void setup() {
 
   VSIstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   VSIstepper.setAcceleration(STEPPER_ACCELERATION);
-  //ALTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  //ALTstepper.setAcceleration(STEPPER_ACCELERATION);
+  ALTstepper.setMaxSpeed(ALT_STEPPER_MAX_SPEED);
+  ALTstepper.setAcceleration(ALT_STEPPER_ACCELERATION);
   IASstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   IASstepper.setAcceleration(STEPPER_ACCELERATION);
   FuelLoadStepper.setMaxSpeed(STEPPER_MAX_SPEED);
@@ -419,8 +428,8 @@ void setup() {
   FAstepper.setAcceleration(STEPPER_ACCELERATION);
   ElectricalLoadStepper.setMaxSpeed(STEPPER_MAX_SPEED);
   ElectricalLoadStepper.setAcceleration(STEPPER_ACCELERATION);
-  GPstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  GPstepper.setAcceleration(STEPPER_ACCELERATION);
+  //GPstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  //GPstepper.setAcceleration(STEPPER_ACCELERATION);
   EOPstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   EOPstepper.setAcceleration(STEPPER_ACCELERATION);
 
@@ -465,29 +474,29 @@ void setup() {
   // ################# End VSI Startup #########################
 
 
-  // // ################# Start ALT Startup #########################
-  // SendDebug("Start ALT");
-  // for (int i = 1; i <= 1; i++) {
-  //   SendDebug("Loop :" + String(i));
-  //   ALTstepper.moveTo(-STEPS * 2);
-  //   while (ALTstepper.distanceToGo() != 0) {
-  //     if (digitalRead(ALTzeroSensePin) != true) {
-  //       SendDebug("Found Alt Zero Position");
-  //       ALTstepper.setCurrentPosition(0);
-  //       break;
-  //     }
-  //     ALTstepper.run();
-  //   }
-  //   delay(500);
-  //   SendDebug("Send Alt Round 40 times");
-  //   long SendAAltForATrip = 5760 * 3;
-  //   // 5760 steps per loop
-  //   ALTstepper.runToNewPosition(SendAAltForATrip);
-  //   delay(200);
-  //   SendDebug("Return Alt to 0");
-  //   ALTstepper.runToNewPosition(0);
-  // }
-  // // Move ALT to zero position - need to monitor zero sense
+  // ################# Start ALT Startup #########################
+  SendDebug("Start ALT");
+  for (int i = 1; i <= 1; i++) {
+    SendDebug("Loop :" + String(i));
+    ALTstepper.moveTo(-STEPS * 2);
+    while (ALTstepper.distanceToGo() != 0) {
+      if (digitalRead(ALTzeroSensePin) != true) {
+        SendDebug("Found Alt Zero Position");
+        ALTstepper.setCurrentPosition(-25);
+        break;
+      }
+      ALTstepper.run();
+    }
+    delay(500);
+    SendDebug("Send Alt Round 3 times");
+    long SendAAltForATrip = X27_FULLWIRE_STEPS * 3;
+    // 5760 steps per loop
+    ALTstepper.runToNewPosition(SendAAltForATrip);
+    delay(200);
+    SendDebug("Return Alt to 0");
+    ALTstepper.runToNewPosition(0);
+  }
+  // Move ALT to zero position - need to monitor zero sense
 
 
 
@@ -571,21 +580,23 @@ void setup() {
   // (false)` - runs every boot. Confirm on
   // the bench that it actually reaches the real end stop (and doesn't
   // stall against it from the wrong side) before trusting it unattended.
-  SendDebug("Start TSstepper");
-  TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-  TSstepper.runToNewPosition(0);
-  TSstepper.setCurrentPosition(0);
-
-  for (int i = 1; i <= 3; i++) {
-    SendDebug("Loop :" + String(i));
-    SendDebug("Sending Turbine Speed to Max");
-    TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-    delay(200);
-    SendDebug("Returning Turbine Speed to Zero");
+  if (false) {
+    SendDebug("Start TSstepper");
+    TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
     TSstepper.runToNewPosition(0);
-    delay(200);
+    TSstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= 3; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Turbine Speed to Max");
+      TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Turbine Speed to Zero");
+      TSstepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End TSstepper");
   }
-  SendDebug("End TSstepper");
   // ################# End Turbine Speed Startup #########################
 
   // ################# Start Rotor Speed Startup #########################
@@ -605,21 +616,23 @@ void setup() {
   // (false)` - runs every boot. Confirm on the bench that it actually
   // reaches the real end stop (and doesn't stall against it from the wrong
   // side) before trusting it unattended.
-  SendDebug("Start RSstepper");
-  RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-  RSstepper.runToNewPosition(0);
-  RSstepper.setCurrentPosition(0);
-
-  for (int i = 1; i <= 3; i++) {
-    SendDebug("Loop :" + String(i));
-    SendDebug("Sending Rotor Speed to Max");
-    RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-    delay(200);
-    SendDebug("Returning Rotor Speed to Zero");
+  if (false) {
+    SendDebug("Start RSstepper");
+    RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
     RSstepper.runToNewPosition(0);
-    delay(200);
+    RSstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= 3; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Rotor Speed to Max");
+      RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Rotor Speed to Zero");
+      RSstepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End RSstepper");
   }
-  SendDebug("End RSstepper");
   // ################# End Rotor Speed Startup #########################
 
 
@@ -915,18 +928,18 @@ DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
 // ################################### BEGIN ALT ##############################################
 
 
-// void onAltMslFtChange(unsigned int newValue) {
-//   // Max Value of feet is 65535
-//   // 5760 Steps per 1000 feet
-//   // So 5.76 steps foot - need float as long doesn't do decimal
-//   float ALTtargetSteps = newValue;
-//   ALTtargetSteps = ALTtargetSteps * 5.76;
-//   long longAlttargetSteps = long(ALTtargetSteps);
-//   SendDebug("Altimeter target steps is :" + String(longAlttargetSteps));
-//   ALTstepper.moveTo(longAlttargetSteps);
-//   SendDebug("Altimeter steps to go :" + String(ALTstepper.distanceToGo() ));
-// }
-// DcsBios::IntegerBuffer altMslFtBuffer(CommonData_ALT_MSL_FT, onAltMslFtChange);
+void onAltMslFtChange(unsigned int newValue) {
+  // Max Value of feet is 65535
+  // 5760 Steps per 1000 feet
+  // So 5.76 steps foot - need float as long doesn't do decimal
+  float ALTtargetSteps = newValue;
+  ALTtargetSteps = ALTtargetSteps * 5.76;
+  long longAlttargetSteps = long(ALTtargetSteps);
+  SendDebug("Altimeter target steps is :" + String(longAlttargetSteps));
+  ALTstepper.moveTo(longAlttargetSteps);
+  SendDebug("Altimeter steps to go :" + String(ALTstepper.distanceToGo()));
+}
+DcsBios::IntegerBuffer altMslFtBuffer(CommonData_ALT_MSL_FT, onAltMslFtChange);
 
 // ################################### END ALT ##############################################
 
@@ -1106,16 +1119,16 @@ void setRS(long TargetPct) {
   RSstepper.moveTo(rsPctToSteps(TargetPct));
 }
 
-#define GP_MIN_PCT 0
-#define GP_MAX_PCT 105
-long gpPctToSteps(long pct) {
-  if (pct < GP_MIN_PCT) pct = GP_MIN_PCT;
-  if (pct > GP_MAX_PCT) pct = GP_MAX_PCT;
-  return map(pct, GP_MIN_PCT, GP_MAX_PCT, 0, FULL4WIRE_HOMING_STEPS);
-}
-void setGP(long TargetPct) {
-  GPstepper.moveTo(gpPctToSteps(TargetPct));
-}
+// #define GP_MIN_PCT 0
+// #define GP_MAX_PCT 105
+// long gpPctToSteps(long pct) {
+//   if (pct < GP_MIN_PCT) pct = GP_MIN_PCT;
+//   if (pct > GP_MAX_PCT) pct = GP_MAX_PCT;
+//   return map(pct, GP_MIN_PCT, GP_MAX_PCT, 0, FULL4WIRE_HOMING_STEPS);
+// }
+// void setGP(long TargetPct) {
+//   GPstepper.moveTo(gpPctToSteps(TargetPct));
+// }
 
 #define FA_MIN_GAL 0
 #define FA_MAX_GAL 75
@@ -1382,7 +1395,7 @@ AccelStepper SARIstepperRoll(AccelStepper::DRIVER, SARIstepPin, SARIdirectionPin
 
 void updateSteppers() {
   VSIstepper.run();
-  //ALTstepper.run();
+  ALTstepper.run();
   IASstepper.run();
   FuelLoadStepper.run();
   EOTstepper.run();
@@ -1393,7 +1406,7 @@ void updateSteppers() {
   RSstepper.run();
   FAstepper.run();
   ElectricalLoadStepper.run();
-  GPstepper.run();
+  //GPstepper.run();
   EOPstepper.run();
 }
 
@@ -1567,14 +1580,6 @@ void HandleOutputValuePair(String str) {
     // replaced by this raw-step code until a real calibration table is
     // provided.
     ElectricalLoadStepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "N1") {
-    // Real percent now (Gas Producer, 0-105). Renamed from "GP" to match
-    // JET_RANGER_SERVO_CONTROLLER.ino's "N1" code for the same real-world
-    // quantity.
-    setGP(ParameterValue.toInt());
-  } else if (ParameterName == "N1RAW") {
-    // Distinct raw-step code, bypassing gpPctToSteps() above.
-    GPstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "OILP") {
     // Real PSI now (Engine Oil Pressure, 0-150). Renamed from "EOP" to
     // match JET_RANGER_SERVO_CONTROLLER.ino.
