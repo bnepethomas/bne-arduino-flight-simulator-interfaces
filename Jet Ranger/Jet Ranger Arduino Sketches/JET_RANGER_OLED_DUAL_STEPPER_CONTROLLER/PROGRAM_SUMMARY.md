@@ -241,7 +241,16 @@
       `drawStr()`/`sendBuffer()` pair - modeled on `updateBARO()`'s
       simple single-string redraw, not `UpdateAltimeterDigits()`'s
       digit-drum bitmap approach (a clock face doesn't need per-digit
-      partial redraws).
+      partial redraws). Font is `u8g2_font_logisoso32_tf` (double the
+      original `logisoso16_tf`, and the same family/size as `u8g2_ALT`'s
+      `u8g2_font_logisoso32_tn` - already proven to fit this exact
+      128x32 hardware; `_tf`, not `_tn`, so the `:` glyph is available).
+      **Not** the bundled 7-segment font (`u8g2_font_7Segments_26x42_mn`,
+      the only one in this U8g2 install) - at 42px tall it doesn't fit a
+      32px-tall display without clipping, so `logisoso32_tf` was used
+      instead as the largest size that fits cleanly. `drawStr()`'s x
+      position is computed at runtime via `getStrWidth()` to
+      horizontally center the string rather than a fixed offset.
     - `onZuluTimeChange(int hhmm)` wraps it with the same gate-on-change
       + throttle pattern as `onAltMslFtChange()`/`UpdateAltimeterDigits()`
       (point 5 above): only redraws if `hhmm` differs from
@@ -255,9 +264,38 @@
       own Zulu-time offsets, `0x0238`/`0x0239`, have no DCS-BIOS
       equivalent on this board).
     - `setup()`'s OLED-setup block now also initialises `u8g2_CLOCK`
-      (`u8g2_font_logisoso16_tf`, same font as BARO) and renders a
-      `updateClock(0, 0)` default, alongside the existing BARO/ALT
-      init calls.
+      (`u8g2_font_logisoso32_tf`) and renders a `updateClock(0, 0)`
+      default, alongside the existing BARO/ALT init calls.
+11. **No-data watchdog: every gauge on this board is driven back to its
+    calibrated zero, and all three OLEDs are blanked, if no UDP packet
+    arrives on `MSFSudp` for 30 seconds** (`noDataTimeoutMs`).
+    `lastMSFSDataMillis` is stamped on every packet actually received
+    (separate from `lastincomingpacketcheck`, which just throttles how
+    often the socket is polled, unchanged); a `gaugesResetForNoData`
+    flag latches so the reset only fires once per outage rather than
+    every `loop()` while still timed out, clearing again the moment real
+    data resumes. This is deliberately scoped to `MSFSudp` traffic only
+    - DCS-BIOS input (serial, a separate path) does not reset the timer.
+    New `ResetGaugesToZero()` calls `setIAS(0)`/`setVSI(0)`/`setEGT(0)`/
+    `setEOT(0)`/`setEOP(0)`/`setXOT(0)`/`setXOP(0)`/`setTS(0)`/
+    `setRS(0)`/`setFA(0)` (each the same calibrated-zero target a real
+    `"<CODE>:0"` packet would produce - offset-aware for `TS`/`RS`),
+    plus a direct `ALTstepper.moveTo(0)` and
+    `FuelLoadStepper.moveTo(0)`/`ElectricalLoadStepper.moveTo(0)` (no
+    calibration table exists for either, so `0` raw steps is their only
+    "zero"). New `BlankAllOleds()` clears and pushes an empty buffer to
+    `u8g2_BARO`/`u8g2_ALT`/`u8g2_CLOCK` (selecting each mux channel
+    first) so the panel doesn't keep showing a frozen Baro setting,
+    altitude readout, or clock time once the feed behind it has gone
+    quiet - deliberately used instead of `onAltMslFtChange(0)` (which
+    would've redrawn the Altimeter OLED's digits to `"0"` rather than
+    blanking it). `iLastAltitudeValue`/`iLastZuluTimeValue` are also
+    reset to an impossible sentinel (`-1`) as part of the same call, so
+    once real data resumes, the very next altitude/time update is
+    guaranteed to redraw its OLED even if the resumed value happens to
+    exactly match whatever was showing before the outage - otherwise
+    `onAltMslFtChange()`'s/`onZuluTimeChange()`'s own change-gate would
+    see "no change" and leave the display blank.
 
 Everything else — VSI, IAS, the 8 remaining `Stepper-Tuning-Harness`-ported
 gauges (`EOTstepper`/`XOTstepper`/`XOPstepper`/`EGTstepper`/`TSstepper`/
@@ -275,7 +313,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 43,368 bytes (17%) | 5,249 bytes (64%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 49,874 bytes (19%) | 5,308 bytes (64%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;
@@ -386,3 +424,9 @@ this session:
   actually wired to a third physical OLED unit, or that
   `FSUIPCWinformsAutoCS`'s `zuluHours`/`zuluMinutes` offsets
   (`0x0238`/`0x0239`) report the expected values in the sim.
+- The no-data watchdog (30s, see above) is new and untested on real
+  hardware - not yet bench-confirmed that pulling the network cable or
+  killing the sim-bridge app actually drives every gauge back to zero
+  and blanks all three OLEDs after 30s without side effects (e.g.
+  fighting with a startup swing still in progress, or spamming
+  `SendDebug()` if `gaugesResetForNoData` somehow fails to latch).

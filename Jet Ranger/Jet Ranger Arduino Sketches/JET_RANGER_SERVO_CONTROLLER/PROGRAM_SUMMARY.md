@@ -32,6 +32,29 @@ load, pitch/bank) from flight-sim data received over Ethernet.
      (smooth, non-blocking motion), attaching each servo on first use.
      `CheckServoIdleTime()` then detaches any servo that hasn't moved for
      1s (`ServoIdleTime`) to reduce jitter/power draw.
+   - **No-data watchdog (new):** if no UDP packet is received for 30s
+     (`noDataTimeoutMs`), `ResetGaugesToZero()` sets every servo's
+     **target** position back to its calibrated zero
+     (`aServZeroPosition[]`, the same array the setup-time self-test
+     sweep and a real `"<CODE>:0"` packet's `map(0, ...)` both resolve
+     to) and turns off all warning lights (`setWarningLightAll(false)`).
+     `UpdateServoPos()` then eases every servo there the normal way -
+     this deliberately does **not** write the servos directly the way an
+     earlier, incomplete draft of this feature (found commented out,
+     using a 5s threshold) used to; that draft wrote the physical
+     position immediately but never updated `aServoPosition[]`/
+     `aTargetServoPosition[]`, so the next real UDP value would have made
+     `UpdateServoPos()` ease from a stale remembered position instead of
+     the just-zeroed one. `lastincomingpacketcheck` doubles as "last data
+     received" here (it's only advanced inside the packet-received
+     branch, not on every poll tick) and the existing `servosZeroed` flag
+     latches the reset so it only fires once per outage, clearing again
+     the moment real data resumes.
+
+## Build verification
+
+Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
+**0 errors**: 25,768 bytes flash (10%), 2,923 bytes RAM (35%).
 
 ## Pin usage
 

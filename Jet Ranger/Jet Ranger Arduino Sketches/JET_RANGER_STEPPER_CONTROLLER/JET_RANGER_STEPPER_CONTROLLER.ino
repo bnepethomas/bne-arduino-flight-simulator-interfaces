@@ -116,6 +116,20 @@ char outpacketBuffer[1000];  //buffer to store the outgoing data
 const unsigned long delayBeforeSendingPacket = 2000;
 unsigned long ethernetStartTime = 0;
 
+// No-data watchdog: if no UDP packet arrives on MSFSudp (the "D,CODE:value"
+// feed from FSUIPCWinformsAutoCS/StepperVSITester) for noDataTimeoutMs,
+// every gauge is driven back to its calibrated zero - same "zero" each
+// gauge's own setter (setTS(0)/setRS(0)/etc, offset-aware) or a "CODE:0"
+// UDP packet would produce, not the steppers' raw internal 0. Guards
+// against a dead network link/crashed sim-bridge app leaving gauges
+// frozen at a stale in-flight reading indefinitely. DCS-BIOS traffic
+// (serial, not this UDP feed) does NOT reset this timer - only
+// MSFSudp packets count. gaugesResetForNoData latches so the reset only
+// fires once per outage, not every loop() while still timed out.
+const unsigned long noDataTimeoutMs = 30000;
+unsigned long lastMSFSDataMillis = 0;
+bool gaugesResetForNoData = false;
+
 // Used to Distinguish between the left, front, and right inputs
 // Left=0, Front=1, Right=2
 #define INPUT_MODULE_NUMBER 2
@@ -1655,6 +1669,31 @@ String getValue(String data, char separator, int index) {
 
 // ########################################## END MSFS DATA RECEIVER ########################################
 
+// No-data watchdog (see lastMSFSDataMillis/noDataTimeoutMs above) - drives
+// every gauge on this board to its calibrated zero, the same target each
+// gauge's own real-value setter would compute for a "CODE:0" packet.
+// ETstepper (Torque) and RadarAltStepper have no dedicated "CODE:0" real-
+// value path in the same way (TQ is raw-only; AGL's aglFtToSteps(0) is
+// used directly here), so those two call their conversion helpers/raw
+// moveTo(0) explicitly instead of a setXxx() wrapper. ALTstepper is still
+// fully disabled on this sketch (see its own commented-out block above),
+// so no altitude reset is included here.
+void ResetGaugesToZero() {
+  setIAS(0);
+  setVSI(0);
+  setEGT(0);
+  setEOT(0);
+  setEOP(0);
+  setXOT(0);
+  setXOP(0);
+  setTS(0);
+  setRS(0);
+  setGP(0);
+  setFA(0);
+  setAGL(0);
+  ETstepper.moveTo(0);
+}
+
 void loop() {
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
@@ -1677,9 +1716,17 @@ void loop() {
           packetBuffer[MSFSLen] = 0;
         }
         ProcessReceivedMSFSString();
+        lastMSFSDataMillis = millis();
+        gaugesResetForNoData = false;
       }
       lastincomingpacketcheck = millis();
     }
+  }
+
+  if (!gaugesResetForNoData && (millis() - lastMSFSDataMillis) >= noDataTimeoutMs) {
+    ResetGaugesToZero();
+    gaugesResetForNoData = true;
+    SendDebug(BoardName + " - no UDP data for " + String(noDataTimeoutMs / 1000) + "s, gauges reset to calibrated zero");
   }
 
   if ((millis() - lastalivesent) >= aliveinterval) {

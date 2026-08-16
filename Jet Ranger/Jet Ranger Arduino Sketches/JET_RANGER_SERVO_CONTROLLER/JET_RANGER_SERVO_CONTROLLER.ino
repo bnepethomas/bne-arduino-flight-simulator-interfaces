@@ -77,6 +77,8 @@ long lastalivesent = 0;
 const unsigned long incomingcheckinterval = 5;
 long lastincomingpacketcheck = 0;
 bool servosZeroed = false;
+// No-data watchdog threshold - see the ResetGaugesToZero() call in loop().
+const unsigned long noDataTimeoutMs = 30000;
 
 
 #define EthernetStartupDelay 500
@@ -551,6 +553,25 @@ void UpdateServoPos() {
       }
     }
   }
+}
+
+// No-data watchdog - see the timeout check in loop() below. Sets every
+// gauge's *target* position back to its calibrated zero
+// (aServZeroPosition[], the same array setup()'s post-self-test-sweep
+// block and every real "CODE:0" UDP packet's map(0, ...) would resolve
+// to) and lets the normal UpdateServoPos() ±1-per-tick easing (right
+// below) carry each servo there smoothly, exactly like any other target
+// change. Deliberately does NOT write the servos directly the way an
+// earlier, since-removed commented-out draft of this feature did - that
+// approach wrote the physical position immediately but left
+// aServoPosition[]/aTargetServoPosition[] stale, so the next real UDP
+// value would have made UpdateServoPos() ease from the wrong remembered
+// position instead of the just-zeroed one.
+void ResetGaugesToZero() {
+  for (int i = 0; i < Number_of_Servos; i++) {
+    aTargetServoPosition[i] = aServZeroPosition[i];
+  }
+  setWarningLightAll(false);
 }
 
 int ServoIdleTime = 1000;
@@ -1550,67 +1571,22 @@ void loop() {
     }
   }
 
-  // if (millis() >= (lastincomingpacketcheck + 5000)) {
-
-  //   if (servosZeroed == false) {
-  //     // No traffic for a while zero the servos and disconnect
-  //     SendDebug("No Packets receives for a while returning to zero position");
-  //     // Zero Servos
-  //   // Zero Servos
-  //   SetOILP(aServZeroPosition[EngOilPressure1]);
-  //   OILP_SERVO.write(aServZeroPosition[EngOilPressure1]);
-
-  //   SetOILT(aServZeroPosition[EngOilTemperature1]);
-  //   OILT_SERVO.write(aServZeroPosition[EngOilTemperature1]);
-
-  //   SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
-  //   ENG_TORQUE_SERVO.write(aServZeroPosition[EngTorquePercent1]);
-
-  //   SetAirSpeed(aServZeroPosition[AirSpeed]);
-  //   AIRSPEED_SERVO.write(aServZeroPosition[AirSpeed]);
-
-  //   SetXMSNP(aServZeroPosition[EngTransmissionPressure1]);
-  //   XMSNP_SERVO.write(aServZeroPosition[EngTransmissionPressure1]);
-
-  //   SetXMSNT(aServZeroPosition[EngTransmissionTemperature1]);
-  //   XMSNT_SERVO.write(aServZeroPosition[EngTransmissionTemperature1]);
-
-  //   SetEGT(aServZeroPosition[TurbEngItt1]);
-  //   EGT_SERVO.write(aServZeroPosition[TurbEngItt1]);
-
-  //   SetRPMR(aServZeroPosition[RotorRpmPct1]);
-  //   RPMR_SERVO.write(aServZeroPosition[RotorRpmPct1]);
-
-  //   SetRPME(aServZeroPosition[GeneralEngPctMaxRpm1]);
-  //   RPME_SERVO.write(aServZeroPosition[GeneralEngPctMaxRpm1]);
-
-  //   SetFUEL(aServZeroPosition[FuelTotalQuantity]);
-  //   FUEL_SERVO.write(aServZeroPosition[FuelTotalQuantity]);
-
-  //   SetGAS_PRODUCER(aServZeroPosition[TurbEngCorrectedN11]);
-  //   GAS_PRODUCER_SERVO.write(aServZeroPosition[TurbEngCorrectedN11]);
-
-  //   SetELEC_LOAD(aServZeroPosition[Electrical_Load]);
-  //   ELEC_LOAD_SERVO.write(aServZeroPosition[Electrical_Load]);
-
-  //   SetFUEL_LOAD(aServZeroPosition[Fuel_Load]);
-  //   FUEL_LOAD_SERVO.write(aServZeroPosition[Fuel_Load]);
-
-  //   SetPITCH(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
-  //   PITCH_SERVO.write(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
-
-  //   SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
-  //   ROLL_SERVO.write(aServZeroPosition[AttitudeIndicatorBankDegrees]);
-
-  //   SetVSI(aServZeroPosition[VerticalSpeed]);
-  //   VSI_SERVO.write(aServZeroPosition[VerticalSpeed]);
-
-  //     setWarningLightAll(false);
-
-  //     servosZeroed = true;
-  //   }
-
-  // }
+  // No-data watchdog: if no MSFS UDP packet has been received for
+  // noDataTimeoutMs, ease every gauge back to its calibrated zero (see
+  // ResetGaugesToZero() above) and clear all warning lights.
+  // lastincomingpacketcheck doubles as "last data received" here since
+  // it's only advanced inside the `if (MSFSpacketsize > 0)` block above,
+  // not on every poll tick. servosZeroed latches the reset so it only
+  // fires once per outage (cleared back to false the moment real data
+  // resumes, above) rather than every loop() while still timed out. This
+  // replaces an earlier, incomplete draft of the same idea that used to
+  // sit here commented out - see ResetGaugesToZero()'s comment for what
+  // was wrong with it.
+  if (servosZeroed == false && (millis() - lastincomingpacketcheck) >= noDataTimeoutMs) {
+    SendDebug(BoardName + " - no UDP data for " + String(noDataTimeoutMs / 1000) + "s, gauges reset to calibrated zero");
+    ResetGaugesToZero();
+    servosZeroed = true;
+  }
 
   if ((millis() - lastServoCheck) >= servoCheckInterval) {
     UpdateServoPos();

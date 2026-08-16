@@ -123,6 +123,20 @@ const unsigned long incomingcheckinterval = 5;
 long lastincomingpacketcheck = 0;
 char packetBuffer[1000];     //buffer to store the incoming data
 char outpacketBuffer[1000];  //buffer to store the outgoing data
+
+// No-data watchdog: if no UDP packet arrives on MSFSudp (the "D,CODE:value"
+// feed from FSUIPCWinformsAutoCS/StepperVSITester) for noDataTimeoutMs,
+// every gauge is driven back to its calibrated zero - same "zero" each
+// gauge's own setter (setTS(0)/setRS(0)/etc, offset-aware) or a "CODE:0"
+// UDP packet would produce, not the steppers' raw internal 0. Guards
+// against a dead network link/crashed sim-bridge app leaving gauges
+// frozen at a stale in-flight reading indefinitely. DCS-BIOS traffic
+// (serial, not this UDP feed) does NOT reset this timer - only
+// MSFSudp packets count. gaugesResetForNoData latches so the reset only
+// fires once per outage, not every loop() while still timed out.
+const unsigned long noDataTimeoutMs = 30000;
+unsigned long lastMSFSDataMillis = 0;
+bool gaugesResetForNoData = false;
 const unsigned long delayBeforeSendingPacket = 2000;
 unsigned long ethernetStartTime = 0;
 
@@ -474,7 +488,14 @@ void buildBAROString() {
 
 // Renders "HH:MM" on the Clock OLED - same simple single-string-redraw
 // approach as updateBARO() above, not the digit-drum approach
-// UpdateAltimeterDigits() uses (a clock face doesn't need that).
+// UpdateAltimeterDigits() uses (a clock face doesn't need that). Font is
+// u8g2_font_logisoso32_tf (double the original 16px size) - the same
+// family/size as u8g2_ALT's u8g2_font_logisoso32_tn, already proven to
+// fit this exact 128x32 hardware; "_tf" (full charset) instead of "_tn"
+// (numbers-only) so the ':' separator glyph is available. No bundled
+// 7-segment font in this U8g2 install is short enough to fit a 32px-tall
+// display without clipping (the only one, 7Segments_26x42_mn, is 42px
+// tall), so this is the largest clean-fitting alternative.
 void updateClock(int hours, int minutes) {
   char clockBuffer[6];  // "HH:MM" + null terminator
   sprintf(clockBuffer, "%02d:%02d", hours, minutes);
@@ -487,7 +508,9 @@ void updateClock(int hours, int minutes) {
 
   u8g2_CLOCK.setDrawColor(1);
   u8g2_CLOCK.setFontDirection(0);
-  u8g2_CLOCK.drawStr(30, 16, clockBuffer);
+  int strWidthPx = u8g2_CLOCK.getStrWidth(clockBuffer);
+  int centeredX = (128 - strWidthPx) / 2;
+  u8g2_CLOCK.drawStr(centeredX, 32, clockBuffer);
   u8g2_CLOCK.sendBuffer();
 }
 
@@ -1187,7 +1210,7 @@ void setup() {
   tcaselect(CLOCK_OLED_Port);
   u8g2_CLOCK.begin();
   u8g2_CLOCK.clearBuffer();
-  u8g2_CLOCK.setFont(u8g2_font_logisoso16_tf);
+  u8g2_CLOCK.setFont(u8g2_font_logisoso32_tf);
   u8g2_CLOCK.sendBuffer();
   tcaselect(CLOCK_OLED_Port);
   updateClock(0, 0);
@@ -2205,6 +2228,60 @@ String getValue(String data, char separator, int index) {
 
 // ########################################## END MSFS DATA RECEIVER ########################################
 
+// Blanks all three OLEDs (clears each display's buffer and pushes it) -
+// called alongside ResetGaugesToZero() below when the no-data watchdog
+// fires, so the panel doesn't keep showing a stale/frozen reading (Baro
+// setting, altitude digits, clock time) once the data feed behind it has
+// gone quiet. Selects each mux channel first since all three share the
+// same I2C bus through the TCA9548A.
+void BlankAllOleds() {
+  tcaselect(BARO_OLED_Port);
+  u8g2_BARO.clearBuffer();
+  u8g2_BARO.sendBuffer();
+
+  tcaselect(ALT_OLED_Port);
+  u8g2_ALT.clearBuffer();
+  u8g2_ALT.sendBuffer();
+
+  tcaselect(CLOCK_OLED_Port);
+  u8g2_CLOCK.clearBuffer();
+  u8g2_CLOCK.sendBuffer();
+}
+
+// No-data watchdog (see lastMSFSDataMillis/noDataTimeoutMs above) - drives
+// every gauge on this board to its calibrated zero, the same target each
+// gauge's own real-value setter would compute for a "CODE:0" packet
+// (offset-aware for TS/RS/VSI). FuelLoadStepper/ElectricalLoadStepper have
+// no calibration table (raw steps only), so their "zero" is just
+// .moveTo(0), the same raw target FUELLOAD:0/ELECTRICALLOAD:0 would send.
+// ALTstepper moves to its raw zero directly (not via onAltMslFtChange(),
+// which would redraw the Altimeter OLED's digits to "0" - BlankAllOleds()
+// below clears it instead). iLastAltitudeValue/iLastZuluTimeValue are
+// reset to an impossible sentinel (-1) so that once real data resumes,
+// the very next altitude/time update is guaranteed to redraw its OLED
+// even if the resumed value happens to exactly match whatever was
+// showing before the outage - otherwise onAltMslFtChange()'s/
+// onZuluTimeChange()'s own change-gate would see "no change" and leave
+// the display blank.
+void ResetGaugesToZero() {
+  setIAS(0);
+  setVSI(0);
+  setEGT(0);
+  setEOT(0);
+  setEOP(0);
+  setXOT(0);
+  setXOP(0);
+  setTS(0);
+  setRS(0);
+  setFA(0);
+  ALTstepper.moveTo(0);
+  FuelLoadStepper.moveTo(0);
+  ElectricalLoadStepper.moveTo(0);
+  BlankAllOleds();
+  iLastAltitudeValue = -1;
+  iLastZuluTimeValue = -1;
+}
+
 void loop() {
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
@@ -2227,9 +2304,17 @@ void loop() {
           packetBuffer[MSFSLen] = 0;
         }
         ProcessReceivedMSFSString();
+        lastMSFSDataMillis = millis();
+        gaugesResetForNoData = false;
       }
       lastincomingpacketcheck = millis();
     }
+  }
+
+  if (!gaugesResetForNoData && (millis() - lastMSFSDataMillis) >= noDataTimeoutMs) {
+    ResetGaugesToZero();
+    gaugesResetForNoData = true;
+    SendDebug(BoardName + " - no UDP data for " + String(noDataTimeoutMs / 1000) + "s, gauges reset to calibrated zero");
   }
 
   if ((millis() - lastalivesent) >= aliveinterval) {

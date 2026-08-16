@@ -30,7 +30,7 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 24,396 bytes (9%) | 3,271 bytes (39%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 26,364 bytes (10%) | 3,733 bytes (45%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
 Flashed to the bench Mega on COM4 several times across this sketch's
@@ -148,6 +148,20 @@ collides with `AllstepperEnablePin`.
    quantity match, and `IAS`'s comment for the one case (Bell 206
    servo-position number vs. real knots) where the two boards' same code
    name means different units.
+6. **No-data watchdog: every gauge on this board is driven back to its
+   calibrated zero if no UDP packet arrives on `MSFSudp` for 30 seconds**
+   (`noDataTimeoutMs`) — same feature, same threshold, and the same
+   `lastMSFSDataMillis`/`gaugesResetForNoData` latch pattern as
+   `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino`'s own copy (the two
+   sketches don't share this code, each has its own `ResetGaugesToZero()`
+   matching its own roster). Scoped to `MSFSudp` traffic only — DCS-BIOS
+   input doesn't reset the timer. This board's `ResetGaugesToZero()`
+   calls `setIAS(0)`/`setVSI(0)`/`setEGT(0)`/`setEOT(0)`/`setEOP(0)`/
+   `setXOT(0)`/`setXOP(0)`/`setTS(0)`/`setRS(0)`/`setGP(0)`/`setFA(0)`/
+   `setAGL(0)` (each the same target a real `"<CODE>:0"` packet would
+   produce), plus a direct `ETstepper.moveTo(0)` (Torque is raw-steps-only,
+   no `setXxx()` wrapper exists for it). `ALTstepper` is still fully
+   disabled on this sketch, so no altitude reset is included.
 
 ## Pin usage (JET_RANGER_STEPPER_CONTROLLER.ino)
 
