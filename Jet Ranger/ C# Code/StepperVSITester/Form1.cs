@@ -592,5 +592,29 @@ namespace StepperVSITester
 
         private void butSendElectricalLoad_Click(object sender, EventArgs e) => SendDualRawValue(txtElectricalLoad, "ELECTRICALLOAD");
         private void txtElectricalLoad_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendDualRawValue(txtElectricalLoad, "ELECTRICALLOAD"); }
+
+        // Clock OLED (172.16.1.106) manual test - hour/minute boxes are
+        // combined into the HHMM-encoded "ZULU" wire format (e.g. 1430 for
+        // 14:30) JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's
+        // onZuluTimeChange() expects, then sent via SendDual() the same way
+        // as the FUELLOAD/ELECTRICALLOAD rows above (this board only, no
+        // equivalent on the single-board Stepper Controller).
+        private void SendClockValue()
+        {
+            if (!int.TryParse(txtClockHour.Text, out int hours) || hours < 0 || hours > 23)
+            {
+                MessageBox.Show("Hour must be 0-23");
+                return;
+            }
+            if (!int.TryParse(txtClockMinute.Text, out int minutes) || minutes < 0 || minutes > 59)
+            {
+                MessageBox.Show("Minute must be 0-59");
+                return;
+            }
+            SendDual("ZULU", (hours * 100) + minutes);
+        }
+
+        private void butSendClock_Click(object sender, EventArgs e) => SendClockValue();
+        private void txtClock_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendClockValue(); }
     }
 }

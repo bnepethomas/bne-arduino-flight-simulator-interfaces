@@ -169,6 +169,17 @@ unit to use.
     sketch repurposed its Radar Alt and Torque steppers as Fuel Load and
     Electrical Load respectively. No real calibration table exists yet
     for either, so both are raw-step-only, matching the board side.
+19. **Clock row** (`txtClockHour`/`txtClockMinute` + `butSendClock`, each
+    with a matching Enter handler on both textboxes): two small textboxes
+    (hour 0-23, minute 0-59, each validated separately) combined into the
+    HHMM-encoded `ZULU` wire value (e.g. `1430` for 14:30) and sent
+    **exclusively** to `dualStepperClient` (`172.16.1.106:13136`) via
+    `SendClockValue()`/`SendDual()` - same "exclusive to this board"
+    pattern as the Dual Stepper Raw Test rows above (#18), since `ZULU`
+    only exists on
+    [`JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino`](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)
+    (drives its Clock OLED, `u8g2_CLOCK`) - there's no equivalent gauge or
+    code on `172.16.1.105`.
 
 No unit conversion happens in this tool for VSI/ALT/Radar ALT/EGT/IAS/
 RPME/RPMR — whatever value is shown is sent as-is. On the Arduino side,
@@ -191,7 +202,7 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 | Target | Port | Purpose |
 |---|---|---|
 | `172.16.1.105` (Stepper Controller, via `stepperClient`) | 13136 | `"D,VSI:<fpm>"`, `"D,ALT:<feet>"`, `"D,AGL:<feet or steps>"`, `"D,ITT:<C>"`, `"D,IAS:<kt>"`, `"D,RPME:<pct>"`, `"D,RPMR:<pct>"`, `"D,ASTEP:<steps>/<intervalMs>"`, `"D,<OILT\|OILP\|XMSNT\|XMSNP\|N1\|FUEL>:<value>"`, and `"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"` test packets |
-| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<steps>"`, `"D,ELECTRICALLOAD:<steps>"` (exclusive to this board); `"D,ALT:<feet>"`/`"D,RPME:<pct>"`/`"D,RPMR:<pct>"` (broadcast alongside `172.16.1.105` - see `SendManualValueBroadcast()`; `ALT` works here since this board's `ALTstepper`/`ALT` UDP case were re-enabled specifically for it); and every Raw Step Test panel code (`"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"`, also broadcast alongside `172.16.1.105` - `AGLRAW`/`TQ` are no-ops on this board, `ALTRAW` now works) |
+| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<steps>"`, `"D,ELECTRICALLOAD:<steps>"`, `"D,ZULU:<HHMM>"` (all exclusive to this board); `"D,ALT:<feet>"`/`"D,RPME:<pct>"`/`"D,RPMR:<pct>"` (broadcast alongside `172.16.1.105` - see `SendManualValueBroadcast()`; `ALT` works here since this board's `ALTstepper`/`ALT` UDP case were re-enabled specifically for it); and every Raw Step Test panel code (`"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"`, also broadcast alongside `172.16.1.105` - `AGLRAW`/`TQ` are no-ops on this board, `ALTRAW` now works) |
 
 ## Programs this communicates with
 
@@ -211,10 +222,11 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 - **[JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)**
   (`172.16.1.106:13136` — a distinct board/address, not mutually exclusive
   with the two above) — the Dual Stepper Raw Test rows (`FUELLOAD`/
-  `ELECTRICALLOAD`) talk to this board exclusively; the ALT and RPME/RPMR
-  trackbars and the entire Raw Step Test panel broadcast to it alongside
-  `172.16.1.105` (this sketch's `ALTstepper` was revived and its `ALT`/
-  `ALTRAW` UDP cases enabled specifically to receive the ALT trackbar's
-  broadcasts). Only the VSI/Radar ALT/EGT/IAS trackbars, the six
-  remaining real-value compact rows (`OILT`/`OILP`/`XMSNT`/`XMSNP`/`N1`/
-  `FUEL`), and the ALT jog still target `172.16.1.105` only.
+  `ELECTRICALLOAD`) and the Clock row (`ZULU`) talk to this board
+  exclusively; the ALT and RPME/RPMR trackbars and the entire Raw Step
+  Test panel broadcast to it alongside `172.16.1.105` (this sketch's
+  `ALTstepper` was revived and its `ALT`/`ALTRAW` UDP cases enabled
+  specifically to receive the ALT trackbar's broadcasts). Only the
+  VSI/Radar ALT/EGT/IAS trackbars, the six remaining real-value compact
+  rows (`OILT`/`OILP`/`XMSNT`/`XMSNP`/`N1`/`FUEL`), and the ALT jog still
+  target `172.16.1.105` only.

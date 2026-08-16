@@ -126,6 +126,11 @@ namespace StepperVSITester
             lblElectricalLoadRow = new Label();
             txtElectricalLoad = new TextBox();
             butSendElectricalLoad = new Button();
+            lblClockRow = new Label();
+            txtClockHour = new TextBox();
+            lblClockColon = new Label();
+            txtClockMinute = new TextBox();
+            butSendClock = new Button();
             ((System.ComponentModel.ISupportInitialize)trkVsi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).BeginInit();
@@ -1083,15 +1088,68 @@ namespace StepperVSITester
             butSendElectricalLoad.UseVisualStyleBackColor = true;
             butSendElectricalLoad.Click += butSendElectricalLoad_Click;
             //
+            // lblClockRow
+            //
+            lblClockRow.AutoSize = true;
+            lblClockRow.Location = new Point(12, 1799);
+            lblClockRow.Name = "lblClockRow";
+            lblClockRow.Size = new Size(200, 15);
+            lblClockRow.TabIndex = 102;
+            lblClockRow.Text = "ZULU - Clock OLED (HH:MM):";
+            //
+            // txtClockHour
+            //
+            txtClockHour.Location = new Point(220, 1795);
+            txtClockHour.Name = "txtClockHour";
+            txtClockHour.Size = new Size(40, 23);
+            txtClockHour.TabIndex = 103;
+            txtClockHour.Text = "0";
+            txtClockHour.TextAlign = HorizontalAlignment.Center;
+            txtClockHour.KeyDown += txtClock_KeyDown;
+            //
+            // lblClockColon
+            //
+            lblClockColon.AutoSize = true;
+            lblClockColon.Location = new Point(263, 1798);
+            lblClockColon.Name = "lblClockColon";
+            lblClockColon.Size = new Size(12, 15);
+            lblClockColon.TabIndex = 104;
+            lblClockColon.Text = ":";
+            //
+            // txtClockMinute
+            //
+            txtClockMinute.Location = new Point(278, 1795);
+            txtClockMinute.Name = "txtClockMinute";
+            txtClockMinute.Size = new Size(40, 23);
+            txtClockMinute.TabIndex = 105;
+            txtClockMinute.Text = "0";
+            txtClockMinute.TextAlign = HorizontalAlignment.Center;
+            txtClockMinute.KeyDown += txtClock_KeyDown;
+            //
+            // butSendClock
+            //
+            butSendClock.Location = new Point(326, 1794);
+            butSendClock.Name = "butSendClock";
+            butSendClock.Size = new Size(70, 25);
+            butSendClock.TabIndex = 106;
+            butSendClock.Text = "Send";
+            butSendClock.UseVisualStyleBackColor = true;
+            butSendClock.Click += butSendClock_Click;
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            AutoScrollMinSize = new Size(610, 1830);
+            AutoScrollMinSize = new Size(610, 1865);
             ClientSize = new Size(630, 760);
             Controls.Add(butNewGaugeStepFwd);
             Controls.Add(butNewGaugeStepBack);
+            Controls.Add(butSendClock);
+            Controls.Add(txtClockMinute);
+            Controls.Add(lblClockColon);
+            Controls.Add(txtClockHour);
+            Controls.Add(lblClockRow);
             Controls.Add(butSendElectricalLoad);
             Controls.Add(txtElectricalLoad);
             Controls.Add(lblElectricalLoadRow);
@@ -1301,5 +1359,10 @@ namespace StepperVSITester
         private Label lblElectricalLoadRow;
         private TextBox txtElectricalLoad;
         private Button butSendElectricalLoad;
+        private Label lblClockRow;
+        private TextBox txtClockHour;
+        private Label lblClockColon;
+        private TextBox txtClockMinute;
+        private Button butSendClock;
     }
 }

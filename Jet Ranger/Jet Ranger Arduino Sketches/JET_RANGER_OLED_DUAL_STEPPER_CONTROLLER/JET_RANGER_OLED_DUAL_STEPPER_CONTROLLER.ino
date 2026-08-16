@@ -350,6 +350,12 @@ String sAircraftName = "";
 
 #define BARO_OLED_Port 1
 #define ALT_OLED_Port 2
+// TCA9548A channel 3 - some mux breakout boards label each channel's pin
+// pair SD0/SC0..SD7/SC7, so "SD3/SC3" is this channel's I2C data/clock
+// pair. Same physical hardware/display class as the Altimeter OLED
+// (u8g2_ALT below), just its own unit on its own mux channel - not a
+// second use of the Altimeter's actual display.
+#define CLOCK_OLED_Port 3
 
 #include <U8g2lib.h>
 #include <SPI.h>
@@ -358,6 +364,7 @@ String sAircraftName = "";
 // Op OLEDs
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALT(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_CLOCK(U8G2_R0, U8X8_PIN_NONE);
 
 
 extern "C" {
@@ -387,6 +394,15 @@ int iLastAltitudeValue = 0;
 // elapsed isn't lost - it's just deferred to the next eligible callback.
 const unsigned long minAltOledUpdateIntervalMs = 300;
 unsigned long lastAltOledUpdateMillis = 0;
+
+// Clock OLED - HHMM-encoded (e.g. 1430 for 14:30 Zulu), received over UDP
+// from FSUIPCWinformsAutoCS (no DCS-BIOS callback for this one - FSUIPC
+// is the only data source). Same gate-on-change + throttle pattern as
+// the Altimeter OLED above.
+int iLastZuluTimeValue = -1;
+const unsigned long minClockOledUpdateIntervalMs = 300;
+unsigned long lastClockOledUpdateMillis = 0;
+
 int iAltitudeDelta = 0;
 int iBaro = 2992;
 int iBaroOnes = 2;
@@ -454,6 +470,40 @@ void buildBAROString() {
 
   updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
   BaroUpdated = false;
+}
+
+// Renders "HH:MM" on the Clock OLED - same simple single-string-redraw
+// approach as updateBARO() above, not the digit-drum approach
+// UpdateAltimeterDigits() uses (a clock face doesn't need that).
+void updateClock(int hours, int minutes) {
+  char clockBuffer[6];  // "HH:MM" + null terminator
+  sprintf(clockBuffer, "%02d:%02d", hours, minutes);
+
+  tcaselect(CLOCK_OLED_Port);
+  u8g2_CLOCK.setFontMode(0);
+  u8g2_CLOCK.setDrawColor(0);
+  u8g2_CLOCK.drawBox(0, 0, 128, 64);
+  u8g2_CLOCK.sendBuffer();
+
+  u8g2_CLOCK.setDrawColor(1);
+  u8g2_CLOCK.setFontDirection(0);
+  u8g2_CLOCK.drawStr(30, 16, clockBuffer);
+  u8g2_CLOCK.sendBuffer();
+}
+
+// Gate-on-change + 300ms-throttle wrapper for updateClock() - same
+// pattern as onAltMslFtChange()'s gating of UpdateAltimeterDigits().
+// hhmm is HH*100+MM (e.g. 1430 for 14:30 Zulu) - the wire format the
+// "ZULU" UDP code (below) uses.
+void onZuluTimeChange(int hhmm) {
+  if (hhmm != iLastZuluTimeValue
+      && (millis() - lastClockOledUpdateMillis) >= minClockOledUpdateIntervalMs) {
+    int hours = hhmm / 100;
+    int minutes = hhmm % 100;
+    updateClock(hours, minutes);
+    iLastZuluTimeValue = hhmm;
+    lastClockOledUpdateMillis = millis();
+  }
 }
 
 
@@ -1132,6 +1182,15 @@ void setup() {
   u8g2_ALT.sendBuffer();
   tcaselect(ALT_OLED_Port);
   updateALT("0", "0");
+
+
+  tcaselect(CLOCK_OLED_Port);
+  u8g2_CLOCK.begin();
+  u8g2_CLOCK.clearBuffer();
+  u8g2_CLOCK.setFont(u8g2_font_logisoso16_tf);
+  u8g2_CLOCK.sendBuffer();
+  tcaselect(CLOCK_OLED_Port);
+  updateClock(0, 0);
 
 
   // ######################## End OLED Setup ###########################
@@ -2016,6 +2075,11 @@ void HandleOutputValuePair(String str) {
   } else if (ParameterName == "ALTRAW") {
     // Distinct raw-step code, bypassing the feet*5.76 conversion above.
     ALTstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "ZULU") {
+    // HHMM-encoded Zulu time (e.g. 1430 for 14:30) for the Clock OLED -
+    // no DCS-BIOS callback for this one, FSUIPCWinformsAutoCS is the
+    // only source. See onZuluTimeChange()/updateClock() above.
+    onZuluTimeChange(ParameterValue.toInt());
   } else if (ParameterName == "VSI") {
     // Unlike IAS (still a Bell 206 servo-position number), FSUIPCWinformsAutoCS
     // now sends this board raw fpm specifically for VSI (its own front-panel/

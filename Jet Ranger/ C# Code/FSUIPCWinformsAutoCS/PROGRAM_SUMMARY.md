@@ -58,10 +58,17 @@ acting on them through the FSUIPC API instead of SimConnect.
      bytes are also fanned out to the OLED Controller (which reads
      `ALT`/`BARO` out of it) — each board ignores whatever fields it
      doesn't recognise. The
-     Stepper Controller does **not** receive these same bytes: it gets a
-     separate, purpose-built payload (`ALT`, `VSI` as raw fpm, `AGL`, and
-     now `RPMR`/`RPME` as real unmapped percent) built fresh each tick,
-     not derived from the shared payload.
+     Stepper Controller and OLED Dual Stepper Controller do **not**
+     receive these same bytes: each gets its own separate, purpose-built
+     payload built fresh each tick, not derived from the shared payload.
+     The Stepper Controller's payload is `ALT`, `VSI` as raw fpm, `AGL`,
+     and `RPMR`/`RPME` as real unmapped percent. The OLED Dual Stepper
+     Controller's payload is `ALT`, `RPMR`/`RPME`, and (new) **`ZULU`** —
+     the current Zulu time-of-day, HHMM-encoded (e.g. `1430` for 14:30)
+     from the new `zuluHours`/`zuluMinutes` FSUIPC offsets (`0x0238`/
+     `0x0239`), driving that board's Clock OLED. No `VSI`/`AGL` in this
+     payload — that board's UDP handler has no `AGL` case (its Radar Alt
+     stepper was repurposed as Fuel Load), and VSI wasn't asked for.
    - Also tracks COM1/2 active+standby frequency and main bus voltage
      (via the same `FsFrequencyCOM`/`FsFrequencyNAV` helpers used for the
      on-screen text) and, throttled the same way (≥200ms if changed, or
@@ -118,6 +125,7 @@ acting on them through the FSUIPC API instead of SimConnect.
 | `0x2F28` | 21-bit annunciator/warning-lamp bitfield |
 | `0x2840` / `0x2850` | Main bus voltage / avionics bus voltage |
 | `0x0330` | Altimeter/"Kollsman" pressure setting, hPa × 16 (documented FSUIPC offset — sent on as `BARO`, converted to inHg × 100) |
+| `0x0238` / `0x0239` | Zulu hours / Zulu minutes (documented FSUIPC offsets, bytes) — combined into the HHMM-encoded `ZULU` field sent to the OLED Dual Stepper Controller's Clock OLED |
 | `RadioStack:0x034E/0x311A/0x3118/0x311C/0x0350/0x311E/0x0352/0x3120/0x0354/0x034C/0x0356` | COM1/2 active+standby, NAV1/2 active+standby, transponder, ADF |
 
 ## Local network configuration
@@ -134,9 +142,10 @@ acting on them through the FSUIPC API instead of SimConnect.
 | `172.16.1.102` (Servo Controller) | 13136 | Front-panel instrument + annunciator data packets (`frontPanelClient.Send`) |
 | `172.16.1.105` (Stepper Controller) | 13136 | Its own minimal payload (`stepperClient.Send`), separate from the Servo Controller's — `ALT`, `VSI` (raw fpm, not the Servo Controller's Bell 206 `VSI_Process()` number), `AGL` (radar altitude), and `RPMR`/`RPME` (real, unmapped percent — see Program flow above). Built fresh each tick from `ALTITUDE`/`vsiRawFpm`/`PLANE_ALT_ABOVE_GROUND`/`rpmrPctForStepper`/`rpmePctForStepper` rather than derived from the shared front-panel payload. (`VSI` was dropped temporarily while diagnosing a reported ALT-needle reversal on real hardware — confirmed unrelated to VSI, root cause was the stepper driver electronics mishandling small step deltas; see `JET_RANGER_STEPPER_CONTROLLER`'s summary.) `IAS`/annunciator bits/etc. were never part of this payload, since this board has no gauges for them |
 | `172.16.1.104` (OLED Controller) | 13136 | Same payload as the Servo Controller (`oledClient.Send`) — that board reads `ALT`/`BARO` out of it |
+| `172.16.1.106` (OLED Dual Stepper Controller) | 13136 | Its own minimal payload (`dualStepperClient.Send`), separate from the Stepper Controller's — `ALT`, `RPMR`/`RPME` (real, unmapped percent), and `ZULU` (HHMM-encoded Zulu time, new — drives that board's Clock OLED). Built fresh each tick, not derived from the shared front-panel payload. No `VSI`/`AGL` — that board's UDP handler has no `AGL` case (Radar Alt repurposed as Fuel Load) |
 | `172.16.1.2` | 26028 | `OutputClient` — connected but unused |
 
-> Note: all five `.Connect(...)` calls that wire up these targets live in
+> Note: all six `.Connect(...)` calls that wire up these targets live in
 > `Form1.Designer.cs` rather than `Form1.cs`'s constructor — an unusual
 > location (that file is normally generated UI layout only) but functionally
 > equivalent since it still runs during `InitializeComponent()`.
@@ -153,12 +162,16 @@ acting on them through the FSUIPC API instead of SimConnect.
 - **[JET_RANGER_UPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_UPPER_CONTROLLER/JET_RANGER_UPPER_CONTROLLER.ino)**
   — also a possible sender of control commands to port 27001.
 - **[JET_RANGER_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_STEPPER_CONTROLLER/JET_RANGER_STEPPER_CONTROLLER.ino)**
-  (`172.16.1.105:13136`) — receives the same shared payload as the Servo
-  Controller; reads `ALT`/`IAS` out of it to drive its altimeter and
-  current-airspeed steppers.
+  (`172.16.1.105:13136`) — receives its own separate, purpose-built
+  payload (`ALT`/`VSI`/`AGL`/`RPMR`/`RPME`), not the shared front-panel
+  bytes.
 - **[JET_RANGER_OLED_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_CONTROLLER/JET_RANGER_OLED_CONTROLLER.ino)**
-  (`172.16.1.104:13136`) — also receives the shared payload; reads
+  (`172.16.1.104:13136`) — receives the shared payload; reads
   `ALT`/`BARO` out of it to drive its ALT and BARO OLEDs.
+- **[JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino)**
+  (`172.16.1.106:13136`) — receives its own separate, purpose-built
+  payload (`ALT`/`RPMR`/`RPME`/`ZULU`), not the shared front-panel bytes;
+  the new `ZULU` field drives its Clock OLED.
 - Alternative to the SimConnect-based bridges (**P3D_to_UDP** /
   **SimConnect_to_UDP** / **MSFSSimConnectExtractor**) for sims that only
   expose data via FSUIPC rather than SimConnect — only one bridge app

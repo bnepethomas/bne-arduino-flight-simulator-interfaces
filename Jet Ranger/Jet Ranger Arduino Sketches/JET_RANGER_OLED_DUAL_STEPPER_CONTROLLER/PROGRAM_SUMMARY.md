@@ -230,6 +230,34 @@
      one-time `"2992"` default** - the Baro display never updates after
      boot. `BaroUpdated`/`AltCounterUpdated`/`CurrentDisplay` are all set
      but never read anywhere - dead state flags.
+10. **A third I2C OLED display added: a Clock, showing Zulu time as
+    "HH:MM".** Same hardware class as `u8g2_BARO`/`u8g2_ALT` (a third
+    `U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C` object, `u8g2_CLOCK`) on its
+    own TCA9548A mux channel (`CLOCK_OLED_Port` = channel 3, "SD3/SC3" on
+    mux breakout boards that label each channel's I2C pair that way) -
+    its own physical unit, not a second use of the Altimeter's display.
+    - `updateClock(int hours, int minutes)` formats `"HH:MM"` (via
+      `sprintf("%02d:%02d", ...)`) and redraws it with a single
+      `drawStr()`/`sendBuffer()` pair - modeled on `updateBARO()`'s
+      simple single-string redraw, not `UpdateAltimeterDigits()`'s
+      digit-drum bitmap approach (a clock face doesn't need per-digit
+      partial redraws).
+    - `onZuluTimeChange(int hhmm)` wraps it with the same gate-on-change
+      + throttle pattern as `onAltMslFtChange()`/`UpdateAltimeterDigits()`
+      (point 5 above): only redraws if `hhmm` differs from
+      `iLastZuluTimeValue` (new) **and** at least
+      `minClockOledUpdateIntervalMs` (300ms, new) has elapsed since
+      `lastClockOledUpdateMillis` (new). `hhmm` is HH*100+MM (e.g. `1430`
+      for 14:30).
+    - New UDP code **`ZULU`** (HHMM-encoded int) calls
+      `onZuluTimeChange()` directly - no DCS-BIOS callback exists for
+      this one, `FSUIPCWinformsAutoCS` is the only data source (FSUIPC's
+      own Zulu-time offsets, `0x0238`/`0x0239`, have no DCS-BIOS
+      equivalent on this board).
+    - `setup()`'s OLED-setup block now also initialises `u8g2_CLOCK`
+      (`u8g2_font_logisoso16_tf`, same font as BARO) and renders a
+      `updateClock(0, 0)` default, alongside the existing BARO/ALT
+      init calls.
 
 Everything else — VSI, IAS, the 8 remaining `Stepper-Tuning-Harness`-ported
 gauges (`EOTstepper`/`XOTstepper`/`XOPstepper`/`EGTstepper`/`TSstepper`/
@@ -247,7 +275,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 41,530 bytes (16%) | 5,091 bytes (62%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 43,368 bytes (17%) | 5,249 bytes (64%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;
@@ -280,6 +308,7 @@ see its summary for their status.
 | `RPMR` | %, 0-110 (was 0-117) | `setRS()` via this board's own `RS_PCT_TABLE` (4 points, not 13) |
 | `ALT` | feet | `onAltMslFtChange()` via `feet * 0.72` (was `5.76`) - **enabled here**, unlike the original sketch (still `5.76`, still commented out). Also updates the Altimeter OLED |
 | `ALTRAW` | raw steps | `ALTstepper.moveTo()` directly, bypassing the conversion (and the OLED update) - also enabled here only |
+| `ZULU` | HHMM int (e.g. `1430`) | `onZuluTimeChange()` → gate-on-change + 300ms-throttled `updateClock()` on the Clock OLED. No stepper involved, no DCS-BIOS equivalent - FSUIPC-only |
 
 `AGL`/`AGLRAW`, `TQ`, and now `N1`/`N1RAW` no longer exist on this board
 (see above - `N1`/`N1RAW` were removed when `GPstepper` was disabled).
@@ -350,4 +379,10 @@ this session:
 - OLED I2C wiring hasn't been bench-verified in this repo - the boot-time
   8-channel TCA9548A scan logs found addresses via `SendDebug()`, but
   nothing in this codebase parses that debug output to confirm the mux
-  and both displays are actually detected and responding.
+  and all three displays (now including the Clock) are actually detected
+  and responding.
+- Clock OLED (`u8g2_CLOCK`, `ZULU` code) is new and untested on real
+  hardware - not yet bench-confirmed that channel 3 ("SD3/SC3") is
+  actually wired to a third physical OLED unit, or that
+  `FSUIPCWinformsAutoCS`'s `zuluHours`/`zuluMinutes` offsets
+  (`0x0238`/`0x0239`) report the expected values in the sim.

@@ -55,6 +55,11 @@ namespace FSUIPCTest
         private Offset<int> vSI = new Offset<int>(0x02C8);
         private Offset<uint> radioAltimeter = new Offset<uint>(0x31E4);
 
+        // Zulu (UTC) time-of-day, standard documented FSUIPC offsets - drives
+        // the Clock OLED on the OLED Dual Stepper Controller (172.16.1.106).
+        private Offset<byte> zuluHours = new Offset<byte>(0x0238);
+        private Offset<byte> zuluMinutes = new Offset<byte>(0x0239);
+
         private Offset<double> attitudePitch = new Offset<double>(0x2F70);
         private Offset<double> attitudeBank = new Offset<double>(0x2F78);
 
@@ -820,19 +825,24 @@ namespace FSUIPCTest
 
                         // Dual Stepper board (172.16.1.106,
                         // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino) gets ALT,
-                        // RPMR, and RPME - a separate board/payload from the
-                        // single-board Stepper Controller above, not a broadcast
-                        // of the same bytes. No VSI/AGL here: this board's own
-                        // UDP handler has no AGL case at all (that stepper was
-                        // repurposed as Fuel Load), and VSI wasn't asked for.
-                        // ALT reaches this board's ALTstepper via its "ALT" UDP
-                        // case (feet * 0.72, also drives its Altimeter OLED
-                        // readout); RPMR/RPME go through RSstepper/TSstepper's
-                        // own RS_PCT_TABLE/TS_PCT_TABLE, same as the single-board
-                        // payload above.
+                        // RPMR, RPME, and ZULU - a separate board/payload from
+                        // the single-board Stepper Controller above, not a
+                        // broadcast of the same bytes. No VSI/AGL here: this
+                        // board's own UDP handler has no AGL case at all (that
+                        // stepper was repurposed as Fuel Load), and VSI wasn't
+                        // asked for. ALT reaches this board's ALTstepper via its
+                        // "ALT" UDP case (feet * 0.72, also drives its Altimeter
+                        // OLED readout); RPMR/RPME go through RSstepper/
+                        // TSstepper's own RS_PCT_TABLE/TS_PCT_TABLE, same as the
+                        // single-board payload above. ZULU is HHMM-encoded
+                        // (e.g. 1430 for 14:30) from the FSUIPC Zulu-time
+                        // offsets above and drives that board's Clock OLED via
+                        // onZuluTimeChange().
+                        int zuluHHMM = (zuluHours.Value * 100) + zuluMinutes.Value;
                         string dualStepperPayload = "D,ALT:" + ALTITUDE
                             + ",RPMR:" + rpmrPctForStepper.ToString()
-                            + ",RPME:" + rpmePctForStepper.ToString();
+                            + ",RPME:" + rpmePctForStepper.ToString()
+                            + ",ZULU:" + zuluHHMM.ToString();
                         Byte[] dualStepperSendData = Encoding.ASCII.GetBytes(dualStepperPayload);
                         dualStepperClient.Send(dualStepperSendData, dualStepperSendData.Length);
 
