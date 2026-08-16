@@ -5,12 +5,15 @@
 > for a new PCB revision ("Jet Ranger X Dual Stepper" under `PCBs/`). It
 > is a single-sketch folder — unlike the original folder, there is no
 > sibling `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A` input-controller sketch
-> here. Despite the "Dual" name, no second/doubled gauge exists yet —
-> this is still a 13-gauge roster, with two steppers (previously Radar
-> Alt and Torque) repurposed for new gauges, its own separately
-> hand-measured RPME/RPMR calibration, a revived Altimeter (now reachable
-> via both DCS-BIOS and UDP), and Gas Producer (N1) traded away to make
-> room for it.
+> here. Despite the "Dual" name, no second/doubled *stepper* gauge exists
+> yet — this is still a 13-gauge stepper roster, with two steppers
+> (previously Radar Alt and Torque) repurposed for new gauges, its own
+> separately hand-measured RPME/RPMR calibration, a revived Altimeter
+> (now reachable via both DCS-BIOS and UDP, at a new conversion factor),
+> and Gas Producer (N1) traded away to make room for it. The one piece
+> that *does* now touch "Dual" hardware: two I2C OLED displays (Baro +
+> Altimeter) switched through a TCA9548A multiplexer — initialised at
+> boot but not yet wired to live data.
 
 ## What's different from `JET_RANGER_STEPPER_CONTROLLER.ino`
 
@@ -81,31 +84,37 @@
      active and unconditional (not wrapped in `if (false)`): seeks
      `ALTzeroSensePin` LOW by moving `-STEPS * 2` (`STEPS` = `315 * 16` =
      5040, an old geared-DRIVER-era constant - `-STEPS*2` = **-10080
-     steps**, a scale wildly larger than every other FULL4WIRE stepper's
-     0-635-ish range in this file; worth double-checking this is actually
-     intended for a FULL4WIRE stepper before trusting it on the bench).
-     On finding zero it sets `setCurrentPosition(-25)` (not `0` - also
-     unexplained). It then does a single round trip to
-     `Z27_360_FULLWIRE_STEPS * No_Of_Altimeter_Startup_Loops` (a new pair
-     of constants - `Z27_360_FULLWIRE_STEPS` = 720, a different X27-style
-     full-scale figure than `X27_FULLWIRE_STEPS`'s 630;
-     `No_Of_Altimeter_Startup_Loops` = 10, oddly `#define`d *inside* the
-     loop body rather than at file scope) = **7200 steps** and back. This
-     replaced an earlier `X27_FULLWIRE_STEPS * 3` (1890 steps) version -
-     the previously-stale "5760 steps per loop" comment has now been
-     corrected to "720 steps per loop" (matching
-     `Z27_360_FULLWIRE_STEPS`), though the "per loop" framing is still a
-     bit misleading since this is one `runToNewPosition()` call to
-     7200, not an actual 10-iteration loop.
+     steps**). On finding zero it sets `setCurrentPosition(-25)` (not `0`
+     - unexplained). It then does a single round trip to
+     `Z27_360_FULLWIRE_STEPS * No_Of_Altimeter_Startup_Loops` (720 * 10 =
+     **7200 steps**) and back, with the comment now correctly saying
+     "720 steps per loop" (was a stale "5760" left over from the pre-fork
+     `feet * 5.76` conversion - see the ALT conversion-factor change
+     below). Now that `Z27_360_FULLWIRE_STEPS` (720) is confirmed to mean
+     "one full 1000ft-dial revolution" (see below), the round-trip move
+     reads as an intentional ~10-revolution self-test sweep, not
+     obviously a scale bug. The zero-seek move is the part still worth
+     double-checking, though: `-STEPS*2` (-10080, using the old
+     geared-driver `STEPS` constant) is ~14x a single 720-step revolution
+     - a wide search range that should just stop early once
+     `ALTzeroSensePin` trips, but hasn't been bench-confirmed as
+     intentional rather than a leftover unconverted value.
    - `ALTstepper` is driven by DCS-BIOS (`onAltMslFtChange()` /
-     `DcsBios::IntegerBuffer altMslFtBuffer`, `CommonData_ALT_MSL_FT`,
-     `feet * 5.76` steps), revived unchanged from the original sketch's
-     own ALT handling. **Additionally, unlike the original sketch, this
-     board's UDP `"ALT"`/`"ALTRAW"` cases have been enabled** (they
-     remain commented out on `JET_RANGER_STEPPER_CONTROLLER.ino`) - `ALT`
-     calls `onAltMslFtChange()` directly with the UDP feet value,
-     `ALTRAW` bypasses the conversion entirely. `StepperVSITester`'s ALT
-     trackbar now broadcasts to both boards and can drive this one too.
+     `DcsBios::IntegerBuffer altMslFtBuffer`, `CommonData_ALT_MSL_FT`).
+     **Its conversion factor has also been changed: `feet * 5.76` →
+     `feet * 0.72`** (comment updated from "5760 Steps per 1000 feet" to
+     "720 Steps per 1000 feet") - this now matches the new
+     `Z27_360_FULLWIRE_STEPS` (720) constant, i.e. one full 1000ft dial
+     sweep is one full revolution of this stepper. `JET_RANGER_STEPPER_CONTROLLER.ino`'s
+     own (still fully commented-out) ALT handling remains at the old
+     `5.76` factor, so this is a genuine, deliberate divergence between
+     the two sketches, not just "revived unchanged." **Additionally,
+     unlike the original sketch, this board's UDP `"ALT"`/`"ALTRAW"`
+     cases have been enabled** (they remain commented out on
+     `JET_RANGER_STEPPER_CONTROLLER.ino`) - `ALT` calls
+     `onAltMslFtChange()` directly with the UDP feet value, `ALTRAW`
+     bypasses the conversion entirely. `StepperVSITester`'s ALT trackbar
+     now broadcasts to both boards and can drive this one too.
 6. **`GPstepper` (N1/Gas Producer) has been fully disabled** to free its
    pins (40-43) for `ALTstepper` above: `GP_COIL_A..D` defines,
    the `GPstepper` construct, its `setMaxSpeed`/`setAcceleration`/
@@ -132,6 +141,36 @@
    (moot while disabled, but changes behaviour if ever re-enabled).
    IAS's startup swing (already disabled) got the same `0`-instead-of-
    `-X27_FULLWIRE_STEPS` change.
+9. **A substantial new subsystem: two I2C OLED displays (Barometer +
+   Altimeter digit readout), switched through a TCA9548A I2C
+   multiplexer.** This is the first code on this board that actually
+   touches the "Dual" in the PCB's name ("Jet Ranger X Dual Stepper" has
+   a TCA9548A footprint) - previously nothing in this sketch used I2C at
+   all. New includes: `U8g2lib.h`, `Wire.h`, `utility/twi.h` (for I2C bus
+   scanning). Adds ~510 lines and ~12KB flash / ~1.2KB RAM (this is the
+   single largest change reviewed on this board so far).
+   - Hardware: two `U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C` displays
+     (`u8g2_BARO`, `u8g2_ALT`), both hardware-I2C (Mega's pins 20/21,
+     SDA/SCL - no dedicated pin `#define`s needed), reached through a
+     TCA9548A mux at I2C address `0x70` (`TCAADDR`) via `tcaselect(i)`.
+     `BARO_OLED_Port` = channel 1, `ALT_OLED_Port` = channel 2.
+   - `setup()` scans all 8 TCA9548A channels for I2C devices (logs each
+     found address via `SendDebug()`), then initialises both displays,
+     picks fonts (`u8g2_font_logisoso16_tf` for BARO,
+     `u8g2_font_logisoso32_tn` for ALT), and renders one-time default
+     values: `updateBARO("2992")` (a standard altimeter-setting default)
+     and `updateALT("0", "0")` (zeroed altitude).
+   - `updateBARO()`, `buildBAROString()`, `updateALT()`, and
+     `UpdateAltimeterDigits()` (a ~130-line function with bitmap glyph
+     data, e.g. a `hash_bits[]` array, presumably for a digit-drum-style
+     rolling altitude counter similar to `JET_RANGER_OLED_CONTROLLER`'s
+     approach) all exist as callable functions, but **only the two
+     `setup()`-time calls above ever run them** - `UpdateAltimeterDigits()`,
+     `buildBAROString()`, and the `BaroUpdated`/`AltCounterUpdated`/
+     `CurrentDisplay` state flags are all currently dead: declared/set,
+     never read or called from `loop()` or any DCS-BIOS/UDP callback.
+     **Both displays currently just show their static boot-splash values
+     forever** - nothing wires live baro or altitude data to them yet.
 
 Everything else — VSI, IAS, the 8 remaining `Stepper-Tuning-Harness`-ported
 gauges (`EOTstepper`/`XOTstepper`/`XOPstepper`/`EGTstepper`/`TSstepper`/
@@ -149,7 +188,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_DUAL_STEPPER_CONTROLLER.ino` | 26,026 bytes (10%) | 3,508 bytes (42%) |
+| `JET_RANGER_DUAL_STEPPER_CONTROLLER.ino` | 38,704 bytes (15%) | 4,739 bytes (57%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;
@@ -164,7 +203,7 @@ port number).
 | `ElectricalLoadStepper` (was `ETstepper`) | FULL4WIRE, `EL_COIL_A..D` (36/37/38/39 — same physical pins the original sketch used for Torque) | Raw steps only (`ELECTRICALLOAD` code) — no real calibration table yet, no startup swing (the original's `ETstepper` never had one either) |
 | `TSstepper` (`RPME`, Turbine/Engine Speed) | Unchanged pins/interface | Real calibration, but via **this board's own** 4-point `TS_PCT_TABLE` (0/55/100/110% → 0/300/535/600 steps) - diverges from the original sketch's 13-point table. Startup swing now `if (false)`-disabled (was active) |
 | `RSstepper` (`RPMR`, Rotor Speed) | Unchanged pins/interface | Same divergence - this board's own 4-point `RS_PCT_TABLE`, identical values to this board's `TS_PCT_TABLE`. Startup swing now `if (false)`-disabled (was active) |
-| `ALTstepper` (Altimeter) | FULL4WIRE, `STEPPER_ALT_A..D` (40/41/42/43) + `ALTzeroSensePin` (A15) - **revived**, was fully commented out on both this board and the original | Active - DCS-BIOS (`onAltMslFtChange()`, `feet * 5.76`) AND UDP `ALT`/`ALTRAW` (enabled here, unlike the original sketch where both remain commented out). Unconditional startup homing block (not `if (false)`) - see caution above about the `-STEPS*2` (-10080 step) zero-seek move, a geared-driver-scale value on a FULL4WIRE stepper |
+| `ALTstepper` (Altimeter) | FULL4WIRE, `STEPPER_ALT_A..D` (40/41/42/43) + `ALTzeroSensePin` (A15) - **revived**, was fully commented out on both this board and the original | Active - DCS-BIOS (`onAltMslFtChange()`, `feet * 0.72` - changed from the original sketch's `5.76`, see above) AND UDP `ALT`/`ALTRAW` (enabled here, unlike the original sketch where both remain commented out). Unconditional startup homing block (not `if (false)`) - see caution above about the `-STEPS*2` (-10080 step) zero-seek move |
 | `GPstepper` (`N1`, Gas Producer) | — | **Disabled.** Fully commented out (construct, `setMaxSpeed`/`setAcceleration`/`.run()`, `gpPctToSteps()`/`setGP()`) to free pins 40-43 for `ALTstepper` above. `N1`/`N1RAW` UDP cases removed - silent no-op if sent |
 
 All other steppers (`VSIstepper`, `IASstepper`, `EOTstepper`,
@@ -180,8 +219,8 @@ see its summary for their status.
 | `ELECTRICALLOAD` | raw steps | `ElectricalLoadStepper.moveTo()` directly — no calibration table |
 | `RPME` | %, 0-110 (was 0-117) | `setTS()` via this board's own `TS_PCT_TABLE` (4 points, not 13) |
 | `RPMR` | %, 0-110 (was 0-117) | `setRS()` via this board's own `RS_PCT_TABLE` (4 points, not 13) |
-| `ALT` | feet | `onAltMslFtChange()` via `feet * 5.76` - **enabled here**, unlike the original sketch (still commented out there) |
-| `ALTRAW` | raw steps | `ALTstepper.moveTo()` directly, bypassing the `feet * 5.76` conversion - also enabled here only |
+| `ALT` | feet | `onAltMslFtChange()` via `feet * 0.72` (was `5.76` before this board's fork - see above) - **enabled here**, unlike the original sketch (still commented out there, still at `5.76`) |
+| `ALTRAW` | raw steps | `ALTstepper.moveTo()` directly, bypassing the `feet * 0.72` conversion - also enabled here only |
 
 `AGL`/`AGLRAW`, `TQ`, and now `N1`/`N1RAW` no longer exist on this board
 (see above - `N1`/`N1RAW` were removed when `GPstepper` was disabled).
@@ -223,19 +262,31 @@ this session:
 - `TS_PCT_TABLE`/`RS_PCT_TABLE`'s 0-point is assumed, not directly
   measured - not yet confirmed on the bench that RPME/RPMR actually read
   0% at rest rather than clamping to the 55% row.
-- `ALTstepper`'s zero-seek move (`-STEPS * 2` = -10080 steps, `STEPS` =
-  the old `315 * 16` geared-driver constant) and its subsequent round
-  trip (`Z27_360_FULLWIRE_STEPS * No_Of_Altimeter_Startup_Loops` = 720 *
-  10 = 7200 steps) are both on a completely different scale than every
-  other FULL4WIRE stepper's homing move in this file (0-635-ish) - not
-  bench-confirmed this is intentional rather than a leftover from before
-  `ALTstepper` moved off a geared `DRIVER` interface onto `FULL4WIRE`.
-  (The comment stale-ness itself has been fixed - "Send Alt Round 10
-  times"/"720 steps per loop" now matches the code - but the underlying
-  step-scale question remains open.)
+- `ALTstepper`'s zero-seek move still uses `-STEPS * 2` (-10080 steps,
+  `STEPS` = the old `315 * 16` geared-driver constant) - not
+  bench-confirmed as intentional, since it's ~14x a single 720-step
+  revolution (`Z27_360_FULLWIRE_STEPS`, now confirmed as "one full
+  1000ft-dial rotation" via the `feet * 0.72` conversion factor). The
+  round-trip move itself (`Z27_360_FULLWIRE_STEPS *
+  No_Of_Altimeter_Startup_Loops` = 7200 steps, ~10 revolutions) now reads
+  as an intentional self-test sweep rather than a scale bug, now that
+  720 is understood to be a full revolution - only the zero-seek's
+  `STEPS` constant remains a plausible leftover from the pre-`FULL4WIRE`
+  geared-`DRIVER` era.
 - `N1`/`N1RAW` (Gas Producer) no longer reach any stepper on this board -
   traded away for `ALTstepper`'s pins. `StepperVSITester`'s Raw Step Test
   dropdown still lists `N1RAW` and broadcasts it to both boards; it's now
   a silent no-op on `172.16.1.106` (was live before this change).
-- No second/doubled gauge of any kind added — the "Dual Stepper" PCB
-  concept isn't reflected in this sketch's stepper count yet.
+- No second/doubled *stepper* gauge added - the "Dual" PCB concept still
+  isn't reflected in the stepper roster, only in the new OLED subsystem.
+- The new OLED Baro/Altitude displays are initialised but not wired to
+  live data: `UpdateAltimeterDigits()`/`buildBAROString()` are defined
+  but never called past `setup()`'s one-time defaults, and
+  `BaroUpdated`/`AltCounterUpdated`/`CurrentDisplay` are set but never
+  read anywhere. Both screens will show `2992`/`00000` forever until
+  something (a DCS-BIOS callback, a UDP code, or `loop()` polling) is
+  added to call `updateBARO()`/`updateALT()` with real values.
+- OLED I2C wiring hasn't been bench-verified in this repo - the boot-time
+  8-channel TCA9548A scan logs found addresses via `SendDebug()`, but
+  nothing in this codebase parses that debug output to confirm the mux
+  and both displays are actually detected and responding.
