@@ -170,13 +170,17 @@ namespace FSUIPCTest
         UdpClient udpClient = new UdpClient();
         UdpClient frontPanelClient = new UdpClient();
         UdpClient OutputClient = new UdpClient();
-        // JET_RANGER_STEPPER_CONTROLLER (172.16.1.105) and JET_RANGER_OLED_CONTROLLER
-        // (172.16.1.104) both listen on the same MSFSport (13136) as the Servo
-        // Controller and parse the same "D,CODE:value,..." payload, so they can
-        // share the same UDP_Playload string built below - each board just uses
-        // the fields it recognises (ALT/IAS for the stepper, ALT/BARO for the OLED)
-        // and ignores the rest.
+        // JET_RANGER_STEPPER_CONTROLLER (172.16.1.105), JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER
+        // (172.16.1.106), and JET_RANGER_OLED_CONTROLLER (172.16.1.104) all
+        // listen on the same MSFSport (13136) as the Servo Controller and
+        // parse the same "D,CODE:value,..." format, but only the OLED
+        // Controller actually reuses the same shared UDP_Playload bytes
+        // (ALT/BARO) - both stepper boards get their own separate, minimal
+        // payloads built fresh each tick (stepperPayload/dualStepperPayload
+        // below), since they don't have gauges for most of the shared
+        // payload's fields.
         UdpClient stepperClient = new UdpClient();
+        UdpClient dualStepperClient = new UdpClient();
         UdpClient oledClient = new UdpClient();
         DateTime RadioTimeLastPacketSent;
         DateTime FrontPanelTimeLastPacketSent = DateTime.Now;
@@ -503,6 +507,13 @@ namespace FSUIPCTest
 
 
                 UDP_Playload = "D";
+                // Real (unmapped) percent values for the stepperPayload below -
+                // RPMR/RPME are captured here (RotorRpm/GeneralEngPctMaxRpm
+                // "changed" blocks) and appended to stepperPayload further down,
+                // since RSstepper/TSstepper do their own percent-to-step
+                // conversion on the board.
+                int rpmrPctForStepper = 0;
+                int rpmePctForStepper = 0;
                 CIRCUIT_NAVCOM1_CHANGED_ON = false;
                 // Flag Power is available for guages through Master Electrical Bus 
                 if (mainBusVoltageValue >= 20)
@@ -548,21 +559,28 @@ namespace FSUIPCTest
                 if (ROTOR_RPM_PCT_1 != sFrontPanel.ROTOR_RPM_PCT_1.ToString()
                     || sFrontPanel.MASTER_ELECTRICAL_BUS_POWERED == true) ;
                 {
+                    // RPMR (Rotor Speed) no longer goes to the front-panel/servo
+                    // payload or through RPMR_Process()'s servo-position mapping -
+                    // it's driven by RSstepper on the stepper board now, which
+                    // does its own real-percent-to-step conversion (RS_PCT_TABLE),
+                    // so this app just forwards the raw FSUIPC percent value
+                    // (see stepperPayload below).
                     frontPanelDataChanged = true;
                     ROTOR_RPM_PCT_1 = sFrontPanel.ROTOR_RPM_PCT_1.ToString();
-                    int a = (int)(sFrontPanel.ROTOR_RPM_PCT_1);
-                    UDP_Playload = UDP_Playload + ",RPMR:" + RPMR_Process(a).ToString();
+                    rpmrPctForStepper = (int)(sFrontPanel.ROTOR_RPM_PCT_1);
                 }
-                    ; // End Rotor RPM 
+                    ; // End Rotor RPM
 
 
                 if (GENERAL_ENG_PCT_MAX_RPM_1 != sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString()
                     || sFrontPanel.MASTER_ELECTRICAL_BUS_POWERED == true) ;
                 {
+                    // RPME (Turbine/Engine Speed) - same reasoning as RPMR above:
+                    // now driven by TSstepper on the stepper board (TS_PCT_TABLE),
+                    // so this app just forwards the raw FSUIPC percent value.
                     frontPanelDataChanged = true;
                     GENERAL_ENG_PCT_MAX_RPM_1 = sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString();
-                    int a = (int)(sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1);
-                    UDP_Playload = UDP_Playload + ",RPME:" + RPME_Process(a).ToString();
+                    rpmePctForStepper = (int)(sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1);
                 }
                     ;  // End Engine RPM
 
@@ -772,25 +790,51 @@ namespace FSUIPCTest
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         frontPanelClient.Send(senddata, senddata.Length);
 
-                        // Stepper board only gets ALT, VSI and AGL (radar altitude)
-                        // - a separate, minimal payload rather than the full shared
-                        // one, since it has no gauges for anything else in it. VSI
-                        // is raw fpm (not the Bell-206 servo-position number
-                        // VSI_Process() computes for the front panel); ALTITUDE and
-                        // PLANE_ALT_ABOVE_GROUND reuse the same already-rounded/
-                        // power-gated strings just computed above for the front
-                        // panel, so AGL still zeroes out per the same NAVCOM1/master-
-                        // bus logic instead of reporting a stale reading. (VSI was
-                        // temporarily dropped from this payload while diagnosing an
-                        // ALT-needle reversal - confirmed unrelated to VSI, root
-                        // cause was the stepper driver electronics mishandling small
-                        // step deltas; see JET_RANGER_STEPPER_CONTROLLER's summary.)
+                        // Stepper board gets ALT, VSI, AGL (radar altitude), RPMR
+                        // and RPME - a separate, minimal payload rather than the
+                        // full shared one, since it has no gauges for anything
+                        // else in it. VSI is raw fpm (not the Bell-206
+                        // servo-position number VSI_Process() computes for the
+                        // front panel); ALTITUDE and PLANE_ALT_ABOVE_GROUND reuse
+                        // the same already-rounded/power-gated strings just
+                        // computed above for the front panel, so AGL still zeroes
+                        // out per the same NAVCOM1/master-bus logic instead of
+                        // reporting a stale reading. (VSI was temporarily dropped
+                        // from this payload while diagnosing an ALT-needle
+                        // reversal - confirmed unrelated to VSI, root cause was
+                        // the stepper driver electronics mishandling small step
+                        // deltas; see JET_RANGER_STEPPER_CONTROLLER's summary.)
+                        // RPMR/RPME are sent as real (unmapped) percent - RSstepper/
+                        // TSstepper convert percent to steps on the board via
+                        // RS_PCT_TABLE/TS_PCT_TABLE, so no servo-position mapping
+                        // (RPMR_Process()/RPME_Process(), now removed) is needed
+                        // here any more.
                         int vsiRawFpm = (int)sFrontPanel.VERTICAL_SPEED;
                         string stepperPayload = "D,ALT:" + ALTITUDE
                             + ",VSI:" + vsiRawFpm.ToString()
-                            + ",AGL:" + PLANE_ALT_ABOVE_GROUND;
+                            + ",AGL:" + PLANE_ALT_ABOVE_GROUND
+                            + ",RPMR:" + rpmrPctForStepper.ToString()
+                            + ",RPME:" + rpmePctForStepper.ToString();
                         Byte[] stepperSendData = Encoding.ASCII.GetBytes(stepperPayload);
                         stepperClient.Send(stepperSendData, stepperSendData.Length);
+
+                        // Dual Stepper board (172.16.1.106,
+                        // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino) gets ALT,
+                        // RPMR, and RPME - a separate board/payload from the
+                        // single-board Stepper Controller above, not a broadcast
+                        // of the same bytes. No VSI/AGL here: this board's own
+                        // UDP handler has no AGL case at all (that stepper was
+                        // repurposed as Fuel Load), and VSI wasn't asked for.
+                        // ALT reaches this board's ALTstepper via its "ALT" UDP
+                        // case (feet * 0.72, also drives its Altimeter OLED
+                        // readout); RPMR/RPME go through RSstepper/TSstepper's
+                        // own RS_PCT_TABLE/TS_PCT_TABLE, same as the single-board
+                        // payload above.
+                        string dualStepperPayload = "D,ALT:" + ALTITUDE
+                            + ",RPMR:" + rpmrPctForStepper.ToString()
+                            + ",RPME:" + rpmePctForStepper.ToString();
+                        Byte[] dualStepperSendData = Encoding.ASCII.GetBytes(dualStepperPayload);
+                        dualStepperClient.Send(dualStepperSendData, dualStepperSendData.Length);
 
                         // OLED gets the same payload as the front panel (ALT/BARO).
                         oledClient.Send(senddata, senddata.Length);
@@ -1072,26 +1116,6 @@ namespace FSUIPCTest
             }
         }
 
-
-        private int RPMR_Process(long newValue)
-        {
-            // If the short code is TQ then we need to convert the value from a percentage to the corresponding value for the front panel
-            // The front panel expects a value between 37 and 176 for the torque servo, which corresponds to 0% and 100% respectively.
-            // So we need to map the input value (0-100) to the range of 37-176.
-            int mappedvalue = (int)Mapper(newValue, 0, 120,
-                ServMinPosition[(uint)(Servos.RotorRpmPct1)], ServMaxPosition[(uint)(Servos.RotorRpmPct1)]);
-            return mappedvalue;
-        }
-
-        private int RPME_Process(long newValue)
-        {
-            // If the short code is TQ then we need to convert the value from a percentage to the corresponding value for the front panel
-            // The front panel expects a value between 37 and 176 for the torque servo, which corresponds to 0% and 100% respectively.
-            // So we need to map the input value (0-100) to the range of 37-176.
-            int mappedvalue = (int)Mapper(newValue, 0, 120,
-                ServMinPosition[(uint)(Servos.GeneralEngPctMaxRpm1)], ServMaxPosition[(uint)(Servos.GeneralEngPctMaxRpm1)]);
-            return mappedvalue;
-        }
 
         private int FUEL_Process(long newValue)
         {

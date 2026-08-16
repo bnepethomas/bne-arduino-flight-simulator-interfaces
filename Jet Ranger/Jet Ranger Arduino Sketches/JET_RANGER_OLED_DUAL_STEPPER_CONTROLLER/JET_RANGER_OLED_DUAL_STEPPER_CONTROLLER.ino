@@ -44,6 +44,7 @@ BACK_LIGHTS
 #define SwingALT true
 #define SwingIAS false
 #define SwingVSI false
+#define SwingRPM true
 
 
 int Ethernet_In_Use = 1;
@@ -976,7 +977,7 @@ void setup() {
     FuelLoadStepper.runToNewPosition(-X27_FULLWIRE_STEPS);
     FuelLoadStepper.setCurrentPosition(0);
 
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 1; i <= SwingLoops; i++) {
       SendDebug("Loop :" + String(i));
       SendDebug("Sending Fuel Load to Max");
       FuelLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
@@ -1005,13 +1006,13 @@ void setup() {
   // (false)` - runs every boot. Confirm on
   // the bench that it actually reaches the real end stop (and doesn't
   // stall against it from the wrong side) before trusting it unattended.
-  if (false) {
+  if (SwingRPM) {
     SendDebug("Start TSstepper");
     TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
     TSstepper.runToNewPosition(0);
     TSstepper.setCurrentPosition(0);
 
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 1; i <= SwingLoops; i++) {
       SendDebug("Loop :" + String(i));
       SendDebug("Sending Turbine Speed to Max");
       TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
@@ -1041,13 +1042,13 @@ void setup() {
   // (false)` - runs every boot. Confirm on the bench that it actually
   // reaches the real end stop (and doesn't stall against it from the wrong
   // side) before trusting it unattended.
-  if (false) {
+  if (SwingRPM) {
     SendDebug("Start RSstepper");
     RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
     RSstepper.runToNewPosition(0);
     RSstepper.setCurrentPosition(0);
 
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 1; i <= SwingLoops; i++) {
       SendDebug("Loop :" + String(i));
       SendDebug("Sending Rotor Speed to Max");
       RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);

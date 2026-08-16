@@ -39,12 +39,28 @@ acting on them through the FSUIPC API instead of SimConnect.
      on/off state by short code. Also appends a `BARO` field: the
      altimeter/"Kollsman" pressure-setting offset (`0x0330`, hPa×16) is
      converted to the 4-digit inHg×100 form (e.g. `2992`) the OLED
-     Controller's BARO display and DCS-BIOS both already use.
-   - Throttled to ≥200ms between sends, the accumulated payload is sent to
-     the Servo Controller board, and the same bytes are also fanned out to
-     the Stepper Controller (which reads `ALT`/`IAS` out of it) and the
-     OLED Controller (which reads `ALT`/`BARO` out of it) — each board
-     ignores whatever fields it doesn't recognise.
+     Controller's BARO display and DCS-BIOS both already use. **`RPMR`/
+     `RPME` (rotor/engine RPM %) are no longer part of this shared
+     payload or run through a `_Process()` mapping** — they used to be
+     mapped onto a servo position range (`RPMR_Process()`/`RPME_Process()`,
+     since removed) for real Rotor/Engine RPM servos; those gauges are now
+     driven by `RSstepper`/`TSstepper` on the Stepper Controller instead,
+     which does its own real-percent-to-step conversion
+     (`RS_PCT_TABLE`/`TS_PCT_TABLE`), so this app just forwards the raw
+     FSUIPC percent value in the Stepper Controller's own payload (see
+     next bullet). Leftover from the removal: the `Servos.RotorRpmPct1`/
+     `Servos.GeneralEngPctMaxRpm1` enum members (and their
+     `ServMinPosition`/`ServMaxPosition` array entries) are now unused —
+     left in place rather than removed, since deleting an enum member
+     risks shifting every other array index that follows it.
+   - Throttled to ≥200ms between sends, the accumulated shared payload is
+     sent to the Servo Controller board, and the same bytes are also
+     fanned out to the OLED Controller (which reads `ALT`/`BARO` out of
+     it) — each board ignores whatever fields it doesn't recognise. The
+     Stepper Controller does **not** receive these same bytes: it gets a
+     separate, purpose-built payload (`ALT`, `VSI` as raw fpm, `AGL`, and
+     now `RPMR`/`RPME` as real unmapped percent) built fresh each tick,
+     not derived from the shared payload.
    - Also tracks COM1/2 active+standby frequency and main bus voltage
      (via the same `FsFrequencyCOM`/`FsFrequencyNAV` helpers used for the
      on-screen text) and, throttled the same way (≥200ms if changed, or
@@ -115,7 +131,7 @@ acting on them through the FSUIPC API instead of SimConnect.
 |---|---|---|
 | `172.16.1.101` (Radio Controller) | 13136 | Radio/bus-voltage data packets (`udpClient.Send`) |
 | `172.16.1.102` (Servo Controller) | 13136 | Front-panel instrument + annunciator data packets (`frontPanelClient.Send`) |
-| `172.16.1.105` (Stepper Controller) | 13136 | Its own minimal payload (`stepperClient.Send`), separate from the Servo Controller's — `ALT`, `VSI` (raw fpm, not the Servo Controller's Bell 206 `VSI_Process()` number), and `AGL` (radar altitude). Built fresh each tick from `ALTITUDE`/`vsiRawFpm`/`PLANE_ALT_ABOVE_GROUND` rather than derived from the shared front-panel payload. (`VSI` was dropped temporarily while diagnosing a reported ALT-needle reversal on real hardware — confirmed unrelated to VSI, root cause was the stepper driver electronics mishandling small step deltas; see `JET_RANGER_STEPPER_CONTROLLER`'s summary.) `IAS`/`RPMR`/annunciator bits/etc. were never part of this payload, since this board has no gauges for them |
+| `172.16.1.105` (Stepper Controller) | 13136 | Its own minimal payload (`stepperClient.Send`), separate from the Servo Controller's — `ALT`, `VSI` (raw fpm, not the Servo Controller's Bell 206 `VSI_Process()` number), `AGL` (radar altitude), and `RPMR`/`RPME` (real, unmapped percent — see Program flow above). Built fresh each tick from `ALTITUDE`/`vsiRawFpm`/`PLANE_ALT_ABOVE_GROUND`/`rpmrPctForStepper`/`rpmePctForStepper` rather than derived from the shared front-panel payload. (`VSI` was dropped temporarily while diagnosing a reported ALT-needle reversal on real hardware — confirmed unrelated to VSI, root cause was the stepper driver electronics mishandling small step deltas; see `JET_RANGER_STEPPER_CONTROLLER`'s summary.) `IAS`/annunciator bits/etc. were never part of this payload, since this board has no gauges for them |
 | `172.16.1.104` (OLED Controller) | 13136 | Same payload as the Servo Controller (`oledClient.Send`) — that board reads `ALT`/`BARO` out of it |
 | `172.16.1.2` | 26028 | `OutputClient` — connected but unused |
 
