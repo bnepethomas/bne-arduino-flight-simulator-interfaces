@@ -40,7 +40,10 @@ BACK_LIGHTS
 /*
  *  */
 
-
+#define SwingLoops 3
+#define SwingALT false
+#define SwingIAS false
+#define SwingVSI false
 
 
 int Ethernet_In_Use = 1;
@@ -297,6 +300,7 @@ unsigned long previousMillis = 0;
 #define FULL4WIRE_HOMING_STEPS FULL4WIRE_STEPS + 1
 #define X27_FULLWIRE_STEPS 630
 #define X27_FULLWIRE_HOMING_STEPS X27_FULLWIRE_STEPS + 1
+#define Z27_360_FULLWIRE_STEPS 720
 AccelStepper ALTstepper(AccelStepper::FULL4WIRE, STEPPER_ALT_A, STEPPER_ALT_B, STEPPER_ALT_C, STEPPER_ALT_D);
 AccelStepper IASstepper(AccelStepper::FULL4WIRE, STEPPER_SPD_C, STEPPER_SPD_D, STEPPER_SPD_A, STEPPER_SPD_B);
 AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_C, COIL_VSI_D, COIL_VSI_A, COIL_VSI_B);
@@ -326,6 +330,411 @@ AccelStepper ElectricalLoadStepper(AccelStepper::FULL4WIRE, EL_COIL_A, EL_COIL_B
 // AccelStepper GPstepper(AccelStepper::FULL4WIRE, GP_COIL_A, GP_COIL_B, GP_COIL_C, GP_COIL_D);
 AccelStepper EOPstepper(AccelStepper::FULL4WIRE, EOP_COIL_A, EOP_COIL_B, EOP_COIL_C, EOP_COIL_D);
 // ########################### END STEPPERS #########################################
+
+// ############################# BEGIN OLED #########################################
+
+String sAircraftName = "";
+
+#define BARO_OLED_Port 1
+#define ALT_OLED_Port 2
+
+#include <U8g2lib.h>
+#include <SPI.h>
+#include <Wire.h>
+
+// Op OLEDs
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALT(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
+
+
+extern "C" {
+#include "utility/twi.h"  // from Wire library, so we can do bus scanning
+}
+
+#define TCAADDR 0x70
+
+int CurrentDisplay = 0;
+int Brightness = 0;
+char buffer[20];  //plenty of space for the value of millis() plus a zero terminator
+
+
+
+// Altimeter delta 1000 feet for 112 pressure units
+// which maps to 8.92857 feet per pressure unit with 2992 as reference
+// so delta is (pressure reading - 2992) * 8.92857
+#define feetDeltaPerPressureUnit 8.92857
+
+
+int iLastAltitudeValue = 0;
+int iAltitudeDelta = 0;
+int iBaro = 2992;
+int iBaroOnes = 2;
+int iBaroTens = 9;
+int iBaroHundreds = 9;
+int iBaroThousands = 2;
+String BaroOnes = String(iBaroOnes);
+String BaroTens = String(iBaroTens);
+String BaroHundreds = String(iBaroHundreds);
+String BaroThousands = String(iBaroThousands);
+bool BaroUpdated = true;
+
+// Altimeter
+unsigned long nextAltimeterUpdate = 0;
+int updateAltimeterInterval = 100;
+
+String Alt1000s = "0";
+int LastAlt1000s = 0;
+String Alt10000s = "0";
+int LastAlt10000s = 0;
+bool AltCounterUpdated = true;
+
+char* ptrtopass;
+
+String txtChaffFlare = "S240s120";
+String txtJMRstatus = "SBY AIR ";
+String txtMWSstatus = "ACTIVE ";
+
+
+void tcaselect(uint8_t i) {
+  if (i > 7) return;
+
+  Wire.beginTransmission(TCAADDR);
+  Wire.write(1 << i);
+  Wire.endTransmission();
+}
+
+
+void updateBARO(String strnewValue) {
+
+  const char* newValue = strnewValue.c_str();
+  tcaselect(BARO_OLED_Port);
+  u8g2_BARO.setFontMode(0);
+  u8g2_BARO.setDrawColor(0);
+
+
+  u8g2_BARO.drawBox(0, 0, 128, 64);
+  u8g2_BARO.sendBuffer();
+
+
+
+  // full range with with U8G2_SSD1309_128X64_NONAME2_F_HW_I2C
+  // u8g2_BARO.drawBox(0, 1, 80, 64); with U8G2_SSD1309_128X64_NONAME2_2_HW_I2C
+  //  u8g2_BARO.drawStr(85,16, newValue);
+
+  u8g2_BARO.setDrawColor(1);
+  u8g2_BARO.setFontDirection(0);
+
+
+  u8g2_BARO.drawStr(65, 16, newValue);
+  u8g2_BARO.sendBuffer();
+}
+
+void buildBAROString() {
+
+  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  BaroUpdated = false;
+}
+
+
+
+#define hash_width 24
+#define hash_height 32
+static unsigned char hash_bits[] = {
+  0x00,
+  0xFE,
+  0x01,
+  0x01,
+  0xFC,
+  0x03,
+  0x03,
+  0xF8,
+  0x07,
+  0x07,
+  0xF0,
+  0x0F,
+  0x0F,
+  0xE0,
+  0x1F,
+  0x1F,
+  0xC0,
+  0x3F,
+  0x3F,
+  0x80,
+  0x7F,
+  0x7F,
+  0x00,
+  0xFE,
+  0xFE,
+  0x01,
+  0xFC,
+  0xFC,
+  0x03,
+  0xF8,
+  0xF8,
+  0x07,
+  0xF0,
+  0xF0,
+  0x0F,
+  0xE0,
+  0xE0,
+  0x1F,
+  0xC0,
+  0x00,
+  0x3F,
+  0x80,
+  0x00,
+  0x7F,
+  0x00,
+  0x00,
+  0xFE,
+  0x01,
+  0x01,
+  0xFC,
+  0x03,
+  0x03,
+  0xF8,
+  0x07,
+  0x07,
+  0xF0,
+  0x0F,
+  0x0F,
+  0xE0,
+  0x1F,
+  0x1F,
+  0xC0,
+  0x3F,
+  0x3F,
+  0x80,
+  0x7F,
+  0x7F,
+  0x00,
+  0xFE,
+  0xFE,
+  0x01,
+  0xFC,
+  0xFC,
+  0x03,
+  0xF8,
+  0xF8,
+  0x07,
+  0xF0,
+  0xF0,
+  0x0F,
+  0xE0,
+  0xE0,
+  0x1F,
+  0xC0,
+  0xC0,
+  0x3F,
+  0x80,
+  0x00,
+  0x7F,
+  0x00,
+  0x00,
+  0xFE,
+  0x00,
+  0x00,
+  0xFC,
+  0x00,
+};
+
+int lastHundredsValue = 0;
+int lastThousandsValue = 0;
+int lastTenThousandsValue = 0;
+int lastThousandsCharacterOffset = 0;
+int lastHundredsCharacterOffset = 0;
+
+void updateALT(String strTenThousands, String strnewThousands) {
+
+  const char* newTenThousandsValue = strTenThousands.c_str();
+  const char* newThousandsValue = strnewThousands.c_str();
+  int End_X_Pos = 46;
+  int End_Y_Pos = 28;
+  int Start_Y_Pos = 13;
+  int Start_X_Pos = 27;
+  int Box_Width = 20;
+  tcaselect(ALT_OLED_Port);
+  u8g2_ALT.setFontMode(0);
+  u8g2_ALT.setDrawColor(0);
+  u8g2_ALT.drawBox(0, 0, 128, 32);
+  u8g2_ALT.setDrawColor(1);
+  //u8g2_ALT.drawStr(5, 32, newValue);
+
+  if (strTenThousands == "0") {
+    u8g2_ALT.setDrawColor(1);
+
+    u8g2_ALT.drawBox(Start_X_Pos, 13, Box_Width, 20);
+    u8g2_ALT.setDrawColor(0);
+
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos, End_X_Pos, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 1, End_X_Pos - 1, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 2, End_X_Pos - 2, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 3, End_X_Pos - 3, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 4, End_X_Pos - 4, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 5, End_X_Pos - 5, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 6, End_X_Pos - 6, 32);
+
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 11, End_X_Pos - 11, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 12, End_X_Pos - 12, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 13, End_X_Pos - 13, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 14, End_X_Pos - 14, 32);
+    u8g2_ALT.drawLine(Start_X_Pos, Start_Y_Pos + 15, End_X_Pos - 15, 32);
+
+    u8g2_ALT.drawLine(Start_X_Pos + 4, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos + 1);
+    u8g2_ALT.drawLine(Start_X_Pos + 5, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos);
+    u8g2_ALT.drawLine(Start_X_Pos + 6, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 1);
+    u8g2_ALT.drawLine(Start_X_Pos + 7, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 2);
+    u8g2_ALT.drawLine(Start_X_Pos + 8, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 3);
+    u8g2_ALT.drawLine(Start_X_Pos + 9, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 4);
+    u8g2_ALT.drawLine(Start_X_Pos + 10, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 5);
+
+    u8g2_ALT.drawLine(Start_X_Pos + 15, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 10);
+    u8g2_ALT.drawLine(Start_X_Pos + 16, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 11);
+    u8g2_ALT.drawLine(Start_X_Pos + 17, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 12);
+    u8g2_ALT.drawLine(Start_X_Pos + 18, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 13);
+    u8g2_ALT.drawLine(Start_X_Pos + 19, Start_Y_Pos, Start_X_Pos + Box_Width, End_Y_Pos - 14);
+
+    u8g2_ALT.setDrawColor(1);
+
+
+  } else {
+    u8g2_ALT.drawStr(32, 32, newTenThousandsValue);
+  }
+
+  u8g2_ALT.drawStr(65, 32, newThousandsValue);
+  u8g2_ALT.sendBuffer();
+
+  AltCounterUpdated = false;
+}
+
+
+void UpdateAltimeterDigits(long height) {
+
+  //
+  //SendDebug("Aircraft Name : " + sAircraftName);
+  // SendDebug("Raw Height : " + String(height));
+  // Adjust for Baro offset
+  height = height + iAltitudeDelta;
+
+  String strnewValue = String(height);
+
+
+  // int itensAboveDigit = 0;
+  // int itensBelowDigit = 0;
+
+  int iHundredsAboveDigit = 0;
+  int iHundredsBelowDigit = 0;
+  int iHundredsValue = ((height % 1000) / 100);
+  String sHundredsValue = String(iHundredsValue);
+  // SendDebug("Hundreds Value : " + sHundredsValue);
+  if (iHundredsValue == 9) {
+    iHundredsAboveDigit = 0;
+  } else {
+    iHundredsAboveDigit = iHundredsValue + 1;
+  }
+  if (iHundredsValue == 0) {
+    iHundredsBelowDigit = 9;
+  } else {
+    iHundredsBelowDigit = iHundredsValue - 1;
+  }
+
+  String sHundredsAboveDigit = String(iHundredsAboveDigit);
+  String sHundredsBelowDigit = String(iHundredsBelowDigit);
+  const char* cHundredsValue = sHundredsValue.c_str();
+  const char* cHundredsaboveValue = sHundredsAboveDigit.c_str();
+  const char* cHundredsbelowValue = sHundredsBelowDigit.c_str();
+
+
+
+  int iThousandsAboveDigit = 0;
+  int iThousandsBelowDigit = 0;
+  int iThousandsValue = ((height % 10000) / 1000);
+  String sThousandValue = String(iThousandsValue);
+  // SendDebug(String(i) + " : " + sThousandValue);
+  if (iThousandsValue == 9) {
+    iThousandsAboveDigit = 0;
+  } else {
+    iThousandsAboveDigit = iThousandsValue + 1;
+  }
+  if (iThousandsValue == 0) {
+    iThousandsBelowDigit = 9;
+  } else {
+    iThousandsBelowDigit = iThousandsValue - 1;
+  }
+
+  String sThousandsAboveDigit = String(iThousandsAboveDigit);
+  String sThousandsBelowDigit = String(iThousandsBelowDigit);
+  const char* cThousandsValue = sThousandValue.c_str();
+  const char* cThousandsaboveValue = sThousandsAboveDigit.c_str();
+  const char* cThousandsbelowValue = sThousandsBelowDigit.c_str();
+
+
+  int iTenThousandsValue = (height / 10000);
+  String sTenThousandsDigit = String(iTenThousandsValue);
+  //SendDebug("TenThousandsDigit : " + sTenThousandsDigit);
+  const char* cTenThousandsValue = sTenThousandsDigit.c_str();
+
+  unsigned long TimeToProcess = millis();
+
+  int CharacterHeightSpacer = 38;
+
+  int iHundredsCharacterOffset = ((height % 100) / 3.2);
+  // SendDebug("heigh calc :" + String(height % 100));
+  int iThousandsCharacterOffset = ((height % 1000) / 32);
+  // SendDebug("Character Offset : " + String(iHundredsCharacterOffset));
+
+  // Only attempt to draw of something has changed that will impact display
+  if ((iThousandsValue != lastThousandsValue) || (iTenThousandsValue != lastTenThousandsValue) || (iThousandsCharacterOffset != lastThousandsCharacterOffset)
+      || (iHundredsValue != lastHundredsValue) || (iHundredsCharacterOffset != lastHundredsCharacterOffset)) {
+
+    tcaselect(ALT_OLED_Port);
+
+    lastHundredsValue = iHundredsValue;
+    lastThousandsValue = iThousandsValue;
+    lastTenThousandsValue = iTenThousandsValue;
+    lastHundredsCharacterOffset = iHundredsCharacterOffset;
+    lastThousandsCharacterOffset = iThousandsCharacterOffset;
+
+
+    u8g2_ALT.setFontMode(0);
+    u8g2_ALT.setDrawColor(0);
+    u8g2_ALT.drawBox(0, 0, 128, 32);
+    u8g2_ALT.setDrawColor(1);
+
+    // If Ten Thousands value is a 0 draw the hash
+    // Position was 10 and 0 moved 40 to the right
+    if (sTenThousandsDigit != "0") {
+      u8g2_ALT.drawStr(50, 30, cTenThousandsValue);
+    } else {
+      u8g2_ALT.drawXBM(40, 0, hash_width, hash_height, hash_bits);
+    }
+
+
+
+    // Three digits for A10 Altimer as it is a primary instrument - only two for Hornet
+    if (sAircraftName == "A-10C") {
+      // u8g2_ALT.drawStr(40, -2 + 0, cThousandsaboveValue);
+      // u8g2_ALT.drawStr(40, 30 + 0, cThousandsValue);
+      // u8g2_ALT.drawStr(70, -2 + iHundredsCharacterOffset, cHundredsaboveValue);
+      // u8g2_ALT.drawStr(70, 30 + iHundredsCharacterOffset, cHundredsValue);
+      // X POs was 40 andd 70 - 30 pixels diff
+      u8g2_ALT.drawStr(80, -2 + 0, cThousandsaboveValue);
+      u8g2_ALT.drawStr(80, 30 + 0, cThousandsValue);
+      u8g2_ALT.drawStr(110, 58 - iHundredsCharacterOffset, cHundredsaboveValue);
+      u8g2_ALT.drawStr(110, 26 - iHundredsCharacterOffset, cHundredsValue);
+    } else {
+      u8g2_ALT.drawStr(80, -2 + iThousandsCharacterOffset, cThousandsaboveValue);
+      u8g2_ALT.drawStr(80, 30 + iThousandsCharacterOffset, cThousandsValue);
+    }
+    u8g2_ALT.sendBuffer();
+    ;
+    TimeToProcess = millis() - TimeToProcess;
+    //SendDebug("OLED Update time :" + String(TimeToProcess));
+  }
+}
+
+
+// ############################## END OLED  #########################################
 
 
 
@@ -437,7 +846,8 @@ void setup() {
   digitalWrite(AllstepperEnablePin, false);
 
   // ################# Start VSI Startup #########################
-  if (false) {
+
+  if (SwingVSI) {
     SendDebug("Start VSI");
 
     // VSI is a direct-driven FULL4WIRE stepper on coil pins (COIL_VSI_A..D,
@@ -458,7 +868,7 @@ void setup() {
     VSIstepper.runToNewPosition(-X27_FULLWIRE_HOMING_STEPS);
     VSIstepper.setCurrentPosition(0);
 
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 1; i <= SwingLoops; i++) {
       SendDebug("Loop :" + String(i));
       VSIstepper.runToNewPosition(X27_FULLWIRE_STEPS);
       delay(200);
@@ -471,36 +881,40 @@ void setup() {
     VSIstepper.setCurrentPosition(0);
     SendDebug("End VSI");
   }
-  // ################# End VSI Startup #########################
+// ################# End VSI Startup #########################
 
 
-  // ################# Start ALT Startup #########################
-  SendDebug("Start ALT");
-  for (int i = 1; i <= 1; i++) {
-    SendDebug("Loop :" + String(i));
-    ALTstepper.moveTo(-STEPS * 2);
-    while (ALTstepper.distanceToGo() != 0) {
-      if (digitalRead(ALTzeroSensePin) != true) {
-        SendDebug("Found Alt Zero Position");
-        ALTstepper.setCurrentPosition(-25);
-        break;
+// ################# Start ALT Startup #########################
+
+
+  if (SwingALT) {
+    SendDebug("Start ALT");
+    for (int i = 1; i <= 1; i++) {
+      SendDebug("Loop :" + String(i));
+      ALTstepper.moveTo(-STEPS * 2);
+      while (ALTstepper.distanceToGo() != 0) {
+        if (digitalRead(ALTzeroSensePin) != true) {
+          SendDebug("Found Alt Zero Position");
+          ALTstepper.setCurrentPosition(-25);
+          break;
+        }
+        ALTstepper.run();
       }
-      ALTstepper.run();
+      delay(500);
+      SendDebug("Send Alt Round " + String(SwingLoops) + " times");
+      long SendAAltForATrip = Z27_360_FULLWIRE_STEPS * SwingLoops;
+      //  720 steps per loop
+      ALTstepper.runToNewPosition(SendAAltForATrip);
+      delay(200);
+      SendDebug("Return Alt to 0");
+      ALTstepper.runToNewPosition(0);
     }
-    delay(500);
-    SendDebug("Send Alt Round 3 times");
-    long SendAAltForATrip = X27_FULLWIRE_STEPS * 3;
-    // 5760 steps per loop
-    ALTstepper.runToNewPosition(SendAAltForATrip);
-    delay(200);
-    SendDebug("Return Alt to 0");
-    ALTstepper.runToNewPosition(0);
+    // Move ALT to zero position - need to monitor zero sense
+
+
+
+    SendDebug("End ALT");
   }
-  // Move ALT to zero position - need to monitor zero sense
-
-
-
-  SendDebug("End ALT");
   // ################# End ALT Startup #########################
 
   // ################# Start IAS (Current Airspeed) Startup #########################
@@ -513,13 +927,16 @@ void setup() {
   // back-and-forth swing than VSI's equivalent single approach move, not
   // obviously intentional. Re-verify this sequence before flipping the
   // `if` to true.
-  if (false) {
+
+
+
+  if (SwingIAS) {
     SendDebug("Start IASstepper");
     IASstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
     IASstepper.runToNewPosition(0);
     IASstepper.setCurrentPosition(0);
 
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 1; i <= SwingLoops; i++) {
       SendDebug("Loop :" + String(i));
       SendDebug("Sending IAS to Max");
       IASstepper.runToNewPosition(X27_FULLWIRE_STEPS);
@@ -637,10 +1054,49 @@ void setup() {
 
 
 
-
-
-
   SendDebug("STEPPER INITIALISATION COMPLETE");
+
+  // ####################### Being OLED Setup ##########################
+
+
+
+  for (uint8_t t = 0; t < 8; t++) {
+    tcaselect(t);
+    // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
+    SendDebug("TCA Port #" + String(t));
+
+    for (uint8_t addr = 0; addr <= 127; addr++) {
+      //if (addr == TCAADDR) continue;
+
+      uint8_t data;
+      if (!twi_writeTo(addr, &data, 0, 1, 1)) {
+        SendDebug("Found I2C " + String(addr));
+      }
+    }
+  }
+
+  SendDebug("I2C scan complete");
+
+  tcaselect(BARO_OLED_Port);
+
+  u8g2_BARO.begin();
+  u8g2_BARO.clearBuffer();
+  u8g2_BARO.setFont(u8g2_font_logisoso16_tf);
+  u8g2_BARO.sendBuffer();
+  tcaselect(BARO_OLED_Port);
+  updateBARO("2992");
+
+
+  tcaselect(ALT_OLED_Port);
+  u8g2_ALT.begin();
+  u8g2_ALT.clearBuffer();
+  u8g2_ALT.setFont(u8g2_font_logisoso32_tn);
+  u8g2_ALT.sendBuffer();
+  tcaselect(ALT_OLED_Port);
+  updateALT("0", "0");
+
+
+  // ######################## End OLED Setup ###########################
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
@@ -930,10 +1386,10 @@ DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
 
 void onAltMslFtChange(unsigned int newValue) {
   // Max Value of feet is 65535
-  // 5760 Steps per 1000 feet
-  // So 5.76 steps foot - need float as long doesn't do decimal
+  // 720 Steps per 1000 feet
+  // So 0.72 steps foot - need float as long doesn't do decimal
   float ALTtargetSteps = newValue;
-  ALTtargetSteps = ALTtargetSteps * 5.76;
+  ALTtargetSteps = ALTtargetSteps * 0.72;
   long longAlttargetSteps = long(ALTtargetSteps);
   SendDebug("Altimeter target steps is :" + String(longAlttargetSteps));
   ALTstepper.moveTo(longAlttargetSteps);
@@ -1484,15 +1940,15 @@ void HandleOutputValuePair(String str) {
     // have to be the only way to reach this stepper over UDP - bypasses
     // iasKtToSteps() entirely, same as the other "*RAW" codes below.
     IASstepper.moveTo(ParameterValue.toInt());
-    // } else if (ParameterName == "ALT") {
-    //   // ALT is sent as raw feet, matching the units this sketch's own
-    //   // DCS-BIOS altitude callback already expects, so its feet->steps
-    //   // conversion can be reused directly.
-    //   SendDebug("Altitude is :" + String(ParameterValue.toInt()));
-    //   onAltMslFtChange((unsigned int)ParameterValue.toInt());
-    // } else if (ParameterName == "ALTRAW") {
-    //   // Distinct raw-step code, bypassing the feet*5.76 conversion above.
-    //   ALTstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "ALT") {
+    // ALT is sent as raw feet, matching the units this sketch's own
+    // DCS-BIOS altitude callback already expects, so its feet->steps
+    // conversion can be reused directly.
+    SendDebug("Altitude is :" + String(ParameterValue.toInt()));
+    onAltMslFtChange((unsigned int)ParameterValue.toInt());
+  } else if (ParameterName == "ALTRAW") {
+    // Distinct raw-step code, bypassing the feet*5.76 conversion above.
+    ALTstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "VSI") {
     // Unlike IAS (still a Bell 206 servo-position number), FSUIPCWinformsAutoCS
     // now sends this board raw fpm specifically for VSI (its own front-panel/

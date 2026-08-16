@@ -67,12 +67,18 @@ unit to use.
    clamp exists for ALT to match against — `onAltMslFtChange()`'s
    `feet * 5.76` conversion accepts anything — so this is just a
    generously-sized test range, not a hard limit from the hardware),
-   sends `"D,ALT:<value>"` immediately on every scroll, mirrors into
-   `txtAltInput`.
+   sends `"D,ALT:<value>"` to **both** `stepperClient` (`172.16.1.105`)
+   and `dualStepperClient` (`172.16.1.106`) immediately on every scroll,
+   mirrors into `txtAltInput`. Broadcasts because
+   `JET_RANGER_DUAL_STEPPER_CONTROLLER.ino`'s `ALTstepper` was revived
+   and its `"ALT"`/`"ALTRAW"` UDP cases enabled specifically so this
+   board could be driven the same way as the single-board sketch
+   (previously it was DCS-BIOS-only, unreachable over UDP at all).
 6. **ALT "Send" (`butSendAlt_Click`)/Enter key in `txtAltInput`**: same
-   pattern as VSI's, validated against `trkAlt`'s `Minimum`/`Maximum`.
+   pattern as VSI's, validated against `trkAlt`'s `Minimum`/`Maximum`,
+   via `SendManualValueBroadcast()` (also broadcast).
 7. **ALT "Zero" (`butAltZero_Click`)**: resets `trkAlt`/`txtAltInput` to
-   `0` and sends it.
+   `0` and sends it (also broadcast).
 8. **Radar ALT trackbar (`trkRadarAlt_Scroll`)**: range `0..2500` ft,
    matching the board's `RADAR_ALT_FT_TABLE` calibration range exactly
    (values outside it clamp on the board side rather than erroring
@@ -185,7 +191,7 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 | Target | Port | Purpose |
 |---|---|---|
 | `172.16.1.105` (Stepper Controller, via `stepperClient`) | 13136 | `"D,VSI:<fpm>"`, `"D,ALT:<feet>"`, `"D,AGL:<feet or steps>"`, `"D,ITT:<C>"`, `"D,IAS:<kt>"`, `"D,RPME:<pct>"`, `"D,RPMR:<pct>"`, `"D,ASTEP:<steps>/<intervalMs>"`, `"D,<OILT\|OILP\|XMSNT\|XMSNP\|N1\|FUEL>:<value>"`, and `"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"` test packets |
-| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<steps>"`, `"D,ELECTRICALLOAD:<steps>"` (exclusive to this board); `"D,RPME:<pct>"`/`"D,RPMR:<pct>"` (broadcast alongside `172.16.1.105` - see `SendManualValueBroadcast()`); and every Raw Step Test panel code (`"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"`, also broadcast alongside `172.16.1.105` - `AGLRAW`/`TQ` are no-ops on this board) |
+| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<steps>"`, `"D,ELECTRICALLOAD:<steps>"` (exclusive to this board); `"D,ALT:<feet>"`/`"D,RPME:<pct>"`/`"D,RPMR:<pct>"` (broadcast alongside `172.16.1.105` - see `SendManualValueBroadcast()`; `ALT` works here since this board's `ALTstepper`/`ALT` UDP case were re-enabled specifically for it); and every Raw Step Test panel code (`"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"`, also broadcast alongside `172.16.1.105` - `AGLRAW`/`TQ` are no-ops on this board, `ALTRAW` now works) |
 
 ## Programs this communicates with
 
@@ -205,8 +211,10 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 - **[JET_RANGER_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)**
   (`172.16.1.106:13136` — a distinct board/address, not mutually exclusive
   with the two above) — the Dual Stepper Raw Test rows (`FUELLOAD`/
-  `ELECTRICALLOAD`) talk to this board exclusively; the RPME/RPMR
+  `ELECTRICALLOAD`) talk to this board exclusively; the ALT and RPME/RPMR
   trackbars and the entire Raw Step Test panel broadcast to it alongside
-  `172.16.1.105`. Only the VSI/ALT/Radar ALT/EGT/IAS trackbars, the six
+  `172.16.1.105` (this sketch's `ALTstepper` was revived and its `ALT`/
+  `ALTRAW` UDP cases enabled specifically to receive the ALT trackbar's
+  broadcasts). Only the VSI/Radar ALT/EGT/IAS trackbars, the six
   remaining real-value compact rows (`OILT`/`OILP`/`XMSNT`/`XMSNP`/`N1`/
   `FUEL`), and the ALT jog still target `172.16.1.105` only.

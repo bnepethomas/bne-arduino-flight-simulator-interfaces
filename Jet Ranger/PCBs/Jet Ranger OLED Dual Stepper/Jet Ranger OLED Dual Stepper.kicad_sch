@@ -6,7 +6,7 @@
 	(paper "A3")
 	(title_block
 		(date "2026-08-09")
-		(rev "1.1")
+		(rev "1.2")
 	)
 	(lib_symbols
 		(symbol "Arduino_NW_Template-rescue:GND-power"
@@ -905,6 +905,331 @@
 						)
 					)
 					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Connector:Conn_01x06_Female"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x06_Female"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x06_Female_1_1"
+				(polyline
+					(pts
+						(xy -1.27 5.08) (xy -0.508 5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 2.54) (xy -0.508 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -5.08) (xy -0.508 -5.08)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -7.62) (xy -0.508 -7.62)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 4.572)
+					(mid -0.5058 5.08)
+					(end 0 5.588)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 2.032)
+					(mid -0.5058 2.54)
+					(end 0 3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -0.508)
+					(mid -0.5058 0)
+					(end 0 0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -3.048)
+					(mid -0.5058 -2.54)
+					(end 0 -2.032)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -5.588)
+					(mid -0.5058 -5.08)
+					(end 0 -4.572)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -8.128)
+					(mid -0.5058 -7.62)
+					(end 0 -7.112)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 5.08 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -5.08 0)
+					(length 3.81)
+					(name "Pin_5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -7.62 0)
+					(length 3.81)
+					(name "Pin_6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -8239,6 +8564,26 @@
 	)
 	(wire
 		(pts
+			(xy 99.06 173.99) (xy 101.854 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "26621952-d607-4983-aecd-08d881a5189f")
+	)
+	(wire
+		(pts
+			(xy 99.06 181.61) (xy 101.854 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27719e3c-a454-47c7-bf49-b2d9ec9b353b")
+	)
+	(wire
+		(pts
 			(xy 29.21 46.99) (xy 29.21 48.26)
 		)
 		(stroke
@@ -8346,6 +8691,16 @@
 			(type default)
 		)
 		(uuid "395043a2-6cba-4443-96b9-7daa93107525")
+	)
+	(wire
+		(pts
+			(xy 96.52 171.45) (xy 101.854 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3985adcf-24be-4705-93ca-1b6979b28dd5")
 	)
 	(wire
 		(pts
@@ -8506,6 +8861,16 @@
 			(type default)
 		)
 		(uuid "4a64eb13-c492-4d67-a805-c396e48ffbd1")
+	)
+	(wire
+		(pts
+			(xy 99.06 179.07) (xy 101.854 179.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4ac92e22-061b-466f-9f09-9c25f943bc2a")
 	)
 	(wire
 		(pts
@@ -9009,6 +9374,16 @@
 	)
 	(wire
 		(pts
+			(xy 96.52 168.91) (xy 101.854 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9be2cbb0-0b17-4d39-91d8-f0bf33d5256c")
+	)
+	(wire
+		(pts
 			(xy 25.4 54.61) (xy 31.75 54.61)
 		)
 		(stroke
@@ -9216,6 +9591,16 @@
 			(type default)
 		)
 		(uuid "dd1d90cd-a56c-4028-b28a-0706bb978ba2")
+	)
+	(wire
+		(pts
+			(xy 99.06 176.53) (xy 101.854 176.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd901472-9f7f-4a54-a6b3-62654cd6b5ac")
 	)
 	(wire
 		(pts
@@ -9506,6 +9891,16 @@
 			(justify left bottom)
 		)
 		(uuid "0c7f762e-39c4-44c4-8de0-7d34a73a997d")
+	)
+	(label "SD2"
+		(at 99.06 181.61 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "0c9801b2-8800-4a97-8827-a6472a76d722")
 	)
 	(label "STEPPER_EOP_D"
 		(at 349.25 116.84 0)
@@ -10418,6 +10813,16 @@
 		)
 		(uuid "7c6d3d47-9c88-4668-a11c-21e9b3ceef06")
 	)
+	(label "SC1"
+		(at 99.06 173.99 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7cff90bb-0ce1-489d-8813-d64b41626caf")
+	)
 	(label "SDA"
 		(at 121.92 92.71 180)
 		(effects
@@ -10778,6 +11183,16 @@
 		)
 		(uuid "a5b75d61-cb9d-40f1-85e3-bea3b8a1b9b7")
 	)
+	(label "SD1"
+		(at 99.06 176.53 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a66731e6-94fc-47d6-b51c-fb0eb2c81ba5")
+	)
 	(label "SD3"
 		(at 101.6 163.83 180)
 		(effects
@@ -10987,6 +11402,16 @@
 			(justify left bottom)
 		)
 		(uuid "c83777d6-c897-46b1-b3b9-428aba1f24fe")
+	)
+	(label "SC2"
+		(at 99.06 179.07 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "c97b04fd-769f-4428-8b82-08c3f6a1c25c")
 	)
 	(label "INT_5V"
 		(at 283.21 111.76 180)
@@ -11794,6 +12219,87 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x06_Female")
+		(at 106.934 173.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "01abfe8e-5ab3-498b-86c5-827aefab98f0")
+		(property "Reference" "J19"
+			(at 107.95 173.9899 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ALTIMETER OLED"
+			(at 107.95 176.5299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical"
+			(at 106.934 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 106.934 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 106.934 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "84de96e5-0e44-40be-b5c1-43ce828c5e62")
+		)
+		(pin "2"
+			(uuid "60630497-ed2f-4655-9733-6c3ab6745b7b")
+		)
+		(pin "3"
+			(uuid "9fbf0d57-e70c-4ab2-baf3-b0b1ae255fc6")
+		)
+		(pin "4"
+			(uuid "ca272d95-45e7-497c-8086-dd720f839e21")
+		)
+		(pin "5"
+			(uuid "acc6d7cc-63bc-4c75-a31f-373ab51387bd")
+		)
+		(pin "6"
+			(uuid "66cbbbdd-c53e-4526-915c-ad086b106509")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "J19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector_Generic:Conn_01x08")
 		(at 247.65 63.5 0)
 		(mirror y)
@@ -12131,6 +12637,71 @@
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "#PWR033")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 96.52 168.91 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1537c7d1-667c-4b47-8296-8548d4a8ba11")
+		(property "Reference" "#PWR021"
+			(at 90.17 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 93.2688 169.037 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 96.52 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 96.52 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 96.52 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d6a9c359-cb30-46ac-8da9-7cac7a25d05f")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -19102,6 +19673,71 @@
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "J38")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
+		(at 96.52 171.45 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cee23dc2-9442-4e62-889d-bc8fa976d684")
+		(property "Reference" "#PWR023"
+			(at 100.33 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 93.2688 171.069 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 96.52 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 96.52 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 96.52 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e299d94d-0a64-4a54-8283-7cd19ae8d5aa")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR023")
 					(unit 1)
 				)
 			)

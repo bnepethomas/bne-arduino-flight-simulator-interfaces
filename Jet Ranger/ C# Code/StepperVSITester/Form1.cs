@@ -54,13 +54,12 @@ namespace StepperVSITester
         }
 
         // Same as SendManualValue() above, but also broadcasts to
-        // dualStepperClient (172.16.1.106) - for RPME/RPMR, which both
-        // JET_RANGER_STEPPER_CONTROLLER.ino and
-        // JET_RANGER_DUAL_STEPPER_CONTROLLER.ino drive identically (same
-        // TS_PCT_TABLE/RS_PCT_TABLE calibration - Fuel Load/Electrical
-        // Load were the only steppers repurposed on the Dual Stepper
-        // board), so a single trackbar can drive both boards' Turbine/
-        // Rotor Speed gauges together on the bench.
+        // dualStepperClient (172.16.1.106) - used for codes both boards
+        // respond to: RPME/RPMR (each board has its own separate
+        // TS_PCT_TABLE/RS_PCT_TABLE, but the same UDP codes reach both)
+        // and ALT (both boards' ALTstepper responds to "ALT" - see
+        // JET_RANGER_DUAL_STEPPER_CONTROLLER.ino's now-enabled "ALT"
+        // case).
         private void SendManualValueBroadcast(TrackBar trackBar, TextBox textBox, Label label, string code, string unit)
         {
             if (long.TryParse(textBox.Text, out long value))
@@ -165,11 +164,18 @@ namespace StepperVSITester
             }
         }
 
+        // Broadcasts to both stepperClient (172.16.1.105) and
+        // dualStepperClient (172.16.1.106) - JET_RANGER_DUAL_STEPPER_CONTROLLER.ino's
+        // ALTstepper was revived and its "ALT"/"ALTRAW" UDP cases enabled
+        // specifically so this board could be driven the same way as the
+        // single-board sketch (previously it was DCS-BIOS-only, with no
+        // UDP path at all).
         private void trkAlt_Scroll(object sender, EventArgs e)
         {
             UpdateValueLabel(lblAltValue, trkAlt.Value, "ft");
             txtAltInput.Text = trkAlt.Value.ToString();
             Send("ALT", trkAlt.Value);
+            SendDual("ALT", trkAlt.Value);
         }
 
         private void butAltZero_Click(object sender, EventArgs e)
@@ -178,18 +184,19 @@ namespace StepperVSITester
             txtAltInput.Text = "0";
             UpdateValueLabel(lblAltValue, 0, "ft");
             Send("ALT", 0);
+            SendDual("ALT", 0);
         }
 
         private void butSendAlt_Click(object sender, EventArgs e)
         {
-            SendManualValue(trkAlt, txtAltInput, lblAltValue, "ALT", "ft");
+            SendManualValueBroadcast(trkAlt, txtAltInput, lblAltValue, "ALT", "ft");
         }
 
         private void txtAltInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SendManualValue(trkAlt, txtAltInput, lblAltValue, "ALT", "ft");
+                SendManualValueBroadcast(trkAlt, txtAltInput, lblAltValue, "ALT", "ft");
             }
         }
 

@@ -4,6 +4,9 @@
 	(generator_version "9.0")
 	(uuid "1aac79c1-0acd-46f9-a11e-3a96c72105ff")
 	(paper "A4")
+	(title_block
+		(rev "1.2")
+	)
 	(lib_symbols)
 	(text "Initial Creation 20260809"
 		(exclude_from_sim no)
