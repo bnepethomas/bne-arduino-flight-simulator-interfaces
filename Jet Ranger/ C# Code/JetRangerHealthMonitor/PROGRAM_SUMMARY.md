@@ -46,7 +46,7 @@ not sender IP, so any board sending the right prefix is accepted:
 - **[JET_RANGER_UPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_UPPER_CONTROLLER/JET_RANGER_UPPER_CONTROLLER.ino)** — `"UPPER_INPUT"` every 10s.
 - **[UDP_TO_HID](../../Jet%20Ranger%20Arduino%20Sketches/UDP_TO_HID/UDP_TO_HID.ino)** — `"JOYSTICK"` every 10s.
 - **[JET_RANGER_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_STEPPER_CONTROLLER/JET_RANGER_STEPPER_CONTROLLER.ino)** — `"STEPPER"` every 10s (added alongside this app's Stepper indicator).
-- **[JET_RANGER_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)** — `"DUAL_STEPPER"` every 10s. Deliberately a distinct prefix from `JET_RANGER_STEPPER_CONTROLLER`'s `"STEPPER"` (not just a longer string that happens to start the same way) — this app matches by `StartsWith()`, so if the two boards' prefixes had overlapped (e.g. `"STEPPER"` vs `"STEPPER_DUAL"`), one would have lit up the other's indicator too.
+- **[JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)** — `"DUAL_STEPPER"` every 10s. Deliberately a distinct prefix from `JET_RANGER_STEPPER_CONTROLLER`'s `"STEPPER"` (not just a longer string that happens to start the same way) — this app matches by `StartsWith()`, so if the two boards' prefixes had overlapped (e.g. `"STEPPER"` vs `"STEPPER_DUAL"`), one would have lit up the other's indicator too.
 
 No dependency on which sim-bridge app (`P3D_to_UDP` / `SimConnect_to_UDP` /
 `MSFSSimConnectExtractor`) is running — this monitor only cares about the

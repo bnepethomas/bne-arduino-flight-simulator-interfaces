@@ -11,7 +11,7 @@ namespace StepperVSITester
         // needing FSUIPC/a flight sim running.
         UdpClient stepperClient = new UdpClient();
 
-        // JET_RANGER_DUAL_STEPPER_CONTROLLER.ino's own address (172.16.1.106,
+        // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's own address (172.16.1.106,
         // distinct from the single-board sketch's 172.16.1.105 so both can be
         // on the network at once) - a separate socket since this is a
         // different physical board, not an alternate port on the same one.
@@ -58,7 +58,7 @@ namespace StepperVSITester
         // respond to: RPME/RPMR (each board has its own separate
         // TS_PCT_TABLE/RS_PCT_TABLE, but the same UDP codes reach both)
         // and ALT (both boards' ALTstepper responds to "ALT" - see
-        // JET_RANGER_DUAL_STEPPER_CONTROLLER.ino's now-enabled "ALT"
+        // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's now-enabled "ALT"
         // case).
         private void SendManualValueBroadcast(TrackBar trackBar, TextBox textBox, Label label, string code, string unit)
         {
@@ -165,7 +165,7 @@ namespace StepperVSITester
         }
 
         // Broadcasts to both stepperClient (172.16.1.105) and
-        // dualStepperClient (172.16.1.106) - JET_RANGER_DUAL_STEPPER_CONTROLLER.ino's
+        // dualStepperClient (172.16.1.106) - JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's
         // ALTstepper was revived and its "ALT"/"ALTRAW" UDP cases enabled
         // specifically so this board could be driven the same way as the
         // single-board sketch (previously it was DCS-BIOS-only, with no
@@ -307,7 +307,7 @@ namespace StepperVSITester
         // easy to give a gauge its own dedicated raw control later if that turns out
         // to be worth the extra screen space.
         // Broadcasts to both stepperClient (172.16.1.105) and
-        // dualStepperClient (172.16.1.106) - JET_RANGER_DUAL_STEPPER_CONTROLLER.ino
+        // dualStepperClient (172.16.1.106) - JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino
         // accepts every one of these codes too (it's a fork of the same
         // sketch), except AGLRAW/TQ, which no longer exist there (that
         // board's Radar Alt/Torque steppers were repurposed as Fuel
@@ -431,7 +431,7 @@ namespace StepperVSITester
 
         // Same as SendRealValue() above, but sent to dualStepperClient
         // (172.16.1.106) instead of stepperClient (172.16.1.105) - for
-        // JET_RANGER_DUAL_STEPPER_CONTROLLER.ino's raw-step-only
+        // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's raw-step-only
         // FUELLOAD/ELECTRICALLOAD codes, which don't exist on the
         // single-board sketch.
         private void SendDualRawValue(TextBox textBox, string code)
@@ -582,7 +582,7 @@ namespace StepperVSITester
         }
 
         // Dual Stepper (172.16.1.106) raw-step test rows - FUELLOAD/
-        // ELECTRICALLOAD only exist on JET_RANGER_DUAL_STEPPER_CONTROLLER.ino
+        // ELECTRICALLOAD only exist on JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino
         // (that board's Radar Alt/Torque steppers repurposed as Fuel Load/
         // Electrical Load - see that sketch's PROGRAM_SUMMARY.md), so these
         // go through SendDual()/dualStepperClient rather than the

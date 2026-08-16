@@ -70,7 +70,7 @@ unit to use.
    sends `"D,ALT:<value>"` to **both** `stepperClient` (`172.16.1.105`)
    and `dualStepperClient` (`172.16.1.106`) immediately on every scroll,
    mirrors into `txtAltInput`. Broadcasts because
-   `JET_RANGER_DUAL_STEPPER_CONTROLLER.ino`'s `ALTstepper` was revived
+   `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino`'s `ALTstepper` was revived
    and its `"ALT"`/`"ALTRAW"` UDP cases enabled specifically so this
    board could be driven the same way as the single-board sketch
    (previously it was DCS-BIOS-only, unreachable over UDP at all).
@@ -109,7 +109,7 @@ unit to use.
     sends `"D,RPME:<value>"` (Turbine/Engine Speed) to **both**
     `stepperClient` (`172.16.1.105`) and `dualStepperClient`
     (`172.16.1.106`) via `SendManualValueBroadcast()` - `JET_RANGER_STEPPER_CONTROLLER.ino`
-    and `JET_RANGER_DUAL_STEPPER_CONTROLLER.ino` both drive this gauge
+    and `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` both drive this gauge
     identically (same `TS_PCT_TABLE`, since Turbine Speed wasn't one of
     the Dual Stepper board's repurposed gauges), so one trackbar drives
     both boards' Turbine Speed steppers together. Graduated here from a
@@ -141,7 +141,7 @@ unit to use.
     gauge's unit conversion for bench testing without losing its
     real-value control. Every send from this panel goes to **both**
     `stepperClient` (`172.16.1.105`) and `dualStepperClient`
-    (`172.16.1.106`) - `JET_RANGER_DUAL_STEPPER_CONTROLLER.ino` accepts
+    (`172.16.1.106`) - `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` accepts
     all of these except `AGLRAW`/`TQ` (that board's Radar Alt/Torque
     steppers were repurposed - see #18 below), which are silent no-ops on
     it, same as `FLAPS`/`AOA`/`GFORCE`/`SPDMAX` already are on both
@@ -164,7 +164,7 @@ unit to use.
     #16/#17 and RPME/RPMR above, these two are never sent to
     `172.16.1.105`, since they have no equivalent there. These two codes
     only exist on
-    [`JET_RANGER_DUAL_STEPPER_CONTROLLER.ino`](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)
+    [`JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino`](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)
     (a fork of the production sketch, its own board, its own IP) - that
     sketch repurposed its Radar Alt and Torque steppers as Fuel Load and
     Electrical Load respectively. No real calibration table exists yet
@@ -208,7 +208,7 @@ None locally bound — this tool only sends, it doesn't listen for anything.
   determines which of this tool's controls do anything. Production also
   has real-unit calibration (`IAS_KT_TABLE`) that the bench-test sketch
   doesn't share.
-- **[JET_RANGER_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)**
+- **[JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)**
   (`172.16.1.106:13136` — a distinct board/address, not mutually exclusive
   with the two above) — the Dual Stepper Raw Test rows (`FUELLOAD`/
   `ELECTRICALLOAD`) talk to this board exclusively; the ALT and RPME/RPMR
