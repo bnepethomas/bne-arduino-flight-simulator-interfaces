@@ -71,7 +71,32 @@
    Range is also now `0..110`, not `0..117` - values above 110% clamp to
    600 steps rather than extrapolating. `tsPctToSteps()`/`rsPctToSteps()`
    (the interpolation functions) are unchanged; only the table data
-   differs.
+   differs. **New: `TSoffset`/`RSoffset`** - fine-trim step offsets
+   added in `setTS()`/`setRS()` to the table's computed target, so the
+   real needles' true mechanical zero can be dialled in without touching
+   the calibration tables themselves - same pattern as `VSIoffset` (used
+   in VSI's startup-swing zero move). `TSoffset` has since been given a
+   real value (`20`); `RSoffset` is still an unmeasured `0`. Both
+   `#define`s live up near `VSIoffset` (not next to `setTS()`/`setRS()`
+   where they're mainly used) since the Turbine/Rotor Speed startup
+   swings' "return to zero" step (below) also needs them, and that runs
+   inside `setup()`, earlier in the file than `setTS()`/`setRS()` -
+   `#define`s have to appear before first use.
+   - **Also new: the Turbine Speed and Rotor Speed startup swings are no
+     longer gated by a bare `if (false)` - they're now behind a shared
+     `SwingRPM` boolean define, currently `true`, so both swings run
+     every boot** (alongside `SwingALT`, the only other active swing -
+     `SwingVSI`/`SwingIAS` remain `false`). Each swing's per-loop
+     "return to zero" (`TSstepper.runToNewPosition(...)`/
+     `RSstepper.runToNewPosition(...)`, previously a literal `0`) now
+     targets `TSoffset`/`RSoffset` instead - the calibrated 0% position
+     (matching what `setTS(0)`/`setRS(0)` would target), not the
+     stepper's raw internal 0. The swing's *initial* homing move (wind
+     to `X27_FULLWIRE_HOMING_STEPS`, return to `0`, then
+     `setCurrentPosition(0)`) is unchanged and still uses literal `0` -
+     that step establishes the physical/internal zero reference itself,
+     which is a different concept from the calibrated-zero position the
+     swing loop returns to afterward.
 5. **`ALTstepper` (Altimeter) has been revived, given its own startup
    swing, and is now the one gauge on this board driving a live OLED
    readout.** On the original sketch (and on this fork, until this
@@ -118,7 +143,23 @@
    - **`onAltMslFtChange()` now also calls `UpdateAltimeterDigits(newValue)`**
      - the Altimeter OLED display (see point 9 below) is live-wired to
        real DCS-BIOS altitude data, unlike the Baro display, which is
-       still boot-splash-only.
+       still boot-splash-only. **Gated on change AND throttled**:
+       `UpdateAltimeterDigits()` is only called if `newValue` differs
+       from `iLastAltitudeValue` (a variable that existed but was never
+       read/written before this) **and** at least `minAltOledUpdateIntervalMs`
+       (300ms, new) has elapsed since the last OLED update
+       (`lastAltOledUpdateMillis`, new). `ALTstepper.moveTo()` still runs
+       unconditionally every callback - only the OLED update is
+       skipped/throttled. A value change that arrives inside the 300ms
+       window isn't lost: `iLastAltitudeValue` only advances when an
+       update actually happens, so the next eligible callback still
+       picks up the change rather than it being silently dropped. This
+       is on top of (not instead of) the per-digit-group comparison
+       already inside `UpdateAltimeterDigits()` itself (which still only
+       redraws the specific digits/offsets that changed within a call) -
+       the outer gate now also skips calling that function at all, and
+       its digit-math work, both when nothing changed and when the last
+       redraw was too recent.
    - Additionally, unlike the original sketch, this board's UDP
      `"ALT"`/`"ALTRAW"` cases have been enabled (still commented out on
      `JET_RANGER_STEPPER_CONTROLLER.ino`) - `ALT` calls
@@ -142,15 +183,19 @@
    636, since its base moved. This shifts every X27-style stepper's
    full-scale/homing range slightly (VSI, IAS, Fuel Load, Turbine Speed,
    Rotor Speed all reference these constants).
-8. **Turbine Speed's and Rotor Speed's startup swings are now wrapped in
-   `if (false)` - disabled.** These were the only two active (non-`if
-   (false)`) startup swings on this board before this whole review
-   sequence began; now (see point 5) `SwingALT` is the only active
-   swing. Both swings' internal sequence also changed: the second
-   `runToNewPosition()` call is now `0` instead of `-X27_FULLWIRE_STEPS`
-   (moot while disabled, but changes behaviour if ever re-enabled).
-   IAS's startup swing (already disabled) got the same `0`-instead-of-
-   `-X27_FULLWIRE_STEPS` change.
+8. **Turbine Speed's and Rotor Speed's startup swings have moved through
+   several states across this review sequence** - briefly `if (false)`
+   -disabled, then (see point 4) folded into the `SwingRPM` boolean
+   define alongside `SwingVSI`/`SwingIAS`/`SwingALT`, currently `true` -
+   so both are active again, running every boot alongside `SwingALT`.
+   Both swings' internal sequence also changed along the way: the second
+   `runToNewPosition()` call in the initial homing move is now `0`
+   instead of `-X27_FULLWIRE_STEPS`, and the per-loop "return to zero"
+   now targets `TSoffset`/`RSoffset` instead of a literal `0` (see point
+   4). IAS's startup swing (still disabled, `SwingIAS` = false) got the
+   same `0`-instead-of-`-X27_FULLWIRE_STEPS` homing-move change, but was
+   not given an offset-aware zero return since it isn't gauge-calibrated
+   the same way.
 9. **A substantial new subsystem: two I2C OLED displays (Barometer +
    Altimeter digit readout), switched through a TCA9548A I2C
    multiplexer.** This is the first code on this board that actually
@@ -202,7 +247,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 40,362 bytes (15%) | 4,887 bytes (59%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 41,530 bytes (16%) | 5,091 bytes (62%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;
@@ -215,8 +260,8 @@ port number).
 |---|---|---|
 | `FuelLoadStepper` (was `RadarAltStepper`) | FULL4WIRE, `STEPPER_FL_COIL_A..D` (32/33/34/35, wired C,D,A,B — same physical pins the original sketch used for Radar Alt) | Raw steps only (`FUELLOAD` code) — no real calibration table yet. Boot startup/swing exists but is wrapped in `if (false)` — disabled |
 | `ElectricalLoadStepper` (was `ETstepper`) | FULL4WIRE, `EL_COIL_A..D` (36/37/38/39 — same physical pins the original sketch used for Torque) | Raw steps only (`ELECTRICALLOAD` code) — no real calibration table yet, no startup swing (the original's `ETstepper` never had one either) |
-| `TSstepper` (`RPME`, Turbine/Engine Speed) | Unchanged pins/interface | Real calibration, but via **this board's own** 4-point `TS_PCT_TABLE` (0/55/100/110% → 0/300/535/600 steps) - diverges from the original sketch's 13-point table. Startup swing `if (false)`-disabled |
-| `RSstepper` (`RPMR`, Rotor Speed) | Unchanged pins/interface | Same divergence - this board's own 4-point `RS_PCT_TABLE`, identical values to this board's `TS_PCT_TABLE`. Startup swing `if (false)`-disabled |
+| `TSstepper` (`RPME`, Turbine/Engine Speed) | Unchanged pins/interface | Real calibration, but via **this board's own** 4-point `TS_PCT_TABLE` (0/55/100/110% → 0/300/535/600 steps) plus `TSoffset` (20) - diverges from the original sketch's 13-point table (no offset). Startup swing **active** (`SwingRPM` = true) - returns to `TSoffset`, not raw 0, after each loop |
+| `RSstepper` (`RPMR`, Rotor Speed) | Unchanged pins/interface | Same divergence - this board's own 4-point `RS_PCT_TABLE`, identical values to this board's `TS_PCT_TABLE`, plus `RSoffset` (0, unmeasured). Startup swing **active** (`SwingRPM` = true) - returns to `RSoffset` after each loop |
 | `ALTstepper` (Altimeter) | FULL4WIRE, `STEPPER_ALT_A..D` (40/41/42/43) + `ALTzeroSensePin` (A15) - **revived**, was fully commented out on both this board and the original | Active - DCS-BIOS (`onAltMslFtChange()`, `feet * 0.72`, also drives the Altimeter OLED) AND UDP `ALT`/`ALTRAW` (enabled here only). Startup swing **active** (`SwingALT` = true, `SwingLoops` = 1 → 720-step round trip) - see zero-seek caution below |
 | `GPstepper` (`N1`, Gas Producer) | — | **Disabled.** Fully commented out to free pins 40-43 for `ALTstepper` above. `N1`/`N1RAW` UDP cases removed - silent no-op if sent |
 
@@ -276,6 +321,11 @@ this session:
 - `TS_PCT_TABLE`/`RS_PCT_TABLE`'s 0-point is assumed, not directly
   measured - not yet confirmed on the bench that RPME/RPMR actually read
   0% at rest rather than clamping to the 55% row.
+- `RSoffset` (new fine-trim step offset, see above) is still `0` -
+  unmeasured, same as `VSIoffset`'s own unverified-estimate caveat.
+  `TSoffset` has since been set to `20`, but it isn't documented
+  anywhere whether that came from an actual bench measurement or is
+  itself still a placeholder guess.
 - `ALTstepper`'s zero-seek move still uses `-STEPS * 2` (-10080 steps,
   `STEPS` = the old `315 * 16` geared-driver constant) - not
   bench-confirmed as intentional, since it's ~14x a single 720-step

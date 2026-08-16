@@ -764,7 +764,7 @@ namespace FSUIPCTest
                 mS = (int)span.TotalMilliseconds;
                 // displayText("Its been this many mS since sending last packet: " + mS.ToString());
 
-                if (mS >= 200 && frontPanelDataChanged == true)
+                if (mS >= 100 && frontPanelDataChanged == true)
                 {
                     frontPanelDataChanged = false;
 

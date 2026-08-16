@@ -53,10 +53,11 @@ acting on them through the FSUIPC API instead of SimConnect.
      `ServMinPosition`/`ServMaxPosition` array entries) are now unused —
      left in place rather than removed, since deleting an enum member
      risks shifting every other array index that follows it.
-   - Throttled to ≥200ms between sends, the accumulated shared payload is
-     sent to the Servo Controller board, and the same bytes are also
-     fanned out to the OLED Controller (which reads `ALT`/`BARO` out of
-     it) — each board ignores whatever fields it doesn't recognise. The
+   - Throttled to ≥100ms between sends (was ≥200ms), the accumulated
+     shared payload is sent to the Servo Controller board, and the same
+     bytes are also fanned out to the OLED Controller (which reads
+     `ALT`/`BARO` out of it) — each board ignores whatever fields it
+     doesn't recognise. The
      Stepper Controller does **not** receive these same bytes: it gets a
      separate, purpose-built payload (`ALT`, `VSI` as raw fpm, `AGL`, and
      now `RPMR`/`RPME` as real unmapped percent) built fresh each tick,

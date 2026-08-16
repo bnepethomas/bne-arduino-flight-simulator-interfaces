@@ -205,6 +205,18 @@ unsigned long previousMillis = 0;
 // estimate, NOT bench-measured. Confirm/recalibrate on real hardware.
 #define VSIoffset 1
 
+// Fine-trim offsets (steps) added to TS_PCT_TABLE's/RS_PCT_TABLE's
+// computed target - same purpose/pattern as VSIoffset above: dial in the
+// real needles' true mechanical zero without touching the calibration
+// tables themselves. Used both at runtime (setTS()/setRS()) and by the
+// Turbine/Rotor Speed startup swings' "return to zero" step (below) -
+// must be #define'd before setup(), unlike VSIoffset's neighbours these
+// can't live down next to setTS()/setRS() where they're mainly used.
+// TSoffset has since been given a real value (20); RSoffset is still an
+// unmeasured 0.
+#define TSoffset 10
+#define RSoffset 10
+
 // Swapped with Flaps' step/dir pins above: Flaps moved onto this
 // DRIVER/STEP-DIR pair, and VSI (below) took over these coil pins - it is
 // NOT unused, it now belongs to VSI.
@@ -367,6 +379,14 @@ char buffer[20];  //plenty of space for the value of millis() plus a zero termin
 
 
 int iLastAltitudeValue = 0;
+// Minimum time between Altimeter OLED redraws, regardless of how often
+// onAltMslFtChange() fires or how often the value actually changes -
+// separate from (and in addition to) the iLastAltitudeValue change-check
+// below. lastAltOledUpdateMillis only advances when an update actually
+// happens, so a value change that arrives before the interval has
+// elapsed isn't lost - it's just deferred to the next eligible callback.
+const unsigned long minAltOledUpdateIntervalMs = 300;
+unsigned long lastAltOledUpdateMillis = 0;
 int iAltitudeDelta = 0;
 int iBaro = 2992;
 int iBaroOnes = 2;
@@ -1017,8 +1037,13 @@ void setup() {
       SendDebug("Sending Turbine Speed to Max");
       TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
       delay(200);
-      SendDebug("Returning Turbine Speed to Zero");
-      TSstepper.runToNewPosition(0);
+      // Zero here means the calibrated 0% position (TS_PCT_TABLE's 0
+      // step, same as setTS(0) would target), not the stepper's raw
+      // internal 0 - TSoffset accounts for the fine-trim applied at
+      // runtime by setTS()/tsPctToSteps(), so the swing ends exactly
+      // where the gauge will actually rest at 0% RPME.
+      SendDebug("Returning Turbine Speed to Zero (offset " + String(TSoffset) + ")");
+      TSstepper.runToNewPosition(TSoffset);
       delay(200);
     }
     SendDebug("End TSstepper");
@@ -1053,8 +1078,12 @@ void setup() {
       SendDebug("Sending Rotor Speed to Max");
       RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
       delay(200);
-      SendDebug("Returning Rotor Speed to Zero");
-      RSstepper.runToNewPosition(0);
+      // Same reasoning as TSstepper's swing above: zero here means the
+      // calibrated 0% position (RS_PCT_TABLE's 0 step / setRS(0)'s
+      // target), not the stepper's raw internal 0 - RSoffset accounts
+      // for the fine-trim setRS()/rsPctToSteps() applies at runtime.
+      SendDebug("Returning Rotor Speed to Zero (offset " + String(RSoffset) + ")");
+      RSstepper.runToNewPosition(RSoffset);
       delay(200);
     }
     SendDebug("End RSstepper");
@@ -1403,7 +1432,26 @@ void onAltMslFtChange(unsigned int newValue) {
   // SendDebug("Altimeter target steps is :" + String(longAlttargetSteps));
   ALTstepper.moveTo(longAlttargetSteps);
   // SendDebug("Altimeter steps to go :" + String(ALTstepper.distanceToGo()));
-  UpdateAltimeterDigits(newValue);
+
+  // Only touch the OLED if the altitude actually changed since the last
+  // callback - iLastAltitudeValue was declared for exactly this but never
+  // used before. This is a coarser, cheaper check than the per-digit-group
+  // comparison already inside UpdateAltimeterDigits() (which still only
+  // redraws the digits/offsets that changed) - it skips calling that
+  // function (and its digit-math work) entirely on repeat/no-op DCS-BIOS
+  // callbacks. Also throttled to at most once every
+  // minAltOledUpdateIntervalMs (300ms), independent of how often
+  // onAltMslFtChange() itself fires - a changed value that arrives inside
+  // the throttle window is simply deferred (iLastAltitudeValue isn't
+  // advanced), so the next eligible callback still picks it up rather
+  // than the update being silently dropped. ALTstepper still moves every
+  // call, regardless of either gate.
+  if ((int)newValue != iLastAltitudeValue
+      && (millis() - lastAltOledUpdateMillis) >= minAltOledUpdateIntervalMs) {
+    UpdateAltimeterDigits(newValue);
+    iLastAltitudeValue = (int)newValue;
+    lastAltOledUpdateMillis = millis();
+  }
 }
 DcsBios::IntegerBuffer altMslFtBuffer(CommonData_ALT_MSL_FT, onAltMslFtChange);
 
@@ -1537,8 +1585,13 @@ long tsPctToSteps(long pct) {
   return 0;  // unreachable - every pct is covered by the clamps or the loop above
 }
 
+// TSoffset (fine-trim step offset for TS_PCT_TABLE's computed target) is
+// defined near VSIoffset above, not here - it has to come before setup()
+// since the Turbine Speed startup swing (above) also uses it to return
+// to the calibrated zero position, not just this function.
+
 void setTS(long TargetPct) {
-  TSstepper.moveTo(tsPctToSteps(TargetPct));
+  TSstepper.moveTo(tsPctToSteps(TargetPct) + TSoffset);
 }
 
 // Rotor Speed (RPMR) percent-to-step calibration table, hand-measured on
@@ -1581,8 +1634,12 @@ long rsPctToSteps(long pct) {
   return 0;  // unreachable - every pct is covered by the clamps or the loop above
 }
 
+// RSoffset (fine-trim step offset for RS_PCT_TABLE's computed target) is
+// defined near VSIoffset above, not here - same reasoning as TSoffset's
+// relocation note in setTS() above.
+
 void setRS(long TargetPct) {
-  RSstepper.moveTo(rsPctToSteps(TargetPct));
+  RSstepper.moveTo(rsPctToSteps(TargetPct) + RSoffset);
 }
 
 // #define GP_MIN_PCT 0
@@ -1954,7 +2011,7 @@ void HandleOutputValuePair(String str) {
     // ALT is sent as raw feet, matching the units this sketch's own
     // DCS-BIOS altitude callback already expects, so its feet->steps
     // conversion can be reused directly.
-    SendDebug("Altitude is :" + String(ParameterValue.toInt()));
+    //SendDebug("Altitude is :" + String(ParameterValue.toInt()));
     onAltMslFtChange((unsigned int)ParameterValue.toInt());
   } else if (ParameterName == "ALTRAW") {
     // Distinct raw-step code, bypassing the feet*5.76 conversion above.
