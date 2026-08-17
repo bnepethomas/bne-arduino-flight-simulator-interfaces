@@ -32,6 +32,25 @@ namespace StepperVSITester
             dualStepperClient.Send(sendBytes, sendBytes.Length);
         }
 
+        // double overloads - only used by RPME/RPMR (see their handlers
+        // below) so those two match FSUIPCWinformsAutoCS's own one-decimal
+        // wire format (e.g. "82.0"/"82.4"), instead of every other code's
+        // bare integer. Calls passing an int/long still resolve to the
+        // long overloads above (int->long is a better implicit conversion
+        // than int->double), so this doesn't change anything for ALT or
+        // any other existing caller.
+        private void Send(string code, double value)
+        {
+            byte[] sendBytes = Encoding.ASCII.GetBytes("D," + code + ":" + value.ToString("F1"));
+            stepperClient.Send(sendBytes, sendBytes.Length);
+        }
+
+        private void SendDual(string code, double value)
+        {
+            byte[] sendBytes = Encoding.ASCII.GetBytes("D," + code + ":" + value.ToString("F1"));
+            dualStepperClient.Send(sendBytes, sendBytes.Length);
+        }
+
         private void SendManualValue(TrackBar trackBar, TextBox textBox, Label label, string code, string unit)
         {
             if (long.TryParse(textBox.Text, out long value))
@@ -70,6 +89,36 @@ namespace StepperVSITester
                     UpdateValueLabel(label, value, unit);
                     Send(code, value);
                     SendDual(code, value);
+                }
+                else
+                {
+                    MessageBox.Show($"Value must be between {trackBar.Minimum} and {trackBar.Maximum}");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Value must be a number");
+            }
+        }
+
+        // Same as SendManualValueBroadcast() above, but sends the value
+        // with a single decimal place instead of a bare integer (e.g.
+        // "82.0") via the double Send()/SendDual() overloads above - only
+        // used by RPME/RPMR's Send button/Enter handlers below, so their
+        // wire format matches FSUIPCWinformsAutoCS's own one-decimal
+        // RPMR/RPME. The trackbar itself is still whole-percent only
+        // (TrackBar has no fractional granularity) - this only affects
+        // what's put on the wire, not what the operator can dial in here.
+        private void SendPercentManualValueBroadcast(TrackBar trackBar, TextBox textBox, Label label, string code, string unit)
+        {
+            if (long.TryParse(textBox.Text, out long value))
+            {
+                if (value >= trackBar.Minimum && value <= trackBar.Maximum)
+                {
+                    trackBar.Value = (int)value;
+                    UpdateValueLabel(label, value, unit);
+                    Send(code, (double)value);
+                    SendDual(code, (double)value);
                 }
                 else
                 {
@@ -518,8 +567,8 @@ namespace StepperVSITester
         {
             UpdateValueLabel(lblRpmeValue, trkRpme.Value, "%");
             txtRpmeInput.Text = trkRpme.Value.ToString();
-            Send("RPME", trkRpme.Value);
-            SendDual("RPME", trkRpme.Value);
+            Send("RPME", (double)trkRpme.Value);
+            SendDual("RPME", (double)trkRpme.Value);
         }
 
         private void butRpmeZero_Click(object sender, EventArgs e)
@@ -527,20 +576,20 @@ namespace StepperVSITester
             trkRpme.Value = 0;
             txtRpmeInput.Text = "0";
             UpdateValueLabel(lblRpmeValue, 0, "%");
-            Send("RPME", 0);
-            SendDual("RPME", 0);
+            Send("RPME", 0.0);
+            SendDual("RPME", 0.0);
         }
 
         private void butSendRpme_Click(object sender, EventArgs e)
         {
-            SendManualValueBroadcast(trkRpme, txtRpmeInput, lblRpmeValue, "RPME", "%");
+            SendPercentManualValueBroadcast(trkRpme, txtRpmeInput, lblRpmeValue, "RPME", "%");
         }
 
         private void txtRpmeInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SendManualValueBroadcast(trkRpme, txtRpmeInput, lblRpmeValue, "RPME", "%");
+                SendPercentManualValueBroadcast(trkRpme, txtRpmeInput, lblRpmeValue, "RPME", "%");
             }
         }
 
@@ -555,8 +604,8 @@ namespace StepperVSITester
         {
             UpdateValueLabel(lblRpmrValue, trkRpmr.Value, "%");
             txtRpmrInput.Text = trkRpmr.Value.ToString();
-            Send("RPMR", trkRpmr.Value);
-            SendDual("RPMR", trkRpmr.Value);
+            Send("RPMR", (double)trkRpmr.Value);
+            SendDual("RPMR", (double)trkRpmr.Value);
         }
 
         private void butRpmrZero_Click(object sender, EventArgs e)
@@ -564,20 +613,20 @@ namespace StepperVSITester
             trkRpmr.Value = 0;
             txtRpmrInput.Text = "0";
             UpdateValueLabel(lblRpmrValue, 0, "%");
-            Send("RPMR", 0);
-            SendDual("RPMR", 0);
+            Send("RPMR", 0.0);
+            SendDual("RPMR", 0.0);
         }
 
         private void butSendRpmr_Click(object sender, EventArgs e)
         {
-            SendManualValueBroadcast(trkRpmr, txtRpmrInput, lblRpmrValue, "RPMR", "%");
+            SendPercentManualValueBroadcast(trkRpmr, txtRpmrInput, lblRpmrValue, "RPMR", "%");
         }
 
         private void txtRpmrInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                SendManualValueBroadcast(trkRpmr, txtRpmrInput, lblRpmrValue, "RPMR", "%");
+                SendPercentManualValueBroadcast(trkRpmr, txtRpmrInput, lblRpmrValue, "RPMR", "%");
             }
         }
 

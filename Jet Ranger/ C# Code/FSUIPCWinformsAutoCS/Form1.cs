@@ -516,9 +516,12 @@ namespace FSUIPCTest
                 // RPMR/RPME are captured here (RotorRpm/GeneralEngPctMaxRpm
                 // "changed" blocks) and appended to stepperPayload further down,
                 // since RSstepper/TSstepper do their own percent-to-step
-                // conversion on the board.
-                int rpmrPctForStepper = 0;
-                int rpmePctForStepper = 0;
+                // conversion on the board. double (not int) so the one-decimal
+                // -place precision sent below isn't truncated away first -
+                // both boards' tsPctToSteps()/rsPctToSteps() now take a float
+                // for the same reason.
+                double rpmrPctForStepper = 0;
+                double rpmePctForStepper = 0;
                 CIRCUIT_NAVCOM1_CHANGED_ON = false;
                 // Flag Power is available for guages through Master Electrical Bus 
                 if (mainBusVoltageValue >= 20)
@@ -572,7 +575,7 @@ namespace FSUIPCTest
                     // (see stepperPayload below).
                     frontPanelDataChanged = true;
                     ROTOR_RPM_PCT_1 = sFrontPanel.ROTOR_RPM_PCT_1.ToString();
-                    rpmrPctForStepper = (int)(sFrontPanel.ROTOR_RPM_PCT_1);
+                    rpmrPctForStepper = sFrontPanel.ROTOR_RPM_PCT_1;
                 }
                     ; // End Rotor RPM
 
@@ -585,7 +588,7 @@ namespace FSUIPCTest
                     // so this app just forwards the raw FSUIPC percent value.
                     frontPanelDataChanged = true;
                     GENERAL_ENG_PCT_MAX_RPM_1 = sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1.ToString();
-                    rpmePctForStepper = (int)(sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1);
+                    rpmePctForStepper = sFrontPanel.GENERAL_ENG_PCT_MAX_RPM_1;
                 }
                     ;  // End Engine RPM
 
@@ -809,17 +812,19 @@ namespace FSUIPCTest
                         // reversal - confirmed unrelated to VSI, root cause was
                         // the stepper driver electronics mishandling small step
                         // deltas; see JET_RANGER_STEPPER_CONTROLLER's summary.)
-                        // RPMR/RPME are sent as real (unmapped) percent - RSstepper/
-                        // TSstepper convert percent to steps on the board via
-                        // RS_PCT_TABLE/TS_PCT_TABLE, so no servo-position mapping
-                        // (RPMR_Process()/RPME_Process(), now removed) is needed
-                        // here any more.
+                        // RPMR/RPME are sent as real (unmapped) percent, one
+                        // decimal place (e.g. "82.4", not truncated to "82") -
+                        // RSstepper/TSstepper convert percent to steps on the
+                        // board via RS_PCT_TABLE/TS_PCT_TABLE (both boards' now
+                        // take a float there for the same reason), so no
+                        // servo-position mapping (RPMR_Process()/RPME_Process(),
+                        // now removed) is needed here any more.
                         int vsiRawFpm = (int)sFrontPanel.VERTICAL_SPEED;
                         string stepperPayload = "D,ALT:" + ALTITUDE
                             + ",VSI:" + vsiRawFpm.ToString()
                             + ",AGL:" + PLANE_ALT_ABOVE_GROUND
-                            + ",RPMR:" + rpmrPctForStepper.ToString()
-                            + ",RPME:" + rpmePctForStepper.ToString();
+                            + ",RPMR:" + rpmrPctForStepper.ToString("F1")
+                            + ",RPME:" + rpmePctForStepper.ToString("F1");
                         Byte[] stepperSendData = Encoding.ASCII.GetBytes(stepperPayload);
                         stepperClient.Send(stepperSendData, stepperSendData.Length);
 
@@ -840,8 +845,8 @@ namespace FSUIPCTest
                         // onZuluTimeChange().
                         int zuluHHMM = (zuluHours.Value * 100) + zuluMinutes.Value;
                         string dualStepperPayload = "D,ALT:" + ALTITUDE
-                            + ",RPMR:" + rpmrPctForStepper.ToString()
-                            + ",RPME:" + rpmePctForStepper.ToString()
+                            + ",RPMR:" + rpmrPctForStepper.ToString("F1")
+                            + ",RPME:" + rpmePctForStepper.ToString("F1")
                             + ",ZULU:" + zuluHHMM.ToString();
                         Byte[] dualStepperSendData = Encoding.ASCII.GetBytes(dualStepperPayload);
                         dualStepperClient.Send(dualStepperSendData, dualStepperSendData.Length);

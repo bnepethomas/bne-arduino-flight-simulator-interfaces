@@ -106,19 +106,31 @@ unit to use.
     sends `"D,IAS:<value>"`. On the board this goes through a real
     hand-measured `IAS_KT_TABLE` (9 points), not a placeholder scale.
 13. **RPME trackbar (`trkRpme_Scroll`) + Send/Zero**: range `0..117` %,
-    sends `"D,RPME:<value>"` (Turbine/Engine Speed) to **both**
+    sends `"D,RPME:<value>.0"` (Turbine/Engine Speed) to **both**
     `stepperClient` (`172.16.1.105`) and `dualStepperClient`
-    (`172.16.1.106`) via `SendManualValueBroadcast()` - `JET_RANGER_STEPPER_CONTROLLER.ino`
+    (`172.16.1.106`) via `SendPercentManualValueBroadcast()` (Send
+    button/Enter) or the double-typed `Send()`/`SendDual()` overloads
+    directly (trackbar scroll/Zero) - `JET_RANGER_STEPPER_CONTROLLER.ino`
     and `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` both drive this gauge
     identically (same `TS_PCT_TABLE`, since Turbine Speed wasn't one of
     the Dual Stepper board's repurposed gauges), so one trackbar drives
     both boards' Turbine Speed steppers together. Graduated here from a
     compact value-box row (see #15 below) once the calibration table
-    existed, same as EGT/IAS did earlier.
+    existed, same as EGT/IAS did earlier. **RPME/RPMR are the only two
+    codes in this tool sent with one decimal place** (e.g. `"82.0"`,
+    matching `FSUIPCWinformsAutoCS`'s own one-decimal RPMR/RPME wire
+    format) - the trackbar itself still only offers whole-percent
+    granularity (`TrackBar` has no fractional steps), so this only
+    changes what's put on the wire, not what the operator can dial in
+    here. Every other code in this tool remains a bare integer via the
+    original `long`-typed `Send()`/`SendDual()`/`SendManualValue()`/
+    `SendManualValueBroadcast()` (still used unchanged by ALT and
+    everything else).
 14. **RPMR trackbar (`trkRpmr_Scroll`) + Send/Zero**: range `0..117` %,
-    sends `"D,RPMR:<value>"` (Rotor Speed) to **both** boards, same
-    broadcast pattern as RPME above (`RS_PCT_TABLE`, same values as
-    `TS_PCT_TABLE`, unchanged on the Dual Stepper board too).
+    sends `"D,RPMR:<value>.0"` (Rotor Speed) to **both** boards, same
+    broadcast pattern and one-decimal wire format as RPME above
+    (`RS_PCT_TABLE`, same values as `TS_PCT_TABLE`, unchanged on the
+    Dual Stepper board too).
 15. **Real-Value Gauges compact rows** (`butSendEot`/`butSendEop`/
     `butSendXot`/`butSendXop`/`butSendGp`/`butSendFa`, each with a matching
     `txt*`/Enter handler): six more gauges with known real-world units but
@@ -182,7 +194,9 @@ unit to use.
     code on `172.16.1.105`.
 
 No unit conversion happens in this tool for VSI/ALT/Radar ALT/EGT/IAS/
-RPME/RPMR — whatever value is shown is sent as-is. On the Arduino side,
+RPME/RPMR — whatever value is shown is sent as-is (RPME/RPMR get a
+trailing `.0` appended per the one-decimal wire format above; every
+other code here is a bare integer). On the Arduino side,
 `VSI`, `AGL` (bench-test sketch only), `IAS`, `RPME`, and `RPMR` each go
 through their own real calibration (`VSI_FPM_TABLE`/`vsiFpmToSteps()`,
 `RADAR_ALT_FT_TABLE`/`radarAltFtToSteps()` on the bench-test sketch,
@@ -201,8 +215,8 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 
 | Target | Port | Purpose |
 |---|---|---|
-| `172.16.1.105` (Stepper Controller, via `stepperClient`) | 13136 | `"D,VSI:<fpm>"`, `"D,ALT:<feet>"`, `"D,AGL:<feet or steps>"`, `"D,ITT:<C>"`, `"D,IAS:<kt>"`, `"D,RPME:<pct>"`, `"D,RPMR:<pct>"`, `"D,ASTEP:<steps>/<intervalMs>"`, `"D,<OILT\|OILP\|XMSNT\|XMSNP\|N1\|FUEL>:<value>"`, and `"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"` test packets |
-| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<steps>"`, `"D,ELECTRICALLOAD:<steps>"`, `"D,ZULU:<HHMM>"` (all exclusive to this board); `"D,ALT:<feet>"`/`"D,RPME:<pct>"`/`"D,RPMR:<pct>"` (broadcast alongside `172.16.1.105` - see `SendManualValueBroadcast()`; `ALT` works here since this board's `ALTstepper`/`ALT` UDP case were re-enabled specifically for it); and every Raw Step Test panel code (`"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"`, also broadcast alongside `172.16.1.105` - `AGLRAW`/`TQ` are no-ops on this board, `ALTRAW` now works) |
+| `172.16.1.105` (Stepper Controller, via `stepperClient`) | 13136 | `"D,VSI:<fpm>"`, `"D,ALT:<feet>"`, `"D,AGL:<feet or steps>"`, `"D,ITT:<C>"`, `"D,IAS:<kt>"`, `"D,RPME:<pct>.0"`, `"D,RPMR:<pct>.0"`, `"D,ASTEP:<steps>/<intervalMs>"`, `"D,<OILT\|OILP\|XMSNT\|XMSNP\|N1\|FUEL>:<value>"`, and `"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"` test packets |
+| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<steps>"`, `"D,ELECTRICALLOAD:<steps>"`, `"D,ZULU:<HHMM>"` (all exclusive to this board); `"D,ALT:<feet>"`/`"D,RPME:<pct>.0"`/`"D,RPMR:<pct>.0"` (broadcast alongside `172.16.1.105` - `RPME`/`RPMR` via `SendPercentManualValueBroadcast()`/the double `Send()`/`SendDual()` overloads, `ALT` via the original `long`-typed `SendManualValueBroadcast()`; `ALT` works here since this board's `ALTstepper`/`ALT` UDP case were re-enabled specifically for it); and every Raw Step Test panel code (`"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"`, also broadcast alongside `172.16.1.105` - `AGLRAW`/`TQ` are no-ops on this board, `ALTRAW` now works) |
 
 ## Programs this communicates with
 

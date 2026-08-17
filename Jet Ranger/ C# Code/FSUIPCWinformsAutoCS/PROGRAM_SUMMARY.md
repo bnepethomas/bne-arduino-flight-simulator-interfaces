@@ -48,7 +48,16 @@ acting on them through the FSUIPC API instead of SimConnect.
      which does its own real-percent-to-step conversion
      (`RS_PCT_TABLE`/`TS_PCT_TABLE`), so this app just forwards the raw
      FSUIPC percent value in the Stepper Controller's own payload (see
-     next bullet). Leftover from the removal: the `Servos.RotorRpmPct1`/
+     next bullet) - now formatted to **one decimal place**
+     (`.ToString("F1")`, e.g. `"82.4"`) rather than truncated to a whole
+     number: `rpmrPctForStepper`/`rpmePctForStepper` are `double` (were
+     `int`, with an explicit truncating cast), since both boards'
+     `tsPctToSteps()`/`rsPctToSteps()`/`setTS()`/`setRS()` now take a
+     `float` and parse the wire value with `toFloat()` instead of
+     `toInt()`, so the fractional percent actually reaches their
+     calibration-table interpolation instead of being rounded away
+     before it left this app. Leftover from the removal: the
+     `Servos.RotorRpmPct1`/
      `Servos.GeneralEngPctMaxRpm1` enum members (and their
      `ServMinPosition`/`ServMaxPosition` array entries) are now unused —
      left in place rather than removed, since deleting an enum member

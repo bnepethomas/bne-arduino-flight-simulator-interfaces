@@ -30,7 +30,7 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 26,364 bytes (10%) | 3,733 bytes (45%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 27,298 bytes (10%) | 3,735 bytes (45%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
 Flashed to the bench Mega on COM4 several times across this sketch's
@@ -136,7 +136,8 @@ collides with `AllstepperEnablePin`.
    | `AGL` | raw steps | No real calibration yet (renamed from `RALT` to match `JET_RANGER_SERVO_CONTROLLER`/FSUIPCWinformsAutoCS's actual code) |
    | `OILT`/`XMSNT`/`ITT` | °C | `setEOT`/`setXOT`/`setEGT` via the shared placeholder linear scale (see the `FULL4WIRE_HOMING_STEPS` caution above) |
    | `OILP`/`XMSNP` | PSI | `setEOP`/`setXOP`, same placeholder scale |
-   | `RPME`/`RPMR`/`N1` | %, 0-120/120/105 | `setTS`/`setRS`/`setGP`, same placeholder scale |
+   | `RPME`/`RPMR` | %, 0-120/120, one decimal place (e.g. `82.4`) | `setTS`/`setRS`, same placeholder scale; parsed with `toFloat()` (not `toInt()`) and `tsPctToSteps()`/`rsPctToSteps()`/`setTS()`/`setRS()` all take `float` now, so the fractional percent reaches the interpolation instead of being truncated first |
+   | `N1` | %, 0-105 | `setGP`, same placeholder scale |
    | `FUEL` | US gal, 0-75 | `setFA`, same placeholder scale |
    | `OILTRAW`/`OILPRAW`/`XMSNTRAW`/`XMSNPRAW`/`ITTRAW`/`RPMERAW`/`RPMRRAW`/`N1RAW`/`FUELRAW` | raw steps | Each bypasses its real-value sibling's conversion |
    | `TQ` | raw steps | Renamed from `ET`, no real calibration requested |

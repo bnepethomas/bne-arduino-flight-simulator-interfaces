@@ -1042,8 +1042,11 @@ const int TS_PCT_TABLE_SIZE = sizeof(TS_PCT_TABLE) / sizeof(TS_PCT_TABLE[0]);
 // linear interpolation between the two nearest TS_PCT_TABLE rows (same
 // pattern as vsiFpmToSteps()/iasKtToSteps()/aglFtToSteps()). A pct value
 // outside the table's 0..117 range is clamped to whichever end is
-// nearest rather than extrapolated.
-long tsPctToSteps(long pct) {
+// nearest rather than extrapolated. Takes a float (not long) so the
+// one-decimal-place precision FSUIPCWinformsAutoCS now sends for RPME
+// (e.g. "82.4", was a truncated "82") actually reaches the interpolation
+// instead of being rounded away before it gets here.
+long tsPctToSteps(float pct) {
   if (pct <= TS_PCT_TABLE[0].pct) return TS_PCT_TABLE[0].step;
   if (pct >= TS_PCT_TABLE[TS_PCT_TABLE_SIZE - 1].pct) return TS_PCT_TABLE[TS_PCT_TABLE_SIZE - 1].step;
 
@@ -1059,7 +1062,7 @@ long tsPctToSteps(long pct) {
   return 0;  // unreachable - every pct is covered by the clamps or the loop above
 }
 
-void setTS(long TargetPct) {
+void setTS(float TargetPct) {
   TSstepper.moveTo(tsPctToSteps(TargetPct));
 }
 
@@ -1091,8 +1094,9 @@ const int RS_PCT_TABLE_SIZE = sizeof(RS_PCT_TABLE) / sizeof(RS_PCT_TABLE[0]);
 // linear interpolation between the two nearest RS_PCT_TABLE rows (same
 // pattern as tsPctToSteps() above). A pct value outside the table's
 // 0..117 range is clamped to whichever end is nearest rather than
-// extrapolated.
-long rsPctToSteps(long pct) {
+// extrapolated. Takes a float (not long) - same reasoning as
+// tsPctToSteps()'s own float parameter above.
+long rsPctToSteps(float pct) {
   if (pct <= RS_PCT_TABLE[0].pct) return RS_PCT_TABLE[0].step;
   if (pct >= RS_PCT_TABLE[RS_PCT_TABLE_SIZE - 1].pct) return RS_PCT_TABLE[RS_PCT_TABLE_SIZE - 1].step;
 
@@ -1108,7 +1112,7 @@ long rsPctToSteps(long pct) {
   return 0;  // unreachable - every pct is covered by the clamps or the loop above
 }
 
-void setRS(long TargetPct) {
+void setRS(float TargetPct) {
   RSstepper.moveTo(rsPctToSteps(TargetPct));
 }
 
@@ -1599,15 +1603,18 @@ void HandleOutputValuePair(String str) {
   } else if (ParameterName == "RPME") {
     // Real percent now (Turbine/Engine Speed, 0-117 - see TS_PCT_TABLE
     // above). Renamed from "TS" to match JET_RANGER_SERVO_CONTROLLER.ino's
-    // "RPME" (Engine RPM) - same real-world quantity.
-    setTS(ParameterValue.toInt());
+    // "RPME" (Engine RPM) - same real-world quantity. toFloat() (not
+    // toInt()) so FSUIPCWinformsAutoCS's one-decimal-place value (e.g.
+    // "82.4") isn't truncated before reaching setTS()/tsPctToSteps().
+    setTS(ParameterValue.toFloat());
   } else if (ParameterName == "RPMERAW") {
     // Distinct raw-step code, bypassing tsPctToSteps() above.
     TSstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "RPMR") {
     // Real percent now (Rotor Speed, 0-117 - see RS_PCT_TABLE above).
     // Renamed from "RS" to match JET_RANGER_SERVO_CONTROLLER.ino.
-    setRS(ParameterValue.toInt());
+    // toFloat() - same reasoning as RPME's above.
+    setRS(ParameterValue.toFloat());
   } else if (ParameterName == "RPMRRAW") {
     // Distinct raw-step code, bypassing rsPctToSteps() above.
     RSstepper.moveTo(ParameterValue.toInt());
