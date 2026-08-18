@@ -70,8 +70,14 @@
 
    Range is also now `0..110`, not `0..117` - values above 110% clamp to
    600 steps rather than extrapolating. `tsPctToSteps()`/`rsPctToSteps()`
-   (the interpolation functions) are unchanged; only the table data
-   differs. **New: `TSoffset`/`RSoffset`** - fine-trim step offsets
+   (the interpolation functions) now take a `float` `pct`, not `long` -
+   `RPME`/`RPMR` are parsed with `ParameterValue.toFloat()` (was
+   `.toInt()`) so the one-decimal-place precision
+   `FSUIPCWinformsAutoCS` now sends (e.g. `"82.4"`, was truncated to
+   `"82"`) actually reaches the interpolation instead of being rounded
+   away first; `setTS()`/`setRS()` are `float`-parametered to match. The
+   table data itself (0/55/100/110 → 0/300/535/600) is unchanged.
+   **New: `TSoffset`/`RSoffset`** - fine-trim step offsets
    added in `setTS()`/`setRS()` to the table's computed target, so the
    real needles' true mechanical zero can be dialled in without touching
    the calibration tables themselves - same pattern as `VSIoffset` (used
@@ -313,7 +319,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 49,874 bytes (19%) | 5,308 bytes (64%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 50,854 bytes (20%) | 5,310 bytes (64%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;
@@ -342,8 +348,8 @@ see its summary for their status.
 |---|---|---|
 | `FUELLOAD` | raw steps | `FuelLoadStepper.moveTo()` directly — no calibration table |
 | `ELECTRICALLOAD` | raw steps | `ElectricalLoadStepper.moveTo()` directly — no calibration table |
-| `RPME` | %, 0-110 (was 0-117) | `setTS()` via this board's own `TS_PCT_TABLE` (4 points, not 13) |
-| `RPMR` | %, 0-110 (was 0-117) | `setRS()` via this board's own `RS_PCT_TABLE` (4 points, not 13) |
+| `RPME` | %, 0-110 (was 0-117), one decimal place (e.g. `82.4`) | `setTS()` via this board's own `TS_PCT_TABLE` (4 points, not 13); parsed with `toFloat()`, not `toInt()` |
+| `RPMR` | %, 0-110 (was 0-117), one decimal place (e.g. `82.4`) | `setRS()` via this board's own `RS_PCT_TABLE` (4 points, not 13); parsed with `toFloat()`, not `toInt()` |
 | `ALT` | feet | `onAltMslFtChange()` via `feet * 0.72` (was `5.76`) - **enabled here**, unlike the original sketch (still `5.76`, still commented out). Also updates the Altimeter OLED |
 | `ALTRAW` | raw steps | `ALTstepper.moveTo()` directly, bypassing the conversion (and the OLED update) - also enabled here only |
 | `ZULU` | HHMM int (e.g. `1430`) | `onZuluTimeChange()` → gate-on-change + 300ms-throttled `updateClock()` on the Clock OLED. No stepper involved, no DCS-BIOS equivalent - FSUIPC-only |
