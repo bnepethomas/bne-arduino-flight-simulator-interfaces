@@ -346,11 +346,12 @@ namespace StepperVSITester
         //  - TQ/FLAPS/AOA/GFORCE/SPDMAX: gauges with no real calibration at all yet,
         //    so raw steps is their only option.
         //  - AGLRAW/IASRAW/ALTRAW/VSIRAW/OILTRAW/OILPRAW/XMSNTRAW/XMSNPRAW/ITTRAW/RPMERAW/
-        //    RPMRRAW/N1RAW/FUELRAW: distinct raw-step siblings of gauges that DO have
-        //    a real-unit code/section elsewhere in this form (the Radar ALT/IAS/ALT/VSI/
-        //    RPME/RPMR trackbars, the EGT/ITT trackbar, the OILT/OILP/XMSNT/XMSNP/N1/FUEL
-        //    rows) - lets the operator bypass that gauge's unit conversion for bench
-        //    testing without losing the real-value control.
+        //    RPMRRAW/N1RAW/FUELRAW/FUELLOADRAW/ELECTRICALLOADRAW: distinct raw-step
+        //    siblings of gauges that DO have a real-unit code/section elsewhere in
+        //    this form (the Radar ALT/IAS/ALT/VSI/RPME/RPMR trackbars, the EGT/ITT
+        //    trackbar, the OILT/OILP/XMSNT/XMSNP/N1/FUEL rows, and the FUELLOAD/
+        //    ELECTRICALLOAD rows below) - lets the operator bypass that gauge's unit
+        //    conversion for bench testing without losing the real-value control.
         // One shared control with a dropdown rather than a duplicate raw-step
         // trackbar/row next to every calibrated gauge - cheaper to keep in sync, and
         // easy to give a gauge its own dedicated raw control later if that turns out
@@ -362,7 +363,10 @@ namespace StepperVSITester
         // board's Radar Alt/Torque steppers were repurposed as Fuel
         // Load/Electrical Load - see FUELLOAD/ELECTRICALLOAD below) and are
         // silent no-ops on it, same as FLAPS/AOA/GFORCE/SPDMAX already are
-        // on both boards.
+        // on both boards. FUELLOADRAW/ELECTRICALLOADRAW are the mirror image -
+        // they only exist on 172.16.1.106 (FuelLoadStepper/ElectricalLoadStepper
+        // aren't declared on the single-board sketch at all), so they're silent
+        // no-ops on 172.16.1.105.
         // Fallback for when nothing is selected yet - "EOT" doesn't exist in
         // this dropdown any more (it graduated to its own row), so this
         // matches cboNewGauge's actual first item instead of a stale one.
@@ -480,10 +484,14 @@ namespace StepperVSITester
 
         // Same as SendRealValue() above, but sent to dualStepperClient
         // (172.16.1.106) instead of stepperClient (172.16.1.105) - for
-        // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's raw-step-only
-        // FUELLOAD/ELECTRICALLOAD codes, which don't exist on the
-        // single-board sketch.
-        private void SendDualRawValue(TextBox textBox, string code)
+        // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's FUELLOAD (PSI)/
+        // ELECTRICALLOAD (%) codes, which don't exist on the single-board
+        // sketch. Was named SendDualRawValue - renamed now that both codes
+        // take real units (FUEL_LOAD_PSI_TABLE/ELECTRICAL_LOAD_PCT_TABLE on
+        // the board side) rather than raw steps; this method itself never
+        // did any unit conversion either way, so its behaviour is
+        // unchanged.
+        private void SendDualValue(TextBox textBox, string code)
         {
             if (long.TryParse(textBox.Text, out long value))
             {
@@ -630,17 +638,22 @@ namespace StepperVSITester
             }
         }
 
-        // Dual Stepper (172.16.1.106) raw-step test rows - FUELLOAD/
-        // ELECTRICALLOAD only exist on JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino
+        // Dual Stepper (172.16.1.106) real-value test rows - FUELLOAD (PSI)/
+        // ELECTRICALLOAD (%) only exist on JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino
         // (that board's Radar Alt/Torque steppers repurposed as Fuel Load/
         // Electrical Load - see that sketch's PROGRAM_SUMMARY.md), so these
         // go through SendDual()/dualStepperClient rather than the
         // single-board Send()/stepperClient every other control here uses.
-        private void butSendFuelLoad_Click(object sender, EventArgs e) => SendDualRawValue(txtFuelLoad, "FUELLOAD");
-        private void txtFuelLoad_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendDualRawValue(txtFuelLoad, "FUELLOAD"); }
+        // Now that both codes have real calibration (FUEL_LOAD_PSI_TABLE/
+        // ELECTRICAL_LOAD_PCT_TABLE on the board), raw-step access is still
+        // available via the Raw Step Test dropdown's FUELLOADRAW/
+        // ELECTRICALLOADRAW entries below, same as every other calibrated
+        // gauge's "<CODE>RAW" sibling.
+        private void butSendFuelLoad_Click(object sender, EventArgs e) => SendDualValue(txtFuelLoad, "FUELLOAD");
+        private void txtFuelLoad_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendDualValue(txtFuelLoad, "FUELLOAD"); }
 
-        private void butSendElectricalLoad_Click(object sender, EventArgs e) => SendDualRawValue(txtElectricalLoad, "ELECTRICALLOAD");
-        private void txtElectricalLoad_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendDualRawValue(txtElectricalLoad, "ELECTRICALLOAD"); }
+        private void butSendElectricalLoad_Click(object sender, EventArgs e) => SendDualValue(txtElectricalLoad, "ELECTRICALLOAD");
+        private void txtElectricalLoad_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendDualValue(txtElectricalLoad, "ELECTRICALLOAD"); }
 
         // Clock OLED (172.16.1.106) manual test - hour/minute boxes are
         // combined into the HHMM-encoded "ZULU" wire format (e.g. 1430 for

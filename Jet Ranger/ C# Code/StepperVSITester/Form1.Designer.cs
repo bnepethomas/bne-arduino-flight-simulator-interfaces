@@ -464,7 +464,7 @@ namespace StepperVSITester
             // cboNewGauge
             //
             cboNewGauge.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboNewGauge.Items.AddRange(new object[] { "AGLRAW", "TQ", "FLAPS", "AOA", "GFORCE", "SPDMAX", "IASRAW", "ALTRAW", "VSIRAW", "OILTRAW", "OILPRAW", "XMSNTRAW", "XMSNPRAW", "ITTRAW", "RPMERAW", "RPMRRAW", "N1RAW", "FUELRAW" });
+            cboNewGauge.Items.AddRange(new object[] { "AGLRAW", "TQ", "FLAPS", "AOA", "GFORCE", "SPDMAX", "IASRAW", "ALTRAW", "VSIRAW", "OILTRAW", "OILPRAW", "XMSNTRAW", "XMSNPRAW", "ITTRAW", "RPMERAW", "RPMRRAW", "N1RAW", "FUELRAW", "FUELLOADRAW", "ELECTRICALLOADRAW" });
             cboNewGauge.Location = new Point(12, 675);
             cboNewGauge.Name = "cboNewGauge";
             cboNewGauge.Size = new Size(100, 23);
@@ -1030,7 +1030,7 @@ namespace StepperVSITester
             lblDualStepperHeader.Name = "lblDualStepperHeader";
             lblDualStepperHeader.Size = new Size(300, 15);
             lblDualStepperHeader.TabIndex = 95;
-            lblDualStepperHeader.Text = "Dual Stepper (172.16.1.106) Raw Test";
+            lblDualStepperHeader.Text = "Dual Stepper (172.16.1.106) Test";
             //
             // lblFuelLoadRow
             //
@@ -1039,7 +1039,7 @@ namespace StepperVSITester
             lblFuelLoadRow.Name = "lblFuelLoadRow";
             lblFuelLoadRow.Size = new Size(200, 15);
             lblFuelLoadRow.TabIndex = 96;
-            lblFuelLoadRow.Text = "FUELLOAD - Fuel Load (raw steps):";
+            lblFuelLoadRow.Text = "FUELLOAD - Fuel Load (PSI, 0-30):";
             //
             // txtFuelLoad
             //
@@ -1067,7 +1067,7 @@ namespace StepperVSITester
             lblElectricalLoadRow.Name = "lblElectricalLoadRow";
             lblElectricalLoadRow.Size = new Size(200, 15);
             lblElectricalLoadRow.TabIndex = 99;
-            lblElectricalLoadRow.Text = "ELECTRICALLOAD - Electrical Load (raw steps):";
+            lblElectricalLoadRow.Text = "ELECTRICALLOAD - Electrical Load (%, 0-100):";
             //
             // txtElectricalLoad
             //

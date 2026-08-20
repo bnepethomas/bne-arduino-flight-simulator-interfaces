@@ -45,6 +45,8 @@ BACK_LIGHTS
 #define SwingIAS false
 #define SwingVSI false
 #define SwingRPM true
+#define SwingFUELLOAD true
+#define SwingELECTRICALLOAD true
 
 
 int Ethernet_In_Use = 1;
@@ -1064,10 +1066,12 @@ void setup() {
   // X27-style homing, NOT bench-confirmed for this specific gauge.
   // Wrapped in `if (false)` - present and compiled, but currently
   // DISABLED, matching the single-board sketch's own Radar Alt swing.
-  if (false) {
+
+
+  if (SwingFUELLOAD) {
     SendDebug("Start FuelLoadStepper");
     FuelLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    FuelLoadStepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+    FuelLoadStepper.runToNewPosition(0);
     FuelLoadStepper.setCurrentPosition(0);
 
     for (int i = 1; i <= SwingLoops; i++) {
@@ -1082,6 +1086,38 @@ void setup() {
     SendDebug("End FuelLoadStepper");
   }
   // ################# End Fuel Load Startup #########################
+
+  // ################# Start Electrical Load Startup #########################
+  // Same wind/zero/3-swing-loop pattern as the Fuel Load block above,
+  // reusing the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS
+  // constants (see the macro-precedence caution on VSI's homing above -
+  // the same "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640"
+  // issue applies here too). This stepper (pins 36-39) drove Torque
+  // ("TQ") on the single-board sketch this was forked from; this board
+  // repurposes it as Electrical Load instead (see ElectricalLoadStepper
+  // above), but the physical hardware and homing behaviour is unchanged.
+  // Direction sign and step range are an unverified assumption carried
+  // over from Fuel Load/IAS/VSI's X27-style homing, NOT bench-confirmed
+  // for this specific gauge. SwingELECTRICALLOAD was already #defined
+  // above but had no matching startup block until now.
+  if (SwingELECTRICALLOAD) {
+    SendDebug("Start ElectricalLoadStepper");
+    ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    ElectricalLoadStepper.runToNewPosition(0);
+    ElectricalLoadStepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Electrical Load to Max");
+      ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Electrical Load to Zero");
+      ElectricalLoadStepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End ElectricalLoadStepper");
+  }
+  // ################# End Electrical Load Startup #########################
 
   // ################# Start Turbine Speed Startup #########################
   // Same wind/zero/3-swing-loop pattern as the IAS/Radar Alt blocks
@@ -1754,14 +1790,100 @@ void setFA(long TargetGal) {
 
 // ################################### START FUEL LOAD ##############################################
 
-// No real calibration table exists yet for Fuel Load (this stepper was
-// Radar Alt - and had a real AGL_FT_TABLE - on the single-board sketch
-// this was forked from; that table described radar altitude in feet, not
-// fuel load, so it was removed rather than reused/renamed). Until a real
-// hand-measured percent-or-gallon-to-step table is provided, FUELLOAD is
-// raw steps only - see the UDP handler below.
+// Fuel Load PSI-to-step calibration table, hand-measured on the bench
+// (same pattern as IAS_KT_TABLE/TS_PCT_TABLE above). "step" is the raw
+// step target for FuelLoadStepper.moveTo(). This stepper was Radar Alt -
+// and had a real AGL_FT_TABLE - on the single-board sketch this was
+// forked from; that table described radar altitude in feet, not PSI, so
+// it was removed rather than reused/renamed. Only two points measured so
+// far (0 and 30 PSI) - fuelLoadPsiToSteps()'s interpolation is exact
+// between them but a straight-line guess above 30 PSI until a higher
+// point is bench-measured. Sorted ascending by psi -
+// fuelLoadPsiToSteps() below relies on that order.
+struct PsiToStepEntry {
+  long psi;
+  long step;
+};
+
+const PsiToStepEntry FUEL_LOAD_PSI_TABLE[] = {
+  { 0, 0 },
+  { 30, 160 },
+};
+const int FUEL_LOAD_PSI_TABLE_SIZE = sizeof(FUEL_LOAD_PSI_TABLE) / sizeof(FUEL_LOAD_PSI_TABLE[0]);
+
+// Converts a requested fuel load in PSI into a step target by linear
+// interpolation between the two nearest FUEL_LOAD_PSI_TABLE rows (same
+// pattern as iasKtToSteps()/tsPctToSteps()). A psi value outside the
+// table's 0..30 range is clamped to whichever end is nearest rather than
+// extrapolated.
+long fuelLoadPsiToSteps(long psi) {
+  if (psi <= FUEL_LOAD_PSI_TABLE[0].psi) return FUEL_LOAD_PSI_TABLE[0].step;
+  if (psi >= FUEL_LOAD_PSI_TABLE[FUEL_LOAD_PSI_TABLE_SIZE - 1].psi) return FUEL_LOAD_PSI_TABLE[FUEL_LOAD_PSI_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < FUEL_LOAD_PSI_TABLE_SIZE - 1; i++) {
+    long psiLo = FUEL_LOAD_PSI_TABLE[i].psi;
+    long psiHi = FUEL_LOAD_PSI_TABLE[i + 1].psi;
+    if (psi >= psiLo && psi <= psiHi) {
+      long stepLo = FUEL_LOAD_PSI_TABLE[i].step;
+      long stepHi = FUEL_LOAD_PSI_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(psi - psiLo) * (stepHi - stepLo) / (double)(psiHi - psiLo));
+    }
+  }
+  return 0;  // unreachable - every psi is covered by the clamps or the loop above
+}
+
+void setFuelLoad(long TargetPsi) {
+  FuelLoadStepper.moveTo(fuelLoadPsiToSteps(TargetPsi));
+}
 
 // ################################### END FUEL LOAD ##############################################
+
+// ################################### START ELECTRICAL LOAD ##############################################
+
+// Electrical Load percent-to-step calibration table, hand-measured on the
+// bench (reuses the PctToStepEntry struct TS_PCT_TABLE/RS_PCT_TABLE
+// already declared above). "step" is the raw step target for
+// ElectricalLoadStepper.moveTo(). This stepper (pins 36-39) was Torque
+// (UDP code "TQ") on the single-board sketch this was forked from; this
+// board repurposes it as Electrical Load instead. Unlike every other
+// table in this sketch, the 0% row is NOT the stepper's raw zero - it's
+// 22 steps, bench-measured same as the 100% row - so
+// electricalLoadPctToSteps() interpolates between two real measured
+// points instead of assuming a 0-real-unit/0-step origin. Sorted
+// ascending by pct - electricalLoadPctToSteps() below relies on that
+// order.
+const PctToStepEntry ELECTRICAL_LOAD_PCT_TABLE[] = {
+  { 0, 22 },
+  { 100, 200 },
+};
+const int ELECTRICAL_LOAD_PCT_TABLE_SIZE = sizeof(ELECTRICAL_LOAD_PCT_TABLE) / sizeof(ELECTRICAL_LOAD_PCT_TABLE[0]);
+
+// Converts a requested electrical load in percent into a step target by
+// linear interpolation between the two nearest ELECTRICAL_LOAD_PCT_TABLE
+// rows (same pattern as tsPctToSteps()/rsPctToSteps() above). A pct value
+// outside the table's 0..100 range is clamped to whichever end is
+// nearest rather than extrapolated.
+long electricalLoadPctToSteps(long pct) {
+  if (pct <= ELECTRICAL_LOAD_PCT_TABLE[0].pct) return ELECTRICAL_LOAD_PCT_TABLE[0].step;
+  if (pct >= ELECTRICAL_LOAD_PCT_TABLE[ELECTRICAL_LOAD_PCT_TABLE_SIZE - 1].pct) return ELECTRICAL_LOAD_PCT_TABLE[ELECTRICAL_LOAD_PCT_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < ELECTRICAL_LOAD_PCT_TABLE_SIZE - 1; i++) {
+    long pctLo = ELECTRICAL_LOAD_PCT_TABLE[i].pct;
+    long pctHi = ELECTRICAL_LOAD_PCT_TABLE[i + 1].pct;
+    if (pct >= pctLo && pct <= pctHi) {
+      long stepLo = ELECTRICAL_LOAD_PCT_TABLE[i].step;
+      long stepHi = ELECTRICAL_LOAD_PCT_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(pct - pctLo) * (stepHi - stepLo) / (double)(pctHi - pctLo));
+    }
+  }
+  return 0;  // unreachable - every pct is covered by the clamps or the loop above
+}
+
+void setElectricalLoad(long TargetPct) {
+  ElectricalLoadStepper.moveTo(electricalLoadPctToSteps(TargetPct));
+}
+
+// ################################### END ELECTRICAL LOAD ##############################################
 
 
 // SARI
@@ -2121,13 +2243,16 @@ void HandleOutputValuePair(String str) {
     // Distinct raw-step code, bypassing the VSI_FPM_TABLE lookup above.
     VSIstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "FUELLOAD") {
-    // Raw steps only - no real calibration table exists yet for this
-    // gauge (see "START FUEL LOAD" above). This stepper (pins 32-35) was
-    // Radar Alt (UDP code "AGL", real AGL_FT_TABLE calibration) on the
-    // single-board sketch this was forked from; this board repurposes it
-    // as Fuel Load instead, so "AGL"/"AGLRAW" no longer exist here -
-    // replaced by this single raw-step code until a real percent- or
-    // gallon-to-step table is provided.
+    // Real PSI now (see setFuelLoad()/FUEL_LOAD_PSI_TABLE, "START FUEL
+    // LOAD" above - only 0/30 PSI bench-measured so far). This stepper
+    // (pins 32-35) was Radar Alt (UDP code "AGL", real AGL_FT_TABLE
+    // calibration) on the single-board sketch this was forked from; this
+    // board repurposes it as Fuel Load instead, so "AGL" no longer exists
+    // here.
+    setFuelLoad(ParameterValue.toInt());
+  } else if (ParameterName == "FUELLOADRAW") {
+    // Distinct raw-step code, bypassing fuelLoadPsiToSteps() above - same
+    // pattern as every other calibrated gauge's "<CODE>RAW" sibling.
     FuelLoadStepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "OILT") {
     // Real degrees C now (Engine Oil Temperature, 0-150) - see setEOT()/
@@ -2190,12 +2315,15 @@ void HandleOutputValuePair(String str) {
     // Distinct raw-step code, bypassing faGalToSteps() above.
     FAstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "ELECTRICALLOAD") {
-    // Raw steps only - no real calibration table exists yet for this
-    // gauge. This stepper (pins 36-39) was Torque (UDP code "TQ") on the
-    // single-board sketch this was forked from; this board repurposes it
-    // as Electrical Load instead, so "TQ" no longer exists here -
-    // replaced by this raw-step code until a real calibration table is
-    // provided.
+    // Real percent now (see setElectricalLoad()/ELECTRICAL_LOAD_PCT_TABLE,
+    // "START ELECTRICAL LOAD" above). This stepper (pins 36-39) was Torque
+    // (UDP code "TQ") on the single-board sketch this was forked from;
+    // this board repurposes it as Electrical Load instead, so "TQ" no
+    // longer exists here.
+    setElectricalLoad(ParameterValue.toInt());
+  } else if (ParameterName == "ELECTRICALLOADRAW") {
+    // Distinct raw-step code, bypassing electricalLoadPctToSteps() above -
+    // same pattern as every other calibrated gauge's "<CODE>RAW" sibling.
     ElectricalLoadStepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "OILP") {
     // Real PSI now (Engine Oil Pressure, 0-150). Renamed from "EOP" to
@@ -2258,9 +2386,12 @@ void BlankAllOleds() {
 // No-data watchdog (see lastMSFSDataMillis/noDataTimeoutMs above) - drives
 // every gauge on this board to its calibrated zero, the same target each
 // gauge's own real-value setter would compute for a "CODE:0" packet
-// (offset-aware for TS/RS/VSI). FuelLoadStepper/ElectricalLoadStepper have
-// no calibration table (raw steps only), so their "zero" is just
-// .moveTo(0), the same raw target FUELLOAD:0/ELECTRICALLOAD:0 would send.
+// (offset-aware for TS/RS/VSI). FuelLoadStepper/ElectricalLoadStepper now
+// go through setFuelLoad(0)/setElectricalLoad(0) (FUEL_LOAD_PSI_TABLE's 0
+// PSI row / ELECTRICAL_LOAD_PCT_TABLE's 0% row), same as every other
+// calibrated gauge - note ELECTRICAL_LOAD_PCT_TABLE's 0% row is 22 steps,
+// not the stepper's raw 0, so setElectricalLoad(0) lands there, not at
+// .moveTo(0) like the old raw-only reset did.
 // ALTstepper moves to its raw zero directly (not via onAltMslFtChange(),
 // which would redraw the Altimeter OLED's digits to "0" - BlankAllOleds()
 // below clears it instead). iLastAltitudeValue/iLastZuluTimeValue are
@@ -2282,8 +2413,8 @@ void ResetGaugesToZero() {
   setRS(0);
   setFA(0);
   ALTstepper.moveTo(0);
-  FuelLoadStepper.moveTo(0);
-  ElectricalLoadStepper.moveTo(0);
+  setFuelLoad(0);
+  setElectricalLoad(0);
   BlankAllOleds();
   iLastAltitudeValue = -1;
   iLastZuluTimeValue = -1;

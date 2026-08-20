@@ -149,18 +149,23 @@ unit to use.
     are currently no-ops on production, see the caution above), and the
     distinct `*RAW` siblings of every calibrated gauge (`IASRAW`/
     `ALTRAW`/`VSIRAW`/`OILTRAW`/`OILPRAW`/`XMSNTRAW`/`XMSNPRAW`/`ITTRAW`/
-    `RPMERAW`/`RPMRRAW`/`N1RAW`/`FUELRAW`), letting the operator bypass a
-    gauge's unit conversion for bench testing without losing its
-    real-value control. Every send from this panel goes to **both**
-    `stepperClient` (`172.16.1.105`) and `dualStepperClient`
+    `RPMERAW`/`RPMRRAW`/`N1RAW`/`FUELRAW`/`FUELLOADRAW`/
+    `ELECTRICALLOADRAW`), letting the operator bypass a gauge's unit
+    conversion for bench testing without losing its real-value control.
+    `FUELLOADRAW`/`ELECTRICALLOADRAW` were added once #18 below graduated
+    those two codes to real units. Every send from this panel goes to
+    **both** `stepperClient` (`172.16.1.105`) and `dualStepperClient`
     (`172.16.1.106`) - `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` accepts
     all of these except `AGLRAW`/`TQ` (that board's Radar Alt/Torque
     steppers were repurposed - see #18 below), which are silent no-ops on
     it, same as `FLAPS`/`AOA`/`GFORCE`/`SPDMAX` already are on both
-    boards. `SelectedNewGaugeCode()` centralises the dropdown-selection
-    fallback (`"TQ"`, matching the dropdown's actual first item - was a
-    stale `"EOT"` fallback left over from before `EOT` graduated to its
-    own row).
+    boards. `FUELLOADRAW`/`ELECTRICALLOADRAW` are the mirror image - they
+    only exist on `172.16.1.106` (`FuelLoadStepper`/`ElectricalLoadStepper`
+    aren't declared on the single-board sketch), so they're silent no-ops
+    on `172.16.1.105`. `SelectedNewGaugeCode()` centralises the
+    dropdown-selection fallback (`"TQ"`, matching the dropdown's actual
+    first item - was a stale `"EOT"` fallback left over from before `EOT`
+    graduated to its own row).
 17. **-1 Step / +1 Step buttons** (`butNewGaugeStepBack_Click`/
     `butNewGaugeStepFwd_Click`): nudge `txtNewGaugeSteps`'s value by ±1
     and resend via the same `SelectedNewGaugeCode()` (also broadcast to
@@ -169,39 +174,47 @@ unit to use.
     only means one physical step if the stepper actually reached the
     previous target before the next click (`AccelStepper`'s acceleration
     ramp takes a moment).
-18. **Dual Stepper Raw Test rows** (`butSendFuelLoad`/`butSendElectricalLoad`,
-    each with a matching `txt*`/Enter handler): sends `FUELLOAD` and
-    `ELECTRICALLOAD` raw steps **exclusively** to `dualStepperClient`
-    (`172.16.1.106:13136`) via `SendDual()`/`SendDualRawValue()` - unlike
+18. **Dual Stepper Test rows** (`butSendFuelLoad`/`butSendElectricalLoad`,
+    each with a matching `txt*`/Enter handler): sends `FUELLOAD` (PSI) and
+    `ELECTRICALLOAD` (%) real values **exclusively** to `dualStepperClient`
+    (`172.16.1.106:13136`) via `SendDual()`/`SendDualValue()` (renamed from
+    `SendDualRawValue()` - the method itself never did any unit conversion,
+    only the meaning of the value on the board side changed) - unlike
     #16/#17 and RPME/RPMR above, these two are never sent to
     `172.16.1.105`, since they have no equivalent there. These two codes
     only exist on
     [`JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino`](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)
     (a fork of the production sketch, its own board, its own IP) - that
     sketch repurposed its Radar Alt and Torque steppers as Fuel Load and
-    Electrical Load respectively. No real calibration table exists yet
-    for either, so both are raw-step-only, matching the board side.
+    Electrical Load respectively. Both now have a real bench-measured
+    calibration table (`FUEL_LOAD_PSI_TABLE`: 0 PSI→0 steps, 30 PSI→160
+    steps; `ELECTRICAL_LOAD_PCT_TABLE`: 0%→22 steps, 100%→200 steps) - raw
+    steps are still reachable via the `FUELLOADRAW`/`ELECTRICALLOADRAW`
+    entries in the Raw Step Test dropdown (#16 above).
 19. **Clock row** (`txtClockHour`/`txtClockMinute` + `butSendClock`, each
     with a matching Enter handler on both textboxes): two small textboxes
     (hour 0-23, minute 0-59, each validated separately) combined into the
     HHMM-encoded `ZULU` wire value (e.g. `1430` for 14:30) and sent
     **exclusively** to `dualStepperClient` (`172.16.1.106:13136`) via
     `SendClockValue()`/`SendDual()` - same "exclusive to this board"
-    pattern as the Dual Stepper Raw Test rows above (#18), since `ZULU`
+    pattern as the Dual Stepper Test rows above (#18), since `ZULU`
     only exists on
     [`JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino`](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)
     (drives its Clock OLED, `u8g2_CLOCK`) - there's no equivalent gauge or
     code on `172.16.1.105`.
 
 No unit conversion happens in this tool for VSI/ALT/Radar ALT/EGT/IAS/
-RPME/RPMR — whatever value is shown is sent as-is (RPME/RPMR get a
-trailing `.0` appended per the one-decimal wire format above; every
-other code here is a bare integer). On the Arduino side,
-`VSI`, `AGL` (bench-test sketch only), `IAS`, `RPME`, and `RPMR` each go
-through their own real calibration (`VSI_FPM_TABLE`/`vsiFpmToSteps()`,
+RPME/RPMR/FUELLOAD/ELECTRICALLOAD — whatever value is shown is sent as-is
+(RPME/RPMR get a trailing `.0` appended per the one-decimal wire format
+above; every other code here is a bare integer). On the Arduino side
+(`JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino`), `VSI`, `AGL` (bench-test
+sketch only), `IAS`, `RPME`, `RPMR`, `FUELLOAD`, and `ELECTRICALLOAD` each
+go through their own real calibration (`VSI_FPM_TABLE`/`vsiFpmToSteps()`,
 `RADAR_ALT_FT_TABLE`/`radarAltFtToSteps()` on the bench-test sketch,
 `IAS_KT_TABLE`/`iasKtToSteps()`, `TS_PCT_TABLE`/`tsPctToSteps()`,
-`RS_PCT_TABLE`/`rsPctToSteps()`), and a placeholder linear scale for
+`RS_PCT_TABLE`/`rsPctToSteps()`, `FUEL_LOAD_PSI_TABLE`/
+`fuelLoadPsiToSteps()`, `ELECTRICAL_LOAD_PCT_TABLE`/
+`electricalLoadPctToSteps()`), and a placeholder linear scale for
 `ITT`/the 6 remaining compact-row gauges pending real calibration, while
 `ALT` needs no such table — `onAltMslFtChange()`'s simple linear
 `feet * 5.76` conversion already produces a correct step count directly
@@ -215,8 +228,8 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 
 | Target | Port | Purpose |
 |---|---|---|
-| `172.16.1.105` (Stepper Controller, via `stepperClient`) | 13136 | `"D,VSI:<fpm>"`, `"D,ALT:<feet>"`, `"D,AGL:<feet or steps>"`, `"D,ITT:<C>"`, `"D,IAS:<kt>"`, `"D,RPME:<pct>.0"`, `"D,RPMR:<pct>.0"`, `"D,ASTEP:<steps>/<intervalMs>"`, `"D,<OILT\|OILP\|XMSNT\|XMSNP\|N1\|FUEL>:<value>"`, and `"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"` test packets |
-| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<steps>"`, `"D,ELECTRICALLOAD:<steps>"`, `"D,ZULU:<HHMM>"` (all exclusive to this board); `"D,ALT:<feet>"`/`"D,RPME:<pct>.0"`/`"D,RPMR:<pct>.0"` (broadcast alongside `172.16.1.105` - `RPME`/`RPMR` via `SendPercentManualValueBroadcast()`/the double `Send()`/`SendDual()` overloads, `ALT` via the original `long`-typed `SendManualValueBroadcast()`; `ALT` works here since this board's `ALTstepper`/`ALT` UDP case were re-enabled specifically for it); and every Raw Step Test panel code (`"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW>:<steps>"`, also broadcast alongside `172.16.1.105` - `AGLRAW`/`TQ` are no-ops on this board, `ALTRAW` now works) |
+| `172.16.1.105` (Stepper Controller, via `stepperClient`) | 13136 | `"D,VSI:<fpm>"`, `"D,ALT:<feet>"`, `"D,AGL:<feet or steps>"`, `"D,ITT:<C>"`, `"D,IAS:<kt>"`, `"D,RPME:<pct>.0"`, `"D,RPMR:<pct>.0"`, `"D,ASTEP:<steps>/<intervalMs>"`, `"D,<OILT\|OILP\|XMSNT\|XMSNP\|N1\|FUEL>:<value>"`, and `"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW\|FUELLOADRAW\|ELECTRICALLOADRAW>:<steps>"` test packets (`FUELLOADRAW`/`ELECTRICALLOADRAW` are silent no-ops here - see #16 above) |
+| `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<psi>"`, `"D,ELECTRICALLOAD:<pct>"`, `"D,ZULU:<HHMM>"` (all exclusive to this board); `"D,ALT:<feet>"`/`"D,RPME:<pct>.0"`/`"D,RPMR:<pct>.0"` (broadcast alongside `172.16.1.105` - `RPME`/`RPMR` via `SendPercentManualValueBroadcast()`/the double `Send()`/`SendDual()` overloads, `ALT` via the original `long`-typed `SendManualValueBroadcast()`; `ALT` works here since this board's `ALTstepper`/`ALT` UDP case were re-enabled specifically for it); and every Raw Step Test panel code (`"D,<TQ\|FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW\|FUELLOADRAW\|ELECTRICALLOADRAW>:<steps>"`, also broadcast alongside `172.16.1.105` - `AGLRAW`/`TQ` are no-ops on this board, `ALTRAW` now works, `FUELLOADRAW`/`ELECTRICALLOADRAW` are new and only work here) |
 
 ## Programs this communicates with
 
