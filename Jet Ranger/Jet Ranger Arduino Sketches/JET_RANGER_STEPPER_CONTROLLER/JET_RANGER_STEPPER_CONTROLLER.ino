@@ -38,8 +38,19 @@ BACK_LIGHTS
 /*
  *  */
 
-
-
+// Selective startup-swing gates, same pattern as
+// JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's SwingLoops/SwingALT/etc -
+// each stepper's boot wind/zero/swing self-test (see setup() below) is now
+// gated by its own named boolean instead of an ad-hoc `if (false)` or
+// running unconditionally, so any subset can be enabled/disabled without
+// touching the swing logic itself. Defaults below preserve this sketch's
+// prior behaviour exactly: VSI/IAS/AGL were `if (false)` (disabled),
+// TS/RS ran unconditionally (enabled) - only SwingRPM defaults to true.
+#define SwingLoops 3
+#define SwingVSI false
+#define SwingIAS false
+#define SwingAGL false
+#define SwingRPM true
 
 int Ethernet_In_Use = 1;
 int Reflector_In_Use = 1;
@@ -425,7 +436,7 @@ void setup() {
   digitalWrite(AllstepperEnablePin, false);
 
   // ################# Start VSI Startup #########################
-  if (false) {
+  if (SwingVSI) {
     SendDebug("Start VSI");
 
     // VSI is a direct-driven FULL4WIRE stepper on coil pins (COIL_VSI_A..D,
@@ -446,7 +457,7 @@ void setup() {
     VSIstepper.runToNewPosition(-X27_FULLWIRE_HOMING_STEPS);
     VSIstepper.setCurrentPosition(0);
 
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 1; i <= SwingLoops; i++) {
       SendDebug("Loop :" + String(i));
       VSIstepper.runToNewPosition(X27_FULLWIRE_STEPS);
       delay(200);
@@ -492,22 +503,21 @@ void setup() {
   // ################# End ALT Startup #########################
 
   // ################# Start IAS (Current Airspeed) Startup #########################
-  // Renamed from "Speed Current" to match IASstepper. Wrapped in
-  // `if (false)` - present and compiled, but currently DISABLED: this
-  // whole homing/swing sequence never runs at boot. Also note: as
-  // written this does two full blocking moves back-to-back with no
-  // run()/delay() between them (wind to X27_FULLWIRE_HOMING_STEPS, then
-  // immediately wind to -X27_FULLWIRE_STEPS) before zeroing - a bigger
-  // back-and-forth swing than VSI's equivalent single approach move, not
-  // obviously intentional. Re-verify this sequence before flipping the
-  // `if` to true.
-  if (false) {
+  // Renamed from "Speed Current" to match IASstepper. Gated by SwingIAS
+  // (default false, preserving the prior `if (false)`-disabled behaviour).
+  // Also note: as written this does two full blocking moves back-to-back
+  // with no run()/delay() between them (wind to X27_FULLWIRE_HOMING_STEPS,
+  // then immediately wind to -X27_FULLWIRE_STEPS) before zeroing - a
+  // bigger back-and-forth swing than VSI's equivalent single approach
+  // move, not obviously intentional. Re-verify this sequence before
+  // flipping SwingIAS to true.
+  if (SwingIAS) {
     SendDebug("Start IASstepper");
     IASstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
     IASstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
     IASstepper.setCurrentPosition(0);
 
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 1; i <= SwingLoops; i++) {
       SendDebug("Loop :" + String(i));
       SendDebug("Sending IAS to Max");
       IASstepper.runToNewPosition(X27_FULLWIRE_STEPS);
@@ -521,24 +531,26 @@ void setup() {
   //  ################ #End Speed Current Startup######################## #
 
   // ################# Start Radar Alt Startup #########################
-  // Same wind/zero/3-swing-loop pattern as the IAS block above, reusing
+  // Same wind/zero/swing-loop pattern as the IAS block above, reusing
   // the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see
   // the macro-precedence caution on VSI's homing above - the same
   // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
   // here too). RadarAltStepper had no startup routine at all before this
   // - direction sign and step range are an unverified assumption carried
   // over from IAS/VSI's X27-style homing, NOT bench-confirmed for this
-  // specific gauge. Unlike the IAS block above, this one is NOT wrapped
-  // in `if (false)` - it runs every boot. Confirm on the bench that it
-  // actually reaches the real end stop (and doesn't stall against it from
-  // the wrong side) before trusting it unattended.
-  if (false) {
+  // specific gauge. Gated by SwingAGL (default false) - this block was
+  // previously hardcoded `if (false)` despite an above comment claiming
+  // it ran every boot; that stale claim is corrected here rather than
+  // carried forward. Confirm on the bench that it actually reaches the
+  // real end stop (and doesn't stall against it from the wrong side)
+  // before trusting it unattended.
+  if (SwingAGL) {
     SendDebug("Start RadarAltStepper");
     RadarAltStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
     RadarAltStepper.runToNewPosition(-X27_FULLWIRE_STEPS);
     RadarAltStepper.setCurrentPosition(0);
 
-    for (int i = 1; i <= 3; i++) {
+    for (int i = 1; i <= SwingLoops; i++) {
       SendDebug("Loop :" + String(i));
       SendDebug("Sending Radar Alt to Max");
       RadarAltStepper.runToNewPosition(X27_FULLWIRE_STEPS);
@@ -552,7 +564,7 @@ void setup() {
   // ################# End Radar Alt Startup #########################
 
   // ################# Start Turbine Speed Startup #########################
-  // Same wind/zero/3-swing-loop pattern as the IAS/Radar Alt blocks
+  // Same wind/zero/swing-loop pattern as the IAS/Radar Alt blocks
   // above, reusing the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS
   // constants (see the macro-precedence caution on VSI's homing above -
   // the same "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640"
@@ -563,28 +575,33 @@ void setup() {
   // gauge's real "RPME" UDP path a max of 630 steps at 117% - close to
   // X27_FULLWIRE_STEPS (635), so this swing's step range is a reasonable
   // match rather than the ~2x overshoot it was before that table
-  // existed. Not wrapped in `if (false)` - runs every boot. Confirm on
-  // the bench that it actually reaches the real end stop (and doesn't
-  // stall against it from the wrong side) before trusting it unattended.
-  SendDebug("Start TSstepper");
-  TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-  TSstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
-  TSstepper.setCurrentPosition(0);
+  // existed. Gated by SwingRPM (default true, preserving this block's
+  // prior unconditional behaviour) - shared with the Rotor Speed block
+  // below, same as JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's
+  // SwingRPM gates both its TS and RS swings. Confirm on the bench that
+  // it actually reaches the real end stop (and doesn't stall against it
+  // from the wrong side) before trusting it unattended.
+  if (SwingRPM) {
+    SendDebug("Start TSstepper");
+    TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    TSstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+    TSstepper.setCurrentPosition(0);
 
-  for (int i = 1; i <= 3; i++) {
-    SendDebug("Loop :" + String(i));
-    SendDebug("Sending Turbine Speed to Max");
-    TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-    delay(200);
-    SendDebug("Returning Turbine Speed to Zero");
-    TSstepper.runToNewPosition(0);
-    delay(200);
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Turbine Speed to Max");
+      TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Turbine Speed to Zero");
+      TSstepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End TSstepper");
   }
-  SendDebug("End TSstepper");
   // ################# End Turbine Speed Startup #########################
 
   // ################# Start Rotor Speed Startup #########################
-  // Same wind/zero/3-swing-loop pattern as the IAS/Radar Alt/Turbine Speed
+  // Same wind/zero/swing-loop pattern as the IAS/Radar Alt/Turbine Speed
   // blocks above, reusing the same
   // X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see the
   // macro-precedence caution on VSI's homing above - the same
@@ -595,25 +612,28 @@ void setup() {
   // for this specific gauge. RS_PCT_TABLE (above) gives this gauge's real
   // "RPMR" UDP path a max of 630 steps at 117% - close to X27_FULLWIRE_STEPS
   // (635), same as Turbine Speed, so this swing's step range is a
-  // reasonable match rather than a big overshoot. Not wrapped in `if
-  // (false)` - runs every boot. Confirm on the bench that it actually
-  // reaches the real end stop (and doesn't stall against it from the wrong
-  // side) before trusting it unattended.
-  SendDebug("Start RSstepper");
-  RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-  RSstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
-  RSstepper.setCurrentPosition(0);
+  // reasonable match rather than a big overshoot. Gated by SwingRPM,
+  // shared with the Turbine Speed block above (see that block's comment).
+  // Confirm on the bench that it actually reaches the real end stop (and
+  // doesn't stall against it from the wrong side) before trusting it
+  // unattended.
+  if (SwingRPM) {
+    SendDebug("Start RSstepper");
+    RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    RSstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+    RSstepper.setCurrentPosition(0);
 
-  for (int i = 1; i <= 3; i++) {
-    SendDebug("Loop :" + String(i));
-    SendDebug("Sending Rotor Speed to Max");
-    RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-    delay(200);
-    SendDebug("Returning Rotor Speed to Zero");
-    RSstepper.runToNewPosition(0);
-    delay(200);
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Rotor Speed to Max");
+      RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Rotor Speed to Zero");
+      RSstepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End RSstepper");
   }
-  SendDebug("End RSstepper");
   // ################# End Rotor Speed Startup #########################
 
 

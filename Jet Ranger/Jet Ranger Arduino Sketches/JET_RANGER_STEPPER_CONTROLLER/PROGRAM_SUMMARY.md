@@ -54,10 +54,11 @@ diffed against each other line-for-line.
 
 | Stepper | Interface/pins | Status |
 |---|---|---|
-| `VSIstepper` | FULL4WIRE, `COIL_VSI_A..D` (7/8/9/11, wired C,D,A,B) | Active - real `VSI_FPM_TABLE` calibration, boot homing (3 swing loops) |
-| `IASstepper` (renamed from `SpeedCurrentstepper`) | FULL4WIRE, `STEPPER_SPD_A..D` (12/13/22/23, wired C,D,A,B) | Active - real `IAS_KT_TABLE` calibration (see below); its own boot startup/swing exists but is wrapped in `if (false)` and currently **never runs** |
-| `RadarAltStepper` | FULL4WIRE, `RADAR_ALT_COIL_A..D` (32/33/34/35, wired C,D,A,B) | Active, raw steps only (`AGL` code) - no real calibration yet |
-| `EOTstepper`, `XOTstepper`, `XOPstepper`, `EGTstepper`, `TSstepper`, `RSstepper`, `FAstepper`, `GPstepper`, `EOPstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes (see table below), all still using the placeholder `FULL4WIRE_HOMING_STEPS` linear scale (see caution below), none bench-homed |
+| `VSIstepper` | FULL4WIRE, `COIL_VSI_A..D` (7/8/9/11, wired C,D,A,B) | Active - real `VSI_FPM_TABLE` calibration, boot homing gated by `SwingVSI` (default `false`, so currently disabled - see selective-swing note below) |
+| `IASstepper` (renamed from `SpeedCurrentstepper`) | FULL4WIRE, `STEPPER_SPD_A..D` (12/13/22/23, wired C,D,A,B) | Active - real `IAS_KT_TABLE` calibration (see below); its own boot startup/swing exists but is gated by `SwingIAS` (default `false`) - previously a bare `if (false)`, now a named toggle with identical default behaviour |
+| `RadarAltStepper` | FULL4WIRE, `RADAR_ALT_COIL_A..D` (32/33/34/35, wired C,D,A,B) | Active, raw steps only (`AGL` code) - no real calibration yet. Boot startup/swing gated by `SwingAGL` (default `false`) - previously a bare `if (false)` whose own in-code comment incorrectly claimed it ran every boot; that stale claim was corrected when the named gate was added |
+| `EOTstepper`, `XOTstepper`, `XOPstepper`, `EGTstepper`, `FAstepper`, `GPstepper`, `EOPstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes (see table below), all still using the placeholder `FULL4WIRE_HOMING_STEPS` linear scale (see caution below), no boot startup/swing at all |
+| `TSstepper`, `RSstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes via `TS_PCT_TABLE`/`RS_PCT_TABLE` (see table below). Boot startup/swing gated by shared `SwingRPM` (default `true`) - previously ran unconditionally with no gate at all; the default preserves that prior always-on behaviour |
 | `ETstepper` | FULL4WIRE, `ET_COIL_A..D` (36/37/38/39) | Active, raw steps only (`TQ` code) |
 | `ALTstepper`, `SpeedMaxstepper`, `FlapsStepper`, `AOAstepper`, `GForcestepper` | — | **Removed.** Constructs, pin `#define`s (mostly), startup routines, DCS-BIOS bindings, and UDP codes for all five are commented out or deleted. `FlapsStepPin`/`FlapsDirectionPin` are the one pair of pin `#define`s left behind, now orphaned (nothing reads them). |
 | `SARIstepperRoll` | DRIVER, pins 30/32 | Declared and pin-claimed, but its `Nema8Stepper` binding is commented out - never `.run()`, never bound to DCS-BIOS. Still occupies pins 30/32 via its `AccelStepper` constructor. |
@@ -106,11 +107,18 @@ collides with `AllstepperEnablePin`.
 
 1. **Setup**: flashes status LEDs, brings up Ethernet (static IP,
    10ms retransmission timeout - see build verification above), ramps
-   `BACK_LIGHTS`. Homes VSI (blind wind via `X27_FULLWIRE_*`, 3 swing
-   loops - see the macro-precedence caution above). `IASstepper`'s own
-   startup/swing exists but is disabled (`if (false)`, see the roster
-   table above). `ALT`/`Flaps`/`AOA`/`G-Force` startup blocks are all
-   commented out. Starts DCS-BIOS, sets running-brightness backlighting.
+   `BACK_LIGHTS`. Each stepper's boot wind/zero/swing self-test is gated
+   by its own named boolean (`SwingVSI`/`SwingIAS`/`SwingAGL`/`SwingRPM`,
+   with a shared `SwingLoops` = 3 loop count) — same selective-swing
+   pattern `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` already used,
+   ported here to replace this sketch's previous mix of ad-hoc
+   `if (false)` gates (VSI/IAS/Radar Alt) and no gate at all (Turbine/
+   Rotor Speed, which ran unconditionally). Defaults preserve prior
+   behaviour exactly: `SwingVSI`/`SwingIAS`/`SwingAGL` = `false`,
+   `SwingRPM` = `true` (gates both `TSstepper` and `RSstepper`). `ALT`/
+   `Flaps`/`AOA`/`G-Force` startup blocks are all commented out (not
+   gated - those steppers don't exist in this sketch any more). Starts
+   DCS-BIOS, sets running-brightness backlighting.
 2. **Main loop** (`loop()`): toggles status LEDs; `DcsBios::loop()` is
    commented out (DCS-BIOS callbacks are registered but never pumped, so
    none fire from a live serial link in this build); `updateSteppers()`
