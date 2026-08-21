@@ -615,7 +615,7 @@ namespace StepperVSITester
             lblRealGaugesHeader.Name = "lblRealGaugesHeader";
             lblRealGaugesHeader.Size = new Size(300, 15);
             lblRealGaugesHeader.TabIndex = 46;
-            lblRealGaugesHeader.Text = "Real-Value Gauges (uncalibrated linear scale)";
+            lblRealGaugesHeader.Text = "Real-Value Gauges (OILT/OILP/XMSNT/XMSNP calibrated, rest uncalibrated linear scale)";
             //
             // lblEotRow
             //
@@ -624,7 +624,7 @@ namespace StepperVSITester
             lblEotRow.Name = "lblEotRow";
             lblEotRow.Size = new Size(200, 15);
             lblEotRow.TabIndex = 47;
-            lblEotRow.Text = "OILT - Engine Oil Temp (C, 0-150):";
+            lblEotRow.Text = "OILT - Engine Oil Temp (C, 0-150, cal):";
             //
             // txtEot
             //
@@ -652,7 +652,7 @@ namespace StepperVSITester
             lblEopRow.Name = "lblEopRow";
             lblEopRow.Size = new Size(200, 15);
             lblEopRow.TabIndex = 50;
-            lblEopRow.Text = "OILP - Engine Oil Pressure (PSI, 0-150):";
+            lblEopRow.Text = "OILP - Engine Oil Pressure (PSI, 0-150, cal):";
             //
             // txtEop
             //
@@ -680,7 +680,7 @@ namespace StepperVSITester
             lblXotRow.Name = "lblXotRow";
             lblXotRow.Size = new Size(200, 15);
             lblXotRow.TabIndex = 53;
-            lblXotRow.Text = "XMSNT - Transmission Oil Temp (C, 0-150):";
+            lblXotRow.Text = "XMSNT - Transmission Oil Temp (C, 0-150, cal):";
             //
             // txtXot
             //
@@ -708,7 +708,7 @@ namespace StepperVSITester
             lblXopRow.Name = "lblXopRow";
             lblXopRow.Size = new Size(200, 15);
             lblXopRow.TabIndex = 56;
-            lblXopRow.Text = "XMSNP - Transmission Oil Pressure (PSI, 0-150):";
+            lblXopRow.Text = "XMSNP - Transmission Oil Pressure (PSI, 0-150, cal):";
             //
             // txtXop
             //

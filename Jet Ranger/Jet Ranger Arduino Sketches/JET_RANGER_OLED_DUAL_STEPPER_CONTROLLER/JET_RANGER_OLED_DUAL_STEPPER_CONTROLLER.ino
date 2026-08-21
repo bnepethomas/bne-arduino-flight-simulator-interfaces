@@ -41,12 +41,16 @@ BACK_LIGHTS
  *  */
 
 #define SwingLoops 1
-#define SwingALT true
+#define SwingALT false
 #define SwingIAS false
 #define SwingVSI false
-#define SwingRPM true
-#define SwingFUELLOAD true
-#define SwingELECTRICALLOAD true
+#define SwingRPM false
+#define SwingFUELLOAD false
+#define SwingELECTRICALLOAD false
+#define SwingEOT true
+#define SwingEOP true
+#define SwingXOT true
+#define SwingXOP true
 
 
 int Ethernet_In_Use = 1;
@@ -344,8 +348,9 @@ AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_C, COIL_VSI_D, COIL_VS
 // board repurposes that stepper as a Fuel Load gauge instead, so the
 // object is renamed to match (was RadarAltStepper).
 AccelStepper FuelLoadStepper(AccelStepper::FULL4WIRE, STEPPER_FL_COIL_C, STEPPER_FL_COIL_D, STEPPER_FL_COIL_A, STEPPER_FL_COIL_B);
-AccelStepper EOTstepper(AccelStepper::FULL4WIRE, EOT_COIL_A, EOT_COIL_B, EOT_COIL_C, EOT_COIL_D);
-AccelStepper XOTstepper(AccelStepper::FULL4WIRE, XOT_COIL_A, XOT_COIL_B, XOT_COIL_C, XOT_COIL_D);
+AccelStepper EOTstepper(AccelStepper::FULL4WIRE, EOT_COIL_C, EOT_COIL_D, EOT_COIL_A, EOT_COIL_B);
+AccelStepper EOPstepper(AccelStepper::FULL4WIRE, EOP_COIL_A, EOP_COIL_B, EOP_COIL_C, EOP_COIL_D);
+AccelStepper XOTstepper(AccelStepper::FULL4WIRE, XOT_COIL_C, XOT_COIL_D, XOT_COIL_A, XOT_COIL_B);
 AccelStepper XOPstepper(AccelStepper::FULL4WIRE, XOP_COIL_A, XOP_COIL_B, XOP_COIL_C, XOP_COIL_D);
 AccelStepper EGTstepper(AccelStepper::FULL4WIRE, EGT_COIL_A, EGT_COIL_B, EGT_COIL_C, EGT_COIL_D);
 AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_C, TS_COIL_D, TS_COIL_A, TS_COIL_B);
@@ -357,7 +362,7 @@ AccelStepper FAstepper(AccelStepper::FULL4WIRE, FA_COIL_A, FA_COIL_B, FA_COIL_C,
 // object is renamed to match (was ETstepper).
 AccelStepper ElectricalLoadStepper(AccelStepper::FULL4WIRE, EL_COIL_A, EL_COIL_B, EL_COIL_C, EL_COIL_D);
 // AccelStepper GPstepper(AccelStepper::FULL4WIRE, GP_COIL_A, GP_COIL_B, GP_COIL_C, GP_COIL_D);
-AccelStepper EOPstepper(AccelStepper::FULL4WIRE, EOP_COIL_A, EOP_COIL_B, EOP_COIL_C, EOP_COIL_D);
+
 // ########################### END STEPPERS #########################################
 
 // ############################# BEGIN OLED #########################################
@@ -1119,6 +1124,127 @@ void setup() {
   }
   // ################# End Electrical Load Startup #########################
 
+  // ################# Start Engine Oil Temp Startup #########################
+  // Same wind/zero/swing-loop pattern as Fuel Load/Electrical Load above,
+  // but uses FULL4WIRE_STEPS/FULL4WIRE_HOMING_STEPS (315/316) instead of
+  // the X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS (630/631) those use.
+  // EOTstepper now has a real bench-measured table (EOT_C_TABLE, see
+  // "START ENGINE OIL TEMP" below) whose max (150C -> 231 steps) is well
+  // inside FULL4WIRE_STEPS (315), so this swing overshoots the real
+  // calibrated range for a fuller self-test, same as Fuel Load's swing
+  // overshoots its own calibrated range. EOTstepper previously had no
+  // startup routine at all. Direction sign is an unverified assumption
+  // carried over from the other swings' X27-style homing, NOT
+  // bench-confirmed for this specific gauge. Returns to 0, not an offset,
+  // since eotCToSteps(0) is already 0 (no fine-trim offset exists for
+  // this gauge, unlike TSoffset/RSoffset).
+  if (SwingEOT) {
+    SendDebug("Start EOTstepper");
+    EOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+    EOTstepper.runToNewPosition(-FULL4WIRE_STEPS);
+    EOTstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Engine Oil Temp to Max");
+      EOTstepper.runToNewPosition(FULL4WIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Engine Oil Temp to Zero");
+      EOTstepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End EOTstepper");
+  }
+  // ################# End Engine Oil Temp Startup #########################
+
+  // ################# Start Engine Oil Pressure Startup #########################
+  // Same pattern as Engine Oil Temp above. EOPstepper now has a real
+  // bench-measured table (EOP_PSI_TABLE, see "START ENGINE OIL PRESSURE"
+  // below) whose max (150 PSI -> 220 steps) is well inside FULL4WIRE_STEPS
+  // (315), so this swing uses the same FULL4WIRE_STEPS/
+  // FULL4WIRE_HOMING_STEPS range rather than X27's, overshooting the real
+  // calibrated range for a fuller self-test - same reasoning as EOT's
+  // swing above. EOPstepper previously had no startup routine at all.
+  // Direction sign is an unverified assumption, NOT bench-confirmed.
+  // Returns to 0, same reasoning as EOT above (eopPsiToSteps(0) is
+  // already 0).
+  if (SwingEOP) {
+    SendDebug("Start EOPstepper");
+    EOPstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+    EOPstepper.runToNewPosition(-FULL4WIRE_STEPS);
+    EOPstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Engine Oil Pressure to Max");
+      EOPstepper.runToNewPosition(FULL4WIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Engine Oil Pressure to Zero");
+      EOPstepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End EOPstepper");
+  }
+  // ################# End Engine Oil Pressure Startup #########################
+
+  // ################# Start Transmission Oil Temp Startup #########################
+  // Same wind/zero/swing-loop pattern as Engine Oil Temp/Pressure above,
+  // using FULL4WIRE_STEPS/FULL4WIRE_HOMING_STEPS (315/316). XOTstepper now
+  // has a real bench-measured table (XOT_C_TABLE, see "START TRANSMISSION
+  // OIL TEMP" below) whose max (150C -> 225 steps) is well inside
+  // FULL4WIRE_STEPS (315), so this swing overshoots the real calibrated
+  // range for a fuller self-test, same reasoning as EOT/EOP's swings
+  // above. XOTstepper previously had no startup routine at all. Direction
+  // sign is an unverified assumption, NOT bench-confirmed. Returns to 0
+  // (xotCToSteps(0) is already 0, no fine-trim offset exists for this
+  // gauge).
+  if (SwingXOT) {
+    SendDebug("Start XOTstepper");
+    XOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+    XOTstepper.runToNewPosition(-FULL4WIRE_STEPS);
+    XOTstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Transmission Oil Temp to Max");
+      XOTstepper.runToNewPosition(FULL4WIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Transmission Oil Temp to Zero");
+      XOTstepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End XOTstepper");
+  }
+  // ################# End Transmission Oil Temp Startup #########################
+
+  // ################# Start Transmission Oil Pressure Startup #########################
+  // Same pattern as Transmission Oil Temp above. XOPstepper now has a
+  // real bench-measured table (XOP_PSI_TABLE, see "START TRANSMISSION OIL
+  // PRESSURE" below) whose max (150 PSI -> 220 steps) is well inside
+  // FULL4WIRE_STEPS (315), so this swing overshoots the real calibrated
+  // range for a fuller self-test, same reasoning as the other graduated
+  // gauges' swings above. XOPstepper previously had no startup routine at
+  // all. Direction sign is an unverified assumption, NOT bench-confirmed.
+  // Returns to 0 (xopPsiToSteps(0) is already 0).
+  if (SwingXOP) {
+    SendDebug("Start XOPstepper");
+    XOPstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+    XOPstepper.runToNewPosition(-FULL4WIRE_STEPS);
+    XOPstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Transmission Oil Pressure to Max");
+      XOPstepper.runToNewPosition(FULL4WIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Transmission Oil Pressure to Zero");
+      XOPstepper.runToNewPosition(0);
+      delay(200);
+    }
+    SendDebug("End XOPstepper");
+  }
+  // ################# End Transmission Oil Pressure Startup #########################
+
   // ################# Start Turbine Speed Startup #########################
   // Same wind/zero/3-swing-loop pattern as the IAS/Radar Alt blocks
   // above, reusing the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS
@@ -1608,53 +1734,12 @@ void setEGT(long TargetC) {
 
 // ################################### START EOT/EOP/XOT/XOP/TS/RS/GP/FA ##############################################
 
-// Real-value UDP handlers for 8 more gauges, same linear-scale-onto-
+// Real-value UDP handlers for 5 more gauges, same linear-scale-onto-
 // FULL4WIRE_HOMING_STEPS placeholder approach as setEGT()/egtCToSteps()
 // above (see that section's comment for the full rationale) - none of
-// these steppers have bench-measured calibration either.
-#define EOT_MIN_C 0
-#define EOT_MAX_C 150
-long eotCToSteps(long tempC) {
-  if (tempC < EOT_MIN_C) tempC = EOT_MIN_C;
-  if (tempC > EOT_MAX_C) tempC = EOT_MAX_C;
-  return map(tempC, EOT_MIN_C, EOT_MAX_C, 0, FULL4WIRE_HOMING_STEPS);
-}
-void setEOT(long TargetC) {
-  EOTstepper.moveTo(eotCToSteps(TargetC));
-}
-
-#define EOP_MIN_PSI 0
-#define EOP_MAX_PSI 150
-long eopPsiToSteps(long psi) {
-  if (psi < EOP_MIN_PSI) psi = EOP_MIN_PSI;
-  if (psi > EOP_MAX_PSI) psi = EOP_MAX_PSI;
-  return map(psi, EOP_MIN_PSI, EOP_MAX_PSI, 0, FULL4WIRE_HOMING_STEPS);
-}
-void setEOP(long TargetPsi) {
-  EOPstepper.moveTo(eopPsiToSteps(TargetPsi));
-}
-
-#define XOT_MIN_C 0
-#define XOT_MAX_C 150
-long xotCToSteps(long tempC) {
-  if (tempC < XOT_MIN_C) tempC = XOT_MIN_C;
-  if (tempC > XOT_MAX_C) tempC = XOT_MAX_C;
-  return map(tempC, XOT_MIN_C, XOT_MAX_C, 0, FULL4WIRE_HOMING_STEPS);
-}
-void setXOT(long TargetC) {
-  XOTstepper.moveTo(xotCToSteps(TargetC));
-}
-
-#define XOP_MIN_PSI 0
-#define XOP_MAX_PSI 150
-long xopPsiToSteps(long psi) {
-  if (psi < XOP_MIN_PSI) psi = XOP_MIN_PSI;
-  if (psi > XOP_MAX_PSI) psi = XOP_MAX_PSI;
-  return map(psi, XOP_MIN_PSI, XOP_MAX_PSI, 0, FULL4WIRE_HOMING_STEPS);
-}
-void setXOP(long TargetPsi) {
-  XOPstepper.moveTo(xopPsiToSteps(TargetPsi));
-}
+// these steppers have bench-measured calibration either. EOT/EOP/XOT/XOP
+// graduated to real tables below (see START ENGINE OIL TEMP/PRESSURE,
+// START TRANSMISSION OIL TEMP/PRESSURE).
 
 // Turbine Speed (RPME) percent-to-step calibration table, hand-measured
 // on the bench specifically for this board (diverges from
@@ -1884,6 +1969,189 @@ void setElectricalLoad(long TargetPct) {
 }
 
 // ################################### END ELECTRICAL LOAD ##############################################
+
+// ################################### START ENGINE OIL TEMP ##############################################
+
+// Engine Oil Temp (OILT) degrees-C-to-step calibration table, hand-measured
+// on the bench. "step" is the raw step target for EOTstepper.moveTo().
+// Replaces the placeholder linear scale (0-150C mapped straight onto
+// 0..FULL4WIRE_HOMING_STEPS) EOT shared with EGT/XOT/XOP/N1/FUEL until
+// now - see the "EOT/EOP/XOT/XOP/TS/RS/GP/FA" section above for that
+// placeholder's rationale, which still applies to the others. Sorted
+// ascending by tempC - eotCToSteps() below relies on that order.
+struct CToStepEntry {
+  long tempC;
+  long step;
+};
+
+const CToStepEntry EOT_C_TABLE[] = {
+  { 0, 0 },
+  { 50, 79 },
+  { 100, 156 },
+  { 150, 231 },
+};
+const int EOT_C_TABLE_SIZE = sizeof(EOT_C_TABLE) / sizeof(EOT_C_TABLE[0]);
+
+// Converts a requested engine oil temperature in degrees C into a step
+// target by linear interpolation between the two nearest EOT_C_TABLE rows
+// (same pattern as tsPctToSteps()/fuelLoadPsiToSteps() above). A tempC
+// value outside the table's 0..150 range is clamped to whichever end is
+// nearest rather than extrapolated.
+long eotCToSteps(long tempC) {
+  if (tempC <= EOT_C_TABLE[0].tempC) return EOT_C_TABLE[0].step;
+  if (tempC >= EOT_C_TABLE[EOT_C_TABLE_SIZE - 1].tempC) return EOT_C_TABLE[EOT_C_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < EOT_C_TABLE_SIZE - 1; i++) {
+    long cLo = EOT_C_TABLE[i].tempC;
+    long cHi = EOT_C_TABLE[i + 1].tempC;
+    if (tempC >= cLo && tempC <= cHi) {
+      long stepLo = EOT_C_TABLE[i].step;
+      long stepHi = EOT_C_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(tempC - cLo) * (stepHi - stepLo) / (double)(cHi - cLo));
+    }
+  }
+  return 0;  // unreachable - every tempC is covered by the clamps or the loop above
+}
+
+void setEOT(long TargetC) {
+  EOTstepper.moveTo(eotCToSteps(TargetC));
+}
+
+// ################################### END ENGINE OIL TEMP ##############################################
+
+// ################################### START ENGINE OIL PRESSURE ##############################################
+
+// Engine Oil Pressure (OILP) PSI-to-step calibration table, hand-measured
+// on the bench (reuses the PsiToStepEntry struct FUEL_LOAD_PSI_TABLE
+// already declared above). "step" is the raw step target for
+// EOPstepper.moveTo(). Replaces the placeholder linear scale (0-150 PSI
+// mapped straight onto 0..FULL4WIRE_HOMING_STEPS) EOP shared with
+// EGT/XOT/XOP/N1/FUEL until now. Sorted ascending by psi -
+// eopPsiToSteps() below relies on that order.
+const PsiToStepEntry EOP_PSI_TABLE[] = {
+  { 0, 0 },
+  { 50, 74 },
+  { 100, 148 },
+  { 150, 220 },
+};
+const int EOP_PSI_TABLE_SIZE = sizeof(EOP_PSI_TABLE) / sizeof(EOP_PSI_TABLE[0]);
+
+// Converts a requested engine oil pressure in PSI into a step target by
+// linear interpolation between the two nearest EOP_PSI_TABLE rows (same
+// pattern as fuelLoadPsiToSteps()/eotCToSteps() above). A psi value
+// outside the table's 0..150 range is clamped to whichever end is
+// nearest rather than extrapolated.
+long eopPsiToSteps(long psi) {
+  if (psi <= EOP_PSI_TABLE[0].psi) return EOP_PSI_TABLE[0].step;
+  if (psi >= EOP_PSI_TABLE[EOP_PSI_TABLE_SIZE - 1].psi) return EOP_PSI_TABLE[EOP_PSI_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < EOP_PSI_TABLE_SIZE - 1; i++) {
+    long psiLo = EOP_PSI_TABLE[i].psi;
+    long psiHi = EOP_PSI_TABLE[i + 1].psi;
+    if (psi >= psiLo && psi <= psiHi) {
+      long stepLo = EOP_PSI_TABLE[i].step;
+      long stepHi = EOP_PSI_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(psi - psiLo) * (stepHi - stepLo) / (double)(psiHi - psiLo));
+    }
+  }
+  return 0;  // unreachable - every psi is covered by the clamps or the loop above
+}
+
+void setEOP(long TargetPsi) {
+  EOPstepper.moveTo(eopPsiToSteps(TargetPsi));
+}
+
+// ################################### END ENGINE OIL PRESSURE ##############################################
+
+// ################################### START TRANSMISSION OIL TEMP ##############################################
+
+// Transmission Oil Temp (XMSNT) degrees-C-to-step calibration table,
+// hand-measured on the bench (reuses the CToStepEntry struct EOT_C_TABLE
+// already declared above). "step" is the raw step target for
+// XOTstepper.moveTo(). Replaces the placeholder linear scale (0-150C
+// mapped straight onto 0..FULL4WIRE_HOMING_STEPS) XOT shared with
+// XOP/EGT/N1/FUEL until now. Sorted ascending by tempC - xotCToSteps()
+// below relies on that order.
+const CToStepEntry XOT_C_TABLE[] = {
+  { 0, 0 },
+  { 50, 75 },
+  { 100, 150 },
+  { 150, 225 },
+};
+const int XOT_C_TABLE_SIZE = sizeof(XOT_C_TABLE) / sizeof(XOT_C_TABLE[0]);
+
+// Converts a requested transmission oil temperature in degrees C into a
+// step target by linear interpolation between the two nearest
+// XOT_C_TABLE rows (same pattern as eotCToSteps()/eopPsiToSteps() above).
+// A tempC value outside the table's 0..150 range is clamped to whichever
+// end is nearest rather than extrapolated.
+long xotCToSteps(long tempC) {
+  if (tempC <= XOT_C_TABLE[0].tempC) return XOT_C_TABLE[0].step;
+  if (tempC >= XOT_C_TABLE[XOT_C_TABLE_SIZE - 1].tempC) return XOT_C_TABLE[XOT_C_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < XOT_C_TABLE_SIZE - 1; i++) {
+    long cLo = XOT_C_TABLE[i].tempC;
+    long cHi = XOT_C_TABLE[i + 1].tempC;
+    if (tempC >= cLo && tempC <= cHi) {
+      long stepLo = XOT_C_TABLE[i].step;
+      long stepHi = XOT_C_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(tempC - cLo) * (stepHi - stepLo) / (double)(cHi - cLo));
+    }
+  }
+  return 0;  // unreachable - every tempC is covered by the clamps or the loop above
+}
+
+void setXOT(long TargetC) {
+  XOTstepper.moveTo(xotCToSteps(TargetC));
+}
+
+// ################################### END TRANSMISSION OIL TEMP ##############################################
+
+// ################################### START TRANSMISSION OIL PRESSURE ##############################################
+
+// Transmission Oil Pressure (XMSNP) PSI-to-step calibration table,
+// hand-measured on the bench (reuses the PsiToStepEntry struct
+// FUEL_LOAD_PSI_TABLE/EOP_PSI_TABLE already declared above). "step" is
+// the raw step target for XOPstepper.moveTo(). Replaces the placeholder
+// linear scale (0-150 PSI mapped straight onto 0..FULL4WIRE_HOMING_STEPS)
+// XOP shared with EGT/N1/FUEL until now. 5 points (one more than
+// EOP_PSI_TABLE's 4) - sorted ascending by psi, xopPsiToSteps() below
+// relies on that order.
+const PsiToStepEntry XOP_PSI_TABLE[] = {
+  { 0, 0 },
+  { 50, 74 },
+  { 70, 104 },
+  { 100, 149 },
+  { 150, 220 },
+};
+const int XOP_PSI_TABLE_SIZE = sizeof(XOP_PSI_TABLE) / sizeof(XOP_PSI_TABLE[0]);
+
+// Converts a requested transmission oil pressure in PSI into a step
+// target by linear interpolation between the two nearest XOP_PSI_TABLE
+// rows (same pattern as eopPsiToSteps()/xotCToSteps() above). A psi value
+// outside the table's 0..150 range is clamped to whichever end is
+// nearest rather than extrapolated.
+long xopPsiToSteps(long psi) {
+  if (psi <= XOP_PSI_TABLE[0].psi) return XOP_PSI_TABLE[0].step;
+  if (psi >= XOP_PSI_TABLE[XOP_PSI_TABLE_SIZE - 1].psi) return XOP_PSI_TABLE[XOP_PSI_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < XOP_PSI_TABLE_SIZE - 1; i++) {
+    long psiLo = XOP_PSI_TABLE[i].psi;
+    long psiHi = XOP_PSI_TABLE[i + 1].psi;
+    if (psi >= psiLo && psi <= psiHi) {
+      long stepLo = XOP_PSI_TABLE[i].step;
+      long stepHi = XOP_PSI_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(psi - psiLo) * (stepHi - stepLo) / (double)(psiHi - psiLo));
+    }
+  }
+  return 0;  // unreachable - every psi is covered by the clamps or the loop above
+}
+
+void setXOP(long TargetPsi) {
+  XOPstepper.moveTo(xopPsiToSteps(TargetPsi));
+}
+
+// ################################### END TRANSMISSION OIL PRESSURE ##############################################
 
 
 // SARI

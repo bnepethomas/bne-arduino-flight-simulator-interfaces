@@ -463,18 +463,43 @@ namespace StepperVSITester
         // no trackbar, just a value box + Send, since a full trackbar section
         // per gauge (like VSI/ALT/Radar ALT/EGT above) would push the form well
         // past a normal screen height. Each board-side conversion is still the
-        // same "uncalibrated linear scale" placeholder as EGT's - see
-        // JET_RANGER_STEPPER_CONTROLLER.ino's setEOT()/setEOP()/etc. TS
-        // ("RPME")/RS ("RPMR") used to be compact rows here too, but graduated
-        // to full trackbar sections (below, near IAS) once real hand-measured
-        // TS_PCT_TABLE/RS_PCT_TABLE calibration existed for them - same
-        // "graduates once calibration is known" pattern EGT/IAS followed
-        // earlier.
+        // same "uncalibrated linear scale" placeholder as EGT's for GP/FA - see
+        // JET_RANGER_STEPPER_CONTROLLER.ino's setGP()/setFA()/etc. EOT/EOP/XOT/XOP
+        // all graduated to real calibration (see SendRealValueBroadcast() below)
+        // once JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's EOT_C_TABLE/
+        // EOP_PSI_TABLE/XOT_C_TABLE/XOP_PSI_TABLE existed. TS ("RPME")/RS ("RPMR")
+        // used to be compact rows here too, but graduated to full trackbar
+        // sections (below, near IAS) once real hand-measured TS_PCT_TABLE/
+        // RS_PCT_TABLE calibration existed for them - same "graduates once
+        // calibration is known" pattern EGT/IAS followed earlier.
         private void SendRealValue(TextBox textBox, string code)
         {
             if (long.TryParse(textBox.Text, out long value))
             {
                 Send(code, value);
+            }
+            else
+            {
+                MessageBox.Show("Value must be a number");
+            }
+        }
+
+        // Same as SendRealValue() above, but also broadcasts to
+        // dualStepperClient (172.16.1.106) - used for OILT/OILP/XMSNT/XMSNP
+        // now that both JET_RANGER_STEPPER_CONTROLLER.ino (172.16.1.105,
+        // still the placeholder linear scale) AND
+        // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino (172.16.1.106, real
+        // EOT_C_TABLE/EOP_PSI_TABLE/XOT_C_TABLE/XOP_PSI_TABLE calibration -
+        // see that sketch's PROGRAM_SUMMARY.md) have their own EOTstepper/
+        // EOPstepper/XOTstepper/XOPstepper responding to these codes. See
+        // SendManualValueBroadcast() above for the same broadcast reasoning
+        // applied to ALT/RPME/RPMR.
+        private void SendRealValueBroadcast(TextBox textBox, string code)
+        {
+            if (long.TryParse(textBox.Text, out long value))
+            {
+                Send(code, value);
+                SendDual(code, value);
             }
             else
             {
@@ -509,18 +534,23 @@ namespace StepperVSITester
         // etc.), only the string handed to Send() changed. RPME/RPMR followed
         // this same rename but have since graduated to their own trackbar
         // sections below (near IAS) - see SendRealValue's callers here for
-        // the remaining six.
-        private void butSendEot_Click(object sender, EventArgs e) => SendRealValue(txtEot, "OILT");
-        private void txtEot_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtEot, "OILT"); }
+        // the remaining two (N1/FUEL). OILT/OILP/XMSNT/XMSNP all use
+        // SendRealValueBroadcast() instead of SendRealValue() (below) now
+        // that JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino has its own
+        // calibrated EOT/EOP/XOT/XOP (EOT_C_TABLE/EOP_PSI_TABLE/
+        // XOT_C_TABLE/XOP_PSI_TABLE) alongside JET_RANGER_STEPPER_CONTROLLER.ino's
+        // own (still placeholder) EOT/EOP/XOT/XOP.
+        private void butSendEot_Click(object sender, EventArgs e) => SendRealValueBroadcast(txtEot, "OILT");
+        private void txtEot_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValueBroadcast(txtEot, "OILT"); }
 
-        private void butSendEop_Click(object sender, EventArgs e) => SendRealValue(txtEop, "OILP");
-        private void txtEop_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtEop, "OILP"); }
+        private void butSendEop_Click(object sender, EventArgs e) => SendRealValueBroadcast(txtEop, "OILP");
+        private void txtEop_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValueBroadcast(txtEop, "OILP"); }
 
-        private void butSendXot_Click(object sender, EventArgs e) => SendRealValue(txtXot, "XMSNT");
-        private void txtXot_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtXot, "XMSNT"); }
+        private void butSendXot_Click(object sender, EventArgs e) => SendRealValueBroadcast(txtXot, "XMSNT");
+        private void txtXot_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValueBroadcast(txtXot, "XMSNT"); }
 
-        private void butSendXop_Click(object sender, EventArgs e) => SendRealValue(txtXop, "XMSNP");
-        private void txtXop_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtXop, "XMSNP"); }
+        private void butSendXop_Click(object sender, EventArgs e) => SendRealValueBroadcast(txtXop, "XMSNP");
+        private void txtXop_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValueBroadcast(txtXop, "XMSNP"); }
 
         private void butSendGp_Click(object sender, EventArgs e) => SendRealValue(txtGp, "N1");
         private void txtGp_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtGp, "N1"); }
