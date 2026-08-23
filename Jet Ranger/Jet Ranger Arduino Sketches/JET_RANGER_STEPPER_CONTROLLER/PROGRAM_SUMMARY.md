@@ -30,7 +30,7 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 27,298 bytes (10%) | 3,735 bytes (45%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 26,930 bytes (10%) | 3,639 bytes (44%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
 Flashed to the bench Mega on COM4 several times across this sketch's
@@ -59,7 +59,7 @@ diffed against each other line-for-line.
 | `RadarAltStepper` | FULL4WIRE, `RADAR_ALT_COIL_A..D` (32/33/34/35, wired C,D,A,B) | Active, raw steps only (`AGL` code) - no real calibration yet. Boot startup/swing gated by `SwingAGL` (default `false`) - previously a bare `if (false)` whose own in-code comment incorrectly claimed it ran every boot; that stale claim was corrected when the named gate was added |
 | `EOTstepper`, `XOTstepper`, `XOPstepper`, `EGTstepper`, `FAstepper`, `GPstepper`, `EOPstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes (see table below), all still using the placeholder `FULL4WIRE_HOMING_STEPS` linear scale (see caution below), no boot startup/swing at all |
 | `TSstepper`, `RSstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes via `TS_PCT_TABLE`/`RS_PCT_TABLE` (see table below). Boot startup/swing gated by shared `SwingRPM` (default `true`) - previously ran unconditionally with no gate at all; the default preserves that prior always-on behaviour |
-| `ETstepper` | FULL4WIRE, `ET_COIL_A..D` (36/37/38/39) | Active, raw steps only (`TQ` code) |
+| `TQstepper` (renamed from `ETstepper`, outside this doc pass) | FULL4WIRE, `ET_COIL_A..D` (36/37/38/39) | Real percent now via `setTQ()`/`TQ_PCT_TABLE` (`TQ` code) — 2-point bench-measured table (0%→0, 120%→600 steps; reuses the `PctToStepEntry` struct `TS_PCT_TABLE`/`RS_PCT_TABLE` also use). `TQRAW` added as the raw-step bypass. Boot startup/swing active, gated by `SwingTQ` (default `true`) - previously had no startup routine at all. Uses the same `X27_FULLWIRE_STEPS`/`X27_FULLWIRE_HOMING_STEPS` range as VSI/IAS/Radar Alt/TS/RS's swings — now a reasonable match rather than an arbitrary range, since the real 120% max (600 steps) is close to `X27_FULLWIRE_STEPS` (635) |
 | `ALTstepper`, `SpeedMaxstepper`, `FlapsStepper`, `AOAstepper`, `GForcestepper` | — | **Removed.** Constructs, pin `#define`s (mostly), startup routines, DCS-BIOS bindings, and UDP codes for all five are commented out or deleted. `FlapsStepPin`/`FlapsDirectionPin` are the one pair of pin `#define`s left behind, now orphaned (nothing reads them). |
 | `SARIstepperRoll` | DRIVER, pins 30/32 | Declared and pin-claimed, but its `Nema8Stepper` binding is commented out - never `.run()`, never bound to DCS-BIOS. Still occupies pins 30/32 via its `AccelStepper` constructor. |
 | `saiPitch` (`DcsBios::ServoOutput`, pin 9) | — | Active - SAI pitch axis, plain hobby servo |
@@ -115,10 +115,13 @@ collides with `AllstepperEnablePin`.
    `if (false)` gates (VSI/IAS/Radar Alt) and no gate at all (Turbine/
    Rotor Speed, which ran unconditionally). Defaults preserve prior
    behaviour exactly: `SwingVSI`/`SwingIAS`/`SwingAGL` = `false`,
-   `SwingRPM` = `true` (gates both `TSstepper` and `RSstepper`). `ALT`/
-   `Flaps`/`AOA`/`G-Force` startup blocks are all commented out (not
-   gated - those steppers don't exist in this sketch any more). Starts
-   DCS-BIOS, sets running-brightness backlighting.
+   `SwingRPM` = `true` (gates both `TSstepper` and `RSstepper`). A fifth
+   gate, `SwingTQ` (default `true`), was added afterward for `TQstepper`
+   (Torque) - the one gauge that never had a startup swing at all before,
+   so there was no prior behaviour to preserve. `ALT`/`Flaps`/`AOA`/
+   `G-Force` startup blocks are all commented out (not gated - those
+   steppers don't exist in this sketch any more). Starts DCS-BIOS, sets
+   running-brightness backlighting.
 2. **Main loop** (`loop()`): toggles status LEDs; `DcsBios::loop()` is
    commented out (DCS-BIOS callbacks are registered but never pumped, so
    none fire from a live serial link in this build); `updateSteppers()`
@@ -167,10 +170,42 @@ collides with `AllstepperEnablePin`.
    input doesn't reset the timer. This board's `ResetGaugesToZero()`
    calls `setIAS(0)`/`setVSI(0)`/`setEGT(0)`/`setEOT(0)`/`setEOP(0)`/
    `setXOT(0)`/`setXOP(0)`/`setTS(0)`/`setRS(0)`/`setGP(0)`/`setFA(0)`/
-   `setAGL(0)` (each the same target a real `"<CODE>:0"` packet would
-   produce), plus a direct `ETstepper.moveTo(0)` (Torque is raw-steps-only,
-   no `setXxx()` wrapper exists for it). `ALTstepper` is still fully
-   disabled on this sketch, so no altitude reset is included.
+   `setAGL(0)`/`setTQ(0)` (each the same target a real `"<CODE>:0"` packet
+   would produce, including that gauge's own zero-offset trim - see #7
+   below) - now every gauge on this board goes through its own `setXxx()`
+   wrapper here, `setTQ()` included now that Torque has real calibration.
+   `ALTstepper` is still fully disabled on this sketch, so no altitude
+   reset is included.
+7. **Per-gauge zero-offset trim** (`VSIZeroOffset`/`IASZeroOffset`/
+   `AGLZeroOffset`/`EGTZeroOffset`/`EOTZeroOffset`/`EOPZeroOffset`/
+   `XOTZeroOffset`/`XOPZeroOffset`/`TSZeroOffset`/`RSZeroOffset`/
+   `GPZeroOffset`/`FAZeroOffset`/`TQZeroOffset`, all `#define`'d near the
+   Swing gates above, all defaulting to `0`): same
+   fine-trim-without-touching-the-calibration-table purpose as
+   `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino`'s existing `TSoffset`/
+   `RSoffset`, now extended to every gauge in this sketch. Added inside
+   each gauge's real-value setter (`setEGT()`/`setEOT()`/etc), so it's
+   automatically picked up by that gauge's UDP path, DCS-BIOS callback
+   (where one exists), and the no-data-watchdog reset (#6 above) without
+   any of those call sites needing their own changes. Two gauges needed
+   special handling: **VSI** has two entry points that bypass `setVSI()`
+   for its real-unit path (`vsiFpmToSteps()`, called directly from
+   `HandleOutputValuePair()`), so `VSIZeroOffset` is added at both
+   `setVSI()` and that direct call site - and is deliberately *not* baked
+   into the boot swing's homing target, since that would double-apply the
+   trim (see the in-code comment on VSI's swing for the full reasoning).
+   **`TQstepper`** (Torque) was raw-steps-only with no `setXxx()` wrapper
+   at the time this offset was added, so `TQZeroOffset` was applied
+   directly at its UDP handler and `ResetGaugesToZero()` call sites -
+   Torque has since graduated to real `TQ_PCT_TABLE` calibration (see the
+   roster table above) and now has its own `setTQ()` wrapper like every
+   other gauge, so `TQZeroOffset` moved into that wrapper too; its `TQRAW`
+   sibling deliberately does NOT apply the offset, matching every other
+   gauge's own `*RAW` code. The five gauges with an existing boot startup
+   swing (VSI excepted, see above) also had their swing's "return to
+   zero" step updated to target that gauge's offset
+   instead of raw `0`, so the swing's final resting position matches
+   where the gauge will actually sit at runtime for a `"<CODE>:0"` packet.
 
 ## Pin usage (JET_RANGER_STEPPER_CONTROLLER.ino)
 

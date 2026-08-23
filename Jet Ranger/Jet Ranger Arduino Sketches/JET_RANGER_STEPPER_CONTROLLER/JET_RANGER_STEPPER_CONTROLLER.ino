@@ -17,7 +17,7 @@ AccelStepper EGTstepper
 AccelStepper TSstepper
 AccelStepper RSstepper
 AccelStepper FAstepper
-AccelStepper ETstepper
+AccelStepper TQstepper
 AccelStepper GPstepper
 AccelStepper EOPstepper
 
@@ -46,11 +46,41 @@ BACK_LIGHTS
 // touching the swing logic itself. Defaults below preserve this sketch's
 // prior behaviour exactly: VSI/IAS/AGL were `if (false)` (disabled),
 // TS/RS ran unconditionally (enabled) - only SwingRPM defaults to true.
-#define SwingLoops 3
+// SwingTQ is the exception - TQstepper (Torque) never had a startup
+// swing at all before now, so there's no prior behaviour to preserve;
+// defaults to true so the new swing actually runs.
+#define SwingLoops 2
 #define SwingVSI false
 #define SwingIAS false
 #define SwingAGL false
-#define SwingRPM true
+#define SwingRPM false
+#define SwingTQ true
+
+// Per-gauge fine-trim zero offsets (steps), same purpose/pattern as
+// JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's TSoffset/RSoffset: dial
+// in each real needle's true mechanical zero without touching that
+// gauge's calibration table itself. Applied inside each gauge's
+// real-value setter (setVSI()/setEGT()/etc - see each function below),
+// so a "<CODE>:0" packet, the no-data-watchdog reset, and this sketch's
+// boot startup swings (their "return to zero" step) all land on the same
+// trimmed position. Distinct from the existing `VSIoffset` above, which
+// is an unrelated homing-step scale-down estimate, not a runtime trim -
+// deliberately not reused here to avoid conflating the two. All default
+// to 0 (unmeasured, safe no-op) - must be #define'd here, before
+// setup(), since the startup swings use them too.
+#define VSIZeroOffset 0
+#define IASZeroOffset 0
+#define AGLZeroOffset 0
+#define EGTZeroOffset 0
+#define EOTZeroOffset 0
+#define EOPZeroOffset 0
+#define XOTZeroOffset 0
+#define XOPZeroOffset 0
+#define TSZeroOffset 0
+#define RSZeroOffset 0
+#define GPZeroOffset 0
+#define FAZeroOffset 0
+#define TQZeroOffset 23
 
 int Ethernet_In_Use = 1;
 int Reflector_In_Use = 1;
@@ -301,6 +331,7 @@ unsigned long previousMillis = 0;
 // Direct-drive (FULL4WIRE) step count, no overshoot multiplier needed -
 // originally for Flaps, now also used by VSI's homing below since VSI
 // moved from a geared DRIVER motor onto direct coils.
+#define FULL4WIRE_STEPS 315
 #define FULL4WIRE_HOMING_STEPS 315 + 5
 #define X27_FULLWIRE_STEPS 635
 #define X27_FULLWIRE_HOMING_STEPS X27_FULLWIRE_STEPS + 1
@@ -321,7 +352,7 @@ AccelStepper EGTstepper(AccelStepper::FULL4WIRE, EGT_COIL_A, EGT_COIL_B, EGT_COI
 AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_C, TS_COIL_D, TS_COIL_A, TS_COIL_B);
 AccelStepper RSstepper(AccelStepper::FULL4WIRE, RS_COIL_C, RS_COIL_D, RS_COIL_A, RS_COIL_B);
 AccelStepper FAstepper(AccelStepper::FULL4WIRE, FA_COIL_A, FA_COIL_B, FA_COIL_C, FA_COIL_D);
-AccelStepper ETstepper(AccelStepper::FULL4WIRE, ET_COIL_A, ET_COIL_B, ET_COIL_C, ET_COIL_D);
+AccelStepper TQstepper(AccelStepper::FULL4WIRE, ET_COIL_C, ET_COIL_D, ET_COIL_A, ET_COIL_B);
 AccelStepper GPstepper(AccelStepper::FULL4WIRE, GP_COIL_A, GP_COIL_B, GP_COIL_C, GP_COIL_D);
 AccelStepper EOPstepper(AccelStepper::FULL4WIRE, EOP_COIL_A, EOP_COIL_B, EOP_COIL_C, EOP_COIL_D);
 // ########################### END STEPPERS #########################################
@@ -425,8 +456,8 @@ void setup() {
   RSstepper.setAcceleration(STEPPER_ACCELERATION);
   FAstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   FAstepper.setAcceleration(STEPPER_ACCELERATION);
-  ETstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  ETstepper.setAcceleration(STEPPER_ACCELERATION);
+  TQstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  TQstepper.setAcceleration(STEPPER_ACCELERATION);
   GPstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   GPstepper.setAcceleration(STEPPER_ACCELERATION);
   EOPstepper.setMaxSpeed(STEPPER_MAX_SPEED);
@@ -466,6 +497,14 @@ void setup() {
     }
 
     // Move VSI to zero position and set
+    // Deliberately NOT adding VSIZeroOffset here: this setCurrentPosition(0)
+    // redefines the stepper's own internal zero reference, which setVSI()/
+    // the real-time "VSI" UDP path (see HandleOutputValuePair() below) then
+    // add VSIZeroOffset on top of at every move - baking the trim in here
+    // too would double-apply it. VSI's homing works differently from every
+    // other gauge's swing (which just zero at the raw post-wind position and
+    // never redefine it again), so it's the one gauge whose swing doesn't
+    // reference its ZeroOffset directly.
     VSIstepper.runToNewPosition((X27_FULLWIRE_STEPS / 2) - VSIoffset);
     VSIstepper.setCurrentPosition(0);
     SendDebug("End VSI");
@@ -523,7 +562,7 @@ void setup() {
       IASstepper.runToNewPosition(X27_FULLWIRE_STEPS);
       delay(200);
       SendDebug("Returning IAS to Zero");
-      IASstepper.runToNewPosition(0);
+      IASstepper.runToNewPosition(IASZeroOffset);
       delay(200);
     }
     SendDebug("End IASstepper");
@@ -556,7 +595,7 @@ void setup() {
       RadarAltStepper.runToNewPosition(X27_FULLWIRE_STEPS);
       delay(200);
       SendDebug("Returning Radar Alt to Zero");
-      RadarAltStepper.runToNewPosition(0);
+      RadarAltStepper.runToNewPosition(AGLZeroOffset);
       delay(200);
     }
     SendDebug("End RadarAltStepper");
@@ -593,7 +632,7 @@ void setup() {
       TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
       delay(200);
       SendDebug("Returning Turbine Speed to Zero");
-      TSstepper.runToNewPosition(0);
+      TSstepper.runToNewPosition(TSZeroOffset);
       delay(200);
     }
     SendDebug("End TSstepper");
@@ -629,12 +668,52 @@ void setup() {
       RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
       delay(200);
       SendDebug("Returning Rotor Speed to Zero");
-      RSstepper.runToNewPosition(0);
+      RSstepper.runToNewPosition(RSZeroOffset);
       delay(200);
     }
     SendDebug("End RSstepper");
   }
   // ################# End Rotor Speed Startup #########################
+
+  // ################# Start Torque Startup #########################
+  // Same wind/zero/swing-loop pattern as VSI/IAS/Radar Alt/Turbine Speed/
+  // Rotor Speed above, reusing the same
+  // X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see the
+  // macro-precedence caution on VSI's homing above - the same
+  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
+  // here too). TQstepper (Torque, UDP code "TQ" - stepper object renamed
+  // from ETstepper to TQstepper elsewhere in this sketch) now has a real
+  // bench-measured table (TQ_PCT_TABLE, see "START TORQUE" above) whose
+  // 120% max (600 steps) is close to X27_FULLWIRE_STEPS (635), so this
+  // swing's step range is a reasonable match rather than a large
+  // overshoot - same reasoning as Radar Alt/TS/RS's swings above. This
+  // swing still moves TQstepper directly in raw steps rather than through
+  // setTQ()/tqPctToSteps(), same as every other gauge's own swing.
+  // TQstepper had no startup routine at all before this. Direction sign
+  // is an unverified assumption, NOT bench-confirmed. Each loop's "return
+  // to zero" (and the swing's final resting position) targets
+  // TQZeroOffset, not raw 0 - same trimmed target ResetGaugesToZero()'s
+  // `setTQ(0)` now uses. The initial homing wind-back before
+  // `setCurrentPosition(0)` is left at raw 0, since it's establishing the
+  // stepper's own internal reference, not a real-world position.
+  if (SwingTQ) {
+    SendDebug("Start TQstepper");
+    TQstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    TQstepper.runToNewPosition(0);
+    TQstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Torque to Max");
+      TQstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Torque to Zero");
+      TQstepper.runToNewPosition(TQZeroOffset);
+      delay(200);
+    }
+    SendDebug("End TQstepper");
+  }
+  // ################# End Torque Startup #########################
 
 
 
@@ -774,7 +853,11 @@ DcsBios::IntegerBuffer intFloodLBrightBuffer(A_10C_INT_FLOOD_L_BRIGHT, onIntFloo
 // ################################### START AIRSPEED CURRENT ##############################################
 void setCurrentAirspeed(long TargetCurrentAirSpeed) {
   // SendDebug("Airspeed = " + String(TargetCurrentAirSpeed));
-  IASstepper.moveTo(TargetCurrentAirSpeed);
+  // IASZeroOffset applied here (not in setIAS() below) so it covers both
+  // callers - the real-unit "IAS" UDP path (via setIAS()) and the
+  // DCS-BIOS onAirspeedNeedleChange path, since it's a physical trim of
+  // this stepper, not something specific to the knots conversion.
+  IASstepper.moveTo(TargetCurrentAirSpeed + IASZeroOffset);
 }
 void onAirspeedNeedleChange(unsigned int newValue) {
   // SendDebug("onAirspeedDialChange = " + String(newValue));
@@ -861,7 +944,11 @@ void setVSI(long TargetVSI) {
     TargetVSI = -VSIMaxSteps;
   }
   // SendDebug("VSI = " + String(TargetVSI));
-  VSIstepper.moveTo(TargetVSI);
+  // VSIZeroOffset applied here for the DCS-BIOS (onVviChange) path and
+  // ResetGaugesToZero()'s setVSI(0) call - the separate real-unit "VSI"
+  // UDP path (see HandleOutputValuePair() below) bypasses this function
+  // entirely, so it applies VSIZeroOffset itself at its own moveTo() call.
+  VSIstepper.moveTo(TargetVSI + VSIZeroOffset);
 }
 
 // VSI fpm-to-step calibration table, hand-measured on the bench (same
@@ -970,7 +1057,7 @@ long egtCToSteps(long tempC) {
 }
 
 void setEGT(long TargetC) {
-  EGTstepper.moveTo(egtCToSteps(TargetC));
+  EGTstepper.moveTo(egtCToSteps(TargetC) + EGTZeroOffset);
 }
 
 // ################################### END EGT ##############################################
@@ -989,7 +1076,7 @@ long eotCToSteps(long tempC) {
   return map(tempC, EOT_MIN_C, EOT_MAX_C, 0, FULL4WIRE_HOMING_STEPS);
 }
 void setEOT(long TargetC) {
-  EOTstepper.moveTo(eotCToSteps(TargetC));
+  EOTstepper.moveTo(eotCToSteps(TargetC) + EOTZeroOffset);
 }
 
 #define EOP_MIN_PSI 0
@@ -1000,7 +1087,7 @@ long eopPsiToSteps(long psi) {
   return map(psi, EOP_MIN_PSI, EOP_MAX_PSI, 0, FULL4WIRE_HOMING_STEPS);
 }
 void setEOP(long TargetPsi) {
-  EOPstepper.moveTo(eopPsiToSteps(TargetPsi));
+  EOPstepper.moveTo(eopPsiToSteps(TargetPsi) + EOPZeroOffset);
 }
 
 #define XOT_MIN_C 0
@@ -1011,7 +1098,7 @@ long xotCToSteps(long tempC) {
   return map(tempC, XOT_MIN_C, XOT_MAX_C, 0, FULL4WIRE_HOMING_STEPS);
 }
 void setXOT(long TargetC) {
-  XOTstepper.moveTo(xotCToSteps(TargetC));
+  XOTstepper.moveTo(xotCToSteps(TargetC) + XOTZeroOffset);
 }
 
 #define XOP_MIN_PSI 0
@@ -1022,7 +1109,7 @@ long xopPsiToSteps(long psi) {
   return map(psi, XOP_MIN_PSI, XOP_MAX_PSI, 0, FULL4WIRE_HOMING_STEPS);
 }
 void setXOP(long TargetPsi) {
-  XOPstepper.moveTo(xopPsiToSteps(TargetPsi));
+  XOPstepper.moveTo(xopPsiToSteps(TargetPsi) + XOPZeroOffset);
 }
 
 // Turbine Speed (RPME) percent-to-step calibration table, hand-measured
@@ -1083,7 +1170,7 @@ long tsPctToSteps(float pct) {
 }
 
 void setTS(float TargetPct) {
-  TSstepper.moveTo(tsPctToSteps(TargetPct));
+  TSstepper.moveTo(tsPctToSteps(TargetPct) + TSZeroOffset);
 }
 
 // Rotor Speed (RPMR) percent-to-step calibration table, hand-measured on
@@ -1133,7 +1220,7 @@ long rsPctToSteps(float pct) {
 }
 
 void setRS(float TargetPct) {
-  RSstepper.moveTo(rsPctToSteps(TargetPct));
+  RSstepper.moveTo(rsPctToSteps(TargetPct) + RSZeroOffset);
 }
 
 #define GP_MIN_PCT 0
@@ -1144,7 +1231,7 @@ long gpPctToSteps(long pct) {
   return map(pct, GP_MIN_PCT, GP_MAX_PCT, 0, FULL4WIRE_HOMING_STEPS);
 }
 void setGP(long TargetPct) {
-  GPstepper.moveTo(gpPctToSteps(TargetPct));
+  GPstepper.moveTo(gpPctToSteps(TargetPct) + GPZeroOffset);
 }
 
 #define FA_MIN_GAL 0
@@ -1155,10 +1242,54 @@ long faGalToSteps(long gal) {
   return map(gal, FA_MIN_GAL, FA_MAX_GAL, 0, FULL4WIRE_HOMING_STEPS);
 }
 void setFA(long TargetGal) {
-  FAstepper.moveTo(faGalToSteps(TargetGal));
+  FAstepper.moveTo(faGalToSteps(TargetGal) + FAZeroOffset);
 }
 
 // ################################### END EOT/EOP/XOT/XOP/TS/RS/GP/FA ##############################################
+
+// ################################### START TORQUE ##############################################
+
+// Torque (TQ) percent-to-step calibration table, hand-measured on the
+// bench (reuses the PctToStepEntry struct TS_PCT_TABLE/RS_PCT_TABLE
+// already declared above). "step" is the raw step target for
+// TQstepper.moveTo(). Replaces the fully raw pass-through TQstepper had
+// before (it never even had a placeholder linear scale like EOT/EOP/
+// XOT/XOP/EGT/GP/FA did). Only two points given so far (0% and 120%) -
+// tqPctToSteps()'s interpolation is exact between them but a straight-line
+// guess above 120% until a higher point is bench-measured. Sorted
+// ascending by pct - tqPctToSteps() below relies on that order.
+const PctToStepEntry TQ_PCT_TABLE[] = {
+  { 0, 0 },
+  { 120, 600 },
+};
+const int TQ_PCT_TABLE_SIZE = sizeof(TQ_PCT_TABLE) / sizeof(TQ_PCT_TABLE[0]);
+
+// Converts a requested torque in percent into a step target by linear
+// interpolation between the two nearest TQ_PCT_TABLE rows (same pattern
+// as tsPctToSteps()/faGalToSteps() above). A pct value outside the
+// table's 0..120 range is clamped to whichever end is nearest rather
+// than extrapolated.
+long tqPctToSteps(long pct) {
+  if (pct <= TQ_PCT_TABLE[0].pct) return TQ_PCT_TABLE[0].step;
+  if (pct >= TQ_PCT_TABLE[TQ_PCT_TABLE_SIZE - 1].pct) return TQ_PCT_TABLE[TQ_PCT_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < TQ_PCT_TABLE_SIZE - 1; i++) {
+    long pctLo = TQ_PCT_TABLE[i].pct;
+    long pctHi = TQ_PCT_TABLE[i + 1].pct;
+    if (pct >= pctLo && pct <= pctHi) {
+      long stepLo = TQ_PCT_TABLE[i].step;
+      long stepHi = TQ_PCT_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(pct - pctLo) * (stepHi - stepLo) / (double)(pctHi - pctLo));
+    }
+  }
+  return 0;  // unreachable - every pct is covered by the clamps or the loop above
+}
+
+void setTQ(long TargetPct) {
+  TQstepper.moveTo(tqPctToSteps(TargetPct) + TQZeroOffset);
+}
+
+// ################################### END TORQUE ##############################################
 
 // ################################### START AGL (Radar Altimeter) ##############################################
 
@@ -1215,7 +1346,7 @@ long aglFtToSteps(long ft) {
 }
 
 void setAGL(long TargetFt) {
-  RadarAltStepper.moveTo(aglFtToSteps(TargetFt));
+  RadarAltStepper.moveTo(aglFtToSteps(TargetFt) + AGLZeroOffset);
 }
 
 // ################################### END AGL (Radar Altimeter) ##############################################
@@ -1471,7 +1602,7 @@ void updateSteppers() {
   TSstepper.run();
   RSstepper.run();
   FAstepper.run();
-  ETstepper.run();
+  TQstepper.run();
   GPstepper.run();
   EOPstepper.run();
 }
@@ -1568,7 +1699,8 @@ void HandleOutputValuePair(String str) {
     // Converted through the real VSI_FPM_TABLE calibration
     // (vsiFpmToSteps()) rather than setVSI()'s placeholder +/-VSIMaxSteps
     // clamp, which stays in use for the separate DCS-BIOS path only.
-    VSIstepper.moveTo(vsiFpmToSteps(ParameterValue.toInt()));
+    // VSIZeroOffset applied directly here since this path bypasses setVSI().
+    VSIstepper.moveTo(vsiFpmToSteps(ParameterValue.toInt()) + VSIZeroOffset);
   } else if (ParameterName == "VSIRAW") {
     // Distinct raw-step code, bypassing the VSI_FPM_TABLE lookup above.
     VSIstepper.moveTo(ParameterValue.toInt());
@@ -1646,10 +1778,19 @@ void HandleOutputValuePair(String str) {
     // Distinct raw-step code, bypassing faGalToSteps() above.
     FAstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "TQ") {
-    // Raw step pass-through still (no real calibration requested for this
-    // one). Renamed from "ET" to match JET_RANGER_SERVO_CONTROLLER.ino's
-    // "TQ" (Torque) code for the same gauge.
-    ETstepper.moveTo(ParameterValue.toInt());
+    // Real percent now (Torque, 0-120) - see setTQ()/TQ_PCT_TABLE, "START
+    // TORQUE" above. Renamed from "ET" to match
+    // JET_RANGER_SERVO_CONTROLLER.ino's "TQ" (Torque) code for the same
+    // gauge.
+    setTQ(ParameterValue.toInt());
+  } else if (ParameterName == "TQRAW") {
+    // Distinct raw-step code, bypassing tqPctToSteps() above - same
+    // pattern as every other calibrated gauge's "<CODE>RAW" sibling.
+    // TQZeroOffset is NOT applied here, matching every other gauge's own
+    // *RAW sibling (OILTRAW/OILPRAW/etc), which also bypass their
+    // ZeroOffset - raw codes are meant to reach an exact requested step
+    // target for bench testing, untrimmed.
+    TQstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "N1") {
     // Real percent now (Gas Producer, 0-105). Renamed from "GP" to match
     // JET_RANGER_SERVO_CONTROLLER.ino's "N1" code for the same real-world
@@ -1665,12 +1806,17 @@ void HandleOutputValuePair(String str) {
   } else if (ParameterName == "OILPRAW") {
     // Distinct raw-step code, bypassing eopPsiToSteps() above.
     EOPstepper.moveTo(ParameterValue.toInt());
-    // Every real-value gauge above (IAS/ALT/VSI/OILT/XMSNT/XMSNP/ITT/RPME/
-    // RPMR/N1/OILP/FUEL) also has a distinct "<CODE>RAW" code for sending a
-    // raw step target instead of a real-unit value, e.g. "IASRAW" alongside
-    // "IAS" - see each real-value case above for its matching *RAW sibling.
-    // AGL/TQ/FLAPS/AOA/GFORCE/SPDMAX don't need one since they're already
-    // raw-only. Every other code is currently parsed and silently ignored.
+    // Every real-value gauge above (IAS/ALT/VSI/AGL/OILT/XMSNT/XMSNP/ITT/
+    // RPME/RPMR/N1/OILP/FUEL/TQ) also has a distinct "<CODE>RAW" code for
+    // sending a raw step target instead of a real-unit value, e.g.
+    // "IASRAW" alongside "IAS" - see each real-value case above for its
+    // matching *RAW sibling (this comment previously claimed AGL/TQ
+    // didn't need one since they were "already raw-only" - stale, both
+    // have real calibration and their own *RAW sibling now).
+    // FLAPS/AOA/GFORCE/SPDMAX no longer exist in this sketch at all (see
+    // the roster caution near the top of PROGRAM_SUMMARY.md), so there's
+    // nothing left to bypass for them. Every other code is currently
+    // parsed and silently ignored.
   }
 }
 
@@ -1698,13 +1844,15 @@ String getValue(String data, char separator, int index) {
 
 // No-data watchdog (see lastMSFSDataMillis/noDataTimeoutMs above) - drives
 // every gauge on this board to its calibrated zero, the same target each
-// gauge's own real-value setter would compute for a "CODE:0" packet.
-// ETstepper (Torque) and RadarAltStepper have no dedicated "CODE:0" real-
-// value path in the same way (TQ is raw-only; AGL's aglFtToSteps(0) is
-// used directly here), so those two call their conversion helpers/raw
-// moveTo(0) explicitly instead of a setXxx() wrapper. ALTstepper is still
-// fully disabled on this sketch (see its own commented-out block above),
-// so no altitude reset is included here.
+// gauge's own real-value setter would compute for a "CODE:0" packet
+// (each already includes its own <CODE>ZeroOffset trim - see the
+// fine-trim offset block near the top of this file). RadarAltStepper and
+// TQstepper (Torque) both go through their own setAGL()/setTQ() wrappers
+// here now like every other calibrated gauge (a prior version of this
+// comment incorrectly claimed RadarAltStepper didn't, and TQstepper had
+// no wrapper at all before it got real calibration - both corrected).
+// ALTstepper is still fully disabled on this sketch (see its own
+// commented-out block above), so no altitude reset is included here.
 void ResetGaugesToZero() {
   setIAS(0);
   setVSI(0);
@@ -1718,7 +1866,7 @@ void ResetGaugesToZero() {
   setGP(0);
   setFA(0);
   setAGL(0);
-  ETstepper.moveTo(0);
+  setTQ(0);
 }
 
 void loop() {

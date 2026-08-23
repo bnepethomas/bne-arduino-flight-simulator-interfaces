@@ -171,6 +171,7 @@ namespace StepperVSITester
             txtXop.Text = "0";
             txtGp.Text = "0";
             txtFa.Text = "0";
+            txtTq.Text = "0";
 
             trkIas.Value = 0;
             UpdateValueLabel(lblIasValue, 0, "kt");
@@ -343,15 +344,18 @@ namespace StepperVSITester
         // gauges the same "direct step target" capability Stepper-Tuning-Harness
         // offers for every gauge over Serial (see that sketch's HandleOutputValuePair()).
         // Two groups of codes live in this one dropdown:
-        //  - TQ/FLAPS/AOA/GFORCE/SPDMAX: gauges with no real calibration at all yet,
-        //    so raw steps is their only option.
+        //  - FLAPS/AOA/GFORCE/SPDMAX: gauges with no real calibration at all (and no
+        //    longer even exist on the board - see below), so raw steps is their only
+        //    option.
         //  - AGLRAW/IASRAW/ALTRAW/VSIRAW/OILTRAW/OILPRAW/XMSNTRAW/XMSNPRAW/ITTRAW/RPMERAW/
-        //    RPMRRAW/N1RAW/FUELRAW/FUELLOADRAW/ELECTRICALLOADRAW: distinct raw-step
+        //    RPMRRAW/N1RAW/FUELRAW/TQRAW/FUELLOADRAW/ELECTRICALLOADRAW: distinct raw-step
         //    siblings of gauges that DO have a real-unit code/section elsewhere in
         //    this form (the Radar ALT/IAS/ALT/VSI/RPME/RPMR trackbars, the EGT/ITT
-        //    trackbar, the OILT/OILP/XMSNT/XMSNP/N1/FUEL rows, and the FUELLOAD/
-        //    ELECTRICALLOAD rows below) - lets the operator bypass that gauge's unit
-        //    conversion for bench testing without losing the real-value control.
+        //    trackbar, the OILT/OILP/XMSNT/XMSNP/N1/FUEL rows, the TQ row below, and
+        //    the FUELLOAD/ELECTRICALLOAD rows below) - lets the operator bypass that
+        //    gauge's unit conversion for bench testing without losing the real-value
+        //    control. TQRAW is new here now that "TQ" itself means real percent (see
+        //    the Single Stepper section below) rather than raw steps.
         // One shared control with a dropdown rather than a duplicate raw-step
         // trackbar/row next to every calibrated gauge - cheaper to keep in sync, and
         // easy to give a gauge its own dedicated raw control later if that turns out
@@ -359,7 +363,7 @@ namespace StepperVSITester
         // Broadcasts to both stepperClient (172.16.1.105) and
         // dualStepperClient (172.16.1.106) - JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino
         // accepts every one of these codes too (it's a fork of the same
-        // sketch), except AGLRAW/TQ, which no longer exist there (that
+        // sketch), except AGLRAW/TQRAW, which no longer exist there (that
         // board's Radar Alt/Torque steppers were repurposed as Fuel
         // Load/Electrical Load - see FUELLOAD/ELECTRICALLOAD below) and are
         // silent no-ops on it, same as FLAPS/AOA/GFORCE/SPDMAX already are
@@ -367,10 +371,14 @@ namespace StepperVSITester
         // they only exist on 172.16.1.106 (FuelLoadStepper/ElectricalLoadStepper
         // aren't declared on the single-board sketch at all), so they're silent
         // no-ops on 172.16.1.105.
-        // Fallback for when nothing is selected yet - "EOT" doesn't exist in
-        // this dropdown any more (it graduated to its own row), so this
-        // matches cboNewGauge's actual first item instead of a stale one.
-        private string SelectedNewGaugeCode() => cboNewGauge.SelectedItem?.ToString() ?? "TQ";
+        // Fallback for when nothing is selected yet - matches cboNewGauge's
+        // actual first item ("AGLRAW"). In practice this branch is
+        // unreachable since the constructor sets cboNewGauge.SelectedIndex
+        // = 0, but keeping it correct matters now that "TQ" (the previous,
+        // mismatched fallback string) means real percent rather than raw
+        // steps - sending a raw step count under that code would land on
+        // the board as a nonsense percent value.
+        private string SelectedNewGaugeCode() => cboNewGauge.SelectedItem?.ToString() ?? "AGLRAW";
 
         private void butNewGaugeSend_Click(object sender, EventArgs e)
         {
@@ -557,6 +565,19 @@ namespace StepperVSITester
 
         private void butSendFa_Click(object sender, EventArgs e) => SendRealValue(txtFa, "FUEL");
         private void txtFa_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtFa, "FUEL"); }
+
+        // TQ (Torque) - graduated to real percent via JET_RANGER_STEPPER_CONTROLLER.ino's
+        // TQ_PCT_TABLE. Single-board only (SendRealValue(), not
+        // SendRealValueBroadcast()) since "TQ" has no equivalent on
+        // 172.16.1.106 - that board's Torque stepper was repurposed as
+        // Electrical Load (see ELECTRICALLOAD below) and no longer has a
+        // "TQ" UDP case at all. Placed in its own "Single Stepper
+        // (172.16.1.105 only)" section near the bottom of the form (see
+        // Form1.Designer.cs) rather than inserted into the compact-rows
+        // group above, purely to avoid re-numbering every control's Y
+        // coordinate below it.
+        private void butSendTq_Click(object sender, EventArgs e) => SendRealValue(txtTq, "TQ");
+        private void txtTq_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtTq, "TQ"); }
 
         // IAS (Current Airspeed), 0-140kt: sends real knots directly; the
         // board converts to steps via setIAS()/iasKtToSteps() in

@@ -131,6 +131,10 @@ namespace StepperVSITester
             lblClockColon = new Label();
             txtClockMinute = new TextBox();
             butSendClock = new Button();
+            lblSingleStepperHeader = new Label();
+            lblTqRow = new Label();
+            txtTq = new TextBox();
+            butSendTq = new Button();
             ((System.ComponentModel.ISupportInitialize)trkVsi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).BeginInit();
@@ -464,7 +468,7 @@ namespace StepperVSITester
             // cboNewGauge
             //
             cboNewGauge.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboNewGauge.Items.AddRange(new object[] { "AGLRAW", "TQ", "FLAPS", "AOA", "GFORCE", "SPDMAX", "IASRAW", "ALTRAW", "VSIRAW", "OILTRAW", "OILPRAW", "XMSNTRAW", "XMSNPRAW", "ITTRAW", "RPMERAW", "RPMRRAW", "N1RAW", "FUELRAW", "FUELLOADRAW", "ELECTRICALLOADRAW" });
+            cboNewGauge.Items.AddRange(new object[] { "AGLRAW", "FLAPS", "AOA", "GFORCE", "SPDMAX", "IASRAW", "ALTRAW", "VSIRAW", "OILTRAW", "OILPRAW", "XMSNTRAW", "XMSNPRAW", "ITTRAW", "RPMERAW", "RPMRRAW", "N1RAW", "FUELRAW", "TQRAW", "FUELLOADRAW", "ELECTRICALLOADRAW" });
             cboNewGauge.Location = new Point(12, 675);
             cboNewGauge.Name = "cboNewGauge";
             cboNewGauge.Size = new Size(100, 23);
@@ -1136,15 +1140,57 @@ namespace StepperVSITester
             butSendClock.UseVisualStyleBackColor = true;
             butSendClock.Click += butSendClock_Click;
             //
+            // lblSingleStepperHeader
+            //
+            lblSingleStepperHeader.AutoSize = true;
+            lblSingleStepperHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblSingleStepperHeader.Location = new Point(12, 1833);
+            lblSingleStepperHeader.Name = "lblSingleStepperHeader";
+            lblSingleStepperHeader.Size = new Size(300, 15);
+            lblSingleStepperHeader.TabIndex = 107;
+            lblSingleStepperHeader.Text = "Single Stepper (172.16.1.105 only) Test";
+            //
+            // lblTqRow
+            //
+            lblTqRow.AutoSize = true;
+            lblTqRow.Location = new Point(12, 1865);
+            lblTqRow.Name = "lblTqRow";
+            lblTqRow.Size = new Size(200, 15);
+            lblTqRow.TabIndex = 108;
+            lblTqRow.Text = "TQ - Torque (%, 0-120, cal):";
+            //
+            // txtTq
+            //
+            txtTq.Location = new Point(220, 1861);
+            txtTq.Name = "txtTq";
+            txtTq.Size = new Size(80, 23);
+            txtTq.TabIndex = 109;
+            txtTq.Text = "0";
+            txtTq.KeyDown += txtTq_KeyDown;
+            //
+            // butSendTq
+            //
+            butSendTq.Location = new Point(306, 1860);
+            butSendTq.Name = "butSendTq";
+            butSendTq.Size = new Size(70, 25);
+            butSendTq.TabIndex = 110;
+            butSendTq.Text = "Send";
+            butSendTq.UseVisualStyleBackColor = true;
+            butSendTq.Click += butSendTq_Click;
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            AutoScrollMinSize = new Size(610, 1865);
+            AutoScrollMinSize = new Size(610, 1910);
             ClientSize = new Size(630, 760);
             Controls.Add(butNewGaugeStepFwd);
             Controls.Add(butNewGaugeStepBack);
+            Controls.Add(butSendTq);
+            Controls.Add(txtTq);
+            Controls.Add(lblTqRow);
+            Controls.Add(lblSingleStepperHeader);
             Controls.Add(butSendClock);
             Controls.Add(txtClockMinute);
             Controls.Add(lblClockColon);
@@ -1364,5 +1410,9 @@ namespace StepperVSITester
         private Label lblClockColon;
         private TextBox txtClockMinute;
         private Button butSendClock;
+        private Label lblSingleStepperHeader;
+        private Label lblTqRow;
+        private TextBox txtTq;
+        private Button butSendTq;
     }
 }
