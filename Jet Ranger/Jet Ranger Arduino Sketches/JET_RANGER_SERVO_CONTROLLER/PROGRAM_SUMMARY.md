@@ -1,9 +1,22 @@
 # JET_RANGER_SERVO_CONTROLLER — Program Summary
 
-Arduino Mega 2560 + W5500 Ethernet shield. Drives 15 warning lamps and 15
-analogue-gauge servos (airspeed, VSI, engine torque, oil pressure/temp,
-transmission pressure/temp, EGT, rotor/engine RPM, N1, fuel, fuel/electrical
-load, pitch/bank) from flight-sim data received over Ethernet.
+Arduino Mega 2560 + W5500 Ethernet shield. Drives 15 warning lamps and 2
+analogue-gauge servos (Attitude Indicator pitch/bank) from flight-sim data
+received over Ethernet.
+
+> **Out-of-band change (not made in this doc pass):** this sketch used to
+> drive 15 servos - airspeed, VSI, engine torque, oil pressure/temp,
+> transmission pressure/temp, EGT, rotor/engine RPM, N1, fuel, and
+> fuel/electrical load, alongside pitch/bank. All 15 were removed from the
+> `Servos` enum, the position arrays, `UpdateServoPos()`,
+> `HandleOutputValuePair()`, `ResetGaugesToZero()`, `CheckServoIdleTime()`,
+> and the setup-time self-test sweep - cleanly, with nothing left
+> referencing a removed enum member. Only pitch/bank remain servo-driven on
+> this board; those other gauges are now driven by
+> [`JET_RANGER_STEPPER_CONTROLLER.ino`](../JET_RANGER_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)/
+> [`JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino`](../JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)
+> instead. Confirmed still compiling clean after the change (20,218 bytes,
+> before this pass's Pitch calibration addition below).
 
 ## Program flow
 
@@ -25,7 +38,31 @@ load, pitch/bank) from flight-sim data received over Ethernet.
      on the MSFS port and, if present, passes it to
      `ProcessReceivedMSFSString()`, which parses the CSV payload
      (`D,TQ:120,IAS:80,...` / `C,B:5`) and updates:
-     - 15 servo **target** positions (see `HandleOutputValuePair`), and
+     - 2 servo **target** positions (see `HandleOutputValuePair`) - `PITCH`
+       and `BANK` (Attitude Indicator pitch/roll), the only two servos
+       left on this board (see the out-of-band-change note above). Both
+       are parsed as `float` (not `toInt()`), matching RPME/RPMR's own
+       one-decimal wire format (e.g. `"82.4"`), and both now have real
+       bench-measured calibration tables converting real attitude degrees
+       into a servo position - reusing one shared `DegToServoPosEntry`
+       struct + clamp + linear-interpolation pattern (same approach the
+       stepper sketches use for their own calibration tables):
+       - `PITCH_DEG_TABLE` (3 points: -30°→179, 0°→113, +30°→70) via
+         `pitchDegToServoPos()`.
+       - `BANK_DEG_TABLE` (3 points: -90°→5, 0°→93, +90°→179) via
+         `bankDegToServoPos()` - endpoints match `aServMinPosition[]`/
+         `aServMaxPosition[]` for this servo exactly. `aServZeroPosition[]`'s
+         Bank entry was also updated (91 → 93) to match this table's
+         bench-measured 0° point, so the setup-time self-test sweep and
+         the no-data-watchdog's `ResetGaugesToZero()` both now return this
+         servo to the same position `bankDegToServoPos(0)` does.
+       Neither is a raw servo-position pass-through any more - the wire
+       value for both codes is real attitude degrees now, not a
+       pre-converted servo position the sender used to compute itself.
+       `PITCHRAW`/`BANKRAW` were added alongside as the raw-position
+       bypass siblings (bare `toInt()` straight into
+       `aTargetServoPosition[]`, skipping the table) - same `"<CODE>RAW"`
+       pattern the stepper sketches use for their own calibrated gauges.
      - 15 boolean warning-light states, each driving its lamp pin directly.
    - Every 5ms (`servoCheckInterval`), `UpdateServoPos()` nudges each servo
      one step at a time from its current position towards its target
@@ -54,7 +91,9 @@ load, pitch/bank) from flight-sim data received over Ethernet.
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
-**0 errors**: 25,768 bytes flash (10%), 2,923 bytes RAM (35%).
+**0 errors**: 21,210 bytes flash (8%), 2,135 bytes RAM (26%). (Dropped
+from 27,646/2,925 after the out-of-band 15-servo removal - see the note
+at the top of this file.)
 
 ## Pin usage
 
@@ -63,23 +102,8 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 | 14 | Green status LED |
 | 15 | Red status LED (flashes while Ethernet link comes up) |
 | 53 | W5500 Ethernet shield manual reset (`ES1_RESET_PIN`) |
-| 2 | Airspeed servo |
-| 3 | (Radar altitude — port reserved, not driven by a `Set...` routine) |
-| 4 | Vertical Speed (VSI) servo |
-| 6 | Gas Producer / N1 servo |
-| 7 | EGT / turbine ITT servo |
-| 8 | Engine RPM (RPME) servo |
-| 9 | Rotor RPM (RPMR) servo |
-| 11 | Engine Torque servo |
-| 12 | Oil Temp (OILT) servo |
-| 13 | Oil Pressure (OILP) servo |
-| 26 | Attitude Pitch servo |
-| 27 | Attitude Bank/Roll servo |
-| 28 | Electrical Load servo |
-| 29 | Fuel Load servo |
-| 44 | Transmission Temp (XMSNT) servo |
-| 45 | Transmission Pressure (XMSNP) servo |
-| 46 | Fuel Quantity servo |
+| 26 | Attitude Pitch servo (`PITCH_PORT` - its `#define` comment still says "Using Gas Producer Port for the moment", a leftover from before that servo was removed) |
+| 27 | Attitude Bank/Roll servo (`ROLL_PORT` - same leftover-comment situation, "Using Radar Alt Port for the moment") |
 | A1 | Engine Out warning lamp |
 | A2 | Rotor RPM Low warning lamp |
 | A3 | Transmission Oil Pressure warning lamp |
@@ -131,6 +155,10 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
   directly to `172.16.1.102:13136` and lets an operator push manual or
   formula-converted `D,<CODE>:<value>` packets to this board to find/verify
   each servo's min/max/zero pulse positions, independent of the flight sim.
+- **StepperVSITester** (new) — primarily a stepper-board bench tool, but
+  also connects a third UDP client (`servoClient`) to `172.16.1.102:13136`
+  for two rows only: `PITCH`/`BANK`, sent one-decimal-place to match this
+  sketch's new `toFloat()`/`round()` parsing.
 - **JetRangerHealthMonitor** — listens on UDP **13137** and lights the
   "Servo" indicator green on receipt of this sketch's keepalive.
 - No C# project in this repository listens on `172.16.1.10:27000`

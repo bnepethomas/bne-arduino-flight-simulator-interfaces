@@ -20,6 +20,13 @@ namespace StepperVSITester
         // sketch at all.
         UdpClient dualStepperClient = new UdpClient();
 
+        // JET_RANGER_SERVO_CONTROLLER.ino's own address (172.16.1.102) - a
+        // third, distinct board (servos, not steppers) added only for the
+        // PITCH/BANK (Attitude Indicator pitch/roll) rows below, so this
+        // tool can bench-test them without FSUIPC running. No other code
+        // on this board is reachable from here.
+        UdpClient servoClient = new UdpClient();
+
         private void Send(string code, long value)
         {
             byte[] sendBytes = Encoding.ASCII.GetBytes("D," + code + ":" + value.ToString());
@@ -49,6 +56,34 @@ namespace StepperVSITester
         {
             byte[] sendBytes = Encoding.ASCII.GetBytes("D," + code + ":" + value.ToString("F1"));
             dualStepperClient.Send(sendBytes, sendBytes.Length);
+        }
+
+        // Same one-decimal wire format as the double Send()/SendDual()
+        // overloads above (matching RPME/RPMR's precedent), but to
+        // servoClient (172.16.1.102) - used for PITCH/BANK only. Sent as
+        // "D,PITCH:<deg>.<d>"/"D,BANK:<deg>.<d>" - real attitude degrees,
+        // converted by JET_RANGER_SERVO_CONTROLLER.ino through its own
+        // bench-measured PITCH_DEG_TABLE/BANK_DEG_TABLE into a servo
+        // position (interpolated, then rounded - the one-decimal wire
+        // precision reaches that interpolation before the final rounding
+        // step). See SendServoRawValue() below for the raw-position
+        // bypass.
+        private void SendServo(string code, double value)
+        {
+            byte[] sendBytes = Encoding.ASCII.GetBytes("D," + code + ":" + value.ToString("F1"));
+            servoClient.Send(sendBytes, sendBytes.Length);
+        }
+
+        // Raw-position bypass for PITCH/BANK, matching the "<CODE>RAW"
+        // pattern every other calibrated gauge in this tool has (e.g.
+        // TQRAW, OILTRAW) - sends "D,PITCHRAW:<pos>"/"D,BANKRAW:<pos>" to
+        // servoClient, bypassing PITCH_DEG_TABLE/BANK_DEG_TABLE entirely.
+        // A bare integer, not one-decimal, since it's a raw servo position
+        // (0-180ish), not degrees.
+        private void SendServoRaw(string code, long value)
+        {
+            byte[] sendBytes = Encoding.ASCII.GetBytes("D," + code + ":" + value.ToString());
+            servoClient.Send(sendBytes, sendBytes.Length);
         }
 
         private void SendManualValue(TrackBar trackBar, TextBox textBox, Label label, string code, string unit)
@@ -142,6 +177,7 @@ namespace StepperVSITester
 
             stepperClient.Connect("172.16.1.105", 13136);
             dualStepperClient.Connect("172.16.1.106", 13136);
+            servoClient.Connect("172.16.1.102", 13136);
 
             txtFuelLoad.Text = "0";
             txtElectricalLoad.Text = "0";
@@ -172,6 +208,10 @@ namespace StepperVSITester
             txtGp.Text = "0";
             txtFa.Text = "0";
             txtTq.Text = "0";
+            txtPitch.Text = "0";
+            txtBank.Text = "0";
+            txtPitchRaw.Text = "0";
+            txtBankRaw.Text = "0";
 
             trkIas.Value = 0;
             UpdateValueLabel(lblIasValue, 0, "kt");
@@ -515,6 +555,35 @@ namespace StepperVSITester
             }
         }
 
+        // Same pattern as SendRealValue()/SendManualValue() above, but
+        // parses a double (not long) and sends via the one-decimal
+        // SendServo() - used for the PITCH/BANK rows only.
+        private void SendServoValue(TextBox textBox, string code)
+        {
+            if (double.TryParse(textBox.Text, out double value))
+            {
+                SendServo(code, value);
+            }
+            else
+            {
+                MessageBox.Show("Value must be a number");
+            }
+        }
+
+        // Raw-position counterpart to SendServoValue() above - parses a
+        // long (not double) and sends via SendServoRaw().
+        private void SendServoRawValue(TextBox textBox, string code)
+        {
+            if (long.TryParse(textBox.Text, out long value))
+            {
+                SendServoRaw(code, value);
+            }
+            else
+            {
+                MessageBox.Show("Value must be a number");
+            }
+        }
+
         // Same as SendRealValue() above, but sent to dualStepperClient
         // (172.16.1.106) instead of stepperClient (172.16.1.105) - for
         // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's FUELLOAD (PSI)/
@@ -578,6 +647,33 @@ namespace StepperVSITester
         // coordinate below it.
         private void butSendTq_Click(object sender, EventArgs e) => SendRealValue(txtTq, "TQ");
         private void txtTq_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendRealValue(txtTq, "TQ"); }
+
+        // PITCH/BANK (Attitude Indicator pitch/roll) - the only rows in
+        // this tool that talk to the Servo Controller (172.16.1.102)
+        // rather than either stepper board. Sent one-decimal-place (via
+        // SendServoValue()/SendServo()), matching RPME/RPMR's own
+        // one-decimal wire format. Real attitude degrees now (PITCH:
+        // -30..30, BANK: -90..90), not a raw servo position -
+        // JET_RANGER_SERVO_CONTROLLER.ino's "PITCH"/"BANK" UDP handlers
+        // converts them through its own bench-measured
+        // PITCH_DEG_TABLE/BANK_DEG_TABLE (interpolated, then rounded to a
+        // servo position) rather than writing the value straight to the
+        // servo the way every other raw-position code in this tool's
+        // Raw Step Test panel does. This tool still does no conversion of
+        // its own - it just forwards whatever degrees the operator types.
+        // PITCHRAW/BANKRAW (below) are the raw-position bypass siblings,
+        // same "<CODE>RAW" pattern every other calibrated gauge here has.
+        private void butSendPitch_Click(object sender, EventArgs e) => SendServoValue(txtPitch, "PITCH");
+        private void txtPitch_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendServoValue(txtPitch, "PITCH"); }
+
+        private void butSendBank_Click(object sender, EventArgs e) => SendServoValue(txtBank, "BANK");
+        private void txtBank_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendServoValue(txtBank, "BANK"); }
+
+        private void butSendPitchRaw_Click(object sender, EventArgs e) => SendServoRawValue(txtPitchRaw, "PITCHRAW");
+        private void txtPitchRaw_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendServoRawValue(txtPitchRaw, "PITCHRAW"); }
+
+        private void butSendBankRaw_Click(object sender, EventArgs e) => SendServoRawValue(txtBankRaw, "BANKRAW");
+        private void txtBankRaw_KeyDown(object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) SendServoRawValue(txtBankRaw, "BANKRAW"); }
 
         // IAS (Current Airspeed), 0-140kt: sends real knots directly; the
         // board converts to steps via setIAS()/iasKtToSteps() in

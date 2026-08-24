@@ -135,6 +135,19 @@ namespace StepperVSITester
             lblTqRow = new Label();
             txtTq = new TextBox();
             butSendTq = new Button();
+            lblServoHeader = new Label();
+            lblPitchRow = new Label();
+            txtPitch = new TextBox();
+            butSendPitch = new Button();
+            lblBankRow = new Label();
+            txtBank = new TextBox();
+            butSendBank = new Button();
+            lblPitchRawRow = new Label();
+            txtPitchRaw = new TextBox();
+            butSendPitchRaw = new Button();
+            lblBankRawRow = new Label();
+            txtBankRaw = new TextBox();
+            butSendBankRaw = new Button();
             ((System.ComponentModel.ISupportInitialize)trkVsi).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkAlt).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trkRadarAlt).BeginInit();
@@ -1178,15 +1191,150 @@ namespace StepperVSITester
             butSendTq.UseVisualStyleBackColor = true;
             butSendTq.Click += butSendTq_Click;
             //
+            // lblServoHeader
+            //
+            lblServoHeader.AutoSize = true;
+            lblServoHeader.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblServoHeader.Location = new Point(12, 1899);
+            lblServoHeader.Name = "lblServoHeader";
+            lblServoHeader.Size = new Size(300, 15);
+            lblServoHeader.TabIndex = 111;
+            lblServoHeader.Text = "Servo Controller (172.16.1.102) Test";
+            //
+            // lblPitchRow
+            //
+            lblPitchRow.AutoSize = true;
+            lblPitchRow.Location = new Point(12, 1931);
+            lblPitchRow.Name = "lblPitchRow";
+            lblPitchRow.Size = new Size(200, 15);
+            lblPitchRow.TabIndex = 112;
+            lblPitchRow.Text = "PITCH - Attitude Pitch (deg, -30 to 30, cal):";
+            //
+            // txtPitch
+            //
+            txtPitch.Location = new Point(220, 1927);
+            txtPitch.Name = "txtPitch";
+            txtPitch.Size = new Size(80, 23);
+            txtPitch.TabIndex = 113;
+            txtPitch.Text = "0";
+            txtPitch.KeyDown += txtPitch_KeyDown;
+            //
+            // butSendPitch
+            //
+            butSendPitch.Location = new Point(306, 1926);
+            butSendPitch.Name = "butSendPitch";
+            butSendPitch.Size = new Size(70, 25);
+            butSendPitch.TabIndex = 114;
+            butSendPitch.Text = "Send";
+            butSendPitch.UseVisualStyleBackColor = true;
+            butSendPitch.Click += butSendPitch_Click;
+            //
+            // lblBankRow
+            //
+            lblBankRow.AutoSize = true;
+            lblBankRow.Location = new Point(12, 1965);
+            lblBankRow.Name = "lblBankRow";
+            lblBankRow.Size = new Size(200, 15);
+            lblBankRow.TabIndex = 115;
+            lblBankRow.Text = "BANK - Attitude Bank/Roll (deg, -90 to 90, cal):";
+            //
+            // txtBank
+            //
+            txtBank.Location = new Point(220, 1961);
+            txtBank.Name = "txtBank";
+            txtBank.Size = new Size(80, 23);
+            txtBank.TabIndex = 116;
+            txtBank.Text = "0";
+            txtBank.KeyDown += txtBank_KeyDown;
+            //
+            // butSendBank
+            //
+            butSendBank.Location = new Point(306, 1960);
+            butSendBank.Name = "butSendBank";
+            butSendBank.Size = new Size(70, 25);
+            butSendBank.TabIndex = 117;
+            butSendBank.Text = "Send";
+            butSendBank.UseVisualStyleBackColor = true;
+            butSendBank.Click += butSendBank_Click;
+            //
+            // lblPitchRawRow
+            //
+            lblPitchRawRow.AutoSize = true;
+            lblPitchRawRow.Location = new Point(12, 1999);
+            lblPitchRawRow.Name = "lblPitchRawRow";
+            lblPitchRawRow.Size = new Size(200, 15);
+            lblPitchRawRow.TabIndex = 118;
+            lblPitchRawRow.Text = "PITCHRAW - Pitch (raw pos):";
+            //
+            // txtPitchRaw
+            //
+            txtPitchRaw.Location = new Point(220, 1995);
+            txtPitchRaw.Name = "txtPitchRaw";
+            txtPitchRaw.Size = new Size(80, 23);
+            txtPitchRaw.TabIndex = 119;
+            txtPitchRaw.Text = "0";
+            txtPitchRaw.KeyDown += txtPitchRaw_KeyDown;
+            //
+            // butSendPitchRaw
+            //
+            butSendPitchRaw.Location = new Point(306, 1994);
+            butSendPitchRaw.Name = "butSendPitchRaw";
+            butSendPitchRaw.Size = new Size(70, 25);
+            butSendPitchRaw.TabIndex = 120;
+            butSendPitchRaw.Text = "Send";
+            butSendPitchRaw.UseVisualStyleBackColor = true;
+            butSendPitchRaw.Click += butSendPitchRaw_Click;
+            //
+            // lblBankRawRow
+            //
+            lblBankRawRow.AutoSize = true;
+            lblBankRawRow.Location = new Point(12, 2033);
+            lblBankRawRow.Name = "lblBankRawRow";
+            lblBankRawRow.Size = new Size(200, 15);
+            lblBankRawRow.TabIndex = 121;
+            lblBankRawRow.Text = "BANKRAW - Bank/Roll (raw pos):";
+            //
+            // txtBankRaw
+            //
+            txtBankRaw.Location = new Point(220, 2029);
+            txtBankRaw.Name = "txtBankRaw";
+            txtBankRaw.Size = new Size(80, 23);
+            txtBankRaw.TabIndex = 122;
+            txtBankRaw.Text = "0";
+            txtBankRaw.KeyDown += txtBankRaw_KeyDown;
+            //
+            // butSendBankRaw
+            //
+            butSendBankRaw.Location = new Point(306, 2028);
+            butSendBankRaw.Name = "butSendBankRaw";
+            butSendBankRaw.Size = new Size(70, 25);
+            butSendBankRaw.TabIndex = 123;
+            butSendBankRaw.Text = "Send";
+            butSendBankRaw.UseVisualStyleBackColor = true;
+            butSendBankRaw.Click += butSendBankRaw_Click;
+            //
             // frmMain
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoScroll = true;
-            AutoScrollMinSize = new Size(610, 1910);
+            AutoScrollMinSize = new Size(610, 2080);
             ClientSize = new Size(630, 760);
             Controls.Add(butNewGaugeStepFwd);
             Controls.Add(butNewGaugeStepBack);
+            Controls.Add(butSendBankRaw);
+            Controls.Add(txtBankRaw);
+            Controls.Add(lblBankRawRow);
+            Controls.Add(butSendPitchRaw);
+            Controls.Add(txtPitchRaw);
+            Controls.Add(lblPitchRawRow);
+            Controls.Add(butSendBank);
+            Controls.Add(txtBank);
+            Controls.Add(lblBankRow);
+            Controls.Add(butSendPitch);
+            Controls.Add(txtPitch);
+            Controls.Add(lblPitchRow);
+            Controls.Add(lblServoHeader);
             Controls.Add(butSendTq);
             Controls.Add(txtTq);
             Controls.Add(lblTqRow);
@@ -1414,5 +1562,18 @@ namespace StepperVSITester
         private Label lblTqRow;
         private TextBox txtTq;
         private Button butSendTq;
+        private Label lblServoHeader;
+        private Label lblPitchRow;
+        private TextBox txtPitch;
+        private Button butSendPitch;
+        private Label lblBankRow;
+        private TextBox txtBank;
+        private Button butSendBank;
+        private Label lblPitchRawRow;
+        private TextBox txtPitchRaw;
+        private Button butSendPitchRaw;
+        private Label lblBankRawRow;
+        private TextBox txtBankRaw;
+        private Button butSendBankRaw;
     }
 }

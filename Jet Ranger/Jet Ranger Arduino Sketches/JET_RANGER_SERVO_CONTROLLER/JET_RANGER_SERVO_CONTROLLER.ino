@@ -209,23 +209,9 @@ bool frontPanelDataChanged = false;
 const unsigned long servoCheckInterval = 5;
 long lastServoCheck = 0;
 
-String ALTITUDE = "";                          // ALT
-String AIRSPEED = "";                          // IAS
-String VERTICAL_SPEED = "";                    // VSI
-String PLANE_ALT_ABOVE_GROUND = "";            // AGL
+
 String ATTITUDE_INDICATOR_BANK_DEGREES = "";   // BANK
 String ATTITUDE_INDICATOR_PITCH_DEGREES = "";  // PITCH
-String ROTOR_RPM_PCT_1 = "";                   // RPMR
-String GENERAL_ENG_PCT_MAX_RPM_1 = "";         // RPME
-String ENG_TORQUE_PERCENT_1 = "";              // TQ
-String ELECTRICAL_TOTAL_LOAD_AMPS = "";        // AMPS
-String TURB_ENG_ITT_1 = "";                    // ITT
-String ENG_OIL_TEMPERATURE_1 = "";             // OILT
-String FUEL_TOTAL_QUANTITY = "";               // FUEL
-String TURB_ENG_CORRECTED_N1_1 = "";           // N1
-String ENG_OIL_PRESSURE_1 = "";                // OILP
-String ENG_TRANSMISSION_PRESSURE_1 = "";       // XMSNP
-String ENG_TRANSMISSION_TEMPERATURE_1 = "";    // XMSNT
 String ELECTRICAL_MASTER_BATTERY = "";         // BATSW
 String navCom1Status = "";                     // NAVCOMM1
 String AIRSPEED_2 = "";
@@ -233,194 +219,88 @@ String AIRSPEED_2 = "";
 bool powerAvailable = true;
 
 #include <Servo.h>
-Servo AIRSPEED_SERVO;
-Servo ENG_TORQUE_SERVO;
-Servo FUEL_SERVO;
-Servo OILP_SERVO;
-Servo OILT_SERVO;
-Servo RPMR_SERVO;
-Servo RPME_SERVO;
-Servo VSI_SERVO;
-Servo XMSNP_SERVO;
-Servo XMSNT_SERVO;
-Servo EGT_SERVO;
+
 Servo ROLL_SERVO;
 Servo PITCH_SERVO;
-Servo FUEL_LOAD_SERVO;
-Servo ELEC_LOAD_SERVO;
-Servo GAS_PRODUCER_SERVO;
 
 
 
-#define AIRSPEED_PORT 2
-#define EGT_PORT 7
-#define OILT_PORT 12
-#define OILP_PORT 13
-#define ENG_TORQUE_PORT 11
-#define FUEL_PORT 46
-#define GAS_PRODUCER_PORT 6
-#define RADAR_ALT_PORT 3
-#define RPME_PORT 8
-#define RPMR_PORT 9
-#define VSI_PORT 4
-#define XMSNP_PORT 45
-#define XMSNT_PORT 44
+
+
 #define PITCH_PORT 26  // Using Gas Producer Port for the moment
 #define ROLL_PORT 27   // Using Radar Alt Port for the moment
-#define ELEC_LOAD_PORT 28
-#define FUEL_LOAD_PORT 29
-#
+
 
 enum Servos {
-  AirSpeed,
-  VerticalSpeed,
   AttitudeIndicatorBankDegrees,
   AttitudeIndicatorPitchDegrees,
-  RotorRpmPct1,
-  GeneralEngPctMaxRpm1,
-  EngTorquePercent1,
-  ElectricalTotalLoadAmps,
-  TurbEngItt1,
-  EngOilTemperature1,
-  FuelTotalQuantity,
-  TurbEngCorrectedN11,
-  EngOilPressure1,
-  EngTransmissionPressure1,
-  EngTransmissionTemperature1,
-  PlaneAltAboveGround,
-  Fuel_Load,
-  Electrical_Load,
   Number_of_Servos
 };
 
-//                         ASP  VSI  BNK  PCH  RPMR RPME TQ   AMPS ITT  OILT FUEL N1  OILP  XMNP XMNT AGL FLOAD ELOAD
-int aServMinPosition[] = { 173, 178, 5, 166, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 134, 222, 131, 89 };
-int aServMaxPosition[] = { 12, 14, 179, 70, 23, 6, 37, 740, 44, 175, 51, 30, 34, 128, 180, 222, 167, 46 };
-int aServZeroPosition[] = { 173, 93, 91, 113, 177, 137, 176, 527, 159, 124, 159, 170, 82, 178, 134, 222, 131, 89 };
-int aServoPosition[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
-int aTargetServoPosition[] = { 173, 498, 444, 555, 28, 242, 176, 527, 121, 310, 124, 121, 560, 9, 424, 222, 000, 000 };
-long aServoLastupdate[] = { 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000, 000 };
-bool aServoIdle[] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+//                       BANK PITCH 
+int aServMinPosition[] = { 5, 166 };
+int aServMaxPosition[] = {179, 70};
+int aServZeroPosition[] = { 93, 113 };
+int aServoPosition[] =  { 000, 000};
+int aTargetServoPosition[] = {444, 555};
+long aServoLastupdate[] = { 000, 000 };
+bool aServoIdle[] = { 0, 0 };
 
 
 
-void SetEngineTorque(int TargetValue) {
-  if (ENG_TORQUE_SERVO.attached() == false) {
-    ENG_TORQUE_SERVO.attach(ENG_TORQUE_PORT);
+
+
+
+
+
+
+
+
+
+
+
+// Attitude Pitch degrees-to-servo-position calibration table, hand-measured
+// on the bench (same struct/interpolation pattern the stepper sketches use
+// for their own real-unit calibration tables, e.g. EGT_C_TABLE in
+// JET_RANGER_STEPPER_CONTROLLER.ino). "pos" is the raw servo position for
+// PITCH_SERVO.write() (0-180, same units as aServMinPosition[]/
+// aServMaxPosition[]/aServZeroPosition[] above). Descending pos as deg
+// increases (-30 -> 179, 0 -> 113, +30 -> 70) matches this servo's existing
+// min/max/zero convention. Sorted ascending by deg - pitchDegToServoPos()
+// below relies on that order. Replaces the previous raw-passthrough
+// behaviour, where the incoming "PITCH" value was assumed to already be a
+// pre-converted servo position computed on the sender's side - the wire
+// value is real degrees now.
+struct DegToServoPosEntry {
+  long deg;
+  int pos;
+};
+
+const DegToServoPosEntry PITCH_DEG_TABLE[] = {
+  { -30, 179 },
+  { 0, 113 },
+  { 30, 70 },
+};
+const int PITCH_DEG_TABLE_SIZE = sizeof(PITCH_DEG_TABLE) / sizeof(PITCH_DEG_TABLE[0]);
+
+// Converts a requested attitude pitch in degrees into a servo position by
+// linear interpolation between the two nearest PITCH_DEG_TABLE rows. A deg
+// value outside the table's -30..30 range is clamped to whichever end is
+// nearest rather than extrapolated.
+int pitchDegToServoPos(float deg) {
+  if (deg <= PITCH_DEG_TABLE[0].deg) return PITCH_DEG_TABLE[0].pos;
+  if (deg >= PITCH_DEG_TABLE[PITCH_DEG_TABLE_SIZE - 1].deg) return PITCH_DEG_TABLE[PITCH_DEG_TABLE_SIZE - 1].pos;
+
+  for (int i = 0; i < PITCH_DEG_TABLE_SIZE - 1; i++) {
+    long degLo = PITCH_DEG_TABLE[i].deg;
+    long degHi = PITCH_DEG_TABLE[i + 1].deg;
+    if (deg >= degLo && deg <= degHi) {
+      int posLo = PITCH_DEG_TABLE[i].pos;
+      int posHi = PITCH_DEG_TABLE[i + 1].pos;
+      return posLo + (int)round((double)(deg - degLo) * (posHi - posLo) / (double)(degHi - degLo));
+    }
   }
-  aServoLastupdate[EngTorquePercent1] = millis();
-  aServoIdle[EngTorquePercent1] = false;
-
-  ENG_TORQUE_SERVO.write(TargetValue);
-}
-
-void SetAirSpeed(int TargetValue) {
-  if (AIRSPEED_SERVO.attached() == false) {
-    AIRSPEED_SERVO.attach(AIRSPEED_PORT);
-  }
-  aServoLastupdate[AirSpeed] = millis();
-  aServoIdle[AirSpeed] = false;
-
-  AIRSPEED_SERVO.write(TargetValue);
-}
-
-// Rotor RPM
-void SetRPMR(int TargetValue) {
-  if (RPMR_SERVO.attached() == false) {
-    RPMR_SERVO.attach(RPMR_PORT);
-  }
-  aServoLastupdate[RotorRpmPct1] = millis();
-  aServoIdle[RotorRpmPct1] = false;
-
-  RPMR_SERVO.write(TargetValue);
-}
-
-// Engine RPM
-void SetRPME(int TargetValue) {
-  if (RPME_SERVO.attached() == false) {
-    RPME_SERVO.attach(RPME_PORT);
-  }
-  aServoLastupdate[GeneralEngPctMaxRpm1] = millis();
-  aServoIdle[GeneralEngPctMaxRpm1] = false;
-
-  RPME_SERVO.write(TargetValue);
-}
-
-// Fuel Qantity
-void SetFUEL(int TargetValue) {
-  if (FUEL_SERVO.attached() == false) {
-    FUEL_SERVO.attach(FUEL_PORT);
-  }
-  aServoLastupdate[FuelTotalQuantity] = millis();
-  aServoIdle[FuelTotalQuantity] = false;
-
-  FUEL_SERVO.write(TargetValue);
-}
-
-// VSI
-void SetVSI(int TargetValue) {
-  if (VSI_SERVO.attached() == false) {
-    VSI_SERVO.attach(VSI_PORT);
-  }
-  aServoLastupdate[VerticalSpeed] = millis();
-  aServoIdle[VerticalSpeed] = false;
-
-  VSI_SERVO.write(TargetValue);
-}
-
-// OILP
-void SetOILP(int TargetValue) {
-  if (OILP_SERVO.attached() == false) {
-    OILP_SERVO.attach(OILP_PORT);
-  }
-  aServoLastupdate[EngOilPressure1] = millis();
-  aServoIdle[EngOilPressure1] = false;
-
-  OILP_SERVO.write(TargetValue);
-}
-
-// OILT
-void SetOILT(int TargetValue) {
-  if (OILT_SERVO.attached() == false) {
-    OILT_SERVO.attach(OILT_PORT);
-  }
-  aServoLastupdate[EngOilTemperature1] = millis();
-  aServoIdle[EngOilTemperature1] = false;
-
-  OILT_SERVO.write(TargetValue);
-}
-
-// Transmission Oil Pressure
-void SetXMSNP(int TargetValue) {
-  if (XMSNP_SERVO.attached() == false) {
-    XMSNP_SERVO.attach(XMSNP_PORT);
-  }
-  aServoLastupdate[EngTransmissionPressure1] = millis();
-  aServoIdle[EngTransmissionPressure1] = false;
-
-  XMSNP_SERVO.write(TargetValue);
-}
-
-// Transmission Oil Temperature
-void SetXMSNT(int TargetValue) {
-  if (XMSNT_SERVO.attached() == false) {
-    XMSNT_SERVO.attach(XMSNT_PORT);
-  }
-  aServoLastupdate[EngTransmissionTemperature1] = millis();
-  aServoIdle[EngTransmissionTemperature1] = false;
-
-  XMSNT_SERVO.write(TargetValue);
-}
-
-// EGT
-void SetEGT(int TargetValue) {
-  if (EGT_SERVO.attached() == false) {
-    EGT_SERVO.attach(EGT_PORT);
-  }
-  aServoLastupdate[TurbEngItt1] = millis();
-  aServoIdle[TurbEngItt1] = false;
-
-  EGT_SERVO.write(TargetValue);
+  return PITCH_DEG_TABLE[0].pos;  // unreachable - every deg is covered by the clamps or the loop above
 }
 
 // Pitch
@@ -432,6 +312,48 @@ void SetPITCH(int TargetValue) {
   aServoIdle[AttitudeIndicatorPitchDegrees] = false;
 
   PITCH_SERVO.write(TargetValue);
+}
+
+// Attitude Bank/Roll degrees-to-servo-position calibration table,
+// hand-measured on the bench (reuses the DegToServoPosEntry struct
+// PITCH_DEG_TABLE above). "pos" is the raw servo position for
+// ROLL_SERVO.write(). Endpoints (5/179) and the 0deg point (93) all match
+// aServMinPosition[]/aServMaxPosition[]/aServZeroPosition[] exactly -
+// aServZeroPosition[]'s Bank entry was updated from 91 to 93 to match
+// this table's bench-measured 0deg point, so the setup-time self-test
+// sweep and the no-data-watchdog's ResetGaugesToZero() both now return
+// this servo to the same position bankDegToServoPos(0) does. Sorted
+// ascending by deg - bankDegToServoPos() below relies on that order.
+// Replaces the previous
+// raw-passthrough behaviour, where the incoming "BANK" value was assumed
+// to already be a pre-converted servo position - the wire value is real
+// degrees now, same as PITCH above.
+const DegToServoPosEntry BANK_DEG_TABLE[] = {
+  { -90, 5 },
+  { 0, 93 },
+  { 90, 179 },
+};
+const int BANK_DEG_TABLE_SIZE = sizeof(BANK_DEG_TABLE) / sizeof(BANK_DEG_TABLE[0]);
+
+// Converts a requested attitude bank/roll in degrees into a servo
+// position by linear interpolation between the two nearest
+// BANK_DEG_TABLE rows (same pattern as pitchDegToServoPos() above). A deg
+// value outside the table's -90..90 range is clamped to whichever end is
+// nearest rather than extrapolated.
+int bankDegToServoPos(float deg) {
+  if (deg <= BANK_DEG_TABLE[0].deg) return BANK_DEG_TABLE[0].pos;
+  if (deg >= BANK_DEG_TABLE[BANK_DEG_TABLE_SIZE - 1].deg) return BANK_DEG_TABLE[BANK_DEG_TABLE_SIZE - 1].pos;
+
+  for (int i = 0; i < BANK_DEG_TABLE_SIZE - 1; i++) {
+    long degLo = BANK_DEG_TABLE[i].deg;
+    long degHi = BANK_DEG_TABLE[i + 1].deg;
+    if (deg >= degLo && deg <= degHi) {
+      int posLo = BANK_DEG_TABLE[i].pos;
+      int posHi = BANK_DEG_TABLE[i + 1].pos;
+      return posLo + (int)round((double)(deg - degLo) * (posHi - posLo) / (double)(degHi - degLo));
+    }
+  }
+  return BANK_DEG_TABLE[0].pos;  // unreachable - every deg is covered by the clamps or the loop above
 }
 
 // Roll
@@ -446,39 +368,6 @@ void SetROLL(int TargetValue) {
 }
 
 
-// Fuel Load
-void SetFUEL_LOAD(int TargetValue) {
-  if (FUEL_LOAD_SERVO.attached() == false) {
-    FUEL_LOAD_SERVO.attach(FUEL_LOAD_PORT);
-  }
-  aServoLastupdate[Fuel_Load] = millis();
-  aServoIdle[Fuel_Load] = false;
-
-  FUEL_LOAD_SERVO.write(TargetValue);
-}
-
-
-// Electrical_Load
-void SetELEC_LOAD(int TargetValue) {
-  if (ELEC_LOAD_SERVO.attached() == false) {
-    ELEC_LOAD_SERVO.attach(ELEC_LOAD_PORT);
-  }
-  aServoLastupdate[Electrical_Load] = millis();
-  aServoIdle[Electrical_Load] = false;
-
-  ELEC_LOAD_SERVO.write(TargetValue);
-}
-
-// Gas Producer / N1
-void SetGAS_PRODUCER(int TargetValue) {
-  if (GAS_PRODUCER_SERVO.attached() == false) {
-    GAS_PRODUCER_SERVO.attach(GAS_PRODUCER_PORT);
-  }
-  aServoLastupdate[TurbEngCorrectedN11] = millis();
-  aServoIdle[TurbEngCorrectedN11] = false;
-
-  GAS_PRODUCER_SERVO.write(TargetValue);
-}
 
 
 
@@ -500,53 +389,11 @@ void UpdateServoPos() {
 
     if (positionUpdated == true) {
       switch (i) {
-        case EngTorquePercent1:
-          SetEngineTorque(aServoPosition[EngTorquePercent1]);
-          break;
-        case AirSpeed:
-          SetAirSpeed(aServoPosition[AirSpeed]);
-          break;
-        case RotorRpmPct1:
-          SetRPMR(aServoPosition[RotorRpmPct1]);
-          break;
-        case GeneralEngPctMaxRpm1:
-          SetRPME(aServoPosition[GeneralEngPctMaxRpm1]);
-          break;
-        case FuelTotalQuantity:
-          SetFUEL(aServoPosition[FuelTotalQuantity]);
-          break;
-        case VerticalSpeed:
-          SetVSI(aServoPosition[VerticalSpeed]);
-          break;
-        case EngOilPressure1:
-          SetOILP(aServoPosition[EngOilPressure1]);
-          break;
-        case EngOilTemperature1:
-          SetOILT(aServoPosition[EngOilTemperature1]);
-          break;
-        case EngTransmissionPressure1:
-          SetXMSNP(aServoPosition[EngTransmissionPressure1]);
-          break;
-        case EngTransmissionTemperature1:
-          SetXMSNT(aServoPosition[EngTransmissionTemperature1]);
-          break;
-        case TurbEngItt1:
-          SetEGT(aServoPosition[TurbEngItt1]);
-          break;
         case AttitudeIndicatorBankDegrees:
           SetROLL(aServoPosition[AttitudeIndicatorBankDegrees]);
           break;
         case AttitudeIndicatorPitchDegrees:
           SetPITCH(aServoPosition[AttitudeIndicatorPitchDegrees]);
-          break;
-        case Fuel_Load:
-          SetFUEL_LOAD(aServoPosition[Fuel_Load]);
-          break;
-        case Electrical_Load:
-          SetELEC_LOAD(aServoPosition[Electrical_Load]);
-          break;
-        case TurbEngCorrectedN11:
-          SetGAS_PRODUCER(aServoPosition[TurbEngCorrectedN11]);
           break;
         default:
           break;
@@ -576,133 +423,6 @@ void ResetGaugesToZero() {
 
 int ServoIdleTime = 1000;
 void CheckServoIdleTime() {
-  // Engine Torque
-  if (aServoIdle[EngTorquePercent1] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[EngTorquePercent1]) >= ServoIdleTime) {
-      if (ENG_TORQUE_SERVO.attached() == true) {
-        ENG_TORQUE_SERVO.detach();
-      }
-      aServoIdle[EngTorquePercent1] = true;
-      SendDebug("Detaching Engine Torque Servo");
-    }
-  };
-  // AirSpeed
-  if (aServoIdle[AirSpeed] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[AirSpeed]) >= ServoIdleTime) {
-      if (AIRSPEED_SERVO.attached() == true) {
-        AIRSPEED_SERVO.detach();
-      }
-      aServoIdle[AirSpeed] = true;
-      SendDebug("Detaching Air Speed Servo");
-    }
-  };
-  // Rotor RPM
-  if (aServoIdle[RotorRpmPct1] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[RotorRpmPct1]) >= ServoIdleTime) {
-      if (RPMR_SERVO.attached() == true) {
-        RPMR_SERVO.detach();
-      }
-      aServoIdle[RotorRpmPct1] = true;
-      SendDebug("Detaching Rotor RPM Servo");
-    }
-  };
-  // Engine RPM
-  if (aServoIdle[GeneralEngPctMaxRpm1] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[GeneralEngPctMaxRpm1]) >= ServoIdleTime) {
-      if (RPME_SERVO.attached() == true) {
-        RPME_SERVO.detach();
-      }
-      aServoIdle[GeneralEngPctMaxRpm1] = true;
-      SendDebug("Detaching Engine RPM Servo");
-    }
-  };
-  // Fuel Quantity
-  if (aServoIdle[FuelTotalQuantity] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[FuelTotalQuantity]) >= ServoIdleTime) {
-      if (FUEL_SERVO.attached() == true) {
-        FUEL_SERVO.detach();
-      }
-      aServoIdle[FuelTotalQuantity] = true;
-      SendDebug("Detaching Fuel Servo");
-    }
-  };
-
-  // VSI
-  if (aServoIdle[VerticalSpeed] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[VerticalSpeed]) >= ServoIdleTime) {
-      if (VSI_SERVO.attached() == true) {
-        VSI_SERVO.detach();
-      }
-      aServoIdle[VerticalSpeed] = true;
-      SendDebug("Detaching VSI Servo");
-    }
-  };
-
-  // OILP
-  if (aServoIdle[EngOilPressure1] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[EngOilPressure1]) >= ServoIdleTime) {
-      if (OILP_SERVO.attached() == true) {
-        OILP_SERVO.detach();
-      }
-      aServoIdle[EngOilPressure1] = true;
-      SendDebug("Detaching Engine Oil Pressure Servo");
-    }
-  };
-
-  // OILT
-  if (aServoIdle[EngOilTemperature1] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[EngOilTemperature1]) >= ServoIdleTime) {
-      if (OILT_SERVO.attached() == true) {
-        OILT_SERVO.detach();
-      }
-      aServoIdle[EngOilTemperature1] = true;
-      SendDebug("Detaching Engine Oil Temperature Servo");
-    }
-  };
-
-  //Transmission Oil Pressure
-  if (aServoIdle[EngTransmissionPressure1] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[EngTransmissionPressure1]) >= ServoIdleTime) {
-      if (XMSNP_SERVO.attached() == true) {
-        XMSNP_SERVO.detach();
-      }
-      aServoIdle[EngTransmissionPressure1] = true;
-      SendDebug("Detaching Transmission Oil Pressure Servo");
-    }
-  };
-
-  // Transmission Oil Temperature
-  if (aServoIdle[EngTransmissionTemperature1] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[EngTransmissionTemperature1]) >= ServoIdleTime) {
-      if (XMSNT_SERVO.attached() == true) {
-        XMSNT_SERVO.detach();
-      }
-      aServoIdle[EngTransmissionTemperature1] = true;
-      SendDebug("Detaching Transmission Oil Temperature Servo");
-    }
-  };
-
-  // EGT
-  if (aServoIdle[TurbEngItt1] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[TurbEngItt1]) >= ServoIdleTime) {
-      if (EGT_SERVO.attached() == true) {
-        EGT_SERVO.detach();
-      }
-      aServoIdle[TurbEngItt1] = true;
-      SendDebug("Detaching EGT Servo");
-    }
-  };
 
   // PITCH
   if (aServoIdle[AttitudeIndicatorPitchDegrees] == false) {
@@ -728,42 +448,7 @@ void CheckServoIdleTime() {
     }
   };
 
-  // FUEL LOAD
-  if (aServoIdle[Fuel_Load] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[Fuel_Load]) >= ServoIdleTime) {
-      if (FUEL_LOAD_SERVO.attached() == true) {
-        FUEL_LOAD_SERVO.detach();
-      }
-      aServoIdle[Fuel_Load] = true;
-      SendDebug("Detaching Fuel Load Servo");
-    }
-  };
 
-  // ELEC LOAD
-  if (aServoIdle[Electrical_Load] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[Electrical_Load]) >= ServoIdleTime) {
-      if (ELEC_LOAD_SERVO.attached() == true) {
-        ELEC_LOAD_SERVO.detach();
-      }
-      aServoIdle[Electrical_Load] = true;
-      SendDebug("Detaching Electrical Load Servo");
-    }
-  };
-
-
-  // GAS PRODUCER
-  if (aServoIdle[TurbEngCorrectedN11] == false) {
-    //Need to see if we have hit time to detach
-    if ((millis() - aServoLastupdate[TurbEngCorrectedN11]) >= ServoIdleTime) {
-      if (GAS_PRODUCER_SERVO.attached() == true) {
-        GAS_PRODUCER_SERVO.detach();
-      }
-      aServoIdle[TurbEngCorrectedN11] = true;
-      SendDebug("Detaching Gas Producer Servo");
-    }
-  };
 }
 
 
@@ -890,80 +575,29 @@ void HandleOutputValuePair(String str) {
 
     // As the value could contain the null at the end of the string trim it out
     ParameterValue.trim();
-
-    if (ParameterName == "TQ") {
-      //SendDebug("Received Engine Torque: " + ParameterValue);
-      aTargetServoPosition[EngTorquePercent1] = ParameterValue.toInt();
-    } else if (ParameterName == "ITT") {
-      //SendDebug("Received Turbine Temperature: " + ParameterValue);
-      aTargetServoPosition[TurbEngItt1] = ParameterValue.toInt();
-    } else if (ParameterName == "IAS") {
-      //SendDebug("Received Air Speed: " + ParameterValue);
-      aTargetServoPosition[AirSpeed] = ParameterValue.toInt();
-    } else if (ParameterName == "RPMR") {
-      //SendDebug("Received Rotor RPM: " + ParameterValue);
-      aTargetServoPosition[RotorRpmPct1] = ParameterValue.toInt();
-    } else if (ParameterName == "RPME") {
-      //SendDebug("Received Engine RPM: " + ParameterValue);
-      aTargetServoPosition[GeneralEngPctMaxRpm1] = ParameterValue.toInt();
-    } else if (ParameterName == "FUEL") {
-      //SendDebug("Received Fuel Quantity: " + ParameterValue);
-      aTargetServoPosition[FuelTotalQuantity] = ParameterValue.toInt();
-    } else if (ParameterName == "VSI") {
-      //SendDebug("Received Vertical Speed: " + ParameterValue);
-      aTargetServoPosition[VerticalSpeed] = ParameterValue.toInt();
-    } else if (ParameterName == "OILP") {
-      //SendDebug("Received Oil Pressure: " + ParameterValue);
-      aTargetServoPosition[EngOilPressure1] = ParameterValue.toInt();
-    } else if (ParameterName == "OILT") {
-      //SendDebug("Received Oil Temp: " + ParameterValue);
-      aTargetServoPosition[EngOilTemperature1] = ParameterValue.toInt();
-    } else if (ParameterName == "XMSNP") {
-      //SendDebug("Received Transmission Pressure: " + ParameterValue);
-      aTargetServoPosition[EngTransmissionPressure1] = ParameterValue.toInt();
-    } else if (ParameterName == "XMSNT") {
-      //SendDebug("Received Transmission Temperature: " + ParameterValue);
-      aTargetServoPosition[EngTransmissionTemperature1] = ParameterValue.toInt();
-    } else if (ParameterName == "ITT") {
-      //SendDebug("Received ITT: " + ParameterValue);
-      aTargetServoPosition[TurbEngItt1] = ParameterValue.toInt();
-    } else if (ParameterName == "BANK") {
+    if (ParameterName == "BANK") {
       //SendDebug("Received Bank: " + ParameterValue);
-      aTargetServoPosition[AttitudeIndicatorBankDegrees] = ParameterValue.toInt();
+      // Real degrees now, via the bench-measured BANK_DEG_TABLE above
+      // (-90deg->5, 0deg->93, +90deg->179) - no longer a raw pass-through
+      // servo position. Parsed as float so the one-decimal wire value
+      // reaches the interpolation before rounding to a servo position,
+      // same as PITCH below.
+      aTargetServoPosition[AttitudeIndicatorBankDegrees] = bankDegToServoPos(ParameterValue.toFloat());
     } else if (ParameterName == "PITCH") {
       //SendDebug("Received Pitch: " + ParameterValue);
+      // Real degrees now, via the bench-measured PITCH_DEG_TABLE above
+      // (-30deg->179, 0deg->113, +30deg->70), same pattern as BANK above.
+      // Parsed as float so the one-decimal wire value reaches the
+      // interpolation before rounding to a servo position.
+      aTargetServoPosition[AttitudeIndicatorPitchDegrees] = pitchDegToServoPos(ParameterValue.toFloat());
+    } else if (ParameterName == "BANKRAW") {
+      // Distinct raw-position code, bypassing bankDegToServoPos() above -
+      // same "<CODE>RAW" pattern the stepper sketches use for their own
+      // calibrated gauges.
+      aTargetServoPosition[AttitudeIndicatorBankDegrees] = ParameterValue.toInt();
+    } else if (ParameterName == "PITCHRAW") {
+      // Distinct raw-position code, bypassing pitchDegToServoPos() above.
       aTargetServoPosition[AttitudeIndicatorPitchDegrees] = ParameterValue.toInt();
-    } else if (ParameterName == "FLOAD") {
-      //SendDebug("Received Fuel Load: " + ParameterValue);
-      aTargetServoPosition[Fuel_Load] = ParameterValue.toInt();
-    } else if (ParameterName == "ELOAD") {
-      //SendDebug("Received Electrical Load: " + ParameterValue);
-      aTargetServoPosition[Electrical_Load] = ParameterValue.toInt();
-    } else if (ParameterName == "N1") {
-      //SendDebug("Received N1 Gas / Producer Load: " + ParameterValue);
-      aTargetServoPosition[TurbEngCorrectedN11] = ParameterValue.toInt();
-    } else if (ParameterName == "AGL") {
-      //SendDebug("Received Radar Altitude: " + ParameterValue);
-      if (PLANE_ALT_ABOVE_GROUND != ParameterValue) {
-        SendDebug("Radar Altitude changed");
-        PLANE_ALT_ABOVE_GROUND = ParameterValue;
-      };
-    } else if (ParameterName == "AMPS") {
-      //SendDebug("Received Amps: " + ParameterValue);
-      if (ELECTRICAL_TOTAL_LOAD_AMPS != ParameterValue) {
-        SendDebug("Amps changed");
-        ELECTRICAL_TOTAL_LOAD_AMPS = ParameterValue;
-      };
-
-
-    } else if (ParameterName == "N1") {
-      //SendDebug("Received N1: " + ParameterValue);
-      if (TURB_ENG_CORRECTED_N1_1 != ParameterValue) {
-        SendDebug("N1 changed");
-        TURB_ENG_CORRECTED_N1_1 = ParameterValue;
-      };
-
-
     } else if (ParameterName == "RLOW") {
       if (Rotor_RPM_Low != ParameterValue) {
         //SendDebug("Rotor Low RPM changed");
@@ -1230,44 +864,6 @@ void setup() {
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
 
     // Zero Servos
-    SetOILP(aServZeroPosition[EngOilPressure1]);
-    OILP_SERVO.write(aServZeroPosition[EngOilPressure1]);
-
-    SetOILT(aServZeroPosition[EngOilTemperature1]);
-    OILT_SERVO.write(aServZeroPosition[EngOilTemperature1]);
-
-    SetEngineTorque(aServZeroPosition[EngTorquePercent1]);
-    ENG_TORQUE_SERVO.write(aServZeroPosition[EngTorquePercent1]);
-
-    SetAirSpeed(aServZeroPosition[AirSpeed]);
-    AIRSPEED_SERVO.write(aServZeroPosition[AirSpeed]);
-
-    SetXMSNP(aServZeroPosition[EngTransmissionPressure1]);
-    XMSNP_SERVO.write(aServZeroPosition[EngTransmissionPressure1]);
-
-    SetXMSNT(aServZeroPosition[EngTransmissionTemperature1]);
-    XMSNT_SERVO.write(aServZeroPosition[EngTransmissionTemperature1]);
-
-    SetEGT(aServZeroPosition[TurbEngItt1]);
-    EGT_SERVO.write(aServZeroPosition[TurbEngItt1]);
-
-    SetRPMR(aServZeroPosition[RotorRpmPct1]);
-    RPMR_SERVO.write(aServZeroPosition[RotorRpmPct1]);
-
-    SetRPME(aServZeroPosition[GeneralEngPctMaxRpm1]);
-    RPME_SERVO.write(aServZeroPosition[GeneralEngPctMaxRpm1]);
-
-    SetFUEL(aServZeroPosition[FuelTotalQuantity]);
-    FUEL_SERVO.write(aServZeroPosition[FuelTotalQuantity]);
-
-    SetGAS_PRODUCER(aServZeroPosition[TurbEngCorrectedN11]);
-    GAS_PRODUCER_SERVO.write(aServZeroPosition[TurbEngCorrectedN11]);
-
-    SetELEC_LOAD(aServZeroPosition[Electrical_Load]);
-    ELEC_LOAD_SERVO.write(aServZeroPosition[Electrical_Load]);
-
-    SetFUEL_LOAD(aServZeroPosition[Fuel_Load]);
-    FUEL_LOAD_SERVO.write(aServZeroPosition[Fuel_Load]);
 
     SetPITCH(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
     PITCH_SERVO.write(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
@@ -1275,198 +871,19 @@ void setup() {
     SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
     ROLL_SERVO.write(aServZeroPosition[AttitudeIndicatorBankDegrees]);
 
-    SetVSI(aServZeroPosition[VerticalSpeed]);
-    VSI_SERVO.write(aServZeroPosition[VerticalSpeed]);
-
-
-
-
-    // Oil Pressure
-    SetOILP(aServMinPosition[EngOilPressure1]);
-    for (int i = 0; i <= 100; i++) {
-      SetOILP(int(map(i, 0, 100, long(aServMinPosition[EngOilPressure1]), long(aServMaxPosition[EngOilPressure1]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetOILP((map(i, 0, 100, long(aServMinPosition[EngOilPressure1]), long(aServMaxPosition[EngOilPressure1]))));
-      delay(10);
-    }
-
 
     digitalWrite(D_SC_Fail, false);
-
-
-
-    // OIL Temp
-    SetOILT(aServMinPosition[EngOilTemperature1]);
-    for (int i = 0; i <= 100; i++) {
-      SetOILT(int(map(i, 0, 100, long(aServMinPosition[EngOilTemperature1]), long(aServMaxPosition[EngOilTemperature1]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetOILT((map(i, 0, 100, long(aServMinPosition[EngOilTemperature1]), long(aServMaxPosition[EngOilTemperature1]))));
-      delay(10);
-    }
-
     digitalWrite(D_Low_Fuel, false);
-
-
-
-    // Engine Torque
-    SetEngineTorque(aServMinPosition[EngTorquePercent1]);
-    for (int i = 0; i <= 120; i++) {
-      SetEngineTorque((int(map(i, 0, 120, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1]))));
-      delay(10);
-    }
-    for (int i = 120; i >= 0; i--) {
-      SetEngineTorque((int(map(i, 0, 120, aServMinPosition[EngTorquePercent1], aServMaxPosition[EngTorquePercent1]))));
-      delay(10);
-    }
-
     digitalWrite(D_Gen_Fail, false);
-
-
-    // Air Speed
-    SetAirSpeed(aServMinPosition[AirSpeed]);
-    for (int i = 0; i <= 150; i++) {
-      SetAirSpeed(int(map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
-      delay(10);
-    }
-    for (int i = 150; i >= 0; i--) {
-      SetAirSpeed((map(i, 0, 150, long(aServMinPosition[AirSpeed]), long(aServMaxPosition[AirSpeed]))));
-      delay(10);
-    }
-
     digitalWrite(D_Fuel_Pump, false);
-
-
-
-
-
-    // Transmission Pressure
-    SetXMSNP(aServMinPosition[EngTransmissionPressure1]);
-    for (int i = 0; i <= 100; i++) {
-      SetXMSNP(int(map(i, 0, 100, long(aServMinPosition[EngTransmissionPressure1]), long(aServMaxPosition[EngTransmissionPressure1]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetXMSNP((map(i, 0, 100, long(aServMinPosition[EngTransmissionPressure1]), long(aServMaxPosition[EngTransmissionPressure1]))));
-      delay(10);
-    }
-
     digitalWrite(D_AFT_Fuel_Filter, false);
-
-    // Transmission Temperature
-    SetXMSNT(aServMinPosition[EngTransmissionTemperature1]);
-    for (int i = 0; i <= 100; i++) {
-      SetXMSNT(int(map(i, 0, 100, long(aServMinPosition[EngTransmissionTemperature1]), long(aServMaxPosition[EngTransmissionTemperature1]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetXMSNT((map(i, 0, 100, long(aServMinPosition[EngTransmissionTemperature1]), long(aServMaxPosition[EngTransmissionTemperature1]))));
-      delay(10);
-    }
-
     digitalWrite(D_TR_Chip, false);
-
-    // ITT
-    SetEGT(aServMinPosition[TurbEngItt1]);
-    for (int i = 0; i <= 100; i++) {
-      SetEGT(int(map(i, 0, 100, long(aServMinPosition[TurbEngItt1]), long(aServMaxPosition[TurbEngItt1]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetEGT((map(i, 0, 100, long(aServMinPosition[TurbEngItt1]), long(aServMaxPosition[TurbEngItt1]))));
-      delay(10);
-    }
-
     digitalWrite(D_Baggage_Door, false);
-
-
-
-
-
-
-    // Rotor RPM
-    SetRPMR(aServMinPosition[RotorRpmPct1]);
-    for (int i = 0; i <= 100; i++) {
-      SetRPMR(int(map(i, 0, 100, long(aServMinPosition[RotorRpmPct1]), long(aServMaxPosition[RotorRpmPct1]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetRPMR((map(i, 0, 100, long(aServMinPosition[RotorRpmPct1]), long(aServMaxPosition[RotorRpmPct1]))));
-      delay(10);
-    }
-
     digitalWrite(D_Trans_Chip, false);
-
-    // Engine RPM
-    SetRPME(aServMinPosition[RotorRpmPct1]);
-    for (int i = 0; i <= 100; i++) {
-      SetRPME(int(map(i, 0, 100, long(aServMinPosition[GeneralEngPctMaxRpm1]), long(aServMaxPosition[GeneralEngPctMaxRpm1]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetRPME((map(i, 0, 100, long(aServMinPosition[GeneralEngPctMaxRpm1]), long(aServMaxPosition[GeneralEngPctMaxRpm1]))));
-      delay(10);
-    }
-
     digitalWrite(D_Engine_Chip, false);
-
-    // Fuel
-    SetFUEL(aServMinPosition[FuelTotalQuantity]);
-    for (int i = 0; i <= 100; i++) {
-      SetFUEL(int(map(i, 0, 100, long(aServMinPosition[FuelTotalQuantity]), long(aServMaxPosition[FuelTotalQuantity]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetFUEL((map(i, 0, 100, long(aServMinPosition[FuelTotalQuantity]), long(aServMaxPosition[FuelTotalQuantity]))));
-      delay(10);
-    }
-
     digitalWrite(D_Battery_Temp, false);
-
-
-    // Gas Producer
-    SetGAS_PRODUCER(aServMinPosition[TurbEngCorrectedN11]);
-    for (int i = 0; i <= 100; i++) {
-      SetGAS_PRODUCER(int(map(i, 0, 100, long(aServMinPosition[TurbEngCorrectedN11]), long(aServMaxPosition[TurbEngCorrectedN11]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetGAS_PRODUCER((map(i, 0, 100, long(aServMinPosition[TurbEngCorrectedN11]), long(aServMaxPosition[TurbEngCorrectedN11]))));
-      delay(10);
-    }
-
     digitalWrite(D_Battery_Hot, false);
-
-    // Elec Load
-    SetELEC_LOAD(aServMinPosition[Fuel_Load]);
-    for (int i = 0; i <= 100; i++) {
-      SetELEC_LOAD(int(map(i, 0, 100, long(aServMinPosition[Electrical_Load]), long(aServMaxPosition[Electrical_Load]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetELEC_LOAD((map(i, 0, 100, long(aServMinPosition[Electrical_Load]), long(aServMaxPosition[Electrical_Load]))));
-      delay(10);
-    }
-
-
     digitalWrite(D_Trans_Oil_Temp, false);
-
-
-    // Fuel Load
-    SetFUEL_LOAD(aServMinPosition[Fuel_Load]);
-    for (int i = 0; i <= 100; i++) {
-      SetFUEL_LOAD(int(map(i, 0, 100, long(aServMinPosition[Fuel_Load]), long(aServMaxPosition[Fuel_Load]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetFUEL_LOAD((map(i, 0, 100, long(aServMinPosition[Fuel_Load]), long(aServMaxPosition[Fuel_Load]))));
-      delay(10);
-    }
-
-
     digitalWrite(D_Trans_Oil_Pressure, false);
 
 
@@ -1499,25 +916,6 @@ void setup() {
     SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
 
     digitalWrite(D_Engine_Out, false);
-
-
-
-    // VSI
-    SetVSI(aServMinPosition[VerticalSpeed]);
-    for (int i = 0; i <= 100; i++) {
-      SetVSI(int(map(i, 0, 100, long(aServMinPosition[VerticalSpeed]), long(aServMaxPosition[VerticalSpeed]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetVSI((map(i, 0, 100, long(aServMinPosition[VerticalSpeed]), long(aServMaxPosition[VerticalSpeed]))));
-      delay(10);
-    }
-    SetVSI(aServZeroPosition[VerticalSpeed]);
-
-    for (int i = 0; i < Number_of_Servos; i++) {
-      aServoPosition[i] = aServZeroPosition[i];
-      aTargetServoPosition[i] = aServZeroPosition[i];
-    }
   }
 
 

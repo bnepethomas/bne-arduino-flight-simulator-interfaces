@@ -226,6 +226,27 @@ unit to use.
     rather than inserted into the compact-rows group near FA/GP (#15
     above), purely to avoid re-numbering every control's Y coordinate
     below it in the Designer file.
+21. **Servo Controller (172.16.1.102) Test section - PITCH/BANK rows**
+    (`butSendPitch`/`txtPitch`, `butSendBank`/`txtBank`, each with a
+    matching Enter handler): the only rows in this tool that talk to a
+    third board, `servoClient` (`172.16.1.102`,
+    [`JET_RANGER_SERVO_CONTROLLER.ino`](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_SERVO_CONTROLLER/PROGRAM_SUMMARY.md))
+    - every other control in this tool targets `stepperClient`/
+    `dualStepperClient` only. Sent one-decimal-place via
+    `SendServoValue()`/`SendServo()` (parses `double`, formats `"F1"`),
+    matching RPME/RPMR's own one-decimal wire format. Real attitude
+    degrees now (`PITCH`: -30..30, `BANK`: -90..90), not a raw servo
+    position - `JET_RANGER_SERVO_CONTROLLER.ino`'s `"PITCH"`/`"BANK"` UDP
+    handlers convert them through its own bench-measured
+    `PITCH_DEG_TABLE`/`BANK_DEG_TABLE` (interpolated, then rounded to a
+    servo position). This tool still does no conversion of its own - it
+    forwards whatever degrees the operator types. `PITCHRAW`/`BANKRAW`
+    (`butSendPitchRaw`/`txtPitchRaw`, `butSendBankRaw`/`txtBankRaw`, new)
+    are the raw-position bypass siblings, via new
+    `SendServoRawValue()`/`SendServoRaw()` (parses `long`, bare integer -
+    same `"<CODE>RAW"` pattern every other calibrated gauge in this tool
+    has). Placed in their own new header/rows below the `TQ` row (#20
+    above), same "append at the bottom" reasoning.
 
 No unit conversion happens in this tool for VSI/ALT/Radar ALT/EGT/IAS/
 RPME/RPMR/FUELLOAD/ELECTRICALLOAD — whatever value is shown is sent as-is
@@ -254,6 +275,7 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 |---|---|---|
 | `172.16.1.105` (Stepper Controller, via `stepperClient`) | 13136 | `"D,VSI:<fpm>"`, `"D,ALT:<feet>"`, `"D,AGL:<feet or steps>"`, `"D,ITT:<C>"`, `"D,IAS:<kt>"`, `"D,RPME:<pct>.0"`, `"D,RPMR:<pct>.0"`, `"D,ASTEP:<steps>/<intervalMs>"`, `"D,<OILT\|OILP\|XMSNT\|XMSNP\|N1\|FUEL>:<value>"` (`OILT`/`OILP`/`XMSNT`/`XMSNP` also broadcast to `172.16.1.106`, see below), `"D,TQ:<pct>"` (Torque, exclusive to this board - no `172.16.1.106` equivalent), and `"D,<FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW\|TQRAW\|FUELLOADRAW\|ELECTRICALLOADRAW>:<steps>"` test packets (`FUELLOADRAW`/`ELECTRICALLOADRAW` are silent no-ops here - see #16 above) |
 | `172.16.1.106` (Dual Stepper Controller, via `dualStepperClient`) | 13136 | `"D,FUELLOAD:<psi>"`, `"D,ELECTRICALLOAD:<pct>"`, `"D,ZULU:<HHMM>"` (all exclusive to this board); `"D,ALT:<feet>"`/`"D,RPME:<pct>.0"`/`"D,RPMR:<pct>.0"`/`"D,OILT:<C>"`/`"D,OILP:<psi>"`/`"D,XMSNT:<C>"`/`"D,XMSNP:<psi>"` (broadcast alongside `172.16.1.105` - `RPME`/`RPMR` via `SendPercentManualValueBroadcast()`/the double `Send()`/`SendDual()` overloads, `ALT` via the original `long`-typed `SendManualValueBroadcast()`, `OILT`/`OILP`/`XMSNT`/`XMSNP` via `SendRealValueBroadcast()` now that this board's `EOT_C_TABLE`/`EOP_PSI_TABLE`/`XOT_C_TABLE`/`XOP_PSI_TABLE` give them real calibration; `ALT` works here since this board's `ALTstepper`/`ALT` UDP case were re-enabled specifically for it); and every Raw Step Test panel code (`"D,<FLAPS\|AOA\|GFORCE\|SPDMAX\|IASRAW\|ALTRAW\|VSIRAW\|OILTRAW\|OILPRAW\|XMSNTRAW\|XMSNPRAW\|ITTRAW\|RPMERAW\|RPMRRAW\|N1RAW\|FUELRAW\|TQRAW\|FUELLOADRAW\|ELECTRICALLOADRAW>:<steps>"`, also broadcast alongside `172.16.1.105` - `AGLRAW`/`TQRAW` are no-ops on this board, `ALTRAW` now works, `FUELLOADRAW`/`ELECTRICALLOADRAW` are new and only work here) |
+| `172.16.1.102` (Servo Controller, via `servoClient`) | 13136 | `"D,PITCH:<deg>.0"`, `"D,BANK:<deg>.0"` (one-decimal-place real degrees), `"D,PITCHRAW:<pos>"`, `"D,BANKRAW:<pos>"` (bare-integer raw servo position bypass) - exclusive to this board, no other code from this tool reaches `172.16.1.102` |
 
 ## Programs this communicates with
 
@@ -281,3 +303,7 @@ None locally bound — this tool only sends, it doesn't listen for anything.
   VSI/Radar ALT/EGT/IAS trackbars, the six remaining real-value compact
   rows (`OILT`/`OILP`/`XMSNT`/`XMSNP`/`N1`/`FUEL`), and the ALT jog still
   target `172.16.1.105` only.
+- **[JET_RANGER_SERVO_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_SERVO_CONTROLLER/PROGRAM_SUMMARY.md)**
+  (`172.16.1.102:13136` — a third, distinct board, new) — the PITCH/BANK
+  rows talk to this board exclusively; no other control in this tool
+  reaches it.

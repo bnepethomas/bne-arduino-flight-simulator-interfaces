@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StepperVSITester")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0868c55a0f876457cb1bf604767af7ecb67148f8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+539444f25901d8637e826ed7a9830c47a154d77b")]
 [assembly: System.Reflection.AssemblyProductAttribute("StepperVSITester")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StepperVSITester")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
