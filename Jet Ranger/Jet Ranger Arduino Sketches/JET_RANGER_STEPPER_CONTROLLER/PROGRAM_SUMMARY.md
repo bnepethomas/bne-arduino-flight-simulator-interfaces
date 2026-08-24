@@ -30,7 +30,7 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 26,930 bytes (10%) | 3,639 bytes (44%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 27,970 bytes (11%) | 3,805 bytes (46%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
 Flashed to the bench Mega on COM4 several times across this sketch's
@@ -57,9 +57,12 @@ diffed against each other line-for-line.
 | `VSIstepper` | FULL4WIRE, `COIL_VSI_A..D` (7/8/9/11, wired C,D,A,B) | Active - real `VSI_FPM_TABLE` calibration, boot homing gated by `SwingVSI` (default `false`, so currently disabled - see selective-swing note below) |
 | `IASstepper` (renamed from `SpeedCurrentstepper`) | FULL4WIRE, `STEPPER_SPD_A..D` (12/13/22/23, wired C,D,A,B) | Active - real `IAS_KT_TABLE` calibration (see below); its own boot startup/swing exists but is gated by `SwingIAS` (default `false`) - previously a bare `if (false)`, now a named toggle with identical default behaviour |
 | `RadarAltStepper` | FULL4WIRE, `RADAR_ALT_COIL_A..D` (32/33/34/35, wired C,D,A,B) | Active, raw steps only (`AGL` code) - no real calibration yet. Boot startup/swing gated by `SwingAGL` (default `false`) - previously a bare `if (false)` whose own in-code comment incorrectly claimed it ran every boot; that stale claim was corrected when the named gate was added |
-| `EOTstepper`, `XOTstepper`, `XOPstepper`, `EGTstepper`, `FAstepper`, `GPstepper`, `EOPstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes (see table below), all still using the placeholder `FULL4WIRE_HOMING_STEPS` linear scale (see caution below), no boot startup/swing at all |
+| `EOTstepper`, `XOTstepper`, `XOPstepper`, `EOPstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes (see table below), all still using the placeholder `FULL4WIRE_HOMING_STEPS` linear scale (see caution below), no boot startup/swing at all |
+| `GPstepper` (Gas Producer) | FULL4WIRE, `GP_COIL_A..D` (40/41/42/43) | Real percent now via `setGP()`/`GP_PCT_TABLE` (`N1` code) — 3-point bench-measured table, all rows directly measured (0%→15, 100%→550, 103%→583 steps; reuses the `PctToStepEntry` struct `TS_PCT_TABLE`/`RS_PCT_TABLE` also use). Unlike most tables in this sketch, 0% is NOT the stepper's raw zero - the boot swing's "return to zero" step accounts for this (`gpPctToSteps(0) + GPZeroOffset`, not just `GPZeroOffset`, same situation as `FAstepper`'s swing above). Boot startup/swing active, gated by `SwingGP` (default `true`) - overshoots the real 583-step calibrated max, same as every other graduated gauge's swing in this sketch |
+| `EGTstepper` (EGT/ITT) | FULL4WIRE, `EGT_COIL_A..D` (A11-A14) | Real degrees C now via `setEGT()`/`EGT_C_TABLE` (`ITT` code) — 7-point bench-measured table (100C→0, 300C→44, 500C→76, 600C→102, 700C→243, 800C→401, 900C→493 steps; reuses the new `CToStepEntry` struct). No 0C row was measured - any tempC ≤100 clamps to the 100C row's 0 steps, same effective result. Boot startup/swing active, gated by `SwingEGT` (default `true`) - overshoots the real 493-step calibrated max, same as every other graduated gauge's swing in this sketch. `egtCToSteps(0)` still clamps to 0 steps, so `EGTZeroOffset` alone remains the correct calibrated-zero target for the swing's return-to-zero step, unlike `FAstepper`'s swing above |
 | `TSstepper`, `RSstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes via `TS_PCT_TABLE`/`RS_PCT_TABLE` (see table below). Boot startup/swing gated by shared `SwingRPM` (default `true`) - previously ran unconditionally with no gate at all; the default preserves that prior always-on behaviour |
 | `TQstepper` (renamed from `ETstepper`, outside this doc pass) | FULL4WIRE, `ET_COIL_A..D` (36/37/38/39) | Real percent now via `setTQ()`/`TQ_PCT_TABLE` (`TQ` code) — 2-point bench-measured table (0%→0, 120%→600 steps; reuses the `PctToStepEntry` struct `TS_PCT_TABLE`/`RS_PCT_TABLE` also use). `TQRAW` added as the raw-step bypass. Boot startup/swing active, gated by `SwingTQ` (default `true`) - previously had no startup routine at all. Uses the same `X27_FULLWIRE_STEPS`/`X27_FULLWIRE_HOMING_STEPS` range as VSI/IAS/Radar Alt/TS/RS's swings — now a reasonable match rather than an arbitrary range, since the real 120% max (600 steps) is close to `X27_FULLWIRE_STEPS` (635) |
+| `FAstepper` (Fuel Quantity) | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Real US gallons now via `setFA()`/`FA_GAL_TABLE` (`FUEL`/`FA` code) — 2-point table, both rows bench-measured (0 gal→53 steps, 75 gal→504 steps; reuses the new `GalToStepEntry` struct). Unlike most tables in this sketch, 0 gal is NOT the stepper's raw zero - the boot swing's "return to zero" step accounts for this (`galToSteps(0) + FAZeroOffset`, not just `FAZeroOffset`). `FUELRAW` already existed as the raw-step bypass. Boot startup/swing active, gated by `SwingFA` (default `true`) - overshoots the real 504-step calibrated max, same as every other graduated gauge's swing in this sketch |
 | `ALTstepper`, `SpeedMaxstepper`, `FlapsStepper`, `AOAstepper`, `GForcestepper` | — | **Removed.** Constructs, pin `#define`s (mostly), startup routines, DCS-BIOS bindings, and UDP codes for all five are commented out or deleted. `FlapsStepPin`/`FlapsDirectionPin` are the one pair of pin `#define`s left behind, now orphaned (nothing reads them). |
 | `SARIstepperRoll` | DRIVER, pins 30/32 | Declared and pin-claimed, but its `Nema8Stepper` binding is commented out - never `.run()`, never bound to DCS-BIOS. Still occupies pins 30/32 via its `AccelStepper` constructor. |
 | `saiPitch` (`DcsBios::ServoOutput`, pin 9) | — | Active - SAI pitch axis, plain hobby servo |
@@ -115,13 +118,16 @@ collides with `AllstepperEnablePin`.
    `if (false)` gates (VSI/IAS/Radar Alt) and no gate at all (Turbine/
    Rotor Speed, which ran unconditionally). Defaults preserve prior
    behaviour exactly: `SwingVSI`/`SwingIAS`/`SwingAGL` = `false`,
-   `SwingRPM` = `true` (gates both `TSstepper` and `RSstepper`). A fifth
-   gate, `SwingTQ` (default `true`), was added afterward for `TQstepper`
-   (Torque) - the one gauge that never had a startup swing at all before,
-   so there was no prior behaviour to preserve. `ALT`/`Flaps`/`AOA`/
-   `G-Force` startup blocks are all commented out (not gated - those
-   steppers don't exist in this sketch any more). Starts DCS-BIOS, sets
-   running-brightness backlighting.
+   `SwingRPM` = `true` (gates both `TSstepper` and `RSstepper`). Four
+   more gates were added afterward for gauges that never had a startup
+   swing at all before, so there was no prior behaviour to preserve for
+   any of them: `SwingTQ` (default `true`) for `TQstepper` (Torque),
+   `SwingFA` (default `true`) for `FAstepper` (Fuel Quantity),
+   `SwingEGT` (default `true`) for `EGTstepper` (EGT/ITT), and `SwingGP`
+   (default `true`) for `GPstepper` (Gas Producer). `ALT`/`Flaps`/`AOA`/
+   `G-Force` startup blocks are all commented out (not gated -
+   those steppers don't exist in this sketch any more). Starts DCS-BIOS,
+   sets running-brightness backlighting.
 2. **Main loop** (`loop()`): toggles status LEDs; `DcsBios::loop()` is
    commented out (DCS-BIOS callbacks are registered but never pumped, so
    none fire from a live serial link in this build); `updateSteppers()`

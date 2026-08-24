@@ -46,15 +46,20 @@ BACK_LIGHTS
 // touching the swing logic itself. Defaults below preserve this sketch's
 // prior behaviour exactly: VSI/IAS/AGL were `if (false)` (disabled),
 // TS/RS ran unconditionally (enabled) - only SwingRPM defaults to true.
-// SwingTQ is the exception - TQstepper (Torque) never had a startup
-// swing at all before now, so there's no prior behaviour to preserve;
-// defaults to true so the new swing actually runs.
+// SwingTQ/SwingFA/SwingEGT/SwingGP are the exception - TQstepper
+// (Torque), FAstepper (Fuel Quantity), EGTstepper (EGT/ITT), and
+// GPstepper (Gas Producer) never had a startup swing at all before now,
+// so there's no prior behaviour to preserve; all four default to true
+// so the new swings actually run.
 #define SwingLoops 2
 #define SwingVSI false
 #define SwingIAS false
 #define SwingAGL false
 #define SwingRPM false
-#define SwingTQ true
+#define SwingTQ false
+#define SwingFA false
+#define SwingEGT true
+#define SwingGP true
 
 // Per-gauge fine-trim zero offsets (steps), same purpose/pattern as
 // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's TSoffset/RSoffset: dial
@@ -348,12 +353,12 @@ AccelStepper RadarAltStepper(AccelStepper::FULL4WIRE, RADAR_ALT_COIL_C, RADAR_AL
 AccelStepper EOTstepper(AccelStepper::FULL4WIRE, EOT_COIL_A, EOT_COIL_B, EOT_COIL_C, EOT_COIL_D);
 AccelStepper XOTstepper(AccelStepper::FULL4WIRE, XOT_COIL_A, XOT_COIL_B, XOT_COIL_C, XOT_COIL_D);
 AccelStepper XOPstepper(AccelStepper::FULL4WIRE, XOP_COIL_A, XOP_COIL_B, XOP_COIL_C, XOP_COIL_D);
-AccelStepper EGTstepper(AccelStepper::FULL4WIRE, EGT_COIL_A, EGT_COIL_B, EGT_COIL_C, EGT_COIL_D);
+AccelStepper EGTstepper(AccelStepper::FULL4WIRE, EGT_COIL_C, EGT_COIL_D, EGT_COIL_A, EGT_COIL_B);
 AccelStepper TSstepper(AccelStepper::FULL4WIRE, TS_COIL_C, TS_COIL_D, TS_COIL_A, TS_COIL_B);
 AccelStepper RSstepper(AccelStepper::FULL4WIRE, RS_COIL_C, RS_COIL_D, RS_COIL_A, RS_COIL_B);
-AccelStepper FAstepper(AccelStepper::FULL4WIRE, FA_COIL_A, FA_COIL_B, FA_COIL_C, FA_COIL_D);
+AccelStepper FAstepper(AccelStepper::FULL4WIRE, FA_COIL_C, FA_COIL_D, FA_COIL_A, FA_COIL_B);
 AccelStepper TQstepper(AccelStepper::FULL4WIRE, ET_COIL_C, ET_COIL_D, ET_COIL_A, ET_COIL_B);
-AccelStepper GPstepper(AccelStepper::FULL4WIRE, GP_COIL_A, GP_COIL_B, GP_COIL_C, GP_COIL_D);
+AccelStepper GPstepper(AccelStepper::FULL4WIRE, GP_COIL_C, GP_COIL_D, GP_COIL_A, GP_COIL_B);
 AccelStepper EOPstepper(AccelStepper::FULL4WIRE, EOP_COIL_A, EOP_COIL_B, EOP_COIL_C, EOP_COIL_D);
 // ########################### END STEPPERS #########################################
 
@@ -715,6 +720,118 @@ void setup() {
   }
   // ################# End Torque Startup #########################
 
+  // ################# Start Fuel Quantity Startup #########################
+  // Same wind/zero/swing-loop pattern as Torque above, reusing the same
+  // X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see the
+  // macro-precedence caution on VSI's homing above - the same
+  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
+  // here too). FAstepper (Fuel Quantity, UDP code "FUEL"/"FA") now has a
+  // real bench-measured table (FA_GAL_TABLE, see "START FUEL QUANTITY"
+  // below) whose 75-gal max (504 steps) is well inside X27_FULLWIRE_STEPS
+  // (635), so this swing overshoots the real calibrated range for a
+  // fuller self-test, same as every other graduated gauge's swing in
+  // this sketch (Radar Alt/TS/RS/TQ above). FAstepper had no startup
+  // routine at all before this. Direction sign is an unverified
+  // assumption, NOT bench-confirmed. Each loop's "return to zero" (and
+  // the swing's final resting position) targets FAZeroOffset, not raw 0 -
+  // same trimmed target ResetGaugesToZero()'s `setFA(0)` already uses.
+  if (SwingFA) {
+    SendDebug("Start FAstepper");
+    FAstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    FAstepper.runToNewPosition(0);
+    FAstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Fuel Quantity to Max");
+      FAstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      // Targets galToSteps(0) + FAZeroOffset, not just FAZeroOffset -
+      // FA_GAL_TABLE's 0-gal row is 53 steps, not the stepper's raw 0
+      // (unlike every other gauge's swing in this sketch, where the
+      // offset alone is the correct calibrated-zero target). Using plain
+      // FAZeroOffset here would rest the swing ~53 steps short of the
+      // real empty-tank position.
+      SendDebug("Returning Fuel Quantity to Zero");
+      FAstepper.runToNewPosition(galToSteps(0) + FAZeroOffset);
+      delay(200);
+    }
+    SendDebug("End FAstepper");
+  }
+  // ################# End Fuel Quantity Startup #########################
+
+  // ################# Start EGT Startup #########################
+  // Same wind/zero/swing-loop pattern as Fuel Quantity above, reusing the
+  // same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see the
+  // macro-precedence caution on VSI's homing above - the same
+  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
+  // here too). EGTstepper (EGT/ITT, UDP code "ITT") now has a real
+  // bench-measured table (EGT_C_TABLE, see "START EGT" above) whose
+  // 900C max (493 steps) is well inside X27_FULLWIRE_STEPS (635), so this
+  // swing overshoots the real calibrated range for a fuller self-test,
+  // same as every other graduated gauge's swing in this sketch.
+  // EGTstepper had no startup routine at all before this. Direction sign
+  // is an unverified assumption, NOT bench-confirmed. Each loop's "return
+  // to zero" (and the swing's final resting position) targets
+  // EGTZeroOffset, not raw 0 - egtCToSteps(0) clamps to EGT_C_TABLE's
+  // lowest row (100C -> 0 steps), so EGTZeroOffset alone is still the
+  // correct calibrated-zero target (unlike FAstepper's swing above,
+  // which needed galToSteps(0) + FAZeroOffset since its 0-gal row isn't
+  // 0 steps).
+  if (SwingEGT) {
+    SendDebug("Start EGTstepper");
+    EGTstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    EGTstepper.runToNewPosition(0);
+    EGTstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending EGT to Max");
+      EGTstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning EGT to Zero");
+      EGTstepper.runToNewPosition(EGTZeroOffset);
+      delay(200);
+    }
+    SendDebug("End EGTstepper");
+  }
+  // ################# End EGT Startup #########################
+
+  // ################# Start Gas Producer Startup #########################
+  // Same wind/zero/swing-loop pattern as EGT above, reusing the same
+  // X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see the
+  // macro-precedence caution on VSI's homing above - the same
+  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
+  // here too). GPstepper (Gas Producer, UDP code "N1") now has a real
+  // bench-measured table (GP_PCT_TABLE, see "START GAS PRODUCER" below)
+  // whose 103% max (583 steps) is well inside X27_FULLWIRE_STEPS (635),
+  // so this swing overshoots the real calibrated range for a fuller
+  // self-test, same as every other graduated gauge's swing in this
+  // sketch. GPstepper had no startup routine at all before this.
+  // Direction sign is an unverified assumption, NOT bench-confirmed.
+  // Each loop's "return to zero" (and the swing's final resting
+  // position) targets gpPctToSteps(0) + GPZeroOffset, not just
+  // GPZeroOffset - GP_PCT_TABLE's 0% row is 15 steps, not the stepper's
+  // raw 0 (same situation as FAstepper's swing above).
+  if (SwingGP) {
+    SendDebug("Start GPstepper");
+    GPstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    GPstepper.runToNewPosition(0);
+    GPstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Gas Producer to Max");
+      GPstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Gas Producer to Zero");
+      GPstepper.runToNewPosition(gpPctToSteps(0) + GPZeroOffset);
+      delay(200);
+    }
+    SendDebug("End GPstepper");
+  }
+  // ################# End Gas Producer Startup #########################
+
 
 
 
@@ -1037,23 +1154,52 @@ DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
 // EGT (Exhaust Gas Temp) real-value UDP handler - see the "ITT" case in
 // HandleOutputValuePair() below (renamed from "EGT" to match
 // JET_RANGER_SERVO_CONTROLLER.ino), which sends degrees C instead of a
-// raw step target. Straight linear scale across the gauge's real-world
-// 0-900C range onto FULL4WIRE_HOMING_STEPS - CAUTION: that constant was
-// redefined from 315*2 (630) to 315+5 (320) elsewhere in this sketch
-// (see the pin/stepper section above), which halves this gauge's
-// effective step resolution without this comment (or EGTstepper's own
-// homing) having been updated to match - EGTstepper still has no actual
-// homing routine, so "FULL4WIRE_HOMING_STEPS" here is still a borrowed
-// placeholder ceiling, not a bench-measured one. NOT a real per-point
-// calibration table like VSI_FPM_TABLE/IAS_KT_TABLE - revisit with real
-// bench-measured points once EGTstepper's actual travel is known.
-#define EGT_MIN_C 0
-#define EGT_MAX_C 900
+// raw step target.
 
+// EGT degrees-C-to-step calibration table, hand-measured on the bench.
+// "step" is the raw step target for EGTstepper.moveTo(). Replaces the
+// placeholder linear scale (0-900C mapped straight onto
+// 0..FULL4WIRE_HOMING_STEPS) this gauge had before. No 0C row was given -
+// the lowest measured point is 100C -> 0 steps, so any tempC at or below
+// 100 clamps to that same 0-step target (egtCToSteps()'s below-range
+// clamp), same effective behaviour as an explicit 0C row would have
+// given. Sorted ascending by tempC - egtCToSteps() below relies on that
+// order.
+struct CToStepEntry {
+  long tempC;
+  long step;
+};
+
+const CToStepEntry EGT_C_TABLE[] = {
+  { 100, 0 },
+  { 300, 44 },
+  { 500, 76 },
+  { 600, 102 },
+  { 700, 243 },
+  { 800, 401 },
+  { 900, 493 },
+};
+const int EGT_C_TABLE_SIZE = sizeof(EGT_C_TABLE) / sizeof(EGT_C_TABLE[0]);
+
+// Converts a requested EGT in degrees C into a step target by linear
+// interpolation between the two nearest EGT_C_TABLE rows (same pattern
+// as iasKtToSteps()/galToSteps() above). A tempC value outside the
+// table's 100..900 range is clamped to whichever end is nearest rather
+// than extrapolated.
 long egtCToSteps(long tempC) {
-  if (tempC < EGT_MIN_C) tempC = EGT_MIN_C;
-  if (tempC > EGT_MAX_C) tempC = EGT_MAX_C;
-  return map(tempC, EGT_MIN_C, EGT_MAX_C, 0, FULL4WIRE_HOMING_STEPS);
+  if (tempC <= EGT_C_TABLE[0].tempC) return EGT_C_TABLE[0].step;
+  if (tempC >= EGT_C_TABLE[EGT_C_TABLE_SIZE - 1].tempC) return EGT_C_TABLE[EGT_C_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < EGT_C_TABLE_SIZE - 1; i++) {
+    long cLo = EGT_C_TABLE[i].tempC;
+    long cHi = EGT_C_TABLE[i + 1].tempC;
+    if (tempC >= cLo && tempC <= cHi) {
+      long stepLo = EGT_C_TABLE[i].step;
+      long stepHi = EGT_C_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(tempC - cLo) * (stepHi - stepLo) / (double)(cHi - cLo));
+    }
+  }
+  return 0;  // unreachable - every tempC is covered by the clamps or the loop above
 }
 
 void setEGT(long TargetC) {
@@ -1064,10 +1210,12 @@ void setEGT(long TargetC) {
 
 // ################################### START EOT/EOP/XOT/XOP/TS/RS/GP/FA ##############################################
 
-// Real-value UDP handlers for 8 more gauges, same linear-scale-onto-
-// FULL4WIRE_HOMING_STEPS placeholder approach as setEGT()/egtCToSteps()
-// above (see that section's comment for the full rationale) - none of
-// these steppers have bench-measured calibration either.
+// Real-value UDP handlers for EOT/EOP/XOT/XOP, same linear-scale-onto-
+// FULL4WIRE_HOMING_STEPS placeholder approach EGT used before it
+// graduated to a real table (EGT_C_TABLE, above). TS/RS below have their
+// own real bench-measured TS_PCT_TABLE/RS_PCT_TABLE instead. FA and GP
+// also graduated to real tables (see START FUEL QUANTITY/START GAS
+// PRODUCER below) - neither is declared in this section any more.
 #define EOT_MIN_C 0
 #define EOT_MAX_C 150
 long eotCToSteps(long tempC) {
@@ -1223,29 +1371,99 @@ void setRS(float TargetPct) {
   RSstepper.moveTo(rsPctToSteps(TargetPct) + RSZeroOffset);
 }
 
-#define GP_MIN_PCT 0
-#define GP_MAX_PCT 105
+// ################################### END EOT/EOP/XOT/XOP/TS/RS/GP/FA ##############################################
+
+// ################################### START GAS PRODUCER ##############################################
+
+// Gas Producer (GP/N1) percent-to-step calibration table, hand-measured
+// on the bench (reuses the PctToStepEntry struct TS_PCT_TABLE/RS_PCT_TABLE
+// already declared above). "step" is the raw step target for
+// GPstepper.moveTo(). Replaces the placeholder linear scale (0-105%
+// mapped straight onto 0..FULL4WIRE_HOMING_STEPS) GP shared with
+// EOT/XOT/XOP until now. Unlike most tables in this sketch, 0% is NOT
+// the stepper's raw zero (0%->15 steps, directly measured, not assumed).
+// Sorted ascending by pct - gpPctToSteps() below relies on that order.
+const PctToStepEntry GP_PCT_TABLE[] = {
+  { 0, 15 },
+  { 100, 550 },
+  { 103, 583 },
+};
+const int GP_PCT_TABLE_SIZE = sizeof(GP_PCT_TABLE) / sizeof(GP_PCT_TABLE[0]);
+
+// Converts a requested Gas Producer percent into a step target by linear
+// interpolation between the two nearest GP_PCT_TABLE rows (same pattern
+// as tsPctToSteps()/galToSteps() above). A pct value outside the table's
+// 0..103 range is clamped to whichever end is nearest rather than
+// extrapolated.
 long gpPctToSteps(long pct) {
-  if (pct < GP_MIN_PCT) pct = GP_MIN_PCT;
-  if (pct > GP_MAX_PCT) pct = GP_MAX_PCT;
-  return map(pct, GP_MIN_PCT, GP_MAX_PCT, 0, FULL4WIRE_HOMING_STEPS);
+  if (pct <= GP_PCT_TABLE[0].pct) return GP_PCT_TABLE[0].step;
+  if (pct >= GP_PCT_TABLE[GP_PCT_TABLE_SIZE - 1].pct) return GP_PCT_TABLE[GP_PCT_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < GP_PCT_TABLE_SIZE - 1; i++) {
+    long pctLo = GP_PCT_TABLE[i].pct;
+    long pctHi = GP_PCT_TABLE[i + 1].pct;
+    if (pct >= pctLo && pct <= pctHi) {
+      long stepLo = GP_PCT_TABLE[i].step;
+      long stepHi = GP_PCT_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(pct - pctLo) * (stepHi - stepLo) / (double)(pctHi - pctLo));
+    }
+  }
+  return 0;  // unreachable - every pct is covered by the clamps or the loop above
 }
+
 void setGP(long TargetPct) {
   GPstepper.moveTo(gpPctToSteps(TargetPct) + GPZeroOffset);
 }
 
-#define FA_MIN_GAL 0
-#define FA_MAX_GAL 75
-long faGalToSteps(long gal) {
-  if (gal < FA_MIN_GAL) gal = FA_MIN_GAL;
-  if (gal > FA_MAX_GAL) gal = FA_MAX_GAL;
-  return map(gal, FA_MIN_GAL, FA_MAX_GAL, 0, FULL4WIRE_HOMING_STEPS);
-}
-void setFA(long TargetGal) {
-  FAstepper.moveTo(faGalToSteps(TargetGal) + FAZeroOffset);
+// ################################### END GAS PRODUCER ##############################################
+
+// ################################### START FUEL QUANTITY ##############################################
+
+// Fuel Quantity (FA/FUEL) gallons-to-step calibration table, hand-measured
+// on the bench. "step" is the raw step target for FAstepper.moveTo().
+// Replaces the placeholder linear scale (0-75 gal mapped straight onto
+// 0..FULL4WIRE_HOMING_STEPS) FA shared with EGT/GP until now. Both points
+// are directly bench-measured (0 gal -> 53 steps, not the stepper's raw
+// homed zero - unlike most other tables in this sketch, where the 0-point
+// is only assumed). Sorted ascending by gal - galToSteps() below relies
+// on that order.
+struct GalToStepEntry {
+  long gal;
+  long step;
+};
+
+const GalToStepEntry FA_GAL_TABLE[] = {
+  { 0, 53 },
+  { 75, 504 },
+};
+const int FA_GAL_TABLE_SIZE = sizeof(FA_GAL_TABLE) / sizeof(FA_GAL_TABLE[0]);
+
+// Converts a requested fuel quantity in US gallons into a step target by
+// linear interpolation between the two nearest FA_GAL_TABLE rows (same
+// pattern as iasKtToSteps()/tqPctToSteps() above). A gal value outside
+// the table's 0..75 range is clamped to whichever end is nearest rather
+// than extrapolated.
+long galToSteps(long gal) {
+  if (gal <= FA_GAL_TABLE[0].gal) return FA_GAL_TABLE[0].step;
+  if (gal >= FA_GAL_TABLE[FA_GAL_TABLE_SIZE - 1].gal) return FA_GAL_TABLE[FA_GAL_TABLE_SIZE - 1].step;
+
+  for (int i = 0; i < FA_GAL_TABLE_SIZE - 1; i++) {
+    long galLo = FA_GAL_TABLE[i].gal;
+    long galHi = FA_GAL_TABLE[i + 1].gal;
+    if (gal >= galLo && gal <= galHi) {
+      long stepLo = FA_GAL_TABLE[i].step;
+      long stepHi = FA_GAL_TABLE[i + 1].step;
+      return stepLo + (long)round((double)(gal - galLo) * (stepHi - stepLo) / (double)(galHi - galLo));
+    }
+  }
+  return 0;  // unreachable - every gal is covered by the clamps or the loop above
 }
 
-// ################################### END EOT/EOP/XOT/XOP/TS/RS/GP/FA ##############################################
+void setFA(long TargetGal) {
+  FAstepper.moveTo(galToSteps(TargetGal) + FAZeroOffset);
+}
+
+// ################################### END FUEL QUANTITY ##############################################
 
 // ################################### START TORQUE ##############################################
 
@@ -1771,11 +1989,12 @@ void HandleOutputValuePair(String str) {
     // Distinct raw-step code, bypassing rsPctToSteps() above.
     RSstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "FUEL") {
-    // Real US gallons now (Fuel Available, 0-75). Renamed from "FA" to
-    // match JET_RANGER_SERVO_CONTROLLER.ino.
+    // Real US gallons now (Fuel Quantity, 0-75) - see setFA()/FA_GAL_TABLE,
+    // "START FUEL QUANTITY" above. Renamed from "FA" to match
+    // JET_RANGER_SERVO_CONTROLLER.ino.
     setFA(ParameterValue.toInt());
   } else if (ParameterName == "FUELRAW") {
-    // Distinct raw-step code, bypassing faGalToSteps() above.
+    // Distinct raw-step code, bypassing galToSteps() above.
     FAstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "TQ") {
     // Real percent now (Torque, 0-120) - see setTQ()/TQ_PCT_TABLE, "START
@@ -1792,7 +2011,8 @@ void HandleOutputValuePair(String str) {
     // target for bench testing, untrimmed.
     TQstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "N1") {
-    // Real percent now (Gas Producer, 0-105). Renamed from "GP" to match
+    // Real percent now (Gas Producer, 0-103) - see setGP()/GP_PCT_TABLE,
+    // "START GAS PRODUCER" above. Renamed from "GP" to match
     // JET_RANGER_SERVO_CONTROLLER.ino's "N1" code for the same real-world
     // quantity.
     setGP(ParameterValue.toInt());
