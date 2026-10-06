@@ -237,12 +237,12 @@ enum Servos {
   Number_of_Servos
 };
 
-//                       BANK PITCH 
+//                       BANK PITCH
 int aServMinPosition[] = { 5, 166 };
-int aServMaxPosition[] = {179, 70};
+int aServMaxPosition[] = { 179, 70 };
 int aServZeroPosition[] = { 93, 113 };
-int aServoPosition[] =  { 000, 000};
-int aTargetServoPosition[] = {444, 555};
+int aServoPosition[] = { 000, 000 };
+int aTargetServoPosition[] = { 444, 555 };
 long aServoLastupdate[] = { 000, 000 };
 bool aServoIdle[] = { 0, 0 };
 
@@ -447,8 +447,6 @@ void CheckServoIdleTime() {
       SendDebug("Detaching Roll Servo");
     }
   };
-
-
 }
 
 
@@ -863,6 +861,23 @@ void setup() {
 
     SendDebug("Ethernet Started " + strMyIP + " " + sMac);
 
+    digitalWrite(D_Rotor_RPM_Low, true);
+    digitalWrite(D_Engine_Out, true);
+    digitalWrite(D_SC_Fail, true);
+    digitalWrite(D_Low_Fuel, true);
+    digitalWrite(D_Gen_Fail, true);
+    digitalWrite(D_Fuel_Pump, true);
+    digitalWrite(D_AFT_Fuel_Filter, true);
+    digitalWrite(D_TR_Chip, true);
+    digitalWrite(D_Baggage_Door, true);
+    digitalWrite(D_Trans_Chip, true);
+    digitalWrite(D_Engine_Chip, true);
+    digitalWrite(D_Battery_Temp, true);
+    digitalWrite(D_Battery_Hot, true);
+    digitalWrite(D_Trans_Oil_Temp, true);
+    digitalWrite(D_Trans_Oil_Pressure, true);
+
+
     // Zero Servos
 
     SetPITCH(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
@@ -872,19 +887,6 @@ void setup() {
     ROLL_SERVO.write(aServZeroPosition[AttitudeIndicatorBankDegrees]);
 
 
-    digitalWrite(D_SC_Fail, false);
-    digitalWrite(D_Low_Fuel, false);
-    digitalWrite(D_Gen_Fail, false);
-    digitalWrite(D_Fuel_Pump, false);
-    digitalWrite(D_AFT_Fuel_Filter, false);
-    digitalWrite(D_TR_Chip, false);
-    digitalWrite(D_Baggage_Door, false);
-    digitalWrite(D_Trans_Chip, false);
-    digitalWrite(D_Engine_Chip, false);
-    digitalWrite(D_Battery_Temp, false);
-    digitalWrite(D_Battery_Hot, false);
-    digitalWrite(D_Trans_Oil_Temp, false);
-    digitalWrite(D_Trans_Oil_Pressure, false);
 
 
     // Pitch
@@ -901,7 +903,7 @@ void setup() {
     // Give the pitch a little time to settle before rolling
     delay(300);
 
-    digitalWrite(D_Rotor_RPM_Low, false);
+
 
     // Roll
     SetROLL(aServMinPosition[AttitudeIndicatorBankDegrees]);
@@ -915,7 +917,21 @@ void setup() {
     }
     SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
 
+    digitalWrite(D_Rotor_RPM_Low, true);
     digitalWrite(D_Engine_Out, false);
+    digitalWrite(D_SC_Fail, false);
+    digitalWrite(D_Low_Fuel, false);
+    digitalWrite(D_Gen_Fail, false);
+    digitalWrite(D_Fuel_Pump, false);
+    digitalWrite(D_AFT_Fuel_Filter, false);
+    digitalWrite(D_TR_Chip, false);
+    digitalWrite(D_Baggage_Door, false);
+    digitalWrite(D_Trans_Chip, false);
+    digitalWrite(D_Engine_Chip, false);
+    digitalWrite(D_Battery_Temp, false);
+    digitalWrite(D_Battery_Hot, false);
+    digitalWrite(D_Trans_Oil_Temp, false);
+    digitalWrite(D_Trans_Oil_Pressure, false);
   }
 
 

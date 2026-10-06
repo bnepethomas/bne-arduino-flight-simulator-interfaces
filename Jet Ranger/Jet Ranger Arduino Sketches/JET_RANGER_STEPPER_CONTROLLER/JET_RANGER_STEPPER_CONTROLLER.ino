@@ -52,12 +52,12 @@ BACK_LIGHTS
 // so there's no prior behaviour to preserve; all four default to true
 // so the new swings actually run.
 #define SwingLoops 2
-#define SwingVSI false
-#define SwingIAS false
-#define SwingAGL false
-#define SwingRPM false
-#define SwingTQ false
-#define SwingFA false
+#define SwingVSI true
+#define SwingIAS true
+#define SwingAGL true
+#define SwingRPM true
+#define SwingTQ true
+#define SwingFA true
 #define SwingEGT true
 #define SwingGP true
 

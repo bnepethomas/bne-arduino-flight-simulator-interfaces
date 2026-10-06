@@ -251,7 +251,7 @@ unsigned long previousMillis = 0;
 #define XOTZeroOffset 16
 #define XOPZeroOffset 43
 #define FuelLoadZeroOffset 0
-#define ElectricalLoadZeroOffset 44
+#define ElectricalLoadZeroOffset 24
 
 // Swapped with Flaps' step/dir pins above: Flaps moved onto this
 // DRIVER/STEP-DIR pair, and VSI (below) took over these coil pins - it is
