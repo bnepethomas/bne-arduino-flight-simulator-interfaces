@@ -312,6 +312,30 @@ summary for the full program flow, roster, cautions, and pin/network
 tables; only the deltas above and the roster/UDP table changes below are
 called out here.
 
+## Zero-offset trims
+
+Beyond the original `TSoffset`/`RSoffset` (Turbine/Rotor Speed) and the
+unrelated homing-scale `VSIoffset`, six more fine-trim step offsets were
+added, same purpose/pattern as `TSoffset`/`RSoffset` and as the per-gauge
+`<CODE>ZeroOffset` set in `JET_RANGER_STEPPER_CONTROLLER.ino`: dial in each
+needle's true mechanical zero without touching its calibration table.
+
+`EOTZeroOffset`, `EOPZeroOffset`, `XOTZeroOffset`, `XOPZeroOffset`,
+`FuelLoadZeroOffset`, `ElectricalLoadZeroOffset` - all `#define`d near
+`TSoffset`/`RSoffset` (before `setup()`, since the boot swings use them),
+all default `0` (unmeasured, safe no-op). Each is added inside its gauge's
+real-value setter (`setEOT()`/`setEOP()`/`setXOT()`/`setXOP()`/
+`setFuelLoad()`/`setElectricalLoad()`), so `"<CODE>:0"` packets and the
+no-data-watchdog reset (`ResetGaugesToZero()`, which routes through those
+setters) pick them up automatically. The `*RAW` UDP codes deliberately
+bypass them. Each gauge's boot swing "return to zero" step now targets its
+offset too; `Electrical Load`'s swing targets
+`electricalLoadPctToSteps(0) + ElectricalLoadZeroOffset` (its table's 0%
+row is 22 steps, not raw 0 - previously the swing returned to raw 0, short
+of the real zero). The other five tables' 0 rows are already 0 steps, so
+their offset alone is the correct target. ALT has no offset (not part of
+this change).
+
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
@@ -319,7 +343,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 50,854 bytes (20%) | 5,310 bytes (64%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 55,026 bytes (21%) | 6,118 bytes (74%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;

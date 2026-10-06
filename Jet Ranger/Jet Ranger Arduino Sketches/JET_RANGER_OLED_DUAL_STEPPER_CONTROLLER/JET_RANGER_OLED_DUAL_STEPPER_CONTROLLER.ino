@@ -41,12 +41,12 @@ BACK_LIGHTS
  *  */
 
 #define SwingLoops 1
-#define SwingALT false
+#define SwingALT true
 #define SwingIAS false
 #define SwingVSI false
-#define SwingRPM false
-#define SwingFUELLOAD false
-#define SwingELECTRICALLOAD false
+#define SwingRPM true
+#define SwingFUELLOAD true
+#define SwingELECTRICALLOAD true
 #define SwingEOT true
 #define SwingEOP true
 #define SwingXOT true
@@ -236,6 +236,22 @@ unsigned long previousMillis = 0;
 // unmeasured 0.
 #define TSoffset 10
 #define RSoffset 10
+
+// Fine-trim zero offsets (steps) for the remaining calibrated gauges, same
+// purpose/pattern as TSoffset/RSoffset above (and as the per-gauge
+// <CODE>ZeroOffset set in JET_RANGER_STEPPER_CONTROLLER.ino): dial in each
+// real needle's true mechanical zero without touching its calibration
+// table. Added inside each gauge's real-value setter (setEOT()/etc), so
+// "<CODE>:0" packets, the no-data-watchdog reset and the boot swing's
+// "return to zero" step all land on the same trimmed position. The *RAW
+// UDP codes deliberately bypass them. All default to 0 (unmeasured, safe
+// no-op) - must be #define'd before setup() since the swings use them.
+#define EOTZeroOffset 24
+#define EOPZeroOffset 0
+#define XOTZeroOffset 16
+#define XOPZeroOffset 43
+#define FuelLoadZeroOffset 0
+#define ElectricalLoadZeroOffset 44
 
 // Swapped with Flaps' step/dir pins above: Flaps moved onto this
 // DRIVER/STEP-DIR pair, and VSI (below) took over these coil pins - it is
@@ -1085,7 +1101,7 @@ void setup() {
       FuelLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
       delay(200);
       SendDebug("Returning Fuel Load to Zero");
-      FuelLoadStepper.runToNewPosition(0);
+      FuelLoadStepper.runToNewPosition(FuelLoadZeroOffset);
       delay(200);
     }
     SendDebug("End FuelLoadStepper");
@@ -1116,8 +1132,10 @@ void setup() {
       SendDebug("Sending Electrical Load to Max");
       ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
       delay(200);
+      // ELECTRICAL_LOAD_PCT_TABLE's 0% row is 22 steps, not raw 0 - target
+      // the calibrated zero (+ trim), same as setElectricalLoad(0) lands on.
       SendDebug("Returning Electrical Load to Zero");
-      ElectricalLoadStepper.runToNewPosition(0);
+      ElectricalLoadStepper.runToNewPosition(electricalLoadPctToSteps(0) + ElectricalLoadZeroOffset);
       delay(200);
     }
     SendDebug("End ElectricalLoadStepper");
@@ -1135,9 +1153,9 @@ void setup() {
   // overshoots its own calibrated range. EOTstepper previously had no
   // startup routine at all. Direction sign is an unverified assumption
   // carried over from the other swings' X27-style homing, NOT
-  // bench-confirmed for this specific gauge. Returns to 0, not an offset,
-  // since eotCToSteps(0) is already 0 (no fine-trim offset exists for
-  // this gauge, unlike TSoffset/RSoffset).
+  // bench-confirmed for this specific gauge. Returns to EOTZeroOffset,
+  // not raw 0 - eotCToSteps(0) is already 0, so the offset alone is the
+  // correct calibrated-zero target (default 0, same as before).
   if (SwingEOT) {
     SendDebug("Start EOTstepper");
     EOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
@@ -1150,7 +1168,7 @@ void setup() {
       EOTstepper.runToNewPosition(FULL4WIRE_STEPS);
       delay(200);
       SendDebug("Returning Engine Oil Temp to Zero");
-      EOTstepper.runToNewPosition(0);
+      EOTstepper.runToNewPosition(EOTZeroOffset);
       delay(200);
     }
     SendDebug("End EOTstepper");
@@ -1180,7 +1198,7 @@ void setup() {
       EOPstepper.runToNewPosition(FULL4WIRE_STEPS);
       delay(200);
       SendDebug("Returning Engine Oil Pressure to Zero");
-      EOPstepper.runToNewPosition(0);
+      EOPstepper.runToNewPosition(EOPZeroOffset);
       delay(200);
     }
     SendDebug("End EOPstepper");
@@ -1195,9 +1213,9 @@ void setup() {
   // FULL4WIRE_STEPS (315), so this swing overshoots the real calibrated
   // range for a fuller self-test, same reasoning as EOT/EOP's swings
   // above. XOTstepper previously had no startup routine at all. Direction
-  // sign is an unverified assumption, NOT bench-confirmed. Returns to 0
-  // (xotCToSteps(0) is already 0, no fine-trim offset exists for this
-  // gauge).
+  // sign is an unverified assumption, NOT bench-confirmed. Returns to
+  // XOTZeroOffset (xotCToSteps(0) is already 0, so the offset alone is the
+  // correct calibrated-zero target).
   if (SwingXOT) {
     SendDebug("Start XOTstepper");
     XOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
@@ -1210,7 +1228,7 @@ void setup() {
       XOTstepper.runToNewPosition(FULL4WIRE_STEPS);
       delay(200);
       SendDebug("Returning Transmission Oil Temp to Zero");
-      XOTstepper.runToNewPosition(0);
+      XOTstepper.runToNewPosition(XOTZeroOffset);
       delay(200);
     }
     SendDebug("End XOTstepper");
@@ -1238,7 +1256,7 @@ void setup() {
       XOPstepper.runToNewPosition(FULL4WIRE_STEPS);
       delay(200);
       SendDebug("Returning Transmission Oil Pressure to Zero");
-      XOPstepper.runToNewPosition(0);
+      XOPstepper.runToNewPosition(XOPZeroOffset);
       delay(200);
     }
     SendDebug("End XOPstepper");
@@ -1918,7 +1936,7 @@ long fuelLoadPsiToSteps(long psi) {
 }
 
 void setFuelLoad(long TargetPsi) {
-  FuelLoadStepper.moveTo(fuelLoadPsiToSteps(TargetPsi));
+  FuelLoadStepper.moveTo(fuelLoadPsiToSteps(TargetPsi) + FuelLoadZeroOffset);
 }
 
 // ################################### END FUEL LOAD ##############################################
@@ -1965,7 +1983,7 @@ long electricalLoadPctToSteps(long pct) {
 }
 
 void setElectricalLoad(long TargetPct) {
-  ElectricalLoadStepper.moveTo(electricalLoadPctToSteps(TargetPct));
+  ElectricalLoadStepper.moveTo(electricalLoadPctToSteps(TargetPct) + ElectricalLoadZeroOffset);
 }
 
 // ################################### END ELECTRICAL LOAD ##############################################
@@ -2014,7 +2032,7 @@ long eotCToSteps(long tempC) {
 }
 
 void setEOT(long TargetC) {
-  EOTstepper.moveTo(eotCToSteps(TargetC));
+  EOTstepper.moveTo(eotCToSteps(TargetC) + EOTZeroOffset);
 }
 
 // ################################### END ENGINE OIL TEMP ##############################################
@@ -2058,7 +2076,7 @@ long eopPsiToSteps(long psi) {
 }
 
 void setEOP(long TargetPsi) {
-  EOPstepper.moveTo(eopPsiToSteps(TargetPsi));
+  EOPstepper.moveTo(eopPsiToSteps(TargetPsi) + EOPZeroOffset);
 }
 
 // ################################### END ENGINE OIL PRESSURE ##############################################
@@ -2102,7 +2120,7 @@ long xotCToSteps(long tempC) {
 }
 
 void setXOT(long TargetC) {
-  XOTstepper.moveTo(xotCToSteps(TargetC));
+  XOTstepper.moveTo(xotCToSteps(TargetC) + XOTZeroOffset);
 }
 
 // ################################### END TRANSMISSION OIL TEMP ##############################################
@@ -2148,7 +2166,7 @@ long xopPsiToSteps(long psi) {
 }
 
 void setXOP(long TargetPsi) {
-  XOPstepper.moveTo(xopPsiToSteps(TargetPsi));
+  XOPstepper.moveTo(xopPsiToSteps(TargetPsi) + XOPZeroOffset);
 }
 
 // ################################### END TRANSMISSION OIL PRESSURE ##############################################
