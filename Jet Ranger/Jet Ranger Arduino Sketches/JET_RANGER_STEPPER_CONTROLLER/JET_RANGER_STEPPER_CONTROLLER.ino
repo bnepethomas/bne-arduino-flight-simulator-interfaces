@@ -55,7 +55,7 @@ BACK_LIGHTS
 #define SwingVSI true
 #define SwingIAS true
 #define SwingAGL true
-#define SwingRPM true
+#define SwingRPM false
 #define SwingTQ true
 #define SwingFA true
 #define SwingEGT true
@@ -75,7 +75,7 @@ BACK_LIGHTS
 // setup(), since the startup swings use them too.
 #define VSIZeroOffset 0
 #define IASZeroOffset 0
-#define AGLZeroOffset 0
+#define AGLZeroOffset 10
 #define EGTZeroOffset 0
 #define EOTZeroOffset 0
 #define EOPZeroOffset 0
@@ -455,10 +455,10 @@ void setup() {
   XOPstepper.setAcceleration(STEPPER_ACCELERATION);
   EGTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   EGTstepper.setAcceleration(STEPPER_ACCELERATION);
-  TSstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  TSstepper.setAcceleration(STEPPER_ACCELERATION);
-  RSstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  RSstepper.setAcceleration(STEPPER_ACCELERATION);
+  // TSstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  // TSstepper.setAcceleration(STEPPER_ACCELERATION);
+  // RSstepper.setMaxSpeed(STEPPER_MAX_SPEED);
+  // RSstepper.setAcceleration(STEPPER_ACCELERATION);
   FAstepper.setMaxSpeed(STEPPER_MAX_SPEED);
   FAstepper.setAcceleration(STEPPER_ACCELERATION);
   TQstepper.setMaxSpeed(STEPPER_MAX_SPEED);
@@ -517,34 +517,6 @@ void setup() {
   // ################# End VSI Startup #########################
 
 
-  // // ################# Start ALT Startup #########################
-  // SendDebug("Start ALT");
-  // for (int i = 1; i <= 1; i++) {
-  //   SendDebug("Loop :" + String(i));
-  //   ALTstepper.moveTo(-STEPS * 2);
-  //   while (ALTstepper.distanceToGo() != 0) {
-  //     if (digitalRead(ALTzeroSensePin) != true) {
-  //       SendDebug("Found Alt Zero Position");
-  //       ALTstepper.setCurrentPosition(0);
-  //       break;
-  //     }
-  //     ALTstepper.run();
-  //   }
-  //   delay(500);
-  //   SendDebug("Send Alt Round 40 times");
-  //   long SendAAltForATrip = 5760 * 3;
-  //   // 5760 steps per loop
-  //   ALTstepper.runToNewPosition(SendAAltForATrip);
-  //   delay(200);
-  //   SendDebug("Return Alt to 0");
-  //   ALTstepper.runToNewPosition(0);
-  // }
-  // // Move ALT to zero position - need to monitor zero sense
-
-
-
-  SendDebug("End ALT");
-  // ################# End ALT Startup #########################
 
   // ################# Start IAS (Current Airspeed) Startup #########################
   // Renamed from "Speed Current" to match IASstepper. Gated by SwingIAS
@@ -607,78 +579,7 @@ void setup() {
   }
   // ################# End Radar Alt Startup #########################
 
-  // ################# Start Turbine Speed Startup #########################
-  // Same wind/zero/swing-loop pattern as the IAS/Radar Alt blocks
-  // above, reusing the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS
-  // constants (see the macro-precedence caution on VSI's homing above -
-  // the same "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640"
-  // issue applies here too). TSstepper had no startup routine at all
-  // before this - direction sign is an unverified assumption carried
-  // over from IAS/VSI/Radar Alt's X27-style homing, NOT bench-confirmed
-  // for this specific gauge. UPDATE: TS_PCT_TABLE (below) now gives this
-  // gauge's real "RPME" UDP path a max of 630 steps at 117% - close to
-  // X27_FULLWIRE_STEPS (635), so this swing's step range is a reasonable
-  // match rather than the ~2x overshoot it was before that table
-  // existed. Gated by SwingRPM (default true, preserving this block's
-  // prior unconditional behaviour) - shared with the Rotor Speed block
-  // below, same as JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino's
-  // SwingRPM gates both its TS and RS swings. Confirm on the bench that
-  // it actually reaches the real end stop (and doesn't stall against it
-  // from the wrong side) before trusting it unattended.
-  if (SwingRPM) {
-    SendDebug("Start TSstepper");
-    TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    TSstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
-    TSstepper.setCurrentPosition(0);
 
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Turbine Speed to Max");
-      TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Turbine Speed to Zero");
-      TSstepper.runToNewPosition(TSZeroOffset);
-      delay(200);
-    }
-    SendDebug("End TSstepper");
-  }
-  // ################# End Turbine Speed Startup #########################
-
-  // ################# Start Rotor Speed Startup #########################
-  // Same wind/zero/swing-loop pattern as the IAS/Radar Alt/Turbine Speed
-  // blocks above, reusing the same
-  // X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see the
-  // macro-precedence caution on VSI's homing above - the same
-  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
-  // here too). RSstepper had no startup routine at all before this -
-  // direction sign is an unverified assumption carried over from
-  // IAS/VSI/Radar Alt/Turbine Speed's X27-style homing, NOT bench-confirmed
-  // for this specific gauge. RS_PCT_TABLE (above) gives this gauge's real
-  // "RPMR" UDP path a max of 630 steps at 117% - close to X27_FULLWIRE_STEPS
-  // (635), same as Turbine Speed, so this swing's step range is a
-  // reasonable match rather than a big overshoot. Gated by SwingRPM,
-  // shared with the Turbine Speed block above (see that block's comment).
-  // Confirm on the bench that it actually reaches the real end stop (and
-  // doesn't stall against it from the wrong side) before trusting it
-  // unattended.
-  if (SwingRPM) {
-    SendDebug("Start RSstepper");
-    RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    RSstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
-    RSstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Rotor Speed to Max");
-      RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Rotor Speed to Zero");
-      RSstepper.runToNewPosition(RSZeroOffset);
-      delay(200);
-    }
-    SendDebug("End RSstepper");
-  }
-  // ################# End Rotor Speed Startup #########################
 
   // ################# Start Torque Startup #########################
   // Same wind/zero/swing-loop pattern as VSI/IAS/Radar Alt/Turbine Speed/

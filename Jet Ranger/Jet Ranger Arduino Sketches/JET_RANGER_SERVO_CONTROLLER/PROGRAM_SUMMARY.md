@@ -28,9 +28,14 @@ received over Ethernet.
      settles.
    - Runs a self-test/zero sequence: every servo is driven to its zero
      position, then swept from its minimum to maximum position and back
-     (visible "wiggle test"), turning off one warning lamp after each
-     servo's sweep completes as a visual progress indicator. All target
-     positions are reset to the zero position at the end.
+     (visible "wiggle test"). At the end both servos are parked fully at
+     their calibrated zero: `aServoPosition[]` and `aTargetServoPosition[]`
+     are set to `aServZeroPosition[]` (previously they were left at 0 and
+     the placeholder `{444, 555}`, so `UpdateServoPos()` would have eased
+     the servos towards those the moment `loop()` started), followed by a
+     500ms settle delay. All 15 warning lamps are then switched off with
+     `setWarningLightAll(false)` - the old hand-written list left the Rotor
+     RPM Low lamp on after setup.
 2. **Main loop** (`loop()`)
    - Toggles the status LEDs every 200ms (heartbeat).
    - Sends a `"SERVO"` keepalive to the reflector every 10s.
@@ -75,6 +80,10 @@ received over Ethernet.
      (`aServZeroPosition[]`, the same array the setup-time self-test
      sweep and a real `"<CODE>:0"` packet's `map(0, ...)` both resolve
      to) and turns off all warning lights (`setWarningLightAll(false)`).
+     It also resets the remembered per-lamp state strings to `"0"`:
+     `HandleOutputValuePair()` only drives a lamp when the incoming value
+     differs from them, so a stale `"1"` would have kept a lamp dark after
+     a timeout when the sim next sent `"1"`.
      `UpdateServoPos()` then eases every servo there the normal way -
      this deliberately does **not** write the servos directly the way an
      earlier, incomplete draft of this feature (found commented out,
@@ -91,7 +100,7 @@ received over Ethernet.
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
-**0 errors**: 21,210 bytes flash (8%), 2,135 bytes RAM (26%). (Dropped
+**0 errors**: 21,544 bytes flash (8%), 2,135 bytes RAM (26%). (Dropped
 from 27,646/2,925 after the out-of-band 15-servo removal - see the note
 at the top of this file.)
 

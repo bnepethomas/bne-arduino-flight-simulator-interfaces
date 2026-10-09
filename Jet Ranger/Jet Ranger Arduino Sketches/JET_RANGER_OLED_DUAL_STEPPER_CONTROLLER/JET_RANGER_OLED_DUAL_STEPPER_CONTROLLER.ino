@@ -235,7 +235,7 @@ unsigned long previousMillis = 0;
 // TSoffset has since been given a real value (20); RSoffset is still an
 // unmeasured 0.
 #define TSoffset 10
-#define RSoffset 10
+#define RSoffset 0
 
 // Fine-trim zero offsets (steps) for the remaining calibrated gauges, same
 // purpose/pattern as TSoffset/RSoffset above (and as the per-gauge

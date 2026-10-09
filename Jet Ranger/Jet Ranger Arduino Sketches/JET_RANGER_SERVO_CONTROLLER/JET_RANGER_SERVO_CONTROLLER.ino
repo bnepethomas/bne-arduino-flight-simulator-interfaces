@@ -419,6 +419,26 @@ void ResetGaugesToZero() {
     aTargetServoPosition[i] = aServZeroPosition[i];
   }
   setWarningLightAll(false);
+
+  // Also reset the remembered per-lamp states. HandleOutputValuePair() only
+  // drives a lamp when the incoming value differs from these strings, so
+  // leaving a stale "1" here would make the sim's next "1" look unchanged
+  // and the lamp would stay dark after a timeout.
+  Rotor_RPM_Low = "0";
+  Engine_Out = "0";
+  Trans_Oil_Pressure = "0";
+  Trans_Oil_Temp = "0";
+  Battery_Temp = "0";
+  Battery_Hot = "0";
+  Trans_Chip = "0";
+  Baggage_Door = "0";
+  Engine_Chip = "0";
+  TR_Chip = "0";
+  Fuel_Pump = "0";
+  AFT_Fuel_Filter = "0";
+  Gen_Fail = "0";
+  Low_Fuel = "0";
+  SC_Fail = "0";
 }
 
 int ServoIdleTime = 1000;
@@ -917,21 +937,25 @@ void setup() {
     }
     SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
 
-    digitalWrite(D_Rotor_RPM_Low, true);
-    digitalWrite(D_Engine_Out, false);
-    digitalWrite(D_SC_Fail, false);
-    digitalWrite(D_Low_Fuel, false);
-    digitalWrite(D_Gen_Fail, false);
-    digitalWrite(D_Fuel_Pump, false);
-    digitalWrite(D_AFT_Fuel_Filter, false);
-    digitalWrite(D_TR_Chip, false);
-    digitalWrite(D_Baggage_Door, false);
-    digitalWrite(D_Trans_Chip, false);
-    digitalWrite(D_Engine_Chip, false);
-    digitalWrite(D_Battery_Temp, false);
-    digitalWrite(D_Battery_Hot, false);
-    digitalWrite(D_Trans_Oil_Temp, false);
-    digitalWrite(D_Trans_Oil_Pressure, false);
+    // Park both servos fully at their calibrated zero. The sweep above
+    // drives the servos directly, so aServoPosition[]/aTargetServoPosition[]
+    // must be brought into line with where they physically are - otherwise
+    // loop()'s UpdateServoPos() would ease from the stale 0 towards the
+    // array's initial placeholder targets ({444, 555}) the moment setup
+    // finishes, instead of holding zero until real data arrives. Same
+    // reasoning ResetGaugesToZero()'s comment gives for the watchdog.
+    for (int i = 0; i < Number_of_Servos; i++) {
+      aServoPosition[i] = aServZeroPosition[i];
+      aTargetServoPosition[i] = aServZeroPosition[i];
+    }
+    SetPITCH(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
+    SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
+    // Let the servos finish travelling back before setup ends.
+    delay(500);
+
+    // Every warning lamp off - setWarningLightAll(false) covers all 15 pins
+    // (the old hand-written list left D_Rotor_RPM_Low switched ON here).
+    setWarningLightAll(false);
   }
 
 
