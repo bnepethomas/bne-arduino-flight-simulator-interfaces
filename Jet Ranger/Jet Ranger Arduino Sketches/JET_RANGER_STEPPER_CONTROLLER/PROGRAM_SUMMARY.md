@@ -30,7 +30,7 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 27,970 bytes (11%) | 3,805 bytes (46%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 28,548 bytes (11%) | 3,879 bytes (47%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
 Flashed to the bench Mega on COM4 several times across this sketch's
@@ -58,10 +58,10 @@ diffed against each other line-for-line.
 | `IASstepper` (renamed from `SpeedCurrentstepper`) | FULL4WIRE, `STEPPER_SPD_A..D` (12/13/22/23, wired C,D,A,B) | Active - real `IAS_KT_TABLE` calibration (see below); its own boot startup/swing exists but is gated by `SwingIAS` (default `false`) - previously a bare `if (false)`, now a named toggle with identical default behaviour |
 | `RadarAltStepper` | FULL4WIRE, `RADAR_ALT_COIL_A..D` (32/33/34/35, wired C,D,A,B) | Active, raw steps only (`AGL` code) - no real calibration yet. Boot startup/swing gated by `SwingAGL` (default `false`) - previously a bare `if (false)` whose own in-code comment incorrectly claimed it ran every boot; that stale claim was corrected when the named gate was added |
 | `EOTstepper`, `XOTstepper`, `XOPstepper`, `EOPstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes (see table below), all still using the placeholder `FULL4WIRE_HOMING_STEPS` linear scale (see caution below), no boot startup/swing at all |
-| `GPstepper` (Gas Producer) | FULL4WIRE, `GP_COIL_A..D` (40/41/42/43) | Real percent now via `setGP()`/`GP_PCT_TABLE` (`N1` code) — 3-point bench-measured table, all rows directly measured (0%→15, 100%→550, 103%→583 steps; reuses the `PctToStepEntry` struct `TS_PCT_TABLE`/`RS_PCT_TABLE` also use). Unlike most tables in this sketch, 0% is NOT the stepper's raw zero - the boot swing's "return to zero" step accounts for this (`gpPctToSteps(0) + GPZeroOffset`, not just `GPZeroOffset`, same situation as `FAstepper`'s swing above). Boot startup/swing active, gated by `SwingGP` (default `true`) - overshoots the real 583-step calibrated max, same as every other graduated gauge's swing in this sketch |
+| `GPstepper` (Gas Producer) | FULL4WIRE, `GP_COIL_A..D` (40/41/42/43) | Real percent now via `setGP()`/`GP_PCT_TABLE` (`N1` code) — 3-point bench-measured table, all rows directly measured (0%→15, 100%→550, 103%→583 steps; uses the shared `PctToStepEntry` struct, also used by the other percent table). Unlike most tables in this sketch, 0% is NOT the stepper's raw zero - the boot swing's "return to zero" step accounts for this (`gpPctToSteps(0) + GPZeroOffset`, not just `GPZeroOffset`, same situation as `FAstepper`'s swing above). Boot startup/swing active, gated by `SwingGP` (default `true`) - overshoots the real 583-step calibrated max, same as every other graduated gauge's swing in this sketch |
 | `EGTstepper` (EGT/ITT) | FULL4WIRE, `EGT_COIL_A..D` (A11-A14) | Real degrees C now via `setEGT()`/`EGT_C_TABLE` (`ITT` code) — 7-point bench-measured table (100C→0, 300C→44, 500C→76, 600C→102, 700C→243, 800C→401, 900C→493 steps; reuses the new `CToStepEntry` struct). No 0C row was measured - any tempC ≤100 clamps to the 100C row's 0 steps, same effective result. Boot startup/swing active, gated by `SwingEGT` (default `true`) - overshoots the real 493-step calibrated max, same as every other graduated gauge's swing in this sketch. `egtCToSteps(0)` still clamps to 0 steps, so `EGTZeroOffset` alone remains the correct calibrated-zero target for the swing's return-to-zero step, unlike `FAstepper`'s swing above |
-| `TSstepper`, `RSstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes via `TS_PCT_TABLE`/`RS_PCT_TABLE` (see table below). Boot startup/swing gated by shared `SwingRPM` (default `true`) - previously ran unconditionally with no gate at all; the default preserves that prior always-on behaviour |
-| `TQstepper` (renamed from `ETstepper`, outside this doc pass) | FULL4WIRE, `ET_COIL_A..D` (36/37/38/39) | Real percent now via `setTQ()`/`TQ_PCT_TABLE` (`TQ` code) — 2-point bench-measured table (0%→0, 120%→600 steps; reuses the `PctToStepEntry` struct `TS_PCT_TABLE`/`RS_PCT_TABLE` also use). `TQRAW` added as the raw-step bypass. Boot startup/swing active, gated by `SwingTQ` (default `true`) - previously had no startup routine at all. Uses the same `X27_FULLWIRE_STEPS`/`X27_FULLWIRE_HOMING_STEPS` range as VSI/IAS/Radar Alt/TS/RS's swings — now a reasonable match rather than an arbitrary range, since the real 120% max (600 steps) is close to `X27_FULLWIRE_STEPS` (635) |
+| `TSstepper`, `RSstepper` (Turbine / Rotor Speed) | — | **Removed from this sketch.** Their steppers, coil pins (24-31), `SwingRPM` gate, `TSZeroOffset`/`RSZeroOffset`, `TS_PCT_TABLE`/`RS_PCT_TABLE`, `setTS()`/`setRS()`, the `RPME`/`RPMERAW`/`RPMR`/`RPMRRAW` UDP cases, and their `ResetGaugesToZero()`/`.run()` calls are all gone - those gauges are driven by `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` (172.16.1.106). `RPME`/`RPMR` packets reaching this board are now silently ignored (unknown code). The shared `PctToStepEntry` struct was kept (still used by `GP_PCT_TABLE`/`TQ_PCT_TABLE`) |
+| `TQstepper` (renamed from `ETstepper`, outside this doc pass) | FULL4WIRE, `ET_COIL_A..D` (36/37/38/39) | Real percent now via `setTQ()`/`TQ_PCT_TABLE` (`TQ` code) — 2-point bench-measured table (0%→0, 120%→600 steps; uses the shared `PctToStepEntry` struct, also used by the other percent table). `TQRAW` added as the raw-step bypass. Boot startup/swing active, gated by `SwingTQ` (default `true`) - previously had no startup routine at all. Uses the same `X27_FULLWIRE_STEPS`/`X27_FULLWIRE_HOMING_STEPS` range as VSI/IAS/Radar Alt's swings — now a reasonable match rather than an arbitrary range, since the real 120% max (600 steps) is close to `X27_FULLWIRE_STEPS` (635) |
 | `FAstepper` (Fuel Quantity) | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Real US gallons now via `setFA()`/`FA_GAL_TABLE` (`FUEL`/`FA` code) — 2-point table, both rows bench-measured (0 gal→53 steps, 75 gal→504 steps; reuses the new `GalToStepEntry` struct). Unlike most tables in this sketch, 0 gal is NOT the stepper's raw zero - the boot swing's "return to zero" step accounts for this (`galToSteps(0) + FAZeroOffset`, not just `FAZeroOffset`). `FUELRAW` already existed as the raw-step bypass. Boot startup/swing active, gated by `SwingFA` (default `true`) - overshoots the real 504-step calibrated max, same as every other graduated gauge's swing in this sketch |
 | `ALTstepper`, `SpeedMaxstepper`, `FlapsStepper`, `AOAstepper`, `GForcestepper` | — | **Removed.** Constructs, pin `#define`s (mostly), startup routines, DCS-BIOS bindings, and UDP codes for all five are commented out or deleted. `FlapsStepPin`/`FlapsDirectionPin` are the one pair of pin `#define`s left behind, now orphaned (nothing reads them). |
 | `SARIstepperRoll` | DRIVER, pins 30/32 | Declared and pin-claimed, but its `Nema8Stepper` binding is commented out - never `.run()`, never bound to DCS-BIOS. Still occupies pins 30/32 via its `AccelStepper` constructor. |
@@ -69,7 +69,7 @@ diffed against each other line-for-line.
 
 > **Caution — `FULL4WIRE_HOMING_STEPS` redefined:** was `315 * 2` (630),
 > now `315 + 5` (320) — halves the effective step range every
-> still-uncalibrated gauge above (`EOT`/`XOT`/`XOP`/`EGT`/`TS`/`RS`/`GP`/`FA`)
+> still-uncalibrated gauge above (`EOT`/`XOT`/`XOP`/`EGT`/`GP`/`FA`)
 > scales its real-unit range onto, since none of them have their own
 > bench-measured ceiling yet. Their in-code comments hadn't been updated
 > to match until this pass.
@@ -91,13 +91,12 @@ diffed against each other line-for-line.
 
 ## Newly surfaced pin collisions (SARI)
 
-Reviewing the current pin map turned up two collisions with the
+Reviewing the current pin map turned up a collision with the
 still-pin-claiming (if otherwise inactive) `SARIstepperRoll` that weren't
 caught in earlier passes:
 
 | Gauge pin | Collides with |
 |---|---|
-| `RS_COIL_C` (30) | `SARIstepPin` |
 | `RADAR_ALT_COIL_A` (32) | `SARIdirectionPin` |
 
 Removing `ALTstepper`/`SpeedMaxstepper`/`FlapsStepper`/`AOAstepper`/
@@ -111,14 +110,18 @@ collides with `AllstepperEnablePin`.
 1. **Setup**: flashes status LEDs, brings up Ethernet (static IP,
    10ms retransmission timeout - see build verification above), ramps
    `BACK_LIGHTS`. Each stepper's boot wind/zero/swing self-test is gated
-   by its own named boolean (`SwingVSI`/`SwingIAS`/`SwingAGL`/`SwingRPM`,
-   with a shared `SwingLoops` = 3 loop count) — same selective-swing
+   by its own named boolean (`SwingVSI`/`SwingIAS`/`SwingAGL`/`SwingTQ`/`SwingFA`/
+   `SwingEGT`/`SwingGP`, with a shared `SwingLoops` loop count) — same selective-swing
    pattern `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` already used,
    ported here to replace this sketch's previous mix of ad-hoc
-   `if (false)` gates (VSI/IAS/Radar Alt) and no gate at all (Turbine/
-   Rotor Speed, which ran unconditionally). Defaults preserve prior
-   behaviour exactly: `SwingVSI`/`SwingIAS`/`SwingAGL` = `false`,
-   `SwingRPM` = `true` (gates both `TSstepper` and `RSstepper`). Four
+   `if (false)` gates (VSI/IAS/Radar Alt). Defaults preserve prior
+   behaviour exactly: `SwingVSI`/`SwingIAS`/`SwingAGL` = `false`. (The
+   old `SwingRPM` gate for Turbine/Rotor Speed was removed along with
+   those steppers.) **Boot swing order** in `setup()`: Fuel
+   Quantity (`FAstepper`) → Torque (`TQstepper`) → EGT/ITT
+   (`EGTstepper`, "Turbine Out") → Gas Producer (`GPstepper`) → VSI → IAS →
+   AGL (`RadarAltStepper`); each still runs only if its `SwingXXX` gate is
+   `true`. Four
    more gates were added afterward for gauges that never had a startup
    swing at all before, so there was no prior behaviour to preserve for
    any of them: `SwingTQ` (default `true`) for `TQstepper` (Torque),
@@ -132,7 +135,7 @@ collides with `AllstepperEnablePin`.
    commented out (DCS-BIOS callbacks are registered but never pumped, so
    none fire from a live serial link in this build); `updateSteppers()`
    calls `.run()` on `VSIstepper`, `IASstepper`, `RadarAltStepper`, and
-   the 9 newer FULL4WIRE gauges (`ALTstepper` etc. excluded, since they
+   the newer FULL4WIRE gauges (`ALTstepper` etc. excluded, since they
    no longer exist); polls `MSFSudp` every `incomingcheckinterval` (5ms).
 3. **DCS-BIOS callbacks** (registered, not pumped): `onAirspeedNeedleChange`
    (`A_10C_AIRSPEED_NEEDLE`, still uses the old `0-65535 → 0..DUAL_STEPS+80`
@@ -153,15 +156,15 @@ collides with `AllstepperEnablePin`.
    | `AGL` | raw steps | No real calibration yet (renamed from `RALT` to match `JET_RANGER_SERVO_CONTROLLER`/FSUIPCWinformsAutoCS's actual code) |
    | `OILT`/`XMSNT`/`ITT` | °C | `setEOT`/`setXOT`/`setEGT` via the shared placeholder linear scale (see the `FULL4WIRE_HOMING_STEPS` caution above) |
    | `OILP`/`XMSNP` | PSI | `setEOP`/`setXOP`, same placeholder scale |
-   | `RPME`/`RPMR` | %, 0-120/120, one decimal place (e.g. `82.4`) | `setTS`/`setRS`, same placeholder scale; parsed with `toFloat()` (not `toInt()`) and `tsPctToSteps()`/`rsPctToSteps()`/`setTS()`/`setRS()` all take `float` now, so the fractional percent reaches the interpolation instead of being truncated first |
+   | `RPME`/`RPMR` | — | **Removed** - Turbine/Rotor Speed are served by the dual-stepper board (172.16.1.106); ignored here |
    | `N1` | %, 0-105 | `setGP`, same placeholder scale |
    | `FUEL` | US gal, 0-75 | `setFA`, same placeholder scale |
-   | `OILTRAW`/`OILPRAW`/`XMSNTRAW`/`XMSNPRAW`/`ITTRAW`/`RPMERAW`/`RPMRRAW`/`N1RAW`/`FUELRAW` | raw steps | Each bypasses its real-value sibling's conversion |
+   | `OILTRAW`/`OILPRAW`/`XMSNTRAW`/`XMSNPRAW`/`ITTRAW`/`N1RAW`/`FUELRAW` | raw steps | Each bypasses its real-value sibling's conversion |
    | `TQ` | raw steps | Renamed from `ET`, no real calibration requested |
    | `FLAPS`, `AOA`, `GFORCE`, `SPDMAX` | — | **Removed.** These were added earlier to give `FlapsStepper`/`AOAstepper`/`GForcestepper`/`SpeedMaxstepper` UDP reachability; now that those steppers are gone, their `HandleOutputValuePair` cases are gone too. `StepperVSITester`'s dropdown still lists these codes — sending them is currently a silent no-op on the board. |
 
    Codes matching `JET_RANGER_SERVO_CONTROLLER.ino`'s naming
-   (`OILT`/`OILP`/`XMSNT`/`XMSNP`/`ITT`/`RPME`/`RPMR`/`N1`/`FUEL`/`TQ`/`AGL`)
+   (`OILT`/`OILP`/`XMSNT`/`XMSNP`/`ITT`/`N1`/`FUEL`/`TQ`/`AGL`)
    are deliberate — see each case's in-code comment for the exact
    quantity match, and `IAS`'s comment for the one case (Bell 206
    servo-position number vs. real knots) where the two boards' same code
@@ -175,7 +178,7 @@ collides with `AllstepperEnablePin`.
    matching its own roster). Scoped to `MSFSudp` traffic only — DCS-BIOS
    input doesn't reset the timer. This board's `ResetGaugesToZero()`
    calls `setIAS(0)`/`setVSI(0)`/`setEGT(0)`/`setEOT(0)`/`setEOP(0)`/
-   `setXOT(0)`/`setXOP(0)`/`setTS(0)`/`setRS(0)`/`setGP(0)`/`setFA(0)`/
+   `setXOT(0)`/`setXOP(0)`/`setGP(0)`/`setFA(0)`/
    `setAGL(0)`/`setTQ(0)` (each the same target a real `"<CODE>:0"` packet
    would produce, including that gauge's own zero-offset trim - see #7
    below) - now every gauge on this board goes through its own `setXxx()`
@@ -184,7 +187,7 @@ collides with `AllstepperEnablePin`.
    reset is included.
 7. **Per-gauge zero-offset trim** (`VSIZeroOffset`/`IASZeroOffset`/
    `AGLZeroOffset`/`EGTZeroOffset`/`EOTZeroOffset`/`EOPZeroOffset`/
-   `XOTZeroOffset`/`XOPZeroOffset`/`TSZeroOffset`/`RSZeroOffset`/
+   `XOTZeroOffset`/`XOPZeroOffset`/
    `GPZeroOffset`/`FAZeroOffset`/`TQZeroOffset`, all `#define`'d near the
    Swing gates above, all defaulting to `0`): same
    fine-trim-without-touching-the-calibration-table purpose as
@@ -222,7 +225,7 @@ collides with `AllstepperEnablePin`.
 | 53 | W5500 Ethernet shield manual reset |
 | 8 | Backlighting PWM output (`BACK_LIGHTS`) |
 | 9 | SARI pitch servo (`DcsBios::ServoOutput saiPitch`) |
-| 30, 32 | SARI roll stepper step/direction — collides with `RS_COIL_C`/`RADAR_ALT_COIL_A` below |
+| 30, 32 | SARI roll stepper step/direction — 32 collides with `RADAR_ALT_COIL_A` below (pin 30 collided with `RS_COIL_C` until Rotor Speed was removed) |
 | 56 | Shared stepper-driver enable pin (`AllstepperEnablePin`) — `pinMode` commented out, see caution above; collides with `EOT_COIL_D` below |
 | 7, 8, 9, 11 | VSI 4-wire stepper coils (`COIL_VSI_A..D`) |
 | 12, 13, 22, 23 | IAS (Current Airspeed) 4-wire stepper coils (`STEPPER_SPD_A..D`) |
@@ -231,8 +234,7 @@ collides with `AllstepperEnablePin`.
 | A3, A4, A5, A6 (57-60) | XOT 4-wire stepper coils |
 | A7, A8, A9, A10 (61-64) | XOP 4-wire stepper coils |
 | A11, A12, A13, A14 (65-68) | EGT 4-wire stepper coils |
-| 24, 25, 26, 27 | TS 4-wire stepper coils |
-| 28, 29, 30, 31 | RS 4-wire stepper coils — 30 collides with `SARIstepPin` |
+| 24-31 | Unused (previously TS/RS coils, removed with Turbine/Rotor Speed) |
 | 2, 3, 4, 6 | FA 4-wire stepper coils |
 | 36, 37, 38, 39 | ET 4-wire stepper coils |
 | 40, 41, 42, 43 | GP 4-wire stepper coils |

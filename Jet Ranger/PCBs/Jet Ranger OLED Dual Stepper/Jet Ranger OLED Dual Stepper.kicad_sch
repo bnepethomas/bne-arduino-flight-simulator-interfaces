@@ -8596,16 +8596,6 @@
 	)
 	(wire
 		(pts
-			(xy 132.08 176.53) (xy 142.24 176.53)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2a4791e9-c819-4b82-a76c-220ac72345a6")
-	)
-	(wire
-		(pts
 			(xy 181.61 85.09) (xy 182.88 85.09)
 		)
 		(stroke
@@ -9206,16 +9196,6 @@
 	)
 	(wire
 		(pts
-			(xy 137.16 173.99) (xy 142.24 173.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7bc57da1-03aa-4e3b-bf69-8b7eee4f9493")
-	)
-	(wire
-		(pts
 			(xy 349.25 38.1) (xy 384.81 38.1)
 		)
 		(stroke
@@ -9223,16 +9203,6 @@
 			(type default)
 		)
 		(uuid "7c6b2649-1818-4bc3-8e4f-2285d880f9ad")
-	)
-	(wire
-		(pts
-			(xy 132.08 157.48) (xy 142.24 157.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "808f1660-701a-4852-9f58-b0ad3b04f85e")
 	)
 	(wire
 		(pts
@@ -9506,16 +9476,6 @@
 	)
 	(wire
 		(pts
-			(xy 132.08 198.12) (xy 142.24 198.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cb4136f6-2d91-44ba-82af-d63592e8b520")
-	)
-	(wire
-		(pts
 			(xy 349.25 45.72) (xy 384.81 45.72)
 		)
 		(stroke
@@ -9553,16 +9513,6 @@
 			(type default)
 		)
 		(uuid "d2028825-09bd-4e07-8d31-6da52376d1b3")
-	)
-	(wire
-		(pts
-			(xy 91.44 158.75) (xy 101.6 158.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d21a790c-a55a-48b1-bf8b-2a0613f91e8b")
 	)
 	(wire
 		(pts
@@ -9673,16 +9623,6 @@
 			(type default)
 		)
 		(uuid "ee029250-b2e8-42bc-8c6e-0f8ed36be727")
-	)
-	(wire
-		(pts
-			(xy 137.16 195.58) (xy 142.24 195.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "efa3b5cf-e3df-4417-9af4-aa9ce7337183")
 	)
 	(wire
 		(pts
@@ -12546,15 +12486,15 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 132.08 176.53 0)
+		(at 142.24 173.99 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "08e084a3-2ad0-4d53-b985-c61b3e906cf9")
-		(property "Reference" "#PWR079"
-			(at 132.08 182.88 0)
+		(uuid "0acc94fb-8ff6-42c7-a7e8-c868f0907e19")
+		(property "Reference" "#PWR026"
+			(at 135.89 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12563,31 +12503,16 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 132.08 180.34 0)
+			(at 138.9888 174.117 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 			)
 		)
 		(property "Footprint" ""
-			(at 132.08 176.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 132.08 176.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 132.08 176.53 0)
+			(at 142.24 173.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12595,13 +12520,95 @@
 				(hide yes)
 			)
 		)
+		(property "Datasheet" ""
+			(at 142.24 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 142.24 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
-			(uuid "33aeb191-f999-43c9-871e-85e0fd9843dc")
+			(uuid "c71f5e9d-c671-432e-b918-95aa2bca4674")
 		)
 		(instances
-			(project "Jet Ranger X Dual Stepper"
+			(project "Jet Ranger OLED Dual Stepper"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR079")
+					(reference "#PWR026")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 101.6 156.21 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0f8d7570-d3b1-4916-83b7-b801400d4405")
+		(property "Reference" "#PWR010"
+			(at 95.25 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 98.3488 156.337 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.6 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8196f5b3-2a8b-46ad-89a1-af96eed41450")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)
@@ -13144,6 +13151,71 @@
 			(project "Jet Ranger X Dual Stepper"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "J7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 142.24 154.94 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "300e4d07-a944-4c01-abea-49d63fc47152")
+		(property "Reference" "#PWR014"
+			(at 135.89 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 138.9888 155.067 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 142.24 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c0a9441d-7ae9-47bc-812a-76beaadfd758")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR014")
 					(unit 1)
 				)
 			)
@@ -14188,6 +14260,71 @@
 		)
 	)
 	(symbol
+		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
+		(at 142.24 157.48 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4d098ac5-46ed-4a13-b5d2-ba4ebb8bad92")
+		(property "Reference" "#PWR015"
+			(at 146.05 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 138.9888 157.099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 142.24 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ff2fdc49-67df-438c-bad1-dca25d4078f2")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR015")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "arduino-library:Arduino_Mega2560_R3_Shield")
 		(at 316.23 77.47 0)
 		(unit 1)
@@ -14525,138 +14662,6 @@
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "A1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 142.24 154.94 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "5449016e-6c49-4811-9be9-2d5030475e71")
-		(property "Reference" "#PWR011"
-			(at 142.24 158.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 142.621 151.6888 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 142.24 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 142.24 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 142.24 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "57ab7c73-4f70-4f73-b6dd-ca678cdf45d1")
-		)
-		(instances
-			(project "Jet Ranger X Dual Stepper"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR011")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 137.16 195.58 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "54ee3b82-6ddf-4e50-bd58-f94348cddf23")
-		(property "Reference" "#PWR028"
-			(at 137.16 199.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 137.541 192.3288 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 137.16 195.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 137.16 195.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 137.16 195.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7be69940-40ec-4000-81d4-f811c5fe5e8d")
-		)
-		(instances
-			(project "Jet Ranger OLED Dual Stepper"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR028")
 					(unit 1)
 				)
 			)
@@ -15726,69 +15731,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 91.44 158.75 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "6af46a42-4e6c-492a-adb0-f1e0a7b3d214")
-		(property "Reference" "#PWR014"
-			(at 91.44 165.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 91.44 162.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 91.44 158.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 91.44 158.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 91.44 158.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2ab5729c-f741-46e1-b71f-5059d5b1e437")
-		)
-		(instances
-			(project "Jet Ranger OLED Dual Stepper"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR014")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "USR-ES1:USR-ES1")
 		(at 323.85 228.6 0)
 		(unit 1)
@@ -16511,6 +16453,71 @@
 		)
 	)
 	(symbol
+		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
+		(at 142.24 176.53 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7e289326-43a9-4837-afd9-c4c3ea14e845")
+		(property "Reference" "#PWR027"
+			(at 146.05 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 138.9888 176.149 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 142.24 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6c43c8e1-8992-4ea5-9d4d-6cd95044444d")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR027")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x06_Socket")
 		(at 209.55 232.41 0)
 		(unit 1)
@@ -16587,6 +16594,71 @@
 			(project "Jet Ranger X Dual Stepper"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "J33")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
+		(at 101.6 158.75 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8541eb8d-d8ea-4a36-8a22-044c7e094753")
+		(property "Reference" "#PWR011"
+			(at 105.41 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 98.3488 158.369 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.6 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6a782e09-0825-4c04-8a42-5d9b5dbafc13")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -17544,6 +17616,71 @@
 			(project "Jet Ranger X Dual Stepper"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "J17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
+		(at 142.24 198.12 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "985072d6-8f71-45cd-b523-eb286028db39")
+		(property "Reference" "#PWR032"
+			(at 146.05 198.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 138.9888 197.739 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 198.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 198.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 142.24 198.12 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2ead82cb-ce9d-4165-a7b5-d8f8ed053e6d")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR032")
 					(unit 1)
 				)
 			)
@@ -18940,72 +19077,6 @@
 		)
 	)
 	(symbol
-		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 137.16 173.99 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b331f55b-56d1-4ff6-b110-a4211166b404")
-		(property "Reference" "#PWR010"
-			(at 137.16 177.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 137.541 170.7388 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 137.16 173.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 137.16 173.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 137.16 173.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "11c4a331-0da6-4e8a-8bfe-a4dbaff638ee")
-		)
-		(instances
-			(project "Jet Ranger X Dual Stepper"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR010")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector:Conn_01x04_Socket")
 		(at 147.32 198.12 0)
 		(unit 1)
@@ -19451,69 +19522,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 132.08 157.48 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b9c59815-4552-49b9-827f-723644f3bfb1")
-		(property "Reference" "#PWR026"
-			(at 132.08 163.83 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 132.08 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 132.08 157.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 132.08 157.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 132.08 157.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "8dfd7023-6625-43fc-8e85-aa21e56e4d42")
-		)
-		(instances
-			(project "Jet Ranger X Dual Stepper"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR026")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GNDD")
 		(at 369.57 229.87 0)
 		(unit 1)
@@ -19574,69 +19582,6 @@
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "#PWR035")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 132.08 198.12 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "bd7026b5-8d85-4b1f-bae7-68cb6d07218e")
-		(property "Reference" "#PWR027"
-			(at 132.08 204.47 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 132.08 201.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 132.08 198.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 132.08 198.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 132.08 198.12 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "89605927-9997-49bd-83ac-afb6cc983836")
-		)
-		(instances
-			(project "Jet Ranger OLED Dual Stepper"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR027")
 					(unit 1)
 				)
 			)
@@ -19728,6 +19673,71 @@
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 142.24 195.58 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c1f074e2-505d-46f1-b70a-b9f2e920b513")
+		(property "Reference" "#PWR028"
+			(at 135.89 195.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 138.9888 195.707 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 195.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 195.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 142.24 195.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "94d07dc0-df07-42a0-a360-1cca2cfdd895")
+		)
+		(instances
+			(project "Jet Ranger OLED Dual Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(reference "#PWR028")
 					(unit 1)
 				)
 			)
@@ -22782,72 +22792,6 @@
 			(project "LIP CONTROLLER V004"
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "#PWR034")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "GAUGE_Standby-Altimeter-rescue:+3.3V-power")
-		(at 101.6 156.21 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f1a60522-e67a-44bb-91e1-0908482f19cd")
-		(property "Reference" "#PWR015"
-			(at 101.6 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 101.981 152.9588 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 101.6 156.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 101.6 156.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 101.6 156.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e07ec269-512e-4389-8391-fefd8ea77219")
-		)
-		(instances
-			(project "Jet Ranger OLED Dual Stepper"
-				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
-					(reference "#PWR015")
 					(unit 1)
 				)
 			)

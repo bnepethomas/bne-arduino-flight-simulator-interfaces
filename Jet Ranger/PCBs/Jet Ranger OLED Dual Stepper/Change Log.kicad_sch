@@ -8,7 +8,7 @@
 		(rev "1.2")
 	)
 	(lib_symbols)
-	(text "Initial Creation 20260809"
+	(text "Initial Creation 20260809\n20261010 1.3 Swapped Power and GND on 4 Pin OLED connections to straight through cables can be used."
 		(exclude_from_sim no)
 		(at 64.008 39.878 0)
 		(effects

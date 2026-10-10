@@ -303,10 +303,9 @@
     `onAltMslFtChange()`'s/`onZuluTimeChange()`'s own change-gate would
     see "no change" and leave the display blank.
 
-Everything else — VSI, IAS, the 8 remaining `Stepper-Tuning-Harness`-ported
+Everything else — the 8 remaining `Stepper-Tuning-Harness`-ported
 gauges (`EOTstepper`/`XOTstepper`/`XOPstepper`/`EGTstepper`/`TSstepper`/
-`RSstepper`/`FAstepper`/`EOPstepper`), SARI, the health keepalive, and the
-remaining real calibration tables (`VSI_FPM_TABLE`, `IAS_KT_TABLE`) —
+`RSstepper`/`FAstepper`/`EOPstepper`), SARI, and the health keepalive —
 is currently identical to the original sketch. See that sketch's own
 summary for the full program flow, roster, cautions, and pin/network
 tables; only the deltas above and the roster/UDP table changes below are
@@ -336,6 +335,55 @@ of the real zero). The other five tables' 0 rows are already 0 steps, so
 their offset alone is the correct target. ALT has no offset (not part of
 this change).
 
+## Startup swing order
+
+`setup()` runs the boot swings in this order (each only if its `SwingXXX`
+gate is `true`): Engine Oil Pressure → Engine Oil Temp → Transmission Oil
+Pressure → Transmission Oil Temp → Electrical Load → Fuel Load → Turbine
+Speed → Rotor Speed → ALT. (ALT was previously after VSI and before IAS;
+it was not named in the requested order, so it now runs last. The swing
+logic itself is unchanged - only the block order moved.)
+
+The three OLEDs (Baro, Altimeter, Clock) are now initialised **before**
+these swings run - the I2C scan and `begin()`/default-text block was moved
+from after the swings to just before `"STEPPER INITIALISATION STARTED"`, so
+the displays are already up while the needles swing. It is now the function
+`initOLEDs()`, which also fixes a hang found on the bench when the order was
+first swapped: nothing called `Wire.begin()` before the first
+`tcaselect()`, and the AVR TWI code has no timeout by default, so setup()
+stalled for tens of seconds (or indefinitely) before the first swing.
+`initOLEDs()` now calls `Wire.begin()`, sets a 25ms `Wire.setWireTimeout()`,
+and probes the TCA9548A mux once; if it doesn't answer it logs
+`TCA mux NOT found - OLED init skipped` and returns `false` so the swings
+start immediately. `setup()` retries `initOLEDs()` once after the swings, so
+OLEDs that power up late still come up. The root cause of the mux not answering was that nothing drove the TCA9548A's
+active-low RESET pin (`TCA_RESET_PIN` = Arduino pin 16); `initOLEDs()` now
+pulses it low (10ms) then high before `Wire.begin()`, after which the mux
+answers and the Baro/Altimeter OLEDs initialise. Verified on the bench via
+the UDP debug stream: OLEDs initialise at ~6s, then all swings run in order
+and setup completes at ~65s. The 8-channel diagnostic I2C scan is back inside `initOLEDs()` (behind
+`OLED_I2C_SCAN`, default `1`) and sends its results over the UDP debug
+stream (reflector 172.16.1.10:27000) as one line per mux channel, e.g.
+`I2C scan ch1: 0x3c` / `I2C scan ch3: none` / `bus timeout`, bracketed by
+`I2C scan start`/`I2C scan complete`. A channel that times out 3 probes in a
+row is abandoned, so the whole scan takes ~0.25s. Bench result: 0x3C on
+channels 1 and 2 only, nothing on channel 3 where the Clock OLED is
+configured (`CLOCK_OLED_Port`).
+
+## VSI and IAS removed
+
+All Vertical Speed (`VSIstepper`) and Indicated Airspeed (`IASstepper`) code
+was removed from this sketch (those gauges live on
+`JET_RANGER_STEPPER_CONTROLLER.ino`, 172.16.1.105): the steppers and their
+coil pin defines (`COIL_VSI_*`, `STEPPER_SPD_*`), `VSIoffset`,
+`SwingVSI`/`SwingIAS`, both boot swing blocks, the DCS-BIOS callbacks
+(`onAirspeedNeedleChange`/`onVviChange`) and buffers, `IAS_KT_TABLE`/
+`VSI_FPM_TABLE` with their structs and `setIAS()`/`setVSI()`/
+`setCurrentAirspeed()`, the `IAS`/`IASRAW`/`VSI`/`VSIRAW` UDP cases, and the
+`.run()`, speed/acceleration setup and `ResetGaugesToZero()` entries. Those
+four UDP codes are now silently ignored on this board. Statements elsewhere
+in this file that mention VSI/IAS describe earlier states of the sketch.
+
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
@@ -343,7 +391,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 55,026 bytes (21%) | 6,118 bytes (74%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 54,550 bytes (21%) | 5,760 bytes (70%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;
@@ -365,7 +413,7 @@ port number).
 | `XOTstepper` (`XMSNT`, Transmission Oil Temp) | Unchanged pins/interface | Real degrees C now via `setXOT()`/`XOT_C_TABLE` (4-point bench-measured table: 0C→0, 50C→75, 100C→150, 150C→225 steps; replaces the old placeholder linear scale, reuses the `CToStepEntry` struct `EOT_C_TABLE` also uses). Boot startup swing active (`SwingXOT` = true) - same `FULL4WIRE_STEPS`/`FULL4WIRE_HOMING_STEPS` range as `EOTstepper` above, overshoots the real 225-step calibrated max for a fuller self-test. Returns to raw 0 |
 | `XOPstepper` (`XMSNP`, Transmission Oil Pressure) | Unchanged pins/interface | Real PSI now via `setXOP()`/`XOP_PSI_TABLE` (5-point bench-measured table: 0→0, 50→74, 70→104, 100→149, 150→220 steps - one more point than the other `PsiToStepEntry` tables; replaces the old placeholder linear scale, reuses the `PsiToStepEntry` struct `FUEL_LOAD_PSI_TABLE`/`EOP_PSI_TABLE` also use). Boot startup swing active (`SwingXOP` = true) - same `FULL4WIRE_STEPS`/`FULL4WIRE_HOMING_STEPS` range, overshoots the real 220-step calibrated max for a fuller self-test. Returns to raw 0 |
 
-All other steppers (`VSIstepper`, `IASstepper`, `EOTstepper`,
+All other steppers (`EOTstepper`,
 `XOTstepper`, `XOPstepper`, `EGTstepper`, `FAstepper`, `EOPstepper`,
 `SARIstepperRoll`, `saiPitch`) are unchanged from the original sketch —
 see its summary for their status.
@@ -384,7 +432,7 @@ see its summary for their status.
 
 `AGL`/`AGLRAW`, `TQ`, and now `N1`/`N1RAW` no longer exist on this board
 (see above - `N1`/`N1RAW` were removed when `GPstepper` was disabled).
-Every other code (`VSI`/`VSIRAW`, `IAS`/`IASRAW`, `OILT`/`OILP`/`XMSNT`/
+`VSI`/`VSIRAW` and `IAS`/`IASRAW` were removed (see above). Every other code (`OILT`/`OILP`/`XMSNT`/
 `XMSNP`/`ITT`/`FUEL` and their `*RAW` siblings) is unchanged from the
 original sketch. `RPMERAW`/`RPMRRAW` (raw-step bypass) also unchanged.
 

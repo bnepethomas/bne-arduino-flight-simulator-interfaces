@@ -7,8 +7,6 @@ Based on Jet_Ranger_Steppers drivws dual stepper guages
 Drives:
 
 SARI
-AccelStepper VSIstepper
-AccelStepper IASstepper
 AccelStepper FuelLoadStepper
 (ALTstepper, SpeedMaxstepper, FlapsStepper, AOAstepper, GForcestepper -
  all removed/commented out; no longer declared in this sketch)
@@ -42,8 +40,6 @@ BACK_LIGHTS
 
 #define SwingLoops 1
 #define SwingALT true
-#define SwingIAS false
-#define SwingVSI false
 #define SwingRPM true
 #define SwingFUELLOAD true
 #define SwingELECTRICALLOAD true
@@ -121,7 +117,7 @@ int debugLen;
 EthernetUDP udp;
 EthernetUDP debugUDP;
 // Receives the same front-panel data packets JET_RANGER_SERVO_CONTROLLER
-// listens for; only IAS (airspeed) and ALT (altitude) are wired up for now.
+// listens for; only ALT (altitude) and the engine/transmission gauges are wired up.
 EthernetUDP MSFSudp;
 int MSFSpacketsize;
 int MSFSLen;
@@ -160,14 +156,7 @@ void SendDebug(String MessageToSend) {
 // ###################################### End Ethernet Related #############################
 
 // Aligned with Stepper-Tuning-Harness's LED pins (that sketch moved them
-// off 12/13 since those became the Current Airspeed stepper's coil pins
-// there - see that sketch's own summary). UPDATE: this was originally
-// just cosmetic consistency here, since this sketch's own Current
-// Airspeed stepper was still on its old DRIVER pins (34/36) at the time.
-// It's since been renamed IASstepper and moved onto the same FULL4WIRE
-// pins 12/13/22/23 (STEPPER_SPD_A..D) the harness uses - so the reason
-// for this LED move is now genuinely load-bearing here too, not just
-// precautionary.
+// off 12/13).
 #define RED_STATUS_LED_PORT 15
 #define GREEN_STATUS_LED_PORT 14
 #define Check_LED_R 15
@@ -219,19 +208,13 @@ unsigned long previousMillis = 0;
 // it wasn't asked for, but they no longer describe live pin usage.
 #define FlapsStepPin 46
 #define FlapsDirectionPin 48
-// Scaled down by the same ~8x ratio as the VSI homing step count below
-// (FULL4WIRE_HOMING_STEPS / the old geared STEPS) since VSI's usable
-// range shrank when it moved to direct-drive coils - an unverified
-// estimate, NOT bench-measured. Confirm/recalibrate on real hardware.
-#define VSIoffset 1
-
 // Fine-trim offsets (steps) added to TS_PCT_TABLE's/RS_PCT_TABLE's
-// computed target - same purpose/pattern as VSIoffset above: dial in the
+// computed target - dial in the
 // real needles' true mechanical zero without touching the calibration
 // tables themselves. Used both at runtime (setTS()/setRS()) and by the
 // Turbine/Rotor Speed startup swings' "return to zero" step (below) -
-// must be #define'd before setup(), unlike VSIoffset's neighbours these
-// can't live down next to setTS()/setRS() where they're mainly used.
+// must be #define'd before setup() - they can't live down next to
+// setTS()/setRS() where they're mainly used.
 // TSoffset has since been given a real value (20); RSoffset is still an
 // unmeasured 0.
 #define TSoffset 10
@@ -252,14 +235,6 @@ unsigned long previousMillis = 0;
 #define XOPZeroOffset 43
 #define FuelLoadZeroOffset 0
 #define ElectricalLoadZeroOffset 24
-
-// Swapped with Flaps' step/dir pins above: Flaps moved onto this
-// DRIVER/STEP-DIR pair, and VSI (below) took over these coil pins - it is
-// NOT unused, it now belongs to VSI.
-#define COIL_VSI_A 7
-#define COIL_VSI_B 8
-#define COIL_VSI_C 9
-#define COIL_VSI_D 11
 
 // New gauges ported from Stepper-Tuning-Harness (same pin assignments as
 // that bench sketch, all 4-wire direct-drive FULL4WIRE). Added as bare
@@ -334,25 +309,17 @@ unsigned long previousMillis = 0;
 #define STEPPER_ALT_D 43
 #define ALTzeroSensePin A15
 
-#define STEPPER_SPD_A 12
-#define STEPPER_SPD_B 13
-#define STEPPER_SPD_C 22
-#define STEPPER_SPD_D 23
-
 #define STEPS 315 * 16       // The 16 is the default divisors when no pins are tied together on the driver module \
                             // For an unmodified Vid series there are 315 steps
 #define DUAL_STEPS 315 * 16  // The Dual stepper seems to have fewer steps between stops
 // Direct-drive (FULL4WIRE) step count, no overshoot multiplier needed -
-// originally for Flaps, now also used by VSI's homing below since VSI
-// moved from a geared DRIVER motor onto direct coils.
+// originally for Flaps.
 #define FULL4WIRE_STEPS 315
 #define FULL4WIRE_HOMING_STEPS FULL4WIRE_STEPS + 1
 #define X27_FULLWIRE_STEPS 630
 #define X27_FULLWIRE_HOMING_STEPS X27_FULLWIRE_STEPS + 1
 #define Z27_360_FULLWIRE_STEPS 720
 AccelStepper ALTstepper(AccelStepper::FULL4WIRE, STEPPER_ALT_A, STEPPER_ALT_B, STEPPER_ALT_C, STEPPER_ALT_D);
-AccelStepper IASstepper(AccelStepper::FULL4WIRE, STEPPER_SPD_C, STEPPER_SPD_D, STEPPER_SPD_A, STEPPER_SPD_B);
-AccelStepper VSIstepper(AccelStepper::FULL4WIRE, COIL_VSI_C, COIL_VSI_D, COIL_VSI_A, COIL_VSI_B);
 
 // New gauges below, ported from Stepper-Tuning-Harness - see the pin
 // defines above for the collision-check caveat. FuelLoadStepper's coil
@@ -409,6 +376,11 @@ extern "C" {
 }
 
 #define TCAADDR 0x70
+#define TCA_RESET_PIN 16  // TCA9548A RESET (active low)
+// Set to 1 (default) to run the diagnostic I2C scan of all 8 mux channels in
+// initOLEDs(), reporting one line per channel over the UDP debug stream.
+// Set to 0 to skip it and save boot time.
+#define OLED_I2C_SCAN 1
 
 int CurrentDisplay = 0;
 int Brightness = 0;
@@ -863,6 +835,115 @@ void UpdateAltimeterDigits(long height) {
 
 
 
+// Brings up I2C and the three OLEDs (Baro/Altimeter/Clock) behind the
+// TCA9548A mux. Returns false (having touched nothing) if the mux doesn't
+// answer within the 25ms bus timeout - callable more than once.
+bool initOLEDs() {
+  // Pulse the TCA9548A's active-low RESET pin (wired to Arduino pin 16)
+  // low then high, so the mux starts from a known state and any wedged
+  // I2C channel is cleared. Datasheet minimum low pulse is ~6ns; 10ms is
+  // generous. Pin 16 is otherwise unused in this sketch (Mega TX2).
+  pinMode(TCA_RESET_PIN, OUTPUT);
+  digitalWrite(TCA_RESET_PIN, LOW);
+  delay(10);
+  digitalWrite(TCA_RESET_PIN, HIGH);
+  delay(10);
+
+  // Explicitly bring up the I2C bus before the first tcaselect()/scan.
+  // Previously nothing called Wire.begin() until u8g2.begin() further down,
+  // and the first tcaselect() only got away with it because the stepper
+  // swings used to run first - with the OLED block now ahead of them, the
+  // un-initialised TWI hung the very first Wire.endTransmission().
+  Wire.begin();
+  // 25ms bus timeout (reset-on-timeout) so a wedged/unpowered I2C bus can
+  // never block setup() - the TWI code has no timeout by default and would
+  // spin forever, which is what stopped the stepper swings from running.
+  Wire.setWireTimeout(25000, true);
+
+  // Probe the TCA9548A mux once; if it doesn't answer, skip all OLED init
+  // (scan + the three displays) rather than burning 25ms per probe on a
+  // dead bus, and carry on to the stepper swings.
+  Wire.beginTransmission(TCAADDR);
+  bool oledMuxPresent = (Wire.endTransmission() == 0) && !Wire.getWireTimeoutFlag();
+  Wire.clearWireTimeoutFlag();
+  SendDebug(oledMuxPresent ? "TCA mux found - initialising OLEDs" : "TCA mux NOT found - OLED init skipped");
+
+  if (!oledMuxPresent) return false;
+  {
+
+
+
+#if OLED_I2C_SCAN
+  // Diagnostic I2C scan of every mux channel, one summary line per channel
+  // over the UDP debug stream, e.g. "I2C scan ch1: 0x3C" or
+  // "I2C scan ch3: none". The mux's own address (TCAADDR) is skipped since
+  // it answers on every channel. A channel that times out 3 probes in a row
+  // is abandoned ("bus timeout") so one dead channel can't cost 128 x 25ms.
+  SendDebug("I2C scan start");
+  for (uint8_t t = 0; t < 8; t++) {
+    tcaselect(t);
+    String found = "";
+    uint8_t consecutiveTimeouts = 0;
+    bool abandoned = false;
+    for (uint8_t addr = 1; addr <= 126; addr++) {
+      if (addr == TCAADDR) continue;
+      Wire.beginTransmission(addr);
+      uint8_t rc = Wire.endTransmission();
+      if (Wire.getWireTimeoutFlag()) {
+        Wire.clearWireTimeoutFlag();
+        if (++consecutiveTimeouts >= 3) {
+          abandoned = true;
+          break;
+        }
+        continue;
+      }
+      consecutiveTimeouts = 0;
+      if (rc == 0) {
+        found += (found.length() ? " 0x" : "0x");
+        if (addr < 16) found += "0";
+        found += String(addr, HEX);
+      }
+    }
+    SendDebug("I2C scan ch" + String(t) + ": " + (abandoned ? String("bus timeout") : (found.length() ? found : String("none"))));
+  }
+  SendDebug("I2C scan complete");
+#endif
+
+  tcaselect(BARO_OLED_Port);
+
+  SendDebug("Displaying Baro 2992");
+  u8g2_BARO.begin();
+  u8g2_BARO.clearBuffer();
+  u8g2_BARO.setFont(u8g2_font_logisoso16_tf);
+  u8g2_BARO.sendBuffer();
+  tcaselect(BARO_OLED_Port);
+  updateBARO("2992");
+
+  SendDebug("Display Alt");
+  tcaselect(ALT_OLED_Port);
+  u8g2_ALT.begin();
+  u8g2_ALT.clearBuffer();
+  u8g2_ALT.setFont(u8g2_font_logisoso32_tn);
+  u8g2_ALT.sendBuffer();
+  tcaselect(ALT_OLED_Port);
+  updateALT("0", "0");
+
+  SendDebug("Display CLock");
+  tcaselect(CLOCK_OLED_Port);
+  u8g2_CLOCK.begin();
+  u8g2_CLOCK.clearBuffer();
+  u8g2_CLOCK.setFont(u8g2_font_logisoso32_tf);
+  u8g2_CLOCK.sendBuffer();
+  tcaselect(CLOCK_OLED_Port);
+  updateClock(0, 0);
+
+  SendDebug("Delaying to see OLED");
+  delay(2000);
+
+  }
+  return oledMuxPresent;
+}
+
 void setup() {
 
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
@@ -924,6 +1005,15 @@ void setup() {
 
   analogWrite(BACK_LIGHTS, BrightnessWhileRunningSetup);
 
+  // OLEDs (Baro/Altimeter/Clock) are initialised BEFORE the stepper boot
+  // swings below, so the displays are up (showing their zero/default
+  // readings) while the needles swing rather than coming up afterwards.
+  // ####################### Being OLED Setup ##########################
+
+  bool oledsInitialised = initOLEDs();
+
+  // ######################## End OLED Setup ###########################
+
   SendDebug("STEPPER INITIALISATION STARTED");
 
 
@@ -938,12 +1028,8 @@ void setup() {
   // pinMode was meant to stay commented (enable now tied elsewhere/always
   // on) or should be restored.
 
-  VSIstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  VSIstepper.setAcceleration(STEPPER_ACCELERATION);
   ALTstepper.setMaxSpeed(ALT_STEPPER_MAX_SPEED);
   ALTstepper.setAcceleration(ALT_STEPPER_ACCELERATION);
-  IASstepper.setMaxSpeed(STEPPER_MAX_SPEED);
-  IASstepper.setAcceleration(STEPPER_ACCELERATION);
   FuelLoadStepper.setMaxSpeed(STEPPER_MAX_SPEED);
   FuelLoadStepper.setAcceleration(STEPPER_ACCELERATION);
   EOTstepper.setMaxSpeed(STEPPER_MAX_SPEED);
@@ -970,44 +1056,273 @@ void setup() {
 
   digitalWrite(AllstepperEnablePin, false);
 
-  // ################# Start VSI Startup #########################
-
-  if (SwingVSI) {
-    SendDebug("Start VSI");
-
-    // VSI is a direct-driven FULL4WIRE stepper on coil pins (COIL_VSI_A..D,
-    // now 7/8/9/11, wired C,D,A,B - matches Stepper-Tuning-Harness's own
-    // VSI wiring exactly). Homes against an X27.168-style stepper's real
-    // travel: X27_FULLWIRE_STEPS (635) is that motor's full-scale step
-    // count, X27_FULLWIRE_HOMING_STEPS adds a small 5-step overshoot to
-    // guarantee reaching the physical end stop. CAUTION - macro-precedence
-    // bug: X27_FULLWIRE_HOMING_STEPS is #defined as "X27_FULLWIRE_STEPS + 5"
-    // (unparenthesized), so the "-X27_FULLWIRE_HOMING_STEPS" below expands
-    // to "-635 + 5" = -630, NOT -(635+5) = -640 as the name implies - a
-    // real (if minor, ~1.5%) discrepancy between what this homing move
-    // actually does and what it looks like it does. Direction sign is
-    // otherwise carried over unverified from this stepper's pre-X27
-    // homing - confirm it actually winds to (and stops cleanly at) the
-    // real end stop before trusting it unattended. Now does 3 swing loops
-    // (was 1) as a more thorough self-test.
-    VSIstepper.runToNewPosition(-X27_FULLWIRE_HOMING_STEPS);
-    VSIstepper.setCurrentPosition(0);
+  // ################# Start Engine Oil Pressure Startup #########################
+  // Same pattern as Engine Oil Temp below. EOPstepper now has a real
+  // bench-measured table (EOP_PSI_TABLE, see "START ENGINE OIL PRESSURE"
+  // below) whose max (150 PSI -> 220 steps) is well inside FULL4WIRE_STEPS
+  // (315), so this swing uses the same FULL4WIRE_STEPS/
+  // FULL4WIRE_HOMING_STEPS range rather than X27's, overshooting the real
+  // calibrated range for a fuller self-test - same reasoning as EOT's
+  // swing below. EOPstepper previously had no startup routine at all.
+  // Direction sign is an unverified assumption, NOT bench-confirmed.
+  // Returns to 0, same reasoning as EOT below (eopPsiToSteps(0) is
+  // already 0).
+  if (SwingEOP) {
+    SendDebug("Start EOPstepper");
+    EOPstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+    EOPstepper.runToNewPosition(-FULL4WIRE_STEPS);
+    EOPstepper.setCurrentPosition(0);
 
     for (int i = 1; i <= SwingLoops; i++) {
       SendDebug("Loop :" + String(i));
-      VSIstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      SendDebug("Sending Engine Oil Pressure to Max");
+      EOPstepper.runToNewPosition(FULL4WIRE_STEPS);
       delay(200);
-      VSIstepper.runToNewPosition(0);
+      SendDebug("Returning Engine Oil Pressure to Zero");
+      EOPstepper.runToNewPosition(EOPZeroOffset);
       delay(200);
     }
-
-    // Move VSI to zero position and set
-    VSIstepper.runToNewPosition((X27_FULLWIRE_STEPS / 2) - VSIoffset);
-    VSIstepper.setCurrentPosition(0);
-    SendDebug("End VSI");
+    SendDebug("End EOPstepper");
   }
-  // ################# End VSI Startup #########################
+  // ################# End Engine Oil Pressure Startup #########################
 
+  // ################# Start Engine Oil Temp Startup #########################
+  // Same wind/zero/swing-loop pattern as Fuel Load/Electrical Load below,
+  // but uses FULL4WIRE_STEPS/FULL4WIRE_HOMING_STEPS (315/316) instead of
+  // the X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS (630/631) those use.
+  // EOTstepper now has a real bench-measured table (EOT_C_TABLE, see
+  // "START ENGINE OIL TEMP" below) whose max (150C -> 231 steps) is well
+  // inside FULL4WIRE_STEPS (315), so this swing overshoots the real
+  // calibrated range for a fuller self-test, same as Fuel Load's swing
+  // overshoots its own calibrated range. EOTstepper previously had no
+  // startup routine at all. Direction sign is an unverified assumption
+  // carried over from the other swings' X27-style homing, NOT
+  // bench-confirmed for this specific gauge. Returns to EOTZeroOffset,
+  // not raw 0 - eotCToSteps(0) is already 0, so the offset alone is the
+  // correct calibrated-zero target (default 0, same as before).
+  if (SwingEOT) {
+    SendDebug("Start EOTstepper");
+    EOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+    EOTstepper.runToNewPosition(-FULL4WIRE_STEPS);
+    EOTstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Engine Oil Temp to Max");
+      EOTstepper.runToNewPosition(FULL4WIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Engine Oil Temp to Zero");
+      EOTstepper.runToNewPosition(EOTZeroOffset);
+      delay(200);
+    }
+    SendDebug("End EOTstepper");
+  }
+  // ################# End Engine Oil Temp Startup #########################
+
+  // ################# Start Transmission Oil Pressure Startup #########################
+  // Same pattern as Transmission Oil Temp below. XOPstepper now has a
+  // real bench-measured table (XOP_PSI_TABLE, see "START TRANSMISSION OIL
+  // PRESSURE" below) whose max (150 PSI -> 220 steps) is well inside
+  // FULL4WIRE_STEPS (315), so this swing overshoots the real calibrated
+  // range for a fuller self-test, same reasoning as the other graduated
+  // gauges' swings above and below. XOPstepper previously had no startup routine at
+  // all. Direction sign is an unverified assumption, NOT bench-confirmed.
+  // Returns to 0 (xopPsiToSteps(0) is already 0).
+  if (SwingXOP) {
+    SendDebug("Start XOPstepper");
+    XOPstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+    XOPstepper.runToNewPosition(-FULL4WIRE_STEPS);
+    XOPstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Transmission Oil Pressure to Max");
+      XOPstepper.runToNewPosition(FULL4WIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Transmission Oil Pressure to Zero");
+      XOPstepper.runToNewPosition(XOPZeroOffset);
+      delay(200);
+    }
+    SendDebug("End XOPstepper");
+  }
+  // ################# End Transmission Oil Pressure Startup #########################
+
+  // ################# Start Transmission Oil Temp Startup #########################
+  // Same wind/zero/swing-loop pattern as Engine Oil Temp/Pressure above,
+  // using FULL4WIRE_STEPS/FULL4WIRE_HOMING_STEPS (315/316). XOTstepper now
+  // has a real bench-measured table (XOT_C_TABLE, see "START TRANSMISSION
+  // OIL TEMP" below) whose max (150C -> 225 steps) is well inside
+  // FULL4WIRE_STEPS (315), so this swing overshoots the real calibrated
+  // range for a fuller self-test, same reasoning as EOT/EOP's swings
+  // above and below. XOTstepper previously had no startup routine at all. Direction
+  // sign is an unverified assumption, NOT bench-confirmed. Returns to
+  // XOTZeroOffset (xotCToSteps(0) is already 0, so the offset alone is the
+  // correct calibrated-zero target).
+  if (SwingXOT) {
+    SendDebug("Start XOTstepper");
+    XOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+    XOTstepper.runToNewPosition(-FULL4WIRE_STEPS);
+    XOTstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Transmission Oil Temp to Max");
+      XOTstepper.runToNewPosition(FULL4WIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Transmission Oil Temp to Zero");
+      XOTstepper.runToNewPosition(XOTZeroOffset);
+      delay(200);
+    }
+    SendDebug("End XOTstepper");
+  }
+  // ################# End Transmission Oil Temp Startup #########################
+
+  // ################# Start Electrical Load Startup #########################
+  // Same wind/zero/3-swing-loop pattern as the Fuel Load block below,
+  // reusing the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS
+  // constants (note X27_FULLWIRE_HOMING_STEPS is unparenthesized -
+  // the same "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640"
+  // issue applies here too). This stepper (pins 36-39) drove Torque
+  // ("TQ") on the single-board sketch this was forked from; this board
+  // repurposes it as Electrical Load instead (see ElectricalLoadStepper
+  // above), but the physical hardware and homing behaviour is unchanged.
+  // Direction sign and step range are an unverified assumption carried
+  // over from the single-board sketch's X27-style homing, NOT bench-confirmed
+  // for this specific gauge. SwingELECTRICALLOAD was already #defined
+  // above but had no matching startup block until now.
+  if (SwingELECTRICALLOAD) {
+    SendDebug("Start ElectricalLoadStepper");
+    ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    ElectricalLoadStepper.runToNewPosition(0);
+    ElectricalLoadStepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Electrical Load to Max");
+      ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      // ELECTRICAL_LOAD_PCT_TABLE's 0% row is 22 steps, not raw 0 - target
+      // the calibrated zero (+ trim), same as setElectricalLoad(0) lands on.
+      SendDebug("Returning Electrical Load to Zero");
+      ElectricalLoadStepper.runToNewPosition(electricalLoadPctToSteps(0) + ElectricalLoadZeroOffset);
+      delay(200);
+    }
+    SendDebug("End ElectricalLoadStepper");
+  }
+  // ################# End Electrical Load Startup #########################
+
+  // ################# Start Fuel Load Startup #########################
+  // Same wind/zero/3-swing-loop pattern as the Electrical Load block above, reusing
+  // the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (note
+  // X27_FULLWIRE_HOMING_STEPS is unparenthesized - the same
+  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
+  // here too). This stepper (pins 32-35) drove Radar Alt on the
+  // single-board sketch this was forked from; this board repurposes it as
+  // Fuel Load instead (see FuelLoadStepper above), but the physical
+  // hardware and homing behaviour is unchanged. Direction sign and step
+  // range are an unverified assumption carried over from the single-board sketch's
+  // X27-style homing, NOT bench-confirmed for this specific gauge.
+  // Wrapped in `if (false)` - present and compiled, but currently
+  // DISABLED, matching the single-board sketch's own Radar Alt swing.
+
+
+  if (SwingFUELLOAD) {
+    SendDebug("Start FuelLoadStepper");
+    FuelLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    FuelLoadStepper.runToNewPosition(0);
+    FuelLoadStepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Fuel Load to Max");
+      FuelLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      SendDebug("Returning Fuel Load to Zero");
+      FuelLoadStepper.runToNewPosition(FuelLoadZeroOffset);
+      delay(200);
+    }
+    SendDebug("End FuelLoadStepper");
+  }
+  // ################# End Fuel Load Startup #########################
+
+  // ################# Start Turbine Speed Startup #########################
+  // Same wind/zero/3-swing-loop pattern as the Fuel Load/Electrical Load blocks above, reusing the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS
+  // constants (note X27_FULLWIRE_HOMING_STEPS is unparenthesized -
+  // the same "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640"
+  // issue applies here too). TSstepper had no startup routine at all
+  // before this - direction sign is an unverified assumption carried
+  // over from the single-board sketch's X27-style homing, NOT bench-confirmed
+  // for this specific gauge. UPDATE: TS_PCT_TABLE (below, this board's
+  // own 4-point table) now gives this gauge's real "RPME" UDP path a max
+  // of 600 steps at 110% - close to X27_FULLWIRE_STEPS (635), so this
+  // swing's step range is a reasonable match rather than the ~2x
+  // overshoot it was before that table existed. Not wrapped in `if
+  // (false)` - runs every boot. Confirm on
+  // the bench that it actually reaches the real end stop (and doesn't
+  // stall against it from the wrong side) before trusting it unattended.
+  if (SwingRPM) {
+    SendDebug("Start TSstepper");
+    TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    TSstepper.runToNewPosition(0);
+    TSstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Turbine Speed to Max");
+      TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      // Zero here means the calibrated 0% position (TS_PCT_TABLE's 0
+      // step, same as setTS(0) would target), not the stepper's raw
+      // internal 0 - TSoffset accounts for the fine-trim applied at
+      // runtime by setTS()/tsPctToSteps(), so the swing ends exactly
+      // where the gauge will actually rest at 0% RPME.
+      SendDebug("Returning Turbine Speed to Zero (offset " + String(TSoffset) + ")");
+      TSstepper.runToNewPosition(TSoffset);
+      delay(200);
+    }
+    SendDebug("End TSstepper");
+  }
+  // ################# End Turbine Speed Startup #########################
+
+  // ################# Start Rotor Speed Startup #########################
+  // Same wind/zero/3-swing-loop pattern as the Fuel Load/Electrical Load/Turbine Speed
+  // blocks, reusing the same
+  // X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (note
+  // X27_FULLWIRE_HOMING_STEPS is unparenthesized - the same
+  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
+  // here too). RSstepper had no startup routine at all before this -
+  // direction sign is an unverified assumption carried over from
+  // the single-board sketch's/Turbine Speed's X27-style homing, NOT bench-confirmed
+  // for this specific gauge. RS_PCT_TABLE (above, this board's own
+  // 4-point table) gives this gauge's real "RPMR" UDP path a max of 600
+  // steps at 110% - close to X27_FULLWIRE_STEPS (635), same as Turbine
+  // Speed, so this swing's step range is a reasonable match rather than
+  // a big overshoot. Not wrapped in `if
+  // (false)` - runs every boot. Confirm on the bench that it actually
+  // reaches the real end stop (and doesn't stall against it from the wrong
+  // side) before trusting it unattended.
+  if (SwingRPM) {
+    SendDebug("Start RSstepper");
+    RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+    RSstepper.runToNewPosition(0);
+    RSstepper.setCurrentPosition(0);
+
+    for (int i = 1; i <= SwingLoops; i++) {
+      SendDebug("Loop :" + String(i));
+      SendDebug("Sending Rotor Speed to Max");
+      RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+      delay(200);
+      // Same reasoning as TSstepper's swing above: zero here means the
+      // calibrated 0% position (RS_PCT_TABLE's 0 step / setRS(0)'s
+      // target), not the stepper's raw internal 0 - RSoffset accounts
+      // for the fine-trim setRS()/rsPctToSteps() applies at runtime.
+      SendDebug("Returning Rotor Speed to Zero (offset " + String(RSoffset) + ")");
+      RSstepper.runToNewPosition(RSoffset);
+      delay(200);
+    }
+    SendDebug("End RSstepper");
+  }
+  // ################# End Rotor Speed Startup #########################
 
   // ################# Start ALT Startup #########################
 
@@ -1042,361 +1357,12 @@ void setup() {
   }
   // ################# End ALT Startup #########################
 
-  // ################# Start IAS (Current Airspeed) Startup #########################
-  // Renamed from "Speed Current" to match IASstepper. Wrapped in
-  // `if (false)` - present and compiled, but currently DISABLED: this
-  // whole homing/swing sequence never runs at boot. Also note: as
-  // written this does two full blocking moves back-to-back with no
-  // run()/delay() between them (wind to X27_FULLWIRE_HOMING_STEPS, then
-  // immediately wind to -X27_FULLWIRE_STEPS) before zeroing - a bigger
-  // back-and-forth swing than VSI's equivalent single approach move, not
-  // obviously intentional. Re-verify this sequence before flipping the
-  // `if` to true.
-
-
-
-  if (SwingIAS) {
-    SendDebug("Start IASstepper");
-    IASstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    IASstepper.runToNewPosition(0);
-    IASstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending IAS to Max");
-      IASstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      SendDebug("Returning IAS to Zero");
-      IASstepper.runToNewPosition(0);
-      delay(200);
-    }
-    SendDebug("End IASstepper");
-  }
-  //  ################ #End Speed Current Startup######################## #
-
-  // ################# Start Fuel Load Startup #########################
-  // Same wind/zero/3-swing-loop pattern as the IAS block above, reusing
-  // the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see
-  // the macro-precedence caution on VSI's homing above - the same
-  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
-  // here too). This stepper (pins 32-35) drove Radar Alt on the
-  // single-board sketch this was forked from; this board repurposes it as
-  // Fuel Load instead (see FuelLoadStepper above), but the physical
-  // hardware and homing behaviour is unchanged. Direction sign and step
-  // range are an unverified assumption carried over from IAS/VSI's
-  // X27-style homing, NOT bench-confirmed for this specific gauge.
-  // Wrapped in `if (false)` - present and compiled, but currently
-  // DISABLED, matching the single-board sketch's own Radar Alt swing.
-
-
-  if (SwingFUELLOAD) {
-    SendDebug("Start FuelLoadStepper");
-    FuelLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    FuelLoadStepper.runToNewPosition(0);
-    FuelLoadStepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Fuel Load to Max");
-      FuelLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Fuel Load to Zero");
-      FuelLoadStepper.runToNewPosition(FuelLoadZeroOffset);
-      delay(200);
-    }
-    SendDebug("End FuelLoadStepper");
-  }
-  // ################# End Fuel Load Startup #########################
-
-  // ################# Start Electrical Load Startup #########################
-  // Same wind/zero/3-swing-loop pattern as the Fuel Load block above,
-  // reusing the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS
-  // constants (see the macro-precedence caution on VSI's homing above -
-  // the same "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640"
-  // issue applies here too). This stepper (pins 36-39) drove Torque
-  // ("TQ") on the single-board sketch this was forked from; this board
-  // repurposes it as Electrical Load instead (see ElectricalLoadStepper
-  // above), but the physical hardware and homing behaviour is unchanged.
-  // Direction sign and step range are an unverified assumption carried
-  // over from Fuel Load/IAS/VSI's X27-style homing, NOT bench-confirmed
-  // for this specific gauge. SwingELECTRICALLOAD was already #defined
-  // above but had no matching startup block until now.
-  if (SwingELECTRICALLOAD) {
-    SendDebug("Start ElectricalLoadStepper");
-    ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    ElectricalLoadStepper.runToNewPosition(0);
-    ElectricalLoadStepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Electrical Load to Max");
-      ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      // ELECTRICAL_LOAD_PCT_TABLE's 0% row is 22 steps, not raw 0 - target
-      // the calibrated zero (+ trim), same as setElectricalLoad(0) lands on.
-      SendDebug("Returning Electrical Load to Zero");
-      ElectricalLoadStepper.runToNewPosition(electricalLoadPctToSteps(0) + ElectricalLoadZeroOffset);
-      delay(200);
-    }
-    SendDebug("End ElectricalLoadStepper");
-  }
-  // ################# End Electrical Load Startup #########################
-
-  // ################# Start Engine Oil Temp Startup #########################
-  // Same wind/zero/swing-loop pattern as Fuel Load/Electrical Load above,
-  // but uses FULL4WIRE_STEPS/FULL4WIRE_HOMING_STEPS (315/316) instead of
-  // the X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS (630/631) those use.
-  // EOTstepper now has a real bench-measured table (EOT_C_TABLE, see
-  // "START ENGINE OIL TEMP" below) whose max (150C -> 231 steps) is well
-  // inside FULL4WIRE_STEPS (315), so this swing overshoots the real
-  // calibrated range for a fuller self-test, same as Fuel Load's swing
-  // overshoots its own calibrated range. EOTstepper previously had no
-  // startup routine at all. Direction sign is an unverified assumption
-  // carried over from the other swings' X27-style homing, NOT
-  // bench-confirmed for this specific gauge. Returns to EOTZeroOffset,
-  // not raw 0 - eotCToSteps(0) is already 0, so the offset alone is the
-  // correct calibrated-zero target (default 0, same as before).
-  if (SwingEOT) {
-    SendDebug("Start EOTstepper");
-    EOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
-    EOTstepper.runToNewPosition(-FULL4WIRE_STEPS);
-    EOTstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Engine Oil Temp to Max");
-      EOTstepper.runToNewPosition(FULL4WIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Engine Oil Temp to Zero");
-      EOTstepper.runToNewPosition(EOTZeroOffset);
-      delay(200);
-    }
-    SendDebug("End EOTstepper");
-  }
-  // ################# End Engine Oil Temp Startup #########################
-
-  // ################# Start Engine Oil Pressure Startup #########################
-  // Same pattern as Engine Oil Temp above. EOPstepper now has a real
-  // bench-measured table (EOP_PSI_TABLE, see "START ENGINE OIL PRESSURE"
-  // below) whose max (150 PSI -> 220 steps) is well inside FULL4WIRE_STEPS
-  // (315), so this swing uses the same FULL4WIRE_STEPS/
-  // FULL4WIRE_HOMING_STEPS range rather than X27's, overshooting the real
-  // calibrated range for a fuller self-test - same reasoning as EOT's
-  // swing above. EOPstepper previously had no startup routine at all.
-  // Direction sign is an unverified assumption, NOT bench-confirmed.
-  // Returns to 0, same reasoning as EOT above (eopPsiToSteps(0) is
-  // already 0).
-  if (SwingEOP) {
-    SendDebug("Start EOPstepper");
-    EOPstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
-    EOPstepper.runToNewPosition(-FULL4WIRE_STEPS);
-    EOPstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Engine Oil Pressure to Max");
-      EOPstepper.runToNewPosition(FULL4WIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Engine Oil Pressure to Zero");
-      EOPstepper.runToNewPosition(EOPZeroOffset);
-      delay(200);
-    }
-    SendDebug("End EOPstepper");
-  }
-  // ################# End Engine Oil Pressure Startup #########################
-
-  // ################# Start Transmission Oil Temp Startup #########################
-  // Same wind/zero/swing-loop pattern as Engine Oil Temp/Pressure above,
-  // using FULL4WIRE_STEPS/FULL4WIRE_HOMING_STEPS (315/316). XOTstepper now
-  // has a real bench-measured table (XOT_C_TABLE, see "START TRANSMISSION
-  // OIL TEMP" below) whose max (150C -> 225 steps) is well inside
-  // FULL4WIRE_STEPS (315), so this swing overshoots the real calibrated
-  // range for a fuller self-test, same reasoning as EOT/EOP's swings
-  // above. XOTstepper previously had no startup routine at all. Direction
-  // sign is an unverified assumption, NOT bench-confirmed. Returns to
-  // XOTZeroOffset (xotCToSteps(0) is already 0, so the offset alone is the
-  // correct calibrated-zero target).
-  if (SwingXOT) {
-    SendDebug("Start XOTstepper");
-    XOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
-    XOTstepper.runToNewPosition(-FULL4WIRE_STEPS);
-    XOTstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Transmission Oil Temp to Max");
-      XOTstepper.runToNewPosition(FULL4WIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Transmission Oil Temp to Zero");
-      XOTstepper.runToNewPosition(XOTZeroOffset);
-      delay(200);
-    }
-    SendDebug("End XOTstepper");
-  }
-  // ################# End Transmission Oil Temp Startup #########################
-
-  // ################# Start Transmission Oil Pressure Startup #########################
-  // Same pattern as Transmission Oil Temp above. XOPstepper now has a
-  // real bench-measured table (XOP_PSI_TABLE, see "START TRANSMISSION OIL
-  // PRESSURE" below) whose max (150 PSI -> 220 steps) is well inside
-  // FULL4WIRE_STEPS (315), so this swing overshoots the real calibrated
-  // range for a fuller self-test, same reasoning as the other graduated
-  // gauges' swings above. XOPstepper previously had no startup routine at
-  // all. Direction sign is an unverified assumption, NOT bench-confirmed.
-  // Returns to 0 (xopPsiToSteps(0) is already 0).
-  if (SwingXOP) {
-    SendDebug("Start XOPstepper");
-    XOPstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
-    XOPstepper.runToNewPosition(-FULL4WIRE_STEPS);
-    XOPstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Transmission Oil Pressure to Max");
-      XOPstepper.runToNewPosition(FULL4WIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Transmission Oil Pressure to Zero");
-      XOPstepper.runToNewPosition(XOPZeroOffset);
-      delay(200);
-    }
-    SendDebug("End XOPstepper");
-  }
-  // ################# End Transmission Oil Pressure Startup #########################
-
-  // ################# Start Turbine Speed Startup #########################
-  // Same wind/zero/3-swing-loop pattern as the IAS/Radar Alt blocks
-  // above, reusing the same X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS
-  // constants (see the macro-precedence caution on VSI's homing above -
-  // the same "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640"
-  // issue applies here too). TSstepper had no startup routine at all
-  // before this - direction sign is an unverified assumption carried
-  // over from IAS/VSI/Radar Alt's X27-style homing, NOT bench-confirmed
-  // for this specific gauge. UPDATE: TS_PCT_TABLE (below, this board's
-  // own 4-point table) now gives this gauge's real "RPME" UDP path a max
-  // of 600 steps at 110% - close to X27_FULLWIRE_STEPS (635), so this
-  // swing's step range is a reasonable match rather than the ~2x
-  // overshoot it was before that table existed. Not wrapped in `if
-  // (false)` - runs every boot. Confirm on
-  // the bench that it actually reaches the real end stop (and doesn't
-  // stall against it from the wrong side) before trusting it unattended.
-  if (SwingRPM) {
-    SendDebug("Start TSstepper");
-    TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    TSstepper.runToNewPosition(0);
-    TSstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Turbine Speed to Max");
-      TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      // Zero here means the calibrated 0% position (TS_PCT_TABLE's 0
-      // step, same as setTS(0) would target), not the stepper's raw
-      // internal 0 - TSoffset accounts for the fine-trim applied at
-      // runtime by setTS()/tsPctToSteps(), so the swing ends exactly
-      // where the gauge will actually rest at 0% RPME.
-      SendDebug("Returning Turbine Speed to Zero (offset " + String(TSoffset) + ")");
-      TSstepper.runToNewPosition(TSoffset);
-      delay(200);
-    }
-    SendDebug("End TSstepper");
-  }
-  // ################# End Turbine Speed Startup #########################
-
-  // ################# Start Rotor Speed Startup #########################
-  // Same wind/zero/3-swing-loop pattern as the IAS/Radar Alt/Turbine Speed
-  // blocks above, reusing the same
-  // X27_FULLWIRE_STEPS/X27_FULLWIRE_HOMING_STEPS constants (see the
-  // macro-precedence caution on VSI's homing above - the same
-  // "-X27_FULLWIRE_HOMING_STEPS expands to -630, not -640" issue applies
-  // here too). RSstepper had no startup routine at all before this -
-  // direction sign is an unverified assumption carried over from
-  // IAS/VSI/Radar Alt/Turbine Speed's X27-style homing, NOT bench-confirmed
-  // for this specific gauge. RS_PCT_TABLE (above, this board's own
-  // 4-point table) gives this gauge's real "RPMR" UDP path a max of 600
-  // steps at 110% - close to X27_FULLWIRE_STEPS (635), same as Turbine
-  // Speed, so this swing's step range is a reasonable match rather than
-  // a big overshoot. Not wrapped in `if
-  // (false)` - runs every boot. Confirm on the bench that it actually
-  // reaches the real end stop (and doesn't stall against it from the wrong
-  // side) before trusting it unattended.
-  if (SwingRPM) {
-    SendDebug("Start RSstepper");
-    RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    RSstepper.runToNewPosition(0);
-    RSstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Rotor Speed to Max");
-      RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      // Same reasoning as TSstepper's swing above: zero here means the
-      // calibrated 0% position (RS_PCT_TABLE's 0 step / setRS(0)'s
-      // target), not the stepper's raw internal 0 - RSoffset accounts
-      // for the fine-trim setRS()/rsPctToSteps() applies at runtime.
-      SendDebug("Returning Rotor Speed to Zero (offset " + String(RSoffset) + ")");
-      RSstepper.runToNewPosition(RSoffset);
-      delay(200);
-    }
-    SendDebug("End RSstepper");
-  }
-  // ################# End Rotor Speed Startup #########################
-
-
-
   SendDebug("STEPPER INITIALISATION COMPLETE");
 
-  // ####################### Being OLED Setup ##########################
-
-
-
-  for (uint8_t t = 0; t < 8; t++) {
-    tcaselect(t);
-    // Had to comment out these debugging messages as they created a conflict with the IRQ definition in DCS BIOS
-    SendDebug("TCA Port #" + String(t));
-
-    for (uint8_t addr = 0; addr <= 127; addr++) {
-      //if (addr == TCAADDR) continue;
-
-      uint8_t data;
-      if (!twi_writeTo(addr, &data, 0, 1, 1)) {
-        SendDebug("Found I2C " + String(addr));
-      }
-    }
-  }
-
-  SendDebug("I2C scan complete");
-
-  tcaselect(BARO_OLED_Port);
-
-  u8g2_BARO.begin();
-  u8g2_BARO.clearBuffer();
-  u8g2_BARO.setFont(u8g2_font_logisoso16_tf);
-  u8g2_BARO.sendBuffer();
-  tcaselect(BARO_OLED_Port);
-  updateBARO("2992");
-
-
-  tcaselect(ALT_OLED_Port);
-  u8g2_ALT.begin();
-  u8g2_ALT.clearBuffer();
-  u8g2_ALT.setFont(u8g2_font_logisoso32_tn);
-  u8g2_ALT.sendBuffer();
-  tcaselect(ALT_OLED_Port);
-  updateALT("0", "0");
-
-
-  tcaselect(CLOCK_OLED_Port);
-  u8g2_CLOCK.begin();
-  u8g2_CLOCK.clearBuffer();
-  u8g2_CLOCK.setFont(u8g2_font_logisoso32_tf);
-  u8g2_CLOCK.sendBuffer();
-  tcaselect(CLOCK_OLED_Port);
-  updateClock(0, 0);
-
-
-  // ######################## End OLED Setup ###########################
+  // The OLED mux wasn't answering before the swings (bench OLEDs/mux not
+  // powered yet, or not fitted) - give it one more try now that the swings
+  // have taken a while, so the displays still come up late rather than never.
+  if (!oledsInitialised) oledsInitialised = initOLEDs();
 
 
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
@@ -1526,161 +1492,6 @@ DcsBios::IntegerBuffer intFloodLBrightBuffer(A_10C_INT_FLOOD_L_BRIGHT, onIntFloo
 
 
 
-// ################################### START AIRSPEED CURRENT ##############################################
-void setCurrentAirspeed(long TargetCurrentAirSpeed) {
-  // SendDebug("Airspeed = " + String(TargetCurrentAirSpeed));
-  IASstepper.moveTo(TargetCurrentAirSpeed);
-}
-void onAirspeedNeedleChange(unsigned int newValue) {
-  // SendDebug("onAirspeedDialChange = " + String(newValue));
-  setCurrentAirspeed((map(newValue, 0, 65535, 0, DUAL_STEPS + (5 * 16))));
-}
-DcsBios::IntegerBuffer airspeedNeedleBuffer(A_10C_AIRSPEED_NEEDLE, onAirspeedNeedleChange);
-
-// Real-value UDP handler for Current Airspeed (see the "IAS" case in
-// HandleOutputValuePair() below) - knots now, rather than the raw step
-// pass-through this code used before.
-
-// IAS knots-to-step calibration table, hand-measured on the bench (same
-// pattern as VSI_FPM_TABLE above). "step" is the raw step target for
-// SpeedCurrentstepper.moveTo(). The 0kt row is assumed (not directly
-// given) to match this stepper's homed zero, matching every other
-// calibration table in this sketch's own convention of 0 real-unit = 0
-// steps - confirm on the bench that IAS actually reads 0 (not just
-// clamped to the 20kt row) when the aircraft is stopped. Sorted
-// ascending by kt - iasKtToSteps() below relies on that order.
-struct KtToStepEntry {
-  long kt;
-  long step;
-};
-
-const KtToStepEntry IAS_KT_TABLE[] = {
-  { 0, 0 },
-  { 20, 24 },
-  { 40, 130 },
-  { 60, 250 },
-  { 80, 364 },
-  { 100, 457 },
-  { 110, 506 },
-  { 120, 543 },
-  { 130, 593 },
-  { 140, 635 },
-};
-const int IAS_KT_TABLE_SIZE = sizeof(IAS_KT_TABLE) / sizeof(IAS_KT_TABLE[0]);
-
-// Converts a requested airspeed in knots into a step target by linear
-// interpolation between the two nearest IAS_KT_TABLE rows (same pattern
-// as vsiFpmToSteps()/radarAltFtToSteps()). A kt value outside the
-// table's 0..140 range is clamped to whichever end is nearest rather
-// than extrapolated.
-long iasKtToSteps(long kt) {
-  if (kt <= IAS_KT_TABLE[0].kt) return IAS_KT_TABLE[0].step;
-  if (kt >= IAS_KT_TABLE[IAS_KT_TABLE_SIZE - 1].kt) return IAS_KT_TABLE[IAS_KT_TABLE_SIZE - 1].step;
-
-  for (int i = 0; i < IAS_KT_TABLE_SIZE - 1; i++) {
-    long ktLo = IAS_KT_TABLE[i].kt;
-    long ktHi = IAS_KT_TABLE[i + 1].kt;
-    if (kt >= ktLo && kt <= ktHi) {
-      long stepLo = IAS_KT_TABLE[i].step;
-      long stepHi = IAS_KT_TABLE[i + 1].step;
-      return stepLo + (long)round((double)(kt - ktLo) * (stepHi - stepLo) / (double)(ktHi - ktLo));
-    }
-  }
-  return 0;  // unreachable - every kt is covered by the clamps or the loop above
-}
-
-void setIAS(long TargetKt) {
-  setCurrentAirspeed(iasKtToSteps(TargetKt));
-}
-
-// ################################### START AIRSPEED CURRENT ##############################################
-
-
-
-
-// ################################### START VSI ##############################################
-
-
-// Was 2400 for the old geared DRIVER motor. Scaled down by the same ~8x
-// ratio as the homing step count (FULL4WIRE_HOMING_STEPS / the old
-// geared STEPS) now that VSI is direct-driven on coils - an unverified
-// estimate, NOT bench-measured. Confirm/recalibrate on real hardware.
-// Still used to clamp the DCS-BIOS path (onVviChange) below - the UDP
-// path now uses the real VSI_FPM_TABLE calibration instead (see
-// vsiFpmToSteps()).
-#define VSIMaxSteps 300
-void setVSI(long TargetVSI) {
-  if (TargetVSI > VSIMaxSteps) {
-    TargetVSI = VSIMaxSteps;
-  } else if (TargetVSI < -VSIMaxSteps) {
-    TargetVSI = -VSIMaxSteps;
-  }
-  // SendDebug("VSI = " + String(TargetVSI));
-  VSIstepper.moveTo(TargetVSI);
-}
-
-// VSI fpm-to-step calibration table, hand-measured on the bench (same
-// data as Stepper-Tuning-Harness's VSI_FT_TABLE - that harness's "f"
-// command uses "ft" as informal shorthand for this gauge's fpm units,
-// not altitude). "step" is the raw step target for VSIstepper.moveTo();
-// 0 fpm maps to step 0. Sorted ascending by fpm - vsiFpmToSteps() below
-// relies on that order.
-struct FpmToStepEntry {
-  long fpm;
-  long step;
-};
-
-const FpmToStepEntry VSI_FPM_TABLE[] = {
-  { -1750, -311 },
-  { -1500, -280 },
-  { -1250, -219 },
-  { -1000, -161 },
-  { -500, -80 },
-  { 0, 0 },
-  { 500, 85 },
-  { 1000, 165 },
-  { 1250, 227 },
-  { 1500, 286 },
-  { 1750, 315 },
-};
-const int VSI_FPM_TABLE_SIZE = sizeof(VSI_FPM_TABLE) / sizeof(VSI_FPM_TABLE[0]);
-
-// Converts a requested VSI fpm value into a step target by linear
-// interpolation between the two nearest VSI_FPM_TABLE rows. A fpm value
-// outside the table's range is clamped to whichever end is nearest
-// rather than extrapolated, so a wildly out-of-range value can't fling
-// VSI past its calibrated range.
-long vsiFpmToSteps(long fpm) {
-  if (fpm <= VSI_FPM_TABLE[0].fpm) return VSI_FPM_TABLE[0].step;
-  if (fpm >= VSI_FPM_TABLE[VSI_FPM_TABLE_SIZE - 1].fpm) return VSI_FPM_TABLE[VSI_FPM_TABLE_SIZE - 1].step;
-
-  for (int i = 0; i < VSI_FPM_TABLE_SIZE - 1; i++) {
-    long fpmLo = VSI_FPM_TABLE[i].fpm;
-    long fpmHi = VSI_FPM_TABLE[i + 1].fpm;
-    if (fpm >= fpmLo && fpm <= fpmHi) {
-      long stepLo = VSI_FPM_TABLE[i].step;
-      long stepHi = VSI_FPM_TABLE[i + 1].step;
-      return stepLo + (long)round((double)(fpm - fpmLo) * (stepHi - stepLo) / (double)(fpmHi - fpmLo));
-    }
-  }
-  return 0;  // unreachable - every fpm is covered by the clamps or the loop above
-}
-
-
-void onVviChange(unsigned int newValue) {
-
-  long VSI = newValue;
-  VSI = VSI - 32767;
-  // SendDebug("onVviChange = " + String(newValue) + " long VSI = " + String(VSI));
-  setVSI(map(VSI, -32767, 32767, -VSIMaxSteps, VSIMaxSteps));
-}
-DcsBios::IntegerBuffer vviBuffer(A_10C_VVI, onVviChange);
-
-// ################################### END VSI ##############################################
-
-
-
-
 // ################################### BEGIN ALT ##############################################
 
 
@@ -1733,7 +1544,7 @@ DcsBios::IntegerBuffer altMslFtBuffer(CommonData_ALT_MSL_FT, onAltMslFtChange);
 // homing) having been updated to match - EGTstepper still has no actual
 // homing routine, so "FULL4WIRE_HOMING_STEPS" here is still a borrowed
 // placeholder ceiling, not a bench-measured one. NOT a real per-point
-// calibration table like VSI_FPM_TABLE/IAS_KT_TABLE - revisit with real
+// calibration table - revisit with real
 // bench-measured points once EGTstepper's actual travel is known.
 #define EGT_MIN_C 0
 #define EGT_MAX_C 900
@@ -1765,7 +1576,7 @@ void setEGT(long TargetC) {
 // own separate 13-point 0-117% table - the two are no longer identical).
 // "step" is the raw step target for TSstepper.moveTo(). The 0-point is
 // assumed (not directly given) to match this stepper's homed zero, same
-// convention as IAS_KT_TABLE's assumed 0kt row - confirm on the bench
+// convention as the other tables' assumed 0 rows - confirm on the bench
 // that RPME actually reads 0 (not just clamped to the 55% row) at rest.
 // Sorted ascending by pct - tsPctToSteps() below relies on that order.
 // NOTE: this table's max (110% -> 600 steps) is close to
@@ -1787,7 +1598,7 @@ const int TS_PCT_TABLE_SIZE = sizeof(TS_PCT_TABLE) / sizeof(TS_PCT_TABLE[0]);
 
 // Converts a requested turbine speed in percent into a step target by
 // linear interpolation between the two nearest TS_PCT_TABLE rows (same
-// pattern as vsiFpmToSteps()/iasKtToSteps()). A pct value outside the
+// pattern as the other *ToSteps() functions). A pct value outside the
 // table's 0..110 range is clamped to whichever end is nearest rather
 // than extrapolated. Takes a float (not long) so the one-decimal-place
 // precision FSUIPCWinformsAutoCS now sends for RPME (e.g. "82.4", was a
@@ -1810,7 +1621,7 @@ long tsPctToSteps(float pct) {
 }
 
 // TSoffset (fine-trim step offset for TS_PCT_TABLE's computed target) is
-// defined near VSIoffset above, not here - it has to come before setup()
+// defined near the other offsets above, not here - it has to come before setup()
 // since the Turbine Speed startup swing (above) also uses it to return
 // to the calibrated zero position, not just this function.
 
@@ -1860,7 +1671,7 @@ long rsPctToSteps(float pct) {
 }
 
 // RSoffset (fine-trim step offset for RS_PCT_TABLE's computed target) is
-// defined near VSIoffset above, not here - same reasoning as TSoffset's
+// defined near the other offsets above, not here - same reasoning as TSoffset's
 // relocation note in setTS() above.
 
 void setRS(float TargetPct) {
@@ -1894,7 +1705,7 @@ void setFA(long TargetGal) {
 // ################################### START FUEL LOAD ##############################################
 
 // Fuel Load PSI-to-step calibration table, hand-measured on the bench
-// (same pattern as IAS_KT_TABLE/TS_PCT_TABLE above). "step" is the raw
+// (same pattern as TS_PCT_TABLE above). "step" is the raw
 // step target for FuelLoadStepper.moveTo(). This stepper was Radar Alt -
 // and had a real AGL_FT_TABLE - on the single-board sketch this was
 // forked from; that table described radar altitude in feet, not PSI, so
@@ -1916,7 +1727,7 @@ const int FUEL_LOAD_PSI_TABLE_SIZE = sizeof(FUEL_LOAD_PSI_TABLE) / sizeof(FUEL_L
 
 // Converts a requested fuel load in PSI into a step target by linear
 // interpolation between the two nearest FUEL_LOAD_PSI_TABLE rows (same
-// pattern as iasKtToSteps()/tsPctToSteps()). A psi value outside the
+// pattern as tsPctToSteps()). A psi value outside the
 // table's 0..30 range is clamped to whichever end is nearest rather than
 // extrapolated.
 long fuelLoadPsiToSteps(long psi) {
@@ -2411,9 +2222,7 @@ AccelStepper SARIstepperRoll(AccelStepper::DRIVER, SARIstepPin, SARIdirectionPin
 
 
 void updateSteppers() {
-  VSIstepper.run();
   ALTstepper.run();
-  IASstepper.run();
   FuelLoadStepper.run();
   EOTstepper.run();
   XOTstepper.run();
@@ -2438,8 +2247,8 @@ DcsBios::IntegerBuffer intConsoleLBrightBuffer(A_10C_INT_CONSOLE_L_BRIGHT, onInt
 
 // ########################################## BEGIN MSFS DATA RECEIVER ########################################
 // Receives the same "D,CODE:value,CODE:value,..." UDP payload that
-// JET_RANGER_SERVO_CONTROLLER parses. Only IAS (airspeed) and ALT (altitude)
-// are wired up for now; every other code is currently ignored.
+// JET_RANGER_SERVO_CONTROLLER parses. Only ALT (altitude) and the engine/
+// transmission/load/RPM gauges are wired up; every other code is ignored.
 
 void ProcessReceivedMSFSString() {
 
@@ -2483,25 +2292,7 @@ void HandleOutputValuePair(String str) {
   String ParameterValue = getValue(str, ':', 1);
   ParameterValue.trim();
 
-  if (ParameterName == "IAS") {
-    // Real knots now (Current Airspeed, 0-140kt) - see setIAS()/
-    // iasKtToSteps() above. CAUTION: this is a deliberate units choice,
-    // not what "IAS" means on JET_RANGER_SERVO_CONTROLLER.ino - that
-    // sketch's IAS is a pre-converted Bell 206 *servo-position* number
-    // (via its IAS_Process() table), not knots, so the two boards'
-    // "IAS" now have the same code but different units. Not a live
-    // conflict today: per this sketch's own notes, FSUIPCWinformsAutoCS's
-    // stepper-specific payload doesn't currently include IAS at all (only
-    // ALT/VSI/AGL) - but if IAS is ever added back to that payload for
-    // this board, it needs to send real knots, not a servo-position
-    // number, or this will misinterpret it.
-    setIAS(ParameterValue.toInt());
-  } else if (ParameterName == "IASRAW") {
-    // Distinct raw-step code so the real-units "IAS" code above doesn't
-    // have to be the only way to reach this stepper over UDP - bypasses
-    // iasKtToSteps() entirely, same as the other "*RAW" codes below.
-    IASstepper.moveTo(ParameterValue.toInt());
-  } else if (ParameterName == "ALT") {
+  if (ParameterName == "ALT") {
     // ALT is sent as raw feet, matching the units this sketch's own
     // DCS-BIOS altitude callback already expects, so its feet->steps
     // conversion can be reused directly.
@@ -2515,19 +2306,6 @@ void HandleOutputValuePair(String str) {
     // no DCS-BIOS callback for this one, FSUIPCWinformsAutoCS is the
     // only source. See onZuluTimeChange()/updateClock() above.
     onZuluTimeChange(ParameterValue.toInt());
-  } else if (ParameterName == "VSI") {
-    // Unlike IAS (still a Bell 206 servo-position number), FSUIPCWinformsAutoCS
-    // now sends this board raw fpm specifically for VSI (its own front-panel/
-    // servo-controller payload still uses the Bell 206 VSI_Process() number,
-    // unchanged) - see its timerMain_Tick send block, which builds a
-    // separate stepperPayload with the VSI field swapped to raw fpm.
-    // Converted through the real VSI_FPM_TABLE calibration
-    // (vsiFpmToSteps()) rather than setVSI()'s placeholder +/-VSIMaxSteps
-    // clamp, which stays in use for the separate DCS-BIOS path only.
-    VSIstepper.moveTo(vsiFpmToSteps(ParameterValue.toInt()));
-  } else if (ParameterName == "VSIRAW") {
-    // Distinct raw-step code, bypassing the VSI_FPM_TABLE lookup above.
-    VSIstepper.moveTo(ParameterValue.toInt());
   } else if (ParameterName == "FUELLOAD") {
     // Real PSI now (see setFuelLoad()/FUEL_LOAD_PSI_TABLE, "START FUEL
     // LOAD" above - only 0/30 PSI bench-measured so far). This stepper
@@ -2618,10 +2396,10 @@ void HandleOutputValuePair(String str) {
   } else if (ParameterName == "OILPRAW") {
     // Distinct raw-step code, bypassing eopPsiToSteps() above.
     EOPstepper.moveTo(ParameterValue.toInt());
-    // Every real-value gauge above (IAS/ALT/VSI/OILT/XMSNT/XMSNP/ITT/RPME/
+    // Every real-value gauge above (ALT/OILT/XMSNT/XMSNP/ITT/RPME/
     // RPMR/N1/OILP/FUEL) also has a distinct "<CODE>RAW" code for sending a
-    // raw step target instead of a real-unit value, e.g. "IASRAW" alongside
-    // "IAS" - see each real-value case above for its matching *RAW sibling.
+    // raw step target instead of a real-unit value, e.g. "ALTRAW" alongside
+    // "ALT" - see each real-value case above for its matching *RAW sibling.
     // AGL/TQ/FLAPS/AOA/GFORCE/SPDMAX don't need one since they're already
     // raw-only. Every other code is currently parsed and silently ignored.
   }
@@ -2672,7 +2450,7 @@ void BlankAllOleds() {
 // No-data watchdog (see lastMSFSDataMillis/noDataTimeoutMs above) - drives
 // every gauge on this board to its calibrated zero, the same target each
 // gauge's own real-value setter would compute for a "CODE:0" packet
-// (offset-aware for TS/RS/VSI). FuelLoadStepper/ElectricalLoadStepper now
+// (offset-aware for TS/RS). FuelLoadStepper/ElectricalLoadStepper now
 // go through setFuelLoad(0)/setElectricalLoad(0) (FUEL_LOAD_PSI_TABLE's 0
 // PSI row / ELECTRICAL_LOAD_PCT_TABLE's 0% row), same as every other
 // calibrated gauge - note ELECTRICAL_LOAD_PCT_TABLE's 0% row is 22 steps,
@@ -2688,8 +2466,6 @@ void BlankAllOleds() {
 // onZuluTimeChange()'s own change-gate would see "no change" and leave
 // the display blank.
 void ResetGaugesToZero() {
-  setIAS(0);
-  setVSI(0);
   setEGT(0);
   setEOT(0);
   setEOP(0);
