@@ -30,7 +30,7 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 28,548 bytes (11%) | 3,879 bytes (47%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 28,572 bytes (11%) | 3,879 bytes (47%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
 Flashed to the bench Mega on COM4 several times across this sketch's
@@ -176,7 +176,11 @@ collides with `AllstepperEnablePin`.
    `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino`'s own copy (the two
    sketches don't share this code, each has its own `ResetGaugesToZero()`
    matching its own roster). Scoped to `MSFSudp` traffic only — DCS-BIOS
-   input doesn't reset the timer. This board's `ResetGaugesToZero()`
+   input doesn't reset the timer.
+   The 30s timer is armed at the **end of `setup()`**
+   (`lastMSFSDataMillis = millis()`), not at reset - it used to start at 0,
+   so after the long boot swings the watchdog was already expired when
+   `loop()` began and zeroed the gauges within a fraction of a second. This board's `ResetGaugesToZero()`
    calls `setIAS(0)`/`setVSI(0)`/`setEGT(0)`/`setEOT(0)`/`setEOP(0)`/
    `setXOT(0)`/`setXOP(0)`/`setGP(0)`/`setFA(0)`/
    `setAGL(0)`/`setTQ(0)` (each the same target a real `"<CODE>:0"` packet

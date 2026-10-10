@@ -959,6 +959,12 @@ void setup() {
   }
 
 
+  // Start the no-data timeout from the END of setup(), not from reset
+  // (lastincomingpacketcheck doubles as "last data received" - see the
+  // watchdog in loop()), so the long self-test sweep can't use up the 30s.
+  lastincomingpacketcheck = millis();
+  servosZeroed = false;
+
   SendDebug("Setup Complete");
 }
 

@@ -1370,6 +1370,13 @@ void setup() {
 #define BrightnessPostSetup 65
   analogWrite(BACK_LIGHTS, BrightnessPostSetup);
 
+  // Start the no-data timeout from the END of setup(), not from reset:
+  // lastMSFSDataMillis starts at 0, so with the long boot swings the
+  // watchdog would otherwise already be expired the moment loop() starts and
+  // zero the gauges ~immediately.
+  lastMSFSDataMillis = millis();
+  gaugesResetForNoData = false;
+
   SendDebug(BoardName + " - " + strMyIP + " Setup Complete. " + String(millis()) + "mS since reset.");
 }
 

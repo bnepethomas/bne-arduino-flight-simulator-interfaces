@@ -384,6 +384,15 @@ coil pin defines (`COIL_VSI_*`, `STEPPER_SPD_*`), `VSIoffset`,
 four UDP codes are now silently ignored on this board. Statements elsewhere
 in this file that mention VSI/IAS describe earlier states of the sketch.
 
+## No-data timeout start
+
+The 30s no-data watchdog timer is armed at the **end of `setup()`**
+(`lastMSFSDataMillis = millis()`; `gaugesResetForNoData = false`), not from
+reset. It previously started at 0, so after the ~60s boot (OLED init plus
+swings) the watchdog was already expired when `loop()` began and reset the
+gauges (and blanked the OLEDs) within a fraction of a second - seen in the
+bench debug log as "no UDP data for 30s" 0.3s after "Setup Complete".
+
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
@@ -391,7 +400,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 54,550 bytes (21%) | 5,760 bytes (70%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 54,574 bytes (21%) | 5,760 bytes (70%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;

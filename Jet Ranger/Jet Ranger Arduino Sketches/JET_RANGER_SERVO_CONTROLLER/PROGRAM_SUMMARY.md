@@ -92,7 +92,9 @@ received over Ethernet.
      `aTargetServoPosition[]`, so the next real UDP value would have made
      `UpdateServoPos()` ease from a stale remembered position instead of
      the just-zeroed one. `lastincomingpacketcheck` doubles as "last data
-     received" here (it's only advanced inside the packet-received
+     received" here, armed at the **end of `setup()`**
+     (`lastincomingpacketcheck = millis()`) so the self-test sweep can't use
+     up the 30s (it's only advanced inside the packet-received
      branch, not on every poll tick) and the existing `servosZeroed` flag
      latches the reset so it only fires once per outage, clearing again
      the moment real data resumes.
@@ -100,7 +102,7 @@ received over Ethernet.
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
-**0 errors**: 21,544 bytes flash (8%), 2,135 bytes RAM (26%). (Dropped
+**0 errors**: 21,568 bytes flash (8%), 2,135 bytes RAM (26%). (Dropped
 from 27,646/2,925 after the out-of-band 15-servo removal - see the note
 at the top of this file.)
 
