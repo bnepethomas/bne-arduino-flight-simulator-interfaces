@@ -895,6 +895,60 @@ boolean isValidNumber(String str) {
 
 // ########################################## END MSFS DATA RECEIVER ########################################
 
+// ################################ BEGIN DEBOUNCED INPUTS ############################
+// Front-panel push switches, each wired between its Arduino pin and GND (see
+// the Jet Ranger Front Panel Servo PCB: SW1 TOT_CLEAR -> D43, SW3
+// WARNING_MUTE -> D47, SW2 FUEL_VALVE -> D48), so the pins use the internal
+// pull-up and read LOW when the switch is closed. Each input is debounced
+// (a new reading must stay unchanged for InputDebounceMs before it is
+// accepted) and every accepted transition sends a debug message
+// ("<NAME> CLOSED"/"<NAME> OPEN") to the reflector. Nothing else is done with
+// the state yet.
+#define InputDebounceMs 30
+
+struct DebouncedInput {
+  const char* name;
+  byte pin;
+  bool stableClosed;      // last accepted (debounced) state, true = switch closed (pin LOW)
+  bool lastReadClosed;    // most recent raw reading
+  unsigned long lastChangeMillis;  // when the raw reading last changed
+};
+
+DebouncedInput debouncedInputs[] = {
+  { "TOT CLEAR", 43, false, false, 0 },
+  { "WARNING MUTE", 47, false, false, 0 },
+  { "FUEL VALVE", 48, false, false, 0 },
+};
+const byte NUM_DEBOUNCED_INPUTS = sizeof(debouncedInputs) / sizeof(debouncedInputs[0]);
+
+// Sets the pins to INPUT_PULLUP and takes the current reading as the starting
+// (already-stable) state, so no spurious transition is reported at boot.
+void InitialiseInputs() {
+  for (byte i = 0; i < NUM_DEBOUNCED_INPUTS; i++) {
+    pinMode(debouncedInputs[i].pin, INPUT_PULLUP);
+    bool closed = (digitalRead(debouncedInputs[i].pin) == LOW);
+    debouncedInputs[i].stableClosed = closed;
+    debouncedInputs[i].lastReadClosed = closed;
+    debouncedInputs[i].lastChangeMillis = millis();
+  }
+}
+
+// Call every loop(): non-blocking, reports each debounced transition.
+void ServiceInputs() {
+  for (byte i = 0; i < NUM_DEBOUNCED_INPUTS; i++) {
+    DebouncedInput& in = debouncedInputs[i];
+    bool closed = (digitalRead(in.pin) == LOW);
+    if (closed != in.lastReadClosed) {
+      in.lastReadClosed = closed;
+      in.lastChangeMillis = millis();
+    } else if (closed != in.stableClosed && (millis() - in.lastChangeMillis) >= InputDebounceMs) {
+      in.stableClosed = closed;
+      SendDebug(String(in.name) + (closed ? " CLOSED" : " OPEN"));
+    }
+  }
+}
+// ################################ END DEBOUNCED INPUTS ##############################
+
 // ################################ BEGIN SETUP #######################################
 
 void setup() {
@@ -905,6 +959,7 @@ void setup() {
   digitalWrite(RED_STATUS_LED_PORT, false);
 
   InitialiseWarningLights();
+  InitialiseInputs();
 
   if (Ethernet_In_Use == 1) {
 
@@ -992,6 +1047,12 @@ void setup() {
   lastincomingpacketcheck = millis();
   servosZeroed = false;
 
+  // Report where each input starts, so a transition message always has a
+  // known "before".
+  for (byte i = 0; i < NUM_DEBOUNCED_INPUTS; i++) {
+    SendDebug(String(debouncedInputs[i].name) + (debouncedInputs[i].stableClosed ? " initial CLOSED" : " initial OPEN"));
+  }
+
   SendDebug("Setup Complete");
 }
 
@@ -1000,6 +1061,8 @@ void setup() {
 
 
 void loop() {
+
+  ServiceInputs();
 
   if (millis() >= NEXT_STATUS_TOGGLE_TIMER) {
     GREEN_LED_STATE = !GREEN_LED_STATE;

@@ -110,10 +110,32 @@ them as before; they are also run on demand by UDP **control** packets
 servo rests at zero until the next data packet. Compiled but not yet
 bench-tested via UDP.
 
+## Debounced inputs
+
+Three front-panel push switches, each wired between its pin and GND on the
+Jet Ranger Front Panel Servo PCB, are read with the internal pull-up (closed
+= pin LOW) and debounced (a new reading must stay unchanged for
+`InputDebounceMs` = 30ms) in `ServiceInputs()`, called every `loop()`:
+
+| Pin | Switch | PCB net |
+|---|---|---|
+| D43 | TOT CLEAR (`SW1`) | `/SW_TOT_CLEAR` |
+| D47 | WARNING MUTE (`SW3`) | `/SW_WARNING_MUTE` |
+| D48 | FUEL VALVE (`SW2`) | `/SW_FUEL_VALVE` |
+
+Every accepted transition sends a debug message to the reflector
+(`172.16.1.10:27000`): `<NAME> CLOSED` or `<NAME> OPEN`, e.g.
+`Jet Ranger Servo: WARNING MUTE CLOSED`. `InitialiseInputs()` takes the
+power-up reading as the starting state (no spurious message at boot) and
+`setup()` reports each input's starting state as `<NAME> initial CLOSED/OPEN`
+just before "Setup Complete". Nothing else is done with the state yet (no
+UDP message to the PC) - adding more inputs is one more row in
+`debouncedInputs[]`. Compiled; not yet flashed or bench-tested.
+
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
-**0 errors**: 21,972 bytes flash (8%), 2,211 bytes RAM (26%). (Dropped
+**0 errors**: 22,668 bytes flash (8%), 2,303 bytes RAM (28%). (Dropped
 from 27,646/2,925 after the out-of-band 15-servo removal - see the note
 at the top of this file.)
 
@@ -121,6 +143,9 @@ at the top of this file.)
 
 | Pin(s) | Function |
 |---|---|
+| 43 | TOT CLEAR switch input (`INPUT_PULLUP`, closed = LOW) |
+| 47 | WARNING MUTE switch input (`INPUT_PULLUP`, closed = LOW) |
+| 48 | FUEL VALVE switch input (`INPUT_PULLUP`, closed = LOW) |
 | 14 | Green status LED |
 | 15 | Red status LED (flashes while Ethernet link comes up) |
 | 53 | W5500 Ethernet shield manual reset (`ES1_RESET_PIN`) |
