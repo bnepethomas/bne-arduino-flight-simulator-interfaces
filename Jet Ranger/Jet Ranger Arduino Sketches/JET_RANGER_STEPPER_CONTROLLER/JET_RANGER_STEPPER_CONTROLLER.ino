@@ -488,7 +488,10 @@ void swingVSI() {
 void swingIAS() {
   SendDebug("Start IASstepper");
   IASstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-  IASstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+  // Back to 0 (not -X27_FULLWIRE_STEPS): the old -635 target wound the needle
+  // a further 635 steps PAST zero against the stop. Same wind-up-then-0 homing
+  // as Fuel Quantity/Torque/EGT/Gas Producer.
+  IASstepper.runToNewPosition(0);
   IASstepper.setCurrentPosition(0);
 
   for (int i = 1; i <= SwingLoops; i++) {
@@ -508,7 +511,10 @@ void swingIAS() {
 void swingAGL() {
   SendDebug("Start RadarAltStepper");
   RadarAltStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-  RadarAltStepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+  // Back to 0 (not -X27_FULLWIRE_STEPS): the old -635 target wound the needle
+  // a further 635 steps PAST zero against the stop. Same wind-up-then-0 homing
+  // as Fuel Quantity/Torque/EGT/Gas Producer.
+  RadarAltStepper.runToNewPosition(0);
   RadarAltStepper.setCurrentPosition(0);
 
   for (int i = 1; i <= SwingLoops; i++) {

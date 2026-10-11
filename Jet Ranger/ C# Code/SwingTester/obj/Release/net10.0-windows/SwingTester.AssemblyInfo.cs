@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SwingTester")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4ac265e1bb57e7e0486f7ec791f458af94e204a2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0bb52b0f9ba004251cf5b2b172ea23a138a25810")]
 [assembly: System.Reflection.AssemblyProductAttribute("SwingTester")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SwingTester")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

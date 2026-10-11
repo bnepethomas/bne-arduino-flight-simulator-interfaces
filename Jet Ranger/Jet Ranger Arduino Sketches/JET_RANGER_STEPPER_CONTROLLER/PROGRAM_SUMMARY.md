@@ -30,7 +30,7 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 29,584 bytes (11%) | 3,933 bytes (48%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 29,580 bytes (11%) | 3,933 bytes (48%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
 Flashed to the bench Mega on COM4 several times across this sketch's
@@ -237,6 +237,16 @@ value is ignored; a `Swing command: <name>` line goes to the debug stream):
 | `SWINGVSI` | VSI |
 | `SWINGIAS` | IAS |
 | `SWINGAGL` | Radar Alt (AGL) |
+
+**IAS/Radar Alt homing fix:** `swingIAS()` and `swingAGL()` used to wind to
+`X27_FULLWIRE_HOMING_STEPS` and then to `-X27_FULLWIRE_STEPS` before
+`setCurrentPosition(0)`, i.e. 635 steps *past* zero against the stop (about
+1,270 steps of travel back from full scale), so the needle visibly swung too
+far back. They now return to `0` like the Fuel Quantity/Torque/EGT/Gas
+Producer swings. (Their "Sending ... to Max" step still goes to
+`X27_FULLWIRE_STEPS` (635), which is beyond Radar Alt's calibrated 469-step
+maximum - unchanged, same overshoot every graduated gauge's swing has.)
+Compiled; not yet flashed or bench-tested.
 
 `EOTstepper`/`XOTstepper`/`XOPstepper`/`EOPstepper` have no boot swing in
 this sketch, so they have no command. The swings block the main loop while

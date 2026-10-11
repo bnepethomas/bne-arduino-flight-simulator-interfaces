@@ -233,7 +233,7 @@ unsigned long previousMillis = 0;
 #define EOPZeroOffset 0
 #define XOTZeroOffset 16
 #define XOPZeroOffset 43
-#define FuelLoadZeroOffset 0
+#define FuelLoadZeroOffset 35
 #define ElectricalLoadZeroOffset 24
 
 // New gauges ported from Stepper-Tuning-Harness (same pin assignments as
@@ -360,6 +360,11 @@ String sAircraftName = "";
 // (u8g2_ALT below), just its own unit on its own mux channel - not a
 // second use of the Altimeter's actual display.
 #define CLOCK_OLED_Port 3
+// TCA9548A channel 4 (SD4/SC4) - the Temperature OLED. Same display class and
+// font as the Clock OLED; shows a temperature string such as "21C" received
+// over UDP as "TEMP:<text>" (see onTempChange()).
+#define TEMP_OLED_Port 4
+#define TEMP_DEFAULT_TEXT "21C"
 
 #include <U8g2lib.h>
 #include <SPI.h>
@@ -369,6 +374,7 @@ String sAircraftName = "";
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_ALT(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_BARO(U8G2_R0, U8X8_PIN_NONE);
 U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_CLOCK(U8G2_R0, U8X8_PIN_NONE);
+U8G2_SSD1306_128X32_UNIVISION_F_HW_I2C u8g2_TEMP(U8G2_R0, U8X8_PIN_NONE);
 
 
 extern "C" {
@@ -409,6 +415,11 @@ unsigned long lastAltOledUpdateMillis = 0;
 // is the only data source). Same gate-on-change + throttle pattern as
 // the Altimeter OLED above.
 int iLastZuluTimeValue = -1;
+// Temperature OLED - last string drawn (empty = nothing drawn yet) and the
+// same 300ms redraw throttle the Clock uses.
+String sLastTempText = "";
+const unsigned long minTempOledUpdateIntervalMs = 300;
+unsigned long lastTempOledUpdateMillis = 0;
 const unsigned long minClockOledUpdateIntervalMs = 300;
 unsigned long lastClockOledUpdateMillis = 0;
 
@@ -513,6 +524,38 @@ void updateClock(int hours, int minutes) {
 // pattern as onAltMslFtChange()'s gating of UpdateAltimeterDigits().
 // hhmm is HH*100+MM (e.g. 1430 for 14:30 Zulu) - the wire format the
 // "ZULU" UDP code (below) uses.
+// Draws the temperature string centred, in the same font as the Clock OLED
+// (u8g2_font_logisoso32_tf, set in initOLEDs()). A string wider than the
+// display is drawn from x=0 and clipped.
+void updateTemp(String text) {
+  tcaselect(TEMP_OLED_Port);
+  u8g2_TEMP.setFontMode(0);
+  u8g2_TEMP.setDrawColor(0);
+  u8g2_TEMP.drawBox(0, 0, 128, 64);
+  u8g2_TEMP.sendBuffer();
+
+  u8g2_TEMP.setDrawColor(1);
+  u8g2_TEMP.setFontDirection(0);
+  int strWidthPx = u8g2_TEMP.getStrWidth(text.c_str());
+  int centeredX = (128 - strWidthPx) / 2;
+  if (centeredX < 0) centeredX = 0;
+  u8g2_TEMP.drawStr(centeredX, 32, text.c_str());
+  u8g2_TEMP.sendBuffer();
+}
+
+// UDP "TEMP:<text>" handler - the value is shown as a string exactly as
+// received (e.g. "21C"), gated on change and throttled like the Clock.
+void onTempChange(String text) {
+  text.trim();
+  if (text.length() == 0 || text.length() > 8) return;
+  if (text != sLastTempText
+      && (millis() - lastTempOledUpdateMillis) >= minTempOledUpdateIntervalMs) {
+    updateTemp(text);
+    sLastTempText = text;
+    lastTempOledUpdateMillis = millis();
+  }
+}
+
 void onZuluTimeChange(int hhmm) {
   if (hhmm != iLastZuluTimeValue
       && (millis() - lastClockOledUpdateMillis) >= minClockOledUpdateIntervalMs) {
@@ -937,6 +980,15 @@ bool initOLEDs() {
   tcaselect(CLOCK_OLED_Port);
   updateClock(0, 0);
 
+  tcaselect(TEMP_OLED_Port);
+  u8g2_TEMP.begin();
+  u8g2_TEMP.clearBuffer();
+  u8g2_TEMP.setFont(u8g2_font_logisoso32_tf);
+  u8g2_TEMP.sendBuffer();
+  tcaselect(TEMP_OLED_Port);
+  updateTemp(TEMP_DEFAULT_TEXT);
+  sLastTempText = TEMP_DEFAULT_TEXT;
+
   SendDebug("Delaying to see OLED");
   delay(2000);
 
@@ -973,12 +1025,19 @@ void oledTest(bool on) {
     u8g2_CLOCK.setDrawColor(1);
     u8g2_CLOCK.drawBox(0, 0, 128, 64);
     u8g2_CLOCK.sendBuffer();
+
+    tcaselect(TEMP_OLED_Port);
+    u8g2_TEMP.setDrawColor(1);
+    u8g2_TEMP.drawBox(0, 0, 128, 64);
+    u8g2_TEMP.sendBuffer();
   } else {
     updateBARO("2992");
     updateALT("0", "0");
     updateClock(0, 0);
+    updateTemp(TEMP_DEFAULT_TEXT);
     iLastAltitudeValue = -1;
     iLastZuluTimeValue = -1;
+    sLastTempText = "";
   }
 }
 
@@ -2384,6 +2443,10 @@ void HandleOutputValuePair(String str) {
   } else if (ParameterName == "ALTRAW") {
     // Distinct raw-step code, bypassing the feet*5.76 conversion above.
     ALTstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "TEMP") {
+    // Temperature as a string (e.g. "21C") for the Temperature OLED on mux
+    // channel 4 - shown exactly as received. See onTempChange()/updateTemp().
+    onTempChange(ParameterValue);
   } else if (ParameterName == "ZULU") {
     // HHMM-encoded Zulu time (e.g. 1430 for 14:30) for the Clock OLED -
     // no DCS-BIOS callback for this one, FSUIPCWinformsAutoCS is the
@@ -2563,6 +2626,10 @@ void BlankAllOleds() {
   tcaselect(CLOCK_OLED_Port);
   u8g2_CLOCK.clearBuffer();
   u8g2_CLOCK.sendBuffer();
+
+  tcaselect(TEMP_OLED_Port);
+  u8g2_TEMP.clearBuffer();
+  u8g2_TEMP.sendBuffer();
 }
 
 // No-data watchdog (see lastMSFSDataMillis/noDataTimeoutMs above) - drives
@@ -2598,6 +2665,7 @@ void ResetGaugesToZero() {
   BlankAllOleds();
   iLastAltitudeValue = -1;
   iLastZuluTimeValue = -1;
+  sLastTempText = "";
 }
 
 void loop() {

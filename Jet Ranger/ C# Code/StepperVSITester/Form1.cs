@@ -420,6 +420,31 @@ namespace StepperVSITester
         // the board as a nonsense percent value.
         private string SelectedNewGaugeCode() => cboNewGauge.SelectedItem?.ToString() ?? "AGLRAW";
 
+        // Temperature OLED (mux channel 4 on the Dual Stepper): the value is a
+        // string sent as-is ("D,TEMP:21C"), to dualStepperClient only - the
+        // single-board Stepper has no temperature display.
+        private void butTempSend_Click(object sender, EventArgs e)
+        {
+            string text = txtTemp.Text.Trim();
+            if (text.Length == 0 || text.Length > 8)
+            {
+                MessageBox.Show("Temperature text must be 1-8 characters (e.g. 21C)");
+                return;
+            }
+
+            byte[] sendBytes = Encoding.ASCII.GetBytes("D,TEMP:" + text);
+            dualStepperClient.Send(sendBytes, sendBytes.Length);
+        }
+
+        private void txtTemp_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                butTempSend_Click(sender!, e);
+            }
+        }
+
         private void butNewGaugeSend_Click(object sender, EventArgs e)
         {
             if (!long.TryParse(txtNewGaugeSteps.Text, out long steps))

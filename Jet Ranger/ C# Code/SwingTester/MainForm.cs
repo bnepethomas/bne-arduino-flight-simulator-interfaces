@@ -52,8 +52,8 @@ namespace SwingTester
             new("Turbine RPM",            BoardId.DualStepper, "SWINGRPME",           7),
             new("Rotor RPM",              BoardId.DualStepper, "SWINGRPMR",           7),
             new("VSI",                    BoardId.Stepper,     "SWINGVSI",           11),
-            new("Airspeed",               BoardId.Stepper,     "SWINGIAS",           12),
-            new("Radar Alt",              BoardId.Stepper,     "SWINGAGL",           12),
+            new("Airspeed",               BoardId.Stepper,     "SWINGIAS",           11),
+            new("Radar Alt",              BoardId.Stepper,     "SWINGAGL",           11),
             new("Altimeter",              BoardId.DualStepper, "SWINGALT",            6),
         };
 
@@ -86,6 +86,8 @@ namespace SwingTester
         private readonly Button btnStop = new() { Text = "Stop", AutoSize = true, Enabled = false };
         private readonly Button btnOledOn = new() { Text = "OLEDs ON", AutoSize = true };
         private readonly Button btnOledOff = new() { Text = "OLEDs OFF", AutoSize = true };
+        private readonly TextBox txtTemp = new() { Text = "21C", Width = 60, MaxLength = 8 };
+        private readonly Button btnTempSend = new() { Text = "Send TEMP", AutoSize = true };
         private readonly CheckBox chkOled = new() { Text = "Light OLEDs during Swing ALL", AutoSize = true, Checked = true };
         private readonly Button btnLampsOn = new() { Text = "Lamps ON (in order)", AutoSize = true };
         private readonly Button btnLampsOff = new() { Text = "Lamps OFF (in order)", AutoSize = true };
@@ -115,7 +117,8 @@ namespace SwingTester
             StartPosition = FormStartPosition.CenterScreen;
             AutoScaleMode = AutoScaleMode.Dpi;
             Font = new Font("Segoe UI", 9f);
-            ClientSize = new Size(700, 720);
+            int workHeight = Screen.PrimaryScreen?.WorkingArea.Height ?? 900;
+            ClientSize = new Size(900, Math.Min(900, workHeight - 80));
             MinimumSize = new Size(640, 400);
 
             var top = new FlowLayoutPanel
@@ -145,6 +148,9 @@ namespace SwingTester
             actions.Controls.Add(btnOledOff);
             actions.Controls.Add(chkOled);
             chkOled.Margin = new Padding(12, 6, 3, 0);
+            actions.Controls.Add(new Label { Text = "Temp OLED:", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
+            actions.Controls.Add(txtTemp);
+            actions.Controls.Add(btnTempSend);
 
             var lampActions = new FlowLayoutPanel
             {
@@ -167,7 +173,7 @@ namespace SwingTester
 
             var grid = new TableLayoutPanel
             {
-                Dock = DockStyle.Top,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 AutoSize = true,
                 ColumnCount = 5,
                 Padding = new Padding(8, 0, 8, 8)
@@ -212,12 +218,13 @@ namespace SwingTester
             // Swing ALL turns them off.
             var lampGroup = new GroupBox
             {
-                Text = "Warning lamps (Servo board) - turn-off order",
-                Dock = DockStyle.Top,
+                Text = "Warning lamps (turn-off order)",
+                Anchor = AnchorStyles.Top | AnchorStyles.Left,
                 AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
                 Padding = new Padding(8, 4, 8, 8)
             };
-            var lampFlow = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, WrapContents = true, FlowDirection = FlowDirection.LeftToRight };
+            var lampFlow = new FlowLayoutPanel { Location = new Point(10, 22), AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink, WrapContents = false, FlowDirection = FlowDirection.TopDown };
             for (int i = 0; i < Lamps.Length; i++)
             {
                 int index = i;
@@ -225,9 +232,10 @@ namespace SwingTester
                 {
                     Text = $"{i + 1}. {Lamps[i].Name}",
                     Appearance = Appearance.Button,
-                    AutoSize = true,
-                    Margin = new Padding(3, 3, 6, 3),
-                    Padding = new Padding(4, 2, 4, 2)
+                    AutoSize = false,
+                    Size = new Size(210, 28),
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    Margin = new Padding(3, 3, 6, 3)
                 };
                 chk.CheckedChanged += async (_, _) =>
                 {
@@ -240,9 +248,25 @@ namespace SwingTester
             }
             lampGroup.Controls.Add(lampFlow);
 
+            // Gauges on the left, lamps on the right, side by side so all of
+            // them are visible together; the panel still scrolls (nothing in it
+            // is docked, so AutoScroll sees the real content size) if the
+            // window is made smaller than the content.
+            var content = new TableLayoutPanel
+            {
+                ColumnCount = 2,
+                RowCount = 1,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Location = new Point(0, 0)
+            };
+            content.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            content.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            content.Controls.Add(grid, 0, 0);
+            content.Controls.Add(lampGroup, 1, 0);
+
             var scroll = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
-            scroll.Controls.Add(lampGroup);
-            scroll.Controls.Add(grid);
+            scroll.Controls.Add(content);
 
             Controls.Add(scroll);
             Controls.Add(statusPanel);
@@ -254,6 +278,7 @@ namespace SwingTester
             btnStop.Click += (_, _) => { cts?.Cancel(); lblStatus.Text = "Stopping after the current wait..."; };
             btnOledOn.Click += async (_, _) => await SendOledAsync(true);
             btnOledOff.Click += async (_, _) => await SendOledAsync(false);
+            btnTempSend.Click += async (_, _) => await SendTempAsync();
             keepAliveTimer.Tick += async (_, _) => await SendKeepAliveAsync();
             btnLampsOn.Click += async (_, _) => await RunLampsOnAsync();
             btnLampsOff.Click += async (_, _) => await TurnLampsOffInOrderAsync();
@@ -287,6 +312,27 @@ namespace SwingTester
         {
             byte[] data = Encoding.ASCII.GetBytes($"C,{command}:1");
             await udp.SendAsync(data, data.Length, IpFor(board), Port);
+        }
+
+        /// <summary>Sends "D,TEMP:&lt;text&gt;" (e.g. 21C) to the Dual Stepper's Temperature OLED.</summary>
+        private async Task SendTempAsync()
+        {
+            string text = txtTemp.Text.Trim();
+            if (text.Length == 0)
+            {
+                lblStatus.Text = "Enter temperature text (e.g. 21C).";
+                return;
+            }
+            try
+            {
+                byte[] data = Encoding.ASCII.GetBytes("D,TEMP:" + text);
+                await udp.SendAsync(data, data.Length, IpFor(BoardId.DualStepper), Port);
+                lblStatus.Text = "Temperature OLED set to " + text + ".";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "TEMP send failed: " + ex.Message;
+            }
         }
 
         private async Task SendOledAsync(bool on, bool quiet = false)

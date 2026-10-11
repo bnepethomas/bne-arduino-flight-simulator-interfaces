@@ -427,6 +427,22 @@ content (2992 / 0 / 00:00) and resets `iLastAltitudeValue`/
 if `oledsInitialised` is false, i.e. the TCA mux wasn't found. Used by the
 `SwingTester` app during its Swing ALL sequence.
 
+## Temperature OLED (mux channel 4)
+
+A fourth OLED, `u8g2_TEMP`, on TCA9548A channel 4 (`TEMP_OLED_Port`; the
+breakout's SD4/SC4 pair), same display class and font as the Clock OLED
+(`u8g2_font_logisoso32_tf`). `initOLEDs()` starts it and draws `21C`
+(`TEMP_DEFAULT_TEXT`) centred. UDP code **`TEMP:<text>`** shows the value as a
+string exactly as received (e.g. `TEMP:25C`), handled by `onTempChange()`
+(ignored if empty or longer than 8 characters; redrawn only on change and
+throttled to 300ms like the Clock) → `updateTemp()`. It is also covered by the
+OLED lamp test (`OLEDTEST`), by `BlankAllOleds()` and by the no-data watchdog
+(`sLastTempText` is cleared so the next `TEMP` repaints it; the watchdog
+blanks it like the other OLEDs). The I2C scan already covers channel 4.
+Compiled; not yet flashed or bench-tested. **RAM is now 75% (1,973 bytes
+free) and the compiler warns "Low memory available"** - keep an eye on
+stability, and avoid adding more `String`-heavy code or OLEDs here.
+
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
@@ -434,7 +450,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 56,164 bytes (22%) | 6,049 bytes (73%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 56,984 bytes (22%) | 6,219 bytes (75%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;

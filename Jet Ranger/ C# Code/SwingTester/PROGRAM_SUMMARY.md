@@ -27,6 +27,12 @@ board's UDP buffer and the order across *different* boards drifts.
   and a checkbox **Light OLEDs during Swing ALL** (on by default).
 - One row per gauge with its board, a seconds box and an individual
   **Swing** button. The row being swung is highlighted gold.
+- Layout: the 18 gauge rows are on the left and the 15 warning-lamp buttons on
+  the right, side by side, so everything is visible at the default window size
+  (900 px wide, up to 900 px tall). Nothing in the scrolling panel is docked,
+  so if the window is made smaller the panel scrolls (vertical and horizontal)
+  and every row and lamp stays reachable. (An earlier layout used docked
+  controls inside the scroll panel, which left the lower rows unreachable.)
 
 ## Sequence (Swing ALL)
 
@@ -47,8 +53,8 @@ board's UDP buffer and the order across *different* boards drifts.
 | 13 | Turbine RPM | Dual .106 | `SWINGRPME` | 7s |
 | 14 | Rotor RPM | Dual .106 | `SWINGRPMR` | 7s |
 | 15 | VSI | Stepper .105 | `SWINGVSI` | 11s |
-| 16 | Airspeed | Stepper .105 | `SWINGIAS` | 12s |
-| 17 | Radar Alt | Stepper .105 | `SWINGAGL` | 12s |
+| 16 | Airspeed | Stepper .105 | `SWINGIAS` | 11s |
+| 17 | Radar Alt | Stepper .105 | `SWINGAGL` | 11s |
 | 18 | Altimeter | Dual .106 | `SWINGALT` | 6s |
 
 "Pitch Roll" is two rows (Pitch then Roll) so each also has its own button.
@@ -57,7 +63,9 @@ The default waits are the swing times measured on the real boards on
 margin: Dual Stepper 5.0-5.2s (oil/transmission gauges, Altimeter), 6.4-6.5s
 (Electrical Load, Fuel Load, Turbine/Rotor RPM); single-board Stepper 9.5-10.7s
 (Fuel Available, Torque, Turbine Out, Gas Producer, VSI, Airspeed, Radar Alt);
-Servo about 2.1s for Pitch. A full pass took about 220s.
+Servo about 2.1s for Pitch. Airspeed and Radar Alt were re-timed at 10.0s each (down from
+10.7s) after their homing was changed to return to 0 instead of -635 steps
+(2026-10-11). A full pass took about 220s.
 
 ## OLEDs
 
@@ -68,6 +76,14 @@ last-value gates so live data repaints them. With the checkbox on, Swing ALL
 sends ON before the first swing and OFF afterwards (also after Stop or an
 error). The command is ignored by the board (debug line
 `OLEDTEST ignored - OLEDs not initialised`) if its TCA mux wasn't found at boot.
+
+## Temperature OLED
+
+The Dual Stepper now has a fourth OLED (mux channel 4) that shows a
+temperature string. **OLEDs ON/OFF** and Swing ALL's OLED lighting include it
+(the firmware's `OLEDTEST` fills/restores all four displays). The **Temp
+OLED** box (default `21C`, max 8 characters) with **Send TEMP** sends
+`D,TEMP:<text>` to the Dual Stepper (.106).
 
 ## Warning lamps
 

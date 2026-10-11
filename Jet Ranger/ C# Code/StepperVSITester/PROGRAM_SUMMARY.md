@@ -247,6 +247,12 @@ unit to use.
     same `"<CODE>RAW"` pattern every other calibrated gauge in this tool
     has). Placed in their own new header/rows below the `TQ` row (#20
     above), same "append at the bottom" reasoning.
+22. **Temperature OLED row** (`lblTemp`/`txtTemp`/`butTempSend`, Enter
+    handler `txtTemp_KeyDown`), at the very bottom of the window: sends
+    `D,TEMP:<text>` (a string, default `21C`, 1-8 characters) to
+    `dualStepperClient` (`172.16.1.106`) only. Shown as-is on the Dual
+    Stepper's new Temperature OLED (mux channel 4); no number parsing or
+    conversion happens here.
 
 No unit conversion happens in this tool for VSI/ALT/Radar ALT/EGT/IAS/
 RPME/RPMR/FUELLOAD/ELECTRICALLOAD — whatever value is shown is sent as-is

@@ -64,6 +64,9 @@ namespace StepperVSITester
             cboNewGauge = new ComboBox();
             lblNewGaugeSteps = new Label();
             txtNewGaugeSteps = new TextBox();
+            lblTemp = new Label();
+            txtTemp = new TextBox();
+            butTempSend = new Button();
             butNewGaugeSend = new Button();
             butNewGaugeZero = new Button();
             butNewGaugeStepBack = new Button();
@@ -458,6 +461,35 @@ namespace StepperVSITester
             butJogSend.Text = "Jog";
             butJogSend.UseVisualStyleBackColor = true;
             butJogSend.Click += butJogSend_Click;
+            //
+            // lblTemp
+            //
+            lblTemp.AutoSize = true;
+            lblTemp.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblTemp.Location = new Point(12, 712);
+            lblTemp.Name = "lblTemp";
+            lblTemp.Size = new Size(220, 15);
+            lblTemp.TabIndex = 90;
+            lblTemp.Text = "Temperature OLED (TEMP, text to Dual Stepper)";
+            //
+            // txtTemp
+            //
+            txtTemp.Location = new Point(12, 731);
+            txtTemp.Name = "txtTemp";
+            txtTemp.Size = new Size(100, 23);
+            txtTemp.TabIndex = 91;
+            txtTemp.Text = "21C";
+            txtTemp.KeyDown += txtTemp_KeyDown;
+            //
+            // butTempSend
+            //
+            butTempSend.Location = new Point(118, 730);
+            butTempSend.Name = "butTempSend";
+            butTempSend.Size = new Size(92, 25);
+            butTempSend.TabIndex = 92;
+            butTempSend.Text = "Send TEMP";
+            butTempSend.UseVisualStyleBackColor = true;
+            butTempSend.Click += butTempSend_Click;
             //
             // lblNewGaugeHeader
             //
@@ -1405,6 +1437,9 @@ namespace StepperVSITester
             Controls.Add(butNewGaugeZero);
             Controls.Add(butNewGaugeSend);
             Controls.Add(txtNewGaugeSteps);
+            Controls.Add(lblTemp);
+            Controls.Add(txtTemp);
+            Controls.Add(butTempSend);
             Controls.Add(lblNewGaugeSteps);
             Controls.Add(cboNewGauge);
             Controls.Add(lblNewGaugeGauge);
@@ -1491,6 +1526,9 @@ namespace StepperVSITester
         private ComboBox cboNewGauge;
         private Label lblNewGaugeSteps;
         private TextBox txtNewGaugeSteps;
+        private Label lblTemp;
+        private TextBox txtTemp;
+        private Button butTempSend;
         private Button butNewGaugeSend;
         private Button butNewGaugeZero;
         private Button butNewGaugeStepBack;
