@@ -420,6 +420,13 @@ calibrated zero and stays there until the next data packet. Each swing blocks
 the main loop (about 5-7s), so other gauges don't move meanwhile. Compiled
 but not yet bench-tested via UDP.
 
+**OLED lamp test:** `C,OLEDTEST:1` fills the Baro, Altimeter and Clock OLEDs
+solid white (`oledTest(true)`); `C,OLEDTEST:0` redraws their default boot
+content (2992 / 0 / 00:00) and resets `iLastAltitudeValue`/
+`iLastZuluTimeValue` so live data repaints them. Ignored (with a debug line)
+if `oledsInitialised` is false, i.e. the TCA mux wasn't found. Used by the
+`SwingTester` app during its Swing ALL sequence.
+
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
@@ -427,7 +434,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 55,530 bytes (21%) | 5,988 bytes (73%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 56,164 bytes (22%) | 6,049 bytes (73%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;

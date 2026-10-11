@@ -1,0 +1,469 @@
+using System.Net.Sockets;
+using System.Text;
+
+namespace SwingTester
+{
+    internal enum BoardId
+    {
+        Stepper,      // JET_RANGER_STEPPER_CONTROLLER, single board
+        DualStepper,  // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER (also the OLEDs)
+        Servo         // JET_RANGER_SERVO_CONTROLLER (pitch/bank)
+    }
+
+    /// <summary>One gauge's startup swing: which board, which UDP control command.</summary>
+    internal sealed class Gauge
+    {
+        public string Name { get; }
+        public BoardId Board { get; }
+        public string Command { get; }
+        public decimal DefaultSeconds { get; }
+
+        public Gauge(string name, BoardId board, string command, decimal defaultSeconds)
+        {
+            Name = name;
+            Board = board;
+            Command = command;
+            DefaultSeconds = defaultSeconds;
+        }
+    }
+
+    public sealed class MainForm : Form
+    {
+        private const int Port = 13136;
+
+        // Sequence order as requested. Each board runs its swing blocking, so
+        // the app waits the per-row "seconds" before sending the next command.
+        // The seconds are measured swing times plus ~1s margin (see PROGRAM_SUMMARY.md) - the boards don't
+        // report completion over this link - and are editable per row.
+        private static readonly Gauge[] Gauges =
+        {
+            new("Engine Oil Pressure",    BoardId.DualStepper, "SWINGOILP",           6),
+            new("Engine Oil Temp",        BoardId.DualStepper, "SWINGOILT",           6),
+            new("Transmission Pressure",  BoardId.DualStepper, "SWINGXMSNP",          6),
+            new("Transmission Temp",      BoardId.DualStepper, "SWINGXMSNT",          6),
+            new("Fuel Available",         BoardId.Stepper,     "SWINGFUEL",          11),
+            new("Electrical Load",        BoardId.DualStepper, "SWINGELECTRICALLOAD", 7),
+            new("Fuel Load",              BoardId.DualStepper, "SWINGFUELLOAD",       7),
+            new("Torque",                 BoardId.Stepper,     "SWINGTQ",            11),
+            new("Turbine Out (EGT/ITT)",  BoardId.Stepper,     "SWINGITT",           11),
+            new("Gas Producer",           BoardId.Stepper,     "SWINGN1",            11),
+            new("Pitch",                  BoardId.Servo,       "SWINGPITCH",          3),
+            new("Roll",                   BoardId.Servo,       "SWINGBANK",           3),
+            new("Turbine RPM",            BoardId.DualStepper, "SWINGRPME",           7),
+            new("Rotor RPM",              BoardId.DualStepper, "SWINGRPMR",           7),
+            new("VSI",                    BoardId.Stepper,     "SWINGVSI",           11),
+            new("Airspeed",               BoardId.Stepper,     "SWINGIAS",           12),
+            new("Radar Alt",              BoardId.Stepper,     "SWINGAGL",           12),
+            new("Altimeter",              BoardId.DualStepper, "SWINGALT",            6),
+        };
+
+        // Warning lamps on the Servo board, driven by "D,<code>:1/0" data
+        // packets. This is the order Swing ALL turns them OFF at the end.
+        private static readonly (string Name, string Code)[] Lamps =
+        {
+            ("SC Fail",                "SCF"),
+            ("Generator Fail",         "GENF"),
+            ("Aft Fuel Filter",        "FFLTR"),
+            ("Baggage Door",           "BD"),
+            ("Engine Chip",            "EC"),
+            ("Battery Hot",            "BHOT"),
+            ("Transmission Oil Press", "TOPW"),
+            ("Engine Out",             "EOUT"),
+            ("Low Fuel",               "LOWF"),
+            ("Fuel Pump",              "FPMP"),
+            ("Tail Rotor Chip",        "TRC"),
+            ("Transmission Chip",      "TC"),
+            ("Battery Temp",           "BTMP"),
+            ("Transmission Oil Temp",  "TOTW"),
+            ("Rotor Low RPM",          "RLOW"),
+        };
+
+        private readonly UdpClient udp = new UdpClient();
+        private readonly TextBox txtStepperIp = new() { Text = "172.16.1.105", Width = 110 };
+        private readonly TextBox txtDualIp = new() { Text = "172.16.1.106", Width = 110 };
+        private readonly TextBox txtServoIp = new() { Text = "172.16.1.102", Width = 110 };
+        private readonly Button btnSwingAll = new() { Text = "Swing ALL (in order)", AutoSize = true };
+        private readonly Button btnStop = new() { Text = "Stop", AutoSize = true, Enabled = false };
+        private readonly Button btnOledOn = new() { Text = "OLEDs ON", AutoSize = true };
+        private readonly Button btnOledOff = new() { Text = "OLEDs OFF", AutoSize = true };
+        private readonly CheckBox chkOled = new() { Text = "Light OLEDs during Swing ALL", AutoSize = true, Checked = true };
+        private readonly Button btnLampsOn = new() { Text = "Lamps ON (in order)", AutoSize = true };
+        private readonly Button btnLampsOff = new() { Text = "Lamps OFF (in order)", AutoSize = true };
+        private readonly CheckBox chkLamps = new() { Text = "Light warning lamps during Swing ALL", AutoSize = true, Checked = true };
+        private readonly NumericUpDown numLampGapMs = new() { Minimum = 0, Maximum = 5000, Increment = 100, Value = 400, Width = 70 };
+        private readonly NumericUpDown numLampOnGapMs = new() { Minimum = 0, Maximum = 10000, Increment = 100, Value = 1000, Width = 70 };
+        private readonly Label lblStatus = new() { Text = "Ready.", AutoSize = true };
+        private readonly CheckBox[] lampChecks = new CheckBox[Lamps.Length];
+        private bool suppressLampEvents;
+        private readonly Label[] rowLabels = new Label[Gauges.Length];
+        private readonly NumericUpDown[] rowSeconds = new NumericUpDown[Gauges.Length];
+        private readonly Button[] rowButtons = new Button[Gauges.Length];
+
+        // Each board resets its gauges (and, on the Dual Stepper, blanks the OLEDs
+        // and, on the Servo board, switches the lamps off) after 30s with no UDP
+        // packet. A full run sends nothing to some boards for 100s+, so while a
+        // run is active a harmless "C,KEEPALIVE:1" control packet (ignored by all
+        // three sketches, but it counts as received data) goes to every board.
+        private readonly System.Windows.Forms.Timer keepAliveTimer = new() { Interval = 10000 };
+
+        private CancellationTokenSource? cts;
+        private bool running;
+
+        public MainForm()
+        {
+            Text = "Jet Ranger Swing Tester";
+            StartPosition = FormStartPosition.CenterScreen;
+            AutoScaleMode = AutoScaleMode.Dpi;
+            Font = new Font("Segoe UI", 9f);
+            ClientSize = new Size(700, 720);
+            MinimumSize = new Size(640, 400);
+
+            var top = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Top,
+                AutoSize = true,
+                Padding = new Padding(8, 8, 8, 0),
+                WrapContents = true
+            };
+            top.Controls.Add(new Label { Text = "Stepper (.105)", AutoSize = true, Margin = new Padding(3, 6, 3, 0) });
+            top.Controls.Add(txtStepperIp);
+            top.Controls.Add(new Label { Text = "Dual Stepper (.106)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
+            top.Controls.Add(txtDualIp);
+            top.Controls.Add(new Label { Text = "Servo (.102)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
+            top.Controls.Add(txtServoIp);
+
+            var actions = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Top,
+                AutoSize = true,
+                Padding = new Padding(8, 4, 8, 0),
+                WrapContents = true
+            };
+            actions.Controls.Add(btnSwingAll);
+            actions.Controls.Add(btnStop);
+            actions.Controls.Add(btnOledOn);
+            actions.Controls.Add(btnOledOff);
+            actions.Controls.Add(chkOled);
+            chkOled.Margin = new Padding(12, 6, 3, 0);
+
+            var lampActions = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Top,
+                AutoSize = true,
+                Padding = new Padding(8, 0, 8, 0),
+                WrapContents = true
+            };
+            lampActions.Controls.Add(btnLampsOn);
+            lampActions.Controls.Add(btnLampsOff);
+            lampActions.Controls.Add(new Label { Text = "on gap (ms)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
+            lampActions.Controls.Add(numLampOnGapMs);
+            lampActions.Controls.Add(new Label { Text = "off gap (ms)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
+            lampActions.Controls.Add(numLampGapMs);
+            lampActions.Controls.Add(chkLamps);
+            chkLamps.Margin = new Padding(12, 6, 3, 0);
+
+            var statusPanel = new Panel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 6, 8, 6) };
+            statusPanel.Controls.Add(lblStatus);
+
+            var grid = new TableLayoutPanel
+            {
+                Dock = DockStyle.Top,
+                AutoSize = true,
+                ColumnCount = 5,
+                Padding = new Padding(8, 0, 8, 8)
+            };
+            grid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            grid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            grid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            grid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            grid.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            AddHeader(grid, "#");
+            AddHeader(grid, "Gauge");
+            AddHeader(grid, "Board");
+            AddHeader(grid, "Seconds");
+            AddHeader(grid, "");
+
+            for (int i = 0; i < Gauges.Length; i++)
+            {
+                int index = i;
+                var g = Gauges[i];
+                grid.Controls.Add(new Label { Text = (i + 1).ToString(), AutoSize = true, Margin = new Padding(3, 8, 8, 3) });
+                var name = new Label { Text = g.Name, AutoSize = true, Margin = new Padding(3, 8, 12, 3), Padding = new Padding(2) };
+                rowLabels[i] = name;
+                grid.Controls.Add(name);
+                grid.Controls.Add(new Label { Text = BoardText(g.Board), AutoSize = true, Margin = new Padding(3, 8, 12, 3) });
+                var secs = new NumericUpDown
+                {
+                    Minimum = 1,
+                    Maximum = 120,
+                    DecimalPlaces = 0,
+                    Value = g.DefaultSeconds,
+                    Width = 60
+                };
+                rowSeconds[i] = secs;
+                grid.Controls.Add(secs);
+                var btn = new Button { Text = "Swing", AutoSize = true, Margin = new Padding(8, 3, 3, 3) };
+                btn.Click += async (_, _) => await RunAsync(new[] { index }, oledsDuring: false);
+                rowButtons[i] = btn;
+                grid.Controls.Add(btn);
+            }
+
+            // Warning lamps: one toggle button per lamp, listed in the order
+            // Swing ALL turns them off.
+            var lampGroup = new GroupBox
+            {
+                Text = "Warning lamps (Servo board) - turn-off order",
+                Dock = DockStyle.Top,
+                AutoSize = true,
+                Padding = new Padding(8, 4, 8, 8)
+            };
+            var lampFlow = new FlowLayoutPanel { Dock = DockStyle.Top, AutoSize = true, WrapContents = true, FlowDirection = FlowDirection.LeftToRight };
+            for (int i = 0; i < Lamps.Length; i++)
+            {
+                int index = i;
+                var chk = new CheckBox
+                {
+                    Text = $"{i + 1}. {Lamps[i].Name}",
+                    Appearance = Appearance.Button,
+                    AutoSize = true,
+                    Margin = new Padding(3, 3, 6, 3),
+                    Padding = new Padding(4, 2, 4, 2)
+                };
+                chk.CheckedChanged += async (_, _) =>
+                {
+                    if (suppressLampEvents) return;
+                    chk.BackColor = chk.Checked ? Color.Gold : Color.Empty;
+                    await SendLampAsync(index, chk.Checked);
+                };
+                lampChecks[i] = chk;
+                lampFlow.Controls.Add(chk);
+            }
+            lampGroup.Controls.Add(lampFlow);
+
+            var scroll = new Panel { Dock = DockStyle.Fill, AutoScroll = true };
+            scroll.Controls.Add(lampGroup);
+            scroll.Controls.Add(grid);
+
+            Controls.Add(scroll);
+            Controls.Add(statusPanel);
+            Controls.Add(lampActions);
+            Controls.Add(actions);
+            Controls.Add(top);
+
+            btnSwingAll.Click += async (_, _) => await RunAsync(Enumerable.Range(0, Gauges.Length), chkOled.Checked, fullSequence: true);
+            btnStop.Click += (_, _) => { cts?.Cancel(); lblStatus.Text = "Stopping after the current wait..."; };
+            btnOledOn.Click += async (_, _) => await SendOledAsync(true);
+            btnOledOff.Click += async (_, _) => await SendOledAsync(false);
+            keepAliveTimer.Tick += async (_, _) => await SendKeepAliveAsync();
+            btnLampsOn.Click += async (_, _) => await RunLampsOnAsync();
+            btnLampsOff.Click += async (_, _) => await TurnLampsOffInOrderAsync();
+        }
+
+        private static void AddHeader(TableLayoutPanel grid, string text) =>
+            grid.Controls.Add(new Label
+            {
+                Text = text,
+                AutoSize = true,
+                Font = new Font("Segoe UI", 9f, FontStyle.Bold),
+                Margin = new Padding(3, 3, 12, 3)
+            });
+
+        private static string BoardText(BoardId b) => b switch
+        {
+            BoardId.Stepper => "Stepper .105",
+            BoardId.DualStepper => "Dual Stepper .106",
+            _ => "Servo .102"
+        };
+
+        private string IpFor(BoardId b) => b switch
+        {
+            BoardId.Stepper => txtStepperIp.Text.Trim(),
+            BoardId.DualStepper => txtDualIp.Text.Trim(),
+            _ => txtServoIp.Text.Trim()
+        };
+
+        /// <summary>Sends "C,&lt;command&gt;:1" (a control packet) to the board.</summary>
+        private async Task SendCommandAsync(BoardId board, string command)
+        {
+            byte[] data = Encoding.ASCII.GetBytes($"C,{command}:1");
+            await udp.SendAsync(data, data.Length, IpFor(board), Port);
+        }
+
+        private async Task SendOledAsync(bool on, bool quiet = false)
+        {
+            try
+            {
+                byte[] data = Encoding.ASCII.GetBytes($"C,OLEDTEST:{(on ? 1 : 0)}");
+                await udp.SendAsync(data, data.Length, IpFor(BoardId.DualStepper), Port);
+                if (!quiet) lblStatus.Text = on ? "OLEDs lit (OLEDTEST:1 sent)." : "OLEDs restored (OLEDTEST:0 sent).";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "OLED send failed: " + ex.Message;
+            }
+        }
+
+        private void SetLampCheck(int index, bool on)
+        {
+            suppressLampEvents = true;
+            lampChecks[index].Checked = on;
+            lampChecks[index].BackColor = on ? Color.Gold : Color.Empty;
+            suppressLampEvents = false;
+        }
+
+        /// <summary>Sends "D,&lt;code&gt;:1/0" (a data packet) to the Servo board for one lamp.</summary>
+        private async Task SendLampAsync(int index, bool on)
+        {
+            try
+            {
+                byte[] data = Encoding.ASCII.GetBytes($"D,{Lamps[index].Code}:{(on ? 1 : 0)}");
+                await udp.SendAsync(data, data.Length, IpFor(BoardId.Servo), Port);
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Lamp send failed: " + ex.Message;
+            }
+        }
+
+        /// <summary>All 15 lamps on (or off) in a single packet.</summary>
+        private async Task SetAllLampsAsync(bool on)
+        {
+            try
+            {
+                string body = string.Join(",", Lamps.Select(l => $"{l.Code}:{(on ? 1 : 0)}"));
+                byte[] data = Encoding.ASCII.GetBytes("D," + body);
+                await udp.SendAsync(data, data.Length, IpFor(BoardId.Servo), Port);
+                for (int i = 0; i < Lamps.Length; i++) SetLampCheck(i, on);
+                lblStatus.Text = on ? "All warning lamps ON." : "All warning lamps OFF.";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Lamp send failed: " + ex.Message;
+            }
+        }
+
+        /// <summary>Turns each lamp on one at a time in the Lamps[] order, "on gap" (default 1s) per step.</summary>
+        private async Task TurnLampsOnInOrderAsync(CancellationToken token = default)
+        {
+            for (int i = 0; i < Lamps.Length; i++)
+            {
+                lblStatus.Text = $"Lamp on: {Lamps[i].Name}";
+                await SendLampAsync(i, true);
+                SetLampCheck(i, true);
+                await Task.Delay((int)numLampOnGapMs.Value, token);
+            }
+            lblStatus.Text = "All warning lamps ON.";
+        }
+
+        private async Task RunLampsOnAsync()
+        {
+            if (running) return;
+            SetRunning(true);
+            try { await TurnLampsOnInOrderAsync(); }
+            catch (Exception ex) { lblStatus.Text = "Error: " + ex.Message; }
+            finally { SetRunning(false); }
+        }
+
+        /// <summary>Turns each lamp off one at a time in the Lamps[] order, with the gap from the box.</summary>
+        private async Task TurnLampsOffInOrderAsync()
+        {
+            for (int i = 0; i < Lamps.Length; i++)
+            {
+                lblStatus.Text = $"Lamp off: {Lamps[i].Name}";
+                await SendLampAsync(i, false);
+                SetLampCheck(i, false);
+                await Task.Delay((int)numLampGapMs.Value);
+            }
+            lblStatus.Text = "All warning lamps OFF.";
+        }
+
+        private async Task SendKeepAliveAsync()
+        {
+            try
+            {
+                byte[] data = Encoding.ASCII.GetBytes("C,KEEPALIVE:1");
+                foreach (var board in new[] { BoardId.Stepper, BoardId.DualStepper, BoardId.Servo })
+                    await udp.SendAsync(data, data.Length, IpFor(board), Port);
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Keepalive send failed: " + ex.Message;
+            }
+        }
+
+        private void SetRunning(bool value)
+        {
+            running = value;
+            keepAliveTimer.Enabled = value;
+            if (value) _ = SendKeepAliveAsync();
+            btnSwingAll.Enabled = !value;
+            btnStop.Enabled = value;
+            btnLampsOn.Enabled = !value;
+            btnLampsOff.Enabled = !value;
+            foreach (var b in rowButtons) b.Enabled = !value;
+        }
+
+        /// <summary>Runs the given gauge indexes in order, waiting each row's seconds after sending.</summary>
+        private async Task RunAsync(IEnumerable<int> indexes, bool oledsDuring, bool fullSequence = false)
+        {
+            if (running) return;
+            SetRunning(true);
+            cts = new CancellationTokenSource();
+            var token = cts.Token;
+            bool oledsLit = false;
+            try
+            {
+                if (fullSequence && chkLamps.Checked)
+                {
+                    await TurnLampsOnInOrderAsync(token);
+                }
+
+                if (oledsDuring)
+                {
+                    await SendOledAsync(true, quiet: true);
+                    oledsLit = true;
+                    await Task.Delay(500, token);
+                }
+
+                foreach (int i in indexes)
+                {
+                    var g = Gauges[i];
+                    rowLabels[i].BackColor = Color.Gold;
+                    await SendCommandAsync(g.Board, g.Command);
+                    int seconds = (int)rowSeconds[i].Value;
+                    for (int remaining = seconds * 10; remaining > 0; remaining--)
+                    {
+                        lblStatus.Text = $"Swinging {g.Name} ({BoardText(g.Board)}, {g.Command}) - {remaining / 10.0:0.0}s left";
+                        await Task.Delay(100, token);
+                    }
+                    rowLabels[i].BackColor = Color.Empty;
+                }
+                lblStatus.Text = "Done.";
+            }
+            catch (OperationCanceledException)
+            {
+                lblStatus.Text = "Stopped. (A swing already started on a board will still finish.)";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Error: " + ex.Message;
+            }
+            finally
+            {
+                foreach (var l in rowLabels) l.BackColor = Color.Empty;
+                if (oledsLit) await SendOledAsync(false, quiet: true);
+                // End of Swing ALL: lamps off, one at a time, in the fixed order.
+                if (fullSequence) await TurnLampsOffInOrderAsync();
+                SetRunning(false);
+                cts.Dispose();
+                cts = null;
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) udp.Dispose();
+            base.Dispose(disposing);
+        }
+    }
+}

@@ -944,6 +944,44 @@ bool initOLEDs() {
   return oledMuxPresent;
 }
 
+// True once initOLEDs() has found the TCA mux and started the displays;
+// oledTest() refuses to touch the OLEDs until then.
+bool oledsInitialised = false;
+
+// OLED lamp test (UDP control command "C,OLEDTEST:1" on / "C,OLEDTEST:0" off):
+// "on" fills the Baro, Altimeter and Clock displays solid white so they are
+// obviously lit (used by the SwingTester app during the swing sequence);
+// "off" redraws each display's default boot content and clears the
+// last-value gates so live data repaints them on its next update.
+void oledTest(bool on) {
+  if (!oledsInitialised) {
+    SendDebug("OLEDTEST ignored - OLEDs not initialised");
+    return;
+  }
+  if (on) {
+    tcaselect(BARO_OLED_Port);
+    u8g2_BARO.setDrawColor(1);
+    u8g2_BARO.drawBox(0, 0, 128, 64);
+    u8g2_BARO.sendBuffer();
+
+    tcaselect(ALT_OLED_Port);
+    u8g2_ALT.setDrawColor(1);
+    u8g2_ALT.drawBox(0, 0, 128, 64);
+    u8g2_ALT.sendBuffer();
+
+    tcaselect(CLOCK_OLED_Port);
+    u8g2_CLOCK.setDrawColor(1);
+    u8g2_CLOCK.drawBox(0, 0, 128, 64);
+    u8g2_CLOCK.sendBuffer();
+  } else {
+    updateBARO("2992");
+    updateALT("0", "0");
+    updateClock(0, 0);
+    iLastAltitudeValue = -1;
+    iLastZuluTimeValue = -1;
+  }
+}
+
 // ###################### Stepper boot swings (callable) ######################
 // Engine Oil Pressure startup swing. Runs at boot when SwingEOP is true, and on demand
 // (ungated) when the UDP control command "C,SWINGOILP:1" is received.
@@ -1214,7 +1252,7 @@ void setup() {
   // readings) while the needles swing rather than coming up afterwards.
   // ####################### Being OLED Setup ##########################
 
-  bool oledsInitialised = initOLEDs();
+  oledsInitialised = initOLEDs();
 
   // ######################## End OLED Setup ###########################
 
@@ -2453,7 +2491,7 @@ void HandleOutputValuePair(String str) {
 void HandleControlString(String str) {
   // Control packet "C,<COMMAND>:<value>". Each SWING<CODE> command runs that
   // one gauge's boot startup swing on demand (ungated by the Swing flags;
-  // the value is ignored). Commands: SWINGOILP, SWINGOILT, SWINGXMSNP, SWINGXMSNT, SWINGELECTRICALLOAD,
+  // the value is ignored). OLEDTEST:1/0 lights/restores the three OLEDs. Commands: SWINGOILP, SWINGOILT, SWINGXMSNP, SWINGXMSNT, SWINGELECTRICALLOAD,
   // SWINGFUELLOAD, SWINGRPME, SWINGRPMR, SWINGALT.
   String name = getValue(str, ':', 0);
   name.trim();
@@ -2484,6 +2522,9 @@ void HandleControlString(String str) {
   } else if (name == "SWINGALT") {
     SendDebug("Swing command: " + name);
     swingALT();
+  } else if (name == "OLEDTEST") {
+    SendDebug("OLED test " + getValue(str, ':', 1));
+    oledTest(getValue(str, ':', 1).toInt() != 0);
   }
 }
 
