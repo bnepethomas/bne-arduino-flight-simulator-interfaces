@@ -117,25 +117,39 @@ Jet Ranger Front Panel Servo PCB, are read with the internal pull-up (closed
 = pin LOW) and debounced (a new reading must stay unchanged for
 `InputDebounceMs` = 30ms) in `ServiceInputs()`, called every `loop()`:
 
-| Pin | Switch | PCB net |
-|---|---|---|
-| D43 | TOT CLEAR (`SW1`) | `/SW_TOT_CLEAR` |
-| D47 | WARNING MUTE (`SW3`) | `/SW_WARNING_MUTE` |
-| D48 | FUEL VALVE (`SW2`) | `/SW_FUEL_VALVE` |
+| Pin | Switch | PCB net | Joystick 1 button (UDP_TO_HID) |
+|---|---|---|---|
+| D43 | TOT CLEAR (`SW1`) | `/SW_TOT_CLEAR` | 8 |
+| D47 | WARNING MUTE (`SW3`) | `/SW_WARNING_MUTE` | 7 |
+| D48 | FUEL VALVE (`SW2`) | `/SW_FUEL_VALVE` | 9 |
 
-Every accepted transition sends a debug message to the reflector
-(`172.16.1.10:27000`): `<NAME> CLOSED` or `<NAME> OPEN`, e.g.
-`Jet Ranger Servo: WARNING MUTE CLOSED`. `InitialiseInputs()` takes the
+Every accepted transition (1) sends a debug message to the reflector
+(`172.16.1.10:27000`): `<NAME> CLOSED -> HID button <n>` or
+`<NAME> OPEN -> HID button <n>`, e.g.
+`Jet Ranger Servo: WARNING MUTE CLOSED -> HID button 7`, and (2) is forwarded
+to the **UDP_TO_HID** board (`172.16.1.11:4210`) by `SendButtonToHid()` as
+`"<idx>,<state>"` - closed = `1` (pressed), open = `0` - the same format
+`JET_RANGER_UPPER_CONTROLLER` uses. The HID board maps idx 0-31 to Joystick 1
+buttons 0-31 (its log says `Joystick1 button N`), so the three inputs are
+Joystick 1 buttons 7 (WARNING MUTE), 8 (TOT CLEAR / TOT light test) and 9
+(FUEL VALVE) in that zero-based numbering; Windows' game-controller panel
+numbers buttons from 1, so they appear there as buttons 8, 9 and 10. If 7/8/9
+were meant as Windows numbers, change the three `HID_BUTTON_*` defines to
+6/7/8. `setup()` also sends each input's
+starting state to the HID board so its virtual joystick matches the switches
+(matters for the FUEL VALVE toggle, which can rest closed); there is no
+periodic refresh, so a HID board that boots after this one stays out of step
+until the switch next changes. `InitialiseInputs()` takes the
 power-up reading as the starting state (no spurious message at boot) and
 `setup()` reports each input's starting state as `<NAME> initial CLOSED/OPEN`
-just before "Setup Complete". Nothing else is done with the state yet (no
-UDP message to the PC) - adding more inputs is one more row in
-`debouncedInputs[]`. Compiled; not yet flashed or bench-tested.
+just before "Setup Complete". Nothing is sent to the PC itself - adding more inputs is one more row in
+`debouncedInputs[]`. Compiled; the HID forwarding is not yet flashed or
+bench-tested (the debug-message part was bench-tested earlier).
 
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
-**0 errors**: 22,668 bytes flash (8%), 2,303 bytes RAM (28%). (Dropped
+**0 errors**: 23,164 bytes flash (9%), 2,331 bytes RAM (28%). (Dropped
 from 27,646/2,925 after the out-of-band 15-servo removal - see the note
 at the top of this file.)
 
@@ -191,6 +205,7 @@ at the top of this file.)
 |---|---|---|
 | `172.16.1.10` (reflector host) | 27000 | Debug/log messages (`SendDebug`) |
 | `172.16.1.10` (reflector host) | 13137 | 10s keepalive `"SERVO"` |
+| `172.16.1.11` (`UDP_TO_HID` board) | 4210 | Button events `"<idx>,<state>"` for the TOT CLEAR / WARNING MUTE / FUEL VALVE switches (Joystick 1 buttons 8 / 7 / 9) |
 
 ## C# programs this sketch communicates with
 

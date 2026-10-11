@@ -54,6 +54,11 @@ String strreflectorIP = "X.X.X.X";
 
 
 
+// UDP_TO_HID board (USB-HID bridge) - receives "<idx>,<state>" button events,
+// see SendButtonToHid() below.
+IPAddress hidIP(172, 16, 1, 11);
+const unsigned int hidPort = 4210;
+
 const unsigned int localport = 7788;
 const unsigned int localdebugport = 7795;
 const unsigned int MSFSport = 13136;
@@ -901,23 +906,41 @@ boolean isValidNumber(String str) {
 // WARNING_MUTE -> D47, SW2 FUEL_VALVE -> D48), so the pins use the internal
 // pull-up and read LOW when the switch is closed. Each input is debounced
 // (a new reading must stay unchanged for InputDebounceMs before it is
-// accepted) and every accepted transition sends a debug message
-// ("<NAME> CLOSED"/"<NAME> OPEN") to the reflector. Nothing else is done with
-// the state yet.
+// accepted) and every accepted transition (a) sends a debug message
+// ("<NAME> CLOSED"/"<NAME> OPEN") to the reflector and (b) is forwarded to the
+// UDP_TO_HID board as joystick button "<idx>,<1|0>" (closed = 1 = pressed),
+// the same "idx,state" format JET_RANGER_UPPER_CONTROLLER uses. idx 0-31 are
+// Joystick 1's buttons 0-31, so the three inputs below are Joystick 1 buttons
+// 7, 8 and 9 (as numbered by the HID board's own log, "Joystick1 button N").
 #define InputDebounceMs 30
+
+// Joystick 1 button numbers on the UDP_TO_HID board.
+#define HID_BUTTON_WARNING_MUTE 7
+#define HID_BUTTON_TOT_CLEAR 8
+#define HID_BUTTON_FUEL_VALVE 9
+
+// Forwards a switch state to UDP_TO_HID. Format: "idx,state".
+void SendButtonToHid(int idx, int state) {
+  if (Ethernet_In_Use == 1) {
+    udp.beginPacket(hidIP, hidPort);
+    udp.print(String(idx) + "," + String(state));
+    udp.endPacket();
+  }
+}
 
 struct DebouncedInput {
   const char* name;
   byte pin;
+  int hidButton;          // Joystick 1 button number on the UDP_TO_HID board
   bool stableClosed;      // last accepted (debounced) state, true = switch closed (pin LOW)
   bool lastReadClosed;    // most recent raw reading
   unsigned long lastChangeMillis;  // when the raw reading last changed
 };
 
 DebouncedInput debouncedInputs[] = {
-  { "TOT CLEAR", 43, false, false, 0 },
-  { "WARNING MUTE", 47, false, false, 0 },
-  { "FUEL VALVE", 48, false, false, 0 },
+  { "TOT CLEAR", 43, HID_BUTTON_TOT_CLEAR, false, false, 0 },
+  { "WARNING MUTE", 47, HID_BUTTON_WARNING_MUTE, false, false, 0 },
+  { "FUEL VALVE", 48, HID_BUTTON_FUEL_VALVE, false, false, 0 },
 };
 const byte NUM_DEBOUNCED_INPUTS = sizeof(debouncedInputs) / sizeof(debouncedInputs[0]);
 
@@ -943,7 +966,8 @@ void ServiceInputs() {
       in.lastChangeMillis = millis();
     } else if (closed != in.stableClosed && (millis() - in.lastChangeMillis) >= InputDebounceMs) {
       in.stableClosed = closed;
-      SendDebug(String(in.name) + (closed ? " CLOSED" : " OPEN"));
+      SendDebug(String(in.name) + (closed ? " CLOSED" : " OPEN") + " -> HID button " + String(in.hidButton));
+      SendButtonToHid(in.hidButton, closed ? 1 : 0);
     }
   }
 }
@@ -1049,8 +1073,12 @@ void setup() {
 
   // Report where each input starts, so a transition message always has a
   // known "before".
+  // Also send each starting state to UDP_TO_HID so its virtual joystick
+  // matches the switches (matters for the FUEL VALVE toggle, which can rest
+  // closed).
   for (byte i = 0; i < NUM_DEBOUNCED_INPUTS; i++) {
     SendDebug(String(debouncedInputs[i].name) + (debouncedInputs[i].stableClosed ? " initial CLOSED" : " initial OPEN"));
+    SendButtonToHid(debouncedInputs[i].hidButton, debouncedInputs[i].stableClosed ? 1 : 0);
   }
 
   SendDebug("Setup Complete");

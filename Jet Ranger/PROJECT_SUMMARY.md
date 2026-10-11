@@ -41,7 +41,7 @@ lives in each project's own `PROGRAM_SUMMARY.md` and in
 | Board / sketch | IP | Role |
 |---|---|---|
 | `JET_RANGER_RADIO_CONTROLLER` | .101 | COM/NAV frequency OLEDs, 8 rotary encoders, 4x4 button matrix; talks radio/battery commands to the PC |
-| `JET_RANGER_SERVO_CONTROLLER` | .102 | 2 attitude-indicator servos (pitch/bank, calibrated in degrees) and 15 warning lamps; 3 debounced front-panel switch inputs (D43 TOT CLEAR, D47 WARNING MUTE, D48 FUEL VALVE) reported as debug messages |
+| `JET_RANGER_SERVO_CONTROLLER` | .102 | 2 attitude-indicator servos (pitch/bank, calibrated in degrees) and 15 warning lamps; 3 debounced front-panel switch inputs (D43 TOT CLEAR, D47 WARNING MUTE, D48 FUEL VALVE) reported as debug messages and sent to the HID board as joystick buttons (HID index 8 / 7 / 9) |
 | `JET_RANGER_UPPER_CONTROLLER` | .103 | overhead switch matrix (176 of 256 inputs) + keypad; feeds DCS-BIOS and the `UDP_TO_HID` board |
 | `UDP_TO_HID` | .11 | USB-HID bridge: UDP in, 4 virtual joysticks + keyboard out |
 | `JET_RANGER_OLED_CONTROLLER` | .104 | really an A-10C front-console OLED sketch filed here (DCS-BIOS, not the Jet Ranger protocol) |
@@ -107,9 +107,12 @@ a script sending the same packets; the app window itself was checked from
 screenshots).
 
 Known gaps / open items:
-- The Servo board only logs the three switch transitions; nothing forwards them
-  to the PC. The PC app on 27001 treats any unrecognised string as a radio
-  frequency, so it would need updating first.
+- The Servo board's three switches go to the HID board (HID index 7, 8, 9 =
+  Joystick 1 buttons 8, 9, 10 in Windows) and are logged, but are not forwarded
+  to the PC itself (the PC app on 27001 treats any unrecognised string as a
+  radio frequency, so it would need updating first). Not yet bench-tested end to
+  end; if Windows buttons 7, 8, 9 were wanted, button 7 clashes with the Upper
+  Controller's Air heat switch (index 6).
 - The Upper Controller PCB has a Warning Mute connector on D30, but the Upper
   Controller sketch scans analog pins A9–A15 only, so it may not be read.
 - `StepperVSITester` still broadcasts the RPME/RPMR controls to the single-board
