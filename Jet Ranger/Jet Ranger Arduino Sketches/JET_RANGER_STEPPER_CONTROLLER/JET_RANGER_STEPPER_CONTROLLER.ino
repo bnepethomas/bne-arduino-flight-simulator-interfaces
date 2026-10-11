@@ -351,6 +351,179 @@ AccelStepper EOPstepper(AccelStepper::FULL4WIRE, EOP_COIL_A, EOP_COIL_B, EOP_COI
 
 
 
+// ###################### Stepper boot swings (callable) ######################
+// Fuel Quantity startup swing. Runs at boot when SwingFA is true, and on demand
+// (ungated) when the UDP control command "C,SWINGFUEL:1" is received.
+void swingFA() {
+  SendDebug("Start FAstepper");
+  FAstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  FAstepper.runToNewPosition(0);
+  FAstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Fuel Quantity to Max");
+    FAstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    // Targets galToSteps(0) + FAZeroOffset, not just FAZeroOffset -
+    // FA_GAL_TABLE's 0-gal row is 53 steps, not the stepper's raw 0
+    // (unlike every other gauge's swing in this sketch, where the
+    // offset alone is the correct calibrated-zero target). Using plain
+    // FAZeroOffset here would rest the swing ~53 steps short of the
+    // real empty-tank position.
+    SendDebug("Returning Fuel Quantity to Zero");
+    FAstepper.runToNewPosition(galToSteps(0) + FAZeroOffset);
+    delay(200);
+  }
+  SendDebug("End FAstepper");
+}
+
+// Torque startup swing. Runs at boot when SwingTQ is true, and on demand
+// (ungated) when the UDP control command "C,SWINGTQ:1" is received.
+void swingTQ() {
+  SendDebug("Start TQstepper");
+  TQstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  TQstepper.runToNewPosition(0);
+  TQstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Torque to Max");
+    TQstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    SendDebug("Returning Torque to Zero");
+    TQstepper.runToNewPosition(TQZeroOffset);
+    delay(200);
+  }
+  SendDebug("End TQstepper");
+}
+
+// EGT/ITT startup swing. Runs at boot when SwingEGT is true, and on demand
+// (ungated) when the UDP control command "C,SWINGITT:1" is received.
+void swingEGT() {
+  SendDebug("Start EGTstepper");
+  EGTstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  EGTstepper.runToNewPosition(0);
+  EGTstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending EGT to Max");
+    EGTstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    SendDebug("Returning EGT to Zero");
+    EGTstepper.runToNewPosition(EGTZeroOffset);
+    delay(200);
+  }
+  SendDebug("End EGTstepper");
+}
+
+// Gas Producer startup swing. Runs at boot when SwingGP is true, and on demand
+// (ungated) when the UDP control command "C,SWINGN1:1" is received.
+void swingGP() {
+  SendDebug("Start GPstepper");
+  GPstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  GPstepper.runToNewPosition(0);
+  GPstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Gas Producer to Max");
+    GPstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    SendDebug("Returning Gas Producer to Zero");
+    GPstepper.runToNewPosition(gpPctToSteps(0) + GPZeroOffset);
+    delay(200);
+  }
+  SendDebug("End GPstepper");
+}
+
+// VSI startup swing. Runs at boot when SwingVSI is true, and on demand
+// (ungated) when the UDP control command "C,SWINGVSI:1" is received.
+void swingVSI() {
+  SendDebug("Start VSI");
+
+  // VSI is a direct-driven FULL4WIRE stepper on coil pins (COIL_VSI_A..D,
+  // now 7/8/9/11, wired C,D,A,B - matches Stepper-Tuning-Harness's own
+  // VSI wiring exactly). Homes against an X27.168-style stepper's real
+  // travel: X27_FULLWIRE_STEPS (635) is that motor's full-scale step
+  // count, X27_FULLWIRE_HOMING_STEPS adds a small 5-step overshoot to
+  // guarantee reaching the physical end stop. CAUTION - macro-precedence
+  // bug: X27_FULLWIRE_HOMING_STEPS is #defined as "X27_FULLWIRE_STEPS + 5"
+  // (unparenthesized), so the "-X27_FULLWIRE_HOMING_STEPS" below expands
+  // to "-635 + 5" = -630, NOT -(635+5) = -640 as the name implies - a
+  // real (if minor, ~1.5%) discrepancy between what this homing move
+  // actually does and what it looks like it does. Direction sign is
+  // otherwise carried over unverified from this stepper's pre-X27
+  // homing - confirm it actually winds to (and stops cleanly at) the
+  // real end stop before trusting it unattended. Now does 3 swing loops
+  // (was 1) as a more thorough self-test.
+  VSIstepper.runToNewPosition(-X27_FULLWIRE_HOMING_STEPS);
+  VSIstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    VSIstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    VSIstepper.runToNewPosition(0);
+    delay(200);
+  }
+
+  // Move VSI to zero position and set
+  // Deliberately NOT adding VSIZeroOffset here: this setCurrentPosition(0)
+  // redefines the stepper's own internal zero reference, which setVSI()/
+  // the real-time "VSI" UDP path (see HandleOutputValuePair() below) then
+  // add VSIZeroOffset on top of at every move - baking the trim in here
+  // too would double-apply it. VSI's homing works differently from every
+  // other gauge's swing (which just zero at the raw post-wind position and
+  // never redefine it again), so it's the one gauge whose swing doesn't
+  // reference its ZeroOffset directly.
+  VSIstepper.runToNewPosition((X27_FULLWIRE_STEPS / 2) - VSIoffset);
+  VSIstepper.setCurrentPosition(0);
+  SendDebug("End VSI");
+}
+
+// IAS startup swing. Runs at boot when SwingIAS is true, and on demand
+// (ungated) when the UDP control command "C,SWINGIAS:1" is received.
+void swingIAS() {
+  SendDebug("Start IASstepper");
+  IASstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  IASstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+  IASstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending IAS to Max");
+    IASstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    SendDebug("Returning IAS to Zero");
+    IASstepper.runToNewPosition(IASZeroOffset);
+    delay(200);
+  }
+  SendDebug("End IASstepper");
+}
+
+// Radar Alt (AGL) startup swing. Runs at boot when SwingAGL is true, and on demand
+// (ungated) when the UDP control command "C,SWINGAGL:1" is received.
+void swingAGL() {
+  SendDebug("Start RadarAltStepper");
+  RadarAltStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  RadarAltStepper.runToNewPosition(-X27_FULLWIRE_STEPS);
+  RadarAltStepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Radar Alt to Max");
+    RadarAltStepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    SendDebug("Returning Radar Alt to Zero");
+    RadarAltStepper.runToNewPosition(AGLZeroOffset);
+    delay(200);
+  }
+  SendDebug("End RadarAltStepper");
+}
+// ###########################################################################
+
 void setup() {
 
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
@@ -469,29 +642,7 @@ void setup() {
   // assumption, NOT bench-confirmed. Each loop's "return to zero" (and
   // the swing's final resting position) targets FAZeroOffset, not raw 0 -
   // same trimmed target ResetGaugesToZero()'s `setFA(0)` already uses.
-  if (SwingFA) {
-    SendDebug("Start FAstepper");
-    FAstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    FAstepper.runToNewPosition(0);
-    FAstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Fuel Quantity to Max");
-      FAstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      // Targets galToSteps(0) + FAZeroOffset, not just FAZeroOffset -
-      // FA_GAL_TABLE's 0-gal row is 53 steps, not the stepper's raw 0
-      // (unlike every other gauge's swing in this sketch, where the
-      // offset alone is the correct calibrated-zero target). Using plain
-      // FAZeroOffset here would rest the swing ~53 steps short of the
-      // real empty-tank position.
-      SendDebug("Returning Fuel Quantity to Zero");
-      FAstepper.runToNewPosition(galToSteps(0) + FAZeroOffset);
-      delay(200);
-    }
-    SendDebug("End FAstepper");
-  }
+  if (SwingFA) swingFA();
   // ################# End Fuel Quantity Startup #########################
 
 
@@ -515,23 +666,7 @@ void setup() {
   // `setTQ(0)` now uses. The initial homing wind-back before
   // `setCurrentPosition(0)` is left at raw 0, since it's establishing the
   // stepper's own internal reference, not a real-world position.
-  if (SwingTQ) {
-    SendDebug("Start TQstepper");
-    TQstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    TQstepper.runToNewPosition(0);
-    TQstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Torque to Max");
-      TQstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Torque to Zero");
-      TQstepper.runToNewPosition(TQZeroOffset);
-      delay(200);
-    }
-    SendDebug("End TQstepper");
-  }
+  if (SwingTQ) swingTQ();
   // ################# End Torque Startup #########################
 
 
@@ -553,23 +688,7 @@ void setup() {
   // correct calibrated-zero target (unlike FAstepper's swing above,
   // which needed galToSteps(0) + FAZeroOffset since its 0-gal row isn't
   // 0 steps).
-  if (SwingEGT) {
-    SendDebug("Start EGTstepper");
-    EGTstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    EGTstepper.runToNewPosition(0);
-    EGTstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending EGT to Max");
-      EGTstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      SendDebug("Returning EGT to Zero");
-      EGTstepper.runToNewPosition(EGTZeroOffset);
-      delay(200);
-    }
-    SendDebug("End EGTstepper");
-  }
+  if (SwingEGT) swingEGT();
   // ################# End EGT Startup #########################
 
 
@@ -589,69 +708,12 @@ void setup() {
   // position) targets gpPctToSteps(0) + GPZeroOffset, not just
   // GPZeroOffset - GP_PCT_TABLE's 0% row is 15 steps, not the stepper's
   // raw 0 (same situation as FAstepper's swing above).
-  if (SwingGP) {
-    SendDebug("Start GPstepper");
-    GPstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    GPstepper.runToNewPosition(0);
-    GPstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Gas Producer to Max");
-      GPstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Gas Producer to Zero");
-      GPstepper.runToNewPosition(gpPctToSteps(0) + GPZeroOffset);
-      delay(200);
-    }
-    SendDebug("End GPstepper");
-  }
+  if (SwingGP) swingGP();
   // ################# End Gas Producer Startup #########################
 
 
   // ################# Start VSI Startup #########################
-  if (SwingVSI) {
-    SendDebug("Start VSI");
-
-    // VSI is a direct-driven FULL4WIRE stepper on coil pins (COIL_VSI_A..D,
-    // now 7/8/9/11, wired C,D,A,B - matches Stepper-Tuning-Harness's own
-    // VSI wiring exactly). Homes against an X27.168-style stepper's real
-    // travel: X27_FULLWIRE_STEPS (635) is that motor's full-scale step
-    // count, X27_FULLWIRE_HOMING_STEPS adds a small 5-step overshoot to
-    // guarantee reaching the physical end stop. CAUTION - macro-precedence
-    // bug: X27_FULLWIRE_HOMING_STEPS is #defined as "X27_FULLWIRE_STEPS + 5"
-    // (unparenthesized), so the "-X27_FULLWIRE_HOMING_STEPS" below expands
-    // to "-635 + 5" = -630, NOT -(635+5) = -640 as the name implies - a
-    // real (if minor, ~1.5%) discrepancy between what this homing move
-    // actually does and what it looks like it does. Direction sign is
-    // otherwise carried over unverified from this stepper's pre-X27
-    // homing - confirm it actually winds to (and stops cleanly at) the
-    // real end stop before trusting it unattended. Now does 3 swing loops
-    // (was 1) as a more thorough self-test.
-    VSIstepper.runToNewPosition(-X27_FULLWIRE_HOMING_STEPS);
-    VSIstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      VSIstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      VSIstepper.runToNewPosition(0);
-      delay(200);
-    }
-
-    // Move VSI to zero position and set
-    // Deliberately NOT adding VSIZeroOffset here: this setCurrentPosition(0)
-    // redefines the stepper's own internal zero reference, which setVSI()/
-    // the real-time "VSI" UDP path (see HandleOutputValuePair() below) then
-    // add VSIZeroOffset on top of at every move - baking the trim in here
-    // too would double-apply it. VSI's homing works differently from every
-    // other gauge's swing (which just zero at the raw post-wind position and
-    // never redefine it again), so it's the one gauge whose swing doesn't
-    // reference its ZeroOffset directly.
-    VSIstepper.runToNewPosition((X27_FULLWIRE_STEPS / 2) - VSIoffset);
-    VSIstepper.setCurrentPosition(0);
-    SendDebug("End VSI");
-  }
+  if (SwingVSI) swingVSI();
   // ################# End VSI Startup #########################
 
 
@@ -664,23 +726,7 @@ void setup() {
   // bigger back-and-forth swing than VSI's equivalent single approach
   // move, not obviously intentional. Re-verify this sequence before
   // flipping SwingIAS to true.
-  if (SwingIAS) {
-    SendDebug("Start IASstepper");
-    IASstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    IASstepper.runToNewPosition(-X27_FULLWIRE_STEPS);
-    IASstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending IAS to Max");
-      IASstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      SendDebug("Returning IAS to Zero");
-      IASstepper.runToNewPosition(IASZeroOffset);
-      delay(200);
-    }
-    SendDebug("End IASstepper");
-  }
+  if (SwingIAS) swingIAS();
   //  ################ #End Speed Current Startup######################## #
 
 
@@ -698,23 +744,7 @@ void setup() {
   // carried forward. Confirm on the bench that it actually reaches the
   // real end stop (and doesn't stall against it from the wrong side)
   // before trusting it unattended.
-  if (SwingAGL) {
-    SendDebug("Start RadarAltStepper");
-    RadarAltStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    RadarAltStepper.runToNewPosition(-X27_FULLWIRE_STEPS);
-    RadarAltStepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Radar Alt to Max");
-      RadarAltStepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Radar Alt to Zero");
-      RadarAltStepper.runToNewPosition(AGLZeroOffset);
-      delay(200);
-    }
-    SendDebug("End RadarAltStepper");
-  }
+  if (SwingAGL) swingAGL();
   // ################# End Radar Alt Startup #########################
 
 
@@ -1805,8 +1835,34 @@ void HandleOutputValuePair(String str) {
 }
 
 void HandleControlString(String str) {
-  // No control codes are handled yet (matches JET_RANGER_SERVO_CONTROLLER's
-  // brightness control, which is likewise received but not acted on).
+  // Control packet "C,<COMMAND>:<value>". Each SWING<CODE> command runs that
+  // one gauge's boot startup swing on demand (ungated by the Swing flags;
+  // the value is ignored). Commands: SWINGFUEL, SWINGTQ, SWINGITT, SWINGN1, SWINGVSI, SWINGIAS,
+  // SWINGAGL.
+  String name = getValue(str, ':', 0);
+  name.trim();
+  if (name == "SWINGFUEL") {
+    SendDebug("Swing command: " + name);
+    swingFA();
+  } else if (name == "SWINGTQ") {
+    SendDebug("Swing command: " + name);
+    swingTQ();
+  } else if (name == "SWINGITT") {
+    SendDebug("Swing command: " + name);
+    swingEGT();
+  } else if (name == "SWINGN1") {
+    SendDebug("Swing command: " + name);
+    swingGP();
+  } else if (name == "SWINGVSI") {
+    SendDebug("Swing command: " + name);
+    swingVSI();
+  } else if (name == "SWINGIAS") {
+    SendDebug("Swing command: " + name);
+    swingIAS();
+  } else if (name == "SWINGAGL") {
+    SendDebug("Swing command: " + name);
+    swingAGL();
+  }
 }
 
 String getValue(String data, char separator, int index) {

@@ -944,6 +944,210 @@ bool initOLEDs() {
   return oledMuxPresent;
 }
 
+// ###################### Stepper boot swings (callable) ######################
+// Engine Oil Pressure startup swing. Runs at boot when SwingEOP is true, and on demand
+// (ungated) when the UDP control command "C,SWINGOILP:1" is received.
+void swingEOP() {
+  SendDebug("Start EOPstepper");
+  EOPstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+  EOPstepper.runToNewPosition(-FULL4WIRE_STEPS);
+  EOPstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Engine Oil Pressure to Max");
+    EOPstepper.runToNewPosition(FULL4WIRE_STEPS);
+    delay(200);
+    SendDebug("Returning Engine Oil Pressure to Zero");
+    EOPstepper.runToNewPosition(EOPZeroOffset);
+    delay(200);
+  }
+  SendDebug("End EOPstepper");
+}
+
+// Engine Oil Temp startup swing. Runs at boot when SwingEOT is true, and on demand
+// (ungated) when the UDP control command "C,SWINGOILT:1" is received.
+void swingEOT() {
+  SendDebug("Start EOTstepper");
+  EOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+  EOTstepper.runToNewPosition(-FULL4WIRE_STEPS);
+  EOTstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Engine Oil Temp to Max");
+    EOTstepper.runToNewPosition(FULL4WIRE_STEPS);
+    delay(200);
+    SendDebug("Returning Engine Oil Temp to Zero");
+    EOTstepper.runToNewPosition(EOTZeroOffset);
+    delay(200);
+  }
+  SendDebug("End EOTstepper");
+}
+
+// Transmission Oil Pressure startup swing. Runs at boot when SwingXOP is true, and on demand
+// (ungated) when the UDP control command "C,SWINGXMSNP:1" is received.
+void swingXOP() {
+  SendDebug("Start XOPstepper");
+  XOPstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+  XOPstepper.runToNewPosition(-FULL4WIRE_STEPS);
+  XOPstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Transmission Oil Pressure to Max");
+    XOPstepper.runToNewPosition(FULL4WIRE_STEPS);
+    delay(200);
+    SendDebug("Returning Transmission Oil Pressure to Zero");
+    XOPstepper.runToNewPosition(XOPZeroOffset);
+    delay(200);
+  }
+  SendDebug("End XOPstepper");
+}
+
+// Transmission Oil Temp startup swing. Runs at boot when SwingXOT is true, and on demand
+// (ungated) when the UDP control command "C,SWINGXMSNT:1" is received.
+void swingXOT() {
+  SendDebug("Start XOTstepper");
+  XOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+  XOTstepper.runToNewPosition(-FULL4WIRE_STEPS);
+  XOTstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Transmission Oil Temp to Max");
+    XOTstepper.runToNewPosition(FULL4WIRE_STEPS);
+    delay(200);
+    SendDebug("Returning Transmission Oil Temp to Zero");
+    XOTstepper.runToNewPosition(XOTZeroOffset);
+    delay(200);
+  }
+  SendDebug("End XOTstepper");
+}
+
+// Electrical Load startup swing. Runs at boot when SwingELECTRICALLOAD is true, and on demand
+// (ungated) when the UDP control command "C,SWINGELECTRICALLOAD:1" is received.
+void swingElectricalLoad() {
+  SendDebug("Start ElectricalLoadStepper");
+  ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  ElectricalLoadStepper.runToNewPosition(0);
+  ElectricalLoadStepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Electrical Load to Max");
+    ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    // ELECTRICAL_LOAD_PCT_TABLE's 0% row is 22 steps, not raw 0 - target
+    // the calibrated zero (+ trim), same as setElectricalLoad(0) lands on.
+    SendDebug("Returning Electrical Load to Zero");
+    ElectricalLoadStepper.runToNewPosition(electricalLoadPctToSteps(0) + ElectricalLoadZeroOffset);
+    delay(200);
+  }
+  SendDebug("End ElectricalLoadStepper");
+}
+
+// Fuel Load startup swing. Runs at boot when SwingFUELLOAD is true, and on demand
+// (ungated) when the UDP control command "C,SWINGFUELLOAD:1" is received.
+void swingFuelLoad() {
+  SendDebug("Start FuelLoadStepper");
+  FuelLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  FuelLoadStepper.runToNewPosition(0);
+  FuelLoadStepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Fuel Load to Max");
+    FuelLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    SendDebug("Returning Fuel Load to Zero");
+    FuelLoadStepper.runToNewPosition(FuelLoadZeroOffset);
+    delay(200);
+  }
+  SendDebug("End FuelLoadStepper");
+}
+
+// Turbine Speed startup swing. Runs at boot when SwingRPM is true, and on demand
+// (ungated) when the UDP control command "C,SWINGRPME:1" is received.
+void swingTS() {
+  SendDebug("Start TSstepper");
+  TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  TSstepper.runToNewPosition(0);
+  TSstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Turbine Speed to Max");
+    TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    // Zero here means the calibrated 0% position (TS_PCT_TABLE's 0
+    // step, same as setTS(0) would target), not the stepper's raw
+    // internal 0 - TSoffset accounts for the fine-trim applied at
+    // runtime by setTS()/tsPctToSteps(), so the swing ends exactly
+    // where the gauge will actually rest at 0% RPME.
+    SendDebug("Returning Turbine Speed to Zero (offset " + String(TSoffset) + ")");
+    TSstepper.runToNewPosition(TSoffset);
+    delay(200);
+  }
+  SendDebug("End TSstepper");
+}
+
+// Rotor Speed startup swing. Runs at boot when SwingRPM is true, and on demand
+// (ungated) when the UDP control command "C,SWINGRPMR:1" is received.
+void swingRS() {
+  SendDebug("Start RSstepper");
+  RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
+  RSstepper.runToNewPosition(0);
+  RSstepper.setCurrentPosition(0);
+
+  for (int i = 1; i <= SwingLoops; i++) {
+    SendDebug("Loop :" + String(i));
+    SendDebug("Sending Rotor Speed to Max");
+    RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    delay(200);
+    // Same reasoning as TSstepper's swing above: zero here means the
+    // calibrated 0% position (RS_PCT_TABLE's 0 step / setRS(0)'s
+    // target), not the stepper's raw internal 0 - RSoffset accounts
+    // for the fine-trim setRS()/rsPctToSteps() applies at runtime.
+    SendDebug("Returning Rotor Speed to Zero (offset " + String(RSoffset) + ")");
+    RSstepper.runToNewPosition(RSoffset);
+    delay(200);
+  }
+  SendDebug("End RSstepper");
+}
+
+// ALT startup swing. Runs at boot when SwingALT is true, and on demand
+// (ungated) when the UDP control command "C,SWINGALT:1" is received.
+void swingALT() {
+  SendDebug("Start ALT");
+  for (int i = 1; i <= 1; i++) {
+    SendDebug("Loop :" + String(i));
+    ALTstepper.moveTo(-STEPS * 2);
+    while (ALTstepper.distanceToGo() != 0) {
+      if (digitalRead(ALTzeroSensePin) != true) {
+        SendDebug("Found Alt Zero Position");
+        ALTstepper.setCurrentPosition(-25);
+        break;
+      }
+      ALTstepper.run();
+    }
+    delay(500);
+    SendDebug("Send Alt Round " + String(SwingLoops) + " times");
+    long SendAAltForATrip = Z27_360_FULLWIRE_STEPS * SwingLoops;
+    //  720 steps per loop
+    ALTstepper.runToNewPosition(SendAAltForATrip);
+    delay(200);
+    SendDebug("Return Alt to 0");
+    ALTstepper.runToNewPosition(0);
+  }
+  // Move ALT to zero position - need to monitor zero sense
+
+
+
+  SendDebug("End ALT");
+}
+// ###########################################################################
+
 void setup() {
 
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
@@ -1067,23 +1271,7 @@ void setup() {
   // Direction sign is an unverified assumption, NOT bench-confirmed.
   // Returns to 0, same reasoning as EOT below (eopPsiToSteps(0) is
   // already 0).
-  if (SwingEOP) {
-    SendDebug("Start EOPstepper");
-    EOPstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
-    EOPstepper.runToNewPosition(-FULL4WIRE_STEPS);
-    EOPstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Engine Oil Pressure to Max");
-      EOPstepper.runToNewPosition(FULL4WIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Engine Oil Pressure to Zero");
-      EOPstepper.runToNewPosition(EOPZeroOffset);
-      delay(200);
-    }
-    SendDebug("End EOPstepper");
-  }
+  if (SwingEOP) swingEOP();
   // ################# End Engine Oil Pressure Startup #########################
 
   // ################# Start Engine Oil Temp Startup #########################
@@ -1100,23 +1288,7 @@ void setup() {
   // bench-confirmed for this specific gauge. Returns to EOTZeroOffset,
   // not raw 0 - eotCToSteps(0) is already 0, so the offset alone is the
   // correct calibrated-zero target (default 0, same as before).
-  if (SwingEOT) {
-    SendDebug("Start EOTstepper");
-    EOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
-    EOTstepper.runToNewPosition(-FULL4WIRE_STEPS);
-    EOTstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Engine Oil Temp to Max");
-      EOTstepper.runToNewPosition(FULL4WIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Engine Oil Temp to Zero");
-      EOTstepper.runToNewPosition(EOTZeroOffset);
-      delay(200);
-    }
-    SendDebug("End EOTstepper");
-  }
+  if (SwingEOT) swingEOT();
   // ################# End Engine Oil Temp Startup #########################
 
   // ################# Start Transmission Oil Pressure Startup #########################
@@ -1128,23 +1300,7 @@ void setup() {
   // gauges' swings above and below. XOPstepper previously had no startup routine at
   // all. Direction sign is an unverified assumption, NOT bench-confirmed.
   // Returns to 0 (xopPsiToSteps(0) is already 0).
-  if (SwingXOP) {
-    SendDebug("Start XOPstepper");
-    XOPstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
-    XOPstepper.runToNewPosition(-FULL4WIRE_STEPS);
-    XOPstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Transmission Oil Pressure to Max");
-      XOPstepper.runToNewPosition(FULL4WIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Transmission Oil Pressure to Zero");
-      XOPstepper.runToNewPosition(XOPZeroOffset);
-      delay(200);
-    }
-    SendDebug("End XOPstepper");
-  }
+  if (SwingXOP) swingXOP();
   // ################# End Transmission Oil Pressure Startup #########################
 
   // ################# Start Transmission Oil Temp Startup #########################
@@ -1158,23 +1314,7 @@ void setup() {
   // sign is an unverified assumption, NOT bench-confirmed. Returns to
   // XOTZeroOffset (xotCToSteps(0) is already 0, so the offset alone is the
   // correct calibrated-zero target).
-  if (SwingXOT) {
-    SendDebug("Start XOTstepper");
-    XOTstepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
-    XOTstepper.runToNewPosition(-FULL4WIRE_STEPS);
-    XOTstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Transmission Oil Temp to Max");
-      XOTstepper.runToNewPosition(FULL4WIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Transmission Oil Temp to Zero");
-      XOTstepper.runToNewPosition(XOTZeroOffset);
-      delay(200);
-    }
-    SendDebug("End XOTstepper");
-  }
+  if (SwingXOT) swingXOT();
   // ################# End Transmission Oil Temp Startup #########################
 
   // ################# Start Electrical Load Startup #########################
@@ -1190,25 +1330,7 @@ void setup() {
   // over from the single-board sketch's X27-style homing, NOT bench-confirmed
   // for this specific gauge. SwingELECTRICALLOAD was already #defined
   // above but had no matching startup block until now.
-  if (SwingELECTRICALLOAD) {
-    SendDebug("Start ElectricalLoadStepper");
-    ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    ElectricalLoadStepper.runToNewPosition(0);
-    ElectricalLoadStepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Electrical Load to Max");
-      ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      // ELECTRICAL_LOAD_PCT_TABLE's 0% row is 22 steps, not raw 0 - target
-      // the calibrated zero (+ trim), same as setElectricalLoad(0) lands on.
-      SendDebug("Returning Electrical Load to Zero");
-      ElectricalLoadStepper.runToNewPosition(electricalLoadPctToSteps(0) + ElectricalLoadZeroOffset);
-      delay(200);
-    }
-    SendDebug("End ElectricalLoadStepper");
-  }
+  if (SwingELECTRICALLOAD) swingElectricalLoad();
   // ################# End Electrical Load Startup #########################
 
   // ################# Start Fuel Load Startup #########################
@@ -1226,23 +1348,7 @@ void setup() {
   // DISABLED, matching the single-board sketch's own Radar Alt swing.
 
 
-  if (SwingFUELLOAD) {
-    SendDebug("Start FuelLoadStepper");
-    FuelLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    FuelLoadStepper.runToNewPosition(0);
-    FuelLoadStepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Fuel Load to Max");
-      FuelLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      SendDebug("Returning Fuel Load to Zero");
-      FuelLoadStepper.runToNewPosition(FuelLoadZeroOffset);
-      delay(200);
-    }
-    SendDebug("End FuelLoadStepper");
-  }
+  if (SwingFUELLOAD) swingFuelLoad();
   // ################# End Fuel Load Startup #########################
 
   // ################# Start Turbine Speed Startup #########################
@@ -1260,28 +1366,7 @@ void setup() {
   // (false)` - runs every boot. Confirm on
   // the bench that it actually reaches the real end stop (and doesn't
   // stall against it from the wrong side) before trusting it unattended.
-  if (SwingRPM) {
-    SendDebug("Start TSstepper");
-    TSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    TSstepper.runToNewPosition(0);
-    TSstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Turbine Speed to Max");
-      TSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      // Zero here means the calibrated 0% position (TS_PCT_TABLE's 0
-      // step, same as setTS(0) would target), not the stepper's raw
-      // internal 0 - TSoffset accounts for the fine-trim applied at
-      // runtime by setTS()/tsPctToSteps(), so the swing ends exactly
-      // where the gauge will actually rest at 0% RPME.
-      SendDebug("Returning Turbine Speed to Zero (offset " + String(TSoffset) + ")");
-      TSstepper.runToNewPosition(TSoffset);
-      delay(200);
-    }
-    SendDebug("End TSstepper");
-  }
+  if (SwingRPM) swingTS();
   // ################# End Turbine Speed Startup #########################
 
   // ################# Start Rotor Speed Startup #########################
@@ -1301,60 +1386,13 @@ void setup() {
   // (false)` - runs every boot. Confirm on the bench that it actually
   // reaches the real end stop (and doesn't stall against it from the wrong
   // side) before trusting it unattended.
-  if (SwingRPM) {
-    SendDebug("Start RSstepper");
-    RSstepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-    RSstepper.runToNewPosition(0);
-    RSstepper.setCurrentPosition(0);
-
-    for (int i = 1; i <= SwingLoops; i++) {
-      SendDebug("Loop :" + String(i));
-      SendDebug("Sending Rotor Speed to Max");
-      RSstepper.runToNewPosition(X27_FULLWIRE_STEPS);
-      delay(200);
-      // Same reasoning as TSstepper's swing above: zero here means the
-      // calibrated 0% position (RS_PCT_TABLE's 0 step / setRS(0)'s
-      // target), not the stepper's raw internal 0 - RSoffset accounts
-      // for the fine-trim setRS()/rsPctToSteps() applies at runtime.
-      SendDebug("Returning Rotor Speed to Zero (offset " + String(RSoffset) + ")");
-      RSstepper.runToNewPosition(RSoffset);
-      delay(200);
-    }
-    SendDebug("End RSstepper");
-  }
+  if (SwingRPM) swingRS();
   // ################# End Rotor Speed Startup #########################
 
   // ################# Start ALT Startup #########################
 
 
-  if (SwingALT) {
-    SendDebug("Start ALT");
-    for (int i = 1; i <= 1; i++) {
-      SendDebug("Loop :" + String(i));
-      ALTstepper.moveTo(-STEPS * 2);
-      while (ALTstepper.distanceToGo() != 0) {
-        if (digitalRead(ALTzeroSensePin) != true) {
-          SendDebug("Found Alt Zero Position");
-          ALTstepper.setCurrentPosition(-25);
-          break;
-        }
-        ALTstepper.run();
-      }
-      delay(500);
-      SendDebug("Send Alt Round " + String(SwingLoops) + " times");
-      long SendAAltForATrip = Z27_360_FULLWIRE_STEPS * SwingLoops;
-      //  720 steps per loop
-      ALTstepper.runToNewPosition(SendAAltForATrip);
-      delay(200);
-      SendDebug("Return Alt to 0");
-      ALTstepper.runToNewPosition(0);
-    }
-    // Move ALT to zero position - need to monitor zero sense
-
-
-
-    SendDebug("End ALT");
-  }
+  if (SwingALT) swingALT();
   // ################# End ALT Startup #########################
 
   SendDebug("STEPPER INITIALISATION COMPLETE");
@@ -2413,8 +2451,40 @@ void HandleOutputValuePair(String str) {
 }
 
 void HandleControlString(String str) {
-  // No control codes are handled yet (matches JET_RANGER_SERVO_CONTROLLER's
-  // brightness control, which is likewise received but not acted on).
+  // Control packet "C,<COMMAND>:<value>". Each SWING<CODE> command runs that
+  // one gauge's boot startup swing on demand (ungated by the Swing flags;
+  // the value is ignored). Commands: SWINGOILP, SWINGOILT, SWINGXMSNP, SWINGXMSNT, SWINGELECTRICALLOAD,
+  // SWINGFUELLOAD, SWINGRPME, SWINGRPMR, SWINGALT.
+  String name = getValue(str, ':', 0);
+  name.trim();
+  if (name == "SWINGOILP") {
+    SendDebug("Swing command: " + name);
+    swingEOP();
+  } else if (name == "SWINGOILT") {
+    SendDebug("Swing command: " + name);
+    swingEOT();
+  } else if (name == "SWINGXMSNP") {
+    SendDebug("Swing command: " + name);
+    swingXOP();
+  } else if (name == "SWINGXMSNT") {
+    SendDebug("Swing command: " + name);
+    swingXOT();
+  } else if (name == "SWINGELECTRICALLOAD") {
+    SendDebug("Swing command: " + name);
+    swingElectricalLoad();
+  } else if (name == "SWINGFUELLOAD") {
+    SendDebug("Swing command: " + name);
+    swingFuelLoad();
+  } else if (name == "SWINGRPME") {
+    SendDebug("Swing command: " + name);
+    swingTS();
+  } else if (name == "SWINGRPMR") {
+    SendDebug("Swing command: " + name);
+    swingRS();
+  } else if (name == "SWINGALT") {
+    SendDebug("Swing command: " + name);
+    swingALT();
+  }
 }
 
 String getValue(String data, char separator, int index) {

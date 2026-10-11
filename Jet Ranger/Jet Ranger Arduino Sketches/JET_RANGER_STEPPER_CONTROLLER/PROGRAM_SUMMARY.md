@@ -30,7 +30,7 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 28,572 bytes (11%) | 3,879 bytes (47%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 29,584 bytes (11%) | 3,933 bytes (48%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
 Flashed to the bench Mega on COM4 several times across this sketch's
@@ -219,6 +219,30 @@ collides with `AllstepperEnablePin`.
    zero" step updated to target that gauge's offset
    instead of raw `0`, so the swing's final resting position matches
    where the gauge will actually sit at runtime for a `"<CODE>:0"` packet.
+
+## On-demand swing commands
+
+Each existing boot swing is now its own function (`swingFA()`, `swingTQ()`,
+`swingEGT()`, `swingGP()`, `swingVSI()`, `swingIAS()`, `swingAGL()`), called
+from `setup()` when its `SwingXXX` gate is true (boot behaviour and order
+unchanged) and, **ungated**, by a UDP **control** packet `C,<COMMAND>:1` (the
+value is ignored; a `Swing command: <name>` line goes to the debug stream):
+
+| Command | Swing |
+|---|---|
+| `SWINGFUEL` | Fuel Quantity |
+| `SWINGTQ` | Torque |
+| `SWINGITT` | EGT/ITT |
+| `SWINGN1` | Gas Producer |
+| `SWINGVSI` | VSI |
+| `SWINGIAS` | IAS |
+| `SWINGAGL` | Radar Alt (AGL) |
+
+`EOTstepper`/`XOTstepper`/`XOPstepper`/`EOPstepper` have no boot swing in
+this sketch, so they have no command. The swings block the main loop while
+they run and re-home the stepper (`setCurrentPosition(0)`) exactly as at
+boot; the needle rests at its calibrated zero until the next data packet.
+Compiled but not yet bench-tested via UDP.
 
 ## Pin usage (JET_RANGER_STEPPER_CONTROLLER.ino)
 

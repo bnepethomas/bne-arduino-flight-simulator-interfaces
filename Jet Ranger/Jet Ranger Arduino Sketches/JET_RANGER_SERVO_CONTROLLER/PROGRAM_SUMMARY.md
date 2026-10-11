@@ -99,10 +99,21 @@ received over Ethernet.
      latches the reset so it only fires once per outage, clearing again
      the moment real data resumes.
 
+## On-demand swing commands
+
+The Pitch and Bank self-test sweeps are now functions, `swingPitch()` and
+`swingBank()` (min → max → min, then parked at the calibrated zero with
+`aServoPosition[]`/`aTargetServoPosition[]` synced to it). `setup()` calls
+them as before; they are also run on demand by UDP **control** packets
+`C,SWINGPITCH:1` and `C,SWINGBANK:1` (value ignored), handled in
+`HandleControlString()`. Each sweep takes about 2s and blocks the loop; the
+servo rests at zero until the next data packet. Compiled but not yet
+bench-tested via UDP.
+
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
-**0 errors**: 21,568 bytes flash (8%), 2,135 bytes RAM (26%). (Dropped
+**0 errors**: 21,972 bytes flash (8%), 2,211 bytes RAM (26%). (Dropped
 from 27,646/2,925 after the out-of-band 15-servo removal - see the note
 at the top of this file.)
 

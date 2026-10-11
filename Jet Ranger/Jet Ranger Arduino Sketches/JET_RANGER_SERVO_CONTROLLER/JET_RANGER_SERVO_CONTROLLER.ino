@@ -784,6 +784,46 @@ void HandleOutputValuePair(String str) {
 }
 
 
+// Pitch/Bank self-test sweeps: drive the servo directly from its min to max
+// position and back, then park it at its calibrated zero. Used by setup()
+// and, ungated, by the UDP control commands "C,SWINGPITCH:1" and
+// "C,SWINGBANK:1" (value ignored). Afterwards the position/target arrays
+// are synced to zero so UpdateServoPos() doesn't ease away from where the
+// servo physically is; the gauge then rests at zero until the next data.
+void swingPitch() {
+  SendDebug("Start Pitch swing");
+  SetPITCH(aServMinPosition[AttitudeIndicatorPitchDegrees]);
+  for (int i = 0; i <= 100; i++) {
+    SetPITCH(int(map(i, 0, 100, long(aServMinPosition[AttitudeIndicatorPitchDegrees]), long(aServMaxPosition[AttitudeIndicatorPitchDegrees]))));
+    delay(10);
+  }
+  for (int i = 100; i >= 0; i--) {
+    SetPITCH((map(i, 0, 100, long(aServMinPosition[AttitudeIndicatorPitchDegrees]), long(aServMaxPosition[AttitudeIndicatorPitchDegrees]))));
+    delay(10);
+  }
+  SetPITCH(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
+  aServoPosition[AttitudeIndicatorPitchDegrees] = aServZeroPosition[AttitudeIndicatorPitchDegrees];
+  aTargetServoPosition[AttitudeIndicatorPitchDegrees] = aServZeroPosition[AttitudeIndicatorPitchDegrees];
+  SendDebug("End Pitch swing");
+}
+
+void swingBank() {
+  SendDebug("Start Bank swing");
+  SetROLL(aServMinPosition[AttitudeIndicatorBankDegrees]);
+  for (int i = 0; i <= 100; i++) {
+    SetROLL(int(map(i, 0, 100, long(aServMinPosition[AttitudeIndicatorBankDegrees]), long(aServMaxPosition[AttitudeIndicatorBankDegrees]))));
+    delay(10);
+  }
+  for (int i = 100; i >= 0; i--) {
+    SetROLL((map(i, 0, 100, long(aServMinPosition[AttitudeIndicatorBankDegrees]), long(aServMaxPosition[AttitudeIndicatorBankDegrees]))));
+    delay(10);
+  }
+  SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
+  aServoPosition[AttitudeIndicatorBankDegrees] = aServZeroPosition[AttitudeIndicatorBankDegrees];
+  aTargetServoPosition[AttitudeIndicatorBankDegrees] = aServZeroPosition[AttitudeIndicatorBankDegrees];
+  SendDebug("End Bank swing");
+}
+
 void HandleControlString(String str) {
   bool bLocalDebug = false;
   //if (Debug_Display || bLocalDebug ) SendDebug("Handling Control String :" + str);
@@ -807,6 +847,14 @@ void HandleControlString(String str) {
     //if (Debug_Display || bLocalDebug ) SendDebug("setting is :" + setting);
 
     int isetting = setting.toInt();
+
+    // On-demand servo self-test sweeps (value ignored): C,SWINGPITCH:1 and
+    // C,SWINGBANK:1
+    if (command == "SWINGPITCH") {
+      swingPitch();
+    } else if (command == "SWINGBANK") {
+      swingBank();
+    }
 
     // Backlighting and Flood ligghting
     if (command == "B")
@@ -909,33 +957,12 @@ void setup() {
 
 
 
-    // Pitch
-    SetPITCH(aServMinPosition[AttitudeIndicatorPitchDegrees]);
-    for (int i = 0; i <= 100; i++) {
-      SetPITCH(int(map(i, 0, 100, long(aServMinPosition[AttitudeIndicatorPitchDegrees]), long(aServMaxPosition[AttitudeIndicatorPitchDegrees]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetPITCH((map(i, 0, 100, long(aServMinPosition[AttitudeIndicatorPitchDegrees]), long(aServMaxPosition[AttitudeIndicatorPitchDegrees]))));
-      delay(10);
-    }
-    SetPITCH(aServZeroPosition[AttitudeIndicatorPitchDegrees]);
+    // Pitch, then Roll - same sweeps the SWINGPITCH/SWINGBANK UDP control
+    // commands run on demand (see swingPitch()/swingBank() above).
+    swingPitch();
     // Give the pitch a little time to settle before rolling
     delay(300);
-
-
-
-    // Roll
-    SetROLL(aServMinPosition[AttitudeIndicatorBankDegrees]);
-    for (int i = 0; i <= 100; i++) {
-      SetROLL(int(map(i, 0, 100, long(aServMinPosition[AttitudeIndicatorBankDegrees]), long(aServMaxPosition[AttitudeIndicatorBankDegrees]))));
-      delay(10);
-    }
-    for (int i = 100; i >= 0; i--) {
-      SetROLL((map(i, 0, 100, long(aServMinPosition[AttitudeIndicatorBankDegrees]), long(aServMaxPosition[AttitudeIndicatorBankDegrees]))));
-      delay(10);
-    }
-    SetROLL(aServZeroPosition[AttitudeIndicatorBankDegrees]);
+    swingBank();
 
     // Park both servos fully at their calibrated zero. The sweep above
     // drives the servos directly, so aServoPosition[]/aTargetServoPosition[]

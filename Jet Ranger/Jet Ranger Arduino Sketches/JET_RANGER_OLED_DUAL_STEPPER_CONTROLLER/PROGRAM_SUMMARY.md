@@ -393,6 +393,33 @@ swings) the watchdog was already expired when `loop()` began and reset the
 gauges (and blanked the OLEDs) within a fraction of a second - seen in the
 bench debug log as "no UDP data for 30s" 0.3s after "Setup Complete".
 
+## On-demand swing commands
+
+Each gauge's boot swing is now its own function (`swingEOP()`, `swingEOT()`,
+`swingXOP()`, `swingXOT()`, `swingElectricalLoad()`, `swingFuelLoad()`,
+`swingTS()`, `swingRS()`, `swingALT()`), called from `setup()` when its
+`SwingXXX` gate is true (boot behaviour and order unchanged) and, **ungated**,
+by a UDP **control** packet `C,<COMMAND>:1` (the value is ignored; a
+`Swing command: <name>` line goes to the debug stream):
+
+| Command | Swing |
+|---|---|
+| `SWINGOILP` | Engine Oil Pressure |
+| `SWINGOILT` | Engine Oil Temp |
+| `SWINGXMSNP` | Transmission Oil Pressure |
+| `SWINGXMSNT` | Transmission Oil Temp |
+| `SWINGELECTRICALLOAD` | Electrical Load |
+| `SWINGFUELLOAD` | Fuel Load |
+| `SWINGRPME` | Turbine Speed |
+| `SWINGRPMR` | Rotor Speed |
+| `SWINGALT` | Altimeter (re-finds the zero sensor) |
+
+The command runs the same code as boot, including the initial
+wind-to-the-stop re-home (`setCurrentPosition(0)`), so the needle ends at its
+calibrated zero and stays there until the next data packet. Each swing blocks
+the main loop (about 5-7s), so other gauges don't move meanwhile. Compiled
+but not yet bench-tested via UDP.
+
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
@@ -400,7 +427,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 54,574 bytes (21%) | 5,760 bytes (70%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 55,530 bytes (21%) | 5,988 bytes (73%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;
