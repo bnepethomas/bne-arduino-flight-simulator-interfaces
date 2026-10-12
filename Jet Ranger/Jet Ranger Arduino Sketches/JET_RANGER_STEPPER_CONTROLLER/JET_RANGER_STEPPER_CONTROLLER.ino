@@ -226,7 +226,7 @@ unsigned long previousMillis = 0;
 //On the Mega, the hardware SS pin, 53, is not used to select either the W5500 or the SD card,
 //but it must be kept as an output or the SPI interface won't work.
 
-#define BACK_LIGHTS 8
+#define BACK_LIGHTS 5  // PCB: D5 = BACKLIGHT_PWM (D8 is VSI coil B)
 
 // ########################## BEGIN STEPPERS ########################################
 #include <AccelStepper.h>
