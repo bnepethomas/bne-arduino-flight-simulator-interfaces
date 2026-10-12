@@ -233,7 +233,7 @@ unsigned long previousMillis = 0;
 #define EOPZeroOffset 0
 #define XOTZeroOffset 16
 #define XOPZeroOffset 43
-#define FuelLoadZeroOffset 35
+#define FuelLoadZeroOffset 50
 #define ElectricalLoadZeroOffset 24
 
 // New gauges ported from Stepper-Tuning-Harness (same pin assignments as
