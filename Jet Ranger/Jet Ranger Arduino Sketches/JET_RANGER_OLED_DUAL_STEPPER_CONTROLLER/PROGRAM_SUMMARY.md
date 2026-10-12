@@ -427,6 +427,20 @@ content (2992 / 0 / 00:00) and resets `iLastAltitudeValue`/
 if `oledsInitialised` is false, i.e. the TCA mux wasn't found. Used by the
 `SwingTester` app during its Swing ALL sequence.
 
+## Fuel Load / Electrical Load swing change
+
+`swingFuelLoad()` and `swingElectricalLoad()` now use the same homing and
+range as the engine / transmission oil swings: wind up to
+`FULL4WIRE_HOMING_STEPS` (316), back to `-FULL4WIRE_STEPS` (315 steps past
+zero, against the stop), `setCurrentPosition(0)`, then swing to
+`FULL4WIRE_STEPS` (315) and return to the zero offset. Before, they used the
+X27 range (631/630 steps) and wound up then to `0`. Electrical Load still
+returns to `electricalLoadPctToSteps(0) + ElectricalLoadZeroOffset` (its
+table's 0% row is 22 steps) rather than the bare offset. Because the range
+is halved the two swings should be shorter than the earlier 6.4-6.5s; not yet
+re-timed, flashed or bench-tested. Statements elsewhere in this file that
+say the loads use the X27 constants describe the earlier behaviour.
+
 ## Temperature OLED (mux channel 4)
 
 A fourth OLED, `u8g2_TEMP`, on TCA9548A channel 4 (`TEMP_OLED_Port`; the
@@ -450,7 +464,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 56,984 bytes (22%) | 6,219 bytes (75%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 57,004 bytes (22%) | 6,219 bytes (75%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;

@@ -1126,14 +1126,16 @@ void swingXOT() {
 // (ungated) when the UDP control command "C,SWINGELECTRICALLOAD:1" is received.
 void swingElectricalLoad() {
   SendDebug("Start ElectricalLoadStepper");
-  ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-  ElectricalLoadStepper.runToNewPosition(0);
+  // Same homing as the engine/transmission oil swings (FULL4WIRE range): wind up,
+  // then back past zero against the stop before marking it as zero.
+  ElectricalLoadStepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+  ElectricalLoadStepper.runToNewPosition(-FULL4WIRE_STEPS);
   ElectricalLoadStepper.setCurrentPosition(0);
 
   for (int i = 1; i <= SwingLoops; i++) {
     SendDebug("Loop :" + String(i));
     SendDebug("Sending Electrical Load to Max");
-    ElectricalLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    ElectricalLoadStepper.runToNewPosition(FULL4WIRE_STEPS);
     delay(200);
     // ELECTRICAL_LOAD_PCT_TABLE's 0% row is 22 steps, not raw 0 - target
     // the calibrated zero (+ trim), same as setElectricalLoad(0) lands on.
@@ -1148,14 +1150,16 @@ void swingElectricalLoad() {
 // (ungated) when the UDP control command "C,SWINGFUELLOAD:1" is received.
 void swingFuelLoad() {
   SendDebug("Start FuelLoadStepper");
-  FuelLoadStepper.runToNewPosition(X27_FULLWIRE_HOMING_STEPS);
-  FuelLoadStepper.runToNewPosition(0);
+  // Same homing as the engine/transmission oil swings (FULL4WIRE range): wind up,
+  // then back past zero against the stop before marking it as zero.
+  FuelLoadStepper.runToNewPosition(FULL4WIRE_HOMING_STEPS);
+  FuelLoadStepper.runToNewPosition(-FULL4WIRE_STEPS);
   FuelLoadStepper.setCurrentPosition(0);
 
   for (int i = 1; i <= SwingLoops; i++) {
     SendDebug("Loop :" + String(i));
     SendDebug("Sending Fuel Load to Max");
-    FuelLoadStepper.runToNewPosition(X27_FULLWIRE_STEPS);
+    FuelLoadStepper.runToNewPosition(FULL4WIRE_STEPS);
     delay(200);
     SendDebug("Returning Fuel Load to Zero");
     FuelLoadStepper.runToNewPosition(FuelLoadZeroOffset);
