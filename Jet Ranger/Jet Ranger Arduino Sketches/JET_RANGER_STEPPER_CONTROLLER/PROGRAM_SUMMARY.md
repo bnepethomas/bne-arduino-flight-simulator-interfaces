@@ -285,7 +285,7 @@ Compiled but not yet bench-tested via UDP.
 | Setting | Value |
 |---|---|
 | Static IP | `172.16.1.105` |
-| MAC | `A8:61:0A:67:83:69` (string label `sMac` still says `A8:61:0A:67:83:03`, a pre-existing mismatch) |
+| MAC | `A8:61:0A:67:83:69` (the `sMac` debug label was corrected to match on 12 Oct 2026) |
 | Local port `localport`/`keyboardport` | 7788 |
 | Local port `localdebugport` | 7795 (declared, not bound) |
 | Local port `MSFSport` | 13136 |
