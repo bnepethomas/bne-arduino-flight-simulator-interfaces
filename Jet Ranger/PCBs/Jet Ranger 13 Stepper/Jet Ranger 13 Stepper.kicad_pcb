@@ -8,8 +8,8 @@
 	)
 	(paper "A4")
 	(title_block
-		(date "2026-08-01")
-		(rev "1.0")
+		(date "2026-10-12")
+		(rev "1.4")
 	)
 	(layers
 		(0 "F.Cu" signal)
@@ -208,7 +208,7 @@
 	(net 88 "+12V")
 	(net 89 "/STEPPER_EOP_A")
 	(net 90 "/STEPPER_FA_D")
-	(net 91 "/STEPPER_FL_A")
+	(net 91 "/STEPPER_FA_A")
 	(net 92 "/STEPPER_FA_B")
 	(net 93 "/STEPPER_FA_C")
 	(footprint "Fuse:Fuse_Littelfuse_395Series"
@@ -853,7 +853,7 @@
 		(property ki_fp_filters "*polyfuse* *PTC*")
 		(path "/404afa18-b25f-4aff-87f7-47d56758a2b8")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.83 -2.12)
@@ -1074,7 +1074,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/749183b7-a8d6-4f1e-bfba-9e62378149b5")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -1584,7 +1584,7 @@
 		(property ki_fp_filters "MountingHole*")
 		(path "/d124a7a2-72e9-405b-93a0-2874bb596f25")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
 			(center 0 0)
@@ -1724,7 +1724,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/d74d7cea-2203-47a8-bc42-07b8387f2580")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 19.11)
@@ -2630,7 +2630,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/30f39d74-451b-4032-b25c-dce5ab1cad1e")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.33 1.27)
@@ -2935,7 +2935,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/01bb8c4b-ec4d-4721-ae8d-fd5b6d58bacd")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 19.11)
@@ -3293,7 +3293,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/483ccedd-c915-4966-b011-0877a40703ef")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.29 1.08)
@@ -3532,7 +3532,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/7eb5f50a-309a-4198-86d9-6bf7e6f4e2e3")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -4042,7 +4042,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/9fb4dce1-2b6b-46ae-95b7-389ce6a4e565")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.37 0)
@@ -4235,7 +4235,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/cc035d26-48db-461f-a370-581026eb3434")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.37 0)
@@ -4428,7 +4428,7 @@
 		(property ki_fp_filters "MountingHole*")
 		(path "/6c337762-8f07-4007-bda3-20cc39df2a78")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
 			(center 0 0)
@@ -4568,7 +4568,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/5eeef34a-ceff-4afe-820a-cbe7a8338bdb")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 -1.33)
@@ -4862,7 +4862,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/901557f7-c586-4e2a-874f-289ab7d38e9a")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.1 -3.75)
@@ -5284,7 +5284,7 @@
 		(property ki_fp_filters "MountingHole*")
 		(path "/be44811f-17f1-4159-af34-094149414e61")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
 			(center 0 0)
@@ -5422,7 +5422,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/a284bbe4-4044-42ce-8f00-81fd1e2687bf")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.29 1.08)
@@ -5661,7 +5661,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/77de6542-679f-4055-9c3e-70ba223ffab9")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -6171,7 +6171,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/26d4044a-86af-458c-970f-5f6fa1a29490")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.29 1.08)
@@ -6997,7 +6997,7 @@
 		(property ki_fp_filters "*polyfuse* *PTC*")
 		(path "/60c2f7be-3c62-4bc4-8f8e-06e575e56970")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.83 -2.12)
@@ -7218,7 +7218,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/3157447a-096e-427e-be83-2105720f70ce")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.38 1.27)
@@ -7554,7 +7554,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/dbd62777-a145-4418-bbee-26d459837859")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.37 0)
@@ -7747,7 +7747,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/8b8564a1-4b0a-41e7-b156-0aa93ef30977")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.37 0)
@@ -7942,7 +7942,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/5721c8b6-38cf-4710-8c09-0bdaed6ff142")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 19.11)
@@ -8261,7 +8261,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/8ee83da4-3bc9-4558-a7d5-b7f930060617")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -8732,7 +8732,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/cb51d4ed-ab3a-44c1-a915-c819049dee76")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -9242,7 +9242,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/9dacd5c7-0ea1-495d-aa77-3c4b2579909c")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.37 0)
@@ -9980,7 +9980,7 @@
 		)
 		(path "/ea9cf4a6-a97e-456c-9626-86301684f0d1")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -2.57 -3.26)
@@ -10255,7 +10255,7 @@
 		(property ki_fp_filters "MountingHole*")
 		(path "/7aed9974-9dd2-4676-a5a8-3522ed939d65")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
 			(center 0 0)
@@ -10538,7 +10538,7 @@
 		)
 		(path "/6b38f57d-7957-4ccc-a4d7-4f41853432ec")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.34 18.5)
@@ -10921,7 +10921,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/ad381013-9409-470d-a11f-cfef1e2ced0b")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.29 1.08)
@@ -11199,7 +11199,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/8e88ffcb-308b-45fc-9749-7abdeeb45f95")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.37 0)
@@ -11394,7 +11394,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/e3992448-6e59-4edc-b135-df9447d20709")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 19.11)
@@ -11713,7 +11713,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/c1a6e366-65b2-484a-aa06-73f2aa8845ae")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -12225,7 +12225,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/cc98f78e-cabc-415e-88a1-e294032aa369")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 -1.33)
@@ -12478,7 +12478,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/b039d672-735b-452e-8a93-58c0826ea8c0")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -12949,7 +12949,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/6f3cd317-5fdb-42df-aac0-a6aa10e70e81")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -13420,7 +13420,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/ef3d3b3e-adc4-4bbb-bf71-723199d413aa")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -13763,7 +13763,7 @@
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
 			(roundrect_rratio 0.143678)
-			(net 91 "/STEPPER_FL_A")
+			(net 91 "/STEPPER_FA_A")
 			(pinfunction "Pin_1")
 			(pintype "passive")
 			(uuid "fe3f1cd2-530b-4842-bb4c-4f03780661ef")
@@ -13891,7 +13891,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/cd3d7b4e-f6a7-45db-af34-9d1bef830484")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -14401,7 +14401,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/6e155b3e-80ac-499c-9c99-a6b139d07d29")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.37 0)
@@ -14594,7 +14594,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/de927b73-ae39-4328-9896-00107ac8f579")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.37 0)
@@ -14787,7 +14787,7 @@
 		(property ki_fp_filters "R_*")
 		(path "/30277abb-ad30-413a-a92a-803d0ec36dbc")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.37 0)
@@ -14941,7 +14941,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/4ec057e0-03a2-4c8e-834b-b1e8df03009e")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -15412,7 +15412,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/5f118826-7c78-4108-8da5-724bf866bec7")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -15922,7 +15922,7 @@
 		(property ki_fp_filters "LED* LED_SMD:* LED_THT:*")
 		(path "/1746df0c-96c1-4cab-968b-eb4c3d8e8f22")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -0.29 1.08)
@@ -16202,7 +16202,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/a74b0e48-0f97-4463-bc32-28aced98e03e")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 1.1 -3.75)
@@ -16626,7 +16626,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/552ba16f-d1ce-4071-95fb-cc04107d073c")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 -1.33)
@@ -16967,7 +16967,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/9d94b069-98f0-49f3-83b7-8007bf8dc6b5")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.67 -2)
@@ -17479,7 +17479,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/c681dd63-8e1f-44ae-a75f-970d821f7351")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 -1.33)
@@ -17773,7 +17773,7 @@
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/c75bf993-c6ba-412a-b52d-f70f9c2edcce")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start -1.33 -1.33)
@@ -17964,7 +17964,7 @@
 			(drill 1)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 91 "/STEPPER_FL_A")
+			(net 91 "/STEPPER_FA_A")
 			(pinfunction "Pin_3")
 			(pintype "passive")
 			(uuid "38c9010c-7b76-4a0d-8646-406bbb778ddc")
@@ -18135,7 +18135,7 @@
 		(property ki_fp_filters "Arduino_Mega2560_R3_Shield")
 		(path "/4ebe65f4-496b-4ac2-abaa-3a77405cdca8")
 		(sheetname "/")
-		(sheetfile "Jet Ranger 12 Stepper.kicad_sch")
+		(sheetfile "Jet Ranger 13 Stepper.kicad_sch")
 		(attr through_hole)
 		(fp_line
 			(start 101.6 -3.81)
@@ -18940,7 +18940,7 @@
 			(drill 1.016)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 91 "/STEPPER_FL_A")
+			(net 91 "/STEPPER_FA_A")
 			(pinfunction "D2_INT0")
 			(pintype "bidirectional")
 			(uuid "25b14618-a5a9-4377-9d33-841ed781dfe5")
@@ -21591,7 +21591,7 @@
 			(justify right bottom)
 		)
 	)
-	(gr_text "Jet Ranger 13 Stepper V ${REVISION}\n20260801"
+	(gr_text "Jet Ranger 13 Stepper V ${REVISION}\n20261012"
 		(at 81.5 52 0)
 		(layer "F.SilkS")
 		(uuid "3fb79051-4d47-44c9-82f1-b1431e40e576")

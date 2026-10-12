@@ -8673,7 +8673,7 @@
 		)
 		(uuid "b7eb0514-2c6e-4853-9cf3-9f9b58e9b206")
 	)
-	(label "STEPPER_FL_A"
+	(label "STEPPER_FA_A"
 		(at 45.72 82.55 180)
 		(effects
 			(font
@@ -18284,6 +18284,48 @@
 				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
 					(reference "#PWR026")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 30.48 264.16)
+		(size 12.7 5.08)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "3515c5a0-b264-4fd1-8e38-db116cd40768")
+		(property "Sheetname" "Change Log"
+			(at 30.48 263.4484 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "Change Log.kicad_sch"
+			(at 30.48 269.8246 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Jet Ranger 13 Stepper"
+				(path "/8a00b1ca-e561-4386-9590-9730de0281a4"
+					(page "2")
 				)
 			)
 		)
