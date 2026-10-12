@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1358)
+    (start_pass_no 4732)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -78,6 +78,7 @@
     "Net-(J15-Pin_12)" "Net-(J15-Pin_6)" "/I2C_SEL_A0" /SDA "/I2C_SEL_A2" "/I2C_SEL_RESET" /SCL "/I2C_SEL_A1"
     /SD1 /SC1 /SD2 /SC2 /SD4 /SD3 /SD5 /SC5
     /SD0 /SC6 /SC7 /SC0 /SD6 /SC4 /SD7 /SC3
+    "/STEPPER_FA_A"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

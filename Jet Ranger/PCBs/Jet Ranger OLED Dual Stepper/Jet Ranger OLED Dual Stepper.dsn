@@ -1,4 +1,4 @@
-(pcb "C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\PCBs\Jet Ranger OLED Dual Stepper\Jet Ranger OLED Dual Stepper.dsn"
+(pcb "/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/Jet Ranger/PCBs/Jet Ranger OLED Dual Stepper/Jet Ranger OLED Dual Stepper.dsn"
   (parser
     (string_quote ")
     (space_in_quoted_tokens on)
@@ -1539,7 +1539,7 @@
       (pins J4-4 J34-7 A1-D6)
     )
     (net /STEPPER_FL_A
-      (pins J10-1 J4-1 J34-3 A1-D2 A1-D32)
+      (pins J10-1 A1-D32)
     )
     (net /STEPPER_FA_B
       (pins J4-2 J34-4 A1-D3)
@@ -1646,6 +1646,9 @@
     (net /SC3
       (pins U4-16 J18-3)
     )
+    (net /STEPPER_FA_A
+      (pins J4-1 J34-3 A1-D2)
+    )
     (class kicad_default +12V +3V3 /+5v_IN /+5v_SERVO /AREF /BACKLIGHT_PWM
       /D0 /D1 /GREEN_LED /I2C_SEL_A0 /I2C_SEL_A1 /I2C_SEL_A2 /I2C_SEL_RESET
       /INT_5V /IORF /PIN_20 /PIN_21 /RED_LED /RESET /RESET_pin /SC0 /SC1 /SC2
@@ -1654,19 +1657,19 @@
       /STEPPER_EGT_B /STEPPER_EGT_C /STEPPER_EGT_D /STEPPER_EL_A /STEPPER_EL_B
       /STEPPER_EL_C /STEPPER_EL_D /STEPPER_EOP_A /STEPPER_EOP_B /STEPPER_EOP_C
       /STEPPER_EOP_D /STEPPER_EOT_A /STEPPER_EOT_B /STEPPER_EOT_C /STEPPER_EOT_D
-      /STEPPER_FA_B /STEPPER_FA_C /STEPPER_FA_D /STEPPER_FL_A /STEPPER_FL_B
-      /STEPPER_FL_C /STEPPER_FL_D /STEPPER_RS_A /STEPPER_RS_B /STEPPER_RS_C
-      /STEPPER_RS_D /STEPPER_SPD_A /STEPPER_SPD_B /STEPPER_SPD_C /STEPPER_SPD_D
-      /STEPPER_TS_A /STEPPER_TS_B /STEPPER_TS_C /STEPPER_TS_D /STEPPER_VVI_A
-      /STEPPER_VVI_B /STEPPER_VVI_C /STEPPER_VVI_D /STEPPER_XOP_A /STEPPER_XOP_B
-      /STEPPER_XOP_C /STEPPER_XOP_D /STEPPER_XOT_A /STEPPER_XOT_B /STEPPER_XOT_C
-      /STEPPER_XOT_D /VIN "/ZERO-DETECT-ALTIMETER" "BACKLIGHT_-V" ES1_RST
-      GND MISO MOSI "Net-(D1-A)" "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "Net-(D5-A)"
-      "Net-(J15-Pin_1)" "Net-(J15-Pin_10)" "Net-(J15-Pin_11)" "Net-(J15-Pin_12)"
-      "Net-(J15-Pin_2)" "Net-(J15-Pin_3)" "Net-(J15-Pin_4)" "Net-(J15-Pin_5)"
-      "Net-(J15-Pin_6)" "Net-(J15-Pin_7)" "Net-(J15-Pin_8)" "Net-(J15-Pin_9)"
-      "Net-(J3-Pin_1)" "Net-(Q1-G)" "Net-(U3-INT)" SCLK SS "unconnected-(J14-Pin_1-Pad1)"
-      "unconnected-(U3-NC-PadB4)"
+      /STEPPER_FA_A /STEPPER_FA_B /STEPPER_FA_C /STEPPER_FA_D /STEPPER_FL_A
+      /STEPPER_FL_B /STEPPER_FL_C /STEPPER_FL_D /STEPPER_RS_A /STEPPER_RS_B
+      /STEPPER_RS_C /STEPPER_RS_D /STEPPER_SPD_A /STEPPER_SPD_B /STEPPER_SPD_C
+      /STEPPER_SPD_D /STEPPER_TS_A /STEPPER_TS_B /STEPPER_TS_C /STEPPER_TS_D
+      /STEPPER_VVI_A /STEPPER_VVI_B /STEPPER_VVI_C /STEPPER_VVI_D /STEPPER_XOP_A
+      /STEPPER_XOP_B /STEPPER_XOP_C /STEPPER_XOP_D /STEPPER_XOT_A /STEPPER_XOT_B
+      /STEPPER_XOT_C /STEPPER_XOT_D /VIN "/ZERO-DETECT-ALTIMETER" "BACKLIGHT_-V"
+      ES1_RST GND MISO MOSI "Net-(D1-A)" "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)"
+      "Net-(D5-A)" "Net-(J15-Pin_1)" "Net-(J15-Pin_10)" "Net-(J15-Pin_11)"
+      "Net-(J15-Pin_12)" "Net-(J15-Pin_2)" "Net-(J15-Pin_3)" "Net-(J15-Pin_4)"
+      "Net-(J15-Pin_5)" "Net-(J15-Pin_6)" "Net-(J15-Pin_7)" "Net-(J15-Pin_8)"
+      "Net-(J15-Pin_9)" "Net-(J3-Pin_1)" "Net-(Q1-G)" "Net-(U3-INT)" SCLK
+      SS "unconnected-(J14-Pin_1-Pad1)" "unconnected-(U3-NC-PadB4)"
       (circuit
         (use_via "Via[0-1]_600:400_um")
       )

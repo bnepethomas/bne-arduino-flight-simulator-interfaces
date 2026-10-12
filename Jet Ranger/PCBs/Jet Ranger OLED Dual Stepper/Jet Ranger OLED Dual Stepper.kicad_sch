@@ -9744,16 +9744,6 @@
 		)
 		(uuid "0694ab0e-0384-4c6b-9c9f-40f1896145ad")
 	)
-	(label "STEPPER_FL_A"
-		(at 350.52 22.86 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "06d186c5-7017-4b63-8f14-3ec56102fa15")
-	)
 	(label "STEPPER_ALT_C"
 		(at 349.25 104.14 0)
 		(effects
@@ -10184,16 +10174,6 @@
 		)
 		(uuid "3037ba80-fea3-4bfc-af02-ebf6d57f61c4")
 	)
-	(label "STEPPER_FA_C"
-		(at 350.52 27.94 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3078d568-3014-4461-b984-37d8f30dca94")
-	)
 	(label "STEPPER_EOT_A"
 		(at 349.25 119.38 0)
 		(effects
@@ -10323,6 +10303,16 @@
 			(justify left bottom)
 		)
 		(uuid "45b90552-a851-403b-98f9-b236f2f71c8b")
+	)
+	(label "STEPPER_FA_B"
+		(at 350.52 25.4 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "48ac0fa2-0e5a-4166-8bca-1bf063423a18")
 	)
 	(label "SCL"
 		(at 379.73 60.96 180)
@@ -10905,16 +10895,6 @@
 		)
 		(uuid "8cbfdf99-2ec0-4729-8e9d-c3b4e64000ad")
 	)
-	(label "STEPPER_FA_D"
-		(at 350.52 33.02 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "8d385f4c-d78d-4c79-9d47-8fc094c66320")
-	)
 	(label "STEPPER_ALT_C"
 		(at 203.2 232.41 180)
 		(effects
@@ -10985,16 +10965,6 @@
 		)
 		(uuid "9668bd8e-5589-4f33-b201-d44a7b592e8a")
 	)
-	(label "STEPPER_FA_B"
-		(at 350.52 25.4 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "98a3f156-daa4-4800-9720-e0cfb828c7ad")
-	)
 	(label "SDA"
 		(at 283.21 48.26 180)
 		(effects
@@ -11014,6 +10984,16 @@
 			(justify left bottom)
 		)
 		(uuid "9a87e62d-39eb-4153-9781-2591cec39fb5")
+	)
+	(label "STEPPER_FA_A"
+		(at 350.52 22.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9b2f4ffe-dec1-4a46-8ac6-538bc5e160a2")
 	)
 	(label "STEPPER_XOT_D"
 		(at 200.66 177.8 180)
@@ -11305,7 +11285,7 @@
 		)
 		(uuid "ba20c462-4530-413e-aac4-2ee9d7d0c7b3")
 	)
-	(label "STEPPER_FL_A"
+	(label "STEPPER_FA_A"
 		(at 45.72 82.55 180)
 		(effects
 			(font
@@ -11457,6 +11437,16 @@
 		)
 		(uuid "d8590df4-cef0-4bc7-9058-d4387e4044ad")
 	)
+	(label "STEPPER_FA_C"
+		(at 350.52 27.94 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "da9b2ec0-ed90-416a-99d7-9aaaa722c2a0")
+	)
 	(label "STEPPER_TS_A"
 		(at 200.66 147.32 180)
 		(effects
@@ -11577,6 +11567,16 @@
 			(justify right bottom)
 		)
 		(uuid "ec70b0e4-8b11-4a4b-86dc-c0ac2f6de2f0")
+	)
+	(label "STEPPER_FA_D"
+		(at 350.52 33.02 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ecff716c-73de-48ca-9f35-b70aa5247997")
 	)
 	(label "RESET_pin"
 		(at 349.25 121.92 0)
