@@ -210,6 +210,59 @@ void scanMatrix() {
 
 
 
+// ###################### Remote reset over UDP ######################
+// UDP control packet "C,RESET:1" reboots this board (value ignored). Done with
+// the AVR watchdog, which resets the whole chip: debug message, a short delay so
+// it can leave the network, then the watchdog is armed for 2s and the board
+// waits for it. The 2s timeout is deliberately long: the Mega's bootloader may
+// not switch the watchdog off, so a short timeout could reset it again before
+// the sketch starts. The .init3 function below turns the watchdog off first
+// thing after any reset (the standard avr-libc pattern) so the sketch never
+// runs with it armed.
+#include <avr/wdt.h>
+void DisableWatchdogAtStartup() __attribute__((naked)) __attribute__((section(".init3"))) __attribute__((used));
+void DisableWatchdogAtStartup() {
+  MCUSR = 0;
+  wdt_disable();
+}
+
+void RebootBoard() {
+  SendDebug("RESET command received - rebooting in 2s");
+  delay(100);
+  wdt_enable(WDTO_2S);
+  while (true) {
+  }
+}
+// ###################################################################
+
+// ###################### Control packets (UDP 13136) ######################
+// This board used to have no receiving socket at all. It now listens on the
+// same port the other boards use for "D,..." data and "C,..." control packets,
+// but only acts on the control packet "C,RESET:1" (reboot, see RebootBoard()
+// above); everything else is ignored. Polled every 20ms so the extra W5500
+// access does not slow the switch-matrix scan.
+EthernetUDP controlUDP;
+const unsigned int controlPort = 13136;
+unsigned long lastControlCheck = 0;
+
+void ServiceControlPackets() {
+  if (Ethernet_In_Use != 1) return;
+  if ((millis() - lastControlCheck) < 20) return;
+  lastControlCheck = millis();
+
+  int size = controlUDP.parsePacket();
+  if (size <= 0) return;
+  char buf[64];
+  int len = controlUDP.read(buf, sizeof(buf) - 1);
+  if (len <= 0) return;
+  buf[len] = 0;
+  // "C,<COMMAND>:<value>"
+  if (len >= 7 && buf[0] == 'C' && buf[1] == ',' && strncmp(buf + 2, "RESET", 5) == 0) {
+    RebootBoard();
+  }
+}
+// ###################################################################
+
 void setup() {
 
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
@@ -228,6 +281,7 @@ void setup() {
     Ethernet.begin(mac, ip);
     udp.begin(localport);
     aliveudp.begin(aliveport);
+    controlUDP.begin(controlPort);
 
     ethernetStartTime = millis() + delayBeforeSendingPacket;
     while (millis() <= ethernetStartTime) {
@@ -1218,4 +1272,5 @@ void loop() {
 
   ScanInputs();
   scanMatrix();
+  ServiceControlPackets();
 }

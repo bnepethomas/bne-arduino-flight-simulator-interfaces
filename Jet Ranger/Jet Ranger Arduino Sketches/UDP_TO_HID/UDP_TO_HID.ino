@@ -149,6 +149,31 @@ void loop() {
   }
 }
 
+// ###################### Remote reset over UDP ######################
+// UDP packet "C,RESET:1" (or just "RESET") to port 4210 reboots this board. Done
+// with the AVR watchdog, which resets the whole chip: log message, a short delay,
+// then the watchdog is armed for 2s and the board waits for it. The Leonardo's
+// Caterina bootloader starts the sketch straight away after a watchdog reset;
+// the .init3 function below turns the watchdog off first thing after any reset
+// (the standard avr-libc pattern) so the sketch never runs with it armed. Note
+// the USB connection drops while the board restarts, so Windows briefly loses
+// the four joysticks and the keyboard and then re-detects them.
+#include <avr/wdt.h>
+void DisableWatchdogAtStartup() __attribute__((naked)) __attribute__((section(".init3"))) __attribute__((used));
+void DisableWatchdogAtStartup() {
+  MCUSR = 0;
+  wdt_disable();
+}
+
+void RebootBoard() {
+  logMsg("RESET command received - rebooting in 2s");
+  delay(100);
+  wdt_enable(WDTO_2S);
+  while (true) {
+  }
+}
+// ###################################################################
+
 const int BUTTONS_PER_JOYSTICK = 32;
 Joystick_* joysticks[] = { &Joystick, &Joystick2, &Joystick3, &Joystick4 };
 const int NUM_JOYSTICKS = 4;
@@ -158,7 +183,13 @@ const int NUM_JOYSTICKS = 4;
 //                     idx 0-31 -> Joystick, 32-63 -> Joystick2, 64-95 -> Joystick3,
 //                     96-127 -> Joystick4.
 //   "KEY,key,state"   e.g. "KEY,a,1" presses the 'a' key, "KEY,ENTER,0" releases Enter
+//   "C,RESET:1"       reboots the board (also accepts plain "RESET")
 void processCommand(String cmd) {
+  if (cmd.startsWith("C,RESET") || cmd == "RESET") {
+    RebootBoard();
+    return;
+  }
+
   if (cmd.startsWith("KEY,")) {
     processKeyCommand(cmd.substring(4));
     return;

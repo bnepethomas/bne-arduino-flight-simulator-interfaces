@@ -457,6 +457,19 @@ Compiled; not yet flashed or bench-tested. **RAM is now 75% (1,973 bytes
 free) and the compiler warns "Low memory available"** - keep an eye on
 stability, and avoid adding more `String`-heavy code or OLEDs here.
 
+## Remote reset over UDP
+
+UDP control packet `C,RESET:1` (value ignored) to port 13136 reboots this
+board: `RebootBoard()` sends a debug line (`RESET command received - rebooting
+in 2s`), waits 100ms, arms the AVR watchdog for 2s (`wdt_enable(WDTO_2S)`) and
+spins until it fires, which resets the whole chip. The 2s timeout is
+deliberate: the Mega's bootloader may not switch the watchdog off, so a short
+timeout could loop. A `.init3` function, `DisableWatchdogAtStartup()`, clears
+`MCUSR` and disables the watchdog first thing after every reset (standard
+avr-libc pattern), so the sketch never runs with it armed. **Bench-tested on
+this board (2026-10-13):** after `C,RESET:1` the debug stream showed the acknowledgement, then "Ethernet Started" 6.7s later and a normal full boot (OLED start-up, all swings, "Setup Complete. 56196mS since reset"), with no reboot loop. If a board ever reboot-loops after a reset
+packet, power-cycle it (that clears the watchdog) and reflash.
+
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
@@ -464,7 +477,7 @@ Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 57,004 bytes (22%) | 6,219 bytes (75%) |
+| `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` | 57,156 bytes (22%) | 6,265 bytes (76%) |
 
 Flashed to a Mega on **COM4** (also previously flashed to COM13 - this
 board has moved between physical Megas/ports across bench sessions;

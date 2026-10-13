@@ -2555,10 +2555,35 @@ void HandleOutputValuePair(String str) {
   }
 }
 
+// ###################### Remote reset over UDP ######################
+// UDP control packet "C,RESET:1" reboots this board (value ignored). Done with
+// the AVR watchdog, which resets the whole chip: debug message, a short delay so
+// it can leave the network, then the watchdog is armed for 2s and the board
+// waits for it. The 2s timeout is deliberately long: the Mega's bootloader may
+// not switch the watchdog off, so a short timeout could reset it again before
+// the sketch starts. The .init3 function below turns the watchdog off first
+// thing after any reset (the standard avr-libc pattern) so the sketch never
+// runs with it armed.
+#include <avr/wdt.h>
+void DisableWatchdogAtStartup() __attribute__((naked)) __attribute__((section(".init3"))) __attribute__((used));
+void DisableWatchdogAtStartup() {
+  MCUSR = 0;
+  wdt_disable();
+}
+
+void RebootBoard() {
+  SendDebug("RESET command received - rebooting in 2s");
+  delay(100);
+  wdt_enable(WDTO_2S);
+  while (true) {
+  }
+}
+// ###################################################################
+
 void HandleControlString(String str) {
   // Control packet "C,<COMMAND>:<value>". Each SWING<CODE> command runs that
   // one gauge's boot startup swing on demand (ungated by the Swing flags;
-  // the value is ignored). OLEDTEST:1/0 lights/restores the three OLEDs. Commands: SWINGOILP, SWINGOILT, SWINGXMSNP, SWINGXMSNT, SWINGELECTRICALLOAD,
+  // the value is ignored). OLEDTEST:1/0 lights/restores the three OLEDs. RESET reboots the board. Commands: SWINGOILP, SWINGOILT, SWINGXMSNP, SWINGXMSNT, SWINGELECTRICALLOAD,
   // SWINGFUELLOAD, SWINGRPME, SWINGRPMR, SWINGALT.
   String name = getValue(str, ':', 0);
   name.trim();
@@ -2592,6 +2617,8 @@ void HandleControlString(String str) {
   } else if (name == "OLEDTEST") {
     SendDebug("OLED test " + getValue(str, ':', 1));
     oledTest(getValue(str, ':', 1).toInt() != 0);
+  } else if (name == "RESET") {
+    RebootBoard();
   }
 }
 

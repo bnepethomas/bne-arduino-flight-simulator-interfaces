@@ -32,6 +32,19 @@ flight sim over Ethernet.
      voltage and NAVCOM1 power state, then refreshes the OLEDs if anything
      changed.
 
+## Remote reset over UDP
+
+UDP control packet `C,RESET:1` (value ignored) to port 13136 reboots this
+board: `RebootBoard()` sends a debug line (`RESET command received - rebooting
+in 2s`), waits 100ms, arms the AVR watchdog for 2s (`wdt_enable(WDTO_2S)`) and
+spins until it fires, which resets the whole chip. The 2s timeout is
+deliberate: the Mega's bootloader may not switch the watchdog off, so a short
+timeout could loop. A `.init3` function, `DisableWatchdogAtStartup()`, clears
+`MCUSR` and disables the watchdog first thing after every reset (standard
+avr-libc pattern), so the sketch never runs with it armed. Handled in `HandleControlString()` (the existing `C,...` control-packet handler, port 13136). Compiled; not yet
+flashed or bench-tested on this board (the same code was bench-tested on the
+Servo, Stepper and Dual Stepper boards, which rebooted cleanly with no loop).
+
 ## Pin usage
 
 | Pin(s) | Function |

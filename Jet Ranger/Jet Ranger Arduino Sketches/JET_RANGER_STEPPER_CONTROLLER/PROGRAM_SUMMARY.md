@@ -30,7 +30,7 @@ Both sketches in this folder were compiled with `arduino-cli` (target
 
 | Sketch | Flash | RAM |
 |---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 29,580 bytes (11%) | 3,933 bytes (48%) |
+| `JET_RANGER_STEPPER_CONTROLLER.ino` | 29,734 bytes (11%) | 3,981 bytes (48%) |
 | `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
 
 Flashed to the bench Mega on COM4 several times across this sketch's
@@ -253,6 +253,23 @@ this sketch, so they have no command. The swings block the main loop while
 they run and re-home the stepper (`setCurrentPosition(0)`) exactly as at
 boot; the needle rests at its calibrated zero until the next data packet.
 Compiled but not yet bench-tested via UDP.
+
+## Remote reset over UDP
+
+UDP control packet `C,RESET:1` (value ignored) to port 13136 reboots this
+board: `RebootBoard()` sends a debug line (`RESET command received - rebooting
+in 2s`), waits 100ms, arms the AVR watchdog for 2s (`wdt_enable(WDTO_2S)`) and
+spins until it fires, which resets the whole chip. The 2s timeout is
+deliberate: the Mega's bootloader may not switch the watchdog off, so a short
+timeout could loop. A `.init3` function, `DisableWatchdogAtStartup()`, clears
+`MCUSR` and disables the watchdog first thing after every reset (standard
+avr-libc pattern), so the sketch never runs with it armed. **Bench-tested on
+this board (COM4, 2026-10-13):** after `C,RESET:1` the debug stream showed the
+acknowledgement, then "Ethernet Started" 6.6s later (2s watchdog + bootloader +
+the 3s Ethernet start-up), a normal full boot with `millis()` back at zero
+("Setup Complete. 72610mS since reset"), and no reboot loop. If a board ever
+reboot-loops after a reset packet, power-cycle it (that clears the watchdog)
+and reflash.
 
 ## Pin usage (JET_RANGER_STEPPER_CONTROLLER.ino)
 

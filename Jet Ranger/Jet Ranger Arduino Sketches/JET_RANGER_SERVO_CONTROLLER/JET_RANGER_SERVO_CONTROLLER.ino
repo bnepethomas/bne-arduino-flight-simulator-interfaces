@@ -829,6 +829,31 @@ void swingBank() {
   SendDebug("End Bank swing");
 }
 
+// ###################### Remote reset over UDP ######################
+// UDP control packet "C,RESET:1" reboots this board (value ignored). Done with
+// the AVR watchdog, which resets the whole chip: debug message, a short delay so
+// it can leave the network, then the watchdog is armed for 2s and the board
+// waits for it. The 2s timeout is deliberately long: the Mega's bootloader may
+// not switch the watchdog off, so a short timeout could reset it again before
+// the sketch starts. The .init3 function below turns the watchdog off first
+// thing after any reset (the standard avr-libc pattern) so the sketch never
+// runs with it armed.
+#include <avr/wdt.h>
+void DisableWatchdogAtStartup() __attribute__((naked)) __attribute__((section(".init3"))) __attribute__((used));
+void DisableWatchdogAtStartup() {
+  MCUSR = 0;
+  wdt_disable();
+}
+
+void RebootBoard() {
+  SendDebug("RESET command received - rebooting in 2s");
+  delay(100);
+  wdt_enable(WDTO_2S);
+  while (true) {
+  }
+}
+// ###################################################################
+
 void HandleControlString(String str) {
   bool bLocalDebug = false;
   //if (Debug_Display || bLocalDebug ) SendDebug("Handling Control String :" + str);
@@ -859,6 +884,8 @@ void HandleControlString(String str) {
       swingPitch();
     } else if (command == "SWINGBANK") {
       swingBank();
+    } else if (command == "RESET") {
+      RebootBoard();
     }
 
     // Backlighting and Flood ligghting

@@ -7,7 +7,10 @@ namespace SwingTester
     {
         Stepper,      // JET_RANGER_STEPPER_CONTROLLER, single board
         DualStepper,  // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER (also the OLEDs)
-        Servo         // JET_RANGER_SERVO_CONTROLLER (pitch/bank)
+        Servo,        // JET_RANGER_SERVO_CONTROLLER (pitch/bank)
+        Radio,        // JET_RANGER_RADIO_CONTROLLER (reset only)
+        Upper,        // JET_RANGER_UPPER_CONTROLLER (reset only)
+        Hid           // UDP_TO_HID (reset only; listens on 4210, not 13136)
     }
 
     /// <summary>One gauge's startup swing: which board, which UDP control command.</summary>
@@ -82,6 +85,10 @@ namespace SwingTester
         private readonly TextBox txtStepperIp = new() { Text = "172.16.1.105", Width = 110 };
         private readonly TextBox txtDualIp = new() { Text = "172.16.1.106", Width = 110 };
         private readonly TextBox txtServoIp = new() { Text = "172.16.1.102", Width = 110 };
+        private readonly TextBox txtRadioIp = new() { Text = "172.16.1.101", Width = 110 };
+        private readonly TextBox txtUpperIp = new() { Text = "172.16.1.103", Width = 110 };
+        private readonly TextBox txtHidIp = new() { Text = "172.16.1.11", Width = 110 };
+        private readonly Button btnReset = new() { Text = "Reset boards...", AutoSize = true };
         private readonly Button btnSwingAll = new() { Text = "Swing ALL (in order)", AutoSize = true };
         private readonly Button btnStop = new() { Text = "Stop", AutoSize = true, Enabled = false };
         private readonly Button btnOledOn = new() { Text = "OLEDs ON", AutoSize = true };
@@ -134,6 +141,12 @@ namespace SwingTester
             top.Controls.Add(txtDualIp);
             top.Controls.Add(new Label { Text = "Servo (.102)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
             top.Controls.Add(txtServoIp);
+            top.Controls.Add(new Label { Text = "Radio (.101)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
+            top.Controls.Add(txtRadioIp);
+            top.Controls.Add(new Label { Text = "Upper (.103)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
+            top.Controls.Add(txtUpperIp);
+            top.Controls.Add(new Label { Text = "HID (.11)", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
+            top.Controls.Add(txtHidIp);
 
             var actions = new FlowLayoutPanel
             {
@@ -146,6 +159,7 @@ namespace SwingTester
             actions.Controls.Add(btnStop);
             actions.Controls.Add(btnOledOn);
             actions.Controls.Add(btnOledOff);
+            actions.Controls.Add(btnReset);
             actions.Controls.Add(chkOled);
             chkOled.Margin = new Padding(12, 6, 3, 0);
             actions.Controls.Add(new Label { Text = "Temp OLED:", AutoSize = true, Margin = new Padding(12, 6, 3, 0) });
@@ -280,6 +294,7 @@ namespace SwingTester
             btnOledOff.Click += async (_, _) => await SendOledAsync(false);
             btnTempSend.Click += async (_, _) => await SendTempAsync();
             keepAliveTimer.Tick += async (_, _) => await SendKeepAliveAsync();
+            btnReset.Click += async (_, _) => await ResetBoardsAsync();
             btnLampsOn.Click += async (_, _) => await RunLampsOnAsync();
             btnLampsOff.Click += async (_, _) => await TurnLampsOffInOrderAsync();
         }
@@ -297,6 +312,9 @@ namespace SwingTester
         {
             BoardId.Stepper => "Stepper .105",
             BoardId.DualStepper => "Dual Stepper .106",
+            BoardId.Radio => "Radio .101",
+            BoardId.Upper => "Upper .103",
+            BoardId.Hid => "HID .11",
             _ => "Servo .102"
         };
 
@@ -304,8 +322,14 @@ namespace SwingTester
         {
             BoardId.Stepper => txtStepperIp.Text.Trim(),
             BoardId.DualStepper => txtDualIp.Text.Trim(),
+            BoardId.Radio => txtRadioIp.Text.Trim(),
+            BoardId.Upper => txtUpperIp.Text.Trim(),
+            BoardId.Hid => txtHidIp.Text.Trim(),
             _ => txtServoIp.Text.Trim()
         };
+
+        /// <summary>The UDP_TO_HID board listens on 4210; every other board on 13136.</summary>
+        private static int PortFor(BoardId b) => b == BoardId.Hid ? 4210 : Port;
 
         /// <summary>Sends "C,&lt;command&gt;:1" (a control packet) to the board.</summary>
         private async Task SendCommandAsync(BoardId board, string command)
@@ -333,6 +357,81 @@ namespace SwingTester
             {
                 lblStatus.Text = "TEMP send failed: " + ex.Message;
             }
+        }
+
+        /// <summary>
+        /// Asks which boards to reset (all ticked by default - untick any that are not connected),
+        /// then sends "C,RESET:1" to each. A board reboots about 2 s later through its watchdog; the
+        /// Dual Stepper then takes about a minute to finish its start-up swings, and the HID board
+        /// briefly drops its USB joysticks and keyboard.
+        /// </summary>
+        private async Task ResetBoardsAsync()
+        {
+            if (running) return;
+            var boards = new[] { BoardId.Radio, BoardId.Servo, BoardId.Upper, BoardId.Stepper, BoardId.DualStepper, BoardId.Hid };
+            var chosen = PickBoardsToReset(boards);
+            if (chosen.Count == 0) return;
+
+            byte[] data = Encoding.ASCII.GetBytes("C,RESET:1");
+            var sent = new List<string>();
+            var failed = new List<string>();
+            foreach (var board in chosen)
+            {
+                try
+                {
+                    await udp.SendAsync(data, data.Length, IpFor(board), PortFor(board));
+                    sent.Add(BoardText(board));
+                }
+                catch (Exception ex)
+                {
+                    failed.Add(BoardText(board) + " (" + ex.Message + ")");
+                }
+            }
+            lblStatus.Text = "Reset sent to: " + string.Join(", ", sent) +
+                (failed.Count > 0 ? ". FAILED: " + string.Join(", ", failed) : ".");
+        }
+
+        private List<BoardId> PickBoardsToReset(BoardId[] boards)
+        {
+            using var dlg = new Form
+            {
+                Text = "Reset boards",
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                StartPosition = FormStartPosition.CenterParent,
+                MinimizeBox = false,
+                MaximizeBox = false,
+                AutoSize = true,
+                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                Padding = new Padding(12)
+            };
+            var flow = new FlowLayoutPanel { FlowDirection = FlowDirection.TopDown, AutoSize = true, WrapContents = false, Dock = DockStyle.Fill };
+            flow.Controls.Add(new Label
+            {
+                Text = "Tick the boards to reset. Each reboots about 2 seconds later and runs its" + Environment.NewLine +
+                       "start-up again (the Dual Stepper takes about a minute; the HID board" + Environment.NewLine +
+                       "drops its USB joysticks and keyboard briefly). Untick any that are not connected.",
+                AutoSize = true,
+                Margin = new Padding(0, 0, 0, 8)
+            });
+            var checks = new Dictionary<BoardId, CheckBox>();
+            foreach (var b in boards)
+            {
+                var c = new CheckBox { Text = BoardText(b) + "  (" + IpFor(b) + ")", Checked = true, AutoSize = true };
+                checks[b] = c;
+                flow.Controls.Add(c);
+            }
+            var buttons = new FlowLayoutPanel { FlowDirection = FlowDirection.LeftToRight, AutoSize = true, Margin = new Padding(0, 10, 0, 0) };
+            var ok = new Button { Text = "Reset", DialogResult = DialogResult.OK, AutoSize = true };
+            var cancel = new Button { Text = "Cancel", DialogResult = DialogResult.Cancel, AutoSize = true };
+            buttons.Controls.Add(ok);
+            buttons.Controls.Add(cancel);
+            flow.Controls.Add(buttons);
+            dlg.Controls.Add(flow);
+            dlg.AcceptButton = null;
+            dlg.CancelButton = cancel;
+
+            if (dlg.ShowDialog(this) != DialogResult.OK) return new List<BoardId>();
+            return boards.Where(b => checks[b].Checked).ToList();
         }
 
         private async Task SendOledAsync(bool on, bool quiet = false)
@@ -446,6 +545,7 @@ namespace SwingTester
             btnStop.Enabled = value;
             btnLampsOn.Enabled = !value;
             btnLampsOff.Enabled = !value;
+            btnReset.Enabled = !value;
             foreach (var b in rowButtons) b.Enabled = !value;
         }
 

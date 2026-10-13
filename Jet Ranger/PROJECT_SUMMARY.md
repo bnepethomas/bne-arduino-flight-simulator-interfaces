@@ -29,12 +29,18 @@ lives in each project's own `PROGRAM_SUMMARY.md` and in
   board has a static IP and a W5500 Ethernet shield.
 - **Wire format:** `D,<code>:<value>,...` data packets (for example
   `D,ALT:1200,OILP:55`); `C,<command>:<value>` control packets (swing tests,
-  OLED lamp test, keepalive); a calibrated real-unit code (`OILP`) usually has a
+  OLED lamp test, keepalive, reset); a calibrated real-unit code (`OILP`) usually has a
   `...RAW` twin that bypasses the calibration (`OILPRAW`).
 - **Safety net on the gauge boards:** if no UDP packet arrives for 30 s, every
   gauge returns to its calibrated zero (the Dual Stepper also blanks its OLEDs,
   the Servo board switches its lamps off). The 30 s now starts at the end of
   `setup()`.
+- **Remote reset:** the control packet `C,RESET:1` reboots a board through its
+  watchdog about 2 s later (port 13136 on the Servo, Stepper, Dual Stepper, Radio
+  and Upper boards; port 4210 on the HID board). Bench-tested on the Servo,
+  Stepper, Dual Stepper and HID boards; the Radio and Upper sketches have the code
+  but were not flashed (boards not connected). SwingTester's Reset boards...
+  button sends it.
 
 ## Arduino sketches (`Jet Ranger Arduino Sketches/`)
 

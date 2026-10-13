@@ -144,12 +144,25 @@ power-up reading as the starting state (no spurious message at boot) and
 `setup()` reports each input's starting state as `<NAME> initial CLOSED/OPEN`
 just before "Setup Complete". Nothing is sent to the PC itself - adding more inputs is one more row in
 `debouncedInputs[]`. Compiled; the HID forwarding is not yet flashed or
-bench-tested (the debug-message part was bench-tested earlier).
+bench-tested for button presses (the debug-message part was bench-tested earlier); the boot-time starting states were confirmed on the HID board's own log on 2026-10-13 (`Joystick1 button 7 set to 0`, `button 8 set to 0`, `button 9 set to 1`).
+
+## Remote reset over UDP
+
+UDP control packet `C,RESET:1` (value ignored) to port 13136 reboots this
+board: `RebootBoard()` sends a debug line (`RESET command received - rebooting
+in 2s`), waits 100ms, arms the AVR watchdog for 2s (`wdt_enable(WDTO_2S)`) and
+spins until it fires, which resets the whole chip. The 2s timeout is
+deliberate: the Mega's bootloader may not switch the watchdog off, so a short
+timeout could loop. A `.init3` function, `DisableWatchdogAtStartup()`, clears
+`MCUSR` and disables the watchdog first thing after every reset (standard
+avr-libc pattern), so the sketch never runs with it armed. **Bench-tested on
+this board (2026-10-13):** after `C,RESET:1` the debug stream showed the acknowledgement, then "Ethernet Started" 6.9s later, the Pitch/Bank sweeps, the switch starting states and "Setup Complete" about 12.8s after the command, with no reboot loop. If a board ever reboot-loops after a reset
+packet, power-cycle it (that clears the watchdog) and reflash.
 
 ## Build verification
 
 Compiled with `arduino-cli` (target `arduino:avr:mega:cpu=atmega2560`),
-**0 errors**: 23,164 bytes flash (9%), 2,331 bytes RAM (28%). (Dropped
+**0 errors**: 23,312 bytes flash (9%), 2,377 bytes RAM (29%). (Dropped
 from 27,646/2,925 after the out-of-band 15-servo removal - see the note
 at the top of this file.)
 

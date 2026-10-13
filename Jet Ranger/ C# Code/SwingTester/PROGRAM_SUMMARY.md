@@ -77,6 +77,21 @@ sends ON before the first swing and OFF afterwards (also after Stop or an
 error). The command is ignored by the board (debug line
 `OLEDTEST ignored - OLEDs not initialised`) if its TCA mux wasn't found at boot.
 
+## Reset boards
+
+The **Reset boards...** button opens a dialog with a tick box per board - Radio
+(.101), Servo (.102), Upper (.103), Stepper (.105), Dual Stepper (.106) and the
+USB HID board (.11), all ticked by default (untick any that are not connected) -
+and **Reset** sends `C,RESET:1` to each ticked board (port 13136; the HID board
+listens on 4210). The Radio, Upper and HID addresses are extra boxes at the
+top. Each board reboots about 2 s later through its watchdog and runs its
+start-up again (the Dual Stepper takes about a minute; the HID board briefly
+drops its USB joysticks and keyboard). The status line lists the boards the
+command was sent to. The button is disabled while a run is active.
+**Tested 2026-10-13** by driving the real window with UI automation (Reset
+dialog, Radio and Upper unticked): Servo, Stepper, Dual Stepper and HID all
+acknowledged and rebooted cleanly.
+
 ## Temperature OLED
 
 The Dual Stepper now has a fourth OLED (mux channel 4) that shows a

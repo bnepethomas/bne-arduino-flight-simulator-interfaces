@@ -32,6 +32,19 @@ presents the buttons to Windows/MSFS as joystick buttons and keystrokes.
      released, `SendKeyToHid(key, 0)` — forwarding to `UDP_TO_HID` as a
      keyboard press/release.
 
+## Remote reset over UDP
+
+UDP control packet `C,RESET:1` (value ignored) to port 13136 reboots this
+board: `RebootBoard()` sends a debug line (`RESET command received - rebooting
+in 2s`), waits 100ms, arms the AVR watchdog for 2s (`wdt_enable(WDTO_2S)`) and
+spins until it fires, which resets the whole chip. The 2s timeout is
+deliberate: the Mega's bootloader may not switch the watchdog off, so a short
+timeout could loop. A `.init3` function, `DisableWatchdogAtStartup()`, clears
+`MCUSR` and disables the watchdog first thing after every reset (standard
+avr-libc pattern), so the sketch never runs with it armed. This board previously had no receiving socket at all; a new `controlUDP` socket on port 13136 is polled every 20ms by `ServiceControlPackets()` (so the extra W5500 access does not slow the matrix scan) and acts **only** on `C,RESET:1` - every other packet is ignored. Compiled; not yet
+flashed or bench-tested on this board (the same code was bench-tested on the
+Servo, Stepper and Dual Stepper boards, which rebooted cleanly with no loop).
+
 ## Pin usage
 
 | Pin(s) | Function |

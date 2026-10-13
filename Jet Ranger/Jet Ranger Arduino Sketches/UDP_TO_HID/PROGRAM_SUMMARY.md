@@ -30,6 +30,21 @@ keyboard.
        `F5`, `LCTRL`) are mapped to `Keyboard.h` key codes via
        `resolveKeyCode()`.
 
+## Remote reset over UDP
+
+A UDP packet `C,RESET:1` (or plain `RESET`) to port **4210** reboots this board
+(`processCommand()` checks for it before the `idx,state` / `KEY,...` formats):
+`RebootBoard()` logs `RESET command received - rebooting in 2s`, waits 100ms,
+arms the AVR watchdog for 2s and spins until it fires. The Leonardo's Caterina
+bootloader starts the sketch straight away after a watchdog reset, and a
+`.init3` function (`DisableWatchdogAtStartup()`) clears `MCUSR` and disables the
+watchdog first thing after every reset. The USB connection drops while the board
+restarts, so Windows briefly loses the four joysticks and the keyboard and then
+re-detects them. **Bench-tested (2026-10-13)** from the SwingTester app: the
+log showed the acknowledgement, then "Joystick controller booted" about 4s
+later, with no reboot loop. Compiled at 21,466 bytes flash (74%) / 1,674 bytes
+RAM (65%) for `arduino:avr:leonardo`, flashed on COM8.
+
 ## Pin usage
 
 | Pin(s) | Function |
