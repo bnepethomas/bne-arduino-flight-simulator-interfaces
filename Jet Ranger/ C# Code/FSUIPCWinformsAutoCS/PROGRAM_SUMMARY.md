@@ -91,6 +91,10 @@ acting on them through the FSUIPC API instead of SimConnect.
    - `COM1_RADIO_SWAP` / `COM2_RADIO_SWAP` → `FSUIPCConnection.SendControlToFS`
      with `FsControl.COM_STBY_RADIO_SWAP` / `FsControl.COM2_RADIO_SWAP` —
      FSUIPC's equivalent of a SimConnect `TransmitClientEvent`.
+   - `NAV1_RADIO_SWAP` / `NAV2_RADIO_SWAP` → `FsControl.NAV1_RADIO_SWAP` /
+     `FsControl.NAV2_RADIO_SWAP` (new; sent by the Radio Controller's NAV1/NAV2
+     FREQ switches; without a handler they would fall into the COM1
+     standby-frequency parser).
    - `AVIONICS_MASTER_SET` → writes directly to the avionics-master offset
      (`0x2E80`) already used by `chkAvionicsMaster_CheckedChanged`, rather
      than an unverified control ID.

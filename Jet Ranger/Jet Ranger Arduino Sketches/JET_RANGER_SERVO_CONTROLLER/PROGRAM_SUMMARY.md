@@ -194,6 +194,15 @@ at the top of this file.)
 | A14 | Low Fuel warning lamp |
 | A15 | Standby Compass (SC) Fail warning lamp |
 
+## Ethernet retransmission timeout
+
+`Ethernet.setRetransmissionTimeout(10)` is called right after `Ethernet.begin()`
+(same as the Stepper and Dual Stepper sketches). The W5500's default is 200ms x
+8 retries - up to 1600ms blocked inside a UDP send that gets no ARP reply (for
+example when the reflector PC or the HID board is off) - so one dead destination could stall
+the servo easing in `loop()`. With 10ms per retry the worst case is about 80ms. Compiled at 23,344 bytes flash (9%);
+not yet flashed.
+
 ## Local network configuration
 
 | Setting | Value |

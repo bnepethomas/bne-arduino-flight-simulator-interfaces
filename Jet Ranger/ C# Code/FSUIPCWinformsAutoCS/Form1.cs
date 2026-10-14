@@ -933,6 +933,44 @@ namespace FSUIPCTest
             {
                 FSUIPCConnection.SendControlToFS(FsControl.COM2_RADIO_SWAP, 0);
             }
+            else if (command.StartsWith("COM2_STANDBY:") || command.StartsWith("NAV1_STANDBY:") || command.StartsWith("NAV2_STANDBY:"))
+            {
+                // Standby frequency set from the radio controller's COM2 / NAV1 / NAV2 knobs.
+                // Sent with a radio name so it reaches the right radio: a bare number (the old
+                // format, still used for COM1 below) always retuned COM1 standby, and a NAV
+                // frequency outside 118-136.975 reset COM1 standby to 121.50.
+                int colon = command.IndexOf(':');
+                string radio = command.Substring(0, colon);
+                decimal freq;
+                if (decimal.TryParse(command.Substring(colon + 1).Trim(), System.Globalization.NumberStyles.Number, System.Globalization.CultureInfo.InvariantCulture, out freq))
+                {
+                    if (radio == "COM2_STANDBY" && freq >= 118.00m && freq <= 136.975m)
+                    {
+                        FSUIPCConnection.SendControlToFS(FsControl.COM2_STBY_RADIO_SET, new FsFrequencyCOM(freq).ToBCD());
+                    }
+                    else if (radio == "NAV1_STANDBY" && freq >= 108.00m && freq <= 117.95m)
+                    {
+                        FSUIPCConnection.SendControlToFS(FsControl.NAV1_STBY_SET, new FsFrequencyNAV(freq).ToBCD());
+                    }
+                    else if (radio == "NAV2_STANDBY" && freq >= 108.00m && freq <= 117.95m)
+                    {
+                        FSUIPCConnection.SendControlToFS(FsControl.NAV2_STBY_SET, new FsFrequencyNAV(freq).ToBCD());
+                    }
+                }
+            }
+            else if (command.Contains("NAV2_RADIO_SWAP"))
+            {
+                // Radio controller NAV2 FREQ SWITCH (matrix row 1, col 0). Needs its own
+                // handler for the same reason as NAV1 below.
+                FSUIPCConnection.SendControlToFS(FsControl.NAV2_RADIO_SWAP, 0);
+            }
+            else if (command.Contains("NAV1_RADIO_SWAP"))
+            {
+                // Radio controller key '9': swap NAV1 active/standby. Must be handled
+                // here - any unrecognised string falls through to the COM1 standby
+                // frequency parser below and would reset COM1 standby to 121.50.
+                FSUIPCConnection.SendControlToFS(FsControl.NAV1_RADIO_SWAP, 0);
+            }
             else if (command.Contains("AVIONICS_MASTER_SET"))
             {
                 this.avionicsMaster.Value = 1u;

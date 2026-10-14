@@ -45,3 +45,8 @@ C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\FSUIP
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\FSUIPCWinformsAutoCS\obj\Debug\net10.0-windows10.0.19041.0\FSUIPCWinformsAutoCS.pdb
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\FSUIPCWinformsAutoCS\obj\Debug\net10.0-windows10.0.19041.0\FSUIPCWinformsAutoCS.genruntimeconfig.cache
 C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\ C# Code\FSUIPCWinformsAutoCS\obj\Debug\net10.0-windows10.0.19041.0\ref\FSUIPCWinformsAutoCS.dll
+C:\Users\admin\AppData\Local\Temp\fsuipc_check_out\FSUIPCWinformsAutoCS.exe
+C:\Users\admin\AppData\Local\Temp\fsuipc_check_out\FSUIPCWinformsAutoCS.deps.json
+C:\Users\admin\AppData\Local\Temp\fsuipc_check_out\FSUIPCWinformsAutoCS.runtimeconfig.json
+C:\Users\admin\AppData\Local\Temp\fsuipc_check_out\FSUIPCWinformsAutoCS.dll
+C:\Users\admin\AppData\Local\Temp\fsuipc_check_out\FSUIPCWinformsAutoCS.pdb

@@ -45,6 +45,15 @@ log showed the acknowledgement, then "Joystick controller booted" about 4s
 later, with no reboot loop. Compiled at 21,466 bytes flash (74%) / 1,674 bytes
 RAM (65%) for `arduino:avr:leonardo`, flashed on COM8.
 
+## Ethernet retransmission timeout
+
+`Ethernet.setRetransmissionTimeout(10)` is called right after `Ethernet.begin()`
+(same as the Stepper and Dual Stepper sketches). The W5500's default is 200ms x
+8 retries - up to 1600ms blocked inside a UDP send that gets no ARP reply (for
+example when the reflector PC is off) - so one dead destination could stall
+button presses and releases. With 10ms per retry the worst case is about 80ms. Compiled at 21,498 bytes flash (74%, Leonardo);
+not yet flashed.
+
 ## Pin usage
 
 | Pin(s) | Function |

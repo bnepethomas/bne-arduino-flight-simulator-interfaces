@@ -299,6 +299,12 @@ void setup() {
     digitalWrite(ES1_RESET_PIN, HIGH);
 
     Ethernet.begin(mac, ip);
+    // W5500's own ARP/send retry timeout: default 200ms x 8 retries = up to 1600ms
+    // blocked inside udp.beginPacket()/endPacket() any time a send fails to get an
+    // ARP reply (e.g. the reflector PC or HID board is down). Cut to 10ms so a dead
+    // destination can't stall the switch-matrix scan. Retry count left at its default (8),
+    // so worst case is now ~80ms instead of ~1600ms.
+    Ethernet.setRetransmissionTimeout(10);
     udp.begin(localport);
     aliveudp.begin(aliveport);
     controlUDP.begin(controlPort);

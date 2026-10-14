@@ -22,6 +22,22 @@ bool Debug_Display = false;
 unsigned long lastEncoderUpdate = millis();
 bool radioFrequencyChanged = false;
 bool powerAvailable = true;
+
+// No-data timeout, same idea as the Servo/Stepper/Dual Stepper boards: if no UDP
+// packet (data "D,..." or control "C,...") arrives on MSFSudp for
+// noDataTimeoutMs, the COM and NAV displays are blanked - exactly what already
+// happens when powerAvailable is false (updateCOMM()/updateNAV() clear the
+// display). The timer starts at the END of setup(). When packets resume, the
+// previous power state is restored and both displays are redrawn.
+// Local input also counts: any encoder movement or key press wakes the displays
+// straight away (see wakeDisplays()) and restarts the 30 s, so the radio can be
+// used on its own with no PC feed; the displays blank again once there has been
+// neither UDP data nor local input for noDataTimeoutMs.
+const unsigned long noDataTimeoutMs = 30000;
+unsigned long lastMSFSDataMillis = 0;
+unsigned long lastLocalActivityMillis = 0;
+bool noDataBlanked = false;
+bool powerBeforeTimeout = true;
 String com1ActiveFrequency = "119.000";
 String com2ActiveFrequency = "120.000";
 String com1StandbyFrequency = "121.000";
@@ -365,7 +381,17 @@ char keyMap[ROWS][COLS] = {
   { '*', '0', '#', 'D' }
 };
 
+// Phantom key presses: an unwired / floating matrix column reads LOW as soon as
+// scanning starts, which used to be reported as real key presses at every boot
+// (and each one sent its command - battery, alternator, COM swaps - to the PC).
+// For matrixQuietMs after initMatrixScanner() the scanner now only records what
+// it sees (keys that are already down count as "down" but raise no press or
+// release event), so only genuine changes after start-up are reported.
+#define matrixQuietMs 1500
+unsigned long matrixQuietUntil = 0;
+
 void initMatrixScanner() {
+  matrixQuietUntil = millis() + matrixQuietMs;
   // Initialize row pins as outputs (will be set HIGH to scan)
   for (int i = 0; i < ROWS; i++) {
     pinMode(rowPins[i], OUTPUT);
@@ -413,9 +439,11 @@ void scanMatrix() {
         if (reading != buttonState[row][col]) {
           buttonState[row][col] = reading;
 
-          // Key press detection (LOW = pressed due to pull-up)
-          if (buttonState[row][col] == LOW && !keyPressed[row][col]) {
-            // Key was just pressed
+          if (millis() < matrixQuietUntil) {
+            // Start-up quiet period: record the state, report nothing.
+            keyPressed[row][col] = false;
+          } else if (buttonState[row][col] == LOW && !keyPressed[row][col]) {
+            // Key press detection (LOW = pressed due to pull-up): just pressed
             keyPressed[row][col] = true;
             onKeyPress(row, col);
           } else if (buttonState[row][col] == HIGH && keyPressed[row][col]) {
@@ -436,8 +464,70 @@ void scanMatrix() {
   }
 }
 
+// Sends a knob-set standby frequency to the PC bridge (172.16.1.10:27001).
+// Before, every knob sent the bare number ("118.295", "108.000") whichever radio
+// it belonged to; the bridge treats a bare number as COM1 standby and anything
+// outside 118-136.975 as 121.50, so turning the COM2 or a NAV knob retuned COM1
+// (and every boot, which "moves" all four encoders from zero, set COM1 standby to
+// 121.50). Now the radio name is sent: COM1 stays the bare number (the SimConnect/
+// P3D bridges only know that form), COM2 / NAV1 / NAV2 are sent as
+// "COM2_STANDBY:118.295" / "NAV1_STANDBY:108.000" / "NAV2_STANDBY:108.000", which
+// FSUIPCWinformsAutoCS routes to the matching radio. Nothing is sent during the
+// start-up quiet period (matrixQuietUntil), so the encoders' power-up positions
+// are not pushed to the simulator.
+void sendStandbyToPC(const char* radio, const String& frequency) {
+  if (Ethernet_In_Use != 1) return;
+  if (millis() < matrixQuietUntil) return;
+  SendDebug("To PC: " + String(radio) + (radio[0] != 0 ? ":" : "COM1 ") + frequency);
+  udp.beginPacket(reflectorIP, 27001);
+  if (radio[0] != 0) {
+    udp.print(radio);
+    udp.print(":");
+  }
+  udp.print(frequency);
+  udp.endPacket();
+}
+
+// Local activity (any encoder movement or key press): restart the no-data
+// timeout and, if the displays are blanked, restore them (power state back to
+// what it was, both displays redrawn). Call BEFORE updateCOMM()/updateNAV() in the
+// encoder handlers so a turned knob draws on a restored display.
+void wakeDisplays() {
+  lastLocalActivityMillis = millis();
+  if (noDataBlanked) {
+    noDataBlanked = false;
+    powerAvailable = powerBeforeTimeout;
+    updateNAV();
+    updateCOMM();
+    SendDebug("Local input - displays restored");
+  }
+}
+
+// Diagnostic: UDP control packet "C,MATRIX:1" sends the RAW matrix readings to
+// the debug stream, bypassing debounce and the start-up quiet period. First line:
+// all four columns with every row HIGH (idle). Then one line per row with only that
+// row driven LOW. "H" = column reads HIGH, "L" = column reads LOW. Hold a switch
+// down and send the command to see which row/column it changes: a closed switch
+// should turn exactly one "H" into "L" on its own row's line.
+void reportMatrixRaw() {
+  for (int i = 0; i < ROWS; i++) digitalWrite(rowPins[i], HIGH);
+  delayMicroseconds(50);
+  String line = "Matrix raw idle (all rows HIGH), cols 0-3: ";
+  for (int c = 0; c < COLS; c++) line += (digitalRead(colPins[c]) ? "H" : "L");
+  SendDebug(line);
+  for (int r = 0; r < ROWS; r++) {
+    for (int i = 0; i < ROWS; i++) digitalWrite(rowPins[i], (i == r) ? LOW : HIGH);
+    delayMicroseconds(50);
+    String rl = "Matrix raw row " + String(r) + " LOW, cols 0-3: ";
+    for (int c = 0; c < COLS; c++) rl += (digitalRead(colPins[c]) ? "H" : "L");
+    SendDebug(rl);
+  }
+  for (int i = 0; i < ROWS; i++) digitalWrite(rowPins[i], HIGH);
+}
+
 // Callback function for key press events
 void onKeyPress(int row, int col) {
+  wakeDisplays();
   SendDebug("Key Pressed: Row " + String(row) + ", Col " + String(col) + " -> '" + String(keyMap[row][col]) + "'");
   // Add your custom key press handling here
   handleKeyPress(row, col, keyMap[row][col]);
@@ -470,32 +560,30 @@ void handleKeyPress(int row, int col, char key) {
       udp.endPacket();
     }
   } else if (row == 0 && col == 0) {
-    SendDebug("MASTER_BATTERY_ON");
+    // NAV1 swap - the "NAV1 FREQ SWITCH" (SW6) on the Jet Ranger COM and NAV PCB
+    // sits at matrix row 0, col 0. Swap the active and standby NAV1 frequencies on
+    // the NAV display straight away (the PC does not send NAV frequencies back,
+    // unlike COM) and tell the PC bridge to swap NAV1 in the simulator.
+    SendDebug("NAV1 Swap");
+    String swapTemp = Nav1ActiveFrequency;
+    Nav1ActiveFrequency = Nav1StandbyFrequency;
+    Nav1StandbyFrequency = swapTemp;
+    updateNAV();
     if (Ethernet_In_Use == 1) {
       udp.beginPacket(reflectorIP, 27001);
-      udp.print("MASTER_BATTERY_ON");
+      udp.print("NAV1_RADIO_SWAP");
       udp.endPacket();
     }
   } else if (row == 1 && col == 0) {
-    SendDebug("MASTER_BATTERY_OFF");
+    // NAV2 swap - the "NAV2 FREQ SWITCH" (SW7) on the COM and NAV PCB, row 1, col 0.
+    SendDebug("NAV2 Swap");
+    String swapTemp = Nav2ActiveFrequency;
+    Nav2ActiveFrequency = Nav2StandbyFrequency;
+    Nav2StandbyFrequency = swapTemp;
+    updateNAV();
     if (Ethernet_In_Use == 1) {
       udp.beginPacket(reflectorIP, 27001);
-      udp.print("MASTER_BATTERY_OFF");
-      udp.endPacket();
-    }
-  }
-  if (row == 0 && col == 0) {
-    SendDebug("ALTERNATOR_ON");
-    if (Ethernet_In_Use == 1) {
-      udp.beginPacket(reflectorIP, 27001);
-      udp.print("ALTERNATOR_ON");
-      udp.endPacket();
-    }
-  } else if (row == 1 && col == 0) {
-    SendDebug("ALTERNATOR_OFF");
-    if (Ethernet_In_Use == 1) {
-      udp.beginPacket(reflectorIP, 27001);
-      udp.print("ALTERNATOR_OFF");
+      udp.print("NAV2_RADIO_SWAP");
       udp.endPacket();
     }
   } else {
@@ -834,6 +922,9 @@ void HandleControlString(String str) {
 
     // Remote reset: C,RESET:1
     if (command == "RESET") RebootBoard();
+
+    // Matrix diagnostic: C,MATRIX:1 (see reportMatrixRaw())
+    if (command == "MATRIX") reportMatrixRaw();
   }
 
   return;
@@ -884,6 +975,12 @@ void setup() {
     digitalWrite(ES1_RESET_PIN, HIGH);
 
     Ethernet.begin(mac, ip);
+    // W5500's own ARP/send retry timeout: default 200ms x 8 retries = up to 1600ms
+    // blocked inside udp.beginPacket()/endPacket() any time a send fails to get an
+    // ARP reply (e.g. the reflector PC or HID board is down). Cut to 10ms so a dead
+    // destination can't stall the encoder and matrix scanning. Retry count left at its default (8),
+    // so worst case is now ~80ms instead of ~1600ms.
+    Ethernet.setRetransmissionTimeout(10);
     udp.begin(localport);
     debugUDP.begin(localdebugport);
     MSFSudp.begin(MSFSport);
@@ -969,6 +1066,11 @@ void setup() {
   SendDebug("Start Matrix");
   initMatrixScanner();
 
+  // Start the no-data timeout from the END of setup(), not from reset.
+  lastMSFSDataMillis = millis();
+  lastLocalActivityMillis = millis();
+  noDataBlanked = false;
+
   SendDebug("Setup Complete");
 }
 
@@ -1019,6 +1121,7 @@ void loop() {
 
   // Print if any encoder changed
   if (Comm1MajorEncoderPos != LastComm1MajorEncoderPos || Comm1MinorEncoderPos != LastComm1MinorEncoderPos) {
+    wakeDisplays();
     SendDebug("Comm1MajorEncoderPos:" + String(Comm1MajorEncoderPos) + " Comm1MinorEncoderPos: " + String(Comm1MinorEncoderPos));
 
     // Roll back to top if at deired zero point
@@ -1035,11 +1138,7 @@ void loop() {
     SendDebug("Converted Chan: " + String(convertedchann));
     com1StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
-    if (Ethernet_In_Use == 1) {
-      udp.beginPacket(reflectorIP, 27001);
-      udp.print(com1StandbyFrequency);
-      udp.endPacket();
-    }
+    sendStandbyToPC("", com1StandbyFrequency);
 
     updateCOMM();
     LastComm1MajorEncoderPos = Comm1MajorEncoderPos;
@@ -1051,6 +1150,7 @@ void loop() {
   } // End Comm1 Processing
 
   if (Comm2MajorEncoderPos != LastComm2MajorEncoderPos || Comm2MinorEncoderPos != LastComm2MinorEncoderPos) {
+    wakeDisplays();
     SendDebug("Comm2MajorEncoderPos:" + String(Comm2MajorEncoderPos) + " Comm2MinorEncoderPos: " + String(Comm2MinorEncoderPos));
 
     // Roll back to top if at deired zero point
@@ -1067,11 +1167,7 @@ void loop() {
     SendDebug("Converted Chan: " + String(convertedchann));
     com2StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
-    if (Ethernet_In_Use == 1) {
-      udp.beginPacket(reflectorIP, 27001);
-      udp.print(com2StandbyFrequency);
-      udp.endPacket();
-    }
+    sendStandbyToPC("COM2_STANDBY", com2StandbyFrequency);
 
     updateCOMM();
     LastComm2MajorEncoderPos = Comm2MajorEncoderPos;
@@ -1083,6 +1179,7 @@ void loop() {
   }  // End Comm2 Processing
 
   if (Nav1MajorEncoderPos != LastNav1MajorEncoderPos || Nav1MinorEncoderPos != LastNav1MinorEncoderPos) {
+    wakeDisplays();
     SendDebug("Nav1MajorEncoderPos:" + String(Nav1MajorEncoderPos) + " Nav1MinorEncoderPos: " + String(Nav1MinorEncoderPos));
 
     // Roll back to top if at deired zero point
@@ -1099,11 +1196,7 @@ void loop() {
     SendDebug("Converted Chan: " + String(convertedchann));
     Nav1StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
-    if (Ethernet_In_Use == 1) {
-      udp.beginPacket(reflectorIP, 27001);
-      udp.print(Nav1StandbyFrequency);
-      udp.endPacket();
-    }
+    sendStandbyToPC("NAV1_STANDBY", Nav1StandbyFrequency);
 
     updateNAV();
     LastNav1MajorEncoderPos = Nav1MajorEncoderPos;
@@ -1115,6 +1208,7 @@ void loop() {
   } // End Nav1 Processing
 
   if (Nav2MajorEncoderPos != LastNav2MajorEncoderPos || Nav2MinorEncoderPos != LastNav2MinorEncoderPos) {
+    wakeDisplays();
     SendDebug("Nav2MajorEncoderPos:" + String(Nav2MajorEncoderPos) + " Nav2MinorEncoderPos: " + String(Nav2MinorEncoderPos));
 
     // Roll back to top if at deired zero point
@@ -1131,11 +1225,7 @@ void loop() {
     SendDebug("Converted Chan: " + String(convertedchann));
     Nav2StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
-    if (Ethernet_In_Use == 1) {
-      udp.beginPacket(reflectorIP, 27001);
-      udp.print(Nav2StandbyFrequency);
-      udp.endPacket();
-    }
+    sendStandbyToPC("NAV2_STANDBY", Nav2StandbyFrequency);
 
     updateNAV();
     LastNav2MajorEncoderPos = Nav2MajorEncoderPos;
@@ -1161,8 +1251,30 @@ void loop() {
     }
     if (MSFSpacketsize) {
 
+      lastMSFSDataMillis = millis();
+      if (noDataBlanked) {
+        // Data is back: restore the power state and redraw both displays.
+        noDataBlanked = false;
+        powerAvailable = powerBeforeTimeout;
+        radioFrequencyChanged = true;
+        updateNAV();
+        updateCOMM();
+        SendDebug("UDP data resumed - displays restored");
+      }
+
       ProcessReceivedMSFSString();
       //SendDebug("Exiting MSFS Processing");
     }
+  }
+
+  // No-data timeout: blank both displays once, until packets resume.
+  unsigned long lastActivityMillis = (lastMSFSDataMillis > lastLocalActivityMillis) ? lastMSFSDataMillis : lastLocalActivityMillis;
+  if (!noDataBlanked && (millis() - lastActivityMillis) >= noDataTimeoutMs) {
+    noDataBlanked = true;
+    powerBeforeTimeout = powerAvailable;
+    powerAvailable = false;
+    updateCOMM();
+    updateNAV();
+    SendDebug("no UDP data or local input for " + String(noDataTimeoutMs / 1000) + "s, displays blanked");
   }
 }

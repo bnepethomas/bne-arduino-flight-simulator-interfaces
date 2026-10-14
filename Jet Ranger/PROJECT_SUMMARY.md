@@ -47,7 +47,7 @@ lives in each project's own `PROGRAM_SUMMARY.md` and in
 
 | Board / sketch | IP | Role |
 |---|---|---|
-| `JET_RANGER_RADIO_CONTROLLER` | .101 | COM/NAV frequency OLEDs, 8 rotary encoders, 4x4 button matrix; talks radio/battery commands to the PC |
+| `JET_RANGER_RADIO_CONTROLLER` | .101 | COM/NAV frequency OLEDs, 8 rotary encoders, 4x4 button matrix (the four COM/NAV swap switches); sends COM1/COM2/NAV1/NAV2 swap commands to the PC; blanks its displays after 30 s with no UDP data or local input |
 | `JET_RANGER_SERVO_CONTROLLER` | .102 | 2 attitude-indicator servos (pitch/bank, calibrated in degrees) and 15 warning lamps; 3 debounced front-panel switch inputs (D43 TOT CLEAR, D47 WARNING MUTE, D48 FUEL VALVE) reported as debug messages and sent to the HID board as joystick buttons (HID index 8 / 7 / 9) |
 | `JET_RANGER_UPPER_CONTROLLER` | .103 | overhead switch matrix (176 of 256 inputs) + keypad; feeds DCS-BIOS and the `UDP_TO_HID` board |
 | `UDP_TO_HID` | .11 | USB-HID bridge: UDP in, 4 virtual joysticks + keyboard out |

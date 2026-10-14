@@ -32,6 +32,71 @@ flight sim over Ethernet.
      voltage and NAVCOM1 power state, then refreshes the OLEDs if anything
      changed.
 
+## Swap switches, key matrix, start-up quiet period
+
+The four frequency-swap switches are on the **Jet Ranger COM and NAV** PCB, in a
+diode matrix that all shares column 0 (D26); rows 0-3 are D22-D25. Matrix
+position -> action in `handleKeyPress()`:
+
+| Switch (COM and NAV PCB) | Matrix (row, col) | Action |
+|---|---|---|
+| NAV1 FREQ SWITCH (`SW6`) | 0, 0 | **NAV1 swap**: swaps `Nav1ActiveFrequency`/`Nav1StandbyFrequency` on the NAV OLED immediately (the PC does not send NAV frequencies back, unlike COM) and sends `NAV1_RADIO_SWAP` to 172.16.1.10:27001 |
+| NAV2 FREQ SWITCH (`SW7`) | 1, 0 | **NAV2 swap**: same with NAV2, sends `NAV2_RADIO_SWAP` |
+| COMM1 Freq Switch (`SW4`) | 2, 0 | COM1 swap: sends `COM1_RADIO_SWAP` (the display changes when the sim sends the swapped frequencies back) |
+| COMM2 FREQ SWITCH (`SW5`) | 3, 0 | COM2 swap: sends `COM2_RADIO_SWAP`, then `AVIONICS_MASTER_SET` |
+
+(The earlier mapping had battery on/off and alternator on/off on (0,0)/(1,0) and
+an interim NAV1 swap on key `9`; both were removed. Row 2, col 2 is the Auto
+Pilot Audio PCB's `AP_BC` switch. The Auto Pilot Audio switches - `AP_ENABLE`
+(0,1), `AP_HDG` (1,1), `AP_CRS` (2,1), `AP_ALT` (3,1), `AP_APPR` (0,2), `AP_FD`
+(1,2), `AP_BC` (2,2) - are not handled by this sketch.) `FSUIPCWinformsAutoCS`
+handles `NAV1_RADIO_SWAP` and `NAV2_RADIO_SWAP` with
+`FsControl.NAV1_RADIO_SWAP`/`NAV2_RADIO_SWAP`; the SimConnect/P3D bridges do
+**not** yet, and any command a bridge does not recognise falls into its COM1
+standby-frequency parser (resets COM1 standby to 121.50).
+
+**Bench-verified 2026-10-15** (Mega on COM20, through the reflector's forwarded
+copy): each of the four switches pressed twice logged `Key Pressed`, the matching
+`COM1 Swap`/`COM2 Swap`/`NAV1 Swap`/`NAV2 Swap` line and `Key Released`.
+
+- **Phantom key presses fixed:** a floating column used to read LOW as soon as
+  scanning started, so every boot reported key presses and sent their commands
+  to the PC. For `matrixQuietMs` (1500 ms) after `initMatrixScanner()` the scanner
+  now only records the state and raises no press or release events
+  (`matrixQuietUntil`).
+- **Matrix diagnostic:** UDP control packet `C,MATRIX:1` sends the raw readings
+  (`H`/`L` per column, bypassing debounce and the quiet period) as
+  `Matrix raw idle ...` and `Matrix raw row N LOW ...` lines. It showed column 0
+  stuck LOW on the original Mega even with the ribbon unplugged (a faulty or badly
+  seated Mega/pin D26 - all four swap switches use column 0, so none could register);
+  on the replacement Mega all four columns read `H`. A badly seated Mega also made
+  the board drop off USB and the network after flashing.
+- Existing behaviour not changed: at boot the encoders send their standby
+  frequency strings (for example `118.000`, `108.000`) to the PC as raw numbers; the
+  PC treats any value outside 118-136.975 (such as a NAV frequency) as COM1 standby
+  121.50.
+- Compiled at 25,178 bytes flash (9%) / 3,269 bytes RAM (39%), flashed on COM20.
+
+## No-data timeout (30 s)
+
+If no UDP packet - data `D,...` or control `C,...` - arrives on the MSFS port
+(13136) for `noDataTimeoutMs` (30 s), the COM and NAV character OLEDs are
+blanked once: the loop sets `powerAvailable = false` (the state the displays
+already treat as "no power", where `updateCOMM()`/`updateNAV()` clear the
+screen) and logs `no UDP data for 30s, displays blanked`. The timer starts at
+the end of `setup()` (`lastMSFSDataMillis = millis()`). When a packet arrives
+again the previous power state is restored, both displays are redrawn and
+`UDP data resumed - displays restored` is logged. **Local input also counts:**
+any encoder movement or key press calls `wakeDisplays()`, which restarts the 30 s
+and, if the displays are blanked, restores them (`Local input - displays
+restored`); they blank again (`no UDP data or local input for 30s, displays
+blanked`) only after 30 s with neither UDP data nor local input. Bench-verified:
+the first key press after a blank restored the displays. Control packets such as
+`C,KEEPALIVE:1` also count as data. Bench-tested on the Radio (COM19) through
+the UDP reflector's forwarded copy: blanked about 30 s after boot, restored on
+the next `D,C1A:...` packet. Compiled at 24,440 bytes flash (9%) / 3,141 bytes
+RAM (38%).
+
 ## Remote reset over UDP
 
 UDP control packet `C,RESET:1` (value ignored) to port 13136 reboots this
@@ -67,6 +132,15 @@ after every reset. Handled in `HandleControlString()` (the existing `C,...` cont
 | 45, 44 | Nav2 Minor rotary encoder (A, B) |
 | 22–25 | 4x4 keypad matrix rows |
 | 26–29 | 4x4 keypad matrix columns |
+
+## Ethernet retransmission timeout
+
+`Ethernet.setRetransmissionTimeout(10)` is called right after `Ethernet.begin()`
+(same as the Stepper and Dual Stepper sketches). The W5500's default is 200ms x
+8 retries - up to 1600ms blocked inside a UDP send that gets no ARP reply (for
+example when the reflector PC is off) - so one dead destination could stall
+the encoder and button-matrix scanning. With 10ms per retry the worst case is about 80ms. Compiled at 24,472 bytes flash (9%);
+not yet flashed.
 
 ## Local network configuration
 

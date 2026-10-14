@@ -61,6 +61,15 @@ after every reset. This board previously had no receiving socket at all; a new `
 | A9, A11, A13 | 4x3 numeric keypad columns |
 | Serial (USB) | DCS-BIOS `DCSBIOS_IRQ_SERIAL` link to the DCS World PC (separate from the Ethernet/UDP path below) |
 
+## Ethernet retransmission timeout
+
+`Ethernet.setRetransmissionTimeout(10)` is called right after `Ethernet.begin()`
+(same as the Stepper and Dual Stepper sketches). The W5500's default is 200ms x
+8 retries - up to 1600ms blocked inside a UDP send that gets no ARP reply (for
+example when the reflector PC or the HID board is off) - so one dead destination could stall
+the switch-matrix scan. With 10ms per retry the worst case is about 80ms. Compiled at 16,514 bytes flash (6%);
+not yet flashed.
+
 ## Local network configuration
 
 | Setting | Value |
