@@ -35,15 +35,18 @@ flight sim over Ethernet.
 ## Remote reset over UDP
 
 UDP control packet `C,RESET:1` (value ignored) to port 13136 reboots this
-board: `RebootBoard()` sends a debug line (`RESET command received - rebooting
-in 2s`), waits 100ms, arms the AVR watchdog for 2s (`wdt_enable(WDTO_2S)`) and
-spins until it fires, which resets the whole chip. The 2s timeout is
-deliberate: the Mega's bootloader may not switch the watchdog off, so a short
-timeout could loop. A `.init3` function, `DisableWatchdogAtStartup()`, clears
-`MCUSR` and disables the watchdog first thing after every reset (standard
-avr-libc pattern), so the sketch never runs with it armed. Handled in `HandleControlString()` (the existing `C,...` control-packet handler, port 13136). Compiled; not yet
-flashed or bench-tested on this board (the same code was bench-tested on the
-Servo, Stepper and Dual Stepper boards, which rebooted cleanly with no loop).
+board with a **software reset**: `RebootBoard()` sends a debug line (`RESET
+command received - rebooting`), waits 100ms, disables interrupts, switches off
+the peripherals that would survive a jump (external/pin-change interrupts, all
+timer interrupts, TWI, SPI, ADC, UARTs) and jumps to the reset vector
+(`jmp 0`); `setup()` then runs again and resets the Ethernet module through
+`ES1_RESET_PIN`. It does not use the AVR watchdog (used on the Servo, Stepper
+and Dual Stepper boards) because that **hung the Radio Controller**: after a
+watchdog reset the chip's watchdog restarts at its shortest timeout and the
+board's bootloader does not switch it off, so it reset over and over and never
+reached the sketch until it was reflashed. A `.init3` function
+(`DisableWatchdogAtStartup()`) still clears `MCUSR`/the watchdog first thing
+after every reset. Handled in `HandleControlString()` (the existing `C,...` control-packet handler, port 13136). **Bench-tested (2026-10-14, COM19):** acknowledgement, then "Ethernet Started" about 3.9s later and "Setup Complete" about 5s after the command, with no loop. Compiled at 23,944 bytes flash (9%) / 3,060 bytes RAM (37%).
 
 ## Pin usage
 

@@ -248,7 +248,7 @@ def ProcessReceivedString(ReceivedUDPString, Source_IP, Source_Port):
             
             # Is Wireshark target address set - if so throw a copy of the packet in its direction
             if wireshark_IP_Address != None:
-                wireshark_Sock.sendto(Send_String, (wireshark_IP_Address, int(wireshark_Port)))
+                wireshark_Sock.sendto(Send_String.encode('utf-8', 'replace'), (wireshark_IP_Address, int(wireshark_Port)))  # Python 3 needs bytes
 
                 
             # If we have passed a filter string via the command line - then display

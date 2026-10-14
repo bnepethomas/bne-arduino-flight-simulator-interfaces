@@ -757,15 +757,19 @@ void HandleOutputValuePair(String str) {
 }
 
 // ###################### Remote reset over UDP ######################
-// UDP control packet "C,RESET:1" reboots this board (value ignored). Done with
-// the AVR watchdog, which resets the whole chip: debug message, a short delay so
-// it can leave the network, then the watchdog is armed for 2s and the board
-// waits for it. The 2s timeout is deliberately long: the Mega's bootloader may
-// not switch the watchdog off, so a short timeout could reset it again before
-// the sketch starts. The .init3 function below turns the watchdog off first
-// thing after any reset (the standard avr-libc pattern) so the sketch never
-// runs with it armed.
+// UDP control packet "C,RESET:1" reboots this board (value ignored). Done as a
+// SOFTWARE reset - quiesce the peripherals, then jump to the reset vector - NOT
+// with the AVR watchdog. The watchdog method (used on the Servo, Stepper and Dual
+// Stepper boards) hung this board: after a watchdog reset the chip's watchdog
+// restarts at its shortest timeout, and this board's bootloader does not switch
+// it off, so it reset over and over and never reached the sketch (recovered only
+// by uploading again). A jump to 0 does not touch the bootloader or the
+// watchdog, so it works whatever bootloader is fitted. The Ethernet module is
+// reset again by setup() (ES1_RESET_PIN) and Ethernet.begin() re-initialises SPI.
+// The .init3 function below still clears the watchdog first thing after any
+// reset (standard avr-libc pattern) in case it was ever left armed.
 #include <avr/wdt.h>
+#include <avr/interrupt.h>
 void DisableWatchdogAtStartup() __attribute__((naked)) __attribute__((section(".init3"))) __attribute__((used));
 void DisableWatchdogAtStartup() {
   MCUSR = 0;
@@ -773,11 +777,27 @@ void DisableWatchdogAtStartup() {
 }
 
 void RebootBoard() {
-  SendDebug("RESET command received - rebooting in 2s");
+  SendDebug("RESET command received - rebooting");
   delay(100);
-  wdt_enable(WDTO_2S);
-  while (true) {
-  }
+  cli();
+  wdt_disable();
+  // Switch off everything that would otherwise survive the jump with live state.
+  EIMSK = 0;
+  PCICR = 0;
+  TIMSK0 = 0;
+  TIMSK1 = 0;
+  TIMSK2 = 0;
+  TIMSK3 = 0;
+  TIMSK4 = 0;
+  TIMSK5 = 0;
+  TWCR = 0;
+  SPCR = 0;
+  ADCSRA = 0;
+  UCSR0B = 0;
+  UCSR1B = 0;
+  UCSR2B = 0;
+  UCSR3B = 0;
+  asm volatile("jmp 0");
 }
 // ###################################################################
 

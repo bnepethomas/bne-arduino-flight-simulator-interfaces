@@ -38,9 +38,10 @@ lives in each project's own `PROGRAM_SUMMARY.md` and in
 - **Remote reset:** the control packet `C,RESET:1` reboots a board through its
   watchdog about 2 s later (port 13136 on the Servo, Stepper, Dual Stepper, Radio
   and Upper boards; port 4210 on the HID board). Bench-tested on the Servo,
-  Stepper, Dual Stepper and HID boards; the Radio and Upper sketches have the code
-  but were not flashed (boards not connected). SwingTester's Reset boards...
-  button sends it.
+  Stepper, Dual Stepper, HID and Radio boards. The Radio (and the Upper, same code) uses
+  a software reset (jump to the reset vector) because a watchdog reset hung its
+  bootloader; the Upper sketch is not flashed (board not connected). SwingTester's
+  Reset boards... button sends it.
 
 ## Arduino sketches (`Jet Ranger Arduino Sketches/`)
 
