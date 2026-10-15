@@ -270,14 +270,33 @@ void send_string(const char *String) {
 #define NAV_OLED_Port 0
 #define COMM_OLED_Port 1
 
+// The PC bridges send frequencies with 2 or 3 decimals ("128.30", "127.8").
+// Pad to a fixed 7 characters ("128.300") so the two columns on each OLED line up
+// and COM2 / NAV2 are not pulled left behind the faceplate.
+String padFrequency(const String& f) {
+  String s = f;
+  s.trim();
+  int dot = s.indexOf('.');
+  if (dot < 0) {
+    s += ".";
+    dot = s.length() - 1;
+  }
+  while ((int)s.length() - dot - 1 < 3) s += "0";
+  while (dot < 3) {
+    s = " " + s;
+    dot++;
+  }
+  return s;
+}
+
 void updateNAV() {
   tcaselect(NAV_OLED_Port);
   sendCommand(0x80);
 
   if (powerAvailable == true) {
     //sendCommand(cmd_CLS);
-    String workstring1 = Nav1ActiveFrequency + "  " + Nav2ActiveFrequency;
-    String workstring2 = Nav1StandbyFrequency + "  " + Nav2StandbyFrequency;
+    String workstring1 = padFrequency(Nav1ActiveFrequency) + "  " + padFrequency(Nav2ActiveFrequency);
+    String workstring2 = padFrequency(Nav1StandbyFrequency) + "  " + padFrequency(Nav2StandbyFrequency);
 
     send_string(workstring1.c_str());
     sendCommand(cmd_NewLine);
@@ -292,8 +311,8 @@ void updateCOMM() {
 
   if (powerAvailable == true) {
     //sendCommand(cmd_CLS);
-    String workstring1 = com1ActiveFrequency + "  " + com2ActiveFrequency;
-    String workstring2 = com1StandbyFrequency + "  " + com2StandbyFrequency;
+    String workstring1 = padFrequency(com1ActiveFrequency) + "  " + padFrequency(com2ActiveFrequency);
+    String workstring2 = padFrequency(com1StandbyFrequency) + "  " + padFrequency(com2StandbyFrequency);
 
     send_string(workstring1.c_str());
     sendCommand(cmd_NewLine);

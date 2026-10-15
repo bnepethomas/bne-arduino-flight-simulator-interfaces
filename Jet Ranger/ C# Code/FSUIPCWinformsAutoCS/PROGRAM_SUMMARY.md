@@ -141,7 +141,32 @@ acting on them through the FSUIPC API instead of SimConnect.
 | `0x0238` / `0x0239` | Zulu hours / Zulu minutes (documented FSUIPC offsets, bytes) — combined into the HHMM-encoded `ZULU` field sent to the OLED Dual Stepper Controller's Clock OLED |
 | `RadioStack:0x034E/0x311A/0x3118/0x311C/0x0350/0x311E/0x0352/0x3120/0x0354/0x034C/0x0356` | COM1/2 active+standby, NAV1/2 active+standby, transponder, ADF |
 
-## Local network configuration
+## Real-unit payloads per board (2026-10-16)
+
+The Servo, Stepper and Dual Stepper boards each now get their **own** packet in
+**real units** (the shared "front-panel" packet of Bell 206 servo-position numbers
+from `IAS_Process()`/`VSI_Process()`/`PITCH_Process()`... is built as before but
+only the OLED board (172.16.1.104) still takes it). Values come straight from
+`sFrontPanel` - the same sources the `*_Process()` functions map from - formatted
+with the invariant culture. Each board converts to steps / servo positions with
+its own calibration tables.
+
+| Board | Packet |
+|---|---|
+| Servo `.102` | `PITCH` (degrees, one decimal, negated as `PITCH_Process()` did: FSUIPC pitch is nose-down positive, the servo table nose-up), `BANK` (degrees, one decimal), plus the annunciator lamp codes (`EOUT`, `TOPW`, `BHOT`, `EC`, `BD`, `GENF`, `TOTW`, `RLOW`, `FFLTR`, `BTMP`, `TC`, `TRC`, `FPMP`, `LOWF`, `SCF`) as `:1`/`:0` |
+| Single-board Stepper `.105` | `IAS` (knots), `VSI` (fpm), `AGL` (feet, the existing power-gated string), `FUEL` (US gal), `TQ` (%), `ITT` (deg C), `N1` (%) - no longer `ALT`/`RPMR`/`RPME`, which that board does not have |
+| Dual Stepper `.106` | `ALT` (feet), `RPMR`/`RPME` (%, one decimal), `ZULU` (HHMM), `OILT` (deg C), `OILP` (psi), `XMSNT` (deg C), `XMSNP` (psi), `FUELLOAD` (psi, from fuel pressure), `ELECTRICALLOAD` (%, from `ELECTRICAL_TOTAL_LOAD_AMPS`, the same input `ELOAD_Process()` took), `TEMP` (outside air temperature as text, e.g. `21C`, from new offset `0x0E8C` = deg C x 256 - a standard FSUIPC offset, not verified against DodoSim) |
+
+Whole-number values are rounded; the boards clamp to their calibrated ranges.
+**Built clean in place (0 errors). Connected to Prepar3D v6.1 and sending
+about 10 packets per second per board (the timer runs at its default 100 ms); the
+payload values have not yet been checked against the gauges.**
+Pre-existing quirks left alone: several unused annunciator bits (`SPARE_*`,
+`SIMCONNECT_FAIL`, `LOW_INLET_PRESSURE`) all share the short code `SCF`, so the last
+one in the packet wins for that lamp; and the `TURB_ENG_ITT_1` field is assigned
+twice per tick (percent, then temperature), so the temperature wins.
+
+
 
 | Setting | Value |
 |---|---|

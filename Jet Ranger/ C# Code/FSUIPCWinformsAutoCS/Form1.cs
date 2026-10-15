@@ -58,6 +58,9 @@ namespace FSUIPCTest
         // Zulu (UTC) time-of-day, standard documented FSUIPC offsets - drives
         // the Clock OLED on the OLED Dual Stepper Controller (172.16.1.106).
         private Offset<byte> zuluHours = new Offset<byte>(0x0238);
+        // Ambient (outside) air temperature, degrees C x 256 - shown as text ("21C") on the
+        // Dual Stepper's Temperature OLED. Standard FSUIPC offset; not checked against DodoSim.
+        private Offset<short> ambientTemp = new Offset<short>(0x0E8C);
         private Offset<byte> zuluMinutes = new Offset<byte>(0x0239);
 
         private Offset<double> attitudePitch = new Offset<double>(0x2F70);
@@ -512,6 +515,7 @@ namespace FSUIPCTest
 
 
                 UDP_Playload = "D";
+                string lampPayload = "";   // annunciator ",CODE:1/0" tokens, also sent on their own to the Servo board
                 // Real (unmapped) percent values for the stepperPayload below -
                 // RPMR/RPME are captured here (RotorRpm/GeneralEngPctMaxRpm
                 // "changed" blocks) and appended to stepperPayload further down,
@@ -759,11 +763,13 @@ namespace FSUIPCTest
                     {
                         frontPanelDataChanged = true;
                         UDP_Playload = UDP_Playload + "," + AnnunciatorBits[lightptr].ShortCode.ToString() + ":1";
+                        lampPayload += "," + AnnunciatorBits[lightptr].ShortCode.ToString() + ":1";
                     }
                     else
                     {
                         frontPanelDataChanged = true;
                         UDP_Playload = UDP_Playload + "," + AnnunciatorBits[lightptr].ShortCode.ToString() + ":0";
+                        lampPayload += "," + AnnunciatorBits[lightptr].ShortCode.ToString() + ":0";
                     }
                 }
 
@@ -796,58 +802,66 @@ namespace FSUIPCTest
                     {
                         // Something has changed so send it
                         Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
-                        frontPanelClient.Send(senddata, senddata.Length);
+                        // Each board now gets its OWN packet in REAL units - the shared
+                        // front-panel packet above is Bell 206 servo-position numbers
+                        // (IAS_Process()/VSI_Process()/PITCH_Process()...), which only the
+                        // OLED board still takes. The values come straight from sFrontPanel,
+                        // the same sources the *_Process() functions map from, so the units
+                        // are exactly what those functions expect on input: knots, fpm, feet,
+                        // US gallons, percent, degrees C, psi. Each board converts to steps /
+                        // servo positions itself with its own calibration tables.
+                        var inv = System.Globalization.CultureInfo.InvariantCulture;
+                        Func<double, string> f0 = v => Math.Round(v).ToString("F0", inv);
+                        Func<double, string> f1 = v => v.ToString("F1", inv);
 
-                        // Stepper board gets ALT, VSI, AGL (radar altitude), RPMR
-                        // and RPME - a separate, minimal payload rather than the
-                        // full shared one, since it has no gauges for anything
-                        // else in it. VSI is raw fpm (not the Bell-206
-                        // servo-position number VSI_Process() computes for the
-                        // front panel); ALTITUDE and PLANE_ALT_ABOVE_GROUND reuse
-                        // the same already-rounded/power-gated strings just
-                        // computed above for the front panel, so AGL still zeroes
-                        // out per the same NAVCOM1/master-bus logic instead of
-                        // reporting a stale reading. (VSI was temporarily dropped
-                        // from this payload while diagnosing an ALT-needle
-                        // reversal - confirmed unrelated to VSI, root cause was
-                        // the stepper driver electronics mishandling small step
-                        // deltas; see JET_RANGER_STEPPER_CONTROLLER's summary.)
-                        // RPMR/RPME are sent as real (unmapped) percent, one
-                        // decimal place (e.g. "82.4", not truncated to "82") -
-                        // RSstepper/TSstepper convert percent to steps on the
-                        // board via RS_PCT_TABLE/TS_PCT_TABLE (both boards' now
-                        // take a float there for the same reason), so no
-                        // servo-position mapping (RPMR_Process()/RPME_Process(),
-                        // now removed) is needed here any more.
+                        // Servo board (.102, JET_RANGER_SERVO_CONTROLLER): attitude indicator
+                        // pitch/bank in degrees to one decimal place (its PITCH_DEG_TABLE /
+                        // BANK_DEG_TABLE convert to servo positions) plus the lamp codes.
+                        // Pitch is negated exactly as PITCH_Process() did (FSUIPC pitch is
+                        // positive nose-down; the servo table is positive nose-up).
+                        string servoPayload = "D,PITCH:" + f1(-sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES)
+                            + ",BANK:" + f1(sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES)
+                            + lampPayload;
+                        Byte[] servoSendData = Encoding.ASCII.GetBytes(servoPayload);
+                        frontPanelClient.Send(servoSendData, servoSendData.Length);
+
+                        // Single-board Stepper (.105, JET_RANGER_STEPPER_CONTROLLER): airspeed
+                        // (knots), VSI (fpm), radar altitude AGL (feet - the already
+                        // power-gated string above), fuel quantity (US gal), torque (%),
+                        // turbine outlet temperature ITT (deg C) and gas producer N1 (%).
+                        // RPMR/RPME and ALT are no longer sent here - that board has no such
+                        // gauges (turbine/rotor speed and the altimeter moved to the Dual
+                        // Stepper).
                         int vsiRawFpm = (int)sFrontPanel.VERTICAL_SPEED;
-                        string stepperPayload = "D,ALT:" + ALTITUDE
-                            + ",VSI:" + vsiRawFpm.ToString()
+                        string stepperPayload = "D,IAS:" + f0(sFrontPanel.AIRSPEED)
+                            + ",VSI:" + vsiRawFpm.ToString(inv)
                             + ",AGL:" + PLANE_ALT_ABOVE_GROUND
-                            + ",RPMR:" + rpmrPctForStepper.ToString("F1")
-                            + ",RPME:" + rpmePctForStepper.ToString("F1");
+                            + ",FUEL:" + f0(sFrontPanel.FUEL_TOTAL_QUANTITY)
+                            + ",TQ:" + f0(sFrontPanel.ENG_TORQUE_PERCENT_1)
+                            + ",ITT:" + f0(sFrontPanel.TURB_ENG_ITT_1)
+                            + ",N1:" + f0(sFrontPanel.TURB_ENG_CORRECTED_N1_1);
                         Byte[] stepperSendData = Encoding.ASCII.GetBytes(stepperPayload);
                         stepperClient.Send(stepperSendData, stepperSendData.Length);
 
-                        // Dual Stepper board (172.16.1.106,
-                        // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino) gets ALT,
-                        // RPMR, RPME, and ZULU - a separate board/payload from
-                        // the single-board Stepper Controller above, not a
-                        // broadcast of the same bytes. No VSI/AGL here: this
-                        // board's own UDP handler has no AGL case at all (that
-                        // stepper was repurposed as Fuel Load), and VSI wasn't
-                        // asked for. ALT reaches this board's ALTstepper via its
-                        // "ALT" UDP case (feet * 0.72, also drives its Altimeter
-                        // OLED readout); RPMR/RPME go through RSstepper/
-                        // TSstepper's own RS_PCT_TABLE/TS_PCT_TABLE, same as the
-                        // single-board payload above. ZULU is HHMM-encoded
-                        // (e.g. 1430 for 14:30) from the FSUIPC Zulu-time
-                        // offsets above and drives that board's Clock OLED via
-                        // onZuluTimeChange().
+                        // Dual Stepper (.106, JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER): altimeter
+                        // feet and its OLED, turbine/rotor speed (percent, one decimal), Zulu time
+                        // for the Clock OLED (HHMM), engine oil temperature/pressure (deg C /
+                        // psi), transmission temperature/pressure (deg C / psi), fuel load
+                        // (psi, fuel pressure), electrical load (percent) and outside air
+                        // temperature as text for the Temperature OLED (e.g. "21C").
                         int zuluHHMM = (zuluHours.Value * 100) + zuluMinutes.Value;
+                        double ambientC = ambientTemp.Value / 256.0;
                         string dualStepperPayload = "D,ALT:" + ALTITUDE
-                            + ",RPMR:" + rpmrPctForStepper.ToString("F1")
-                            + ",RPME:" + rpmePctForStepper.ToString("F1")
-                            + ",ZULU:" + zuluHHMM.ToString();
+                            + ",RPMR:" + rpmrPctForStepper.ToString("F1", inv)
+                            + ",RPME:" + rpmePctForStepper.ToString("F1", inv)
+                            + ",ZULU:" + zuluHHMM.ToString(inv)
+                            + ",OILT:" + f0(sFrontPanel.ENG_OIL_TEMPERATURE_1)
+                            + ",OILP:" + f0(sFrontPanel.ENG_OIL_PRESSURE_1)
+                            + ",XMSNT:" + f0(sFrontPanel.ENG_TRANSMISSION_TEMPERATURE_1)
+                            + ",XMSNP:" + f0(sFrontPanel.ENG_TRANSMISSION_PRESSURE_1)
+                            + ",FUELLOAD:" + f0(sFrontPanel.FUEL_PRESSURE)
+                            + ",ELECTRICALLOAD:" + f0(sFrontPanel.ELECTRICAL_TOTAL_LOAD_AMPS)
+                            + ",TEMP:" + f0(ambientC) + "C";
                         Byte[] dualStepperSendData = Encoding.ASCII.GetBytes(dualStepperPayload);
                         dualStepperClient.Send(dualStepperSendData, dualStepperSendData.Length);
 

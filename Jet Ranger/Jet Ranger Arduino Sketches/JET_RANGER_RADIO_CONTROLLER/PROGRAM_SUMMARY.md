@@ -71,11 +71,23 @@ copy): each of the four switches pressed twice logged `Key Pressed`, the matchin
   seated Mega/pin D26 - all four swap switches use column 0, so none could register);
   on the replacement Mega all four columns read `H`. A badly seated Mega also made
   the board drop off USB and the network after flashing.
-- Existing behaviour not changed: at boot the encoders send their standby
-  frequency strings (for example `118.000`, `108.000`) to the PC as raw numbers; the
-  PC treats any value outside 118-136.975 (such as a NAV frequency) as COM1 standby
-  121.50.
-- Compiled at 25,178 bytes flash (9%) / 3,269 bytes RAM (39%), flashed on COM20.
+- Encoder knobs now name their radio when they send a standby frequency to the PC
+  (`sendStandbyToPC()`, port 27001): COM1 stays the bare number
+  (`118.295`, which every bridge understands); COM2, NAV1 and NAV2 are sent as
+  `COM2_STANDBY:118.295`, `NAV1_STANDBY:108.000`, `NAV2_STANDBY:108.000`, which
+  `FSUIPCWinformsAutoCS` routes to the matching radio. Previously every knob sent a
+  bare number, the PC took anything outside 118-136.975 as COM1 standby 121.50, so
+  NAV and COM2 knobs retuned COM1. Nothing is sent during the start-up quiet period,
+  so the encoders' power-up positions are no longer pushed to the simulator. Each send
+  is logged as `To PC: ...`. The SimConnect / P3D / MSFS bridges only know the bare
+  COM1 form so far.
+- Display column fix (2026-10-16): the bridges send COM frequencies with 2 decimals
+  (`128.30`, `127.80`), and the display line joined COM1 and COM2 with two spaces, so a
+  short COM1 pulled COM2 one column left and its hundreds digit went behind the
+  faceplate. `padFrequency()` now pads every frequency to `xxx.xxx` (7 characters)
+  before `updateCOMM()` / `updateNAV()` build their lines (7 + 2 + 7 = 16 columns).
+  Confirmed by eye on the bench.
+- Compiled at 25,782 bytes flash (10%) / 3,323 bytes RAM (40%), flashed on COM20.
 
 ## No-data timeout (30 s)
 
