@@ -455,7 +455,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Jet Ranger Auto Pilot Audio.kicad_pro",
+    "filename": "Jet Ranger Auto Pilot Panel.kicad_pro",
     "version": 3
   },
   "net_settings": {
@@ -493,8 +493,8 @@
       "netlist": "",
       "plot": "MANUFACTURING/",
       "pos_files": "",
-      "specctra_dsn": "Jet Ranger Auto Pilot Audio.dsn",
-      "step": "Jet Ranger Auto Pilot Audio.step",
+      "specctra_dsn": "Jet Ranger Auto Pilot Panel.dsn",
+      "step": "Jet Ranger Auto Pilot Panel.step",
       "svg": "",
       "vrml": ""
     },
@@ -623,6 +623,10 @@
     [
       "ab9c254d-2b90-4f70-ba7e-cfd778ca028e",
       "Root"
+    ],
+    [
+      "e1891a75-90d7-4dfb-a5d5-263a84d2b457",
+      "ChangeLog"
     ]
   ],
   "text_variables": {}

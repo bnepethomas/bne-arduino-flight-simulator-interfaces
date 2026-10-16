@@ -5,7 +5,8 @@
 	(uuid "ab9c254d-2b90-4f70-ba7e-cfd778ca028e")
 	(paper "A4")
 	(title_block
-		(date "2024-08-10")
+		(date "2026-10-17")
+		(rev "1.1")
 	)
 	(lib_symbols
 		(symbol "Connector:Conn_01x02_Socket"
@@ -2892,6 +2893,16 @@
 	)
 	(wire
 		(pts
+			(xy 147.32 104.14) (xy 150.114 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0de64361-fc52-416b-8c87-9ac2e78ba9bf")
+	)
+	(wire
+		(pts
 			(xy 105.156 80.01) (xy 107.95 80.01)
 		)
 		(stroke
@@ -3260,6 +3271,16 @@
 		)
 		(uuid "3469a480-51fb-4aa4-aeeb-6f995f1dc09c")
 	)
+	(label "ROW3"
+		(at 160.274 104.14 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "34e43bce-78e2-454e-9460-5c25e941d83a")
+	)
 	(label "IAS_A"
 		(at 256.54 57.658 0)
 		(effects
@@ -3469,6 +3490,16 @@
 			(justify right bottom)
 		)
 		(uuid "773fb244-1189-4e55-a405-7d933f6e2e7c")
+	)
+	(label "COL2"
+		(at 139.7 104.14 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "788b314a-e581-4f4b-8834-e3c2f5c4feac")
 	)
 	(label "VS_B"
 		(at 39.116 76.962 180)
@@ -3943,6 +3974,160 @@
 				)
 				(justify left)
 				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:D")
+		(at 143.51 104.14 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "00d903d7-fb8f-49df-9e6a-fac8a4de1ad6")
+		(property "Reference" "D16"
+			(at 143.51 98.6536 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "D"
+			(at 143.51 100.965 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Diode_THT:D_A-405_P7.62mm_Horizontal"
+			(at 143.51 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 143.51 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Diode"
+			(at 143.51 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Device" "D"
+			(at 143.51 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 143.51 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b4e288b8-b9b2-49b7-9537-c62fc6ade8ea")
+		)
+		(pin "2"
+			(uuid "d8140f3a-a719-44cc-b881-f457348cee79")
+		)
+		(instances
+			(project "Jet Ranger Auto Pilot Audio"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "D16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 155.194 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "01e34c38-25e1-4fe8-9700-b12a257a5db4")
+		(property "Reference" "SW13"
+			(at 155.194 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AP_IAS"
+			(at 155.194 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
+			(at 155.194 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 155.194 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 155.194 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fa5ef3b9-dc71-4f60-9b74-bd8e4d1cd5df")
+		)
+		(pin "2"
+			(uuid "013a4ba7-e7ac-4605-aab1-7bd7637acf54")
+		)
+		(instances
+			(project "Jet Ranger Auto Pilot Audio"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(reference "SW13")
+					(unit 1)
+				)
 			)
 		)
 	)
@@ -6873,6 +7058,48 @@
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55/ba20fa06-a269-44d1-bfd1-ac09e6be8fd4"
 					(reference "SW42")
 					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 34.29 182.88)
+		(size 12.7 3.81)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "e1891a75-90d7-4dfb-a5d5-263a84d2b457")
+		(property "Sheetname" "ChangeLog"
+			(at 34.29 182.1684 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "ChangeLog.kicad_sch"
+			(at 34.29 187.2746 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Jet Ranger Auto Pilot Audio"
+				(path "/ab9c254d-2b90-4f70-ba7e-cfd778ca028e"
+					(page "2")
 				)
 			)
 		)
