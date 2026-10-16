@@ -833,7 +833,7 @@ namespace FSUIPCTest
                         // gauges (turbine/rotor speed and the altimeter moved to the Dual
                         // Stepper).
                         int vsiRawFpm = (int)sFrontPanel.VERTICAL_SPEED;
-                        string stepperPayload = "D,IAS:" + f0(sFrontPanel.AIRSPEED)
+                        string stepperPayload = "D,IAS:" + f1(sFrontPanel.AIRSPEED)
                             + ",VSI:" + vsiRawFpm.ToString(inv)
                             + ",AGL:" + PLANE_ALT_ABOVE_GROUND
                             + ",FUEL:" + f0(sFrontPanel.FUEL_TOTAL_QUANTITY)

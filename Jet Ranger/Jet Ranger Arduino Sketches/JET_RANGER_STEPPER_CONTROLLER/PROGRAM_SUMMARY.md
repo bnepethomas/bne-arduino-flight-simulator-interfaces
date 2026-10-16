@@ -149,7 +149,7 @@ collides with `AllstepperEnablePin`.
 
    | Code | Real value | Board behaviour |
    |---|---|---|
-   | `IAS` | knots, 0-140 | `setIAS()` → `iasKtToSteps()` via **`IAS_KT_TABLE`**, a 9-row hand-measured calibration table (linear interpolation, same pattern as `VSI_FPM_TABLE`). The `0kt→0 step` row is an assumed zero reference, not directly measured - worth confirming on the bench. |
+   | `IAS` | knots, 0-140, fractional allowed (parsed with `toFloat()`; the FSUIPC bridge sends one decimal, e.g. `93.4`; `iasKtToSteps()` interpolates in `double`) | `setIAS()` → `iasKtToSteps()` via **`IAS_KT_TABLE`**, a 9-row hand-measured calibration table (linear interpolation, same pattern as `VSI_FPM_TABLE`). The `0kt→0 step` row is an assumed zero reference, not directly measured - worth confirming on the bench. |
    | `IASRAW` | raw steps | Bypasses the table, direct `.moveTo()` |
    | `VSI` | fpm, ±1750 | `vsiFpmToSteps()` via `VSI_FPM_TABLE` (unchanged) |
    | `VSIRAW` | raw steps | Bypasses the table |

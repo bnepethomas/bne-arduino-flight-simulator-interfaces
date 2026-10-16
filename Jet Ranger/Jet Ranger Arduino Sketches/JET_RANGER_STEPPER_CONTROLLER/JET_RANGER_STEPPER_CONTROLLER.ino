@@ -942,24 +942,24 @@ const int IAS_KT_TABLE_SIZE = sizeof(IAS_KT_TABLE) / sizeof(IAS_KT_TABLE[0]);
 // interpolation between the two nearest IAS_KT_TABLE rows (same pattern
 // as vsiFpmToSteps()/radarAltFtToSteps()). A kt value outside the
 // table's 0..140 range is clamped to whichever end is nearest rather
-// than extrapolated.
-long iasKtToSteps(long kt) {
+// than extrapolated. Takes fractional knots (the bridge sends one decimal).
+long iasKtToSteps(double kt) {
   if (kt <= IAS_KT_TABLE[0].kt) return IAS_KT_TABLE[0].step;
   if (kt >= IAS_KT_TABLE[IAS_KT_TABLE_SIZE - 1].kt) return IAS_KT_TABLE[IAS_KT_TABLE_SIZE - 1].step;
 
   for (int i = 0; i < IAS_KT_TABLE_SIZE - 1; i++) {
-    long ktLo = IAS_KT_TABLE[i].kt;
-    long ktHi = IAS_KT_TABLE[i + 1].kt;
+    double ktLo = IAS_KT_TABLE[i].kt;
+    double ktHi = IAS_KT_TABLE[i + 1].kt;
     if (kt >= ktLo && kt <= ktHi) {
       long stepLo = IAS_KT_TABLE[i].step;
       long stepHi = IAS_KT_TABLE[i + 1].step;
-      return stepLo + (long)round((double)(kt - ktLo) * (stepHi - stepLo) / (double)(ktHi - ktLo));
+      return stepLo + (long)round((kt - ktLo) * (stepHi - stepLo) / (ktHi - ktLo));
     }
   }
   return 0;  // unreachable - every kt is covered by the clamps or the loop above
 }
 
-void setIAS(long TargetKt) {
+void setIAS(double TargetKt) {
   setCurrentAirspeed(iasKtToSteps(TargetKt));
 }
 
@@ -1711,7 +1711,9 @@ void HandleOutputValuePair(String str) {
     // ALT/VSI/AGL) - but if IAS is ever added back to that payload for
     // this board, it needs to send real knots, not a servo-position
     // number, or this will misinterpret it.
-    setIAS(ParameterValue.toInt());
+    // The bridge sends one decimal ("93.4"); toFloat() keeps it so the
+    // interpolation can use sub-knot values.
+    setIAS(ParameterValue.toFloat());
   } else if (ParameterName == "IASRAW") {
     // Distinct raw-step code so the real-units "IAS" code above doesn't
     // have to be the only way to reach this stepper over UDP - bypasses
