@@ -1,5 +1,5 @@
 
-(rules PCB Jet Ranger Front Panel Servo
+(rules PCB Jet Ranger 13 Stepper
   (snap_angle 
     fortyfive_degree
   )
@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1067)
+    (start_pass_no 1727)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -63,27 +63,18 @@
     )
   )
   (class "kicad_default"
-    "Net-(D1-A)" GND "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "/+5v_IN" "/+12v-IN" "/PWM_GAS_PRODUCER"
-    "/PWM_XMSN_OIL_TEMP" "/INT_5V" SCLK /ROW3 SDA SCL "/PWM_AIRSPEED" "/PWM_EGT"
-    "/PWM_ROTOR_SPEED" "/PIN_20" "ES1_RST" "/D_Trans_Oil_Temp" "Net-(J12-Pin_1)" MISO /COL1 "/PWM_FUEL_LEVEL"
-    /RESET MOSI "/GREEN_LED" "/RED_LED" SS "/D_Battery_Temp" "/D_Baggage_Door" "/PWM_ENG_TORQUE"
-    "/PWM_RADAR_ALT" "/BACKLIGHT_PWM" "/D_Fuel_Pump" +3V3 /D1 /D0 /VIN "/D_Battery_Hot"
-    /AREF "/RESET_pin" "/PWM_XMSN_OIL_PRESSURE" "/D_SC_Fail" "/D_Trans_Oil_Pressure" "/D_Engine_Out" "/D_AFT_Fuel_Filter" /IORF
-    "/PWM_TURBINE_SPEED" "/PWM_ENG_OIL_TEMP" /COL0 /ROW9 "/D_Engine_Chip" /COL7 "/D_Rotor_RPM_Low" "/SW_TOT_CLEAR"
-    "/D_Trans_Chip" /COL3 "/D_T{slash}R_Chip" "/SW_FUEL_VALVE" "/SW_WARNING_MUTE" "/D_Low_Fuel" "/PWM_ENG_OIL_PRESS" /ROW0
-    /ROW2 /ROW1 "/PWM_VVI" "/D_Gen_Fail" /COL5 /ROW5 /COL9 "/PIN_21"
-    "Net-(D5-A)" /ROW7 "/+5v_SERVO" "/SC_Fail" /GroupB9 "/PB_GND" /COL6 /COL4
-    "Net-(A1-D16{slash}TX2)" /ROW4 /COL8 /ROW8 /COL2 "/Low_Fuel" /GroupB6 "/Gen_Fail"
-    /ROW6 /COL10 /GroupB3 /GroupB5 /GroupB8 "/AFT_Fuel_Filter" "/Fuel_Pump" "/T{slash}R_Chip"
-    "/Trans_Oil_Temp" "/Battery_Hot" "/Trans_Oil_Pressure" "/Engine_Chip" "/Trans_Chip" "/Engine_Out" "/Baggage_Door" "/Battery_Temp"
-    "/Rotor_RPM_Low" "unconnected-(J14-Pin_1-Pad1)" "Net-(Q1-G)" "Net-(U3-INT)" "unconnected-(U2-I8-Pad8)" "/GPS_TX" "unconnected-(U2-O8-Pad11)" "unconnected-(U3-NC-PadB4)"
-    "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" "/BACKLIGHT_PANELS" "Net-(J3-Pin_1)" "unconnected-(J39-Pin_6-Pad6)" "unconnected-(J39-Pin_7-Pad7)" "unconnected-(J39-Pin_3-Pad3)" "unconnected-(J39-Pin_2-Pad2)"
-    "unconnected-(J39-Pin_11-Pad11)" "unconnected-(J39-Pin_12-Pad12)" "unconnected-(J39-Pin_5-Pad5)" "unconnected-(J39-Pin_4-Pad4)" "unconnected-(J39-Pin_8-Pad8)" "unconnected-(J39-Pin_15-Pad15)" "unconnected-(J39-Pin_16-Pad16)" "unconnected-(J39-Pin_10-Pad10)"
-    "unconnected-(J39-Pin_9-Pad9)" "unconnected-(J39-Pin_14-Pad14)" "unconnected-(J39-Pin_1-Pad1)" "unconnected-(J39-Pin_13-Pad13)" "unconnected-(J40-Pin_4-Pad4)" "unconnected-(J40-Pin_11-Pad11)" "unconnected-(J40-Pin_2-Pad2)" "unconnected-(J40-Pin_5-Pad5)"
-    "unconnected-(J40-Pin_7-Pad7)" "unconnected-(J40-Pin_16-Pad16)" "unconnected-(J40-Pin_6-Pad6)" "unconnected-(J40-Pin_3-Pad3)" "unconnected-(J40-Pin_13-Pad13)" "unconnected-(J40-Pin_12-Pad12)" "unconnected-(J40-Pin_14-Pad14)" "unconnected-(J40-Pin_15-Pad15)"
-    "unconnected-(J40-Pin_10-Pad10)" "unconnected-(J40-Pin_9-Pad9)" "unconnected-(J40-Pin_1-Pad1)" "unconnected-(J40-Pin_8-Pad8)" "unconnected-(J41-Pin_16-Pad16)" "unconnected-(J41-Pin_4-Pad4)" "unconnected-(J41-Pin_8-Pad8)" "unconnected-(J41-Pin_7-Pad7)"
-    "unconnected-(J41-Pin_10-Pad10)" "unconnected-(J41-Pin_11-Pad11)" "unconnected-(J41-Pin_14-Pad14)" "unconnected-(J41-Pin_9-Pad9)" "unconnected-(J41-Pin_3-Pad3)" "unconnected-(J41-Pin_15-Pad15)" "unconnected-(J41-Pin_5-Pad5)" "unconnected-(J41-Pin_6-Pad6)"
-    "unconnected-(J41-Pin_1-Pad1)" "unconnected-(J41-Pin_12-Pad12)" "unconnected-(J41-Pin_13-Pad13)" "unconnected-(J41-Pin_2-Pad2)"
+    "Net-(D1-A)" GND "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "/+5v_IN" "/INT_5V" SCLK
+    "/STEPPER_EOP_B" SDA SCL "/STEPPER_RA_D" "/PIN_20" "ES1_RST" "/STEPPER_RA_B" "/STEPPER_GP_C"
+    MISO "/STEPPER_TS_B" "/STEPPER_ET_D" /RESET MOSI "/GREEN_LED" "/RED_LED" SS
+    "/STEPPER_VVI_A" "/BACKLIGHT_PWM" "/STEPPER_VVI_C" +3V3 /D1 /D0 /VIN "/STEPPER_ET_C"
+    /AREF "/RESET_pin" "/STEPPER_XOT_B" "/STEPPER_TS_C" "/STEPPER_EOT_B" "/STEPPER_EOP_C" "/STEPPER_XOT_C" /IORF
+    "/STEPPER_XOP_B" "/STEPPER_RS_C" "/STEPPER_VVI_D" "/STEPPER_RS_D" "/STEPPER_EGT_A" "/STEPPER_XOT_D" "Net-(J13-Pin_8)" "/STEPPER_XOT_A"
+    "/STEPPER_EOT_D" "/STEPPER_EGT_B" "/STEPPER_GP_A" "/STEPPER_VVI_B" "/STEPPER_ET_A" "/STEPPER_SPD_A" "/STEPPER_RA_A" "/STEPPER_XOP_C"
+    "/STEPPER_GP_B" "/STEPPER_EOT_C" "/STEPPER_RA_C" "/PIN_21" "Net-(D5-A)" "/STEPPER_RS_A" "/+5v_SERVO" "/STEPPER_GP_D"
+    "/STEPPER_TS_D" "Net-(A1-D16{slash}TX2)" "/STEPPER_XOP_A" "/STEPPER_XOP_D" "/STEPPER_EOT_A" "/STEPPER_EOP_D" "/STEPPER_EGT_D" "/STEPPER_SPD_B"
+    "unconnected-(J14-Pin_1-Pad1)" "Net-(Q1-G)" "Net-(U3-INT)" "/STEPPER_SPD_C" "/GPS_TX" "/STEPPER_TS_A" "unconnected-(U3-NC-PadB4)" "Net-(A1-D17{slash}RX2)"
+    "Net-(A1-D19{slash}RX1)" "Net-(J3-Pin_1)" "/STEPPER_SPD_D" "/STEPPER_EGT_C" "/STEPPER_RS_B" "/STEPPER_ET_B" "BACKLIGHT_-V" +12V
+    "/STEPPER_EOP_A" "/STEPPER_FA_D" "/STEPPER_FA_A" "/STEPPER_FA_B" "/STEPPER_FA_C"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule

@@ -87,7 +87,15 @@ copy): each of the four switches pressed twice logged `Key Pressed`, the matchin
   faceplate. `padFrequency()` now pads every frequency to `xxx.xxx` (7 characters)
   before `updateCOMM()` / `updateNAV()` build their lines (7 + 2 + 7 = 16 columns).
   Confirmed by eye on the bench.
-- Compiled at 25,782 bytes flash (10%) / 3,323 bytes RAM (40%), flashed on COM20.
+- Standard channel spacing (2026-10-16): the minor knobs used to step 5 kHz on all four
+  radios and the COM major knob stopped at 135. Now COM runs 118.000-136.975 MHz in
+  25 kHz channels (`COM_MINOR_STEP_KHZ`, major 118..136) and NAV runs 108.00-117.95 MHz
+  in 50 kHz steps (`NAV_MINOR_STEP_KHZ`, major 108..117). `CommMinorEncoderMaxValue` and
+  `NavMinorEncoderMaxValue` are derived from the step sizes, so changing a constant also
+  moves the wrap-around limits. 8.33 kHz channels are not offered. Flight sims store COM
+  frequencies in FSUIPC's 10 kHz BCD form, so a 25 kHz channel such as 118.025 may show as
+  118.02 or 118.03 in the sim.
+- Compiled at 25,774 bytes flash (10%) / 3,323 bytes RAM (40%), flashed on COM20.
 
 ## No-data timeout (30 s)
 

@@ -335,37 +335,46 @@ void updateCOMM() {
 /// Comm1 Major Minor
 
 
-// For Comm Major the range is 118 to 135 - 17 steps
-// For Comm Minor the range is 0 to 995
+// For Comm Major the range is 118 to 136 - 18 steps
+// For Comm Minor the range is 0 to 975 in 25 kHz steps
 // But we want to roll underneath and over the top so add three steps at top and bottom
 // that as soon as they are hit we move to the other end of the scale before any processing
-int Comm1MajorEncoderMaxValue = 17 * ClicksPerIncrement;
-int MinorEncoderMaxValue = 201 * ClicksPerIncrement;
+// Standard channel spacing (2026-10-16):
+//   COM  118.000-136.975 MHz in 25 kHz channels (the major knob runs 118..136, the
+//        minor knob 000, 025, 050 ... 975). 8.33 kHz channels are not offered.
+//   NAV  108.00-117.95 MHz in 50 kHz steps (major 108..117, minor 000, 050 ... 950).
+// A minor knob with N steps per MHz has positions 0..(N+1)*ClicksPerIncrement: position
+// 3 is step 0, and the rollover code below wraps at both ends.
+#define COM_MINOR_STEP_KHZ 25
+#define NAV_MINOR_STEP_KHZ 50
+int Comm1MajorEncoderMaxValue = 18 * ClicksPerIncrement;
+int CommMinorEncoderMaxValue = (1000 / COM_MINOR_STEP_KHZ + 1) * ClicksPerIncrement;
+int NavMinorEncoderMaxValue = (1000 / NAV_MINOR_STEP_KHZ + 1) * ClicksPerIncrement;
 RotaryEncoder Comm1MajorEncoder(31, 30, 0, Comm1MajorEncoderMaxValue, 1);
-// For COmm Minor the range is 0 to 995 with 5KHz spacing so 199
-RotaryEncoder Comm1MinorEncoder(33, 32, 0, MinorEncoderMaxValue, 1);
+// For Comm Minor see CommMinorEncoderMaxValue above
+RotaryEncoder Comm1MinorEncoder(33, 32, 0, CommMinorEncoderMaxValue, 1);
 
 
 
 // Comm2 
 // Comm2 Major 
-RotaryEncoder Comm2MajorEncoder(34, 35, 0, 17 * 3, 1);
+RotaryEncoder Comm2MajorEncoder(34, 35, 0, Comm1MajorEncoderMaxValue, 1);
 // Comm2 Minor
-RotaryEncoder Comm2MinorEncoder(37, 36, 0, MinorEncoderMaxValue, 1);
+RotaryEncoder Comm2MinorEncoder(37, 36, 0, CommMinorEncoderMaxValue, 1);
 
 
 // Nav1 
 // Nav1 Major
 RotaryEncoder Nav1MajorEncoder(38, 39, 0, 9 * 3, 1);
 // Nav1 Minor
-RotaryEncoder Nav1MinorEncoder(41, 40, 0, MinorEncoderMaxValue, 1);
+RotaryEncoder Nav1MinorEncoder(41, 40, 0, NavMinorEncoderMaxValue, 1);
 
 
 // Nav2 
 // Nav2 Major
 RotaryEncoder Nav2MajorEncoder(42, 43, 0, 9 * 3, 1);
 // Nav2 Minor
-RotaryEncoder Nav2MinorEncoder(45, 44, 0, MinorEncoderMaxValue, 1);
+RotaryEncoder Nav2MinorEncoder(45, 44, 0, NavMinorEncoderMaxValue, 1);
 
 
 // RotaryEncoder encoderZ(6, 7, -1000, 1000);
@@ -1145,15 +1154,15 @@ void loop() {
 
     // Roll back to top if at deired zero point
     if (Comm1MinorEncoderPos <= 2) {
-        Comm1MinorEncoder.setPosition(MinorEncoderMaxValue -1);
+        Comm1MinorEncoder.setPosition(CommMinorEncoderMaxValue -1);
         Comm1MinorEncoderPos = Comm1MinorEncoder.getPosition();
-    } else if (Comm1MinorEncoderPos >= (MinorEncoderMaxValue)) {
+    } else if (Comm1MinorEncoderPos >= (CommMinorEncoderMaxValue)) {
         Comm1MinorEncoder.setPosition(4);
         Comm1MinorEncoderPos = Comm1MinorEncoder.getPosition();
     }
 
 
-    long convertedchann = 118000 + int(Comm1MajorEncoderPos / 3) * 1000 + int((Comm1MinorEncoderPos-3) / 3) * 5;
+    long convertedchann = 118000 + int(Comm1MajorEncoderPos / 3) * 1000 + int((Comm1MinorEncoderPos-3) / 3) * COM_MINOR_STEP_KHZ;
     SendDebug("Converted Chan: " + String(convertedchann));
     com1StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
@@ -1174,15 +1183,15 @@ void loop() {
 
     // Roll back to top if at deired zero point
     if (Comm2MinorEncoderPos <= 2) {
-        Comm2MinorEncoder.setPosition(MinorEncoderMaxValue -1);
+        Comm2MinorEncoder.setPosition(CommMinorEncoderMaxValue -1);
         Comm2MinorEncoderPos = Comm2MinorEncoder.getPosition();
-    } else if (Comm2MinorEncoderPos >= (MinorEncoderMaxValue)) {
+    } else if (Comm2MinorEncoderPos >= (CommMinorEncoderMaxValue)) {
         Comm2MinorEncoder.setPosition(4);
         Comm2MinorEncoderPos = Comm2MinorEncoder.getPosition();
     }
 
 
-    long convertedchann = 118000 + int(Comm2MajorEncoderPos / 3) * 1000 + int((Comm2MinorEncoderPos-3) / 3) * 5;
+    long convertedchann = 118000 + int(Comm2MajorEncoderPos / 3) * 1000 + int((Comm2MinorEncoderPos-3) / 3) * COM_MINOR_STEP_KHZ;
     SendDebug("Converted Chan: " + String(convertedchann));
     com2StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
@@ -1203,15 +1212,15 @@ void loop() {
 
     // Roll back to top if at deired zero point
     if (Nav1MinorEncoderPos <= 2) {
-        Nav1MinorEncoder.setPosition(MinorEncoderMaxValue -1);
+        Nav1MinorEncoder.setPosition(NavMinorEncoderMaxValue -1);
         Nav1MinorEncoderPos = Nav1MinorEncoder.getPosition();
-    } else if (Nav1MinorEncoderPos >= (MinorEncoderMaxValue)) {
+    } else if (Nav1MinorEncoderPos >= (NavMinorEncoderMaxValue)) {
         Nav1MinorEncoder.setPosition(4);
         Nav1MinorEncoderPos = Nav1MinorEncoder.getPosition();
     }
 
 
-    long convertedchann = 108000 + int(Nav1MajorEncoderPos / 3) * 1000 + int((Nav1MinorEncoderPos-3) / 3) * 5;
+    long convertedchann = 108000 + int(Nav1MajorEncoderPos / 3) * 1000 + int((Nav1MinorEncoderPos-3) / 3) * NAV_MINOR_STEP_KHZ;
     SendDebug("Converted Chan: " + String(convertedchann));
     Nav1StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
@@ -1232,15 +1241,15 @@ void loop() {
 
     // Roll back to top if at deired zero point
     if (Nav2MinorEncoderPos <= 2) {
-        Nav2MinorEncoder.setPosition(MinorEncoderMaxValue -1);
+        Nav2MinorEncoder.setPosition(NavMinorEncoderMaxValue -1);
         Nav2MinorEncoderPos = Nav2MinorEncoder.getPosition();
-    } else if (Nav2MinorEncoderPos >= (MinorEncoderMaxValue)) {
+    } else if (Nav2MinorEncoderPos >= (NavMinorEncoderMaxValue)) {
         Nav2MinorEncoder.setPosition(4);
         Nav2MinorEncoderPos = Nav2MinorEncoder.getPosition();
     }
 
 
-    long convertedchann = 108000 + int(Nav2MajorEncoderPos / 3) * 1000 + int((Nav2MinorEncoderPos-3) / 3) * 5;
+    long convertedchann = 108000 + int(Nav2MajorEncoderPos / 3) * 1000 + int((Nav2MinorEncoderPos-3) / 3) * NAV_MINOR_STEP_KHZ;
     SendDebug("Converted Chan: " + String(convertedchann));
     Nav2StandbyFrequency = String(convertedchann).substring(0, 3) + "." + String(convertedchann).substring(3, 6);
 
