@@ -1,0 +1,79 @@
+
+(rules PCB Jet Ranger ADF Panel
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 529)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.5)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.7)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.0)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_800:400_um"
+    (shape
+      (circle F.Cu 800.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 800.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_800:400_um" "Via[0-1]_800:400_um" default
+  )
+  (via 
+    "Via[0-1]_800:400_um-kicad_default" "Via[0-1]_800:400_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-1]_800:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_800:400_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    GND "/BACKLIGHT_PANELS" "/+12v-IN" "/LDG_GEAR" /FLAPS "/SPEED_BRAKES" /BRAKES "Net-(D5-A)"
+    "Net-(D8-A)" "Net-(D15-A)" "ADF_OLED_SC" +3V3 "ADF_OLED_SD" "/KEYPAD_1" "/LED_LDG_NOSE" "/KEYPAD_6"
+    "/KEYPAD_2" "/KEYPAD_3" "unconnected-(J3-Pin_25-Pad25)" "unconnected-(J3-Pin_26-Pad26)" "/ADF_MNR_B" "/KEYPAD_7" "/LED_LDG_LEFT" "/KEYPAD_4"
+    "/ADF_MJR_B" "/KEYPAD_5" "/ADF_MJR_A" "/LED_LDG_RIGHT" "/ADF_MNR_A" "unconnected-(J19-Pin_8-Pad8)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

@@ -1,0 +1,27 @@
+%TF.GenerationSoftware,KiCad,Pcbnew,9.0.7*%
+%TF.CreationDate,2026-10-17T09:02:28+10:00*%
+%TF.ProjectId,Jet Ranger ADF Panel,4a657420-5261-46e6-9765-722041444620,1.0*%
+%TF.SameCoordinates,Original*%
+%TF.FileFunction,NonPlated,1,2,NPTH,Drill*%
+%TF.FilePolarity,Positive*%
+%FSLAX46Y46*%
+G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
+G04 Created by KiCad (PCBNEW 9.0.7) date 2026-10-17 09:02:28*
+%MOMM*%
+%LPD*%
+G01*
+G04 APERTURE LIST*
+%TA.AperFunction,ComponentDrill*%
+%ADD10C,3.200000*%
+%TD*%
+G04 APERTURE END LIST*
+D10*
+%TO.C,H1*%
+X115500000Y-83500000D03*
+%TO.C,H3*%
+X115500000Y-147500000D03*
+%TO.C,H2*%
+X159500000Y-83500000D03*
+%TO.C,H4*%
+X159500000Y-147500000D03*
+M02*

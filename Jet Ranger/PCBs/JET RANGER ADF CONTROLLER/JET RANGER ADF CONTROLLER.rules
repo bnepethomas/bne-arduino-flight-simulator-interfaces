@@ -1,0 +1,97 @@
+
+(rules PCB JET RANGER ADF CONTROLLER
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 1513)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.0)
+    )
+  )
+  (rule
+    (width 250.0)
+    (clear 200.0)
+    (clear 125.0 (type smd_to_turn_gap))
+    (clear 50.0 (type smd_smd))
+  )
+  (padstack "Via[0-1]_600:400_um"
+    (shape
+      (circle F.Cu 600.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 600.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_600:400_um" "Via[0-1]_600:400_um" default
+  )
+  (via 
+    "Via[0-1]_600:400_um-kicad_default" "Via[0-1]_600:400_um" "kicad_default"
+  )
+  (via_rule
+    default "Via[0-1]_600:400_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_600:400_um-kicad_default"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    "Net-(D1-A)" GND "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "/+5v_IN" "/+12v-IN" "/ADF_MJR_A"
+    "unconnected-(A1-PadD44)" "/INT_5V" SCLK "unconnected-(A1-PadD35)" "unconnected-(A1-PadD33)" "ADF_OLED_SD" "unconnected-(A1-PadD42)" "/KEYPAD_4"
+    "unconnected-(A1-PadD39)" "/PIN_20" "ES1_RST" "/LED_LDG_NOSE" "/ADF_MJR_B" MISO "/ADF_MNR_B" "unconnected-(A1-PadD38)"
+    /RESET MOSI "/GREEN_LED" "/RED_LED" SS "Net-(J41-Pin_5)" "/KEYPAD_3" "Net-(U1-INT)"
+    "unconnected-(U1-NC-PadB4)" "/BACKLIGHT_PWM" "Net-(J41-Pin_1)" +3V3 /D1 /D0 /VIN "unconnected-(J40-Pin_1-Pad1)"
+    /AREF "/RESET_pin" "Net-(D8-A)" "unconnected-(A1-PadD46)" "Net-(Q5-G)" "Net-(J41-Pin_6)" /FLAPS /IORF
+    "Net-(J45-Pin_4)" "/SPEED_BRAKES" "/LED_LDG_LEFT" "unconnected-(A1-PadD45)" "Net-(J42-Pin_1)" "Net-(J42-Pin_8)" "ADF_OLED_SC" "Net-(J41-Pin_4)"
+    "Net-(J41-Pin_3)" "unconnected-(A1-PadD40)" "/ADF_MNR_A" "unconnected-(A1-PadD36)" "Net-(J45-Pin_5)" /BRAKES "unconnected-(A1-PadD41)" "Net-(J41-Pin_2)"
+    "unconnected-(A1-PadD34)" "/KEYPAD_1" "unconnected-(A1-PadD43)" "Net-(J7-Pin_1)" "/KEYPAD_2" "/PIN_21" "unconnected-(A1-PadD48)" "unconnected-(A1-PadD47)"
+    "Net-(J42-Pin_7)" "/KEYPAD_7" "/KEYPAD_5" "/KEYPAD_6" "/LED_LDG_RIGHT" "Net-(A1-D16{slash}TX2)" "Net-(J42-Pin_6)" "/LDG_GEAR"
+    "unconnected-(A1-PadD37)" "Net-(J1-Pin_3)" "Net-(J1-Pin_4)" "Net-(J1-Pin_6)" "Net-(J1-Pin_10)" "Net-(J1-Pin_5)" "Net-(J1-Pin_9)" "Net-(J1-Pin_11)"
+    "Net-(J1-Pin_7)" "Net-(J1-Pin_15)" "Net-(J1-Pin_13)" "Net-(J1-Pin_14)" "Net-(J1-Pin_8)" "Net-(J1-Pin_1)" "Net-(J1-Pin_16)" "Net-(J1-Pin_2)"
+    "Net-(J1-Pin_12)" "unconnected-(J5-Pin_26-Pad26)" "Net-(J42-Pin_4)" "unconnected-(J5-Pin_25-Pad25)" "Net-(J41-Pin_7)" "Net-(J6-Pin_11)" "Net-(J6-Pin_6)" "Net-(J6-Pin_12)"
+    "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" "Net-(J6-Pin_2)" "Net-(J6-Pin_9)" "Net-(J6-Pin_1)" "Net-(A1-D18{slash}TX1)" "Net-(J6-Pin_3)" "Net-(J42-Pin_2)"
+    "Net-(J6-Pin_8)" "Net-(J42-Pin_5)" "Net-(J6-Pin_5)" "Net-(J6-Pin_15)" "Net-(J41-Pin_8)" "Net-(J42-Pin_3)" "Net-(J45-Pin_6)" "Net-(J6-Pin_4)"
+    "Net-(J6-Pin_13)" "Net-(J6-Pin_14)" "Net-(J4-Pin_1)" "/BACKLIGHT_PANELS" "Net-(J6-Pin_16)" "Net-(J6-Pin_10)" "Net-(J6-Pin_7)" "Net-(J10-Pin_4)"
+    "Net-(J10-Pin_7)" "Net-(J10-Pin_5)" "Net-(J10-Pin_12)" "Net-(J10-Pin_2)" "Net-(J10-Pin_9)" "Net-(J10-Pin_8)" "Net-(J10-Pin_15)" "Net-(J10-Pin_10)"
+    "Net-(J10-Pin_3)" "Net-(J10-Pin_13)" "Net-(J10-Pin_14)" "Net-(J10-Pin_11)" "Net-(J10-Pin_6)" "Net-(J10-Pin_16)" "Net-(J10-Pin_1)" "Net-(J11-Pin_15)"
+    "Net-(J11-Pin_11)" "Net-(J11-Pin_1)" "Net-(J11-Pin_2)" "Net-(J11-Pin_13)" "Net-(J11-Pin_14)" "Net-(J11-Pin_6)" "Net-(J11-Pin_10)" "Net-(J11-Pin_5)"
+    "Net-(J11-Pin_16)" "Net-(J11-Pin_7)" "Net-(J11-Pin_9)" "Net-(J11-Pin_8)" "Net-(J11-Pin_4)" "Net-(J11-Pin_12)" "Net-(J11-Pin_3)" "Net-(J13-Pin_2)"
+    "Net-(J13-Pin_14)" "Net-(J13-Pin_7)" "Net-(J13-Pin_4)" "Net-(J13-Pin_9)" "Net-(J13-Pin_12)" "Net-(J13-Pin_3)" "Net-(J13-Pin_13)" "Net-(J13-Pin_11)"
+    "Net-(J13-Pin_5)" "Net-(J13-Pin_15)" "Net-(J13-Pin_16)" "Net-(J13-Pin_6)" "Net-(J13-Pin_8)" "Net-(J13-Pin_1)" "Net-(J13-Pin_10)"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 250.0)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)
