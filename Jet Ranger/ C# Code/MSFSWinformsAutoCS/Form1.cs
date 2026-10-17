@@ -63,6 +63,7 @@ namespace MSFSWinformsAutoCS
             ("GENERAL ENG PCT MAX RPM:1", "percent"),
             ("ENG TORQUE PERCENT:1", "percent"),
             ("TURB ENG MAX TORQUE PERCENT:1", "percent"),
+            ("ENG EXHAUST GAS TEMPERATURE:1", "celsius"),
             ("GENERAL ENG THROTTLE LEVER POSITION:1", "percent"),
             ("ELECTRICAL TOTAL LOAD AMPS", "amps"),
             ("TURB ENG ITT:1", "celsius"),
@@ -110,6 +111,7 @@ namespace MSFSWinformsAutoCS
             public double GENERAL_ENG_PCT_MAX_RPM_1;
             public double ENG_TORQUE_PERCENT_1;
             public double TURB_ENG_MAX_TORQUE_PERCENT_1;
+            public double ENG_EXHAUST_GAS_TEMPERATURE_1;
             public double GENERAL_ENG_THROTTLE_LEVER_POSITION_1;
             public double ELECTRICAL_TOTAL_LOAD_AMPS;
             public double TURB_ENG_ITT_1;
@@ -157,6 +159,36 @@ namespace MSFSWinformsAutoCS
         private const double FlyInsideIdleTorque = 21.0;
         // Fuel pressure: the SimVar reads on the dial's own 0-3 scale (x10), so psi = 10 x SimVar. One dial reading.
         private const double FlyInsideFuelPressureScale = 10.0;
+
+        // ----- CowaSim Jet Ranger ("206B3 ...") estimates, from dial readings during a collective sweep (2026-10-18) -----
+        // Torque: the cockpit dial is a smoothed copy of ENG TORQUE PERCENT:1: about 0.5 x the SimVar (dial 38 at the steady
+        // idle value of 83, about 120 at the peak of about 260) with a smoothing time constant of about 2.5 s. Fitted to nine
+        // readings, RMS error about 18 points on a signal swinging between 0 and 120.
+        private const double CowaSimTorqueScale = 0.42;   // 0.48 from the sweep fit; a steady flight check read the bridge about 15 % high
+        private const double CowaSimTorqueSmoothSeconds = 2.5;
+        // Turbine out temperature: the dial follows exhaust gas temperature, not ITT (which reads 2,000+): dial = EGT - 200 C
+        // within about 30 C over nine readings (EGT 903 reads 700, EGT 727 reads about 525).
+        private const double CowaSimTurbineOutTempOffset = 200.0;
+        // Electrical load: the LOAD dial sat at about 50 % while the total load was 69.5 A (one reading), so about 139 A is 100 %.
+        private const double CowaSimElectricalLoadFullScaleAmps = 139.0;
+        // Transmission oil pressure: no variable; the dial read about 45-50 psi at normal rotor speed.
+        private const double CowaSimTransmissionPressureNormal = 48.0;
+        // Transmission oil temperature: the dial read about 55 C with the engine oil at 60 C shortly after start, and did not
+        // follow a slow warm-up, so it is taken as 0.92 x the engine oil temperature (one reading).
+        private const double CowaSimTransmissionTempOfOilTemp = 0.92;
+        private double _cowaTorque = double.NaN;
+        private DateTime _cowaTorqueTime = DateTime.UtcNow;
+
+        private double SmoothCowaSimTorque(double rawTorquePct)
+        {
+            DateTime now = DateTime.UtcNow;
+            double dt = Math.Min(1.0, (now - _cowaTorqueTime).TotalSeconds);
+            _cowaTorqueTime = now;
+            double target = rawTorquePct * CowaSimTorqueScale;
+            if (double.IsNaN(_cowaTorque)) _cowaTorque = target;
+            _cowaTorque += (target - _cowaTorque) * (1.0 - Math.Exp(-dt / CowaSimTorqueSmoothSeconds));
+            return Math.Clamp(_cowaTorque, 0.0, 120.0);
+        }
 
         // Transmission oil pressure, estimated (no variable exists; the dial reads about 35 psi at normal rotor speed):
         // 35 psi scaled by the rotor speed percent, so it falls to 0 as the rotor stops.
@@ -386,10 +418,15 @@ namespace MSFSWinformsAutoCS
             if ((DATA_REQUESTS)data.dwRequestID != DATA_REQUESTS.PanelData) return;
             _latest = (PanelData)data.dwData[0];
             _lastDataUtc = DateTime.UtcNow;
-            if (!_haveData)
+            string title = _latest.title ?? "";
+            if (!_haveData || title != _aircraftTitle)
             {
+                // First data, or a different aircraft was loaded: show its name and restart the
+                // aircraft-specific models (the transmission temperature estimate warms from ambient).
                 _haveData = true;
-                _aircraftTitle = _latest.title ?? "";
+                _aircraftTitle = title;
+                _xmsnTemp = double.NaN;
+                _cowaTorque = double.NaN;
                 configureForm();
             }
         }
@@ -425,7 +462,13 @@ namespace MSFSWinformsAutoCS
 
         private static SimSnapshot ToSnapshot(PanelData d)
         {
-            bool flyInside = d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH > 0;
+            // The FlyInside B206 is recognised by its turbine L:var, or by its title so that it is still
+            // recognised with the engine stopped (the L:var reads 0 then).
+            bool flyInside = d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH > 0
+                || (d.title != null && d.title.Contains("FlyInside", StringComparison.OrdinalIgnoreCase));
+            // The CowaSim Jet Ranger (title "206B3 ...") reports the standard SimVars, but its cockpit dials read
+            // differently (see the CowaSim constants). Its estimates are applied here and in the main timer.
+            bool cowaSim = !flyInside && d.title != null && d.title.Contains("206B3", StringComparison.OrdinalIgnoreCase);
             double torque = flyInside
                 ? FlyInsideTorque(d.TURB_ENG_MAX_TORQUE_PERCENT_1, d.GENERAL_ENG_THROTTLE_LEVER_POSITION_1, d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH)
                 : d.ENG_TORQUE_PERCENT_1;
@@ -433,6 +476,8 @@ namespace MSFSWinformsAutoCS
             return new SimSnapshot
         {
             FlyInside = flyInside,
+            CowaSim = cowaSim,
+            ElectricalLoadFullScaleAmps = cowaSim ? CowaSimElectricalLoadFullScaleAmps : Payloads.DefaultElectricalLoadFullScaleAmps,
             AltitudeFeet = d.PLANE_ALTITUDE,
             AirspeedKnots = d.AIRSPEED_INDICATED,
             VerticalSpeedFpm = d.VERTICAL_SPEED,
@@ -448,7 +493,9 @@ namespace MSFSWinformsAutoCS
             ElectricalLoadAmps = d.ELECTRICAL_TOTAL_LOAD_AMPS,
             // FlyInside B206: the standard ITT reads about 540 C while the cockpit shows 600 with the turbine
             // at 100, so it is scaled from the turbine N2 L:var like the gas producer.
-            IttCelsius = flyInside ? FlyInsideTurbineOutTemp(d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH, torque) : d.TURB_ENG_ITT_1,
+            IttCelsius = flyInside ? FlyInsideTurbineOutTemp(d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH, torque)
+                : cowaSim ? Math.Max(d.ENG_EXHAUST_GAS_TEMPERATURE_1 - CowaSimTurbineOutTempOffset, d.AMBIENT_TEMPERATURE)
+                : d.TURB_ENG_ITT_1,
             OilTempCelsius = d.ENG_OIL_TEMPERATURE_1,
             FuelGallons = d.FUEL_TOTAL_QUANTITY,
             // FlyInside B206: no readable gas producer variable (the standard N1 reads about 52 while the
@@ -457,7 +504,9 @@ namespace MSFSWinformsAutoCS
             OilPressurePsi = d.ENG_OIL_PRESSURE_1,
             // FlyInside B206: no transmission pressure variable exists (the SimVar reads 0 while the cockpit dial shows
             // about 35 psi), so it is estimated from the rotor speed. See FlyInsideTransmissionPressure.
-            TransPressurePsi = flyInside ? FlyInsideTransmissionPressure(rotor) : d.ENG_TRANSMISSION_PRESSURE_1,
+            TransPressurePsi = flyInside ? FlyInsideTransmissionPressure(rotor)
+                : cowaSim ? CowaSimTransmissionPressureNormal * Math.Clamp(rotor / 100.0, 0.0, 1.0)
+                : d.ENG_TRANSMISSION_PRESSURE_1,
             TransTempCelsius = d.ENG_TRANSMISSION_TEMPERATURE_1,
             // FlyInside B206: the cockpit FUEL dial is a 0-3 scale marked x10 and the SimVar reads in dial units
             // (1.7 with the needle at about 1.7), so the pressure in psi (30 psi full scale) is 10 x the SimVar.
@@ -495,7 +544,9 @@ namespace MSFSWinformsAutoCS
             if (stale) return;
 
             SimSnapshot s = ToSnapshot(_latest);
+            if (s.CowaSim) s.TorquePct = SmoothCowaSimTorque(s.TorquePct);
             if (s.FlyInside) s.TransTempCelsius = UpdateTransmissionTemp(s);
+            if (s.CowaSim) s.TransTempCelsius = s.OilTempCelsius * CowaSimTransmissionTempOfOilTemp;
 
             // --- On-screen readout and lamps ---
             textBox1.Text = BuildReadout(s);

@@ -31,7 +31,9 @@ namespace MSFSWinformsAutoCS
         public double KohlsmanMillibars;
         public double ZuluSeconds;           // seconds since midnight UTC
         public bool AvionicsMaster;
-        public bool FlyInside;               // the FlyInside B206's L:vars are present (aircraft-specific estimates in use)
+        public bool FlyInside;               // the FlyInside B206 (aircraft-specific estimates in use)
+        public bool CowaSim;                 // the CowaSim Jet Ranger (aircraft-specific estimates in use)
+        public double ElectricalLoadFullScaleAmps = Payloads.DefaultElectricalLoadFullScaleAmps;   // amps that read 100 % on the LOAD gauge
         public double Com1Active, Com1Standby, Com2Active, Com2Standby;   // MHz
         public double Nav1Active, Nav1Standby, Nav2Active, Nav2Standby;   // MHz
     }
@@ -50,14 +52,20 @@ namespace MSFSWinformsAutoCS
         public const double RadioPowerVolts = 24.0;
         // The main bus must be at least this high for the four Dual Stepper OLEDs to be on.
         public const double OledPowerVolts = 24.0;
+        // The TRANSMISSION OIL PRESSURE lamp comes on below this pressure.
+        public const double TransmissionPressureWarningPsi = 40.0;
+        // The GEN FAIL lamp comes on when the engine speed (turbine, percent) is below this.
+        public const double GeneratorFailEngineRpmPct = 10.0;
 
         // Total electrical load that reads 100 % on the LOAD gauge. The Dual Stepper's ELECTRICALLOAD
         // is a percentage; the sim gives amps. 300 A is a round number chosen so the FlyInside B206's
         // 143 A reads about 48 % (its cockpit LOAD gauge shows about 50 %); not checked at other loads.
-        public const double ElectricalLoadFullScaleAmps = 300.0;
+        public const double DefaultElectricalLoadFullScaleAmps = 300.0;
 
         public static double ElectricalLoadPercent(SimSnapshot s)
-            => Math.Clamp(s.ElectricalLoadAmps / ElectricalLoadFullScaleAmps * 100.0, 0.0, 100.0);
+            // The sign of ELECTRICAL TOTAL LOAD AMPS flips with the direction of the current (negative while the
+            // battery, not the generator, supplies the bus, e.g. with the engine stopped), so the magnitude is used.
+            => Math.Clamp(Math.Abs(s.ElectricalLoadAmps) / s.ElectricalLoadFullScaleAmps * 100.0, 0.0, 100.0);
 
         static string F0(double v) => Math.Round(v).ToString("F0", Inv);
         static string F1(double v) => v.ToString("F1", Inv);
@@ -99,6 +107,11 @@ namespace MSFSWinformsAutoCS
                 case "EOUT": return s.EngineRpmPct < 60;      // turbine below 60 percent
                 case "RLOW": return s.RotorRpmPct <= 95;      // rotor at or below 95 percent
                 case "LOWF": return s.FuelGallons <= 17;      // 17 US gallons or less
+                case "GENF": return s.EngineRpmPct < GeneratorFailEngineRpmPct;   // engine speed below 10 percent
+                // Transmission oil pressure below 40 psi. Only when a pressure is available: the FlyInside B206's
+                // estimate (which falls to 0 with the rotor), or any aircraft whose SimVar reads above 0 (most
+                // report 0 for it, which would keep the lamp on all the time).
+                case "TOPW": return (s.FlyInside || s.CowaSim || s.TransPressurePsi > 0) && s.TransPressurePsi < TransmissionPressureWarningPsi;
                 default: return false;
             }
         }

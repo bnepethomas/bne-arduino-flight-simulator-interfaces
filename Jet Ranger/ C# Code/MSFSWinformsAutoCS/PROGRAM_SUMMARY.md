@@ -44,7 +44,7 @@ yet run against MSFS** (the simulator was not running when it was written).
 |---|---|
 | Servo `.102` | `PITCH` (degrees, one decimal, negated: the sim reports nose-down positive), `BANK`, and the 15 lamp codes as `:1`/`:0` (all `0` while the main bus is below 20 V) |
 | Stepper `.105` | `IAS` (knots, one decimal), `VSI` (fpm), `AGL` (feet, `0` below 20 V), `FUEL` (US gal), `TQ` (%), `ITT` (deg C), `N1` (%) |
-| Dual Stepper `.106` | `PWR` (`1`, or `0` while the main bus is below 24 V: blanks that board's four OLEDs), `ALT`, `RPMR`, `RPME`, `ZULU` (HHMM), `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (fuel pressure, psi), `ELECTRICALLOAD` (percent: `ELECTRICAL TOTAL LOAD AMPS` / 300 A, `ElectricalLoadFullScaleAmps`; a guess from one reading, the FlyInside B206's 143 A with its cockpit LOAD gauge at about 50 %), `TEMP` (outside air, e.g. `21C`) |
+| Dual Stepper `.106` | `PWR` (`1`, or `0` while the main bus is below 24 V: blanks that board's four OLEDs), `ALT`, `RPMR`, `RPME`, `ZULU` (HHMM), `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (fuel pressure, psi), `ELECTRICALLOAD` (percent: the magnitude of `ELECTRICAL TOTAL LOAD AMPS` / 300 A - the sign goes negative while the battery supplies the bus, e.g. with the engine stopped - `ElectricalLoadFullScaleAmps`; a guess from one reading, the FlyInside B206's 143 A with its cockpit LOAD gauge at about 50 %), `TEMP` (outside air, e.g. `21C`) |
 | OLED `.104` | `ALT`, `BARO` (inHg x 100 from the Kohlsman setting in millibars). Only these two - the FSUIPC bridge sends this board the whole shared packet, but it reads only `ALT` and `BARO` |
 | Radio `.101` | `C1A`, `C1S`, `C2A`, `C2S` (MHz, three decimals), `MAINBUS` (volts), `NAVCOM1` (`1` when the **avionics bus is 24 V or more**, else `0`: below that the Radio blanks its COM/NAV displays; if the aircraft reports the avionics bus as exactly 0, as the FlyInside B206 does, the **main bus** is used instead) |
 
@@ -76,7 +76,8 @@ The FlyInside B206 does not feed the standard rotor / engine speed SimVars (they
 slowly decaying idle while the cockpit shows 100 %). Found with Developer Mode > Tools >
 Behaviors > Variables (Global tab, filter `Aircraft.`), the cockpit uses
 `L:Aircraft.Rotor.RPM.Percent` (rotor, percent) and `L:Aircraft.Engine.1.Turbine.N2.Smooth`
-(turbine, percent). The bridge reads both and uses them when they are above zero, otherwise
+(turbine, percent). The aircraft is recognised by the turbine L:var being above zero, or by `FlyInside` in the aircraft title (so
+it is still recognised with the engine stopped). The bridge reads both L:vars and uses them when they are above zero, otherwise
 `ROTOR RPM PCT:1` and `GENERAL ENG PCT MAX RPM:1`, so other aircraft are unaffected. They feed
 `RPMR` / `RPME` and the `RLOW` / `EOUT` lamps. No gas producer variable could be found
 (the standard N1 reads about 52 % while the cockpit shows 92 %), so while the turbine L:var is
@@ -107,11 +108,36 @@ about 2 s over-torques and breaks the engine in this aircraft (the dial swung to
 mapping depends on the controller; only two steady readings back the 0.72 slope.
 Transmission and the other lamp variables have not been found yet.
 
+## CowaSim Jet Ranger estimates (2026-10-18)
+
+The CowaSim Jet Ranger (aircraft title `206B3 ...`) reports the standard SimVars, but three of its cockpit dials
+do not read them, so the bridge applies these estimates to it (`cowaSim` in `ToSnapshot`). They were fitted to dial
+readings taken from screenshots during a fast collective sweep (the aircraft then crashed), so they are rough:
+
+- **Torque (`TQ`):** the dial is a smoothed copy of `ENG TORQUE PERCENT:1`: about 0.42 x the SimVar (dial about 38 at the
+  steady idle value of 83, about 120 at a peak of about 260; 0.48 from the sweep fit, lowered to 0.42 after a flight check
+  read about 15 % high) with a smoothing time constant of about 2.5 s (`CowaSimTorqueScale`,
+  `CowaSimTorqueSmoothSeconds`, `SmoothCowaSimTorque()`); RMS error about 18 points on a signal swinging between 0 and 120.
+- **Turbine out temperature (`ITT`):** the dial follows `ENG EXHAUST GAS TEMPERATURE:1`, not ITT (which reads over 2,000):
+  EGT - 200 C (`CowaSimTurbineOutTempOffset`), within about 30 C over nine readings.
+- **Electrical load (`ELECTRICALLOAD`):** the LOAD dial sat at about 50 % while the total load was 69.5 A, so 139 A is
+  100 % for this aircraft (`CowaSimElectricalLoadFullScaleAmps`; 300 A for others). One reading.
+- **Transmission oil:** no variable; pressure is 48 psi x the rotor speed fraction (the dial read about 45-50 psi,
+  `CowaSimTransmissionPressureNormal`) and the temperature is 0.92 x the engine oil temperature (`CowaSimTransmissionTempOfOilTemp`): the dial read about
+  55 C with the engine oil at 60 C shortly after start and did not follow a slow warm-up. One reading.
+- Gas producer, engine oil, fuel pressure, rotor and engine speed matched the dials without any change.
+
+The warning lamp for transmission oil pressure uses the estimate for this aircraft as for the FlyInside.
+
 ## Warning lamps
 
-Only three can be derived from standard SimVars and are implemented, with the thresholds
+Five are implemented. Three can be derived from standard SimVars, with the thresholds
 `SimConnect_to_UDP` used: `EOUT` (turbine speed below 60 %), `RLOW` (rotor at or below
-95 %) and `LOWF` (fuel 17 US gal or less). The other twelve are aircraft specific
+95 %) and `LOWF` (fuel 17 US gal or less). `TOPW` (transmission oil pressure) comes on below 40 psi
+(`TransmissionPressureWarningPsi`), only when a pressure is available: the FlyInside B206's estimate (35 psi at
+normal rotor speed, so the lamp is on all the time with the current estimate, and when the rotor stops) or an
+aircraft whose SimVar reads above 0 (most read 0, which would keep it on). `GENF` (generator fail) comes on when the
+engine speed is below 10 % (`GeneratorFailEngineRpmPct`). The other ten are aircraft specific
 (`DodoSim` supplies them through an FSUIPC offset, which MSFS aircraft do not have) and
 stay off; add rules to `Payloads.LampState()` once the aircraft's variables are known.
 
