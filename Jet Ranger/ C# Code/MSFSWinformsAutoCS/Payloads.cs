@@ -31,6 +31,7 @@ namespace MSFSWinformsAutoCS
         public double KohlsmanMillibars;
         public double ZuluSeconds;           // seconds since midnight UTC
         public bool AvionicsMaster;
+        public bool FlyInside;               // the FlyInside B206's L:vars are present (aircraft-specific estimates in use)
         public double Com1Active, Com1Standby, Com2Active, Com2Standby;   // MHz
         public double Nav1Active, Nav1Standby, Nav2Active, Nav2Standby;   // MHz
     }

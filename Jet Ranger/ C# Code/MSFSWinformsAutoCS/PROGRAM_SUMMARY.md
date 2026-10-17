@@ -81,13 +81,30 @@ Behaviors > Variables (Global tab, filter `Aircraft.`), the cockpit uses
 `RPMR` / `RPME` and the `RLOW` / `EOUT` lamps. No gas producer variable could be found
 (the standard N1 reads about 52 % while the cockpit shows 92 %), so while the turbine L:var is
 available `N1` is that value x 0.92 (`FlyInsideGasProducerScale`, from one reading: N2 100 gives
-92; not checked at other powers). The turbine out temperature (`ITT`) is handled the same way: the
-standard `TURB ENG ITT:1` reads about 540 C while the cockpit shows 600, so it is N2 x 6
-(`FlyInsideTurbineOutTempPerPercent`, one reading: N2 100 gives 600 C). Torque is handled the same way: `ENG TORQUE PERCENT:1` reads 0 while the cockpit dial shows 20-70 %,
-so `TQ` is estimated from `TURB ENG MAX TORQUE PERCENT:1` through two cockpit readings (raw 5 gives about
-20 % on the ground, raw 27.5 gives 70 % in flight): piecewise linear from 0, clamped to 0-130
-(`FlyInsideTorque()`). A straight x4 was tried first and gave about 110 % in flight. Two rough
-readings only; recheck at other powers.
+92; not checked at other powers). The turbine out temperature (`ITT`) is estimated too: the standard `TURB ENG ITT:1` reads about 540 C while
+the cockpit dial shows 600 at idle, and the dial rises with power (about 650-660 at torque 74 %, about 700 at
+115 %, read from screenshots). So `ITT` is turbine N2 x 6 plus 1.05 C per torque percent above the idle torque
+of 21 (`FlyInsideTurbineOutTemp()`); three rough readings only.
+Fuel load (`FUELLOAD`, sent as psi from the fuel pressure): the cockpit FUEL dial is a 0-3 scale marked x10 with
+the needle at about 1.7-2 while `GENERAL ENG FUEL PRESSURE:1` reads 1.7, so the SimVar is in dial units and
+`FUELLOAD` is 10 x it (`FlyInsideFuelPressureScale`; the Dual Stepper's table runs to 30 psi). One dial reading.
+
+Transmission oil (`XMSNP`, `XMSNT`): no variable exists (the standard SimVars read 0; the XMSN OIL dial
+showed about 35 psi and about 10-20 C), so both are estimates. Pressure is 35 psi x the rotor speed fraction
+(`FlyInsideTransmissionPressure`). Temperature starts at the outside air temperature and moves slowly (5 min warming,
+10 min cooling time constants) toward ambient + 0.8 C per torque percent while the rotor is above 50 % (about 33 C at
+idle, 75 at 74 % torque; `UpdateTransmissionTemp`); it restarts from ambient when the bridge restarts. Neither is
+read from the aircraft: replace them if an L:var is found (search the Behaviors Global tab for `xmsn`, `trans`, `gear`).
+
+Torque (`TQ`): `ENG TORQUE PERCENT:1` reads 0. The cockpit dial follows the collective immediately, while
+the sim's torque variables lag it by several seconds, and `COLLECTIVE POSITION` reads 0 too. With the
+turbine L:var at 95 or more (rotor at normal speed) `TQ` is `21 + 0.72 x` `GENERAL ENG THROTTLE LEVER
+POSITION:1` (on the test setup the collective axis arrives as that variable; dial about 21 % at 0 and about 74 %
+steady at 73.6) up to lever 73.6, then a steeper line (about 1.74 per lever percent) to 120 % at lever 100
+(`FlyInsideTorqueLeverKnee`; the dial read about 100 % at lever 89; clamped to 0-120, `FlyInsideTorqueMax`). Below that speed it is estimated from `TURB ENG MAX TORQUE PERCENT:1`
+through two readings (raw 5 gives 20, raw 27.5 gives 70; `FlyInsideTorque()`). Full collective for more than
+about 2 s over-torques and breaks the engine in this aircraft (the dial swung to about 115 %). The lever
+mapping depends on the controller; only two steady readings back the 0.72 slope.
 Transmission and the other lamp variables have not been found yet.
 
 ## Warning lamps
