@@ -44,16 +44,29 @@ namespace MSFSWinformsAutoCS
 
         // The main bus must be at least this high for the gauges / radar altimeter to be powered.
         public const double GaugePowerVolts = 20.0;
-        // The avionics bus must be at least this high for the COM/NAV displays to be on.
+        // The radio bus (avionics bus, or main bus if the avionics bus reads 0) must be at least this
+        // high for the COM/NAV displays to be on.
         public const double RadioPowerVolts = 24.0;
         // The main bus must be at least this high for the four Dual Stepper OLEDs to be on.
         public const double OledPowerVolts = 24.0;
+
+        // Total electrical load that reads 100 % on the LOAD gauge. The Dual Stepper's ELECTRICALLOAD
+        // is a percentage; the sim gives amps. 300 A is a round number chosen so the FlyInside B206's
+        // 143 A reads about 48 % (its cockpit LOAD gauge shows about 50 %); not checked at other loads.
+        public const double ElectricalLoadFullScaleAmps = 300.0;
+
+        public static double ElectricalLoadPercent(SimSnapshot s)
+            => Math.Clamp(s.ElectricalLoadAmps / ElectricalLoadFullScaleAmps * 100.0, 0.0, 100.0);
 
         static string F0(double v) => Math.Round(v).ToString("F0", Inv);
         static string F1(double v) => v.ToString("F1", Inv);
 
         public static bool GaugesPowered(SimSnapshot s) => s.MainBusVolts >= GaugePowerVolts;
-        public static bool RadioPowered(SimSnapshot s) => s.AvionicsBusVolts >= RadioPowerVolts;
+        // Bus voltage that decides whether the COM/NAV displays are on: the avionics bus, or the
+        // main bus when the aircraft does not report the avionics bus (it reads exactly 0, as on
+        // the FlyInside B206).
+        public static double RadioBusVolts(SimSnapshot s) => s.AvionicsBusVolts > 0 ? s.AvionicsBusVolts : s.MainBusVolts;
+        public static bool RadioPowered(SimSnapshot s) => RadioBusVolts(s) >= RadioPowerVolts;
         public static bool OledsPowered(SimSnapshot s) => s.MainBusVolts >= OledPowerVolts;
 
         // The 15 warning lamps on the Servo board (code, display name). Order is the order they
@@ -140,7 +153,7 @@ namespace MSFSWinformsAutoCS
              + ",XMSNT:" + F0(s.TransTempCelsius)
              + ",XMSNP:" + F0(s.TransPressurePsi)
              + ",FUELLOAD:" + F0(s.FuelPressurePsi)
-             + ",ELECTRICALLOAD:" + F0(s.ElectricalLoadAmps)
+             + ",ELECTRICALLOAD:" + F0(ElectricalLoadPercent(s))
              + ",TEMP:" + F0(s.AmbientCelsius) + "C";
 
         // Kollsman setting as inHg x 100 (2992 = 29.92 inHg) from millibars.

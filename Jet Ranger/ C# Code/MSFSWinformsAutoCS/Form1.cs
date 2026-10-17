@@ -62,6 +62,7 @@ namespace MSFSWinformsAutoCS
             ("ROTOR RPM PCT:1", "percent"),
             ("GENERAL ENG PCT MAX RPM:1", "percent"),
             ("ENG TORQUE PERCENT:1", "percent"),
+            ("TURB ENG MAX TORQUE PERCENT:1", "percent"),
             ("ELECTRICAL TOTAL LOAD AMPS", "amps"),
             ("TURB ENG ITT:1", "celsius"),
             ("ENG OIL TEMPERATURE:1", "celsius"),
@@ -85,6 +86,12 @@ namespace MSFSWinformsAutoCS
             ("NAV STANDBY FREQUENCY:1", "MHz"),
             ("NAV ACTIVE FREQUENCY:2", "MHz"),
             ("NAV STANDBY FREQUENCY:2", "MHz"),
+            // Aircraft-specific L:vars (global local variables). The FlyInside B206 does not feed the
+            // standard rotor / engine speed SimVars (they read 0 and a slowly decaying idle); its
+            // cockpit gauges use these. On an aircraft without them they read 0 and the standard
+            // SimVars are used instead (see ToSnapshot).
+            ("L:Aircraft.Rotor.RPM.Percent", "number"),
+            ("L:Aircraft.Engine.1.Turbine.N2.Smooth", "number"),
         };
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
@@ -101,6 +108,7 @@ namespace MSFSWinformsAutoCS
             public double ROTOR_RPM_PCT_1;
             public double GENERAL_ENG_PCT_MAX_RPM_1;
             public double ENG_TORQUE_PERCENT_1;
+            public double TURB_ENG_MAX_TORQUE_PERCENT_1;
             public double ELECTRICAL_TOTAL_LOAD_AMPS;
             public double TURB_ENG_ITT_1;
             public double ENG_OIL_TEMPERATURE_1;
@@ -124,6 +132,8 @@ namespace MSFSWinformsAutoCS
             public double NAV_STANDBY_FREQUENCY_1;
             public double NAV_ACTIVE_FREQUENCY_2;
             public double NAV_STANDBY_FREQUENCY_2;
+            public double L_AIRCRAFT_ROTOR_RPM_PERCENT;
+            public double L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH;
         }
 
         // ----- State ----------------------------------------------------------------------
@@ -134,6 +144,30 @@ namespace MSFSWinformsAutoCS
         private string _aircraftTitle = "";
         private bool _suppressAvionicsEvent = false;
         private const double StaleAfterSeconds = 3.0;
+        // Gas producer (N1) as a fraction of the turbine N2 L:var, from one cockpit reading: 92 % gas
+        // producer with N2 at 100. Only a two-point guess (0 -> 0, 100 -> 92); not checked at other powers.
+        private const double FlyInsideGasProducerScale = 0.92;
+        // Turbine out temperature in deg C per percent of the turbine N2 L:var, from one cockpit reading:
+        // 600 C with N2 at 100. Same two-point guess as above (0 -> 0, 100 -> 600).
+        private const double FlyInsideTurbineOutTempPerPercent = 6.0;
+        // Cockpit torque from TURB ENG MAX TORQUE PERCENT, through two cockpit readings:
+        //   raw 5.0  (ground, collective down) -> dial about 20 %
+        //   raw 27.5 (in flight)               -> dial 70 %
+        // piecewise linear from 0 (0 -> 0, 5 -> 20, 27.5 -> 70, same slope beyond), clamped to 0-130.
+        // A straight x4 gave about 110 % in flight. Estimated from two rough readings; recheck at other powers.
+        private const double FlyInsideTorqueRawLow = 5.0, FlyInsideTorqueDialLow = 20.0;
+        private const double FlyInsideTorqueRawHigh = 27.5, FlyInsideTorqueDialHigh = 70.0;
+
+        private static double FlyInsideTorque(double raw)
+        {
+            double dial;
+            if (raw <= FlyInsideTorqueRawLow)
+                dial = raw * (FlyInsideTorqueDialLow / FlyInsideTorqueRawLow);
+            else
+                dial = FlyInsideTorqueDialLow + (raw - FlyInsideTorqueRawLow)
+                       * ((FlyInsideTorqueDialHigh - FlyInsideTorqueDialLow) / (FlyInsideTorqueRawHigh - FlyInsideTorqueRawLow));
+            return Math.Clamp(dial, 0.0, 130.0);
+        }
 
         private bool radioFrequencyChanged = false;
         private string com1ActiveFrequency = "";
@@ -329,14 +363,21 @@ namespace MSFSWinformsAutoCS
             RadarAltFeet = d.PLANE_ALT_ABOVE_GROUND,
             PitchDegrees = d.ATTITUDE_INDICATOR_PITCH_DEGREES,
             BankDegrees = d.ATTITUDE_INDICATOR_BANK_DEGREES,
-            RotorRpmPct = d.ROTOR_RPM_PCT_1,
-            EngineRpmPct = d.GENERAL_ENG_PCT_MAX_RPM_1,
-            TorquePct = d.ENG_TORQUE_PERCENT_1,
+            // The aircraft's own L:var when it has one (non-zero), else the standard SimVar.
+            RotorRpmPct = d.L_AIRCRAFT_ROTOR_RPM_PERCENT > 0 ? d.L_AIRCRAFT_ROTOR_RPM_PERCENT : d.ROTOR_RPM_PCT_1,
+            EngineRpmPct = d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH > 0 ? d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH : d.GENERAL_ENG_PCT_MAX_RPM_1,
+            // FlyInside B206: ENG TORQUE PERCENT reads 0, so the cockpit dial's value is estimated from the
+            // turbine's max-torque percent (FlyInside only: when its N2 L:var is present). See FlyInsideTorque.
+            TorquePct = d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH > 0 ? FlyInsideTorque(d.TURB_ENG_MAX_TORQUE_PERCENT_1) : d.ENG_TORQUE_PERCENT_1,
             ElectricalLoadAmps = d.ELECTRICAL_TOTAL_LOAD_AMPS,
-            IttCelsius = d.TURB_ENG_ITT_1,
+            // FlyInside B206: the standard ITT reads about 540 C while the cockpit shows 600 with the turbine
+            // at 100, so it is scaled from the turbine N2 L:var like the gas producer.
+            IttCelsius = d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH > 0 ? d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH * FlyInsideTurbineOutTempPerPercent : d.TURB_ENG_ITT_1,
             OilTempCelsius = d.ENG_OIL_TEMPERATURE_1,
             FuelGallons = d.FUEL_TOTAL_QUANTITY,
-            N1Pct = d.TURB_ENG_CORRECTED_N1_1,
+            // FlyInside B206: no readable gas producer variable (the standard N1 reads about 52 while the
+            // cockpit shows 92 with the turbine at 100), so it is scaled from the turbine N2 L:var.
+            N1Pct = d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH > 0 ? d.L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH * FlyInsideGasProducerScale : d.TURB_ENG_CORRECTED_N1_1,
             OilPressurePsi = d.ENG_OIL_PRESSURE_1,
             TransPressurePsi = d.ENG_TRANSMISSION_PRESSURE_1,
             TransTempCelsius = d.ENG_TRANSMISSION_TEMPERATURE_1,
@@ -430,7 +471,7 @@ namespace MSFSWinformsAutoCS
                 "Transmission Oil Pressure: " + s.TransPressurePsi.ToString("F1", inv) + " PSI" + nl +
                 "Transmission Oil Temperature: " + s.TransTempCelsius.ToString("F0", inv) + " C" + nl +
                 "Fuel Quantity: " + s.FuelGallons.ToString("F0", inv) + " Gallons" + nl +
-                "Electrical Load: " + s.ElectricalLoadAmps.ToString("F1", inv) + " A" + nl +
+                "Electrical Load: " + s.ElectricalLoadAmps.ToString("F1", inv) + " A (" + Payloads.ElectricalLoadPercent(s).ToString("F0", inv) + " %)" + nl +
                 "Fuel Pressure: " + s.FuelPressurePsi.ToString("F1", inv) + " PSI" + nl +
                 "Torque Percent: " + s.TorquePct.ToString("F1", inv) + " %" + nl +
                 "Air Speed: " + s.AirspeedKnots.ToString("F1", inv) + " Knots" + nl +

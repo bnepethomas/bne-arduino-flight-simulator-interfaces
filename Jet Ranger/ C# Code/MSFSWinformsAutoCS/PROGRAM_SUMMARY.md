@@ -44,9 +44,9 @@ yet run against MSFS** (the simulator was not running when it was written).
 |---|---|
 | Servo `.102` | `PITCH` (degrees, one decimal, negated: the sim reports nose-down positive), `BANK`, and the 15 lamp codes as `:1`/`:0` (all `0` while the main bus is below 20 V) |
 | Stepper `.105` | `IAS` (knots, one decimal), `VSI` (fpm), `AGL` (feet, `0` below 20 V), `FUEL` (US gal), `TQ` (%), `ITT` (deg C), `N1` (%) |
-| Dual Stepper `.106` | `PWR` (`1`, or `0` while the main bus is below 24 V: blanks that board's four OLEDs), `ALT`, `RPMR`, `RPME`, `ZULU` (HHMM), `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (fuel pressure, psi), `ELECTRICALLOAD` (amps, as the FSUIPC bridge sends it), `TEMP` (outside air, e.g. `21C`) |
+| Dual Stepper `.106` | `PWR` (`1`, or `0` while the main bus is below 24 V: blanks that board's four OLEDs), `ALT`, `RPMR`, `RPME`, `ZULU` (HHMM), `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (fuel pressure, psi), `ELECTRICALLOAD` (percent: `ELECTRICAL TOTAL LOAD AMPS` / 300 A, `ElectricalLoadFullScaleAmps`; a guess from one reading, the FlyInside B206's 143 A with its cockpit LOAD gauge at about 50 %), `TEMP` (outside air, e.g. `21C`) |
 | OLED `.104` | `ALT`, `BARO` (inHg x 100 from the Kohlsman setting in millibars). Only these two - the FSUIPC bridge sends this board the whole shared packet, but it reads only `ALT` and `BARO` |
-| Radio `.101` | `C1A`, `C1S`, `C2A`, `C2S` (MHz, three decimals), `MAINBUS` (volts), `NAVCOM1` (`1` when the **avionics bus is 24 V or more**, else `0`: below that the Radio blanks its COM/NAV displays) |
+| Radio `.101` | `C1A`, `C1S`, `C2A`, `C2S` (MHz, three decimals), `MAINBUS` (volts), `NAVCOM1` (`1` when the **avionics bus is 24 V or more**, else `0`: below that the Radio blanks its COM/NAV displays; if the aircraft reports the avionics bus as exactly 0, as the FlyInside B206 does, the **main bus** is used instead) |
 
 ## SimVars requested
 
@@ -70,6 +70,26 @@ COM1 standby frequency (`COM_STBY_RADIO_SET_HZ`; out-of-range or unreadable beco
 `ALTERNATOR_ON/OFF` (`ALTERNATOR_SET` 1/0). Unlike FSUIPC, SimConnect has direct set events
 for battery and alternator, so there is no voltage guard or blind toggle.
 
+## Aircraft-specific L:vars
+
+The FlyInside B206 does not feed the standard rotor / engine speed SimVars (they read 0 and a
+slowly decaying idle while the cockpit shows 100 %). Found with Developer Mode > Tools >
+Behaviors > Variables (Global tab, filter `Aircraft.`), the cockpit uses
+`L:Aircraft.Rotor.RPM.Percent` (rotor, percent) and `L:Aircraft.Engine.1.Turbine.N2.Smooth`
+(turbine, percent). The bridge reads both and uses them when they are above zero, otherwise
+`ROTOR RPM PCT:1` and `GENERAL ENG PCT MAX RPM:1`, so other aircraft are unaffected. They feed
+`RPMR` / `RPME` and the `RLOW` / `EOUT` lamps. No gas producer variable could be found
+(the standard N1 reads about 52 % while the cockpit shows 92 %), so while the turbine L:var is
+available `N1` is that value x 0.92 (`FlyInsideGasProducerScale`, from one reading: N2 100 gives
+92; not checked at other powers). The turbine out temperature (`ITT`) is handled the same way: the
+standard `TURB ENG ITT:1` reads about 540 C while the cockpit shows 600, so it is N2 x 6
+(`FlyInsideTurbineOutTempPerPercent`, one reading: N2 100 gives 600 C). Torque is handled the same way: `ENG TORQUE PERCENT:1` reads 0 while the cockpit dial shows 20-70 %,
+so `TQ` is estimated from `TURB ENG MAX TORQUE PERCENT:1` through two cockpit readings (raw 5 gives about
+20 % on the ground, raw 27.5 gives 70 % in flight): piecewise linear from 0, clamped to 0-130
+(`FlyInsideTorque()`). A straight x4 was tried first and gave about 110 % in flight. Two rough
+readings only; recheck at other powers.
+Transmission and the other lamp variables have not been found yet.
+
 ## Warning lamps
 
 Only three can be derived from standard SimVars and are implemented, with the thresholds
@@ -84,10 +104,9 @@ stay off; add rules to `Payloads.LampState()` once the aircraft's variables are 
   packet capture (or the boards' debug output) shows 10 packets per second per board.
 - Several MSFS Jet Ranger add-ons do not report every SimVar (see the notes at the top of
   `SimConnect_to_UDP/Form1.cs`: transmission pressure / temperature read 0 on two of them;
-  one reports a fixed rotor speed). A missing `ELECTRICAL AVIONICS BUS VOLTAGE` makes the
-  Radio displays go off, as the 24 V rule reads 0.
-- Pitch sign, the units of `ELECTRICAL TOTAL LOAD AMPS` against what the Dual Stepper
-  expects for `ELECTRICALLOAD`, and the 24 V thresholds are carried over from the FSUIPC
+  one reports a fixed rotor speed). A missing `ELECTRICAL AVIONICS BUS VOLTAGE` (reads 0) falls back
+  to the main bus for the Radio power rule.
+- Pitch sign, and the 24 V thresholds are carried over from the FSUIPC
   bridge and are not verified for MSFS aircraft.
 - No hysteresis on the 20 V / 24 V thresholds.
 - The FSUIPC bridge also listens on 27001; run only one of the two bridges at a time.
