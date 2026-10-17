@@ -598,3 +598,16 @@ this session:
   and blanks all three OLEDs after 30s without side effects (e.g.
   fighting with a startup swing still in progress, or spamming
   `SendDebug()` if `gaugesResetForNoData` somehow fails to latch).
+
+## OLED power (`PWR`, 2026-10-17)
+
+UDP data code `PWR:1` / `PWR:0` (sent first in the bridge's packet) switches all four
+OLEDs - Baro, Altimeter, Clock, Temperature - on and off. `PWR:0` calls
+`setOledsPower(false)`, which blanks them with `BlankAllOleds()` and sets
+`oledsPowered = false`; while it is false `onZuluTimeChange()`, `onTempChange()`,
+`buildBAROString()` and the OLED part of `onAltMslFtChange()` draw nothing (the altimeter
+stepper still follows `ALT`). `PWR:1` clears every last-drawn cache, including the
+altimeter's per-digit ones, redraws the Baro setting and lets the next `ALT` / `ZULU` /
+`TEMP` packet repaint the rest. `FSUIPCWinformsAutoCS` sends `PWR:0` while the main bus
+voltage is below 24 V. Compiled at 57,540 bytes flash (22%) / 6,323 bytes RAM (77%);
+not yet flashed.

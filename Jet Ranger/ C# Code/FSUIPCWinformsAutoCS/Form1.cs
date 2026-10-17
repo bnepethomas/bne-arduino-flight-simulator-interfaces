@@ -445,9 +445,10 @@ namespace FSUIPCTest
                     MainBusVoltage = mainBusVoltageValue.ToString("F1");
                 }
 
-                // No discrete "circuit navcom1 on" offset is read in this project, so (as
-                // elsewhere in this file) main bus voltage >= 20V is used as the power-available proxy.
-                string navCom1OnFlag = (mainBusVoltageValue >= 20) ? "1" : "0";
+                // No discrete "circuit navcom1 on" offset is read in this project, so the
+                // avionics bus voltage (0x2850) >= 24V is used as the power-available proxy:
+                // below 24V the Radio Controller blanks its COM/NAV displays (NAVCOM1:0).
+                string navCom1OnFlag = (avionicsBusVoltageValue >= 24) ? "1" : "0";
                 if (CIRCUIT_NAVCOM1_ON != navCom1OnFlag)
                 {
                     radioFrequencyChanged = true;
@@ -483,7 +484,7 @@ namespace FSUIPCTest
                                    "Torque Percent: " + torquePercentValue.ToString("F1") + " %" + Environment.NewLine +
                                    "Turbine Out Temperature: " + turbineOutTempValue.ToString("F1") + " C" + Environment.NewLine +
                                    "Gas Producer: " + gasProducerPercent.ToString("F1") + "%" + Environment.NewLine +
-                                   "Air Speed: " + airspeedKnots.ToString("F0") + " Knots" + Environment.NewLine +
+                                   "Air Speed: " + airspeedKnots.ToString("F1") + " Knots" + Environment.NewLine +
                                    "Rotor RPM: " + rotorRPMValue.ToString("F1") + " %" + Environment.NewLine +
                                    "Engine N2: " + engN2Value.ToString("F1") + " %" + Environment.NewLine +
                                    "Altitude: " + altitudeValue.ToString("F0") + " Feet" + Environment.NewLine +
@@ -851,7 +852,11 @@ namespace FSUIPCTest
                         // temperature as text for the Temperature OLED (e.g. "21C").
                         int zuluHHMM = (zuluHours.Value * 100) + zuluMinutes.Value;
                         double ambientC = ambientTemp.Value / 256.0;
-                        string dualStepperPayload = "D,ALT:" + ALTITUDE
+                        // PWR leads the packet so the board applies it before ALT/ZULU/TEMP: all four
+                        // OLEDs (Baro, Altimeter, Clock, Temperature) are blank while the main bus is
+                        // below 24 V.
+                        string dualStepperPayload = "D,PWR:" + (mainBusVoltageValue >= 24 ? "1" : "0")
+                            + ",ALT:" + ALTITUDE
                             + ",RPMR:" + rpmrPctForStepper.ToString("F1", inv)
                             + ",RPME:" + rpmePctForStepper.ToString("F1", inv)
                             + ",ZULU:" + zuluHHMM.ToString(inv)

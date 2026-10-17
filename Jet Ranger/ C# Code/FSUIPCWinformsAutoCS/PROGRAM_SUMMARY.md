@@ -83,6 +83,9 @@ acting on them through the FSUIPC API instead of SimConnect.
      on-screen text) and, throttled the same way (≥200ms if changed, or
      every ≥5s regardless), sends a `"D,C1A:...,C1S:...,C2A:...,C2S:...,
      MAINBUS:...,NAVCOM1:..."` packet to the Radio Controller board.
+     `NAVCOM1` is `1` when the avionics bus voltage (offset `0x2850`) is 24 V or more
+     and `0` below that (it used to follow the main bus at 20 V); the Radio Controller
+     blanks its COM/NAV displays when it receives `NAVCOM1:0`.
 4. **`StartListener`** (background task, started from the constructor):
    binds to UDP port 27001 and passes every received string to
    `UpdateRadios()`.
@@ -155,7 +158,7 @@ its own calibration tables.
 |---|---|
 | Servo `.102` | `PITCH` (degrees, one decimal, negated as `PITCH_Process()` did: FSUIPC pitch is nose-down positive, the servo table nose-up), `BANK` (degrees, one decimal), plus the annunciator lamp codes (`EOUT`, `TOPW`, `BHOT`, `EC`, `BD`, `GENF`, `TOTW`, `RLOW`, `FFLTR`, `BTMP`, `TC`, `TRC`, `FPMP`, `LOWF`, `SCF`) as `:1`/`:0` |
 | Single-board Stepper `.105` | `IAS` (knots, one decimal - FSUIPC offset 0x02BC is knots x 128, so the resolution is finer than 0.1; the Stepper sketch interpolates the fraction), `VSI` (fpm), `AGL` (feet, the existing power-gated string), `FUEL` (US gal), `TQ` (%), `ITT` (deg C), `N1` (%) - no longer `ALT`/`RPMR`/`RPME`, which that board does not have |
-| Dual Stepper `.106` | `ALT` (feet), `RPMR`/`RPME` (%, one decimal), `ZULU` (HHMM), `OILT` (deg C), `OILP` (psi), `XMSNT` (deg C), `XMSNP` (psi), `FUELLOAD` (psi, from fuel pressure), `ELECTRICALLOAD` (%, from `ELECTRICAL_TOTAL_LOAD_AMPS`, the same input `ELOAD_Process()` took), `TEMP` (outside air temperature as text, e.g. `21C`, from new offset `0x0E8C` = deg C x 256 - a standard FSUIPC offset, not verified against DodoSim) |
+| Dual Stepper `.106` | `PWR` (first in the packet: `1`, or `0` while the main bus is below 24 V, which blanks the Baro, Altimeter, Clock and Temperature OLEDs), `ALT` (feet), `RPMR`/`RPME` (%, one decimal), `ZULU` (HHMM), `OILT` (deg C), `OILP` (psi), `XMSNT` (deg C), `XMSNP` (psi), `FUELLOAD` (psi, from fuel pressure), `ELECTRICALLOAD` (%, from `ELECTRICAL_TOTAL_LOAD_AMPS`, the same input `ELOAD_Process()` took), `TEMP` (outside air temperature as text, e.g. `21C`, from new offset `0x0E8C` = deg C x 256 - a standard FSUIPC offset, not verified against DodoSim) |
 
 Whole-number values are rounded; the boards clamp to their calibrated ranges.
 **Built clean in place (0 errors). Connected to Prepar3D v6.1 and sending

@@ -289,9 +289,15 @@ String padFrequency(const String& f) {
   return s;
 }
 
+// Power state the NAV display was last drawn with. A data packet only redraws COMM
+// (the PC sends no NAV frequencies), so when the power state changes NAV must be
+// redrawn too, straight after COMM, or it stays lit when the COM display goes off.
+bool navDrawnPower = true;
+
 void updateNAV() {
   tcaselect(NAV_OLED_Port);
   sendCommand(0x80);
+  navDrawnPower = powerAvailable;
 
   if (powerAvailable == true) {
     //sendCommand(cmd_CLS);
@@ -743,6 +749,7 @@ void ProcessReceivedMSFSString() {
 
     if (radioFrequencyChanged == true) {
       updateCOMM();
+      if (navDrawnPower != powerAvailable) updateNAV();  // NAV on/off together with COMM
       radioFrequencyChanged = false;
     }
     return;

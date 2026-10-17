@@ -415,6 +415,12 @@ unsigned long lastAltOledUpdateMillis = 0;
 // is the only data source). Same gate-on-change + throttle pattern as
 // the Altimeter OLED above.
 int iLastZuluTimeValue = -1;
+
+// All four OLEDs (Baro, Altimeter, Clock, Temperature) are blanked while
+// oledsPowered is false - see setOledsPower() near oledTest(). The ZULU / TEMP /
+// altitude / baro draw paths check it.
+bool oledsPowered = true;
+
 // Temperature OLED - last string drawn (empty = nothing drawn yet) and the
 // same 300ms redraw throttle the Clock uses.
 String sLastTempText = "";
@@ -488,7 +494,7 @@ void updateBARO(String strnewValue) {
 
 void buildBAROString() {
 
-  updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  if (oledsPowered) updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
   BaroUpdated = false;
 }
 
@@ -546,6 +552,7 @@ void updateTemp(String text) {
 // UDP "TEMP:<text>" handler - the value is shown as a string exactly as
 // received (e.g. "21C"), gated on change and throttled like the Clock.
 void onTempChange(String text) {
+  if (!oledsPowered) return;
   text.trim();
   if (text.length() == 0 || text.length() > 8) return;
   if (text != sLastTempText
@@ -557,6 +564,7 @@ void onTempChange(String text) {
 }
 
 void onZuluTimeChange(int hhmm) {
+  if (!oledsPowered) return;
   if (hhmm != iLastZuluTimeValue
       && (millis() - lastClockOledUpdateMillis) >= minClockOledUpdateIntervalMs) {
     int hours = hhmm / 100;
@@ -1038,6 +1046,32 @@ void oledTest(bool on) {
     iLastAltitudeValue = -1;
     iLastZuluTimeValue = -1;
     sLastTempText = "";
+    if (!oledsPowered) BlankAllOleds();
+  }
+}
+
+// OLED power ("PWR:1" / "PWR:0" UDP code, sent by FSUIPCWinformsAutoCS: 0 while
+// the main bus is below 24 V). Off blanks the Baro, Altimeter, Clock and
+// Temperature displays and stops the draw paths. On clears every "last drawn"
+// cache (including the altimeter's per-digit ones) so the next ALT / ZULU /
+// TEMP packet repaints in full, and redraws the Baro setting straight away.
+void setOledsPower(bool on) {
+  if (on == oledsPowered) return;
+  oledsPowered = on;
+  if (!oledsInitialised) return;
+  SendDebug(on ? "OLEDs on (main bus OK)" : "OLEDs off (main bus below 24V)");
+  if (on) {
+    iLastAltitudeValue = -1;
+    iLastZuluTimeValue = -1;
+    sLastTempText = "";
+    lastThousandsValue = -1;
+    lastTenThousandsValue = -1;
+    lastThousandsCharacterOffset = -1;
+    lastHundredsValue = -1;
+    lastHundredsCharacterOffset = -1;
+    updateBARO(BaroThousands + BaroHundreds + BaroTens + BaroOnes);
+  } else {
+    BlankAllOleds();
   }
 }
 
@@ -1665,7 +1699,7 @@ void onAltMslFtChange(unsigned int newValue) {
   // advanced), so the next eligible callback still picks it up rather
   // than the update being silently dropped. ALTstepper still moves every
   // call, regardless of either gate.
-  if ((int)newValue != iLastAltitudeValue
+  if (oledsPowered && (int)newValue != iLastAltitudeValue
       && (millis() - lastAltOledUpdateMillis) >= minAltOledUpdateIntervalMs) {
     UpdateAltimeterDigits(newValue);
     iLastAltitudeValue = (int)newValue;
@@ -2447,6 +2481,9 @@ void HandleOutputValuePair(String str) {
   } else if (ParameterName == "ALTRAW") {
     // Distinct raw-step code, bypassing the feet*5.76 conversion above.
     ALTstepper.moveTo(ParameterValue.toInt());
+  } else if (ParameterName == "PWR") {
+    // 1 = all four OLEDs on, 0 = blank them (main bus below 24 V).
+    setOledsPower(ParameterValue.toInt() != 0);
   } else if (ParameterName == "TEMP") {
     // Temperature as a string (e.g. "21C") for the Temperature OLED on mux
     // channel 4 - shown exactly as received. See onTempChange()/updateTemp().
