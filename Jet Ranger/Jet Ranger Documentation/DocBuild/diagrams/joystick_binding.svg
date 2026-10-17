@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="470" viewBox="0 0 880 470">
+<rect width="880" height="470" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<rect x="16.0" y="20.0" width="190.0" height="94.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="111.0" y="43.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Cockpit switch</text>
+<text x="111.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">Warning Mute,</text>
+<text x="111.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">Fuel Valve, TOT Clear...</text>
+<rect x="240.0" y="20.0" width="190.0" height="94.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="335.0" y="43.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Servo / Upper Mega</text>
+<text x="335.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">debounced change -&gt;</text>
+<text x="335.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">index,state</text>
+<rect x="464.0" y="20.0" width="190.0" height="94.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="559.0" y="43.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">USB HID board</text>
+<text x="559.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">joystick 1..4,</text>
+<text x="559.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">button 0..31</text>
+<rect x="688.0" y="20.0" width="176.0" height="94.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="776.0" y="43.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Windows</text>
+<text x="776.0" y="67.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">game controller</text>
+<text x="776.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">(joy.cpl)</text>
+<path d="M 206.0 67.0 L 240.0 67.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<path d="M 430.0 67.0 L 464.0 67.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<path d="M 654.0 67.0 L 688.0 67.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<path d="M 776.0 114.0 L 776.0 140.0 L 230.0 140.0 L 230.0 166.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="16.0" y="166.0" width="424.0" height="150.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="28.0" y="190.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">FSUIPC (P3D / FSX)</text>
+<text x="28.0" y="213.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Buttons + Switches tab</text>
+<text x="28.0" y="231.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">1. Operate the switch: FSUIPC shows its</text>
+<text x="28.0" y="248.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">    joystick letter and button number</text>
+<text x="28.0" y="266.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">2. Select for FS control, pick the event</text>
+<text x="28.0" y="283.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">3. Set the released side too, then OK</text>
+<rect x="464.0" y="166.0" width="400.0" height="150.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="476.0" y="190.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Bindings for the servo board switches</text>
+<text x="476.0" y="213.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Warning Mute: Joy 1 button 8</text>
+<text x="476.0" y="231.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">  DS206.WARNING_MUTE_BUTTON_SET</text>
+<text x="476.0" y="248.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Fuel Valve: Joy 1 button 10</text>
+<text x="476.0" y="266.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">  DS206.FUEL_VALVE_SWITCH_SET</text>
+<text x="476.0" y="283.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">TOT Clear: Joy 1 button 9</text>
+<text x="476.0" y="301.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">  DS206.TOT_TEST_BUTTON_SET</text>
+<path d="M 440.0 240.0 L 464.0 240.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="16.0" y="340.0" width="848.0" height="90.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="364.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">MSFS</text>
+<text x="28.0" y="387.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Bind the same joystick buttons in the MSFS controls menu. The DS206 events are an FSUIPC / DodoSim</text>
+<text x="28.0" y="405.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">feature and are not available in MSFS.</text>
+<text x="16.0" y="454.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">FSUIPC counts buttons from 0 and Windows from 1, so Windows button 10 appears as button 9 in FSUIPC.</text>
+</svg>

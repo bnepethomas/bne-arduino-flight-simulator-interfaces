@@ -1,49 +1,27 @@
 # StepperVSITester — Program Summary
 
-Standalone WinForms tool that lets an operator scrub or type real-unit
-values (VSI fpm, ALT feet, Radar ALT feet, IAS knots, EGT/ITT degrees,
-RPME/RPMR percent, and 6 more via compact rows) or raw step counts, jog
-the Altimeter by a raw step count at a fixed interval, and send it all
-straight to the
-stepper board's UDP handlers, without needing FSUIPC or a flight sim
-running — the stepper board's equivalent of `ServoTuner`, but for
-several fields on the Stepper Controller rather than the whole Servo
-Controller. Points at `172.16.1.105:13136`, an address/port shared by
-two mutually-exclusive sketches (only one is ever flashed to the board
-at a time):
-[`Jet_Ranger_Driver_Test.ino`](../../Jet%20Ranger%20Arduino%20Sketches/test/Jet_Ranger_Driver_Test/PROGRAM_SUMMARY.md)
-(the bench-test fork) and
-[`JET_RANGER_STEPPER_CONTROLLER.ino`](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)
-(production). (Name predates the ALT/Radar ALT/jog/Raw Step Test sections
+Standalone WinForms tool that lets an operator scrub or type real-unit values (VSI fpm,
+ALT feet, Radar ALT feet, IAS knots, EGT/ITT degrees, RPME/RPMR percent, and 6 more via
+compact rows) or raw step counts, jog the Altimeter by a raw step count at a fixed
+interval, and send it all straight to the Stepper Controller's UDP handlers
+(`172.16.1.105:13136`, running `JET_RANGER_STEPPER_CONTROLLER.ino`) without needing FSUIPC
+or a flight sim running. It also reaches the Dual Stepper (`.106`) and the Servo
+Controller (`.102`). (The name predates the ALT / Radar ALT / jog / Raw Step Test sections
 being added; kept as-is rather than renaming mid-project.)
 
-Built because `FSUIPCWinformsAutoCS` now sends the Stepper Controller raw
-fpm for `VSI` (its own front-panel/servo payload still sends the Bell 206
-`VSI_Process()` servo-position number, unchanged) and raw feet for `ALT`
-(unchanged from what it always sent) — this tool sends exactly what that
-board's stepper-specific payload sends for both fields, so VSI/ALT
-stepper behavior can be exercised/tuned in isolation. The Radar ALT, jog,
-EGT/IAS/RPME/RPMR/real-value-row, and Raw Step Test sections were added
-later for bench-testing features that don't have a real flight-sim data
-source yet or hadn't been calibrated at the time.
+Built because `FSUIPCWinformsAutoCS` sends the Stepper Controller raw fpm for `VSI` and raw
+feet for `ALT` - this tool sends exactly what that board's stepper-specific payload sends
+for both fields, so VSI/ALT stepper behaviour can be exercised and tuned in isolation. The
+Radar ALT, jog, EGT/IAS/RPME/RPMR/real-value-row, and Raw Step Test sections were added
+later for bench-testing features that did not have a real flight-sim data source yet or
+had not been calibrated at the time.
 
-> **`AGL` (Radar Alt) means different things depending on which sketch is
-> flashed:** `Jet_Ranger_Driver_Test.ino` treats it as calibrated feet
-> (via `RADAR_ALT_FT_TABLE`); `JET_RANGER_STEPPER_CONTROLLER.ino` treats
-> it as a raw step target (no calibration yet). The Radar ALT slider
-> below is unit-labelled "ft" and only actually produces feet on the
-> bench-test sketch - on production the same values get raw-stepped
-> instead. (Renamed from `RALT` to `AGL` on both sketches to match
-> `JET_RANGER_SERVO_CONTROLLER.ino`'s code for the same quantity - this
-> tool's control name/label didn't change, only the wire code it sends.)
-> Worth reconciling units once the production gauge is bench-measured.
+> **`AGL` (Radar Alt)** is calibrated feet on `JET_RANGER_STEPPER_CONTROLLER.ino`
+> (`AGL_FT_TABLE`, 0-2500 ft); the Radar ALT slider is unit-labelled "ft".
 >
-> **`FLAPS`/`AOA`/`GFORCE`/`SPDMAX` (still in the Raw Step Test dropdown)
-> are currently no-ops on `JET_RANGER_STEPPER_CONTROLLER.ino`:** the
-> steppers those codes used to reach (`FlapsStepper`/`AOAstepper`/
-> `GForcestepper`/`SpeedMaxstepper`) have been removed from that sketch
-> entirely, along with their `HandleOutputValuePair` cases. Sending them
-> from here does nothing on the current production board.
+> **`FLAPS`/`AOA`/`GFORCE`/`SPDMAX` (still in the Raw Step Test dropdown)** are no-ops on
+> the current Stepper board: the steppers those codes used to reach have been removed
+> from that sketch entirely.
 
 ## Program flow
 
@@ -285,19 +263,9 @@ None locally bound — this tool only sends, it doesn't listen for anything.
 
 ## Programs this communicates with
 
-- **[Jet_Ranger_Driver_Test](../../Jet%20Ranger%20Arduino%20Sketches/test/Jet_Ranger_Driver_Test/PROGRAM_SUMMARY.md)**
-  (`172.16.1.105:13136`) — meant to be run *instead of*
-  `FSUIPCWinformsAutoCS` while testing/tuning VSI, ALT, or Radar ALT
-  (calibrated feet on this sketch), since both would otherwise fight over
-  what's currently driving the stepper.
 - **[JET_RANGER_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)**
-  (`172.16.1.105:13136`, same address — mutually exclusive with the
-  sketch above) — the Raw Step Test panel and the ASTEP jog only exist on
-  one of these two sketches each (Raw Step Test: production only; ASTEP:
-  bench-test only), so which one is actually flashed to the board
-  determines which of this tool's controls do anything. Production also
-  has real-unit calibration (`IAS_KT_TABLE`) that the bench-test sketch
-  doesn't share.
+  (`172.16.1.105:13136`) - the main target. Run this tool *instead of* a bridge
+  while testing or tuning, since both would otherwise fight over what drives the steppers.
 - **[JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)**
   (`172.16.1.106:13136` — a distinct board/address, not mutually exclusive
   with the two above) — the Dual Stepper Raw Test rows (`FUELLOAD`/

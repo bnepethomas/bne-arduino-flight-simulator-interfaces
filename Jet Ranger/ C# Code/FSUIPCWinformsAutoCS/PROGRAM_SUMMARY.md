@@ -1,16 +1,12 @@
 # FSUIPCWinformsAutoCS — Program Summary
 
-A fourth sim-bridge variant, but reading data through **FSUIPC** (raw
-memory offsets, typically used with FSX/P3D via the FSUIPC add-on) instead
-of SimConnect. Named `FSUIPCTest` internally — reads engine/electrical/
-radio/annunciator offsets and streams the same style of `"D,ALT:...,IAS:..."`
-UDP packet to the Servo Controller board that the SimConnect-based bridges
-send, and now **also** fans that same payload out to the Stepper and OLED
-Controller boards. It now also has the radio interface ported from
-`SimConnect_to_UDP`: it sends the `"D,C1A:...,MAINBUS:...,NAVCOM1:..."`
-radio packet to the Radio Controller board, and listens on port 27001 for
-radio-swap/battery/alternator/standby-frequency commands from the panel,
-acting on them through the FSUIPC API instead of SimConnect.
+Bridge for Prepar3D / FSX that reads data through **FSUIPC** (raw memory offsets)
+instead of SimConnect. Named `FSUIPCTest` internally. It reads engine, electrical, radio
+and annunciator offsets and sends each panel board its own `"D,..."` UDP packet (Servo,
+Stepper, Dual Stepper, OLED and Radio controllers). It also listens on port 27001 for
+radio-swap / battery / alternator / standby-frequency commands from the panel and acts on
+them through the FSUIPC API. `MSFSWinformsAutoCS` is the MSFS counterpart; only one
+bridge should run against the panel network at a time.
 
 ## Program flow
 
@@ -34,7 +30,7 @@ acting on them through the FSUIPC API instead of SimConnect.
      and updates the on-screen light list (`UpdateLights`).
    - Runs each changed instrument value through the matching
      `<CODE>_Process()` mapping function (same formulas/tables as
-     `JET_RANGER_SERVO_CONTROLLER`/`ServoTuner`/the SimConnect bridges) and
+     `JET_RANGER_SERVO_CONTROLLER`) and
      appends it to a `"D,..."` payload, along with every annunciator's
      on/off state by short code. Also appends a `BARO` field: the
      altimeter/"Kollsman" pressure-setting offset (`0x0330`, hPa×16) is
@@ -89,8 +85,7 @@ acting on them through the FSUIPC API instead of SimConnect.
 4. **`StartListener`** (background task, started from the constructor):
    binds to UDP port 27001 and passes every received string to
    `UpdateRadios()`.
-5. **`UpdateRadios(command)`** — the FSUIPC port of `SimConnect_to_UDP`'s
-   `UpdateRadios()`:
+5. **`UpdateRadios(command)`** — the FSUIPC radio command handler:
    - `COM1_RADIO_SWAP` / `COM2_RADIO_SWAP` → `FSUIPCConnection.SendControlToFS`
      with `FsControl.COM_STBY_RADIO_SWAP` / `FsControl.COM2_RADIO_SWAP` —
      FSUIPC's equivalent of a SimConnect `TransmitClientEvent`.
@@ -213,7 +208,5 @@ twice per tick (percent, then temperature), so the temperature wins.
   (`172.16.1.106:13136`) — receives its own separate, purpose-built
   payload (`ALT`/`RPMR`/`RPME`/`ZULU`), not the shared front-panel bytes;
   the new `ZULU` field drives its Clock OLED.
-- Alternative to the SimConnect-based bridges (**P3D_to_UDP** /
-  **SimConnect_to_UDP** / **MSFSSimConnectExtractor**) for sims that only
-  expose data via FSUIPC rather than SimConnect — only one bridge app
-  should run against the panel network at a time.
+- Alternative to **MSFSWinformsAutoCS** for sims that expose data through FSUIPC; only one bridge
+  app should run against the panel network at a time.

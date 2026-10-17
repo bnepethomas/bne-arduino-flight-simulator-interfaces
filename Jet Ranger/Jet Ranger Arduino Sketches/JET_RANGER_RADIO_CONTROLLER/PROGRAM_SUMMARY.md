@@ -45,15 +45,10 @@ position -> action in `handleKeyPress()`:
 | COMM1 Freq Switch (`SW4`) | 2, 0 | COM1 swap: sends `COM1_RADIO_SWAP` (the display changes when the sim sends the swapped frequencies back) |
 | COMM2 FREQ SWITCH (`SW5`) | 3, 0 | COM2 swap: sends `COM2_RADIO_SWAP`, then `AVIONICS_MASTER_SET` |
 
-(The earlier mapping had battery on/off and alternator on/off on (0,0)/(1,0) and
-an interim NAV1 swap on key `9`; both were removed. Row 2, col 2 is the Auto
-Pilot Audio PCB's `AP_BC` switch. The Auto Pilot Audio switches - `AP_ENABLE`
-(0,1), `AP_HDG` (1,1), `AP_CRS` (2,1), `AP_ALT` (3,1), `AP_APPR` (0,2), `AP_FD`
-(1,2), `AP_BC` (2,2) - are not handled by this sketch.) `FSUIPCWinformsAutoCS`
-handles `NAV1_RADIO_SWAP` and `NAV2_RADIO_SWAP` with
-`FsControl.NAV1_RADIO_SWAP`/`NAV2_RADIO_SWAP`; the SimConnect/P3D bridges do
-**not** yet, and any command a bridge does not recognise falls into its COM1
-standby-frequency parser (resets COM1 standby to 121.50).
+(The earlier mapping had battery on/off and alternator on/off on (0,0)/(1,0);
+it was removed.) Both bridges (`FSUIPCWinformsAutoCS` and `MSFSWinformsAutoCS`)
+handle `NAV1_RADIO_SWAP` and `NAV2_RADIO_SWAP`, and any command a bridge does not
+recognise falls into its COM1 standby-frequency parser (resets COM1 standby to 121.50).
 
 **Bench-verified 2026-10-15** (Mega on COM20, through the reflector's forwarded
 copy): each of the four switches pressed twice logged `Key Pressed`, the matching
@@ -79,8 +74,7 @@ copy): each of the four switches pressed twice logged `Key Pressed`, the matchin
   bare number, the PC took anything outside 118-136.975 as COM1 standby 121.50, so
   NAV and COM2 knobs retuned COM1. Nothing is sent during the start-up quiet period,
   so the encoders' power-up positions are no longer pushed to the simulator. Each send
-  is logged as `To PC: ...`. The SimConnect / P3D / MSFS bridges only know the bare
-  COM1 form so far.
+  is logged as `To PC: ...`. Both bridges handle these labelled forms.
 - Display column fix (2026-10-16): the bridges send COM frequencies with 2 decimals
   (`128.30`, `127.80`), and the display line joined COM1 and COM2 with two spaces, so a
   short COM1 pulled COM2 one column left and its hundreds digit went behind the
@@ -188,13 +182,12 @@ not yet flashed.
 
 ## C# programs this sketch communicates with
 
-- **P3D_to_UDP** / **SimConnect_to_UDP** / **MSFSSimConnectExtractor
-  (WindowsFormsApp2)** — these are the sim-specific variants of the same
-  SimConnect↔UDP bridge, normally run on the PC at `172.16.1.10`. They
-  listen on UDP **27001** for the control commands this sketch sends
-  (radio swap, battery, alternator) and translate them into SimConnect
-  events, and they send the `D,C1A:...` / `C,...` frequency/status packets
-  this sketch listens for on port **13136**.
+- **FSUIPCWinformsAutoCS** / **MSFSWinformsAutoCS** — the bridge apps
+  (one at a time), normally run on the PC at `172.16.1.10`. They listen on
+  UDP **27001** for the control commands this sketch sends (radio swap,
+  standby tuning, battery, alternator) and translate them into simulator
+  events, and they send the `D,C1A:...` frequency/status packets this
+  sketch listens for on port **13136**.
 - **JetRangerHealthMonitor** — listens on UDP **13137** on the same PC and
   turns the "CommNav" indicator green when this sketch's keepalive arrives
   (red/orange if it's been 15–30s+ since the last one).

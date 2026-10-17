@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="566" viewBox="0 0 880 566">
+<rect width="880" height="566" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<text x="16.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">The 15 warning lamps on the Servo board</text>
+<text x="16.0" y="46.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Green: the bridge drives it from the simulator. Grey: needs aircraft-specific variables, so it stays off.</text>
+<rect x="16.0" y="70.0" width="276.0" height="78.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="28.0" y="93.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">ENGINE OUT</text>
+<text x="28.0" y="117.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A1   token EOUT</text>
+<text x="28.0" y="134.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">engine speed &lt; 60 %</text>
+<rect x="302.0" y="70.0" width="276.0" height="78.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="314.0" y="93.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">ROTOR RPM LOW</text>
+<text x="314.0" y="117.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A2   token RLOW</text>
+<text x="314.0" y="134.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">rotor &lt;= 95 %</text>
+<rect x="588.0" y="70.0" width="276.0" height="78.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="600.0" y="93.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">XMSN OIL PRESS</text>
+<text x="600.0" y="117.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A3   token TOPW</text>
+<text x="600.0" y="134.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pressure &lt; 40 psi</text>
+<rect x="16.0" y="158.0" width="276.0" height="78.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="181.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">XMSN OIL TEMP</text>
+<text x="28.0" y="205.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A4   token TOTW</text>
+<text x="28.0" y="222.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">always off</text>
+<rect x="302.0" y="158.0" width="276.0" height="78.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="314.0" y="181.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">BATTERY HOT</text>
+<text x="314.0" y="205.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A5   token BHOT</text>
+<text x="314.0" y="222.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">always off</text>
+<rect x="588.0" y="158.0" width="276.0" height="78.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="600.0" y="181.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">BATTERY TEMP</text>
+<text x="600.0" y="205.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A6   token BTMP</text>
+<text x="600.0" y="222.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">always off</text>
+<rect x="16.0" y="246.0" width="276.0" height="78.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="269.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">ENGINE CHIP</text>
+<text x="28.0" y="293.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A7   token EC</text>
+<text x="28.0" y="310.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">always off</text>
+<rect x="302.0" y="246.0" width="276.0" height="78.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="314.0" y="269.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">TAIL ROTOR CHIP</text>
+<text x="314.0" y="293.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A8   token TRC</text>
+<text x="314.0" y="310.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">always off</text>
+<rect x="588.0" y="246.0" width="276.0" height="78.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="600.0" y="269.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">XMSN CHIP</text>
+<text x="600.0" y="293.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A9   token TC</text>
+<text x="600.0" y="310.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">always off</text>
+<rect x="16.0" y="334.0" width="276.0" height="78.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="357.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">BAGGAGE DOOR</text>
+<text x="28.0" y="381.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A10   token BD</text>
+<text x="28.0" y="398.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">always off</text>
+<rect x="302.0" y="334.0" width="276.0" height="78.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="314.0" y="357.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">AFT FUEL FILTER</text>
+<text x="314.0" y="381.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A11   token FFLTR</text>
+<text x="314.0" y="398.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">always off</text>
+<rect x="588.0" y="334.0" width="276.0" height="78.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="600.0" y="357.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">FUEL PUMP</text>
+<text x="600.0" y="381.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A12   token FPMP</text>
+<text x="600.0" y="398.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">always off</text>
+<rect x="16.0" y="422.0" width="276.0" height="78.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="28.0" y="445.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">GENERATOR FAIL</text>
+<text x="28.0" y="469.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A13   token GENF</text>
+<text x="28.0" y="486.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">engine speed &lt; 10 %</text>
+<rect x="302.0" y="422.0" width="276.0" height="78.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="314.0" y="445.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">LOW FUEL</text>
+<text x="314.0" y="469.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A14   token LOWF</text>
+<text x="314.0" y="486.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">fuel &lt;= 17 gal</text>
+<rect x="588.0" y="422.0" width="276.0" height="78.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="600.0" y="445.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">SC FAIL</text>
+<text x="600.0" y="469.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin A15   token SCF</text>
+<text x="600.0" y="486.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">always off</text>
+<text x="16.0" y="534.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">All lamps go out when the main bus is below 20 V. Sent as &lt;token&gt;:1 / &lt;token&gt;:0 in every Servo packet.</text>
+<text x="16.0" y="554.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The lamp test at power-up lights all 15; a no-data timeout turns them all off.</text>
+</svg>

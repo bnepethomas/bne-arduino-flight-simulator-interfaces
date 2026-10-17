@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="410" viewBox="0 0 880 410">
+<rect width="880" height="410" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<text x="16.0" y="30.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Data packet  (PC to board, UDP 13136)</text>
+<rect x="16.0" y="52.0" width="36.4" height="44.0" rx="9" ry="9" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="34.2" y="82.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="20" font-weight="400" fill="#1F1F1F" text-anchor="middle">D</text>
+<line x1="34.2" y1="96.0" x2="34.2" y2="118.0" stroke="#8A8A85" stroke-width="1.4"/>
+<text x="34.2" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">type</text>
+<text x="61.4" y="80.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="24" font-weight="400" fill="#555555" text-anchor="start">,</text>
+<rect x="80.4" y="52.0" width="130.0" height="44.0" rx="9" ry="9" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="145.4" y="82.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="20" font-weight="400" fill="#1F1F1F" text-anchor="middle">PITCH:-3.3</text>
+<line x1="145.4" y1="96.0" x2="145.4" y2="118.0" stroke="#8A8A85" stroke-width="1.4"/>
+<text x="145.4" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">gauge, real units</text>
+<text x="219.4" y="80.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="24" font-weight="400" fill="#555555" text-anchor="start">,</text>
+<rect x="238.4" y="52.0" width="130.0" height="44.0" rx="9" ry="9" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="303.4" y="82.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="20" font-weight="400" fill="#1F1F1F" text-anchor="middle">BANK:-12.0</text>
+<line x1="303.4" y1="96.0" x2="303.4" y2="118.0" stroke="#8A8A85" stroke-width="1.4"/>
+<text x="303.4" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">gauge, real units</text>
+<text x="377.4" y="80.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="24" font-weight="400" fill="#555555" text-anchor="start">,</text>
+<rect x="396.4" y="52.0" width="88.4" height="44.0" rx="9" ry="9" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="440.6" y="82.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="20" font-weight="400" fill="#1F1F1F" text-anchor="middle">EOUT:1</text>
+<line x1="440.6" y1="96.0" x2="440.6" y2="118.0" stroke="#8A8A85" stroke-width="1.4"/>
+<text x="440.6" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">lamp 1 on / 0 off</text>
+<text x="16.0" y="190.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Control packet  (UDP 13136, or 4210 for the HID board)</text>
+<rect x="16.0" y="210.0" width="36.4" height="44.0" rx="9" ry="9" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="34.2" y="240.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="20" font-weight="400" fill="#1F1F1F" text-anchor="middle">C</text>
+<line x1="34.2" y1="254.0" x2="34.2" y2="276.0" stroke="#8A8A85" stroke-width="1.4"/>
+<text x="34.2" y="294.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">type</text>
+<text x="61.4" y="238.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="24" font-weight="400" fill="#555555" text-anchor="start">,</text>
+<rect x="80.4" y="210.0" width="98.8" height="44.0" rx="9" ry="9" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="129.8" y="240.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="20" font-weight="400" fill="#1F1F1F" text-anchor="middle">RESET:1</text>
+<line x1="129.8" y1="254.0" x2="129.8" y2="276.0" stroke="#8A8A85" stroke-width="1.4"/>
+<text x="129.8" y="294.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">command : value</text>
+<text x="188.2" y="238.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="24" font-weight="400" fill="#555555" text-anchor="start">,</text>
+<rect x="207.2" y="210.0" width="119.6" height="44.0" rx="9" ry="9" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="267.0" y="240.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="20" font-weight="400" fill="#1F1F1F" text-anchor="middle">SWINGTQ:1</text>
+<line x1="267.0" y1="254.0" x2="267.0" y2="276.0" stroke="#8A8A85" stroke-width="1.4"/>
+<text x="267.0" y="294.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">a second command</text>
+<rect x="16.0" y="322.0" width="410.0" height="76.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="347.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Rules</text>
+<text x="28.0" y="371.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">pairs in any order, up to 1000 bytes</text>
+<text x="28.0" y="389.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">unknown tokens are ignored</text>
+<rect x="442.0" y="322.0" width="422.0" height="76.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="454.0" y="347.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Values</text>
+<text x="454.0" y="371.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">real units: degrees, knots, psi, percent, C</text>
+<text x="454.0" y="389.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">&lt;CODE&gt;RAW sends raw steps / servo position</text>
+</svg>

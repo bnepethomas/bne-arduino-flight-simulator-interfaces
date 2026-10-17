@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="520" viewBox="0 0 880 520">
+<rect width="880" height="520" fill="#FFFFFF"/>
+<defs>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<rect x="300.0" y="140.0" width="280.0" height="190.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="440.0" y="163.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Arduino Mega 2560</text>
+<text x="440.0" y="186.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">JET_RANGER_UPPER_CONTROLLER</text>
+<text x="440.0" y="204.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.103</text>
+<text x="440.0" y="221.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">status LEDs 14 / 15, reset 53</text>
+<rect x="16.0" y="30.0" width="250.0" height="130.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="54.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Switch matrix 16 x 11</text>
+<text x="28.0" y="77.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">rows 22 - 37 driven low in turn</text>
+<text x="28.0" y="95.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">columns 38 - 49 read with pull-ups</text>
+<text x="28.0" y="112.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">176 of 256 positions wired</text>
+<text x="28.0" y="130.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">index = row x 11 + column</text>
+<path d="M 266.0 100.0 L 300.0 190.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="16.0" y="190.0" width="250.0" height="100.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="214.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Numeric keypad 4 x 3</text>
+<text x="28.0" y="237.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">rows A10, A12, A14, A15</text>
+<text x="28.0" y="255.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">columns A9, A11, A13</text>
+<path d="M 266.0 240.0 L 300.0 250.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="614.0" y="30.0" width="250.0" height="110.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="626.0" y="54.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">USB serial</text>
+<text x="626.0" y="77.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">DCS-BIOS link to a DCS World PC</text>
+<text x="626.0" y="95.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">(switch mapping is a stub)</text>
+<path d="M 580.0 180.0 L 614.0 100.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="614.0" y="170.0" width="250.0" height="160.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="626.0" y="193.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">UDP 4210 to the HID board</text>
+<text x="626.0" y="217.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">switch change: "&lt;index&gt;,&lt;state&gt;"</text>
+<text x="626.0" y="234.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">keypad key:   "KEY,&lt;key&gt;,&lt;state&gt;"</text>
+<text x="626.0" y="252.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">state 1 = pressed or on</text>
+<text x="626.0" y="269.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">0 = released or off</text>
+<path d="M 580.0 250.0 L 614.0 250.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)"/>
+<rect x="300.0" y="380.0" width="280.0" height="80.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="440.0" y="402.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">UDP 13136 in</text>
+<text x="440.0" y="425.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">only C,RESET:1 is acted on</text>
+<text x="440.0" y="443.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">(software reset: jump to 0)</text>
+<path d="M 440.0 380.0 L 440.0 330.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="16.0" y="330.0" width="250.0" height="130.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="354.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Notes</text>
+<text x="28.0" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Not flashed or tested after the</text>
+<text x="28.0" y="395.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">reset and timeout changes (board</text>
+<text x="28.0" y="412.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">not connected).</text>
+<text x="28.0" y="430.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Warning Mute pad D30 is not read.</text>
+</svg>

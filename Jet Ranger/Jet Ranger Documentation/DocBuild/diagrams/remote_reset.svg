@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="420" viewBox="0 0 880 420">
+<rect width="880" height="420" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<text x="16.0" y="64.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">SwingTester</text>
+<text x="16.0" y="82.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">(or any UDP sender)</text>
+<text x="16.0" y="190.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Board</text>
+<text x="16.0" y="320.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Debug stream</text>
+<text x="16.0" y="338.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">(UDP reflector)</text>
+<rect x="190.0" y="40.0" width="230.0" height="56.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="305.0" y="61.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Reset boards...</text>
+<text x="305.0" y="84.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">C,RESET:1 to each ticked board</text>
+<path d="M 305.0 96.0 L 305.0 166.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="315.5" y="120.0" width="143.0" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="387.0" y="131.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">UDP 13136 (HID: 4210)</text>
+<rect x="190.0" y="166.0" width="200.0" height="56.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="290.0" y="187.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Acknowledge</text>
+<text x="290.0" y="210.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">debug: RESET received</text>
+<rect x="420.0" y="166.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="520.0" y="187.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Arm watchdog 2 s</text>
+<text x="520.0" y="210.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">Radio, Upper: jump to 0</text>
+<rect x="650.0" y="166.0" width="210.0" height="56.0" rx="10" ry="10" fill="#FDECEA" stroke="#C62828" stroke-width="1.2"/>
+<text x="755.0" y="187.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Reboot</text>
+<text x="755.0" y="210.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">setup() runs again</text>
+<path d="M 390.0 194.0 L 420.0 194.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<path d="M 620.0 194.0 L 650.0 194.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="190.0" y="296.0" width="200.0" height="50.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="290.0" y="317.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="middle">RESET received</text>
+<text x="290.0" y="340.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">rebooting in 2 s</text>
+<rect x="420.0" y="296.0" width="200.0" height="50.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="520.0" y="317.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="middle">Ethernet Started</text>
+<text x="520.0" y="340.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">about 4 to 7 s later</text>
+<rect x="650.0" y="296.0" width="210.0" height="50.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="755.0" y="317.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="middle">Setup Complete</text>
+<text x="755.0" y="340.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">Servo ~13 s, Dual ~65 s</text>
+<path d="M 290.0 222.0 L 290.0 296.0" fill="none" stroke="#8A8A85" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah8A8A85)"/>
+<path d="M 520.0 222.0 L 520.0 296.0" fill="none" stroke="#8A8A85" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah8A8A85)"/>
+<path d="M 755.0 222.0 L 755.0 296.0" fill="none" stroke="#8A8A85" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah8A8A85)"/>
+<rect x="16.0" y="360.0" width="848.0" height="50.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="385.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Notes</text>
+<text x="28.0" y="408.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The HID board drops its USB joysticks while it restarts. A board that loops after a reset needs a power cycle.</text>
+</svg>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="640" viewBox="0 0 880 640">
+<rect width="880" height="640" fill="#FFFFFF"/>
+<defs>
+<marker id="ah2E7D32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ahs2E7D32" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<text x="16.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Knob turned: radio board to simulator</text>
+<rect x="16.0" y="40.0" width="150.0" height="84.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="91.0" y="63.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Encoder</text>
+<text x="91.0" y="87.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">COM1 / COM2 /</text>
+<text x="91.0" y="105.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">NAV1 / NAV2</text>
+<rect x="204.0" y="40.0" width="230.0" height="84.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="319.0" y="63.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Radio board</text>
+<text x="319.0" y="87.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">updates its own display,</text>
+<text x="319.0" y="105.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">sends a labelled standby</text>
+<text x="319.0" y="123.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">to UDP 27001</text>
+<rect x="472.0" y="40.0" width="190.0" height="84.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="567.0" y="63.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Bridge</text>
+<text x="567.0" y="87.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">UpdateRadios()</text>
+<text x="567.0" y="105.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">range-checks the value</text>
+<rect x="700.0" y="40.0" width="164.0" height="84.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="782.0" y="63.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Simulator</text>
+<text x="782.0" y="87.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">sets that radio's</text>
+<text x="782.0" y="105.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">standby frequency</text>
+<path d="M 166.0 82.0 L 204.0 82.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<path d="M 434.0 82.0 L 472.0 82.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)"/>
+<path d="M 662.0 82.0 L 700.0 82.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="204.0" y="140.0" width="458.0" height="112.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="216.0" y="163.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">What the radio sends on 27001</text>
+<text x="216.0" y="187.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">COM1   118.295                (a bare number)</text>
+<text x="216.0" y="204.5" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">COM2   COM2_STANDBY:118.295</text>
+<text x="216.0" y="222.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">NAV1   NAV1_STANDBY:108.000</text>
+<text x="216.0" y="239.5" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">NAV2   NAV2_STANDBY:108.000</text>
+<text x="16.0" y="286.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Swap key: radio board to simulator</text>
+<rect x="16.0" y="300.0" width="150.0" height="74.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="91.0" y="323.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Swap key</text>
+<text x="91.0" y="347.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">column 0</text>
+<rect x="204.0" y="300.0" width="230.0" height="74.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="319.0" y="323.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Radio board</text>
+<text x="319.0" y="347.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">sends the swap command</text>
+<text x="319.0" y="365.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">to UDP 27001</text>
+<rect x="472.0" y="300.0" width="190.0" height="74.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="567.0" y="323.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Bridge</text>
+<text x="567.0" y="347.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">swap event</text>
+<rect x="700.0" y="300.0" width="164.0" height="74.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="782.0" y="323.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Simulator</text>
+<text x="782.0" y="347.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">swaps active /</text>
+<text x="782.0" y="365.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">standby</text>
+<path d="M 166.0 337.0 L 204.0 337.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<path d="M 434.0 337.0 L 472.0 337.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)"/>
+<path d="M 662.0 337.0 L 700.0 337.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<text x="204.0" y="398.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">NAV1 and NAV2 also swap on the NAV display at once, because the PC does not send NAV frequencies back.</text>
+<text x="16.0" y="440.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Simulator values: bridge to radio board</text>
+<rect x="16.0" y="454.0" width="190.0" height="84.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="111.0" y="477.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Simulator</text>
+<text x="111.0" y="501.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">COM 1 and 2 active</text>
+<text x="111.0" y="519.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">and standby, bus</text>
+<text x="111.0" y="537.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">voltages</text>
+<rect x="244.0" y="454.0" width="190.0" height="84.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="339.0" y="477.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Bridge</text>
+<text x="339.0" y="501.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">builds the radio packet</text>
+<text x="339.0" y="519.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">on a change, and at</text>
+<text x="339.0" y="537.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">least every 5 s</text>
+<rect x="472.0" y="454.0" width="190.0" height="84.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="567.0" y="477.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Radio board</text>
+<text x="567.0" y="501.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">UDP 13136: COM line</text>
+<text x="567.0" y="519.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">redrawn; NAV redrawn</text>
+<text x="567.0" y="537.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">on a power change</text>
+<rect x="700.0" y="454.0" width="164.0" height="84.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="782.0" y="477.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Displays</text>
+<text x="782.0" y="501.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">padded to</text>
+<text x="782.0" y="519.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="middle">128.300  127.800</text>
+<path d="M 206.0 496.0 L 244.0 496.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<path d="M 434.0 496.0 L 472.0 496.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<path d="M 662.0 496.0 L 700.0 496.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<text x="16.0" y="570.0" font-family="Liberation Mono, Consolas, Courier New, monospace" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="start">D,C1A:128.300,C1S:127.800,C2A:118.000,C2S:121.500,MAINBUS:28.0,NAVCOM1:1</text>
+<text x="16.0" y="594.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Tuning steps: COM 25 kHz channels 118.000 - 136.975 MHz; NAV 50 kHz steps 108.00 - 117.95 MHz.</text>
+<text x="16.0" y="616.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The minor knob wraps within the same MHz; the major knob stops at the ends.</text>
+</svg>

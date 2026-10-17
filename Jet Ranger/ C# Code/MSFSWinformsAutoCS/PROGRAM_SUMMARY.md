@@ -3,8 +3,7 @@
 WinForms bridge for **Microsoft Flight Simulator (2020 / 2024)**. It is the SimConnect
 counterpart of `FSUIPCWinformsAutoCS`: same window, same timers, same UDP endpoints and the
 same real-unit packet per board, with the data read through SimConnect instead of FSUIPC
-offsets. Written 2026-10-17; **built and the packet builder tested with sample values, but not
-yet run against MSFS** (the simulator was not running when it was written).
+offsets. Written 2026-10-17 and since run against MSFS 2024.
 
 ## Files
 
@@ -131,8 +130,7 @@ The warning lamp for transmission oil pressure uses the estimate for this aircra
 
 ## Warning lamps
 
-Five are implemented. Three can be derived from standard SimVars, with the thresholds
-`SimConnect_to_UDP` used: `EOUT` (turbine speed below 60 %), `RLOW` (rotor at or below
+Five are implemented. Three can be derived from standard SimVars, with these thresholds: `EOUT` (turbine speed below 60 %), `RLOW` (rotor at or below
 95 %) and `LOWF` (fuel 17 US gal or less). `TOPW` (transmission oil pressure) comes on below 40 psi
 (`TransmissionPressureWarningPsi`), only when a pressure is available: the FlyInside B206's estimate (35 psi at
 normal rotor speed, so the lamp is on all the time with the current estimate, and when the rotor stops) or an
@@ -143,11 +141,10 @@ stay off; add rules to `Payloads.LampState()` once the aircraft's variables are 
 
 ## Known gaps / to check against MSFS
 
-- Not yet run against MSFS: check the status bar goes green, the readout fills in, and a
-  packet capture (or the boards' debug output) shows 10 packets per second per board.
-- Several MSFS Jet Ranger add-ons do not report every SimVar (see the notes at the top of
-  `SimConnect_to_UDP/Form1.cs`: transmission pressure / temperature read 0 on two of them;
-  one reports a fixed rotor speed). A missing `ELECTRICAL AVIONICS BUS VOLTAGE` (reads 0) falls back
+- Run against MSFS 2024 with the FlyInside B206 and the CowaSim Jet Ranger; the estimates
+  above come from those sessions and have not been checked at other power settings.
+- Several MSFS Jet Ranger add-ons do not report every SimVar (transmission pressure / temperature read 0 on
+  two of them; one reports a fixed rotor speed). A missing `ELECTRICAL AVIONICS BUS VOLTAGE` (reads 0) falls back
   to the main bus for the Radio power rule.
 - Pitch sign, and the 24 V thresholds are carried over from the FSUIPC
   bridge and are not verified for MSFS aircraft.

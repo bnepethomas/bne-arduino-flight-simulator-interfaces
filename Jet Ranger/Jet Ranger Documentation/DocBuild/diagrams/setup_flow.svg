@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360">
+<rect width="880" height="360" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<rect x="16.0" y="30.0" width="266.0" height="96.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="54.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">1  Power the cockpit</text>
+<text x="28.0" y="77.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">main and avionics</text>
+<path d="M 282.0 78.0 L 306.0 78.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="306.0" y="30.0" width="266.0" height="96.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="318.0" y="54.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">2  Start the reflector</text>
+<text x="318.0" y="77.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">UDP 27000</text>
+<path d="M 572.0 78.0 L 596.0 78.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="596.0" y="30.0" width="266.0" height="96.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="608.0" y="54.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">3  Start the simulator</text>
+<text x="608.0" y="77.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">P3D / FSX or MSFS</text>
+<rect x="16.0" y="160.0" width="266.0" height="96.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="28.0" y="184.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">4  Start ONE bridge</text>
+<text x="28.0" y="207.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">FSUIPC or MSFS</text>
+<path d="M 282.0 208.0 L 306.0 208.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="306.0" y="160.0" width="266.0" height="96.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="318.0" y="184.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">5  Open Health Monitor</text>
+<text x="318.0" y="207.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">all lights green</text>
+<path d="M 572.0 208.0 L 596.0 208.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="596.0" y="160.0" width="266.0" height="96.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="608.0" y="184.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">6  Fly</text>
+<text x="608.0" y="207.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">gauges follow the sim</text>
+<path d="M 729.0 126.0 L 729.0 142.0 L 149.0 142.0 L 149.0 160.0" fill="none" stroke="#8A8A85" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah8A8A85)"/>
+<text x="16.0" y="320.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Order matters little: every board waits for data, and the bridge reconnects to the simulator on its own every second.</text>
+<text x="16.0" y="342.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">If a gauge stays at zero for 30 s without data, the board's watchdog parked it on purpose.</text>
+</svg>

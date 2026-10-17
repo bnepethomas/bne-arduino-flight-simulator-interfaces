@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="760" viewBox="0 0 880 760">
+<rect width="880" height="760" fill="#FFFFFF"/>
+<defs>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<rect x="16.0" y="12.0" width="848.0" height="276.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="30.0" y="35.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">Nine stepper gauges</text>
+<text x="30.0" y="53.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">all FULL4WIRE, real-unit tables, start-up swing in a fixed order</text>
+<rect x="30.0" y="60.0" width="270.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="42.0" y="83.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Engine oil pressure</text>
+<text x="42.0" y="106.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">OILP   |   pins 44 - 47</text>
+<rect x="309.0" y="60.0" width="270.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="321.0" y="83.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Engine oil temp</text>
+<text x="321.0" y="106.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">OILT   |   pins 48, A0 - A2</text>
+<rect x="588.0" y="60.0" width="270.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="600.0" y="83.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Transmission pressure</text>
+<text x="600.0" y="106.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">XMSNP   |   pins A7 - A10</text>
+<rect x="30.0" y="130.0" width="270.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="42.0" y="153.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Transmission temp</text>
+<text x="42.0" y="176.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">XMSNT   |   pins A3 - A6</text>
+<rect x="309.0" y="130.0" width="270.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="321.0" y="153.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Electrical load %</text>
+<text x="321.0" y="176.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">ELECTRICALLOAD   |   pins 36 - 39</text>
+<rect x="588.0" y="130.0" width="270.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="600.0" y="153.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Fuel load psi</text>
+<text x="600.0" y="176.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">FUELLOAD   |   pins 32 - 35</text>
+<rect x="30.0" y="200.0" width="270.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="42.0" y="223.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Turbine speed %</text>
+<text x="42.0" y="246.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">RPME   |   pins 24 - 27</text>
+<rect x="309.0" y="200.0" width="270.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="321.0" y="223.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Rotor speed %</text>
+<text x="321.0" y="246.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">RPMR   |   pins 28 - 31</text>
+<rect x="588.0" y="200.0" width="270.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="600.0" y="223.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Altimeter feet</text>
+<text x="600.0" y="246.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">ALT   |   pins 40 - 43, zero A15</text>
+<path d="M 440.0 288.0 L 440.0 316.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="190.0" y="316.0" width="500.0" height="84.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="440.0" y="339.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Arduino Mega 2560</text>
+<text x="440.0" y="362.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER</text>
+<text x="440.0" y="380.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.106  |  UDP 13136</text>
+<path d="M 440.0 400.0 L 440.0 428.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="446.6" y="407.0" width="30.7" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="462.0" y="418.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">I2C</text>
+<rect x="16.0" y="428.0" width="848.0" height="214.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="30.0" y="451.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">Four OLEDs on a TCA9548A I2C multiplexer</text>
+<text x="30.0" y="469.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">address 0x70, reset pin 16, SDA 20 / SCL 21</text>
+<rect x="30.0" y="480.0" width="410.0" height="64.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="42.0" y="503.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Channel 1  Baro</text>
+<text x="42.0" y="527.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">29.92 inHg setting</text>
+<rect x="454.0" y="480.0" width="410.0" height="64.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="466.0" y="503.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Channel 2  Altimeter</text>
+<text x="466.0" y="527.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">rolling drum digits (ALT)</text>
+<rect x="30.0" y="554.0" width="410.0" height="64.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="42.0" y="577.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Channel 3  Clock</text>
+<text x="42.0" y="601.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">ZULU time, HHMM</text>
+<rect x="454.0" y="554.0" width="410.0" height="64.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="466.0" y="577.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Channel 4  Temperature</text>
+<text x="466.0" y="601.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">TEMP text, e.g. 21C</text>
+<rect x="16.0" y="660.0" width="420.0" height="84.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="28.0" y="683.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">PWR code</text>
+<text x="28.0" y="707.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">PWR:0 (main bus below 24 V) blanks all</text>
+<text x="28.0" y="724.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">four OLEDs; PWR:1 brings them back</text>
+<rect x="450.0" y="660.0" width="414.0" height="84.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="462.0" y="683.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Safety nets</text>
+<text x="462.0" y="707.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">no packet for 30 s: gauges to zero, OLEDs blank</text>
+<text x="462.0" y="724.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">C,RESET:1 reboot; C,OLEDTEST:1/0 lamp test</text>
+</svg>

@@ -1,24 +1,16 @@
 # JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER — Program Summary
 
-> **Fork in progress:** this sketch started as a straight copy of
+> **Origin:** this sketch started as a straight copy of
 > [`JET_RANGER_STEPPER_CONTROLLER.ino`](../JET_RANGER_STEPPER_CONTROLLER/PROGRAM_SUMMARY.md)
-> for a new PCB revision ("Jet Ranger X Dual Stepper" under `PCBs/`), and
-> was later renamed from `JET_RANGER_DUAL_STEPPER_CONTROLLER` to its
-> current name once the OLED subsystem below was added (the old name is
-> preserved as a frozen snapshot under
-> `Jet Ranger Arduino Sketches/retired/JET_RANGER_DUAL_STEPPER_CONTROLLER/`).
-> It is a single-sketch folder — unlike the original folder, there is no
-> sibling `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A` input-controller sketch
-> here. Despite the "Dual" name, no second/doubled *stepper* gauge exists
-> yet — this is still a 13-gauge stepper roster, with two steppers
-> (previously Radar Alt and Torque) repurposed for new gauges, its own
-> separately hand-measured RPME/RPMR calibration, a revived Altimeter
-> (now reachable via DCS-BIOS, UDP, *and* driving a live OLED readout),
-> and Gas Producer (N1) traded away to make room for it. The piece that
-> actually earns the "OLED" in the new name: two I2C OLED displays (Baro
-> + Altimeter) switched through a TCA9548A multiplexer — the Altimeter
-> display is now live-wired to real altitude data; the Baro display is
-> still boot-splash-only.
+> for a new PCB revision ("Jet Ranger OLED Dual Stepper" under `PCBs/`), and
+> gained an OLED subsystem later. Despite the "Dual" name, no second/doubled
+> *stepper* gauge exists - this is still a 13-gauge stepper roster, with two
+> steppers (previously Radar Alt and Torque) repurposed for new gauges, its own
+> separately hand-measured RPME/RPMR calibration, a revived Altimeter (reachable
+> via DCS-BIOS, UDP, *and* driving a live OLED readout), and Gas Producer (N1)
+> traded away to make room for it. The piece that earns the "OLED" in the name:
+> I2C OLED displays (Baro, Altimeter, Clock, Temperature) switched through a
+> TCA9548A multiplexer.
 
 ## What's different from `JET_RANGER_STEPPER_CONTROLLER.ino`
 
@@ -303,7 +295,7 @@
     `onAltMslFtChange()`'s/`onZuluTimeChange()`'s own change-gate would
     see "no change" and leave the display blank.
 
-Everything else — the 8 remaining `Stepper-Tuning-Harness`-ported
+Everything else — the 8 remaining
 gauges (`EOTstepper`/`XOTstepper`/`XOPstepper`/`EGTstepper`/`TSstepper`/
 `RSstepper`/`FAstepper`/`EOPstepper`), SARI, and the health keepalive —
 is currently identical to the original sketch. See that sketch's own

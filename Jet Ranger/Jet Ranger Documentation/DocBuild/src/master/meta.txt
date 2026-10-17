@@ -1,0 +1,3 @@
+title = Jet Ranger Arduino and C# Program Summary
+subtitle = Master document for the Bell 206 Jet Ranger cockpit: Arduino sketches, Windows programs and PCBs
+version = Regenerated 18 October 2026

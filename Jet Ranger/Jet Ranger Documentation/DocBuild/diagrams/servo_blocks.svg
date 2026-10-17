@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="640" viewBox="0 0 880 640">
+<rect width="880" height="640" fill="#FFFFFF"/>
+<defs>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<rect x="300.0" y="190.0" width="280.0" height="200.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="440.0" y="213.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Arduino Mega 2560</text>
+<text x="440.0" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">JET_RANGER_SERVO_CONTROLLER</text>
+<text x="440.0" y="254.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.102</text>
+<text x="440.0" y="271.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">status LEDs 14 / 15, W5500 reset 53</text>
+<rect x="16.0" y="40.0" width="250.0" height="100.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="64.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Attitude servos</text>
+<text x="28.0" y="88.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin 26  pitch   -30..+30 deg</text>
+<text x="28.0" y="105.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pin 27  bank    -90..+90 deg</text>
+<text x="28.0" y="123.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">eased 1 step per 5 ms</text>
+<path d="M 266.0 100.0 L 300.0 230.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="16.0" y="170.0" width="250.0" height="120.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="28.0" y="194.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Servo power (separate)</text>
+<text x="28.0" y="218.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">5 - 6 V supply for the servos,</text>
+<text x="28.0" y="235.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">ground tied to the Mega.</text>
+<text x="28.0" y="253.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Never power servos from the</text>
+<text x="28.0" y="270.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Mega 5 V pin.</text>
+<path d="M 266.0 230.0 L 300.0 250.0" fill="none" stroke="#C77700" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ahC77700)"/>
+<rect x="614.0" y="40.0" width="250.0" height="130.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="626.0" y="64.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">15 warning lamps</text>
+<text x="626.0" y="88.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pins A1 - A15, two ULN2803A</text>
+<text x="626.0" y="105.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">drivers; all on at power-up</text>
+<text x="626.0" y="123.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">(lamp test), then off or</text>
+<text x="626.0" y="140.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">following the packet</text>
+<path d="M 580.0 250.0 L 614.0 120.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="593.4" y="174.0" width="43.2" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="615.0" y="185.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">lamps</text>
+<rect x="614.0" y="200.0" width="250.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="626.0" y="224.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">3 front-panel switches</text>
+<text x="626.0" y="247.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">D43 TOT CLEAR</text>
+<text x="626.0" y="264.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">D47 WARNING MUTE</text>
+<text x="626.0" y="281.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">D48 FUEL VALVE</text>
+<text x="626.0" y="298.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">to GND, 30 ms debounce</text>
+<path d="M 614.0 255.0 L 580.0 290.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="300.0" y="440.0" width="280.0" height="74.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="440.0" y="462.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">UDP 13136 in</text>
+<text x="440.0" y="485.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">D,PITCH:..,BANK:..,&lt;lamp&gt;:1/0</text>
+<text x="440.0" y="503.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">C,SWINGPITCH / SWINGBANK / RESET</text>
+<path d="M 440.0 440.0 L 440.0 390.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="614.0" y="380.0" width="250.0" height="134.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="626.0" y="403.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">UDP 4210 out to the HID board</text>
+<text x="626.0" y="427.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">"&lt;index&gt;,&lt;state&gt;" on every change:</text>
+<text x="626.0" y="444.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">WARNING MUTE  -&gt;  index 7</text>
+<text x="626.0" y="462.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">TOT CLEAR  -&gt;  index 8</text>
+<text x="626.0" y="479.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">FUEL VALVE  -&gt;  index 9</text>
+<path d="M 580.0 340.0 L 614.0 420.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)"/>
+<rect x="16.0" y="380.0" width="250.0" height="134.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="404.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Safety nets</text>
+<text x="28.0" y="428.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">no packet for 30 s: servos to</text>
+<text x="28.0" y="445.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">calibrated zero, lamps off</text>
+<text x="28.0" y="463.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">C,RESET:1: reboot via the</text>
+<text x="28.0" y="480.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">AVR watchdog (2 s)</text>
+<text x="16.0" y="560.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Joystick 1 buttons 8, 9 and 10 in Windows (the firmware counts from 0). FSUIPC needs them bound to DS206 events.</text>
+<text x="16.0" y="582.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Calibration: PITCH_DEG_TABLE  -30 deg 179, 0 deg 113, +30 deg 70;  BANK_DEG_TABLE  -90 deg 5, 0 deg 93, +90 deg 179 (servo positions).</text>
+</svg>

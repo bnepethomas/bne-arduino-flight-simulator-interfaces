@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560">
+<rect width="880" height="560" fill="#FFFFFF"/>
+<defs>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<rect x="250.0" y="14.0" width="380.0" height="92.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="262.0" y="39.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Windows PC  172.16.1.10</text>
+<text x="262.0" y="62.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">listens: 27001 bridge commands, 27000 debug,</text>
+<text x="262.0" y="80.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">13137 heartbeats  |  sends: 13136 to boards,</text>
+<text x="262.0" y="97.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">4210 to the HID board</text>
+<rect x="30.0" y="148.0" width="820.0" height="22.0" rx="6" ry="6" fill="#2B2F36" stroke="#2B2F36" stroke-width="1.2"/>
+<text x="46.0" y="164.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start">Ethernet switch  172.16.1.0/24</text>
+<path d="M 440.0 106.0 L 440.0 148.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="14.0" y="214.0" width="132.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="80.0" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Radio</text>
+<text x="80.0" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.101</text>
+<text x="80.0" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
+<text x="80.0" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27001</text>
+<text x="80.0" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
+<path d="M 80.0 170.0 L 80.0 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="151.6" y="214.0" width="132.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="217.6" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Servo</text>
+<text x="217.6" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.102</text>
+<text x="217.6" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
+<text x="217.6" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 4210</text>
+<text x="217.6" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
+<path d="M 217.6 170.0 L 217.6 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="289.2" y="214.0" width="132.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="355.2" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Upper</text>
+<text x="355.2" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.103</text>
+<text x="355.2" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136*</text>
+<text x="355.2" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 4210</text>
+<text x="355.2" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">27000, 13137</text>
+<path d="M 355.2 170.0 L 355.2 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="426.8" y="214.0" width="132.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="492.8" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Stepper</text>
+<text x="492.8" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.105</text>
+<text x="492.8" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
+<text x="492.8" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27000</text>
+<text x="492.8" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">13137</text>
+<path d="M 492.8 170.0 L 492.8 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="564.4" y="214.0" width="132.0" height="126.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="630.4" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">Dual stepper</text>
+<text x="630.4" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.106</text>
+<text x="630.4" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 13136</text>
+<text x="630.4" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27000</text>
+<text x="630.4" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">13137</text>
+<path d="M 630.4 170.0 L 630.4 214.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="702.0" y="214.0" width="132.0" height="126.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="768.0" y="236.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="middle">USB HID</text>
+<text x="768.0" y="260.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.11</text>
+<text x="768.0" y="277.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">in: 4210</text>
+<text x="768.0" y="295.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">out: 27000</text>
+<text x="768.0" y="312.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">13137</text>
+<path d="M 768.0 170.0 L 768.0 214.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)" marker-start="url(#ahsC77700)"/>
+<text x="440.0" y="372.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">* the Upper controller only acts on the reset command (C,RESET:1) on 13136</text>
+<rect x="14.0" y="392.0" width="852.0" height="156.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="415.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">What the ports carry</text>
+<rect x="28.0" y="426.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
+<text x="53.2" y="442.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">13136</text>
+<text x="110.0" y="442.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">data (D,...) and control (C,...) packets from the PC to a board</text>
+<rect x="28.0" y="448.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
+<text x="53.2" y="464.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">27001</text>
+<text x="110.0" y="464.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">radio, battery and alternator commands from the Radio board to the bridge</text>
+<rect x="28.0" y="470.0" width="44.0" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
+<text x="50.0" y="486.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">4210</text>
+<text x="110.0" y="486.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">switch events (index,state) and key events to the USB HID board; also C,RESET:1 for it</text>
+<rect x="28.0" y="492.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
+<text x="53.2" y="508.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">27000</text>
+<text x="110.0" y="508.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">debug text from every board to the UDP reflector</text>
+<rect x="28.0" y="514.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
+<text x="53.2" y="530.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">13137</text>
+<text x="110.0" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">10 second heartbeat text from every board to the Health Monitor</text>
+</svg>

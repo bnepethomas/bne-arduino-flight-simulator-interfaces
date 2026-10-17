@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="470" viewBox="0 0 880 470">
+<rect width="880" height="470" fill="#FFFFFF"/>
+<defs>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<rect x="16.0" y="40.0" width="194.0" height="118.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="65.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">1  Simulator</text>
+<text x="28.0" y="88.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">SimVars (MSFS) or</text>
+<text x="28.0" y="106.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">FSUIPC offsets (P3D / FSX)</text>
+<rect x="234.0" y="40.0" width="194.0" height="118.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="246.0" y="65.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">2  Bridge app</text>
+<text x="246.0" y="88.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">converts to real units</text>
+<text x="246.0" y="106.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">applies aircraft estimates</text>
+<text x="246.0" y="123.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">builds one packet per board</text>
+<rect x="452.0" y="40.0" width="194.0" height="118.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="464.0" y="65.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">3  UDP packet</text>
+<text x="464.0" y="88.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">D,IAS:93.4,VSI:-250,...</text>
+<text x="464.0" y="106.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">about 10 per second</text>
+<text x="464.0" y="123.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">to each board</text>
+<rect x="670.0" y="40.0" width="194.0" height="118.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="682.0" y="65.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">4  Board firmware</text>
+<text x="682.0" y="88.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">parses token:value</text>
+<text x="682.0" y="106.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">calibration table:</text>
+<text x="682.0" y="123.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">real units to steps</text>
+<path d="M 210.0 99.0 L 234.0 99.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<path d="M 428.0 99.0 L 452.0 99.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<path d="M 646.0 99.0 L 670.0 99.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<path d="M 767.0 158.0 L 767.0 196.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="670.0" y="196.0" width="194.0" height="74.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="682.0" y="221.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Output</text>
+<text x="682.0" y="244.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">stepper needle, servo,</text>
+<text x="682.0" y="262.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">lamp or OLED</text>
+<rect x="16.0" y="190.0" width="628.0" height="196.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="30.0" y="213.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">Send rates</text>
+<text x="30.0" y="236.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Servo, Stepper, Dual Stepper, OLED</text>
+<text x="300.0" y="236.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">every 100 ms (about 10 per second)</text>
+<text x="30.0" y="264.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Radio</text>
+<text x="300.0" y="264.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">on a change (at most every 200 ms),</text>
+<text x="300.0" y="292.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">and at least every 5 seconds</text>
+<text x="30.0" y="320.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">No simulator data for 3 s</text>
+<text x="300.0" y="320.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">the MSFS bridge stops sending</text>
+<text x="30.0" y="348.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">No packet for 30 s</text>
+<text x="300.0" y="348.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">the board returns its gauges to zero</text>
+<rect x="16.0" y="404.0" width="848.0" height="52.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="429.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Why real units?</text>
+<text x="28.0" y="452.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">each board owns its calibration, so a gauge can be re-measured and fixed without touching the PC software</text>
+</svg>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="440" viewBox="0 0 880 440">
+<rect width="880" height="440" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<text x="16.0" y="28.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">FlyInside B206: torque from the collective lever</text>
+<rect x="70.0" y="56.0" width="330.0" height="280.0" rx="2" ry="2" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1"/>
+<line x1="70.0" y1="336.0" x2="70.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="70.0" y1="56.0" x2="70.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="70.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">0</text>
+<line x1="136.0" y1="336.0" x2="136.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="136.0" y1="56.0" x2="136.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="136.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">20</text>
+<line x1="202.0" y1="336.0" x2="202.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="202.0" y1="56.0" x2="202.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="202.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">40</text>
+<line x1="268.0" y1="336.0" x2="268.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="268.0" y1="56.0" x2="268.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="268.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">60</text>
+<line x1="334.0" y1="336.0" x2="334.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="334.0" y1="56.0" x2="334.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="334.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">80</text>
+<line x1="400.0" y1="336.0" x2="400.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="400.0" y1="56.0" x2="400.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="400.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">100</text>
+<line x1="65.0" y1="336.0" x2="70.0" y2="336.0" stroke="#555555" stroke-width="1"/>
+<line x1="70.0" y1="336.0" x2="400.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="61.0" y="340.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">0</text>
+<line x1="65.0" y1="292.9" x2="70.0" y2="292.9" stroke="#555555" stroke-width="1"/>
+<line x1="70.0" y1="292.9" x2="400.0" y2="292.9" stroke="#ECECE8" stroke-width="1"/>
+<text x="61.0" y="296.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">20</text>
+<line x1="65.0" y1="249.8" x2="70.0" y2="249.8" stroke="#555555" stroke-width="1"/>
+<line x1="70.0" y1="249.8" x2="400.0" y2="249.8" stroke="#ECECE8" stroke-width="1"/>
+<text x="61.0" y="253.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">40</text>
+<line x1="65.0" y1="206.8" x2="70.0" y2="206.8" stroke="#555555" stroke-width="1"/>
+<line x1="70.0" y1="206.8" x2="400.0" y2="206.8" stroke="#ECECE8" stroke-width="1"/>
+<text x="61.0" y="210.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">60</text>
+<line x1="65.0" y1="163.7" x2="70.0" y2="163.7" stroke="#555555" stroke-width="1"/>
+<line x1="70.0" y1="163.7" x2="400.0" y2="163.7" stroke="#ECECE8" stroke-width="1"/>
+<text x="61.0" y="167.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">80</text>
+<line x1="65.0" y1="120.6" x2="70.0" y2="120.6" stroke="#555555" stroke-width="1"/>
+<line x1="70.0" y1="120.6" x2="400.0" y2="120.6" stroke="#ECECE8" stroke-width="1"/>
+<text x="61.0" y="124.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">100</text>
+<line x1="65.0" y1="77.5" x2="70.0" y2="77.5" stroke="#555555" stroke-width="1"/>
+<line x1="70.0" y1="77.5" x2="400.0" y2="77.5" stroke="#ECECE8" stroke-width="1"/>
+<text x="61.0" y="81.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">120</text>
+<text x="235.0" y="378.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">collective lever position (%)</text>
+<text x="34.0" y="46.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">torque sent (%)</text>
+<path d="M 70.0 290.8 L 312.9 176.6 L 400.0 77.5" fill="none" stroke="#2F6FEB" stroke-width="2.6"/>
+<circle cx="70.0" cy="290.8" r="5" fill="#FFFFFF" stroke="#2F6FEB" stroke-width="2"/>
+<circle cx="312.9" cy="176.6" r="5" fill="#FFFFFF" stroke="#2F6FEB" stroke-width="2"/>
+<circle cx="400.0" cy="77.5" r="5" fill="#FFFFFF" stroke="#2F6FEB" stroke-width="2"/>
+<text x="322.2" y="198.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">73.6 / 74 %</text>
+<text x="82.0" y="314.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">idle 21 %</text>
+<text x="392.0" y="67.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">100 / 120 % (cap)</text>
+<text x="470.0" y="28.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">CowaSim: dial follows a smoothed 0.42 x SimVar</text>
+<rect x="500.0" y="56.0" width="340.0" height="280.0" rx="2" ry="2" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1"/>
+<line x1="500.0" y1="336.0" x2="500.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="500.0" y1="56.0" x2="500.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="500.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">0</text>
+<line x1="585.0" y1="336.0" x2="585.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="585.0" y1="56.0" x2="585.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="585.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">5</text>
+<line x1="670.0" y1="336.0" x2="670.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="670.0" y1="56.0" x2="670.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="670.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">10</text>
+<line x1="755.0" y1="336.0" x2="755.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="755.0" y1="56.0" x2="755.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="755.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">15</text>
+<line x1="840.0" y1="336.0" x2="840.0" y2="341.0" stroke="#555555" stroke-width="1"/>
+<line x1="840.0" y1="56.0" x2="840.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="840.0" y="356.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">20</text>
+<line x1="495.0" y1="336.0" x2="500.0" y2="336.0" stroke="#555555" stroke-width="1"/>
+<line x1="500.0" y1="336.0" x2="840.0" y2="336.0" stroke="#ECECE8" stroke-width="1"/>
+<text x="491.0" y="340.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">0</text>
+<line x1="495.0" y1="292.9" x2="500.0" y2="292.9" stroke="#555555" stroke-width="1"/>
+<line x1="500.0" y1="292.9" x2="840.0" y2="292.9" stroke="#ECECE8" stroke-width="1"/>
+<text x="491.0" y="296.9" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">20</text>
+<line x1="495.0" y1="249.8" x2="500.0" y2="249.8" stroke="#555555" stroke-width="1"/>
+<line x1="500.0" y1="249.8" x2="840.0" y2="249.8" stroke="#ECECE8" stroke-width="1"/>
+<text x="491.0" y="253.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">40</text>
+<line x1="495.0" y1="206.8" x2="500.0" y2="206.8" stroke="#555555" stroke-width="1"/>
+<line x1="500.0" y1="206.8" x2="840.0" y2="206.8" stroke="#ECECE8" stroke-width="1"/>
+<text x="491.0" y="210.8" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">60</text>
+<line x1="495.0" y1="163.7" x2="500.0" y2="163.7" stroke="#555555" stroke-width="1"/>
+<line x1="500.0" y1="163.7" x2="840.0" y2="163.7" stroke="#ECECE8" stroke-width="1"/>
+<text x="491.0" y="167.7" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">80</text>
+<line x1="495.0" y1="120.6" x2="500.0" y2="120.6" stroke="#555555" stroke-width="1"/>
+<line x1="500.0" y1="120.6" x2="840.0" y2="120.6" stroke="#ECECE8" stroke-width="1"/>
+<text x="491.0" y="124.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">100</text>
+<line x1="495.0" y1="77.5" x2="500.0" y2="77.5" stroke="#555555" stroke-width="1"/>
+<line x1="500.0" y1="77.5" x2="840.0" y2="77.5" stroke="#ECECE8" stroke-width="1"/>
+<text x="491.0" y="81.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="end">120</text>
+<text x="670.0" y="378.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">time (seconds)</text>
+<text x="464.0" y="46.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">torque (%)</text>
+<path d="M 500.0 260.9 L 501.7 260.9 L 503.4 260.9 L 505.1 260.9 L 506.8 260.9 L 508.5 260.9 L 510.2 260.9 L 511.9 260.9 L 513.6 260.9 L 515.3 260.9 L 517.0 260.9 L 518.7 260.9 L 520.4 260.9 L 522.1 260.9 L 523.8 260.9 L 525.5 260.9 L 527.2 260.9 L 528.9 260.9 L 530.6 260.9 L 532.3 260.9 L 534.0 260.9 L 535.7 260.9 L 537.4 260.9 L 539.1 260.9 L 540.8 260.9 L 542.5 260.9 L 544.2 260.9 L 545.9 260.9 L 547.6 260.9 L 549.3 260.9 L 551.0 100.8 L 552.7 100.8 L 554.4 100.8 L 556.1 100.8 L 557.8 100.8 L 559.5 100.8 L 561.2 100.8 L 562.9 100.8 L 564.6 100.8 L 566.3 100.8 L 568.0 100.8 L 569.7 100.8 L 571.4 100.8 L 573.1 100.8 L 574.8 100.8 L 576.5 100.8 L 578.2 100.8 L 579.9 100.8 L 581.6 100.8 L 583.3 100.8 L 585.0 100.8 L 586.7 100.8 L 588.4 100.8 L 590.1 100.8 L 591.8 100.8 L 593.5 100.8 L 595.2 100.8 L 596.9 100.8 L 598.6 100.8 L 600.3 100.8 L 602.0 100.8 L 603.7 100.8 L 605.4 100.8 L 607.1 100.8 L 608.8 100.8 L 610.5 100.8 L 612.2 100.8 L 613.9 100.8 L 615.6 100.8 L 617.3 100.8 L 619.0 100.8 L 620.7 100.8 L 622.4 100.8 L 624.1 100.8 L 625.8 100.8 L 627.5 100.8 L 629.2 100.8 L 630.9 100.8 L 632.6 100.8 L 634.3 100.8 L 636.0 100.8 L 637.7 260.9 L 639.4 260.9 L 641.1 260.9 L 642.8 260.9 L 644.5 260.9 L 646.2 260.9 L 647.9 260.9 L 649.6 260.9 L 651.3 260.9 L 653.0 260.9 L 654.7 260.9 L 656.4 260.9 L 658.1 260.9 L 659.8 260.9 L 661.5 260.9 L 663.2 260.9 L 664.9 260.9 L 666.6 260.9 L 668.3 260.9 L 670.0 260.9 L 671.7 260.9 L 673.4 260.9 L 675.1 260.9 L 676.8 260.9 L 678.5 260.9 L 680.2 260.9 L 681.9 260.9 L 683.6 260.9 L 685.3 260.9 L 687.0 260.9 L 688.7 260.9 L 690.4 260.9 L 692.1 260.9 L 693.8 260.9 L 695.5 260.9 L 697.2 260.9 L 698.9 260.9 L 700.6 260.9 L 702.3 260.9 L 704.0 260.9 L 705.7 260.9 L 707.4 260.9 L 709.1 260.9 L 710.8 260.9 L 712.5 260.9 L 714.2 260.9 L 715.9 260.9 L 717.6 260.9 L 719.3 260.9 L 721.0 260.9 L 722.7 260.9 L 724.4 260.9 L 726.1 260.9 L 727.8 260.9 L 729.5 260.9 L 731.2 260.9 L 732.9 260.9 L 734.6 260.9 L 736.3 260.9 L 738.0 260.9 L 739.7 260.9 L 741.4 260.9 L 743.1 260.9 L 744.8 260.9 L 746.5 260.9 L 748.2 260.9 L 749.9 260.9 L 751.6 260.9 L 753.3 260.9 L 755.0 260.9 L 756.7 260.9 L 758.4 260.9 L 760.1 260.9 L 761.8 260.9 L 763.5 260.9 L 765.2 260.9 L 766.9 260.9 L 768.6 260.9 L 770.3 260.9 L 772.0 260.9 L 773.7 260.9 L 775.4 260.9 L 777.1 260.9 L 778.8 260.9 L 780.5 260.9 L 782.2 260.9 L 783.9 260.9 L 785.6 260.9 L 787.3 260.9 L 789.0 260.9 L 790.7 260.9 L 792.4 260.9 L 794.1 260.9 L 795.8 260.9 L 797.5 260.9 L 799.2 260.9 L 800.9 260.9 L 802.6 260.9 L 804.3 260.9 L 806.0 260.9 L 807.7 260.9 L 809.4 260.9 L 811.1 260.9 L 812.8 260.9 L 814.5 260.9 L 816.2 260.9 L 817.9 260.9 L 819.6 260.9 L 821.3 260.9 L 823.0 260.9 L 824.7 260.9 L 826.4 260.9 L 828.1 260.9 L 829.8 260.9 L 831.5 260.9 L 833.2 260.9 L 834.9 260.9 L 836.6 260.9 L 838.3 260.9 L 840.0 260.9" fill="none" stroke="#8A8A85" stroke-width="1.8" stroke-dasharray="6 4"/>
+<path d="M 500.0 260.9 L 501.7 260.9 L 503.4 260.9 L 505.1 260.9 L 506.8 260.9 L 508.5 260.9 L 510.2 260.9 L 511.9 260.9 L 513.6 260.9 L 515.3 260.9 L 517.0 260.9 L 518.7 260.9 L 520.4 260.9 L 522.1 260.9 L 523.8 260.9 L 525.5 260.9 L 527.2 260.9 L 528.9 260.9 L 530.6 260.9 L 532.3 260.9 L 534.0 260.9 L 535.7 260.9 L 537.4 260.9 L 539.1 260.9 L 540.8 260.9 L 542.5 260.9 L 544.2 260.9 L 545.9 260.9 L 547.6 260.9 L 549.3 260.9 L 551.0 254.6 L 552.7 248.6 L 554.4 242.8 L 556.1 237.2 L 557.8 231.9 L 559.5 226.8 L 561.2 221.8 L 562.9 217.1 L 564.6 212.5 L 566.3 208.1 L 568.0 203.9 L 569.7 199.9 L 571.4 196.0 L 573.1 192.3 L 574.8 188.7 L 576.5 185.2 L 578.2 181.9 L 579.9 178.7 L 581.6 175.7 L 583.3 172.7 L 585.0 169.9 L 586.7 167.2 L 588.4 164.6 L 590.1 162.1 L 591.8 159.7 L 593.5 157.4 L 595.2 155.2 L 596.9 153.0 L 598.6 151.0 L 600.3 149.0 L 602.0 147.1 L 603.7 145.3 L 605.4 143.6 L 607.1 141.9 L 608.8 140.3 L 610.5 138.7 L 612.2 137.2 L 613.9 135.8 L 615.6 134.4 L 617.3 133.1 L 619.0 131.9 L 620.7 130.6 L 622.4 129.5 L 624.1 128.3 L 625.8 127.3 L 627.5 126.2 L 629.2 125.2 L 630.9 124.3 L 632.6 123.4 L 634.3 122.5 L 636.0 121.6 L 637.7 127.1 L 639.4 132.3 L 641.1 137.4 L 642.8 142.2 L 644.5 146.9 L 646.2 151.3 L 647.9 155.6 L 649.6 159.8 L 651.3 163.7 L 653.0 167.5 L 654.7 171.2 L 656.4 174.7 L 658.1 178.1 L 659.8 181.3 L 661.5 184.5 L 663.2 187.5 L 664.9 190.3 L 666.6 193.1 L 668.3 195.8 L 670.0 198.3 L 671.7 200.8 L 673.4 203.1 L 675.1 205.4 L 676.8 207.6 L 678.5 209.7 L 680.2 211.7 L 681.9 213.6 L 683.6 215.5 L 685.3 217.2 L 687.0 219.0 L 688.7 220.6 L 690.4 222.2 L 692.1 223.7 L 693.8 225.2 L 695.5 226.6 L 697.2 227.9 L 698.9 229.2 L 700.6 230.5 L 702.3 231.6 L 704.0 232.8 L 705.7 233.9 L 707.4 235.0 L 709.1 236.0 L 710.8 237.0 L 712.5 237.9 L 714.2 238.8 L 715.9 239.7 L 717.6 240.5 L 719.3 241.3 L 721.0 242.1 L 722.7 242.8 L 724.4 243.5 L 726.1 244.2 L 727.8 244.9 L 729.5 245.5 L 731.2 246.1 L 732.9 246.7 L 734.6 247.2 L 736.3 247.8 L 738.0 248.3 L 739.7 248.8 L 741.4 249.3 L 743.1 249.7 L 744.8 250.1 L 746.5 250.6 L 748.2 251.0 L 749.9 251.4 L 751.6 251.7 L 753.3 252.1 L 755.0 252.4 L 756.7 252.8 L 758.4 253.1 L 760.1 253.4 L 761.8 253.7 L 763.5 254.0 L 765.2 254.3 L 766.9 254.5 L 768.6 254.8 L 770.3 255.0 L 772.0 255.2 L 773.7 255.5 L 775.4 255.7 L 777.1 255.9 L 778.8 256.1 L 780.5 256.3 L 782.2 256.5 L 783.9 256.6 L 785.6 256.8 L 787.3 257.0 L 789.0 257.1 L 790.7 257.3 L 792.4 257.4 L 794.1 257.5 L 795.8 257.7 L 797.5 257.8 L 799.2 257.9 L 800.9 258.0 L 802.6 258.2 L 804.3 258.3 L 806.0 258.4 L 807.7 258.5 L 809.4 258.6 L 811.1 258.7 L 812.8 258.7 L 814.5 258.8 L 816.2 258.9 L 817.9 259.0 L 819.6 259.1 L 821.3 259.1 L 823.0 259.2 L 824.7 259.3 L 826.4 259.3 L 828.1 259.4 L 829.8 259.5 L 831.5 259.5 L 833.2 259.6 L 834.9 259.6 L 836.6 259.7 L 838.3 259.7 L 840.0 259.8" fill="none" stroke="#2E7D32" stroke-width="2.6"/>
+<text x="510.0" y="80.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">dashed: 0.42 x SimVar (SimVar jumps 83 -&gt; 260 -&gt; 83)</text>
+<text x="510.0" y="98.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#2E7D32" text-anchor="start">solid: what the bridge sends (smoothed, 2.5 s)</text>
+<text x="16.0" y="410.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Both curves were fitted to dial readings from screenshots; check them against the cockpit at other power settings.</text>
+<text x="16.0" y="430.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">FlyInside above lever 73.6 climbs at about 1.74 points per percent; the engine over-torques if full collective is held for 2 s.</text>
+</svg>

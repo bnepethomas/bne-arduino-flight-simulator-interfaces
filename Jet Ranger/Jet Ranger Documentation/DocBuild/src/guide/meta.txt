@@ -1,0 +1,3 @@
+title = Jet Ranger Cockpit User Guide
+subtitle = Setting up, running, wiring, flashing and troubleshooting the Jet Ranger panel
+version = Regenerated 18 October 2026

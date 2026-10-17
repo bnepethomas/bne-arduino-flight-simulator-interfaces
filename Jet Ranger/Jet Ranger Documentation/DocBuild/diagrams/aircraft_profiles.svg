@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="700" viewBox="0 0 880 700">
+<rect width="880" height="700" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<rect x="16.0" y="14.0" width="230.0" height="40.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="131.0" y="36.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">Value</text>
+<rect x="254.0" y="14.0" width="190.0" height="40.0" rx="10" ry="10" fill="#2B2F36" stroke="#2B2F36" stroke-width="1.2"/>
+<text x="349.0" y="36.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">Standard SimVars</text>
+<rect x="452.0" y="14.0" width="200.0" height="40.0" rx="10" ry="10" fill="#2B2F36" stroke="#2B2F36" stroke-width="1.2"/>
+<text x="552.0" y="36.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">FlyInside B206</text>
+<rect x="660.0" y="14.0" width="204.0" height="40.0" rx="10" ry="10" fill="#2B2F36" stroke="#2B2F36" stroke-width="1.2"/>
+<text x="762.0" y="36.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF" text-anchor="middle">CowaSim Jet Ranger</text>
+<rect x="16.0" y="64.0" width="230.0" height="56.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="87.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Rotor, engine speed</text>
+<rect x="254.0" y="64.0" width="190.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="266.0" y="86.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">ROTOR RPM PCT,</text>
+<text x="266.0" y="109.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">GENERAL ENG PCT MAX RPM</text>
+<rect x="452.0" y="64.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="464.0" y="86.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">L:Aircraft.Rotor.RPM.Percent,</text>
+<text x="464.0" y="109.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">L:...Turbine.N2.Smooth</text>
+<rect x="660.0" y="64.0" width="204.0" height="56.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="672.0" y="86.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">standard</text>
+<rect x="16.0" y="126.0" width="230.0" height="56.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="149.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Gas producer (N1)</text>
+<rect x="254.0" y="126.0" width="190.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="266.0" y="148.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">TURB ENG CORRECTED N1</text>
+<rect x="452.0" y="126.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="464.0" y="148.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">0.92 x turbine N2</text>
+<rect x="660.0" y="126.0" width="204.0" height="56.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="672.0" y="148.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">standard</text>
+<rect x="16.0" y="188.0" width="230.0" height="56.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="211.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Torque (TQ)</text>
+<rect x="254.0" y="188.0" width="190.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="266.0" y="210.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">ENG TORQUE PERCENT</text>
+<rect x="452.0" y="188.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="464.0" y="210.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">collective lever curve,</text>
+<text x="464.0" y="233.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">up to 120 %</text>
+<rect x="660.0" y="188.0" width="204.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="672.0" y="210.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">0.42 x SimVar,</text>
+<text x="672.0" y="233.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">smoothed 2.5 s</text>
+<rect x="16.0" y="250.0" width="230.0" height="56.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="273.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Turbine out temp (ITT)</text>
+<rect x="254.0" y="250.0" width="190.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="266.0" y="272.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">TURB ENG ITT</text>
+<rect x="452.0" y="250.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="464.0" y="272.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">6 x N2 + 1.05 x</text>
+<text x="464.0" y="295.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">(torque - 21)</text>
+<rect x="660.0" y="250.0" width="204.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="672.0" y="272.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">EGT - 200 C</text>
+<rect x="16.0" y="312.0" width="230.0" height="56.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="335.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Fuel load (psi)</text>
+<rect x="254.0" y="312.0" width="190.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="266.0" y="334.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">ENG FUEL PRESSURE</text>
+<rect x="452.0" y="312.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="464.0" y="334.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">10 x SimVar</text>
+<rect x="660.0" y="312.0" width="204.0" height="56.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="672.0" y="334.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">standard</text>
+<rect x="16.0" y="374.0" width="230.0" height="56.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="397.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Electrical load (%)</text>
+<rect x="254.0" y="374.0" width="190.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="266.0" y="396.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">|total amps| / 300 A</text>
+<rect x="452.0" y="374.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="464.0" y="396.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">|total amps| / 300 A</text>
+<rect x="660.0" y="374.0" width="204.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="672.0" y="396.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">|total amps| / 139 A</text>
+<rect x="16.0" y="436.0" width="230.0" height="56.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="459.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Transmission pressure</text>
+<rect x="254.0" y="436.0" width="190.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="266.0" y="458.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">SimVar (usually 0)</text>
+<rect x="452.0" y="436.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="464.0" y="458.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">35 psi x rotor fraction</text>
+<rect x="660.0" y="436.0" width="204.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="672.0" y="458.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">48 psi x rotor fraction</text>
+<rect x="16.0" y="498.0" width="230.0" height="56.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="521.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Transmission temp</text>
+<rect x="254.0" y="498.0" width="190.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="266.0" y="520.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">SimVar (usually 0)</text>
+<rect x="452.0" y="498.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="464.0" y="520.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">slow warm-up from air temp</text>
+<rect x="660.0" y="498.0" width="204.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="672.0" y="520.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">0.92 x engine oil temp</text>
+<rect x="16.0" y="560.0" width="230.0" height="56.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="583.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Recognised by</text>
+<rect x="254.0" y="560.0" width="190.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="266.0" y="582.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">otherwise</text>
+<rect x="452.0" y="560.0" width="200.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="464.0" y="582.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">turbine L:var, or title</text>
+<text x="464.0" y="605.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">contains FlyInside</text>
+<rect x="660.0" y="560.0" width="204.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="672.0" y="582.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#1F1F1F" text-anchor="start">title contains 206B3</text>
+<text x="16.0" y="684.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Green = the standard SimVar is used unchanged. Estimates come from a few dial readings and may be a few percent off.</text>
+</svg>

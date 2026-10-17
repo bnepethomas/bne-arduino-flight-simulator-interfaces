@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560">
+<rect width="880" height="560" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<text x="16.0" y="24.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Active PCBs and the sketches they belong to</text>
+<rect x="16.0" y="50.0" width="408.0" height="120.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="28.0" y="74.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger Radio Auto Pilot</text>
+<text x="28.0" y="97.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: Radio controller (.101)</text>
+<text x="28.0" y="115.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">radio and autopilot panel board</text>
+<rect x="456.0" y="50.0" width="408.0" height="120.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="468.0" y="74.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger COM and NAV</text>
+<text x="468.0" y="97.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: Radio controller (.101)</text>
+<text x="468.0" y="115.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">four swap switches in a diode matrix:</text>
+<text x="468.0" y="132.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">column D26, rows D22-D25</text>
+<rect x="16.0" y="190.0" width="408.0" height="120.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="28.0" y="214.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger Front Panel Servo</text>
+<text x="28.0" y="237.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: Servo controller (.102)</text>
+<text x="28.0" y="255.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">SW1 TOT CLEAR D43, SW2 FUEL VALVE D48,</text>
+<text x="28.0" y="272.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">SW3 WARNING MUTE D47 (to GND)</text>
+<rect x="456.0" y="190.0" width="408.0" height="120.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="468.0" y="214.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger Upper Controller</text>
+<text x="468.0" y="237.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: Upper controller (.103)</text>
+<text x="468.0" y="255.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">key matrix; J17 WARNING MUTE on D30</text>
+<text x="468.0" y="272.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">(not read by the current sketch)</text>
+<rect x="16.0" y="330.0" width="408.0" height="120.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="28.0" y="354.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger 13 Stepper</text>
+<text x="28.0" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: Stepper controller (.105)</text>
+<text x="28.0" y="395.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">BACKLIGHT_PWM D5, VSI coil B D8</text>
+<text x="28.0" y="412.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">D2 net renamed STEPPER_FA_A</text>
+<rect x="456.0" y="330.0" width="408.0" height="120.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="468.0" y="354.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger OLED Dual Stepper</text>
+<text x="468.0" y="377.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: Dual stepper controller (.106)</text>
+<text x="468.0" y="395.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">v1.4 removes the D2 / D32 short</text>
+<text x="468.0" y="412.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">BACKLIGHT_PWM D5</text>
+<text x="16.0" y="512.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Boards older than v1.4 of the Dual Stepper PCB: fit only one of fuel quantity and fuel load, or cut the trace.</text>
+<text x="16.0" y="534.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Check every pin against the sketch pin table and the KiCad files before ordering or wiring a new board.</text>
+</svg>

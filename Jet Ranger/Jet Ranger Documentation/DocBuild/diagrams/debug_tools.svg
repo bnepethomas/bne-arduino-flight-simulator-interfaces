@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="400" viewBox="0 0 880 400">
+<rect width="880" height="400" fill="#FFFFFF"/>
+<defs>
+<marker id="ah2E7D32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ahs2E7D32" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<rect x="16.0" y="30.0" width="220.0" height="130.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="54.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Arduino boards</text>
+<text x="28.0" y="77.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">debug text from every</text>
+<text x="28.0" y="95.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">board, sent to the PC</text>
+<text x="28.0" y="112.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">UDP 172.16.1.10:27000</text>
+<rect x="300.0" y="30.0" width="270.0" height="130.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="312.0" y="54.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">UDP reflector</text>
+<text x="312.0" y="77.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">listens on 27000</text>
+<text x="312.0" y="95.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">prints each line</text>
+<text x="312.0" y="112.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">can forward to a second</text>
+<text x="312.0" y="130.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">listener (analysis script)</text>
+<rect x="634.0" y="30.0" width="230.0" height="130.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="646.0" y="54.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Other listeners</text>
+<text x="646.0" y="77.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">terminal window,</text>
+<text x="646.0" y="95.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">log file, analysis script</text>
+<path d="M 236.0 95.0 L 300.0 95.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)"/>
+<rect x="252.6" y="74.0" width="30.7" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="268.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">udp</text>
+<path d="M 570.0 95.0 L 634.0 95.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="574.2" y="74.0" width="55.7" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="602.0" y="85.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">forward</text>
+<rect x="16.0" y="210.0" width="270.0" height="110.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="234.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Health Monitor</text>
+<text x="28.0" y="257.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">listens on 13137</text>
+<text x="28.0" y="275.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">one light per board</text>
+<rect x="320.0" y="210.0" width="270.0" height="110.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="332.0" y="234.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">SwingTester</text>
+<text x="332.0" y="257.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">swings every gauge and</text>
+<text x="332.0" y="275.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">lamp from the PC, uses</text>
+<text x="332.0" y="292.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">ports 13136 and 4210</text>
+<rect x="624.0" y="210.0" width="240.0" height="110.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="636.0" y="234.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">StepperVSITester</text>
+<text x="636.0" y="257.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">VSI test sweep,</text>
+<text x="636.0" y="275.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">sent to the Stepper</text>
+<text x="16.0" y="360.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Only one program can own a UDP port. If the reflector is running, do not start a second listener on 27000 - use its forwarding instead.</text>
+<text x="16.0" y="382.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The bridges listen on 27001 and the HID board on 4210, so run only one bridge and one HID sender at a time.</text>
+</svg>

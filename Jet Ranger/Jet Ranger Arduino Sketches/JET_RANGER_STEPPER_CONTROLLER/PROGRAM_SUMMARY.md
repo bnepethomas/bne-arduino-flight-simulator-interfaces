@@ -9,29 +9,28 @@
 > (serial, for the A-10C SimVars still wired up) and the Jet Ranger's
 > `172.16.1.x` UDP/CSV protocol.
 
-Two Arduino sketches live under this folder:
+This folder holds one sketch, **`JET_RANGER_STEPPER_CONTROLLER.ino`**, which drives
+the analogue stepper-motor gauges plus backlighting. It started as an A-10C front
+instrument panel board with 7 gauges; 5 of the original 7 (`ALT`, `Flaps`, `AOA`,
+`G-Force`, `Max Airspeed`) have been removed or commented out by hand,
+`Current Airspeed` was renamed `IASstepper`, and Bell 206-style gauges were added
+(see below).
 
-1. **`JET_RANGER_STEPPER_CONTROLLER.ino`** (this summary's main subject)
-   — drives 13 analogue stepper-motor gauges plus backlighting. Started
-   as an A-10C front instrument panel board with 7 gauges; has since had
-   5 of the original 7 (`ALT`, `Flaps`, `AOA`, `G-Force`, `Max Airspeed`)
-   removed/commented out by hand, `Current Airspeed` renamed to
-   `IASstepper` and rewired to match `Stepper-Tuning-Harness`, and 11 new
-   Bell 206-style gauges added (see below).
-2. **`A10_LEFT_CONSOLE_INPUT_CONTROLLER_A/A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino`**
-   — a separate 176-button matrix input controller for TACAN/ILS/electrical/
-   CDU/AAP/lighting panels (see its own section below). Untouched by any
-   of the changes described here.
+> **Current values (checked against the sketch, 2026-10-18):** `SwingLoops` is 2 and
+> all seven swing gates (`SwingVSI`, `SwingIAS`, `SwingAGL`, `SwingTQ`, `SwingFA`,
+> `SwingEGT`, `SwingGP`) are `true`, so every gauge swings at boot (statements below
+> that say VSI, IAS or AGL default to `false` describe an earlier state). Radar
+> altitude (`AGL`) now has a real calibration: `AGL_FT_TABLE`, 11 points from 0 ft = 0
+> steps to 2500 ft = 469 steps, so `AGL` is feet, not raw steps. `VSI_FPM_TABLE` has 11
+> points (-1750 fpm = -311 steps to +1750 fpm = 315 steps) and `IAS_KT_TABLE` 10 points
+> (0 to 140 kt = 0 to 635 steps). Zero trims: `AGLZeroOffset` 10, `TQZeroOffset` 23,
+> all others 0.
 
 ## Build verification
 
-Both sketches in this folder were compiled with `arduino-cli` (target
-`arduino:avr:mega:cpu=atmega2560`) and build with **0 errors**:
-
-| Sketch | Flash | RAM |
-|---|---|---|
-| `JET_RANGER_STEPPER_CONTROLLER.ino` | 29,734 bytes (11%) | 3,981 bytes (48%) |
-| `A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino` | 23,586 bytes (9%) | 4,962 bytes (60%) |
+The sketch was compiled with `arduino-cli` (target
+`arduino:avr:mega:cpu=atmega2560`) with **0 errors** at 29,734 bytes of flash (11%)
+and 3,981 bytes of RAM (48%) when this was last measured.
 
 Flashed to the bench Mega on COM4 several times across this sketch's
 history; most recently after the real `IAS_KT_TABLE` calibration was
@@ -43,12 +42,7 @@ send that fails to get an ARP reply) is now capped at 10ms/retry
 `delayBeforeSendingPacket` wait (unchanged, still 2000ms).
 
 Library versions used for this verification: **Ethernet** 2.0.2,
-**AccelStepper** 1.64.0, **DCS-BIOS** 0.3.13 (Arduino Library Manager). The
-`dcs-bios-arduino-library-0.3.7.zip` bundled inside the
-`A10_LEFT_CONSOLE_INPUT_CONTROLLER_A` folder is an older release of the
-same library — the Library Manager's 0.3.13 was used for this check and
-compiled without needing any code changes, but the two haven't been
-diffed against each other line-for-line.
+**AccelStepper** 1.64.0, **DCS-BIOS** 0.3.13 (Arduino Library Manager).
 
 ## Current stepper roster
 
@@ -57,12 +51,12 @@ diffed against each other line-for-line.
 | `VSIstepper` | FULL4WIRE, `COIL_VSI_A..D` (7/8/9/11, wired C,D,A,B) | Active - real `VSI_FPM_TABLE` calibration, boot homing gated by `SwingVSI` (default `false`, so currently disabled - see selective-swing note below) |
 | `IASstepper` (renamed from `SpeedCurrentstepper`) | FULL4WIRE, `STEPPER_SPD_A..D` (12/13/22/23, wired C,D,A,B) | Active - real `IAS_KT_TABLE` calibration (see below); its own boot startup/swing exists but is gated by `SwingIAS` (default `false`) - previously a bare `if (false)`, now a named toggle with identical default behaviour |
 | `RadarAltStepper` | FULL4WIRE, `RADAR_ALT_COIL_A..D` (32/33/34/35, wired C,D,A,B) | Active, raw steps only (`AGL` code) - no real calibration yet. Boot startup/swing gated by `SwingAGL` (default `false`) - previously a bare `if (false)` whose own in-code comment incorrectly claimed it ran every boot; that stale claim was corrected when the named gate was added |
-| `EOTstepper`, `XOTstepper`, `XOPstepper`, `EOPstepper` | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Active, real-unit UDP codes (see table below), all still using the placeholder `FULL4WIRE_HOMING_STEPS` linear scale (see caution below), no boot startup/swing at all |
+| `EOTstepper`, `XOTstepper`, `XOPstepper`, `EOPstepper` | FULL4WIRE, dedicated coil pins (see the pin table) | Active, real-unit UDP codes (see table below), all still using the placeholder `FULL4WIRE_HOMING_STEPS` linear scale (see caution below), no boot startup/swing at all |
 | `GPstepper` (Gas Producer) | FULL4WIRE, `GP_COIL_A..D` (40/41/42/43) | Real percent now via `setGP()`/`GP_PCT_TABLE` (`N1` code) — 3-point bench-measured table, all rows directly measured (0%→15, 100%→550, 103%→583 steps; uses the shared `PctToStepEntry` struct, also used by the other percent table). Unlike most tables in this sketch, 0% is NOT the stepper's raw zero - the boot swing's "return to zero" step accounts for this (`gpPctToSteps(0) + GPZeroOffset`, not just `GPZeroOffset`, same situation as `FAstepper`'s swing above). Boot startup/swing active, gated by `SwingGP` (default `true`) - overshoots the real 583-step calibrated max, same as every other graduated gauge's swing in this sketch |
 | `EGTstepper` (EGT/ITT) | FULL4WIRE, `EGT_COIL_A..D` (A11-A14) | Real degrees C now via `setEGT()`/`EGT_C_TABLE` (`ITT` code) — 7-point bench-measured table (100C→0, 300C→44, 500C→76, 600C→102, 700C→243, 800C→401, 900C→493 steps; reuses the new `CToStepEntry` struct). No 0C row was measured - any tempC ≤100 clamps to the 100C row's 0 steps, same effective result. Boot startup/swing active, gated by `SwingEGT` (default `true`) - overshoots the real 493-step calibrated max, same as every other graduated gauge's swing in this sketch. `egtCToSteps(0)` still clamps to 0 steps, so `EGTZeroOffset` alone remains the correct calibrated-zero target for the swing's return-to-zero step, unlike `FAstepper`'s swing above |
 | `TSstepper`, `RSstepper` (Turbine / Rotor Speed) | — | **Removed from this sketch.** Their steppers, coil pins (24-31), `SwingRPM` gate, `TSZeroOffset`/`RSZeroOffset`, `TS_PCT_TABLE`/`RS_PCT_TABLE`, `setTS()`/`setRS()`, the `RPME`/`RPMERAW`/`RPMR`/`RPMRRAW` UDP cases, and their `ResetGaugesToZero()`/`.run()` calls are all gone - those gauges are driven by `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino` (172.16.1.106). `RPME`/`RPMR` packets reaching this board are now silently ignored (unknown code). The shared `PctToStepEntry` struct was kept (still used by `GP_PCT_TABLE`/`TQ_PCT_TABLE`) |
 | `TQstepper` (renamed from `ETstepper`, outside this doc pass) | FULL4WIRE, `ET_COIL_A..D` (36/37/38/39) | Real percent now via `setTQ()`/`TQ_PCT_TABLE` (`TQ` code) — 2-point bench-measured table (0%→0, 120%→600 steps; uses the shared `PctToStepEntry` struct, also used by the other percent table). `TQRAW` added as the raw-step bypass. Boot startup/swing active, gated by `SwingTQ` (default `true`) - previously had no startup routine at all. Uses the same `X27_FULLWIRE_STEPS`/`X27_FULLWIRE_HOMING_STEPS` range as VSI/IAS/Radar Alt's swings — now a reasonable match rather than an arbitrary range, since the real 120% max (600 steps) is close to `X27_FULLWIRE_STEPS` (635) |
-| `FAstepper` (Fuel Quantity) | FULL4WIRE, pins matching `Stepper-Tuning-Harness` exactly | Real US gallons now via `setFA()`/`FA_GAL_TABLE` (`FUEL`/`FA` code) — 2-point table, both rows bench-measured (0 gal→53 steps, 75 gal→504 steps; reuses the new `GalToStepEntry` struct). Unlike most tables in this sketch, 0 gal is NOT the stepper's raw zero - the boot swing's "return to zero" step accounts for this (`galToSteps(0) + FAZeroOffset`, not just `FAZeroOffset`). `FUELRAW` already existed as the raw-step bypass. Boot startup/swing active, gated by `SwingFA` (default `true`) - overshoots the real 504-step calibrated max, same as every other graduated gauge's swing in this sketch |
+| `FAstepper` (Fuel Quantity) | FULL4WIRE, dedicated coil pins (see the pin table) | Real US gallons now via `setFA()`/`FA_GAL_TABLE` (`FUEL`/`FA` code) — 2-point table, both rows bench-measured (0 gal→53 steps, 75 gal→504 steps; reuses the new `GalToStepEntry` struct). Unlike most tables in this sketch, 0 gal is NOT the stepper's raw zero - the boot swing's "return to zero" step accounts for this (`galToSteps(0) + FAZeroOffset`, not just `FAZeroOffset`). `FUELRAW` already existed as the raw-step bypass. Boot startup/swing active, gated by `SwingFA` (default `true`) - overshoots the real 504-step calibrated max, same as every other graduated gauge's swing in this sketch |
 | `ALTstepper`, `SpeedMaxstepper`, `FlapsStepper`, `AOAstepper`, `GForcestepper` | — | **Removed.** Constructs, pin `#define`s (mostly), startup routines, DCS-BIOS bindings, and UDP codes for all five are commented out or deleted. `FlapsStepPin`/`FlapsDirectionPin` are the one pair of pin `#define`s left behind, now orphaned (nothing reads them). |
 | `SARIstepperRoll` | DRIVER, pins 30/32 | Declared and pin-claimed, but its `Nema8Stepper` binding is commented out - never `.run()`, never bound to DCS-BIOS. Still occupies pins 30/32 via its `AccelStepper` constructor. |
 | `saiPitch` (`DcsBios::ServoOutput`, pin 9) | — | Active - SAI pitch axis, plain hobby servo |
@@ -275,7 +269,7 @@ and reflash.
 
 | Pin(s) | Function |
 |---|---|
-| 14 | Green status LED (moved from 13, matching `Stepper-Tuning-Harness`) |
+| 14 | Green status LED (moved from 13) |
 | 15 | Red status LED (moved from 12) |
 | 53 | W5500 Ethernet shield manual reset |
 | 8 | Backlighting PWM output (`BACK_LIGHTS`) |
@@ -325,101 +319,3 @@ and reflash.
 > now shows this board's live/dead status (Stepper indicator) alongside
 > Comm/Nav, Servo, Joystick, and Upper Input, based on the `"STEPPER"`
 > keepalive above.
-
----
-
-## A10_LEFT_CONSOLE_INPUT_CONTROLLER_A.ino — Program Summary
-
-> Its own header comment says **"A10 RIGHT CONSOLE INPUT CONTROLLER"**
-> while the containing folder is named for the *left* console — a further
-> naming inconsistency worth resolving with whoever maintains this board.
-
-Arduino Mega 2560 176-button row/column matrix scanner (16 rows × 11
-columns, identical wiring scheme to `JET_RANGER_UPPER_CONTROLLER`'s
-matrix) for a TACAN/ILS/electrical-panel/CDU/AAP/lighting-control-panel
-input console, forwarding every press/release straight to DCS-BIOS.
-
-### Program flow
-
-1. **Setup**: flashes status LEDs, configures rows 22–37 as outputs and
-   columns 38–49 as inputs, clears the button-state arrays, starts
-   DCS-BIOS, then (if Ethernet enabled) resets the W5500 shield, brings up
-   Ethernet, and sends an "INIT RIGHT INPUT" debug message to the
-   reflector.
-2. **Main loop** (`loop()`): pumps `DcsBios::loop()`, scans the 16×11
-   matrix using direct `PORTA`/`PORTC` writes and `PIND`/`PING`/`PINL`
-   reads (same technique as `JET_RANGER_UPPER_CONTROLLER`), then calls
-   `FindInputChanges()`.
-3. **`FindInputChanges()`**: for each debounced button-state change, calls
-   `CreateDcsBiosMessage(index, state)` — a large switch statement mapping
-   each of the 176 matrix positions to a named DCS-BIOS command (TACAN
-   mode/test, ILS power, electrical panel switches (`EPP_*`), fuel
-   quantity indicator test/select (`FQIS_*`), a full CDU keypad (`CDU_0`–
-   `CDU_9`, `CDU_A`–`CDU_Z`, and function keys), an AAP page/steerpoint
-   selector, and lighting-control-panel switches (`LCP_*`)) — and (if
-   `Ethernet_In_Use`) also calls `SendIPMessage()` to log the raw
-   index/state pair to the reflector, and (if `MSFS_In_Use`, currently
-   `0`/disabled) `SendMSFSMessage()`.
-4. Also registers rotary encoders/potentiometers directly with DCS-BIOS
-   (not through the matrix): `tacan10`/`tacan1` (TACAN channel tens/ones),
-   `tacanVol`, `ilsKhz`/`ilsMhz`, `ilsVol`, and 5 lighting-control-panel
-   potentiometers (`lcpFlood`, `lcpConsole`, `lcpEngInst`, `lcpAuxInst`,
-   `lcpFormation`).
-5. A `onConsolesDimmerChange` callback (address `0x7544`) calls
-   `SendLedString()` with a computed brightness — this is the one place in
-   either sketch where that helper is actually used.
-
-### Pin usage
-
-| Pin(s) | Function |
-|---|---|
-| 5 | Green status LED |
-| 6 | Red status LED |
-| 53 | W5500 Ethernet shield manual reset |
-| 22–37 | 16 button-matrix row drivers |
-| 38–48 | 11 usable button-matrix column inputs (of 16 wired; pins 50–53 reserved for Ethernet SPI, matching `JET_RANGER_UPPER_CONTROLLER`) |
-| 14, 15 | TACAN "10" rotary encoder (A, B) |
-| 17, 16 | TACAN "1" rotary encoder (A, B) |
-| 18, 19 | ILS kHz rotary encoder (A, B) |
-| 21, 20 | ILS MHz rotary encoder (A, B) |
-| A0–A4 (analog pins 0–4) | Lighting-control-panel potentiometers: flood, console, eng-inst, aux-inst, formation |
-| A5 | TACAN volume potentiometer |
-| A6 | ILS volume potentiometer |
-
-### Local network configuration
-
-| Setting | Value |
-|---|---|
-| Static IP | `172.16.1.103` |
-| MAC | `A8:61:0A:9E:83:03` |
-| Local port `localport`/`keyboardport` | 7788 |
-| Local port `localdebugport` | 7795 |
-
-> **IP conflict:** this sketch hard-codes `172.16.1.103`, the same address
-> `JET_RANGER_UPPER_CONTROLLER` now uses (after that board was renumbered
-> from `.101` to `.103` in an earlier change to resolve a different
-> conflict). If both this A-10C input controller and the Jet Ranger Upper
-> Controller are ever deployed on the same network, one of them needs a
-> different IP — this wasn't fixed as part of this documentation pass
-> since it wasn't asked for, just flagging it here.
-
-### Remote endpoints this sketch talks to
-
-| Target | Port | Purpose |
-|---|---|---|
-| `172.16.1.10` (reflector host) | 27000 | Debug/log messages and raw button index/state (`SendIPMessage`) |
-| `172.16.1.110` (`targetIP`) | 7788 (keyboard) / 7789 (LED) | `SendIPString()` (declared, unused) / `SendLedString()` (used once, by the consoles-dimmer callback) |
-| `172.16.1.10` (`MSFSIP`) | 7791 | `SendMSFSMessage()` — only actually called if `MSFS_In_Use` is set to `1` (currently `0`, disabled) |
-
-### C# / other programs this sketch (and its sibling stepper sketch) communicate with
-
-- **DCS-BIOS**, running on the DCS World PC over the serial/USB link, is
-  the real data source/sink for both sketches in this folder — not any of
-  the Jet Ranger SimConnect/FSUIPC bridge apps.
-- No C# project in this repository listens on `172.16.1.10:27000` (debug
-  logs) or `172.16.1.10:7791` (`MSFSport`) — both are dead ends from this
-  repo's perspective.
-- The `172.16.1.110` target ("Arduino Due for Keystroke translation and
-  Pixel Led driving") is not among the Arduino sketches documented in this
-  repository — it's referenced by IP only, with no corresponding project
-  found here.

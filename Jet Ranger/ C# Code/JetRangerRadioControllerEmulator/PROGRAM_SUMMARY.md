@@ -5,8 +5,8 @@ Controller board when it isn't connected. It shows the two character-OLED
 frequency displays, a clickable rotary knob for each of the 8 real encoders,
 the COM1/COM2 frequency-swap ("XFER") keys, and the master battery/alternator
 key, and sends the same UDP payloads the board itself would send to the
-reflector on port 27001 — so the sim-bridge apps (`P3D_to_UDP` /
-`SimConnect_to_UDP` / `MSFSSimConnectExtractor` / `FSUIPCWinformsAutoCS`)
+reflector on port 27001 — so the sim-bridge apps (`FSUIPCWinformsAutoCS` /
+`MSFSWinformsAutoCS`)
 can't tell the difference.
 
 Only controls that actually do something in the firmware are emulated —
@@ -82,8 +82,7 @@ scope decision (functional traffic only, no debug/heartbeat).
 
 ## Programs this communicates with
 
-- **P3D_to_UDP** / **SimConnect_to_UDP** / **MSFSSimConnectExtractor
-  (WindowsFormsApp2)** / **FSUIPCWinformsAutoCS** — whichever sim-bridge app
+- **FSUIPCWinformsAutoCS** / **MSFSWinformsAutoCS** — whichever sim-bridge app
   is running on the PC at `172.16.1.10`, listening on UDP **27001** for
   standby-frequency and radio/battery/alternator commands, exactly as it
   would from the real

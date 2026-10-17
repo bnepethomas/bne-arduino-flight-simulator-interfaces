@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560">
+<rect width="880" height="560" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<text x="16.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">SwingTester: Swing ALL runs the gauges in this order</text>
+<rect x="16.0" y="50.0" width="276.0" height="56.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="28.0" y="73.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">1  Engine oil pressure</text>
+<text x="28.0" y="97.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Dual board  |  wait 6 s</text>
+<rect x="302.0" y="50.0" width="276.0" height="56.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="314.0" y="73.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">2  Engine oil temp</text>
+<text x="314.0" y="97.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Dual board  |  wait 6 s</text>
+<rect x="588.0" y="50.0" width="276.0" height="56.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="600.0" y="73.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">3  Transmission pressure</text>
+<text x="600.0" y="97.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Dual board  |  wait 6 s</text>
+<rect x="16.0" y="114.0" width="276.0" height="56.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="28.0" y="137.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">4  Transmission temp</text>
+<text x="28.0" y="161.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Dual board  |  wait 6 s</text>
+<rect x="302.0" y="114.0" width="276.0" height="56.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="314.0" y="137.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">5  Fuel available</text>
+<text x="314.0" y="161.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Stepper board  |  wait 11 s</text>
+<rect x="588.0" y="114.0" width="276.0" height="56.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="600.0" y="137.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">6  Electrical load</text>
+<text x="600.0" y="161.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Dual board  |  wait 7 s</text>
+<rect x="16.0" y="178.0" width="276.0" height="56.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="28.0" y="201.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">7  Fuel load</text>
+<text x="28.0" y="225.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Dual board  |  wait 7 s</text>
+<rect x="302.0" y="178.0" width="276.0" height="56.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="314.0" y="201.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">8  Torque</text>
+<text x="314.0" y="225.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Stepper board  |  wait 11 s</text>
+<rect x="588.0" y="178.0" width="276.0" height="56.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="600.0" y="201.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">9  Turbine out</text>
+<text x="600.0" y="225.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Stepper board  |  wait 11 s</text>
+<rect x="16.0" y="242.0" width="276.0" height="56.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="28.0" y="265.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">10  Gas producer</text>
+<text x="28.0" y="289.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Stepper board  |  wait 11 s</text>
+<rect x="302.0" y="242.0" width="276.0" height="56.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="314.0" y="265.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">11  Pitch</text>
+<text x="314.0" y="289.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Servo board  |  wait 3 s</text>
+<rect x="588.0" y="242.0" width="276.0" height="56.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="600.0" y="265.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">12  Roll</text>
+<text x="600.0" y="289.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Servo board  |  wait 3 s</text>
+<rect x="16.0" y="306.0" width="276.0" height="56.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="28.0" y="329.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">13  Turbine RPM</text>
+<text x="28.0" y="353.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Dual board  |  wait 7 s</text>
+<rect x="302.0" y="306.0" width="276.0" height="56.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="314.0" y="329.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">14  Rotor RPM</text>
+<text x="314.0" y="353.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Dual board  |  wait 7 s</text>
+<rect x="588.0" y="306.0" width="276.0" height="56.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="600.0" y="329.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">15  VSI</text>
+<text x="600.0" y="353.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Stepper board  |  wait 11 s</text>
+<rect x="16.0" y="370.0" width="276.0" height="56.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="28.0" y="393.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">16  Airspeed</text>
+<text x="28.0" y="417.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Stepper board  |  wait 11 s</text>
+<rect x="302.0" y="370.0" width="276.0" height="56.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="314.0" y="393.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">17  Radar altitude</text>
+<text x="314.0" y="417.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Stepper board  |  wait 11 s</text>
+<rect x="588.0" y="370.0" width="276.0" height="56.0" rx="10" ry="10" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1.2"/>
+<text x="600.0" y="393.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">18  Altimeter</text>
+<text x="600.0" y="417.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Dual board  |  wait 6 s</text>
+<text x="16.0" y="470.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Then the 15 warning lamps are switched off one by one. OLEDs ON / OFF light the Dual Stepper's displays for the run.</text>
+<text x="16.0" y="492.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The boards do not report when a swing ends, so each row has a wait; a full pass takes about 220 s plus the lamps.</text>
+<text x="16.0" y="514.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">A keep-alive command every 10 s stops the boards' 30 s no-data timers from firing during the run.</text>
+<rect x="16.0" y="530.0" width="96.0" height="24.0" rx="12.0" ry="12.0" fill="#F0EAFB" stroke="#6A3FC7" stroke-width="1"/>
+<text x="64.0" y="546.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">Dual stepper</text>
+<rect x="130.0" y="530.0" width="63.5" height="24.0" rx="12.0" ry="12.0" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1"/>
+<text x="161.8" y="546.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">Stepper</text>
+<rect x="210.0" y="530.0" width="50.5" height="24.0" rx="12.0" ry="12.0" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1"/>
+<text x="235.2" y="546.4" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">Servo</text>
+</svg>

@@ -231,14 +231,9 @@ not yet flashed.
 
 ## C# programs this sketch communicates with
 
-- **P3D_to_UDP** / **SimConnect_to_UDP** / **MSFSSimConnectExtractor
-  (WindowsFormsApp2)** — the SimConnect↔UDP bridge apps. Each one connects
-  a UDP client to `172.16.1.102:13136` (this board) and streams the
-  `D,TQ:...,IAS:...` front-panel data packets this sketch parses.
-- **ServoTuner** — a standalone WinForms calibration tool that connects
-  directly to `172.16.1.102:13136` and lets an operator push manual or
-  formula-converted `D,<CODE>:<value>` packets to this board to find/verify
-  each servo's min/max/zero pulse positions, independent of the flight sim.
+- **FSUIPCWinformsAutoCS** / **MSFSWinformsAutoCS** — the bridge apps. Each one
+  connects a UDP client to `172.16.1.102:13136` (this board) and streams the
+  `D,PITCH:...,BANK:...,<lamp>:1/0` packets this sketch parses.
 - **StepperVSITester** (new) — primarily a stepper-board bench tool, but
   also connects a third UDP client (`servoClient`) to `172.16.1.102:13136`
   for two rows only: `PITCH`/`BANK`, sent one-decimal-place to match this

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="360" viewBox="0 0 880 360">
+<rect width="880" height="360" fill="#FFFFFF"/>
+<defs>
+<marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ah2E7D32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ahs2E7D32" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+</defs>
+<rect x="16.0" y="30.0" width="230.0" height="92.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="54.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Radio controller emulator</text>
+<text x="28.0" y="77.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">clickable knobs, swap keys,</text>
+<text x="28.0" y="95.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">master on / off keys</text>
+<rect x="16.0" y="190.0" width="230.0" height="92.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="214.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Upper controller emulator</text>
+<text x="28.0" y="237.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">one toggle per wired switch</text>
+<text x="28.0" y="255.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">(22 switches)</text>
+<rect x="380.0" y="30.0" width="200.0" height="92.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="480.0" y="52.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">Bridge application</text>
+<text x="480.0" y="75.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">UDP 27001 on the PC</text>
+<rect x="380.0" y="190.0" width="200.0" height="92.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="480.0" y="212.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="middle">USB HID board</text>
+<text x="480.0" y="235.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">UDP 4210 on 172.16.1.11</text>
+<path d="M 246.0 76.0 L 380.0 76.0" fill="none" stroke="#2E7D32" stroke-width="1.6" marker-end="url(#ah2E7D32)"/>
+<rect x="282.0" y="55.0" width="61.9" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="313.0" y="66.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">commands</text>
+<path d="M 246.0 236.0 L 380.0 236.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)"/>
+<rect x="278.9" y="215.0" width="68.2" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="313.0" y="226.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">idx,state</text>
+<rect x="614.0" y="30.0" width="250.0" height="252.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="626.0" y="54.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Use them when</text>
+<text x="626.0" y="77.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">the real board is disconnected</text>
+<text x="626.0" y="95.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">or being worked on.</text>
+<text x="626.0" y="112.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start"></text>
+<text x="626.0" y="130.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Only controls that do something in</text>
+<text x="626.0" y="147.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">the firmware are shown.</text>
+<text x="626.0" y="165.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start"></text>
+<text x="626.0" y="182.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Neither sends debug (27000) or</text>
+<text x="626.0" y="200.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">heartbeat (13137) traffic.</text>
+<text x="16.0" y="322.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The Radio emulator still sends a bare frequency for every radio, so only COM1 tunes from it.</text>
+<text x="16.0" y="344.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">(The real board sends labelled COM2_STANDBY:, NAV1_STANDBY: and NAV2_STANDBY: values, which both bridges understand.)</text>
+</svg>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="600" viewBox="0 0 880 600">
+<rect width="880" height="600" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<rect x="310.0" y="150.0" width="260.0" height="190.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="440.0" y="173.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Arduino Mega 2560</text>
+<text x="440.0" y="196.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">JET_RANGER_RADIO_CONTROLLER</text>
+<text x="440.0" y="214.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">172.16.1.101</text>
+<text x="440.0" y="231.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">status LEDs 14 (green), 15 (red)</text>
+<rect x="16.0" y="40.0" width="250.0" height="200.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="64.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">8 rotary encoders</text>
+<text x="28.0" y="88.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">COM1 major 31/30, minor 33/32</text>
+<text x="28.0" y="105.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">COM2 major 34/35, minor 37/36</text>
+<text x="28.0" y="123.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">NAV1 major 38/39, minor 41/40</text>
+<text x="28.0" y="140.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">NAV2 major 42/43, minor 45/44</text>
+<text x="28.0" y="158.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">polled, no interrupts needed</text>
+<rect x="16.0" y="270.0" width="250.0" height="130.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="294.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">4 x 4 button matrix</text>
+<text x="28.0" y="318.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">rows 22 - 25, columns 26 - 29</text>
+<text x="28.0" y="335.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">column 0 = the four swap keys</text>
+<text x="28.0" y="353.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">other keys only log a message</text>
+<path d="M 266.0 140.0 L 310.0 200.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<path d="M 266.0 335.0 L 310.0 290.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="614.0" y="40.0" width="250.0" height="92.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="626.0" y="64.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">TCA9548A I2C mux</text>
+<text x="626.0" y="88.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">address 0x70</text>
+<text x="626.0" y="105.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">I2C SDA 20 / SCL 21</text>
+<rect x="614.0" y="156.0" width="250.0" height="74.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="626.0" y="179.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">NAV OLED  (mux port 0)</text>
+<text x="626.0" y="203.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">NAV1 | NAV2, active / standby</text>
+<rect x="614.0" y="246.0" width="250.0" height="74.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="626.0" y="269.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">COMM OLED  (mux port 1)</text>
+<text x="626.0" y="293.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">COM1 | COM2, active / standby</text>
+<path d="M 570.0 200.0 L 614.0 86.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="568.6" y="124.0" width="30.7" height="16.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<text x="584.0" y="135.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">I2C</text>
+<path d="M 739.0 132.0 L 739.0 156.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<path d="M 700.0 230.0 L 700.0 246.0" fill="none" stroke="#8A8A85" stroke-width="1.6" marker-end="url(#ah8A8A85)"/>
+<rect x="310.0" y="400.0" width="260.0" height="74.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="322.0" y="424.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">W5500 Ethernet shield</text>
+<text x="322.0" y="448.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">SPI 50 - 52, reset pin 53</text>
+<text x="322.0" y="465.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">UDP to and from the PC</text>
+<path d="M 440.0 340.0 L 440.0 400.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="16.0" y="440.0" width="250.0" height="140.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="464.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Swap keys (column 0)</text>
+<text x="28.0" y="487.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">row 0: NAV1_RADIO_SWAP</text>
+<text x="28.0" y="504.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">row 1: NAV2_RADIO_SWAP</text>
+<text x="28.0" y="521.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">row 2: COM1_RADIO_SWAP</text>
+<text x="28.0" y="538.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">row 3: COM2_RADIO_SWAP</text>
+<text x="28.0" y="555.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="start">        + AVIONICS_MASTER_SET</text>
+<rect x="614.0" y="380.0" width="250.0" height="200.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="626.0" y="404.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Power and blanking</text>
+<text x="626.0" y="428.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">COM and NAV OLEDs go dark when</text>
+<text x="626.0" y="445.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">the PC sends NAVCOM1:0 (avionics</text>
+<text x="626.0" y="463.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">bus below 24 V) or after 30 s with</text>
+<text x="626.0" y="480.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">no data and no knob or key use.</text>
+<text x="626.0" y="498.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Any knob or key wakes them.</text>
+<path d="M 570.0 450.0 L 614.0 450.0" fill="none" stroke="#8A8A85" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#ah8A8A85)"/>
+</svg>

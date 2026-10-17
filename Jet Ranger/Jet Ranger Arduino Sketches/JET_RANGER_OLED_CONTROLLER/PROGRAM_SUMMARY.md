@@ -143,9 +143,7 @@ console: a barometric-pressure readout, a large digital altimeter, a CMSC
   which sends the same shared front-panel payload it sends to the Servo
   and Stepper Controllers to `172.16.1.104:13136` — this board just reads
   the `ALT`/`BARO` fields out of it and ignores the rest.
-- The other SimConnect-based bridge apps (`P3D_to_UDP`, `SimConnect_to_UDP`,
-  `MSFSSimConnectExtractor`) do **not** currently send to this board's IP —
-  only `FSUIPCWinformsAutoCS` has been updated to do so.
+- **MSFSWinformsAutoCS** also sends this board only the `ALT` and `BARO` codes.
 
 ## Unused files in this folder
 

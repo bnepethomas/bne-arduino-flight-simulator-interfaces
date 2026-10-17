@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="600" viewBox="0 0 880 600">
+<rect width="880" height="600" fill="#FFFFFF"/>
+<defs>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+</defs>
+<rect x="16.0" y="12.0" width="848.0" height="332.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="30.0" y="35.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">Gauges in use (7)</text>
+<text x="30.0" y="53.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">each is a stepper with its own calibration table</text>
+<rect x="30.0" y="62.0" width="400.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="42.0" y="86.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Airspeed  IAS</text>
+<text x="42.0" y="109.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pins 12, 13, 22, 23   |   knots 0 - 140, 10 points</text>
+<rect x="30.0" y="130.0" width="400.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="42.0" y="154.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Vertical speed  VSI</text>
+<text x="42.0" y="177.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pins 7, 8, 9, 11   |   fpm -1750 to +1750, 11 pts</text>
+<rect x="30.0" y="198.0" width="400.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="42.0" y="222.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Radar altitude  AGL</text>
+<text x="42.0" y="245.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pins 32 - 35   |   feet 0 - 2500, 11 points</text>
+<rect x="30.0" y="266.0" width="400.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="42.0" y="290.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Fuel quantity  FUEL</text>
+<text x="42.0" y="313.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pins 2, 3, 4, 6   |   gallons 0 - 75, 2 points</text>
+<rect x="450.0" y="62.0" width="400.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="462.0" y="86.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Torque  TQ</text>
+<text x="462.0" y="109.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pins 36 - 39   |   percent 0 - 120, 2 points</text>
+<rect x="450.0" y="130.0" width="400.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="462.0" y="154.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Gas producer  N1</text>
+<text x="462.0" y="177.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pins 40 - 43   |   percent 0 - 103, 3 points</text>
+<rect x="450.0" y="198.0" width="400.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="462.0" y="222.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Turbine out temperature  ITT</text>
+<text x="462.0" y="245.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">pins A11 - A14   |   deg C 100 - 900, 7 points</text>
+<path d="M 440.0 344.0 L 440.0 372.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)"/>
+<rect x="160.0" y="372.0" width="560.0" height="84.0" rx="10" ry="10" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1.2"/>
+<text x="440.0" y="395.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">Arduino Mega 2560</text>
+<text x="440.0" y="418.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">JET_RANGER_STEPPER_CONTROLLER  |  172.16.1.105  |  UDP 13136</text>
+<rect x="16.0" y="480.0" width="280.0" height="100.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="28.0" y="504.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Safety nets</text>
+<text x="28.0" y="527.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">no packet for 30 s: gauges to zero</text>
+<text x="28.0" y="545.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">C,RESET:1: watchdog reboot</text>
+<text x="28.0" y="562.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">C,SWING&lt;code&gt;:1: one swing</text>
+<rect x="310.0" y="480.0" width="260.0" height="100.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="322.0" y="504.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Each stepper</text>
+<text x="322.0" y="527.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">FULL4WIRE via AccelStepper:</text>
+<text x="322.0" y="545.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">homes against its stop,</text>
+<text x="322.0" y="562.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">then eases to the target</text>
+<rect x="584.0" y="480.0" width="280.0" height="100.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="596.0" y="504.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Present but unused here</text>
+<text x="596.0" y="527.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">EOT, XOT, XOP, EOP steppers: the</text>
+<text x="596.0" y="545.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">oil gauges live on the Dual</text>
+<text x="596.0" y="562.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Stepper board</text>
+</svg>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="490" viewBox="0 0 880 490">
+<rect width="880" height="490" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<text x="20.0" y="34.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">Bus voltage decides what is powered</text>
+<text x="20.0" y="56.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">The bridge reads the voltages; the boards only act on the packets they receive.</text>
+<line x1="40.0" y1="150.0" x2="840.0" y2="150.0" stroke="#555555" stroke-width="2"/>
+<line x1="40.0" y1="144.0" x2="40.0" y2="156.0" stroke="#555555" stroke-width="1.5"/>
+<text x="40.0" y="174.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">0 V</text>
+<line x1="173.3" y1="144.0" x2="173.3" y2="156.0" stroke="#555555" stroke-width="1.5"/>
+<text x="173.3" y="174.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">5 V</text>
+<line x1="306.7" y1="144.0" x2="306.7" y2="156.0" stroke="#555555" stroke-width="1.5"/>
+<text x="306.7" y="174.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">10 V</text>
+<line x1="440.0" y1="144.0" x2="440.0" y2="156.0" stroke="#555555" stroke-width="1.5"/>
+<text x="440.0" y="174.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">15 V</text>
+<line x1="573.3" y1="144.0" x2="573.3" y2="156.0" stroke="#555555" stroke-width="1.5"/>
+<text x="573.3" y="174.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">20 V</text>
+<line x1="706.7" y1="144.0" x2="706.7" y2="156.0" stroke="#555555" stroke-width="1.5"/>
+<text x="706.7" y="174.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">25 V</text>
+<line x1="840.0" y1="144.0" x2="840.0" y2="156.0" stroke="#555555" stroke-width="1.5"/>
+<text x="840.0" y="174.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">30 V</text>
+<rect x="40.0" y="118.0" width="533.3" height="26.0" rx="3" ry="3" fill="#FDECEA" stroke="#C62828" stroke-width="1.2"/>
+<rect x="573.3" y="118.0" width="106.7" height="26.0" rx="3" ry="3" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<rect x="680.0" y="118.0" width="160.0" height="26.0" rx="3" ry="3" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="306.7" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">everything off</text>
+<text x="626.7" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12" font-weight="400" fill="#1F1F1F" text-anchor="middle">gauges</text>
+<text x="760.0" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">gauges + displays</text>
+<rect x="20.0" y="210.0" width="262.0" height="50.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="32.0" y="233.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Main bus 20 V or more</text>
+<text x="296.0" y="240.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">Servo lamps can light; radar altitude (AGL) is sent, otherwise 0</text>
+<rect x="20.0" y="272.0" width="262.0" height="50.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="32.0" y="295.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Main bus 24 V or more</text>
+<text x="296.0" y="302.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">Dual Stepper packet carries PWR:1: Baro, Altimeter, Clock and Temperature OLEDs on</text>
+<rect x="20.0" y="334.0" width="262.0" height="50.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
+<text x="32.0" y="357.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Avionics bus 24 V or more</text>
+<text x="296.0" y="364.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">Radio packet carries NAVCOM1:1: COM and NAV displays on</text>
+<rect x="20.0" y="396.0" width="262.0" height="50.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="32.0" y="419.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Avionics bus reads exactly 0</text>
+<text x="296.0" y="426.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">the main bus is used instead (FlyInside B206 and CowaSim report 0)</text>
+<text x="20.0" y="478.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">There is no hysteresis: a bus hovering at a threshold can make the displays flicker.</text>
+</svg>
