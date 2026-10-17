@@ -1,5 +1,0 @@
-C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\bin\Release\ArdunioCLISender.exe
-C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\bin\Release\ArdunioCLISender.pdb
-C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\obj\x86\Release\ArdunioCLISender.exe
-C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\obj\x86\Release\ArdunioCLISender.pdb
-C:\Users\admin\Documents\Visual Studio 2010\Projects\ArduinoSender\ArdunioCLISender\ArdunioCLISender\obj\x86\Release\ArdunioCLISender.csprojResolveAssemblyReference.cache

@@ -6,3 +6,7 @@
 *.vsidx
 *.vsidx
 Hornet/Hornet PCBs/Active/UIP CONTROLLER/.history/
+
+# Build output (untracked 2026-10-17)
+[Bb]in/
+[Oo]bj/
