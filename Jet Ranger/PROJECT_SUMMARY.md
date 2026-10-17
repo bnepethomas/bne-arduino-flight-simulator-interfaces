@@ -16,7 +16,7 @@ lives in each project's own `PROGRAM_SUMMARY.md` and in
  Flight sim (MSFS / P3D / FSX)
         |  SimConnect / FSUIPC
         v
- PC bridge app  (FSUIPCWinformsAutoCS, SimConnect_to_UDP, P3D_to_UDP)
+ PC bridge app  (FSUIPCWinformsAutoCS, MSFSWinformsAutoCS, SimConnect_to_UDP, P3D_to_UDP)
         |  UDP text packets, port 13136:  "D,CODE:value,CODE:value,..."
         v
  Arduino Mega boards (172.16.1.x) - gauges, lamps, displays
@@ -74,6 +74,7 @@ per-channel I2C scan reported over UDP. Its RAM use is high (75%).
 | Program | Purpose |
 |---|---|
 | `FSUIPCWinformsAutoCS` | main FSUIPC bridge: reads sim data, fans the UDP payloads out to the Servo, Stepper, Dual Stepper, OLED and Radio boards, and listens on 27001 for radio/battery/alternator commands |
+| `MSFSWinformsAutoCS` | the MSFS 2020/2024 equivalent of the FSUIPC bridge, built on SimConnect: same window, timers, per-board real-unit packets and port-27001 commands (2026-10-17; built and packet-tested, not yet run against MSFS) |
 | `SimConnect_to_UDP`, `P3D_to_UDP`, `MSFSSimConnectExtractor` | the SimConnect equivalents (MSFS 2020/2024, Prepar3D, and the oldest MSFS variant) |
 | `JetRangerHealthMonitor` | traffic-light dashboard for the 10 s board heartbeats |
 | `StepperVSITester` | bench tester sending calibrated and raw values (steppers, dual stepper, servo pitch/bank) and the Temperature OLED text |
