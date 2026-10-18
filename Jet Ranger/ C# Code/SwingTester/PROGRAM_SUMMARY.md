@@ -151,6 +151,20 @@ at the start). All three sketches ignore the command name but still count the
 packet as received data. The keepalive stops when the run ends, so lamps or
 OLEDs left on manually will still time out after 30s.
 
+## Brightness
+
+A **Brightness (0-15)** slider sends `C,B:<level>` to the Radio (.101), Servo (.102), Upper (.103), Stepper (.105) and Dual Stepper
+(.106) - every board except the USB HID board - each time the slider is moved, and **Send to all boards** resends the current level.
+The status line lists the boards sent to. The Servo, Stepper and Dual Stepper set their backlight PWM from it (0 off, 15 full); the
+Radio parses the command but does not act on it yet, and the Upper controller ignores it. The board IP boxes at the top are used.
+
+**Backlight power ON / OFF** send `D,BPWR:1` / `D,BPWR:0` to the Servo, Stepper and Dual Stepper, the packet the bridges send from the
+main bus voltage (1 at 20 V or more): the backlight goes off at 0 and, on 1, returns to the last brightness commanded. These are for
+testing the main bus rule from the bench.
+
+Tested with the IP boxes set to this PC and a scratch UDP listener: Send to all boards delivered `C,B:8` five times, the power
+buttons delivered `D,BPWR:0` and `D,BPWR:1` three times each, and moving the slider delivered `C,B:9` to the five boards.
+
 ## Requirements / status
 
 - Boards must be running sketches that include the swing commands (and

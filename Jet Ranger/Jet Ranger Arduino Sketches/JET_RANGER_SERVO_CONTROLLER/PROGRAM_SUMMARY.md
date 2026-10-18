@@ -242,3 +242,19 @@ not yet flashed.
   "Servo" indicator green on receipt of this sketch's keepalive.
 - No C# project in this repository listens on `172.16.1.10:27000`
   (the debug log stream has no in-repo consumer).
+
+## Backlight: UDP brightness and main bus power (2026-10-18)
+
+The backlight output on pin 5 (`BACK_LIGHTS`, the PCB's `BACKLIGHT_PWM`) is now driven, by `applyBacklight()`, exactly as on the
+Stepper and Dual Stepper boards:
+
+- **Main bus:** the bridge sends `BPWR:1` while the main bus is 20 V or more and `BPWR:0` below that (first in the Servo packet). `BPWR:0`
+  turns the backlight off, `BPWR:1` turns it on. Until a `BPWR` packet arrives the backlight is on.
+- **Brightness:** control packet `C,B:<0-15>` (0 off, 15 full, mapped to PWM 0-255, clamped) is remembered. With no brightness command
+  received the backlight uses the default PWM 65 (`BacklightDefaultPwm`); once one has been received, every time power is applied the
+  backlight returns to the **last commanded level**. A command received while the bus is down is applied when power returns.
+- `setup()` sets pin 5 as an output and applies the default level. The no-data watchdog does not change the backlight. Each change is
+  logged (`Brightness <n> -> PWM <pwm>`, `Backlight power on/off`).
+
+Compiled at 24,368 bytes flash (9%) / 2,491 bytes RAM (30%); **not yet flashed or bench-tested**. This replaces the earlier note that
+`C,B:n` was accepted but did nothing.

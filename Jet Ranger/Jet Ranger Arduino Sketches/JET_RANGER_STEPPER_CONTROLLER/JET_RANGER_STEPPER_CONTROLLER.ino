@@ -228,6 +228,19 @@ unsigned long previousMillis = 0;
 
 #define BACK_LIGHTS 5  // PCB: D5 = BACKLIGHT_PWM (D8 is VSI coil B)
 
+// Backlight control. The backlight follows the main bus (BPWR:1/0 from the bridge: 1 = main bus 20 V or more) and the last
+// brightness command (C,B:0-15). Until a C,B command has been received it uses BacklightDefaultPwm; once one has, the last
+// commanded level is used every time power is applied. While the main bus is below 20 V the backlight is off.
+#define BacklightDefaultPwm 65
+bool backlightPowered = true;        // true until the bridge reports the main bus is down
+int backlightCommandedPwm = -1;      // PWM from the last C,B command; -1 = none received yet
+
+void applyBacklight() {
+  int pwm = 0;
+  if (backlightPowered) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  analogWrite(BACK_LIGHTS, pwm);
+}
+
 // ########################## BEGIN STEPPERS ########################################
 #include <AccelStepper.h>
 
@@ -761,7 +774,7 @@ void setup() {
   if (DCSBIOS_In_Use == 1) DcsBios::setup();
 
 #define BrightnessPostSetup 65
-  analogWrite(BACK_LIGHTS, BrightnessPostSetup);
+  applyBacklight();   // BacklightDefaultPwm (65) unless a brightness command or the main bus says otherwise
 
   // Start the no-data timeout from the END of setup(), not from reset:
   // lastMSFSDataMillis starts at 0, so with the long boot swings the
@@ -1714,6 +1727,14 @@ void HandleOutputValuePair(String str) {
     // The bridge sends one decimal ("93.4"); toFloat() keeps it so the
     // interpolation can use sub-knot values.
     setIAS(ParameterValue.toFloat());
+  } else if (ParameterName == "BPWR") {
+    // Backlight power from the bridge: 1 = main bus 20 V or more, 0 = off. See applyBacklight().
+    bool powered = ParameterValue.toInt() != 0;
+    if (powered != backlightPowered) {
+      backlightPowered = powered;
+      applyBacklight();
+      SendDebug(powered ? "Backlight power on" : "Backlight power off");
+    }
   } else if (ParameterName == "IASRAW") {
     // Distinct raw-step code so the real-units "IAS" code above doesn't
     // have to be the only way to reach this stepper over UDP - bypasses
@@ -1895,6 +1916,13 @@ void HandleControlString(String str) {
   } else if (name == "SWINGAGL") {
     SendDebug("Swing command: " + name);
     swingAGL();
+  } else if (name == "B") {
+    // Panel brightness: C,B:0 .. C,B:15 (0 = off, 15 = full). Remembered, and applied now if the main bus is powered
+    // (otherwise it is applied when power returns - see applyBacklight()).
+    int level = constrain(getValue(str, ':', 1).toInt(), 0, 15);
+    backlightCommandedPwm = map(level, 0, 15, 0, 255);
+    applyBacklight();
+    SendDebug("Brightness " + String(level) + " -> PWM " + String(backlightCommandedPwm) + (backlightPowered ? "" : " (main bus off, applied when power returns)"));
   } else if (name == "RESET") {
     RebootBoard();
   }

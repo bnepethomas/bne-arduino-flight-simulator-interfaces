@@ -162,3 +162,9 @@ invalid). The
 readout shows the position and heading. Like the board packets, nothing is sent while the data is stale, so the GPS interface
 falls back to Brisbane Airport after 30 seconds. Built clean and the packet builder checked with sample values (the GPS interface's
 parser reads it back correctly); **not yet run against MSFS**.
+
+## Backlight power (2026-10-18)
+
+`Payloads.Servo()`, `Payloads.Stepper()` and `Payloads.DualStepper()` add `BPWR:1` / `BPWR:0` (1 while the main bus is 20 V or more, the same test as
+`GaugesPowered()`): first in the Stepper packet and after `PWR` in the Dual Stepper packet. The boards switch their backlight off when
+it is 0 (see their summaries).

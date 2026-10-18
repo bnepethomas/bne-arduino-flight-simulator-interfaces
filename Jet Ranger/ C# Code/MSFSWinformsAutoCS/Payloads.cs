@@ -132,7 +132,8 @@ namespace MSFSWinformsAutoCS
         // Servo board (.102): attitude pitch/bank in degrees to one decimal plus the lamp codes.
         // Pitch is negated: the sim reports nose-down positive, the servo table is nose-up positive.
         public static string Servo(SimSnapshot s)
-            => "D,PITCH:" + F1(-s.PitchDegrees) + ",BANK:" + F1(s.BankDegrees) + LampPayload(s);
+            => "D,BPWR:" + (GaugesPowered(s) ? "1" : "0")      // backlight on only while the main bus is 20 V or more
+             + ",PITCH:" + F1(-s.PitchDegrees) + ",BANK:" + F1(s.BankDegrees) + LampPayload(s);
 
         // The radar altimeter is powered from the main bus: 0 when unpowered.
         public static string RadarAltitude(SimSnapshot s)
@@ -141,7 +142,8 @@ namespace MSFSWinformsAutoCS
         // Single-board Stepper (.105): airspeed (one decimal), VSI, radar altitude, fuel, torque,
         // turbine outlet temperature and gas producer.
         public static string Stepper(SimSnapshot s)
-            => "D,IAS:" + F1(s.AirspeedKnots)
+            => "D,BPWR:" + (GaugesPowered(s) ? "1" : "0")      // backlight on only while the main bus is 20 V or more
+             + ",IAS:" + F1(s.AirspeedKnots)
              + ",VSI:" + ((int)s.VerticalSpeedFpm).ToString(Inv)
              + ",AGL:" + RadarAltitude(s)
              + ",FUEL:" + F0(s.FuelGallons)
@@ -161,6 +163,7 @@ namespace MSFSWinformsAutoCS
         // Dual Stepper (.106). PWR leads the packet so the board applies it before ALT/ZULU/TEMP.
         public static string DualStepper(SimSnapshot s)
             => "D,PWR:" + (OledsPowered(s) ? "1" : "0")
+             + ",BPWR:" + (GaugesPowered(s) ? "1" : "0")        // backlight on only while the main bus is 20 V or more
              + ",ALT:" + F0(s.AltitudeFeet)
              + ",RPMR:" + s.RotorRpmPct.ToString("F1", Inv)
              + ",RPME:" + s.EngineRpmPct.ToString("F1", Inv)

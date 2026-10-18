@@ -15,6 +15,21 @@ bool Debug_Display = false;
 
 #define GREEN_STATUS_LED_PORT 14
 #define RED_STATUS_LED_PORT 15  // RED LED is used for monitoring ethernet
+
+#define BACK_LIGHTS 5  // PCB: D5 = BACKLIGHT_PWM
+
+// Backlight control. The backlight follows the main bus (BPWR:1/0 from the bridge: 1 = main bus 20 V or more) and the last
+// brightness command (C,B:0-15). Until a C,B command has been received it uses BacklightDefaultPwm; once one has, the last
+// commanded level is used every time power is applied. While the main bus is below 20 V the backlight is off.
+#define BacklightDefaultPwm 65
+bool backlightPowered = true;        // true until the bridge reports the main bus is down
+int backlightCommandedPwm = -1;      // PWM from the last C,B command; -1 = none received yet
+
+void applyBacklight() {
+  int pwm = 0;
+  if (backlightPowered) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  analogWrite(BACK_LIGHTS, pwm);
+}
 #define FLASH_TIME 200
 
 unsigned long NEXT_STATUS_TOGGLE_TIMER = 0;
@@ -598,7 +613,15 @@ void HandleOutputValuePair(String str) {
 
     // As the value could contain the null at the end of the string trim it out
     ParameterValue.trim();
-    if (ParameterName == "BANK") {
+    if (ParameterName == "BPWR") {
+      // Backlight power from the bridge: 1 = main bus 20 V or more, 0 = off. See applyBacklight().
+      bool powered = ParameterValue.toInt() != 0;
+      if (powered != backlightPowered) {
+        backlightPowered = powered;
+        applyBacklight();
+        SendDebug(powered ? "Backlight power on" : "Backlight power off");
+      }
+    } else if (ParameterName == "BANK") {
       //SendDebug("Received Bank: " + ParameterValue);
       // Real degrees now, via the bench-measured BANK_DEG_TABLE above
       // (-90deg->5, 0deg->93, +90deg->179) - no longer a raw pass-through
@@ -888,12 +911,13 @@ void HandleControlString(String str) {
       RebootBoard();
     }
 
-    // Backlighting and Flood ligghting
-    if (command == "B")
-      if (isetting >= 0 && isetting <= 15) {
-        //analogWrite(FLOOD_LIGHTS, map(isetting, 0, 15, 0, 255));
-      }
-    //else if (Debug_Display || bLocalDebug ) SendDebug("Invalid Brightness value passed. Value is :" + String(setting));
+    // Panel brightness: C,B:0 .. C,B:15 (0 = off, 15 = full). Remembered, and applied now if the main bus is powered
+    // (otherwise it is applied when power returns - see applyBacklight()).
+    if (command == "B") {
+      backlightCommandedPwm = map(constrain(isetting, 0, 15), 0, 15, 0, 255);
+      applyBacklight();
+      SendDebug("Brightness " + String(constrain(isetting, 0, 15)) + " -> PWM " + String(backlightCommandedPwm) + (backlightPowered ? "" : " (main bus off, applied when power returns)"));
+    }
   }
 
   return;
@@ -1006,6 +1030,8 @@ void setup() {
 
   pinMode(GREEN_STATUS_LED_PORT, OUTPUT);
   pinMode(RED_STATUS_LED_PORT, OUTPUT);
+  pinMode(BACK_LIGHTS, OUTPUT);
+  applyBacklight();   // default level until a brightness command or the main bus says otherwise
   digitalWrite(GREEN_STATUS_LED_PORT, true);
   digitalWrite(RED_STATUS_LED_PORT, false);
 

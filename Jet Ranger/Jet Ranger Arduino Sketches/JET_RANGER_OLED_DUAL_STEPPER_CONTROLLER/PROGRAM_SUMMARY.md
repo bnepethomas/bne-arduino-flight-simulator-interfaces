@@ -603,3 +603,20 @@ altimeter's per-digit ones, redraws the Baro setting and lets the next `ALT` / `
 `TEMP` packet repaint the rest. `FSUIPCWinformsAutoCS` sends `PWR:0` while the main bus
 voltage is below 24 V. Compiled at 57,540 bytes flash (22%) / 6,323 bytes RAM (77%);
 not yet flashed.
+
+## Backlight: UDP brightness and main bus power (2026-10-18)
+
+The backlight on pin 5 (`BACK_LIGHTS`) is now controlled by `applyBacklight()`:
+
+- **Main bus:** the bridge sends `BPWR:1` while the main bus is 20 V or more and `BPWR:0` below that. `BPWR:0` turns the backlight
+  off; `BPWR:1` turns it on. Until a `BPWR` packet arrives the backlight is on (the board has no way to know the bus is down).
+- **Brightness:** control packet `C,B:<0-15>` (0 off, 15 full, mapped to PWM 0-255, out-of-range values clamped) is remembered.
+  If no brightness command has been received the backlight uses the default PWM 65 (`BacklightDefaultPwm`, the old post-setup
+  level). Once one has been received, every time power is applied the backlight returns to the **last commanded level**, not the
+  default. A command received while the main bus is down is remembered and applied when power returns.
+- The backlight still starts at 128 during setup and the no-data watchdog does not change it. The DCS-BIOS brightness handlers
+  still call `analogWrite()` directly but are never run (`DcsBios::loop()` is commented out).
+- Each change is logged (`Brightness <n> -> PWM <pwm>`, `Backlight power on/off`). The bridges (FSUIPCWinformsAutoCS, MSFSWinformsAutoCS)
+  send `BPWR` first in the Stepper packet and after `PWR` in the Dual Stepper packet.
+
+Compiled at 58,214 bytes flash (22%) / 6,433 bytes RAM (78%, 1,759 bytes free, the compiler's low-memory warning still applies); **not yet flashed or bench-tested**.

@@ -101,6 +101,14 @@ namespace SwingTester
         private readonly CheckBox chkLamps = new() { Text = "Light warning lamps during Swing ALL", AutoSize = true, Checked = true };
         private readonly NumericUpDown numLampGapMs = new() { Minimum = 0, Maximum = 5000, Increment = 100, Value = 400, Width = 70 };
         private readonly NumericUpDown numLampOnGapMs = new() { Minimum = 0, Maximum = 10000, Increment = 100, Value = 1000, Width = 70 };
+        // Backlight brightness (C,B:0-15) to every board except the USB HID board, and backlight power (D,BPWR) for testing the main bus rule.
+        private static readonly BoardId[] BrightnessBoards = { BoardId.Radio, BoardId.Servo, BoardId.Upper, BoardId.Stepper, BoardId.DualStepper };
+        private static readonly BoardId[] BacklightPowerBoards = { BoardId.Servo, BoardId.Stepper, BoardId.DualStepper };
+        private readonly TrackBar trkBrightness = new() { Minimum = 0, Maximum = 15, Value = 8, TickFrequency = 1, Width = 260, AutoSize = false, Height = 32 };
+        private readonly Label lblBrightness = new() { Text = "8", AutoSize = true, Margin = new Padding(3, 6, 3, 0) };
+        private readonly Button btnBrightnessSend = new() { Text = "Send to all boards", AutoSize = true };
+        private readonly Button btnBacklightOn = new() { Text = "Backlight power ON", AutoSize = true };
+        private readonly Button btnBacklightOff = new() { Text = "Backlight power OFF", AutoSize = true };
         private readonly Label lblStatus = new() { Text = "Ready.", AutoSize = true };
         private readonly CheckBox[] lampChecks = new CheckBox[Lamps.Length];
         private bool suppressLampEvents;
@@ -181,6 +189,21 @@ namespace SwingTester
             lampActions.Controls.Add(numLampGapMs);
             lampActions.Controls.Add(chkLamps);
             chkLamps.Margin = new Padding(12, 6, 3, 0);
+
+            var brightPanel = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Top,
+                AutoSize = true,
+                Padding = new Padding(8, 0, 8, 0),
+                WrapContents = true
+            };
+            brightPanel.Controls.Add(new Label { Text = "Brightness (0-15):", AutoSize = true, Margin = new Padding(3, 6, 3, 0) });
+            brightPanel.Controls.Add(trkBrightness);
+            brightPanel.Controls.Add(lblBrightness);
+            brightPanel.Controls.Add(btnBrightnessSend);
+            brightPanel.Controls.Add(new Label { Text = "(not the HID board)", AutoSize = true, ForeColor = SystemColors.GrayText, Margin = new Padding(3, 6, 12, 0) });
+            brightPanel.Controls.Add(btnBacklightOn);
+            brightPanel.Controls.Add(btnBacklightOff);
 
             var statusPanel = new Panel { Dock = DockStyle.Top, AutoSize = true, Padding = new Padding(8, 6, 8, 6) };
             statusPanel.Controls.Add(lblStatus);
@@ -284,6 +307,7 @@ namespace SwingTester
 
             Controls.Add(scroll);
             Controls.Add(statusPanel);
+            Controls.Add(brightPanel);
             Controls.Add(lampActions);
             Controls.Add(actions);
             Controls.Add(top);
@@ -293,6 +317,10 @@ namespace SwingTester
             btnOledOn.Click += async (_, _) => await SendOledAsync(true);
             btnOledOff.Click += async (_, _) => await SendOledAsync(false);
             btnTempSend.Click += async (_, _) => await SendTempAsync();
+            trkBrightness.Scroll += async (_, _) => { lblBrightness.Text = trkBrightness.Value.ToString(); await SendBrightnessAsync(); };
+            btnBrightnessSend.Click += async (_, _) => await SendBrightnessAsync();
+            btnBacklightOn.Click += async (_, _) => await SendBacklightPowerAsync(true);
+            btnBacklightOff.Click += async (_, _) => await SendBacklightPowerAsync(false);
             keepAliveTimer.Tick += async (_, _) => await SendKeepAliveAsync();
             btnReset.Click += async (_, _) => await ResetBoardsAsync();
             btnLampsOn.Click += async (_, _) => await RunLampsOnAsync();
@@ -336,6 +364,45 @@ namespace SwingTester
         {
             byte[] data = Encoding.ASCII.GetBytes($"C,{command}:1");
             await udp.SendAsync(data, data.Length, IpFor(board), Port);
+        }
+
+        /// <summary>Sends a packet (data or control) to a board.</summary>
+        private async Task SendPacketAsync(BoardId board, string text)
+        {
+            byte[] data = Encoding.ASCII.GetBytes(text);
+            await udp.SendAsync(data, data.Length, IpFor(board), PortFor(board));
+        }
+
+        /// <summary>Sends "C,B:&lt;0-15&gt;" (backlight brightness) to every board except the USB HID board.</summary>
+        private async Task SendBrightnessAsync()
+        {
+            int level = trkBrightness.Value;
+            var sent = new List<string>();
+            var failed = new List<string>();
+            foreach (var board in BrightnessBoards)
+            {
+                try { await SendPacketAsync(board, $"C,B:{level}"); sent.Add(BoardText(board)); }
+                catch (Exception ex) { failed.Add(BoardText(board) + " (" + ex.Message + ")"); }
+            }
+            lblStatus.Text = $"Brightness {level} sent to: " + string.Join(", ", sent) +
+                (failed.Count > 0 ? ". FAILED: " + string.Join(", ", failed) : ".");
+        }
+
+        /// <summary>
+        /// Sends "D,BPWR:1/0" (backlight power - what the bridges send from the main bus voltage) to the Servo, Stepper and Dual Stepper.
+        /// The boards turn the backlight off at 0 and, on 1, return to the last brightness commanded.
+        /// </summary>
+        private async Task SendBacklightPowerAsync(bool on)
+        {
+            var sent = new List<string>();
+            var failed = new List<string>();
+            foreach (var board in BacklightPowerBoards)
+            {
+                try { await SendPacketAsync(board, "D,BPWR:" + (on ? "1" : "0")); sent.Add(BoardText(board)); }
+                catch (Exception ex) { failed.Add(BoardText(board) + " (" + ex.Message + ")"); }
+            }
+            lblStatus.Text = "Backlight power " + (on ? "ON" : "OFF") + " sent to: " + string.Join(", ", sent) +
+                (failed.Count > 0 ? ". FAILED: " + string.Join(", ", failed) : ".");
         }
 
         /// <summary>Sends "D,TEMP:&lt;text&gt;" (e.g. 21C) to the Dual Stepper's Temperature OLED.</summary>

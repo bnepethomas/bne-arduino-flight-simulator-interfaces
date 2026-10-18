@@ -319,3 +319,20 @@ and reflash.
 > now shows this board's live/dead status (Stepper indicator) alongside
 > Comm/Nav, Servo, Joystick, and Upper Input, based on the `"STEPPER"`
 > keepalive above.
+
+## Backlight: UDP brightness and main bus power (2026-10-18)
+
+The backlight on pin 5 (`BACK_LIGHTS`) is now controlled by `applyBacklight()`:
+
+- **Main bus:** the bridge sends `BPWR:1` while the main bus is 20 V or more and `BPWR:0` below that. `BPWR:0` turns the backlight
+  off; `BPWR:1` turns it on. Until a `BPWR` packet arrives the backlight is on (the board has no way to know the bus is down).
+- **Brightness:** control packet `C,B:<0-15>` (0 off, 15 full, mapped to PWM 0-255, out-of-range values clamped) is remembered.
+  If no brightness command has been received the backlight uses the default PWM 65 (`BacklightDefaultPwm`, the old post-setup
+  level). Once one has been received, every time power is applied the backlight returns to the **last commanded level**, not the
+  default. A command received while the main bus is down is remembered and applied when power returns.
+- The backlight still starts at 128 during setup and the no-data watchdog does not change it. The DCS-BIOS brightness handlers
+  still call `analogWrite()` directly but are never run (`DcsBios::loop()` is commented out).
+- Each change is logged (`Brightness <n> -> PWM <pwm>`, `Backlight power on/off`). The bridges (FSUIPCWinformsAutoCS, MSFSWinformsAutoCS)
+  send `BPWR` first in the Stepper packet and after `PWR` in the Dual Stepper packet.
+
+Compiled at 31,446 bytes flash (12%) / 4,097 bytes RAM (50%); **not yet flashed or bench-tested**.

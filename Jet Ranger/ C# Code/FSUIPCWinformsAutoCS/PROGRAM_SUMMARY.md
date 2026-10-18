@@ -220,3 +220,8 @@ fraction, converted to feet) and `0x0580` true heading (360 degrees = 65536^2). 
 The packet also carries `UTC:yyyyMMddHHmmss`, the simulator's UTC date and time from the FSUIPC client library's
 `FSUIPCConnection.UTCDateTime` (left out if the read fails, so the GPS interface uses the PC clock). Send errors (GPS interface not running) are ignored. Built clean; **not yet run against Prepar3D**, so the offset conversions are
 unchecked against the simulator.
+
+## Backlight power (2026-10-18)
+
+`BPWR:1` / `BPWR:0` leads the Servo and Stepper packets and follows `PWR` in the Dual Stepper packet: 1 while the main bus (offset `0x2840`) is
+20 V or more. The boards use it to switch their backlight off when the main bus is down (see their summaries).

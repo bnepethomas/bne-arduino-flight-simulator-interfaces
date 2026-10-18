@@ -865,7 +865,8 @@ namespace FSUIPCTest
                         // BANK_DEG_TABLE convert to servo positions) plus the lamp codes.
                         // Pitch is negated exactly as PITCH_Process() did (FSUIPC pitch is
                         // positive nose-down; the servo table is positive nose-up).
-                        string servoPayload = "D,PITCH:" + f1(-sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES)
+                        string servoPayload = "D,BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0")   // backlight power
+                            + ",PITCH:" + f1(-sFrontPanel.ATTITUDE_INDICATOR_PITCH_DEGREES)
                             + ",BANK:" + f1(sFrontPanel.ATTITUDE_INDICATOR_BANK_DEGREES)
                             + lampPayload;
                         Byte[] servoSendData = Encoding.ASCII.GetBytes(servoPayload);
@@ -879,7 +880,9 @@ namespace FSUIPCTest
                         // gauges (turbine/rotor speed and the altimeter moved to the Dual
                         // Stepper).
                         int vsiRawFpm = (int)sFrontPanel.VERTICAL_SPEED;
-                        string stepperPayload = "D,IAS:" + f1(sFrontPanel.AIRSPEED)
+                        // BPWR: backlight power, 1 while the main bus is 20 V or more.
+                        string stepperPayload = "D,BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0")
+                            + ",IAS:" + f1(sFrontPanel.AIRSPEED)
                             + ",VSI:" + vsiRawFpm.ToString(inv)
                             + ",AGL:" + PLANE_ALT_ABOVE_GROUND
                             + ",FUEL:" + f0(sFrontPanel.FUEL_TOTAL_QUANTITY)
@@ -901,6 +904,7 @@ namespace FSUIPCTest
                         // OLEDs (Baro, Altimeter, Clock, Temperature) are blank while the main bus is
                         // below 24 V.
                         string dualStepperPayload = "D,PWR:" + (mainBusVoltageValue >= 24 ? "1" : "0")
+                            + ",BPWR:" + (mainBusVoltageValue >= 20 ? "1" : "0")
                             + ",ALT:" + ALTITUDE
                             + ",RPMR:" + rpmrPctForStepper.ToString("F1", inv)
                             + ",RPME:" + rpmePctForStepper.ToString("F1", inv)
