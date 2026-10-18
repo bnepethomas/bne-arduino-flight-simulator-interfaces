@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>LowranceAirMapGpsBenchTester</RootNamespace>
+    <AssemblyName>LowranceAirMapGpsBenchTester</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- airport list trimmed from OurAirports airports.csv (public domain): airports with an ICAO code -->
+    <EmbeddedResource Include="Data/airports.tsv" LogicalName="airports.tsv" />
+  </ItemGroup>
+
+</Project>

@@ -49,6 +49,14 @@ namespace FSUIPCTest
         private Offset<UInt16> engN2= new Offset<UInt16>(0x0896);
 
         private Offset<Int16> altitude = new Offset<Int16>(0x3324);
+
+        // Position and heading for the Lowrance AirMap GPS interface (LowranceAirMapGps).
+        // 0x0560 latitude: 90 degrees = 10001750 * 65536 * 65536. 0x0568 longitude: 360 degrees = 65536^4.
+        // 0x0570 altitude in metres (64-bit, 32 bits of fraction). 0x0580 true heading: 360 degrees = 65536^2.
+        private Offset<long> gpsLatitude = new Offset<long>(0x0560);
+        private Offset<long> gpsLongitude = new Offset<long>(0x0568);
+        private Offset<long> gpsAltitudeMetres = new Offset<long>(0x0570);
+        private Offset<uint> gpsHeadingTrue = new Offset<uint>(0x0580);
         // Altimeter pressure ("Kollsman window") setting, in hPa * 16 - the
         // standard documented FSUIPC offset (see "FSUIPC for Programmers.pdf").
         private Offset<UInt16> altimeterSetting = new Offset<UInt16>(0x0330);
@@ -190,6 +198,12 @@ namespace FSUIPCTest
         UdpClient stepperClient = new UdpClient();
         UdpClient dualStepperClient = new UdpClient();
         UdpClient oledClient = new UdpClient();
+        // Aircraft information for the GPS interface (LowranceAirMapGps): lat, lon, altitude, airspeed and
+        // heading, sent twice a second. Change GpsHost if the GPS interface runs on another PC.
+        UdpClient gpsClient = new UdpClient();
+        const string GpsHost = "127.0.0.1";
+        const int GpsPort = 27002;
+        DateTime GpsTimeLastPacketSent = DateTime.MinValue;
         DateTime RadioTimeLastPacketSent;
         DateTime FrontPanelTimeLastPacketSent = DateTime.Now;
         TimeSpan span;
@@ -299,6 +313,35 @@ namespace FSUIPCTest
             }
         }
 
+        // Sends "D,LAT:..,LON:..,ALT:..(feet),IAS:..(knots),HDG:..(degrees true),UTC:yyyyMMddHHmmss" to the GPS interface every 500 ms.
+        // Errors (for example the GPS interface not running) are ignored; it falls back to its default location.
+        private void SendGpsPacket(double airspeedKnots)
+        {
+            if ((DateTime.Now - GpsTimeLastPacketSent).TotalMilliseconds < 500) return;
+            GpsTimeLastPacketSent = DateTime.Now;
+            try
+            {
+                double lat = gpsLatitude.Value * 90.0 / (10001750.0 * 65536.0 * 65536.0);
+                double lon = gpsLongitude.Value * 360.0 / (65536.0 * 65536.0 * 65536.0 * 65536.0);
+                double altFt = gpsAltitudeMetres.Value / 4294967296.0 * 3.28084;
+                double hdg = gpsHeadingTrue.Value * 360.0 / (65536.0 * 65536.0);
+                var inv = System.Globalization.CultureInfo.InvariantCulture;
+                string payload = "D,LAT:" + lat.ToString("F6", inv) + ",LON:" + lon.ToString("F6", inv)
+                    + ",ALT:" + altFt.ToString("F0", inv) + ",IAS:" + airspeedKnots.ToString("F1", inv)
+                    + ",HDG:" + hdg.ToString("F1", inv);
+                // The simulator's UTC date and time (the FSUIPC client library reads the Zulu time and date offsets).
+                try
+                {
+                    DateTime simUtc = FSUIPCConnection.UTCDateTime;
+                    payload += ",UTC:" + simUtc.ToString("yyyyMMddHHmmss", inv);
+                }
+                catch (Exception) { /* leave the time out; the GPS interface then uses the PC clock */ }
+                byte[] data = Encoding.ASCII.GetBytes(payload);
+                gpsClient.Send(data, data.Length);
+            }
+            catch (Exception) { }
+        }
+
         // This method runs 20 times per second (every 50ms). This is set on the timerMain properties.
         private void timerMain_Tick(object sender, EventArgs e)
         {
@@ -307,6 +350,8 @@ namespace FSUIPCTest
             try
             {
                 FSUIPCConnection.Process();
+
+                SendGpsPacket((double)this.airspeed.Value / 128d);
 
                 // Update the information on the form
                 // (See the Examples Application for more information on using Offsets).

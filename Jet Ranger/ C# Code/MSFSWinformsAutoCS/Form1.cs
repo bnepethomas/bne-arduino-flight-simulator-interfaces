@@ -22,6 +22,12 @@ namespace MSFSWinformsAutoCS
         private readonly UdpClient radioClient = new UdpClient();         // 172.16.1.101 Radio Controller
         private readonly UdpClient servoClient = new UdpClient();         // 172.16.1.102 Servo Controller
         private readonly UdpClient oledClient = new UdpClient();          // 172.16.1.104 OLED Controller
+        // Aircraft information for the Lowrance AirMap GPS interface (LowranceAirMapGps): sent twice a second.
+        // Change GpsHost if the GPS interface runs on another PC.
+        private readonly UdpClient gpsClient = new UdpClient();
+        private const string GpsHost = "127.0.0.1";
+        private const int GpsPort = 27002;
+        private DateTime gpsTimeLastPacketSent = DateTime.MinValue;
         private readonly UdpClient stepperClient = new UdpClient();       // 172.16.1.105 Stepper Controller
         private readonly UdpClient dualStepperClient = new UdpClient();   // 172.16.1.106 OLED Dual Stepper Controller
 
@@ -94,6 +100,14 @@ namespace MSFSWinformsAutoCS
             // SimVars are used instead (see ToSnapshot).
             ("L:Aircraft.Rotor.RPM.Percent", "number"),
             ("L:Aircraft.Engine.1.Turbine.N2.Smooth", "number"),
+            // Position and true heading for the Lowrance AirMap GPS interface (see Payloads.Gps).
+            ("PLANE LATITUDE", "degrees"),
+            ("PLANE LONGITUDE", "degrees"),
+            ("PLANE HEADING DEGREES TRUE", "degrees"),
+            // The simulator's UTC date (the time of day is ZULU TIME above), for the GPS time and date.
+            ("ZULU YEAR", "number"),
+            ("ZULU MONTH OF YEAR", "number"),
+            ("ZULU DAY OF MONTH", "number"),
         };
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi, Pack = 1)]
@@ -138,6 +152,12 @@ namespace MSFSWinformsAutoCS
             public double NAV_STANDBY_FREQUENCY_2;
             public double L_AIRCRAFT_ROTOR_RPM_PERCENT;
             public double L_AIRCRAFT_ENGINE_1_TURBINE_N2_SMOOTH;
+            public double PLANE_LATITUDE;
+            public double PLANE_LONGITUDE;
+            public double PLANE_HEADING_DEGREES_TRUE;
+            public double ZULU_YEAR;
+            public double ZULU_MONTH_OF_YEAR;
+            public double ZULU_DAY_OF_MONTH;
         }
 
         // ----- State ----------------------------------------------------------------------
@@ -301,6 +321,7 @@ namespace MSFSWinformsAutoCS
             oledClient.Connect("172.16.1.104", boardPort);
             stepperClient.Connect("172.16.1.105", boardPort);
             dualStepperClient.Connect("172.16.1.106", boardPort);
+            gpsClient.Connect(GpsHost, GpsPort);
         }
 
         // UDP to a board that is switched off can raise a socket error on a later send (ICMP
@@ -525,6 +546,12 @@ namespace MSFSWinformsAutoCS
             Nav1Standby = d.NAV_STANDBY_FREQUENCY_1,
             Nav2Active = d.NAV_ACTIVE_FREQUENCY_2,
             Nav2Standby = d.NAV_STANDBY_FREQUENCY_2,
+            LatitudeDeg = d.PLANE_LATITUDE,
+            LongitudeDeg = d.PLANE_LONGITUDE,
+            HeadingTrueDeg = d.PLANE_HEADING_DEGREES_TRUE,
+            ZuluYear = (int)d.ZULU_YEAR,
+            ZuluMonth = (int)d.ZULU_MONTH_OF_YEAR,
+            ZuluDay = (int)d.ZULU_DAY_OF_MONTH,
         };
         }
 
@@ -581,6 +608,13 @@ namespace MSFSWinformsAutoCS
                 SendPacket(oledClient, Payloads.Oled(s));
                 frontPanelTimeLastPacketSent = DateTime.Now;
             }
+
+            // --- Aircraft information for the GPS interface, twice a second ---
+            if ((DateTime.Now - gpsTimeLastPacketSent).TotalMilliseconds >= 500)
+            {
+                SendPacket(gpsClient, Payloads.Gps(s));
+                gpsTimeLastPacketSent = DateTime.Now;
+            }
         }
 
         private void TrackRadioChange(ref string current, string latest)
@@ -627,7 +661,9 @@ namespace MSFSWinformsAutoCS
                 "NAV 1: " + Payloads.Freq(s.Nav1Active) + nl +
                 "NAV 1 Standby: " + Payloads.Freq(s.Nav1Standby) + nl +
                 "NAV 2: " + Payloads.Freq(s.Nav2Active) + nl +
-                "NAV 2 Standby: " + Payloads.Freq(s.Nav2Standby);
+                "NAV 2 Standby: " + Payloads.Freq(s.Nav2Standby) + nl +
+                "GPS position: " + s.LatitudeDeg.ToString("F5", inv) + ", " + s.LongitudeDeg.ToString("F5", inv) +
+                "  heading " + s.HeadingTrueDeg.ToString("F0", inv);
         }
 
         // ----- Warning lamp list ------------------------------------------------------------

@@ -30,6 +30,7 @@ namespace LowranceAirMapGps
         private long _lastRxTicks;                 // Stopwatch timestamp of the last accepted packet; 0 = never
         private string _udpStatus = "starting";
         private int _packets;
+        private TimeSpan? _simClockOffset;         // simulator UTC minus the PC's UTC; null = use the PC clock
 
         private readonly System.Windows.Forms.Timer _timer = new() { Interval = SendIntervalMs };
         private int _sentUpdates;
@@ -38,6 +39,7 @@ namespace LowranceAirMapGps
         private readonly Label _lblSerial = new() { AutoSize = true };
         private readonly Label _lblUdp = new() { AutoSize = true };
         private readonly Label _lblSource = new() { AutoSize = true, Font = new Font("Segoe UI", 11F, FontStyle.Bold) };
+        private readonly Label _lblTime = new() { AutoSize = true };
         private readonly Label _lblValues = new() { AutoSize = true, Font = new Font("Consolas", 10F) };
         private readonly TextBox _txtNmea = new() { Multiline = true, ReadOnly = true, ScrollBars = ScrollBars.Vertical, Font = new Font("Consolas", 9F) };
         private readonly Button _btnPort = new() { Text = "Change serial port...", AutoSize = true };
@@ -56,6 +58,7 @@ namespace LowranceAirMapGps
             top.Controls.Add(_lblUdp);
             top.Controls.Add(_lblSource);
             top.Controls.Add(_lblValues);
+            top.Controls.Add(_lblTime);
             top.Controls.Add(_btnPort);
             _txtNmea.Dock = DockStyle.Fill;
             Controls.Add(_txtNmea);
@@ -161,6 +164,7 @@ namespace LowranceAirMapGps
                             AircraftData? d = AircraftParser.Parse(text, _latest);
                             if (d == null) continue;
                             _latest = d.Value;
+                            if (d.Value.SimUtc is DateTime sim) UpdateSimClock(sim); else _simClockOffset = null;   // no time in the packet: use the PC clock
                             _lastRxTicks = Stopwatch.GetTimestamp();
                             _packets++;
                         }
@@ -171,22 +175,40 @@ namespace LowranceAirMapGps
             });
         }
 
+        /// <summary>
+        /// Keeps the NMEA time and date in step with the simulator. The offset from the PC clock is taken from the first packet and kept
+        /// (so the GPS clock ticks smoothly in real time between packets); it is only re-taken when the simulator time has moved by more
+        /// than 1.5 seconds from where the offset predicts, e.g. the user changed the time or the simulation rate is not 1x.
+        /// Called with the lock held.
+        /// </summary>
+        private void UpdateSimClock(DateTime simUtc)
+        {
+            TimeSpan measured = simUtc - DateTime.UtcNow;
+            if (_simClockOffset == null || Math.Abs((measured - _simClockOffset.Value).TotalSeconds) > 1.5)
+                _simClockOffset = measured;
+        }
+
         // ------------------------------------------------------------------ 500 ms update
         private void Tick()
         {
             AircraftData data;
             bool live;
             double ageSeconds;
+            DateTime gpsTime;
+            bool simTime;
             lock (_lock)
             {
                 // 5: with no data for 30 seconds the position defaults back to Brisbane Airport
                 ageSeconds = _lastRxTicks == 0 ? double.PositiveInfinity : Stopwatch.GetElapsedTime(_lastRxTicks).TotalSeconds;
                 live = ageSeconds < NoDataTimeout.TotalSeconds;
                 data = live ? _latest : _settings.DefaultAircraft;
-                if (!live) _latest = _settings.DefaultAircraft;       // a partial packet after a timeout starts from the default
+                if (!live) { _latest = _settings.DefaultAircraft; _simClockOffset = null; }   // a partial packet after a timeout starts from the default
+                // the simulator's date and time while it is supplying them, otherwise the PC clock
+                simTime = live && _simClockOffset != null;
+                gpsTime = simTime ? DateTime.UtcNow + _simClockOffset!.Value : DateTime.UtcNow;
             }
 
-            IReadOnlyList<string> sentences = NmeaBuilder.Build(data, DateTime.UtcNow);
+            IReadOnlyList<string> sentences = NmeaBuilder.Build(data, gpsTime);
 
             // 6: one set of sentences every 500 ms
             EnsureSerialOpen();
@@ -206,10 +228,10 @@ namespace LowranceAirMapGps
                 }
             }
 
-            UpdateUi(data, live, ageSeconds, sentences);
+            UpdateUi(data, live, ageSeconds, sentences, gpsTime, simTime);
         }
 
-        private void UpdateUi(AircraftData d, bool live, double ageSeconds, IReadOnlyList<string> sentences)
+        private void UpdateUi(AircraftData d, bool live, double ageSeconds, IReadOnlyList<string> sentences, DateTime gpsTime, bool simTime)
         {
             string port = string.IsNullOrEmpty(_settings.SerialPort) ? "(none)" : _settings.SerialPort;
             _lblSerial.Text = $"Serial: {port} at {BaudRate} bps 8-N-1 - {_serialStatus}  (updates sent: {_sentUpdates})";
@@ -220,6 +242,7 @@ namespace LowranceAirMapGps
             _lblValues.Text =
                 $"Lat {d.LatitudeDeg,10:0.00000}   Lon {d.LongitudeDeg,10:0.00000}\n" +
                 $"Alt {d.AltitudeFt,7:0} ft   Airspeed {d.AirspeedKt,5:0.0} kt   Heading {d.HeadingDeg,5:0.0}°";
+            _lblTime.Text = $"GPS time: {gpsTime:yyyy-MM-dd HH:mm:ss} UTC ({(simTime ? "simulator time" : "PC clock")})";
             _txtNmea.Text = string.Concat(sentences);
         }
     }

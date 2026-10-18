@@ -36,6 +36,9 @@ namespace MSFSWinformsAutoCS
         public double ElectricalLoadFullScaleAmps = Payloads.DefaultElectricalLoadFullScaleAmps;   // amps that read 100 % on the LOAD gauge
         public double Com1Active, Com1Standby, Com2Active, Com2Standby;   // MHz
         public double Nav1Active, Nav1Standby, Nav2Active, Nav2Standby;   // MHz
+        public double LatitudeDeg, LongitudeDeg;   // degrees, south and west negative
+        public double HeadingTrueDeg;              // degrees true
+        public int ZuluYear, ZuluMonth, ZuluDay;   // the simulator's UTC date (the time of day is ZuluSeconds)
     }
 
     // Builds the "D,CODE:value,..." packets for each board. Same board split and real-unit
@@ -176,6 +179,23 @@ namespace MSFSWinformsAutoCS
         // OLED board (.104): altitude and barometric setting.
         public static string Oled(SimSnapshot s)
             => "D,ALT:" + F0(s.AltitudeFeet) + ",BARO:" + BaroInHgx100(s).ToString(Inv);
+
+        // Lowrance AirMap GPS interface (LowranceAirMapGps, UDP 27002): latitude, longitude, altitude (feet),
+        // airspeed (knots) and true heading (degrees).
+        public static string Gps(SimSnapshot s)
+            => "D,LAT:" + s.LatitudeDeg.ToString("F6", Inv) + ",LON:" + s.LongitudeDeg.ToString("F6", Inv)
+             + ",ALT:" + F0(s.AltitudeFeet) + ",IAS:" + F1(s.AirspeedKnots) + ",HDG:" + F1(s.HeadingTrueDeg)
+             + SimUtc(s);
+
+        // ",UTC:yyyyMMddHHmmss.fff" - the simulator's UTC date and time - or nothing when the date is not valid (the
+        // GPS interface then uses the PC clock).
+        public static string SimUtc(SimSnapshot s)
+        {
+            if (s.ZuluYear < 1 || s.ZuluYear > 9999 || s.ZuluMonth < 1 || s.ZuluMonth > 12 || s.ZuluDay < 1 || s.ZuluDay > DateTime.DaysInMonth(s.ZuluYear, s.ZuluMonth))
+                return "";
+            DateTime utc = new DateTime(s.ZuluYear, s.ZuluMonth, s.ZuluDay, 0, 0, 0, DateTimeKind.Utc).AddSeconds(Math.Clamp(s.ZuluSeconds, 0, 86399.999));
+            return ",UTC:" + utc.ToString("yyyyMMddHHmmss.fff", Inv);
+        }
 
         // Frequencies as the radio board expects them: MHz with three decimals.
         public static string Freq(double mhz) => mhz.ToString("F3", Inv);

@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace LowranceAirMapGps
 {
@@ -21,6 +22,7 @@ namespace LowranceAirMapGps
         private static string FilePath =>
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "LowranceAirMapGps", "settings.json");
 
+        [JsonIgnore]
         public AircraftData DefaultAircraft => new(DefaultLatitude, DefaultLongitude, DefaultAltitudeFt, 0, DefaultHeadingDeg);
 
         public static AppSettings Load()

@@ -210,3 +210,13 @@ twice per tick (percent, then temperature), so the temperature wins.
   the new `ZULU` field drives its Clock OLED.
 - Alternative to **MSFSWinformsAutoCS** for sims that expose data through FSUIPC; only one bridge
   app should run against the panel network at a time.
+
+## Aircraft information for the GPS interface (2026-10-18)
+
+Every 500 ms `SendGpsPacket()` sends `D,LAT:..,LON:..,ALT:..,IAS:..,HDG:..` to **`LowranceAirMapGps`** (UDP `127.0.0.1:27002`;
+change `GpsHost` / `GpsPort` in `Form1.cs` if the GPS interface runs on another PC). Four new offsets are read: `0x0560` latitude
+(90 degrees = 10001750 x 65536 x 65536), `0x0568` longitude (360 degrees = 65536^4), `0x0570` altitude in metres (64-bit, 32 bits of
+fraction, converted to feet) and `0x0580` true heading (360 degrees = 65536^2). `IAS` is the airspeed already read from `0x02BC`.
+The packet also carries `UTC:yyyyMMddHHmmss`, the simulator's UTC date and time from the FSUIPC client library's
+`FSUIPCConnection.UTCDateTime` (left out if the read fails, so the GPS interface uses the PC clock). Send errors (GPS interface not running) are ignored. Built clean; **not yet run against Prepar3D**, so the offset conversions are
+unchecked against the simulator.

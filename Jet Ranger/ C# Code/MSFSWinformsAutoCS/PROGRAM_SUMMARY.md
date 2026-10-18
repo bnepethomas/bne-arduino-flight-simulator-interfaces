@@ -150,3 +150,15 @@ stay off; add rules to `Payloads.LampState()` once the aircraft's variables are 
   bridge and are not verified for MSFS aircraft.
 - No hysteresis on the 20 V / 24 V thresholds.
 - The FSUIPC bridge also listens on 27001; run only one of the two bridges at a time.
+
+## Aircraft information for the GPS interface (2026-10-18)
+
+Every 500 ms the main timer sends `D,LAT:..,LON:..,ALT:..,IAS:..,HDG:..` (`Payloads.Gps()`) to **`LowranceAirMapGps`** (UDP
+`127.0.0.1:27002`; change `GpsHost` / `GpsPort` in `Form1.cs` if it runs on another PC). Three SimVars were added to the data
+definition and the `PanelData` struct (at the end, in the same order): `PLANE LATITUDE` and `PLANE LONGITUDE` (degrees) and
+`PLANE HEADING DEGREES TRUE`; altitude (`PLANE ALTITUDE`, feet MSL) and airspeed (`AIRSPEED INDICATED`) were already read. The packet also carries `UTC:yyyyMMddHHmmss.fff`, the simulator's UTC date and time, built from the already-read `ZULU TIME`
+(seconds since midnight) and three more SimVars, `ZULU YEAR`, `ZULU MONTH OF YEAR` and `ZULU DAY OF MONTH` (left out if the date is
+invalid). The
+readout shows the position and heading. Like the board packets, nothing is sent while the data is stale, so the GPS interface
+falls back to Brisbane Airport after 30 seconds. Built clean and the packet builder checked with sample values (the GPS interface's
+parser reads it back correctly); **not yet run against MSFS**.
