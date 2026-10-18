@@ -1,0 +1,18 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "8cdffd2e-2cf7-45bc-905a-3c9b87f32b31")
+	(paper "A4")
+	(lib_symbols)
+	(text "Version 1.3 has the MOSFET incorrectly pinned out S and drain need swapping\n1.4 Correct MOSFET Pinout"
+		(exclude_from_sim no)
+		(at 74.93 41.91 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "58cf47b0-a756-4c04-9bd4-fc2ed5fd1063")
+	)
+)

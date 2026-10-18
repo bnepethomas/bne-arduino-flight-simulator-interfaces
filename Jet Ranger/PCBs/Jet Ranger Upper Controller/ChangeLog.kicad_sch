@@ -1,0 +1,23 @@
+(kicad_sch
+	(version 20250114)
+	(generator "eeschema")
+	(generator_version "9.0")
+	(uuid "7d109577-35c8-4a40-8eb0-7efd74a7ec9a")
+	(paper "A4")
+	(title_block
+		(date "2026-10-18")
+		(rev "1.4")
+	)
+	(lib_symbols)
+	(text "20260118 1.4 Correct MOSFET mis-pinout"
+		(exclude_from_sim no)
+		(at 38.1 39.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8950fe9b-fe5d-4ed3-b03c-895ba61fef39")
+	)
+)

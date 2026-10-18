@@ -1,4 +1,4 @@
-(pcb "/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/Jet Ranger/PCBs/Jet Ranger Front Panel Servo/Jet Ranger Front Panel Servo.dsn"
+(pcb "C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\PCBs\Jet Ranger Front Panel Servo\Jet Ranger Front Panel Servo.dsn"
   (parser
     (string_quote ")
     (space_in_quoted_tokens on)
@@ -202,14 +202,17 @@
     )
   )
   (placement
+    (component "Package_TO_SOT_THT:TO-220-3_Vertical"
+      (place Q2 88920.000000 -56500.000000 front 0.000000 (PN IRF540N))
+    )
     (component Fuse:Fuse_Littelfuse_395Series
       (place F2 111000.000000 -109000.000000 front 90.000000 (PN Polyfuse))
       (place F1 110990.000000 -120580.000000 front 90.000000 (PN Polyfuse))
     )
     (component Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical
       (place J42 46000.000000 -124460.000000 front 0.000000 (PN PITCH))
-      (place J43 52833.333000 -124460.000000 front 0.000000 (PN ROLL))
-      (place J44 59666.667000 -124460.000000 front 0.000000 (PN ELEC_LOAD))
+      (place J43 52833.300000 -124460.000000 front 0.000000 (PN ROLL))
+      (place J44 59666.700000 -124460.000000 front 0.000000 (PN ELEC_LOAD))
       (place J45 66500.000000 -124460.000000 front 0.000000 (PN FUEL_LOAD))
     )
     (component Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical::1
@@ -307,9 +310,6 @@
       (place J5 80040.000000 -63736.700000 front -90.000000 (PN RHS_ANNUC))
       (place J4 80040.000000 -85368.300000 front -90.000000 (PN LHS_ANNUC))
     )
-    (component "Package_TO_SOT_THT:TO-220-3_Vertical"
-      (place Q1 88920.000000 -56500.000000 front 0.000000 (PN Q_NMOS_GSD))
-    )
     (component "Library-OZ-HORNET:USRES1"
       (place U3 121809.000000 -55183.300000 front -90.000000 (PN "USR-ES1"))
     )
@@ -327,6 +327,23 @@
     )
   )
   (library
+    (image "Package_TO_SOT_THT:TO-220-3_Vertical"
+      (outline (path signal 120  -2570 3260  7650 3260))
+      (outline (path signal 120  -2570 1880  7650 1880))
+      (outline (path signal 120  -2570 -1360  -2570 3260))
+      (outline (path signal 120  690 3260  690 1880))
+      (outline (path signal 120  4390 3260  4390 1880))
+      (outline (path signal 120  7650 3260  7650 -1360))
+      (outline (path signal 120  7650 -1360  -2570 -1360))
+      (outline (path signal 50  -2710 3400  7790 3400  7790 -1500  -2710 -1500  -2710 3400))
+      (outline (path signal 100  -2460 1880  7540 1880))
+      (outline (path signal 100  690 3150  690 1880))
+      (outline (path signal 100  4390 3150  4390 1880))
+      (outline (path signal 100  -2460 3150  7540 3150  7540 -1250  -2460 -1250  -2460 3150))
+      (pin Rect[A]Pad_1905.000000x2000.000000_um 1 0 0)
+      (pin Oval[A]Pad_1905.000000x2000.000000_um 2 2540 0)
+      (pin Oval[A]Pad_1905.000000x2000.000000_um 3 5080 0)
+    )
     (image Fuse:Fuse_Littelfuse_395Series
       (outline (path signal 120  -1830 2120  6910 2120))
       (outline (path signal 120  -1830 2120  -1830 -2120))
@@ -793,23 +810,6 @@
       (pin Round[A]Pad_1700.000000_um 15 0 -17780)
       (pin Round[A]Pad_1700.000000_um 16 2540 -17780)
     )
-    (image "Package_TO_SOT_THT:TO-220-3_Vertical"
-      (outline (path signal 120  -2570 3260  7650 3260))
-      (outline (path signal 120  -2570 1880  7650 1880))
-      (outline (path signal 120  -2570 -1360  -2570 3260))
-      (outline (path signal 120  690 3260  690 1880))
-      (outline (path signal 120  4390 3260  4390 1880))
-      (outline (path signal 120  7650 3260  7650 -1360))
-      (outline (path signal 120  7650 -1360  -2570 -1360))
-      (outline (path signal 50  -2710 3400  7790 3400  7790 -1500  -2710 -1500  -2710 3400))
-      (outline (path signal 100  -2460 1880  7540 1880))
-      (outline (path signal 100  690 3150  690 1880))
-      (outline (path signal 100  4390 3150  4390 1880))
-      (outline (path signal 100  -2460 3150  7540 3150  7540 -1250  -2460 -1250  -2460 3150))
-      (pin Rect[A]Pad_1905.000000x2000.000000_um 1 0 0)
-      (pin Oval[A]Pad_1905.000000x2000.000000_um 2 2540 0)
-      (pin Oval[A]Pad_1905.000000x2000.000000_um 3 5080 0)
-    )
     (image "Library-OZ-HORNET:USRES1"
       (outline (path signal 100  -1340 -18500  -1340 6500))
       (outline (path signal 100  21660 -18500  -1340 -18500))
@@ -1261,10 +1261,10 @@
       (pins D1-2 R2-2)
     )
     (net GND
-      (pins J42-3 J26-3 J1-1 D5-1 J33-3 J23-3 J36-2 J2-2 J21-3 D1-1 J24-3 D4-1 J43-3
-        J44-3 U1-9 SW2-2 J5-2 J5-4 Q1-2 U3-A1 U3-A2 U3-B1 D2-1 J14-6 J14-7 J25-3 J20-3
-        J22-3 U2-9 J4-2 J4-4 SW3-2 R19-1 J45-3 J28-3 J30-3 SW1-2 D3-1 J31-3 J32-3
-        J3-2 J35-7 J27-3 J37-2 A1-GND1 A1-GND2 A1-GND3 A1-GND5 A1-GND6)
+      (pins Q2-3 J42-3 J26-3 J1-1 D5-1 J33-3 J23-3 J36-2 J2-2 J21-3 D1-1 J24-3 D4-1
+        J43-3 J44-3 U1-9 SW2-2 J5-2 J5-4 U3-A1 U3-A2 U3-B1 D2-1 J14-6 J14-7 J25-3
+        J20-3 J22-3 U2-9 J4-2 J4-4 SW3-2 R19-1 J45-3 J28-3 J30-3 SW1-2 D3-1 J31-3
+        J32-3 J3-2 J35-7 J27-3 J37-2 A1-GND1 A1-GND2 A1-GND3 A1-GND5 A1-GND6)
     )
     (net "Net-(D2-A)"
       (pins D2-2 R3-2)
@@ -1581,8 +1581,8 @@
     (net "unconnected-(J14-Pin_1-Pad1)"
       (pins J14-1)
     )
-    (net "Net-(Q1-G)"
-      (pins R18-1 Q1-1 R19-2)
+    (net "Net-(Q2-G)"
+      (pins Q2-1 R18-1 R19-2)
     )
     (net "Net-(U3-INT)"
       (pins U3-A6 R20-2)
@@ -1606,7 +1606,7 @@
       (pins J11-6 A1-D19)
     )
     (net /BACKLIGHT_PANELS
-      (pins J16-2 J6-2 J7-2 Q1-3 J9-2 J10-2 J19-2 J8-2 J17-2 J18-2 J15-2)
+      (pins Q2-2 J16-2 J6-2 J7-2 J9-2 J10-2 J19-2 J8-2 J17-2 J18-2 J15-2)
     )
     (net "Net-(J3-Pin_1)"
       (pins F2-2 J3-1)
@@ -1628,7 +1628,7 @@
       "/T{slash}R_Chip" /VIN ES1_RST GND MISO MOSI "Net-(A1-D16{slash}TX2)"
       "Net-(A1-D17{slash}RX2)" "Net-(A1-D19{slash}RX1)" "Net-(D1-A)" "Net-(D2-A)"
       "Net-(D3-A)" "Net-(D4-A)" "Net-(D5-A)" "Net-(J12-Pin_1)" "Net-(J3-Pin_1)"
-      "Net-(Q1-G)" "Net-(U3-INT)" SCL SCLK SDA SS "unconnected-(J14-Pin_1-Pad1)"
+      "Net-(Q2-G)" "Net-(U3-INT)" SCL SCLK SDA SS "unconnected-(J14-Pin_1-Pad1)"
       "unconnected-(U2-I8-Pad8)" "unconnected-(U2-O8-Pad11)" "unconnected-(U3-NC-PadB4)"
       (circuit
         (use_via "Via[0-1]_600:400_um")

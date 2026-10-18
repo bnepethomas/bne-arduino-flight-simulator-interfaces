@@ -266,7 +266,7 @@
       (place J29 33000.000000 -98000.000000 front 180.000000 (PN Utility))
     )
     (component "Package_TO_SOT_THT:TO-220-3_Vertical"
-      (place Q1 88920.000000 -56500.000000 front 0.000000 (PN Q_NMOS_GSD))
+      (place Q1 88920.000000 -56500.000000 front 0.000000 (PN IRF540N))
     )
     (component "Library-OZ-HORNET:USRES1"
       (place U3 121809.000000 -55183.300000 front -90.000000 (PN "USR-ES1"))
@@ -1042,7 +1042,7 @@
       (pins D1-2 R2-2)
     )
     (net GND
-      (pins J1-1 D5-1 J36-2 J2-2 D1-1 D4-1 Q1-2 U3-A1 U3-A2 U3-B1 D2-1 J14-6 J14-7
+      (pins J1-1 D5-1 J36-2 J2-2 D1-1 D4-1 Q1-3 U3-A1 U3-A2 U3-B1 D2-1 J14-6 J14-7
         R19-1 D3-1 J3-2 J35-7 J37-2 A1-GND1 A1-GND2 A1-GND3 A1-GND5 A1-GND6)
     )
     (net "Net-(D2-A)"
@@ -1298,7 +1298,7 @@
       (pins J25-2 A1-D37)
     )
     (net "BACKLIGHT_-V"
-      (pins J26-6 J23-6 J24-6 J39-6 J5-6 Q1-3 J25-6 J20-6 J22-6 J4-6 J40-6 J41-6 J30-6
+      (pins J26-6 J23-6 J24-6 J39-6 J5-6 Q1-2 J25-6 J20-6 J22-6 J4-6 J40-6 J41-6 J30-6
         J27-6)
     )
     (net +12V

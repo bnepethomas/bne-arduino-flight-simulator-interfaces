@@ -5,13 +5,14 @@
 	(uuid "c322eafb-27e3-4780-b176-6649578ef161")
 	(paper "A4")
 	(lib_symbols)
-	(text "1.2 ADDED AUDIO PANEL\n"
+	(text "20261017 1.2 ADDED AUDIO PANEL\n20261018 1.3 Corrected MOSFET mis-pinout"
 		(exclude_from_sim no)
 		(at 59.69 36.068 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
+			(justify left)
 		)
 		(uuid "867608f6-351e-4e16-8152-7dbbc1b91c36")
 	)

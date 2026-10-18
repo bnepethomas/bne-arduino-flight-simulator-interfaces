@@ -1,4 +1,4 @@
-(pcb "/Users/peterthomas/Documents/GitHub/bne-arduino-flight-simulator-interfaces/Jet Ranger/PCBs/Jet Ranger OLED Dual Stepper/Jet Ranger OLED Dual Stepper.dsn"
+(pcb "C:\Users\admin\bne-arduino-flight-simulator-interfaces\Jet Ranger\PCBs\Jet Ranger OLED Dual Stepper\Jet Ranger OLED Dual Stepper.dsn"
   (parser
     (string_quote ")
     (space_in_quoted_tokens on)
@@ -273,7 +273,7 @@
       (place J18 41460.000000 -129500.000000 front 0.000000 (PN "CLOCK-OLED"))
     )
     (component "Package_TO_SOT_THT:TO-220-3_Vertical"
-      (place Q1 83500.000000 -55500.000000 front 0.000000 (PN Q_NMOS_GSD))
+      (place Q1 83500.000000 -55500.000000 front 0.000000 (PN IRF540N))
     )
     (component "Connector_Molex:Molex_KK-254_AE-6410-06A_1x06_P2.54mm_Vertical::1"
       (place J19 35000.000000 -120200.000000 front 90.000000 (PN "ALTIMETER OLED"))
@@ -1288,7 +1288,7 @@
       (pins D1-2 R2-2)
     )
     (net GND
-      (pins U4-2 J1-1 D5-1 J36-2 J2-2 D1-1 D4-1 J20-1 J55-1 J17-1 Q1-2 J19-1 U3-A1
+      (pins U4-2 J1-1 D5-1 J36-2 J2-2 D1-1 D4-1 J20-1 J55-1 J17-1 Q1-3 J19-1 U3-A1
         U3-A2 U3-B1 D2-1 J14-6 J14-7 J9-3 R19-1 J18-1 D3-1 J3-2 J35-7 J37-2 A1-GND1
         A1-GND2 A1-GND3 A1-GND5 A1-GND6)
     )
@@ -1527,7 +1527,7 @@
       (pins J16-11 J15-11)
     )
     (net "BACKLIGHT_-V"
-      (pins J26-6 J10-10 J8-10 J7-10 J6-10 J5-6 Q1-3 J4-6 J33-6 J27-6)
+      (pins J26-6 J10-10 J8-10 J7-10 J6-10 J5-6 Q1-2 J4-6 J33-6 J27-6)
     )
     (net +12V
       (pins F2-1 J26-5 J10-9 R4-1 J8-9 J7-9 J6-9 J5-5 J4-5 J33-5 J27-5)

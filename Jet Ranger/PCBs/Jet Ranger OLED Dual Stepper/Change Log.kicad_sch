@@ -5,10 +5,11 @@
 	(uuid "1aac79c1-0acd-46f9-a11e-3a96c72105ff")
 	(paper "A4")
 	(title_block
-		(rev "1.2")
+		(date "2026-10-18")
+		(rev "1.5")
 	)
 	(lib_symbols)
-	(text "Initial Creation 20260809\n20261010 1.3 Swapped Power and GND on 4 Pin OLED connections to straight through cables can be used.\n20261012 1.4 Ciorrect short between poins 2 and 32 due to copy and paste issue with names"
+	(text "Initial Creation 20260809\n20261010 1.3 Swapped Power and GND on 4 Pin OLED connections to straight through cables can be used.\n20261012 1.4 Ciorrect short between poins 2 and 32 due to copy and paste issue with names\n20261018 1.5 Corrected MOSFET mis-pinout correctly used IRF540"
 		(exclude_from_sim no)
 		(at 64.008 39.878 0)
 		(effects

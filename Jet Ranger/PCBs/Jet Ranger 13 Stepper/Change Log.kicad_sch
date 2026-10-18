@@ -4,14 +4,19 @@
 	(generator_version "9.0")
 	(uuid "cd1372b2-2289-46cf-b794-78136bd63bee")
 	(paper "A4")
+	(title_block
+		(date "2026-10-18")
+		(rev "1.6")
+	)
 	(lib_symbols)
-	(text "Changes\n20261012 Correct Naming FL to FA for pin 2 - no need to order new board\n20261016 1.4 Moved LEDs away from USB  connectors"
+	(text "Changes\n20261012 Correct Naming FL to FA for pin 2 - no need to order new board\n20261016 1.4 Moved LEDs away from USB  connectors\n20261018 1.5 Corrected MOSFT pin - explicitly selected IRF540 "
 		(exclude_from_sim no)
 		(at 66.04 31.75 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
+			(justify left)
 		)
 		(uuid "221f87d8-0166-4c18-b929-2d06e5cf1bbc")
 	)

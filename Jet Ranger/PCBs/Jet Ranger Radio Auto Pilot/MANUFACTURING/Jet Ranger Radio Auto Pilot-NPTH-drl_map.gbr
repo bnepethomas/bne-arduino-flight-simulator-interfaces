@@ -1,12 +1,12 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,9.0.7*%
-%TF.CreationDate,2026-10-17T09:41:29+10:00*%
-%TF.ProjectId,Jet Ranger Radio Auto Pilot,4a657420-5261-46e6-9765-722052616469,1.2*%
+%TF.CreationDate,2026-10-18T15:20:05+10:00*%
+%TF.ProjectId,Jet Ranger Radio Auto Pilot,4a657420-5261-46e6-9765-722052616469,1.3*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Drillmap*%
 %TF.FilePolarity,Positive*%
 %FSLAX45Y45*%
 G04 Gerber Fmt 4.5, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 9.0.7) date 2026-10-17 09:41:29*
+G04 Created by KiCad (PCBNEW 9.0.7) date 2026-10-18 15:20:05*
 %MOMM*%
 %LPD*%
 G01*

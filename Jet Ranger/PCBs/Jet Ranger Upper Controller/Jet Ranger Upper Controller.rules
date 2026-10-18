@@ -11,7 +11,7 @@
     (via_costs 50)
     (plane_via_costs 5)
     (start_ripup_costs 100)
-    (start_pass_no 1827)
+    (start_pass_no 3674)
     (layer_rule F.Cu
       (active on)
       (preferred_direction horizontal)
@@ -66,7 +66,7 @@
     "Net-(D1-A)" GND "Net-(D2-A)" "Net-(D3-A)" "Net-(D4-A)" "/+5v_IN" "/+12v-IN" /COL6
     /ROW13 "/INT_5V" SCLK /ROW11 SDA SCL "Net-(J45-Pin_2)" /COL4
     /ROW3 "/PIN_20" "ES1_RST" /COL1 "Net-(A1-D2_INT0)" MISO /COL0 "Net-(J41-Pin_5)"
-    /RESET MOSI "/GREEN_LED" "/RED_LED" SS /ROW4 "Net-(J41-Pin_1)" "Net-(U1-INT)"
+    /RESET MOSI "/GREEN_LED" "/RED_LED" SS /ROW4 "/GUAGE_BACKLIGHT_BRIGHT" "Net-(U1-INT)"
     "unconnected-(U1-NC-PadB4)" "/BACKLIGHT_PWM" /COL8 +3V3 /D1 /D0 /VIN "unconnected-(J40-Pin_1-Pad1)"
     /AREF "/RESET_pin" "Net-(D8-A)" "Net-(J41-Pin_6)" "Net-(Q5-G)" "Net-(J42-Pin_1)" /ROW8 /IORF
     /ROW9 "Net-(A1-D3_INT1)" "/KEYPAD_3" "Net-(J41-Pin_7)" /COL7 "/KEYPAD_7" "Net-(J41-Pin_4)" "Net-(J41-Pin_3)"
@@ -80,7 +80,7 @@
     "Net-(J10-Pin_8)" "Net-(J10-Pin_10)" "Net-(J10-Pin_1)" "Net-(J10-Pin_3)" "Net-(J12-Pin_18)" "Net-(J12-Pin_21)" "Net-(J12-Pin_17)" "Net-(J12-Pin_9)"
     "Net-(J12-Pin_7)" "Net-(J12-Pin_24)" "Net-(J12-Pin_20)" "Net-(J12-Pin_8)" "Net-(J12-Pin_2)" "Net-(J12-Pin_6)" "Net-(J12-Pin_10)" "Net-(J12-Pin_13)"
     "Net-(J12-Pin_3)" "Net-(J12-Pin_19)" "Net-(J12-Pin_12)" "Net-(J12-Pin_16)" "Net-(J12-Pin_1)" "Net-(J12-Pin_23)" "Net-(J12-Pin_11)" "Net-(J12-Pin_14)"
-    "Net-(J12-Pin_22)" "Net-(J12-Pin_4)" "Net-(J12-Pin_15)" "Net-(J12-Pin_5)" "/KEYPAD_4"
+    "Net-(J12-Pin_22)" "Net-(J12-Pin_4)" "Net-(J12-Pin_15)" "Net-(J12-Pin_5)" "/KEYPAD_4" "Net-(D5-A)" "Net-(D6-A)"
     (clearance_class "kicad_default")
     (via_rule kicad_default)
     (rule
