@@ -5,11 +5,11 @@
 	(uuid "c322eafb-27e3-4780-b176-6649578ef161")
 	(paper "A4")
 	(title_block
-		(date "2026-10-18")
-		(rev "1.3")
+		(date "2026-10-19")
+		(rev "1.4")
 	)
 	(lib_symbols)
-	(text "Change Log\n1.2 ADDED AUDIO PANEL\n1.3 Correct MOSFET mispinout - selected IRF540"
+	(text "Change Log\n1.2 ADDED AUDIO PANEL\n1.3 Correct MOSFET mispinout - selected IRF540\n1.4 Added 12V power rail monitors and pot for panel brightness"
 		(exclude_from_sim no)
 		(at 59.69 36.068 0)
 		(effects
