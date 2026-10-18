@@ -13,7 +13,6 @@ All devices sit on one wired `172.16.1.0/24` network with fixed addresses; there
 | Radio controller | 172.16.1.101 | A8:61:0A:9E:83:01 | `COMM_NAV` |
 | Servo controller | 172.16.1.102 | A8:61:0A:9E:83:02 | `SERVO` |
 | Upper controller | 172.16.1.103 | A8:61:0A:9E:83:03 | `UPPER_INPUT` |
-| OLED controller | 172.16.1.104 | A8:61:0A:67:83:68 | none |
 | Stepper controller | 172.16.1.105 | A8:61:0A:67:83:69 | `STEPPER` |
 | Dual stepper controller | 172.16.1.106 | A8:61:0A:67:83:6A | `DUAL_STEPPER` |
 

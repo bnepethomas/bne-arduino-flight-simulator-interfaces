@@ -26,7 +26,6 @@ All sketches are in `Jet Ranger Arduino Sketches/`. Each is an Arduino Mega 2560
 | `JET_RANGER_SERVO_CONTROLLER` | .102 | Attitude indicator pitch and bank servos, 15 warning lamps, three front-panel switches (TOT clear, warning mute, fuel valve) |
 | `JET_RANGER_UPPER_CONTROLLER` | .103 | Overhead switch matrix (176 positions) and keypad; forwards changes to the USB HID board |
 | `UDP_TO_HID` | .11 | Leonardo-class board: UDP in, four 32-button joysticks and a keyboard out over USB |
-| `JET_RANGER_OLED_CONTROLLER` | .104 | Altitude and barometric-setting OLEDs; reads `ALT` and `BARO` from the bridge packet (the sketch also contains DCS-BIOS code from an A-10C console) |
 | `JET_RANGER_STEPPER_CONTROLLER` | .105 | Stepper gauges: airspeed, vertical speed, radar altitude, torque, gas producer, turbine out temperature, fuel quantity |
 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | .106 | Stepper gauges: engine and transmission oil, engine and rotor RPM, electrical load, fuel load, altimeter; four OLEDs (barometer, altimeter, clock, temperature) |
 

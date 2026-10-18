@@ -30,7 +30,7 @@ offsets. Written 2026-10-17 and since run against MSFS 2024.
    readout, lamp list and Avionics Master box, then sends:
    - the **Radio** packet when a frequency, the main bus voltage or the radio power flag
      changed (at most every 200 ms), or every 5 s regardless;
-   - one packet each to the **Servo, Stepper, Dual Stepper and OLED** boards about every
+   - one packet each to the **Servo, Stepper and Dual Stepper** boards about every
      100 ms (about 10 per second per board).
    If no new data has arrived for 3 s (simulator paused or loading) it stops sending, so
    the boards' 30 s no-data watchdogs return the gauges to zero; the status bar says so.
@@ -44,7 +44,6 @@ offsets. Written 2026-10-17 and since run against MSFS 2024.
 | Servo `.102` | `PITCH` (degrees, one decimal, negated: the sim reports nose-down positive), `BANK`, and the 15 lamp codes as `:1`/`:0` (all `0` while the main bus is below 20 V) |
 | Stepper `.105` | `IAS` (knots, one decimal), `VSI` (fpm), `AGL` (feet, `0` below 20 V), `FUEL` (US gal), `TQ` (%), `ITT` (deg C), `N1` (%) |
 | Dual Stepper `.106` | `PWR` (`1`, or `0` while the main bus is below 24 V: blanks that board's four OLEDs), `ALT`, `RPMR`, `RPME`, `ZULU` (HHMM), `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (fuel pressure, psi), `ELECTRICALLOAD` (percent: the magnitude of `ELECTRICAL TOTAL LOAD AMPS` / 300 A - the sign goes negative while the battery supplies the bus, e.g. with the engine stopped - `ElectricalLoadFullScaleAmps`; a guess from one reading, the FlyInside B206's 143 A with its cockpit LOAD gauge at about 50 %), `TEMP` (outside air, e.g. `21C`) |
-| OLED `.104` | `ALT`, `BARO` (inHg x 100 from the Kohlsman setting in millibars). Only these two - the FSUIPC bridge sends this board the whole shared packet, but it reads only `ALT` and `BARO` |
 | Radio `.101` | `C1A`, `C1S`, `C2A`, `C2S` (MHz, three decimals), `MAINBUS` (volts), `NAVCOM1` (`1` when the **avionics bus is 24 V or more**, else `0`: below that the Radio blanks its COM/NAV displays; if the aircraft reports the avionics bus as exactly 0, as the FlyInside B206 does, the **main bus** is used instead) |
 
 ## SimVars requested

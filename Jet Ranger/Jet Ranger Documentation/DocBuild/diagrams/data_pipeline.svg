@@ -34,7 +34,7 @@
 <text x="682.0" y="262.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">lamp or OLED</text>
 <rect x="16.0" y="190.0" width="628.0" height="196.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="30.0" y="213.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">Send rates</text>
-<text x="30.0" y="236.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Servo, Stepper, Dual Stepper, OLED</text>
+<text x="30.0" y="236.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Servo, Stepper, Dual Stepper</text>
 <text x="300.0" y="236.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">every 100 ms (about 10 per second)</text>
 <text x="30.0" y="264.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F" text-anchor="start">Radio</text>
 <text x="300.0" y="264.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">on a change (at most every 200 ms),</text>

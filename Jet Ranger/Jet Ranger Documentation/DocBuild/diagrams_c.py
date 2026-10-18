@@ -27,10 +27,9 @@ def fsuipc_bridge():
         "Stepper    D,IAS,VSI,AGL,FUEL,TQ,ITT,N1",
         "Dual       D,PWR,ALT,RPMR,RPME,ZULU,OILT,OILP,",
         "                  XMSNT,XMSNP,FUELLOAD,ELECTRICALLOAD,TEMP",
-        "OLED       D,ALT,BARO",
         "Radio      D,C1A,C1S,C2A,C2S,MAINBUS,NAVCOM1"], "blue", title_size=14, line_size=12)
     s.arrow([(640, 348), (640, 380)], "UDP 13136", color=BLUE, label_dx=60, label_dy=4)
-    s.card(420, 380, 444, 64, "Five UDP clients", ["172.16.1.101 / .102 / .104 / .105 / .106"], "white", title_size=14, line_size=12.5)
+    s.card(420, 380, 444, 64, "UDP clients", ["172.16.1.101 / .102 / .105 / .106"], "white", title_size=14, line_size=12.5)
     s.card(16, 380, 380, 100, "timerConnection  (1 s)", ["tries FSUIPCConnection.Open() until", "the simulator is found, then starts", "timerMain and stops itself"], "gray", title_size=14, line_size=12.5)
     s.text(16, 524, "Radio, battery and alternator commands come back from the Radio board:", size=14, weight=700)
     s.card(16, 540, 190, 100, "UDP 27001", ["StartListener()", "background task"], "white", center=True)
@@ -56,9 +55,9 @@ def msfs_bridge():
         "(smoothed torque, EGT based turbine temperature, load scale), see the aircraft profile figure"], "blue", title_size=14, line_size=12.5)
     s.arrow([(440, 264), (440, 300)], None)
     s.card(16, 300, 848, 78, "Payloads.cs: pure packet builders (no SimConnect or window code)", [
-        "Servo, Stepper, Dual Stepper, OLED, Radio packets; lamp rules; power rules (20 V, 24 V)"], "white", title_size=14, line_size=12.5)
+        "Servo, Stepper, Dual Stepper, Radio packets; lamp rules; power rules (20 V, 24 V)"], "white", title_size=14, line_size=12.5)
     s.arrow([(440, 378), (440, 410)], "UDP 13136, about 10 per second", color=BLUE, label_dx=118, label_dy=2)
-    s.card(16, 410, 848, 54, "Five UDP clients", ["Radio .101   Servo .102   OLED .104   Stepper .105   Dual Stepper .106"], "white", title_size=14, line_size=12.5)
+    s.card(16, 410, 848, 54, "UDP clients", ["Radio .101   Servo .102   Stepper .105   Dual Stepper .106"], "white", title_size=14, line_size=12.5)
     s.card(16, 490, 280, 94, "timerConnection  (1 s)", ["new SimConnect(...) until MSFS", "is found; on quit or a lost", "connection it starts again"], "gray", title_size=14, line_size=12)
     s.card(320, 490, 270, 94, "DefWndProc", ["WM_USER_SIMCONNECT ->", "ReceiveMessage(); data callback", "only stores the sample"], "white", title_size=14, line_size=12)
     s.card(614, 490, 250, 94, "UDP 27001 listener", ["UpdateRadios(): swaps, standby,", "avionics, battery, alternator", "-> TransmitClientEvent"], "white", title_size=14, line_size=12)

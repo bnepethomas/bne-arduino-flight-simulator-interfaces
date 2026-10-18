@@ -423,8 +423,16 @@ class Builder:
             return
         self.fig_no += 1
         w_px, h_px = svg_size(full)
-        w_mm = min(PAGE_W_MM, w_px * 0.2646 * 0.92)
-        h_mm = w_mm * h_px / w_px
+        if full.lower().endswith(".png"):
+            # screenshots: natural size at 96 dpi, scaled down to fit the page width and a maximum height
+            w_mm = min(PAGE_W_MM, w_px * 0.2646)
+            h_mm = w_mm * h_px / w_px
+            if h_mm > 215:
+                w_mm = w_mm * 215 / h_mm
+                h_mm = 215
+        else:
+            w_mm = min(PAGE_W_MM, w_px * 0.2646 * 0.92)
+            h_mm = w_mm * h_px / w_px
         self.set_pstyle("Figure")
         self.cur.NumberingStyleName = ""
         try:
@@ -567,7 +575,16 @@ class Builder:
             pass
 
 
+def png_size(path):
+    import struct
+    with open(path, "rb") as f:
+        head = f.read(24)
+    return struct.unpack(">II", head[16:24])
+
+
 def svg_size(path):
+    if path.lower().endswith(".png"):
+        return png_size(path)
     s = open(path, encoding="utf-8").read(600)
     w = re.search(r'width="([\d.]+)"', s)
     h = re.search(r'height="([\d.]+)"', s)

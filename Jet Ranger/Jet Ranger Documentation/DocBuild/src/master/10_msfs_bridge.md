@@ -16,10 +16,10 @@
 
 ## Program flow
 
-1. **Constructor:** connect five UDP clients (port 13136), build the lamp list, start the 1 second `timerConnection` and the UDP listener on 27001.
+1. **Constructor:** connect the UDP clients (port 13136), build the lamp list, start the 1 second `timerConnection` and the UDP listener on 27001.
 2. **`timerConnection_Tick`:** try `new SimConnect("MSFS Winforms Bridge", Handle, WM_USER_SIMCONNECT, ...)`. While MSFS is not running this throws and the timer tries again. On success it registers the data definition, requests it every second sim frame, maps the client events, starts `timerMain` and stops itself.
 3. **`DefWndProc`** passes `WM_USER_SIMCONNECT` to `ReceiveMessage()`; the data callback only stores the newest sample. If MSFS quits or the connection throws, the app closes SimConnect, stops `timerMain` and goes back to step 2.
-4. **`timerMain_Tick`** (100 ms) converts the newest sample to a `SimSnapshot`, updates the readout, lamp list and Avionics Master box, then sends the packets: Radio when a frequency, the main bus voltage or the radio power flag changed (at most every 200 ms) or every 5 seconds; one packet each to the Servo, Stepper, Dual Stepper and OLED boards about every 100 ms.
+4. **`timerMain_Tick`** (100 ms) converts the newest sample to a `SimSnapshot`, updates the readout, lamp list and Avionics Master box, then sends the packets: Radio when a frequency, the main bus voltage or the radio power flag changed (at most every 200 ms) or every 5 seconds; one packet each to the Servo, Stepper and Dual Stepper boards about every 100 ms.
 5. **`UpdateRadios`** (UDP 27001) handles the Radio controller's commands as SimConnect client events.
 
 ![Connection states](diagrams/msfs_states.svg)
@@ -33,7 +33,6 @@ If no new data has arrived for 3 seconds (paused or loading) the bridge stops se
 | Servo .102 | `BPWR` (1 while the main bus is 20 V or more), `PITCH` (degrees, one decimal, negated: the simulator reports nose-down positive), `BANK`, and the 15 lamp codes (all `0` while the main bus is below 20 V) |
 | Stepper .105 | `BPWR`, `IAS` (knots, one decimal), `VSI`, `AGL` (feet, 0 below 20 V), `FUEL` (US gal), `TQ`, `ITT` (degrees C), `N1` |
 | Dual Stepper .106 | `PWR` (1, or 0 while the main bus is below 24 V), `BPWR`, `ALT`, `RPMR`, `RPME`, `ZULU`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (fuel pressure, psi), `ELECTRICALLOAD` (percent, below), `TEMP` |
-| OLED .104 | `ALT`, `BARO` (inHg x 100 from the Kohlsman setting in millibars) only |
 | Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1` (1 when the avionics bus is 24 V or more; if the aircraft reports the avionics bus as exactly 0, as the FlyInside B206 does, the main bus is used instead) |
 
 `ELECTRICALLOAD` is the magnitude of `ELECTRICAL TOTAL LOAD AMPS` divided by 300 A (the sign goes negative while the battery supplies the bus, for example with the engine stopped); the CowaSim profile uses 139 A.
@@ -44,7 +43,7 @@ Every 500 ms the main timer sends `D,LAT:..,LON:..,ALT:..,IAS:..,HDG:..,UTC:yyyy
 
 ## SimVars requested
 
-`PLANE ALTITUDE`, `AIRSPEED INDICATED`, `VERTICAL SPEED`, `PLANE ALT ABOVE GROUND`, `ATTITUDE INDICATOR PITCH` and `BANK DEGREES`, `ROTOR RPM PCT:1`, `GENERAL ENG PCT MAX RPM:1`, `ENG TORQUE PERCENT:1`, `TURB ENG MAX TORQUE PERCENT:1`, `ENG EXHAUST GAS TEMPERATURE:1`, `GENERAL ENG THROTTLE LEVER POSITION:1`, `ELECTRICAL TOTAL LOAD AMPS`, `TURB ENG ITT:1`, `ENG OIL TEMPERATURE:1`, `FUEL TOTAL QUANTITY`, `TURB ENG CORRECTED N1:1`, `ENG OIL PRESSURE:1`, `ENG TRANSMISSION PRESSURE:1`, `ENG TRANSMISSION TEMPERATURE:1`, `GENERAL ENG FUEL PRESSURE:1`, `ELECTRICAL MAIN BUS VOLTAGE`, `ELECTRICAL AVIONICS BUS VOLTAGE`, `AVIONICS MASTER SWITCH`, `AMBIENT TEMPERATURE`, `KOHLSMAN SETTING MB`, `ZULU TIME`, the COM 1, COM 2, NAV 1 and NAV 2 active and standby frequencies, the two FlyInside L:vars and the six GPS SimVars above. `PanelVars` and the `PanelData` struct must list them in the same order; `CheckDefinitionMatchesStruct()` checks the count at connect.
+`PLANE ALTITUDE`, `AIRSPEED INDICATED`, `VERTICAL SPEED`, `PLANE ALT ABOVE GROUND`, `ATTITUDE INDICATOR PITCH` and `BANK DEGREES`, `ROTOR RPM PCT:1`, `GENERAL ENG PCT MAX RPM:1`, `ENG TORQUE PERCENT:1`, `TURB ENG MAX TORQUE PERCENT:1`, `ENG EXHAUST GAS TEMPERATURE:1`, `GENERAL ENG THROTTLE LEVER POSITION:1`, `ELECTRICAL TOTAL LOAD AMPS`, `TURB ENG ITT:1`, `ENG OIL TEMPERATURE:1`, `FUEL TOTAL QUANTITY`, `TURB ENG CORRECTED N1:1`, `ENG OIL PRESSURE:1`, `ENG TRANSMISSION PRESSURE:1`, `ENG TRANSMISSION TEMPERATURE:1`, `GENERAL ENG FUEL PRESSURE:1`, `ELECTRICAL MAIN BUS VOLTAGE`, `ELECTRICAL AVIONICS BUS VOLTAGE`, `AVIONICS MASTER SWITCH`, `AMBIENT TEMPERATURE`, `KOHLSMAN SETTING MB` (shown in the readout only), `ZULU TIME`, the COM 1, COM 2, NAV 1 and NAV 2 active and standby frequencies, the two FlyInside L:vars and the six GPS SimVars above. `PanelVars` and the `PanelData` struct must list them in the same order; `CheckDefinitionMatchesStruct()` checks the count at connect.
 
 ## Commands from the panel (UDP 27001)
 

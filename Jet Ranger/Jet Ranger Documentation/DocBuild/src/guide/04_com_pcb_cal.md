@@ -11,7 +11,6 @@ Each Arduino is programmed over its own USB cable from the primary PC. The cockp
 | Radio controller | 172.16.1.101 | Arduino Mega 2560 (replacement board) | **COM20** | `JET_RANGER_RADIO_CONTROLLER` |
 | Servo controller | 172.16.1.102 | Mega 2560 clone | **COM16** | `JET_RANGER_SERVO_CONTROLLER` |
 | Upper controller | 172.16.1.103 | Mega 2560 | not recorded | `JET_RANGER_UPPER_CONTROLLER` |
-| OLED controller | 172.16.1.104 | Mega 2560 | not recorded | `JET_RANGER_OLED_CONTROLLER` |
 | Stepper controller | 172.16.1.105 | Mega 2560 | **COM4** | `JET_RANGER_STEPPER_CONTROLLER` |
 | Dual stepper controller | 172.16.1.106 | Mega 2560 | **COM5** | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` |
 | USB HID board | 172.16.1.11 | Arduino Leonardo | **COM8** | `UDP_TO_HID` |
@@ -20,7 +19,7 @@ These are the ports used the last time each board was flashed. A COM number belo
 
 - The Servo controller is a clone Mega that reports no USB serial number, so Windows ties its COM number to the USB socket it is plugged into. Plug it into a different socket and it appears as a new port.
 - Replacing a Mega (the Radio controller was replaced once) gives a new port number.
-- The Upper and OLED controllers were not connected when the ports were recorded.
+- The Upper controller was not connected when the ports were recorded.
 - The Lowrance GPS cable is separate: the GPS interface asks for its serial port the first time it runs and remembers it.
 
 Always check the port before an upload: open Device Manager, Ports (COM and LPT), or run `arduino-cli board list`. If you are not sure which board is which, unplug one USB cable and see which port disappears. Add the confirmed port to the table above (and to the sketch header comment) once you have uploaded to a board.

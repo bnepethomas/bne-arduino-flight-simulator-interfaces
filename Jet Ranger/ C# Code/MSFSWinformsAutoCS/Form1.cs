@@ -21,7 +21,6 @@ namespace MSFSWinformsAutoCS
 
         private readonly UdpClient radioClient = new UdpClient();         // 172.16.1.101 Radio Controller
         private readonly UdpClient servoClient = new UdpClient();         // 172.16.1.102 Servo Controller
-        private readonly UdpClient oledClient = new UdpClient();          // 172.16.1.104 OLED Controller
         // Aircraft information for the Lowrance AirMap GPS interface (LowranceAirMapGps): sent twice a second.
         // Change GpsHost if the GPS interface runs on another PC.
         private readonly UdpClient gpsClient = new UdpClient();
@@ -318,7 +317,6 @@ namespace MSFSWinformsAutoCS
         {
             radioClient.Connect("172.16.1.101", boardPort);
             servoClient.Connect("172.16.1.102", boardPort);
-            oledClient.Connect("172.16.1.104", boardPort);
             stepperClient.Connect("172.16.1.105", boardPort);
             dualStepperClient.Connect("172.16.1.106", boardPort);
             gpsClient.Connect(GpsHost, GpsPort);
@@ -605,7 +603,6 @@ namespace MSFSWinformsAutoCS
                 SendPacket(servoClient, Payloads.Servo(s));
                 SendPacket(stepperClient, Payloads.Stepper(s));
                 SendPacket(dualStepperClient, Payloads.DualStepper(s));
-                SendPacket(oledClient, Payloads.Oled(s));
                 frontPanelTimeLastPacketSent = DateTime.Now;
             }
 

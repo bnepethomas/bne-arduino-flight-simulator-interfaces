@@ -3,7 +3,7 @@
 Bridge for Prepar3D / FSX that reads data through **FSUIPC** (raw memory offsets)
 instead of SimConnect. Named `FSUIPCTest` internally. It reads engine, electrical, radio
 and annunciator offsets and sends each panel board its own `"D,..."` UDP packet (Servo,
-Stepper, Dual Stepper, OLED and Radio controllers). It also listens on port 27001 for
+Stepper, Dual Stepper and Radio controllers). It also listens on port 27001 for
 radio-swap / battery / alternator / standby-frequency commands from the panel and acts on
 them through the FSUIPC API. `MSFSWinformsAutoCS` is the MSFS counterpart; only one
 bridge should run against the panel network at a time.
@@ -32,10 +32,7 @@ bridge should run against the panel network at a time.
      `<CODE>_Process()` mapping function (same formulas/tables as
      `JET_RANGER_SERVO_CONTROLLER`) and
      appends it to a `"D,..."` payload, along with every annunciator's
-     on/off state by short code. Also appends a `BARO` field: the
-     altimeter/"Kollsman" pressure-setting offset (`0x0330`, hPa×16) is
-     converted to the 4-digit inHg×100 form (e.g. `2992`) the OLED
-     Controller's BARO display and DCS-BIOS both already use. **`RPMR`/
+     on/off state by short code. **`RPMR`/
      `RPME` (rotor/engine RPM %) are no longer part of this shared
      payload or run through a `_Process()` mapping** — they used to be
      mapped onto a servo position range (`RPMR_Process()`/`RPME_Process()`,
@@ -58,14 +55,11 @@ bridge should run against the panel network at a time.
      `ServMinPosition`/`ServMaxPosition` array entries) are now unused —
      left in place rather than removed, since deleting an enum member
      risks shifting every other array index that follows it.
-   - Throttled to ≥100ms between sends (was ≥200ms), the accumulated
-     shared payload is sent to the Servo Controller board, and the same
-     bytes are also fanned out to the OLED Controller (which reads
-     `ALT`/`BARO` out of it) — each board ignores whatever fields it
-     doesn't recognise. The
-     Stepper Controller and OLED Dual Stepper Controller do **not**
-     receive these same bytes: each gets its own separate, purpose-built
-     payload built fresh each tick, not derived from the shared payload.
+   - Throttled to ≥100ms between sends (was ≥200ms). The accumulated
+     shared payload is still built but is no longer sent to any board (it
+     was only ever read by the retired OLED Controller). The Servo,
+     Stepper Controller and OLED Dual Stepper Controller each get their
+     own separate, purpose-built payload built fresh each tick.
      The Stepper Controller's payload is `ALT`, `VSI` as raw fpm, `AGL`,
      and `RPMR`/`RPME` as real unmapped percent. The OLED Dual Stepper
      Controller's payload is `ALT`, `RPMR`/`RPME`, and (new) **`ZULU`** —
@@ -135,7 +129,6 @@ bridge should run against the panel network at a time.
 | `0x2F70` / `0x2F78` | Attitude pitch / bank |
 | `0x2F28` | 21-bit annunciator/warning-lamp bitfield |
 | `0x2840` / `0x2850` | Main bus voltage / avionics bus voltage |
-| `0x0330` | Altimeter/"Kollsman" pressure setting, hPa × 16 (documented FSUIPC offset — sent on as `BARO`, converted to inHg × 100) |
 | `0x0238` / `0x0239` | Zulu hours / Zulu minutes (documented FSUIPC offsets, bytes) — combined into the HHMM-encoded `ZULU` field sent to the OLED Dual Stepper Controller's Clock OLED |
 | `RadioStack:0x034E/0x311A/0x3118/0x311C/0x0350/0x311E/0x0352/0x3120/0x0354/0x034C/0x0356` | COM1/2 active+standby, NAV1/2 active+standby, transponder, ADF |
 
@@ -144,7 +137,7 @@ bridge should run against the panel network at a time.
 The Servo, Stepper and Dual Stepper boards each now get their **own** packet in
 **real units** (the shared "front-panel" packet of Bell 206 servo-position numbers
 from `IAS_Process()`/`VSI_Process()`/`PITCH_Process()`... is built as before but
-only the OLED board (172.16.1.104) still takes it). Values come straight from
+no board takes it any more). Values come straight from
 `sFrontPanel` - the same sources the `*_Process()` functions map from - formatted
 with the invariant culture. Each board converts to steps / servo positions with
 its own calibration tables.
@@ -177,7 +170,6 @@ twice per tick (percent, then temperature), so the temperature wins.
 | `172.16.1.101` (Radio Controller) | 13136 | Radio/bus-voltage data packets (`udpClient.Send`) |
 | `172.16.1.102` (Servo Controller) | 13136 | Front-panel instrument + annunciator data packets (`frontPanelClient.Send`) |
 | `172.16.1.105` (Stepper Controller) | 13136 | Its own minimal payload (`stepperClient.Send`), separate from the Servo Controller's — `ALT`, `VSI` (raw fpm, not the Servo Controller's Bell 206 `VSI_Process()` number), `AGL` (radar altitude), and `RPMR`/`RPME` (real, unmapped percent — see Program flow above). Built fresh each tick from `ALTITUDE`/`vsiRawFpm`/`PLANE_ALT_ABOVE_GROUND`/`rpmrPctForStepper`/`rpmePctForStepper` rather than derived from the shared front-panel payload. (`VSI` was dropped temporarily while diagnosing a reported ALT-needle reversal on real hardware — confirmed unrelated to VSI, root cause was the stepper driver electronics mishandling small step deltas; see `JET_RANGER_STEPPER_CONTROLLER`'s summary.) `IAS`/annunciator bits/etc. were never part of this payload, since this board has no gauges for them |
-| `172.16.1.104` (OLED Controller) | 13136 | Same payload as the Servo Controller (`oledClient.Send`) — that board reads `ALT`/`BARO` out of it |
 | `172.16.1.106` (OLED Dual Stepper Controller) | 13136 | Its own minimal payload (`dualStepperClient.Send`), separate from the Stepper Controller's — `ALT`, `RPMR`/`RPME` (real, unmapped percent), and `ZULU` (HHMM-encoded Zulu time, new — drives that board's Clock OLED). Built fresh each tick, not derived from the shared front-panel payload. No `VSI`/`AGL` — that board's UDP handler has no `AGL` case (Radar Alt repurposed as Fuel Load) |
 | `172.16.1.2` | 26028 | `OutputClient` — connected but unused |
 
@@ -201,9 +193,6 @@ twice per tick (percent, then temperature), so the temperature wins.
   (`172.16.1.105:13136`) — receives its own separate, purpose-built
   payload (`ALT`/`VSI`/`AGL`/`RPMR`/`RPME`), not the shared front-panel
   bytes.
-- **[JET_RANGER_OLED_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_CONTROLLER/JET_RANGER_OLED_CONTROLLER.ino)**
-  (`172.16.1.104:13136`) — receives the shared payload; reads
-  `ALT`/`BARO` out of it to drive its ALT and BARO OLEDs.
 - **[JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER](../../Jet%20Ranger%20Arduino%20Sketches/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER/JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER.ino)**
   (`172.16.1.106:13136`) — receives its own separate, purpose-built
   payload (`ALT`/`RPMR`/`RPME`/`ZULU`), not the shared front-panel bytes;

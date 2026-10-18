@@ -22,7 +22,6 @@
 |---|---|
 | `0x02BC` | Airspeed (knots x 128, so finer than 0.1 knot) |
 | `0x02C8` | Vertical speed |
-| `0x0330` | Altimeter pressure setting, hPa x 16 (sent on as `BARO`, converted to inHg x 100) |
 | `0x0238`, `0x0239` | Zulu hours and minutes (combined into the HHMM `ZULU`) |
 | `0x0E8C` | Outside air temperature, degrees C x 256 (sent as `TEMP`, for example `21C`; a standard FSUIPC offset, not verified against DodoSim) |
 | `0x08F0` | Turbine-out percent and temperature |
@@ -54,7 +53,6 @@ The Servo, Stepper and Dual Stepper boards each get their **own** packet in real
 | Servo .102 | `BPWR` (1 while the main bus is 20 V or more), `PITCH` (degrees, one decimal, negated because FSUIPC pitch is nose-down positive), `BANK` (degrees, one decimal), the 15 lamp codes `EOUT`, `TOPW`, `BHOT`, `EC`, `BD`, `GENF`, `TOTW`, `RLOW`, `FFLTR`, `BTMP`, `TC`, `TRC`, `FPMP`, `LOWF`, `SCF` as `:1` or `:0` |
 | Stepper .105 | `BPWR`, `IAS` (knots, one decimal), `VSI` (ft/min), `AGL` (feet, power-gated), `FUEL` (US gal), `TQ` (%), `ITT` (degrees C), `N1` (%) |
 | Dual Stepper .106 | `PWR` (first: 1, or 0 while the main bus is below 24 V), `BPWR`, `ALT`, `RPMR`, `RPME` (one decimal), `ZULU`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (psi, from fuel pressure), `ELECTRICALLOAD` (%), `TEMP` |
-| OLED .104 | The shared front-panel packet; the board reads `ALT` and `BARO` out of it and ignores the rest |
 | Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1` (1 when the avionics bus, offset `0x2850`, is 24 V or more) |
 
 ## Aircraft information for the GPS interface

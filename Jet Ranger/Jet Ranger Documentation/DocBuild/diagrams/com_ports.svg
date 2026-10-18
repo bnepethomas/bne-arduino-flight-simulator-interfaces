@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="560" viewBox="0 0 880 560">
-<rect width="880" height="560" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="490" viewBox="0 0 880 490">
+<rect width="880" height="490" fill="#FFFFFF"/>
 <defs>
 <marker id="ahB0B0AB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#B0B0AB"/></marker>
 <marker id="ahsB0B0AB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#B0B0AB"/></marker>
@@ -28,28 +28,23 @@
 <rect x="730.0" y="178.0" width="101.1" height="26.0" rx="13.0" ry="13.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
 <text x="780.6" y="195.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="middle">not recorded</text>
 <rect x="300.0" y="230.0" width="400.0" height="60.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="312.0" y="253.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">OLED controller</text>
-<text x="312.0" y="277.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">172.16.1.104   |   Mega 2560</text>
-<rect x="730.0" y="248.0" width="101.1" height="26.0" rx="13.0" ry="13.0" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1"/>
-<text x="780.6" y="265.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="middle">not recorded</text>
+<text x="312.0" y="253.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Stepper controller</text>
+<text x="312.0" y="277.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">172.16.1.105   |   Mega 2560</text>
+<rect x="730.0" y="248.0" width="47.0" height="26.0" rx="13.0" ry="13.0" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1"/>
+<text x="753.5" y="265.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="middle">COM4</text>
+<path d="M 206.0 70.0 L 250.0 70.0 L 250.0 260.0 L 300.0 260.0" fill="none" stroke="#B0B0AB" stroke-width="1.4" marker-end="url(#ahB0B0AB)"/>
 <rect x="300.0" y="300.0" width="400.0" height="60.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="312.0" y="323.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Stepper controller</text>
-<text x="312.0" y="347.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">172.16.1.105   |   Mega 2560</text>
+<text x="312.0" y="323.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Dual stepper controller</text>
+<text x="312.0" y="347.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">172.16.1.106   |   Mega 2560</text>
 <rect x="730.0" y="318.0" width="47.0" height="26.0" rx="13.0" ry="13.0" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1"/>
-<text x="753.5" y="335.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="middle">COM4</text>
+<text x="753.5" y="335.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="middle">COM5</text>
 <path d="M 206.0 70.0 L 250.0 70.0 L 250.0 330.0 L 300.0 330.0" fill="none" stroke="#B0B0AB" stroke-width="1.4" marker-end="url(#ahB0B0AB)"/>
 <rect x="300.0" y="370.0" width="400.0" height="60.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="312.0" y="393.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Dual stepper controller</text>
-<text x="312.0" y="417.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">172.16.1.106   |   Mega 2560</text>
-<rect x="730.0" y="388.0" width="47.0" height="26.0" rx="13.0" ry="13.0" fill="#E8F0FB" stroke="#2F6FEB" stroke-width="1"/>
-<text x="753.5" y="405.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="middle">COM5</text>
+<text x="312.0" y="393.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">USB HID board</text>
+<text x="312.0" y="417.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">172.16.1.11   |   Arduino Leonardo</text>
+<rect x="730.0" y="388.0" width="47.0" height="26.0" rx="13.0" ry="13.0" fill="#FFF3DC" stroke="#C77700" stroke-width="1"/>
+<text x="753.5" y="405.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="middle">COM8</text>
 <path d="M 206.0 70.0 L 250.0 70.0 L 250.0 400.0 L 300.0 400.0" fill="none" stroke="#B0B0AB" stroke-width="1.4" marker-end="url(#ahB0B0AB)"/>
-<rect x="300.0" y="440.0" width="400.0" height="60.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="312.0" y="463.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">USB HID board</text>
-<text x="312.0" y="487.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">172.16.1.11   |   Arduino Leonardo</text>
-<rect x="730.0" y="458.0" width="47.0" height="26.0" rx="13.0" ry="13.0" fill="#FFF3DC" stroke="#C77700" stroke-width="1"/>
-<text x="753.5" y="475.6" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="middle">COM8</text>
-<path d="M 206.0 70.0 L 250.0 70.0 L 250.0 470.0 L 300.0 470.0" fill="none" stroke="#B0B0AB" stroke-width="1.4" marker-end="url(#ahB0B0AB)"/>
-<text x="16.0" y="530.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">COM numbers are the ones used at the last flash. They follow the USB socket and the board, so check them (see the guide) before an upload.</text>
-<text x="16.0" y="550.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Each board also has a network connection: USB is for programming only, the cockpit runs over UDP.</text>
+<text x="16.0" y="460.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">COM numbers are the ones used at the last flash. They follow the USB socket and the board, so check them (see the guide) before an upload.</text>
+<text x="16.0" y="480.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Each board also has a network connection: USB is for programming only, the cockpit runs over UDP.</text>
 </svg>

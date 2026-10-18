@@ -106,7 +106,6 @@
             OutputClient.Connect("172.16.1.2", 26028);
             stepperClient.Connect("172.16.1.105", 13136);
             dualStepperClient.Connect("172.16.1.106", 13136);
-            oledClient.Connect("172.16.1.104", 13136);
             gpsClient.Connect(GpsHost, GpsPort);       // Lowrance AirMap GPS interface (LowranceAirMapGps)
             RadioTimeLastPacketSent = DateTime.Now;
 

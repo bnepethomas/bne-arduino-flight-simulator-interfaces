@@ -179,10 +179,6 @@ namespace MSFSWinformsAutoCS
         // Kollsman setting as inHg x 100 (2992 = 29.92 inHg) from millibars.
         public static int BaroInHgx100(SimSnapshot s) => (int)Math.Round(s.KohlsmanMillibars * 2.953);
 
-        // OLED board (.104): altitude and barometric setting.
-        public static string Oled(SimSnapshot s)
-            => "D,ALT:" + F0(s.AltitudeFeet) + ",BARO:" + BaroInHgx100(s).ToString(Inv);
-
         // Lowrance AirMap GPS interface (LowranceAirMapGps, UDP 27002): latitude, longitude, altitude (feet),
         // airspeed (knots) and true heading (degrees).
         public static string Gps(SimSnapshot s)

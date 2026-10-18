@@ -57,9 +57,6 @@ namespace FSUIPCTest
         private Offset<long> gpsLongitude = new Offset<long>(0x0568);
         private Offset<long> gpsAltitudeMetres = new Offset<long>(0x0570);
         private Offset<uint> gpsHeadingTrue = new Offset<uint>(0x0580);
-        // Altimeter pressure ("Kollsman window") setting, in hPa * 16 - the
-        // standard documented FSUIPC offset (see "FSUIPC for Programmers.pdf").
-        private Offset<UInt16> altimeterSetting = new Offset<UInt16>(0x0330);
         private Offset<int> vSI = new Offset<int>(0x02C8);
         private Offset<uint> radioAltimeter = new Offset<uint>(0x31E4);
 
@@ -186,18 +183,14 @@ namespace FSUIPCTest
         UdpClient udpClient = new UdpClient();
         UdpClient frontPanelClient = new UdpClient();
         UdpClient OutputClient = new UdpClient();
-        // JET_RANGER_STEPPER_CONTROLLER (172.16.1.105), JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER
-        // (172.16.1.106), and JET_RANGER_OLED_CONTROLLER (172.16.1.104) all
-        // listen on the same MSFSport (13136) as the Servo Controller and
-        // parse the same "D,CODE:value,..." format, but only the OLED
-        // Controller actually reuses the same shared UDP_Playload bytes
-        // (ALT/BARO) - both stepper boards get their own separate, minimal
-        // payloads built fresh each tick (stepperPayload/dualStepperPayload
-        // below), since they don't have gauges for most of the shared
-        // payload's fields.
+        // JET_RANGER_STEPPER_CONTROLLER (172.16.1.105) and
+        // JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER (172.16.1.106) listen on the
+        // same port (13136) as the Servo Controller and parse the same
+        // "D,CODE:value,..." format; both stepper boards get their own
+        // separate, minimal payloads built fresh each tick
+        // (stepperPayload/dualStepperPayload below).
         UdpClient stepperClient = new UdpClient();
         UdpClient dualStepperClient = new UdpClient();
-        UdpClient oledClient = new UdpClient();
         // Aircraft information for the GPS interface (LowranceAirMapGps): lat, lon, altitude, airspeed and
         // heading, sent twice a second. Change GpsHost if the GPS interface runs on another PC.
         UdpClient gpsClient = new UdpClient();
@@ -246,7 +239,6 @@ namespace FSUIPCTest
 
         private String ALTITUDE = "";                           // ALT
         private String AIRSPEED = "";                           // IAS
-        private String BAROSetting = "";                        // BARO - altimeter/barometric setting for JET_RANGER_OLED_CONTROLLER
         private String VERTICAL_SPEED = "";                     // VSI
         private String PLANE_ALT_ABOVE_GROUND = "";             // AGL
         private String ATTITUDE_INDICATOR_BANK_DEGREES = "";   // BANK
@@ -592,18 +584,6 @@ namespace FSUIPCTest
                     UDP_Playload = "D,ALT:" + ALTITUDE;
                 };
 
-                // Altimeter/barometric ("Kollsman") setting for JET_RANGER_OLED_CONTROLLER's
-                // BARO display, converted from FSUIPC's hPa*16 to the 4-digit
-                // inHg*100 form (e.g. 2992 = 29.92 inHg) already used by that
-                // sketch and by DCS-BIOS.
-                int baroSettingValue = (int)Math.Round(this.altimeterSetting.Value * 0.1845625);
-                if (BAROSetting != baroSettingValue.ToString())
-                {
-                    frontPanelDataChanged = true;
-                    BAROSetting = baroSettingValue.ToString();
-                    UDP_Playload = UDP_Playload + ",BARO:" + BAROSetting;
-                };
-
 
                 if (AIRSPEED != sFrontPanel.AIRSPEED.ToString("F0")) ;
                 {
@@ -847,11 +827,10 @@ namespace FSUIPCTest
                     if (UDP_Playload != "D")
                     {
                         // Something has changed so send it
-                        Byte[] senddata = Encoding.ASCII.GetBytes(UDP_Playload);
                         // Each board now gets its OWN packet in REAL units - the shared
                         // front-panel packet above is Bell 206 servo-position numbers
-                        // (IAS_Process()/VSI_Process()/PITCH_Process()...), which only the
-                        // OLED board still takes. The values come straight from sFrontPanel,
+                        // (IAS_Process()/VSI_Process()/PITCH_Process()...), which no board takes
+                        // any more. The values come straight from sFrontPanel,
                         // the same sources the *_Process() functions map from, so the units
                         // are exactly what those functions expect on input: knots, fpm, feet,
                         // US gallons, percent, degrees C, psi. Each board converts to steps /
@@ -919,8 +898,6 @@ namespace FSUIPCTest
                         Byte[] dualStepperSendData = Encoding.ASCII.GetBytes(dualStepperPayload);
                         dualStepperClient.Send(dualStepperSendData, dualStepperSendData.Length);
 
-                        // OLED gets the same payload as the front panel (ALT/BARO).
-                        oledClient.Send(senddata, senddata.Length);
                         FrontPanelTimeLastPacketSent = DateTime.Now;
                     }
 

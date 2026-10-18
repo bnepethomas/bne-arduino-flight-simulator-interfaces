@@ -70,10 +70,9 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `XMSNP` | Transmission oil pressure | Dual (.106) or Stepper | psi |
 | `RPME` | Engine RPM (N2) | Dual (.106) | %, one decimal |
 | `RPMR` | Rotor RPM | Dual (.106) | %, one decimal |
-| `ALT` | Altimeter | Dual (.106), OLED (.104) | feet |
+| `ALT` | Altimeter | Dual (.106) | feet |
 | `FUELLOAD` | Fuel load | Dual (.106) | psi |
 | `ELECTRICALLOAD` | Electrical load | Dual (.106) | % |
-| `BARO` | Barometric setting | OLED (.104) | inHg x 100 |
 
 Every gauge token also has a `RAW` twin (for example `PITCHRAW`, `IASRAW`) that takes a raw servo position or stepper step count and skips the calibration table.
 

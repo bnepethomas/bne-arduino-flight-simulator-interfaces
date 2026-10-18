@@ -146,7 +146,7 @@ def data_pipeline():
     s.card(670, 196, 194, 74, "Output", ["stepper needle, servo,", "lamp or OLED"], "green", line_size=12.5)
     s.frame(16, 190, 628, 196, "Send rates", theme="gray")
     rows = [
-        ("Servo, Stepper, Dual Stepper, OLED", "every 100 ms (about 10 per second)"),
+        ("Servo, Stepper, Dual Stepper", "every 100 ms (about 10 per second)"),
         ("Radio", "on a change (at most every 200 ms),"),
         ("", "and at least every 5 seconds"),
         ("No simulator data for 3 s", "the MSFS bridge stops sending"),

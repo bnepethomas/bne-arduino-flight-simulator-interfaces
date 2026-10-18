@@ -4,13 +4,12 @@ from dgcommon import diagram, Svg, INK, INK2, LINE, text_width, BLUE, GREEN, AMB
 
 @diagram
 def com_ports():
-    s = Svg(880, 560)
+    s = Svg(880, 490)
     s.card(16, 20, 190, 100, "Windows PC", ["172.16.1.10", "Arduino IDE / arduino-cli", "uploads over USB"], "dark", title_size=15, line_size=12.5, center=True)
     rows = [
         ("Radio controller", "172.16.1.101", "Mega 2560 (replacement)", "COM20", "green"),
         ("Servo controller", "172.16.1.102", "Mega 2560 clone", "COM16", "green"),
         ("Upper controller", "172.16.1.103", "Mega 2560", "not recorded", "gray"),
-        ("OLED controller", "172.16.1.104", "Mega 2560", "not recorded", "gray"),
         ("Stepper controller", "172.16.1.105", "Mega 2560", "COM4", "blue"),
         ("Dual stepper controller", "172.16.1.106", "Mega 2560", "COM5", "blue"),
         ("USB HID board", "172.16.1.11", "Arduino Leonardo", "COM8", "amber"),
@@ -21,8 +20,8 @@ def com_ports():
         s.pill(730, y + 18, com, th, size=13, pad=10, h=26)
         s.arrow([(206, 70), (250, 70), (250, y + 30), (300, y + 30)], None, color="#B0B0AB", sw=1.4) if com != "not recorded" else None
         y += 70
-    s.text(16, 530, "COM numbers are the ones used at the last flash. They follow the USB socket and the board, so check them (see the guide) before an upload.", size=12.5, fill=INK2)
-    s.text(16, 550, "Each board also has a network connection: USB is for programming only, the cockpit runs over UDP.", size=12.5, fill=INK2)
+    s.text(16, 460, "COM numbers are the ones used at the last flash. They follow the USB socket and the board, so check them (see the guide) before an upload.", size=12.5, fill=INK2)
+    s.text(16, 480, "Each board also has a network connection: USB is for programming only, the cockpit runs over UDP.", size=12.5, fill=INK2)
     return s
 
 

@@ -21,10 +21,9 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `XMSNP` | Transmission oil pressure | Dual .106 (or Stepper) | psi |
 | `RPME` | Engine speed (N2) | Dual .106 | percent, one decimal |
 | `RPMR` | Rotor speed | Dual .106 | percent, one decimal |
-| `ALT` | Altimeter | Dual .106, OLED .104 | feet |
+| `ALT` | Altimeter | Dual .106 | feet |
 | `FUELLOAD` | Fuel load | Dual .106 | psi |
 | `ELECTRICALLOAD` | Electrical load | Dual .106 | percent |
-| `BARO` | Barometric setting | OLED .104 | inHg x 100, for example `2992` |
 
 ## Display and status tokens
 
@@ -87,7 +86,6 @@ Use `--fqbn arduino:avr:leonardo` for the USB HID board. Close the Arduino IDE s
 | Radio controller | .101 | Mega 2560 (replacement board) | COM20 |
 | Servo controller | .102 | Mega 2560 clone | COM16 |
 | Upper controller | .103 | Mega 2560 | not recorded |
-| OLED controller | .104 | Mega 2560 | not recorded |
 | Stepper controller | .105 | Mega 2560 | COM4 |
 | Dual stepper controller | .106 | Mega 2560 | COM5 |
 | USB HID board | .11 | Arduino Leonardo | COM8 |
