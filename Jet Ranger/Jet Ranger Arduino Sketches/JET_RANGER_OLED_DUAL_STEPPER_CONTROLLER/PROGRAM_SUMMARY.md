@@ -614,9 +614,9 @@ The backlight on pin 5 (`BACK_LIGHTS`) is now controlled by `applyBacklight()`:
   If no brightness command has been received the backlight uses the default PWM 65 (`BacklightDefaultPwm`, the old post-setup
   level). Once one has been received, every time power is applied the backlight returns to the **last commanded level**, not the
   default. A command received while the main bus is down is remembered and applied when power returns.
-- The backlight still starts at 128 during setup and the no-data watchdog does not change it. The DCS-BIOS brightness handlers
+- The backlight still starts at 128 during setup. **No-data watchdog:** when no UDP packet has arrived for 30 s - including after power-up with no PC feed - the watchdog turns the backlight off along with the gauges (`backlightNoData`); the next packet restores it to the commanded (or default) level, provided the main bus is up (`Backlight restored - UDP data resumed`). The DCS-BIOS brightness handlers
   still call `analogWrite()` directly but are never run (`DcsBios::loop()` is commented out).
 - Each change is logged (`Brightness <n> -> PWM <pwm>`, `Backlight power on/off`). The bridges (FSUIPCWinformsAutoCS, MSFSWinformsAutoCS)
   send `BPWR` first in the Stepper packet and after `PWR` in the Dual Stepper packet.
 
-Compiled at 58,214 bytes flash (22%) / 6,433 bytes RAM (78%, 1,759 bytes free, the compiler's low-memory warning still applies); **not yet flashed or bench-tested**.
+Compiled at 58,312 bytes flash (22%) / 6,472 bytes RAM (79%, 1,720 bytes free, the compiler's low-memory warning still applies). The version flashed to COM5 earlier does not have the no-data backlight change; **not yet flashed or bench-tested**.

@@ -21,13 +21,16 @@ bool Debug_Display = false;
 // Backlight control. The backlight follows the main bus (BPWR:1/0 from the bridge: 1 = main bus 20 V or more) and the last
 // brightness command (C,B:0-15). Until a C,B command has been received it uses BacklightDefaultPwm; once one has, the last
 // commanded level is used every time power is applied. While the main bus is below 20 V the backlight is off.
+// It is also off while the no-data watchdog has fired (no UDP packet for 30 s, including after power-up with no PC), and comes back
+// at the same level when data resumes.
 #define BacklightDefaultPwm 65
 bool backlightPowered = true;        // true until the bridge reports the main bus is down
+bool backlightNoData = false;        // true while the no-data watchdog has fired
 int backlightCommandedPwm = -1;      // PWM from the last C,B command; -1 = none received yet
 
 void applyBacklight() {
   int pwm = 0;
-  if (backlightPowered) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
+  if (backlightPowered && !backlightNoData) pwm = (backlightCommandedPwm >= 0) ? backlightCommandedPwm : BacklightDefaultPwm;
   analogWrite(BACK_LIGHTS, pwm);
 }
 #define FLASH_TIME 200
@@ -439,6 +442,10 @@ void ResetGaugesToZero() {
     aTargetServoPosition[i] = aServZeroPosition[i];
   }
   setWarningLightAll(false);
+
+  // The backlight goes out too (applyBacklight() keeps it off while backlightNoData is set).
+  backlightNoData = true;
+  applyBacklight();
 
   // Also reset the remembered per-lamp states. HandleOutputValuePair() only
   // drives a lamp when the incoming value differs from these strings, so
@@ -1189,6 +1196,11 @@ void loop() {
       }
       lastincomingpacketcheck = millis();
       servosZeroed = false;
+      if (backlightNoData) {
+        backlightNoData = false;
+        applyBacklight();   // data is back: the backlight returns to the commanded (or default) level if the main bus is up
+        SendDebug("Backlight restored - UDP data resumed");
+      }
     }
   }
 

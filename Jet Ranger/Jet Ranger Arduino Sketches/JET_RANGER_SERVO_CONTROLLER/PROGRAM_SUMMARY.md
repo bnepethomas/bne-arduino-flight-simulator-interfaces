@@ -253,8 +253,8 @@ Stepper and Dual Stepper boards:
 - **Brightness:** control packet `C,B:<0-15>` (0 off, 15 full, mapped to PWM 0-255, clamped) is remembered. With no brightness command
   received the backlight uses the default PWM 65 (`BacklightDefaultPwm`); once one has been received, every time power is applied the
   backlight returns to the **last commanded level**. A command received while the bus is down is applied when power returns.
-- `setup()` sets pin 5 as an output and applies the default level. The no-data watchdog does not change the backlight. Each change is
+- `setup()` sets pin 5 as an output and applies the default level. **No-data watchdog:** when no UDP packet (data or control) has arrived for 30 s - including after power-up with no PC feed - the watchdog turns the backlight off along with the lamps (`backlightNoData`); the next packet restores it to the commanded (or default) level, provided the main bus is up. Logged as `Backlight restored - UDP data resumed`. Each change is
   logged (`Brightness <n> -> PWM <pwm>`, `Backlight power on/off`).
 
-Compiled at 24,368 bytes flash (9%) / 2,491 bytes RAM (30%); **not yet flashed or bench-tested**. This replaces the earlier note that
+Compiled at 24,468 bytes flash (9%) / 2,530 bytes RAM (30%); the watchdog change is **not yet flashed or bench-tested**. This replaces the earlier note that
 `C,B:n` was accepted but did nothing.
