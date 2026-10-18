@@ -10,3 +10,9 @@ Hornet/Hornet PCBs/Active/UIP CONTROLLER/.history/
 # Build output (untracked 2026-10-17)
 [Bb]in/
 [Oo]bj/
+
+
+# Jet Ranger Windows programs: the Release build output is kept in the repository (everything else under bin/ and obj/ stays ignored)
+!/Jet Ranger/ C# Code/*/bin/
+/Jet Ranger/ C# Code/*/bin/*
+!/Jet Ranger/ C# Code/*/bin/Release/
