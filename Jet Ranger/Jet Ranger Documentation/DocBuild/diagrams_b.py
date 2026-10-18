@@ -103,6 +103,32 @@ def upper_blocks():
 
 
 @diagram
+def adf_blocks():
+    s = Svg(880, 600)
+    mega(s, 300, 150, 280, 190, "Arduino Mega 2560", ["JET_RANGER_ADF_CONTROLLER", "172.16.1.107", "status LEDs 14 / 15, reset 53"])
+    s.card(16, 20, 250, 100, "ADF knobs", ["major D6 / D7: 100 kHz per click", "minor D8 / D9: 1 kHz per click", "range 190 to 1799 kHz"], "white", title_size=14, line_size=12.5)
+    s.arrow([(266, 70), (300, 190)], None, color=BLUE)
+    s.card(16, 140, 250, 120, "Keypad 4 x 3", ["rows D22 - D25, columns D26 - D28", "0 - 9 type the aircraft ID", "# sends it, * deletes a digit"], "white", title_size=14, line_size=12.5)
+    s.arrow([(266, 200), (300, 245)], None, color=BLUE)
+    s.card(16, 280, 250, 100, "Panel brightness pot", ["wiper to A0 (5 V to ground)", "level 0 - 15"], "white", title_size=14, line_size=12.5)
+    s.arrow([(266, 330), (300, 300)], None, color=BLUE)
+    s.card(16, 400, 250, 110, "Power monitors", ["12 V: A15, 47k / 10k divider", "5 V: AVcc against the 1.1 V", "band-gap (AREF left at AVcc)"], "white", title_size=14, line_size=12.5)
+    s.arrow([(266, 455), (330, 340)], None, color=BLUE)
+    s.card(614, 20, 250, 90, "Character OLED", ["I2C 0x3C, SDA 20 / SCL 21", "ADF kHz and aircraft ID"], "gray", title_size=14, line_size=12.5)
+    s.arrow([(580, 190), (614, 80)], None, color=LINE)
+    s.card(614, 130, 250, 150, "UDP 27003 to the PC", ["ADF_FREQ:<kHz>", "RADAR_FOLLOW_ID:<digits>", "POWER,V12:..,V5:..,STATUS:OK", "(power status every 30 s)"], "amber", title_size=14, line_size=12.5)
+    s.arrow([(580, 230), (614, 220)], None, color=AMBER)
+    s.card(614, 300, 250, 120, "C,B:0-15 on UDP 13136", ["to Radio .101, Servo .102,", "Upper .103, Stepper .105 and", "Dual Stepper .106"], "green", title_size=14, line_size=12.5)
+    s.arrow([(580, 300), (614, 350)], None, color=GREEN)
+    s.card(300, 400, 280, 100, "UDP 13136 in", ["C,RESET:1  C,MATRIX:1  C,POWER:1", "(data packets are ignored)"], "white", title_size=14, line_size=12.5, center=True)
+    s.arrow([(440, 400), (440, 340)], None, color=BLUE)
+    s.card(614, 440, 250, 100, "Own backlight", ["D5 PWM, IRF540N MOSFET,", "follows the pot"], "white", title_size=14, line_size=12.5)
+    s.arrow([(580, 320), (614, 480)], None, color=LINE)
+    s.text(16, 570, "Landing gear lamps (D2 - D4) and the gear, flaps, speed brake and brake inputs (D29 - D32) are not used yet.", size=12.5, fill=INK2)
+    return s
+
+
+@diagram
 def hid_path():
     s = Svg(880, 600)
     s.card(16, 20, 250, 96, "Upper controller  .103", ["16 x 11 switch matrix + keypad", "index = row x 11 + column", "heartbeat UPPER_INPUT"], "white", title_size=14, line_size=12.5)

@@ -49,8 +49,13 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `OLEDTEST` | 1 fills the four Dual Stepper OLEDs solid white, 0 restores them |
 | `KEEPALIVE` | Ignored command that still counts as received data and restarts the 30 second no-data timer |
 | `RESET` | Reboot the board about 2 seconds later (port 13136; USB HID board on 4210) |
-| `MATRIX` | Radio controller: print the raw keypad matrix to the debug stream |
-| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Servo, Stepper and Dual Stepper; the Radio parses it but does nothing, the Upper ignores it |
+| `MATRIX` | Radio and ADF controllers: print the raw keypad matrix to the debug stream |
+| `POWER` | ADF controller: send a power status (12 V and 5 V rails) now |
+| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Servo, Stepper and Dual Stepper; the Radio parses it but does nothing, the Upper ignores it. The ADF controller's pot sends it to the other panels |
+
+## Messages from the ADF controller to the PC (UDP 27003)
+
+`ADF_FREQ:<kHz>` (190 to 1799, sent 250 ms after the knobs stop), `RADAR_FOLLOW_ID:<digits>` (`RADAR_FOLLOW_ID:0` = stop following) and `POWER,V12:<volts>,V5:<volts>,STATUS:<OK, or 5V_LOW, 5V_HIGH, 12V_LOW, 12V_HIGH joined with +>` every 30 seconds. No bridge reads this port yet.
 
 ## Aircraft information to the GPS interface (UDP 27002)
 
@@ -88,6 +93,7 @@ Use `--fqbn arduino:avr:leonardo` for the USB HID board. Close the Arduino IDE s
 | Upper controller | .103 | Mega 2560 | not recorded |
 | Stepper controller | .105 | Mega 2560 | COM4 |
 | Dual stepper controller | .106 | Mega 2560 | COM5 |
+| ADF controller | .107 | Mega 2560 | not recorded |
 | USB HID board | .11 | Arduino Leonardo | COM8 |
 
 The Lowrance GPS cable is not one of these boards: the GPS interface asks for its serial port the first time it runs and remembers it. These are the ports used at the last flash of each board. They follow the USB socket and the board: the Servo clone has no USB serial number, so its COM number is tied to the socket it is plugged into, and a replaced Mega gets a new number. Check before every upload.

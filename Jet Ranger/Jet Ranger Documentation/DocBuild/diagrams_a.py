@@ -39,15 +39,16 @@ def system_overview():
         ("Upper controller  .103", ["overhead switch matrix"], "white"),
         ("Stepper controller  .105", ["IAS, VSI, torque, N1, ITT ..."], "white"),
         ("OLED dual stepper  .106", ["oil, load, RPM, altimeter, OLEDs"], "white"),
+        ("ADF controller  .107", ["ADF knobs, aircraft ID keypad, brightness"], "white"),
         ("USB HID board  .11", ["UDP 4210  ->  USB joysticks"], "amber"),
     ]
     y = 66
     for t, ln, th in boards:
-        s.card(562, y, 288, 62, t, ln, th)
-        s.arrow([(452, y + 31), (562, y + 31)], None, color=AMBER if th == "amber" else BLUE, both=True)
-        y += 74
-    hid_y = y - 74
-    s.path(f"M 706 {hid_y + 62} L 706 590 L 176 590 L 176 564", stroke=AMBER, sw=1.8, dash="6 4")
+        s.card(562, y, 288, 56, t, ln, th)
+        s.arrow([(452, y + 28), (562, y + 28)], None, color=AMBER if th == "amber" else BLUE, both=True)
+        y += 66
+    hid_y = y - 66
+    s.path(f"M 706 {hid_y + 56} L 706 590 L 176 590 L 176 564", stroke=AMBER, sw=1.8, dash="6 4")
     s.rect(330, 580, 250, 20, "#FFFFFF", "#FFFFFF", rx=3, sw=0)
     s.text(455, 595, "USB: joystick buttons into Windows", size=12.5, fill=AMBER, anchor="middle")
     return s
@@ -55,9 +56,9 @@ def system_overview():
 
 @diagram
 def network_map():
-    s = Svg(880, 586)
+    s = Svg(880, 608)
     s.card(250, 14, 380, 92, "Windows PC  172.16.1.10",
-           ["listens: 27001 bridge commands, 27000 debug,", "13137 heartbeats  |  sends: 13136 to boards,", "4210 to the HID board"], "blue", line_size=12.5)
+           ["listens: 27001 bridge commands, 27000 debug,", "13137 heartbeats, 27003 ADF events  |  sends:", "13136 to boards, 4210 to the HID board"], "blue", line_size=12.5)
     s.rect(30, 148, 820, 22, "#2B2F36", "#2B2F36", rx=6)
     s.text(46, 164, "Ethernet switch  172.16.1.0/24", size=13.5, weight=700, fill="#FFFFFF")
     s.arrow([(440, 106), (440, 148)], None, color=BLUE, both=True)
@@ -67,21 +68,23 @@ def network_map():
         (".103", "Upper", ["in: 13136*", "out: 4210", "27000, 13137"], "white"),
         (".105", "Stepper", ["in: 13136", "out: 27000", "13137"], "white"),
         (".106", "Dual stepper", ["in: 13136", "out: 27000", "13137"], "white"),
+        (".107", "ADF", ["in: 13136*", "out: 27003", "27000, 13137"], "white"),
         (".11", "USB HID", ["in: 4210", "out: 27000", "13137"], "amber"),
     ]
-    w, gap = 132, 5.6
+    w, gap = 118, 4.3
     x = 14
     for ip, name, ln, th in boards:
         s.card(x, 214, w, 126, name, [f"172.16.1{ip}"] + ln, th, title_size=14.5, line_size=12.5, center=True)
         s.arrow([(x + w / 2, 170), (x + w / 2, 214)], None, color=BLUE if th == "white" else AMBER, both=True)
         x += w + gap
-    s.text(440, 372, "* the Upper controller only acts on the reset command (C,RESET:1) on 13136", size=12.5, fill=INK2, anchor="middle")
-    s.frame(14, 392, 852, 182, "What the ports carry", theme="gray")
+    s.text(440, 372, "* the Upper controller only acts on C,RESET:1 and the ADF controller on C,RESET, C,MATRIX and C,POWER", size=12.5, fill=INK2, anchor="middle")
+    s.frame(14, 392, 852, 204, "What the ports carry", theme="gray")
     rows = [
         ("13136", "data (D,...) and control (C,...) packets from the PC to a board"),
         ("27001", "radio, battery and alternator commands from the Radio board to the bridge"),
         ("4210", "switch events (index,state) and key events to the USB HID board; also C,RESET:1 for it"),
         ("27002", "aircraft information from a bridge (or the bench tester) to the Lowrance GPS interface"),
+        ("27003", "ADF frequency, radar follow ID and power status from the ADF controller to the PC (no bridge reads it yet)"),
         ("27000", "debug text from every board to the UDP reflector"),
         ("13137", "10 second heartbeat text from every board to the Health Monitor"),
     ]

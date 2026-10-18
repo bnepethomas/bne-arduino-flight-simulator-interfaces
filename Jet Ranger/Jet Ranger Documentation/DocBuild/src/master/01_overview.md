@@ -11,7 +11,7 @@ This document ties together the three parts of the repository: the **Arduino ske
 - The **simulator** supplies the flight data.
 - A **bridge program** on the PC reads the data, converts it to real units and sends one short UDP text packet to each board about ten times a second.
 - Each **Arduino board** turns the real units into stepper steps, servo positions, lamp states or display text with calibration tables in its own sketch.
-- Switches and knobs go back the other way: the radio board sends commands to the bridge (UDP 27001), and the switch boards send joystick button changes to a USB HID board (UDP 4210) which Windows sees as game controllers.
+- Switches and knobs go back the other way: the radio board sends commands to the bridge (UDP 27001), the ADF controller sends its frequency, radar follow ID and power status to the PC (UDP 27003, not read by the bridges yet), and the switch boards send joystick button changes to a USB HID board (UDP 4210) which Windows sees as game controllers.
 - Every board sends a **heartbeat** every 10 seconds to the Health Monitor (UDP 13137) and its **debug text** to a listener on the PC (UDP 27000).
 
 ![From simulator value to moving needle](diagrams/data_pipeline.svg)
@@ -25,6 +25,7 @@ All sketches are in `Jet Ranger Arduino Sketches/`. Each is an Arduino Mega 2560
 | `JET_RANGER_RADIO_CONTROLLER` | .101 | COM and NAV frequency displays, eight tuning knobs, four frequency-swap switches; sends tuning and swap commands to the PC |
 | `JET_RANGER_SERVO_CONTROLLER` | .102 | Attitude indicator pitch and bank servos, 15 warning lamps, three front-panel switches (TOT clear, warning mute, fuel valve) |
 | `JET_RANGER_UPPER_CONTROLLER` | .103 | Overhead switch matrix (176 positions) and keypad; forwards changes to the USB HID board |
+| `JET_RANGER_ADF_CONTROLLER` | .107 | ADF major and minor knobs, aircraft ID keypad for radar following, panel brightness pot (sets the other panels' backlight), 12 V and 5 V rail monitoring with a status every 30 seconds; character OLED. Not flashed or bench-tested yet |
 | `UDP_TO_HID` | .11 | Leonardo-class board: UDP in, four 32-button joysticks and a keyboard out over USB |
 | `JET_RANGER_STEPPER_CONTROLLER` | .105 | Stepper gauges: airspeed, vertical speed, radar altitude, torque, gas producer, turbine out temperature, fuel quantity |
 | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` | .106 | Stepper gauges: engine and transmission oil, engine and rotor RPM, electrical load, fuel load, altimeter; four OLEDs (barometer, altimeter, clock, temperature) |
@@ -68,7 +69,7 @@ KiCad projects are in `Jet Ranger/PCBs/`. The boards used by the sketches and pr
 | Jet Ranger 13 Stepper | 1.5 | Stepper controller |
 | Jet Ranger OLED Dual Stepper | 1.5 | Dual stepper controller |
 | Jet Ranger X27 Small Stepper | not set | One per stepper gauge |
-| Jet Ranger ADF Controller | 1.3 | ADF controller (no sketch yet) |
+| Jet Ranger ADF Controller | 1.4 | ADF controller |
 | Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.0 | Switch panels for the Radio Auto Pilot and ADF controllers |
 | Annunciator, Altimeter, Large Guage, Simkits gauge boards | | Other panels and gauges |
 

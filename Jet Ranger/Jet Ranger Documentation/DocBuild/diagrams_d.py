@@ -4,7 +4,7 @@ from dgcommon import diagram, Svg, INK, INK2, LINE, text_width, BLUE, GREEN, AMB
 
 @diagram
 def com_ports():
-    s = Svg(880, 490)
+    s = Svg(880, 560)
     s.card(16, 20, 190, 100, "Windows PC", ["172.16.1.10", "Arduino IDE / arduino-cli", "uploads over USB"], "dark", title_size=15, line_size=12.5, center=True)
     rows = [
         ("Radio controller", "172.16.1.101", "Mega 2560 (replacement)", "COM20", "green"),
@@ -12,6 +12,7 @@ def com_ports():
         ("Upper controller", "172.16.1.103", "Mega 2560", "not recorded", "gray"),
         ("Stepper controller", "172.16.1.105", "Mega 2560", "COM4", "blue"),
         ("Dual stepper controller", "172.16.1.106", "Mega 2560", "COM5", "blue"),
+        ("ADF controller", "172.16.1.107", "Mega 2560", "not recorded", "gray"),
         ("USB HID board", "172.16.1.11", "Arduino Leonardo", "COM8", "amber"),
     ]
     y = 20
@@ -20,8 +21,8 @@ def com_ports():
         s.pill(730, y + 18, com, th, size=13, pad=10, h=26)
         s.arrow([(206, 70), (250, 70), (250, y + 30), (300, y + 30)], None, color="#B0B0AB", sw=1.4) if com != "not recorded" else None
         y += 70
-    s.text(16, 460, "COM numbers are the ones used at the last flash. They follow the USB socket and the board, so check them (see the guide) before an upload.", size=12.5, fill=INK2)
-    s.text(16, 480, "Each board also has a network connection: USB is for programming only, the cockpit runs over UDP.", size=12.5, fill=INK2)
+    s.text(16, 530, "COM numbers are the ones used at the last flash. They follow the USB socket and the board, so check them (see the guide) before an upload.", size=12.5, fill=INK2)
+    s.text(16, 550, "Each board also has a network connection: USB is for programming only, the cockpit runs over UDP.", size=12.5, fill=INK2)
     return s
 
 
@@ -36,7 +37,7 @@ def pcb_map():
         ("Jet Ranger Upper Controller  v1.4", "Upper controller (.103)", ["key matrix, brightness pot on A0,", "backlight MOSFET on D5"], "purple"),
         ("Jet Ranger 13 Stepper  v1.5", "Stepper controller (.105)", ["backlight D5, VSI coil B D8", "IRF540N backlight MOSFET"], "amber"),
         ("Jet Ranger OLED Dual Stepper  v1.5", "Dual stepper controller (.106)", ["D2 / D32 short removed in 1.4", "IRF540N backlight MOSFET"], "amber"),
-        ("Jet Ranger ADF Controller  v1.3", "no sketch yet", ["ADF knobs, keypad, gear lamps, I2C OLED", "IRF540N backlight MOSFET (1.3)"], "teal"),
+        ("Jet Ranger ADF Controller  v1.4", "ADF controller (.107)", ["ADF knobs, keypad, brightness pot, 12 V monitor,", "gear lamps, I2C OLED, IRF540N backlight MOSFET"], "teal"),
         ("Audio, Auto Pilot and ADF panels  v1.0", "switch panels on the controllers", ["diode-matrix switch boards, LEDs", "and rotary encoders"], "gray"),
     ]
     for i, (pcb, board, lines, th) in enumerate(pcbs):

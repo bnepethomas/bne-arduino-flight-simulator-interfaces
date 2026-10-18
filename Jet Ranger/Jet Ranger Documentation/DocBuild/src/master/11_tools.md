@@ -11,7 +11,7 @@ A small Windows Forms dashboard (namespace `MegaHealthMonitor`) that watches for
 3. A timer calls `CheckHealth()` about once a second: 30 seconds or more since the last packet turns the indicator **red** (connection lost), 15 seconds or more **orange** (connection warning), otherwise it stays green.
 4. *Toggle logs* shows or hides the log list box and resizes the form.
 
-The monitor is a passive listener: it never sends anything and does not care which bridge is running. The Dual Stepper's prefix is deliberately distinct from `STEPPER` (the monitor uses `StartsWith`, so overlapping prefixes would light the wrong indicator).
+The monitor is a passive listener: it never sends anything and does not care which bridge is running. The Dual Stepper's prefix is deliberately distinct from `STEPPER` (the monitor uses `StartsWith`, so overlapping prefixes would light the wrong indicator). The ADF controller's `ADF_PANEL` heartbeat has no light yet.
 
 # Radio and Upper controller emulators
 

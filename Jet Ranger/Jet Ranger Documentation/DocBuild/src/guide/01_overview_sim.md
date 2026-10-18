@@ -12,6 +12,7 @@ Data flows from the PC to the boards as short text packets. On the primary PC a 
 | Radio controller | Mega 2560 with the Radio Auto Pilot PCB and the COM and NAV panel | 172.16.1.101 | Radio controller |
 | Servo board | Mega 2560 and Ethernet module on the Front Panel Servo PCB | 172.16.1.102 | Servo controller |
 | Upper controller | Mega 2560 scanning the overhead switch matrix | 172.16.1.103 | Joystick (HID) interface |
+| ADF controller | Mega 2560 with the ADF knobs, aircraft ID keypad and panel brightness pot (not bench-tested yet) | 172.16.1.107 | ADF controller |
 | Stepper board | Mega 2560 on the Jet Ranger 13 Stepper PCB | 172.16.1.105 | Stepper controller |
 | Dual stepper board | Mega 2560 on the OLED Dual Stepper PCB | 172.16.1.106 | Dual stepper controller |
 | USB HID board | Leonardo-class board with native USB | 172.16.1.11 | Joystick (HID) interface |

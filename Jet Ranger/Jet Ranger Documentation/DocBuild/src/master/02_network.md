@@ -15,6 +15,7 @@ All devices sit on one wired `172.16.1.0/24` network with fixed addresses; there
 | Upper controller | 172.16.1.103 | A8:61:0A:9E:83:03 | `UPPER_INPUT` |
 | Stepper controller | 172.16.1.105 | A8:61:0A:67:83:69 | `STEPPER` |
 | Dual stepper controller | 172.16.1.106 | A8:61:0A:67:83:6A | `DUAL_STEPPER` |
+| ADF controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` (the Health Monitor has no light for it) |
 
 Every live board has its own IP and MAC address.
 
@@ -25,6 +26,7 @@ Every live board has its own IP and MAC address.
 | 13136 | PC to boards | Data (`D,`) and control (`C,`) packets |
 | 27001 | Radio controller to PC bridge | Standby frequencies and commands such as `COM1_RADIO_SWAP` |
 | 27002 | Bridge (or bench tester) to the GPS interface | Aircraft position, altitude, airspeed, heading and simulator UTC time, every 500 ms (both on the PC) |
+| 27003 | ADF controller to the PC | ADF frequency, radar follow ID and power status every 30 seconds (no bridge reads it yet; not 27001, where an unknown string is taken as a COM1 standby frequency) |
 | 4210 | Servo and Upper controllers to USB HID board | Button changes (`index,state`), keys (`KEY,key,state`), reset |
 | 13137 | Boards to Health Monitor | Heartbeat text every 10 seconds |
 | 27000 | Boards to debug listener | Debug text, each line prefixed with the board name |
@@ -84,7 +86,7 @@ The Servo, Stepper and Dual Stepper boards drive their panel backlights from Meg
 - **`C,B:<0-15>`** sets the brightness (0 off, 15 full, mapped to PWM 0 to 255; larger values are clamped). It is remembered. With no brightness command received the default level, PWM 65, is used; once one has been received every return of power restores the **last commanded level**. A command sent while the bus is down is applied when power returns.
 - **The no-data watchdog:** after 30 seconds with no UDP packet, including after power-up with no PC feed, the backlight goes off along with the gauges. The next packet turns it back on at the commanded (or default) level, provided the main bus is up.
 
-The SwingTester's brightness slider sends `C,B` to every board except the USB HID board, and its *Backlight power* buttons send `BPWR`. The Radio and Upper controllers accept `C,B` but do nothing with it yet.
+The SwingTester's brightness slider sends `C,B` to every board except the USB HID board, and its *Backlight power* buttons send `BPWR`. The ADF controller's brightness pot sends `C,B` to the Radio, Servo, Upper, Stepper and Dual Stepper boards whenever its level changes (see the ADF controller chapter). The Radio and Upper controllers accept `C,B` but do nothing with it yet.
 
 ## Remote reset
 
@@ -93,7 +95,7 @@ The SwingTester's brightness slider sends `C,B` to every board except the USB HI
 The control packet `C,RESET:1` reboots a board about two seconds later.
 
 - **Servo, Stepper, Dual Stepper and USB HID boards** arm the AVR watchdog for two seconds and spin until it fires. A short `.init3` function clears the watchdog first thing after every reset. The HID board listens on port 4210 (it also accepts the plain text `RESET`); its USB connection drops while it restarts, so Windows briefly loses the four joysticks and the keyboard.
-- **Radio and Upper controllers** use a software reset (a jump to the reset vector after switching off interrupts and peripherals). A watchdog reset hung the Radio's bootloader, which restarts the watchdog at its shortest timeout and never reaches the sketch until it is reflashed.
+- **Radio, Upper and ADF controllers** use a software reset (a jump to the reset vector after switching off interrupts and peripherals). A watchdog reset hung the Radio's bootloader, which restarts the watchdog at its shortest timeout and never reaches the sketch until it is reflashed.
 
 If a board ever reboot-loops after a reset packet, power-cycle it and reflash. The SwingTester's *Reset boards...* button sends the command to the boards you tick.
 

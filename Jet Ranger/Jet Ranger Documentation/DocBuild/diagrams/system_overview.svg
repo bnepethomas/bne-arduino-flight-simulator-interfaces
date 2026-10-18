@@ -4,12 +4,12 @@
 <defs>
 <marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
 <marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
-<marker id="ah2E7D32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
-<marker id="ahs2E7D32" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
-<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
-<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
 <marker id="ahC77700" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
 <marker id="ahsC77700" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#C77700"/></marker>
+<marker id="ah2F6FEB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ahs2F6FEB" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2F6FEB"/></marker>
+<marker id="ah2E7D32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
+<marker id="ahs2E7D32" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2E7D32"/></marker>
 </defs>
 <rect x="16.0" y="16.0" width="320.0" height="548.0" rx="14" ry="14" fill="#E8F0FB" fill-opacity="0.55" stroke="#2F6FEB" stroke-width="1.2"/>
 <text x="30.0" y="39.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">Windows PC (primary)</text>
@@ -53,31 +53,35 @@
 <rect x="548.0" y="16.0" width="316.0" height="548.0" rx="14" ry="14" fill="#F1F1EE" fill-opacity="0.55" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="562.0" y="39.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F" text-anchor="start">Panel boards</text>
 <text x="562.0" y="57.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Arduino Mega 2560 + W5500</text>
-<rect x="562.0" y="66.0" width="288.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<rect x="562.0" y="66.0" width="288.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="574.0" y="91.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Radio controller  .101</text>
 <text x="574.0" y="115.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">COM/NAV OLEDs, knobs, buttons</text>
-<path d="M 452.0 97.0 L 562.0 97.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="562.0" y="140.0" width="288.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="574.0" y="165.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Servo controller  .102</text>
-<text x="574.0" y="189.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">attitude servos, 15 lamps</text>
-<path d="M 452.0 171.0 L 562.0 171.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="562.0" y="214.0" width="288.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="574.0" y="239.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Upper controller  .103</text>
-<text x="574.0" y="263.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">overhead switch matrix</text>
-<path d="M 452.0 245.0 L 562.0 245.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="562.0" y="288.0" width="288.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="574.0" y="313.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Stepper controller  .105</text>
-<text x="574.0" y="337.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">IAS, VSI, torque, N1, ITT ...</text>
-<path d="M 452.0 319.0 L 562.0 319.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="562.0" y="362.0" width="288.0" height="62.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
-<text x="574.0" y="387.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">OLED dual stepper  .106</text>
-<text x="574.0" y="411.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">oil, load, RPM, altimeter, OLEDs</text>
-<path d="M 452.0 393.0 L 562.0 393.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
-<rect x="562.0" y="436.0" width="288.0" height="62.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
-<text x="574.0" y="461.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">USB HID board  .11</text>
-<text x="574.0" y="485.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">UDP 4210  -&gt;  USB joysticks</text>
-<path d="M 452.0 467.0 L 562.0 467.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)" marker-start="url(#ahsC77700)"/>
-<path d="M 706 498 L 706 590 L 176 590 L 176 564" fill="none" stroke="#C77700" stroke-width="1.8" stroke-dasharray="6 4"/>
+<path d="M 452.0 94.0 L 562.0 94.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="562.0" y="132.0" width="288.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="574.0" y="157.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Servo controller  .102</text>
+<text x="574.0" y="181.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">attitude servos, 15 lamps</text>
+<path d="M 452.0 160.0 L 562.0 160.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="562.0" y="198.0" width="288.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="574.0" y="223.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Upper controller  .103</text>
+<text x="574.0" y="247.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">overhead switch matrix</text>
+<path d="M 452.0 226.0 L 562.0 226.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="562.0" y="264.0" width="288.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="574.0" y="289.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">Stepper controller  .105</text>
+<text x="574.0" y="313.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">IAS, VSI, torque, N1, ITT ...</text>
+<path d="M 452.0 292.0 L 562.0 292.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="562.0" y="330.0" width="288.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="574.0" y="355.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">OLED dual stepper  .106</text>
+<text x="574.0" y="379.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">oil, load, RPM, altimeter, OLEDs</text>
+<path d="M 452.0 358.0 L 562.0 358.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="562.0" y="396.0" width="288.0" height="56.0" rx="10" ry="10" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.2"/>
+<text x="574.0" y="421.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">ADF controller  .107</text>
+<text x="574.0" y="445.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">ADF knobs, aircraft ID keypad, brightness</text>
+<path d="M 452.0 424.0 L 562.0 424.0" fill="none" stroke="#2F6FEB" stroke-width="1.6" marker-end="url(#ah2F6FEB)" marker-start="url(#ahs2F6FEB)"/>
+<rect x="562.0" y="462.0" width="288.0" height="56.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
+<text x="574.0" y="487.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">USB HID board  .11</text>
+<text x="574.0" y="511.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#555555" text-anchor="start">UDP 4210  -&gt;  USB joysticks</text>
+<path d="M 452.0 490.0 L 562.0 490.0" fill="none" stroke="#C77700" stroke-width="1.6" marker-end="url(#ahC77700)" marker-start="url(#ahsC77700)"/>
+<path d="M 706 518 L 706 590 L 176 590 L 176 564" fill="none" stroke="#C77700" stroke-width="1.8" stroke-dasharray="6 4"/>
 <rect x="330.0" y="580.0" width="250.0" height="20.0" rx="3" ry="3" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
 <text x="455.0" y="595.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#C77700" text-anchor="middle">USB: joystick buttons into Windows</text>
 </svg>

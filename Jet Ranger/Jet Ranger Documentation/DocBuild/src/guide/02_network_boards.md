@@ -13,6 +13,7 @@ All devices sit on one wired `172.16.1.x` subnet with fixed addresses; there is 
 | Upper controller | 172.16.1.103 | A8:61:0A:9E:83:03 | `UPPER_INPUT` |
 | Stepper board | 172.16.1.105 | A8:61:0A:67:83:69 | `STEPPER` |
 | Dual stepper board | 172.16.1.106 | A8:61:0A:67:83:6A | `DUAL_STEPPER` |
+| ADF controller | 172.16.1.107 | A8:61:0A:67:83:6B | `ADF_PANEL` (no light in the Health Monitor yet) |
 
 Every live board has its own IP and MAC address. The firmware sends its debug and keep-alive traffic to `172.16.1.10` (`reflectorIP`), so the primary PC must hold that address, or `reflectorIP` must be changed and the sketch uploaded again.
 
@@ -21,6 +22,7 @@ Every live board has its own IP and MAC address. The firmware sends its debug an
 | 13136 | PC to boards | Gauge, lamp and radio data (`D,`) and control (`C,`) packets |
 | 27001 | Radio controller to PC bridge | Standby frequencies and commands such as `COM1_RADIO_SWAP` |
 | 27002 | Bridge to the GPS interface (same PC) | Aircraft position, altitude, airspeed, heading and simulator time, every 500 ms |
+| 27003 | ADF controller to the PC | ADF frequency, radar follow ID and power status (no bridge reads it yet) |
 | 4210 | Servo and Upper controllers to USB HID board | Switch changes (`index,state`) and keypad keys (`KEY,key,state`) |
 | 13137 | Boards to Health Monitor | Keep-alive text every 10 seconds |
 | 27000 | Boards to debug listener | Debug messages, each prefixed with the board name |
@@ -77,7 +79,7 @@ The Servo, Stepper and Dual Stepper boards drive their panel backlights from Meg
 - **Brightness (`C,B:0` to `C,B:15`).** 0 is off and 15 is full. The board remembers the last level. If no brightness command has been sent the backlight uses a default level (PWM 65); once one has been sent, every time power returns the backlight comes back at the **last level you set**, not the default. A level sent while the bus is down is applied when power returns.
 - **No data.** After 30 seconds with no UDP packet, including after the board is powered up with no PC sending, the backlight goes off along with the gauges. The next packet turns it back on.
 
-The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule. The Radio and Upper controllers accept the command but do not drive a backlight yet.
+The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule. The **ADF controller's** brightness pot sends the level to the Radio, Servo, Upper, Stepper and Dual Stepper boards when you move it, and once at start-up. The Radio and Upper controllers accept the command but do not drive a backlight yet.
 
 # Arduino servo controller
 

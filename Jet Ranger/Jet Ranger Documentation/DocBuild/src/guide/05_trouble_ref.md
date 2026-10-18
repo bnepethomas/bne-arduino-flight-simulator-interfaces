@@ -110,9 +110,10 @@ Every gauge token also has a `RAW` twin (for example `PITCHRAW`, `IASRAW`) that 
 | `PWR` | D | Dual stepper board: 1 = all four OLEDs on, 0 = blank them (main bus below 24 V). Sent first in the packet |
 | `ZULU` | D | Zulu time as HHMM, for example 1430 (dual stepper clock OLED) |
 | `TEMP` | D | Temperature text for the dual stepper's temperature OLED, for example 25C |
-| `B` | C | Backlight brightness 0 to 15 (0 off, 15 full). Servo, Stepper and Dual Stepper only; the Radio parses it but does nothing and the Upper ignores it |
+| `B` | C | Backlight brightness 0 to 15 (0 off, 15 full). Servo, Stepper and Dual Stepper only; the Radio parses it but does nothing and the Upper ignores it. The ADF controller's pot sends it to the other panels |
 | `SWING<CODE>` | C | Runs one gauge's start-up sweep on demand, for example `C,SWINGTQ:1` (stepper boards) or `C,SWINGPITCH:1` (servo board); the value is ignored |
 | `OLEDTEST` | C | 1 fills the four OLEDs solid white, 0 restores them (dual stepper board) |
 | `KEEPALIVE` | C | Ignored command that still counts as received data and restarts the 30 second no-data timer (SwingTester sends it during a run) |
-| `RESET` | C | Reboots the board about 2 seconds later (servo, stepper, dual stepper, radio and upper controllers on port 13136; USB HID board on port 4210). The radio and upper controllers use a software reset because a watchdog reset hung the radio's bootloader; the upper controller's reset has not been bench-tested |
-| `MATRIX` | C | Radio controller: print the raw button matrix to the debug listener |
+| `RESET` | C | Reboots the board about 2 seconds later (servo, stepper, dual stepper, radio, upper and ADF controllers on port 13136; USB HID board on port 4210). The radio and upper controllers use a software reset because a watchdog reset hung the radio's bootloader; the upper controller's reset has not been bench-tested |
+| `MATRIX` | C | Radio and ADF controllers: print the raw button matrix to the debug listener |
+| `POWER` | C | ADF controller: send a power status (12 V and 5 V rails) now |

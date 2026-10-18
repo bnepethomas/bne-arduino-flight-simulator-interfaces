@@ -37,10 +37,10 @@
 <text x="468.0" y="395.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">D2 / D32 short removed in 1.4</text>
 <text x="468.0" y="412.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">IRF540N backlight MOSFET</text>
 <rect x="16.0" y="470.0" width="408.0" height="120.0" rx="10" ry="10" fill="#E3F5F4" stroke="#00796B" stroke-width="1.2"/>
-<text x="28.0" y="494.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger ADF Controller  v1.3</text>
-<text x="28.0" y="517.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: no sketch yet</text>
-<text x="28.0" y="535.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">ADF knobs, keypad, gear lamps, I2C OLED</text>
-<text x="28.0" y="552.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">IRF540N backlight MOSFET (1.3)</text>
+<text x="28.0" y="494.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Jet Ranger ADF Controller  v1.4</text>
+<text x="28.0" y="517.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: ADF controller (.107)</text>
+<text x="28.0" y="535.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">ADF knobs, keypad, brightness pot, 12 V monitor,</text>
+<text x="28.0" y="552.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">gear lamps, I2C OLED, IRF540N backlight MOSFET</text>
 <rect x="456.0" y="470.0" width="408.0" height="120.0" rx="10" ry="10" fill="#F1F1EE" stroke="#C9C9C4" stroke-width="1.2"/>
 <text x="468.0" y="494.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Audio, Auto Pilot and ADF panels  v1.0</text>
 <text x="468.0" y="517.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">plugs into: switch panels on the controllers</text>

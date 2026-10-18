@@ -13,13 +13,14 @@ Each Arduino is programmed over its own USB cable from the primary PC. The cockp
 | Upper controller | 172.16.1.103 | Mega 2560 | not recorded | `JET_RANGER_UPPER_CONTROLLER` |
 | Stepper controller | 172.16.1.105 | Mega 2560 | **COM4** | `JET_RANGER_STEPPER_CONTROLLER` |
 | Dual stepper controller | 172.16.1.106 | Mega 2560 | **COM5** | `JET_RANGER_OLED_DUAL_STEPPER_CONTROLLER` |
+| ADF controller | 172.16.1.107 | Mega 2560 | not recorded | `JET_RANGER_ADF_CONTROLLER` |
 | USB HID board | 172.16.1.11 | Arduino Leonardo | **COM8** | `UDP_TO_HID` |
 
 These are the ports used the last time each board was flashed. A COM number belongs to a USB socket and a board together, so it **can change**:
 
 - The Servo controller is a clone Mega that reports no USB serial number, so Windows ties its COM number to the USB socket it is plugged into. Plug it into a different socket and it appears as a new port.
 - Replacing a Mega (the Radio controller was replaced once) gives a new port number.
-- The Upper controller was not connected when the ports were recorded.
+- The Upper and ADF controllers were not connected when the ports were recorded.
 - The Lowrance GPS cable is separate: the GPS interface asks for its serial port the first time it runs and remembers it.
 
 Always check the port before an upload: open Device Manager, Ports (COM and LPT), or run `arduino-cli board list`. If you are not sure which board is which, unplug one USB cable and see which port disappears. Add the confirmed port to the table above (and to the sketch header comment) once you have uploaded to a board.
@@ -56,7 +57,7 @@ The Mega sits on a carrier PCB that breaks its pins out to servo headers, lamp o
 | Jet Ranger Radio Auto Pilot | 1.3 | Radio controller | Radio and autopilot controller with the backlight MOSFET |
 | Jet Ranger COM and NAV | not set | Radio panel | 8 rotary encoders, push buttons, four frequency-swap switches |
 | Jet Ranger Upper Controller | 1.4 | Upper controller | Mega shield for the switch matrix, backlight MOSFET, brightness input |
-| Jet Ranger ADF Controller | 1.3 | ADF controller (no sketch yet) | ADF knobs, keypad, gear lamps, I2C OLED, backlight MOSFET |
+| Jet Ranger ADF Controller | 1.4 | ADF controller | ADF knobs, keypad, panel brightness pot, 12 V monitor, gear lamps, I2C OLED, backlight MOSFET |
 | Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.0 | Switch panels | Diode-matrix switch boards with LEDs and rotary encoders |
 
 The X27 steppers run straight from the Mega's pins, so the stepper boards need no driver chips; the 12 V input feeds lamps and backlights.
