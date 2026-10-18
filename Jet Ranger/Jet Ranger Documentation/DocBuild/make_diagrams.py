@@ -14,6 +14,7 @@ import diagrams_a  # noqa: F401  system, network, protocol, life cycle
 import diagrams_b  # noqa: F401  boards
 import diagrams_c  # noqa: F401  PC software
 import diagrams_d  # noqa: F401  guide and tools
+import diagrams_e  # noqa: F401  GPS interface and backlight
 from dgcommon import OUT, REGISTRY
 
 

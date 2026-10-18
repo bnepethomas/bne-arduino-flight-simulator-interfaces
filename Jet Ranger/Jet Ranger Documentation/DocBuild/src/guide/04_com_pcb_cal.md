@@ -21,6 +21,7 @@ These are the ports used the last time each board was flashed. A COM number belo
 - The Servo controller is a clone Mega that reports no USB serial number, so Windows ties its COM number to the USB socket it is plugged into. Plug it into a different socket and it appears as a new port.
 - Replacing a Mega (the Radio controller was replaced once) gives a new port number.
 - The Upper and OLED controllers were not connected when the ports were recorded.
+- The Lowrance GPS cable is separate: the GPS interface asks for its serial port the first time it runs and remembers it.
 
 Always check the port before an upload: open Device Manager, Ports (COM and LPT), or run `arduino-cli board list`. If you are not sure which board is which, unplug one USB cable and see which port disappears. Add the confirmed port to the table above (and to the sketch header comment) once you have uploaded to a board.
 
@@ -43,23 +44,35 @@ For the Leonardo (USB HID board) use `--fqbn arduino:avr:leonardo` and its port,
 
 # PCBs and wiring
 
-The Mega sits on a carrier PCB that breaks its pins out to servo headers, lamp outputs, gauge sockets and the Ethernet module. KiCad projects for every board are in `Jet Ranger/PCBs` in the repository, with Gerbers in each `MANUFACTURING` folder.
+The Mega sits on a carrier PCB that breaks its pins out to servo headers, lamp outputs, gauge sockets and the Ethernet module. KiCad projects for every board are in `Jet Ranger/PCBs` in the repository, with Gerbers in each `MANUFACTURING` folder. The list below was brought up to date on 18 October 2026.
 
-![Active PCBs](diagrams/pcb_map.svg)
+![Active PCBs, their revision and their sketches](diagrams/pcb_map.svg)
 
-| PCB | Used by | Main parts |
-|---|---|---|
-| Jet Ranger Front Panel Servo | Servo board | Mega shield, ULN2803A lamp drivers, servo headers, lamp outputs |
-| Jet Ranger 13 Stepper | Stepper board | Mega shield, USR-ES1 Ethernet, 14 six-pin gauge sockets, 12 V lamp supply with polyfuses |
-| Jet Ranger OLED Dual Stepper | Dual stepper board | Mega shield, USR-ES1, six-pin gauge sockets, TCA9548A sockets for the OLEDs |
-| Jet Ranger X27 Small Stepper | Each stepper gauge | One X27 or VID29 stepper, backlight LED, six-pin connector to the controller |
-| Jet Ranger Radio Auto Pilot | Radio controller | Radio controller board |
-| Jet Ranger COM and NAV | Radio panel | 8 rotary encoders, push buttons, four frequency-swap switches |
-| Jet Ranger Upper Controller | Upper controller | Mega shield for the switch matrix |
+| PCB | Revision | Used by | Main parts |
+|---|---|---|---|
+| Jet Ranger Front Panel Servo | 1.4 | Servo board | Mega shield, ULN2803A lamp drivers, servo headers, lamp outputs, three switch inputs, backlight MOSFET |
+| Jet Ranger 13 Stepper | 1.5 | Stepper board | Mega shield, USR-ES1 Ethernet, 14 six-pin gauge sockets, 12 V lamp supply with polyfuses, backlight MOSFET |
+| Jet Ranger OLED Dual Stepper | 1.5 | Dual stepper board | Mega shield, USR-ES1, six-pin gauge sockets, TCA9548A sockets for the OLEDs, backlight MOSFET |
+| Jet Ranger X27 Small Stepper | not set | Each stepper gauge | One X27 or VID29 stepper, backlight LED, six-pin connector to the controller |
+| Jet Ranger Radio Auto Pilot | 1.3 | Radio controller | Radio and autopilot controller with the backlight MOSFET |
+| Jet Ranger COM and NAV | not set | Radio panel | 8 rotary encoders, push buttons, four frequency-swap switches |
+| Jet Ranger Upper Controller | 1.4 | Upper controller | Mega shield for the switch matrix, backlight MOSFET, brightness input |
+| Jet Ranger ADF Controller | 1.3 | ADF controller (no sketch yet) | ADF knobs, keypad, gear lamps, I2C OLED, backlight MOSFET |
+| Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.0 | Switch panels | Diode-matrix switch boards with LEDs and rotary encoders |
 
 The X27 steppers run straight from the Mega's pins, so the stepper boards need no driver chips; the 12 V input feeds lamps and backlights.
 
-**Version 1.4 of the OLED Dual Stepper PCB (12 October 2026)** separates Mega pins 2 and 32. Earlier versions joined them in copper because of a copy-and-paste net name, so the fuel quantity and fuel load gauges shared coil A. On a board older than 1.4 fit only one of those two gauges or cut the trace between the pins.
+## Backlight MOSFET (revisions of 18 October 2026)
+
+![The backlight driver](diagrams/backlight_circuit.svg)
+
+Every controller board switches its panel backlights with one **IRF540N** MOSFET: Mega pin D5 (`BACKLIGHT_PWM`) goes through 330 ohm to the gate, a 10 k resistor holds the gate to ground, the drain is the shared backlight net and the source is ground. The earlier revisions used a generic MOSFET symbol with **source and drain swapped**, so the 1.4 Servo, 1.3 Radio Auto Pilot, 1.4 Upper, 1.3 ADF Controller and 1.5 Stepper and Dual Stepper boards were revised to use the IRF540N with the correct pin-out. If you have a board from an earlier revision, check the transistor before relying on the backlight.
+
+**Version 1.4 of the OLED Dual Stepper PCB (12 October 2026)** separated Mega pins 2 and 32. Earlier versions joined them in copper because of a copy-and-paste net name, so the fuel quantity and fuel load gauges shared coil A. On a board older than 1.4 fit only one of those two gauges or cut the trace between the pins.
+
+**Lamp pins on the Servo PCB.** Ten of the 15 lamp outputs are on different Mega pins from the sketch (see Known issues); test each lamp on its own.
+
+**Radio Auto Pilot knobs.** The PCB also carries the autopilot knobs, volume pots, display drivers and a fifth matrix column that the radio sketch does not read yet, and four of its encoders have A and B swapped relative to the sketch.
 
 ## Connections on the servo carrier board
 

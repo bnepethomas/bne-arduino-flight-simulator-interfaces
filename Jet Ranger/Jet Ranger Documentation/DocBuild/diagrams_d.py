@@ -28,22 +28,24 @@ def com_ports():
 
 @diagram
 def pcb_map():
-    s = Svg(880, 560)
-    s.text(16, 24, "Active PCBs and the sketches they belong to", size=15, weight=700)
+    s = Svg(880, 700)
+    s.text(16, 24, "Active PCBs, their revision and the sketches they belong to", size=15, weight=700)
     pcbs = [
-        ("Jet Ranger Radio Auto Pilot", "Radio controller (.101)", ["radio and autopilot panel board"], "blue"),
+        ("Jet Ranger Radio Auto Pilot  v1.3", "Radio controller (.101)", ["autopilot knobs, volume pots, MAX7219 display", "lines; backlight MOSFET on D5"], "blue"),
         ("Jet Ranger COM and NAV", "Radio controller (.101)", ["four swap switches in a diode matrix:", "column D26, rows D22-D25"], "blue"),
-        ("Jet Ranger Front Panel Servo", "Servo controller (.102)", ["SW1 TOT CLEAR D43, SW2 FUEL VALVE D48,", "SW3 WARNING MUTE D47 (to GND)"], "green"),
-        ("Jet Ranger Upper Controller", "Upper controller (.103)", ["key matrix; J17 WARNING MUTE on D30", "(not read by the current sketch)"], "purple"),
-        ("Jet Ranger 13 Stepper", "Stepper controller (.105)", ["BACKLIGHT_PWM D5, VSI coil B D8", "D2 net renamed STEPPER_FA_A"], "amber"),
-        ("Jet Ranger OLED Dual Stepper", "Dual stepper controller (.106)", ["v1.4 removes the D2 / D32 short", "BACKLIGHT_PWM D5"], "amber"),
+        ("Jet Ranger Front Panel Servo  v1.4", "Servo controller (.102)", ["switches D43, D47, D48; backlight D5", "MOSFET pin-out corrected in 1.4"], "green"),
+        ("Jet Ranger Upper Controller  v1.4", "Upper controller (.103)", ["key matrix, brightness pot on A0,", "backlight MOSFET on D5"], "purple"),
+        ("Jet Ranger 13 Stepper  v1.5", "Stepper controller (.105)", ["backlight D5, VSI coil B D8", "IRF540N backlight MOSFET"], "amber"),
+        ("Jet Ranger OLED Dual Stepper  v1.5", "Dual stepper controller (.106)", ["D2 / D32 short removed in 1.4", "IRF540N backlight MOSFET"], "amber"),
+        ("Jet Ranger ADF Controller  v1.3", "no sketch yet", ["ADF knobs, keypad, gear lamps, I2C OLED", "IRF540N backlight MOSFET (1.3)"], "teal"),
+        ("Audio, Auto Pilot and ADF panels  v1.0", "switch panels on the controllers", ["diode-matrix switch boards, LEDs", "and rotary encoders"], "gray"),
     ]
     for i, (pcb, board, lines, th) in enumerate(pcbs):
         c, r = i % 2, i // 2
         x, y = 16 + c * 440, 50 + r * 140
         s.card(x, y, 408, 120, pcb, ["plugs into: " + board] + lines, th, title_size=14, line_size=12.5)
-    s.text(16, 512, "Boards older than v1.4 of the Dual Stepper PCB: fit only one of fuel quantity and fuel load, or cut the trace.", size=12.5, fill=INK2)
-    s.text(16, 534, "Check every pin against the sketch pin table and the KiCad files before ordering or wiring a new board.", size=12.5, fill=INK2)
+    s.text(16, 622, "COM and NAV (radio panel) has no revision set. Dual Stepper boards older than 1.4: fit only one of fuel quantity and fuel load.", size=12.5, fill=INK2)
+    s.text(16, 644, "Check every pin against the sketch pin table and the KiCad files before ordering or wiring a new board.", size=12.5, fill=INK2)
     return s
 
 

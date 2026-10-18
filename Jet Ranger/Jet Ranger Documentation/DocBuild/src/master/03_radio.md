@@ -78,6 +78,25 @@ The knobs follow standard channel spacing. COM runs 118.000 to 136.975 MHz in 25
 - The control packet `C,MATRIX:1` prints the raw matrix (H or L for each column, with all rows high and then each row driven low) to the debug stream, bypassing debounce and the quiet period. A column that reads L with nothing pressed is a hardware fault on that Mega pin or board. A faulty or badly seated Mega did exactly this on the bench: all four swap switches share column 0, so none could register, and the board also dropped off USB and the network after flashing.
 - Remote reset is a software reset (see the network chapter). Bench-tested: "Ethernet Started" about 4 seconds after the command and "Setup Complete" about 5 seconds.
 
+## PCB features the sketch does not use yet
+
+The Jet Ranger Radio Auto Pilot PCB (v1.3) carries more than the sketch handles. All of this is wired on the PCB:
+
+| Mega pins | PCB net | Status in the sketch |
+|---|---|---|
+| D5 | `BACKLIGHT_PWM`: 330 ohm to an IRF540N MOSFET that switches the AUDIO, AUTOPILOT and COMM_NAV panel backlights | Not driven. `C,B:n` is parsed but has no effect |
+| A0 to A3 | `COMM1_VOL`, `COMM2_VOL`, `NAV1_VOL`, `NAV2_VOL` (volume pots) | Not read |
+| A4, A5 | `ALT_A`, `ALT_B` (autopilot altitude knob) | Not read |
+| D6, D7 | `IAS_B`, `IAS_A` (autopilot airspeed knob) | Not read |
+| D8, D9 | `HDG_A`, `HDG_B` (heading knob) | Not read |
+| D11, D12 | `CRS_A`, `CRS_B` (course knob) | Not read |
+| D46, D47 | `VS_A`, `VS_B` (vertical speed knob) | Not read |
+| A13, A14, A15 | `MAX_7219-LOAD`, `-CLOCK`, `-DIN` (autopilot display drivers) | Not driven |
+| D48 | `COL4` (a fifth matrix column for the Audio and Auto Pilot panel switches) | Not scanned (the sketch scans columns 0 to 3) |
+| D2 to D4 | `I2C_SEL_A2`, `A1`, `A0` (mux address) | Not driven |
+
+On the same PCB the COM1 major, COM1 minor, COM2 minor and NAV1 minor encoders have their A and B pins the other way round from the sketch (the sketch uses 31, 30 and 33, 32 for COM1, 37, 36 for COM2 minor and 41, 40 for NAV1 minor, where the PCB labels A as 30, 32, 36 and 40). It only matters if one of those knobs tunes backwards.
+
 ## Known issues
 
 - Only COM1 and COM2 frequencies arrive from the PC; there are no NAV frequency tokens yet.

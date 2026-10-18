@@ -30,7 +30,7 @@
 <text x="760.0" y="136.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#1F1F1F" text-anchor="middle">gauges + displays</text>
 <rect x="20.0" y="210.0" width="262.0" height="50.0" rx="10" ry="10" fill="#FFF3DC" stroke="#C77700" stroke-width="1.2"/>
 <text x="32.0" y="233.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Main bus 20 V or more</text>
-<text x="296.0" y="240.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">Servo lamps can light; radar altitude (AGL) is sent, otherwise 0</text>
+<text x="296.0" y="240.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">Servo lamps, radar altitude (AGL) and the backlights (BPWR:1) are on, otherwise off</text>
 <rect x="20.0" y="272.0" width="262.0" height="50.0" rx="10" ry="10" fill="#E7F4EA" stroke="#2E7D32" stroke-width="1.2"/>
 <text x="32.0" y="295.5" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1F1F1F" text-anchor="start">Main bus 24 V or more</text>
 <text x="296.0" y="302.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="13" font-weight="400" fill="#1F1F1F" text-anchor="start">Dual Stepper packet carries PWR:1: Baro, Altimeter, Clock and Temperature OLEDs on</text>

@@ -55,7 +55,7 @@ def system_overview():
 
 @diagram
 def network_map():
-    s = Svg(880, 560)
+    s = Svg(880, 586)
     s.card(250, 14, 380, 92, "Windows PC  172.16.1.10",
            ["listens: 27001 bridge commands, 27000 debug,", "13137 heartbeats  |  sends: 13136 to boards,", "4210 to the HID board"], "blue", line_size=12.5)
     s.rect(30, 148, 820, 22, "#2B2F36", "#2B2F36", rx=6)
@@ -76,11 +76,12 @@ def network_map():
         s.arrow([(x + w / 2, 170), (x + w / 2, 214)], None, color=BLUE if th == "white" else AMBER, both=True)
         x += w + gap
     s.text(440, 372, "* the Upper controller only acts on the reset command (C,RESET:1) on 13136", size=12.5, fill=INK2, anchor="middle")
-    s.frame(14, 392, 852, 156, "What the ports carry", theme="gray")
+    s.frame(14, 392, 852, 182, "What the ports carry", theme="gray")
     rows = [
         ("13136", "data (D,...) and control (C,...) packets from the PC to a board"),
         ("27001", "radio, battery and alternator commands from the Radio board to the bridge"),
         ("4210", "switch events (index,state) and key events to the USB HID board; also C,RESET:1 for it"),
+        ("27002", "aircraft information from a bridge (or the bench tester) to the Lowrance GPS interface"),
         ("27000", "debug text from every board to the UDP reflector"),
         ("13137", "10 second heartbeat text from every board to the Health Monitor"),
     ]
@@ -231,7 +232,7 @@ def power_rules():
     s.text(vx(22), y - 14, "gauges", size=12, anchor="middle")
     s.text(vx(27), y - 14, "gauges + displays", size=12.5, anchor="middle")
     rows = [
-        ("Main bus 20 V or more", "Servo lamps can light; radar altitude (AGL) is sent, otherwise 0", "amber"),
+        ("Main bus 20 V or more", "Servo lamps, radar altitude (AGL) and the backlights (BPWR:1) are on, otherwise off", "amber"),
         ("Main bus 24 V or more", "Dual Stepper packet carries PWR:1: Baro, Altimeter, Clock and Temperature OLEDs on", "green"),
         ("Avionics bus 24 V or more", "Radio packet carries NAVCOM1:1: COM and NAV displays on", "green"),
         ("Avionics bus reads exactly 0", "the main bus is used instead (FlyInside B206 and CowaSim report 0)", "gray"),

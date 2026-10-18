@@ -30,17 +30,21 @@ If no new data has arrived for 3 seconds (paused or loading) the bridge stops se
 
 | Board | Packet |
 |---|---|
-| Servo .102 | `PITCH` (degrees, one decimal, negated: the simulator reports nose-down positive), `BANK`, and the 15 lamp codes (all `0` while the main bus is below 20 V) |
-| Stepper .105 | `IAS` (knots, one decimal), `VSI`, `AGL` (feet, 0 below 20 V), `FUEL` (US gal), `TQ`, `ITT` (degrees C), `N1` |
-| Dual Stepper .106 | `PWR` (1, or 0 while the main bus is below 24 V), `ALT`, `RPMR`, `RPME`, `ZULU`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (fuel pressure, psi), `ELECTRICALLOAD` (percent, below), `TEMP` |
+| Servo .102 | `BPWR` (1 while the main bus is 20 V or more), `PITCH` (degrees, one decimal, negated: the simulator reports nose-down positive), `BANK`, and the 15 lamp codes (all `0` while the main bus is below 20 V) |
+| Stepper .105 | `BPWR`, `IAS` (knots, one decimal), `VSI`, `AGL` (feet, 0 below 20 V), `FUEL` (US gal), `TQ`, `ITT` (degrees C), `N1` |
+| Dual Stepper .106 | `PWR` (1, or 0 while the main bus is below 24 V), `BPWR`, `ALT`, `RPMR`, `RPME`, `ZULU`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (fuel pressure, psi), `ELECTRICALLOAD` (percent, below), `TEMP` |
 | OLED .104 | `ALT`, `BARO` (inHg x 100 from the Kohlsman setting in millibars) only |
 | Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1` (1 when the avionics bus is 24 V or more; if the aircraft reports the avionics bus as exactly 0, as the FlyInside B206 does, the main bus is used instead) |
 
 `ELECTRICALLOAD` is the magnitude of `ELECTRICAL TOTAL LOAD AMPS` divided by 300 A (the sign goes negative while the battery supplies the bus, for example with the engine stopped); the CowaSim profile uses 139 A.
 
+## Aircraft information for the GPS interface
+
+Every 500 ms the main timer sends `D,LAT:..,LON:..,ALT:..,IAS:..,HDG:..,UTC:yyyyMMddHHmmss.fff` (`Payloads.Gps()`) to the Lowrance GPS interface (`127.0.0.1:27002`; change `GpsHost` and `GpsPort` in `Form1.cs` if it runs on another PC). Three SimVars were added at the end of the data definition and the `PanelData` struct, in the same order: `PLANE LATITUDE`, `PLANE LONGITUDE` (degrees) and `PLANE HEADING DEGREES TRUE`, plus `ZULU YEAR`, `ZULU MONTH OF YEAR` and `ZULU DAY OF MONTH`. Altitude (`PLANE ALTITUDE`, feet MSL) and airspeed (`AIRSPEED INDICATED`) were already read. The simulator's UTC time is built from the already-read `ZULU TIME` (seconds since midnight) and the three date SimVars, and is left out if the date is invalid. The readout shows the position and heading. Nothing is sent while the data is stale, so the GPS interface falls back to Brisbane Airport after 30 seconds. The packet builder was checked with sample values and read back by the GPS interface's parser; **not yet run against MSFS**.
+
 ## SimVars requested
 
-`PLANE ALTITUDE`, `AIRSPEED INDICATED`, `VERTICAL SPEED`, `PLANE ALT ABOVE GROUND`, `ATTITUDE INDICATOR PITCH` and `BANK DEGREES`, `ROTOR RPM PCT:1`, `GENERAL ENG PCT MAX RPM:1`, `ENG TORQUE PERCENT:1`, `TURB ENG MAX TORQUE PERCENT:1`, `ENG EXHAUST GAS TEMPERATURE:1`, `GENERAL ENG THROTTLE LEVER POSITION:1`, `ELECTRICAL TOTAL LOAD AMPS`, `TURB ENG ITT:1`, `ENG OIL TEMPERATURE:1`, `FUEL TOTAL QUANTITY`, `TURB ENG CORRECTED N1:1`, `ENG OIL PRESSURE:1`, `ENG TRANSMISSION PRESSURE:1`, `ENG TRANSMISSION TEMPERATURE:1`, `GENERAL ENG FUEL PRESSURE:1`, `ELECTRICAL MAIN BUS VOLTAGE`, `ELECTRICAL AVIONICS BUS VOLTAGE`, `AVIONICS MASTER SWITCH`, `AMBIENT TEMPERATURE`, `KOHLSMAN SETTING MB`, `ZULU TIME`, and the COM 1, COM 2, NAV 1 and NAV 2 active and standby frequencies. `PanelVars` and the `PanelData` struct must list them in the same order; `CheckDefinitionMatchesStruct()` checks the count at connect.
+`PLANE ALTITUDE`, `AIRSPEED INDICATED`, `VERTICAL SPEED`, `PLANE ALT ABOVE GROUND`, `ATTITUDE INDICATOR PITCH` and `BANK DEGREES`, `ROTOR RPM PCT:1`, `GENERAL ENG PCT MAX RPM:1`, `ENG TORQUE PERCENT:1`, `TURB ENG MAX TORQUE PERCENT:1`, `ENG EXHAUST GAS TEMPERATURE:1`, `GENERAL ENG THROTTLE LEVER POSITION:1`, `ELECTRICAL TOTAL LOAD AMPS`, `TURB ENG ITT:1`, `ENG OIL TEMPERATURE:1`, `FUEL TOTAL QUANTITY`, `TURB ENG CORRECTED N1:1`, `ENG OIL PRESSURE:1`, `ENG TRANSMISSION PRESSURE:1`, `ENG TRANSMISSION TEMPERATURE:1`, `GENERAL ENG FUEL PRESSURE:1`, `ELECTRICAL MAIN BUS VOLTAGE`, `ELECTRICAL AVIONICS BUS VOLTAGE`, `AVIONICS MASTER SWITCH`, `AMBIENT TEMPERATURE`, `KOHLSMAN SETTING MB`, `ZULU TIME`, the COM 1, COM 2, NAV 1 and NAV 2 active and standby frequencies, the two FlyInside L:vars and the six GPS SimVars above. `PanelVars` and the `PanelData` struct must list them in the same order; `CheckDefinitionMatchesStruct()` checks the count at connect.
 
 ## Commands from the panel (UDP 27001)
 

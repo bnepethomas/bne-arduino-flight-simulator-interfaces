@@ -70,6 +70,10 @@ The default waits are the swing times measured on the real boards plus about one
 - **OLEDs ON** sends `C,OLEDTEST:1` to the Dual Stepper and **OLEDs OFF** sends `C,OLEDTEST:0`. The **Temp OLED** box (default `21C`) with **Send TEMP** sends `D,TEMP:<text>`.
 - **Reset boards...** opens a dialog with a tick box per board (Radio .101, Servo .102, Upper .103, Stepper .105, Dual Stepper .106, USB HID .11; all ticked by default) and sends `C,RESET:1` to each ticked board (the HID board on port 4210). The Dual Stepper takes about a minute to restart and the HID board briefly drops its USB devices. The button is disabled while a run is active.
 
+## Brightness
+
+A **Brightness (0-15)** slider sends `C,B:<level>` to the Radio (.101), Servo (.102), Upper (.103), Stepper (.105) and Dual Stepper (.106), every board except the USB HID board, each time it is moved; **Send to all boards** resends the current level, and the status line lists the boards sent to. The Servo, Stepper and Dual Stepper set their backlight from it; the Radio parses it but does nothing and the Upper ignores it. **Backlight power ON** and **OFF** send `D,BPWR:1` and `D,BPWR:0` to the Servo, Stepper and Dual Stepper, the packet the bridges send from the main bus voltage, to test the main bus rule from the bench: OFF switches the backlight off and ON returns it to the last brightness commanded.
+
 ## Warning lamps
 
 The Servo board's lamps are driven by ordinary `D,<code>:1` and `D,<code>:0` packets to `172.16.1.102:13136`. There is a toggle per lamp (gold when on), **Lamps ON (in order)** (one lamp at a time, *on gap* default 1000 ms), **Lamps OFF (in order)** (*off gap* default 400 ms) and the check box *Light warning lamps during Swing ALL* (on by default). Turn-off order, also the button order: `SCF`, `GENF`, `FFLTR`, `BD`, `EC`, `BHOT`, `TOPW`, `EOUT`, `LOWF`, `FPMP`, `TRC`, `TC`, `BTMP`, `TOTW`, `RLOW`.

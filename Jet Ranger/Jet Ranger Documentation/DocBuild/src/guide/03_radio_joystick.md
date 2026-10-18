@@ -63,6 +63,8 @@ Each knob sends its standby frequency with the radio's name: COM1 as the bare nu
 ## Known issues
 
 - Only COM1 and COM2 frequencies arrive from the PC; there are no NAV frequency tokens yet, although the NAV knobs are read.
+- The Radio Auto Pilot PCB has a backlight driver on D5, autopilot knobs, volume pots and display drivers that the radio sketch does not use yet, and `C,B:n` brightness commands are accepted but have no effect.
+- Four encoders (COM1 major and minor, COM2 minor, NAV1 minor) have A and B the other way round from the PCB labels; it only matters if one of those knobs tunes backwards.
 - If every button in the matrix's first column stops working, send `C,MATRIX:1` to port 13136: the radio prints the raw H or L state of each column to the debug listener. A column that reads L with nothing pressed is a hardware fault on that Mega pin or board (a faulty or badly seated Mega did exactly this on the bench).
 
 # Joystick (HID) interface

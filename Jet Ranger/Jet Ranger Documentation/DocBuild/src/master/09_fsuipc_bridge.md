@@ -40,6 +40,9 @@
 | `0x2F28` | 21-bit annunciator (warning lamp) bit field |
 | `0x2840`, `0x2850` | Main bus and avionics bus voltage |
 | `0x2E80` | Avionics master (read and write) |
+| `0x0560`, `0x0568` | Latitude and longitude for the GPS interface (90 degrees = 10001750 x 65536 x 65536; 360 degrees = 65536^4) |
+| `0x0570` | Altitude in metres for the GPS interface (64-bit with 32 bits of fraction, sent in feet) |
+| `0x0580` | True heading for the GPS interface (360 degrees = 65536^2) |
 | `RadioStack` group | COM1 and COM2, NAV1 and NAV2 active and standby, transponder, ADF |
 
 ## Packets sent
@@ -48,11 +51,15 @@ The Servo, Stepper and Dual Stepper boards each get their **own** packet in real
 
 | Board | Packet contents |
 |---|---|
-| Servo .102 | `PITCH` (degrees, one decimal, negated because FSUIPC pitch is nose-down positive), `BANK` (degrees, one decimal), the 15 lamp codes `EOUT`, `TOPW`, `BHOT`, `EC`, `BD`, `GENF`, `TOTW`, `RLOW`, `FFLTR`, `BTMP`, `TC`, `TRC`, `FPMP`, `LOWF`, `SCF` as `:1` or `:0` |
-| Stepper .105 | `IAS` (knots, one decimal), `VSI` (ft/min), `AGL` (feet, power-gated), `FUEL` (US gal), `TQ` (%), `ITT` (degrees C), `N1` (%) |
-| Dual Stepper .106 | `PWR` (first: 1, or 0 while the main bus is below 24 V), `ALT`, `RPMR`, `RPME` (one decimal), `ZULU`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (psi, from fuel pressure), `ELECTRICALLOAD` (%), `TEMP` |
+| Servo .102 | `BPWR` (1 while the main bus is 20 V or more), `PITCH` (degrees, one decimal, negated because FSUIPC pitch is nose-down positive), `BANK` (degrees, one decimal), the 15 lamp codes `EOUT`, `TOPW`, `BHOT`, `EC`, `BD`, `GENF`, `TOTW`, `RLOW`, `FFLTR`, `BTMP`, `TC`, `TRC`, `FPMP`, `LOWF`, `SCF` as `:1` or `:0` |
+| Stepper .105 | `BPWR`, `IAS` (knots, one decimal), `VSI` (ft/min), `AGL` (feet, power-gated), `FUEL` (US gal), `TQ` (%), `ITT` (degrees C), `N1` (%) |
+| Dual Stepper .106 | `PWR` (first: 1, or 0 while the main bus is below 24 V), `BPWR`, `ALT`, `RPMR`, `RPME` (one decimal), `ZULU`, `OILT`, `OILP`, `XMSNT`, `XMSNP`, `FUELLOAD` (psi, from fuel pressure), `ELECTRICALLOAD` (%), `TEMP` |
 | OLED .104 | The shared front-panel packet; the board reads `ALT` and `BARO` out of it and ignores the rest |
 | Radio .101 | `C1A`, `C1S`, `C2A`, `C2S`, `MAINBUS`, `NAVCOM1` (1 when the avionics bus, offset `0x2850`, is 24 V or more) |
+
+## Aircraft information for the GPS interface
+
+Every 500 ms `SendGpsPacket()` sends `D,LAT:..,LON:..,ALT:..,IAS:..,HDG:..,UTC:yyyyMMddHHmmss` to the Lowrance GPS interface (`127.0.0.1:27002`; change `GpsHost` and `GpsPort` in `Form1.cs` if it runs on another PC). Latitude and longitude are in degrees, altitude in feet, airspeed in knots (the value already read from `0x02BC`) and heading in degrees true. `UTC` is the simulator's UTC date and time from the FSUIPC client library's `FSUIPCConnection.UTCDateTime`; if that read fails it is left out and the GPS interface uses the PC clock. Send errors, for example the GPS interface not running, are ignored. Built clean; **not yet run against Prepar3D**, so the offset conversions are unchecked against the simulator.
 
 ## Commands from the Radio controller (UDP 27001)
 

@@ -36,6 +36,7 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `C1A`, `C1S`, `C2A`, `C2S` | Radio .101 | COM1 and COM2 active and standby frequency, MHz |
 | `MAINBUS` | Radio .101 | Main bus voltage |
 | `NAVCOM1` | Radio .101 | 0 = avionics bus below 24 V (COM and NAV displays blank), 1 = on |
+| `BPWR` | Servo .102, Stepper .105, Dual .106 | Backlight power: 1 = main bus 20 V or more, 0 = backlight off |
 
 ## Lamp tokens (Servo .102)
 
@@ -50,7 +51,11 @@ From the current sketches. Gauge tokens take real units; lamp tokens take 0 (off
 | `KEEPALIVE` | Ignored command that still counts as received data and restarts the 30 second no-data timer |
 | `RESET` | Reboot the board about 2 seconds later (port 13136; USB HID board on 4210) |
 | `MATRIX` | Radio controller: print the raw keypad matrix to the debug stream |
-| `B` | Panel brightness 0 to 15 (accepted, not yet active) |
+| `B` | Backlight brightness 0 to 15 (0 off, 15 full): Servo, Stepper and Dual Stepper; the Radio parses it but does nothing, the Upper ignores it |
+
+## Aircraft information to the GPS interface (UDP 27002)
+
+`D,LAT:<deg>,LON:<deg>,ALT:<feet>,IAS:<knots>,HDG:<degrees true>,UTC:<yyyyMMddHHmmss[.fff]>`, every 500 ms from a bridge or the bench tester. Any subset of keys is accepted; a CSV form `lat,lon,altitude_ft,airspeed_kt,heading_deg[,utc]` also works. South and west are negative.
 
 ## Messages from the Radio controller to the bridge (UDP 27001)
 
@@ -87,7 +92,7 @@ Use `--fqbn arduino:avr:leonardo` for the USB HID board. Close the Arduino IDE s
 | Dual stepper controller | .106 | Mega 2560 | COM5 |
 | USB HID board | .11 | Arduino Leonardo | COM8 |
 
-These are the ports used at the last flash of each board. They follow the USB socket and the board: the Servo clone has no USB serial number, so its COM number is tied to the socket it is plugged into, and a replaced Mega gets a new number. Check before every upload.
+The Lowrance GPS cable is not one of these boards: the GPS interface asks for its serial port the first time it runs and remembers it. These are the ports used at the last flash of each board. They follow the USB socket and the board: the Servo clone has no USB serial number, so its COM number is tied to the socket it is plugged into, and a replaced Mega gets a new number. Check before every upload.
 
 ## Sketch settings to know about
 
@@ -117,7 +122,7 @@ This document and the User Guide are generated, not typeset by hand. The sources
 | Item | Purpose |
 |---|---|
 | `src/master/*.md`, `src/guide/*.md` | Text of this document and the User Guide |
-| `diagrams_a.py` to `diagrams_d.py`, `svgdraw.py`, `make_diagrams.py` | The 30 diagrams, written as Python functions that draw SVG; `python make_diagrams.py` regenerates them |
+| `diagrams_a.py` to `diagrams_d.py`, `svgdraw.py`, `make_diagrams.py` | The 34 diagrams, written as Python functions that draw SVG; `python make_diagrams.py` regenerates them |
 | `build_docs.py`, `run_lo.ps1` | Builds the `.odt` and `.pdf` through LibreOffice's Python interface (`run_lo.ps1 build_docs.py master`) |
 | `pdf2png.ps1`, `montage.ps1`, `svg2png.py` | Helpers for checking pages and diagrams visually |
 

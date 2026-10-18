@@ -41,6 +41,7 @@ project's own `PROGRAM_SUMMARY.md` and in
   radar altitude off; main bus below 24 V blanks the Dual Stepper OLEDs
   (`PWR:0`); avionics bus below 24 V blanks the Radio displays (`NAVCOM1:0`),
   using the main bus if the aircraft reports the avionics bus as 0.
+- **Backlight (Servo, Stepper, Dual Stepper):** pin D5 PWM drives each board's backlight MOSFET. `BPWR:1/0` from the bridges (main bus 20 V or more) switches it on and off; `C,B:0-15` sets the brightness, with the last commanded level restored whenever power returns (default PWM 65 until one is received); the 30 s no-data watchdog also switches it off.
 - **Remote reset:** `C,RESET:1` reboots a board about 2 s later (AVR watchdog
   on the Servo, Stepper, Dual Stepper and HID boards; a software reset on the
   Radio and Upper boards, because a watchdog reset hung the Radio's
@@ -77,9 +78,11 @@ I2C scan reported over UDP. Its RAM use is high (75% or more).
 |---|---|
 | `FSUIPCWinformsAutoCS` | bridge for Prepar3D / FSX: reads FSUIPC offsets, fans real-unit payloads out to the Servo, Stepper, Dual Stepper, OLED and Radio boards, and listens on 27001 for radio/battery/alternator commands |
 | `MSFSWinformsAutoCS` | the MSFS 2020/2024 equivalent built on SimConnect: same window, timers, per-board packets and port-27001 commands; aircraft profiles with estimated dials for the FlyInside B206 and the CowaSim Jet Ranger |
+| `LowranceAirMapGps` | makes the PC a GPS source for a Lowrance AirMap 2000C: NMEA over a serial port (115200 8-N-1) twice a second, fed by the bridges over UDP 27002 (lat, lon, altitude, airspeed, heading, simulator UTC time and date); falls back to Brisbane Airport after 30 s with no data |
+| `LowranceAirMapGpsBenchTester` | bench sender for the GPS interface: typed values, 8-way cursor, country / city / airport selection (embedded OurAirports list), Fly mode and a date / time clock |
 | `JetRangerHealthMonitor` | traffic-light dashboard for the 10 s board heartbeats |
 | `StepperVSITester` | bench tester sending calibrated and raw values (steppers, dual stepper, servo pitch/bank) and the Temperature OLED text |
-| `SwingTester` | runs each gauge's startup swing individually or all 18 in a set order, lights the OLEDs and the 15 warning lamps during the run, resets boards, and sends a keepalive so the watchdogs do not fire |
+| `SwingTester` | runs each gauge's startup swing individually or all 18 in a set order, lights the OLEDs and the 15 warning lamps during the run, resets boards, sets the backlight brightness (`C,B:0-15`, every board except the HID board) and sends a keepalive so the watchdogs do not fire |
 | `JetRangerRadioControllerEmulator`, `JetRangerUpperControllerEmulator` | stand-ins for the radio and upper boards |
 
 Python helpers (`Jet Ranger Python Code/`): a SimConnect exporter, a UDP test
@@ -95,10 +98,13 @@ and a LibreOffice-based builder (`build_docs.py`, run through `run_lo.ps1`).
 
 ## PCBs (`Jet Ranger/PCBs/`, KiCad)
 
-- **Controller boards:** Radio Auto Pilot and COM and NAV (radio), Upper
-  Controller, OLED Dual Stepper, 13 Stepper, Front Panel Servo, X27 Small
-  Stepper, Annunciator, Altimeter, Audio Panel, Auto Pilot Panel, ADF Panel
-  and ADF Controller.
+- **Controller boards:** Radio Auto Pilot (v1.3) and COM and NAV (radio), Upper
+  Controller (v1.4), OLED Dual Stepper (v1.5), 13 Stepper (v1.5), Front Panel
+  Servo (v1.4), ADF Controller (v1.3), X27 Small Stepper, Annunciator,
+  Altimeter; switch panels: Audio, Auto Pilot and ADF panels (v1.0). On
+  18 Oct 2026 the six controller boards were revised to fix the backlight
+  MOSFET (source and drain were swapped; now an IRF540N driven from D5
+  through 330 ohm).
 - **Gauge boards:** Simkits small and large (single and dual) and a Large Guage
   board.
 - **Matching to sketches is by name** (for example Front Panel Servo with the

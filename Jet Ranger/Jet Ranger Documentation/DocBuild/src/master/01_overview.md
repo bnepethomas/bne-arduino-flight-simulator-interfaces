@@ -43,11 +43,13 @@ All programs are in `Jet Ranger/ C# Code/` (note the leading space in the folder
 
 | Program | Purpose |
 |---|---|
-| `FSUIPCWinformsAutoCS` | Bridge for Prepar3D / FSX using FSUIPC offsets |
-| `MSFSWinformsAutoCS` | Bridge for MSFS 2020 / 2024 using SimConnect, with estimates for aircraft whose dials do not read the standard variables (FlyInside B206, CowaSim Jet Ranger) |
+| `FSUIPCWinformsAutoCS` | Bridge for Prepar3D / FSX using FSUIPC offsets; also sends position, altitude, airspeed, heading and the simulator date and time to the GPS interface |
+| `MSFSWinformsAutoCS` | Bridge for MSFS 2020 / 2024 using SimConnect, with estimates for aircraft whose dials do not read the standard variables (FlyInside B206, CowaSim Jet Ranger); also feeds the GPS interface |
 | `JetRangerHealthMonitor` | Traffic-light dashboard for the 10 second board heartbeats |
 | `StepperVSITester` | Bench tester that sends real and raw values to the stepper boards and the servo board |
-| `SwingTester` | Runs every gauge's swing individually or in a fixed order, lights the OLEDs and warning lamps, and resets boards |
+| `SwingTester` | Runs every gauge's swing individually or in a fixed order, lights the OLEDs and warning lamps, resets boards, and sets the backlight brightness |
+| `LowranceAirMapGps` | Makes the PC a GPS source for a Lowrance AirMap 2000C: NMEA over a serial port, fed by the bridges over UDP, defaulting to Brisbane Airport |
+| `LowranceAirMapGpsBenchTester` | Bench sender for the GPS interface: typed values, 8-way cursor, country / city / airport selection, Fly mode and a date / time clock |
 | `JetRangerRadioControllerEmulator`, `JetRangerUpperControllerEmulator` | Stand-ins for the radio and upper boards when they are disconnected |
 
 Python helpers in `Jet Ranger Python Code/`: a SimConnect exporter, a UDP test receiver and a wake-on-LAN script. The UDP debug listener (port 27000) is a small Python reflector that prints every board's debug text and can forward a copy to a second listener.
@@ -56,21 +58,30 @@ Run **only one bridge at a time**: `FSUIPCWinformsAutoCS` and `MSFSWinformsAutoC
 
 ## PCBs
 
-KiCad projects are in `Jet Ranger/PCBs/`. The boards used by the sketches above are:
+KiCad projects are in `Jet Ranger/PCBs/`. The boards used by the sketches and programs above are:
 
-- **Radio:** Jet Ranger Radio Auto Pilot and Jet Ranger COM and NAV
-- **Servo:** Jet Ranger Front Panel Servo
-- **Upper controller:** Jet Ranger Upper Controller
-- **Steppers:** Jet Ranger 13 Stepper, Jet Ranger OLED Dual Stepper and one Jet Ranger X27 Small Stepper per gauge
-- **Other panels and gauge boards:** Annunciator, Altimeter, Audio Panel, Auto Pilot Panel, ADF Panel and ADF Controller, and the Simkits gauge boards
+| PCB | Revision | Used by |
+|---|---|---|
+| Jet Ranger Radio Auto Pilot | 1.3 | Radio controller |
+| Jet Ranger COM and NAV | no revision set | Radio panel (four swap switches, encoders) |
+| Jet Ranger Front Panel Servo | 1.4 | Servo controller |
+| Jet Ranger Upper Controller | 1.4 | Upper controller |
+| Jet Ranger 13 Stepper | 1.5 | Stepper controller |
+| Jet Ranger OLED Dual Stepper | 1.5 | Dual stepper controller |
+| Jet Ranger X27 Small Stepper | not set | One per stepper gauge |
+| Jet Ranger ADF Controller | 1.3 | ADF controller (no sketch yet) |
+| Jet Ranger Audio Panel, Auto Pilot Panel, ADF Panel | 1.0 | Switch panels for the Radio Auto Pilot and ADF controllers |
+| Annunciator, Altimeter, Large Guage, Simkits gauge boards | | Other panels and gauges |
 
-The PCB notes chapter records what was verified from the KiCad files.
+On 18 October 2026 the six controller boards (Servo, Upper, 13 Stepper, Dual Stepper, Radio Auto Pilot and ADF Controller) were revised to fix the **backlight MOSFET**: the schematic symbol had source and drain swapped and the part is now an IRF540N. All six drive their panel backlights from Mega pin D5 through this transistor (see the PCB notes chapter).
 
-![The active PCBs and the sketches they belong to](diagrams/pcb_map.svg)
+![The active PCBs, their revision and the sketches they belong to](diagrams/pcb_map.svg)
 
 ## Where things stand
 
 Bench-verified with UDP debug logs from the boards and real swing timings: every swing command, the OLED lamp test, the temperature OLED, the keep-alive, the debounced servo inputs, the radio matrix, the remote reset on every board except the Upper controller, and the full SwingTester sequence. The FSUIPC bridge has been run against Prepar3D v6.1 and the MSFS bridge against MSFS 2024 with the FlyInside B206 and the CowaSim Jet Ranger.
+
+Backlight control (Servo, Stepper and Dual Stepper boards) and the GPS interface were added on 18 October 2026: the backlight follows the main bus, the last commanded brightness and the 30 second no-data watchdog, and the GPS interface feeds a Lowrance AirMap 2000C from the simulator. Both are tested on the bench with packets; the GPS interface has not been tested against the real GPS, and the FSUIPC and MSFS bridges' GPS output has not been run against a simulator.
 
 Open items:
 
@@ -78,6 +89,7 @@ Open items:
 - The Upper controller PCB has a Warning Mute connector on D30, but the Upper sketch scans analog pins A9 to A15 for its keypad only, so it may not read it.
 - The Upper controller's remote reset has not been bench-tested; the board was not connected.
 - The estimates in the MSFS bridge for the FlyInside and CowaSim aircraft come from a few dial readings; check them at other power settings.
+- The Radio controller and Upper controller PCBs have the backlight driver on D5 (and the Upper a brightness pot on A0), but their sketches do not use them yet.
 - The Radio controller emulator still sends a bare frequency for every radio, so only COM1 tunes from it; the real board sends labelled COM2, NAV1 and NAV2 values, which both bridges understand.
-- The Dual Stepper's RAM use is high (75 to 77 percent); be careful adding code to it.
+- The Dual Stepper's RAM use is high (79 percent); be careful adding code to it.
 - Calibration tables, swing times and waits come from bench measurements; recheck them after any mechanical change to a gauge.

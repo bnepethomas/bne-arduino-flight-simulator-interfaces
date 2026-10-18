@@ -11,6 +11,12 @@
 | All gauges drop to zero after 30 seconds | No packets arriving (watchdog) | Bridge running and connected; simulator not paused; network link |
 | Attitude indicator lags fast changes | 1 degree per 5 ms step limit | Expected; reduce `servoCheckInterval` to speed up |
 | Servo buzzes or jitters | Weak servo supply | Separate 5 to 6 V supply for servos, common ground with the Mega |
+| A backlight is off | Main bus below 20 V (`BPWR:0`), no packets for 30 seconds, or brightness set to 0 | Check the main bus voltage in the bridge window; check the bridge is running; send a brightness with the SwingTester slider |
+| A backlight stays on at power-up with no PC | Old firmware without the no-data rule, or the board has never been flashed with the backlight code | Flash the current Servo, Stepper and Dual Stepper sketches; the backlight should go out about 30 seconds after power-up |
+| The backlight is always on or flickers | MOSFET pinned wrongly on a board from an earlier revision (source and drain swapped) | Check the transistor against the revision notes (PCBs and wiring) |
+| The GPS shows Brisbane Airport | No aircraft data for 30 seconds | Check a bridge or the bench tester is running on the same PC and sending to UDP 27002; check no other program owns the port |
+| The GPS shows the PC time, not the simulator time | The packets carry no `UTC:` (for example the FSUIPC time read failed) | The window says *PC clock*; check the bridge version |
+| The GPS interface cannot open its port | Wrong COM port, or another program holds it | Use *Change serial port...*; close other serial programs |
 | A lamp never lights | Wiring or the lamp's driver | It should light at the power-up lamp test; if not, check the A pin and its driver |
 | A radio knob tunes the wrong radio | Bare frequency sent instead of a labelled one | Use the real board (it labels COM2, NAV1 and NAV2); the Radio emulator sends bare numbers, so only COM1 tunes |
 | COM and NAV displays blank | Avionics bus below 24 V, or no data and no knob use for 30 seconds | Switch avionics on; turn a knob to wake them |
@@ -26,7 +32,6 @@
 
 **Servo firmware (`JET_RANGER_SERVO_CONTROLLER.ino`)**
 
-- Brightness packets (`C,B:n`) are accepted but do nothing: no pin is assigned. The PCB has `BACKLIGHT_PWM` on pin 5 ready for it.
 - `powerAvailable` is set from `NAVCOM1` but nothing uses it, so the attitude indicator stays live when the simulator's power is off (the bridge sends all lamps off below 20 V).
 - Several lamps log *Transmission Temperature changed* to the debug listener, whichever lamp changed.
 - The PCB labels 10 of the 15 lamp outputs on different pins from the sketch (A1/A2, A5/A6, A7 to A10, A11/A12). Test each lamp on its own, for example `D,RLOW:1`, and correct whichever side is wrong.
@@ -92,15 +97,20 @@ Every gauge token also has a `RAW` twin (for example `PITCHRAW`, `IASRAW`) that 
 | `LOWF` | Low fuel | A14 |
 | `SCF` | SC fail (standby compass) | A15 |
 
+## Aircraft information to the GPS interface (UDP 27002)
+
+`D,LAT:<deg>,LON:<deg>,ALT:<feet>,IAS:<knots>,HDG:<degrees true>,UTC:<yyyyMMddHHmmss[.fff]>`, sent every 500 ms by a bridge or the bench tester. Any subset of keys works, and the CSV form `lat,lon,altitude_ft,airspeed_kt,heading_deg[,utc]` is accepted too. South and west are negative.
+
 ## Status and control tokens
 
 | Token | Packet | Meaning |
 |---|---|---|
 | `NAVCOM1` | D | 0 = avionics bus below 24 V (radio COM and NAV displays blank), 1 = on |
+| `BPWR` | D | Backlight power for the Servo, Stepper and Dual Stepper: 1 = main bus 20 V or more, 0 = backlight off. Sent first in the Servo and Stepper packets and after `PWR` in the Dual Stepper packet |
 | `PWR` | D | Dual stepper board: 1 = all four OLEDs on, 0 = blank them (main bus below 24 V). Sent first in the packet |
 | `ZULU` | D | Zulu time as HHMM, for example 1430 (dual stepper clock OLED) |
 | `TEMP` | D | Temperature text for the dual stepper's temperature OLED, for example 25C |
-| `B` | C | Panel brightness 0 to 15 (not yet active) |
+| `B` | C | Backlight brightness 0 to 15 (0 off, 15 full). Servo, Stepper and Dual Stepper only; the Radio parses it but does nothing and the Upper ignores it |
 | `SWING<CODE>` | C | Runs one gauge's start-up sweep on demand, for example `C,SWINGTQ:1` (stepper boards) or `C,SWINGPITCH:1` (servo board); the value is ignored |
 | `OLEDTEST` | C | 1 fills the four OLEDs solid white, 0 restores them (dual stepper board) |
 | `KEEPALIVE` | C | Ignored command that still counts as received data and restarts the 30 second no-data timer (SwingTester sends it during a run) |

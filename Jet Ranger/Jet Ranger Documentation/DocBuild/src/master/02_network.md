@@ -25,6 +25,7 @@ Every live board has its own IP and MAC address.
 |---|---|---|
 | 13136 | PC to boards | Data (`D,`) and control (`C,`) packets |
 | 27001 | Radio controller to PC bridge | Standby frequencies and commands such as `COM1_RADIO_SWAP` |
+| 27002 | Bridge (or bench tester) to the GPS interface | Aircraft position, altitude, airspeed, heading and simulator UTC time, every 500 ms (both on the PC) |
 | 4210 | Servo and Upper controllers to USB HID board | Button changes (`index,state`), keys (`KEY,key,state`), reset |
 | 13137 | Boards to Health Monitor | Heartbeat text every 10 seconds |
 | 27000 | Boards to debug listener | Debug text, each line prefixed with the board name |
@@ -68,11 +69,23 @@ All sketches call `Ethernet.setRetransmissionTimeout(10)` after `Ethernet.begin(
 
 ![How bus voltages switch the panel](diagrams/power_rules.svg)
 
-- **Main bus below 20 V:** the Servo board's lamps are sent as off and the Stepper's radar altitude (`AGL`) is sent as zero.
+- **Main bus below 20 V:** the Servo board's lamps are sent as off, the Stepper's radar altitude (`AGL`) is sent as zero and `BPWR:0` switches the Servo, Stepper and Dual Stepper backlights off.
 - **Main bus below 24 V:** the bridge sends `PWR:0` to the Dual Stepper, which blanks its four OLEDs; `PWR:1` turns them back on.
 - **Avionics bus below 24 V:** the bridge sends `NAVCOM1:0` to the Radio, which blanks its COM and NAV displays together. If the aircraft reports the avionics bus as exactly 0 (the FlyInside B206 does) the main bus is used instead.
 
 There is no hysteresis on these thresholds. The 24 V figure is carried over from the FSUIPC bridge and has not been verified for every MSFS aircraft.
+
+## Backlight
+
+![How the backlight level is decided](diagrams/backlight_logic.svg)
+
+The Servo, Stepper and Dual Stepper boards drive their panel backlights from Mega pin D5 (PWM). Three things decide the level:
+
+- **`BPWR`** (from the bridges, first in the Servo and Stepper packets and after `PWR` in the Dual Stepper packet): 1 while the main bus is 20 V or more, 0 below that. At 0 the backlight is off. Until the first `BPWR` arrives the board assumes 1.
+- **`C,B:<0-15>`** sets the brightness (0 off, 15 full, mapped to PWM 0 to 255; larger values are clamped). It is remembered. With no brightness command received the default level, PWM 65, is used; once one has been received every return of power restores the **last commanded level**. A command sent while the bus is down is applied when power returns.
+- **The no-data watchdog:** after 30 seconds with no UDP packet, including after power-up with no PC feed, the backlight goes off along with the gauges. The next packet turns it back on at the commanded (or default) level, provided the main bus is up.
+
+The SwingTester's brightness slider sends `C,B` to every board except the USB HID board, and its *Backlight power* buttons send `BPWR`. The Radio and Upper controllers accept `C,B` but do nothing with it yet.
 
 ## Remote reset
 

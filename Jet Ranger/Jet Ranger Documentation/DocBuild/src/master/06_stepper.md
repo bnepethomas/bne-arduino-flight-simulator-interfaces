@@ -34,7 +34,11 @@ Notes:
 
 ## Packets
 
-The bridges send this board its own packet: `D,IAS:93.4,VSI:500,AGL:850,FUEL:42,TQ:65,ITT:610,N1:92`. `AGL` is zero below 20 V on the main bus. The fractional part of `IAS` is interpolated between table rows, so the needle moves smoothly rather than in whole-knot jumps.
+The bridges send this board its own packet: `D,BPWR:1,IAS:93.4,VSI:500,AGL:850,FUEL:42,TQ:65,ITT:610,N1:92`. `AGL` is zero below 20 V on the main bus. The fractional part of `IAS` is interpolated between table rows, so the needle moves smoothly rather than in whole-knot jumps.
+
+## Backlight
+
+Pin 5 (the PCB's `BACKLIGHT_PWM`) drives the panel backlights through the board's IRF540N MOSFET (`BACK_LIGHTS`). `applyBacklight()` sets the level from `BPWR`, the last `C,B:0-15` brightness command and the 30 second no-data watchdog (see the network chapter): the default is PWM 65; once a brightness command has been received the last commanded level returns whenever power returns; `BPWR:0` or 30 seconds with no packet (including after power-up with no PC feed) switches it off, and the next packet switches it back on. The backlight still starts at 128 during setup. The old DCS-BIOS brightness handlers still call `analogWrite()` directly but never run. Each change is logged (`Brightness 15 -> PWM 255`, `Backlight power off`, `Backlight restored - UDP data resumed`). Compiled at 31,544 bytes of flash (12%) and 50% RAM; flashed to the Stepper on COM4.
 
 ## On-demand swings
 
@@ -52,7 +56,7 @@ Send `C,<COMMAND>:1` (the value is ignored) to run one gauge's swing without reb
 
 The airspeed and radar altitude swings return to zero after the full-scale wind-up instead of 635 steps past it.
 
-`C,RESET:1` reboots the board through the AVR watchdog (bench-tested: "Ethernet Started" 6.6 seconds later, a normal boot, no loop).
+`C,B:0-15` sets the backlight brightness (above). `C,RESET:1` reboots the board through the AVR watchdog (bench-tested: "Ethernet Started" 6.6 seconds later, a normal boot, no loop).
 
 ## Pin usage
 

@@ -21,6 +21,7 @@ Every live board has its own IP and MAC address. The firmware sends its debug an
 |---|---|---|
 | 13136 | PC to boards | Gauge, lamp and radio data (`D,`) and control (`C,`) packets |
 | 27001 | Radio controller to PC bridge | Standby frequencies and commands such as `COM1_RADIO_SWAP` |
+| 27002 | Bridge to the GPS interface (same PC) | Aircraft position, altitude, airspeed, heading and simulator time, every 500 ms |
 | 4210 | Servo and Upper controllers to USB HID board | Switch changes (`index,state`) and keypad keys (`KEY,key,state`) |
 | 13137 | Boards to Health Monitor | Keep-alive text every 10 seconds |
 | 27000 | Boards to debug listener | Debug messages, each prefixed with the board name |
@@ -53,7 +54,19 @@ The control packet `C,RESET:1` reboots a board about 2 seconds later. The SwingT
 
 ![Bus voltage rules](diagrams/power_rules.svg)
 
-The bridge turns parts of the panel off when the simulated electrics drop: lamps and radar altitude below 20 V on the main bus, the Dual Stepper's four OLEDs below 24 V on the main bus, and the Radio's COM and NAV displays below 24 V on the avionics bus (the main bus is used if the aircraft reports the avionics bus as 0).
+The bridge turns parts of the panel off when the simulated electrics drop: lamps, radar altitude and the backlights below 20 V on the main bus, the Dual Stepper's four OLEDs below 24 V on the main bus, and the Radio's COM and NAV displays below 24 V on the avionics bus (the main bus is used if the aircraft reports the avionics bus as 0).
+
+## Backlight
+
+![How the backlight level is decided](diagrams/backlight_logic.svg)
+
+The Servo, Stepper and Dual Stepper boards drive their panel backlights from Mega pin D5 through a MOSFET on the PCB. Three things decide the level:
+
+- **Main bus power (`BPWR`).** The bridge sends `BPWR:1` while the main bus is 20 V or more and `BPWR:0` below that, which switches the backlight off. Until the first `BPWR` arrives the board leaves the backlight on.
+- **Brightness (`C,B:0` to `C,B:15`).** 0 is off and 15 is full. The board remembers the last level. If no brightness command has been sent the backlight uses a default level (PWM 65); once one has been sent, every time power returns the backlight comes back at the **last level you set**, not the default. A level sent while the bus is down is applied when power returns.
+- **No data.** After 30 seconds with no UDP packet, including after the board is powered up with no PC sending, the backlight goes off along with the gauges. The next packet turns it back on.
+
+The **SwingTester** has a brightness slider that sends the level to every board except the USB HID board, and *Backlight power ON / OFF* buttons for testing the main bus rule. The Radio and Upper controllers accept the command but do not drive a backlight yet.
 
 # Arduino servo controller
 
@@ -83,6 +96,7 @@ Both tokens take attitude in degrees, with one decimal place allowed (`D,PITCH:4
 | Green status LED | 14 | Flashes alternately with red every 200 ms while running |
 | Red status LED | 15 | Fast flash during the 3 second Ethernet start-up, then alternates with green |
 | Ethernet module reset | 53 | Pulsed low for 2 ms at power-up |
+| Backlight | 5 | PWM to the backlight MOSFET (`BACKLIGHT_PWM`); see Backlight |
 | Lamps | A1 to A15 | Digital outputs, HIGH = lit (see Reference) |
 | TOT clear switch | 43 | Switch to GND, debounced 30 ms; each change goes to the USB HID board as Joystick 1 button 9 (index 8) |
 | Warning mute switch | 47 | The same, Joystick 1 button 8 (index 7) |
@@ -154,7 +168,7 @@ It lights the OLEDs and the lamps during the run and sends a keep-alive so the b
 
 ## Known issues
 
-- The backlight PWM was once on pin 8, which the PCB routes to VSI coil B. It is now pin 5, matching the PCB's `BACKLIGHT_PWM` net, in both stepper sketches.
+- The backlight PWM was once on pin 8, which the PCB routes to VSI coil B. It is now pin 5, matching the PCB's `BACKLIGHT_PWM` net, in both stepper sketches, and it follows `BPWR`, `C,B:n` and the 30 second no-data watchdog (see Backlight).
 - Pin 32 is also claimed by an unused roll stepper in the code.
 - The oil, transmission and placeholder gauges use a shared linear scale, not bench-measured tables.
 

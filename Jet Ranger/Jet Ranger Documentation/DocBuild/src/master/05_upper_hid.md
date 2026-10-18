@@ -45,6 +45,7 @@ The Upper controller has its own address and MAC (`172.16.1.103`, `...83:03`); i
 
 - The Upper controller PCB has a Warning Mute connector (J17) on `/ROW8`, Arduino D30, but the sketch's keypad uses analog pins A9 to A15, so J17 may not be read.
 - `CreateDcsBiosMessage()` has no bodies, so none of these switches do anything in DCS.
+- The PCB (v1.4) also has a backlight driver on D5 (`BACKLIGHT_PWM` to an IRF540N MOSFET that switches the BACKLIGHT connector) and a brightness input on A0 (`GUAGE_BACKLIGHT_BRIGHT`, connector J16), but the sketch uses neither, and it ignores `C,B` packets.
 
 # USB HID board (172.16.1.11)
 

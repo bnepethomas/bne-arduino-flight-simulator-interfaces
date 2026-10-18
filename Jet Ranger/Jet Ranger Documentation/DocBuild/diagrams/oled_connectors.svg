@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="330" viewBox="0 0 880 330">
+<rect width="880" height="330" fill="#FFFFFF"/>
+<defs>
+<marker id="ah8A8A85" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+<marker id="ahs8A8A85" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8A8A85"/></marker>
+</defs>
+<text x="16.0" y="26.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="start">The two OLED connection types (pin 1 is on the left)</text>
+<text x="16.0" y="60.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Traditional OLED connection</text>
+<rect x="16.0" y="72.0" width="150.0" height="64.0" rx="8" ry="8" fill="#FDECEA" stroke="#C62828" stroke-width="1.6"/>
+<text x="91.0" y="96.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">pin 1</text>
+<text x="91.0" y="122.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">+5 V</text>
+<rect x="176.0" y="72.0" width="150.0" height="64.0" rx="8" ry="8" fill="#EAEAEA" stroke="#555555" stroke-width="1.6"/>
+<text x="251.0" y="96.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">pin 2</text>
+<text x="251.0" y="122.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">GND</text>
+<rect x="336.0" y="72.0" width="150.0" height="64.0" rx="8" ry="8" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.6"/>
+<text x="411.0" y="96.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">pin 3</text>
+<text x="411.0" y="122.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">other pins</text>
+<rect x="496.0" y="72.0" width="150.0" height="64.0" rx="8" ry="8" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.6"/>
+<text x="571.0" y="96.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">pin 4</text>
+<text x="571.0" y="122.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">not listed here</text>
+<text x="16.0" y="158.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Supply is 5 V on pin 1.</text>
+<text x="16.0" y="190.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#1F1F1F" text-anchor="start">Directly connected SSD1306 OLED (Temperature and Time)</text>
+<rect x="16.0" y="202.0" width="150.0" height="64.0" rx="8" ry="8" fill="#EAEAEA" stroke="#555555" stroke-width="1.6"/>
+<text x="91.0" y="226.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">pin 1</text>
+<text x="91.0" y="252.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">GND</text>
+<rect x="176.0" y="202.0" width="150.0" height="64.0" rx="8" ry="8" fill="#FFF3DC" stroke="#C77700" stroke-width="1.6"/>
+<text x="251.0" y="226.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">pin 2</text>
+<text x="251.0" y="252.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">+3.3 V</text>
+<rect x="336.0" y="202.0" width="150.0" height="64.0" rx="8" ry="8" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.6"/>
+<text x="411.0" y="226.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">pin 3</text>
+<text x="411.0" y="252.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">SD / SC</text>
+<rect x="496.0" y="202.0" width="150.0" height="64.0" rx="8" ry="8" fill="#FFFFFF" stroke="#C9C9C4" stroke-width="1.6"/>
+<text x="571.0" y="226.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="middle">pin 4</text>
+<text x="571.0" y="252.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F" text-anchor="middle">SC / SD</text>
+<text x="16.0" y="288.0" font-family="Liberation Sans, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#555555" text-anchor="start">Supply is 3.3 V on pin 2. The SD and SC pin positions have not been validated.</text>
+</svg>

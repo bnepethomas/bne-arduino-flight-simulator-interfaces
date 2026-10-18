@@ -31,8 +31,9 @@ The bridge sends the Servo, Stepper and Dual Stepper boards each their own packe
 | FSUIPC and DODSIM206V2.EVT | Exposes 234 DodoSim custom events so switches can be bound | Prepar3D and FSX only |
 | Python debug listener | Shows debug messages from the boards | Listens on UDP 27000 |
 | Health Monitor | Tracks each board's keep-alive and flags a board that goes quiet | Listens on UDP 13137 |
+| LowranceAirMapGps | Feeds a Lowrance AirMap 2000C GPS from the simulator over a serial port | Listens on UDP 27002; see Lowrance AirMap GPS |
 
-Run **only one bridge at a time**: both listen for the radio board's commands on UDP 27001.
+Run **only one bridge at a time**: both listen for the radio board's commands on UDP 27001. Both bridges also send the aircraft position, altitude, airspeed, heading and simulator date and time to the GPS interface on UDP 27002 (on the same PC).
 
 ## Starting up
 

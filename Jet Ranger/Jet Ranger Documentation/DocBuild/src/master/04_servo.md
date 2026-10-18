@@ -84,6 +84,10 @@ Every accepted change is logged to the debug stream (for example `Jet Ranger Ser
 - `C,SWINGPITCH:1` and `C,SWINGBANK:1` run one sweep (the value is ignored); the board pauses for about 2 seconds.
 - `C,RESET:1` reboots the board through the AVR watchdog (bench-tested: "Ethernet Started" 6.9 seconds later, "Setup Complete" about 12.8 seconds after the command).
 
+## Backlight
+
+Pin 5 (the PCB's `BACKLIGHT_PWM`) drives the panel backlights through the board's IRF540N MOSFET. The level follows `BPWR`, the last `C,B:0-15` brightness command and the 30 second no-data watchdog (see the network chapter): with no command the default PWM 65 is used, and once one has been received the last commanded level returns whenever power returns. After 30 seconds with no packet, including after power-up with no PC feed, the backlight goes off with the lamps and returns with the next packet. `setup()` sets pin 5 as an output and applies the default level; each change is logged (`Brightness 15 -> PWM 255`, `Backlight power off`, `Backlight restored - UDP data resumed`). Compiled at 24,468 bytes of flash (9%) and 30% RAM; flashed to the Servo board on COM16.
+
 ## Pin usage
 
 | Pin | Function |
@@ -91,6 +95,7 @@ Every accepted change is logged to the debug stream (for example `Jet Ranger Ser
 | 14 | Green status LED |
 | 15 | Red status LED |
 | 26, 27 | Pitch and bank servos |
+| 5 | Backlight PWM (`BACK_LIGHTS`, to the MOSFET gate through 330 ohm) |
 | 43, 47, 48 | TOT clear, warning mute and fuel valve switches |
 | 53 | W5500 reset |
 | A1 to A15 | Warning lamps |
@@ -98,8 +103,7 @@ Every accepted change is logged to the debug stream (for example `Jet Ranger Ser
 
 ## Known issues
 
-- Brightness packets (`C,B:n`) are accepted but do nothing: no pin is assigned. The PCB has `BACKLIGHT_PWM` on pin 5 ready for it.
-- `powerAvailable` is set from `NAVCOM1` but nothing uses it, so the attitude indicator and lamps stay live when the simulator's power is off (the bridge itself sends all lamps off below 20 V).
+- `powerAvailable` is set from `NAVCOM1` but nothing uses it, so the attitude indicator and lamps stay live when the simulator's power is off (the bridge itself sends all lamps off and `BPWR:0` below 20 V).
 - Several lamps log "Transmission Temperature changed" to the debug stream whichever lamp changed.
 - The `#define` comments for pins 26 and 27 still describe the old servo layout.
 - The PCB labels 10 of the 15 lamp outputs on different Mega pins from the sketch (A1/A2, A5/A6, A7 to A10, A11/A12). Test each lamp on its own and correct whichever side is wrong.

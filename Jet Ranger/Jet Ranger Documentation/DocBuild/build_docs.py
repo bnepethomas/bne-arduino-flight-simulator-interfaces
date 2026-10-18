@@ -143,6 +143,17 @@ def parse_markdown(text):
 INLINE_RE = re.compile(r"(\*\*[^*]+\*\*|`[^`]+`|\*[^*\s][^*]*\*|\[[^\]]+\]\([^)]+\))")
 
 
+CELL_COLOUR_RE = re.compile(r"^\[\[(#[0-9A-Fa-f]{6})\]\]\s*")
+
+
+def split_cell_colour(val):
+    """'[[#D32F2F]]12 V' -> (0xD32F2F, '12 V'); no marker -> (None, val)."""
+    m = CELL_COLOUR_RE.match(val)
+    if not m:
+        return None, val
+    return int(m.group(1)[1:], 16), val[m.end():]
+
+
 def inline_tokens(text):
     """-> [(kind, text)] kind in plain/bold/code/italic"""
     out = []
@@ -355,7 +366,7 @@ class Builder:
         nonum = label.endswith("{-}")
         if nonum:
             label = label[:-3].strip()
-            m = re.match(r"Appendix ([A-Z])", label)
+            m = re.match(r"Appendix ([A-Z])", label)
             if lvl == 1:
                 self.app_letter = m.group(1) if m else None
                 self.app_counters = [0, 0]
@@ -446,7 +457,7 @@ class Builder:
         # widths proportional to content length
         lens = []
         for c in range(ncols):
-            cells = [re.sub(r"[`*]", "", rows[r][c]) for r in range(len(rows))]
+            cells = [re.sub(r"[`*]", "", split_cell_colour(rows[r][c])[1]) for r in range(len(rows))]
             m = max(len(x) for x in cells)
             word = max((len(w) for x in cells for w in x.split()), default=1)
             # a column must at least fit its longest unbreakable word (mono text is wider)
@@ -485,6 +496,12 @@ class Builder:
                 cc.ParaStyleName = "Table Head" if r == 0 else "Table Cell"
                 if r == 0:
                     cell.BackColor = HEAD_BG
+                else:
+                    bg, val = split_cell_colour(val)
+                    if bg is not None:
+                        cell.BackColor = bg
+                        lum = 0.299 * ((bg >> 16) & 255) + 0.587 * ((bg >> 8) & 255) + 0.114 * (bg & 255)
+                        cc.CharColor = 0xFFFFFF if lum < 150 else 0x1F1F1F
                 self.add_inline(val, cc, base_bold=(r == 0), textobj=cell)
         # move cursor after the table
         self.cur.gotoEnd(False)

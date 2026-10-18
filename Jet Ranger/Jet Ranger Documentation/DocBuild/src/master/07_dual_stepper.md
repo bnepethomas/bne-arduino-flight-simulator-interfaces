@@ -42,6 +42,10 @@ Updates are gated on change and throttled to every 300 ms. A boot-time I2C scan 
 
 **Lamp test:** `C,OLEDTEST:1` fills all four OLEDs solid white and `C,OLEDTEST:0` redraws their default content and clears the change gates so live data repaints them. It is ignored (with a debug line) if the mux was not found.
 
+## Backlight
+
+Pin 5 (the PCB's `BACKLIGHT_PWM`) drives the panel backlights through the board's IRF540N MOSFET (`BACK_LIGHTS`). `applyBacklight()` sets the level from `BPWR`, the last `C,B:0-15` brightness command and the 30 second no-data watchdog (see the network chapter): the default is PWM 65; once a brightness command has been received the last commanded level returns whenever power returns; `BPWR:0` or 30 seconds with no packet (including after power-up with no PC feed) switches it off, and the next packet switches it back on. The backlight still starts at 128 during setup. The old DCS-BIOS brightness handlers still call `analogWrite()` directly but never run. Each change is logged (`Brightness 15 -> PWM 255`, `Backlight power off`, `Backlight restored - UDP data resumed`). Compiled at 58,312 bytes of flash (22%) and 79% RAM (1,720 bytes free); flashed to the Dual Stepper on COM5.
+
 ## Program flow
 
 1. **Setup:** initialise the OLEDs first so they are up while the needles swing, then run each gauge's swing in this order, each behind its own `SwingXXX` gate (all currently `true`, `SwingLoops` 1): engine oil pressure, engine oil temperature, transmission oil pressure, transmission oil temperature, electrical load, fuel load, engine speed, rotor speed, altimeter. Start-up takes about 65 seconds. The 30 second watchdog is armed at the end of `setup()`.
@@ -50,7 +54,7 @@ Updates are gated on change and throttled to every 300 ms. A boot-time I2C scan 
 
 ## Packets
 
-Bridge packet: `D,PWR:1,ALT:1200,RPMR:100.0,RPME:100.0,ZULU:1430,OILT:60,OILP:55,XMSNT:50,XMSNP:35,FUELLOAD:17,ELECTRICALLOAD:50,TEMP:21C`. Rotor and engine speed carry one decimal so the fraction reaches the table interpolation.
+Bridge packet: `D,PWR:1,BPWR:1,ALT:1200,RPMR:100.0,RPME:100.0,ZULU:1430,OILT:60,OILP:55,XMSNT:50,XMSNP:35,FUELLOAD:17,ELECTRICALLOAD:50,TEMP:21C`. Rotor and engine speed carry one decimal so the fraction reaches the table interpolation.
 
 ## On-demand commands
 
@@ -60,6 +64,7 @@ Bridge packet: `D,PWR:1,ALT:1200,RPMR:100.0,RPME:100.0,ZULU:1430,OILT:60,OILP:55
 | `SWINGELECTRICALLOAD`, `SWINGFUELLOAD`, `SWINGRPME`, `SWINGRPMR` | Load and RPM gauges (about 6 to 7 seconds each) |
 | `SWINGALT` | Altimeter (re-finds the zero sensor) |
 | `OLEDTEST:1` / `OLEDTEST:0` | OLED lamp test on and off |
+| `B:0` to `B:15` | Backlight brightness |
 | `RESET:1` | Watchdog reboot (bench-tested: "Ethernet Started" 6.7 seconds later and a normal boot in about 56 seconds) |
 
 All are sent as `C,<COMMAND>:1`. The oil, transmission, load and RPM swings wind to the stop and return to the zero offset; the electrical-load swing returns to its 22 step zero.
@@ -88,7 +93,7 @@ Static IP `172.16.1.106`, MAC `A8:61:0A:67:83:6A`, data port 13136, heartbeat `D
 
 ## Known issues
 
-- **RAM use is 75 to 77 percent** and the compiler warns "Low memory available". Avoid adding OLEDs or string-heavy code.
+- **RAM use is 79 percent** and the compiler warns "Low memory available". Avoid adding OLEDs or string-heavy code.
 - The barometric OLED is initialised but never updated; nothing feeds it.
 - The altimeter digits ignore barometric offset.
 - Engine and rotor RPM tables assume 0 percent is 0 steps; `RSoffset` is not measured.
