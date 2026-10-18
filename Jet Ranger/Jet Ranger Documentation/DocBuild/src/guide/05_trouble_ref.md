@@ -9,6 +9,7 @@
 | No debug messages, or the Health Monitor shows a board as down | Listener or Health Monitor not running, or PC address wrong | PC at 172.16.1.10; listener bound to UDP 27000, Health Monitor to UDP 13137; firewall allows inbound UDP on both |
 | One gauge pinned at an end stop | Value outside the calibration table, or table points wrong | Send the `RAW` token to find the true limits, then re-measure the table (see Calibration) |
 | All gauges drop to zero after 30 seconds | No packets arriving (watchdog) | Bridge running and connected; simulator not paused; network link |
+| A board feels slower, or its knobs and needles stutter, while the PC (or another board) is off | Each packet sent to a missing device waits up to 80 ms for an ARP answer (the fast Ethernet timeout) | Switch the missing device on, or reduce debug traffic; see *Unreachable hosts and the fast Ethernet timeout* in the Network chapter |
 | Attitude indicator lags fast changes | 1 degree per 5 ms step limit | Expected; reduce `servoCheckInterval` to speed up |
 | Servo buzzes or jitters | Weak servo supply | Separate 5 to 6 V supply for servos, common ground with the Mega |
 | A backlight is off | Main bus below 20 V (`BPWR:0`), no packets for 30 seconds, or brightness set to 0 | Check the main bus voltage in the bridge window; check the bridge is running; send a brightness with the SwingTester slider |

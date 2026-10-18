@@ -49,6 +49,18 @@ After start-up and its self-test a gauge board checks UDP 13136 every 5 ms and m
 
 The control packet `C,RESET:1` reboots a board about 2 seconds later. The SwingTester's *Reset boards...* button sends it to the boards you tick.
 
+## Unreachable hosts and the fast Ethernet timeout
+
+Every sketch (Radio, Servo, Upper, Stepper, Dual Stepper, ADF and the USB HID board) sends UDP packets to other devices: debug text and keep-alives to the PC, commands from the Radio to the bridge, switch changes from the Upper controller to the USB HID board, and brightness from the ADF controller to the other panels. Before the Ethernet module can send to an address on the network it has to learn that address's MAC address by an ARP request. If the destination is switched off, unplugged or not yet running (the PC, or another board that is still starting), nobody answers.
+
+The W5500 Ethernet chip then waits and asks again. Its default is a 200 ms timeout with 8 attempts, so one send to a missing device can hold the sketch up for about **1.6 seconds**. The sketch cannot do anything else while it waits: encoders and switches are not scanned, needles do not move, and every debug line sent to a PC that is off would cost another 1.6 seconds.
+
+To stop that, each sketch calls `Ethernet.setRetransmissionTimeout(10)` straight after `Ethernet.begin()`. The timeout becomes **10 ms** and the number of attempts stays at 8, so the worst case for one send to a missing device is about **80 ms**. The panel keeps responding when the PC is off, a bridge is not running, or a board is unplugged, and the boards that are present are not slowed in any way you would notice.
+
+- A missing device is not free: each send to it still costs up to 80 ms, so a sketch that sends many packets to a dead address (for example heavy debug traffic with the PC off) will run a little slower than normal. Switch the PC on, or turn debug traffic down, if a board feels sluggish with no PC.
+- 10 ms is far longer than a real device on the cockpit network needs to answer an ARP request, so working devices are not affected. If you ever add a device on a slow or long network link, and packets to it are lost at first, raise the value in that sketch.
+- The ADF controller sends its brightness to one board per pass through its loop for the same reason: a switched-off board never holds up the knobs and keypad for more than that one send.
+
 ## When the panel loses power
 
 ![Bus voltage rules](diagrams/power_rules.svg)
