@@ -68,6 +68,20 @@ The X27 steppers run straight from the Mega's pins, so the stepper boards need n
 
 Every controller board switches its panel backlights with one **IRF540N** MOSFET: Mega pin D5 (`BACKLIGHT_PWM`) goes through 330 ohm to the gate, a 10 k resistor holds the gate to ground, the drain is the shared backlight net and the source is ground. The earlier revisions used a generic MOSFET symbol with **source and drain swapped**, so the 1.4 Servo, 1.3 Radio Auto Pilot, 1.4 Upper, 1.3 ADF Controller and 1.5 Stepper and Dual Stepper boards were revised to use the IRF540N with the correct pin-out. If you have a board from an earlier revision, check the transistor before relying on the backlight.
 
+### Backlight resistor values
+
+The backlight circuit uses two groups of resistors.
+
+| Where | Resistor | Value |
+|---|---|---|
+| Controller board, Mega pin D5 to the MOSFET gate | Gate resistor | 330 ohm |
+| Controller board, MOSFET gate to ground | Gate pull-down | 10 kohm |
+| Backlight LEDs wired in a chain on the 12 V backlight supply, 3 LEDs in the chain | Series resistor | 150 ohm |
+| Backlight LEDs wired in a chain on the 12 V backlight supply, 2 LEDs in the chain | Series resistor | 330 ohm |
+| Backlight LEDs wired in a chain on the 12 V backlight supply, 1 LED in the chain | Series resistor | 560 ohm |
+
+The more LEDs there are in a chain, the lower the series resistor, because the LEDs use up more of the supply voltage. The Jet Ranger X27 Small Stepper board has two backlight LEDs in one chain; its schematic currently shows a **470 ohm** resistor, which is not the 330 ohm in this table, so check the value fitted.
+
 **Version 1.4 of the OLED Dual Stepper PCB (12 October 2026)** separated Mega pins 2 and 32. Earlier versions joined them in copper because of a copy-and-paste net name, so the fuel quantity and fuel load gauges shared coil A. On a board older than 1.4 fit only one of those two gauges or cut the trace between the pins.
 
 **Lamp pins on the Servo PCB.** Ten of the 15 lamp outputs are on different Mega pins from the sketch (see Known issues); test each lamp on its own.
